@@ -1,0 +1,33 @@
+<p>A button can be added to the page that will scroll to the top when clicked. Add the <code>scroll-top</code> directive to the <code>body</code> element.</p>
+
+<uxd-snippet [code]="htmlCode"></uxd-snippet>
+
+<p>Several attributes can be set to customize the behavior of the button:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Binding</th>
+            <th>Description</th>
+            <th>Optional</th>
+        </tr>
+        <tr>
+            <td class="attribute">direction</td>
+            <td>string</td>
+            <td>literal</td>
+            <td>If set to 'up' then the button will only appear when the user begins to scroll up and hide when they scroll down. The default behavior is to show the button when the page has been scrolled down.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">distance</td>
+            <td>number</td>
+            <td>literal</td>
+            <td>This defines the number of pixels the button will be positioned from the bottom of the page. The default is 75px.</td>
+            <td>true</td>
+        </tr>
+    </table>
+</div>
+
+<br>

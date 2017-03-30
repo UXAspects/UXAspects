@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="landing-page-header-content">
+                <h1 class="landing-page-header-brand">{{ brand }}</h1>
+                <h3 class="landing-page-header-slogan">{{ slogan }}</h3>
+                <a [href]="action.link" class="landing-page-header-btn">{{ action.title }}</a>
+                <div *ngIf="version" class="landing-page-header-version">
+                    <span class="landing-page-header-version-current">{{ version }}</span>
+                    <a [href]="changelog.link" class="landing-page-header-changelog">{{ changelog.title }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="hidden-md landing-page-header-graphic"></div>
+    </div>
+</div>

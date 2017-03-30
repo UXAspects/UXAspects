@@ -1,0 +1,2083 @@
+{
+    "sections": [{
+            "name": "Brand Colors",
+            "description": "Modify the primary branding colors",
+            "variables": [{
+                    "name": "@primary"
+                },
+                {
+                    "name": "@accent"
+                },
+                {
+                    "name": "@secondary"
+                },
+                {
+                    "name": "@alternate1"
+                },
+                {
+                    "name": "@alternate2"
+                },
+                {
+                    "name": "@alternate3"
+                },
+                {
+                    "name": "@vibrant1"
+                },
+                {
+                    "name": "@vibrant2"
+                },
+                {
+                    "name": "@grey1"
+                },
+                {
+                    "name": "@grey2"
+                },
+                {
+                    "name": "@grey3"
+                },
+                {
+                    "name": "@grey4"
+                },
+                {
+                    "name": "@grey5"
+                },
+                {
+                    "name": "@grey6"
+                },
+                {
+                    "name": "@grey7"
+                },
+                {
+                    "name": "@grey8"
+                },
+                {
+                    "name": "@white"
+                },
+                {
+                    "name": "@chart1"
+                },
+                {
+                    "name": "@chart2"
+                },
+                {
+                    "name": "@chart3"
+                },
+                {
+                    "name": "@chart4"
+                },
+                {
+                    "name": "@chart5"
+                },
+                {
+                    "name": "@chart6"
+                },
+                {
+                    "name": "@ok"
+                },
+                {
+                    "name": "@warning"
+                },
+                {
+                    "name": "@critical"
+                },
+                {
+                    "name": "@headings-color"
+                },
+                {
+                    "name": "@text-color"
+                },
+                {
+                    "name": "@hyperlink-color"
+                },
+                {
+                    "name": "@hyperlink-hover-color"
+                },
+                {
+                    "name": "@border-color"
+                },
+                {
+                    "name": "@body-bg"
+                },
+                {
+                    "name": "@accordion-outline"
+                },
+                {
+                    "name": "@document-bg"
+                }
+            ]
+        },
+        {
+            "name": "Brand Typography",
+            "description": "Modify the font and text sizes",
+            "variables": [{
+                    "name": "@font-family"
+                },
+                {
+                    "name": "@font-weight"
+                },
+                {
+                    "name": "@font-weight-bold"
+                },
+                {
+                    "name": "@font-size-base"
+                },
+                {
+                    "name": "@font-size"
+                },
+                {
+                    "name": "@font-size-xxl"
+                },
+                {
+                    "name": "@font-size-xl"
+                },
+                {
+                    "name": "@font-size-lg"
+                },
+                {
+                    "name": "@font-size-md"
+                },
+                {
+                    "name": "@font-size-sm"
+                },
+                {
+                    "name": "@font-size-xs"
+                },
+                {
+                    "name": "@font-size-h1"
+                },
+                {
+                    "name": "@font-size-h2"
+                },
+                {
+                    "name": "@font-size-h3"
+                },
+                {
+                    "name": "@font-size-h4"
+                },
+                {
+                    "name": "@font-size-h5"
+                },
+                {
+                    "name": "@font-size-h6"
+                },
+                {
+                    "name": "@font-weight-h1"
+                },
+                {
+                    "name": "@font-weight-h2"
+                },
+                {
+                    "name": "@font-weight-h3"
+                },
+                {
+                    "name": "@font-weight-h4"
+                },
+                {
+                    "name": "@font-weight-h5"
+                },
+                {
+                    "name": "@font-weight-h6"
+                },
+                {
+                    "name": "@font-weight-light"
+                },
+                {
+                    "name": "@font-weight-thin"
+                },
+                {
+                    "name": "@font-weight-regular"
+                },
+                {
+                    "name": "@font-weight-semibold"
+                },
+                {
+                    "name": "@headings-font-family"
+                }
+            ]
+        },
+        {
+            "name": "Alerts",
+            "description": "Modify the appearance of alerts",
+            "variables": [{
+                    "name": "@alert-info-bg"
+                },
+                {
+                    "name": "@alert-info-color"
+                },
+                {
+                    "name": "@alert-info-border"
+                },
+                {
+                    "name": "@alert-error-bg"
+                },
+                {
+                    "name": "@alert-error-color"
+                },
+                {
+                    "name": "@alert-error-border"
+                }
+            ]
+        },
+        {
+            "name": "Buttons",
+            "description": "Modify the appearance of buttons",
+            "variables": [{
+                    "name": "@btn-font-family"
+                },
+                {
+                    "name": "@btn-font-size"
+                },
+                {
+                    "name": "@btn-text-transform"
+                },
+                {
+                    "name": "@btn-border-radius"
+                },
+                {
+                    "name": "@btn-circular-border-radius"
+                },
+                {
+                    "name": "@btn-shadow"
+                },
+                {
+                    "name": "@btn-hover-shadow"
+                },
+                {
+                    "name": "@btn-active-shadow"
+                },
+                {
+                    "name": "@btn-large-font-size"
+                },
+                {
+                    "name": "@btn-small-font-size"
+                },
+                {
+                    "name": "@btn-stroke-hover-shadow"
+                },
+                {
+                    "name": "@btn-clear-hover-color"
+                },
+                {
+                    "name": "@btn-primary-bg"
+                },
+                {
+                    "name": "@btn-primary-color"
+                },
+                {
+                    "name": "@btn-primary-border"
+                },
+                {
+                    "name": "@btn-primary-hover-color"
+                },
+                {
+                    "name": "@btn-primary-focus-color"
+                },
+                {
+                    "name": "@btn-primary-active-color"
+                },
+                {
+                    "name": "@btn-primary-disabled-bg"
+                },
+                {
+                    "name": "@btn-primary-disabled-color"
+                },
+                {
+                    "name": "@btn-primary-disabled-border"
+                },
+                {
+                    "name": "@btn-secondary-bg"
+                },
+                {
+                    "name": "@btn-secondary-color"
+                },
+                {
+                    "name": "@btn-secondary-border"
+                },
+                {
+                    "name": "@btn-secondary-shadow"
+                },
+                {
+                    "name": "@btn-secondary-hover-bg"
+                },
+                {
+                    "name": "@btn-secondary-hover-color"
+                },
+                {
+                    "name": "@btn-secondary-hover-border"
+                },
+                {
+                    "name": "@btn-secondary-focus-bg"
+                },
+                {
+                    "name": "@btn-secondary-focus-color"
+                },
+                {
+                    "name": "@btn-secondary-focus-border"
+                },
+                {
+                    "name": "@btn-secondary-active-bg"
+                },
+                {
+                    "name": "@btn-secondary-active-color"
+                },
+                {
+                    "name": "@btn-secondary-active-border"
+                },
+                {
+                    "name": "@btn-secondary-active-hover-shadow"
+                },
+                {
+                    "name": "@btn-secondary-disabled-bg"
+                },
+                {
+                    "name": "@btn-secondary-disabled-color"
+                },
+                {
+                    "name": "@btn-secondary-disabled-border"
+                },
+                {
+                    "name": "@btn-accent-bg"
+                },
+                {
+                    "name": "@btn-accent-color"
+                },
+                {
+                    "name": "@btn-accent-border"
+                },
+                {
+                    "name": "@btn-accent-hover-color"
+                },
+                {
+                    "name": "@btn-accent-focus-color"
+                },
+                {
+                    "name": "@btn-accent-active-color"
+                },
+                {
+                    "name": "@btn-accent-disabled-bg"
+                },
+                {
+                    "name": "@btn-accent-disabled-color"
+                },
+                {
+                    "name": "@btn-accent-disabled-border"
+                },
+                {
+                    "name": "@btn-warning-bg"
+                },
+                {
+                    "name": "@btn-warning-color"
+                },
+                {
+                    "name": "@btn-warning-border"
+                },
+                {
+                    "name": "@btn-warning-hover-bg"
+                },
+                {
+                    "name": "@btn-warning-hover-color"
+                },
+                {
+                    "name": "@btn-warning-hover-border"
+                },
+                {
+                    "name": "@btn-warning-focus-bg"
+                },
+                {
+                    "name": "@btn-warning-focus-color"
+                },
+                {
+                    "name": "@btn-warning-focus-border"
+                },
+                {
+                    "name": "@btn-warning-active-bg"
+                },
+                {
+                    "name": "@btn-warning-active-color"
+                },
+                {
+                    "name": "@btn-warning-active-border"
+                },
+                {
+                    "name": "@btn-warning-disabled-bg"
+                },
+                {
+                    "name": "@btn-warning-disabled-color"
+                },
+                {
+                    "name": "@btn-warning-disabled-border"
+                },
+                {
+                    "name": "@floating-action-child-btn-shadow"
+                },
+                {
+                    "name": "@floating-action-child-btn-hover-shadow"
+                }
+            ]
+        },
+        {
+            "name": "Cards",
+            "description": "Modify the appearance of cards",
+            "variables": [{
+                    "name": "@card-bg"
+                },
+                {
+                    "name": "@card-border"
+                },
+                {
+                    "name": "@card-hover-bg"
+                },
+                {
+                    "name": "@card-hover-border"
+                },
+                {
+                    "name": "@card-active-bg"
+                },
+                {
+                    "name": "@card-active-border"
+                },
+                {
+                    "name": "@card-selected-border"
+                },
+                {
+                    "name": "@card-title-color"
+                },
+                {
+                    "name": "@card-subtitle-color"
+                },
+                {
+                    "name": "@card-tab-bg"
+                },
+                {
+                    "name": "@card-tab-border"
+                },
+                {
+                    "name": "@card-tab-active-border"
+                },
+                {
+                    "name": "@card-tab-hover-border"
+                },
+                {
+                    "name": "@card-tab-pagination-bg"
+                },
+                {
+                    "name": "@card-tab-pagination-color"
+                },
+                {
+                    "name": "@card-tab-pagination-hover-bg"
+                },
+                {
+                    "name": "@card-tab-pagination-hover-color"
+                },
+                {
+                    "name": "@draggable-card-bg"
+                },
+                {
+                    "name": "@draggable-card-shadow"
+                },
+                {
+                    "name": "@draggable-card-border"
+                },
+                {
+                    "name": "@draggable-card-hover-border"
+                },
+                {
+                    "name": "@draggable-card-active-border"
+                },
+                {
+                    "name": "@draggable-card-active-shadow"
+                },
+                {
+                    "name": "@draggable-card-close-btn-color"
+                },
+                {
+                    "name": "@draggable-card-container-bg"
+                },
+                {
+                    "name": "@draggable-card-container-border"
+                }
+            ]
+        },
+        {
+            "name": "Component List",
+            "description": "Modify the appearance of the component list control",
+            "variables": [{
+                    "name": "@component-list-field-hover"
+                },
+                {
+                    "name": "@component-list-remove-color"
+                },
+                {
+                    "name": "@component-list-add-bg"
+                },
+                {
+                    "name": "@component-list-add-bg-opacity"
+                },
+                {
+                    "name": "@component-list-add-icon-color"
+                },
+                {
+                    "name": "@component-list-add-hover-bg"
+                },
+                {
+                    "name": "@component-list-add-hover-bg-opacity"
+                },
+                {
+                    "name": "@component-list-add-color"
+                }
+            ]
+        },
+        {
+            "name": "Checkbox & Radio Buttons",
+            "description": "Modify the appearance of checkboxes and radio buttons",
+            "variables": [{
+                    "name": "@checkbox-outline"
+                },
+                {
+                    "name": "@checkbox-simplified-outline"
+                },
+                {
+                    "name": "@radio-button-outline"
+                }
+            ]
+        },
+        {
+            "name": "Contacts",
+            "description": "Modify the appearance of contacts component",
+            "variables": [{
+                    "name": "@contacts-risk-color"
+                },
+                {
+                    "name": "@contacts-external-color"
+                },
+                {
+                    "name": "@contacts-label-color"
+                },
+                {
+                    "name": "@contacts-overflow-bg"
+                },
+                {
+                    "name": "@contacts-overflow-color"
+                },
+                {
+                    "name": "@contacts-popover-bg"
+                },
+                {
+                    "name": "@contacts-popover-border"
+                },
+                {
+                    "name": "@contacts-popover-color"
+                }
+            ]
+        },
+        {
+            "name": "Date Picker",
+            "description": "Modify the appearance of date picker components",
+            "variables": [{
+                    "name": "@date-picker-active-disabled-bg"
+                },
+                {
+                    "name": "@date-picker-active-disabled-border"
+                },
+                {
+                    "name": "@date-picker-active-disabled-hover-border"
+                },
+                {
+                    "name": "@date-picker-today-color"
+                },
+                {
+                    "name": "@date-picker-today-bg"
+                },
+                {
+                    "name": "@date-picker-today-border"
+                },
+                {
+                    "name": "@date-picker-today-disabled-bg"
+                },
+                {
+                    "name": "@date-picker-today-disabled-border"
+                },
+                {
+                    "name": "@date-picker-selected-bg"
+                },
+                {
+                    "name": "@date-picker-selected-border"
+                },
+                {
+                    "name": "@date-picker-selected-hover-bg"
+                },
+                {
+                    "name": "@date-picker-selected-hover-border"
+                },
+                {
+                    "name": "@date-picker-today-btn-bg"
+                },
+                {
+                    "name": "@date-picker-today-btn-color"
+                },
+                {
+                    "name": "@date-picker-today-btn-hover-bg"
+                },
+                {
+                    "name": "@date-picker-range-today-bg"
+                },
+                {
+                    "name": "@date-picker-range-today-border"
+                },
+                {
+                    "name": "@date-picker-range-today-hover-bg"
+                },
+                {
+                    "name": "@date-picker-range-today-hover-border"
+                },
+                {
+                    "name": "@date-picker-dropdown-bg"
+                },
+                {
+                    "name": "@date-picker-dropdown-color"
+                },
+                {
+                    "name": "@date-picker-dropdown-border"
+                },
+                {
+                    "name": "@date-picker-dropdown-shadow"
+                },
+                {
+                    "name": "@date-picker-dropdown-outline"
+                },
+                {
+                    "name": "@date-picker-active-bg"
+                },
+                {
+                    "name": "@date-picker-active-color"
+                },
+                {
+                    "name": "@date-picker-hover-bg"
+                },
+                {
+                    "name": "@date-picker-disabled-hover-bg"
+                },
+                {
+                    "name": "@timepicker-arrow-color"
+                },
+                {
+                    "name": "@timepicker-arrow-hover-color"
+                }
+            ]
+        },
+        {
+            "name": "Display Panel",
+            "description": "Modify the appearance of the display panel",
+            "variables": [{
+                    "name": "@display-panel-item-selected"
+                },
+                {
+                    "name": "@display-panel-bg"
+                },
+                {
+                    "name": "@display-panel-color"
+                },
+                {
+                    "name": "@display-panel-border"
+                },
+                {
+                    "name": "@display-panel-shadow"
+                },
+                {
+                    "name": "@display-panel-close-color"
+                },
+                {
+                    "name": "@display-panel-close-hover-color"
+                },
+                {
+                    "name": "@display-panel-footer-bg"
+                },
+                {
+                    "name": "@display-panel-footer-border"
+                }
+            ]
+        },
+        {
+            "name": "Draggable Panels",
+            "description": "Modify the appearance of draggable panels",
+            "variables": [{
+                    "name": "@draggable-panel-placeholder-bg"
+                },
+                {
+                    "name": "@draggable-panel-placeholder-border"
+                },
+                {
+                    "name": "@draggable-panel-background"
+                },
+                {
+                    "name": "@draggable-panel-border"
+                },
+                {
+                    "name": "@draggable-panel-hover-border"
+                },
+                {
+                    "name": "@draggable-panel-list-bg"
+                },
+                {
+                    "name": "@draggable-panel-list-border"
+                },
+                {
+                    "name": "@draggable-panel-list-hover-bg"
+                },
+                {
+                    "name": "@draggable-panel-list-gutter-bg"
+                },
+                {
+                    "name": "@draggable-panel-highlight"
+                },
+                {
+                    "name": "@draggable-panel-dragging-bg"
+                },
+                {
+                    "name": "@sortable-placeholder-bg"
+                }
+            ]
+        },
+        {
+            "name": "Dropdowns",
+            "description": "Modify the appearance of dropdowns",
+            "variables": [{
+                    "name": "@dropdown-bg"
+                },
+                {
+                    "name": "@dropdown-color"
+                },
+                {
+                    "name": "@dropdown-shadow"
+                },
+                {
+                    "name": "@dropdown-hover-bg"
+                },
+                {
+                    "name": "@dropdown-hover-color"
+                },
+                {
+                    "name": "@dropdown-menu-shadow"
+                },
+                {
+                    "name": "@dropdown-menu-hover-bg"
+                },
+                {
+                    "name": "@dropdown-menu-hint"
+                }
+            ]
+        },
+        {
+            "name": "E-Box",
+            "description": "Modify the appearance of e-box panels",
+            "variables": [{
+                    "name": "@ebox-title-bg"
+                },
+                {
+                    "name": "@ebox-content-bg"
+                },
+                {
+                    "name": "@ebox-border"
+                },
+                {
+                    "name": "@ebox-heading-bg"
+                }
+            ]
+        },
+        {
+            "name": "Facets & Filters",
+            "description": "Modify the appearance of facets and filters",
+            "variables": [{
+                    "name": "@facets-container-bg"
+                },
+                {
+                    "name": "@facet-header-border"
+                },
+                {
+                    "name": "@facet-count-color"
+                },
+                {
+                    "name": "@facet-background"
+                },
+                {
+                    "name": "@facets-clear-border"
+                },
+                {
+                    "name": "@facets-clear-hover-border"
+                },
+                {
+                    "name": "@selected-facet-bg"
+                },
+                {
+                    "name": "@selected-facet-color"
+                },
+                {
+                    "name": "@selected-facet-border"
+                },
+                {
+                    "name": "@selected-facet-hover-bg"
+                },
+                {
+                    "name": "@dynamic-facet-divider"
+                },
+                {
+                    "name": "@dynamic-facet-active-bg"
+                },
+                {
+                    "name": "@dynamic-facet-active-color"
+                },
+                {
+                    "name": "@dynamic-filter-divider"
+                },
+                {
+                    "name": "@dynamic-filter-option-active"
+                },
+                {
+                    "name": "@filter-selected-bg"
+                },
+                {
+                    "name": "@filter-option-hover-bg"
+                },
+                {
+                    "name": "@filter-option-focus-bg"
+                },
+                {
+                    "name": "@filter-dropdown-hover-bg"
+                },
+                {
+                    "name": "@filter-dropdown-hover-border"
+                },
+                {
+                    "name": "@filter-dropdown-focus-bg"
+                },
+                {
+                    "name": "@filter-dropdown-focus-border"
+                }
+            ]
+        },
+        {
+            "name": "File Upload",
+            "description": "Modify the appearance of file upload component",
+            "variables": [{
+                    "name": "@dropzone-image-bg"
+                },
+                {
+                    "name": "@dropzone-upload-bg"
+                },
+                {
+                    "name": "@dropzone-error-bg"
+                },
+                {
+                    "name": "@file-upload-dropzone-bg"
+                },
+                {
+                    "name": "@file-upload-dropzone-border"
+                },
+                {
+                    "name": "@file-upload-dropzone-color"
+                },
+                {
+                    "name": "@file-upload-queue-border"
+                },
+                {
+                    "name": "@file-upload-queue-color"
+                },
+                {
+                    "name": "@file-upload-queue-hover-bg"
+                }
+            ]
+        },
+        {
+            "name": "Flot Charts",
+            "description": "Modify the appearance of flot charts",
+            "variables": [{
+                    "name": "@flot-tooltip-bg"
+                },
+                {
+                    "name": "@flot-tooltip-color"
+                },
+                {
+                    "name": "@flot-tooltip-border"
+                },
+                {
+                    "name": "@flot-tooltip-shadow"
+                },
+                {
+                    "name": "@flot-scroll-button-bg"
+                },
+                {
+                    "name": "@flot-scroll-button-color"
+                }
+            ]
+        },
+        {
+            "name": "Forms",
+            "description": "Modify the appearance of forms",
+            "variables": [{
+                    "name": "@form-control-bg"
+                },
+                {
+                    "name": "@form-control-color"
+                },
+                {
+                    "name": "@form-control-border"
+                },
+                {
+                    "name": "@form-control-border-radius"
+                },
+                {
+                    "name": "@form-control-focus-border"
+                },
+                {
+                    "name": "@form-control-disabled-color"
+                },
+                {
+                    "name": "@form-control-placeholder-color"
+                },
+                {
+                    "name": "@form-control-validation"
+                },
+                {
+                    "name": "@form-control-success-color"
+                },
+                {
+                    "name": "@form-control-invalid-color"
+                },
+                {
+                    "name": "@form-control-success-border"
+                },
+                {
+                    "name": "@form-control-invalid-border"
+                },
+                {
+                    "name": "@login-form-bg"
+                },
+                {
+                    "name": "@login-form-border"
+                },
+                {
+                    "name": "@login-form-color"
+                },
+                {
+                    "name": "@login-form-light-color"
+                }
+            ]
+        },
+        {
+            "name": "Infinite Scroll",
+            "description": "Modify the appearance of the infinite scroll component",
+            "variables": [{
+                    "name": "@infinite-scroll-load-button-bg"
+                },
+                {
+                    "name": "@infinite-scroll-load-button-color"
+                },
+                {
+                    "name": "@infinite-scroll-load-button-border"
+                },
+                {
+                    "name": "@infinite-scroll-load-button-hover-bg"
+                },
+                {
+                    "name": "@infinite-scroll-load-button-hover-color"
+                },
+                {
+                    "name": "@infinite-scroll-load-button-hover-border"
+                }
+            ]
+        },
+        {
+            "name": "Labels",
+            "description": "Modify the appearance of the labels",
+            "variables": [{
+                    "name": "@label-size"
+                },
+                {
+                    "name": "@label-weight"
+                },
+                {
+                    "name": "@label-bg"
+                },
+                {
+                    "name": "@label-color"
+                },
+                {
+                    "name": "@label-primary"
+                },
+                {
+                    "name": "@label-accent"
+                },
+                {
+                    "name": "@label-warning"
+                },
+                {
+                    "name": "@label-alternate1"
+                },
+                {
+                    "name": "@label-alternate2"
+                },
+                {
+                    "name": "@label-alternate3"
+                },
+                {
+                    "name": "@label-vibrant1"
+                },
+                {
+                    "name": "@label-vibrant2"
+                }
+            ]
+        },
+        {
+            "name": "Links",
+            "description": "Modify the appearance of links",
+            "variables": [{
+                    "name": "@link-btn-hover"
+                },
+                {
+                    "name": "@link-btn-active"
+                },
+                {
+                    "name": "@link-btn-disabled-color"
+                },
+                {
+                    "name": "@link-btn-border"
+                },
+                {
+                    "name": "@link-btn-shadow"
+                },
+                {
+                    "name": "@link-btn-hover-shadow"
+                },
+                {
+                    "name": "@link-btn-focus-shadow"
+                },
+                {
+                    "name": "@link-btn-hover-text-decoration"
+                },
+                {
+                    "name": "@link-btn-focus-text-decoration"
+                }
+            ]
+        },
+        {
+            "name": "Marquee Wizard",
+            "description": "Modify the appearance of the marquee wizard",
+            "variables": [{
+                    "name": "@marquee-wizard-color"
+                },
+                {
+                    "name": "@marquee-wizard-step-color"
+                },
+                {
+                    "name": "@marquee-wizard-step-active-bg"
+                },
+                {
+                    "name": "@marquee-wizard-step-hover-bg"
+                },
+                {
+                    "name": "@marquee-wizard-step-error-bg"
+                }
+            ]
+        },
+        {
+            "name": "Miscellaneous",
+            "description": "Modify the appearance of other miscellaneous components",
+            "variables": [{
+                    "name": "@hotkey-hint-color"
+                },
+                {
+                    "name": "@float-label-border"
+                },
+                {
+                    "name": "@landing-page-shadow"
+                },
+                {
+                    "name": "@listview-document-bg"
+                },
+                {
+                    "name": "@group-title-bg"
+                },
+                {
+                    "name": "@no-drop-bg"
+                },
+                {
+                    "name": "@aspects-outline"
+                }
+            ]
+        },
+        {
+            "name": "Modals",
+            "description": "Modify the appearance of the modals",
+            "variables": [{
+                    "name": "@marquee-modal-close-bg"
+                },
+                {
+                    "name": "@marquee-modal-close-color"
+                },
+                {
+                    "name": "@marquee-modal-close-hover-bg"
+                },
+                {
+                    "name": "@marquee-modal-side-panel-bg"
+                },
+                {
+                    "name": "@marquee-modal-side-panel-color"
+                },
+                {
+                    "name": "@marquee-modal-bg"
+                },
+                {
+                    "name": "@marquee-modal-title-color"
+                },
+                {
+                    "name": "@marquee-modal-footer-bg"
+                },
+                {
+                    "name": "@modal-inset-panel-bg"
+                },
+                {
+                    "name": "@modal-inset-panel-border"
+                },
+                {
+                    "name": "@modal-inset-panel-shadow"
+                },
+                {
+                    "name": "@modal-inset-panel-close-color"
+                },
+                {
+                    "name": "@modal-inset-panel-close-hover-color"
+                },
+                {
+                    "name": "@modal-inset-panel-header-color"
+                },
+                {
+                    "name": "@modal-inset-panel-header-border"
+                },
+                {
+                    "name": "@modal-inset-panel-detail-text-color"
+                },
+                {
+                    "name": "@side-modal-background"
+                },
+                {
+                    "name": "@side-modal-color"
+                },
+                {
+                    "name": "@side-modal-close-color"
+                },
+                {
+                    "name": "@side-modal-close-hover-color"
+                },
+                {
+                    "name": "@side-modal-footer-border"
+                },
+                {
+                    "name": "@square-modal-close-bg"
+                },
+                {
+                    "name": "@square-modal-close-color"
+                },
+                {
+                    "name": "@square-modal-close-hover-bg"
+                }
+            ]
+        },
+        {
+            "name": "Navigation",
+            "description": "Modify the appearance of the page navigation",
+            "variables": [{
+                    "name": "@sidebar-width"
+                },
+                {
+                    "name": "@affix-shadow"
+                },
+                {
+                    "name": "@navbar-search-color"
+                },
+                {
+                    "name": "@navbar-shadow"
+                },
+                {
+                    "name": "@navbar-search-expanded-border"
+                },
+                {
+                    "name": "@navbar-search-expanded-btn-border"
+                },
+                {
+                    "name": "@navbar-back-button-hover"
+                },
+                {
+                    "name": "@navbar-tabs-bg"
+                },
+                {
+                    "name": "@navbar-tabs-border"
+                },
+                {
+                    "name": "@navbar-divider-tabs-border"
+                },
+                {
+                    "name": "@navbar-integrated-tabs-bg"
+                },
+                {
+                    "name": "@navbar-static-header-shadow"
+                },
+                {
+                    "name": "@navbar-fixed-top-border"
+                },
+                {
+                    "name": "@navbar-side-active-border"
+                },
+                {
+                    "name": "@navbar-bg-light"
+                },
+                {
+                    "name": "@navbar-menu-btn-container-bg-light"
+                },
+                {
+                    "name": "@navbar-side-container-light"
+                },
+                {
+                    "name": "@nav-top-link-width"
+                },
+                {
+                    "name": "@nav-top-link-width-dropdown"
+                },
+                {
+                    "name": "@nav-top-link-width-small"
+                },
+                {
+                    "name": "@nav-fifth-level-color"
+                },
+                {
+                    "name": "@nav-header-text-muted-color"
+                },
+                {
+                    "name": "@nav-header-color"
+                },
+                {
+                    "name": "@toolbar-bg"
+                },
+                {
+                    "name": "@navbar-bg-dark"
+                },
+                {
+                    "name": "@navbar-menu-btn-container-bg-dark"
+                },
+                {
+                    "name": "@navbar-side-container-dark"
+                },
+                {
+                    "name": "@navbar-app-navigator-dark-bg"
+                },
+                {
+                    "name": "@navbar-logo-element-text-bg-dark"
+                }
+            ]
+        },
+        {
+            "name": "Notifications",
+            "description": "Modify the appearance of the notifications",
+            "variables": [{
+                    "name": "@notification-bg"
+                },
+                {
+                    "name": "@notification-border-radius"
+                },
+                {
+                    "name": "@notification-color"
+                },
+                {
+                    "name": "@notification-alert-shadow"
+                }
+            ]
+        },
+        {
+            "name": "Number Picker",
+            "description": "Modify the appearance of the number picker",
+            "variables": [{
+                    "name": "@number-picker-invalid-entry-border"
+                },
+                {
+                    "name": "@number-picker-icon-color"
+                },
+                {
+                    "name": "@number-picker-icon-border"
+                }
+            ]
+        },
+        {
+            "name": "Organization Chart",
+            "description": "Modifiy the appearance of the organization chart",
+            "variables": [{
+                    "name": "@organization-chart-hierarchy-bar-border"
+                },
+                {
+                    "name": "@organization-chart-hierarchy-bar-arrow"
+                },
+                {
+                    "name": "@organization-chart-hierarchy-bar-color"
+                },
+                {
+                    "name": "@organization-chart-hierarchy-bar-active-color"
+                },
+                {
+                    "name": "@organization-chart-hierarchy-bar-popover-hover"
+                },
+                {
+                    "name": "@organization-chart-node-bg"
+                },
+                {
+                    "name": "@organization-chart-node-border"
+                },
+                {
+                    "name": "@organization-chart-node-hover-border"
+                },
+                {
+                    "name": "@organization-chart-node-active-border"
+                },
+                {
+                    "name": "@organization-chart-link-color"
+                }
+            ]
+        },
+        {
+            "name": "Pagination",
+            "description": "Modify the appearance of pagination controls",
+            "variables": [{
+                    "name": "@pagination-color"
+                },
+                {
+                    "name": "@pagination-border"
+                },
+                {
+                    "name": "@pagination-shadow"
+                },
+                {
+                    "name": "@pagination-hover-bg"
+                },
+                {
+                    "name": "@pagination-hover-border"
+                },
+                {
+                    "name": "@pagination-hover-color"
+                },
+                {
+                    "name": "@pagination-hover-shadow"
+                },
+                {
+                    "name": "@pagination-focus-bg"
+                },
+                {
+                    "name": "@pagination-focus-color"
+                },
+                {
+                    "name": "@pagination-focus-shadow"
+                },
+                {
+                    "name": "@pagination-active-bg"
+                },
+                {
+                    "name": "@pagination-active-border"
+                },
+                {
+                    "name": "@pagination-active-focus-shadow"
+                }
+            ]
+        },
+        {
+            "name": "Partition Map",
+            "description": "Modify the appearance of the partition map",
+            "variables": [{
+                    "name": "@partition-map-bg"
+                },
+                {
+                    "name": "@partition-map-loading-bg"
+                },
+                {
+                    "name": "@partition-map-root-segment-bg"
+                },
+                {
+                    "name": "@partition-map-popover-bg"
+                },
+                {
+                    "name": "@partition-map-popover-shadow"
+                },
+                {
+                    "name": "@partition-map-popover-border"
+                },
+                {
+                    "name": "@partition-map-popover-hover-bg"
+                },
+                {
+                    "name": "@partition-map-docked-popover-bg"
+                },
+                {
+                    "name": "@partition-map-docked-popover-shadow"
+                },
+                {
+                    "name": "@partition-map-docked-popover-border"
+                },
+                {
+                    "name": "@partition-map-docked-popover-hover-bg"
+                },
+                {
+                    "name": "@partition-map-edit-bg"
+                },
+                {
+                    "name": "@partition-map-edit-color"
+                },
+                {
+                    "name": "@partition-map-edit-done-btn-bg"
+                },
+                {
+                    "name": "@partition-map-edit-done-btn-color"
+                },
+                {
+                    "name": "@partition-map-edit-done-btn-hover-bg"
+                },
+                {
+                    "name": "@partition-map-edit-root-segment-bg"
+                },
+                {
+                    "name": "@partition-map-edit-segment-shadow"
+                },
+                {
+                    "name": "@partition-map-maximize-btn-bg"
+                },
+                {
+                    "name": "@partition-map-maximize-btn-border"
+                },
+                {
+                    "name": "@partition-map-maximize-btn-shadow"
+                },
+                {
+                    "name": "@partition-map-maximize-btn-hover-bg"
+                },
+                {
+                    "name": "@partition-map-maximize-btn-hover-border"
+                },
+                {
+                    "name": "@partition-map-maximize-btn-active-border"
+                },
+                {
+                    "name": "@partition-map-dragging-shadow"
+                },
+                {
+                    "name": "@partition-map-selection-segment-bg"
+                }
+            ]
+        },
+        {
+            "name": "Preview Pane",
+            "description": "Modify the appearance of the preview pane",
+            "variables": [{
+                    "name": "@preview-pane-bg"
+                },
+                {
+                    "name": "@preview-pane-shadow"
+                },
+                {
+                    "name": "@preview-pane-message-color"
+                },
+                {
+                    "name": "@preview-pane-new-window-color"
+                },
+                {
+                    "name": "@preview-pane-new-window-hover-color"
+                }
+            ]
+        },
+        {
+            "name": "Progress Bars & Indicators",
+            "description": "Modify the appearance of the progress bar and indicator components",
+            "variables": [{
+                    "name": "@indicator-primary"
+                },
+                {
+                    "name": "@indicator-accent"
+                },
+                {
+                    "name": "@process-bar-accent"
+                },
+                {
+                    "name": "@progress-bar-color"
+                }
+            ]
+        },
+        {
+            "name": "Popovers & Tooltips",
+            "description": "Modify the appearance of popovers and tooltips",
+            "variables": [{
+                    "name": "@tooltip-bg"
+                },
+                {
+                    "name": "@tooltip-shadow"
+                },
+                {
+                    "name": "@tooltip-black-bg-border"
+                },
+                {
+                    "name": "@static-tooltip-bg"
+                },
+                {
+                    "name": "@static-tooltip-border"
+                },
+                {
+                    "name": "@static-tooltip-hover-border"
+                },
+                {
+                    "name": "@static-tooltip-shadow"
+                },
+                {
+                    "name": "@static-tooltip-color"
+                },
+                {
+                    "name": "@static-tooltip-hide-tips"
+                }
+            ]
+        },
+        {
+            "name": "Sankey Chart",
+            "description": "Modify the appearance of the Sankey chart",
+            "variables": [{
+                    "name": "@sankey-node-hover-bg"
+                },
+                {
+                    "name": "@sankey-node-callout-fill"
+                },
+                {
+                    "name": "@sankey-label-color"
+                },
+                {
+                    "name": "@sankey-label-hover-color"
+                },
+                {
+                    "name": "@sankey-target-node-color"
+                },
+                {
+                    "name": "@sankey-target-node-callout-color"
+                },
+                {
+                    "name": "@sankey-target-node-fill"
+                },
+                {
+                    "name": "@sankey-link-node-unit-color"
+                },
+                {
+                    "name": "@sankey-link-node-color"
+                },
+                {
+                    "name": "@sankey-link-bg"
+                },
+                {
+                    "name": "@sankey-link-hover-bg"
+                },
+                {
+                    "name": "@sankey-column-bg"
+                },
+                {
+                    "name": "@sankey-column-hover-bg"
+                },
+                {
+                    "name": "@sankey-column-hover-fill"
+                },
+                {
+                    "name": "@sankey-header-color"
+                },
+                {
+                    "name": "@sankey-number-font-size"
+                },
+                {
+                    "name": "@sankey-overflow-bg"
+                },
+                {
+                    "name": "@sankey-divider"
+                }
+            ]
+        },
+        {
+            "name": "Scrollbar",
+            "description": "Modify the appearance of the scrollbars",
+            "variables": [{
+                    "name": "@scrollbar-drag-bg"
+                },
+                {
+                    "name": "@scrollbar-drag-border-radius"
+                },
+                {
+                    "name": "@scrollbar-jsp-arrow-bg"
+                },
+                {
+                    "name": "@scrollbar-jsp-arrow-disabled-bg"
+                },
+                {
+                    "name": "@scrollbar-jsp-corner-bg"
+                }
+            ]
+        },
+        {
+            "name": "Search Builder",
+            "description": "Modify the appearance of the search builder",
+            "variables": [{
+                    "name": "@search-builder-modal-close-bg"
+                },
+                {
+                    "name": "@search-builder-modal-close-color"
+                },
+                {
+                    "name": "@search-builder-modal-close-hover-bg"
+                },
+                {
+                    "name": "@search-builder-modal-header-bg"
+                },
+                {
+                    "name": "@search-builder-modal-header-color"
+                },
+                {
+                    "name": "@search-builder-modal-footer-bg"
+                },
+                {
+                    "name": "@search-builder-group-title-color"
+                },
+                {
+                    "name": "@search-builder-operator-border"
+                },
+                {
+                    "name": "@search-builder-operator-or-border"
+                },
+                {
+                    "name": "@search-builder-operator-and-border"
+                },
+                {
+                    "name": "@search-builder-operator-not-border"
+                },
+                {
+                    "name": "@search-builder-field-hover"
+                },
+                {
+                    "name": "@search-builder-remove-color"
+                },
+                {
+                    "name": "@search-builder-add-bg"
+                },
+                {
+                    "name": "@search-builder-add-icon-color"
+                },
+                {
+                    "name": "@search-builder-add-color"
+                },
+                {
+                    "name": "@search-builder-add-hover-bg"
+                },
+                {
+                    "name": "@search-builder-add-disabled-bg"
+                },
+                {
+                    "name": "@search-builder-placeholder-border"
+                },
+                {
+                    "name": "@search-builder-divider"
+                }
+            ]
+        },
+        {
+            "name": "Select",
+            "description": "Modify the appearance of the select components",
+            "variables": [{
+                    "name": "@single-select-selected-bg"
+                },
+                {
+                    "name": "@shift-select-hover-light"
+                },
+                {
+                    "name": "@shift-select-selected-light"
+                },
+                {
+                    "name": "@shift-select-selected-hover-light"
+                }
+            ]
+        },
+        {
+            "name": "Side Inset Panel",
+            "description": "Modify the appearance of the side inset panel",
+            "variables": [{
+                "name": "@side-inset-panel-bg"
+            }]
+        },
+        {
+            "name": "Spark Chart",
+            "description": "Modify the appearance of the spark charts",
+            "variables": [{
+                    "name": "@spark-chart1-track"
+                },
+                {
+                    "name": "@spark-chart1-fill"
+                },
+                {
+                    "name": "@spark-chart2-track"
+                },
+                {
+                    "name": "@spark-chart2-fill"
+                },
+                {
+                    "name": "@spark-chart3-track"
+                },
+                {
+                    "name": "@spark-chart3-fill"
+                },
+                {
+                    "name": "@spark-chart4-track"
+                },
+                {
+                    "name": "@spark-chart4-fill"
+                },
+                {
+                    "name": "@spark-chart5-track"
+                },
+                {
+                    "name": "@spark-chart5-fill"
+                },
+                {
+                    "name": "@spark-chart6-track"
+                },
+                {
+                    "name": "@spark-chart6-fill"
+                },
+                {
+                    "name": "@spark-ok-track"
+                },
+                {
+                    "name": "@spark-ok-fill"
+                },
+                {
+                    "name": "@spark-warning-track"
+                },
+                {
+                    "name": "@spark-warning-fill"
+                },
+                {
+                    "name": "@spark-critical-track"
+                },
+                {
+                    "name": "@spark-critical-fill"
+                },
+                {
+                    "name": "@spark-vibrant1-track"
+                },
+                {
+                    "name": "@spark-vibrant1-fill"
+                },
+                {
+                    "name": "@spark-vibrant2-track"
+                },
+                {
+                    "name": "@spark-vibrant2-fill"
+                },
+                {
+                    "name": "@spark-primary-track"
+                },
+                {
+                    "name": "@spark-primary-fill"
+                },
+                {
+                    "name": "@spark-accent-track"
+                },
+                {
+                    "name": "@spark-accent-fill"
+                }
+            ]
+        },
+        {
+            "name": "Splitter",
+            "description": "Modify the appearance of the splitter",
+            "variables": [{
+                    "name": "@splitter-gutter"
+                },
+                {
+                    "name": "@v-separator-border"
+                },
+                {
+                    "name": "@v-separator-shadow"
+                }
+            ]
+        },
+        {
+            "name": "Social Chart",
+            "description": "Modify the appearance of the social chart",
+            "variables": [{
+                    "name": "@social-chart-title-color"
+                },
+                {
+                    "name": "@social-chart-shadow"
+                },
+                {
+                    "name": "@social-chart-maximize-btn-bg"
+                },
+                {
+                    "name": "@social-chart-maximize-btn-border"
+                },
+                {
+                    "name": "@social-chart-maximize-btn-shadow"
+                },
+                {
+                    "name": "@social-chart-maximize-btn-hover-bg"
+                },
+                {
+                    "name": "@social-chart-maximize-btn-hover-border"
+                },
+                {
+                    "name": "@social-chart-maximize-btn-active-border"
+                },
+                {
+                    "name": "@social-chart-popover-bg"
+                },
+                {
+                    "name": "@social-chart-popover-border"
+                },
+                {
+                    "name": "@social-chart-sigma-title-shadow"
+                }
+            ]
+        },
+        {
+            "name": "Tables",
+            "description": "Modify the appearance of tables",
+            "variables": [{
+                    "name": "@table-border"
+                },
+                {
+                    "name": "@table-hover-bg"
+                },
+                {
+                    "name": "@table-grid-border"
+                },
+                {
+                    "name": "@table-grid-bg"
+                },
+                {
+                    "name": "@table-sort-hover-bg"
+                },
+                {
+                    "name": "@table-sort-focus-outline"
+                }
+            ]
+        },
+        {
+            "name": "Tabs",
+            "description": "Modify the appearance of tabs",
+            "variables": [{
+                    "name": "@tabs-color"
+                },
+                {
+                    "name": "@tabs-bg"
+                },
+                {
+                    "name": "@tabs-active-bg"
+                },
+                {
+                    "name": "@tabs-active-color"
+                },
+                {
+                    "name": "@tabs-active-border"
+                },
+                {
+                    "name": "@tabs-hover-bg"
+                },
+                {
+                    "name": "@tabs-hover-color"
+                },
+                {
+                    "name": "@tabs-dropdown-selected-color"
+                },
+                {
+                    "name": "@tabs-dropdown-arrow-border"
+                }
+            ]
+        },
+        {
+            "name": "Tag Input",
+            "description": "Modify the appearance of the tag input component",
+            "variables": [{
+                    "name": "@tag-input-border"
+                },
+                {
+                    "name": "@tag-input-invalid"
+                },
+                {
+                    "name": "@tag-input-disabled-bg"
+                },
+                {
+                    "name": "@tag-input-disabled-color"
+                },
+                {
+                    "name": "@tag-input-tag-bg"
+                },
+                {
+                    "name": "@tag-input-tag-border"
+                },
+                {
+                    "name": "@tag-input-tag-color"
+                },
+                {
+                    "name": "@tag-input-tag-border-radius"
+                },
+                {
+                    "name": "@tag-input-tag-active-bg"
+                },
+                {
+                    "name": "@tag-input-tag-active-border"
+                },
+                {
+                    "name": "@tag-input-tag-active-color"
+                },
+                {
+                    "name": "@tag-input-autocomplete-bg"
+                },
+                {
+                    "name": "@tag-input-autocomplete-border"
+                },
+                {
+                    "name": "@tag-input-autocomplete-color"
+                },
+                {
+                    "name": "@tag-input-autocomplete-active-bg"
+                },
+                {
+                    "name": "@tag-input-autocomplete-active-color"
+                },
+                {
+                    "name": "@tag-item-remove-button-color"
+                },
+                {
+                    "name": "@tag-item-remove-button-active-color"
+                }
+            ]
+        },
+        {
+            "name": "Timeline",
+            "description": "Modify the appearance of the timeline component",
+            "variables": [{
+                    "name": "@timeline-color"
+                },
+                {
+                    "name": "@timeline-bg"
+                },
+                {
+                    "name": "@timeline-panel-bg"
+                },
+                {
+                    "name": "@timeline-panel-border"
+                },
+                {
+                    "name": "@timeline-panel-shadow"
+                },
+                {
+                    "name": "@timeline-badge-color"
+                },
+                {
+                    "name": "@timeline-badge-primary"
+                },
+                {
+                    "name": "@timeline-badge-accent"
+                },
+                {
+                    "name": "@timeline-badge-alternate1"
+                },
+                {
+                    "name": "@timeline-badge-alternate2"
+                },
+                {
+                    "name": "@timeline-badge-alternate3"
+                },
+                {
+                    "name": "@timeline-badge-vibrant1"
+                },
+                {
+                    "name": "@timeline-badge-vibrant2"
+                },
+                {
+                    "name": "@timeline-badge-success"
+                },
+                {
+                    "name": "@timeline-badge-warning"
+                },
+                {
+                    "name": "@timeline-badge-critical"
+                },
+                {
+                    "name": "@timeline-badge-grey1"
+                },
+                {
+                    "name": "@timeline-badge-grey2"
+                },
+                {
+                    "name": "@timeline-badge-grey3"
+                },
+                {
+                    "name": "@timeline-badge-grey4"
+                },
+                {
+                    "name": "@timeline-badge-grey5"
+                }
+            ]
+        },
+        {
+            "name": "Treeview",
+            "description": "Modify the appearance of the treeview component",
+            "variables": [{
+                    "name": "@treeview-color"
+                },
+                {
+                    "name": "@treeview-icon-color"
+                },
+                {
+                    "name": "@treeview-outline"
+                },
+                {
+                    "name": "@treeview-hover-bg"
+                },
+                {
+                    "name": "@tree-node-icon-color"
+                },
+                {
+                    "name": "@tree-placeholder-bg"
+                }
+            ]
+        },
+        {
+            "name": "Wizard",
+            "description": "Modify the appearance of the wizard component",
+            "variables": [{
+                    "name": "@wizard-content-bg"
+                },
+                {
+                    "name": "@wizard-step-active-bg"
+                },
+                {
+                    "name": "@wizard-step-active-color"
+                },
+                {
+                    "name": "@wizard-step-complete-bg"
+                },
+                {
+                    "name": "@wizard-step-complete-color"
+                },
+                {
+                    "name": "@wizard-step-complete-opacity"
+                },
+                {
+                    "name": "@wizard-step-error-bg"
+                },
+                {
+                    "name": "@wizard-step-error-color"
+                },
+                {
+                    "name": "@wizard-steps-disabled-bg"
+                },
+                {
+                    "name": "@wizard-steps-disabled-color"
+                }
+            ]
+        }
+    ]
+}

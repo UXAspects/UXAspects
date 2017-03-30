@@ -1,0 +1,19 @@
+<div class="demo row">
+    <div class="draggable-card-demo p-l-md">
+        <draggable-cards allow-reordering="vm.allowReordering" allow-editing="vm.allowEditing" allow-removing="vm.allowRemoving" on-edit="vm.onEdit" on-remove="vm.onRemove" on-select="vm.onSelect" on-reorder="vm.onReorder" direction="right">
+            <fixed-card ng-repeat="card in ::vm.fixedCards" card-title="card.name" card-subtitle="card.count" card-selected="card.selected"></fixed-card>
+
+            <draggable-card ng-repeat="card in vm.draggableCards" card-title="card.name" card-subtitle="card.count" card-selected="card.selected">
+            <div class="card-content">
+                <div class="chart-container">
+                <flot dataset="card.data" options="card.options"></flot>
+                </div>
+                <div class="text-container">
+                <p class="m-b-nil status" ng-bind="::card.status" overflow-tooltip></p>
+                <p class="m-b-nil description text-muted" ng-bind="::card.description" overflow-tooltip></p>
+                </div>
+            </div>
+            </draggable-card>
+        </draggable-cards>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<p>A breadcrumb can automatically be constructed by using the <a routerLink="/components/ui-router" fragment="ComponentsUIRouterNg1Component">UI Router</a> states. Each
+  child state will appear next to its parent in the breadcrumb. When defining states using the <code>$stateProvider</code>  specify a property called <code>ncyBreadcrumb</code> which can have the following properties:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td class="attribute">label</td>
+        <td>This is the name that will appear for this state in the breadcrumb.</td>
+      </tr>
+      <tr>
+        <td class="attribute">parent</td>
+        <td>This can be used to overwrite the parent state. Specify the name of the state.</td>
+      </tr>
+      <tr>
+        <td class="attribute">skip</td>
+        <td>This can be used to skip the state in the breadcrumb.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Here is an example of how to set up states:</p>
+
+<uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+
+<p>In the example above we have used the <code>$breadcrumbProvider</code> to set the <code>includeAbstract</code>  option as by default the abstract states would be hidden.</p>
+<p>To display the breadcrumb on the page add the <code>ncy-breadcrumb</code> directive to a
+  <code>div</code> element.</p>
+
+<uxd-snippet [code]="htmlCode"></uxd-snippet>
+
+<blockquote>
+  <p><strong>Note</strong>: We never show the last state in the breadcrumb as the page header tells the user their current state.</p>
+</blockquote>

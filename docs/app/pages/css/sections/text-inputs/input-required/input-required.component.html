@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <div class="form-group">
+            <label class="control-label" for="inputrequired">Input Required <span
+                    class="form-control-validation">*</span>
+            </label>
+            <input type="text" class="form-control" name="inputrequired" aria-required="true">
+        </div>
+        <div class="form-group form-group-validation">
+            <label class="control-label"><span class="form-control-validation">*</span>&nbsp;required</label>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<p>To show that an item is required put a * in a <code>span.form-control-validation</code> in the <code>.control-label</code>. 
+Add a <code>div.form-group.form-group-validation</code> with a <code>label.control-label</code> containing the explanation of * to the form.</p>
+<p>Include the <code>aria-required</code> attribute to inform users of assistive technologies that this field is required.</p>
+
+<uxd-snippet [code]="htmlCode"></uxd-snippet>

@@ -1,0 +1,88 @@
+<p>
+    When there are a large number of filter options, the Dynamic Filter can be used to replace the regular dropdown with a text
+    search, supporting dropdown typeahead. This is configurable to fallback to the standard implementation when the list
+    of filters falls beneath a certain length.
+</p>
+
+<p>
+    To use the Dynamic Filter, set a <code>filter</code> directive, but no Filter Options inside
+    it. Instead, set <code>filter-options</code> as an <em>attribute</em> on the <code>filter</code>,
+    and bind this to the list of filter options. The objects of this list should define the same properties as the Filter
+    Option described above.
+</p>
+
+<p>
+    Additionally, set the <code>display-configuration</code> attribute, which expects an object
+    of the following format:
+</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Property</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td class="attribute">minCharacters</td>
+                <td>How many characters should be typed before a dropdown is shown (default: 3).</td>
+            </tr>
+            <tr>
+                <td class="attribute">maxDisplayableItems</td>
+                <td>How many entries to show in the typeahead dropdown (default: show all matches).</td>
+            </tr>
+            <tr>
+                <td class="attribute">maxIndividualItems</td>
+                <td>When there are fewer than this many items, a list of Filter Options will be shown instead of a text input
+                    (default: 0).</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    The values presented in the dropdown can also be changed dynamically. This is optional behaviour, but useful if you wish
+    to perform additional server requests on demand. The function supplied to <code>update-callback</code> will be triggered
+    every time the contents of the text input are modified. The function will be called with:
+</p>
+
+<ul>
+    <li><code>textInput</code> - the text value in the search control.</li>
+    <li><code>optionList</code> - the array of options the control can filter from.</li>
+</ul>
+
+<p>The function must return:</p>
+
+<ul>
+    <li>
+        <code>optionList</code> - the array of options, with the contents modified, added or removed
+        as required.
+    </li>
+</ul>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="filterContainerCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [code]="filterControllerCode"></uxd-snippet>
+    </tab>
+
+</tabset>
+
+<h4 id="fixed-items">Fixed Items</h4>
+
+<p>
+    When using the Dynamic Filter and expecting the filters to be searchable with a dropdown typeahead as opposed to each filter
+    being shown individually in a list, you may still want to have some filter options which are fixed in position and will
+    always be visible. You can achieve this by modifying the set of filter options passed to the directive to include a set
+    of <code>fixedOptions</code>. An example is shown below:
+</p>
+
+<uxd-snippet language="javascript" [code]="filterOptionsCode"></uxd-snippet>
+
+<p>Passed to the directive as shown:</p>
+
+<uxd-snippet language="html" [code]="filterCode"></uxd-snippet>

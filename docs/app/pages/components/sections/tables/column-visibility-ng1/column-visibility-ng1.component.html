@@ -1,0 +1,67 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th *ngIf="columns.id">ID</th>
+            <th *ngIf="columns.data">Data</th>
+            <th *ngIf="columns.user">User</th>
+            <th *ngIf="columns.value">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of tableData; let idx = index">
+            <td *ngIf="columns.id">{{ idx + 1 }}</td>
+            <td *ngIf="columns.data">{{ item.data }}</td>
+            <td *ngIf="columns.user">{{ item.user }}</td>
+            <td *ngIf="columns.value" [ngClass]="{ 'text-success': item.value >= 0, 'chart-purple': item.value < 0 }">
+                <i class="hpe-icon" [ngClass]="{ 'hpe-ascend': item.value >= 0, 'hpe-descend': item.value < 0 }"></i>
+                <span>{{ item.value }}</span>%
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<h4>Toggle Visibility of Table Columns:</h4>
+<br>
+<div class="row">
+    <div class="col-md-3 col-sm-6">
+        <ux-checkbox [(ngModel)]="columns.id">Show ID Column</ux-checkbox>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <ux-checkbox [(ngModel)]="columns.data">Show Data Column</ux-checkbox>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <ux-checkbox [(ngModel)]="columns.user">Show User Column</ux-checkbox>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <ux-checkbox [(ngModel)]="columns.value">Show Value Column</ux-checkbox>
+    </div>
+</div>
+
+<hr>
+
+<p>The dynamic showing and hiding of table columns can easily be achieved by using built in Angular directives.</p>
+
+<p>Create an object in your controller containing a boolean property for each column in the table. These properties should be
+    given an initial value that reflects whether or not the column should be visible.</p>
+
+<p>Then we can simply add an <code>ng-if</code> directive to the table header cell and the table body cell pointing to the property
+    matching that column in the controller.</p>
+
+<p>The header and body cells will now automatically show or hide based on the value in the controller.</p>
+
+<blockquote>
+    <p><strong>Note</strong>: Dynamic columns do not currently work with multiple sortable table headers</p>
+</blockquote>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Controller">
+        <uxd-snippet language="javascript" [code]="controllerCode"></uxd-snippet>
+    </tab>
+
+</tabset>

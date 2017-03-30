@@ -1,0 +1,148 @@
+<div class="wrapper">
+
+    <div class="nav-menu-btn-container nav-menu-btn-container-dark nav-menu-btn-container-top-dark">
+        <a class="nav-menu-toggle-btn" minimize-menu animate="true" href="">
+            <i class="hpe-icon hpe-menu"></i>
+        </a>
+    </div>
+    <nav class="navbar-static-side-container navbar-static-side-container-dark" ng-class="sidecontainer" scroll-config="{ autoReinitialise: false, showOnlyOnHover: true, enableKeyboardNavigation:true}"
+        scroll-pane id="menuScroll" role="navigation">
+        <div class="navbar-default navbar-static-side navbar-static-side-dark" role="navigation">
+            <ul class="nav" side-navigation id="side-menu">
+                <li class="nav-header nav-header-dark">
+                    <a class="logo-element-container" href="../../../">
+                        <div class="logo-element-image"></div>
+                        <p class="logo-element-text">UX Aspects</p>
+                    </a>
+                </li>
+
+                <li class="active selected">
+                    <a href="">
+                        <i class="hpe-icon hpe-clone"></i>
+                        <span class="nav-label">Patterns</span> <span class="hpe-icon hpe-collapse arrow"></span>
+                    </a>
+                    <ul class="in nav nav-second-level">
+                        <li class="active"><a href="">Page Header Example</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-content page-content-navbar-top-light">
+        <div class="affix-container" ng-controller="PageHeaderCtrl as vm">
+            <nav class="navbar navbar-static-top navbar-static-top-light back-button" ng-class="{'content-panel':vm.contentPanel}" affix-element>
+                <div class="navbar-header" ng-class="{'top-link-dropdown-2':vm.topSearchExpanded==false}">
+                    <div class="product-styling" ng-show="!vm.topSearchExpanded">
+                    </div>
+                    <form role="search" class="navbar-form-search" method="post">
+                        <expand-input place-holder="Search..." class-name="form-control" focus="vm.expandTopSearch(value)" elname="top-search" clear-text-icon="hpe-close"
+                            close-search="Cancel" expand-always="true"></expand-input>
+                    </form>
+                    <div class="primary-bg page-heading">
+                        <div class="btn-back-header">
+                            <span class="hpe-icon hpe-previous text-primary" ng-click="vm.goBack()"></span>
+                        </div>
+                        <div class="header-content-left">
+                            <ol class="breadcrumb">
+                                <li>
+                                    <a href="#">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#">Patterns</a>
+                                </li>
+                            </ol>
+                            <h1 class="heading m-t-nil">Page Header Example</h1>
+                        </div>
+                        <div class="header-content-right">
+                            <analytics-content-panel></analytics-content-panel>
+                        </div>
+                    </div>
+                </div>
+                <ul ng-show="!vm.topSearchExpanded" class="nav navbar-right navbar-top-links">
+                    <help-center-menu url="" help-text="Help Center" icon="'hpe-help'" target="_self"></help-center-menu>
+                    <li class="dropdown navbar-top-link search">
+                        <a expand-search href=""><i class="hpe-icon hpe-search hp-fw"></i></a>
+                    </li>
+                    <li class="dropdown navbar-top-link">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown">
+                            <i class="hpe-icon hpe-notification hp-fw"></i> <span class="label label-primary">3</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a>
+                                    <div>
+                                        <i class="hpe-icon hpe-chat hp-fw text-muted"></i> You have 16 messages
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a>
+                                    <div>
+                                        <i class="hpe-icon hpe-social-twitter hp-fw text-muted"></i> 3 New Followers
+                                        <span class="pull-right text-muted small">12 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a>
+                                    <div>
+                                        <i class="hpe-icon hpe-cloud hp-fw text-muted"></i> Server Rebooted
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown navbar-top-link">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="hpe-icon hpe-actions hp-fw"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">
+                                <span class="font-bold">John Doe</span>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a>
+                                    <i class="hpe-icon hpe-user-settings hp-fw text-muted"></i> Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="hpe-icon hpe-logout hp-fw text-muted"></i> Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Page Content -->
+        <div>
+            <div class="affix-container toolbar">
+                <div class="affix-toolbar" affix-element>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <button class="btn button-primary list-view-button-spacing">
+                    <i class="hpe-icon hpe-add" aria-hidden="true"></i>
+                    <span class="hidden-md hidden-sm hidden-xs">New</span>
+                </button>
+                            <button class="btn button-secondary list-view-button-spacing">
+                  <i class="hpe-icon hpe-print" aria-hidden="true"></i>
+                  <span class="hidden-md hidden-sm hidden-xs">Print</span>
+                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper-content">
+            </div>
+        </div>
+    </div>
+</div>

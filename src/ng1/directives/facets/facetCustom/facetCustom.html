@@ -1,0 +1,11 @@
+<div class="facet facet-custom">
+
+  <a class="facet-header" href="" ng-click="fac.toggleExpand($event)" ng-keydown="fac.toggleExpandKey($event)" tabindex="1">
+    <span class="facet-name" ng-bind="title"></span>
+    <span class="pull-right hpe-icon" ng-class="{'hpe-down':fac.expanded,'hpe-previous':!fac.expanded}"></span>
+  </a>
+
+  <div ng-transclude ng-show="fac.expanded">
+  </div>
+
+</div>

@@ -1,0 +1,27 @@
+<p>The breadcrumb trail may also include tab state on a single page. This can be achieved by creating a UI Router state for
+  each tab, and connecting the states with the active tab in a controller. The breadcrumb may then display a different breadcrumb
+  text for each tab, and child views may be associated with particular tabs for the purposes of navigation.</p>
+<p>To configure this, create the tab view using the <code>select</code> and <code>active</code> attributes.</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet [code]="htmlCode"></uxd-snippet>
+  </tab>
+  <tab heading="JavaScript">
+    <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    <uxd-snippet language="javascript" [code]=jsCode2></uxd-snippet>
+  </tab>
+</tabset>
+
+<br>
+
+<p>In the above example, the <code>patterns.pagelayout.breadCrumbWithTabState. documentationDetail</code> state acts as a child
+  of <code>patterns.pagelayout.breadCrumbWithTabState. documentationTab</code> in the breadcrumb trail, even though it is
+  at the same level of hierarchy. This is due to the <code>ncyBreadcrumb.parent</code> property, and allows it to load in
+  the same <code>ui-view</code> as the parent.</p>
+
+<blockquote>
+  <p><strong>Note</strong>: If you use the <code>ncyBreadcrumb.parent</code> property, the Back Button will require additional
+    code to navigate correctly. See the Back Button section of the <a routerLink="/css/page-header" fragment="CssStandardHeaderComponent">Standard Header</a>
+    documentation for an appropriate implementation of the <code>target-state</code> attribute.</p>
+</blockquote>

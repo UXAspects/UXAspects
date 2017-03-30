@@ -1,0 +1,88 @@
+<div>
+    <ux-checkbox [(value)]="checkModel.option1" [disabled]="disableCheck" [simplified]="simplified">Option1</ux-checkbox>
+</div>
+
+<div>
+    <ux-checkbox [(value)]="checkModel.option2" [indeterminateValue]="indeterminateValue" [simplified]="simplified">Option2</ux-checkbox>
+</div>
+
+<div>
+    <ux-checkbox [(value)]="checkModel.option3" [simplified]="simplified">Option3</ux-checkbox>
+</div>
+
+<div>
+    <ux-checkbox [(value)]="checkModel.option4" [simplified]="simplified">Onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.</ux-checkbox>
+</div>
+
+<br>
+
+<p class="m-t-xl">
+    <code>checkModel.option1</code> is <em>{{ checkModel.option1 }}</em>.
+    <code>checkModel.option2</code> is <em>{{ checkModel.option2 }}</em>.
+    <code>checkModel.option3</code> is <em>{{ checkModel.option3 }}</em>.
+    <code>checkModel.option4</code> is <em>{{ checkModel.option4 }}</em>.
+</p>
+
+<br>
+
+<div>
+    <button class="btn button-primary m-r-xs" 
+            (click)="disableCheck = !disableCheck">
+            {{ disableCheck ? 'Click to enable Option1' : 'Click to disable Option1' }}
+    </button>
+
+    <button class="btn button-secondary m-r-xs" 
+            (click)="checkModel.option2 = indeterminateValue">
+            Set Option2 to indeterminate state
+    </button>
+
+    <button class="btn button-accent" 
+            (click)="simplified = !simplified">
+            {{ simplified ? 'Disable Simplified Style' : 'Enable Simplified Style' }}
+    </button>
+</div>
+
+<br>
+
+<p>The following attributes can be set to customize the behavior of the control.</p>
+
+<p>In an Angular application, <code>ngModel</code> may be used to bind the control to a form.</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td><b>@Input @Output</b> value</td>
+            <td><b>any</b></td>
+            <td>Determines if the checkbox should be checked, unchecked or indeterminate. The default value is <code>false</code>.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> indeterminateValue</td>
+            <td><b>any</b></td>
+            <td>If <code>value</code> is set to the indeterminate value specified using this attribute, it will neither display the checkbox as checked or unchecked, and will instead show the indeterminate variation. The default value is <code>-1</code>.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> simplified</td>
+            <td><b>boolean</b></td>
+            <td>If set to <code>true</code> the checkbox will be displayed without a border and background. The default value is <code>false</code>.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> clickable</td>
+            <td><b>boolean</b></td>
+            <td>If set to <code>true</code> the checkbox will not toggle state when clicked. The default value is <code>false</code>.</td>
+        </tr>
+
+    </tbody>
+</table>

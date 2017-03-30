@@ -1,0 +1,29 @@
+@import "../../assets/styles/variables.less";
+
+:host {
+    display: block;
+    height: 119px;
+    background: @page-header;
+}
+
+.page-header-title,
+.page-header-description {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    height: 100%;
+}
+
+.page-header-title {
+    color: @page-header-title-color;
+    font-weight: 300;
+}
+
+.page-header-description {
+    color: @page-header-description-color;
+    font-size: 1.5rem;
+    font-weight: 200;
+    justify-content: flex-end;
+}

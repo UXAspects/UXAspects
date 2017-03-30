@@ -1,0 +1,49 @@
+<div class="btn-group filter dynamic-filter-toggle">
+    <button data-toggle="dropdown" ng-class="class" class="filter-dropdown btn dropdown-toggle" aria-expanded="false"
+            id="btndropdown">{{name}}<span class="hpe-icon hpe-down"></span>
+    </button>
+
+    <ul class="dropdown-menu" role="menu" aria-labelledby="btndropdown" ng-if="!showListControl">
+
+    <!-- Default Option (before fixed options) -->
+    <filter-option ng-if="dynamicOptions.options[0]" name="dynamicOptions.options[0].name"
+                                                   select="dynamicOptions.options[0].select()"
+                                                   default="dynamicOptions.options[0].default"></filter-option>
+
+    <!-- Fixed Options -->
+    <filter-option ng-repeat="option in dynamicOptions.fixedOptions" name="option.name"
+                                                   select="option.select()"
+                                                   default="option.default"></filter-option>
+    <!-- Other filters -->
+		<filter-option ng-repeat="option in dynamicOptions.options" ng-if="!$first" name="option.name"
+                                                   select="option.select()"
+                                                   default="option.default"></filter-option>
+
+    </ul>
+
+   <ul class="dropdown-menu dynamic-filter" role="menu" aria-labelledby="btndropdown" ng-if="showListControl" ng-click="$event.preventDefault(); $event.stopImmediatePropagation();" >
+    <li class="default-container">
+        <filter-option name="dynamicOptions.options[0].name" select="dynamicOptions.options[0].select()" default="dynamicOptions.options[0].default" ng-click="fc.clearDynamic()"></filter-option>
+        <!-- Fixed Options -->
+      <filter-option ng-repeat="option in dynamicOptions.fixedOptions" name="option.name" select="option.select()" default="option.default"  ng-click="fc.clearDynamic()">
+           </filter-option>
+    </li>
+    <li ng-if="dynamicSelected.name" id="dynamic-filter">
+            <a href="" target="_blank" ng-click="dynamicSelected.name.select(); fc.dismiss();">
+              <i class="hpe-icon hpe-checkmark"></i>
+              <span>{{dynamicSelected.name}}</span>
+            </a>
+    </li>
+    <li class="input-container">
+          <input placeholder="Find {{ type }}..." type="text" ng-model="dynamicTypeaheadSelected.text" typeahead="option as option.name for option in dynamicOptions.options | filter:$viewValue | limitTo:maxDisplayableItems"
+          ng-change="fc.dynamicTypeaheadOnChange()"
+          typeahead-min-length="minCharsForTypeAhead"
+          typeahead-on-select="fc.dynamicFilterSelected($item, $model, $label)"
+           class="form-control">
+    </li>
+
+  </ul>
+
+
+
+</div>

@@ -1,0 +1,53 @@
+var path = require('path');
+
+module.exports = {
+
+    entry: {
+        'ux-aspects-ng1': path.join(process.cwd(), 'src', 'ng1', 'ux-aspects-ng1.module.js'),
+    },
+
+    output: {
+        path: path.join(process.cwd(), 'dist', 'ng1'),
+        filename: '[name].js',
+        libraryTarget: 'umd'
+    },
+
+    devtool: "none",
+
+    module: {
+
+        rules: [{
+            test: /\.js$/,
+            exclude: /(node_modules|plugins|external)/,
+            enforce: 'pre',
+            use: {
+                loader: 'jshint-loader',
+                options: {
+                    emitErrors: false,
+                    failOnHint: true
+                }
+            }
+        }, {
+            test: /\.js$/,
+            exclude: /(node_modules|plugins|external)/,
+            use: {
+                loader: 'babel-loader',
+                query: {
+                    cacheDirectory: true,
+                    presets: [
+                        ["es2015", { "modules": false }]
+                    ]
+                }
+            }
+        }, {
+            test: /\.html$/,
+            use: "ng-cache-loader?prefix=[dir]/[dir]",
+            include: /(directives|templates)/
+        }, {
+            test: /(plugins|external)/,
+            exclude: /(node_modules|bower_components)/,
+            use: 'script-loader'
+        }]
+    }
+
+};

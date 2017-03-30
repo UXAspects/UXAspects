@@ -1,0 +1,51 @@
+.detail-row-popover {
+  overflow: auto;
+  height: 300px;
+  margin-bottom: 5px;
+}
+
+.detail-row-popover .facets-container {
+  padding: 0;
+}
+
+.detail-row-popover .facets-selected-container {
+  margin-bottom: 0;
+}
+
+.detail-row-header-popover {
+  padding: 0;
+}
+
+.detail-row-header-popover .dropdown-footer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-top: 5px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5; 
+}
+
+.detail-row-header-popover .popover-content {
+  padding: 0;
+}
+
+.detail-row-header-popover .dropdown-footer .m-cancel {
+  margin-right: 17px;
+}
+
+.detail-row-popover .table > tbody > tr:first-child > td {
+  border-top: none;
+}
+
+.detail-row-popover .table > tbody > tr > td {
+  padding: 0;
+}
+
+.detail-row-popover .table > tbody > tr > td > label {
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  padding-bottom: 12px;
+}

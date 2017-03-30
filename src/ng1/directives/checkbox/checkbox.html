@@ -1,0 +1,19 @@
+<label class="el-checkbox-label" ng-click="vm.toggleChecked()">
+
+    <div class="el-checkbox" 
+         tabindex="0"
+         ng-keydown="vm.keydown($event)"
+         ng-class="{ 'checked': vm.ngModel === true, 'indeterminate': vm.indeterminate, 'simplified': vm.simplified, 'disabled': vm.ngDisabled }">
+
+        <input type="checkbox" 
+            role="checkbox" 
+            aria-checked="{{ vm.ngModel }}"
+            aria-disabled="{{ vm.ngDisabled }}"
+            name="{{ ::vm.name }}" 
+            ng-model="vm.ngModel" 
+            tabindex="-1"
+            ng-disabled="vm.ngDisabled" />
+    </div>
+
+    <div class="el-checkbox-content" ng-transclude></div>
+</label>

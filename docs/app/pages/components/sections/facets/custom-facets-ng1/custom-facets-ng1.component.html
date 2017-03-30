@@ -1,0 +1,81 @@
+<p>Custom Facets allow for any control, such as a Date Picker, to be used as part of a faceted search.</p>
+
+<p>To include a Custom Facet in a <code>facet-container</code>, use the <code>facet-custom</code> directive in place of a <code>facet</code>    directive. The required attributes are:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Binding</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">name</td>
+                <td>string</td>
+                <td>variable</td>
+                <td>A string name for the facet.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">model</td>
+                <td>object</td>
+                <td>variable</td>
+                <td>An object in the controller context which contains the computed value of the custom facet.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">select</td>
+                <td>function</td>
+                <td>variable</td>
+                <td>A function called when the value of <code>model</code> changes.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">deselect</td>
+                <td>function</td>
+                <td>variable</td>
+                <td>A function called when the facet is deselected.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">display</td>
+                <td>function</td>
+                <td>variable</td>
+                <td>A function which computes a display name for the facet when selected.</td>
+                <td>false</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    The <code>select</code> and <code>deselect</code> functions are not called with parameters, so should be defined from
+    the parent context to read either the value of the property passed as
+    <code>model</code> or another property as appropriate.
+</p>
+
+<uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+
+<p>
+    Inside this directive, define the required control. The key feature is to ensure the computed value of the control is set
+    to the same property as was passed as the <code>model</code> attribute for the directive. This means the custom facet
+    is single select, and should implement its own clearing functionality if required.
+</p>
+
+<p>
+    Below is an example of how this directive can be used to implement a Date Picker facet (using the Date Picker directive).
+    Note that the <code>vm.date</code> property is shared between the custom facet and the datepicker.
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="customFacetHtmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [code]="customFacetJsCode"></uxd-snippet>
+    </tab>
+</tabset>

@@ -1,0 +1,73 @@
+@import "../../assets/styles/variables.less";
+
+:host {
+    position: relative;
+    display: inline-flex;
+    align-items: flex-end;
+    flex: none;
+    padding: 14px 15px;
+    color: @nav-search-color;
+    font-size: 1.1rem;
+    transition: color 0.3s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+    width: 50px;
+
+    &.active {
+        background-color: #000;
+    }
+
+    &:hover .hpe-icon {
+        color: @nav-search-hover-color;
+    }
+}
+
+.nav-bar-search-container {
+    position: absolute;
+    top: 0;
+    right: 50px;
+    background-color: @nav-search-bg;
+    width: 250px;
+    min-height: 50px;
+    cursor: default;
+
+    .nav-bar-search-input {
+        flex: 1;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid @nav-search-border;
+        outline: none;
+        color: @nav-search-color;
+        line-height: 28px;
+        min-width: 0;
+        font-size: 1rem;
+        font-weight: 300;
+        margin: 10px 15px 0;
+        width: 220px;
+    }
+
+    .nav-bar-search-results-container {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 0;
+        box-shadow: 0px 3px 5px @nav-search-bg;
+
+        .nav-bar-search-result {
+            font-size: 1rem;
+            padding: 5px 14px;
+            cursor: pointer;
+            color: @white;
+            font-weight: 300;
+
+            .nav-bar-search-result-section {
+                color: @nav-search-result-color;
+            }
+
+            &.active,
+            &:hover {
+                background-color: @nav-search-result-hover-bg;
+                color: @nav-search-result-hover-color;
+            }
+        }
+    }
+}

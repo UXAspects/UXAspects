@@ -1,0 +1,16 @@
+<li class="dropdown navbar-top-link help">
+    <a class="dropdown-toggle count-info" data-toggle="dropdown">
+        <i class="{{ iconBase }} hp-fw" ng-class="{{icon}}"></i>
+    </a>
+    <ul class="dropdown-menu helpCenter">
+        <li>
+            <a href="{{url}}" target="{{ target }}">{{helpText}}</a>
+        </li>
+        <li ng-if="menuItems.length!=0" class="divider"></li>
+        <li ng-repeat="name in menuItems">
+            <a href="{{name.url}}" target="{{ target }}">
+                {{name.title}}
+            </a>
+        </li>
+    </ul>
+</li>

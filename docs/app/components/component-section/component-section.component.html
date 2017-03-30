@@ -1,0 +1,11 @@
+<ux-ebox [id]="id">
+    <ux-ebox-header class="uxd-component-section-header">
+        <uxd-edit-example-link *ngIf="codepen" [title]="title" [content]="codepen" type="codepen" [version]="version">Edit in CodePen</uxd-edit-example-link>
+        <uxd-edit-example-link *ngIf="plunk" [title]="title" [content]="plunk" type="plunker" [version]="version">Edit in Plunker</uxd-edit-example-link>
+        <h3>{{ title }}</h3>
+    </ux-ebox-header>
+
+    <ux-ebox-content class="uxd-component-section-content">
+        <div #container></div>
+    </ux-ebox-content>
+</ux-ebox>

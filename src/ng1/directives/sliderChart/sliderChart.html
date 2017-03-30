@@ -1,0 +1,11 @@
+<div class="slider-chart">
+    <div class="flot-chart">
+        <flot dataset="vm.chartData" options="vm.chartOptions"></flot>
+        <div class="track">
+            <div class="left-overlay" ng-style="{'flex-grow': vm.left}" ng-class="{'hide-left-border': vm.hideLeftBorder}"></div>
+            <div class="middle-overlay" ng-style="{'flex-grow': vm.middle}"></div>
+            <div class="right-overlay" ng-style="{'flex-grow': vm.right}" ng-class="{'hide-right-border': vm.hideRightBorder}"></div>
+        </div> 
+    </div>
+    <slider ng-model="vm.ngModel" options="vm.sliderOptions"></slider>
+</div> 

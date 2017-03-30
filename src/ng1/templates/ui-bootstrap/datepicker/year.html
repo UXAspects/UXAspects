@@ -1,0 +1,26 @@
+<table role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}">
+  <thead>
+    <tr>
+      <th ng-click="move(-1)" tabindex="-1"><span class="hpe-icon hpe-previous"></span></th>
+      <th id="{{uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" class="datepicker-switch" ng-click="toggleMode()" tabindex="-1">{{title}}</th>
+      <th ng-click="move(1)" tabindex="-1"><span class="hpe-icon hpe-next"></span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="7">
+        <div class="inline" ng-repeat="row in rows track by $index">
+          <span ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}"
+                ng-class="{active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1">
+            {{dt.label}}
+          </span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot ng-if="$parent.$parent.showButtonBar">
+    <tr>
+      <th colspan="7" class="today" ng-click="$parent.$parent.$parent.select('today')">{{$parent.$parent.$parent.getText('current')}}</th>
+    </tr>
+  </tfoot>
+</table>

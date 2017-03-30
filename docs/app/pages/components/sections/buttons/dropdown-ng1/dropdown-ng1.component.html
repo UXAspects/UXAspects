@@ -1,0 +1,54 @@
+<uxd-dropdown-wrapper display="main"></uxd-dropdown-wrapper>
+
+<hr>
+
+<p>On the <code>div.btn-group</code> set the dropdown attribute. The dropdown can either be opened by using the <code>is-open</code> attribute, or assigning the <code>dropdown-toggle</code> attribute to the desired <code>.btn</code>.</p>
+
+<p>Set <code>on-toggle="yourFunction(open)"</code> for <code>yourFunction</code> to be executed every time the dropdown changes state.</p>
+
+<p>It is possible to add interactive items to the dropdown. If the dropdown should remain open when clicking on an item, add <code>ng-click="$event.stopPropagation()"</code> to the anchor element. The <code>dropdown-indent</code> class is provided to visually distinguish subordinate controls within the dropdown, as seen in the first example.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCode" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [code]="javascriptCode" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<h4 id="menu-features">Menu Features</h4>
+
+<uxd-dropdown-wrapper display="menu"></uxd-dropdown-wrapper>
+
+<hr>
+
+<p>Styles are provided to create menus with common features including gutter icons, keyboard shortcut hints, and submenus.</p>
+
+<p>To style menu items as above, apply the <code>dropdown-menu-item</code> class to the <code>a</code> element of the menu item. This will contain up to three <code>span</code> elements with classes as follows:</p>
+
+<ul>
+  <li><code>dropdown-menu-icon</code> - This contains the icon, which may be one of the <a routerLink="/css/icons" fragment="CssIconsComponent">Icons</a> or an image. If no icon is required, leave this empty to ensure a consistent gutter for other items with icons.</li>
+  <li><code>dropdown-menu-text</code> - This contains the menu text.</li>
+  <li><code>dropdown-menu-right</code> - Optionally, this may contain right aligned text or icons. <code>dropdown-menu-hint</code> provides a default text style for keyboard shortcut hints here.</li>
+</ul>
+
+<blockquote>
+  <p>See <a routerLink="/components/keyboard" fragment="ComponentsKeyboardServiceComponent">Keyboard Service</a> for information on binding keyboard shortcuts.</p>
+</blockquote>
+
+<p>Set the width on the <code>ul</code> element to ensure that the menu contents will fit.</p>
+
+<p>To create a menu item which opens a submenu, set the <code>dropdown-submenu</code> class on the <code>li</code> element, and insert the menu contents below the <code>a</code> element. The above example demonstrates both a standard and a custom submenu; see the example code for details.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlMenuCode" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [code]="javascriptCode" language="javascript"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [code]="cssCode" language="css"></uxd-snippet>
+    </tab>
+</tabset>

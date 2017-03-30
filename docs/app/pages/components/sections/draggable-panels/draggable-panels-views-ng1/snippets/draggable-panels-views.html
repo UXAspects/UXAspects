@@ -1,0 +1,107 @@
+<div class="row">
+
+    <div class="m-l-md">
+        <h4>Drag cards to add them to the list</h4>
+    </div>
+
+    <draggable-panel-container class="col-xs-6 draggable-panel-card-container p-l-md p-r-nil" draggable-group="my-draggable-list"
+        draggable-view="card" on-drag-start="vm.onDragStart" on-drag-end="vm.onDragEnd" custom-placeholder-size="true">
+
+        <draggable-panel>
+            <div class="draggable-panel-card card">
+                <div class="gutter" drag-handle>
+                    <div class="drag-handle"></div>
+                </div>
+                <div class="content">
+                    <i class="hpe-icon hpe-down p-t-sm p-b-sm m-b-xs" aria-hidden="true"></i>
+                    <h4 class="m-t-nil m-b-md">Dropdown</h4>
+                    <p class="align-left inline m-t-xs">Dropdown</p>
+                    <p class="align-right inline p-r-sm m-t-xs lighten">Dropdown</p>
+                </div>
+            </div>
+
+            <div class="draggable-panel-list list list-item-small-demo">
+                <div class="gutter" drag-handle>
+                    <div class="drag-handle"></div>
+                </div>
+                <div class="title">
+                    <p>Dropdown</p>
+                </div>
+                <div class="content">
+                    <div class="btn-group">
+                        <button type="button" class="btn button-secondary">Action </button>
+                        <button data-toggle="dropdown" class="btn button-secondary dropdown-toggle" aria-expanded="false">
+                <span class="hpe-icon hpe-down"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnDropDown2">
+                            <li><a>Action</a></li>
+                            <li><a>Another action</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </draggable-panel>
+
+        <draggable-panel>
+            <div class="draggable-panel-card card">
+                <div class="gutter" drag-handle>
+                    <div class="drag-handle"></div>
+                </div>
+                <div class="content">
+                    <i class="hpe-icon hpe-document-text p-t-sm p-b-sm m-b-xs" aria-hidden="true"></i>
+                    <h4 class="m-t-nil m-b-md">Comments</h4>
+                    <p class="align-left inline m-t-xs">Text area</p>
+                    <p class="align-right inline p-r-sm m-t-xs lighten">Text</p>
+                </div>
+            </div>
+
+            <div class="draggable-panel-list list list-item-large-demo">
+                <div class="gutter" drag-handle>
+                    <div class="drag-handle"></div>
+                </div>
+                <div class="title">
+                    <p>Comments</p>
+                </div>
+                <div class="content">
+                    <textarea class="form-control inline" rows="4" placeholder="Enter text"></textarea>
+                </div>
+            </div>
+        </draggable-panel>
+
+        <draggable-panel>
+            <div class="draggable-panel-card card">
+                <div class="gutter" drag-handle>
+                    <div class="drag-handle"></div>
+                </div>
+                <div class="content">
+                    <i class="hpe-icon hpe-divide p-t-sm p-b-sm m-b-xs" aria-hidden="true"></i>
+                    <h4 class="m-t-nil m-b-md">Buttons</h4>
+                    <p class="align-left inline m-t-xs">Single Select</p>
+                    <p class="align-right inline p-r-sm m-t-xs lighten">Text</p>
+                </div>
+            </div>
+
+            <div class="draggable-panel-list list list-item-small-demo">
+                <div class="gutter" drag-handle>
+                    <div class="drag-handle"></div>
+                </div>
+                <div class="title">
+                    <p>Buttons</p>
+                </div>
+                <div class="content">
+                    <div class="btn-group" role="group" aria-label="Alignment">
+                        <button class="btn button-secondary btn-grouped" type="button">Left</button>
+                        <button class="btn button-secondary btn-grouped" type="button">Right</button>
+                    </div>
+                </div>
+            </div>
+        </draggable-panel>
+
+    </draggable-panel-container>
+
+    <draggable-panel-container class="col-xs-6 p-r-nil p-l-nil draggable-panel-list-container draggable-panel-list-demo" draggable-group="my-draggable-list"
+        draggable-view="list" custom-placeholder-size="true">
+
+    </draggable-panel-container>
+</div>

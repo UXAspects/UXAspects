@@ -1,0 +1,38 @@
+<div>
+    <div ng-if="sc.inline === true">
+        <div class="spark-label-left">
+            <div ng-bind-html="sc.label"></div>
+        </div>
+        <div class="inline-block spark-line">
+            <div>
+                <div class="inline-block" ng-if="sc.topLeftLabel" ng-bind-html="sc.topLeftLabel"></div>
+                <div class="align-right inline-block" ng-if="sc.topRightLabel" ng-bind-html="sc.topRightLabel" class="text-right"></div>
+            </div>
+            <div class="spark" ng-class="[ 'inline', sc.type ]" ng-style="sc.setPosition" tooltip="{{sc.sparkTooltip}}">
+                <div class="progress-bar fill" aria-valuenow="{{sc.value}}" aria-valuemin="0"
+                     aria-valuemax="100" ng-style="{width: (sc.value < 100 ? sc.value : 100) + '%'}"
+                     aria-valuetext="sc.label"></div>
+            </div>
+            <div>
+                <div class="inline-block" ng-if="sc.bottomLeftLabel" ng-bind-html="sc.bottomLeftLabel"></div>
+                <div class="align-right inline-block" ng-if="sc.bottomRightLabel" ng-bind-html="sc.bottomRightLabel" class="text-right"></div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="sc.inline === false">
+        <div>
+            <div class="inline-block" ng-if="sc.topLeftLabel" ng-bind-html="sc.topLeftLabel"></div>
+            <div class="align-right inline-block" ng-if="sc.topRightLabel" ng-bind-html="sc.topRightLabel" class="text-right"></div>
+        </div>
+        <div class="spark" ng-class="sc.type" ng-style="{height: sc.fillheight + 'px'}" tooltip="{{sc.sparkTooltip}}">
+            <div class="progress-bar fill" aria-valuenow="{{sc.value}}" aria-valuemin="0"
+                 aria-valuemax="100" ng-style="{width: (sc.value < 100 ? sc.value : 100) + '%'}"
+                 aria-valuetext="sc.top-left-label"></div>
+        </div>
+        <div>
+            <div class="inline-block" ng-if="sc.bottomLeftLabel" ng-bind-html="sc.bottomLeftLabel"></div>
+            <div class="align-right inline-block" ng-if="sc.bottomRightLabel" ng-bind-html="sc.bottomRightLabel" class="text-right"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="container-fluid m-t-md">
+    <div class="white-space-normal table-responsive">
+        <table class="table table-hover detail-row-responsive-demo">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="row">
+                            <div class="col-xs-1">
+                                Type
+                            </div>
+                            <div class="col-xs-3">
+                                Participant
+                            </div>
+                            <div class="col-xs-3">
+                                From Address
+                            </div>
+                            <div class="col-xs-3">
+                                Subject
+                            </div>
+                            <div class="col-xs-2">
+                                Message Score
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in ::vm.detailRowTableStatic" class="detail-table clickable" ng-click="details()">
+                    <td>
+                        <div class="row m-b-xs rowitem">
+                            <div class="col-xs-1 m-t-xs">
+                                <i class="hpe-icon" ng-class="item.rowType" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-xs-3">
+                                <contact-group contacts="item.contacts" organization="item.organization" size="item.medium" colors="item.colorsPrimary"></contact-group>
+                            </div>
+                            <div class="col-xs-3 m-t-xs">
+                                <div ng-bind="::item.address" single-line-overflow-tooltip></div>
+                            </div>
+                            <div class="col-xs-3 m-t-xs">
+                                <div ng-bind="::item.subject" single-line-overflow-tooltip></div>
+                            </div>
+                            <div class="col-xs-2 m-t-xs">
+                                <spark type="item.type" value="item.percent" fillheight="3" inline-label="item.sparklabel" top="13"></spark>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-9 overflow" ng-bind="::item.detail" overflow-tooltip></div>
+                            <div class="col-xs-2"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<li ng-show="count!==0 || showZero" class="facet-option" ng-class="{ 'disabled': disabled }">
+	<a ng-click="fo.toggle()" tabindex="1">
+		<checkbox class="facet-option-check" ng-model="checkedIcon" simplified="simplified"></checkbox>
+		<span single-line-overflow-tooltip class="facet-option-name" ng-bind="name"></span>&nbsp;
+		<span ng-show="count !== undefined && count !== null" class="facet-option-count">(<span ng-bind="count"></span>)</span>
+	</a>
+</li>

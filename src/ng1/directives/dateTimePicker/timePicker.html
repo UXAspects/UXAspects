@@ -1,0 +1,33 @@
+<table class="timepicker">
+    <tbody>
+        <tr>
+            <td>
+                <span ng-show="!chooseDate" class="p-l-md"> </span>
+                <span ng-show="chooseDate" class="hpe-icon hpe-alarm hp-lg"></span>
+            </td>
+            <td ng-show="chooseTime" class="form-group" ng-class="{'has-error': invalidHours}">
+                <input style="width: 40px; padding-right: 12px" type="text" ng-model="tmpk.hours" class="form-control text-center" ng-model-options="{ updateOn: 'blur' }" maxlength="2">
+            </td>
+            <td ng-show="chooseTime" class="form-group" ng-class="{'has-error': invalidMinutes}">
+                <input style="width: 40px; padding-right: 12px" type="text" ng-model="tmpk.minutes" class="form-control text-center" ng-model-options="{ updateOn: 'blur' }" maxlength="2">
+            </td>
+            <td ng-show="chooseTime && chooseSeconds" class="form-group" ng-class="{'has-error': invalidSeconds}">
+                <input style="width: 40px; padding-right: 12px" type="text" ng-model="tmpk.seconds" class="form-control text-center" ng-model-options="{ updateOn: 'blur' }" maxlength="2">
+            </td>
+            <td ng-show="chooseTime && isMeridian">
+                <button style="width: 40px" type="button" class="btn meridian-btn btn-secondary text-center"  ng-click="tmpk.toggleMeridian()" ng-bind="tmpk.meridian"></button>
+            </td>
+            <td ng-show="chooseTimeZone">
+                <div class="btn-group" dropdown is-open="timezoneDropDownOpen">
+                    <button type="button" class="btn inline-dropdown timezone-dropdown dropdown-toggle" dropdown-toggle>
+                        <span ng-bind="tmpk.timezone" style="vertical-align:inherit;"></span>
+                        <span class="hpe-icon hpe-down"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="timezone in dtpk.timezones"><a href="" ng-click="tmpk.selectTimezone($index)" ng-bind="timezone"></a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,62 @@
+@import "../../assets/styles/variables.less";
+
+:host {
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    top: 0;
+    background-color: @nav-bar-bg;
+    border-bottom: 3px solid @nav-bar-border;
+    box-sizing: content-box;
+    z-index: 1000;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+
+    .navigation-bar-logo {
+        height: 40px;
+        margin-right: 5px;
+    }
+
+    .navigation-bar-brand {
+        color: @nav-bar-brand-color;
+        margin-bottom: 0;
+        white-space: nowrap;
+        font-size: 1.25rem;
+        text-decoration: none;
+    }
+
+    .navigation-bar-items {
+        display: flex;
+        flex: 1;
+        height: 100%;
+        margin-left: 20px;
+
+        .navigation-bar-item {
+            flex: none;
+            padding: 15px;
+            color: @nav-bar-item-color;
+            font-weight: 400;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            text-decoration: none;
+            font-size: 0.9375rem;
+
+            &:hover {
+                color: @nav-bar-item-active-color;
+            }
+
+            &.active {
+                background-color: @primary;
+                color: @nav-bar-item-active-color;
+            }
+        }
+
+        .navigation-bar-spacer {
+            flex: 1;
+        }
+    }
+}

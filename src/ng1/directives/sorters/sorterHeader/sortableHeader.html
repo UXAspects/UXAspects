@@ -1,0 +1,7 @@
+<th ng-repeat="header in vm.headers" class="{{ ::header.fixedClass }}" 
+    ng-class="{ 'text-center': header.center, 'clickable': header.sortable }" 
+    ng-click="vm.select(header)">
+
+    <p class="sortableHeader" ng-bind="header.sorterHeader" ng-style="{ width: vm.getIcon(header) == 'ng-hide' ? '100%' : 'calc(100% - 18px)' }"></p>
+    <i class="hpe-icon text-muted sortableHeaderIcon" ng-class="vm.getIcon(header)"></i>
+</th>

@@ -1,0 +1,47 @@
+<div class="organization-chart-container">
+    
+    <div class="organization-chart-breadcrumbs" ng-class="{ 'search-option': vm.options.search.enabled }">
+
+        <div class="organization-chart-hierarchy">
+
+            <hierarchy-bar data="vm.breadcrumbs" 
+                           options="vm.options.hierarchyBar" 
+                           select-node="vm.selectBreadcrumb" 
+                           container-class="organization-chart-hierarchy">
+           </hierarchy-bar>
+
+        </div>
+
+        <div class="organization-chart-search" ng-click="vm.searching = true">
+            <i class="hpe-icon hpe-search"></i>
+        </div>
+
+        <div class="organization-search-input" ng-if="vm.searching === true">
+            <div class="input-group">
+
+              <input type="text" class="form-control filter-text search-toolbar-input" 
+                     placeholder="{{ vm.options.search.placeholder }}" 
+                     ng-model="vm.searchQuery" 
+                     force-focus 
+                     typeahead="item for item in vm.getSearchItems($viewValue) | limitTo: 8" 
+                     typeahead-template-url="{{ vm.options.search.template }}" 
+                     typeahead-input-formatter="vm.extractSearchName($model)" 
+                     typeahead-on-select="vm.searchSelect($model)"> 
+
+              <div class="input-group-btn">
+
+                <button type="button" class="btn btn-link button-secondary btn-sm expand-input-close cancel-search" 
+                        ng-click="vm.searching = false">
+                        Cancel
+                </button>
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="organization-chart">
+        <svg class="organization-links"></svg>
+        <div class="organization-nodes"></div>
+    </div>            
+</div>

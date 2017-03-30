@@ -1,0 +1,82 @@
+<uxd-detail-row-header-wrapper></uxd-detail-row-header-wrapper>
+
+<hr>
+
+<p>
+    A <code>detail-row-header</code> can be added to a detail row responsive table which will enable multi column sorting
+    and filtering on the table headers.
+    <br>
+    <br>
+    The options for creating the headers are specified using <code>headers</code> which should contain the following
+    attributes:
+</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">title</td>
+                <td>string</td>
+                <td>This is used to define the name on the column.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">class</td>
+                <td>string</td>
+                <td>This is used to define the class on the header for setting the width, this should match the class on each
+                    div in the table body.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">sort</td>
+                <td>string</td>
+                <td>This is used to define how the column will be sorted. If this is not defined the column will be unsortable.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">filter</td>
+                <td>string</td>
+                <td>This is used to define the url of the filter popover. If this is not defined the column will not include
+                    a filter. The filter template will have a scope containing a <code>closePopover</code> function which
+                    it can call to close the popover manually. The filter template scope will also receive the events <code>detailRowHeaderPopoverOpened</code>                    when the filter popover is opened, and <code>detailRowHeaderPopoverClosed</code> when it is closed.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>The sample code for the detail row header is as follows:</p>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Controller">
+        <uxd-snippet language="javascript" [code]="controllerCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Popover HTML">
+        <uxd-snippet language="html" [code]="popoverHtmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Popover Controller">
+        <uxd-snippet language="javascript" [code]="popoverControllerCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [code]="styleCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Data Service">
+        <uxd-snippet language="javascript" [code]="serviceCode"></uxd-snippet>
+    </tab>
+
+</tabset>

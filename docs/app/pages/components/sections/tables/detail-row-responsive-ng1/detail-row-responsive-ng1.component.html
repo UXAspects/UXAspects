@@ -1,0 +1,35 @@
+<uxd-detail-row-responsive-wrapper></uxd-detail-row-responsive-wrapper>
+
+<hr>
+
+
+<p>
+    Detail rows spanning columns can be added to responsive tables by adding <code>divs</code> with reponsive classes inside
+    the table row. Add <code>table</code> and <code>table-hover</code> classes to the <code>table</code> element.
+</p>
+
+<p>
+    The first <code>div</code> represents the tabulated columns and their data. The next <code>div</code> represents the
+    detail row that spans mulitple columns but is considered within the same table row.
+</p>
+
+<p>
+    Add any of the <code>col-xs-*</code>, <code>col-sm-*</code>, <code>col-md-*</code> <code>col-lg-*</code> classes to the
+    inner <code>div</code> element to achieve responsiveness.
+</p>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Controller">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [code]="cssCode"></uxd-snippet>
+    </tab>
+
+</tabset>

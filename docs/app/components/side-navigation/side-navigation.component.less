@@ -1,0 +1,58 @@
+@import "../../assets/styles/variables.less";
+
+:host {
+    position: fixed;
+}
+
+.side-navigation-container {
+    padding-top: 1.5rem;
+}
+
+.side-navigation-section-title {
+    display: block;
+    padding: .25rem .75rem;
+    color: @side-navigation-title-color;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.side-navigation-list {
+    list-style-type: none;
+    padding-left: .75rem;
+
+    .side-navigation-list-item {
+        position: relative;
+        
+        .side-navigation-list-item-link {
+            display: block;
+            padding: 0.35rem 0.75rem;
+            color: @side-navigation-item-color;
+            font-size: 1rem;
+            text-decoration: none;
+
+            &.active {
+                color: @side-navigation-item-active-color;
+                font-weight: 600;
+                border-left: 2px solid @side-navigation-item-active-bg;
+            }
+
+            &:hover {
+                color: @side-navigation-item-hover;
+            }
+        }
+    }
+}
+
+.side-navigation-subsection-list {
+    list-style-type: none;
+    line-height: 1;
+    padding-left: 0;
+
+    .side-navigation-list-item {
+        .side-navigation-list-item-link {
+            padding: 0.25rem 1.5rem;
+            color: @side-navigation-subsection-item-color;
+            font-size: 0.9rem;
+        }
+    }
+}

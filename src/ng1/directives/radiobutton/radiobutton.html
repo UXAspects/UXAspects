@@ -1,0 +1,21 @@
+<label class="el-radiobutton-label" ng-click="vm.toggleChecked()">
+
+    <div class="el-radiobutton" 
+         tabindex="0"
+         ng-keydown="vm.keydown($event)"
+         ng-class="{ 'checked': vm.ngModel === vm.ngValue, 'simplified': vm.simplified, 'disabled': vm.ngDisabled }">
+
+         <input type="radio"
+           role="radio" 
+           aria-checked="{{ vm.ngModel }}"
+           aria-disabled="{{ vm.ngDisabled }}"
+           name="{{ ::vm.name }}" 
+           ng-model="vm.ngModel" 
+           ng-value="vm.ngValue" 
+           tabindex="-1"
+           ng-disabled="vm.ngDisabled"
+           id="{{ ::vm.id }}" />
+    </div>
+
+    <div class="el-radiobutton-content" ng-transclude></div>
+</label>

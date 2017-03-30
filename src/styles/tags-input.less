@@ -1,0 +1,205 @@
+
+tags-input {
+  display: block;
+}
+tags-input *, tags-input *:before, tags-input *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+tags-input {
+  .host {
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 100%;
+  }
+}
+tags-input {
+  .host {
+    &:active {
+      outline: none;
+    }
+  }
+}
+
+.body-dark {
+  tags-input .tags .tag-item {
+    border: 1px solid @tag-input-tag-border-dark;
+    background-color: @tag-input-tag-bg-dark;
+    color: @tag-input-tag-color-dark;
+  }
+}
+
+tags-input {
+  .tags {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    padding: 1px;
+    overflow: hidden;
+    word-wrap: break-word;
+    cursor: text;
+    border: 1px solid @tag-input-border;
+    height: 100%;
+    padding-top: 2px;
+    &.focused {
+      .aspects-outline;
+    }
+    .tag-list {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+    .tag-item {
+      margin: 2px 0 2px 6px;
+      padding: 5px 20px 3px 5px;
+      display: list-item;
+      float: left;
+      font: @font-size-lg @font-family;
+      font-weight: 400;
+      height: 25px;
+      line-height: 13px;
+      border: 1px solid @tag-input-tag-border;
+      background-color: @tag-input-tag-bg;
+      color: @tag-input-tag-color;
+      position: relative;
+      border-radius: @tag-input-tag-border-radius;
+      cursor: default;
+      list-style: none;
+      white-space: pre;
+      
+      .remove-button {
+        margin: 1px 0px 0px 5px;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+        vertical-align: middle;
+        font: bold 16px Arial, sans-serif;
+        color: @tag-item-remove-button-color;
+        position: absolute;
+        top: 6px;
+        right: 3px;
+        display: block;
+        width: 12px;
+        height: 12px;
+        background: url('../img/chosen-sprite.png') -42px 1px no-repeat;
+        font-size: 0.0625rem;
+
+        &:hover {
+          background-position: -42px -10px;
+        }
+
+        &:active {
+          color: @tag-item-remove-button-active-color;
+        }
+      }
+    }
+    .tag-item.selected {
+      background-color: @tag-input-tag-active-bg;
+      border: 1px solid @tag-input-tag-active-border;
+      color:@tag-input-tag-active-color;
+    }
+    .input {
+      border: 0;
+      outline: none;
+      margin: 2px;
+      padding: 0;
+      padding-left: 5px;
+      float: left;
+      height: 26px;
+      font: @font-size-lg @font-family;
+      background-color: transparent;
+
+      &.invalid-tag {
+        color: @tag-input-invalid;
+      }
+    }
+  }
+  &.ng-invalid {
+    .tags {
+      border-color: @tag-input-invalid;
+    }
+  }
+  .autocomplete {
+    margin-top: 5px;
+    position: absolute;
+    padding: 5px 0;
+    z-index: 999;
+    width: 100%;
+    max-height: 280px;
+    background-color: @tag-input-autocomplete-bg;
+    border: 1px solid @tag-input-autocomplete-border;
+
+    .suggestion-list {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      position: relative;
+    }
+
+    .suggestion-item {
+      padding: 5px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font: 16px @font-family, Helvetica, Arial, sans-serif;
+      color: @tag-input-autocomplete-color;
+      background-color: @tag-input-autocomplete-bg;
+
+      &.selected {
+        color: @tag-input-autocomplete-active-color;
+        background-color: @tag-input-autocomplete-active-bg;
+
+        em {
+          color: @tag-input-autocomplete-active-color;
+          background-color: @tag-input-autocomplete-active-bg;
+        }
+      }
+      em {
+        font: normal bold 16px @font-family;
+        color: @tag-input-autocomplete-color;
+        background-color: @tag-input-autocomplete-bg;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+tags-input .tags .input::-ms-clear {
+  display: none;
+}
+
+tags-input[disabled] {
+  .host:focus {
+    outline: none;
+  }
+  .tags {
+    background-color: @tag-input-disabled-bg;
+    cursor: default;
+
+    .tag-item {
+      opacity: 0.65;
+
+      .remove-button {
+        cursor: default;
+
+        &:active {
+          color: @tag-input-disabled-color;
+        }
+      }
+    }
+    .input {
+      background-color: @tag-input-disabled-bg;
+      cursor: default;
+    }
+  }
+}
+
+.tags-text-bold {
+  font-weight: bold;
+}
+
+.tags-text-small {
+  font-size: 0.75rem;
+}

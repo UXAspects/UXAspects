@@ -1,0 +1,333 @@
+{
+    "title": "Components",
+    "categories": [
+        {
+            "title": "Buttons",
+            "link": "buttons",
+            "sections": [
+                {
+                    "title": "Grouped Buttons",
+                    "component": "ComponentsGroupedButtonsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Toggle Buttons",
+                    "component": "ComponentsToggleButtonsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Floating Action Button",
+                    "component": "ComponentsFloatingActionButtonNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Pagination",
+                    "component": "ComponentsPaginationNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Single Toggle Button",
+                    "component": "ComponentsSingleToggleButtonNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Checkbox Buttons",
+                    "component": "ComponentsCheckboxButtonsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Radio Buttons",
+                    "component": "ComponentsRadioButtonsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Dropdown",
+                    "component": "ComponentsDropdownNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Thumbnail",
+                    "component": "ComponentsThumbnailNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Component List",
+            "link": "component-list",
+            "sections": [
+                {
+                    "title": "Component List",
+                    "component": "ComponentsComponentListNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Contacts",
+            "link": "contacts",
+            "sections": [
+                {
+                    "title": "Contacts",
+                    "component": "ComponentsContactsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Contacts Overflow",
+                    "component": "ComponentsContactsOverflowNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Draggable Cards",
+            "link": "draggable-cards",
+            "sections": [
+                {
+                    "title": "Draggable Cards",
+                    "component": "ComponentsDraggableCardsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Draggable Cards - List View Example",
+                    "component": "ComponentsDraggableCardsListViewNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Draggable Panels",
+            "link": "draggable-panels",
+            "sections": [
+                {
+                    "title": "Draggable Panels",
+                    "component": "ComponentsDraggablePanelsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Draggable Panels with Different Views",
+                    "component": "ComponentsDraggablePanelsViewsNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Facets",
+            "link": "facets",
+            "sections": [
+                {
+                    "title": "Facets",
+                    "component": "ComponentsFacetsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Dynamic Facets",
+                    "component": "ComponentsDynamicFacetsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Custom Facets",
+                    "component": "ComponentsCustomFacetsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Line Chart Example with Facet Panel",
+                    "component": "ComponentsFacetLineChartNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Programmatic Selection",
+                    "component": "ComponentsProgrammaticSelectionNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "File Upload",
+            "link": "file-upload",
+            "sections": [
+                {
+                    "title": "File Upload",
+                    "component": "ComponentsFileUploadNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Flippable Cards",
+            "link": "flippable-cards",
+            "sections": [
+                {
+                    "title": "Flippable Cards",
+                    "component": "ComponentsFlippableCardsNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Grid",
+            "link": "grid",
+            "sections": [
+                {
+                    "title": "Grid",
+                    "component": "ComponentsGridNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Help Center",
+            "link": "help-center",
+            "sections": [
+                {
+                    "title": "Help Center",
+                    "component": "ComponentsHelpCenterNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Hierarchy Bar",
+            "link": "hierarchy-bar",
+            "sections": [
+                {
+                    "title": "Hierarchy Bar",
+                    "component": "ComponentsHierarchyBarNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Input Controls",
+            "link": "input-controls",
+            "sections": [
+                {
+                    "title": "Checkbox",
+                    "component": "ComponentsCheckboxComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Toggle Switch",
+                    "component": "ComponentsToggleSwitchComponent",
+                    "version": "Angular"
+                }
+            ]
+        },
+        {
+            "title": "Tables",
+            "link": "tables",
+            "sections": [
+                {
+                    "title": "Detail Row Responsive Table",
+                    "component": "ComponentsDetailRowResponsiveNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Detail Row Header",
+                    "component": "ComponentsDetailRowHeaderNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Filters",
+                    "component": "ComponentsFiltersNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Dynamic Filters",
+                    "component": "ComponentsDynamicFiltersNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Indices",
+                    "component": "ComponentsIndicesNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Grouping",
+                    "component": "ComponentsGroupingNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Layout Switching",
+                    "component": "ComponentsLayoutSwitchingNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Fixed Header Table",
+                    "component": "ComponentsFixedHeaderTableNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "List Hover Actions",
+                    "component": "ComponentsListHoverActionsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Hover Actions",
+                    "component": "ComponentsHoverActionsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Preview Pane",
+                    "component": "ComponentsPreviewPaneNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Preview Pane Window",
+                    "component": "ComponentsPreviewPaneWindowNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Reorderable Table",
+                    "component": "ComponentsReorderableTableNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Multiple Selection Actions",
+                    "component": "ComponentsMultipleSelectActionsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Traditional Multiple Selection Actions",
+                    "component": "ComponentsTraditionalMultipleSelectActionsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Multiple Selection by Row",
+                    "component": "ComponentsMultipleSelectionRowNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Sorting",
+                    "component": "ComponentsSortingNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Sort Direction Toggle",
+                    "component": "ComponentsSortDirectionToggleNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Single Column Sorting",
+                    "component": "ComponentsSingleColumnSortingNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Multiple Column Sorting",
+                    "component": "ComponentsMultipleColumnSortingNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Column Visibility",
+                    "component": "ComponentsColumnVisibilityNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Custom Responsive Table",
+                    "component": "ComponentsCustomResponsiveTableNg1Component",
+                    "version": "AngularJS"  
+                }
+            ]
+        }
+    ]
+}

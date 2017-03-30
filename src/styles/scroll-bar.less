@@ -1,0 +1,195 @@
+.jspContainer
+{
+  overflow: hidden;
+  position: relative;
+}
+
+.hidden-navbar,.hide-navbar {
+  .navbar-static-side-container {
+    .jspContainer {
+      position: static;
+    }
+  }
+}
+
+.jspPane
+{
+  position: absolute;
+}
+
+.jspVerticalBar
+{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  background: transparent;
+}
+
+.jspHorizontalBar
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: transparent;
+}
+
+.jspCap
+{
+  display: none;
+}
+
+.jspHorizontalBar {
+  .jspCap {
+    float: left;
+  }
+}
+
+.jspTrack
+{
+  background: transparent;
+  position: relative;
+}
+
+.jspDrag
+{
+  background: @scrollbar-drag-bg;
+  position: relative;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  border-radius: @scrollbar-drag-border-radius;
+  width:6px;
+  left: 3px;
+
+}
+
+.jspHorizontalBar {
+  .jspTrack, .jspDrag {
+    float: left;
+    height: 100%;
+  }
+}
+
+.jspArrow
+{
+  background: @scrollbar-jsp-arrow-bg;
+  text-indent: -20000px;
+  display: block;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.jspArrow {
+  &.jspDisabled {
+    cursor: default;
+    background: @scrollbar-jsp-arrow-disabled-bg;
+  }
+}
+
+.jspVerticalBar {
+  .jspArrow {
+    height: 16px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.jspHorizontalBar {
+  .jspArrow {
+    width: 16px;
+    float: left;
+    height: 100%;
+  }
+}
+
+
+.jspCorner
+{
+  background: @scrollbar-jsp-corner-bg;
+  float: left;
+  height: 100%;
+}
+
+* html {
+  .jspCorner {
+    margin: 0 -3px 0 0;
+  }
+}
+
+
+.scroll-container {
+  .aspects-outline;
+}
+.navbar-static-side-container {
+  .jspDrag {
+    left:3px;
+    width:7px;
+  }
+}
+
+.scroll-pane, .jspScrollable{
+  outline: 0;
+}
+
+/*
+  Infinite Scroll
+*/
+
+.body-dark {
+  .infinite-scroll-load-button {
+    background-color: @infinite-scroll-load-button-bg-dark;
+
+    &:hover {
+      background-color: @infinite-scroll-load-button-hover-bg-dark;
+    }
+  }
+}
+
+.infinite-scroll-loading {
+  text-align: left;
+  height: 50px;
+  line-height: 50px;
+
+  .spinner {
+    margin-left: 25px;
+    margin-right: 20px;
+  }
+
+  .spinner-text {
+    font-family: 'Source Sans Pro';
+    font-size: 1rem;
+    opacity: 0.6;
+  }
+}
+
+.infinite-scroll-load-button {
+  width: 100%;
+  height: 50px;
+  background-color: @infinite-scroll-load-button-bg;
+  cursor: pointer;
+  text-align: center;
+  line-height: 50px;
+
+  &:hover {
+    background-color: @infinite-scroll-load-button-hover-bg;
+
+    .load-button-text {
+      color: @infinite-scroll-load-button-hover-color;
+      border-color: @infinite-scroll-load-button-hover-border;
+    }
+  }
+
+  .load-button-text {
+    display: inline-block;
+    font-size: 1.125rem;
+    color: @infinite-scroll-load-button-color;
+    border-bottom: 2px dotted @infinite-scroll-load-button-border;
+    line-height: 20px;
+  }
+}

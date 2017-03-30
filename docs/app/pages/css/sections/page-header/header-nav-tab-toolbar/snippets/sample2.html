@@ -1,0 +1,22 @@
+<div class="navbar-tabs">
+  <tabset type="tabs minimal-tab menu-tab">
+    <menu-tab tab-menu-content="vm.tabMenuContent"></menu-tab>
+    //tab will always be displayed on the tab bar
+    <tab> 
+        <tab-heading>
+            First Tab
+        </tab-heading>
+        <div>
+          //page content
+        </div>
+    </tab>
+    //these tabs will only display when selected from the menu
+    <tab class="hidden" ng-repeat="tab in vm.hiddenTabs"> 
+        <tab-heading ng-bind="tab">
+        </tab-heading>
+        <div>
+          //page content
+        </div>
+    </tab>
+  </tabset>
+</div>

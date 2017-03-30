@@ -1,0 +1,57 @@
+<p>Grouping can be very useful in a table view when you wish to rearrange a list of items in the following scenarios:</p>
+
+<ul>
+    <li>All family members are grouped together based on their parent, <strong>showing only the root parent</strong></li>
+    <li>All family members are grouped together based on their parent, <strong>showing the family hierarchy</strong></li>
+</ul>
+
+<p>
+    Each object in the list should be given a <code>unique ID</code>. Objects that act as children should be given a <code>parent ID</code>    which will be used to link it to its corresponding parent. Below is an example of how your object array should look:
+</p>
+
+<uxd-snippet language="javascript" [code]="idsCode"></uxd-snippet>
+
+<blockquote>
+    <p><strong>Note:</strong> Notice how last object has <code>parentId: 1</code>. This means that this object is a child of
+        the first object.</p>
+</blockquote>
+
+<p><strong>Showing only the root parent</strong></p>
+
+<p>
+    In order to group all family members together (showing only the root parents) you should include a function something similar
+    to our example below:
+</p>
+
+<uxd-snippet language="javascript" [code]="rootCode"></uxd-snippet>
+
+<p>
+    What we’re doing here is extracting all the root parents and children into 2 separate arrays and then traversing these arrays
+    to detect which parents have children. Those that do are given <code>hasChildren: true</code> property. This is optional
+    but is useful if you are wanting to display something for those parents that have children (e.g. <code>ng-show="item.hasChildren"</code>).
+</p>
+
+<p><br>
+    <strong>Showing the family hierarchy</strong></p>
+
+<p>
+    In order to group all family members together and construct the family hierarchy you should include a function similar to
+    our example below:
+</p>
+
+<uxd-snippet language="javascript" [code]="hierarchyCode"></uxd-snippet>
+
+<p>
+    Here we are doing something similar to the grouping function in that we extract all the root parents into a separate array.
+    We then traverse this array and find the children for each parent using the <code>findChildren</code> function. Each
+    <code>child</code> is then added to the <code>hierarchy</code> array and the <code>findChildren</code> function is called
+    recursively to find any children the <code>child</code> object may have. This results in a hierarchy that can consist
+    of infinite levels.
+</p>
+
+<blockquote>
+    <p>
+        Refer to the <a href="../../showcase/list_view/dist/#/listview/listview2">List View 2</a> showcase page to see a
+        working example.
+    </p>
+</blockquote>

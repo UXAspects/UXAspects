@@ -1,0 +1,34 @@
+<p>To include a Back Button within the Standard Header, add the <code>.back-button</code> class to the <code>nav</code> element.</p>
+<p>Within the section of the Standard Header which includes the “Breadcrumb and Heading” (see above), include a <code>div</code>    with the <code>.btn-back-header</code> class.</p>
+<p>Inside this, use the <code>back-button-header</code> directive to insert the Back Button. The <code>target-state</code>    attribute should be used to set the target page for the button. It is recommended that this button should link to the
+    previous level in the Breadcrumb trail.</p>
+<p>The div containing the Breadcrumb and other Heading items should be enclosed in a <code>div</code> with the <code>.header-content-left</code>    class.</p>
+<p>For applications wishing to reuse the same Standard Header on pages both with and without a Back Button, toggling the <code>.back-button</code>    class on the container will hide the Back Button.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCode"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+</tabset>
+
+<br>
+
+<p>To hide the Back Button on certain pages, introduce a global variable (inject as a global service or use <code>$rootScope</code>).
+    Show the element contained in the <code>btn-back-header</code> class depending on the value of this variable.</p>
+<p>Below is a sample code where the Back Button can be hidden when navigated to the Buttons page.</p>
+
+<blockquote>
+    <p><strong>Note</strong>: This code does not perform any action.</p>
+</blockquote>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCodeHide"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [code]="jsCodeHide"></uxd-snippet>
+    </tab>
+</tabset>

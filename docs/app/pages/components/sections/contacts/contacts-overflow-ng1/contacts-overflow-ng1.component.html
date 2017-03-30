@@ -1,0 +1,33 @@
+<uxd-contacts-overflow-wrapper></uxd-contacts-overflow-wrapper>
+
+<hr>
+
+<p>When there are many contacts to show, you may wish to truncate the display. To do this you can configure the overflow behaviour
+    for the Contacts Group control.</p>
+
+<p>Above is an example of the overflow segment, configured using the <code>max-contacts</code> and
+    <code>overflow-click</code> attributes. The <code>overflow-click</code>    handler in this example opens a modal dialog containing a scrolling view of the full list of contacts, but can be configured
+    as per application requirement.</p>
+
+<p>The following code was used to create this example:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCode" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="Javascript">
+        <uxd-snippet [code]="javascriptCode" language="javascript"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [code]="cssCode" language="css"></uxd-snippet>
+    </tab>
+    <tab heading="Modal HTML">
+        <uxd-snippet [code]="modalHtmlCode" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="Modal Javascript">
+        <uxd-snippet [code]="modalJavascriptCode" language="javascript"></uxd-snippet>
+    </tab>
+    <tab heading="Template HTML">
+        <uxd-snippet [code]="modalItemHtmlCode" language="html"></uxd-snippet>
+    </tab>
+</tabset>

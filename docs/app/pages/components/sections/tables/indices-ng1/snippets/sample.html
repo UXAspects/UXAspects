@@ -1,0 +1,6 @@
+<tr class="clickable single-select"
+        ng-repeat="item in vm.items"
+        auto-index="{{ { skip:3, offset:0 } }}"
+        display-panel-item="item.panel"
+        ng-click="vm.apply(item)"
+        shadow="true">

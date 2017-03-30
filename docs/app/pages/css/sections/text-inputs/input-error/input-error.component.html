@@ -1,0 +1,21 @@
+<div class="form-horizontal demo">
+    <div class="form-group has-error has-feedback">
+        <label class="col-sm-2 form-label control-label">Input with Error</label>
+
+        <div class="col-sm-6">
+            <input type="text" class="form-control" aria-describedby="inputError">
+            <span class="hpe-icon hpe-alert form-control-feedback" aria-hidden="true"></span>
+            <span id="inputError" class="sr-only">(error)</span>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<p>Ux Aspects includes a validation style for error. This can be achieved by adding <code>.has-error</code> along side <code>.form-group</code>. 
+Place an icon inside a <code>span.form-control-feedback</code> and add <code>.has-feedback</code> to the <code>.form-group</code> to display it.</p>
+
+<p>When conveying state it is important that they are also conveyed for users of assistive technologies. 
+We can use <code>aria-describedby</code> attribute along with the <code>.sr-only</code> to describe the state.</p>
+
+<uxd-snippet [code]="htmlCode"></uxd-snippet>

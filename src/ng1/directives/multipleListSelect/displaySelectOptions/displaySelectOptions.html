@@ -1,0 +1,19 @@
+<span ng-if="ds.state.selecting" class="selecting-text">
+        <span class="multiple-list-select-text">
+        <span ng-bind="ds.provider.selectItemsText" ng-if="ds.state.count===0"></span>
+        <span ng-if="ds.state.count>0">
+          <span ng-bind="ds.provider.selectedItemsText"></span>&nbsp;
+        <b ng-bind="ds.state.count"></b>&nbsp;
+        <span ng-if="ds.state.count>1" ng-bind="ds.provider.selectedItemsUnitText"></span>
+        <span ng-if="ds.state.count===1" ng-bind="ds.provider.selectedItemUnitText"></span>&nbsp;&nbsp;
+        </span>
+        </span>
+        <a href="" class="multiple-select-link" ng-click="ds.provider.selectAll();" ng-if="!ds.state.selectAllMode || ds.provider.deselectedItems.length">
+          <span ng-bind="ds.provider.selectAllText"></span>
+        </a>
+        <a href="" class="multiple-select-link" ng-click="ds.provider.selectNone();" ng-if="ds.state.selectAllMode && !ds.provider.deselectedItems.length">
+          <span ng-bind="ds.provider.selectNoneText"></span>
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      
+       </span>

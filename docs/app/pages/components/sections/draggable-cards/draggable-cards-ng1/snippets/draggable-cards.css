@@ -1,0 +1,40 @@
+.draggable-card-demo {
+    width: 400px;
+    height: 500px;
+}
+
+.card-content {
+    width: 100%;
+    height: 100%;
+    padding-top: 5px;
+}
+
+.card-content .chart-container {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    vertical-align: top;
+}
+
+.card-content .text-container {
+    display: inline-block;
+    width: calc(100% - 70px);
+    padding-left: 10px;
+}
+
+.card-content .text-container .status {
+    width: 100%;
+    height: 15px;
+    line-height: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #4b4d4e;
+}
+
+.card-content .text-container .description {
+    width: 100%;
+    height: 44px;
+    overflow: hidden;
+    font-size: 14px;
+}

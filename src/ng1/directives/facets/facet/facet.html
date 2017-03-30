@@ -1,0 +1,15 @@
+<div class="facet">
+
+  <a class="facet-header" href="" ng-click="fac.toggleExpand($event)" ng-keydown="fac.toggleExpandKey($event)" tabindex="1">
+    <span single-line-overflow-tooltip class="facet-name" ng-bind="name"></span>
+    <span class="pull-right hpe-icon" ng-class="{'hpe-down':fac.expanded,'hpe-previous':!fac.expanded}"></span>
+  </a>
+  <div ng-if="enableScroll" class="facet-scroll" scroll-config="fac.scrollConfig" scroll-pane scroll-name="facetScroll">
+    <ul class="facet-options" ng-transclude ng-show="fac.expanded">
+    </ul>
+  </div>
+  <div ng-if="!enableScroll">
+    <ul class="facet-options" ng-transclude ng-show="fac.expanded">
+    </ul>
+  </div>
+</div>

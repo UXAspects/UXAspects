@@ -1,0 +1,102 @@
+<div class="row m-b-xs">
+    <div class="col-sm-5">
+        <select class="input-sm form-control inline">
+        <option value="0">Option 1</option>
+        <option value="1">Option 2</option>
+        <option value="2">Option 3</option>
+        <option value="3">Option 4</option>
+      </select>
+    </div>
+    <div class="col-sm-4 ">
+        <div aria-label="Timespan" class="btn-group" data-toggle="buttons">
+            <label class="btn  btn-white btn-grouped">
+          <input id="option1" name="options" type="radio">
+          Day
+        </label>
+            <label class="btn btn-white btn-grouped active">
+          <input id="option2" name="options" type="radio">
+          Week
+        </label>
+            <label class="btn  btn-white btn-grouped">
+          <input id="option3" name="options" type="radio">
+          Month
+        </label>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <label class="sr-only" for="search">Search for</label>
+            <input class="input form-control" name="search" placeholder="Search" type="text">
+            <span class="input-group-btn">
+                  <button class="btn button-accent" type="button">
+                    Go</button>
+                </span>
+        </div>
+    </div>
+</div>
+<div class="horizontal-scrollbar">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Project</th>
+                <th>Completed</th>
+                <th>Task</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <checkbox ng-model="checked1"></checkbox>
+                </td>
+                <td>Elements
+                    <small>UI project</small>
+                </td>
+                <td>20</td>
+                <td>20%</td>
+                <td>Jul 14, 2013</td>
+                <td>
+                    <span class="hpe-icon hpe-checkmark text-secondary"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <checkbox ng-model="checked2"></checkbox>
+                </td>
+                <td>Hardware project</td>
+                <td>4</td>
+                <td>40%</td>
+                <td>Jul 16, 2013</td>
+                <td>
+                    <span class="hpe-icon hpe-checkmark text-secondary"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <checkbox ng-model="checked3"></checkbox>
+                </td>
+                <td>Cloud project</td>
+                <td>9</td>
+                <td>75%</td>
+                <td>Jul 18, 2013</td>
+                <td>
+                    <span class="hpe-icon hpe-checkmark text-secondary"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <checkbox ng-model="checked4"></checkbox>
+                </td>
+                <td>Client project</td>
+                <td>34</td>
+                <td>18%</td>
+                <td>Jul 22, 2013</td>
+                <td>
+                    <span class="hpe-icon hpe-checkmark text-secondary"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

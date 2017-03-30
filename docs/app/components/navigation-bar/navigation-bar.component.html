@@ -1,0 +1,15 @@
+<div class="container p-nil">
+
+    <img [src]="brand.logo" class="navigation-bar-logo">
+    <a class="navigation-bar-brand" routerLink="/landing">{{ brand.title }}</a>
+
+    <div class="navigation-bar-items hidden-md hidden-sm hidden-xs">
+        
+        <a class="navigation-bar-item" *ngFor="let link of links" [routerLink]="link.link" routerLinkActive="active">{{ link.title }}</a>
+        <div class="navigation-bar-spacer"></div>
+        <a class="navigation-bar-item" *ngFor="let link of social" [routerLink]="link.link" routerLinkActive="active">{{ link.title }}</a>
+        <uxd-navigation-bar-search></uxd-navigation-bar-search>
+
+    </div>
+
+</div>

@@ -1,0 +1,49 @@
+<uxd-form-validation-on-submit-wrapper></uxd-form-validation-on-submit-wrapper>
+
+<hr>
+
+<p>The form demonstrated above can be used to validate each field when the user clicks the ‘Submit’ button. 
+The user will be shown any affected fields with focus being on the first affected field.</p>
+
+<p>If you wish you use a Form with Validation on submit, any <code>div</code> tag which contains an <code>input</code> that requires validation 
+must implement the <code>form-group-validate-on-submit</code> class, rather than the ‘form-group-validate’ class used for field-by-field validation.</p>
+
+<p>Inputs requiring validation must set the <code>ng-class</code> attribute, applying the <code>on-submit</code> class only when the form has been submitted i.e. <code>submitted=true</code>. 
+<code>submitted</code> is only set to true when the ‘Submit’ button has been clicked, as seen in our HTML sample below.</p>
+
+<p>When the submit button is initially clicked and there are fields with errors, it will be disabled until each field is corrected.</p>
+
+<blockquote>
+  <p><strong>Note</strong>: you must set the <code>ng-class</code> attribute and only apply the <code>disabled</code> class when the form has been submitted but still has errors (<code>$invalid</code>), for this to work correctly.</p>
+</blockquote>
+
+<p>See the above documentation on field-by-field validation for information on how to show error text and error icons, 
+however you must also add <code>submitted</code> to the <code>ng-show</code> expression to only show these when the form has been submitted.</p>
+
+<p>Notice how the ‘Telephone’ input field involves setting a <code>pattern</code> attribute that makes the field invalid unless the user input follows that pattern.</p>
+
+<p>The HTML code below shows how to implement the form used above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCode"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+</tabset>
+
+<br>
+
+<blockquote>
+  <p><strong>Note</strong>: if you wish to disable the default validation error text (which appears as a tooltip), 
+you must give your form a unique ID as seen in the HTML sample above. You must then put the code seen in the Javascript tab into your controller, 
+specifying the form ID as the <code>.element</code> parameter. We use a <code>$timeout</code> to ensure the page has fully loaded before executing the code.</p>
+</blockquote>
+
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+<p>Button dropdown open: <em ng-bind="vm.buttonOpen" class="ng-binding">false</em>. Split dropdown open: <em ng-bind="vm.splitOpen" class="ng-binding">false</em>.</p>
+
+<div class="m-t m-b">
+    <div class="btn-group" dropdown is-open="vm.buttonOpen">
+        <button type="button" class="btn button-primary dropdown-toggle" dropdown-toggle aria-haspopup="true" aria-expanded="false">
+            Button dropdown <span class="hpe-icon hpe-down dropdown-icon-inline"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a ng-click="$event.stopPropagation()">
+                    <radiobutton name="radio1" ng-model="vm.radioModel1" ng-value="vm.radioOptions.option1">
+                        Radio Option 1
+                    </radiobutton>
+                </a>
+            </li>
+            <li class="dropdown-indent">
+                <a ng-click="$event.stopPropagation()">
+                    <checkbox name="check1" ng-model="vm.checkModel1.option1" ng-disabled="vm.radioModel1 != vm.radioOptions.option1">
+                        Checkbox A
+                    </checkbox>
+                </a>
+            </li>
+            <li class="dropdown-indent">
+                <a ng-click="$event.stopPropagation()">
+                    <checkbox name="check2" ng-model="vm.checkModel1.option2" ng-disabled="vm.radioModel1 != vm.radioOptions.option1">
+                        Checkbox B
+                    </checkbox>
+                </a>
+            </li>
+            <li>
+                <a ng-click="$event.stopPropagation()">
+                    <radiobutton name="radio1" ng-model="vm.radioModel1" ng-value="vm.radioOptions.option2">
+                        Radio Option 2
+                    </radiobutton>
+                </a>
+            </li>
+        </ul>
+    </div>
+    &nbsp;
+    <div class="btn-group" dropdown is-open="vm.splitOpen">
+        <button type="button" class="btn button-secondary">Split dropdown</button>
+        <button type="button" class="btn button-secondary dropdown-toggle" dropdown-toggle aria-haspopup="true" aria-expanded="false">
+            <span class="hpe-icon hpe-down"></span>
+            <span class="sr-only">Split button</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a>Action</a></li>
+            <li><a>Another action</a></li>
+            <li><a>Something else here</a></li>
+            <li class="divider"></li>
+            <li><a>Separated link</a></li>
+        </ul>
+    </div>
+</div>

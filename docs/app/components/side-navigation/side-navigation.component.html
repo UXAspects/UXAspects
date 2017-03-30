@@ -1,0 +1,12 @@
+<h4 class="side-navigation-section-title">{{ navigation.title }}</h4>
+
+<ul class="side-navigation-list">
+    <li class="side-navigation-list-item" *ngFor="let category of navigation.categories">
+        <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive">{{ category.title }}</a>
+        <ul *ngIf="rla.isActive" class="side-navigation-subsection-list">
+            <li class="side-navigation-list-item" *ngFor="let section of category.sections">
+                <a class="side-navigation-list-item-link" (click)="goToSection(category.link, section.component)">{{ section.title }}</a>
+            </li>
+        </ul>
+    </li>
+</ul>

@@ -1,0 +1,51 @@
+.team-member-container {
+    display: flex;
+    margin-top: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.team-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+}
+
+.team-member-avatar {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.team-member-name {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.team-member-email {
+    font-weight: 300;
+}
+
+.team-member-social-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 45px;
+
+    .team-member-social-link {
+        font-size: 2.1875rem;
+        color: #676a6c;
+        opacity: 0.7;
+        cursor: pointer;
+        transition: .3s ease-in-out;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

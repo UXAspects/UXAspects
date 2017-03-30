@@ -1,0 +1,36 @@
+<div class="table-container">
+  <table class="table table-hover treegrid" keyboard-navigable-table>
+    <thead>
+      <tr class="table-header-dark">
+        <th ng-repeat="column in vm.columns" ng-class="column.headerClass" ng-style="{'width': column.width}">
+          <span ng-class="{'treegrid-expand-header': $first}" ng-bind="column.name"></span>
+        </th>
+      </tr>
+    </thead>
+    <tbody ng-if="!vm.loading">
+      <tr ng-repeat="row in vm.getGridRows()" class="clickable hover-actions" multiple-row-select-item="row.dataItem" treegrid-row-key-handler treegrid-expand="vm.expand(row)" treegrid-contract="vm.contract(row)" ng-focus="vm.rowFocus(row, $event)" tabindex="-1">
+        <td ng-repeat="col in vm.columns" ng-class="col.cellClass">
+          <span ng-if="$first" class="treegrid-indent" ng-class="row.levelClass"></span>
+          <span ng-if="$first" class="treegrid-expand">
+            <span ng-if="row.canExpand && !row.expanding" class="treegrid-expand-toggle" ng-click="vm.expanderClick(row, $event)" ng-mousedown="$event.preventDefault()">
+              <i ng-if="row.expander.type === 'class'" ng-class="vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)"></i>
+              <img ng-if="row.expander.type === 'url'" ng-src="{{row.expanded ? row.expander.expanded : row.expander.contracted}}" alt="expander" />
+            </span>
+            <span ng-if="row.expanding" class="treegrid-expand-toggle" tooltip="Loading">
+              <i ng-if="row.expander.type === 'class'" ng-class="vm.iconClass(row.expander.expanding)"></i>
+              <img ng-if="row.expander.type === 'url'" ng-src="{{row.expander.expanding}}" alt="expander" />
+            </span>
+          </span>
+          <span ng-if="$first" class="treegrid-icon">
+            <i ng-if="row.icon.type === 'class'" class="hpe-icon" ng-class="row.icon.get(row.dataItem, row.expanded)"></i>
+            <img ng-if="row.icon.type === 'url'" ng-src="{{row.icon.get(row.dataItem, row.expanded)}}" alt="icon" />
+          </span>
+          <treegrid-cell row="row" column="col"></treegrid-cell>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div ng-if="vm.loading" class="treegrid-loading">
+    Loading...
+  </div>
+</div>

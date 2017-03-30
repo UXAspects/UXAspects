@@ -1,0 +1,17 @@
+<div class="ux-checkbox" tabindex="0"
+    [class.ux-checked]="value == true"
+    [class.ux-indeterminate]="value == indeterminateValue"
+    [class.ux-simplified]="simplified == true"
+    [class.ux-disabled]="disabled == true"
+    (keypress)="keyDown($event)">
+
+    <input type="checkbox" role="checkbox" tabindex="-1"
+        [name]="name" 
+        [checked]="value" 
+        [disabled]="disabled" />
+        
+</div>
+
+<div class="ux-checkbox-content">
+    <ng-content></ng-content>
+</div>

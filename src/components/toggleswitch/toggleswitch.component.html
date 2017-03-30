@@ -1,0 +1,21 @@
+<div class="ux-toggleswitch" 
+  tabindex="0"
+  (keydown)="keydown($event)"
+  [class.checked]="value === true"
+  [class.disabled]="disabled === true">
+
+  <span class="ux-toggleswitch-bg"></span>
+  
+  <span class="ux-toggleswitch-nub"></span>
+
+  <input type="checkbox" 
+    role="checkbox"
+    [name]="name" 
+    [checked]="value === true"
+    [disabled]="disabled === true"
+    tabindex="-1" />
+</div>
+
+<div class="ux-toggleswitch-content">
+  <ng-content></ng-content>
+</div>

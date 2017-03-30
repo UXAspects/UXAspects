@@ -1,0 +1,27 @@
+<uxd-page-header header="Blog" description="Discussions and announcements from the UX Aspects team"></uxd-page-header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 m-t">
+            
+            <ux-ebox class="blog-post-box" *ngFor="let post of posts">
+                
+                <ux-ebox-header>
+                    <h3 class="blog-post-title">{{ post.title }}</h3>
+                    <p class="blog-post-info">by <span class="blog-post-author">{{ post.author }}</span> <span class="blog-post-separator">.</span> {{ post.datestamp }}</p>
+                    <div class="blog-post-category">
+                        <div class="label label-accent">{{ post.category }}</div>
+                    </div>
+                </ux-ebox-header>
+
+                <ux-ebox-content>
+                    <div class="blog-post-content" [class.blog-post-content-expanded]="post.expanded" [innerHtml]="post.content"></div>
+
+                    <a href="" class="hyperlink blog-post-expand-link" (click)="togglePost(post, $event)">{{ post.expanded ? 'Show less' : 'Show more' }}</a>
+                </ux-ebox-content>
+
+            </ux-ebox>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="btn-group">
+    <button class="btn button-secondary dropdown-toggle" data-toggle="dropdown">Action
+        <i class="hpe-icon hpe-down" aria-hidden="true"></i>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="#/" (click)="clicked($event)"><i class="hpe-icon hpe-checkmark hpe-fw text-muted" aria-hidden="true"></i>&nbsp; Approve</a></li>
+        <li><a href="#/" (click)="clicked($event)"><i class="hpe-icon hpe-close hpe-fw text-muted" aria-hidden="true"></i>&nbsp; Reject</a></li>
+        <li><a href="#/" (click)="clicked($event)"><i class="hpe-icon hpe-edit hpe-fw text-muted" aria-hidden="true"></i>&nbsp; Edit</a></li>
+
+    </ul>
+</div>
+
+<hr>
+
+<p>Fixed width icons are useful when different width icons are causing misalignment. Use the <code>.hpe-fw</code> class.</p>
+
+<uxd-snippet [code]="htmlCode"></uxd-snippet>

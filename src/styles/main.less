@@ -1,0 +1,200 @@
+html {
+  height: 100%;
+  -ms-overflow-style: scrollbar;
+  font-size: @font-size-base;
+}
+
+body {
+  color: @text-color;
+  font-size: @font-size;
+  font-family: @font-family;
+  position: relative;
+  font-weight: @font-weight;
+}
+
+html,
+body,
+.wrapper {
+  min-height: 100%;
+}
+
+code {
+ font-size: 75%;
+}
+
+td > code {
+  word-break: break-word;
+}
+
+.body-dark {
+  code {
+    background: @code-bg-dark;
+  }
+}
+
+a {
+  &:hover, &:focus {
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.page-content {
+  margin-left: @sidebar-width;
+  min-height: 100%;
+}
+
+.container-max {
+  max-width: 1000px;
+}
+
+.container-left {
+  margin-left: 0;
+}
+
+.container-right {
+  margin-right: 0;
+}
+
+.row-divider {
+  height: 1px;
+  margin: 9px 0px;
+  overflow: hidden;
+  background-color: @border-color;
+}
+.body-dark {
+  .row-divider {
+    background-color: @row-divider-bg-dark;
+  }
+}
+
+.form-control,
+.form-control:focus,
+.has-error .form-control:focus,
+.has-success .form-control:focus,
+.has-warning .form-control:focus,
+.navbar-collapse,
+.navbar-form,
+.navbar-form-custom .form-control:focus,
+.navbar-form-custom .form-control:hover,
+.open .btn.dropdown-toggle,
+.panel,
+.popover,
+.progress,
+.progress-bar {
+  box-shadow: none;
+}
+
+.ui-draggable {
+  .hpebox-title, .ebox-title {
+    cursor: move;
+  }
+}
+
+.breadcrumb {
+  background-color: transparent;
+  padding: 0px 0px;
+  margin-bottom: 0;
+  font-family: @font-family;
+  font-size: 0.875rem;
+  font-weight: 400;
+  li {
+    a, span {
+    .opacity(0.7);
+    }
+  }
+  height: 100%;
+  min-height: 22px;
+}
+
+.breadcrumb > li a,
+.breadcrumb>li:after {
+  color: inherit;
+}
+.breadcrumb > li a:hover {
+  color: @primary;
+  opacity: 1;
+}
+
+.breadcrumb > li:before,
+.breadcrumb > li:last-child:after{
+  display:none;
+}
+
+.breadcrumb > li:after {
+  content: "\f226";
+  padding: 5px 2px 0px 0px;
+  color: inherit;
+  font-family: "hpe-icons";
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0.6875rem;
+  .rotate(90deg);
+  .opacity(0.4);
+}
+
+.breadcrumb-inverse {
+  background-color: @white;
+  color: @grey2;
+}
+
+.border-bottom {
+  border-bottom: 1px solid @border-color !important;
+}
+
+// HP Content Wrappers
+.wrapper-content {
+  padding: 20px 20px 40px;
+}
+
+.page-wrapper-cover {
+  margin: 0px !important;
+}
+
+.page-heading {
+  width: 100%;
+  padding: 9px 0px 2px 23px;
+  z-index: @stacking-context-z-index;
+}
+
+ul, ol {
+  &.unstyled {
+    list-style: none outside none;
+    margin-left: 0;
+  }
+}
+
+.no-overflow
+{
+  overflow: hidden !important;
+}
+
+.full-height
+{
+  height: 100%;
+}
+
+.full-width
+{
+  width: 100%;
+}
+
+.footer {
+  &.condensed-panel {
+    &.hidden-navbar, &.hide-navbar {
+      .page-heading {
+        margin-top:-8px;
+      }
+    }
+    .page-heading {
+      margin-top:-8px;
+    }
+  }
+}
+
+/* CODEPEN */
+body > div#ux-codepen-container {
+  padding: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}

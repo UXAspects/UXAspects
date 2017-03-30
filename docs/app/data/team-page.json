@@ -1,0 +1,75 @@
+{
+    "team": [
+        {
+            "name": "Ashley Hunter",
+            "email": "ashley-glenn.hunter@hpe.com",
+            "avatar": "assets/img/team/ashley.jpg",
+            "social": [
+                {
+                    "icon": "hpe-social-twitter",
+                    "url": "https://twitter.com/ashh640"
+                },
+                {
+                    "icon": "hpe-mail",
+                    "url": "mailto:ashley-glenn.hunter@hpe.com"
+                },
+                {
+                    "icon": "hpe-social-github",
+                    "url": "https://github.com/ashh640"
+                }
+            ]
+        },
+        {
+            "name": "Donna Worby",
+            "email": "donna.worby@hpe.com",
+            "avatar": "assets/img/team/donna.jpg",
+            "social": [
+                {
+                    "icon": "hpe-mail",
+                    "url": "mailto:donna.worby@hpe.com"
+                }
+            ]
+        },
+        {
+            "name": "Alastair McKee",
+            "email": "alastair.ian.mckee@hpe.com",
+            "avatar": "assets/img/team/alastair.jpg",
+            "social": [
+                {
+                    "icon": "hpe-social-twitter",
+                    "url": "http://twitter.com/mckee_alastair"
+                },
+                {
+                    "icon": "hpe-mail",
+                    "url": "mailto:alastair.ian.mckee@hpe.com"
+                },
+                {
+                    "icon": "hpe-social-github",
+                    "url": "http://github.com/a-mckee"
+                }
+            ]
+        },
+        {
+            "name": "Pearse McMurray",
+            "email": "pearse.mcmurray@hpe.com",
+            "avatar": "assets/img/team/user.png",
+            "social": [
+                {
+                    "icon": "hpe-mail",
+                    "url": "mailto:pearse.mcmurray@hpe.com"
+                }
+            ]
+        },
+        {
+            "name": "Roland Penny",
+            "email": "roland.penny@hpe.com",
+            "avatar": "assets/img/team/roland.jpg",
+            "social": [
+                {
+                    "icon": "hpe-mail",
+                    "url": "mailto:roland.penny@hpe.com"
+                }
+            ]
+        }
+    ]
+}

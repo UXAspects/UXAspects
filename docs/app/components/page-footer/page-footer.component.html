@@ -1,0 +1,25 @@
+<div class="container">
+
+    <div class="row page-footer-columns">
+        
+        <div class="col-12 col-md-2 col-sm-4 col-xs-6" *ngFor="let column of columns">
+            <h4 class="page-footer-column-title">{{ column.title }}</h4>
+
+            <a class="page-footer-column-link" *ngFor="let link of column.links" [routerLink]="link.link">{{ link.title }}</a>
+        </div>
+
+    </div>
+
+    <div class="row page-footer-bottom">
+        <div class="col-12 col-md-4 col-sm-12 col-xs-12">
+            <p class="page-footer-copyright-notice">© {{ year }} {{ copyright }}</p>
+        </div>
+        <div class="col-12 col-md-4 col-sm-12 col-xs-12">
+            <img class="page-footer-brand-logo" [src]="logo">
+        </div>
+        <div class="col-12 col-md-4 col-sm-12 col-xs-12">
+            <a class="page-footer-feedback-link" [href]="feedback.link">{{ feedback.title }}</a>
+        </div>
+    </div>
+
+</div>

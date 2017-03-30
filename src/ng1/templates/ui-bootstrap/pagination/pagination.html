@@ -1,0 +1,21 @@
+<ul class="pagination">
+  <li ng-if="boundaryLinks" ng-class="{disabled: noPrevious()}">
+    <a href ng-click="selectPage(1)" tabindex="{{tabIndex+1}}" class="btn">{{getText('first')}}</a>
+  </li>
+  <li ng-if="directionLinks" ng-class="{disabled: noPrevious()}">
+    <a href ng-click="selectPage(page - 1)" tabIndex="{{tabIndex+1}}" class="btn">
+      <i class="hpe-icon hpe-previous"></i>
+      <span class="sr-only">{{getText('previous')}}</span>
+    </a>
+  </li>
+  <li ng-repeat="page in pages track by $index" ng-class="{active: page.active}">
+    <a href ng-click="selectPage(page.number)" tabIndex="{{tabIndex+1+$index}}" class="btn">{{page.text}}</a>
+  </li>
+  <li ng-if="directionLinks" ng-class="{disabled: noNext()}">
+    <a href ng-click="selectPage(page + 1)" tabIndex="{{tabIndex+totalPages}}" class="btn">
+      <i class="hpe-icon hpe-next"></i>
+      <span class="sr-only">{{getText('next')}}</span></a></li>
+  <li ng-if="boundaryLinks" ng-class="{disabled: noNext()}">
+    <a href ng-click="selectPage(totalPages)" tabIndex="{{tabIndex+totalPages}}" class="btn">{{getText('last')}}</a>
+  </li>
+</ul>

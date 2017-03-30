@@ -1,0 +1,32 @@
+<div class="form-horizontal demo">
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="input-group  m-b">
+                <input type="text" class="form-control"/>
+
+                <div class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn button-secondary dropdown-toggle" type="button"
+                            aria-expanded="false" id="dropDown1">Action <i class="hpe-icon hpe-down" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-right" aria-labelledby="dropDown1" role="menu">
+                        <li><a href="#/" (click)="clicked($event)">Action</a>
+                        </li>
+                        <li><a href="#/" (click)="clicked($event)">Another action</a>
+                        </li>
+                        <li><a href="#/" (click)="clicked($event)">Something else here</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="#/" (click)="clicked($event)">Separated link</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<p>Adding a dropdown after an <code>input</code> is exactly the same as a button.</p>
+
+<uxd-snippet [code]="htmlCode"></uxd-snippet>

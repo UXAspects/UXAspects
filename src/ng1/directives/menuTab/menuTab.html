@@ -1,0 +1,17 @@
+<div class="btn-group align-left menu-tab" dropdown>
+    <div dropdown-toggle>
+        <button type="button" class="btn btn-icon btn-circular button-secondary menu-tab-btn" ng-click="resizeDropdown()">
+            <i class="hpe-icon hpe-more" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <ul class="dropdown-menu" role="menu">
+        <div class="arrow">
+            <div class="arrow-inner"></div>
+        </div>
+        <div class="align-left content" ng-repeat="column in tabMenuContent">
+            <li><p ng-bind="column.title"></p></li>
+            <li ng-repeat="content in column.content"><a class="hyperlink-hover" ng-bind="content" ng-click="addTag(content)"></a></li>
+        </div>
+    </ul>
+</div>

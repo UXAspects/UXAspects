@@ -1,0 +1,57 @@
+@import "../../assets/styles/variables.less";
+
+:host {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: @page-footer-bg;
+    margin-top: 35px;
+}
+
+.page-footer-columns {
+    height: 110px;
+
+    .page-footer-column-title {
+        color: @page-footer-header-color;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+
+    .page-footer-column-link {
+        display: table;
+        color: @page-footer-color;
+        text-decoration: none;
+        font-size: 0.875rem;
+        margin-bottom: 5px;
+    }
+}
+
+.page-footer-bottom {
+    padding-bottom: 10px;
+
+    .page-footer-copyright-notice {
+        color: @page-footer-header-color;
+        height: 42px;
+        padding-top: 10px;
+        margin-bottom: 0;
+    }
+
+    .page-footer-brand-logo {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .page-footer-feedback-link {
+        display: block;
+        text-align: right;
+        color: @page-footer-header-color;
+        text-decoration: none;
+        height: 42px;
+        padding-top: 10px;
+        margin-bottom: 0;
+    }
+}

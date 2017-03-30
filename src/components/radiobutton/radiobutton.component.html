@@ -1,0 +1,18 @@
+<div class="ux-radio-button" tabindex="0"
+    [class.ux-checked]="model === value"
+    [class.ux-simplified]="simplified === true"
+    [class.ux-disabled]="disabled === true"
+    (keypress)="keyDown($event)">
+
+    <input type="radio" role="radio" tabindex="-1"
+        [name]="name" 
+        [checked]="model === value" 
+        [disabled]="disabled"
+        [value]="value"
+        [id]="id" />
+        
+</div>
+
+<div class="ux-radio-button-content">
+    <ng-content></ng-content>
+</div>

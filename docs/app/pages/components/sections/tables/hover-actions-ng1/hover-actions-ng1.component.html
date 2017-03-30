@@ -1,0 +1,92 @@
+<uxd-hover-actions-wrapper></uxd-hover-actions-wrapper>
+
+<hr>
+
+
+<p>Hover actions are very similar to list hover actions, however they are not limited to use within a <code>table</code>. Hover
+    actions can be used inside any element, and once that element is hovered over the hover actions will appear and can be
+    clicked or navigated to using the arrow key and also allow selection using the return key.</p>
+
+<p>To add hover actions to an element add the <code>hover-actions</code> directive. This can have the following attribute:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Binding</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">hover-element</td>
+                <td>string</td>
+                <td>literal</td>
+                <td>This should specify a CSS selector that defines which parent element should be hovered to show the hover
+                    actions. If this is not specified, the immediate parent will be set as the hover element.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>To add hover actions add <code>hover-action</code> directives to the <code>hover-actions</code> directive. A <code>hover-action</code>    can use the following attributes to configure it’s appearance:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Binding</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">name</td>
+                <td>string</td>
+                <td>literal</td>
+                <td>The name of the action, placed in a tooltip that is shown when the action is hovered.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">icon</td>
+                <td>string</td>
+                <td>literal</td>
+                <td>The icon class from the icon set.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">click</td>
+                <td>function</td>
+                <td>variable</td>
+                <td>This expression will be evaluated when the action is clicked or enter is pressed when it has focus.</td>
+                <td>false</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [code]="cssCode"></uxd-snippet>
+    </tab>
+
+</tabset>
+
+
+<br>
+
+<blockquote>
+    <p>Refer to the <a routerLink="/components/panels" fragment="ComponentsCollapsiblePanelsNg1Component">Collapsible Panels</a> page for an example of hover actions.</p>
+</blockquote>

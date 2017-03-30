@@ -1,0 +1,13 @@
+<facet-container select-title="Selected:" clear-text="Clear All">
+      <!--...-->
+    <facet-custom name=" 'DATE MODIFIED' " select="vm.dateFacetSelect" deselect="vm.dateFacetDeselect" model="vm.date" display="vm.dateFacetDisplayFn">
+        <div class="input-group date m-nil" style="padding: 10px;">
+            <span class="input-group-addon" ng-click="vm.dateFacetOpen($event)">
+              <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" ng-model="vm.date" datepicker-popup="dd MMMM yyyy"
+            ng-click="vm.dateFacetOpen($event)" is-open="vm.dateFacetOpened" aria-label="Selected date">
+        </div>
+    </facet-custom>
+     <!--...-->
+</facet-container>

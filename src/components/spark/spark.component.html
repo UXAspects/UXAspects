@@ -1,0 +1,46 @@
+<!-- Inline Spark Chart -->
+<div *ngIf="inlineLabel" class="ux-spark-inline-label-container">
+
+    <div class="ux-spark-inline-label-left" [innerHtml]="inlineLabel"></div>
+
+    <div class="ux-spark-line">
+
+        <div class="ux-spark-top-container" *ngIf="topLeftLabel || topRightLabel">
+            <div class="ux-spark-label-top-left" *ngIf="topLeftLabel" [innerHtml]="topLeftLabel"></div>
+            <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
+        </div>
+
+        <div class="ux-spark ux-inline" [style.height.px]="fillHeight" [style.backgroundColor]="trackColor">
+            <div class="ux-spark-bar" [style.width]="(value < 100 ? value : 100) + '%'" [style.backgroundColor]="barColor"></div>
+        </div>
+
+        <div class="ux-spark-bottom-container" *ngIf="bottomLeftLabel || bottomRightLabel">
+            <div class="ux-spark-label-bottom-left" *ngIf="bottomLeftLabel" [innerHtml]="bottomLeftLabel"></div>
+            <div class="ux-spark-label-bottom-right" *ngIf="bottomRightLabel" [innerHtml]="bottomRightLabel"></div>
+        </div>
+
+    </div>
+</div>
+
+<!-- End Inline Spark Chart -->
+
+
+<!-- Non Inline Spark Chart -->
+<div *ngIf="!inlineLabel">
+
+    <div class="ux-spark-top-container" *ngIf="topLeftLabel || topRightLabel">
+        <div class="ux-spark-label-top-left" *ngIf="topLeftLabel" [innerHtml]="topLeftLabel"></div>
+        <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
+    </div>
+
+    <div class="ux-spark" [style.height.px]="fillHeight" [style.backgroundColor]="trackColor">
+        <div class="ux-spark-bar" [style.width]="(value < 100 ? value : 100) + '%'" [style.backgroundColor]="barColor"></div>
+    </div>
+
+    <div class="ux-spark-bottom-container" *ngIf="bottomLeftLabel || bottomRightLabel">
+        <div class="ux-spark-label-bottom-left" *ngIf="bottomLeftLabel" [innerHtml]="bottomLeftLabel"></div>
+        <div class="ux-spark-label-bottom-right" *ngIf="bottomRightLabel" [innerHtml]="bottomRightLabel"></div>
+    </div>
+</div>
+
+<!-- End Non Inline Spark Chart -->

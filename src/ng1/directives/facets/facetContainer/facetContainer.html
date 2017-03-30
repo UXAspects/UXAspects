@@ -1,0 +1,17 @@
+ <div class="facets-container">
+  <div class="facets-selected-container clearfix" ng-if="fc.selected.length > 0 || fc.noItemsText">
+    <div class="facets-selected-title">{{fc.selectTitle}}
+      <a  ng-if="fc.selected.length > 0" class="facets-selected-clear pull-right" href="" ng-click="fc.clearAll()" tooltip="{{fc.clearText}}" aria-label="{{fc.clearText}}" tooltip-placement="left" tooltip-append-to-body="false" tabindex="1"></a>
+    </div>
+    <p ng-if="fc.noItemsText && fc.selected.length === 0" ng-bind="fc.noItemsText" class="facets-none-selected"></p>
+    <ul class="clearfix">
+      <li ng-repeat="selected in fc.selected">
+        <a href="" ng-click="selected.deselect();" tabindex="1">
+          <span class="facet-selected-name" ng-bind="selected.option.displayName || selected.option.name"></span>&nbsp;
+          <span class="hpe-icon hpe-close"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div ng-transclude></div>
+</div>

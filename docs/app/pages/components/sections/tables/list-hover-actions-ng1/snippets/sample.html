@@ -1,0 +1,23 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                ...
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in vm.items">
+            <td>
+                ...
+            </td>
+            <td class="text-center item-actions">
+                <div class="hpe-icon hpe-active text-primary"></div>
+                <list-hover-actions>
+                    <list-hover-action name="New" icon="hpe-add" click="vm.primaryHoverAction(item)"></list-hover-action>
+                    <list-hover-action name="Remove" icon="hpe-close" click="vm.secondaryHoverAction(item)"></list-hover-action>
+                </list-hover-actions>
+            </td>
+        </tr>
+    </tbody>
+</table>

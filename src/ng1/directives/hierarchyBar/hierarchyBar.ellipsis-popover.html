@@ -1,0 +1,10 @@
+<ul class="hierarchy-bar-popover-list">
+    <li class="hierarchy-bar-popover-list-item separator"
+        ng-repeat="child in vm.hiddenHierarchyBar"
+        ng-click="vm.selectNodeCallback(child)">
+
+        <img class="hierarchy-bar-popover-list-item-image" ng-if="vm.options.image" ng-src="{{ vm.options.image(child) }}">
+        <span ng-bind="vm.getHierarchyBarName(child)"></span>
+
+    </li>
+</ul>

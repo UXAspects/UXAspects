@@ -1,0 +1,16 @@
+<p>
+    As an alternative to using checkboxes for multiple selection, if the preview pane is not required then the grid may be configured
+    to select by clicking/shift-clicking on the rows themselves. In this mode, clicking begins a new selection, and shift-clicking
+    adds further items to the selection. The <code>multiple-row-select-item="item"</code> attribute on the table row
+    enables this, specifying the item to select.
+</p>
+
+<p>
+    To enable keyboard navigation without the presence of the preview pane, the <code>keyboard-navigable-table</code> attribute
+    may be attached to the <code>&lt;table&gt;</code> element. Then, when the table has focus, the up and down arrows will
+    move the highlighted row up and down the table. The left and right arrow keys will move focus between the hover buttons
+    on the row, if any are present, and the enter key will activate the focused button. Finally, the space key will toggle
+    the selected state for the highlighted row.
+</p>
+
+<uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>

@@ -1,0 +1,20 @@
+<div ng-class="{ 'side-modal-animated': modalOpt.animate, 'side-modal-animated-open': modalOpen }" class="side-modal p-l-nil {{ modalOpt.modalColumns }}">
+    <div ng-class="{'side-modal-header-affix' :modalOpt.affixHeader==true, 'side-modal-content full-width':modalOpt.affixHeader==false}">
+        <div class="header p-l-md">
+            <div>
+                <h3 class="modalheader m-b-nil">{{modalOpt.title}}</h3>
+            <span class="modal-close">
+                <button type="button" class="btn btn-white" ng-click="closeModal()">
+                    <i class="hpe-icon hpe-close"></i>
+                </button>
+            </span>
+            </div>
+        </div>
+        <div class="main" ng-class="{ 'footer-hidden': modalOpt.footer === null || modalOpt.footer === undefined }" ng-include="modalOpt.main"></div>
+    </div>
+    <div class="footer p-l-nil" ng-show="modalOpt.footer !== null && modalOpt.footer !== undefined">
+        <div>
+            <div ng-include="modalOpt.footer"></div>
+        </div>
+    </div>
+</div>

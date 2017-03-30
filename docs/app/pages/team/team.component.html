@@ -1,0 +1,33 @@
+<uxd-page-header header="Team" description="Meet the UX Aspects team"></uxd-page-header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            
+            <div class="team-member-container">
+                
+                <ux-flippable-card class="m-md" *ngFor="let member of data.team">
+
+                    <ux-flippable-card-front>
+                        <div class="team-card-content">
+                            <img class="team-member-avatar" [src]="member.avatar">
+                            <h3 class="team-member-name">{{ member.name }}</h3>
+                            <p class="team-member-email">{{ member.email }}</p>
+                        </div>
+                    </ux-flippable-card-front>
+
+                    <ux-flippable-card-back>
+                        <div class="team-member-social-content">
+                            <a class="team-member-social-link" *ngFor="let item of member.social" [href]="item.url">
+                                <i class="hpe-icon {{ item.icon }}"></i>
+                            </a>
+                        </div>
+                    </ux-flippable-card-back>
+
+                </ux-flippable-card>
+
+            </div>
+
+        </div>
+    </div>
+</div>

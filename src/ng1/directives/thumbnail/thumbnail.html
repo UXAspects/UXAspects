@@ -1,0 +1,7 @@
+<div class="thumbnail-button-container" ng-style="{ 'width': tc.width }">
+	<div class="no-thumbnail" ng-show="tc.show && tc.url === ''" ng-style="{ 'height': tc.height }">
+		<i class="hpe-icon hpe-document hpe-3x"></i>
+	</div>
+	<div class="thumbnail-container" ng-style="{ 'background-image': 'url(' + tc.url + ')', 'height': tc.height }" ng-if="tc.show && tc.url !== ''"></div>
+	<div ng-transclude class="thumbnail-button"></div>
+</div>

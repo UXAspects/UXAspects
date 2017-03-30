@@ -1,0 +1,25 @@
+<div class="card-container">
+  <div class="card draggable">
+    <div class="callout"></div>
+    <div class="title-container" ng-show="showHeader">
+      <div class="m-b-nil title" ng-style="{ 'padding-right' : showTitle ? '8px': 0 }"><p ng-bind="cardTitle" class="title-text" overflow-tooltip></p> 
+        <span class="text-muted title-subtext" ng-bind="cardSubtitle"></span> 
+        <i class="hpe-icon hpe-edit draggable-icon editing-btn show-on-hover" ng-show="allowEditing" ng-class="{'disabled': disableEdit}"></i>
+        <i ng-repeat="icon in cardIcons" class="hpe-icon draggable-icon show-on-hover {{ ::icon.icon }}" ng-class="{ 'disabled': icon.disabled }" ng-disable="icon.disabled" tooltip="{{icon.tooltip}}" tooltip-placement="{{icon.tooltipPlacement}}" tooltip-append-to-body="true" ng-click="icon.disabled || icon.click(); $event.stopPropagation();"></i>
+      </div>
+      <div class="close-btn show-on-hover" ng-show="allowRemoving" ng-class="{'disabled': disableRemove}"></div>
+    </div>
+    <div class="content-area">
+      <div class="drag-container">
+        <div class="center-controls" ng-show="allowReordering">
+          <div class="arrow-up show-on-hover"></div>
+          <div class="drag-handle show-on-hover"></div>
+          <div class="arrow-down show-on-hover"></div>
+        </div>
+      </div>
+      <div class="card-template">
+        <ng-transclude></ng-transclude>
+      </div>
+    </div>
+  </div>
+</div>

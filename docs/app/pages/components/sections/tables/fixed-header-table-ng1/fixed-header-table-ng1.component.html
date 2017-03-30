@@ -1,0 +1,69 @@
+<uxd-fixed-header-table-wrapper></uxd-fixed-header-table-wrapper>
+
+<hr>
+
+<p>
+    A fixed header table is provided by the <code>scrollable-table</code> directive. The table header stays in place while
+    the table content is scrolled independently.
+</p>
+
+<p>The attributes of this directive are:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Binding</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">watch</td>
+                <td>object</td>
+                <td>variable</td>
+                <td>Defines the values of the rows.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">container-height</td>
+                <td>number</td>
+                <td>literal</td>
+                <td>Defines the height of the scrollable container.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">header-height</td>
+                <td>number</td>
+                <td>literal</td>
+                <td>Defines the height of the fixed header.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">watchHeaders</td>
+                <td>object</td>
+                <td>variable</td>
+                <td>Defines the values of the headers, required if using dynamically changing headers.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+</tabset>
+
+<br>
+
+<blockquote>
+    <p>Refer to the <a routerLink="/components/tables" fragment="ComponentsSortingNg1Component">Sorting</a> page for information about sorting the table headers.</p>
+</blockquote>

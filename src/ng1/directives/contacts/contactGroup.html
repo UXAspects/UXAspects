@@ -1,0 +1,13 @@
+<div class="contacts-list-container" ng-show="contacts[0].text && organization">
+  <ul class="contacts-list">
+    <li ng-repeat="contact in contacts | limitTo: maxContacts" ng-show="contact.text">
+      <contact contact="contact" size="size" order="$index" colors="colors" show-status="showStatus"></contact>
+    </li>
+  </ul>
+  <div class="contact-overflow-container" ng-if="contacts.length > maxContacts">
+    <div class="contact-overflow {{size}}" ng-class="{ 'contact-overflow-clickable': overflowClickable }" ng-style="{ 'color': colors.secondary, 'background-color': colors.primary }" ng-click="overflowClick()">&hellip;</div>
+    <div class="contact-overflow-label" ng-class="size" ng-bind="overflowCount(contacts.length, maxContacts)"></div>
+  </div>
+  <div class="organization" ng-class="size" ng-bind="organization.text" tooltip-html="organization.tooltip" ng-show="organization.text"></div>
+  <div class="organization-label {{label}}" ng-if="organization.label && label"></div>
+</div>

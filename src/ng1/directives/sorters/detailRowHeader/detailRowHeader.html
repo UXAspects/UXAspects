@@ -1,0 +1,12 @@
+<div class="row">
+	<div class="{{header.class}} detail-row-header" ng-repeat="header in vm.headers" ng-class="{'clickable': header.sort, 'sort': vm.sortingActive(header.sort) }" ng-click="vm.sort(header)">
+		<div class="title" single-line-overflow-tooltip ng-bind="header.title"></div>
+		<div class="filter clickable" ng-if="header.filter" ng-click="$event.stopPropagation()">
+			<i class="hpe-icon hpe-caret-down" aria-hidden="true" detail-row-header-popover="header.filter" ></i>
+		</div>
+		<div class="sort">
+			<i class="hpe-icon" aria-hidden="true" ng-class="vm.getSortIcon(header)"></i>
+			<p class="number" ng-bind="vm.getSortOrder(header)"></p>
+		</div>
+	</div>
+</div>

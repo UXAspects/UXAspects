@@ -1,0 +1,20 @@
+<table class="table integrated-table">
+    <thead>
+        <tr>
+            <th ng-repeat="column in vm.columns" ng-bind="::column.title"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="data in vm.data" 
+            ng-focus="vm.triggerEvent('$rowFocus', { event: $event, data: data})" 
+            ng-click="vm.triggerEvent('$rowClick', { event: $event, data: data})" 
+            ng-mousedown="vm.triggerEvent('$rowMouseDown', { event: $event, data: data})" 
+            ng-mouseup="vm.triggerEvent('$rowMouseUp', { event: $event, data: data})" 
+            ng-blur="vm.triggerEvent('$rowBlur', { event: $event, data: data})" 
+            ng-keydown="vm.triggerEvent('$rowKeyDown', { event: $event, data: data})">
+
+            <td ng-repeat="column in vm.columns" ng-style="{ 'width': column.width }" grid-cell></td>
+        </tr>
+    </tbody>
+</table>

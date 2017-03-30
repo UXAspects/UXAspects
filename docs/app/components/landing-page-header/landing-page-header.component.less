@@ -1,0 +1,81 @@
+@import "../../assets/styles/variables.less";
+
+:host {
+    display: block;
+    height: 420px;
+    background: @landing-page-header;
+}
+
+.landing-page-header-content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 35px;
+
+    .landing-page-header-brand {
+        color: @landing-page-header-brand-color;
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 3.5rem;
+        margin-bottom: 15px;
+    }
+
+    .landing-page-header-slogan {
+        margin-bottom: 40px;
+        color: @landing-page-header-slogan-color;
+        font-weight: 100;
+    }
+
+    .landing-page-header-btn {
+        width: 240px;
+        padding: 12px;
+        background-color: @landing-page-button-bg;
+        color: @landing-page-button-color;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+            background-color: @landing-page-button-hover-bg;
+        }
+    }
+
+    .landing-page-header-version {
+        margin-top: 15px;
+        color: @landing-page-version-color;
+        opacity: 0.8;
+        text-align: center;
+
+        .landing-page-header-changelog {
+            display: none;
+            color: @landing-page-version-color;
+            transition: color .3s ease-in-out;
+            &:hover {
+                color: @landing-page-version-hover-color;
+            }
+        }
+
+        &:hover {
+            .landing-page-header-version-current {
+                display: none;
+            }
+            .landing-page-header-changelog {
+                display: block;
+            }
+        }
+    }
+
+}
+
+.landing-page-header-graphic {
+    width: 60%;
+    height: 100%;
+    margin-left: auto;
+    background-image: url('assets/img/header.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}

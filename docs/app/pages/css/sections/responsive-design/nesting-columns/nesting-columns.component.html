@@ -1,0 +1,25 @@
+<div class="row show-grid">
+  <div class="col-sm-9">
+    Level 1: .col-sm-9
+    <div class="row show-grid">
+      <div class="col-xs-8 col-sm-6">
+        Level 2: .col-xs-8 .col-sm-6
+      </div>
+      <div class="col-xs-4 col-sm-6">
+        Level 2: .col-xs-4 .col-sm-6
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<p>To nest content add a new .row and set of <code>.col-sm-*</code> columns within an existing <code>.col-sm-*</code> column.
+  Nested rows should include a set of columns that add up to 12 or less.</p>
+
+<uxd-snippet [code]="htmlCode"></uxd-snippet>
+
+<blockquote>
+  <p><strong>Note</strong>: <code>.show-grid</code> is enabled below to only demonstrate this layout.
+    <code>.show-grid</code> would not be enabled in production code.</p>
+</blockquote>

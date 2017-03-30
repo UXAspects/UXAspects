@@ -1,0 +1,25 @@
+<div ng-class="modalOpt.modalColumns" class="display-panel p-l-nil" ng-style="{top: top}">
+    <div ng-class="{'display-panel-header-affix display-panel-content full-width':modalOpt.title!=''}">
+        <div ng-if="modalOpt.title" class="header p-l-md">
+            <div ng-class="{'preview-pane-shadow': shadow==true}">
+                <div>
+                    <h3 class="modalheader m-b-nil" ng-bind="modalOpt.title"></h3>
+                    <span class="modal-close">
+                    <button type="button" class="btn btn-white" ng-click="close()" tabindex="1">
+                        <i class="hpe-icon hpe-close"></i>
+                    </button>
+                </span>
+                </div>
+            </div>
+        </div>
+        <div class="main display-scroll" scroll-config="{ autoReinitialise: false, resizeSensor: true, showOnlyOnHover:true, enableKeyboardNavigation:true, initialDelay :0, contentWidth:'0px'}"
+            scroll-pane id="displaypanelscroll">
+                <ng-include src="modalOpt.main"></ng-include>
+        </div>
+        <div ng-if="modalOpt.footer" class="footer p-l-nil">
+            <div>
+                <div ng-include="modalOpt.footer"></div>
+            </div>
+        </div>
+    </div>
+</div>

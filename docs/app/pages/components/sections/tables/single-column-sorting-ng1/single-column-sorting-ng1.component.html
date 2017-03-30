@@ -1,0 +1,135 @@
+<uxd-single-column-sorting-wrapper></uxd-single-column-sorting-wrapper>
+
+<hr>
+
+<p>The different options to sort are contained in the <code>sortable-header</code> directive. The sortable-header will require
+    one of the following classes to be added in order to set the text size for the headers.</p>
+
+<ul>
+    <li><code>sorter-header-sm</code> - sets the font size to 14px.</li>
+    <li><code>sorter-header-md</code> - sets the font size to 16px.</li>
+    <li><code>sorter-header-lg</code> - sets the font size to 18px.</li>
+</ul>
+
+<p>If using this in conjunction with the scrollable table one of the following classes is required.</p>
+
+<ul>
+    <li><code>scrollable-header-sm</code> - sets the font size to 14px.</li>
+    <li><code>scrollable-header-md</code> - sets the font size to 16px.</li>
+    <li><code>scrollable-header-lg</code> - sets the font size to 18px.</li>
+</ul>
+
+<p>Below is an example of the HTML and controller:</p>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>The following attributes will need to be supplied to the sortable header:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Binding</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">headers</td>
+                <td>array</td>
+                <td>variable</td>
+                <td>Array of objects (defined below) used to store all the required header information.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">default-sorter</td>
+                <td>string</td>
+                <td>variable</td>
+                <td>String indicating which column will be sorted by default when the page loads, setting this to a variable
+                    will allow the sort to be remembered between visits.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">default-order</td>
+                <td>boolean</td>
+                <td>variable</td>
+                <td>Boolean option indicating the sort order of the default column when the page loads, setting this to a variable
+                    will allow the sort to be remembered between visits.</td>
+                <td>false</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>The controller implements the select function and will accept the following attributes within the headers object:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">sorterHeader</td>
+                <td>string</td>
+                <td>The column header.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">sortable</td>
+                <td>boolean</td>
+                <td>True if the column can be used as a sorter.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">sort</td>
+                <td>string</td>
+                <td>Sort expression for the column.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">center</td>
+                <td>boolean</td>
+                <td>True if the column header should be centered.</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">fixedClass</td>
+                <td>string</td>
+                <td>A class for the header in order to set the column to a fixed width. This results in columns that do not change
+                    size when a sort has been applied or according to data in the cells.
+                    <p>The following classes have been created to allow for fixed column widths:</p>
+                    <ul>
+                        <li><code>table-col-icon</code> - width of 65px. Optimum width for a column containing icons.</li>
+                        <li><code>table-col-xs</code> - width of 5%.</li>
+                        <li><code>table-col-sm</code> - width of 10%.</li>
+                        <li><code>table-col-md</code> - width of 20%.</li>
+                        <li><code>table-col-lg</code> - width of 30%.</li>
+                        <li><code>table-col-xl</code> - width of 40%.</li>
+                        <li><code>fixedLayout</code> - sets the table to a fixed layout. To be used in conjunction with the classes
+                            above and should be placed within the <code>table</code> tag.</li>
+                    </ul>
+                    <p>Note: when applying a <code>fixedClass</code> to a column header you must also apply that same class
+                        to the <code>td</code> (data row) for that column. You should also specify the class in the <code>table</code>                        tag to be <code>fixedLayout</code>.</p>
+                </td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>The <code>auto-index</code> attribute in the example below is used to enable keyboard controls - full documentation can
+    be found on the <a routerLink="/components/tables" fragment="ComponentsIndicesNg1Component">Table Indices</a> page.</p>

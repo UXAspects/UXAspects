@@ -1,0 +1,76 @@
+{
+    "brand": {
+        "title": "UX Aspects",
+        "slogan": "Enterprise Big Data UX Framework",
+        "action": {
+            "title": "Download UX Aspects",
+            "link": ""
+        },
+        "version": "Currently v1.0.0",
+        "changelog": {
+            "title": "View Changes Log",
+            "link": ""
+        }
+    },
+    "overview": {
+        "title": "About UX Aspects",
+        "description": "UX Aspects provides all of the essentials required for your big data project, allowing you to swiftly create dashboards and reports that provide users with the insights they crave from their big data applications. UX Aspects is based on best-of-breed, open source technologies, including Angular, Bootstrap and D3. It is easy to include in your web applications with the Bower web package manager.",
+        "features": [{
+            "image": "assets/img/angular-icon.png",
+            "title": "Angular",
+            "description": "Angular components make it quick and easy to build your application!"
+        }, {
+            "image": "assets/img/analytics-icon.png",
+            "title": "Analytics",
+            "description": "UX Aspects has a wide range of powerful charts giving you many ways to present data."
+        }, {
+            "image": "assets/img/custom-icon.png",
+            "title": "Customizable",
+            "description": "All our components are configurable and can be customized to suit your needs."
+        }, {
+            "image": "assets/img/responsive-icon.png",
+            "title": "Responsive",
+            "description": "Components are designed to be responsive, working great on mobile, desktop and tablets."
+        }]
+    },
+    "showcase": {
+        "title": "Made with UX Aspects",
+        "description": "UX Aspects is being used to develop next generation enterprise applications. View some of our examples to get you started!",
+        "examples": [
+
+        ]
+    },
+    "social": {
+        "title": "Get Involved",
+        "description": "Get involved in the UX Aspects project. Suggest new features, report issues or take part in development.",
+        "links": [
+            {
+                "image": "assets/img/twitter-icon.png",
+                "title": "Twitter",
+                "description": "Follow us on Twitter to keep up with the latest news and updates from the UX Aspects team or to get in touch with us!",
+                "link": {
+                    "title": "@UXAspects",
+                    "link": "http://twitter.com/UXAspects"
+                }
+            },
+            {
+                "image": "assets/img/github-icon.png",
+                "title": "GitHub",
+                "description": "Fork UX Aspects on GitHub and submit a pull request to help contribute to the project! Or if you have discovered an issue, report it to us.",
+                "link": {
+                    "title": "Fork UX Aspects",
+                    "link": "https://github.com/UXAspects/UXAspects"
+                }
+            },
+            {
+                "image": "assets/img/blog-icon.png",
+                "title": "Blog",
+                "description": "Follow our blog to find out all of the exciting news and announcements regarding UX Aspects.",
+                "link": {
+                    "title": "Read More Here",
+                    "link": "/blog"
+                }
+            }
+        ]
+    }
+}

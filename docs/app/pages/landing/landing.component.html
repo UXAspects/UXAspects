@@ -1,0 +1,28 @@
+<uxd-landing-page-header [brand]="landingPage.brand.title" [slogan]="landingPage.brand.slogan" [action]="landingPage.brand.action" [version]="landingPage.brand.version" [changelog]="landingPage.brand.changelog"></uxd-landing-page-header>
+
+<uxd-full-page-layout>
+    
+    <h1 class="landing-page-overview-title">{{ landingPage.overview.title }}</h1>
+    <p class="landing-page-overview-description">{{ landingPage.overview.description }}</p>
+
+    <!-- Show all the feature items -->
+    <uxd-landing-page-feature-list columns="4">
+        <uxd-landing-page-feature *ngFor="let feature of landingPage.overview.features" [header]="feature.title" [description]="feature.description" [image]="feature.image"></uxd-landing-page-feature>
+    </uxd-landing-page-feature-list>
+
+    <hr class="landing-page-divider">
+
+    <h1 class="landing-page-showcase-title">{{ landingPage.showcase.title }}</h1>
+    <p class="landing-page-showcase-description">{{ landingPage.showcase.description }}</p>
+
+    <hr class="landing-page-divider">
+
+    <h1 class="landing-page-social-title">{{ landingPage.social.title }}</h1>
+    <p class="landing-page-social-description">{{ landingPage.social.description }}</p>
+
+    <!-- Show all the social items -->
+    <uxd-landing-page-feature-list columns="3">
+        <uxd-landing-page-feature *ngFor="let item of landingPage.social.links" [header]="item.title" [description]="item.description" [image]="item.image" [link]="item.link"></uxd-landing-page-feature>
+    </uxd-landing-page-feature-list>
+
+</uxd-full-page-layout>

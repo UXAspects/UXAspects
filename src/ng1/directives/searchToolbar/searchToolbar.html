@@ -1,0 +1,20 @@
+
+<div class="input-group-sm expand-input" ng-class="{'input-group': st.inputexpanded}">
+	<div class="search-toolbar-icon">
+		<i class="hpe-icon hpe-search hp-fw"></i>
+	</div>
+
+	<div class="search-container input-group expand-input ">
+		<input class="input form-control filter-text search-toolbar-input" typeahead="item for item in searchTypeahead | filter:$viewValue | limitTo:8" typeahead-on-select="st.selectTypeaheadValue($item, $model, $label)" type="text" placeholder="{{ placeHolder }}" ng-model="st.inputValue" />
+		
+		<div class="input-group-btn input-group-btn-append ">
+			<button type="button" class="btn expand-input-clear search-toolbar-input">
+				<i class="hpe-icon hpe-close"></i>
+			</button>
+		</div>
+
+		<div class="input-group-addon">
+		    <button type="button" class="btn btn-link button-secondary btn-sm expand-input-close cancel-search" href="" ng-bind="closeSearch"></button>
+		</div>
+	</div>
+</div>

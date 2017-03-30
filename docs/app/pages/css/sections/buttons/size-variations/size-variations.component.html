@@ -1,0 +1,65 @@
+<br>
+<button type="button" class="btn button-primary btn-lg">Large</button>
+&nbsp;
+<button type="button" class="btn button-primary">Medium</button>
+&nbsp;
+<button type="button" class="btn button-primary btn-sm">Small</button>
+
+<hr>
+
+<p>Large and small buttons can be implemented through <code>.btn-lg</code> and <code>.btn-sm</code> classes respectively.</p>
+
+<uxd-snippet [code]="textCode"></uxd-snippet>
+
+<br>
+
+<h3>Text & Icon</h3>
+
+<hr>
+
+<button type="button" class="btn button-primary btn-lg">
+    <span class="hpe-icon hpe-add" aria-hidden="true"></span>&nbsp;Large
+</button>
+&nbsp;
+<button type="button" class="btn button-primary">
+    <span class="hpe-icon hpe-add" aria-hidden="true"></span>&nbsp;Medium
+</button>
+&nbsp;
+<button type="button" class="btn button-primary btn-sm">
+    <span class="hpe-icon hpe-add" aria-hidden="true"></span>&nbsp;Small
+</button>
+
+<hr>
+
+<p>When placing an icon in a button ensure to use <code>aria-hidden="true"</code> attribute.</p>
+
+<uxd-snippet [code]="textIconCode"></uxd-snippet>
+
+<br>
+
+<h3>Icon Only</h3>
+
+<hr>
+
+<button type="button" class="btn btn-icon button-primary btn-lg " aria-label="Add">
+    <span class="hpe-icon hpe-add" aria-hidden="true"></span>
+</button>
+&nbsp;
+<button type="button" class="btn btn-icon button-primary " aria-label="Add">
+    <span class="hpe-icon hpe-add" aria-hidden="true"></span>
+</button>
+&nbsp;
+<button type="button" class="btn btn-icon button-primary btn-sm" aria-label="Add">
+    <span class="hpe-icon hpe-add" aria-hidden="true"></span>
+</button>
+
+<hr>
+
+<p>If there is no text in the button ensure to use the <code>aria-label</code> attribute to support assistive technologies. 
+Large and small icon buttons can be implemented through <code>btn-icon</code> along with <code>btn-lg</code> and <code>btn-sm</code> classes.</p>
+
+<uxd-snippet [code]="iconOnlyCode"></uxd-snippet>
+
+
+
+
