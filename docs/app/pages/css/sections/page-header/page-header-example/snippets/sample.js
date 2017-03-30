@@ -10,7 +10,7 @@ function PageHeaderCtrl($scope, $rootScope, $state) {
     vm.currentState = null;
     vm.previousState = null;
     vm.topSearchExpanded = false;
-    vm.versionName = "Elements Angular Version";
+    vm.versionName = "Aspects Angular Version";
 
     // when route changes check if we should show back button or not
     $rootScope.$on('$viewContentLoaded', function () {
