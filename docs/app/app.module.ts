@@ -46,6 +46,7 @@ import { documentationSections } from './decorators/documentation-section-compon
 // Import Page Sections
 import { CSS_SECTIONS } from './pages/css/css';
 import { COMPONENT_SECTIONS } from './pages/components/components';
+import { CHART_SECTIONS } from './pages/charts/charts';
 
 let upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
 
@@ -60,6 +61,11 @@ const componentRoutes = loadRoutes(require('./data/components-page.json'));
 const cssRoutes = loadRoutes(require('./data/css-page.json'));
 
 /*
+  Configure Charts Page Routes
+*/
+const chartRoutes = loadRoutes(require('./data/charts-page.json'));
+
+/*
   Configure Application Routes
 */
 const appRoutes: Routes = [
@@ -70,7 +76,7 @@ const appRoutes: Routes = [
   { path: 'showcase', component: ShowcasePageComponent },
   { path: 'components', component: ComponentsPageComponent, children: componentRoutes },
   { path: 'css', component: CssPageComponent, children: cssRoutes },
-  { path: 'charts', component: ChartsPageComponent },
+  { path: 'charts', component: ChartsPageComponent, children: chartRoutes },
   { path: 'customize', component: CustomizePageComponent },
   { path: 'team', component: TeamPageComponent },
   { path: 'blog', component: BlogPageComponent },

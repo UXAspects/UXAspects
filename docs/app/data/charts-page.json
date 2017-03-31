@@ -2,60 +2,25 @@
     "title": "Charts",
     "categories": [
         {
-            "title": "Buttons",
-            "link": "buttons"
-        },
-        {
-            "title": "Structure",
-            "link": "structure"
-        },
-        {
-            "title": "Responsive Design",
-            "link": "responsive-design"
-        },
-        {
-            "title": "Page Title",
-            "link": "page-title"
-        },
-        {
-            "title": "Side Navigation",
-            "link": "side-navigation"
-        },
-        {
-            "title": "Page Header",
-            "link": "page-header"
-        },
-        {
-            "title": "Typography",
-            "link": "typography"
-        },
-        {
-            "title": "Forms",
-            "link": "forms"
-        },
-        {
-            "title": "Icons",
-            "link": "icons"
-        },
-        {
-            "title": "Labels",
-            "link": "labels"
-        },
-        {
-            "title": "Text Inputs",
-            "link": "text-inputs"
-        },
-        {
-            "title": "Panels",
-            "link": "panels"
-        },
-        {
-            "title": "Progress",
-            "link": "progress"
-        },
-        {
-            "title": "Tables",
-            "link": "tables"
+            "title": "Bar Charts",
+            "link": "bar-charts",
+            "sections": [
+                {
+                    "title": "Bar Chart",
+                    "component": "ChartsBarChartComponent",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Horizontal Bar Chart",
+                    "component": "ChartsHorizontalBarChartComponent",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Stacked Bar Chart",
+                    "component": "ChartsStackedBarChartComponent",
+                    "version": "AngularJS"
+                }
+            ]
         }
     ]
 }
