@@ -204,6 +204,7 @@ import './pages/components/sections/file-upload/file-upload-ng1/wrapper/file-upl
 import './pages/components/sections/flippable-cards/flippable-cards-ng1/wrapper/flippable-cards-wrapper.directive';
 import './pages/components/sections/grid/grid-ng1/wrapper/grid-wrapper.directive';
 import './pages/components/sections/hierarchy-bar/hierarchy-bar-ng1/wrapper/hierarchy-bar-wrapper.directive';
+import './pages/components/sections/tables/custom-responsive-table-ng1/wrapper/custom-responsive-wrapper.directive';
 
 
 let upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
@@ -454,7 +455,8 @@ const appRoutes: Routes = [
     upgradeAdapter.upgradeNg1Component('uxdFileUploadWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdFlippableCardsWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdGridWrapper'),
-    upgradeAdapter.upgradeNg1Component('uxdHierarchyBarWrapper')
+    upgradeAdapter.upgradeNg1Component('uxdHierarchyBarWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdCustomResponsiveTableWrapper')
   ],
   entryComponents: documentationSections
 })
