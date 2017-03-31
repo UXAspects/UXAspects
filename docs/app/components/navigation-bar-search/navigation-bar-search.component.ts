@@ -131,8 +131,8 @@ export class NavigationBarSearchComponent {
         // store the current search query
         this.query = value;
 
-        // if the search query is empty show no results
-        if (this.query === null || this.query === '') {
+        // if the search query is empty or less than 3 characters show no results
+        if (this.query === null || this.query === '' || this.query.length < 3) {
             this.results = [];
             return;
         }
