@@ -1,8 +1,24 @@
 <ux-ebox [id]="id">
     <ux-ebox-header class="uxd-component-section-header">
-        <uxd-edit-example-link *ngIf="codepen" [title]="title" [content]="codepen" type="codepen" [version]="version">Edit in CodePen</uxd-edit-example-link>
-        <uxd-edit-example-link *ngIf="plunk" [title]="title" [content]="plunk" type="plunker" [version]="version">Edit in Plunker</uxd-edit-example-link>
-        <h3>{{ title }}</h3>
+        <h3 class="uxd-component-section-title">{{ title }}</h3>
+
+        <div class="uxd-component-section-attributes">
+
+            <!-- Show the Angular Version -->
+            <span class="label label-primary m-r-sm" *ngIf="version === 'AngularJS'">Angular 1</span>
+            <span class="label label-accent m-r-sm" *ngIf="version === 'Angular'">Angular 4</span>
+
+            <!-- Identify as External plugin -->
+            <a class="label label-warning m-r-sm" *ngIf="externalUrl" [href]="externalUrl" target="_blank">External</a>
+
+            <!-- Show Deprecated label if required -->
+            <span class="label label-critical" *ngIf="deprecated">Deprecated</span>
+
+            <!-- Show the CodePen or Plunker link if required -->
+            <uxd-edit-example-link class="m-l" *ngIf="codepen" [title]="title" [content]="codepen" type="codepen" [version]="version">Edit in CodePen</uxd-edit-example-link>
+            <uxd-edit-example-link class="m-l" *ngIf="plunk" [title]="title" [content]="plunk" type="plunker" [version]="version">Edit in Plunker</uxd-edit-example-link>
+        </div>
+
     </ux-ebox-header>
 
     <ux-ebox-content class="uxd-component-section-content">

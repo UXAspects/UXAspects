@@ -15,7 +15,9 @@ export class ComponentSectionComponent implements AfterViewInit {
     @Input() id: string;
     @Input() title: string;
     @Input() componentName: string;
-    @Input() version: string = 'Angular';
+    @Input() version: string;
+    @Input() deprecated: boolean = false;
+    @Input() externalUrl: string;
 
     @ViewChild('container', { read: ViewContainerRef }) viewContainer: ViewContainerRef; 
     
