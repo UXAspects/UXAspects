@@ -9,48 +9,48 @@ export class SnippetComponent implements OnInit {
 
     @Input() language: string = 'html';
     @Input() code: string;
+    @Input() content: any;
 
     @ViewChild('code', { read: ViewContainerRef }) codeContainer: ViewContainerRef;
 
     constructor(private navigation: NavigationService) { }
 
     ngOnInit() {
-
-        console.log('SnippetComponent.ngOnInit');
-
-        if (!this.code) {
-            return;
+        if (this.code) {
+            this.loadCode();
+        } else if (this.content) {
+            this.loadContent();
         }
+    }
 
-        // this.navigation.setRendering();
+    private loadCode() {
+        this.navigation.setRendering();
 
-        // // create a blob containing prismjs
-        // let blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
+        // create a blob containing prismjs
+        let blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
 
-        // // create a worker for code highlightinh
-        // let worker = new Worker(URL.createObjectURL(blob));
+        // create a worker for code highlightinh
+        let worker = new Worker(URL.createObjectURL(blob));
 
-        // worker.onmessage = (evt: MessageEvent) => {
+        worker.onmessage = (evt: MessageEvent) => {
 
-        //     // insert the code in the code snippet element
-        //     this.codeContainer.element.nativeElement.innerHTML = `<code>${evt.data}</code>`;
+            // insert the code in the code snippet element
+            this.codeContainer.element.nativeElement.innerHTML = `<code>${evt.data}</code>`;
 
-        //     // terminate worker
-        //     worker.terminate();
+            // terminate worker
+            worker.terminate();
 
-        //     this.navigation.doneRendering();
-        // };
+            this.navigation.doneRendering();
+        };
 
-        // // send the language and code through to the other thread
-        // worker.postMessage(JSON.stringify({
-        //     language: this.language,
-        //     code: this.code
-        // }));
+        // send the language and code through to the other thread
+        worker.postMessage(JSON.stringify({
+            language: this.language,
+            code: this.code
+        }));
+    }
 
-        // Temporarily loading these upfront to solve navigation issues
-        let prism = require('prismjs');
-        let snippet = prism.highlight(this.code, prism.languages[this.language]);
-
-        this.codeContainer.element.nativeElement.innerHTML = `<code>${snippet}</code>`;
+    private loadContent() {
+        this.codeContainer.element.nativeElement.innerHTML = `<code>${this.content}</code>`;
     }
 }

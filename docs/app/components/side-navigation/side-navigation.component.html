@@ -1,5 +1,5 @@
-<ux-scroll-pane-ng1 scroll-name="ux-side-navigation" scroll-config="{ showOnlyOnHover: true, resizeSensor: true }">
-<!--<div class="side-navigation-scroll-pane">-->
+<!--<ux-scroll-pane-ng1 scroll-name="ux-side-navigation" scroll-config="{ showOnlyOnHover: true, resizeSensor: true }" [api]="scrollApi" class="side-navigation-scroll-pane">-->
+<div class="side-navigation-scroll-pane">
     <ul class="side-navigation-list">
         <li class="side-navigation-list-item" *ngFor="let category of navigation.categories">
             <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive">{{ category.title }}</a>
@@ -14,5 +14,5 @@
             </ul>
         </li>
     </ul>
-<!--</div>-->
-</ux-scroll-pane-ng1>
+</div>
+<!--</ux-scroll-pane-ng1>-->

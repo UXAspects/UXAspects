@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener, Inject, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener, Inject, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -22,11 +22,12 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
 
     private top: number;
     private height: number;
+    private scrollApi: any = {};
 
-    constructor(@Inject(DOCUMENT) private document: Document,
+    constructor( @Inject(DOCUMENT) private document: Document,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private navigationService: NavigationService) {}
+        private navigationService: NavigationService) { }
 
     ngOnInit() {
         for (let category of this.navigation.categories) {
@@ -78,5 +79,10 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
             bottomOffset = 0;
         }
         this.height = this.document.documentElement.clientHeight - this.top - bottomOffset;
+
+        // TODO: jscrollpane support
+        // if (this.scrollApi && this.scrollApi.reinitialize) {
+        //     this.scrollApi.reinitialize();
+        // }
     }
 }

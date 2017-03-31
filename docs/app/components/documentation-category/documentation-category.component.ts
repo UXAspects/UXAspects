@@ -18,14 +18,12 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
         private navigation: NavigationService) { }
 
     ngOnInit() {
-        console.log('DocumentationCategoryComponent.ngOnInit');
         // Fetch category details from the route metadata
         this.category = this.activatedRoute.snapshot.data['category'];
         this.navigation.setSectionIds(this.category.sections);
     }
 
     ngAfterViewInit() {
-        console.log('DocumentationCategoryComponent.ngAfterViewInit');
         this.trackScroll = true;
     }
 
