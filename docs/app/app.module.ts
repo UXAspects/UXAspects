@@ -38,6 +38,7 @@ import { CustomizePageComponent } from './pages/customize/customize.component';
 import { TeamPageComponent } from './pages/team/team.component';
 import { BlogPageComponent } from './pages/blog/blog.component';
 import { DocumentationCategoryComponent } from './components/documentation-category/documentation-category.component';
+import { LicensesPageComponent } from './pages/licenses/licenses.component';
 
 import { documentationSections } from './decorators/documentation-section-component';
 
@@ -72,6 +73,7 @@ const appRoutes: Routes = [
   { path: 'customize', component: CustomizePageComponent },
   { path: 'team', component: TeamPageComponent },
   { path: 'blog', component: BlogPageComponent },
+  { path: 'licenses', component: LicensesPageComponent },
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
   { path: '**', component: LandingPageComponent }
 ];
@@ -92,6 +94,7 @@ const DECLARATIONS = [
   TeamPageComponent,
   BlogPageComponent,
   DocumentationCategoryComponent,
+  LicensesPageComponent,
 
 
   // Angular 1 Documentation Wrapper Directives
