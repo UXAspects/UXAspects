@@ -22,14 +22,7 @@ export class AppComponent implements OnInit {
             if (!(evt instanceof NavigationEnd)) {
                 return;
             }
-            // Scroll if anchor not provided
-            const fragmentIndex = evt.url.lastIndexOf('#');
-            if (fragmentIndex > 0) {
-                const id = evt.url.substr(fragmentIndex + 1);
-                this.navigation.scrollToSection(id);
-            } else {
-                this.document.body.scrollTop = 0;
-            }
+            this.navigation.scrollOnNavigationChange(evt);
         });
 
         // manually perform initial navigation - required in hybrid app

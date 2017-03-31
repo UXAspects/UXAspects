@@ -1,12 +1,18 @@
-<h4 class="side-navigation-section-title">{{ navigation.title }}</h4>
-
-<ul class="side-navigation-list">
-    <li class="side-navigation-list-item" *ngFor="let category of navigation.categories">
-        <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive">{{ category.title }}</a>
-        <ul *ngIf="rla.isActive" class="side-navigation-subsection-list">
-            <li class="side-navigation-list-item" *ngFor="let section of category.sections">
-                <a class="side-navigation-list-item-link" (click)="goToSection(category.link, section.component)">{{ section.title }}</a>
-            </li>
-        </ul>
-    </li>
-</ul>
+<ux-scroll-pane-ng1 scroll-name="ux-side-navigation" scroll-config="{ showOnlyOnHover: true, resizeSensor: true }">
+<!--<div class="side-navigation-scroll-pane">-->
+    <ul class="side-navigation-list">
+        <li class="side-navigation-list-item" *ngFor="let category of navigation.categories">
+            <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive">{{ category.title }}</a>
+            <ul *ngIf="rla.isActive" class="side-navigation-subsection-list">
+                <li class="side-navigation-list-item" *ngFor="let section of category.sections">
+                    <a class="side-navigation-list-item-link"
+                        [class.active]="isActive(section.id)"
+                        (click)="goToSection(category.link, section.id)">
+                        {{ section.title }}
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+<!--</div>-->
+</ux-scroll-pane-ng1>

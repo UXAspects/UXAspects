@@ -6,8 +6,7 @@ import './wrapper/contacts-wrapper.directive';
 
 @Component({
     selector: 'uxd-contacts-ng1',
-    templateUrl: './contacts-ng1.component.html',
-    encapsulation: ViewEncapsulation.None
+    templateUrl: './contacts-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsContactsNg1Component')
 export class ComponentsContactsNg1Component implements ICodePenProvider {

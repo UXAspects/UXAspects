@@ -3,7 +3,8 @@ angular.module('app').directive('uxdContactsWrapper', () => {
         restrict: 'E',
         template: require('./contacts-wrapper.directive.html'),
         controller: ['$templateCache', function ($templateCache) {
-            $templateCache.put('contacts-popover.html', require('../snippets/contacts-popover.html'));
+            // $templateCache.put('contacts-popover.html', require('../snippets/contacts-popover.html'));
+            $templateCache.put('contacts-popover.html', `<h1>Hello, world!</h1>`);
 
             var vm = this;
 

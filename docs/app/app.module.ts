@@ -416,7 +416,7 @@ const appRoutes: Routes = [
     CssTablesComponent,
     CssCardsComponent,
 
-    // Angular 1 Wrapper Directives
+    // Angular 1 Documentation Wrapper Directives
     upgradeAdapter.upgradeNg1Component('uxdGroupedButtonsWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdToggleButtonsWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdFloatingActionButtonWrapper'),
@@ -438,7 +438,6 @@ const appRoutes: Routes = [
     upgradeAdapter.upgradeNg1Component('uxdFloatLabelsWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdNavigationWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdAppNavigatorWrapper'),
-    upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),
     upgradeAdapter.upgradeNg1Component('uxdDetailRowHeaderWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdDetailRowResponsiveWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdFixedHeaderTableWrapper'),
@@ -454,7 +453,11 @@ const appRoutes: Routes = [
     upgradeAdapter.upgradeNg1Component('uxdFileUploadWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdFlippableCardsWrapper'),
     upgradeAdapter.upgradeNg1Component('uxdGridWrapper'),
-    upgradeAdapter.upgradeNg1Component('uxdHierarchyBarWrapper')
+    upgradeAdapter.upgradeNg1Component('uxdHierarchyBarWrapper'),
+
+    // Angular 1 Wrapper Directives
+    upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),
+    upgradeAdapter.upgradeNg1Component('uxScrollPaneNg1'),
   ],
   entryComponents: documentationSections
 })
@@ -472,6 +475,14 @@ upgradeAdapter.upgradeNg1Provider('$state');
   Register Angular 1 module
 */
 app.directive('uxdApp', upgradeAdapter.downgradeNg2Component(AppComponent) as angular.IDirectiveFactory);
+
+/*
+  Configure Angular 1
+*/
+app.config(['$anchorScrollProvider',  function($anchorScrollProvider:  angular.IAnchorScrollProvider) {
+  // Disabling AngularJS autoscroll since it conflicts with the new router behaviour
+  $anchorScrollProvider.disableAutoScrolling();
+}]);
 
 // bootstrap the Angular 1 application here
 upgradeAdapter.bootstrap(document.documentElement, ['app']);
