@@ -39,6 +39,7 @@ import { TeamPageComponent } from './pages/team/team.component';
 import { BlogPageComponent } from './pages/blog/blog.component';
 import { DocumentationCategoryComponent } from './components/documentation-category/documentation-category.component';
 import { LicensesPageComponent } from './pages/licenses/licenses.component';
+import { ChangeLogPageComponent } from './pages/changelog/changelog.component';
 
 import { documentationSections } from './decorators/documentation-section-component';
 
@@ -74,6 +75,7 @@ const appRoutes: Routes = [
   { path: 'team', component: TeamPageComponent },
   { path: 'blog', component: BlogPageComponent },
   { path: 'licenses', component: LicensesPageComponent },
+  { path: 'changelog', component: ChangeLogPageComponent },
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
   { path: '**', component: LandingPageComponent }
 ];
@@ -95,7 +97,7 @@ const DECLARATIONS = [
   BlogPageComponent,
   DocumentationCategoryComponent,
   LicensesPageComponent,
-
+  ChangeLogPageComponent,
 
   // Angular 1 Documentation Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxdGroupedButtonsWrapper'),
