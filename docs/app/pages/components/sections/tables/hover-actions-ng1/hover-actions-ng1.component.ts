@@ -2,24 +2,35 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-hover-actions',
     templateUrl: './hover-actions-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsHoverActionsNg1Component')
-export class ComponentsHoverActionsNg1Component implements ICodePenProvider {
+export class ComponentsHoverActionsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     
-    private htmlCode = require('./snippets/layout.html');
-    private jsCode = require('./snippets/controller.js');
-    private cssCode = require('./snippets/styles.css');
+    private htmlCode = this.snippets.compiled.layoutHtml;
+    private jsCode = this.snippets.compiled.controllerJs;
+    private cssCode = this.snippets.compiled.stylesCss;
 
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'HoverActionCtrl'
         },
-        js: [this.jsCode],
-        css: [this.cssCode]
+        js: [this.snippets.raw.controllerJs],
+        css: [this.snippets.raw.stylesCss]
     };
+    
+    constructor() {
+        super(
+            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
+            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
+            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
+            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
+            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
+        );
+    }
 }

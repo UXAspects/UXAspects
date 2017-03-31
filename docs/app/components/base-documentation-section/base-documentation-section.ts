@@ -8,7 +8,7 @@ export abstract class BaseDocumentationSection {
         compiledCssContext: __WebpackModuleApi.RequireContext,
         compiledJavascriptContext: __WebpackModuleApi.RequireContext,
         compiledTypescriptContext: __WebpackModuleApi.RequireContext,
-        rawContext: __WebpackModuleApi.RequireContext) {
+        rawContext?: __WebpackModuleApi.RequireContext) {
 
         this.snippets = {
             compiled: {},
@@ -25,14 +25,18 @@ export abstract class BaseDocumentationSection {
 
     private loadSnippetsFromRequireContext(snippets: any, requireContext: any) {
 
-        // requireContext contains all the resources in the given context, e.g. HTML files loaded with prism
-        requireContext.keys().forEach((key: string) => {
+        if (requireContext) {
 
-            // Convert filename into camelcase identifier
-            const snippetName = key.replace('./', '').replace(/\W+(\w)/g, (m) => { return m[1].toUpperCase(); });
+            // requireContext contains all the resources in the given context, e.g. HTML files loaded with prism
+            requireContext.keys().forEach((key: string) => {
 
-            // Require the content and add to snippets object
-            snippets[snippetName] = requireContext(key);
-        });
+                // Convert filename into camelcase identifier
+                const snippetName = key.replace('./', '').replace(/\W+(\w)/g, (m) => { return m[1].toUpperCase(); });
+
+                // Require the content and add to snippets object
+                snippets[snippetName] = requireContext(key);
+            });
+
+        }
     }
 }
