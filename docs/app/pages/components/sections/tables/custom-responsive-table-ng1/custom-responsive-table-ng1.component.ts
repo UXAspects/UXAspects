@@ -11,11 +11,16 @@ import { ICodePen } from './../../../../../interfaces/ICodePen';
 export class ComponentsCustomResponsiveTableNg1Component implements ICodePenProvider {
 
     private htmlCode = require('./snippets/sample.html');
-
-    private codepenSnippet = require('./codepen/codepen.html');
+    private jsCode = require('./snippets/sample.js');
+    private cssCode = require('./snippets/sample.css');
 
     public codepen: ICodePen = {
-        html: this.codepenSnippet
+        html: this.htmlCode,
+        htmlAttributes: {
+            'ng-controller': 'CustomResponsiveTableCtrl as vm'
+        },
+        js: [this.jsCode],
+        css: [this.cssCode]
     };
     
 }
