@@ -1,0 +1,8 @@
+<wizard class="vertical" button-options="vm.buttonOptions">
+    <step ng-repeat="item in vm.steps">
+        <step-heading>
+            <span ng-bind="item.title"></span>
+        </step-heading>
+        <p ng-bind="item.content"></p>
+    </step>
+</wizard>

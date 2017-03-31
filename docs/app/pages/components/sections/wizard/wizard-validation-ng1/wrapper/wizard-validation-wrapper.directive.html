@@ -1,0 +1,27 @@
+<form name="vm.requiredInput">
+    <wizard button-options="vm.buttonOptions" on-finishing="vm.validate()">
+        <step>
+            <step-heading>
+                <span> First Step</span>
+            </step-heading>
+            <p>Nothing to validate in here.</p>
+        </step>
+        <step>
+            <step-heading>
+                <span> Second Step</span>
+            </step-heading>
+            <div class="form-group" ng-class="{'has-error':vm.requiredInput.requiredText.$valid===false}">
+                <label for="requiredText" class="control-label">Required Text <span
+                    class="form-control-validation">*</span>
+                </label>
+                <input type="text" name="requiredText" placeholder="Text" class="form-control" required
+                       ng-model="vm.text">
+                <span class="hpe-icon hpe-alert form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="form-group form-group-validation">
+                <label class="control-label"><span
+                    class="form-control-validation">*</span>&nbsp;required</label>
+            </div>
+        </step>
+    </wizard>
+</form>
