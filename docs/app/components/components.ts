@@ -1,11 +1,3 @@
-import { NgModule }      from '@angular/core';
-import { CommonModule }      from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-
-// Import ux-aspects library
-import { UxAspectsModule } from '../../../src/index';
-
 // Import Layout Components
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { FullPageLayoutComponent } from './full-page-layout/full-page-layout.component';
@@ -23,7 +15,7 @@ import { ShowcaseCardComponent } from './showcase-card/showcase-card.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
 import { SnippetComponent } from './snippet/snippet.component';
 
-const COMPONENTS = [
+export const DOCUMENTATION_COMPONENTS = [
   EditExampleLinkComponent,
   SideNavigationComponent,
   FullPageLayoutComponent,
@@ -38,15 +30,3 @@ const COMPONENTS = [
   ComponentSectionComponent,
   SnippetComponent
 ];
-
-@NgModule({
-  imports:      [ 
-    CommonModule, 
-    FormsModule,
-    UxAspectsModule,
-    RouterModule 
-  ],
-  exports:      COMPONENTS,
-  declarations: COMPONENTS
-})
-export class ComponentsModule { }
