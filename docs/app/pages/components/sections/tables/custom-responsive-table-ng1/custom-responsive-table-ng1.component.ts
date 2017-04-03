@@ -12,7 +12,12 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsCustomResponsiveTableNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.codepenHtml
+        html: this.snippets.raw.sampleHtml,
+        htmlAttributes: {
+            'ng-controller': 'CustomResponsiveTableCtrl as vm'
+        },
+        js: [this.snippets.raw.sampleJs],
+        css: [this.snippets.raw.sampleCss]
     };
     
     constructor() {
