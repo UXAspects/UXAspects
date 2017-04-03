@@ -1,25 +1,20 @@
 <div class="row m-b-xs">
     <div class="col-sm-5">
-        <select class="input-sm form-control inline">
-        <option value="0">Option 1</option>
-        <option value="1">Option 2</option>
-        <option value="2">Option 3</option>
-        <option value="3">Option 4</option>
-      </select>
+        <dynamic-select ng-model="vm.selected" source="vm.items" options="{ scroll: false }"></dynamic-select>
     </div>
     <div class="col-sm-4 ">
         <div aria-label="Timespan" class="btn-group" data-toggle="buttons">
             <label class="btn  btn-white btn-grouped">
-          <input id="option1" name="options" type="radio">
-          Day
+            <input id="option1" name="options" type="radio">
+            Day
         </label>
             <label class="btn btn-white btn-grouped active">
-          <input id="option2" name="options" type="radio">
-          Week
+            <input id="option2" name="options" type="radio">
+            Week
         </label>
             <label class="btn  btn-white btn-grouped">
-          <input id="option3" name="options" type="radio">
-          Month
+            <input id="option3" name="options" type="radio">
+            Month
         </label>
         </div>
     </div>
@@ -28,9 +23,8 @@
             <label class="sr-only" for="search">Search for</label>
             <input class="input form-control" name="search" placeholder="Search" type="text">
             <span class="input-group-btn">
-                  <button class="btn button-accent" type="button">
-                    Go</button>
-                </span>
+                <button class="btn button-accent" type="button">Go</button>
+            </span>
         </div>
     </div>
 </div>
@@ -48,10 +42,10 @@
         </thead>
         <tbody>
             <tr>
-                <td>
+                <td class="custom-responsive-narrow-column">
                     <checkbox ng-model="checked1"></checkbox>
                 </td>
-                <td>Aspects
+                <td>UX Aspects
                     <small>UI project</small>
                 </td>
                 <td>20</td>
@@ -62,7 +56,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="custom-responsive-narrow-column">
                     <checkbox ng-model="checked2"></checkbox>
                 </td>
                 <td>Hardware project</td>
@@ -74,7 +68,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="custom-responsive-narrow-column">
                     <checkbox ng-model="checked3"></checkbox>
                 </td>
                 <td>Cloud project</td>
@@ -86,7 +80,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="custom-responsive-narrow-column">
                     <checkbox ng-model="checked4"></checkbox>
                 </td>
                 <td>Client project</td>

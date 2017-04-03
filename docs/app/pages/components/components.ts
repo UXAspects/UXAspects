@@ -66,6 +66,7 @@ import './sections/file-upload/file-upload-ng1/wrapper/file-upload-wrapper.direc
 import './sections/flippable-cards/flippable-cards-ng1/wrapper/flippable-cards-wrapper.directive';
 import './sections/grid/grid-ng1/wrapper/grid-wrapper.directive';
 import './sections/hierarchy-bar/hierarchy-bar-ng1/wrapper/hierarchy-bar-wrapper.directive';
+import './sections/tables/custom-responsive-table-ng1/wrapper/custom-responsive-wrapper.directive';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
