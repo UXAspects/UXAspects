@@ -1,9 +1,11 @@
-import { ChartsBarChartComponent } from './sections/bar-charts/bar-chart/bar-chart.component';
-import { ChartsHorizontalBarChartComponent } from './sections/bar-charts/horizontal-bar-chart/horizontal-bar-chart.component';
-import { ChartsStackedBarChartComponent } from './sections/bar-charts/stacked-bar-chart/stacked-bar-chart.component';
+import { ChartsBarChartNg1Component } from './sections/bar-charts/bar-chart-ng1/bar-chart-ng1.component';
+import { ChartsHorizontalBarChartNg1Component } from './sections/bar-charts/horizontal-bar-chart-ng1/horizontal-bar-chart-ng1.component';
+import { ChartsStackedBarChartNg1Component } from './sections/bar-charts/stacked-bar-chart-ng1/stacked-bar-chart-ng1.component';
+import { ChartsPeityChartNg1Component } from './sections/peity-charts/peity-charts-ng1/peity-charts-ng1.component';
 
 export const CHART_SECTIONS: any[] = [
-    ChartsBarChartComponent,
-    ChartsHorizontalBarChartComponent,
-    ChartsStackedBarChartComponent
+    ChartsBarChartNg1Component,
+    ChartsHorizontalBarChartNg1Component,
+    ChartsStackedBarChartNg1Component,
+    ChartsPeityChartNg1Component
 ];

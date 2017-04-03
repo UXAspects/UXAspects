@@ -7,17 +7,28 @@
             "sections": [
                 {
                     "title": "Bar Chart",
-                    "component": "ChartsBarChartComponent",
+                    "component": "ChartsBarChartNg1Component",
                     "version": "AngularJS"
                 },
                 {
                     "title": "Horizontal Bar Chart",
-                    "component": "ChartsHorizontalBarChartComponent",
+                    "component": "ChartsHorizontalBarChartNg1Component",
                     "version": "AngularJS"
                 },
                 {
                     "title": "Stacked Bar Chart",
-                    "component": "ChartsStackedBarChartComponent",
+                    "component": "ChartsStackedBarChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Peity Charts",
+            "link": "peity-charts",
+            "sections": [
+                {
+                    "title": "Peity Charts",
+                    "component": "ChartsPeityChartNg1Component",
                     "version": "AngularJS"
                 }
             ]

@@ -5,37 +5,42 @@ import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
-    selector: 'uxd-charts-horizontal-bar-chart',
-    templateUrl: './horizontal-bar-chart.component.html'
+    selector: 'uxd-charts-bar-chart-ng1',
+    templateUrl: './bar-chart-ng1.component.html'
 })
-@DocumentationSectionComponent('ChartsHorizontalBarChartComponent')
-export class ChartsHorizontalBarChartComponent implements ICodePenProvider {
+@DocumentationSectionComponent('ChartsBarChartNg1Component')
+export class ChartsBarChartNg1Component implements ICodePenProvider {
 
     private data: any;
     private options: any;
 
     private htmlCode = require('./snippets/chart.html');
     private jsCode = require('./snippets/chart.js');
+    private accessibilityCode = require('./snippets/accessibility.html');
 
     public codepen: ICodePen = {
         html: this.htmlCode,
-        htmlAttributes: {
-            'ng-controller': 'HorizontalBarChartCtrl as bc'
-        },
         js: [this.jsCode],
+        htmlAttributes: {
+            'ng-controller': 'BarChartCtrl as bc'
+        }
     };
 
     constructor(colorService: ColorService) {
-
+        
         this.data = [{
             label: 'bar',
             data: [
-                [34, 1],
-                [25, 2],
-                [19, 3],
-                [34, 4],
-                [32, 5],
-                [44, 6]
+                [1, 34],
+                [2, 25],
+                [3, 19],
+                [4, 34],
+                [5, 32],
+                [6, 44]
+            ],
+            forecastData: [
+                [7, 50],
+                [8, 67]
             ]
         }];
 
@@ -53,34 +58,32 @@ export class ChartsHorizontalBarChartComponent implements ICodePenProvider {
                     },
                     barWidth: 0.5,
                     lineWidth: 1,
-                    horizontal: true,
                     align: 'center'
                 },
-                highlightColor: [colorService.getColor('chart1').setAlpha(0.2).toRgba()],
-                valueLabels: {
-                    show: true,
-                    valign: 'top',
-                    plotAxis: 'y',
-                    xoffset: -30,
-                    yoffset: -5,
-                    font: '13px \'Source Sans Pro\'',
-                    fontcolor: '#545454',
-                    labelFormatter: function (v: string) {
-                        var ticks = ['.doc', '.ppt', '.pdf', '.xls', '.html', '.txt'];
-                        return ticks[parseInt(v) - 1];
-                    }
-                }
+                highlightColor: colorService.getColor('chart1').setAlpha(0.2).toRgba(),
+                forecastFillColor: colorService.getColor('chart1').setAlpha(0.3).toRgba(),
+                forecastColor: colorService.getColor('chart1').setAlpha(0.8).toRgba(),
+                forecastHighLightColor: colorService.getColor('chart1').setAlpha(0.2).toRgba(),
+                forecastDashStyle: [5]
             },
             xaxis: {
                 tickDecimals: 0,
-                color: [colorService.getColor('secondary').toHex()]
+                color: colorService.getColor('secondary').toHex(),
+                ticks: [
+                    [1, '.doc'],
+                    [2, '.ppt'],
+                    [3, '.pdf'],
+                    [4, '.xls'],
+                    [5, '.html'],
+                    [6, '.txt'],
+                    [7, '.csv'],
+                    [8, '.mht']
+                ]
+
             },
-            yaxis: {
-                ticks: []
-            },
-            colors: [colorService.getColor('chart1').toRgb()],
+            colors: [colorService.getColor('primary').toRgb()],
             grid: {
-                color: ['#999'],
+                color: '#999',
                 hoverable: true,
                 clickable: true,
                 borderWidth: {
@@ -90,8 +93,8 @@ export class ChartsHorizontalBarChartComponent implements ICodePenProvider {
                     top: 0
                 },
                 borderColor: {
-                    left: [colorService.getColor('grey1').setAlpha(0.2).toRgba()],
-                    bottom: [colorService.getColor('grey1').setAlpha(0.2).toRgba()]
+                    left: colorService.getColor('grey2').setAlpha(0.5).toRgba(),
+                    bottom: colorService.getColor('grey2').setAlpha(0.5).toRgba()
                 }
             },
             legend: {
@@ -101,11 +104,11 @@ export class ChartsHorizontalBarChartComponent implements ICodePenProvider {
                 show: true,
                 shifts: {
                     x: 0,
-                    y: -38
+                    y: -30
                 },
-                content: function (label: string, xval: string, yval: string) {
-                    var ticks = ['.doc', '.ppt', '.pdf', '.xls', '.html', '.txt'];
-                    return 'x: ' + xval + ', y: ' + ticks[parseInt(yval) - 1];
+                content: function (label: string, xval: number, yval: number) {
+                    var content = 'x: ' + '%x' + ', y: ' + yval;
+                    return content;
                 }
             }
         };
