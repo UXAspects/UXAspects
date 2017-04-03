@@ -70,6 +70,8 @@ import './sections/file-upload/file-upload-ng1/wrapper/file-upload-wrapper.direc
 import './sections/flippable-cards/flippable-cards-ng1/wrapper/flippable-cards-wrapper.directive';
 import './sections/grid/grid-ng1/wrapper/grid-wrapper.directive';
 import './sections/hierarchy-bar/hierarchy-bar-ng1/wrapper/hierarchy-bar-wrapper.directive';
+import { ComponentsMarqueeModalNg1Component } from './sections/modals/marquee-modal-ng1/marquee-modal-ng1.component';
+import { ComponentsSideModalNg1Component } from './sections/modals/side-modal-ng1/side-modal-ng1.component';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
@@ -127,4 +129,6 @@ export const COMPONENT_SECTIONS = [
     ComponentsKeyboardServiceNg1Component,
     ComponentsModalNg1Component,
     ComponentsSquareModalNg1Component,
+    ComponentsMarqueeModalNg1Component,
+    ComponentsSideModalNg1Component,
 ];

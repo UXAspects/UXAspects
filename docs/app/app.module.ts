@@ -136,6 +136,8 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdKeyboardServiceWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdModalWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdSquareModalWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdMarqueeModalWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSideModalWrapper'),
 
   // Angular 1 Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),

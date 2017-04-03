@@ -3,20 +3,21 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/square-modal-wrapper.directive.js';
+import './wrapper/marquee-modal-wrapper.directive.js';
 
 @Component({
-    selector: 'uxd-square-modal-ng1',
-    templateUrl: './square-modal-ng1.component.html',
+    selector: 'uxd-marquee-modal-ng1',
+    templateUrl: './marquee-modal-ng1.component.html',
+    styleUrls: ['./marquee-modal-ng1.component.less'],
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
-
 })
-@DocumentationSectionComponent('ComponentsSquareModalNg1Component')
-export class ComponentsSquareModalNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+@DocumentationSectionComponent('ComponentsMarqueeModalNg1Component')
+export class ComponentsMarqueeModalNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
-            'ng-controller': 'SquareModalDemoCtrl as vm'
+            'ng-controller': 'MarqueeModalDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'modalLayout.html',

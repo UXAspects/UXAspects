@@ -3,25 +3,30 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/square-modal-wrapper.directive.js';
+import './wrapper/side-modal-wrapper.directive.js';
 
 @Component({
-    selector: 'uxd-square-modal-ng1',
-    templateUrl: './square-modal-ng1.component.html',
+    selector: 'uxd-side-modal-ng1',
+    templateUrl: './side-modal-ng1.component.html',
+    styleUrls: ['./side-modal-ng1.component.less'],
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
-
 })
-@DocumentationSectionComponent('ComponentsSquareModalNg1Component')
-export class ComponentsSquareModalNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+@DocumentationSectionComponent('ComponentsSideModalNg1Component')
+export class ComponentsSideModalNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
-            'ng-controller': 'SquareModalDemoCtrl as vm'
+            'ng-controller': 'SideModalDemoCtrl as vm'
         },
         htmlTemplates: [{
-            id: 'modalLayout.html',
-            content: this.snippets.raw.modalLayoutHtml
+            id: 'modalContent.html',
+            content: this.snippets.raw.modalContentHtml
+        }, {
+            id: 'modalFooter.html',
+            content: this.snippets.raw.modalFooterHtml
         }],
+        css: [this.snippets.raw.stylesCss],
         js: [this.snippets.raw.controllerJs, this.snippets.raw.modalControllerJs]
     };
 
