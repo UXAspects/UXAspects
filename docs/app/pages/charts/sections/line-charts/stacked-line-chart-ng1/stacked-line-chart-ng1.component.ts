@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ColorService } from '../../../../../../../src/index';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
@@ -6,7 +6,8 @@ import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 
 @Component({
     selector: 'uxd-charts-stacked-line-chart-ng1',
-    templateUrl: './stacked-line-chart-ng1.component.html'
+    templateUrl: './stacked-line-chart-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsStackedLineChartNg1Component')
 export class ChartsStackedLineChartNg1Component implements ICodePenProvider {
@@ -30,7 +31,7 @@ export class ChartsStackedLineChartNg1Component implements ICodePenProvider {
         },
         js: [this.jsCode]
     };
-    
+
     constructor(colorService: ColorService) {
 
         let flotChartColors = {

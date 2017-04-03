@@ -204,6 +204,7 @@ export class AppModule {
 */
 upgradeAdapter.upgradeNg1Provider('$rootScope');
 upgradeAdapter.upgradeNg1Provider('$state');
+upgradeAdapter.upgradeNg1Provider('flotDataService');
 
 /*
   Register Angular 1 module

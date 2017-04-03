@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ColorService } from '../../../../../../../src/index';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
@@ -6,7 +6,8 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
     selector: 'uxd-charts-donut-chart-ng1',
-    templateUrl: './donut-chart-ng1.component.html'
+    templateUrl: './donut-chart-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsDonutChartNg1Component')
 export class ChartsDonutChartNg1Component implements ICodePenProvider {
@@ -21,7 +22,7 @@ export class ChartsDonutChartNg1Component implements ICodePenProvider {
     private labelsJs = require('./snippets/labels.js');
     private legendJs = require('./snippets/legend.js');
     private legendCss = require('./snippets/legend.css');
-    
+
     public codepen: ICodePen = {
         html: this.chartHtml,
         htmlAttributes: {

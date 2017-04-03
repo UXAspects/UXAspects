@@ -73,6 +73,11 @@
                     "title": "Stacked Line Chart",
                     "component": "ChartsStackedLineChartNg1Component",
                     "version": "AngularJS"
+                },
+                {
+                    "title": "Multiple Axis Line Chart",
+                    "component": "ChartsMultipleAxisLineChartNg1Component",
+                    "version": "AngularJS"
                 }
             ]
         }
