@@ -1,17 +1,30 @@
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ColorService } from '../../../../../../../src/index';
+import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
     selector: 'uxd-charts-peity-charts-ng1',
     templateUrl: './peity-charts-ng1.component.html'
 })
 @DocumentationSectionComponent('ChartsPeityChartNg1Component')
-export class ChartsPeityChartNg1Component {
+export class ChartsPeityChartNg1Component implements ICodePenProvider {
 
     private lineChart: any;
     private updatingLineChart: any;
     private barChart: any;
+
+    private htmlCode = require('./snippets/chart.html');
+    private jsCode = require('./snippets/chart.js');
+
+    public codepen: ICodePen = {
+        html: this.htmlCode,
+        htmlAttributes: {
+            'ng-controller': 'PeityChartCtrl as pc'
+        },
+        js: [this.jsCode],
+    };
 
     constructor(colorService: ColorService) {
 
@@ -39,6 +52,7 @@ export class ChartsPeityChartNg1Component {
                 width: 64
             },
             method: function (oldData: number[]) {
+
                 // START - write code here.. that updates the old value to update the chart.
                 var random = Math.round(Math.random() * 10);
                 var newData = oldData;

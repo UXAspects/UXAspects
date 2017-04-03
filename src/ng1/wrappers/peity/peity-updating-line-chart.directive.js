@@ -7,6 +7,6 @@ export function PeityUpdatingLineChartDirective() {
             method: "=",
             updateinterval: "="
 		},
-        template: `<line-chart data="data" options="options" method="method" updateinterval="updateinterval"></line-chart>`,
+        template: `<updating-linechart data="data" options="options" method="method" updateinterval="updateinterval"></updating-linechart>`,
     };
 }

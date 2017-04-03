@@ -32,6 +32,49 @@
                     "version": "AngularJS"
                 }
             ]
+        },
+        {
+            "title": "Donut Charts",
+            "link": "donut-charts",
+            "sections": [
+                {
+                    "title": "Donut Chart",
+                    "component": "ChartsDonutChartNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Nested Donut Chart",
+                    "component": "ChartsNestedDonutChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Flot Options",
+            "link": "flot-options",
+            "sections": [
+                {
+                    "title": "Flot Options",
+                    "component": "ChartsFlotOptionsNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Line Charts",
+            "link": "line-chart",
+            "sections": [
+                {
+                    "title": "Line Chart",
+                    "component": "ChartsLineChartNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Stacked Line Chart",
+                    "component": "ChartsStackedLineChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
         }
     ]
 }
