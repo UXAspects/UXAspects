@@ -1,4 +1,5 @@
-import { Component, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef, AfterViewInit } from '@angular/core';
+import { Component, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef, AfterViewInit, OnInit } from '@angular/core';
+
 import { documentationSectionNames } from '../../decorators/documentation-section-component';
 import { ICodePenProvider, isICodePenProvider } from '../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../interfaces/ICodePen';
@@ -10,7 +11,7 @@ import { IPlunk } from '../../interfaces/IPlunk';
     templateUrl: './component-section.component.html',
     styleUrls: ['./component-section.component.less']
 })
-export class ComponentSectionComponent implements AfterViewInit {
+export class ComponentSectionComponent implements OnInit {
 
     @Input() id: string;
     @Input() title: string;
@@ -26,7 +27,7 @@ export class ComponentSectionComponent implements AfterViewInit {
     
     constructor(private componentfactoryResolver: ComponentFactoryResolver) { }
 
-    ngAfterViewInit() {
+    ngOnInit() {
         const component = documentationSectionNames[this.componentName];
         if (component) {
             let factory = this.componentfactoryResolver.resolveComponentFactory(component);

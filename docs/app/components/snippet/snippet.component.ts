@@ -1,23 +1,30 @@
 import { Component, Input, ViewChild, ViewContainerRef, OnInit, AfterViewInit } from '@angular/core';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 @Component({
     selector: 'uxd-snippet',
     templateUrl: './snippet.component.html'
 })
-export class SnippetComponent implements AfterViewInit {
+export class SnippetComponent implements OnInit {
 
     @Input() language: string = 'html';
     @Input() code: string;
+    @Input() content: any;
 
     @ViewChild('code', { read: ViewContainerRef }) codeContainer: ViewContainerRef;
 
-    constructor() { }
+    constructor(private navigation: NavigationService) { }
 
-    ngAfterViewInit() {
-
-        if (!this.code) {
-            return;
+    ngOnInit() {
+        if (this.code) {
+            this.loadCode();
+        } else if (this.content) {
+            this.loadContent();
         }
+    }
+
+    private loadCode() {
+        this.navigation.setRendering();
 
         // create a blob containing prismjs
         let blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
@@ -32,6 +39,8 @@ export class SnippetComponent implements AfterViewInit {
 
             // terminate worker
             worker.terminate();
+
+            this.navigation.doneRendering();
         };
 
         // send the language and code through to the other thread
@@ -39,6 +48,9 @@ export class SnippetComponent implements AfterViewInit {
             language: this.language,
             code: this.code
         }));
+    }
 
+    private loadContent() {
+        this.codeContainer.element.nativeElement.innerHTML = `<code>${this.content}</code>`;
     }
 }

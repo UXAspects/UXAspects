@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -6,27 +7,30 @@ import './wrapper/contacts-wrapper.directive';
 
 @Component({
     selector: 'uxd-contacts-ng1',
-    templateUrl: './contacts-ng1.component.html',
-    encapsulation: ViewEncapsulation.None
+    templateUrl: './contacts-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsContactsNg1Component')
-export class ComponentsContactsNg1Component implements ICodePenProvider {
-    private htmlCode = require('./snippets/contacts.html');
-    private cssCode = require('./snippets/contacts.css');
-    private javascriptCode = require('./snippets/contacts.js');
-    private popoverHtmlCode = require('./snippets/contacts-popover.html');
-    private contactsJavascriptCode = require('./snippets/contacts-contacts.js');
-    private labelsJavascriptCode = require('./snippets/contacts-labels.js');
+export class ComponentsContactsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.raw.contactsHtml,
         htmlAttributes: {
             'ng-controller': 'ContactsDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'contacts-popover.html',
-            content: this.popoverHtmlCode
+            content: this.snippets.raw.contactsPopoverHtml
         }],
-        css: [this.cssCode],
-        js: [this.javascriptCode]
+        css: [this.snippets.raw.contactsCss],
+        js: [this.snippets.raw.contactsJs]
     };
+
+    constructor() {
+        super(
+            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
+            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
+            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
+            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
+            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
+        );
+    }
 }
