@@ -5,6 +5,11 @@ export function PeityPieChartDirective() {
 			data: "=",
 			options: "="
 		},
-        template: `<pie-chart data="data" options="options"></pie-chart>`
+        template: `<pie-chart data="data" options="options"></pie-chart>`,
+        controller: ['$scope', function($scope) {
+            this.$onDestroy = function() {
+                $scope.$destroy();
+            };
+        }]
     };
 }

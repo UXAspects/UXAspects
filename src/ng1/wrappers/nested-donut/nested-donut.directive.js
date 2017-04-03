@@ -5,6 +5,11 @@ export function NestedDonutDirective() {
             dataset: '=',
             options: '=?'
         },
-        template: `<nested-donut dataset="dataset" options="options"></nested-donut>`
+        template: `<nested-donut dataset="dataset" options="options"></nested-donut>`,
+        controller: ['$scope', function($scope) {
+            this.$onDestroy = function() {
+                $scope.$destroy();
+            };
+        }]
     };
 }

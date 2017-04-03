@@ -8,5 +8,10 @@ export function PeityUpdatingLineChartDirective() {
             updateinterval: "="
 		},
         template: `<updating-linechart data="data" options="options" method="method" updateinterval="updateinterval"></updating-linechart>`,
+        controller: ['$scope', function($scope) {
+            this.$onDestroy = function() {
+                $scope.$destroy();
+            };
+        }]
     };
 }

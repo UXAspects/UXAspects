@@ -3,7 +3,8 @@ angular.module('app').directive('uxdMultiColumnSortingWrapper', () => {
         restrict: 'E',
         template: require('./multi-column-sorting-wrapper.directive.html'),
         controller: MultiColumnSortingController,
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        scope: true
     };
 });
 
@@ -15,7 +16,10 @@ class MultiColumnSortingController {
     private sorterHeaders: any[];
     private sortableTable: any[];
 
-    constructor() {
+    static $inject = ['$scope'];
+
+    constructor(private scope: angular.IScope) {
+
         this.sorterHeaders = [{
             sorterHeader: '',
             sortable: false,
@@ -117,6 +121,10 @@ class MultiColumnSortingController {
         }];
     }
 
+    // cleanup afterwards
+    $onDestroy () {
+        this.scope.$destroy();
+    };
 
     sortByKey(array: any[], key: string, descending: boolean) {
         return array.sort((a, b) => {

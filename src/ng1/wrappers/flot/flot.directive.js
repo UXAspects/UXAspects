@@ -24,6 +24,11 @@ export function FlotDirective() {
                     scope.onPlotHover();
                 }
             };
-        }
+        },
+        controller: ['$scope', function($scope) {
+            this.$onDestroy = function() {
+                $scope.$destroy();
+            };
+        }]
     };
 }

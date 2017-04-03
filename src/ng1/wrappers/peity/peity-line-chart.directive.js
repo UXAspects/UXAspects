@@ -6,5 +6,10 @@ export function PeityLineChartDirective() {
 			options: "="
 		},
         template: `<line-chart data="data" options="options"></line-chart>`,
+        controller: ['$scope', function($scope) {
+            this.$onDestroy = function() {
+                $scope.$destroy();
+            };
+        }]
     };
 }
