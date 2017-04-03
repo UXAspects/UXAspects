@@ -49,6 +49,10 @@ import { ComponentsFlippableCardsNg1Component } from './sections/flippable-cards
 import { ComponentsGridNg1Component } from './sections/grid/grid-ng1/grid-ng1.component';
 import { ComponentsHelpCenterNg1Component } from './sections/help-center/help-center-ng1/help-center-ng1.component';
 import { ComponentsHierarchyBarNg1Component } from './sections/hierarchy-bar/hierarchy-bar-ng1/hierarchy-bar-ng1.component';
+import { ComponentsHotkeysNg1Component } from './sections/keyboard/hotkeys-ng1/hotkeys-ng1.component';
+import { ComponentsKeyboardServiceNg1Component } from './sections/keyboard/keyboard-service-ng1/keyboard-service-ng1.component';
+import { ComponentsModalNg1Component } from './sections/modals/modal-ng1/modal-ng1.component';
+import { ComponentsSquareModalNg1Component } from './sections/modals/square-modal-ng1/square-modal-ng1.component';
 
 // Import Wrappers
 import './sections/tables/detail-row-header-ng1/wrapper/service/detail-row-data.service';
@@ -119,4 +123,8 @@ export const COMPONENT_SECTIONS = [
     ComponentsGridNg1Component,
     ComponentsHelpCenterNg1Component,
     ComponentsHierarchyBarNg1Component,
+    ComponentsHotkeysNg1Component,
+    ComponentsKeyboardServiceNg1Component,
+    ComponentsModalNg1Component,
+    ComponentsSquareModalNg1Component,
 ];

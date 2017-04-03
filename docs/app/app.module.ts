@@ -132,6 +132,10 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdFlippableCardsWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdGridWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdHierarchyBarWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdHotkeysWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdKeyboardServiceWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdModalWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSquareModalWrapper'),
 
   // Angular 1 Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),

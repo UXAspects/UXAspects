@@ -214,6 +214,200 @@
             ]
         },
         {
+            "title": "Keyboard",
+            "link": "keyboard",
+            "sections": [
+                {
+                    "title": "Hotkeys",
+                    "component": "ComponentsHotkeysNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Keyboard Service",
+                    "component": "ComponentsKeyboardServiceNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Modals",
+            "link": "modals",
+            "sections": [
+                {
+                    "title": "Modal",
+                    "component": "ComponentsModalNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Square Modal",
+                    "component": "ComponentsSquareModalNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Marquee Modal",
+                    "component": "ComponentsMarqueeModalNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Side Modal",
+                    "component": "ComponentsSideModalNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Notifications",
+            "link": "notifications",
+            "sections": [
+                {
+                    "title": "Notifications",
+                    "component": "ComponentsNotificationsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Notification List",
+                    "component": "ComponentsNotificationListNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Notification Dropdown",
+                    "component": "ComponentsNotificationDropdownNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Alert Styles",
+                    "component": "ComponentsAlertStylesNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Dismissable Styles",
+                    "component": "ComponentsDismissableStylesNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Panels",
+            "link": "panels",
+            "sections": [
+                {
+                    "title": "Collapsible Panels",
+                    "component": "ComponentsCollapsiblePanelsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Item Display Panel",
+                    "component": "ComponentsItemDisplayPanelNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Item Display Panel Service",
+                    "component": "ComponentsItemDisplayPanelServiceNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Modal Inset Panel",
+                    "component": "ComponentsModalInsetPanelNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Side Inset Panel",
+                    "component": "ComponentsSideInsetPanelNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Popover",
+            "link": "popover",
+            "sections": [
+                {
+                    "title": "Popover",
+                    "component": "ComponentsPopoverNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Progress",
+            "link": "progress",
+            "sections": [
+                {
+                    "title": "Progress Bar",
+                    "component": "ComponentsProgressBarNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Scrollbar",
+            "link": "scrollbar",
+            "sections": [
+                {
+                    "title": "Custom Scrollbar",
+                    "component": "ComponentsCustomScrollbarNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Infinite Scroll",
+                    "component": "ComponentsInfiniteScrollNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Infinite Scroll with Load More Button",
+                    "component": "ComponentsInfiniteScrollLoadMoreNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Search",
+            "link": "search",
+            "sections": [
+                {
+                    "title": "Search Builder",
+                    "component": "ComponentsSearchBuilderNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Search History",
+                    "component": "ComponentsSearchHistoryNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Search Toolbar",
+                    "component": "ComponentsSearchToolbarNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Splitter",
+            "link": "splitter",
+            "sections": [
+                {
+                    "title": "Splitter",
+                    "component": "ComponentsSplitterNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Nested Splitter",
+                    "component": "ComponentsNestedSplitterNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Layout Switching Splitter",
+                    "component": "ComponentsLayoutSwitchingSplitterNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Side Inset Panel Splitter",
+                    "component": "ComponentsSideInsetPanelSplitterNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
             "title": "Tables",
             "link": "tables",
             "sections": [
