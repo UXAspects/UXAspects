@@ -8,6 +8,7 @@ import { ChartsFlotOptionsNg1Component } from './sections/flot-options/flot-opti
 import { ChartsLineChartNg1Component } from './sections/line-charts/line-chart-ng1/line-chart-ng1.component';
 import { ChartsStackedLineChartNg1Component } from './sections/line-charts/stacked-line-chart-ng1/stacked-line-chart-ng1.component';
 import { ChartsMultipleAxisLineChartNg1Component } from './sections/line-charts/multiple-axis-line-chart-ng1/multiple-axis-line-chart-ng1.component';
+import { ChartsLiveChartNg1Component } from './sections/live-charts/live-chart-ng1/live-chart-ng1.component';
 
 export const CHART_SECTIONS: any[] = [
     ChartsBarChartNg1Component,
@@ -19,5 +20,6 @@ export const CHART_SECTIONS: any[] = [
     ChartsFlotOptionsNg1Component,
     ChartsLineChartNg1Component,
     ChartsStackedLineChartNg1Component,
-    ChartsMultipleAxisLineChartNg1Component
+    ChartsMultipleAxisLineChartNg1Component,
+    ChartsLiveChartNg1Component
 ];

@@ -80,6 +80,20 @@
                     "version": "AngularJS"
                 }
             ]
+        },
+        {
+            "title": "Live Chart",
+            "link": "live-chart",
+            "sections": [
+                {
+                    "title": "Live Chart",
+                    "component": "ChartsLiveChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
         }
+
+            
+
     ]
 }
