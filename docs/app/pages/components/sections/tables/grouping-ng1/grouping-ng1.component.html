@@ -9,7 +9,7 @@
     Each object in the list should be given a <code>unique ID</code>. Objects that act as children should be given a <code>parent ID</code>    which will be used to link it to its corresponding parent. Below is an example of how your object array should look:
 </p>
 
-<uxd-snippet language="javascript" [code]="idsCode"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="idsCode"></uxd-snippet>
 
 <blockquote>
     <p><strong>Note:</strong> Notice how last object has <code>parentId: 1</code>. This means that this object is a child of
@@ -23,7 +23,7 @@
     to our example below:
 </p>
 
-<uxd-snippet language="javascript" [code]="rootCode"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="rootCode"></uxd-snippet>
 
 <p>
     What we’re doing here is extracting all the root parents and children into 2 separate arrays and then traversing these arrays
@@ -39,7 +39,7 @@
     our example below:
 </p>
 
-<uxd-snippet language="javascript" [code]="hierarchyCode"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="hierarchyCode"></uxd-snippet>
 
 <p>
     Here we are doing something similar to the grouping function in that we extract all the root parents into a separate array.
