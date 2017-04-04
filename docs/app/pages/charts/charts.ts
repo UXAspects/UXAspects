@@ -10,6 +10,12 @@ import { ChartsStackedLineChartNg1Component } from './sections/line-charts/stack
 import { ChartsMultipleAxisLineChartNg1Component } from './sections/line-charts/multiple-axis-line-chart-ng1/multiple-axis-line-chart-ng1.component';
 import { ChartsLiveChartNg1Component } from './sections/live-charts/live-chart-ng1/live-chart-ng1.component';
 import { ChartsOrganizationChartNg1Component } from './sections/organization-chart/organization-chart-ng1/organization-chart-ng1.component';
+import { ChartsPartitionMapNg1Component } from './sections/partition-map/partition-map-ng1/partition-map-ng1.component';
+import { ChartsSankeyChartNg1Component } from './sections/sankey-chart/sankey-chart-ng1/sankey-chart-ng1.component';
+import { ChartsSparkChartNg1Component } from './sections/spark-charts/spark-chart-ng1/spark-chart-ng1.component';
+import { ChartsSocialChartNg1Component } from './sections/social-chart/social-chart-ng1/social-chart-ng1.component';
+import { ChartsScrollableChartNg1Component } from './sections/scrollable-chart/scrollable-chart-ng1/scrollable-chart-ng1.component';
+import { ChartsTimelineChartNg1Component } from './sections/timeline-chart/timeline-chart-ng1/timeline-chart-ng1.component';
 
 export const CHART_SECTIONS: any[] = [
     ChartsBarChartNg1Component,
@@ -23,5 +29,11 @@ export const CHART_SECTIONS: any[] = [
     ChartsStackedLineChartNg1Component,
     ChartsMultipleAxisLineChartNg1Component,
     ChartsLiveChartNg1Component,
-    ChartsOrganizationChartNg1Component
+    ChartsOrganizationChartNg1Component,
+    ChartsPartitionMapNg1Component,
+    ChartsSankeyChartNg1Component,
+    ChartsSparkChartNg1Component,
+    ChartsSocialChartNg1Component,
+    ChartsScrollableChartNg1Component,
+    ChartsTimelineChartNg1Component,
 ];

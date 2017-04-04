@@ -1,0 +1,330 @@
+<hr>
+
+<p>The Sankey Chart allows transfers and flows within a system to be presented visually.</p>
+
+<p>To create a Sankey chart, use the <code class="highlighter-rouge">sankey</code> directive.</p>
+
+<uxd-snippet></uxd-snippet>
+
+<p>The data for the chart should be set with the <code class="highlighter-rouge">chart-data</code> attribute. There are two optional attributes, a <code class="highlighter-rouge">click</code> attribute for handling interaction, and an <code class="highlighter-rouge">options</code> attribute for configuration of the chart.</p>
+
+<h4 id="chart-data">Chart-Data</h4>
+
+<p>Sankey Charts are composed of a number of nodes representing areas of a system. These are arranged into columns and connected by links. The required format for the chart data is as shown:</p>
+
+<uxd-snippet></uxd-snippet>
+
+<p>Each column should be defined with a <code class="highlighter-rouge">name</code> and an <code class="highlighter-rouge">id</code>. The value given for <code class="highlighter-rouge">ordinal</code> defines the order in which the columns will be presented.</p>
+
+<p>Node items should have a <code class="highlighter-rouge">name</code> and <code class="highlighter-rouge">id</code>. The <code class="highlighter-rouge">type</code> property should correspond to the <code class="highlighter-rouge">id</code> of a column. The <code class="highlighter-rouge">value</code> property should hold the value for the node. The example code also uses another property, <code class="highlighter-rouge">datasize</code>, which represents file size in bytes. Additional properties such as this can have arbitrary names; they will be mapped to internal properties depending on the <code class="highlighter-rouge">options</code> object which is supplied. Additional properties supplied must be numeric.</p>
+
+<p>The links should have a <code class="highlighter-rouge">source</code> and <code class="highlighter-rouge">target</code>, which must correspond to the ids of the nodes which need to be connected. Each link in the chart requires a definition of this kind. Links can also have data associated with them, which will affect their size on the chart. If the <code class="highlighter-rouge">value</code> of a node is higher than the total of the values of the links exiting that node, the excess values will be represented with an overflow link (shown above as the orange links exiting the Not Classifed and Classified nodes in the example).</p>
+
+<p>When defining links, ensure that only nodes in adjacent columns are connected.</p>
+
+<p>To convey chart information to assistive technologies, include a text summary of the data. Use the <code class="highlighter-rouge">.sr-only</code> class to make the text hidden but visible to screen readers, and set the <code class="highlighter-rouge">tabIndex</code> attribute on the element so it can be reached with the keyboard.</p>
+
+<h4 id="options">Options</h4>
+
+<p>The configuration object for the Sankey Chart allows data properties to be mapped to positions on the chart nodes.</p>
+
+<uxd-snippet></uxd-snippet>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody><tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">linkHoverHL</td>
+      <td>boolean</td>
+      <td>Determines whether to have a link hover highlight. Default is <code>true</code>.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">linkTooltip</td>
+      <td>object</td>
+      <td>Configuration for tooltips on the Sankey ribbons. See the <code>linkTooltip</code> object definition below.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">col</td>
+      <td>object</td>
+      <td>Configuration for the column header. See the <code>col</code> object definition below.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">block</td>
+      <td>object</td>
+      <td>Configuration for the chart blocks. See the <code>block</code> object definition below.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">overflow</td>
+      <td>object</td>
+      <td>Configuration for the overflow links. See the <code>overflow</code> object definition below.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">showColNumber</td>
+      <td>boolean</td>
+      <td>Determines whether the column number is shown in the header. Default is <code>false</code>.</td>
+      <td>true</td>
+    </tr>
+  </tbody></table>
+</div>
+
+<p>The <code class="highlighter-rouge">linkTooltip</code> object is defined as follows:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody><tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">show</td>
+      <td>boolean</td>
+      <td>Determines whether the tooltip is shown. Default is <code>true</code>.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">label</td>
+      <td>string</td>
+      <td>Text to show in the tooltip, as a suffix to the numeric value.</td>
+      <td>true</td>
+    </tr>
+  </tbody></table>
+</div>
+
+<p>The <code class="highlighter-rouge">col</code> object is defined as follows:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody><tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">paddingTop</td>
+      <td>number</td>
+      <td>Space in pixels between the header and the top of the chart column.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">paddingBottom</td>
+      <td>number</td>
+      <td>Space in pixels at the bottom of the chart.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">headerLabelLength</td>
+      <td>number</td>
+      <td>The number of characters after which column content is truncated.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">headerLabelSpacing</td>
+      <td>number</td>
+      <td>The number of pixels between the column number (if visible) and the label.</td>
+      <td>false</td>
+    </tr>
+  </tbody></table>
+</div>
+
+<p>The <code class="highlighter-rouge">block</code> object is defined as follows:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody><tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">minWidth</td>
+      <td>number</td>
+      <td>Minimum width of the block in pixels. This depends on the container and columns, if the value is set too low it will revert
+        to a default value.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">minHeight</td>
+      <td>number</td>
+      <td>Minimum height of the block in pixels. Setting this to smaller values will show a greater differentiation in box size.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">calloutData</td>
+      <td>object</td>
+      <td>Configuration for the values shown in the blocks. See the <code>calloutData</code> object definition below.</td>
+      <td>true</td>
+    </tr>
+  </tbody></table>
+</div>
+
+<p>The <code class="highlighter-rouge">calloutData</code> object is defined as follows:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody><tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">topLeft</td>
+      <td>object</td>
+      <td>Configuration for the top left section of the blocks. See the callout section object definition below.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">topRight</td>
+      <td>object</td>
+      <td>Configuration for the top right section of the blocks. See the callout section object definition below.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">bottomRight</td>
+      <td>object</td>
+      <td>Configuration for the bottom right section of the blocks. See the callout section object definition below.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">bottomLeft</td>
+      <td>object</td>
+      <td>Configuration for the bottom left section of the blocks. See the callout section object definition below.</td>
+      <td>true</td>
+    </tr>
+  </tbody></table>
+</div>
+
+<p>The callout section (<code class="highlighter-rouge">topLeft</code>, <code class="highlighter-rouge">topRight</code>, <code class="highlighter-rouge">bottomRight</code>, <code class="highlighter-rouge">bottomLeft</code>) object is defined as follows:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody><tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">key</td>
+      <td>string</td>
+      <td>Specifies the key of the value from the data source to be displayed.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">nodeLabel</td>
+      <td>boolean</td>
+      <td>Set to true for the value which defines the name of the node. This will be truncated to ensure it fits inside the block.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">defaultShow</td>
+      <td>boolean</td>
+      <td>Determines whether the data will be visible without hover. Default is <code>true</code>.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">label</td>
+      <td>string</td>
+      <td>Describes the unit of measurement for the data.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">valueUnit</td>
+      <td>string</td>
+      <td>Provides a data-formatter for certain data types - the letter supplied here will receive a prefix (K, M, G, etc.) as appropriate
+        and the associated value will be scaled. In the above example all values for file size are given in bytes and automatically
+        formatted to GB, MB etc. by supplying the value B.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">binary</td>
+      <td>boolean</td>
+      <td>Set to <code>true</code> to use binary prefixes (e.g. k = 1024) instead of decimal (k = 1000). This is particularly useful
+        for showing file sizes.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">valueFormatter</td>
+      <td>function</td>
+      <td>Allows the value to be formatted as desired. The argument to the function is the numeric value, and it should return a
+        formatted string. This may be useful for locale presentation, using the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString"><code>toLocaleString</code></a>				function.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">click</td>
+      <td>function</td>
+      <td>Allows an on click function to be added to the callout and returns the data.</td>
+      <td>true</td>
+    </tr>
+  </tbody></table>
+</div>
+
+<p>The <code class="highlighter-rouge">overflow</code> object is defined as follows:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody><tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">tooltip</td>
+      <td>string</td>
+      <td>Configuration for the tooltip on overflow links. See the <code>overflow.tooltip</code> object definition below.</td>
+      <td>true</td>
+    </tr>
+  </tbody></table>
+</div>
+
+<p>The <code class="highlighter-rouge">overflow.tooltip</code> object is defined as follows:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody><tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">showTooltip</td>
+      <td>boolean</td>
+      <td>Determines whether a tooltip will be shown on overflow links. Default is <code>true</code>.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">label</td>
+      <td>string</td>
+      <td>Text to show in the tooltip, as a suffix to the numeric value.</td>
+      <td>true</td>
+    </tr>
+  </tbody></table>
+</div>
+
+<p>The Sankey chart will grow and shrink in size where possible to fit the space available to it. To have further control over the size of the chart provide styling for the <code class="highlighter-rouge">.sankey</code> class.</p>
+
+<h4 id="click">Click</h4>
+
+<p>This attribute allows a function to be passed to the Sankey chart which exposes the behaviour of clicking on a node. The code sample below shows the function being passed in the above example. The node object clicked will be passed to this function, and exposes the same attributes as when the data source was initially supplied, as well as the HTML and SVG elements the node comprises.</p>
+
+<uxd-snippet></uxd-snippet>
+
+<h4 id="responsiveness">Responsiveness</h4>
+
+<p>The Sankey Chart has certain limitations when it comes to responsiveness. This is because the blocks must have a minimum width and height in order to accurately portray data. If the data set consists of multiple columns/blocks then the chart will only be responsive above a specific width/height. This varies depending on the number of columns/blocks and the <code class="highlighter-rouge">block.minWidth</code> and <code class="highlighter-rouge">block.minHeight</code> properties specified in the chart options.</p>

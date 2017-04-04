@@ -102,6 +102,72 @@
                     "version": "AngularJS"
                 }
             ]
+        },
+        {
+            "title": "Partition Map",
+            "link": "partition-map",
+            "sections": [
+                {
+                    "title": "Partition Map",
+                    "component": "ChartsPartitionMapNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Sankey Chart",
+            "link": "sankey-chart",
+            "sections": [
+                {
+                    "title": "Sankey Chart",
+                    "component": "ChartsSankeyChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Scrollable Chart",
+            "link": "scrollable-chart",
+            "sections": [
+                {
+                    "title": "Scrollable Chart",
+                    "component": "ChartsScrollableChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Social Chart",
+            "link": "social-chart",
+            "sections": [
+                {
+                    "title": "Social Chart",
+                    "component": "ChartsSocialChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Spark Charts",
+            "link": "spark-charts",
+            "sections": [
+                {
+                    "title": "Spark Charts",
+                    "component": "ChartsSparkChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
+            "title": "Timeline Chart",
+            "link": "timeline-chart",
+            "sections": [
+                {
+                    "title": "Timeline Charts",
+                    "component": "ChartsTimelineChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
         }
 
             

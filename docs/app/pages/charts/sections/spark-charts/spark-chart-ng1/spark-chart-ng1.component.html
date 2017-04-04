@@ -1,0 +1,162 @@
+<hr>
+
+<p>Spark Line indicator can be created using the <code class="highlighter-rouge">spark</code> directive. The attributes of the
+    spark line are explained below:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Property</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">type</td>
+                <td>string</td>
+                <td>Defines the class name that is used to specify the spark line color.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">value</td>
+                <td>number</td>
+                <td>Indicates the current value of the spark line (progress).</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">fillheight</td>
+                <td>number</td>
+                <td>Indicates the current value of the spark fill (height).</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">inline-label</td>
+                <td>HTML</td>
+                <td>Defines the spark line label and works if inline.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">top</td>
+                <td>number</td>
+                <td>Indicates the top margin alignment of the spark line.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">top-left-label</td>
+                <td>string</td>
+                <td>Defines the top left label value.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">top-right-label</td>
+                <td>string</td>
+                <td>Defines the top right label value.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">bottom-left-label</td>
+                <td>string</td>
+                <td>Defines the bottom left label value.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">bottom-right-label</td>
+                <td>string</td>
+                <td>Defines the bottom right label value.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-tooltip</td>
+                <td>string</td>
+                <td>Defines the value of the tooltip on the spark chart.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Colors are defined from the set of chart colors and the pre-defined class choices are as follows:</p>
+
+<div class="demo-attributes table-responsive">
+
+    <p>You can also create your own class to use for the spark colors. Name your class and specify a <code>background-color</code>.
+        Within this class you must specify a <code>fill</code> class which also has a <code>background-color</code> set as
+        the fill for the spark chart. See an example below:</p>
+
+    <uxd-snippet></uxd-snippet>
+
+    Multiline tooltips can be added to the Spark Line indicator using the `spark-tooltip` attribute to the spark directive.
+
+    <uxd-snippet></uxd-snippet>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Property</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart1</td>
+                <td>color</td>
+                <td>@chart1 fill, 0.1 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart2</td>
+                <td>color</td>
+                <td>@chart2 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart3</td>
+                <td>color</td>
+                <td>@chart3 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart4</td>
+                <td>color</td>
+                <td>@chart4 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart5</td>
+                <td>color</td>
+                <td>@chart5 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart6</td>
+                <td>color</td>
+                <td>@chart6 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-ok</td>
+                <td>color</td>
+                <td>@ok fill, 0.25 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-warning</td>
+                <td>color</td>
+                <td>@warning fill, 0.25 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-critical</td>
+                <td>color</td>
+                <td>@critical fill, 0.25 background opacity.</td>
+                <td></td>
+                <td>true</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <tabset>
+
+    </tabset>

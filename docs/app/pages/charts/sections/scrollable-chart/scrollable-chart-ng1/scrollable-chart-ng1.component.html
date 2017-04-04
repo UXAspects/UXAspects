@@ -1,0 +1,110 @@
+<hr>
+
+<p>Bar charts and line charts can be extended to have scrolling capabilities for cases when the chart has to display large amounts of data.</p>
+
+<p>To make a chart scrollable we need to define a <code class="highlighter-rouge">scrollable</code> object under the xaxis options.</p>
+
+<uxd-snippet></uxd-snippet>
+
+<hr>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">scrollable</td>
+    <td>array</td>
+    <td>Helps configure the scrolling behavior.</td>
+    <td>true</td>
+  </tr>
+</tbody></table>
+</div>
+
+<hr>
+
+<p>The following attributes should be defined within <code class="highlighter-rouge">scrollable</code></p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">enabled</td>
+    <td>boolean</td>
+    <td>Set to true if scrolling will be enabled.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">range</td>
+    <td>number</td>
+    <td>Represents the size of each page in relation to the points on the x-axis. For example, in the chart above a value of 4 will initially show any points between 0.5 and 4.5. When the next button is clicked it will show points between 4.5 and 8.5</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">lowerBound</td>
+    <td>number</td>
+    <td>Represents the minimum point on the x-axis that can be scrolled to. Once the chart is at this position the scroll left button will be hidden.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">upperBound</td>
+    <td>number</td>
+    <td>Represents the maximum point on the x-axis that can be scrolled to. Once the chart is at this point the scroll right button will be hidden.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">color</td>
+    <td>color</td>
+    <td>Sets the color of the scroll buttons.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">callback</td>
+    <td>function</td>
+    <td>Will be called when the chart is scrolled. It should take in one parameter that will contain two properties.</td>
+    <td>true</td>
+  </tr>
+</tbody></table>
+</div>
+
+<hr>
+
+<p>The following attributes should be defined within <code class="highlighter-rouge">callback</code></p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">start</td>
+    <td>number</td>
+    <td>Contains the minimum value on the x-axis that is currently visible.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">end</td>
+    <td>number</td>
+    <td>Contains the maximum value on the x-axis that is currently visible.</td>
+    <td>true</td>
+  </tr>
+</tbody></table>
+</div>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a href="charts.html#flot-options">Flot Options</a> page for details of chart options.</p>
+</blockquote>
+
+<p>Scrollable charts are an enhanced version of bar/line charts. For more information on adding a bar or line chart, refer to the appropriate chart documentation.</p>

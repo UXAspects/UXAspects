@@ -1,0 +1,507 @@
+
+
+<hr>
+
+<p>There are several attributes that you can supply for the chart:</p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">chart-data</td>
+    <td>array</td>
+    <td>This should contain the data to be displayed on the chart.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">chart-options</td>
+    <td>array</td>
+    <td>This should contain options to describe the presentation of the chart and any event functions.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">chart-loading</td>
+    <td>array</td>
+    <td>This will state whether or not to show the loading overlay.</td>
+    <td>true</td>
+  </tr>
+</tbody></table>
+</div>
+
+<p><br>
+Each segment can have the following data:</p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+    <tbody><tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+    </tr>
+    <tr>
+        <td class="attribute">groupName</td>
+        <td>string</td>
+        <td>This defines the group a segment is part of. This is used for editing the partition map.</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td class="attribute">label</td>
+        <td>string</td>
+        <td>This defines the text to be displayed on the segment.</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td class="attribute">value</td>
+        <td>number</td>
+        <td>This defines the size of each segment. A value must be defined if the segment has no children. If it has children a value should not be specified, as the value will be calculated from the values of its children.</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td class="attribute">children</td>
+        <td>array</td>
+        <td>This defines the child segments.</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td class="attribute">image</td>
+        <td>string</td>
+        <td>This defines an image to appear above the text in the segment.</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td class="attribute">color</td>
+        <td>color</td>
+        <td>This defines the color of the segment. If no color is specified, one will be selected automatically.</td>
+        <td>true</td>
+    </tr>
+</tbody></table>
+</div>
+
+<p>Segments can also have custom data that may be useful. These additional properties will have no effect on how the chart is displayed, however this data can be used to display more information in the popover or help identify which item has been clicked, for example by adding an id. Any items that have a value of zero will be grouped together in a single segment and placed to the right side under its parent segment.</p>
+
+<p>The Partition Map is defined by the <code class="highlighter-rouge">partition-map</code> directive.</p>
+
+<tabset></tabset>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">edit</td>
+    <td>object</td>
+    <td>Allows a clickable edit region on the root node.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">select</td>
+    <td>function</td>
+    <td>Defines a function to be called when a segment is clicked. It should accept two arguments which will contain the data of the selected segment and the element of the selected segment.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">maximize</td>
+    <td>object</td>
+    <td>Defines if the chart should be able to maximize and how it should present itself when maximized.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">popoverEnabled</td>
+    <td>boolean</td>
+    <td>Defines whether a popover should appear when a segment is hovered over. If not specified it will default to true. This will only affect the hover popover and when maximized the docked popover will still be present.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">popoverTemplate</td>
+    <td>string</td>
+    <td>Defines a template file that will display in the popover alongside the list of child nodes. Note that you can also create a template in a `script` tag with a unique ID in your HTML file. The popoverTemplate string can then be set to this ID to use that template.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">valueFormatter</td>
+    <td>function</td>
+    <td>Defines a function to format segment values. In the popover a list of child segments are displayed alongside their values. If you would like to alter how these numbers are presented use this function to do so. It accepts one argument which will be the original number, and expects a string or number value to be returned.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">noDataLabel</td>
+    <td>string</td>
+    <td>Defines the text to display if the data is empty.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">loadingLabel</td>
+    <td>string</td>
+    <td>Defines the text to display on the loading overlay.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">popoverDelay</td>
+    <td>number</td>
+    <td>Defines how long (in milliseconds) a user must hover over a segment before showing the popover. The default value is 650.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">buttonOffset</td>
+    <td>object</td>
+    <td>Defines the position of the maximize/minimize button.</td>
+    <td>true</td>
+  </tr>
+</tbody></table>
+</div>
+
+<p>The following attributes are defined within <code class="highlighter-rouge">edit</code></p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">text</td>
+    <td>string</td>
+    <td>Defines the text to display in the edit region.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">image</td>
+    <td>string</td>
+    <td>Defines the image to display in the edit region above the text.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">click</td>
+    <td>function</td>
+    <td>Defines the function to be called when the edit region is clicked and allows you to implement editing functionality. It should accept one argument which will provide data for the root segment.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">editor</td>
+    <td>object</td>
+    <td>Helps configure the default partition map editor functionality.</td>
+    <td>true</td>
+  </tr>
+</tbody></table>
+</div>
+
+<p>The following attributes are defined within <code class="highlighter-rouge">editor</code></p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">enabled</td>
+    <td>boolean</td>
+    <td>If true the editor will appear when the edit button is clicked.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">finishedText</td>
+    <td>string</td>
+    <td>This will set the text below the button that the user will click to finish editing. The default text is 'Done'.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">noGroupsText</td>
+    <td>string</td>
+    <td>This will set the text in the dropdown if there are no available groups. The default text is 'No groups available'.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">availableGroups</td>
+    <td>array(strings)</td>
+    <td>This will define all the possible groups the user can choose from the dropdown. The initial groups displayed are taken from the partition map data.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">maxRows</td>
+    <td>number</td>
+    <td>The maximum number of rows the partition map can have (this does not include the root segment). The default is 3.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">minRows</td>
+    <td>number</td>
+    <td>The minimum number of rows the partition map can have (this does not include the root segment). The default is 0.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">onFinish</td>
+    <td>function</td>
+    <td>This function will be called when the user has finished editing. The function should accept one argument which will contain an array of groups the user selected in order from highest to lowest. In this function the chart data should be updated accordingly.</td>
+    <td>false</td>
+  </tr>
+</tbody></table>
+</div>
+
+<p>The following attributes are defined within <code class="highlighter-rouge">maximize</code></p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">buttonVisible</td>
+    <td>boolean</td>
+    <td>Defines if the maximize/minimize button should be visible.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">disableScrolling</td>
+    <td>boolean</td>
+    <td>Defines if page scrolling should be disabled when the chart is maximized.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">isMaximized</td>
+    <td>boolean</td>
+    <td>Defines if the chart should present itself in the maximized state initially.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">fillScreen</td>
+    <td>boolean</td>
+    <td>Defines if the maximized chart should fill the remaining space on the screen, or fill the container element.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">sidePanelWidth</td>
+    <td>number</td>
+    <td>Defines the width of the side panel when the Partition Map is maximized. The default value is 235.</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td class="attribute">shouldResize</td>
+    <td>boolean</td>
+    <td>Defines if the chart should resize to fill the container (or remaining screen space) when the maximize/minimize button is clicked. The default value is `true.` This is useful if you wish to see the side panel without having to resize the map. Note: If you set `isMaximized` to true and `shouldResize` to false, the map will load with the side panel displayed.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">onToggle</td>
+    <td>function</td>
+    <td>Defines a function to be called when the maximize/minimize button is clicked. It should accept one argument which will represent the state the chart is transitioning to - `true` for maximized and `false` for minimized. To prevent the default maximize/minimize behavior, make the function return `true`.</td>
+    <td>false</td>
+  </tr>
+</tbody></table>
+</div>
+
+<p>The following attributes are defined within <code class="highlighter-rouge">buttonOffset</code></p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">maximize</td>
+    <td>object</td>
+    <td>Defines the offset for the button when in the maximized state.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">minimize</td>
+    <td>object</td>
+    <td>Defines the offset for the button when in the minimized state.</td>
+    <td>false</td>
+  </tr>
+</tbody></table>
+</div>
+
+<p>The following attributes are defined within the <code class="highlighter-rouge">maximize</code> property in <code class="highlighter-rouge">buttonOffset</code></p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+      <td class="attribute">x</td>
+      <td>number</td>
+      <td>Defines how many pixels left or right to offset the button from the default position when the chart is maximized. A positive number indicates moving the button to the right and a negative number indicates moving the button to the left.</td>
+      <td>false</td>
+  </tr>
+  <tr>
+      <td class="attribute">y</td>
+      <td>number</td>
+      <td>Defines how many pixels up or down to offset the button from the default position when the chart is maximized. A positive number indicates moving the button down and a negative number indicates moving the button up.</td>
+      <td>false</td>
+  </tr>
+</tbody></table>
+</div>
+
+<p>The following attributes are defined within the <code class="highlighter-rouge">minimize</code> property of <code class="highlighter-rouge">buttonOffset</code></p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+      <td class="attribute">x</td>
+      <td>number</td>
+      <td>Defines how many pixels left or right to offset the button from the default position when the chart is minimized. A positive number indicates moving the button to the right and a negative number indicates moving the button to the left.</td>
+      <td>false</td>
+  </tr>
+  <tr>
+      <td class="attribute">y</td>
+      <td>number</td>
+      <td>Defines how many pixels up or down to offset the button from the default position when the chart is minimized. A positive number indicates moving the button down and a negative number indicates moving the button up.</td>
+      <td>false</td>
+  </tr>
+</tbody></table>
+</div>
+
+<h4 id="maximizing">Maximizing</h4>
+
+<p>To allow a partition map to be maximized a container must be specified. To identify the container apply the <code class="highlighter-rouge">partition-container</code> class to the element. It is recommended that it be applied to the <code class="highlighter-rouge">div</code> element containing the main page content (which will often have the class <code class="highlighter-rouge">wrapper-content</code>), this way any navigation, headers or toolbars will not be obstructed. The container will be used to position and size the maximized partition map on the page. If it should fill the screen there is a <code class="highlighter-rouge">fillScreen</code> option that can be set to true.</p>
+
+<p>The maximize/minimize button will by default toggle the presentation of the chart, however other actions can be performed when the button is clicked by providing an <code class="highlighter-rouge">onToggle</code> function in the options. The default functionality will still occur even if you have provided an <code class="highlighter-rouge">onToggle</code> function, however it can be prevented by ensuring the <code class="highlighter-rouge">onToggle</code> function returns a value of <code class="highlighter-rouge">true.</code></p>
+
+<h4 id="popover">Popover</h4>
+
+<p>The partition map requires a template to be defined which will be displayed in the popover when a segment is hovered over, or when the chart is maximized in the docked panel on the right side.</p>
+
+<p>The popover may have different sizes depending on where it is presented and the template should allow for this. Below are details on each presentation and how to apply a style specific to them.</p>
+
+<ul>
+  <li>
+    <p>The default presentation occurs when a segment is hovered over and a popover will appear with a list of the segments children on the right side.</p>
+  </li>
+  <li>
+    <p>The second presentation occurs when a segment is hovered over that has no children. The template will then fill the whole popover. In this case the template will have a parent CSS class of <code class="highlighter-rouge">.full-width</code> which can be used to provide styling specific for this presentation.</p>
+  </li>
+  <li>
+    <p>The third presentation occurs when the partition map has been maximized. The popover will then be docked to the right of the chart. In this case the template will have a parent CSS class of <code class="highlighter-rouge">.docked</code> which can be used to provide styling specific for this presentation.</p>
+  </li>
+</ul>
+
+<p>The popover template will have access to the following data about the segment selected/hovered:</p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">children</td>
+    <td>array</td>
+    <td>If the segment has any children this contains the data on them.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">color</td>
+    <td>string</td>
+    <td>This will contain the color of the current segment.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">data</td>
+    <td>object</td>
+    <td>This will contain the original segment data specified, including any custom data.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">depth</td>
+    <td>number</td>
+    <td>This represents the level the segment is on the chart.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">key</td>
+    <td>string</td>
+    <td>This will contain the label displayed on the segment.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">value</td>
+    <td>number</td>
+    <td>This will contain the value of the current segment.</td>
+    <td>false</td>
+  </tr>
+</tbody></table>
+</div>
+
+<p>The following attributes are defined within <code class="highlighter-rouge">data</code></p>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+  <tbody><tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Optional</th>
+  </tr>
+  <tr>
+    <td class="attribute">label</td>
+    <td>string</td>
+    <td>The label specified for the segment.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">image</td>
+    <td>string</td>
+    <td>The image file specified for the segment (if one was specified).</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">children</td>
+    <td>array</td>
+    <td>The child segments if any were specified.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">parents</td>
+    <td>array</td>
+    <td>The parent segments if any exist. The list is ordered starting with the immediate parent and moving up until the root node is reached.</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td class="attribute">value</td>
+    <td>number</td>
+    <td>The value of the segment if one was specified.</td>
+    <td>false</td>
+  </tr>
+</tbody></table>
+</div>
+
+<p>Any additional custom data that you specified for this segment will also be found here. In this example <code class="highlighter-rouge">groupName</code> was added to each segment, and it is here this data can be accessed</p>
+
+<p>The code used for the popover template in the example above can be found below:</p>
+
+<tabset>
+    
+</tabset>
