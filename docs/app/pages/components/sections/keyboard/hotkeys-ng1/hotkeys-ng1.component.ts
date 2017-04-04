@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
@@ -9,7 +9,8 @@ import './wrapper/hotkeys-wrapper.directive';
     selector: 'uxd-hotkeys-ng1',
     templateUrl: './hotkeys-ng1.component.html',
     styleUrls: ['./hotkeys-ng1.component.less'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsHotkeysNg1Component')
 export class ComponentsHotkeysNg1Component extends BaseDocumentationSection implements ICodePenProvider {

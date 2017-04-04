@@ -1,0 +1,125 @@
+<div class="notification-header">
+    <ol class="breadcrumb">
+        <li class="hidden-xs">
+            <span>Home<i class="hpe-icon hpe-up" aria-hidden="true"></i></span>
+        </li>
+        <li class="hidden-xs">
+            <span>Components<i class="hpe-icon hpe-up" aria-hidden="true"></i></span>
+        </li>
+        <li class="visible-xs-block">
+            <span><i class="hpe-icon hpe-more" aria-hidden="true" tooltip="Home > Components" tooltip-placement="bottom"></i><i class="hpe-icon hpe-up" aria-hidden="true"></i></span>
+        </li>
+    </ol>
+    <h1 class="heading m-t-nil">Notifications</h1>
+
+    <ul class="nav-buttons">
+        <li class="dropdown hidden-xs">
+            <a class="dropdown-toggle">
+                <i class="hpe-icon hpe-help"></i>
+            </a>
+        </li>
+        <li class="dropdown hidden-xs">
+            <a class="dropdown-toggle">
+                <i class="hpe-icon hpe-search"></i>
+            </a>
+        </li>
+        <li class="dropdown count-info hidden-xs">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+                <i class="hpe-icon hpe-notification"></i> <span class="label label-primary" ng-show="vm.notificationCount > 0"
+                    ng-bind="vm.notificationCount"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li ng-show="vm.notificationCount === 0">
+                    <p class="no-notifications-dropdown"><span class="hpe-icon hpe-notification m-r-sm"></span> No Notifications</p>
+                </li>
+                <li ng-repeat="notification in vm.previousNotifications">
+                    <a class="dropdown-notification">
+                        <div class="notification-icon">
+                            <i class="hpe-icon hpe-fw text-muted" ng-class="notification.icon"></i>
+                        </div>
+                        <div class="notification-text">
+                            <span ng-bind="notification.text"></span>
+                        </div>
+                        <div class="notification-time">
+                            <span class="text-muted small" time-ago="notification.date"></span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown-notification-options">
+                        <a href="" class="hyperlink" ng-show="vm.notificationCount > 0" side-modal-window="vm.notificationModalOptions">View all alerts</a>
+                        <div class="hide-notifications">
+                            <checkbox ng-model="vm.hideNotifications" name="hide-notifications">Hide notifications</checkbox>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown hidden-xs">
+            <a class="dropdown-toggle">
+                <i class="hpe-icon hpe-actions"></i>
+            </a>
+        </li>
+        <li class="dropdown visible-xs">
+            <a class="dropdown-toggle" ng-click="vm.iconHeaderVisible = !vm.iconHeaderVisible">
+                <i class="hpe-icon text-primary" ng-class="vm.iconHeaderVisible ? 'hpe-down' : 'hpe-previous'"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="notification-icon-header visible-xs" ng-show="vm.iconHeaderVisible">
+    <ul class="nav-buttons">
+        <li class="dropdown">
+            <a class="dropdown-toggle">
+                <i class="hpe-icon hpe-help"></i>
+            </a>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle">
+                <i class="hpe-icon hpe-search"></i>
+            </a>
+        </li>
+        <li class="dropdown count-info">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+                <i class="hpe-icon hpe-notification"></i> <span class="label label-primary" ng-show="vm.notificationCount > 0"
+                    ng-bind="vm.notificationCount"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li ng-show="vm.notificationCount === 0">
+                    <p class="no-notifications-dropdown"><span class="hpe-icon hpe-notification m-r-sm"></span> No Notifications</p>
+                </li>
+                <li ng-repeat="notification in vm.previousNotifications">
+                    <a class="dropdown-notification">
+                        <div class="notification-icon">
+                            <i class="hpe-icon hpe-fw text-muted" ng-class="notification.icon"></i>
+                        </div>
+                        <div class="notification-text">
+                            <span ng-bind="notification.text"></span>
+                        </div>
+                        <div class="notification-time">
+                            <span class="text-muted small" time-ago="notification.date"></span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown-notification-options">
+                        <a href="" class="hyperlink" ng-show="vm.notificationCount > 0" side-modal-window="vm.notificationModalOptions">View all alerts</a>
+                        <div class="hide-notifications">
+                            <checkbox ng-model="vm.hideNotifications" name="hide-notifications">Hide notifications</checkbox>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle">
+                <i class="hpe-icon hpe-actions"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<p>Use the button below to trigger a notification. This will update the notifications shown in the dropdown.</p>
+
+<button type="button" class="btn button-primary m-t-sm" ng-click="vm.showNextNotification()">Show Notification</button>

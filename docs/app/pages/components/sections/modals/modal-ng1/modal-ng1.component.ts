@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
@@ -7,7 +7,8 @@ import './wrapper/modal-wrapper.directive.js';
 
 @Component({
     selector: 'uxd-modal-ng1',
-    templateUrl: './modal-ng1.component.html'
+    templateUrl: './modal-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsModalNg1Component')
 export class ComponentsModalNg1Component extends BaseDocumentationSection implements ICodePenProvider {

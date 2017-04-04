@@ -3,21 +3,24 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/keyboard-service-wrapper.directive';
+import './wrapper/notifications-wrapper.directive.js';
 
 @Component({
-    selector: 'uxd-keyboard-service-ng1',
-    templateUrl: './keyboard-service-ng1.component.html',
+    selector: 'uxd-notifications-ng1',
+    templateUrl: './notifications-ng1.component.html',
+    styleUrls: ['./notifications-ng1.component.less'],
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-@DocumentationSectionComponent('ComponentsKeyboardServiceNg1Component')
-export class ComponentsKeyboardServiceNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+@DocumentationSectionComponent('ComponentsNotificationsNg1Component')
+export class ComponentsNotificationsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
-            'ng-controller': 'KeyboardServiceDemoCtrl as vm'
+            'ng-controller': 'NotificationsDemoCtrl as vm'
         },
-        js: [this.snippets.raw.controllerJs]
+        css: [this.snippets.raw.stylesCss],
+        js: [this.snippets.raw.controllerJs, this.snippets.raw.modalControllerJs]
     };
 
     constructor() {

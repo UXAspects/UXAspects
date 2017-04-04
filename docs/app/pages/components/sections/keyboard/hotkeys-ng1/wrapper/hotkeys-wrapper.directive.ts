@@ -56,6 +56,11 @@ angular.module('app').directive('uxdHotkeysWrapper', () => {
                 }
                 vm.testMessage = '';
             };
+
+            // Clean up scope
+            vm.$onDestroy = function () {
+                $scope.$destroy();
+            };
         }],
         controllerAs: 'vm'
     };

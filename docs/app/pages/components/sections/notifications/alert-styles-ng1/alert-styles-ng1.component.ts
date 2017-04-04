@@ -3,19 +3,19 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/keyboard-service-wrapper.directive';
+import './wrapper/alert-styles-wrapper.directive.js';
 
 @Component({
-    selector: 'uxd-keyboard-service-ng1',
-    templateUrl: './keyboard-service-ng1.component.html',
+    selector: 'uxd-alert-styles-ng1',
+    templateUrl: './alert-styles-ng1.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-@DocumentationSectionComponent('ComponentsKeyboardServiceNg1Component')
-export class ComponentsKeyboardServiceNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+@DocumentationSectionComponent('ComponentsAlertStylesNg1Component')
+export class ComponentsAlertStylesNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
-            'ng-controller': 'KeyboardServiceDemoCtrl as vm'
+            'ng-controller': 'AlertStylesDemoCtrl as vm'
         },
         js: [this.snippets.raw.controllerJs]
     };

@@ -2,7 +2,7 @@ angular.module('app').directive('uxdModalWrapper', () => {
     return {
         restrict: 'E',
         template: require('./modal-wrapper.directive.html'),
-        controller: ['$templateCache', '$modal', function ($templateCache, $modal) {
+        controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
             $templateCache.put('modalLayout.html', require('../snippets/modalLayout.html'));
 
             var vm = this;
@@ -18,6 +18,11 @@ angular.module('app').directive('uxdModalWrapper', () => {
                 modalInstance.result.then(function () {
                     // result passed into closed function;
                 });
+            };
+
+            // Clean up scope
+            vm.$onDestroy = function () {
+                $scope.$destroy();
             };
         }],
         controllerAs: 'vm'

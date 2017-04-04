@@ -28,6 +28,11 @@ angular.module('app').directive('uxdKeyboardServiceWrapper', () => {
                 }
                 vm.testMessage = '';
             };
+
+            // Clean up scope
+            vm.$onDestroy = function () {
+                $scope.$destroy();
+            };
         }],
         controllerAs: 'vm'
     };

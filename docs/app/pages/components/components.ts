@@ -72,6 +72,11 @@ import './sections/grid/grid-ng1/wrapper/grid-wrapper.directive';
 import './sections/hierarchy-bar/hierarchy-bar-ng1/wrapper/hierarchy-bar-wrapper.directive';
 import { ComponentsMarqueeModalNg1Component } from './sections/modals/marquee-modal-ng1/marquee-modal-ng1.component';
 import { ComponentsSideModalNg1Component } from './sections/modals/side-modal-ng1/side-modal-ng1.component';
+import { ComponentsNotificationsNg1Component } from './sections/notifications/notifications-ng1/notifications-ng1.component';
+import { ComponentsNotificationListNg1Component } from './sections/notifications/notification-list-ng1/notification-list-ng1.component';
+import { ComponentsNotificationDropdownNg1Component } from './sections/notifications/notification-dropdown-ng1/notification-dropdown-ng1.component';
+import { ComponentsAlertStylesNg1Component } from './sections/notifications/alert-styles-ng1/alert-styles-ng1.component';
+import { ComponentsDismissableStylesNg1Component } from './sections/notifications/dismissable-styles-ng1/dismissable-styles-ng1.component';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
@@ -131,4 +136,9 @@ export const COMPONENT_SECTIONS = [
     ComponentsSquareModalNg1Component,
     ComponentsMarqueeModalNg1Component,
     ComponentsSideModalNg1Component,
+    ComponentsNotificationsNg1Component,
+    ComponentsNotificationListNg1Component,
+    ComponentsNotificationDropdownNg1Component,
+    ComponentsAlertStylesNg1Component,
+    ComponentsDismissableStylesNg1Component,
 ];
