@@ -1,3 +1,48 @@
+<div class="row">
+
+    <ux-spark-ng1 [type]="charts[0].type" [value]="charts[0].value" [fillheight]="charts[0].fillHeight" [topLeftLabel]="charts[0].topLeftLabel" class="col-md-5 col-sm-5 col-xs-5"
+        sparkTooltip="{{ charts[0].tooltip }}"></ux-spark-ng1>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark-ng1 [type]="charts[1].type" [value]="charts[1].value" [fillheight]="charts[1].fillHeight" [inlineLabel]="charts[1].inlineLabel" class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+</div>
+
+<hr>
+
+<div class="row">
+
+    <ux-spark-ng1 [type]="charts[2].type" [value]="charts[2].value" [fillheight]="charts[2].fillHeight" [topLeftLabel]="charts[2].topLeftLabel" [bottomLeftLabel]="charts[2].bottomLeftLabel"
+        class="col-md-5 col-sm-5 col-xs-5" sparkTooltip="{{ charts[2].tooltip }}"></ux-spark-ng1>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark-ng1 [type]="charts[3].type" [value]="charts[3].value" [fillheight]="charts[3].fillHeight" [inlineLabel]="charts[3].inlineLabel" class="col-md-5 col-sm-5 col-xs-5" [topLeftLabel]="charts[3].topLeftLabel"></ux-spark-ng1>
+</div>
+
+<hr>
+
+<div class="row">
+    <ux-spark-ng1 [type]="charts[4].type" [value]="charts[4].value" [fillheight]="charts[4].fillHeight" [topLeftLabel]="charts[4].topLeftLabel" class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark-ng1 [type]="charts[5].type" [value]="charts[5].value" [fillheight]="charts[5].fillHeight" [topLeftLabel]="charts[5].topLeftLabel" [bottomLeftLabel]="charts[5].bottomLeftLabel" [topRightLabel]="charts[5].topRightLabel"
+        [bottomRightLabel]="charts[5].bottomRightLabel" class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+</div>
+
+<hr>
+
+<div class="row">
+
+    <ux-spark-ng1 [type]="charts[6].type" [value]="charts[6].value" [fillheight]="charts[6].fillHeight" [topLeftLabel]="charts[6].topLeftLabel" class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+    
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark-ng1 [type]="charts[7].type" [value]="charts[7].value" [fillheight]="charts[7].fillHeight" [topLeftLabel]="charts[7].topLeftLabel" [bottomLeftLabel]="charts[7].bottomLeftLabel" [topRightLabel]="charts[7].topRightLabel"
+        [bottomRightLabel]="charts[7].bottomRightLabel" class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+</div>
+
 <hr>
 
 <p>Spark Line indicator can be created using the <code class="highlighter-rouge">spark</code> directive. The attributes of the
@@ -31,7 +76,7 @@
                 <td>false</td>
             </tr>
             <tr>
-                <td class="attribute">inline-label</td>
+                <td class="attribute">inlineLabel</td>
                 <td>HTML</td>
                 <td>Defines the spark line label and works if inline.</td>
                 <td>true</td>
@@ -43,25 +88,25 @@
                 <td>true</td>
             </tr>
             <tr>
-                <td class="attribute">top-left-label</td>
+                <td class="attribute">topLeftLabel</td>
                 <td>string</td>
                 <td>Defines the top left label value.</td>
                 <td>true</td>
             </tr>
             <tr>
-                <td class="attribute">top-right-label</td>
+                <td class="attribute">topRightLabel</td>
                 <td>string</td>
                 <td>Defines the top right label value.</td>
                 <td>true</td>
             </tr>
             <tr>
-                <td class="attribute">bottom-left-label</td>
+                <td class="attribute">bottomLeftLabel</td>
                 <td>string</td>
                 <td>Defines the bottom left label value.</td>
                 <td>true</td>
             </tr>
             <tr>
-                <td class="attribute">bottom-right-label</td>
+                <td class="attribute">bottomRightLabel</td>
                 <td>string</td>
                 <td>Defines the bottom right label value.</td>
                 <td>true</td>

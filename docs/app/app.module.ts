@@ -176,6 +176,7 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxPeityUpdatingLineChartNg1'),
   upgradeAdapter.upgradeNg1Component('uxNestedDonutNg1'),
   upgradeAdapter.upgradeNg1Component('uxOrganizationChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxSparkNg1'),
 ]
 .concat(DOCUMENTATION_COMPONENTS)
 .concat(DOCUMENTATION_DIRECTIVES)
@@ -213,6 +214,7 @@ export class AppModule {
 upgradeAdapter.upgradeNg1Provider('$rootScope');
 upgradeAdapter.upgradeNg1Provider('$state');
 upgradeAdapter.upgradeNg1Provider('flotDataService');
+upgradeAdapter.upgradeNg1Provider('lineDataService');
 
 /*
   Register Angular 1 module

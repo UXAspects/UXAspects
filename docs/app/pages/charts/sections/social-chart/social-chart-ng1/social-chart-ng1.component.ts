@@ -7,5 +7,6 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('ChartsSocialChartNg1Component')
 export class ChartsSocialChartNg1Component {
+
     
 }
