@@ -9,7 +9,7 @@ LICENSE-START
 LICENSE-END
  */
 //===================================
-//THIS HAS BEEN MODIFIED FOR ELEMENTS
+//THIS HAS BEEN MODIFIED FOR UX Aspects
 //===================================
 //it now uses the bootstrap .has-error and .has-feedback
 
@@ -296,7 +296,7 @@ LICENSE-END
         }
       },
       //============
-      //Elements overrides
+      //UX Aspects overrides
       //============
       errorElement: 'span',
       errorClass: 'error-text',
