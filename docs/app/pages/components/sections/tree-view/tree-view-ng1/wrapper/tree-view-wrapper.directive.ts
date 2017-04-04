@@ -2,14 +2,20 @@ angular.module('app').directive('uxdTreeViewWrapper', () => {
     return {
         restrict: 'E',
         template: require('./tree-view-wrapper.directive.html'),
-        controller: 'TreeViewDocumentationCtrl as vm'
+        controller: 'TreeViewDocumentationCtrl as vm',
+        scope: true
     };
 });
 
-angular.module('app').controller('TreeViewDocumentationCtrl', TreeViewDocumentationCtrl);
+angular.module('app').controller('TreeViewDocumentationCtrl', ['$scope', TreeViewDocumentationCtrl]);
 
-  function TreeViewDocumentationCtrl() {
+  function TreeViewDocumentationCtrl($scope: angular.IScope) {
+
     var vm = this;
+
+    vm.$onDestroy = function() {
+      $scope.$destroy();
+    };
 
     vm.selected = {
       id: '0',

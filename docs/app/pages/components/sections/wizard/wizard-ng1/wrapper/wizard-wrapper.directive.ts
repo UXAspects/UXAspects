@@ -2,14 +2,20 @@ angular.module('app').directive('uxdWizardWrapper', () => {
     return {
         restrict: 'E',
         template: require('./wizard-wrapper.directive.html'),
-        controller: 'WizardCtrl as vm'
+        controller: 'WizardCtrl as vm',
+        scope: true
     };
 });
 
-angular.module('app').controller('WizardCtrl', WizardCtrl);
+angular.module('app').controller('WizardCtrl', ['$scope', WizardCtrl]);
 
-function WizardCtrl() {
+function WizardCtrl($scope: angular.IScope) {
+
     var vm = this;
+
+    vm.$onDestroy = function() {
+      $scope.$destroy();
+    };
 
     vm.steps = [
         { title: 'First Step', content: 'Content of step 1.' },

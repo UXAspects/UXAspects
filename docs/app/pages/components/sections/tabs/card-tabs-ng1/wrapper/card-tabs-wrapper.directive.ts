@@ -2,15 +2,21 @@ angular.module('app').directive('uxdCardTabsWrapper', () => {
     return {
         restrict: 'E',
         template: require('./card-tabs-wrapper.directive.html'),
-        controller: 'CardTabsCtrl as vm'
+        controller: 'CardTabsCtrl as vm',
+        scope: true
     };
 });
 
-angular.module('app').controller('CardTabsCtrl', CardTabsCtrl);
+angular.module('app').controller('CardTabsCtrl', ['$scope', CardTabsCtrl]);
 
-function CardTabsCtrl() {
+
+function CardTabsCtrl($scope: angular.IScope) {
 
     var vm = this;
+
+    vm.$onDestroy = function() {
+      $scope.$destroy();
+    };
 
     vm.cardTabs = [{
       title: 'Archive Totals',

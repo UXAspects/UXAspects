@@ -2,16 +2,20 @@ angular.module('app').directive('uxdPdfServiceWrapper', () => {
     return {
         restrict: 'E',
         template: require('./pdf-service-wrapper.directive.html'),
-        controller: 'PdfServiceCtrl as vm'
+        controller: 'PdfServiceCtrl as vm',
+        scope: true
     };
 });
 
-angular.module('app').controller('PdfServiceCtrl', PdfServiceCtrl);
+angular.module('app').controller('PdfServiceCtrl', ['$pdf', '$scope', PdfServiceCtrl]);
 
-PdfServiceCtrl.$inject = ['$pdf'];
+function PdfServiceCtrl($pdf: any, $scope: angular.IScope) {
 
-function PdfServiceCtrl($pdf: any) {
     var vm = this;
+
+    vm.$onDestroy = function() {
+      $scope.$destroy();
+    };
 
     let chance = require('chance').Chance();
 

@@ -2,15 +2,20 @@ angular.module('app').directive('uxdTimelineWrapper', () => {
     return {
         restrict: 'E',
         template: require('./timeline-wrapper.directive.html'),
-        controller: 'TimelineCtrl as vm'
+        controller: 'TimelineCtrl as vm',
+        scope: true
     };
 });
 
-angular.module('app').controller('TimelineCtrl', TimelineCtrl);
+angular.module('app').controller('TimelineCtrl', ['$scope', TimelineCtrl]);
 
-function TimelineCtrl() {
+function TimelineCtrl($scope: angular.IScope) {
 
     var vm = this;
+
+    vm.$onDestroy = function() {
+      $scope.$destroy();
+    };
 
     vm.events = [{
       badgeClass: 'accent',

@@ -2,15 +2,20 @@ angular.module('app').directive('uxdDetailedTabWrapper', () => {
     return {
         restrict: 'E',
         template: require('./detailed-tab-wrapper.directive.html'),
-        controller: 'DetailedTabsCtrl as vm'
+        controller: 'DetailedTabsCtrl as vm',
+        scope: true
     };
 });
 
-angular.module('app').controller('DetailedTabsCtrl', DetailedTabsCtrl);
+angular.module('app').controller('DetailedTabsCtrl', ['$scope', DetailedTabsCtrl]);
 
-function DetailedTabsCtrl() {
+function DetailedTabsCtrl($scope: angular.IScope) {
 
     var vm = this;
+
+    vm.$onDestroy = function() {
+      $scope.$destroy();
+    };
 
     // load tab templates as angular 1 templates
     require('!ng-cache-loader?name=tab-bar.html!./tab-bar.html');

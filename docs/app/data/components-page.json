@@ -410,6 +410,11 @@
                     "title": "Tree Grid",
                     "component": "ComponentsTreeGridNg1Component",
                     "version": "AngularJS"
+                },
+                {
+                    "title": "Tree Grid Asynchronous Loading",
+                    "component": "ComponentsTreeGridAsynchronousLoadingNg1Component",
+                    "version": "AngularJS"
                 }            
             ]
         },
@@ -497,6 +502,11 @@
                 {
                     "title": "Vertical Wizard",
                     "component": "ComponentsVerticalWizardNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Marquee Wizard",
+                    "component": "ComponentsMarqueeWizardNg1Component",
                     "version": "AngularJS"
                 }
             ]

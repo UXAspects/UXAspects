@@ -2,15 +2,20 @@ angular.module('app').directive('uxdStackedTabsWrapper', () => {
     return {
         restrict: 'E',
         template: require('./stacked-tabs-wrapper.directive.html'),
-        controller: 'StackedTabsCtrl as vm'
+        controller: 'StackedTabsCtrl as vm',
+        scope: true
     };
 });
 
-angular.module('app').controller('StackedTabsCtrl', StackedTabsCtrl);
+angular.module('app').controller('StackedTabsCtrl', ['$scope', StackedTabsCtrl]);
 
-function StackedTabsCtrl() {
+function StackedTabsCtrl($scope: angular.IScope) {
 
     var vm = this;
+
+    vm.$onDestroy = function() {
+      $scope.$destroy();
+    };
 
     vm.stackedTabs = [{
       title: 'Schedule',

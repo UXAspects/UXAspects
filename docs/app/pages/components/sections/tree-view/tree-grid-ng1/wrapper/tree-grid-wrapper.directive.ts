@@ -2,16 +2,23 @@ angular.module('app').directive('uxdTreeGridWrapper', () => {
     return {
         restrict: 'E',
         template: require('./tree-grid-wrapper.directive.html'),
-        controller: 'TreeGridDemoCtrl as vm'
+        controller: 'TreeGridDemoCtrl as vm',
+        scope: true
     };
 });
 
-angular.module('app').controller('TreeGridDemoCtrl', TreeGridDemoCtrl);
-
-  TreeGridDemoCtrl.$inject = ['$scope', '$displayPanel'];
+angular.module('app').controller('TreeGridDemoCtrl', ['$scope', '$displayPanel', TreeGridDemoCtrl]);
 
   function TreeGridDemoCtrl($scope: any, $displayPanel: any) {
     var vm = this;
+
+    vm.$onDestroy = function() {
+      $scope.$destroy();
+    };
+
+    let actions = require('!file-loader!./actions.html');
+    let displayPanel = require('!file-loader!./displayPanel.html');
+    let displayPanelFooter = require('!file-loader!./displayPanelFooter.html');
 
     vm.data = [{
       id: 1,
@@ -108,7 +115,7 @@ angular.module('app').controller('TreeGridDemoCtrl', TreeGridDemoCtrl);
       tooltip: '{{item.date | date : \'fullDate\'}}'
     }, {
       name: 'ACTIONS',
-      template: './actions.html',
+      template: actions,
       width: '25%',
       headerClass: 'text-center',
       cellClass: 'item-actions text-center'
@@ -150,8 +157,8 @@ angular.module('app').controller('TreeGridDemoCtrl', TreeGridDemoCtrl);
       displayPanelScope.item = row.item;
       var modalOptions = {
         title: row.item.title,
-        main: './displayPanel.html',
-        footer: './displayPanelFooter.html',
+        main: displayPanel,
+        footer: displayPanelFooter,
         modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
         top: 50,
         scope: displayPanelScope
@@ -168,3 +175,21 @@ angular.module('app').controller('TreeGridDemoCtrl', TreeGridDemoCtrl);
     }
 
   }
+
+angular.module('app').controller('TreeGridActionsCtrl', TreeGridActionsCtrl);
+
+function TreeGridActionsCtrl() {
+  var vm = this;
+
+  vm.share = function(item: any) {
+    // Action button behaviour goes here
+  };
+
+  vm.goToDetails = function(item: any) {
+    // Action button behaviour goes here
+  };
+
+  vm.delete = function(item: any) {
+    // Action button behaviour goes here
+  };
+}

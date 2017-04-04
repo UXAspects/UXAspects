@@ -1,0 +1,7 @@
+<div class="m-b-md">
+    <button class="btn button-secondary m-r-xs" ng-click="vm.expandAllFolders()" ng-disabled="vm.inProgress"><i class="hpe-icon hpe-down"></i> Expand All Folders</button>
+    <button class="btn button-secondary m-r-xs" ng-click="vm.contractAllFolders()" ng-disabled="vm.inProgress"><i class="hpe-icon hpe-next"></i> Contract All Folders</button>
+    <button class="btn button-secondary m-r-xs" ng-click="vm.reloadAllFolders()" ng-disabled="vm.inProgress"><i class="hpe-icon hpe-refresh"></i> Reload All Folders</button>
+</div>
+<treegrid data="vm.loadData" columns="vm.columns" tree-data="vm.treeData" selected="vm.selected" options="vm.options"></treegrid>
+<p class="m-t-md">High priority: <span ng-repeat="item in vm.highPriorityItems" ng-bind="item.dataItem.document + ($last ? '.' : ', ')"></span></p>

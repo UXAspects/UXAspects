@@ -2,14 +2,20 @@ angular.module('app').directive('uxdTreeViewCompanionViewWrapper', () => {
     return {
         restrict: 'E',
         template: require('./tree-view-companion-view-wrapper.directive.html'),
-        controller: 'TreeViewCompanionViewCtrl as vm'
+        controller: 'TreeViewCompanionViewCtrl as vm',
+        scope: true
     };
 });
 
-angular.module('app').controller('TreeViewCompanionViewCtrl', TreeViewCompanionViewCtrl);
+angular.module('app').controller('TreeViewCompanionViewCtrl', ['$scope', TreeViewCompanionViewCtrl]);
 
-function TreeViewCompanionViewCtrl() {
+function TreeViewCompanionViewCtrl($scope: angular.IScope) {
+
     var vm = this;
+
+    vm.$onDestroy = function() {
+      $scope.$destroy();
+    };
 
     vm.selected = { id: '0', title: '' };
 
