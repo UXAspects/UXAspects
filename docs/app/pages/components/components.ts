@@ -77,6 +77,11 @@ import { ComponentsNotificationListNg1Component } from './sections/notifications
 import { ComponentsNotificationDropdownNg1Component } from './sections/notifications/notification-dropdown-ng1/notification-dropdown-ng1.component';
 import { ComponentsAlertStylesNg1Component } from './sections/notifications/alert-styles-ng1/alert-styles-ng1.component';
 import { ComponentsDismissableStylesNg1Component } from './sections/notifications/dismissable-styles-ng1/dismissable-styles-ng1.component';
+import { ComponentsCollapsiblePanelsNg1Component } from './sections/panels/collapsible-panels-ng1/collapsible-panels-ng1.component';
+import { ComponentsItemDisplayPanelNg1Component } from './sections/panels/item-display-panel-ng1/item-display-panel-ng1.component';
+import { ComponentsItemDisplayPanelServiceNg1Component } from './sections/panels/item-display-panel-service-ng1/item-display-panel-service-ng1.component';
+import { ComponentsModalInsetPanelNg1Component } from './sections/panels/modal-inset-panel-ng1/item-display-panel-ng1.component';
+import { ComponentsSideInsetPanelNg1Component } from './sections/panels/side-inset-panel-ng1/side-inset-panel-ng1.component';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
@@ -141,4 +146,9 @@ export const COMPONENT_SECTIONS = [
     ComponentsNotificationDropdownNg1Component,
     ComponentsAlertStylesNg1Component,
     ComponentsDismissableStylesNg1Component,
+    ComponentsCollapsiblePanelsNg1Component,
+    ComponentsItemDisplayPanelNg1Component,
+    ComponentsItemDisplayPanelServiceNg1Component,
+    ComponentsModalInsetPanelNg1Component,
+    ComponentsSideInsetPanelNg1Component,
 ];

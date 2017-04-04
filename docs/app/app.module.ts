@@ -143,6 +143,9 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdNotificationDropdownWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdAlertStylesWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdDismissableStylesWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdCollapsiblePanelsWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdItemDisplayPanelWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdModalInsetPanelWrapper'),
 
   // Angular 1 Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),
