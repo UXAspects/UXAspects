@@ -1,59 +1,67 @@
-angular.module('app').controller('HierarchyBarDemoCtrl', HierarchyBarDemoCtrl);
+angular.module('app').controller('OrganizationChartDemoCtrl', OrganizationChartDemoCtrl);
 
-HierarchyBarDemoCtrl.$inject = ["$q", "$timeout"];
-
-function HierarchyBarDemoCtrl($q, $timeout) {
+function OrganizationChartDemoCtrl() {
     var vm = this;
 
-    var adminIcon = "https://uxaspects.github.io/UXAspects/assets/img/IconManagerColorized.png";
-    var userIcon = "https://uxaspects.github.io/UXAspects/assets/img/IconCustodianColorized.png";
+    var adminIcon = 'https://uxaspects.github.io/UXAspects/assets/img/examples/IconManagerColorized.png';
+    var userIcon = 'https://uxaspects.github.io/UXAspects/assets/img/examples/IconCustodianColorized.png';
+
+    var internationManager = {
+        name: chance.name(),
+        position: 'International Manager',
+        phone: chance.phone(),
+        email: 'inat_manager@company.com',
+        image: adminIcon
+    };
+
+    var chiefTechnicalOfficer = {
+        name: chance.name(),
+        position: 'Chief Technical Officer',
+        phone: chance.phone(),
+        email: 'cto@company.com',
+        image: adminIcon
+    };
 
     vm.options = {
-        image: function (data) {
-            return data.image;
+        hierarchyBar: {
+            image: function (data) {
+                return data.image;
+            }
         },
-        action: {
-            title: "Loading",
-            event: function (crumb) {
-                if (crumb.children) {
-                    return;
-                }
+        nodes: {
+            template: 'chart-node.html'
+        },
+        reveal: function () {
 
-                var defer = $q.defer();
+            if (vm.data.name === internationManager.name) {
 
-                $timeout(function () {
-                    crumb.children = [{
-                        name: chance.name(),
-                        position: 'Intern',
-                        phone: chance.phone(),
-                        email: 'intern@company.com',
-                        image: adminIcon
-                    }, {
-                        name: chance.name(),
-                        position: 'Intern',
-                        phone: chance.phone(),
-                        email: 'intern@company.com',
-                        image: adminIcon
-                    }, {
-                        name: chance.name(),
-                        position: 'Intern',
-                        phone: chance.phone(),
-                        email: 'intern@company.com',
-                        image: adminIcon
-                    }];
+                // add a new root node
+                chiefTechnicalOfficer.children = [vm.data];
+                vm.data = chiefTechnicalOfficer;
 
-                    addNodeParentRefs(crumb);
+                // hide the button now
+                return false;
 
-                    defer.resolve();
+            } else {
 
-                }, 2000);
-
-                return defer.promise;
+                // add a new root node                    
+                internationManager.children = [vm.data];
+                vm.data = internationManager;
+            }
+        },
+        search: {
+            enabled: true,
+            placeholder: 'Enter name or job title',
+            template: 'search-item.html',
+            query: function (query, node) {
+                // return true if the name or title contains the search query
+                return node.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+                    node.position.toLowerCase().indexOf(query.toLowerCase()) !== -1;
             }
         }
     };
 
-    vm.breadcrumbs = {
+    vm.data = {
         name: chance.name(),
         position: 'National Manager',
         phone: chance.phone(),
@@ -145,68 +153,4 @@ function HierarchyBarDemoCtrl($q, $timeout) {
             }]
         }]
     };
-
-    // add references to parent nodes
-    addNodeParentRefs();
-
-    function addNodeParentRefs(node, parent) {
-
-        if (!node) {
-            node = vm.breadcrumbs;
-        }
-
-        // if there is a parent then add reference to it
-        if (parent) {
-            node.parent = parent;
-        }
-
-        // get node children
-        var children = node.children || node._children;
-
-        // check if there are children
-        if (!children || children.length === 0) {
-            return;
-        }
-
-        // loop through each child and get its children
-        for (var idx = 0; idx < children.length; idx++) {
-
-            var child = children[idx];
-
-            addNodeParentRefs(child, node);
-        }
-    }
-
-    vm.selectBreadcrumb = function (data) {
-
-        // reset the breadcrumb list
-        vm.breadcrumbs = [];
-
-        // ensure a node is selected
-        if (!data) {
-            return;
-        }
-
-        // get the current node
-        var node = data;
-
-        // add the current node to the list
-        vm.breadcrumbs.push(node);
-
-        // add all its parents
-        while (node.parent) {
-
-            // set node to reference its parent
-            node = node.parent;
-
-            // add this node to the list
-            vm.breadcrumbs.push(node);
-        }
-
-        // reverse the array to get the desired order
-        vm.breadcrumbs.reverse();
-    };
-
-    vm.selectBreadcrumb(vm.breadcrumbs);
-
 }

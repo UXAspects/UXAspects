@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
     logLevel: 0,
 };
 
-const less = require('less');
+const less = require('less/dist/less.min');
 
 @Injectable()
 export class LessService {

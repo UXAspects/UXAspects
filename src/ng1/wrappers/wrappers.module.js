@@ -7,13 +7,15 @@ import { PeityBarChartDirective } from './peity/peity-bar-chart.directive';
 import { PeityPieChartDirective } from './peity/peity-pie-chart.directive';
 import { PeityUpdatingLineChartDirective } from './peity/peity-updating-line-chart.directive';
 import { NestedDonutDirective } from './nested-donut/nested-donut.directive';
+import { OrganizationChartDirective } from './organization-chart/organization-chart.directive';
 
 let wrapperModule = angular.module('ux-aspects.wrappers', [
     'ux-aspects.contacts',
     'angular-flot',
     'angular-peity',
     'ux-aspects.d3',
-    'ux-aspects.nestedDonut'
+    'ux-aspects.nestedDonut',
+    'ux-aspects.organizationChart'
 ]);
 
 wrapperModule.directive('uxContactGroupNg1', ContactGroupDirective);
@@ -24,3 +26,4 @@ wrapperModule.directive('uxPeityBarChartNg1', PeityBarChartDirective);
 wrapperModule.directive('uxPeityPieChartNg1', PeityPieChartDirective);
 wrapperModule.directive('uxPeityUpdatingLineChartNg1', PeityUpdatingLineChartDirective);
 wrapperModule.directive('uxNestedDonutNg1', NestedDonutDirective);
+wrapperModule.directive('uxOrganizationChartNg1', OrganizationChartDirective);

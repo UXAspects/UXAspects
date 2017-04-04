@@ -169,11 +169,19 @@ const DECLARATIONS = [
   // Angular 1 Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),
   upgradeAdapter.upgradeNg1Component('uxScrollPaneNg1'),
+  upgradeAdapter.upgradeNg1Component('uxFlotNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityLineChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityBarChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityPieChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityUpdatingLineChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxNestedDonutNg1'),
+  upgradeAdapter.upgradeNg1Component('uxOrganizationChartNg1'),
 ]
 .concat(DOCUMENTATION_COMPONENTS)
 .concat(DOCUMENTATION_DIRECTIVES)
 .concat(CSS_SECTIONS)
-.concat(COMPONENT_SECTIONS);
+.concat(COMPONENT_SECTIONS)
+.concat(CHART_SECTIONS);
 
 @NgModule({
   imports: [

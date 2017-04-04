@@ -19,16 +19,13 @@ export class RadioButtonComponent implements ControlValueAccessor {
     @Input() disabled: boolean = false;
     @Input() name: string = '';
     @Input() clickable: boolean = true;
-    @Input() value: any;
+    @Input() option: any;
     @Input() id: string;
 
     private model: boolean = false;
 
     private onTouchedCallback: () => void = () => { };
     private onChangeCallback: (_: any) => void = () => { };
-
-
-    constructor() { }
 
     @HostListener('click', [])
     checkItem() {
@@ -38,7 +35,7 @@ export class RadioButtonComponent implements ControlValueAccessor {
         }
 
         // toggle the checked state
-        this.model = this.value;
+        this.model = this.option;
 
         // call callback
         this.onChangeCallback(this.model);

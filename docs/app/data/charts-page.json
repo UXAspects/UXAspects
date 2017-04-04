@@ -91,6 +91,17 @@
                     "version": "AngularJS"
                 }
             ]
+        },
+        {
+            "title": "Organization Chart",
+            "link": "organization-chart",
+            "sections": [
+                {
+                    "title": "Organization Chart",
+                    "component": "ChartsOrganizationChartNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
         }
 
             

@@ -9,6 +9,7 @@ import { ChartsLineChartNg1Component } from './sections/line-charts/line-chart-n
 import { ChartsStackedLineChartNg1Component } from './sections/line-charts/stacked-line-chart-ng1/stacked-line-chart-ng1.component';
 import { ChartsMultipleAxisLineChartNg1Component } from './sections/line-charts/multiple-axis-line-chart-ng1/multiple-axis-line-chart-ng1.component';
 import { ChartsLiveChartNg1Component } from './sections/live-charts/live-chart-ng1/live-chart-ng1.component';
+import { ChartsOrganizationChartNg1Component } from './sections/organization-chart/organization-chart-ng1/organization-chart-ng1.component';
 
 export const CHART_SECTIONS: any[] = [
     ChartsBarChartNg1Component,
@@ -21,5 +22,6 @@ export const CHART_SECTIONS: any[] = [
     ChartsLineChartNg1Component,
     ChartsStackedLineChartNg1Component,
     ChartsMultipleAxisLineChartNg1Component,
-    ChartsLiveChartNg1Component
+    ChartsLiveChartNg1Component,
+    ChartsOrganizationChartNg1Component
 ];
