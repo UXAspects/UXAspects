@@ -1,8 +1,4 @@
 import { Input, Component, Inject } from '@angular/core';
-import { Http, Headers, Request, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 import { EditExampleService } from '../../services/edit-example/edit-example.service';
