@@ -7,7 +7,7 @@
                 <a [href]="action.link" class="landing-page-header-btn">{{ action.title }}</a>
                 <div *ngIf="version" class="landing-page-header-version">
                     <span class="landing-page-header-version-current">{{ version }}</span>
-                    <a [href]="changelog.link" class="landing-page-header-changelog">{{ changelog.title }}</a>
+                    <a routerLink="/changelog" class="landing-page-header-changelog">{{ changelog.title }}</a>
                 </div>
             </div>
         </div>

@@ -115,6 +115,7 @@ import './sections/utilities/time-ago-service-ng1/wrapper/time-ago-service-wrapp
 import './sections/utilities/list-item-filter-ng1/wrapper/list-item-filter-wrapper.directive';
 import './sections/wizard/marquee-wizard-ng1/wrapper/marquee-wizard-wrapper.directive';
 import './sections/tree-view/tree-grid-asynchronous-loading-ng1/wrapper/tree-grid-asynchronous-loading-wrapper.directive';
+import './sections/tables/custom-responsive-table-ng1/wrapper/custom-responsive-wrapper.directive';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
