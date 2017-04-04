@@ -10,6 +10,7 @@ export default function partitionMap(d3PartitionMap) {
     },
     template: require('./partitionMap.html'),
     link: function(scope, element) {
+      debugger;
       var vm = scope;
 
       //find chrt container element

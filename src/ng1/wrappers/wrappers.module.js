@@ -9,6 +9,7 @@ import { PeityUpdatingLineChartDirective } from './peity/peity-updating-line-cha
 import { NestedDonutDirective } from './nested-donut/nested-donut.directive';
 import { OrganizationChartDirective } from './organization-chart/organization-chart.directive';
 import { SparkDirective } from './spark/spark.directive';
+import { PartitionMapDirective } from './partition-map/partition-map.directive'; 
 
 let wrapperModule = angular.module('ux-aspects.wrappers', [
     'ux-aspects.contacts',
@@ -29,3 +30,4 @@ wrapperModule.directive('uxPeityUpdatingLineChartNg1', PeityUpdatingLineChartDir
 wrapperModule.directive('uxNestedDonutNg1', NestedDonutDirective);
 wrapperModule.directive('uxOrganizationChartNg1', OrganizationChartDirective);
 wrapperModule.directive('uxSparkNg1', SparkDirective);
+wrapperModule.directive('uxPartitionMapNg1', PartitionMapDirective);
