@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-6 col-xs-12 m-t-md">
+        <uxd-expanding-text-area-wrapper></uxd-expanding-text-area-wrapper>
+    </div>
+</div>
+
+<hr>
+
+<p>Expanding textareas provide the same functionality as regular textareas however with the additional feature that they can
+    grow in height as more content is added to them.</p>
+
+<p>To create an expanding textarea use the <code>expanding-textarea</code> directive.</p>
+
+<uxd-snippet [content]="this.snippets.compiled.sampleHtml"></uxd-snippet>
+
+<p>Additional attributes can be specified to configure the behavior of the textarea:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Binding</th>
+            <th>Description</th>
+            <th>Optional</th>
+        </tr>
+        <tr>
+            <td class="attribute">disable-return</td>
+            <td>boolean</td>
+            <td>literal</td>
+            <td>If true this will prevent the user from being able to take a new line by pressing the return key.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">max-visible-lines</td>
+            <td>number</td>
+            <td>literal</td>
+            <td>Once the textarea has this many lines it will no longer grow and instead show a scrollbar. A value of 0 will
+                grow the textarea regardless of the number of lines.</td>
+            <td>true</td>
+        </tr>
+    </table>
+</div>

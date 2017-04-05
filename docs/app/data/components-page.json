@@ -207,9 +207,30 @@
                     "version": "Angular"
                 },
                 {
+                    "title": "Checkbox (Angular 1)",
+                    "component": "ComponentsCheckboxNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Custom Dropdown",
+                    "component": "ComponentsCustomDropdownNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Expanding Text Area",
+                    "component": "ComponentsExpandingTextAreaNg1Component",
+                    "version": "AngularJS"
+                },
+                {
                     "title": "Toggle Switch",
                     "component": "ComponentsToggleSwitchComponent",
                     "version": "Angular"
+                },
+                {
+                    "title": "Toggle Switch (Angular 1)",
+                    "component": "ComponentsToggleSwitchNg1Component",
+                    "version": "AngularJS"
                 }
             ]
         },

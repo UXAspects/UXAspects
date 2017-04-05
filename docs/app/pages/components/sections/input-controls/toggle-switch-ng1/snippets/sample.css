@@ -1,0 +1,37 @@
+.toggleswitch-custom .el-toggleswitch > .el-toggleswitch-bg {
+    /* This is the color of the background in the unchecked state. */ 
+    background-color: #ebebeb;
+    /* These three properties are used to "shrink" the default rounded backdrop. */
+    box-sizing: border-box;
+    background-clip: content-box;
+    border: 2px solid transparent;
+    /* The new animation for the background. */
+    transition: background-color 0.3s;
+}
+
+.toggleswitch-custom .el-toggleswitch.checked > .el-toggleswitch-bg {
+    /* This is the color of the background in the checked state. */ 
+    background-color: #9dd4a1;
+    /* The default control uses box-shadow to create the animation, so remove that. */
+    box-shadow: none;
+    /* The default control changes the border, so override that. */
+    border: 2px solid transparent;
+    /* The default control has a slightly different animation for unchecking, so override that. */
+    transition: background-color 0.3s;
+}
+
+.toggleswitch-custom .el-toggleswitch > .el-toggleswitch-nub {
+    /* This is the color of the switch in the unchecked state. */ 
+    background-color: #fff;
+    /* Remove the border. */
+    border: 0;
+    /* Create a dropshadow. */
+    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.3);
+    /* Add a color transition to the switch as well as the slide animation. */
+    transition: background-color 0.3s, left 0.15s;
+}
+
+.toggleswitch-custom .el-toggleswitch.checked > .el-toggleswitch-nub {
+    /* This is the color of the switch in the checked state. */ 
+    background-color: #fff;
+}

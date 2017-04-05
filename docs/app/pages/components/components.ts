@@ -49,7 +49,10 @@ import { ComponentsFlippableCardsNg1Component } from './sections/flippable-cards
 import { ComponentsGridNg1Component } from './sections/grid/grid-ng1/grid-ng1.component';
 import { ComponentsHelpCenterNg1Component } from './sections/help-center/help-center-ng1/help-center-ng1.component';
 import { ComponentsHierarchyBarNg1Component } from './sections/hierarchy-bar/hierarchy-bar-ng1/hierarchy-bar-ng1.component';
-
+import { ComponentsCheckboxNg1Component } from './sections/input-controls/checkbox-ng1/checkbox-ng1.component';
+import { ComponentsCustomDropdownNg1Component } from './sections/input-controls/custom-dropdown-ng1/custom-dropdown-ng1.component';
+import { ComponentsExpandingTextAreaNg1Component } from './sections/input-controls/expanding-text-area-ng1/expanding-text-area-ng1.component';
+import { ComponentsToggleSwitchNg1Component } from './sections/input-controls/toggle-switch-ng1/toggle-switch-ng1.component';
 // Import Wrappers
 import './sections/tables/detail-row-header-ng1/wrapper/service/detail-row-data.service';
 import './sections/tables/detail-row-header-ng1/wrapper/detail-row-header-wrapper.directive';
@@ -67,6 +70,11 @@ import './sections/flippable-cards/flippable-cards-ng1/wrapper/flippable-cards-w
 import './sections/grid/grid-ng1/wrapper/grid-wrapper.directive';
 import './sections/hierarchy-bar/hierarchy-bar-ng1/wrapper/hierarchy-bar-wrapper.directive';
 import './sections/tables/custom-responsive-table-ng1/wrapper/custom-responsive-wrapper.directive';
+import './sections/input-controls/checkbox-ng1/wrapper/checkbox-wrapper.directive';
+import './sections/input-controls/custom-dropdown-ng1/wrapper/custom-dropdown-wrapper.directive';
+import './sections/input-controls/expanding-text-area-ng1/wrapper/expanding-text-area-wrapper.directive';
+import './sections/input-controls/toggle-switch-ng1/wrapper/toggle-switch-wrapper.directive';
+import './sections/input-controls/toggle-switch-ng1/wrapper/custom-toggle-switch-wrapper.directive';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
@@ -120,4 +128,8 @@ export const COMPONENT_SECTIONS = [
     ComponentsGridNg1Component,
     ComponentsHelpCenterNg1Component,
     ComponentsHierarchyBarNg1Component,
+    ComponentsCheckboxNg1Component,
+    ComponentsCustomDropdownNg1Component,
+    ComponentsExpandingTextAreaNg1Component,
+    ComponentsToggleSwitchNg1Component
 ];

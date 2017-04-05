@@ -1,0 +1,81 @@
+.dropdown-popover {
+    z-index: 1005;
+}
+
+.dropdown-outer-container {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.dropdown-container {
+    overflow: auto;
+    width: 250px;
+}
+
+.dropdown-container table {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.dropdown-container table tbody tr td {
+    padding-bottom: 6px;
+}
+
+.dropdown-container table .check>label {
+    margin-bottom: 0px;
+}
+
+.btn-pull-right {
+    float: right;
+    margin-top: 3px;
+}
+
+.group-header {
+    font-size: 18px;
+}
+
+.dropdown-body {
+    font-size: 16px;
+}
+
+.dropdown-footer {
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+    padding: 15px 15px 6px 0;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+
+/* style icon */
+
+.inner-addon .hpe-icon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+}
+
+
+/* align icon */
+
+.left-addon .hpe-icon {
+    left: 0px;
+}
+
+.right-addon .hpe-icon {
+    right: 0px;
+}
+
+
+/* add padding  */
+
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}

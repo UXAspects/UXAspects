@@ -1,0 +1,85 @@
+<uxd-toggle-switch-wrapper></uxd-toggle-switch-wrapper>
+
+<hr>
+
+<p>To create a toggle switch use the <code>toggleswitch</code> directive with an <code>ng-model</code> attribute to set and
+    store the value. Use <code>ng-disabled</code> to control the disabled state.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample1Html"></uxd-snippet>
+
+<p>Add the class <code>toggleswitch-lg</code> to use the large variant of the toggle switch.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample2Html"></uxd-snippet>
+
+<p>The following attributes can be set to customize the behavior of the control.</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Binding</th>
+            <th>Description</th>
+            <th>Optional</th>
+        </tr>
+        <tr>
+            <td class="attribute">ng-model</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>Initially sets the value of the swtich and will be updated to contain the current value if a user toggles the
+                switch.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">ng-disabled</td>
+            <td>value</td>
+            <td>variable</td>
+            <td>If this value is set to <code>true</code> the toggle switch will be disabled.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">clickable</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>If set to <code>false</code> the switch will not be updated when clicking on it, can be used if something else
+                is updating the state of the switch.</td>
+            <td>true</td>
+        </tr>
+    </table>
+</div>
+
+<h4>Custom Styling</h4>
+
+<uxd-custom-toggle-switch-wrapper></uxd-custom-toggle-switch-wrapper>
+
+<hr>
+
+<p>Above is an example of a custom style applied to the toggle switch using CSS. Using the classes described below, one may
+    modify the appearance, size, and animations associated with the toggle switch.</p>
+
+<p>The control consists of the following components that may be styled.</p>
+
+<ul>
+    <li><code>.el-toggleswitch-label</code> is the container of both the toggle switch and the associated label.
+        <ul>
+            <li><code>.el-toggleswitch</code> contains the toggle switch components. It will also have additional classes based
+                on the state of the control. <code>.checked</code> will be present when the control is in the checked state.
+                <code>.disabled</code> will be present if the <code>ng-disabled</code> expression evaluates to true.
+                <ul>
+                    <li><code>.el-toggleswitch-bg</code> is the visible backdrop of the toggle switch.</li>
+                    <li><code>.el-toggleswitch-nub</code> is the switch component which moves when changing state.</li>
+                </ul>
+            </li>
+            <li><code>.el-toggleswitch-content</code> contains the text label.</li>
+        </ul>
+    </li>
+</ul>
+
+<p>The CSS used to create the custom appearance above is as follows. Note that a custom parent class has been applied to each
+    style rule.</p>
+
+<uxd-snippet [content]="snippets.compiled.sampleCss" language="css"></uxd-snippet>
+
+<p>To ensure that the styles override the default, create the toggle switch with the custom class applied.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample3Html"></uxd-snippet>
