@@ -1,6 +1,8 @@
 import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ColorService } from '../../../../../../../src/index';
+import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
     selector: 'uxd-charts-timeline-chart-ng1',
@@ -8,12 +10,25 @@ import { ColorService } from '../../../../../../../src/index';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsTimelineChartNg1Component')
-export class ChartsTimelineChartNg1Component {
+export class ChartsTimelineChartNg1Component implements ICodePenProvider {
 
     private timelineData: any;
     private timelineOptions: any;
     private detailedData: any;
     private detailedOptions: any;
+
+    private htmlCode = require('./snippets/chart.html');
+    private jsCode = require('./snippets/chart.js');
+    private serviceJs = require('./snippets/service.js');
+    private rescaleJs = require('./snippets/rescale.js');
+
+    public codepen: ICodePen = {
+        html: this.htmlCode,
+        htmlAttributes: {
+            'ng-controller': 'TimelineChartCtrl as tc'
+        },
+        js: [this.jsCode]
+    };
 
     constructor(@Inject('lineDataService') private lineDataService: any, colorService: ColorService) {
 
