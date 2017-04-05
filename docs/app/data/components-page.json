@@ -231,6 +231,11 @@
                     "title": "Toggle Switch (Angular 1)",
                     "component": "ComponentsToggleSwitchNg1Component",
                     "version": "AngularJS"
+                },
+                {
+                    "title": "Date Picker",
+                    "component": "ComponentsDatePickerNg1Component",
+                    "version": "AngularJS"
                 }
             ]
         },
