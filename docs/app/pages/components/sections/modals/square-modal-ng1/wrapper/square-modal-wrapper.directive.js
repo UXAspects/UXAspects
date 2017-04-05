@@ -3,13 +3,13 @@ angular.module('app').directive('uxdSquareModalWrapper', () => {
         restrict: 'E',
         template: require('./square-modal-wrapper.directive.html'),
         controller: ['$templateCache', '$modal', function ($templateCache, $modal) {
-            $templateCache.put('modalLayout.html', require('../snippets/modalLayout.html'));
+            $templateCache.put('square-modal-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
 
             var vm = this;
 
             vm.openModal2 = function () {
                 var modalInstance = $modal.open({
-                    templateUrl: 'modalLayout.html',
+                    templateUrl: 'square-modal-ng1/modalLayout.html',
                     controller: 'SquareModalDemoModalCtrl',
                     controllerAs: 'vm',
                     animation: false,

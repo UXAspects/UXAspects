@@ -3,7 +3,7 @@ angular.module('app').directive('uxdMarqueeModalWrapper', () => {
         restrict: 'E',
         template: require('./marquee-modal-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
-            $templateCache.put('modalLayout.html', require('../snippets/modalLayout.html'));
+            $templateCache.put('marquee-modal-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
 
             var vm = this;
 
@@ -11,7 +11,7 @@ angular.module('app').directive('uxdMarqueeModalWrapper', () => {
 
                 var modalInstance = $modal.open({
                     animation: false,
-                    templateUrl: 'modalLayout.html',
+                    templateUrl: 'marquee-modal-ng1/modalLayout.html',
                     controller: 'MarqueeModalDemoModalCtrl',
                     controllerAs: 'vm',
                     keyboard: 'true',

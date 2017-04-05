@@ -3,13 +3,13 @@ angular.module('app').directive('uxdModalWrapper', () => {
         restrict: 'E',
         template: require('./modal-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
-            $templateCache.put('modalLayout.html', require('../snippets/modalLayout.html'));
+            $templateCache.put('modal-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
 
             var vm = this;
 
             vm.openModal1 = function () {
                 var modalInstance = $modal.open({
-                    templateUrl: 'modalLayout.html',
+                    templateUrl: 'modal-ng1/modalLayout.html',
                     controller: 'ModalDemoModalCtrl',
                     controllerAs: 'vm',
                     animation: false,
