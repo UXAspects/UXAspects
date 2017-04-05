@@ -106,7 +106,7 @@ export class ChartsSocialChartNg1Component implements ICodePenProvider {
             },
             edge: {
                 'width': '40vw',
-                'height': '20%',
+                'height': '150px',
                 'min-width': '524px',
                 'max-height': '176px'
             }
