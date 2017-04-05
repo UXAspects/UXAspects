@@ -208,7 +208,7 @@ export default function StaticTooltipCtrl($scope, $element, $parse, safeAnimatio
     });
 
     $scope.$on('$destroy', function() {
-        $staticTooltip.destroyAllTooltips();
+        vm.destroyTooltip();
     });
 }
 
