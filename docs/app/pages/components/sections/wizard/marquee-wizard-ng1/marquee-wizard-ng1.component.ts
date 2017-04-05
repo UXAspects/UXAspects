@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
     selector: 'uxd-components-marquee-wizard-ng1',
-    templateUrl: './marquee-wizard-ng1.component.html'
+    templateUrl: './marquee-wizard-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsMarqueeWizardNg1Component')
 export class ComponentsMarqueeWizardNg1Component implements ICodePenProvider {

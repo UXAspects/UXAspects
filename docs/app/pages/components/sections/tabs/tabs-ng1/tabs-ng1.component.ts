@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
     selector: 'uxd-components-tabs-ng1',
-    templateUrl: './tabs-ng1.component.html'
+    templateUrl: './tabs-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsTabsNg1Component')
 export class ComponentsTabsNg1Component implements ICodePenProvider {

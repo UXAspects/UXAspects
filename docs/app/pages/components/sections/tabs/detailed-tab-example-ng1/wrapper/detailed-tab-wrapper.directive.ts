@@ -18,19 +18,19 @@ function DetailedTabsCtrl($scope: angular.IScope) {
     };
 
     // load tab templates as angular 1 templates
-    require('!ng-cache-loader?name=tab-bar.html!./tab-bar.html');
-    require('!ng-cache-loader?name=tab-sankey.html!./tab-sankey.html');
-    require('!ng-cache-loader?name=tab-table.html!./tab-table.html');
+    let tabBar = require('!file-loader!./tab-bar.html');
+    let tabSankey = require('!file-loader!./tab-sankey.html');
+    let tabTable = require('!file-loader!./tab-table.html');
 
     vm.detailedTabs = [{
         title: 'Bar Chart',
-        content: 'tab-bar.html'
+        content: tabBar
     }, {
         title: 'Sankey Chart',
-        content: 'tab-sankey.html'
+        content: tabSankey
     }, {
         title: 'Fixed Header Table',
-        content: 'tab-table.html'
+        content: tabTable
     }];
 
 }

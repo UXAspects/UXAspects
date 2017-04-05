@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
     selector: 'uxd-components-tree-grid-asynchronous-loading',
-    templateUrl: './tree-grid-asynchronous-loading-ng1.component.html'
+    templateUrl: './tree-grid-asynchronous-loading-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsTreeGridAsynchronousLoadingNg1Component')
 export class ComponentsTreeGridAsynchronousLoadingNg1Component implements ICodePenProvider {

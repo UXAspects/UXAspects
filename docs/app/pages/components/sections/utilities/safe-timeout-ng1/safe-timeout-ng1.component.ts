@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
 @Component({
     selector: 'uxd-components-safe-timeout-ng1',
-    templateUrl: './safe-timeout-ng1.component.html'
+    templateUrl: './safe-timeout-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsSafeTimeoutNg1Component')
 export class ComponentsSafeTimeoutNg1Component {

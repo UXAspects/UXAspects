@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
 @Component({
     selector: 'uxd-components-ui-router-ng1',
-    templateUrl: './ui-router-ng1.component.html'
+    templateUrl: './ui-router-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsUiRouterNg1Component')
 export class ComponentsUiRouterNg1Component {
