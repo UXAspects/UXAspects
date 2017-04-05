@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
@@ -7,8 +7,7 @@ const chance = require('chance').Chance();
 
 @Component({
     selector: 'uxd-charts-social-chart-ng1',
-    templateUrl: './social-chart-ng1.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './social-chart-ng1.component.html'
 })
 @DocumentationSectionComponent('ChartsSocialChartNg1Component')
 export class ChartsSocialChartNg1Component implements ICodePenProvider {
