@@ -1,0 +1,1 @@
+var safeTimeoutInstance = safeTimeout.create($scope);

@@ -1,0 +1,19 @@
+<uxd-stacked-tabs-wrapper></uxd-stacked-tabs-wrapper>
+
+<p>The stacked tabs can be present on left side or right side of the content. The left-stacked tabs can be created by enclosing
+    the HTML of normal tabs with a <code>div .tabs-left</code>. The right-stacked tabs can be created by enclosing the HTML
+    of normal tabs with a <code>div .tabs-right</code>. The <code>align</code> attribute of the <code>tab</code> element
+    can be used to set the alignment of text and icon in the tab heading. This attribute can have value as <code>text-center</code>,
+    <code>text-left</code> or <code>text-right</code>. Other attributes of stacked tabs are same as the normal tabs.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCode"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet language="css" [code]="cssCode"></uxd-snippet>
+    </tab>
+</tabset>
