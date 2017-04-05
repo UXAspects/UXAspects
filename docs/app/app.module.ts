@@ -178,6 +178,7 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxOrganizationChartNg1'),
   upgradeAdapter.upgradeNg1Component('uxSparkNg1'),
   upgradeAdapter.upgradeNg1Component('uxPartitionMapNg1'),
+  upgradeAdapter.upgradeNg1Component('uxSankeyNg1')
 ]
 .concat(DOCUMENTATION_COMPONENTS)
 .concat(DOCUMENTATION_DIRECTIVES)

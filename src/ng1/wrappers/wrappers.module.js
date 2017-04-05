@@ -10,6 +10,7 @@ import { NestedDonutDirective } from './nested-donut/nested-donut.directive';
 import { OrganizationChartDirective } from './organization-chart/organization-chart.directive';
 import { SparkDirective } from './spark/spark.directive';
 import { PartitionMapDirective } from './partition-map/partition-map.directive'; 
+import { SankeyDirective } from './sankey/sankey.directive';
 
 let wrapperModule = angular.module('ux-aspects.wrappers', [
     'ux-aspects.contacts',
@@ -17,7 +18,8 @@ let wrapperModule = angular.module('ux-aspects.wrappers', [
     'angular-peity',
     'ux-aspects.d3',
     'ux-aspects.nestedDonut',
-    'ux-aspects.spark'
+    'ux-aspects.spark',
+    'ux-aspects.sankey'
 ]);
 
 wrapperModule.directive('uxContactGroupNg1', ContactGroupDirective);
@@ -31,3 +33,4 @@ wrapperModule.directive('uxNestedDonutNg1', NestedDonutDirective);
 wrapperModule.directive('uxOrganizationChartNg1', OrganizationChartDirective);
 wrapperModule.directive('uxSparkNg1', SparkDirective);
 wrapperModule.directive('uxPartitionMapNg1', PartitionMapDirective);
+wrapperModule.directive('uxSankeyNg1', SankeyDirective);
