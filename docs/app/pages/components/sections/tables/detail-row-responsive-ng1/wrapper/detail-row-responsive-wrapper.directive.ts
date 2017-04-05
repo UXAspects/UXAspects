@@ -3,7 +3,13 @@ angular.module('app').directive('uxdDetailRowResponsiveWrapper', () => {
         restrict: 'E',
         template: require('./detail-row-responsive-wrapper.directive.html'),
         controllerAs: 'vm',
-        controller: ['$colorService', function ($colorService) {
+        scope: true,
+        controller: ['$colorService', '$scope', function ($colorService, $scope) {
+
+            // cleanup afterwards
+            this.$onDestroy = function() {
+                $scope.$destroy();
+            };
 
             this.tableData = [{
                 id: 1,

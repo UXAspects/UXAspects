@@ -1,0 +1,221 @@
+<div class="row">
+
+    <ux-spark-ng1 [type]="charts[0].type" [value]="charts[0].value" [fillheight]="charts[0].fillHeight" [topLeftLabel]="charts[0].topLeftLabel"
+        class="col-md-5 col-sm-5 col-xs-5" sparkTooltip="{{ charts[0].tooltip }}"></ux-spark-ng1>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark-ng1 [type]="charts[1].type" [value]="charts[1].value" [fillheight]="charts[1].fillHeight" [inlineLabel]="charts[1].inlineLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+</div>
+
+<hr>
+
+<div class="row">
+
+    <ux-spark-ng1 [type]="charts[2].type" [value]="charts[2].value" [fillheight]="charts[2].fillHeight" [topLeftLabel]="charts[2].topLeftLabel"
+        [bottomLeftLabel]="charts[2].bottomLeftLabel" class="col-md-5 col-sm-5 col-xs-5" sparkTooltip="{{ charts[2].tooltip }}"></ux-spark-ng1>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark-ng1 [type]="charts[3].type" [value]="charts[3].value" [fillheight]="charts[3].fillHeight" [inlineLabel]="charts[3].inlineLabel"
+        class="col-md-5 col-sm-5 col-xs-5" [topLeftLabel]="charts[3].topLeftLabel"></ux-spark-ng1>
+</div>
+
+<hr>
+
+<div class="row">
+    <ux-spark-ng1 [type]="charts[4].type" [value]="charts[4].value" [fillheight]="charts[4].fillHeight" [topLeftLabel]="charts[4].topLeftLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark-ng1 [type]="charts[5].type" [value]="charts[5].value" [fillheight]="charts[5].fillHeight" [topLeftLabel]="charts[5].topLeftLabel"
+        [bottomLeftLabel]="charts[5].bottomLeftLabel" [topRightLabel]="charts[5].topRightLabel" [bottomRightLabel]="charts[5].bottomRightLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+</div>
+
+<hr>
+
+<div class="row">
+
+    <ux-spark-ng1 [type]="charts[6].type" [value]="charts[6].value" [fillheight]="charts[6].fillHeight" [topLeftLabel]="charts[6].topLeftLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark-ng1 [type]="charts[7].type" [value]="charts[7].value" [fillheight]="charts[7].fillHeight" [topLeftLabel]="charts[7].topLeftLabel"
+        [bottomLeftLabel]="charts[7].bottomLeftLabel" [topRightLabel]="charts[7].topRightLabel" [bottomRightLabel]="charts[7].bottomRightLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
+</div>
+
+<hr>
+
+<p>Spark Line indicator can be created using the <code>spark</code> directive. The attributes of the spark line are explained
+    below:
+</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Property</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">type</td>
+                <td>string</td>
+                <td>Defines the class name that is used to specify the spark line color.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">value</td>
+                <td>number</td>
+                <td>Indicates the current value of the spark line (progress).</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">fillheight</td>
+                <td>number</td>
+                <td>Indicates the current value of the spark fill (height).</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td class="attribute">inlineLabel</td>
+                <td>HTML</td>
+                <td>Defines the spark line label and works if inline.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">top</td>
+                <td>number</td>
+                <td>Indicates the top margin alignment of the spark line.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">topLeftLabel</td>
+                <td>string</td>
+                <td>Defines the top left label value.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">topRightLabel</td>
+                <td>string</td>
+                <td>Defines the top right label value.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">bottomLeftLabel</td>
+                <td>string</td>
+                <td>Defines the bottom left label value.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">bottomRightLabel</td>
+                <td>string</td>
+                <td>Defines the bottom right label value.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-tooltip</td>
+                <td>string</td>
+                <td>Defines the value of the tooltip on the spark chart.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Colors are defined from the set of chart colors and the pre-defined class choices are as follows:</p>
+
+<p>You can also create your own class to use for the spark colors. Name your class and specify a <code>background-color</code>.
+    Within this class you must specify a <code>fill</code> class which also has a <code>background-color</code> set as the
+    fill for the spark chart. See an example below:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [code]="cssCode"></uxd-snippet>
+    </tab>
+</tabset>
+
+Multiline tooltips can be added to the Spark Line indicator using the `spark-tooltip` attribute to the spark directive.
+
+<uxd-snippet language="html" [code]="tooltipsHtml"></uxd-snippet>
+
+
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Property</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart1</td>
+                <td>color</td>
+                <td>@chart1 fill, 0.1 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart2</td>
+                <td>color</td>
+                <td>@chart2 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart3</td>
+                <td>color</td>
+                <td>@chart3 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart4</td>
+                <td>color</td>
+                <td>@chart4 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart5</td>
+                <td>color</td>
+                <td>@chart5 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-chart6</td>
+                <td>color</td>
+                <td>@chart6 fill, 0.2 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-ok</td>
+                <td>color</td>
+                <td>@ok fill, 0.25 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-warning</td>
+                <td>color</td>
+                <td>@warning fill, 0.25 background opacity.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">spark-critical</td>
+                <td>color</td>
+                <td>@critical fill, 0.25 background opacity.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

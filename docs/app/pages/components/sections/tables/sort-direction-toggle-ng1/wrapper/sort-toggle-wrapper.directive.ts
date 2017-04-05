@@ -2,7 +2,7 @@ angular.module('app').directive('uxdSortToggleWrapper', () => {
     return {
         restrict: 'E',
         template: require('./sort-toggle-wrapper.directive.html'),
-        controller: function () {
+        controller: ['$scope', function ($scope) {
 
             this.sorterData = {
                 label: 'Sort by:',
@@ -22,7 +22,12 @@ angular.module('app').directive('uxdSortToggleWrapper', () => {
                 }]
             };
 
-        },
-        controllerAs: 'vm'
+            // cleanup afterwards
+            this.$onDestroy = function () {
+                $scope.$destroy();
+            };
+        }],
+        controllerAs: 'vm',
+        scope: true
     };
 });

@@ -46,6 +46,7 @@ import { documentationSections } from './decorators/documentation-section-compon
 // Import Page Sections
 import { CSS_SECTIONS } from './pages/css/css';
 import { COMPONENT_SECTIONS } from './pages/components/components';
+import { CHART_SECTIONS } from './pages/charts/charts';
 
 let upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
 
@@ -60,6 +61,11 @@ const componentRoutes = loadRoutes(require('./data/components-page.json'));
 const cssRoutes = loadRoutes(require('./data/css-page.json'));
 
 /*
+  Configure Charts Page Routes
+*/
+const chartRoutes = loadRoutes(require('./data/charts-page.json'));
+
+/*
   Configure Application Routes
 */
 const appRoutes: Routes = [
@@ -70,7 +76,7 @@ const appRoutes: Routes = [
   { path: 'showcase', component: ShowcasePageComponent },
   { path: 'components', component: ComponentsPageComponent, children: componentRoutes },
   { path: 'css', component: CssPageComponent, children: cssRoutes },
-  { path: 'charts', component: ChartsPageComponent },
+  { path: 'charts', component: ChartsPageComponent, children: chartRoutes },
   { path: 'customize', component: CustomizePageComponent },
   { path: 'team', component: TeamPageComponent },
   { path: 'blog', component: BlogPageComponent },
@@ -163,11 +169,23 @@ const DECLARATIONS = [
   // Angular 1 Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),
   upgradeAdapter.upgradeNg1Component('uxScrollPaneNg1'),
+  upgradeAdapter.upgradeNg1Component('uxFlotNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityLineChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityBarChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityPieChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityUpdatingLineChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxNestedDonutNg1'),
+  upgradeAdapter.upgradeNg1Component('uxOrganizationChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxSparkNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPartitionMapNg1'),
+  upgradeAdapter.upgradeNg1Component('uxSankeyNg1'),
+  upgradeAdapter.upgradeNg1Component('uxSocialChartNg1')
 ]
 .concat(DOCUMENTATION_COMPONENTS)
 .concat(DOCUMENTATION_DIRECTIVES)
 .concat(CSS_SECTIONS)
-.concat(COMPONENT_SECTIONS);
+.concat(COMPONENT_SECTIONS)
+.concat(CHART_SECTIONS);
 
 @NgModule({
   imports: [
@@ -198,6 +216,8 @@ export class AppModule {
 */
 upgradeAdapter.upgradeNg1Provider('$rootScope');
 upgradeAdapter.upgradeNg1Provider('$state');
+upgradeAdapter.upgradeNg1Provider('flotDataService');
+upgradeAdapter.upgradeNg1Provider('lineDataService');
 
 /*
   Register Angular 1 module

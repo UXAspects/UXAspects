@@ -2,8 +2,14 @@ angular.module('app').directive('uxdDetailRowHeaderWrapper', () => {
     return {
         restrict: 'E',
         template: require('./detail-row-header-wrapper.directive.html'),
+        scope: true,
         controller: ['$templateCache', '$scope', 'detailRowDataService', function ($templateCache, $scope, detailRowDataService) {
             var vm = this;
+
+            // cleanup afterwards
+            vm.$onDestroy = function() {
+                $scope.$destroy();
+            };
 
             // load popover template
             let popover = require('./templates/detail-row-popover.html');

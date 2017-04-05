@@ -3,7 +3,8 @@ angular.module('app').directive('uxdReorderableTableWrapper', () => {
         restrict: 'E',
         template: require('./reorderable-table-wrapper.directive.html'),
         controller: ReorderableTableController,
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        scope: true
     };
 });
 
@@ -12,7 +13,9 @@ class ReorderableTableController {
     // create an array of documents
     private documents: any[] = [];
 
-    constructor() {
+    static $inject = ['$scope'];
+
+    constructor(private scope: angular.IScope) {
 
         let chance = require('chance').Chance();
 
@@ -29,6 +32,11 @@ class ReorderableTableController {
             });
         }
     }
+
+    // cleanup afterwards
+    $onDestroy() {
+        this.scope.$destroy();
+    };
 
     removeRow(document: any) {
 

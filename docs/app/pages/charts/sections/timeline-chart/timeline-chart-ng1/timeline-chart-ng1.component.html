@@ -1,0 +1,444 @@
+<div class="flot-chart-timeline">
+  <ux-flot-ng1 [dataset]="timelineData" [options]="timelineOptions"></ux-flot-ng1>
+</div>
+
+<div class="flot-chart">
+  <ux-flot-ng1 [dataset]="detailedData" [options]="detailedOptions"></ux-flot-ng1>
+</div>
+
+<hr>
+
+<p>Timeline Charts are defined by the <code>flot</code> directive. The dataset and options attributes define the chart data
+  and options respectively. Dataset and Options are defined within the TimelineChartCtrl.</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+  </tab>
+
+  <tab heading="Javascript">
+    <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+  </tab>
+</tabset>
+
+<p>The <code>lineDataService</code> can be used to add zero-points to the data. This makes the y coordinates as zero when there
+  is no data within a specified offset and the graph will lie at the x-axis within this interval.</p>
+
+<p>The <code>lineDataService</code> contains the method <code>addZeroPoints</code> which should be called to add the zero points
+  to the data. This method accepts two parameters:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">datapoints</td>
+        <td>number or array</td>
+        <td>Returns data points with the zero points added. The returned data is an array of coordinates.</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td class="attribute">offset</td>
+        <td>number</td>
+        <td>The zero points are added if there is an interval between the coordinates greater than the offset value passed. The
+          default offset value is 1.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>An example of how the <code>lineDataService</code> can be used in the controller is shown below:</p>
+
+<uxd-snippet language="javascript" [code]="serviceJs"></uxd-snippet>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">data</td>
+        <td>number or array</td>
+        <td>It is an array of coordinates in Timeline Chart. E.g. [ [x1, y1], [x2, y2], ... ]</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td class="attribute">lines</td>
+        <td>object</td>
+        <td>Defines the parameters of the axis line.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The following attributes should be defined within <code>lines.</code></p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">show</td>
+        <td>boolean</td>
+        <td>If set to true displays the chart.</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td class="attribute">fill</td>
+        <td>boolean or number</td>
+        <td>If set to true fills the chart with colors in the fillColors property. A number between 0 and 1 defines the opacity
+          of the fill.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">fillColor</td>
+        <td>array(colors)</td>
+        <td>Specifies the colors of the fill. If more than one color is specified this will produce a gradient.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">lineWidth</td>
+        <td>number</td>
+        <td>Defines the thickness of the line or outline in pixels.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">shadowSize</td>
+        <td>number</td>
+        <td>Default size of shadows in pixels. Set it to 0 to remove shadows.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">xaxes</td>
+        <td>array</td>
+        <td>Defines if more than one x-axis is used.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">yaxes</td>
+        <td>array</td>
+        <td>Defines if more than one y-axis is used.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">timeline</td>
+        <td>array</td>
+        <td>Helps configure the selection area on the chart.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The following attributes should be defined within <code>xaxes.</code></p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">mode</td>
+        <td>null or time</td>
+        <td>Defines how data is represented on the x-axes.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">min</td>
+        <td>number</td>
+        <td>Defines the minimum value of the x-axis.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">max</td>
+        <td>number</td>
+        <td>Defines the maximum value of the x-axis.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">tickColor</td>
+        <td>null or string(color)</td>
+        <td>Specifies the colors of the ticks in the x-axis.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The following attributes should be defined within <code>yaxes.</code></p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">show</td>
+        <td>boolean</td>
+        <td>If set to true displays the axis.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">min</td>
+        <td>number</td>
+        <td>Defines the minimum value of the y-axis.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">max</td>
+        <td>number</td>
+        <td>Defines the maximum value of the y-axis.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The following attributes should be defined within <code>timeline.</code></p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">color</td>
+        <td>string</td>
+        <td>Specifies the color of the selected area.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">start</td>
+        <td>number</td>
+        <td>Defines the position on the x axis that the selection should initially start.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">end</td>
+        <td>number</td>
+        <td>Defines the position on the x axis that the selection should initially end.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">keyboardNavigation</td>
+        <td>boolean</td>
+        <td>Defines if arrow keys are allowed to move selected area.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">enabled</td>
+        <td>boolean</td>
+        <td>If set to true this will enable selection on the grid.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">zoom</td>
+        <td>array</td>
+        <td>Helps configure chart zooming.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">dragHandles</td>
+        <td>array</td>
+        <td>This helps configure the handles on either end of the selection that the user can drag.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">callback</td>
+        <td>functional</td>
+        <td>This will be called whenever the selected range changes. It should accept one argument that will be an object containing
+          two values.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The following attributes should be defined within <code>zoom.</code></p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">enabled</td>
+        <td>boolean</td>
+        <td>Defines if chart should zoom when the range is changed.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">minimumRange</td>
+        <td>number</td>
+        <td>Defines the smallest range the chart will allow to be selected.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The following attributes should be defined within <code>dragHandles.</code></p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">width</td>
+        <td>number</td>
+        <td>Defines the width of the handles.</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td class="attribute">color</td>
+        <td>string</td>
+        <td>Defines the color of the handles.</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td class="attribute">tooltips</td>
+        <td>array</td>
+        <td>Helps configure tooltips on the selection region.</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td class="attribute">tooltipFormatter</td>
+        <td>function</td>
+        <td>Use this function to define the tooltip text. It should accept one parameter which will be the value on the x axis
+          and should return a string.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The following attributes should be defined within <code>tooltips.</code></p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">enabled</td>
+        <td>boolean</td>
+        <td>If set to true shows the tooltip on the selection region based on the onHover, onDrag and onDrag options.</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td class="attribute">onHover</td>
+        <td>boolean</td>
+        <td>If set to true the tooltip will show when the cursor is over the selection region.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">onDrag</td>
+        <td>boolean</td>
+        <td>If set to true the tooltip will show when the selection region is being dragged/resized.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">onDragEnd</td>
+        <td>boolean</td>
+        <td>If set to true the tooltip will show when the chart has finished being dragged/resized but the mouse is still pressed.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>The following attributes should be defined within <code>callback.</code></p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">start</td>
+        <td>number</td>
+        <td>The position on the x-axis where the selected area starts.</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td class="attribute">end</td>
+        <td>number</td>
+        <td>The position on the x-axis where the selected area ends.</td>
+        <td>false</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a routerLink="/charts" fragment="flot-options">Flot Options</a> page for details of chart options.</p>
+</blockquote>
+
+<p>It may be desirable to rescale the Y axis on the detailed chart to show a more appropriate scale based on the new range of
+  data being displayed. The following function has been designed to work with the above sample code and the function should
+  be called after the chart range has been changed.</p>
+
+<uxd-snippet language="javascript" [code]="rescaleJs"></uxd-snippet>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a routerLink="/components" fragment="facets">Facets</a> page to see an example of Y axis rescaling.
+    This is seen in the Line Chart Example with Facet Panel.</p>
+</blockquote>
