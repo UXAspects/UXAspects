@@ -82,6 +82,14 @@ import { ComponentsItemDisplayPanelNg1Component } from './sections/panels/item-d
 import { ComponentsItemDisplayPanelServiceNg1Component } from './sections/panels/item-display-panel-service-ng1/item-display-panel-service-ng1.component';
 import { ComponentsModalInsetPanelNg1Component } from './sections/panels/modal-inset-panel-ng1/item-display-panel-ng1.component';
 import { ComponentsSideInsetPanelNg1Component } from './sections/panels/side-inset-panel-ng1/side-inset-panel-ng1.component';
+import { ComponentsPopoverNg1Component } from './sections/popover/popover-ng1/popover-ng1.component';
+import { ComponentsProgressBarNg1Component } from './sections/progress/progress-bar-ng1/progress-bar-ng1.component';
+import { ComponentsCustomScrollbarNg1Component } from './sections/scrollbar/custom-scrollbar-ng1/custom-scrollbar-ng1.component';
+import { ComponentsInfiniteScrollNg1Component } from './sections/scrollbar/infinite-scroll-ng1/infinite-scroll-ng1.component';
+import { ComponentsInfiniteScrollLoadMoreNg1Component } from './sections/scrollbar/infinite-scroll-load-more-ng1/infinite-scroll-load-more-ng1.component';
+import { ComponentsSearchBuilderNg1Component } from './sections/search/search-builder-ng1/search-builder-ng1.component';
+import { ComponentsSearchHistoryNg1Component } from './sections/search/search-history-ng1/search-history-ng1.component';
+import { ComponentsSearchToolbarNg1Component } from './sections/search/search-toolbar-ng1/search-toolbar-ng1.component';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
@@ -151,4 +159,12 @@ export const COMPONENT_SECTIONS = [
     ComponentsItemDisplayPanelServiceNg1Component,
     ComponentsModalInsetPanelNg1Component,
     ComponentsSideInsetPanelNg1Component,
+    ComponentsPopoverNg1Component,
+    ComponentsProgressBarNg1Component,
+    ComponentsCustomScrollbarNg1Component,
+    ComponentsInfiniteScrollNg1Component,
+    ComponentsInfiniteScrollLoadMoreNg1Component,
+    ComponentsSearchBuilderNg1Component,
+    ComponentsSearchHistoryNg1Component,
+    ComponentsSearchToolbarNg1Component,
 ];

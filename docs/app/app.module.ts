@@ -146,6 +146,15 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdCollapsiblePanelsWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdItemDisplayPanelWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdModalInsetPanelWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdPopoverWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdProgressBarWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdCustomScrollbarWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdInfiniteScrollWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdInfiniteScrollLoadMoreWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSearchBuilderWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSearchBuilderCodeWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSearchHistoryWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSearchToolbarWrapper'),
 
   // Angular 1 Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),

@@ -1,0 +1,45 @@
+.search-builder-title-icon {
+  font-size: 33px;
+  margin-right: 15px;
+}
+
+.add-field-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 8px 5px;
+}
+
+.add-field-list .field-name {
+  font-size: 17px;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+.add-field-list .field-name:hover {
+  background-color: #f2f2f2;
+}
+
+.body-dark .add-field-list .field-name:hover {
+  background-color: #262626;
+}
+
+.add-field-list .field-name .repository-check {
+  margin-right: 10px;
+  transition: opacity 0.2s linear;
+}
+
+.add-field-list .field-name.option-deselected .option-check {
+  opacity: 0;
+}
+
+.add-field-list .field-name.option-deselected:hover .option-check {
+  opacity: 0.5;
+}
+
+.add-field-list .field-name.option-selected .option-check {
+  opacity: 1;
+}
+
+.show-panel-btn {
+  cursor: pointer;
+}
