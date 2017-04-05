@@ -1,0 +1,1688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="1" failed="16" total="30" passed="13">
+  <reporter-output>
+  </reporter-output>
+  <suite name="TestSuite" duration-ms="106229" started-at="2017-01-26T15:39:04Z" finished-at="2017-01-26T15:40:50Z">
+    <groups>
+    </groups>
+    <test name="Chrome-Components" duration-ms="39340" started-at="2017-01-26T15:39:04Z" finished-at="2017-01-26T15:39:43Z">
+      <class name="WebDriverTests.WebDriverTests.ElementsTesting.OpenPage">
+        <test-method status="PASS" signature="setupBaseClass(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.OpenPage@cb5822]" name="setupBaseClass" is-config="true" duration-ms="2277" started-at="2017-01-26T15:39:04Z" finished-at="2017-01-26T15:39:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[http://localhost:4000]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[pages/en-us/components.html]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[-50]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\chromedriver.exe]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\IEdriverServer.exe]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\MicrosoftWebDriver.exe]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[vista]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[http://16.73.33.111:4444/wd/hub]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBaseClass -->
+        <test-method status="PASS" signature="openPage()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.OpenPage@cb5822]" name="openPage" duration-ms="10955" started-at="2017-01-26T15:39:06Z" finished-at="2017-01-26T15:39:17Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openPage -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.OpenPage@cb5822]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:39:06Z" finished-at="2017-01-26T15:39:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+      </class> <!-- WebDriverTests.WebDriverTests.ElementsTesting.OpenPage -->
+      <class name="WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver">
+        <test-method status="PASS" signature="setupBaseClass(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver@4b9e13df]" name="setupBaseClass" is-config="true" duration-ms="135" started-at="2017-01-26T15:39:32Z" finished-at="2017-01-26T15:39:32Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[http://localhost:4000]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[pages/en-us/components.html]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[-50]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\chromedriver.exe]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\IEdriverServer.exe]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\MicrosoftWebDriver.exe]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[vista]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[http://16.73.33.111:4444/wd/hub]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBaseClass -->
+        <test-method status="PASS" signature="closeDriver()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver@4b9e13df]" name="closeDriver" duration-ms="10888" started-at="2017-01-26T15:39:32Z" finished-at="2017-01-26T15:39:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeDriver -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver@4b9e13df]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:39:32Z" finished-at="2017-01-26T15:39:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+      </class> <!-- WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver -->
+      <class name="WebDriverTests.WebDriverTests.Components.Buttons">
+        <test-method status="PASS" signature="setupBaseClass(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="setupBaseClass" is-config="true" duration-ms="2223" started-at="2017-01-26T15:39:04Z" finished-at="2017-01-26T15:39:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[http://localhost:4000]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[pages/en-us/components.html]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[-50]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\chromedriver.exe]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\IEdriverServer.exe]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\MicrosoftWebDriver.exe]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[vista]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[http://16.73.33.111:4444/wd/hub]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBaseClass -->
+        <test-method status="FAIL" signature="testDropdown()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="testDropdown" duration-ms="24151" started-at="2017-01-26T15:39:06Z" finished-at="2017-01-26T15:39:30Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[
+WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons:-1 - java.lang.AssertionError: expected [Radio Option 1] but found []
+
+WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons:-1 - java.lang.AssertionError: expected [Checkbox A] but found []
+
+WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons:-1 - java.lang.AssertionError: expected [Checkbox B] but found []
+
+WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons:-1 - java.lang.AssertionError: expected [Radio Option 2] but found []
+]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: 
+WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons:-1 - java.lang.AssertionError: expected [Radio Option 1] but found []
+
+WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons:-1 - java.lang.AssertionError: expected [Checkbox A] but found []
+
+WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons:-1 - java.lang.AssertionError: expected [Checkbox B] but found []
+
+WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons:-1 - java.lang.AssertionError: expected [Radio Option 2] but found []
+
+	at org.testng.Assert.fail(Assert.java:94)
+	at WebDriverTests.WebDriverTests.ElementsTesting.TestNGBase.logErrors(TestNGBase.java:303)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testDropdown(Buttons.java:957)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDropdown -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:39:06Z" finished-at="2017-01-26T15:39:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="testCheckboxButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="testCheckboxButtons" duration-ms="24353" started-at="2017-01-26T15:39:06Z" finished-at="2017-01-26T15:39:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCheckboxButtons -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:39:06Z" finished-at="2017-01-26T15:39:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="clearErrors" is-config="true" duration-ms="1" started-at="2017-01-26T15:39:17Z" finished-at="2017-01-26T15:39:17Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testFloatingActionButton()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="testFloatingActionButton" duration-ms="11726" started-at="2017-01-26T15:39:17Z" finished-at="2017-01-26T15:39:29Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[unknown error: Element is not clickable at point (386, 15). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html">...</a>
+  (Session info: chrome=55.0.2883.87)
+  (Driver info: chromedriver=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf),platform=Windows NT 6.1.7601 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 102 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf), userDataDir=C:\Users\mcmurrap\AppData\Local\Temp\scoped_dir13336_11313}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=55.0.2883.87, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 5c3e55fa97a61439e29f7e3a5591a037]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: unknown error: Element is not clickable at point (386, 15). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html">...</a>
+  (Session info: chrome=55.0.2883.87)
+  (Driver info: chromedriver=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf),platform=Windows NT 6.1.7601 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 102 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf), userDataDir=C:\Users\mcmurrap\AppData\Local\Temp\scoped_dir13336_11313}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=55.0.2883.87, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 5c3e55fa97a61439e29f7e3a5591a037
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:327)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:85)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testFloatingActionButton(Buttons.java:291)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFloatingActionButton -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="clearErrors" is-config="true" duration-ms="1" started-at="2017-01-26T15:39:29Z" finished-at="2017-01-26T15:39:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testGroupedButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="testGroupedButtons" duration-ms="2114" started-at="2017-01-26T15:39:29Z" finished-at="2017-01-26T15:39:31Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[unknown error: Element is not clickable at point (401, 15). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html">...</a>
+  (Session info: chrome=55.0.2883.87)
+  (Driver info: chromedriver=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf),platform=Windows NT 6.1.7601 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 86 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf), userDataDir=C:\Users\mcmurrap\AppData\Local\Temp\scoped_dir13336_11313}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=55.0.2883.87, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 5c3e55fa97a61439e29f7e3a5591a037]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: unknown error: Element is not clickable at point (401, 15). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html">...</a>
+  (Session info: chrome=55.0.2883.87)
+  (Driver info: chromedriver=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf),platform=Windows NT 6.1.7601 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 86 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf), userDataDir=C:\Users\mcmurrap\AppData\Local\Temp\scoped_dir13336_11313}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=55.0.2883.87, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 5c3e55fa97a61439e29f7e3a5591a037
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:327)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:85)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons(Buttons.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGroupedButtons -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="clearErrors" is-config="true" duration-ms="10" started-at="2017-01-26T15:39:30Z" finished-at="2017-01-26T15:39:30Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testPagination()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="testPagination" duration-ms="1501" started-at="2017-01-26T15:39:30Z" finished-at="2017-01-26T15:39:32Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[unknown error: Element is not clickable at point (722, 16). Other element would receive the click: <a class="nav-link" href="/pages/en-us/getting_started.html" ng-hide="ph.showHamburger" navbar-button="">...</a>
+  (Session info: chrome=55.0.2883.87)
+  (Driver info: chromedriver=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf),platform=Windows NT 6.1.7601 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 104 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf), userDataDir=C:\Users\mcmurrap\AppData\Local\Temp\scoped_dir13336_11313}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=55.0.2883.87, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 5c3e55fa97a61439e29f7e3a5591a037]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: unknown error: Element is not clickable at point (722, 16). Other element would receive the click: <a class="nav-link" href="/pages/en-us/getting_started.html" ng-hide="ph.showHamburger" navbar-button="">...</a>
+  (Session info: chrome=55.0.2883.87)
+  (Driver info: chromedriver=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf),platform=Windows NT 6.1.7601 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 104 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf), userDataDir=C:\Users\mcmurrap\AppData\Local\Temp\scoped_dir13336_11313}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=55.0.2883.87, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 5c3e55fa97a61439e29f7e3a5591a037
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:327)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:85)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testPagination(Buttons.java:524)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPagination -->
+        <test-method status="PASS" signature="testRadioButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="testRadioButtons" duration-ms="2392" started-at="2017-01-26T15:39:31Z" finished-at="2017-01-26T15:39:33Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRadioButtons -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:39:31Z" finished-at="2017-01-26T15:39:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:39:31Z" finished-at="2017-01-26T15:39:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="testSingleToggleButton()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="testSingleToggleButton" duration-ms="1204" started-at="2017-01-26T15:39:31Z" finished-at="2017-01-26T15:39:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSingleToggleButton -->
+        <test-method status="FAIL" signature="testToggleButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="testToggleButtons" duration-ms="1033" started-at="2017-01-26T15:39:32Z" finished-at="2017-01-26T15:39:33Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[unknown error: Element is not clickable at point (460, 15). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html">...</a>
+  (Session info: chrome=55.0.2883.87)
+  (Driver info: chromedriver=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf),platform=Windows NT 6.1.7601 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 112 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf), userDataDir=C:\Users\mcmurrap\AppData\Local\Temp\scoped_dir13336_11313}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=55.0.2883.87, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 5c3e55fa97a61439e29f7e3a5591a037]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: unknown error: Element is not clickable at point (460, 15). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html">...</a>
+  (Session info: chrome=55.0.2883.87)
+  (Driver info: chromedriver=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf),platform=Windows NT 6.1.7601 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 112 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.24.417431 (9aea000394714d2fbb20850021f6204f2256b9cf), userDataDir=C:\Users\mcmurrap\AppData\Local\Temp\scoped_dir13336_11313}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=55.0.2883.87, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 5c3e55fa97a61439e29f7e3a5591a037
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:327)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:85)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testToggleButtons(Buttons.java:175)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToggleButtons -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@1593948d]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:39:32Z" finished-at="2017-01-26T15:39:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+      </class> <!-- WebDriverTests.WebDriverTests.Components.Buttons -->
+    </test> <!-- Chrome-Components -->
+    <test name="Firefox-Components" duration-ms="45846" started-at="2017-01-26T15:39:43Z" finished-at="2017-01-26T15:40:29Z">
+      <class name="WebDriverTests.WebDriverTests.ElementsTesting.OpenPage">
+        <test-method status="PASS" signature="setupBaseClass(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.OpenPage@66a3ffec]" name="setupBaseClass" is-config="true" duration-ms="18712" started-at="2017-01-26T15:39:43Z" finished-at="2017-01-26T15:40:02Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[http://localhost:4000]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[pages/en-us/components.html]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[-50]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\chromedriver.exe]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\IEdriverServer.exe]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\MicrosoftWebDriver.exe]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[vista]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[http://16.73.33.111:4444/wd/hub]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBaseClass -->
+        <test-method status="PASS" signature="openPage()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.OpenPage@66a3ffec]" name="openPage" duration-ms="16535" started-at="2017-01-26T15:40:02Z" finished-at="2017-01-26T15:40:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openPage -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.OpenPage@66a3ffec]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:02Z" finished-at="2017-01-26T15:40:02Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+      </class> <!-- WebDriverTests.WebDriverTests.ElementsTesting.OpenPage -->
+      <class name="WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver">
+        <test-method status="PASS" signature="setupBaseClass(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver@77caeb3e]" name="setupBaseClass" is-config="true" duration-ms="1320" started-at="2017-01-26T15:40:18Z" finished-at="2017-01-26T15:40:19Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[http://localhost:4000]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[pages/en-us/components.html]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[-50]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\chromedriver.exe]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\IEdriverServer.exe]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\MicrosoftWebDriver.exe]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[vista]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[http://16.73.33.111:4444/wd/hub]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBaseClass -->
+        <test-method status="PASS" signature="closeDriver()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver@77caeb3e]" name="closeDriver" duration-ms="10265" started-at="2017-01-26T15:40:19Z" finished-at="2017-01-26T15:40:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeDriver -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver@77caeb3e]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:19Z" finished-at="2017-01-26T15:40:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+      </class> <!-- WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver -->
+      <class name="WebDriverTests.WebDriverTests.Components.Buttons">
+        <test-method status="PASS" signature="setupBaseClass(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="setupBaseClass" is-config="true" duration-ms="8745" started-at="2017-01-26T15:39:43Z" finished-at="2017-01-26T15:39:52Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Firefox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[http://localhost:4000]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[pages/en-us/components.html]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[-50]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\chromedriver.exe]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\IEdriverServer.exe]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\MicrosoftWebDriver.exe]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[vista]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[http://16.73.33.111:4444/wd/hub]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBaseClass -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="clearErrors" is-config="true" duration-ms="1" started-at="2017-01-26T15:39:52Z" finished-at="2017-01-26T15:39:52Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="clearErrors" is-config="true" duration-ms="1" started-at="2017-01-26T15:39:52Z" finished-at="2017-01-26T15:39:52Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testDropdown()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="testDropdown" duration-ms="17653" started-at="2017-01-26T15:39:52Z" finished-at="2017-01-26T15:40:10Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[Element is not clickable at point (461.5, 15.25). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html"></a>
+Command duration or timeout: 122 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=46.0.1, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 57767148-f580-49da-875c-091e3ec0a344]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: Element is not clickable at point (461.5, 15.25). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html"></a>
+Command duration or timeout: 122 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=46.0.1, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 57767148-f580-49da-875c-091e3ec0a344
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:327)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:85)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testDropdown(Buttons.java:872)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDropdown -->
+        <test-method status="FAIL" signature="testCheckboxButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="testCheckboxButtons" duration-ms="18341" started-at="2017-01-26T15:39:52Z" finished-at="2017-01-26T15:40:10Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[Element is not clickable at point (401.5, 15.616668701171875). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html"></a>
+Command duration or timeout: 94 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=46.0.1, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 57767148-f580-49da-875c-091e3ec0a344]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: Element is not clickable at point (401.5, 15.616668701171875). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html"></a>
+Command duration or timeout: 94 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=46.0.1, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 57767148-f580-49da-875c-091e3ec0a344
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:327)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:85)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testCheckboxButtons(Buttons.java:677)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCheckboxButtons -->
+        <test-method status="FAIL" signature="testFloatingActionButton()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="testFloatingActionButton" duration-ms="11021" started-at="2017-01-26T15:40:10Z" finished-at="2017-01-26T15:40:21Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[Element is not clickable at point (386.5, 15.883331298828125). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html"></a>
+Command duration or timeout: 146 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=46.0.1, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 57767148-f580-49da-875c-091e3ec0a344]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: Element is not clickable at point (386.5, 15.883331298828125). Other element would receive the click: <a class="navbar-brand font-bold" href="/index.html"></a>
+Command duration or timeout: 146 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=46.0.1, platform=WINDOWS, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 57767148-f580-49da-875c-091e3ec0a344
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:327)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:85)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testFloatingActionButton(Buttons.java:291)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFloatingActionButton -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:10Z" finished-at="2017-01-26T15:40:10Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:10Z" finished-at="2017-01-26T15:40:10Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="testGroupedButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="testGroupedButtons" duration-ms="1549" started-at="2017-01-26T15:40:10Z" finished-at="2017-01-26T15:40:12Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGroupedButtons -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="clearErrors" is-config="true" duration-ms="1" started-at="2017-01-26T15:40:12Z" finished-at="2017-01-26T15:40:12Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="testPagination()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="testPagination" duration-ms="2238" started-at="2017-01-26T15:40:12Z" finished-at="2017-01-26T15:40:14Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPagination -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="clearErrors" is-config="true" duration-ms="1" started-at="2017-01-26T15:40:14Z" finished-at="2017-01-26T15:40:14Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="testRadioButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="testRadioButtons" duration-ms="1513" started-at="2017-01-26T15:40:14Z" finished-at="2017-01-26T15:40:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRadioButtons -->
+        <test-method status="PASS" signature="testSingleToggleButton()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="testSingleToggleButton" duration-ms="521" started-at="2017-01-26T15:40:16Z" finished-at="2017-01-26T15:40:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSingleToggleButton -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:16Z" finished-at="2017-01-26T15:40:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="testToggleButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="testToggleButtons" duration-ms="1339" started-at="2017-01-26T15:40:16Z" finished-at="2017-01-26T15:40:18Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToggleButtons -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@3e6fa38a]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:16Z" finished-at="2017-01-26T15:40:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+      </class> <!-- WebDriverTests.WebDriverTests.Components.Buttons -->
+    </test> <!-- Firefox-Components -->
+    <test name="IE-Components" duration-ms="20939" started-at="2017-01-26T15:40:29Z" finished-at="2017-01-26T15:40:50Z">
+      <class name="WebDriverTests.WebDriverTests.ElementsTesting.OpenPage">
+        <test-method status="PASS" signature="setupBaseClass(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.OpenPage@604ed9f0]" name="setupBaseClass" is-config="true" duration-ms="2555" started-at="2017-01-26T15:40:29Z" finished-at="2017-01-26T15:40:32Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[IE]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[http://localhost:4000]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[pages/en-us/components.html]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[-50]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\chromedriver.exe]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\IEdriverServer.exe]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\MicrosoftWebDriver.exe]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[vista]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[http://16.73.33.111:4444/wd/hub]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBaseClass -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.OpenPage@604ed9f0]" name="clearErrors" is-config="true" duration-ms="1" started-at="2017-01-26T15:40:32Z" finished-at="2017-01-26T15:40:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="openPage()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.OpenPage@604ed9f0]" name="openPage" duration-ms="17131" started-at="2017-01-26T15:40:32Z" finished-at="2017-01-26T15:40:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openPage -->
+      </class> <!-- WebDriverTests.WebDriverTests.ElementsTesting.OpenPage -->
+      <class name="WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver">
+        <test-method status="FAIL" signature="setupBaseClass(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver@6a4f787b]" name="setupBaseClass" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:50Z" finished-at="2017-01-26T15:40:50Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[IE]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[http://localhost:4000]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[pages/en-us/components.html]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[-50]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\chromedriver.exe]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\IEdriverServer.exe]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\MicrosoftWebDriver.exe]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[vista]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[http://16.73.33.111:4444/wd/hub]]>
+              </value>
+            </param>
+          </params>
+          <exception class="org.openqa.selenium.UnsupportedCommandException">
+            <message>
+              <![CDATA[Error 404: Not Found
+File not found
+Command duration or timeout: 227 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.UnsupportedCommandException: Error 404: Not Found
+File not found
+Command duration or timeout: 227 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver$RemoteWebDriverOptions$RemoteTimeouts.implicitlyWait(RemoteWebDriver.java:865)
+	at WebDriverTests.WebDriverTests.ElementsTesting.TestNGBase.setupBaseClass(TestNGBase.java:275)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)
+	at org.testng.internal.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:175)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:107)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.UnsupportedCommandException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBaseClass -->
+        <test-method status="SKIP" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver@6a4f787b]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:50Z" finished-at="2017-01-26T15:40:50Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="SKIP" signature="closeDriver()[pri:0, instance:WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver@6a4f787b]" name="closeDriver" duration-ms="1" started-at="2017-01-26T15:40:50Z" finished-at="2017-01-26T15:40:50Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeDriver -->
+      </class> <!-- WebDriverTests.WebDriverTests.ElementsTesting.CloseDriver -->
+      <class name="WebDriverTests.WebDriverTests.Components.Buttons">
+        <test-method status="PASS" signature="setupBaseClass(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String, java.lang.String)[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="setupBaseClass" is-config="true" duration-ms="2558" started-at="2017-01-26T15:40:29Z" finished-at="2017-01-26T15:40:32Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[IE]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[http://localhost:4000]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[pages/en-us/components.html]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10000]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[-50]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\chromedriver.exe]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\IEdriverServer.exe]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[C:\Git3\elements\configuration\MicrosoftWebDriver.exe]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[vista]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[http://16.73.33.111:4444/wd/hub]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupBaseClass -->
+        <test-method status="FAIL" signature="testDropdown()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="testDropdown" duration-ms="17129" started-at="2017-01-26T15:40:32Z" finished-at="2017-01-26T15:40:49Z">
+          <exception class="org.openqa.selenium.UnsupportedCommandException">
+            <message>
+              <![CDATA[Error 404: Not Found
+File not found
+Command duration or timeout: 17.13 seconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.UnsupportedCommandException: Error 404: Not Found
+File not found
+Command duration or timeout: 17.13 seconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:577)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.executeJavascript(Utilities.java:106)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.scrollToSection(Utilities.java:84)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testDropdown(Buttons.java:842)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.UnsupportedCommandException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDropdown -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:32Z" finished-at="2017-01-26T15:40:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:32Z" finished-at="2017-01-26T15:40:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testCheckboxButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="testCheckboxButtons" duration-ms="17129" started-at="2017-01-26T15:40:32Z" finished-at="2017-01-26T15:40:49Z">
+          <exception class="org.openqa.selenium.UnsupportedCommandException">
+            <message>
+              <![CDATA[Error 404: Not Found
+File not found
+Command duration or timeout: 17.13 seconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.UnsupportedCommandException: Error 404: Not Found
+File not found
+Command duration or timeout: 17.13 seconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:577)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.executeJavascript(Utilities.java:106)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.scrollToSection(Utilities.java:84)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testCheckboxButtons(Buttons.java:630)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.UnsupportedCommandException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCheckboxButtons -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="clearErrors" is-config="true" duration-ms="1" started-at="2017-01-26T15:40:49Z" finished-at="2017-01-26T15:40:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testFloatingActionButton()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="testFloatingActionButton" duration-ms="901" started-at="2017-01-26T15:40:49Z" finished-at="2017-01-26T15:40:50Z">
+          <exception class="org.openqa.selenium.UnsupportedCommandException">
+            <message>
+              <![CDATA[Error 404: Not Found
+File not found
+Command duration or timeout: 901 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.UnsupportedCommandException: Error 404: Not Found
+File not found
+Command duration or timeout: 901 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:577)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.executeJavascript(Utilities.java:106)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.scrollToSection(Utilities.java:84)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testFloatingActionButton(Buttons.java:265)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.UnsupportedCommandException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFloatingActionButton -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:49Z" finished-at="2017-01-26T15:40:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testGroupedButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="testGroupedButtons" duration-ms="897" started-at="2017-01-26T15:40:49Z" finished-at="2017-01-26T15:40:50Z">
+          <exception class="org.openqa.selenium.UnsupportedCommandException">
+            <message>
+              <![CDATA[Error 404: Not Found
+File not found
+Command duration or timeout: 896 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.UnsupportedCommandException: Error 404: Not Found
+File not found
+Command duration or timeout: 896 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:577)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.executeJavascript(Utilities.java:106)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.scrollToSection(Utilities.java:84)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testGroupedButtons(Buttons.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.UnsupportedCommandException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGroupedButtons -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:49Z" finished-at="2017-01-26T15:40:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testPagination()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="testPagination" duration-ms="1003" started-at="2017-01-26T15:40:49Z" finished-at="2017-01-26T15:40:50Z">
+          <exception class="org.openqa.selenium.UnsupportedCommandException">
+            <message>
+              <![CDATA[Error 404: Not Found
+File not found
+Command duration or timeout: 102 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa
+*** Element info: {Using=css selector, value=div#pagination ng-section ul.pagination li:nth-of-type(1) a}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.UnsupportedCommandException: Error 404: Not Found
+File not found
+Command duration or timeout: 102 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa
+*** Element info: {Using=css selector, value=div#pagination ng-section ul.pagination li:nth-of-type(1) a}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:492)
+	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:430)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+	at org.openqa.selenium.support.ui.ExpectedConditions.findElement(ExpectedConditions.java:899)
+	at org.openqa.selenium.support.ui.ExpectedConditions.access$000(ExpectedConditions.java:41)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
+	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:653)
+	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:646)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:238)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testPagination(Buttons.java:484)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.UnsupportedCommandException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPagination -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="clearErrors" is-config="true" duration-ms="1" started-at="2017-01-26T15:40:50Z" finished-at="2017-01-26T15:40:50Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testSingleToggleButton()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="testSingleToggleButton" duration-ms="100" started-at="2017-01-26T15:40:50Z" finished-at="2017-01-26T15:40:50Z">
+          <exception class="org.openqa.selenium.UnsupportedCommandException">
+            <message>
+              <![CDATA[Error 404: Not Found
+File not found
+Command duration or timeout: 98 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.UnsupportedCommandException: Error 404: Not Found
+File not found
+Command duration or timeout: 98 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:577)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.executeJavascript(Utilities.java:106)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.scrollToSection(Utilities.java:84)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testSingleToggleButton(Buttons.java:578)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.UnsupportedCommandException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSingleToggleButton -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:50Z" finished-at="2017-01-26T15:40:50Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+        <test-method status="FAIL" signature="testRadioButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="testRadioButtons" duration-ms="339" started-at="2017-01-26T15:40:50Z" finished-at="2017-01-26T15:40:50Z">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+	at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:302)
+	at org.openqa.selenium.support.ui.ExpectedConditions.access$100(ExpectedConditions.java:41)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
+	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:653)
+	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:646)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:238)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testRadioButtons(Buttons.java:727)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRadioButtons -->
+        <test-method status="FAIL" signature="testToggleButtons()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="testToggleButtons" duration-ms="237" started-at="2017-01-26T15:40:50Z" finished-at="2017-01-26T15:40:50Z">
+          <exception class="org.openqa.selenium.UnsupportedCommandException">
+            <message>
+              <![CDATA[Error 404: Not Found
+File not found
+Command duration or timeout: 235 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.UnsupportedCommandException: Error 404: Not Found
+File not found
+Command duration or timeout: 235 milliseconds
+Build info: version: '2.53.0', revision: '35ae25b1534ae328c771e0856c93e187490ca824', time: '2016-03-15 10:43:46'
+System info: host: 'MCMURRAP3', ip: '16.49.191.143', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_91'
+Driver info: org.openqa.selenium.ie.InternetExplorerDriver
+Capabilities [{browserAttachTimeout=0, enablePersistentHover=false, ie.forceCreateProcessApi=false, ie.usePerProcessProxy=false, ignoreZoomSetting=false, handlesAlerts=true, version=11, platform=WINDOWS, nativeEvents=true, ie.ensureCleanSession=false, elementScrollBehavior=0, ie.browserCommandLineSwitches=, requireWindowFocus=false, browserName=internet explorer, initialBrowserUrl=http://localhost:10170/, takesScreenshot=true, javascriptEnabled=true, ignoreProtectedModeSettings=false, enableElementCacheCleanup=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=dismiss}]
+Session ID: 5b02965a-25f6-4526-ae54-d12f008cd8aa
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.executeScript(RemoteWebDriver.java:577)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.executeJavascript(Utilities.java:106)
+	at WebDriverTests.WebDriverTests.ElementsTesting.Utilities.scrollToSection(Utilities.java:84)
+	at WebDriverTests.WebDriverTests.Components.Buttons.testToggleButtons(Buttons.java:146)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.UnsupportedCommandException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToggleButtons -->
+        <test-method status="PASS" signature="clearErrors()[pri:0, instance:WebDriverTests.WebDriverTests.Components.Buttons@91161c7]" name="clearErrors" is-config="true" duration-ms="0" started-at="2017-01-26T15:40:50Z" finished-at="2017-01-26T15:40:50Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clearErrors -->
+      </class> <!-- WebDriverTests.WebDriverTests.Components.Buttons -->
+    </test> <!-- IE-Components -->
+  </suite> <!-- TestSuite -->
+</testng-results>

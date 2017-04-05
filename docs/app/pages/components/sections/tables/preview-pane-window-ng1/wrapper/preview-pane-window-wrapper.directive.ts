@@ -3,7 +3,8 @@ angular.module('app').directive('uxdPreviewPaneWindowWrapper', () => {
         restrict: 'E',
         template: require('./preview-pane-window-wrapper.directive.html'),
         controller: PreviewPaneWindowController,
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        scope: true
     };
 });
 
@@ -154,6 +155,11 @@ class PreviewPaneWindowController {
         // ensure the preview pane is visible
         previewPaneProvider.preview.previewOn = true;
     }
+
+    // cleanup afterwards
+    $onDestroy() {
+        this.$scope.$destroy();
+    };
 
     goToDetails(itemIndex: number) {
         this.selectedIndex = itemIndex;

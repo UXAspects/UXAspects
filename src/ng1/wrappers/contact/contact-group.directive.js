@@ -22,6 +22,11 @@ export function ContactGroupDirective() {
                     scope.overflowClick();
                 }
             };
-        }
+        },
+        controller: ['$scope', function($scope) {
+            this.$onDestroy = function() {
+                $scope.$destroy();
+            };
+        }]
     };
 }

@@ -1,0 +1,55 @@
+<div class="flot-chart">
+    <ux-flot-ng1 [dataset]="data" [options]="options"></ux-flot-ng1>
+</div>
+
+<hr>
+
+<div class="demo-attributes table-responsive">
+<table class="table">
+    <tbody><tr>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+    </tr>
+    <tr>
+        <td class="attribute">label</td>
+        <td>string</td>
+        <td>Label name specified in the legend.</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td class="attribute">data</td>
+        <td>number or array</td>
+        <td>An array of coordinates in the chart e.g. [ [x1, y1], [x2, y2], ... ]</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td class="attribute">forecastData</td>
+        <td>number or array</td>
+        <td>An array of coordinates defining the forecast or future data.</td>
+        <td>true</td>
+    </tr>
+</tbody></table>
+</div>
+
+<p>Line Charts are defined by the <code>flot</code> directive. The dataset and options attribute define the line chart data and options respectively.
+Dataset and Options are defined within the LineChartCtrl.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+    
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a routerLink="/charts" fragment="flot-options">Flot Options</a> page for details of chart options.</p>
+</blockquote>
+
+<p>To convey chart information to users with assistive technologies, you can include a text version of the data. Use the sr-only class to make the text hidden but visible to screen readers, and give the container a tabindex attribute so it can be reached with the keyboard, and place it near the chart.</p>
+
+<uxd-snippet language="html" [code]="accessibilityHtml"></uxd-snippet>

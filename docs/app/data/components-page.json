@@ -522,6 +522,188 @@
                     "version": "AngularJS"  
                 }
             ]
+        },
+        {
+            "title": "Tabs",
+            "link": "tabs",
+            "sections": [
+                {
+                    "title": "Tabs",
+                    "component": "ComponentsTabsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Detailed Tab Example",
+                    "component": "ComponentsDetailedTabExampleNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Stacked Tabs",
+                    "component": "ComponentsStackedTabsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Card Tabs",
+                    "component": "ComponentsCardTabsNg1Component",
+                    "version": "AngularJS"
+                }              
+            ]
+        },
+        {
+            "title": "Timeline",
+            "link": "timeline",
+            "sections": [
+                {
+                    "title": "Timeline",
+                    "component": "ComponentsTimelineNg1Component",
+                    "version": "AngularJS"
+                }            
+            ]
+        },
+        {
+            "title": "Tooltips",
+            "link": "tooltips",
+            "sections": [
+                {
+                    "title": "Tooltips",
+                    "component": "ComponentsTooltipsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Overflow Tooltip",
+                    "component": "ComponentsOverflowTooltipNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Single Line Overflow Tooltip",
+                    "component": "ComponentsSingleLineOverflowTooltipNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Static Tooltips",
+                    "component": "ComponentsStaticTooltipNg1Component",
+                    "version": "AngularJS"
+                }              
+            ]
+        },
+        {
+            "title": "Tree View",
+            "link": "tree-view",
+            "sections": [
+                {
+                    "title": "Tree View",
+                    "component": "ComponentsTreeViewNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Tree View with Companion View",
+                    "component": "ComponentsTreeViewCompanionViewNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Tree Grid",
+                    "component": "ComponentsTreeGridNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Tree Grid Asynchronous Loading",
+                    "component": "ComponentsTreeGridAsynchronousLoadingNg1Component",
+                    "version": "AngularJS"
+                }            
+            ]
+        },
+        {
+            "title": "UI Router",
+            "link": "ui-router",
+            "sections": [
+                {
+                    "title": "UI Router",
+                    "component": "ComponentsUiRouterNg1Component",
+                    "version": "AngularJS"
+                }            
+            ]
+        },
+        {
+            "title": "Utilities",
+            "link": "utilities",
+            "sections": [
+                {
+                    "title": "Color Service",
+                    "component": "ComponentsColorServiceNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Force Focus",
+                    "component": "ComponentsForceFocusNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Focus On Show",
+                    "component": "ComponentsFocusOnShowNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Expanding Content",
+                    "component": "ComponentsExpandingContentNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "PDF Service",
+                    "component": "ComponentsPdfServiceNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Safe Timeout",
+                    "component": "ComponentsSafeTimeoutNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Safe Interval",
+                    "component": "ComponentsSafeIntervalNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Time Ago Service",
+                    "component": "ComponentsTimeAgoServiceNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "List Item Filter",
+                    "component": "ComponentsListItemFilterNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Window Communication Service",
+                    "component": "ComponentsWindowCommunicationServiceNg1Component",
+                    "version": "AngularJS"
+                }            
+            ]
+        },
+        {
+            "title": "Wizard",
+            "link": "wizard",
+            "sections": [
+                {
+                    "title": "Wizard",
+                    "component": "ComponentsWizardNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Wizard with Validation",
+                    "component": "ComponentsWizardValidationNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Vertical Wizard",
+                    "component": "ComponentsVerticalWizardNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Marquee Wizard",
+                    "component": "ComponentsMarqueeWizardNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
         }
     ]
 }

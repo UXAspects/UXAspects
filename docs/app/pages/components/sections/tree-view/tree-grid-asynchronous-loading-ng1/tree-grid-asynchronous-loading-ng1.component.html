@@ -1,0 +1,23 @@
+<uxd-tree-grid-asynchronous-loading-wrapper></uxd-tree-grid-asynchronous-loading-wrapper>
+
+<hr>
+
+<p>This example demonstrates asynchronous loading in the tree grid. The <code>data</code> attribute is bound to a function which
+    returns a promise for the child items of the provided data item.</p>
+
+<p>The <code>tree-data</code> attribute is used to examine and control the tree grid. The buttons above the grid use it to locate
+    all “folder” type rows, and invoke the <code>contract</code>, <code>expand</code> or <code>reload</code> functions on
+    them. It is also watched for changes made by the controls in the Priority column, and an array of the high priority items
+    is maintained in the controller.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCode"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [code]="jsCodeShort"></uxd-snippet>
+    </tab>
+    <tab heading="Priority Template HTML">
+        <uxd-snippet [code]="template"></uxd-snippet>
+    </tab>
+</tabset>

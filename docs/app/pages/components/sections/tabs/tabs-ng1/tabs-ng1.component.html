@@ -1,0 +1,19 @@
+<uxd-tabs-wrapper></uxd-tabs-wrapper>
+
+<hr>
+
+<p>Tabs are definied inside a <code>tabset</code> element using a <code>tab</code> element. Use the <code>heading</code> attribute
+    on the <code>tab</code> element or the <code>tab-heading</code> element to define the tab heading, along with the <code>.tab-title</code>    class. The <code>tabset type</code> can be assigned <code>tabs minimal-tab</code> value to get the minimal tab. Set the
+    <code>active</code> attribute to a property which is updated with whether the tab is active or not. You can use the <code>disabled</code>    attribute in a similar manner. Set the <code>select</code> attribute to an expression that will be evaluated when the
+    tab is selected. The <code>align</code> attribute can be set to <code>text-center</code> to align the tab heading to
+    center. For the old style of tab strip, set the <code>.outline-tab</code> class on the <code>tabset</code> element instead
+    of setting the tab type.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCode"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+</tabset>

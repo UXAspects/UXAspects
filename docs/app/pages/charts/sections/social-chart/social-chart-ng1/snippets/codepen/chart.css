@@ -1,0 +1,45 @@
+.social-demo .hold-icon {
+  background-image: url('http://elements.hpswlabs.hp.com/dev_preview_rebrand/assets/img/lock.png');
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin:-2px 5px -2px 0px;
+  display: inline-block;
+}
+
+.social-demo .workbook-icon {
+  background-image: url('http://elements.hpswlabs.hp.com/dev_preview_rebrand/assets/img/book.png');
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin:-2px 9px -4px 0px;
+  display: inline-block;
+}
+
+.social-demo .nodeDetailButton{
+  box-shadow: none !important;
+  color:#fff;
+  background-color: #444;
+  border-color: #444;
+  font-family: 'Source Sans Pro';
+  font-weight: 300;
+}
+
+.social-demo .nodeDetailButton:hover,
+.nodeDetailButton:active,
+.nodeDetailButton:focus{
+  background-color: #555;
+}
+
+.social-demo .nodeDetailButtonSub{
+  color: #aaa;
+}
+
+.social-demo hr{
+  border-color: #444;
+}
+.social-demo .jspDrag {
+  background: #989898;
+}

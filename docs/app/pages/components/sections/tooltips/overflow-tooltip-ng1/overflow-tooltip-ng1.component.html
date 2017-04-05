@@ -1,0 +1,18 @@
+<uxd-overflow-tooltip-wrapper></uxd-overflow-tooltip-wrapper>
+
+<hr>
+
+<p>The <code>overflow-tooltip</code> directive can be used to truncate text which may overflow its container, replacing the
+    overflow with an ellipsis. It is particularly suited for multi-line text where the ellipsis should come on the final
+    line. The text will always be truncated at the last full word, unless the text is a single word or the text has no spaces,
+    in which case words may be truncated between letters. The truncation position will be updated when the container resizes
+    or when the text content changes, and the tooltip will only be shown if the text has been truncated.</p>
+
+<p>The contents of the element to which this directive are applied can also contain HTML in addition to plain text, allowing
+    complex formatting to be retained. The <code>overflow-tooltip</code> directive is compatible with the <code>tooltip-placement</code>    attribute described above.</p>
+
+<uxd-snippet [code]="htmlCode"></uxd-snippet>
+
+<p>The CSS used in the example above is as follows:</p>
+
+<uxd-snippet language="css" [code]="cssCode"></uxd-snippet>

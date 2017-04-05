@@ -8,7 +8,7 @@ export abstract class BaseDocumentationSection {
         compiledCssContext: __WebpackModuleApi.RequireContext,
         compiledJavascriptContext: __WebpackModuleApi.RequireContext,
         compiledTypescriptContext: __WebpackModuleApi.RequireContext,
-        rawContext: __WebpackModuleApi.RequireContext) {
+        rawContext?: __WebpackModuleApi.RequireContext) {
 
         this.snippets = {
             compiled: {},

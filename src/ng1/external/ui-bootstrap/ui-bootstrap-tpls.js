@@ -1,4 +1,4 @@
-//HPE Elements - Modifications
+//UX Aspects - Modifications
 // - close any modals on state change
 // - option changeTotalTime in timepicker and addition of logic in addMinutes method
 // - In datepicker if backspace is pressed when it is open, do not navigate back
@@ -1689,7 +1689,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
         } else if (evt.which === 40 && !scope.isOpen) {
           scope.isOpen = true;
         }
-        //Modified for Elements - if backspace is pressed when datepicker is open, do not navigate back
+        //Modified for UX Aspects - if backspace is pressed when datepicker is open, do not navigate back
         else if (evt.which === 8  && popupEl.has(evt.target).length > 0) {
           evt.preventDefault();
         }
@@ -1701,7 +1701,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
           scope.position.top = scope.position.top + element.prop('offsetHeight');
           scope.$broadcast('datepicker.focus');
           $document.bind('click', documentClickBind);
-          //Added for elements - to make datepicker responsive to viewport changes
+          //Added for UX Aspects - to make datepicker responsive to viewport changes
           element.bind('resize', function () {
           scope.position = appendToBody ? $position.offset(element) : $position.position(element);
           scope.position.top = scope.position.top + element.prop('offsetHeight');
@@ -1710,7 +1710,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
           $document.bind('click', documentClickBind);
         } else {
           $document.unbind('click', documentClickBind);
-          //Added for elements - to make datepicker responsive to viewport changes
+          //Added for UX Aspects - to make datepicker responsive to viewport changes
           element.unbind('resize');
         }
       });
@@ -1747,7 +1747,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
         $popup.remove();
         element.unbind('keydown', keydown);
         $document.unbind('click', documentClickBind);
-        //Added for elements - to make datepicker responsive to viewport changes
+        //Added for UX Aspects - to make datepicker responsive to viewport changes
         element.unbind('resize');
       });
     }
@@ -1763,7 +1763,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
     link:function (scope, element, attrs) {
 
     var leftWidth,newWidth;
-    //Added for elements - to make datepicker responsive to viewport changes
+    //Added for UX Aspects - to make datepicker responsive to viewport changes
     scope.$on('datepicker.focus',function(){
          leftWidth = scope.position.left + element.outerWidth();
           if(leftWidth >= window.innerWidth-10)
@@ -2087,7 +2087,7 @@ angular.module('ui.bootstrap.modal', [])
         element.addClass(attrs.windowClass || '');
         scope.size = attrs.size;
 
-        //hpe elements change - adding class here rather than using ng-class as it can cause some shifting in IE by the time the digest happens
+        //UX Aspects change - adding class here rather than using ng-class as it can cause some shifting in IE by the time the digest happens
         if(scope.size) {
           element.find('.modal-dialog').addClass('modal-' + scope.size);
         }
@@ -2458,7 +2458,7 @@ angular.module('ui.bootstrap.modal', [])
                 size: modalOptions.size
               });
 
-              //HPE Elements Modification - destroy modal on state change
+              //UX Aspects Modification - destroy modal on state change
               $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
                 if(modalInstance && modalInstance.close) modalInstance.close();
               });
@@ -2576,9 +2576,9 @@ angular.module('ui.bootstrap.pagination', [])
     },
     require: ['pagination', '?ngModel'],
     controller: 'PaginationController',
-    // HPE Modifications - templateURL updated. imported in hpe-elements.module.js. The upgrade version has a templateUrl attribute.
+    // UX Aspects Modifications - templateURL updated. The upgrade version has a templateUrl attribute.
     templateUrl: 'ui-bootstrap/pagination/pagination.html',
-    // HPE Modifications.
+    // UX Aspects Modifications.
     replace: true,
     link: function(scope, element, attrs, ctrls) {
       var paginationCtrl = ctrls[0], ngModelCtrl = ctrls[1];
@@ -2774,7 +2774,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
    * TODO support multiple triggers
    */
 
-  //HPE Modification to make sure the popover does not get cut off when the viewport is reduced - Added Elements safeTimeout  service.
+  //UX Aspects Modification to make sure the popover does not get cut off when the viewport is reduced - Added UX Aspects safeTimeout  service.
   this.$get = [ '$window', '$compile', '$timeout', '$document', '$position', '$interpolate','safeTimeout', '$parse', function ( $window, $compile, $timeout, $document, $position, $interpolate, safeTimeout, $parse ) {
     return function $tooltip ( type, prefix, defaultTriggerShow, options ) {
       options = angular.extend( {}, defaultOptions, globalOptions, options );
@@ -2837,21 +2837,21 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
             var hasEnableExp = angular.isDefined(attrs[prefix+'Enable']);
             var ttScope = scope.$new(true);
 
-            //HPE Modification to make sure the popover does not get cut off when the viewport is reduced.
+            //UX Aspects Modification to make sure the popover does not get cut off when the viewport is reduced.
             var popoverSafeTimeout = safeTimeout.create(ttScope);
-            //HPE Modification to make sure the popover does not get cut off when the viewport is reduced.
+            //UX Aspects Modification to make sure the popover does not get cut off when the viewport is reduced.
 
-            // HPE Elements modification - if popover target element is destroyed then immediately remove popover
+            // UX Aspects modification - if popover target element is destroyed then immediately remove popover
             
 
-            // End HPE Elements modification
+            // End UX Aspects modification
 
             var positionTooltip = function () {
               if (!tooltip) { return; }
 
               var ttPosition = $position.positionElements(element, tooltip, ttScope.placement, appendToBody);
 
-              // HPE Elements Modification - allow for manual offsets
+              // UX Aspects Modification - allow for manual offsets
               if(attrs.popoverOffsetX) {
                 ttPosition.left += parseInt(attrs.popoverOffsetX);
               }
@@ -2859,21 +2859,21 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
               if(attrs.popoverOffsetY) {
                 ttPosition.top += parseInt(attrs.popoverOffsetY);
               }
-              // HPE End Modification
+              // UX Aspects End Modification
 
-              // HPE Elements modification - rounding popover values to avoid wiggling
+              // UX Aspects modification - rounding popover values to avoid wiggling
               ttPosition.top = Math.round(ttPosition.top) + 'px';
               ttPosition.left = Math.round(ttPosition.left) + 'px';
-              // End HPE Elements modification
+              // End UX Aspects modification
 
               // Now set the calculated positioning.
               tooltip.css( ttPosition );
 
-              // HPE Elements Modification - allow fixed positioning
+              // UX Aspects Modification - allow fixed positioning
               if(attrs.popoverFixed === 'true') {
                 tooltip.css('position', 'fixed');
               }
-              // HPE Elements End Modification
+              // UX Aspects End Modification
             };
 
             // Set up the correct scope to allow transclusion later
@@ -2960,14 +2960,14 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
             // Hide the tooltip popup element.
             function hide() {
 
-              // HPE Elements Modification
+              // UX Aspects Modification
 
               // ensure scope exists before doing anything
               if (!ttScope) {
                 removeTooltip();
                 return;
               }
-              // End HPE Elements Modification
+              // End UX Aspects Modification
 
               // First things first: we don't show it anymore.
               ttScope.isOpen = false;
@@ -3004,7 +3004,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
 
               ttScope.element = tooltip; 
 
-              // HPE Elements Modification - When element is hidden hide the tooltip
+              // UX Aspects Modification - When element is hidden hide the tooltip
               tooltipLinkedScope.$watch(function () { return element.is(':visible'); }, function(nv, ov) {
                 if(ov === true && nv === false) {
                   // ensure scope exists before doing anything
@@ -3016,7 +3016,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
                   scope.$evalAsync(removeTooltip);
                 }
               });
-              // End HPE Elements Modification
+              // End UX Aspects Modification
 
               tooltipLinkedScope.$watch(function () {
                 $timeout(positionTooltip, 0, false);
@@ -3097,7 +3097,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
 
               var popoverCreated = ttScope.popoverCreated;
 
-              //HPE Modification to make sure the popover does not get cut off when the viewport is reduced.
+              //UX Aspects Modification to make sure the popover does not get cut off when the viewport is reduced.
               if (popoverCreated === undefined && (ttScope.placement.indexOf("top") !== -1 || ttScope.placement.indexOf("bottom") !== -1)) {
                 // Watch for popover added to the DOM
                 scope.$watch(function () {
@@ -3115,10 +3115,10 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
                 // remember this popover has been created and additional watches are not needed
                 ttScope.popoverCreated = true;
               }
-              //HPE Modification to make sure the popover does not get cut off when the viewport is reduced.
+              //UX Aspects Modification to make sure the popover does not get cut off when the viewport is reduced.
             }
 
-            //HPE Modification to make sure the popover does not get cut off when the viewport is reduced.
+            //UX Aspects Modification to make sure the popover does not get cut off when the viewport is reduced.
             $window.addEventListener('resize', function() {
               if(element.siblings(".popover").length > 0)
                  hideTooltipBind();
@@ -3141,7 +3141,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
                  }
                }
             }
-             //HPE Modification to make sure the popover does not get cut off when the viewport is reduced.
+             //UX Aspects Modification to make sure the popover does not get cut off when the viewport is reduced.
 
             function prepPopupDelay() {
               var val = attrs[ prefix + 'PopupDelay' ];
@@ -3211,12 +3211,12 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
 
             };
 
-            // HPE Elements Modification
+            // UX Aspects Modification
             function cancelPopoverDelay() {
               $timeout.cancel( popupTimeout );
               popupTimeout = null;
             }
-            // End HPE Elements modification
+            // End UX Aspects modification
 
             function prepTriggers() {
               var showTriggers = [], hideTriggers = [];
@@ -4245,11 +4245,11 @@ angular.module('ui.bootstrap.timepicker', [])
     }
     $scope.meridian = selected.getHours() < 12 ? meridians[0] : meridians[1];
   }
-  //Added for HPE-ELEMENTS
+  //Added for UX Aspects
 function mod(n, m) {
     return ((n % m) + m) % m;
 }
-//function modified for HPE-ELEMENTS to add option of not changing the total time
+//function modified for UX Aspects to add option of not changing the total time
 function addMinutes(minutes, type, changeTotTime) {
 
     if (changeTotTime === false) {
@@ -4280,7 +4280,7 @@ function addMinutes(minutes, type, changeTotTime) {
     refresh();
 
 }
-  //functions modified for HPE-ELEMENTS to pass type and chageTotalTime option
+  //functions modified for UX Aspects to pass type and chageTotalTime option
   $scope.incrementHours = function() {
     addMinutes( hourStep * 60 ,'H' , changeTotalTime);
   };
@@ -4460,7 +4460,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       //binding to a variable that indicates if matches are being retrieved asynchronously
       var isLoadingSetter = $parse(attrs.typeaheadLoading).assign || angular.noop;
 
-     //added for elements to apply regex and class(now used in dynamic facets)
+     //added for UX Aspects to apply regex and class(now used in dynamic facets)
       var regex = originalScope.$eval(attrs.regex) || false;
       var applyClass = originalScope.$eval(attrs.applyClass) || false;
 
@@ -4725,9 +4725,9 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
       element.bind('blur', function (evt) {
         hasFocus = false;
 
-        //HPE Elements
+        //UX Aspects
         scope.activeIdx = -1;
-        //End HPE Elements
+        //End UX Aspects
       });
 
       // Keep reference to click handler to unbind it.
@@ -4791,11 +4791,11 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
           scope.active = matchIdx;
         };
 
-        //HPE Elements
+        //UX Aspects
         scope.deselectActive = function (matchIdx) {
           if(scope.active === matchIdx) scope.active = -1;
         };
-        //End HPE Elements
+        //End UX Aspects
 
         scope.selectMatch = function (activeIdx) {
           scope.select({activeIdx:activeIdx});

@@ -130,7 +130,7 @@ LICENSE-END
 						maintainAtBottom = false, maintainAtRight = false, scrollMargin;
 
 				settings = s;
-				// Elements - scrollMargin setting
+				// UX Aspects - scrollMargin setting
 				scrollMargin = parseInt(settings.scrollMargin || "0");
 				if (pane === undefined) {
 					originalScrollTop = elem.scrollTop();
@@ -151,7 +151,7 @@ LICENSE-END
 
 					// TODO: Deal with where width/ height is 0 as it probably means the element is hidden and we should
 					// come back to it later and check once it is unhidden...
-					// Elements - modify width and height to account for scrollMargin setting
+					// UX Aspects - modify width and height to account for scrollMargin setting
 					paneWidth = (elem.innerWidth() - (scrollMargin * 2)) + originalPaddingTotalWidth;
 					paneHeight = getContentHeightByMaxHeight(scrollMargin) || paneHeight;
 
@@ -187,7 +187,7 @@ LICENSE-END
 					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem.outerHeight() != paneHeight;
 
 					if (hasContainingSpaceChanged) {
-						// Elements - modify width and height to account for scrollMargin setting
+						// UX Aspects - modify width and height to account for scrollMargin setting
 						paneWidth = (elem.innerWidth() - (scrollMargin * 2)) + originalPaddingTotalWidth;
 						paneHeight = getContentHeightByMaxHeight(scrollMargin) || (elem.innerHeight() - (scrollMargin * 2));
 						
@@ -211,7 +211,7 @@ LICENSE-END
 					container.find('>.jspVerticalBar,>.jspHorizontalBar').remove().end();
 				}
 
-				//Added for elements to get hover effect
+				//Added for UX Aspects to get hover effect
 				if(settings.showOnlyOnHover === true) {
 					container.hover(
 						function() {
@@ -287,7 +287,7 @@ LICENSE-END
 						hijackInternalLinks();
 					}
 
-					// Elements modification - ensure that showOnlyOnHover also applies after init
+					// UX Aspects modification - ensure that showOnlyOnHover also applies after init
 					if (settings.showOnlyOnHover && !container.is(":hover")) {
 						// Display bars briefly to indicate that scroll region has changed
 						setTimeout(function() {
@@ -643,7 +643,7 @@ LICENSE-END
 					pane.width((container.outerWidth() - originalPaddingTotalWidth) + 'px');
 				}
 
-				// Elements modification for fixing absolute values bug
+				// UX Aspects modification for fixing absolute values bug
 				contentHeight = pane[0].scrollHeight;
 				// end of modification
 				
@@ -1663,7 +1663,7 @@ LICENSE-END
 		initialDelay                : 300,        // Delay before starting repeating
 		speed						: 30,		// Default speed when others falsey
 		scrollPagePercent			: .8,		// Percent of visible area scrolled when pageUp/Down or track area pressed
-		isScrollableH               : true 		//Added for elements as option to disable horizontal scroll
+		isScrollableH               : true 		//Added for UX Aspects as option to disable horizontal scroll
 	};
 
 }));

@@ -2,7 +2,13 @@ angular.module('app').directive('uxdFixedHeaderTableWrapper', () => {
     return {
         restrict: 'E',
         template: require('./fixed-header-table-wrapper.directive.html'),
-        controller: function () {
+        scope: true,
+        controller: ['$scope', function ($scope) {
+
+            // cleanup afterwards
+            this.$onDestroy = function() {
+                $scope.$destroy();
+            };
 
             let chance = require('chance').Chance();
 
@@ -61,7 +67,7 @@ angular.module('app').directive('uxdFixedHeaderTableWrapper', () => {
                 Task: '-22%',
                 Date: 'November 14, 2016'
             }];
-        },
+        }],
         controllerAs: 'vm'
     };
 });

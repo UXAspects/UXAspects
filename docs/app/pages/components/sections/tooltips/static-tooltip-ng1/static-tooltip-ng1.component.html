@@ -1,0 +1,151 @@
+<uxd-static-tooltip-wrapper></uxd-static-tooltip-wrapper>
+
+<hr>
+
+<p>Static tooltips can be added to elements to give the user detailed instructions on the purpose of the control when they first
+    navigate to the page.</p>
+
+<p>Add the <code>static-tooltip</code> directive to an element to show a static tooltip.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCode"></uxd-snippet>
+    </tab>
+    <tab heading="Ctrl">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>The following attributes can be used to configure static tooltips:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Binding</th>
+            <th>Description</th>
+            <th>Optional</th>
+        </tr>
+        <tr>
+            <td class="attribute">content</td>
+            <td>string</td>
+            <td>variable</td>
+            <td>Specifies the text to be displayed within the tooltip.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">dismiss-text</td>
+            <td>string</td>
+            <td>variable</td>
+            <td>If specified will set the text of the dismiss all static tooltips option that will be displayed on hover. The
+                default is <code>'HIDE TIPS'</code>.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">direction</td>
+            <td>string</td>
+            <td>variable</td>
+            <td>Specifies the direction the tooltip will point to the chosen element. Available options are: <code>up</code>,
+                <code>down</code>, <code>left</code> and <code>right</code>.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">position</td>
+            <td>string</td>
+            <td>variable</td>
+            <td>Specifies where the callout should be placed on the tooltip. Available options are: <code>start</code>, <code>middle</code>                and <code>end</code>.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">offset-x</td>
+            <td>number</td>
+            <td>variable</td>
+            <td>Specifies the number of pixels to the left or right that the tooltip should be offset.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">offset-y</td>
+            <td>number</td>
+            <td>variable</td>
+            <td>Specifies the number of pixels up or down that the tooltip should be offset.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">z-index</td>
+            <td>number</td>
+            <td>variable</td>
+            <td>If specified will set the z-index of the tooltip. Default value is <code>10098</code>.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">tooltip-class</td>
+            <td>string</td>
+            <td>variable</td>
+            <td>If specified will allow a custom class to be set on the tooltip offering more customization.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">tooltip-hidden</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>If set to true this tooltip will not be displayed initially</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">tooltip-id</td>
+            <td>string</td>
+            <td>variable</td>
+            <td>Can be used to set a custom id on the tooltip, these must be unique for each tooltip.</td>
+            <td>true</td>
+        </tr>
+    </table>
+</div>
+
+<p>The Static Tooltip Service, <code>$staticTooltip</code>, allows you to show and hide all tooltips or individual tooltips
+    and check if any tooltips are visible. The full API for this service is as follows:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td class="attribute">showAllTooltips</td>
+            <td>This function will hide all the tooltips.</td>
+        </tr>
+        <tr>
+            <td class="attribute">hideAllTooltips</td>
+            <td>This function will hide all the tooltips/</td>
+        </tr>
+        <tr>
+            <td class="attribute">showTooltip</td>
+            <td>
+                Arguments:
+                <ul>
+                    <li><code>id</code> - string</li>
+                </ul>
+                <p>This function will show the tooltip with the matching id.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="attribute">hideTooltip</td>
+            <td>
+                Arguments:
+                <ul>
+                    <li><code>id</code> - string</li>
+                </ul>
+                <p>This function will hide the tooltip with the matching id.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="attribute">tooltipsVisible</td>
+            <td>This function returns true if any tooltips are visible, otherwise returns false.</td>
+        </tr>
+    </table>
+</div>
+
+<blockquote>
+    <p>An example of how static tooltips can be used in an application can be found on <a>List View 1</a>.</p>
+</blockquote>

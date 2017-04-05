@@ -1,0 +1,106 @@
+<h3>Icon Only</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Tabs - left</h4><br/>
+        <div class="tabs-left stacked-tabs-icon">
+            <tabset class="outline-tab">
+                <tab align="text-center" ng-repeat="tab in ::vm.stackedTabs">
+                    <tab-heading>
+                        <i class="hpe-icon" ng-class="tab.icon" aria-hidden="true"></i>
+                    </tab-heading>
+                    <h4 ng-bind="::tab.title"></h4>
+                    <span ng-bind="::tab.content"></span>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4>Tabs - right</h4><br/>
+        <div class="tabs-right stacked-tabs-icon">
+            <tabset class="outline-tab">
+                <tab align="text-center" ng-repeat="tab in ::vm.stackedTabs">
+                    <tab-heading>
+                        <i class="hpe-icon" ng-class="tab.icon" aria-hidden="true"></i>
+                    </tab-heading>
+                    <h4 ng-bind="::tab.title"></h4>
+                    <span ng-bind="::tab.content"></span>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h3>Text and Icon</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Tabs - left</h4><br/>
+        <div class="tabs-left stacked-tabs-icon-and-text">
+            <tabset class="outline-tab">
+                <tab align="text-right" ng-repeat="tab in ::vm.stackedTabs">
+                    <tab-heading>
+                        <div><i class="hpe-icon" ng-class="tab.icon" aria-hidden="true"></i></div>
+                        <div class="tab-title visible-md-inline visible-lg-inline" ng-bind="::tab.title"></div>
+                    </tab-heading>
+                    <h4 ng-bind="::tab.title"></h4>
+                    <span ng-bind="::tab.content"></span>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4>Tabs - right</h4><br/>
+        <div class="tabs-right stacked-tabs-icon-and-text">
+            <tabset class="outline-tab">
+                <tab align="text-left" ng-repeat="tab in ::vm.stackedTabs">
+                    <tab-heading>
+                        <div><i class="hpe-icon" ng-class="tab.icon" aria-hidden="true"></i></div>
+                        <div class="tab-title visible-md-inline visible-lg-inline" ng-bind="::tab.title"></div>
+                    </tab-heading>
+                    <h4 ng-bind="::tab.title"></h4>
+                    <span ng-bind="::tab.content"></span>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h3>Text Only</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Tabs - left</h4><br/>
+        <div class="tabs-left stacked-tabs-text">
+            <tabset class="outline-tab">
+                <tab align="text-right" ng-repeat="tab in ::vm.stackedTabs">
+                    <tab-heading>
+                        <span ng-bind="::tab.title"></span>
+                    </tab-heading>
+                    <h4 ng-bind="::tab.title"></h4>
+                    <span ng-bind="::tab.content"></span>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4>Tabs - right</h4><br/>
+        <div class="tabs-right stacked-tabs-text">
+            <tabset class="outline-tab">
+                <tab align="text-left" ng-repeat="tab in ::vm.stackedTabs">
+                    <tab-heading>
+                        <span ng-bind="::tab.title"></span>
+                    </tab-heading>
+                    <h4 ng-bind="::tab.title"></h4>
+                    <span ng-bind="::tab.content"></span>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>
+
+<hr>

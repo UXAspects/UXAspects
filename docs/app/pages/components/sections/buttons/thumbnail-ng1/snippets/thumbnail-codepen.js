@@ -7,7 +7,7 @@ function ThumbnailDemoCtrl() {
     vm.flipShow = true;
 
     vm.thumbnails = [{
-        url: 'https://pages.github.hpe.com/ashley-glenn-hunter/ux-aspects/assets/img/thumbnails/excel.png',
+        url: 'https://uxaspects.github.io/UXAspects/assets/img/thumbnails/excel.png',
         icon: 'excel-icon',
         title: 'Results.xls',
         type: 'Excel',
@@ -19,7 +19,7 @@ function ThumbnailDemoCtrl() {
         type: 'Word',
         size: '31.7 KB'
     }, {
-        url: 'https://pages.github.hpe.com/ashley-glenn-hunter/ux-aspects/assets/img/thumbnails/pdf.png',
+        url: 'https://uxaspects.github.io/UXAspects/assets/img/thumbnails/pdf.png',
         icon: 'pdf-icon',
         title: 'Archiving Edge.pdf',
         type: 'PDF',
@@ -27,7 +27,7 @@ function ThumbnailDemoCtrl() {
     }];
 
     vm.flippableThumbnails = [{
-        url: 'https://pages.github.hpe.com/ashley-glenn-hunter/ux-aspects/assets/img/thumbnails/html.png',
+        url: 'https://uxaspects.github.io/UXAspects/assets/img/thumbnails/html.png',
         icon: 'html-icon',
         title: 'Example home page for document finder site.html',
         type: 'HTML',
@@ -39,7 +39,7 @@ function ThumbnailDemoCtrl() {
         type: 'Email',
         size: '1.7 KB'
     }, {
-        url: 'https://pages.github.hpe.com/ashley-glenn-hunter/ux-aspects/assets/img/thumbnails/powerpoint.png',
+        url: 'https://uxaspects.github.io/UXAspects/assets/img/thumbnails/powerpoint.png',
         icon: 'powerpoint-icon',
         title: 'Using the HPE Slide Library for PowerPoint Presentations.ppt',
         type: 'PowerPoint',

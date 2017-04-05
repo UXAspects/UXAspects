@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-10">
+        <button class="btn button-primary" ng-click="vm.addEvent()">Add New Event</button>
+        <br/><br/><br/>
+        <timeline>
+            <timeline-event ng-repeat="event in vm.events">
+                <timeline-badge ng-class="event.badgeClass">
+                    <span ng-bind="::event.badgeTitle"></span>
+                </timeline-badge>
+                <timeline-panel>
+                    <timeline-heading>
+                        <h4 ng-bind="::event.title"></h4>
+                        <p ng-if="event.when">
+                            <small class="text-muted"><i class="hpe-icon hpe-document-time"></i> <span ng-bind="::event.when"></span></small>
+                        </p>
+                    </timeline-heading>
+                    <p ng-bind="::event.content"></p>
+                    <span ng-bind-html="::event.contentHtml" class="ng-binding ng-scope"></span>
+                </timeline-panel>
+            </timeline-event>
+        </timeline>
+    </div>
+</div>

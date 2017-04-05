@@ -1,0 +1,357 @@
+<uxd-tree-grid-wrapper></uxd-tree-grid-wrapper>
+
+<hr>
+
+<p>The tree grid component allows hierarchical data to be displayed and navigated along with the benefits of a tabular presentation.
+  It shares familiar functionality with the list views, such as keyboard navigation and multiple selection, as well as the
+  ability to configure columns to fit the source data.</p>
+
+<p>The source for the example above is as follows:</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet [code]="sampleHtml"></uxd-snippet>
+  </tab>
+  <tab heading="JavaScript">
+    <uxd-snippet language="javascript" [code]="sampleJs"></uxd-snippet>
+  </tab>
+</tabset>
+
+<h4>Actions</h4>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet [code]="actionsHtml"></uxd-snippet>
+  </tab>
+  <tab heading="JavaScript">
+    <uxd-snippet language="javascript" [code]="actionsJs"></uxd-snippet>
+  </tab>
+</tabset>
+
+<h4>Display Panel</h4>
+
+<tabset>
+  <tab heading="Display Panel HTML">
+    <uxd-snippet [code]="displayPanel"></uxd-snippet>
+  </tab>
+  <tab heading="Display Panel Footer HTML">
+    <uxd-snippet [code]="displayPanelFooter"></uxd-snippet>
+  </tab>
+</tabset>
+
+<p>The attributes which can be applied to the <code>treegrid</code> directive are described in more detail below.</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Binding</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">data</td>
+      <td>array or function</td>
+      <td>variable</td>
+      <td>
+        <p>The data source of the tree grid. For smaller data sets, the entire hierachy may be loaded and passed to the <code>data</code>          attribute as an array of objects. Each object may have an array of child objects; the name of the property containing
+          this array must be specified in the <code>options</code> parameter. Any other properties may be mapped to columns
+          in the tree grid using the <code>columns</code> configuration.</p>
+        <p>For larger data sets, the tree grid can load the children of an item asynchronously. In this case, a function may
+          be provided to the <code>data</code> attribute. The argument to this function is the parent object for which children
+          should be loaded; this will be undefined when loading the top level of items. The return value should be either
+          an array of objects or a promise which resolves to an array of objects, representing the immediate children of
+          the parent. In this mode, the <code>hasChildren</code> function must be defined in the <code>options</code> parameter,
+          to determine which rows may be expanded.</p>
+      </td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">columns</td>
+      <td>array</td>
+      <td>variable</td>
+      <td>A list of the columns to be presented in the tree grid, along with details of how to present the data in that column.
+        It is important to define at least one column, since there is no default behaviour.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">tree-data</td>
+      <td>array</td>
+      <td>variable</td>
+      <td>This will be bound to a hierarchy of objects representing the current tree state. It can be used to access the data
+        objects which are currently loaded into the grid, which is useful in asynchronous mode since items dynamically retrieved
+        from a web service do not have to be manually tracked in the controller. It also provides information on the state
+        of the item's row in the tree grid.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">selected</td>
+      <td>array</td>
+      <td>variable</td>
+      <td>This array will contain the objects currently selected in the tree grid. This is a standard multiple selection component,
+        so the techniques described in <a href="#tables-multiple-selection-actions">Multiple Selection Actions</a> may also
+        be applied to the tree grid.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">current-row</td>
+      <td>object</td>
+      <td>variable</td>
+      <td>
+        <p>This object is bound to the row in the tree grid with focus. The current row is the most recently clicked, or the
+          row which is highlighted when using keyboard navigation. The object contains the following properties:</p>
+        <ul>
+          <li><code>element</code> - the <code>tr</code> element representing the current row in the tree grid.</li>
+          <li><code>item</code> - the source data item for the current row.</li>
+          <li><code>row</code> - the row object with the properties described in the Tree Data section.</li>
+        </ul>
+      </td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">options</td>
+      <td>object</td>
+      <td>variable</td>
+      <td>Configuration options which can be used to customise the appearance and behaviour of the tree grid. Most importantly,
+        the property which contains child nodes can be set here. This is also where the icon set and expander graphics can
+        be customised.</td>
+      <td>false</td>
+    </tr>
+  </table>
+</div>
+
+<h4>Column Definition</h4>
+
+<p>The <code>columns</code> attribute receives an array of objects with the following properties:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">name</td>
+      <td>string</td>
+      <td>The text which appears in the column header.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">value</td>
+      <td>string or function</td>
+      <td>
+        <ul>
+          <li>As a string, the name of a property in the source data object to display in the column.</li>
+          <li>As a function, this will be called to provide the value to display in the column. The argument to the function
+            will be the data object to render, and the return value should be a string.</li>
+        </ul>
+      </td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">template</td>
+      <td>string</td>
+      <td>Instead of the <code>value</code> property, this may specify the URL or identifier of an Angular template to render
+        in the column. In the scope of the template, the <code>item</code> property will contain the data object to render.
+        The <code>row</code> property is also available with the properties described in the Tree Data section. If controller
+        logic is required in the template, the Angular <code>ng-controller</code> attribute may be used within the template
+        markup. Note that the first column should not be a template.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">headerClass</td>
+      <td>string</td>
+      <td>One or more (space-separated) CSS classes to apply to the header <code>th</code> element. A common use may be to align
+        the text using the built-in <code>text-center</code> or <code>text-right</code> classes.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">cellClass</td>
+      <td>string</td>
+      <td>One or more (space-separated) CSS classes to apply to the <code>td</code> elements in the column. A common use may
+        be to align the text using the built-in <code>text-center</code> or <code>text-right</code> classes.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">width</td>
+      <td>string</td>
+      <td>The width of the column. Values which are valid on the CSS <code>width</code> property are accepted here. This is provided
+        as an alternative to specifying width in CSS via the <code>headerClass</code> property.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">tooltip</td>
+      <td>string</td>
+      <td>Text to display as a tooltip when hovering over cells in this column. The source data object is available as <code>item</code>        for the purposes of binding.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">tooltipPlacement</td>
+      <td>string</td>
+      <td>Position of the tooltip relative to the cell. Value may be "top", "bottom", "left", or "right".</td>
+      <td>true</td>
+    </tr>
+  </table>
+</div>
+
+<h4>Tree Data Definition</h4>
+
+<p>The <code>tree-data</code> attribute receives an array of objects with the following properties:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">dataItem</td>
+      <td>object</td>
+      <td>A reference to the custom data object representing the row in the tree grid.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">children</td>
+      <td>array</td>
+      <td>An array containing objects of the same format describing the child items of the row. This property is read only; to
+        add or remove rows in the tree grid, update the source data and reload.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">expanded</td>
+      <td>boolean</td>
+      <td>Whether the row is expanded in the tree grid. This will be true when the row has been expanded and child items have
+        completed loading. This property is read only.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">expanding</td>
+      <td>boolean</td>
+      <td>Whether the row is currently loading children; applies in asynchronous mode. This property is read only.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">level</td>
+      <td>number</td>
+      <td>The depth of the row in the tree grid. The top level items will have the value 0. This property is read only.</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td class="attribute">api</td>
+      <td>object</td>
+      <td>
+        <p>Contains functions which may be used to control the row. The following functions are available:</p>
+        <ul>
+          <li><code>expand()</code> - expands the row, if not already expanded. Returns a promise which resolves when the child
+            rows are fully loaded.</li>
+          <li><code>contract()</code> - contracts the row, if expanded.</li>
+          <li><code>reload()</code> - reloads the child items, expanding the row if not already expanded. Returns a promise which
+            resolves when the child rows are fully loaded.</li>
+          <li><code>getValueForColumn(colIndex)</code> - returns the row display value for the column at <code>colIndex</code>            (0-based index).</li>
+        </ul>
+      </td>
+      <td>false</td>
+    </tr>
+  </table>
+</div>
+
+<p>The following function may be useful in searching the <code>tree-data</code> structure for specific items:</p>
+
+<uxd-snippet language="javascript" [code]="jsCode1"></uxd-snippet>
+
+<h4>Options</h4>
+
+<p>The <code>options</code> attribute receives an object with the following properties:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Optional</th>
+    </tr>
+    <tr>
+      <td class="attribute">childrenProperty</td>
+      <td>string</td>
+      <td>If the value of the <code>data</code> attribute is an array, then this must be set to the name of an array property
+        on the source data objects which contains the child objects, defining the hierarchy. If the array is present and
+        contains items, an expander will be rendered on the corresponding row to show or hide the children.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">hasChildren</td>
+      <td>function</td>
+      <td>If the value of the <code>data</code> attribute is a function (asynchronous operation), then this must be set to a
+        function which returns true if the provided object may have children and should therefore display an expander on
+        its row.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">maxDepth</td>
+      <td>number</td>
+      <td>The expansion depth limit. After this is reached, expanders will not display even if the data object contains children.
+        Default is 5.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">expandTopLevel</td>
+      <td>boolean</td>
+      <td>Set to true if the top-level rows should initially appear expanded. Default is false.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">expander</td>
+      <td>object</td>
+      <td>
+        <p>Defines the appearance of the expanders (buttons which toggle display of child rows). This object contains the following
+          properties:</p>
+        <ul>
+          <li><code>type</code> - the type of image to display, either <code>class</code> to use one of the standard <a href="css.html#icons">Elements Icons</a>            or <code>url</code> to use an icon image.</li>
+          <li><code>contracted</code> - the image to show when the row is in a contracted state. Either a CSS class or an image
+            URL, according to the <code>type</code>.</li>
+          <li><code>expanded</code> - the image to show when the row is in a expanded state. Either a CSS class or an image URL,
+            according to the <code>type</code>.</li>
+          <li><code>expanding</code> - the image to show when the the row is loading children in asynchronous mode. Either a
+            CSS class or an image URL, according to the <code>type</code>.</li>
+        </ul>
+      </td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td class="attribute">icons</td>
+      <td>object</td>
+      <td>
+        <p>Configures the set of icons which appear on the left of the first column. This object contains the following properties:</p>
+        <ul>
+          <li><code>type</code> - the type of image to display, either <code>class</code> to use one of the standard <a href="css.html#icons">Elements Icons</a>            or <code>url</code> to use an icon image.</li>
+          <li><code>get</code> - a function which returns the appropriate icon for the data object. The first argument is the
+            data object itself, and the second is a boolean indicating whether the row is expanded or not. The function should
+            return either a CSS class or an image URL, according to the <code>type</code>.</li>
+        </ul>
+      </td>
+      <td>true</td>
+    </tr>
+  </table>
+</div>
+
+<h4>Options Examples</h4>
+
+<p>An example <code>options</code> definition with alternative expanders and icons:</p>
+
+<uxd-snippet language="javascript" [code]="jsCode2"></uxd-snippet>
+
+<p>An example <code>options</code> definition using images:</p>
+
+<uxd-snippet language="javascript" [code]="jsCode3"></uxd-snippet>
+
+<h4>Events</h4>
+
+<p>To reload the tree grid to its initial state, issue the <code>treegrid.reload</code> event.</p>
+
+<uxd-snippet language="javascript" [code]="jsCode4"></uxd-snippet>
