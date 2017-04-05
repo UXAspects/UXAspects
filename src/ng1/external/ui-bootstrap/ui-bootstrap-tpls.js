@@ -2774,7 +2774,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
    * TODO support multiple triggers
    */
 
-  //UX Aspects Modification to make sure the popover does not get cut off when the viewport is reduced - Added Elements safeTimeout  service.
+  //UX Aspects Modification to make sure the popover does not get cut off when the viewport is reduced - Added UX Aspects safeTimeout  service.
   this.$get = [ '$window', '$compile', '$timeout', '$document', '$position', '$interpolate','safeTimeout', '$parse', function ( $window, $compile, $timeout, $document, $position, $interpolate, safeTimeout, $parse ) {
     return function $tooltip ( type, prefix, defaultTriggerShow, options ) {
       options = angular.extend( {}, defaultOptions, globalOptions, options );
