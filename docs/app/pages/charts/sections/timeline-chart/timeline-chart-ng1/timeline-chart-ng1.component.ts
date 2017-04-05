@@ -1,10 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ColorService } from '../../../../../../../src/index';
 
 @Component({
     selector: 'uxd-charts-timeline-chart-ng1',
-    templateUrl: './timeline-chart-ng1.component.html'
+    templateUrl: './timeline-chart-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsTimelineChartNg1Component')
 export class ChartsTimelineChartNg1Component {

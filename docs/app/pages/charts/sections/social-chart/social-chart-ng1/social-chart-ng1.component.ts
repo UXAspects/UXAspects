@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 const chance = require('chance').Chance();
 
 @Component({
     selector: 'uxd-charts-social-chart-ng1',
-    templateUrl: './social-chart-ng1.component.html'
+    templateUrl: './social-chart-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsSocialChartNg1Component')
-export class ChartsSocialChartNg1Component {
+export class ChartsSocialChartNg1Component implements ICodePenProvider {
 
     private minLabels: number;
     private forceAtlasDuration: number;
@@ -22,6 +25,46 @@ export class ChartsSocialChartNg1Component {
     private showMaximizeControl: boolean = false;
     private startMaximized: boolean = false;
     private templates: any;
+
+    private htmlCode = require('./snippets/chart.html');
+    private jsCode = require('./snippets/chart.js');
+
+    private apiHtml = require('./snippets/api.html');
+    private apiJs = require('./snippets/api.js');
+    private buttonsJs = require('./snippets/buttons.js');
+    private clickJs = require('./snippets/click.js');
+    private communitiesJs = require('./snippets/communities.js');
+    private layoutJs = require('./snippets/layout.js');
+    private stateJs = require('./snippets/state.js');
+    private stylesJs = require('./snippets/styles.js');
+    private titleJs = require('./snippets/title.js');
+
+    public codepen: ICodePen = {
+        html: require('./snippets/codepen/chart.html'),
+        htmlAttributes: {
+            'ng-controller': 'SocialCtrl as vm'
+        },
+        htmlTemplates: [
+            {
+                id: 'nodeDetails.html',
+                content: require('./snippets/node-detail.html')
+            },
+            {
+                id: 'nodePopover.html',
+                content: require('./snippets/node-popover.html')
+            },
+            {
+                id: 'edgeDetails.html',
+                content: require('./snippets/edge-detail.html')
+            },
+            {
+                id: 'edgePopover.html',
+                content: require('./snippets/edge-popover.html')
+            }
+        ],
+        js: [ require('./snippets/codepen/chart.js') ],
+        css: [ require('./snippets/codepen/chart.css') ]
+    };
 
     constructor() {
 

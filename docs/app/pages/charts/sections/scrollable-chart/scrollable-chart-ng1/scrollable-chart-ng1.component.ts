@@ -1,15 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ColorService } from '../../../../../../../src/index';
+import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 
 @Component({
     selector: 'uxd-charts-scrollable-chart-ng1',
-    templateUrl: './scrollable-chart-ng1.component.html'
+    templateUrl: './scrollable-chart-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsScrollableChartNg1Component')
-export class ChartsScrollableChartNg1Component {
+export class ChartsScrollableChartNg1Component implements ICodePenProvider {
     private data: any;
     private options: any;
+
+    private htmlCode = require('./snippets/chart.html');
+    private jsCode = require('./snippets/chart.js');
+
+    private optionsJs = require('./snippets/options.js');
+
+    public codepen: ICodePen = {
+        html: this.htmlCode,
+        htmlAttributes: {
+            'ng-controller': 'ScrollableChartCtrl as sc'
+        },
+        js: [this.jsCode]
+    };
 
     constructor(colorService: ColorService) {
 

@@ -1,21 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
 const chance = require('chance').Chance();
 
 // import popover controller
 import './popover/popover.controller';
+import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
     selector: 'uxd-charts-partition-map-ng1',
-    templateUrl: './partition-map-ng1.component.html'
+    templateUrl: './partition-map-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsPartitionMapNg1Component')
-export class ChartsPartitionMapNg1Component {
+export class ChartsPartitionMapNg1Component implements ICodePenProvider {
+
 
     private data: any;
     private options: any;
     private isLoading: boolean;
+
+    private htmlCode = require('./snippets/chart.html');
+    private jsCode = require('./snippets/chart.js');
+    private cssCode = require('./snippets/chart.css');
+
+    private popoverHtml = require('./snippets/popover.html');
+    private popoverJs = require('./snippets/popover.js');
+
+    public codepen: ICodePen = {
+        html: this.htmlCode,
+        htmlAttributes: {
+            'ng-controller': 'PartitionMapCtrl as vm'
+        },
+        htmlTemplates: [
+            {
+                id: 'templateId.html',
+                content: this.popoverHtml
+            }
+        ],
+        js: [this.jsCode, this.popoverJs],
+        css: [this.cssCode]
+    };
+
 
     constructor() {
         this.options = {
@@ -47,7 +74,7 @@ export class ChartsPartitionMapNg1Component {
                 fillScreen: true,
                 sidePanelWidth: 235,
                 shouldResize: true,
-                onToggle: function () {}
+                onToggle: function () { }
             },
             popoverTemplate: require('!file-loader!./snippets/popover.html'),
             popoverEnabled: true,

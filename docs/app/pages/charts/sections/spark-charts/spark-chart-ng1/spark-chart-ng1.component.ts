@@ -1,14 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
     selector: 'uxd-charts-spark-chart-ng1',
-    templateUrl: './spark-chart-ng1.component.html'
+    templateUrl: './spark-chart-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsSparkChartNg1Component')
-export class ChartsSparkChartNg1Component {
+export class ChartsSparkChartNg1Component implements ICodePenProvider {
 
     private charts: ISparkChart[];
+
+    private htmlCode = require('./snippets/chart.html');
+    private jsCode = require('./snippets/chart.js');
+    private cssCode = require('./snippets/chart.css');
+    private tooltipsHtml = require('./snippets/tooltips.html');
+
+    public codepen: ICodePen = {
+        html: this.htmlCode,
+        htmlAttributes: {
+            'ng-controller': 'SparkChartCtrl as vm'
+        },
+        js: [this.jsCode],
+        css: [this.cssCode]
+    };
 
     constructor() {
 
@@ -32,7 +49,7 @@ export class ChartsSparkChartNg1Component {
                 fillHeight: 10,
                 topLeftLabel: `<span class='spark-label hidden-xxxs'><span class='large'>21.7</span><span class='medium light'>&nbsp;MB&nbsp;&nbsp;Items&nbsp;&nbsp;(35%)</span></span>`,
                 bottomLeftLabel: '<span class="spark-label hidden-xxxs"><span class="medium light">INDEX COVERAGE</span></span>',
-                tooltip: 'Spark Line indicator - 2.17MB of 8.2GB occupied (35%)'                
+                tooltip: 'Spark Line indicator - 2.17MB of 8.2GB occupied (35%)'
             },
             {
                 type: 'spark-chart3',
