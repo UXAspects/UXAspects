@@ -11,6 +11,7 @@ import { OrganizationChartDirective } from './organization-chart/organization-ch
 import { SparkDirective } from './spark/spark.directive';
 import { PartitionMapDirective } from './partition-map/partition-map.directive'; 
 import { SankeyDirective } from './sankey/sankey.directive';
+import { SocialChartDirective } from './social-chart/social-chart.directive';
 
 let wrapperModule = angular.module('ux-aspects.wrappers', [
     'ux-aspects.contacts',
@@ -19,7 +20,10 @@ let wrapperModule = angular.module('ux-aspects.wrappers', [
     'ux-aspects.d3',
     'ux-aspects.nestedDonut',
     'ux-aspects.spark',
-    'ux-aspects.sankey'
+    'ux-aspects.sankey',
+    'ux-aspects.socialChart', 
+    'ux-aspects.safeTimeout', 
+    'ux-aspects.sigma'
 ]);
 
 wrapperModule.directive('uxContactGroupNg1', ContactGroupDirective);
@@ -34,3 +38,4 @@ wrapperModule.directive('uxOrganizationChartNg1', OrganizationChartDirective);
 wrapperModule.directive('uxSparkNg1', SparkDirective);
 wrapperModule.directive('uxPartitionMapNg1', PartitionMapDirective);
 wrapperModule.directive('uxSankeyNg1', SankeyDirective);
+wrapperModule.directive('uxSocialChartNg1', SocialChartDirective);

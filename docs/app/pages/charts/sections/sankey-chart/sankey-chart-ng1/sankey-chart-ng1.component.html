@@ -4,11 +4,11 @@
 
 <p>The Sankey Chart allows transfers and flows within a system to be presented visually.</p>
 
-<p>To create a Sankey chart, use the <code class="highlighter-rouge">sankey</code> directive.</p>
+<p>To create a Sankey chart, use the <code>sankey</code> directive.</p>
 
 <uxd-snippet></uxd-snippet>
 
-<p>The data for the chart should be set with the <code class="highlighter-rouge">chart-data</code> attribute. There are two optional attributes, a <code class="highlighter-rouge">click</code> attribute for handling interaction, and an <code class="highlighter-rouge">options</code> attribute for configuration of the chart.</p>
+<p>The data for the chart should be set with the <code>chart-data</code> attribute. There are two optional attributes, a <code>click</code> attribute for handling interaction, and an <code>options</code> attribute for configuration of the chart.</p>
 
 <h4 id="chart-data">Chart-Data</h4>
 
@@ -16,15 +16,15 @@
 
 <uxd-snippet></uxd-snippet>
 
-<p>Each column should be defined with a <code class="highlighter-rouge">name</code> and an <code class="highlighter-rouge">id</code>. The value given for <code class="highlighter-rouge">ordinal</code> defines the order in which the columns will be presented.</p>
+<p>Each column should be defined with a <code>name</code> and an <code>id</code>. The value given for <code>ordinal</code> defines the order in which the columns will be presented.</p>
 
-<p>Node items should have a <code class="highlighter-rouge">name</code> and <code class="highlighter-rouge">id</code>. The <code class="highlighter-rouge">type</code> property should correspond to the <code class="highlighter-rouge">id</code> of a column. The <code class="highlighter-rouge">value</code> property should hold the value for the node. The example code also uses another property, <code class="highlighter-rouge">datasize</code>, which represents file size in bytes. Additional properties such as this can have arbitrary names; they will be mapped to internal properties depending on the <code class="highlighter-rouge">options</code> object which is supplied. Additional properties supplied must be numeric.</p>
+<p>Node items should have a <code>name</code> and <code>id</code>. The <code>type</code> property should correspond to the <code>id</code> of a column. The <code>value</code> property should hold the value for the node. The example code also uses another property, <code>datasize</code>, which represents file size in bytes. Additional properties such as this can have arbitrary names; they will be mapped to internal properties depending on the <code>options</code> object which is supplied. Additional properties supplied must be numeric.</p>
 
-<p>The links should have a <code class="highlighter-rouge">source</code> and <code class="highlighter-rouge">target</code>, which must correspond to the ids of the nodes which need to be connected. Each link in the chart requires a definition of this kind. Links can also have data associated with them, which will affect their size on the chart. If the <code class="highlighter-rouge">value</code> of a node is higher than the total of the values of the links exiting that node, the excess values will be represented with an overflow link (shown above as the orange links exiting the Not Classifed and Classified nodes in the example).</p>
+<p>The links should have a <code>source</code> and <code>target</code>, which must correspond to the ids of the nodes which need to be connected. Each link in the chart requires a definition of this kind. Links can also have data associated with them, which will affect their size on the chart. If the <code>value</code> of a node is higher than the total of the values of the links exiting that node, the excess values will be represented with an overflow link (shown above as the orange links exiting the Not Classifed and Classified nodes in the example).</p>
 
 <p>When defining links, ensure that only nodes in adjacent columns are connected.</p>
 
-<p>To convey chart information to assistive technologies, include a text summary of the data. Use the <code class="highlighter-rouge">.sr-only</code> class to make the text hidden but visible to screen readers, and set the <code class="highlighter-rouge">tabIndex</code> attribute on the element so it can be reached with the keyboard.</p>
+<p>To convey chart information to assistive technologies, include a text summary of the data. Use the <code>.sr-only</code> class to make the text hidden but visible to screen readers, and set the <code>tabIndex</code> attribute on the element so it can be reached with the keyboard.</p>
 
 <h4 id="options">Options</h4>
 
@@ -79,7 +79,7 @@
   </tbody></table>
 </div>
 
-<p>The <code class="highlighter-rouge">linkTooltip</code> object is defined as follows:</p>
+<p>The <code>linkTooltip</code> object is defined as follows:</p>
 
 <div class="demo-attributes table-responsive">
   <table class="table m-t">
@@ -104,7 +104,7 @@
   </tbody></table>
 </div>
 
-<p>The <code class="highlighter-rouge">col</code> object is defined as follows:</p>
+<p>The <code>col</code> object is defined as follows:</p>
 
 <div class="demo-attributes table-responsive">
   <table class="table m-t">
@@ -141,7 +141,7 @@
   </tbody></table>
 </div>
 
-<p>The <code class="highlighter-rouge">block</code> object is defined as follows:</p>
+<p>The <code>block</code> object is defined as follows:</p>
 
 <div class="demo-attributes table-responsive">
   <table class="table m-t">
@@ -173,7 +173,7 @@
   </tbody></table>
 </div>
 
-<p>The <code class="highlighter-rouge">calloutData</code> object is defined as follows:</p>
+<p>The <code>calloutData</code> object is defined as follows:</p>
 
 <div class="demo-attributes table-responsive">
   <table class="table m-t">
@@ -210,7 +210,7 @@
   </tbody></table>
 </div>
 
-<p>The callout section (<code class="highlighter-rouge">topLeft</code>, <code class="highlighter-rouge">topRight</code>, <code class="highlighter-rouge">bottomRight</code>, <code class="highlighter-rouge">bottomLeft</code>) object is defined as follows:</p>
+<p>The callout section (<code>topLeft</code>, <code>topRight</code>, <code>bottomRight</code>, <code>bottomLeft</code>) object is defined as follows:</p>
 
 <div class="demo-attributes table-responsive">
   <table class="table m-t">
@@ -275,7 +275,7 @@
   </tbody></table>
 </div>
 
-<p>The <code class="highlighter-rouge">overflow</code> object is defined as follows:</p>
+<p>The <code>overflow</code> object is defined as follows:</p>
 
 <div class="demo-attributes table-responsive">
   <table class="table m-t">
@@ -294,7 +294,7 @@
   </tbody></table>
 </div>
 
-<p>The <code class="highlighter-rouge">overflow.tooltip</code> object is defined as follows:</p>
+<p>The <code>overflow.tooltip</code> object is defined as follows:</p>
 
 <div class="demo-attributes table-responsive">
   <table class="table m-t">
@@ -319,7 +319,7 @@
   </tbody></table>
 </div>
 
-<p>The Sankey chart will grow and shrink in size where possible to fit the space available to it. To have further control over the size of the chart provide styling for the <code class="highlighter-rouge">.sankey</code> class.</p>
+<p>The Sankey chart will grow and shrink in size where possible to fit the space available to it. To have further control over the size of the chart provide styling for the <code>.sankey</code> class.</p>
 
 <h4 id="click">Click</h4>
 
@@ -329,4 +329,4 @@
 
 <h4 id="responsiveness">Responsiveness</h4>
 
-<p>The Sankey Chart has certain limitations when it comes to responsiveness. This is because the blocks must have a minimum width and height in order to accurately portray data. If the data set consists of multiple columns/blocks then the chart will only be responsive above a specific width/height. This varies depending on the number of columns/blocks and the <code class="highlighter-rouge">block.minWidth</code> and <code class="highlighter-rouge">block.minHeight</code> properties specified in the chart options.</p>
+<p>The Sankey Chart has certain limitations when it comes to responsiveness. This is because the blocks must have a minimum width and height in order to accurately portray data. If the data set consists of multiple columns/blocks then the chart will only be responsive above a specific width/height. This varies depending on the number of columns/blocks and the <code>block.minWidth</code> and <code>block.minHeight</code> properties specified in the chart options.</p>
