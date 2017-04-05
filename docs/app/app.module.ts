@@ -155,6 +155,10 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdSearchBuilderCodeWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdSearchHistoryWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdSearchToolbarWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSplitterWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdNestedSplitterWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdLayoutSwitchingSplitterWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSideInsetPanelSplitterWrapper'),
 
   // Angular 1 Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),

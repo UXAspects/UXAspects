@@ -24,7 +24,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
     private height: number;
     private scrollApi: any = {};
 
-    constructor( @Inject(DOCUMENT) private document: Document,
+    constructor(@Inject(DOCUMENT) private document: Document,
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private navigationService: NavigationService) { }

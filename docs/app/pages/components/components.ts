@@ -53,23 +53,6 @@ import { ComponentsHotkeysNg1Component } from './sections/keyboard/hotkeys-ng1/h
 import { ComponentsKeyboardServiceNg1Component } from './sections/keyboard/keyboard-service-ng1/keyboard-service-ng1.component';
 import { ComponentsModalNg1Component } from './sections/modals/modal-ng1/modal-ng1.component';
 import { ComponentsSquareModalNg1Component } from './sections/modals/square-modal-ng1/square-modal-ng1.component';
-
-// Import Wrappers
-import './sections/tables/detail-row-header-ng1/wrapper/service/detail-row-data.service';
-import './sections/tables/detail-row-header-ng1/wrapper/detail-row-header-wrapper.directive';
-import './sections/tables/detail-row-responsive-ng1/wrapper/detail-row-responsive-wrapper.directive';
-import './sections/tables/fixed-header-table-ng1/wrapper/fixed-header-table-wrapper.directive';
-import './sections/tables/hover-actions-ng1/wrapper/hover-actions-wrapper.directive';
-import './sections/tables/reorderable-table-ng1/wrapper/reorderable-table-wrapper.directive';
-import './sections/tables/sort-direction-toggle-ng1/wrapper/sort-toggle-wrapper.directive';
-import './sections/tables/single-column-sorting-ng1/wrapper/single-column-sorting-wrapper.directive';
-import './sections/tables/multiple-column-sorting-ng1/wrapper/multi-column-sorting-wrapper.directive';
-import './sections/tables/preview-pane-window-ng1/wrapper/preview-pane-window-wrapper.directive';
-import './sections/facets/facet-line-chart-ng1/wrapper/facet-line-chart-ng1-wrapper';
-import './sections/file-upload/file-upload-ng1/wrapper/file-upload-wrapper.directive';
-import './sections/flippable-cards/flippable-cards-ng1/wrapper/flippable-cards-wrapper.directive';
-import './sections/grid/grid-ng1/wrapper/grid-wrapper.directive';
-import './sections/hierarchy-bar/hierarchy-bar-ng1/wrapper/hierarchy-bar-wrapper.directive';
 import { ComponentsMarqueeModalNg1Component } from './sections/modals/marquee-modal-ng1/marquee-modal-ng1.component';
 import { ComponentsSideModalNg1Component } from './sections/modals/side-modal-ng1/side-modal-ng1.component';
 import { ComponentsNotificationsNg1Component } from './sections/notifications/notifications-ng1/notifications-ng1.component';
@@ -90,6 +73,27 @@ import { ComponentsInfiniteScrollLoadMoreNg1Component } from './sections/scrollb
 import { ComponentsSearchBuilderNg1Component } from './sections/search/search-builder-ng1/search-builder-ng1.component';
 import { ComponentsSearchHistoryNg1Component } from './sections/search/search-history-ng1/search-history-ng1.component';
 import { ComponentsSearchToolbarNg1Component } from './sections/search/search-toolbar-ng1/search-toolbar-ng1.component';
+import { ComponentsSplitterNg1Component } from './sections/splitter/splitter-ng1/splitter-ng1.component';
+import { ComponentsNestedSplitterNg1Component } from './sections/splitter/nested-splitter-ng1/nested-splitter-ng1.component';
+import { ComponentsLayoutSwitchingSplitterNg1Component } from './sections/splitter/layout-switching-splitter-ng1/layout-switching-splitter-ng1.component';
+import { ComponentsSideInsetPanelSplitterNg1Component } from './sections/splitter/side-inset-panel-splitter-ng1/side-inset-panel-splitter-ng1.component';
+
+// Import Wrappers
+import './sections/tables/detail-row-header-ng1/wrapper/service/detail-row-data.service';
+import './sections/tables/detail-row-header-ng1/wrapper/detail-row-header-wrapper.directive';
+import './sections/tables/detail-row-responsive-ng1/wrapper/detail-row-responsive-wrapper.directive';
+import './sections/tables/fixed-header-table-ng1/wrapper/fixed-header-table-wrapper.directive';
+import './sections/tables/hover-actions-ng1/wrapper/hover-actions-wrapper.directive';
+import './sections/tables/reorderable-table-ng1/wrapper/reorderable-table-wrapper.directive';
+import './sections/tables/sort-direction-toggle-ng1/wrapper/sort-toggle-wrapper.directive';
+import './sections/tables/single-column-sorting-ng1/wrapper/single-column-sorting-wrapper.directive';
+import './sections/tables/multiple-column-sorting-ng1/wrapper/multi-column-sorting-wrapper.directive';
+import './sections/tables/preview-pane-window-ng1/wrapper/preview-pane-window-wrapper.directive';
+import './sections/facets/facet-line-chart-ng1/wrapper/facet-line-chart-ng1-wrapper';
+import './sections/file-upload/file-upload-ng1/wrapper/file-upload-wrapper.directive';
+import './sections/flippable-cards/flippable-cards-ng1/wrapper/flippable-cards-wrapper.directive';
+import './sections/grid/grid-ng1/wrapper/grid-wrapper.directive';
+import './sections/hierarchy-bar/hierarchy-bar-ng1/wrapper/hierarchy-bar-wrapper.directive';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
@@ -167,4 +171,8 @@ export const COMPONENT_SECTIONS = [
     ComponentsSearchBuilderNg1Component,
     ComponentsSearchHistoryNg1Component,
     ComponentsSearchToolbarNg1Component,
+    ComponentsSplitterNg1Component,
+    ComponentsNestedSplitterNg1Component,
+    ComponentsLayoutSwitchingSplitterNg1Component,
+    ComponentsSideInsetPanelSplitterNg1Component,
 ];
