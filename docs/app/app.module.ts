@@ -144,6 +144,7 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdToggleSwitchWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdCustomToggleSwitchWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdDatePickerWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdIntegratedDatePickerWrapper'),
 
   // Angular 1 Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),

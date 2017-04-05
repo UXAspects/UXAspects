@@ -236,6 +236,11 @@
                     "title": "Date Picker",
                     "component": "ComponentsDatePickerNg1Component",
                     "version": "AngularJS"
+                },
+                {
+                    "title": "Integrated Date Picker",
+                    "component": "ComponentsIntegratedDatePickerNg1Component",
+                    "version": "AngularJS"
                 }
             ]
         },

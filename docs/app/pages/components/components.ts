@@ -54,6 +54,7 @@ import { ComponentsCustomDropdownNg1Component } from './sections/input-controls/
 import { ComponentsExpandingTextAreaNg1Component } from './sections/input-controls/expanding-text-area-ng1/expanding-text-area-ng1.component';
 import { ComponentsToggleSwitchNg1Component } from './sections/input-controls/toggle-switch-ng1/toggle-switch-ng1.component';
 import { ComponentsDatePickerNg1Component } from './sections/input-controls/date-picker-ng1/date-picker-ng1.component';
+import { ComponentsIntegratedDatePickerNg1Component } from './sections/input-controls/integrated-date-picker-ng1/integrated-date-picker-ng1.component';
 
 // Import Wrappers
 import './sections/tables/detail-row-header-ng1/wrapper/service/detail-row-data.service';
@@ -78,6 +79,7 @@ import './sections/input-controls/expanding-text-area-ng1/wrapper/expanding-text
 import './sections/input-controls/toggle-switch-ng1/wrapper/toggle-switch-wrapper.directive';
 import './sections/input-controls/toggle-switch-ng1/wrapper/custom-toggle-switch-wrapper.directive';
 import './sections/input-controls/date-picker-ng1/wrapper/date-picker-wrapper.directive';
+import './sections/input-controls/integrated-date-picker-ng1/wrapper/integrated-date-picker-wrapper.directive';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
@@ -135,5 +137,6 @@ export const COMPONENT_SECTIONS = [
     ComponentsCustomDropdownNg1Component,
     ComponentsExpandingTextAreaNg1Component,
     ComponentsToggleSwitchNg1Component,
-    ComponentsDatePickerNg1Component
+    ComponentsDatePickerNg1Component,
+    ComponentsIntegratedDatePickerNg1Component,
 ];
