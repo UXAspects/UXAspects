@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, HostListener, Inject, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { NavigationService } from '../../services/navigation/navigation.service';
@@ -24,22 +24,30 @@ export class SideNavigationComponent implements OnInit, AfterViewInit {
     private height: number;
     private scrollApi: any = {};
 
-    constructor( @Inject(DOCUMENT) private document: Document,
+    constructor(@Inject(DOCUMENT) private document: Document,
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private navigationService: NavigationService) { }
 
     ngOnInit() {
+        // Set up fragment IDs
         for (let category of this.navigation.categories) {
             this.navigationService.setSectionIds(category.sections);
         }
+
+        // Fix nav position on navigate
+        this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                this.updatePosition();
+            }
+        });
     }
 
     ngAfterViewInit() {
         // Delay to allow the document to render in order to get the correct initial height
         setTimeout(() => {
             this.updatePosition();
-        });
+        }, 100);
     }
 
     isActive(section: string) {

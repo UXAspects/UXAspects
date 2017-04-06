@@ -1,0 +1,35 @@
+<div class="dismiss">
+  <button class="btn btn-icon button-dark btn-circular btn-close" ng-click="vm.cancel()"><i class="hpe-icon hpe-close"></i></button>
+</div>
+
+<div class="side-panel">
+  <div class="marquee-logo">
+    <i class="hpe-icon hpe-code hp-3x case-logo"></i>
+  </div>
+
+  <ul class="code-modal-list">
+    <li class="code-section" ng-class="{ 'active': vm.selectedSection === 0 }" ng-click="vm.selectedSection = 0">Launching Modal</li>
+    <li class="code-section" ng-class="{ 'active': vm.selectedSection === 1 }" ng-click="vm.selectedSection = 1">Search Builder</li>
+    <li class="code-section" ng-class="{ 'active': vm.selectedSection === 2 }" ng-click="vm.selectedSection = 2">Services</li>
+    <li class="code-section" ng-class="{ 'active': vm.selectedSection === 3 }" ng-click="vm.selectedSection = 3">Search Components</li>
+    <li class="code-section" ng-class="{ 'active': vm.selectedSection === 4 }" ng-click="vm.selectedSection = 4">Inset Panels</li>
+  </ul>
+</div>
+
+<div class="main-panel">
+
+  <div class="marquee-header">
+    <h1 class="marquee-title" ng-bind="vm.sections[vm.selectedSection].title"></h1>
+  </div>
+
+  <div class="marquee-body">
+    <div class="code-modal-body" scroll-config="vm.scrollBarConfig" scroll-pane scroll-name="code-scroll">
+      <ng-include src="vm.sections[vm.selectedSection].templateUrl"></ng-include>
+    </div>
+  </div>
+
+  <div class="marquee-footer">
+    <button type="button" class="btn button-primary m-r-xs" ng-click="vm.ok()">Done</button>
+  </div>
+
+</div>

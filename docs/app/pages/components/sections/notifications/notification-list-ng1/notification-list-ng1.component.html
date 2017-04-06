@@ -1,0 +1,30 @@
+<uxd-notification-list-wrapper></uxd-notification-list-wrapper>
+
+<hr>
+
+<p>Notifications are often used to display information based on events that are occurring at a specific time, however to display the full history of any past notifications consider using a side modal.</p>
+
+<p>The button above was created using the following code:</p>
+
+<uxd-snippet [content]="snippets.compiled.layoutHtml" language="html"></uxd-snippet>
+
+<p>The modal options in the example are as follows:</p>
+
+<uxd-snippet [content]="snippets.compiled.modalOptionsExampleJs" language="javascript"></uxd-snippet>
+
+<p>The content of the side modal is simply a list of notifications that uses a custom scrollbar and has paging. The notifications in this list are randomly generated. For use in production notifications should be loaded from a data store.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.modalLayoutHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.modalControllerJs" language="javascript"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.stylesCss" language="css"></uxd-snippet>
+    </tab>
+    <tab heading="Notification Template">
+        <uxd-snippet [content]="snippets.compiled.notificationHtml" language="html"></uxd-snippet>
+    </tab>
+</tabset>

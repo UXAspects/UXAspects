@@ -1,0 +1,38 @@
+<search-component ng-controller="DateRangeComponentCtrl as vm">
+  <label class="form-label">Date range</label>
+
+  <div class="row">
+
+    <div class="col-sm-12">
+
+      <div class="form-inline">
+
+        <!-- From Date Picker -->
+        <div class="form-group p-r-md">
+          <label class="form-label control-label p-r-xs">From</label>
+          <div class="input-group date m-nil">
+            <span class="input-group-addon" ng-click="vm.fromOpen($event)">
+            <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+          </span>
+            <input type="text" class="form-control" ng-model="model.from" datepicker-popup="dd MMMM yyyy"
+              ng-click="vm.fromOpen($event)" is-open="vm.fromOpened" aria-label="From date">
+          </div>
+        </div>
+
+        <!-- To Date Picker -->
+        <div class="form-group">
+          <label class="form-label control-label p-r-xs">To</label>
+          <div class="input-group date m-nil">
+            <span class="input-group-addon" ng-click="vm.toOpen($event)">
+            <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+          </span>
+            <input type="text" class="form-control" ng-model="model.to" datepicker-popup="dd MMMM yyyy"
+              ng-click="vm.toOpen($event)" is-open="vm.toOpened" aria-label="To date">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</search-component>

@@ -1,0 +1,24 @@
+<div class="btn-group" dropdown>
+    <button type="button" class="btn button-secondary" ng-click="vm.openModal()" disabled>NEW SEARCH</button>
+    <button type="button" class="btn button-secondary dropdown-toggle" dropdown-toggle aria-haspopup="true"
+        aria-expanded="false" ng-click="vm.getHistory()">
+        <span class="hpe-icon hpe-history" aria-hidden="true"></span>
+    </button>
+    <ul class="dropdown-menu search-history-container" role="menu">
+        <div class="search-history-scrollpane" scroll-config="vm.scrollConfig"
+            scroll-pane scroll-name="searchHistoryScroller">
+            <li ng-repeat="search in vm.searches track by $index" class="search-history-item" ng-click="vm.search(search)">
+                <div class="search-history">
+                    <i class="hpe-icon hpe-lg search-history-icon" ng-class="search.icon" aria-hidden="true"></i>
+                    <div class="search-history-detail">
+                        <p ng-bind="search.text"></p>
+                        <p class="search-criteria" ng-if="search.any">ANY OF <span ng-bind="search.any"></span></p>
+                        <p class="search-criteria" ng-if="search.all">ALL OF <span ng-bind="search.all"></span></p>
+                        <p class="search-criteria" ng-if="search.exclude">NONE OF <span ng-bind="search.exclude"></span></p>
+                    </div>
+                </div>
+                <hr>
+            </li>
+        </div>
+    </ul>
+</div>

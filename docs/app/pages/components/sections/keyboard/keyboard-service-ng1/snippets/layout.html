@@ -1,0 +1,21 @@
+<div class="row m-t-md m-b-md">
+  <div class="col-sm-1 m-t-xs">
+    <checkbox name="shift-check" ng-model="vm.testKey.shiftKey" ng-disabled="vm.testKeyBound">Shift</checkbox>
+  </div>
+  <div class="col-sm-1 m-t-xs">
+    <checkbox name="ctrl-check" ng-model="vm.testKey.ctrlKey" ng-disabled="vm.testKeyBound">Ctrl</checkbox>
+  </div>
+  <div class="col-sm-1 m-t-xs">
+    <checkbox name="alt-check" ng-model="vm.testKey.altKey" ng-disabled="vm.testKeyBound">Alt</checkbox>
+  </div>
+  <div class="col-sm-2">
+    <input type="text" placeholder="Key" class="form-control" maxlength="1" ng-model="vm.testKeyInput" ng-disabled="vm.testKeyBound"
+    />
+  </div>
+  <div class="col-sm-2">
+    <button type="button" class="btn button-primary" ng-click="vm.toggleBind()">{{ vm.testKeyBound ? "Unbind Key" : "Bind Key" }}</button>
+  </div>
+</div>
+<alert ng-if="vm.testMessage.length > 0" type="info">
+  <span ng-bind="vm.testMessage"></span>
+</alert>

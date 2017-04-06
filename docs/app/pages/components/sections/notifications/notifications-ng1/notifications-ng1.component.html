@@ -1,0 +1,107 @@
+<uxd-notifications-wrapper></uxd-notifications-wrapper>
+
+<hr>
+
+<p>Notifications can be used to inform the user of occurring events or to alert the user of something that may require their
+  attention. Notifications will appear in the top right corner of the browser window and can be dismissed by the user by
+  clicking the close button.</p>
+
+<p>Notifications are controlled by the <code class="highlighter-rouge">notificationService</code> which can be injected into
+  any controller in the application.</p>
+
+<p>The <code class="highlighter-rouge">notificationService</code> has several functions available to control notifications.</p>
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Property</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td class="attribute">showNotification</td>
+        <td>This function should be called to show a notification. It should be given an object containing properties to configure
+          the appearance and content of the notification. It will return the notification element (if notifications are visible
+          - see <code>setNotificationVisibility</code>), this can be used to dismiss this individual notification at a later
+          point.
+        </td>
+      </tr>
+      <tr>
+        <td class="attribute">dismissNotification</td>
+        <td>This function can be called to dismiss a notification. It should be passed the notification element to dismiss.</td>
+      </tr>
+      <tr>
+        <td class="attribute">dismissAllNotifications</td>
+        <td>This function will dismiss any currently visible notifications.</td>
+      </tr>
+      <tr>
+        <td class="attribute">getNotifications</td>
+        <td>this function will return an array of all notifications shown since the browser was last refreshed. The objects in
+          the array returned will contain the properties passed to the <code>showNotification</code> function along with
+          an additional <code>date</code> property which will contain the time at which the notification was shown. If a
+          more permanent history of notifications is required consider using local storage or a database.</td>
+      </tr>
+      <tr>
+        <td class="attribute">setNotificationVisibility</td>
+        <td>This function will determine whether notifications should be visibly displayed on screen when the <code>showNotification</code> function is called. If the <code>showNotification</code> function is called and the visibility is set to false,
+          no notification will show, however a record of it will still be kept and can be accessed using the <code>getNotifications</code> function. This function expects a boolean value as an argument, a value of <code>true</code> will display notifications
+          and a value of <code>false</code> will hide them. The default value is <code>true</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>The following options can be used to configure the appearance and content of the notification:</p>
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td class="attribute">icon</td>
+        <td>string</td>
+        <td>Sets the icon from the icon set to display within the notification.</td>
+      </tr>
+      <tr>
+        <td class="attribute">title</td>
+        <td>string</td>
+        <td>Sets the title displayed at the top of the notification.</td>
+      </tr>
+      <tr>
+        <td class="attribute">text</td>
+        <td>string</td>
+        <td>Sets the text displayed within the notification.</td>
+      </tr>
+      <tr>
+        <td class="attribute">subtitle</td>
+        <td>string</td>
+        <td>Sets the text displayed beneath the main notification text. This is useful for adding a timestamp to the notification.</td>
+      </tr>
+      <tr>
+        <td class="attribute">duration</td>
+        <td>number</td>
+        <td>Sets the duration (in milliseconds) the notification should appear before automatically dismissing. A value of <code>0</code> will show the notification until manually dismissed.</td>
+      </tr>
+      <tr>
+        <td class="attribute">backgroundColor</td>
+        <td>string</td>
+        <td>Sets the background color of the notification.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>The HTML tab provides sample code to call the functions within the controller, while the Javascript tab provides an example
+  of how the <code>notificationService</code> can be used to show or dismiss notifications.</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.layoutExampleHtml" language="html"></uxd-snippet>
+  </tab>
+  <tab heading="JavaScript">
+    <uxd-snippet [content]="snippets.compiled.controllerExampleJs" language="javascript"></uxd-snippet>
+  </tab>
+  <tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.stylesCss" language="css"></uxd-snippet>
+  </tab>
+</tabset>

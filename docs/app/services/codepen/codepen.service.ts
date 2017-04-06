@@ -75,7 +75,7 @@ export class CodePenService {
 
         // Copy the original attributes in order to modify with the id (for CSS purposes)
         const htmlAttributes = Object.assign({}, codepen.htmlAttributes);
-        htmlAttributes.id = 'ux-codepen-container';
+        htmlAttributes.id = htmlAttributes.id || 'ux-codepen-container';
 
         // Wrap the main HTML fragment in a div with specified attributes
         let result = this.wrapHtml(codepen.html, null, htmlAttributes);

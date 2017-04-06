@@ -1497,7 +1497,10 @@
                     "name": "@indicator-accent"
                 },
                 {
-                    "name": "@process-bar-accent"
+                    "name": "@progress-bar-accent"
+                },
+                {
+                    "name": "@progress-bar-accent-color"
                 },
                 {
                     "name": "@progress-bar-color"

@@ -1,0 +1,68 @@
+<uxd-item-display-panel-wrapper></uxd-item-display-panel-wrapper>
+
+<hr>
+
+<p>Each item that opens the item display panel is contained in the <code>display-panel-item</code> directive.</p>
+
+<p>The <code>shadow</code> property is optional and can be added to the <code>display-panel-item</code> to display a curved shadow under the header.</p>
+
+<p>The <code>auto-index</code> attribute is used to enable keyboard controls - full documentation can be found on the <a routerLink="/components/tables" fragment="indices-ng1">Table Indices</a> page.</p>
+
+<p>The input value of the directive is an <code>object</code>. It is defined by the <code>panel</code> property of each <code>item</code> object in <code>vm.items</code> which in turn defines the item display panel.</p>
+
+<p>The following defining the modal are set in the <code>panel</code> property of each <code>item</code>.</p>
+<div class="demo-attributes table-responsive">
+<table class="table">
+    <tbody><tr>
+        <th>Property</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td class="attribute">title</td>
+        <td>Defines the Header title of the item display panel.</td>
+    </tr>
+    <tr>
+        <td class="attribute">main</td>
+        <td>Provides a path to a template representing item display panel content.</td>
+    </tr>
+    <tr>
+        <td class="attribute">footer</td>
+        <td>Provides a path to a template representing item display panel footer content.</td>
+    </tr>
+    <tr>
+        <td class="attribute">modalColumns</td>
+        <td>Classes defining the number of columns as per the grid system for a responsive item display panel or a class with a preset width.</td>
+    </tr>
+    <tr>
+        <td class="attribute">top</td>
+        <td>Number, defines the initial top position of the modal with respect to standard header, condensed header or toolbar.</td>
+    </tr>
+    <tr>
+        <td class="attribute">reference</td>
+        <td>Element id or class, item display panel is displayed in reference to this element after scroll.</td>
+    </tr>
+    <tr>
+        <td class="attribute">scope</td>
+        <td>A scope instance to be used for the modal's main content.</td>
+    </tr>
+    <tr>
+        <td class="attribute">animate</td>
+        <td>(Optional) A boolean value to set the panel to animate in and out of the screen.</td>
+    </tr>
+</tbody></table>
+</div>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.layoutHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.controllerExampleJs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>The next and previous buttons can be added to the panel footer to navigate between the items. The <code>ng-click</code> attribute of the previous button should be set as the <code>previous()</code> function and the <code>ng-click</code> attribute of the next button should be set as the <code>next()</code> function. The previous and next buttons will be disabled accordingly if the <code>ng-disabled</code> attribute is set to <code>previousBtnStatus</code> and <code>nextBtnStatus</code> respectively.</p>
+
+<p>The sample HTML for previous and next buttons in the modal footer is shown below:</p>
+
+<uxd-snippet [content]="snippets.compiled.modalFooterHtml" language="html"></uxd-snippet>

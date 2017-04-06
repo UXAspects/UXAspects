@@ -1,0 +1,51 @@
+<h3 class="m-t-sm m-b-md">HTML</h3>
+
+<p>The Search Builder modal template follows the basic layout explained on the documentation page. The <code>search-builder</code>
+    directive has been added and the <code>search-groups</code> directives have been added as child elements.</p>
+
+<p>A <code>modal-inset-panel</code> has also been added to the main body of the modal. Note that all the <code>modal-inset-panel</code>
+    bindings point to a service. This is because we want some of the <code>search-components</code> to be able to open and
+    display content in the panel and separating it out into its own service makes this much easier. This is explained in
+    greater detail in the <b>services</b> section.</p>
+
+<p>The last addition feature that has been added to the modal is spark chart which is used to show how many search results the
+    user can expect to get with the current query.</p>
+
+<p>The following HTML was used as the modal template:</p>
+
+<pre class="language-html"><code ng-bind-html="snippets.compiled.modalLayoutHtml"></code></pre>
+
+<h3 class="m-b-md">Controller</h3>
+
+<p>The modal controller plays an important role in tying all the features together. Some of the items being injected into the
+    controller may not be familiar:
+    <ul>
+        <li><code>searchBuilderPanel</code> - this is a service that will be created to manage the modal inset panel and its
+            content (see <b>services</b> section).</li>
+        <li><code>searchBuilderId</code> - this is a service that will be created to provide unique ids for the <code>search-components</code>
+            (see <b>services</b> section).</li>
+        <li><code>searchQuery</code> - this allows the controller launching the modal to pass in an initial search query.</li>
+    </ul>
+</p>
+
+<p>The controller also configures several of the controls within the modal such as the scrollbar, the spark chart and the <code>search-builder</code>,
+    most importantly registering all the <code>search-components</code> that are available to the <code>search-builder</code>.</p>
+
+<p>The controller has two important functions which allow adding new fields to a <code>search-group</code>. The first is <code>vm.addKeywordField</code>
+    which will always return a <code>keyword</code> component. This is the simplest way to add a new field, however the desired
+    action may be to allow the user to choose the type of field they want to add in which case we cannot immediately return
+    the type of the component. The <code>vm.addCustomField</code> is an example of how to allow the user to choose a specific
+    type of field. Using the <code>searchBuilderPanel</code> service it opens the inset panel by calling the <code>openPanel</code>
+    function. This function returns a <code>$q.defer().promise</code> which will add the field when the promise is resolved.
+    It is now up to the panel to resolve or reject this once the field is known or the panel is dismissed.</p>
+<br />
+<p>The following code is used for the modal controller: </p>
+
+<pre class="language-javascript"><code ng-bind-html="snippets.compiled.modalControllerJs"></code></pre>
+
+<i>Note. This controller generates fake search result counts when the search query is changed based on the number of terms being searched for.</i>
+
+<h3 class="m-b-md">CSS</h3>
+<p>The following CSS was used to produce the styling in the example.</p>
+
+<pre class="language-css"><code ng-bind-html="snippets.compiled.stylesCss"></code></pre>

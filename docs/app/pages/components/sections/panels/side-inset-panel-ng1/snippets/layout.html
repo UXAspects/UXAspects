@@ -1,0 +1,91 @@
+<div side-inset side-inset-width="30" side-inset-button-top="100px">
+
+    <div class="main-content wrapper-content">
+        <p>
+            The Side Inset layout is a page pattern which provides an animated side panel for presenting additional information. The
+            side panel is hidden or shown using the toggle button. The side panel is inset in the page and not overlaid,
+            so the width of the main content area will be reduced to make space for the side panel.</p>
+
+        <p>To use the Side Inset layout, structure your page as follows:</p>
+
+        <ul>
+            <li>A wrapper <code>div</code> following the page heading, with the <code>side-inset</code> attribute directive set.
+                <ul>
+                    <li>A <code>div</code> containing the main page content, which needs to have the <code>main-content</code>
+                    class.</li>
+                    <li>A <code>div</code> containing the side panel, which needs to have the <code>side-inset</code> class.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p>The order of the child elements will determine the position of the side panel - if the <code>side-inset</code> div
+            is declared in the HTML before the <code>main-content</code>, then the side panel will display on the <em>left</em>
+            of the screen. To place the side panel on the <em>right</em> of the screen, declare it after the <code>main-content</code>
+            in the HTML.</p>
+
+        <p>On the wrapper element where the <code>side-inset</code> directive is declared, the following additional properties
+            can be configured:
+        </p>
+        <div class="demo-attributes table-responsive">
+            <table class="table m-t">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Binding</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td class="attribute">side-inset-width</td>
+                        <td>number</td>
+                        <td>literal</td>
+                        <td>A value between 0 and 100, this is the percentage width of the parent element the expanded side inset
+                            panel will occupy (Default: 20).</td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">side-inset-button-top</td>
+                        <td>string</td>
+                        <td>literal</td>
+                        <td>A string that will be set as the <code>top</code> CSS position property of the toggle button, allowing
+                            its vertical placement to be configured (Default: '0px').</td>
+                        <td>true</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="side-inset">
+        <div class="side-inset-demo">
+            <div class="hpebox">
+                <div class="hpebox-title">
+                    <h4>Notifications</h4>
+                </div>
+                <div class="hpebox-content">
+                    <i class="hpe-icon hpe-chat hp-fw text-muted"></i> You have 16 messages
+                </div>
+            </div>
+
+            <div class="hpebox">
+                <div class="hpebox-title">
+                    <h4>Requests</h4>
+                </div>
+                <div class="hpebox-content">
+                    <i class="hpe-icon hpe-social-twitter hp-fw text-muted"></i> 3 New Followers
+                </div>
+            </div>
+
+            <div class="hpebox">
+                <div class="hpebox-title">
+                    <h4>System Status</h4>
+                </div>
+                <div class="hpebox-content">
+                    <i class="hpe-icon hpe-cloud hp-fw text-muted"></i> Server Rebooted
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

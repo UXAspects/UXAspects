@@ -1,0 +1,72 @@
+<uxd-custom-scrollbar-wrapper></uxd-custom-scrollbar-wrapper>
+
+<hr>
+
+<p>Custom scrollbar implements vertical scrollbar and does not support horizontal scrollbar.</p>
+
+<p>Custom scrollbar can be used on elements with a relevant overflow property. The scrollbar can be added to an element by providing
+  the <code>scroll-pane</code> attribute. The element should have an <code>id</code> or an attribute <code>scroll-name</code>
+  which is assigned an id for the scrollbar to work. The options for scrollbar should be passed to the <code>scroll-config</code>
+  attribute. Some of the options are:</p>
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td class="attribute">showOnlyOnHover</td>
+        <td>boolean</td>
+        <td>The scrollbar will be displayed only on hover when this option is set to <code>true</code>.</td>
+      </tr>
+      <tr>
+        <td class="attribute">resizeSensor</td>
+        <td>boolean</td>
+        <td>The scrollbar will be re-initialised automatically when the content changes size or the viewport size changes. Use
+          <code>resizeSensorDelay</code> property to add a delay before reinitialising.</td>
+      </tr>
+      <tr>
+        <td class="attribute">autoReinitialise</td>
+        <td>boolean</td>
+        <td>An alternative to the resizeSensor property. This is a less performant option and uses polling to check for size
+          changes, however in certain circumstances due to positioning of elements resizeSensor may not be suitable. The
+          scrollbar will be re-initialised automatically when there is a change in size of the viewport.</td>
+      </tr>
+      <tr>
+        <td class="attribute">enableKeyboardNavigation</td>
+        <td>boolean</td>
+        <td>The content will scroll using keyboard controls when it is given focus.</td>
+      </tr>
+      <tr>
+        <td class="attribute">isScrollableH</td>
+        <td>boolean</td>
+        <td>Disables the horizontal scrollbar when this option is set to <code>false</code>.</td>
+      </tr>
+      <tr>
+        <td class="attribute">scrollMargin</td>
+        <td>number</td>
+        <td>Margin in pixels to add around the scrollable area. The recommended margin as seen in the example above is 5. Default is 0.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>Example code for custom scrollbar is shown below:</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.layoutExampleHtml" language="html"></uxd-snippet>
+  </tab>
+  <tab heading="JavaScript">
+    <uxd-snippet [content]="snippets.compiled.controllerJs" language="javascript"></uxd-snippet>
+  </tab>
+  <tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.stylesCss" language="css"></uxd-snippet>
+  </tab>
+</tabset>
+
+<blockquote>
+  <p>Refer to <a href="http://jscrollpane.kelvinluck.com/">jScrollPane</a> and <a href="https://github.com/lght/angular-scroll-pane">angular-scroll-pane</a>
+    for more information.</p>
+</blockquote>

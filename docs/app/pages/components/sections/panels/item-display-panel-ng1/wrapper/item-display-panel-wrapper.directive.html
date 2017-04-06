@@ -1,0 +1,38 @@
+<div class="demo-attributes table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-header-dark">
+                <th class="listview-document-th"></th>
+                <th>NAME</th>
+                <th>AUTHOR</th>
+                <th>DATE MODIFIED</th>
+                <th>STORAGE (GB)</th>
+                <th class="text-center">STATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="clickable single-select" ng-repeat="item in ::vm.items" display-panel-item="item.panel" auto-index="{{ { skip:3, offset:1, base:1 } }}"
+                shadow="true">
+                <td class="text-center">
+                    <div class="listview-page-icon"></div>
+                </td>
+                <td class="listview-text-emphasis" ng-bind="::item.document"></td>
+                <td>
+                    <div ng-bind="::item.name"></div>
+                </td>
+                <td ng-bind="::item.dateString"></td>
+                <td class="spark-chart-col-width2">
+                    <spark type="'spark-chart2'" value="item.storage" fillheight="3" inline-label="item.storage" top="13"></spark>
+                </td>
+                <td class="text-center item-actions">
+                    <div class="hpe-icon" ng-class="{'text-secondary': item.active, 'hpe-checkmark':item.active}"></div>
+                    <list-hover-actions>
+                        <list-hover-action name="Share" icon="hpe-share"></list-hover-action>
+                        <list-hover-action name="View Details" icon="hpe-view"></list-hover-action>
+                        <list-hover-action name="Delete" icon="hpe-trash"></list-hover-action>
+                    </list-hover-actions>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

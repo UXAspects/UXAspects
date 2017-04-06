@@ -49,6 +49,34 @@ import { ComponentsFlippableCardsNg1Component } from './sections/flippable-cards
 import { ComponentsGridNg1Component } from './sections/grid/grid-ng1/grid-ng1.component';
 import { ComponentsHelpCenterNg1Component } from './sections/help-center/help-center-ng1/help-center-ng1.component';
 import { ComponentsHierarchyBarNg1Component } from './sections/hierarchy-bar/hierarchy-bar-ng1/hierarchy-bar-ng1.component';
+import { ComponentsHotkeysNg1Component } from './sections/keyboard/hotkeys-ng1/hotkeys-ng1.component';
+import { ComponentsKeyboardServiceNg1Component } from './sections/keyboard/keyboard-service-ng1/keyboard-service-ng1.component';
+import { ComponentsModalNg1Component } from './sections/modals/modal-ng1/modal-ng1.component';
+import { ComponentsSquareModalNg1Component } from './sections/modals/square-modal-ng1/square-modal-ng1.component';
+import { ComponentsMarqueeModalNg1Component } from './sections/modals/marquee-modal-ng1/marquee-modal-ng1.component';
+import { ComponentsSideModalNg1Component } from './sections/modals/side-modal-ng1/side-modal-ng1.component';
+import { ComponentsNotificationsNg1Component } from './sections/notifications/notifications-ng1/notifications-ng1.component';
+import { ComponentsNotificationListNg1Component } from './sections/notifications/notification-list-ng1/notification-list-ng1.component';
+import { ComponentsNotificationDropdownNg1Component } from './sections/notifications/notification-dropdown-ng1/notification-dropdown-ng1.component';
+import { ComponentsAlertStylesNg1Component } from './sections/notifications/alert-styles-ng1/alert-styles-ng1.component';
+import { ComponentsDismissableStylesNg1Component } from './sections/notifications/dismissable-styles-ng1/dismissable-styles-ng1.component';
+import { ComponentsCollapsiblePanelsNg1Component } from './sections/panels/collapsible-panels-ng1/collapsible-panels-ng1.component';
+import { ComponentsItemDisplayPanelNg1Component } from './sections/panels/item-display-panel-ng1/item-display-panel-ng1.component';
+import { ComponentsItemDisplayPanelServiceNg1Component } from './sections/panels/item-display-panel-service-ng1/item-display-panel-service-ng1.component';
+import { ComponentsModalInsetPanelNg1Component } from './sections/panels/modal-inset-panel-ng1/item-display-panel-ng1.component';
+import { ComponentsSideInsetPanelNg1Component } from './sections/panels/side-inset-panel-ng1/side-inset-panel-ng1.component';
+import { ComponentsPopoverNg1Component } from './sections/popover/popover-ng1/popover-ng1.component';
+import { ComponentsProgressBarNg1Component } from './sections/progress/progress-bar-ng1/progress-bar-ng1.component';
+import { ComponentsCustomScrollbarNg1Component } from './sections/scrollbar/custom-scrollbar-ng1/custom-scrollbar-ng1.component';
+import { ComponentsInfiniteScrollNg1Component } from './sections/scrollbar/infinite-scroll-ng1/infinite-scroll-ng1.component';
+import { ComponentsInfiniteScrollLoadMoreNg1Component } from './sections/scrollbar/infinite-scroll-load-more-ng1/infinite-scroll-load-more-ng1.component';
+import { ComponentsSearchBuilderNg1Component } from './sections/search/search-builder-ng1/search-builder-ng1.component';
+import { ComponentsSearchHistoryNg1Component } from './sections/search/search-history-ng1/search-history-ng1.component';
+import { ComponentsSearchToolbarNg1Component } from './sections/search/search-toolbar-ng1/search-toolbar-ng1.component';
+import { ComponentsSplitterNg1Component } from './sections/splitter/splitter-ng1/splitter-ng1.component';
+import { ComponentsNestedSplitterNg1Component } from './sections/splitter/nested-splitter-ng1/nested-splitter-ng1.component';
+import { ComponentsLayoutSwitchingSplitterNg1Component } from './sections/splitter/layout-switching-splitter-ng1/layout-switching-splitter-ng1.component';
+import { ComponentsSideInsetPanelSplitterNg1Component } from './sections/splitter/side-inset-panel-splitter-ng1/side-inset-panel-splitter-ng1.component';
 import { ComponentsTabsNg1Component } from './sections/tabs/tabs-ng1/tabs-ng1.component';
 import { ComponentsDetailedTabExampleNg1Component } from './sections/tabs/detailed-tab-example-ng1/detailed-tab-example-ng1.component';
 import { ComponentsStackedTabsNg1Component } from './sections/tabs/stacked-tabs-ng1/stacked-tabs-ng1-component';
@@ -169,6 +197,34 @@ export const COMPONENT_SECTIONS = [
     ComponentsGridNg1Component,
     ComponentsHelpCenterNg1Component,
     ComponentsHierarchyBarNg1Component,
+    ComponentsHotkeysNg1Component,
+    ComponentsKeyboardServiceNg1Component,
+    ComponentsModalNg1Component,
+    ComponentsSquareModalNg1Component,
+    ComponentsMarqueeModalNg1Component,
+    ComponentsSideModalNg1Component,
+    ComponentsNotificationsNg1Component,
+    ComponentsNotificationListNg1Component,
+    ComponentsNotificationDropdownNg1Component,
+    ComponentsAlertStylesNg1Component,
+    ComponentsDismissableStylesNg1Component,
+    ComponentsCollapsiblePanelsNg1Component,
+    ComponentsItemDisplayPanelNg1Component,
+    ComponentsItemDisplayPanelServiceNg1Component,
+    ComponentsModalInsetPanelNg1Component,
+    ComponentsSideInsetPanelNg1Component,
+    ComponentsPopoverNg1Component,
+    ComponentsProgressBarNg1Component,
+    ComponentsCustomScrollbarNg1Component,
+    ComponentsInfiniteScrollNg1Component,
+    ComponentsInfiniteScrollLoadMoreNg1Component,
+    ComponentsSearchBuilderNg1Component,
+    ComponentsSearchHistoryNg1Component,
+    ComponentsSearchToolbarNg1Component,
+    ComponentsSplitterNg1Component,
+    ComponentsNestedSplitterNg1Component,
+    ComponentsLayoutSwitchingSplitterNg1Component,
+    ComponentsSideInsetPanelSplitterNg1Component,
     ComponentsTabsNg1Component,
     ComponentsDetailedTabExampleNg1Component,
     ComponentsStackedTabsNg1Component,

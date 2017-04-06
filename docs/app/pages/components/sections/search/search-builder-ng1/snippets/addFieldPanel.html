@@ -1,0 +1,6 @@
+<div class="m-sm" ng-controller="AddFieldPanelCtrl as vm">
+    <input type="text" placeholder="Find a field" class="form-control" ng-model="vm.filterText" force-focus>
+    <ul class="add-field-list" list-item-filter filter-text="vm.filterText">
+      <li class="field-name" ng-repeat="field in vm.fields" key="{{ field.name }}" ng-click="vm.selectField(field)">{{ field.name }}</li>
+    </ul>
+</div>
