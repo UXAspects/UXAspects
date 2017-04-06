@@ -3,7 +3,7 @@
 @import '../src/styles/ux-aspects.less';
 
 html, body {
-    font-family: 'Source Sans Pro';
+    font-family: @font-family;
     text-rendering: optimizeLegibility;
     font-size: 16px;
     min-height: 100vh;
@@ -14,6 +14,10 @@ html, body {
     display: block;
     padding-top: 53px;
     min-height: 100%;
+}
+
+uxd-navigation-bar, uxd-page-header, uxd-side-navigation, uxd-page-footer {
+    font-family: 'Source Sans Pro';
 }
 
 .uxd-component-section-content > * > h4 {
@@ -474,7 +478,7 @@ tr.dragging .reorderable-controls .reorder-drag {
     Side Navigation > Navigation
 */
 .selected-side-menu-item {
-  font-family: 'Source Sans Pro' !important;
+  font-family: @font-family !important;
   font-weight: 600 !important;
   color: #333333 !important;
 }
@@ -942,7 +946,7 @@ tr.dragging .reorderable-controls .reorder-drag {
     Marquee Wizard
 */
 .inline-title {
-    font-family: 'Source Sans Pro';
+    font-family: @font-family;
     font-weight: 200;
     font-size: 1.125rem;
     display: inline;
@@ -963,7 +967,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 .partition-user-popover .group {
-    font-family: 'Source Sans Pro';
+    font-family: @font-family;
     font-weight: 600;
     text-transform: uppercase;
     margin: 0;
@@ -973,7 +977,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 
 .partition-user-popover .title {
     color: #ffffff;
-    font-family: 'Source Sans Pro';
+    font-family: @font-family;
     line-height: 36px;
     margin-top: 0;
     margin-bottom: 0;
@@ -988,13 +992,13 @@ tr.dragging .reorderable-controls .reorder-drag {
 
 .partition-user-popover .count-number {
     color: #818484;
-    font-family: 'Source Sans Pro';
+    font-family: @font-family;
     font-size: 20px;
 }
 
 .partition-user-popover .count-text {
     color: #525658;
-    font-family: 'Source Sans Pro';
+    font-family: @font-family;
     font-size: 17px;
 }
 
@@ -1033,7 +1037,7 @@ tr.dragging .reorderable-controls .reorder-drag {
     height: 50px;
     float: left;
     color: #fff;
-    font-family: 'Source Sans Pro';
+    font-family: @font-family;
     text-transform: uppercase;
     text-align: center;
     cursor: pointer;
@@ -1094,7 +1098,7 @@ tr.dragging .reorderable-controls .reorder-drag {
   color:#fff;
   background-color: #444;
   border-color: #444;
-  font-family: 'Source Sans Pro';
+  font-family: @font-family;
   font-weight: 300;
 }
 
