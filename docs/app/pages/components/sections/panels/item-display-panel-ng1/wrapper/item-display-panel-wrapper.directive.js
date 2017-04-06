@@ -3,7 +3,7 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
         restrict: 'E',
         template: require('./item-display-panel-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', function ($scope, $templateCache) {
-            $templateCache.put('modalFooter.html', require('../snippets/modalFooter.html'));
+            $templateCache.put('item-display-panel-ng1/modalFooter.html', require('../snippets/modalFooter.html'));
             $templateCache.put('modalPDF.html', require('../snippets/modalPDF.html'));
             $templateCache.put('modalPPT.html', require('../snippets/modalPPT.html'));
             $templateCache.put('modalDOC.html', require('../snippets/modalDOC.html'));
@@ -23,7 +23,7 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "scope": $scope.$new(),
                     "title": "Site Detail - UX Aspects (PPT)",
                     "main": "modalPPT.html",
-                    "footer": "modalFooter.html",
+                    "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
                     "top": 50
                 }
@@ -38,7 +38,7 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "scope": $scope.$new(),
                     "title": "Site Detail - UX Aspects (PDF)",
                     "main": "modalPDF.html",
-                    "footer": "modalFooter.html",
+                    "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
                     "top": 50
                 }
@@ -53,7 +53,7 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "scope": $scope.$new(),
                     "title": "Site Detail - UX Aspects (DOC)",
                     "main": "modalDOC.html",
-                    "footer": "modalFooter.html",
+                    "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
                     "top": 50
                 }
@@ -68,7 +68,7 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "scope": $scope.$new(),
                     "title": "Site Detail - UX Aspects (PDF)",
                     "main": "modalPDF.html",
-                    "footer": "modalFooter.html",
+                    "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
                     "top": 50
                 }
@@ -83,7 +83,7 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "scope": $scope.$new(),
                     "title": "Site Detail - UX Aspects (PDF)",
                     "main": "modalPDF.html",
-                    "footer": "modalFooter.html",
+                    "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
                     "top": 50
                 }

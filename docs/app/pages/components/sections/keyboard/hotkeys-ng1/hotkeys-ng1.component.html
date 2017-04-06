@@ -49,7 +49,7 @@
   </table>
 </div>
 <p>When using the <code>hotkey-hint</code>, the precise styling can be controlled using the
-  <code>hotkey-group-hint</code> class. This class exists in Elements and will show a hotkey hint in the style shown in this
+  <code>hotkey-group-hint</code> class. This class exists in UX Aspects and will show a hotkey hint in the style shown in this
   page. To customise the appearance of the hotkey hint, you can override this class with your own values. As an example of
   this - on this page, the default styling has been extended to provide a top and left margin of <code>-2px</code> on the
   hotkey hint, because the example button panels above use a <code>2px</code> width border and we want them to appear flush.
@@ -71,13 +71,13 @@
 <h4>Usage Notes</h4>
 
 <p>This example uses some styles which are purely for illustrative purposes; however the ‘focus’ style is important to provide.
-  Elements supplies the <code>aspects-outline</code> class which you may place on your container element; this will apply
-  the same ‘focus’ style as other controls in Elements. If required you may write your own class to change the styling of
+  UX Aspects supplies the <code>aspects-focus-outline</code> class which you may place on your container element; this will apply
+  the same ‘focus’ style as other controls in UX Aspects. If required you may write your own class to change the styling of
   your element using the <code>:focus</code> CSS pseudo-selector.</p>
 
 <p>In order to allow the elements within your hotkey group to receive keyboard focus, the directive will assign them a
   <code>tabindex</code> if one is not already present. This is related to expected browser behaviour and is not a requirement
-  of Elements itself.</p>
+  of UX Aspects itself.</p>
 
 <p>Hotkeys created by this directive will be bound to the <code>document</code> node; this means they should trigger when the
   key is pressed anywhere on your page. The exception to this is <code>input</code>,

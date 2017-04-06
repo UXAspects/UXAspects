@@ -3,7 +3,7 @@ angular.module('app').directive('uxdModalInsetPanelWrapper', () => {
         restrict: 'E',
         template: require('./modal-inset-panel-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
-            $templateCache.put('modalLayout.html', require('../snippets/modalLayout.html'));
+            $templateCache.put('modal-inset-panel-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
 
             var vm = this;
 
@@ -11,7 +11,7 @@ angular.module('app').directive('uxdModalInsetPanelWrapper', () => {
 
                 var modalInstance = $modal.open({
                     animation: false,
-                    templateUrl: 'modalLayout.html',
+                    templateUrl: 'modal-inset-panel-ng1/modalLayout.html',
                     controller: 'ModalInsetPanelDemoModalCtrl',
                     controllerAs: 'vm',
                     size: 'md',

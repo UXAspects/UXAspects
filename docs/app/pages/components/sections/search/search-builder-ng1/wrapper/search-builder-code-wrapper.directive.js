@@ -56,8 +56,6 @@ function SearchBuilderCodeCtrl($modalInstance, $scope, snippets) {
 
     $scope.snippets = snippets;
 
-    console.log($scope.snippets.compiled.layoutHtml);
-
     vm.scrollBarConfig = {
         resizeSensor: true,
         enableKeyboardNavigation: true,

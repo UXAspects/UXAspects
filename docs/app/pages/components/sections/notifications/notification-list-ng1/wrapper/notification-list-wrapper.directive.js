@@ -3,14 +3,14 @@ angular.module('app').directive('uxdNotificationListWrapper', () => {
         restrict: 'E',
         template: require('./notification-list-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', function ($scope, $templateCache) {
-            $templateCache.put('modalLayout.html', require('../snippets/modalLayout.html'));
-            $templateCache.put('notification.html', require('../snippets/notification.html'));
+            $templateCache.put('notification-list-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
+            $templateCache.put('notification-list-ng1/notification.html', require('../snippets/notification.html'));
 
             var vm = this;
 
             vm.notificationModalOptions = {
                 title: "Alerts",
-                main: "modalLayout.html",
+                main: "notification-list-ng1/modalLayout.html",
                 modalColumns: "notification-modal",
                 affixHeader: true
             };
@@ -36,7 +36,7 @@ function NotificationListDemoModalCtrl($q, $scope, safeTimeout, timeAgoService) 
     //create safe timeout instance
     var safeTimeoutInstance = safeTimeout.create($scope);
 
-    vm.itemTemplateUrl = 'notification.html';
+    vm.itemTemplateUrl = 'notification-list-ng1/notification.html';
 
     vm.getPage = function (pageNumber, pageSize) {
         //return promise to simulate loading from a server

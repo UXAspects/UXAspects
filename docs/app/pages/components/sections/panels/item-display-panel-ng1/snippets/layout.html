@@ -11,16 +11,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="clickable  single-select" ng-repeat="item in vm.items" display-panel-item="item.panel" elements-index="{{ { skip:3, offset:1, base:1 } }}"
+            <tr class="clickable single-select" ng-repeat="item in ::vm.items" display-panel-item="item.panel" auto-index="{{ { skip:3, offset:1, base:1 } }}"
                 shadow="true">
                 <td class="text-center">
                     <div class="listview-page-icon"></div>
                 </td>
-                <td class="listview-text-emphasis" ng-bind="item.document"></td>
+                <td class="listview-text-emphasis" ng-bind="::item.document"></td>
                 <td>
-                    <div ng-bind="item.name"></div>
+                    <div ng-bind="::item.name"></div>
                 </td>
-                <td ng-bind="item.dateString"></td>
+                <td ng-bind="::item.dateString"></td>
                 <td class="spark-chart-col-width2">
                     <spark type="'spark-chart2'" value="item.storage" fillheight="3" inline-label="item.storage" top="13"></spark>
                 </td>

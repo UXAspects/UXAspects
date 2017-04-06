@@ -3,7 +3,7 @@ angular.module('app').directive('uxdInfiniteScrollLoadMoreWrapper', () => {
         restrict: 'E',
         template: require('./infinite-scroll-load-more-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$q', 'safeTimeout', function ($scope, $templateCache, $q, safeTimeout) {
-            $templateCache.put('itemTemplate.html', require('../snippets/itemTemplate.html'));
+            $templateCache.put('infinite-scroll-load-more-ng1/itemTemplate.html', require('../snippets/itemTemplate.html'));
 
             var chance = require('chance').Chance();
 
@@ -20,7 +20,7 @@ angular.module('app').directive('uxdInfiniteScrollLoadMoreWrapper', () => {
             vm.pageSize = 20;
             vm.scrollPosition = 95;
             vm.containerId = 'user-container';
-            vm.itemTemplate = 'itemTemplate.html';
+            vm.itemTemplate = 'infinite-scroll-load-more-ng1/itemTemplate.html';
             vm.loadMoreButton = {
                 show: true
             };
