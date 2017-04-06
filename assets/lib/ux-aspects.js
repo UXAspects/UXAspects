@@ -608,7 +608,7 @@ var RadioButtonComponent = (function () {
             return;
         }
         // toggle the checked state
-        this.model = this.value;
+        this.model = this.option;
         // call callback
         this.onChangeCallback(this.model);
     };
@@ -655,7 +655,7 @@ __decorate([
 __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
-], RadioButtonComponent.prototype, "value", void 0);
+], RadioButtonComponent.prototype, "option", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
@@ -672,8 +672,7 @@ RadioButtonComponent = __decorate([
         template: __webpack_require__(28),
         styles: [__webpack_require__(21)],
         providers: [exports.RADIOBUTTON_VALUE_ACCESSOR]
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], RadioButtonComponent);
 exports.RadioButtonComponent = RadioButtonComponent;
 
@@ -1095,7 +1094,7 @@ module.exports = ":host {\n  display: block;\n  height: 20px;\n  margin-bottom: 
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\n  display: inline-block;\n  margin-bottom: 5px;\n  white-space: nowrap;\n}\n.ux-radio-button {\n  display: inline-flex;\n  color: transparent;\n  font-family: 'hpe-icons';\n  width: 24px;\n  height: 24px;\n  background-color: transparent;\n  cursor: pointer;\n  border: 1px solid #cccccc;\n  margin-top: 1px;\n  font-size: 16px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  box-sizing: border-box;\n  border-radius: 50%;\n}\n.ux-radio-button:before {\n  content: \"\\f12c\";\n}\n.ux-radio-button:focus {\n  outline: 1px dotted #2a2a2a;\n}\n:host:hover .ux-radio-button {\n  border: 2px solid #7b63a3;\n}\n:host:hover .ux-radio-button.ux-disabled {\n  border: 1px solid #eeeeee;\n}\n:host:hover .ux-radio-button.ux-simplified {\n  color: #cccccc;\n  border-color: transparent;\n  border-width: 1px;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-disabled {\n  color: transparent;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-checked {\n  color: #7b63a3;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-checked.ux-disabled {\n  color: #cccccc;\n}\ninput[type=\"radio\"] {\n  display: none;\n}\n.ux-radio-button.checked {\n  background-color: #7b63a3;\n  color: #ffffff;\n  border-color: transparent;\n}\n.ux-radio-button.ux-disabled {\n  border-color: #eeeeee;\n  cursor: default;\n}\n.ux-radio-button.disabled:focus {\n  outline: none;\n}\n.ux-radio-button.ux-disabled.ux-checked {\n  background-color: #eeeeee;\n}\n.ux-radio-button.ux-simplified {\n  font-size: 20px;\n  border-color: transparent;\n  background-color: transparent;\n}\n.ux-radio-button.ux-simplified.ux-checked {\n  color: #7b63a3;\n  background-color: transparent;\n  border-color: transparent;\n}\n.ux-radio-button.ux-simplified.ux-disabled.ux-checked {\n  color: #cccccc;\n}\n.ux-radio-button-content {\n  display: inline-block;\n  margin-left: 7px;\n  margin-top: 1px;\n  white-space: normal;\n  vertical-align: bottom;\n  height: 24px;\n  cursor: default;\n  line-height: 22px;\n}\n"
+module.exports = ":host {\n  display: inline-block;\n  margin-bottom: 5px;\n  white-space: nowrap;\n}\n.ux-radio-button {\n  display: inline-flex;\n  color: transparent;\n  font-family: 'hpe-icons';\n  width: 24px;\n  height: 24px;\n  background-color: transparent;\n  cursor: pointer;\n  border: 1px solid #cccccc;\n  margin-top: 1px;\n  font-size: 16px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  box-sizing: border-box;\n  border-radius: 50%;\n}\n.ux-radio-button:before {\n  content: \"\\f12c\";\n}\n.ux-radio-button:focus {\n  outline: 1px dotted #2a2a2a;\n}\n:host:hover .ux-radio-button {\n  border: 2px solid #7b63a3;\n}\n:host:hover .ux-radio-button.ux-disabled {\n  border: 1px solid #eeeeee;\n}\n:host:hover .ux-radio-button.ux-simplified {\n  color: #cccccc;\n  border-color: transparent;\n  border-width: 1px;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-disabled {\n  color: transparent;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-checked {\n  color: #7b63a3;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-checked.ux-disabled {\n  color: #cccccc;\n}\ninput[type=\"radio\"] {\n  display: none;\n}\n.ux-radio-button.ux-checked {\n  background-color: #7b63a3;\n  color: #ffffff;\n  border-color: transparent;\n}\n.ux-radio-button.ux-disabled {\n  border-color: #eeeeee;\n  cursor: default;\n}\n.ux-radio-button.disabled:focus {\n  outline: none;\n}\n.ux-radio-button.ux-disabled.ux-checked {\n  background-color: #eeeeee;\n}\n.ux-radio-button.ux-simplified {\n  font-size: 20px;\n  border-color: transparent;\n  background-color: transparent;\n}\n.ux-radio-button.ux-simplified.ux-checked {\n  color: #7b63a3;\n  background-color: transparent;\n  border-color: transparent;\n}\n.ux-radio-button.ux-simplified.ux-disabled.ux-checked {\n  color: #cccccc;\n}\n.ux-radio-button-content {\n  display: inline-block;\n  margin-left: 7px;\n  margin-top: 1px;\n  white-space: normal;\n  vertical-align: bottom;\n  height: 24px;\n  cursor: default;\n  line-height: 22px;\n}\n"
 
 /***/ }),
 /* 22 */
@@ -1137,7 +1136,7 @@ module.exports = "<div class=\"progressbar-track\" [style.width]=\"((value / max
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-radio-button\" tabindex=\"0\"\r\n    [class.ux-checked]=\"model === value\"\r\n    [class.ux-simplified]=\"simplified === true\"\r\n    [class.ux-disabled]=\"disabled === true\"\r\n    (keypress)=\"keyDown($event)\">\r\n\r\n    <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\r\n        [name]=\"name\" \r\n        [checked]=\"model === value\" \r\n        [disabled]=\"disabled\"\r\n        [value]=\"value\"\r\n        [id]=\"id\" />\r\n        \r\n</div>\r\n\r\n<div class=\"ux-radio-button-content\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
+module.exports = "<div class=\"ux-radio-button\" tabindex=\"0\"\r\n    [class.ux-checked]=\"model === option\"\r\n    [class.ux-simplified]=\"simplified === true\"\r\n    [class.ux-disabled]=\"disabled === true\"\r\n    (keypress)=\"keyDown($event)\">\r\n\r\n    <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\r\n        [name]=\"name\" \r\n        [checked]=\"model === option\" \r\n        [disabled]=\"disabled\"\r\n        [value]=\"option\"\r\n        [id]=\"id\" />\r\n        \r\n</div>\r\n\r\n<div class=\"ux-radio-button-content\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
 
 /***/ }),
 /* 29 */
