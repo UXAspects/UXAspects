@@ -7,5 +7,5 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('CssHeaderContentPanelComponent')
 export class CssHeaderContentPanelComponent {
-
+    private htmlCode = require('./snippets/sample.html');
 }
