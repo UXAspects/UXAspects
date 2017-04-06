@@ -16,6 +16,12 @@ html, body {
     min-height: 100%;
 }
 
+@media (max-width: 991px) {
+    .app-page-content {
+        padding-bottom: 50px;
+    }
+}
+
 .uxd-component-section-content > * > h4 {
     margin-top: 2rem;
 }
@@ -50,12 +56,18 @@ pre[class*="language-"] code {
             color: #008080;
         }
 
-        &.attr-value {
+        &.attr-value,
+        &.string {
             color: #c7254e;
         }
 
         &.tag {
             color: #4472c4;
+        }
+
+        &.boolean,
+        &.number {
+            color: #195f91;
         }
     }
 }

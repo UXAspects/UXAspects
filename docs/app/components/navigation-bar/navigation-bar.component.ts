@@ -11,6 +11,7 @@ export class NavigationBarComponent {
     private brand: ILink;
     private links: ILink[];
     private social: ILink[];
+    private expanded: boolean = false;
 
     constructor() {
 

@@ -14,6 +14,7 @@ import { LandingPageFeatureComponent } from './landing-page-feature/landing-page
 import { ShowcaseCardComponent } from './showcase-card/showcase-card.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
 import { SnippetComponent } from './snippet/snippet.component';
+import { SectionSelectComponent } from './section-select/section-select.component';
 
 export const DOCUMENTATION_COMPONENTS = [
   EditExampleLinkComponent,
@@ -28,5 +29,6 @@ export const DOCUMENTATION_COMPONENTS = [
   LandingPageFeatureComponent,
   ShowcaseCardComponent,
   ComponentSectionComponent,
-  SnippetComponent
+  SnippetComponent,
+  SectionSelectComponent
 ];
