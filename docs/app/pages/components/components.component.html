@@ -1,15 +1,25 @@
 <uxd-page-header header="Components" description="Angular components to quickly build an application"></uxd-page-header>
 
 <div class="container p-t">
+
+    <div class="row hidden-md hidden-lg">
+
+        <div class="col-sm-12 m-b-lg">
+            <h3 class="m-t-sm">Sections</h3>
+            <uxd-section-select [navigation]="navigation"></uxd-section-select>
+        </div>
+
+    </div>
+
     <div class="row">
 
         <!-- Page Content -->
-        <div class="col-md-9 pull-md-3">
+        <div class="col-md-9 pull-md-3 col-sm-12">
             <router-outlet></router-outlet>
         </div>
 
         <!-- Side Navigation -->
-        <div class="col-md-3 push-md-9">
+        <div class="col-md-3 push-md-9 hidden-sm hidden-xs">
             <uxd-side-navigation [navigation]="navigation"></uxd-side-navigation>
         </div>
         

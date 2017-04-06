@@ -4,12 +4,34 @@
     <a class="navigation-bar-brand" routerLink="/landing">{{ brand.title }}</a>
 
     <div class="navigation-bar-items hidden-md hidden-sm hidden-xs">
-        
+
         <a class="navigation-bar-item" *ngFor="let link of links" [routerLink]="link.link" routerLinkActive="active">{{ link.title }}</a>
         <div class="navigation-bar-spacer"></div>
         <a class="navigation-bar-item" *ngFor="let link of social" [routerLink]="link.link" routerLinkActive="active">{{ link.title }}</a>
         <uxd-navigation-bar-search></uxd-navigation-bar-search>
 
     </div>
+
+    <div class="navigation-bar-hamburger-container hidden-lg">
+        <div class="navigation-bar-hamburger" [class.active]="expanded" (click)="expanded = !expanded">
+            <span class="hpe-icon hpe-menu"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="navigation-bar-dropdown hidden-lg" *ngIf="expanded">
+
+    <ul class="navigation-bar-dropdown-list">
+
+        <li class="navigation-bar-dropdown-list-item" *ngFor="let link of links">
+            <a class="navigation-bar-dropdown-list-item-link" [routerLink]="link.link" routerLinkActive="active" (click)="expanded = false">{{ link.title }}</a>
+        </li>
+
+        <li class="navigation-bar-dropdown-list-item" *ngFor="let link of social">
+            <a class="navigation-bar-dropdown-list-item-link" [routerLink]="link.link" routerLinkActive="active" (click)="expanded = false">{{ link.title }}</a>
+        </li>
+
+    </ul>
 
 </div>

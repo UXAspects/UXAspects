@@ -1,0 +1,3 @@
+<select class="form-control" (change)="navigateToSection($event)" [(ngModel)]="section">
+    <option *ngFor="let section of navigation.categories" [ngValue]="section">{{ section.title }}</option>
+</select>
