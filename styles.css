@@ -7049,12 +7049,16 @@ button.close {
   clear: both;
 }
 .aspects-outline {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
 .elements-force-outline {
   outline-style: solid;
   outline-width: 1px;
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -7220,6 +7224,12 @@ ol.unstyled {
 }
 .footer.condensed-panel .page-heading {
   margin-top: -8px;
+}
+.aspects-focus-outline:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0px;
 }
 /* CODEPEN */
 body > div#ux-codepen-container {
@@ -10373,6 +10383,8 @@ select.form-control {
 }
 .multi-select-checkbox:hover,
 .multi-select-checkbox:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -11604,6 +11616,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   margin: 2em 0;
 }
 .dropzone .dz-message:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -11937,6 +11951,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   pointer-events: none;
 }
 .dial:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -12122,6 +12138,8 @@ tree-view > div:first-child > ol:nth-of-type(1) > li::after {
   line-height: 1em !important;
   border: none !important;
   margin-left: -5px;
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
   padding-left: 5px;
@@ -12720,6 +12738,8 @@ tags-input .tags {
   padding-top: 2px;
 }
 tags-input .tags.focused {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -13060,6 +13080,8 @@ table.dataTable {
 .list-hover-actions a.list-hover-action:active {
   opacity: 1;
   color: #676a6c;
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -14344,6 +14366,8 @@ a.accordion-toggle:focus {
 .panel-heading:focus,
 .panel-heading.accordion-toggle a:focus,
 .panel-heading a:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -14803,6 +14827,7 @@ a.accordion-toggle:focus {
 }
 .progress-bar-secondary,
 .progress-bar-accent {
+  color: #ffffff;
   background-color: #7b63a3;
   font-size: 0.875rem;
 }
@@ -16279,6 +16304,8 @@ layout-switcher-container {
 .btn:focus,
 .btn:active:focus,
 .btn.focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -17269,6 +17296,8 @@ button.dim:active:before {
   top: 4px;
 }
 .btn-back:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -17331,6 +17360,8 @@ button.dim:active:before {
 .btn-group .dropdown-toggle:focus {
   outline-style: solid;
   outline-width: 1px;
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
   z-index: 3;
@@ -20774,6 +20805,8 @@ p.no-margin {
   top: 4px;
 }
 .alert .close:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -20789,6 +20822,8 @@ p.no-margin {
   font-weight: 600;
 }
 .alert-link:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -21103,6 +21138,8 @@ p.no-margin {
   background: url(assets/filter_clear_light.png) no-repeat;
 }
 .btn.listview-clear:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -21973,6 +22010,8 @@ p.no-margin {
   margin: 0 -3px 0 0;
 }
 .scroll-container {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0px;
 }
@@ -22013,7 +22052,9 @@ p.no-margin {
   background-color: transparent;
   cursor: pointer;
   text-align: center;
-  line-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .infinite-scroll-load-button:hover {
   background-color: #f2f2f2;
@@ -22027,7 +22068,7 @@ p.no-margin {
   font-size: 1.125rem;
   color: #00a7a2;
   border-bottom: 2px dotted #00a7a2;
-  line-height: 20px;
+  margin: 0;
 }
 form .form-group-validate {
   margin-bottom: 30px;
