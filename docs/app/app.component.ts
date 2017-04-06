@@ -1,19 +1,24 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, NgZone } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { NavigationService } from './services/navigation/navigation.service';
 
 @Component({
-  selector: 'uxd-app',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+    selector: 'uxd-app',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
 
-    constructor(@Inject(DOCUMENT) private document: Document,
+    constructor( @Inject(DOCUMENT) private document: Document,
         private router: Router,
-        private navigation: NavigationService) { }
+        private navigation: NavigationService,
+        private ngZone: NgZone) {
+
+            // make ngzone global
+            (<any>window).ngZone = ngZone;
+    }
 
     ngOnInit() {
 

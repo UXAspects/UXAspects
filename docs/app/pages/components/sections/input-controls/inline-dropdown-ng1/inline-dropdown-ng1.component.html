@@ -1,0 +1,24 @@
+<uxd-inline-dropdown-wrapper></uxd-inline-dropdown-wrapper>
+
+<hr>
+
+<p>Inline dropdowns adjust their width according to the length of the selected item. 
+The text preceding the dropdown can be provided using a span with the <code>.inline-dropdown-text</code> class.</p>
+
+<p>On the <code>div.btn-group</code> set the <code>dropdown</code> attribute. The button should have the <code>.btn</code>, <code>.inline-dropdown</code> and <code>.dropdown-toggle</code> classes.</p>
+
+<p>If you do not require the dotted line under the selected dropdown you can add the <code>.no-line</code> class to the button.</p>
+
+<p>The dropdown can either be opened by setting the <code>is-open</code> attribute, or by setting the dropdown-toggle attribute on the <code>.btn</code>. 
+Set <code>on-toggle="yourFunction(open)"</code> for <code>yourFunction</code> to be executed every time the dropdown changes state.</p>
+
+<p>An example code for inline dropdowns is provided below:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.sampleJs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>

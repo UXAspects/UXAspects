@@ -1,0 +1,77 @@
+<form role="form" name="demoForm" class="p-b-lg">
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group-validate" ng-class="{ 'has-feedback': demoForm.dateRangeFromPicker.$invalid }">
+                <label for="dateRangeFromPicker" class="control-label form-label col-sm-2 p-t-xs">From</label>
+                <div class="col-sm-10 input-group m-nil">
+                    <span class="input-group-addon" ng-click="vm.openDateFromPicker($event)" aria-haspopup="true" type="button">
+            <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+          </span>
+                    <input type="text" id="dateRangeFromPicker" name="dateRangeFromPicker" class="form-control" date-time-picker-popup ng-model="vm.fromDate"
+                        ng-model-options="{updateOn: 'blur'}" is-meridian="vm.ismeridian" choose-time="true" choose-date="true"
+                        choose-seconds="true" choose-timezone="false" default-day-time="start" is-open="vm.dateFromPickerOpen"
+                        max-date="vm.toDate.date" ng-click="vm.openDateFromPicker($event)" aria-label="Selected date" />
+                    <span class="hpe-icon hpe-alert form-control-feedback" ng-if="demoForm.dateRangeFromPicker.$invalid" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="date-picker-validation-error">
+                <span class="validation-error-text" ng-if="demoForm.dateRangeFromPicker.$invalid && demoForm.dateRangeFromPicker.$error['isFormatValid']">Invalid date/time format.</span>
+                <span class="validation-error-text" ng-if="demoForm.dateRangeFromPicker.$invalid && demoForm.dateRangeFromPicker.$error['isBeforeMax']">Date is later than the "to" date.</span>
+            </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group-validate" ng-class="{ 'has-feedback': demoForm.dateRangeToPicker.$invalid }">
+                <label for="dateRangeToPicker" class="control-label form-label col-sm-2 p-t-xs">To</label>
+                <div class="col-sm-10 input-group m-nil">
+                    <span class="input-group-addon" ng-click="vm.openDateToPicker($event)" aria-haspopup="true" type="button">
+            <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+          </span>
+                    <input type="text" id="dateRangeToPicker" name="dateRangeToPicker" class="form-control" date-time-picker-popup ng-model="vm.toDate"
+                        ng-model-options="{updateOn: 'blur'}" is-meridian="vm.ismeridian" choose-time="true" choose-date="true"
+                        choose-seconds="true" choose-timezone="false" default-day-time="end" is-open="vm.dateToPickerOpen" min-date="vm.fromDate.date"
+                        ng-click="vm.openDateToPicker($event)" aria-label="Selected date" />
+                    <span class="hpe-icon hpe-alert form-control-feedback" ng-if="demoForm.dateRangeToPicker.$invalid" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="date-picker-validation-error">
+                <span class="validation-error-text" ng-if="demoForm.dateRangeToPicker.$invalid && demoForm.dateRangeToPicker.$error['isFormatValid']">Invalid date/time format.</span>
+                <span class="validation-error-text" ng-if="demoForm.dateRangeToPicker.$invalid && demoForm.dateRangeToPicker.$error['isAfterMin']">Date is earlier than the "from" date.</span>
+            </div>
+        </div>
+    </div>
+    <div class="row m-t-md">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group m-nil">
+                <label for="timeZoneSelect" class="control-label form-label col-sm-4 p-t-xs">Time zone</label>
+                <div class="col-sm-8">
+                    <dynamic-select id="timeZoneSelect" ng-model="vm.selectedTimeZone" source="vm.timezones" select-as="display" options="vm.timeZoneSelectOptions">
+                    </dynamic-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<h4>Output</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th width="20%"></th>
+            <th width="40%">From</th>
+            <th width="40%">To</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Local time</td>
+            <td ng-bind="vm.getLocalDateTime(vm.fromDate.date, vm.fromDate.timezone)"></td>
+            <td ng-bind="vm.getLocalDateTime(vm.toDate.date, vm.toDate.timezone)"></td>
+        </tr>
+        <tr>
+            <td>GMT</td>
+            <td ng-bind="vm.getUniversalDateTime(vm.fromDate.date, vm.fromDate.timezone)"></td>
+            <td ng-bind="vm.getUniversalDateTime(vm.toDate.date, vm.toDate.timezone)"></td>
+        </tr>
+    </tbody>
+</table>

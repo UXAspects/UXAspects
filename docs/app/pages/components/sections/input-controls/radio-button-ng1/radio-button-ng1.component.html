@@ -1,0 +1,61 @@
+<uxd-radio-button-wrapper></uxd-radio-button-wrapper>
+
+<hr>
+
+<p>To create a radio button use the <code>radiobutton</code> directive with an <code>ng-model</code> to set and store the value.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.sampleJs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>The following attributes can be set to customize the behavior of the control.</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Binding</th>
+            <th>Description</th>
+            <th>Optional</th>
+        </tr>
+        <tr>
+            <td class="attribute">ng-model</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>Initially sets the value of the radio button and will be updated to contain the current value if a user toggles
+                the radio button.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">ng-value</td>
+            <td>value</td>
+            <td>variable</td>
+            <td>If this value equals the value in <code>ng-model</code> then the radio button will appear selected. If a user
+                clicks the radio button <code>ng-model</code> will be given the value specified by this attribute.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">simplified</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>If set to <code>true</code> the radio button will be displayed without a border and background.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">clickable</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>If set to <code>false</code> the radio button will not be updated when clicking on it, can be used if something
+                else is updating the state of the radio button.</td>
+            <td>true</td>
+        </tr>
+    </table>
+</div>
+
+<p>Use the <code>name</code> attribute to indicate which radio buttons are part of the same group.</p>

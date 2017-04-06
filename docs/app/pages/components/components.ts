@@ -55,7 +55,19 @@ import { ComponentsExpandingTextAreaNg1Component } from './sections/input-contro
 import { ComponentsToggleSwitchNg1Component } from './sections/input-controls/toggle-switch-ng1/toggle-switch-ng1.component';
 import { ComponentsDatePickerNg1Component } from './sections/input-controls/date-picker-ng1/date-picker-ng1.component';
 import { ComponentsIntegratedDatePickerNg1Component } from './sections/input-controls/integrated-date-picker-ng1/integrated-date-picker-ng1.component';
-
+import { ComponentsDateRangePickerNg1Component } from './sections/input-controls/date-range-picker-ng1/date-range-picker-ng1.component';
+import { ComponentsTimePickerNg1Component } from './sections/input-controls/time-picker-ng1/time-picker-ng1.component';
+import { ComponentsNumberPickerNg1Component } from './sections/input-controls/number-picker-ng1/number-picker-ng1.component';
+import { ComponentsInlineDropdownNg1Component } from './sections/input-controls/inline-dropdown-ng1/inline-dropdown-ng1.component';
+import { ComponentsInputExpandNg1Component } from './sections/input-controls/input-expand-ng1/input-expand-ng1.component';
+import { ComponentsInputMaskNg1Component } from './sections/input-controls/input-mask-ng1/input-mask-ng1.component';
+import { ComponentsRadioButtonNg1Component } from './sections/input-controls/radio-button-ng1/radio-button-ng1.component';
+import { ComponentsSelectNg1Component } from './sections/input-controls/select-ng1/select-ng1.component';
+import { ComponentsSingleSelectTableNg1Component } from './sections/input-controls/single-select-table-ng1/single-select-table-ng1.component';
+import { ComponentsMultipleSelectTableNg1Component } from './sections/input-controls/multiple-select-table-ng1/multiple-select-table-ng1.component';
+import { ComponentsTagsNg1Component } from './sections/input-controls/tags-ng1/tags-ng1.component';
+import { ComponentsSlidersNg1Component } from './sections/input-controls/sliders-ng1/sliders-ng1.component';
+import { ComponentsSliderChartsNg1Component } from './sections/input-controls/slider-charts-ng1/slider-charts-ng1.component';
 // Import Wrappers
 import './sections/tables/detail-row-header-ng1/wrapper/service/detail-row-data.service';
 import './sections/tables/detail-row-header-ng1/wrapper/detail-row-header-wrapper.directive';
@@ -80,6 +92,21 @@ import './sections/input-controls/toggle-switch-ng1/wrapper/toggle-switch-wrappe
 import './sections/input-controls/toggle-switch-ng1/wrapper/custom-toggle-switch-wrapper.directive';
 import './sections/input-controls/date-picker-ng1/wrapper/date-picker-wrapper.directive';
 import './sections/input-controls/integrated-date-picker-ng1/wrapper/integrated-date-picker-wrapper.directive';
+import './sections/input-controls/time-picker-ng1/wrapper/time-picker-wrapper.directive';
+import './sections/input-controls/number-picker-ng1/wrapper/number-picker-wrapper.directive';
+import './sections/input-controls/inline-dropdown-ng1/wrapper/inline-dropdown-wrapper.directive';
+import './sections/input-controls/input-expand-ng1/wrapper/input-expand-wrapper.directive';
+import './sections/input-controls/input-mask-ng1/wrapper/input-mask-wrapper.directive';
+import './sections/input-controls/radio-button-ng1/wrapper/radio-button-wrapper.directive';
+import './sections/input-controls/select-ng1/wrapper/select-wrapper.directive';
+import './sections/input-controls/single-select-table-ng1/wrapper/single-select-table-wrapper.directive';
+import './sections/input-controls/multiple-select-table-ng1/wrapper/multiple-select-table-wrapper.directive';
+import './sections/input-controls/tags-ng1/wrapper/tags-wrapper.directive';
+import './sections/input-controls/tags-ng1/wrapper/tags-custom-wrapper.directive';
+import './sections/input-controls/tags-ng1/wrapper/tags-autocomplete-wrapper.directive';
+import './sections/input-controls/sliders-ng1/wrapper/sliders-wrapper.directive';
+import './sections/input-controls/slider-charts-ng1/wrapper/slider-charts-wrapper.directive';
+// import './sections/input-controls/date-range-picker-ng1/wrapper/date-range-picker-wrapper.directive';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
@@ -139,4 +166,17 @@ export const COMPONENT_SECTIONS = [
     ComponentsToggleSwitchNg1Component,
     ComponentsDatePickerNg1Component,
     ComponentsIntegratedDatePickerNg1Component,
+    ComponentsDateRangePickerNg1Component,
+    ComponentsTimePickerNg1Component,
+    ComponentsNumberPickerNg1Component,
+    ComponentsInlineDropdownNg1Component,
+    ComponentsInputExpandNg1Component,
+    ComponentsInputMaskNg1Component,
+    ComponentsRadioButtonNg1Component,
+    ComponentsSelectNg1Component,
+    ComponentsSingleSelectTableNg1Component,
+    ComponentsMultipleSelectTableNg1Component,
+    ComponentsTagsNg1Component,
+    ComponentsSlidersNg1Component,
+    ComponentsSliderChartsNg1Component,
 ];

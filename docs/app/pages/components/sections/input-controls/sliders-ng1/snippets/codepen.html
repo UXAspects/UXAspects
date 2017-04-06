@@ -1,0 +1,73 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="text-black p-t-md p-b-md">Single Value Sliders</h4>
+        </div>
+
+        <div class="col-md-6 p-r-md p-b-md">
+            <p class="text-black p-b-md">Button Handle - Custom Labels</p>
+            <slider ng-model="vm.slider1.value" options="vm.slider1.options"></slider>
+        </div>
+        <div class="col-md-6 p-l-md p-b-md">
+            <p class="text-black p-b-md">Line Handle - Callout on Drag</p>
+            <slider ng-model="vm.slider2.value" options="vm.slider2.options"></slider>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-md-6 p-r-md p-b-md">
+            <p class="text-black p-b-md">Narrow - Track Styling - Snapping</p>
+            <slider ng-model="vm.slider3.value" options="vm.slider3.options"></slider>
+        </div>
+        <div class="col-md-6 p-l-md p-b-md">
+            <p class="text-black p-b-md">Narrow - Gradient Track Styling - Callout on Hover</p>
+            <slider ng-model="vm.slider4.value" options="vm.slider4.options"></slider>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="text-black p-t-md p-b-md">Range Value Sliders</h4>
+        </div>
+
+        <div class="col-md-6 p-r-md p-b-md">
+            <p class="text-black p-b-lg">Range Track - Persistent Callout</p>
+            <slider ng-model="vm.slider5.value" options="vm.slider5.options"></slider>
+        </div>
+        <div class="col-md-6 p-l-md p-b-md">
+            <p class="text-black p-b-lg">Range Track Style - Custom Callout Styles</p>
+            <slider ng-model="vm.slider6.value" options="vm.slider6.options"></slider>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="text-black p-t-md p-b-md">Range Slider with Text Inputs</h4>
+        </div>
+
+        <div class="col-md-12">
+            <slider ng-model="vm.slider7.value" options="vm.slider7.options"></slider>
+        </div>
+    </div>
+
+    <div class="row m-t-sm p-t-xs">
+        <div class="col-sm-2">
+            <input type="text" class="form-control m-b" ng-model="vm.slider7.value.low" ng-model-options="{ debounce: 500 }">
+        </div>
+        <div class="col-sm-offset-8 col-sm-2">
+            <input type="text" class="form-control m-b" ng-model="vm.slider7.value.high" ng-model-options="{ debounce: 500 }">
+        </div>
+    </div>
+
+</div>

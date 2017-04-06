@@ -230,7 +230,8 @@
                 {
                     "title": "Toggle Switch (Angular 1)",
                     "component": "ComponentsToggleSwitchNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Date Picker",
@@ -240,6 +241,71 @@
                 {
                     "title": "Integrated Date Picker",
                     "component": "ComponentsIntegratedDatePickerNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Date Range Picker",
+                    "component": "ComponentsDateRangePickerNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Time Picker",
+                    "component": "ComponentsTimePickerNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Number Picker",
+                    "component": "ComponentsNumberPickerNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Inline Dropdown",
+                    "component": "ComponentsInlineDropdownNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Input Expand",
+                    "component": "ComponentsInputExpandNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Input Mask",
+                    "component": "ComponentsInputMaskNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Radio Button",
+                    "component": "ComponentsRadioButtonNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Select",
+                    "component": "ComponentsSelectNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Single Select Table",
+                    "component": "ComponentsSingleSelectTableNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Multiple Select Table",
+                    "component": "ComponentsMultipleSelectTableNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Tags",
+                    "component": "ComponentsTagsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Sliders",
+                    "component": "ComponentsSlidersNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Sliders with Charts",
+                    "component": "ComponentsSliderChartsNg1Component",
                     "version": "AngularJS"
                 }
             ]

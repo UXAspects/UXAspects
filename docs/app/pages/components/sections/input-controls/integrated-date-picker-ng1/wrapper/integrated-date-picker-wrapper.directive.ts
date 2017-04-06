@@ -9,8 +9,12 @@ angular.module('app').directive('uxdIntegratedDatePickerWrapper', () => {
 
 angular.module('app').controller('IntegratedDatePickerCtrl', ['$scope', IntegratedDatePickerCtrl]);
 
-function IntegratedDatePickerCtrl() {
+function IntegratedDatePickerCtrl($scope: angular.IScope) {
     var vm = this;
+
+    vm.$onDestroy = function() {
+       $scope.$destroy();
+    };
 
     vm.dateObj = {
         date: new Date(),
