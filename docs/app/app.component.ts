@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, NgZone } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -13,12 +13,7 @@ export class AppComponent implements OnInit {
 
     constructor( @Inject(DOCUMENT) private document: Document,
         private router: Router,
-        private navigation: NavigationService,
-        private ngZone: NgZone) {
-
-            // make ngzone global
-            (<any>window).ngZone = ngZone;
-    }
+        private navigation: NavigationService) {}
 
     ngOnInit() {
 

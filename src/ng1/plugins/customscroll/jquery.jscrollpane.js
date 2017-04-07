@@ -298,7 +298,7 @@ LICENSE-END
 				}
 
 				if (!settings.resizeSensor && settings.autoReinitialise && !reinitialiseInterval) {
-					
+
 					if(window.ngZone) {
 						window.ngZone.runOutsideAngular(function() {
 							reinitialiseInterval = setInterval(function() { initialise(settings); }, settings.autoReinitialiseDelay);

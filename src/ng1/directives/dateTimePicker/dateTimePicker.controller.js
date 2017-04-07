@@ -1,5 +1,7 @@
 DateTimePickerCtrl.$inject = ["$scope"];
 
+import * as moment from 'moment-timezone';
+
 export default function DateTimePickerCtrl($scope) { 
     var vm = this;
 

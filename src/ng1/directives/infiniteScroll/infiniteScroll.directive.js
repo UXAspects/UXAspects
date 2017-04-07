@@ -197,7 +197,9 @@ export default function infiniteScroll($parse, $templateRequest, $compile, $time
 
                 // if we are running in Angular 2 and ngZone is globally available then run outside of ngZone
                 if(window.ngZone) {
-                    window.ngZone.runOutsideAngular(ensureScrollable);
+                    window.ngZone.runOutsideAngular(function() {
+                        ensureScrollable();
+                    });
                 } else {
                     ensureScrollable();
                 }
