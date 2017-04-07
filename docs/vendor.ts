@@ -18,6 +18,11 @@ import 'bootstrap';
 import 'angular';
 
 /*
+  Import Angular 1 Components and their dependencies
+*/
+import '../src/ng1/ux-aspects-ng1.module';
+
+/*
     Import Angular Libraries
 */
 import '@angular/platform-browser';

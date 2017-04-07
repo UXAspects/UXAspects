@@ -1,3 +1,9 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { UxAspectsModule } from '../../../src/index';
+
 // Import Layout Components
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { FullPageLayoutComponent } from './full-page-layout/full-page-layout.component';
@@ -16,7 +22,7 @@ import { ComponentSectionComponent } from './component-section/component-section
 import { SnippetComponent } from './snippet/snippet.component';
 import { SectionSelectComponent } from './section-select/section-select.component';
 
-export const DOCUMENTATION_COMPONENTS = [
+const DOCUMENTATION_COMPONENTS = [
   EditExampleLinkComponent,
   SideNavigationComponent,
   FullPageLayoutComponent,
@@ -32,3 +38,16 @@ export const DOCUMENTATION_COMPONENTS = [
   SnippetComponent,
   SectionSelectComponent
 ];
+
+@NgModule({
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        UxAspectsModule
+    ],
+    exports: DOCUMENTATION_COMPONENTS,
+    declarations: DOCUMENTATION_COMPONENTS,
+    providers: [],
+})
+export class DocumentationComponentsModule { }

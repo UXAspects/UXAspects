@@ -27,9 +27,9 @@ import {
 } from '../../src/index';
 
 // Import Child Modules
-import { DOCUMENTATION_COMPONENTS } from './components/components';
-import { DOCUMENTATION_DIRECTIVES } from './directives/directives';
-import { DOCUMENTATION_PROVIDERS } from './services/services';
+import { DocumentationComponentsModule } from './components/components.module';
+import { DocumentationDirectivesModule } from './directives/directives.module';
+import { DocumentationProvidersModule } from './services/services.module';
 
 // Import Root Component
 import { AppComponent } from './app.component';
@@ -52,12 +52,13 @@ import { ChangeLogPageComponent } from './pages/changelog/changelog.component';
 
 import { documentationSections } from './decorators/documentation-section-component';
 
+
+export const upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
+
 // Import Page Sections
-import { CSS_SECTIONS } from './pages/css/css';
+import { CssPageModule } from './pages/css/css.module';
 import { COMPONENT_SECTIONS } from './pages/components/components';
 import { CHART_SECTIONS } from './pages/charts/charts';
-
-let upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
 
 /*
   Configure Component Page Routes
@@ -131,11 +132,7 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdDraggableCardsListViewWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdDraggablePanelsWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdDraggablePanelsViewsWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdFormValidationFieldByFieldWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdFormValidationOnSubmitWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdFloatLabelsWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdNavigationWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdAppNavigatorWrapper'),
+  
   upgradeAdapter.upgradeNg1Component('uxdDetailRowHeaderWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdDetailRowResponsiveWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdFixedHeaderTableWrapper'),
@@ -191,7 +188,7 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdTreeViewWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdTreeViewCompanionViewWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdTreeGridWrapper'),
-   upgradeAdapter.upgradeNg1Component('uxdTreeGridAsynchronousLoadingWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdTreeGridAsynchronousLoadingWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdWizardWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdWizardValidationWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdVerticalWizardWrapper'),
@@ -239,9 +236,6 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxSankeyNg1'),
   upgradeAdapter.upgradeNg1Component('uxSocialChartNg1')
 ]
-.concat(DOCUMENTATION_COMPONENTS)
-.concat(DOCUMENTATION_DIRECTIVES)
-.concat(CSS_SECTIONS)
 .concat(COMPONENT_SECTIONS)
 .concat(CHART_SECTIONS);
 
@@ -251,6 +245,10 @@ const DECLARATIONS = [
     BrowserModule,
     HttpModule,
     FormsModule,
+    DocumentationComponentsModule,
+    DocumentationDirectivesModule,
+    DocumentationProvidersModule,
+    CssPageModule,
 
     // Bootstrap Modules
     TabsModule.forRoot(),
@@ -269,7 +267,7 @@ const DECLARATIONS = [
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
   ],
   declarations: DECLARATIONS,
-  providers: DOCUMENTATION_PROVIDERS,
+  providers: [],
   entryComponents: documentationSections
 })
 export class AppModule {

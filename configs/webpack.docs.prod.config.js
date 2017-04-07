@@ -15,7 +15,8 @@ module.exports = {
 
     output: {
         path: path.join(process.cwd(), 'dist', 'docs'),
-        filename: '[name].js'
+        filename: '[name].js',
+        chunkFilename: 'modules/[id].chunk.js'
     },
 
     resolve: {
@@ -46,7 +47,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 exclude: /snippets/,
-                use: ['awesome-typescript-loader', 'angular2-template-loader']
+                use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader']
             },
             {
                 test: /\.less$/,

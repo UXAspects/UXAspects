@@ -15,6 +15,9 @@
     "debug": true,
     "skipMetadataEmit": true
   },
+  "awesomeTypescriptLoaderOptions": {
+    "useWebpackText": true
+  },
   "exclude": [
     "node_modules",
     "dist"

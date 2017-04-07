@@ -1,3 +1,14 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { UxAspectsModule } from '../../../../src/index';
+import { DocumentationDirectivesModule } from '../../directives/directives.module';
+import { DocumentationComponentsModule } from '../../components/components.module';
+import { TabsModule } from 'ng2-bootstrap/tabs';
+
+import { upgradeAdapter } from '../../app.module';
+
 import { CssCardsComponent } from './sections/tables/cards/cards.component';
 import { CssTablesComponent } from './sections/tables/tables/tables.component';
 import { CssMiniActivityIndicatorComponent } from './sections/progress/mini-activity-indicator/mini-activity-indicator.component';
@@ -87,7 +98,7 @@ import './sections/side-navigation/navigation/wrapper/navigation-wrapper.directi
 import './sections/side-navigation/navigation/wrapper/boldify.directive';
 import './sections/side-navigation/app-navigator/wrapper/app-navigator-wrapper.directive';
 
-export const CSS_SECTIONS = [
+const CSS_SECTIONS = [
     CssColoredButtonsComponent,
     CssLinkButtonsComponent,
     CssButtonsSizeVariationsComponent,
@@ -168,4 +179,25 @@ export const CSS_SECTIONS = [
     CssMiniActivityIndicatorComponent,
     CssTablesComponent,
     CssCardsComponent,
+
+    upgradeAdapter.upgradeNg1Component('uxdNavigationWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdFormValidationFieldByFieldWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdFormValidationOnSubmitWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdFloatLabelsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdAppNavigatorWrapper'),
 ];
+
+@NgModule({
+    imports: [
+        TabsModule,
+        UxAspectsModule,
+        DocumentationComponentsModule,
+        DocumentationDirectivesModule,
+        FormsModule,
+        CommonModule
+    ],
+    exports: CSS_SECTIONS,
+    declarations: CSS_SECTIONS,
+    providers: [],
+})
+export class CssPageModule { }

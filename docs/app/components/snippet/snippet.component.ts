@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild, ViewContainerRef, OnInit, AfterViewInit } from '@angular/core';
 import { NavigationService } from '../../services/navigation/navigation.service';
+import { Http } from '@angular/http';
 
 @Component({
     selector: 'uxd-snippet',
@@ -10,17 +11,30 @@ export class SnippetComponent implements OnInit {
     @Input() language: string = 'html';
     @Input() code: string;
     @Input() content: any;
+    @Input() url: any;
 
     @ViewChild('code', { read: ViewContainerRef }) codeContainer: ViewContainerRef;
 
-    constructor(private navigation: NavigationService) { }
+    constructor(private navigation: NavigationService, private http: Http) { }
 
     ngOnInit() {
-        if (this.code) {
+        if (this.url) {
+            this.loadUrl();
+        } else if (this.code) {
             this.loadCode();
         } else if (this.content) {
             this.loadContent();
         }
+    }
+
+    loadUrl() {
+        this.navigation.setRendering();
+
+        this.http.get(this.url).subscribe(response => {
+            this.code = response.text();
+            this.loadCode();
+            this.navigation.doneRendering();
+        });
     }
 
     private loadCode() {
