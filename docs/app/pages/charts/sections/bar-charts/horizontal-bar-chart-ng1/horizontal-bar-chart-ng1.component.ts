@@ -81,7 +81,7 @@ export class ChartsHorizontalBarChartNg1Component implements ICodePenProvider {
             },
             colors: [colorService.getColor('chart1').toRgb()],
             grid: {
-                color: ['#999'],
+                color: [colorService.getColor('grey4').toHex()],
                 hoverable: true,
                 clickable: true,
                 borderWidth: {

@@ -3,8 +3,8 @@ angular.module('app').controller('OrganizationChartDemoCtrl', OrganizationChartD
 function OrganizationChartDemoCtrl() {
     var vm = this;
 
-    var adminIcon = 'https://uxaspects.github.io/UXAspects/assets/img/examples/IconManagerColorized.png';
-    var userIcon = 'https://uxaspects.github.io/UXAspects/assets/img/examples/IconCustodianColorized.png';
+    var adminIcon = 'https://uxaspects.github.io/UXAspects/assets/img/IconManagerColorized.png';
+    var userIcon = 'https://uxaspects.github.io/UXAspects/assets/img/IconCustodianColorized.png';
 
     var internationManager = {
         name: chance.name(),
@@ -135,7 +135,7 @@ function OrganizationChartDemoCtrl() {
                 name: chance.name(),
                 position: 'Head of Accounting',
                 phone: chance.phone(),
-                email: 'head_accounting@company.com',
+                email: 'accounting@company.com',
                 image: userIcon,
                 children: [{
                     name: chance.name(),

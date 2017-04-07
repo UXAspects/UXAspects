@@ -6,7 +6,7 @@ function PartitionMapCtrl() {
     vm.options = {
         edit: {
             text: 'Edit',
-            image: 'https://github.com/UXAspects/UXAspects/assets/img/pencil.png',
+            image: 'https://uxaspects.github.io/UXAspects/assets/img/pencil.png',
             click: function (root) {
                 //perform action when the edit option is clicked
             },
@@ -60,7 +60,7 @@ function PartitionMapCtrl() {
 
     vm.chartData = [{
         label: 'Home',
-        image: 'https://github.com/UXAspects/UXAspects/assets/img/home.png',
+        image: 'https://uxaspects.github.io/UXAspects/assets/img/home.png',
         groupName: 'Hard Drives',
         children: [{
             label: 'Jennifer Bailey',
