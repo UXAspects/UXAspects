@@ -1,3 +1,13 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { UxAspectsModule } from '../../../../src/index';
+import { DocumentationComponentsModule } from '../../components/components.module';
+import { TabsModule } from 'ng2-bootstrap/tabs';
+
+import { upgradeAdapter } from '../../app.module';
+
 import { ChartsBarChartNg1Component } from './sections/bar-charts/bar-chart-ng1/bar-chart-ng1.component';
 import { ChartsHorizontalBarChartNg1Component } from './sections/bar-charts/horizontal-bar-chart-ng1/horizontal-bar-chart-ng1.component';
 import { ChartsStackedBarChartNg1Component } from './sections/bar-charts/stacked-bar-chart-ng1/stacked-bar-chart-ng1.component';
@@ -17,7 +27,7 @@ import { ChartsSocialChartNg1Component } from './sections/social-chart/social-ch
 import { ChartsScrollableChartNg1Component } from './sections/scrollable-chart/scrollable-chart-ng1/scrollable-chart-ng1.component';
 import { ChartsTimelineChartNg1Component } from './sections/timeline-chart/timeline-chart-ng1/timeline-chart-ng1.component';
 
-export const CHART_SECTIONS: any[] = [
+const CHART_SECTIONS: any[] = [
     ChartsBarChartNg1Component,
     ChartsHorizontalBarChartNg1Component,
     ChartsStackedBarChartNg1Component,
@@ -36,4 +46,30 @@ export const CHART_SECTIONS: any[] = [
     ChartsSocialChartNg1Component,
     ChartsScrollableChartNg1Component,
     ChartsTimelineChartNg1Component,
+
+    upgradeAdapter.upgradeNg1Component('uxFlotNg1'),
+    upgradeAdapter.upgradeNg1Component('uxPeityLineChartNg1'),
+    upgradeAdapter.upgradeNg1Component('uxPeityBarChartNg1'),
+    upgradeAdapter.upgradeNg1Component('uxPeityPieChartNg1'),
+    upgradeAdapter.upgradeNg1Component('uxPeityUpdatingLineChartNg1'),
+    upgradeAdapter.upgradeNg1Component('uxNestedDonutNg1'),
+    upgradeAdapter.upgradeNg1Component('uxOrganizationChartNg1'),
+    upgradeAdapter.upgradeNg1Component('uxSparkNg1'),
+    upgradeAdapter.upgradeNg1Component('uxPartitionMapNg1'),
+    upgradeAdapter.upgradeNg1Component('uxSankeyNg1'),
+    upgradeAdapter.upgradeNg1Component('uxSocialChartNg1')
 ];
+
+@NgModule({
+    imports: [
+        UxAspectsModule,
+        DocumentationComponentsModule,
+        TabsModule,
+        FormsModule,
+        CommonModule
+    ],
+    exports: CHART_SECTIONS,
+    declarations: CHART_SECTIONS,
+    providers: [],
+})
+export class ChartsPageModule { }

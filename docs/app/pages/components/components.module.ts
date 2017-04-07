@@ -1,3 +1,12 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { UxAspectsModule } from '../../../../src/index';
+import { DocumentationComponentsModule } from '../../components/components.module';
+import { TabsModule } from 'ng2-bootstrap/tabs';
+import { upgradeAdapter } from '../../app.module';
+
 import { ComponentsGroupedButtonsNg1Component } from './sections/buttons/grouped-buttons-ng1/grouped-buttons-ng1.component';
 import { ComponentsToggleButtonsNg1Component } from './sections/buttons/toggle-buttons-ng1/toggle-buttons-ng1.component';
 import { ComponentsFloatingActionButtonNg1Component } from './sections/buttons/floating-action-button-ng1/floating-action-button-ng1.component';
@@ -186,7 +195,7 @@ import './sections/input-controls/sliders-ng1/wrapper/sliders-wrapper.directive'
 import './sections/input-controls/slider-charts-ng1/wrapper/slider-charts-wrapper.directive';
 import './sections/date-time-picker/date-range-picker-ng1/wrapper/date-range-picker-wrapper.directive';
 
-export const COMPONENT_SECTIONS = [
+const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
     ComponentsToggleButtonsNg1Component,
     ComponentsFloatingActionButtonNg1Component,
@@ -295,7 +304,7 @@ export const COMPONENT_SECTIONS = [
     ComponentsWindowCommunicationServiceNg1Component,
     ComponentsMarqueeWizardNg1Component,
     ComponentsTreeGridAsynchronousLoadingNg1Component,
-ComponentsCheckboxNg1Component,
+    ComponentsCheckboxNg1Component,
     ComponentsCustomDropdownNg1Component,
     ComponentsExpandingTextAreaNg1Component,
     ComponentsToggleSwitchNg1Component,
@@ -314,4 +323,101 @@ ComponentsCheckboxNg1Component,
     ComponentsTagsNg1Component,
     ComponentsSlidersNg1Component,
     ComponentsSliderChartsNg1Component,
+
+    upgradeAdapter.upgradeNg1Component('uxdGroupedButtonsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdToggleButtonsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdFloatingActionButtonWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdPaginationWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSingleToggleButtonWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdCheckboxButtonsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdRadioButtonsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdDropdownWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdThumbnailWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdComponentListWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdContactsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdContactsOverflowWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdDraggableCardsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdDraggableCardsListViewWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdDraggablePanelsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdDraggablePanelsViewsWrapper'),
+
+    upgradeAdapter.upgradeNg1Component('uxdDetailRowHeaderWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdDetailRowResponsiveWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdFixedHeaderTableWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdHoverActionsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdReorderableTableWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSortToggleWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSingleColumnSortingWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdMultiColumnSortingWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdPreviewPaneWindowWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdDetailRowHeaderWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdPreviewPaneWindowWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdFacetLineChartWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdFileUploadWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdFlippableCardsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdGridWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdHierarchyBarWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdHotkeysWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdKeyboardServiceWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdModalWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSquareModalWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdMarqueeModalWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSideModalWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdNotificationsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdNotificationListWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdNotificationDropdownWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdAlertStylesWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdDismissableStylesWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdCollapsiblePanelsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdItemDisplayPanelWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdModalInsetPanelWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdPopoverWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdProgressBarWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdCustomScrollbarWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdInfiniteScrollWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdInfiniteScrollLoadMoreWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSearchBuilderWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSearchBuilderCodeWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSearchHistoryWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSearchToolbarWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSplitterWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdNestedSplitterWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdLayoutSwitchingSplitterWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSideInsetPanelSplitterWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTabsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdDetailedTabWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdStackedTabsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdCardTabsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTimelineWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTooltipsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdOverflowTooltipWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSingleLineOverflowTooltipWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdStaticTooltipWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTreeViewWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTreeViewCompanionViewWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTreeGridWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTreeGridAsynchronousLoadingWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdWizardWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdWizardValidationWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdVerticalWizardWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdExpandingContentWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdPdfServiceWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTimeAgoServiceWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdListItemFilterWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdMarqueeWizardWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdCustomResponsiveTableWrapper'),
 ];
+
+@NgModule({
+    imports: [
+        UxAspectsModule,
+        DocumentationComponentsModule,
+        TabsModule,
+        CommonModule,
+        FormsModule
+    ],
+    exports: COMPONENT_SECTIONS,
+    declarations: COMPONENT_SECTIONS,
+    providers: [],
+})
+export class ComponentsPageModule { }
