@@ -123,7 +123,17 @@ module.exports = {
                     path.join(process.cwd(), 'src', 'ng1', 'plugins'),
                     path.join(process.cwd(), 'src', 'ng1', 'external')
                 ],
-                use: 'script-loader'
+                use: [{
+                    loader: 'script-loader'
+                }, {
+                    loader: 'uglify-loader',
+                    options: {
+                        compress: {
+                            warnings: false,
+                        },
+                        comments: false
+                    }
+                }]
             },
             {
                 test: /\.html$/,
@@ -173,8 +183,9 @@ module.exports = {
 
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false
-            }
+                warnings: false,
+            },
+            comments: false
         }),
 
         new webpack.optimize.CommonsChunkPlugin({

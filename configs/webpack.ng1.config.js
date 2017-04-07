@@ -35,7 +35,9 @@ module.exports = {
                 query: {
                     cacheDirectory: true,
                     presets: [
-                        ["es2015", { "modules": false }]
+                        ["es2015", {
+                            "modules": false
+                        }]
                     ]
                 }
             }
@@ -46,7 +48,17 @@ module.exports = {
         }, {
             test: /(plugins|external)/,
             exclude: /(node_modules|bower_components)/,
-            use: 'script-loader'
+            use: [{
+                loader: 'script-loader'
+            }, {
+                loader: 'uglify-loader',
+                options: {
+                    compress: {
+                        warnings: false,
+                    },
+                    comments: false
+                }
+            }]
         }]
     }
 
