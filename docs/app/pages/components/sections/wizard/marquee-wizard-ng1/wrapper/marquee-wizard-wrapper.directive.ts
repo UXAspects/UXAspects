@@ -42,10 +42,10 @@ MarqueeModalInstanceCtrl.$inject = ['$scope', '$modalInstance'];
 function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
     var vm = this;
 
-    let first = require('!file-loader!../snippets/first.html');
-    let second = require('!file-loader!../snippets/second.html');
-    let third = require('!file-loader!../snippets/third.html');
-    let fourth = require('!file-loader!../snippets/fourth.html');
+    let first = require('!file-loader?name=[path][name].[ext]!../snippets/first.html');
+    let second = require('!file-loader?name=[path][name].[ext]!../snippets/second.html');
+    let third = require('!file-loader?name=[path][name].[ext]!../snippets/third.html');
+    let fourth = require('!file-loader?name=[path][name].[ext]!../snippets/fourth.html');
 
     vm.steps = [{
         title: 'First step',

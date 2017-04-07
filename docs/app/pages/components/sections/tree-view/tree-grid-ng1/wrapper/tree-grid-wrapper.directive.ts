@@ -16,9 +16,9 @@ angular.module('app').controller('TreeGridDemoCtrl', ['$scope', '$displayPanel',
       $scope.$destroy();
     };
 
-    let actions = require('!file-loader!./actions.html');
-    let displayPanel = require('!file-loader!./displayPanel.html');
-    let displayPanelFooter = require('!file-loader!./displayPanelFooter.html');
+    let actions = require('!file-loader?name=[path][name].[ext]!./actions.html');
+    let displayPanel = require('!file-loader?name=[path][name].[ext]!./displayPanel.html');
+    let displayPanelFooter = require('!file-loader?name=[path][name].[ext]!./displayPanelFooter.html');
 
     vm.data = [{
       id: 1,

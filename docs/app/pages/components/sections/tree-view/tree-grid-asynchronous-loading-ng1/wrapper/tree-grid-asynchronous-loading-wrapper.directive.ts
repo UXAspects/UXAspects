@@ -17,7 +17,7 @@ function TreeGridAsyncDemoCtrl($scope: angular.IScope, $q: any, $timeout: any) {
       $scope.$destroy();
     };
 
-    let template = require('!file-loader!./template.html');
+    let template = require('!file-loader?name=[path][name].[ext]!./template.html');
 
     var topLevelFolder = [{
         type: 'folder',
