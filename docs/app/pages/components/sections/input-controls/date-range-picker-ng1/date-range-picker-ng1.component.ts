@@ -7,7 +7,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @Component({
     selector: 'uxd-components-date-range-picker-ng1',
     templateUrl: './date-range-picker-ng1.component.html',
-    // changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsDateRangePickerNg1Component')
 export class ComponentsDateRangePickerNg1Component extends BaseDocumentationSection implements ICodePenProvider {
