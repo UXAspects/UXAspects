@@ -23,6 +23,7 @@ export class ComponentsMarqueeModalNg1Component extends BaseDocumentationSection
             id: 'modalLayout.html',
             content: this.snippets.raw.modalLayoutHtml
         }],
+        css: [this.snippets.raw.stylesCss],
         js: [this.snippets.raw.controllerJs, this.snippets.raw.modalControllerJs]
     };
 

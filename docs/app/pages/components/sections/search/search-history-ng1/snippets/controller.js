@@ -28,7 +28,7 @@ function SearchHistoryDemoCtrl($scope, $modal) {
             exclude: '"Recycle Bin", "Trash"'
         }, {
             icon: 'hpe-folder',
-            text: 'Ashley\'s Workbook'
+            text: 'Helena\'s Workbook'
         }, {
             icon: 'hpe-user',
             text: 'Lauren Scott'
@@ -42,7 +42,7 @@ function SearchHistoryDemoCtrl($scope, $modal) {
             exclude: '"Recycle Bin", "Trash"'
         }, {
             icon: 'hpe-folder',
-            text: 'Alastair\'s Workbook'
+            text: 'Gabriel\'s Workbook'
         }, {
             icon: 'hpe-search',
             text: '"hr links" AND ("hr connect" OR "hr@company.com")',
