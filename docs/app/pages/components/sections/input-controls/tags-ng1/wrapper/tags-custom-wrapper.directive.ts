@@ -12,6 +12,8 @@ angular.module('app').controller('TagsCustomCtrl', TagsCustomCtrl);
 function TagsCustomCtrl() {
     var vm = this;
 
+    let chance = require('chance').Chance();
+
     vm.tags3 = [];
 
     vm.people = [];

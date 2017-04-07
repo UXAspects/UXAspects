@@ -120,9 +120,9 @@ LICENSE-END
         }
         if (a !== null) {
             if (r && (t == null || t - r < 1e3)) {
-                a = e.requestAnimationFrame(window.ngZone ? window.ngZone.runOutsideAngular(h) : h)
+                a = e.requestAnimationFrame(h)
             } else {
-                a = setTimeout(window.ngZone ? window.ngZone.runOutsideAngular(h, n[o]) : h, n[o]);
+                a = setTimeout(h, n[o]);
                 r = false
             }
         }

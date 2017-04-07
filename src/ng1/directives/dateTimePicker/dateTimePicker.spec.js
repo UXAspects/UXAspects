@@ -1,3 +1,4 @@
+import * as moment from 'moment-timezone';
 
 describe('Integrated date picker', function() {
     var $compile, $rootScope, $scope, $timeout, $interval;

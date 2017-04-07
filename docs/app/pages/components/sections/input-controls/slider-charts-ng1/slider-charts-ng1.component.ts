@@ -6,8 +6,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 
 @Component({
     selector: 'uxd-components-slider-charts-ng1',
-    templateUrl: './slider-charts-ng1.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './slider-charts-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsSliderChartsNg1Component')
 export class ComponentsSliderChartsNg1Component extends BaseDocumentationSection implements ICodePenProvider {

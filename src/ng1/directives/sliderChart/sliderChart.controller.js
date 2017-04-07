@@ -1,6 +1,7 @@
 SliderChartCtrl.$inject = ['$scope'];
 
 export default function SliderChartCtrl($scope) {
+
     var vm = this;
 
     var min = vm.sliderOptions.track.min;
