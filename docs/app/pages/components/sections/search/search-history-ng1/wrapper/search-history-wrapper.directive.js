@@ -5,6 +5,8 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
             $templateCache.put('search-history-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
 
+            var chance = require('chance').Chance();
+
             var vm = this;
             
             vm.scrollConfig = {
@@ -30,7 +32,7 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
                     exclude: '"Recycle Bin", "Trash"'
                 }, {
                     icon: 'hpe-folder',
-                    text: 'Ashley\'s Workbook'
+                    text: 'Helena\'s Workbook'
                 }, {
                     icon: 'hpe-user',
                     text: 'Lauren Scott'
@@ -44,7 +46,7 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
                     exclude: '"Recycle Bin", "Trash"'
                 }, {
                     icon: 'hpe-folder',
-                    text: 'Alastair\'s Workbook'
+                    text: 'Gabriel\'s Workbook'
                 }, {
                     icon: 'hpe-search',
                     text: '"hr links" AND ("hr connect" OR "hr@company.com")',
