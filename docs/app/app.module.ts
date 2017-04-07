@@ -145,7 +145,7 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdCustomToggleSwitchWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdDatePickerWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdIntegratedDatePickerWrapper'),
-  // upgradeAdapter.upgradeNg1Component('uxdDateRangePickerWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdDateRangePickerWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdTimePickerWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdNumberPickerWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdInlineDropdownWrapper'),

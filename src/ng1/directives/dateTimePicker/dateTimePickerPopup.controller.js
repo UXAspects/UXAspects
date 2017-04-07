@@ -1,5 +1,7 @@
 DateTimePickerPopupCtrl.$inject = ['$scope', '$parse', '$attrs'];
 
+import * as moment from 'moment-timezone';
+
 export default function DateTimePickerPopupCtrl($scope, $parse, $attrs) {
     var vm = this;
 

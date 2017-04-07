@@ -106,7 +106,7 @@ import './sections/input-controls/tags-ng1/wrapper/tags-custom-wrapper.directive
 import './sections/input-controls/tags-ng1/wrapper/tags-autocomplete-wrapper.directive';
 import './sections/input-controls/sliders-ng1/wrapper/sliders-wrapper.directive';
 import './sections/input-controls/slider-charts-ng1/wrapper/slider-charts-wrapper.directive';
-// import './sections/input-controls/date-range-picker-ng1/wrapper/date-range-picker-wrapper.directive';
+import './sections/input-controls/date-range-picker-ng1/wrapper/date-range-picker-wrapper.directive';
 
 export const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,

@@ -1,3 +1,6 @@
+import * as moment from 'moment-timezone';
+declare var angular: angular.IAngularStatic;
+
 angular.module('app').directive('uxdDateRangePickerWrapper', () => {
     return {
         restrict: 'E',
@@ -17,9 +20,6 @@ function DateRangePickerCtrl($scope: angular.IScope) {
     vm.$onDestroy = function() {
        $scope.$destroy();
     };
-    
-    // temp to suppress errors
-    let moment = require('');
 
     vm.fromDate = {};
     vm.toDate = {};
@@ -112,15 +112,15 @@ function DateRangePickerCtrl($scope: angular.IScope) {
     // Set timezone in both date objects
     function setTimeZoneOffset(tz: any) {
         if (angular.isString(tz.offset)) {
-            if (!angular.isDefined(vm.fromDate)) {vm.fromDate = {};}
+            if (!angular.isDefined(vm.fromDate)) {vm.fromDate = {}; }
             vm.fromDate.timezone = tz.offset;
-            if (!angular.isDefined(vm.toDate)) {vm.toDate = {};}
+            if (!angular.isDefined(vm.toDate)) {vm.toDate = {}; }
             vm.toDate.timezone = tz.offset;
         }
     }
 
     vm.getLocalDateTime = function (date: any, timezone: any) {
-        if (!angular.isDefined(date) || !angular.isDefined(timezone)) {return 'Not Set';}
+        if (!angular.isDefined(date) || !angular.isDefined(timezone)) {return 'Not Set'; }
         return moment(date).utcOffset(timezone, true).format('ddd MMM DD, YYYY h:mm:ss A Z');
     };
 
