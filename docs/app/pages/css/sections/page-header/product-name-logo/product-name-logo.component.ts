@@ -6,8 +6,4 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     templateUrl: './product-name-logo.component.html'
 })
 @DocumentationSectionComponent('CssProductNameLogoComponent')
-export class CssProductNameLogoComponent {
-  
-    private htmlCode = require('./snippets/sample.html');
-
-}
+export class CssProductNameLogoComponent { }

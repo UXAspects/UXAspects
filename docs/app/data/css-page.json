@@ -163,11 +163,11 @@
                 },
                 {
                     "title": "Product Name and Logo",
-                    "component": "CssHeaderContentPanelComponent"  
+                    "component": "CssProductNameLogoComponent"  
                 },
                 {
                     "title": "Header Content Panel",
-                    "component": "CssProductNameLogoComponent"  
+                    "component": "CssHeaderContentPanelComponent"
                 },
                 {
                     "title": "Back Button",
