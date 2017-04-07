@@ -76,7 +76,7 @@ export class ChartsPartitionMapNg1Component implements ICodePenProvider {
                 shouldResize: true,
                 onToggle: function () { }
             },
-            popoverTemplate: require('!file-loader!./snippets/popover.html'),
+            popoverTemplate: require('!file-loader?name=[path][name].[ext]!./snippets/popover.html'),
             popoverEnabled: true,
             valueFormatter: function (value: string) {
                 return value.toLocaleString();

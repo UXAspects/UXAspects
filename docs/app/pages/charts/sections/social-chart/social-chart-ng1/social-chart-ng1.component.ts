@@ -76,10 +76,10 @@ export class ChartsSocialChartNg1Component implements ICodePenProvider {
         };
 
         this.templates = {
-            edgeDetail: require('!file-loader!./snippets/edge-detail.html'),
-            edgePopover: require('!file-loader!./snippets/edge-popover.html'),
-            nodeDetail: require('!file-loader!./snippets/node-detail.html'),
-            nodePopover: require('!file-loader!./snippets/node-popover.html')
+            edgeDetail: require('!file-loader?name=[path][name].[ext]!./snippets/edge-detail.html'),
+            edgePopover: require('!file-loader?name=[path][name].[ext]!./snippets/edge-popover.html'),
+            nodeDetail: require('!file-loader?name=[path][name].[ext]!./snippets/node-detail.html'),
+            nodePopover: require('!file-loader?name=[path][name].[ext]!./snippets/node-popover.html')
         };
 
         this.api = {

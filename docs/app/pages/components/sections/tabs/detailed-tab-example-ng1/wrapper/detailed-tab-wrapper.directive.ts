@@ -18,9 +18,9 @@ function DetailedTabsCtrl($scope: angular.IScope) {
     };
 
     // load tab templates as angular 1 templates
-    let tabBar = require('!file-loader!./tab-bar.html');
-    let tabSankey = require('!file-loader!./tab-sankey.html');
-    let tabTable = require('!file-loader!./tab-table.html');
+    let tabBar = require('!file-loader?name=[path][name].[ext]!./tab-bar.html');
+    let tabSankey = require('!file-loader?name=[path][name].[ext]!./tab-sankey.html');
+    let tabTable = require('!file-loader?name=[path][name].[ext]!./tab-table.html');
 
     vm.detailedTabs = [{
         title: 'Bar Chart',

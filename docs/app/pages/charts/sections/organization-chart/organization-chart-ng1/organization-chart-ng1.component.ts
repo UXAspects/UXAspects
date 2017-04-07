@@ -68,7 +68,7 @@ export class ChartsOrganizationChartNg1Component implements ICodePenProvider {
                 }
             },
             nodes: {
-                template: require('!file-loader!./snippets/chart-node.html')
+                template: require('!file-loader?name=[path][name].[ext]!./snippets/chart-node.html')
             },
             reveal: () => {
 
@@ -91,7 +91,7 @@ export class ChartsOrganizationChartNg1Component implements ICodePenProvider {
             search: {
                 enabled: true,
                 placeholder: 'Enter name or job title',
-                template: require('!file-loader!./snippets/search-item.html'),
+                template: require('!file-loader?name=[path][name].[ext]!./snippets/search-item.html'),
                 query: (query: string, node: IOrganizationChartNode) => {
                     // return true if the name or title contains the search query
                     return node.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
