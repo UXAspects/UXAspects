@@ -5,8 +5,6 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
             $templateCache.put('search-history-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
 
-            var chance = require('chance').Chance();
-
             var vm = this;
             
             vm.scrollConfig = {
