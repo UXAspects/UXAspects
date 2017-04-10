@@ -464,7 +464,7 @@ PartitionMap.prototype.draw = function (data) {
 
     chart.editText = d3.select(rootGroup).append("svg:text")
       .style('fill', 'white')
-      .style('font-family', 'Source Sans Pro')
+      .style('font-family', '"Source Sans Pro"')
       .style('opacity', '1')
       .style("text-anchor", "middle")
       .style("cursor", "default")
@@ -1013,13 +1013,17 @@ PartitionMap.prototype.wrapEditText = function () {
   //required because if element isnt in visible DOM IE will throw and error - animations wont work
   if (!chart.element.contains(self.node())) return;
 
-  var textLength = self.node().getComputedTextLength();
+  try {
 
-  while (textLength > 42 && text.length > 0) {
-    text = text.slice(0, -1);
-    self.text(text + '...');
-    textLength = self.node().getComputedTextLength();
-  }
+    var textLength = self.node().getComputedTextLength();
+
+    while (textLength > 42 && text.length > 0) {
+      text = text.slice(0, -1);
+      self.text(text + '...');
+      textLength = self.node().getComputedTextLength();
+    }
+  } catch(err) {}
+
 };
 
 //if a color has been used before for a specific key then use it, otherwise pick the next available one
@@ -1582,6 +1586,11 @@ PartitionMap.prototype.selectItem = function (data) {
   var popoverData = data;
   popoverData.data = chart.getDetailedDataFromData(data);
   popoverData.data.parents = chart.getParentsData(popoverData);
+
+  // ensure there is a formatted value
+  if (popoverData.data && popoverData.data.value && !popoverData.formattedValue) {
+    popoverData.formattedValue = chart.valueFormatter(popoverData.data.value);
+  }
 
   chart.rootScope.$broadcast('popover-update', popoverData);
 };

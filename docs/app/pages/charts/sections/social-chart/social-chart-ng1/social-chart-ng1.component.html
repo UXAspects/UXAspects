@@ -347,7 +347,7 @@
 
 <p>The chart title object contains the properties required for displaying the optional title when the social chart is fullscreen.</p>
 
-<p>The chart title will accept the follwing properties.</p>
+<p>The chart title will accept the following properties.</p>
 
 <div class="demo-attributes table-responsive">
   <table class="table">
@@ -374,7 +374,7 @@
         <td class="attribute">nodeSelectedTitle</td>
         <td>string</td>
         <td>
-          <p ng-non-bindable="">The string which will replace the title when a node is selected, <code>{{node}}</code> will be replaced by the
+          <p ng-non-bindable="">The string which will replace the title when a node is selected, <code ngNonBindable>{{ node }}</code> will be replaced by the
             name of the currently selected node.</p>
         </td>
         <td>true</td>
@@ -383,7 +383,7 @@
         <td class="attribute">edgeSelectedTitle</td>
         <td>string</td>
         <td>
-          <p ng-non-bindable="">The string which will replace the title when an edge is selected, <code>{{source}}</code> and <code>{{target}}</code>            will be replaced by the name of the source and target nodes.</p>
+          <p ng-non-bindable="">The string which will replace the title when an edge is selected, <code ngNonBindable>{{ source }}</code> and <code ngNonBindable>{{ target }}</code>            will be replaced by the name of the source and target nodes.</p>
         </td>
         <td>true</td>
       </tr>
