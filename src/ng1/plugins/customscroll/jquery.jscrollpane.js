@@ -298,13 +298,15 @@ LICENSE-END
 				}
 
 				if (!settings.resizeSensor && settings.autoReinitialise && !reinitialiseInterval) {
-					reinitialiseInterval = setInterval(
-						function()
-						{
-							initialise(settings);
-						},
-						settings.autoReinitialiseDelay
-					);
+
+					if(window.ngZone) {
+						window.ngZone.runOutsideAngular(function() {
+							reinitialiseInterval = setInterval(function() { initialise(settings); }, settings.autoReinitialiseDelay);
+						});
+					} else {
+						reinitialiseInterval = setInterval(function() { initialise(settings); }, settings.autoReinitialiseDelay);
+					}
+
 				} else if (!settings.resizeSensor && !settings.autoReinitialise && reinitialiseInterval) {
 					clearInterval(reinitialiseInterval);
 				}

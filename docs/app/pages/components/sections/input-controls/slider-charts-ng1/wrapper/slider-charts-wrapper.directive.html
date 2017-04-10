@@ -1,0 +1,19 @@
+<div class="row">
+
+    <div class="col-md-5">
+        <slider-chart ng-model="vm.value" slider-options="vm.sliderOptions" chart-data="vm.chart.data" chart-options="vm.chart.options"></slider-chart>
+
+        <div class="col-sm-3 m-t-sm">
+            <input type="text" class="form-control m-b" ng-model="vm.value.low" ng-model-options="{ debounce: 500 }">
+        </div>
+        <div class="col-sm-offset-6 col-sm-3 m-t-sm">
+            <input type="text" class="form-control m-b" ng-model="vm.value.high" ng-model-options="{ debounce: 500 }">
+        </div>
+
+    </div>
+
+    <div class="col-md-5" style="height: 100px; width: 40%;">
+        <slider-chart ng-model="vm.valueTwo" slider-options="vm.sliderOptionsTwo" chart-data="vm.chartTwo.data" chart-options="vm.chartTwo.options"></slider-chart>
+    </div>
+
+</div>

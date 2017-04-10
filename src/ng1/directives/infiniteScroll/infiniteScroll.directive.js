@@ -194,7 +194,15 @@ export default function infiniteScroll($parse, $templateRequest, $compile, $time
                 }
 
                 //ensure enough items are visible to show a scrollbar
-                ensureScrollable();
+
+                // if we are running in Angular 2 and ngZone is globally available then run outside of ngZone
+                if(window.ngZone) {
+                    window.ngZone.runOutsideAngular(function() {
+                        ensureScrollable();
+                    });
+                } else {
+                    ensureScrollable();
+                }
             }
 
             function loadNextPage() {

@@ -1,0 +1,58 @@
+<div class="row demo">
+    <div class="col-sm-5 col-xs-12">
+        <div class="input-group m-nil">
+            <span class="input-group-addon" ng-click="vm.openIntegratedPicker($event)" aria-haspopup="true" type="button" tabindex="1">
+                <i ng-class="vm.datePickerIcon" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" ng-model="vm.dateObj" ng-model-options="{updateOn: 'blur'}" date-time-picker-popup ng-click="vm.openIntegratedPicker($event)" 
+                    is-meridian="vm.ismeridian"  timezones="vm.timezones" timezone-default-index="vm.timezoneDefaultIndex" aria-label="Selected date" 
+                    choose-time="vm.chooseTime" choose-date="vm.chooseDate" choose-timezone="vm.chooseTimezone" is-open="vm.datePickerOpen" />
+        </div>
+    </div>
+</div>
+<br>
+The current values on object passed as ngModel are:
+
+<pre>
+vm.dateObj = {
+    date: {{vm.dateObj.date}},
+    time: {{vm.dateObj.time}},
+    timezone: {{vm.dateObj.timezone}}
+};
+</pre>
+
+<br>
+
+<h4>Customize the integrated date picker</h4>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="check">
+            <checkbox ng-model="vm.chooseDate">Choose Date</checkbox>
+        </div>
+        <div class="check">
+            <checkbox ng-model="vm.chooseTime">Choose Time</checkbox>
+        </div>
+        <div class="check">
+            <checkbox ng-model="vm.chooseTimezone">Choose Timezone</checkbox>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div role="radiogroup">
+            <div class="radio">
+                <radiobutton ng-model="vm.ismeridian" ng-value="true">12 Hour Click ( isMeridian: true )</radiobutton>
+            </div>
+            <div class="radio">
+                <radiobutton ng-model="vm.ismeridian" ng-value="false">24 Hour Click ( isMeridian: false )</radiobutton>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="icon class" class="control-label form-label m-l-md col-md-3">Icon Class</label>
+            <div class="col-md-8 m-l-nil p-l-nil">
+                <input type="text" name="iconClass" ng-model="vm.datePickerIcon" placeholder="Icon(Eg. hpe-icon hpe-calendar)" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>

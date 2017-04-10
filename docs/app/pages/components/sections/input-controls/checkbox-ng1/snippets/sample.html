@@ -1,0 +1,39 @@
+<div>
+    <checkbox ng-model="vm.checkModel.option1" ng-disabled="vm.disableCheck" name="checkboxOption1" simplified="vm.simplified">Option1</checkbox>
+</div>
+
+<div>
+    <checkbox ng-model="vm.checkModel.option2" indeterminate-value="vm.indeterminateValue" name="checkboxOption2" simplified="vm.simplified">Option2</checkbox>
+</div>
+
+<div>
+    <checkbox ng-model="vm.checkModel.option3" name="checkboxOption3" simplified="vm.simplified">Option3</checkbox>
+</div>
+
+<div>
+    <checkbox ng-model="vm.checkModel.option4" name="checkboxOption4" simplified="vm.simplified">Onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.</checkbox>
+</div>
+
+<p class="m-t">
+    <code>checkModel.option1</code> is <em ng-bind="vm.checkModel.option1"></em>.
+    <code>checkModel.option2</code> is <em ng-bind="vm.checkModel.option2"></em>.
+    <code>checkModel.option3</code> is <em ng-bind="vm.checkModel.option3"></em>.
+    <code>checkModel.option4</code> is <em ng-bind="vm.checkModel.option4"></em>.
+</p>
+
+<div>
+    <button class="btn button-primary m-r-xs" 
+            ng-click="vm.disableCheck = !vm.disableCheck"
+            ng-bind="vm.disableCheck ? 'Click to enable Option1' : 'Click to disable Option1'">
+    </button>
+
+    <button class="btn button-secondary m-r-xs" 
+            ng-click="vm.checkModel.option2 = vm.indeterminateValue">
+            Set Option2 to indeterminate state
+    </button>
+
+    <button class="btn button-accent" 
+            ng-click="vm.simplified = !vm.simplified"
+            ng-bind="vm.simplified ? 'Disable Simplified Style' : 'Enable Simplified Style'">
+    </button>
+</div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NgZone } from '@angular/core';
 
 import { EboxModule } from './components/ebox/ebox.module';
 import { CheckboxModule } from './components/checkbox/checkbox.module';
@@ -27,7 +27,12 @@ const UX_ASPECTS_MODULES = [
     ColorService
   ]
 })
-export class UxAspectsModule { }
+export class UxAspectsModule {
+    constructor( private ngZone: NgZone) {
+      // make ngzone global
+      (<any>window).ngZone = ngZone;
+    }
+ }
 
 export * from './components/checkbox/checkbox.component';
 export * from './components/ebox/ebox.component';

@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <label class="m-l-sm m-t-xs"><b ng-bind="vm.heading"></b></label>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <input type="text" ng-model="vm.searchText" ng-change="vm.clearSelection()" placeholder="Search" class="form-control">
+            </div>
+            <br/>
+            <br/>
+        </div>
+        <select-table values="vm.authors" selected="vm.multipleSelectedVals" select-key="vm.selectKey" search-text="vm.searchText"
+            multiple-select="true"></select-table>
+        <br/>
+        <p>Ids of the selected values are: <b ng-bind="vm.getSelectedIds()"></b></p>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+<uxd-integrated-date-picker-wrapper></uxd-integrated-date-picker-wrapper>
+
+<hr>
+
+<p>The integrated date picker can be used to pick date, time and timezone within a single component. This is defined as an <code>input</code>    element having the <code>date-time-picker-popup</code> attribute.</p>
+
+<p>The <code>ng-model</code> attribute should contain an object with date and time values. The timezones are passed as an array
+    to the <code>timezones</code> attribute, with the default index given to the <code>timezone-default-index</code> attribute.
+    The resulting date, time and timezone will be set to the object passed to the <code>ng-model</code>.</p>
+
+<p>The component can be configured with the following options provided as attributes:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Binding</th>
+            <th>Description</th>
+            <th>Optional</th>
+        </tr>
+        <tr>
+            <td class="attribute">ng-model</td>
+            <td>object</td>
+            <td>variable</td>
+            <td>Should contain a json object with date, time and timezone values.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">is-meridian</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>Indicating whether the time picker should work in 12 hour mode or 24 hour mode. The 12 hour mode is selected
+                when is-meridian is set to true and the 24 hour mode is selected when is-meridian is set to false.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">timezones</td>
+            <td>array</td>
+            <td>variable</td>
+            <td>An array of values containing the timezones.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">timezone-default-index</td>
+            <td>number</td>
+            <td>variable</td>
+            <td>The array index of the default timezone to be selected.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">choose-time</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>Indicates whether time picker should be displayed.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">choose-date</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>Indicates whether date picker should be displayed.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">choose-seconds</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>Indicates whether the seconds field in the time picker should be displayed.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">choose-timezone</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>Indicates whether timezone picker should be displayed.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">default-day-time</td>
+            <td>string</td>
+            <td>literal</td>
+            <td>Choose whether the default time should be the start or end of the day. Valid values are <code>start</code> (default)
+                and <code>end</code>.</td>
+            <td>true</td>
+        </tr>
+    </table>
+</div>
+
+<p>The time picker only mode is created by setting the <code>choose-time</code> attribute to <code>true</code> and the <code>choose-date</code>    and <code>choose-timezone</code> attributes to <code>false</code> in the integrated date picker. The <code>hpe-alarm</code>    class can be used to set the clock icon.</p>
+
+<p>The code for the integrated datepicker shown above is:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.sampleJs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>

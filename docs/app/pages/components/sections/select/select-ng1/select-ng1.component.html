@@ -1,0 +1,148 @@
+<uxd-select-wrapper></uxd-select-wrapper>
+
+<hr>
+
+<p>The <code>dynamic-select</code> component allows users to choose one or more items from a set via a dropdown interface. It
+    supports filtering and keyboard control. For very large data sets, a paging feature is available, ensuring that data
+    is only loaded as required.</p>
+
+<p>The data set may be a collection of strings or objects. In the above example, the single select controls on the left use
+    an array of strings as a data source, while the multiple select controls on the right are set up to select objects. The
+    upper controls use a fixed array to provide the items to select from, whereas the lower controls use a paging function
+    which contains a delay to simulate a server request. This can be observed in action by scrolling or using the down key
+    to reach the end of the current result set in the select dropdown.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.sampleJs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>The following attributes are available to configure the <code>dynamic-select</code> directive.</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Binding</th>
+            <th>Description</th>
+            <th>Optional</th>
+        </tr>
+        <tr>
+            <td class="attribute">multiple</td>
+            <td>none</td>
+            <td></td>
+            <td>Specifies that the control should allow multiple selection; otherwise only a single item may be selected at a
+                time. This attribute does not require a value.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">ng-model</td>
+            <td>object or array</td>
+            <td>variable</td>
+            <td>The selected item(s).</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">source</td>
+            <td>array or function</td>
+            <td>variable</td>
+            <td>
+                <p>Provides the items that the user may select from. Items may be strings or objects. Use <code>select-as</code>                    and <code>track-by</code> to present objects as required.</p>
+                <p>If an array is provided then the full contents will be displayed in the dropdown. There must be no identical
+                    items.</p>
+                <p>If a function is provided, this will retrieve pages of items as required when scrolling or filtering the
+                    item dropdown. The arguments are as follows:</p>
+                <ul>
+                    <li><code>pageNumber</code> (numeric) - The index of the requested page, starting from 0.</li>
+                    <li><code>pageSize</code> (numeric) - The number of items requested.</li>
+                    <li><code>searchString</code> (string) - The text entered by the user to filter the results.</li>
+                </ul>
+                <p>The function should return either an array, or if the data is retrieved asynchronously, a promise containing
+                    an array. Return an empty array if there are no more items.</p>
+            </td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">select-as</td>
+            <td>string</td>
+            <td>literal</td>
+            <td>If the <code>source</code> provides objects, specify the object property name which will contain the text to
+                be displayed in the control.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">track-by</td>
+            <td>string</td>
+            <td>literal</td>
+            <td>If the <code>source</code> provides objects and the <code>select-as</code> property is not unique, specify the
+                object property to use as a unique key.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">options</td>
+            <td>object</td>
+            <td>variable</td>
+            <td>Additional configuration options for the control, see below for available properties.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">ng-disabled</td>
+            <td>boolean</td>
+            <td>variable</td>
+            <td>Determines whether the control is disabled. Default is false.</td>
+            <td>true</td>
+        </tr>
+    </table>
+</div>
+
+<p>The <code>options</code> attribute receives an object with the following properties:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Optional</th>
+        </tr>
+        <tr>
+            <td class="attribute">placeholder</td>
+            <td>string</td>
+            <td>The informational text to display in the input area when no text has been entered.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">allowNull</td>
+            <td>boolean</td>
+            <td>Determines whether the selected value may be set to null by deleting or editing the text in single selection
+                mode. Default is true.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">scroll</td>
+            <td>boolean</td>
+            <td>Determines whether the dropdown has a fixed height and scrolls. This is always true when a paging function is
+                supplied, but may be set to false for small, fixed data sets to ensure that the dropdown fits the displayed
+                items. Default is true.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">pageSize</td>
+            <td>numeric</td>
+            <td>The number of items per page to request. Applicable only when using a paging function in the <code>source</code>                attribute. Default is 20.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">dropDirection</td>
+            <td>string</td>
+            <td>The direction in which the dropdown list expands from the control. "up" specifies that list appears above the
+                input area, and "down" specifies that it appears below. Default is "down".</td>
+            <td>true</td>
+        </tr>
+    </table>
+</div>
