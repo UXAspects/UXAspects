@@ -8,7 +8,7 @@ import { ICodePen } from './../../../../../interfaces/ICodePen';
     templateUrl: './inline-form.component.html'
 })
 @DocumentationSectionComponent('CssInlineFormComponent')
-export class CssInlineFormComponent {
+export class CssInlineFormComponent implements ICodePenProvider {
 
     private htmlCode1 = require('./snippets/sample1.html');
 

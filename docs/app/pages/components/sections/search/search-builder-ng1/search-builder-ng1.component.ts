@@ -3,8 +3,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/search-builder-wrapper.directive.js';
-import './wrapper/search-builder-code-wrapper.directive.js';
 
 @Component({
     selector: 'uxd-search-builder-ng1',

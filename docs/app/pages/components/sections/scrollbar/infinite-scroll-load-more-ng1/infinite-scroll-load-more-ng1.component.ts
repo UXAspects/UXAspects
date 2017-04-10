@@ -3,7 +3,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/infinite-scroll-load-more-wrapper.directive.js';
 
 @Component({
     selector: 'uxd-infinite-scroll-load-more-ng1',

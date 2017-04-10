@@ -33,7 +33,7 @@ function SearchBuilderCodeWrapperController($scope, $templateCache, $modal) {
             controller: 'SearchBuilderCodeCtrl',
             controllerAs: 'vm',
             resolve: {
-                'snippets': function() { return $scope.snippets; }
+                'snippets': function () { return $scope.snippets; }
             },
             keyboard: 'true',
             size: 'lg',
@@ -84,16 +84,16 @@ function SearchBuilderCodeCtrl($modalInstance, $scope, snippets) {
 
     $scope.$watch('vm.selectedSection', function (nv, ov) {
         if (nv !== ov) {
-            //try and reset the scroll position when changing tabs
+            // try and reset the scroll position when changing tabs
             $('.marquee-body').find('.jspPane').css('top', 0);
         }
     });
 
     vm.ok = function () {
-        $modalInstance.dismiss("ok");
+        $modalInstance.dismiss('ok');
     };
 
     vm.cancel = function () {
-        $modalInstance.dismiss("cancel");
+        $modalInstance.dismiss('cancel');
     };
 }

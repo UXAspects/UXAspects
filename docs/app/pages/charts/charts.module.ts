@@ -66,10 +66,17 @@ const CHART_SECTIONS: any[] = [
         DocumentationComponentsModule,
         TabsModule,
         FormsModule,
-        CommonModule
+        CommonModule,
+        WrappersModule,
+        RouterModule.forChild(ResolverService.resolveRouteComponents(require('../../data/charts-page.json')))
     ],
     exports: CHART_SECTIONS,
     declarations: CHART_SECTIONS,
     providers: [],
 })
-export class ChartsPageModule { }
+export class ChartsPageModule {
+
+    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
+        resolverService.registerResolver(componentFactoryResolver);
+    }
+}

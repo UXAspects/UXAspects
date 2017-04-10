@@ -3,7 +3,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/notification-dropdown-wrapper.directive.js';
 
 @Component({
     selector: 'uxd-notification-dropdown-ng1',

@@ -9,8 +9,6 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('CssUxIconsComponent')
 export class CssUxIconsComponent {
 
-    private class: string;
-    private name: string;
     private iconset: IIcons;
     private iconlist: IIcon[]; 
     private query: string;

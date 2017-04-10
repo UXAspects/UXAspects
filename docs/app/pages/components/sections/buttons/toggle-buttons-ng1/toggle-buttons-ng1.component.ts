@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/toggle-buttons-wrapper.directive';
 
 @Component({
     selector: 'uxd-components-toggle-buttons-ng1',

@@ -27,7 +27,7 @@ export class EditExampleLinkComponent {
     constructor(private editExampleService: EditExampleService) {}
 
     linkClick() {
-        this.editExampleService.launchEditor(this.title, this.content, this.type, this.version);
+        this.editExampleService.launchEditor(this.title, this.content, this.type);
     }
 
     isLinkEnabled() {
