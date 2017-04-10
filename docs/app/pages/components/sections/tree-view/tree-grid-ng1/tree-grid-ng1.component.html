@@ -90,7 +90,7 @@
       <td>array</td>
       <td>variable</td>
       <td>This array will contain the objects currently selected in the tree grid. This is a standard multiple selection component,
-        so the techniques described in <a href="#tables-multiple-selection-actions">Multiple Selection Actions</a> may also
+        so the techniques described in <a routerLink="/components/select" fragment="ComponentsMultipleSelectActionsNg1Component">Multiple Selection Actions</a> may also
         be applied to the tree grid.</td>
       <td>true</td>
     </tr>
@@ -312,7 +312,7 @@
         <p>Defines the appearance of the expanders (buttons which toggle display of child rows). This object contains the following
           properties:</p>
         <ul>
-          <li><code>type</code> - the type of image to display, either <code>class</code> to use one of the standard <a href="css.html#icons">Elements Icons</a>            or <code>url</code> to use an icon image.</li>
+          <li><code>type</code> - the type of image to display, either <code>class</code> to use one of the standard <a routerLink="/css/icons">UX Aspects Icons</a> or <code>url</code> to use an icon image.</li>
           <li><code>contracted</code> - the image to show when the row is in a contracted state. Either a CSS class or an image
             URL, according to the <code>type</code>.</li>
           <li><code>expanded</code> - the image to show when the row is in a expanded state. Either a CSS class or an image URL,
@@ -329,7 +329,7 @@
       <td>
         <p>Configures the set of icons which appear on the left of the first column. This object contains the following properties:</p>
         <ul>
-          <li><code>type</code> - the type of image to display, either <code>class</code> to use one of the standard <a href="css.html#icons">Elements Icons</a>            or <code>url</code> to use an icon image.</li>
+          <li><code>type</code> - the type of image to display, either <code>class</code> to use one of the standard <a routerLink="/css/icons">UX Aspects Icons</a> or <code>url</code> to use an icon image.</li>
           <li><code>get</code> - a function which returns the appropriate icon for the data object. The first argument is the
             data object itself, and the second is a boolean indicating whether the row is expanded or not. The function should
             return either a CSS class or an image URL, according to the <code>type</code>.</li>

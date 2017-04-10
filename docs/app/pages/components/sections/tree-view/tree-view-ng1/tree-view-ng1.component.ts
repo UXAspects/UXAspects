@@ -13,6 +13,7 @@ export class ComponentsTreeViewNg1Component implements ICodePenProvider {
 
     private htmlCode = require('./snippets/sample.html');
     private jsCode = require('./snippets/sample.js');
+    private snippet = require('./snippets/snippet.js');
 
     public codepen: ICodePen = {
         html: this.htmlCode,
