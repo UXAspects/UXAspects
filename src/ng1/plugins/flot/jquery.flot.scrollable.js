@@ -121,6 +121,12 @@
       leftButton.style.backgroundColor = buttonColor;
       rightButton.style.backgroundColor = buttonColor;
 
+      // set flex properties
+      leftButton.style.alignItems = 'center';
+      leftButton.style.justifyContent = 'center';
+      rightButton.style.alignItems = 'center';
+      rightButton.style.justifyContent = 'center';
+
       //attach event handlers
       leftButton.addEventListener('click', scrollLeft);
       rightButton.addEventListener('click', scrollRight);
@@ -180,11 +186,11 @@
       var max = Math.ceil(plot.getXAxes()[0].options.max);
 
       if(min <= Math.ceil(lowerBound)) leftButton.style.display = 'none';
-      else leftButton.style.display = 'block';
+      else leftButton.style.display = 'flex';
 
 
       if(max >= Math.ceil(upperBound)) rightButton.style.display = 'none';
-      else rightButton.style.display = 'block';
+      else rightButton.style.display = 'flex';
 
     }
 

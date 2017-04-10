@@ -1,0 +1,8 @@
+<div class="m-sm" ng-controller="CustodianPanelCtrl as vm">
+  <input type="text" placeholder="Find a custodian" class="form-control" ng-model="vm.filterText" force-focus>
+  <ul class="add-field-list" list-item-filter filter-text="vm.filterText">
+    <li class="field-name" ng-repeat="custodian in vm.custodians" key="{{ custodian.name }}" ng-click="vm.selectCustodian(custodian)" ng-class="{ 'option-deselected': !custodian.checked, 'option-selected': custodian.checked }">
+      <span class="hpe-icon hpe-checkmark text-accent option-check"></span> {{ custodian.name }}
+    </li>
+  </ul>
+</div>

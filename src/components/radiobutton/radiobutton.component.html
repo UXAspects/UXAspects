@@ -1,14 +1,14 @@
 <div class="ux-radio-button" tabindex="0"
-    [class.ux-checked]="model === value"
+    [class.ux-checked]="model === option"
     [class.ux-simplified]="simplified === true"
     [class.ux-disabled]="disabled === true"
     (keypress)="keyDown($event)">
 
     <input type="radio" role="radio" tabindex="-1"
         [name]="name" 
-        [checked]="model === value" 
+        [checked]="model === option" 
         [disabled]="disabled"
-        [value]="value"
+        [value]="option"
         [id]="id" />
         
 </div>

@@ -3,7 +3,8 @@ angular.module('app').directive('uxdSingleColumnSortingWrapper', () => {
         restrict: 'E',
         template: require('./single-column-sorting-wrapper.directive.html'),
         controller: SingleColumnSortingController,
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        scope: true
     };
 });
 
@@ -14,7 +15,9 @@ class SingleColumnSortingController {
     private sorterHeaders: any[];
     private sortableTable: any[];
 
-    constructor() {
+    static $inject = ['$scope'];
+
+    constructor(private scope: angular.IScope) {
 
         let chance = require('chance').Chance();
 
@@ -118,6 +121,10 @@ class SingleColumnSortingController {
             active: chance.bool()
         }];
 
+    }
+
+    $onDestroy() {
+        this.scope.$destroy();
     }
 
     select(activeSorter: any, orderDesc: boolean) {

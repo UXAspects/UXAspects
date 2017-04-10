@@ -174,7 +174,9 @@
   background-color: @infinite-scroll-load-button-bg;
   cursor: pointer;
   text-align: center;
-  line-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: @infinite-scroll-load-button-hover-bg;
@@ -190,6 +192,6 @@
     font-size: 1.125rem;
     color: @infinite-scroll-load-button-color;
     border-bottom: 2px dotted @infinite-scroll-load-button-border;
-    line-height: 20px;
+    margin: 0;
   }
 }

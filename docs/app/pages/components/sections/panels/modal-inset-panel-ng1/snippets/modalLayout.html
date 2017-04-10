@@ -1,0 +1,64 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="myModalLabel">Modal Inset Panel Example</h4>
+</div>
+<div class="modal-body">
+  <modal-inset-panel show-panel="vm.showPanel" panel-side="vm.panelSide" panel-width="vm.panelWidth">
+    <modal-inset-header allow-dismiss="true">
+      <h3>User Documents</h3>
+    </modal-inset-header>
+    <modal-inset-content>
+      <div class="modal-inset">
+        <div class="scroll-container" scroll-config="vm.scrollBarConfig" scroll-pane scroll-name="inset-modal-scroll">
+          <div class="user-scroll-container">
+            <ul class="disk-space-list">
+              <li class="disk-space-list-item" ng-repeat="user in ::vm.users">
+                <div class="user-container">
+                  <div class="icon-container">
+                    <span class="hpe-icon hpe-user text-primary"></span>
+                  </div>
+                  <div class="user-info-container">
+                    <p ng-bind="::user.name"></p>
+                    <spark class="spark-chart" type="'spark-chart2'" value="user.percentComplete" fillheight="3" bottom-left-label="user.label"></spark>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </modal-inset-content>
+  </modal-inset-panel>
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <br />
+  <br />
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <br />
+  <br />
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+  <div class="text-center">
+
+    <button type="button" class="btn button-primary" ng-click="vm.showInsetLeft()">
+        Show Inset Panel - Left
+      </button> &nbsp;
+    <button type="button" class="btn button-primary" ng-click="vm.showInsetRight()">
+        Show Inset Panel - Right
+      </button>
+  </div>
+  <br />
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn button-primary" ng-click="vm.ok()">OK</button>
+  <button type="button" class="btn button-secondary" ng-click="vm.cancel()">Cancel</button>
+</div>

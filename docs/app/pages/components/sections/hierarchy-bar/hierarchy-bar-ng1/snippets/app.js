@@ -5,8 +5,8 @@ HierarchyBarDemoCtrl.$inject = ["$q", "$timeout"];
 function HierarchyBarDemoCtrl($q, $timeout) {
     var vm = this;
 
-    var adminIcon = "https://pages.github.hpe.com/ashley-glenn-hunter/ux-aspects/assets/img/IconManagerColorized.png";
-    var userIcon = "https://pages.github.hpe.com/ashley-glenn-hunter/ux-aspects/assets/img/IconCustodianColorized.png";
+    var adminIcon = "https://uxaspects.github.io/UXAspects/assets/img/IconManagerColorized.png";
+    var userIcon = "https://uxaspects.github.io/UXAspects/assets/img/IconCustodianColorized.png";
 
     vm.options = {
         image: function (data) {

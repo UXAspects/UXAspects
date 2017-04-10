@@ -46,6 +46,7 @@ import { documentationSections } from './decorators/documentation-section-compon
 // Import Page Sections
 import { CSS_SECTIONS } from './pages/css/css';
 import { COMPONENT_SECTIONS } from './pages/components/components';
+import { CHART_SECTIONS } from './pages/charts/charts';
 
 let upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
 
@@ -60,6 +61,11 @@ const componentRoutes = loadRoutes(require('./data/components-page.json'));
 const cssRoutes = loadRoutes(require('./data/css-page.json'));
 
 /*
+  Configure Charts Page Routes
+*/
+const chartRoutes = loadRoutes(require('./data/charts-page.json'));
+
+/*
   Configure Application Routes
 */
 const appRoutes: Routes = [
@@ -70,7 +76,7 @@ const appRoutes: Routes = [
   { path: 'showcase', component: ShowcasePageComponent },
   { path: 'components', component: ComponentsPageComponent, children: componentRoutes },
   { path: 'css', component: CssPageComponent, children: cssRoutes },
-  { path: 'charts', component: ChartsPageComponent },
+  { path: 'charts', component: ChartsPageComponent, children: chartRoutes },
   { path: 'customize', component: CustomizePageComponent },
   { path: 'team', component: TeamPageComponent },
   { path: 'blog', component: BlogPageComponent },
@@ -137,6 +143,54 @@ const DECLARATIONS = [
   upgradeAdapter.upgradeNg1Component('uxdFlippableCardsWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdGridWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdHierarchyBarWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdHotkeysWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdKeyboardServiceWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdModalWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSquareModalWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdMarqueeModalWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSideModalWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdNotificationsWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdNotificationListWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdNotificationDropdownWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdAlertStylesWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdDismissableStylesWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdCollapsiblePanelsWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdItemDisplayPanelWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdModalInsetPanelWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdPopoverWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdProgressBarWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdCustomScrollbarWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdInfiniteScrollWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdInfiniteScrollLoadMoreWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSearchBuilderWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSearchBuilderCodeWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSearchHistoryWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSearchToolbarWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSplitterWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdNestedSplitterWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdLayoutSwitchingSplitterWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSideInsetPanelSplitterWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdTabsWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdDetailedTabWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdStackedTabsWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdCardTabsWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdTimelineWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdTooltipsWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdOverflowTooltipWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdSingleLineOverflowTooltipWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdStaticTooltipWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdTreeViewWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdTreeViewCompanionViewWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdTreeGridWrapper'),
+   upgradeAdapter.upgradeNg1Component('uxdTreeGridAsynchronousLoadingWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdWizardWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdWizardValidationWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdVerticalWizardWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdExpandingContentWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdPdfServiceWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdTimeAgoServiceWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdListItemFilterWrapper'),
+  upgradeAdapter.upgradeNg1Component('uxdMarqueeWizardWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdCustomResponsiveTableWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdCheckboxWrapper'),
   upgradeAdapter.upgradeNg1Component('uxdCustomDropdownWrapper'),
@@ -164,11 +218,23 @@ const DECLARATIONS = [
   // Angular 1 Wrapper Directives
   upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),
   upgradeAdapter.upgradeNg1Component('uxScrollPaneNg1'),
+  upgradeAdapter.upgradeNg1Component('uxFlotNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityLineChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityBarChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityPieChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPeityUpdatingLineChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxNestedDonutNg1'),
+  upgradeAdapter.upgradeNg1Component('uxOrganizationChartNg1'),
+  upgradeAdapter.upgradeNg1Component('uxSparkNg1'),
+  upgradeAdapter.upgradeNg1Component('uxPartitionMapNg1'),
+  upgradeAdapter.upgradeNg1Component('uxSankeyNg1'),
+  upgradeAdapter.upgradeNg1Component('uxSocialChartNg1')
 ]
 .concat(DOCUMENTATION_COMPONENTS)
 .concat(DOCUMENTATION_DIRECTIVES)
 .concat(CSS_SECTIONS)
-.concat(COMPONENT_SECTIONS);
+.concat(COMPONENT_SECTIONS)
+.concat(CHART_SECTIONS);
 
 @NgModule({
   imports: [
@@ -199,6 +265,8 @@ export class AppModule {
 */
 upgradeAdapter.upgradeNg1Provider('$rootScope');
 upgradeAdapter.upgradeNg1Provider('$state');
+upgradeAdapter.upgradeNg1Provider('flotDataService');
+upgradeAdapter.upgradeNg1Provider('lineDataService');
 
 /*
   Register Angular 1 module

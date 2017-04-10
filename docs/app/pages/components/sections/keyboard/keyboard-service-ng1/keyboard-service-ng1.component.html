@@ -1,0 +1,143 @@
+<p>The Keyboard Service, <code>keyboardService</code>, allows you to bind a key event to any element in your application. For
+  example, it can be used to enable navigation on a list of items using selected keys from the keyboard (such as the
+  <a routerLink="/components/panels" fragment="item-display-panel-ng1">Item Display Panel</a>). The <a routerLink="/components/keyboard"
+    fragment="hotkeys-ng1">Hotkey</a> directive also uses this service.</p>
+
+<p>Hotkeys bound to individual elements will be life-cycle bound to that element. If you wish to have a hotkey which works across
+  your entire application, you can directly use the <code>keyboardService</code>. Note that “target” here refers to the element
+  against which the key event is registered by the browser. The full API for this service is as follows:</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td class="attribute">keydown</td>
+        <td>
+          Arguments:
+          <ul>
+            <li><code>element</code> - (DOM element), specifies the element you wish to attach the keydown event listener to.</li>
+            <li><code>keyCode</code> - (integer), specifies the key the event listener will listen for.</li>
+            <li><code>callback</code> - (function), specifies the function which will be executed when the correct key is pressed.
+              Takes the <code>event</code> as a parameter.</li>
+            <li><code>priority</code> - (integer: optional), specifies the priority of the attached event. If multiple events
+              are attached to a single element, then the highest priority event callback will be executed first (default:
+              <code>1</code>).</li>
+            <li><code>stopPropagation</code> - (boolean: optional), specifies whether or not to stop event propagation when the
+              key is pressed (default: <code>false</code>).</li>
+          </ul>
+          <p>This function allows the user to attach a keydown event listener to an element. The user can then supply a callback
+            they wish to be executed when the correct key is pressed.</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="attribute">getCharCode</td>
+        <td>
+          Arguments:
+          <ul>
+            <li><code>character</code> - string</li>
+          </ul>
+          <p>Returns the integer keycode for a single character on the keyboard - also accepts the following special strings
+            for non-printing characters: <em>backspace, tab, clear, enter, return, escape, space, left, right, up, down, delete, home, end, pageup, pagedown</em>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="attribute">bindKey</td>
+        <td>
+          Arguments:
+          <ul>
+            <li><code>key</code> - integer or keycode object (see below)</li>
+            <li><code>callback</code> - function</li>
+            <li><code>element</code> - DOMElement, optional</li>
+            <li><code>target</code> - DOMElement, optional</li>
+          </ul>
+          <p>The function <code>callback</code> will be invoked with no arguments when the key defined by <code>key</code> is
+            pressed, when the element <code>target</code> has focus. If no target is provided, the hotkey will bind to the
+            <code>document</code>. If an <code>element</code> is provided, the hotkey binding will be removed when that element
+            is <code>$destroyed</code>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="attribute">unbindKey</td>
+        <td>
+          Arguments:
+          <ul>
+            <li><code>key</code> - integer or keycode object (see below)</li>
+            <li><code>target</code> - DOMElement, optional</li>
+          </ul>
+          <p>Removes a previously bound <code>key</code> hotkey from a <code>target</code>. If no target is provided, the binding
+            will be removed from the <code>document</code>.</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="attribute">createHotkeyHint</td>
+        <td>
+          Arguments:
+          <ul>
+            <li><code>element</code> - DOMElement</li>
+            <li><code>text</code> - string</li>
+          </ul>
+          <p>Creates a small hotkey hint graphic in the style of those seen in the above examples. The supplied <code>text</code> will be used, and will be added to the top-left of the <code>element</code>.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>As noted above, the <code>key</code> parameter may be either an integer or an object. As an integer it specifies a keycode
+  and will bind to a key press without any modifiers. Using an object as described below, a hotkey event may be bound with
+  one or more modifiers.</p>
+
+<div class="demo-attributes table-responsive">
+  <table class="table m-t">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Optional</th>
+      </tr>
+      <tr>
+        <td class="attribute">code</td>
+        <td>numeric</td>
+        <td>The keycode to bind the event to. The <code>getCharCode</code> API function may be used to convert many characters
+          into keycodes.</td>
+        <td>false</td>
+      </tr>
+      <tr>
+        <td class="attribute">shiftKey</td>
+        <td>boolean</td>
+        <td>Specifies whether the shift key must be pressed in combination with the hotkey. Default is false.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">ctrlKey</td>
+        <td>boolean</td>
+        <td>Specifies whether the control key must be pressed in combination with the hotkey. Default is false.</td>
+        <td>true</td>
+      </tr>
+      <tr>
+        <td class="attribute">altKey</td>
+        <td>boolean</td>
+        <td>Specifies whether the alt key must be pressed in combination with the hotkey. Default is false.</td>
+        <td>true</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4>Using the Service</h4>
+
+<p>To use this service, inject it as you would any other dependency using its full name, <code>keyboardService</code>. You can
+  then call its methods as shown below:</p>
+
+<uxd-snippet [content]="snippets.compiled.controllerJs" language="javascript"></uxd-snippet>
+
+<h4>Demonstration</h4>
+
+<p>Set up a keybind using the fields below, and press it to test.</p>
+
+<uxd-keyboard-service-wrapper></uxd-keyboard-service-wrapper>

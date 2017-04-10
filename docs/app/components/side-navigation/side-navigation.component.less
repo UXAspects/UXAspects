@@ -2,6 +2,7 @@
 
 :host {
     position: fixed;
+    width: 250px;
     padding: 1rem 0;
 }
 
@@ -22,7 +23,7 @@
 
             .side-navigation-list-item-link {
                 display: block;
-                padding: 0.35rem 0.75rem;
+                padding: 0.30rem 0.75rem;
                 border-left: 2px solid transparent;
                 color: @side-navigation-item-color;
                 font-size: 1rem;
@@ -53,4 +54,25 @@
             }
         }
     }
+}
+
+// Just for fun
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: @body-bg;
+}
+
+::-webkit-scrollbar-thumb {
+    border: none;
+    background-color: transparent;
+}
+
+.side-navigation-scroll-pane:hover::-webkit-scrollbar-thumb {
+    border: 3px solid @body-bg;
+    border-radius: 12px;
+    background-color: #999;
 }

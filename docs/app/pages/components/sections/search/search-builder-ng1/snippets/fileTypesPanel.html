@@ -1,0 +1,8 @@
+<div class="m-sm" ng-controller="FileTypesPanelCtrl as vm">
+  <input type="text" placeholder="Find a file type" class="form-control" ng-model="vm.filterText" force-focus>
+  <ul class="add-field-list" list-item-filter filter-text="vm.filterText">
+    <li class="field-name" ng-repeat="fileType in vm.fileTypes" key="{{ fileType.name }}" ng-click="vm.selectFileType(fileType)" ng-class="{ 'option-deselected': !fileType.checked, 'option-selected': fileType.checked }">
+      <span class="hpe-icon hpe-checkmark text-accent option-check"></span> {{ fileType.name }}
+    </li>
+  </ul>
+</div>

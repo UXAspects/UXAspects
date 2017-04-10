@@ -1,0 +1,17 @@
+.color-palette {
+  padding-top: 5px;
+}
+
+.color-palette .color-box {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin: 0 3px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.color-display {
+  border: 2px solid rgba(0, 0, 0, 0.3) !important;
+  transition: background-color 0.3s linear;
+}

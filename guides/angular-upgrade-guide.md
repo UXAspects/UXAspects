@@ -142,7 +142,7 @@ var path = require('path');
 module.exports = {
 
     entry: {
-        bundle: './src/app2/main.ts'
+        bundle: './src/app4/main.ts'
     },
 
     output: {
@@ -157,7 +157,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\.ts$/,
-            include: path.join(__dirname, 'src', 'app2'),
+            include: path.join(__dirname, 'src', 'app4'),
             loaders: ['awesome-typescript-loader', 'angular2-template-loader']
         }, {
             test: /\.html$/,
@@ -281,7 +281,7 @@ There is also a `downgradeNg2Provider` function on the `UpgradeAdpater` instance
 
 At this point you should now be able to begin migrating your existing application to Angular 4+ at a pace that suits you.
 
-Angular 4 provides us with useful upgrade an downgrade tools that allow us to expose components and services to each framework, however there is no tool to upgrade or downgrade non-component directives. So migrating any non-component directives early will help make sure everything you need is available once you start migrating components.
+Angular 4 provides us with useful upgrade and downgrade tools that allow us to expose components and services to each framework, however there is no tool to upgrade or downgrade non-component directives. So migrating any non-component directives early will help make sure everything you need is available once you start migrating components.
 
 When you are ready to start migrating components/services, it is important to identify which components/services have the fewest dependencies and migrate these first.
 

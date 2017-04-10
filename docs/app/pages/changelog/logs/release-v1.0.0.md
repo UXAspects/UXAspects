@@ -1,4 +1,4 @@
-Check out the documentation here: [https://uxaspects.github.io/uxaspects](https://uxaspects.github.io/uxaspects)
+Check out the documentation here: [https://uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects)
 
 **New Features:**
 

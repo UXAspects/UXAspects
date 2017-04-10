@@ -5,7 +5,10 @@ import * as $ from 'jquery';
 (<any>window).$ = $;
 (<any>window).jQuery = $;
 
-import 'jquery-ui-dist/jquery-ui';
+// import only the required jquery ui functionality
+import 'jquery-ui/ui/unique-id';
+import 'jquery-ui/ui/position';
+import 'jquery-ui/ui/widgets/sortable';
 
 import 'bootstrap';
 

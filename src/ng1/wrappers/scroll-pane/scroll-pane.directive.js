@@ -8,6 +8,11 @@ export function ScrollPaneDirective() {
         },
         template: `<div scroll-pane><div ng-transclude></div></div>`,
         transclude: true,
+        controller: ['$scope', function($scope) {
+            this.$onDestroy = function() {
+                $scope.$destroy();
+            };
+        }],
         link: function (scope, element) {
 
             if (scope.scrollName) {

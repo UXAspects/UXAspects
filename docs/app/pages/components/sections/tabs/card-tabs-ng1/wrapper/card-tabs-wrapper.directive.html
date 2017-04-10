@@ -1,0 +1,16 @@
+<cardset content-position="top">
+
+  <card ng-repeat="tab in ::vm.cardTabs">
+    <div class="cardTab">
+      <p class="cardTitle" ng-bind="::tab.title"></p>
+      <div class="cardImg" ng-class="tab.image"></div>
+      <p class="cardValue" ng-bind-html="::tab.value"></p>
+      <p class="cardSubtitle" ng-bind="::tab.subtitle"></p>
+    </div>
+    <tab-content>
+      <h4 ng-bind="::tab.title"></h4>
+      <p ng-bind-html="::tab.content"></p>
+    </tab-content>
+  </card>
+
+</cardset>

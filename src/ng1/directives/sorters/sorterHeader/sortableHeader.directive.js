@@ -7,7 +7,7 @@ export default function sortableHeader($resize, $timeout) {
         template: require('./sortableHeader.html'),
         controller: "SorterHeaderCtrl as vm",
         link: function(scope, element) {
-
+            
             // store reference to native element
             var nativeElement = element.get(0);
 

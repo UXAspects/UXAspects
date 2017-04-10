@@ -1,0 +1,10 @@
+<div class="m-b-lg">
+    <tabset type="tabs minimal-tab">
+        <tab ng-repeat="tab in ::vm.detailedTabs">
+            <tab-heading>
+                <span class="tab-title" ng-bind="::tab.title"></span>
+            </tab-heading>
+            <ng-include src="tab.content"></ng-include>
+        </tab>
+    </tabset>
+</div>

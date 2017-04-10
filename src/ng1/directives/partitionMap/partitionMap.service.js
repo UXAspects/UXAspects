@@ -1697,7 +1697,10 @@ PartitionMap.prototype.updateDockedPopover = function (data) {
     //apply the scope if needed
     chart.apply();
 
-    chart.timeout(chart.scope.pane.reinitialise);
+    // esnsure scroll pane is initialized
+    if(chart.scope.pane && chart.scope.pane.reinitialise) {
+      chart.timeout(chart.scope.pane.reinitialise);  
+    }
   }
 };
 

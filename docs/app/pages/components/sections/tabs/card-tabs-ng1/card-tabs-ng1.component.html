@@ -1,0 +1,21 @@
+<uxd-card-tabs-wrapper></uxd-card-tabs-wrapper>
+
+<hr>
+
+<p>Card tabs are defined inside a <code>cardset</code> element using a <code>card</code> element. Inside the <code>card</code> element insert any elements you wish to display inside the card. Also inside the <code>card</code> a <code>tab-content</code> element should be defined which will contain the content that will be shown when that card is selected.</p>
+
+<p>The tab content can be presented above or below the card by using the <code>content-position</code> attribute. The attribute should have a value of <code>top</code> or <code>bottom</code> which will place the content above or below respectively.</p>
+
+<p>If the <code>cardset</code> has more cards than can be displayed in the space available arrow buttons will appear to allow the user to scroll through all the cards.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [code]="htmlCode"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet language="css" [code]="cssCode"></uxd-snippet>
+    </tab>
+</tabset>

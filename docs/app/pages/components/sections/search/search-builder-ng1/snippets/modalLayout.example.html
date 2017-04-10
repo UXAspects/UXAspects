@@ -1,0 +1,27 @@
+<div class="dismiss">
+    <button class="btn btn-icon button-dark btn-circular btn-close" ng-click="vm.cancel()">
+        <i class="hpe-icon hpe-close"></i>
+    </button>
+</div>
+
+<div class="search-builder-header">
+    <div class="search-builder-header-inline">
+        <div class="search-icon"></div>
+        <h1 class="search-builder-title">Search builder</h1>
+    </div>
+</div>
+
+<div class="search-builder-scroll-container">
+    <div class="search-builder-scroller" scroll-config="vm.scrollBarConfig" scroll-pane scroll-name="search-builder">
+        <div class="search-builder-body">
+
+            <!-- Search Builder Should Go Here -->
+
+        </div>
+    </div>
+</div>
+
+<div class="search-builder-footer">
+    <button type="button" class="btn button-primary m-r-xs" ng-click="vm.ok()">Search</button>
+    <button type="button" class="btn button-secondary" ng-click="vm.cancel()">Cancel</button>
+</div>
