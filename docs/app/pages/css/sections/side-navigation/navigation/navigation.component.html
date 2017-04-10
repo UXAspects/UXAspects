@@ -4,11 +4,15 @@
 
 <p>Add <code>side-navigation</code> directive to initalize the navigation menu.</p>
 
-<p>Navigation menu is contained in the <code>navbar-static-side-container</code> class and can be styled by adding 
-    <code>navbar-static-side-dark</code> and <code>navbar-static-side-light</code>
-    class to the root element for dark and light themes respectively.</p>
+<p>Navigation menu is contained in the <code>navbar-static-side-container</code> class and can be styled by adding
+    <code>navbar-static-side-dark</code> and <code>navbar-static-side-light</code> class to the root element for
+    dark and light themes respectively.</p>
 
 <p>The width of the navigation menu is set and can be modified in the <code>navbar-static-side-container</code> class.</p>
+
+<p>If a parent navigation node does not have any content itself, the <code>cascade</code> class may be set on its
+    child <code>ul</code> element. This will cause the click to activate the link associated with the first child
+    item.</p>
 
 <tabset>
     <tab heading="HTML">
@@ -20,7 +24,7 @@
 </tabset>
 
 <blockquote>
-    <p><strong>Note</strong>: In order to bold the text for each selected level, we use <code>ng-class</code> in our HTML to
-        set the <code>active</code> class based on the page state. e.g. 
+    <p><strong>Note</strong>: In order to bold the text for each selected level, we use <code>ng-class</code> in our
+        HTML to set the <code>active</code> class based on the page state. e.g.
         <code>{{ noteCode }}</code></p>
 </blockquote>

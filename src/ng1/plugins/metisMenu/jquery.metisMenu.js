@@ -86,6 +86,11 @@ LICENSE-END
           $(this).parent('li').children('ul').collapse('toggle');
         }
 
+        // CUSTOM - allow parent node to activate first child
+        if ($(this).parent('li').children('ul').hasClass('cascade')) {
+          $(this).parent('li').children('ul').children('li').first().find('a').click();
+        }
+
         if ($toggle) {
           $(this).parent('li').siblings().removeClass('selected').children('ul.in').collapse('hide');
         }
