@@ -20,6 +20,13 @@ function WizardValidationCtrl($scope: angular.IScope) {
     vm.text = '';
     vm.validate = validate;
 
+    vm.buttonOptions = {
+        previousTooltip: "Go to the previous step",
+        nextTooltip: "Go to the next step",
+        cancelTooltip: "Cancel the wizard",
+        finishTooltip: "Finish the wizard"
+    };
+
     function validate() {
         return $scope.requiredInput.requiredText.$valid;
     }
