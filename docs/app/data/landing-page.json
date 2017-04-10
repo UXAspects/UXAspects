@@ -4,11 +4,12 @@
         "slogan": "Enterprise Big Data UX Framework",
         "action": {
             "title": "Download UX Aspects",
-            "link": ""
+            "link": "https://github.com/UXAspects/UXAspects/releases"
         },
         "version": "Currently v1.0.0",
         "changelog": {
-            "title": "View Changes Log"
+            "title": "View Changes Log",
+            "link": "/changelog"
         }
     },
     "overview": {
