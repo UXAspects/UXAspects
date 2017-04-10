@@ -17,7 +17,7 @@ export class ComponentsWizardNg1Component implements ICodePenProvider {
     public codepen: ICodePen = {
         html: this.htmlCode,
         htmlAttributes: {
-            'ng-controller': 'VerticalWizardCtrl as vm'
+            'ng-controller': 'WizardCtrl as vm'
         },
         js: [this.jsCode]
     };

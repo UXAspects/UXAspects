@@ -16,7 +16,7 @@ function TreeViewCompanionViewCtrl() {
     };
 
     vm.treeOptions = {
-      showTreeLines: true,
+      showTreeLines: false,
       openOnSelect: false
     };
 

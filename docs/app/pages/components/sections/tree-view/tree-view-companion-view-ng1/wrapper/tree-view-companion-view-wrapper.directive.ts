@@ -30,7 +30,7 @@ function TreeViewCompanionViewCtrl($scope: angular.IScope) {
     };
 
     vm.treeOptions = {
-      showTreeLines: true,
+      showTreeLines: false,
       openOnSelect: false
     };
 

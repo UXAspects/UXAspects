@@ -14,7 +14,7 @@ export class ComponentsTreeGridAsynchronousLoadingNg1Component implements ICodeP
     private htmlCode = require('./snippets/sample.html');
     private jsCodeShort = require('./snippets/sample-short.js');
     private jsCode = require('./snippets/sample.js');
-    private template = require('./wrapper/template.html');
+    private template = require('./snippets/template.html');
 
     public codepen: ICodePen = {
         html: this.htmlCode,
