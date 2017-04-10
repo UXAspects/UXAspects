@@ -10868,6 +10868,10 @@ fieldset[disabled] .btn-toggle.active {
   display: block;
   padding: 0;
 }
+.wizard > .actions ul,
+.tabcontrol > .actions ul {
+  margin-bottom: 5px;
+}
 .wizard > .steps .current-info,
 .tabcontrol > .steps .current-info {
   position: absolute;

@@ -17908,23 +17908,23 @@ function cardset($window, $compile, safeTimeout) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = card;
 function card() {
-      return {
-            restrict: 'E',
-            template: "<li class=\"card-tab\"><div class=\"no-overflow\" ng-transclude></div></li>",
-            transclude: true,
-            replace: true,
-            link: function link(scope, element) {
+  return {
+    restrict: 'E',
+    template: "<li class=\"card-tab\"><div class=\"no-overflow\" ng-transclude></div></li>",
+    transclude: true,
+    replace: true,
+    link: function link(scope, element) {
 
-                  //find our tab content and hide it
-                  var tabContent = element[0].getElementsByTagName('tab-content');
+      //find our tab content and hide it
+      var tabContent = element[0].getElementsByTagName('tab-content');
 
-                  if (!tabContent || tabContent.length > 1) throw 'Card tabs can have only one tab-content element';
+      if (!tabContent || tabContent.length > 1) throw 'Card tabs can have only one tab-content element';
 
-                  if (tabContent.length === 0) return;
+      if (tabContent.length === 0) return;
 
-                  tabContent[0].style.display = 'none';
-            }
-      };
+      tabContent[0].style.display = 'none';
+    }
+  };
 }
 
 /***/ }),
@@ -19737,55 +19737,55 @@ var AffixDisplayPanel = function () {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = draggableCard;
 function draggableCard() {
-      return {
-            restrict: "E",
-            template: __webpack_require__(493),
-            replace: true,
-            transclude: true,
-            scope: {
-                  cardTitle: '=?',
-                  cardSubtitle: '=?',
-                  cardSelected: '=?',
-                  cardIcons: '=?',
-                  disableRemove: '=?',
-                  disableEdit: '=?'
-            },
-            link: function link(scope, element) {
+  return {
+    restrict: "E",
+    template: __webpack_require__(493),
+    replace: true,
+    transclude: true,
+    scope: {
+      cardTitle: '=?',
+      cardSubtitle: '=?',
+      cardSelected: '=?',
+      cardIcons: '=?',
+      disableRemove: '=?',
+      disableEdit: '=?'
+    },
+    link: function link(scope, element) {
 
-                  //if the card is the default selected card then set an attribute on it
-                  if (scope.cardSelected && scope.cardSelected === true) {
-                        element[0].setAttribute('default-selected-card', '');
-                  }
+      //if the card is the default selected card then set an attribute on it
+      if (scope.cardSelected && scope.cardSelected === true) {
+        element[0].setAttribute('default-selected-card', '');
+      }
 
-                  if (scope.cardIcons) {
-                        for (var i = 0; i < scope.cardIcons.length; i++) {
-                              if (!scope.cardIcons[i].tooltipPlacement) {
-                                    scope.cardIcons[i].tooltipPlacement = 'top';
-                              }
-                        }
-                  }
+      if (scope.cardIcons) {
+        for (var i = 0; i < scope.cardIcons.length; i++) {
+          if (!scope.cardIcons[i].tooltipPlacement) {
+            scope.cardIcons[i].tooltipPlacement = 'top';
+          }
+        }
+      }
 
-                  //get parent element properties
-                  var parentScope = element.parent().scope();
+      //get parent element properties
+      var parentScope = element.parent().scope();
 
-                  //find out whether we are allowed to edit or remove
-                  var allowEditing = parentScope.allowEditing !== null && parentScope.allowEditing !== undefined ? parentScope.allowEditing : true;
-                  var allowRemoving = parentScope.allowRemoving !== null && parentScope.allowRemoving !== undefined ? parentScope.allowRemoving : true;
-                  var allowReordering = parentScope.allowReordering !== null && parentScope.allowReordering !== undefined ? parentScope.allowReordering : true;
+      //find out whether we are allowed to edit or remove
+      var allowEditing = parentScope.allowEditing !== null && parentScope.allowEditing !== undefined ? parentScope.allowEditing : true;
+      var allowRemoving = parentScope.allowRemoving !== null && parentScope.allowRemoving !== undefined ? parentScope.allowRemoving : true;
+      var allowReordering = parentScope.allowReordering !== null && parentScope.allowReordering !== undefined ? parentScope.allowReordering : true;
 
-                  //find out if we have the necessary functions to edit and remove
-                  var hasEditFunc = parentScope.onEdit !== null && parentScope.onEdit !== undefined;
-                  var hasRemoveFunc = parentScope.onRemove !== null && parentScope.onRemove !== undefined;
+      //find out if we have the necessary functions to edit and remove
+      var hasEditFunc = parentScope.onEdit !== null && parentScope.onEdit !== undefined;
+      var hasRemoveFunc = parentScope.onRemove !== null && parentScope.onRemove !== undefined;
 
-                  scope.allowEditing = hasEditFunc && allowEditing;
-                  scope.allowRemoving = hasRemoveFunc && allowRemoving;
-                  scope.allowReordering = allowReordering;
+      scope.allowEditing = hasEditFunc && allowEditing;
+      scope.allowRemoving = hasRemoveFunc && allowRemoving;
+      scope.allowReordering = allowReordering;
 
-                  //show header if any of the properties have been set
-                  scope.showTitle = scope.cardTitle || scope.cardSubtitle;
-                  scope.showHeader = scope.showTitle || scope.allowEditing || scope.allowRemoving;
-            }
-      };
+      //show header if any of the properties have been set
+      scope.showTitle = scope.cardTitle || scope.cardSubtitle;
+      scope.showHeader = scope.showTitle || scope.allowEditing || scope.allowRemoving;
+    }
+  };
 }
 
 /***/ }),
@@ -19823,779 +19823,779 @@ function fixedCard() {
 draggableCards.$inject = ['safeTimeout', 'safeEventListener'];
 
 function draggableCards(safeTimeout, safeEventListener) {
-        return {
-                restrict: "E",
-                template: __webpack_require__(495),
-                replace: true,
-                transclude: true,
-                scope: {
-                        allowEditing: '=?',
-                        allowRemoving: '=?',
-                        allowReordering: '=?',
-                        onEdit: '=?',
-                        onRemove: '=?',
-                        onReorder: '=?',
-                        onSelect: '=?',
-                        direction: '@?'
-                },
-                link: function link(scope, element) {
+  return {
+    restrict: "E",
+    template: __webpack_require__(495),
+    replace: true,
+    transclude: true,
+    scope: {
+      allowEditing: '=?',
+      allowRemoving: '=?',
+      allowReordering: '=?',
+      onEdit: '=?',
+      onRemove: '=?',
+      onReorder: '=?',
+      onSelect: '=?',
+      direction: '@?'
+    },
+    link: function link(scope, element) {
+
+      //store some things in this context
+      var draggableContainer,
+          cardElements,
+          draggableTop,
+          draggableBottom,
+          draggableCards = [],
+          fixedCards = [],
+          draggingCard,
+          dragging = false,
+          cardCount = 0;
+
+      //identify the container element
+      draggableContainer = angular.element(element[0].getElementsByClassName('draggable-card-container')[0]);
+
+      //identify the scroller element 
+      var draggableScroller = angular.element(element[0].getElementsByClassName('draggable-card-scroller')[0]);
+
+      //create a scope safe timeout
+      var timeoutInstance = safeTimeout.create(scope);
+      var safeEventInstance = safeEventListener.create(scope);
+
+      //initialise tiny scrollbar
+      var scrollPane = draggableScroller.jScrollPane({
+        resizeSensor: true,
+        verticalGutter: -9,
+        enableKeyboardNavigation: true,
+        isScrollableH: false
+      });
+
+      var api = scrollPane.data('jsp');
+
+      //start timeout - this will callback when the child components have been rendered
+      timeoutInstance.timeout(initialise);
+
+      function initialise() {
+
+        //get the card containers and store them
+        cardElements = draggableContainer[0].getElementsByClassName('card-container');
+        cardCount = cardElements.length;
+
+        //order the cards
+        orderCards();
+
+        //prepare cards - add click handlers and position them top
+        prepareCards();
+
+        //add event listener to capture dragging
+        safeEventInstance.bind(document, 'mousemove', onDrag);
+        //add event listener to add keyboard control
+        safeEventInstance.bind(document, 'keydown', accesibility);
+
+        // set up an observer to watch for any changes to the number of cards
+        var observer = new MutationObserver(cardsHaveChanged);
+
+        // begin observations
+        observer.observe(draggableContainer[0], {
+          childList: true,
+          subtree: true
+        });
+
+        // tidy up on scope destroy
+        scope.$on('$destroy', function () {
+          observer.disconnect();
+        });
+
+        selectDefault();
+
+        //ensure we can handle resize events
+        element.resize(function () {
+          reorderCards();
+
+          draggableContainer[0].style.height = '';
+          draggableContainer[0].style.minHeight = element.height() + 'px';
+          draggableContainer.height(draggableContainer[0].scrollHeight);
+        });
+      }
+
+      function cardsHaveChanged() {
+        var childNodes = draggableContainer[0].getElementsByClassName('card-container');
+
+        if (childNodes.length !== cardCount) {
+          cardCount = childNodes.length;
+          reorderCards();
+          prepareCards();
+          return;
+        }
 
-                        //store some things in this context
-                        var draggableContainer,
-                            cardElements,
-                            draggableTop,
-                            draggableBottom,
-                            draggableCards = [],
-                            fixedCards = [],
-                            draggingCard,
-                            dragging = false,
-                            cardCount = 0;
+        for (var i = 0; i < childNodes.length; i++) {
+          var processed = childNodes[i].getAttribute('reorder') !== null;
 
-                        //identify the container element
-                        draggableContainer = angular.element(element[0].getElementsByClassName('draggable-card-container')[0]);
+          if (!processed) {
+            reorderCards();
+            prepareCards();
+          }
+        }
+      }
 
-                        //identify the scroller element 
-                        var draggableScroller = angular.element(element[0].getElementsByClassName('draggable-card-scroller')[0]);
+      function selectDefault() {
+        for (var i = 0; i < cardElements.length; i++) {
+          var card = cardElements[i];
 
-                        //create a scope safe timeout
-                        var timeoutInstance = safeTimeout.create(scope);
-                        var safeEventInstance = safeEventListener.create(scope);
+          var selected = card.getAttribute('default-selected-card');
 
-                        //initialise tiny scrollbar
-                        var scrollPane = draggableScroller.jScrollPane({
-                                resizeSensor: true,
-                                verticalGutter: -9,
-                                enableKeyboardNavigation: true,
-                                isScrollableH: false
-                        });
+          if (selected !== null) selectCard(cardFromContainer(card));
+        }
+      }
 
-                        var api = scrollPane.data('jsp');
+      function prepareCards() {
 
-                        //start timeout - this will callback when the child components have been rendered
-                        timeoutInstance.timeout(initialise);
+        //create wrapper function - pass the element from the event to the function
+        var click = function click(event) {
+          if (dragging) return;
 
-                        function initialise() {
+          //if the click was on the drag handle then ignore it
+          if (angular.element(event.srcElement).hasClass('drag-handle')) return;
 
-                                //get the card containers and store them
-                                cardElements = draggableContainer[0].getElementsByClassName('card-container');
-                                cardCount = cardElements.length;
+          //if the click was on an icon then ignore it
+          if (angular.element(event.scrElement).hasClass('draggable-icon')) return;
 
-                                //order the cards
-                                orderCards();
-
-                                //prepare cards - add click handlers and position them top
-                                prepareCards();
-
-                                //add event listener to capture dragging
-                                safeEventInstance.bind(document, 'mousemove', onDrag);
-                                //add event listener to add keyboard control
-                                safeEventInstance.bind(document, 'keydown', accesibility);
-
-                                // set up an observer to watch for any changes to the number of cards
-                                var observer = new MutationObserver(cardsHaveChanged);
-
-                                // begin observations
-                                observer.observe(draggableContainer[0], {
-                                        childList: true,
-                                        subtree: true
-                                });
-
-                                // tidy up on scope destroy
-                                scope.$on('$destroy', function () {
-                                        observer.disconnect();
-                                });
-
-                                selectDefault();
-
-                                //ensure we can handle resize events
-                                element.resize(function () {
-                                        reorderCards();
-
-                                        draggableContainer[0].style.height = '';
-                                        draggableContainer[0].style.minHeight = element.height() + 'px';
-                                        draggableContainer.height(draggableContainer[0].scrollHeight);
-                                });
-                        }
-
-                        function cardsHaveChanged() {
-                                var childNodes = draggableContainer[0].getElementsByClassName('card-container');
-
-                                if (childNodes.length !== cardCount) {
-                                        cardCount = childNodes.length;
-                                        reorderCards();
-                                        prepareCards();
-                                        return;
-                                }
-
-                                for (var i = 0; i < childNodes.length; i++) {
-                                        var processed = childNodes[i].getAttribute('reorder') !== null;
-
-                                        if (!processed) {
-                                                reorderCards();
-                                                prepareCards();
-                                        }
-                                }
-                        }
-
-                        function selectDefault() {
-                                for (var i = 0; i < cardElements.length; i++) {
-                                        var card = cardElements[i];
-
-                                        var selected = card.getAttribute('default-selected-card');
-
-                                        if (selected !== null) selectCard(cardFromContainer(card));
-                                }
-                        }
-
-                        function prepareCards() {
-
-                                //create wrapper function - pass the element from the event to the function
-                                var click = function click(event) {
-                                        if (dragging) return;
-
-                                        //if the click was on the drag handle then ignore it
-                                        if (angular.element(event.srcElement).hasClass('drag-handle')) return;
-
-                                        //if the click was on an icon then ignore it
-                                        if (angular.element(event.scrElement).hasClass('draggable-icon')) return;
-
-                                        //fire select event
-                                        selectCard(event.currentTarget);
-                                };
-
-                                var onArrowUpClick = function onArrowUpClick(evt) {
-                                        //if dragging then we dont want to do anything
-                                        if (dragging) return;
-
-                                        //get the card element
-                                        var container = $(evt.currentTarget).closest('.card')[0];
-
-                                        //call appropriate function
-                                        moveUp(container);
-
-                                        //stop event bubbling up to select card
-                                        evt.stopPropagation();
-                                };
-
-                                var onArrowDownClick = function onArrowDownClick(evt) {
-                                        //if dragging then we dont want to do anything
-                                        if (dragging) return;
-
-                                        //get the card element
-                                        var container = $(evt.currentTarget).closest('.card')[0];
-
-                                        //call appropriate function
-                                        moveDown(container);
-
-                                        //stop event bubbling up to select card
-                                        evt.stopPropagation();
-                                };
-
-                                var onEditClick = function onEditClick(evt) {
-                                        //if dragging then we dont want to do anything
-                                        if (dragging) return;
-
-                                        //get the card element
-                                        var container = $(evt.currentTarget).closest('.card')[0];
-
-                                        if (container.querySelector(".title-container .hpe-edit").classList.contains("disabled")) return;
-
-                                        //call appropriate function
-                                        editCard(container);
-
-                                        //stop event bubbling up to select card
-                                        evt.stopPropagation();
-                                };
-
-                                var onRemoveClick = function onRemoveClick(evt) {
-                                        //if dragging then we dont want to do anything
-                                        if (dragging) return;
-
-                                        //get the card element
-                                        var container = $(evt.currentTarget).closest('.card')[0];
-
-                                        if (container.querySelector(".title-container .close-btn").classList.contains("disabled")) return;
-
-                                        //call appropriate function
-                                        removeCard(container);
-
-                                        //stop event bubbling up to select card
-                                        evt.stopPropagation();
-                                };
-
-                                //iterate through each card container
-                                for (var i = 0; i < cardElements.length; i++) {
-
-                                        if (cardElements[i].getAttribute('reorder') !== null) continue;
-
-                                        //get the card element from each container
-                                        var card = cardFromContainer(cardElements[i]);
-                                        var dragHandle = card.getElementsByClassName('drag-handle');
-                                        var upArrow = card.getElementsByClassName('arrow-up');
-                                        var downArrow = card.getElementsByClassName('arrow-down');
-                                        var editBtn = card.getElementsByClassName('editing-btn');
-                                        var closeBtn = card.getElementsByClassName('close-btn');
-
-                                        //set attribute so we know if it has been processed
-                                        cardElements[i].setAttribute('reorder', '');
-
-                                        //add event listeners
-                                        card.addEventListener('click', click);
-
-                                        if (upArrow && upArrow.length > 0) upArrow[0].addEventListener('click', onArrowUpClick);
-
-                                        if (downArrow && downArrow.length > 0) downArrow[0].addEventListener('click', onArrowDownClick);
-
-                                        if (editBtn && editBtn.length > 0) editBtn[0].addEventListener('click', onEditClick);
-
-                                        if (closeBtn && closeBtn.length > 0) closeBtn[0].addEventListener('click', onRemoveClick);
-
-                                        if (dragHandle && dragHandle.length > 0) dragHandle[0].addEventListener('mousedown', dragCard);
-                                }
-                        }
-
-                        function editCard(element) {
-                                var parentScope = angular.element(element.parentNode).scope();
-
-                                if (scope.onEdit) {
-                                        scope.onEdit.apply(parentScope, [parentScope, element]);
-                                }
-                        }
-
-                        function removeCard(element) {
-                                var parentScope = angular.element(element.parentNode).scope();
-
-                                //get height of the container before the card is removed
-                                var oldHeight = parseInt(draggableContainer[0].style.height);
-
-                                if (scope.onRemove) {
-                                        scope.onRemove.apply(parentScope, [parentScope, element]);
-                                }
-
-                                //wait for digest
-                                timeoutInstance.timeout(function () {
-                                        //get height of the container after card is removed
-                                        var newHeight = parseInt(draggableContainer[0].style.height);
-                                        //scroll up to correct the container size change
-                                        api.scrollByY(-(oldHeight - newHeight));
-                                });
-                        }
-
-                        function getFixedCards() {
-                                //get the latest card elements
-                                cardElements = draggableContainer[0].getElementsByClassName('card-container');
-
-                                var fixed = [];
-
-                                //group cards by type - ie. fixed or draggable
-                                for (var i = 0; i < cardElements.length; i++) {
-                                        //get the card element from each container
-                                        var card = angular.element(cardFromContainer(cardElements[i]));
-
-                                        if (card.hasClass('fixed')) fixed.push(cardElements[i]);
-                                }
-
-                                return fixed;
-                        }
-
-                        function getDraggableCards() {
-                                //get the latest card elements
-                                cardElements = draggableContainer[0].getElementsByClassName('card-container');
-
-                                var draggable = [];
-
-                                //group cards by type - ie. fixed or draggable
-                                for (var i = 0; i < cardElements.length; i++) {
-                                        //get the card element from each container
-                                        var card = angular.element(cardFromContainer(cardElements[i]));
-
-                                        if (card.hasClass('draggable')) draggable.push(cardElements[i]);
-                                }
-
-                                return draggable;
-                        }
-
-                        function reorderCards() {
-
-                                //initial top offset
-                                var top = 5;
-
-                                //revert values of stored draggable cards and fixed cards
-                                fixedCards = getFixedCards();
-                                draggableCards = getDraggableCards();
-
-                                var comparator = function comparator(a, b) {
-                                        var aProcessed = a.getAttribute('reorder') !== null;
-                                        var bProcessed = b.getAttribute('reorder') !== null;
-
-                                        //if one of them is not processed then move it to the bottom of the list
-                                        if (!aProcessed && bProcessed) return 1;
-                                        if (aProcessed && !bProcessed) return -1;
-
-                                        var aTop = a.offsetTop;
-                                        var bTop = b.offsetTop;
-
-                                        if (aTop < bTop) return -1;
-                                        if (aTop > bTop) return 1;
-                                        return 0;
-                                };
-
-                                //sort each by offset and whether or not they have been previously ordered
-                                fixedCards.sort(comparator);
-                                draggableCards.sort(comparator);
-
-                                //now position cards based on their order
-                                for (var f = 0; f < fixedCards.length; f++) {
-                                        //position each fixed card at the top
-                                        var fixedCard = fixedCards[f];
-
-                                        //set top position
-                                        fixedCard.style.position = 'absolute';
-                                        fixedCard.style.top = top + 'px';
-
-                                        //store new top
-                                        top += $(fixedCard).outerHeight(true);
-                                }
-
-                                //store upper bound
-                                draggableTop = top;
-
-                                for (var d = 0; d < draggableCards.length; d++) {
-                                        //position each fixed card at the top
-                                        var draggableCard = draggableCards[d];
-
-                                        //set top position
-                                        draggableCard.style.position = 'absolute';
-                                        draggableCard.style.top = top + 'px';
-
-                                        //store new top
-                                        top += $(draggableCard).outerHeight(true);
-                                }
-
-                                //store lower bound
-                                draggableBottom = top;
-
-                                //find list base
-                                var listBase = draggableContainer[0].getElementsByClassName('list-base')[0];
-                                listBase.style.top = draggableBottom + 'px';
-
-                                //clear previous height - then set new one
-                                draggableContainer[0].style.height = '';
-                                draggableContainer[0].style.minHeight = element.height() + 'px';
-                                draggableContainer.height(draggableContainer[0].scrollHeight);
-                        }
-
-                        function orderCards() {
-
-                                var top = 5;
-
-                                //group cards by type - ie. fixed or draggable
-                                fixedCards = getFixedCards();
-                                draggableCards = getDraggableCards();
-
-                                //set the positions of each card
-                                for (var f = 0; f < fixedCards.length; f++) {
-                                        //position each fixed card at the top
-                                        var fixedCard = fixedCards[f];
-
-                                        //set top position
-                                        fixedCard.style.position = 'absolute';
-                                        fixedCard.style.top = top + 'px';
-
-                                        //store new top
-                                        top += $(fixedCard).outerHeight(true);
-                                }
-
-                                //store upper bound
-                                draggableTop = top;
-
-                                for (var d = 0; d < draggableCards.length; d++) {
-                                        //position each fixed card at the top
-                                        var draggableCard = draggableCards[d];
-
-                                        //set top position
-                                        draggableCard.style.position = 'absolute';
-                                        draggableCard.style.top = top + 'px';
-
-                                        //store new top
-                                        top += $(draggableCard).outerHeight(true);
-                                }
-
-                                //store lower bound
-                                draggableBottom = top;
-
-                                //create a base element to maintain height
-                                var base = document.createElement('div');
-                                base.style.position = 'absolute';
-                                base.style.width = '100%';
-                                base.style.height = '1px';
-                                base.style.top = draggableBottom + 'px';
-                                base.className = 'list-base';
-
-                                draggableContainer.append(base);
-                                draggableContainer[0].style.minHeight = element.height() + 'px';
-                                draggableContainer.height(draggableContainer[0].scrollHeight);
-                        }
-
-                        function selectCard(element) {
-                                //deselect any currently selected cards
-                                deselectCards();
-
-                                //select the current card
-                                if (scope.direction) {
-                                        if (scope.direction.toLowerCase() === 'left') angular.element(element).addClass('active left');else angular.element(element).addClass('active right');
-                                } else {
-                                        angular.element(element).addClass('active right');
-                                }
-
-                                if (scope.onSelect) {
-                                        var cardScope = angular.element(element.parentNode).scope();
-                                        scope.onSelect.apply(cardScope, [cardScope, element]);
-                                }
-                        }
-
-                        function deselectCards() {
-                                for (var i = 0; i < cardElements.length; i++) {
-                                        angular.element(cardElements[i]).removeClass('tabbed');
-                                        angular.element(cardFromContainer(cardElements[i])).removeClass('active right');
-                                }
-                        }
-
-                        function cardFromContainer(container) {
-
-                                //ensure container exists
-                                if (!container) throw new Error('Cannot find card');
-
-                                //get card element
-                                var card = container.getElementsByClassName('card');
-
-                                //ensure card element exists
-                                if (!card || card.length === 0) throw new Error('Card container is empty');
-
-                                //return card element
-                                return card[0];
-                        }
-
-                        function moveUp(element) {
-                                var cardContainer = element.parentNode;
-                                var previousCard = getPreviousCard(cardContainer);
-
-                                //if there is no previous card then dont do anything
-                                if (previousCard === null) return;
-
-                                //other wise lets swap their order
-                                var previousTop = previousCard.offsetTop;
-                                var currentHeight = $(cardContainer).outerHeight(true);
-
-                                var currentTop = previousTop + 'px';
-                                previousTop = previousTop + currentHeight + 'px';
-
-                                //animate the new positions
-                                moveCard(cardContainer, currentTop);
-                                moveCard(previousCard, previousTop, notifyReorder);
-                        }
-
-                        function moveCard(element, position, callback) {
-                                $(element).animate({
-                                        top: position
-                                }, {
-                                        duration: 100,
-                                        queue: false,
-                                        complete: callback
-                                });
-                        }
-
-                        function moveDown(element) {
-                                var cardContainer = element.parentNode;
-                                var nextCard = getNextCard(cardContainer);
-
-                                //if there is no next card then dont do anything
-                                if (nextCard === null) return;
-
-                                //other wise lets swap their order
-                                var currentTop = cardContainer.offsetTop;
-                                var nextHeight = $(nextCard).outerHeight(true);
-
-                                var nextTop = currentTop + 'px';
-                                currentTop = currentTop + nextHeight + 'px';
-
-                                //animate the new positions
-                                moveCard(cardContainer, currentTop);
-                                moveCard(nextCard, nextTop, notifyReorder);
-                        }
-
-                        function notifyReorder() {
-                                //when animation is completed then call the reorder callback
-                                if (scope.onReorder) {
-                                        var sortedCards = allSortedCards();
-
-                                        var scopes = [];
-
-                                        for (var i = 0; i < sortedCards.length; i++) {
-                                                //get the scope of the current card
-                                                scopes.push(angular.element(sortedCards[i]).scope());
-                                        }
-
-                                        scope.onReorder(scopes);
-                                }
-                        }
-
-                        function clearSelection() {
-                                if (document.selection) document.selection.empty();else if (window.getSelection) window.getSelection().removeAllRanges();
-                        }
-
-                        function dragCard(event) {
-                                dragging = true;
-
-                                //ensure we remove any text selection before dragging
-                                clearSelection();
-
-                                var card = $(event.currentTarget).closest('.card');
-                                var cardContainer = card.closest('.card-container');
-
-                                //add drag styling
-                                card.addClass('dragging');
-
-                                var release = function release() {
-
-                                        //remove drag styling
-                                        card.removeClass('dragging');
-
-                                        //remove document event listener
-                                        document.removeEventListener('mouseup', release);
-
-                                        //remove reference to the card being dragged
-                                        draggingCard.mouseOffset = null;
-                                        draggingCard = null;
-
-                                        //required so that mouse up event doesn't select the dragged item
-                                        setTimeout(function () {
-                                                dragging = false;
-                                        });
-
-                                        //snap dragged card to the correct location
-                                        reorderAfterDrag(true);
-                                };
-
-                                //add event listener to document
-                                document.addEventListener('mouseup', release);
-
-                                //store dragging card
-                                draggingCard = cardContainer[0];
-                        }
-
-                        function onDrag(event) {
-                                if (!draggingCard) return;
-
-                                clearSelection();
-
-                                var elementY = draggableContainer[0].getBoundingClientRect().top;
-                                var mouseY = event.pageY;
-                                var cardTop = draggingCard.offsetTop;
-
-                                //calculate position from top
-                                var offsetY = mouseY - elementY + draggableContainer[0].scrollTop;
-
-                                var cardHeight = $(draggingCard).outerHeight(true);
-
-                                if (!draggingCard.mouseOffset) draggingCard.mouseOffset = offsetY - cardTop;
-
-                                //new top position
-                                var newYPos = offsetY - draggingCard.mouseOffset;
-
-                                //if valid position then move
-                                if (newYPos < draggableTop) {
-                                        draggingCard.style.top = draggableTop + 'px';
-                                        return;
-                                } else if (newYPos + cardHeight > draggableBottom) {
-                                        draggingCard.style.top = draggableBottom - cardHeight + 'px';
-                                        return;
-                                }
-
-                                draggingCard.style.top = offsetY - draggingCard.mouseOffset + 'px';
-
-                                //reorder the cards based on the current drag position
-                                reorderAfterDrag(false);
-                        }
-
-                        function reorderAfterDrag(notify) {
-
-                                var cards = sortedDraggedCards();
-
-                                var top = draggableTop;
-
-                                for (var d = 0; d < cards.length; d++) {
-                                        //position each fixed card at the top
-                                        var draggableCard = cards[d];
-
-                                        if (draggingCard !== draggableCard) {
-                                                //set top position
-                                                draggableCard.style.top = top + 'px';
-                                        }
-
-                                        //store new top
-                                        top += $(draggableCard).outerHeight(true);
-                                }
-
-                                if (notify) notifyReorder();
-                        }
-
-                        function getPreviousCard(cardContainer) {
-                                var cards = sortedCards();
-
-                                var currentIdx = cards.indexOf(cardContainer);
-
-                                if (currentIdx === -1) throw new Error('Could not find container');
-
-                                //if there is no previous card then return null
-                                if (currentIdx === 0) return null;
-
-                                //otherwise return previous card
-                                return cards[currentIdx - 1];
-                        }
-
-                        function getNextCard(cardContainer) {
-                                var cards = sortedCards();
-
-                                var currentIdx = cards.indexOf(cardContainer);
-
-                                if (currentIdx === -1) throw new Error('Could not find container');
-
-                                //if there is no next card then return null
-                                if (currentIdx === cards.length - 1) return null;
-
-                                //otherwise return previous card
-                                return cards[currentIdx + 1];
-                        }
-
-                        function sortedCards() {
-
-                                //return the cards in order of top position
-                                return draggableCards.sort(function (a, b) {
-                                        var aTop = a.offsetTop;
-                                        var bTop = b.offsetTop;
-
-                                        if (aTop < bTop) return -1;
-                                        if (aTop > bTop) return 1;
-                                        return 0;
-                                });
-                        }
-
-                        function allSortedCards() {
-
-                                //convert html collection to array
-                                var cards = [];
-                                for (var i = 0; i < cardElements.length; i++) {
-                                        cards.push(cardElements[i]);
-                                } //return the cards in order of top position
-                                return cards.sort(function (a, b) {
-                                        var aTop = a.offsetTop;
-                                        var bTop = b.offsetTop;
-
-                                        if (aTop < bTop) return -1;
-                                        if (aTop > bTop) return 1;
-                                        return 0;
-                                });
-                        }
-
-                        function sortedDraggedCards() {
-
-                                return draggableCards.sort(function (a, b) {
-
-                                        var aTop = a.offsetTop;
-                                        var aHeight = $(a).outerHeight(true);
-                                        var aMidpoint = aTop + aHeight / 2;
-                                        var aBottom = aTop + aHeight;
-
-                                        var bTop = b.offsetTop;
-                                        var bHeight = $(b).outerHeight(true);
-                                        var bMidpoint = bTop + bHeight / 2;
-                                        var bBottom = bTop + bHeight;
-
-                                        if (a === draggingCard) {
-
-                                                //need to cover this quirk - weird IE sorting
-                                                if (aTop < bTop) {
-                                                        if (aBottom > bMidpoint) return 1;
-                                                } else {
-                                                        if (bBottom > aMidpoint) return -1;
-                                                }
-                                        }
-
-                                        if (b === draggingCard) {
-                                                //need to cover this quirk - weird IE sorting
-                                                if (aTop < bTop) {
-                                                        if (bTop < aMidpoint) return 1;
-                                                } else {
-                                                        if (aTop < bMidpoint) return -1;
-                                                }
-                                        }
-
-                                        if (aTop < bTop) return -1;
-                                        if (aTop > bTop) return 1;
-                                        return 0;
-                                });
-                        }
-
-                        function accesibility(evt) {
-                                //if we are not focused on our element dont do anything
-                                if (draggableContainer[0] !== document.activeElement) return;
-
-                                //get sorted cards
-                                var cards = allSortedCards();
-
-                                var tabbedCard,
-                                    tabbedIndex = -1;
-
-                                //find the current tabbed card
-                                for (var i = 0; i < cards.length; i++) {
-                                        if ($(cards[i]).hasClass('tabbed')) {
-                                                tabbedCard = cards[i];
-                                                tabbedIndex = i;
-                                                break;
-                                        }
-                                }
-
-                                //return key
-                                if (evt.keyCode === 13) {
-                                        if (!tabbedCard) return;
-
-                                        //get card element and select it
-                                        selectCard(cardFromContainer(tabbedCard));
-                                }
-
-                                //up arrow
-                                if (evt.keyCode === 38) {
-                                        //if we are trying to move to a non existent tab then stop
-                                        if (tabbedIndex <= 0) return;
-
-                                        //get new selected card
-                                        var previousIndex = tabbedIndex - 1;
-
-                                        //detabbify the old card
-                                        if (tabbedCard) $(tabbedCard).removeClass('tabbed');
-
-                                        //tabbify the new card
-                                        $(cards[previousIndex]).addClass('tabbed');
-                                }
-
-                                //down arrow
-                                if (evt.keyCode === 40) {
-                                        //if we are trying to move to a non existent tab then stop
-                                        if (tabbedIndex >= cards.length - 1) return;
-
-                                        //get new selected card
-                                        var nextIndex = tabbedIndex + 1;
-
-                                        //detabbify the old card
-                                        if (tabbedCard) $(tabbedCard).removeClass('tabbed');
-
-                                        //tabbify the new card
-                                        $(cards[nextIndex]).addClass('tabbed');
-                                }
-                        }
-                }
+          //fire select event
+          selectCard(event.currentTarget);
         };
+
+        var onArrowUpClick = function onArrowUpClick(evt) {
+          //if dragging then we dont want to do anything
+          if (dragging) return;
+
+          //get the card element
+          var container = $(evt.currentTarget).closest('.card')[0];
+
+          //call appropriate function
+          moveUp(container);
+
+          //stop event bubbling up to select card
+          evt.stopPropagation();
+        };
+
+        var onArrowDownClick = function onArrowDownClick(evt) {
+          //if dragging then we dont want to do anything
+          if (dragging) return;
+
+          //get the card element
+          var container = $(evt.currentTarget).closest('.card')[0];
+
+          //call appropriate function
+          moveDown(container);
+
+          //stop event bubbling up to select card
+          evt.stopPropagation();
+        };
+
+        var onEditClick = function onEditClick(evt) {
+          //if dragging then we dont want to do anything
+          if (dragging) return;
+
+          //get the card element
+          var container = $(evt.currentTarget).closest('.card')[0];
+
+          if (container.querySelector(".title-container .hpe-edit").classList.contains("disabled")) return;
+
+          //call appropriate function
+          editCard(container);
+
+          //stop event bubbling up to select card
+          evt.stopPropagation();
+        };
+
+        var onRemoveClick = function onRemoveClick(evt) {
+          //if dragging then we dont want to do anything
+          if (dragging) return;
+
+          //get the card element
+          var container = $(evt.currentTarget).closest('.card')[0];
+
+          if (container.querySelector(".title-container .close-btn").classList.contains("disabled")) return;
+
+          //call appropriate function
+          removeCard(container);
+
+          //stop event bubbling up to select card
+          evt.stopPropagation();
+        };
+
+        //iterate through each card container
+        for (var i = 0; i < cardElements.length; i++) {
+
+          if (cardElements[i].getAttribute('reorder') !== null) continue;
+
+          //get the card element from each container
+          var card = cardFromContainer(cardElements[i]);
+          var dragHandle = card.getElementsByClassName('drag-handle');
+          var upArrow = card.getElementsByClassName('arrow-up');
+          var downArrow = card.getElementsByClassName('arrow-down');
+          var editBtn = card.getElementsByClassName('editing-btn');
+          var closeBtn = card.getElementsByClassName('close-btn');
+
+          //set attribute so we know if it has been processed
+          cardElements[i].setAttribute('reorder', '');
+
+          //add event listeners
+          card.addEventListener('click', click);
+
+          if (upArrow && upArrow.length > 0) upArrow[0].addEventListener('click', onArrowUpClick);
+
+          if (downArrow && downArrow.length > 0) downArrow[0].addEventListener('click', onArrowDownClick);
+
+          if (editBtn && editBtn.length > 0) editBtn[0].addEventListener('click', onEditClick);
+
+          if (closeBtn && closeBtn.length > 0) closeBtn[0].addEventListener('click', onRemoveClick);
+
+          if (dragHandle && dragHandle.length > 0) dragHandle[0].addEventListener('mousedown', dragCard);
+        }
+      }
+
+      function editCard(element) {
+        var parentScope = angular.element(element.parentNode).scope();
+
+        if (scope.onEdit) {
+          scope.onEdit.apply(parentScope, [parentScope, element]);
+        }
+      }
+
+      function removeCard(element) {
+        var parentScope = angular.element(element.parentNode).scope();
+
+        //get height of the container before the card is removed
+        var oldHeight = parseInt(draggableContainer[0].style.height);
+
+        if (scope.onRemove) {
+          scope.onRemove.apply(parentScope, [parentScope, element]);
+        }
+
+        //wait for digest
+        timeoutInstance.timeout(function () {
+          //get height of the container after card is removed
+          var newHeight = parseInt(draggableContainer[0].style.height);
+          //scroll up to correct the container size change
+          api.scrollByY(-(oldHeight - newHeight));
+        });
+      }
+
+      function getFixedCards() {
+        //get the latest card elements
+        cardElements = draggableContainer[0].getElementsByClassName('card-container');
+
+        var fixed = [];
+
+        //group cards by type - ie. fixed or draggable
+        for (var i = 0; i < cardElements.length; i++) {
+          //get the card element from each container
+          var card = angular.element(cardFromContainer(cardElements[i]));
+
+          if (card.hasClass('fixed')) fixed.push(cardElements[i]);
+        }
+
+        return fixed;
+      }
+
+      function getDraggableCards() {
+        //get the latest card elements
+        cardElements = draggableContainer[0].getElementsByClassName('card-container');
+
+        var draggable = [];
+
+        //group cards by type - ie. fixed or draggable
+        for (var i = 0; i < cardElements.length; i++) {
+          //get the card element from each container
+          var card = angular.element(cardFromContainer(cardElements[i]));
+
+          if (card.hasClass('draggable')) draggable.push(cardElements[i]);
+        }
+
+        return draggable;
+      }
+
+      function reorderCards() {
+
+        //initial top offset
+        var top = 5;
+
+        //revert values of stored draggable cards and fixed cards
+        fixedCards = getFixedCards();
+        draggableCards = getDraggableCards();
+
+        var comparator = function comparator(a, b) {
+          var aProcessed = a.getAttribute('reorder') !== null;
+          var bProcessed = b.getAttribute('reorder') !== null;
+
+          //if one of them is not processed then move it to the bottom of the list
+          if (!aProcessed && bProcessed) return 1;
+          if (aProcessed && !bProcessed) return -1;
+
+          var aTop = a.offsetTop;
+          var bTop = b.offsetTop;
+
+          if (aTop < bTop) return -1;
+          if (aTop > bTop) return 1;
+          return 0;
+        };
+
+        //sort each by offset and whether or not they have been previously ordered
+        fixedCards.sort(comparator);
+        draggableCards.sort(comparator);
+
+        //now position cards based on their order
+        for (var f = 0; f < fixedCards.length; f++) {
+          //position each fixed card at the top
+          var fixedCard = fixedCards[f];
+
+          //set top position
+          fixedCard.style.position = 'absolute';
+          fixedCard.style.top = top + 'px';
+
+          //store new top
+          top += $(fixedCard).outerHeight(true);
+        }
+
+        //store upper bound
+        draggableTop = top;
+
+        for (var d = 0; d < draggableCards.length; d++) {
+          //position each fixed card at the top
+          var draggableCard = draggableCards[d];
+
+          //set top position
+          draggableCard.style.position = 'absolute';
+          draggableCard.style.top = top + 'px';
+
+          //store new top
+          top += $(draggableCard).outerHeight(true);
+        }
+
+        //store lower bound
+        draggableBottom = top;
+
+        //find list base
+        var listBase = draggableContainer[0].getElementsByClassName('list-base')[0];
+        listBase.style.top = draggableBottom + 'px';
+
+        //clear previous height - then set new one
+        draggableContainer[0].style.height = '';
+        draggableContainer[0].style.minHeight = element.height() + 'px';
+        draggableContainer.height(draggableContainer[0].scrollHeight);
+      }
+
+      function orderCards() {
+
+        var top = 5;
+
+        //group cards by type - ie. fixed or draggable
+        fixedCards = getFixedCards();
+        draggableCards = getDraggableCards();
+
+        //set the positions of each card
+        for (var f = 0; f < fixedCards.length; f++) {
+          //position each fixed card at the top
+          var fixedCard = fixedCards[f];
+
+          //set top position
+          fixedCard.style.position = 'absolute';
+          fixedCard.style.top = top + 'px';
+
+          //store new top
+          top += $(fixedCard).outerHeight(true);
+        }
+
+        //store upper bound
+        draggableTop = top;
+
+        for (var d = 0; d < draggableCards.length; d++) {
+          //position each fixed card at the top
+          var draggableCard = draggableCards[d];
+
+          //set top position
+          draggableCard.style.position = 'absolute';
+          draggableCard.style.top = top + 'px';
+
+          //store new top
+          top += $(draggableCard).outerHeight(true);
+        }
+
+        //store lower bound
+        draggableBottom = top;
+
+        //create a base element to maintain height
+        var base = document.createElement('div');
+        base.style.position = 'absolute';
+        base.style.width = '100%';
+        base.style.height = '1px';
+        base.style.top = draggableBottom + 'px';
+        base.className = 'list-base';
+
+        draggableContainer.append(base);
+        draggableContainer[0].style.minHeight = element.height() + 'px';
+        draggableContainer.height(draggableContainer[0].scrollHeight);
+      }
+
+      function selectCard(element) {
+        //deselect any currently selected cards
+        deselectCards();
+
+        //select the current card
+        if (scope.direction) {
+          if (scope.direction.toLowerCase() === 'left') angular.element(element).addClass('active left');else angular.element(element).addClass('active right');
+        } else {
+          angular.element(element).addClass('active right');
+        }
+
+        if (scope.onSelect) {
+          var cardScope = angular.element(element.parentNode).scope();
+          scope.onSelect.apply(cardScope, [cardScope, element]);
+        }
+      }
+
+      function deselectCards() {
+        for (var i = 0; i < cardElements.length; i++) {
+          angular.element(cardElements[i]).removeClass('tabbed');
+          angular.element(cardFromContainer(cardElements[i])).removeClass('active right');
+        }
+      }
+
+      function cardFromContainer(container) {
+
+        //ensure container exists
+        if (!container) throw new Error('Cannot find card');
+
+        //get card element
+        var card = container.getElementsByClassName('card');
+
+        //ensure card element exists
+        if (!card || card.length === 0) throw new Error('Card container is empty');
+
+        //return card element
+        return card[0];
+      }
+
+      function moveUp(element) {
+        var cardContainer = element.parentNode;
+        var previousCard = getPreviousCard(cardContainer);
+
+        //if there is no previous card then dont do anything
+        if (previousCard === null) return;
+
+        //other wise lets swap their order
+        var previousTop = previousCard.offsetTop;
+        var currentHeight = $(cardContainer).outerHeight(true);
+
+        var currentTop = previousTop + 'px';
+        previousTop = previousTop + currentHeight + 'px';
+
+        //animate the new positions
+        moveCard(cardContainer, currentTop);
+        moveCard(previousCard, previousTop, notifyReorder);
+      }
+
+      function moveCard(element, position, callback) {
+        $(element).animate({
+          top: position
+        }, {
+          duration: 100,
+          queue: false,
+          complete: callback
+        });
+      }
+
+      function moveDown(element) {
+        var cardContainer = element.parentNode;
+        var nextCard = getNextCard(cardContainer);
+
+        //if there is no next card then dont do anything
+        if (nextCard === null) return;
+
+        //other wise lets swap their order
+        var currentTop = cardContainer.offsetTop;
+        var nextHeight = $(nextCard).outerHeight(true);
+
+        var nextTop = currentTop + 'px';
+        currentTop = currentTop + nextHeight + 'px';
+
+        //animate the new positions
+        moveCard(cardContainer, currentTop);
+        moveCard(nextCard, nextTop, notifyReorder);
+      }
+
+      function notifyReorder() {
+        //when animation is completed then call the reorder callback
+        if (scope.onReorder) {
+          var sortedCards = allSortedCards();
+
+          var scopes = [];
+
+          for (var i = 0; i < sortedCards.length; i++) {
+            //get the scope of the current card
+            scopes.push(angular.element(sortedCards[i]).scope());
+          }
+
+          scope.onReorder(scopes);
+        }
+      }
+
+      function clearSelection() {
+        if (document.selection) document.selection.empty();else if (window.getSelection) window.getSelection().removeAllRanges();
+      }
+
+      function dragCard(event) {
+        dragging = true;
+
+        //ensure we remove any text selection before dragging
+        clearSelection();
+
+        var card = $(event.currentTarget).closest('.card');
+        var cardContainer = card.closest('.card-container');
+
+        //add drag styling
+        card.addClass('dragging');
+
+        var release = function release() {
+
+          //remove drag styling
+          card.removeClass('dragging');
+
+          //remove document event listener
+          document.removeEventListener('mouseup', release);
+
+          //remove reference to the card being dragged
+          draggingCard.mouseOffset = null;
+          draggingCard = null;
+
+          //required so that mouse up event doesn't select the dragged item
+          setTimeout(function () {
+            dragging = false;
+          });
+
+          //snap dragged card to the correct location
+          reorderAfterDrag(true);
+        };
+
+        //add event listener to document
+        document.addEventListener('mouseup', release);
+
+        //store dragging card
+        draggingCard = cardContainer[0];
+      }
+
+      function onDrag(event) {
+        if (!draggingCard) return;
+
+        clearSelection();
+
+        var elementY = draggableContainer[0].getBoundingClientRect().top;
+        var mouseY = event.pageY;
+        var cardTop = draggingCard.offsetTop;
+
+        //calculate position from top
+        var offsetY = mouseY - elementY + draggableContainer[0].scrollTop;
+
+        var cardHeight = $(draggingCard).outerHeight(true);
+
+        if (!draggingCard.mouseOffset) draggingCard.mouseOffset = offsetY - cardTop;
+
+        //new top position
+        var newYPos = offsetY - draggingCard.mouseOffset;
+
+        //if valid position then move
+        if (newYPos < draggableTop) {
+          draggingCard.style.top = draggableTop + 'px';
+          return;
+        } else if (newYPos + cardHeight > draggableBottom) {
+          draggingCard.style.top = draggableBottom - cardHeight + 'px';
+          return;
+        }
+
+        draggingCard.style.top = offsetY - draggingCard.mouseOffset + 'px';
+
+        //reorder the cards based on the current drag position
+        reorderAfterDrag(false);
+      }
+
+      function reorderAfterDrag(notify) {
+
+        var cards = sortedDraggedCards();
+
+        var top = draggableTop;
+
+        for (var d = 0; d < cards.length; d++) {
+          //position each fixed card at the top
+          var draggableCard = cards[d];
+
+          if (draggingCard !== draggableCard) {
+            //set top position
+            draggableCard.style.top = top + 'px';
+          }
+
+          //store new top
+          top += $(draggableCard).outerHeight(true);
+        }
+
+        if (notify) notifyReorder();
+      }
+
+      function getPreviousCard(cardContainer) {
+        var cards = sortedCards();
+
+        var currentIdx = cards.indexOf(cardContainer);
+
+        if (currentIdx === -1) throw new Error('Could not find container');
+
+        //if there is no previous card then return null
+        if (currentIdx === 0) return null;
+
+        //otherwise return previous card
+        return cards[currentIdx - 1];
+      }
+
+      function getNextCard(cardContainer) {
+        var cards = sortedCards();
+
+        var currentIdx = cards.indexOf(cardContainer);
+
+        if (currentIdx === -1) throw new Error('Could not find container');
+
+        //if there is no next card then return null
+        if (currentIdx === cards.length - 1) return null;
+
+        //otherwise return previous card
+        return cards[currentIdx + 1];
+      }
+
+      function sortedCards() {
+
+        //return the cards in order of top position
+        return draggableCards.sort(function (a, b) {
+          var aTop = a.offsetTop;
+          var bTop = b.offsetTop;
+
+          if (aTop < bTop) return -1;
+          if (aTop > bTop) return 1;
+          return 0;
+        });
+      }
+
+      function allSortedCards() {
+
+        //convert html collection to array
+        var cards = [];
+        for (var i = 0; i < cardElements.length; i++) {
+          cards.push(cardElements[i]);
+        } //return the cards in order of top position
+        return cards.sort(function (a, b) {
+          var aTop = a.offsetTop;
+          var bTop = b.offsetTop;
+
+          if (aTop < bTop) return -1;
+          if (aTop > bTop) return 1;
+          return 0;
+        });
+      }
+
+      function sortedDraggedCards() {
+
+        return draggableCards.sort(function (a, b) {
+
+          var aTop = a.offsetTop;
+          var aHeight = $(a).outerHeight(true);
+          var aMidpoint = aTop + aHeight / 2;
+          var aBottom = aTop + aHeight;
+
+          var bTop = b.offsetTop;
+          var bHeight = $(b).outerHeight(true);
+          var bMidpoint = bTop + bHeight / 2;
+          var bBottom = bTop + bHeight;
+
+          if (a === draggingCard) {
+
+            //need to cover this quirk - weird IE sorting
+            if (aTop < bTop) {
+              if (aBottom > bMidpoint) return 1;
+            } else {
+              if (bBottom > aMidpoint) return -1;
+            }
+          }
+
+          if (b === draggingCard) {
+            //need to cover this quirk - weird IE sorting
+            if (aTop < bTop) {
+              if (bTop < aMidpoint) return 1;
+            } else {
+              if (aTop < bMidpoint) return -1;
+            }
+          }
+
+          if (aTop < bTop) return -1;
+          if (aTop > bTop) return 1;
+          return 0;
+        });
+      }
+
+      function accesibility(evt) {
+        //if we are not focused on our element dont do anything
+        if (draggableContainer[0] !== document.activeElement) return;
+
+        //get sorted cards
+        var cards = allSortedCards();
+
+        var tabbedCard,
+            tabbedIndex = -1;
+
+        //find the current tabbed card
+        for (var i = 0; i < cards.length; i++) {
+          if ($(cards[i]).hasClass('tabbed')) {
+            tabbedCard = cards[i];
+            tabbedIndex = i;
+            break;
+          }
+        }
+
+        //return key
+        if (evt.keyCode === 13) {
+          if (!tabbedCard) return;
+
+          //get card element and select it
+          selectCard(cardFromContainer(tabbedCard));
+        }
+
+        //up arrow
+        if (evt.keyCode === 38) {
+          //if we are trying to move to a non existent tab then stop
+          if (tabbedIndex <= 0) return;
+
+          //get new selected card
+          var previousIndex = tabbedIndex - 1;
+
+          //detabbify the old card
+          if (tabbedCard) $(tabbedCard).removeClass('tabbed');
+
+          //tabbify the new card
+          $(cards[previousIndex]).addClass('tabbed');
+        }
+
+        //down arrow
+        if (evt.keyCode === 40) {
+          //if we are trying to move to a non existent tab then stop
+          if (tabbedIndex >= cards.length - 1) return;
+
+          //get new selected card
+          var nextIndex = tabbedIndex + 1;
+
+          //detabbify the old card
+          if (tabbedCard) $(tabbedCard).removeClass('tabbed');
+
+          //tabbify the new card
+          $(cards[nextIndex]).addClass('tabbed');
+        }
+      }
+    }
+  };
 }
 
 /***/ }),
@@ -23711,84 +23711,84 @@ function HoverActionsCtrl() {
 hoverActions.$inject = ['safeTimeout'];
 
 function hoverActions(safeTimeout) {
-            return {
-                        restrict: 'E',
-                        replace: true,
-                        transclude: true,
-                        template: '<div class="hover-actions" ng-transclude></div>',
-                        controller: 'HoverActionsCtrl as hac',
-                        link: function link(scope, element, attrs) {
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: true,
+        template: '<div class="hover-actions" ng-transclude></div>',
+        controller: 'HoverActionsCtrl as hac',
+        link: function link(scope, element, attrs) {
 
-                                    var hoverActions = null;
+            var hoverActions = null;
 
-                                    //create safeTimeout instance
-                                    var safeTimeoutInstance = safeTimeout.create(scope);
+            //create safeTimeout instance
+            var safeTimeoutInstance = safeTimeout.create(scope);
 
-                                    //await for transclusion to finish then process element
-                                    safeTimeoutInstance.timeout(getHoverElement);
+            //await for transclusion to finish then process element
+            safeTimeoutInstance.timeout(getHoverElement);
 
-                                    /*
-                                      Initialisation
-                                    */
-                                    function getHoverElement() {
+            /*
+              Initialisation
+            */
+            function getHoverElement() {
 
-                                                //find the element that will trigger the hover effect
-                                                var hoverElement;
+                //find the element that will trigger the hover effect
+                var hoverElement;
 
-                                                if (attrs.hoverElement === null) hoverElement = element.parent();else hoverElement = element.parents(attrs.hoverElement);
+                if (attrs.hoverElement === null) hoverElement = element.parent();else hoverElement = element.parents(attrs.hoverElement);
 
-                                                //ensure a hover element was specified
-                                                if (hoverElement.length === 0) hoverElement = element.parent();
+                //ensure a hover element was specified
+                if (hoverElement.length === 0) hoverElement = element.parent();
 
-                                                // if we have one it should be the first item in the list
-                                                scope.hac.hoverElement = hoverElement.first();
+                // if we have one it should be the first item in the list
+                scope.hac.hoverElement = hoverElement.first();
 
-                                                //ensure it is hoverable
-                                                if (!scope.hac.hoverElement.attr('tabindex')) scope.hac.hoverElement.attr('tabindex', 0);
+                //ensure it is hoverable
+                if (!scope.hac.hoverElement.attr('tabindex')) scope.hac.hoverElement.attr('tabindex', 0);
 
-                                                //get hover actions
-                                                hoverActions = scope.hac.hoverElement.find('.hover-action');
+                //get hover actions
+                hoverActions = scope.hac.hoverElement.find('.hover-action');
 
-                                                //apply listeners to the parent element
-                                                applyListeners();
-                                    }
+                //apply listeners to the parent element
+                applyListeners();
+            }
 
-                                    /*
-                                      Bind to events
-                                    */
-                                    function applyListeners() {
-                                                scope.hac.hoverElement.mouseover(onHover);
-                                                scope.hac.hoverElement.mouseleave(onLeave);
-                                                scope.hac.hoverElement.focus(onFocus);
-                                                scope.hac.hoverElement.blur(onBlur);
-                                                scope.hac.hoverElement.keydown(onKeyDown);
-                                    }
+            /*
+              Bind to events
+            */
+            function applyListeners() {
+                scope.hac.hoverElement.mouseover(onHover);
+                scope.hac.hoverElement.mouseleave(onLeave);
+                scope.hac.hoverElement.focus(onFocus);
+                scope.hac.hoverElement.blur(onBlur);
+                scope.hac.hoverElement.keydown(onKeyDown);
+            }
 
-                                    /*
-                                      Event handlers
-                                    */
-                                    function onFocus() {
-                                                element.addClass('focused');
-                                    }
+            /*
+              Event handlers
+            */
+            function onFocus() {
+                element.addClass('focused');
+            }
 
-                                    function onBlur() {
-                                                element.removeClass('focused');
-                                    }
+            function onBlur() {
+                element.removeClass('focused');
+            }
 
-                                    function onHover() {
-                                                element.addClass('hovered');
-                                    }
+            function onHover() {
+                element.addClass('hovered');
+            }
 
-                                    function onLeave() {
-                                                element.removeClass('hovered');
-                                    }
+            function onLeave() {
+                element.removeClass('hovered');
+            }
 
-                                    function onKeyDown(evt) {
-                                                //if there right arrow key is pressed then focus the first action
-                                                if (evt.keyCode === 39) hoverActions.first().focus();
-                                    }
-                        }
-            };
+            function onKeyDown(evt) {
+                //if there right arrow key is pressed then focus the first action
+                if (evt.keyCode === 39) hoverActions.first().focus();
+            }
+        }
+    };
 }
 
 /***/ }),
@@ -24958,29 +24958,29 @@ function marqueeWizard() {
 marqueeWizardStep.$inject = ['$templateRequest', '$compile', '$rootScope', '$parse'];
 
 function marqueeWizardStep($templateRequest, $compile, $rootScope, $parse) {
-                return {
-                                require: '?^^form',
-                                restrict: 'E',
-                                replace: true,
-                                scope: false,
-                                link: function link(scope, element, attr, formCtrl) {
+    return {
+        require: '?^^form',
+        restrict: 'E',
+        replace: true,
+        scope: false,
+        link: function link(scope, element, attr, formCtrl) {
 
-                                                var template = $parse(attr.template)(scope);
+            var template = $parse(attr.template)(scope);
 
-                                                $templateRequest(template).then(function (result) {
+            $templateRequest(template).then(function (result) {
 
-                                                                var target_scope = $rootScope.$new(false, scope);
+                var target_scope = $rootScope.$new(false, scope);
 
-                                                                // make form accesible to the new scope
-                                                                target_scope.form = formCtrl;
+                // make form accesible to the new scope
+                target_scope.form = formCtrl;
 
-                                                                element.append(angular.element(result));
+                element.append(angular.element(result));
 
-                                                                // compile the element
-                                                                $compile(element.children().first())(target_scope);
-                                                });
-                                }
-                };
+                // compile the element
+                $compile(element.children().first())(target_scope);
+            });
+        }
+    };
 }
 
 /***/ }),
@@ -28391,619 +28391,619 @@ function pageTitle($rootScope) {
 partitionEditing.$inject = ['$window', 'safeInterval'];
 
 function partitionEditing($window, safeInterval) {
-        return {
-                restrict: "E",
-                replace: true,
-                template: __webpack_require__(526),
-                link: function link(scope, element) {
+  return {
+    restrict: "E",
+    replace: true,
+    template: __webpack_require__(526),
+    link: function link(scope, element) {
 
-                        var vm = scope.editing = {};
+      var vm = scope.editing = {};
 
-                        //globals
-                        vm.list = element[0].getElementsByClassName('segment-list')[0];
-                        vm.previousWidth = element.width();
-                        vm.previousHeight = element.height();
+      //globals
+      vm.list = element[0].getElementsByClassName('segment-list')[0];
+      vm.previousWidth = element.width();
+      vm.previousHeight = element.height();
 
-                        //set up event listeners
-                        document.addEventListener("mouseup", endDrag);
-                        document.addEventListener("mousemove", onDrag);
+      //set up event listeners
+      document.addEventListener("mouseup", endDrag);
+      document.addEventListener("mousemove", onDrag);
 
-                        scope.$watch('chart.editMode', function (value) {
-                                //show or hide the edit container accordingly
-                                if (value === true) show();else hide();
-                        });
+      scope.$watch('chart.editMode', function (value) {
+        //show or hide the edit container accordingly
+        if (value === true) show();else hide();
+      });
 
-                        scope.$on('$destroy', destroy);
+      scope.$on('$destroy', destroy);
 
-                        safeInterval.create(scope).interval(onResize, 200);
+      safeInterval.create(scope).interval(onResize, 200);
 
-                        function onResize() {
-                                if (scope.chart.editMode === false) return;
+      function onResize() {
+        if (scope.chart.editMode === false) return;
 
-                                if (element.width() !== vm.previousWidth || element.height() !== vm.previousHeight) {
-                                        resizeSegments();
-                                        vm.previousWidth = element.width();
-                                        vm.previousHeight = element.height();
-                                }
-                        }
+        if (element.width() !== vm.previousWidth || element.height() !== vm.previousHeight) {
+          resizeSegments();
+          vm.previousWidth = element.width();
+          vm.previousHeight = element.height();
+        }
+      }
 
-                        vm.done = function () {
+      vm.done = function () {
 
-                                //get sorted groups after dragging and changing
-                                var output = getSortedGroups();
+        //get sorted groups after dragging and changing
+        var output = getSortedGroups();
 
-                                //inform the callback if there is one - which there should be
-                                if (scope.chart.onFinish) scope.chart.onFinish(output);
+        //inform the callback if there is one - which there should be
+        if (scope.chart.onFinish) scope.chart.onFinish(output);
 
-                                //hide the edit mode
-                                scope.chart.editMode = false;
-                        };
+        //hide the edit mode
+        scope.chart.editMode = false;
+      };
 
-                        function resizeSegments() {
-                                var numOfRows = scope.chart.maxRows;
-                                var listHeight = vm.list.offsetHeight;
-                                vm.rowHeight = Math.ceil(listHeight / numOfRows);
+      function resizeSegments() {
+        var numOfRows = scope.chart.maxRows;
+        var listHeight = vm.list.offsetHeight;
+        vm.rowHeight = Math.ceil(listHeight / numOfRows);
 
-                                var segments = getSortedSegments();
+        var segments = getSortedSegments();
 
-                                //set the correct height
-                                for (var i = 0; i < segments.length; i++) {
-                                        segments[i].style.height = vm.rowHeight + 'px';
-                                        segments[i].style.top = i * vm.rowHeight + 'px';
-                                }
-                        }
+        //set the correct height
+        for (var i = 0; i < segments.length; i++) {
+          segments[i].style.height = vm.rowHeight + 'px';
+          segments[i].style.top = i * vm.rowHeight + 'px';
+        }
+      }
 
-                        function getSortedGroups() {
-                                var groups = [];
+      function getSortedGroups() {
+        var groups = [];
 
-                                var segments = getSortedSegments();
+        var segments = getSortedSegments();
 
-                                for (var i = 0; i < segments.length; i++) {
-                                        if (segments[i].getAttribute('group') !== null) groups.push(segments[i].getAttribute('group'));
-                                }
+        for (var i = 0; i < segments.length; i++) {
+          if (segments[i].getAttribute('group') !== null) groups.push(segments[i].getAttribute('group'));
+        }
 
-                                return groups;
-                        }
+        return groups;
+      }
 
-                        function getSortedSegments() {
-                                var segmentNodes = vm.list.children;
+      function getSortedSegments() {
+        var segmentNodes = vm.list.children;
 
-                                var segments = [];
-                                for (var i = 0; i < segmentNodes.length; i++) {
-                                        segments.push(segmentNodes[i]);
-                                } //sort the segments based on top offset
-                                segments.sort(function (a, b) {
-                                        return a.offsetTop - b.offsetTop;
-                                });
+        var segments = [];
+        for (var i = 0; i < segmentNodes.length; i++) {
+          segments.push(segmentNodes[i]);
+        } //sort the segments based on top offset
+        segments.sort(function (a, b) {
+          return a.offsetTop - b.offsetTop;
+        });
 
-                                return segments;
-                        }
+        return segments;
+      }
 
-                        function destroy() {
-                                document.removeEventListener("mousemove", onDrag);
-                                document.removeEventListener("mouseup", endDrag);
-                        }
+      function destroy() {
+        document.removeEventListener("mousemove", onDrag);
+        document.removeEventListener("mouseup", endDrag);
+      }
 
-                        function show() {
+      function show() {
 
-                                element.show();
-                                element.addClass('fade-in');
+        element.show();
+        element.addClass('fade-in');
 
-                                //store groups excluding the root
-                                vm.groups = scope.chart.groups && scope.chart.groups.length > 1 ? scope.chart.groups.slice(1) : [];
+        //store groups excluding the root
+        vm.groups = scope.chart.groups && scope.chart.groups.length > 1 ? scope.chart.groups.slice(1) : [];
 
-                                if (vm.groups.length >= scope.chart.maxRows) {
-                                        vm.groups = vm.groups.slice(0, scope.chart.maxRows);
-                                }
-
-                                //update segments
-                                updateSegments();
-                        }
-
-                        function hide() {
-                                element.hide();
-                                element.removeClass('fade-in');
-                        }
-
-                        function updateSegments(previousColors) {
-
-                                //calculate number of rows
-                                var numOfRows = scope.chart.maxRows; // take into account root node which we have no group for
-
-                                //ensure we consider at least one row
-                                if (numOfRows <= 0) numOfRows = 1;
-
-                                //calculate height
-                                var listHeight = vm.list.offsetHeight;
-                                vm.rowHeight = Math.ceil(listHeight / numOfRows);
-
-                                //remove old segments
-                                while (vm.list.firstChild) {
-                                        vm.list.removeChild(vm.list.firstChild);
-                                } //loop through each group and add the segment
-                                for (var sgmt = 0; sgmt < Math.min(vm.groups.length, numOfRows); sgmt += 1) {
-
-                                        var color = null;
-
-                                        if (previousColors) {
-                                                for (var i = 0; i < previousColors.length; i++) {
-                                                        if (previousColors[i].item === vm.groups[sgmt]) {
-                                                                color = previousColors[i].color;
-                                                                break;
-                                                        }
-                                                }
-                                        }
-
-                                        if (!color) color = getColor(sgmt);
-
-                                        var segment = createSegment(vm.groups[sgmt], color, sgmt);
-                                        vm.list.appendChild(segment);
-                                }
-
-                                //if not all rows occupied then add a selection segment
-                                if (vm.groups.length < numOfRows) createSelectionSegment();
-                        }
-
-                        function getColor(index) {
-                                var newIndex = index % scope.chart.colors.length;
-                                var subIndex = Math.floor(index / scope.chart.colors.length);
-
-                                if (subIndex > scope.chart.colors[newIndex].length) subIndex -= scope.chart.colors[newIndex].length;
-
-                                return scope.chart.colors[newIndex][subIndex];
-                        }
-
-                        function createSegment(text, color, index) {
-
-                                //create elements
-                                var segment = document.createElement('li');
-
-                                var groupText = document.createElement('span');
-                                var groupIcon = document.createElement('span');
-                                var groupLabel = document.createElement('p');
-
-                                var dragBox = document.createElement('div');
-                                var dragIcon = document.createElement('div');
-                                var moveUpIcon = document.createElement('div');
-                                var moveDownIcon = document.createElement('div');
-                                var closeBox = document.createElement('div');
-                                var closeIcon = document.createElement('div');
-
-                                //set the classes
-                                segment.className = "segment";
-                                groupIcon.className = "hpe-icon hpe-down icon";
-                                groupLabel.className = "group-label";
-                                groupText.className = "group-name";
-                                dragBox.className = "drag-box";
-                                dragIcon.className = "icon";
-                                moveUpIcon.className = "up-icon";
-                                moveDownIcon.className = "down-icon";
-                                closeBox.className = "close-box";
-                                closeIcon.className = "icon";
-
-                                //set attributes
-                                segment.setAttribute("group", text);
+        if (vm.groups.length >= scope.chart.maxRows) {
+          vm.groups = vm.groups.slice(0, scope.chart.maxRows);
+        }
+
+        //update segments
+        updateSegments();
+      }
+
+      function hide() {
+        element.hide();
+        element.removeClass('fade-in');
+      }
+
+      function updateSegments(previousColors) {
+
+        //calculate number of rows
+        var numOfRows = scope.chart.maxRows; // take into account root node which we have no group for
+
+        //ensure we consider at least one row
+        if (numOfRows <= 0) numOfRows = 1;
+
+        //calculate height
+        var listHeight = vm.list.offsetHeight;
+        vm.rowHeight = Math.ceil(listHeight / numOfRows);
+
+        //remove old segments
+        while (vm.list.firstChild) {
+          vm.list.removeChild(vm.list.firstChild);
+        } //loop through each group and add the segment
+        for (var sgmt = 0; sgmt < Math.min(vm.groups.length, numOfRows); sgmt += 1) {
+
+          var color = null;
+
+          if (previousColors) {
+            for (var i = 0; i < previousColors.length; i++) {
+              if (previousColors[i].item === vm.groups[sgmt]) {
+                color = previousColors[i].color;
+                break;
+              }
+            }
+          }
+
+          if (!color) color = getColor(sgmt);
+
+          var segment = createSegment(vm.groups[sgmt], color, sgmt);
+          vm.list.appendChild(segment);
+        }
+
+        //if not all rows occupied then add a selection segment
+        if (vm.groups.length < numOfRows) createSelectionSegment();
+      }
+
+      function getColor(index) {
+        var newIndex = index % scope.chart.colors.length;
+        var subIndex = Math.floor(index / scope.chart.colors.length);
+
+        if (subIndex > scope.chart.colors[newIndex].length) subIndex -= scope.chart.colors[newIndex].length;
+
+        return scope.chart.colors[newIndex][subIndex];
+      }
+
+      function createSegment(text, color, index) {
+
+        //create elements
+        var segment = document.createElement('li');
+
+        var groupText = document.createElement('span');
+        var groupIcon = document.createElement('span');
+        var groupLabel = document.createElement('p');
+
+        var dragBox = document.createElement('div');
+        var dragIcon = document.createElement('div');
+        var moveUpIcon = document.createElement('div');
+        var moveDownIcon = document.createElement('div');
+        var closeBox = document.createElement('div');
+        var closeIcon = document.createElement('div');
+
+        //set the classes
+        segment.className = "segment";
+        groupIcon.className = "hpe-icon hpe-down icon";
+        groupLabel.className = "group-label";
+        groupText.className = "group-name";
+        dragBox.className = "drag-box";
+        dragIcon.className = "icon";
+        moveUpIcon.className = "up-icon";
+        moveDownIcon.className = "down-icon";
+        closeBox.className = "close-box";
+        closeIcon.className = "icon";
+
+        //set attributes
+        segment.setAttribute("group", text);
 
-                                //set value
-                                groupText.innerHTML = text;
+        //set value
+        groupText.innerHTML = text;
 
-                                //set calculated size and position
-                                segment.style.height = vm.rowHeight + 'px';
-                                segment.style.top = vm.rowHeight * index + 'px';
+        //set calculated size and position
+        segment.style.height = vm.rowHeight + 'px';
+        segment.style.top = vm.rowHeight * index + 'px';
 
-                                //add event handlers
-                                moveUpIcon.addEventListener("click", arrowUp);
-                                moveDownIcon.addEventListener("click", arrowDown);
-                                dragIcon.addEventListener("mousedown", beginDrag);
-                                closeIcon.addEventListener("click", removeSegment);
-                                groupIcon.addEventListener("click", showDropdown);
+        //add event handlers
+        moveUpIcon.addEventListener("click", arrowUp);
+        moveDownIcon.addEventListener("click", arrowDown);
+        dragIcon.addEventListener("mousedown", beginDrag);
+        closeIcon.addEventListener("click", removeSegment);
+        groupIcon.addEventListener("click", showDropdown);
 
-                                //nest elements
-                                if (vm.groups.length > scope.chart.minRows) closeBox.appendChild(closeIcon);
+        //nest elements
+        if (vm.groups.length > scope.chart.minRows) closeBox.appendChild(closeIcon);
 
-                                dragBox.appendChild(moveUpIcon);
-                                dragBox.appendChild(dragIcon);
-                                dragBox.appendChild(moveDownIcon);
-                                segment.appendChild(dragBox);
-                                segment.appendChild(closeBox);
+        dragBox.appendChild(moveUpIcon);
+        dragBox.appendChild(dragIcon);
+        dragBox.appendChild(moveDownIcon);
+        segment.appendChild(dragBox);
+        segment.appendChild(closeBox);
 
-                                groupLabel.appendChild(groupText);
-                                groupLabel.appendChild(groupIcon);
-                                segment.appendChild(groupLabel);
-                                segment.appendChild(createDropdown());
+        groupLabel.appendChild(groupText);
+        groupLabel.appendChild(groupIcon);
+        segment.appendChild(groupLabel);
+        segment.appendChild(createDropdown());
 
-                                //set color
-                                segment.style.backgroundColor = color;
+        //set color
+        segment.style.backgroundColor = color;
 
-                                //return element
-                                return segment;
-                        }
+        //return element
+        return segment;
+      }
 
-                        function createDropdown() {
-                                //create the dropdown list element
-                                var dropdown = document.createElement('ul');
+      function createDropdown() {
+        //create the dropdown list element
+        var dropdown = document.createElement('ul');
 
-                                //set dropdown class
-                                dropdown.className = "dropdown-menu";
+        //set dropdown class
+        dropdown.className = "dropdown-menu";
 
-                                return dropdown;
-                        }
+        return dropdown;
+      }
 
-                        function createSelectionSegment() {
+      function createSelectionSegment() {
 
-                                //create elements
-                                var segment = document.createElement('li');
-                                var icon = document.createElement('span');
-                                var text = document.createElement('span');
-                                var label = document.createElement('p');
+        //create elements
+        var segment = document.createElement('li');
+        var icon = document.createElement('span');
+        var text = document.createElement('span');
+        var label = document.createElement('p');
 
-                                //set classes
-                                segment.className = "selection-segment";
-                                icon.className = "hpe-icon hpe-down icon";
-                                label.className = "selection-label";
+        //set classes
+        segment.className = "selection-segment";
+        icon.className = "hpe-icon hpe-down icon";
+        label.className = "selection-label";
 
-                                //set values
-                                text.innerHTML = "Select";
+        //set values
+        text.innerHTML = "Select";
 
-                                //set position
-                                segment.style.top = Math.min(vm.groups.length, scope.chart.maxRows) * vm.rowHeight + 'px';
-                                segment.style.height = vm.rowHeight + 'px';
+        //set position
+        segment.style.top = Math.min(vm.groups.length, scope.chart.maxRows) * vm.rowHeight + 'px';
+        segment.style.height = vm.rowHeight + 'px';
 
-                                //add click event to show dropdown
-                                icon.addEventListener("click", function (evt) {
-                                        showDropdown(evt, true);
-                                });
+        //add click event to show dropdown
+        icon.addEventListener("click", function (evt) {
+          showDropdown(evt, true);
+        });
 
-                                label.appendChild(text);
-                                label.appendChild(icon);
-                                segment.appendChild(label);
-                                segment.appendChild(createDropdown());
-                                vm.list.appendChild(segment);
-                        }
+        label.appendChild(text);
+        label.appendChild(icon);
+        segment.appendChild(label);
+        segment.appendChild(createDropdown());
+        vm.list.appendChild(segment);
+      }
 
-                        function calculateHoveredRow(evt) {
-                                //get the position of the container element
-                                var containerY = vm.list.getBoundingClientRect().top;
+      function calculateHoveredRow(evt) {
+        //get the position of the container element
+        var containerY = vm.list.getBoundingClientRect().top;
 
-                                //get mouse position
-                                var mouseY = evt.clientY;
+        //get mouse position
+        var mouseY = evt.clientY;
 
-                                //calculate difference
-                                var offsetY = mouseY - containerY;
+        //calculate difference
+        var offsetY = mouseY - containerY;
 
-                                if (offsetY <= 0) return 0;
+        if (offsetY <= 0) return 0;
 
-                                //get number of rows
-                                var numberOfRows = Math.ceil(vm.list.offsetHeight / vm.rowHeight);
+        //get number of rows
+        var numberOfRows = Math.ceil(vm.list.offsetHeight / vm.rowHeight);
 
-                                if (offsetY > vm.list.getBoundingClientRect().bottom) return numberOfRows - 1;
+        if (offsetY > vm.list.getBoundingClientRect().bottom) return numberOfRows - 1;
 
-                                //get row mouse is over
-                                var row = Math.floor(offsetY / vm.rowHeight);
+        //get row mouse is over
+        var row = Math.floor(offsetY / vm.rowHeight);
 
-                                //ensure calculated row exists
-                                if (row > numberOfRows - 1) return numberOfRows - 1;
+        //ensure calculated row exists
+        if (row > numberOfRows - 1) return numberOfRows - 1;
 
-                                return row;
-                        }
+        return row;
+      }
 
-                        function arrowUp(evt) {
-                                var row = calculateHoveredRow(evt);
+      function arrowUp(evt) {
+        var row = calculateHoveredRow(evt);
 
-                                //if it is already at the top then we shouldnt be doing anything
-                                if (row === 0) return;
+        //if it is already at the top then we shouldnt be doing anything
+        if (row === 0) return;
 
-                                //get target element
-                                var dragBox = evt.target.parentNode;
+        //get target element
+        var dragBox = evt.target.parentNode;
 
-                                //get segment
-                                var segment = dragBox.parentElement;
+        //get segment
+        var segment = dragBox.parentElement;
 
-                                vm.selectedSegment = segment;
+        vm.selectedSegment = segment;
 
-                                //move segment to the correct position
-                                moveSegment(row - 1, function () {
-                                        //when finished animating update the colours
-                                        updateColors();
-                                });
-                        }
+        //move segment to the correct position
+        moveSegment(row - 1, function () {
+          //when finished animating update the colours
+          updateColors();
+        });
+      }
 
-                        function arrowDown(evt) {
-                                var row = calculateHoveredRow(evt);
+      function arrowDown(evt) {
+        var row = calculateHoveredRow(evt);
 
-                                //if it is already at the bottom then we shouldnt be doing anything
-                                if (row === vm.groups.length - 1) return;
+        //if it is already at the bottom then we shouldnt be doing anything
+        if (row === vm.groups.length - 1) return;
 
-                                //get target element
-                                var dragBox = evt.target.parentNode;
+        //get target element
+        var dragBox = evt.target.parentNode;
 
-                                //get segment
-                                var segment = dragBox.parentElement;
+        //get segment
+        var segment = dragBox.parentElement;
 
-                                vm.selectedSegment = segment;
+        vm.selectedSegment = segment;
 
-                                //move segment to the correct position
-                                moveSegment(row + 1, function () {
-                                        //when finished animating update the colours
-                                        updateColors();
-                                });
-                        }
+        //move segment to the correct position
+        moveSegment(row + 1, function () {
+          //when finished animating update the colours
+          updateColors();
+        });
+      }
 
-                        function beginDrag(evt) {
+      function beginDrag(evt) {
 
-                                //ensure that it is mouse button 1 only
-                                if (evt.button !== 0) return;
+        //ensure that it is mouse button 1 only
+        if (evt.button !== 0) return;
 
-                                //ensure we hide any dropdowns
-                                hideAllDropdowns();
+        //ensure we hide any dropdowns
+        hideAllDropdowns();
 
-                                //get target element
-                                var dragBox = evt.target.parentNode;
+        //get target element
+        var dragBox = evt.target.parentNode;
 
-                                //get segment
-                                var segment = dragBox.parentElement;
+        //get segment
+        var segment = dragBox.parentElement;
 
-                                //set segment class
-                                segment.className = "segment dragging";
+        //set segment class
+        segment.className = "segment dragging";
 
-                                //ensure event is handled correctly
-                                evt.preventDefault();
+        //ensure event is handled correctly
+        evt.preventDefault();
 
-                                //remember we are dragging
-                                vm.dragging = true;
+        //remember we are dragging
+        vm.dragging = true;
 
-                                //remember the initial position in list and segment element
-                                vm.initialPosition = calculateHoveredRow(evt);
-                                vm.selectedSegment = segment;
-                        }
+        //remember the initial position in list and segment element
+        vm.initialPosition = calculateHoveredRow(evt);
+        vm.selectedSegment = segment;
+      }
 
-                        function onDrag(evt) {
-                                //if we are not dragging then we dont do anything
-                                if (!vm.dragging) return;
+      function onDrag(evt) {
+        //if we are not dragging then we dont do anything
+        if (!vm.dragging) return;
 
-                                var row = calculateHoveredRow(evt);
+        var row = calculateHoveredRow(evt);
 
-                                //if the current position is not the initialPosition then we need to reorder
-                                if (row !== vm.initialPosition) {
+        //if the current position is not the initialPosition then we need to reorder
+        if (row !== vm.initialPosition) {
 
-                                        //move segment to the correct position
-                                        moveSegment(row);
+          //move segment to the correct position
+          moveSegment(row);
 
-                                        //update position
-                                        vm.initialPosition = row;
-                                }
-                        }
+          //update position
+          vm.initialPosition = row;
+        }
+      }
 
-                        function endDrag() {
+      function endDrag() {
 
-                                //get segment
-                                var segment = vm.list.getElementsByClassName('dragging')[0];
+        //get segment
+        var segment = vm.list.getElementsByClassName('dragging')[0];
 
-                                //remove dragging class
-                                if (segment) segment.className = "segment";
+        //remove dragging class
+        if (segment) segment.className = "segment";
 
-                                updateColors();
+        updateColors();
 
-                                vm.dragging = false;
+        vm.dragging = false;
 
-                                vm.groups = getSortedGroups();
-                        }
+        vm.groups = getSortedGroups();
+      }
 
-                        function showDropdown(evt, selection) {
-                                //determine element heirarchy
-                                var icon = evt.target;
-                                var label = icon.parentNode;
-                                var segment = label.parentNode;
+      function showDropdown(evt, selection) {
+        //determine element heirarchy
+        var icon = evt.target;
+        var label = icon.parentNode;
+        var segment = label.parentNode;
 
-                                //Hide all dropdowns
-                                hideAllDropdowns();
+        //Hide all dropdowns
+        hideAllDropdowns();
 
-                                var dropdowns = segment.getElementsByClassName('dropdown-menu');
+        var dropdowns = segment.getElementsByClassName('dropdown-menu');
 
-                                //if no dropdown menu has been found then don't do anything
-                                if (dropdowns.length === 0) return;
+        //if no dropdown menu has been found then don't do anything
+        if (dropdowns.length === 0) return;
 
-                                //get the dropdown element
-                                var dropdown = dropdowns[0];
+        //get the dropdown element
+        var dropdown = dropdowns[0];
 
-                                //update dropdown items
-                                updateDropdown(dropdown, selection);
+        //update dropdown items
+        updateDropdown(dropdown, selection);
 
-                                dropdown.style.display = 'block';
-                                dropdown.style.top = 'calc(50% + 10px)';
-                                dropdown.style.left = 'calc(50% - ' + dropdown.offsetWidth / 2 + 'px)';
-                                dropdown.className = "dropdown-menu show-groups";
+        dropdown.style.display = 'block';
+        dropdown.style.top = 'calc(50% + 10px)';
+        dropdown.style.left = 'calc(50% - ' + dropdown.offsetWidth / 2 + 'px)';
+        dropdown.className = "dropdown-menu show-groups";
 
-                                //we need to detect clicks inside and out of the dropdown
-                                var removeDropdown = function removeDropdown() {
-                                        dropdown.className = "dropdown-menu";
-                                        dropdown.style.display = 'none';
-                                        document.removeEventListener('click', removeDropdown);
-                                };
-
-                                //stop event propagation
-                                evt.stopPropagation();
-
-                                document.addEventListener('click', removeDropdown);
-                        }
-
-                        function updateDropdown(dropdown, selection) {
-
-                                //find the groups that havent been selected
-                                var unselectedItems = [];
-
-                                for (var i = 0; i < scope.chart.availableGroups.length; i++) {
-                                        if (vm.groups.indexOf(scope.chart.availableGroups[i]) === -1) {
-                                                unselectedItems.push(scope.chart.availableGroups[i]);
-                                        }
-                                }
-
-                                //remove all child elements from the dropdown
-                                while (dropdown.firstChild) {
-                                        dropdown.removeChild(dropdown.firstChild);
-                                } //if no items are available inform the user
-                                if (unselectedItems.length === 0) {
-                                        var noItemsLink = document.createElement('a');
-                                        var noItemsGroup = document.createElement('li');
-
-                                        //set the link text and href
-                                        noItemsLink.innerHTML = scope.chart.noGroupsText;
-
-                                        noItemsGroup.className = 'disabled';
-
-                                        //add link to group and group to dropdown
-                                        noItemsGroup.appendChild(noItemsLink);
-                                        dropdown.appendChild(noItemsGroup);
-                                }
-
-                                //function called when a dropdown item is selected
-                                var dropdownSelect = function dropdownSelect(evt) {
-                                        //get the attribute required
-                                        var dropdownItem = evt.target;
-                                        var group = dropdownItem.getAttribute('select-group');
-
-                                        if (selection && selection === true) {
-                                                addGroup(group);
-                                                return;
-                                        }
-
-                                        //get elements
-                                        var segment = dropdown.parentNode;
-                                        var segmentGroup = segment.getAttribute('group');
-                                        var segmentLabels = segment.getElementsByClassName('group-name');
-
-                                        if (segmentLabels.length === 0) return;
-
-                                        //get the label element
-                                        var segmentLabel = segmentLabels[0];
-
-                                        //replace item in array
-                                        var index = vm.groups.indexOf(segmentGroup);
-                                        vm.groups[index] = group;
-
-                                        //now replace the label text and the attribute
-                                        segmentLabel.innerHTML = group;
-                                        segment.setAttribute('group', group);
-                                };
-
-                                //add a li to the dropdown for each group
-                                for (i = 0; i < unselectedItems.length; i++) {
-
-                                        //create list element
-                                        var link = document.createElement('a');
-                                        var group = document.createElement('li');
-
-                                        //set the link text and href
-                                        link.innerHTML = unselectedItems[i];
-                                        link.setAttribute('select-group', unselectedItems[i]);
-                                        link.addEventListener('click', dropdownSelect);
-
-                                        //add link to group and group to dropdown
-                                        group.appendChild(link);
-                                        dropdown.appendChild(group);
-                                }
-                        }
-
-                        function hideAllDropdowns() {
-                                $(element[0]).find('.dropdown-menu').removeClass('show-groups').hide();
-                        }
-
-                        function addGroup(group) {
-                                vm.groups.push(group);
-                                updateSegments();
-                        }
-
-                        function updateColors() {
-                                var segments = getSortedSegments();
-
-                                for (var i = 0; i < segments.length; i++) {
-                                        if (segments[i].className === 'selection-segment') continue;
-
-                                        segments[i].style.backgroundColor = getColor(i);
-                                }
-                        }
-
-                        function moveSegment(position, callback) {
-                                //find segments
-                                var segments = vm.list.getElementsByClassName('segment');
-
-                                //remove selected segment from list
-                                var unselected = [];
-
-                                for (var sgmt = 0; sgmt < segments.length; sgmt++) {
-                                        //if the segment is not selected then push it
-                                        if (segments[sgmt] !== vm.selectedSegment) unselected.push(segments[sgmt]);
-                                }
-
-                                //sort the unselected segments based on top position
-                                unselected.sort(function (a, b) {
-                                        return a.offsetTop - b.offsetTop;
-                                });
-
-                                //insert selected at specified position
-                                var sorted = [],
-                                    idx = 0;
-
-                                for (sgmt = 0; sgmt < segments.length; sgmt++) {
-                                        if (sgmt === position) sorted.push(vm.selectedSegment);else {
-                                                sorted.push(unselected[idx]);
-                                                idx++;
-                                        }
-                                }
-
-                                vm.groups = getSortedGroups();
-
-                                //recalculate positions based on new order
-                                for (sgmt = 0; sgmt < segments.length; sgmt++) {
-                                        var segment = sorted[sgmt];
-
-                                        $(segment).animate({
-                                                top: vm.rowHeight * sgmt
-                                        }, {
-                                                duration: 100,
-                                                queue: false,
-                                                complete: callback
-                                        });
-                                }
-                        }
-
-                        function removeSegment(evt) {
-                                var target = evt.target;
-                                var closeBox = target.parentNode;
-                                var segment = closeBox.parentNode;
-
-                                var group = segment.getAttribute("group");
-
-                                //remove group
-                                var idx = vm.groups.indexOf(group);
-
-                                //if not found do nothing
-                                if (idx === -1) return;
-
-                                vm.groups.splice(idx, 1);
-
-                                var segments = getSortedSegments();
-
-                                var colors = [];
-
-                                for (var i = 0; i < segments.length; i++) {
-                                        var sgmt = segments[i];
-
-                                        //dont do this for selection segment
-                                        if (sgmt.className === 'selection-segment') continue;
-
-                                        var name = sgmt.getElementsByClassName('group-name')[0].innerHTML;
-                                        var color = sgmt.style.backgroundColor;
-
-                                        colors.push({ item: name, color: color });
-                                }
-
-                                updateSegments(colors);
-
-                                setTimeout(updateColors, 170);
-                        }
-                }
+        //we need to detect clicks inside and out of the dropdown
+        var removeDropdown = function removeDropdown() {
+          dropdown.className = "dropdown-menu";
+          dropdown.style.display = 'none';
+          document.removeEventListener('click', removeDropdown);
         };
+
+        //stop event propagation
+        evt.stopPropagation();
+
+        document.addEventListener('click', removeDropdown);
+      }
+
+      function updateDropdown(dropdown, selection) {
+
+        //find the groups that havent been selected
+        var unselectedItems = [];
+
+        for (var i = 0; i < scope.chart.availableGroups.length; i++) {
+          if (vm.groups.indexOf(scope.chart.availableGroups[i]) === -1) {
+            unselectedItems.push(scope.chart.availableGroups[i]);
+          }
+        }
+
+        //remove all child elements from the dropdown
+        while (dropdown.firstChild) {
+          dropdown.removeChild(dropdown.firstChild);
+        } //if no items are available inform the user
+        if (unselectedItems.length === 0) {
+          var noItemsLink = document.createElement('a');
+          var noItemsGroup = document.createElement('li');
+
+          //set the link text and href
+          noItemsLink.innerHTML = scope.chart.noGroupsText;
+
+          noItemsGroup.className = 'disabled';
+
+          //add link to group and group to dropdown
+          noItemsGroup.appendChild(noItemsLink);
+          dropdown.appendChild(noItemsGroup);
+        }
+
+        //function called when a dropdown item is selected
+        var dropdownSelect = function dropdownSelect(evt) {
+          //get the attribute required
+          var dropdownItem = evt.target;
+          var group = dropdownItem.getAttribute('select-group');
+
+          if (selection && selection === true) {
+            addGroup(group);
+            return;
+          }
+
+          //get elements
+          var segment = dropdown.parentNode;
+          var segmentGroup = segment.getAttribute('group');
+          var segmentLabels = segment.getElementsByClassName('group-name');
+
+          if (segmentLabels.length === 0) return;
+
+          //get the label element
+          var segmentLabel = segmentLabels[0];
+
+          //replace item in array
+          var index = vm.groups.indexOf(segmentGroup);
+          vm.groups[index] = group;
+
+          //now replace the label text and the attribute
+          segmentLabel.innerHTML = group;
+          segment.setAttribute('group', group);
+        };
+
+        //add a li to the dropdown for each group
+        for (i = 0; i < unselectedItems.length; i++) {
+
+          //create list element
+          var link = document.createElement('a');
+          var group = document.createElement('li');
+
+          //set the link text and href
+          link.innerHTML = unselectedItems[i];
+          link.setAttribute('select-group', unselectedItems[i]);
+          link.addEventListener('click', dropdownSelect);
+
+          //add link to group and group to dropdown
+          group.appendChild(link);
+          dropdown.appendChild(group);
+        }
+      }
+
+      function hideAllDropdowns() {
+        $(element[0]).find('.dropdown-menu').removeClass('show-groups').hide();
+      }
+
+      function addGroup(group) {
+        vm.groups.push(group);
+        updateSegments();
+      }
+
+      function updateColors() {
+        var segments = getSortedSegments();
+
+        for (var i = 0; i < segments.length; i++) {
+          if (segments[i].className === 'selection-segment') continue;
+
+          segments[i].style.backgroundColor = getColor(i);
+        }
+      }
+
+      function moveSegment(position, callback) {
+        //find segments
+        var segments = vm.list.getElementsByClassName('segment');
+
+        //remove selected segment from list
+        var unselected = [];
+
+        for (var sgmt = 0; sgmt < segments.length; sgmt++) {
+          //if the segment is not selected then push it
+          if (segments[sgmt] !== vm.selectedSegment) unselected.push(segments[sgmt]);
+        }
+
+        //sort the unselected segments based on top position
+        unselected.sort(function (a, b) {
+          return a.offsetTop - b.offsetTop;
+        });
+
+        //insert selected at specified position
+        var sorted = [],
+            idx = 0;
+
+        for (sgmt = 0; sgmt < segments.length; sgmt++) {
+          if (sgmt === position) sorted.push(vm.selectedSegment);else {
+            sorted.push(unselected[idx]);
+            idx++;
+          }
+        }
+
+        vm.groups = getSortedGroups();
+
+        //recalculate positions based on new order
+        for (sgmt = 0; sgmt < segments.length; sgmt++) {
+          var segment = sorted[sgmt];
+
+          $(segment).animate({
+            top: vm.rowHeight * sgmt
+          }, {
+            duration: 100,
+            queue: false,
+            complete: callback
+          });
+        }
+      }
+
+      function removeSegment(evt) {
+        var target = evt.target;
+        var closeBox = target.parentNode;
+        var segment = closeBox.parentNode;
+
+        var group = segment.getAttribute("group");
+
+        //remove group
+        var idx = vm.groups.indexOf(group);
+
+        //if not found do nothing
+        if (idx === -1) return;
+
+        vm.groups.splice(idx, 1);
+
+        var segments = getSortedSegments();
+
+        var colors = [];
+
+        for (var i = 0; i < segments.length; i++) {
+          var sgmt = segments[i];
+
+          //dont do this for selection segment
+          if (sgmt.className === 'selection-segment') continue;
+
+          var name = sgmt.getElementsByClassName('group-name')[0].innerHTML;
+          var color = sgmt.style.backgroundColor;
+
+          colors.push({ item: name, color: color });
+        }
+
+        updateSegments(colors);
+
+        setTimeout(updateColors, 170);
+      }
+    }
+  };
 }
 
 /***/ }),
@@ -31478,287 +31478,287 @@ function radiobutton() {
 reorderableTable.$inject = ['safeTimeout', 'safeEventListener'];
 
 function reorderableTable(safeTimeout, safeEventListener) {
-                return {
-                                restrict: 'A',
-                                scope: true,
-                                require: 'ngModel',
-                                link: function link(scope, element, attrs, ngModel) {
+    return {
+        restrict: 'A',
+        scope: true,
+        require: 'ngModel',
+        link: function link(scope, element, attrs, ngModel) {
 
-                                                // create instances of scope safe handlers
-                                                var safeTimeoutInstance = safeTimeout.create(scope);
-                                                var safeEventListenerInstance = safeEventListener.create(scope);
+            // create instances of scope safe handlers
+            var safeTimeoutInstance = safeTimeout.create(scope);
+            var safeEventListenerInstance = safeEventListener.create(scope);
 
-                                                // wait for element to be rendered
-                                                safeTimeoutInstance.timeout(init);
+            // wait for element to be rendered
+            safeTimeoutInstance.timeout(init);
 
-                                                // store some information when dragging
-                                                var selected_table_row;
-                                                var table_body = element.find('tbody');
+            // store some information when dragging
+            var selected_table_row;
+            var table_body = element.find('tbody');
 
-                                                // ensure there is a tbody - otherwise make a fuss
-                                                if (table_body.length === 0) throw new Error('Reorderable Table - The table must have a <tbody>.');
+            // ensure there is a tbody - otherwise make a fuss
+            if (table_body.length === 0) throw new Error('Reorderable Table - The table must have a <tbody>.');
 
-                                                // prepare scope values
-                                                var on_reorder = scope.$eval(attrs.onReorder) || angular.noop;
-                                                var on_reorder_complete = scope.$eval(attrs.onReorderComplete) || angular.noop;
+            // prepare scope values
+            var on_reorder = scope.$eval(attrs.onReorder) || angular.noop;
+            var on_reorder_complete = scope.$eval(attrs.onReorderComplete) || angular.noop;
 
-                                                function init() {
+            function init() {
 
-                                                                // create unique ids
-                                                                create_unique_ids();
+                // create unique ids
+                create_unique_ids();
 
-                                                                // any any required event listeners
-                                                                add_event_listeners();
+                // any any required event listeners
+                add_event_listeners();
 
-                                                                // watch for any new rows being added
-                                                                var observer = new MutationObserver(function (mutations) {
-                                                                                mutations.forEach(function (mutation) {
+                // watch for any new rows being added
+                var observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
 
-                                                                                                // look for any new nodes
-                                                                                                if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+                        // look for any new nodes
+                        if (mutation.addedNodes && mutation.addedNodes.length > 0) {
 
-                                                                                                                // iterate each node
-                                                                                                                for (var idx = 0; idx < mutation.addedNodes.length; idx++) {
+                            // iterate each node
+                            for (var idx = 0; idx < mutation.addedNodes.length; idx++) {
 
-                                                                                                                                // get the current node
-                                                                                                                                var node = mutation.addedNodes.item(idx);
+                                // get the current node
+                                var node = mutation.addedNodes.item(idx);
 
-                                                                                                                                // if node name is a tr then we need to prepare it
-                                                                                                                                if (node.nodeName.toLowerCase() === 'tr') {
-                                                                                                                                                add_new_row(node);
-                                                                                                                                }
-                                                                                                                }
-                                                                                                }
-                                                                                });
-                                                                });
-
-                                                                // configuration of the observer:
-                                                                var config = {
-                                                                                childList: true,
-                                                                                subtree: true
-                                                                };
-
-                                                                // watch for any new rows being added
-                                                                observer.observe(element[0], config);
-                                                }
-
-                                                function add_new_row(element) {
-
-                                                                // if the element has an id it has been moved not created so skip this bit
-                                                                if (element.id && element.id !== "") return;
-
-                                                                var table_row = angular.element(element);
-
-                                                                // give the row a unique id
-                                                                table_row.uniqueId();
-
-                                                                // find drag elements
-                                                                var drag_controls = table_row.find('[reorder-drag]');
-                                                                var reorder_up_controls = table_row.find('[reorder-up]');
-                                                                var reorder_down_controls = table_row.find('[reorder-down]');
-
-                                                                // add event handlers to drag handle
-                                                                drag_controls.mousedown(on_drag_begin);
-
-                                                                // add event handler to reorder buttons
-                                                                reorder_up_controls.click(on_move_up);
-                                                                reorder_down_controls.click(on_move_down);
-
-                                                                // add mouse over event to each table row
-                                                                table_row.mouseover(on_mouse_over_row);
-                                                }
-
-                                                function create_unique_ids() {
-
-                                                                // get all the table rows and add a unique id to them
-                                                                table_body.find('tr').uniqueId();
-                                                }
-
-                                                function add_event_listeners() {
-
-                                                                // find any reorder controls
-                                                                var table_rows = table_body.find('tr');
-                                                                var drag_controls = table_body.find('[reorder-drag]');
-                                                                var reorder_up_controls = table_body.find('[reorder-up]');
-                                                                var reorder_down_controls = table_body.find('[reorder-down]');
-
-                                                                // add mouse move event handler to the document - use safeEventListener to ensure disposal
-                                                                safeEventListenerInstance.bind(document, 'mousemove', on_drag);
-                                                                safeEventListenerInstance.bind(document, 'mouseup', on_drag_end);
-
-                                                                // add event handlers to drag handle
-                                                                drag_controls.mousedown(on_drag_begin);
-
-                                                                // add event handler to reorder buttons
-                                                                reorder_up_controls.click(on_move_up);
-                                                                reorder_down_controls.click(on_move_down);
-
-                                                                // add mouse over event to each table row
-                                                                table_rows.mouseover(on_mouse_over_row);
-                                                }
-
-                                                function on_drag_begin(evt) {
-
-                                                                // clear any text selection
-                                                                clear_selection();
-
-                                                                // get the table row from the event target
-                                                                var table_row = table_row_from_event(evt);
-
-                                                                // store the currently dragged element
-                                                                selected_table_row = table_row;
-
-                                                                // add the 'dragging' class to the table row
-                                                                angular.element(table_row).addClass('dragging');
-
-                                                                // set the cursor to a dragging state
-                                                                document.body.style.cursor = 'ns-resize';
-                                                }
-
-                                                function on_drag() {
-
-                                                                // clear any text selection if we are dragging
-                                                                if (selected_table_row) clear_selection();
-                                                }
-
-                                                function on_drag_end() {
-
-                                                                // dont do anything if we were not dragging
-                                                                if (!selected_table_row) return;
-
-                                                                // remove the 'dragging' class from the row
-                                                                angular.element(selected_table_row).removeClass('dragging');
-
-                                                                // remove any reference of the dragging row
-                                                                selected_table_row = null;
-
-                                                                // remove dragging cursor
-                                                                document.body.style.cursor = '';
-
-                                                                // call callback
-                                                                on_reorder_complete(ngModel.$viewValue);
-                                                }
-
-                                                function on_move_up(evt) {
-                                                                var table_row = table_row_from_event(evt);
-
-                                                                // try to find a previous row if there is one
-                                                                var previous_row = angular.element(table_row).prev('tr');
-
-                                                                // if there is a previous row then swap with it
-                                                                if (previous_row.length !== 0) swap_rows(table_row, previous_row.get(0), false);
-
-                                                                // call callback
-                                                                on_reorder_complete(ngModel.$viewValue);
-                                                }
-
-                                                function on_move_down(evt) {
-                                                                var table_row = table_row_from_event(evt);
-
-                                                                // try to find a next row if there is one
-                                                                var next_row = angular.element(table_row).next('tr');
-
-                                                                // if there is a next row then swap with it
-                                                                if (next_row.length !== 0) swap_rows(table_row, next_row.get(0), false);
-
-                                                                // call callback
-                                                                on_reorder_complete(ngModel.$viewValue);
-                                                }
-
-                                                function on_mouse_over_row(evt) {
-
-                                                                var table_row = table_row_from_event(evt);
-
-                                                                // if we are not dragging anything then or the mouse is over the current dragging item return
-                                                                if (!selected_table_row || table_row.id === selected_table_row.id) return;
-
-                                                                swap_rows(selected_table_row, table_row, false);
-                                                }
-
-                                                function table_row_from_event(evt) {
-
-                                                                // return the first table row element that is a parent of the click target
-                                                                return angular.element(evt.target).parents('tr').get(0);
-                                                }
-
-                                                function swap_rows(row_one, row_two, is_hopping) {
-
-                                                                // angular element wrappers
-                                                                var wrapped_row_one = angular.element(row_one);
-                                                                var wrapped_row_two = angular.element(row_two);
-
-                                                                // get the positions of the elements within it's parent
-                                                                var row_one_index = wrapped_row_one.index();
-                                                                var row_two_index = wrapped_row_two.index();
-
-                                                                // we need to check if the two rows are immediate siblings - if not then we need to hop each one in order
-                                                                if (wrapped_row_one.prev('tr').attr('id') !== wrapped_row_two.attr('id') && wrapped_row_one.next('tr').attr('id') !== wrapped_row_two.attr('id')) {
-
-                                                                                // perform hopping action to move all rows in between up or down without reordering them
-                                                                                perform_hopping(row_one, row_two, row_one_index > row_two_index ? 'up' : 'down');
-
-                                                                                return;
-                                                                }
-
-                                                                // get the current ngmodel value
-                                                                var model = ngModel.$viewValue.slice(0);
-
-                                                                // get the current data of the elements
-                                                                var row_one_data = model[row_one_index];
-                                                                var row_two_data = model[row_two_index];
-
-                                                                // swap data in array
-                                                                model[row_one_index] = row_two_data;
-                                                                model[row_two_index] = row_one_data;
-
-                                                                // next update the model
-                                                                ngModel.$setViewValue(model);
-
-                                                                // perform render to update the 
-                                                                ngModel.$render();
-
-                                                                // call event handler if not hopping
-                                                                if (is_hopping === false) on_reorder(model);
-                                                }
-
-                                                function perform_hopping(source_row, target_row, direction) {
-
-                                                                // create wrapped elements
-                                                                var wrapped_source_row = angular.element(source_row);
-
-                                                                // keep track of progress
-                                                                var moving_complete = false;
-                                                                var iterator = 0;
-
-                                                                // find the maximum possible number of swaps
-                                                                var max_iteration_count = table_body.find('tr').length;
-
-                                                                // we are attempting to move a row up - until the previous sibling is row two keep swapping
-                                                                while (moving_complete === false && iterator < max_iteration_count) {
-
-                                                                                // get the next/previous table row
-                                                                                var sibling_row = direction === 'up' ? wrapped_source_row.prev('tr') : wrapped_source_row.next('tr');
-
-                                                                                // if there is no previous row then stop looping
-                                                                                if (sibling_row.length === 0) break;
-
-                                                                                // if the previous row matches the target row then mark as complete
-                                                                                if (sibling_row.attr('id') === target_row.id) moving_complete = true;
-
-                                                                                // otherwise swap the two rows
-                                                                                swap_rows(source_row, sibling_row.get(0), !moving_complete);
-
-                                                                                // keep track of iteration count to avoid infinite loop
-                                                                                iterator++;
-                                                                }
-                                                }
-
-                                                function clear_selection() {
-                                                                // unhighlight any text that may be selected - often happens when dragging
-                                                                if (document.selection) document.selection.empty();else if (window.getSelection) window.getSelection().removeAllRanges();
-                                                }
+                                // if node name is a tr then we need to prepare it
+                                if (node.nodeName.toLowerCase() === 'tr') {
+                                    add_new_row(node);
                                 }
+                            }
+                        }
+                    });
+                });
+
+                // configuration of the observer:
+                var config = {
+                    childList: true,
+                    subtree: true
                 };
+
+                // watch for any new rows being added
+                observer.observe(element[0], config);
+            }
+
+            function add_new_row(element) {
+
+                // if the element has an id it has been moved not created so skip this bit
+                if (element.id && element.id !== "") return;
+
+                var table_row = angular.element(element);
+
+                // give the row a unique id
+                table_row.uniqueId();
+
+                // find drag elements
+                var drag_controls = table_row.find('[reorder-drag]');
+                var reorder_up_controls = table_row.find('[reorder-up]');
+                var reorder_down_controls = table_row.find('[reorder-down]');
+
+                // add event handlers to drag handle
+                drag_controls.mousedown(on_drag_begin);
+
+                // add event handler to reorder buttons
+                reorder_up_controls.click(on_move_up);
+                reorder_down_controls.click(on_move_down);
+
+                // add mouse over event to each table row
+                table_row.mouseover(on_mouse_over_row);
+            }
+
+            function create_unique_ids() {
+
+                // get all the table rows and add a unique id to them
+                table_body.find('tr').uniqueId();
+            }
+
+            function add_event_listeners() {
+
+                // find any reorder controls
+                var table_rows = table_body.find('tr');
+                var drag_controls = table_body.find('[reorder-drag]');
+                var reorder_up_controls = table_body.find('[reorder-up]');
+                var reorder_down_controls = table_body.find('[reorder-down]');
+
+                // add mouse move event handler to the document - use safeEventListener to ensure disposal
+                safeEventListenerInstance.bind(document, 'mousemove', on_drag);
+                safeEventListenerInstance.bind(document, 'mouseup', on_drag_end);
+
+                // add event handlers to drag handle
+                drag_controls.mousedown(on_drag_begin);
+
+                // add event handler to reorder buttons
+                reorder_up_controls.click(on_move_up);
+                reorder_down_controls.click(on_move_down);
+
+                // add mouse over event to each table row
+                table_rows.mouseover(on_mouse_over_row);
+            }
+
+            function on_drag_begin(evt) {
+
+                // clear any text selection
+                clear_selection();
+
+                // get the table row from the event target
+                var table_row = table_row_from_event(evt);
+
+                // store the currently dragged element
+                selected_table_row = table_row;
+
+                // add the 'dragging' class to the table row
+                angular.element(table_row).addClass('dragging');
+
+                // set the cursor to a dragging state
+                document.body.style.cursor = 'ns-resize';
+            }
+
+            function on_drag() {
+
+                // clear any text selection if we are dragging
+                if (selected_table_row) clear_selection();
+            }
+
+            function on_drag_end() {
+
+                // dont do anything if we were not dragging
+                if (!selected_table_row) return;
+
+                // remove the 'dragging' class from the row
+                angular.element(selected_table_row).removeClass('dragging');
+
+                // remove any reference of the dragging row
+                selected_table_row = null;
+
+                // remove dragging cursor
+                document.body.style.cursor = '';
+
+                // call callback
+                on_reorder_complete(ngModel.$viewValue);
+            }
+
+            function on_move_up(evt) {
+                var table_row = table_row_from_event(evt);
+
+                // try to find a previous row if there is one
+                var previous_row = angular.element(table_row).prev('tr');
+
+                // if there is a previous row then swap with it
+                if (previous_row.length !== 0) swap_rows(table_row, previous_row.get(0), false);
+
+                // call callback
+                on_reorder_complete(ngModel.$viewValue);
+            }
+
+            function on_move_down(evt) {
+                var table_row = table_row_from_event(evt);
+
+                // try to find a next row if there is one
+                var next_row = angular.element(table_row).next('tr');
+
+                // if there is a next row then swap with it
+                if (next_row.length !== 0) swap_rows(table_row, next_row.get(0), false);
+
+                // call callback
+                on_reorder_complete(ngModel.$viewValue);
+            }
+
+            function on_mouse_over_row(evt) {
+
+                var table_row = table_row_from_event(evt);
+
+                // if we are not dragging anything then or the mouse is over the current dragging item return
+                if (!selected_table_row || table_row.id === selected_table_row.id) return;
+
+                swap_rows(selected_table_row, table_row, false);
+            }
+
+            function table_row_from_event(evt) {
+
+                // return the first table row element that is a parent of the click target
+                return angular.element(evt.target).parents('tr').get(0);
+            }
+
+            function swap_rows(row_one, row_two, is_hopping) {
+
+                // angular element wrappers
+                var wrapped_row_one = angular.element(row_one);
+                var wrapped_row_two = angular.element(row_two);
+
+                // get the positions of the elements within it's parent
+                var row_one_index = wrapped_row_one.index();
+                var row_two_index = wrapped_row_two.index();
+
+                // we need to check if the two rows are immediate siblings - if not then we need to hop each one in order
+                if (wrapped_row_one.prev('tr').attr('id') !== wrapped_row_two.attr('id') && wrapped_row_one.next('tr').attr('id') !== wrapped_row_two.attr('id')) {
+
+                    // perform hopping action to move all rows in between up or down without reordering them
+                    perform_hopping(row_one, row_two, row_one_index > row_two_index ? 'up' : 'down');
+
+                    return;
+                }
+
+                // get the current ngmodel value
+                var model = ngModel.$viewValue.slice(0);
+
+                // get the current data of the elements
+                var row_one_data = model[row_one_index];
+                var row_two_data = model[row_two_index];
+
+                // swap data in array
+                model[row_one_index] = row_two_data;
+                model[row_two_index] = row_one_data;
+
+                // next update the model
+                ngModel.$setViewValue(model);
+
+                // perform render to update the 
+                ngModel.$render();
+
+                // call event handler if not hopping
+                if (is_hopping === false) on_reorder(model);
+            }
+
+            function perform_hopping(source_row, target_row, direction) {
+
+                // create wrapped elements
+                var wrapped_source_row = angular.element(source_row);
+
+                // keep track of progress
+                var moving_complete = false;
+                var iterator = 0;
+
+                // find the maximum possible number of swaps
+                var max_iteration_count = table_body.find('tr').length;
+
+                // we are attempting to move a row up - until the previous sibling is row two keep swapping
+                while (moving_complete === false && iterator < max_iteration_count) {
+
+                    // get the next/previous table row
+                    var sibling_row = direction === 'up' ? wrapped_source_row.prev('tr') : wrapped_source_row.next('tr');
+
+                    // if there is no previous row then stop looping
+                    if (sibling_row.length === 0) break;
+
+                    // if the previous row matches the target row then mark as complete
+                    if (sibling_row.attr('id') === target_row.id) moving_complete = true;
+
+                    // otherwise swap the two rows
+                    swap_rows(source_row, sibling_row.get(0), !moving_complete);
+
+                    // keep track of iteration count to avoid infinite loop
+                    iterator++;
+                }
+            }
+
+            function clear_selection() {
+                // unhighlight any text that may be selected - often happens when dragging
+                if (document.selection) document.selection.empty();else if (window.getSelection) window.getSelection().removeAllRanges();
+            }
+        }
+    };
 }
 
 /***/ }),
@@ -33148,34 +33148,34 @@ function SearchComponentCtrl($scope) {
 searchComponent.$inject = ['$animate'];
 
 function searchComponent($animate) {
-            return {
-                        restrict: 'E',
-                        controller: 'SearchComponentCtrl',
-                        controllerAs: 'sc',
-                        template: __webpack_require__(534),
-                        replace: true,
-                        transclude: true,
-                        require: ['^searchGroup'],
-                        link: function link(scope, element, attrs, ctrl, transclude) {
+    return {
+        restrict: 'E',
+        controller: 'SearchComponentCtrl',
+        controllerAs: 'sc',
+        template: __webpack_require__(534),
+        replace: true,
+        transclude: true,
+        require: ['^searchGroup'],
+        link: function link(scope, element, attrs, ctrl, transclude) {
 
-                                    //prevent any animation on the element - reduce any lag
-                                    $animate.enabled(false);
+            //prevent any animation on the element - reduce any lag
+            $animate.enabled(false);
 
-                                    //store the component id
-                                    scope.componentId = element.parents('.field').first().attr('component-id');
+            //store the component id
+            scope.componentId = element.parents('.field').first().attr('component-id');
 
-                                    //make search group controller available to the search component controller
-                                    scope.searchGroup = ctrl[0];
+            //make search group controller available to the search component controller
+            scope.searchGroup = ctrl[0];
 
-                                    //check if the component should have an initial value
-                                    scope.model = scope.searchGroup.getComponentValue(scope.componentId);
+            //check if the component should have an initial value
+            scope.model = scope.searchGroup.getComponentValue(scope.componentId);
 
-                                    //perform manualy transclusion to provide correct scope to controller
-                                    transclude(scope, function (clone) {
-                                                element.find('.component-container').append(clone);
-                                    });
-                        }
-            };
+            //perform manualy transclusion to provide correct scope to controller
+            transclude(scope, function (clone) {
+                element.find('.component-container').append(clone);
+            });
+        }
+    };
 }
 
 /***/ }),
@@ -33984,87 +33984,87 @@ SideInsetCtrl.prototype.togglePanel = function () {
 sideInset.$inject = ["$compile"];
 
 function sideInset($compile) {
-            return {
-                        restrict: "A",
-                        scope: true,
-                        link: function link(scope, element, attrs) {
+    return {
+        restrict: "A",
+        scope: true,
+        link: function link(scope, element, attrs) {
 
-                                    scope.si.position = {};
-                                    var positionClass = "";
+            scope.si.position = {};
+            var positionClass = "";
 
-                                    var childElements = element.children();
+            var childElements = element.children();
 
-                                    //The side panel will appear on the left if it comes before the main content in the HTML, or on the right if it comes after.
-                                    if (childElements.length) {
-                                                if (!!~childElements[0].className.indexOf("side-inset")) {
-                                                            positionClass = "left";
-                                                } else if (childElements.length > 1 && !!~childElements[1].className.indexOf("side-inset")) {
-                                                            positionClass = "right";
-                                                } else {
-                                                            console.error("Required side-inset div was not found in sideInset directive.");
-                                                }
-                                    }
-                                    scope.si.position[positionClass] = true;
+            //The side panel will appear on the left if it comes before the main content in the HTML, or on the right if it comes after.
+            if (childElements.length) {
+                if (!!~childElements[0].className.indexOf("side-inset")) {
+                    positionClass = "left";
+                } else if (childElements.length > 1 && !!~childElements[1].className.indexOf("side-inset")) {
+                    positionClass = "right";
+                } else {
+                    console.error("Required side-inset div was not found in sideInset directive.");
+                }
+            }
+            scope.si.position[positionClass] = true;
 
-                                    //The toggle button's vertical position is configurable since it is relative to the main content's height.
-                                    var toggleButtonTop = '0px';
-                                    if (attrs.sideInsetButtonTop) {
-                                                toggleButtonTop = attrs.sideInsetButtonTop || toggleButtonTop;
-                                    }
+            //The toggle button's vertical position is configurable since it is relative to the main content's height.
+            var toggleButtonTop = '0px';
+            if (attrs.sideInsetButtonTop) {
+                toggleButtonTop = attrs.sideInsetButtonTop || toggleButtonTop;
+            }
 
-                                    //The width that the side panel will take is configurable.
-                                    scope.si.sideInsetWidth = attrs.sideInsetWidth || 20;
+            //The width that the side panel will take is configurable.
+            scope.si.sideInsetWidth = attrs.sideInsetWidth || 20;
 
-                                    if (scope.si.sideInsetWidth < 0 || scope.si.sideInsetWidth > 100) {
-                                                console.error("SideInsetWidth must be between 0 and 100");
-                                                return;
-                                    }
+            if (scope.si.sideInsetWidth < 0 || scope.si.sideInsetWidth > 100) {
+                console.error("SideInsetWidth must be between 0 and 100");
+                return;
+            }
 
-                                    element.addClass("wrapper-side-inset");
+            element.addClass("wrapper-side-inset");
 
-                                    //Add the toggle button
-                                    var template = "<div class='side-inset-toggle " + positionClass + "' ng-click='si.togglePanel()'>";
-                                    template += "<a class='hpe-icon {{si.icon}}'></a>";
-                                    template += "</div>";
-                                    var toggleButton = angular.element(template);
-                                    $compile(toggleButton)(scope);
+            //Add the toggle button
+            var template = "<div class='side-inset-toggle " + positionClass + "' ng-click='si.togglePanel()'>";
+            template += "<a class='hpe-icon {{si.icon}}'></a>";
+            template += "</div>";
+            var toggleButton = angular.element(template);
+            $compile(toggleButton)(scope);
 
-                                    var mainContent = element.find('.main-content');
-                                    var sideInset = element.find('.side-inset');
+            var mainContent = element.find('.main-content');
+            var sideInset = element.find('.side-inset');
 
-                                    mainContent.prepend(toggleButton);
+            mainContent.prepend(toggleButton);
 
-                                    var styles = {
-                                                transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                float: 'left',
-                                                margin: 0
-                                    };
-                                    var mainContentSpecificStyles = {
-                                                position: 'relative'
-                                    };
-                                    var sideSpecificStyles = {
-                                                overflow: 'hidden'
-                                    };
-                                    var toggleButtonSpecificStyles = {
-                                                position: 'absolute',
-                                                transition: 'right 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                top: toggleButtonTop,
-                                                zIndex: 1
-                                    };
-
-                                    angular.extend(mainContent[0].style, styles, mainContentSpecificStyles);
-                                    angular.extend(sideInset[0].style, styles, sideSpecificStyles);
-                                    angular.extend(toggleButton[0].style, toggleButtonSpecificStyles);
-
-                                    //Save the elements on the controller
-                                    scope.si.mainElement = mainContent[0];
-                                    scope.si.sidePanel = sideInset[0];
-                                    scope.si.toggleButton = toggleButton[0];
-
-                                    scope.si.setInitialWidth();
-                        },
-                        controller: "SideInsetCtrl as si"
+            var styles = {
+                transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                float: 'left',
+                margin: 0
             };
+            var mainContentSpecificStyles = {
+                position: 'relative'
+            };
+            var sideSpecificStyles = {
+                overflow: 'hidden'
+            };
+            var toggleButtonSpecificStyles = {
+                position: 'absolute',
+                transition: 'right 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                top: toggleButtonTop,
+                zIndex: 1
+            };
+
+            angular.extend(mainContent[0].style, styles, mainContentSpecificStyles);
+            angular.extend(sideInset[0].style, styles, sideSpecificStyles);
+            angular.extend(toggleButton[0].style, toggleButtonSpecificStyles);
+
+            //Save the elements on the controller
+            scope.si.mainElement = mainContent[0];
+            scope.si.sidePanel = sideInset[0];
+            scope.si.toggleButton = toggleButton[0];
+
+            scope.si.setInitialWidth();
+        },
+        controller: "SideInsetCtrl as si"
+    };
 }
 
 /***/ }),
@@ -34777,387 +34777,387 @@ function SliderCtrl($scope, $timeout) {
 slider.$inject = ['$timeout'];
 
 function slider($timeout) {
-                return {
-                                restrict: 'E',
-                                template: __webpack_require__(542),
-                                scope: {
-                                                options: '=',
-                                                ngModel: '='
-                                },
-                                require: 'ngModel',
-                                controller: 'SliderCtrl as vm',
-                                bindToController: true,
-                                link: function link(scope, element) {
+    return {
+        restrict: 'E',
+        template: __webpack_require__(542),
+        scope: {
+            options: '=',
+            ngModel: '='
+        },
+        require: 'ngModel',
+        controller: 'SliderCtrl as vm',
+        bindToController: true,
+        link: function link(scope, element) {
 
-                                                // store reference to controller
-                                                var vm = scope.vm;
+            // store reference to controller
+            var vm = scope.vm;
 
-                                                // store reference to elements
-                                                var nativeElement = element.get(0);
+            // store reference to elements
+            var nativeElement = element.get(0);
 
-                                                var track = nativeElement.querySelector('.track');
+            var track = nativeElement.querySelector('.track');
 
-                                                var thumbLower = nativeElement.querySelector('.thumb.lower');
-                                                var thumbUpper = nativeElement.querySelector('.thumb.upper');
+            var thumbLower = nativeElement.querySelector('.thumb.lower');
+            var thumbUpper = nativeElement.querySelector('.thumb.upper');
 
-                                                var lowerTooltip = nativeElement.querySelector('.tooltip-lower');
-                                                var upperTooltip = nativeElement.querySelector('.tooltip-upper');
+            var lowerTooltip = nativeElement.querySelector('.tooltip-lower');
+            var upperTooltip = nativeElement.querySelector('.tooltip-upper');
 
-                                                // store the currently dragged state
-                                                var activeThumb = null;
+            // store the currently dragged state
+            var activeThumb = null;
 
-                                                // bind event handlers
-                                                bindHandlers();
+            // bind event handlers
+            bindHandlers();
 
-                                                // create tooltips after initial digest
-                                                $timeout(createTooltips);
+            // create tooltips after initial digest
+            $timeout(createTooltips);
 
-                                                // unbind event handlers
-                                                scope.$on('$destroy', unbindHandlers);
+            // unbind event handlers
+            scope.$on('$destroy', unbindHandlers);
 
-                                                function bindHandlers() {
+            function bindHandlers() {
 
-                                                                // add mouse down events to thumbs
-                                                                thumbLower.addEventListener('mousedown', thumbDragStart);
-                                                                thumbUpper.addEventListener('mousedown', thumbDragStart);
+                // add mouse down events to thumbs
+                thumbLower.addEventListener('mousedown', thumbDragStart);
+                thumbUpper.addEventListener('mousedown', thumbDragStart);
 
-                                                                // add some events to the document
-                                                                document.addEventListener('mousemove', thumbDragMove);
-                                                                document.addEventListener('mouseup', thumbDragEnd);
+                // add some events to the document
+                document.addEventListener('mousemove', thumbDragMove);
+                document.addEventListener('mouseup', thumbDragEnd);
 
-                                                                // support touch events
-                                                                thumbLower.addEventListener('touchstart', thumbDragStart);
-                                                                thumbUpper.addEventListener('touchstart', thumbDragStart);
-                                                                document.addEventListener('touchmove', thumbDragMove);
-                                                                document.addEventListener('touchend', thumbDragEnd);
-                                                }
+                // support touch events
+                thumbLower.addEventListener('touchstart', thumbDragStart);
+                thumbUpper.addEventListener('touchstart', thumbDragStart);
+                document.addEventListener('touchmove', thumbDragMove);
+                document.addEventListener('touchend', thumbDragEnd);
+            }
 
-                                                function unbindHandlers() {
-                                                                document.removeEventListener('mousemove', thumbDragMove);
-                                                                document.removeEventListener('mouseup', thumbDragEnd);
+            function unbindHandlers() {
+                document.removeEventListener('mousemove', thumbDragMove);
+                document.removeEventListener('mouseup', thumbDragEnd);
 
-                                                                document.removeEventListener('touchmove', thumbDragMove);
-                                                                document.removeEventListener('touchend', thumbDragEnd);
-                                                }
+                document.removeEventListener('touchmove', thumbDragMove);
+                document.removeEventListener('touchend', thumbDragEnd);
+            }
 
-                                                function thumbDragStart(event) {
+            function thumbDragStart(event) {
 
-                                                                // ensure we are not performing events on tooltip
-                                                                if (hasClassOrAncestor(event.target, 'tooltip')) {
-                                                                                return;
-                                                                }
+                // ensure we are not performing events on tooltip
+                if (hasClassOrAncestor(event.target, 'tooltip')) {
+                    return;
+                }
 
-                                                                // if right or middle click do nothing
-                                                                if (event.button && event.button !== 0) {
-                                                                                return;
-                                                                }
+                // if right or middle click do nothing
+                if (event.button && event.button !== 0) {
+                    return;
+                }
 
-                                                                // store the element to use later
-                                                                activeThumb = event.target;
+                // store the element to use later
+                activeThumb = event.target;
 
-                                                                // get thumb state
-                                                                var thumbState = resolveThumbState(activeThumb);
+                // get thumb state
+                var thumbState = resolveThumbState(activeThumb);
 
-                                                                // update thumb state
-                                                                thumbState.drag = true;
+                // update thumb state
+                thumbState.drag = true;
 
-                                                                // remove bring to front class from both thumbs
-                                                                vm.bringToFront(activeThumb.classList.contains('upper'));
+                // remove bring to front class from both thumbs
+                vm.bringToFront(activeThumb.classList.contains('upper'));
 
-                                                                // stop any highlighting occuring when dragging
-                                                                event.preventDefault();
+                // stop any highlighting occuring when dragging
+                event.preventDefault();
 
-                                                                return false;
-                                                }
+                return false;
+            }
 
-                                                function thumbDragMove(event) {
+            function thumbDragMove(event) {
 
-                                                                // if we arent dragging then stop
-                                                                if (activeThumb === null) {
-                                                                                return;
-                                                                }
+                // if we arent dragging then stop
+                if (activeThumb === null) {
+                    return;
+                }
 
-                                                                // get the thumb being dragged
-                                                                var thumb = activeThumb;
+                // get the thumb being dragged
+                var thumb = activeThumb;
 
-                                                                // check for any page scrolling
-                                                                var value = mousePositionToValue(event);
+                // check for any page scrolling
+                var value = mousePositionToValue(event);
 
-                                                                // snap to ticks
-                                                                value = snapToTick(value);
+                // snap to ticks
+                value = snapToTick(value);
 
-                                                                // get the current value for the thumb
-                                                                setValueForThumb(thumb, value);
-                                                }
+                // get the current value for the thumb
+                setValueForThumb(thumb, value);
+            }
 
-                                                function thumbDragEnd() {
+            function thumbDragEnd() {
 
-                                                                // if we arent dragging then stop
-                                                                if (activeThumb === null) {
-                                                                                return;
-                                                                }
+                // if we arent dragging then stop
+                if (activeThumb === null) {
+                    return;
+                }
 
-                                                                // get thumb state
-                                                                var thumbState = resolveThumbState(activeThumb);
+                // get thumb state
+                var thumbState = resolveThumbState(activeThumb);
 
-                                                                // update thumb state
-                                                                thumbState.drag = false;
-
-                                                                // remove any reference to thumb object being dragged
-                                                                activeThumb = null;
+                // update thumb state
+                thumbState.drag = false;
+
+                // remove any reference to thumb object being dragged
+                activeThumb = null;
 
-                                                                // perform a digest here if required
-                                                                if (!scope.$$phase) {
-                                                                                scope.$digest();
-                                                                }
-                                                }
-
-                                                function clamp(value, min, max) {
-                                                                return Math.min(Math.max(value, min), max);
-                                                }
-
-                                                function mousePositionToValue(event) {
-
-                                                                // get event position - eithe rmouse or touch
-                                                                var eventPosition = event.clientX !== undefined ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
-
-                                                                // if event position is null do nothing
-                                                                if (eventPosition === null) {
-                                                                                return;
-                                                                }
-
-                                                                // get mouse position
-                                                                var mouseX = window.pageXOffset + eventPosition;
-
-                                                                // get track size and position
-                                                                var trackBounds = track.getBoundingClientRect();
-
-                                                                // restrict the value within the range size
-                                                                var position = clamp(mouseX - trackBounds.left, 0, trackBounds.width);
-
-                                                                // get fraction representation of location within the track
-                                                                var fraction = position / trackBounds.width;
-
-                                                                // convert to value within the range
-                                                                var value = (vm.options.track.max - vm.options.track.min) * fraction + vm.options.track.min;
-
-                                                                // ensure value is valid
-                                                                value = validatePosition(value);
-
-                                                                // convert position to point within range
-                                                                return value;
-                                                }
-
-                                                function validatePosition(value) {
-
-                                                                // if slider is not a range value is always valid
-                                                                if (vm.options.type === 'value') {
-                                                                                return value;
-                                                                }
-
-                                                                // otherwise we need to check to make sure lower thumb cannot go above higher and vice versa
-                                                                if (activeThumb === thumbLower) {
-                                                                                return value <= vm.thumbUpperValue ? value : vm.thumbUpperValue;
-                                                                }
-
-                                                                if (activeThumb === thumbUpper) {
-                                                                                return value >= vm.thumbLowerValue ? value : vm.thumbLowerValue;
-                                                                }
-                                                }
-
-                                                function setValueForThumb(thumb, value) {
-
-                                                                // set the appropriate values
-                                                                if (thumb === thumbLower) {
-                                                                                vm.thumbLowerValue = value;
-                                                                } else {
-                                                                                vm.thumbUpperValue = value;
-                                                                }
-
-                                                                // run digest if required
-                                                                if (!scope.$$phase) {
-                                                                                scope.$digest();
-                                                                }
-                                                }
-
-                                                function createTooltips() {
-
-                                                                // initially update tooltips
-                                                                updateTooltip(lowerTooltip, vm.tooltipLowerVisible);
-                                                                updateTooltip(upperTooltip, vm.tooltipUpperVisible);
-
-                                                                // watch values of lower thumb
-                                                                scope.$watch('vm.thumbLowerValue', function (newValue, oldValue) {
-                                                                                if (newValue !== oldValue) {
-                                                                                                $timeout(function () {
-                                                                                                                updateTooltip(lowerTooltip, vm.tooltipLowerVisible);
-                                                                                                });
-                                                                                }
-                                                                });
-
-                                                                // watch values of upper thumb
-                                                                scope.$watch('vm.thumbUpperValue', function (newValue, oldValue) {
-                                                                                if (newValue !== oldValue) {
-                                                                                                $timeout(function () {
-                                                                                                                updateTooltip(upperTooltip, vm.tooltipUpperVisible);
-                                                                                                });
-                                                                                }
-                                                                });
-
-                                                                // watch for changes in tooltip visibility
-                                                                scope.$watch('vm.tooltipLowerVisible', function (newValue, oldValue) {
-                                                                                if (newValue !== oldValue) {
-                                                                                                updateTooltip(lowerTooltip, vm.tooltipLowerVisible);
-                                                                                }
-                                                                });
-
-                                                                scope.$watch('vm.tooltipUpperVisible', function (newValue, oldValue) {
-                                                                                if (newValue !== oldValue) {
-                                                                                                updateTooltip(upperTooltip, vm.tooltipUpperVisible);
-                                                                                }
-                                                                });
-
-                                                                // watch callout options to and update if required
-                                                                scope.$watch('vm.options.handles.callout', function (newValue, oldValue) {
-                                                                                if (newValue !== oldValue) {
-                                                                                                // update both tooltips
-                                                                                                $timeout(function () {
-                                                                                                                updateTooltip(lowerTooltip, vm.tooltipLowerVisible);
-                                                                                                                updateTooltip(upperTooltip, vm.tooltipUpperVisible);
-                                                                                                });
-                                                                                }
-                                                                });
-                                                }
-
-                                                function updateTooltip(tooltip, visible) {
-
-                                                                // if tooltip is not visible then stop here
-                                                                if (visible === false) {
-                                                                                return;
-                                                                }
-
-                                                                // get the parent thumb element
-                                                                var thumb = tooltip.parentElement;
-
-                                                                // get the thumb width
-                                                                var thumbWidth = thumb.offsetWidth;
-
-                                                                // get the tooltips width
-                                                                var tooltipWidth = tooltip.offsetWidth;
-
-                                                                // calculat the tooltips new position
-                                                                var tooltipPosition = Math.ceil((tooltipWidth - thumbWidth) / 2);
-
-                                                                // update tooltip position
-                                                                tooltip.style.left = -tooltipPosition + 'px';
-                                                }
-
-                                                function snapToTick(value) {
-
-                                                                // get the snap target
-                                                                var snapTarget = vm.options.track.ticks.snap;
-
-                                                                // if snap target is none then return original value
-                                                                if (!snapTarget || snapTarget === 'none') {
-                                                                                return value;
-                                                                }
-
-                                                                // get filtered ticks
-                                                                var ticks;
-
-                                                                switch (snapTarget) {
-                                                                                case 'minor':
-                                                                                                ticks = vm.ticks.filter(function (tick) {
-                                                                                                                return tick.type === 'minor';
-                                                                                                });
-                                                                                                break;
-
-                                                                                case 'major':
-                                                                                                ticks = vm.ticks.filter(function (tick) {
-                                                                                                                return tick.type === 'major';
-                                                                                                });
-                                                                                                break;
-
-                                                                                case 'all':
-                                                                                                ticks = vm.ticks.slice(0);
-                                                                                                break;
-                                                                }
-
-                                                                var lowerLimit = vm.options.track.min;
-                                                                var upperLimit = vm.options.track.max;
-
-                                                                // if range then update the limits
-                                                                if (vm.options.type === 'range') {
-
-                                                                                // determine which thumb we are dragging
-                                                                                if (activeThumb.classList.contains('lower')) {
-                                                                                                upperLimit = vm.thumbUpperValue;
-                                                                                } else {
-                                                                                                lowerLimit = vm.thumbLowerValue;
-                                                                                }
-                                                                }
-
-                                                                // filter ticks within the allowed range
-                                                                ticks = ticks.filter(function (tick) {
-                                                                                return tick.value >= lowerLimit && tick.value <= upperLimit;
-                                                                });
-
-                                                                // find the closest tick
-                                                                var snapValue = 0,
-                                                                    distance = null;
-
-                                                                // iterate each tick to find the closest
-                                                                for (var idx = 0; idx < ticks.length; idx++) {
-
-                                                                                // get tick value
-                                                                                var tickValue = ticks[idx];
-
-                                                                                // calculate the distance between this ticks value and our target
-                                                                                var tickDistance = Math.max(tickValue.value, value) - Math.min(tickValue.value, value);
-
-                                                                                // if this tick is closer than the previous closest then store this new tick
-                                                                                if (distance === null || tickDistance < distance) {
-
-                                                                                                distance = tickDistance;
-                                                                                                snapValue = tickValue.value;
-                                                                                }
-                                                                }
-
-                                                                return snapValue;
-                                                }
-
-                                                /*
-                                                    Utility Functions
-                                                */
-                                                function resolveThumbState(element) {
-                                                                // return the reference to the corresponding state element
-                                                                return element.classList.contains('lower') ? vm.lowerThumbState : vm.upperThumbState;
-                                                }
-
-                                                function hasClassOrAncestor(element, className) {
-
-                                                                // check if the current element has the class
-                                                                if (element.classList.contains(className)) {
-                                                                                return true;
-                                                                }
-
-                                                                // iterate each parent element
-                                                                while (element.parentElement) {
-
-                                                                                // check if parent element has class
-                                                                                if (element.classList.contains(className)) {
-                                                                                                return true;
-                                                                                }
-
-                                                                                // set element to the parent element
-                                                                                element = element.parentElement;
-                                                                }
-
-                                                                // if we reach this point then return false
-                                                                return false;
-                                                }
-                                }
-                };
+                // perform a digest here if required
+                if (!scope.$$phase) {
+                    scope.$digest();
+                }
+            }
+
+            function clamp(value, min, max) {
+                return Math.min(Math.max(value, min), max);
+            }
+
+            function mousePositionToValue(event) {
+
+                // get event position - eithe rmouse or touch
+                var eventPosition = event.clientX !== undefined ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
+
+                // if event position is null do nothing
+                if (eventPosition === null) {
+                    return;
+                }
+
+                // get mouse position
+                var mouseX = window.pageXOffset + eventPosition;
+
+                // get track size and position
+                var trackBounds = track.getBoundingClientRect();
+
+                // restrict the value within the range size
+                var position = clamp(mouseX - trackBounds.left, 0, trackBounds.width);
+
+                // get fraction representation of location within the track
+                var fraction = position / trackBounds.width;
+
+                // convert to value within the range
+                var value = (vm.options.track.max - vm.options.track.min) * fraction + vm.options.track.min;
+
+                // ensure value is valid
+                value = validatePosition(value);
+
+                // convert position to point within range
+                return value;
+            }
+
+            function validatePosition(value) {
+
+                // if slider is not a range value is always valid
+                if (vm.options.type === 'value') {
+                    return value;
+                }
+
+                // otherwise we need to check to make sure lower thumb cannot go above higher and vice versa
+                if (activeThumb === thumbLower) {
+                    return value <= vm.thumbUpperValue ? value : vm.thumbUpperValue;
+                }
+
+                if (activeThumb === thumbUpper) {
+                    return value >= vm.thumbLowerValue ? value : vm.thumbLowerValue;
+                }
+            }
+
+            function setValueForThumb(thumb, value) {
+
+                // set the appropriate values
+                if (thumb === thumbLower) {
+                    vm.thumbLowerValue = value;
+                } else {
+                    vm.thumbUpperValue = value;
+                }
+
+                // run digest if required
+                if (!scope.$$phase) {
+                    scope.$digest();
+                }
+            }
+
+            function createTooltips() {
+
+                // initially update tooltips
+                updateTooltip(lowerTooltip, vm.tooltipLowerVisible);
+                updateTooltip(upperTooltip, vm.tooltipUpperVisible);
+
+                // watch values of lower thumb
+                scope.$watch('vm.thumbLowerValue', function (newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        $timeout(function () {
+                            updateTooltip(lowerTooltip, vm.tooltipLowerVisible);
+                        });
+                    }
+                });
+
+                // watch values of upper thumb
+                scope.$watch('vm.thumbUpperValue', function (newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        $timeout(function () {
+                            updateTooltip(upperTooltip, vm.tooltipUpperVisible);
+                        });
+                    }
+                });
+
+                // watch for changes in tooltip visibility
+                scope.$watch('vm.tooltipLowerVisible', function (newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        updateTooltip(lowerTooltip, vm.tooltipLowerVisible);
+                    }
+                });
+
+                scope.$watch('vm.tooltipUpperVisible', function (newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        updateTooltip(upperTooltip, vm.tooltipUpperVisible);
+                    }
+                });
+
+                // watch callout options to and update if required
+                scope.$watch('vm.options.handles.callout', function (newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        // update both tooltips
+                        $timeout(function () {
+                            updateTooltip(lowerTooltip, vm.tooltipLowerVisible);
+                            updateTooltip(upperTooltip, vm.tooltipUpperVisible);
+                        });
+                    }
+                });
+            }
+
+            function updateTooltip(tooltip, visible) {
+
+                // if tooltip is not visible then stop here
+                if (visible === false) {
+                    return;
+                }
+
+                // get the parent thumb element
+                var thumb = tooltip.parentElement;
+
+                // get the thumb width
+                var thumbWidth = thumb.offsetWidth;
+
+                // get the tooltips width
+                var tooltipWidth = tooltip.offsetWidth;
+
+                // calculat the tooltips new position
+                var tooltipPosition = Math.ceil((tooltipWidth - thumbWidth) / 2);
+
+                // update tooltip position
+                tooltip.style.left = -tooltipPosition + 'px';
+            }
+
+            function snapToTick(value) {
+
+                // get the snap target
+                var snapTarget = vm.options.track.ticks.snap;
+
+                // if snap target is none then return original value
+                if (!snapTarget || snapTarget === 'none') {
+                    return value;
+                }
+
+                // get filtered ticks
+                var ticks;
+
+                switch (snapTarget) {
+                    case 'minor':
+                        ticks = vm.ticks.filter(function (tick) {
+                            return tick.type === 'minor';
+                        });
+                        break;
+
+                    case 'major':
+                        ticks = vm.ticks.filter(function (tick) {
+                            return tick.type === 'major';
+                        });
+                        break;
+
+                    case 'all':
+                        ticks = vm.ticks.slice(0);
+                        break;
+                }
+
+                var lowerLimit = vm.options.track.min;
+                var upperLimit = vm.options.track.max;
+
+                // if range then update the limits
+                if (vm.options.type === 'range') {
+
+                    // determine which thumb we are dragging
+                    if (activeThumb.classList.contains('lower')) {
+                        upperLimit = vm.thumbUpperValue;
+                    } else {
+                        lowerLimit = vm.thumbLowerValue;
+                    }
+                }
+
+                // filter ticks within the allowed range
+                ticks = ticks.filter(function (tick) {
+                    return tick.value >= lowerLimit && tick.value <= upperLimit;
+                });
+
+                // find the closest tick
+                var snapValue = 0,
+                    distance = null;
+
+                // iterate each tick to find the closest
+                for (var idx = 0; idx < ticks.length; idx++) {
+
+                    // get tick value
+                    var tickValue = ticks[idx];
+
+                    // calculate the distance between this ticks value and our target
+                    var tickDistance = Math.max(tickValue.value, value) - Math.min(tickValue.value, value);
+
+                    // if this tick is closer than the previous closest then store this new tick
+                    if (distance === null || tickDistance < distance) {
+
+                        distance = tickDistance;
+                        snapValue = tickValue.value;
+                    }
+                }
+
+                return snapValue;
+            }
+
+            /*
+                Utility Functions
+            */
+            function resolveThumbState(element) {
+                // return the reference to the corresponding state element
+                return element.classList.contains('lower') ? vm.lowerThumbState : vm.upperThumbState;
+            }
+
+            function hasClassOrAncestor(element, className) {
+
+                // check if the current element has the class
+                if (element.classList.contains(className)) {
+                    return true;
+                }
+
+                // iterate each parent element
+                while (element.parentElement) {
+
+                    // check if parent element has class
+                    if (element.classList.contains(className)) {
+                        return true;
+                    }
+
+                    // set element to the parent element
+                    element = element.parentElement;
+                }
+
+                // if we reach this point then return false
+                return false;
+            }
+        }
+    };
 }
 
 /***/ }),
@@ -37542,87 +37542,87 @@ function MultiSortableHeaderCtrl($scope, $attrs) {
 multiSortableHeader.$inject = ['$resize', '$timeout'];
 
 function multiSortableHeader($resize, $timeout) {
-                return {
-                                restrict: "A",
-                                scope: true,
-                                template: __webpack_require__(545),
-                                controller: "MultiSortableHeaderCtrl as vm",
-                                link: function link(scope, element) {
+    return {
+        restrict: "A",
+        scope: true,
+        template: __webpack_require__(545),
+        controller: "MultiSortableHeaderCtrl as vm",
+        link: function link(scope, element) {
 
-                                                // store reference to native element
-                                                var nativeElement = element.get(0);
+            // store reference to native element
+            var nativeElement = element.get(0);
 
-                                                // watch for any changes to children
-                                                var observer = new MutationObserver(initialiseTooltips);
+            // watch for any changes to children
+            var observer = new MutationObserver(initialiseTooltips);
 
-                                                // wait for initial digest
-                                                $timeout(function () {
+            // wait for initial digest
+            $timeout(function () {
 
-                                                                // begin watching for dom changes
-                                                                observer.observe(nativeElement, {
-                                                                                childList: true,
-                                                                                subtree: true,
-                                                                                characterData: true
-                                                                });
+                // begin watching for dom changes
+                observer.observe(nativeElement, {
+                    childList: true,
+                    subtree: true,
+                    characterData: true
+                });
 
-                                                                // initialise tooltips
-                                                                initialiseTooltips();
-                                                });
+                // initialise tooltips
+                initialiseTooltips();
+            });
 
-                                                function initialiseTooltips() {
+            function initialiseTooltips() {
 
-                                                                // find all column elements
-                                                                var columns = nativeElement.getElementsByTagName('th');
+                // find all column elements
+                var columns = nativeElement.getElementsByTagName('th');
 
-                                                                // iterate each column
-                                                                for (var idx = 0; idx < columns.length; idx++) {
+                // iterate each column
+                for (var idx = 0; idx < columns.length; idx++) {
 
-                                                                                // get current column
-                                                                                var column = columns.item(idx);
+                    // get current column
+                    var column = columns.item(idx);
 
-                                                                                // bind to current function
-                                                                                $resize.bind(column, updateTooltip);
-                                                                }
+                    // bind to current function
+                    $resize.bind(column, updateTooltip);
+                }
 
-                                                                // initially update tooltips
-                                                                updateAllTooltips(columns);
-                                                }
+                // initially update tooltips
+                updateAllTooltips(columns);
+            }
 
-                                                function updateAllTooltips(columns) {
+            function updateAllTooltips(columns) {
 
-                                                                // iterate each column and update tooltip
-                                                                for (var idx = 0; idx < columns.length; idx++) {
+                // iterate each column and update tooltip
+                for (var idx = 0; idx < columns.length; idx++) {
 
-                                                                                // update column tooltip
-                                                                                updateTooltip(columns.item(idx));
-                                                                }
-                                                }
+                    // update column tooltip
+                    updateTooltip(columns.item(idx));
+                }
+            }
 
-                                                function updateTooltip(column) {
+            function updateTooltip(column) {
 
-                                                                // get label element
-                                                                var label = column.querySelector('.multiSortTitle');
+                // get label element
+                var label = column.querySelector('.multiSortTitle');
 
-                                                                // check if requires tooltip
-                                                                var showTooltip = label.offsetWidth < label.scrollWidth;
+                // check if requires tooltip
+                var showTooltip = label.offsetWidth < label.scrollWidth;
 
-                                                                // wrap element
-                                                                var labelElement = angular.element(label);
+                // wrap element
+                var labelElement = angular.element(label);
 
-                                                                // if doesnt have a tooltip but needs one then add one
-                                                                if (showTooltip === true) {
+                // if doesnt have a tooltip but needs one then add one
+                if (showTooltip === true) {
 
-                                                                                // apply tooltip
-                                                                                labelElement.tooltip({
-                                                                                                title: labelElement.text(),
-                                                                                                container: 'body'
-                                                                                });
-                                                                } else {
-                                                                                labelElement.tooltip('destroy');
-                                                                }
-                                                }
-                                }
-                };
+                    // apply tooltip
+                    labelElement.tooltip({
+                        title: labelElement.text(),
+                        container: 'body'
+                    });
+                } else {
+                    labelElement.tooltip('destroy');
+                }
+            }
+        }
+    };
 }
 
 /***/ }),
@@ -37798,117 +37798,117 @@ function SorterHeaderCtrl($scope, $attrs) {
 sortableHeader.$inject = ['$resize', '$timeout'];
 
 function sortableHeader($resize, $timeout) {
-                return {
-                                restrict: "A",
-                                scope: true,
-                                template: __webpack_require__(547),
-                                controller: "SorterHeaderCtrl as vm",
-                                link: function link(scope, element) {
+    return {
+        restrict: "A",
+        scope: true,
+        template: __webpack_require__(547),
+        controller: "SorterHeaderCtrl as vm",
+        link: function link(scope, element) {
 
-                                                // store reference to native element
-                                                var nativeElement = element.get(0);
+            // store reference to native element
+            var nativeElement = element.get(0);
 
-                                                // watch for any changes to children
-                                                var observer = new MutationObserver(initialiseTooltips);
+            // watch for any changes to children
+            var observer = new MutationObserver(initialiseTooltips);
 
-                                                // wait for initial digest
-                                                $timeout(function () {
+            // wait for initial digest
+            $timeout(function () {
 
-                                                                // begin watching for dom changes
-                                                                observer.observe(nativeElement, {
-                                                                                childList: true,
-                                                                                subtree: true,
-                                                                                characterData: true
-                                                                });
+                // begin watching for dom changes
+                observer.observe(nativeElement, {
+                    childList: true,
+                    subtree: true,
+                    characterData: true
+                });
 
-                                                                // initialise tooltips
-                                                                initialiseTooltips();
-                                                });
+                // initialise tooltips
+                initialiseTooltips();
+            });
 
-                                                function initialiseTooltips() {
+            function initialiseTooltips() {
 
-                                                                // find all column elements
-                                                                var columns = nativeElement.getElementsByTagName('th');
+                // find all column elements
+                var columns = nativeElement.getElementsByTagName('th');
 
-                                                                // iterate each column
-                                                                for (var idx = 0; idx < columns.length; idx++) {
+                // iterate each column
+                for (var idx = 0; idx < columns.length; idx++) {
 
-                                                                                // get current column
-                                                                                var column = columns.item(idx);
+                    // get current column
+                    var column = columns.item(idx);
 
-                                                                                // bind to current function
-                                                                                $resize.bind(column, updateTooltip);
-                                                                }
+                    // bind to current function
+                    $resize.bind(column, updateTooltip);
+                }
 
-                                                                // initially update tooltips
-                                                                updateAllTooltips(columns);
-                                                }
+                // initially update tooltips
+                updateAllTooltips(columns);
+            }
 
-                                                function updateAllTooltips(columns) {
+            function updateAllTooltips(columns) {
 
-                                                                // iterate each column and update tooltip
-                                                                for (var idx = 0; idx < columns.length; idx++) {
+                // iterate each column and update tooltip
+                for (var idx = 0; idx < columns.length; idx++) {
 
-                                                                                // update column tooltip
-                                                                                updateTooltip(columns.item(idx));
-                                                                }
-                                                }
+                    // update column tooltip
+                    updateTooltip(columns.item(idx));
+                }
+            }
 
-                                                function updateTooltip(column) {
+            function updateTooltip(column) {
 
-                                                                // get label element
-                                                                var label = column.querySelector('.sortableHeader');
+                // get label element
+                var label = column.querySelector('.sortableHeader');
 
-                                                                // check if requires tooltip
-                                                                var showTooltip = label.offsetWidth < label.scrollWidth;
+                // check if requires tooltip
+                var showTooltip = label.offsetWidth < label.scrollWidth;
 
-                                                                // wrap element
-                                                                var labelElement = angular.element(label);
+                // wrap element
+                var labelElement = angular.element(label);
 
-                                                                // if doesnt have a tooltip but needs one then add one
-                                                                if (showTooltip === true) {
+                // if doesnt have a tooltip but needs one then add one
+                if (showTooltip === true) {
 
-                                                                                // apply tooltip
-                                                                                labelElement.tooltip({
-                                                                                                title: labelElement.text(),
-                                                                                                container: 'body'
-                                                                                });
-                                                                } else {
-                                                                                labelElement.tooltip('destroy');
-                                                                }
-                                                }
+                    // apply tooltip
+                    labelElement.tooltip({
+                        title: labelElement.text(),
+                        container: 'body'
+                    });
+                } else {
+                    labelElement.tooltip('destroy');
+                }
+            }
 
-                                                function destroyTooltips() {
+            function destroyTooltips() {
 
-                                                                // find all column elements
-                                                                var columns = nativeElement.getElementsByTagName('th');
+                // find all column elements
+                var columns = nativeElement.getElementsByTagName('th');
 
-                                                                // iterate each column
-                                                                for (var idx = 0; idx < columns.length; idx++) {
+                // iterate each column
+                for (var idx = 0; idx < columns.length; idx++) {
 
-                                                                                // get current column
-                                                                                var column = columns.item(idx);
+                    // get current column
+                    var column = columns.item(idx);
 
-                                                                                // get label element
-                                                                                var label = column.querySelector('.sortableHeader');
+                    // get label element
+                    var label = column.querySelector('.sortableHeader');
 
-                                                                                // wrap element
-                                                                                var labelElement = angular.element(label);
+                    // wrap element
+                    var labelElement = angular.element(label);
 
-                                                                                // destroy tooltip
-                                                                                labelElement.tooltip('destroy');
+                    // destroy tooltip
+                    labelElement.tooltip('destroy');
 
-                                                                                // bind to current function
-                                                                                $resize.unbind(column, updateTooltip);
-                                                                }
-                                                }
+                    // bind to current function
+                    $resize.unbind(column, updateTooltip);
+                }
+            }
 
-                                                // ensure we tidy up after
-                                                scope.$on('$destroy', function () {
-                                                                destroyTooltips();
-                                                });
-                                }
-                };
+            // ensure we tidy up after
+            scope.$on('$destroy', function () {
+                destroyTooltips();
+            });
+        }
+    };
 }
 
 /***/ }),
@@ -38880,17 +38880,17 @@ function $staticTooltip() {
 staticTooltipToggle.$inject = ['$staticTooltip'];
 
 function staticTooltipToggle($staticTooltip) {
-        return {
-                restrict: "A",
-                link: function link(scope, element) {
+    return {
+        restrict: "A",
+        link: function link(scope, element) {
 
-                        var toggleStaticTooltips = function toggleStaticTooltips() {
-                                $staticTooltip.toggle();
-                        };
+            var toggleStaticTooltips = function toggleStaticTooltips() {
+                $staticTooltip.toggle();
+            };
 
-                        element[0].addEventListener('click', toggleStaticTooltips);
-                }
-        };
+            element[0].addEventListener('click', toggleStaticTooltips);
+        }
+    };
 }
 
 /***/ }),
@@ -40953,218 +40953,218 @@ function lineDataService() {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = NotificationService;
 function NotificationService() {
-        var vm = this;
+    var vm = this;
 
-        vm.notifications = [];
-        vm.notificationsVisible = true;
+    vm.notifications = [];
+    vm.notificationsVisible = true;
 
+    /*
+      Public Functions
+    */
+    vm.showNotification = function (options) {
+
+        var defaultOptions = {
+            icon: '',
+            title: '',
+            text: '',
+            duration: 4000,
+            backgroundColor: '#60798D',
+            subtitle: '',
+            date: new Date()
+        };
+
+        //generate complete list of options from user defined options
+        options = angular.extend(defaultOptions, options);
+
+        //store the notification details
+        vm.notifications.push(options);
+
+        //if notifications should not be visibly shown - stop here
+        if (vm.notificationsVisible === false) return;
+
+        //this is a wrapper function used to maintain correct scope
+        return showNotification.apply(vm, [options]);
+    };
+
+    vm.setNotificationVisibility = function (value) {
+        vm.notificationsVisible = value;
+    };
+
+    vm.dismissNotification = function (notification) {
+        dismissNotification.apply(vm, [notification]);
+    };
+
+    vm.dismissAllNotifications = function () {
+        var container = getContainer();
+
+        //get any notifications
+        var notifications = container.getElementsByClassName('notification');
+
+        //iterate and dismiss each notification
+        for (var i = 0; i < notifications.length; i++) {
+
+            //get the appropriate notification
+            var notification = notifications[i];
+
+            //ensure it is not currently being dismissed
+            if (notification.className.indexOf('fadeOutNotification')) dismissNotification.apply(vm, [notification]);
+        }
+    };
+
+    vm.getNotifications = function () {
+        return vm.notifications;
+    };
+
+    /*
+      Private Function
+    */
+
+    function createContainer() {
         /*
-          Public Functions
+          This function will create a container in the top right corner of the browser window,
+          if one does not already exist, to correctly position any notifications
         */
-        vm.showNotification = function (options) {
+        var container = document.getElementsByClassName('notification-container');
 
-                var defaultOptions = {
-                        icon: '',
-                        title: '',
-                        text: '',
-                        duration: 4000,
-                        backgroundColor: '#60798D',
-                        subtitle: '',
-                        date: new Date()
-                };
+        //if container exists - no need to proceed
+        if (container && container.length === 1) return;
 
-                //generate complete list of options from user defined options
-                options = angular.extend(defaultOptions, options);
+        //otherwise create the container
+        container = document.createElement('div');
 
-                //store the notification details
-                vm.notifications.push(options);
+        //give the container the correct id
+        container.className = 'notification-container';
 
-                //if notifications should not be visibly shown - stop here
-                if (vm.notificationsVisible === false) return;
+        //add the container to the page
+        document.body.appendChild(container);
 
-                //this is a wrapper function used to maintain correct scope
-                return showNotification.apply(vm, [options]);
-        };
+        //return the newly created container element
+        return container;
+    }
 
-        vm.setNotificationVisibility = function (value) {
-                vm.notificationsVisible = value;
-        };
-
-        vm.dismissNotification = function (notification) {
-                dismissNotification.apply(vm, [notification]);
-        };
-
-        vm.dismissAllNotifications = function () {
-                var container = getContainer();
-
-                //get any notifications
-                var notifications = container.getElementsByClassName('notification');
-
-                //iterate and dismiss each notification
-                for (var i = 0; i < notifications.length; i++) {
-
-                        //get the appropriate notification
-                        var notification = notifications[i];
-
-                        //ensure it is not currently being dismissed
-                        if (notification.className.indexOf('fadeOutNotification')) dismissNotification.apply(vm, [notification]);
-                }
-        };
-
-        vm.getNotifications = function () {
-                return vm.notifications;
-        };
-
+    function getContainer() {
         /*
-          Private Function
+          This function will get the container if one exists,
+          if one does not exist then create one
         */
 
-        function createContainer() {
-                /*
-                  This function will create a container in the top right corner of the browser window,
-                  if one does not already exist, to correctly position any notifications
-                */
-                var container = document.getElementsByClassName('notification-container');
+        var container = document.getElementsByClassName('notification-container');
 
-                //if container exists - no need to proceed
-                if (container && container.length === 1) return;
+        //if container exists then return the element
+        if (container && container.length === 1) return container[0];
 
-                //otherwise create the container
-                container = document.createElement('div');
+        //if no container exists create and return the element
+        return createContainer();
+    }
 
-                //give the container the correct id
-                container.className = 'notification-container';
+    function showNotification(options) {
+        /*
+          This will allow adding of a new notification to the container,
+          It should set the icon, the text, the duration and the color
+        */
 
-                //add the container to the page
-                document.body.appendChild(container);
+        var notification = document.createElement('div');
+        notification.className = 'notification';
 
-                //return the newly created container element
-                return container;
+        //create close button
+        var closeBtn = document.createElement('div');
+        closeBtn.className = 'dismiss';
+
+        //add close event handler
+        closeBtn.addEventListener('click', function (event) {
+            dismissNotification.apply(vm, [event.currentTarget.parentElement]);
+        });
+
+        //close icon
+        var closeIcon = document.createElement('div');
+        closeIcon.className = 'hpe-icon hpe-close';
+
+        //add close icon to button and button to notification
+        closeBtn.appendChild(closeIcon);
+        notification.appendChild(closeBtn);
+
+        //create container for icon and text
+        var contentContainer = document.createElement('div');
+        contentContainer.className = 'notification-content';
+
+        //create icon container
+        var iconContainer = document.createElement('div');
+        iconContainer.className = 'notification-icon';
+
+        //add icon to icon container
+        var iconElement = document.createElement('span');
+        iconElement.className = 'hpe-icon ' + options.icon;
+        iconContainer.appendChild(iconElement);
+
+        //create text container
+        var textContainer = document.createElement('div');
+        textContainer.className = 'notification-text';
+
+        //add title to container if specified
+        if (options.title && options.title !== '') {
+            var titleElement = document.createElement('p');
+            titleElement.className = 'notification-title';
+            titleElement.innerHTML = options.title;
+            textContainer.appendChild(titleElement);
         }
 
-        function getContainer() {
-                /*
-                  This function will get the container if one exists,
-                  if one does not exist then create one
-                */
+        //add text to text container
+        var textElement = document.createElement('p');
+        textElement.className = 'notification-label';
+        textElement.innerHTML = options.text;
+        textContainer.appendChild(textElement);
 
-                var container = document.getElementsByClassName('notification-container');
-
-                //if container exists then return the element
-                if (container && container.length === 1) return container[0];
-
-                //if no container exists create and return the element
-                return createContainer();
+        //if a date string was specified then show it
+        if (options.subtitle && options.subtitle !== '') {
+            var subtitleElement = document.createElement('small');
+            subtitleElement.className = 'notification-subtitle';
+            subtitleElement.innerHTML = options.subtitle;
+            textContainer.appendChild(subtitleElement);
         }
 
-        function showNotification(options) {
-                /*
-                  This will allow adding of a new notification to the container,
-                  It should set the icon, the text, the duration and the color
-                */
+        //add containers to correct parent
+        if (options.icon !== '') contentContainer.appendChild(iconContainer);else textContainer.style.paddingLeft = '15px';
 
-                var notification = document.createElement('div');
-                notification.className = 'notification';
+        contentContainer.appendChild(textContainer);
+        notification.appendChild(contentContainer);
 
-                //create close button
-                var closeBtn = document.createElement('div');
-                closeBtn.className = 'dismiss';
+        //find or create the container
+        var container = getContainer();
 
-                //add close event handler
-                closeBtn.addEventListener('click', function (event) {
-                        dismissNotification.apply(vm, [event.currentTarget.parentElement]);
-                });
+        //add the element to the container
+        container.appendChild(notification);
 
-                //close icon
-                var closeIcon = document.createElement('div');
-                closeIcon.className = 'hpe-icon hpe-close';
+        //once the element has been added - add the animation class
+        notification.className = 'notification fadeInNotification';
 
-                //add close icon to button and button to notification
-                closeBtn.appendChild(closeIcon);
-                notification.appendChild(closeBtn);
+        //set the background color of the notification
+        notification.style.backgroundColor = options.backgroundColor;
 
-                //create container for icon and text
-                var contentContainer = document.createElement('div');
-                contentContainer.className = 'notification-content';
+        //if a duration was set then automatically dismiss after that time
+        if (options.duration && options.duration > 0) {
+            setTimeout(function () {
 
-                //create icon container
-                var iconContainer = document.createElement('div');
-                iconContainer.className = 'notification-icon';
-
-                //add icon to icon container
-                var iconElement = document.createElement('span');
-                iconElement.className = 'hpe-icon ' + options.icon;
-                iconContainer.appendChild(iconElement);
-
-                //create text container
-                var textContainer = document.createElement('div');
-                textContainer.className = 'notification-text';
-
-                //add title to container if specified
-                if (options.title && options.title !== '') {
-                        var titleElement = document.createElement('p');
-                        titleElement.className = 'notification-title';
-                        titleElement.innerHTML = options.title;
-                        textContainer.appendChild(titleElement);
-                }
-
-                //add text to text container
-                var textElement = document.createElement('p');
-                textElement.className = 'notification-label';
-                textElement.innerHTML = options.text;
-                textContainer.appendChild(textElement);
-
-                //if a date string was specified then show it
-                if (options.subtitle && options.subtitle !== '') {
-                        var subtitleElement = document.createElement('small');
-                        subtitleElement.className = 'notification-subtitle';
-                        subtitleElement.innerHTML = options.subtitle;
-                        textContainer.appendChild(subtitleElement);
-                }
-
-                //add containers to correct parent
-                if (options.icon !== '') contentContainer.appendChild(iconContainer);else textContainer.style.paddingLeft = '15px';
-
-                contentContainer.appendChild(textContainer);
-                notification.appendChild(contentContainer);
-
-                //find or create the container
-                var container = getContainer();
-
-                //add the element to the container
-                container.appendChild(notification);
-
-                //once the element has been added - add the animation class
-                notification.className = 'notification fadeInNotification';
-
-                //set the background color of the notification
-                notification.style.backgroundColor = options.backgroundColor;
-
-                //if a duration was set then automatically dismiss after that time
-                if (options.duration && options.duration > 0) {
-                        setTimeout(function () {
-
-                                //ensure the element still exists
-                                if (notification) dismissNotification.apply(vm, [notification]);
-                        }, options.duration);
-                }
-
-                return notification;
+                //ensure the element still exists
+                if (notification) dismissNotification.apply(vm, [notification]);
+            }, options.duration);
         }
 
-        function dismissNotification(notification) {
+        return notification;
+    }
 
-                //apply fade out animation
-                notification.className = 'notification fadeOutNotification';
+    function dismissNotification(notification) {
 
-                //delay for 700ms (animation length) - then remove dom element
-                setTimeout(function () {
-                        //ensure element still exists before trying to remove
-                        if (notification && notification.parentElement) notification.parentElement.removeChild(notification);
-                }, 700);
-        }
+        //apply fade out animation
+        notification.className = 'notification fadeOutNotification';
 
-        return vm;
+        //delay for 700ms (animation length) - then remove dom element
+        setTimeout(function () {
+            //ensure element still exists before trying to remove
+            if (notification && notification.parentElement) notification.parentElement.removeChild(notification);
+        }, 700);
+    }
+
+    return vm;
 }
 
 /***/ }),
@@ -41713,115 +41713,115 @@ function SafeTimeoutService($timeout) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = TimeAgoService;
 function TimeAgoService() {
-        var vm = this;
+    var vm = this;
 
-        var defaultStrings = {
-                lessThanSecond: 'less than a second ago',
-                second: '1 second ago',
-                seconds: '{x} seconds ago',
-                minute: '1 minute ago',
-                minutes: '{x} minutes ago',
-                hour: '1 hour ago',
-                hours: '{x} hours ago',
-                day: '1 day ago',
-                days: '{x} days ago',
-                week: '1 week ago',
-                weeks: '{x} weeks ago',
-                month: '1 month ago',
-                months: '{x} months ago',
-                year: '1 year ago',
-                years: '{x} years ago'
-        };
+    var defaultStrings = {
+        lessThanSecond: 'less than a second ago',
+        second: '1 second ago',
+        seconds: '{x} seconds ago',
+        minute: '1 minute ago',
+        minutes: '{x} minutes ago',
+        hour: '1 hour ago',
+        hours: '{x} hours ago',
+        day: '1 day ago',
+        days: '{x} days ago',
+        week: '1 week ago',
+        weeks: '{x} weeks ago',
+        month: '1 month ago',
+        months: '{x} months ago',
+        year: '1 year ago',
+        years: '{x} years ago'
+    };
 
-        //store the active string set
-        var stringSet = defaultStrings;
+    //store the active string set
+    var stringSet = defaultStrings;
 
-        //time enum
-        vm.timeUnit = {
-                second: 1000,
-                minute: 60000,
-                hour: 3600000,
-                day: 86400000,
-                week: 604800000,
-                month: 2419200000,
-                year: 31536000000
-        };
+    //time enum
+    vm.timeUnit = {
+        second: 1000,
+        minute: 60000,
+        hour: 3600000,
+        day: 86400000,
+        week: 604800000,
+        month: 2419200000,
+        year: 31536000000
+    };
 
-        vm.setStrings = function (strings) {
-                //update the string set
-                stringSet = angular.extend(defaultStrings, strings);
-        };
+    vm.setStrings = function (strings) {
+        //update the string set
+        stringSet = angular.extend(defaultStrings, strings);
+    };
 
-        vm.timeSinceNow = function (date) {
-                //call the time since function with the since time as now
-                return vm.timeSince(date, new Date());
-        };
+    vm.timeSinceNow = function (date) {
+        //call the time since function with the since time as now
+        return vm.timeSince(date, new Date());
+    };
 
-        vm.timeSince = function (date, dateSince) {
+    vm.timeSince = function (date, dateSince) {
 
-                //get epochs
-                var dateEpoch = date.getTime();
-                var dateSinceEpoch = dateSince.getTime();
+        //get epochs
+        var dateEpoch = date.getTime();
+        var dateSinceEpoch = dateSince.getTime();
 
-                //time difference
-                var timeDifference = dateSinceEpoch - dateEpoch;
+        //time difference
+        var timeDifference = dateSinceEpoch - dateEpoch;
 
-                //ensure the date was in the past
-                if (timeDifference < 0) throw 'Time Ago Service - Cannot convert future dates to a string';
+        //ensure the date was in the past
+        if (timeDifference < 0) throw 'Time Ago Service - Cannot convert future dates to a string';
 
-                //less than one second ago
-                if (timeDifference < vm.timeUnit.second) return stringSet.lessThanSecond;
+        //less than one second ago
+        if (timeDifference < vm.timeUnit.second) return stringSet.lessThanSecond;
 
-                //one second ago
-                if (timeDifference < vm.timeUnit.second * 2) return stringSet.second;
+        //one second ago
+        if (timeDifference < vm.timeUnit.second * 2) return stringSet.second;
 
-                //x seconds ago
-                if (timeDifference < vm.timeUnit.minute) return formatString(Math.floor(timeDifference / vm.timeUnit.second), stringSet.seconds);
+        //x seconds ago
+        if (timeDifference < vm.timeUnit.minute) return formatString(Math.floor(timeDifference / vm.timeUnit.second), stringSet.seconds);
 
-                //one minute ago
-                if (timeDifference < vm.timeUnit.minute * 2) return stringSet.minute;
+        //one minute ago
+        if (timeDifference < vm.timeUnit.minute * 2) return stringSet.minute;
 
-                //x minutes ago
-                if (timeDifference < vm.timeUnit.minute * 60) return formatString(Math.floor(timeDifference / vm.timeUnit.minute), stringSet.minutes);
+        //x minutes ago
+        if (timeDifference < vm.timeUnit.minute * 60) return formatString(Math.floor(timeDifference / vm.timeUnit.minute), stringSet.minutes);
 
-                //one hour ago
-                if (timeDifference < vm.timeUnit.hour * 2) return stringSet.hour;
+        //one hour ago
+        if (timeDifference < vm.timeUnit.hour * 2) return stringSet.hour;
 
-                //x hours ago
-                if (timeDifference < vm.timeUnit.hour * 24) return formatString(Math.floor(timeDifference / vm.timeUnit.hour), stringSet.hours);
+        //x hours ago
+        if (timeDifference < vm.timeUnit.hour * 24) return formatString(Math.floor(timeDifference / vm.timeUnit.hour), stringSet.hours);
 
-                //one day ago
-                if (timeDifference < vm.timeUnit.day * 2) return stringSet.day;
+        //one day ago
+        if (timeDifference < vm.timeUnit.day * 2) return stringSet.day;
 
-                //x days ago
-                if (timeDifference < vm.timeUnit.day * 7) return formatString(Math.floor(timeDifference / vm.timeUnit.day), stringSet.days);
+        //x days ago
+        if (timeDifference < vm.timeUnit.day * 7) return formatString(Math.floor(timeDifference / vm.timeUnit.day), stringSet.days);
 
-                //one week ago
-                if (timeDifference < vm.timeUnit.week * 2) return stringSet.week;
+        //one week ago
+        if (timeDifference < vm.timeUnit.week * 2) return stringSet.week;
 
-                //x weeks ago
-                if (timeDifference < vm.timeUnit.week * 4) return formatString(Math.floor(timeDifference / vm.timeUnit.week), stringSet.weeks);
+        //x weeks ago
+        if (timeDifference < vm.timeUnit.week * 4) return formatString(Math.floor(timeDifference / vm.timeUnit.week), stringSet.weeks);
 
-                //one month ago
-                if (timeDifference < vm.timeUnit.month * 2) return stringSet.month;
+        //one month ago
+        if (timeDifference < vm.timeUnit.month * 2) return stringSet.month;
 
-                //x months ago
-                if (timeDifference < vm.timeUnit.month * 12) return formatString(Math.floor(timeDifference / vm.timeUnit.month), stringSet.months);
+        //x months ago
+        if (timeDifference < vm.timeUnit.month * 12) return formatString(Math.floor(timeDifference / vm.timeUnit.month), stringSet.months);
 
-                //one year ago
-                if (timeDifference < vm.timeUnit.year * 2) return stringSet.year;
+        //one year ago
+        if (timeDifference < vm.timeUnit.year * 2) return stringSet.year;
 
-                //x years ago
-                else return formatString(Math.floor(timeDifference / vm.timeUnit.year), stringSet.years);
-        };
+        //x years ago
+        else return formatString(Math.floor(timeDifference / vm.timeUnit.year), stringSet.years);
+    };
 
-        function formatString(unit, string) {
-                if (string.indexOf('{x}') === -1) throw 'Time Ago - Variable unit strings should have an {x} in the string to define where the unit should be placed.';
+    function formatString(unit, string) {
+        if (string.indexOf('{x}') === -1) throw 'Time Ago - Variable unit strings should have an {x} in the string to define where the unit should be placed.';
 
-                return string.replace('{x}', unit);
-        }
+        return string.replace('{x}', unit);
+    }
 
-        return vm;
+    return vm;
 }
 
 /***/ }),
@@ -44197,7 +44197,7 @@ module.exports=v1;
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<span class=\"floating-action-button\" ng-mouseleave=\"collapse($event)\">\n<ul class=\"unstyled p-l-nil child-btn-set-top top m-b-nil\" ng-if=\"direction == 'top'\">\n<li ng-repeat=\"key in items\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary m-b-md\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</li>\n</ul>\n<button type=\"button\" class=\"btn btn-icon btn-circular button-primary parent-btn\" ng-class=\"{'dir-top': direction=='top',\r\n     'dir-left': direction=='left', 'dir-right': direction=='right' , 'dir-bottom': direction=='bottom'}\" aria-label=\"{{primary}}\" ng-click=\"expand($event)\">\n<span class=\"{{ primary.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"primary\" aria-hidden=\"true\"></span>\n</button>\n<ul class=\"unstyled p-l-nil child-btn-set-horizontal left inline-block\" ng-if=\"direction == 'left'\">\n<li class=\"inline-block\" ng-repeat=\"key in items\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary m-r-md\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</li>\n</ul>\n<span class=\"child-btn-set-horizontal right inline-block\" ng-if=\"direction == 'right'\">\n<button ng-repeat=\"key in items\" type=\"button\" class=\"btn btn-icon btn-circular button-secondary m-r-md\" ng-class=\"{'m-l-md':$first}\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</span>\n<ul class=\"unstyled p-l-nil child-btn-set bottom\" ng-if=\"direction == 'bottom'\">\n<li ng-repeat=\"key in items\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary\" ng-class=\"{'m-b-md': !$last, 'm-t-md': $first}\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</li>\n</ul>\n</span>\n";
+var v1="<span class=\"floating-action-button\" ng-mouseleave=\"collapse($event)\">\n<ul class=\"unstyled p-l-nil child-btn-set-top top m-b-nil\" ng-if=\"direction == 'top'\">\n<li ng-repeat=\"key in items\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary m-b-md\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</li>\n</ul>\n<button type=\"button\" class=\"btn btn-icon btn-circular button-primary parent-btn\" ng-class=\"{'dir-top': direction=='top',\n     'dir-left': direction=='left', 'dir-right': direction=='right' , 'dir-bottom': direction=='bottom'}\" aria-label=\"{{primary}}\" ng-click=\"expand($event)\">\n<span class=\"{{ primary.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"primary\" aria-hidden=\"true\"></span>\n</button>\n<ul class=\"unstyled p-l-nil child-btn-set-horizontal left inline-block\" ng-if=\"direction == 'left'\">\n<li class=\"inline-block\" ng-repeat=\"key in items\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary m-r-md\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</li>\n</ul>\n<span class=\"child-btn-set-horizontal right inline-block\" ng-if=\"direction == 'right'\">\n<button ng-repeat=\"key in items\" type=\"button\" class=\"btn btn-icon btn-circular button-secondary m-r-md\" ng-class=\"{'m-l-md':$first}\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</span>\n<ul class=\"unstyled p-l-nil child-btn-set bottom\" ng-if=\"direction == 'bottom'\">\n<li ng-repeat=\"key in items\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary\" ng-class=\"{'m-b-md': !$last, 'm-t-md': $first}\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</li>\n</ul>\n</span>\n";
 var id1="directives/floatingActionButton/floatingActionButton.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -44925,7 +44925,7 @@ module.exports=v1;
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"tree-node tree-node-content\" data-nodrag ng-click=\"tv.select(this)\" ng-class=\"{highlight : tv.isSelected(this)}\">\n<a class=\"btn btn-link button-secondary btn-icon btn-sm toggle chevron\" ng-if=\"node.allowChildren && (node.nodes || node.nodes.length > 0)\" ng-disabled=\"!node.nodes || node.nodes.length <= 0\" ng-click=\"toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur();\" tabindex=\"0\" href>\n<span ng-if=\"node.nodes.length > 0\" class=\"hpe-icon\" ng-class=\"{\r\n      'hpe-next': collapsed,\r\n      'hpe-down': !collapsed\r\n    }\">\n</span>\n</a>\n<span ng-if=\"!node.allowChildren\" style=\"padding-left: 17px\"></span>\n<span class=\"icon\"><i class=\"hpe-icon\" ng-class=\"tv.getIcon(node.type, collapsed)\"></i><span class=\"sr-only\" ng-bind=\"node.type\"></span></span>\n<span class=\"title-readonly\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation();\" ng-show=\"!tv.isBeingEdited(this)\" tabindex=\"0\" ng-keydown=\"tv.keyboardSelect(this,$event);\">{{node.title}}</span>\n<input class=\"title-edit\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation();\" ng-keypress=\"tv.finishEdit(this,$event)\" ng-blur=\"tv.finishEdit(this,$event)\" ng-show=\"tv.isBeingEdited(this)\" ng-model=\"node.title\" focus-on-show tabindex=\"0\">\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canDeleteItem(this)\" data-nodrag ng-click=\"tv.remove(this); $event.preventDefault(); $event.stopPropagation();\" tabindex=\"0\">\n<span class=\"hpe-icon hpe-close\"></span>\n</a>\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canAddItem(this)\" data-nodrag ng-click=\"tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation();\" tabindex=\"0\">\n<span class=\"hpe-icon hpe-add\"></span>\n</a>\n</div>\n<ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n<li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'directives/treeView/treeView.partial.html'\"></li>\n</ol>\n";
+var v1="<div class=\"tree-node tree-node-content\" data-nodrag ng-click=\"tv.select(this)\" ng-class=\"{highlight : tv.isSelected(this)}\">\n<a class=\"btn btn-link button-secondary btn-icon btn-sm toggle chevron\" ng-if=\"node.allowChildren && (node.nodes || node.nodes.length > 0)\" ng-disabled=\"!node.nodes || node.nodes.length <= 0\" ng-click=\"toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur();\" tabindex=\"0\" href>\n<span ng-if=\"node.nodes.length > 0\" class=\"hpe-icon\" ng-class=\"{\n      'hpe-next': collapsed,\n      'hpe-down': !collapsed\n    }\">\n</span>\n</a>\n<span ng-if=\"!node.allowChildren\" style=\"padding-left: 17px\"></span>\n<span class=\"icon\"><i class=\"hpe-icon\" ng-class=\"tv.getIcon(node.type, collapsed)\"></i><span class=\"sr-only\" ng-bind=\"node.type\"></span></span>\n<span class=\"title-readonly\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation();\" ng-show=\"!tv.isBeingEdited(this)\" tabindex=\"0\" ng-keydown=\"tv.keyboardSelect(this,$event);\">{{node.title}}</span>\n<input class=\"title-edit\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation();\" ng-keypress=\"tv.finishEdit(this,$event)\" ng-blur=\"tv.finishEdit(this,$event)\" ng-show=\"tv.isBeingEdited(this)\" ng-model=\"node.title\" focus-on-show tabindex=\"0\">\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canDeleteItem(this)\" data-nodrag ng-click=\"tv.remove(this); $event.preventDefault(); $event.stopPropagation();\" tabindex=\"0\">\n<span class=\"hpe-icon hpe-close\"></span>\n</a>\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canAddItem(this)\" data-nodrag ng-click=\"tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation();\" tabindex=\"0\">\n<span class=\"hpe-icon hpe-add\"></span>\n</a>\n</div>\n<ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n<li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'directives/treeView/treeView.partial.html'\"></li>\n</ol>\n";
 var id1="directives/treeView/treeView.partial.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
