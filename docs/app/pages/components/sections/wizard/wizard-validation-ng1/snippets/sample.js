@@ -14,6 +14,6 @@ function WizardCtrl($scope) {
     };
 
     function validate() {
-        return $scope.requiredInput.requiredText.$valid;
+        return $scope.vm.requiredInput.requiredText.$valid;
     }
 }
