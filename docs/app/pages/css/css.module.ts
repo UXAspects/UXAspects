@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
 import { UxAspectsModule } from '../../../../src/index';
 import { DocumentationDirectivesModule } from '../../directives/directives.module';
 import { DocumentationComponentsModule } from '../../components/components.module';
-import { TabsModule } from 'ng2-bootstrap/tabs';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { upgradeAdapter } from '../../app.module';
+
+import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 
 import { CssCardsComponent } from './sections/tables/cards/cards.component';
 import { CssTablesComponent } from './sections/tables/tables/tables.component';
@@ -89,6 +92,7 @@ import { CssHeaderContentPanelComponent } from './sections/page-header/header-co
 import { CssDynamicNameCalloutComponent } from './sections/page-header/dynamic-name-callout/dynamic-name-callout.component';
 import { CssStandardHeaderToolbarComponent } from './sections/page-header/standard-header-toolbar/standard-header-toolbar.component';
 import { CssHeaderNavTabToolbarComponent } from './sections/page-header/header-nav-tab-toolbar/header-nav-tab-toolbar.component';
+import { DocumentationCategoryComponent } from '../../components/documentation-category/documentation-category.component';
 
 // Import Wrappers
 import './sections/forms/form-validation-field-by-field/wrapper/form-validation-field-by-field-wrapper.directive';
@@ -97,6 +101,7 @@ import './sections/text-inputs/float-labels/wrapper/float-labels-wrapper.directi
 import './sections/side-navigation/navigation/wrapper/navigation-wrapper.directive';
 import './sections/side-navigation/navigation/wrapper/boldify.directive';
 import './sections/side-navigation/app-navigator/wrapper/app-navigator-wrapper.directive';
+
 
 const CSS_SECTIONS = [
     CssColoredButtonsComponent,
@@ -187,6 +192,8 @@ const CSS_SECTIONS = [
     upgradeAdapter.upgradeNg1Component('uxdAppNavigatorWrapper'),
 ];
 
+const cssRoutes = loadRoutes(require('../../data/css-page.json'));
+
 @NgModule({
     imports: [
         TabsModule,
@@ -194,10 +201,25 @@ const CSS_SECTIONS = [
         DocumentationComponentsModule,
         DocumentationDirectivesModule,
         FormsModule,
-        CommonModule
+        CommonModule,
+        RouterModule.forChild(cssRoutes)
     ],
     exports: CSS_SECTIONS,
     declarations: CSS_SECTIONS,
+    entryComponents: CSS_SECTIONS,
     providers: [],
 })
 export class CssPageModule { }
+
+// Function to load routes from JSON data
+function loadRoutes(data: IDocumentationPage): Routes {
+    let routes: Routes = [];
+    for (let i = 0; i < data.categories.length; i += 1) {
+        let category = data.categories[i];
+        if (routes.length === 0) {
+            routes.push({ path: '', redirectTo: category.link, pathMatch: 'full' });
+        }
+        routes.push({ path: category.link, component: DocumentationCategoryComponent, data: { category: category } });
+    }
+    return routes;
+}

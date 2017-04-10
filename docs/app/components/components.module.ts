@@ -21,22 +21,24 @@ import { ShowcaseCardComponent } from './showcase-card/showcase-card.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
 import { SnippetComponent } from './snippet/snippet.component';
 import { SectionSelectComponent } from './section-select/section-select.component';
+import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
 
 const DOCUMENTATION_COMPONENTS = [
-  EditExampleLinkComponent,
-  SideNavigationComponent,
-  FullPageLayoutComponent,
-  PageHeaderComponent,
-  PageFooterComponent,
-  NavigationBarComponent,
-  NavigationBarSearchComponent,
-  LandingPageHeaderComponent,
-  LandingPageFeatureListComponent,
-  LandingPageFeatureComponent,
-  ShowcaseCardComponent,
-  ComponentSectionComponent,
-  SnippetComponent,
-  SectionSelectComponent
+    DocumentationCategoryComponent,
+    EditExampleLinkComponent,
+    SideNavigationComponent,
+    FullPageLayoutComponent,
+    PageHeaderComponent,
+    PageFooterComponent,
+    NavigationBarComponent,
+    NavigationBarSearchComponent,
+    LandingPageHeaderComponent,
+    LandingPageFeatureListComponent,
+    LandingPageFeatureComponent,
+    ShowcaseCardComponent,
+    ComponentSectionComponent,
+    SnippetComponent,
+    SectionSelectComponent
 ];
 
 @NgModule({

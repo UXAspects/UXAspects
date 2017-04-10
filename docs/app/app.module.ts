@@ -12,7 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UpgradeAdapter } from '@angular/upgrade';
 
 // import bootstrap modules
-import { TabsModule } from 'ng2-bootstrap/tabs';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 // Import UX Aspects
 import { 
@@ -46,7 +46,7 @@ import { ChartsPageComponent } from './pages/charts/charts.component';
 // import { CustomizePageComponent } from './pages/customize/customize.component';
 import { TeamPageComponent } from './pages/team/team.component';
 import { BlogPageComponent } from './pages/blog/blog.component';
-import { DocumentationCategoryComponent } from './components/documentation-category/documentation-category.component';
+// import { DocumentationCategoryComponent } from './components/documentation-category/documentation-category.component';
 import { LicensesPageComponent } from './pages/licenses/licenses.component';
 import { ChangeLogPageComponent } from './pages/changelog/changelog.component';
 
@@ -56,24 +56,24 @@ import { documentationSections } from './decorators/documentation-section-compon
 export const upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
 
 // Import Page Sections
-import { CssPageModule } from './pages/css/css.module';
-import { ComponentsPageModule } from './pages/components/components.module';
-import { ChartsPageModule } from './pages/charts/charts.module';
+// import { CssPageModule } from './pages/css/css.module';
+// import { ComponentsPageModule } from './pages/components/components.module';
+// import { ChartsPageModule } from './pages/charts/charts.module';
 
 /*
   Configure Component Page Routes
 */
-const componentRoutes = loadRoutes(require('./data/components-page.json'));
+// const componentRoutes = loadRoutes(require('./data/components-page.json'));
 
 /*
   Configure CSS Page Routes
 */
-const cssRoutes = loadRoutes(require('./data/css-page.json'));
+// const cssRoutes = loadRoutes(require('./data/css-page.json'));
 
 /*
   Configure Charts Page Routes
 */
-const chartRoutes = loadRoutes(require('./data/charts-page.json'));
+// const chartRoutes = loadRoutes(require('./data/charts-page.json'));
 
 /*
   Configure Application Routes
@@ -84,9 +84,9 @@ const appRoutes: Routes = [
   { path: 'features', component: FeaturesPageComponent },
   { path: 'gettingstarted', component: GettingStartedPageComponent },
   { path: 'showcase', component: ShowcasePageComponent },
-  { path: 'components', component: ComponentsPageComponent, children: componentRoutes },
-  { path: 'css', component: CssPageComponent, children: cssRoutes },
-  { path: 'charts', component: ChartsPageComponent, children: chartRoutes },
+  { path: 'components', component: ComponentsPageComponent, loadChildren: './pages/components/components.module#ComponentsPageModule' },
+  { path: 'css', component: CssPageComponent, loadChildren: './pages/css/css.module#CssPageModule' },
+  { path: 'charts', component: ChartsPageComponent, loadChildren: './pages/charts/charts.module#ChartsPageModule' },
   // { path: 'customize', component: CustomizePageComponent },
   { path: 'team', component: TeamPageComponent },
   { path: 'blog', component: BlogPageComponent },
@@ -111,7 +111,7 @@ const DECLARATIONS = [
   // CustomizePageComponent,
   TeamPageComponent,
   BlogPageComponent,
-  DocumentationCategoryComponent,
+  // DocumentationCategoryComponent,
   LicensesPageComponent,
   ChangeLogPageComponent,
 
@@ -154,9 +154,9 @@ const DECLARATIONS = [
     DocumentationComponentsModule,
     DocumentationDirectivesModule,
     DocumentationProvidersModule,
-    CssPageModule,
-    ChartsPageModule,
-    ComponentsPageModule,
+    // CssPageModule,
+    // ChartsPageModule,
+    // ComponentsPageModule,
 
     // Bootstrap Modules
     TabsModule.forRoot(),
@@ -207,15 +207,15 @@ app.config(['$anchorScrollProvider', function ($anchorScrollProvider: angular.IA
 upgradeAdapter.bootstrap(document.documentElement, ['app']);
 
 
-// Function to load routes from JSON data
-function loadRoutes(data: IDocumentationPage): Routes {
-  let routes: Routes = [];
-  for (let i = 0; i < data.categories.length; i += 1) {
-    let category = data.categories[i];
-    if (routes.length === 0) {
-      routes.push({ path: '', redirectTo: category.link, pathMatch: 'full' });
-    }
-    routes.push({ path: category.link, component: DocumentationCategoryComponent, data: { category: category } });
-  }
-  return routes;
-}
+// // Function to load routes from JSON data
+// function loadRoutes(data: IDocumentationPage): Routes {
+//   let routes: Routes = [];
+//   for (let i = 0; i < data.categories.length; i += 1) {
+//     let category = data.categories[i];
+//     if (routes.length === 0) {
+//       routes.push({ path: '', redirectTo: category.link, pathMatch: 'full' });
+//     }
+//     routes.push({ path: category.link, component: DocumentationCategoryComponent, data: { category: category } });
+//   }
+//   return routes;
+// }

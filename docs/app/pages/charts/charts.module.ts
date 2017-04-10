@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { UxAspectsModule } from '../../../../src/index';
 import { DocumentationComponentsModule } from '../../components/components.module';
-import { TabsModule } from 'ng2-bootstrap/tabs';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { upgradeAdapter } from '../../app.module';
 

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { UxAspectsModule } from '../../../../src/index';
 import { DocumentationComponentsModule } from '../../components/components.module';
-import { TabsModule } from 'ng2-bootstrap/tabs';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { upgradeAdapter } from '../../app.module';
 
 import { ComponentsGroupedButtonsNg1Component } from './sections/buttons/grouped-buttons-ng1/grouped-buttons-ng1.component';
