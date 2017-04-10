@@ -15217,6 +15217,9 @@ a.accordion-toggle:focus {
   -webkit-animation: glow-accent 0.6s 0.2s infinite;
   animation: glow-accent 0.6s 0.2s infinite;
 }
+/*
+    Placeholder file for additional fonts provided by theme.
+*/
 @font-face {
   font-family: 'Source Sans Pro';
   font-weight: 200;
@@ -23322,6 +23325,17 @@ body {
   padding-top: 53px;
   min-height: 100%;
 }
+@media (max-width: 991px) {
+  .app-page-content {
+    padding-bottom: 50px;
+  }
+}
+uxd-navigation-bar,
+uxd-page-header,
+uxd-side-navigation,
+uxd-page-footer {
+  font-family: 'Source Sans Pro';
+}
 .uxd-component-section-content > * > h4 {
   margin-top: 2rem;
 }
@@ -23349,12 +23363,20 @@ pre[class*="language-"] code .token.attr-name {
   color: #008080;
 }
 pre[class*="language-"] .token.attr-value,
-pre[class*="language-"] code .token.attr-value {
+pre[class*="language-"] code .token.attr-value,
+pre[class*="language-"] .token.string,
+pre[class*="language-"] code .token.string {
   color: #c7254e;
 }
 pre[class*="language-"] .token.tag,
 pre[class*="language-"] code .token.tag {
   color: #4472c4;
+}
+pre[class*="language-"] .token.boolean,
+pre[class*="language-"] code .token.boolean,
+pre[class*="language-"] .token.number,
+pre[class*="language-"] code .token.number {
+  color: #195f91;
 }
 /*
     Documentation Tables
@@ -23889,6 +23911,7 @@ tr.dragging .reorderable-controls .reorder-drag {
   font-weight: bold;
 }
 /*
+    Custom .dropdown-footer
     Flot Charts
 */
 .flot-chart,
@@ -24206,6 +24229,122 @@ tr.dragging .reorderable-controls .reorder-drag {
   background-repeat: no-repeat;
   margin: -2px 9px -4px 0px;
   display: inline-block;
+}
+/*
+    Custom .dropdown-footer
+*/
+.dropdown-popover {
+  z-index: 1005;
+}
+.dropdown-outer-container {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.dropdown-container {
+  overflow: auto;
+  width: 250px;
+}
+.dropdown-container table {
+  border-bottom: 1px solid #e5e5e5;
+}
+.dropdown-container table tbody tr td {
+  padding-bottom: 6px;
+}
+.dropdown-container table .check > label {
+  margin-bottom: 0px;
+}
+.btn-pull-right {
+  float: right;
+  margin-top: 3px;
+}
+.group-header {
+  font-size: 18px;
+}
+.dropdown-body {
+  font-size: 16px;
+}
+.dropdown-footer {
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+  padding: 15px 15px 6px 0;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.inner-addon {
+  position: relative;
+}
+/* style icon */
+.inner-addon .hpe-icon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+/* align icon */
+.left-addon .hpe-icon {
+  left: 0px;
+}
+.right-addon .hpe-icon {
+  right: 0px;
+}
+/* add padding  */
+.left-addon input {
+  padding-left: 30px;
+}
+.right-addon input {
+  padding-right: 30px;
+}
+/* 
+    Custom Toggle
+*/
+.toggleswitch-custom .el-toggleswitch > .el-toggleswitch-bg {
+  /* This is the color of the background in the unchecked state. */
+  background-color: #ebebeb;
+  /* These three properties are used to "shrink" the default rounded backdrop. */
+  box-sizing: border-box;
+  background-clip: content-box;
+  border: 2px solid transparent;
+  /* The new animation for the background. */
+  transition: background-color 0.3s;
+}
+.toggleswitch-custom .el-toggleswitch.checked > .el-toggleswitch-bg {
+  /* This is the color of the background in the checked state. */
+  background-color: #9dd4a1;
+  /* The default control uses box-shadow to create the animation, so remove that. */
+  box-shadow: none;
+  /* The default control changes the border, so override that. */
+  border: 2px solid transparent;
+  /* The default control has a slightly different animation for unchecking, so override that. */
+  transition: background-color 0.3s;
+}
+.toggleswitch-custom .el-toggleswitch > .el-toggleswitch-nub {
+  /* This is the color of the switch in the unchecked state. */
+  background-color: #fff;
+  /* Remove the border. */
+  border: 0;
+  /* Create a dropshadow. */
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.3);
+  /* Add a color transition to the switch as well as the slide animation. */
+  transition: background-color 0.3s, left 0.15s;
+}
+.toggleswitch-custom .el-toggleswitch.checked > .el-toggleswitch-nub {
+  /* This is the color of the switch in the checked state. */
+  background-color: #fff;
+}
+/*
+    Number Picker
+*/
+.number-picker-demo {
+  width: 70px;
+}
+/*
+    Date Range Picker
+*/
+.date-picker-validation-error {
+  margin-top: -30px;
+}
+.date-picker-validation-error > span {
+  width: 100%;
+  text-align: right;
 }
 .social-demo .nodeDetailButton {
   box-shadow: none !important;
