@@ -36,12 +36,10 @@ echo latestCommitID is $latestCommitID
 # Temporary commands to allow testing of Jenkins job
 echo Listing contents of $WORKSPACE
 ls -alR $WORKSPACE
-cd $WORKSPACE/ux-aspects
-cp $WORKSPACE/ux-aspects/buildscripts/emailable-report.html index.html
-cp $WORKSPACE/ux-aspects/buildscripts/testng-results.xml .
+cd $WORKSPACE
+cp $WORKSPACE/buildscripts/emailable-report.html index.html
+cp $WORKSPACE/buildscripts/testng-results.xml .
 mkdir -p $WORKSPACE/reports
 cp index.html $WORKSPACE/reports/index.html
-mkdir -p $WORKSPACE/ux-aspects/reports
-cp index.html $WORKSPACE/ux-aspects/reports/index.html
 
 exit 0
