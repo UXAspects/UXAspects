@@ -5,6 +5,7 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { ISearchResult } from '../../interfaces/ISearch';
 import { ICategory } from '../../interfaces/ICategory';
 import { ISection } from '../../interfaces/ISection';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 @Component({
     selector: 'uxd-navigation-bar-search',
@@ -25,7 +26,7 @@ export class NavigationBarSearchComponent {
 
     private data: ISearchResult[];
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private navigation: NavigationService) {
         this.searching = false;
         this.query = '';
         this.data = [];
@@ -52,13 +53,14 @@ export class NavigationBarSearchComponent {
                 }
             });
             if (category.sections) {
+                this.navigation.setSectionIds(category.sections);
                 category.sections.forEach((section: ISection) => {
                     results.push({
                         section: page.title,
                         link: {
                             title: section.title,
                             link: category.link,
-                            fragment: section.component
+                            fragment: section.id
                         }
                     });
                 });
