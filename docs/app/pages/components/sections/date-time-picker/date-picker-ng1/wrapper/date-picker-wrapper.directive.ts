@@ -7,7 +7,7 @@ angular.module('app').directive('uxdDatePickerWrapper', () => {
     };
 });
 
-angular.module('app').controller('DatePickerCtrl', DatePickerCtrl);
+angular.module('app').controller('DatePickerCtrl', ['$scope', DatePickerCtrl]);
 
 function DatePickerCtrl($scope: angular.IScope) {
     var vm = this;
