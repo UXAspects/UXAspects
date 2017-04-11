@@ -9,24 +9,27 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     templateUrl: './column-visibility-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsColumnVisibilityNg1Component')
-export class ComponentsColumnVisibilityNg1Component implements ICodePenProvider {
+export class ComponentsColumnVisibilityNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private columns: any;
     private tableData: any[];
 
-    private htmlCode = require('!!file-loader?name=[path][name].[ext]./snippets/layout.html');
-    private jsCode = require('!!file-loader?name=[path][name].[ext]./snippets/controller.js');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ColumnVisibilityCtrl as vm'
         },
-        js: [this.jsCode],
-        lazy: true
+        js: [this.snippets.raw.controllerJs]
     };
 
     constructor() {
+        super(
+            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
+            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
+            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
+            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
+            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
+        );
 
         let chance = require('chance').Chance();
 

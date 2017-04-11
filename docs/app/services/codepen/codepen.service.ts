@@ -1,6 +1,4 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
-
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
@@ -11,48 +9,20 @@ export class CodePenService {
 
     private codepenAssetsBaseUrl = this.appConfig.get('assetsUrl');
     private codePenUrl = this.appConfig.get('codePen');
-
-    constructor( @Inject(DOCUMENT) private document: Document,
-        private appConfig: AppConfiguration,
-        private http: Http) { }
+    
+    constructor(@Inject(DOCUMENT) private document: Document, private appConfig: AppConfiguration) {}
 
     public launch(title: string, codepen: ICodePen) {
+        
+        const form = this.initForm(title, codepen);
 
-        this.loadForm(codepen).then(codepen => {
+        this.document.body.appendChild(form);
 
-            const form = this.initForm(title, codepen);
+        form.submit();
 
-            this.document.body.appendChild(form);
-
-            form.submit();
-
-            this.document.body.removeChild(form);
-        });
-
+        this.document.body.removeChild(form);
     }
-
-    private loadForm(codepen: ICodePen): Promise<ICodePen> {
-
-        // load any files if 'lazy' is set to true
-        return new Promise<ICodePen>((resolve, reject) => {
-
-            // if not lazy then resolve immediately
-            if (!codepen.lazy) {
-                resolve(codepen);
-            }
-            debugger;
-            this.loadHtml(codepen);
-        });
-    }
-
-    private loadHtml(codepen: ICodePen): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.http.get(codepen.html).subscribe(response => {
-                debugger;
-            });
-        });
-    }
-
+    
     private initForm(title: string, codepen: ICodePen): HTMLFormElement {
 
         // Set up the contents of each of the three editors

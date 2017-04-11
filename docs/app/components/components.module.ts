@@ -22,6 +22,7 @@ import { ComponentSectionComponent } from './component-section/component-section
 import { SnippetComponent } from './snippet/snippet.component';
 import { SectionSelectComponent } from './section-select/section-select.component';
 import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 const DOCUMENTATION_COMPONENTS = [
     DocumentationCategoryComponent,
@@ -38,7 +39,8 @@ const DOCUMENTATION_COMPONENTS = [
     ShowcaseCardComponent,
     ComponentSectionComponent,
     SnippetComponent,
-    SectionSelectComponent
+    SectionSelectComponent,
+    LoadingSpinnerComponent
 ];
 
 @NgModule({
