@@ -1,0 +1,8 @@
+const upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
+
+@NgModule({
+    declarations: [
+        upgradeAdapter.upgradeNg1Component('dynamicSelect') // Upgrade 'dynamic-select' directive
+    ]
+})
+export class AppModule() {}

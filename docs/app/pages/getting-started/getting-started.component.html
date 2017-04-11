@@ -1,8 +1,64 @@
 <uxd-page-header header="Getting Started"></uxd-page-header>
 <uxd-full-page-layout>
-<p>
-    UX Aspects can be downloaded via the Bower package manager, allowing it to be added to your build process and work with your existing tooling.
-    The steps below describe a set of tools you can use to download the UX Aspects package; these are development dependencies only, your application
-    will not require these in production. If you don’t need an automated install process, you can instead direct download the zip files further down this page.
-</p>
+
+    <p>UX Aspects components can be used in Angular projects (Angular 4 or AngularJS 1.x), and those shown in the
+        <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using
+        the components are shown below.</p>
+
+    <h3>Install with Bower</h3>
+
+    <ol>
+        <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
+        <li>Install <a href="https://bower.io/">Bower</a>: <kbd>npm install -g bower</kbd></li>
+        <li>Install the UX Aspects bower package: <kbd>bower install ux-aspects#{{ version }}</kbd></li>
+    </ol>
+
+    <h3>Direct Download</h3>
+
+    <p>The UX Aspects resources (scripts, CSS, fonts, and images) can be downloaded from TBD. </p>
+
+    <h3>Building from Source</h3>
+
+    <ol>
+        <li>Clone the <a href="https://github.com/UXAspects/UXAspects">GitHub repository</a>.</li>
+        <li>Install the dependencies: <kbd>npm install</kbd></li>
+        <li>Build the project: <kbd>grunt build</kbd>. The resources (scripts, CSS, fonts, and images) can be found
+            in the <code>dist</code> folder.</li>
+    </ol>
+
+    <h3>Using UX Aspects</h3>
+
+    <p>Add the UX Aspects stylesheet to the header of the site. This is the only required step for non-Angular sites.</p>
+
+    <uxd-snippet [content]="stylesheetHtml" language="html"></uxd-snippet>
+
+    <h4>In an Angular 4 project</h4>
+
+    <p>Import the required component(s) into the module that will be using them.</p>
+
+    <uxd-snippet [content]="angular4Ts" language="javascript"></uxd-snippet>
+
+    <p>If the component is marked <span class="label label-primary">Angular 1</span> in the documentation, it will
+        need to be upgraded using Angular's <a href="https://angular.io/docs/ts/latest/api/upgrade/index/UpgradeAdapter-class.html">UpgradeAdapter</a>.</p>
+
+    <uxd-snippet [content]="angular4UpgradeTs" language="javascript"></uxd-snippet>
+
+    <h4>In an AngularJS project</h4>
+
+    <p>The components marked <span class="label label-primary">Angular 1</span> can be included by importing <code>ng1/ux-aspects-ng1.js</code>.
+        Over the coming months, these will be replaced with Angular 4 components, so it is recommended to set up
+        the project as a hybrid AngularJS/Angular 4 site. See the <a href="https://github.com/UXAspects/UXAspects/blob/develop/guides/angular-upgrade-guide.md">Angular Upgrade Guide</a>
+        for details on modifying a project to support Angular 4 components. Components marked <span class="label label-accent">Angular 4</span>
+        in the documentation are included in the <code>lib/ux-aspects.js</code> script file. These must be downgraded
+        to be used in a hybrid site.</p>
+
+    <uxd-snippet [content]="angular1DowngradeJs" language="javascript"></uxd-snippet>
+
+    <h3>Additional Information</h3>
+
+    <p>The <a routerLink="/changelog">changelog</a> contains details of of current and previous releases of UX Aspects.</p>
+
+    <p>The <a routerLink="/licenses">licenses page</a> contains the licensing details for UX Aspects and the 3rd party
+        libraries that it depends upon.</p>
+
 </uxd-full-page-layout>

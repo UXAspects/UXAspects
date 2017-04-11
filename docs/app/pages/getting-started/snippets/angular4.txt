@@ -1,0 +1,9 @@
+import { CheckboxModule } from 'ux-aspects';
+
+@NgModule({
+    imports: [
+        CheckboxModule,
+        // ...
+    ]
+})
+export class AppModule() {}
