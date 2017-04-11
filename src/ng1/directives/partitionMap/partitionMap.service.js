@@ -1,6 +1,6 @@
-d3PartitionMap.$inject = ['d3', '$rootScope', '$compile', '$templateRequest', '$timeout'];
+d3PartitionMap.$inject = ['d3', '$rootScope', '$compile', '$templateRequest', '$timeout', '$colorService'];
 
-export default function d3PartitionMap(d3, $rootScope, $compile, $templateRequest, $timeout) {
+export default function d3PartitionMap(d3, $rootScope, $compile, $templateRequest, $timeout, $colorService) {
 
   var service = {
     getChart: getChart
@@ -9,14 +9,14 @@ export default function d3PartitionMap(d3, $rootScope, $compile, $templateReques
   return service;
 
   function getChart($container, $scope) {
-    return new PartitionMap($container, $scope, $rootScope, $compile, $templateRequest, $timeout);
+    return new PartitionMap($container, $scope, $rootScope, $compile, $templateRequest, $timeout, $colorService);
   }
 }
 
 //used to maintain scope
 var chart;
 
-function PartitionMap($container, $scope, $rootScope, $compile, $templateRequest, $timeout) {
+function PartitionMap($container, $scope, $rootScope, $compile, $templateRequest, $timeout, $colorService) {
   chart = this;
 
   //angular
@@ -81,10 +81,10 @@ function PartitionMap($container, $scope, $rootScope, $compile, $templateRequest
   var modalParent = angular.element(this.parent).parents('.modal-content');
   this.modalChart = modalParent.length === 1;
 
-  this.rootColor = '#7b63a3';
+  this.rootColor = $colorService.getColor('chart2').toHex();
   //colors
   this.colors = [
-    ['#635387', '#3baa43', '#025662', '#b08f5c', '#cccccc', '#355387', '#724f5d', '#6b7559', '#4a4066', '#308935', '#023e42', '#91744d', '#999999', '#294266', '#563b46', '#515843'],
+    [$colorService.getColor('partition1').toHex(), $colorService.getColor('chart3').toHex(), $colorService.getColor('chart4').toHex(), $colorService.getColor('chart5').toHex(), $colorService.getColor('chart6').toHex(), '#355387', '#724f5d', '#6b7559', $colorService.getColor('partition9').toHex(), $colorService.getColor('partition10').toHex(), $colorService.getColor('partition11').toHex(), $colorService.getColor('partition12').toHex(), $colorService.getColor('partition13').toHex(), $colorService.getColor('partition14').toHex(), '#563b46', '#515843'],
     ['#1c899a', '#18a6df', '#98c972', '#839de8', '#839b9d', '#126aa5', '#77c0d1', '#605e89', '#7fa4bb', '#60798d', '#2fbea3', '#10777f', '#9fc6ee', '#7f7fd7', '#74a265', '#c7e0b4'],
     ['#e7a263', '#ecd491', '#97579a', '#c19fd3', '#989856', '#c7cc87', '#d775a4', '#cabfbd', '#9d8583', '#e5a3c7', '#e57b76', '#e0b852', '#b17f77', '#eebcba', '#d58853', '#d0c655'],
     ['#7fa4bb', '#60798d', '#2fbea3', '#10777f', '#9fc6ee', '#7f7fd7', '#74a265', '#c7e0b4', '#1c899a', '#18a6df', '#98c972', '#839de8', '#839b9d', '#126aa5', '#77c0d1', '#605e89'],

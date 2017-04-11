@@ -26,7 +26,14 @@ export default function $colorService() {
 				'<div class="chart6-color"></div>'+
 				'<div class="ok-color"></div>'+
 				'<div class="warning-color"></div>'+
-				'<div class="critical-color"></div>';
+				'<div class="critical-color"></div>'+
+				'<div class="partition1-color"></div>'+
+				'<div class="partition9-color"></div>'+
+				'<div class="partition10-color"></div>'+
+				'<div class="partition11-color"></div>'+
+				'<div class="partition12-color"></div>'+
+				'<div class="partition13-color"></div>'+
+				'<div class="partition14-color"></div>';
 
 	var element = document.createElement('div');
 	element.className = 'color-chart';
@@ -75,7 +82,14 @@ export default function $colorService() {
 		chart6: getColorValue('chart6'),
 		ok: getColorValue('ok'),
 		warning: getColorValue('warning'),
-		critical: getColorValue('critical')
+		critical: getColorValue('critical'),
+		partition1: getColorValue('partition1'),
+		partition9: getColorValue('partition9'),
+		partition10: getColorValue('partition10'),
+		partition11: getColorValue('partition11'),
+		partition12: getColorValue('partition12'),
+		partition13: getColorValue('partition13'),
+		partition14: getColorValue('partition14')
    	};
 
    	element.parentNode.removeChild(element);
