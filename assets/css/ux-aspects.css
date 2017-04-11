@@ -8222,6 +8222,21 @@ b {
 .text-accent {
   color: #7b63a3;
 }
+.text-alternate1 {
+  color: #3baa43;
+}
+.text-alternate2 {
+  color: #025662;
+}
+.text-alternate3 {
+  color: #b08f5c;
+}
+.text-vibrant1 {
+  color: #00cceb;
+}
+.text-vibrant2 {
+  color: #ff9048;
+}
 .text-alert,
 .text-error,
 .text-warning {
@@ -11282,6 +11297,21 @@ p.no-margin {
 }
 .spark .fill {
   transition: none;
+}
+.spark-label .x-large {
+  font-size: 24px;
+}
+.spark-label .large {
+  font-size: 16px;
+}
+.spark-label .medium {
+  font-size: 14px;
+}
+.spark-label .small {
+  font-size: 11px;
+}
+.spark-label .light {
+  opacity: 0.6;
 }
 .spark-chart1 {
   background-color: rgba(0, 177, 171, 0.2);
