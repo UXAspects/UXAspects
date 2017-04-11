@@ -6,6 +6,7 @@ describe('partition map', function() {
   beforeEach(module("ux-aspects.partitionMap"));
   beforeEach(module("ux-aspects.safeInterval"));
   beforeEach(module('ux-aspects.d3'));
+  beforeEach(module('ux-aspects.colorService'));
 
   beforeEach(inject(function(_$compile_, _$rootScope_, _$timeout_, _$interval_, _$templateCache_) {
     $compile = _$compile_;
