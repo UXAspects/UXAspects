@@ -18036,6 +18036,10 @@ fieldset[disabled] .btn-toggle.active {
   display: block;
   padding: 0;
 }
+.wizard > .actions ul,
+.tabcontrol > .actions ul {
+  margin-bottom: 5px;
+}
 .wizard > .steps .current-info,
 .tabcontrol > .steps .current-info {
   position: absolute;
@@ -23294,6 +23298,27 @@ tags-input .tags .input:-ms-input-placeholder {
 }
 .critical-color {
   background: #ff454f;
+}
+.partition1-color {
+  background: #635387;
+}
+.partition9-color {
+  background: #4a4066;
+}
+.partition10-color {
+  background: #308935;
+}
+.partition11-color {
+  background: #023e42;
+}
+.partition12-color {
+  background: #91744d;
+}
+.partition13-color {
+  background: #999999;
+}
+.partition14-color {
+  background: #294266;
 }
 .color-chart {
   position: absolute;
