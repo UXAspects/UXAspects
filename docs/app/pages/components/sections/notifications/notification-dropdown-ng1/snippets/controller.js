@@ -1,25 +1,25 @@
 angular.module('app').controller('NotificationDropdownDemoCtrl', NotificationDropdownDemoCtrl);
 
-NotificationDropdownDemoCtrl.$inject = ['$scope', 'notificationService'];
+NotificationDropdownDemoCtrl.$inject = ['$scope', 'notificationService', '$colorService'];
 
-function NotificationDropdownDemoCtrl($scope, notificationService) {
+function NotificationDropdownDemoCtrl($scope, notificationService, $colorService) {
     var vm = this;
 
     var sampleNotifications = [{
         icon: 'hpe-user',
         text: 'Add new custodians (23) submitted',
         duration: 2000,
-        backgroundColor: '#01A982'
+        backgroundColor: $colorService.getColor('primary').toHex()
     }, {
         icon: 'hpe-alert',
         text: 'Export Michael J. Angelakis completed with 2 errors',
         duration: 2000,
-        backgroundColor: '#60798d'
+        backgroundColor: $colorService.getColor('accent').toHex()
     }, {
         icon: 'hpe-archive',
         text: 'Export Marc Andressen submitted',
         duration: 2000,
-        backgroundColor: '#FF454F'
+        backgroundColor: $colorService.getColor('critical').toHex()
     }];
 
     var currentNotification = 0;
