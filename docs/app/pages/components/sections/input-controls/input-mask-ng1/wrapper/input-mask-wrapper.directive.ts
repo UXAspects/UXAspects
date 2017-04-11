@@ -7,7 +7,7 @@ angular.module('app').directive('uxdInputMaskWrapper', () => {
     };
 });
 
-angular.module('app').controller('InputMaskCtrl', InputMaskCtrl);
+angular.module('app').controller('InputMaskCtrl', ['$scope', InputMaskCtrl]);
 
 function InputMaskCtrl($scope: angular.IScope) {
     var vm = this;
