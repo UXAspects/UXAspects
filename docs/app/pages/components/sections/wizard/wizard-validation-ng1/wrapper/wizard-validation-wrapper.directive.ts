@@ -28,6 +28,6 @@ function WizardValidationCtrl($scope: angular.IScope) {
     };
 
     function validate() {
-        return $scope.requiredInput.requiredText.$valid;
+        return $scope.vm.requiredInput.requiredText.$valid;
     }
 }
