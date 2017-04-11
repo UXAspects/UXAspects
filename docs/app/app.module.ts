@@ -43,7 +43,7 @@ import { ShowcasePageComponent } from './pages/showcase/showcase.component';
 import { ComponentsPageComponent } from './pages/components/components.component';
 import { CssPageComponent } from './pages/css/css.component';
 import { ChartsPageComponent } from './pages/charts/charts.component';
-import { CustomizePageComponent } from './pages/customize/customize.component';
+// import { CustomizePageComponent } from './pages/customize/customize.component';
 import { TeamPageComponent } from './pages/team/team.component';
 import { BlogPageComponent } from './pages/blog/blog.component';
 import { DocumentationCategoryComponent } from './components/documentation-category/documentation-category.component';
@@ -86,7 +86,7 @@ const appRoutes: Routes = [
   { path: 'components', component: ComponentsPageComponent, children: componentRoutes },
   { path: 'css', component: CssPageComponent, children: cssRoutes },
   { path: 'charts', component: ChartsPageComponent, children: chartRoutes },
-  { path: 'customize', component: CustomizePageComponent },
+  // { path: 'customize', component: CustomizePageComponent },
   { path: 'team', component: TeamPageComponent },
   { path: 'blog', component: BlogPageComponent },
   { path: 'licenses', component: LicensesPageComponent },
@@ -107,7 +107,7 @@ const DECLARATIONS = [
   ComponentsPageComponent,
   CssPageComponent,
   ChartsPageComponent,
-  CustomizePageComponent,
+  // CustomizePageComponent,
   TeamPageComponent,
   BlogPageComponent,
   DocumentationCategoryComponent,
