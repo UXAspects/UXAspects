@@ -6,4 +6,5 @@ export interface ICodePen {
     htmlTemplates?: ICodePenTemplate[];
     css?: string[];
     js?: string[];
+    lazy?: boolean;
 }

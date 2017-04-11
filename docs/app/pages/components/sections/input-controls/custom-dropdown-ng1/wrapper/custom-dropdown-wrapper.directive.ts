@@ -18,7 +18,7 @@ function CustomDropdownCtrl($scope: angular.IScope, $timeout: ng.ITimeoutService
        $scope.$destroy();
     };
 
-    vm.template = require('!file-loader!./template.html');
+    vm.template = require('!file-loader?name=[path][name].[ext]!./template.html');
     vm.searchBox = true;
     vm.searchText = '';
     vm.footer = true;
