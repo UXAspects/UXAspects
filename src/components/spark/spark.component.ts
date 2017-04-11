@@ -7,8 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class SparkComponent {
 
-    @Input() trackColor: string = 'rgba(1, 169, 130, 0.1)';
-    @Input() barColor: string = '#01A982';
+    // TODO: use color service
+    @Input() trackColor: string = 'rgba(0, 167, 162, 0.2)';
+    @Input() barColor: string = '#00a7a2';
     @Input() value: number;
     @Input() fillHeight: number = 10;
     @Input() inlineLabel: string;
