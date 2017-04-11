@@ -8,6 +8,8 @@ import './wrapper/notification-dropdown-wrapper.directive.js';
 @Component({
     selector: 'uxd-notification-dropdown-ng1',
     templateUrl: './notification-dropdown-ng1.component.html',
+    styleUrls: ['./notification-dropdown-ng1.component.less'],
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsNotificationDropdownNg1Component')

@@ -1,8 +1,8 @@
 angular.module("elements").controller("NotificationCtrl", NotificationCtrl);
 
-NotificationCtrl.$inject = ['notificationService', '$colorService'];
+NotificationCtrl.$inject = ['notificationService'];
 
-function NotificationCtrl(notificationService, $colorService) {
+function NotificationCtrl(notificationService) {
     var vm = this;
 
     vm.showNotification = function () {
@@ -13,7 +13,7 @@ function NotificationCtrl(notificationService, $colorService) {
             text: 'You have 16 messages',
             subtitle: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
             duration: 4000,
-            backgroundColor: $colorService.getColor('primary').toHex()
+            backgroundColor: '#01A982'
         };
 
         notificationService.showNotification(options);

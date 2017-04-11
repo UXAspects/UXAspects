@@ -9,7 +9,7 @@
             scroll-pane scroll-name="searchHistoryScroller">
             <li ng-repeat="search in vm.searches track by $index" class="search-history-item" ng-click="vm.search(search)">
                 <div class="search-history">
-                    <i class="hpe-icon hpe-lg search-history-icon text-primary" ng-class="search.icon" aria-hidden="true"></i>
+                    <i class="hpe-icon hpe-lg search-history-icon" ng-class="search.icon" aria-hidden="true"></i>
                     <div class="search-history-detail">
                         <p ng-bind="search.text"></p>
                         <p class="search-criteria" ng-if="search.any">ANY OF <span ng-bind="search.any"></span></p>
