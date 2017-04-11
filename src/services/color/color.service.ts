@@ -37,7 +37,7 @@ export class ColorService {
     private element: HTMLElement;
     private colors: any;
 
-    constructor(@Inject(DOCUMENT) document: Document) {
+    constructor(@Inject(DOCUMENT) document: any) {
         this.element = document.createElement('div');
         this.element.className = 'color-chart';
         this.element.innerHTML = this.html;
