@@ -15,7 +15,16 @@ import { UpgradeAdapter } from '@angular/upgrade';
 import { TabsModule } from 'ng2-bootstrap/tabs';
 
 // Import UX Aspects
-import { UxAspectsModule } from '../../src/index';
+import { 
+  CheckboxModule, 
+  ColorServiceModule, 
+  EboxModule, 
+  FlippableCardModule, 
+  ProgressBarModule, 
+  RadioButtonModule, 
+  SparkModule, 
+  ToggleSwitchModule 
+} from '../../src/index';
 
 // Import Child Modules
 import { DOCUMENTATION_COMPONENTS } from './components/components';
@@ -247,7 +256,14 @@ const DECLARATIONS = [
     TabsModule.forRoot(),
 
     // Library Module
-    UxAspectsModule,
+    CheckboxModule, 
+    ColorServiceModule, 
+    EboxModule, 
+    FlippableCardModule, 
+    ProgressBarModule, 
+    RadioButtonModule, 
+    SparkModule, 
+    ToggleSwitchModule,
 
     // Routing Module
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })

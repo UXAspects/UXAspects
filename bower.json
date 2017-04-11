@@ -20,7 +20,7 @@
     "url": "https://github.com/UXAspects/UXAspects"
   },
   "main": [
-    "dist/lib/ux-aspects.js",
+    "dist/lib/index.js",
     "dist/ng1/ux-aspects-ng1.js",
     "dist/styles/ux-aspects.css"
   ],

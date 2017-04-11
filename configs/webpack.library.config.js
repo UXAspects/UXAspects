@@ -7,7 +7,7 @@ module.exports = {
 
     output: {
         path: path.join(process.cwd(), 'dist', 'lib'),
-        filename: 'ux-aspects.js',
+        filename: 'index.js',
         libraryTarget: 'umd'
     },
 
@@ -21,14 +21,20 @@ module.exports = {
     ],
 
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.html$/,
                 use: 'raw-loader'
             },
             {
                 test: /\.ts$/,
-                use: ['awesome-typescript-loader', 'angular2-template-loader']
+                use: [{
+                    loader: 'awesome-typescript-loader',
+                    options: {
+                        configFileName: path.join(process.cwd(), 'src', 'tsconfig-build.json')
+                    },
+                }, {
+                    loader: 'angular2-template-loader'
+                }]
             },
             {
                 test: /\.less$/,
