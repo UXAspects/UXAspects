@@ -44,7 +44,7 @@ export class ChartsSparkChartNg1Component implements ICodePenProvider {
                 inlineLabel: '30%'
             },
             {
-                type: 'spark-chart1',
+                type: 'spark-chart2',
                 value: 35,
                 fillHeight: 10,
                 topLeftLabel: `<span class='spark-label hidden-xxxs'><span class='large'>21.7</span><span class='medium light'>&nbsp;MB&nbsp;&nbsp;Items&nbsp;&nbsp;(35%)</span></span>`,
@@ -53,25 +53,10 @@ export class ChartsSparkChartNg1Component implements ICodePenProvider {
             },
             {
                 type: 'spark-chart3',
-                value: 55,
+                value: 30,
                 fillHeight: 5,
                 inlineLabel: '<span class="spark-label hidden-spark"><span class="x-large">30%</span></span>',
-                topLeftLabel: '<span class="spark-label-1 hidden-xxs">STORAGE ON HOLD</span>'
-            },
-            {
-                type: 'spark-chart2',
-                value: 55,
-                fillHeight: 10,
-                topLeftLabel: "<span class='spark-label hidden-xxs'><span class='large'>8.6</span><span class='medium light'>&nbsp;GB&nbsp;Disk Space&nbsp;&nbsp;(55%)</span></span>"
-            },
-            {
-                type: 'spark-chart3',
-                value: 30,
-                fillHeight: 10,
-                topLeftLabel: '30%',
-                topRightLabel: '<span class="spark-label hidden-spark"><span class="medium light">75.0M</span></span>',
-                bottomLeftLabel: '<span class="spark-label hidden-xxxs"><span class="medium light">ITEMS ON HOLD</span></span>',
-                bottomRightLabel: '<span class="spark-label hidden-xxs"><span class="medium light">TOTAL</span></span>'
+                topLeftLabel: '<span class="spark-label hidden-xxs"><span class="small">STORAGE ON HOLD</span></span>'
             },
             {
                 type: 'spark-chart4',
@@ -81,6 +66,21 @@ export class ChartsSparkChartNg1Component implements ICodePenProvider {
             },
             {
                 type: 'spark-chart5',
+                value: 30,
+                fillHeight: 10,
+                topLeftLabel: '30%',
+                topRightLabel: '<span class="spark-label hidden-spark"><span class="medium light">75.0M</span></span>',
+                bottomLeftLabel: '<span class="spark-label hidden-xxxs"><span class="medium light">ITEMS ON HOLD</span></span>',
+                bottomRightLabel: '<span class="spark-label hidden-xxs"><span class="medium light">TOTAL</span></span>'
+            },
+            {
+                type: 'spark-vibrant1',
+                value: 55,
+                fillHeight: 10,
+                topLeftLabel: "<span class='spark-label hidden-xxs'><span class='large'>8.6</span><span class='medium light'>&nbsp;GB&nbsp;Disk Space&nbsp;&nbsp;(55%)</span></span>"
+            },
+            {
+                type: 'spark-vibrant2',
                 value: 30,
                 fillHeight: 10,
                 topLeftLabel: '30%',

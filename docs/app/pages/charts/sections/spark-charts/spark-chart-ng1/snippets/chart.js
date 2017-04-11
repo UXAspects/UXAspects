@@ -3,26 +3,64 @@ angular.module("app").controller("SparkChartCtrl", SparkChartCtrl);
 function SparkChartCtrl() {
     var vm = this;
 
-    vm.percentComplete = 35;
-    vm.type = "spark-chart1";
-    vm.label = "<span class='spark-label hidden-xxxs'><span class='large'>21.7</span><span class='medium light'>"
-                + " MB  Items  (" + vm.percentComplete + "%)</span></span>";
-    vm.fillheight = 10;
-
-    vm.percentComplete1 = 55;
-    vm.type1 = "spark-chart2";
-    vm.label1 = "<span class='spark-label hidden-xxs'><span class='large'>8.6</span><span class='medium light'>"
-                   + " GB Disk Space  (" + vm.percentComplete1 + "%)</span></span>";
-
-    vm.type2 = "spark-chart3";
-    vm.type3 = "spark-chart4";
-    vm.type4 = "spark-chart5";
-    vm.label5= "<span class='spark-label hidden-spark'><span class='medium light'>75.0M</span></span>";
-    vm.label6= "<span class='spark-label hidden-xxs'><span class='medium light'>TOTAL</span></span>";
-    vm.label7 = "<span class='spark-label-1 hidden-xxs'>STORAGE ON HOLD</span>";
-    vm.label8 = "<span class='spark-label hidden-spark'><span class='x-large'>30%</span></span>";
-    vm.label9 = "<span class='spark-label hidden-xxxs'><span class='medium light'>INDEX COVERAGE</span></span>";
-    vm.label10 = "<span class='spark-label hidden-xxxs'><span class='medium light'>ITEMS ON HOLD</span></span>";
-
-    vm.tooltip = "Spark Line indicator - 2.17MB of 8.2GB occupied (35%)";
+    vm.charts = [
+        {
+            type: 'spark-chart1',
+            value: 35,
+            fillHeight: 10,
+            topLeftLabel: "<span class='spark-label hidden-xxxs'><span class='large'>21.7</span><span class='medium light'>&nbsp;MB&nbsp;&nbsp;Items&nbsp;&nbsp;(35%)</span></span>",
+            tooltip: 'Spark Line indicator - 2.17MB of 8.2GB occupied (35%)'
+        },
+        {
+            type: 'spark-chart3',
+            value: 30,
+            fillHeight: 5,
+            inlineLabel: '30%'
+        },
+        {
+            type: 'spark-chart2',
+            value: 35,
+            fillHeight: 10,
+            topLeftLabel: "<span class='spark-label hidden-xxxs'><span class='large'>21.7</span><span class='medium light'>&nbsp;MB&nbsp;&nbsp;Items&nbsp;&nbsp;(35%)</span></span>",
+            bottomLeftLabel: "<span class='spark-label hidden-xxxs'><span class='medium light'>INDEX COVERAGE</span></span>",
+            tooltip: 'Spark Line indicator - 2.17MB of 8.2GB occupied (35%)'
+        },
+        {
+            type: 'spark-chart3',
+            value: 30,
+            fillHeight: 5,
+            inlineLabel: "<span class='spark-label hidden-spark'><span class='x-large'>30%</span></span>",
+            topLeftLabel: "<span class='spark-label hidden-xxs'><span class='small'>STORAGE ON HOLD</span></span>"
+        },
+        {
+            type: 'spark-chart4',
+            value: 55,
+            fillHeight: 10,
+            topLeftLabel: "<span class='spark-label hidden-xxs'><span class='large'>8.6</span><span class='medium light'>&nbsp;GB&nbsp;Disk Space&nbsp;&nbsp;(55%)</span></span>"
+        },
+        {
+            type: 'spark-chart5',
+            value: 30,
+            fillHeight: 10,
+            topLeftLabel: '30%',
+            topRightLabel: "<span class='spark-label hidden-spark'><span class='medium light'>75.0M</span></span>",
+            bottomLeftLabel: "<span class='spark-label hidden-xxxs'><span class='medium light'>ITEMS ON HOLD</span></span>",
+            bottomRightLabel: "<span class='spark-label hidden-xxs'><span class='medium light'>TOTAL</span></span>"
+        },
+        {
+            type: 'spark-vibrant1',
+            value: 55,
+            fillHeight: 10,
+            topLeftLabel: "<span class='spark-label hidden-xxs'><span class='large'>8.6</span><span class='medium light'>&nbsp;GB&nbsp;Disk Space&nbsp;&nbsp;(55%)</span></span>"
+        },
+        {
+            type: 'spark-vibrant2',
+            value: 30,
+            fillHeight: 10,
+            topLeftLabel: '30%',
+            bottomLeftLabel: "<span class='spark-label hidden-xxxs'><span class='medium light'>ITEMS ON HOLD</span></span>",
+            topRightLabel: "<span class='spark-label hidden-spark'><span class='medium light'>75.0M</span></span>",
+            bottomRightLabel: "<span class='spark-label hidden-xxs'><span class='medium light'>TOTAL</span></span>"
+        }
+    ];
 }
