@@ -1,8 +1,8 @@
-import { CheckboxComponent } from 'ux-aspects';
+import { CheckboxModule } from 'ux-aspects';
 
 @NgModule({
     imports: [
-        CheckboxComponent,
+        CheckboxModule,
         // ...
     ]
 })
