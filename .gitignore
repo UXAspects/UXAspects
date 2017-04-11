@@ -4,7 +4,6 @@ dist/
 _SpecRunner.html
 jshint.log
 .awcache/
-docs/app/assets/licenses.txt
 src/fonts/hpe-icons.eot
 src/fonts/hpe-icons.ttf
 src/fonts/hpe-icons.woff
