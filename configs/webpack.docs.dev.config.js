@@ -179,7 +179,9 @@ module.exports = {
 
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills']
-        })
+        }),
+
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ],
 
     stats: {
