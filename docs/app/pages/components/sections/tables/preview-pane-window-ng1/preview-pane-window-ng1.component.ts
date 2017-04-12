@@ -2,23 +2,22 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-preview-pane-window',
     templateUrl: './preview-pane-window-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsPreviewPaneWindowNg1Component')
-export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsPreviewPaneWindowNg1Component implements ICodePenProvider {
     
-    private sampleCode = this.snippets.compiled.sampleHtml;
-    private htmlCode = this.snippets.compiled.layoutHtml;
-    private jsCode = this.snippets.compiled.controllerJs;
-    private cssCode = this.snippets.compiled.stylesCss;
-    private footerCode = this.snippets.compiled.footerHtml;
+    private sampleCode = require('./snippets/sample.html');
+    private htmlCode = require('./snippets/layout.html');
+    private jsCode = require('./snippets/controller.js');
+    private cssCode = require('./snippets/styles.css');
+    private footerCode = require('./snippets/footer.html');
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.htmlCode,
         htmlAttributes: {
             'ng-controller': 'PreviewPaneWindowCtrl as vm'
         },
@@ -45,19 +44,8 @@ export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSe
             }
         ],
         js: [ 
-            this.snippets.raw.controllerJs
+            this.jsCode
         ],
-        css: [this.snippets.raw.stylesCss]
+        css: [this.cssCode]
     };
-    
-    constructor() {
-        super(
-            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
-    }
-
 }

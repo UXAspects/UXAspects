@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-sliders-ng1',
@@ -10,24 +9,22 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsSlidersNg1Component')
-export class ComponentsSlidersNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsSlidersNg1Component implements ICodePenProvider {
 
-    constructor() {
-        super(
-            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
-    }
+    private codepenHtml = require('./snippets/codepen.html');
+    private codepenJs = require('./snippets/codepen.js');
+    private sample1Html = require('./snippets/sample1.html');
+    private sample1Js = require('./snippets/sample1.js');
+    private sample2Html = require('./snippets/sample2.html');
+    private sample2Js = require('./snippets/sample2.js');
+    private sample3Js = require('./snippets/sample3.js');
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.codepenHtml,
+        html: this.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'SlidersCtrl as vm'
         },
-        js: [this.snippets.raw.codepenJs]
+        js: [this.codepenJs]
     };
 
 }
