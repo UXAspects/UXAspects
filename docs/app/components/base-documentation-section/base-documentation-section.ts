@@ -16,11 +16,13 @@ export abstract class BaseDocumentationSection {
         };
 
         // Use the context supplied by the implementing component to load all snippets in both raw and compiled versions
-        this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledHtmlContext);
-        this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledCssContext);
-        this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledJavascriptContext);
-        this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledTypescriptContext);
+        // this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledHtmlContext);
+        // this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledCssContext);
+        // this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledJavascriptContext);
+        // this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledTypescriptContext);
+        // this.loadSnippetsFromRequireContext(this.snippets.raw, rawContext);
         this.loadSnippetsFromRequireContext(this.snippets.raw, rawContext);
+        this.snippets.compiled = this.snippets.raw;
     }
 
     private loadSnippetsFromRequireContext(snippets: any, requireContext: any) {

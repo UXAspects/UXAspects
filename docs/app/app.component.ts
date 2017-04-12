@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { NavigationService } from './services/navigation/navigation.service';
@@ -11,7 +11,10 @@ import { NavigationService } from './services/navigation/navigation.service';
 export class AppComponent implements OnInit {
 
     constructor(private router: Router,
-        private navigation: NavigationService) {}
+        private navigation: NavigationService,
+        ngZone: NgZone) {
+            (<any>window).ngZone = ngZone;
+        }
 
     ngOnInit() {
 

@@ -16,9 +16,9 @@ export class ComponentsDynamicFiltersNg1Component extends BaseDocumentationSecti
     
     constructor() {
         super(
-            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
+            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
+            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
+            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
             require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/)
         );
     }
