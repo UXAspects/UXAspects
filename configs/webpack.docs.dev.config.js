@@ -147,7 +147,8 @@ module.exports = {
         ),
 
         new HtmlWebpackPlugin({
-            template: './docs/index.html'
+            template: './docs/index.html',
+            favicon: './docs/favicon.ico'
         }),
 
         new ExtractTextPlugin("styles.css"),

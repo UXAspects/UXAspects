@@ -53,6 +53,11 @@ export class CheckboxComponent implements ControlValueAccessor {
             return;
         }
 
+        if (this.value === this.indeterminateValue) {
+            this.value = true;
+            return;
+        }
+
         // toggle the checked state
         this.value = !this.value;
     }

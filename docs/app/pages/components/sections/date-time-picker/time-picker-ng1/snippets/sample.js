@@ -6,8 +6,6 @@ function TimePickerCtrl() {
     vm.hstep = 1;
     vm.mstep = 15;
     vm.ismeridian = true;
-    vm.changed = function () {
-        console.log("Timepicker changed");
-    };
+    vm.changed = function () {};
 
 }
