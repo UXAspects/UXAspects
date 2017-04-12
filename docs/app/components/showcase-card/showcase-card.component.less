@@ -1,3 +1,5 @@
+@import '../../assets/styles/variables.less';
+
 :host {
     display: block;
     max-height: 450px;
@@ -15,4 +17,11 @@
     display: block;
     width: 100%;
     max-height: 390px;
+}
+
+a {
+    color: @text-color;
+    &:hover {
+        color: @text-color;
+    }
 }

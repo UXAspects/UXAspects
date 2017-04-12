@@ -525,7 +525,7 @@
         inlineLabel: "<span class='spark-label'><span class='x-large'>" + Math.round(item.storage) + "%</span></span>",
         topLeftLabel: "<span class='spark-label-1'>Work completed (%)</span>",
         tooltip: "Spark Line Indicator - " + parseFloat((item.storage / 100) * 8.2).toFixed(2) + "GB of 8.2GB occupied (" + item.storage + "%)",
-        type: "spark-secondary3"
+        type: "spark-chart5"
       };
     }
 
