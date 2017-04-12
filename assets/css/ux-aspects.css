@@ -10317,6 +10317,22 @@ fieldset[disabled] .btn-toggle.active {
   color: #585858;
   border-bottom: 2px solid #585858;
 }
+.hyperlink.text-primary:link {
+  color: #00a7a2;
+}
+.hyperlink.text-primary:hover,
+.hyperlink.text-primary:focus {
+  color: #00a7a2;
+  border-bottom-color: #00a7a2;
+}
+.hyperlink.text-primary:active {
+  color: #00a7a2;
+  border-bottom-color: #00a7a2;
+}
+.hyperlink.text-primary:visited {
+  color: #00a7a2;
+  border-bottom-color: #00a7a2;
+}
 .hyperlink-hover {
   font-family: 'Source Sans Pro';
 }

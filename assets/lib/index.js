@@ -935,8 +935,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var SparkComponent = (function () {
     function SparkComponent() {
-        this.trackColor = 'rgba(1, 169, 130, 0.1)';
-        this.barColor = '#01A982';
+        // TODO: use color service
+        this.trackColor = 'rgba(0, 167, 162, 0.2)';
+        this.barColor = '#00a7a2';
         this.fillHeight = 10;
     }
     return SparkComponent;
