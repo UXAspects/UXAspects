@@ -1,3 +1,14 @@
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { WrappersModule } from '../../wrappers.module';
+import { ResolverService } from '../../services/resolver/resolver.service';
+
+import { RadioButtonModule } from '../../../../src/index';
+import { DocumentationComponentsModule } from '../../components/components.module';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 import { ChartsBarChartNg1Component } from './sections/bar-charts/bar-chart-ng1/bar-chart-ng1.component';
 import { ChartsHorizontalBarChartNg1Component } from './sections/bar-charts/horizontal-bar-chart-ng1/horizontal-bar-chart-ng1.component';
 import { ChartsStackedBarChartNg1Component } from './sections/bar-charts/stacked-bar-chart-ng1/stacked-bar-chart-ng1.component';
@@ -17,7 +28,7 @@ import { ChartsSocialChartNg1Component } from './sections/social-chart/social-ch
 import { ChartsScrollableChartNg1Component } from './sections/scrollable-chart/scrollable-chart-ng1/scrollable-chart-ng1.component';
 import { ChartsTimelineChartNg1Component } from './sections/timeline-chart/timeline-chart-ng1/timeline-chart-ng1.component';
 
-export const CHART_SECTIONS: any[] = [
+const CHART_SECTIONS: any[] = [
     ChartsBarChartNg1Component,
     ChartsHorizontalBarChartNg1Component,
     ChartsStackedBarChartNg1Component,
@@ -35,5 +46,27 @@ export const CHART_SECTIONS: any[] = [
     ChartsSparkChartNg1Component,
     ChartsSocialChartNg1Component,
     ChartsScrollableChartNg1Component,
-    ChartsTimelineChartNg1Component,
+    ChartsTimelineChartNg1Component
 ];
+
+@NgModule({
+    imports: [
+        DocumentationComponentsModule,
+        TabsModule,
+        FormsModule,
+        CommonModule,
+        RadioButtonModule,
+        WrappersModule,
+        RouterModule.forChild(ResolverService.resolveRouteComponents(require('../../data/charts-page.json')))
+    ],
+    exports: CHART_SECTIONS,
+    declarations: CHART_SECTIONS,
+    entryComponents: CHART_SECTIONS,
+    providers: [],
+})
+export class ChartsPageModule {
+
+    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
+        resolverService.registerResolver(componentFactoryResolver);
+    }
+}

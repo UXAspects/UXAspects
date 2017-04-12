@@ -3,7 +3,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/marquee-modal-wrapper.directive.js';
 
 @Component({
     selector: 'uxd-marquee-modal-ng1',

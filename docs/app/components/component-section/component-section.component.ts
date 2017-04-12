@@ -1,10 +1,11 @@
-import { Component, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, ViewContainerRef, AfterViewInit, OnInit } from '@angular/core';
 
 import { documentationSectionNames } from '../../decorators/documentation-section-component';
 import { ICodePenProvider, isICodePenProvider } from '../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../interfaces/ICodePen';
 import { IPlunkProvider, isIPlunkProvider } from '../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../interfaces/IPlunk';
+import { ResolverService } from '../../services/resolver/resolver.service';
 
 @Component({
     selector: 'uxd-component-section',
@@ -25,12 +26,14 @@ export class ComponentSectionComponent implements OnInit {
     private codepen: ICodePen;
     private plunk: IPlunk;
     
-    constructor(private componentfactoryResolver: ComponentFactoryResolver) { }
+    constructor(private resolverService: ResolverService) { }
 
     ngOnInit() {
         const component = documentationSectionNames[this.componentName];
+
         if (component) {
-            let factory = this.componentfactoryResolver.resolveComponentFactory(component);
+            let factory = this.resolverService.resolveComponentFactory(component);
+            
             const componentRef = this.viewContainer.createComponent(factory);
 
             if (isICodePenProvider(componentRef.instance)) {

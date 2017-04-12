@@ -1,3 +1,18 @@
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+
+import { WrappersModule } from '../../wrappers.module';
+import { ResolverService } from '../../services/resolver/resolver.service';
+
+import { CheckboxModule } from '../../../../src/index';
+import { DocumentationDirectivesModule } from '../../directives/directives.module';
+import { DocumentationComponentsModule } from '../../components/components.module';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
+import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
+
 import { CssCardsComponent } from './sections/tables/cards/cards.component';
 import { CssTablesComponent } from './sections/tables/tables/tables.component';
 import { CssMiniActivityIndicatorComponent } from './sections/progress/mini-activity-indicator/mini-activity-indicator.component';
@@ -78,16 +93,10 @@ import { CssHeaderContentPanelComponent } from './sections/page-header/header-co
 import { CssDynamicNameCalloutComponent } from './sections/page-header/dynamic-name-callout/dynamic-name-callout.component';
 import { CssStandardHeaderToolbarComponent } from './sections/page-header/standard-header-toolbar/standard-header-toolbar.component';
 import { CssHeaderNavTabToolbarComponent } from './sections/page-header/header-nav-tab-toolbar/header-nav-tab-toolbar.component';
+import { DocumentationCategoryComponent } from '../../components/documentation-category/documentation-category.component';
 
-// Import Wrappers
-import './sections/forms/form-validation-field-by-field/wrapper/form-validation-field-by-field-wrapper.directive';
-import './sections/forms/form-validation-on-submit/wrapper/form-validation-on-submit-wrapper.directive';
-import './sections/text-inputs/float-labels/wrapper/float-labels-wrapper.directive';
-import './sections/side-navigation/navigation/wrapper/navigation-wrapper.directive';
-import './sections/side-navigation/navigation/wrapper/boldify.directive';
-import './sections/side-navigation/app-navigator/wrapper/app-navigator-wrapper.directive';
 
-export const CSS_SECTIONS = [
+const CSS_SECTIONS = [
     CssColoredButtonsComponent,
     CssLinkButtonsComponent,
     CssButtonsSizeVariationsComponent,
@@ -167,5 +176,28 @@ export const CSS_SECTIONS = [
     CssActivityIndicatorAlternativeComponent,
     CssMiniActivityIndicatorComponent,
     CssTablesComponent,
-    CssCardsComponent,
+    CssCardsComponent
 ];
+
+@NgModule({
+    imports: [
+        TabsModule,
+        CheckboxModule,
+        DocumentationComponentsModule,
+        DocumentationDirectivesModule,
+        FormsModule,
+        CommonModule,
+        WrappersModule,
+        RouterModule.forChild(ResolverService.resolveRouteComponents(require('../../data/css-page.json')))
+    ],
+    exports: CSS_SECTIONS,
+    declarations: CSS_SECTIONS,
+    entryComponents: CSS_SECTIONS,
+    providers: [],
+})
+export class CssPageModule {
+
+    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
+        resolverService.registerResolver(componentFactoryResolver);
+    }
+}

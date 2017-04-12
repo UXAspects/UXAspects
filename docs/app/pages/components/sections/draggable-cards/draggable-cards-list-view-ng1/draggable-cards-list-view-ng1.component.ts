@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/draggable-cards-list-view-wrapper.directive';
 
 @Component({
     selector: 'uxd-draggable-cards-list-view-ng1',

@@ -1,5 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { NavigationService } from './services/navigation/navigation.service';
@@ -11,8 +10,7 @@ import { NavigationService } from './services/navigation/navigation.service';
 })
 export class AppComponent implements OnInit {
 
-    constructor( @Inject(DOCUMENT) private document: Document,
-        private router: Router,
+    constructor(private router: Router,
         private navigation: NavigationService) {}
 
     ngOnInit() {

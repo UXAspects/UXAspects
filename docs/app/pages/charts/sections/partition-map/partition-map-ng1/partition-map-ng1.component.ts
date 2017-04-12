@@ -3,8 +3,6 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 
 const chance = require('chance').Chance();
 
-// import popover controller
-import './popover/popover.controller';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 

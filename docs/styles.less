@@ -10,6 +10,23 @@ html, body {
     padding-bottom: 200px;
 }
 
+.loading-screen {
+    position: absolute; 
+    display: flex; 
+    flex-direction: column; 
+    width: 100vw; 
+    height: 100vh; 
+    justify-content: center; 
+    align-items: center; 
+    overflow:hidden;
+    top: 0;
+    z-index: 999;
+
+    .loading-screen-title {
+        font-size: 1.8rem;
+    }
+}
+
 .app-page-content {
     display: block;
     padding-top: 53px;

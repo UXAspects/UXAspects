@@ -1,9 +1,4 @@
 /*
-  Import Angular 1 Components and their dependencies
-*/
-import '../src/ng1/ux-aspects-ng1.module';
-
-/*
   Import Document Specific Stylesheets
 */
 import './styles.less';

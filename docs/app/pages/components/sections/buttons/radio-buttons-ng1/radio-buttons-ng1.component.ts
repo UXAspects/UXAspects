@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/radio-buttons-wrapper.directive';
 
 @Component({
     selector: 'uxd-radio-buttons-ng1',

@@ -1,3 +1,9 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { EboxModule } from '../../../src/index';
+
 // Import Layout Components
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { FullPageLayoutComponent } from './full-page-layout/full-page-layout.component';
@@ -15,20 +21,37 @@ import { ShowcaseCardComponent } from './showcase-card/showcase-card.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
 import { SnippetComponent } from './snippet/snippet.component';
 import { SectionSelectComponent } from './section-select/section-select.component';
+import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
-export const DOCUMENTATION_COMPONENTS = [
-  EditExampleLinkComponent,
-  SideNavigationComponent,
-  FullPageLayoutComponent,
-  PageHeaderComponent,
-  PageFooterComponent,
-  NavigationBarComponent,
-  NavigationBarSearchComponent,
-  LandingPageHeaderComponent,
-  LandingPageFeatureListComponent,
-  LandingPageFeatureComponent,
-  ShowcaseCardComponent,
-  ComponentSectionComponent,
-  SnippetComponent,
-  SectionSelectComponent
+const DOCUMENTATION_COMPONENTS = [
+    DocumentationCategoryComponent,
+    EditExampleLinkComponent,
+    SideNavigationComponent,
+    FullPageLayoutComponent,
+    PageHeaderComponent,
+    PageFooterComponent,
+    NavigationBarComponent,
+    NavigationBarSearchComponent,
+    LandingPageHeaderComponent,
+    LandingPageFeatureListComponent,
+    LandingPageFeatureComponent,
+    ShowcaseCardComponent,
+    ComponentSectionComponent,
+    SnippetComponent,
+    SectionSelectComponent,
+    LoadingSpinnerComponent
 ];
+
+@NgModule({
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        EboxModule
+    ],
+    exports: DOCUMENTATION_COMPONENTS,
+    declarations: DOCUMENTATION_COMPONENTS,
+    providers: [],
+})
+export class DocumentationComponentsModule { }

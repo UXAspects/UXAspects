@@ -1,3 +1,12 @@
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
+import { CheckboxModule, ToggleSwitchModule } from '../../../../src/index';
+import { DocumentationComponentsModule } from '../../components/components.module';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 import { ComponentsGroupedButtonsNg1Component } from './sections/buttons/grouped-buttons-ng1/grouped-buttons-ng1.component';
 import { ComponentsToggleButtonsNg1Component } from './sections/buttons/toggle-buttons-ng1/toggle-buttons-ng1.component';
 import { ComponentsFloatingActionButtonNg1Component } from './sections/buttons/floating-action-button-ng1/floating-action-button-ng1.component';
@@ -125,68 +134,11 @@ import { ComponentsTagsNg1Component } from './sections/input-controls/tags-ng1/t
 import { ComponentsSlidersNg1Component } from './sections/input-controls/sliders-ng1/sliders-ng1.component';
 import { ComponentsSliderChartsNg1Component } from './sections/input-controls/slider-charts-ng1/slider-charts-ng1.component';
 
-// Import Wrappers
-import './sections/tables/detail-row-header-ng1/wrapper/service/detail-row-data.service';
-import './sections/tables/detail-row-header-ng1/wrapper/detail-row-header-wrapper.directive';
-import './sections/tables/detail-row-responsive-ng1/wrapper/detail-row-responsive-wrapper.directive';
-import './sections/tables/fixed-header-table-ng1/wrapper/fixed-header-table-wrapper.directive';
-import './sections/tables/hover-actions-ng1/wrapper/hover-actions-wrapper.directive';
-import './sections/tables/reorderable-table-ng1/wrapper/reorderable-table-wrapper.directive';
-import './sections/tables/sort-direction-toggle-ng1/wrapper/sort-toggle-wrapper.directive';
-import './sections/tables/single-column-sorting-ng1/wrapper/single-column-sorting-wrapper.directive';
-import './sections/tables/multiple-column-sorting-ng1/wrapper/multi-column-sorting-wrapper.directive';
-import './sections/tables/preview-pane-window-ng1/wrapper/preview-pane-window-wrapper.directive';
-import './sections/facets/facet-line-chart-ng1/wrapper/facet-line-chart-ng1-wrapper';
-import './sections/file-upload/file-upload-ng1/wrapper/file-upload-wrapper.directive';
-import './sections/flippable-cards/flippable-cards-ng1/wrapper/flippable-cards-wrapper.directive';
-import './sections/grid/grid-ng1/wrapper/grid-wrapper.directive';
-import './sections/hierarchy-bar/hierarchy-bar-ng1/wrapper/hierarchy-bar-wrapper.directive';
-import './sections/tabs/tabs-ng1/wrapper/tabs-wrapper.directive';
-import './sections/tabs/detailed-tab-example-ng1/wrapper/detailed-tab-wrapper.directive';
-import './sections/tabs/stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
-import './sections/tabs/card-tabs-ng1/wrapper/card-tabs-wrapper.directive';
-import './sections/timeline/timeline-ng1/wrapper/timeline-wrapper.directive';
-import './sections/tooltips/tooltips-ng1/wrapper/tooltips-wrapper.directive';
-import './sections/tooltips/overflow-tooltip-ng1/wrapper/overflow-tooltip-wrapper.directive';
-import './sections/tooltips/single-line-overflow-tooltip-ng1/wrapper/single-line-overflow-tooltip-wrapper.directive';
-import './sections/tooltips/static-tooltip-ng1/wrapper/static-tooltip-wrapper.directive';
-import './sections/tree-view/tree-view-ng1/wrapper/tree-view-wrapper.directive';
-import './sections/tree-view/tree-view-companion-view-ng1/wrapper/tree-view-companion-view-wrapper.directive';
-import './sections/tree-view/tree-grid-ng1/wrapper/tree-grid-wrapper.directive';
-import './sections/wizard/wizard-ng1/wrapper/wizard-wrapper.directive';
-import './sections/wizard/wizard-validation-ng1/wrapper/wizard-validation-wrapper.directive';
-import './sections/wizard/vertical-wizard-ng1/wrapper/vertical-wizard-wrapper.directive';
-import './sections/utilities/expanding-content-ng1/wrapper/expanding-content-wrapper.directive';
-import './sections/utilities/pdf-service-ng1/wrapper/pdf-service-wrapper.directive';
-import './sections/utilities/time-ago-service-ng1/wrapper/time-ago-service-wrapper.directive';
-import './sections/utilities/list-item-filter-ng1/wrapper/list-item-filter-wrapper.directive';
-import './sections/wizard/marquee-wizard-ng1/wrapper/marquee-wizard-wrapper.directive';
-import './sections/tree-view/tree-grid-asynchronous-loading-ng1/wrapper/tree-grid-asynchronous-loading-wrapper.directive';
-import './sections/tables/custom-responsive-table-ng1/wrapper/custom-responsive-wrapper.directive';
-import './sections/input-controls/checkbox-ng1/wrapper/checkbox-wrapper.directive';
-import './sections/input-controls/custom-dropdown-ng1/wrapper/custom-dropdown-wrapper.directive';
-import './sections/input-controls/expanding-text-area-ng1/wrapper/expanding-text-area-wrapper.directive';
-import './sections/input-controls/toggle-switch-ng1/wrapper/toggle-switch-wrapper.directive';
-import './sections/input-controls/toggle-switch-ng1/wrapper/custom-toggle-switch-wrapper.directive';
-import './sections/date-time-picker/date-picker-ng1/wrapper/date-picker-wrapper.directive';
-import './sections/date-time-picker/integrated-date-picker-ng1/wrapper/integrated-date-picker-wrapper.directive';
-import './sections/date-time-picker/time-picker-ng1/wrapper/time-picker-wrapper.directive';
-import './sections/input-controls/number-picker-ng1/wrapper/number-picker-wrapper.directive';
-import './sections/input-controls/inline-dropdown-ng1/wrapper/inline-dropdown-wrapper.directive';
-import './sections/input-controls/input-expand-ng1/wrapper/input-expand-wrapper.directive';
-import './sections/input-controls/input-mask-ng1/wrapper/input-mask-wrapper.directive';
-import './sections/input-controls/radio-button-ng1/wrapper/radio-button-wrapper.directive';
-import './sections/select/select-ng1/wrapper/select-wrapper.directive';
-import './sections/select/single-select-table-ng1/wrapper/single-select-table-wrapper.directive';
-import './sections/select/multiple-select-table-ng1/wrapper/multiple-select-table-wrapper.directive';
-import './sections/input-controls/tags-ng1/wrapper/tags-wrapper.directive';
-import './sections/input-controls/tags-ng1/wrapper/tags-custom-wrapper.directive';
-import './sections/input-controls/tags-ng1/wrapper/tags-autocomplete-wrapper.directive';
-import './sections/input-controls/sliders-ng1/wrapper/sliders-wrapper.directive';
-import './sections/input-controls/slider-charts-ng1/wrapper/slider-charts-wrapper.directive';
-import './sections/date-time-picker/date-range-picker-ng1/wrapper/date-range-picker-wrapper.directive';
+import { WrappersModule } from '../../wrappers.module';
+import { ResolverService } from '../../services/resolver/resolver.service';
 
-export const COMPONENT_SECTIONS = [
+
+const COMPONENT_SECTIONS = [
     ComponentsGroupedButtonsNg1Component,
     ComponentsToggleButtonsNg1Component,
     ComponentsFloatingActionButtonNg1Component,
@@ -295,7 +247,7 @@ export const COMPONENT_SECTIONS = [
     ComponentsWindowCommunicationServiceNg1Component,
     ComponentsMarqueeWizardNg1Component,
     ComponentsTreeGridAsynchronousLoadingNg1Component,
-ComponentsCheckboxNg1Component,
+    ComponentsCheckboxNg1Component,
     ComponentsCustomDropdownNg1Component,
     ComponentsExpandingTextAreaNg1Component,
     ComponentsToggleSwitchNg1Component,
@@ -315,3 +267,27 @@ ComponentsCheckboxNg1Component,
     ComponentsSlidersNg1Component,
     ComponentsSliderChartsNg1Component,
 ];
+
+@NgModule({
+    imports: [
+        DocumentationComponentsModule,
+        TabsModule,
+        CommonModule,
+        FormsModule,
+        WrappersModule,
+        CheckboxModule, 
+        ToggleSwitchModule,
+        RouterModule.forChild(ResolverService.resolveRouteComponents(require('../../data/components-page.json')))
+    ],
+    exports: COMPONENT_SECTIONS,
+    declarations: COMPONENT_SECTIONS,
+    providers: [],
+    entryComponents: COMPONENT_SECTIONS
+})
+export class ComponentsPageModule {
+
+    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
+        resolverService.registerResolver(componentFactoryResolver);
+    }
+    
+}

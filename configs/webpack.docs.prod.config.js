@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
 
@@ -15,7 +16,8 @@ module.exports = {
 
     output: {
         path: path.join(process.cwd(), 'dist', 'docs'),
-        filename: '[name].js'
+        filename: '[name].js',
+        chunkFilename: 'modules/[id].chunk.js'
     },
 
     resolve: {
@@ -46,7 +48,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 exclude: /snippets/,
-                use: ['awesome-typescript-loader', 'angular2-template-loader']
+                use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader']
             },
             {
                 test: /\.less$/,
@@ -156,6 +158,16 @@ module.exports = {
 
         new ExtractTextPlugin("styles.css"),
 
+        new OptimizeCssAssetsPlugin({
+            cssProcessor: require('cssnano'),
+            cssProcessorOptions: {
+                discardComments: {
+                    removeAll: true
+                }
+            },
+            canPrint: true
+        }),
+
         new CopyWebpackPlugin([{
             from: path.join(process.cwd(), 'docs', 'app', 'assets'),
             to: path.join(process.cwd(), 'dist', 'docs', 'assets')
@@ -196,6 +208,8 @@ module.exports = {
             'process.env': {
                 'ENV': '"production"'
             }
-        })
+        }),
+
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ]
 };

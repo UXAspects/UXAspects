@@ -3,7 +3,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import './wrapper/side-inset-panel-splitter-wrapper.directive.js';
 
 @Component({
     selector: 'uxd-side-inset-panel-splitter-ng1',
