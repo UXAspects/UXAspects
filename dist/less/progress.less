@@ -1,0 +1,358 @@
+// Progress Bars
+.progress-bar-secondary,
+.progress-bar-accent {
+  color: @progress-bar-accent-color;
+  background-color: @progress-bar-accent;
+  font-size: @font-size-md;
+}
+
+.progress-bar-width {
+  width: 35%;
+}
+
+.progress-static-text {
+    margin-bottom: 0px;
+    text-align: center;
+    color: @progress-bar-color;
+}
+
+.body-dark {
+  .progress-static-text{
+    color: @progress-bar-color-dark;
+  }
+}
+
+.indicator.ng-animate{ 
+  -webkit-animation: none 0s;
+}
+
+.indicator-alt-sm{
+  height:24px
+}
+.indicator-alt{
+  height:40px
+}
+.indicator-alt-lg{
+  height:120px
+}
+
+.indicator {
+  font-size: 0.2em;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid @progress-bar-accent;
+  border-right: 1.1em solid @progress-bar-accent;
+  border-bottom: 1.1em solid @progress-bar-accent;
+  border-left: 1.1em solid rgba(0, 0, 0, 0);
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+.indicator,
+.indicator:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.indicator-primary{
+    .indicator;
+    border-top: 1.1em solid @indicator-primary;
+    border-right: 1.1em solid @indicator-primary;
+    border-bottom: 1.1em solid @indicator-primary;
+}
+.indicator-large{
+    .indicator;
+    font-size: 0.4em;
+}
+.indicator-primary-large{
+  .indicator-primary;
+  font-size: 0.4em;
+}
+
+/* ============================ */
+/* Copyright (c) 2016 by Arthur Camara (http://codepen.io/arthurcamara1/pen/LpNwyq) */
+/* Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+/* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/* ============================ */
+
+/* ============================ */
+/* SPINNER BOUNCE MIDDLE        */
+/* ============================ */
+//Indicator used in custom dropdowns
+.spinner, .spinner:before, .spinner:after {
+  width: 2px;
+  height: 10px;
+  background-color: @indicator-accent;
+  border-radius: 2px;
+}
+
+.spinner {
+  display: inline-block;
+  position: relative;
+
+  &:before,&:after{
+	  content: "";
+	  position: absolute;
+	  display: block;
+	  top: 0px;
+  }
+  &:before{
+	left: -4px;
+  }
+  &:after{
+	left: 4px;
+  }
+}
+
+.spinner-hpegreen, .spinner-hpegreen:before, .spinner-hpegreen:after, .spinner-primary, .spinner-primary:before, .spinner-primary:after {
+  background-color: @primary;
+}
+.spinner-accent, .spinner-accent:before, .spinner-accent:after {
+  background-color: @accent;
+}
+
+
+@-webkit-keyframes bounce-middle {
+  0% {
+    height: 2px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  50% {
+    height: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  100% {
+    height: 2px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
+@keyframes bounce-middle {
+  0% {
+    height: 2px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  50% {
+    height: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  100% {
+    height: 2px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
+.spinner-bounce-middle {
+  -webkit-animation: bounce-middle 0.6s ease 0.1s infinite;
+   animation: bounce-middle 0.6s ease 0.1s infinite;
+		  &:before,&:after{
+			  top: 50%;
+			  -webkit-transform: translateY(-5px) translateZ(0);
+			  transform: translateY(-5px) translateZ(0);
+		  }
+		  &:before{
+			-webkit-animation: bounce-middle 0.6s ease 0s infinite;
+			animation: bounce-middle 0.6s ease 0s infinite;
+		  }
+		  &:after{
+			-webkit-animation: bounce-middle 0.6s ease 0.2s infinite;
+			animation: bounce-middle 0.6s ease 0.2s infinite;
+		  }
+}
+/* ============================ */
+/* SPINNER BOUNCE BOTTOM        */
+/* ============================ */
+@-webkit-keyframes bounce-bottom {
+  0% {
+    height: 2px;
+    margin-top: 4px;
+  }
+  50% {
+    height: 10px;
+    margin-top: 0px;
+  }
+  100% {
+    height: 2px;
+    margin-top: 4px;
+  }
+}
+@keyframes bounce-bottom {
+  0% {
+    height: 2px;
+    margin-top: 4px;
+  }
+  50% {
+    height: 10px;
+    margin-top: 0px;
+  }
+  100% {
+    height: 2px;
+    margin-top: 4px;
+  }
+}
+.spinner-bounce-bottom {
+  -webkit-animation: bounce-bottom 0.6s ease 0.1s infinite;
+  animation: bounce-bottom 0.6s ease 0.1s infinite;
+}
+.spinner-bounce-bottom:before,
+.spinner-bounce-bottom:after {
+  top: auto;
+  bottom: 0px;
+}
+.spinner-bounce-bottom:before {
+  -webkit-animation: bounce-bottom 0.6s ease 0s infinite;
+  animation: bounce-bottom 0.6s ease 0s infinite;
+}
+.spinner-bounce-bottom:after {
+  -webkit-animation: bounce-bottom 0.6s ease 0.2s infinite;
+  animation: bounce-bottom 0.6s ease 0.2s infinite;
+}
+/* ============================ */
+/* SPINNER BOUNCE TOP        */
+/* ============================ */
+@-webkit-keyframes bounce-top {
+  0% {
+    height: 2px;
+    margin-bottom: 4px;
+  }
+  50% {
+    height: 10px;
+    margin-bottom: 0px;
+  }
+  100% {
+    height: 2px;
+    margin-bottom: 4px;
+  }
+}
+@keyframes bounce-top {
+  0% {
+    height: 2px;
+    margin-bottom: 4px;
+  }
+  50% {
+    height: 10px;
+    margin-bottom: 0px;
+  }
+  100% {
+    height: 2px;
+    margin-bottom: 4px;
+  }
+}
+.spinner-bounce-top {
+  -webkit-animation: bounce-top 0.6s ease 0.1s infinite;
+  animation: bounce-top 0.6s ease 0.1s infinite;
+}
+.spinner-bounce-top:before {
+  -webkit-animation: bounce-top 0.6s ease 0s infinite;
+  animation: bounce-top 0.6s ease 0s infinite;
+}
+.spinner-bounce-top:after {
+  -webkit-animation: bounce-top 0.6s ease 0.2s infinite;
+  animation: bounce-top 0.6s ease 0.2s infinite;
+}
+/* ============================ */
+/* SPINNER BLINK                */
+/* ============================ */
+@-webkit-keyframes glow-hpegreen {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: @primary;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+@keyframes glow-hpegreen {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: @primary;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@-webkit-keyframes glow-accent {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: @accent;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+@keyframes glow-accent {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: @accent;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.spinner-hpegreen, .spinner-primary {
+    &.spinner-blink {
+      -webkit-animation: glow-hpegreen 0.6s 0.1s infinite;
+      animation: glow-hpegreen 0.6s 0.1s infinite;
+    }
+    &.spinner-blink:before {
+      -webkit-animation: glow-hpegreen 0.6s 0s infinite;
+      animation: glow-hpegreen 0.6s 0s infinite;
+    }
+    &.spinner-blink:after {
+      -webkit-animation: glow-hpegreen 0.6s 0.2s infinite;
+      animation: glow-hpegreen 0.6s 0.2s infinite;
+    }
+}
+
+.spinner-accent {
+    &.spinner-blink {
+      -webkit-animation: glow-accent 0.6s 0.1s infinite;
+      animation: glow-accent 0.6s 0.1s infinite;
+    }
+    &.spinner-blink:before {
+      -webkit-animation: glow-accent 0.6s 0s infinite;
+      animation: glow-accent 0.6s 0s infinite;
+    }
+    &.spinner-blink:after {
+      -webkit-animation: glow-accent 0.6s 0.2s infinite;
+      animation: glow-accent 0.6s 0.2s infinite;
+    }
+}
+
