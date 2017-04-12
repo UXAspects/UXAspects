@@ -167,6 +167,8 @@ export class CodePenService {
         'https://cdnjs.cloudflare.com/ajax/libs/chance/0.8.0/chance.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.6/angular.js',
         'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js',
         this.codepenAssetsBaseUrl + '/ng1/ux-aspects-ng1.js'
     ];
 

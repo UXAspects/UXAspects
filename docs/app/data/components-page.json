@@ -470,6 +470,27 @@
             ]
         },
         {
+			"title": "Select",
+            "link": "select",
+            "sections": [
+                {
+                    "title": "Select",
+                    "component": "ComponentsSelectNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Single Select Table",
+                    "component": "ComponentsSingleSelectTableNg1Component",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Multiple Select Table",
+                    "component": "ComponentsMultipleSelectTableNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
             "title": "Splitter",
             "link": "splitter",
             "sections": [
@@ -608,27 +629,6 @@
                     "title": "Custom Responsive Table",
                     "component": "ComponentsCustomResponsiveTableNg1Component",
                     "version": "AngularJS"  
-                }
-            ]
-        },
-		{
-			"title": "Select",
-            "link": "select",
-            "sections": [
-                {
-                    "title": "Select",
-                    "component": "ComponentsSelectNg1Component",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Single Select Table",
-                    "component": "ComponentsSingleSelectTableNg1Component",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Multiple Select Table",
-                    "component": "ComponentsMultipleSelectTableNg1Component",
-                    "version": "AngularJS"
                 }
             ]
         },
