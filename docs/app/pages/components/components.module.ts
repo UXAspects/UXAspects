@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { UxAspectsModule } from '../../../../src/index';
+import { CheckboxModule, ToggleSwitchModule } from '../../../../src/index';
 import { DocumentationComponentsModule } from '../../components/components.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { upgradeAdapter } from '../../app.module';
 
 import { ComponentsGroupedButtonsNg1Component } from './sections/buttons/grouped-buttons-ng1/grouped-buttons-ng1.component';
 import { ComponentsToggleButtonsNg1Component } from './sections/buttons/toggle-buttons-ng1/toggle-buttons-ng1.component';
@@ -134,7 +133,9 @@ import { ComponentsMultipleSelectTableNg1Component } from './sections/select/mul
 import { ComponentsTagsNg1Component } from './sections/input-controls/tags-ng1/tags-ng1.component';
 import { ComponentsSlidersNg1Component } from './sections/input-controls/sliders-ng1/sliders-ng1.component';
 import { ComponentsSliderChartsNg1Component } from './sections/input-controls/slider-charts-ng1/slider-charts-ng1.component';
+
 import { WrappersModule } from '../../wrappers.module';
+import { ResolverService } from '../../services/resolver/resolver.service';
 
 
 const COMPONENT_SECTIONS = [
@@ -269,12 +270,13 @@ const COMPONENT_SECTIONS = [
 
 @NgModule({
     imports: [
-        UxAspectsModule,
         DocumentationComponentsModule,
         TabsModule,
         CommonModule,
         FormsModule,
         WrappersModule,
+        CheckboxModule, 
+        ToggleSwitchModule,
         RouterModule.forChild(ResolverService.resolveRouteComponents(require('../../data/components-page.json')))
     ],
     exports: COMPONENT_SECTIONS,
@@ -282,4 +284,10 @@ const COMPONENT_SECTIONS = [
     providers: [],
     entryComponents: COMPONENT_SECTIONS
 })
-export class ComponentsPageModule { }
+export class ComponentsPageModule {
+
+    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
+        resolverService.registerResolver(componentFactoryResolver);
+    }
+    
+}

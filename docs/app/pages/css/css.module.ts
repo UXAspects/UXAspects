@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-import { UxAspectsModule } from '../../../../src/index';
+import { WrappersModule } from '../../wrappers.module';
+import { ResolverService } from '../../services/resolver/resolver.service';
+
+import { CheckboxModule } from '../../../../src/index';
 import { DocumentationDirectivesModule } from '../../directives/directives.module';
 import { DocumentationComponentsModule } from '../../components/components.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-
-import { upgradeAdapter } from '../../app.module';
 
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 
@@ -93,7 +94,7 @@ import { CssDynamicNameCalloutComponent } from './sections/page-header/dynamic-n
 import { CssStandardHeaderToolbarComponent } from './sections/page-header/standard-header-toolbar/standard-header-toolbar.component';
 import { CssHeaderNavTabToolbarComponent } from './sections/page-header/header-nav-tab-toolbar/header-nav-tab-toolbar.component';
 import { DocumentationCategoryComponent } from '../../components/documentation-category/documentation-category.component';
-import { WrappersModule } from '../../wrappers.module';
+
 
 const CSS_SECTIONS = [
     CssColoredButtonsComponent,
@@ -175,19 +176,13 @@ const CSS_SECTIONS = [
     CssActivityIndicatorAlternativeComponent,
     CssMiniActivityIndicatorComponent,
     CssTablesComponent,
-    CssCardsComponent,
-
-    upgradeAdapter.upgradeNg1Component('uxdNavigationWrapper'),
-    upgradeAdapter.upgradeNg1Component('uxdFormValidationFieldByFieldWrapper'),
-    upgradeAdapter.upgradeNg1Component('uxdFormValidationOnSubmitWrapper'),
-    upgradeAdapter.upgradeNg1Component('uxdFloatLabelsWrapper'),
-    upgradeAdapter.upgradeNg1Component('uxdAppNavigatorWrapper'),
+    CssCardsComponent
 ];
 
 @NgModule({
     imports: [
         TabsModule,
-        UxAspectsModule,
+        CheckboxModule,
         DocumentationComponentsModule,
         DocumentationDirectivesModule,
         FormsModule,

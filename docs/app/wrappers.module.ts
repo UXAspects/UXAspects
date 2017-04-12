@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 
 import { upgradeAdapter } from './app.module';
 
+// Import dependant controllers
+import './pages/charts/sections/partition-map/partition-map-ng1/popover/popover.controller';
+
 // Import Wrappers
 import './pages/css/sections/forms/form-validation-field-by-field/wrapper/form-validation-field-by-field-wrapper.directive';
 import './pages/css/sections/forms/form-validation-on-submit/wrapper/form-validation-on-submit-wrapper.directive';

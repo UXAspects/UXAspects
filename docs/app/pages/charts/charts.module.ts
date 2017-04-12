@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { WrappersModule } from '../../wrappers.module';
+import { ResolverService } from '../../services/resolver/resolver.service';
 
-import { UxAspectsModule } from '../../../../src/index';
+import { RadioButtonModule } from '../../../../src/index';
 import { DocumentationComponentsModule } from '../../components/components.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-
-import { upgradeAdapter } from '../../app.module';
 
 import { ChartsBarChartNg1Component } from './sections/bar-charts/bar-chart-ng1/bar-chart-ng1.component';
 import { ChartsHorizontalBarChartNg1Component } from './sections/bar-charts/horizontal-bar-chart-ng1/horizontal-bar-chart-ng1.component';
@@ -45,33 +46,22 @@ const CHART_SECTIONS: any[] = [
     ChartsSparkChartNg1Component,
     ChartsSocialChartNg1Component,
     ChartsScrollableChartNg1Component,
-    ChartsTimelineChartNg1Component,
-
-    upgradeAdapter.upgradeNg1Component('uxFlotNg1'),
-    upgradeAdapter.upgradeNg1Component('uxPeityLineChartNg1'),
-    upgradeAdapter.upgradeNg1Component('uxPeityBarChartNg1'),
-    upgradeAdapter.upgradeNg1Component('uxPeityPieChartNg1'),
-    upgradeAdapter.upgradeNg1Component('uxPeityUpdatingLineChartNg1'),
-    upgradeAdapter.upgradeNg1Component('uxNestedDonutNg1'),
-    upgradeAdapter.upgradeNg1Component('uxOrganizationChartNg1'),
-    upgradeAdapter.upgradeNg1Component('uxSparkNg1'),
-    upgradeAdapter.upgradeNg1Component('uxPartitionMapNg1'),
-    upgradeAdapter.upgradeNg1Component('uxSankeyNg1'),
-    upgradeAdapter.upgradeNg1Component('uxSocialChartNg1')
+    ChartsTimelineChartNg1Component
 ];
 
 @NgModule({
     imports: [
-        UxAspectsModule,
         DocumentationComponentsModule,
         TabsModule,
         FormsModule,
         CommonModule,
+        RadioButtonModule,
         WrappersModule,
         RouterModule.forChild(ResolverService.resolveRouteComponents(require('../../data/charts-page.json')))
     ],
     exports: CHART_SECTIONS,
     declarations: CHART_SECTIONS,
+    entryComponents: CHART_SECTIONS,
     providers: [],
 })
 export class ChartsPageModule {

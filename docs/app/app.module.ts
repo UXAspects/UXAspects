@@ -13,15 +13,15 @@ import { UpgradeAdapter } from '@angular/upgrade';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 // Import UX Aspects
-import { 
-  CheckboxModule, 
-  ColorServiceModule, 
-  EboxModule, 
-  FlippableCardModule, 
-  ProgressBarModule, 
-  RadioButtonModule, 
-  SparkModule, 
-  ToggleSwitchModule 
+import {
+  CheckboxModule,
+  ColorServiceModule,
+  EboxModule,
+  FlippableCardModule,
+  ProgressBarModule,
+  RadioButtonModule,
+  SparkModule,
+  ToggleSwitchModule
 } from '../../src/index';
 
 // Import Child Modules
@@ -51,6 +51,8 @@ import { documentationSections } from './decorators/documentation-section-compon
 
 
 export const upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
+
+import { WrappersModule } from './wrappers.module';
 
 /*
   Configure Application Routes
@@ -91,34 +93,6 @@ const DECLARATIONS = [
   LicensesPageComponent,
   ChangeLogPageComponent,
 
-  // Angular 1 Documentation Wrapper Directives
-  
-  upgradeAdapter.upgradeNg1Component('uxdCheckboxWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdCustomDropdownWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdExpandingTextAreaWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdToggleSwitchWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdCustomToggleSwitchWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdDatePickerWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdIntegratedDatePickerWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdDateRangePickerWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdTimePickerWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdNumberPickerWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdInlineDropdownWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdInputExpandWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdInputMaskWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdRadioButtonWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdSelectWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdSingleSelectTableWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdMultipleSelectTableWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdTagsWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdTagsCustomWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdTagsAutocompleteWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdSlidersWrapper'),
-  upgradeAdapter.upgradeNg1Component('uxdSliderChartsWrapper'),
-
-  // Angular 1 Wrapper Directives
-  upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),
-  upgradeAdapter.upgradeNg1Component('uxScrollPaneNg1')
 ];
 
 @NgModule({
@@ -135,14 +109,15 @@ const DECLARATIONS = [
     TabsModule.forRoot(),
 
     // Library Module
-    CheckboxModule, 
-    ColorServiceModule, 
-    EboxModule, 
-    FlippableCardModule, 
-    ProgressBarModule, 
-    RadioButtonModule, 
-    SparkModule, 
+    CheckboxModule,
+    ColorServiceModule,
+    EboxModule,
+    FlippableCardModule,
+    ProgressBarModule,
+    RadioButtonModule,
+    SparkModule,
     ToggleSwitchModule,
+    WrappersModule,
 
     // Routing Module
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
@@ -171,9 +146,9 @@ app.directive('uxdApp', upgradeAdapter.downgradeNg2Component(AppComponent) as an
 /*
   Configure Angular 1
 */
-app.config(['$anchorScrollProvider', function ($anchorScrollProvider: angular.IAnchorScrollProvider)  {
+app.config(['$anchorScrollProvider', function ($anchorScrollProvider: angular.IAnchorScrollProvider) {
   // Disabling AngularJS autoscroll since it conflicts with the new router behaviour
-    $anchorScrollProvider.disableAutoScrolling();
+  $anchorScrollProvider.disableAutoScrolling();
 }]);
 
 // bootstrap the Angular 1 application here

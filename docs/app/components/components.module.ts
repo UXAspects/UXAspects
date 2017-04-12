@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { UxAspectsModule } from '../../../src/index';
+import { EboxModule } from '../../../src/index';
 
 // Import Layout Components
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
@@ -48,7 +48,7 @@ const DOCUMENTATION_COMPONENTS = [
         CommonModule,
         RouterModule,
         FormsModule,
-        UxAspectsModule
+        EboxModule
     ],
     exports: DOCUMENTATION_COMPONENTS,
     declarations: DOCUMENTATION_COMPONENTS,

@@ -6,6 +6,7 @@ import { EditExampleService } from './edit-example/edit-example.service';
 // import { LessService } from './less/less.service';
 import { NavigationService } from './navigation/navigation.service';
 import { PlunkerService } from './plunker/plunker.service';
+import { ResolverService } from './resolver/resolver.service';
 
 const DOCUMENTATION_PROVIDERS = [
     AppConfiguration,
@@ -13,7 +14,8 @@ const DOCUMENTATION_PROVIDERS = [
     EditExampleService,
     // LessService,
     NavigationService,
-    PlunkerService
+    PlunkerService,
+    ResolverService
 ];
 
 
