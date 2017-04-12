@@ -557,6 +557,10 @@ var CheckboxComponent = (function () {
         if (this.disabled === true || this.clickable === false) {
             return;
         }
+        if (this.value === this.indeterminateValue) {
+            this.value = true;
+            return;
+        }
         // toggle the checked state
         this.value = !this.value;
     };
@@ -1125,43 +1129,43 @@ module.exports = ":host {\n  margin-bottom: 5px;\n  white-space: nowrap;\n}\n:ho
 /* 25 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-checkbox\" tabindex=\"0\"\r\n    [class.ux-checked]=\"value == true\"\r\n    [class.ux-indeterminate]=\"value == indeterminateValue\"\r\n    [class.ux-simplified]=\"simplified == true\"\r\n    [class.ux-disabled]=\"disabled == true\"\r\n    (keypress)=\"keyDown($event)\">\r\n\r\n    <input type=\"checkbox\" role=\"checkbox\" tabindex=\"-1\"\r\n        [name]=\"name\" \r\n        [checked]=\"value\" \r\n        [disabled]=\"disabled\" />\r\n        \r\n</div>\r\n\r\n<div class=\"ux-checkbox-content\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
+module.exports = "<div class=\"ux-checkbox\" tabindex=\"0\"\n    [class.ux-checked]=\"value == true\"\n    [class.ux-indeterminate]=\"value == indeterminateValue\"\n    [class.ux-simplified]=\"simplified == true\"\n    [class.ux-disabled]=\"disabled == true\"\n    (keypress)=\"keyDown($event)\">\n\n    <input type=\"checkbox\" role=\"checkbox\" tabindex=\"-1\"\n        [name]=\"name\" \n        [checked]=\"value\" \n        [disabled]=\"disabled\" />\n        \n</div>\n\n<div class=\"ux-checkbox-content\">\n    <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-ebox-header\">\r\n    <ng-content select=\"ux-ebox-header\"></ng-content>\r\n</div>\r\n\r\n<div class=\"ux-ebox-content\">\r\n    <ng-content select=\"ux-ebox-content\"></ng-content>\r\n</div>"
+module.exports = "<div class=\"ux-ebox-header\">\n    <ng-content select=\"ux-ebox-header\"></ng-content>\n</div>\n\n<div class=\"ux-ebox-content\">\n    <ng-content select=\"ux-ebox-content\"></ng-content>\n</div>"
 
 /***/ }),
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-flipper\" [class.ux-flip-card]=\"flippedState\" [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n\r\n    <div class=\"ux-flippable-card-front\" [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n        <ng-content select=\"ux-flippable-card-front\"></ng-content>\r\n    </div>\r\n\r\n    <div class=\"ux-flippable-card-back\" [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n        <ng-content select=\"ux-flippable-card-back\"></ng-content>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"ux-flipper\" [class.ux-flip-card]=\"flippedState\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n\n    <div class=\"ux-flippable-card-front\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n        <ng-content select=\"ux-flippable-card-front\"></ng-content>\n    </div>\n\n    <div class=\"ux-flippable-card-back\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n        <ng-content select=\"ux-flippable-card-back\"></ng-content>\n    </div>\n</div>"
 
 /***/ }),
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"progressbar-track\" [style.width]=\"((value / max) * 100) + '%'\" [style.backgroundColor]=\"barColor\">\r\n    <ng-content></ng-content>\r\n</div>"
+module.exports = "<div class=\"progressbar-track\" [style.width]=\"((value / max) * 100) + '%'\" [style.backgroundColor]=\"barColor\">\n    <ng-content></ng-content>\n</div>"
 
 /***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-radio-button\" tabindex=\"0\"\r\n    [class.ux-checked]=\"model === option\"\r\n    [class.ux-simplified]=\"simplified === true\"\r\n    [class.ux-disabled]=\"disabled === true\"\r\n    (keypress)=\"keyDown($event)\">\r\n\r\n    <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\r\n        [name]=\"name\" \r\n        [checked]=\"model === option\" \r\n        [disabled]=\"disabled\"\r\n        [value]=\"option\"\r\n        [id]=\"id\" />\r\n        \r\n</div>\r\n\r\n<div class=\"ux-radio-button-content\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
+module.exports = "<div class=\"ux-radio-button\" tabindex=\"0\"\n    [class.ux-checked]=\"model === option\"\n    [class.ux-simplified]=\"simplified === true\"\n    [class.ux-disabled]=\"disabled === true\"\n    (keypress)=\"keyDown($event)\">\n\n    <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\n        [name]=\"name\" \n        [checked]=\"model === option\" \n        [disabled]=\"disabled\"\n        [value]=\"option\"\n        [id]=\"id\" />\n        \n</div>\n\n<div class=\"ux-radio-button-content\">\n    <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Inline Spark Chart -->\r\n<div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\r\n\r\n    <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\r\n\r\n    <div class=\"ux-spark-line\">\r\n\r\n        <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\r\n            <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\r\n            <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\r\n        </div>\r\n\r\n        <div class=\"ux-spark ux-inline\" [style.height.px]=\"fillHeight\" [style.backgroundColor]=\"trackColor\">\r\n            <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\r\n        </div>\r\n\r\n        <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\r\n            <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\r\n            <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\r\n        </div>\r\n\r\n    </div>\r\n</div>\r\n\r\n<!-- End Inline Spark Chart -->\r\n\r\n\r\n<!-- Non Inline Spark Chart -->\r\n<div *ngIf=\"!inlineLabel\">\r\n\r\n    <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\r\n        <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\r\n        <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\r\n    </div>\r\n\r\n    <div class=\"ux-spark\" [style.height.px]=\"fillHeight\" [style.backgroundColor]=\"trackColor\">\r\n        <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\r\n    </div>\r\n\r\n    <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\r\n        <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\r\n        <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\r\n    </div>\r\n</div>\r\n\r\n<!-- End Non Inline Spark Chart -->"
+module.exports = "<!-- Inline Spark Chart -->\n<div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\n\n    <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\n\n    <div class=\"ux-spark-line\">\n\n        <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n            <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n            <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n        </div>\n\n        <div class=\"ux-spark ux-inline\" [style.height.px]=\"fillHeight\" [style.backgroundColor]=\"trackColor\">\n            <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n        </div>\n\n        <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n            <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n            <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n        </div>\n\n    </div>\n</div>\n\n<!-- End Inline Spark Chart -->\n\n\n<!-- Non Inline Spark Chart -->\n<div *ngIf=\"!inlineLabel\">\n\n    <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n        <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n        <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n    </div>\n\n    <div class=\"ux-spark\" [style.height.px]=\"fillHeight\" [style.backgroundColor]=\"trackColor\">\n        <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n    </div>\n\n    <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n        <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n        <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n    </div>\n</div>\n\n<!-- End Non Inline Spark Chart -->"
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-toggleswitch\" \r\n  tabindex=\"0\"\r\n  (keydown)=\"keydown($event)\"\r\n  [class.checked]=\"value === true\"\r\n  [class.disabled]=\"disabled === true\">\r\n\r\n  <span class=\"ux-toggleswitch-bg\"></span>\r\n  \r\n  <span class=\"ux-toggleswitch-nub\"></span>\r\n\r\n  <input type=\"checkbox\" \r\n    role=\"checkbox\"\r\n    [name]=\"name\" \r\n    [checked]=\"value === true\"\r\n    [disabled]=\"disabled === true\"\r\n    tabindex=\"-1\" />\r\n</div>\r\n\r\n<div class=\"ux-toggleswitch-content\">\r\n  <ng-content></ng-content>\r\n</div>\r\n"
+module.exports = "<div class=\"ux-toggleswitch\" \n  tabindex=\"0\"\n  (keydown)=\"keydown($event)\"\n  [class.checked]=\"value === true\"\n  [class.disabled]=\"disabled === true\">\n\n  <span class=\"ux-toggleswitch-bg\"></span>\n  \n  <span class=\"ux-toggleswitch-nub\"></span>\n\n  <input type=\"checkbox\" \n    role=\"checkbox\"\n    [name]=\"name\" \n    [checked]=\"value === true\"\n    [disabled]=\"disabled === true\"\n    tabindex=\"-1\" />\n</div>\n\n<div class=\"ux-toggleswitch-content\">\n  <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
 /* 32 */

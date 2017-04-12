@@ -3129,6 +3129,9 @@ label {
 .has-error .form-control-feedback {
   color: #ff454f;
 }
+.help-block {
+  color: #737373;
+}
 .input-group-addon {
   background-color: #ffffff;
   border: 1px solid #e5e6e7;
@@ -3421,6 +3424,7 @@ select.form-control {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  font-size: 0.8125rem;
 }
 .datepicker table tr th,
 .datepicker table tr td {
@@ -5548,7 +5552,7 @@ tags-input .host {
   position: relative;
   margin-top: 5px;
   margin-bottom: 5px;
-  height: 100%;
+  height: auto;
 }
 tags-input .host:active {
   outline: none;
@@ -5566,14 +5570,8 @@ tags-input .tags {
   word-wrap: break-word;
   cursor: text;
   border: 1px solid #e5e6e7;
-  height: 100%;
+  height: auto;
   padding-top: 2px;
-}
-tags-input .tags.focused {
-  outline: 1px dotted;
-  outline: auto -webkit-focus-ring-color;
-  outline-color: #00a7a2;
-  outline-offset: 0px;
 }
 tags-input .tags .tag-list {
   margin: 0;
@@ -15635,6 +15633,7 @@ form .button-primary.disabled {
   margin: 0;
 }
 .el-dynamicselect tags-input .tags {
+  height: auto;
   border-color: #e5e6e7;
   -webkit-appearance: inherit;
 }
@@ -15652,6 +15651,7 @@ form .button-primary.disabled {
 }
 .el-dynamicselect tags-input .host {
   margin: 0;
+  height: auto;
 }
 .el-dynamicselect .el-dynamicselect-dropdown {
   display: none;
