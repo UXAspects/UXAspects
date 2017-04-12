@@ -2,41 +2,30 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-reorderable-table',
     templateUrl: './reorderable-table-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsReorderableTableNg1Component')
-export class ComponentsReorderableTableNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsReorderableTableNg1Component implements ICodePenProvider {
     
-    private htmlCode = this.snippets.compiled.layoutHtml;
-    private jsCode = this.snippets.compiled.controllerJs;
-    private cssCode = this.snippets.compiled.stylesCss;
+    private htmlCode = require('./snippets/layout.html');
+    private jsCode = require('./snippets/controller.js');
+    private cssCode =  require('./snippets/styles.css');
 
-    private tableDataCode = this.snippets.compiled.tableDataHtml;
-    private controlsCode = this.snippets.compiled.controlsHtml;
+    private tableDataCode =  require('./snippets/table-data.html');
+    private controlsCode =  require('./snippets/controls.html');
 
-    private removeRowHtmlCode = this.snippets.compiled.removeRowHtml;
-    private removeRowJsCode = this.snippets.compiled.removeRowJs;
+    private removeRowHtmlCode = require('./snippets/remove-row.html');
+    private removeRowJsCode = require('./snippets/remove-row.js');
     
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.htmlCode,
         htmlAttributes: {
             'ng-controller': 'ReorderableCtrl as vm'
         },
-        js: [this.snippets.raw.controllerJs],
-        css: [this.snippets.raw.stylesCss]
+        js: [this.jsCode],
+        css: [this.cssCode]
     };
-    
-    constructor() {
-        super(
-            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
-    }
 }

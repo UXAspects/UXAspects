@@ -10,36 +10,36 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelNg1Component')
-export class ComponentsItemDisplayPanelNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+export class ComponentsItemDisplayPanelNg1Component implements ICodePenProvider {
+
+    private layoutHtml = require('./snippets/layout.html');
+    private controllerExampleJs = require('./snippets/controller.example.js');
+    private modalFooterHtml = require('./snippets/modalFooter.html');
+    private modalDOCHtml = require('./snippets/modalDOC.html');
+    private modalPDFHtml = require('./snippets/modalPDF.html');
+    private modalPPTHtml = require('./snippets/modalPPT.html');
+    private controllerJs = require('./snippets/controller.js');
+    private stylesCss = require('./snippets/styles.css');
+
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ItemDisplayPanelDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'modalDOC.html',
-            content: this.snippets.raw.modalDOCHtml
+            content: this.modalDOCHtml
         }, {
             id: 'modalPDF.html',
-            content: this.snippets.raw.modalPDFHtml
+            content: this.modalPDFHtml
         }, {
             id: 'modalPPT.html',
-            content: this.snippets.raw.modalPPTHtml
+            content: this.modalPPTHtml
         }, {
             id: 'modalFooter.html',
-            content: this.snippets.raw.modalFooterHtml
+            content: this.modalFooterHtml
         }],
-        css: [this.snippets.raw.stylesCss],
-        js: [this.snippets.raw.controllerJs]
+        css: [this.stylesCss],
+        js: [this.controllerJs]
     };
-
-    constructor() {
-        super(
-            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
-    }
 }
