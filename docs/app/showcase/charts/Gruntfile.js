@@ -2,7 +2,6 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    banner: '\n* <%= pkg.name %> - v<%= pkg.version %> \n* © Copyright <%= grunt.template.today("yyyy") %>  Hewlett-Packard Development Company, L.P\n',
     connect: {
       server: {
         options: {
@@ -27,18 +26,6 @@ module.exports = function (grunt) {
       }
     },
     copy: {
-      hpElementsAngular: {
-        src: ['css/*','js/*', 'fonts/*', 'img/*'],
-        cwd: 'bower_components/hp-elements-angular/dist',
-        expand: true,
-        dest: 'dist/hpe-elements/'
-      },
-      angular: {
-        src: ['angular.js', 'angular.min.js'],
-        cwd: 'bower_components/angular',
-        expand: true,
-        dest: 'dist/js/'
-      },
       assets: {
         src: ['img/*', 'js/*'],
         expand: true,
@@ -118,28 +105,6 @@ module.exports = function (grunt) {
         }]
       }
     },
-    usebanner: {
-      js: {
-        options: {
-          position: 'top',
-          banner: '/*! <%= banner %> */',
-          linebreak: true
-        },
-        files: {
-          src: ['dist/js/*.js']
-        }
-      },
-      css: {
-        options: {
-          position: 'top',
-          banner: '/* <%= banner %> */',
-          linebreak: true
-        },
-        files: {
-          src: ['dist/css/*.css']
-        }
-      }
-    },
     clean: ['dist/**/*']
 
 
@@ -152,9 +117,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-banner');
 
   // Default task.
-  grunt.registerTask('default', ['clean', 'less', 'copy', 'concat', 'uglify', 'cssmin', 'usebanner']);
+  grunt.registerTask('default', ['clean', 'less', 'copy', 'concat', 'uglify', 'cssmin']);
 
 };
