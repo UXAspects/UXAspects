@@ -24,8 +24,7 @@ export class SectionSelectComponent implements OnInit, OnDestroy {
 
                 // store the base path of the active url
                 this.activatedRoute.url.subscribe(urlSegment => {
-                    // TODO
-                    // this.path = urlSegment[0].path;
+                    this.path = urlSegment && urlSegment.length > 0 ? urlSegment[0].path : undefined;
                 });
 
                 this.activatedRoute.firstChild.url.subscribe(urlSegment => {
