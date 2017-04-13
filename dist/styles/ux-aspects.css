@@ -10279,6 +10279,9 @@ fieldset[disabled] .btn-toggle.active {
   box-shadow: 0px 0px 1px 1px #7b63a3;
   z-index: 3;
 }
+.input-group-sm .input-group-btn .btn {
+  height: 34px;
+}
 .btn-icon.btn {
   padding: 4px 7px;
   width: 30px;
