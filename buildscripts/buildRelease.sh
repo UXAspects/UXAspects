@@ -179,8 +179,10 @@ echo Creating the HPE Bower package $HPEPackage
 rm -f $WORKSPACE/HPEThemeFiles/Package/$HPEPackage
 mkdir -p $WORKSPACE/HPEThemeFiles/Package/dist/css
 cp -p dist/styles/*.css $WORKSPACE/HPEThemeFiles/Package/dist/css
-cp -p -r $WORKSPACE/KeppelThemeFiles/fonts $WORKSPACE/HPEThemeFiles/Package/dist
-cp -p -r $WORKSPACE/KeppelThemeFiles/img $WORKSPACE/HPEThemeFiles/Package/dist
+#cp -p -r $WORKSPACE/KeppelThemeFiles/fonts $WORKSPACE/HPEThemeFiles/Package/dist
+#cp -p -r $WORKSPACE/KeppelThemeFiles/img $WORKSPACE/HPEThemeFiles/Package/dist
+cp -p -r $WORKSPACE/dist/fonts $WORKSPACE/HPEThemeFiles/Package/dist
+cp -p -r $WORKSPACE/dist/img $WORKSPACE/HPEThemeFiles/Package/dist
 cp -p -r $WORKSPACE/HPEThemeFiles/ux-aspects-hpe-master/fonts $WORKSPACE/HPEThemeFiles/Package/dist
 cp -p -r $WORKSPACE/HPEThemeFiles/ux-aspects-hpe-master/img $WORKSPACE/HPEThemeFiles/Package/dist
 cp -p -r $WORKSPACE/HPEThemeFiles/ux-aspects-hpe-master/styles $WORKSPACE/HPEThemeFiles/Package/dist
