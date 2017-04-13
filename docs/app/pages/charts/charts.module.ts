@@ -19,7 +19,11 @@ const ROUTES: Routes = [
             { path: 'line-charts', loadChildren: './sections/line-charts/line-charts.module#LineChartsModule' },
             { path: 'live-chart', loadChildren: './sections/live-charts/live-charts.module#LiveChartsModule' },
             { path: 'organization-chart', loadChildren: './sections/organization-chart/organization-chart.module#OrganizationChartModule' },
-            { path: 'partition-map', loadChildren: './sections/partition-map/partition-map.module#PartitionMapModule' }
+            { path: 'partition-map', loadChildren: './sections/partition-map/partition-map.module#PartitionMapModule' },
+            { path: 'sankey-chart', loadChildren: './sections/sankey-chart/sankey-charts.module#SankeyChartModule' },
+            { path: 'scrollable-chart', loadChildren: './sections/scrollable-chart/scrollable-chart.module#ScrollableChartModule' },
+            { path: 'social-chart', loadChildren: './sections/social-chart/social-chart.module#SocialChartModule' },
+            { path: 'spark-chart', loadChildren: './sections/spark-charts/spark-charts.module#SparkChartsModule' }
         ],
     },
     {
