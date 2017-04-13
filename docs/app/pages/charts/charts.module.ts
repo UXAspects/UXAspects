@@ -23,7 +23,8 @@ const ROUTES: Routes = [
             { path: 'sankey-chart', loadChildren: './sections/sankey-chart/sankey-charts.module#SankeyChartModule' },
             { path: 'scrollable-chart', loadChildren: './sections/scrollable-chart/scrollable-chart.module#ScrollableChartModule' },
             { path: 'social-chart', loadChildren: './sections/social-chart/social-chart.module#SocialChartModule' },
-            { path: 'spark-chart', loadChildren: './sections/spark-charts/spark-charts.module#SparkChartsModule' }
+            { path: 'spark-charts', loadChildren: './sections/spark-charts/spark-charts.module#SparkChartsModule' },
+            { path: 'timeline-chart', loadChildren: './sections/timeline-chart/timeline-chart.module#TimelineChartModule' }
         ],
     },
     {
