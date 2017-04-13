@@ -557,6 +557,10 @@ var CheckboxComponent = (function () {
         if (this.disabled === true || this.clickable === false) {
             return;
         }
+        if (this.value === this.indeterminateValue) {
+            this.value = true;
+            return;
+        }
         // toggle the checked state
         this.value = !this.value;
     };

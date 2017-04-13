@@ -1,0 +1,91 @@
+<div class="edge-popover-demo social-demo">
+
+<div class="left-node-e social-edge-layout-demo">
+	<i class="hpe-icon hpe-user" style="color:#2ad2c9; font-size:20px;"></i>
+	<h3 class="selectednode-label">{{sc.hoveredItem.sourceNode.label}}</h3>
+	<div class="selectednode-additional-label">{{sc.hoveredItem.sourceNode.additional.fullName}}</div>
+</div>
+
+<div class="arrows-e social-edge-layout-demo selectededge-label">
+
+	<i class="hpe-icon hpe-link-previous"  style="font-size:16px; color:#60798d;"></i>
+	<span style="font-size:16px;">{{sc.hoveredItem.sourceNode.additional.received[sc.hoveredItem.targetNode.id]}}</span>
+	<span class="m-r m-l" style="font-size:13px;">items</span>
+	<span style="font-size:16px;">{{sc.hoveredItem.targetNode.additional.received[sc.hoveredItem.sourceNode.id]}}</span>
+	<i class="hpe-icon hpe-link-next"  style="font-size:16px;"></i>
+
+</div>
+
+<div class="right-node-e social-edge-layout-demo">
+	<i class="hpe-icon hpe-user" style="color:#2ad2c9; font-size:20px;"></i>
+	<h3 class="selectededge-targetnode-label">{{sc.hoveredItem.targetNode.label}}</h3>
+	<div class="selectededge-targetnode-label-full">{{sc.hoveredItem.targetNode.additional.fullName}}</div>
+</div>
+
+<hr style="clear:both; margin:0;"/>
+
+<div class="">
+	<div class="m-b-sm m-t-sm">
+		<button class="btn button-secondary nodeDetailButton selectededge-label"><i class="hold-icon"></i>HOLD
+			<span class="nodeDetailButtonSub">
+			{{sc.hoveredItem.sourceNode.additional.received[sc.hoveredItem.targetNode.id] + sc.hoveredItem.targetNode.additional.received[sc.hoveredItem.sourceNode.id] }}
+			</span>
+		</button>
+		&nbsp;
+		<button class="btn button-secondary nodeDetailButton selectededge-label"><i class="workbook-icon"></i>WORKBOOK
+			<span class="nodeDetailButtonSub">
+			{{sc.hoveredItem.sourceNode.additional.received[sc.hoveredItem.targetNode.id] + sc.hoveredItem.targetNode.additional.received[sc.hoveredItem.sourceNode.id]}}
+			</span>
+		</button>
+	</div>
+</div>
+
+</div>
+<style>
+	.arrows-e{
+		padding-top:50px;
+	}
+	.edge-popover-demo{
+		padding:30px;
+		color:#fff;
+		margin-top: 13px;
+	}
+	.social-edge-layout-demo{
+		float:left;
+		width: 33%;
+		overflow: hidden;
+	}
+    .selectednode-label {
+		font-family: 'Source Sans Pro';
+		font-weight: 300;
+		color: rgba(255,255,255,0.5);
+		margin-bottom: 0px;
+		margin-top: 0px;
+    }
+    .selectednode-additional-label {
+		font-family: 'Source Sans Pro';
+		color: rgba(255,255,255,0.7);
+		font-size: 14px;
+		margin-top: 0px;
+    }
+    .selectededge-targetnode-label {
+		margin-bottom: 0px;
+		font-family: 'Source Sans Pro';
+		font-weight: 300;
+		color: rgba(255,255,255,0.5);
+		margin-top: 0px;
+    }
+    .selectededge-targetnode-label-full {
+       color: rgba(255,255,255,0.7);
+       font-size: 14px;
+       margin-top: 0px;
+    }
+    .selectededge-label {
+       color: rgba(255,255,255,0.7);
+    }
+    .left-node-e{
+    }
+    .right-node-e{
+    	text-align: right;
+    }
+</style>
