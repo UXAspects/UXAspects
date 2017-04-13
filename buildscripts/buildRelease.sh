@@ -242,7 +242,7 @@ git clone git@github.com:UXAspects/UXAspects.git
 cd UXAspects
 git checkout gh-pages
 git checkout -b $NextVersion-gh-pages-test
-git push origin $NextVersion-gh-pages-test
+#git push origin $NextVersion-gh-pages-test
 
 # Delete existing files
 echo
@@ -263,11 +263,23 @@ cd $NextVersion
 tar xvf $WORKSPACE/$NextVersion-docs-gh-pages-Keppel.tar.gz
 cd ..
 
-echo
-echo Pushing the new files to the branch
-git add $NextVersion/ assets/ docs/ *.css *.html *.js
-git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest commit ID is $latestCommitID."
-git push origin $NextVersion-gh-pages-test
+#echo
+#echo Pushing the new files to the branch
+#git add $NextVersion/ assets/ docs/ *.css *.html *.js
+#git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest commit ID is $latestCommitID."
+#git push origin $NextVersion-gh-pages-test
+
+# Archiving the contents of the branch
+tarDocs=`tar czvf $NextVersion-docs-gh-pages-test-Keppel.tar.gz $NextVersion/ assets/ docs/ *.css *.html *.js`
+echo "$tarDocs"
+ls -al $NextVersion-docs-gh-pages-test-Keppel.tar.gz
+
+echo Deleting old copy of branch archive on Selenium Grid Hub machine
+ssh UXAspectsTestUser@$GridHubIPAddress rm -rf /home/UXAspectsTestUser/BranchArchive
+
+echo Copying branch archive to the Selenium Grid Hub machine
+ssh UXAspectsTestUser@$GridHubIPAddress mkdir -p /home/UXAspectsTestUser/BranchArchive
+scp -r $NextVersion-docs-gh-pages-test-Keppel.tar.gz UXAspectsTestUser@$GridHubIPAddress:/home/UXAspectsTestUser/BranchArchive
 
 # Return to the develop branch and discard changes to a couple of files
 echo
