@@ -247,7 +247,7 @@ git checkout -b $NextVersion-gh-pages-test
 # Delete existing files
 echo
 echo Deleting existing files
-rm -rf assets/ docs/ modules/
+rm -rf assets/ docs/ modules/ showcase/
 rm -f *.css *.html *.js *.ico *.log
 
 # Extract the files from the Keppel documentation archive, both to this folder and to a $NextVersion sub-directory
@@ -265,12 +265,12 @@ cd ..
 
 #echo
 #echo Pushing the new files to the branch
-#git add $NextVersion/ assets/ docs/ *.css *.html *.js
+#git add $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js
 #git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest commit ID is $latestCommitID."
 #git push origin $NextVersion-gh-pages-test
 
 # Archiving the contents of the branch
-tarDocs=`tar czvf $NextVersion-docs-gh-pages-test-Keppel.tar.gz $NextVersion/ assets/ docs/ modules/ *.css *.html *.ico *.js`
+tarDocs=`tar czvf $NextVersion-docs-gh-pages-test-Keppel.tar.gz $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js`
 echo "$tarDocs"
 ls -al $NextVersion-docs-gh-pages-test-Keppel.tar.gz
 
@@ -312,7 +312,7 @@ rm -f *.gz
 #git push --set-upstream origin $NextVersion-package-test
 
 # Archiving the contents of the branch
-tarDocs=`tar czvf $NextVersion-package-test-Keppel.tar.gz *`
+tarDocs=`tar czvf $NextVersion-package-test-Keppel.tar.gz dist/ package.json`
 echo "$tarDocs"
 ls -al $NextVersion-package-test-Keppel.tar.gz
 
