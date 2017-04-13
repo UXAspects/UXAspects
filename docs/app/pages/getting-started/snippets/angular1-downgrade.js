@@ -1,4 +1,4 @@
-import { CheckboxComponent } from 'ux-aspects/components/checkbox/checkbox.component';
+import { CheckboxComponent } from 'ux-aspects';
 
 angular.module('app')
     .directive('checkbox', upgradeAdapter.downgradeNg2Component(CheckboxComponent));
