@@ -55,6 +55,21 @@ angular.module('app')
         });
     }]);
 (function() {
+  angular.module("app").controller("AppNavigatorCtrl", AppNavigatorCtrl);
+
+  function AppNavigatorCtrl() {
+    var vm = this;
+
+    if(window.location.host === 'uxaspects.github.io') {
+      vm.link = '/UXAspects/#/showcase';
+    } else {
+      vm.link = '/#/showcase';
+    }
+
+  }
+
+})();
+(function() {
   angular.module("app").controller("PageHeaderCtrl", PageHeaderCtrl);
 
 
@@ -68,7 +83,7 @@ angular.module('app')
     vm.currentState = null;
     vm.previousState = null;
     vm.topSearchExpanded = false;
-    vm.versionName = "Elements Angular Version";
+    vm.versionName = "UX Aspects Angular Version";
 
     // when route changes check if we should show back button or not
     $rootScope.$on('$viewContentLoaded', function() {
