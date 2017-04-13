@@ -16,7 +16,8 @@ RUN apt-get update && \
     apt-get install -y sudo \
     git \
     wget \
-    curl
+    curl \
+    bzip2
 
 # Install NodeJS
 RUN mkdir ${NODE_DIR} && \
