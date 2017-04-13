@@ -247,8 +247,8 @@ git checkout -b $NextVersion-gh-pages-test
 # Delete existing files
 echo
 echo Deleting existing files
-rm -rf assets/ docs/
-rm -f *.css *.html *.js *.log
+rm -rf assets/ docs/ modules/
+rm -f *.css *.html *.js *.ico *.log
 
 # Extract the files from the Keppel documentation archive, both to this folder and to a $NextVersion sub-directory
 echo
@@ -270,16 +270,16 @@ cd ..
 #git push origin $NextVersion-gh-pages-test
 
 # Archiving the contents of the branch
-tarDocs=`tar czvf $NextVersion-docs-gh-pages-test-Keppel.tar.gz $NextVersion/ assets/ docs/ *.css *.html *.js`
+tarDocs=`tar czvf $NextVersion-docs-gh-pages-test-Keppel.tar.gz $NextVersion/ assets/ docs/ modules/ *.css *.html *.ico *.js`
 echo "$tarDocs"
 ls -al $NextVersion-docs-gh-pages-test-Keppel.tar.gz
 
 echo Deleting old copy of branch archive on Selenium Grid Hub machine
-ssh UXAspectsTestUser@$GridHubIPAddress rm -rf /home/UXAspectsTestUser/BranchArchive
+ssh UXAspectsTestUser@$GridHubIPAddress rm -rf /home/UXAspectsTestUser/Archives-$NextVersion
 
 echo Copying branch archive to the Selenium Grid Hub machine
-ssh UXAspectsTestUser@$GridHubIPAddress mkdir -p /home/UXAspectsTestUser/BranchArchive
-scp -r $NextVersion-docs-gh-pages-test-Keppel.tar.gz UXAspectsTestUser@$GridHubIPAddress:/home/UXAspectsTestUser/BranchArchive
+ssh UXAspectsTestUser@$GridHubIPAddress mkdir -p /home/UXAspectsTestUser/Archives-$NextVersion
+scp -r $NextVersion-docs-gh-pages-test-Keppel.tar.gz UXAspectsTestUser@$GridHubIPAddress:/home/UXAspectsTestUser/Archives-$NextVersion
 
 # Return to the develop branch and discard changes to a couple of files
 echo
@@ -292,7 +292,7 @@ git checkout docs/app/data/landing-page.json
 echo
 echo Creating the branch $NextVersion-package-test
 git checkout -b $NextVersion-package-test
-git push origin $NextVersion-package-test
+#git push origin $NextVersion-package-test
 
 # Remove files and folders which are not to be committed
 echo
@@ -305,11 +305,20 @@ rm -rf clone
 rm -f *.gz
 
 # Push the changes
-echo
-echo Pushing the changes to the branch
-git add -A
-git commit -m "Committing changes for package $NextVersion-test. Latest commit ID is $latestCommitID."
-git push --set-upstream origin $NextVersion-package-test
+#echo
+#echo Pushing the changes to the branch
+#git add -A
+#git commit -m "Committing changes for package $NextVersion-test. Latest commit ID is $latestCommitID."
+#git push --set-upstream origin $NextVersion-package-test
+
+# Archiving the contents of the branch
+tarDocs=`tar czvf $NextVersion-package-test-Keppel.tar.gz *`
+echo "$tarDocs"
+ls -al $NextVersion-package-test-Keppel.tar.gz
+
+echo Copying branch archive to the Selenium Grid Hub machine
+ssh UXAspectsTestUser@$GridHubIPAddress mkdir -p /home/UXAspectsTestUser/Archives-$NextVersion
+scp -r $NextVersion-package-test-Keppel.tar.gz UXAspectsTestUser@$GridHubIPAddress:/home/UXAspectsTestUser/Archives-$NextVersion
 
 # Return to the develop branch
 echo
