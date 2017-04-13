@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.hpe.elements</groupId>
+  <artifactId>elements</artifactId>
+  <version>1.0.0</version>
+
+  <name>Elements</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <fortify.productName>caf-elements</fortify.productName>
+    <fortify.email>nalini.k.vardham@hpe.com</fortify.email>
+    <fortify.externalId>6e3052ca-cd62-4303-b2e8-ddd77930c469</fortify.externalId>
+    <fortify.staEndpointUrl>https://g2w5485.austin.hpecorp.net/STA/RequestService/RequestService.svc?wsdl</fortify.staEndpointUrl>
+    <fortify.username>AMERICAS\vardham</fortify.username>
+    <fortify.password>{+l0NLbknl58H40PqNgfSly2FpEu4Kk/Ve6EpA9t3fAE=}</fortify.password>
+    <fortify.aggregatedReport>true</fortify.aggregatedReport> 
+    <fortify.ScanOptions>-Xmx48G -Xms300M -Xss32M SCAN_LOCAL</fortify.ScanOptions>
+    <fortify.TranslateOptions>-Xmx48G -Xms300M -Xss32M TRANSLATE_BY_FOLDER</fortify.TranslateOptions>
+    <fortify.DeliveryOption>SSC</fortify.DeliveryOption>
+    <fortify.SSCProjectName>Elements</fortify.SSCProjectName>
+    <fortify.SSCProjectVersionName>3.5.1-beta2</fortify.SSCProjectVersionName>
+    <fortify.SSCServerLocation>https://g1a5975psrs08v.austin.hpecorp.net/ssc/</fortify.SSCServerLocation>
+    <fortify.SSCUploadToken>f4e8d31c-3598-4ff1-845b-c2f623b47b88</fortify.SSCUploadToken>
+  </properties>
+
+</project>
