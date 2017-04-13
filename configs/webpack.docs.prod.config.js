@@ -193,55 +193,57 @@ module.exports = {
             to: path.join(process.cwd(), 'dist', 'docs', 'assets', 'css')
         }]),
 
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'list_view', 'dist'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
-        }]),
+        new CopyWebpackPlugin([
+            {
+                from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'list_view', 'dist'),
+                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
+            },
+            {
+                from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'list_view', 'bower_components'),
+                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'bower_components')
+            },
+            {
+                from: path.join(process.cwd(), 'src', 'fonts'),
+                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist', 'fonts')
+            }
+        ]),
 
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'list_view', 'bower_components'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'bower_components')
-        }]),
+        new CopyWebpackPlugin([
+            {
+                from: path.join(process.cwd(), 'dist'),
+                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
+            }
+        ], {
+            ignore: [
+                '/docs'
+            ]
+        }),
 
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist', 'ng1'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist', 'js')
-        }]),
+        new CopyWebpackPlugin([
+            {
+                from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'charts', 'dist'),
+                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
+            },
+            {
+                from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'charts', 'bower_components'),
+                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'bower_components')
+            },
+            {
+                from: path.join(process.cwd(), 'src', 'fonts'),
+                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist', 'fonts')
+            }
+        ]),
 
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist', 'styles'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist', 'css')
-        }]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'src', 'fonts'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist', 'fonts')
-        }]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'charts', 'dist'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
-        }]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'charts', 'bower_components'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'bower_components')
-        }]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist', 'ng1'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist', 'js')
-        }]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist', 'styles'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist', 'css')
-        }]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'src', 'fonts'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist', 'fonts')
-        }]),           
+        new CopyWebpackPlugin([
+            {
+                from: path.join(process.cwd(), 'dist'),
+                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
+            }
+        ], {
+            ignore: [
+                '/docs'
+            ]
+        }),
 
         new webpack.optimize.UglifyJsPlugin({
             compress: {

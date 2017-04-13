@@ -1,5 +1,7 @@
 node_modules/
 dist/
+!docs/app/showcase/charts/dist/
+!docs/app/showcase/list_view/dist/
 .grunt/
 _SpecRunner.html
 jshint.log
