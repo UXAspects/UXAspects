@@ -36,7 +36,6 @@
     "docs",
     "Gruntfile.js",
     "package.json",
-    "src",
     ".jshintrc",
     "testng.xml",
     "testng-results.xml",
