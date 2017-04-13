@@ -1505,7 +1505,7 @@ angular.module('app')
       "Weekly catchup",
       "Daily standup meeting",
       "Why you should be using SCRUM",
-      "Elements latest features",
+      "UX Aspects latest features",
       "New positions opened up",
       "The Gavin Chronicles",
       "Charity football event",
@@ -1548,7 +1548,7 @@ angular.module('app')
     var dates = [today, oneWeekAgo, oneMonthAgo, oneYearAgo, aweekago];
 
     var d1 = {
-      title: "Site Detail - Elements (HTML)",
+      title: "Site Detail - UX Aspects (HTML)",
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
@@ -1558,7 +1558,7 @@ angular.module('app')
     };
 
     var d2 = {
-      title: "Site Detail - Elements (PDF)",
+      title: "Site Detail - UX Aspects (PDF)",
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
@@ -1568,7 +1568,7 @@ angular.module('app')
     };
 
     var d3 = {
-      title: "Site Detail - Elements (DOC)",
+      title: "Site Detail - UX Aspects (DOC)",
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
@@ -1578,7 +1578,7 @@ angular.module('app')
     };
 
     var d4 = {
-      title: "Site Detail - Elements (XLS)",
+      title: "Site Detail - UX Aspects (XLS)",
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
@@ -1588,7 +1588,7 @@ angular.module('app')
     };
 
     var d5 = {
-      title: "Site Detail - Elements (PPT)",
+      title: "Site Detail - UX Aspects (PPT)",
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
