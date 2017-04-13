@@ -4,7 +4,7 @@ set -e
 SELENIUM_TEST_MACHINE_USER=UXAspectsTestUser
 
 UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
-UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.7.0
+UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.8.0
 
 echo Workspace is $WORKSPACE
 echo NextVersion is $NextVersion

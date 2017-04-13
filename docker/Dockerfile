@@ -8,7 +8,7 @@ FROM ubuntu:16.04
 # File Author / Maintainer
 MAINTAINER Gita Narasimhan (gita.narasimhan@hpe.com)
 
-ENV NODE_VERSION 7.4.0
+ENV NODE_VERSION 7.9.0
 ENV NODE_DIR /opt/nodejs
 
 # Install Initial Prerequisites
