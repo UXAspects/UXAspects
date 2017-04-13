@@ -196,15 +196,16 @@ else
 fi
 
 # Upload HPE-themed package to Artifactory
-echo
-echo Uploading HPE-themed package to Artifactory
-cd $WORKSPACE
-echo "curl -XPUT $PrivateArtifactoryURL/$HPEPackage -T $WORKSPACE/HPEThemeFiles/Package/$HPEPackage"
-curl -u $PrivateArtifactoryCredentials -XPUT $PrivateArtifactoryURL/$HPEPackage -T $WORKSPACE/HPEThemeFiles/Package/$HPEPackage
+#echo
+#echo Uploading HPE-themed package to Artifactory
+#cd $WORKSPACE
+#echo "curl -XPUT $PrivateArtifactoryURL/$HPEPackage -T $WORKSPACE/HPEThemeFiles/Package/$HPEPackage"
+#curl -u $PrivateArtifactoryCredentials -XPUT $PrivateArtifactoryURL/$HPEPackage -T $WORKSPACE/HPEThemeFiles/Package/$HPEPackage
 
 # Remove the HPE theme files
 echo
 echo Deleting the HPE theme files
+cd $WORKSPACE
 rm -rf $WORKSPACE/src/fonts
 rm -rf $WORKSPACE/src/img
 rm -rf $WORKSPACE/src/styles
