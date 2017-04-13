@@ -12,7 +12,7 @@
     vm.currentState = null;
     vm.previousState = null;
     vm.topSearchExpanded = false;
-    vm.versionName = "Elements Angular Version";
+    vm.versionName = "UX Aspects Angular Version";
 
     // when route changes check if we should show back button or not
     $rootScope.$on('$viewContentLoaded', function() {
