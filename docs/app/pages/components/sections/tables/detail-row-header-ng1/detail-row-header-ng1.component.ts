@@ -35,7 +35,7 @@ export class ComponentsDetailRowHeaderNg1Component extends BaseDocumentationSect
             this.snippets.raw.serviceJs
         ],
         css: [
-            this.snippets.raw.styleCss
+            this.snippets.raw.stylesCss
         ]
     };
     
