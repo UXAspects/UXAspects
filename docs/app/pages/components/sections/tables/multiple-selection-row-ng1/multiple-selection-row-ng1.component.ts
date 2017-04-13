@@ -16,7 +16,8 @@ export class ComponentsMultipleSelectionRowNg1Component extends BaseDocumentatio
             null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
             null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
             null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/)
+            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
+            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
         );
     }
 }
