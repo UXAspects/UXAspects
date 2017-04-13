@@ -40,7 +40,7 @@ import { GettingStartedPageComponent } from './pages/getting-started/getting-sta
 import { ShowcasePageComponent } from './pages/showcase/showcase.component';
 import { ComponentsPageComponent } from './pages/components/components.component';
 import { CssPageComponent } from './pages/css/css.component';
-import { ChartsPageComponent } from './pages/charts/charts.component';
+// import { ChartsPageComponent } from './pages/charts/charts.component';
 // import { CustomizePageComponent } from './pages/customize/customize.component';
 import { TeamPageComponent } from './pages/team/team.component';
 import { BlogPageComponent } from './pages/blog/blog.component';
@@ -65,7 +65,7 @@ const appRoutes: Routes = [
   { path: 'showcase', component: ShowcasePageComponent },
   { path: 'components', component: ComponentsPageComponent, loadChildren: './pages/components/components.module#ComponentsPageModule' },
   { path: 'css', component: CssPageComponent, loadChildren: './pages/css/css.module#CssPageModule' },
-  { path: 'charts', component: ChartsPageComponent, loadChildren: './pages/charts/charts.module#ChartsPageModule' },
+  { path: 'charts', loadChildren: './pages/charts/charts.module#ChartsPageModule' },
   // { path: 'customize', component: CustomizePageComponent },
   { path: 'team', component: TeamPageComponent },
   { path: 'blog', component: BlogPageComponent },
@@ -86,7 +86,7 @@ const DECLARATIONS = [
   ShowcasePageComponent,
   ComponentsPageComponent,
   CssPageComponent,
-  ChartsPageComponent,
+  // ChartsPageComponent,
   // CustomizePageComponent,
   TeamPageComponent,
   BlogPageComponent,
