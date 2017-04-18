@@ -44,8 +44,6 @@ import { BlogPageComponent } from './pages/blog/blog.component';
 import { LicensesPageComponent } from './pages/licenses/licenses.component';
 import { ChangeLogPageComponent } from './pages/changelog/changelog.component';
 
-import { documentationSections } from './decorators/documentation-section-component';
-
 export const upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
 
 import { WrappersModule } from './wrappers.module';
@@ -115,9 +113,7 @@ const DECLARATIONS = [
     // Routing Module
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
   ],
-  declarations: DECLARATIONS,
-  providers: [],
-  entryComponents: documentationSections
+  declarations: DECLARATIONS
 })
 export class AppModule {
   ngDoBootstrap() { }
