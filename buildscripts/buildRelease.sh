@@ -40,7 +40,7 @@ docker_image_build()
         docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
             --build-arg http_proxy \
             --build-arg https_proxy \
-			--build-arg no_proxy="localhost, 127.0.0.1" \
+            --build-arg no_proxy="localhost, 127.0.0.1" \
             --no-cache .
         DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
         echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
