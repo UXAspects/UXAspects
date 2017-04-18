@@ -39,7 +39,7 @@ import { FeaturesPageComponent } from './pages/features/features.component';
 import { GettingStartedPageComponent } from './pages/getting-started/getting-started.component';
 import { ShowcasePageComponent } from './pages/showcase/showcase.component';
 import { ComponentsPageComponent } from './pages/components/components.component';
-import { CssPageComponent } from './pages/css/css.component';
+// import { CssPageComponent } from './pages/css/css.component';
 // import { ChartsPageComponent } from './pages/charts/charts.component';
 // import { CustomizePageComponent } from './pages/customize/customize.component';
 import { TeamPageComponent } from './pages/team/team.component';
@@ -64,7 +64,7 @@ const appRoutes: Routes = [
   { path: 'gettingstarted', component: GettingStartedPageComponent },
   { path: 'showcase', component: ShowcasePageComponent },
   { path: 'components', component: ComponentsPageComponent, loadChildren: './pages/components/components.module#ComponentsPageModule' },
-  { path: 'css', component: CssPageComponent, loadChildren: './pages/css/css.module#CssPageModule' },
+  { path: 'css', loadChildren: './pages/css/css.module#CssPageModule' },
   { path: 'charts', loadChildren: './pages/charts/charts.module#ChartsPageModule' },
   // { path: 'customize', component: CustomizePageComponent },
   { path: 'team', component: TeamPageComponent },
@@ -85,7 +85,7 @@ const DECLARATIONS = [
   GettingStartedPageComponent,
   ShowcasePageComponent,
   ComponentsPageComponent,
-  CssPageComponent,
+  // CssPageComponent,
   // ChartsPageComponent,
   // CustomizePageComponent,
   TeamPageComponent,

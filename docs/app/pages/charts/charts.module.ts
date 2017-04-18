@@ -39,8 +39,7 @@ const ROUTES: Routes = [
         RouterModule.forChild(ROUTES)
     ],
     exports: [ChartsPageComponent],
-    declarations: [ChartsPageComponent],
-    providers: [],
+    declarations: [ChartsPageComponent]
 })
 export class ChartsPageModule {
 
