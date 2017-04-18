@@ -4,7 +4,7 @@ set -e
 SELENIUM_TEST_MACHINE_USER=UXAspectsTestUser
 
 UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
-UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.7.0
+UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.9.0
 
 echo Workspace is $WORKSPACE
 echo NextVersion is $NextVersion
@@ -28,18 +28,6 @@ echo HOME is $HOME
 echo Moving to workspace
 cd $WORKSPACE
 
-# Define a function to remove a specified Docker image
-docker_image_remove()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $1 | grep $2 | awk '{print $3}'`
-    echo ID for $1:$2 image is $DOCKER_IMAGE_ID
-    if [ ! -z "$DOCKER_IMAGE_ID" ] ; then
-        # Remove the docker image
-        echo Removing the $1:$2 image
-        docker rmi -f $DOCKER_IMAGE_ID
-    fi
-}
-
 # Define a function to build a specified Docker image.
 docker_image_build()
 {
@@ -50,8 +38,9 @@ docker_image_build()
         cd $WORKSPACE/docker
         echo Building the image
         docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            --build-arg http_proxy=$HttpProxy \
-            --build-arg https_proxy=$HttpsProxy \
+            --build-arg http_proxy \
+            --build-arg https_proxy \
+			--build-arg no_proxy="localhost, 127.0.0.1" \
             --no-cache .
         DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
         echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
@@ -68,7 +57,8 @@ docker_image_run()
         echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
     else
         echo Calling docker run ... "$@"
-        docker run --rm --volume "$PWD":/workspace --workdir /workspace --user $UID:$GROUPS $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "$@"
+        docker run --rm --volume "$PWD":/workspace --workdir /workspace --user \
+		    $UID:$GROUPS $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "$@"
     fi
 }
 
@@ -76,7 +66,8 @@ docker_image_run()
 latestCommitID=`git rev-parse HEAD`
 echo latestCommitID is $latestCommitID
 
-# Temporary commands to allow testing of Jenkins job prior to re-introduction of unit and Selenium tests. Dummy results files will be copied into place.
+# Temporary commands to allow testing of Jenkins job prior to re-introduction of unit and Selenium tests.
+# Dummy results files will be copied into place.
 echo Listing contents of $WORKSPACE
 ls -alR $WORKSPACE
 cd $WORKSPACE
@@ -119,8 +110,10 @@ fi
 # Update the version in footer-navigation.json and landing-page.json
 echo
 echo Updating the version in footer-navigation.json and landing-page.json
-sed -i -e s/"\"title\": \"Currently v*[0-9]\.[0-9]\.[0-9].*\","/"\"title\": \"Currently v$NextVersion\","/ "docs/app/data/footer-navigation.json"
-sed -i -e s/"\"version\": \"Currently v*[0-9]\.[0-9]\.[0-9].*\","/"\"version\": \"Currently v$NextVersion\","/ "docs/app/data/landing-page.json"
+sed -i -e s/"\"title\": \"Currently v*[0-9]\.[0-9]\.[0-9].*\","/"\"title\": \"Currently v$NextVersion\", \
+"/ "docs/app/data/footer-navigation.json"
+sed -i -e s/"\"version\": \"Currently v*[0-9]\.[0-9]\.[0-9].*\","/"\"version\": \"Currently v$NextVersion\", \
+"/ "docs/app/data/landing-page.json"
 
 # Take a copy of the files which will be overwritten by the HPE theme files
 echo
@@ -179,8 +172,8 @@ echo Creating the HPE Bower package $HPEPackage
 rm -f $WORKSPACE/HPEThemeFiles/Package/$HPEPackage
 mkdir -p $WORKSPACE/HPEThemeFiles/Package/dist/css
 cp -p dist/styles/*.css $WORKSPACE/HPEThemeFiles/Package/dist/css
-cp -p -r $WORKSPACE/KeppelThemeFiles/fonts $WORKSPACE/HPEThemeFiles/Package/dist
-cp -p -r $WORKSPACE/KeppelThemeFiles/img $WORKSPACE/HPEThemeFiles/Package/dist
+cp -p -r $WORKSPACE/dist/fonts $WORKSPACE/HPEThemeFiles/Package/dist
+cp -p -r $WORKSPACE/dist/img $WORKSPACE/HPEThemeFiles/Package/dist
 cp -p -r $WORKSPACE/HPEThemeFiles/ux-aspects-hpe-master/fonts $WORKSPACE/HPEThemeFiles/Package/dist
 cp -p -r $WORKSPACE/HPEThemeFiles/ux-aspects-hpe-master/img $WORKSPACE/HPEThemeFiles/Package/dist
 cp -p -r $WORKSPACE/HPEThemeFiles/ux-aspects-hpe-master/styles $WORKSPACE/HPEThemeFiles/Package/dist
@@ -205,6 +198,7 @@ curl -u $PrivateArtifactoryCredentials -XPUT $PrivateArtifactoryURL/$HPEPackage 
 # Remove the HPE theme files
 echo
 echo Deleting the HPE theme files
+cd $WORKSPACE
 rm -rf $WORKSPACE/src/fonts
 rm -rf $WORKSPACE/src/img
 rm -rf $WORKSPACE/src/styles
@@ -232,7 +226,7 @@ echo "$tarDocs"
 cd ..
 
 # Create a branch for the new documentation. First, clone the repository to a sub-folder.
-# Switching to the new branch and commits to it will be performed in this clone.
+# Switching to the new branch and commiting to it will be performed in this clone.
 echo
 echo Creating the branch $NextVersion-gh-pages-test
 cd $WORKSPACE
@@ -247,8 +241,8 @@ git push origin $NextVersion-gh-pages-test
 # Delete existing files
 echo
 echo Deleting existing files
-rm -rf assets/ docs/
-rm -f *.css *.html *.js *.log
+rm -rf assets/ docs/ modules/ showcase/
+rm -f *.css *.html *.js *.ico *.log
 
 # Extract the files from the Keppel documentation archive, both to this folder and to a $NextVersion sub-directory
 echo
@@ -263,9 +257,10 @@ cd $NextVersion
 tar xvf $WORKSPACE/$NextVersion-docs-gh-pages-Keppel.tar.gz
 cd ..
 
+# Push the new files to the branch
 echo
 echo Pushing the new files to the branch
-git add $NextVersion/ assets/ docs/ *.css *.html *.js
+git add $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js
 git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest commit ID is $latestCommitID."
 git push origin $NextVersion-gh-pages-test
 
