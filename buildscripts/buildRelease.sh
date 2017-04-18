@@ -179,8 +179,6 @@ echo Creating the HPE Bower package $HPEPackage
 rm -f $WORKSPACE/HPEThemeFiles/Package/$HPEPackage
 mkdir -p $WORKSPACE/HPEThemeFiles/Package/dist/css
 cp -p dist/styles/*.css $WORKSPACE/HPEThemeFiles/Package/dist/css
-#cp -p -r $WORKSPACE/KeppelThemeFiles/fonts $WORKSPACE/HPEThemeFiles/Package/dist
-#cp -p -r $WORKSPACE/KeppelThemeFiles/img $WORKSPACE/HPEThemeFiles/Package/dist
 cp -p -r $WORKSPACE/dist/fonts $WORKSPACE/HPEThemeFiles/Package/dist
 cp -p -r $WORKSPACE/dist/img $WORKSPACE/HPEThemeFiles/Package/dist
 cp -p -r $WORKSPACE/HPEThemeFiles/ux-aspects-hpe-master/fonts $WORKSPACE/HPEThemeFiles/Package/dist
@@ -245,7 +243,7 @@ git clone git@github.com:UXAspects/UXAspects.git
 cd UXAspects
 git checkout gh-pages
 git checkout -b $NextVersion-gh-pages-test
-#git push origin $NextVersion-gh-pages-test
+git push origin $NextVersion-gh-pages-test
 
 # Delete existing files
 echo
@@ -266,11 +264,11 @@ cd $NextVersion
 tar xvf $WORKSPACE/$NextVersion-docs-gh-pages-Keppel.tar.gz
 cd ..
 
-#echo
-#echo Pushing the new files to the branch
-#git add $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js
-#git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest commit ID is $latestCommitID."
-#git push origin $NextVersion-gh-pages-test
+echo
+echo Pushing the new files to the branch
+git add $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js
+git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest commit ID is $latestCommitID."
+git push origin $NextVersion-gh-pages-test
 
 # Archiving the contents of the branch
 tarDocs=`tar czvf $NextVersion-docs-gh-pages-test-Keppel.tar.gz $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js`
@@ -295,7 +293,7 @@ git checkout docs/app/data/landing-page.json
 echo
 echo Creating the branch $NextVersion-package-test
 git checkout -b $NextVersion-package-test
-#git push origin $NextVersion-package-test
+git push origin $NextVersion-package-test
 
 # Remove files and folders which are not to be committed
 echo
@@ -308,11 +306,11 @@ rm -rf clone
 rm -f *.gz
 
 # Push the changes
-#echo
-#echo Pushing the changes to the branch
-#git add -A
-#git commit -m "Committing changes for package $NextVersion-test. Latest commit ID is $latestCommitID."
-#git push --set-upstream origin $NextVersion-package-test
+echo
+echo Pushing the changes to the branch
+git add -A
+git commit -m "Committing changes for package $NextVersion-test. Latest commit ID is $latestCommitID."
+git push --set-upstream origin $NextVersion-package-test
 
 # Archiving the contents of the branch
 tarDocs=`tar czvf $NextVersion-package-test-Keppel.tar.gz dist/ package.json`
