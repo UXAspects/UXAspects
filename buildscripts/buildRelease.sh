@@ -28,18 +28,6 @@ echo HOME is $HOME
 echo Moving to workspace
 cd $WORKSPACE
 
-# Define a function to remove a specified Docker image
-docker_image_remove()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $1 | grep $2 | awk '{print $3}'`
-    echo ID for $1:$2 image is $DOCKER_IMAGE_ID
-    if [ ! -z "$DOCKER_IMAGE_ID" ] ; then
-        # Remove the docker image
-        echo Removing the $1:$2 image
-        docker rmi -f $DOCKER_IMAGE_ID
-    fi
-}
-
 # Define a function to build a specified Docker image.
 docker_image_build()
 {
@@ -50,8 +38,9 @@ docker_image_build()
         cd $WORKSPACE/docker
         echo Building the image
         docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            --build-arg http_proxy=$HttpProxy \
-            --build-arg https_proxy=$HttpsProxy \
+            --build-arg http_proxy \
+            --build-arg https_proxy \
+            --build-arg no_proxy="localhost, 127.0.0.1" \
             --no-cache .
         DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
         echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
@@ -68,7 +57,8 @@ docker_image_run()
         echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
     else
         echo Calling docker run ... "$@"
-        docker run --rm --volume "$PWD":/workspace --workdir /workspace --user $UID:$GROUPS $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "$@"
+        docker run --rm --volume "$PWD":/workspace --workdir /workspace --user \
+		        $UID:$GROUPS $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "$@"
     fi
 }
 
@@ -76,7 +66,8 @@ docker_image_run()
 latestCommitID=`git rev-parse HEAD`
 echo latestCommitID is $latestCommitID
 
-# Temporary commands to allow testing of Jenkins job prior to re-introduction of unit and Selenium tests. Dummy results files will be copied into place.
+# Temporary commands to allow testing of Jenkins job prior to re-introduction of unit and Selenium tests.
+# Dummy results files will be copied into place.
 echo Listing contents of $WORKSPACE
 ls -alR $WORKSPACE
 cd $WORKSPACE
@@ -119,8 +110,10 @@ fi
 # Update the version in footer-navigation.json and landing-page.json
 echo
 echo Updating the version in footer-navigation.json and landing-page.json
-sed -i -e s/"\"title\": \"Currently v*[0-9]\.[0-9]\.[0-9].*\","/"\"title\": \"Currently v$NextVersion\","/ "docs/app/data/footer-navigation.json"
-sed -i -e s/"\"version\": \"Currently v*[0-9]\.[0-9]\.[0-9].*\","/"\"version\": \"Currently v$NextVersion\","/ "docs/app/data/landing-page.json"
+sed -i -e s/"\"title\": \"Currently v*[0-9]\.[0-9]\.[0-9].*\","/"\"title\": \"Currently v$NextVersion\", \
+"/ "docs/app/data/footer-navigation.json"
+sed -i -e s/"\"version\": \"Currently v*[0-9]\.[0-9]\.[0-9].*\","/"\"version\": \"Currently v$NextVersion\", \
+"/ "docs/app/data/landing-page.json"
 
 # Take a copy of the files which will be overwritten by the HPE theme files
 echo
@@ -233,7 +226,7 @@ echo "$tarDocs"
 cd ..
 
 # Create a branch for the new documentation. First, clone the repository to a sub-folder.
-# Switching to the new branch and commits to it will be performed in this clone.
+# Switching to the new branch and commiting to it will be performed in this clone.
 echo
 echo Creating the branch $NextVersion-gh-pages-test
 cd $WORKSPACE
@@ -264,23 +257,12 @@ cd $NextVersion
 tar xvf $WORKSPACE/$NextVersion-docs-gh-pages-Keppel.tar.gz
 cd ..
 
+# Push the new files to the branch
 echo
 echo Pushing the new files to the branch
 git add $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js
 git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest commit ID is $latestCommitID."
 git push origin $NextVersion-gh-pages-test
-
-# Archiving the contents of the branch
-tarDocs=`tar czvf $NextVersion-docs-gh-pages-test-Keppel.tar.gz $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js`
-echo "$tarDocs"
-ls -al $NextVersion-docs-gh-pages-test-Keppel.tar.gz
-
-echo Deleting old copy of branch archive on Selenium Grid Hub machine
-ssh UXAspectsTestUser@$GridHubIPAddress rm -rf /home/UXAspectsTestUser/Archives-$NextVersion
-
-echo Copying branch archive to the Selenium Grid Hub machine
-ssh UXAspectsTestUser@$GridHubIPAddress mkdir -p /home/UXAspectsTestUser/Archives-$NextVersion
-scp -r $NextVersion-docs-gh-pages-test-Keppel.tar.gz UXAspectsTestUser@$GridHubIPAddress:/home/UXAspectsTestUser/Archives-$NextVersion
 
 # Return to the develop branch and discard changes to a couple of files
 echo
@@ -311,15 +293,6 @@ echo Pushing the changes to the branch
 git add -A
 git commit -m "Committing changes for package $NextVersion-test. Latest commit ID is $latestCommitID."
 git push --set-upstream origin $NextVersion-package-test
-
-# Archiving the contents of the branch
-tarDocs=`tar czvf $NextVersion-package-test-Keppel.tar.gz dist/ package.json`
-echo "$tarDocs"
-ls -al $NextVersion-package-test-Keppel.tar.gz
-
-echo Copying branch archive to the Selenium Grid Hub machine
-ssh UXAspectsTestUser@$GridHubIPAddress mkdir -p /home/UXAspectsTestUser/Archives-$NextVersion
-scp -r $NextVersion-package-test-Keppel.tar.gz UXAspectsTestUser@$GridHubIPAddress:/home/UXAspectsTestUser/Archives-$NextVersion
 
 # Return to the develop branch
 echo
