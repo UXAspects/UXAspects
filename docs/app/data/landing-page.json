@@ -68,7 +68,8 @@
                 "description": "Follow our blog to find out all of the exciting news and announcements regarding UX Aspects.",
                 "link": {
                     "title": "Read More Here",
-                    "link": "/blog"
+                    "link": "/blog",
+                    "router": true
                 }
             }
         ]
