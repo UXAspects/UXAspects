@@ -1,6 +1,6 @@
-socialChart.$inject = ["$timeout", "$interval"];
+socialChart.$inject = ["$timeout", "$interval", "$colorService"];
 
-export default function socialChart($timeout, $interval) {
+export default function socialChart($timeout, $interval, $colorService) {
     return {
         restrict: "E",
         scope: {
@@ -35,8 +35,8 @@ export default function socialChart($timeout, $interval) {
         link: function(scope, element) {
 
             var config = {
-                'defaultNodeColor': '#00cceb',
-                'defaultEdgeColor': '#1a8882',
+                'defaultNodeColor': $colorService.getColor("vibrant1").toHex(),
+                'defaultEdgeColor': $colorService.getColor("vibrant1").setAlpha(0.6).toRgba(),
                 'defaultLabelColor': 'rgba(255,255,255,0.6)',
                 'labelSizeRatio': 2,
                 'enableEdgeHovering': true,

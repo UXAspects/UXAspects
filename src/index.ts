@@ -1,16 +1,11 @@
 /*
-  Export Modules
+  Export Modules, Components & Services
 */
-export * from './components/checkbox/checkbox.module';
-export * from './components/ebox/ebox.module';
-export * from './components/flippable-card/flippable-card.module';
-export * from './components/progressbar/progressbar.module';
-export * from './components/radiobutton/radiobutton.module';
-export * from './components/spark/spark.module';
-export * from './components/toggleswitch/toggleswitch.module';
-export * from './services/color/color.module';
-
-/*
-  Export Services
-*/
-export * from './services/color/color.service';
+export * from './components/checkbox/index';
+export * from './components/ebox/index';
+export * from './components/flippable-card/index';
+export * from './components/progressbar/index';
+export * from './components/radiobutton/index';
+export * from './components/spark/index';
+export * from './components/toggleswitch/index';
+export * from './services/color/index';

@@ -9,13 +9,22 @@
 
     <ol>
         <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
+        <li>Install <a href="https://www.typescriptlang.org/">TypeScript</a>: <kbd>npm install typescript --save-dev</kbd></li>
+        <li>Install <a href="https://angular.io/">Angular 4</a>:
+            <div>
+                <kbd>npm install @angular/common @angular/compiler @angular/compiler-cli
+                @angular/core @angular/forms @angular/http @angular/platform-browser
+                @angular/platform-browser-dynamic @angular/platform-server @angular/router --save</kbd>
+            </div>
+        </li>
         <li>Install <a href="https://bower.io/">Bower</a>: <kbd>npm install -g bower</kbd></li>
         <li>Install the UX Aspects bower package: <kbd>bower install ux-aspects#{{ version }}</kbd></li>
     </ol>
 
     <h3>Direct Download</h3>
 
-    <p>The UX Aspects resources (scripts, CSS, fonts, and images) can be downloaded from TBD. </p>
+    <p>The UX Aspects resources (scripts, CSS, fonts, and images) can be downloaded from the
+        <a href="https://github.com/UXAspects/UXAspects/releases">GitHub releases page</a>.</p>
 
     <h3>Building from Source</h3>
 
@@ -49,8 +58,7 @@
         Over the coming months, these will be replaced with Angular 4 components, so it is recommended to set up
         the project as a hybrid AngularJS/Angular 4 site. See the <a href="https://github.com/UXAspects/UXAspects/blob/develop/guides/angular-upgrade-guide.md">Angular Upgrade Guide</a>
         for details on modifying a project to support Angular 4 components. Components marked <span class="label label-accent">Angular 4</span>
-        in the documentation are included in the <code>lib/ux-aspects.js</code> script file. These must be downgraded
-        to be used in a hybrid site.</p>
+        in the documentation should be included via the <code>import</code> keyword and downgraded to be used in a hybrid site.</p>
 
     <uxd-snippet [content]="angular1DowngradeJs" language="javascript"></uxd-snippet>
 

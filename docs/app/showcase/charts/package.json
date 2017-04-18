@@ -1,0 +1,25 @@
+{
+  "name": "element-seed-project",
+  "description": "Elements Seed Project provides skeleton for using Elements.",
+  "version": "1.4.0",
+  "keywords": [
+    "responsive",
+    "front-end",
+    "web"
+  ],
+  "homepage": "",
+  "author": "",
+  "devDependencies": {
+    "bower": "^1.5",
+    "grunt": "^0.4.5",
+    "grunt-banner": "~0.2.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-connect": "~0.7.1",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-less": "~0.11.0",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-watch": "~0.6.1"
+  }
+}

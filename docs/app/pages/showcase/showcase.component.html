@@ -2,7 +2,7 @@
 
 <uxd-full-page-layout>
 
-<uxd-showcase-card>
+<uxd-showcase-card [link]="listviewUrl" [image]="listviewImage">
     <h4>List View Examples</h4>
     <p>A sample application illustrating the use of list views for large amounts of data. Features a range of UX Aspects components:</p>
     <ul>
@@ -16,5 +16,34 @@
     </ul>
 </uxd-showcase-card>
 
+<uxd-showcase-card [link]="socialChartUrl" [image]="socialChartImage">
+    <h4>Social Chart Example</h4>
+    <p>A sample application illustrating the use of the social chart for viewing connections between people. This provides the following features:</p>
+    <ul>
+        <li><strong>Clickable Nodes:</strong> Select a node to focus on a specific person and their connections.</li>
+        <li><strong>Clickable Edges:</strong> Select an edge (connector line) to focus on connections between two people. Click on the background again to zoom out again.</li>
+        <li><strong>Hoverable Nodes and Edges:</strong> Hover over a node or an edge to see a summary popup.</li>
+        <li><strong>Zoom:</strong> Zoom in or out of the chart and drag with the mouse to control the chart view. Double-click on the background to zoom right out.</li>
+    </ul>
+</uxd-showcase-card>
+
+<uxd-showcase-card [link]="partitionMapUrl" [image]="partitionMapImage">
+    <h4>Partition Map Example</h4>
+    <p>A sample application illustrating the use of the partition map to show the breakdown of a document set by various criteria. This provides the following features:</p>
+    <ul>
+        <li><strong>Document breakdown:</strong> See a visual representation of the document set by custodian, language and file type.</li>
+        <li><strong>Clickable Segments:</strong> Select a segment to zoom in or out of the partition map.</li>
+        <li><strong>Editing:</strong> Edit the data types and their row order in the partition map.</li>
+    </ul>
+</uxd-showcase-card>
+
+<uxd-showcase-card [link]="sankeyChartUrl" [image]="sankeyChartImage">
+    <h4>Sankey Chart Example</h4>
+    <p>A sample application illustrating the use of the sankey chart to show document flows within a system. This provides the following features:</p>
+    <ul>
+        <li><strong>Sections:</strong> View the sections of the system at each stage in the document flow.</li>
+        <li><strong>Flows:</strong> See a visual representation of the document flow by hovering over a segment or the flow connections between adjacent segments.</li>
+    </ul>
+</uxd-showcase-card>
 
 </uxd-full-page-layout>

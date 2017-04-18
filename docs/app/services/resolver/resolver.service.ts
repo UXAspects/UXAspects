@@ -8,8 +8,6 @@ export class ResolverService {
 
     private static resolvers: ComponentFactoryResolver[] = [];
 
-    constructor() { }
-
     public registerResolver(resolver: ComponentFactoryResolver) {
         ResolverService.resolvers.push(resolver);
     }
@@ -27,18 +25,38 @@ export class ResolverService {
         throw new Error('Component doesn not exist in any module: ' + component);
     }
 
-    // Function to load routes from JSON data
-    public static resolveRouteComponents(data: IDocumentationPage): Routes {
-        let routes: Routes = [];
+    public static resolveCategoryData(page: DocumentationPage, categoryTitle: string) {
 
-        for (let category of data.categories) {
+        let data: IDocumentationPage;
 
-            if (routes.length === 0) {
-                routes.push({ path: '', redirectTo: category.link, pathMatch: 'full' });
-            }
-            routes.push({ path: category.link, component: DocumentationCategoryComponent, data: { category: category } });
+        switch (page) {
+
+            case DocumentationPage.Charts:
+                data = require('../../data/charts-page.json');
+                break;
+
+            case DocumentationPage.Components:
+                data = require('../../data/components-page.json');            
+                break;
+
+            case DocumentationPage.Css:
+                data = require('../../data/css-page.json');            
+                break;
         }
 
-        return routes;
+        // find the matching section
+        let match = data.categories.find(category => category.title === categoryTitle);
+
+        if (!match) {
+            throw new Error(`The section "${ categoryTitle }" does not exist!`);
+        }
+
+        return match;
     }
+}
+
+export enum DocumentationPage {
+    Charts,
+    Components,
+    Css
 }

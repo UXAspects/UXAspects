@@ -48,8 +48,8 @@ function FlippableCardCtrl($colorService: any) {
     };
 
     vm.spark = {
-        type: 'spark-primary',
-        type2: 'spark-warning'
+        type: 'spark-vibrant1',
+        type2: 'spark-vibrant2'
     };
 
     vm.card2 = {

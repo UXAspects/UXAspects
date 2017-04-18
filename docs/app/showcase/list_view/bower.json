@@ -1,0 +1,16 @@
+{
+  "name": "ux-aspects-seed-project",
+  "description": "UX Aspects Project provides skeleton for using EUX Aspects.",
+  "main": [
+    "dist/ng1/ux-aspects-ng1.js",
+    "dist/styles/ux-aspects.css"
+  ],
+  "homepage": "https://github.com/UXAspects/UXAspects",
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "jquery-ui": "~1.12.0",
+    "bootstrap": "~3.3.4",
+    "angular": "~1.3.16",
+    "chance": "~1.0.6"
+  }
+}

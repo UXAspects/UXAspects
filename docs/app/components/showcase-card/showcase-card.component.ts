@@ -8,9 +8,4 @@ import { Component, Input, HostListener } from '@angular/core';
 export class ShowcaseCardComponent {
     @Input() image: string;
     @Input() link: string;
-
-    @HostListener('click')
-    navigate() {
-        // todo
-    }
 }

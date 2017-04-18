@@ -58,7 +58,7 @@ docker_image_run()
     else
         echo Calling docker run ... "$@"
         docker run --rm --volume "$PWD":/workspace --workdir /workspace --user \
-		    $UID:$GROUPS $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "$@"
+		        $UID:$GROUPS $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "$@"
     fi
 }
 
