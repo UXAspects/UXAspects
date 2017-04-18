@@ -1,0 +1,51 @@
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+
+import { ComponentsFileUploadNg1Component } from './file-upload-ng1/file-upload-ng1.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { WrappersModule } from '../../../../wrappers.module';
+
+const SECTIONS = [
+    ComponentsFileUploadNg1Component
+];
+
+const ROUTES = [
+    {
+        path: '**',
+        component: DocumentationCategoryComponent,
+        data: {
+            category: {
+                'title': 'File Upload',
+                'link': 'file-upload',
+                'sections': [
+                    {
+                        'title': 'File Upload',
+                        'component': 'ComponentsFileUploadNg1Component',
+                        'version': 'AngularJS'
+                    }
+                ]
+            }
+        }
+    }
+];
+
+@NgModule({
+    imports: [
+        WrappersModule,
+        TabsModule,
+        DocumentationComponentsModule,
+        RouterModule.forChild(ROUTES)
+    ],
+    exports: SECTIONS,
+    declarations: SECTIONS,
+    entryComponents: SECTIONS
+})
+export class ComponentsFileUploadModule {
+
+    constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
+        resolverService.registerResolver(componentFactoryResolver);
+    }
+}
