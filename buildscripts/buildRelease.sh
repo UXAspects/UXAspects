@@ -299,4 +299,12 @@ echo
 echo Returning to the develop branch
 git checkout develop
 
+# Temporary commands to allow testing of Jenkins job prior to re-introduction of unit and Selenium tests.
+# Dummy results files will be copied into place.
+cd $WORKSPACE
+cp $WORKSPACE/buildscripts/emailable-report.html index.html
+cp $WORKSPACE/buildscripts/testng-results.xml .
+mkdir -p $WORKSPACE/reports
+cp index.html $WORKSPACE/reports/index.html
+
 exit 0
