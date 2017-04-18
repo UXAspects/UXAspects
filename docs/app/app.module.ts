@@ -38,17 +38,11 @@ import { OverviewPageComponent } from './pages/overview/overview.component';
 import { FeaturesPageComponent } from './pages/features/features.component';
 import { GettingStartedPageComponent } from './pages/getting-started/getting-started.component';
 import { ShowcasePageComponent } from './pages/showcase/showcase.component';
-import { ComponentsPageComponent } from './pages/components/components.component';
-import { CssPageComponent } from './pages/css/css.component';
-import { ChartsPageComponent } from './pages/charts/charts.component';
 // import { CustomizePageComponent } from './pages/customize/customize.component';
 import { TeamPageComponent } from './pages/team/team.component';
 import { BlogPageComponent } from './pages/blog/blog.component';
 import { LicensesPageComponent } from './pages/licenses/licenses.component';
 import { ChangeLogPageComponent } from './pages/changelog/changelog.component';
-
-import { documentationSections } from './decorators/documentation-section-component';
-
 
 export const upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
 
@@ -63,9 +57,9 @@ const appRoutes: Routes = [
   { path: 'features', component: FeaturesPageComponent },
   { path: 'gettingstarted', component: GettingStartedPageComponent },
   { path: 'showcase', component: ShowcasePageComponent },
-  { path: 'components', component: ComponentsPageComponent, loadChildren: './pages/components/components.module#ComponentsPageModule' },
-  { path: 'css', component: CssPageComponent, loadChildren: './pages/css/css.module#CssPageModule' },
-  { path: 'charts', component: ChartsPageComponent, loadChildren: './pages/charts/charts.module#ChartsPageModule' },
+  { path: 'components', loadChildren: './pages/components/components.module#ComponentsPageModule' },
+  { path: 'css', loadChildren: './pages/css/css.module#CssPageModule' },
+  { path: 'charts', loadChildren: './pages/charts/charts.module#ChartsPageModule' },
   // { path: 'customize', component: CustomizePageComponent },
   { path: 'team', component: TeamPageComponent },
   { path: 'blog', component: BlogPageComponent },
@@ -84,9 +78,6 @@ const DECLARATIONS = [
   FeaturesPageComponent,
   GettingStartedPageComponent,
   ShowcasePageComponent,
-  ComponentsPageComponent,
-  CssPageComponent,
-  ChartsPageComponent,
   // CustomizePageComponent,
   TeamPageComponent,
   BlogPageComponent,
@@ -122,9 +113,7 @@ const DECLARATIONS = [
     // Routing Module
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
   ],
-  declarations: DECLARATIONS,
-  providers: [],
-  entryComponents: documentationSections
+  declarations: DECLARATIONS
 })
 export class AppModule {
   ngDoBootstrap() { }

@@ -6,7 +6,6 @@ import { Router, NavigationStart, NavigationEnd } from '@angular/router';
     templateUrl: './loading-spinner.component.html',
     styleUrls: ['./loading-spinner.component.less']
 })
-
 export class LoadingSpinnerComponent {
 
     visible: boolean;
