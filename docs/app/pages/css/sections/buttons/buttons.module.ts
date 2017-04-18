@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { CssSplitButtonDropdownsComponent } from './split-button-dropdowns/split-button-dropdowns.component';
@@ -27,40 +27,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Buttons',
-                link: 'buttons',
-                sections: [
-                    {
-                        title: 'Colored Buttons',
-                        component: 'CssColoredButtonsComponent'
-                    },
-                    {
-                        title: 'Link Buttons',
-                        component: 'CssLinkButtonsComponent'
-                    },
-                    {
-                        title: 'Size Variations',
-                        component: 'CssButtonsSizeVariationsComponent'
-                    },
-                    {
-                        title: 'Circular Icon Buttons',
-                        component: 'CssCircularIconButtonsComponent'
-                    },
-                    {
-                        title: 'Hyperlinks',
-                        component: 'CssHyperlinksComponent'
-                    },
-                    {
-                        title: 'Button Dropdowns',
-                        component: 'CssButtonDropdownsComponent'
-                    },
-                    {
-                        title: 'Split Button Dropdowns',
-                        component: 'CssSplitButtonDropdownsComponent'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Buttons')
         }
     }
 ];

@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { CssTablesComponent } from './tables/tables.component';
@@ -17,20 +17,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Tables',
-                link: 'tables',
-                sections: [
-                    {
-                        title: 'Tables',
-                        component: 'CssTablesComponent'
-                    },
-                    {
-                        title: 'Cards',
-                        component: 'CssCardsComponent'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Tables')
         }
     }
 ];

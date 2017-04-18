@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { WrappersModule } from '../../../../wrappers.module';
 
@@ -40,64 +40,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Text Inputs',
-                link: 'text-inputs',
-                sections: [
-                    {
-                        title: 'Text Inputs',
-                        component: 'CssTextInputsComponent'
-                    },
-                    {
-                        title: 'Text Area',
-                        component: 'CssTextAreaComponent'
-                    },
-                    {
-                        title: 'Disabled Inputs',
-                        component: 'CssDisabledAreaComponent'
-                    },
-                    {
-                        title: 'Input with Error',
-                        component: 'CssInputErrorComponent'
-                    },
-                    {
-                        title: 'Input Required',
-                        component: 'CssInputRequiredComponent'
-                    },
-                    {
-                        title: 'Input Height',
-                        component: 'CssInputHeightComponent'
-                    },
-                    {
-                        title: 'Input Width',
-                        component: 'CssInputWidthComponent'
-                    },
-                    {
-                        title: 'Input Groups',
-                        component: 'CssInputGroupsComponent'
-                    },
-                    {
-                        title: 'Float Labels',
-                        component: 'CssFloatLabelsComponent'
-                    },
-                    {
-                        title: 'Button Addons',
-                        component: 'CssButtonAddonsComponent'
-                    },
-                    {
-                        title: 'Inputs with Help Text',
-                        component: 'CssInputsHelpTextComponent'
-                    },
-                    {
-                        title: 'Dropdown Addons',
-                        component: 'CssDropdownAddonsComponent'
-                    },
-                    {
-                        title: 'Segmented Addons',
-                        component: 'CssSegmentedAddonsComponent'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Text Inputs')
         }
     }
 ];

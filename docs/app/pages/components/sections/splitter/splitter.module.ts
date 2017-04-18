@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsSplitterNg1Component } from './splitter-ng1/splitter-ng1.component';
@@ -23,32 +23,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Splitter',
-                'link': 'splitter',
-                'sections': [
-                    {
-                        'title': 'Splitter',
-                        'component': 'ComponentsSplitterNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Nested Splitter',
-                        'component': 'ComponentsNestedSplitterNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Layout Switching Splitter',
-                        'component': 'ComponentsLayoutSwitchingSplitterNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Side Inset Panel Splitter',
-                        'component': 'ComponentsSideInsetPanelSplitterNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Splitter')
         }
     }
 ];

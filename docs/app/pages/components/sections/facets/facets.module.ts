@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsFacetsNg1Component } from './facets-ng1/facets-ng1.components';
@@ -25,37 +25,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Facets',
-                'link': 'facets',
-                'sections': [
-                    {
-                        'title': 'Facets',
-                        'component': 'ComponentsFacetsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Dynamic Facets',
-                        'component': 'ComponentsDynamicFacetsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Custom Facets',
-                        'component': 'ComponentsCustomFacetsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Line Chart Example with Facet Panel',
-                        'component': 'ComponentsFacetLineChartNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Programmatic Selection',
-                        'component': 'ComponentsProgrammaticSelectionNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Facets')
         }
     }
 ];

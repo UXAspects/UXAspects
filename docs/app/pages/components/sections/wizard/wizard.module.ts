@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsWizardNg1Component } from './wizard-ng1/wizard-ng1.component';
@@ -23,32 +23,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Wizard',
-                'link': 'wizard',
-                'sections': [
-                    {
-                        'title': 'Wizard',
-                        'component': 'ComponentsWizardNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Wizard with Validation',
-                        'component': 'ComponentsWizardValidationNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Vertical Wizard',
-                        'component': 'ComponentsVerticalWizardNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Marquee Wizard',
-                        'component': 'ComponentsMarqueeWizardNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Wizard')
         }
     }
 ];

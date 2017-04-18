@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsSearchBuilderNg1Component } from './search-builder-ng1/search-builder-ng1.component';
@@ -21,27 +21,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Search',
-                'link': 'search',
-                'sections': [
-                    {
-                        'title': 'Search Builder',
-                        'component': 'ComponentsSearchBuilderNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Search History',
-                        'component': 'ComponentsSearchHistoryNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Search Toolbar',
-                        'component': 'ComponentsSearchToolbarNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Search')
         }
     }
 ];

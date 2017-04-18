@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsCheckboxComponent } from './checkbox/checkbox.component';
@@ -44,84 +44,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Input Controls',
-                'link': 'input-controls',
-                'sections': [
-                    {
-                        'title': 'Checkbox',
-                        'component': 'ComponentsCheckboxComponent',
-                        'version': 'Angular'
-                    },
-                    {
-                        'title': 'Checkbox (Angular 1)',
-                        'component': 'ComponentsCheckboxNg1Component',
-                        'version': 'AngularJS',
-                        'deprecated': true
-                    },
-                    {
-                        'title': 'Custom Dropdown',
-                        'component': 'ComponentsCustomDropdownNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Expanding Text Area',
-                        'component': 'ComponentsExpandingTextAreaNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Toggle Switch',
-                        'component': 'ComponentsToggleSwitchComponent',
-                        'version': 'Angular'
-                    },
-                    {
-                        'title': 'Toggle Switch (Angular 1)',
-                        'component': 'ComponentsToggleSwitchNg1Component',
-                        'version': 'AngularJS',
-                        'deprecated': true
-                    },
-                    {
-                        'title': 'Number Picker',
-                        'component': 'ComponentsNumberPickerNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Inline Dropdown',
-                        'component': 'ComponentsInlineDropdownNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Input Expand',
-                        'component': 'ComponentsInputExpandNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Input Mask',
-                        'component': 'ComponentsInputMaskNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Radio Button',
-                        'component': 'ComponentsRadioButtonNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Tags',
-                        'component': 'ComponentsTagsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Sliders',
-                        'component': 'ComponentsSlidersNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Sliders with Charts',
-                        'component': 'ComponentsSliderChartsNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Input Controls')
         }
     }
 ];

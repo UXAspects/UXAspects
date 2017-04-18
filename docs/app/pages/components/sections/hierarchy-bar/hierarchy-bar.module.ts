@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsHierarchyBarNg1Component } from './hierarchy-bar-ng1/hierarchy-bar-ng1.component';
@@ -17,17 +17,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Hierarchy Bar',
-                'link': 'hierarchy-bar',
-                'sections': [
-                    {
-                        'title': 'Hierarchy Bar',
-                        'component': 'ComponentsHierarchyBarNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Hierarchy Bar')
         }
     }
 ];

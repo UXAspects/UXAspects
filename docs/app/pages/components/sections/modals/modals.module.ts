@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsModalNg1Component } from './modal-ng1/modal-ng1.component';
@@ -23,32 +23,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Modals',
-                'link': 'modals',
-                'sections': [
-                    {
-                        'title': 'Modal',
-                        'component': 'ComponentsModalNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Square Modal',
-                        'component': 'ComponentsSquareModalNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Marquee Modal',
-                        'component': 'ComponentsMarqueeModalNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Side Modal',
-                        'component': 'ComponentsSideModalNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Modals')
         }
     }
 ];

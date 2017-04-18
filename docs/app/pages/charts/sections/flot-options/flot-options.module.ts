@@ -1,6 +1,6 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 
 import { ChartsFlotOptionsNg1Component } from './flot-options-ng1/flot-options-ng1.component';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -15,17 +15,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Flot Options',
-                link: 'flot-options',
-                sections: [
-                    {
-                        title: 'Flot Options',
-                        component: 'ChartsFlotOptionsNg1Component',
-                        version: 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Flot Options')
         }
     }
 ];
@@ -39,7 +29,7 @@ const ROUTES = [
     declarations: SECTIONS,
     entryComponents: SECTIONS
 })
-export class FlotOptionsModule {
+export class ChartsFlotOptionsModule {
     
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);

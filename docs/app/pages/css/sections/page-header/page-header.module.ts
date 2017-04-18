@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
@@ -44,72 +44,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Page Header',
-                link: 'page-header',
-                sections: [
-                    {
-                        title: 'Navigation Header',
-                        component: 'CssNavigationHeaderComponent'
-                    },
-                    {
-                        title: 'Menu Button',
-                        component: 'CssMenuButtonComponent'
-                    },
-                    {
-                        title: 'Breadcrumb',
-                        component: 'CssBreadcrumbComponent'
-                    },
-                    {
-                        title: 'Breadcrumb from States',
-                        component: 'CssBreadcrumbFromStatesComponent'
-                    },
-                    {
-                        title: 'Breadcrumb with Tab State',
-                        component: 'CssBreadcrumbWithTabStateComponent'
-                    },
-                    {
-                        title: 'Condensed Header',
-                        component: 'CssCondensedHeaderComponent'
-                    },
-                    {
-                        title: 'Condensed Header & Toolbar',
-                        component: 'CssCondensedHeaderToolbarComponent'
-                    },
-                    {
-                        title: 'Standard Header',
-                        component: 'CssStandardHeaderComponent'
-                    },
-                    {
-                        title: 'Product Name and Logo',
-                        component: 'CssProductNameLogoComponent'
-                    },
-                    {
-                        title: 'Header Content Panel',
-                        component: 'CssHeaderContentPanelComponent'
-                    },
-                    {
-                        title: 'Back Button',
-                        component: 'CssBackButtonComponent'
-                    },
-                    {
-                        title: 'Dynamic Name Callout',
-                        component: 'CssDynamicNameCalloutComponent'
-                    },
-                    {
-                        title: 'Standard Header & Toolbar',
-                        component: 'CssStandardHeaderToolbarComponent'
-                    },
-                    {
-                        title: 'Header with Navigation Tab & Toolbar',
-                        component: 'CssHeaderNavTabToolbarComponent'
-                    },
-                    {
-                        title: 'Page Header Example',
-                        component: 'CssPageHeaderExampleComponent'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Page Header')
         }
     }
 ];

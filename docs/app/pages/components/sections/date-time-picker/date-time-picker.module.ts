@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsDatePickerNg1Component } from './date-picker-ng1/date-picker-ng1.component';
@@ -23,32 +23,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Date & Time Pickers',
-                'link': 'date-time-picker',
-                'sections': [
-                    {
-                        'title': 'Date Picker',
-                        'component': 'ComponentsDatePickerNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Integrated Date Picker',
-                        'component': 'ComponentsIntegratedDatePickerNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Date Range Picker',
-                        'component': 'ComponentsDateRangePickerNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Time Picker',
-                        'component': 'ComponentsTimePickerNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Date & Time Pickers')
         }
     }
 ];

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ChartsSocialChartNg1Component } from './social-chart-ng1/social-chart-ng1.component';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -19,17 +19,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Social Chart',
-                link: 'social-chart',
-                sections: [
-                    {
-                        title: 'Social Chart',
-                        component: 'ChartsSocialChartNg1Component',
-                        version: 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Social Chart')
         }
     }
 ];
@@ -47,7 +37,7 @@ const ROUTES = [
     declarations: SECTIONS,
     entryComponents: SECTIONS
 })
-export class SocialChartModule {
+export class ChartsSocialChartModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);

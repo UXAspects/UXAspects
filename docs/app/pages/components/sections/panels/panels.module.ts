@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsCollapsiblePanelsNg1Component } from './collapsible-panels-ng1/collapsible-panels-ng1.component';
@@ -25,37 +25,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Panels',
-                'link': 'panels',
-                'sections': [
-                    {
-                        'title': 'Collapsible Panels',
-                        'component': 'ComponentsCollapsiblePanelsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Item Display Panel',
-                        'component': 'ComponentsItemDisplayPanelNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Item Display Panel Service',
-                        'component': 'ComponentsItemDisplayPanelServiceNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Modal Inset Panel',
-                        'component': 'ComponentsModalInsetPanelNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Side Inset Panel',
-                        'component': 'ComponentsSideInsetPanelNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Panels')
         }
     }
 ];

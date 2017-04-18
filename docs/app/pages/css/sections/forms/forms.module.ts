@@ -2,7 +2,7 @@ import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { CheckboxModule } from '../../../../../../src/index';
 import { WrappersModule } from '../../../../wrappers.module';
@@ -26,32 +26,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Forms',
-                link: 'forms',
-                sections: [
-                    {
-                        title: 'Basic Form',
-                        component: 'CssBasicFormComponent'
-                    },
-                    {
-                        title: 'Horizontal Form',
-                        component: 'CssHorizontalFormComponent'
-                    },
-                    {
-                        title: 'Inline Form',
-                        component: 'CssInlineFormComponent'
-                    },
-                    {
-                        title: 'Form with Validation - field-by-field',
-                        component: 'CssFormValidationFieldByFieldComponent'
-                    },
-                    {
-                        title: 'Form with Validation - on-submit',
-                        component: 'CssFormValidationOnSubmitComponent'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Forms')
         }
     }
 ];

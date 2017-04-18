@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { ChartsOrganizationChartNg1Component } from './organization-chart-ng1/organization-chart-ng1.component';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { WrappersModule } from '../../../../wrappers.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -19,17 +19,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Organization Chart',
-                link: 'organization-chart',
-                sections: [
-                    {
-                        title: 'Organization Chart',
-                        component: 'ChartsOrganizationChartNg1Component',
-                        version: 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Organization Chart')
         }
     }
 ];
@@ -47,7 +37,7 @@ const ROUTES = [
     declarations: SECTIONS,
     entryComponents: SECTIONS
 })
-export class OrganizationChartModule {
+export class ChartsOrganizationChartModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);

@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { CssResponsiveDesignComponent } from './responsive-design/responsive-design.component';
@@ -29,44 +29,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Responsive Design',
-                link: 'responsive-design',
-                sections: [
-                    {
-                        title: 'Responsive Design',
-                        component: 'CssResponsiveDesignComponent'
-                    },
-                    {
-                        title: 'Stacked To Horizontal',
-                        component: 'CssStackedToHorizontalComponent'
-                    },
-                    {
-                        title: 'Mobile and Desktop',
-                        component: 'CssMobileDesktopComponent'
-                    },
-                    {
-                        title: 'Mobile, Tablet and Desktop',
-                        component: 'CssMobileTabletDesktopComponent'
-                    },
-                    {
-                        title: 'Responsive Column Resets',
-                        component: 'CssResponsiveColumnResetsComponent'
-                    },
-                    {
-                        title: 'Offsetting Columns',
-                        component: 'CssOffsettingColumnsComponent'
-                    },
-                    {
-                        title: 'Nesting Columns',
-                        component: 'CssNestingColumnsComponent'
-                    },
-                    {
-                        title: 'Column Ordering',
-                        component: 'CssColumnOrderingComponent'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Responsive Design')
         }
     }
 ];

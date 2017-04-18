@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsTooltipsNg1Component } from './tooltips-ng1/tooltips-ng1.component';
@@ -23,32 +23,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Tooltips',
-                'link': 'tooltips',
-                'sections': [
-                    {
-                        'title': 'Tooltips',
-                        'component': 'ComponentsTooltipsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Overflow Tooltip',
-                        'component': 'ComponentsOverflowTooltipNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Single Line Overflow Tooltip',
-                        'component': 'ComponentsSingleLineOverflowTooltipNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Static Tooltips',
-                        'component': 'ComponentsStaticTooltipNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Tooltips')
         }
     }
 ];

@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsNotificationsNg1Component } from './notifications-ng1/notifications-ng1.component';
@@ -25,37 +25,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Notifications',
-                'link': 'notifications',
-                'sections': [
-                    {
-                        'title': 'Notifications',
-                        'component': 'ComponentsNotificationsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Notification List',
-                        'component': 'ComponentsNotificationListNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Notification Dropdown',
-                        'component': 'ComponentsNotificationDropdownNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Alert Styles',
-                        'component': 'ComponentsAlertStylesNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Dismissable Styles',
-                        'component': 'ComponentsDismissableStylesNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Notifications')
         }
     }
 ];

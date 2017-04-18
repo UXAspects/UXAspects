@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsTabsNg1Component } from './tabs-ng1/tabs-ng1.component';
@@ -23,32 +23,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Tabs',
-                'link': 'tabs',
-                'sections': [
-                    {
-                        'title': 'Tabs',
-                        'component': 'ComponentsTabsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Detailed Tab Example',
-                        'component': 'ComponentsDetailedTabExampleNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Stacked Tabs',
-                        'component': 'ComponentsStackedTabsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Card Tabs',
-                        'component': 'ComponentsCardTabsNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Tabs')
         }
     }
 ];

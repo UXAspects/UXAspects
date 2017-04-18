@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsCustomScrollbarNg1Component } from './custom-scrollbar-ng1/custom-scrollbar-ng1.component';
@@ -21,27 +21,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Scrollbar',
-                'link': 'scrollbar',
-                'sections': [
-                    {
-                        'title': 'Custom Scrollbar',
-                        'component': 'ComponentsCustomScrollbarNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Infinite Scroll',
-                        'component': 'ComponentsInfiniteScrollNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Infinite Scroll with Load More Button',
-                        'component': 'ComponentsInfiniteScrollLoadMoreNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Scrollbar')
         }
     }
 ];

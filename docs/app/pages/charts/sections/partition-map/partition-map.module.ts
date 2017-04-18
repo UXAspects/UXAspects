@@ -2,7 +2,7 @@ import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { ChartsPartitionMapNg1Component } from './partition-map-ng1/partition-map-ng1.component';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { WrappersModule } from '../../../../wrappers.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -17,17 +17,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Partition Map',
-                link: 'partition-map',
-                sections: [
-                    {
-                        title: 'Partition Map',
-                        component: 'ChartsPartitionMapNg1Component',
-                        version: 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Partition Map')
         }
     }
 ];
@@ -43,7 +33,7 @@ const ROUTES = [
     declarations: SECTIONS,
     entryComponents: SECTIONS
 })
-export class PartitionMapModule {
+export class ChartsPartitionMapModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);

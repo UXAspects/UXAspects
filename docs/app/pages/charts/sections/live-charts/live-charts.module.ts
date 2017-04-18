@@ -5,7 +5,7 @@ import { ChartsLiveChartNg1Component } from './live-chart-ng1/live-chart-ng1.com
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { WrappersModule } from '../../../../wrappers.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 const SECTIONS = [
@@ -17,17 +17,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Live Chart',
-                link: 'live-chart',
-                sections: [
-                    {
-                        title: 'Live Chart',
-                        component: 'ChartsLiveChartNg1Component',
-                        version: 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Live Chart')
         }
     }
 ];
@@ -43,7 +33,7 @@ const ROUTES = [
     declarations: SECTIONS,
     entryComponents: SECTIONS
 })
-export class LiveChartsModule { 
+export class ChartsLiveChartsModule { 
     
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);

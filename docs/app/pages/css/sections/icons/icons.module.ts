@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -29,40 +29,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Icons',
-                link: 'icons',
-                sections: [
-                    {
-                        title: 'UX Aspects Icons',
-                        component: 'CssUxIconsComponent'
-                    },
-                    {
-                        title: 'Basic Usage',
-                        component: 'CssBasicUsageComponent'
-                    },
-                    {
-                        title: 'Icon Size',
-                        component: 'CssIconSizeComponent'
-                    },
-                    {
-                        title: 'Fixed Width',
-                        component: 'CssFixedWidthComponent'
-                    },
-                    {
-                        title: 'Rotate & Flip Icons',
-                        component: 'CssRotateFlipIconsComponent'
-                    },
-                    {
-                        title: 'Icon Buttons',
-                        component: 'CssIconButtonsComponent'
-                    },
-                    {
-                        title: 'Icon Colors',
-                        component: 'CssIconColorsComponent'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Icons')
         }
     }
 ];

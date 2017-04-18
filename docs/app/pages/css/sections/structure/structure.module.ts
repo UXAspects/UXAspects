@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { CssHtmlHeadComponent } from './html-head/html-head.component';
 import { CssHtmlBodyComponent } from './html-body/html-body.component';
@@ -18,24 +18,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Structure',
-                link: 'structure',
-                sections: [
-                    {
-                        title: 'HTML Head',
-                        component: 'CssHtmlHeadComponent'
-                    },
-                    {
-                        title: 'HTML Body',
-                        component: 'CssHtmlBodyComponent'
-                    },
-                    {
-                        title: 'Scroll To Top Button',
-                        component: 'CssScrollToTopButtonComponent'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Structure')
         }
     }
 ];

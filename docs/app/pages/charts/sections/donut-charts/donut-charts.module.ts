@@ -1,6 +1,6 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
@@ -19,22 +19,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                title: 'Donut Charts',
-                link: 'donut-charts',
-                sections: [
-                    {
-                        title: 'Donut Chart',
-                        component: 'ChartsDonutChartNg1Component',
-                        version: 'AngularJS'
-                    },
-                    {
-                        title: 'Nested Donut Chart',
-                        component: 'ChartsNestedDonutChartNg1Component',
-                        version: 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Charts, 'Donut Charts')
         }
     }
 ];
@@ -51,7 +36,7 @@ const ROUTES = [
     entryComponents: SECTIONS,
     providers: [],
 })
-export class DonutChartsModule {
+export class ChartsDonutChartsModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);

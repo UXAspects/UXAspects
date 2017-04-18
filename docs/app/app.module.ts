@@ -46,7 +46,6 @@ import { ChangeLogPageComponent } from './pages/changelog/changelog.component';
 
 import { documentationSections } from './decorators/documentation-section-component';
 
-
 export const upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
 
 import { WrappersModule } from './wrappers.module';

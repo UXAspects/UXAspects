@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsTreeViewNg1Component } from './tree-view-ng1/tree-view-ng1.component';
@@ -23,32 +23,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Tree View',
-                'link': 'tree-view',
-                'sections': [
-                    {
-                        'title': 'Tree View',
-                        'component': 'ComponentsTreeViewNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Tree View with Companion View',
-                        'component': 'ComponentsTreeViewCompanionViewNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Tree Grid',
-                        'component': 'ComponentsTreeGridNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Tree Grid Asynchronous Loading',
-                        'component': 'ComponentsTreeGridAsynchronousLoadingNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Tree View')
         }
     }
 ];

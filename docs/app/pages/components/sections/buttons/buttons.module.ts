@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsThumbnailNg1Component } from './thumbnail-ng1/thumbnail-ng1.component';
@@ -33,57 +33,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Buttons',
-                'link': 'buttons',
-                'sections': [
-                    {
-                        'title': 'Grouped Buttons',
-                        'component': 'ComponentsGroupedButtonsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Toggle Buttons',
-                        'component': 'ComponentsToggleButtonsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Floating Action Button',
-                        'component': 'ComponentsFloatingActionButtonNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Pagination',
-                        'component': 'ComponentsPaginationNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Single Toggle Button',
-                        'component': 'ComponentsSingleToggleButtonNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Checkbox Buttons',
-                        'component': 'ComponentsCheckboxButtonsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Radio Buttons',
-                        'component': 'ComponentsRadioButtonsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Dropdown',
-                        'component': 'ComponentsDropdownNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Thumbnail',
-                        'component': 'ComponentsThumbnailNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Buttons')
         }
     }
 ];

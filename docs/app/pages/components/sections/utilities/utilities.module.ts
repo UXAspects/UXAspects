@@ -1,7 +1,7 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsColorServiceNg1Component } from './color-service-ng1/color-service-ng1.component';
@@ -35,62 +35,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Utilities',
-                'link': 'utilities',
-                'sections': [
-                    {
-                        'title': 'Color Service',
-                        'component': 'ComponentsColorServiceNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Force Focus',
-                        'component': 'ComponentsForceFocusNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Focus On Show',
-                        'component': 'ComponentsFocusOnShowNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Expanding Content',
-                        'component': 'ComponentsExpandingContentNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'PDF Service',
-                        'component': 'ComponentsPdfServiceNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Safe Timeout',
-                        'component': 'ComponentsSafeTimeoutNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Safe Interval',
-                        'component': 'ComponentsSafeIntervalNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Time Ago Service',
-                        'component': 'ComponentsTimeAgoServiceNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'List Item Filter',
-                        'component': 'ComponentsListItemFilterNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Window Communication Service',
-                        'component': 'ComponentsWindowCommunicationServiceNg1Component',
-                        'version': 'AngularJS'
-                    }
-                ]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Utilities')
         }
     }
 ];

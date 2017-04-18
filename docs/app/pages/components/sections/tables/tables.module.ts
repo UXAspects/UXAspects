@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService } from '../../../../services/resolver/resolver.service';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsDetailRowResponsiveNg1Component } from './detail-row-responsive-ng1/detail-row-responsive-ng1.component';
@@ -63,121 +63,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: {
-                'title': 'Tables',
-                'link': 'tables',
-                'sections': [
-                    {
-                        'title': 'Detail Row Responsive Table',
-                        'component': 'ComponentsDetailRowResponsiveNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Detail Row Header',
-                        'component': 'ComponentsDetailRowHeaderNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Filters',
-                        'component': 'ComponentsFiltersNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Dynamic Filters',
-                        'component': 'ComponentsDynamicFiltersNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Indices',
-                        'component': 'ComponentsIndicesNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Grouping',
-                        'component': 'ComponentsGroupingNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Layout Switching',
-                        'component': 'ComponentsLayoutSwitchingNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Fixed Header Table',
-                        'component': 'ComponentsFixedHeaderTableNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'List Hover Actions',
-                        'component': 'ComponentsListHoverActionsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Hover Actions',
-                        'component': 'ComponentsHoverActionsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Preview Pane',
-                        'component': 'ComponentsPreviewPaneNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Preview Pane Window',
-                        'component': 'ComponentsPreviewPaneWindowNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Reorderable Table',
-                        'component': 'ComponentsReorderableTableNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Multiple Selection Actions',
-                        'component': 'ComponentsMultipleSelectActionsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Traditional Multiple Selection Actions',
-                        'component': 'ComponentsTraditionalMultipleSelectActionsNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Multiple Selection by Row',
-                        'component': 'ComponentsMultipleSelectionRowNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Sorting',
-                        'component': 'ComponentsSortingNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Sort Direction Toggle',
-                        'component': 'ComponentsSortDirectionToggleNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Single Column Sorting',
-                        'component': 'ComponentsSingleColumnSortingNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Multiple Column Sorting',
-                        'component': 'ComponentsMultipleColumnSortingNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Column Visibility',
-                        'component': 'ComponentsColumnVisibilityNg1Component',
-                        'version': 'AngularJS'
-                    },
-                    {
-                        'title': 'Custom Responsive Table',
-                        'component': 'ComponentsCustomResponsiveTableNg1Component',
-                        'version': 'AngularJS'
-                    }]
-            }
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Tables')
         }
     }
 ];
