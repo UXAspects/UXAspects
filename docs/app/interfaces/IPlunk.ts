@@ -8,6 +8,6 @@ export interface IPlunk {
         map?: {
             alias: string;
             source: string;
-        };
+        }[];
     };  
 }

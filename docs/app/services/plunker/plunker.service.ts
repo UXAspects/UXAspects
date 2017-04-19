@@ -33,9 +33,19 @@ export class PlunkerService {
         let modules = (plunk.modules && plunk.modules.imports) ? plunk.modules.imports: '';
         let library = (plunk.modules && plunk.modules.library) ? plunk.modules.library: '';
         let imports = (modules && library) ? 'import { ' + modules + ' } from \'' + library + '\';': '';
-        let map = (plunk.modules && plunk.modules.map) ? '\'' + plunk.modules.map.alias + '\': \'' + plunk.modules.map.source + '\'': '';
+
+        let map = ''
+        if(plunk.modules && plunk.modules.map) {
+            for(let i = 0; i<plunk.modules.map.length; i++) {
+                map += '\'' + plunk.modules.map[i].alias + '\': \'' + plunk.modules.map[i].source + '\'';
+                if(i+1 !== plunk.modules.map.length){
+                    map += ',\n        ';
+                }
+            }
+        }
+        
         let indexHtml = require('./templates/index_html.txt').replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
-        let mainTs = require('./templates/main_ts.txt').replace(MODULES_PLACEHOLDER, modules).replace(IMPORTS_PLACEHOLDER, imports);
+        let mainTs = require('./templates/main_ts.txt').replace(MODULES_PLACEHOLDER, (',' + modules)).replace(IMPORTS_PLACEHOLDER, imports);
         let configJs = require('./templates/config_js.txt').replace(MAP_PLACEHOLDER, map);
 
         const postData = {
