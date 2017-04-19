@@ -77,7 +77,7 @@ export class ColorService {
 
 
 
-    getColorValue(color: string) {
+    getColorValue(color: string): ThemeColor {
 
         let target = this.element.querySelector('.' + color + '-color');
 
@@ -90,12 +90,11 @@ export class ColorService {
         let rgba = colorValue.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
 
         return new ThemeColor(rgba[1], rgba[2], rgba[3], rgba[4]);
-
     }
 
 
 
-    getColor(color: string) {
+    getColor(color: string): ThemeColor {
         return this.colors[color];
     }
 
@@ -156,8 +155,8 @@ export class ThemeColor {
         return this;
     }
 
-    setAlpha(alpha: string) {
-        this.a = alpha;
+    setAlpha(alpha: string | number) {
+        this.a = alpha.toString();
         return this;
     }
 }

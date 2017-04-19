@@ -7,13 +7,27 @@
             "sections": [
                 {
                     "title": "Bar Chart",
+                    "component": "ChartsBarChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Bar Chart (Angular 1)",
                     "component": "ChartsBarChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Horizontal Bar Chart",
+                    "component": "ChartsHorizontalBarChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Horizontal Bar Chart (Angular 1)",
                     "component": "ChartsHorizontalBarChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Stacked Bar Chart",
