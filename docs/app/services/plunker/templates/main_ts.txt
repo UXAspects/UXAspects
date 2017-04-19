@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { CheckboxModule, ToggleSwitchModule } from 'ux-aspects';
 import { AppComponent } from './app';
+${imports}
 
 @NgModule({
-    imports: [BrowserModule, CheckboxModule, ToggleSwitchModule],
+    imports: [BrowserModule, ${modules}],
     declarations: [AppComponent],
     bootstrap: [AppComponent]
 })

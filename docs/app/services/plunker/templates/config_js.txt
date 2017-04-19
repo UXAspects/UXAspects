@@ -25,7 +25,8 @@ System.config({
         'rxjs': 'npm:rxjs',
         'typescript': 'npm:typescript@2.0.2/lib/typescript.js',
 
-        'ux-aspects': window.uxdAssetsUrl + '/lib/index.js'
+        'ux-aspects': window.uxdAssetsUrl + '/lib/index.js',
+        ${map}
     },
     //packages defines our app package
     packages: {
