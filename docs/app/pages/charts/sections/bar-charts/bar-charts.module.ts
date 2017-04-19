@@ -15,13 +15,15 @@ import { ChartsStackedBarChartNg1Component } from './stacked-bar-chart-ng1/stack
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { ChartsBarChartComponent } from './bar-chart/bar-chart.component';
 import { ChartsHorizontalBarChartComponent } from './horizontal-bar-chart/horizontal-bar-chart.component';
+import { ChartsStackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
 
 const SECTIONS = [
     ChartsBarChartComponent,
     ChartsBarChartNg1Component,
     ChartsHorizontalBarChartNg1Component,
     ChartsStackedBarChartNg1Component,
-    ChartsHorizontalBarChartComponent
+    ChartsHorizontalBarChartComponent,
+    ChartsStackedBarChartComponent
 ];
 
 const ROUTES = [

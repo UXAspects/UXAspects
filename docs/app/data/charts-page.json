@@ -31,8 +31,15 @@
                 },
                 {
                     "title": "Stacked Bar Chart",
+                    "component": "ChartsStackedBarChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Stacked Bar Chart (Angular 1)",
                     "component": "ChartsStackedBarChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

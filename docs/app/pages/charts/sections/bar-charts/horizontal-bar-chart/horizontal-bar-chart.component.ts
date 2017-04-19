@@ -52,8 +52,17 @@ export class ChartsHorizontalBarChartComponent {
             },
             tooltips: {
                 backgroundColor: tooltipBackgroundColor,
-                cornerRadius: 0
-            }
+                cornerRadius: 0,
+                callbacks: {
+                    title: (item: Chart.ChartTooltipItem[]) => {
+                        return;
+                    },
+                    label: (item: Chart.ChartTooltipItem) => {
+                        return `x: ${ item.xLabel }, y: ${ item.yLabel }`;
+                    }
+                },
+                displayColors: false
+            } as any
         };
 
         this.barChartColors = [
