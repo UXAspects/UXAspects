@@ -24,8 +24,8 @@
             <td ng-bind="::document.author"></td>
             <td ng-bind="::document.location"></td>
             <td class="text-center">
-                <span class="hpe-icon hpe-active bold-icon text-primary" ng-if="document.available"></span>
-                <span class="hpe-icon hpe-close bold-icon text-warning" ng-if="!document.available"></span>
+                <span class="hpe-icon hpe-active bold-icon text-success" ng-if="document.available"></span>
+                <span class="hpe-icon hpe-close bold-icon text-error" ng-if="!document.available"></span>
             </td>
             <td>
                 <span class="hpe-icon hpe-close remove-row" ng-click="vm.removeRow(document)"></span>
