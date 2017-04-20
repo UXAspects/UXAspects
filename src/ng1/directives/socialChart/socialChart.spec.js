@@ -7,6 +7,7 @@ describe('social chart', function () {
   beforeEach(module('ux-aspects.d3'));
   beforeEach(module('ux-aspects.sigma'));
   beforeEach(module("ux-aspects.safeTimeout"));
+  beforeEach(module('ux-aspects.colorService'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_, _$timeout_, _$interval_) {
     $compile = _$compile_;
