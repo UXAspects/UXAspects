@@ -7,7 +7,7 @@ import { IPlunk } from '../../interfaces/IPlunk';
 const ASSETS_URL_PLACEHOLDER_REGEX = /\$\{assetsUrl\}/g;
 const MODULES_PLACEHOLDER = /\$\{modules\}/g;
 const IMPORTS_PLACEHOLDER = /\$\{imports\}/g;
-const MAP_PLACEHOLDER = /\$\{map\}/g;
+const MAPPINGS_PLACEHOLDER = /\$\{mappings\}/g;
 
 @Injectable()
 export class PlunkerService {
@@ -30,23 +30,24 @@ export class PlunkerService {
 
     private initForm(title: string, plunk: IPlunk): HTMLFormElement {
 
-        let modules = (plunk.modules && plunk.modules.imports) ? plunk.modules.imports: '';
-        let library = (plunk.modules && plunk.modules.library) ? plunk.modules.library: '';
-        let imports = (modules && library) ? 'import { ' + modules + ' } from \'' + library + '\';': '';
+        let modules = '';
+        let imports = '';
+        let library = '';
+        let mappings = '';
 
-        let map = ''
-        if(plunk.modules && plunk.modules.map) {
-            for(let i = 0; i<plunk.modules.map.length; i++) {
-                map += '\'' + plunk.modules.map[i].alias + '\': \'' + plunk.modules.map[i].source + '\'';
-                if(i+1 !== plunk.modules.map.length){
-                    map += ',\n        ';
-                }
-            }
+        if(plunk.modules){
+            modules += plunk.modules.map(mapping => `${ mapping.imports }`);
+            modules = ',' + modules;
+            imports = plunk.modules.map(mapping => mapping.library ? `import { ${ mapping.imports } } from '${ mapping.library }';`: '').join('\n');
+        }
+
+        if(plunk.mappings){
+            mappings = plunk.mappings.map(mapping => `'${ mapping.alias }': '${ mapping.source }'`).join(',\n\t\t\t\t');
         }
         
         let indexHtml = require('./templates/index_html.txt').replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
-        let mainTs = require('./templates/main_ts.txt').replace(MODULES_PLACEHOLDER, (',' + modules)).replace(IMPORTS_PLACEHOLDER, imports);
-        let configJs = require('./templates/config_js.txt').replace(MAP_PLACEHOLDER, map);
+        let mainTs = require('./templates/main_ts.txt').replace(MODULES_PLACEHOLDER, (modules)).replace(IMPORTS_PLACEHOLDER, imports);
+        let configJs = require('./templates/config_js.txt').replace(MAPPINGS_PLACEHOLDER, mappings);
 
         const postData = {
             'description': title,

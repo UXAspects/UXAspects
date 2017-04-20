@@ -5,9 +5,9 @@ export interface IPlunk {
     modules?: {
         imports?: string[];
         library?: string;
-        map?: {
-            alias: string;
-            source: string;
-        }[];
-    };  
+    }[];
+    mappings?: {
+        alias: string;
+        source: string;
+    }[];
 }

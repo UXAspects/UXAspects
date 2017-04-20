@@ -18,10 +18,10 @@ export class ComponentsToggleSwitchComponent implements IPlunkProvider {
             'app.ts': require('./snippets/app.ts'),
             'app.html': require('./snippets/app.html')
         },
-        modules: {
+        modules: [{
             imports: ['ToggleSwitchModule'],
             library: 'ux-aspects'
-        }
+        }]
     };
 
   constructor() {

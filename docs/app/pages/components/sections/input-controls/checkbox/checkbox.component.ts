@@ -65,10 +65,10 @@ export class ComponentsCheckboxComponent implements IPlunkProvider {
             'app.ts': require('./snippets/app.ts'),
             'app.html': require('./snippets/app.html')
         },
-        modules: {
+        modules: [{
             imports: ['CheckboxModule'],
             library: 'ux-aspects'
-        }
+        }]
     };
 
     constructor() {
