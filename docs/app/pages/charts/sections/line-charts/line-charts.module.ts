@@ -1,6 +1,9 @@
+import 'chart.js';
+
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsModule } from 'ng2-charts';
 
 import { ChartsLineChartNg1Component } from './line-chart-ng1/line-chart-ng1.component';
 import { ChartsMultipleAxisLineChartNg1Component } from './multiple-axis-line-chart-ng1/multiple-axis-line-chart-ng1.component';
@@ -9,11 +12,15 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { ChartsLineChartComponent } from './line-chart/line-chart.component';
+import { ChartsStackedLineChartComponent } from './stacked-line-chart/stacked-line-chart.component';
 
 const SECTIONS = [
     ChartsLineChartNg1Component,
     ChartsMultipleAxisLineChartNg1Component,
-    ChartsStackedLineChartNg1Component
+    ChartsStackedLineChartNg1Component,
+    ChartsLineChartComponent,
+    ChartsStackedLineChartComponent
 ];
 
 const ROUTES = [
@@ -31,6 +38,7 @@ const ROUTES = [
         TabsModule,
         WrappersModule,
         DocumentationComponentsModule,
+        ChartsModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
