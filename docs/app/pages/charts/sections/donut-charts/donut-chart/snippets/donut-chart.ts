@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from 'ux-aspects';
 
 @Component({
-    selector: 'uxd-charts-donut-chart',
+    selector: 'uxd-donut-chart',
     templateUrl: './donut-chart.component.html'
 })
-@DocumentationSectionComponent('ChartsDonutChartComponent')
-export class ChartsDonutChartComponent {
+export class DonutChartComponent {
 
     // configure the directive data
     donutChartData: Chart.ChartData = [{
@@ -19,10 +17,6 @@ export class ChartsDonutChartComponent {
     donutChartOptions: Chart.ChartOptions;
     donutChartLegend: boolean = true;
     donutChartColors: any;
-
-    htmlCode = require('./snippets/donut-chart.html');
-    tsCode = require('./snippets/donut-chart.ts');
-    cssCode = require('./snippets/donut-chart.css');
 
     constructor(colorService: ColorService) {
 

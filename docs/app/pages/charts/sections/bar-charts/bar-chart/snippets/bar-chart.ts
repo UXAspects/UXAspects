@@ -7,7 +7,7 @@ import { Chart } from 'chart.js';
     selector: 'uxd-bar-chart',
     templateUrl: './bar-chart.component.html'
 })
-export class ChartsBarChartComponent implements AfterViewInit {
+export class BarChartComponent implements AfterViewInit {
 
     // access the chart directive properties
     @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;

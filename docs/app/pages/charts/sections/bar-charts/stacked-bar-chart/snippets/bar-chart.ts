@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from 'ux-aspects';
 
 @Component({
-    selector: 'uxd-charts-stacked-bar-chart',
+    selector: 'uxd-stacked-bar-chart',
     templateUrl: './stacked-bar-chart.component.html'
 })
-@DocumentationSectionComponent('ChartsStackedBarChartComponent')
-export class ChartsStackedBarChartComponent {
+export class StackedBarChartComponent {
 
     // configure the directive data
     barChartData: Chart.ChartDataSets[];
@@ -15,10 +13,6 @@ export class ChartsStackedBarChartComponent {
     barChartOptions: Chart.ChartOptions;
     barChartLegend: boolean = false;
     barChartColors: any;
-
-    htmlCode = require('./snippets/bar-chart.html');
-    tsCode = require('./snippets/bar-chart.ts');
-    cssCode = require('./snippets/bar-chart.css');
 
     constructor(private colorService: ColorService) {
 
@@ -69,10 +63,10 @@ export class ChartsStackedBarChartComponent {
                 cornerRadius: 0,
                 callbacks: {
                     title: (item: Chart.ChartTooltipItem[]) => {
-                        return `Sales ${ item[0].datasetIndex + 1 }`;
+                        return `Sales ${item[0].datasetIndex + 1}`;
                     },
                     label: (item: Chart.ChartTooltipItem) => {
-                        return `${ item.yLabel }€ in cycle ${ item.index }`;
+                        return `${item.yLabel}€ in cycle ${item.index}`;
                     }
                 },
                 displayColors: false

@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from 'ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart } from 'chart.js';
 
 @Component({
-    selector: 'uxd-charts-scrollable-chart',
+    selector: 'uxd-scrollable-chart',
     templateUrl: './scrollable-chart.component.html',
     styleUrls: ['./scrollable-chart.component.less']
 })
-@DocumentationSectionComponent('ChartsScrollableChartComponent')
-export class ChartsScrollableChartComponent {
+export class ScrollableChartComponent {
 
     // configure the directive data
     barChartData: Chart.ChartData;
@@ -25,10 +23,6 @@ export class ChartsScrollableChartComponent {
 
     private page: number = 0;
     private pageSize: number = 4;
-
-    htmlCode = require('./snippets/scrollable-chart.html');
-    tsCode = require('./snippets/scrollable-chart.ts');
-    cssCode = require('./snippets/scrollable-chart.css');
 
     constructor(colorService: ColorService) {
 

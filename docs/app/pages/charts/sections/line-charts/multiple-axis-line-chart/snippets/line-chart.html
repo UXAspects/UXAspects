@@ -1,0 +1,13 @@
+<div class="demo-chart-container">
+
+    <canvas baseChart 
+            [datasets]="lineChartData"
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend"
+            [colors]="lineChartColors"
+            chartType="line">
+    </canvas>
+
+    <div class="multi-axis-legend" [innerHtml]="lineChartLegendContents"></div>
+
+</div>

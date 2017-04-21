@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from 'ux-aspects';
 
 @Component({
-    selector: 'uxd-charts-stacked-line-chart',
+    selector: 'uxd-stacked-line-chart',
     templateUrl: './stacked-line-chart.component.html'
 })
-@DocumentationSectionComponent('ChartsStackedLineChartComponent')
-export class ChartsStackedLineChartComponent {
+export class StackedLineChartComponent {
 
     // configure the directive data
     lineChartData: Chart.ChartData;
@@ -16,10 +14,6 @@ export class ChartsStackedLineChartComponent {
     lineChartOptions: Chart.ChartOptions;
     lineChartLegend: boolean = false;
     lineChartColors: any;
-
-    htmlCode = require('./snippets/line-chart.html');
-    tsCode = require('./snippets/line-chart.ts');
-    cssCode = require('./snippets/line-chart.css');
 
     constructor(colorService: ColorService) {
 

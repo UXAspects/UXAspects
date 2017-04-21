@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from 'ux-aspects';
 
 @Component({
-    selector: 'uxd-charts-horizontal-bar-chart',
+    selector: 'uxd-horizontal-bar-chart',
     templateUrl: './horizontal-bar-chart.component.html'
 })
-@DocumentationSectionComponent('ChartsHorizontalBarChartComponent')
-export class ChartsHorizontalBarChartComponent {
+export class HorizontalBarChartComponent {
 
     // configure the directive data
     barChartData: Chart.ChartData = [{
@@ -19,10 +17,6 @@ export class ChartsHorizontalBarChartComponent {
     barChartOptions: Chart.ChartOptions;
     barChartLegend: boolean = false;
     barChartColors: any;
-
-    htmlCode = require('./snippets/bar-chart.html');
-    tsCode = require('./snippets/bar-chart.ts');
-    cssCode = require('./snippets/bar-chart.css');
 
     constructor(colorService: ColorService) {
 

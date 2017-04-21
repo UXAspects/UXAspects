@@ -11,6 +11,7 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { WrappersModule } from '../../../../wrappers.module';
 import { ChartsScrollableChartComponent } from './scrollable-chart/scrollable-chart.component';
 import { ChartsModule } from 'ng2-charts';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 const SECTIONS = [
     ChartsScrollableChartNg1Component,
@@ -32,6 +33,7 @@ const ROUTES = [
         WrappersModule,
         ChartsModule,
         CommonModule,
+        TabsModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

@@ -1,0 +1,20 @@
+<div class="demo-chart-container">
+
+    <div class="chart-scroll-previous-btn" *ngIf="hasPreviousPage()" (click)="goToPreviousPage()">
+        <i class="hpe-icon hpe-previous"></i>
+    </div>
+
+    <canvas baseChart 
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [colors]="barChartColors"
+            chartType="bar">
+    </canvas>
+
+    <div class="chart-scroll-next-btn" *ngIf="hasNextPage()" (click)="goToNextPage()">
+        <i class="hpe-icon hpe-next"></i>        
+    </div>
+
+</div>

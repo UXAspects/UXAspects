@@ -1,0 +1,38 @@
+.demo-chart-container {
+    display: block;
+    position: relative;
+    height: 200px;
+}
+
+.chart-scroll-previous-btn,
+.chart-scroll-next-btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  background-color: #00a7a2;
+  border-radius: 50%;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  top: calc(50% - 22px);
+  color: #fff;
+  font-size: 13px;
+}
+
+.chart-scroll-previous-btn:hover,
+.chart-scroll-next-btn:hover {
+  opacity: 0.9;
+}
+
+.chart-scroll-previous-btn {
+  left: 32px;
+  padding-right: 1px;
+}
+
+.chart-scroll-next-btn {
+  right: 10px;
+  padding-left: 2px;
+}

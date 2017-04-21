@@ -1,17 +1,15 @@
 import { Component, Inject, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from 'ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
-    selector: 'uxd-charts-multi-axis-line-chart',
+    selector: 'uxd-multi-axis-line-chart',
     templateUrl: './multiple-axis-line-chart.component.html',
     styleUrls: ['./multiple-axis-line-chart.component.less'],
     encapsulation: ViewEncapsulation.None
 })
-@DocumentationSectionComponent('ChartsMultipleAxisLineChartComponent')
-export class ChartsMultipleAxisLineChartComponent implements AfterViewInit {
+export class MultipleAxisLineChartComponent implements AfterViewInit {
 
     // access the chart directive properties
     @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
@@ -23,10 +21,6 @@ export class ChartsMultipleAxisLineChartComponent implements AfterViewInit {
     lineChartColors: any;
 
     lineChartLegendContents: SafeHtml;
-
-    htmlCode = require('./snippets/line-chart.html');
-    tsCode = require('./snippets/line-chart.ts');
-    cssCode = require('./snippets/line-chart.css');
 
     constructor(private sanitizer: DomSanitizer, colorService: ColorService, @Inject('flotDataService') flotDataService: any) {
 

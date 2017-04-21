@@ -1,14 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from 'ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
-    selector: 'uxd-charts-live-chart',
+    selector: 'uxd-live-chart',
     templateUrl: './live-chart.component.html'
 })
-@DocumentationSectionComponent('ChartsLiveChartComponent')
-export class ChartsLiveChartComponent {
+export class LiveChartComponent {
 
     // access the chart directive properties
     @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
@@ -20,10 +18,6 @@ export class ChartsLiveChartComponent {
     lineChartColors: any;
 
     private livedata: number[] = [];
-
-    htmlCode = require('./snippets/live-chart.html');
-    tsCode = require('./snippets/live-chart.ts');
-    cssCode = require('./snippets/live-chart.css');
 
     constructor(colorService: ColorService) {
 
