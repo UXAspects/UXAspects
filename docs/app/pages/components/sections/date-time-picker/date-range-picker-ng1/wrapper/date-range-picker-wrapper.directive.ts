@@ -17,8 +17,8 @@ DateRangePickerCtrl.$inject = ['$scope'];
 function DateRangePickerCtrl($scope: angular.IScope) {
     var vm = this;
 
-    vm.$onDestroy = function() {
-       $scope.$destroy();
+    vm.$onDestroy = function () {
+        $scope.$destroy();
     };
 
     vm.fromDate = {};
@@ -112,20 +112,20 @@ function DateRangePickerCtrl($scope: angular.IScope) {
     // Set timezone in both date objects
     function setTimeZoneOffset(tz: any) {
         if (angular.isString(tz.offset)) {
-            if (!angular.isDefined(vm.fromDate)) {vm.fromDate = {}; }
+            if (!angular.isDefined(vm.fromDate)) { vm.fromDate = {}; }
             vm.fromDate.timezone = tz.offset;
-            if (!angular.isDefined(vm.toDate)) {vm.toDate = {}; }
+            if (!angular.isDefined(vm.toDate)) { vm.toDate = {}; }
             vm.toDate.timezone = tz.offset;
         }
     }
 
     vm.getLocalDateTime = function (date: any, timezone: any) {
-        if (!angular.isDefined(date) || !angular.isDefined(timezone)) {return 'Not Set'; }
+        if (!angular.isDefined(date) || !angular.isDefined(timezone)) { return 'Not Set'; }
         return moment(date).utcOffset(timezone, true).format('ddd MMM DD, YYYY h:mm:ss A Z');
     };
 
     vm.getUniversalDateTime = function (date: any, timezone: any) {
-        if (!angular.isDefined(date) || !angular.isDefined(timezone)) {return 'Not Set'};
+        if (!angular.isDefined(date) || !angular.isDefined(timezone)) { return 'Not Set'; }
         return moment(date).utcOffset(timezone, true).utc().format('ddd MMM DD, YYYY h:mm:ss A Z');
     };
 }

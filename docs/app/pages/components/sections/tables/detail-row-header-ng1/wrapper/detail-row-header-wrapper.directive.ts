@@ -7,7 +7,7 @@ angular.module('app').directive('uxdDetailRowHeaderWrapper', () => {
             var vm = this;
 
             // cleanup afterwards
-            vm.$onDestroy = function() {
+            vm.$onDestroy = function () {
                 $scope.$destroy();
             };
 
@@ -114,7 +114,7 @@ class DetailRowHeaderPopoverCtrl {
                 this.activeFilters.push(filter);
             }
         });
-        
+
         this.$scope.setFilterActive(this.activeFilters.length > 0);
         this.detailRowDataService.applyFilters(this.activeFilters);
         this.$scope.closePopover();
@@ -126,11 +126,11 @@ class DetailRowHeaderPopoverCtrl {
         this.filterList.forEach(filter => filter.active = false);
         this.$scope.setFilterActive(false);
         this.detailRowDataService.applyFilters(this.activeFilters);
-    };
+    }
 
     cancel() {
         this.$scope.closePopover();
-    };
+    }
 }
 
 angular.module('app').controller('DetailRowHeaderPopoverCtrl', DetailRowHeaderPopoverCtrl);

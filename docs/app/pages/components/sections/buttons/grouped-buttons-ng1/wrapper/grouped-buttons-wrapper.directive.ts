@@ -9,11 +9,11 @@ angular.module('app').directive('uxdGroupedButtonsWrapper', () => {
             vm.page = 1;
 
             vm.previousPage = function () {
-                if (vm.page > 1) { vm.page--; };
+                if (vm.page > 1) { vm.page--; }
             };
 
             vm.nextPage = function () {
-                if (vm.page < 4) { vm.page++; };
+                if (vm.page < 4) { vm.page++; }
             };
         }],
         controllerAs: 'vm'

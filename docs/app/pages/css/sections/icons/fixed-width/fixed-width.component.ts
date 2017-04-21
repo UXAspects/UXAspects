@@ -18,6 +18,6 @@ export class CssFixedWidthComponent implements ICodePenProvider {
 
     clicked(event: MouseEvent) {
         event.preventDefault();
-    };
+    }
 
 }

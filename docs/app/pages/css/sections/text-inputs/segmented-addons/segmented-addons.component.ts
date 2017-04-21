@@ -18,6 +18,6 @@ export class CssSegmentedAddonsComponent implements ICodePenProvider {
 
     clicked(event: MouseEvent) {
         event.preventDefault();
-    };
+    }
 
 }
