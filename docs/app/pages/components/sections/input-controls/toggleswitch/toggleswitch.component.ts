@@ -14,9 +14,15 @@ export class ComponentsToggleSwitchComponent implements IPlunkProvider {
   public toggleSwitchDisable: boolean;
 
   public plunk: IPlunk = {
-      'app.ts': require('./snippets/app.ts'),
-      'app.html': require('./snippets/app.html')
-  };
+        files: {
+            'app.ts': require('./snippets/app.ts'),
+            'app.html': require('./snippets/app.html')
+        },
+        modules: [{
+            imports: ['ToggleSwitchModule'],
+            library: 'ux-aspects'
+        }]
+    };
 
   constructor() {
 

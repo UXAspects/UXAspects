@@ -61,8 +61,14 @@ export class ComponentsCheckboxComponent implements IPlunkProvider {
     };
 
     public plunk: IPlunk = {
-        'app.ts': require('./snippets/app.ts'),
-        'app.html': require('./snippets/app.html')
+        files: {
+            'app.ts': require('./snippets/app.ts'),
+            'app.html': require('./snippets/app.html')
+        },
+        modules: [{
+            imports: ['CheckboxModule'],
+            library: 'ux-aspects'
+        }]
     };
 
     constructor() {

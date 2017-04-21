@@ -1,3 +1,14 @@
 export interface IPlunk {
-    [key: string]: string;
+    files: {
+        [key: string]: string;
+    };
+    modules?: {
+        imports?: string | string[];
+        library?: string;
+        importAs?: boolean;
+    }[];
+    mappings?: {
+        alias: string;
+        source: string;
+    }[];
 }
