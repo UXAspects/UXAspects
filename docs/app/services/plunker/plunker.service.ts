@@ -35,28 +35,28 @@ export class PlunkerService {
         let library = '';
         let mappings = '';
 
-        if(plunk.modules){
+        if (plunk.modules) {
             plunk.modules.map(mapping => {
-                if(mapping.imports){ 
+                if (mapping.imports) {
                     modules += `,${ mapping.imports }`;
                 }
             });
             plunk.modules.map(mapping => {
-                if(mapping.library){
-                    if(!mapping.imports) {
+                if (mapping.library) {
+                    if (!mapping.imports) {
                         imports += `import '${ mapping.library }';\n`;
-                    } else if(mapping.imports instanceof Array){
+                    } else if (mapping.imports instanceof Array) {
                         imports += `import { ${ mapping.imports } } from '${ mapping.library }';\n`;
-                    } else if(mapping.importAs) {
-                        imports += `import ${ mapping.imports } from '${ mapping.library }';\n`;
-                    } else {
+                    } else if (mapping.importAs) {
                         imports += `import * as ${ mapping.imports } from '${ mapping.library }';\n`;
+                    } else {
+                        imports += `import ${ mapping.imports } from '${ mapping.library }';\n`;
                     }
                 }
             });
         }
 
-        if(plunk.mappings){
+        if (plunk.mappings) {
             mappings = plunk.mappings.map(mapping => `'${ mapping.alias }': '${ mapping.source }'`).join(',\n\t\t\t\t');
         }
         
