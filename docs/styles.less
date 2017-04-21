@@ -79,10 +79,14 @@ pre[class*="language-"] code {
         }
 
         &.attr-value,
+        &.property,
+        &.function,
         &.string {
             color: #c7254e;
         }
 
+        &.selector,
+        &.keyword,
         &.tag {
             color: #4472c4;
         }
@@ -1469,4 +1473,23 @@ tr.dragging .reorderable-controls .reorder-drag {
     display: block;
     position: relative;        
     height: 400px;
+}
+
+/*
+    Blockquote styling for dependencies
+*/
+blockquote {
+
+    .dependency-module {
+        color: #c7254e;        
+    }
+
+    .dependency-link {
+        transition: opacity 0.3s ease-in-out;
+        color: #c7254e;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
 }

@@ -1,14 +1,12 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src/index';
+import { ColorService } from 'ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart } from 'chart.js';
 
 @Component({
-    selector: 'uxd-charts-bar-chart',
+    selector: 'uxd-bar-chart',
     templateUrl: './bar-chart.component.html'
 })
-@DocumentationSectionComponent('ChartsBarChartComponent')
 export class ChartsBarChartComponent implements AfterViewInit {
 
     // access the chart directive properties
@@ -24,10 +22,6 @@ export class ChartsBarChartComponent implements AfterViewInit {
     barChartOptions: Chart.ChartOptions;
     barChartLegend: boolean = false;
     barChartColors: any;
-
-    htmlCode = require('./snippets/bar-chart.html');
-    tsCode = require('./snippets/bar-chart.ts');
-    cssCode = require('./snippets/bar-chart.css');
 
     constructor(colorService: ColorService) {
 
@@ -70,9 +64,7 @@ export class ChartsBarChartComponent implements AfterViewInit {
                     title: (item: Chart.ChartTooltipItem[]) => {
                         return;
                     },
-                    label: (item: Chart.ChartTooltipItem) => {
-                        return `x: ${ item.xLabel }, y: ${ item.yLabel }`;
-                    }
+                    label: (item: Chart.ChartTooltipItem) => `x: ${ item.xLabel }, y: ${ item.yLabel }`
                 },
                 displayColors: false
             } as any
