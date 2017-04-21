@@ -20,8 +20,6 @@ export class ChartsStackedLineChartComponent {
     constructor(colorService: ColorService) {
 
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
-        // let gridBorderColor = colorService.getColor('grey4').toHex();
-        // let gridColor = colorService.getColor('grey6').toHex();
         let lineBorderColor1 = colorService.getColor('chart1').toRgb();
         let lineFillColor1 = colorService.getColor('chart1').setAlpha(0.1).toRgba();
         let lineForecastFillColor1 = colorService.getColor('chart1').setAlpha(0.06).toRgba();

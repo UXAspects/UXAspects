@@ -187,8 +187,15 @@
             "sections": [
                 {
                     "title": "Scrollable Chart",
+                    "component": "ChartsScrollableChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Scrollable Chart (Angular 1)",
                     "component": "ChartsScrollableChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
