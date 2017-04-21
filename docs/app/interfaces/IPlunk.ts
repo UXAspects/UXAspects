@@ -3,8 +3,9 @@ export interface IPlunk {
         [key: string]: string;
     };
     modules?: {
-        imports?: string[];
+        imports?: string | string[];
         library?: string;
+        importAs?: boolean;
     }[];
     mappings?: {
         alias: string;

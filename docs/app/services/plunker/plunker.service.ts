@@ -36,9 +36,24 @@ export class PlunkerService {
         let mappings = '';
 
         if(plunk.modules){
-            modules += plunk.modules.map(mapping => `${ mapping.imports }`);
-            modules = ',' + modules;
-            imports = plunk.modules.map(mapping => mapping.library ? `import { ${ mapping.imports } } from '${ mapping.library }';`: '').join('\n');
+            plunk.modules.map(mapping => {
+                if(mapping.imports){ 
+                    modules += `,${ mapping.imports }`;
+                }
+            });
+            plunk.modules.map(mapping => {
+                if(mapping.library){
+                    if(!mapping.imports) {
+                        imports += `import '${ mapping.library }';\n`;
+                    } else if(mapping.imports instanceof Array){
+                        imports += `import { ${ mapping.imports } } from '${ mapping.library }';\n`;
+                    } else if(mapping.importAs) {
+                        imports += `import ${ mapping.imports } from '${ mapping.library }';\n`;
+                    } else {
+                        imports += `import * as ${ mapping.imports } from '${ mapping.library }';\n`;
+                    }
+                }
+            });
         }
 
         if(plunk.mappings){
