@@ -18,6 +18,6 @@ export class CssDropdownAddonsComponent implements ICodePenProvider {
 
     clicked(event: MouseEvent) {
         event.preventDefault();
-    };
+    }
 
 }

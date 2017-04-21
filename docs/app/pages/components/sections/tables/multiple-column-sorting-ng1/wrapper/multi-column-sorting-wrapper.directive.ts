@@ -122,9 +122,9 @@ class MultiColumnSortingController {
     }
 
     // cleanup afterwards
-    $onDestroy () {
+    $onDestroy() {
         this.scope.$destroy();
-    };
+    }
 
     sortByKey(array: any[], key: string, descending: boolean) {
         return array.sort((a, b) => {

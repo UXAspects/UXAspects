@@ -159,7 +159,7 @@ class PreviewPaneWindowController {
     // cleanup afterwards
     $onDestroy() {
         this.$scope.$destroy();
-    };
+    }
 
     goToDetails(itemIndex: number) {
         this.selectedIndex = itemIndex;
@@ -185,23 +185,23 @@ class PreviewPaneWindowController {
 
         // ensure the corresponding item is selected
         this.$scope.$broadcast('$previewPaneItemSelect', itemIndex);
-    };
+    }
 
     goToPrevious() {
         this.goToDetails(this.selectedIndex - 1);
-    };
+    }
 
     goToNext() {
         this.goToDetails(this.selectedIndex + 1);
-    };
+    }
 
     canGoBack() {
         return this.selectedIndex <= 0;
-    };
+    }
 
     canGoForward() {
         return this.selectedIndex >= (this.items.length - 1);
-    };
+    }
 
     updateSparkline(item: any) {
 

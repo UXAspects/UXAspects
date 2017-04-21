@@ -21,10 +21,10 @@ function WizardValidationCtrl($scope: angular.IScope) {
     vm.validate = validate;
 
     vm.buttonOptions = {
-        previousTooltip: "Go to the previous step",
-        nextTooltip: "Go to the next step",
-        cancelTooltip: "Cancel the wizard",
-        finishTooltip: "Finish the wizard"
+        previousTooltip: 'Go to the previous step',
+        nextTooltip: 'Go to the next step',
+        cancelTooltip: 'Cancel the wizard',
+        finishTooltip: 'Finish the wizard'
     };
 
     function validate() {

@@ -12,20 +12,20 @@ angular.module('app').controller('DatePickerCtrl', ['$scope', DatePickerCtrl]);
 function DatePickerCtrl($scope: angular.IScope) {
     var vm = this;
 
-    vm.$onDestroy = function() {
-       $scope.$destroy();
+    vm.$onDestroy = function () {
+        $scope.$destroy();
     };
 
     vm.date = new Date();
     vm.opened = false;
 
-    vm.open = function($event: any) {
+    vm.open = function ($event: any) {
         $event.preventDefault();
         $event.stopPropagation();
         vm.opened = true;
     };
 
-    vm.openKey = function($event: any) {
+    vm.openKey = function ($event: any) {
         if ($event.which === 13) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -33,12 +33,12 @@ function DatePickerCtrl($scope: angular.IScope) {
         }
     };
 
-    vm.change = function() {
+    vm.change = function () {
         var customdate = new Date(vm.date);
 
         if (isNaN(customdate as any)) {
             vm.date = new Date();
-        } else if(vm.date !== vm.prevdate) {
+        } else if (vm.date !== vm.prevdate) {
             vm.date = new Date(vm.date);
             vm.prevdate = vm.date;
         }

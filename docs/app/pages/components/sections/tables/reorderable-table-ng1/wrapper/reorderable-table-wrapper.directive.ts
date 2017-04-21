@@ -36,7 +36,7 @@ class ReorderableTableController {
     // cleanup afterwards
     $onDestroy() {
         this.scope.$destroy();
-    };
+    }
 
     removeRow(document: any) {
 
@@ -45,11 +45,11 @@ class ReorderableTableController {
 
         // remove the item from the list
         this.documents.splice(index, 1);
-    };
+    }
 
     on_reorder() {
         // perform actions here
-    };
+    }
 
     on_reorder_complete() {
         // perform actions here
