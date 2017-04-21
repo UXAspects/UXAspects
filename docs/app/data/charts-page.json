@@ -118,8 +118,15 @@
                 },
                 {
                     "title": "Multiple Axis Line Chart",
+                    "component": "ChartsMultipleAxisLineChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Multiple Axis Line Chart (Angular 1)",
                     "component": "ChartsMultipleAxisLineChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -129,8 +136,15 @@
             "sections": [
                 {
                     "title": "Live Chart",
+                    "component": "ChartsLiveChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Live Chart (Angular 1)",
                     "component": "ChartsLiveChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

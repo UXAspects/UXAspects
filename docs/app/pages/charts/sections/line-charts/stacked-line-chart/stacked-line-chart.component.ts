@@ -53,6 +53,9 @@ export class ChartsStackedLineChartComponent {
         this.lineChartOptions = {
             maintainAspectRatio: false,
             responsive: true,
+            hover: {
+                mode: 'nearest'
+            },
             elements: {
                 line: {
                     tension: 0
@@ -67,9 +70,10 @@ export class ChartsStackedLineChartComponent {
                     stacked: true,
                     ticks: {
                         min: 0,
-                        max: 25000,
+                        max: 30000,
+                        stepSize: 5000,
                         callback: value => `${ value }€`
-                    }
+                    } as Chart.LinearTickOptions
                 }]
             },
             tooltips: {
@@ -117,67 +121,6 @@ export class ChartsStackedLineChartComponent {
                 pointHitRadius: 5
             }
         ];
-
-        // this.lineChartOptions = {
-        //     maintainAspectRatio: false,
-        //     responsive: true,
-        //     elements: {
-        //         line: {
-        //             tension: 0
-        //         }
-        //     },
-        //     scales: {
-        //         xAxes: [{
-        //             gridLines: {
-        //                 color: gridColor
-        //             }
-        //         }],
-        //         yAxes: [{
-        //             ticks: {
-        //                 beginAtZero: true
-        //             } as Chart.LinearTickOptions,
-        //             gridLines: {
-        //                 color: gridColor
-        //             }
-        //         }]
-        //     },
-        //     tooltips: {
-        //         backgroundColor: tooltipBackgroundColor,
-        //         cornerRadius: 0,
-        //         callbacks: {
-        //             title: (item: Chart.ChartTooltipItem[]) => {
-        //                 return;
-        //             },
-        //             label: (item: Chart.ChartTooltipItem) => {
-        //                 return `x: ${item.xLabel}, y: ${item.yLabel}`;
-        //             }
-        //         },
-        //         displayColors: false
-        //     } as any
-        // };
-
-        // this.lineChartColors = [
-        //     {
-        //         borderColor: lineBorderColor,
-        //         backgroundColor: lineFillColor,
-        //         pointBackgroundColor: 'transparent',
-        //         pointBorderColor: 'transparent',
-        //         pointHoverBorderColor: pointBorderColor,
-        //         pointHoverBorderWidth: 3,
-        //         pointHoverRadius: 5,
-        //         pointHitRadius: 5
-        //     },
-        //     {
-        //         borderColor: lineBorderColor,
-        //         backgroundColor: lineForecastFillColor,
-        //         pointBorderColor: 'transparent',
-        //         pointBackgroundColor: 'transparent',
-        //         pointHoverBorderColor: pointBorderColor,
-        //         pointHoverBorderWidth: 3,
-        //         pointHoverRadius: 5,
-        //         pointHitRadius: 5
-        //     }
-        // ];
     }
 
     getRandomData(): number[] {

@@ -37,6 +37,9 @@ export class ChartsStackedBarChartComponent {
         this.barChartOptions = {
             maintainAspectRatio: false,
             responsive: true,
+            hover: {
+                mode: 'nearest'
+            },
             scales: {
                 xAxes: [{
                     barPercentage: 0.6,
@@ -48,10 +51,13 @@ export class ChartsStackedBarChartComponent {
                 yAxes: [{
                     stacked: true,
                     ticks: {
+                        min: 0,
+                        max: 30000,
+                        stepSize: 5000,
                         callback: (value: any, index: any, values: any) => {
                             return value + '€';
                         }
-                    }
+                    } as Chart.LinearTickOptions
                 }]
             },
             tooltips: {

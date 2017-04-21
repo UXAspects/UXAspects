@@ -14,13 +14,15 @@ import { WrappersModule } from '../../../../wrappers.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ChartsLineChartComponent } from './line-chart/line-chart.component';
 import { ChartsStackedLineChartComponent } from './stacked-line-chart/stacked-line-chart.component';
+import { ChartsMultipleAxisLineChartComponent } from './multiple-axis-line-chart/multiple-axis-line-chart.component';
 
 const SECTIONS = [
     ChartsLineChartNg1Component,
     ChartsMultipleAxisLineChartNg1Component,
     ChartsStackedLineChartNg1Component,
     ChartsLineChartComponent,
-    ChartsStackedLineChartComponent
+    ChartsStackedLineChartComponent,
+    ChartsMultipleAxisLineChartComponent
 ];
 
 const ROUTES = [

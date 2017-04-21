@@ -72,56 +72,16 @@ export class ChartsDonutChartComponent {
                     colorService.getColor('chart3').toRgb(),
                     colorService.getColor('chart4').toRgb(),
                     colorService.getColor('chart5').toRgb()
+                ],
+                hoverBackgroundColor: [
+                    colorService.getColor('chart1').setAlpha(0.3).toRgba(),
+                    colorService.getColor('chart2').setAlpha(0.3).toRgba(),
+                    colorService.getColor('chart3').setAlpha(0.3).toRgba(),
+                    colorService.getColor('chart4').setAlpha(0.3).toRgba(),
+                    colorService.getColor('chart5').setAlpha(0.3).toRgba()
                 ]
             }
         ];
-
-        // let borderColor = colorService.getColor('grey2').setAlpha(0.5).toRgba();
-        // let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
-        // let barBackgroundColor = colorService.getColor('chart1').setAlpha(0.1).toRgba();
-        // let barHoverBackgroundColor = colorService.getColor('chart1').setAlpha(0.2).toRgba();
-        // let barBorderColor = colorService.getColor('chart1').toHex();
-
-        // this.barChartOptions = {
-        //     maintainAspectRatio: false,
-        //     responsive: true,
-        //     scales: {
-        //         xAxes: [{
-        //             gridLines: {
-        //                 color: 'transparent'
-        //             }
-        //         }],
-        //         yAxes: [{
-        //             barPercentage: 0.5,
-        //             categoryPercentage: 1,
-        //             gridLines: {
-        //                 color: 'transparent'
-        //             }
-        //         } as Chart.ChartXAxe]
-        //     },
-        //     tooltips: {
-        //         backgroundColor: tooltipBackgroundColor,
-        //         cornerRadius: 0,
-        //         callbacks: {
-        //             title: (item: Chart.ChartTooltipItem[]) => {
-        //                 return;
-        //             },
-        //             label: (item: Chart.ChartTooltipItem) => {
-        //                 return `x: ${ item.xLabel }, y: ${ item.yLabel }`;
-        //             }
-        //         },
-        //         displayColors: false
-        //     } as any
-        // };
-
-        // this.barChartColors = [
-        //     {
-        //         backgroundColor: barBackgroundColor,
-        //         hoverBackgroundColor: barHoverBackgroundColor,
-        //         borderColor: barBorderColor
-        //     }
-        // ];
-
     }
 
 }
