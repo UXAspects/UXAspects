@@ -1,6 +1,6 @@
-<li>
+<li ng-class="{ 'sorter-option-disabled': soc.disabled }">
     <a href="" target="_blank" ng-click="soc.select()">
-        <i ng-class="{invisible: !selectedClass}" class="hpe-icon hpe-checkmark sorter-icon"></i>
+        <i ng-class="{ invisible: !selectedClass }" class="hpe-icon hpe-checkmark sorter-icon"></i>
         <p class="sorter-text"><span ng-bind="soc.name"></span></p>
         <i class="sorter-icon" ng-class="iconClass"></i>
     </a>
