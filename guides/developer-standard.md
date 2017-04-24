@@ -118,7 +118,7 @@ We should follow this [style guide](http://codeguide.co/#css-syntax) when writin
 
 We should leave it up to the consuming application as to how much spacing is around any component.
 
-```
+```less
 // Bad
 :host {
 	margin: 10px;
@@ -127,7 +127,7 @@ We should leave it up to the consuming application as to how much spacing is aro
 
 ##### Use descriptive class names.
 
-```
+```less
 // Good
 .nav-bar {
 }
@@ -141,7 +141,7 @@ We should leave it up to the consuming application as to how much spacing is aro
 
 ##### Use color variables in components.
 
-```
+```less
 // Good
 .selector {
 	color: @brand-primary;
@@ -155,7 +155,7 @@ We should leave it up to the consuming application as to how much spacing is aro
 
 ##### One selector per line
 
-```
+```less
 // Good
 .selector,
 .selector-secondary {
@@ -168,7 +168,7 @@ We should leave it up to the consuming application as to how much spacing is aro
 
 ##### Include one space before the opening brace of declaration blocks for legibility.
 
-```
+```less
 // Good
 .selector {
 }
@@ -180,7 +180,7 @@ We should leave it up to the consuming application as to how much spacing is aro
 
 ##### Include one space after `:` for each declaration.
 
-```
+```less
 // Good
 background-color: #ddd;
 color: #fff;
@@ -192,7 +192,7 @@ color:#fff;
 
 ##### End all declarations with a semi-colon.
 
-```
+```less
 // Good
 .selector {
 	color: #2d2;
@@ -208,7 +208,7 @@ color:#fff;
 
 ##### Comma-separated property values should include a space after each comma.
 
-```
+```less
 // Good
 .selector {
 	box-shadow: 0 1px 2px #ccc, inset 0 1px 0 #fff;
@@ -222,7 +222,7 @@ color:#fff;
 
 ##### Lowercase all hex values and use shorthand hex values where available.
 
-```
+```less
 // Good
 .selector {
 	color: #fff;
@@ -236,7 +236,7 @@ color:#fff;
 
 ##### Avoid specifying units for zero values.
 
-```
+```less
 // Good
 margin: 0;
 
@@ -246,7 +246,7 @@ margin: 0px;
 
 ##### Avoid using shorthand notation for margin and padding when only setting one or two sides.
 
-```
+```less
 // Good
 margin-top: 10px;
 margin-left: 10px;
