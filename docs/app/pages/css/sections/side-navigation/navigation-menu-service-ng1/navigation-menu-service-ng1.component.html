@@ -1,0 +1,42 @@
+<p>The navigation menu service (<code>$navigationMenu</code>) can be used in combination with the <a routerLink="/css/page-header" fragment="menu-button">Menu Button</a> to control the visibility of the side navigation menu from anywhere in the application.</p>
+
+<p>The following code shows an example of using this service; the full example can be seen via the CodePen link above.</p>
+
+<uxd-snippet [code]="controllerJs" language="javascript"></uxd-snippet>
+
+<p>The following functions are available on the <code>$navigationMenu</code> service.</p>
+
+<div class="demo-attributes table-responsive">
+<table class="table m-t">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td class="attribute">show()</td>
+    <td>Shows the side navigation menu.</td>
+  </tr>
+  <tr>
+    <td class="attribute">hide()</td>
+    <td>Hides the side navigation menu.</td>
+  </tr>
+  <tr>
+    <td class="attribute">visible()</td>
+    <td>Returns true if the side navigation menu is currently visible; otherwise false.</td>
+  </tr>
+  <tr>
+    <td class="attribute">collapseAtWidth()</td>
+    <td>Returns the minimum window width (in pixels) that the side navigation menu may be displayed. At window widths narrower than this value, the menu will be hidden.</td>
+  </tr>
+  <tr>
+    <td class="attribute">setCollapseAtWidth(width)</td>
+    <td>Set the minimum window width (in pixels) that the side navigation menu may be displayed. Set the value to 0 to prevent hiding the side navigation menu based on window width.</td>
+  </tr>
+  <tr>
+    <td class="attribute">setDefaultCollapseAtWidth()</td>
+    <td>Set the <code>collapseAtWidth</code> value to its default.</td>
+  </tr>
+</table>
+</div>
+
+<p>The event <code>navigationMenu.visibilityChanged</code> is also broadcast on the root scope whenever the visible state changes. The data parameter of this event is a boolean indicating whether the side navigation menu has become visible.</p>

@@ -6,12 +6,14 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 
 import { CssNavigationComponent } from './navigation/navigation.component';
 import { CssAppNavigatorComponent } from './app-navigator/app-navigator.component';
+import { CssNavigationMenuServiceNg1Component } from './navigation-menu-service-ng1/navigation-menu-service-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 const SECTIONS = [
     CssNavigationComponent,
-    CssAppNavigatorComponent
+    CssAppNavigatorComponent,
+    CssNavigationMenuServiceNg1Component
 ];
 
 const ROUTES = [
