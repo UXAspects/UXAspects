@@ -1,5 +1,3 @@
-import 'chart.js';
-
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';

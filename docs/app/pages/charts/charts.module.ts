@@ -1,9 +1,9 @@
+import 'chart.js';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-
 import { DocumentationComponentsModule } from '../../components/components.module';
-
 import { ChartsPageComponent } from './charts.component';
 
 const ROUTES: Routes = [

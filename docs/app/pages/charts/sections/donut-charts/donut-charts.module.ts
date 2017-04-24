@@ -1,5 +1,3 @@
-import 'chart.js';
-
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
