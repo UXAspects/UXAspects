@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ColorService } from 'ux-aspects';
 
 @Component({
-    selector: 'uxd-stacked-line-chart',
-    templateUrl: './stacked-line-chart.component.html'
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
-export class StackedLineChartComponent {
+export class AppComponent {
 
     // configure the directive data
     lineChartData: Chart.ChartData;

@@ -1,13 +1,43 @@
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ColorService } from '../../../../../../../src/index';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-charts-donut-chart',
     templateUrl: './donut-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsDonutChartComponent')
-export class ChartsDonutChartComponent {
+export class ChartsDonutChartComponent implements IPlunkProvider {
+
+    plunk: IPlunk = {
+        files: {
+            'app.component.ts': require('./snippets/app.ts'),
+            'app.component.html': require('./snippets/app.html'),
+            'app.component.css': require('./snippets/app.css')
+        },
+        modules: [{
+            library: 'chart.js'
+        },
+        {
+            imports: ['ChartsModule'],
+            library: 'ng2-charts'
+        }, {
+            imports: ['ColorServiceModule'],
+            library: 'ux-aspects'
+        }],
+        mappings: [
+            {
+                alias: 'chart.js',
+                source: 'https://unpkg.com/chart.js@2.5.0/dist/Chart.min.js'
+            },
+            {
+                alias: 'ng2-charts',
+                source: 'https://unpkg.com/ng2-charts@1.5.0/bundles/ng2-charts.umd.min.js'
+            }
+        ]
+    };
 
     // configure the directive data
     donutChartData: Chart.ChartData = [{
@@ -20,9 +50,9 @@ export class ChartsDonutChartComponent {
     donutChartLegend: boolean = true;
     donutChartColors: any;
 
-    htmlCode = require('./snippets/donut-chart.html');
-    tsCode = require('./snippets/donut-chart.ts');
-    cssCode = require('./snippets/donut-chart.css');
+    htmlCode = require('./snippets/app.html');
+    tsCode = require('./snippets/app.ts');
+    cssCode = require('./snippets/app.css');
 
     constructor(colorService: ColorService) {
 
@@ -59,7 +89,7 @@ export class ChartsDonutChartComponent {
                         // calculate the percentage of the current segment compared to the total
                         let precentage = Math.round(((segmentValue / total) * 100));
 
-                        return `${ precentage }%, Sales ${ item.index + 1 }`;
+                        return `${precentage}%, Sales ${item.index + 1}`;
                     }
                 },
                 backgroundColor: tooltipBackgroundColor,

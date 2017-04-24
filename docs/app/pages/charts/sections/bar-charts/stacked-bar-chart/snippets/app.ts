@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ColorService } from 'ux-aspects';
 
 @Component({
-    selector: 'uxd-stacked-bar-chart',
-    templateUrl: './stacked-bar-chart.component.html'
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
-export class StackedBarChartComponent {
+export class AppComponent {
 
     // configure the directive data
     barChartData: Chart.ChartDataSets[];

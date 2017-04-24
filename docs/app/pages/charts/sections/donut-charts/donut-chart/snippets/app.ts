@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ColorService } from 'ux-aspects';
 
 @Component({
-    selector: 'uxd-donut-chart',
-    templateUrl: './donut-chart.component.html'
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
-export class DonutChartComponent {
+export class AppComponent {
 
     // configure the directive data
     donutChartData: Chart.ChartData = [{

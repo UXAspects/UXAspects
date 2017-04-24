@@ -4,11 +4,11 @@ import { BaseChartDirective } from 'ng2-charts';
 import { Chart } from 'chart.js';
 
 @Component({
-    selector: 'uxd-scrollable-chart',
-    templateUrl: './scrollable-chart.component.html',
-    styleUrls: ['./scrollable-chart.component.less']
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
-export class ScrollableChartComponent {
+export class AppComponent {
 
     // configure the directive data
     barChartData: Chart.ChartData;

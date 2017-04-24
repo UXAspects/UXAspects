@@ -4,10 +4,11 @@ import { BaseChartDirective } from 'ng2-charts';
 import { Chart } from 'chart.js';
 
 @Component({
-    selector: 'uxd-bar-chart',
-    templateUrl: './bar-chart.component.html'
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
-export class BarChartComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit {
 
     // access the chart directive properties
     @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;

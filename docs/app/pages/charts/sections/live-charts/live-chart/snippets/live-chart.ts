@@ -3,10 +3,11 @@ import { ColorService } from 'ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
-    selector: 'uxd-live-chart',
-    templateUrl: './live-chart.component.html'
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
-export class LiveChartComponent {
+export class AppComponent {
 
     // access the chart directive properties
     @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;

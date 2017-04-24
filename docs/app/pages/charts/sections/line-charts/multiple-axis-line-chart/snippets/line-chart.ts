@@ -2,14 +2,15 @@ import { Component, Inject, ViewChild, AfterViewInit, ViewEncapsulation } from '
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ColorService } from 'ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
+import { FlotData } from './flot-data';
 
 @Component({
-    selector: 'uxd-multi-axis-line-chart',
-    templateUrl: './multiple-axis-line-chart.component.html',
-    styleUrls: ['./multiple-axis-line-chart.component.less'],
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class MultipleAxisLineChartComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit {
 
     // access the chart directive properties
     @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
@@ -22,7 +23,7 @@ export class MultipleAxisLineChartComponent implements AfterViewInit {
 
     lineChartLegendContents: SafeHtml;
 
-    constructor(private sanitizer: DomSanitizer, colorService: ColorService, @Inject('flotDataService') flotDataService: any) {
+    constructor(private sanitizer: DomSanitizer, colorService: ColorService) {
 
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         let gridColor = colorService.getColor('grey6').toHex();
@@ -37,14 +38,14 @@ export class MultipleAxisLineChartComponent implements AfterViewInit {
         let lineForecastFillColor2 = colorService.getColor('chart2').setAlpha(0.06).toRgba();
         let pointBorderColor2 = colorService.getColor('chart2').setAlpha(0.5).toRgba();
 
-        let oilPrices = flotDataService.getOilPrices().map((values: number[]) => {
+        let oilPrices = FlotData.getOilPrices().map((values: number[]) => {
             return {
                 x: values[0],
                 y: values[1]
             };
         });
 
-        let exchangeRates = flotDataService.getExchangeRates().map((values: number[]) => {
+        let exchangeRates = FlotData.getExchangeRates().map((values: number[]) => {
             return {
                 x: values[0],
                 y: values[1]

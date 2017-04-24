@@ -34,7 +34,7 @@ export class ChartsScrollableChartNg1Component implements ICodePenProvider {
             chartHover: colorService.getColor('chart2').setAlpha(0.2).toRgba(),
             gridColor: colorService.getColor('grey4').toHex(),
             tickColor: colorService.getColor('grey6').toHex(),
-            borderColor: colorService.getColor('grey2').toRgba(),
+            borderColor: colorService.getColor('grey2').setAlpha(0.5).toRgba(),
             white: '#fff'
         };
 

@@ -1,13 +1,43 @@
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ColorService } from '../../../../../../../src/index';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-charts-line-chart',
     templateUrl: './line-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsLineChartComponent')
-export class ChartsLineChartComponent {
+export class ChartsLineChartComponent implements IPlunkProvider {
+
+    plunk: IPlunk = {
+        files: {
+            'app.component.ts': require('./snippets/line-chart.ts'),
+            'app.component.html': require('./snippets/line-chart.html'),
+            'app.component.css': require('./snippets/line-chart.css')
+        },
+        modules: [{
+            library: 'chart.js'
+        },
+        {
+            imports: ['ChartsModule'],
+            library: 'ng2-charts'
+        }, {
+            imports: ['ColorServiceModule'],
+            library: 'ux-aspects'
+        }],
+        mappings: [
+            {
+                alias: 'chart.js',
+                source: 'https://unpkg.com/chart.js@2.5.0/dist/Chart.min.js'
+            },
+            {
+                alias: 'ng2-charts',
+                source: 'https://unpkg.com/ng2-charts@1.5.0/bundles/ng2-charts.umd.min.js'
+            }
+        ]
+    };
 
     // configure the directive data
     lineChartData: Chart.ChartData;
