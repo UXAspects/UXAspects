@@ -195,7 +195,10 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
         row.api = rowApi(row);
         rows.push(row);
       }
-      return rows.sort(sortAsc);
+      if (angular.isFunction(vm.allOptions.sort)) {
+        rows = rows.sort(vm.allOptions.sort);
+      }
+      return rows;
     });
   }
 
@@ -287,27 +290,6 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   function reload(row) {
     row.children = [];
     return expand(row);
-  }
-
-  // Row sort function
-  function sortAsc(a, b) {
-    var av = getSortableValue(a);
-    var bv = getSortableValue(b);
-    if (av < bv) {
-      return -1;
-    }
-    if (av > bv) {
-      return 1;
-    }
-    return 0;
-  }
-
-  // Function to extract a sortable value from a row (currently only first column considered)
-  function getSortableValue(row) {
-    if (vm.columns.length < 1) {
-      return "";
-    }
-    return getValueForColumn(row, 0);
   }
 
   function getValueForColumn(row, colIndex) {

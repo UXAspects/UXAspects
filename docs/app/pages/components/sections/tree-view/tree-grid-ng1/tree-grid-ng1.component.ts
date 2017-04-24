@@ -21,6 +21,7 @@ export class ComponentsTreeGridNg1Component implements ICodePenProvider {
     private actionsHtml = require('./wrapper/actions.html');
     private displayPanel = require('./wrapper/displayPanel.html');
     private displayPanelFooter = require('./wrapper/displayPanelFooter.html');
+    private sortExampleJs = require('./snippets/sort.example.js');
 
     public codepen: ICodePen = {
         html: this.sampleHtml,
