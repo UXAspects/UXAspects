@@ -217,8 +217,10 @@ export class ChartsMultipleAxisLineChartComponent implements AfterViewInit, IPlu
 
     ngAfterViewInit() {
 
-        // get the HTML for the legend
-        this.lineChartLegendContents = this.sanitizer.bypassSecurityTrustHtml(this.baseChart.chart.generateLegend());
+        // get the HTML for the legend after timeout - as expressions cannot be updated here
+        setTimeout(() => {
+            this.lineChartLegendContents = this.sanitizer.bypassSecurityTrustHtml(this.baseChart.chart.generateLegend());
+        });
     }
 
 }
