@@ -179,19 +179,6 @@ The Utilities class contains methods which:
 
 # Problems encountered during test development
 
-#### Component visibility in Chrome
-
-When a component such as a button is clicked through the WebDriver API,
-the browser window is first scrolled so that the component is visible at
-the top of the window. The click event is then issued. However, in
-Chrome the click event can fail because the component is hidden behind
-the Standard Header and cannot receive the event. An “element is not
-clickable at point xxx” error is raised. To avoid this, the test should
-define a number of pixels by which the browser window should be scrolled
-downwards to bring the component into view before the click event is
-issued. A default number of pixels to be moved (-50) is defined in the
-TestNG.xml file.
-
 #### Page loading delay
 
 When pages are moved to a delay before test execution continues is
