@@ -39,7 +39,7 @@ components
 
 ### Component Decorator 
 
-- The selector should always be prefixed with `ux-` (any documentation specific components should be prefixed with `uxd-`), this will help avoid any potential conflicts with selectors in other libraries of a users application.
+- The selector should always be prefixed with `ux-` (any documentation specific components should be prefixed with `uxd-`), this will help avoid any potential conflicts with selectors in other libraries of a user's application.
 - Exclude `moduleId` property. The Angular component interface has a field for `moduleId` which is used to support relative paths, primarily for SystemJS module loader to load templates and stylesheets. As part of our build process we inline templates and styles to allow us to support the most common bundlers and module loaders so this property is not required.
 - Template and style urls should begin with a `./` to ensure they are relative paths.
 - Use the host element instead of wrapping in a container element. The host element can be styled and have events and bindings using the `host` property in the decorator (or using a HostListener).
@@ -67,7 +67,7 @@ export class SampleModule { }
 
 ### Component Index
 
-Each component should have an index.ts file in it's folder. This should export each component or service class associated with the component to allow consumers to import any classes they need for things like dependency injection. e.g.:
+Each component should have an index.ts file in its folder. This should export each component or service class associated with the component to allow consumers to import any classes they need for things like dependency injection. e.g.:
 
 ```typescript
 export * from './spark.module';
@@ -97,12 +97,12 @@ This allows consumers to import from `ux-aspects` rather than having to specify 
 - The class name should consist of the component name followed by `Component`, written in upper camel case.
 - Any `@Input` and `@Output` variables should be defined in the class rather than in component metadata.
 - All instance variables that are used within the view should be public.
-- Mark any instance variables or functions as private that you do not wish to expose outside of the component only if they are not used within the view.
+- Mark any other instance variables or functions as private that you do not wish to expose outside of the component.
 - Any component that may be used in a form e.g. checkboxes or radiobuttons, should support **both** `ngModel` and an alternative two way binding property to get/set the value.
 - Use attributes on the template to manipulate the DOM where possible rather than using TypeScript to manipulate the DOM. In the rare occasion where it is not possible, inject `Renderer2` and use it rather than directly touching the DOM. 
 - When using key events in the View specify the key in the attribute rather than performing a condition check on the event `keyCode` e.g. (keydown.uparrow)="upKeyPress()".
 - When binding directly to a style property in the view, place the measurement in the attribute rather than using string interpolation eg. `<div [style.top.px]="topValue"></div>` rather than `<div [style.top]="topValue + 'px'"></div>`.
-- TSLint is included in our project and you code should conform to the rules it tests for.
+- TSLint is included in our project and your code should conform to the rules it tests for.
 - Where possible components should support a disabled state.
 - Components should provide keyboard support for accessibility purposes.
 - Each component should have unit tests written for it. A complete guide on writing unit tests can be [found here](https://github.com/UXAspects/UXAspects/blob/develop/UNIT-TESTS.md).
@@ -260,7 +260,7 @@ margin: 10px 0 0 10px;
 
 Each documentation section should have its own module to enabled code splitting. The module should import any dependencies unless provided by a parent module.
 
-Each subsection should a separate component, and should be decorated with the `@DocumentationSectionComponent()` decorator, passing the class name as a string parameter.
+Each subsection should be a separate component, and should be decorated with the `@DocumentationSectionComponent()` decorator, passing the class name as a string parameter.
 
 Eg:
 
