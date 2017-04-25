@@ -241,7 +241,7 @@ describe('treegrid', function () {
       $rootScope.$apply();
     });
 
-    it("should should sort by the first column ascending by default", function() {
+    it("should should sort according to sort option", function() {
       var ctrl = instantiateController({
         data: [{
           test: "Row 2",
@@ -260,6 +260,7 @@ describe('treegrid', function () {
           num: 4,
           nodes: []
         }, {
+          test: "",
           num: 5,
           nodes: []
         }],
@@ -269,7 +270,15 @@ describe('treegrid', function () {
         }, {
           name: "num",
           value: "num"
-        }]
+        }],
+        options: {
+          sort: function(a, b) {
+            // Sort by 'test' ascending
+            var at = a.dataItem.test;
+            var bt = b.dataItem.test;
+            return at < bt ? -1 : (at > bt ? 1 : 0);
+          }
+        }
       });
       var rows = ctrl.getGridRows();
       expect(rows.length).toBe(5);
@@ -300,7 +309,15 @@ describe('treegrid', function () {
           test: new Date('2015-01-01'),
           nodes: []
         }],
-        columns: [{ name: "test", value: "test" }]
+        columns: [{ name: "test", value: "test" }],
+        options: {
+          sort: function(a, b) {
+            // Sort by 'test' ascending
+            var at = a.dataItem.test;
+            var bt = b.dataItem.test;
+            return at < bt ? -1 : (at > bt ? 1 : 0);
+          }
+        }
       });
       var rows = ctrl.getGridRows();
       expect(rows.length).toBe(4);
@@ -325,7 +342,15 @@ describe('treegrid', function () {
             nodes: []
           }]
         }],
-        columns: [{ name: "test", value: "test" }]
+        columns: [{ name: "test", value: "test" }],
+        options: {
+          sort: function(a, b) {
+            // Sort by 'test' ascending
+            var at = a.dataItem.test;
+            var bt = b.dataItem.test;
+            return at < bt ? -1 : (at > bt ? 1 : 0);
+          }
+        }
       });
       var rows = ctrl.getGridRows();
       expect(rows.length).toBe(2);
