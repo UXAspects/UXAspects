@@ -21,7 +21,6 @@ const ROUTES: Routes = [
             { path: 'panels', loadChildren: './sections/panels/panels.module#CssPanelsModule' },
             { path: 'progress', loadChildren: './sections/progress/progress.module#CssProgressModule' },
             { path: 'responsive-design', loadChildren: './sections/responsive-design/responsive-design.module#CssResponsiveDesignModule' },
-            { path: 'side-navigation', loadChildren: './sections/side-navigation/side-navigation.module#CssSideNavigationModule' },
             { path: 'structure', loadChildren: './sections/structure/structure.module#CssStructureModule' },
             { path: 'tables', loadChildren: './sections/tables/tables.module#CssTablesModule' },
             { path: 'text-inputs', loadChildren: './sections/text-inputs/text-inputs.module#CssTextInputsModule' },

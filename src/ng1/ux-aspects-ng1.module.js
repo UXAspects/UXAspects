@@ -117,6 +117,7 @@ import './services/safeAnimationFrame/safeAnimationFrame.module.js';
 import './services/safeEventListener/safeEventListener.module.js';
 import './services/safeInterval/safeInterval.module.js';
 import './services/safeTimeout/safeTimeout.module.js';
+import './services/navigationMenuService/navigationMenu.module.js';
 import './services/timeAgoService/timeAgo.module.js';
 import './services/windowCommunicationService/windowCommunication.module.js';
 
@@ -236,7 +237,8 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.safeAnimationFrame',
     'ux-aspects.safeEventListener',
     'ux-aspects.safeInterval',
-    'ux-aspects.safeTimeout',  
+    'ux-aspects.safeTimeout',
+    'ux-aspects.navigationMenuService',
     'ux-aspects.timeAgoService',   
     'ux-aspects.windowCommunicationService'
 ]);

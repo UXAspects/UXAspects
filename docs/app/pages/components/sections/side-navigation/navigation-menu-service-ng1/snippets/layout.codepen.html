@@ -1,0 +1,81 @@
+<div id="ux-codepen-container">
+<div class="wrapper">
+
+    <div class="nav-menu-btn-container nav-menu-btn-container-dark nav-menu-btn-container-top-dark">
+        <a class="nav-menu-toggle-btn" minimize-menu animate="true" href="">
+            <i class="hpe-icon hpe-menu"></i>
+        </a>
+    </div>
+    <nav class="navbar-static-side-container navbar-static-side-container-dark" ng-class="sidecontainer" scroll-config="{ autoReinitialise: false, showOnlyOnHover: true, enableKeyboardNavigation:true}"
+        scroll-pane id="menuScroll" role="navigation">
+        <div class="navbar-default navbar-static-side navbar-static-side-dark" role="navigation">
+            <ul class="nav" side-navigation id="side-menu">
+                <li class="nav-header nav-header-dark">
+                    <a class="logo-element-container">
+                        <div class="logo-element-image"></div>
+                        <p class="logo-element-text">UX Aspects</p>
+                    </a>
+                </li>
+
+                <li class="active selected">
+                    <a href="">
+                        <i class="hpe-icon hpe-clone"></i>
+                        <span class="nav-label">Patterns</span> <span class="hpe-icon hpe-collapse arrow"></span>
+                    </a>
+                    <ul class="in nav nav-second-level">
+                        <li class="active"><a href="">Navigation Menu Example</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-content page-content-navbar-top-light">
+        <div class="affix-container">
+            <nav class="navbar navbar-static-top navbar-static-top-light back-button" affix-element>
+                <div class="navbar-header top-link-dropdown-2">
+                    <div class="product-styling" ng-show="!vm.topSearchExpanded">
+                    </div>
+                    <div class="primary-bg page-heading">
+                        <div class="btn-back-header">
+                            <span class="hpe-icon hpe-previous text-primary" ng-click="vm.goBack()"></span>
+                        </div>
+                        <div class="header-content-left">
+                            <ol class="breadcrumb">
+                                <li>
+                                    <a href="#">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#">Patterns</a>
+                                </li>
+                            </ol>
+                            <h1 class="heading m-t-nil">Navigation Menu Example</h1>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Page Content -->
+        <div ng-controller="PageContentCtrl as pc">
+            <div class="affix-container toolbar">
+                <div class="affix-toolbar" affix-element>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <button type="button" class="btn button-toggle-primary" ng-model="pc.navigationOpen" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+                                <i class="hpe-icon hpe-navigate"></i> Navigation Menu
+                            </button>
+                            <toggleswitch ng-model="pc.navigationAutoCollapse" class="m-l-md">
+                                Navigation Auto-Hide
+                            </toggleswitch>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper-content">
+            </div>
+        </div>
+    </div>
+</div>
+</div>

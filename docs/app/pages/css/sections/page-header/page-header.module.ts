@@ -6,7 +6,6 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { CssNavigationHeaderComponent } from './navigation-header/navigation-header.component';
-import { CssMenuButtonComponent } from './menu-button/menu-button.component';
 import { CssBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { CssBreadcrumbFromStatesComponent } from './breadcrumb-from-states/breadcrumb-from-states.component';
 import { CssBreadcrumbWithTabStateComponent } from './breadcrumb-with-tab-state/breadcrumb-with-tab-state.component';
@@ -23,7 +22,6 @@ import { CssCondensedHeaderToolbarComponent } from './condensed-header-toolbar/c
 
 const SECTIONS = [
     CssNavigationHeaderComponent,
-    CssMenuButtonComponent,
     CssBreadcrumbComponent,
     CssBreadcrumbFromStatesComponent,
     CssBreadcrumbWithTabStateComponent,

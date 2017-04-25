@@ -491,6 +491,30 @@
             ]
         },
         {
+            "title": "Side Navigation",
+            "link": "side-navigation",
+            "sections": [
+                {
+                    "title": "Navigation",
+                    "component": "ComponentsNavigationComponent"  
+                },
+                {
+                    "title": "App Navigator",
+                    "component": "ComponentsAppNavigatorComponent"  
+                },
+                {
+                    "title": "Navigation Menu Button",
+                    "component": "ComponentsMenuButtonComponent",
+                    "version": "AngularJS"
+                },
+                {
+                    "title": "Navigation Menu Service",
+                    "component": "ComponentsNavigationMenuServiceNg1Component",
+                    "version": "AngularJS"
+                }
+            ]
+        },
+        {
             "title": "Splitter",
             "link": "splitter",
             "sections": [

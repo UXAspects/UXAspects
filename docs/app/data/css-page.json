@@ -112,30 +112,12 @@
             ]
         },
         {
-            "title": "Side Navigation",
-            "link": "side-navigation",
-            "sections": [
-                {
-                    "title": "Navigation",
-                    "component": "CssNavigationComponent"  
-                },
-                {
-                    "title": "App Navigator",
-                    "component": "CssAppNavigatorComponent"  
-                }
-            ]
-        },
-        {
             "title": "Page Header",
             "link": "page-header",
             "sections": [
                 {
                     "title": "Navigation Header",
                     "component": "CssNavigationHeaderComponent"  
-                },
-                {
-                    "title": "Menu Button",
-                    "component": "CssMenuButtonComponent"  
                 },
                 {
                     "title": "Breadcrumb",

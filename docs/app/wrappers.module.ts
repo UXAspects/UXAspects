@@ -9,9 +9,6 @@ import './pages/charts/sections/partition-map/partition-map-ng1/popover/popover.
 import './pages/css/sections/forms/form-validation-field-by-field/wrapper/form-validation-field-by-field-wrapper.directive';
 import './pages/css/sections/forms/form-validation-on-submit/wrapper/form-validation-on-submit-wrapper.directive';
 import './pages/css/sections/text-inputs/float-labels/wrapper/float-labels-wrapper.directive';
-import './pages/css/sections/side-navigation/navigation/wrapper/navigation-wrapper.directive';
-import './pages/css/sections/side-navigation/navigation/wrapper/boldify.directive';
-import './pages/css/sections/side-navigation/app-navigator/wrapper/app-navigator-wrapper.directive';
 
 import './pages/components/sections/buttons/checkbox-buttons-ng1/wrapper/checkbox-buttons-wrapper.directive';
 import './pages/components/sections/buttons/dropdown-ng1/wrapper/dropdown-wrapper.directive';
@@ -52,6 +49,9 @@ import './pages/components/sections/search/search-builder-ng1/wrapper/search-bui
 import './pages/components/sections/search/search-builder-ng1/wrapper/search-builder-wrapper.directive';
 import './pages/components/sections/search/search-history-ng1/wrapper/search-history-wrapper.directive';
 import './pages/components/sections/search/search-toolbar-ng1/wrapper/search-toolbar-wrapper.directive';
+import './pages/components/sections/side-navigation/navigation/wrapper/navigation-wrapper.directive';
+import './pages/components/sections/side-navigation/navigation/wrapper/boldify.directive';
+import './pages/components/sections/side-navigation/app-navigator/wrapper/app-navigator-wrapper.directive';
 import './pages/components/sections/splitter/layout-switching-splitter-ng1/wrapper/layout-switching-splitter-wrapper.directive';
 import './pages/components/sections/splitter/nested-splitter-ng1/wrapper/nested-splitter-wrapper.directive';
 import './pages/components/sections/splitter/side-inset-panel-splitter-ng1/wrapper/side-inset-panel-splitter-wrapper.directive';

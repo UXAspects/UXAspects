@@ -33,6 +33,7 @@ const ROUTES: Routes = [
             { path: 'scrollbar', loadChildren: './sections/scrollbar/scrollbar.module#ComponentsScrollbarModule' },
             { path: 'search', loadChildren: './sections/search/search.module#ComponentsSearchModule' },
             { path: 'select', loadChildren: './sections/select/select.module#ComponentsSelectModule' },
+            { path: 'side-navigation', loadChildren: './sections/side-navigation/side-navigation.module#ComponentsSideNavigationModule' },
             { path: 'splitter', loadChildren: './sections/splitter/splitter.module#ComponentsSplitterModule' },
             { path: 'tables', loadChildren: './sections/tables/tables.module#ComponentsTablesModule' },
             { path: 'tabs', loadChildren: './sections/tabs/tabs.module#ComponentsTabsModule' },
