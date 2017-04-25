@@ -244,7 +244,7 @@
   
   <!-- IE 11 -->
   
-  <test name="IE-Charts-BarCharts">
+  <!-- <test name="IE-Charts-BarCharts">
     <parameter name="browser" value="IE"/>
     <parameter name="page" value="charts/bar-charts"/>
 	<classes>
@@ -264,7 +264,7 @@
 	</classes>
   </test>
   
-  <!-- <test name="IE-Components-Buttons">
+  <test name="IE-Components-Buttons">
     <parameter name="browser" value="IE"/>
     <parameter name="page" value="components/buttons"/>
 	<classes>
