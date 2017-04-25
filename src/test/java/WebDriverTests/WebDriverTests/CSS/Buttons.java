@@ -763,6 +763,8 @@ public class Buttons extends TestNGBase {
 		try {
 			initialiseMethod(getClass().getCanonicalName(), Utilities.getMethodName());
 			
+			if (this.browser.equalsIgnoreCase("edge")) {return;}
+			
 			// Scroll to the required section and wait until one of the components is displayed
 			String displaySection = "window.location.href=\"" + this.startingUrl + "#button-dropdowns" + "\"";
 			Utilities.scrollToSection(driver, displaySection);
@@ -988,6 +990,8 @@ public class Buttons extends TestNGBase {
 	public void testSplitButtonDropdowns() throws Exception {
 		try {
 			initialiseMethod(getClass().getCanonicalName(), Utilities.getMethodName());
+			
+			if (this.browser.equalsIgnoreCase("edge")) {return;}
 
 			// Scroll to the required section and wait until one of the components is displayed
 			String displaySection = "window.location.href=\"" + this.startingUrl + "#split-button-dropdowns" + "\"";
