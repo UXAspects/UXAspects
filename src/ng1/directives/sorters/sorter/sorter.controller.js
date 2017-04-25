@@ -1,31 +1,35 @@
-SorterController.$inject = ["$scope"];
+export default class SorterController {
 
-export default function SorterController($scope) {
-    var vm = this;
-    vm.sorteroption = $scope;
-    vm.default = $scope.title;
-    vm.sorteroptions = $scope.sorteroptions = [];
-    vm.previousSorter = null;
-}
+    constructor($scope) {
+        this.sorteroption = $scope;
+        this.default = $scope.title;
+        this.sorteroptions = $scope.sorteroptions = [];
+        this.previousSorter = null;
+    }
 
-SorterController.prototype.setTitle = function(title, defaultval) {
+    setTitle(title, defaultVal) {
 
-    var sorterAlreadySelected = null;
-    this.sorteroption.name = title;
-    this.sorteroption.class = (!defaultval) ? 'sorter-selected' : '';
+        let sorterAlreadySelected = null;
 
-    if (this.previousSorter === this) {
+        this.sorteroption.name = title;
+        this.sorteroption.class = !defaultVal ? 'sorter-selected' : '';
 
-        if (defaultval) {
-            sorterAlreadySelected = true;
-            this.previousSorter = null;
-        } else {
-            sorterAlreadySelected = false;
-            this.previousSorter = this;
+        if (this.previousSorter === this) {
+
+            if (defaultVal) {
+                sorterAlreadySelected = true;
+                this.previousSorter = null;
+            } else {
+                sorterAlreadySelected = false;
+                this.previousSorter = this;
+            }
         }
     }
-};
 
-SorterController.prototype.addSorterOptions = function(val) {
-    this.sorteroptions.push(val);
-};
+    addSorterOptions(val) {
+        this.sorteroptions.push(val);
+    }
+
+}
+
+SorterController.$inject = ["$scope"];

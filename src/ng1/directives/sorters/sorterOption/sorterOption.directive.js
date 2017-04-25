@@ -10,7 +10,8 @@ export default function sorterOption() {
             name: "=",
             select: "&",
             default: "=",
-            iconClass: "=?"
+            iconClass: "=?",
+            disabled: "=?"
         },
         link: function(scope, element, attrs, controller) {
 
