@@ -65,7 +65,9 @@ export class AppComponent implements AfterViewInit {
                     title: (item: Chart.ChartTooltipItem[]) => {
                         return;
                     },
-                    label: (item: Chart.ChartTooltipItem) => `x: ${ item.xLabel }, y: ${ item.yLabel }`
+                    label: (item: Chart.ChartTooltipItem) => {
+                        return `x: ${ item.xLabel }, y: ${ item.yLabel }`;
+                    }
                 },
                 displayColors: false
             } as any

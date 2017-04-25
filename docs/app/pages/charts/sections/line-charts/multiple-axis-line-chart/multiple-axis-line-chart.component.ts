@@ -124,7 +124,7 @@ export class ChartsMultipleAxisLineChartComponent implements AfterViewInit, IPlu
                 });
 
                 // create html for chart legend
-                return `<ul class="multi-axis-legend-list">${ sets.join('') }</ul>`;
+                return `<ul class="multi-axis-legend-list">${sets.join('')}</ul>`;
             },
             scales: {
                 xAxes: [{
@@ -136,7 +136,8 @@ export class ChartsMultipleAxisLineChartComponent implements AfterViewInit, IPlu
                         stepSize: 5313240000,
                         callback: (value: number, index: number, values: number[]) => {
                             let date = new Date(value);
-                            return date.toLocaleString('en', { month: 'short' }) + ' ' + date.toLocaleString('en', { year: 'numeric' });
+                            return date.toLocaleString('en', { month: 'short' })
+                                + ' ' + date.toLocaleString('en', { year: 'numeric' });
                         }
                     } as Chart.LinearTickOptions
                 }],

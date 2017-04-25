@@ -100,8 +100,16 @@ export class AppComponent {
         let hoverColors = [];
 
         for (let idx = 0; idx < 13; idx++) {
-            backgroundColors.push(this.colorService.getColor(baseColor).setAlpha(idx < 10 ? 0.7 : 0.3).toRgba());
-            hoverColors.push(this.colorService.getColor(baseColor).setAlpha(idx < 10 ? 0.8 : 0.4).toRgba());
+
+            backgroundColors.push(
+                this.colorService.getColor(baseColor)
+                    .setAlpha(idx < 10 ? 0.7 : 0.3)
+                    .toRgba());
+
+            hoverColors.push(
+                this.colorService.getColor(baseColor)
+                    .setAlpha(idx < 10 ? 0.8 : 0.4)
+                    .toRgba());
         }
 
         return {
