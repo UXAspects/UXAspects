@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'ux-progressbar',
-    templateUrl: './progressbar.component.html',
-    styleUrls: ['./progressbar.component.less']
+    templateUrl: './progressbar.component.html'
 })
 export class ProgressBarComponent {
 

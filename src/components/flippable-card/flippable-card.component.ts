@@ -3,7 +3,6 @@ import { Component, Input, Directive } from '@angular/core';
 @Component({
     selector: 'ux-flippable-card',
     templateUrl: './flippable-card.component.html',
-    styleUrls: ['./flippable-card.component.less'],
     host: {
         '[class.horizontal]': 'direction === "horizontal"',
         '[class.vertical]': 'direction === "vertical"',

@@ -10,7 +10,6 @@ export const RADIOBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'ux-radiobutton',
     templateUrl: './radiobutton.component.html',
-    styleUrls: ['./radiobutton.component.less'],
     providers: [RADIOBUTTON_VALUE_ACCESSOR]
 })
 export class RadioButtonComponent implements ControlValueAccessor {

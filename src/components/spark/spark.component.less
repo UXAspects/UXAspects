@@ -1,66 +1,64 @@
-@import "../../styles/variables.less";
+ux-spark {
+    display: block;
 
-:host {
-  display: block;
-}
+    .ux-spark {
+        overflow: hidden;
+    }
 
-.ux-spark {
-  overflow: hidden;
-}
+    .ux-spark .ux-spark-bar {
+        height: 100%;
+    }
 
-.ux-spark .ux-spark-bar {
-  height: 100%;
-}
+    .ux-spark .ux-fill {
+        transition: none;
+    }
 
-.ux-spark .ux-fill {
-  transition: none;
-}
+    .ux-spark.ux-inline {
+        margin-bottom: 0;
+        display: inline-block;
+        width: 100%;
+        float: left;
+    }
 
-.ux-spark.ux-inline {
-  margin-bottom: 0;
-  display: inline-block;
-  width: 100%;
-  float: left;
-}
+    .ux-spark-line {
+        flex: 1;
+    }
 
-.ux-spark-line {
-  flex: 1;
-}
+    .ux-spark-inline-label-container {
+        display: flex;
+        align-items: center;
+    }
 
-.ux-spark-inline-label-container {
-  display: flex;
-  align-items: center;
-}
+    .ux-spark-inline-label-left {
+        flex: none;
+        text-align: right;
+        margin-right: 5px;
+    }
 
-.ux-spark-inline-label-left {
-  flex: none;
-  text-align: right;
-  margin-right: 5px;
-}
+    .ux-spark-top-container {
+        min-height: 24px;
+    }
 
-.ux-spark-top-container {
-  min-height: 24px;
-}
+    .ux-spark-bottom-container {
+        min-height: 24px;
+        line-height: 22px;
+    }
 
-.ux-spark-bottom-container {
-  min-height: 24px;
-  line-height: 22px;
-}
+    .ux-spark-label-top-left,
+    .ux-spark-label-top-right,
+    .ux-spark-label-bottom-left,
+    .ux-spark-label-bottom-right {
+        display: inline-block;
+    }
 
-.ux-spark-label-top-left, 
-.ux-spark-label-top-right, 
-.ux-spark-label-bottom-left, 
-.ux-spark-label-bottom-right {
-  display: inline-block;
-}
+    .ux-spark-label-top-left,
+    .ux-spark-label-bottom-left {
+        float: left;
+    }
 
-.ux-spark-label-top-left, 
-.ux-spark-label-bottom-left {
-  float: left;
-} 
-
-.ux-spark-label-top-right, 
-.ux-spark-label-bottom-right {
-  float: right;
-  text-align: right;
+    .ux-spark-label-top-right,
+    .ux-spark-label-bottom-right {
+        float: right;
+        text-align: right;
+    }
 }
