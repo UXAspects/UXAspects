@@ -105,6 +105,7 @@ This allows consumers to import from `ux-aspects` rather than having to specify 
 - TSLint is included in our project and you code should conform to the rules it tests for.
 - Where possible components should support a disabled state.
 - Components should provide keyboard support for accessibility purposes.
+- Each component should have unit tests written for it. A complete guide on writing unit tests can be [found here](https://github.com/UXAspects/UXAspects/blob/develop/UNIT-TESTS.md).
 
 ### Component Styling
 
