@@ -18,10 +18,6 @@ export default function listHoverAction(keyboardService) {
         RIGHT: 39
       };
 
-      element.tooltip({
-        title: scope.name
-      });
-
       // clean up after destroyed
       scope.$on('$destroy', function () {
         element.tooltip('destroy');
