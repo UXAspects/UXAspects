@@ -9,10 +9,10 @@
             <span class="label label-accent m-r-sm" *ngIf="version === 'Angular'">Angular 4</span>
 
             <!-- Identify as External plugin -->
-            <a class="label label-warning m-r-sm" *ngIf="externalUrl" [href]="externalUrl" target="_blank">External</a>
+            <a class="label label-warning m-r-sm" tooltip="This component is from a third party library and not included in the UX Aspects component library." container="body" *ngIf="externalUrl" [href]="externalUrl" target="_blank">External</a>
 
             <!-- Show Deprecated label if required -->
-            <span class="label label-critical" *ngIf="deprecated">Deprecated</span>
+            <span class="label label-critical" tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects." container="body" *ngIf="deprecated">Deprecated</span>
 
             <!-- Show the CodePen or Plunker link if required -->
             <uxd-edit-example-link class="m-l" *ngIf="codepen" [title]="title" [content]="codepen" type="codepen" [version]="version">Edit in CodePen</uxd-edit-example-link>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.html'
+    templateUrl: './src/app.component.html'
 })
 export class AppComponent {
     private checkModel = {

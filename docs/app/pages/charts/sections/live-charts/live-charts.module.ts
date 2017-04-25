@@ -7,9 +7,12 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { WrappersModule } from '../../../../wrappers.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsLiveChartComponent } from './live-chart/live-chart.component';
+import { ChartsModule } from 'ng2-charts';
 
 const SECTIONS = [
-    ChartsLiveChartNg1Component
+    ChartsLiveChartNg1Component,
+    ChartsLiveChartComponent
 ];
 
 const ROUTES = [
@@ -26,6 +29,7 @@ const ROUTES = [
     imports: [
         TabsModule,
         WrappersModule,
+        ChartsModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

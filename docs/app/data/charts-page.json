@@ -7,18 +7,39 @@
             "sections": [
                 {
                     "title": "Bar Chart",
+                    "component": "ChartsBarChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Bar Chart (Angular 1)",
                     "component": "ChartsBarChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Horizontal Bar Chart",
+                    "component": "ChartsHorizontalBarChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Horizontal Bar Chart (Angular 1)",
                     "component": "ChartsHorizontalBarChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Stacked Bar Chart",
+                    "component": "ChartsStackedBarChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Stacked Bar Chart (Angular 1)",
                     "component": "ChartsStackedBarChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -39,8 +60,15 @@
             "sections": [
                 {
                     "title": "Donut Chart",
+                    "component": "ChartsDonutChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Donut Chart (Angular 1)",
                     "component": "ChartsDonutChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Nested Donut Chart",
@@ -66,18 +94,39 @@
             "sections": [
                 {
                     "title": "Line Chart",
+                    "component": "ChartsLineChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Line Chart (Angular 1)",
                     "component": "ChartsLineChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Stacked Line Chart",
+                    "component": "ChartsStackedLineChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Stacked Line Chart (Angular 1)",
                     "component": "ChartsStackedLineChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Multiple Axis Line Chart",
+                    "component": "ChartsMultipleAxisLineChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Multiple Axis Line Chart (Angular 1)",
                     "component": "ChartsMultipleAxisLineChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -87,8 +136,15 @@
             "sections": [
                 {
                     "title": "Live Chart",
+                    "component": "ChartsLiveChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Live Chart (Angular 1)",
                     "component": "ChartsLiveChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -131,8 +187,15 @@
             "sections": [
                 {
                     "title": "Scrollable Chart",
+                    "component": "ChartsScrollableChartComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                },
+                {
+                    "title": "Scrollable Chart (Angular 1)",
                     "component": "ChartsScrollableChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

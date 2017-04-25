@@ -79,10 +79,14 @@ pre[class*="language-"] code {
         }
 
         &.attr-value,
+        &.property,
+        &.function,
         &.string {
             color: #c7254e;
         }
 
+        &.selector,
+        &.keyword,
         &.tag {
             color: #4472c4;
         }
@@ -1453,4 +1457,20 @@ tr.dragging .reorderable-controls .reorder-drag {
   height: 23px;
   line-height: 23px;
   vertical-align: bottom;
+}
+
+
+/*
+    Chart Styles
+*/
+.demo-chart-container {
+    display: block;
+    position: relative;
+    height: 200px;
+}
+
+.demo-chart-container-stack {
+    display: block;
+    position: relative;        
+    height: 400px;
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { EboxModule } from '../../../src/index';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 // Import Layout Components
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
@@ -48,7 +49,8 @@ const DOCUMENTATION_COMPONENTS = [
         CommonModule,
         RouterModule,
         FormsModule,
-        EboxModule
+        EboxModule,
+        TooltipModule.forRoot()
     ],
     exports: DOCUMENTATION_COMPONENTS,
     declarations: DOCUMENTATION_COMPONENTS,
