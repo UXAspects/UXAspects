@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
 @Component({
-    selector: 'uxd-css-page-header-menu-button',
+    selector: 'uxd-components-side-navigation-menu-button',
     templateUrl: './menu-button.component.html'
 })
-@DocumentationSectionComponent('CssMenuButtonComponent')
-export class CssMenuButtonComponent {
+@DocumentationSectionComponent('ComponentsMenuButtonComponent')
+export class ComponentsMenuButtonComponent {
 
     private htmlCode = require('./snippets/sample.html');
 

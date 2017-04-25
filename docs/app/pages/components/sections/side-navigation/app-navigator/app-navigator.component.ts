@@ -5,11 +5,11 @@ import { ICodePen } from './../../../../../interfaces/ICodePen';
 
 
 @Component({
-    selector: 'uxd-css-side-navigation-app-navigator',
+    selector: 'uxd-components-side-navigation-app-navigator',
     templateUrl: './app-navigator.component.html'
 })
-@DocumentationSectionComponent('CssAppNavigatorComponent')
-export class CssAppNavigatorComponent implements ICodePenProvider {
+@DocumentationSectionComponent('ComponentsAppNavigatorComponent')
+export class ComponentsAppNavigatorComponent implements ICodePenProvider {
 
     private htmlCode = require('./snippets/sample.html');
 

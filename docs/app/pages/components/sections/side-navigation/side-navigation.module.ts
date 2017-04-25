@@ -4,16 +4,18 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
-import { CssNavigationComponent } from './navigation/navigation.component';
-import { CssAppNavigatorComponent } from './app-navigator/app-navigator.component';
-import { CssNavigationMenuServiceNg1Component } from './navigation-menu-service-ng1/navigation-menu-service-ng1.component';
+import { ComponentsNavigationComponent } from './navigation/navigation.component';
+import { ComponentsAppNavigatorComponent } from './app-navigator/app-navigator.component';
+import { ComponentsMenuButtonComponent } from './menu-button/menu-button.component';
+import { ComponentsNavigationMenuServiceNg1Component } from './navigation-menu-service-ng1/navigation-menu-service-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 const SECTIONS = [
-    CssNavigationComponent,
-    CssAppNavigatorComponent,
-    CssNavigationMenuServiceNg1Component
+    ComponentsNavigationComponent,
+    ComponentsAppNavigatorComponent,
+    ComponentsMenuButtonComponent,
+    ComponentsNavigationMenuServiceNg1Component
 ];
 
 const ROUTES = [
@@ -21,7 +23,7 @@ const ROUTES = [
         path: '**',
         component: DocumentationCategoryComponent,
         data: {
-            category: ResolverService.resolveCategoryData(DocumentationPage.Css, 'Side Navigation')
+            category: ResolverService.resolveCategoryData(DocumentationPage.Components, 'Side Navigation')
         }
     }
 ];
@@ -37,7 +39,7 @@ const ROUTES = [
     declarations: SECTIONS,
     entryComponents: SECTIONS
 })
-export class CssSideNavigationModule {
+export class ComponentsSideNavigationModule {
 
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);

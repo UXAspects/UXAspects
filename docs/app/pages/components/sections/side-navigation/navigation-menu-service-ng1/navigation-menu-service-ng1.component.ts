@@ -5,11 +5,11 @@ import { ICodePen } from './../../../../../interfaces/ICodePen';
 
 
 @Component({
-    selector: 'uxd-css-side-navigation-navigation-menu-service-ng1',
+    selector: 'uxd-components-side-navigation-navigation-menu-service-ng1',
     templateUrl: './navigation-menu-service-ng1.component.html'
 })
-@DocumentationSectionComponent('CssNavigationMenuServiceNg1Component')
-export class CssNavigationMenuServiceNg1Component implements ICodePenProvider {
+@DocumentationSectionComponent('ComponentsNavigationMenuServiceNg1Component')
+export class ComponentsNavigationMenuServiceNg1Component implements ICodePenProvider {
 
     private controllerJs = require('./snippets/controller.js');
 
