@@ -11,14 +11,8 @@
     "declaration": false,
     "suppressImplicitAnyIndexErrors": true
   },
-  "angularCompilerOptions": {
-    "debug": true,
-    "skipMetadataEmit": true
-  },
   "exclude": [
     "node_modules",
-    "dist",
-    "**/snippets/*.ts",
-    "test"
+    "dist"
   ]
 }

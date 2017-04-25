@@ -1,30 +1,43 @@
-SorterOptionCtrl.$inject = ["$scope", "previewPaneProvider"];
+export default class SorterOptionCtrl {
 
-export default function SorterOptionCtrl($scope, previewPaneProvider) {
-    var vm = this;
-    vm.selectCallback = $scope.select;
-    vm.name = $scope.name;
-    vm.default = $scope.default;
-    vm.sorterOption = $scope;
+    constructor($scope, previewPaneProvider) {
 
-    if (vm.default) {
-        vm.sorterOption.selectedClass = true;
+        this.selectCallback = $scope.select;
+        this.name = $scope.name;
+        this.default = $scope.default;
+        this.sorterOption = $scope;
+        this.disabled = $scope.disabled;
 
+        if (this.default) {
+            this.sorterOption.selectedClass = true;
+
+        }
+        this.sorterOption.provider = previewPaneProvider;
+
+        // watch for any changes to the disabled state
+        $scope.$watch('disabled', (newValue) => {
+            this.disabled = newValue;
+        });
     }
-    vm.sorterOption.provider = previewPaneProvider;
+
+    select() {
+
+        // if the sorter is disabled then prevent the click from doing anything
+        if (this.disabled) {
+            return;
+        }
+
+        this.sorter.setTitle(this.name, this.default);
+        this.sorter.sorteroptions.forEach(option => option.deselect());
+        this.sorterOption.selectedClass = true;
+        this.selectCallback();
+        this.sorterOption.provider.preview.previewFile = "";
+    }
+
+    deselect() {
+        this.sorterOption.selectedClass = false;
+    }
+
 }
 
-SorterOptionCtrl.prototype.select = function() {
-
-    this.sorter.setTitle(this.name, this.default);
-    for (var i = this.sorter.sorteroptions.length - 1; i >= 0; i--) {
-        this.sorter.sorteroptions[i].deselect();
-    }
-    this.sorterOption.selectedClass = true;
-    this.selectCallback();
-    this.sorterOption.provider.preview.previewFile = "";
-};
-
-SorterOptionCtrl.prototype.deselect = function() {
-    this.sorterOption.selectedClass = false;
-};
+SorterOptionCtrl.$inject = ['$scope', 'previewPaneProvider'];
