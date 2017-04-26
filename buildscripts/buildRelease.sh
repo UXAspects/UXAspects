@@ -234,9 +234,8 @@ echo Creating the branch $NextVersion-gh-pages-test
 cd $WORKSPACE
 mkdir gh-pages-clone
 cd gh-pages-clone
-git clone git@github.com:UXAspects/UXAspects.git
+git clone -b gh-pages --single-branch git@github.com:UXAspects/UXAspects.git
 cd UXAspects
-git checkout gh-pages
 git checkout -b $NextVersion-gh-pages-test
 git push origin $NextVersion-gh-pages-test
 
@@ -273,9 +272,8 @@ echo Creating the branch $NextVersion-package-test
 cd $WORKSPACE
 mkdir package-clone
 cd package-clone
-git clone git@github.com:UXAspects/UXAspects.git
+git clone -b bower --single-branch git@github.com:UXAspects/UXAspects.git
 cd UXAspects
-git checkout bower
 git checkout -b $NextVersion-package-test
 git push origin $NextVersion-package-test
 
