@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("@angular/core"), require("@angular/forms"), require("@angular/common"), require("@angular/platform-browser")) : factory(root["@angular/core"], root["@angular/forms"], root["@angular/common"], root["@angular/platform-browser"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_32__, __WEBPACK_EXTERNAL_MODULE_33__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_41__, __WEBPACK_EXTERNAL_MODULE_42__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -16,9 +16,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 34);
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -197,8 +197,8 @@ __decorate([
 CheckboxComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ux-checkbox',
-        template: __webpack_require__(25),
-        styles: [__webpack_require__(18)],
+        template: __webpack_require__(34),
+        styles: [__webpack_require__(27)],
         providers: [CHECKBOX_VALUE_ACCESSOR],
         host: {
             '(click)': 'toggleChecked()'
@@ -233,8 +233,8 @@ var EboxComponent = (function () {
 EboxComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ux-ebox',
-        template: __webpack_require__(26),
-        styles: [__webpack_require__(19)]
+        template: __webpack_require__(35),
+        styles: [__webpack_require__(28)]
     })
 ], EboxComponent);
 
@@ -327,8 +327,8 @@ __decorate([
 FlippableCardComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ux-flippable-card',
-        template: __webpack_require__(27),
-        styles: [__webpack_require__(20)],
+        template: __webpack_require__(36),
+        styles: [__webpack_require__(29)],
         host: {
             '[class.horizontal]': 'direction === "horizontal"',
             '[class.vertical]': 'direction === "vertical"',
@@ -401,8 +401,8 @@ __decorate([
 ProgressBarComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ux-progressbar',
-        template: __webpack_require__(28),
-        styles: [__webpack_require__(21)]
+        template: __webpack_require__(37),
+        styles: [__webpack_require__(30)]
     })
 ], ProgressBarComponent);
 
@@ -499,8 +499,8 @@ __decorate([
 RadioButtonComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ux-radiobutton',
-        template: __webpack_require__(29),
-        styles: [__webpack_require__(22)],
+        template: __webpack_require__(38),
+        styles: [__webpack_require__(31)],
         providers: [RADIOBUTTON_VALUE_ACCESSOR]
     })
 ], RadioButtonComponent);
@@ -561,8 +561,8 @@ __decorate([
 SparkComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ux-spark',
-        template: __webpack_require__(30),
-        styles: [__webpack_require__(23)]
+        template: __webpack_require__(39),
+        styles: [__webpack_require__(32)]
     })
 ], SparkComponent);
 
@@ -657,8 +657,8 @@ __decorate([
 ToggleSwitchComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ux-toggleswitch',
-        template: __webpack_require__(31),
-        styles: [__webpack_require__(24)],
+        template: __webpack_require__(40),
+        styles: [__webpack_require__(33)],
         providers: [TOGGLESWITCH_VALUE_ACCESSOR],
         host: {
             '(click)': 'toggleChecked()'
@@ -673,7 +673,7 @@ ToggleSwitchComponent = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angular_core__);
@@ -809,7 +809,7 @@ var ThemeColor = (function () {
         return this;
     };
     ThemeColor.prototype.setAlpha = function (alpha) {
-        this.a = alpha;
+        this.a = alpha.toString();
         return this;
     };
     return ThemeColor;
@@ -819,6 +819,117 @@ var ThemeColor = (function () {
 
 /***/ }),
 /* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__checkbox_module__ = __webpack_require__(18);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__checkbox_module__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__checkbox_component__ = __webpack_require__(2);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__checkbox_component__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__checkbox_component__["b"]; });
+
+
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ebox_module__ = __webpack_require__(19);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__ebox_module__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ebox_component__ = __webpack_require__(3);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__ebox_component__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__ebox_component__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__ebox_component__["c"]; });
+
+
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__flippable_card_module__ = __webpack_require__(20);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__flippable_card_module__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__flippable_card_component__ = __webpack_require__(4);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__flippable_card_component__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__flippable_card_component__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__flippable_card_component__["c"]; });
+
+
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__progressbar_module__ = __webpack_require__(21);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__progressbar_module__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__progressbar_component__ = __webpack_require__(5);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__progressbar_component__["a"]; });
+
+
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__radiobutton_module__ = __webpack_require__(22);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__radiobutton_module__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__radiobutton_component__ = __webpack_require__(6);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__radiobutton_component__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__radiobutton_component__["b"]; });
+
+
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spark_module__ = __webpack_require__(23);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__spark_module__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spark_component__ = __webpack_require__(7);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__spark_component__["a"]; });
+
+
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toggleswitch_module__ = __webpack_require__(24);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__toggleswitch_module__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toggleswitch_component__ = __webpack_require__(8);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__toggleswitch_component__["a"]; });
+
+
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__color_module__ = __webpack_require__(26);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__color_module__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__color_service__ = __webpack_require__(9);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__color_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__color_service__["b"]; });
+
+
+
+
+/***/ }),
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -853,7 +964,7 @@ CheckboxModule = __decorate([
 
 
 /***/ }),
-/* 11 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -884,7 +995,7 @@ EboxModule = __decorate([
 
 
 /***/ }),
-/* 12 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -915,7 +1026,7 @@ FlippableCardModule = __decorate([
 
 
 /***/ }),
-/* 13 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -946,7 +1057,7 @@ ProgressBarModule = __decorate([
 
 
 /***/ }),
-/* 14 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -981,13 +1092,13 @@ RadioButtonModule = __decorate([
 
 
 /***/ }),
-/* 15 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angular_common__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__spark_component__ = __webpack_require__(7);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SparkModule; });
@@ -1016,7 +1127,7 @@ SparkModule = __decorate([
 
 
 /***/ }),
-/* 16 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1051,7 +1162,57 @@ ToggleSwitchModule = __decorate([
 
 
 /***/ }),
-/* 17 */
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_checkbox_index__ = __webpack_require__(10);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CheckboxModule", function() { return __WEBPACK_IMPORTED_MODULE_0__components_checkbox_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CHECKBOX_VALUE_ACCESSOR", function() { return __WEBPACK_IMPORTED_MODULE_0__components_checkbox_index__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return __WEBPACK_IMPORTED_MODULE_0__components_checkbox_index__["c"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ebox_index__ = __webpack_require__(11);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EboxModule", function() { return __WEBPACK_IMPORTED_MODULE_1__components_ebox_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EboxComponent", function() { return __WEBPACK_IMPORTED_MODULE_1__components_ebox_index__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EboxHeaderDirective", function() { return __WEBPACK_IMPORTED_MODULE_1__components_ebox_index__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EboxContentDirective", function() { return __WEBPACK_IMPORTED_MODULE_1__components_ebox_index__["d"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_flippable_card_index__ = __webpack_require__(12);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FlippableCardModule", function() { return __WEBPACK_IMPORTED_MODULE_2__components_flippable_card_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FlippableCardComponent", function() { return __WEBPACK_IMPORTED_MODULE_2__components_flippable_card_index__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FlippableCardFrontDirective", function() { return __WEBPACK_IMPORTED_MODULE_2__components_flippable_card_index__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FlippableCardBackDirective", function() { return __WEBPACK_IMPORTED_MODULE_2__components_flippable_card_index__["d"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_progressbar_index__ = __webpack_require__(13);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ProgressBarModule", function() { return __WEBPACK_IMPORTED_MODULE_3__components_progressbar_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ProgressBarComponent", function() { return __WEBPACK_IMPORTED_MODULE_3__components_progressbar_index__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_radiobutton_index__ = __webpack_require__(14);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RadioButtonModule", function() { return __WEBPACK_IMPORTED_MODULE_4__components_radiobutton_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RADIOBUTTON_VALUE_ACCESSOR", function() { return __WEBPACK_IMPORTED_MODULE_4__components_radiobutton_index__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return __WEBPACK_IMPORTED_MODULE_4__components_radiobutton_index__["c"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_spark_index__ = __webpack_require__(15);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SparkModule", function() { return __WEBPACK_IMPORTED_MODULE_5__components_spark_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SparkComponent", function() { return __WEBPACK_IMPORTED_MODULE_5__components_spark_index__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_toggleswitch_index__ = __webpack_require__(16);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ToggleSwitchModule", function() { return __WEBPACK_IMPORTED_MODULE_6__components_toggleswitch_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ToggleSwitchComponent", function() { return __WEBPACK_IMPORTED_MODULE_6__components_toggleswitch_index__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_color_index__ = __webpack_require__(17);
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorServiceModule", function() { return __WEBPACK_IMPORTED_MODULE_7__services_color_index__["a"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorService", function() { return __WEBPACK_IMPORTED_MODULE_7__services_color_index__["b"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ThemeColor", function() { return __WEBPACK_IMPORTED_MODULE_7__services_color_index__["c"]; });
+/*
+  Export Modules, Components & Services
+*/
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1084,172 +1245,100 @@ ColorServiceModule = __decorate([
 
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-module.exports = ":host {\n  display: inline-block;\n  margin-bottom: 5px;\n  white-space: nowrap;\n}\n.ux-checkbox {\n  display: inline-flex;\n  color: transparent;\n  font-family: 'hpe-icons';\n  width: 24px;\n  height: 24px;\n  background-color: transparent;\n  cursor: pointer;\n  border: 1px solid #cccccc;\n  margin-top: 1px;\n  font-size: 16px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  box-sizing: border-box;\n}\n.ux-checkbox:before {\n  content: \"\\f12c\";\n}\n.ux-checkbox:focus {\n  outline: 1px dotted #2a2a2a;\n}\n:host:hover .ux-checkbox {\n  border: 2px solid #7b63a3;\n}\n:host:hover .ux-checkbox.ux-disabled {\n  border: 1px solid #eeeeee;\n}\n:host:hover .ux-checkbox.ux-simplified {\n  color: #cccccc;\n  border-color: transparent;\n  border-width: 1px;\n}\n:host:hover .ux-checkbox.ux-simplified.ux-disabled {\n  color: transparent;\n}\n:host:hover .ux-checkbox.ux-simplified.ux-checked,\n:host:hover .ux-checkbox.ux-simplified.ux-indeterminate {\n  color: #7b63a3;\n}\n:host:hover .ux-checkbox.ux-simplified.ux-checked.ux-disabled,\n:host:hover .ux-checkbox.ux-simplified.ux-indeterminate.ux-disabled {\n  color: #cccccc;\n}\ninput[type=\"checkbox\"] {\n  display: none;\n}\n.ux-checkbox.ux-indeterminate:before {\n  content: \"\\f20b\";\n}\n.ux-checkbox.ux-checked,\n.ux-checkbox.ux-indeterminate {\n  background-color: #7b63a3;\n  color: #ffffff;\n  border-color: transparent;\n}\n.ux-checkbox.ux-disabled {\n  border-color: #eeeeee;\n  cursor: default;\n}\n.ux-checkbox.ux-disabled:focus {\n  outline: none;\n}\n.ux-checkbox.ux-disabled.ux-checked,\n.ux-checkbox.ux-disabled.ux-indeterminate {\n  background-color: #eeeeee;\n}\n.ux-checkbox.ux-simplified {\n  font-size: 20px;\n  border-color: transparent;\n  background-color: transparent;\n}\n.ux-checkbox.ux-simplified.ux-checked,\n.ux-checkbox.ux-simplified.ux-indeterminate {\n  color: #7b63a3;\n  background-color: transparent;\n  border-color: transparent;\n}\n.ux-checkbox.ux-simplified.ux-disabled.ux-checked,\n.ux-checkbox.ux-simplified.ux-disabled.ux-indeterminate {\n  color: #cccccc;\n}\n.ux-checkbox-content {\n  display: inline-block;\n  margin-left: 7px;\n  margin-top: 1px;\n  white-space: normal;\n  vertical-align: bottom;\n  height: 24px;\n  cursor: default;\n  line-height: 22px;\n}\n"
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-module.exports = ":host {\n  display: block;\n}\n.ux-ebox-header {\n  position: relative;\n  background-color: #ffffff;\n  margin-bottom: 0;\n  overflow: hidden;\n  padding: 14px 15px 7px;\n}\n.ux-ebox-header h1,\n.ux-ebox-header h2,\n.ux-ebox-header h3,\n.ux-ebox-header h4,\n.ux-ebox-header h5,\n.ux-ebox-header h6 {\n  margin-top: 0;\n}\n.ux-ebox-content {\n  background-color: #ffffff;\n  padding: 15px 20px 20px 20px;\n  border-color: #eeeeee;\n  border-image: none;\n  border-style: solid solid none;\n  border-width: 1px 0px;\n}\n"
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = ":host {\n  perspective: 1000px;\n  transform-style: preserve-3d;\n  display: inline-block;\n}\n:host .ux-flipper.ux-flip-card {\n  transform: none;\n}\n:host .ux-flipper.ux-flip-card .ux-flippable-card-back {\n  transform: rotateY(0deg);\n}\n:host .ux-flipper.ux-flip-card .ux-flippable-card-front {\n  transform: rotateY(180deg);\n}\n:host.vertical {\n  position: relative;\n}\n:host.vertical .ux-flippable-card-back {\n  transform: rotateX(180deg);\n}\n:host.vertical .ux-flipper.ux-flip-card {\n  transform: none;\n}\n:host.vertical .ux-flipper.ux-flip-card .ux-flippable-card-back {\n  transform: rotateX(0deg);\n}\n:host.vertical .ux-flipper.ux-flip-card .ux-flippable-card-front {\n  transform: rotateX(-180deg);\n}\n/* flip speed */\n.ux-flipper {\n  transition: 0.6s;\n  transform-style: preserve-3d;\n  position: relative;\n}\n.hover-flipper .ux-flippable-card-front,\n.hover-flipper .ux-flippable-card-back {\n  transition-delay: 0.3s;\n}\n/* hide back of pane during swap */\n.ux-flippable-card-front,\n.ux-flippable-card-back {\n  backface-visibility: hidden;\n  transition: 0.6s;\n  transform-style: flat;\n  position: absolute;\n  top: 0;\n  left: 0;\n  box-shadow: 0px 2px 10px #999999;\n  background-color: #ffffff;\n}\n/* front pane, placed above back */\n.ux-flippable-card-front {\n  z-index: 2;\n  transform: rotateY(0deg);\n}\n/* back, initially hidden pane */\n.ux-flippable-card-back {\n  transform: rotateY(-180deg);\n}\n"
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = ":host {\n  display: block;\n  height: 20px;\n  margin-bottom: 20px;\n  overflow: hidden;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n}\n.progressbar-track {\n  float: left;\n  width: 0;\n  height: 100%;\n  font-size: 12px;\n  line-height: 20px;\n  color: #ffffff;\n  text-align: center;\n  background-color: #7b63a3;\n  font-size: 14px;\n  -webkit-transition: width .6s ease;\n  -o-transition: width .6s ease;\n  transition: width .6s ease;\n}\n"
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = ":host {\n  display: inline-block;\n  margin-bottom: 5px;\n  white-space: nowrap;\n}\n.ux-radio-button {\n  display: inline-flex;\n  color: transparent;\n  font-family: 'hpe-icons';\n  width: 24px;\n  height: 24px;\n  background-color: transparent;\n  cursor: pointer;\n  border: 1px solid #cccccc;\n  margin-top: 1px;\n  font-size: 16px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  box-sizing: border-box;\n  border-radius: 50%;\n}\n.ux-radio-button:before {\n  content: \"\\f12c\";\n}\n.ux-radio-button:focus {\n  outline: 1px dotted #2a2a2a;\n}\n:host:hover .ux-radio-button {\n  border: 2px solid #7b63a3;\n}\n:host:hover .ux-radio-button.ux-disabled {\n  border: 1px solid #eeeeee;\n}\n:host:hover .ux-radio-button.ux-simplified {\n  color: #cccccc;\n  border-color: transparent;\n  border-width: 1px;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-disabled {\n  color: transparent;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-checked {\n  color: #7b63a3;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-checked.ux-disabled {\n  color: #cccccc;\n}\ninput[type=\"radio\"] {\n  display: none;\n}\n.ux-radio-button.ux-checked {\n  background-color: #7b63a3;\n  color: #ffffff;\n  border-color: transparent;\n}\n.ux-radio-button.ux-disabled {\n  border-color: #eeeeee;\n  cursor: default;\n}\n.ux-radio-button.disabled:focus {\n  outline: none;\n}\n.ux-radio-button.ux-disabled.ux-checked {\n  background-color: #eeeeee;\n}\n.ux-radio-button.ux-simplified {\n  font-size: 20px;\n  border-color: transparent;\n  background-color: transparent;\n}\n.ux-radio-button.ux-simplified.ux-checked {\n  color: #7b63a3;\n  background-color: transparent;\n  border-color: transparent;\n}\n.ux-radio-button.ux-simplified.ux-disabled.ux-checked {\n  color: #cccccc;\n}\n.ux-radio-button-content {\n  display: inline-block;\n  margin-left: 7px;\n  margin-top: 1px;\n  white-space: normal;\n  vertical-align: bottom;\n  height: 24px;\n  cursor: default;\n  line-height: 22px;\n}\n"
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = ":host {\n  display: block;\n}\n.ux-spark {\n  overflow: hidden;\n}\n.ux-spark .ux-spark-bar {\n  height: 100%;\n}\n.ux-spark .ux-fill {\n  transition: none;\n}\n.ux-spark.ux-inline {\n  margin-bottom: 0;\n  display: inline-block;\n  width: 100%;\n  float: left;\n}\n.ux-spark-line {\n  flex: 1;\n}\n.ux-spark-inline-label-container {\n  display: flex;\n  align-items: center;\n}\n.ux-spark-inline-label-left {\n  flex: none;\n  text-align: right;\n  margin-right: 5px;\n}\n.ux-spark-top-container {\n  min-height: 24px;\n}\n.ux-spark-bottom-container {\n  min-height: 24px;\n  line-height: 22px;\n}\n.ux-spark-label-top-left,\n.ux-spark-label-top-right,\n.ux-spark-label-bottom-left,\n.ux-spark-label-bottom-right {\n  display: inline-block;\n}\n.ux-spark-label-top-left,\n.ux-spark-label-bottom-left {\n  float: left;\n}\n.ux-spark-label-top-right,\n.ux-spark-label-bottom-right {\n  float: right;\n  text-align: right;\n}\n"
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = ":host {\n  margin-bottom: 5px;\n  white-space: nowrap;\n}\n:host .ux-toggleswitch {\n  display: inline-flex;\n  cursor: pointer;\n  color: transparent;\n}\n:host .ux-toggleswitch.disabled {\n  cursor: default;\n}\n:host .ux-toggleswitch.disabled:focus {\n  outline: none;\n}\n:host .ux-toggleswitch:focus {\n  outline: 1px dotted #2a2a2a;\n}\n:host .ux-toggleswitch input[type=\"checkbox\"] {\n  display: none;\n}\n:host .ux-toggleswitch {\n  width: 44px;\n  height: 22px;\n  position: relative;\n  vertical-align: middle;\n  color: #7b63a3;\n}\n:host .ux-toggleswitch .ux-toggleswitch-bg {\n  width: 100%;\n  height: 100%;\n  background-color: #ffffff;\n  border: 1px solid #cccccc;\n  border-radius: 999px;\n  box-shadow: inset 0 0 0 0;\n  transition: border 0.3s, box-shadow 0.3s, background-color 0s;\n}\n:host .ux-toggleswitch.checked .ux-toggleswitch-bg {\n  background-color: currentColor;\n  border-color: currentColor;\n  box-shadow: inset 0 0 0 12px;\n  transition: border 0.3s, box-shadow 0.3s, background-color 0s 0.3s;\n}\n:host .ux-toggleswitch.disabled {\n  opacity: 0.5;\n}\n:host .ux-toggleswitch .ux-toggleswitch-nub {\n  background-color: #ffffff;\n  border: 2px solid #cccccc;\n  border-radius: 50%;\n  height: 22px;\n  width: 22px;\n  position: absolute;\n  left: 0;\n  transition: left 0.15s;\n}\n:host .ux-toggleswitch.checked .ux-toggleswitch-nub {\n  left: 22px;\n  border-color: currentColor;\n}\n:host .ux-toggleswitch-content {\n  display: inline-block;\n  margin-left: 7px;\n  margin-top: 1px;\n  white-space: normal;\n  vertical-align: top;\n}\n:host.toggleswitch-lg .ux-toggleswitch {\n  width: 60px;\n  height: 30px;\n}\n:host.toggleswitch-lg .ux-toggleswitch.checked .ux-toggleswitch-bg {\n  box-shadow: inset 0 0 0 16px;\n}\n:host.toggleswitch-lg .ux-toggleswitch .ux-toggleswitch-nub {\n  height: 30px;\n  width: 30px;\n}\n:host.toggleswitch-lg .ux-toggleswitch.checked .ux-toggleswitch-nub {\n  left: 30px;\n}\n:host.toggleswitch-lg .ux-toggleswitch-content {\n  margin-top: 5px;\n}\n@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {\n  /* Internet Explorer workaround for border-radius rendering issue. */\n  .ux-toggleswitch-nub {\n    background-clip: padding-box;\n  }\n}\n"
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"ux-checkbox\" tabindex=\"0\"\n    [class.ux-checked]=\"value == true\"\n    [class.ux-indeterminate]=\"value == indeterminateValue\"\n    [class.ux-simplified]=\"simplified == true\"\n    [class.ux-disabled]=\"disabled == true\"\n    (keypress)=\"keyDown($event)\">\n\n    <input type=\"checkbox\" role=\"checkbox\" tabindex=\"-1\"\n        [name]=\"name\" \n        [checked]=\"value\" \n        [disabled]=\"disabled\" />\n        \n</div>\n\n<div class=\"ux-checkbox-content\">\n    <ng-content></ng-content>\n</div>\n"
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"ux-ebox-header\">\n    <ng-content select=\"ux-ebox-header\"></ng-content>\n</div>\n\n<div class=\"ux-ebox-content\">\n    <ng-content select=\"ux-ebox-content\"></ng-content>\n</div>"
-
-/***/ }),
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-flipper\" [class.ux-flip-card]=\"flippedState\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n\n    <div class=\"ux-flippable-card-front\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n        <ng-content select=\"ux-flippable-card-front\"></ng-content>\n    </div>\n\n    <div class=\"ux-flippable-card-back\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n        <ng-content select=\"ux-flippable-card-back\"></ng-content>\n    </div>\n</div>"
+module.exports = ":host {\n  display: inline-block;\n  margin-bottom: 5px;\n  white-space: nowrap;\n  line-height: 0;\n}\n.ux-checkbox {\n  display: inline-flex;\n  color: transparent;\n  font-family: 'hpe-icons';\n  width: 24px;\n  height: 24px;\n  background-color: transparent;\n  cursor: pointer;\n  border: 1px solid #cccccc;\n  margin-top: 1px;\n  font-size: 16px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  box-sizing: border-box;\n}\n.ux-checkbox:before {\n  content: \"\\f12c\";\n}\n.ux-checkbox:focus {\n  outline: 1px dotted #2a2a2a;\n}\n:host:hover .ux-checkbox {\n  border: 2px solid #7b63a3;\n}\n:host:hover .ux-checkbox.ux-disabled {\n  border: 1px solid #eeeeee;\n}\n:host:hover .ux-checkbox.ux-simplified {\n  color: #cccccc;\n  border-color: transparent;\n  border-width: 1px;\n}\n:host:hover .ux-checkbox.ux-simplified.ux-disabled {\n  color: transparent;\n}\n:host:hover .ux-checkbox.ux-simplified.ux-checked,\n:host:hover .ux-checkbox.ux-simplified.ux-indeterminate {\n  color: #7b63a3;\n}\n:host:hover .ux-checkbox.ux-simplified.ux-checked.ux-disabled,\n:host:hover .ux-checkbox.ux-simplified.ux-indeterminate.ux-disabled {\n  color: #cccccc;\n}\ninput[type=\"checkbox\"] {\n  display: none;\n}\n.ux-checkbox.ux-indeterminate:before {\n  content: \"\\f20b\";\n}\n.ux-checkbox.ux-checked,\n.ux-checkbox.ux-indeterminate {\n  background-color: #7b63a3;\n  color: #ffffff;\n  border-color: transparent;\n}\n.ux-checkbox.ux-disabled {\n  border-color: #eeeeee;\n  cursor: default;\n}\n.ux-checkbox.ux-disabled:focus {\n  outline: none;\n}\n.ux-checkbox.ux-disabled.ux-checked,\n.ux-checkbox.ux-disabled.ux-indeterminate {\n  background-color: #eeeeee;\n}\n.ux-checkbox.ux-simplified {\n  font-size: 20px;\n  border-color: transparent;\n  background-color: transparent;\n}\n.ux-checkbox.ux-simplified.ux-checked,\n.ux-checkbox.ux-simplified.ux-indeterminate {\n  color: #7b63a3;\n  background-color: transparent;\n  border-color: transparent;\n}\n.ux-checkbox.ux-simplified.ux-disabled.ux-checked,\n.ux-checkbox.ux-simplified.ux-disabled.ux-indeterminate {\n  color: #cccccc;\n}\n.ux-checkbox-content {\n  display: inline-block;\n  margin-left: 7px;\n  margin-top: 1px;\n  white-space: normal;\n  vertical-align: top;\n  height: 24px;\n  cursor: default;\n  line-height: 22px;\n}\n"
 
 /***/ }),
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"progressbar-track\" [style.width]=\"((value / max) * 100) + '%'\" [style.backgroundColor]=\"barColor\">\n    <ng-content></ng-content>\n</div>"
+module.exports = ":host {\n  display: block;\n}\n.ux-ebox-header {\n  position: relative;\n  background-color: #ffffff;\n  margin-bottom: 0;\n  overflow: hidden;\n  padding: 14px 15px 7px;\n}\n.ux-ebox-header h1,\n.ux-ebox-header h2,\n.ux-ebox-header h3,\n.ux-ebox-header h4,\n.ux-ebox-header h5,\n.ux-ebox-header h6 {\n  margin-top: 0;\n}\n.ux-ebox-content {\n  background-color: #ffffff;\n  padding: 15px 20px 20px 20px;\n  border-color: #eeeeee;\n  border-image: none;\n  border-style: solid solid none;\n  border-width: 1px 0px;\n}\n"
 
 /***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-radio-button\" tabindex=\"0\"\n    [class.ux-checked]=\"model === option\"\n    [class.ux-simplified]=\"simplified === true\"\n    [class.ux-disabled]=\"disabled === true\"\n    (keypress)=\"keyDown($event)\">\n\n    <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\n        [name]=\"name\" \n        [checked]=\"model === option\" \n        [disabled]=\"disabled\"\n        [value]=\"option\"\n        [id]=\"id\" />\n        \n</div>\n\n<div class=\"ux-radio-button-content\">\n    <ng-content></ng-content>\n</div>\n"
+module.exports = ":host {\n  perspective: 1000px;\n  transform-style: preserve-3d;\n  display: inline-block;\n}\n:host .ux-flipper.ux-flip-card {\n  transform: none;\n}\n:host .ux-flipper.ux-flip-card .ux-flippable-card-back {\n  transform: rotateY(0deg);\n}\n:host .ux-flipper.ux-flip-card .ux-flippable-card-front {\n  transform: rotateY(180deg);\n}\n:host.vertical {\n  position: relative;\n}\n:host.vertical .ux-flippable-card-back {\n  transform: rotateX(180deg);\n}\n:host.vertical .ux-flipper.ux-flip-card {\n  transform: none;\n}\n:host.vertical .ux-flipper.ux-flip-card .ux-flippable-card-back {\n  transform: rotateX(0deg);\n}\n:host.vertical .ux-flipper.ux-flip-card .ux-flippable-card-front {\n  transform: rotateX(-180deg);\n}\n/* flip speed */\n.ux-flipper {\n  transition: 0.6s;\n  transform-style: preserve-3d;\n  position: relative;\n}\n.hover-flipper .ux-flippable-card-front,\n.hover-flipper .ux-flippable-card-back {\n  transition-delay: 0.3s;\n}\n/* hide back of pane during swap */\n.ux-flippable-card-front,\n.ux-flippable-card-back {\n  backface-visibility: hidden;\n  transition: 0.6s;\n  transform-style: flat;\n  position: absolute;\n  top: 0;\n  left: 0;\n  box-shadow: 0px 2px 10px #999999;\n  background-color: #ffffff;\n}\n/* front pane, placed above back */\n.ux-flippable-card-front {\n  z-index: 2;\n  transform: rotateY(0deg);\n}\n/* back, initially hidden pane */\n.ux-flippable-card-back {\n  transform: rotateY(-180deg);\n}\n"
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Inline Spark Chart -->\n<div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\n\n    <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\n\n    <div class=\"ux-spark-line\">\n\n        <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n            <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n            <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n        </div>\n\n        <div class=\"ux-spark ux-inline\" [style.height.px]=\"fillHeight\" [style.backgroundColor]=\"trackColor\">\n            <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n        </div>\n\n        <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n            <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n            <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n        </div>\n\n    </div>\n</div>\n\n<!-- End Inline Spark Chart -->\n\n\n<!-- Non Inline Spark Chart -->\n<div *ngIf=\"!inlineLabel\">\n\n    <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n        <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n        <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n    </div>\n\n    <div class=\"ux-spark\" [style.height.px]=\"fillHeight\" [style.backgroundColor]=\"trackColor\">\n        <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n    </div>\n\n    <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n        <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n        <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n    </div>\n</div>\n\n<!-- End Non Inline Spark Chart -->"
+module.exports = ":host {\n  display: block;\n  height: 20px;\n  margin-bottom: 20px;\n  overflow: hidden;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n}\n.progressbar-track {\n  float: left;\n  width: 0;\n  height: 100%;\n  font-size: 12px;\n  line-height: 20px;\n  color: #ffffff;\n  text-align: center;\n  background-color: #7b63a3;\n  font-size: 14px;\n  -webkit-transition: width .6s ease;\n  -o-transition: width .6s ease;\n  transition: width .6s ease;\n}\n"
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-toggleswitch\" \n  tabindex=\"0\"\n  (keydown)=\"keydown($event)\"\n  [class.checked]=\"value === true\"\n  [class.disabled]=\"disabled === true\">\n\n  <span class=\"ux-toggleswitch-bg\"></span>\n  \n  <span class=\"ux-toggleswitch-nub\"></span>\n\n  <input type=\"checkbox\" \n    role=\"checkbox\"\n    [name]=\"name\" \n    [checked]=\"value === true\"\n    [disabled]=\"disabled === true\"\n    tabindex=\"-1\" />\n</div>\n\n<div class=\"ux-toggleswitch-content\">\n  <ng-content></ng-content>\n</div>\n"
+module.exports = ":host {\n  display: inline-block;\n  margin-bottom: 5px;\n  white-space: nowrap;\n}\n.ux-radio-button {\n  display: inline-flex;\n  color: transparent;\n  font-family: 'hpe-icons';\n  width: 24px;\n  height: 24px;\n  background-color: transparent;\n  cursor: pointer;\n  border: 1px solid #cccccc;\n  margin-top: 1px;\n  font-size: 16px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  box-sizing: border-box;\n  border-radius: 50%;\n}\n.ux-radio-button:before {\n  content: \"\\f12c\";\n}\n.ux-radio-button:focus {\n  outline: 1px dotted #2a2a2a;\n}\n:host:hover .ux-radio-button {\n  border: 2px solid #7b63a3;\n}\n:host:hover .ux-radio-button.ux-disabled {\n  border: 1px solid #eeeeee;\n}\n:host:hover .ux-radio-button.ux-simplified {\n  color: #cccccc;\n  border-color: transparent;\n  border-width: 1px;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-disabled {\n  color: transparent;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-checked {\n  color: #7b63a3;\n}\n:host:hover .ux-radio-button.ux-simplified.ux-checked.ux-disabled {\n  color: #cccccc;\n}\ninput[type=\"radio\"] {\n  display: none;\n}\n.ux-radio-button.ux-checked {\n  background-color: #7b63a3;\n  color: #ffffff;\n  border-color: transparent;\n}\n.ux-radio-button.ux-disabled {\n  border-color: #eeeeee;\n  cursor: default;\n}\n.ux-radio-button.disabled:focus {\n  outline: none;\n}\n.ux-radio-button.ux-disabled.ux-checked {\n  background-color: #eeeeee;\n}\n.ux-radio-button.ux-simplified {\n  font-size: 20px;\n  border-color: transparent;\n  background-color: transparent;\n}\n.ux-radio-button.ux-simplified.ux-checked {\n  color: #7b63a3;\n  background-color: transparent;\n  border-color: transparent;\n}\n.ux-radio-button.ux-simplified.ux-disabled.ux-checked {\n  color: #cccccc;\n}\n.ux-radio-button-content {\n  display: inline-block;\n  margin-left: 7px;\n  margin-top: 1px;\n  white-space: normal;\n  vertical-align: bottom;\n  height: 24px;\n  cursor: default;\n  line-height: 22px;\n}\n"
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_32__;
+module.exports = ":host {\n  display: block;\n}\n.ux-spark {\n  overflow: hidden;\n}\n.ux-spark .ux-spark-bar {\n  height: 100%;\n}\n.ux-spark .ux-fill {\n  transition: none;\n}\n.ux-spark.ux-inline {\n  margin-bottom: 0;\n  display: inline-block;\n  width: 100%;\n  float: left;\n}\n.ux-spark-line {\n  flex: 1;\n}\n.ux-spark-inline-label-container {\n  display: flex;\n  align-items: center;\n}\n.ux-spark-inline-label-left {\n  flex: none;\n  text-align: right;\n  margin-right: 5px;\n}\n.ux-spark-top-container {\n  min-height: 24px;\n}\n.ux-spark-bottom-container {\n  min-height: 24px;\n  line-height: 22px;\n}\n.ux-spark-label-top-left,\n.ux-spark-label-top-right,\n.ux-spark-label-bottom-left,\n.ux-spark-label-bottom-right {\n  display: inline-block;\n}\n.ux-spark-label-top-left,\n.ux-spark-label-bottom-left {\n  float: left;\n}\n.ux-spark-label-top-right,\n.ux-spark-label-bottom-right {\n  float: right;\n  text-align: right;\n}\n"
 
 /***/ }),
 /* 33 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_33__;
+module.exports = ":host {\n  margin-bottom: 5px;\n  white-space: nowrap;\n}\n:host .ux-toggleswitch {\n  display: inline-flex;\n  cursor: pointer;\n  color: transparent;\n}\n:host .ux-toggleswitch.disabled {\n  cursor: default;\n}\n:host .ux-toggleswitch.disabled:focus {\n  outline: none;\n}\n:host .ux-toggleswitch:focus {\n  outline: 1px dotted #2a2a2a;\n}\n:host .ux-toggleswitch input[type=\"checkbox\"] {\n  display: none;\n}\n:host .ux-toggleswitch {\n  width: 44px;\n  height: 22px;\n  position: relative;\n  vertical-align: middle;\n  color: #00a7a2;\n}\n:host .ux-toggleswitch .ux-toggleswitch-bg {\n  width: 100%;\n  height: 100%;\n  background-color: #ffffff;\n  border: 1px solid #cccccc;\n  border-radius: 999px;\n  box-shadow: inset 0 0 0 0;\n  transition: border 0.3s, box-shadow 0.3s, background-color 0s;\n}\n:host .ux-toggleswitch.checked .ux-toggleswitch-bg {\n  background-color: currentColor;\n  border-color: currentColor;\n  box-shadow: inset 0 0 0 12px;\n  transition: border 0.3s, box-shadow 0.3s, background-color 0s 0.3s;\n}\n:host .ux-toggleswitch.disabled {\n  opacity: 0.5;\n}\n:host .ux-toggleswitch .ux-toggleswitch-nub {\n  background-color: #ffffff;\n  border: 2px solid #cccccc;\n  border-radius: 50%;\n  height: 22px;\n  width: 22px;\n  position: absolute;\n  left: 0;\n  transition: left 0.15s;\n}\n:host .ux-toggleswitch.checked .ux-toggleswitch-nub {\n  left: 22px;\n  border-color: currentColor;\n}\n:host .ux-toggleswitch-content {\n  display: inline-block;\n  margin-left: 7px;\n  margin-top: 1px;\n  white-space: normal;\n  vertical-align: top;\n}\n:host.toggleswitch-lg .ux-toggleswitch {\n  width: 60px;\n  height: 30px;\n}\n:host.toggleswitch-lg .ux-toggleswitch.checked .ux-toggleswitch-bg {\n  box-shadow: inset 0 0 0 16px;\n}\n:host.toggleswitch-lg .ux-toggleswitch .ux-toggleswitch-nub {\n  height: 30px;\n  width: 30px;\n}\n:host.toggleswitch-lg .ux-toggleswitch.checked .ux-toggleswitch-nub {\n  left: 30px;\n}\n:host.toggleswitch-lg .ux-toggleswitch-content {\n  margin-top: 5px;\n}\n@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {\n  /* Internet Explorer workaround for border-radius rendering issue. */\n  .ux-toggleswitch-nub {\n    background-clip: padding-box;\n  }\n}\n"
 
 /***/ }),
 /* 34 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_checkbox_checkbox_module__ = __webpack_require__(10);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CheckboxModule", function() { return __WEBPACK_IMPORTED_MODULE_0__components_checkbox_checkbox_module__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ebox_ebox_module__ = __webpack_require__(11);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EboxModule", function() { return __WEBPACK_IMPORTED_MODULE_1__components_ebox_ebox_module__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_flippable_card_flippable_card_module__ = __webpack_require__(12);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FlippableCardModule", function() { return __WEBPACK_IMPORTED_MODULE_2__components_flippable_card_flippable_card_module__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_progressbar_progressbar_module__ = __webpack_require__(13);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ProgressBarModule", function() { return __WEBPACK_IMPORTED_MODULE_3__components_progressbar_progressbar_module__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_radiobutton_radiobutton_module__ = __webpack_require__(14);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RadioButtonModule", function() { return __WEBPACK_IMPORTED_MODULE_4__components_radiobutton_radiobutton_module__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_spark_spark_module__ = __webpack_require__(15);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SparkModule", function() { return __WEBPACK_IMPORTED_MODULE_5__components_spark_spark_module__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_toggleswitch_toggleswitch_module__ = __webpack_require__(16);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ToggleSwitchModule", function() { return __WEBPACK_IMPORTED_MODULE_6__components_toggleswitch_toggleswitch_module__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_color_color_module__ = __webpack_require__(17);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorServiceModule", function() { return __WEBPACK_IMPORTED_MODULE_7__services_color_color_module__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_checkbox_checkbox_component__ = __webpack_require__(2);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CHECKBOX_VALUE_ACCESSOR", function() { return __WEBPACK_IMPORTED_MODULE_8__components_checkbox_checkbox_component__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return __WEBPACK_IMPORTED_MODULE_8__components_checkbox_checkbox_component__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_ebox_ebox_component__ = __webpack_require__(3);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EboxComponent", function() { return __WEBPACK_IMPORTED_MODULE_9__components_ebox_ebox_component__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EboxHeaderDirective", function() { return __WEBPACK_IMPORTED_MODULE_9__components_ebox_ebox_component__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "EboxContentDirective", function() { return __WEBPACK_IMPORTED_MODULE_9__components_ebox_ebox_component__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_flippable_card_flippable_card_component__ = __webpack_require__(4);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FlippableCardComponent", function() { return __WEBPACK_IMPORTED_MODULE_10__components_flippable_card_flippable_card_component__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FlippableCardFrontDirective", function() { return __WEBPACK_IMPORTED_MODULE_10__components_flippable_card_flippable_card_component__["b"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FlippableCardBackDirective", function() { return __WEBPACK_IMPORTED_MODULE_10__components_flippable_card_flippable_card_component__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_progressbar_progressbar_component__ = __webpack_require__(5);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ProgressBarComponent", function() { return __WEBPACK_IMPORTED_MODULE_11__components_progressbar_progressbar_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_radiobutton_component__ = __webpack_require__(6);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RADIOBUTTON_VALUE_ACCESSOR", function() { return __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_radiobutton_component__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_radiobutton_component__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_spark_spark_component__ = __webpack_require__(7);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SparkComponent", function() { return __WEBPACK_IMPORTED_MODULE_13__components_spark_spark_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_toggleswitch_toggleswitch_component__ = __webpack_require__(8);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ToggleSwitchComponent", function() { return __WEBPACK_IMPORTED_MODULE_14__components_toggleswitch_toggleswitch_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_color_color_service__ = __webpack_require__(9);
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorService", function() { return __WEBPACK_IMPORTED_MODULE_15__services_color_color_service__["a"]; });
-/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ThemeColor", function() { return __WEBPACK_IMPORTED_MODULE_15__services_color_color_service__["b"]; });
-/*
-  Export Modules
-*/
+module.exports = "<div class=\"ux-checkbox\" tabindex=\"0\"\r\n    [class.ux-checked]=\"value == true\"\r\n    [class.ux-indeterminate]=\"value == indeterminateValue\"\r\n    [class.ux-simplified]=\"simplified == true\"\r\n    [class.ux-disabled]=\"disabled == true\"\r\n    (keypress)=\"keyDown($event)\">\r\n\r\n    <input type=\"checkbox\" role=\"checkbox\" tabindex=\"-1\"\r\n        [name]=\"name\" \r\n        [checked]=\"value\" \r\n        [disabled]=\"disabled\" />\r\n        \r\n</div>\r\n\r\n<div class=\"ux-checkbox-content\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
 
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
 
+module.exports = "<div class=\"ux-ebox-header\">\r\n    <ng-content select=\"ux-ebox-header\"></ng-content>\r\n</div>\r\n\r\n<div class=\"ux-ebox-content\">\r\n    <ng-content select=\"ux-ebox-content\"></ng-content>\r\n</div>"
 
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
 
+module.exports = "<div class=\"ux-flipper\" [class.ux-flip-card]=\"flippedState\" [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n\r\n    <div class=\"ux-flippable-card-front\" [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n        <ng-content select=\"ux-flippable-card-front\"></ng-content>\r\n    </div>\r\n\r\n    <div class=\"ux-flippable-card-back\" [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n        <ng-content select=\"ux-flippable-card-back\"></ng-content>\r\n    </div>\r\n</div>"
 
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
 
+module.exports = "<div class=\"progressbar-track\" [style.width]=\"((value / max) * 100) + '%'\" [style.backgroundColor]=\"barColor\">\r\n    <ng-content></ng-content>\r\n</div>"
 
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
 
-/*
-  Export Components
-*/
+module.exports = "<div class=\"ux-radio-button\" tabindex=\"0\"\r\n    [class.ux-checked]=\"model === option\"\r\n    [class.ux-simplified]=\"simplified === true\"\r\n    [class.ux-disabled]=\"disabled === true\"\r\n    (keypress)=\"keyDown($event)\">\r\n\r\n    <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\r\n        [name]=\"name\" \r\n        [checked]=\"model === option\" \r\n        [disabled]=\"disabled\"\r\n        [value]=\"option\"\r\n        [id]=\"id\" />\r\n        \r\n</div>\r\n\r\n<div class=\"ux-radio-button-content\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
 
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
 
+module.exports = "<!-- Inline Spark Chart -->\r\n<div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\r\n\r\n    <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\r\n\r\n    <div class=\"ux-spark-line\">\r\n\r\n        <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\r\n            <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\r\n            <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\r\n        </div>\r\n\r\n        <div class=\"ux-spark ux-inline\" [style.height.px]=\"fillHeight\" [style.backgroundColor]=\"trackColor\">\r\n            <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\r\n        </div>\r\n\r\n        <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\r\n            <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\r\n            <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\r\n        </div>\r\n\r\n    </div>\r\n</div>\r\n\r\n<!-- End Inline Spark Chart -->\r\n\r\n\r\n<!-- Non Inline Spark Chart -->\r\n<div *ngIf=\"!inlineLabel\">\r\n\r\n    <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\r\n        <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\r\n        <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\r\n    </div>\r\n\r\n    <div class=\"ux-spark\" [style.height.px]=\"fillHeight\" [style.backgroundColor]=\"trackColor\">\r\n        <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\r\n    </div>\r\n\r\n    <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\r\n        <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\r\n        <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\r\n    </div>\r\n</div>\r\n\r\n<!-- End Non Inline Spark Chart -->"
 
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
 
+module.exports = "<div class=\"ux-toggleswitch\" \r\n  tabindex=\"0\"\r\n  (keydown)=\"keydown($event)\"\r\n  [class.checked]=\"value === true\"\r\n  [class.disabled]=\"disabled === true\">\r\n\r\n  <span class=\"ux-toggleswitch-bg\"></span>\r\n  \r\n  <span class=\"ux-toggleswitch-nub\"></span>\r\n\r\n  <input type=\"checkbox\" \r\n    role=\"checkbox\"\r\n    [name]=\"name\" \r\n    [checked]=\"value === true\"\r\n    [disabled]=\"disabled === true\"\r\n    tabindex=\"-1\" />\r\n</div>\r\n\r\n<div class=\"ux-toggleswitch-content\">\r\n  <ng-content></ng-content>\r\n</div>\r\n"
 
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
 
+module.exports = __WEBPACK_EXTERNAL_MODULE_41__;
 
-/*
-  Export Services
-*/
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
 
-
+module.exports = __WEBPACK_EXTERNAL_MODULE_42__;
 
 /***/ })
 /******/ ]);
