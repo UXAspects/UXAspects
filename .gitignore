@@ -11,4 +11,4 @@ src/fonts/hpe-icons.ttf
 src/fonts/hpe-icons.woff
 src/fonts/hpe-icons.svg
 src/styles/hpe-icons.less
-dist/docs/
+dist/
