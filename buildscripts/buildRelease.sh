@@ -110,8 +110,7 @@ if [ "$RunTests" == "true" ]; then
 	ssh $SELENIUM_TEST_MACHINE_USER@$SELENIUM_TEST_MACHINE_ADDRESS rm -rf /home/UXAspectsTestUser/UXAspectsTestsReleaseBuild
 
 	echo Copying repository to the Selenium Grid Hub machine
-	ssh $SELENIUM_TEST_MACHINE_USER@$SELENIUM_TEST_MACHINE_ADDRESS mkdir -p
-	    /home/UXAspectsTestUser/UXAspectsTestsReleaseBuild/ux-aspects
+	ssh $SELENIUM_TEST_MACHINE_USER@$SELENIUM_TEST_MACHINE_ADDRESS mkdir -p /home/UXAspectsTestUser/UXAspectsTestsReleaseBuild/ux-aspects
 	scp -r . $SELENIUM_TEST_MACHINE_USER@$SELENIUM_TEST_MACHINE_ADDRESS:/home/UXAspectsTestUser/UXAspectsTestsReleaseBuild/ux-aspects
 fi
 
