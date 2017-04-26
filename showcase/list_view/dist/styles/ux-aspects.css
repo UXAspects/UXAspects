@@ -3424,12 +3424,12 @@ select.form-control {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
 }
 .datepicker table tr th,
 .datepicker table tr td {
   text-align: center;
-  width: 30px;
+  width: auto;
   height: 30px;
   border-radius: 4px;
   border: none;
@@ -4805,23 +4805,23 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   filter: alpha(opacity = (10000));
 }
 .tooltip-inner {
-  background-color: #464646;
+  background-color: #333333;
   box-shadow: 1px 1px 2px #262626;
   border-radius: 0;
   text-align: left;
   max-width: 400px;
 }
 .tooltip.top .tooltip-arrow {
-  border-top-color: #464646;
+  border-top-color: #333333;
 }
 .tooltip.right .tooltip-arrow {
-  border-right-color: #464646;
+  border-right-color: #333333;
 }
 .tooltip.bottom .tooltip-arrow {
-  border-bottom-color: #464646;
+  border-bottom-color: #333333;
 }
 .tooltip.left .tooltip-arrow {
-  border-left-color: #464646;
+  border-left-color: #333333;
 }
 .black-tooltip + .tooltip {
   width: 350px;
@@ -12418,8 +12418,8 @@ p.no-margin {
   font-size: 0.875rem;
   text-align: left;
   color: #ffffff;
-  background: #464646;
-  border: 4px solid #464646;
+  background: #333333;
+  border: 4px solid #333333;
   border-radius: 0px;
   padding-bottom: 0;
   border-bottom: 0;
@@ -12434,7 +12434,7 @@ p.no-margin {
   height: 0;
   border-width: 6px;
   border-style: solid;
-  border-color: #464646 transparent transparent transparent;
+  border-color: #333333 transparent transparent transparent;
   left: 5px;
   bottom: -5px;
   border-bottom-width: 0px;
@@ -12447,7 +12447,7 @@ p.no-margin {
   height: 0;
   border-width: 6px;
   border-style: solid;
-  border-color: #464646 transparent transparent transparent;
+  border-color: #333333 transparent transparent transparent;
   left: calc(84%);
   bottom: -5px;
   border-bottom-width: 0px;
@@ -13978,6 +13978,9 @@ p.no-margin {
 .sorter-text > span {
   margin-right: 10px;
 }
+.sorter-option-disabled {
+  opacity: 0.5;
+}
 .body-dark .sorter-title {
   color: #999999;
 }
@@ -15274,6 +15277,7 @@ form .button-primary.disabled {
 .el-toggleswitch-label {
   margin-bottom: 5px;
   white-space: nowrap;
+  line-height: 0;
 }
 .el-checkbox-label .el-checkbox,
 .el-radiobutton-label .el-checkbox,
@@ -15331,7 +15335,7 @@ form .button-primary.disabled {
 .el-checkbox-label .el-radiobutton.disabled,
 .el-radiobutton-label .el-radiobutton.disabled,
 .el-toggleswitch-label .el-radiobutton.disabled {
-  border-color: #e4e4e4;
+  border-color: #eeeeee;
 }
 .el-checkbox-label .el-checkbox.disabled.checked,
 .el-radiobutton-label .el-checkbox.disabled.checked,
@@ -15345,7 +15349,7 @@ form .button-primary.disabled {
 .el-checkbox-label .el-radiobutton.disabled.indeterminate,
 .el-radiobutton-label .el-radiobutton.disabled.indeterminate,
 .el-toggleswitch-label .el-radiobutton.disabled.indeterminate {
-  background-color: #e4e4e4;
+  background-color: #eeeeee;
 }
 .el-checkbox-label .el-checkbox,
 .el-radiobutton-label .el-checkbox,
@@ -15600,6 +15604,7 @@ form .button-primary.disabled {
   margin-top: 1px;
   white-space: normal;
   vertical-align: top;
+  line-height: 22px;
 }
 .toggleswitch-lg .el-toggleswitch {
   width: 60px;
