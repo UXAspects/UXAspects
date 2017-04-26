@@ -422,7 +422,7 @@
 	</classes>
   </test>
   
-  <test name="Edge-Components-Splitters">
+  <!-- <test name="Edge-Components-Splitters">
     <parameter name="browser" value="edge"/>
     <parameter name="browserPlatform" value="win10"/>
     <parameter name="page" value="components/splitter"/>
@@ -431,9 +431,9 @@
        <class name="WebDriverTests.WebDriverTests.Components.SideInsetSplitters"></class>
        <class name="WebDriverTests.WebDriverTests.UXAspectsTesting.CloseDriver"></class>
 	</classes>
-  </test>
+  </test> -->
   
-  <test name="Edge-Components-Tabs">
+  <!-- <test name="Edge-Components-Tabs">
     <parameter name="browser" value="edge"/>
     <parameter name="browserPlatform" value="win10"/>
     <parameter name="page" value="components/tabs"/>
@@ -442,7 +442,7 @@
        <class name="WebDriverTests.WebDriverTests.Components.Tabs"></class>
        <class name="WebDriverTests.WebDriverTests.UXAspectsTesting.CloseDriver"></class>
 	</classes>
-  </test>
+  </test -->
   
   <test name="Edge-Components-TreeViews">
     <parameter name="browser" value="edge"/>
