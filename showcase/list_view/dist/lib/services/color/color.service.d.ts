@@ -4,7 +4,7 @@ export declare class ColorService {
     private colors;
     constructor(document: any);
     getColorValue(color: string): ThemeColor;
-    getColor(color: string): any;
+    getColor(color: string): ThemeColor;
 }
 export declare class ThemeColor {
     private r;
@@ -18,5 +18,5 @@ export declare class ThemeColor {
     setRed(red: string): this;
     setGreen(green: string): this;
     setBlue(blue: string): this;
-    setAlpha(alpha: string): this;
+    setAlpha(alpha: string | number): this;
 }
