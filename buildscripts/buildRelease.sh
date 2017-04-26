@@ -11,6 +11,8 @@ echo NextVersion is $NextVersion
 echo RunTests is $RunTests
 echo HttpProxy is $HttpProxy
 echo HttpsProxy is $HttpsProxy
+echo http_proxy is $http_proxy
+echo https_proxy is $https_proxy
 echo BuildPackages is $BuildPackages
 echo PrivateArtifactoryURL is $PrivateArtifactoryURL
 echo PrivateArtifactoryCredentials is $PrivateArtifactoryCredentials
@@ -38,8 +40,8 @@ docker_image_build()
         cd $WORKSPACE/docker
         echo Building the image
         docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            --build-arg http_proxy \
-            --build-arg https_proxy \
+            --build-arg http_proxy=$HttpProxy \
+            --build-arg https_proxy=$HttpsProxy \
             --build-arg no_proxy="localhost, 127.0.0.1" \
             --no-cache .
         DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
@@ -230,11 +232,10 @@ cd ..
 echo
 echo Creating the branch $NextVersion-gh-pages-test
 cd $WORKSPACE
-mkdir clone
-cd clone
-git clone git@github.com:UXAspects/UXAspects.git
+mkdir gh-pages-clone
+cd gh-pages-clone
+git clone -b gh-pages --single-branch git@github.com:UXAspects/UXAspects.git
 cd UXAspects
-git checkout gh-pages
 git checkout -b $NextVersion-gh-pages-test
 git push origin $NextVersion-gh-pages-test
 
@@ -264,40 +265,37 @@ git add $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js
 git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest commit ID is $latestCommitID."
 git push origin $NextVersion-gh-pages-test
 
+# Create a branch for the new Keppel Bower package. First, clone the repository to a sub-folder.
+# Switching to the new branch and commiting to it will be performed in this clone.
+echo
+echo Creating the branch $NextVersion-package-test
+cd $WORKSPACE
+mkdir package-clone
+cd package-clone
+git clone -b bower --single-branch git@github.com:UXAspects/UXAspects.git
+cd UXAspects
+git checkout -b $NextVersion-package-test
+git push origin $NextVersion-package-test
+
+# Remove existing files and copy the newly-built package files from the workspace. Only the 'dist'
+# folder and bower.json are needed.
+rm -rf *
+cp -p -r $WORKSPACE/dist .
+cp -p $WORKSPACE/bower.json .
+
+# Push the new files to the branch
+echo
+echo Pushing the new files to the branch
+git add dist/ bower.json
+git commit -m "Committing changes for package $NextVersion-test. Latest commit ID is $latestCommitID."
+git push --set-upstream origin $NextVersion-package-test
+
 # Return to the develop branch and discard changes to a couple of files
 echo
 echo Returning to the develop branch
 cd $WORKSPACE
 git checkout docs/app/data/footer-navigation.json
 git checkout docs/app/data/landing-page.json
-
-# Create the new branch for the Keppel bower package
-echo
-echo Creating the branch $NextVersion-package-test
-git checkout -b $NextVersion-package-test
-git push origin $NextVersion-package-test
-
-# Remove files and folders which are not to be committed
-echo
-echo Removing files which are not to be committed
-rm -rf docs-gh-pages-HPE-$NextVersion/
-rm -rf docs-gh-pages-Keppel-$NextVersion/
-rm -rf HPEThemeFiles/
-rm -rf KeppelThemeFiles/
-rm -rf clone
-rm -f *.gz
-
-# Push the changes
-echo
-echo Pushing the changes to the branch
-git add -A
-git commit -m "Committing changes for package $NextVersion-test. Latest commit ID is $latestCommitID."
-git push --set-upstream origin $NextVersion-package-test
-
-# Return to the develop branch
-echo
-echo Returning to the develop branch
-git checkout develop
 
 # Temporary commands to allow testing of Jenkins job prior to re-introduction of unit and Selenium tests.
 # Dummy results files will be copied into place.
