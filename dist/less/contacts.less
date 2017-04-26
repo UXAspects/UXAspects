@@ -1,0 +1,125 @@
+.contacts-list-container{
+  display: inline-flex;
+  .contacts-list {
+    list-style: none;
+    display: inherit;
+    margin: 0;
+    padding: 0;
+
+    * > .status {
+      height: 4px;
+      margin-bottom: 1px;
+    }
+  }
+  * > .contact , .contact-overflow, .organization {
+    .contact-item;
+    &.medium{
+      .medium-contact-item;
+    }
+    &.small{
+      .small-contact-item;
+    }
+  }
+  .contact-overflow-container {
+    margin-left: 1px;
+  }
+  .contact-overflow-clickable {
+    cursor: pointer;
+  }
+  .contact-overflow {
+    margin-top: 5px;
+  }
+  .contact-overflow-label {
+    height: 14px;
+    font-size: 0.625rem;
+    color: @contacts-overflow-color;
+    background-color: @contacts-overflow-bg;
+    border-radius: 7px;
+    padding: 0px 5px;
+    margin: 0 5px;
+    position: relative;
+    &.medium {
+      top: -35px;
+    }
+    &.small {
+      top: -27px;
+    }
+  }
+  .organization {
+    margin-top: 5px;
+    border-radius: 0px 3px 3px 0px;
+    border: 1px solid;
+    border-left: 0;
+  }
+
+  .organization-label {
+    height: 14px;
+    font-size: 0.625rem;
+    color: @contacts-label-color;
+    position: relative;
+    left: -7px;
+    &.risk{
+      width: 14px;
+      background-color: @contacts-risk-color;
+      border-radius: 100%;
+    }
+    &.external{
+      background-color: @contacts-external-color;
+      border-radius: 7px;
+      padding: 0px 5px;
+      &::before{
+        content:"EXT";
+      }
+    }
+  }
+
+  .contact-item{
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .medium-contact-item {
+    min-height: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 1.125rem;
+    padding: 2px 5px;
+  }
+
+  .small-contact-item{
+    min-height: 22px;
+    height: 22px;
+    min-width: 22px;
+    font-size: 0.875rem;
+    padding: 0px 5px;
+  }
+}
+
+.contacts-arrow {
+  vertical-align: bottom;
+  padding-bottom: 7px;
+}
+.contacts-popover {
+  font-family: @font-family;
+  max-width: none;
+  border-radius: 0;
+  border: 1px solid @contacts-popover-border;
+  background-color: @contacts-popover-bg;
+  color: @contacts-popover-color;
+  z-index: 10019;
+  .contacts-popover-arrow
+  {
+  	&:after {
+  		border-top-color: @contacts-popover-bg !important;
+  		border-bottom-color: @contacts-popover-bg !important;
+  	}
+  }
+  .contact-link:hover {
+	background: rgba(255, 255, 255, 0.1);
+	cursor: pointer;
+	}
+}
+.body-dark .contacts-popover {
+  border: 1px solid @contacts-popover-border;
+  background-color: @contacts-popover-bg;
+}
