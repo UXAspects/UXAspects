@@ -76,13 +76,13 @@ public class BarCharts extends TestNGBase {
 			checkElementText(line4, "60");
 			checkElementText(line5, "80");
 			
-			if (this.browser.equalsIgnoreCase("chrome")) {
-				checkElementAttributeContainsValue(line1, "style", "\\s*;+\\s*", "left: 8px");
-				checkElementAttributeContainsValue(line2, "style", "\\s*;+\\s*", "left: 1px");
-				checkElementAttributeContainsValue(line3, "style", "\\s*;+\\s*", "left: 1px");
-				checkElementAttributeContainsValue(line4, "style", "\\s*;+\\s*", "left: 1px");
-				checkElementAttributeContainsValue(line5, "style", "\\s*;+\\s*", "left: 1px");
+			checkElementAttributeContainsValue(line1, "style", "\\s*;+\\s*", "left: 8px");
+			checkElementAttributeContainsValue(line2, "style", "\\s*;+\\s*", "left: 1px");
+			checkElementAttributeContainsValue(line3, "style", "\\s*;+\\s*", "left: 1px");
+			checkElementAttributeContainsValue(line4, "style", "\\s*;+\\s*", "left: 1px");
+			checkElementAttributeContainsValue(line5, "style", "\\s*;+\\s*", "left: 1px");
 			
+			if ((!this.browser.equalsIgnoreCase("ie")) && (!this.browser.equalsIgnoreCase("edge"))) {
 				checkElementAttributeContainsValue(line1, "style", "\\s*;+\\s*", "top: 166px");
 				checkElementAttributeContainsValue(line2, "style", "\\s*;+\\s*", "top: 124px");
 				checkElementAttributeContainsValue(line3, "style", "\\s*;+\\s*", "top: 83px");
