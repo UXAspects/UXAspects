@@ -91,6 +91,11 @@
   }
 }
 
+.nav > li.nav-header {
+  display: flex;
+  align-items: flex-end;
+}
+
 .sidebar-nav > li {
   &.active {
     border-left: 0;
@@ -201,14 +206,13 @@ li.active {
 .logo-element-image {
   height: 47px;
   width: 47px;
-  margin-top: 26px;
-  margin-bottom: -6px;
   display: inline-block;
 }
 
 .logo-element-text {
   display: inline-block;
   font-size: 1.25rem;
+  font-weight: normal;
   vertical-align: bottom;
 }
 
@@ -221,6 +225,8 @@ li.active {
 .navbar-static-side-light.navbar-default .nav > li > a,
 .navbar-static-side-dark.navbar-default .nav > li > a {
   &.logo-element-container {
+    display: flex;
+    align-items: center;
     padding: 0;
     &:hover, &:focus {
       background-color: rgba(0,0,0,0);
