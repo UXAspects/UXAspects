@@ -111,7 +111,9 @@ echo "<h2>Unit Tests</h2>" >> UXAspectsTestsResults.html
 while read line ; do
     echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
 done < UnitTestResults.txt
+sed -i 's/\[1m//g' UXAspectsTestsResults.html
 sed -i 's/\[4m//g' UXAspectsTestsResults.html
+sed -i 's/\[22m//g' UXAspectsTestsResults.html
 sed -i 's/\[24m//g' UXAspectsTestsResults.html
 sed -i 's/\[31m//g' UXAspectsTestsResults.html
 sed -i 's/\[32m//g' UXAspectsTestsResults.html

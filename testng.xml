@@ -30,7 +30,7 @@
 	</classes>
   </test>
   
-  <test name="Chrome-Charts-SparkCharts">
+  <!-- <test name="Chrome-Charts-SparkCharts">
     <parameter name="browser" value="Chrome"/>
     <parameter name="page" value="charts/spark-charts"/>
 	<classes>
@@ -128,11 +128,11 @@
        <class name="WebDriverTests.WebDriverTests.CSS.Buttons"></class>
        <class name="WebDriverTests.WebDriverTests.UXAspectsTesting.CloseDriver"></class>
 	</classes>
-  </test>
+  </test> -->
   
   <!-- FIREFOX -->
 
-  <!-- <test name="Firefox-Charts-BarCharts">
+  <test name="Firefox-Charts-BarCharts">
     <parameter name="browser" value="Firefox"/>
     <parameter name="page" value="charts/bar-charts"/>
 	<classes>
@@ -140,7 +140,7 @@
        <class name="WebDriverTests.WebDriverTests.Charts.BarCharts"></class>
        <class name="WebDriverTests.WebDriverTests.UXAspectsTesting.CloseDriver"></class>
 	</classes>
-  </test> -->
+  </test>
   
   <!-- <test name="Firefox-Charts-SparkCharts">
     <parameter name="browser" value="Firefox"/>
@@ -367,7 +367,7 @@
 	</classes>
   </test>
   
-  <test name="Edge-Charts-SparkCharts">
+  <!-- <test name="Edge-Charts-SparkCharts">
     <parameter name="browser" value="edge"/>
     <parameter name="browserPlatform" value="win10"/>
     <parameter name="page" value="charts/spark-charts"/>
@@ -420,7 +420,7 @@
        <class name="WebDriverTests.WebDriverTests.Components.Select"></class>
        <class name="WebDriverTests.WebDriverTests.UXAspectsTesting.CloseDriver"></class>
 	</classes>
-  </test>
+  </test> -->
   
   <!-- <test name="Edge-Components-Splitters">
     <parameter name="browser" value="edge"/>
@@ -444,7 +444,7 @@
 	</classes>
   </test -->
   
-  <test name="Edge-Components-TreeViews">
+  <!-- <test name="Edge-Components-TreeViews">
     <parameter name="browser" value="edge"/>
     <parameter name="browserPlatform" value="win10"/>
     <parameter name="page" value="components/tree-view"/>
@@ -475,6 +475,6 @@
        <class name="WebDriverTests.WebDriverTests.CSS.Buttons"></class>
        <class name="WebDriverTests.WebDriverTests.UXAspectsTesting.CloseDriver"></class>
 	</classes>
-  </test>
+  </test> -->
 </suite> <!-- Suite -->
 
