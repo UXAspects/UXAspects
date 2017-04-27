@@ -47,6 +47,16 @@ export default function draggableCard() {
       scope.showTitle = scope.cardTitle || scope.cardSubtitle;
       scope.showHeader = scope.showTitle || scope.allowEditing || scope.allowRemoving;
 
+      scope.$on('allowEditingChanged', function () {
+        allowEditing = (parentScope.allowEditing !== null && parentScope.allowEditing !== undefined) ? parentScope.allowEditing : true;
+        scope.allowEditing = hasEditFunc && allowEditing;
+      });
+
+      scope.$on('allowRemovingChanged', function () {
+        allowRemoving = (parentScope.allowRemoving !== null && parentScope.allowRemoving !== undefined) ? parentScope.allowRemoving : true;
+        scope.allowRemoving = hasRemoveFunc && allowRemoving;
+      });
+
     }
   };
 }

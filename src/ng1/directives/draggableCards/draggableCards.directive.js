@@ -78,6 +78,18 @@ export default function draggableCards(safeTimeout, safeEventListener) {
           observer.disconnect();
         });
 
+        scope.$watch('allowEditing', function (nv, ov) {
+          if (nv !== ov) {
+            scope.$broadcast('allowEditingChanged');
+          };
+        });
+
+        scope.$watch('allowRemoving', function (nv, ov) {
+          if (nv !== ov) {
+            scope.$broadcast('allowRemovingChanged');
+          };
+        });
+
         selectDefault();
 
         //ensure we can handle resize events
