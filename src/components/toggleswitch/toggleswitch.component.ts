@@ -10,7 +10,6 @@ const TOGGLESWITCH_VALUE_ACCESSOR = {
 @Component({
     selector: 'ux-toggleswitch',
     templateUrl: './toggleswitch.component.html',
-    styleUrls: ['./toggleswitch.component.less'],
     providers: [TOGGLESWITCH_VALUE_ACCESSOR],
     host: {
         '(click)': 'toggleChecked()'

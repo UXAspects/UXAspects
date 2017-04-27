@@ -10,7 +10,6 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'ux-checkbox',
     templateUrl: './checkbox.component.html',
-    styleUrls: ['./checkbox.component.less'],
     providers: [CHECKBOX_VALUE_ACCESSOR],
     host: {
         '(click)': 'toggleChecked()'

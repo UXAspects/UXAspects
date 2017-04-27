@@ -470,11 +470,10 @@
     <parameter name="browser" value="edge"/>
     <parameter name="browserPlatform" value="win10"/>
     <parameter name="page" value="css/buttons"/>
-	<classes>
+	<classes>
        <class name="WebDriverTests.WebDriverTests.UXAspectsTesting.OpenPage"></class>
        <class name="WebDriverTests.WebDriverTests.CSS.Buttons"></class>
        <class name="WebDriverTests.WebDriverTests.UXAspectsTesting.CloseDriver"></class>
 	</classes>
   </test>
 </suite> <!-- Suite -->
-

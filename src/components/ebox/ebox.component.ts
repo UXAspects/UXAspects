@@ -2,8 +2,7 @@ import { Component, Directive } from '@angular/core';
 
 @Component({
     selector: 'ux-ebox',
-    templateUrl: './ebox.component.html',
-    styleUrls: ['./ebox.component.less']
+    templateUrl: './ebox.component.html'
 })
 export class EboxComponent { }
 

@@ -1,25 +1,23 @@
-@import "../../styles/variables.less";
-
-:host {
+ux-progressbar {
     display: block;
     height: 20px;
     margin-bottom: 20px;
     overflow: hidden;
     background-color: @grey7;
     border-radius: 4px;
-}
 
-.progressbar-track {
-    float: left;
-    width: 0;
-    height: 100%;
-    font-size: 12px;
-    line-height: 20px;
-    color: @white;
-    text-align: center;
-    background-color: @accent;
-    font-size: 14px;
-    -webkit-transition: width .6s ease;
-    -o-transition: width .6s ease;
-    transition: width .6s ease;
+    .progressbar-track {
+        float: left;
+        width: 0;
+        height: 100%;
+        font-size: 12px;
+        line-height: 20px;
+        color: @white;
+        text-align: center;
+        background-color: @accent;
+        font-size: 14px;
+        -webkit-transition: width .6s ease;
+        -o-transition: width .6s ease;
+        transition: width .6s ease;
+    }
 }

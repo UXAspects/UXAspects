@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'ux-spark',
-    templateUrl: './spark.component.html',
-    styleUrls: ['./spark.component.less']
+    templateUrl: './spark.component.html'
 })
 export class SparkComponent {
 
