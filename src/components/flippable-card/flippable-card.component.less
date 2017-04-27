@@ -1,75 +1,74 @@
-@import "../../styles/variables.less";
+ux-flippable-card {
 
-:host {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  display: inline-block;
-}
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    display: inline-block;
 
-:host .ux-flipper.ux-flip-card {
-  transform: none;
-}
+    .ux-flipper.ux-flip-card {
+        transform: none;
+    }
 
-:host .ux-flipper.ux-flip-card .ux-flippable-card-back {
-  transform: rotateY(0deg);
-}
+    .ux-flipper.ux-flip-card .ux-flippable-card-back {
+        transform: rotateY(0deg);
+    }
 
-:host .ux-flipper.ux-flip-card .ux-flippable-card-front {
-  transform: rotateY(180deg);
-}
+    .ux-flipper.ux-flip-card .ux-flippable-card-front {
+        transform: rotateY(180deg);
+    }
 
-:host.vertical {
-  position: relative;
-}
+    &.vertical {
+        position: relative;
+    }
 
-:host.vertical .ux-flippable-card-back {
-  transform: rotateX(180deg);
-}
+    &.vertical .ux-flippable-card-back {
+        transform: rotateX(180deg);
+    }
 
-:host.vertical .ux-flipper.ux-flip-card {
-  transform: none;
-}
+    &.vertical .ux-flipper.ux-flip-card {
+        transform: none;
+    }
 
-:host.vertical .ux-flipper.ux-flip-card .ux-flippable-card-back {
-  transform: rotateX(0deg);
-}
+    &.vertical .ux-flipper.ux-flip-card .ux-flippable-card-back {
+        transform: rotateX(0deg);
+    }
 
-:host.vertical .ux-flipper.ux-flip-card .ux-flippable-card-front {
-  transform: rotateX(-180deg);
-}
+    &.vertical .ux-flipper.ux-flip-card .ux-flippable-card-front {
+        transform: rotateX(-180deg);
+    }
 
-/* flip speed */
-.ux-flipper {
-  transition: 0.6s;
-  transform-style: preserve-3d;
-  position: relative;
-}
+    /* flip speed */
+    .ux-flipper {
+        transition: 0.6s;
+        transform-style: preserve-3d;
+        position: relative;
+    }
 
-.hover-flipper .ux-flippable-card-front,
-.hover-flipper .ux-flippable-card-back {
-  transition-delay: 0.3s;
-}
+    .hover-flipper .ux-flippable-card-front,
+    .hover-flipper .ux-flippable-card-back {
+        transition-delay: 0.3s;
+    }
 
-/* hide back of pane during swap */
-.ux-flippable-card-front,
-.ux-flippable-card-back {
-  backface-visibility: hidden;
-  transition: 0.6s;
-  transform-style: flat;
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-shadow: 0px 2px 10px @grey4;
-  background-color: @white;
-}
+    /* hide back of pane during swap */
+    .ux-flippable-card-front,
+    .ux-flippable-card-back {
+        backface-visibility: hidden;
+        transition: 0.6s;
+        transform-style: flat;
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-shadow: 0px 2px 10px @grey4;
+        background-color: @white;
+    }
 
-/* front pane, placed above back */
-.ux-flippable-card-front {
-  z-index: 2;
-  transform: rotateY(0deg);
-}
+    /* front pane, placed above back */
+    .ux-flippable-card-front {
+        z-index: 2;
+        transform: rotateY(0deg);
+    }
 
-/* back, initially hidden pane */
-.ux-flippable-card-back {
-  transform: rotateY(-180deg);
+    /* back, initially hidden pane */
+    .ux-flippable-card-back {
+        transform: rotateY(-180deg);
+    }
 }

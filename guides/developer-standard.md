@@ -9,8 +9,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'ux-sample',
-    templateUrl: './sample.component.html',
-    styleUrls: ['./sample.component.less'],
+    templateUrl: './sample.component.html'
 })
 export class SampleComponent { 
     constructor() {}
@@ -40,9 +39,9 @@ components
 ### Component Decorator 
 
 - The selector should always be prefixed with `ux-` (any documentation specific components should be prefixed with `uxd-`), this will help avoid any potential conflicts with selectors in other libraries of a user's application.
-- Exclude `moduleId` property. The Angular component interface has a field for `moduleId` which is used to support relative paths, primarily for SystemJS module loader to load templates and stylesheets. As part of our build process we inline templates and styles to allow us to support the most common bundlers and module loaders so this property is not required.
-- Template and style urls should begin with a `./` to ensure they are relative paths.
-- Use the host element instead of wrapping in a container element. The host element can be styled and have events and bindings using the `host` property in the decorator (or using a HostListener).
+- Exclude `moduleId` property. The Angular component interface has a field for `moduleId` which is used to support relative paths, primarily for SystemJS module loader to load templates and stylesheets. As part of our build process we inline templates to allow us to support the most common bundlers and module loaders so this property is not required.
+- Template urls should begin with a `./` to ensure they are relative paths.
+- Use the tag element instead of wrapping in a container element. The tag element can be styled and have events and bindings using the `host` property in the decorator (or using a HostListener).
 - Define inputs and outputs in class rather than in component metadata.
 
 ### Component Module
@@ -109,19 +108,25 @@ This allows consumers to import from `ux-aspects` rather than having to specify 
 
 ### Component Styling
 
-Each component should have its own stylesheet. These styles will be encapsulated so any classes defined in this stylesheet will only affect the template of the component.
+Each component should have its own stylesheet. While Angular provides component encapsulation, we cannot use this and still allow theming of components. To resolve this issue and still retain style encapsulation, every rule for a component should be inside a tag selector. For example, our `ux-checkbox` component stylesheet would look like this:
 
-When styling a component you can style the `host` element using the `:host` selector. This should be used rather than adding a `div` in the component template and adding a class to it.
+```less
+ux-checkbox {
+    // rules go in here
+}
+```
+
+The tag element should be styled rather than adding a `div` in the component template and adding a class to it.
 
 We should follow this [style guide](http://codeguide.co/#css-syntax) when writing our stylesheet, below are some of the most important points:
 
-##### Never add a margin to a `host` element.
+##### Never add a margin to a `component` element.
 
 We should leave it up to the consuming application as to how much spacing is around any component.
 
 ```less
 // Bad
-:host {
+ux-checkbox {
 	margin: 10px;
 }
 ```
