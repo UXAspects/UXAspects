@@ -1,7 +1,7 @@
 <div style="padding:5px;color:#fff;" class="social-demo node-popover-demo">
 
 <div class="node-popover-id-holder">
-	<i class="hpe-icon hpe-user" style="color:#2ad2c9; font-size:35px;"></i>
+	<i class="hpe-icon hpe-user node-popover-icon"></i>
 	<h3 class="selectednode-label">{{sc.hoveredItem.label}}</h3>
 	<h4 class="selectednode-additional-label">{{sc.hoveredItem.additional.fullName}}</h4>
 	<div class="m-b-sm">
@@ -18,7 +18,7 @@
 	<ul style="padding-left:0;">
 		<li class="neighbor-label-popover" ng-repeat="neighbour in sc.hoveredItem.neighborNodes" style="list-style:none;" ng-click="neighbour.setInExternal.goToEdge()">
 			<span tooltip="{{neighbour.additional.fullName}}" tooltip-placement="bottom" tooltip-append-to-body="false">{{neighbour.label}}</span>
-			<spark class="col-lg-12 p-r-nil p-l-nil" type="'spark-chart1'" value="neighbour.setInExternal.ratio" fillheight="5" inline="false"></spark>
+			<spark class="col-lg-12 p-r-nil p-l-nil" type="'spark-vibrant1'" value="neighbour.setInExternal.ratio" fillheight="5" inline="false"></spark>
 		</li>
 	</ul>
 </div>
@@ -61,5 +61,9 @@
 	.neighbor-label-popover:hover{
 		background-color: #444;
 		cursor: pointer;
+	}
+	.node-popover-icon{
+		color:#00cceb;
+		font-size:35px
 	}
 </style>
