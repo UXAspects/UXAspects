@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-checkbox',
     templateUrl: './checkbox.component.html'
 })
 @DocumentationSectionComponent('ComponentsCheckboxComponent')
-export class ComponentsCheckboxComponent implements IPlunkProvider {
+export class ComponentsCheckboxComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     public checkModel: any;
     public simplified: boolean;
@@ -72,6 +73,14 @@ export class ComponentsCheckboxComponent implements IPlunkProvider {
     };
 
     constructor() {
+ 
+        super(
+            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
+            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
+            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
+            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
+            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
+        );
 
         this.checkModel = {
             option1: true,
