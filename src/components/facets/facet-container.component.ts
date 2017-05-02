@@ -8,11 +8,9 @@ import { Facet } from './models/facet';
 })
 export class FacetContainerComponent {
 
-    @Input() containerId: string;
     @Input() header: string = 'Selected:';
     @Input() clearTooltip: string = 'Clear All';
-    @Input() emptyMessage: string = 'No Items';
-    
+    @Input() emptyText: string = 'No Items';
     @Input() facets: Facet[] = [];
 
     @Output() facetsChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
@@ -56,7 +54,7 @@ export class FacetContainerComponent {
 
         // update the two way binding
         this.facetsChange.emit(this.facets);
-        
+
         // trigger event
         this.triggerEvent(new FacetDeselectAll());
     }
