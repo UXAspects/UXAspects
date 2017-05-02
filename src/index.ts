@@ -8,4 +8,6 @@ export * from './components/progressbar/index';
 export * from './components/radiobutton/index';
 export * from './components/spark/index';
 export * from './components/toggleswitch/index';
+export * from './components/facets/index';
+export * from './directives/resize/index';
 export * from './services/color/index';

@@ -1,0 +1,91 @@
+ux-facet-check-list {
+    
+    .facet-check-list-container {
+        display: flex;
+        flex-direction: column;
+
+        .facet-check-list-item {
+            display: flex;
+            flex: none;
+            height: 32px;
+            align-items: center;
+            outline: none;
+            cursor: pointer;
+            max-width: 100%;
+            
+            .facet-check-list-item-check {
+                display: flex;
+                flex: none;
+                justify-content: flex-start;
+                align-items: center;
+                color: #7b63a3;
+                opacity: 0;
+                width: 22px;
+                margin-right: 5px;
+                margin-left: 5px;
+            }
+
+            .facet-check-list-item-title {
+                margin-right: 5px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: break-all;
+                white-space: nowrap;
+            }
+
+            .facet-check-list-item-count {
+                color: #9a9d9f;
+            }
+            
+            &:hover,
+            &:focus {
+                background-color: #f5f5f5;
+
+                .facet-check-list-item-check {
+                    opacity: 0.5;
+                }
+            }
+
+            &.disabled {
+                opacity: 0.5;
+            }
+
+            &.facet-active {
+                
+                .facet-check-list-item-check {
+                    opacity: 1;
+                }
+
+                &:hover,
+                &:focus {
+                    opacity: 1;
+                }
+            }
+        }
+
+        // Show scrollbars
+        &.facet-check-list-scrollbar {
+            max-height: 233px;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                border: none;
+                background-color: transparent;
+            }
+
+            &:hover::-webkit-scrollbar-thumb {
+                border-radius: 6px;
+                background-color: #999;
+            }
+        }
+    }
+}
