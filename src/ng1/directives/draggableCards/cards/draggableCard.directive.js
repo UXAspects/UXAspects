@@ -47,6 +47,14 @@ export default function draggableCard() {
       scope.showTitle = scope.cardTitle || scope.cardSubtitle;
       scope.showHeader = scope.showTitle || scope.allowEditing || scope.allowRemoving;
 
+      scope.$watch(() => parentScope.allowEditing, (newValue) => {
+        scope.allowEditing = hasEditFunc && newValue;
+      });
+
+      scope.$watch(() => parentScope.allowRemoving, (newValue) => {
+        scope.allowRemoving = hasRemoveFunc && newValue;
+      });
+
     }
   };
 }
