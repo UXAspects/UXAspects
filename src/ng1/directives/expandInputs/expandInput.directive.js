@@ -4,7 +4,6 @@ export default function expandInput() {
     template: require('./expandInput.html'),
     controller: "ExpandInputCtrl as vm",
     bindToController: true,
-    replace: true,
     scope: {
       focus: "&",
       name: "@elname",
