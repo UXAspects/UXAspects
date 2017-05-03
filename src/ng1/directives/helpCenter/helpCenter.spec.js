@@ -21,8 +21,8 @@ describe('help center directive', function () {
       $scope.$digest();
     });
     it("replaces content with help center menu list", function () {
-      expect((element.find("li:first-child>a")[0].innerText)).toBe(helpText);
-      expect((element.find("li:first-child>a").attr('href'))).toBe(parenturl);
+      expect((element.find("ul>li:first-child>a")[0].innerText)).toBe(helpText);
+      expect((element.find("ul>li:first-child>a").attr('href'))).toBe(parenturl);
     });
   });
 });

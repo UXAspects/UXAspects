@@ -11,7 +11,6 @@ export default function helpCenterMenu($timeout, $rootScope) {
             sortFn: "=?"
         },
         template: require('./helpCenterMenu.html'),
-        replace: "true",
         link: function (scope) {
             if (!scope.target) scope.target = '_self';
             scope.iconBase = scope.icon && scope.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon';
