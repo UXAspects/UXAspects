@@ -1,0 +1,16 @@
+# Latest version of ubuntu
+FROM williamyeh/ansible:ubuntu16.04
+
+MAINTAINER Pearse McMurray <pearse.mcmurray@hpe.com>
+
+RUN apt-get update && \
+    apt-get install -y sudo
+
+RUN apt-get install -y python-pip \
+    && pip install pyvmomi "pywinrm>=0.1.1"
+
+RUN mkdir -p /.ansible/tmp
+RUN chmod -R a+rw /.ansible
+RUN chmod a+rw /
+RUN chmod a+rw /tmp
+

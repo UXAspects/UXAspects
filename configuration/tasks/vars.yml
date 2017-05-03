@@ -1,0 +1,15 @@
+---
+http_proxy: http://web-proxy.sdc.hpecorp.net:8080
+https_proxy: http://web-proxy.sdc.hpecorp.net:8080
+
+maven_version: 3.3.9
+
+firefox_version: 46.0.1
+
+selenium_major_minor: 3.3
+selenium_jar_version: 3.3.1
+
+chromedriver_version: 2.28
+geckodriver_version: v0.15.0
+iedriver_major_minor: 3.3
+iedriver_version: 3.3.0

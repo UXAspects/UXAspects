@@ -1,0 +1,75 @@
+#!/bin/bash
+
+ANSIBLE_IMAGE_NAME=ansible-container
+ANSIBLE_BUILD_IMAGE_TAG_LATEST=0.4.0
+
+# Define a function to create a specified Docker image
+ensure_ansible_image_exists()
+{
+    echo; echo ensure_ansible_image_exists - PWD is $PWD
+
+	# Create the ansible-container image if it does not exist
+    DOCKER_IMAGE_ID=`docker images | grep $ANSIBLE_IMAGE_NAME | grep $ANSIBLE_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
+    echo ID for $ANSIBLE_IMAGE_NAME:$ANSIBLE_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
+    if [ -z "$DOCKER_IMAGE_ID" ] ; then
+        # Create the docker image
+        echo Building the image
+        docker build -f Dockerfile.Ansible \
+            -t $ANSIBLE_IMAGE_NAME:$ANSIBLE_BUILD_IMAGE_TAG_LATEST \
+            --build-arg http_proxy=http://web-proxy.sdc.hpecorp.net:8080 \
+            --build-arg https_proxy=http://web-proxy.sdc.hpecorp.net:8080 \
+            --no-cache .
+        DOCKER_IMAGE_ID=`docker images | grep $ANSIBLE_IMAGE_NAME | grep $ANSIBLE_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
+        echo New ID for $ANSIBLE_IMAGE_NAME:$ANSIBLE_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
+    fi
+}
+
+# Revert a machine to a specified snapshot and restart it.
+revert_snapshot_run()
+{
+    # $1 - Folder name
+    # $2 - Virtual machine name
+    # $3 - Snapshot name
+    # $4 - Name of the file signalling the successful completion of the job
+    # $5 - Ansible vault password
+    echo; echo revert_snapshot_run - PWD is $PWD
+
+    docker run --rm \
+        --volume "$PWD":/workspace:rw --workdir /workspace \
+        --user $UID:$GROUPS \
+        $ANSIBLE_IMAGE_NAME:$ANSIBLE_BUILD_IMAGE_TAG_LATEST \
+        bash /workspace/sendCommandsToVSphere.sh "$1" "$2" "$3" "$4" "$5"
+}
+
+# Download required roles from ansible-galaxy
+download_ansible_roles()
+{
+    echo; echo ansible_download_roles - PWD is $PWD
+
+    docker run --rm \
+        --volume "$PWD":/workspace:rw --workdir /workspace \
+        --user $UID:$GROUPS \
+        -e "HOME=/workspace" \
+        -e http_proxy=http://web-proxy.sdc.hpecorp.net:8080 \
+        -e https_proxy=http://web-proxy.sdc.hpecorp.net:8080 \
+        $ANSIBLE_IMAGE_NAME:$ANSIBLE_BUILD_IMAGE_TAG_LATEST \
+        ansible-galaxy install --roles-path /workspace/tasks/roles -r requirements.yml
+}
+
+# Run an Ansible playbook
+run_ansible_playbook()
+{
+    # $1 - Path to playbook
+    # $2 - Ansible vault password
+    echo; echo ansible_run - PWD is $PWD
+
+    docker run --rm \
+        --volume "$PWD":/workspace:rw --workdir /workspace \
+        --user $UID:$GROUPS \
+        -e "HOME=/workspace" \
+        -e http_proxy=http://web-proxy.sdc.hpecorp.net:8080 \
+        -e https_proxy=http://web-proxy.sdc.hpecorp.net:8080 \
+        $ANSIBLE_IMAGE_NAME:$ANSIBLE_BUILD_IMAGE_TAG_LATEST \
+        bash /workspace/runPlaybook.sh "$1" "$2"
+}
+

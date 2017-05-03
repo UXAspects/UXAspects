@@ -7,8 +7,20 @@ echo Build number is $BUILD_NUMBER
 echo Displaying id
 id
 
-# Temporary commands to allow testing of Jenkins job
-echo Listing contents of $WORKSPACE
-ls -alR $WORKSPACE
+echo Changing to $WORKSPACE/configuration
+cd $WORKSPACE/configuration
 
-exit 0
+# Revert the machine
+bash revertToSnapshot.sh 'RelEng' 'SOUELEMVMW10' 'Before deployment' 'Node2Rebuilt'
+revertResult=$?
+echo revertToSnapshot.sh returned $revertResult
+if [ $revertResult -eq 1 ]; then
+    exit 1;
+fi
+
+# Deploy software to the machine. Sleep needed while waiting for machine to become visible again.
+echo
+sleepFor=180
+echo Sleeping for $sleepFor seconds ...
+sleep $sleepFor
+bash reinstallSoftware.sh '/workspace/tasks/node2.yml'

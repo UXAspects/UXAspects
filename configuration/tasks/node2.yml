@@ -1,0 +1,34 @@
+---
+- name: Grid node 2 deployment
+  hosts: node2
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - include: nodes.yml
+
+    # Install WebDriver executables
+    - name: Download MicrosoftWebDriver
+      win_get_url:
+        url: https://download.microsoft.com/download/C/0/7/C07EBF21-5305-4EC8-83B1-A6FCC8F93F45/MicrosoftWebDriver.msi
+        dest: C:\Selenium\MicrosoftWebDriver.msi
+    - name: Install MicrosoftWebDriver
+      win_shell: 7z e C:\\Selenium\\MicrosoftWebDriver.msi -oC:\\Selenium\\MicrosoftWebDriver -bd -y
+      ignore_errors: yes
+
+    # Add registry commands to start the Selenium Grid Node processes upon machine start
+    - name: Add registry command to start the continuous integration Selenium Grid Node process upon machine start
+      win_regedit:
+        key: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+        value: StartCISeleniumGridNode
+        data: 'C:\Git\UXAspects\configuration\node2\startGridNode.bat'
+    - name: Add registry command to start the release build Selenium Grid Node process upon machine start
+      win_regedit:
+        key: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+        value: StartReleaseBuildSeleniumGridNode
+        data: 'C:\Git\UXAspects\configuration\node2\startGridNodeReleaseBuild.bat'
+
+    # Reboot the machine
+    - name: Reboot
+      win_reboot:
+
