@@ -105,19 +105,21 @@ ls -al BeforeUnitTestsStarted
 docker_image_run bash buildscripts/executeUnitTestsDocker.sh; echo
 
 # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
-# remove unwanted strings.
+# ignore unwanted strings.
 echo Adding unit test results to the results file
+startOutput=false
 echo "<h2>Unit Tests</h2>" >> UXAspectsTestsResults.html
 while read line ; do
-    echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
+    # Ignore all lines before Testing Jasmine specs via PhantomJS
+	if [[ $line == *"Testing Jasmine specs via PhantomJS"* ]] ; then
+        echo "Found first line to output"
+        startOutput=true
+    fi
+    
+    if [ "$startOutput" = true ] ; then
+        echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
+    fi
 done < UnitTestResults.txt
-sed -i 's/\[4m//g' UXAspectsTestsResults.html
-sed -i 's/\[24m//g' UXAspectsTestsResults.html
-sed -i 's/\[31m//g' UXAspectsTestsResults.html
-sed -i 's/\[32m//g' UXAspectsTestsResults.html
-sed -i 's/\[33m//g' UXAspectsTestsResults.html
-sed -i 's/\[39m//g' UXAspectsTestsResults.html
-sed -i 's/\r\n/\n/g' UXAspectsTestsResults.html
 echo "</body></html>" >> UXAspectsTestsResults.html
 
 cd $WORKSPACE/ux-aspects

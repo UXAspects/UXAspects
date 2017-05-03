@@ -12,7 +12,9 @@ module.exports = {
                 path.join(process.cwd(), 'node_modules', 'angular', 'angular.js'),
                 path.join(process.cwd(), 'node_modules', 'angular-mocks', 'angular-mocks.js'),
             ],
-            keepRunner: true
+            keepRunner: true,
+            display: 'none',
+            summary: true
         }
     }
 };

@@ -22,6 +22,16 @@ module.exports = {
             open: false
         }
     },
+    selenium_release: {
+        options: {
+            hostname: '0.0.0.0',
+            port: 4001,
+            base: 'dist/docs',
+            keepalive: true,
+            livereload: false,
+            open: false
+        }
+    },
     plunker: {
         options: {
             hostname: '0.0.0.0',
