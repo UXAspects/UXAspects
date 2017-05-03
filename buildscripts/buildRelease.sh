@@ -16,7 +16,6 @@ echo http_proxy is $http_proxy
 echo https_proxy is $https_proxy
 echo BuildPackages is $BuildPackages
 echo PrivateArtifactoryURL is $PrivateArtifactoryURL
-echo PrivateArtifactoryCredentials is $PrivateArtifactoryCredentials
 echo BuildDocumentation is $BuildDocumentation
 echo GridHubIPAddress is $GridHubIPAddress
 echo Build number is $BUILD_NUMBER
@@ -126,21 +125,21 @@ if [ "$RunTests" == "true" ]; then
 	docker_image_run bash buildscripts/executeUnitTestsDocker.sh
 
 	# The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
-	# remove unwanted strings.
+	# ignore unwanted strings.
 	echo Adding unit test results to the results file
+	startOutput=false
 	echo "<h2>Unit Tests</h2>" >> UXAspectsTestsResults.html
 	while read line ; do
-		echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
+		# Ignore all lines before Testing Jasmine specs via PhantomJS
+		if [[ $line == *"Testing Jasmine specs via PhantomJS"* ]] ; then
+			echo "Found first line to output"
+			startOutput=true
+		fi
+		
+		if [ "$startOutput" = true ] ; then
+			echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
+		fi
 	done < UnitTestResults.txt
-	sed -i 's/\[1m//g' UXAspectsTestsResults.html
-	sed -i 's/\[4m//g' UXAspectsTestsResults.html
-	sed -i 's/\[22m//g' UXAspectsTestsResults.html
-	sed -i 's/\[24m//g' UXAspectsTestsResults.html
-	sed -i 's/\[31m//g' UXAspectsTestsResults.html
-	sed -i 's/\[32m//g' UXAspectsTestsResults.html
-	sed -i 's/\[33m//g' UXAspectsTestsResults.html
-	sed -i 's/\[39m//g' UXAspectsTestsResults.html
-	sed -i 's/\r\n/\n/g' UXAspectsTestsResults.html
 
 	# Test for success i.e. zero failures. If there were failures, complete the results file and exit with status 1.
 	if grep -q  ">> 0 failures" UnitTestResults.txt;
