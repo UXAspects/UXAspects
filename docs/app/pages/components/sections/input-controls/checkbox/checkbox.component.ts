@@ -1,3 +1,5 @@
+import { UsageProvider } from './../../../../../interfaces/UsageProvider';
+import { Usage } from './../../../../../interfaces/Usage';
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
@@ -9,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     templateUrl: './checkbox.component.html'
 })
 @DocumentationSectionComponent('ComponentsCheckboxComponent')
-export class ComponentsCheckboxComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsCheckboxComponent extends BaseDocumentationSection implements IPlunkProvider, UsageProvider {
 
     public checkModel: any;
     public simplified: boolean;
@@ -71,6 +73,18 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
             library: 'ux-aspects'
         }]
     };
+
+    public usage: Usage = {
+        usage: [{
+            title: 'Selector',
+            content: 'ux-checkbox'
+        },{
+            title: 'Module name',
+            content: 'CheckboxModule'
+        }],
+    };
+
+    
 
     constructor() {
  

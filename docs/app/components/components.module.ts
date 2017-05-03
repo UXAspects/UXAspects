@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { EboxModule } from '../../../src/index';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 // Import Layout Components
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
@@ -24,6 +25,7 @@ import { SnippetComponent } from './snippet/snippet.component';
 import { SectionSelectComponent } from './section-select/section-select.component';
 import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { UsageLinkComponent } from './usage-link/usage-link.component';
 
 const DOCUMENTATION_COMPONENTS = [
     DocumentationCategoryComponent,
@@ -41,7 +43,8 @@ const DOCUMENTATION_COMPONENTS = [
     ComponentSectionComponent,
     SnippetComponent,
     SectionSelectComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    UsageLinkComponent
 ];
 
 @NgModule({
@@ -50,7 +53,8 @@ const DOCUMENTATION_COMPONENTS = [
         RouterModule,
         FormsModule,
         EboxModule,
-        TooltipModule.forRoot()
+        TooltipModule.forRoot(),
+        PopoverModule.forRoot()
     ],
     exports: DOCUMENTATION_COMPONENTS,
     declarations: DOCUMENTATION_COMPONENTS,

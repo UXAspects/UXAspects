@@ -6,6 +6,8 @@ import { ICodePen } from '../../interfaces/ICodePen';
 import { IPlunkProvider, isIPlunkProvider } from '../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../interfaces/IPlunk';
 import { ResolverService } from '../../services/resolver/resolver.service';
+import { UsageProvider, isUsageProvider } from '../../interfaces/UsageProvider';
+import { Usage } from '../../interfaces/Usage';
 
 @Component({
     selector: 'uxd-component-section',
@@ -25,6 +27,7 @@ export class ComponentSectionComponent implements OnInit {
     
     private codepen: ICodePen;
     private plunk: IPlunk;
+    private usage: Usage;
     
     constructor(private resolverService: ResolverService) { }
 
@@ -40,6 +43,10 @@ export class ComponentSectionComponent implements OnInit {
                 this.codepen = (<ICodePenProvider>componentRef.instance).codepen;
             } else if (isIPlunkProvider(componentRef.instance)) {
                 this.plunk = (<IPlunkProvider>componentRef.instance).plunk;
+            }
+
+            if (isUsageProvider(componentRef.instance)) {
+                this.usage = (<UsageProvider>componentRef.instance).usage;
             }
         } else {
             console.warn(`ComponentSectionComponent: ${this.componentName} cannot be resolved - decorate component with @DocumentationSectionComponent.`);
