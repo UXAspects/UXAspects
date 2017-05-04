@@ -9,7 +9,7 @@
             <uxd-edit-example-link *ngIf="plunk" [title]="title" [content]="plunk" type="plunker" [version]="version">Edit in Plunker</uxd-edit-example-link>
         
             <!-- Show usage link if required -->
-            <uxd-usage-link [usage]="usage" [test]="test">Usage</uxd-usage-link>
+            <uxd-usage-link [usage]="usage">Usage</uxd-usage-link>
 
             <!-- Show the Angular Version -->
             <span class="label label-primary m-r-sm" *ngIf="version === 'AngularJS'">Angular 1</span>

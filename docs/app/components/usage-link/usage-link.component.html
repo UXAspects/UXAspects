@@ -1,16 +1,20 @@
 <ng-template #popTemplate>
-    <table>
+    <table class="usage-popover">
         <tbody>
             <tr *ngFor="let use of usage.usage">
                 <td class="p-r-xs usage-title">{{ use.title }}</td>
                 <td class="p-r-xs">{{ use.content }}</td>
-                <td><i class="hpe-icon hpe-clipboard" tooltip="Copy to clipboard" (click)="copy(use.content)"></i></td>
+                <td><i class="hpe-icon hpe-clipboard" [tooltip]="tooltipTemplate" (click)="copy(use.content)"></i></td>
             </tr>
         </tbody>
     </table>
 </ng-template>
 
-<a class="hyperlink-hover m-r-sm" #pop="bs-popover" [popover]="popTemplate" container="body" placement="bottom">
+<ng-template #tooltipTemplate>
+    <p class="usage-tooltip">Copy to Clipboard</p>
+</ng-template>
+
+<a class="hyperlink-hover m-r-sm" #pop="bs-popover" [popover]="popTemplate" container="body" placement="bottom" (onShown)="onShown(pop)"> 
     <i class="hpe-icon hpe-action p-r-xs"></i>
     <ng-content></ng-content>
 </a>

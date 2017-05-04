@@ -1,14 +1,51 @@
+@import '../../assets/styles/variables.less';
+
 :host {
     display: none;
 
     &.enabled {
         display: inline-block;
-        a {      
-            color: #676a6c;
+        a {
+            color: @text-color;
         }
     }
 }
 
 .usage-title {
     font-weight: 600;
+}
+
+.usage-popover {
+    width: 100%;
+    tr {
+        height: 30;
+        border-bottom: 1px solid @grey5;
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            .hpe-clipboard {
+                color: @grey5;
+                cursor: pointer;
+                &:hover, &:focus {
+                    color: @grey1;
+                }
+            }
+        } 
+        &:first-child {
+            td {
+                padding-top: 0;
+            }
+        }
+        &:last-child {
+            border-bottom: none;
+            td {
+                padding-bottom: 0;
+            }
+        }  
+    }
+}
+
+.usage-tooltip {
+    white-space: nowrap;
+    margin-bottom: 0;
 }

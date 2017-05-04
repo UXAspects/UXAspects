@@ -84,8 +84,6 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
         }],
     };
 
-    
-
     constructor() {
  
         super(

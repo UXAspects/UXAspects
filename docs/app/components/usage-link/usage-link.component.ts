@@ -1,5 +1,5 @@
 import { Usage } from './../../interfaces/Usage';
-import { Input, Component, Directive } from '@angular/core';
+import { Input, Component } from '@angular/core';
 
 @Component({
     selector: 'uxd-usage-link',
@@ -12,21 +12,18 @@ import { Input, Component, Directive } from '@angular/core';
 export class UsageLinkComponent{
 
     @Input() usage: Usage;
-    @Input() test: string;
     @Input() pop: string;
-
-    popoverContent = ``;
 
     isUsageEnabled() {
         return this.usage;
     }
 
-    hide($event: Event, pop: Directive) {
-        console.log(this.usage);
-        // let target = event.target;
-        // console.log(target);
+    onShown(popover: any) {
+        let popoverElement = popover._popover._componentRef.location.nativeElement;
+        popoverElement.style.width = '400px';
+        popoverElement.style.borderRadius = '0';
+        popoverElement.style.zIndex = '1';
     }
-
 
     //copy to clipboard button
     copy(text: string) {
