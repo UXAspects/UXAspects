@@ -20,7 +20,8 @@ export class UsageLinkComponent{
 
     onShown(popover: any) {
         let popoverElement = popover._popover._componentRef.location.nativeElement;
-        popoverElement.style.width = '400px';
+        popoverElement.style.width = '300px';
+        popoverElement.style.maxWidth = '300px';
         popoverElement.style.borderRadius = '0';
         popoverElement.style.zIndex = '1';
     }
