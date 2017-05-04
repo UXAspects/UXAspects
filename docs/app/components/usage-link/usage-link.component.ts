@@ -26,6 +26,13 @@ export class UsageLinkComponent{
         popoverElement.style.zIndex = '1';
     }
 
+    toggleTooltip(event: any, pop: any) {
+        debugger;
+        if(event.keyCode === 13){
+            console.log('success');
+        }
+    }
+
     //copy to clipboard button
     copy(text: string) {
         let dummy = document.createElement('input');
