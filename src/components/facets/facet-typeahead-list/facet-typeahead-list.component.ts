@@ -39,7 +39,7 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
                 // remove disabled facets, selected facets and facets that dont match search term
                 return facets.filter(facet => !facet.disabled)
                     .filter(facet => !this.selected.find(selectedFacet => selectedFacet === facet))
-                    .filter(facet => facet.title.includes(this.searchQuery));
+                    .filter(facet => facet.title.toUpperCase().includes(this.searchQuery.toUpperCase()));
             });
 
         } else {
@@ -50,7 +50,7 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
                 // remove disabled facets, selected facets and facets that dont match search term
                 return facets.filter(facet => !facet.disabled)
                     .filter(facet => !this.selected.find(selectedFacet => selectedFacet === facet))
-                    .filter(facet => facet.title.includes(this.searchQuery));
+                    .filter(facet => facet.title.toUpperCase().includes(this.searchQuery.toUpperCase()));
             });
         }
 
