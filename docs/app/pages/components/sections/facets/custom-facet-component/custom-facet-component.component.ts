@@ -10,32 +10,30 @@ import 'chance';
     templateUrl: './custom-facet-component.component.html'
 })
 @DocumentationSectionComponent('ComponentsCustomFacetComponent')
-export class ComponentsCustomFacetComponent /*implements IPlunkProvider*/ {
+export class ComponentsCustomFacetComponent implements IPlunkProvider {
 
-
+    htmlCode = require('./snippets/app.html');
+    tsCode = require('./snippets/app.ts');
     headerHtmlCode = require('./snippets/header.html');
+    facetHtmlCode = require('./snippets/facet-component.html');
+    facetTsCode = require('./snippets/facet-component.ts');
+    facetCssCode = require('./snippets/facet-component.css');
 
-    // htmlCode = require('./snippets/app.html');
-    // tsCode = require('./snippets/app.ts');
-
-    // plunk: IPlunk = {
-    //     files: {
-    //         'app.component.ts': require('./snippets/app.ts'),
-    //         'app.component.html': require('./snippets/app.html')
-    //     },
-    //     mappings: [
-    //         {
-    //             alias: 'chance',
-    //             source: 'npm:chance@1.0.6'
-    //         }
-    //     ],
-    //     modules: [{
-    //         imports: ['FacetsModule'],
-    //         library: 'ux-aspects'
-    //     }]
-    // };
-
-    constructor() {
-
-    }
+    plunk: IPlunk = {
+        files: {
+            'app.component.ts': require('./snippets/app.ts'),
+            'app.component.html': require('./snippets/app.html'),
+            'facet-component.component.html': require('./snippets/facet-component.html'),
+            'facet-component.component.css': require('./snippets/facet-component.css'),
+            'facet-component.component.ts': require('./snippets/facet-component.ts')
+        },
+        modules: [{
+            imports: ['FacetsModule'],
+            library: 'ux-aspects'
+        }, {
+            imports: ['SampleCustomFacetComponent'],
+            library: './facet-component.component',
+            declaration: true
+        }]
+    };
 }

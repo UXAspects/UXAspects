@@ -1,6 +1,6 @@
 ux-facet-container {
     display: block;
-    background-color: #fff;
+    background-color: @white;
     padding: 10px;
 
     .facets-selected-container {
@@ -19,18 +19,28 @@ ux-facet-container {
 
             .facets-selected-clear-button {
                 flex: none;
-                width: 20px;
-                height: 12px;
-                background-image: url('../../img/filter_clear_light.png');
-                background-repeat: no-repeat;
+                width: 21px;
+                height: 14px;
                 border: 1px solid transparent;
                 transition: border-color .3s ease-in-out;
                 cursor: pointer;
 
                 &:hover, 
                 &:focus {
-                    border-color: #445664;
+                    border-color: @grey2;
                     outline-style: none;
+                }
+
+                .facets-selected-clear-graphic {
+                    
+                    .dark-grey {
+                        fill: @grey2;
+                    }
+
+                    .light-grey {
+                        fill: @grey4;
+                    }
+
                 }
             }
         }
@@ -43,7 +53,7 @@ ux-facet-container {
                 padding: 5px;
                 margin-right: 5px;
                 margin-bottom: 5px;
-                border: 1px solid #e5e5e5;
+                border: 1px solid @grey6;
                 cursor: pointer;
                 outline: none;
                 transition: background-color .3s ease-in-out;
@@ -55,7 +65,7 @@ ux-facet-container {
 
                 &:hover,
                 &:focus {
-                    background-color: #f5f5f5;
+                    background-color: @grey7;
                 }
             }
 
@@ -63,7 +73,7 @@ ux-facet-container {
 
         .facets-selected-none-label {
             margin-bottom: 0;
-            color: #888888;
+            color: @grey4;
         }
 
     }

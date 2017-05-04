@@ -80,8 +80,11 @@
         is currently selected, otherwise will return false.</li>
 </ul>
 
-<p>The base class also adds a <code>selected</code> two way binding and an <code>events</code> output which will automatcially
-    be triggered when facets are selected or deselected.</p>
+<p>
+    The base class also adds a <code>selected</code> two way binding and an <code>events</code> output which will automatcially
+    be triggered when facets are selected or deselected. The <code>events</code> property is an observable which can be subscribed
+    to to watch for external events such as deselecting being triggered by the Facet Container.
+</p>
 
 <hr>
 
@@ -94,3 +97,23 @@
         </ux-facet-container>
     </div>
 </div>
+
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Facet HTML">
+        <uxd-snippet language="html" [code]="facetHtmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Facet TypeScript">
+        <uxd-snippet language="javascript" [code]="facetTsCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Facet CSS">
+        <uxd-snippet language="css" [code]="facetCssCode"></uxd-snippet>
+    </tab>
+</tabset>

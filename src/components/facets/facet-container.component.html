@@ -9,7 +9,16 @@
 
         <!-- Add a Clear Button -->
         <div class="facets-selected-clear-button" tabindex="0" [tooltip]="clearTooltip" placement="left" container="body" (click)="deselectAllFacets()"
-            (keyup.enter)="deselectAllFacets()"></div>
+            (keyup.enter)="deselectAllFacets()">
+
+            <svg class="facets-selected-clear-graphic" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
+                <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
+                <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
+                <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
+                <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
+                <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
+            </svg>
+        </div>
 
     </div>
 
@@ -32,7 +41,7 @@
     <p class="facets-selected-none-label" *ngIf="emptyText && facets.length === 0">{{ emptyText }}</p>
 
 </div>
-    
+
 <!-- Any Facet Elements Should be Added Here By User -->
 <div class="facets-region">
     <ng-content></ng-content>

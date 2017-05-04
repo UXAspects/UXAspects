@@ -12,7 +12,7 @@ import { ComponentsFacetLineChartNg1Component } from './facet-line-chart-ng1/fac
 import { ComponentsProgrammaticSelectionNg1Component } from './programmatic-selection-ng1/programmatic-selection-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { FacetsModule } from '../../../../../../src/index';
+import { FacetsModule, CheckboxModule } from '../../../../../../src/index';
 import { ComponentsFacetContainerComponent } from './facet-container/facet-container.component';
 import { ComponentsFacetCheckListComponent } from './facet-check-list/facet-check-list.component';
 import { ComponentsFacetTypeaheadListComponent } from './facet-typeahead-list/facet-typeahead-list.component';
@@ -48,6 +48,7 @@ const ROUTES = [
         WrappersModule,
         TabsModule,
         FacetsModule,
+        CheckboxModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],
