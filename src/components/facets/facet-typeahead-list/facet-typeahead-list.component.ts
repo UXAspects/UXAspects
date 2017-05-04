@@ -35,14 +35,22 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
 
             // handle an observable of data
             this.typeaheadOptions = Observable.from(this.facets).map((facets: Facet[]) => {
-                return facets.filter(facet => !facet.disabled && !this.selected.find(selectedFacet => selectedFacet === facet));
+
+                // remove disabled facets, selected facets and facets that dont match search term
+                return facets.filter(facet => !facet.disabled)
+                    .filter(facet => !this.selected.find(selectedFacet => selectedFacet === facet))
+                    .filter(facet => facet.title.includes(this.searchQuery));
             });
 
         } else {
 
             // handle an array of data
             this.typeaheadOptions = Observable.of(this.facets).map((facets: Facet[]) => {
-                return facets.filter(facet => !facet.disabled && !this.selected.find(selectedFacet => selectedFacet === facet));
+
+                // remove disabled facets, selected facets and facets that dont match search term
+                return facets.filter(facet => !facet.disabled)
+                    .filter(facet => !this.selected.find(selectedFacet => selectedFacet === facet))
+                    .filter(facet => facet.title.includes(this.searchQuery));
             });
         }
 
