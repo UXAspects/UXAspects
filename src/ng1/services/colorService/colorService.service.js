@@ -33,7 +33,9 @@ export default function $colorService() {
 				'<div class="partition11-color"></div>'+
 				'<div class="partition12-color"></div>'+
 				'<div class="partition13-color"></div>'+
-				'<div class="partition14-color"></div>';
+				'<div class="partition14-color"></div>'+
+				'<div class="social-chart-node-color"></div>'+
+				'<div class="social-chart-edge-color"></div>';
 
 	var element = document.createElement('div');
 	element.className = 'color-chart';
@@ -89,7 +91,9 @@ export default function $colorService() {
 		partition11: getColorValue('partition11'),
 		partition12: getColorValue('partition12'),
 		partition13: getColorValue('partition13'),
-		partition14: getColorValue('partition14')
+		partition14: getColorValue('partition14'),
+		'social-chart-node': getColorValue('social-chart-node'),
+		'social-chart-edge': getColorValue('social-chart-edge')
    	};
 
    	element.parentNode.removeChild(element);
