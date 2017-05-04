@@ -9,7 +9,7 @@ import 'rxjs/add/observable/of';
 import { Observer } from 'rxjs/Observer';
 
 @Component({
-    selector: 'uxd-facet-typeahead-list',
+    selector: 'ux-facet-typeahead-list',
     templateUrl: './facet-typeahead-list.component.html'
 })
 export class FacetTypeaheadListComponent extends FacetBaseComponent implements OnInit {
@@ -21,7 +21,6 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
 
     typeaheadOptions: Observable<Facet[]>;
     searchQuery: string;
-    
 
     private defaultTypeaheadConfig: FacetTypeaheadListConfig = {
         placeholder: '',

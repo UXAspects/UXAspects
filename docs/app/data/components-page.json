@@ -147,6 +147,21 @@
                     "version": "Angular"
                 },
                 {
+                    "title": "Facet Check List",
+                    "component": "ComponentsFacetCheckListComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Facet Typeahead List",
+                    "component": "ComponentsFacetTypeaheadListComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Custom Facet Component",
+                    "component": "ComponentsCustomFacetComponent",
+                    "version": "Angular"
+                },
+                {
                     "title": "Facets (Angular 1)",
                     "component": "ComponentsFacetsNg1Component",
                     "version": "AngularJS"

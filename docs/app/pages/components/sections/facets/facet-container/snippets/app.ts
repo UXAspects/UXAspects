@@ -3,7 +3,7 @@ import { Facet } from 'ux-aspects';
 import 'chance';
 
 @Component({
-    selector: 'my-app',
+    selector: 'app',
     templateUrl: './src/app.component.html'
 })
 export class AppComponent {

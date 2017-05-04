@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-md-12">
+        <ux-facet-container (events)="onEvent($event)">
+            <ux-facet-check-list header="Authors" [facets]="facets"></ux-facet-check-list>
+        </ux-facet-container>
+
+        <!-- If there has been an event show some information -->
+        <div *ngIf="event">
+            <hr>
+            <p>{{ event }}</p>
+        </div>
+
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The Facet Check List component can be used to display a list of Facets that can be selected or deselected to provide the
+    user with filtering capabilities. This component is designed to be placed within the Facet Container component.
+</p>
+
+<p>
+    To add a Facet Check List component to your application you need to import the <code>FacetsModule</code> which allows
+    the use of the <code>ux-facet-check-list</code> component.
+</p>
+
+<p>The following attributes can be used to customise the behavior of the component:</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td><b>@Input</b> facets</td>
+            <td><b>Facet[]</b></td>
+            <td>Defines the complete list of facets that can be selected.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input @Output</b> selected</td>
+            <td><b>Facet[]</b></td>
+            <td>This will allow you to define an initial set of selected facets. If two-way binding is used this array will get updated any time the selected facets change.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Output</b> events</td>
+            <td><b>FacetEvent</b></td>
+            <td>This will be triggered when a facet is selected, deselected or all facets are deselected. The event will be an
+                instance of either <code>FacetSelect</code>, <code>FacetDeselect</code> or <code>FacetDeselectAll</code> 
+                and will contain the facet being selected or deselected in a <code>facet</code> property (deselect all will not contain affected facets).</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> header</td>
+            <td><b>string</b></td>
+            <td>Defines the text displayed at the top of the Facet Check List.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> scrollbar</td>
+            <td><b>boolean</b></td>
+            <td>If <code>false</code> the list will grow to display all possible facets. If <code>true</code> a scrollbar will appear to prevent the list from growing too large. Default: <code>true</code>.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> expanded</td>
+            <td><b>boolean</b></td>
+            <td>Defines whether or not the Facet Check List should be initially expanded or not. Default: <code>true</code>.</td>
+        </tr>
+
+    </tbody>
+</table>
+
+<p>The following code will produce the example shown above:</p>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [code]="tsCode"></uxd-snippet>
+    </tab>
+    
+</tabset>
