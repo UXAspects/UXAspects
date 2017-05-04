@@ -1808,6 +1808,12 @@
             "name": "Social Chart",
             "description": "Modify the appearance of the social chart",
             "variables": [{
+                    "name": "@social-chart-node-color"
+                },
+                {
+                    "name": "@social-chart-edge-color"
+                },
+                {
                     "name": "@social-chart-title-color"
                 },
                 {
