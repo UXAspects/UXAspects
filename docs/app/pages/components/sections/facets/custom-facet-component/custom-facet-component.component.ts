@@ -28,7 +28,7 @@ export class ComponentsCustomFacetComponent implements IPlunkProvider {
             'facet-component.component.ts': require('./snippets/facet-component.ts')
         },
         modules: [{
-            imports: ['FacetsModule'],
+            imports: ['FacetsModule', 'CheckboxModule'],
             library: 'ux-aspects'
         }, {
             imports: ['SampleCustomFacetComponent'],
