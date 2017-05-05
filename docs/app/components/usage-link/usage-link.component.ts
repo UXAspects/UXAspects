@@ -36,8 +36,7 @@ export class UsageLinkComponent{
     copy(text: string) {
         let dummy = this.renderer.createElement('input');
         this.renderer.appendChild(this.popoverElement, dummy);
-        this.renderer.setAttribute(dummy, 'id', 'dummy_id');
-        (<HTMLInputElement>document.getElementById('dummy_id')).value = text;
+        dummy.value = text;
         dummy.select();
         document.execCommand('copy');
         this.renderer.removeChild(this.popoverElement, dummy);
