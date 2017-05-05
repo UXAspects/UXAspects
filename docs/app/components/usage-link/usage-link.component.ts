@@ -6,14 +6,14 @@ import { Input, Renderer2, Component } from '@angular/core';
     templateUrl: './usage-link.component.html',
     styleUrls: ['./usage-link.component.less']
 })
-export class UsageLinkComponent{
+export class UsageLinkComponent {
 
     @Input() usage: Usage;
     @Input() pop: string;
 
     private popoverElement: any;
 
-    constructor(private renderer: Renderer2) { }
+    constructor(private renderer: Renderer2) {}
 
     onShown(popover: any) {
 
@@ -25,7 +25,7 @@ export class UsageLinkComponent{
         this.renderer.setStyle(this.popoverElement, 'zIndex', '1');
     }
 
-    //copy to clipboard button
+    // copy to clipboard button
     copy(text: string) {
         let dummy = this.renderer.createElement('input');
         this.renderer.appendChild(this.popoverElement, dummy);
