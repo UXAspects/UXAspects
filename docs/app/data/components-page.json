@@ -230,7 +230,14 @@
                 {
                     "title": "Checkbox",
                     "component": "ComponentsCheckboxComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-checkbox"
+                    },{
+                        "title": "Module name",
+                        "content": "CheckboxModule"
+                    }]
                 },
                 {
                     "title": "Checkbox (Angular 1)",
@@ -251,7 +258,14 @@
                 {
                     "title": "Toggle Switch",
                     "component": "ComponentsToggleSwitchComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-toggleswitch"
+                    },{
+                        "title": "Module name",
+                        "content": "ToggleSwitchModule"
+                    }]
                 },
                 {
                     "title": "Toggle Switch (Angular 1)",

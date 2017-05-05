@@ -1,6 +1,4 @@
 export interface Usage {
-    usage: [{
-        title: string;
-        content: string;
-    }];
+    title: string;
+    content: string;
 }

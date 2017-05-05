@@ -1,17 +1,15 @@
-import { UsageProvider } from './../../../../../interfaces/UsageProvider';
 import { Component } from '@angular/core';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { Usage } from "../../../../../interfaces/Usage";
 
 @Component({
   selector: 'uxd-components-toggleswitch',
   templateUrl: './toggleswitch.component.html'
 })
 @DocumentationSectionComponent('ComponentsToggleSwitchComponent')
-export class ComponentsToggleSwitchComponent extends BaseDocumentationSection  implements IPlunkProvider, UsageProvider {
+export class ComponentsToggleSwitchComponent extends BaseDocumentationSection  implements IPlunkProvider {
 
   public toggleSwitches: any;
   public toggleSwitchDisable: boolean;
@@ -25,16 +23,6 @@ export class ComponentsToggleSwitchComponent extends BaseDocumentationSection  i
           imports: ['ToggleSwitchModule'],
           library: 'ux-aspects'
       }]
-  };
-
-  public usage: Usage = {
-      usage: [{
-          title: 'Selector',
-          content: 'ux-toggleswitch'
-      },{
-          title: 'Module name',
-          content: 'ToggleSwitchModule'
-      }],
   };
 
   constructor() {

@@ -1,5 +1,5 @@
 import { Usage } from './../../interfaces/Usage';
-import { Input, Component } from '@angular/core';
+import { Input, Renderer2, Component } from '@angular/core';
 
 @Component({
     selector: 'uxd-usage-link',
@@ -14,26 +14,32 @@ export class UsageLinkComponent{
     @Input() usage: Usage;
     @Input() pop: string;
 
+    private popoverElement: any;
+
+    constructor(private renderer: Renderer2) { }
+
     isUsageEnabled() {
         return this.usage;
     }
 
     onShown(popover: any) {
-        let popoverElement = popover._popover._componentRef.location.nativeElement;
-        popoverElement.style.width = '300px';
-        popoverElement.style.maxWidth = '300px';
-        popoverElement.style.borderRadius = '0';
-        popoverElement.style.zIndex = '1';
+
+        this.popoverElement = popover._popover._componentRef.location.nativeElement;
+
+        this.renderer.setStyle(this.popoverElement, 'style', '300px');
+        this.renderer.setStyle(this.popoverElement, 'maxWidth', '300px');
+        this.renderer.setStyle(this.popoverElement, 'borderRadius', '0');
+        this.renderer.setStyle(this.popoverElement, 'zIndex', '1');
     }
 
     //copy to clipboard button
     copy(text: string) {
-        let dummy = document.createElement('input');
-        document.body.appendChild(dummy);
-        dummy.setAttribute('id', 'dummy_id');
+        let dummy = this.renderer.createElement('input');
+        this.renderer.appendChild(this.popoverElement, dummy);
+        this.renderer.setAttribute(dummy, 'id', 'dummy_id');
         (<HTMLInputElement>document.getElementById('dummy_id')).value = text;
         dummy.select();
         document.execCommand('copy');
-        document.body.removeChild(dummy);
+        this.renderer.removeChild(this.popoverElement, dummy);
     }
 }
