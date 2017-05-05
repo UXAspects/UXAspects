@@ -15,15 +15,15 @@ export class ComponentsToggleSwitchComponent extends BaseDocumentationSection  i
   public toggleSwitchDisable: boolean;
 
   public plunk: IPlunk = {
-        files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html')
-        },
-        modules: [{
-            imports: ['ToggleSwitchModule'],
-            library: 'ux-aspects'
-        }]
-    };
+      files: {
+          'app.component.ts': require('./snippets/app.ts'),
+          'app.component.html': require('./snippets/app.html')
+      },
+      modules: [{
+          imports: ['ToggleSwitchModule'],
+          library: 'ux-aspects'
+      }]
+  };
 
   constructor() {
 

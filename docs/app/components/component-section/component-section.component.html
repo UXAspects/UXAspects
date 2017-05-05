@@ -4,6 +4,13 @@
 
         <div class="uxd-component-section-attributes">
 
+             <!-- Show the CodePen or Plunker link if required -->
+            <uxd-edit-example-link *ngIf="codepen" [title]="title" [content]="codepen" type="codepen" [version]="version">Edit in CodePen</uxd-edit-example-link>
+            <uxd-edit-example-link *ngIf="plunk" [title]="title" [content]="plunk" type="plunker" [version]="version">Edit in Plunker</uxd-edit-example-link>
+        
+            <!-- Show usage link if required -->
+            <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
+
             <!-- Show the Angular Version -->
             <span class="label label-primary m-r-sm" *ngIf="version === 'AngularJS'">Angular 1</span>
             <span class="label label-accent m-r-sm" *ngIf="version === 'Angular'">Angular 4</span>
@@ -13,10 +20,6 @@
 
             <!-- Show Deprecated label if required -->
             <span class="label label-critical" tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects." container="body" *ngIf="deprecated">Deprecated</span>
-
-            <!-- Show the CodePen or Plunker link if required -->
-            <uxd-edit-example-link class="m-l" *ngIf="codepen" [title]="title" [content]="codepen" type="codepen" [version]="version">Edit in CodePen</uxd-edit-example-link>
-            <uxd-edit-example-link class="m-l" *ngIf="plunk" [title]="title" [content]="plunk" type="plunker" [version]="version">Edit in Plunker</uxd-edit-example-link>
         </div>
 
     </ux-ebox-header>

@@ -144,22 +144,47 @@
                 {
                     "title": "Facet Container",
                     "component": "ComponentsFacetContainerComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-facet-container"
+                    },{
+                        "title": "Module name",
+                        "content": "FacetsModule"
+                    }]
                 },
                 {
                     "title": "Facet Check List",
                     "component": "ComponentsFacetCheckListComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-facet-check-list"
+                    },{
+                        "title": "Module name",
+                        "content": "FacetsModule"
+                    }]
                 },
                 {
                     "title": "Facet Typeahead List",
                     "component": "ComponentsFacetTypeaheadListComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-facet-typeahead-list"
+                    },{
+                        "title": "Module name",
+                        "content": "FacetsModule"
+                    }]
                 },
                 {
                     "title": "Custom Facet Component",
                     "component": "ComponentsCustomFacetComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Module name",
+                        "content": "FacetsModule"
+                    }]
                 },
                 {
                     "title": "Facets (Angular 1)",
@@ -250,7 +275,14 @@
                 {
                     "title": "Checkbox",
                     "component": "ComponentsCheckboxComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-checkbox"
+                    },{
+                        "title": "Module name",
+                        "content": "CheckboxModule"
+                    }]
                 },
                 {
                     "title": "Checkbox (Angular 1)",
@@ -271,7 +303,14 @@
                 {
                     "title": "Toggle Switch",
                     "component": "ComponentsToggleSwitchComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-toggleswitch"
+                    },{
+                        "title": "Module name",
+                        "content": "ToggleSwitchModule"
+                    }]
                 },
                 {
                     "title": "Toggle Switch (Angular 1)",

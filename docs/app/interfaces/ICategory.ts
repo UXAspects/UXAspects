@@ -1,3 +1,4 @@
+import { Usage } from './Usage';
 import { ISection } from './ISection';
 
 export interface ICategory {

@@ -1,5 +1,5 @@
+import { Usage } from './../../interfaces/Usage';
 import { Component, Input, ViewChild, ViewContainerRef, AfterViewInit, OnInit } from '@angular/core';
-
 import { documentationSectionNames } from '../../decorators/documentation-section-component';
 import { ICodePenProvider, isICodePenProvider } from '../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../interfaces/ICodePen';
@@ -20,6 +20,7 @@ export class ComponentSectionComponent implements OnInit {
     @Input() version: string;
     @Input() deprecated: boolean = false;
     @Input() externalUrl: string;
+    @Input() usage: Usage[];
 
     @ViewChild('container', { read: ViewContainerRef }) viewContainer: ViewContainerRef; 
     

@@ -9,7 +9,14 @@
                     "title": "Bar Chart",
                     "component": "ChartsBarChartComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                    "externalUrl": "http://valor-software.com/ng2-charts/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[base-chart]"
+                    },{
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    }]
                 },
                 {
                     "title": "Bar Chart (Angular 1)",
@@ -21,7 +28,14 @@
                     "title": "Horizontal Bar Chart",
                     "component": "ChartsHorizontalBarChartComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                    "externalUrl": "http://valor-software.com/ng2-charts/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[base-chart]"
+                    },{
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    }]
                 },
                 {
                     "title": "Horizontal Bar Chart (Angular 1)",
@@ -33,7 +47,14 @@
                     "title": "Stacked Bar Chart",
                     "component": "ChartsStackedBarChartComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                    "externalUrl": "http://valor-software.com/ng2-charts/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[base-chart]"
+                    },{
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    }]
                 },
                 {
                     "title": "Stacked Bar Chart (Angular 1)",
@@ -62,7 +83,14 @@
                     "title": "Donut Chart",
                     "component": "ChartsDonutChartComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                    "externalUrl": "http://valor-software.com/ng2-charts/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[base-chart]"
+                    },{
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    }]
                 },
                 {
                     "title": "Donut Chart (Angular 1)",
@@ -96,7 +124,14 @@
                     "title": "Line Chart",
                     "component": "ChartsLineChartComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                    "externalUrl": "http://valor-software.com/ng2-charts/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[base-chart]"
+                    },{
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    }]
                 },
                 {
                     "title": "Line Chart (Angular 1)",
@@ -108,7 +143,14 @@
                     "title": "Stacked Line Chart",
                     "component": "ChartsStackedLineChartComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                    "externalUrl": "http://valor-software.com/ng2-charts/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[base-chart]"
+                    },{
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    }]
                 },
                 {
                     "title": "Stacked Line Chart (Angular 1)",
@@ -120,7 +162,14 @@
                     "title": "Multiple Axis Line Chart",
                     "component": "ChartsMultipleAxisLineChartComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                    "externalUrl": "http://valor-software.com/ng2-charts/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[base-chart]"
+                    },{
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    }]
                 },
                 {
                     "title": "Multiple Axis Line Chart (Angular 1)",
@@ -138,7 +187,14 @@
                     "title": "Live Chart",
                     "component": "ChartsLiveChartComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                    "externalUrl": "http://valor-software.com/ng2-charts/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[base-chart]"
+                    },{
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    }]
                 },
                 {
                     "title": "Live Chart (Angular 1)",
@@ -189,7 +245,14 @@
                     "title": "Scrollable Chart",
                     "component": "ChartsScrollableChartComponent",
                     "version": "Angular",
-                    "externalUrl": "http://valor-software.com/ng2-charts/"
+                    "externalUrl": "http://valor-software.com/ng2-charts/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[base-chart]"
+                    },{
+                        "title": "Module name",
+                        "content": "ChartsModule"
+                    }]
                 },
                 {
                     "title": "Scrollable Chart (Angular 1)",
