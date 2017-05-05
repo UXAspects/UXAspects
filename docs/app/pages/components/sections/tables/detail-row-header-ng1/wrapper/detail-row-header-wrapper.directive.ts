@@ -75,7 +75,7 @@ class DetailRowHeaderPopoverCtrl {
 
     private scrollBarConfig = {
         autoReinitialise: true,
-        autoReinitialiseDelay: 50,
+        autoReinitialiseDelay: 500,
         enableKeyboardNavigation: true,
         scrollMargin: 5
     };
