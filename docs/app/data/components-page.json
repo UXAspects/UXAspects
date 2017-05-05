@@ -142,27 +142,47 @@
             "link": "facets",
             "sections": [
                 {
-                    "title": "Facets",
+                    "title": "Facet Container",
+                    "component": "ComponentsFacetContainerComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Facet Check List",
+                    "component": "ComponentsFacetCheckListComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Facet Typeahead List",
+                    "component": "ComponentsFacetTypeaheadListComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Custom Facet Component",
+                    "component": "ComponentsCustomFacetComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Facets (Angular 1)",
                     "component": "ComponentsFacetsNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Dynamic Facets",
+                    "title": "Dynamic Facets (Angular 1)",
                     "component": "ComponentsDynamicFacetsNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Custom Facets",
+                    "title": "Custom Facets (Angular 1)",
                     "component": "ComponentsCustomFacetsNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Line Chart Example with Facet Panel",
+                    "title": "Line Chart Example with Facet Panel (Angular 1)",
                     "component": "ComponentsFacetLineChartNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Programmatic Selection",
+                    "title": "Programmatic Selection (Angular 1)",
                     "component": "ComponentsProgrammaticSelectionNg1Component",
                     "version": "AngularJS"
                 }

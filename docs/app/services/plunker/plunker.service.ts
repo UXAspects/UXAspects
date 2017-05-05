@@ -6,6 +6,7 @@ import { IPlunk } from '../../interfaces/IPlunk';
 
 const ASSETS_URL_PLACEHOLDER_REGEX = /\$\{assetsUrl\}/g;
 const MODULES_PLACEHOLDER = /\$\{modules\}/g;
+const DECLARATIONS_PLACEHOLDER = /\$\{declarations\}/g;
 const IMPORTS_PLACEHOLDER = /\$\{imports\}/g;
 const MAPPINGS_PLACEHOLDER = /\$\{mappings\}/g;
 
@@ -15,7 +16,7 @@ export class PlunkerService {
     private assetsUrl = this.appConfig.get('assetsUrl');
     private plunkerPostUrl = this.appConfig.get('plunker');
 
-    constructor(@Inject(DOCUMENT) private document: Document, private appConfig: AppConfiguration) {}
+    constructor( @Inject(DOCUMENT) private document: Document, private appConfig: AppConfiguration) { }
 
     public launch(title: string, plunk: IPlunk) {
 
@@ -30,39 +31,64 @@ export class PlunkerService {
 
     private initForm(title: string, plunk: IPlunk): HTMLFormElement {
 
-        let modules = '';
-        let imports = '';
-        let library = '';
-        let mappings = '';
+        let modules = ['BrowserModule'];
+        let declarations = ['AppComponent'];
+        let imports: string[] = [];
+        let mappings: string[] = [];
 
         if (plunk.modules) {
-            plunk.modules.map(mapping => {
-                if (mapping.imports) {
-                    modules += `,${ mapping.imports }`;
+
+            // create list of declarations
+            plunk.modules.filter(mapping => mapping.declaration).forEach(mapping => {
+                if (mapping.imports instanceof Array) {
+                    declarations = declarations.concat(mapping.imports);
+                } else {
+                    declarations.push(mapping.imports);
                 }
             });
-            plunk.modules.map(mapping => {
+
+            // create list of module imports
+            plunk.modules.filter(mapping => !mapping.declaration).forEach(mapping => {
+                if (mapping.imports instanceof Array) {
+                    modules = modules.concat(mapping.imports);
+                } else {
+                    modules.push(mapping.imports);
+                }
+            });
+
+            // generate the import statements
+            plunk.modules.forEach(mapping => {
+
                 if (mapping.library) {
+
                     if (!mapping.imports) {
-                        imports += `import '${ mapping.library }';\n`;
+                        imports.push(`import '${mapping.library}';`);
                     } else if (mapping.imports instanceof Array) {
-                        imports += `import { ${ mapping.imports } } from '${ mapping.library }';\n`;
+                        imports.push(`import { ${mapping.imports} } from '${mapping.library}';`);
                     } else if (mapping.importAs) {
-                        imports += `import * as ${ mapping.imports } from '${ mapping.library }';\n`;
+                        imports.push(`import * as ${mapping.imports} from '${mapping.library}';`);
                     } else {
-                        imports += `import ${ mapping.imports } from '${ mapping.library }';\n`;
+                        imports.push(`import ${mapping.imports} from '${mapping.library}';`);
                     }
                 }
             });
         }
 
+        // create the list of mappings for systemjs
         if (plunk.mappings) {
-            mappings = plunk.mappings.map(mapping => `'${ mapping.alias }': '${ mapping.source }'`).join(',\n\t\t\t\t');
+            mappings = plunk.mappings.map(mapping => `'${mapping.alias}': '${mapping.source}'`);
         }
-        
-        let indexHtml = require('./templates/index_html.txt').replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
-        let mainTs = require('./templates/main_ts.txt').replace(MODULES_PLACEHOLDER, (modules)).replace(IMPORTS_PLACEHOLDER, imports);
-        let configJs = require('./templates/config_js.txt').replace(MAPPINGS_PLACEHOLDER, mappings);
+
+        let indexHtml = require('./templates/index_html.txt')
+            .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
+
+        let mainTs = require('./templates/main_ts.txt')
+            .replace(MODULES_PLACEHOLDER, (modules.toString()))
+            .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
+            .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
+
+        let configJs = require('./templates/config_js.txt')
+            .replace(MAPPINGS_PLACEHOLDER, mappings.join(',\n\t\t\t\t'));
 
         const postData = {
             'description': title,
