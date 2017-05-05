@@ -73,27 +73,27 @@
 // Base Colors
 @primary: #00a7a2;
 @accent: #7b63a3;
-@secondary: #ffffff;
+@secondary: #fff;
 @alternate1: #3baa43;
 @alternate2: #025662;
 @alternate3: #b08f5c;
 @vibrant1: #00cceb;
 @vibrant2: #ff9048;
 @grey1: #2a2a2a;
-@grey2: #333333;
-@grey3: #666666;
-@grey4: #999999;
-@grey5: #cccccc;
-@grey6: #eeeeee;
+@grey2: #333;
+@grey3: #666;
+@grey4: #999;
+@grey5: #ccc;
+@grey6: #eee;
 @grey7: #f5f5f5;
 @grey8: #fafafa;
-@white: #ffffff;
+@white: #fff;
 @chart1: @primary;
 @chart2: @accent;
 @chart3: #3baa43;
 @chart4: #025662;
 @chart5: #b08f5c;
-@chart6: #cccccc;
+@chart6: #ccc;
 @ok: #3baa43;
 @warning: #ff9048;
 @critical: #ff454f;
@@ -109,7 +109,7 @@
 @btn-circular-border-radius: 50%;
 @btn-shadow: none;
 @btn-hover-shadow: none;
-@btn-active-shadow: none;
+@btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 @btn-shadow-dark: 1px 1px 3px #1A1A1A; //dark styling
 @btn-hover-shadow-dark: 1px 1px 8px #1A1A1A;
 
@@ -656,6 +656,8 @@
 @select-table-highlight-bg-dark: #404040;
 
 // Social Chart
+@social-chart-node-color: @vibrant1;
+@social-chart-edge-color: fade(@social-chart-node-color, 60%);
 @social-chart-title-color: @white;
 @social-chart-shadow: #222;
 @social-chart-maximize-btn-bg: #222;

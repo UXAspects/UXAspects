@@ -35,8 +35,8 @@ export default function socialChart($timeout, $interval, $colorService) {
         link: function(scope, element) {
 
             var config = {
-                'defaultNodeColor': $colorService.getColor("vibrant1").toHex(),
-                'defaultEdgeColor': $colorService.getColor("vibrant1").setAlpha(0.6).toRgba(),
+                'defaultNodeColor': $colorService.getColor("social-chart-node").toRgba(),
+                'defaultEdgeColor': $colorService.getColor("social-chart-edge").toRgba(),
                 'defaultLabelColor': 'rgba(255,255,255,0.6)',
                 'labelSizeRatio': 2,
                 'enableEdgeHovering': true,

@@ -1,0 +1,48 @@
+<!-- Display Any Selected Facets -->
+<div class="facets-selected-container">
+
+    <!-- Display Title an Clear Button -->
+    <div class="facets-selected-header-container">
+
+        <!-- Show The Selected Text -->
+        <span class="facets-selected-header-label">{{ header }}</span>
+
+        <!-- Add a Clear Button -->
+        <div class="facets-selected-clear-button" tabindex="0" [tooltip]="clearTooltip" placement="left" container="body" (click)="deselectAllFacets()"
+            (keyup.enter)="deselectAllFacets()">
+
+            <svg class="facets-selected-clear-graphic" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
+                <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
+                <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
+                <rect class="light-grey" x="0" y="8" width="7" height="2"></rect>
+                <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
+                <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
+            </svg>
+        </div>
+
+    </div>
+
+    <!-- Display Tags For Selected Items -->
+    <div class="facets-selected-list">
+
+        <!-- Show Selected Tags -->
+        <div class="facet-selected-tag" tabindex="0" *ngFor="let facet of facets" (click)="deselectFacet(facet)" (keyup.enter)="deselectFacet(facet)">
+
+            <!-- Display Label -->
+            <span class="facet-selected-tag-label">{{ facet.title }}</span>
+
+            <!-- Display Remove Icon -->
+            <span class="hpe-icon hpe-close"></span>
+        </div>
+
+    </div>
+
+    <!-- Show Message Here if No Facets Selected -->
+    <p class="facets-selected-none-label" *ngIf="emptyText && facets.length === 0">{{ emptyText }}</p>
+
+</div>
+
+<!-- Any Facet Elements Should be Added Here By User -->
+<div class="facets-region">
+    <ng-content></ng-content>
+</div>

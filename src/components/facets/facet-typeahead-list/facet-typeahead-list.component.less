@@ -1,0 +1,75 @@
+ux-facet-typeahead-list {
+
+    .facet-typeahead-list-container {
+
+        .facet-typeahead-list-control {
+            position: relative;
+            padding: 10px;
+            border-top: 1px solid @grey7;
+
+            typeahead-container {
+                width: ~'calc(100% - 20px)';
+
+                .dropdown-menu {
+                    width: 100%;
+                    
+                    li {
+                        a {
+                            .facet-typeahead-list-option {
+                                margin-bottom: 0;
+                                text-transform: uppercase;
+
+                                .facet-typeahead-list-option-count {
+                                    color: @grey4;
+                                }
+                            }
+                        }
+
+                        &.active {
+                            a {
+                                background-color: @grey7;
+                                color: inherit;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .facet-typeahead-list-selected-container {
+
+            .facet-typeahead-list-selected-check {
+                display: flex;
+                flex: none;
+                justify-content: flex-start;
+                align-items: center;
+                color: @accent;
+                width: 22px;
+                margin-right: 5px;
+                margin-left: 5px;
+            }
+
+            .facet-typeahead-list-selected-option {
+                display: flex;
+                flex: none;
+                height: 32px;
+                align-items: center;
+                outline: none;
+                cursor: pointer;
+                max-width: 100%;
+
+                .facet-typeahead-list-selected-option-title {
+                    margin-right: 5px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-all;
+                    white-space: nowrap;
+                }
+
+                .facet-typeahead-list-selected-option-count {
+                    color: @grey4;
+                }
+            }
+        }
+    }
+}

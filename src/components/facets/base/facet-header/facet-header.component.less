@@ -1,0 +1,27 @@
+ux-facet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 43px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid @grey6;
+    outline: none;
+    cursor: pointer;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+
+    &:focus {
+        background-color: @grey7;
+    }
+
+    .facet-header-title {
+        font-weight: 600;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        word-break: break-all;
+    }
+}

@@ -200,7 +200,6 @@ table.list-view-table tbody + tbody {
 table.list-view-table .list-view-spark {
   width: calc(60%);
   transform: translate(-50%, 0%);
-  left: 50%;
   position: relative;
 }
 table.list-view-table.table .spark-column {

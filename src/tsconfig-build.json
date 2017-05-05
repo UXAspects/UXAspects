@@ -12,6 +12,7 @@
         "lib": ["es2015", "dom"],
         "skipLibCheck": true,
         "suppressImplicitAnyIndexErrors": true,
+        "emitDecoratorMetadata": true,
         "typeRoots": [
             "../node_modules/@types"
         ]

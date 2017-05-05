@@ -2,7 +2,7 @@
 
 <div class="left-node social-edge-layout-demo social-edge-demo-clickable" ng-click="sc.selectedEdge.sourceNode.goTo()">
 	<div class="social-edge-demo-inner">
-		<i class="hpe-icon hpe-user" style="color:#2ad2c9; font-size:20px;"></i>
+		<i class="hpe-icon hpe-user social-edge-demo-icon text-vibrant1"></i>
 		<h3 class="selectednode-label" style="margin-bottom:0px;">{{sc.selectedEdge.sourceNode.label}}</h3>
 		<div class="selectednode-additional-label">{{sc.selectedEdge.sourceNode.additional.fullName}}</div>
 	</div>
@@ -20,7 +20,7 @@
 
 <div class="right-node social-edge-layout-demo social-edge-demo-clickable" ng-click="sc.selectedEdge.targetNode.goTo()">
 	<div class="social-edge-demo-inner">
-		<i class="hpe-icon hpe-user" style="color:#2ad2c9; font-size:20px;"></i>
+		<i class="hpe-icon hpe-user social-edge-demo-icon text-vibrant1"></i>
 		<h3 class="selectededge-targetnode-label" style="margin-bottom:0px;">{{sc.selectedEdge.targetNode.label}}</h3>
 		<div class="selectededge-targetnode-label-full">{{sc.selectedEdge.targetNode.additional.fullName}}</div>
 	</div>
@@ -96,7 +96,8 @@
 		text-align: right;
 		width: 32%;
 	}
-	.left-node{
+	.social-edge-demo-icon{
+		font-size: 20px;
 	}
 	.arrows:hover{
 		background-color: #333;

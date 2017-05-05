@@ -26,6 +26,7 @@ import { SectionSelectComponent } from './section-select/section-select.componen
 import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { UsageLinkComponent } from './usage-link/usage-link.component';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 const DOCUMENTATION_COMPONENTS = [
     DocumentationCategoryComponent,
@@ -54,7 +55,8 @@ const DOCUMENTATION_COMPONENTS = [
         FormsModule,
         EboxModule,
         TooltipModule.forRoot(),
-        PopoverModule.forRoot()
+        PopoverModule.forRoot(),
+        TypeaheadModule.forRoot()
     ],
     exports: DOCUMENTATION_COMPONENTS,
     declarations: DOCUMENTATION_COMPONENTS,

@@ -50,17 +50,46 @@ docker_image_run()
         echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
     else
         echo Calling docker run ... "$@"
-		docker run -d -it \
-			--cidfile="$PWD/ContainerID" \
-			--volume "$PWD":/workspace:rw --workdir /workspace \
-			--user $UID:$GROUPS \
-			-e "http_proxy=$HttpProxy" \
-			-e "https_proxy=$HttpsProxy" \
-			-e "no_proxy=localhost, 127.0.0.1" \
-			-p 4000:4000 \
-			$UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-			"$@"
+        docker run -d -it \
+            --cidfile="$PWD/ContainerID" \
+            --volume "$PWD":/workspace:rw --workdir /workspace \
+            --user $UID:$GROUPS \
+            -e "http_proxy=$HttpProxy" \
+            -e "https_proxy=$HttpsProxy" \
+            -e "no_proxy=localhost, 127.0.0.1" \
+            -p 4000:4000 \
+            $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
+            "$@"
     fi
+}
+
+# Define a function which loops while waiting for the Selenium Grid hub process to start or finish
+wait_for_grid_hub_process_status_to_change()
+{
+    processCheckDelay=$1
+    processStatusAwaited=$2
+    
+    echo wait_for_grid_hub_process_status_to_change - processCheckDelay = $processCheckDelay
+    echo wait_for_grid_hub_process_status_to_change - processStatusAwaited = $processStatusAwaited
+    
+    while :
+    do
+        PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
+        if [ "$processStatusAwaited" == "start" ] ; then
+            if [ ! -z "$PID_SELENIUM" ] ; then
+                echo Selenium Grid hub process has started
+                break;
+            fi
+        else
+            if [ -z "$PID_SELENIUM" ] ; then
+                echo Selenium Grid hub process has finished
+                break;
+            fi
+        fi
+        
+        echo Sleeping for $processCheckDelay seconds
+        sleep $processCheckDelay
+    done
 }
 
 # Get the build number
@@ -68,14 +97,14 @@ buildNumber="`head -1 $HOME_FOLDER/ux-aspects/buildscripts/build`"
 if [ -z "$buildNumber" ]
 then
     buildNumber="`head -1 $HOME_FOLDER/ux-aspects/jenkins/build`"
-	if [ -z "$buildNumber" ]
-	then
-		echo Build number not set
-	else
-		echo Build number is $buildNumber
-	fi
+    if [ -z "$buildNumber" ]
+    then
+        echo Build number not set
+    else
+        echo Build number is $buildNumber
+    fi
 else
-	echo Build number is $buildNumber
+    echo Build number is $buildNumber
 fi
 
 # Update connect.js to allow building of the documentation. Publish on port 4000.
@@ -93,11 +122,11 @@ if [ -f "$PWD/ContainerID" ]; then
     echo Previous container ID is $ContainerID
     if [ ! -z $ContainerID ]; then
         echo Killing container ID $ContainerID
-    	docker kill $ContainerID
+        docker kill $ContainerID
         echo Removing container ID $ContainerID
-    	docker rm -f $ContainerID
+        docker rm -f $ContainerID
         echo Removing container ID file
-    	rm -f "$PWD/ContainerID"
+        rm -f "$PWD/ContainerID"
     fi
 fi
 
@@ -115,14 +144,14 @@ docker_image_run bash buildscripts/executeSeleniumTestsDocker.sh &
 containerIDCheckDelay=5
 while :
 do
-	if [ -f "$PWD/ContainerID" ]; then
-		ContainerID=$(<"$PWD/ContainerID")
-		echo New container ID is $ContainerID
-		break
-	else
-		echo No container ID file created yet
-	fi
-	echo Sleeping for $containerIDCheckDelay seconds
+    if [ -f "$PWD/ContainerID" ]; then
+        ContainerID=$(<"$PWD/ContainerID")
+        echo New container ID is $ContainerID
+        break
+    else
+        echo No container ID file created yet
+    fi
+    echo Sleeping for $containerIDCheckDelay seconds
     sleep $containerIDCheckDelay
 done
 
@@ -134,34 +163,32 @@ wgetCheckDelay=5
 while :
 do
     bash -c 'wget --proxy=off -t 1 -O webservice.html localhost:4000 ; exit $?'
-	wgstatus=$?
+    wgstatus=$?
     echo wget returned $wgstatus
-	rm -f "$PWD/webservice.html"
+    rm -f "$PWD/webservice.html"
     if [ $wgstatus -eq 0 ]; then
         echo Web service is available
         break
     fi
-	echo Sleeping for $wgetCheckDelay seconds
+    echo Sleeping for $wgetCheckDelay seconds
     sleep $wgetCheckDelay
 done
 
-# Kill any process using port 4444 (the Selenium Grid hub process) and start a new process
+# Kill any process using port 4444 (the Selenium Grid hub process)
 echo Kill any existing Selenium Grid hub process
 PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
 echo Old Selenium Grid hub process ID is $PID_SELENIUM
-if [ ! -z "$PID_SELENIUM" ] ; then echo "Killing existing Selenium Grid hub process" ; kill -9 $PID_SELENIUM ; fi
-sleep 10
-PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
-echo After kill, Selenium Grid hub process ID is $PID_SELENIUM
+if [ ! -z "$PID_SELENIUM" ] ; then
+    echo "Killing existing Selenium Grid hub process" ; kill -9 $PID_SELENIUM ;
+    # Loop until the old process is gone
+    wait_for_grid_hub_process_status_to_change 1 "finish"
+fi
 
 echo Start the new Selenium Grid hub process
 cd $HOME_FOLDER/ux-aspects/configuration
 java -jar $HOME_FOLDER/ux-aspects/Selenium/selenium-server-standalone-3.3.1.jar -role hub -hubConfig hub/hubConfig.json &
-sleep 15
-
-echo Started the Selenium Grid hub process
-PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
-echo New Selenium Grid hub process ID is $PID_SELENIUM
+# Loop until the new process has started
+wait_for_grid_hub_process_status_to_change 1 "start"
 
 # Run the tests
 echo Running the tests
@@ -169,28 +196,30 @@ cd $HOME_FOLDER/ux-aspects
 mvn test
 
 # Create the file indicating to the container that the tests have finished
+PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
 echo $PID_SELENIUM > "$PWD/GridHubFinished"
 
-# Kill and remomve the container
+# Kill and remove the container
 if [ -f "$PWD/ContainerID" ]; then
     ContainerID=$(<"$PWD/ContainerID")
     echo Existing container ID is $ContainerID
     if [ ! -z $ContainerID ]; then
         echo Killing container ID $ContainerID
-    	docker kill $ContainerID
+        docker kill $ContainerID
         echo Removing container ID $ContainerID
-    	docker rm -f $ContainerID
+        docker rm -f $ContainerID
         echo Removing container ID file
-    	rm -f "$PWD/ContainerID"
+        rm -f "$PWD/ContainerID"
     fi
 fi
 
 # Kill the grid hub process
 echo Kill the Selenium Grid hub process
-if [ ! -z "$PID_SELENIUM" ] ; then echo "Killing the Selenium Grid hub process" ; kill -9 $PID_SELENIUM ; fi
-
-echo Before sleep
-sleep 10
+if [ ! -z "$PID_SELENIUM" ] ; then
+    echo "Killing the Selenium Grid hub process" ; kill -9 $PID_SELENIUM ;
+    # Loop until the old process is gone
+    wait_for_grid_hub_process_status_to_change 1 "finish"
+fi
 
 # Create the results file
 cd $HOME_FOLDER/ux-aspects

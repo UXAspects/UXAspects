@@ -6,6 +6,7 @@ export interface IPlunk {
         imports?: string | string[];
         library?: string;
         importAs?: boolean;
+        declaration?: boolean;
     }[];
     mappings?: {
         alias: string;
