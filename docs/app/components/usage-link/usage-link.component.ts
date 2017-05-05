@@ -4,10 +4,7 @@ import { Input, Renderer2, Component } from '@angular/core';
 @Component({
     selector: 'uxd-usage-link',
     templateUrl: './usage-link.component.html',
-    styleUrls: ['./usage-link.component.less'],
-    host: {
-        '[class.enabled]': 'isUsageEnabled()'
-    }
+    styleUrls: ['./usage-link.component.less']
 })
 export class UsageLinkComponent{
 
@@ -17,10 +14,6 @@ export class UsageLinkComponent{
     private popoverElement: any;
 
     constructor(private renderer: Renderer2) { }
-
-    isUsageEnabled() {
-        return this.usage;
-    }
 
     onShown(popover: any) {
 
