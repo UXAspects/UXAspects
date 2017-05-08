@@ -48,7 +48,7 @@ export default function detailRowHeaderPopover($templateRequest, $compile, $root
 
             element.on("hidden.bs.popover", function(e) {
                 popoverOpen = false;
-                angular.element(e.target).data("bs.popover").inState.click = false;
+                angular.element(e.target).data("bs.popover").inState = { click: false };
                 popoverScope.$broadcast("detailRowHeaderPopoverClosed");
             });
 
