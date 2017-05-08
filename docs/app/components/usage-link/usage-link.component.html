@@ -14,7 +14,7 @@
     <p class="usage-tooltip">Copy to Clipboard</p>
 </ng-template>
 
-<a class="hyperlink-hover m-r-sm" tabindex="0" #pop="bs-popover" [popover]="popTemplate" triggers="" (click)="pop.toggle()" (keyup.enter)="pop.toggle()" container="body" placement="bottom" (onShown)="onShown(pop)"> 
+<a class="hyperlink-hover m-r-sm" tabindex="0" #pop="bs-popover" [popover]="popTemplate" triggers="" (click)="pop.toggle()" (keyup.enter)="pop.toggle()" container="body" placement="bottom" (onShown)="onShown($event, pop)"> 
     <i class="hpe-icon hpe-action p-r-xs"></i>
     Usage
 </a>
