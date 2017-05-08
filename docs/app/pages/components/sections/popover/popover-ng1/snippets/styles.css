@@ -102,10 +102,13 @@
 }
 
 .radio-popover {
-    padding: 20px;
     width: 200px;
     border-radius: 1px;
     box-shadow: 1px 2px 8px -5px #999999;
+}
+
+.radio-popover .popover-content {
+    padding: 9px 14px;
 }
 
 .radio-popover label {

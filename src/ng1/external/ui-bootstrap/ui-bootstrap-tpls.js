@@ -3016,11 +3016,21 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
                   scope.$evalAsync(removeTooltip);
                 }
               });
-              // End UX Aspects Modification
-
+  
+              // run outside angular for performance improvements and only when the popover is open
               tooltipLinkedScope.$watch(function () {
-                $timeout(positionTooltip, 0, false);
+                if(ttScope.isOpen) {
+                  if(ngZone) {
+                    ngZone.runOutsideAngular(function() {
+                      $timeout(positionTooltip, 0, false);
+                    }); 
+                  } else {
+                    $timeout(positionTooltip, 0, false);
+                  }
+                }
               });
+
+              // End UX Aspects Modification
 
               if (options.useContentExp) {
                 tooltipLinkedScope.$watch('contentExp()', function (val) {
