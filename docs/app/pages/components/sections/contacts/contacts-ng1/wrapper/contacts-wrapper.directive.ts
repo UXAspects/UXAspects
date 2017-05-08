@@ -2,7 +2,7 @@ angular.module('app').directive('uxdContactsWrapper', () => {
     return {
         restrict: 'E',
         template: require('./contacts-wrapper.directive.html'),
-        controller: ['$templateCache', function ($templateCache) {
+        controller: ['$templateCache', '$colorService', function ($templateCache, $colorService) {
             $templateCache.put('contacts-popover.html', require('../snippets/contacts-popover.html'));
 
             var vm = this;
@@ -92,13 +92,17 @@ angular.module('app').directive('uxdContactsWrapper', () => {
             vm.size = 'medium';
 
             vm.colors = {
-                primary: '#7b63a3',
-                secondary: '#ffffff'
+                primary: $colorService.getColor('accent').toHex(),
+                secondary: $colorService.getColor('secondary').toHex(),
+                active: $colorService.getColor('alternate1').toHex(),
+                passive: $colorService.getColor('grey5').toHex()
             };
 
             vm.colorsAlt = {
-                primary: '#025662',
-                secondary: '#ffffff'
+                primary: $colorService.getColor('alternate2').toHex(),
+                secondary: $colorService.getColor('secondary').toHex(),
+                active: $colorService.getColor('alternate1').toHex(),
+                passive: $colorService.getColor('grey5').toHex()
             };
         }],
         controllerAs: 'vm'

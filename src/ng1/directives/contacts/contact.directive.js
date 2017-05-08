@@ -47,8 +47,8 @@ export default function contact($compile, $document, contactTooltipService) {
 
     function updateStatus(scope, element) {
         var status = {
-            active: "#3baa43",
-            passive: "#ccc"
+            active: scope.colors.active || "#01a982",
+            passive: scope.colors.passive || "#ccc"
         };
 
         if (scope.contact) {
