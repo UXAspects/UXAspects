@@ -5,37 +5,42 @@ import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
 import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
 
 @Component({
-    selector: 'uxd-components-buttons-toggle-buttons',
-    templateUrl: './toggle-buttons.component.html'
+    selector: 'uxd-components-buttons-dropdowns',
+    templateUrl: './dropdowns.component.html',
+    styleUrls: ['./dropdowns.component.less']
 })
-@DocumentationSectionComponent('ComponentsToggleButtonsComponent')
-export class ComponentsToggleButtonsComponent extends BaseDocumentationSection implements IPlunkProvider {
+@DocumentationSectionComponent('ComponentsDropdownsComponent')
+export class ComponentsDropdownsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    // Toggle model
-    public primaryToggleValue: number = 0;
-    public accentToggleValue: string = 'off';
-
-    // Check model
-    public primaryCheckValue = {
-        bold: false,
-        italic: true,
-        underline: false
-    };
-    public accentCheckValue = {
-        bold: false,
-        italic: true,
-        underline: false
-    };
+    public cases = [
+        'Alpha',
+        'Beta',
+        'Gamma',
+        'Delta',
+        'Epsilon',
+        'Zeta',
+        'Eta',
+        'Theta',
+        'Iota',
+        'Kappa',
+        'Alpha 2',
+        'Alpha 3',
+    ];
+    public caseFilter = '';
 
     public plunk: IPlunk = {
         files: {
-            'app.component.html': this.snippets.raw.toggleHtml + this.snippets.raw.checkHtml,
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.css': this.snippets.raw.appCss,
             'app.component.ts': this.snippets.raw.appTs
         },
         modules: [{
             library: 'ngx-bootstrap',
-            imports: ['ButtonsModule'],
-            providers: ['ButtonsModule.forRoot()']
+            imports: ['BsDropdownModule'],
+            providers: ['BsDropdownModule.forRoot()']
+        }, {
+            imports: ['StringFilterModule'],
+            library: 'ux-aspects'
         }],
         mappings: [MAPPINGS.NgxBootstrap]
     };

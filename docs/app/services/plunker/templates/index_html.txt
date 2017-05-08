@@ -6,6 +6,11 @@
     <title>UX Aspects Example</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
     <link rel="stylesheet" href="${assetsUrl}/css/ux-aspects.css" />
+    <style type="text/css">
+      body {
+        padding: 15px;
+      }
+    </style>
     <script>
         window.uxdAssetsUrl = '${assetsUrl}';
     </script>
