@@ -31,7 +31,7 @@ export class PlunkerService {
 
     private initForm(title: string, plunk: IPlunk): HTMLFormElement {
 
-        let modules = ['BrowserModule'];
+        let modules = ['BrowserModule', 'FormsModule'];
         let declarations = ['AppComponent'];
         let imports: string[] = [];
         let mappings: string[] = [];
@@ -48,11 +48,12 @@ export class PlunkerService {
             });
 
             // create list of module imports
-            plunk.modules.filter(mapping => !mapping.declaration).forEach(mapping => {
-                if (mapping.imports instanceof Array) {
-                    modules = modules.concat(mapping.imports);
+            plunk.modules.filter(module => !module.declaration).forEach(module => {
+                const moduleImportProviders = module.providers || module.imports;
+                if (moduleImportProviders instanceof Array) {
+                    modules = modules.concat(moduleImportProviders);
                 } else {
-                    modules.push(mapping.imports);
+                    modules.push(moduleImportProviders);
                 }
             });
 

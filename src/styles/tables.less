@@ -18,6 +18,34 @@
   }
 }
 
+// ngx-bootstrap - pagination
+.pagination {
+  &>li.page-item {
+    &>a {
+      .btn;
+      .button-secondary;
+      min-width: 45px;
+      &:hover {
+        .button-secondary-hover;
+      }
+    }
+    &.active>a {
+      .button-primary-active;
+      &:hover {
+        .button-primary-hover;
+      }
+      &:focus {
+        .button-primary-active;
+      }
+    }
+    &.disabled {
+      &>a {
+        .button-secondary-disabled;
+      }
+    }
+  }
+}
+
 //pagination
 .pagination-details {
   margin: 20px 0;

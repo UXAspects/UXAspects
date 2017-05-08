@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="btn-group">
+            <button type="button" class="btn button-toggle-primary"
+                [(ngModel)]="primaryRadioValue" btnRadio="left">Left</button>
+            <button type="button" class="btn button-toggle-primary"
+                [(ngModel)]="primaryRadioValue" btnRadio="center">Center</button>
+            <button type="button" class="btn button-toggle-primary"
+                [(ngModel)]="primaryRadioValue" btnRadio="right">Right</button>
+        </div>
+        <p class="m-t-md" [style.textAlign]="primaryRadioValue">
+            The quick brown fox jumped over the lazy dog.
+        </p>
+    </div>
+    <div class="col-md-6">
+        <div class="btn-group">
+            <button type="button" class="btn button-toggle-accent"
+                [(ngModel)]="accentRadioValue" btnRadio="left">Left</button>
+            <button type="button" class="btn button-toggle-accent"
+                [(ngModel)]="accentRadioValue" btnRadio="center">Center</button>
+            <button type="button" class="btn button-toggle-accent"
+                [(ngModel)]="accentRadioValue" btnRadio="right">Right</button>
+        </div>
+        <p class="m-t-md" [style.textAlign]="accentRadioValue">
+            The quick brown fox jumped over the lazy dog.
+        </p>
+    </div>
+</div>

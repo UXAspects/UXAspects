@@ -6,14 +6,76 @@
             "link": "buttons",
             "sections": [
                 {
+                    "title": "Toggle Buttons",
+                    "component": "ComponentsToggleButtonsComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/buttons",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[btnCheckbox]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ButtonsModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
+                },
+                {
+                    "title": "Radio Buttons",
+                    "component": "ComponentsRadioButtonsComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/buttons",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[btnRadio]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ButtonsModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
+                },
+                {
+                    "title": "Pagination",
+                    "component": "ComponentsPaginationComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/pagination",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "pagination"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "PaginationModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
+                },
+                {
                     "title": "Grouped Buttons",
                     "component": "ComponentsGroupedButtonsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Toggle Buttons",
                     "component": "ComponentsToggleButtonsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Floating Action Button",
@@ -28,17 +90,20 @@
                 {
                     "title": "Single Toggle Button",
                     "component": "ComponentsSingleToggleButtonNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Checkbox Buttons",
                     "component": "ComponentsCheckboxButtonsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Radio Buttons",
                     "component": "ComponentsRadioButtonsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Dropdown",
