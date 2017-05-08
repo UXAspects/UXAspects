@@ -1,5 +1,6 @@
 import { Usage } from './../../interfaces/Usage';
-import { Input, Renderer2, Component } from '@angular/core';
+import { Input, Renderer2, Component, ElementRef, ViewChild } from '@angular/core';
+import { PopoverDirective, PopoverContainerComponent } from 'ngx-bootstrap/popover';
 
 @Component({
     selector: 'uxd-usage-link',
@@ -13,19 +14,16 @@ import { Input, Renderer2, Component } from '@angular/core';
 export class UsageLinkComponent {
 
     @Input() usage: Usage;
-    @Input() pop: string;
 
-    private popover: any;
-    private popoverElement: any;
-    private usageElement: any;
+    // private popover: PopoverDirective;
+    @ViewChild(PopoverDirective) popover: PopoverDirective;
 
+    private popoverElement: HTMLElement;
 
-    constructor(private renderer: Renderer2) {}
+    constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
-    onShown(event: any, popover: any) {
-        this.usageElement = event.content.elementRef.nativeElement.parentElement;
-        this.popover = popover;
-        this.popoverElement = popover._popover._componentRef.location.nativeElement;
+    onShown() {
+        this.popoverElement = (<any>this.popover)._popover._componentRef.location.nativeElement;
 
         this.renderer.setStyle(this.popoverElement, 'style', '300px');
         this.renderer.setStyle(this.popoverElement, 'maxWidth', '300px');
@@ -34,19 +32,14 @@ export class UsageLinkComponent {
     }
 
     closePopover () {
-        if (this.popover) {
-            this.popover.hide();
-        }
+        this.popover.hide();
     }
 
-    onClick(event: any){
-        if (!this.popover) {
-            return;
-        }
-        let target = event.target;
+    onClick(event: MouseEvent) {
+        let target = event.target as HTMLElement;
         while (target.parentNode) {
-            if(target !== this.popoverElement && target !== this.usageElement) {
-                target = target.parentNode
+            if (target !== this.popoverElement && target !== this.elementRef.nativeElement) {
+                target = target.parentNode as HTMLElement;
             } else {
                 return;
             }
