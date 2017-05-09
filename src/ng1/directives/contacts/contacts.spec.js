@@ -62,8 +62,8 @@ describe('contacts list widget', function () {
     text: "HPE",
     tooltip: "tooltip"
   };
-  var active = "rgb(59, 170, 67)";
-  var passive = "rgb(204, 204, 204)";
+  var active = "rgb(0, 255, 0)";
+  var passive = "rgb(221, 221, 221)";
 
 
   var tooltipTemplate = '<div class="row">' +
@@ -100,7 +100,9 @@ describe('contacts list widget', function () {
     $scope.size = "medium";
     $scope.colorsPrimary = {
       primary: "#01a982",
-      secondary: "#ffffff"
+      secondary: "#ffffff",
+      active: active,
+      passive: passive
     };
     $scope.onOverflowClick = function () {};
     var html = '<contact-group contacts="contacts" organization="organization" size="medium" colors="colorsPrimary" max-contacts="5" overflow-click="onOverflowClick()"></contact-group>';
