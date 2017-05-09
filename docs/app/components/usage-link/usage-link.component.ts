@@ -1,13 +1,13 @@
 import { Usage } from './../../interfaces/Usage';
 import { Input, Renderer2, Component, ElementRef, ViewChild } from '@angular/core';
-import { PopoverDirective, PopoverContainerComponent } from 'ngx-bootstrap/popover';
+import { PopoverDirective } from 'ngx-bootstrap/popover';
 
 @Component({
     selector: 'uxd-usage-link',
     templateUrl: './usage-link.component.html',
     styleUrls: ['./usage-link.component.less'],
     host: {
-        '(document:click)': 'onClick($event, pop)',
+        '(document:click)': 'onClick($event)',
         '(document:keyup.escape)': 'closePopover()'
     }
 })
@@ -15,7 +15,6 @@ export class UsageLinkComponent {
 
     @Input() usage: Usage;
 
-    // private popover: PopoverDirective;
     @ViewChild(PopoverDirective) popover: PopoverDirective;
 
     private popoverElement: HTMLElement;
@@ -36,15 +35,11 @@ export class UsageLinkComponent {
     }
 
     onClick(event: MouseEvent) {
-        let target = event.target as HTMLElement;
-        while (target.parentNode) {
-            if (target !== this.popoverElement && target !== this.elementRef.nativeElement) {
-                target = target.parentNode as HTMLElement;
-            } else {
-                return;
-            }
+        if (!this.popoverElement || !this.popoverElement.contains(event.target as HTMLElement) &&
+            !this.elementRef.nativeElement.contains(event.target)) {
+
+            this.popover.hide();
         }
-        this.popover.hide();
     }
 
     // copy to clipboard button
