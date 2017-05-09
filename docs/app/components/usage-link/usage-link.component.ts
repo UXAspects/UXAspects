@@ -30,9 +30,9 @@ export class UsageLinkComponent {
         this.renderer.setStyle(this.popoverElement, 'zIndex', '1');
     }
 
-    toggle(event: MouseEvent, popover: PopoverDirective) {
+    toggle(event: MouseEvent) {
         let target = event.target as HTMLElement;
-        popover.show();
+        this.popover.show();
         target.blur();
     }
 
