@@ -3020,8 +3020,8 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
               // run outside angular for performance improvements and only when the popover is open
               tooltipLinkedScope.$watch(function () {
                 if(ttScope.isOpen) {
-                  if(ngZone) {
-                    ngZone.runOutsideAngular(function() {
+                  if(window.ngZone) {
+                    window.ngZone.runOutsideAngular(function() {
                       $timeout(positionTooltip, 0, false);
                     }); 
                   } else {
