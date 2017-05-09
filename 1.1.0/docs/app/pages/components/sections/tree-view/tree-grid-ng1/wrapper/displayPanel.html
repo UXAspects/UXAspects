@@ -1,0 +1,12 @@
+<div class="m-md">
+    <p>Created on <span ng-bind="item.date.toLocaleDateString()"></span></p>
+    <div ng-if="item.type === 'folder'">
+        <p>Folder contents:</p>
+        <ul>
+            <li ng-repeat="child in item.nodes" ng-bind="child.title"></li>
+        </ul>
+    </div>
+    <div ng-if="item.type === 'item'">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque neque risus...</p>
+    </div>
+</div>
