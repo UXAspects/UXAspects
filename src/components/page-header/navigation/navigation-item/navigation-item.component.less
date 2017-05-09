@@ -6,8 +6,8 @@ ux-page-header-horizontal-navigation-item {
         position: relative;
         display: block;
         padding: 17px;
-        color: @grey4;
-        background-color: @navbar-bg-dark;
+        color: @page-header-nav-color;
+        background-color: @page-header-bg;
         cursor: pointer;
         outline: none;
         white-space: nowrap;
@@ -28,19 +28,19 @@ ux-page-header-horizontal-navigation-item {
 
         &:hover,
         &:focus {
-            color: @white;
-            background-color: lighten(@navbar-bg-dark, 5%);
+            color: @page-header-nav-active-color;
+            background-color: @page-header-nav-active-bg;
         }
 
         &.active,
         &.open {
-            color: @white;
-            background-color: lighten(@navbar-bg-dark, 5%);
+            color: @page-header-nav-active-color;
+            background-color: @page-header-nav-active-bg;
         }
 
         &.selected {
-            color: @white;            
-            box-shadow: inset 0 3px 0 0 @primary;
+            color: @page-header-nav-selected-color;            
+            box-shadow: inset 0 3px 0 0 @page-header-nav-selected-shadow;
         }
     }
 }
@@ -48,7 +48,7 @@ ux-page-header-horizontal-navigation-item {
 // Cannot be scoped to the component selector as it can be appended to body
 .horizontal-navigation-dropdown-menu,
 .horizontal-navigation-dropdown-submenu {
-    background-color: darken(@navbar-bg-dark, 5%);
+    background-color: @page-header-nav-dropdown-bg;
     box-shadow: none;
     margin-top: 0;
     border-radius: 0;
@@ -56,15 +56,15 @@ ux-page-header-horizontal-navigation-item {
     .dropdown-item {
         display: flex;
         align-items: center;
-        color: @grey4;
+        color: @page-header-nav-dropdown-color;
         padding: 8px 10px 8px 20px;
         min-width: 200px;
         outline: none;
 
         &:hover,
         &:focus {
-            background-color: lighten(@navbar-bg-dark, 5%);
-            color: @grey4;
+            background-color: @page-header-nav-dropdown-hover-bg;
+            color: @page-header-nav-dropdown-hover-color;
         }
 
         .dropdown-item-title {
@@ -73,14 +73,14 @@ ux-page-header-horizontal-navigation-item {
         }
 
         .dropdown-item-icon {
-            color: @grey5;
+            color: @page-header-nav-dropdown-icon-color;
             font-size: 0.625rem;
             font-weight: 600;
         }
 
         &.selected {
             .dropdown-item-title {
-                color: @white;
+                color: @page-header-nav-dropdown-selected-color;
             }
         }
     }
