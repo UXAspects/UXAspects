@@ -70,7 +70,7 @@ export default function displayPanel($templateRequest, $q, $compile, $timeout, $
                 if ($displayPanel.panelOpen() && !$displayPanel.panelHidden() && angular.element(target).closest(".display-panel").length < 1) {
 
                     var closePanel = true;
-                    while (target && target.nodeName !== "BODY") {
+                    while (target.nodeName !== "BODY") {
                         if (isDisplayPanelItem(target)) {
                             closePanel = false;
                             break;
@@ -86,11 +86,6 @@ export default function displayPanel($templateRequest, $q, $compile, $timeout, $
             }
 
             function isDisplayPanelItem(target) {
-                
-                if (!target.hasAttribute) {
-                    return false;
-                }
-                
                 if (target.hasAttribute("display-panel-item")) {
                     return true;
                 }
