@@ -12,14 +12,14 @@
             <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
 
             <!-- Show the Angular Version -->
-            <span class="label label-primary m-r-sm" *ngIf="version === 'AngularJS'">Angular 1</span>
-            <span class="label label-accent m-r-sm" *ngIf="version === 'Angular'">Angular 4</span>
+            <span class="label label-primary m-r-sm uxd-component-section-labels" *ngIf="version === 'AngularJS'">Angular 1</span>
+            <span class="label label-accent m-r-sm uxd-component-section-labels" *ngIf="version === 'Angular'">Angular 4</span>
 
             <!-- Identify as External plugin -->
-            <a class="label label-warning m-r-sm" tooltip="This component is from a third party library and not included in the UX Aspects component library." container="body" *ngIf="externalUrl" [href]="externalUrl" target="_blank">External</a>
+            <a class="label label-warning m-r-sm uxd-component-section-labels" tooltip="This component is from a third party library and not included in the UX Aspects component library." container="body" *ngIf="externalUrl" [href]="externalUrl" target="_blank">External</a>
 
             <!-- Show Deprecated label if required -->
-            <span class="label label-critical" tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects." container="body" *ngIf="deprecated">Deprecated</span>
+            <span class="label label-critical uxd-component-section-labels" tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects." container="body" *ngIf="deprecated">Deprecated</span>
         </div>
 
     </ux-ebox-header>
