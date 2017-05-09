@@ -26,7 +26,9 @@ export class EditExampleLinkComponent {
 
     constructor(private editExampleService: EditExampleService) {}
 
-    linkClick() {
+    linkClick(event: MouseEvent) {
+        let target = event.target as HTMLElement;
+        target.blur();
         this.editExampleService.launchEditor(this.title, this.content, this.type);
     }
 

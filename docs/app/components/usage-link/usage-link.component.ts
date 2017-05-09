@@ -24,10 +24,16 @@ export class UsageLinkComponent {
     onShown() {
         this.popoverElement = (<any>this.popover)._popover._componentRef.location.nativeElement;
 
-        this.renderer.setStyle(this.popoverElement, 'style', '300px');
-        this.renderer.setStyle(this.popoverElement, 'maxWidth', '300px');
+        this.renderer.setStyle(this.popoverElement, 'style', '350px');
+        this.renderer.setStyle(this.popoverElement, 'maxWidth', '350px');
         this.renderer.setStyle(this.popoverElement, 'borderRadius', '0');
         this.renderer.setStyle(this.popoverElement, 'zIndex', '1');
+    }
+
+    toggle(event: MouseEvent, popover: PopoverDirective) {
+        let target = event.target as HTMLElement;
+        popover.show();
+        target.blur();
     }
 
     closePopover () {
