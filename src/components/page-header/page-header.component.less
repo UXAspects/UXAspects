@@ -1,0 +1,124 @@
+@import "../../styles/variables.less";
+
+ux-page-header {
+    display: flex;
+    flex-direction: column;
+    height: 130px;
+    width: 100%;
+    padding-left: 23px;
+    padding-right: 23px;
+    background-color: @navbar-bg-dark;
+    color: @white;
+
+    .page-header-actions {
+        display: flex;
+        flex: 1;
+
+        .page-header-logo-container {
+            display: flex;
+            flex: none;
+            align-items: center;
+            margin-top: 10px;
+            margin-right: 10px;
+            height: 40px;
+            overflow: hidden;
+
+            .page-header-logo {
+                max-height: 100%;
+            }
+        }
+
+        .page-header-navigation {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+
+            &.left {
+                justify-content: flex-start;
+            }
+            
+            &.right {
+                justify-content: flex-end;
+            }
+        }
+    }
+
+    .page-header-details {
+        display: flex;
+        flex: none;
+        height: 70px;
+
+        .page-header-state-container {
+            display: inline-flex;
+            align-items: center;
+
+            .page-header-back-button {
+                display: flex;
+                height: 28px;
+                width: 28px;
+                margin-top: 16px;
+                margin-right: 2px;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: background-color 0.3s ease-in-out;
+
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.1);
+                }
+            }
+
+            .page-header-title-container {
+                display: inline-flex;
+                flex-direction: column;
+                margin-right: 10px;
+
+                ux-breadcrumbs {
+                    height: 22px;
+                }
+
+                .page-header-title {
+                    margin-top: 0;
+                    margin-bottom: 8px;
+                    line-height: 35px;
+                }
+            }
+
+        }
+    }
+
+    .page-header-icon-menus {
+        display: flex;
+        flex: none;
+    }
+
+    // Styling For Condensed Header
+    &.page-header-condensed {
+        height: 57px;
+
+        .page-header-condensed-content {
+            display: flex;
+
+            .page-header-breadcrumbs {
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+
+                ux-breadcrumbs {
+                    height: 22px;
+                }
+
+                .breadcrumb li:last-of-type span {
+                    opacity: 1;
+                }
+            }
+
+            .page-header-navigation {
+                display: flex;
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+    }
+}

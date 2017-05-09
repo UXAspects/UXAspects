@@ -1,0 +1,19 @@
+<div role="menu-item" dropdown [isOpen]="dropdownOpen" container="body" placement="right" [isDisabled]="!item.children" (mouseenter)="hoverStart()"
+    (mouseleave)="hoverLeave()" #subMenu="bs-dropdown">
+
+    <!-- Show the menu item and the arrow if there are children -->
+    <a class="dropdown-item" tabindex="0" [class.selected]="item.selected" (keyup.enter)="selectItem(item); subMenu.toggle()" (click)="selectItem(item)">
+        <span class="dropdown-item-title">{{ item.title }}</span>
+        <span class="dropdown-item-icon hpe-icon hpe-next" *ngIf="item.children"></span>
+    </a>
+
+    <!-- Allow another level of menu items -->
+    <ul *dropdownMenu class="dropdown-menu horizontal-navigation-dropdown-submenu" role="menu" (mouseenter)="hoverStart()" (mouseleave)="hoverLeave()">
+
+        <li role="menuitem" *ngFor="let subItem of item.children" (click)="selectItem(subItem, item)" (keyup.enter)="selectItem(subItem, item)">
+            <a class="dropdown-item" tabindex="0" [class.selected]="subItem.selected">
+                <span class="dropdown-item-title">{{ subItem.title }}</span>
+            </a>
+        </li>
+    </ul>
+</div>
