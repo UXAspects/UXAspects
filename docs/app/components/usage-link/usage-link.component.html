@@ -2,9 +2,9 @@
     <table class="usage-popover">
         <tbody>
             <tr *ngFor="let use of usage">
-                <td class="usage-title p-l-sm">{{ use.title }}</td>
+                <td class="usage-title p-l-xs">{{ use.title }}</td>
                 <td class="p-r-sm">{{ use.content }}</td>
-                <td><i class="hpe-icon hpe-clipboard p-r-sm" [tooltip]="tooltipTemplate" (click)="copy(use.content)"></i></td>
+                <td><i class="hpe-icon hpe-clipboard p-r-xs" [tooltip]="tooltipTemplate" (click)="copy(use.content)"></i></td>
             </tr>
         </tbody>
     </table>
