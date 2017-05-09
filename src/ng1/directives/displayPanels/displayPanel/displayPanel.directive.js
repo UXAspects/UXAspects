@@ -123,6 +123,8 @@ class AffixDisplayPanel {
         this.previousScrollPosition = 0;
         // //current scrollPosition - will be updated by event handler outside this object
         this.currentScrollPosition = 0;
+
+        this.reference = document.querySelector(options.reference);
     }
 
     updateTrigger(element) {
@@ -147,48 +149,47 @@ class AffixDisplayPanel {
 
                 var trigger = this.updateTrigger(this.displayPanel);
 
-                if (this.currentScrollPosition > trigger && !this.affixed) {
-
+                if (this.currentScrollPosition > trigger) {
+                    
                     if (!this.displayPanel.classList.contains('affix-element')) {
-
                         // set the top position of the element
-                        this.displayPanel.style.top = '0';
+                        if(this.reference){
+                            this.displayPanel.style.top = this.reference.offsetHeight + 'px';
+                        } else {
 
-                        // add the fixed display panel class
-                        this.displayPanel.classList.add('fixed-display-panel');
-
-                        // remove the float display panel class
-                        this.displayPanel.classList.remove('float-display-panel');
-
+                            let newTop = this.trigger - this.currentScrollPosition;
+                            if (newTop < 0 ){
+                                newTop = 0;
+                            }
+                            this.displayPanel.style.top = newTop + 'px';
+                        }
+                        
                     } else {
-
                         // update the top position
                         this.displayPanel.style.top = (this.displayPanel.offsetTop + this.displayPanel.scrollHeight) + 'px';
 
-                        // add the fixed display panel class
-                        this.displayPanel.classList.add('fixed-display-panel');
-
-                        // remove the float display panel class
-                        this.displayPanel.classList.remove('float-display-panel');
                     }
 
                     this.affixed = true;
 
-                } else if (this.currentScrollPosition <= trigger && this.affixed) {
+                } else if (this.currentScrollPosition <= trigger) {
 
                     // restore the top position
-                    this.displayPanel.style.top = this.trigger + 'px';
+                    if (this.reference) {
+                        this.displayPanel.style.top = this.reference.offsetHeight + 'px';
+                    } else {
+                        let newTop = this.trigger - this.currentScrollPosition;
+                        if (newTop < 0 ){
+                            newTop = 0;
+                        }
+                        this.displayPanel.style.top = newTop + 'px';
 
-                    // add the float display panel class
-                    this.displayPanel.classList.add('float-display-panel');
-
-                    // remove the fixed display panel class
-                    this.displayPanel.classList.remove('fixed-display-panel');
-
-                    // reset affixed state and trigger values
-                    this.affixed = false;
-                    this.triggerSet = false;
-                    this.trigger = 0;
+                        // reset affixed state and trigger values
+                        this.affixed = false;
+                        this.triggerSet = false;
+                        this.trigger = 0;
+                    }
+                    
                 }
             }
             this.previousScrollPosition = this.currentScrollPosition;

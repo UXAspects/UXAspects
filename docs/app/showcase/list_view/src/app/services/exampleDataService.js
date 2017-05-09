@@ -120,7 +120,6 @@
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
       top: 122,
-      reference: '.affix-container',
       animate: true
     };
 
@@ -130,7 +129,6 @@
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
       top: 122,
-      reference: 'affix-container',
       animate: true
     };
 
@@ -140,7 +138,6 @@
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
       top: 122,
-      reference: '.affix-container',
       animate: true
     };
 
@@ -150,7 +147,6 @@
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
       top: 122,
-      reference: '.affix-container',
       animate: true
     };
 
@@ -160,7 +156,6 @@
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
       top: 122,
-      reference: '.affix-container',
       animate: true
     };
 
