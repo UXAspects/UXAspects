@@ -3,7 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { Breadcrumb } from '../../../../../../../src/components/breadcrumbs/index';
 import { PageHeaderNavigationItem, PageHeaderIconMenu } from '../../../../../../../src/index';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-components-page-header',
@@ -28,7 +28,8 @@ export class ComponentsPageHeaderComponent implements IPlunkProvider {
             library: 'ngx-bootstrap',
             imports: ['BsDropdownModule'],
             providers: ['BsDropdownModule.forRoot()']
-        }]
+        }],
+        mappings: [MAPPINGS.NgxBootstrap]
     };
 
 
