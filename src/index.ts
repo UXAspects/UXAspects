@@ -10,4 +10,5 @@ export * from './components/spark/index';
 export * from './components/toggleswitch/index';
 export * from './components/facets/index';
 export * from './directives/resize/index';
+export * from './pipes/string-filter/index';
 export * from './services/color/index';

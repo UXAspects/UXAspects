@@ -1,0 +1,6 @@
+<pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+    [maxSize]="maxSize" (numPages)="totalPages = $event"
+    [previousText]="previousButton" [nextText]="nextButton">
+</pagination>
+
+<p>Page {{currentPage}} of {{totalPages}}</p>

@@ -6,47 +6,134 @@
             "link": "buttons",
             "sections": [
                 {
-                    "title": "Grouped Buttons",
-                    "component": "ComponentsGroupedButtonsNg1Component",
-                    "version": "AngularJS"
-                },
-                {
                     "title": "Toggle Buttons",
-                    "component": "ComponentsToggleButtonsNg1Component",
-                    "version": "AngularJS"
+                    "component": "ComponentsToggleButtonsComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/buttons",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "btnCheckbox"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ButtonsModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
                 },
                 {
-                    "title": "Floating Action Button",
+                    "title": "Radio Buttons",
+                    "component": "ComponentsRadioButtonsComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/buttons",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "btnRadio"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ButtonsModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
+                },
+                {
+                    "title": "Pagination",
+                    "component": "ComponentsPaginationComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/pagination",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "pagination"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "PaginationModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
+                },
+                {
+                    "title": "Dropdowns",
+                    "component": "ComponentsDropdownsComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/dropdowns",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "dropdown, dropdownToggle, dropdownMenu"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "BsDropdownModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
+                },
+                {
+                    "title": "Grouped Buttons (Angular 1)",
+                    "component": "ComponentsGroupedButtonsNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Toggle Buttons (Angular 1)",
+                    "component": "ComponentsToggleButtonsNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Floating Action Button (Angular 1)",
                     "component": "ComponentsFloatingActionButtonNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Pagination",
+                    "title": "Pagination (Angular 1)",
                     "component": "ComponentsPaginationNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
-                    "title": "Single Toggle Button",
+                    "title": "Single Toggle Button (Angular 1)",
                     "component": "ComponentsSingleToggleButtonNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
-                    "title": "Checkbox Buttons",
+                    "title": "Checkbox Buttons (Angular 1)",
                     "component": "ComponentsCheckboxButtonsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
-                    "title": "Radio Buttons",
+                    "title": "Radio Buttons (Angular 1)",
                     "component": "ComponentsRadioButtonsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
-                    "title": "Dropdown",
+                    "title": "Dropdown (Angular 1)",
                     "component": "ComponentsDropdownNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
-                    "title": "Thumbnail",
+                    "title": "Thumbnail (Angular 1)",
                     "component": "ComponentsThumbnailNg1Component",
                     "version": "AngularJS"
                 }

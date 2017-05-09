@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-sm-6">
+
+        <button type="button" class="btn button-toggle-primary" [(ngModel)]="primaryToggleValue"
+            btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0">
+            Primary Toggle
+        </button>
+
+        <p class="m-t-md">Primary Toggle value: {{primaryToggleValue}}</p>
+
+    </div>
+    <div class="col-sm-6">
+
+        <button type="button" class="btn button-toggle-accent" [(ngModel)]="accentToggleValue"
+            btnCheckbox btnCheckboxTrue="on" btnCheckboxFalse="off">
+            Accent Toggle
+        </button>
+
+        <p class="m-t-md">Accent Toggle value: {{accentToggleValue}}</p>
+
+    </div>
+</div>
+
+<hr>
+
+<p>The Bootstrap <code>btnCheckbox</code> directive can be used to create a button which can toggle between two states. The <code>btnCheckboxTrue</code> and <code>btnCheckboxFalse</code> properties can be used to bind custom values for the states.</p>
+
+<p>The classes <code>button-toggle-primary</code> and <code>button-toggle-accent</code> provide the themed styles seen above.</p>
+
+<uxd-snippet [content]="snippets.compiled.toggleHtml" language="html"></uxd-snippet>
+
+<h4>Check Group</h4>
+
+<div class="row">
+    <div class="col-sm-6">
+
+        <div class="btn-group">
+            <button type="button" class="btn button-toggle-primary"
+                [(ngModel)]="primaryCheckValue.bold" btnCheckbox>Bold</button>
+            <button type="button" class="btn button-toggle-primary"
+                [(ngModel)]="primaryCheckValue.italic" btnCheckbox>Italic</button>
+            <button type="button" class="btn button-toggle-primary"
+                [(ngModel)]="primaryCheckValue.underline" btnCheckbox>Underline</button>
+        </div>
+
+        <p class="m-t-md"
+            [style.fontWeight]="primaryCheckValue.bold ? 'bold' : 'normal'"
+            [style.fontStyle]="primaryCheckValue.italic ? 'italic' : 'normal'"
+            [style.textDecoration]="primaryCheckValue.underline ? 'underline' : 'none'">
+            The quick brown fox jumped over the lazy dog.
+        </p>
+
+    </div>
+    <div class="col-sm-6">
+
+        <div class="btn-group">
+            <button type="button" class="btn button-toggle-accent"
+                [(ngModel)]="accentCheckValue.bold" btnCheckbox>Bold</button>
+            <button type="button" class="btn button-toggle-accent"
+                [(ngModel)]="accentCheckValue.italic" btnCheckbox>Italic</button>
+            <button type="button" class="btn button-toggle-accent"
+                [(ngModel)]="accentCheckValue.underline" btnCheckbox>Underline</button>
+        </div>
+
+        <p class="m-t-md"
+            [style.fontWeight]="accentCheckValue.bold ? 'bold' : 'normal'"
+            [style.fontStyle]="accentCheckValue.italic ? 'italic' : 'normal'"
+            [style.textDecoration]="accentCheckValue.underline ? 'underline' : 'none'">
+            The quick brown fox jumped over the lazy dog.
+        </p>
+
+    </div>
+</div>
+
+<hr>
+
+<p>Combine <code>btnCheckbox</code> elements in a container with the class <code>btn-group</code> to create a checkbox-style button set.</p>
+
+<uxd-snippet [content]="snippets.compiled.checkHtml" language="html"></uxd-snippet>

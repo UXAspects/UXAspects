@@ -1,0 +1,21 @@
+<pagination [(ngModel)]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+    [maxSize]="maxSize" (numPages)="totalPages = $event"
+    [previousText]="previousButton" [nextText]="nextButton">
+</pagination>
+
+<p>Page {{currentPage}} of {{totalPages}}</p>
+
+<hr>
+
+<p>The Bootstrap <code>pagination</code> component can be used to create a paging control. Specify the paging parameters using the <code>totalItems</code> and <code>itemsPerPage</code> properties. The active page number is bound to <code>ngModel</code>. The <code>numPages</code> output property receives the total number of pages.</p>
+
+<p>To use the <a routerLink="/css/icons">UX Aspects icons</a> in the previous and next buttons, HTML markup can be assigned to the <code>previousText</code> and <code>nextText</code> properties. See the TypeScript example code below for recommended icon bindings.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
