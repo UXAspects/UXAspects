@@ -1,0 +1,9 @@
+[hub]
+selenium_grid_hub
+
+[node1]
+selenium_grid_node_1
+
+[node2]
+selenium_grid_node_2
+

@@ -1,0 +1,42 @@
+---
+- name: Grid node 1 deployment
+  hosts: node1
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - include: nodes.yml
+
+    # Install WebDriver executables
+    - name: Download IEDriverServer
+      win_get_url:
+        url: http://selenium-release.storage.googleapis.com/{{ iedriver_major_minor }}/IEDriverServer_Win32_{{ iedriver_version }}.zip
+        dest: C:\Selenium\IEDriverServer_Win32_{{ iedriver_version }}.zip
+    - name: Install IEDriverServer
+      win_unzip:
+        src: C:\Selenium\IEDriverServer_Win32_{{ iedriver_version }}.zip
+        dest: C:\Selenium\IEDriverServer
+        creates: C:\Selenium\IEDriverServer
+    - name: Add IEDriverServer location to system PATH
+      raw: SETX /M PATH "$([Environment]::GetEnvironmentVariables("Machine").Path | Out-String);{{ item }}"
+      when: path_out.stdout.find(item) == -1
+      with_items: 
+        - 'C:\Selenium\IEDriverServer'
+
+    # Add registry commands to start the Selenium Grid Node processes upon machine start
+    - name: Add registry command to start the continuous integration Selenium Grid Node process upon machine start
+      win_regedit:
+        key: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+        value: StartCISeleniumGridNode
+        data: 'C:\Git\UXAspects\configuration\node1\startGridNode.bat'
+    - name: Add registry command to start the release build Selenium Grid Node process upon machine start
+      win_regedit:
+        key: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+        value: StartReleaseBuildSeleniumGridNode
+        data: 'C:\Git\UXAspects\configuration\node1\startGridNodeReleaseBuild.bat'
+
+    # Reboot the machine
+    - name: Reboot
+      win_reboot:
+
+

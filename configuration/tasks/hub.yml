@@ -1,0 +1,283 @@
+---
+- name: Grid hub deployment
+  hosts: hub
+  vars_files:
+    - vars.yml
+  
+  pre_tasks:
+    # Install required packages
+    - name: Install epel-release package
+      yum:
+        name: epel-release
+    - name: Install required packages
+      yum:
+        name: "{{ item }}"
+      with_items:
+        - p7zip
+        - npm
+        - nodejs
+        - wget
+    - name: Install PIP
+      command: easy_install pip
+
+  roles:
+    # Oracle JDK 8
+    - {role: williamyeh.oracle-java, java_subversion: 91}
+
+    # Docker
+    - {role: dochang.docker}
+
+    # Maven
+    - {role: gantsign.maven}
+
+    # Git
+    - {role: geerlingguy.git}
+
+  tasks:
+    # Create JAVA_HOME environment variable
+    - name: Create JAVA_HOME environment variable
+      file:
+        path: /etc/profile.d/java_home.sh
+        state: touch
+    - name: Write variable to JAVA_HOME environment file
+      lineinfile:
+        name: /etc/profile.d/java_home.sh
+        line: "{{ item }}"
+        create: yes
+      with_items:
+        - '#!/bin/sh'
+        - ''
+        - 'export JAVA_HOME=/usr/java/jdk1.8.0_91'
+
+    # Create M2_HOME and M2 environment variables
+    - name: Create file to hold Maven environment variables
+      file:
+        path: /etc/profile.d/maven.sh
+        state: touch
+    - name: Write variables to Maven environment file
+      lineinfile:
+        name: /etc/profile.d/maven.sh
+        line: "{{ item }}"
+        create: yes
+      with_items:
+        - '#!/bin/sh'
+        - ''
+        - 'export M2_HOME=//opt/maven/apache-maven-{{ maven_version }}'
+        - 'export M2=$M2_HOME/bin'
+
+    # Enable use of Docker behind proxy
+    - name: Write proxy URLs to Docker configuration file
+      lineinfile:
+        name: /etc/sysconfig/docker
+        line: "{{ item }}"
+        create: yes
+      with_items:
+        - 'http_proxy={{ http_proxy }}'
+        - 'https_proxy={{ https_proxy }}'
+    - name: Update docker.service
+      lineinfile:
+        dest: /usr/lib/systemd/system/docker.service
+        line: EnvironmentFile=/etc/sysconfig/docker
+        insertafter: '^\[Service\]$'
+    - name: Restart Docker service
+      service:
+        name: docker
+        state: restarted
+        daemon_reload: yes
+
+    # Create the user UXAspectsTestUser and add it to the wheel and docker groups
+    - name: Create the user UXAspectsTestUser
+      user:
+        name: UXAspectsTestUser
+        password: "{{ ansible_new_user_password }}"
+        group: wheel
+        groups: docker
+
+    # Clone the UX Aspects repository
+    - name: Clone the UX Aspects repository for user UXAspectsTestUser
+      git:
+        repo: https://github.com/UXAspects/UXAspects.git
+        dest: /home/UXAspectsTestUser/ux-aspects
+        version: develop
+      become: true
+      become_user: UXAspectsTestUser
+
+    # Copy the user Maven settings file to the UXAspectsTestUser user's .m2 folder
+    - name: Create the local .m2 directory
+      file:
+        path: /home/UXAspectsTestUser/.m2
+        state: directory
+        owner: UXAspectsTestUser
+        group: wheel
+        mode: 0755
+    - name: Copy the user Maven settings file
+      copy:
+        src: /tmp/settings.xml
+        dest: /home/UXAspectsTestUser/.m2/settings.xml
+        owner: UXAspectsTestUser
+        group: wheel
+        mode: 0644
+
+    # Copy the build slave's authorized keys file to the UXAspectsTestUser user's .ssh folder
+    - name: Create the local .ssh directory
+      file:
+        path: /home/UXAspectsTestUser/.ssh
+        state: directory
+        owner: UXAspectsTestUser
+        group: wheel
+        mode: 0700
+    - name: Copy the authorized keys file
+      copy:
+        src: /tmp/authorized_keys
+        dest: /home/UXAspectsTestUser/.ssh/authorized_keys
+        owner: UXAspectsTestUser
+        group: wheel
+        mode: 0600
+
+    # Restart the Docker service
+    - name: Restart the SSH service
+      service:
+        name: sshd
+        state: restarted
+        sleep: 10
+        daemon_reload: yes
+
+    # Create directories for Selenium binaries
+    - name: Create directories for Selenium binaries
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - '/home/UXAspectsTestUser/ux-aspects/Selenium/ChromeDriver'
+        - '/home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver'
+        - '/home/UXAspectsTestUser/ux-aspects/Selenium/IEDriverServer'
+        - '/home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver'
+      become: true
+      become_user: UXAspectsTestUser
+
+    # Download the Selenium JAR
+    - name: Download the Selenium JAR
+      get_url:
+        url: http://selenium-release.storage.googleapis.com/{{ selenium_major_minor }}/selenium-server-standalone-{{ selenium_jar_version }}.jar
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/selenium-server-standalone-{{ selenium_jar_version }}.jar
+      become: true
+      become_user: UXAspectsTestUser
+
+    # Download the WebDriver executables
+    - name: Download ChromeDriver
+      get_url:
+        url: https://chromedriver.storage.googleapis.com/{{ chromedriver_version }}/chromedriver_win32.zip
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/chromedriver_win32.zip
+        validate_certs: no
+    - name: Install ChromeDriver
+      unarchive:
+        src: /home/UXAspectsTestUser/ux-aspects/Selenium/chromedriver_win32.zip
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/ChromeDriver
+        creates: /home/UXAspectsTestUser/ux-aspects/Selenium/ChromeDriver/chromedriver
+        remote_src: true
+      become: true
+      become_user: UXAspectsTestUser
+    - name: Get the file status of chromedriver.exe 
+      stat:
+        path: /home/UXAspectsTestUser/ux-aspects/Selenium/ChromeDriver/chromedriver.exe
+      register: file
+    - name: Copy chromedriver.exe to chromedriver
+      copy:
+        remote_src: true
+        src: /home/UXAspectsTestUser/ux-aspects/Selenium/ChromeDriver/chromedriver.exe
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/ChromeDriver/chromedriver
+        owner: UXAspectsTestUser
+        group: wheel
+      when: file.stat is defined and file.stat.exists
+    - name: Remove chromedriver.exe
+      file:
+        path: /home/UXAspectsTestUser/ux-aspects/Selenium/ChromeDriver/chromedriver.exe
+        state: absent
+
+    - name: Download GeckoDriver
+      get_url:
+        url: https://github.com/mozilla/geckodriver/releases/download/{{ geckodriver_version }}/geckodriver-{{ geckodriver_version }}-win64.zip
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/geckodriver-{{ geckodriver_version }}-win64.zip
+    - name: Install GeckoDriver
+      unarchive:
+        src: /home/UXAspectsTestUser/ux-aspects/Selenium/geckodriver-{{ geckodriver_version }}-win64.zip
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver
+        creates: /home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver/geckodriver
+        remote_src: true
+      become: true
+      become_user: UXAspectsTestUser
+    - name: Get the file status of geckodriver.exe
+      stat:
+        path: /home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver/geckodriver.exe
+      register: file
+    - name: Copy geckodriver.exe to geckodriver
+      copy:
+        remote_src: true
+        src: /home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver/geckodriver.exe
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver/geckodriver
+        owner: UXAspectsTestUser
+        group: wheel
+      when: file.stat is defined and file.stat.exists
+    - name: Remove geckodriver.exe
+      file:
+        path: /home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver/geckodriver.exe
+        state: absent
+
+    - name: Download IEDriverServer
+      get_url:
+        url: http://selenium-release.storage.googleapis.com/{{ iedriver_major_minor }}/IEDriverServer_Win32_{{ iedriver_version }}.zip
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/IEDriverServer_Win32_{{ iedriver_version }}.zip
+    - name: Install IEDriverServer
+      unarchive:
+        src: /home/UXAspectsTestUser/ux-aspects/Selenium/IEDriverServer_Win32_{{ iedriver_version }}.zip
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/IEDriverServer
+        creates: /home/UXAspectsTestUser/ux-aspects/Selenium/IEDriverServer/IEDriverServer
+        remote_src: true
+      become: true
+      become_user: UXAspectsTestUser
+    - name: Get the file status of IEDriverServer.exe 
+      stat:
+        path: /home/UXAspectsTestUser/ux-aspects/Selenium/IEDriverServer/IEDriverServer.exe
+      register: file
+    - name: Copy IEDriverServer.exe to IEDriverServer
+      copy:
+        remote_src: true
+        src: /home/UXAspectsTestUser/ux-aspects/Selenium/IEDriverServer/IEDriverServer.exe
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/IEDriverServer/IEDriverServer
+        owner: UXAspectsTestUser
+        group: wheel
+      when: file.stat is defined and file.stat.exists
+    - name: Remove IEDriverServer.exe
+      file:
+        path: /home/UXAspectsTestUser/ux-aspects/Selenium/IEDriverServer/IEDriverServer.exe
+        state: absent
+
+    - name: Download MicrosoftWebDriver
+      get_url:
+        url: https://download.microsoft.com/download/C/0/7/C07EBF21-5305-4EC8-83B1-A6FCC8F93F45/MicrosoftWebDriver.msi
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver.msi
+    - name: Install MicrosoftWebDriver
+      shell: >
+        7za e /home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver.msi
+        -o/home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver
+        -bd -y
+      ignore_errors: yes
+      become: true
+      become_user: UXAspectsTestUser
+    - name: Get the file status of MicrosoftWebDriver.exe
+      stat:
+        path: /home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver/MicrosoftWebDriver.exe
+      register: file
+    - name: Copy MicrosoftWebDriver.exe to MicrosoftWebDriver
+      copy:
+        remote_src: true
+        src: /home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver/MicrosoftWebDriver.exe
+        dest: /home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver/MicrosoftWebDriver
+        owner: UXAspectsTestUser
+        group: wheel
+      when: file.stat is defined and file.stat.exists
+    - name: Remove MicrosoftWebDriver.exe
+      file:
+        path: /home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver/MicrosoftWebDriver.exe
+        state: absent
+

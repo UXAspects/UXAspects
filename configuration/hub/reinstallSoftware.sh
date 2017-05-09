@@ -7,8 +7,23 @@ echo Build number is $BUILD_NUMBER
 echo Displaying id
 id
 
-# Temporary commands to allow testing of Jenkins job
-echo Listing contents of $WORKSPACE
-ls -alR $WORKSPACE
+echo Changing to $WORKSPACE/configuration
+cd $WORKSPACE/configuration
 
-exit 0
+# Revert the machine
+bash revertToSnapshot.sh 'RelEng' 'SOUELEMVMCOS' 'Before deployment' 'HubRebuilt'
+revertResult=$?
+echo revertToSnapshot.sh returned $revertResult
+if [ $revertResult -eq 1 ]; then
+    exit 1;
+fi
+
+# Download the required Ansible roles
+bash downloadRoles.sh
+
+# Deploy software to the machine
+echo
+sleepFor=30
+echo Sleeping for $sleepFor seconds ...
+sleep $sleepFor
+bash reinstallSoftware.sh '/workspace/tasks/hub.yml'

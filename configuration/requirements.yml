@@ -1,0 +1,12 @@
+---
+    # Oracle JDK 8
+    - williamyeh.oracle-java
+
+    # Docker
+    - dochang.docker
+
+    # Maven
+    - gantsign.maven
+
+    # Git
+    - geerlingguy.git

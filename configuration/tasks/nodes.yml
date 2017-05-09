@@ -1,0 +1,121 @@
+---
+# Install JRE 8
+- name: Install JRE 8
+  win_chocolatey:
+    version: 8.0.91
+    name: jre8
+
+# Install JDK 8
+- name: Install JDK 8
+  win_chocolatey:
+    name: jdk8
+    version: 8.0.92
+    params: 'both=true'
+
+# Get system path
+- name: Get System path
+  raw: '[Environment]::GetEnvironmentVariables("Machine").Path'
+  register: path_out
+
+# Install Git client
+- name: Install Git client
+  win_chocolatey:
+    name: git
+
+# Add Git locations to system PATH
+- name: Modify System PATH for Git
+  raw: SETX /M PATH "$([Environment]::GetEnvironmentVariables("Machine").Path | Out-String);{{ item }}"
+  when: path_out.stdout.find(item) == -1
+  with_items: 
+    - 'C:\Program Files\Git\bin'
+    - 'C:\Program Files\Git\mingw64\bin'
+
+# Create directories
+- name: Create PowerShell directory
+  win_file:
+    path: C:\PowerShell
+    state: directory
+- name: Create Git directory
+  win_file:
+    path: C:\Git
+    state: directory
+- name: Create Selenium directory
+  win_file:
+    path: C:\Selenium
+    state: directory
+
+- name: Clone UX Aspects repository
+  win_command: git clone https://github.com/UXAspects/UXAspects.git
+  args:
+    chdir: C:\Git
+    creates: C:\Git\UXAspects
+- name: Check out the develop branch
+  win_command: git checkout develop
+  args:
+    chdir: C:\Git\UXAspects
+
+# Download Selenium JAR
+- name: Download Selenium JAR
+  win_get_url:
+    url: http://selenium-release.storage.googleapis.com/{{selenium_major_minor}}/selenium-server-standalone-{{selenium_jar_version}}.jar
+    dest: C:\Selenium\selenium-server-standalone-{{selenium_jar_version}}.jar
+
+# Install Nodepad++
+- name: Install Nodepad++
+  win_chocolatey:
+    name: notepadplusplus.install
+
+# Install BareTail
+- name: Install BareTail
+  win_chocolatey:
+    name: baretail
+
+# Install 7-Zip
+- name: Install 7-Zip
+  win_chocolatey:
+    name: 7zip.install
+
+# Get system path again
+- name: Get System path again
+  raw: '[Environment]::GetEnvironmentVariables("Machine").Path'
+  register: path_out
+
+# Add 7-Zip location to system PATH
+- name: Modify System PATH for 7-Zip
+  raw: SETX /M PATH "$([Environment]::GetEnvironmentVariables("Machine").Path | Out-String);{{ item }}"
+  when: path_out.stdout.find(item) == -1
+  with_items: 
+    - 'C:\Program Files\7-Zip'
+
+# Install Firefox
+- name: Install Firefox
+  win_chocolatey:
+    name: firefox
+
+# Install Chrome
+- name: Install Chrome
+  win_chocolatey:
+    name: googlechrome
+    ignore_checksums: True
+
+# Install WebDriver executables
+- name: Download ChromeDriver
+  win_get_url:
+    url: https://chromedriver.storage.googleapis.com/{{ chromedriver_version }}/chromedriver_win32.zip
+    dest: C:\Selenium\chromedriver_win32.zip
+- name: Install ChromeDriver
+  win_unzip:
+    src: C:\Selenium\chromedriver_win32.zip
+    dest: C:\Selenium\ChromeDriver
+    creates: C:\Selenium\ChromeDriver
+
+- name: Download GeckoDriver
+  win_get_url:
+    url: https://github.com/mozilla/geckodriver/releases/download/{{ geckodriver_version }}/geckodriver-{{ geckodriver_version }}-win64.zip
+    dest: C:\Selenium\geckodriver-{{ geckodriver_version }}-win64.zip
+- name: Install GeckoDriver
+  win_unzip:
+    src: C:\Selenium\geckodriver-{{ geckodriver_version }}-win64.zip
+    dest: C:\Selenium\GeckoDriver
+    creates: C:\Selenium\GeckoDriver
+

@@ -1,0 +1,6 @@
+---
+ansible_host: "{{ vault_ansible_host }}"
+ansible_user: "{{ vault_ansible_user }}"
+ansible_password: "{{ vault_ansible_password }}"
+ansible_new_user_password: "{{ vault_ansible_new_user_password }}"
+ansible_connection: paramiko
