@@ -1,0 +1,91 @@
+@import "../../../../styles/variables.less";
+
+ux-page-header-horizontal-navigation-item {
+
+    .horizontal-navigation-button {
+        position: relative;
+        display: block;
+        padding: 17px;
+        color: @page-header-nav-color;
+        background-color: @page-header-bg;
+        cursor: pointer;
+        outline: none;
+        white-space: nowrap;
+
+        .navigation-item-icon {
+            font-size: 0.875rem;
+        }
+
+        .navigation-item-label {
+            margin-left: 5px;
+            font-size: 0.875rem;
+        }
+
+        .hpe-down {
+            margin-left: 5px;
+            font-size: 0.75rem;
+        }
+
+        &:hover,
+        &:focus {
+            color: @page-header-nav-active-color;
+            background-color: @page-header-nav-active-bg;
+        }
+
+        &.active,
+        &.open {
+            color: @page-header-nav-active-color;
+            background-color: @page-header-nav-active-bg;
+        }
+
+        &.selected {
+            color: @page-header-nav-selected-color;            
+            box-shadow: inset 0 3px 0 0 @page-header-nav-selected-shadow;
+        }
+    }
+}
+
+// Cannot be scoped to the component selector as it can be appended to body
+.horizontal-navigation-dropdown-menu,
+.horizontal-navigation-dropdown-submenu {
+    background-color: @page-header-nav-dropdown-bg;
+    box-shadow: none;
+    margin-top: 0;
+    border-radius: 0;
+        
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        color: @page-header-nav-dropdown-color;
+        padding: 8px 10px 8px 20px;
+        min-width: 200px;
+        outline: none;
+
+        &:hover,
+        &:focus {
+            background-color: @page-header-nav-dropdown-hover-bg;
+            color: @page-header-nav-dropdown-hover-color;
+        }
+
+        .dropdown-item-title {
+            flex: 1;
+            font-size: 0.875rem;
+        }
+
+        .dropdown-item-icon {
+            color: @page-header-nav-dropdown-icon-color;
+            font-size: 0.625rem;
+            font-weight: 600;
+        }
+
+        &.selected {
+            .dropdown-item-title {
+                color: @page-header-nav-dropdown-selected-color;
+            }
+        }
+    }
+}
+
+.horizontal-navigation-dropdown-submenu {
+    margin-top: -21px;
+}

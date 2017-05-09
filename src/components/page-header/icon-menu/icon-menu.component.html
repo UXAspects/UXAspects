@@ -1,0 +1,22 @@
+<div class="page-header-icon-menu" dropdown dropdownToggle placement="bottom right">
+
+    <a class="page-header-icon-menu-button" (click)="select(menu)">
+        <i class="hpe-icon" [ngClass]="menu.icon"></i>
+        <span class="label label-primary" *ngIf="menu?.badge">{{ menu.badge }}</span>
+    </a>
+
+    <ul *dropdownMenu class="dropdown-menu" role="menu">
+
+        <li role="menuitem" *ngFor="let dropdown of menu?.dropdown" [class.dropdown-header]="dropdown.header" [class.dropdown-divider]="dropdown.divider">
+
+            <span class="font-bold" *ngIf="dropdown.header">{{ dropdown.title }}</span>
+
+            <a class="dropdown-item" *ngIf="!dropdown.header" (click)="select(dropdown)">
+                <i class="hpe-icon hp-fw text-muted" [ngClass]="dropdown.icon"></i>
+                {{ dropdown.title }}
+                <span class="pull-right text-muted small" *ngIf="dropdown.subtitle">{{ dropdown.subtitle }}</span>
+            </a>
+        </li>
+
+    </ul>
+</div>

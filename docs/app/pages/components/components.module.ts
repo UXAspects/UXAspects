@@ -27,6 +27,7 @@ const ROUTES: Routes = [
             { path: 'keyboard', loadChildren: './sections/keyboard/keyboard.module#ComponentsKeyboardModule' },
             { path: 'modals', loadChildren: './sections/modals/modals.module#ComponentsModalsModule' },
             { path: 'notifications', loadChildren: './sections/notifications/notifications.module#ComponentsNotificationsModule' },
+            { path: 'page-header', loadChildren: './sections/page-header/page-header.module.ts#ComponentsPageHeaderModule' },
             { path: 'panels', loadChildren: './sections/panels/panels.module#ComponentsPanelsModule' },
             { path: 'popover', loadChildren: './sections/popover/popover.module#ComponentsPopoverModule' },
             { path: 'progress', loadChildren: './sections/progress/progress.module#ComponentsProgressModule' },

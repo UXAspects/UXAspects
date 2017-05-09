@@ -521,6 +521,27 @@
             ]
         },
         {
+            "title": "Page Header",
+            "link": "page-header",
+            "sections": [
+                {
+                    "title": "Page Header",
+                    "component": "ComponentsPageHeaderComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-page-header"
+                    },{
+                        "title": "Module name",
+                        "content": "PageHeaderModule"
+                    }, {
+                        "title": "Dependencies",
+                        "content": "BsDropdownModule"
+                    }]
+                }
+            ]
+        },
+        {
             "title": "Panels",
             "link": "panels",
             "sections": [

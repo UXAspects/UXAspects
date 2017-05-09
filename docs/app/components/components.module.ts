@@ -27,6 +27,7 @@ import { DocumentationCategoryComponent } from './documentation-category/documen
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { UsageLinkComponent } from './usage-link/usage-link.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 const DOCUMENTATION_COMPONENTS = [
     DocumentationCategoryComponent,
@@ -56,7 +57,8 @@ const DOCUMENTATION_COMPONENTS = [
         EboxModule,
         TooltipModule.forRoot(),
         PopoverModule.forRoot(),
-        TypeaheadModule.forRoot()
+        TypeaheadModule.forRoot(),
+        BsDropdownModule.forRoot(),
     ],
     exports: DOCUMENTATION_COMPONENTS,
     declarations: DOCUMENTATION_COMPONENTS,
