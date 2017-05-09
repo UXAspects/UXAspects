@@ -237,7 +237,7 @@
        .placeholder(@grey2);
        &:focus {
         -webkit-text-fill-color: @grey2;
-        color: @white;
+        color: @grey2;
        }
      }
     .expanded {
@@ -288,6 +288,24 @@
       color: @grey2;
     }
   }
+  .navbar-top-links {
+      .navbar-top-link {
+        &.help {
+          margin-right: 0;
+          .count-info {
+            padding: 20px 10px;
+            height: 57px;
+            &:hover, &:focus {
+              cursor: pointer;
+              background-color: darken(@navbar-bg-light, 3%);
+            }
+          }
+        }
+        .helpCenter {
+          margin-top: 25px;
+        }
+      }
+    }
   }
 }
 
