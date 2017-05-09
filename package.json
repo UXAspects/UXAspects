@@ -1,6 +1,6 @@
 {
   "name": "ux-aspects",
-  "version": "1.1.0-beta.1",
+  "version": "1.1.0",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "src/index.ts",
   "author": "Ashley Hunter",
