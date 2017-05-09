@@ -1567,7 +1567,7 @@ angular.module('app')
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
-      top: 122,
+      top: 57,
       reference: '.affix-container',
       animate: true
     };
@@ -1577,8 +1577,8 @@ angular.module('app')
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
-      top: 122,
-      reference: 'affix-container',
+      top: 57,
+      reference: '.affix-container',
       animate: true
     };
 
@@ -1587,7 +1587,7 @@ angular.module('app')
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
-      top: 122,
+      top: 57,
       reference: '.affix-container',
       animate: true
     };
@@ -1597,7 +1597,7 @@ angular.module('app')
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
-      top: 122,
+      top: 57,
       reference: '.affix-container',
       animate: true
     };
@@ -1607,7 +1607,7 @@ angular.module('app')
       main: "app/views/listViews/templates/displayPanel.tmpl.html",
       footer: "app/views/listViews/templates/displayPanelButtons.tmpl.html",
       modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
-      top: 122,
+      top: 57,
       reference: '.affix-container',
       animate: true
     };

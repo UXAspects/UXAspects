@@ -25,7 +25,8 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "main": "modalPPT.html",
                     "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
-                    "top": 50
+                    "reference": 'uxd-navigation-bar',
+                    "top": 53
                 }
             }, {
                 "name": chance.name(),
@@ -40,7 +41,8 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "main": "modalPDF.html",
                     "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
-                    "top": 50
+                    "reference": 'uxd-navigation-bar',
+                    "top": 53
                 }
             }, {
                 "name": chance.name(),
@@ -55,7 +57,8 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "main": "modalDOC.html",
                     "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
-                    "top": 50
+                    "reference": 'uxd-navigation-bar',
+                    "top": 53
                 }
             }, {
                 "name": chance.name(),
@@ -70,7 +73,8 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "main": "modalPDF.html",
                     "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
-                    "top": 50
+                    "reference": 'uxd-navigation-bar',
+                    "top": 53
                 }
             }, {
                 "name": chance.name(),
@@ -85,7 +89,8 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
                     "main": "modalPDF.html",
                     "footer": "item-display-panel-ng1/modalFooter.html",
                     "modalColumns": "col-lg-6 col-md-7 col-sm-9 col-xs-10",
-                    "top": 50
+                    "reference": 'uxd-navigation-bar',
+                    "top": 53
                 }
             }];
 
