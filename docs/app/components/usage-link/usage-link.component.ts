@@ -1,28 +1,45 @@
 import { Usage } from './../../interfaces/Usage';
-import { Input, Renderer2, Component } from '@angular/core';
+import { Input, Renderer2, Component, ElementRef, ViewChild } from '@angular/core';
+import { PopoverDirective } from 'ngx-bootstrap/popover';
 
 @Component({
     selector: 'uxd-usage-link',
     templateUrl: './usage-link.component.html',
-    styleUrls: ['./usage-link.component.less']
+    styleUrls: ['./usage-link.component.less'],
+    host: {
+        '(document:click)': 'onClick($event)',
+        '(document:keyup.escape)': 'closePopover()'
+    }
 })
 export class UsageLinkComponent {
 
     @Input() usage: Usage;
-    @Input() pop: string;
 
-    private popoverElement: any;
+    @ViewChild(PopoverDirective) popover: PopoverDirective;
 
-    constructor(private renderer: Renderer2) {}
+    private popoverElement: HTMLElement;
 
-    onShown(popover: any) {
+    constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
-        this.popoverElement = popover._popover._componentRef.location.nativeElement;
+    onShown() {
+        this.popoverElement = (<any>this.popover)._popover._componentRef.location.nativeElement;
 
         this.renderer.setStyle(this.popoverElement, 'style', '300px');
         this.renderer.setStyle(this.popoverElement, 'maxWidth', '300px');
         this.renderer.setStyle(this.popoverElement, 'borderRadius', '0');
         this.renderer.setStyle(this.popoverElement, 'zIndex', '1');
+    }
+
+    closePopover () {
+        this.popover.hide();
+    }
+
+    onClick(event: MouseEvent) {
+        if (!this.popoverElement || !this.popoverElement.contains(event.target as HTMLElement) &&
+            !this.elementRef.nativeElement.contains(event.target)) {
+
+            this.popover.hide();
+        }
     }
 
     // copy to clipboard button
