@@ -18,6 +18,36 @@
   }
 }
 
+// ngx-bootstrap - pagination
+.pagination {
+  &>li.page-item {
+    &>a {
+      .btn;
+      .button-secondary;
+      text-align: center;
+      min-width: 45px;
+      padding: 6px 12px;
+      &:hover {
+        .button-secondary-hover;
+      }
+    }
+    &.active>a {
+      .button-primary-active;
+      &:hover {
+        .button-primary-hover;
+      }
+      &:focus {
+        .button-primary-active;
+      }
+    }
+    &.disabled {
+      &>a {
+        .button-secondary-disabled;
+      }
+    }
+  }
+}
+
 //pagination
 .pagination-details {
   margin: 20px 0;
@@ -27,44 +57,29 @@
 }
 
 .pagination>.disabled>span, .pagination>.disabled>a {
-  cursor: default;
+  .button-secondary-disabled;
   &:hover, &:focus {
-    cursor: default;
+    .button-secondary-disabled;
   }
 }
 
-.pagination>.active>a,
-.pagination>.active>span,
-.pagination>.active>a:hover,
-.pagination>.active>span:hover,
-.pagination>.active>a:focus,
-.pagination>.active>span:focus {
-  background-color: @pagination-active-bg;
-  box-shadow: @pagination-active-focus-shadow;
-  border: 1px solid @pagination-active-border;
-}
-
-.pagination > li > a {
-  color: @pagination-color;
-  min-width: 45px;
-  border-radius: 0px !important;
-  border-color: @pagination-border;
-  font-family: @font-family;
-  text-transform: uppercase;
-  padding: 4px 15px;
-  box-shadow: @pagination-shadow;
-  &:hover{
-    background-color: @pagination-hover-bg;
-    border:1px solid @pagination-hover-border;
-    color: @pagination-hover-color;
-    box-shadow: @pagination-hover-shadow;
+.pagination > li {
+  & > a {
+    .button-secondary;
+    min-width: 45px;
+    border-radius: 0px !important;
+    &:hover {
+      .button-secondary-hover;
+    }
   }
-  &:focus{
-    background-color: @pagination-focus-bg;
-    color: @pagination-focus-color;
-    outline: 0;
-    box-shadow: @pagination-focus-shadow;
-    z-index: @pagination-z-index;
+  &.active > a {
+    .button-primary-active;
+    &:hover {
+      .button-primary-hover;
+    }
+    &:focus {
+      .button-primary-active;
+    }
   }
 }
 
@@ -259,7 +274,6 @@ table {
     &:hover, &:focus, &:active {
       opacity: 1;
       color: @text-color;
-      .aspects-outline;
     }
   }
 }
