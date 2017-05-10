@@ -507,8 +507,11 @@ if [ "$BuildPackages" == "true" ]; then
             fi
 			
 			# Temporary, for testing
-			echo -e "$NPMUserName\n$NPMUserPassword\n$NPMUserEmailAddress\n" | npm login
-			npm publish
+			docker run --rm --volume "$PWD":/workspace --workdir /workspace ux-aspects-build:0.9.0 \
+			    echo -e "$NPMUserName\n$NPMUserPassword\n$NPMUserEmailAddress\n" | npm login ; npm publish; npm logout; \
+				echo NPM package published
+			#echo -e "$NPMUserName\n$NPMUserPassword\n$NPMUserEmailAddress\n" | npm login
+			#npm publish
 				
 			break;
         fi
