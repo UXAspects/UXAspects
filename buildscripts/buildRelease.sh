@@ -3,6 +3,7 @@ set -e
 
 SELENIUM_TEST_MACHINE_USER=UXAspectsTestUser
 REMOTE_FOLDER=/home/$SELENIUM_TEST_MACHINE_USER/UXAspectsTestsReleaseBuild
+REMOTE_NPM_PACKAGE_FOLDER=/home/$SELENIUM_TEST_MACHINE_USER/npm
 
 UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
 UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.9.0
@@ -18,10 +19,13 @@ echo BuildPackages is $BuildPackages
 echo PrivateArtifactoryURL is $PrivateArtifactoryURL
 echo BuildDocumentation is $BuildDocumentation
 echo GridHubIPAddress is $GridHubIPAddress
+echo NPMUserName is $NPMUserName
+echo NPMUserEmailAddress is $NPMUserEmailAddress
 echo Build number is $BUILD_NUMBER
 echo Build image is $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST
 echo SSH logon is $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress
 echo REMOTE_FOLDER is $REMOTE_FOLDER
+echo REMOTE_NPM_PACKAGE_FOLDER is $REMOTE_NPM_PACKAGE_FOLDER
 echo UID is $UID
 echo GROUPS is $GROUPS
 echo USER is $USER
@@ -203,7 +207,7 @@ if [ "$RunTests" == "true" ]; then
 	fi
 fi
 
-# Create an empty results file if not tests were run
+# Create an empty results file if tests were not run
 if [ "$RunTests" != "true" ]; then
 	echo "No tests performed"	
 	echo "<h2>No tests performed</h2>" >> UXAspectsTestsResults.html
@@ -250,6 +254,17 @@ then
    echo "Updated package.json with $NextVersion"
 else
    echo "ERROR: package.json isn't updated with $NextVersion"
+   exit 1
+fi
+
+# Bump up the version in the NPM package.json
+sed -i -e s/"\"version\": \"[0-9]\.[0-9]\.[0-9].*\","/"\"version\": \"$NextVersion\","/ "src/package.json"
+newNPMPackageVersion=`cat src/package.json | grep version`
+if [[ $newNPMPackageVersion == *"$NextVersion"* ]]
+then
+   echo "Updated NPM package.json with $NextVersion"
+else
+   echo "ERROR: NPM package.json isn't updated with $NextVersion"
    exit 1
 fi
 
@@ -365,15 +380,15 @@ rm -rf dist
 docker_image_run grunt build --force
 
 # Archive the Keppel-themed documentation files
-if [ "$BuildDocumentation" == "true" ]; then
-	echo
-	echo Archiving the Keppel-themed documentation files
-	mv dist/docs docs-gh-pages-Keppel-$NextVersion
-	cd docs-gh-pages-Keppel-$NextVersion
-	tarDocs=`tar czvf ../$NextVersion-docs-gh-pages-Keppel.tar.gz *`
-	echo "$tarDocs"
-	cd ..
+echo
+echo Archiving the Keppel-themed documentation files
+mv dist/docs docs-gh-pages-Keppel-$NextVersion
+cd docs-gh-pages-Keppel-$NextVersion
+tarDocs=`tar czvf ../$NextVersion-docs-gh-pages-Keppel.tar.gz *`
+echo "$tarDocs"
+cd ..
 
+if [ "$BuildDocumentation" == "true" ]; then
 	# Create a branch for the new documentation. First, clone the repository to a sub-folder.
 	# Switching to the new branch and commiting to it will be performed in this clone.
 	echo
@@ -446,5 +461,61 @@ echo Returning to the develop branch
 cd $WORKSPACE
 git checkout docs/app/data/footer-navigation.json
 git checkout docs/app/data/landing-page.json
+
+if [ "$BuildPackages" == "true" ]; then
+	# Create the NPM package
+	echo
+	echo Creating the NPM package
+	if [ -d "$WORKSPACE/npm" ]; then
+		echo "Folder $WORKSPACE/npm exists... deleting it!"
+		rm -rf $WORKSPACE/npm
+	fi
+	mkdir -p $WORKSPACE/npm
+	cd $WORKSPACE/npm
+	cp -p -r $WORKSPACE/src/package.json .
+	cp -p -r $WORKSPACE/dist .
+	
+	# Copy the package to a folder on the Grid Hub machine.
+	cd $WORKSPACE
+	echo Deleting old copy of NPM package on Selenium Grid Hub machine
+	ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress rm -rf $REMOTE_NPM_PACKAGE_FOLDER
+
+	echo Copying NPM package to the Selenium Grid Hub machine
+	ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress mkdir -p $REMOTE_NPM_PACKAGE_FOLDER
+	scp -r $WORKSPACE/npm/* $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress:$REMOTE_NPM_PACKAGE_FOLDER
+
+	# Loop while waiting for the $NextVersion-package-test branch to be merged into the Bower
+	# branch or deleted. Merging signals that the release is verified and so the NPM package may
+	# be published.
+    branchCheckDelay=30    
+    while :
+    do
+        branchExists=`git ls-remote --heads https://github.com/UXAspects/UXAspects.git $NextVersion-package-test | wc -l`
+        if [ $branchExists == 0 ] ; then
+		    latestBowerCommitID=`git rev-parse origin/bower`
+			echo latestBowerCommitID is $latestBowerCommitID
+			latestBowerCommitMessage=`git log --format=%s%b -n 1 $latestBowerCommitID`
+			echo latestBowerCommitMessage is $latestBowerCommitMessage
+			branchMerged=`echo "$latestBowerCommitMessage" | grep "$NextVersion-package-test" | wc -l`
+            # if this contains $NextVersion-package-test and $latestCommitID, the branch was merged
+            if [ $branchMerged == 1 ] ; then
+                echo Branch $NextVersion-package-test has been merged into the Bower branch. Publish the NPM package.
+				#echo -e "$NPMUserName\n$NPMUserPassword\n$NPMUserEmailAddress\n" | npm login
+				#npm publish
+			else
+                echo Branch $NextVersion-package-test was not merged into the Bower branch.
+            fi
+			
+			# Temporary, for testing
+			echo -e "$NPMUserName\n$NPMUserPassword\n$NPMUserEmailAddress\n" | npm login
+			npm publish
+				
+			break;
+        fi
+        
+        echo Branch $NextVersion-package-test still exists. Sleeping for $branchCheckDelay seconds
+        sleep $branchCheckDelay
+    done
+fi
 
 exit 0
