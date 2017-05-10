@@ -1,5 +1,5 @@
 {
-  "name": "@ux-aspects/pearse-mcmurray",
+  "name": "@ux-aspects/ux-aspects",
   "version": "1.1.0",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "lib/index.js",
