@@ -479,6 +479,28 @@ if [ "$BuildPackages" == "true" ]; then
             # if this contains $NextVersion-package-test and $latestCommitID, the branch was merged
             if [ $branchMerged == 1 ] ; then
                 echo Branch $NextVersion-package-test has been merged into the Bower branch. Create the NPM package.
+				# echo
+				# echo Creating the NPM package
+				# if [ -d "$WORKSPACE/npm" ]; then
+					# echo "Folder $WORKSPACE/npm exists... deleting it!"
+					# rm -rf $WORKSPACE/npm
+				# fi
+				# mkdir -p $WORKSPACE/npm
+				# cd $WORKSPACE/npm
+				# cp -p -r $WORKSPACE/src/package.json .
+				# cp -p -r $WORKSPACE/dist .
+				
+				# # Copy the package to a folder on the Grid Hub machine.
+				# echo Deleting old copy of NPM package on Selenium Grid Hub machine
+				# ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress rm -rf $REMOTE_NPM_PACKAGE_FOLDER
+
+				# echo Copying NPM package to the Selenium Grid Hub machine
+				# ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress mkdir -p $REMOTE_NPM_PACKAGE_FOLDER
+				# scp -r $WORKSPACE/npm/* $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress:$REMOTE_NPM_PACKAGE_FOLDER
+			else
+                echo Branch $NextVersion-package-test was not merged into the Bower branch.
+            fi			
+				
 				echo
 				echo Creating the NPM package
 				if [ -d "$WORKSPACE/npm" ]; then
@@ -497,10 +519,7 @@ if [ "$BuildPackages" == "true" ]; then
 				echo Copying NPM package to the Selenium Grid Hub machine
 				ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress mkdir -p $REMOTE_NPM_PACKAGE_FOLDER
 				scp -r $WORKSPACE/npm/* $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress:$REMOTE_NPM_PACKAGE_FOLDER
-			else
-                echo Branch $NextVersion-package-test was not merged into the Bower branch.
-            fi			
-				
+
 			break;
         fi
         
