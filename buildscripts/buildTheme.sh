@@ -66,14 +66,9 @@ docker_image_build; echo
 # Update assetsUrl in config.json
 echo Updating assetsUrl in config.json
 cd $WORKSPACE/ux-aspects
-rm -f jqFilter
-echo ".assetsUrl=\"https://pages.github.hpe.com/sepg-docs-qa/UXAspects_"$theme"_Theme_CI/assets\"" > jqFilter
 docker run --rm --volume "$PWD":/workspace --workdir /workspace --user $UID:$GROUPS \
     $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-    cat docs/app/data/config.json | jq -f jqFilter > docs/app/data/config_updated.json
-rm -f docs/app/data/config.json
-mv docs/app/data/config_updated.json docs/app/data/config.json
-rm -f jqFilter
+    bash buildscripts/updateConfigJSON.sh $theme
 
 # Build the documentation
 cd $WORKSPACE/ux-aspects
