@@ -463,30 +463,9 @@ git checkout docs/app/data/footer-navigation.json
 git checkout docs/app/data/landing-page.json
 
 if [ "$BuildPackages" == "true" ]; then
-	# Create the NPM package
-	echo
-	echo Creating the NPM package
-	if [ -d "$WORKSPACE/npm" ]; then
-		echo "Folder $WORKSPACE/npm exists... deleting it!"
-		rm -rf $WORKSPACE/npm
-	fi
-	mkdir -p $WORKSPACE/npm
-	cd $WORKSPACE/npm
-	cp -p -r $WORKSPACE/src/package.json .
-	cp -p -r $WORKSPACE/dist .
-	
-	# Copy the package to a folder on the Grid Hub machine.
-	cd $WORKSPACE
-	echo Deleting old copy of NPM package on Selenium Grid Hub machine
-	ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress rm -rf $REMOTE_NPM_PACKAGE_FOLDER
-
-	echo Copying NPM package to the Selenium Grid Hub machine
-	ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress mkdir -p $REMOTE_NPM_PACKAGE_FOLDER
-	scp -r $WORKSPACE/npm/* $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress:$REMOTE_NPM_PACKAGE_FOLDER
-
 	# Loop while waiting for the $NextVersion-package-test branch to be merged into the Bower
 	# branch or deleted. Merging signals that the release is verified and so the NPM package may
-	# be published.
+	# be created.
     branchCheckDelay=30    
     while :
     do
@@ -499,19 +478,28 @@ if [ "$BuildPackages" == "true" ]; then
 			branchMerged=`echo "$latestBowerCommitMessage" | grep "$NextVersion-package-test" | wc -l`
             # if this contains $NextVersion-package-test and $latestCommitID, the branch was merged
             if [ $branchMerged == 1 ] ; then
-                echo Branch $NextVersion-package-test has been merged into the Bower branch. Publish the NPM package.
-				#echo -e "$NPMUserName\n$NPMUserPassword\n$NPMUserEmailAddress\n" | npm login
-				#npm publish
+                echo Branch $NextVersion-package-test has been merged into the Bower branch. Create the NPM package.
+				echo
+				echo Creating the NPM package
+				if [ -d "$WORKSPACE/npm" ]; then
+					echo "Folder $WORKSPACE/npm exists... deleting it!"
+					rm -rf $WORKSPACE/npm
+				fi
+				mkdir -p $WORKSPACE/npm
+				cd $WORKSPACE/npm
+				cp -p -r $WORKSPACE/src/package.json .
+				cp -p -r $WORKSPACE/dist .
+				
+				# Copy the package to a folder on the Grid Hub machine.
+				echo Deleting old copy of NPM package on Selenium Grid Hub machine
+				ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress rm -rf $REMOTE_NPM_PACKAGE_FOLDER
+
+				echo Copying NPM package to the Selenium Grid Hub machine
+				ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress mkdir -p $REMOTE_NPM_PACKAGE_FOLDER
+				scp -r $WORKSPACE/npm/* $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress:$REMOTE_NPM_PACKAGE_FOLDER
 			else
                 echo Branch $NextVersion-package-test was not merged into the Bower branch.
-            fi
-			
-			# Temporary, for testing
-			docker run --rm --volume "$PWD":/workspace --workdir /workspace ux-aspects-build:0.9.0 \
-			    echo -e "$NPMUserName\n$NPMUserPassword\n$NPMUserEmailAddress\n" | npm login ; npm publish; npm logout; \
-				echo NPM package published
-			#echo -e "$NPMUserName\n$NPMUserPassword\n$NPMUserEmailAddress\n" | npm login
-			#npm publish
+            fi			
 				
 			break;
         fi
