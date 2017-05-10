@@ -60,7 +60,7 @@ docker_image_run()
 
 echo
 
-# Create the latest elements-build image if it does not exist
+# Create the latest ux-aspects-build image if it does not exist
 docker_image_build; echo
 
 # Update assetsUrl in config.json

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
+UX_ASPECTS_BUILD_IMAGE_TAG_0_10_0=0.10.0
 UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.10.0
 
 echo
@@ -22,6 +23,18 @@ echo Displaying groups
 groups
 echo Displaying id
 id
+
+# Define a function to remove a specified Docker image
+docker_image_remove()
+{
+    DOCKER_IMAGE_ID=`docker images | grep $1 | grep $2 | awk '{print $3}'`
+    echo ID for $1:$2 image is $DOCKER_IMAGE_ID
+    if [ ! -z "$DOCKER_IMAGE_ID" ] ; then
+        # Remove the docker image
+        echo Removing the $1:$2 image
+        docker rmi -f $DOCKER_IMAGE_ID
+    fi
+}
 
 # Define a function to build a specified Docker image.
 docker_image_build()
@@ -93,7 +106,10 @@ echo "<h2>" >> UXAspectsTestsResults.html
 date -u >> UXAspectsTestsResults.html
 echo "</h2></br>" >> UXAspectsTestsResults.html
 
-# Create the latest elements-build image if it does not exist
+# Remove old image
+docker_image_remove $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_0_10_0; echo
+
+# Create the latest ux-aspects-build image if it does not exist
 docker_image_build; echo
 
 echo Executing the unit tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
