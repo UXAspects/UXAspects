@@ -30,7 +30,6 @@ ENV PATH $PATH:${NODE_DIR}/bin
 RUN apt-get install -y \
     net-tools \
     psmisc \
-    jq \
     libfontconfig && \
     npm install -g grunt-cli && \
     npm install -g bower
