@@ -712,6 +712,11 @@
             "link": "tables",
             "sections": [
                 {
+                    "title": "Column Sorting",
+                    "component": "ComponentsColumnSortingComponent",
+                    "version": "Angular"
+                },
+                {
                     "title": "Detail Row Responsive Table",
                     "component": "ComponentsDetailRowResponsiveNg1Component",
                     "version": "AngularJS"
@@ -804,12 +809,14 @@
                 {
                     "title": "Single Column Sorting",
                     "component": "ComponentsSingleColumnSortingNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Multiple Column Sorting",
                     "component": "ComponentsMultipleColumnSortingNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Column Visibility",

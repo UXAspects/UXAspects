@@ -1,0 +1,41 @@
+<h4>Coming soon: Angular 4 Column Sorting</h4>
+
+<hr>
+
+<table class="table table-hover">
+    <thead>
+        <tr uxColumnSorting>
+            <th></th>
+            <th>NAME</th>
+            <th>AUTHOR<ux-column-sorting sortKey="author"></ux-column-sorting></th>
+            <th>DATE MODIFIED<ux-column-sorting sortKey="date"></ux-column-sorting></th>
+            <th>WORK COMPLETED<ux-column-sorting sortKey="completed"></ux-column-sorting></th>
+            <!--<th (click)="authorState = changeState(authorState)">AUTHOR<ux-column-sorting 
+            #authorColumn="ux-column-sorting" [state]="authorState" (stateChange)="onChange($event, 'Author')" 
+            [order]="getColumnIndex('Author')"></ux-column-sorting></th>
+            <th (click)="dateState = changeState(dateState)">DATE MODIFIED<ux-column-sorting 
+            #dateColumn="ux-column-sorting" [state]="dateState" (stateChange)="onChange($event, 'Date')"
+            [order]="getColumnIndex('Date')"></ux-column-sorting></th>
+            <th (click)="completedState = changeState(completedState)">WORK COMPLETED<ux-column-sorting 
+            #completedColumn="ux-column-sorting" [state]="completedState" (stateChange)="onChange($event, 'Completed')"
+            [order]="getColumnIndex('Completed')"></ux-column-sorting></th>-->
+            <th>STATUS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="clickable" *ngFor="let item of sortableTable">
+            <td>
+                <div class="listview-page-icon"></div>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date }}</td>
+            <td>
+                <ux-spark trackColor="rgba(139,107,193,0.2)" barColor="#7b63a3" [value]="item.complete" fillHeight="3" [inlineLabel]="item.complete"></ux-spark>
+            </td>
+            <td class="text-center">
+                <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>

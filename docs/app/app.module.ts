@@ -21,7 +21,8 @@ import {
   ProgressBarModule,
   RadioButtonModule,
   SparkModule,
-  ToggleSwitchModule
+  ToggleSwitchModule,
+  ColumnSortingModule
 } from '../../src/index';
 
 // Import Child Modules
@@ -109,6 +110,7 @@ const DECLARATIONS = [
     SparkModule,
     ToggleSwitchModule,
     WrappersModule,
+    ColumnSortingModule,
 
     // Routing Module
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })

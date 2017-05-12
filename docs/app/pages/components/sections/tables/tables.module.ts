@@ -2,11 +2,12 @@ import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from '../../../../../../src/index';
+import { CheckboxModule, ColumnSortingModule, SparkModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
+import { ComponentsColumnSortingComponent } from './column-sorting/column-sorting.component';
 import { ComponentsDetailRowResponsiveNg1Component } from './detail-row-responsive-ng1/detail-row-responsive-ng1.component';
 import { ComponentsDetailRowHeaderNg1Component } from './detail-row-header-ng1/detail-row-header-ng1.component';
 import { ComponentsFiltersNg1Component } from './filters-ng1/filters-ng1.component';
@@ -32,8 +33,8 @@ import { ComponentsCustomResponsiveTableNg1Component } from './custom-responsive
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
-
 const SECTIONS = [
+    ComponentsColumnSortingComponent,
     ComponentsDetailRowResponsiveNg1Component,
     ComponentsDetailRowHeaderNg1Component,
     ComponentsFiltersNg1Component,
@@ -75,8 +76,10 @@ const ROUTES = [
         FormsModule,
         TabsModule,
         CheckboxModule,
+        ColumnSortingModule,
+        SparkModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
