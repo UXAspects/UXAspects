@@ -5,6 +5,9 @@
   "main": "src/index.ts",
   "author": "Ashley Hunter",
   "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --config configs/webpack.dev.config.js"
+  },
   "dependencies": {
     "@angular/animations": "^4.1.0",
     "@angular/common": "^4.1.0",
@@ -69,6 +72,7 @@
     "grunt-contrib-less": "^1.4.1",
     "grunt-contrib-uglify": "^2.3.0",
     "grunt-execute": "^0.2.2",
+    "grunt-run": "^0.6.0",
     "grunt-tslint": "^5.0.1",
     "grunt-webfont": "^0.4.8",
     "grunt-webpack": "^2.0.1",
