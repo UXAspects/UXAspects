@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ColumnSortingComponent } from 'ux-aspects';
 import { ColumnSortingState } from 'ux-aspects';
+import 'chance';
 
 @Component({
     selector: 'app',
@@ -8,7 +9,6 @@ import { ColumnSortingState } from 'ux-aspects';
 })
 export class AppComponent {
 
-    chance = require('chance').Chance();
     order: object[] = [];
 
     sortableTable = [{

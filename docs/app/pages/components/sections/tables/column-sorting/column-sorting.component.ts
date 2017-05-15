@@ -129,8 +129,14 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
             'app.component.ts': require('./snippets/app.ts'),
             'app.component.html': require('./snippets/app.html')
         },
+        mappings: [
+            {
+                alias: 'chance',
+                source: 'npm:chance@1.0.6'
+            }
+        ],
         modules: [{
-            imports: ['ColumnSortingModule'],
+            imports: ['ColumnSortingModule', 'SparkModule'],
             library: 'ux-aspects'
         }]
     };
