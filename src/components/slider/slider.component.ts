@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
-import { ColorService } from '../../services/color/color.service';
+import { ColorService } from '../../services/color/index';
 
 @Component({
     selector: 'ux-slider',

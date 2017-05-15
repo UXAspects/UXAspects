@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ColorServiceModule } from '../../services/color/color.module';
+import { ColorServiceModule } from '../../services/color/index';
 
 import { SliderComponent } from './slider.component';
 

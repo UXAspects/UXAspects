@@ -1,5 +1,4 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
@@ -19,7 +18,7 @@ import { ComponentsRadioButtonNg1Component } from './radio-button-ng1/radio-butt
 import { ComponentsTagsNg1Component } from './tags-ng1/tags-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { CheckboxModule, ToggleSwitchModule, ColorServiceModule } from '../../../../../../src/index';
+import { CheckboxModule, ToggleSwitchModule } from '../../../../../../src/index';
 
 const SECTIONS = [
     ComponentsCheckboxComponent,
@@ -48,12 +47,10 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        CommonModule,
         WrappersModule,
         TabsModule,
         CheckboxModule,
         ToggleSwitchModule,
-        ColorServiceModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],
