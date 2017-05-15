@@ -11,41 +11,43 @@ import { SideNavigationComponent } from './side-navigation/side-navigation.compo
 import { FullPageLayoutComponent } from './full-page-layout/full-page-layout.component';
 
 // Import UI Components
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ComponentSectionComponent } from './component-section/component-section.component';
+import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
 import { EditExampleLinkComponent } from './edit-example-link/edit-example-link.component';
-import { PageHeaderComponent } from './page-header/page-header.component';
-import { PageFooterComponent } from './page-footer/page-footer.component';
+import { LandingPageFeatureComponent } from './landing-page-feature/landing-page-feature.component';
+import { LandingPageFeatureListComponent } from './landing-page-feature-list/landing-page-feature-list.component';
+import { LandingPageHeaderComponent } from './landing-page-header/landing-page-header.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { NavigationBarSearchComponent } from './navigation-bar-search/navigation-bar-search.component';
-import { LandingPageHeaderComponent } from './landing-page-header/landing-page-header.component';
-import { LandingPageFeatureListComponent } from './landing-page-feature-list/landing-page-feature-list.component';
-import { LandingPageFeatureComponent } from './landing-page-feature/landing-page-feature.component';
-import { ShowcaseCardComponent } from './showcase-card/showcase-card.component';
-import { ComponentSectionComponent } from './component-section/component-section.component';
-import { SnippetComponent } from './snippet/snippet.component';
+import { PageFooterComponent } from './page-footer/page-footer.component';
+import { PageHeaderComponent } from './page-header/page-header.component';
 import { SectionSelectComponent } from './section-select/section-select.component';
-import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
-import { UsageLinkComponent } from './usage-link/usage-link.component';
+import { ShowcaseCardComponent } from './showcase-card/showcase-card.component';
+import { SnippetComponent } from './snippet/snippet.component';
+import { TextPageLayoutComponent } from './text-page-layout/text-page-layout.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { UsageLinkComponent } from './usage-link/usage-link.component';
 
 const DOCUMENTATION_COMPONENTS = [
+    ComponentSectionComponent,
     DocumentationCategoryComponent,
     EditExampleLinkComponent,
-    SideNavigationComponent,
     FullPageLayoutComponent,
-    PageHeaderComponent,
-    PageFooterComponent,
+    LandingPageFeatureComponent,
+    LandingPageFeatureListComponent,
+    LandingPageHeaderComponent,
+    LoadingSpinnerComponent,
     NavigationBarComponent,
     NavigationBarSearchComponent,
-    LandingPageHeaderComponent,
-    LandingPageFeatureListComponent,
-    LandingPageFeatureComponent,
-    ShowcaseCardComponent,
-    ComponentSectionComponent,
-    SnippetComponent,
+    PageFooterComponent,
+    PageHeaderComponent,
     SectionSelectComponent,
-    LoadingSpinnerComponent,
+    ShowcaseCardComponent,
+    SideNavigationComponent,
+    SnippetComponent,
+    TextPageLayoutComponent,
     UsageLinkComponent
 ];
 
