@@ -1,0 +1,85 @@
+.ux-item-display-panel {
+    box-shadow: 1px 0px 20px 0px @display-panel-shadow;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    position: fixed;
+    background: @display-panel-bg;
+    color: @display-panel-color;
+    border-left: 1px solid @display-panel-border;
+    z-index: @display-panel-z-index;
+    left: 50%;
+
+    &.animate {
+        transition: left 0.4s;
+    }
+
+    &.item-display-panel-hide {
+        left: 100%;
+        box-shadow: none;
+    }
+
+    .item-display-panel-header {
+        min-height: 60px;
+        width: 100%;
+        .heading-flex-box {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 20px;
+            margin-bottom: 5px;
+            span {
+                padding-top: 30px;
+                padding-right: 30px;
+                cursor: pointer;
+                &:focus {
+                    outline: none;
+                    i {
+                        outline: @accent auto 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    .item-display-panel-content {
+        position: relative;
+    }
+
+    .item-display-panel-footer {
+        border-top: 1px solid rgba(51,51,51,.1);
+        margin-top: 5px;
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+    }
+
+    .item-display-panel-shadow {
+        position: relative;
+        width: 100%;
+        background-color: inherit;
+        z-index: 1;
+        min-height: inherit;
+        div {
+        z-index: 2;
+        background: @display-panel-bg;
+        min-height: inherit;
+        }
+    }
+    
+    .item-display-panel-shadow:before {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        -moz-box-shadow: 0 0 20px @display-panel-header-shadow;
+        -webkit-box-shadow: 0 0 20px @display-panel-header-shadow;
+        box-shadow: 0 0 20px @display-panel-header-shadow;
+        left: 10%;
+        right: 10%;
+        top: 50%;
+        bottom: 0;
+    }
+}

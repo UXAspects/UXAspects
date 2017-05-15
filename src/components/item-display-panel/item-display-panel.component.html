@@ -1,0 +1,20 @@
+<div class="ux-item-display-panel" [class.animate]="animate" [class.item-display-panel-hide]="!visible" [style.top]="top" [style.height]="height">
+
+    <div class="item-display-panel-header" [class.item-display-panel-shadow]="shadow">
+        <div class="heading-flex-box">
+            <h3>{{ title }}</h3>
+            <span tabindex="0" (click)="hide()">
+                <i class="hpe-icon hpe-close"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="item-display-panel-content">
+        <ng-content select="ux-item-display-panel-content"></ng-content>
+    </div>
+
+    <div class="item-display-panel-footer">
+        <ng-content select="ux-item-display-panel-footer"></ng-content>
+    </div>
+
+</div>

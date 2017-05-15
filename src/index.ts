@@ -12,6 +12,7 @@ export * from './components/toggleswitch/index';
 export * from './components/facets/index';
 export * from './components/breadcrumbs/index';
 export * from './components/page-header/index';
+export * from './components/item-display-panel/index';
 export * from './components/slider/index';
 export * from './directives/resize/index';
 export * from './pipes/string-filter/index';

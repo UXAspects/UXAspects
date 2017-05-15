@@ -614,13 +614,20 @@
                 },
                 {
                     "title": "Item Display Panel",
-                    "component": "ComponentsItemDisplayPanelNg1Component",
-                    "version": "AngularJS"
+                    "component": "ComponentsItemDisplayPanelComponent",
+                    "version": "Angular"
                 },
                 {
-                    "title": "Item Display Panel Service",
+                    "title": "Item Display Panel (Angular 1)",
+                    "component": "ComponentsItemDisplayPanelNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Item Display Panel Service (Angular 1)",
                     "component": "ComponentsItemDisplayPanelServiceNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Modal Inset Panel",
