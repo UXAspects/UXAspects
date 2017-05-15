@@ -1,17 +1,12 @@
-import { ColumnSortingComponent } from './../../../../../../../src/components/column-sorting/column-sorting.component';
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { ColumnSortingState } from '../../../../../../../src/index';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { ColumnSortingComponent } from 'ux-aspects';
+import { ColumnSortingState } from 'ux-aspects';
 
 @Component({
-    selector: 'uxd-components-column-sorting',
-    templateUrl: './column-sorting.component.html'
+    selector: 'app',
+    templateUrl: './src/app.component.html'
 })
-@DocumentationSectionComponent('ComponentsColumnSortingComponent')
-export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class AppComponent {
 
     chance = require('chance').Chance();
     order: object[] = [];
@@ -122,28 +117,6 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
             }
 
         });
-    }
-
-    public plunk: IPlunk = {
-        files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html')
-        },
-        modules: [{
-            imports: ['ColumnSortingModule'],
-            library: 'ux-aspects'
-        }]
-    };
-
-    constructor() {
- 
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
     }
    
 }

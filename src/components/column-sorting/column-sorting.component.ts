@@ -6,27 +6,22 @@ import { Subject } from 'rxjs/Subject';
 @Component({
     selector: 'ux-column-sorting',
     templateUrl: './column-sorting.component.html',
-    exportAs: 'ux-column-sorting',
-    host: {
-        '(click)': 'changeState(sortKey)'
-    }
+    exportAs: 'ux-column-sorting'
 })
 export class ColumnSortingComponent {
-// export class ColumnSortingComponent implements OnChanges {
     
     @Input() state: ColumnSortingState;
     @Input() sortKey: string;
     @Input() orderNumber: number;
-    @Output() stateChange: EventEmitter<ColumnSortingState> = new EventEmitter<ColumnSortingState>();
 
     private parent: ColumnSortingDirective;
+    columnSortingState = ColumnSortingState;
 
     initParent(parent: ColumnSortingDirective) {
         this.parent = parent;
 
         // watch for any events
         this.parent.events.subscribe(event => {
-            // debugger;
 
             let idx = event.findIndex(column => column.key === this.sortKey);
 
@@ -35,7 +30,6 @@ export class ColumnSortingComponent {
             } else {
                 this.orderNumber = null;
             }
-
 
         });
     }
@@ -51,38 +45,8 @@ export class ColumnSortingComponent {
         }
 
         // inform parent
-        // console.log(this.state);
-        this.parent.toggleColumn(this.sortKey, this.state);
+        return this.parent.toggleColumn(this.sortKey, this.state);
 
-    }
-
-    sortNumber: Number;
-    columnSortingState = ColumnSortingState;
-
-    // ngOnChanges(changes: SimpleChanges) {
-        
-    //     if (changes.state && changes.state.currentValue !== changes.state.previousValue) {
-    //         this.stateChange.emit(this.state);
-    //     }
-    // }
-
-    updateState() {
-        // if (this.state === ColumnSortingState.Ascending) {
-        //     this.state = ColumnSortingState.Descending;
-        // } else if (this.state === ColumnSortingState.Descending) {
-        //     this.state = ColumnSortingState.NoSort;
-        // }  else {
-        //     this.state = ColumnSortingState.Ascending;
-        // }
-
-        // this.stateChange.emit(this.state);
-        
-    }
-
-    updateNumber(sortKey: String[]) {
-        console.log(this.sortKey);
-        console.log(sortKey);
-        
     }
 }
 

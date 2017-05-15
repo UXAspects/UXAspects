@@ -79,7 +79,7 @@ const ROUTES = [
         ColumnSortingModule,
         SparkModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
+        RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

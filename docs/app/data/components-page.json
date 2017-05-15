@@ -714,7 +714,17 @@
                 {
                     "title": "Column Sorting",
                     "component": "ComponentsColumnSortingComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-column-sorting"
+                    },{
+                        "title": "Module name",
+                        "content": "ColumnSortingModule"
+                    },{
+                        "title": "Export as",
+                        "content": "ux-column-sorting"
+                    }]
                 },
                 {
                     "title": "Detail Row Responsive Table",
@@ -807,13 +817,13 @@
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Single Column Sorting",
+                    "title": "Single Column Sorting (Angular 1)",
                     "component": "ComponentsSingleColumnSortingNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Multiple Column Sorting",
+                    "title": "Multiple Column Sorting (Angular 1)",
                     "component": "ComponentsMultipleColumnSortingNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
