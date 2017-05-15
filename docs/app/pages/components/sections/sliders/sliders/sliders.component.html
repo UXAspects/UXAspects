@@ -1,43 +1,116 @@
-<ux-slider></ux-slider>
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="text-black p-t-md p-b-md">Single Value Sliders</h4>
+        </div>
+
+        <div class="col-md-6 p-r-md p-b-md">
+            <p class="text-black p-b-md">Button Handle - Custom Labels</p>
+            <ux-slider [value]="slider1.value" [options]="slider1.options"></ux-slider>
+        </div>
+        <div class="col-md-6 p-l-md p-b-md">
+            <p class="text-black p-b-md">Line Handle - Callout on Drag</p>
+            <ux-slider [value]="slider2.value" [options]="slider2.options"></ux-slider>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-md-6 p-r-md p-b-md">
+            <p class="text-black p-b-md">Narrow - Track Styling - Snapping</p>
+            <ux-slider [value]="slider3.value" [options]="slider3.options"></ux-slider>
+        </div>
+        <div class="col-md-6 p-l-md p-b-md">
+            <p class="text-black p-b-md">Narrow - Gradient Track Styling - Callout on Hover</p>
+            <ux-slider [value]="slider4.value" [options]="slider4.options"></ux-slider>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="text-black p-t-md p-b-md">Range Value Sliders</h4>
+        </div>
+
+        <div class="col-md-6 p-r-md p-b-md">
+            <p class="text-black p-b-lg">Range Track - Persistent Callout</p>
+            <ux-slider [value]="slider5.value" [options]="slider5.options"></ux-slider>
+        </div>
+        <div class="col-md-6 p-l-md p-b-md">
+            <p class="text-black p-b-lg">Range Track Style - Custom Callout Styles</p>
+            <ux-slider [value]="slider6.value" [options]="slider6.options"></ux-slider>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="text-black p-t-md p-b-md">Range Slider with Text Inputs</h4>
+        </div>
+
+        <div class="col-md-12">
+            <ux-slider [value]="slider7.value" (valueChange)="updateValue($event)" [options]="slider7.options"></ux-slider>
+        </div>
+    </div>
+
+    <div class="row m-t-sm p-t-xs">
+        <div class="col-sm-2">
+            <input type="text" class="form-control m-b" [ngModel]="lowerValue | async" (ngModelChange)="lowerValue.next($event)">
+        </div>
+        <div class="col-sm-offset-8 col-sm-2">
+            <input type="text" class="form-control m-b" [ngModel]="upperValue | async" (ngModelChange)="upperValue.next($event)">
+        </div>
+    </div>
+
+</div>
 
 <hr>
 
 <p>The slider component can be used to allow a user to select a single value or a range of values. It can easily be customized
     to match the desired appearance and behavior.</p>
 
-<h4>Slider Directive</h4>
+<h4>Slider Component</h4>
 
 <p>The component can be added to a page by using the following HTML:</p>
 
 <uxd-snippet [content]="snippets.compiled.sample1Html"></uxd-snippet>
 
 <blockquote>
-    <p>Reference the CodePen for the code used in all examples above</p>
+    <p>Reference Plunker for the code used in all examples above</p>
 </blockquote>
 
 <h4>Values</h4>
 
-<p>The value or range should be specified by adding an <code>ng-model</code> attribute to the directive. This should reference
-    either a value or an object in your controller, depending on the slider type specified in the chart options.</p>
+<p>The value or range should be specified by adding an <code>value</code> attribute to the component tag. This should reference
+    either a single number or a <code>SliderValue</code> object, depending on the slider type specified.</p>
 
-<p>For single value selection, an example of the data in the controller may be:</p>
+<p>For single value selection, an example value might be:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample1Js" language="javascript"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.sample1Ts" language="javascript"></uxd-snippet>
 
-<p>For range selection, an example of the data in the controller may be:</p>
+<p>For range selection, an example value might be:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample2Js" language="javascript"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.sample2Ts" language="javascript"></uxd-snippet>
 
-<p>The variable in the controller will be updated with the correct value, or values, when the slider is dragged.</p>
+<p>The variable containing the value can be updated with the correct value, or values, when the slider is dragged is two way
+    binding is used.</p>
 
 <h4>Options</h4>
 
-<p>A wide ranges of options can be configured to customize the control. These options should be stored in the controller and
-    passed to the control by adding an <code>options</code> attribute to the directive.</p>
+<p>A wide range of options can used to customize the appearance and behavior of the component. These options should be stored
+    in an object and passed to the component by adding an <code>options</code> attribute to the directive.</p>
 
 <p>The default options for each chart are as follows:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample3Js" language="javascript"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.sample3Ts" language="javascript"></uxd-snippet>
 
 <p>Full details on each property and the possible values for each can be found below. All properties are optional, if they are
     not specified the default value will be used.</p>
@@ -51,7 +124,8 @@
         <tr>
             <td class="attribute">type</td>
             <td>Defines whether the slider should allow selection of a single value or a range of values. The two valid values
-                are <code>value</code> and <code>range</code>. The default value for this property is <code>value</code>.</td>
+                are <code>SliderType.Value</code> and <code>SliderType.Range</code>. The default value for this property
+                is <code>SliderType.Value</code>.</td>
         </tr>
         <tr>
             <td class="attribute">handles</td>
@@ -76,7 +150,8 @@
         </tr>
         <tr>
             <td class="attribute">style</td>
-            <td>This allows you to choose the appearance of the drag handles. The two available options are <code>button</code>                and <code>line</code>. The default option is <code>button</code>.</td>
+            <td>This allows you to choose the appearance of the drag handles. The two available options are <code>SliderStyle.Button</code>
+            and <code>SliderStyle.Line</code>. The default option is <code>SliderStyle.Button</code>.</td>
         </tr>
         <tr>
             <td class="attribute">callout</td>
@@ -99,21 +174,21 @@
             <td>This option will specify when the callout should appear. The available options are:
                 <br>
                 <ul>
-                    <li><code>none</code> - The callout will never appear. This is the default option.</li>
-                    <li><code>hover</code> - The callout will appear when the mouse is over the handle and will remain visible
+                    <li><code>SliderCalloutTrigger.None</code> - The callout will never appear. This is the default option.</li>
+                    <li><code>SliderCalloutTrigger.Hover</code> - The callout will appear when the mouse is over the handle and will remain visible
                         when dragging the handle.</li>
-                    <li><code>drag</code> - The callout will appear only when the handle is being dragged.</li>
-                    <li><code>persistent</code> - The callout will always be visible.</li>
+                    <li><code>SliderCalloutTrigger.Drag</code> - The callout will appear only when the handle is being dragged.</li>
+                    <li><code>SliderCalloutTrigger.Persistent</code> - The callout will always be visible.</li>
                 </ul>
             </td>
         </tr>
         <tr>
             <td class="attribute">background</td>
-            <td>Specified the background color of the callout. The default value is <code>#464646</code>.</td>
+            <td>Specified the background color of the callout. The default value is <code>grey2</code>.</td>
         </tr>
         <tr>
             <td class="attribute">color</td>
-            <td>Specified the text color of the callout. The default value is <code>#fff</code>.</td>
+            <td>Specified the text color of the callout. The default value is <code>white</code>.</td>
         </tr>
         <tr>
             <td class="attribute">formatter</td>
@@ -133,8 +208,8 @@
         </tr>
         <tr>
             <td class="attribute">height</td>
-            <td>This specifies the height of the track. There are two available values, <code>wide</code> and <code>narrow</code>.
-                The default value is <code>wide</code>.</td>
+            <td>This specifies the height of the track. There are two available values, <code>SliderSize.Wide</code> and <code>SliderSize.Narrow</code>.
+                The default value is <code>SliderSize.Wide</code>.</td>
         </tr>
         <tr>
             <td class="attribute">min</td>
@@ -183,22 +258,22 @@
                 <br>
                 <br>
                 <ul>
-                    <li><code>none</code> - No snapping will occur. This is the default value.</li>
-                    <li><code>major</code> - Will snap to the major ticks.</li>
-                    <li><code>minor</code> - Will snap to the minor ticks.</li>
-                    <li><code>all</code> - Will snap to both the major and minor ticks.</li>
+                    <li><code>SliderSnap.None</code> - No snapping will occur. This is the default value.</li>
+                    <li><code>SliderSnap.Major</code> - Will snap to the major ticks.</li>
+                    <li><code>SliderSnap.Minor</code> - Will snap to the minor ticks.</li>
+                    <li><code>SliderSnap.All</code> - Will snap to both the major and minor ticks.</li>
                 </ul>
             </td>
         </tr>
         <tr>
             <td class="attribute">major</td>
             <td>Should be an object containing properties that configure the major ticks. Major ticks will be more prominent
-                that minor ticks and tend to be less frequent.</td>
+                than minor ticks and tend to be less frequent.</td>
         </tr>
         <tr>
             <td class="attribute">minor</td>
             <td>Should be an object containing properties that configure the minor ticks. Minor ticks will be less prominent
-                that major ticks and tend to be more frequent.</td>
+                than major ticks and tend to be more frequent.</td>
         </tr>
     </table>
 </div>
@@ -239,8 +314,13 @@
 
 <p>Text inputs, or other controls can be used to allow users to change the value shown on the slider or to display the value
     the slider has selected. These controls are not part of the slider component but can be easily combined by using the
-    <code>ng-model</code> directive. Adding this directive to a text input control and binding to the same value as the slider
-    will result in both controls displaying the same value, and if one is updated the other will update also. It may also
-    be useful to debounce the update in text controls to allow users to finish typing before updating the slider. For example:</p>
+    <code>ngModel</code> directive. This can be used in conjuction with RxJS observables to debounce changes. Below is an example of how this can be achieved:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample2Html"></uxd-snippet>
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.sample4Html"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.sample4Ts"></uxd-snippet>
+    </tab>
+</tabset>

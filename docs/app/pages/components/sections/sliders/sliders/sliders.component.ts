@@ -1,17 +1,19 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { SliderValue, SliderOptions, ColorService, SliderStyle, SliderCalloutTrigger, SliderSize, SliderSnap, SliderType } from '../../../../../../../src/index';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-components-sliders',
     templateUrl: './sliders.component.html'
 })
 @DocumentationSectionComponent('ComponentsSlidersComponent')
-export class ComponentsSlidersComponent extends BaseDocumentationSection {
+export class ComponentsSlidersComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     slider1: SliderExample;
     slider2: SliderExample;
@@ -23,6 +25,17 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection {
 
     lowerValue: BehaviorSubject<number>;
     upperValue: BehaviorSubject<number>;
+
+    plunk: IPlunk = {
+        files: {
+            'app.component.ts': require('./snippets/app.ts'),
+            'app.component.html': require('./snippets/app.html')
+        },
+        modules: [{
+            imports: ['SliderModule', 'ColorServiceModule'],
+            library: 'ux-aspects'
+        }]
+    };
 
     constructor(colorService: ColorService) {
         super(

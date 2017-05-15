@@ -1,4 +1,5 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
@@ -16,12 +17,9 @@ import { ComponentsInputExpandNg1Component } from './input-expand-ng1/input-expa
 import { ComponentsInputMaskNg1Component } from './input-mask-ng1/input-mask-ng1.component';
 import { ComponentsRadioButtonNg1Component } from './radio-button-ng1/radio-button-ng1.component';
 import { ComponentsTagsNg1Component } from './tags-ng1/tags-ng1.component';
-import { ComponentsSlidersNg1Component } from './sliders-ng1/sliders-ng1.component';
-import { ComponentsSliderChartsNg1Component } from './slider-charts-ng1/slider-charts-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { CheckboxModule, ToggleSwitchModule, SliderModule, ColorServiceModule } from '../../../../../../src/index';
-import { ComponentsSlidersComponent } from './sliders/sliders.component';
+import { CheckboxModule, ToggleSwitchModule, ColorServiceModule } from '../../../../../../src/index';
 
 const SECTIONS = [
     ComponentsCheckboxComponent,
@@ -35,10 +33,7 @@ const SECTIONS = [
     ComponentsInputExpandNg1Component,
     ComponentsInputMaskNg1Component,
     ComponentsRadioButtonNg1Component,
-    ComponentsTagsNg1Component,
-    ComponentsSlidersNg1Component,
-    ComponentsSliderChartsNg1Component,
-    ComponentsSlidersComponent
+    ComponentsTagsNg1Component
 ];
 
 const ROUTES = [
@@ -53,11 +48,11 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        CommonModule,
         WrappersModule,
         TabsModule,
         CheckboxModule,
         ToggleSwitchModule,
-        SliderModule,
         ColorServiceModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
+import { ColorService } from '../../services/color/color.service';
 
 @Component({
     selector: 'ux-slider',
@@ -79,44 +80,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
 
     // store all the ticks to display
     ticks: SliderTick[] = [];
-
-    defaultOptions: SliderOptions = {
-        type: SliderType.Value,
-        handles: {
-            style: SliderStyle.Button,
-            callout: {
-                trigger: SliderCalloutTrigger.None,
-                background: '#464646',
-                color: '#fff',
-                formatter: (value: number): string | number => value
-            }
-        },
-        track: {
-            height: SliderSize.Wide,
-            min: 0,
-            max: 100,
-            ticks: {
-                snap: SliderSnap.None,
-                major: {
-                    show: true,
-                    steps: 10,
-                    labels: true,
-                    formatter: (value: number): string | number => value
-                },
-                minor: {
-                    show: true,
-                    steps: 5,
-                    labels: false,
-                    formatter: (value: number): string | number => value
-                }
-            },
-            colors: {
-                lower: '#f2f2f2',
-                range: 'rgba(96,121,141, 0.75)',
-                higher: '#f2f2f2'
-            }
-        }
-    };
+    defaultOptions: SliderOptions;
 
     // observables for capturing movement
     private lowerThumbDown: Observable<MouseEvent>;
@@ -126,7 +90,47 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     private lowerDrag: Subscription;
     private upperDrag: Subscription;
 
-    constructor(private renderer: Renderer2) { }
+    constructor(private renderer: Renderer2, colorService: ColorService) {
+
+        // setup default options
+        this.defaultOptions = {
+            type: SliderType.Value,
+            handles: {
+                style: SliderStyle.Button,
+                callout: {
+                    trigger: SliderCalloutTrigger.None,
+                    background: colorService.getColor('grey2').toHex(),
+                    color: '#fff',
+                    formatter: (value: number): string | number => value
+                }
+            },
+            track: {
+                height: SliderSize.Wide,
+                min: 0,
+                max: 100,
+                ticks: {
+                    snap: SliderSnap.None,
+                    major: {
+                        show: true,
+                        steps: 10,
+                        labels: true,
+                        formatter: (value: number): string | number => value
+                    },
+                    minor: {
+                        show: true,
+                        steps: 5,
+                        labels: false,
+                        formatter: (value: number): string | number => value
+                    }
+                },
+                colors: {
+                    lower: colorService.getColor('grey6').toHex(),
+                    range: colorService.getColor('accent').setAlpha(0.75).toRgba(),
+                    higher: colorService.getColor('grey6').toHex()
+                }
+            }
+        };
+    }
 
     ngOnInit() {
 
@@ -318,7 +322,14 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         let tooltipElement = this.getTooltipElement(thumb);
 
         // get the element widths
-        let thumbWidth = thumbElement.nativeElement.offsetWidth;
+        let thumbWidth: number;
+
+        if (this.options.handles.style === SliderStyle.Button) {
+            thumbWidth = this.options.track.height === SliderSize.Narrow ? 16 : 24;
+        } else {
+            thumbWidth = 2;
+        }
+
         let tooltipWidth = tooltipElement.nativeElement.offsetWidth;
 
         // calculate the tooltips new position

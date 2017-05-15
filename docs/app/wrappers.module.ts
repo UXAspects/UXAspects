@@ -113,8 +113,8 @@ import './pages/components/sections/select/multiple-select-table-ng1/wrapper/mul
 import './pages/components/sections/input-controls/tags-ng1/wrapper/tags-wrapper.directive';
 import './pages/components/sections/input-controls/tags-ng1/wrapper/tags-custom-wrapper.directive';
 import './pages/components/sections/input-controls/tags-ng1/wrapper/tags-autocomplete-wrapper.directive';
-import './pages/components/sections/input-controls/sliders-ng1/wrapper/sliders-wrapper.directive';
-import './pages/components/sections/input-controls/slider-charts-ng1/wrapper/slider-charts-wrapper.directive';
+import './pages/components/sections/sliders/sliders-ng1/wrapper/sliders-wrapper.directive';
+import './pages/components/sections/sliders/slider-charts-ng1/wrapper/slider-charts-wrapper.directive';
 import './pages/components/sections/date-time-picker/date-range-picker-ng1/wrapper/date-range-picker-wrapper.directive';
 
 
