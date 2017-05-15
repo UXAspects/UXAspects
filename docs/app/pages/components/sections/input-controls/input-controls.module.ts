@@ -20,7 +20,8 @@ import { ComponentsSlidersNg1Component } from './sliders-ng1/sliders-ng1.compone
 import { ComponentsSliderChartsNg1Component } from './slider-charts-ng1/slider-charts-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { CheckboxModule, ToggleSwitchModule } from '../../../../../../src/index';
+import { CheckboxModule, ToggleSwitchModule, SliderModule, ColorServiceModule } from '../../../../../../src/index';
+import { ComponentsSlidersComponent } from './sliders/sliders.component';
 
 const SECTIONS = [
     ComponentsCheckboxComponent,
@@ -36,7 +37,8 @@ const SECTIONS = [
     ComponentsRadioButtonNg1Component,
     ComponentsTagsNg1Component,
     ComponentsSlidersNg1Component,
-    ComponentsSliderChartsNg1Component
+    ComponentsSliderChartsNg1Component,
+    ComponentsSlidersComponent
 ];
 
 const ROUTES = [
@@ -55,6 +57,8 @@ const ROUTES = [
         TabsModule,
         CheckboxModule,
         ToggleSwitchModule,
+        SliderModule,
+        ColorServiceModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],
