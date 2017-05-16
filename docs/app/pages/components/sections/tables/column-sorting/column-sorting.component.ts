@@ -79,9 +79,9 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         this.sortByKey(this.sortableTable, this.order);
     }
 
-    sortByKey(array: TableData[], order: ColumnSortingOrder[]) {
+    sortByKey(array: ColumnSortingTableData[], order: ColumnSortingOrder[]) {
 
-        return array.sort((itemOne: TableData, itemTwo: TableData) => {
+        return array.sort((itemOne: ColumnSortingTableData, itemTwo: ColumnSortingTableData) => {
 
             // iterate through each sorter
             for (let sorter of order) {
@@ -143,7 +143,7 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
     }
 }
 
-export interface TableData {
+interface ColumnSortingTableData {
     id: number;
     name: string;
     author: string;

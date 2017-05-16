@@ -1,5 +1,5 @@
 import { ColumnSortingComponent, ColumnSortingState } from './column-sorting.component';
-import { Directive, Host, QueryList, ContentChildren } from '@angular/core';
+import { Directive, Host, QueryList, ContentChildren, Input } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 @Directive({
@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 })
 export class ColumnSortingDirective {
 
+    @Input() singleSort: boolean;
     @ContentChildren(ColumnSortingComponent) components: QueryList<ColumnSortingComponent>;
 
     events: Subject<ColumnSortingOrder[]> = new Subject<ColumnSortingOrder[]>();
@@ -16,9 +17,9 @@ export class ColumnSortingDirective {
         this.components.forEach(component => component.initParent(this));
     }
 
-    toggleColumn(key: string, state: ColumnSortingState, singleSort: boolean) {
+    toggleColumn(key: string, state: ColumnSortingState) {
 
-        if (singleSort) {
+        if (this.singleSort) {
             if (state === ColumnSortingState.NoSort) {
                 this.order = [];
             } else {

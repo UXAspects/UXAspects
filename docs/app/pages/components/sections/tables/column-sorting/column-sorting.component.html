@@ -1,11 +1,11 @@
 <table class="table table-hover">
     <thead>
-        <tr uxColumnSorting>
+        <tr uxColumnSorting singleSort="true">
             <th></th>
             <th>NAME</th>
-            <th class="clickable" (click)="changeState(authorColumn)">AUTHOR<ux-column-sorting #authorColumn="ux-column-sorting" sortKey="author"></ux-column-sorting></th>
-            <th class="clickable" (click)="changeState(dateColumn)">DATE MODIFIED<ux-column-sorting #dateColumn="ux-column-sorting" sortKey="date"></ux-column-sorting></th>
-            <th class="clickable" (click)="changeState(completedColumn)">WORK COMPLETED<ux-column-sorting #completedColumn="ux-column-sorting" sortKey="completed"></ux-column-sorting></th>
+            <th class="clickable" (click)="changeState(authorColumn)">AUTHOR<ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting></th>
+            <th class="clickable" (click)="changeState(dateColumn)">DATE MODIFIED<ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting></th>
+            <th class="clickable" (click)="changeState(completedColumn)">WORK COMPLETED<ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting></th>
             <th>STATUS</th>
         </tr>
     </thead>
@@ -55,15 +55,9 @@
     <tbody>
 
         <tr>
-            <td><b>@Input</b> sortKey</td>
+            <td><b>@Input</b> key</td>
             <td><b>string</b></td>
             <td>Defines the sort key for the column.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> singleSort</td>
-            <td><b>boolean</b></td>
-            <td>If set to true the column will sort by only this column, removing sorting from all others.</td>
         </tr>
 
         <tr>
@@ -81,5 +75,26 @@
            The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.</td>
        </tr>
 
+    </tbody>
+</table>
+
+<p>The <code>uxColumnSorting</code> directive should be added to the <code>tr</code> and will accept the following attributes:</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td><b>@Input</b> singleSort</td>
+            <td><b>boolean</b></td>
+            <td>If set to true the column will sort by only this column, removing sorting from all others.</td>
+        </tr>
     </tbody>
 </table>
