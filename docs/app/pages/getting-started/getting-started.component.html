@@ -15,7 +15,7 @@
                 <kbd>npm install @angular/common @angular/compiler @angular/compiler-cli
                 @angular/core @angular/forms @angular/http @angular/platform-browser
                 @angular/platform-browser-dynamic @angular/platform-server @angular/router
-                chart.js ng2-charts @types/chart.js --save</kbd>
+                chart.js ngx-bootstrap ng2-charts @types/chart.js --save</kbd>
             </div>
         </li>
         <li>Install <a href="https://bower.io/">Bower</a>: <kbd>npm install -g bower</kbd></li>
@@ -43,6 +43,10 @@
     <uxd-snippet [content]="stylesheetHtml" language="html"></uxd-snippet>
 
     <h4>In an Angular 4 project</h4>
+
+    <p>Configure TypeScript to search for the UX Aspects module in the correct location by adding the following to your <code>tsconfig.json</code> file:</p>
+
+    <uxd-snippet language="javascript" [content]="tsconfig"></uxd-snippet>
 
     <p>Import the required component(s) into the module that will be using them.</p>
 
