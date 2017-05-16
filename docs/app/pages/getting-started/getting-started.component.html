@@ -1,5 +1,5 @@
 <uxd-page-header header="Getting Started"></uxd-page-header>
-<uxd-full-page-layout>
+<uxd-text-page-layout>
 
     <p>UX Aspects components can be used in Angular projects (Angular 4 or AngularJS 1.x), and those shown in the
         <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using
@@ -15,7 +15,7 @@
                 <kbd>npm install @angular/common @angular/compiler @angular/compiler-cli
                 @angular/core @angular/forms @angular/http @angular/platform-browser
                 @angular/platform-browser-dynamic @angular/platform-server @angular/router
-                chart.js ng2-charts @types/chart.js --save</kbd>
+                chart.js ngx-bootstrap ng2-charts @types/chart.js --save</kbd>
             </div>
         </li>
         <li>Install <a href="https://bower.io/">Bower</a>: <kbd>npm install -g bower</kbd></li>
@@ -44,6 +44,10 @@
 
     <h4>In an Angular 4 project</h4>
 
+    <p>Configure TypeScript to search for the UX Aspects module in the correct location by adding the following to your <code>tsconfig.json</code> file:</p>
+
+    <uxd-snippet language="javascript" [content]="tsconfig"></uxd-snippet>
+
     <p>Import the required component(s) into the module that will be using them.</p>
 
     <uxd-snippet [content]="angular4Ts" language="javascript"></uxd-snippet>
@@ -70,4 +74,4 @@
     <p>The <a routerLink="/licenses">licenses page</a> contains the licensing details for UX Aspects and the 3rd party
         libraries that it depends upon.</p>
 
-</uxd-full-page-layout>
+</uxd-text-page-layout>

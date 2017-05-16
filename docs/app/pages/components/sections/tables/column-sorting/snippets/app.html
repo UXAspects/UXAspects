@@ -1,0 +1,28 @@
+<table class="table table-hover">
+    <thead>
+        <tr uxColumnSorting>
+            <th></th>
+            <th>NAME</th>
+            <th class="clickable" (click)="changeState(authorColumn)">AUTHOR<ux-column-sorting #authorColumn="ux-column-sorting" sortKey="author"></ux-column-sorting></th>
+            <th class="clickable" (click)="changeState(dateColumn)">DATE MODIFIED<ux-column-sorting #dateColumn="ux-column-sorting" sortKey="date"></ux-column-sorting></th>
+            <th class="clickable" (click)="changeState(completedColumn)">WORK COMPLETED<ux-column-sorting #completedColumn="ux-column-sorting" sortKey="completed"></ux-column-sorting></th>
+            <th>STATUS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="clickable" *ngFor="let item of sortableTable">
+            <td>
+                <div class="listview-page-icon"></div>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date }}</td>
+            <td>
+                <ux-spark trackColor="sparkTrackColor" barColor="sparkBarColor" [value]="item.completed" fillHeight="3" [inlineLabel]="item.completed"></ux-spark>
+            </td>
+            <td class="text-center">
+                <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>

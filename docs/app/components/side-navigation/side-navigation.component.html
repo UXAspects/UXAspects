@@ -1,18 +1,18 @@
-<!--<ux-scroll-pane-ng1 scroll-name="ux-side-navigation" scroll-config="{ showOnlyOnHover: true, resizeSensor: true }" [api]="scrollApi" class="side-navigation-scroll-pane">-->
-<div class="side-navigation-scroll-pane">
-    <ul class="side-navigation-list">
-        <li class="side-navigation-list-item" *ngFor="let category of navigation.categories">
-            <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive">{{ category.title }}</a>
-            <ul *ngIf="rla.isActive" class="side-navigation-subsection-list">
-                <li class="side-navigation-list-item" *ngFor="let section of category.sections">
-                    <a class="side-navigation-list-item-link"
-                        [class.active]="isActive(section.id)"
-                        (click)="goToSection(category.link, section.id)">
-                        {{ section.title }}
-                    </a>
+<div class="side-navigation-container" #container>
+    <div class="side-navigation" [style.width.px]="width" [style.height.px]="height" [style.top.px]="top">
+        <div class="side-navigation-scroll-pane">
+            <ul class="side-navigation-list">
+                <li class="side-navigation-list-item" *ngFor="let category of navigation.categories">
+                    <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive">{{ category.title }}</a>
+                    <ul *ngIf="rla.isActive" class="side-navigation-subsection-list">
+                        <li class="side-navigation-list-item" *ngFor="let section of category.sections">
+                            <a class="side-navigation-list-item-link" [class.active]="isActive(section.id)" (click)="goToSection(category.link, section.id)">
+                                {{ section.title }}
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
-<!--</ux-scroll-pane-ng1>-->

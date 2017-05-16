@@ -44,11 +44,15 @@ git clone https://github.com/UXAspects/UXAspects.git
 ```bash
 npm install
 ```
+3. (Optional) Add the webpack-dev-server certificate (`node_modules/webpack-dev-server/ssl/server.pem`) to the machine's certificate store. This will allow the development server to run using HTTPS without warnings, which is required to test Plunker/CodePen examples locally. On Windows, with [OpenSSL](https://www.openssl.org/source/) installed:
+```bash
+grunt webpack_import_cert
+```
 3. Build the project and start the development server. This will automatically rebuild when source changes are made.
 ```bash
-grunt documentation:serve
+npm start
 ```
-4. The documentation site is hosted at [http://localhost:8080/](http://localhost:8080/). Use [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/) for a frame which will automatically be reloaded when a build completes.
+4. The documentation site is hosted at [https://localhost:8080/](https://localhost:8080/). This will automatically reload when changes are made.
 
 # License
 

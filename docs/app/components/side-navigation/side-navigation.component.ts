@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener, Inject, AfterViewInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, HostListener, Inject, AfterViewInit, ViewEncapsulation, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
@@ -12,17 +12,16 @@ const FOOTER_OFFSET = 162;
 @Component({
     selector: 'uxd-side-navigation',
     templateUrl: './side-navigation.component.html',
-    styleUrls: ['./side-navigation.component.less'],
-    host: {
-        '[style.top.px]': 'top',
-        '[style.height.px]': 'height'
-    }
+    styleUrls: ['./side-navigation.component.less']
 })
 export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() navigation: IDocumentationPage;
 
+    @ViewChild('container') container: ElementRef;
+
     private top: number;
     private height: number;
+    private width: number;
     private scrollApi: any = {};
     private routeSubscription: Subscription;
 
@@ -68,6 +67,10 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
         }
     }
 
+    setPaneWidth(width: number) {
+        this.width = width;
+    }
+
     @HostListener('window:scroll')
     private onWindowScroll() {
         this.updatePosition();
@@ -93,6 +96,8 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
             bottomOffset = 0;
         }
         this.height = this.document.documentElement.clientHeight - this.top - bottomOffset;
+
+        this.width = this.container.nativeElement.offsetWidth;
 
         // TODO: jscrollpane support
         // if (this.scrollApi && this.scrollApi.reinitialize) {

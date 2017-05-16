@@ -727,6 +727,21 @@
             "link": "tables",
             "sections": [
                 {
+                    "title": "Column Sorting",
+                    "component": "ComponentsColumnSortingComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-column-sorting"
+                    },{
+                        "title": "Module name",
+                        "content": "ColumnSortingModule"
+                    },{
+                        "title": "Export as",
+                        "content": "ux-column-sorting"
+                    }]
+                },
+                {
                     "title": "Detail Row Responsive Table",
                     "component": "ComponentsDetailRowResponsiveNg1Component",
                     "version": "AngularJS"
@@ -817,14 +832,16 @@
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Single Column Sorting",
+                    "title": "Single Column Sorting (Angular 1)",
                     "component": "ComponentsSingleColumnSortingNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
-                    "title": "Multiple Column Sorting",
+                    "title": "Multiple Column Sorting (Angular 1)",
                     "component": "ComponentsMultipleColumnSortingNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Column Visibility",
