@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnSortingComponent } from 'ux-aspects';
-import { ColumnSortingState } from 'ux-aspects';
+import { ColumnSortingComponent, ColumnSortingState, ColorService, ColumnSortingOrder } from 'ux-aspects';
 import 'chance';
 
 @Component({
@@ -9,7 +8,7 @@ import 'chance';
 })
 export class AppComponent {
 
-    order: object[] = [];
+        order: ColumnSortingOrder[] = [];
 
     sortableTable = [{
         id: 1,
@@ -74,49 +73,50 @@ export class AppComponent {
         this.sortByKey(this.sortableTable, this.order);
     }
 
-    sortByKey(array: object[], order: object) {
-        return array.sort( function(a: any, b: any) {
-            let ascending0 = 0, ascending1 = 0, ascending2 = 0;
+    sortByKey(array: TableData[], order: ColumnSortingOrder[]) {
 
-            if (order[0] && order[0].state === ColumnSortingState.Descending) {
-                ascending0 = 1;
-            }
-            if (order[1] && order[1].state === ColumnSortingState.Descending) {
-                ascending1 = 2; 
-            }
-            if (order[2] && order[2].state === ColumnSortingState.Descending) {
-                ascending2 = 4;
-            }
+        return array.sort((itemOne: TableData, itemTwo: TableData) => {
 
-            let sortCase = ascending0 + ascending1 + ascending2;
+            // iterate through each sorter
+            for (let sorter of order) {
+                let value1 = itemOne[sorter.key];
+                let value2 = itemTwo[sorter.key];
 
-            let x0 = order[0] ? a[order[0].key] : null;
-            let y0 = order[0] ? b[order[0].key] : null;
-            let x1 = order[1] ? a[order[1].key] : null;
-            let y1 = order[1] ? b[order[1].key] : null;
-            let x2 = order[2] ? a[order[2].key] : null;
-            let y2 = order[2] ? b[order[2].key] : null;
-            
-            switch (sortCase) {
-                case 0:
-                    return ((x0 < y0) ? -1 : ((x0 > y0) ? 1 : ((x1 < y1) ? -1 : ((x1 > y1) ? 1 : ((x2 < y2) ? -1 : ((x2 > y2) ? 1 : ((a.id < b.id) ? -1 : 1)))))));
-                case 1:
-                    return ((x0 < y0) ? 1 : ((x0 > y0) ? -1 : ((x1 < y1) ? -1 : ((x1 > y1) ? 1 : ((x2 < y2) ? -1 : ((x2 > y2) ? 1 : ((a.id < b.id) ? -1 : 1)))))));
-                case 2:
-                    return ((x0 < y0) ? -1 : ((x0 > y0) ? 1 : ((x1 < y1) ? 1 : ((x1 > y1) ? -1 : ((x2 < y2) ? -1 : ((x2 > y2) ? 1 : ((a.id < b.id) ? -1 : 1)))))));
-                case 3:
-                    return ((x0 < y0) ? 1 : ((x0 > y0) ? -1 : ((x1 < y1) ? 1 : ((x1 > y1) ? -1 : ((x2 < y2) ? -1 : ((x2 > y2) ? 1 : ((a.id < b.id) ? -1 : 1)))))));
-                case 4:
-                    return ((x0 < y0) ? -1 : ((x0 > y0) ? 1 : ((x1 < y1) ? -1 : ((x1 > y1) ? 1 : ((x2 < y2) ? 1 : ((x2 > y2) ? -1 : ((a.id < b.id) ? -1 : 1)))))));
-                case 5:
-                    return ((x0 < y0) ? 1 : ((x0 > y0) ? -1 : ((x1 < y1) ? -1 : ((x1 > y1) ? 1 : ((x2 < y2) ? 1 : ((x2 > y2) ? -1 : ((a.id < b.id) ? -1 : 1)))))));
-                case 6:
-                    return ((x0 < y0) ? -1 : ((x0 > y0) ? 1 : ((x1 < y1) ? 1 : ((x1 > y1) ? -1 : ((x2 < y2) ? 1 : ((x2 > y2) ? -1 : ((a.id < b.id) ? -1 : 1)))))));
-                case 7:
-                    return ((x0 < y0) ? 1 : ((x0 > y0) ? -1 : ((x1 < y1) ? 1 : ((x1 > y1) ? -1 : ((x2 < y2) ? 1 : ((x2 > y2) ? -1 : ((a.id < b.id) ? -1 : 1)))))));
+                if (sorter.state === ColumnSortingState.Ascending) {
+                    if (value1 < value2) {
+                        return -1;
+                    } else if (value1 > value2) {
+                        return 1;
+                    }
+                } else {
+                   if (value1 > value2) {
+                        return -1;
+                    } else if (value1 < value2) {
+                        return 1;
+                    } 
+                }
+
             }
 
+            return itemOne.id < itemTwo.id ? -1 : 1;
         });
     }
-   
+
+    sparkTrackColor: string;
+    sparkBarColor: string;
+
+    constructor(colorService: ColorService) {
+ 
+        this.sparkTrackColor = colorService.getColor('accent').setAlpha(0.2).toRgba();
+        this.sparkBarColor = colorService.getColor('accent').toHex();
+    }
+}
+
+export interface TableData {
+    id: number;
+    name: string;
+    author: string;
+    date: string;
+    completed: number;
+    active: boolean;
 }

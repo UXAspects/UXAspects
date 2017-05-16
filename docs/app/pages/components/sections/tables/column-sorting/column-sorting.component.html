@@ -18,7 +18,7 @@
             <td>{{ item.author }}</td>
             <td>{{ item.date }}</td>
             <td>
-                <ux-spark trackColor="rgba(139,107,193,0.2)" barColor="#7b63a3" [value]="item.completed" fillHeight="3" [inlineLabel]="item.completed"></ux-spark>
+                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" fillHeight="3" [inlineLabel]="item.completed"></ux-spark>
             </td>
             <td class="text-center">
                 <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
@@ -42,8 +42,6 @@
 
 <p>The component will be exported as <code>ux-column-sorting</code>.</p>
 
-
-
 <table class="table">
 
     <thead>
@@ -62,12 +60,25 @@
             <td>Defines the sort key for the column.</td>
         </tr>
 
+        <tr>
+            <td><b>@Input</b> singleSort</td>
+            <td><b>boolean</b></td>
+            <td>If set to true the column will sort by only this column, removing sorting from all others.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input @Output</b> state</td>
+            <td><b>ColumnSortingState</b></td>
+            <td>Defines the sorting order of a column. <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code></td>
+        </tr>
+
        <tr>
-           <td><b>@Method</b> changeState()</td>
+           <td>changeState()</td>
            <td><b>Object</b></td>
            <td>Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
            This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
-           State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code></td>
+           State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>. 
+           The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.</td>
        </tr>
 
     </tbody>

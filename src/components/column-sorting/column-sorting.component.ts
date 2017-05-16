@@ -1,7 +1,5 @@
 import { ColumnSortingDirective } from './column-sorting.directive';
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, Host } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'ux-column-sorting',
@@ -13,6 +11,8 @@ export class ColumnSortingComponent {
     @Input() state: ColumnSortingState;
     @Input() sortKey: string;
     @Input() orderNumber: number;
+    @Input() singleSort: boolean;
+    @Output() stateChange: EventEmitter<ColumnSortingState> = new EventEmitter<ColumnSortingState>();
 
     private parent: ColumnSortingDirective;
     columnSortingState = ColumnSortingState;
@@ -25,11 +25,18 @@ export class ColumnSortingComponent {
 
             let idx = event.findIndex(column => column.key === this.sortKey);
 
-            if (event.length > 1 && idx >= 0) {
-                this.orderNumber = idx + 1;
+            if (idx == -1) {
+                this.state = ColumnSortingState.NoSort;
+            }
+
+            // only store the number if we have 2 or more columns being sorted
+            if ( event.length > 1 ) {
+                this.orderNumber = idx === -1 ? null : idx + 1;
             } else {
                 this.orderNumber = null;
             }
+
+            this.stateChange.emit(this.state);
 
         });
     }
@@ -45,7 +52,7 @@ export class ColumnSortingComponent {
         }
 
         // inform parent
-        return this.parent.toggleColumn(this.sortKey, this.state);
+        return this.parent.toggleColumn(this.sortKey, this.state, this.singleSort);
 
     }
 }
