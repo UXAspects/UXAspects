@@ -1,0 +1,100 @@
+<table class="table table-hover">
+    <thead>
+        <tr uxColumnSorting>
+            <th></th>
+            <th>NAME</th>
+            <th class="clickable" (click)="changeState(authorColumn)">AUTHOR<ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting></th>
+            <th class="clickable" (click)="changeState(dateColumn)">DATE MODIFIED<ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting></th>
+            <th class="clickable" (click)="changeState(completedColumn)">WORK COMPLETED<ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting></th>
+            <th>STATUS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="clickable" *ngFor="let item of sortableTable">
+            <td>
+                <div class="listview-page-icon"></div>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date }}</td>
+            <td>
+                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" fillHeight="3" [inlineLabel]="item.completed"></ux-spark>
+            </td>
+            <td class="text-center">
+                <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<p>The code used for the above example is shown below:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>The component will be exported as <code>ux-column-sorting</code>.</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td><b>@Input</b> key</td>
+            <td><b>string</b></td>
+            <td>Defines the a unique identifier for the column that can be used when sorting.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input @Output</b> state</td>
+            <td><b>ColumnSortingState</b></td>
+            <td>Defines the sorting order of a column. <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code></td>
+        </tr>
+
+       <tr>
+           <td>changeState()</td>
+           <td><b>Object</b></td>
+           <td>Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
+           This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
+           State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>. 
+           The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.</td>
+       </tr>
+
+    </tbody>
+</table>
+
+<p>The <code>uxColumnSorting</code> directive should be added to the <code>tr</code> and will accept the following attributes:</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td><b>@Input</b> singleSort</td>
+            <td><b>boolean</b></td>
+            <td>If set to true the column will sort by only this column, removing sorting from all others.</td>
+        </tr>
+    </tbody>
+</table>
