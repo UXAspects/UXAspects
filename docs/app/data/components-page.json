@@ -431,6 +431,31 @@
                     "version": "AngularJS"
                 },
                 {
+                    "title": "Sliders",
+                    "component": "ComponentsSlidersComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-slider"
+                        },{
+                            "title": "Module name",
+                            "content": "SliderModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Sliders (Angular 1)",
+                    "component": "ComponentsSlidersNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Sliders with Charts (Angular 1)",
+                    "component": "ComponentsSliderChartsNg1Component",
+                    "version": "AngularJS"
+                },
+                {
                     "title": "Tags",
                     "component": "ComponentsTagsNg1Component",
                     "version": "AngularJS"
@@ -667,37 +692,6 @@
                 {
                     "title": "Navigation Menu Service",
                     "component": "ComponentsNavigationMenuServiceNg1Component",
-                    "version": "AngularJS"
-                }
-            ]
-        },
-        {
-            "title": "Sliders",
-            "link": "sliders",
-            "sections": [
-                {
-                    "title": "Sliders",
-                    "component": "ComponentsSlidersComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-slider"
-                        },{
-                            "title": "Module name",
-                            "content": "SliderModule"
-                        }
-                    ]
-                },
-                {
-                    "title": "Sliders (Angular 1)",
-                    "component": "ComponentsSlidersNg1Component",
-                    "version": "AngularJS",
-                    "deprecated": true
-                },
-                {
-                    "title": "Sliders with Charts (Angular 1)",
-                    "component": "ComponentsSliderChartsNg1Component",
                     "version": "AngularJS"
                 }
             ]

@@ -716,21 +716,27 @@ enum SliderTickType {
 
 export interface SliderOptions {
     type?: SliderType;
-    handles?: {
-        style?: SliderStyle;
-        callout?: SliderCallout;
-    };
-    track?: {
-        height?: SliderSize;
-        min?: number;
-        max?: number;
-        ticks?: {
-            snap?: SliderSnap;
-            major?: SliderTickOptions;
-            minor?: SliderTickOptions;
-        };
-        colors?: SliderTrackColors;
-    };
+    handles?: SliderHandleOptions;
+    track?: SliderTrackOptions;
+}
+
+export interface SliderHandleOptions {
+    style?: SliderStyle;
+    callout?: SliderCallout;
+}
+
+export interface SliderTrackOptions {
+    height?: SliderSize;
+    min?: number;
+    max?: number;
+    ticks?: SliderTicksOptions;
+    colors?: SliderTrackColors;
+}
+
+export interface SliderTicksOptions {
+    snap?: SliderSnap;
+    major?: SliderTickOptions;
+    minor?: SliderTickOptions;
 }
 
 interface SliderTickOptions {

@@ -115,62 +115,73 @@
 <p>Full details on each property and the possible values for each can be found below. All properties are optional, if they are
     not specified the default value will be used.</p>
 
+<h4>SliderOptions</h4>
+
 <div class="demo-attributes table-responsive">
     <table class="table">
         <tr>
             <th>Property</th>
+            <th>Type</th>
             <th>Description</th>
         </tr>
         <tr>
             <td class="attribute">type</td>
+            <td>SliderType</td>
             <td>Defines whether the slider should allow selection of a single value or a range of values. The two valid values
                 are <code>SliderType.Value</code> and <code>SliderType.Range</code>. The default value for this property
                 is <code>SliderType.Value</code>.</td>
         </tr>
         <tr>
             <td class="attribute">handles</td>
+            <td>SliderHandleOptions</td>            
             <td>This should be an object that contains properties configuring the appearance and behavior of the draggable handles
                 on the slider. If not specified the default options will be used.</td>
         </tr>
         <tr>
             <td class="attribute">track</td>
+            <td>SliderTrackOptions</td>                        
             <td>This should be an object that contains properties configuring the appearance and behavior of the track on the
                 slider. If not specified the default options will be used.</td>
         </tr>
     </table>
 </div>
 
-<h4>Handle Options</h4>
+<h4>SliderHandleOptions</h4>
 
 <div class="demo-attributes table-responsive">
     <table class="table">
         <tr>
             <th>Property</th>
+            <th>Type</th>
             <th>Description</th>
         </tr>
         <tr>
             <td class="attribute">style</td>
+            <td>SliderStyle</td>
             <td>This allows you to choose the appearance of the drag handles. The two available options are <code>SliderStyle.Button</code>
             and <code>SliderStyle.Line</code>. The default option is <code>SliderStyle.Button</code>.</td>
         </tr>
         <tr>
             <td class="attribute">callout</td>
+            <td>SliderCallout</td>
             <td>This should be an object that configures the appearance and behavior of the drag handle callout. If not specified
                 no callout will be shown.</td>
         </tr>
     </table>
 </div>
 
-<h4>Callout Options</h4>
+<h4>SliderCallout</h4>
 
 <div class="demo-attributes table-responsive">
     <table class="table">
         <tr>
             <th>Property</th>
+            <th>Type</th>
             <th>Description</th>
         </tr>
         <tr>
             <td class="attribute">trigger</td>
+            <td>SliderCalloutTrigger</td>
             <td>This option will specify when the callout should appear. The available options are:
                 <br>
                 <ul>
@@ -184,48 +195,57 @@
         </tr>
         <tr>
             <td class="attribute">background</td>
+            <td>string</td>
             <td>Specified the background color of the callout. The default value is <code>grey2</code>.</td>
         </tr>
         <tr>
             <td class="attribute">color</td>
+            <td>string</td>
             <td>Specified the text color of the callout. The default value is <code>white</code>.</td>
         </tr>
         <tr>
             <td class="attribute">formatter</td>
+            <td>(value: number) => string | number</td>
             <td>This allows you to specify a function that will format the value in the callout. The function should accept the
                 value as a parameter and return the modified value. By default the value will not be modified.</td>
         </tr>
     </table>
 </div>
 
-<h4>Track Options</h4>
+<h4>SliderTrackOptions</h4>
 
 <div class="demo-attributes table-responsive">
     <table class="table">
         <tr>
             <th>Property</th>
+            <th>Type</th>
             <th>Description</th>
         </tr>
         <tr>
             <td class="attribute">height</td>
+            <td>SliderSize</td>
             <td>This specifies the height of the track. There are two available values, <code>SliderSize.Wide</code> and <code>SliderSize.Narrow</code>.
                 The default value is <code>SliderSize.Wide</code>.</td>
         </tr>
         <tr>
             <td class="attribute">min</td>
+            <td>number</td>
             <td>Specifies the minimum value shown on the slider. The default is <code>0</code>.</td>
         </tr>
         <tr>
             <td class="attribute">max</td>
+            <td>number</td>
             <td>Specifies the maximum value shown on the slider. The default is <code>100</code>.</td>
         </tr>
         <tr>
             <td class="attribute">ticks</td>
+            <td>SliderTicksOptions</td>
             <td>Should be an object containing properties to customize the ticks shown beneath the chart. By default major ticks
                 are shown on every 10th value with labels, minor ticks are shown every 5 values with no labels.</td>
         </tr>
         <tr>
             <td class="attribute">colors</td>
+            <td>SliderTrackColors</td>
             <td>Specifies the colors that should be used on different parts of the track. This should be an object that can contain
                 the following properties:
                 <br>
@@ -244,16 +264,18 @@
     </table>
 </div>
 
-<h4>Tick Options</h4>
+<h4>SliderTicksOptions</h4>
 
 <div class="demo-attributes table-responsive">
     <table class="table">
         <tr>
             <th>Property</th>
+            <th>Type</th>
             <th>Description</th>
         </tr>
         <tr>
             <td class="attribute">snap</td>
+            <td>SliderSnap</td>
             <td>Specifies if the slider should snap to the ticks. There are several available options:
                 <br>
                 <br>
@@ -267,32 +289,37 @@
         </tr>
         <tr>
             <td class="attribute">major</td>
+            <td>SliderTickOptions</td>
             <td>Should be an object containing properties that configure the major ticks. Major ticks will be more prominent
                 than minor ticks and tend to be less frequent.</td>
         </tr>
         <tr>
             <td class="attribute">minor</td>
+            <td>SliderTickOptions</td>
             <td>Should be an object containing properties that configure the minor ticks. Minor ticks will be less prominent
                 than major ticks and tend to be more frequent.</td>
         </tr>
     </table>
 </div>
 
-<h4>Major &amp; Minor Tick Options</h4>
+<h4>SliderTickOptions</h4>
 
 <div class="demo-attributes table-responsive">
     <table class="table">
         <tr>
             <th>Property</th>
+            <th>Type</th>
             <th>Description</th>
         </tr>
         <tr>
             <td class="attribute">show</td>
+            <td>boolean</td>
             <td>Specifies whether this variety of ticks should be shown. The available options are <code>true</code> or <code>false</code>.
                 By default both major and minor ticks will be shown.</td>
         </tr>
         <tr>
             <td class="attribute">steps</td>
+            <td>number | number[]</td>
             <td>Specifies at what interval this variety of tick should appear. Default for major ticks is <code>10</code>, the
                 default for minor ticks is <code>5</code>. Additionally this can be an array containing precise values of
                 when ticks should appear. This can be useful when ticks should not appear at regular intervals.
@@ -300,10 +327,12 @@
         </tr>
         <tr>
             <td class="attribute">labels</td>
+            <td>boolean</td>
             <td>Specifies whether or not this variety of ticks should display labels. The available options are <code>true</code>                or <code>false</code>. By default major ticks will show labels, minor ticks will not.</td>
         </tr>
         <tr>
             <td class="attribute">formatter</td>
+            <td>(value: number) => string | number</td>
             <td>This allows you to specify a function that will format the value in the tick label. This should accept a value
                 as a parameter and return a modified value. By default the value will not be modified.</td>
         </tr>
