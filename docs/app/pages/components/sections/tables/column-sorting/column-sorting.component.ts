@@ -120,7 +120,7 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
             }
         ],
         modules: [{
-            imports: ['ColumnSortingModule', 'SparkModule'],
+            imports: ['ColumnSortingModule', 'ColorServiceModule', 'SparkModule'],
             library: 'ux-aspects'
         }]
     };

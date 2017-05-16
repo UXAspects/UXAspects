@@ -8,7 +8,7 @@ import 'chance';
 })
 export class AppComponent {
 
-        order: ColumnSortingOrder[] = [];
+    order: ColumnSortingOrder[] = [];
 
     sortableTable = [{
         id: 1,

@@ -18,7 +18,7 @@
             <td>{{ item.author }}</td>
             <td>{{ item.date }}</td>
             <td>
-                <ux-spark trackColor="rgba(139,107,193,0.2)" barColor="#7b63a3" [value]="item.completed" fillHeight="3" [inlineLabel]="item.completed"></ux-spark>
+                <ux-spark trackColor="sparkTrackColor" barColor="sparkBarColor" [value]="item.completed" fillHeight="3" [inlineLabel]="item.completed"></ux-spark>
             </td>
             <td class="text-center">
                 <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
