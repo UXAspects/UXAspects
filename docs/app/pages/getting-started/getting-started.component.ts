@@ -7,12 +7,12 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
 })
 export class GettingStartedPageComponent {
     
-    private version = this.appConfig.get('version');
-
-    private angular4Ts = require('!!raw-loader!./snippets/angular4.txt');
-    private angular4UpgradeTs = require('!!raw-loader!./snippets/angular4-upgrade.txt');
-    private angular1DowngradeJs = require('!!raw-loader!./snippets/angular1-downgrade.js');
-    private stylesheetHtml = require('!!raw-loader!./snippets/stylesheet.html');
+    version = this.appConfig.get('version');
+    angular4Ts = require('!!raw-loader!./snippets/angular4.txt');
+    angular4UpgradeTs = require('!!raw-loader!./snippets/angular4-upgrade.txt');
+    angular1DowngradeJs = require('!!raw-loader!./snippets/angular1-downgrade.js');
+    stylesheetHtml = require('!!raw-loader!./snippets/stylesheet.html');
+    tsconfig = require('!!raw-loader!./snippets/tsconfig.txt');
 
     constructor(private appConfig: AppConfiguration) {}
 }
