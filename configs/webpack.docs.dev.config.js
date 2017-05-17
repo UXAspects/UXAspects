@@ -147,7 +147,7 @@ var docsConfig = {
         ),
 
         new HtmlWebpackPlugin({
-            template: './docs/index.html',
+            template: './docs/index.ejs',
             favicon: './docs/favicon.ico'
         }),
 
