@@ -226,7 +226,7 @@ export class AppComponent {
             }
         };
 
-        this.lowerValue.debounceTime(300).distinctUntilChanged().subscribe(value => {
+        this.lowerValue.debounceTime(500).distinctUntilChanged().subscribe(value => {
 
             if (!value || isNaN(Number(value))) {
                 return;
@@ -235,7 +235,7 @@ export class AppComponent {
             (<SliderValue>this.slider7.value).low = Number(value);
         });
 
-        this.upperValue.debounceTime(300).distinctUntilChanged().subscribe(value => {
+        this.upperValue.debounceTime(500).distinctUntilChanged().subscribe(value => {
 
             if (!value || isNaN(Number(value))) {
                 return;

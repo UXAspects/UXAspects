@@ -51,7 +51,7 @@ export class SliderExampleComponent {
             }
         };
 
-        this.lowerValue.debounceTime(300)
+        this.lowerValue.debounceTime(500)
             .distinctUntilChanged()
             .subscribe(value => {
 
@@ -62,7 +62,7 @@ export class SliderExampleComponent {
                 this.value.low = Number(value);
             });
 
-        this.upperValue.debounceTime(300)
+        this.upperValue.debounceTime(500)
             .distinctUntilChanged()
             .subscribe(value => {
 
