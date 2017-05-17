@@ -60,6 +60,9 @@ var ng1AssetsConfig = {
                     comments: false
                 }
             }]
+        }, {
+            test: path.join(process.cwd(), 'node_modules', 'webpack-dev-server', 'client'),
+            loader: 'null-loader'
         }]
     },
 

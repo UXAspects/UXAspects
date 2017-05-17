@@ -24,8 +24,7 @@ var libAssetsConfig = {
         rules: [{
                 test: /\.html$/,
                 use: 'raw-loader'
-            },
-            {
+            }, {
                 test: /\.ts$/,
                 use: [{
                     loader: 'awesome-typescript-loader',
@@ -35,10 +34,12 @@ var libAssetsConfig = {
                 }, {
                     loader: 'angular2-template-loader'
                 }]
-            },
-            {
+            }, {
                 test: /\.less$/,
                 use: ['raw-loader', 'less-loader']
+            }, {
+                test: path.join(process.cwd(), 'node_modules', 'webpack-dev-server', 'client'),
+                loader: 'null-loader'
             }
         ]
     },
