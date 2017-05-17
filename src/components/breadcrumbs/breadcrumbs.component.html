@@ -4,7 +4,7 @@
         <!-- If there is a router link then use a tag -->
         <a *ngIf="crumb.routerLink"
            [routerLink]="crumb.routerLink" 
-           [fragment]="fragment" 
+           [fragment]="crumb.fragment" 
            [queryParams]="crumb.queryParams" 
            (click)="clickCrumb($event, crumb)">
                 {{ crumb.title }}

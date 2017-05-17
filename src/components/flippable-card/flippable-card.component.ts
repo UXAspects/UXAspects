@@ -1,15 +1,13 @@
-import { Component, Input, Directive } from '@angular/core';
+import { Component, Input, Directive, HostListener, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'ux-flippable-card',
     templateUrl: './flippable-card.component.html',
     host: {
         '[class.horizontal]': 'direction === "horizontal"',
-        '[class.vertical]': 'direction === "vertical"',
-        '(click)': 'clickTrigger()',
-        '(mouseenter)': 'hoverEnter()',
-        '(mouseleave)': 'hoverExit()'
-    }
+        '[class.vertical]': 'direction === "vertical"'
+    },
+    exportAs: 'ux-flippable-card'
 })
 export class FlippableCardComponent {
 
@@ -17,35 +15,39 @@ export class FlippableCardComponent {
     @Input() trigger: 'click' | 'hover' | 'manual' = 'hover';
     @Input() width: number = 280;
     @Input() height: number = 200;
+    @Input() flipped: boolean = false;
+    @Output() flippedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    private flippedState: boolean = false;
-
-    constructor() { }
-
-    setFlippedState(isFlipped: boolean) {
-        this.flippedState = isFlipped;
+    setFlipped(state: boolean) {
+        this.flipped = state;
+        this.flippedChange.emit(this.flipped);
     }
 
-    clickTrigger() {
+    toggleFlipped() {
+        this.setFlipped(!this.flipped);
+    }
+
+    @HostListener('click')
+    private clickTrigger() {
 
         // add or remove the class depending on whether or not the card has been flipped
-        if (this.trigger === 'click' && this.flippedState === false) {
-            this.setFlippedState(true);
-        } else if (this.trigger === 'click' && this.flippedState === true) {
-            this.setFlippedState(false);
+        if (this.trigger === 'click') {
+            this.toggleFlipped();
         }
     }
 
-    hoverEnter() {
+    @HostListener('mouseenter')
+    private hoverEnter() {
         // if the trigger is hover then begin to flip
         if (this.trigger === 'hover') {
-            this.setFlippedState(true);
+            this.setFlipped(true);
         }
     }
 
-    hoverExit() {
+    @HostListener('mouseleave')
+    private hoverExit() {
         if (this.trigger === 'hover') {
-            this.setFlippedState(false);
+            this.setFlipped(false);
         }
     }
 }
