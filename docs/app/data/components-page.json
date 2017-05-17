@@ -427,8 +427,24 @@
                 },
                 {
                     "title": "Radio Button",
+                    "component": "ComponentsRadioButtonComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-radiobutton"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "RadioButtonModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Radio Button (Angular 1)",
                     "component": "ComponentsRadioButtonNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Tags",
@@ -589,8 +605,24 @@
             "sections": [
                 {
                     "title": "Progress Bar",
+                    "component": "ComponentsProgressBarComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-progress-bar"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ProgressBarModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Progress Bar (Angular 1)",
                     "component": "ComponentsProgressBarNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

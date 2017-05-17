@@ -3,7 +3,7 @@
     [class.ux-indeterminate]="value == indeterminateValue"
     [class.ux-simplified]="simplified == true"
     [class.ux-disabled]="disabled == true"
-    (keypress)="keyDown($event)">
+    (keydown.space)="keyDown($event)">
 
     <input type="checkbox" role="checkbox" tabindex="-1"
         [name]="name" 

@@ -7,9 +7,12 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { ComponentsProgressBarNg1Component } from './progress-bar-ng1/progress-bar-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsProgressBarComponent } from './progress-bar/progress-bar.component';
+import { ProgressBarModule } from '../../../../../../src/index';
 
 const SECTIONS = [
-    ComponentsProgressBarNg1Component
+    ComponentsProgressBarNg1Component,
+    ComponentsProgressBarComponent
 ];
 
 const ROUTES = [
@@ -26,6 +29,7 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        ProgressBarModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

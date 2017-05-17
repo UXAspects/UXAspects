@@ -1,0 +1,99 @@
+<div>
+    <ux-radiobutton [(value)]="selected" [option]="radioOptions.option1" [disabled]="disabled" [simplified]="simplified">Option1</ux-radiobutton>
+</div>
+
+<div>
+    <ux-radiobutton [(value)]="selected" [option]="radioOptions.option2" [simplified]="simplified">Option2</ux-radiobutton>
+</div>
+
+<div>
+    <ux-radiobutton [(value)]="selected" [option]="radioOptions.option3" [simplified]="simplified">Option3</ux-radiobutton>
+</div>
+
+<div>
+    <ux-radiobutton [(value)]="selected" [option]="radioOptions.option4" [simplified]="simplified">
+        Option four onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur
+        adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
+        Inte adipiscing elit onsectetur adipiscing elit.
+    </ux-radiobutton>
+</div>
+
+<p class="m-t">
+    <code>radioModel</code> is <em>{{ selected }}</em>.
+</p>
+
+<div>
+    <button class="btn button-primary m-r-xs" (click)="disabled = !disabled">
+        {{ disabled ? 'Click to enable Option1' : 'Click to disable Option1' }}
+    </button>
+
+    <button class="btn button-accent" (click)="simplified = !simplified">
+        {{ simplified ? 'Disable Simplified Style' : 'Enable Simplified Style' }}
+    </button>
+</div>
+
+<hr>
+
+<p>
+    A radio button can be created by using the <code>ux-radiobutton</code> component. The following attributes can be used
+    to configure the appearance and behavior of the component:
+</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><b>@Input @Output</b> value</td>
+                <td>any</td>
+                <td>This should be a two way binding and will store the currently selected option. Each radiobutton in the same
+                    group should have the same <code>value</code> variable.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> option</td>
+                <td>any</td>
+                <td>
+                    This should contain the value that this radiobutton represents. This will be stored in the <code>value</code> 
+                    variable when the radiobutton is selected. No two radio buttons should have the same <code>option</code> 
+                    value within the same group of radio buttons.
+                </td>
+            </tr>
+
+            <tr>
+                <td><b>@Input</b> simplified</td>
+                <td><b>boolean</b></td>
+                <td>If set to <code>true</code> the checkbox will be displayed without a border and background. The default value
+                    is <code>false</code>.</td>
+            </tr>
+
+            <tr>
+                <td><b>@Input</b> clickable</td>
+                <td><b>boolean</b></td>
+                <td>If set to <code>true</code> the checkbox will not toggle state when clicked. The default value is <code>false</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    In addition to the options listed above, a radiobutton can be disabled using the <code>disabled</code> attribute. You can also provide
+    the radiobutton with a <code>name</code> or <code>id</code> if required.
+</p>
+
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [code]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>
