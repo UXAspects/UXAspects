@@ -7,9 +7,12 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { ComponentsFlippableCardsNg1Component } from './flippable-cards-ng1/flippable-cards-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsFlippableCardsComponent } from './flippable-cards/flippable-cards.component';
+import { FlippableCardModule, ColorServiceModule, SparkModule } from '../../../../../../src/index';
 
 const SECTIONS = [
-    ComponentsFlippableCardsNg1Component
+    ComponentsFlippableCardsNg1Component,
+    ComponentsFlippableCardsComponent
 ];
 
 const ROUTES = [
@@ -26,6 +29,9 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        SparkModule,
+        FlippableCardModule,
+        ColorServiceModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],
