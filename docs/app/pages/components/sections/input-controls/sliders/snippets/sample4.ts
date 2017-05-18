@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
 import {
     SliderValue, SliderOptions, ColorService, SliderStyle,
     SliderCalloutTrigger, SliderSnap, SliderType
@@ -20,8 +17,8 @@ export class SliderExampleComponent {
 
     options: SliderOptions;
 
-    lowerValue: BehaviorSubject<number> = new BehaviorSubject<number>(25);
-    upperValue: BehaviorSubject<number> = new BehaviorSubject<number>(75);
+    lowerValue: number = 25;
+    upperValue: number = 75;
 
     constructor(colorService: ColorService) {
 
@@ -50,35 +47,24 @@ export class SliderExampleComponent {
                 }
             }
         };
-
-        this.lowerValue.debounceTime(500)
-            .distinctUntilChanged()
-            .subscribe(value => {
-
-                if (!value || isNaN(Number(value))) {
-                    return;
-                }
-
-                this.value.low = Number(value);
-            });
-
-        this.upperValue.debounceTime(500)
-            .distinctUntilChanged()
-            .subscribe(value => {
-
-                if (!value || isNaN(Number(value))) {
-                    return;
-                }
-
-                this.value.high = Number(value);
-            });
     }
 
-    updateValue(value: SliderValue) {
+    updateValues() {
+
+        if (!isNaN(Number(this.lowerValue))) {
+            this.value.low = Number(this.lowerValue);
+        }
+
+        if (!isNaN(Number(this.upperValue))) {
+            this.value.high = Number(this.upperValue);
+        }
+    }
+
+    valueHasChanged(value: SliderValue) {
         this.value = value;
 
-        this.lowerValue.next(value.low);
-        this.upperValue.next(value.high);
+        this.lowerValue = value.low.toString();
+        this.upperValue = value.high.toString();
     }
 
 }

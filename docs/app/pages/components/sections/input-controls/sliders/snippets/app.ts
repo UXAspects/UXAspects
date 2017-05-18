@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { SliderValue, SliderOptions, ColorService, SliderStyle, SliderCalloutTrigger, SliderSize, SliderSnap, SliderType } from 'ux-aspects';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
     selector: 'app',
@@ -18,8 +15,8 @@ export class AppComponent {
     slider6: SliderExample;
     slider7: SliderExample;
 
-    lowerValue: BehaviorSubject<number> = new BehaviorSubject<number>(25);
-    upperValue: BehaviorSubject<number> = new BehaviorSubject<number>(75);
+    lowerValue: number = 25;
+    upperValue: number = 75;
 
     constructor(colorService: ColorService) {
 
@@ -225,31 +222,25 @@ export class AppComponent {
                 }
             }
         };
-
-        this.lowerValue.debounceTime(500).distinctUntilChanged().subscribe(value => {
-
-            if (!value || isNaN(Number(value))) {
-                return;
-            }
-
-            (<SliderValue>this.slider7.value).low = Number(value);
-        });
-
-        this.upperValue.debounceTime(500).distinctUntilChanged().subscribe(value => {
-
-            if (!value || isNaN(Number(value))) {
-                return;
-            }
-
-            (<SliderValue>this.slider7.value).high = Number(value);
-        });
     }
 
-    updateValue(value: SliderValue) {
+    updateValues() {
+        this.slider7.value = this.slider7.value as SliderValue;
+
+        if (!isNaN(Number(this.lowerValue))) {
+            this.slider7.value.low = Number(this.lowerValue);
+        }
+
+        if (!isNaN(Number(this.upperValue))) {
+            this.slider7.value.high = Number(this.upperValue);
+        }
+    }
+
+    valueHasChanged(value: SliderValue) {
         this.slider7.value = value;
 
-        this.lowerValue.next(value.low);
-        this.upperValue.next(value.high);
+        this.lowerValue = value.low.toString();
+        this.upperValue = value.high.toString();
     }
 
 }

@@ -57,16 +57,16 @@
         </div>
 
         <div class="col-md-12">
-            <ux-slider [value]="slider7.value" (valueChange)="updateValue($event)" [options]="slider7.options"></ux-slider>
+            <ux-slider [value]="slider7.value" (valueChange)="valueHasChanged($event)" [options]="slider7.options"></ux-slider>
         </div>
     </div>
 
     <div class="row m-t-sm p-t-xs">
         <div class="col-sm-2">
-            <input type="text" class="form-control m-b" [ngModel]="lowerValue | async" (ngModelChange)="lowerValue.next($event)">
+            <input type="text" class="form-control m-b" [(ngModel)]="lowerValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
         </div>
         <div class="col-sm-offset-8 col-sm-2">
-            <input type="text" class="form-control m-b" [ngModel]="upperValue | async" (ngModelChange)="upperValue.next($event)">
+            <input type="text" class="form-control m-b" [(ngModel)]="upperValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
         </div>
     </div>
 
@@ -349,7 +349,7 @@
 
 <p>Text inputs, or other controls can be used to allow users to change the value shown on the slider or to display the value
     the slider has selected. These controls are not part of the slider component but can be easily combined by using the
-    <code>ngModel</code> directive. This can be used in conjuction with RxJS observables to debounce changes. Below is an example of how this can be achieved:</p>
+    <code>ngModel</code> directive. Below is an example of how this can be achieved:</p>
 
 <tabset>
     <tab heading="HTML">
