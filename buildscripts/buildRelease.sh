@@ -457,7 +457,11 @@ if [ "$BuildPackages" == "true" ]; then
                     $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
                     npm publish --access public
                 echo NPM package published
-                popd;
+                
+                # Delete the package
+                echo Deleting the package
+                popd
+                rm -rf $WORKSPACE/npm
             else
                 echo Branch $NextVersion-package-test was not merged into the Bower branch.
             fi            
