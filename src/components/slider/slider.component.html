@@ -1,0 +1,55 @@
+<div class="track" #track [class.narrow]="options.track.height === sliderSize.Narrow" [class.wide]="options.track.height === sliderSize.Wide">
+
+    <!-- Section Beneath Lower Thumb -->
+    <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="tracks.lower.color"></div>
+
+    <!-- Lower Thumb Button / Line -->
+    <div class="thumb lower" #lowerThumb [style.left.%]="thumbs.lower.position" [style.z-index]="thumbs.lower.order" [class.button]="options.handles.style === sliderStyle.Button"
+        [class.line]="options.handles.style === sliderStyle.Line" [class.narrow]="options.track.height === sliderSize.Narrow"
+        [class.wide]="options.track.height === sliderSize.Wide" (mouseenter)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
+        (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)" (mousedown)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)">
+
+        <!-- Lower Thumb Callout -->
+        <div class="tooltip top tooltip-lower" #lowerTooltip [style.opacity]="tooltips.lower.visible ? 1 : 0" [style.left.px]="tooltips.lower.position">
+            <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
+            <div class="tooltip-inner" [style.background-color]="options.handles.callout.background" [style.color]="options.handles.callout.color">
+                {{ tooltips.lower.label }}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Section of Track Between Lower and Upper Thumbs -->
+    <div class="track-section track-range" *ngIf="options.type === sliderType.Range" [style.flex-grow]="tracks.middle.size" [style.background]="tracks.middle.color">
+    </div>
+
+    <!-- Upper Thumb Button / Line -->
+    <div class="thumb upper" #upperThumb [hidden]="options.type !== sliderType.Range" [style.left.%]="thumbs.upper.position" [style.z-index]="thumbs.upper.order"
+        [class.button]="options.handles.style === sliderStyle.Button" [class.line]="options.handles.style === sliderStyle.Line"
+        [class.narrow]="options.track.height === sliderSize.Narrow" [class.wide]="options.track.height === sliderSize.Wide" (mouseenter)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
+        (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)" (mousedown)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)">
+
+        <!-- Upper Thumb Callout -->
+        <div class="tooltip top tooltip-upper" #upperTooltip [style.opacity]="tooltips.upper.visible ? 1 : 0" [style.left.px]="tooltips.upper.position">
+            <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
+            <div class="tooltip-inner" *ngIf="options.type === sliderType.Range" [style.background-color]="options.handles.callout.background"
+                [style.color]="options.handles.callout.color">
+                {{ tooltips.upper.label }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Section of Track Abover Upper Thumb -->
+    <div class="track-section track-higher" [style.flex-grow]="tracks.upper.size" [style.background]="tracks.upper.color"></div>
+
+</div>
+
+<!-- Chart Ticks and Tick Labels -->
+<div class="tick-container" *ngIf="options.track.ticks.major.show || options.track.ticks.minor.show" [class.show-labels]="options.track.ticks.major.labels || options.track.ticks.minor.labels">
+
+    <div class="tick" *ngFor="let tick of ticks" [class.major]="tick.type === sliderTickType.Major" [class.minor]="tick.type === sliderTickType.Minor"
+        [style.left.%]="tick.position" [hidden]="!tick.showTicks">
+        <div class="tick-indicator"></div>
+        <div class="tick-label" [hidden]="!tick.showLabels">{{ tick.label }}</div>
+    </div>
+</div>

@@ -2,11 +2,26 @@
     <thead>
         <tr uxColumnSorting>
             <th></th>
-            <th>NAME</th>
-            <th class="clickable" (click)="changeState(authorColumn)">AUTHOR<ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting></th>
-            <th class="clickable" (click)="changeState(dateColumn)">DATE MODIFIED<ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting></th>
-            <th class="clickable" (click)="changeState(completedColumn)">WORK COMPLETED<ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting></th>
-            <th>STATUS</th>
+            <th class="text-black">NAME</th>
+            <th class="clickable" (click)="changeState(authorColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">AUTHOR</p>
+                    <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable" (click)="changeState(dateColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">DATE MODIFIED</p>
+                    <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable" (click)="changeState(completedColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">WORK COMPLETED</p>
+                    <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="text-black">STATUS</th>
         </tr>
     </thead>
     <tbody>
@@ -57,13 +72,13 @@
         <tr>
             <td><b>@Input</b> key</td>
             <td><b>string</b></td>
-            <td>Defines the a unique identifier for the column that can be used when sorting.</td>
+            <td>Defines a unique identifier for the column that can be used when sorting.</td>
         </tr>
 
         <tr>
             <td><b>@Input @Output</b> state</td>
             <td><b>ColumnSortingState</b></td>
-            <td>Defines the sorting order of a column. <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code></td>
+            <td>Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code></td>
         </tr>
 
        <tr>
@@ -98,3 +113,5 @@
         </tr>
     </tbody>
 </table>
+
+<p>The <code>.column-sorting-header</code> class can be used to align the sorting icon to the right of the table header as seen in the example above.</p>

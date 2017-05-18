@@ -2,11 +2,26 @@
     <thead>
         <tr uxColumnSorting>
             <th></th>
-            <th>NAME</th>
-            <th class="clickable" (click)="changeState(authorColumn)">AUTHOR<ux-column-sorting #authorColumn="ux-column-sorting" sortKey="author"></ux-column-sorting></th>
-            <th class="clickable" (click)="changeState(dateColumn)">DATE MODIFIED<ux-column-sorting #dateColumn="ux-column-sorting" sortKey="date"></ux-column-sorting></th>
-            <th class="clickable" (click)="changeState(completedColumn)">WORK COMPLETED<ux-column-sorting #completedColumn="ux-column-sorting" sortKey="completed"></ux-column-sorting></th>
-            <th>STATUS</th>
+            <th class="text-black">NAME</th>
+            <th class="clickable" (click)="changeState(authorColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">AUTHOR</p>
+                    <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable" (click)="changeState(dateColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">DATE MODIFIED</p>
+                    <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable" (click)="changeState(completedColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">WORK COMPLETED</p>
+                    <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="text-black">STATUS</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +33,7 @@
             <td>{{ item.author }}</td>
             <td>{{ item.date }}</td>
             <td>
-                <ux-spark trackColor="sparkTrackColor" barColor="sparkBarColor" [value]="item.completed" fillHeight="3" [inlineLabel]="item.completed"></ux-spark>
+                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" fillHeight="3" [inlineLabel]="item.completed"></ux-spark>
             </td>
             <td class="text-center">
                 <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>

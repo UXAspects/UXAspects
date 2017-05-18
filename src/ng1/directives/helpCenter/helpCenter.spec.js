@@ -1,5 +1,5 @@
 describe('help center directive', function () {
-  var $timeout, $rootScope, $compile, $scope;
+  var $timeout, $rootScope, throttleService, $compile, $scope;
   var title = "Help Buttons";
   var url = "test/sampleDeveloperPage";
   var parenturl = "/";
@@ -7,9 +7,11 @@ describe('help center directive', function () {
   var element;
 
   beforeEach(module("ux-aspects.helpCenter"));
-  beforeEach(inject(function (_$timeout_, _$rootScope_, _$compile_) {
+  beforeEach(module("ux-aspects.throttleService"));
+  beforeEach(inject(function (_$timeout_, _$rootScope_, _throttleService_, _$compile_) {
     $timeout = _$timeout_;
     $rootScope = _$rootScope_;
+    throttleService = _throttleService_;
     $scope = $rootScope.$new();
     $scope.title = title;
     $scope.url = url;
