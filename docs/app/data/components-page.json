@@ -583,6 +583,21 @@
                     "version": "AngularJS"
                 },
                 {
+                    "title": "EBox Panel",
+                    "component": "ComponentsEboxComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-ebox"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "EboxModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Item Display Panel",
                     "component": "ComponentsItemDisplayPanelNg1Component",
                     "version": "AngularJS"
