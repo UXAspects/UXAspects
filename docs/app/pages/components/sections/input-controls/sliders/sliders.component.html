@@ -57,16 +57,16 @@
         </div>
 
         <div class="col-md-12">
-            <ux-slider [value]="slider7.value" (valueChange)="updateValue($event)" [options]="slider7.options"></ux-slider>
+            <ux-slider [value]="slider7.value" (valueChange)="valueHasChanged($event)" [options]="slider7.options"></ux-slider>
         </div>
     </div>
 
     <div class="row m-t-sm p-t-xs">
         <div class="col-sm-2">
-            <input type="text" class="form-control m-b" [ngModel]="lowerValue | async" (ngModelChange)="lowerValue.next($event)">
+            <input type="text" class="form-control m-b" [(ngModel)]="lowerValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
         </div>
         <div class="col-sm-offset-8 col-sm-2">
-            <input type="text" class="form-control m-b" [ngModel]="upperValue | async" (ngModelChange)="upperValue.next($event)">
+            <input type="text" class="form-control m-b" [(ngModel)]="upperValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
         </div>
     </div>
 
@@ -87,6 +87,7 @@
     <p>Reference Plunker for the code used in all examples above</p>
 </blockquote>
 
+
 <h4>Values</h4>
 
 <p>The value or range should be specified by adding an <code>value</code> attribute to the component tag. This should reference
@@ -100,7 +101,7 @@
 
 <uxd-snippet [content]="snippets.compiled.sample2Ts" language="javascript"></uxd-snippet>
 
-<p>The variable containing the value can be updated with the correct value, or values, when the slider is dragged is two way
+<p>The variable containing the value can be updated with the correct value, or values, when the slider is dragged if two way
     binding is used.</p>
 
 <h4>Options</h4>
@@ -196,12 +197,12 @@
         <tr>
             <td class="attribute">background</td>
             <td>string</td>
-            <td>Specified the background color of the callout. The default value is <code>grey2</code>.</td>
+            <td>Specifies the background color of the callout. The default value is <code>grey2</code>.</td>
         </tr>
         <tr>
             <td class="attribute">color</td>
             <td>string</td>
-            <td>Specified the text color of the callout. The default value is <code>white</code>.</td>
+            <td>Specifies the text color of the callout. The default value is <code>white</code>.</td>
         </tr>
         <tr>
             <td class="attribute">formatter</td>
@@ -322,7 +323,7 @@
             <td>number | number[]</td>
             <td>Specifies at what interval this variety of tick should appear. Default for major ticks is <code>10</code>, the
                 default for minor ticks is <code>5</code>. Additionally this can be an array containing precise values of
-                when ticks should appear. This can be useful when ticks should not appear at regular intervals.
+                where ticks should appear. This can be useful when ticks should not appear at regular intervals.
             </td>
         </tr>
         <tr>
@@ -343,7 +344,7 @@
 
 <p>Text inputs, or other controls can be used to allow users to change the value shown on the slider or to display the value
     the slider has selected. These controls are not part of the slider component but can be easily combined by using the
-    <code>ngModel</code> directive. This can be used in conjuction with RxJS observables to debounce changes. Below is an example of how this can be achieved:</p>
+    <code>ngModel</code> directive. Below is an example of how this can be achieved:</p>
 
 <tabset>
     <tab heading="HTML">

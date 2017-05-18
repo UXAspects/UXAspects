@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnInit, ElementRef, ViewChild, HostListener, AfterViewInit, Renderer2, OnDestroy, DoCheck } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, ElementRef, ViewChild, HostListener, AfterViewInit, OnDestroy, DoCheck } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
@@ -90,7 +90,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     private lowerDrag: Subscription;
     private upperDrag: Subscription;
 
-    constructor(private renderer: Renderer2, colorService: ColorService) {
+    constructor(colorService: ColorService) {
 
         // setup default options
         this.defaultOptions = {
@@ -139,7 +139,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
 
         this.updateOptions();
         this.updateValues();
-
+        
         this.setThumbState(SliderThumb.Lower, false, false);
         this.setThumbState(SliderThumb.Upper, false, false);
     }
@@ -155,8 +155,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
 
     ngAfterViewInit() {
         // persistent tooltips will need positioned correctly at this stage
-        this.updateTooltipPosition(SliderThumb.Lower);
-        this.updateTooltipPosition(SliderThumb.Upper);
+        setTimeout(() => {
+            this.updateTooltipPosition(SliderThumb.Lower);
+            this.updateTooltipPosition(SliderThumb.Upper);
+        });
     }
 
     ngOnDestroy() {
@@ -181,20 +183,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         this.upperDrag = this.upperThumbDown.switchMap(() => this.mouseMove.takeUntil(this.mouseUp)).subscribe((event: MouseEvent) => {
             this.updateThumbPosition(event, SliderThumb.Upper);
         });
-    }
-
-    private disableSelection(): void {
-        this.renderer.setStyle(document.body, '-webkit-user-select', 'none');
-        this.renderer.setStyle(document.body, '-moz-user-select', 'none');
-        this.renderer.setStyle(document.body, '-ms-user-select', 'none');
-        this.renderer.setStyle(document.body, 'user-select', 'none');
-    }
-
-    private enableSelection(): void {
-        this.renderer.setStyle(document.body, '-webkit-user-select', '');
-        this.renderer.setStyle(document.body, '-moz-user-select', '');
-        this.renderer.setStyle(document.body, '-ms-user-select', '');
-        this.renderer.setStyle(document.body, 'user-select', '');
     }
 
     private getThumbState(thumb: SliderThumb) {
@@ -231,12 +219,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
 
             case SliderThumbEvent.DragStart:
                 state.drag = true;
-                this.disableSelection();
                 break;
 
             case SliderThumbEvent.DragEnd:
                 state.drag = false;
-                this.enableSelection();
                 break;
 
             case SliderThumbEvent.MouseOver:
@@ -318,7 +304,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
             return;
         }
 
-        let thumbElement = this.getThumbElement(thumb);
         let tooltipElement = this.getTooltipElement(thumb);
 
         // get the element widths
