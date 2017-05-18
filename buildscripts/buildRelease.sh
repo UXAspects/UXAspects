@@ -416,7 +416,7 @@ git checkout docs/app/data/landing-page.json
 if [ "$BuildPackages" == "true" ]; then
     # Loop while waiting for the $NextVersion-package-test branch to be merged into the Bower
     # branch or deleted. Merging signals that the release is verified and so the NPM package may
-    # be created.
+    # be created and published.
     branchCheckDelay=30    
     while :
     do
@@ -429,6 +429,7 @@ if [ "$BuildPackages" == "true" ]; then
             branchMerged=`echo "$latestBowerCommitMessage" | grep "$NextVersion-package-test" | wc -l`
             # If this contains $NextVersion-package-test, the branch was merged
             if [ $branchMerged == 1 ] ; then
+                # Create the NPM package, including a valid authentication token
                 echo Branch $NextVersion-package-test has been merged into the Bower branch. Create the NPM package.
                 echo
                 echo Creating the NPM package
@@ -440,18 +441,22 @@ if [ "$BuildPackages" == "true" ]; then
                 pushd $WORKSPACE/npm
                 cp -p -r $WORKSPACE/src/package.json .
                 cp -p -r $WORKSPACE/dist .
+                # Write the token to the .npmrc file
+                echo "//registry.npmjs.org/:_authToken="$NPMUserPassword > .npmrc
+                # Create a .npmignore file to prevent the .npmrc file ending up in the package
+                echo -e ".npmrc\n.npmignore" > .npmignore
                 
-                # Copy the package to a folder on the Grid Hub machine.
-                echo Deleting old copy of NPM package on Selenium Grid Hub machine
-                ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress rm -rf $REMOTE_NPM_PACKAGE_FOLDER
-
-                echo Copying NPM package to the Selenium Grid Hub machine
-                ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress mkdir -p $REMOTE_NPM_PACKAGE_FOLDER
-                scp -r $WORKSPACE/npm/* $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress:$REMOTE_NPM_PACKAGE_FOLDER
-                
-                ssh $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress bash $REMOTE_FOLDER/ux-aspects/buildscripts/publishNPMPackage.sh \
-                    $REMOTE_NPM_PACKAGE_FOLDER $NPMUserName $NPMUserPassword $NPMUserEmailAddress
-                
+                # Publish the package
+                echo Publishing the NPM package
+                docker run --rm \
+                    --volume "$PWD":/workspace:rw --workdir /workspace \
+                    --user $UID:$GROUPS \
+                    -e "http_proxy=$HttpProxy" \
+                    -e "https_proxy=$HttpsProxy" \
+                    -e "no_proxy=localhost, 127.0.0.1" \
+                    $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
+                    npm publish --access public
+                echo NPM package published
                 popd;
             else
                 echo Branch $NextVersion-package-test was not merged into the Bower branch.
