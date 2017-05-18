@@ -10,7 +10,7 @@
             <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
         </div>
 
-        <div class="ux-spark ux-inline" [style.height.px]="fillHeight" [style.backgroundColor]="trackColor">
+        <div class="ux-spark ux-inline" [style.height.px]="barHeight" [style.backgroundColor]="trackColor" [tooltip]="tooltip">
             <div class="ux-spark-bar" [style.width]="(value < 100 ? value : 100) + '%'" [style.backgroundColor]="barColor"></div>
         </div>
 
@@ -33,7 +33,7 @@
         <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
     </div>
 
-    <div class="ux-spark" [style.height.px]="fillHeight" [style.backgroundColor]="trackColor">
+    <div class="ux-spark" [style.height.px]="barHeight" [style.backgroundColor]="trackColor" [tooltip]="tooltip">
         <div class="ux-spark-bar" [style.width]="(value < 100 ? value : 100) + '%'" [style.backgroundColor]="barColor"></div>
     </div>
 

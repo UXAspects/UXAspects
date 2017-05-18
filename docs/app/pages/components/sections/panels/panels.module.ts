@@ -11,13 +11,16 @@ import { ComponentsModalInsetPanelNg1Component } from './modal-inset-panel-ng1/i
 import { ComponentsSideInsetPanelNg1Component } from './side-inset-panel-ng1/side-inset-panel-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsEboxComponent } from './ebox/ebox.component';
+import { EboxModule } from '../../../../../../src/index';
 
 const SECTIONS = [
     ComponentsCollapsiblePanelsNg1Component,
     ComponentsItemDisplayPanelNg1Component,
     ComponentsItemDisplayPanelServiceNg1Component,
     ComponentsModalInsetPanelNg1Component,
-    ComponentsSideInsetPanelNg1Component
+    ComponentsSideInsetPanelNg1Component,
+    ComponentsEboxComponent
 ];
 
 const ROUTES = [
@@ -34,6 +37,7 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        EboxModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

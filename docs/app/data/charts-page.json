@@ -12,7 +12,7 @@
                     "externalUrl": "http://valor-software.com/ng2-charts/",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[base-chart]"
+                        "content": "[baseChart]"
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
@@ -31,7 +31,7 @@
                     "externalUrl": "http://valor-software.com/ng2-charts/",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[base-chart]"
+                        "content": "[baseChart]"
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
@@ -50,7 +50,7 @@
                     "externalUrl": "http://valor-software.com/ng2-charts/",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[base-chart]"
+                        "content": "[baseChart]"
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
@@ -86,7 +86,7 @@
                     "externalUrl": "http://valor-software.com/ng2-charts/",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[base-chart]"
+                        "content": "[baseChart]"
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
@@ -127,7 +127,7 @@
                     "externalUrl": "http://valor-software.com/ng2-charts/",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[base-chart]"
+                        "content": "[baseChart]"
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
@@ -146,7 +146,7 @@
                     "externalUrl": "http://valor-software.com/ng2-charts/",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[base-chart]"
+                        "content": "[baseChart]"
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
@@ -165,7 +165,7 @@
                     "externalUrl": "http://valor-software.com/ng2-charts/",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[base-chart]"
+                        "content": "[baseChart]"
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
@@ -190,7 +190,7 @@
                     "externalUrl": "http://valor-software.com/ng2-charts/",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[base-chart]"
+                        "content": "[baseChart]"
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
@@ -248,10 +248,13 @@
                     "externalUrl": "http://valor-software.com/ng2-charts/",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[base-chart]"
+                        "content": "[baseChart]"
                     },{
                         "title": "Module name",
                         "content": "ChartsModule"
+                    },{
+                        "title": "Dependencies",
+                        "content": "TooltipModule"
                     }]
                 },
                 {
@@ -279,8 +282,21 @@
             "sections": [
                 {
                     "title": "Spark Charts",
+                    "component": "ChartsSparkChartsComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-spark"
+                    }, {
+                        "title": "Module",
+                        "content": "SparkModule"
+                    }]
+                },
+                {
+                    "title": "Spark Charts (Angular 1)",
                     "component": "ChartsSparkChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

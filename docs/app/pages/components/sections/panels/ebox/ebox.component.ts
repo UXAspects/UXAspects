@@ -1,22 +1,27 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
-    selector: 'uxd-progress-bar-ng1',
-    templateUrl: './progress-bar-ng1.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'uxd-components-ebox',
+    templateUrl: './ebox.component.html'
 })
-@DocumentationSectionComponent('ComponentsProgressBarNg1Component')
-export class ComponentsProgressBarNg1Component extends BaseDocumentationSection implements ICodePenProvider {
-    public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
-        htmlAttributes: {
-            'ng-controller': 'ProgressBarDemoCtrl as vm'
+@DocumentationSectionComponent('ComponentsEboxComponent')
+export class ComponentsEboxComponent extends BaseDocumentationSection implements IPlunkProvider {
+    
+    plunk: IPlunk = {
+        files: {
+            'app.component.html': this.snippets.compiled.appHtml,
+            'app.component.ts': this.snippets.compiled.appTs
         },
-        js: [this.snippets.raw.controllerJs]
+        modules: [
+            {
+                imports: ['EboxModule'],
+                library: 'ux-aspects'
+            }
+        ]
     };
 
     constructor() {

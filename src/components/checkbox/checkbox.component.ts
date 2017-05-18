@@ -61,18 +61,13 @@ export class CheckboxComponent implements ControlValueAccessor {
         this.value = !this.value;
     }
 
-    keyDown(event: any) {
+    keyDown(event: KeyboardEvent) {
+        // then toggle the checkbox
+        this.toggleChecked();
 
-        // if spacebar key is pressed
-        if (event.keyCode === 32) {
-
-            // then toggle the checkbox
-            this.toggleChecked();
-
-            // prevent default browser behavior
-            event.stopPropagation();
-            event.preventDefault();
-        }
+        // prevent default browser behavior
+        event.stopPropagation();
+        event.preventDefault();
     }
 
     // Functions required to update ngModel

@@ -317,8 +317,24 @@
             "sections": [
                 {
                     "title": "Flippable Cards",
+                    "component": "ComponentsFlippableCardsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-flippable-card"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "FlippableCardModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Flippable Cards (Angular 1)",
                     "component": "ComponentsFlippableCardsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -427,8 +443,24 @@
                 },
                 {
                     "title": "Radio Button",
+                    "component": "ComponentsRadioButtonComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-radiobutton"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "RadioButtonModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Radio Button (Angular 1)",
                     "component": "ComponentsRadioButtonNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Sliders",
@@ -566,6 +598,21 @@
                     "version": "AngularJS"
                 },
                 {
+                    "title": "EBox Panel",
+                    "component": "ComponentsEboxComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-ebox"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "EboxModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Item Display Panel",
                     "component": "ComponentsItemDisplayPanelNg1Component",
                     "version": "AngularJS"
@@ -604,8 +651,24 @@
             "sections": [
                 {
                     "title": "Progress Bar",
+                    "component": "ComponentsProgressBarComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-progress-bar"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ProgressBarModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Progress Bar (Angular 1)",
                     "component": "ComponentsProgressBarNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

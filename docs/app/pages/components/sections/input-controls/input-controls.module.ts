@@ -20,7 +20,8 @@ import { ComponentsRadioButtonNg1Component } from './radio-button-ng1/radio-butt
 import { ComponentsTagsNg1Component } from './tags-ng1/tags-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { CheckboxModule, ToggleSwitchModule, ColorServiceModule, SliderModule } from '../../../../../../src/index';
+import { ComponentsRadioButtonComponent } from './radio-button/radio-button.component';
+import { CheckboxModule, ToggleSwitchModule, RadioButtonModule, ColorServiceModule, SliderModule } from '../../../../../../src/index';
 import { ComponentsSlidersComponent } from './sliders/sliders.component';
 import { ComponentsSliderChartsNg1Component } from './slider-charts-ng1/slider-charts-ng1.component';
 import { ComponentsSlidersNg1Component } from './sliders-ng1/sliders-ng1.component';
@@ -40,6 +41,7 @@ const SECTIONS = [
     ComponentsTagsNg1Component,
     ComponentsSlidersNg1Component,
     ComponentsSliderChartsNg1Component,
+    ComponentsRadioButtonComponent,
     ComponentsSlidersComponent
 ];
 
@@ -59,6 +61,7 @@ const ROUTES = [
         TabsModule,
         CheckboxModule,
         ToggleSwitchModule,
+        RadioButtonModule,
         CommonModule,
         WrappersModule,
         TabsModule,
