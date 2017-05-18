@@ -7,7 +7,7 @@
   <parameter name="displayWaitTimeMS" value="60000"/>
   <parameter name="verticalScrollPixels" value="-100"/>
   <parameter name="chromeDriverLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/ChromeDriver/chromedriver"/>
-  <parameter name="geckoDriveroLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver/geckodriver"/>
+  <parameter name="geckoDriverLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver/geckodriver"/>
   <parameter name="IEDriverLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/IEdriverServer/IEdriverServer"/>
   <parameter name="edgeDriverLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver/MicrosoftWebDriver"/>
   <!-- <parameter name="chromeDriverLocation" value="C:\Git3\elements\configuration\chromedriver.exe"/>
