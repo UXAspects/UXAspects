@@ -8,7 +8,7 @@ export const RADIOBUTTON_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'ux-radiobutton',
+    selector: 'ux-radio-button',
     templateUrl: './radiobutton.component.html',
     providers: [RADIOBUTTON_VALUE_ACCESSOR]
 })
