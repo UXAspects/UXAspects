@@ -2,7 +2,12 @@
     <thead>
         <tr uxColumnSorting>
             <th></th>
-            <th class="text-black">NAME</th>
+            <th class="clickable" (click)="changeState(nameColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">Name</p>
+                    <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
+                </div>
+            </th>
             <th class="clickable" (click)="changeState(authorColumn)">
                 <div class="column-sorting-header">
                     <p class="text-black">AUTHOR</p>
