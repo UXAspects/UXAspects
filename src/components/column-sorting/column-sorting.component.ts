@@ -1,4 +1,4 @@
-import { ColumnSortingDirective } from './column-sorting.directive';
+import { ColumnSortingDirective, ColumnSortingOrder } from './column-sorting.directive';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -40,7 +40,7 @@ export class ColumnSortingComponent {
         });
     }
 
-    changeState() {
+    changeState(): ColumnSortingOrder[] {
 
         if (this.state === ColumnSortingState.Ascending) {
             this.state = ColumnSortingState.Descending;
