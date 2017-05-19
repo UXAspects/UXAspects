@@ -694,7 +694,7 @@ export enum SliderSnap {
     All
 }
 
-enum SliderTickType {
+export enum SliderTickType {
     Minor,
     Major
 }
@@ -724,14 +724,14 @@ export interface SliderTicksOptions {
     minor?: SliderTickOptions;
 }
 
-interface SliderTickOptions {
+export interface SliderTickOptions {
     show?: boolean;
     steps?: number | number[];
     labels?: boolean;
     formatter?: (value: number) => string | number;
 }
 
-interface SliderTick {
+export interface SliderTick {
     showTicks: boolean;
     showLabels: boolean;
     type: SliderTickType;
@@ -740,20 +740,20 @@ interface SliderTick {
     label: string | number;
 }
 
-interface SliderTrackColors {
+export interface SliderTrackColors {
     lower?: string | string[];
     range?: string | string[];
     higher?: string | string[];
 }
 
-interface SliderCallout {
+export interface SliderCallout {
     trigger?: SliderCalloutTrigger;
     background?: string;
     color?: string;
     formatter?: (value: number) => string | number;
 }
 
-enum SliderThumbEvent {
+export enum SliderThumbEvent {
     None,
     MouseOver,
     MouseLeave,
@@ -761,7 +761,7 @@ enum SliderThumbEvent {
     DragEnd
 }
 
-enum SliderThumb {
+export enum SliderThumb {
     Lower,
     Upper
 }
