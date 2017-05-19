@@ -448,7 +448,7 @@
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "ux-radiobutton"
+                            "content": "ux-radio-button"
                         },
                         {
                             "title": "Module",
