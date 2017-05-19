@@ -170,7 +170,7 @@ export class AppComponent {
                     style: SliderStyle.Line,
                     callout: {
                         trigger: SliderCalloutTrigger.Hover,
-                        background: colorService.getColor('accent').toHex(),
+                        background: colorService.getColor('alternate1').toHex(),
                         formatter: value => value ? value.toFixed(0) : value
                     }
                 },
