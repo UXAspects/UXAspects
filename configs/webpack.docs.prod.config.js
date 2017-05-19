@@ -53,7 +53,7 @@ module.exports = {
             {
                 test: /\.less$/,
                 include: [path.join(process.cwd(), 'docs', 'app'), path.join(process.cwd(), 'src', 'components')],
-                use: ['raw-loader', 'less-loader']
+                use: ['to-string-loader', 'css-loader', 'less-loader']
             },
             {
                 test: /\.less$/,

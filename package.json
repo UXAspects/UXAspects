@@ -94,6 +94,7 @@
     "script-loader": "^0.7.0",
     "style-loader": "^0.17.0",
     "time-grunt": "^1.4.0",
+    "to-string-loader": "^1.1.5",
     "tslint": "^5.1.0",
     "typescript": "^2.3.2",
     "uglify-loader": "^2.0.0",
