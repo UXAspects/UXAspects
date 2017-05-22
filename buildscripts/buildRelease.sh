@@ -70,8 +70,8 @@ docker_image_run()
 }
 
 # Get ID of latest commit to develop branch
-latestCommitID=`git rev-parse HEAD`
-echo latestCommitID is $latestCommitID
+latestDevelopCommitID=`git rev-parse HEAD`
+echo latestDevelopCommitID is $latestDevelopCommitID
 
 # Start creation of the test results file. The file will contain some styling settings needed for display of the results of the
 # unit tests and, if the unit tests passed, the Selenium tests' results.
@@ -376,7 +376,7 @@ if [ "$BuildDocumentation" == "true" ]; then
     echo
     echo Pushing the new files to the branch
     git add $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js
-    git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest commit ID is $latestCommitID."
+    git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest develop commit ID is $latestDevelopCommitID."
     git push origin $NextVersion-gh-pages-test
 fi
 
@@ -402,7 +402,7 @@ if [ "$BuildPackages" == "true" ]; then
     echo
     echo Pushing the new files to the branch
     git add dist/ bower.json
-    git commit -m "Committing changes for package $NextVersion-test. Latest commit ID is $latestCommitID."
+    git commit -m "Committing changes for package $NextVersion-package-test. Latest develop commit ID is $latestDevelopCommitID."
     git push --set-upstream origin $NextVersion-package-test
     popd; popd
 fi
