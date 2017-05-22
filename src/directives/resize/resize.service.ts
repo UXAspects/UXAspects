@@ -44,14 +44,24 @@ export class ResizeService {
         // add the iframe to the container element
         renderer.appendChild(nativeElement, iframe);
 
-        // wait for iframe to load
-        iframe.addEventListener('load', () => {
+        let iframeDoc = iframe.contentDocument || iframe.contentWindow.document as HTMLDocument;
 
-            // now attach resize listener
-            Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: any) => {
+        let attachListener = function() {
+             Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: any) => {
                 subject.next(event);
             });
-        });
+        };
+
+        if (iframeDoc.readyState === 'complete') {
+            attachListener();
+        } else {
+
+            // wait for iframe to load
+            iframe.addEventListener('load', () => {
+                attachListener();
+            });
+        }
+
 
         return subject;
     }
