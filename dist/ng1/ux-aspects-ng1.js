@@ -1,5 +1,5 @@
 /* 
-* ux-aspects - v1.1.1-beta.2 
+* ux-aspects - v1.1.1-beta.3 
 * © Copyright 2017 Hewlett Packard Enterprise Development Company LP
 */
 (function webpackUniversalModuleDefinition(root, factory) {
