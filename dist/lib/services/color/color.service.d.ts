@@ -3,8 +3,8 @@ export declare class ColorService {
     private element;
     private colors;
     constructor(document: any);
-    getColorValue(color: string): ThemeColor;
-    getColor(color: string): ThemeColor;
+    getColorValue(color: ColorIdentifier): ThemeColor;
+    getColor(color: ColorIdentifier): ThemeColor;
 }
 export declare class ThemeColor {
     private r;
@@ -20,3 +20,4 @@ export declare class ThemeColor {
     setBlue(blue: string): this;
     setAlpha(alpha: string | number): this;
 }
+export declare type ColorIdentifier = 'primary' | 'accent' | 'secondary' | 'alternate1' | 'alternate2' | 'alternate3' | 'vibrant1' | 'vibrant2' | 'grey1' | 'grey2' | 'grey3' | 'grey4' | 'grey5' | 'grey6' | 'grey7' | 'grey8' | 'chart1' | 'chart2' | 'chart3' | 'chart4' | 'chart5' | 'chart6' | 'ok' | 'warning' | 'critical' | string;
