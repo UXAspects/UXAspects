@@ -50,8 +50,30 @@ UX ASPECTS OPEN SOURCE LICENSES
  * Released under the MIT license.
  * http://jquery.org/license
 -----------------------------------------------------------------------------------
-DataTables 1.10.4
- * ©2008-2014 SpryMedia Ltd - datatables.net/license
+/*
+ *
+ * More info at [www.dropzonejs.com](http://www.dropzonejs.com)
+ *
+ * Copyright (c) 2012, Matias Meno
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
 -----------------------------------------------------------------------------------
 Copyright (c) 2010-2015, Michael Bostock
 All rights reserved.
@@ -80,31 +102,6 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -----------------------------------------------------------------------------------
-/*
- *
- * More info at [www.dropzonejs.com](http://www.dropzonejs.com)
- *
- * Copyright (c) 2012, Matias Meno
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
------------------------------------------------------------------------------------
 /**
 // Copyright 2006 Google Inc.
 //
@@ -119,11 +116,6 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
------------------------------------------------------------------------------------
-/* Javascript plotting library for jQuery, version 0.8.3.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
 -----------------------------------------------------------------------------------
 Flot plugin for rendering pie charts.
 
@@ -168,6 +160,14 @@ can just fix the size of their placeholders.
  * based on the spline interpolation described at:
  *		 http://scaledinnovation.com/analytics/splines/aboutSplines.html
 -----------------------------------------------------------------------------------
+DataTables 1.10.4
+ * ©2008-2014 SpryMedia Ltd - datatables.net/license
+-----------------------------------------------------------------------------------
+/* Javascript plotting library for jQuery, version 0.8.3.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
+-----------------------------------------------------------------------------------
 Flot plugin for stacking data sets rather than overlyaing them.
 
 Copyright (c) 2007-2014 IOLA and Ole Laursen.
@@ -185,16 +185,6 @@ Licensed under the MIT license.
 
 Set axis.mode to "time" to enable. See the section "Time series data" in
 API.txt for details.
------------------------------------------------------------------------------------
-* jquery.flot.tooltip
- *
- * description: easy-to-use tooltips for Flot charts
- * version: 0.8.5
- * authors: Krzysztof Urbas @krzysu [myviews.pl],Evan Steinkerchner @Roundaround
- * website: https://github.com/krzysu/flot.tooltip
- *
- * build on 2015-06-12
- * released under MIT License, 2012
 -----------------------------------------------------------------------------------
 * Value Labels Plugin for flot.
 * https://github.com/winne27/flot-valuelabels
@@ -214,6 +204,16 @@ API.txt for details.
  * Copyright 2012-2014 Arnold Daniels
  * Licensed under Apache-2.0 (https://github.com/jasny/bootstrap/blob/master/LICENSE)
 -----------------------------------------------------------------------------------
+* jquery.flot.tooltip
+ *
+ * description: easy-to-use tooltips for Flot charts
+ * version: 0.8.5
+ * authors: Krzysztof Urbas @krzysu [myviews.pl],Evan Steinkerchner @Roundaround
+ * website: https://github.com/krzysu/flot.tooltip
+ *
+ * build on 2015-06-12
+ * released under MIT License, 2012
+-----------------------------------------------------------------------------------
 *	jQuery dotdotdot 1.7.4
  *
  *	Copyright (c) Fred Heusschen
@@ -224,6 +224,18 @@ API.txt for details.
  *
  *	Licensed under the MIT license.
  *	http://en.wikipedia.org/wiki/MIT_License
+-----------------------------------------------------------------------------------
+jQuery Knob
+/*
+ * Downward compatible, touchable dial
+ *
+ * Version: 1.2.11
+ * Requires: jQuery v1.7+
+ *
+ * Copyright (c) 2012 Anthony Terrien
+ * Under MIT License (http://www.opensource.org/licenses/mit-license.php)
+ *
+ * Thanks to vor, eskimoblood, spiffistan, FabrizioC
 -----------------------------------------------------------------------------------
 * jQuery Validation Plugin v1.13.1
  *
@@ -259,9 +271,11 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------
-* jQuery Steps v1.1.0 - 09/04/2014
- * Copyright (c) 2014 Rafael Staib (http://www.jquery-steps.com)
- * Licensed under MIT http://www.opensource.org/licenses/MIT
+* jquery.inputmask.bundle.js
+* http://github.com/RobinHerbots/jquery.inputmask
+* Copyright (c) 2010 - 2015 Robin Herbots
+* Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+* Version: 3.2.6-24
 -----------------------------------------------------------------------------------
 Peity jQuery plugin version 3.0.2
  (c) 2014 Ben Pickles
@@ -269,6 +283,10 @@ Peity jQuery plugin version 3.0.2
  http://benpickles.github.io/peity
 
  Released under MIT license.
+-----------------------------------------------------------------------------------
+* jQuery Steps v1.1.0 - 09/04/2014
+ * Copyright (c) 2014 Rafael Staib (http://www.jquery-steps.com)
+ * Licensed under MIT http://www.opensource.org/licenses/MIT
 -----------------------------------------------------------------------------------
 sigma.js - A JavaScript library dedicated to graph drawing. - Version: 1.0.3 - Author: Alexis Jacomy, Sciences-Po Médialab - License: MIT
 Copyright (C) 2013-2014, Alexis Jacomy, http://sigmajs.org
@@ -295,49 +313,9 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------
-jQuery Knob
-/*
- * Downward compatible, touchable dial
- *
- * Version: 1.2.11
- * Requires: jQuery v1.7+
- *
- * Copyright (c) 2012 Anthony Terrien
- * Under MIT License (http://www.opensource.org/licenses/mit-license.php)
- *
- * Thanks to vor, eskimoblood, spiffistan, FabrizioC
------------------------------------------------------------------------------------
-* jquery.inputmask.bundle.js
-* http://github.com/RobinHerbots/jquery.inputmask
-* Copyright (c) 2010 - 2015 Robin Herbots
-* Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-* Version: 3.2.6-24
------------------------------------------------------------------------------------
 angular-breadcrumb - v0.3.2-dev-2014-12-14
  * http://ncuillery.github.io/angular-breadcrumb
  * Copyright (c) 2014 Nicolas Cuillery; Licensed MIT
------------------------------------------------------------------------------------
-The MIT License (MIT)
-
-Copyright (c) 2014 Develer S.r.L.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 -----------------------------------------------------------------------------------
 angular-file-upload v1.1.5
  https://github.com/nervgh/angular-file-upload
@@ -363,6 +341,28 @@ angular-file-upload v1.1.5
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
+-----------------------------------------------------------------------------------
+The MIT License (MIT)
+
+Copyright (c) 2014 Develer S.r.L.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 -----------------------------------------------------------------------------------
 * The MIT License (MIT)
  
@@ -429,11 +429,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -----------------------------------------------------------------------------------
-* State-based routing for AngularJS
- * @version v0.2.13
- * @link http://angular-ui.github.com/
- * @license MIT License, http://www.opensource.org/licenses/MIT
------------------------------------------------------------------------------------
 Copyright 2015 Robert Pocklington
 http://github.com/rpocklin/angular-timeline
 
@@ -459,6 +454,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 * @license Angular UI Tree v2.9.0
  * (c) 2010-2015. https://github.com/angular-ui-tree/angular-ui-tree
  * License: MIT
+-----------------------------------------------------------------------------------
+* State-based routing for AngularJS
+ * @version v0.2.13
+ * @link http://angular-ui.github.com/
+ * @license MIT License, http://www.opensource.org/licenses/MIT
 -----------------------------------------------------------------------------------
 * ngTagsInput v3.0.0
  * http://mbenford.github.io/ngTagsInput
