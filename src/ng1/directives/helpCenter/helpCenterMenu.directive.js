@@ -46,17 +46,20 @@ export default function helpCenterMenu($timeout, $rootScope, throttleService) {
             function isHelpCenterUpdate(mutationRecords) {
 
                 // Check the array of records, which contains the details of the DOM mutation
-                for (var mutationRecord of mutationRecords) {
+                for (var mi = 0; mi < mutationRecords.length; mi += 1) {
+                    var mutationRecord = mutationRecords[mi];
 
                     // Check if any of the added nodes have the help-center-item attribute
-                    for (var addedNode of mutationRecord.addedNodes) {
+                    for (var ai = 0; ai < mutationRecord.addedNodes.length; ai += 1) {
+                        var addedNode = mutationRecord.addedNodes[ai];
                         if (isHelpCenterItem(addedNode)) {
                             return true;
                         }
                     }
 
                     // Check if any of the removed nodes have the help-center-item attribute
-                    for (var removedNode of mutationRecord.removedNodes) {
+                    for (var ri = 0; ri < mutationRecord.removedNodes.length; ri += 1) {
+                        var removedNode = mutationRecord.removedNodes[ri];
                         if (isHelpCenterItem(removedNode)) {
                             return true;
                         }
