@@ -422,6 +422,7 @@ if [ "$BuildPackages" == "true" ]; then
     do
         branchExists=`git ls-remote --heads https://github.com/UXAspects/UXAspects.git $NextVersion-package-test | wc -l`
         if [ $branchExists == 0 ] ; then
+            git fetch
             latestBowerCommitID=`git rev-parse origin/bower`
             echo latestBowerCommitID is $latestBowerCommitID
             latestBowerCommitMessage=`git log --format=%s%b -n 1 $latestBowerCommitID`
