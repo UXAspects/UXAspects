@@ -55,7 +55,7 @@ public class SideInsetSplitters extends TestNGBase {
 			
 			// Check side panels are hidden and main panels are the correct size
 			checkElementPropertyInt(horizontalSide, "width", "0");
-			checkElementPropertyInt(horizontalMain, "width", "806");
+			checkElementPropertyInt(horizontalMain, "width", "868");
 			checkElementPropertyInt(verticalSide, "height", "0");
 			checkElementPropertyInt(verticalMain, "height", "398");
 			
@@ -73,8 +73,8 @@ public class SideInsetSplitters extends TestNGBase {
 			verticalToggle.click();
 			Thread.sleep(5000);
 
-			checkElementPropertyInt(horizontalMain, "width", "398");
-			checkElementPropertyInt(horizontalSide, "width", "398");
+			checkElementPropertyInt(horizontalMain, "width", "429");
+			checkElementPropertyInt(horizontalSide, "width", "429");
 			
 			checkElementPropertyInt(verticalSide, "height", "194");
 			checkElementPropertyInt(verticalMain, "height", "194");
@@ -97,7 +97,7 @@ public class SideInsetSplitters extends TestNGBase {
 			Thread.sleep(5000);
 
 			checkElementPropertyInt(horizontalSide, "width", "0");
-			checkElementPropertyInt(horizontalMain, "width", "806");
+			checkElementPropertyInt(horizontalMain, "width", "868");
 			
 			checkElementPropertyInt(verticalSide, "height", "0");
 			checkElementPropertyInt(verticalMain, "height", "398");

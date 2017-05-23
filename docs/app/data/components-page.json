@@ -317,8 +317,24 @@
             "sections": [
                 {
                     "title": "Flippable Cards",
+                    "component": "ComponentsFlippableCardsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-flippable-card"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "FlippableCardModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Flippable Cards (Angular 1)",
                     "component": "ComponentsFlippableCardsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -427,22 +443,53 @@
                 },
                 {
                     "title": "Radio Button",
+                    "component": "ComponentsRadioButtonComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-radio-button"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "RadioButtonModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Radio Button (Angular 1)",
                     "component": "ComponentsRadioButtonNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Sliders",
+                    "component": "ComponentsSlidersComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-slider"
+                        },{
+                            "title": "Module name",
+                            "content": "SliderModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Sliders (Angular 1)",
+                    "component": "ComponentsSlidersNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Sliders with Charts (Angular 1)",
+                    "component": "ComponentsSliderChartsNg1Component",
                     "version": "AngularJS"
                 },
                 {
                     "title": "Tags",
                     "component": "ComponentsTagsNg1Component",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Sliders",
-                    "component": "ComponentsSlidersNg1Component",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Sliders with Charts",
-                    "component": "ComponentsSliderChartsNg1Component",
                     "version": "AngularJS"
                 }
             ]
@@ -551,6 +598,21 @@
                     "version": "AngularJS"
                 },
                 {
+                    "title": "EBox Panel",
+                    "component": "ComponentsEboxComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-ebox"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "EboxModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Item Display Panel",
                     "component": "ComponentsItemDisplayPanelNg1Component",
                     "version": "AngularJS"
@@ -589,8 +651,24 @@
             "sections": [
                 {
                     "title": "Progress Bar",
+                    "component": "ComponentsProgressBarComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-progress-bar"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ProgressBarModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Progress Bar (Angular 1)",
                     "component": "ComponentsProgressBarNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -712,6 +790,21 @@
             "link": "tables",
             "sections": [
                 {
+                    "title": "Column Sorting",
+                    "component": "ComponentsColumnSortingComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-column-sorting"
+                    },{
+                        "title": "Module name",
+                        "content": "ColumnSortingModule"
+                    },{
+                        "title": "Export as",
+                        "content": "ux-column-sorting"
+                    }]
+                },
+                {
                     "title": "Detail Row Responsive Table",
                     "component": "ComponentsDetailRowResponsiveNg1Component",
                     "version": "AngularJS"
@@ -802,14 +895,16 @@
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Single Column Sorting",
+                    "title": "Single Column Sorting (Angular 1)",
                     "component": "ComponentsSingleColumnSortingNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
-                    "title": "Multiple Column Sorting",
+                    "title": "Multiple Column Sorting (Angular 1)",
                     "component": "ComponentsMultipleColumnSortingNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Column Visibility",

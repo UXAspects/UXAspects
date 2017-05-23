@@ -7,9 +7,12 @@ import { ResolverService, DocumentationPage } from '../../../../services/resolve
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { WrappersModule } from '../../../../wrappers.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { ChartsSparkChartsComponent } from './spark-charts/spark-charts.component';
+import { SparkModule, ColorServiceModule } from '../../../../../../src/index';
 
 const SECTIONS = [
-    ChartsSparkChartNg1Component
+    ChartsSparkChartNg1Component,
+    ChartsSparkChartsComponent
 ];
 
 const ROUTES = [
@@ -26,6 +29,8 @@ const ROUTES = [
     imports: [
         TabsModule,
         WrappersModule,
+        SparkModule,
+        ColorServiceModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

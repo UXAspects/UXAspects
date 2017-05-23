@@ -9,35 +9,35 @@ import {
 export class ColorService {
 
     private html = '<div class="primary-color"></div>' +
-        '<div class="accent-color"></div>' +
-        '<div class="secondary-color"></div>' +
-        '<div class="alternate1-color"></div>' +
-        '<div class="alternate2-color"></div>' +
-        '<div class="alternate3-color"></div>' +
-        '<div class="vibrant1-color"></div>' +
-        '<div class="vibrant2-color"></div>' +
-        '<div class="grey1-color"></div>' +
-        '<div class="grey2-color"></div>' +
-        '<div class="grey3-color"></div>' +
-        '<div class="grey4-color"></div>' +
-        '<div class="grey5-color"></div>' +
-        '<div class="grey6-color"></div>' +
-        '<div class="grey7-color"></div>' +
-        '<div class="grey8-color"></div>' +
-        '<div class="chart1-color"></div>' +
-        '<div class="chart2-color"></div>' +
-        '<div class="chart3-color"></div>' +
-        '<div class="chart4-color"></div>' +
-        '<div class="chart5-color"></div>' +
-        '<div class="chart6-color"></div>' +
-        '<div class="ok-color"></div>' +
-        '<div class="warning-color"></div>' +
-        '<div class="critical-color"></div>';
+    '<div class="accent-color"></div>' +
+    '<div class="secondary-color"></div>' +
+    '<div class="alternate1-color"></div>' +
+    '<div class="alternate2-color"></div>' +
+    '<div class="alternate3-color"></div>' +
+    '<div class="vibrant1-color"></div>' +
+    '<div class="vibrant2-color"></div>' +
+    '<div class="grey1-color"></div>' +
+    '<div class="grey2-color"></div>' +
+    '<div class="grey3-color"></div>' +
+    '<div class="grey4-color"></div>' +
+    '<div class="grey5-color"></div>' +
+    '<div class="grey6-color"></div>' +
+    '<div class="grey7-color"></div>' +
+    '<div class="grey8-color"></div>' +
+    '<div class="chart1-color"></div>' +
+    '<div class="chart2-color"></div>' +
+    '<div class="chart3-color"></div>' +
+    '<div class="chart4-color"></div>' +
+    '<div class="chart5-color"></div>' +
+    '<div class="chart6-color"></div>' +
+    '<div class="ok-color"></div>' +
+    '<div class="warning-color"></div>' +
+    '<div class="critical-color"></div>';
 
     private element: HTMLElement;
     private colors: any;
 
-    constructor(@Inject(DOCUMENT) document: any) {
+    constructor( @Inject(DOCUMENT) document: any) {
         this.element = document.createElement('div');
         this.element.className = 'color-chart';
         this.element.innerHTML = this.html;
@@ -75,9 +75,7 @@ export class ColorService {
         this.element.parentNode.removeChild(this.element);
     }
 
-
-
-    getColorValue(color: string): ThemeColor {
+    getColorValue(color: ColorIdentifier): ThemeColor {
 
         let target = this.element.querySelector('.' + color + '-color');
 
@@ -92,9 +90,7 @@ export class ColorService {
         return new ThemeColor(rgba[1], rgba[2], rgba[3], rgba[4]);
     }
 
-
-
-    getColor(color: string): ThemeColor {
+    getColor(color: ColorIdentifier): ThemeColor {
         return this.colors[color];
     }
 
@@ -128,7 +124,7 @@ export class ThemeColor {
         if (blue.length < 2) {
             blue = '0' + blue;
         }
-            
+
         return '#' + red + green + blue;
     }
 
@@ -160,3 +156,6 @@ export class ThemeColor {
         return this;
     }
 }
+
+export type ColorIdentifier = 'primary' | 'accent' | 'secondary' | 'alternate1' | 'alternate2' | 'alternate3' | 'vibrant1' | 'vibrant2' | 'grey1'
+    | 'grey2' | 'grey3' | 'grey4' | 'grey5' | 'grey6' | 'grey7' | 'grey8' | 'chart1' | 'chart2' | 'chart3' | 'chart4' | 'chart5' | 'chart6' | 'ok' | 'warning' | 'critical' | string;

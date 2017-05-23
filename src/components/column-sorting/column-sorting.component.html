@@ -1,0 +1,7 @@
+<div class="ux-column-sorting">
+    <i class="ux-column-sorting-icon hpe-icon" 
+        [class.hpe-ascend]="state===columnSortingState.Ascending" 
+        [class.hpe-descend]="state===columnSortingState.Descending" 
+        [class.column-sorting-icon-hidden]="state===columnSortingState.NoSort"></i>
+    <p class="ux-column-sorting-number">{{ orderNumber }}</p>
+</div>

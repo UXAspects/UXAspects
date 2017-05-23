@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, HostListener } from '@angular/core';
+import { Component, Input, forwardRef, HostListener, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const RADIOBUTTON_VALUE_ACCESSOR: any = {
@@ -8,25 +8,41 @@ export const RADIOBUTTON_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'ux-radiobutton',
+    selector: 'ux-radio-button',
     templateUrl: './radiobutton.component.html',
     providers: [RADIOBUTTON_VALUE_ACCESSOR]
 })
 export class RadioButtonComponent implements ControlValueAccessor {
 
+    @Input() id: string;
     @Input() simplified: boolean = false;
     @Input() disabled: boolean = false;
     @Input() name: string = '';
     @Input() clickable: boolean = true;
     @Input() option: any;
-    @Input() id: string;
+    @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
-    private model: boolean = false;
+    @Input()
+    get value() {
+        return this._value;
+    }
+
+    set value(value: boolean) {
+        this._value = value;
+
+        // invoke change event
+        this.valueChange.emit(this._value);
+
+        // call callback
+        this.onChangeCallback(this._value);
+    }
+
+    private _value: any = false;
 
     private onTouchedCallback: () => void = () => { };
     private onChangeCallback: (_: any) => void = () => { };
 
-    @HostListener('click', [])
+    @HostListener('click')
     checkItem() {
 
         if (this.disabled === true || this.clickable === false) {
@@ -34,30 +50,26 @@ export class RadioButtonComponent implements ControlValueAccessor {
         }
 
         // toggle the checked state
-        this.model = this.option;
+        this.value = this.option;
 
         // call callback
-        this.onChangeCallback(this.model);
+        this.onChangeCallback(this.value);
     }
 
     keyDown(event: KeyboardEvent) {
 
-        // if spacebar key is pressed
-        if (event.keyCode === 32) {
+        // then toggle the checkbox
+        this.checkItem();
 
-            // then toggle the checkbox
-            this.checkItem();
-
-            // prevent default browser behavior
-            event.stopPropagation();
-            event.preventDefault();
-        }
+        // prevent default browser behavior
+        event.stopPropagation();
+        event.preventDefault();
     }
 
     // Functions required to update ng-model
     writeValue(value: boolean) {
-        if (value !== this.model) {
-            this.model = value;
+        if (value !== this._value) {
+            this._value = value;
         }
     }
 

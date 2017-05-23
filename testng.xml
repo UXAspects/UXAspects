@@ -3,11 +3,11 @@
 <suite name="TestSuite" thread-count="1" configfailurepolicy="continue" verbose="10">
   <parameter name="rootUrl" value="http://16.73.33.111:4000"/>
   <!-- <parameter name="rootUrl" value="http://elements.hpswlabs.hp.com/dev_preview"/> -->
-  <parameter name="implicitWaitTimeMS" value="10000"/>
-  <parameter name="displayWaitTimeMS" value="10000"/>
+  <parameter name="implicitWaitTimeMS" value="60000"/>
+  <parameter name="displayWaitTimeMS" value="60000"/>
   <parameter name="verticalScrollPixels" value="-100"/>
   <parameter name="chromeDriverLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/ChromeDriver/chromedriver"/>
-  <parameter name="geckoDriveroLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver/geckodriver"/>
+  <parameter name="geckoDriverLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/GeckoDriver/geckodriver"/>
   <parameter name="IEDriverLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/IEdriverServer/IEdriverServer"/>
   <parameter name="edgeDriverLocation" value="/home/UXAspectsTestUser/ux-aspects/Selenium/MicrosoftWebDriver/MicrosoftWebDriver"/>
   <!-- <parameter name="chromeDriverLocation" value="C:\Git3\elements\configuration\chromedriver.exe"/>

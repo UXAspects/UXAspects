@@ -1,0 +1,31 @@
+<div>
+    <ux-radio-button [(value)]="selected" [option]="radioOptions.option1" [disabled]="disabled" [simplified]="simplified">Option1</ux-radio-button>
+</div>
+
+<div>
+    <ux-radio-button [(value)]="selected" [option]="radioOptions.option2" [simplified]="simplified">Option2</ux-radio-button>
+</div>
+
+<div>
+    <ux-radio-button [(value)]="selected" [option]="radioOptions.option3" [simplified]="simplified">Option3</ux-radio-button>
+</div>
+
+<div>
+    <ux-radio-button [(value)]="selected" [option]="radioOptions.option4" [simplified]="simplified">
+        Option four onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
+    </ux-radio-button>
+</div>
+
+<p class="m-t">
+    <code>radioModel</code> is <em>{{ selected }}</em>.
+</p>
+
+<div>
+    <button class="btn button-primary m-r-xs" (click)="disabled = !disabled">
+        {{ disabled ? 'Click to enable Option1' : 'Click to disable Option1' }}
+    </button>
+
+    <button class="btn button-accent" (click)="simplified = !simplified">
+        {{ simplified ? 'Disable Simplified Style' : 'Enable Simplified Style' }}
+    </button>
+</div>

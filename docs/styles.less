@@ -10,6 +10,10 @@ html, body {
     padding-bottom: 200px;
 }
 
+body {
+    overflow-y: scroll;
+}
+
 .loading-screen {
     position: absolute; 
     display: flex; 
@@ -44,10 +48,32 @@ uxd-navigation-bar, uxd-page-header, uxd-side-navigation, uxd-page-footer {
     font-family: 'Source Sans Pro';
 }
 
-.uxd-component-section-content > * > h4:not(:first-child) {
-    margin-top: 2rem;
+.uxd-page-container {
+    padding: 0;
 }
 
+.uxd-documentation-container {
+    padding: 15px 0 0 0;
+    uxd-component-section > ux-ebox {
+        .ux-ebox-header {
+            padding: 14px 0 7px;
+        }
+        .ux-ebox-content {
+            padding: 15px 0 20px;
+        }
+    }
+}
+
+.uxd-component-section-content > * > h4 {
+    margin-top: 30px;
+}
+
+
+kbd {
+  color: #c7254e;
+  background-color: #f9f2f4;
+  box-shadow: none;
+}
 
 /*
     Code Snippet Styling

@@ -8,7 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 /*
     Define Compilation Options
 */
-module.exports = {
+var docsConfig = {
 
     entry: {
         app: path.join(process.cwd(), 'docs', 'main.ts'),
@@ -56,7 +56,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                include: [path.join(process.cwd(), 'docs', 'app'), path.join(process.cwd(), 'src', 'components')],
+                include: [path.join(process.cwd(), 'docs', 'app')],
                 use: ['raw-loader', 'less-loader']
             },
             {
@@ -107,8 +107,8 @@ module.exports = {
                 test: /\.js$/,
                 exclude: [
                     /node_modules/,
-					/snippets/,
-                    path.join(process.cwd(), 'src', 'ng1', 'plugins'), 
+                    /snippets/,
+                    path.join(process.cwd(), 'src', 'ng1', 'plugins'),
                     path.join(process.cwd(), 'src', 'ng1', 'external')
                 ],
                 use: {
@@ -126,7 +126,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 include: [
-                    path.join(process.cwd(), 'src', 'ng1', 'plugins'), 
+                    path.join(process.cwd(), 'src', 'ng1', 'plugins'),
                     path.join(process.cwd(), 'src', 'ng1', 'external')
                 ],
                 use: 'script-loader'
@@ -147,7 +147,7 @@ module.exports = {
         ),
 
         new HtmlWebpackPlugin({
-            template: './docs/index.html',
+            template: './docs/index.ejs',
             favicon: './docs/favicon.ico'
         }),
 
@@ -159,27 +159,6 @@ module.exports = {
         }]),
 
         new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'src', 'fonts'),
-            to: path.join(process.cwd(), 'assets', 'fonts')
-        }]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist', 'lib'),
-            to: path.join(process.cwd(), 'assets', 'lib')
-        }]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist', 'ng1'),
-            to: path.join(process.cwd(), 'assets', 'ng1')
-        }]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist', 'styles'),
-            to: path.join(process.cwd(), 'assets', 'css')
-        }]),
-
-        new CopyWebpackPlugin([
-            {
                 from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'list_view', 'dist'),
                 to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
             },
@@ -193,19 +172,16 @@ module.exports = {
             }
         ]),
 
-        new CopyWebpackPlugin([
-            {
-                from: path.join(process.cwd(), 'dist'),
-                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
-            }
-        ], {
+        new CopyWebpackPlugin([{
+            from: path.join(process.cwd(), 'dist'),
+            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
+        }], {
             ignore: [
                 '/docs'
             ]
         }),
 
-        new CopyWebpackPlugin([
-            {
+        new CopyWebpackPlugin([{
                 from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'charts', 'dist'),
                 to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
             },
@@ -219,12 +195,10 @@ module.exports = {
             }
         ]),
 
-        new CopyWebpackPlugin([
-            {
-                from: path.join(process.cwd(), 'dist'),
-                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
-            }
-        ], {
+        new CopyWebpackPlugin([{
+            from: path.join(process.cwd(), 'dist'),
+            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
+        }], {
             ignore: [
                 '/docs'
             ]
@@ -232,6 +206,12 @@ module.exports = {
 
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills']
+        }),
+
+        new webpack.DefinePlugin({
+            'process.env': {
+                'ENV': '"development"'
+            }
         }),
 
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
@@ -243,6 +223,7 @@ module.exports = {
     },
 
     devServer: {
+        https: true,
         historyApiFallback: true,
         stats: {
             colors: true,
@@ -253,3 +234,5 @@ module.exports = {
         }
     }
 };
+
+module.exports = docsConfig;

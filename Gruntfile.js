@@ -30,6 +30,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['build', 'jasmine:ng1']);
     grunt.registerTask('server', ['documentation:build', 'connect:documentation']);
     grunt.registerTask('selenium', ['documentation:build', 'connect:selenium']);
+    grunt.registerTask('webpack_import_cert', ['run:webpack_extract_cert', 'run:webpack_import_cert']);
 
     grunt.registerTask('documentation:serve', ['iconset', 'styles', 'library', 'webpack-dev-server:documentation']);
     grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'webpack:documentation']);

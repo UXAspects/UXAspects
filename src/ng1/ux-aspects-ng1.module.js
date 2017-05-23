@@ -110,6 +110,7 @@ import './services/debounceService/debounce.module.js';
 import './services/flotDataService/flotDataService.module.js';
 import './services/keyboardService/keyboardService.module.js';
 import './services/lineDataService/lineData.module.js';
+import './services/navigationMenuService/navigationMenu.module.js';
 import './services/notificationService/notification.module.js';
 import './services/pdfService/pdf.module.js';
 import './services/resizeService/resize.module.js';
@@ -117,7 +118,7 @@ import './services/safeAnimationFrame/safeAnimationFrame.module.js';
 import './services/safeEventListener/safeEventListener.module.js';
 import './services/safeInterval/safeInterval.module.js';
 import './services/safeTimeout/safeTimeout.module.js';
-import './services/navigationMenuService/navigationMenu.module.js';
+import './services/throttleService/throttle.module.js';
 import './services/timeAgoService/timeAgo.module.js';
 import './services/windowCommunicationService/windowCommunication.module.js';
 
@@ -239,6 +240,7 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.safeInterval',
     'ux-aspects.safeTimeout',
     'ux-aspects.navigationMenuService',
+    'ux-aspects.throttleService',
     'ux-aspects.timeAgoService',   
     'ux-aspects.windowCommunicationService'
 ]);
