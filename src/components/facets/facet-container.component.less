@@ -23,10 +23,10 @@ ux-facet-container {
                 width: 21px;
                 height: 14px;
                 border: 1px solid transparent;
-                transition: border-color .3s ease-in-out;
+                transition: border-color 0.3s ease-in-out;
                 cursor: pointer;
 
-                &:hover, 
+                &:hover,
                 &:focus {
                     border-color: @grey2;
                     outline-style: none;
@@ -35,7 +35,7 @@ ux-facet-container {
                 .facets-selected-clear-graphic {
                     position: absolute;
                     top: 0;
-                    
+
                     .dark-grey {
                         fill: @grey2;
                     }
@@ -43,7 +43,6 @@ ux-facet-container {
                     .light-grey {
                         fill: @grey4;
                     }
-
                 }
             }
         }
@@ -59,7 +58,7 @@ ux-facet-container {
                 border: 1px solid @grey6;
                 cursor: pointer;
                 outline: none;
-                transition: background-color .3s ease-in-out;
+                transition: background-color 0.3s ease-in-out;
                 max-width: 100%;
 
                 .facet-selected-tag-label {
@@ -71,13 +70,11 @@ ux-facet-container {
                     background-color: @grey7;
                 }
             }
-
         }
 
         .facets-selected-none-label {
             margin-bottom: 0;
             color: @grey4;
         }
-
     }
 }
