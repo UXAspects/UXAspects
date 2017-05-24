@@ -1,13 +1,16 @@
+import { EventEmitter } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 export declare const RADIOBUTTON_VALUE_ACCESSOR: any;
 export declare class RadioButtonComponent implements ControlValueAccessor {
+    id: string;
     simplified: boolean;
     disabled: boolean;
     name: string;
     clickable: boolean;
     option: any;
-    id: string;
-    private model;
+    valueChange: EventEmitter<any>;
+    value: boolean;
+    private _value;
     private onTouchedCallback;
     private onChangeCallback;
     checkItem(): void;

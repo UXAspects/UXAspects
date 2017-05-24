@@ -2910,7 +2910,7 @@ h4.panel-title {
 .nav li.app-navigator {
   width: 100%;
   height: 50px;
-  background-color: #fafafa;
+  background-color: #fff;
 }
 .nav li.app-navigator:hover {
   background-color: #f5f5f5;
@@ -14531,10 +14531,10 @@ p.no-margin {
   border-top: 1px solid #555;
 }
 .body-light {
-  background: #fafafa;
+  background: #fff;
 }
 .body-light .page-content {
-  background: #fafafa;
+  background: #fff;
 }
 .body-light .page-content .hpebox-title,
 .body-light .page-content .hpebox-content,
@@ -16054,7 +16054,6 @@ ux-checkbox .ux-checkbox-content {
   margin-top: 1px;
   white-space: normal;
   vertical-align: top;
-  height: 24px;
   cursor: default;
   line-height: 22px;
 }
@@ -16144,15 +16143,14 @@ ux-flippable-card .ux-flippable-card-front {
 ux-flippable-card .ux-flippable-card-back {
   transform: rotateY(-180deg);
 }
-ux-progressbar {
+ux-progress-bar {
   display: block;
-  height: 20px;
-  margin-bottom: 20px;
+  height: 22px;
   overflow: hidden;
   background-color: #f5f5f5;
   border-radius: 4px;
 }
-ux-progressbar .progressbar-track {
+ux-progress-bar .progressbar-track {
   float: left;
   width: 0;
   height: 100%;
@@ -16161,17 +16159,19 @@ ux-progressbar .progressbar-track {
   color: #fff;
   text-align: center;
   background-color: #7b63a3;
+  overflow: hidden;
   font-size: 14px;
   -webkit-transition: width .6s ease;
   -o-transition: width .6s ease;
   transition: width .6s ease;
 }
-ux-radiobutton {
+ux-radio-button {
   display: inline-block;
   margin-bottom: 5px;
   white-space: nowrap;
+  line-height: 0;
 }
-ux-radiobutton .ux-radio-button {
+ux-radio-button .ux-radio-button {
   display: inline-flex;
   color: transparent;
   font-family: 'hpe-icons';
@@ -16188,70 +16188,69 @@ ux-radiobutton .ux-radio-button {
   box-sizing: border-box;
   border-radius: 50%;
 }
-ux-radiobutton .ux-radio-button:before {
+ux-radio-button .ux-radio-button:before {
   content: "\f12c";
 }
-ux-radiobutton .ux-radio-button:focus {
+ux-radio-button .ux-radio-button:focus {
   outline: 1px dotted #2a2a2a;
 }
-ux-radiobutton:hover .ux-radio-button {
+ux-radio-button:hover .ux-radio-button {
   border: 2px solid #7b63a3;
 }
-ux-radiobutton:hover .ux-radio-button.ux-disabled {
+ux-radio-button:hover .ux-radio-button.ux-disabled {
   border: 1px solid #eee;
 }
-ux-radiobutton:hover .ux-radio-button.ux-simplified {
+ux-radio-button:hover .ux-radio-button.ux-simplified {
   color: #ccc;
   border-color: transparent;
   border-width: 1px;
 }
-ux-radiobutton:hover .ux-radio-button.ux-simplified.ux-disabled {
+ux-radio-button:hover .ux-radio-button.ux-simplified.ux-disabled {
   color: transparent;
 }
-ux-radiobutton:hover .ux-radio-button.ux-simplified.ux-checked {
+ux-radio-button:hover .ux-radio-button.ux-simplified.ux-checked {
   color: #7b63a3;
 }
-ux-radiobutton:hover .ux-radio-button.ux-simplified.ux-checked.ux-disabled {
+ux-radio-button:hover .ux-radio-button.ux-simplified.ux-checked.ux-disabled {
   color: #ccc;
 }
-ux-radiobutton input[type="radio"] {
+ux-radio-button input[type="radio"] {
   display: none;
 }
-ux-radiobutton .ux-radio-button.ux-checked {
+ux-radio-button .ux-radio-button.ux-checked {
   background-color: #7b63a3;
   color: #fff;
   border-color: transparent;
 }
-ux-radiobutton .ux-radio-button.ux-disabled {
+ux-radio-button .ux-radio-button.ux-disabled {
   border-color: #eee;
   cursor: default;
 }
-ux-radiobutton .ux-radio-button.disabled:focus {
+ux-radio-button .ux-radio-button.disabled:focus {
   outline: none;
 }
-ux-radiobutton .ux-radio-button.ux-disabled.ux-checked {
+ux-radio-button .ux-radio-button.ux-disabled.ux-checked {
   background-color: #eee;
 }
-ux-radiobutton .ux-radio-button.ux-simplified {
+ux-radio-button .ux-radio-button.ux-simplified {
   font-size: 20px;
   border-color: transparent;
   background-color: transparent;
 }
-ux-radiobutton .ux-radio-button.ux-simplified.ux-checked {
+ux-radio-button .ux-radio-button.ux-simplified.ux-checked {
   color: #7b63a3;
   background-color: transparent;
   border-color: transparent;
 }
-ux-radiobutton .ux-radio-button.ux-simplified.ux-disabled.ux-checked {
+ux-radio-button .ux-radio-button.ux-simplified.ux-disabled.ux-checked {
   color: #ccc;
 }
-ux-radiobutton .ux-radio-button-content {
+ux-radio-button .ux-radio-button-content {
   display: inline-block;
   margin-left: 7px;
   margin-top: 1px;
   white-space: normal;
-  vertical-align: bottom;
-  height: 24px;
+  vertical-align: top;
   cursor: default;
   line-height: 22px;
 }
@@ -16279,6 +16278,9 @@ ux-spark .ux-spark-line {
 ux-spark .ux-spark-inline-label-container {
   display: flex;
   align-items: center;
+}
+ux-spark .ux-spark-inline-label-container .ux-spark-top-container {
+  min-height: auto;
 }
 ux-spark .ux-spark-inline-label-left {
   flex: none;
@@ -16837,4 +16839,175 @@ ux-page-header-icon-menu .dropdown-menu .dropdown-header {
   margin: 4px;
   font-size: 1rem;
   cursor: default;
+}
+ux-slider {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+ux-slider .track {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+  background-color: #f2f2f2;
+  border-radius: 2px;
+}
+ux-slider .track.wide {
+  height: 12px;
+}
+ux-slider .track.narrow {
+  height: 4px;
+}
+ux-slider .track .track-section {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+ux-slider .track .track-section.track-lower {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+ux-slider .track .track-section.track-higher {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+ux-slider .track .thumb {
+  flex: none;
+  position: absolute;
+  cursor: pointer;
+}
+ux-slider .track .thumb .tooltip {
+  top: -37px;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  cursor: default;
+}
+ux-slider .track .thumb.button {
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 50%;
+  margin-top: -6px;
+  transform: translateX(-50%);
+}
+ux-slider .track .thumb.button:before {
+  content: ' ';
+  position: absolute;
+  height: 100%;
+}
+ux-slider .track .thumb.button.wide {
+  width: 24px;
+  height: 24px;
+}
+ux-slider .track .thumb.button.wide:before {
+  width: 30px;
+  transform: translateX(-14%);
+}
+ux-slider .track .thumb.button.narrow {
+  width: 16px;
+  height: 16px;
+}
+ux-slider .track .thumb.button.narrow:before {
+  width: 30px;
+  transform: translateX(-27%);
+}
+ux-slider .track .thumb.line {
+  width: 2px;
+  background-color: #333;
+  transform: translateX(-50%);
+}
+ux-slider .track .thumb.line:before {
+  content: ' ';
+  position: absolute;
+  height: 100%;
+  transform: translateX(-50%);
+}
+ux-slider .track .thumb.line.wide {
+  height: 18px;
+  margin-top: -3px;
+}
+ux-slider .track .thumb.line.wide:before {
+  width: 20px;
+}
+ux-slider .track .thumb.line.narrow {
+  height: 12px;
+  margin-top: -4px;
+}
+ux-slider .track .thumb.line.narrow:before {
+  width: 30px;
+}
+ux-slider .tick-container {
+  position: relative;
+  width: 100%;
+  min-height: 8px;
+  margin-top: 3px;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+ux-slider .tick-container.show-labels {
+  height: 25px;
+}
+ux-slider .tick-container .tick {
+  position: absolute;
+}
+ux-slider .tick-container .tick.major .tick-indicator {
+  height: 8px;
+}
+ux-slider .tick-container .tick.minor .tick-indicator {
+  height: 4px;
+  margin-bottom: 4px;
+}
+ux-slider .tick-container .tick .tick-indicator {
+  width: 1px;
+  margin-left: -0.5px;
+  background-color: #999;
+  top: 0;
+}
+ux-slider .tick-container .tick .tick-label {
+  cursor: default;
+  color: #666;
+  text-align: center;
+  transform: translateX(-50%);
+  font-size: 0.875rem;
+}
+ux-column-sorting .ux-column-sorting {
+  padding-left: 5px;
+  display: inline-block;
+  width: 36px;
+  height: 28px;
+  vertical-align: bottom;
+}
+ux-column-sorting .ux-column-sorting .ux-column-sorting-icon {
+  display: inline-block;
+  vertical-align: bottom;
+  vertical-align: -webkit-baseline-middle;
+}
+ux-column-sorting .ux-column-sorting .ux-column-sorting-number {
+  display: inline-block;
+  margin: 0;
+  color: #999;
+  opacity: 0;
+  transition: 0.5s;
+}
+ux-column-sorting .column-sorting-icon-hidden {
+  opacity: 0;
+}
+tr:hover th ux-column-sorting .ux-column-sorting-number {
+  opacity: 1;
+}
+.column-sorting-header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.column-sorting-header p {
+  margin-bottom: 0;
+  align-self: flex-end;
 }
