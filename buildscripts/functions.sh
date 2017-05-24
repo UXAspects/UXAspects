@@ -32,11 +32,11 @@ docker_image_build()
 # The container will run using the UID of the user executing the job.
 docker_image_run_detached()
 {
-    rootFolder=$1
+    localRootFolder=$1
     port=$2
     command=$3
     
-    echo ${FUNCNAME[0]} - rootFolder is $rootFolder
+    echo ${FUNCNAME[0]} - localRootFolder is $localRootFolder
     echo ${FUNCNAME[0]} - HttpProxy is $HttpProxy
     echo ${FUNCNAME[0]} - HttpsProxy is $HttpsProxy
     echo ${FUNCNAME[0]} - port is $port
@@ -47,7 +47,7 @@ docker_image_run_detached()
     if [ -z "$DOCKER_IMAGE_ID" ] ; then
         echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
     else
-        cd $rootFolder
+        cd $localRootFolder
         echo Calling docker run detached with command ... "$command"
         dockerCommand="docker run -d -it --cidfile=\"$PWD/ContainerID\" \
             --volume \"$PWD\":/workspace:rw --workdir /workspace \
@@ -68,10 +68,10 @@ docker_image_run_detached()
 # The container will run using the UID of the user executing the job.
 docker_image_run()
 {
-    rootFolder=$1
+    localRootFolder=$1
     command=$2
     
-    echo ${FUNCNAME[0]} - rootFolder is $rootFolder
+    echo ${FUNCNAME[0]} - localRootFolder is $localRootFolder
     echo ${FUNCNAME[0]} - command is $command
     
     DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
@@ -79,7 +79,7 @@ docker_image_run()
     if [ -z "$DOCKER_IMAGE_ID" ] ; then
         echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
     else
-        cd $rootFolder
+        cd $localRootFolder
         echo Calling docker run with command ... "$command"
         dockerCommand="docker run --rm --volume \"$PWD\":/workspace \
             --workdir /workspace \
@@ -115,7 +115,7 @@ wait_for_grid_hub_process_status_to_change()
     do
         command="/usr/sbin/fuser -n tcp "$port" 2> /dev/null"        
         echo ${FUNCNAME[0]} - command is $command        
-        PID_SELENIUM=`"$command"`
+        PID_SELENIUM=`$command`
         
         if [ "$processStatusAwaited" == "start" ] ; then
             if [ ! -z "$PID_SELENIUM" ] ; then
@@ -157,7 +157,7 @@ wait_for_grunt_connect_process_status_to_change()
     do
         command="/bin/fuser -n tcp "$port" 2> /dev/null"        
         echo ${FUNCNAME[0]} - command is $command        
-        PID_GRUNT_CONNECT=`"$command"`
+        PID_GRUNT_CONNECT=`$command`
         
         if [ "$processStatusAwaited" == "start" ] ; then
             if [ ! -z "$PID_GRUNT_CONNECT" ] ; then
