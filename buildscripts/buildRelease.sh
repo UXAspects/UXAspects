@@ -1,12 +1,13 @@
 #!/bin/bash
 set -e
 
+echo Moving to workspace
+cd $WORKSPACE
+
+source $PWD/buildscripts/functions.sh
+
 SELENIUM_TEST_MACHINE_USER=UXAspectsTestUser
 REMOTE_FOLDER=/home/$SELENIUM_TEST_MACHINE_USER/UXAspectsTestsReleaseBuild
-REMOTE_NPM_PACKAGE_FOLDER=/home/$SELENIUM_TEST_MACHINE_USER/npm
-
-UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
-UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.10.0
 
 echo Workspace is $WORKSPACE
 echo NextVersion is $NextVersion
@@ -19,55 +20,15 @@ echo BuildPackages is $BuildPackages
 echo PrivateArtifactoryURL is $PrivateArtifactoryURL
 echo BuildDocumentation is $BuildDocumentation
 echo GridHubIPAddress is $GridHubIPAddress
-echo NPMUserName is $NPMUserName
-echo NPMUserEmailAddress is $NPMUserEmailAddress
 echo Build number is $BUILD_NUMBER
 echo Build image is $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST
 echo SSH logon is $SELENIUM_TEST_MACHINE_USER@$GridHubIPAddress
 echo REMOTE_FOLDER is $REMOTE_FOLDER
-echo REMOTE_NPM_PACKAGE_FOLDER is $REMOTE_NPM_PACKAGE_FOLDER
 echo UID is $UID
 echo GROUPS is $GROUPS
 echo USER is $USER
 echo PWD is $PWD
 echo HOME is $HOME
-
-echo Moving to workspace
-cd $WORKSPACE
-
-# Define a function to build a specified Docker image.
-docker_image_build()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        # Create the docker image
-        cd $WORKSPACE/docker
-        echo Building the image
-        docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            --build-arg http_proxy=$HttpProxy \
-            --build-arg https_proxy=$HttpsProxy \
-            --build-arg no_proxy="localhost, 127.0.0.1" \
-            --no-cache .
-        DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-        echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    fi
-}
-
-# Define a function to run a specified Docker image. The job's workspace will be mapped to /workspace in the container.
-# The container will run using the UID of the user executing the job.
-docker_image_run()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
-    else
-        echo Calling docker run ... "$@"
-        docker run --rm --volume "$PWD":/workspace --workdir /workspace --user \
-                $UID:$GROUPS $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "$@"
-    fi
-}
 
 # Get ID of latest commit to develop branch
 latestDevelopCommitID=`git rev-parse HEAD`
@@ -119,12 +80,12 @@ if [ "$RunTests" == "true" ]; then
 fi
 
 # Create the latest ux-aspects-build image if it does not exist
-docker_image_build; echo
+docker_image_build "$WORKSPACE/docker"; echo
 
 if [ "$RunTests" == "true" ]; then
     echo Executing the unit tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
     chmod a+rw .
-    docker_image_run bash buildscripts/executeUnitTestsDocker.sh
+    docker_image_run "$WORKSPACE" "bash buildscripts/executeUnitTestsDocker.sh"
 
     # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
     # ignore unwanted strings.
@@ -182,13 +143,13 @@ if [ "$RunTests" == "true" ]; then
 
     # Test whether there were any skipped or failed tests. If there were, return status 1.
     numberOfSkipped=$(echo 'cat //testng-results/@skipped' | xmllint --shell \
-    $WORKSPACE/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
+        $WORKSPACE/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
     numberOfFailures=$(echo 'cat //testng-results/@failed' | xmllint --shell \
-    $WORKSPACE/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
+        $WORKSPACE/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
     totalNumber=$(echo 'cat //testng-results/@total' | xmllint --shell \
-    $WORKSPACE/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
+        $WORKSPACE/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
     numberOfPassed=$(echo 'cat //testng-results/@passed' | xmllint --shell \
-    $WORKSPACE/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
+        $WORKSPACE/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
 
     echo numberOfSkipped = $numberOfSkipped
     echo numberOfFailures = $numberOfFailures
@@ -256,9 +217,9 @@ cp -p -r ux-aspects-hpe-master/styles $WORKSPACE/src
 popd
 
 # Update JSON files with the new version number
-docker_image_run bash buildscripts/updateVersionNumbers.sh $NextVersion
+docker_image_run "$WORKSPACE" "bash buildscripts/updateVersionNumbers.sh $NextVersion"
 
-# Recoed the product name read from bower.json
+# Record the product name read from bower.json
 bowerName=$(<"$PWD/bowerName.txt")
 echo "Bower name = $bowerName"
 rm -f bowerName.txt
@@ -267,10 +228,10 @@ rm -f bowerName.txt
 echo
 echo Building using the HPE theme
 echo Run npm install
-docker_image_run npm install
+docker_image_run "$WORKSPACE" "npm install"
 echo Building
-docker_image_run grunt clean
-docker_image_run grunt build --force
+docker_image_run "$WORKSPACE" "grunt clean"
+docker_image_run "$WORKSPACE" "grunt build --force"
 
 # Archive the HPE-themed documentation files
 echo
@@ -328,9 +289,9 @@ cp -p -r $WORKSPACE/KeppelThemeFiles/* $WORKSPACE/src
 # Build using the Keppel theme
 echo
 echo Building using the Keppel theme
-docker_image_run grunt clean
+docker_image_run "$WORKSPACE" "grunt clean"
 rm -rf dist
-docker_image_run grunt build --force
+docker_image_run "$WORKSPACE" "grunt build --force"
 
 # Archive the Keppel-themed documentation files
 echo
@@ -370,7 +331,7 @@ if [ "$BuildDocumentation" == "true" ]; then
     mkdir $NextVersion
     pushd $NextVersion
     tar xvf $WORKSPACE/$NextVersion-docs-gh-pages-Keppel.tar.gz
-    popd; popd; popd
+    popd
 
     # Push the new files to the branch
     echo
@@ -378,6 +339,7 @@ if [ "$BuildDocumentation" == "true" ]; then
     git add $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js
     git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest develop commit ID is $latestDevelopCommitID."
     git push origin $NextVersion-gh-pages-test
+    popd; popd
 fi
 
 if [ "$BuildPackages" == "true" ]; then

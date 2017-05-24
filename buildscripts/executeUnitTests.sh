@@ -1,7 +1,7 @@
 #!/bin/bash
 
-UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
-UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.10.0
+cd $WORKSPACE/ux-aspects
+source $PWD/buildscripts/functions.sh
 
 echo
 echo
@@ -22,48 +22,6 @@ echo Displaying groups
 groups
 echo Displaying id
 id
-
-# Define a function to build a specified Docker image.
-docker_image_build()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        # Create the docker image
-        cd $WORKSPACE/ux-aspects/docker
-        echo Building the image
-        docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            --build-arg http_proxy=$HttpProxy \
-            --build-arg https_proxy=$HttpsProxy \
-            --build-arg no_proxy="localhost, 127.0.0.1" \
-            --no-cache .
-        DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-        echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    fi
-}
-
-# Define a function to run a specified Docker image. The job's workspace will be mapped to /workspace in the container.
-# The container will run using the UID of the user executing the job.
-docker_image_run()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
-    else
-        echo Calling docker run ... "$@"
-        docker run --rm --volume "$PWD":/workspace --workdir /workspace \
-		    --user $UID:$GROUPS $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "$@"
-    fi
-}
-
-cd $WORKSPACE/ux-aspects
-
-# Ensure files match those in origin/develop. First remove untracked files (except those in .gitignore)
-git clean -f
-# Then reset any changed, tracked files
-git fetch --all
-git reset --hard origin/develop
 
 # Start creation of the test results file. The file will contain some styling settings needed for display of the results of the unit tests.
 echo Starting creation of the results file
@@ -93,18 +51,22 @@ echo "<h2>" >> UXAspectsTestsResults.html
 date -u >> UXAspectsTestsResults.html
 echo "</h2></br>" >> UXAspectsTestsResults.html
 
-# Remove old image
-docker_image_remove $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_0_10_0; echo
-
-# Create the latest ux-aspects-build image if it does not exist
-docker_image_build; echo
+# Create the latest elements-build image if it does not exist
+docker_image_build "$WORKSPACE/ux-aspects/docker"; echo
 
 echo Executing the unit tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
 cd $WORKSPACE/ux-aspects
 chmod a+rw .
+# ls -al
+# echo Objects under dist
+# ls -alR dist
+# echo Directories containing root
+# find . -type d -exec ls -ld {} \; | grep root
+# echo Files containing root
+# ls -alR | grep root
 date -u > $WORKSPACE/ux-aspects/BeforeUnitTestsStarted
 ls -al BeforeUnitTestsStarted
-docker_image_run bash buildscripts/executeUnitTestsDocker.sh; echo
+docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/executeUnitTestsDocker.sh"; echo
 
 # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
 # ignore unwanted strings.
@@ -132,96 +94,17 @@ cp index.html $WORKSPACE/reports/index.html
 mkdir -p $WORKSPACE/ux-aspects/reports
 cp UXAspectsTestsResults.html reports/index.html
 
+# echo Listing WORKSPACE
+# ls -alR $WORKSPACE
+# echo Listing /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
+# ls -alR /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
+
 # Test for success i.e. zero failures. If there were failures, exit with status 1.
 if grep -q  ">> 0 failures" UnitTestResults.txt;
 then
     echo Unit tests passed
+    exit 0
 else
     echo "Unit test(s) failed"
     exit 1
 fi
-
-# Clear up previous documentation builds
-rm -rf $WORKSPACE/ux-aspects/KeppelThemeFiles
-rm -rf $WORKSPACE/ux-aspects/HPEThemeFiles
-rm -rf $WORKSPACE/ux-aspects/docs-gh-pages-HPE
-rm -rf $WORKSPACE/ux-aspects/docs-gh-pages-Keppel
-rm -f $WORKSPACE/ux-aspects/docs-gh-pages-HPE.tar.gz
-rm -f $WORKSPACE/ux-aspects/docs-gh-pages-Keppel.tar.gz
-
-# Take a copy of the files which will be overwritten by the HPE theme files
-echo
-echo Storing the Keppel theme files
-mkdir $WORKSPACE/ux-aspects/KeppelThemeFiles
-cp -p -r $WORKSPACE/ux-aspects/src/fonts $WORKSPACE/ux-aspects/KeppelThemeFiles
-cp -p -r $WORKSPACE/ux-aspects/src/img $WORKSPACE/ux-aspects/KeppelThemeFiles
-cp -p -r $WORKSPACE/ux-aspects/src/styles $WORKSPACE/ux-aspects/KeppelThemeFiles
-
-# Get the HPE theme files and copy them onto the source hierarchy
-echo
-echo Getting the HPE theme files
-mkdir $WORKSPACE/ux-aspects/HPEThemeFiles
-cd $WORKSPACE/ux-aspects/HPEThemeFiles
-curl -L -S -s https://github.hpe.com/caf/ux-aspects-hpe/archive/master.zip > HPETheme.zip
-unzip -o HPETheme.zip
-cp -p -r ux-aspects-hpe-master/fonts ../src
-cp -p -r ux-aspects-hpe-master/img ../src
-cp -p -r ux-aspects-hpe-master/styles ../src
-
-# Build using the HPE theme
-echo Build using the HPE theme
-cd $WORKSPACE/ux-aspects
-buildFailed="false"
-bash buildscripts/buildTheme.sh "HPE"
-if [ $? -ne 0 ]; then
-    echo Building of HPE theme failed with error $?
-    buildFailed="true"
-fi
-
-# Remove the HPE theme files
-echo
-echo Deleting the HPE theme files
-rm -rf $WORKSPACE/ux-aspects/src/fonts
-rm -rf $WORKSPACE/ux-aspects/src/img
-rm -rf $WORKSPACE/ux-aspects/src/styles
-
-# Copy back the Keppel theme files
-echo
-echo Restoring the Keppel theme files
-cp -p -r $WORKSPACE/ux-aspects/KeppelThemeFiles/* $WORKSPACE/ux-aspects/src
-if [ "$buildFailed" == "true" ]; then
-    echo HPE-themed build failed
-	exit 1;
-fi
-
-# Build using the Keppel theme
-echo
-echo Build using the Keppel theme
-cd $WORKSPACE/ux-aspects
-bash buildscripts/buildTheme.sh "Keppel"
-if [ $? -ne 0 ]; then
-    echo Keppel-themed build failed
-	exit 1;
-fi
-
-# Update the HPE theme respository
-echo
-echo Update the HPE theme respository
-cd $WORKSPACE/ux-aspects
-bash buildscripts/updateSEPGRepository.sh "HPE"
-if [ $? -ne 0 ]; then
-    echo Update of HPE-themed repository failed
-	exit 1;
-fi
-
-# Update the Keppel theme respository
-echo
-echo Update the Keppel theme respository
-cd $WORKSPACE/ux-aspects
-bash buildscripts/updateSEPGRepository.sh "Keppel"
-if [ $? -ne 0 ]; then
-    echo Update of Keppel-themed repository failed
-	exit 1;
-fi
-
-exit 0
