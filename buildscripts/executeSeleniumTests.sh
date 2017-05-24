@@ -1,7 +1,10 @@
 #!/bin/bash
 
-UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
-UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.9.0
+rootFolder="/home/UXAspectsTestUser"
+echo rootFolder is $rootFolder
+
+cd $rootFolder/ux-aspects
+source $PWD/buildscripts/functions.sh
 
 echo Workspace is $WORKSPACE
 echo HttpProxy is $HttpProxy
@@ -18,85 +21,14 @@ groups
 echo Displaying id
 id
 
-HOME_FOLDER="/home/UXAspectsTestUser"
-echo HOME_FOLDER is $HOME_FOLDER
-
-# Define a function to build a specified Docker image.
-docker_image_build()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        # Create the docker image
-        cd $HOME_FOLDER/ux-aspects/docker
-        echo Building the image
-        docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            --build-arg http_proxy=$HttpProxy \
-            --build-arg https_proxy=$HttpsProxy \
-            --build-arg no_proxy="localhost, 127.0.0.1" \
-            --no-cache .
-        DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-        echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    fi
-}
-
-# Define a function to run a specified Docker image. The job's workspace will be mapped to /workspace in the container.
-# The container will run using the UID of the user executing the job.
-docker_image_run()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
-    else
-        echo Calling docker run ... "$@"
-        docker run -d -it \
-            --cidfile="$PWD/ContainerID" \
-            --volume "$PWD":/workspace:rw --workdir /workspace \
-            --user $UID:$GROUPS \
-            -e "http_proxy=$HttpProxy" \
-            -e "https_proxy=$HttpsProxy" \
-            -e "no_proxy=localhost, 127.0.0.1" \
-            -p 4000:4000 \
-            $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            "$@"
-    fi
-}
-
-# Define a function which loops while waiting for the Selenium Grid hub process to start or finish
-wait_for_grid_hub_process_status_to_change()
-{
-    processCheckDelay=$1
-    processStatusAwaited=$2
-    
-    echo wait_for_grid_hub_process_status_to_change - processCheckDelay = $processCheckDelay
-    echo wait_for_grid_hub_process_status_to_change - processStatusAwaited = $processStatusAwaited
-    
-    while :
-    do
-        PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
-        if [ "$processStatusAwaited" == "start" ] ; then
-            if [ ! -z "$PID_SELENIUM" ] ; then
-                echo Selenium Grid hub process has started
-                break;
-            fi
-        else
-            if [ -z "$PID_SELENIUM" ] ; then
-                echo Selenium Grid hub process has finished
-                break;
-            fi
-        fi
-        
-        echo Sleeping for $processCheckDelay seconds
-        sleep $processCheckDelay
-    done
-}
+hubProcessPort=4444
+echo hubProcessPort is $hubProcessPort
 
 # Get the build number
-buildNumber="`head -1 $HOME_FOLDER/ux-aspects/buildscripts/build`"
+buildNumber="`head -1 $rootFolder/ux-aspects/buildscripts/build`"
 if [ -z "$buildNumber" ]
 then
-    buildNumber="`head -1 $HOME_FOLDER/ux-aspects/jenkins/build`"
+    buildNumber="`head -1 $rootFolder/ux-aspects/jenkins/build`"
     if [ -z "$buildNumber" ]
     then
         echo Build number not set
@@ -108,12 +40,12 @@ else
 fi
 
 # Update connect.js to allow building of the documentation. Publish on port 4000.
-cd $HOME_FOLDER/ux-aspects
+cd $rootFolder/ux-aspects
 sed -i.bak 's/hostname: '"'"'localhost'"'"'/hostname: '"'"'0.0.0.0'"'"'/' grunt/connect.js
 sed -i.bak 's/livereload: true/livereload: false/g' grunt/connect.js
 
 # Create the latest ux-aspects-build image if it does not exist
-docker_image_build; echo
+docker_image_build "$rootFolder/ux-aspects/docker"; echo
 echo Executing the Selenium tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
 
 # Remove any ContainerID file left behind by the previous container
@@ -138,7 +70,7 @@ fi
 
 # Create a new container which will build the new web service
 echo Starting new container
-docker_image_run bash buildscripts/executeSeleniumTestsDocker.sh &
+docker_image_run_detached "$rootFolder/ux-aspects" 4000 "bash buildscripts/executeSeleniumTestsDocker.sh &"
 
 # Loop until the container has been created
 containerIDCheckDelay=5
@@ -176,27 +108,29 @@ done
 
 # Kill any process using port 4444 (the Selenium Grid hub process)
 echo Kill any existing Selenium Grid hub process
-PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
+command="/usr/sbin/fuser -n tcp "$hubProcessPort" 2> /dev/null"
+echo command is $command
+PID_SELENIUM=`$command`
 echo Old Selenium Grid hub process ID is $PID_SELENIUM
 if [ ! -z "$PID_SELENIUM" ] ; then
     echo "Killing existing Selenium Grid hub process" ; kill -9 $PID_SELENIUM ;
     # Loop until the old process is gone
-    wait_for_grid_hub_process_status_to_change 1 "finish"
+    wait_for_grid_hub_process_status_to_change 1 "finish" $hubProcessPort
 fi
 
 echo Start the new Selenium Grid hub process
-cd $HOME_FOLDER/ux-aspects/configuration
-java -jar $HOME_FOLDER/ux-aspects/Selenium/selenium-server-standalone-3.3.1.jar -role hub -hubConfig hub/hubConfig.json &
+cd $rootFolder/ux-aspects/configuration
+java -jar $rootFolder/ux-aspects/Selenium/selenium-server-standalone-3.3.1.jar -role hub -hubConfig hub/hubConfig.json &
 # Loop until the new process has started
-wait_for_grid_hub_process_status_to_change 1 "start"
+wait_for_grid_hub_process_status_to_change 1 "start" $hubProcessPort
 
 # Run the tests
 echo Running the tests
-cd $HOME_FOLDER/ux-aspects
+cd $rootFolder/ux-aspects
 mvn test
 
 # Create the file indicating to the container that the tests have finished
-PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
+PID_SELENIUM=`/usr/sbin/fuser -n tcp $hubProcessPort 2> /dev/null`
 echo $PID_SELENIUM > "$PWD/GridHubFinished"
 
 # Kill and remove the container
@@ -218,11 +152,11 @@ echo Kill the Selenium Grid hub process
 if [ ! -z "$PID_SELENIUM" ] ; then
     echo "Killing the Selenium Grid hub process" ; kill -9 $PID_SELENIUM ;
     # Loop until the old process is gone
-    wait_for_grid_hub_process_status_to_change 1 "finish"
+    wait_for_grid_hub_process_status_to_change 1 "finish" $hubProcessPort
 fi
 
 # Create the results file
-cd $HOME_FOLDER/ux-aspects
+cd $rootFolder/ux-aspects
 
 # Create file containing the time the file was created, for debugging
 echo Before date -u
@@ -263,22 +197,22 @@ while read line ; do
     echo "$line" >> UXAspectsTestsResults.html
 done < xx01
 
-rm -f $HOME_FOLDER/index.html $HOME_FOLDER/ux-aspects/index.html $HOME_FOLDER/testng-results.xml $HOME_FOLDER/ux-aspects/testng-results.xml
-cp UXAspectsTestsResults.html $HOME_FOLDER/index.html
-cp UXAspectsTestsResults.html $HOME_FOLDER/ux-aspects/index.html
-cp target/surefire-reports/testng-results.xml $HOME_FOLDER/testng-results.xml
-cp target/surefire-reports/testng-results.xml $HOME_FOLDER/ux-aspects/testng-results.xml
+rm -f $rootFolder/index.html $rootFolder/ux-aspects/index.html $rootFolder/testng-results.xml $rootFolder/ux-aspects/testng-results.xml
+cp UXAspectsTestsResults.html $rootFolder/index.html
+cp UXAspectsTestsResults.html $rootFolder/ux-aspects/index.html
+cp target/surefire-reports/testng-results.xml $rootFolder/testng-results.xml
+cp target/surefire-reports/testng-results.xml $rootFolder/ux-aspects/testng-results.xml
 
 echo Before reading results
-cd $HOME_FOLDER
+cd $rootFolder
 numberOfSkipped=$(echo 'cat //testng-results/@skipped' | xmllint --shell \
-$HOME_FOLDER/ux-aspects/target/surefire-reports/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
+    $rootFolder/ux-aspects/target/surefire-reports/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
 numberOfFailures=$(echo 'cat //testng-results/@failed' | xmllint --shell \
-$HOME_FOLDER/ux-aspects/target/surefire-reports/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
+    $rootFolder/ux-aspects/target/surefire-reports/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
 totalNumber=$(echo 'cat //testng-results/@total' | xmllint --shell \
-$HOME_FOLDER/ux-aspects/target/surefire-reports/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
+    $rootFolder/ux-aspects/target/surefire-reports/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
 numberOfPassed=$(echo 'cat //testng-results/@passed' | xmllint --shell \
-$HOME_FOLDER/ux-aspects/target/surefire-reports/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
+    $rootFolder/ux-aspects/target/surefire-reports/testng-results.xml  | awk -F'[="]' '!/>/{print $(NF-1)}')
 
 echo numberOfSkipped = $numberOfSkipped
 echo numberOfFailures = $numberOfFailures

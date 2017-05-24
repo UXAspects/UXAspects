@@ -2,8 +2,8 @@
 set -e
 
 NextVersion=$1
-echo "$0" - NextVersion is $NextVersion
-echo "$0" - PWD is $PWD
+echo ${FUNCNAME[0]} - NextVersion is $NextVersion
+echo ${FUNCNAME[0]} - PWD is $PWD
 
 # Read the bower.json name attribute
 bn=`jq '.name' bower.json`

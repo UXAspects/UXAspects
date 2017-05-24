@@ -1,7 +1,10 @@
 #!/bin/bash
 
-UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
-UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.9.0
+rootFolder="/home/UXAspectsTestUser/UXAspectsTestsReleaseBuild"
+echo rootFolder is $rootFolder
+
+cd $rootFolder/ux-aspects
+source $PWD/buildscripts/functions.sh
 
 echo Workspace is $WORKSPACE
 echo HttpProxy is $HttpProxy
@@ -18,79 +21,10 @@ groups
 echo Displaying id
 id
 
-HOME_FOLDER="/home/UXAspectsTestUser/UXAspectsTestsReleaseBuild"
-echo HOME_FOLDER is $HOME_FOLDER
-
-# Define a function to build a specified Docker image.
-docker_image_build()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        # Create the docker image
-        cd $HOME_FOLDER/ux-aspects/docker
-        echo Building the image
-        docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            --build-arg http_proxy=$HttpProxy \
-            --build-arg https_proxy=$HttpsProxy \
-            --build-arg no_proxy="localhost, 127.0.0.1" \
-            --no-cache .
-        DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-        echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    fi
-}
-
-# Define a function to run a specified Docker image. The job's workspace will be mapped to /workspace in the container.
-# The container will run using the UID of the user executing the job.
-docker_image_run()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
-    else
-        echo Calling docker run ... "$@"
-        docker run -d -it \
-            --cidfile="$PWD/ContainerIDReleaseBuild" \
-            --volume "$PWD":/workspace:rw --workdir /workspace \
-            --user $UID:$GROUPS \
-            -e "http_proxy=$HttpProxy" \
-            -e "https_proxy=$HttpsProxy" \
-            -e "no_proxy=localhost, 127.0.0.1" \
-            -p 4001:4001 \
-            $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            "$@"
-    fi
-}
-
-# Define a function which loops while waiting for the Selenium Grid hub process to start or finish
-wait_for_grid_hub_process_status_to_change()
-{
-    processCheckDelay=$1
-    processStatusAwaited=$2
-    
-    echo wait_for_grid_hub_process_status_to_change - processCheckDelay = $processCheckDelay
-    echo wait_for_grid_hub_process_status_to_change - processStatusAwaited = $processStatusAwaited
-    
-    while :
-    do
-        PID_SELENIUM=`/usr/sbin/fuser -n tcp 4445 2> /dev/null`
-        if [ "$processStatusAwaited" == "start" ] ; then
-            if [ ! -z "$PID_SELENIUM" ] ; then
-                echo Selenium Grid hub process has started
-                break;
-            fi
-        else
-            if [ -z "$PID_SELENIUM" ] ; then
-                echo Selenium Grid hub process has finished
-                break;
-            fi
-        fi
-        
-        echo Sleeping for $processCheckDelay seconds
-        sleep $processCheckDelay
-    done
-}
+hubProcessPort=4445
+echo hubProcessPort is $hubProcessPort
+documentationPort=4001
+echo documentationPort is $documentationPort
 
 echo Before changing to ux-aspects folder
 echo PWD IS $PWD
@@ -98,17 +32,17 @@ echo Listing this folder
 ls -al
 echo Listing the ux-aspects folder
 ls -al ux-aspects
-echo Listing the $HOME_FOLDER/ux-aspects folder
-ls -al $HOME_FOLDER/ux-aspects
-cd $HOME_FOLDER/ux-aspects
+echo Listing the $rootFolder/ux-aspects folder
+ls -al $rootFolder/ux-aspects
+cd $rootFolder/ux-aspects
 
 # Update testng.xml to use the correct ports for testing of the release build
 echo Updating testng.xml
-sed -i.bak 's/4000/4001/g' testng.xml    # Documentation wil be published on port 4001
-sed -i.bak 's/4444/4445/g' testng.xml    # The Selenium Grid hub process will use port 4445
+sed -i.bak 's/4000/$documentationPort/g' testng.xml    # Documentation wil be published on port 4001
+sed -i.bak 's/4444/$hubProcessPort/g' testng.xml       # The Selenium Grid hub process will use port 4445
 
 # Create the latest ux-aspects-build image if it does not exist
-docker_image_build; echo
+docker_image_build "$rootFolder/ux-aspects/docker"; echo
 echo Executing the Selenium tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
 
 # Remove any ContainerID file left behind by the previous container
@@ -133,7 +67,7 @@ fi
 
 # Create a new container which will build the new web service
 echo Starting new container
-docker_image_run bash buildscripts/executeSeleniumTestsReleaseBuildDocker.sh &
+docker_image_run_detached "$rootFolder/ux-aspects" $documentationPort "bash buildscripts/executeSeleniumTestsReleaseBuildDocker.sh &"
 
 # Loop until the container has been created
 containerIDCheckDelay=5
@@ -171,28 +105,33 @@ done
 
 # Kill any process using port 4445 (the Selenium Grid hub process) and start a new process
 echo Kill any existing Selenium Grid hub process
-PID_SELENIUM=`/usr/sbin/fuser -n tcp 4445 2> /dev/null`
+command="/usr/sbin/fuser -n tcp "$hubProcessPort" 2> /dev/null"
+echo command is $command
+PID_SELENIUM=`"$command"`
 echo Old Selenium Grid hub process ID is $PID_SELENIUM
 if [ ! -z "$PID_SELENIUM" ] ; then
     echo "Killing existing Selenium Grid hub process" ; kill -9 $PID_SELENIUM ;
     # Loop until the old process is gone
-    wait_for_grid_hub_process_status_to_change 1 "finish"
+    wait_for_grid_hub_process_status_to_change 1 "finish" $hubProcessPort
 fi
 
 echo Start the new Selenium Grid hub process
-cd $HOME_FOLDER/ux-aspects
+cd $rootFolder/ux-aspects
 rm -rf target
-cd $HOME_FOLDER/ux-aspects/configuration
-java -jar /home/UXAspectsTestUser/ux-aspects/Selenium/selenium-server-standalone-3.3.1.jar -role hub -hubConfig hub/hubConfigReleaseBuild.json &
-wait_for_grid_hub_process_status_to_change 1 "start"
+cd $rootFolder/ux-aspects/configuration
+java -jar /home/UXAspectsTestUser/ux-aspects/Selenium/selenium-server-standalone-3.3.1.jar -role hub \
+    -hubConfig hub/hubConfigReleaseBuild.json &
+wait_for_grid_hub_process_status_to_change 1 "start" $hubProcessPort
 
 echo Started the Selenium Grid hub process
-PID_SELENIUM=`/usr/sbin/fuser -n tcp 4445 2> /dev/null`
+command="/usr/sbin/fuser -n tcp "$hubProcessPort" 2> /dev/null"
+echo command is $command
+PID_SELENIUM=`"$command"`
 echo New Selenium Grid hub process ID is $PID_SELENIUM
 
 # Run the tests
 echo Running the tests
-cd $HOME_FOLDER/ux-aspects
+cd $rootFolder/ux-aspects
 mvn test
 
 # Create the file indicating to the container that the tests have finished
@@ -216,7 +155,7 @@ echo Kill the Selenium Grid hub process
 if [ ! -z "$PID_SELENIUM" ] ; then
     echo "Killing the Selenium Grid hub process" ; kill -9 $PID_SELENIUM ;
     # Loop until the old process is gone
-    wait_for_grid_hub_process_status_to_change 1 "finish"
+    wait_for_grid_hub_process_status_to_change 1 "finish" $hubProcessPort
 fi
 
 echo Before sleep
