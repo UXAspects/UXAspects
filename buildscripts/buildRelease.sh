@@ -370,7 +370,7 @@ if [ "$BuildDocumentation" == "true" ]; then
     mkdir $NextVersion
     pushd $NextVersion
     tar xvf $WORKSPACE/$NextVersion-docs-gh-pages-Keppel.tar.gz
-    popd; popd; popd
+    popd
 
     # Push the new files to the branch
     echo
@@ -378,6 +378,7 @@ if [ "$BuildDocumentation" == "true" ]; then
     git add $NextVersion/ assets/ docs/ modules/ showcase/ *.css *.html *.ico *.js
     git commit -a -m "Committing documentation changes for $NextVersion-gh-pages-test. Latest develop commit ID is $latestDevelopCommitID."
     git push origin $NextVersion-gh-pages-test
+    popd; popd
 fi
 
 if [ "$BuildPackages" == "true" ]; then
