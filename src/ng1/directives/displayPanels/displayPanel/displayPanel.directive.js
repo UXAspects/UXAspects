@@ -69,13 +69,18 @@ export default function displayPanel($templateRequest, $q, $compile, $timeout, $
 
                 if ($displayPanel.panelOpen() && !$displayPanel.panelHidden() && angular.element(target).closest(".display-panel").length < 1) {
 
+                    // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
+                    if (target.nodeName === 'HTML') {
+                        return;
+                    }
+
                     var closePanel = true;
-                    while (target.nodeName !== "BODY") {
+                    while (target && target.nodeName !== "BODY") {
                         if (isDisplayPanelItem(target)) {
                             closePanel = false;
                             break;
                         } else {
-                            target = target.parentNode;
+                            target = target.parentElement;
                         }
                     }
 
