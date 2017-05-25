@@ -27,33 +27,5 @@
     "bootstrap": "~3.3.4",
     "angular": "~1.3.16"
   },
-  "ignore": [
-    ".*",
-    "buildscripts",
-    "configs",
-    "configuration",
-    "docs",
-    "docker",
-    "grunt",
-    "guides",
-    "node_modules",
-    "reports",
-    "scripts",
-    "src",
-    "Gruntfile.js",
-    "README.md",
-    "package.json",
-    ".jshintrc",
-    "index.html",
-    "pom.xml",
-    "testng.xml",
-    "testng-results.xml",
-    "UnitTestResults.txt",
-    "emailable-report.html",
-    "ExecutingUnitTests",
-    "INT-CONTRIBUTING.md",
-    "tsconfig.json",
-    "tslint.json",
-    "UNIT-TESTS.md"
-  ]
+  "ignore": []
 }
