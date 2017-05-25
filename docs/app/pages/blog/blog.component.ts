@@ -23,6 +23,20 @@ export class BlogPageComponent {
     constructor(private domSanitizer: DomSanitizer) {
 
         this.posts = [{
+            title: 'Angular Productivity',
+            author: 'Ashley Hunter',
+            category: 'Technical',
+            datestamp: 'May 25th',
+            content: require('./posts/2017-05-25-Angular-Productivity.md')
+        },
+        {
+            title: 'Bundle Optimization',
+            author: 'Ashley Hunter',
+            category: 'Technical',
+            datestamp: 'May 25th',
+            content: require('./posts/2017-05-25-Bundle-Optimization.md')
+        },
+        {
             title: 'Custom Validation Functions',
             author: 'Gavin Neeson',
             category: 'Technical',
