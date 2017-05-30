@@ -8,11 +8,9 @@ import 'chance';
 })
 export class AppComponent {
 
+
     visible: boolean = false;
-    title: string = '';
-    top: number = 0;
-    main: string = '';
-    selected: number = 0;
+    selectedItem: Item;
     previousEnabled: boolean = true;
     nextEnabled: boolean = true;
     
@@ -50,8 +48,7 @@ export class AppComponent {
         active: false,
         panel: {
             title: 'Site Detail - UX Aspects (PPT)',
-            main: this.ppt,
-            top: 53
+            content: this.ppt
         }
     }, {
         id: 2,
@@ -63,8 +60,7 @@ export class AppComponent {
         active: true,
         panel: {
             title: 'Site Detail - UX Aspects (PDF)',
-            main: this.pdf,
-            top: 53
+            content: this.pdf
         }
     }, {
         id: 3,
@@ -76,8 +72,7 @@ export class AppComponent {
         active: false,
         panel: {
             title: 'Site Detail - UX Aspects (DOC)',
-            main: this.doc,
-            top: 53
+            content: this.doc
         }
     }, {
         id: 4,
@@ -89,8 +84,7 @@ export class AppComponent {
         active: true,
         panel: {
             title: 'Site Detail - UX Aspects (PDF)',
-            main: this.pdf,
-            top: 53
+            content: this.pdf
         }
     }, {
         id: 5,
@@ -102,8 +96,7 @@ export class AppComponent {
         active: false,
         panel: {
             title: 'Site Detail - UX Aspects (DOC)',
-            main: this.doc,
-            top: 53
+            content: this.doc
         }
     }];
 
@@ -112,36 +105,34 @@ export class AppComponent {
         this.sparkBarColor = colorService.getColor('accent').toHex();
     }
 
-    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, id: number) {
+    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item) {
         $event.stopPropagation();
-        this.selected = id;
+        this.selectedItem = item;
         this.updatePanel();
         panel.show();
     }
 
     previous() {
-        this.selected--;
+        let id = this.selectedItem.id - 1;
+        this.selectedItem = this.items[id - 1];
         this.updatePanel();
     }
 
     next() {
-        this.selected++;
+        let id = this.selectedItem.id + 1;
+        this.selectedItem = this.items[id - 1];
         this.updatePanel();
     }
 
     updatePanel() {
-        this.title = this.items[this.selected - 1].panel.title;
-        this.top = this.items[this.selected - 1].panel.top;
-        this.main = this.items[this.selected - 1].panel.main;
-        this.selected = this.items[this.selected - 1].id;
 
-        if (this.selected < 5) {
+        if (this.selectedItem.id < 5) {
             this.nextEnabled = true;
         } else {
             this.nextEnabled = false;
         }
 
-        if (this.selected > 1) {
+        if (this.selectedItem.id > 1) {
             this.previousEnabled = true;
         } else {
             this.previousEnabled = false;
@@ -161,9 +152,7 @@ interface Item {
     panel: Panel;
 }
 
-
 interface Panel {
     title: string;
-    main: string;
-    top: number;
+    content: string;
 }
