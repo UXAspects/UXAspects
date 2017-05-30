@@ -2,8 +2,14 @@ import { ItemDisplayPanelComponent, ItemDisplayPanelContentDirective, ItemDispla
 import { NgModule, Input } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
+const DECLARATIONS = [
+    ItemDisplayPanelComponent,
+    ItemDisplayPanelContentDirective,
+    ItemDisplayPanelFooterDirective
+];
+
 @NgModule({
-    exports: [ItemDisplayPanelComponent, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective],
-    declarations: [ItemDisplayPanelComponent, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective]
+    exports: DECLARATIONS,
+    declarations: DECLARATIONS
 })
 export class ItemDisplayPanelModule {}

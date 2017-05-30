@@ -1,6 +1,4 @@
-import { Component, Directive, Input, SimpleChange } from '@angular/core';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { Observable } from 'rxjs/Observable';
+import { Component, Directive, Input, SimpleChange, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'ux-item-display-panel',
@@ -18,6 +16,8 @@ export class ItemDisplayPanelComponent {
     @Input() title: string;
     @Input() animate: boolean;
 
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     height: string;
 
     ngOnChanges(changes: {[top: number]: SimpleChange}) {
@@ -30,14 +30,19 @@ export class ItemDisplayPanelComponent {
         if (this.visible) {
             let target = event.target;
 
+            // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
+            if (target.nodeName === 'HTML') {
+                return;
+            }
+
             let hidePanel = true;
 
-            while (target.nodeName !== 'BODY') {
+            while (target && target.nodeName !== 'BODY') {
                 if (target.classList.contains('ux-item-display-panel')) {
                     hidePanel = false;
                     break;
                 } else {
-                    target = target.parentNode;
+                    target = target.parentElement;
                 }
             }
 
@@ -47,19 +52,18 @@ export class ItemDisplayPanelComponent {
         }
     }
 
-    show(event: MouseEvent) {
-        
-        event.stopPropagation();
+    show() {
+        this.visible = true;
 
-        if (!this.visible) {
-            this.visible = true;
-        }
+        // update the two way binding
+        this.visibleChange.emit(this.visible);
     }
 
     hide() {
-        if (this.visible) {
-            this.visible = false;
-        }
+        this.visible = false;
+
+        // update the two way binding
+        this.visibleChange.emit(this.visible);
     }
 
 }

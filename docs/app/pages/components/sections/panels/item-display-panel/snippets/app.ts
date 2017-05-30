@@ -8,13 +8,13 @@ import 'chance';
 })
 export class AppComponent {
 
-    visible = false;
-    title = '';
-    top = 0;
-    main = '';
-    selected = 0;
-    previousEnabled = true;
-    nextEnabled = true;
+    visible: boolean = false;
+    title: string = '';
+    top: number = 0;
+    main: string = '';
+    selected: number = 0;
+    previousEnabled: boolean = true;
+    nextEnabled: boolean = true;
     
     sparkBarColor: string;
     sparkTrackColor: string;
@@ -40,15 +40,83 @@ export class AppComponent {
     commodo. Sed vestibulum hendrerit ultrices.</p>
 </div>`;
 
+    items: Item[] = [{
+        id: 1,
+        name: chance.name(),
+        dateString: '3 Oct 2015',
+        document: 'Document 4.ppt',
+        extension: '.ppt',
+        storage: '95.25',
+        active: false,
+        panel: {
+            title: 'Site Detail - UX Aspects (PPT)',
+            main: this.ppt,
+            top: 53
+        }
+    }, {
+        id: 2,
+        name: chance.name(),
+        dateString: '3 Oct 2015',
+        document: 'Document 9.pdf',
+        extension: '.pdf',
+        storage: '15.25',
+        active: true,
+        panel: {
+            title: 'Site Detail - UX Aspects (PDF)',
+            main: this.pdf,
+            top: 53
+        }
+    }, {
+        id: 3,
+        name: chance.name(),
+        dateString: '3 Oct 2015',
+        document: 'Document 14.doc',
+        extension: '.doc',
+        storage: '25.25',
+        active: false,
+        panel: {
+            title: 'Site Detail - UX Aspects (DOC)',
+            main: this.doc,
+            top: 53
+        }
+    }, {
+        id: 4,
+        name: chance.name(),
+        dateString: '3 Oct 2015',
+        document: 'Document 29.pdf',
+        extension: '.pdf',
+        storage: '15.25',
+        active: true,
+        panel: {
+            title: 'Site Detail - UX Aspects (PDF)',
+            main: this.pdf,
+            top: 53
+        }
+    }, {
+        id: 5,
+        name: chance.name(),
+        dateString: '3 Oct 2015',
+        document: 'Document 34.doc',
+        extension: '.doc',
+        storage: '15.25',
+        active: false,
+        panel: {
+            title: 'Site Detail - UX Aspects (DOC)',
+            main: this.doc,
+            top: 53
+        }
+    }];
+
     constructor(colorService: ColorService) {
         this.sparkTrackColor = colorService.getColor('accent').setAlpha(0.2).toRgba();
         this.sparkBarColor = colorService.getColor('accent').toHex();
     }
 
     show(panel: ItemDisplayPanelComponent, $event: MouseEvent, id: number) {
+        $event.stopPropagation();
         this.selected = id;
         this.updatePanel();
-        panel.show($event);
+        panel.show();
     }
 
     previous() {
@@ -80,71 +148,22 @@ export class AppComponent {
         }
     }
 
-    items = [{
-        'id': 1,
-        'name': chance.name(),
-        'dateString': '3 Oct 2015',
-        'document': 'Document 4.ppt',
-        'extension': '.ppt',
-        'storage': '95.25',
-        'active': false,
-        'panel': {
-            'title': 'Site Detail - UX Aspects (PPT)',
-            'main': this.ppt,
-            'top': 53
-        }
-    }, {
-        'id': 2,
-        'name': chance.name(),
-        'dateString': '3 Oct 2015',
-        'document': 'Document 9.pdf',
-        'extension': '.pdf',
-        'storage': '15.25',
-        'active': true,
-        'panel': {
-            'title': 'Site Detail - UX Aspects (PDF)',
-            'main': this.pdf,
-            'top': 53
-        }
-    }, {
-        'id': 3,
-        'name': chance.name(),
-        'dateString': '3 Oct 2015',
-        'document': 'Document 14.doc',
-        'extension': '.doc',
-        'storage': '25.25',
-        'active': false,
-        'panel': {
-            'title': 'Site Detail - UX Aspects (DOC)',
-            'main': this.doc,
-            'top': 53
-        }
-    }, {
-        'id': 4,
-        'name': chance.name(),
-        'dateString': '3 Oct 2015',
-        'document': 'Document 29.pdf',
-        'extension': '.pdf',
-        'storage': '15.25',
-        'active': true,
-        'panel': {
-            'title': 'Site Detail - UX Aspects (PDF)',
-            'main': this.pdf,
-            'top': 53
-        }
-    }, {
-        'id': 5,
-        'name': chance.name(),
-        'dateString': '3 Oct 2015',
-        'document': 'Document 34.doc',
-        'extension': '.doc',
-        'storage': '15.25',
-        'active': false,
-        'panel': {
-            'title': 'Site Detail - UX Aspects (DOC)',
-            'main': this.doc,
-            'top': 53
-        }
-    }];
+}
 
+interface Item {
+    id: number;
+    name: string;
+    dateString: string;
+    document: string;
+    extension: string;
+    storage: string;
+    active: boolean;
+    panel: Panel;
+}
+
+
+interface Panel {
+    title: string;
+    main: string;
+    top: number;
 }
