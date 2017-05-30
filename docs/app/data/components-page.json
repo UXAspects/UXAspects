@@ -626,7 +626,7 @@
                             "content": "ItemDisplayPanelModule"
                         },
                         {
-                            "title": "Export As",
+                            "title": "Export as",
                             "content": "ux-item-display-panel"
                         }
                     ]
@@ -821,7 +821,7 @@
                         "title": "Module name",
                         "content": "ColumnSortingModule"
                     },{
-                        "title": "Export As",
+                        "title": "Export as",
                         "content": "ux-column-sorting"
                     }]
                 },
