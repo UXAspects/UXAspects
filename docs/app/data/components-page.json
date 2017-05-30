@@ -615,7 +615,21 @@
                 {
                     "title": "Item Display Panel",
                     "component": "ComponentsItemDisplayPanelComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-item-display-panel"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ItemDisplayPanelModule"
+                        },
+                        {
+                            "title": "Export As",
+                            "content": "ux-item-display-panel"
+                        }
+                    ]
                 },
                 {
                     "title": "Item Display Panel (Angular 1)",
@@ -807,7 +821,7 @@
                         "title": "Module name",
                         "content": "ColumnSortingModule"
                     },{
-                        "title": "Export as",
+                        "title": "Export As",
                         "content": "ux-column-sorting"
                     }]
                 },
