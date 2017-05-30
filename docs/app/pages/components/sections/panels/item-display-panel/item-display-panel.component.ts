@@ -3,13 +3,16 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import 'chance';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { ItemDisplayPanelComponent } from '../../../../../../../src/index';
 
 @Component({
     selector: 'uxd-item-display-panel-component',
     templateUrl: './item-display-panel.component.html'
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelComponent')
-export class ComponentsItemDisplayPanelComponent {
+export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
 
     visible = false;
     title = '';
@@ -27,7 +30,14 @@ export class ComponentsItemDisplayPanelComponent {
         this.sparkBarColor = colorService.getColor('accent').toHex();
     }
 
-    show(panel: any, $event: MouseEvent, id: any) {
+    htmlCode = require('./snippets/app.html');
+    tsCode = require('./snippets/app.ts');
+    modalDoc = require('./modalDOC.html');
+    modalPdf = require('./modalPDF.html');
+    modalPpt = require('./modalPPT.html');
+
+
+    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, id: number) {
         this.selected = id;
         this.updatePanel();
         panel.show($event);
@@ -63,70 +73,88 @@ export class ComponentsItemDisplayPanelComponent {
     }
 
     items = [{
-                'id': 1,
-                'name': chance.name(),
-                'dateString': '3 Oct 2015',
-                'document': 'Document 4.ppt',
-                'extension': '.ppt',
-                'storage': '95.25',
-                'active': false,
-                'panel': {
-                    'title': 'Site Detail - UX Aspects (PPT)',
-                    'main': require('./modalPPT.html'),
-                    'top': 53
-                }
-            }, {
-                'id': 2,
-                'name': chance.name(),
-                'dateString': '3 Oct 2015',
-                'document': 'Document 9.pdf',
-                'extension': '.pdf',
-                'storage': '15.25',
-                'active': true,
-                'panel': {
-                    'title': 'Site Detail - UX Aspects (PDF)',
-                    'main': require('./modalPDF.html'),
-                    'top': 53
-                }
-            }, {
-                'id': 3,
-                'name': chance.name(),
-                'dateString': '3 Oct 2015',
-                'document': 'Document 14.doc',
-                'extension': '.doc',
-                'storage': '25.25',
-                'active': false,
-                'panel': {
-                    'title': 'Site Detail - UX Aspects (DOC)',
-                    'main': require('./modalDOC.html'),
-                    'top': 53
-                }
-            }, {
-                'id': 4,
-                'name': chance.name(),
-                'dateString': '3 Oct 2015',
-                'document': 'Document 29.pdf',
-                'extension': '.pdf',
-                'storage': '15.25',
-                'active': true,
-                'panel': {
-                    'title': 'Site Detail - UX Aspects (PDF)',
-                    'main': require('./modalPDF.html'),
-                    'top': 53
-                }
-            }, {
-                'id': 5,
-                'name': chance.name(),
-                'dateString': '3 Oct 2015',
-                'document': 'Document 34.doc',
-                'extension': '.doc',
-                'storage': '15.25',
-                'active': false,
-                'panel': {
-                    'title': 'Site Detail - UX Aspects (DOC)',
-                    'main': require('./modalDOC.html'),
-                    'top': 53
-                }
-            }];
+        'id': 1,
+        'name': chance.name(),
+        'dateString': '3 Oct 2015',
+        'document': 'Document 4.ppt',
+        'extension': '.ppt',
+        'storage': '95.25',
+        'active': false,
+        'panel': {
+            'title': 'Site Detail - UX Aspects (PPT)',
+            'main': this.modalPpt,
+            'top': 53
+        }
+        }, {
+            'id': 2,
+            'name': chance.name(),
+            'dateString': '3 Oct 2015',
+            'document': 'Document 9.pdf',
+            'extension': '.pdf',
+            'storage': '15.25',
+            'active': true,
+            'panel': {
+                'title': 'Site Detail - UX Aspects (PDF)',
+                'main': this.modalPdf,
+                'top': 53
+            }
+        }, {
+            'id': 3,
+            'name': chance.name(),
+            'dateString': '3 Oct 2015',
+            'document': 'Document 14.doc',
+            'extension': '.doc',
+            'storage': '25.25',
+            'active': false,
+            'panel': {
+                'title': 'Site Detail - UX Aspects (DOC)',
+                'main': this.modalDoc,
+                'top': 53
+            }
+        }, {
+            'id': 4,
+            'name': chance.name(),
+            'dateString': '3 Oct 2015',
+            'document': 'Document 29.pdf',
+            'extension': '.pdf',
+            'storage': '15.25',
+            'active': true,
+            'panel': {
+                'title': 'Site Detail - UX Aspects (PDF)',
+                'main': this.modalPdf,
+                'top': 53
+            }
+        }, {
+            'id': 5,
+            'name': chance.name(),
+            'dateString': '3 Oct 2015',
+            'document': 'Document 34.doc',
+            'extension': '.doc',
+            'storage': '15.25',
+            'active': false,
+            'panel': {
+                'title': 'Site Detail - UX Aspects (DOC)',
+                'main': this.modalDoc,
+                'top': 53
+            }
+        }
+    ];
+
+    public plunk: IPlunk = {
+        files: {
+            'app.component.ts': require('./snippets/app.ts'),
+            'app.component.html': require('./snippets/app.html')
+        },
+        mappings: [
+            {
+                alias: 'chance',
+                source: 'npm:chance@1.0.6'
+            }
+        ],
+        modules: [{
+            imports: ['ItemDisplayPanelModule', 'ColorServiceModule', 'SparkModule'],
+            library: 'ux-aspects'
+        }]
+    };
 
 }
