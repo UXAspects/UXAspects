@@ -8,8 +8,10 @@ import { ComponentsHotkeysNg1Component } from './hotkeys-ng1/hotkeys-ng1.compone
 import { ComponentsKeyboardServiceNg1Component } from './keyboard-service-ng1/keyboard-service-ng1.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { WrappersModule } from '../../../../wrappers.module';
+import { ComponentsHotkeysComponent } from './hotkeys/hotkeys.component';
 
 const SECTIONS = [
+    ComponentsHotkeysComponent,
     ComponentsHotkeysNg1Component,
     ComponentsKeyboardServiceNg1Component
 ];

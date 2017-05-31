@@ -1,0 +1,35 @@
+<div class="hotkey-demo-box aspects-focus-outline" tabindex="0">
+    <div class="hotkey-demo-hint">
+        <div class="hotkey-group-hint">q</div>
+    </div>
+    <div class="hotkey-demo-button-layout">
+        <button class="btn button button-secondary" (keydown.enter)="updateQ('Active')">
+            <i class="hpe-icon hpe-active"></i>
+        </button>
+        <button class="btn button button-secondary" (keydown.enter)="updateQ('Inactive')">
+            <i class="hpe-icon hpe-inactive"></i>
+        </button>
+        <button class="btn button button-secondary" (keydown.enter)="updateQ('Lock')">
+            <i class="hpe-icon hpe-lock"></i>
+        </button>
+    </div>
+    <p class="hotkey-demo-text">Selected: <span>{{ qText }}</span></p>
+</div>
+
+<div class="hotkey-demo-box aspects-focus-outline m-l-lg" tabindex="0">
+    <div class="hotkey-demo-hint">
+        <div class="hotkey-group-hint">w</div>
+    </div>
+    <div class="hotkey-demo-button-layout">
+        <button class="btn button button-secondary" (focus)="updateW('Decelerate')">
+            <i class="hpe-icon hpe-rewind"></i>
+        </button>
+        <button class="btn button button-secondary" (focus)="updateW('Drive')">
+            <i class="hpe-icon hpe-play"></i>
+        </button>
+        <button class="btn button button-secondary" (focus)="updateW('Accelerate')">
+            <i class="hpe-icon hpe-fast-forward"></i>
+        </button>
+    </div>
+    <p class="hotkey-demo-text">Selected: <span>{{ wText }}</span></p>
+</div>
