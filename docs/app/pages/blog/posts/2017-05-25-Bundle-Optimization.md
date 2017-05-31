@@ -1,6 +1,6 @@
 When building any large web application nowadays it is highly likely that you will use a bundling tool. Tools like Webpack bring some great benefits and optimizations such as Tree Shaking to remove any code that isn't used and code splitting to intelligently split code into different scripts so they can be lazy loaded only when they are needed, improving your page load times. Angular's router works extremely well with code splitting and can handle all the lazy loading for you.
 
-It is common place in JavaScript to use many libraries and frameworks in your application and the size of your bundle can grow quite quickly. It can be difficult to easily identify what your bundle actually contains and determining what libraries are increasing the output size.
+It is commonplace in JavaScript to use many libraries and frameworks in your application and the size of your bundle can grow quite quickly. It can be difficult to easily identify what your bundle actually contains and determine what libraries are increasing the output size.
 
 To help with this Webpack gives us a few useful tools. First we can output all the information about our Webpack build by passing the `--json` flag and streaming the output to a file. This can be done by using the following code:
 
@@ -29,7 +29,7 @@ In the example image above you can see we have imported the entire RxJS library,
 
 <br>
 
-Additionally Webpack offers its own online tool for analyzing bundles more in depth. This service can be found at [http://webpack.github.io/analyse/](http://webpack.github.io/analyse/).
+Additionally Webpack offers its own online tool for analyzing bundles in more depth. This service can be found at [http://webpack.github.io/analyse/](http://webpack.github.io/analyse/).
 
 <br>
 
