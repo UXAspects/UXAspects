@@ -132,8 +132,8 @@ export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
 
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html')
+            'app.component.ts': this.tsCode,
+            'app.component.html': this.htmlCode
         },
         mappings: [
             {
