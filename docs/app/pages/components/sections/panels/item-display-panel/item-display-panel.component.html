@@ -1,0 +1,122 @@
+<div class="demo-attributes table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-header-dark">
+                <th class="listview-document-th"></th>
+                <th>NAME</th>
+                <th>AUTHOR</th>
+                <th>DATE MODIFIED</th>
+                <th>STORAGE (GB)</th>
+                <th class="text-center">STATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="clickable single-select" *ngFor="let item of items" (click)="show(panel, $event, item)">
+                <td class="text-center">
+                    <div class="listview-page-icon"></div>
+                </td>
+                <td class="listview-text-emphasis">{{ item.document }}</td>
+                <td>
+                    <div>{{ item.name }}</div>
+                </td>
+                <td>{{ item.dateString }}</td>
+                <td class="spark-chart-col-width2">
+                    <ux-spark [barColor]="sparkBarColor" [trackColor]="sparkTrackColor" [value]="item.storage" [inlineLabel]="item.storage" [barHeight]="3"></ux-spark>
+                </td>
+                <td class="text-center item-actions">
+                    <div class="hpe-icon" [class.text-secondary]="item.active" [class.hpe-checkmark]="item.active"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ux-item-display-panel #panel="ux-item-display-panel" [(visible)]="visible" top="53" shadow="true" [title]="selectedItem?.panel.title" animate="true">
+
+    <ux-item-display-panel-content>
+        <div [innerHTML]="selectedItem?.panel.content"></div>
+    </ux-item-display-panel-content>
+
+    <ux-item-display-panel-footer>
+        <div class="pull-right p-b-md p-t-md">
+            <span class="btn-pair">
+                <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" tabindex="1"><i class="hpe-icon hpe-previous"></i>Previous</button>
+                <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" tabindex="1">Next<i class="hpe-icon hpe-next"></i></button>
+            </span>
+        </div>
+    </ux-item-display-panel-footer>
+
+</ux-item-display-panel>
+
+<hr>
+
+<p>To add the item display panel component to your application you need to import the <code>ItemDisplayPanelModule</code> which allows you to use the <code>ux-item-display-panel</code> component.</p>
+
+<p>The item display panel component can be exported as <code>ux-item-display-panel</code> allowing the <code>show($event)</code> and <code>hide()</code> functions to be called.</p>
+
+<p>The following attributes can be used to customise the behaviour of the component.</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td><b>@Input @Output</b> visible</td>
+            <td><b>boolean</b></td>
+            <td>Defines whether the item display panel is visible, if using two-way binding this will update when the item display panel is shown and hidden.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> title</td>
+            <td><b>string?</b></td>
+            <td>The title displayed at the top of the item display panel.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> top</td>
+            <td><b>number?</b></td>
+            <td>The number of pixels from the top of the screen, this can be used to keep the item display panel below the page header. Default: <code>0</code>.</td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> animate</td>
+            <td><b>boolean?</b></td>
+            <td>Defines whether the item display panel will animate in and out from the side of the screen. Default: <code>false</code>.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> shadow</td>
+            <td><b>boolean?</b></td>
+            <td>Defines whether the item display panel will have a rounded shadow visible under the header. Default: <code>false</code>.</td>
+        </tr>
+
+    </tbody>
+</table>
+
+<hr>
+
+<p>To add the main body of content to the item display panel the <code>ux-item-display-panel-content</code> directive can be added allowing you to add any required content below the header.</p>
+
+<p>To add a footer to the item display panel the <code>ux-item-display-panel-footer</code> directive can be added allowing you to add any required content to the bottom of the item display panel</p>
+
+<p>The following code will produce the example shown above:</p>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [code]="tsCode"></uxd-snippet>
+    </tab>
+    
+</tabset>
