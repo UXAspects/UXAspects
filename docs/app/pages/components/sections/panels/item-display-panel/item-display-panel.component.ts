@@ -18,6 +18,8 @@ export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
     selectedItem: Item;
     previousEnabled: boolean = true;
     nextEnabled: boolean = true;
+    shadow: boolean = true;
+    animate: boolean = true;
     
     sparkBarColor: string;
     sparkTrackColor: string;
