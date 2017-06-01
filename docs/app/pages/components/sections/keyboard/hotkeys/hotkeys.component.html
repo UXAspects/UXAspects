@@ -65,3 +65,17 @@
     the styling of your element using the <code>:focus</code> CSS pseudo-selector.</p>
 
 <p>In order to allow the elements within your hotkey group to receive keyboard focus, the directive will assign them a <code>tabindex</code>    if one is not already present. This is related to expected browser behaviour and is not a requirement of UX Aspects itself.</p>
+
+<p>The above example was was produced using the following code:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appLess" language="css"></uxd-snippet>
+    </tab>
+</tabset>

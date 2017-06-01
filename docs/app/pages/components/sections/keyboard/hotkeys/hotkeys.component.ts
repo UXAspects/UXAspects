@@ -29,7 +29,7 @@ export class ComponentsHotkeysComponent extends BaseDocumentationSection impleme
             null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
             null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
             null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
+            require.context('./snippets/', false, /\.(html|less|js|ts)$/)
         );
 
         this.nativeElement = <HTMLElement> this.element.nativeElement;
