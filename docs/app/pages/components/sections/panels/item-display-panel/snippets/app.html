@@ -1,4 +1,4 @@
-<div class="demo-attributes table-responsive">
+<div class="demo-attributes table-responsive ">
     <table class="table table-hover">
         <thead>
             <tr class="table-header-dark">
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="clickable single-select" *ngFor="let item of items" (click)="show(panel, $event, item)">
+            <tr class="clickable single-select" [class.highlight]="item.id === selectedItem?.id && visible" *ngFor="let item of items" (click)="show(panel, $event, item)">
                 <td class="text-center">
                     <div class="listview-page-icon"></div>
                 </td>
@@ -40,8 +40,8 @@
     <ux-item-display-panel-footer>
         <div class="pull-right p-b-md p-t-md">
             <span class="btn-pair">
-                <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" tabindex="1"><i class="hpe-icon hpe-previous"></i>Previous</button>
-                <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" tabindex="1">Next<i class="hpe-icon hpe-next"></i></button>
+                <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" tabindex="0"><i class="hpe-icon hpe-previous"></i>Previous</button>
+                <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" tabindex="0">Next<i class="hpe-icon hpe-next"></i></button>
             </span>
         </div>
     </ux-item-display-panel-footer>

@@ -9,7 +9,11 @@ import { ItemDisplayPanelComponent } from '../../../../../../../src/index';
 
 @Component({
     selector: 'uxd-item-display-panel-component',
-    templateUrl: './item-display-panel.component.html'
+    templateUrl: './item-display-panel.component.html',
+    host: {
+        '(window:keydown.arrowup)': 'upArrow($event)',
+        '(window:keydown.arrowdown)': 'downArrow($event)'
+    }
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelComponent')
 export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
@@ -115,6 +119,24 @@ export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
         let id = this.selectedItem.id + 1;
         this.selectedItem = this.items[id - 1];
         this.updatePanel();
+    }
+
+    upArrow(event: KeyboardEvent) {
+        if (this.visible) {
+            event.preventDefault();
+            if (this.previousEnabled) {
+                this.previous();
+            }
+        }
+    }
+
+    downArrow(event: KeyboardEvent) {
+        if (this.visible) {
+            event.preventDefault();
+            if (this.nextEnabled) {
+                this.next();
+            }
+        }
     }
 
     updatePanel() {
