@@ -1056,6 +1056,10 @@
                     "version": "Angular",
                     "usage": [
                         {
+                            "title": "Selector",
+                            "content": "[focusIf]"
+                        },
+                        {
                             "title": "Module",
                             "content": "FocusIfModule"
                         }
