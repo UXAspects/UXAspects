@@ -500,13 +500,20 @@
             "sections": [
                 {
                     "title": "Hotkeys",
-                    "component": "ComponentsHotkeysNg1Component",
-                    "version": "AngularJS"
+                    "component": "ComponentsHotkeysComponent",
+                    "version": "Angular"
                 },
                 {
-                    "title": "Keyboard Service",
+                    "title": "Hotkeys (Angular 1)",
+                    "component": "ComponentsHotkeysNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Keyboard Service (Angular 1)",
                     "component": "ComponentsKeyboardServiceNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -1043,6 +1050,21 @@
             "title": "Utilities",
             "link": "utilities",
             "sections": [
+                {
+                    "title": "Focus If",
+                    "component": "ComponentsFocusIfComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[focusIf]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "FocusIfModule"
+                        }
+                    ]
+                },
                 {
                     "title": "Color Service",
                     "component": "ComponentsColorServiceNg1Component",

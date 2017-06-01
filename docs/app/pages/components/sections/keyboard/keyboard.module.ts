@@ -1,3 +1,4 @@
+import { FocusIfModule } from './../../../../../../src/directives/focus-if/focus-if.module';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -8,8 +9,10 @@ import { ComponentsHotkeysNg1Component } from './hotkeys-ng1/hotkeys-ng1.compone
 import { ComponentsKeyboardServiceNg1Component } from './keyboard-service-ng1/keyboard-service-ng1.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { WrappersModule } from '../../../../wrappers.module';
+import { ComponentsHotkeysComponent } from './hotkeys/hotkeys.component';
 
 const SECTIONS = [
+    ComponentsHotkeysComponent,
     ComponentsHotkeysNg1Component,
     ComponentsKeyboardServiceNg1Component
 ];
@@ -28,6 +31,7 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        FocusIfModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

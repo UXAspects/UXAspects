@@ -1,0 +1,35 @@
+<div class="hotkey-demo-box aspects-focus-outline" tabindex="0" [focusIf]="qFocused === 0">
+    <div class="hotkey-demo-hint">
+        <div class="hotkey-group-hint">q</div>
+    </div>
+    <div class="hotkey-demo-button-layout">
+        <button class="btn button button-secondary" (keydown.space)="qText = 'Active'" (keydown.enter)="qText = 'Active'" (click)="qText = 'Active'" [focusIf]="qFocused === 1">
+            <i class="hpe-icon hpe-active"></i>
+        </button>
+        <button class="btn button button-secondary" (keydown.space)="qText = 'Inactive'" (keydown.enter)="qText = 'Inactive'" (click)="qText = 'Inactive'" [focusIf]="qFocused === 2">
+            <i class="hpe-icon hpe-inactive"></i>
+        </button>
+        <button class="btn button button-secondary" (keydown.space)="qText = 'Lock'" (keydown.enter)="qText = 'Lock'" (click)="qText = 'Lock'" [focusIf]="qFocused === 3">
+            <i class="hpe-icon hpe-lock"></i>
+        </button>
+    </div>
+    <p class="hotkey-demo-text">Selected: <span>{{ qText }}</span></p>
+</div>
+
+<div class="hotkey-demo-box aspects-focus-outline m-l-lg" tabindex="0" [focusIf]="wFocused === 0">
+    <div class="hotkey-demo-hint">
+        <div class="hotkey-group-hint">w</div>
+    </div>
+    <div class="hotkey-demo-button-layout">
+        <button class="btn button button-secondary" (focus)="wText = 'Decelerate'" [focusIf]="wFocused === 1">
+            <i class="hpe-icon hpe-rewind"></i>
+        </button>
+        <button class="btn button button-secondary" (focus)="wText = 'Drive'" [focusIf]="wFocused === 2">
+            <i class="hpe-icon hpe-play"></i>
+        </button>
+        <button class="btn button button-secondary" (focus)="wText = 'Accelerate'" [focusIf]="wFocused === 3">
+            <i class="hpe-icon hpe-fast-forward"></i>
+        </button>
+    </div>
+    <p class="hotkey-demo-text">Selected: <span>{{ wText }}</span></p>
+</div>
