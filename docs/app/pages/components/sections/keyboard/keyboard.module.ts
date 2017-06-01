@@ -1,3 +1,4 @@
+import { FocusIfModule } from './../../../../../../src/directives/focus-if/focus-if.module';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -30,6 +31,7 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        FocusIfModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

@@ -2,24 +2,20 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
-    selector: 'uxd-components-hotkeys',
-    templateUrl: './hotkeys.component.html',
-    styleUrls: ['./hotkeys.component.less'],
+    selector: 'uxd-components-focus-if',
+    templateUrl: './focus-if.component.html',
+    styleUrls: ['./focus-if.component.less'],
     host: {
-        '(window:keydown.q)': 'focusNextQ()',
-        '(window:keydown.w)': 'focusNextW()'
+        '(document:click)': 'focused = false'
     }
 })
-@DocumentationSectionComponent('ComponentsHotkeysComponent')
-export class ComponentsHotkeysComponent extends BaseDocumentationSection implements IPlunkProvider {
+@DocumentationSectionComponent('ComponentsFocusIfComponent')
+export class ComponentsFocusIfComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    qText: string = 'None';
-    wText: string = 'None';
-    qFocused: number = null;
-    wFocused: number = null;
+    focused = false;
 
     plunk: IPlunk = {
         files: {
@@ -42,13 +38,5 @@ export class ComponentsHotkeysComponent extends BaseDocumentationSection impleme
             require.context('./snippets/', false, /\.(html|less|js|ts)$/)
         );
     }
-
-    focusNextQ() {
-        this.qFocused = this.qFocused === null || this.qFocused === 3 ? 0 : this.qFocused + 1;
-    }
-
-    focusNextW() {
-        this.wFocused = this.wFocused === null || this.wFocused === 3 ? 0 : this.wFocused + 1;
-    }
-
+    
 }

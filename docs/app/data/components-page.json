@@ -1051,6 +1051,17 @@
             "link": "utilities",
             "sections": [
                 {
+                    "title": "Focus If",
+                    "component": "ComponentsFocusIfComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Module",
+                            "content": "FocusIfModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Color Service",
                     "component": "ComponentsColorServiceNg1Component",
                     "version": "AngularJS"

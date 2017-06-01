@@ -15,6 +15,6 @@ export * from './components/page-header/index';
 export * from './components/item-display-panel/index';
 export * from './components/slider/index';
 export * from './directives/resize/index';
+export * from './directives/focus-if/index';
 export * from './pipes/string-filter/index';
 export * from './services/color/index';
-
