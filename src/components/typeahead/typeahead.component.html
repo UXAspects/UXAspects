@@ -1,0 +1,11 @@
+<ol>
+    <li *ngFor="let option of visibleOptions"
+        [class.selected]="isSelected(option)">
+        <ng-container [ngTemplateOutlet]="optionTemplate" [ngOutletContext]="{option: option, api: optionApi}">
+        </ng-container>
+    </li>
+</ol>
+
+<ng-template #defaultOptionTemplate let-option="option" let-api="api">
+    <span class="ux-typeahead-option" [innerHtml]="api.getDisplayHtml(option)"></span>
+</ng-template>

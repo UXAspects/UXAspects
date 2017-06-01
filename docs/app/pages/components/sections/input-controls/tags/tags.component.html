@@ -1,0 +1,20 @@
+<ux-tag-input [(tags)]="tags" [(input)]="tagInput"
+    [tagTemplate]="demoTagTemplate"
+    [validateTag]="validateTag"
+    placeholder="Add a tag..."
+    tagDelimiters=" ,;\"
+    (tagAdding)="tagAdding($event)"
+    (tagAdded)="tagAdded($event)"
+    (tagInvalidated)="tagInvalidated($event)"
+    (tagRemoving)="tagRemoving($event)"
+    (tagRemoved)="tagRemoved($event)"
+    (tagClick)="tagClick($event)">
+</ux-tag-input>
+<ux-typeahead [input]="tagInput" [options]="allTags" [selectedOptions]="tags">
+</ux-typeahead>
+
+<ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
+    <i class="hpe-icon hpe-tag"></i>
+    <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
+    <button type="button" class="ux-tag-remove" (click)="api.removeTagAt(index); $event.stopPropagation();"><i class="hpe-icon hpe-close"></i></button>
+</ng-template>

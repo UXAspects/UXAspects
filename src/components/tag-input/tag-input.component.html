@@ -1,0 +1,26 @@
+<ol>
+    <li *ngFor="let tag of tags; let i = index" class="ux-tag"
+        [tabindex]="i"
+        [uxFocusIf]="isSelected(i)"
+        (focus)="selectTagAt(i)"
+        (click)="tagClickHandler($event, tag)">
+        
+        <ng-container [ngTemplateOutlet]="tagTemplate"
+            [ngOutletContext]="{tag: tag, index: i, api: tagApi}">
+        </ng-container>
+
+    </li>
+    <li class="ux-tag-input">
+        <input #tagInput type="text" class="ux-tag-input"
+            [placeholder]="placeholder || ''"
+            [(ngModel)]="input"
+            [uxFocusIf]="isSelected(tags.length)"
+            (focus)="selectInput()"
+            (paste)="paste($event)">
+    </li>
+</ol>
+
+<ng-template #defaultTagTemplate let-tag="tag" let-index="index" let-api="api">
+    <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
+    <button type="button" class="ux-tag-remove" (click)="api.removeTagAt(index); $event.stopPropagation();"><i class="hpe-icon hpe-close"></i></button>
+</ng-template>
