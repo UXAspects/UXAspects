@@ -1,18 +1,12 @@
-import { ColumnSortingComponent } from './../../../../../../../src/components/column-sorting/column-sorting.component';
 import { Component, Inject, ElementRef } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
 
 @Component({
-    selector: 'uxd-components-hotkeys',
-    templateUrl: './hotkeys.component.html',
-    styleUrls: ['./hotkeys.component.less'],
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.less'],
     host: {'(window:keydown)': 'hotkeys($event)'}
 })
-@DocumentationSectionComponent('ComponentsHotkeysComponent')
-export class ComponentsHotkeysComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class AppComponent {
 
     nativeElement: HTMLElement;
     qButtons: HTMLElement;
@@ -22,16 +16,7 @@ export class ComponentsHotkeysComponent extends BaseDocumentationSection impleme
     wSelected: number = 0;
     wText: string = 'None';
 
-    constructor( @Inject(ElementRef) private element: ElementRef) {
-
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
-
+    constructor(@Inject(ElementRef) private element: ElementRef) {
         this.nativeElement = <HTMLElement> this.element.nativeElement;
     }
 
@@ -111,13 +96,5 @@ export class ComponentsHotkeysComponent extends BaseDocumentationSection impleme
     updateW(text: string) {
         this.wText = text;
     }
-
-    public plunk: IPlunk = {
-        files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html'),
-            'app.component.less': require('./snippets/app.less')
-        }
-    };
 
 }
