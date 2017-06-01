@@ -1,5 +1,5 @@
 .ux-item-display-panel {
-    box-shadow: 1px 0px 20px 0px @display-panel-shadow;
+    box-shadow: 1px 0 20px 0 @display-panel-shadow;
     width: 50%;
     height: 100%;
     right: 0;
@@ -23,17 +23,21 @@
     .item-display-panel-header {
         min-height: 60px;
         width: 100%;
+
         .heading-flex-box {
             display: flex;
             justify-content: space-between;
             padding-left: 20px;
             margin-bottom: 5px;
+
             .heading-close-button {
                 padding-top: 30px;
                 padding-right: 30px;
                 cursor: pointer;
+
                 &:focus {
                     outline: none;
+
                     i {
                         outline: @accent auto 5px;
                     }
@@ -47,7 +51,7 @@
     }
 
     .item-display-panel-footer {
-        border-top: 1px solid rgba(51,51,51,.1);
+        border-top: 1px solid rgba(51, 51, 51, 0.1);
         margin-top: 5px;
         bottom: 0;
         position: absolute;
@@ -60,13 +64,14 @@
         background-color: inherit;
         z-index: 1;
         min-height: inherit;
+
         .heading-flex-box {
             z-index: 2;
             background: @display-panel-bg;
             min-height: inherit;
         }
     }
-    
+
     .item-display-panel-shadow:before {
         position: absolute;
         z-index: -1;

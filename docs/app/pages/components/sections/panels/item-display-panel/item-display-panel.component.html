@@ -31,7 +31,7 @@
     </table>
 </div>
 
-<ux-item-display-panel #panel="ux-item-display-panel" [(visible)]="visible" top="53" shadow="true" [title]="selectedItem?.panel.title" animate="true">
+<ux-item-display-panel #panel="ux-item-display-panel" [(visible)]="visible" top="53" [shadow]="shadow" [title]="selectedItem?.panel.title" [animate]="animate">
 
     <ux-item-display-panel-content>
         <div [innerHTML]="selectedItem?.panel.content"></div>

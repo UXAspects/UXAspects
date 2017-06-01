@@ -13,6 +13,8 @@ export class AppComponent {
     selectedItem: Item;
     previousEnabled: boolean = true;
     nextEnabled: boolean = true;
+    animate: boolean = true;
+    shadow: boolean = true;
     
     sparkBarColor: string;
     sparkTrackColor: string;
