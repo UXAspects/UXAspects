@@ -1,0 +1,37 @@
+<h4>Angular 4 Filters</h4>
+
+<ux-filters-container>
+    <ux-filter-dropdown [filters]="dateFilters" [initial]="dateFilters[0]"></ux-filter-dropdown>
+    <ux-filter-dropdown [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-dropdown>
+</ux-filters-container>
+
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th class="text-black">NAME</th>
+            <th class="text-black">AUTHOR</th>
+            <th class="text-black">DATE MODIFIED</th>
+            <th class="text-black">WORK COMPLETED</th>
+            <th class="text-black">STATUS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="clickable" *ngFor="let item of table">
+            <td>
+                <div class="listview-page-icon"></div>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date }}</td>
+            <td>
+                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed"></ux-spark>
+            </td>
+            <td class="text-center">
+                <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>

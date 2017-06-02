@@ -834,13 +834,20 @@
                 },
                 {
                     "title": "Filters",
-                    "component": "ComponentsFiltersNg1Component",
-                    "version": "AngularJS"
+                    "component": "ComponentsFiltersComponent",
+                    "version": "Angular"
                 },
                 {
-                    "title": "Dynamic Filters",
+                    "title": "Filters (Angualr 1)",
+                    "component": "ComponentsFiltersNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Dynamic Filters (Angular 1)",
                     "component": "ComponentsDynamicFiltersNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Indices",

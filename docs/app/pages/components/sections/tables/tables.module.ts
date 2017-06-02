@@ -1,3 +1,5 @@
+import { FiltersModule } from './../../../../../../src/components/filters/filters.module';
+import { ComponentsFiltersComponent } from './filters/filters.component';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -37,6 +39,7 @@ const SECTIONS = [
     ComponentsColumnSortingComponent,
     ComponentsDetailRowResponsiveNg1Component,
     ComponentsDetailRowHeaderNg1Component,
+    ComponentsFiltersComponent,
     ComponentsFiltersNg1Component,
     ComponentsDynamicFiltersNg1Component,
     ComponentsIndicesNg1Component,
@@ -78,6 +81,7 @@ const ROUTES = [
         CheckboxModule,
         ColumnSortingModule,
         SparkModule,
+        FiltersModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

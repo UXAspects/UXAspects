@@ -1,0 +1,10 @@
+<div class="btn-group" dropdown>
+    <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">{{ selected?.title }} 
+        <span class="caret"></span>
+    </button>
+    <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li *ngFor="let filter of filters" role="menuitem">
+            <a class="dropdown-item" (click)="selectFilter(filter)"><i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>{{ filter.name }}</a>
+        </li>
+    </ul>
+</div>
