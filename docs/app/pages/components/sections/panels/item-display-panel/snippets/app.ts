@@ -119,32 +119,32 @@ export class AppComponent {
     }
 
     previous() {
-        let id = this.selectedItem.id - 1;
-        this.selectedItem = this.items[id - 1];
-        this.updatePanel();
+        if (this.previousEnabled) {
+            let id = this.selectedItem.id - 1;
+            this.selectedItem = this.items[id - 1];
+            this.updatePanel();
+        }
     }
 
     next() {
-        let id = this.selectedItem.id + 1;
-        this.selectedItem = this.items[id - 1];
-        this.updatePanel();
+        if (this.nextEnabled) {
+            let id = this.selectedItem.id + 1;
+            this.selectedItem = this.items[id - 1];
+            this.updatePanel();
+        }
     }
 
     upArrow(event: KeyboardEvent) {
         if (this.visible) {
             event.preventDefault();
-            if (this.previousEnabled) {
-                this.previous();
-            }
+            this.previous();
         }
     }
 
     downArrow(event: KeyboardEvent) {
         if (this.visible) {
             event.preventDefault();
-            if (this.nextEnabled) {
-                this.next();
-            }
+            this.next();
         }
     }
 
