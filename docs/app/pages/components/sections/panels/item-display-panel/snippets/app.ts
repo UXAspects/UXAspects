@@ -4,7 +4,11 @@ import 'chance';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html'
+    templateUrl: './src/app.component.html',
+    host: {
+        '(window:keydown.arrowup)': 'upArrow($event)',
+        '(window:keydown.arrowdown)': 'downArrow($event)'
+    }
 })
 export class AppComponent {
 
@@ -115,15 +119,33 @@ export class AppComponent {
     }
 
     previous() {
-        let id = this.selectedItem.id - 1;
-        this.selectedItem = this.items[id - 1];
-        this.updatePanel();
+        if (this.previousEnabled) {
+            let id = this.selectedItem.id - 1;
+            this.selectedItem = this.items[id - 1];
+            this.updatePanel();
+        }
     }
 
     next() {
-        let id = this.selectedItem.id + 1;
-        this.selectedItem = this.items[id - 1];
-        this.updatePanel();
+        if (this.nextEnabled) {
+            let id = this.selectedItem.id + 1;
+            this.selectedItem = this.items[id - 1];
+            this.updatePanel();
+        }
+    }
+
+    upArrow(event: KeyboardEvent) {
+        if (this.visible) {
+            event.preventDefault();
+            this.previous();
+        }
+    }
+
+    downArrow(event: KeyboardEvent) {
+        if (this.visible) {
+            event.preventDefault();
+            this.next();
+        }
     }
 
     updatePanel() {
