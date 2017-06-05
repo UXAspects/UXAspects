@@ -11,6 +11,9 @@ docker_image_build()
     echo ${FUNCNAME[0]} - dockerfileLocation is $dockerfileLocation
     echo ${FUNCNAME[0]} - HttpProxy is $HttpProxy
     echo ${FUNCNAME[0]} - HttpsProxy is $HttpsProxy
+    echo Displaying Docker version
+    docker -v
+    echo
     
     DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
     echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
