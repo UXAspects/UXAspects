@@ -20,7 +20,7 @@
                     <div>{{ item.name }}</div>
                 </td>
                 <td>{{ item.dateString }}</td>
-                <td class="spark-chart-col-width2">
+                <td>
                     <ux-spark [barColor]="sparkBarColor" [trackColor]="sparkTrackColor" [value]="item.storage" [inlineLabel]="item.storage" [barHeight]="3"></ux-spark>
                 </td>
                 <td class="text-center item-actions">
@@ -31,28 +31,22 @@
     </table>
 </div>
 
-<ux-item-display-panel #panel="ux-item-display-panel" [(visible)]="visible" top="53" [shadow]="shadow" [title]="selectedItem?.panel.title" [animate]="animate">
+<ux-item-display-panel [(visible)]="visible" top="53" [shadow]="shadow" [title]="selectedItem?.panel.title" [animate]="animate">
 
-    <ux-item-display-panel-content>
-        <div [innerHTML]="selectedItem?.panel.content"></div>
-    </ux-item-display-panel-content>
+    <div uxItemDisplayPanelContent [innerHTML]="selectedItem?.panel.content"></div>
 
-    <ux-item-display-panel-footer>
-        <div class="pull-right p-b-md p-t-md">
-            <span class="btn-pair">
-                <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" tabindex="0"><i class="hpe-icon hpe-previous"></i>Previous</button>
-                <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" tabindex="0">Next<i class="hpe-icon hpe-next"></i></button>
-            </span>
-        </div>
-    </ux-item-display-panel-footer>
+    <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">
+        <span class="btn-pair">
+            <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" tabindex="0"><i class="hpe-icon hpe-previous"></i>Previous</button>
+            <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" tabindex="0">Next<i class="hpe-icon hpe-next"></i></button>
+        </span>
+    </div>
 
 </ux-item-display-panel>
 
 <hr>
 
 <p>To add the item display panel component to your application you need to import the <code>ItemDisplayPanelModule</code> which allows you to use the <code>ux-item-display-panel</code> component.</p>
-
-<p>The item display panel component can be exported as <code>ux-item-display-panel</code> allowing the <code>show($event)</code> and <code>hide()</code> functions to be called.</p>
 
 <p>The following attributes can be used to customise the behaviour of the component.</p>
 
@@ -103,9 +97,9 @@
 
 <hr>
 
-<p>To add the main body of content to the item display panel the <code>ux-item-display-panel-content</code> directive can be added allowing you to add any required content below the header.</p>
+<p>To add the main body of content to the item display panel the <code>uxItemDisplayPanelContent</code> directive can be added allowing you to add any required content below the header.</p>
 
-<p>To add a footer to the item display panel the <code>ux-item-display-panel-footer</code> directive can be added allowing you to add any required content to the bottom of the item display panel</p>
+<p>To add a footer to the item display panel the <code>uxItemDisplayPanelFooter</code> directive can be added allowing you to add any required content to the bottom of the item display panel</p>
 
 <p>The following code will produce the example shown above:</p>
 

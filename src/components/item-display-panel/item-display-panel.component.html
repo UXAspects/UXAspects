@@ -3,18 +3,18 @@
     <div class="item-display-panel-header" [class.item-display-panel-shadow]="shadow">
         <div class="heading-flex-box">
             <h3>{{ title }}</h3>
-            <span class="heading-close-button" tabindex="0" (click)="hide()" (keydown.enter)="hide()">
+            <span class="heading-close-button" tabindex="0" (click)="visible = false" (keydown.enter)="visible = false">
                 <i class="hpe-icon hpe-close"></i>
             </span>
         </div>
     </div>
 
     <div class="item-display-panel-content">
-        <ng-content select="ux-item-display-panel-content"></ng-content>
+        <ng-content select="[uxItemDisplayPanelContent]"></ng-content>
     </div>
 
     <div class="item-display-panel-footer">
-        <ng-content select="ux-item-display-panel-footer"></ng-content>
+        <ng-content select="[uxItemDisplayPanelFooter]"></ng-content>
     </div>
 
 </div>

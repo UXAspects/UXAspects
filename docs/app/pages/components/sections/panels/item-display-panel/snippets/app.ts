@@ -115,7 +115,7 @@ export class AppComponent {
         $event.stopPropagation();
         this.selectedItem = item;
         this.updatePanel();
-        panel.show();
+        this.visible = true;
     }
 
     previous() {

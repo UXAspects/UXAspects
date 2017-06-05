@@ -106,7 +106,7 @@ export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
         $event.stopPropagation();
         this.selectedItem = item;
         this.updatePanel();
-        panel.show();
+        this.visible = true;
     }
 
     previous() {
