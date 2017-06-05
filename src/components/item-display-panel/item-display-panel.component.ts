@@ -11,7 +11,6 @@ import { Component, Directive, Input, SimpleChange, Output, EventEmitter } from 
 export class ItemDisplayPanelComponent { 
     @Input() top: number;
     @Input() shadow: boolean;
-    // @Input() visible: boolean;
     @Input() title: string;
     @Input() animate: boolean;
 
