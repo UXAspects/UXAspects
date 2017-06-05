@@ -1,6 +1,6 @@
-<div class="component-list-component">
+<div class="component-list-component" ng-class="{'hoverable': !vm.removingDisabled}">
     <div class="component-content" ng-keydown="vm.keyDown($event)"></div>
-    <div class="component-remove" ng-click="vm.removeField()" ng-disabled="vm.removingDisabled">
+    <div class="component-remove" ng-click="vm.removeField()">
         <span class="hpe-icon hpe-close"></span>
     </div>
 </div>
