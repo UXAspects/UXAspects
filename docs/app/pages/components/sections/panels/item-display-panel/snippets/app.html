@@ -20,7 +20,7 @@
                     <div>{{ item.name }}</div>
                 </td>
                 <td>{{ item.dateString }}</td>
-                <td class="spark-chart-col-width2">
+                <td>
                     <ux-spark [barColor]="sparkBarColor" [trackColor]="sparkTrackColor" [value]="item.storage" [inlineLabel]="item.storage" [barHeight]="3"></ux-spark>
                 </td>
                 <td class="text-center item-actions">
@@ -31,19 +31,15 @@
     </table>
 </div>
 
-<ux-item-display-panel #panel="ux-item-display-panel" [(visible)]="visible" top="0" [shadow]="shadow" [title]="selectedItem?.panel.title" [animate]="animate">
+<ux-item-display-panel [(visible)]="visible" top="53" [shadow]="shadow" [title]="selectedItem?.panel.title" [animate]="animate">
 
-    <ux-item-display-panel-content>
-        <div [innerHTML]="selectedItem?.panel.content"></div>
-    </ux-item-display-panel-content>
+    <div uxItemDisplayPanelContent [innerHTML]="selectedItem?.panel.content"></div>
 
-    <ux-item-display-panel-footer>
-        <div class="pull-right p-b-md p-t-md">
-            <span class="btn-pair">
-                <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" tabindex="0"><i class="hpe-icon hpe-previous"></i>Previous</button>
-                <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" tabindex="0">Next<i class="hpe-icon hpe-next"></i></button>
-            </span>
-        </div>
-    </ux-item-display-panel-footer>
+    <div uxItemDisplayPanelFooter class="pull-right p-b-md p-t-md">
+        <span class="btn-pair">
+            <button class="btn button-secondary" [disabled]="!previousEnabled" (click)="previous()" tabindex="0"><i class="hpe-icon hpe-previous"></i>Previous</button>
+            <button class="btn button-secondary" [disabled]="!nextEnabled" (click)="next()" tabindex="0">Next<i class="hpe-icon hpe-next"></i></button>
+        </span>
+    </div>
 
 </ux-item-display-panel>
