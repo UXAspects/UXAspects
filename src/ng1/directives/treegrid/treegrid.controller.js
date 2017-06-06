@@ -176,6 +176,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
         var row = {
           level: level,
           levelClass: "treegrid-level-" + level,
+          rowClass: getRowClass(data[i]),
           canExpand: canExpand,
           expanded: false,
           expanding: false,
@@ -304,5 +305,16 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
       return col.value(row.dataItem);
     }
     return "";
+  }
+
+  function getRowClass(dataItem) {
+    var rowClassProperty = vm.allOptions.rowClass;
+    if (angular.isString(rowClassProperty) && dataItem.hasOwnProperty(rowClassProperty)) {
+      return dataItem[rowClassProperty];
+    }
+    if (angular.isFunction(rowClassProperty)) {
+      return rowClassProperty(dataItem);
+    }
+    return null;
   }
 }

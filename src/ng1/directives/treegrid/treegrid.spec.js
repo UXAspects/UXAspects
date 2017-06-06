@@ -370,6 +370,78 @@ describe('treegrid', function () {
       $rootScope.$apply();
     });
 
+    it("should use the rowClass property to apply a class to the table row", function(done) {
+      var ctrl = instantiateController({
+        data: [{
+          test: "Row 1",
+          myClass: "medium",
+          nodes: []
+        }, {
+          test: "Row 2",
+          nodes: [{
+            test: "Row 2.1",
+            myClass: "high"
+          }]
+        }],
+        columns: [{ name: "test", value: "test" }],
+        options: { rowClass: "myClass" }
+      });
+      var rows = ctrl.getGridRows();
+      expect(rows.length).toBe(2);
+      // Expand "Row 2"
+      ctrl.expanderClick(rows[1], DummyEvent)
+        .then(function () {
+          rows = ctrl.getGridRows();
+          expect(rows.length).toBe(3);
+          expect(rows[0].api.getValueForColumn(0)).toBe("Row 1");
+          expect(rows[0].rowClass).toBe("medium");
+          expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
+          expect(rows[1].rowClass).toBe(null);
+          expect(rows[2].api.getValueForColumn(0)).toBe("Row 2.1");
+          expect(rows[2].rowClass).toBe("high");
+        })
+        .catch(failTest)
+        .finally(done);
+      $rootScope.$apply();
+    });
+
+    it("should use the rowClass function to apply a class to the table row", function(done) {
+      var ctrl = instantiateController({
+        data: [{
+          test: "Row 1",
+          nodes: []
+        }, {
+          test: "Row 2",
+          nodes: [{
+            test: "Row 2.1"
+          }]
+        }],
+        columns: [{ name: "test", value: "test" }],
+        options: {
+          rowClass: function(dataItem) {
+            return dataItem.test.toLowerCase().replace(/[^\w]/g, '-');
+          }
+        }
+      });
+      var rows = ctrl.getGridRows();
+      expect(rows.length).toBe(2);
+      // Expand "Row 2"
+      ctrl.expanderClick(rows[1], DummyEvent)
+        .then(function () {
+          rows = ctrl.getGridRows();
+          expect(rows.length).toBe(3);
+          expect(rows[0].api.getValueForColumn(0)).toBe("Row 1");
+          expect(rows[0].rowClass).toBe("row-1");
+          expect(rows[1].api.getValueForColumn(0)).toBe("Row 2");
+          expect(rows[1].rowClass).toBe("row-2");
+          expect(rows[2].api.getValueForColumn(0)).toBe("Row 2.1");
+          expect(rows[2].rowClass).toBe("row-2-1");
+        })
+        .catch(failTest)
+        .finally(done);
+      $rootScope.$apply();
+    });
+
   });
 
   describe("api", function() {
