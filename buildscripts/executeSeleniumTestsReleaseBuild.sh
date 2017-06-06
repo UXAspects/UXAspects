@@ -105,9 +105,7 @@ done
 
 # Kill any process using port 4445 (the Selenium Grid hub process) and start a new process
 echo Kill any existing Selenium Grid hub process
-command="/usr/sbin/fuser -n tcp "$hubProcessPort" 2> /dev/null"
-echo command is $command
-PID_SELENIUM=`"$command"`
+PID_SELENIUM=`/usr/sbin/fuser -n tcp 4445 2> /dev/null`
 echo Old Selenium Grid hub process ID is $PID_SELENIUM
 if [ ! -z "$PID_SELENIUM" ] ; then
     echo "Killing existing Selenium Grid hub process" ; kill -9 $PID_SELENIUM ;
@@ -124,9 +122,7 @@ java -jar /home/UXAspectsTestUser/ux-aspects/Selenium/selenium-server-standalone
 wait_for_grid_hub_process_status_to_change 1 "start" $hubProcessPort
 
 echo Started the Selenium Grid hub process
-command="/usr/sbin/fuser -n tcp "$hubProcessPort" 2> /dev/null"
-echo command is $command
-PID_SELENIUM=`"$command"`
+PID_SELENIUM=`/usr/sbin/fuser -n tcp 4445 2> /dev/null`
 echo New Selenium Grid hub process ID is $PID_SELENIUM
 
 # Run the tests
