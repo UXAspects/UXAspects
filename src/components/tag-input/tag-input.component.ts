@@ -1,14 +1,33 @@
+import { TypeaheadComponent } from '../typeahead/index';
+import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
 import { TagInputEvent } from './tag-input-event';
-import { Component, OnInit, Input, Output, EventEmitter, HostListener, ViewChild, ElementRef, ChangeDetectorRef, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DOCUMENT } from '@angular/platform-browser';
+
+
+const TAGINPUT_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TagInputComponent),
+    multi: true
+};
+const TAGINPUT_VALIDATOR = {
+    provide: NG_VALIDATORS,
+    useExisting: forwardRef(() => TagInputComponent),
+    multi: true
+};
 
 @Component({
     selector: 'ux-tag-input',
     templateUrl: 'tag-input.component.html',
+    providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
     host: {
-        '[class.focus]': 'hasFocus()'
+        '[class.disabled]': 'disabled',
+        '[class.focus]': 'hasFocus()',
+        '[class.invalid]': '!valid || !inputValid'
     }
 })
-export class TagInputComponent implements OnInit {
+export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
 
     @Input('tags') private _tags: any[] = [];
     get tags() {
@@ -16,10 +35,11 @@ export class TagInputComponent implements OnInit {
     }
     set tags(value: any[]) {
         this._tags = value;
+        this.onChangeHandler(value);
         this.tagsChange.emit(value);
     }
 
-    @Output() tagsChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+    @Output() tagsChange = new EventEmitter<any[]>();
 
     @Input('input') private _input: string = '';
     get input() {
@@ -30,53 +50,150 @@ export class TagInputComponent implements OnInit {
         this.inputChange.emit(value);
     }
 
-    @Output() inputChange: EventEmitter<string> = new EventEmitter<string>();
+    @Output() inputChange = new EventEmitter<string>();
 
-    @Input() displayProperty: string = null;
-    @Input() tagTemplate: TemplateRef<any>;
-    @Input('createTag') createTagHandler: (value: string) => any;
-    @Input('validateTag') validateTagHandler: (value: string) => string;
-    @Input() tagDelimiters: string = '';
     @Input() addOnPaste: boolean = true;
+    @Input() disabled: boolean = false;
+    @Input() displayProperty: string = null;
+    @Input() enforceTagLimits: boolean = false;
+    @Input() freeInput: boolean = true;
     @Input() maxTags: number = Number.MAX_VALUE;
+    @Input() minTags: number = 0;
     @Input() placeholder: string = '';
+    @Input() showTypeaheadOnClick: boolean = false;
+    @Input() tagDelimiters: string = '';
+    @Input() tagPattern: RegExp;
+    @Input() tagTemplate: TemplateRef<any>;
+    @Input() validationErrors: any = {};
+    @Input('createTag') createTagHandler: (value: string) => any;
 
-    @Output() tagAdding: EventEmitter<TagInputEvent> = new EventEmitter<TagInputEvent>();
-    @Output() tagAdded: EventEmitter<TagInputEvent> = new EventEmitter<TagInputEvent>();
-    @Output() tagInvalidated: EventEmitter<TagInputEvent> = new EventEmitter<TagInputEvent>();
-    @Output() tagRemoving: EventEmitter<TagInputEvent> = new EventEmitter<TagInputEvent>();
-    @Output() tagRemoved: EventEmitter<TagInputEvent> = new EventEmitter<TagInputEvent>();
-    @Output() tagClick: EventEmitter<TagInputEvent> = new EventEmitter<TagInputEvent>();
+    @Output() tagAdding = new EventEmitter<TagInputEvent>();
+    @Output() tagAdded = new EventEmitter<TagInputEvent>();
+    @Output() tagInvalidated = new EventEmitter<TagInputEvent>();
+    @Output() tagRemoving = new EventEmitter<TagInputEvent>();
+    @Output() tagRemoved = new EventEmitter<TagInputEvent>();
+    @Output() tagClick = new EventEmitter<TagInputEvent>();
+
+    @ContentChildren(TypeaheadComponent) typeaheadQuery: QueryList<TypeaheadComponent>;
 
     @ViewChild('tagInput') tagInput: ElementRef;
-    @ViewChild('defaultTagTemplate') defaultTagTemplate: TemplateRef<any>;
+
+    @ViewChild('defaultTagTemplate') private _defaultTagTemplate: TemplateRef<any>;
 
     selectedIndex: number = -1;
 
     tagApi: TagApi = {
         getTagDisplay: this.getTagDisplay.bind(this),
-        removeTagAt: this.removeTagAt.bind(this)
+        removeTagAt: this.removeTagAt.bind(this),
+        canRemoveTagAt: this.canRemoveTagAt.bind(this)
     };
 
-    constructor(private element: ElementRef, private changeDetector: ChangeDetectorRef) {}
+    valid: boolean = true;
+    inputValid: boolean = true;
+
+    typeahead: TypeaheadComponent;
+
+    private onChangeHandler: (_: any) => void = () => { };
+    private onTouchedHandler: () => void = () => { };
+
+    constructor(private element: ElementRef, @Inject(DOCUMENT) private document: Document) { }
 
     ngOnInit() {
         if (!this.tagTemplate) {
-            this.tagTemplate = this.defaultTagTemplate;
+            this.tagTemplate = this._defaultTagTemplate;
         }
+    }
+
+    ngAfterContentInit() {
+        // Watch for optional child typeahead control
+        this.typeaheadQuery.changes.subscribe((query) => {
+            this.typeahead = query.first;
+            if (this.typeahead) {
+                // Set up event handler for selected options
+                this.typeahead.optionSelected.subscribe(this.typeaheadOptionSelectedHandler.bind(this));
+            }
+        });
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.disabled) {
+            if (changes.disabled.currentValue) {
+                // Clear selection and close dropdown
+                this.selectedIndex = -1;
+                if (this.typeahead) {
+                    this.typeahead.open = false;
+                }
+            }
+        }
+
+        // Update validation status
+        this.validate();
+    }
+
+    writeValue(value: any[]) {
+        if (value) {
+            this.tags = value;
+        }
+    }
+
+    registerOnChange(fn: any) {
+        this.onChangeHandler = fn;
+    }
+
+    registerOnTouched(fn: any) {
+        this.onTouchedHandler = fn;
+    }
+
+    /**
+     * Validate the value of the control (tags property).
+     */
+    validate() {
+        this.valid = true;
+        let tagRangeError = null;
+        if (this.tags.length < this.minTags || this.tags.length > this.maxTags) {
+            tagRangeError = {
+                given: this.tags.length,
+                min: this.minTags,
+                max: this.maxTags
+            };
+            this.valid = false;
+        }
+        this.validationErrors['tagRangeError'] = tagRangeError;
     }
 
     @HostListener('keydown', ['$event'])
     keyHandler(event: KeyboardEvent) {
+
+        if (this.disabled) { return; }
+
+        // Get the input field cursor location
         const inputCursorPos = this.tagInput.nativeElement.selectionStart;
+
+        // Determine if the input field has any text selected
         const hasSelection = this.tagInput.nativeElement.selectionStart !== this.tagInput.nativeElement.selectionEnd;
+
+        // Determine if a tag has focus
+        const tagSelected = this.isValidTagIndex(this.selectedIndex);
+        
         const inputLength = this.input ? this.input.length : 0;
-        const canNavigateLeft = this.isValidTagIndex(this.selectedIndex) || (inputCursorPos <= 0 && !hasSelection);
-        const canNavigateRight = this.isValidTagIndex(this.selectedIndex) || (inputCursorPos >= inputLength && !hasSelection);
+
+        // Check whether the arrow keys can move the selection. Otherwise the input field takes the event.
+        const canNavigateLeft = tagSelected || (inputCursorPos <= 0 && !hasSelection);
+        const canNavigateRight = tagSelected || (inputCursorPos >= inputLength && !hasSelection);
+
         switch (event.key) {
             case 'Enter':
-                this.commitInput();
-                event.stopPropagation();
+                // Check if a typeahead option is highlighted
+                const typeaheadValue = this.typeahead ? this.typeahead.highlighted.getValue() : null;
+                if (typeaheadValue) {
+                    // Add the typeahead option as a tag, clear the input, and close the dropdown
+                    this.commitTypeahead(typeaheadValue);
+                    this.typeahead.open = false;
+                } else {
+                    // Validate and add the input text as a tag, if possible
+                    this.commitInput();
+                }
+                event.preventDefault();
                 break;
             case 'Backspace':
                 if (canNavigateLeft) {
@@ -85,23 +202,59 @@ export class TagInputComponent implements OnInit {
                     event.preventDefault();
                 }
                 break;
+            case 'Delete':
+            case 'Del':
+                if (tagSelected) {
+                    this.removeTagAt(this.selectedIndex);
+                }
+                break;
             case 'ArrowLeft':
+            case 'Left':
                 if (canNavigateLeft) {
                     this.moveSelection(-1);
-                    event.stopPropagation();
                     event.preventDefault();
                 }
                 break;
             case 'ArrowRight':
+            case 'Right':
                 if (canNavigateRight) {
                     this.moveSelection(1);
-                    event.stopPropagation();
                     event.preventDefault();
+                }
+                break;
+            case 'ArrowUp':
+            case 'Up':
+                if (this.typeahead) {
+                    if (!this.typeahead.open) {
+                        this.typeahead.open = true;
+                    } else {
+                        this.typeahead.moveHighlight(-1);
+                    }
+                    event.preventDefault();
+                }
+                break;
+            case 'ArrowDown':
+            case 'Down':
+                if (this.typeahead) {
+                    if (!this.typeahead.open) {
+                        this.typeahead.open = true;
+                    } else {
+                        this.typeahead.moveHighlight(1);
+                    }
+                    event.preventDefault();
+                }
+                break;
+            case 'Escape':
+            case 'Esc':
+                if (this.typeahead) {
+                    this.typeahead.open = false;
                 }
                 break;
         }
 
-        if (this.tagDelimiters && this.tagDelimiters.indexOf(event.key) >= 0) {
+        // Check for keys in the tagDelimiters
+        if (this.tagDelimiters && this.tagDelimiters.indexOf(this.getKeyChar(event)) >= 0) {
+            // Commit previous text
             this.commitInput();
             event.stopPropagation();
             event.preventDefault();
@@ -110,21 +263,57 @@ export class TagInputComponent implements OnInit {
 
     @HostListener('focusout', ['$event'])
     focusOutHandler(event: FocusEvent) {
-        if (!this.element.nativeElement.contains(event.relatedTarget)) {
-            this.selectedIndex = -1;
-        }
+        // Close the dropdown on blur
+        setTimeout(() => {
+            if (!this.element.nativeElement.contains(this.document.activeElement)) {
+                this.selectedIndex = -1;
+                if (this.typeahead) {
+                    this.typeahead.open = false;
+                }
+            }
+        }, 200);
     }
 
-    tagClickHandler(event: MouseEvent, tag: any) {
+    tagClickHandler(event: MouseEvent, tag: any, index: number) {
+
+        if (this.disabled) { return; }
+
+        // Send tagClick event
         const tagClickEvent = new TagInputEvent(tag);
         this.tagClick.emit(tagClickEvent);
-        if (tagClickEvent.defaultPrevented) {
+
+        // Prevent focus if preventDefault() was called
+        if (tagClickEvent.defaultPrevented()) {
             event.preventDefault();
+            return;
+        }
+
+        // Select the tag (for IE that doesn't propagate focus)
+        this.selectTagAt(index);
+    }
+
+    inputClickHandler() {
+
+        if (this.disabled) { return; }
+
+        if (this.typeahead && this.showTypeaheadOnClick) {
+            this.typeahead.open = true;
         }
     }
 
-    paste(event: ClipboardEvent) {
+    inputFocusHandler() {
+
+        if (this.disabled) { return; }
+
+        this.selectInput();
+    }
+
+    inputPasteHandler(event: ClipboardEvent) {
+
+        if (this.disabled) { return; }
+
         if (this.addOnPaste) {
+            // Get text from the clipboard
             let input: string = null;
             if (event.clipboardData) {
                 input = event.clipboardData.getData('text/plain');
@@ -133,6 +322,7 @@ export class TagInputComponent implements OnInit {
                 input = (<any>window).clipboardData.getData('Text');
             }
 
+            // Commit the clipboard text directly
             if (this.commit(input)) {
                 this.selectInput();
                 event.stopPropagation();
@@ -141,6 +331,17 @@ export class TagInputComponent implements OnInit {
         }
     }
 
+    typeaheadOptionSelectedHandler(event: TypeaheadOptionEvent) {
+
+        if (this.disabled) { return; }
+
+        // When the typeahead sends the optionSelected event, commit the object directly
+        this.commitTypeahead(event.option);
+    }
+
+    /**
+     * Commit the current input value and clear the input field if successful.
+     */
     commitInput() {
         if (this.commit(this.input)) {
             this.selectInput();
@@ -148,9 +349,26 @@ export class TagInputComponent implements OnInit {
         }
     }
 
+    /**
+     * Commit the given tag object and clear the input if successful. 
+     */
+    commitTypeahead(tag: any) {
+        if (this.addTag(tag)) {
+            this.selectInput();
+            this.input = '';
+        }
+    }
+
+    /**
+     * Commit the given string value as one or more tags, if validation passes. Returns true if the tag(s) were created.
+     */
     commit(input: string): boolean {
-        if (input) {
+        if (input && this.freeInput) {
+
+            // Split the tags by the tagDelimiters if configured
             const newTags = this.splitTagInput(input);
+
+            // Check tag validation for all of the individual values
             let allValid = true;
             for (let newTag of newTags) {
                 const valid = this.validateTag(newTag);
@@ -159,9 +377,10 @@ export class TagInputComponent implements OnInit {
                 }
             }
 
+            // Add the tags if all are valid
             if (allValid) {
                 for (let newTag of newTags) {
-                    this.addTag(newTag);
+                    this.addTag(this.createTag(newTag));
                 }
 
                 return true;
@@ -171,7 +390,13 @@ export class TagInputComponent implements OnInit {
         return false;
     }
 
+    /**
+     * If no tag is selected, select the rightmost tag. If a tag is selected, remove it.
+     */
     backspace() {
+
+        if (this.disabled) { return; }
+
         if (!this.isValidTagIndex(this.selectedIndex)) {
             this.selectTagAt(this.tags.length - 1);
         } else {
@@ -179,7 +404,14 @@ export class TagInputComponent implements OnInit {
         }
     }
 
+    /**
+     * Move the highlighted option forwards or backwards in the list. Wraps at the limits.
+     * @param d Value to be added to the selected index, i.e. -1 to move backwards, +1 to move forwards.
+     */
     moveSelection(d: number) {
+
+        if (this.disabled) { return; }
+
         if (this.isValidSelectIndex(this.selectedIndex)) {
             this.selectedIndex += d;
 
@@ -192,89 +424,171 @@ export class TagInputComponent implements OnInit {
         }
     }
 
+    /**
+     * Returns a value to display for the given tag. Uses displayProperty if set, otherwise assumes that the tag is a simple string.
+     */
     getTagDisplay(tag: any): string {
         return this.displayProperty ? tag[this.displayProperty] : tag;
     }
 
+    /**
+     * Returns true if the given index is selected (tag index or input field).
+     */
     isSelected(index: number): boolean {
         return index === this.selectedIndex;
     }
 
+    /**
+     * Select the tag at the given index. Does nothing if disabled is true.
+     */
     selectTagAt(tagIndex: number) {
+
+        if (this.disabled) { return; }
+
         if (this.isValidTagIndex(tagIndex)) {
             this.selectedIndex = tagIndex;
         }
     }
 
+    /**
+     * Select the input field, giving it focus. Does nothing if disabled is true.
+     */
     selectInput() {
+
+        if (this.disabled) { return; }
+
         this.selectedIndex = this.tags.length;
     }
 
+    /**
+     * Remove the tag at the given index. Does nothing if disabled is true or the minTags property prevents removal.
+     */
     removeTagAt(tagIndex: number) {
+
+        if (this.disabled || !this.canRemoveTagAt(tagIndex)) { return; }
+
+        // Check that the tagIndex is in range
         if (this.isValidTagIndex(tagIndex)) {
             const tag = this.tags[tagIndex];
             const tagRemovingEvent = new TagInputEvent(tag);
             this.tagRemoving.emit(tagRemovingEvent);
             if (!tagRemovingEvent.defaultPrevented()) {
+                // Select input first to avoid issues with dropping focus
+                this.selectInput();
+                // Remove the tag
                 this.tags.splice(tagIndex, 1);
-                this.changeDetector.detectChanges();
+                // Set focus again since indices have changed
                 this.selectInput();
                 this.tagRemoved.emit(new TagInputEvent(tag));
+                this.validate();
             }
         }
     }
 
+    /**
+     * Returns true if the tag at the given index can be removed.
+     */
+    canRemoveTagAt(tagIndex: number): boolean {
+        return this.tags.length > this.minTags || !this.enforceTagLimits;
+    }
+
+    /**
+     * Returns true if the input field should be available.
+     */
+    isInputVisible() {
+        return this.tags.length < this.maxTags || !this.enforceTagLimits;
+    }
+
+    /**
+     * Returns true if any part of the control has focus.
+     */
     hasFocus(): boolean {
         return this.isValidSelectIndex(this.selectedIndex);
     }
 
+    /**
+     * Validate the given tagValue with the tagPattern, if set. Update validationErrors on validation failure.
+     */
     private validateTag(tagValue: string): boolean {
-        let validationResult: string = null;
-        if (this.validateTagHandler && typeof this.validateTagHandler === 'function') {
-            validationResult = this.validateTagHandler(tagValue);
+        let inputPattern = null;
+        this.inputValid = true;
+        if (this.tagPattern && !this.tagPattern.test(tagValue)) {
+            inputPattern = {
+                given: tagValue,
+                pattern: this.tagPattern
+            };
+            this.inputValid = false;
         }
-        if (typeof validationResult === 'string') {
-            // TODO: add validation error
-            console.warn(`Invalid tag "${tagValue}": ${validationResult}`);
-            this.tagInvalidated.emit(new TagInputEvent(tagValue));
-        }
-
-        return (validationResult === null);
+        this.validationErrors['inputPattern'] = inputPattern;
+        return this.inputValid;
     }
 
-    private addTag(tagValue: string) {
-        let newTag = null;
+    /**
+     * Create a tag object for the given tagValue. If createTagHandler is specified, use it; otherwise if displayProperty is specified, create an object with the tagValue as the single named property; otherwise return the tagValue itself.
+     */
+    private createTag(tagValue: string): any {
+        let tag = null;
         if (this.createTagHandler && typeof this.createTagHandler === 'function') {
-            newTag = this.createTagHandler(tagValue);
+            tag = this.createTagHandler(tagValue);
         } else if (this.displayProperty) {
-            newTag = {};
-            newTag[this.displayProperty] = tagValue;
+            tag = {};
+            tag[this.displayProperty] = tagValue;
         } else {
-            newTag = tagValue;
+            tag = tagValue;
         }
+        return tag;
+    }
 
-        if (newTag) {
+    /**
+     * Add a tag object, calling the tagAdding and tagAdded events. Returns true if the tag was added to the tags array.
+     */
+    private addTag(tag: any): boolean {
+        if (tag) {
             // Verify that the new tag can be displayed
-            const displayValue = this.getTagDisplay(newTag);
+            const displayValue = this.getTagDisplay(tag);
             if (displayValue && typeof displayValue === 'string' && displayValue.length > 0) {
-                const tagAddingEvent = new TagInputEvent(newTag);
+                const tagAddingEvent = new TagInputEvent(tag);
                 this.tagAdding.emit(tagAddingEvent);
                 if (!tagAddingEvent.defaultPrevented()) {
-                    this.tags.push(newTag);
-                    this.tagAdded.emit(new TagInputEvent(newTag));
+                    this.tags.push(tag);
+                    this.tagAdded.emit(new TagInputEvent(tag));
+                    this.validate();
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 
+    /**
+     * Returns true if the given tagIndex is a valid tag index.
+     */
     private isValidTagIndex(tagIndex: number): boolean {
         return tagIndex >= 0 && tagIndex < this.tags.length;
     }
 
+    /**
+     * Returns true if the given index is a valid selection index (tags or input field).
+     */
     private isValidSelectIndex(index: number): boolean {
         return index >= 0 && index <= this.tags.length;
     }
 
+    /**
+     * Returns the character corresponding to the given key event, mainly for IE compatibility.
+     */
+    private getKeyChar(event: KeyboardEvent): string {
+        switch (event.key) {
+            case 'Spacebar':
+                return ' ';
+        }
+        return event.key;
+    }
+
+    /**
+     * Returns an array of strings corresponding to the input string split by the tagDelimiters characters.
+     */
     private splitTagInput(input: string): string[] {
         let tagValues = [input];
         if (this.tagDelimiters && typeof this.tagDelimiters === 'string') {
@@ -286,7 +600,22 @@ export class TagInputComponent implements OnInit {
     }
 }
 
+/**
+ * The API available to tag templates.
+ */
 export interface TagApi {
+    /**
+     * Returns the display value of the given tag, according to the displayProperty property. 
+     */
     getTagDisplay: (tag: any) => string;
+
+    /**
+     * Removes the tag at the given index, if possible.
+     */
     removeTagAt: (index: number) => void;
+
+    /**
+     * 	Returns true if the tag at the given index can be removed.
+     */
+    canRemoveTagAt: (index: number) => boolean;
 }

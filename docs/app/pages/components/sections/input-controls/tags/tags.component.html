@@ -1,20 +1,418 @@
-<ux-tag-input [(tags)]="tags" [(input)]="tagInput"
-    [tagTemplate]="demoTagTemplate"
-    [validateTag]="validateTag"
-    placeholder="Add a tag..."
-    tagDelimiters=" ,;\"
-    (tagAdding)="tagAdding($event)"
-    (tagAdded)="tagAdded($event)"
-    (tagInvalidated)="tagInvalidated($event)"
-    (tagRemoving)="tagRemoving($event)"
-    (tagRemoved)="tagRemoved($event)"
-    (tagClick)="tagClick($event)">
-</ux-tag-input>
-<ux-typeahead [input]="tagInput" [options]="allTags" [selectedOptions]="tags">
-</ux-typeahead>
+<div class="row">
+    <div class="col-md-12 form-group-validate has-feedback">
+        <form>
+            <ux-tag-input #tagInput
+                [(tags)]="tags"
+                [(input)]="input"
+                [addOnPaste]="addOnPaste"
+                [disabled]="disabled"
+                [enforceTagLimits]="enforceTagLimits"
+                [freeInput]="freeInput"
+                [minTags]="minTags"
+                [maxTags]="maxTags"
+                [placeholder]="placeholder"
+                [showTypeaheadOnClick]="showTypeaheadOnClick"
+                [tagDelimiters]="tagDelimiters"
+                [tagPattern]="tagPatternRegExp"
+                [tagTemplate]="demoTagTemplate">
+
+                <ux-typeahead *ngIf="typeaheadEnabled"
+                    [filter]="input"
+                    [options]="allTags"
+                    [disabledOptions]="tags"
+                    [dropDirection]="dropDirection"
+                    [selectFirst]="selectFirst">
+                </ux-typeahead>
+
+            </ux-tag-input>
+            <span *ngIf="tagInput.validationErrors.tagRangeError" class="validation-error-text">
+                Required: number of tags between {{tagInput.validationErrors.tagRangeError.min}} and {{tagInput.validationErrors.tagRangeError.max}}.
+            </span>
+            <span *ngIf="tagInput.validationErrors.inputPattern" class="validation-error-text">
+                Expected format: {{tagInput.validationErrors.inputPattern.pattern.source}}
+            </span>
+        </form>
+    </div>
+</div>
+
+<accordion>
+    <accordion-group heading="Customize Example...">
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox [(value)]="addOnPaste">addOnPaste</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox [(value)]="enforceTagLimits">enforceTagLimits</ux-checkbox>
+            </div>
+        </div>
+        <div class="row m-t-md uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <label for="minTags">minTags</label>
+                <input type="number" name="minTags" class="form-control" [(ngModel)]="minTags">
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <label for="maxTags">maxTags</label>
+                <input type="number" name="maxTags" class="form-control" [(ngModel)]="maxTags">
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <label for="tagPattern">tagPattern</label>
+                <input type="text" name="tagPattern" class="form-control" [(ngModel)]="tagPattern">
+            </div>
+        </div>
+        <div class="row m-t-md uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <label for="placeholder">placeholder</label>
+                <input type="text" name="placeholder" class="form-control" [(ngModel)]="placeholder">
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <label for="tagDelimiters">tagDelimiters</label>
+                <input type="text" name="tagDelimiters" class="form-control" [(ngModel)]="tagDelimiters">
+            </div>
+        </div>
+        <div class="row m-t-md uxd-customize-row">
+            <div class="col-sm-12">
+                <ux-checkbox [(value)]="typeaheadEnabled">Enable Typeahead</ux-checkbox>
+            </div>
+        </div>
+        <div class="row m-t-md uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox [(value)]="freeInput" [disabled]="!typeaheadEnabled">freeInput</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox [(value)]="selectFirst" [disabled]="!typeaheadEnabled">selectFirst</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox [(value)]="showTypeaheadOnClick" [disabled]="!typeaheadEnabled">showTypeaheadOnClick</ux-checkbox>
+            </div>
+        </div>
+        <div class="row m-t-md uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <label for="dropDirection">dropDirection</label>
+                <ux-radio-button [(value)]="dropDirection" option="down" [disabled]="!typeaheadEnabled">down</ux-radio-button>
+                <ux-radio-button [(value)]="dropDirection" option="up" [disabled]="!typeaheadEnabled">up</ux-radio-button>
+            </div>
+        </div>
+    </accordion-group>
+</accordion>
 
 <ng-template #demoTagTemplate let-tag="tag" let-index="index" let-api="api">
-    <i class="hpe-icon hpe-tag"></i>
+    <span class="m-r-sm"><i class="hpe-icon hpe-tag"></i></span>
     <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
-    <button type="button" class="ux-tag-remove" (click)="api.removeTagAt(index); $event.stopPropagation();"><i class="hpe-icon hpe-close"></i></button>
+    <button *ngIf="api.canRemoveTagAt(index)" type="button" class="ux-tag-remove" [disabled]="disabled" (click)="api.removeTagAt(index); $event.stopPropagation();"><i class="hpe-icon hpe-close"></i></button>
 </ng-template>
+
+<hr>
+
+<p>The <code>ux-tag-input</code> component allows an array of strings or custom objects to be displayed as tags inside a text input box. Optionally, a typeahead dropdown can be configured to aid addition of tags to the control.</p>
+
+<p>Many of the customization parameters of the tag input component are available to edit in the example above by expanding the "Customize Example..." section. Documentation of these parameters follows.</p>
+
+<h4>Tag Input</h4>
+
+<p>The <code>ux-tag-input</code> component provides the input field seen in the example, and has the following properties:</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><b>@Input @Output</b> tags</td>
+            <td><b>any[]</b></td>
+            <td>The list of tags appearing in the tag input. This can be an array of strings or custom objects. See the <code>displayProperty</code> property for details of using a custom object.</td>
+        </tr>
+        <tr>
+            <td><b>@Input @Output</b> input</td>
+            <td><b>string</b></td>
+            <td>The editable text appearing in the tag input.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> addOnPaste</td>
+            <td><b>boolean</b></td>
+            <td>Controls whether pasting text into the text input area automatically coverts that text into one or more tags. Default is true.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> disabled</td>
+            <td><b>boolean</b></td>
+            <td>Controls the disabled state of the tag input. Default is false.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> displayProperty</td>
+            <td><b>string</b></td>
+            <td>If <code>tags</code> is an array of custom objects, this property can be used to specify the name of the property to display in each tag. If the tag needs to display multiple properties or use advanced display logic, the <code>tagTemplate</code> property should be used to define a custom tag layout.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> enforceTagLimits</td>
+            <td><b>boolean</b></td>
+            <td>If set to true, the tag input will prevent addition and removal of tags to enforce the <code>minTags</code> and <code>maxTags</code> settings. Otherwise, a validation error will be raised. Default is false.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> freeInput</td>
+            <td><b>boolean</b></td>
+            <td>If true, input entered into the text input area can be converted into a tag by pressing enter. Otherwise, tags can only be added from the typeahead list or other external means. (Note that the <code>maxTags</code> and <code>tagPattern</code> will prevent invalid inputs regardless of this setting.) Default is true.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> maxTags</td>
+            <td><b>number</b></td>
+            <td>The maximum number of tags permitted in the tag input. If the number of tags is equal to <code>maxTags</code> and <code>enforceTagLimits</code> is true, addition of tags will be prevented until a tag is removed. Default is unlimited.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> minTags</td>
+            <td><b>number</b></td>
+            <td>The minimum number of tags permitted in the tag input. If the number of tags is equal to <code>minTags</code> and <code>enforceTagLimits</code> is true, removal of tags will be prevented until a new tag is added. Default is 0.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> placeholder</td>
+            <td><b>string</b></td>
+            <td>The placeholder text which appears in the text input area when it is empty.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> showTypeaheadOnClick</td>
+            <td><b>boolean</b></td>
+            <td>Controls whether the typeahead appears when the text input area is clicked. This has no effect if the <code>ux-typeahead</code> component is not configured. Default is false.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> tagDelimiters</td>
+            <td><b>string</b></td>
+            <td>A string containing the characters which delimit tags. Typing one of the characters in <code>tagDelimiters</code> will cause the preceding text to be added as a tag, and the text input area will be cleared. Pasting a string containing one or more of characters in <code>tagDelimiters</code> will cause the string to be split into multiple tags. Note that the delimiter character will not be part of the tag text. Default is empty (no delimiters).</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> tagPattern</td>
+            <td><b>RegExp</b></td>
+            <td>The validation expression for tags added via the input text area. Strings which do not match this expression will not be added as tags. Default is null (no validation).</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> tagTemplate</td>
+            <td><b>TemplateRef</b></td>
+            <td>
+                <p>A template which will be rendered as the content of each tag. The following context properties are available in the template:</p>
+                <ul>
+                    <li><code>tag: any</code> - the string or custom object representing the tag.</li>
+                    <li><code>index: number</code> - the zero-based index of the tag as it appears in the tag input.</li>
+                    <li><code>api: TagApi</code> - provides the functions <code>getTagDisplay</code>, <code>removeTagAt</code> and <code>canRemoveTagAt</code>. See the section below for more information.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> validationErrors</td>
+            <td><b>any</b></td>
+            <td>
+                <p>An object which contains details of validation errors. The following properties will be present if there is a related validation error:</p>
+                <ul>
+                    <li><code>tagRangeError</code> - present if the number of tags is outside the range specified by <code>minTags</code> and <code>maxTags</code>.</li>
+                    <li><code>inputPattern</code> - present if an input has been submitted which does not match the <code>tagPattern</code>.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> createTag</td>
+            <td><b>(value: string) => any</b></td>
+            <td>A custom function which is called to create a new tag object. This can be used to populate other properties in the tag object. If <code>createTag</code> is not provided, then an object is created with the <code>displayProperty</code> set to the input. If <code>displayProperty</code> is also not set, then the tag is created as a simple string.</td>
+        </tr>
+        <tr>
+            <td><b>@Output</b> tagAdding</td>
+            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+            <td>Raised when a tag is about to be added. The <code>tag</code> property of the event contains the tag to be added. Call <code>preventDefault()</code> on the event to prevent addition.</td>
+        </tr>
+        <tr>
+            <td><b>@Output</b> tagAdded</td>
+            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+            <td>Raised when a tag has been added. The <code>tag</code> property of the event contains the tag.</td>
+        </tr>
+        <tr>
+            <td><b>@Output</b> tagInvalidated</td>
+            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+            <td>Raised when a tag has failed validation according to the <code>tagPattern</code>. The <code>tag</code> property of the event contains the string which failed validation.</td>
+        </tr>
+        <tr>
+            <td><b>@Output</b> tagRemoving</td>
+            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+            <td>Raised when a tag is about to be removed. The <code>tag</code> property of the event contains the tag to be removed. Call <code>preventDefault()</code> on the event to prevent removal.</td>
+        </tr>
+        <tr>
+            <td><b>@Output</b> tagRemoved</td>
+            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+            <td>Raised when a tag has been removed. The <code>tag</code> property of the event contains the tag.</td>
+        </tr>
+        <tr>
+            <td><b>@Output</b> tagClick</td>
+            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+            <td>Raised when a tag has been clicked. The <code>tag</code> property of the event contains the clicked tag. Call <code>preventDefault()</code> on the event to prevent the default behaviour of selecting the tag.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>TagApi</h4>
+
+<p>The <code>api</code> object available to the <code>tagTemplate</code> has the following interface:</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Args</th>
+            <th>Returns</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>getTagDisplay</td>
+            <td>tag: any</td>
+            <td>string</td>
+            <td>Returns the display value of the given <code>tag</code>, according to the <code>displayProperty</code> property. In custom templates where the tag data format is known, this function does not need to be called.</td>
+        </tr>
+        <tr>
+            <td>removeTagAt</td>
+            <td>index: number</td>
+            <td></td>
+            <td>Removes the tag at the given <code>index</code>, if possible. This may be prevented by the <code>minTags</code> setting.</td>
+        </tr>
+        <tr>
+            <td>canRemoveTagAt</td>
+            <td>index: number</td>
+            <td>boolean</td>
+            <td>Returns true if the tag at the given <code>index</code> can be removed. In the example, this is used to control the visibility of the remove button.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Typeahead</h4>
+
+<p>Typeahead functionality is provided by defining a <code>ux-typeahead</code> component as a child of the <code>ux-tag-input</code>. It has the following properties:</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><b>@Input</b> options</td>
+            <td><b>any[]</b></td>
+            <td>The list of options to present in the typeahead. This can be an array of strings or custom objects, and should correspond to the same data type used in the tag input control. See the <code>display</code> and <code>key</code> properties for details of using a custom object.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> filter</td>
+            <td><b>string</b></td>
+            <td>The string which is used to filter the list of options. This is matched to the display property if custom objects are used. The tag input <code>input</code> binding can be used here, to refine the typeahead as the user enters text.</td>
+        </tr>
+        <tr>
+            <td><b>@Input @Output</b> open</td>
+            <td><b>boolean</b></td>
+            <td>Controls whether the typeahead dropdown is visible.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> display</td>
+            <td><b>(option: any) => string | string</b></td>
+            <td>Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate display value. If the name of a property is provided as a string, that property is used as the display value.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> key</td>
+            <td><b>(option: any) => string | string</b></td>
+            <td>Determines the unique key value of the <code>options</code>, if they are custom objects. This is only relevant if multiple options will have the same display value. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate key value. If the name of a property is provided as a string, that property is used as the key value. The default behaviour is to use the <code>display</code> value as the key.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> disabledOptions</td>
+            <td><b>any[]</b></td>
+            <td>The list of options which should appear disabled in the typeahead. This is useful if duplicate tags are not wanted in the tag input, in which case the  <code>tags</code> binding should also be set here.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> dropDirection</td>
+            <td><b>'up' | 'down'</b></td>
+            <td>The positioning of the typeahead dropdown in relation to its parent. Default is 'down'.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> maxHeight</td>
+            <td><b>string</b></td>
+            <td>The maximum height of the typeahead dropdown, as a CSS value. Default is '250px'.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> optionTemplate</td>
+            <td><b>TemplateRef</b></td>
+            <td>
+                <p>A template which will be rendered in the dropdown for each option. The following context properties are available in the template:</p>
+                <ul>
+                    <li><code>option: any</code> - the string or custom object representing the option.</li>
+                    <li><code>api: TypeaheadOptionApi</code> - provides the functions <code>getKey</code>, <code>getDisplay</code> and <code>getDisplayHtml</code>. See the section below for more information.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> noOptionsTemplate</td>
+            <td><b>TemplateRef</b></td>
+            <td>A template which will be rendered in the dropdown if no options match the current filter value.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> selectFirst</td>
+            <td><b>boolean</b></td>
+            <td>Controls whether the first non-disabled option in the dropdown is highlighted by default. Default is true.</td>
+        </tr>
+        <tr>
+            <td><b>@Output</b> optionSelected</td>
+            <td><b>EventEmitter&lt;TypeaheadOptionEvent&gt;</b></td>
+            <td>Raised when an option on the dropdown is clicked. The <code>option</code> property on the event contains the clicked option.</td>
+        </tr>
+        <tr>
+            <td><b>@Output</b> highlighted</td>
+            <td><b>BehaviorSubject&lt;any&gt;</b></td>
+            <td>The currently highlighted option.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>TypeaheadOptionApi</h4>
+
+<p>The <code>api</code> object available to the <code>optionTemplate</code> has the following interface:</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Args</th>
+            <th>Returns</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>getKey</td>
+            <td>option: any</td>
+            <td>string</td>
+            <td>Returns the unique key value of the given <code>option</code>.</td>
+        </tr>
+        <tr>
+            <td>getDisplay</td>
+            <td>option: any</td>
+            <td>string</td>
+            <td>Returns the display value of the given <code>option</code>.</td>
+        </tr>
+        <tr>
+            <td>getDisplayHtml</td>
+            <td>option: any</td>
+            <td>string</td>
+            <td>Returns the display value of the given <code>option</code> with HTML markup added to highlight the part which matches the current <code>filter</code> value. Override the <code>ux-filter-match</code> class in CSS to modify the default appearance.</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>The following code was used to create the example at the top of this section.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>

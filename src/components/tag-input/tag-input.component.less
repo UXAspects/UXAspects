@@ -38,6 +38,10 @@ ux-tag-input {
                 outline: none;
             }
 
+            &.disabled {
+                cursor: default;
+            }
+
             & > .ux-tag-remove {
                 flex: 0 0 auto;
                 font-size: 80%;
@@ -47,8 +51,12 @@ ux-tag-input {
                 border: none;
                 padding: 0;
 
-                &:hover {
+                &:hover:not([disabled]) {
                     opacity: 1;
+                }
+
+                &[disabled] {
+                    cursor: default;
                 }
             }
         }
@@ -87,7 +95,15 @@ ux-tag-input {
         }
     }
 
+    &.disabled {
+        background-color: @tag-input-disabled-bg;
+    }
+
     &.focus {
         border-color: @form-control-focus-border;
+    }
+
+    &.invalid {
+        border-color: @critical;
     }
 }

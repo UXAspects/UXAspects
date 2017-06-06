@@ -1,7 +1,8 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -74,7 +75,9 @@ const ROUTES = [
         FormsModule,
         ColorServiceModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        ReactiveFormsModule,
+        AccordionModule.forRoot()
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

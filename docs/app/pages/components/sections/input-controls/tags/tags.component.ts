@@ -1,51 +1,78 @@
-import { Component, OnInit } from '@angular/core';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { TagInputEvent } from '../../../../../../../src/components/tag-input/index';
-
-const TAG_PATTERN = new RegExp(/^[a-zA-Z0-9_\-]+$/);
+import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'uxd-components-tags',
-    templateUrl: 'tags.component.html'
+    templateUrl: 'tags.component.html',
+    styleUrls: ['./tags.component.less']
 })
 @DocumentationSectionComponent('ComponentsTagsComponent')
-export class ComponentsTagsComponent implements OnInit {
+export class ComponentsTagsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    tags: string[] = ['Alpha', 'Beta', 'Kappa'];
+    tagInput: FormControl;
 
-    allTags = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', '<b>Omega</b>'];
+    tags = ['Alpha', 'Beta', 'Kappa'];
 
-    tagInput: string;
+    allTags = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega'];
 
-    constructor() { }
+    input: string;
 
-    ngOnInit() { }
-
-    validateTag(value: string): string {
-        return TAG_PATTERN.test(value) ? null : 'Letters, numbers and underscore only.';
+    addOnPaste: boolean = true;
+    disabled: boolean = false;
+    enforceTagLimits: boolean = false;
+    freeInput: boolean = true;
+    minTags: number = 1;
+    maxTags: number = 10;
+    tagPatternRegExp: RegExp;
+    get tagPattern(): string {
+        return this.tagPatternRegExp ? this.tagPatternRegExp.source : '';
     }
-
-    tagAdding(event: TagInputEvent) {
-        console.log(`tagAdding: ${event.tag}`);
+    set tagPattern(value: string) {
+        if (value) {
+            try {
+                this.tagPatternRegExp = new RegExp(value);
+            } catch (e) {
+                this.tagPatternRegExp = null;
+            }
+        } else {
+            this.tagPatternRegExp = null;
+        }
     }
+    placeholder: string = 'Add a tag';
+    tagDelimiters: string = ' ,';
+    typeaheadEnabled: boolean = false;
+    selectFirst: boolean = true;
+    dropDirection: 'up' | 'down' = 'down';
+    showTypeaheadOnClick: boolean = false;
 
-    tagAdded(event: TagInputEvent) {
-        console.log(`tagAdded: ${event.tag}`);
-    }
+    public plunk: IPlunk = {
+        files: {
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.css': this.snippets.raw.appCss
+        },
+        modules: [{
+            imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule'],
+            library: 'ux-aspects'
+        }, {
+            library: 'ngx-bootstrap',
+            imports: ['AccordionModule'],
+            providers: ['AccordionModule.forRoot()']
+        }],
+        mappings: [MAPPINGS.NgxBootstrap]
+    };
 
-    tagInvalidated(event: TagInputEvent) {
-        console.log(`tagInvalidated: ${event.tag}`);
-    }
-
-    tagRemoving(event: TagInputEvent) {
-        console.log(`tagRemoving: ${event.tag}`);
-    }
-
-    tagRemoved(event: TagInputEvent) {
-        console.log(`tagRemoved: ${event.tag}`);
-    }
-
-    tagClick(event: TagInputEvent) {
-        console.log(`tagClick: ${event.tag}`);
+    constructor() {
+        super(
+            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
+            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
+            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
+            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
+            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
+        );
     }
 }
