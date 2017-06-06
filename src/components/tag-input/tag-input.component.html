@@ -2,7 +2,7 @@
     <li *ngFor="let tag of tags; let i = index" class="ux-tag"
         [class.disabled]="disabled"
         [attr.tabindex]="disabled ? null : i"
-        [uxFocusIf]="isSelected(i)"
+        [focusIf]="isSelected(i)"
         (click)="tagClickHandler($event, tag, i)"
         (focus)="selectTagAt(i)">
         
@@ -17,7 +17,7 @@
             [class.invalid]="!inputValid"
             [placeholder]="disabled ? '' : (placeholder || '')"
             [disabled]="disabled"
-            [uxFocusIf]="isSelected(tags.length)"
+            [focusIf]="isSelected(tags.length)"
             (click)="inputClickHandler()"
             (focus)="inputFocusHandler()"
             (paste)="inputPasteHandler($event)">

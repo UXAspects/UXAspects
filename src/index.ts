@@ -7,6 +7,7 @@ export * from './components/column-sorting/index';
 export * from './components/ebox/index';
 export * from './components/facets/index';
 export * from './components/flippable-card/index';
+export * from './components/item-display-panel/index';
 export * from './components/page-header/index';
 export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';
@@ -20,4 +21,3 @@ export * from './directives/resize/index';
 export * from './directives/scroll-into-view-if/index';
 export * from './pipes/string-filter/index';
 export * from './services/color/index';
-

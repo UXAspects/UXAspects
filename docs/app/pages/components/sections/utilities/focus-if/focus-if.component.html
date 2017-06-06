@@ -1,0 +1,26 @@
+<div class="focus-demo-box aspects-focus-outline" tabindex="0" [focusIf]="focused">
+    <p class="p-sm">Click the button below to focus on this box</p>
+</div>
+
+<button class="btn button button-primary m-t-md" (click)="focused = true">Click</button>
+
+<hr>
+
+<p>The <code>focusIf</code> directive should be used as an attribute. When the attribute value is true the element will gain focus. 
+    In the above example when we click the button a variable is updated and the box will get focus.</p>
+
+<p>The code to produce the example is below:<p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appLess" language="css"></uxd-snippet>
+    </tab>
+</tabset>
+
+

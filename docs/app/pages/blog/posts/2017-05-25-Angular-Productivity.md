@@ -11,7 +11,7 @@ The Angular Language Service is an extension being developed by the Angular team
 
 ### 2. Angular v4 TypeScript Snippets
 
-When creating an Angular application you will notice that are certain bits of code that you end up typing over and over again, in particular things like NgModule, Component and Directive decorators. To speed up this process the Angular v4 TypeScript Snippets extension allows you to easily create this boilerplate code for you.
+When creating an Angular application you will notice that there are certain bits of code that you end up typing over and over again, in particular things like NgModule, Component and Directive decorators. To speed up this process the Angular v4 TypeScript Snippets extension allows you to easily create this boilerplate code for you.
 
 <br>
 <img src="../../../assets/img/blog/angular-snippets.gif" />
@@ -20,7 +20,7 @@ When creating an Angular application you will notice that are certain bits of co
 
 ### 3. Path Intellisense
 
-One thing that becomes very common when creating Angular components is having to provide relative file paths for templates and stylesheets, but this also is common when adding images in HTML and CSS rules as well.
+One thing that becomes very common when creating Angular components is having to provide relative file paths for templates and stylesheets, but this is also common when adding images in HTML and CSS rules.
 
 With the Path Intellisense plugin, the editor will display the list of files and folders in the directory and will update to show the appropriate results as you change the file path.
 
@@ -31,7 +31,7 @@ With the Path Intellisense plugin, the editor will display the list of files and
 
 ### 4. TSLint
 
-TSLint is both an extension for your editor and a node module. It allows you to define a set of rules about how developers should write their code, making it consistent throughout the entire codebase. The editor extension will check your code as you type it, and inform you of anything that doesn't conform to the rules and the editor can often provide you with auto-fix functionality. TSLint can run as part of a build process to ensure that code meets the expected standard before the build will be successful.
+TSLint is both an extension for your editor and a node module. It allows you to define a set of rules about how developers should write their code, making it consistent throughout the entire codebase. The editor extension will check your code as you type it, inform you of anything that doesn't conform to the rules and the editor can often provide you with auto-fix functionality. TSLint can run as part of a build process to ensure that code meets the expected standard before the build will be successful.
 
 In addition to this, you can add further rules describing how Angular components should be written by adding Codealyzer to your project.
 
