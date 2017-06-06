@@ -531,6 +531,8 @@ export class DashboardService {
 
         // show the widget positions if the current positions and sizes were to persist
         this.shiftWidgets();
+
+        this.setDashboardHeight();
     }
 
     cacheWidgets(): void {
@@ -768,6 +770,13 @@ export class DashboardService {
         this._placeholder.row = this.getPlaceholderRow(y, height);
         this._placeholder.columnSpan = this.getPlaceholderColumnSpan(width);
         this._placeholder.rowSpan = this.getPlaceholderRowSpan(height);
+
+        // calculate the maximum number of rows
+        let rowCount = this._widgets.filter(widget => widget !== this._actionWidget.widget)
+            .reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
+
+        // constrain maximum placeholder row
+        this._placeholder.row = Math.min(this._placeholder.row, rowCount);
 
         this._placeholder.x = (this._placeholder.column * this.getColumnWidth()) + this._options.padding;
         this._placeholder.y = (this._placeholder.row * this.getRowHeight()) + this._options.padding;

@@ -84,7 +84,7 @@ export class PlunkerService {
             .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
 
         let mainTs = require('./templates/main_ts.txt')
-            .replace(MODULES_PLACEHOLDER, (modules.toString()))
+            .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
             .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
             .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
 

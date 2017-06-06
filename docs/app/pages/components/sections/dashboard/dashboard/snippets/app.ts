@@ -1,19 +1,13 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { DashboardOptions } from '../../../../../../../src/components/dashboard/index';
-import { ColorService } from '../../../../../../../src/index';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { ColorService, DashboardOptions } from 'ux-aspects';
 import 'chance';
 
 @Component({
-    selector: 'uxd-components-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.less']
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
-@DocumentationSectionComponent('ComponentsDashboardComponent')
-export class ComponentsDashboardComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class AppComponent {
 
     // configure the directive data
     lineChartData: Chart.ChartData = [{
@@ -79,40 +73,7 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
         minWidth: 187
     };
 
-    plunk: IPlunk = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
-        },
-        mappings: [
-            MAPPINGS.Chance,
-            MAPPINGS.ChartJs,
-            MAPPINGS.Ng2Charts
-        ],
-        modules: [{
-            imports: ['DashboardModule', 'ColorServiceModule', 'SparkModule'],
-            library: 'ux-aspects'
-        }, {
-            library: 'chance'
-        },
-        {
-            library: 'chart.js'
-        },
-        {
-            imports: ['ChartsModule'],
-            library: 'ng2-charts'
-        }]
-    };
-
     constructor(public colorService: ColorService) {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
 
         // generate the chart data
         for (let idx = 0; idx < 50; idx++) {

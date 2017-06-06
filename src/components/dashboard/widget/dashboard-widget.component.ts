@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, QueryList, ViewChildren, Directive, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, QueryList, ViewChildren, Directive, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import { DashboardService, ActionDirection } from '../dashboard.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -16,7 +16,7 @@ import 'rxjs/add/operator/takeUntil';
         '[style.zIndex]': 'zIndex'
     }
 })
-export class DashboardWidgetComponent implements OnInit, AfterViewInit {
+export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() id: string;
     @Input() col: number;
@@ -90,6 +90,13 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit {
      */
     ngAfterViewInit(): void {
         this.initialiseHandles();
+    }
+
+    /**
+     * If component is removed, then unregister it from the service
+     */
+    ngOnDestroy(): void {
+        this._dashboardService.removeWidget(this);
     }
 
     /**

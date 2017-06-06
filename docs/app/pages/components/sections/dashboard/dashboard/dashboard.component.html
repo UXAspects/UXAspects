@@ -1,17 +1,12 @@
-<ux-dashboard class="static-dashboard" [options]="options">
+<ux-dashboard class="customizable-dashboard" [options]="options">
 
-    <ux-dashboard-widget id="analytics-1-widget" colSpan="4" rowSpan="2">
+    <ux-dashboard-widget id="analytics-1-widget" colSpan="4" rowSpan="2" [resizable]="true">
         <div class="widget-content" ux-dashboard-widget-drag-handle>
             <h3 class="widget-title">Usage Analytics</h3>
 
             <div class="widget-chart">
-                <canvas baseChart 
-                        [datasets]="lineChartData"
-                        [options]="lineChartOptions"
-                        [labels]="lineChartLabels"
-                        [legend]="lineChartLegend"
-                        [colors]="lineChartColors"
-                        chartType="line">
+                <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions" [labels]="lineChartLabels" [legend]="lineChartLegend"
+                    [colors]="lineChartColors" chartType="line">
                 </canvas>
             </div>
         </div>
@@ -53,7 +48,7 @@
                 <h1 class="text-count text-black">18</h1>
             </div>
 
-            <ux-spark value="28" barHeight="5" trackColor="colorService.getColor('grey6').toHex()"></ux-spark>
+            <ux-spark value="28" barHeight="5" [trackColor]="colorService.getColor('grey6').toHex()"></ux-spark>
 
             <div class="widget-split">
                 <p class="text-label">Logged in</p>
@@ -70,12 +65,176 @@
             <p class="info-title">18 Dec, 2016 10:17 AM</p>
             <p class="info-value m-t text-black">
                 Planned downtime:
-                <br>
-                31 Dec, 2016 11PM PST -
-                <br>
-                01 Jan, 2017 6 AM PST
+                <br> 31 Dec, 2016 11PM PST -
+                <br> 01 Jan, 2017 6 AM PST
             </p>
-        </div>        
+        </div>
     </ux-dashboard-widget>
 
 </ux-dashboard>
+
+<hr>
+
+<p>
+    The <code>ux-dashboard</code> component allow you to easy create a customizable dashboard for your application. Simply
+    add <code>ux-dashboard-widget</code> elements inside the <code>ux-dashboard</code> tag and the dashboard component will automatically
+    arrange the widgets for you.
+</p>
+
+<p>
+    The dashboard layout can be manually configured using the <code>layout</code> attribute. This is a two way binding which will be updated 
+    whenever the layout changes.
+</p>
+
+<p>
+    In the example above all widgets can be dragged to reposition them. This is achieved by adding a 
+    <code>ux-dashboard-widget-drag-handle</code> attribute to an element within the widget. Whichever element has the attribute is the one
+    the user has to perform the drag on.
+</p>
+
+<p>
+    Widgets can also be resized, by setting the <code>resizable</code> attribute to <code>true</code> on a <code>ux-dashboard-widget</code> component.
+    Widgets are given two classes <code>widget-col-span-*</code> and <code>widget-row-span-*</code> with the <code>*</code> being replaced by the number 
+    of columns and rows the widget is occupying. This can be used to apply different styles based on the size of the widget.
+</p>
+
+<p>
+    If the dashboard becomes too small to display widgets without them becoming smaller than the specified minimum size, the dashboard will display 
+    in stacked mode where all items are presented in a vertical list and will span the entire width of the dashboard.
+</p>
+
+<p>The following attributes can be added to the <code>ux-dashboard</code> component to configure its behavior:</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td><b>@Input @Output</b> layout</td>
+            <td><b>DashboardLayoutData[]</b></td>
+            <td>
+                If defined or changed this will set the positions of the widgets within the dashboard. 
+                This is a two way binding that will be updated with the current layout when it changes.
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> options</td>
+            <td><b>DashboardOptions</b></td>
+            <td>Configures the options for the dashboard, if an option is not specified the default value will be used.</td>
+        </tr>
+
+    </tbody>
+</table>
+
+<p>The following <code>DashboardOptions</code> are available to configure:</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td>columns</td>
+            <td><b>number</b></td>
+            <td>Defines the number of columns the dashboard should have.</td>
+        </tr>
+
+        <tr>
+            <td>minWidth</td>
+            <td><b>number</b></td>
+            <td>Defines minimum widget width.</td>
+        </tr>
+
+        <tr>
+            <td>minHeight</td>
+            <td><b>number</b></td>
+            <td>Defines minimum widget height.</td>
+        </tr>
+
+        <tr>
+            <td>rowHeight</td>
+            <td><b>number</b></td>
+            <td>Defines the height of each row on the dashboard.</td>
+        </tr>
+
+        <tr>
+            <td>emptyRow</td>
+            <td><b>boolean</b></td>
+            <td>Defines whether or not an empty row should always be visible on the bottom of the dashboard to allow for additional items or dragging/resizing.</td>
+        </tr>
+
+    </tbody>
+</table>
+
+<p>The following attributes can be added to the <code>ux-dashboard-widget</code> components to configure their behavior:</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td><b>@Input</b> id</td>
+            <td><b>string</b></td>
+            <td>Sets the ID of the widget. Each widget should be given a unique ID.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> colSpan</td>
+            <td><b>number</b></td>
+            <td>Defines the number of columns this widget should occupy.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> rowSpan</td>
+            <td><b>number</b></td>
+            <td>Defines the number of rows this widget should occupy.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> resizable</td>
+            <td><b>boolean</b></td>
+            <td>Defines whether or not this widget can be resized.</td>
+        </tr>
+
+    </tbody>
+</table>
+
+<p>The following code can be used to create the example above.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>
