@@ -11,7 +11,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="clickable single-select" [class.highlight]="item.id === selectedItem?.id && visible" 
+            <tr class="clickable single-select" 
+            [class.highlight]="item.id === selectedItem?.id && visible" 
             *ngFor="let item of items" (click)="show(panel, $event, item)">
                 <td class="text-center">
                     <div class="listview-page-icon"></div>
@@ -34,8 +35,8 @@
     </table>
 </div>
 
-<ux-item-display-panel [(visible)]="visible" top="53" [shadow]="shadow" [title]="selectedItem?.panel.title" 
-[animate]="animate">
+<ux-item-display-panel [(visible)]="visible" top="53" [shadow]="shadow" 
+[title]="selectedItem?.panel.title" [animate]="animate">
 
     <div uxItemDisplayPanelContent [innerHTML]="selectedItem?.panel.content"></div>
 
