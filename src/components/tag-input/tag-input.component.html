@@ -1,0 +1,32 @@
+<ol>
+    <li *ngFor="let tag of tags; let i = index" class="ux-tag"
+        [class.disabled]="disabled"
+        [attr.tabindex]="disabled ? null : i"
+        [focusIf]="isSelected(i)"
+        (click)="tagClickHandler($event, tag, i)"
+        (focus)="selectTagAt(i)">
+        
+        <ng-container [ngTemplateOutlet]="tagTemplate"
+            [ngOutletContext]="{tag: tag, index: i, disabled: disabled, api: tagApi}">
+        </ng-container>
+
+    </li>
+    <li *ngIf="isInputVisible()" class="ux-tag-input">
+        <input #tagInput type="text" class="ux-tag-input"
+            [(ngModel)]="input"
+            [class.invalid]="!inputValid"
+            [placeholder]="disabled ? '' : (placeholder || '')"
+            [disabled]="disabled"
+            [focusIf]="isSelected(tags.length)"
+            (click)="inputClickHandler()"
+            (focus)="inputFocusHandler()"
+            (paste)="inputPasteHandler($event)">
+    </li>
+</ol>
+
+<ng-content #typeahead></ng-content>
+
+<ng-template #defaultTagTemplate let-tag="tag" let-index="index" let-disabled="disabled" let-api="api">
+    <span class="ux-tag-text">{{api.getTagDisplay(tag)}}</span>
+    <button *ngIf="api.canRemoveTagAt(index)" type="button" class="ux-tag-remove" [disabled]="disabled" (click)="api.removeTagAt(index); $event.stopPropagation();"><i class="hpe-icon hpe-close"></i></button>
+</ng-template>
