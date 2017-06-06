@@ -158,6 +158,27 @@
             ]
         },
         {
+            "title": "Dashboard",
+            "link": "dashboard",
+            "sections": [
+                {
+                    "title": "Dashboard",
+                    "component": "ComponentsDashboardComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-dashboard"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "DashboardModule"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "title": "Date & Time Pickers",
             "link": "date-time-picker",
             "sections": [{

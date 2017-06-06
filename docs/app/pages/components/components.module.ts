@@ -14,6 +14,7 @@ const ROUTES: Routes = [
             { path: 'buttons', loadChildren: './sections/buttons/buttons.module#ComponentsButtonsModule' },
             { path: 'component-list', loadChildren: './sections/component-list/component-list.module#ComponentsListModule' },
             { path: 'contacts', loadChildren: './sections/contacts/contacts.module#ComponentsContactsModule' },
+            { path: 'dashboard', loadChildren: './sections/dashboard/dashboard.module#ComponentsDashboardModule' },
             { path: 'date-time-picker', loadChildren: './sections/date-time-picker/date-time-picker.module#ComponentsDateTimePickerModule' },
             { path: 'draggable-cards', loadChildren: './sections/draggable-cards/draggable-cards.module#ComponentsDraggableCardsModule' },
             { path: 'draggable-panels', loadChildren: './sections/draggable-panels/draggable-panels.module#ComponentsDraggablePanelsModule' },
