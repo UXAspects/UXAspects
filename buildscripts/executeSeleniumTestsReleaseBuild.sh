@@ -38,8 +38,8 @@ cd $rootFolder/ux-aspects
 
 # Update testng.xml to use the correct ports for testing of the release build
 echo Updating testng.xml
-sed -i.bak 's/4000/$documentationPort/g' testng.xml    # Documentation wil be published on port 4001
-sed -i.bak 's/4444/$hubProcessPort/g' testng.xml       # The Selenium Grid hub process will use port 4445
+sed -i.bak 's/4000/4001/g' testng.xml    # Documentation wil be published on port 4001
+sed -i.bak 's/4444/4445/g' testng.xml       # The Selenium Grid hub process will use port 4445
 
 # Create the latest ux-aspects-build image if it does not exist
 docker_image_build "$rootFolder/ux-aspects/docker"; echo
@@ -67,7 +67,7 @@ fi
 
 # Create a new container which will build the new web service
 echo Starting new container
-docker_image_run_detached "$rootFolder/ux-aspects" $documentationPort "bash buildscripts/executeSeleniumTestsReleaseBuildDocker.sh &"
+docker_image_run_detached "$rootFolder/ux-aspects" $documentationPort "ContainerIDReleaseBuild" "bash buildscripts/executeSeleniumTestsReleaseBuildDocker.sh &"
 
 # Loop until the container has been created
 containerIDCheckDelay=5

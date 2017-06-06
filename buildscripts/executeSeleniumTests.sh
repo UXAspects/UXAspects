@@ -70,7 +70,7 @@ fi
 
 # Create a new container which will build the new web service
 echo Starting new container
-docker_image_run_detached "$rootFolder/ux-aspects" 4000 "bash buildscripts/executeSeleniumTestsDocker.sh &"
+docker_image_run_detached "$rootFolder/ux-aspects" 4000 "ContainerID" "bash buildscripts/executeSeleniumTestsDocker.sh &"
 
 # Loop until the container has been created
 containerIDCheckDelay=5

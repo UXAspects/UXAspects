@@ -38,12 +38,14 @@ docker_image_run_detached()
 {
     localRootFolder=$1
     port=$2
-    command=$3
+    containerIDFileName=$3
+    command=$4
     
     echo ${FUNCNAME[0]} - localRootFolder is $localRootFolder
     echo ${FUNCNAME[0]} - HttpProxy is $HttpProxy
     echo ${FUNCNAME[0]} - HttpsProxy is $HttpsProxy
     echo ${FUNCNAME[0]} - port is $port
+    echo ${FUNCNAME[0]} - containerIDFileName is $containerIDFileName
     echo ${FUNCNAME[0]} - command is $command
     
     DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
@@ -53,7 +55,7 @@ docker_image_run_detached()
     else
         pushd $localRootFolder
         echo Calling docker run detached with command ... "$command"
-        dockerCommand="docker run -d -it --cidfile=\"$PWD/ContainerID\" \
+        dockerCommand="docker run -d -it --cidfile=\"$PWD/$containerIDFileName\" \
             --volume \"$PWD\":/workspace:rw --workdir /workspace \
             --user $UID:$GROUPS \
             -e \"http_proxy=$HttpProxy\" \
