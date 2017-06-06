@@ -41,8 +41,8 @@ export class AppComponent {
     ppt = `<div class="p-r-md p-l-md p-t-sm">
   <h1>Preview PPT</h1>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla, nunc sit amet faucibus 
-  dapibus, est purus luctus magna, ut tempus orci quam vitae diam. Proin dapibus elit et rhoncus interdum. 
-  Pellentesque ornare nibh ac nulla sodales commodo. Sed vestibulum hendrerit ultrices.</p>
+  dapibus, est purus luctus magna, ut tempus orci quam vitae diam. Proin dapibus elit et rhoncus 
+  interdum. Pellentesque ornare nibh ac nulla sodales commodo. Sed vestibulum hendrerit ultrices.</p>
 </div>`;
 
     items: Item[] = [{
