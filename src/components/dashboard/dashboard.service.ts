@@ -617,7 +617,6 @@ export class DashboardService {
 
                 // after the shift check if placeholder position is still valid
                 this.validatePlaceholderPosition(ActionDirection.Right);
-
                 return;
             }
 
@@ -626,10 +625,9 @@ export class DashboardService {
 
                 // after the shift check if placeholder position is still valid
                 this.validatePlaceholderPosition(ActionDirection.Left);
-
                 return;
             }
-            
+
             // determine the distance that the widget needs to be moved down
             let distance = (this._actionWidget.widget.getRow() - widget.getRow()) + this._actionWidget.widget.getRowSpan();
 
