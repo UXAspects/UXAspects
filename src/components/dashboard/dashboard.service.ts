@@ -614,20 +614,54 @@ export class DashboardService {
 
             // if we get to here then we can't simply swap the positions - next try moving right
             if (this.canWidgetMoveRight(widget, true)) {
+
+                // after the shift check if placeholder position is still valid
+                this.validatePlaceholderPosition(ActionDirection.Right);
+
                 return;
             }
 
             // next try moving left
             if (this.canWidgetMoveLeft(widget, true)) {
+
+                // after the shift check if placeholder position is still valid
+                this.validatePlaceholderPosition(ActionDirection.Left);
+
                 return;
             }
-
+            
             // determine the distance that the widget needs to be moved down
             let distance = (this._actionWidget.widget.getRow() - widget.getRow()) + this._actionWidget.widget.getRowSpan();
 
             // as a last resort move the widget downwards
             this.moveWidgetDown(widget, distance);
         });
+    }
+
+    /**
+     * After shifts have taken place we should verify the place holder position is still valid
+     * @param shiftDirection - the position widgets were shifted
+     */
+    validatePlaceholderPosition(shiftDirection: ActionDirection) {
+
+        // check if the placeholder is over a widget
+        if (this.getWidgetsAtPosition(this.getPlaceholder().column, this.getPlaceholder().row, true).length > 0) {
+
+            // move the placeholder the opposite direction
+            switch (shiftDirection) {
+
+                case ActionDirection.Left:
+                    this.setPlaceholderBounds(this.getPlaceholder().visible, this.getPlaceholder().x + this.getColumnWidth(), this.getPlaceholder().y, this.getPlaceholder().width, this.getPlaceholder().height);
+                    break;
+
+                case ActionDirection.Right:
+                    this.setPlaceholderBounds(this.getPlaceholder().visible, this.getPlaceholder().x - this.getColumnWidth(), this.getPlaceholder().y, this.getPlaceholder().width, this.getPlaceholder().height);
+                    break;
+            }
+
+            // validate this new position again
+            this.validatePlaceholderPosition(shiftDirection);
+        }
     }
 
     /**
