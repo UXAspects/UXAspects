@@ -1,0 +1,81 @@
+<ux-dashboard class="static-dashboard" [options]="options">
+
+    <ux-dashboard-widget id="analytics-1-widget" colSpan="4" rowSpan="2">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <h3 class="widget-title">Usage Analytics</h3>
+
+            <div class="widget-chart">
+                <canvas baseChart 
+                        [datasets]="lineChartData"
+                        [options]="lineChartOptions"
+                        [labels]="lineChartLabels"
+                        [legend]="lineChartLegend"
+                        [colors]="lineChartColors"
+                        chartType="line">
+                </canvas>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="subscription-widget" colSpan="2">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <div class="dashboard-split-panel">
+                <div class="dashboard-section-large dashboard-section-divider">
+                    <h3 class="widget-title">Service status</h3>
+                    <ul class="widget-feature-list">
+                        <li class="widget-feature-list-item">Archiving Service</li>
+                        <li class="widget-feature-list-item">Analytics Service</li>
+                        <li class="widget-feature-list-item">Search Service</li>
+                        <li class="widget-feature-list-item warning">Backup Service</li>
+                    </ul>
+                </div>
+                <div class="dashboard-section-small">
+                    <div>
+                        <h4 class="info-title">Package</h4>
+                        <p class="info-value">Aspects Ultimate</p>
+                    </div>
+
+                    <div>
+                        <h4 class="info-title">Last Updated</h4>
+                        <p class="info-value">16 Dec, 2016</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="users-widget">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <h3 class="widget-title">Users</h3>
+
+            <div class="widget-split">
+                <h1 class="text-count text-primary">5</h1>
+                <h1 class="text-count text-black">18</h1>
+            </div>
+
+            <ux-spark value="28" barHeight="5" trackColor="colorService.getColor('grey6').toHex()"></ux-spark>
+
+            <div class="widget-split">
+                <p class="text-label">Logged in</p>
+                <p class="text-label">Total</p>
+            </div>
+
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="alert-widget">
+        <div class="widget-content prominent" ux-dashboard-widget-drag-handle>
+            <h3 class="widget-title">Alert</h3>
+
+            <p class="info-title">18 Dec, 2016 10:17 AM</p>
+            <p class="info-value m-t text-black">
+                Planned downtime:
+                <br>
+                31 Dec, 2016 11PM PST -
+                <br>
+                01 Jan, 2017 6 AM PST
+            </p>
+        </div>        
+    </ux-dashboard-widget>
+
+</ux-dashboard>

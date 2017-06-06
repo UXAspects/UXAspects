@@ -1,0 +1,12 @@
+<div class="widget-content widget-col-span-{{ getColumnSpan() }} widget-row-span-{{ getRowSpan() }}">
+    <ng-content></ng-content>
+</div>
+
+<div class="resizer-handle handle-top" [style.top.px]="padding" [hidden]="!resizable"></div>
+<div class="resizer-handle handle-top-right" [style.top.px]="padding" [style.right.px]="padding" [hidden]="!resizable && !stacked"></div>
+<div class="resizer-handle handle-right" [style.right.px]="padding" [hidden]="!resizable || stacked"></div>
+<div class="resizer-handle handle-bottom-right" [style.bottom.px]="padding" [style.right.px]="padding" [hidden]="!resizable && !stacked"></div>
+<div class="resizer-handle handle-bottom" [style.bottom.px]="padding" [hidden]="!resizable"></div>
+<div class="resizer-handle handle-bottom-left" [style.bottom.px]="padding" [style.left.px]="padding" [hidden]="!resizable && !stacked"></div>
+<div class="resizer-handle handle-left" [style.left.px]="padding" [hidden]="!resizable || stacked"></div>
+<div class="resizer-handle handle-top-left" [style.top.px]="padding" [style.left.px]="padding" [hidden]="!resizable && !stacked"></div>

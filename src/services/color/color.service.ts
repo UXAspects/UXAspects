@@ -75,7 +75,7 @@ export class ColorService {
         this.element.parentNode.removeChild(this.element);
     }
 
-    getColorValue(color: ColorIdentifier): ThemeColor {
+    private getColorValue(color: ColorIdentifier): ThemeColor {
 
         let target = this.element.querySelector('.' + color + '-color');
 

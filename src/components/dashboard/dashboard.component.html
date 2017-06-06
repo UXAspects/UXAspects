@@ -1,0 +1,6 @@
+<div (uxResize)="onResize($event)" throttle="16" class="dashboard-container">
+    <ng-content></ng-content>
+</div>
+
+<div class="position-indicator" *ngIf="placeholder.visible" [style.left.px]="placeholder.x" [style.top.px]="placeholder.y" [style.width.px]="placeholder.width"
+    [style.height.px]="placeholder.height"></div>
