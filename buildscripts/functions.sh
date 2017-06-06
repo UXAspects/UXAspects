@@ -19,7 +19,7 @@ docker_image_build()
     echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
     if [ -z "$DOCKER_IMAGE_ID" ] ; then
         # Create the docker image
-        cd $dockerfileLocation
+        pushd $dockerfileLocation
         echo Building the image
         docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
             --build-arg http_proxy=$HttpProxy \
@@ -28,6 +28,7 @@ docker_image_build()
             --no-cache .
         DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
         echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
+        popd
     fi
 }
 
@@ -50,7 +51,7 @@ docker_image_run_detached()
     if [ -z "$DOCKER_IMAGE_ID" ] ; then
         echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
     else
-        cd $localRootFolder
+        pushd $localRootFolder
         echo Calling docker run detached with command ... "$command"
         dockerCommand="docker run -d -it --cidfile=\"$PWD/ContainerID\" \
             --volume \"$PWD\":/workspace:rw --workdir /workspace \
@@ -64,6 +65,7 @@ docker_image_run_detached()
         
         echo dockerCommand is $dockerCommand
         eval $dockerCommand
+        popd
     fi
 }
 
@@ -82,7 +84,7 @@ docker_image_run()
     if [ -z "$DOCKER_IMAGE_ID" ] ; then
         echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
     else
-        cd $localRootFolder
+        pushd $localRootFolder
         echo Calling docker run with command ... "$command"
         dockerCommand="docker run --rm --volume \"$PWD\":/workspace \
             --workdir /workspace \
@@ -92,6 +94,7 @@ docker_image_run()
         
         echo dockerCommand is $dockerCommand
         eval $dockerCommand
+        popd
     fi
 }
 
