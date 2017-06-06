@@ -1,0 +1,80 @@
+<div class="hotkey-demo-box aspects-focus-outline" tabindex="0" [focusIf]="qFocused === 0">
+    <div class="hotkey-demo-hint">
+        <div class="hotkey-group-hint">q</div>
+    </div>
+    <div class="hotkey-demo-button-layout">
+        <button class="btn button button-secondary" (keydown.space)="qText = 'Active'" (keydown.enter)="qText = 'Active'" (click)="qText = 'Active'" [focusIf]="qFocused === 1">
+            <i class="hpe-icon hpe-active"></i>
+        </button>
+        <button class="btn button button-secondary" (keydown.space)="qText = 'Inactive'" (keydown.enter)="qText = 'Inactive'" (click)="qText = 'Inactive'" [focusIf]="qFocused === 2">
+            <i class="hpe-icon hpe-inactive"></i>
+        </button>
+        <button class="btn button button-secondary" (keydown.space)="qText = 'Lock'" (keydown.enter)="qText = 'Lock'" (click)="qText = 'Lock'" [focusIf]="qFocused === 3">
+            <i class="hpe-icon hpe-lock"></i>
+        </button>
+    </div>
+    <p class="hotkey-demo-text">Selected: <span>{{ qText }}</span></p>
+</div>
+
+<div class="hotkey-demo-box aspects-focus-outline m-l-lg" tabindex="0" [focusIf]="wFocused === 0">
+    <div class="hotkey-demo-hint">
+        <div class="hotkey-group-hint">w</div>
+    </div>
+    <div class="hotkey-demo-button-layout">
+        <button class="btn button button-secondary" (focus)="wText = 'Decelerate'" [focusIf]="wFocused === 1">
+            <i class="hpe-icon hpe-rewind"></i>
+        </button>
+        <button class="btn button button-secondary" (focus)="wText = 'Drive'" [focusIf]="wFocused === 2">
+            <i class="hpe-icon hpe-play"></i>
+        </button>
+        <button class="btn button button-secondary" (focus)="wText = 'Accelerate'" [focusIf]="wFocused === 3">
+            <i class="hpe-icon hpe-fast-forward"></i>
+        </button>
+    </div>
+    <p class="hotkey-demo-text">Selected: <span>{{ wText }}</span></p>
+</div>
+
+<hr>
+
+<p>Hotkeys can be added to elements by adding <code>window:keydown</code> to the host property of your component.
+    This will trigger the specified function any time a key is pressed on the window offering a wide range of uses. </p>
+
+<p>The above example shows two different example behaviours - on the left, the hotkey tabs between each item in the group, including
+    the group itself. In this case the user can ‘press’ the button using the spacebar or associated default keybinding for
+    the control - this will be unchanged.</p>
+
+<p>In the example on the right, the hotkey tabs between each item in the group and also immediately invokes the behavior associated
+    with that button.</p>
+
+<p>Both groups display the ‘hotkey hint’ in their upper-left corner. This can be used to inform the user of available keys and
+    is optional.</p>
+
+<p>When using the <code>hotkey-hint</code>, the precise styling can be controlled using the <code>hotkey-group-hint</code> class.
+    This class exists in UX Aspects and will show a hotkey hint in the style shown in this page. To customize the appearance
+    of the hotkey hint, you can override this class with your own values. As an example of this - on this page, the default
+    styling has been extended to provide a top and left margin of <code>-2px</code> on the hotkey hint, because the example
+    button panels above use a <code>2px</code> width border and we want them to appear flush. This also allows you to change
+    the appearance of the hotkey hint depending on the component. For example, the demo above is wrapped with a <code>hotkey-demo-hint</code>    class, so defining a CSS class <code>.hotkey-demo-hint
+    .hotkey-group-hint</code> allows us to override the CSS for just this instance.</p>
+
+<h4>Usage Notes</h4>
+
+<p>This example uses some styles which are purely for illustrative purposes; however the ‘focus’ style is important to provide.
+    UX Aspects supplies the <code>aspects-focus-outline</code> class which you may place on your container element; this
+    will apply the same ‘focus’ style as other controls in UX Aspects. If required you may write your own class to change
+    the styling of your element using the <code>:focus</code> CSS pseudo-selector.</p>
+
+<p>The above example was was produced using the following code:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a routerLink="/components/utilities" fragment="focus-if">Focus If</a> page for details on how to use the <code>focusIf</code> directive.</p>
+</blockquote>

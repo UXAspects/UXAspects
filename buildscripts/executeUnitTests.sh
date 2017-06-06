@@ -1,7 +1,7 @@
 #!/bin/bash
 
-UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
-UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.9.0
+cd $WORKSPACE/ux-aspects
+source $PWD/buildscripts/functions.sh
 
 echo
 echo
@@ -22,42 +22,6 @@ echo Displaying groups
 groups
 echo Displaying id
 id
-
-# Define a function to build a specified Docker image.
-docker_image_build()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        # Create the docker image
-        cd $WORKSPACE/ux-aspects/docker
-        echo Building the image
-        docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-            --build-arg http_proxy=$HttpProxy \
-            --build-arg https_proxy=$HttpsProxy \
-            --build-arg no_proxy="localhost, 127.0.0.1" \
-            --no-cache .
-        DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-        echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    fi
-}
-
-# Define a function to run a specified Docker image. The job's workspace will be mapped to /workspace in the container.
-# The container will run using the UID of the user executing the job.
-docker_image_run()
-{
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
-    if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
-    else
-        echo Calling docker run ... "$@"
-        docker run --rm --volume "$PWD":/workspace --workdir /workspace \
-		    --user $UID:$GROUPS $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "$@"
-    fi
-}
-
-cd $WORKSPACE/ux-aspects
 
 # Start creation of the test results file. The file will contain some styling settings needed for display of the results of the unit tests.
 echo Starting creation of the results file
@@ -88,7 +52,7 @@ date -u >> UXAspectsTestsResults.html
 echo "</h2></br>" >> UXAspectsTestsResults.html
 
 # Create the latest elements-build image if it does not exist
-docker_image_build; echo
+docker_image_build "$WORKSPACE/ux-aspects/docker"; echo
 
 echo Executing the unit tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
 cd $WORKSPACE/ux-aspects
@@ -102,7 +66,7 @@ chmod a+rw .
 # ls -alR | grep root
 date -u > $WORKSPACE/ux-aspects/BeforeUnitTestsStarted
 ls -al BeforeUnitTestsStarted
-docker_image_run bash buildscripts/executeUnitTestsDocker.sh; echo
+docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/executeUnitTestsDocker.sh"; echo
 
 # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
 # ignore unwanted strings.

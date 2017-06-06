@@ -61,7 +61,7 @@ var docsConfig = {
             },
             {
                 test: /\.less$/,
-                exclude: [path.join(process.cwd(), 'docs', 'app'), path.join(process.cwd(), 'src', 'components')],
+                exclude: [path.join(process.cwd(), 'docs', 'app'), path.join(process.cwd(), 'src', 'components'), path.join(process.cwd(), 'src', 'services')],
                 use: ExtractTextPlugin.extract({
                     use: 'css-loader!less-loader'
                 })

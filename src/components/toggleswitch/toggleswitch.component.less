@@ -1,7 +1,7 @@
 ux-toggleswitch {
     margin-bottom: 5px;
     white-space: nowrap;
-    
+
     .ux-toggleswitch {
         display: inline-flex;
         cursor: pointer;
@@ -9,10 +9,12 @@ ux-toggleswitch {
 
         &.disabled {
             cursor: default;
+
             &:focus {
                 outline: none;
             }
         }
+
         &:focus {
             outline: 1px dotted @grey1;
         }
@@ -76,7 +78,6 @@ ux-toggleswitch {
     }
 
     &.toggleswitch-lg {
-
         .ux-toggleswitch {
             width: 60px;
             height: 30px;

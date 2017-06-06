@@ -1,3 +1,4 @@
+import { FocusIfModule } from './../../../../../../src/directives/focus-if/focus-if.module';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -16,8 +17,10 @@ import { ComponentsListItemFilterNg1Component } from './list-item-filter-ng1/lis
 import { ComponentsWindowCommunicationServiceNg1Component } from './window-communication-service-ng1/window-communication-service-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsFocusIfComponent } from './focus-if/focus-if.component';
 
 const SECTIONS = [
+    ComponentsFocusIfComponent,
     ComponentsColorServiceNg1Component,
     ComponentsForceFocusNg1Component,
     ComponentsFocusOnShowNg1Component,
@@ -44,6 +47,7 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        FocusIfModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

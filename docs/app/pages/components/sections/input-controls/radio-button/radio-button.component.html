@@ -1,21 +1,21 @@
 <div>
-    <ux-radiobutton [(value)]="selected" [option]="radioOptions.option1" [disabled]="disabled" [simplified]="simplified">Option1</ux-radiobutton>
+    <ux-radio-button [(value)]="selected" [option]="radioOptions.option1" [disabled]="disabled" [simplified]="simplified">Option1</ux-radio-button>
 </div>
 
 <div>
-    <ux-radiobutton [(value)]="selected" [option]="radioOptions.option2" [simplified]="simplified">Option2</ux-radiobutton>
+    <ux-radio-button [(value)]="selected" [option]="radioOptions.option2" [simplified]="simplified">Option2</ux-radio-button>
 </div>
 
 <div>
-    <ux-radiobutton [(value)]="selected" [option]="radioOptions.option3" [simplified]="simplified">Option3</ux-radiobutton>
+    <ux-radio-button [(value)]="selected" [option]="radioOptions.option3" [simplified]="simplified">Option3</ux-radio-button>
 </div>
 
 <div>
-    <ux-radiobutton [(value)]="selected" [option]="radioOptions.option4" [simplified]="simplified">
+    <ux-radio-button [(value)]="selected" [option]="radioOptions.option4" [simplified]="simplified">
         Option four onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur
         adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit. Inte adipiscing elit onsectetur adipiscing elit.
         Inte adipiscing elit onsectetur adipiscing elit.
-    </ux-radiobutton>
+    </ux-radio-button>
 </div>
 
 <p class="m-t">
@@ -35,7 +35,7 @@
 <hr>
 
 <p>
-    A radio button can be created by using the <code>ux-radiobutton</code> component. The following attributes can be used
+    A radio button can be created by using the <code>ux-radio-button</code> component. The following attributes can be used
     to configure the appearance and behavior of the component:
 </p>
 
@@ -53,15 +53,15 @@
             <tr>
                 <td><b>@Input @Output</b> value</td>
                 <td>any</td>
-                <td>This should be a two way binding and will store the currently selected option. Each radiobutton in the same
+                <td>This should be a two way binding and will store the currently selected option. Each radio button in the same
                     group should have the same <code>value</code> variable.</td>
             </tr>
             <tr>
                 <td><b>@Input</b> option</td>
                 <td>any</td>
                 <td>
-                    This should contain the value that this radiobutton represents. This will be stored in the <code>value</code> 
-                    variable when the radiobutton is selected. No two radio buttons should have the same <code>option</code> 
+                    This should contain the value that this radio button represents. This will be stored in the <code>value</code> 
+                    variable when the radio button is selected. No two radio buttons should have the same <code>option</code> 
                     value within the same group of radio buttons.
                 </td>
             </tr>
@@ -83,8 +83,8 @@
 </div>
 
 <p>
-    In addition to the options listed above, a radiobutton can be disabled using the <code>disabled</code> attribute. You can also provide
-    the radiobutton with a <code>name</code> or <code>id</code> if required.
+    In addition to the options listed above, a radio button can be disabled using the <code>disabled</code> attribute. You can also provide
+    the radio button with a <code>name</code> or <code>id</code> if required.
 </p>
 
 <p>The following code can be used to create the example above:</p>
