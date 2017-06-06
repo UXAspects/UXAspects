@@ -209,7 +209,7 @@ echo
 echo Getting the HPE theme files
 mkdir $WORKSPACE/HPEThemeFiles
 pushd $WORKSPACE/HPEThemeFiles
-curl -L -S -s https://github.hpe.com/caf/ux-aspects-hpe/archive/master.zip > HPETheme.zip
+curl -L -S -s https://github.houston.softwaregrp.net/caf/ux-aspects-hpe/archive/master.zip > HPETheme.zip
 unzip -o HPETheme.zip
 cp -p -r ux-aspects-hpe-master/fonts $WORKSPACE/src
 cp -p -r ux-aspects-hpe-master/img $WORKSPACE/src
