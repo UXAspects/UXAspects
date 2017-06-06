@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "1.2.0-beta.1",
+  "version": "1.2.0",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "dist/lib/index.js",
   "repository": {
