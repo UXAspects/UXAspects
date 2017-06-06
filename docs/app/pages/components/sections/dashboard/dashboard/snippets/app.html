@@ -5,7 +5,8 @@
             <h3 class="widget-title">Usage Analytics</h3>
 
             <div class="widget-chart">
-                <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions" [labels]="lineChartLabels" [legend]="lineChartLegend"
+                <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions" 
+                        [labels]="lineChartLabels" [legend]="lineChartLegend"
                     [colors]="lineChartColors" chartType="line">
                 </canvas>
             </div>
@@ -48,7 +49,8 @@
                 <h1 class="text-count text-black">18</h1>
             </div>
 
-            <ux-spark value="28" barHeight="5" [trackColor]="colorService.getColor('grey6').toHex()"></ux-spark>
+            <ux-spark value="28" barHeight="5" 
+                [trackColor]="colorService.getColor('grey6').toHex()"></ux-spark>
 
             <div class="widget-split">
                 <p class="text-label">Logged in</p>
