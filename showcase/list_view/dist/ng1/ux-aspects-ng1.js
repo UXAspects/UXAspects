@@ -3915,13 +3915,18 @@ function displayPanel($templateRequest, $q, $compile, $timeout, $displayPanel, $
 
                 if ($displayPanel.panelOpen() && !$displayPanel.panelHidden() && angular.element(target).closest(".display-panel").length < 1) {
 
+                    // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
+                    if (target.nodeName === 'HTML') {
+                        return;
+                    }
+
                     var closePanel = true;
-                    while (target.nodeName !== "BODY") {
+                    while (target && target.nodeName !== "BODY") {
                         if (isDisplayPanelItem(target)) {
                             closePanel = false;
                             break;
                         } else {
-                            target = target.parentNode;
+                            target = target.parentElement;
                         }
                     }
 
@@ -11854,10 +11859,10 @@ function organizationChart($templateRequest, $timeout, $compile, $resize) {
                 var data = getLayout().nodes;
 
                 // find any existing nodes
-                var nodes = nodeCanvas.selectAll('div.organization-node')
+                var nodes = nodeCanvas.selectAll('div.organization-node'
 
                 // update any data bound to the selection
-                .data(data, function (d) {
+                ).data(data, function (d) {
                     return d.id || (d.id = ++nodeIndex);
                 });
 
@@ -11893,10 +11898,10 @@ function organizationChart($templateRequest, $timeout, $compile, $resize) {
                 });
 
                 // animate when a node is removed
-                nodes.exit()
+                nodes.exit
 
                 // animate the removal of a node
-                .transition().duration(getOptions().transition).style('left', function (data) {
+                ().transition().duration(getOptions().transition).style('left', function (data) {
                     return getNodePosition(data.parent ? data.parent : data).x + 'px';
                 }).style('top', function (data) {
                     return getNodePosition(data.parent ? data.parent : data).y + 'px';
@@ -11938,8 +11943,8 @@ function organizationChart($templateRequest, $timeout, $compile, $resize) {
                 link.transition().duration(getOptions().transition).attr("d", getLineEquation()).attr('opacity', 1);
 
                 // Transition exiting nodes to the parent's new position.
-                link.exit().transition().duration(getOptions().transition).attr('opacity', -2) // set to minus value to increase opacity transition speed
-                .attr("d", function (d) {
+                link.exit().transition().duration(getOptions().transition).attr('opacity', -2 // set to minus value to increase opacity transition speed
+                ).attr("d", function (d) {
                     var point = {
                         x: d.source.x || ctrl.data.x,
                         y: d.source.y || ctrl.data.y
@@ -24283,6 +24288,7 @@ function TreegridCtrl($scope, $q, multipleSelectProvider) {
         var row = {
           level: level,
           levelClass: "treegrid-level-" + level,
+          rowClass: getRowClass(data[i]),
           canExpand: canExpand,
           expanded: false,
           expanding: false,
@@ -24408,6 +24414,17 @@ function TreegridCtrl($scope, $q, multipleSelectProvider) {
       return col.value(row.dataItem);
     }
     return "";
+  }
+
+  function getRowClass(dataItem) {
+    var rowClassProperty = vm.allOptions.rowClass;
+    if (angular.isString(rowClassProperty) && dataItem.hasOwnProperty(rowClassProperty)) {
+      return dataItem[rowClassProperty];
+    }
+    if (angular.isFunction(rowClassProperty)) {
+      return rowClassProperty(dataItem);
+    }
+    return null;
   }
 }
 
@@ -31786,7 +31803,7 @@ module.exports=v1;
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"component-list-component\">\n<div class=\"component-content\" ng-keydown=\"vm.keyDown($event)\"></div>\n<div class=\"component-remove\" ng-click=\"vm.removeField()\" ng-disabled=\"vm.removingDisabled\">\n<span class=\"hpe-icon hpe-close\"></span>\n</div>\n</div>";
+var v1="<div class=\"component-list-component\" ng-class=\"{'hoverable': !vm.removingDisabled}\">\n<div class=\"component-content\" ng-keydown=\"vm.keyDown($event)\"></div>\n<div class=\"component-remove\" ng-click=\"vm.removeField()\">\n<span class=\"hpe-icon hpe-close\"></span>\n</div>\n</div>";
 var id1="componentList/component/component.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -32808,7 +32825,7 @@ module.exports=v1;
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"table-container\">\n<table class=\"table table-hover treegrid\" keyboard-navigable-table>\n<thead>\n<tr class=\"table-header-dark\">\n<th ng-repeat=\"column in vm.columns\" ng-class=\"column.headerClass\" ng-style=\"{'width': column.width}\">\n<span ng-class=\"{'treegrid-expand-header': $first}\" ng-bind=\"column.name\"></span>\n</th>\n</tr>\n</thead>\n<tbody ng-if=\"!vm.loading\">\n<tr ng-repeat=\"row in vm.getGridRows()\" class=\"clickable hover-actions\" multiple-row-select-item=\"row.dataItem\" treegrid-row-key-handler treegrid-expand=\"vm.expand(row)\" treegrid-contract=\"vm.contract(row)\" ng-focus=\"vm.rowFocus(row, $event)\" tabindex=\"-1\">\n<td ng-repeat=\"col in vm.columns\" ng-class=\"col.cellClass\">\n<span ng-if=\"$first\" class=\"treegrid-indent\" ng-class=\"row.levelClass\"></span>\n<span ng-if=\"$first\" class=\"treegrid-expand\">\n<span ng-if=\"row.canExpand && !row.expanding\" class=\"treegrid-expand-toggle\" ng-click=\"vm.expanderClick(row, $event)\" ng-mousedown=\"$event.preventDefault()\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)\"></i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expanded ? row.expander.expanded : row.expander.contracted}}\" alt=\"expander\"/>\n</span>\n<span ng-if=\"row.expanding\" class=\"treegrid-expand-toggle\" tooltip=\"Loading\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expander.expanding)\"></i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expander.expanding}}\" alt=\"expander\"/>\n</span>\n</span>\n<span ng-if=\"$first\" class=\"treegrid-icon\">\n<i ng-if=\"row.icon.type === 'class'\" class=\"hpe-icon\" ng-class=\"row.icon.get(row.dataItem, row.expanded)\"></i>\n<img ng-if=\"row.icon.type === 'url'\" ng-src=\"{{row.icon.get(row.dataItem, row.expanded)}}\" alt=\"icon\"/>\n</span>\n<treegrid-cell row=\"row\" column=\"col\"></treegrid-cell>\n</td>\n</tr>\n</tbody>\n</table>\n<div ng-if=\"vm.loading\" class=\"treegrid-loading\">\nLoading...\n</div>\n</div>";
+var v1="<div class=\"table-container\">\n<table class=\"table table-hover treegrid\" keyboard-navigable-table>\n<thead>\n<tr class=\"table-header-dark\">\n<th ng-repeat=\"column in vm.columns\" ng-class=\"column.headerClass\" ng-style=\"{'width': column.width}\">\n<span ng-class=\"{'treegrid-expand-header': $first}\" ng-bind=\"column.name\"></span>\n</th>\n</tr>\n</thead>\n<tbody ng-if=\"!vm.loading\">\n<tr ng-repeat=\"row in vm.getGridRows()\" class=\"clickable hover-actions\" ng-class=\"row.rowClass\" multiple-row-select-item=\"row.dataItem\" treegrid-row-key-handler treegrid-expand=\"vm.expand(row)\" treegrid-contract=\"vm.contract(row)\" ng-focus=\"vm.rowFocus(row, $event)\" tabindex=\"-1\">\n<td ng-repeat=\"col in vm.columns\" ng-class=\"col.cellClass\">\n<span ng-if=\"$first\" class=\"treegrid-indent\" ng-class=\"row.levelClass\"></span>\n<span ng-if=\"$first\" class=\"treegrid-expand\">\n<span ng-if=\"row.canExpand && !row.expanding\" class=\"treegrid-expand-toggle\" ng-click=\"vm.expanderClick(row, $event)\" ng-mousedown=\"$event.preventDefault()\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expanded ? row.expander.expanded : row.expander.contracted)\"></i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expanded ? row.expander.expanded : row.expander.contracted}}\" alt=\"expander\"/>\n</span>\n<span ng-if=\"row.expanding\" class=\"treegrid-expand-toggle\" tooltip=\"Loading\">\n<i ng-if=\"row.expander.type === 'class'\" ng-class=\"vm.iconClass(row.expander.expanding)\"></i>\n<img ng-if=\"row.expander.type === 'url'\" ng-src=\"{{row.expander.expanding}}\" alt=\"expander\"/>\n</span>\n</span>\n<span ng-if=\"$first\" class=\"treegrid-icon\">\n<i ng-if=\"row.icon.type === 'class'\" class=\"hpe-icon\" ng-class=\"row.icon.get(row.dataItem, row.expanded)\"></i>\n<img ng-if=\"row.icon.type === 'url'\" ng-src=\"{{row.icon.get(row.dataItem, row.expanded)}}\" alt=\"icon\"/>\n</span>\n<treegrid-cell row=\"row\" column=\"col\"></treegrid-cell>\n</td>\n</tr>\n</tbody>\n</table>\n<div ng-if=\"vm.loading\" class=\"treegrid-loading\">\nLoading...\n</div>\n</div>";
 var id1="directives/treegrid/treegrid.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
