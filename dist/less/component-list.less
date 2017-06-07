@@ -12,7 +12,7 @@
 				padding: 5px;
 				transition: background-color 0.3s linear;
 
-				&:hover {
+				&.hoverable:hover {
 					background-color: @component-list-field-hover;
 
 					.component-remove {
@@ -25,6 +25,13 @@
 
 					.component-remove[disabled] .hpe-icon {
 						cursor: default;
+					}
+
+					.component-remove {
+
+						.hpe-icon {
+							cursor: pointer;
+						}
 					}
 				}
 
@@ -40,7 +47,6 @@
 
 					.hpe-icon {
 						color: @component-list-remove-color;
-						cursor: pointer;
 						margin: 9px;
 					}
 				}

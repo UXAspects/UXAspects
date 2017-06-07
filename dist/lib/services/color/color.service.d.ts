@@ -3,7 +3,7 @@ export declare class ColorService {
     private element;
     private colors;
     constructor(document: any);
-    getColorValue(color: ColorIdentifier): ThemeColor;
+    private getColorValue(color);
     getColor(color: ColorIdentifier): ThemeColor;
 }
 export declare class ThemeColor {
