@@ -1,0 +1,58 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel">UX Aspects Modal View</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <p>Select columns and their order</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-5">
+            <input type="text" placeholder="Find column" class="form-control m-b" ng-model="vm.columnSearch">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-5">
+            <p class="text-black" ng-hide="vm.limitReached">Available Columns</p>
+            <p class="text-warning" ng-show="vm.limitReached">Maximum of 7 columns</p>
+        </div>
+        <div class="col-xs-offset-2 col-xs-5">
+            <p class="text-black">Columns selected</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-5"> 
+            <select-table values="vm.hiddenColumns" selected="vm.selectedColumns" select-key="'name'" search-text="vm.columnSearch" multiple-select="true"></select-table>
+        </div>
+        <div class="col-xs-2 text-center"> 
+            <button class="btn button-accent m-b" ng-disabled="!vm.canAddColumns" ng-click="vm.addColumns()"><i class="hpe-icon hpe-next"></i></button>
+            <button class="btn button-accent" ng-disabled="!vm.canRemoveColumns" ng-click="vm.removeColumns()"><i class="hpe-icon hpe-previous"></i></button>
+        </div>
+        <div class="col-xs-5">
+            <div class="selected-column-container" scroll-config="vm.scrollBarConfig" scroll-pane scroll-name="selected-columns">
+                <table class="table table-hover selected-column-table" reorderable-table ng-model="vm.visibleColumns">
+                    <tbody>
+                        <tr class="table-vertically-center" ng-repeat="column in vm.visibleColumns" ng-class="{ 'highlighted': column.selected }" ng-click="vm.selectRow($event, column)">
+                            <td class="reorder-column">
+                                <div class="reorderable-controls">
+                                    <div class="reorder-up" reorder-up></div>
+                                    <div class="reorder-drag" reorder-drag>
+                                        <span class="hpe-icon hpe-drag"></span>
+                                    </div>
+                                    <div class="reorder-down" reorder-down></div>
+                                </div>
+                            </td>
+                            <td class="table-primary-text" ng-bind="column.name"></td>
+                            <td class="icon-column"><i ng-show="column.locked" class="hpe-icon hpe-lock"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-w-m button-primary" ng-click="vm.ok()">OK</button>
+    <button type="button" class="btn btn-w-m button-secondary" ng-click="vm.cancel()">Cancel</button>
+</div>
