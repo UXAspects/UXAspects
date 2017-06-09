@@ -46,6 +46,8 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
     let second = require('!file-loader?name=[path][name].[ext]!../snippets/second.html');
     let third = require('!file-loader?name=[path][name].[ext]!../snippets/third.html');
     let fourth = require('!file-loader?name=[path][name].[ext]!../snippets/fourth.html');
+    let fifth = require('!file-loader?name=[path][name].[ext]!../snippets/fifth.html');
+    let sixth = require('!file-loader?name=[path][name].[ext]!../snippets/sixth.html');
 
     vm.steps = [{
         title: 'First step',
@@ -61,11 +63,19 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
         header: 'Third step title'
     }, {
         title: 'Fourth step',
-        html: '<div><i class="hpe-icon hpe-scorecard"></i><p class="inline-title">Fourth step</p></div>',
+        html: '<div><i class="hpe-icon hpe-compliance"></i><p class="inline-title">Fourth step</p></div>',
+        header: 'Second step title'
+    }, {
+        title: 'Fifth step',
+        html: '<div><i class="hpe-icon hpe-storage"></i><p class="inline-title">Fifth step</p></div>',
+        header: 'Third step title'
+    }, {
+        title: 'Sixth step',
+        html: '<div><i class="hpe-icon hpe-scorecard"></i><p class="inline-title">Sixth step</p></div>',
         header: 'Fourth step title'
     }];
 
-    let templates = [first, second, third, fourth];
+    let templates = [first, second, third, fourth, fifth, sixth];
 
     vm.steps.map((step: any, idx: number) => {
         step['templateUrl'] = templates[idx];
@@ -78,10 +88,14 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
       finishTooltip: 'Finish'
     };
 
+    vm.skipSteps = false;
+
     vm.isVisited = false;
 
     vm.onChanging = function(from: any, to: any) {
-        // do stuff here on page changing
+        if (from === 2 && vm.skipSteps) {
+            return 5;
+        }
     };
 
     // for performing validation when the finish button is pressed
