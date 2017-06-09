@@ -1,0 +1,41 @@
+<div class="btn-group ux-dynamic-filter" dropdown #dynamicDropdown="bs-dropdown">
+    <button (click)="dynamicDropdown.show()" type="button" class="filter-dropdown btn dropdown-toggle">{{ selected?.title }} 
+        <span class="caret"></span>
+    </button>
+    <ul *dropdownMenu class="dropdown-menu" role="menu">
+
+        <li *ngIf="showTypeahead" role="menuitem">
+            <a class="dropdown-item" (click)="removeFilter(); dynamicDropdown.hide();">
+                <i class="hpe-icon" [class.hpe-checkmark]="initial === selected"></i>
+                <span class="filter-dropdown-title">{{ initial.name }}</span>
+            </a>
+        </li>
+
+        <li *ngIf="selected !== initial && showTypeahead" role="menuitem">
+            <a class="dropdown-item">
+                <i class="hpe-icon hpe-checkmark"></i>
+                <span class="filter-dropdown-title">{{ selected.name }}</span>
+            </a>
+        </li>
+
+        <hr>
+
+        <li *ngIf="showTypeahead" class="typeahead-box">
+            <input [(ngModel)]="searchQuery" [typeahead]="typeaheadNames" class="form-control" 
+            (typeaheadOnSelect)="selectOption($event)" 
+            [placeholder]="options?.placeholder || defaultOptions.placeholder"
+            [typeaheadMinLength]="options?.minCharacters || defaultOptions.minCharacters"
+            [typeaheadOptionsLimit]="options?.maxResults">
+        </li>
+
+        <span *ngIf="!showTypeahead">
+            <li *ngFor="let filter of filters" role="menuitem">
+                <a class="dropdown-item" (click)="selectFilter(filter)">
+                    <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
+                    <span class="filter-dropdown-title">{{ filter.name }}</span>
+                </a>
+            </li>
+        </span>
+
+    </ul>
+</div>

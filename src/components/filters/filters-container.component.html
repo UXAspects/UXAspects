@@ -1,4 +1,4 @@
 <div>
     <ng-content></ng-content>
-    <button type="button" class="btn btn-icon clear-button" [class.hidden]="filters.length < 1" (click)="removeAll()"></button>
+    <button type="button" class="btn btn-icon clear-button" [class.hidden]="filters.length < 1" (click)="removeAll()" [tooltip]="clearTooltip || 'Clear All'"></button>
 </div>

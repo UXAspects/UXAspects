@@ -1,0 +1,46 @@
+ux-filter-dynamic {
+    .filter-dropdown {
+        padding: 6px;
+        padding-right: 7px;
+        padding-left: 6px;
+
+        &:hover {
+            background-color: @filter-dropdown-hover-bg;
+            border-radius: 0;
+            border-color: @filter-dropdown-hover-border;
+            text-decoration: none;
+        }
+
+        &:focus {
+            background-color: @filter-dropdown-focus-bg;
+            border-radius: 0;
+            border-color: @filter-dropdown-focus-border;
+            text-decoration: none;
+        }
+    }
+
+    .dropdown-menu {
+        li {
+            a {
+                padding-left: 10px;
+
+                i {
+                    width: 16px;
+                }
+
+                .filter-dropdown-title {
+                    padding-left: 10px;
+                }
+            }
+        }
+
+        hr {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .typeahead-box {
+            padding: 10px;
+        }
+    }
+}

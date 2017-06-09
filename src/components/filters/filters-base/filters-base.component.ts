@@ -1,6 +1,5 @@
-import { FilterRemoveAllEvent } from './../filters-container.component';
-import { Directive, Host, Input } from '@angular/core';
-import { FiltersContainerComponent, Filter } from '../filters-container.component';
+import { Directive, Host, Input, Output } from '@angular/core';
+import { FiltersContainerComponent, Filter, FilterRemoveAllEvent } from '../filters-container.component';
 
 @Directive({
     selector: 'ux-filters-base'
@@ -28,6 +27,4 @@ export class FiltersBaseComponent {
         this.filtersContainer.removeFilter(filter);
     }
     
-
-
 }

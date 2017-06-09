@@ -838,7 +838,7 @@
                     "version": "Angular"
                 },
                 {
-                    "title": "Filters (Angualr 1)",
+                    "title": "Filters (Angular 1)",
                     "component": "ComponentsFiltersNg1Component",
                     "version": "AngularJS",
                     "deprecated": true

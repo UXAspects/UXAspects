@@ -1,4 +1,4 @@
-import { Component, Input, Host } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FiltersBaseComponent } from '../filters-base/filters-base.component';
 import { Filter, FiltersContainerComponent, FilterRemoveAllEvent } from '../filters-container.component';
 

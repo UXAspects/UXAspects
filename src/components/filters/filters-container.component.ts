@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'ux-filters-container',
@@ -7,12 +7,15 @@ import { Component, EventEmitter, Input } from '@angular/core';
 export class FiltersContainerComponent {
 
     @Input() filters: Filter[] = [];
+    @Input() clearTooltip: string;
+    @Output() filtersChange: EventEmitter<Filter[]> = new EventEmitter<Filter[]>();
+    @Output() events: EventEmitter<FilterEvent> = new EventEmitter<FilterEvent>();
 
-    events: EventEmitter<FilterEvent> = new EventEmitter<FilterEvent>();
 
     addFilter(filter: Filter): void {
         this.filters.push(filter);
         this.events.next(new FilterAddEvent(filter));
+        this.filtersChange.emit(this.filters);
     }
 
     removeFilter(filter: Filter): void {
@@ -21,6 +24,7 @@ export class FiltersContainerComponent {
         if (idx !== -1) {
             this.filters.splice(idx, 1);
             this.events.next(new FilterRemoveEvent(filter));
+            this.filtersChange.emit(this.filters);
         }
     }
 
@@ -31,6 +35,7 @@ export class FiltersContainerComponent {
 }
 
 export interface Filter {
+    group: string;
     title: string;
     name: string;
     initial?: boolean;
