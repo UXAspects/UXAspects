@@ -42,9 +42,19 @@ export default function MarqueeWizardCtrl($scope) {
 
   //allow the user to go to the next step
   vm.goNext = function () {
+    
+    //check if the next step is visible
+    while (vm.stepIndex !== vm.steps.length -1) {
+      if (vm.steps[vm.stepIndex + 1].hidden === true) {
+        vm.stepIndex += 1;
+      } else {
+        break;
+      }
+    }
+
     //check if we are on the last page
     if (vm.stepIndex === vm.steps.length - 1) return;
-
+    
     //if on change function specified call it and await its response
     if (typeof $scope.onChanging === 'function') {
       var response = $scope.onChanging(vm.stepIndex, vm.stepIndex + 1);

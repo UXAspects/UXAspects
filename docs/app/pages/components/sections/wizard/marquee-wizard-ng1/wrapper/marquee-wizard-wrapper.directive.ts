@@ -52,27 +52,33 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
     vm.steps = [{
         title: 'First step',
         html: '<div><i class="hpe-icon hpe-soa"></i><p class="inline-title">First step</p></div>',
-        header: 'Marquee wizard'
+        header: 'Marquee wizard',
+        hidden: false
     }, {
         title: 'Second step',
         html: '<div><i class="hpe-icon hpe-schedule-clone"></i><p class="inline-title">Second step</p></div>',
-        header: 'Second step title'
+        header: 'Second step title',
+        hidden: false
     }, {
         title: 'Third step',
         html: '<div><i class="hpe-icon hpe-sync"></i><p class="inline-title">Third step</p></div>',
-        header: 'Third step title'
+        header: 'Third step title',
+        hidden: false
     }, {
         title: 'Fourth step',
         html: '<div><i class="hpe-icon hpe-compliance"></i><p class="inline-title">Fourth step</p></div>',
-        header: 'Second step title'
+        header: 'Second step title',
+        hidden: true
     }, {
         title: 'Fifth step',
         html: '<div><i class="hpe-icon hpe-storage"></i><p class="inline-title">Fifth step</p></div>',
-        header: 'Third step title'
+        header: 'Third step title',
+        hidden: false
     }, {
         title: 'Sixth step',
         html: '<div><i class="hpe-icon hpe-scorecard"></i><p class="inline-title">Sixth step</p></div>',
-        header: 'Fourth step title'
+        header: 'Fourth step title',
+        hidden: false
     }];
 
     let templates = [first, second, third, fourth, fifth, sixth];
@@ -88,12 +94,11 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
       finishTooltip: 'Finish'
     };
 
-    vm.skipSteps = false;
-
     vm.isVisited = false;
 
     vm.onChanging = function(from: any, to: any) {
-        if (from === 2 && vm.skipSteps) {
+        console.log($scope.requiredInput.skipSteps);
+        if (from === 2 && $scope.requiredInput.skipSteps) {
             return 5;
         }
     };
