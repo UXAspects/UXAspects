@@ -1,0 +1,41 @@
+<p>As part of UX Aspects we proved two common prebuilt Filter components, however you may require different filter components specifically for your application. We provide some useful classes for you to use to make the process of creating your own filter component simple while ensuring that it will work well with Filter Containers automatically.</p>
+
+<h4>Creating a Custom Filter Component</h4>
+
+<p>Your custom filter component should extend the FilterBaseComponent class. This base class will provide you with the following functions:</p>
+<ul>
+    <li><code>addFilter(filter: Filter): void</code> – Will add a filter to the list of active filters.</li>
+    <li><code>removeFilter(filter: Filter):void</code> – Will remove a filter from the list of active filters.</li>
+</ul>
+
+<h4>Sample Custom Filter Component</h4>
+
+<ux-filter-container>
+    <ux-filter-custom [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-custom>
+</ux-filter-container>
+
+<hr>
+
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [code]="tsCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Filter HTML">
+        <uxd-snippet language="html" [code]="sampleHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="Filter TypeScript">
+        <uxd-snippet language="javascript" [code]="sampleTs"></uxd-snippet>
+    </tab>
+
+    <tab heading="Filter CSS">
+        <uxd-snippet language="css" [code]="sampleLess"></uxd-snippet>
+    </tab>
+</tabset>
