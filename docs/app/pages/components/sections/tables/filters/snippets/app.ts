@@ -8,9 +8,9 @@ import 'chance';
 })
 export class AppComponent {
 
-    activeFilters: Filter[] = [];  
+   activeFilters: Filter[] = [];  
 
-    table: Table[] = [{
+    table: FilterSampleItem[] = [{
         id: 1,
         name: 'Document',
         author: 'Lily Clarke',
@@ -68,7 +68,7 @@ export class AppComponent {
         active: chance.bool()
     }];
 
-    statusFilters = [{
+    statusFilters: Filter[] = [{
         group: 'status',
         title: 'Status',
         name: 'Status (All)',
@@ -83,7 +83,7 @@ export class AppComponent {
         name: 'Inactive'
     }];
 
-    authorFilters = [{
+    authorFilters: Filter[] = [{
         group: 'author',
         title: 'Author',
         name: 'Author (All)',
@@ -126,86 +126,61 @@ export class AppComponent {
         placeholder: 'Find Author'
     };
 
-    sparkTrackColor: string;
-    sparkBarColor: string;
+    filteredTable: FilterSampleItem[] = this.table;
 
-    filteredTable: Table[] = this.table;
+    sparkTrackColor: string = this.colorService.getColor('accent').setAlpha(0.2).toRgba();
+    sparkBarColor: string = this.colorService.getColor('accent').toHex();
 
-    constructor(colorService: ColorService) {
-        this.sparkTrackColor = colorService.getColor('accent').setAlpha(0.2).toRgba();
-        this.sparkBarColor = colorService.getColor('accent').toHex();
-    }
+    constructor(private colorService: ColorService) { }
 
     filtersChanged(event: FilterEvent) {
 
+        // apply a newly added filter
         if (event instanceof FilterAddEvent) {
-            if (event.filter.group === 'author') {
-                this.filterNames(event.filter);
-            } else if (event.filter.group === 'status') {
-                this.filterStatus(event.filter);
-            }
-            this.activeFilters.push(event.filter);
+            this.applyFilter(event.filter);
         }
 
+        // remove an active filter
         if (event instanceof FilterRemoveEvent) {
-            if (this.activeFilters.length > 1) {
-                let idx = this.activeFilters.findIndex(filter => filter === event.filter);
-                this.activeFilters.splice(idx, 1);
-
-                this.filteredTable = this.table;
-
-                this.activeFilters.forEach(element => {
-                    if (element.group === 'author') {
-                        this.filterNames(element);
-                    } else if (element.group === 'status') {
-                        this.filterStatus(element);
-                    }
-                });
-
-            } else {
-                this.activeFilters = [];
-                this.filteredTable = this.table;
-            }
+            this.resetData();
+            this.activeFilters = this.activeFilters.filter(filter => filter !== event.filter);
+            this.activeFilters.forEach(filter => this.applyFilter(filter));
         }
-        
+
+        // remove all filters
         if (event instanceof FilterRemoveAllEvent) {
-            this.activeFilters = [];
-            this.filteredTable = this.table;
+            this.resetData();
+            this.resetFilters();
         }
     }
 
-    filterNames(filter: Filter) {
-        let newTable: Table[] = [];
-
-        this.filteredTable.forEach(element => {
-            if (element.author === filter.name) {
-                newTable.push(element);
-            }
-        });
-
-        this.filteredTable = newTable;
+    resetFilters(): void {
+        this.activeFilters = [];
     }
 
-    filterStatus(filter: Filter) {
-        let newTable: Table[] = [];
-        let active = false;
+    resetData(): void {
+        this.filteredTable = this.table.slice();
+    }
 
-        if (filter.name === 'Active') {
-            active = true;
+    applyFilter(filter: Filter): void {
+
+        switch (filter.group) {
+            
+            case 'author':
+                this.filteredTable = this.filteredTable.filter(item => item.author === filter.name);
+                break;
+
+            case 'status':
+                this.filteredTable = this.filteredTable.filter(item => item.active === (filter.name === 'Active'));
+                break;
         }
 
-        this.filteredTable.forEach(element => {
-            if (element.active === active) {
-                newTable.push(element);
-            }
-        });
-
-        this.filteredTable = newTable;
+        this.activeFilters.push(filter);
     }
 
 }
 
-interface Table {
+interface FilterSampleItem {
     id: number;
     name: string;
     author: string;

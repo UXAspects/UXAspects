@@ -25,20 +25,16 @@ export class FilterDynamicComponent extends FiltersBaseComponent {
     };
     searchQuery: string;
     selected: Filter;
-    showTypeahead: Boolean = true;
-    typeaheadNames: string[] = [];
+    showTypeahead: boolean = true;
+    typeaheadItems: string[] = [];
 
-    getNames() {
-        this.filters.forEach(element => {
-            if (element !== this.initial) {
-                this.typeaheadNames.push(element.name);
-            }
-        });
+    getItems(): string[] {
+        return this.filters.filter(item => item !== this.initial).map(item => item.name);
     }
 
     ngOnInit() {
         this.selected = this.initial;
-        this.getNames();
+        this.typeaheadItems = this.getItems();
 
         if (this.options && this.options.maxIndividualItems && this.options.maxIndividualItems > this.filters.length ) {
             this.showTypeahead = false;
@@ -55,7 +51,7 @@ export class FilterDynamicComponent extends FiltersBaseComponent {
 
     clickOff(event: MouseEvent) {
 
-        let target = <HTMLElement> event.target;
+        let target = event.target as HTMLElement;
         let hideDropdown = true;
 
         while (target && target.nodeName !== 'BODY') {

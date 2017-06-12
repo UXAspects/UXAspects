@@ -835,7 +835,23 @@
                 {
                     "title": "Filters",
                     "component": "ComponentsFiltersComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-filters-container"
+                    }, {
+                        "title": "Module name",
+                        "content": "FiltersModule"
+                    }]
+                },
+                {
+                    "title": "Custom Filters Component",
+                    "component": "ComponentsCustomFiltersComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Module name",
+                        "content": "FiltersModule"
+                    }]
                 },
                 {
                     "title": "Filters (Angular 1)",

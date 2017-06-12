@@ -8,6 +8,7 @@ export interface IPlunk {
         library?: string;
         importAs?: boolean;
         declaration?: boolean;
+        forRoot?: boolean;
     }[];
     mappings?: {
         alias: string;
