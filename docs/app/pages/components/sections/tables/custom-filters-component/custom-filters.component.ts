@@ -52,7 +52,7 @@ export class ComponentsCustomFiltersComponent implements IPlunkProvider {
             library: './sample-filter.component',
             declaration: true
         }, {
-            imports: ['BsDropdownModule', 'DatepickerModule'],
+            imports: ['BsDropdownModule'],
             library: 'ngx-bootstrap',
             forRoot: true
         }]

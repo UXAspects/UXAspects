@@ -1,4 +1,4 @@
-import { FilterAddEvent, FilterRemoveAllEvent, Filter, FilterRemoveEvent } from './../../../../../../../src/components/filters/filters-container.component';
+import { FilterAddEvent, FilterRemoveAllEvent, Filter, FilterRemoveEvent } from './../../../../../../../src/components/filters/filter-container.component';
 import { Component, Input } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ColorService } from '../../../../../../../src/index';

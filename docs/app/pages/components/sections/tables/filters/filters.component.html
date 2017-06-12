@@ -1,7 +1,7 @@
-<ux-filters-container (events)="filtersChanged($event)">
+<ux-filter-container (events)="filtersChanged($event)">
     <ux-filter-dynamic [filters]="authorFilters" [initial]="authorFilters[0]" [options]="typeaheadOptions"></ux-filter-dynamic>
     <ux-filter-dropdown [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-dropdown>
-</ux-filters-container>
+</ux-filter-container>
 
 <table class="table table-hover">
     <thead>
@@ -35,9 +35,9 @@
 <hr>
 
 <p>Filters can be implemented to offer users a way to filter a set of data, allowing them to apply and remove conditions.
-    Filters are contained within a Filters Container component which contains a clear all button for removing all active filters at once</p>
+    Filters are contained within a Filter Container component which contains a clear all button for removing all active filters at once</p>
 
-<p>To add a Filters Container component to your application you must import the <code>FiltersModule</code> which allows the use of the <code>ux-filters-container</code> component.</p>
+<p>To add a Filter Container component to your application you must import the <code>FilterModule</code> which allows the use of the <code>ux-filters-container</code> component.</p>
 
 <p>The following attributes can be used to customise the behaviour of the component:</p>
 

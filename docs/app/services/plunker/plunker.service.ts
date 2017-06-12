@@ -49,20 +49,13 @@ export class PlunkerService {
             // create list of module imports
             plunk.modules.filter(module => !module.declaration).forEach(module => {
 
-                let moduleImports: any;
+                let moduleImports: string | string[];
+
                 if (module.forRoot) {
-                    if (module.imports instanceof Array) {
-                        moduleImports = [];
-                        module.imports.forEach(element => {
-                            element += '.forRoot()';
-                            moduleImports.push(element);
-                        });
-                    } else {
-                        moduleImports += 'forRoot()';
-                    }
+                    moduleImports = Array.isArray(module.imports) ? module.imports.map(imp => `${imp}.forRoot()`) : `${module.imports}.forRoot()`;
                 }
+
                 const moduleImportProviders = module.providers || moduleImports || module.imports;
-                console.log(moduleImportProviders);
                 if (moduleImportProviders instanceof Array) {
                     modules = modules.concat(moduleImportProviders);
                 } else {

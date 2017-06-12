@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { FiltersBaseComponent, Filter, FiltersContainerComponent, FilterRemoveAllEvent } from '../../../../../../../../src/index';
+import { FilterBaseComponent, Filter, FilterContainerComponent, FilterRemoveAllEvent } from '../../../../../../../../src/index';
 
 @Component({
     selector: 'ux-filter-custom',
     templateUrl: './sample-filter.component.html',
     styleUrls: ['./sample-filter.component.less']
 })
-export class SampleFilterCustomComponent extends FiltersBaseComponent {
+export class SampleFilterCustomComponent extends FilterBaseComponent {
 
     @Input() initial: Filter;
 

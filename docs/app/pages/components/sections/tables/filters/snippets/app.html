@@ -1,7 +1,7 @@
-<ux-filters-container (events)="filtersChanged($event)">
+<ux-filter-container (events)="filtersChanged($event)">
     <ux-filter-dynamic [filters]="authorFilters" [initial]="authorFilters[0]" [options]="typeaheadOptions"></ux-filter-dynamic>
     <ux-filter-dropdown [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-dropdown>
-</ux-filters-container>
+</ux-filter-container>
 
 <table class="table table-hover">
     <thead>

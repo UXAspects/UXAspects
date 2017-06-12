@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-    selector: 'ux-filters-container',
-    templateUrl: './filters-container.component.html'
+    selector: 'ux-filter-container',
+    templateUrl: './filter-container.component.html'
 })
-export class FiltersContainerComponent {
+export class FilterContainerComponent {
 
     @Input() filters: Filter[] = [];
     @Input() clearTooltip: string;

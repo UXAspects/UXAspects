@@ -1,11 +1,10 @@
-import { FiltersModule } from './../../../../../../src/components/filters/filters.module';
 import { ComponentsFiltersComponent } from './filters/filters.component';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule } from '../../../../../../src/index';
+import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -87,7 +86,7 @@ const ROUTES = [
         RadioButtonModule,
         ColumnSortingModule,
         SparkModule,
-        FiltersModule,
+        FilterModule,
         DocumentationComponentsModule,
         BsDropdownModule.forRoot(),
         RouterModule.forChild(ROUTES)

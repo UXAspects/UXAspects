@@ -838,10 +838,10 @@
                     "version": "Angular",
                     "usage": [{
                         "title": "Selector",
-                        "content": "ux-filters-container"
+                        "content": "ux-filter-container"
                     }, {
                         "title": "Module name",
-                        "content": "FiltersModule"
+                        "content": "FilterModule"
                     }]
                 },
                 {
@@ -850,7 +850,7 @@
                     "version": "Angular",
                     "usage": [{
                         "title": "Module name",
-                        "content": "FiltersModule"
+                        "content": "FilterModule"
                     }]
                 },
                 {

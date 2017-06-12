@@ -1,7 +1,7 @@
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { Component, Input, ViewChild } from '@angular/core';
-import { FiltersBaseComponent } from '../filters-base/filters-base.component';
-import { Filter, FiltersContainerComponent, FilterRemoveAllEvent } from '../filters-container.component';
+import { FilterBaseComponent } from '../filter-base/filter-base.component';
+import { Filter, FilterContainerComponent, FilterRemoveAllEvent } from '../filter-container.component';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
 @Component({
@@ -11,7 +11,7 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
         '(document:click)': 'clickOff($event)',
     }
 })
-export class FilterDynamicComponent extends FiltersBaseComponent {
+export class FilterDynamicComponent extends FilterBaseComponent {
 
     @Input() filters: Filter[];
     @Input() initial: Filter;
