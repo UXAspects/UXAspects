@@ -24,6 +24,7 @@ System.config({
 
         'rxjs': 'npm:rxjs',
         'typescript': 'npm:typescript@2.0.2/lib/typescript.js',
+        'chance': 'npm:chance',
 
         'ux-aspects': window.uxdAssetsUrl + '/lib/index.js',
         ${mappings}
@@ -35,6 +36,9 @@ System.config({
             defaultExtension: 'ts'
         },
         rxjs: {
+            defaultExtension: 'js'
+        },
+        chance: {
             defaultExtension: 'js'
         }
     }

@@ -57,3 +57,18 @@
   border-top: 1px solid darken(@white,20%);
   margin-top :0;
 }
+
+.uxd-customize-example {
+  margin-top: 15px;
+
+  .uxd-customize-row {
+
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+
+    & > div > * {
+      vertical-align: middle;
+    }
+  }
+}

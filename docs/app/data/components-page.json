@@ -160,23 +160,20 @@
         {
             "title": "Dashboard",
             "link": "dashboard",
-            "sections": [
-                {
-                    "title": "Dashboard",
-                    "component": "ComponentsDashboardComponent",
-                    "version": "Angular",
-                    "usage": [
-                        {
-                            "title": "Selector",
-                            "content": "ux-dashboard"
-                        },
-                        {
-                            "title": "Module",
-                            "content": "DashboardModule"
-                        }
-                    ]
-                }
-            ]
+            "sections": [{
+                "title": "Dashboard",
+                "component": "ComponentsDashboardComponent",
+                "version": "Angular",
+                "usage": [{
+                        "title": "Selector",
+                        "content": "ux-dashboard"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "DashboardModule"
+                    }
+                ]
+            }]
         },
         {
             "title": "Date & Time Pickers",
@@ -623,8 +620,7 @@
                     "title": "Item Display Panel",
                     "component": "ComponentsItemDisplayPanelComponent",
                     "version": "Angular",
-                    "usage": [
-                        {
+                    "usage": [{
                             "title": "Selector",
                             "content": "ux-item-display-panel"
                         },
@@ -706,13 +702,37 @@
                 },
                 {
                     "title": "Infinite Scroll",
+                    "component": "ComponentsInfiniteScrollComponent",
+                    "version": "Angular",
+                    "usage": [{
+                            "title": "Selector",
+                            "content": "[uxInfiniteScroll]"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "uxInfiniteScroll"
+                        },
+                        {
+                            "title": "Type",
+                            "content": "InfiniteScrollDirective"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "InfiniteScrollModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Infinite Scroll (Angular 1)",
                     "component": "ComponentsInfiniteScrollNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Infinite Scroll with Load More Button",
                     "component": "ComponentsInfiniteScrollLoadMoreNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -1032,13 +1052,11 @@
         {
             "title": "Utilities",
             "link": "utilities",
-            "sections": [
-                {
+            "sections": [{
                     "title": "Focus If",
                     "component": "ComponentsFocusIfComponent",
                     "version": "Angular",
-                    "usage": [
-                        {
+                    "usage": [{
                             "title": "Selector",
                             "content": "[focusIf]"
                         },

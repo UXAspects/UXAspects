@@ -7,8 +7,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'uxd-components-tags',
-    templateUrl: 'tags.component.html',
-    styleUrls: ['./tags.component.less']
+    templateUrl: 'tags.component.html'
 })
 @DocumentationSectionComponent('ComponentsTagsComponent')
 export class ComponentsTagsComponent extends BaseDocumentationSection implements IPlunkProvider {
@@ -52,8 +51,7 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
     public plunk: IPlunk = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
             imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule'],

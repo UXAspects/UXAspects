@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<accordion>
+<accordion class="uxd-customize-example">
     <accordion-group heading="Customize Example...">
         <div class="row uxd-customize-row">
             <div class="col-md-4 col-sm-12">
@@ -48,7 +48,7 @@
                 <ux-checkbox [(value)]="enforceTagLimits">enforceTagLimits</ux-checkbox>
             </div>
         </div>
-        <div class="row m-t-md uxd-customize-row">
+        <div class="row uxd-customize-row">
             <div class="col-md-4 col-sm-12">
                 <label for="minTags">minTags</label>
                 <input type="number" name="minTags" class="form-control" [(ngModel)]="minTags">
@@ -62,7 +62,7 @@
                 <input type="text" name="tagPattern" class="form-control" [(ngModel)]="tagPattern">
             </div>
         </div>
-        <div class="row m-t-md uxd-customize-row">
+        <div class="row uxd-customize-row">
             <div class="col-md-4 col-sm-12">
                 <label for="placeholder">placeholder</label>
                 <input type="text" name="placeholder" class="form-control" [(ngModel)]="placeholder">
@@ -72,12 +72,12 @@
                 <input type="text" name="tagDelimiters" class="form-control" [(ngModel)]="tagDelimiters">
             </div>
         </div>
-        <div class="row m-t-md uxd-customize-row">
+        <div class="row uxd-customize-row">
             <div class="col-sm-12">
                 <ux-checkbox [(value)]="typeaheadEnabled">Enable Typeahead</ux-checkbox>
             </div>
         </div>
-        <div class="row m-t-md uxd-customize-row">
+        <div class="row uxd-customize-row">
             <div class="col-md-4 col-sm-12">
                 <ux-checkbox [(value)]="freeInput" [disabled]="!typeaheadEnabled">freeInput</ux-checkbox>
             </div>
@@ -88,7 +88,7 @@
                 <ux-checkbox [(value)]="showTypeaheadOnClick" [disabled]="!typeaheadEnabled">showTypeaheadOnClick</ux-checkbox>
             </div>
         </div>
-        <div class="row m-t-md uxd-customize-row">
+        <div class="row uxd-customize-row">
             <div class="col-md-4 col-sm-12">
                 <label for="dropDirection">dropDirection</label>
                 <ux-radio-button [(value)]="dropDirection" option="down" [disabled]="!typeaheadEnabled">down</ux-radio-button>
