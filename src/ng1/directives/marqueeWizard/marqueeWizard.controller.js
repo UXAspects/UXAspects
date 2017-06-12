@@ -43,14 +43,7 @@ export default function MarqueeWizardCtrl($scope) {
   //allow the user to go to the next step
   vm.goNext = function () {
     
-    //check if the next step is visible
-    while (vm.stepIndex !== vm.steps.length -1) {
-      if (vm.steps[vm.stepIndex + 1].hidden === true) {
-        vm.stepIndex += 1;
-      } else {
-        break;
-      }
-    }
+    
 
     //check if we are on the last page
     if (vm.stepIndex === vm.steps.length - 1) return;
@@ -59,12 +52,21 @@ export default function MarqueeWizardCtrl($scope) {
     if (typeof $scope.onChanging === 'function') {
       var response = $scope.onChanging(vm.stepIndex, vm.stepIndex + 1);
 
+      //check if the next step is visible
+      while (vm.stepIndex !== vm.steps.length -1) {
+        if (vm.steps[vm.stepIndex + 1].hidden === true) {
+          vm.stepIndex += 1;
+        } else {
+          break;
+        }
+      }
+
       //dont go to the next page if the response is false
       if (response === false) {
         vm.currentStep.error = true;
         return;
       }
-      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length) {
+      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length && !vm.steps[response].hidden) {
         vm.stepIndex = response;
       }
       else {
@@ -88,6 +90,7 @@ export default function MarqueeWizardCtrl($scope) {
 
   //allow the user to go to the previous step
   vm.goPrevious = function () {
+
     //check if we are on the first page
     if (vm.stepIndex === 0) return;
 
@@ -95,11 +98,21 @@ export default function MarqueeWizardCtrl($scope) {
     if (typeof $scope.onChanging === 'function') {
       var response = $scope.onChanging(vm.stepIndex, vm.stepIndex - 1);
 
+      //check if the next step is visible
+      while (vm.stepIndex !== 0) {
+        if (vm.steps[vm.stepIndex - 1].hidden === true) {
+          vm.stepIndex -= 1;
+        } else {
+          break;
+        }
+      }
+
       //dont go to the previous page if the response is false
       if (response === false) {
         return;
       }
-      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length) {
+      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length && !vm.steps[response].hidden) {
+        console.log("here");
         vm.stepIndex = response;
       }
       else {

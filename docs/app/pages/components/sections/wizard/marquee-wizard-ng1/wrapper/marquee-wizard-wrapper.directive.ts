@@ -52,33 +52,27 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
     vm.steps = [{
         title: 'First step',
         html: '<div><i class="hpe-icon hpe-soa"></i><p class="inline-title">First step</p></div>',
-        header: 'Marquee wizard',
-        hidden: false
+        header: 'Marquee wizard'
     }, {
         title: 'Second step',
         html: '<div><i class="hpe-icon hpe-schedule-clone"></i><p class="inline-title">Second step</p></div>',
-        header: 'Second step title',
-        hidden: false
+        header: 'Second step title'
     }, {
         title: 'Third step',
         html: '<div><i class="hpe-icon hpe-sync"></i><p class="inline-title">Third step</p></div>',
-        header: 'Third step title',
-        hidden: false
+        header: 'Third step title'
     }, {
         title: 'Fourth step',
         html: '<div><i class="hpe-icon hpe-compliance"></i><p class="inline-title">Fourth step</p></div>',
-        header: 'Second step title',
-        hidden: true
+        header: 'Fourth step title'
     }, {
         title: 'Fifth step',
         html: '<div><i class="hpe-icon hpe-storage"></i><p class="inline-title">Fifth step</p></div>',
-        header: 'Third step title',
-        hidden: false
+        header: 'Fifth step title'
     }, {
         title: 'Sixth step',
         html: '<div><i class="hpe-icon hpe-scorecard"></i><p class="inline-title">Sixth step</p></div>',
-        header: 'Fourth step title',
-        hidden: false
+        header: 'Sixth step title'
     }];
 
     let templates = [first, second, third, fourth, fifth, sixth];
@@ -97,9 +91,19 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
     vm.isVisited = false;
 
     vm.onChanging = function(from: any, to: any) {
-        console.log($scope.requiredInput.skipSteps);
         if (from === 2 && $scope.requiredInput.skipSteps) {
-            return 5;
+            vm.steps[3].hidden = true;
+            vm.steps[4].hidden = true;
+        } else if (!$scope.requiredInput.skipSteps) {
+            vm.steps[3].hidden = false;
+            vm.steps[4].hidden = false;
+        }
+
+        if (from === 1 && $scope.requiredInput.errorDemo) {
+            vm.steps[1].error = true;
+            return false;
+        } else {
+            vm.steps[1].error = false;
         }
     };
 
