@@ -20,7 +20,7 @@ latestCommitID=`git rev-parse HEAD`
 echo latestCommitID is $latestCommitID
 
 gitPagesRepoName="UXAspects_$1_Theme_CI"
-clonePagesURL="git@github.hpe.com:sepg-docs-qa/$gitPagesRepoName.git"
+clonePagesURL="git@github.houston.softwaregrp.net:sepg-docs-qa/$gitPagesRepoName.git"
 ghPagesCommitMessage="Build #$BUILD_NUM Commit $latestCommitID"
 docsTargetFolder="$WORKSPACE/ux-aspects/docs-gh-pages-$theme"
 tarBall="docs-gh-pages-$theme.tar.gz"
