@@ -6,7 +6,7 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { Subscription } from 'rxjs/Subscription';
 
-const BANNER_OFFSET = 172;
+const BANNER_OFFSET = 217;
 const FOOTER_OFFSET = 162;
 
 @Component({

@@ -13,6 +13,8 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
 
     private category: ICategory;
     private trackScroll: boolean = false;
+
+    angular4: boolean = true;
     
     constructor(private activatedRoute: ActivatedRoute,
         private navigation: NavigationService) { }

@@ -10,6 +10,8 @@ export class ComponentsPageComponent {
 
     private navigation: IDocumentationPage;
 
+    versionRadioValue: string = 'Angular';
+
     constructor() {
 
         // load in the navigation json for this page
