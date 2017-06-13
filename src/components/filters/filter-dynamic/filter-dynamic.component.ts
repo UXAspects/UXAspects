@@ -36,9 +36,10 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         this.selected = this.initial;
         this.typeaheadItems = this.getItems();
 
-        if (this.options && this.options.maxIndividualItems && this.options.maxIndividualItems > this.filters.length ) {
+        if (this.options && this.options.maxIndividualItems && this.options.maxIndividualItems + 1 >= this.filters.length ) {
             this.showTypeahead = false;
         }
+
     }
 
     selectOption(typeaheadOption: TypeaheadMatch) { 

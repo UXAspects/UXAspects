@@ -1,4 +1,5 @@
-import { ColorService, Filter, FilterEvent, FilterRemoveEvent, FilterAddEvent, FilterRemoveAllEvent } from 'ux-aspects';
+import { ColorService, Filter, FilterEvent, FilterRemoveEvent, FilterAddEvent, 
+    FilterRemoveAllEvent } from 'ux-aspects';
 import { Component } from '@angular/core';
 import 'chance';
 
@@ -171,7 +172,9 @@ export class AppComponent {
                 break;
 
             case 'status':
-                this.filteredTable = this.filteredTable.filter(item => item.active === (filter.name === 'Active'));
+                this.filteredTable = this.filteredTable.filter(
+                    item => item.active === (filter.name === 'Active')
+                );
                 break;
         }
 
