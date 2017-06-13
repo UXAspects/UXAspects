@@ -45,7 +45,7 @@ export class ComponentsCustomFiltersComponent implements IPlunkProvider {
             MAPPINGS.NgxBootstrap
         ],
         modules: [{
-            imports: ['FiltersModule', 'RadioButtonModule'],
+            imports: ['FilterModule', 'RadioButtonModule'],
             library: 'ux-aspects'
         }, {
             imports: ['SampleFilterCustomComponent'],
