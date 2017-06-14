@@ -192,6 +192,18 @@ export default function MarqueeWizardCtrl($scope) {
     if (vm.stepIndex > 0 && vm.buttonOptions.showPrevious === true) vm.showPrevious = true;
     if (vm.stepIndex === vm.steps.length - 1 && vm.buttonOptions.showFinish === true) vm.showFinish = true;
     else if (vm.buttonOptions.showNext) vm.showNext = true;
+
+    //check for hidden steps
+    if (vm.buttonOptions.showFinish === true && vm.stepIndex !== vm.steps.length -1) {
+      for (var i = 1; vm.stepIndex + i < vm.steps.length; i++) {
+        if(!vm.steps[vm.stepIndex+i].hidden){
+          return;
+        } else {
+          vm.showFinish = true;
+          vm.showNext = false;
+        }
+      }
+    }
   }
 
   function updateButtonOptions() {
