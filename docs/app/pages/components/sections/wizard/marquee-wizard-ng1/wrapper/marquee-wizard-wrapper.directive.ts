@@ -92,11 +92,11 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
 
     vm.onChanging = function(from: any, to: any) {
         if (from === 2 && $scope.requiredInput.skipSteps) {
+            vm.steps[3].hidden = true;
             vm.steps[4].hidden = true;
-            vm.steps[5].hidden = true;
         } else if (!$scope.requiredInput.skipSteps) {
+            vm.steps[3].hidden = false;
             vm.steps[4].hidden = false;
-            vm.steps[5].hidden = false;
         }
 
         if (from === 1 && $scope.requiredInput.errorDemo) {
