@@ -1,5 +1,6 @@
 <ux-filter-container (events)="filtersChanged($event)">
-    <ux-filter-dynamic [filters]="authorFilters" [initial]="authorFilters[0]" [options]="typeaheadOptions"></ux-filter-dynamic>
+    <ux-filter-dynamic [filters]="authorFilters" [initial]="authorFilters[0]" 
+    [options]="typeaheadOptions"></ux-filter-dynamic>
     <ux-filter-dropdown [filters]="statusFilters" [initial]="statusFilters[0]"></ux-filter-dropdown>
 </ux-filter-container>
 
@@ -11,7 +12,7 @@
             <th class="text-black">AUTHOR</th>
             <th class="text-black">DATE MODIFIED</th>
             <th class="text-black">WORK COMPLETED</th>
-            <th class="text-black">STATUS</th>
+            <th class="text-black text-center">STATUS</th>
         </tr>
     </thead>
     <tbody>
@@ -23,10 +24,12 @@
             <td>{{ item.author }}</td>
             <td>{{ item.date }}</td>
             <td>
-                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed"></ux-spark>
+                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" 
+                [value]="item.completed" barHeight="3" [inlineLabel]="item.completed"></ux-spark>
             </td>
             <td class="text-center vertical-center-icon">
-                <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
+                <div class="hpe-icon" [class.text-accent]="item.active" 
+                [class.hpe-checkmark]="item.active"></div>
             </td>
         </tr>
     </tbody>
