@@ -124,7 +124,8 @@ export class AppComponent {
     }];
 
     typeaheadOptions = {
-        placeholder: 'Find Author'
+        placeholder: 'Find Author',
+        minCharacters: 1
     };
 
     filteredTable: FilterSampleItem[] = this.table;

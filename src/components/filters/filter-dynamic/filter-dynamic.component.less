@@ -17,9 +17,19 @@ ux-filter-dynamic {
             border-color: @filter-dropdown-focus-border;
             text-decoration: none;
         }
+
+        &.active {
+            font-weight: 600;
+        }
+
+        .hpe-down {
+            font-size: 0.625rem;
+        }
     }
 
     .dropdown-menu {
+        width: 220px;
+
         .dropdown-list-item {
             .dropdown-item {
                 padding-left: 10px;
@@ -41,6 +51,29 @@ ux-filter-dynamic {
 
         .typeahead-box {
             padding: 10px;
+
+            .dropdown-menu {
+                width: 220px;
+                margin-left: -10px;
+                margin-right: 10px;
+
+                .active > a {
+                    margin-left: 10px;
+                    width: 200px;
+                    background-color: @filter-dropdown-hover-bg;
+                    border-radius: 0;
+                    border-color: @filter-dropdown-hover-border;
+                    text-decoration: none;
+                    color: @text-color;
+                    font-weight: normal;
+                    padding-left: 10px;
+                    padding-right: 10px;
+
+                    strong {
+                        font-weight: bold;
+                    }
+                }
+            }
         }
     }
 }
