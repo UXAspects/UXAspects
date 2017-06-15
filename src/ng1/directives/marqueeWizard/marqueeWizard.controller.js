@@ -192,9 +192,10 @@ export default function MarqueeWizardCtrl($scope) {
     if (vm.stepIndex === vm.steps.length - 1 && vm.buttonOptions.showFinish === true) vm.showFinish = true;
     else if (vm.buttonOptions.showNext) vm.showNext = true;
 
-    //check for hidden steps
-    vm.showFinish = vm.steps.slice(vm.stepIndex).filter(step => !step.hidden).length === 0;
-    vm.showNext = !vm.showFinish;
+    if (!vm.showFinish && vm.buttonOptions.showFinish === true && vm.stepIndex !== vm.steps.length) {
+      vm.showFinish = vm.steps.slice(vm.stepIndex + 1).filter(step => step.hidden !== true).length === 0;
+      vm.showNext = !vm.showFinish;
+    }
   }
 
   function updateButtonOptions() {
