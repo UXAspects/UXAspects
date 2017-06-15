@@ -91,14 +91,6 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
     vm.isVisited = false;
 
     vm.onChanging = function(from: any, to: any) {
-        if (from === 2 && $scope.requiredInput.skipSteps) {
-            vm.steps[3].hidden = true;
-            vm.steps[4].hidden = true;
-        } else if (!$scope.requiredInput.skipSteps) {
-            vm.steps[3].hidden = false;
-            vm.steps[4].hidden = false;
-        }
-
         if (from === 1 && $scope.requiredInput.errorDemo) {
             vm.steps[1].error = true;
             return false;
@@ -106,6 +98,18 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
             vm.steps[1].error = false;
         }
     };
+
+    $scope.$watch('requiredInput.skipSteps', function(nv: any, ov: any) {
+        if (nv !== ov) {
+            if (nv === true) {
+                vm.steps[3].hidden = true;
+                vm.steps[4].hidden = true;
+            } else {
+                vm.steps[3].hidden = false;
+                vm.steps[4].hidden = false;
+            }
+        }
+    });
 
     // for performing validation when the finish button is pressed
     vm.onFinishing = function() {

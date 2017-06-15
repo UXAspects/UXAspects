@@ -112,7 +112,6 @@ export default function MarqueeWizardCtrl($scope) {
         return;
       }
       if (angular.isNumber(response) && response >= 0 && response < vm.steps.length && !vm.steps[response].hidden) {
-        console.log("here");
         vm.stepIndex = response;
       }
       else {
@@ -194,16 +193,8 @@ export default function MarqueeWizardCtrl($scope) {
     else if (vm.buttonOptions.showNext) vm.showNext = true;
 
     //check for hidden steps
-    if (vm.buttonOptions.showFinish === true && vm.stepIndex !== vm.steps.length -1) {
-      for (var i = 1; vm.stepIndex + i < vm.steps.length; i++) {
-        if(!vm.steps[vm.stepIndex+i].hidden){
-          return;
-        } else {
-          vm.showFinish = true;
-          vm.showNext = false;
-        }
-      }
-    }
+    vm.showFinish = vm.steps.slice(vm.stepIndex).filter(step => !step.hidden).length === 0;
+    vm.showNext = !vm.showFinish;
   }
 
   function updateButtonOptions() {
