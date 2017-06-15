@@ -1,6 +1,6 @@
 <div class="btn-group ux-dynamic-filter" dropdown #dynamicDropdown="bs-dropdown">
-    <button (click)="dynamicDropdown.show()" type="button" class="filter-dropdown btn dropdown-toggle">{{ selected?.title }} 
-        <span class="caret"></span>
+    <button (click)="dynamicDropdown.show()" type="button" [class.active]="selected !== initial" class="filter-dropdown btn dropdown-toggle">{{ selected?.title }} 
+        <span class="hpe-icon hpe-down"></span>
     </button>
     <ul *dropdownMenu class="dropdown-menu" role="menu">
 

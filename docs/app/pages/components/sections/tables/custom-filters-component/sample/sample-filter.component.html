@@ -1,6 +1,7 @@
 <div class="btn-group ux-filter-custom" dropdown>
-    <button dropdownToggle type="button" class="filter-dropdown btn dropdown-toggle">{{ selected?.title }} 
-        <span class="caret"></span>
+    <button dropdownToggle type="button" class="filter-dropdown btn dropdown-toggle" 
+    [class.active]="selected !== initial">{{ selected?.title }} 
+        <span class="hpe-icon hpe-down"></span>
     </button>
     <ul *dropdownMenu class="dropdown-menu" role="menu">
         <li class="dropdown-list-item" *ngFor="let filter of filters" role="menuitem">
