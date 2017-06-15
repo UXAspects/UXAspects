@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <div class="form-group m-nil">
+            <ux-select [(value)]="selected"
+                [options]="options"
+                [multiple]="multiple | async"
+                [allowNull]="allowNull"
+                [disabled]="disabled"
+                [dropDirection]="dropDirection"
+                [(dropdownOpen)]="dropdownOpen"
+                [pageSize]="pageSize"
+                [placeholder]="placeholder">
+            </ux-select>
+        </div>
+        <p class="m-t">
+            Selected location(s): {{selected | json}}
+        </p>
+    </div>
+</div>
+
+<accordion class="uxd-customize-example">
+    <accordion-group heading="Customize Example...">
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox [value]="multiple | async"
+                    (valueChange)="multiple.next($event)">multiple</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <ux-checkbox [(value)]="allowNull" [disabled]="multiple | async">allowNull</ux-checkbox>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <label for="dropDirection">dropDirection</label>
+                <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
+                <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <label for="placeholder">placeholder</label>
+                <input type="text" name="placeholder" class="form-control" [(ngModel)]="placeholder">
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-sm-12">
+                <ux-checkbox [value]="pagingEnabled | async"
+                    (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-12">
+                <label for="pageSize">pageSize</label>
+                <input type="number" name="pageSize" class="form-control"
+                    [(ngModel)]="pageSize" [disabled]="!pagingEnabled | async">
+            </div>
+        </div>
+    </accordion-group>
+</accordion>

@@ -761,8 +761,14 @@
             "link": "select",
             "sections": [{
                     "title": "Select",
+                    "component": "ComponentsSelectComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Select (Angular 1)",
                     "component": "ComponentsSelectNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Single Select Table",

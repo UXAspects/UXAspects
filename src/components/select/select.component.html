@@ -1,1 +1,60 @@
-<input-
+<ux-tag-input *ngIf="multiple"
+    [(tags)]="value"
+    [(input)]="input"
+    [addOnPaste]="false"
+    [disabled]="disabled"
+    [display]="display"
+    [freeInput]="false"
+    [placeholder]="placeholder"
+    [showTypeaheadOnClick]="true">
+
+    <ux-typeahead #multipleTypeahead
+        [options]="options"
+        [filter]="filter | async"
+        [(open)]="dropdownOpen"
+        [display]="display"
+        [key]="key"
+        [disabledOptions]="value"
+        [dropDirection]="dropDirection"
+        [maxHeight]="maxHeight"
+        [pageSize]="pageSize"
+        [selectFirst]="true"
+        [loadingTemplate]="loadingTemplate"
+        [optionTemplate]="optionTemplate"
+        [noOptionsTemplate]="noOptionsTemplate">
+    </ux-typeahead>
+
+</ux-tag-input>
+
+<div *ngIf="!multiple" class="inner-addon right-addon">
+
+    <i class="hpe-icon"
+        [class.hpe-down]="dropDirection === 'down'"
+        [class.hpe-up]="dropDirection === 'up'"></i>
+
+    <input #singleInput type="text" class="form-control"
+        [(ngModel)]="input"
+        [placeholder]="placeholder"
+        [disabled]="disabled"
+        (click)="inputClickHandler($event)"
+        (blur)="inputBlurHandler($event)"
+        (keydown)="inputKeyHandler($event)">
+
+    <ux-typeahead #singleTypeahead
+        [options]="options"
+        [filter]="filter | async"
+        [(open)]="dropdownOpen"
+        [display]="display"
+        [key]="key"
+        [dropDirection]="dropDirection"
+        [maxHeight]="maxHeight"
+        [openOnFilterChange]="false"
+        [pageSize]="pageSize"
+        [selectFirst]="true"
+        [loadingTemplate]="loadingTemplate"
+        [optionTemplate]="optionTemplate"
+        [noOptionsTemplate]="noOptionsTemplate"
+        (optionSelected)="singleOptionSelected($event)" >
+    </ux-typeahead>
+
+</div>

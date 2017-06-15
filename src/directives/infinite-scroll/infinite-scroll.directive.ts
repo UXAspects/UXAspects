@@ -34,10 +34,12 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         this._collection = value;
     }
 
+    @Input() enabled: boolean = true;
     @Input() filter: any;
+    @Input() loadOnInit: boolean = true;
+    @Input() loadOnScroll: boolean = true;
     @Input() pageSize: number = 20;
     @Input() scrollElement: ElementRef;
-    @Input() loadOnScroll: boolean = true;
 
     @Output() collectionChange = new EventEmitter<any[]>();
     @Output('loading') loadingEvent = new EventEmitter<InfiniteScrollLoadingEvent>();
@@ -85,17 +87,11 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         requests[0].auditTime(200).subscribe(this.doRequest.bind(this));
         requests[1].subscribe(this.doRequest.bind(this));
 
-        // Subscribe to the scroll event on the target element.
-        this._scrollEventSub = Observable.fromEvent(this.scrollElement.nativeElement, 'scroll')
-            .subscribe(this.onScroll.bind(this));
+        if (this.enabled) {
 
-        // Subscribe to child DOM changes. The main effect of this is to check whether even more data is
-        // required after the initial load.
-        this._domObserver = new MutationObserver(this.onDomChange.bind(this));
-        this._domObserver.observe(this.scrollElement.nativeElement, {
-            childList: true,
-            subtree: true
-        });
+            // Subscribe to scroll events and DOM changes.
+            this.attachEventHandlers();
+        }
 
         // Connect the Load More button visible state.
         this._canLoadManually.subscribe((canLoad) => {
@@ -118,44 +114,63 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         });
 
         // Initial update.
-        this.load();
+        if (this.loadOnInit) {
+            this.loadNextPage();
+        }
     }
 
     ngOnChanges(changes: SimpleChanges) {
 
         let check = true;
 
-        if (changes.filter && changes.filter.currentValue !== changes.filter.previousValue) {
-            this.reset();
-            check = false;
+        if (changes.enabled && changes.enabled.currentValue !== changes.enabled.previousValue) {
+            if (changes.enabled.currentValue) {
+                this.attachEventHandlers();
+                this.reset();
+                check = false;
+            } else {
+                this.detachEventHandlers();
+            }
         }
 
-        if (changes.pageSize && changes.pageSize.currentValue !== changes.pageSize.previousValue) {
-            this.reset();
-            check = false;
-        }
+        if (this.enabled) {
 
-        if (changes.loadOnScroll) {
-            this._loadButtonEnabled.next(!changes.loadOnScroll.currentValue);
-        }
+            if (changes.filter && changes.filter.currentValue !== changes.filter.previousValue) {
+                this.reset();
+                check = false;
+            }
 
-        this._updateRequests.next({
-            check: check,
-            pageNumber: this._nextPageNum,
-            pageSize: this.pageSize,
-            filter: this.filter
-        });
+            if (changes.loadOnScroll) {
+                this._loadButtonEnabled.next(!changes.loadOnScroll.currentValue);
+            }
+
+            if (changes.pageSize && changes.pageSize.currentValue !== changes.pageSize.previousValue) {
+                this.reset();
+                check = false;
+            }
+
+            this._updateRequests.next({
+                check: check,
+                pageNumber: this._nextPageNum,
+                pageSize: this.pageSize,
+                filter: this.filter
+            });
+        }
     }
 
     ngOnDestroy() {
-        this._scrollEventSub.unsubscribe();
-        this._domObserver.disconnect();
+        this.detachEventHandlers();
     }
 
     /**
      * Request an additional page of data.
      */
     loadNextPage() {
+
+        if (!this.enabled) {
+            return;
+        }
+
         this._updateRequests.next({
             check: false,
             pageNumber: this._nextPageNum,
@@ -168,6 +183,11 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      * Request a check for whether an additional page of data is required. This is throttled.
      */
     check() {
+
+        if (!this.enabled) {
+            return;
+        }
+
         this._updateRequests.next({
             check: true,
             pageNumber: this._nextPageNum,
@@ -180,6 +200,11 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      * Clear the collection. Future requests will load from page 0.
      */
     reset() {
+
+        if (!this.enabled) {
+            return;
+        }
+
         // Reset the page counter.
         this._nextPageNum = 0;
 
@@ -198,6 +223,39 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
 
     private onDomChange() {
         this.check();
+    }
+
+    /**
+     * Attach scroll event handler and DOM observer.
+     */
+    private attachEventHandlers() {
+
+        // Subscribe to the scroll event on the target element.
+        this._scrollEventSub = Observable.fromEvent(this.scrollElement.nativeElement, 'scroll')
+            .subscribe(this.onScroll.bind(this));
+
+        // Subscribe to child DOM changes. The main effect of this is to check whether even more data is
+        // required after the initial load.
+        this._domObserver = new MutationObserver(this.onDomChange.bind(this));
+        this._domObserver.observe(this.scrollElement.nativeElement, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    /**
+     * Detach scroll event handler and DOM observer.
+     */
+    private detachEventHandlers() {
+        if (this._scrollEventSub) {
+            this._scrollEventSub.unsubscribe();
+            this._scrollEventSub = null;
+        }
+
+        if (this._domObserver) {
+            this._domObserver.disconnect();
+            this._domObserver = null;
+        }
     }
 
     /**
@@ -249,6 +307,10 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      * Returns true if the request should be fulfilled.
      */
     private needsData(request: InfiniteScrollRequest): boolean {
+
+        if (!this.enabled) {
+            return false;
+        }
 
         // Always load for a load request
         if (!request.check) {

@@ -1,23 +1,45 @@
-<ol *ngIf="visibleOptions.length > 0">
-    <li *ngFor="let option of visibleOptions; let i = index"
-        [class.disabled]="isDisabled(option)"
-        [class.highlighted]="isHighlighted(option)"
-        [uxScrollIntoViewIf]="isHighlighted(option)"
-        [scrollParent]="typeaheadElement"
-        (mousedown)="optionMousedownHandler($event)"
-        (click)="optionClickHandler($event, option)"
-        (mouseover)="highlight(option)">
+<div class="ux-typeahead-options"
+    [uxInfiniteScroll]="loadOptionsCallback"
+    [(collection)]="visibleOptions"
+    [enabled]="isInfiniteScroll()"
+    [filter]="filter"
+    [loadOnScroll]="true"
+    [pageSize]="pageSize"
+    [scrollElement]="typeaheadElement"
+    (loading)="loading = true"
+    (loaded)="loading = false">
 
-        <ng-container [ngTemplateOutlet]="optionTemplate"
-            [ngOutletContext]="{option: option, api: optionApi}">
+    <ol *ngIf="visibleOptions.length > 0">
+        <li *ngFor="let option of visibleOptions; let i = index"
+            [class.disabled]="isDisabled(option)"
+            [class.highlighted]="isHighlighted(option)"
+            [uxScrollIntoViewIf]="isHighlighted(option)"
+            [scrollParent]="typeaheadElement"
+            (mousedown)="optionMousedownHandler($event)"
+            (click)="optionClickHandler($event, option)"
+            (mouseover)="highlight(option)">
+
+            <ng-container [ngTemplateOutlet]="optionTemplate"
+                [ngOutletContext]="{option: option, api: optionApi}">
+            </ng-container>
+
+        </li>
+    </ol>
+
+    <div *uxInfiniteScrollLoading>
+        <ng-container [ngTemplateOutlet]="loadingTemplate">
         </ng-container>
+    </div>
 
-    </li>
-</ol>
-<div *ngIf="visibleOptions.length === 0">
+</div>
+<div *ngIf="visibleOptions.length === 0 && !loading">
     <ng-container [ngTemplateOutlet]="noOptionsTemplate">
     </ng-container>
 </div>
+
+<ng-template #defaultLoadingTemplate>
+    <span class="ux-typeahead-loading">Loading...</span>
+</ng-template>
 
 <ng-template #defaultOptionTemplate let-option="option" let-api="api">
     <span class="ux-typeahead-option" [innerHtml]="api.getDisplayHtml(option)"></span>
