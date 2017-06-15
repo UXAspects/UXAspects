@@ -265,7 +265,7 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
     private attachLoadButtonEvents() {
         this._loadButtonSubscriptions.forEach((s) => s.unsubscribe());
         this._loadButtonSubscriptions = this._loadButtonQuery.map((loadButton) => {
-            return loadButton.load.subscribe(this.load.bind(this));
+            return loadButton.load.subscribe(this.loadNextPage.bind(this));
         });
     }
 

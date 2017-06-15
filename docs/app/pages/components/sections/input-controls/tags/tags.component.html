@@ -144,9 +144,9 @@
             <td>Controls the disabled state of the tag input. Default is false.</td>
         </tr>
         <tr>
-            <td><b>@Input</b> displayProperty</td>
-            <td><b>string</b></td>
-            <td>If <code>tags</code> is an array of custom objects, this property can be used to specify the name of the property to display in each tag. If the tag needs to display multiple properties or use advanced display logic, the <code>tagTemplate</code> property should be used to define a custom tag layout.</td>
+            <td><b>@Input</b> display</td>
+            <td><b>(option: any) => string | string</b></td>
+            <td>Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate display value. If the name of a property is provided as a string, that property is used as the display value.</td>
         </tr>
         <tr>
             <td><b>@Input</b> enforceTagLimits</td>
@@ -300,7 +300,17 @@
         <tr>
             <td><b>@Input</b> options</td>
             <td><b>any[]</b></td>
-            <td>The list of options to present in the typeahead. This can be an array of strings or custom objects, and should correspond to the same data type used in the tag input control. See the <code>display</code> and <code>key</code> properties for details of using a custom object.</td>
+            <td><b>any[] | InfiniteScrollLoadFunction</b></td>
+            <td>
+                <p>If an array is provided, this is the list of options which can be chosen from. It can be an array of strings or custom objects, matching the format used by the tag input control. If custom objects are required, the <code>display</code> property must also be set.</p>
+                <p>If a function is provided, this is used as a callback to dynamically retrieve options in pages. The parameters are:</p>
+                <ul>
+                    <li><code>pageNum: number</code> - The index of the requested page, starting from 0.</li>
+                    <li><code>pageSize: number</code> - The number of items requested.</li>
+                    <li><code>filter: any</code> - The filter details as provided via the <code>filter</code> binding.</li>
+                </ul>
+                <p>The return value should be either a promise which resolves to an array, or a plain array in case the data can be loaded synchronously. An empty array or an array with fewer than <code>pageSize</code> items can be returned, which indicates that the end of the data set has been reached.</p>
+            </td>
         </tr>
         <tr>
             <td><b>@Input</b> filter</td>
@@ -338,6 +348,11 @@
             <td>The maximum height of the typeahead dropdown, as a CSS value. Default is '250px'.</td>
         </tr>
         <tr>
+            <td><b>@Input</b> loadingTemplate</td>
+            <td><b>TemplateRef</b></td>
+            <td>A template which will be rendered in the dropdown while options are being loaded.</td>
+        </tr>
+        <tr>
             <td><b>@Input</b> optionTemplate</td>
             <td><b>TemplateRef</b></td>
             <td>
@@ -352,6 +367,13 @@
             <td><b>@Input</b> noOptionsTemplate</td>
             <td><b>TemplateRef</b></td>
             <td>A template which will be rendered in the dropdown if no options match the current filter value.</td>
+        </tr>
+        <tr>
+            <td><b>@Input</b> pageSize</td>
+            <td><b>number</b></td>
+            <td>
+                The number of options to request in a page. This should ideally be more than twice the number of items which fit into the height of the dropdown, but this is not required. Default is 20.
+            </td>
         </tr>
         <tr>
             <td><b>@Input</b> selectFirst</td>

@@ -162,6 +162,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     }
 
     protected inputBlurHandler(event: Event) {
+        // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
             if (!this._element.nativeElement.contains(this._document.activeElement)) {
                 this.dropdownOpen = false;
@@ -172,13 +173,24 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
         }, 200);
     }
 
+    /**
+     * Key handler for single select only. Multiple select key handling is in TagInputComponent.
+     */
     protected inputKeyHandler(event: KeyboardEvent) {
+
+        // Standard keys for typeahead (up/down/esc)
         this._typeaheadKeyService.handleKey(event, this.singleTypeahead);
 
         switch (event.key) {
             case 'Enter':
-                this.value = this.singleTypeahead.highlighted.getValue();
-                this.dropdownOpen = false;
+                if (this.dropdownOpen) {
+                    // Set the highlighted option as the value and close
+                    this.value = this.singleTypeahead.highlighted.getValue();
+                    this.dropdownOpen = false;
+                }
+
+                // Update the input field. If dropdown isn't open then reset it to the previous value.
+                this.input = this.getDisplay(this.value);
                 event.preventDefault();
                 break;
         }
@@ -198,7 +210,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
         if (typeof this.display === 'function') {
             return this.display(option);
         }
-        if (typeof this.display === 'string') {
+        if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
             return option[<string>this.display];
         }
         return option;

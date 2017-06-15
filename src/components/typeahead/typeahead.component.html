@@ -38,7 +38,10 @@
 </div>
 
 <ng-template #defaultLoadingTemplate>
-    <span class="ux-typeahead-loading">Loading...</span>
+    <div class="ux-typeahead-loading">
+        <div class="spinner spinner-accent spinner-bounce-middle"></div>
+        <div>Loading...</div>
+    </div>
 </ng-template>
 
 <ng-template #defaultOptionTemplate let-option="option" let-api="api">

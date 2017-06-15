@@ -22,9 +22,10 @@ System.config({
         '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
         '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 
-        'rxjs': 'npm:rxjs',
-        'typescript': 'npm:typescript@2.0.2/lib/typescript.js',
         'chance': 'npm:chance',
+        'rxjs': 'npm:rxjs',
+        'tslib': 'npm:tslib@1.7.1',
+        'typescript': 'npm:typescript@2.0.2/lib/typescript.js',
 
         'ux-aspects': window.uxdAssetsUrl + '/lib/index.js',
         ${mappings}

@@ -1,7 +1,24 @@
 import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
 import { TagInputEvent } from './tag-input-event';
-import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import {
+    AfterContentInit,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostListener,
+    Inject,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 
@@ -189,7 +206,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         switch (event.key) {
             case 'Enter':
                 // Check if a typeahead option is highlighted
-                const typeaheadValue = this.typeahead ? this.typeahead.highlighted.getValue() : null;
+                const typeaheadValue = this.typeahead ? this.typeahead.highlighted : null;
                 if (typeaheadValue) {
                     // Add the typeahead option as a tag, clear the input, and close the dropdown
                     this.commitTypeahead(typeaheadValue);

@@ -762,7 +762,16 @@
             "sections": [{
                     "title": "Select",
                     "component": "ComponentsSelectComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                            "title": "Selector",
+                            "content": "ux-select"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SelectModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Select (Angular 1)",

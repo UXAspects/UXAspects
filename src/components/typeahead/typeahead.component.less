@@ -56,9 +56,15 @@ ux-typeahead {
     }
 
     .ux-typeahead-loading {
+        display: flex;
+        align-items: center;
         padding: 0 10px;
         line-height: 24px;
         font-style: italic;
+
+        & > .spinner {
+            margin: 0 1em 0 0.5em;
+        }
     }
 
     .ux-typeahead-no-options {
