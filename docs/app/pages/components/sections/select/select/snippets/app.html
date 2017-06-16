@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <div class="form-group m-nil">
+            <ux-select [(value)]="selected"
+                [options]="options"
+                [multiple]="multiple | async"
+                [display]="display"
+                [key]="key"
+                [allowNull]="allowNull"
+                [disabled]="disabled"
+                [dropDirection]="dropDirection"
+                [(dropdownOpen)]="dropdownOpen"
+                [pageSize]="pageSize"
+                [placeholder]="placeholder">
+            </ux-select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 m-t-md">
+        Selected location(s): <code>{{selected | json}}</code>
+    </div>
+</div>
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="dataSet">options</label>
+                        <ux-radio-button [value]="dataSet | async" (valueChange)="dataSet.next($event)"
+                            option="strings">strings</ux-radio-button>
+                        <ux-radio-button [value]="dataSet | async" (valueChange)="dataSet.next($event)"
+                            option="objects">objects</ux-radio-button>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [value]="multiple | async"
+                            (valueChange)="multiple.next($event)">multiple</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="allowNull" [disabled]="multiple | async">
+                            allowNull
+                        </ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="dropDirection">dropDirection</label>
+                        <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
+                        <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <label for="placeholder">placeholder</label>
+                        <input type="text" name="placeholder" class="form-control"
+                            [(ngModel)]="placeholder">
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-sm-12">
+                        <ux-checkbox [value]="pagingEnabled | async"
+                            (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="pageSize">pageSize</label>
+                        <input type="number" name="pageSize" class="form-control"
+                            [(ngModel)]="pageSize" [disabled]="!(pagingEnabled | async)">
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

@@ -1,6 +1,19 @@
+import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'ux-typeahead',
@@ -13,10 +26,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class TypeaheadComponent implements OnInit, OnChanges {
 
-    @Input() options: any[];
+    @Input() options: any[] | InfiniteScrollLoadFunction;
     @Input() filter: string;
 
-    @Input('open') private _open: boolean = false;
+    private _open: boolean = false;
+    @Input('open')
     get open() {
         return this._open;
     }
@@ -38,27 +52,29 @@ export class TypeaheadComponent implements OnInit, OnChanges {
     @Input() disabledOptions: any[];
     @Input() dropDirection: 'up' | 'down' = 'down';
     @Input() maxHeight: string = '250px';
-    @Input() optionTemplate: TemplateRef<any>;
-    @Input() noOptionsTemplate: TemplateRef<any>;
+    @Input() openOnFilterChange: boolean = true;
     @Input() pageSize: number = 20;
     @Input() selectFirst: boolean = true;
 
-    @Output() optionSelected = new EventEmitter<TypeaheadOptionEvent>();
-    @Output() highlighted = new BehaviorSubject<any>(null);
+    @Input() loadingTemplate: TemplateRef<any>;
+    @Input() optionTemplate: TemplateRef<any>;
+    @Input() noOptionsTemplate: TemplateRef<any>;
 
+    @Output() optionSelected = new EventEmitter<TypeaheadOptionEvent>();
+
+    private _highlighted = new BehaviorSubject<any>(null);
+    @Output()
+    get highlighted(): any {
+        return this._highlighted.getValue();
+    }
+
+    @ViewChild('defaultLoadingTemplate') private _defaultLoadingTemplate: TemplateRef<any>;
     @ViewChild('defaultOptionTemplate') private _defaultOptionTemplate: TemplateRef<any>;
     @ViewChild('defaultNoOptionsTemplate') private _defaultNoOptionsTemplate: TemplateRef<any>;
 
+    protected loadOptionsCallback: InfiniteScrollLoadFunction;
     protected visibleOptions: any[] = [];
-
-    private _highlightedOption: any;
-    private get highlightedOption() {
-        return this._highlightedOption;
-    }
-    private set highlightedOption(value: any) {
-        this._highlightedOption = value;
-        this.highlighted.next(value);
-    }
+    protected loading = false;
 
     optionApi: TypeaheadOptionApi = {
         getKey: this.getKey.bind(this),
@@ -66,9 +82,22 @@ export class TypeaheadComponent implements OnInit, OnChanges {
         getDisplayHtml: this.getDisplayHtml.bind(this)
     };
 
-    constructor(public typeaheadElement: ElementRef) {}
+    constructor(public typeaheadElement: ElementRef) {
+
+        this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
+            if (typeof this.options === 'function') {
+                return this.options(pageNum, pageSize, filter);
+            }
+            return null;
+        };
+    }
 
     ngOnInit() {
+        // Attach default loading template
+        if (!this.loadingTemplate) {
+            this.loadingTemplate = this._defaultLoadingTemplate;
+        }
+
         // Attach default option template
         if (!this.optionTemplate) {
             this.optionTemplate = this._defaultOptionTemplate;
@@ -83,7 +112,7 @@ export class TypeaheadComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         // Open the dropdown if the filter value updates
         if (changes.filter) {
-            if (changes.filter.currentValue && changes.filter.currentValue.length > 0) {
+            if (this.openOnFilterChange && changes.filter.currentValue && changes.filter.currentValue.length > 0) {
                 this.open = true;
             }
         }
@@ -92,19 +121,19 @@ export class TypeaheadComponent implements OnInit, OnChanges {
         this.updateOptions();
     }
 
-    optionMousedownHandler(event: MouseEvent) {
+    protected optionMousedownHandler(event: MouseEvent) {
         // Workaround to prevent focus changing when an option is clicked
         event.preventDefault();
     }
 
-    optionClickHandler(event: MouseEvent, option: any) {
+    protected optionClickHandler(event: MouseEvent, option: any) {
         this.select(option);
     }
 
     /**
      * Returns the unique key value of the given option.
      */
-    getKey(option: any): string {
+    protected getKey(option: any): string {
         if (typeof this.key === 'function') {
             return this.key(option);
         }
@@ -117,7 +146,7 @@ export class TypeaheadComponent implements OnInit, OnChanges {
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: any): string {
+    protected getDisplay(option: any): string {
         if (typeof this.display === 'function') {
             return this.display(option);
         }
@@ -131,7 +160,7 @@ export class TypeaheadComponent implements OnInit, OnChanges {
      * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value.
      * @param option 
      */
-    getDisplayHtml(option: any) {
+    protected getDisplayHtml(option: any) {
         const displayText = this.getDisplay(option).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         let displayHtml = displayText;
         if (this.filter) {
@@ -146,12 +175,19 @@ export class TypeaheadComponent implements OnInit, OnChanges {
     }
 
     /**
+     * Returns true if the infinite scroll component should load 
+     */
+    protected isInfiniteScroll() {
+        return typeof this.options === 'function';
+    }
+
+    /**
      * Selects the given option, emitting the optionSelected event and closing the dropdown.
      */
-    select(option: any) {
+    protected select(option: any) {
         if (!this.isDisabled(option)) {
             this.optionSelected.emit(new TypeaheadOptionEvent(option));
-            this.highlightedOption = null;
+            this._highlighted.next(null);
             this.open = false;
         }
     }
@@ -159,20 +195,23 @@ export class TypeaheadComponent implements OnInit, OnChanges {
     /**
      * Returns true if the given option is part of the disabledOptions array.
      */
-    isDisabled(option: any): boolean {
-        const optionKey = this.getKey(option);
-        const result = this.disabledOptions.find((selectedOption) => {
-            return this.getKey(selectedOption) === optionKey;
-        });
-        return result !== undefined;
+    protected isDisabled(option: any): boolean {
+        if (this.disabledOptions) {
+            const optionKey = this.getKey(option);
+            const result = this.disabledOptions.find((selectedOption) => {
+                return this.getKey(selectedOption) === optionKey;
+            });
+            return result !== undefined;
+        }
+        return false;
     }
 
     /**
      * Set the given option as the current highlighted option, available in the highlightedOption parameter.
      */
-    highlight(option: any) {
+    protected highlight(option: any) {
         if (!this.isDisabled(option)) {
-            this.highlightedOption = option;
+            this._highlighted.next(option);
         }
     }
 
@@ -180,8 +219,8 @@ export class TypeaheadComponent implements OnInit, OnChanges {
      * Increment or decrement the highlighted option in the list. Disabled options are skipped.
      * @param d Value to be added to the index of the highlighted option, i.e. -1 to move backwards, +1 to move forwards.
      */
-    moveHighlight(d: number): any {
-        const highlightIndex = this.indexOfVisibleOption(this.highlightedOption);
+    public moveHighlight(d: number): any {
+        const highlightIndex = this.indexOfVisibleOption(this.highlighted);
         let newIndex = highlightIndex;
         let disabled = true;
         do {
@@ -191,17 +230,17 @@ export class TypeaheadComponent implements OnInit, OnChanges {
         while (disabled && newIndex >= 0 && newIndex < this.visibleOptions.length);
 
         if (!disabled && newIndex >= 0 && newIndex < this.visibleOptions.length) {
-            this.highlightedOption = this.visibleOptions[newIndex];
+            this._highlighted.next(this.visibleOptions[newIndex]);
         }
 
-        return this.highlightedOption;
+        return this.highlighted;
     }
 
     /**
      * Returns true if the given option is the highlighted option.
      */
-    isHighlighted(option: any): boolean {
-        return this.getKey(option) === this.getKey(this.highlightedOption);
+    protected isHighlighted(option: any): boolean {
+        return this.getKey(option) === this.getKey(this.highlighted);
     }
 
     /**
@@ -209,7 +248,7 @@ export class TypeaheadComponent implements OnInit, OnChanges {
      */
     private initOptions() {
         // Clear previous highlight
-        this.highlightedOption = null;
+        this._highlighted.next(null);
         if (this.selectFirst) {
             // This will highlight the first non-disabled option.
             this.moveHighlight(1);
@@ -225,9 +264,6 @@ export class TypeaheadComponent implements OnInit, OnChanges {
             this.visibleOptions = this.options.filter((option) => {
                 return this.getDisplay(option).toLowerCase().indexOf(normalisedInput) >= 0;
             });
-        } else if (typeof this.options === 'function') {
-            // TODO: paging
-            throw 'Not yet implemented';
         }
 
         this.initOptions();

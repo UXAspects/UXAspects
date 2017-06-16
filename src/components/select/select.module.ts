@@ -1,10 +1,19 @@
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-
+import { InfiniteScrollModule } from '../../directives/infinite-scroll/index';
+import { TagInputModule } from '../tag-input/index';
+import { TypeaheadModule } from '../typeahead/index';
 import { SelectComponent } from './select.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    imports: [FormsModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        InfiniteScrollModule,
+        TagInputModule,
+        TypeaheadModule
+    ],
     exports: [SelectComponent],
     declarations: [SelectComponent]
 })

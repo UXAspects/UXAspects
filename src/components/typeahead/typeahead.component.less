@@ -8,7 +8,7 @@ ux-typeahead {
     width: 100%;
     overflow-y: auto;
     z-index: @select-drop-z-index;
-    padding: 5px 5px 5px 0;
+    padding: 5px 0;
     border: none;
     border-radius: 2px;
     margin: 5px 0;
@@ -24,31 +24,46 @@ ux-typeahead {
         bottom: 100%;
     }
 
-    & > ol {
-        margin-bottom: 0;
-        padding: 0;
+    .ux-typeahead-options {
+        
+        & > ol {
+            margin-bottom: 0;
+            padding: 0;
 
-        & > li {
-            display: list-item;
-            list-style: none;
-            margin: 0;
-            padding: 0 10px;
-            line-height: 24px;
-            cursor: pointer;
+            & > li {
+                display: list-item;
+                list-style: none;
+                margin: 0;
+                padding: 0 10px;
+                line-height: 24px;
+                cursor: pointer;
 
-            &.highlighted {
-                background-color: @shift-select-selected-light;
+                &.highlighted {
+                    background-color: @shift-select-selected-light;
+                }
+
+                &.disabled {
+                    cursor: default;
+                    color: @grey5;
+                }
+
+                .ux-filter-match {
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
             }
+        }
+    }
 
-            &.disabled {
-                cursor: default;
-                color: @grey5;
-            }
+    .ux-typeahead-loading {
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        line-height: 24px;
+        font-style: italic;
 
-            .ux-filter-match {
-                font-weight: bold;
-                text-decoration: underline;
-            }
+        & > .spinner {
+            margin: 0 1em 0 0.5em;
         }
     }
 

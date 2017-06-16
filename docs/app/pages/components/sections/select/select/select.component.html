@@ -1,0 +1,200 @@
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <div class="form-group m-nil">
+            <ux-select [(value)]="selected"
+                [options]="options"
+                [multiple]="multiple | async"
+                [display]="display"
+                [key]="key"
+                [allowNull]="allowNull"
+                [disabled]="disabled"
+                [dropDirection]="dropDirection"
+                [(dropdownOpen)]="dropdownOpen"
+                [pageSize]="pageSize"
+                [placeholder]="placeholder">
+            </ux-select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 m-t-md">
+        Selected location(s): <code>{{selected | json}}</code>
+    </div>
+</div>
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="dataSet">options</label>
+                        <ux-radio-button [value]="dataSet | async" (valueChange)="dataSet.next($event)"
+                            option="strings">strings</ux-radio-button>
+                        <ux-radio-button [value]="dataSet | async" (valueChange)="dataSet.next($event)"
+                            option="objects">objects</ux-radio-button>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [value]="multiple | async"
+                            (valueChange)="multiple.next($event)">multiple</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="allowNull" [disabled]="multiple | async">allowNull</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="dropDirection">dropDirection</label>
+                        <ux-radio-button [(value)]="dropDirection" option="down">down</ux-radio-button>
+                        <ux-radio-button [(value)]="dropDirection" option="up">up</ux-radio-button>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <label for="placeholder">placeholder</label>
+                        <input type="text" name="placeholder" class="form-control" [(ngModel)]="placeholder">
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-sm-12">
+                        <ux-checkbox [value]="pagingEnabled | async"
+                            (valueChange)="pagingEnabled.next($event)">Enable Option Paging</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="pageSize">pageSize</label>
+                        <input type="number" name="pageSize" class="form-control"
+                            [(ngModel)]="pageSize" [disabled]="!(pagingEnabled | async)">
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>The <code>ux-select</code> component allows users to choose one or more items from a set via a dropdown interface. It supports filtering and keyboard control. For very large data sets, a paging feature is available, ensuring that data is only loaded as required.</p>
+
+<p>The data set may be a collection of strings or objects. Using the "Customize Example..." section above, the <code>options</code> data set can be switched between strings and objects; the JSON display below the select control shows the resulting <code>value</code>.</p>
+
+<p>Paged loading of options can also be enabled using the "Enable Option Paging" checkbox. This can be observed in action by scrolling or using the down key to reach the end of the current result set in the select dropdown.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tr>
+        <td><b>@Input @Output</b> value</td>
+        <td><b>any</b></td>
+        <td>The selected option (for single select) or array of options (for multiple select).</td>
+    </tr>
+    <tr>
+        <td><b>@Input @Output</b> input</td>
+        <td><b>string</b></td>
+        <td>The text in the input area. This is used to filter the options dropdown.</td>
+    </tr>
+    <tr>
+        <td><b>@Input @Output</b> dropdownOpen</td>
+        <td><b>boolean</b></td>
+        <td>The status of the typeahead dropdown.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> multiple</td>
+        <td><b>boolean</b></td>
+        <td>Controls whether the user can select more than one option in the select control. If set to true, selected options will appear as tags in the input area. If set to false, the selected value will appear as editable text in the input area. Default is false.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> options</td>
+        <td><b>any[] | InfiniteScrollLoadFunction</b></td>
+        <td>
+            <p>If an array is provided, this is the list of options which can be chosen from. It can be an array of strings or custom objects. If custom objects are required, the <code>display</code> property must also be set.</p>
+            <p>If a function is provided, this is used as a callback to dynamically retrieve data in pages. The parameters are:</p>
+            <ul>
+                <li><code>pageNum: number</code> - The index of the requested page, starting from 0.</li>
+                <li><code>pageSize: number</code> - The number of items requested.</li>
+                <li><code>filter: any</code> - The filter details as provided via the <code>filter</code> binding.</li>
+            </ul>
+            <p>The return value should be either a promise which resolves to an array, or a plain array in case the data can be loaded synchronously. An empty array or an array with fewer than <code>pageSize</code> items can be returned, which indicates that the end of the data set has been reached.</p>
+        </td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> display</td>
+        <td><b>(option: any) => string | string</b></td>
+        <td>Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate display value. If the name of a property is provided as a string, that property is used as the display value.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> key</td>
+        <td><b>(option: any) => string | string</b></td>
+        <td>Determines the unique key value of the <code>options</code>, if they are custom objects. This is only relevant if multiple options will have the same display value. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate key value. If the name of a property is provided as a string, that property is used as the key value. The default behaviour is to use the <code>display</code> value as the key.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> allowNull</td>
+        <td><b>boolean</b></td>
+        <td>Controls whether the value of the single select control can be cleared by deleting the selected value in the input field. This does not affect the initial state of the control, so specify a value for <code>value</code> if null should never be allowed.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> disabled</td>
+        <td><b>boolean</b></td>
+        <td>Controls the disabled state of the tag input. Default is false.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> dropDirection</td>
+        <td><b>'up' | 'down'</b></td>
+        <td>The positioning of the typeahead dropdown in relation to its parent. Default is 'down'.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> maxHeight</td>
+        <td><b>string</b></td>
+        <td>The maximum height of the typeahead dropdown, as a CSS value. Default is '250px'.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> loadingTemplate</td>
+        <td><b>TemplateRef</b></td>
+        <td>A template which will be rendered in the dropdown while options are being loaded.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> optionTemplate</td>
+        <td><b>TemplateRef</b></td>
+        <td>
+            <p>A template which will be rendered in the dropdown for each option. The following context properties are available in the template:</p>
+            <ul>
+                <li><code>option: any</code> - the string or custom object representing the option.</li>
+                <li><code>api: TypeaheadOptionApi</code> - provides the functions <code>getKey</code>, <code>getDisplay</code> and <code>getDisplayHtml</code>. See the <a routerLink="/components/input-controls" fragment="tags">typeahead</a> documentation for details.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> noOptionsTemplate</td>
+        <td><b>TemplateRef</b></td>
+        <td>A template which will be rendered in the dropdown if no options match the current filter value.</td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> pageSize</td>
+        <td><b>number</b></td>
+        <td>
+            The number of options to request in a page. This should ideally be more than twice the number of items which fit into the height of the dropdown, but this is not required. Default is 20.
+        </td>
+    </tr>
+    <tr>
+        <td><b>@Input</b> placeholder</td>
+        <td><b>string</b></td>
+        <td>The placeholder text which appears in the text input area when it is empty.</td>
+    </tr>
+</table>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appExampleTs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
