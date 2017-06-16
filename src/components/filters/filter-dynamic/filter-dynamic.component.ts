@@ -39,7 +39,6 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         if (this.options && this.options.maxIndividualItems && this.options.maxIndividualItems + 1 >= this.filters.length ) {
             this.showTypeahead = false;
         }
-
     }
 
     selectOption(typeaheadOption: TypeaheadMatch) { 
@@ -47,6 +46,7 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         let idx = this.filters.findIndex(filter => filter.name === typeaheadOption.value);
         this.selected = this.filters[idx];
         this.addFilter(this.selected);
+        this.searchQuery = '';
         this.dropdown.hide();
     }
 
@@ -65,6 +65,7 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         }
 
         if (hideDropdown) {
+            this.searchQuery = '';
             this.dropdown.hide();
         }
         
@@ -74,7 +75,8 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         if (this.selected !== this.initial) {
             super.removeFilter(this.selected);
             this.selected = this.initial;
-        }  
+        }
+        this.searchQuery = '';
     }
 
     selectFilter(filter: Filter) {
