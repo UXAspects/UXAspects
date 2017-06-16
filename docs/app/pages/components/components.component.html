@@ -22,9 +22,9 @@
         <div class="col-md-3 push-md-9 hidden-sm hidden-xs">
             <div class="btn-group version-toggle">
                 <button type="button" class="btn button-toggle-primary"
-                    [(ngModel)]="versionRadioValue" btnRadio="AngularJS">Angular 1</button>
+                    [(ngModel)]="versionRadioValue" (ngModelChange)="radioToggled('Angular1')" btnRadio="AngularJS">Angular 1</button>
                 <button type="button" class="btn button-toggle-accent"
-                    [(ngModel)]="versionRadioValue" btnRadio="Angular">Angular 4</button>
+                    [(ngModel)]="versionRadioValue" (ngModelChange)="radioToggled('Angular4')" btnRadio="Angular">Angular 4</button>
             </div>
             <uxd-side-navigation [navigation]="navigation"></uxd-side-navigation>
         </div>
