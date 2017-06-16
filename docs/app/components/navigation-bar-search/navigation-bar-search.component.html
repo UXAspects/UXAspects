@@ -1,12 +1,16 @@
 <i class="hpe-icon hpe-search"></i>
 
 <div class="nav-bar-search-container" *ngIf="searching === true" (click)="$event.stopPropagation()">
-    <input #searchInput type="text" class="nav-bar-search-input" [ngModel]="query" (ngModelChange)="search($event)" (blur)="hideSearch()"
-        (keydown.escape)="escapeKey()" (keydown.arrowup)="upKey($event)" (keydown.arrowdown)="downKey($event)" (keydown.enter)="enterKey()">
+    <input #searchInput type="text" class="nav-bar-search-input"
+        [ngModel]="query | async" (ngModelChange)="query.next($event)" (blur)="hideSearch()"
+        (keydown.escape)="escapeKey()" (keydown.arrowup)="upKey($event)" (keydown.arrowdown)="downKey($event)" 
+        (keydown.enter)="enterKey()">
 
     <ul class="nav-bar-search-results-container">
-        <li class="nav-bar-search-result" *ngFor="let result of results; let idx = index" [class.active]="activeIdx === idx" (mousedown)="navigate(result)">
-            {{ result.link.title }} <span class="nav-bar-search-result-section" *ngIf="isDuplicate(result)">({{ result.section }})</span>
+        <li class="nav-bar-search-result" *ngFor="let result of results; let idx = index"
+            [class.active]="activeIdx === idx" (mousedown)="navigate(result)">
+            {{ result.link.title }}
+            <span class="nav-bar-search-result-section" *ngIf="isDuplicate(result)">({{ result.section }})</span>
         </li>
     </ul>
 </div>
