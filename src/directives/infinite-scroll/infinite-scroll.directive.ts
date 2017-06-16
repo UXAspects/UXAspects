@@ -2,7 +2,6 @@ import { InfiniteScrollLoadButtonDirective } from './infinite-scroll-load-button
 import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.directive';
 import {
     AfterContentInit,
-    AfterViewInit,
     ContentChildren,
     Directive,
     ElementRef,
@@ -15,7 +14,13 @@ import {
     QueryList,
     SimpleChanges
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/auditTime';
+import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/partition';
 
 @Directive({
     selector: '[uxInfiniteScroll]',
