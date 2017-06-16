@@ -6,7 +6,6 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
 @Component({
     selector: 'uxd-charts-spark-chart-ng1',
     templateUrl: './spark-chart-ng1.component.html',
-    styleUrls: ['./../spark-charts.less'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsSparkChartNg1Component')

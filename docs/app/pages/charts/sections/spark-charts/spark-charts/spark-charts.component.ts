@@ -7,7 +7,6 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-charts-spark-charts',
-    styleUrls: ['./../spark-charts.less'],
     templateUrl: './spark-charts.component.html'
 })
 @DocumentationSectionComponent('ChartsSparkChartsComponent')
