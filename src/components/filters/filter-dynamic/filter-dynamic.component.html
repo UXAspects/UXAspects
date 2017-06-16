@@ -21,7 +21,7 @@
         <hr>
 
         <li *ngIf="showTypeahead" class="typeahead-box">
-            <input [(ngModel)]="searchQuery" [typeahead]="typeaheadItems" class="form-control" 
+            <input #inputBox [(ngModel)]="searchQuery" [typeahead]="typeaheadItems" class="form-control" 
             (typeaheadOnSelect)="selectOption($event)" 
             [placeholder]="options?.placeholder || defaultOptions.placeholder"
             [typeaheadMinLength]="options?.minCharacters || defaultOptions.minCharacters"

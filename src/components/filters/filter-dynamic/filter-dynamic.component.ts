@@ -1,5 +1,5 @@
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { FilterBaseComponent } from '../filter-base/filter-base.component';
 import { Filter, FilterContainerComponent, FilterRemoveAllEvent } from '../filter-container.component';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
@@ -18,6 +18,7 @@ export class FilterDynamicComponent extends FilterBaseComponent {
     @Input() options: FilterDynamicListConfig;
 
     @ViewChild( BsDropdownDirective ) dropdown: BsDropdownDirective;
+    @ViewChild( 'inputBox' ) inputBox: ElementRef;
 
     defaultOptions: FilterDynamicListConfig = {
         placeholder: '',
@@ -39,7 +40,6 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         if (this.options && this.options.maxIndividualItems && this.options.maxIndividualItems + 1 >= this.filters.length ) {
             this.showTypeahead = false;
         }
-
     }
 
     selectOption(typeaheadOption: TypeaheadMatch) { 
@@ -47,6 +47,9 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         let idx = this.filters.findIndex(filter => filter.name === typeaheadOption.value);
         this.selected = this.filters[idx];
         this.addFilter(this.selected);
+        if (this.inputBox) {
+            this.inputBox.nativeElement.value = '';
+        }
         this.dropdown.hide();
     }
 
@@ -65,6 +68,9 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         }
 
         if (hideDropdown) {
+            if (this.inputBox) {
+                this.inputBox.nativeElement.value = '';
+            }
             this.dropdown.hide();
         }
         
@@ -74,7 +80,10 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         if (this.selected !== this.initial) {
             super.removeFilter(this.selected);
             this.selected = this.initial;
-        }  
+        }
+        if (this.inputBox) {
+            this.inputBox.nativeElement.value = '';
+        }
     }
 
     selectFilter(filter: Filter) {
