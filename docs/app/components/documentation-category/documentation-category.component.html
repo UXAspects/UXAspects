@@ -1,3 +1,4 @@
 <uxd-component-section *ngFor="let section of category.sections" [id]="section.id" [title]="section.title" [componentName]="section.component"
     [version]="section.version" [deprecated]="section.deprecated" [externalUrl]="section.externalUrl" [usage]="section.usage"
-    [hidden]="angular4 && section.version === 'AngularJS' && section.deprecated === true"></uxd-component-section>
+    [hidden]="angular && section.version === 'AngularJS' && section.deprecated === true ||
+    !angular && section.version === 'Angular'"></uxd-component-section>

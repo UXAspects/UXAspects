@@ -80,54 +80,54 @@
                     ]
                 },
                 {
-                    "title": "Grouped Buttons (Angular 1)",
+                    "title": "Grouped Buttons",
                     "component": "ComponentsGroupedButtonsNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Toggle Buttons (Angular 1)",
+                    "title": "Toggle Buttons",
                     "component": "ComponentsToggleButtonsNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Floating Action Button (Angular 1)",
+                    "title": "Floating Action Button",
                     "component": "ComponentsFloatingActionButtonNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Pagination (Angular 1)",
+                    "title": "Pagination",
                     "component": "ComponentsPaginationNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Single Toggle Button (Angular 1)",
+                    "title": "Single Toggle Button",
                     "component": "ComponentsSingleToggleButtonNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Checkbox Buttons (Angular 1)",
+                    "title": "Checkbox Buttons",
                     "component": "ComponentsCheckboxButtonsNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Radio Buttons (Angular 1)",
+                    "title": "Radio Buttons",
                     "component": "ComponentsRadioButtonsNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Dropdown (Angular 1)",
+                    "title": "Dropdown",
                     "component": "ComponentsDropdownNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Thumbnail (Angular 1)",
+                    "title": "Thumbnail",
                     "component": "ComponentsThumbnailNg1Component",
                     "version": "AngularJS"
                 }
@@ -282,27 +282,27 @@
                     }]
                 },
                 {
-                    "title": "Facets (Angular 1)",
+                    "title": "Facets",
                     "component": "ComponentsFacetsNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Dynamic Facets (Angular 1)",
+                    "title": "Dynamic Facets",
                     "component": "ComponentsDynamicFacetsNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Custom Facets (Angular 1)",
+                    "title": "Custom Facets",
                     "component": "ComponentsCustomFacetsNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Line Chart Example with Facet Panel (Angular 1)",
+                    "title": "Line Chart Example with Facet Panel",
                     "component": "ComponentsFacetLineChartNg1Component",
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Programmatic Selection (Angular 1)",
+                    "title": "Programmatic Selection",
                     "component": "ComponentsProgrammaticSelectionNg1Component",
                     "version": "AngularJS"
                 }
@@ -335,7 +335,7 @@
                     ]
                 },
                 {
-                    "title": "Flippable Cards (Angular 1)",
+                    "title": "Flippable Cards",
                     "component": "ComponentsFlippableCardsNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -385,7 +385,7 @@
                     }]
                 },
                 {
-                    "title": "Checkbox (Angular 1)",
+                    "title": "Checkbox",
                     "component": "ComponentsCheckboxNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -413,7 +413,7 @@
                     }]
                 },
                 {
-                    "title": "Toggle Switch (Angular 1)",
+                    "title": "Toggle Switch",
                     "component": "ComponentsToggleSwitchNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -453,7 +453,7 @@
                     ]
                 },
                 {
-                    "title": "Radio Button (Angular 1)",
+                    "title": "Radio Button",
                     "component": "ComponentsRadioButtonNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -471,13 +471,13 @@
                     }]
                 },
                 {
-                    "title": "Sliders (Angular 1)",
+                    "title": "Sliders",
                     "component": "ComponentsSlidersNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Sliders with Charts (Angular 1)",
+                    "title": "Sliders with Charts",
                     "component": "ComponentsSliderChartsNg1Component",
                     "version": "AngularJS"
                 },
@@ -494,7 +494,7 @@
                     }]
                 },
                 {
-                    "title": "Tags (Angular 1)",
+                    "title": "Tags",
                     "component": "ComponentsTagsNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -510,13 +510,13 @@
                     "version": "Angular"
                 },
                 {
-                    "title": "Hotkeys (Angular 1)",
+                    "title": "Hotkeys",
                     "component": "ComponentsHotkeysNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Keyboard Service (Angular 1)",
+                    "title": "Keyboard Service",
                     "component": "ComponentsKeyboardServiceNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -639,13 +639,13 @@
                     ]
                 },
                 {
-                    "title": "Item Display Panel (Angular 1)",
+                    "title": "Item Display Panel",
                     "component": "ComponentsItemDisplayPanelNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Item Display Panel Service (Angular 1)",
+                    "title": "Item Display Panel Service",
                     "component": "ComponentsItemDisplayPanelServiceNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -689,7 +689,7 @@
                     ]
                 },
                 {
-                    "title": "Progress Bar (Angular 1)",
+                    "title": "Progress Bar",
                     "component": "ComponentsProgressBarNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -854,13 +854,13 @@
                     }]
                 },
                 {
-                    "title": "Filters (Angular 1)",
+                    "title": "Filters",
                     "component": "ComponentsFiltersNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Dynamic Filters (Angular 1)",
+                    "title": "Dynamic Filters",
                     "component": "ComponentsDynamicFiltersNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -936,13 +936,13 @@
                     "version": "AngularJS"
                 },
                 {
-                    "title": "Single Column Sorting (Angular 1)",
+                    "title": "Single Column Sorting",
                     "component": "ComponentsSingleColumnSortingNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Multiple Column Sorting (Angular 1)",
+                    "title": "Multiple Column Sorting",
                     "component": "ComponentsMultipleColumnSortingNg1Component",
                     "version": "AngularJS",
                     "deprecated": true

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ICategory } from '../../interfaces/ICategory';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { ISection } from '../../interfaces/ISection';
+import { VersionService } from '../../services/version/version.service';
 
 @Component({
     selector: 'uxd-documentation-category',
@@ -14,15 +15,21 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
     private category: ICategory;
     private trackScroll: boolean = false;
 
-    angular4: boolean = true;
+    angular: boolean = true;
     
     constructor(private activatedRoute: ActivatedRoute,
-        private navigation: NavigationService) { }
+        private navigation: NavigationService, private versionService: VersionService) {
+        // get version
+        this.versionService.versionChange.subscribe((value: string) => {
+            this.angular = value === 'Angular';
+        });
+    }
 
     ngOnInit() {
         // Fetch category details from the route metadata
         this.category = this.activatedRoute.snapshot.data['category'];
         this.navigation.setSectionIds(this.category.sections);
+        this.angular = this.versionService.version === 'Angular';
     }
 
     ngAfterViewInit() {

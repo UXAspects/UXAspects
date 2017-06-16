@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-
-import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
+import { IDocumentationPage } from './../../interfaces/IDocumentationPage';
+import { VersionService } from './../../services/version/version.service';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'uxd-components',
@@ -9,22 +9,44 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 export class ComponentsPageComponent {
 
     navigation: IDocumentationPage;
+    fullNavigation: IDocumentationPage;
 
     versionRadioValue: string = 'Angular';
 
     version: string;
 
-    constructor() {
+    constructor(private versionService: VersionService) {
+
+        // get version
+        this.versionService.versionChange.subscribe((value: string) => this.filterNavigation(value));
 
         // load in the navigation json for this page
-        this.navigation = require('../../data/components-page.json');
+        this.fullNavigation = require('../../data/components-page.json');
+
+        this.filterNavigation('Angular');
+
+    }
+
+    filterNavigation(version: string) {
+
+        let categories = this.fullNavigation.categories.map(category => {
+            return {
+                link: category.link,
+                title: category.title,
+                sections: category.sections.filter(section => {
+                    return version === 'Angular' ? !section.deprecated : section.version === version;
+                })
+            };
+        });
+
+        this.navigation = {
+            title: this.fullNavigation.title,
+            categories: categories
+        };
     }
 
     radioToggled(version: string) {
-
-        if (this.version !== version) {
-            console.log(version);
-            this.version = version;
-        }
+        this.versionService.toggle(version);
     }
+
 }

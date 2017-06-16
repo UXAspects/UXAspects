@@ -6,6 +6,7 @@ import { ISearchResult } from '../../interfaces/ISearch';
 import { ICategory } from '../../interfaces/ICategory';
 import { ISection } from '../../interfaces/ISection';
 import { NavigationService } from '../../services/navigation/navigation.service';
+import { VersionService } from "../../services/version/version.service";
 
 @Component({
     selector: 'uxd-navigation-bar-search',
@@ -26,7 +27,19 @@ export class NavigationBarSearchComponent {
 
     private data: ISearchResult[];
 
-    constructor(private router: Router, private navigation: NavigationService) {
+    private angular = true;
+
+    constructor(private router: Router, private navigation: NavigationService, private versionService: VersionService) {
+
+        // get version
+        this.versionService.versionChange.subscribe((value: string) => {
+            this.angular = value === 'Angular';
+            this.data = [];
+            this.data = this.data.concat(this.getSearchResults(componentsData));
+            this.data = this.data.concat(this.getSearchResults(cssData));
+            this.data = this.data.concat(this.getSearchResults(chartsData));
+        });
+
         this.searching = false;
         this.query = '';
         this.data = [];
@@ -45,27 +58,51 @@ export class NavigationBarSearchComponent {
     getSearchResults(page: IDocumentationPage): ISearchResult[] {
         var results: ISearchResult[] = [];
         page.categories.forEach((category: ICategory) => {
-            results.push({
-                section: page.title,
-                link: {
-                    title: category.title,
-                    link: category.link
-                }
-            });
+            let addCategory = false;
+            for (let i = 0; i < category.sections.length; i++) {
+                if (this.angular && !category.sections[i].deprecated) {
+                    addCategory = true;
+                    break;
+                } else if (!this.angular && category.sections[i].version === 'AngularJS') {
+                    addCategory = true;
+                    break;
+                } 
+            }
+            if (addCategory) {
+                results.push({
+                    section: page.title,
+                    link: {
+                        title: category.title,
+                        link: category.link
+                    }
+                });
+            }
             if (category.sections) {
                 this.navigation.setSectionIds(category.sections);
                 category.sections.forEach((section: ISection) => {
-                    results.push({
-                        section: page.title,
-                        link: {
-                            title: section.title,
-                            link: category.link,
-                            fragment: section.id
-                        }
-                    });
+                    if (this.angular && !section.deprecated) {
+                        results.push({
+                            section: page.title,
+                            link: {
+                                title: section.title,
+                                link: category.link,
+                                fragment: section.id
+                            }
+                        });
+                    } else if (!this.angular && section.version === 'AngularJS') {
+                        results.push({
+                            section: page.title,
+                            link: {
+                                title: section.title,
+                                link: category.link,
+                                fragment: section.id
+                            }
+                        }); 
+                    }
                 });
             }
         });
+
         return results;
     }
 
