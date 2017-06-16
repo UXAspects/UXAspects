@@ -42,19 +42,31 @@ export default function MarqueeWizardCtrl($scope) {
 
   //allow the user to go to the next step
   vm.goNext = function () {
+    
+    
+
     //check if we are on the last page
     if (vm.stepIndex === vm.steps.length - 1) return;
-
+    
     //if on change function specified call it and await its response
     if (typeof $scope.onChanging === 'function') {
       var response = $scope.onChanging(vm.stepIndex, vm.stepIndex + 1);
+
+      //check if the next step is visible
+      while (vm.stepIndex !== vm.steps.length -1) {
+        if (vm.steps[vm.stepIndex + 1].hidden === true) {
+          vm.stepIndex += 1;
+        } else {
+          break;
+        }
+      }
 
       //dont go to the next page if the response is false
       if (response === false) {
         vm.currentStep.error = true;
         return;
       }
-      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length) {
+      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length && !vm.steps[response].hidden) {
         vm.stepIndex = response;
       }
       else {
@@ -78,6 +90,7 @@ export default function MarqueeWizardCtrl($scope) {
 
   //allow the user to go to the previous step
   vm.goPrevious = function () {
+
     //check if we are on the first page
     if (vm.stepIndex === 0) return;
 
@@ -85,11 +98,20 @@ export default function MarqueeWizardCtrl($scope) {
     if (typeof $scope.onChanging === 'function') {
       var response = $scope.onChanging(vm.stepIndex, vm.stepIndex - 1);
 
+      //check if the next step is visible
+      while (vm.stepIndex !== 0) {
+        if (vm.steps[vm.stepIndex - 1].hidden === true) {
+          vm.stepIndex -= 1;
+        } else {
+          break;
+        }
+      }
+
       //dont go to the previous page if the response is false
       if (response === false) {
         return;
       }
-      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length) {
+      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length && !vm.steps[response].hidden) {
         vm.stepIndex = response;
       }
       else {
@@ -169,6 +191,11 @@ export default function MarqueeWizardCtrl($scope) {
     if (vm.stepIndex > 0 && vm.buttonOptions.showPrevious === true) vm.showPrevious = true;
     if (vm.stepIndex === vm.steps.length - 1 && vm.buttonOptions.showFinish === true) vm.showFinish = true;
     else if (vm.buttonOptions.showNext) vm.showNext = true;
+
+    if (!vm.showFinish && vm.buttonOptions.showFinish === true && vm.stepIndex !== vm.steps.length) {
+      vm.showFinish = vm.steps.slice(vm.stepIndex + 1).filter(step => step.hidden !== true).length === 0;
+      vm.showNext = !vm.showFinish;
+    }
   }
 
   function updateButtonOptions() {
