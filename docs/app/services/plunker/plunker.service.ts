@@ -37,9 +37,8 @@ export class PlunkerService {
         let mappings: string[] = [];
 
         if (plunk.modules) {
-
             // create list of declarations
-            plunk.modules.filter(mapping => mapping.declaration).forEach(mapping => {
+            plunk.modules.filter(mapping => mapping.declaration).forEach(mapping => {                
                 if (mapping.imports instanceof Array) {
                     declarations = declarations.concat(mapping.imports);
                 } else {
@@ -49,7 +48,14 @@ export class PlunkerService {
 
             // create list of module imports
             plunk.modules.filter(module => !module.declaration).forEach(module => {
-                const moduleImportProviders = module.providers || module.imports;
+
+                let moduleImports: string | string[];
+
+                if (module.forRoot) {
+                    moduleImports = Array.isArray(module.imports) ? module.imports.map(imp => `${imp}.forRoot()`) : `${module.imports}.forRoot()`;
+                }
+
+                const moduleImportProviders = module.providers || moduleImports || module.imports;
                 if (moduleImportProviders instanceof Array) {
                     modules = modules.concat(moduleImportProviders);
                 } else {

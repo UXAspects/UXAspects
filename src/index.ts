@@ -7,6 +7,7 @@ export * from './components/column-sorting/index';
 export * from './components/dashboard/index';
 export * from './components/ebox/index';
 export * from './components/facets/index';
+export * from './components/filters/index';
 export * from './components/flippable-card/index';
 export * from './components/item-display-panel/index';
 export * from './components/page-header/index';

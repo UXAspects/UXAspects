@@ -1,0 +1,4 @@
+<div>
+    <ng-content></ng-content>
+    <button type="button" class="btn btn-icon clear-button" *ngIf="filters.length > 0" (click)="removeAll()" [tooltip]="clearTooltip || 'Clear All'"></button>
+</div>

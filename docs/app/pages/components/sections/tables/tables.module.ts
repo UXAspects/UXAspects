@@ -1,8 +1,10 @@
+import { ComponentsFiltersComponent } from './filters/filters.component';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule, ColumnSortingModule, SparkModule } from '../../../../../../src/index';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -32,11 +34,15 @@ import { ComponentsColumnVisibilityNg1Component } from './column-visibility-ng1/
 import { ComponentsCustomResponsiveTableNg1Component } from './custom-responsive-table-ng1/custom-responsive-table-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsCustomFiltersComponent } from './custom-filters-component/custom-filters.component';
+import { SampleFilterCustomComponent } from './custom-filters-component/sample/sample-filter.component';
 
 const SECTIONS = [
     ComponentsColumnSortingComponent,
     ComponentsDetailRowResponsiveNg1Component,
     ComponentsDetailRowHeaderNg1Component,
+    ComponentsFiltersComponent,
+    ComponentsCustomFiltersComponent,
     ComponentsFiltersNg1Component,
     ComponentsDynamicFiltersNg1Component,
     ComponentsIndicesNg1Component,
@@ -56,7 +62,8 @@ const SECTIONS = [
     ComponentsSingleColumnSortingNg1Component,
     ComponentsMultipleColumnSortingNg1Component,
     ComponentsColumnVisibilityNg1Component,
-    ComponentsCustomResponsiveTableNg1Component
+    ComponentsCustomResponsiveTableNg1Component,
+    SampleFilterCustomComponent
 ];
 
 const ROUTES = [
@@ -76,9 +83,12 @@ const ROUTES = [
         FormsModule,
         TabsModule,
         CheckboxModule,
+        RadioButtonModule,
         ColumnSortingModule,
         SparkModule,
+        FilterModule,
         DocumentationComponentsModule,
+        BsDropdownModule.forRoot(),
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
