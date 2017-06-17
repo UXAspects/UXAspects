@@ -28,7 +28,13 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
 
     loadCallback = this.load.bind(this);
 
-    pageSize = 20;
+    private _pageSize = 20;
+    get pageSize() {
+        return this._pageSize;
+    }
+    set pageSize(value: number) {
+        this._pageSize = (value >= 1) ? value : 1;
+    }
 
     loadOnScroll: boolean = true;
 

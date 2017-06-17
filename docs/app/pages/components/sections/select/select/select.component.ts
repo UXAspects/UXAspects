@@ -4,7 +4,7 @@ import {
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
@@ -12,7 +12,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
     templateUrl: 'select.component.html'
 })
 @DocumentationSectionComponent('ComponentsSelectComponent')
-export class ComponentsSelectComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsSelectComponent extends BaseDocumentationSection implements IPlunkProvider, OnInit {
 
     // ux-select configuration properties
     options: string[] | Function;
@@ -25,8 +25,15 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     dropDirection = 'down';
     dropdownOpen: boolean;
     maxHeight: string = '250px';
-    pageSize = 20;
     placeholder = 'Select a country';
+
+    private _pageSize = 20;
+    get pageSize() {
+        return this._pageSize;
+    }
+    set pageSize(value: number) {
+        this._pageSize = (value >= 1) ? value : 1;
+    }
 
     // Customize settings
     pagingEnabled = new BehaviorSubject<boolean>(false);
@@ -91,8 +98,6 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
             require.context('./snippets/', false, /\.(html|css|js|ts)$/)
         );
 
-        this.options = this.selectedDataSet();
-
         // Reset select when "multiple" checkbox changes.
         this.multiple.subscribe((value) => {
             this.selected = null;
@@ -122,5 +127,9 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
         this.dataSets.objects = this.dataSets.strings.map((option, i) => {
             return { id: i, name: option };
         });
+    }
+    
+    ngOnInit() {
+        this.options = this.selectedDataSet();
     }
 }
