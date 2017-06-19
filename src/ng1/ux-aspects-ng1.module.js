@@ -97,6 +97,7 @@ import './directives/tagInput/tagInput.module.js';
 import './directives/thumbnail/thumbnail.module.js';
 import './directives/timeAgo/timeAgo.module.js';
 import './directives/toggleswitch/toggleswitch.module.js';
+import './directives/tooltipOnOverflow/tooltipOnOverflow.module.js';
 import './directives/treegrid/treegrid.module.js';
 import './directives/treeView/treeView.module.js';
 import './directives/wizard/wizard.module.js';
@@ -221,6 +222,7 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.thumbnail',
     'ux-aspects.timeAgo',
     'ux-aspects.toggleswitch',
+    'ux-aspects.tooltipOnOverflow',
     'ux-aspects.treegrid',
     'ux-aspects.treeview',    
     'ux-aspects.wizard',
@@ -232,6 +234,7 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.keyboardService',
     'ux-aspects.lineDataService',
     'ux-aspects.multipleSelect',
+    'ux-aspects.navigationMenuService',
     'ux-aspects.notificationService',
     'ux-aspects.pdfService',
     'ux-aspects.resizeService',
@@ -239,9 +242,8 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.safeEventListener',
     'ux-aspects.safeInterval',
     'ux-aspects.safeTimeout',
-    'ux-aspects.navigationMenuService',
     'ux-aspects.throttleService',
-    'ux-aspects.timeAgoService',   
+    'ux-aspects.timeAgoService',
     'ux-aspects.windowCommunicationService'
 ]);
 

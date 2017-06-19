@@ -2,7 +2,7 @@
   <div class="card draggable">
     <div class="callout"></div>
     <div class="title-container" ng-show="showHeader">
-      <div class="m-b-nil title" ng-style="{ 'padding-right' : showTitle ? '8px': 0 }"><p ng-bind="cardTitle" class="title-text" overflow-tooltip></p> 
+      <div class="m-b-nil title" ng-style="{ 'padding-right' : showTitle ? '8px': 0 }"><p ng-bind="cardTitle" class="title-text" tooltip-on-overflow></p> 
         <span class="text-muted title-subtext" ng-bind="cardSubtitle"></span> 
         <i class="hpe-icon hpe-edit draggable-icon editing-btn show-on-hover" ng-show="allowEditing" ng-class="{'disabled': disableEdit}"></i>
         <i ng-repeat="icon in cardIcons" class="hpe-icon draggable-icon show-on-hover {{ ::icon.icon }}" ng-class="{ 'disabled': icon.disabled }" ng-disable="icon.disabled" tooltip="{{icon.tooltip}}" tooltip-placement="{{icon.tooltipPlacement}}" tooltip-append-to-body="true" ng-click="icon.disabled || icon.click(); $event.stopPropagation();"></i>
