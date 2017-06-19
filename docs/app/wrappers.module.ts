@@ -119,19 +119,20 @@ import './pages/components/sections/date-time-picker/date-range-picker-ng1/wrapp
 
 
 const WRAPPERS = [
+    upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),
     upgradeAdapter.upgradeNg1Component('uxFlotNg1'),
-    upgradeAdapter.upgradeNg1Component('uxPeityLineChartNg1'),
+    upgradeAdapter.upgradeNg1Component('uxNestedDonutNg1'),
+    upgradeAdapter.upgradeNg1Component('uxNumberPickerNg1'),
+    upgradeAdapter.upgradeNg1Component('uxOrganizationChartNg1'),
+    upgradeAdapter.upgradeNg1Component('uxPartitionMapNg1'),
     upgradeAdapter.upgradeNg1Component('uxPeityBarChartNg1'),
+    upgradeAdapter.upgradeNg1Component('uxPeityLineChartNg1'),
     upgradeAdapter.upgradeNg1Component('uxPeityPieChartNg1'),
     upgradeAdapter.upgradeNg1Component('uxPeityUpdatingLineChartNg1'),
-    upgradeAdapter.upgradeNg1Component('uxNestedDonutNg1'),
-    upgradeAdapter.upgradeNg1Component('uxOrganizationChartNg1'),
-    upgradeAdapter.upgradeNg1Component('uxSparkNg1'),
-    upgradeAdapter.upgradeNg1Component('uxPartitionMapNg1'),
     upgradeAdapter.upgradeNg1Component('uxSankeyNg1'),
-    upgradeAdapter.upgradeNg1Component('uxSocialChartNg1'),
-    upgradeAdapter.upgradeNg1Component('uxContactGroupNg1'),
     upgradeAdapter.upgradeNg1Component('uxScrollPaneNg1'),
+    upgradeAdapter.upgradeNg1Component('uxSocialChartNg1'),
+    upgradeAdapter.upgradeNg1Component('uxSparkNg1'),
 
     /*
         CSS Wrappers
