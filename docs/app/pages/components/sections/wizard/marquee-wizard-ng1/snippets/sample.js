@@ -45,14 +45,25 @@ function MarqueeWizardModalCtrl($scope, $modalInstance) {
 
     vm.isVisited = false;
 
-        vm.onChanging = function(from, to) {
+    vm.onChanging = function(from, to) {
         if (from === 1 && $scope.requiredInput.errorDemo) {
-            vm.steps[1].error = true;
             return false;
-        } else {
-            vm.steps[1].error = false;
         }
     };
+
+    $scope.$watch('requiredInput.errorDemo', function(nv, ov) {
+        if (nv !== ov) {
+            if (nv === true) {
+                vm.steps[1].error = true;
+                for (var i = 2; i < vm.steps.length; i++) {
+                    vm.steps[i].completed = false;
+                    vm.steps[i].visited = false;
+                }
+            } else {
+                vm.steps[1].error = false;
+            }
+        }
+    });
 
     $scope.$watch('requiredInput.skipSteps', function(nv, ov) {
         if (nv !== ov) {
