@@ -49,10 +49,13 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     private _tags: any[] = [];
     @Input('tags')
     get tags() {
+        if (!this._tags) {
+            this._tags = [];
+        }
         return this._tags;
     }
     set tags(value: any[]) {
-        this._tags = (value || []);
+        this._tags = value;
         this.onChangeHandler(this._tags);
         this.tagsChange.emit(this._tags);
     }
@@ -206,10 +209,9 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         switch (event.key) {
             case 'Enter':
                 // Check if a typeahead option is highlighted
-                const typeaheadValue = this.typeahead ? this.typeahead.highlighted : null;
-                if (typeaheadValue) {
+                if (this.typeahead && this.typeahead.open && this.typeahead.highlighted) {
                     // Add the typeahead option as a tag, clear the input, and close the dropdown
-                    this.commitTypeahead(typeaheadValue);
+                    this.commitTypeahead(this.typeahead.highlighted);
                     this.typeahead.open = false;
                 } else {
                     // Validate and add the input text as a tag, if possible

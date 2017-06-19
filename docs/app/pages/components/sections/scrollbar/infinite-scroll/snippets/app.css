@@ -50,6 +50,7 @@ li.employee-item {
     display: flex;
     align-items: center;
     padding: 10px 20px;
+    font-style: italic;
 }
 
 .employee-loading > .spinner {

@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'app',
     templateUrl: './src/app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     
     // ux-select configuration properties
     options: string[] | Function;
@@ -18,8 +18,15 @@ export class AppComponent {
     dropDirection = 'down';
     dropdownOpen: boolean;
     maxHeight: string = '250px';
-    pageSize = 20;
     placeholder = 'Select a country';
+
+    private _pageSize = 20;
+    get pageSize() {
+        return this._pageSize;
+    }
+    set pageSize(value: number) {
+        this._pageSize = (value >= 1) ? value : 1;
+    }
 
     // Customize settings
     pagingEnabled = new BehaviorSubject<boolean>(false);
@@ -57,8 +64,6 @@ export class AppComponent {
 
     constructor() {
 
-        this.options = this.selectedDataSet();
-
         // Reset select when "multiple" checkbox changes.
         this.multiple.subscribe((value) => {
             this.selected = null;
@@ -92,5 +97,9 @@ export class AppComponent {
         this.dataSets.objects = this.dataSets.strings.map((option, i) => {
             return { id: i, name: option };
         });
+    }
+    
+    ngOnInit() {
+        this.options = this.selectedDataSet();
     }
 }

@@ -137,7 +137,7 @@ export class TypeaheadComponent implements OnInit, OnChanges {
         if (typeof this.key === 'function') {
             return this.key(option);
         }
-        if (typeof this.key === 'string') {
+        if (typeof this.key === 'string' && option && option.hasOwnProperty(this.key)) {
             return option[<string>this.key];
         }
         return this.getDisplay(option);
@@ -150,7 +150,7 @@ export class TypeaheadComponent implements OnInit, OnChanges {
         if (typeof this.display === 'function') {
             return this.display(option);
         }
-        if (typeof this.display === 'string') {
+        if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
             return option[<string>this.display];
         }
         return option;
@@ -223,13 +223,15 @@ export class TypeaheadComponent implements OnInit, OnChanges {
         const highlightIndex = this.indexOfVisibleOption(this.highlighted);
         let newIndex = highlightIndex;
         let disabled = true;
+        let inBounds = true;
         do {
             newIndex = newIndex + d;
-            disabled = this.isDisabled(this.visibleOptions[newIndex]);
+            inBounds = (newIndex >= 0 && newIndex < this.visibleOptions.length);
+            disabled = inBounds && this.isDisabled(this.visibleOptions[newIndex]);
         }
-        while (disabled && newIndex >= 0 && newIndex < this.visibleOptions.length);
+        while (inBounds && disabled);
 
-        if (!disabled && newIndex >= 0 && newIndex < this.visibleOptions.length) {
+        if (!disabled && inBounds) {
             this._highlighted.next(this.visibleOptions[newIndex]);
         }
 

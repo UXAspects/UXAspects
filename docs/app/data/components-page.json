@@ -729,7 +729,7 @@
                     "deprecated": true
                 },
                 {
-                    "title": "Infinite Scroll with Load More Button",
+                    "title": "Infinite Scroll with Load More Button (Angular 1)",
                     "component": "ComponentsInfiniteScrollLoadMoreNg1Component",
                     "version": "AngularJS",
                     "deprecated": true

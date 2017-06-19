@@ -8,16 +8,15 @@ import {
     Inject,
     Input,
     OnChanges,
+    OnInit,
     Output,
     SimpleChanges,
     TemplateRef,
-    ViewChild,
-    OnInit
+    ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 export const SELECT_VALUE_ACCESSOR: any = {
@@ -185,7 +184,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
             case 'Enter':
                 if (this.dropdownOpen) {
                     // Set the highlighted option as the value and close
-                    this.value = this.singleTypeahead.highlighted.getValue();
+                    this.value = this.singleTypeahead.highlighted;
                     this.dropdownOpen = false;
                 }
 
@@ -207,10 +206,13 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
      * Returns the display value of the given option.
      */
     protected getDisplay(option: any): string {
+        if (option === null || option === undefined) {
+            return '';
+        }
         if (typeof this.display === 'function') {
             return this.display(option);
         }
-        if (typeof this.display === 'string' && option && option.hasOwnProperty(this.display)) {
+        if (typeof this.display === 'string' && option.hasOwnProperty(this.display)) {
             return option[<string>this.display];
         }
         return option;
