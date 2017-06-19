@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const QUERY_MIN_CHARS = 3;
 const MAX_HISTORY = 5;
+const LOCAL_STORAGE_KEY = 'uxd-search-history';
 
 @Component({
     selector: 'uxd-navigation-bar-search',
@@ -45,19 +46,15 @@ export class NavigationBarSearchComponent {
         this.data = this.data.concat(this.getSearchResults(cssData));
         this.data = this.data.concat(this.getSearchResults(chartsData));
 
+        this.history = this.loadHistory();
+
         this.query.debounceTime(200).subscribe(this.search.bind(this));
     }
 
     getSearchResults(page: IDocumentationPage): ISearchResult[] {
         var results: ISearchResult[] = [];
         page.categories.forEach((category: ICategory) => {
-            results.push({
-                section: page.title,
-                link: {
-                    title: category.title,
-                    link: category.link
-                }
-            });
+            let addCategoryResult = true;
             if (category.sections) {
                 this.navigation.setSectionIds(category.sections);
                 category.sections.forEach((section: ISection) => {
@@ -69,6 +66,20 @@ export class NavigationBarSearchComponent {
                             fragment: section.id
                         }
                     });
+
+                    // Prevent addition of a category entry with the same title as a child section.
+                    if (section.title === category.title) {
+                        addCategoryResult = false;
+                    }
+                });
+            }
+            if (addCategoryResult) {
+                results.push({
+                    section: page.title,
+                    link: {
+                        title: category.title,
+                        link: category.link
+                    }
                 });
             }
         });
@@ -201,5 +212,17 @@ export class NavigationBarSearchComponent {
         while (this.history.length > MAX_HISTORY) {
             this.history.pop();
         }
+
+        // Commit to local storage
+        this.saveHistory(this.history);
+    }
+
+    private loadHistory(): ISearchResult[] {
+        const json = localStorage.getItem(LOCAL_STORAGE_KEY);
+        return json ? JSON.parse(json) : [];
+    }
+
+    private saveHistory(history: ISearchResult[]) {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(history));
     }
 }
