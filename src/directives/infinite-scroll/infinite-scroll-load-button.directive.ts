@@ -16,7 +16,8 @@ export class InfiniteScrollLoadButtonDirective {
             if (value) {
                 this._viewContainer.createEmbeddedView(this._template);
 
-                const clickTarget = this._template.elementRef.nativeElement.nextElementSibling;
+                // Template content follows the elementRef, which is a comment.
+                const clickTarget = this.getNextElementSibling(this._template.elementRef.nativeElement);
                 this._renderer.listen(clickTarget, 'click', this.onClick.bind(this));
             } else {
                 this._viewContainer.clear();
@@ -42,5 +43,15 @@ export class InfiniteScrollLoadButtonDirective {
 
     private onClick(event: MouseEvent) {
         this._load.next(event);
+    }
+
+    private getNextElementSibling(element: any): Element {
+        var next = element;
+        while (next = next.nextSibling) {
+            if (next.nodeType === 1) {
+                return next;
+            }
+        }
+        return null;
     }
 }
