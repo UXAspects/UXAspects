@@ -124,6 +124,7 @@ angular.module('app').directive('uxdDraggableCardsListViewWrapper', () => {
                     }
                 }, {
                     icon: 'hpe-bookmark',
+                    tooltip: 'Bookmark',
                     click: function () {
                         // do stuff here when icon is clicked
                     }

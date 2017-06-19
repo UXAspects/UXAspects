@@ -122,6 +122,7 @@ function DraggableCardsListViewDemoCtrl($scope, $colorService) {
             }
         }, {
             icon: 'hpe-bookmark',
+            tooltip: 'Bookmark',
             click: function () {
                 //do stuff here when icon is clicked
             }
