@@ -6,7 +6,7 @@ import { ISearchResult } from '../../interfaces/ISearch';
 import { ICategory } from '../../interfaces/ICategory';
 import { ISection } from '../../interfaces/ISection';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { VersionService } from "../../services/version/version.service";
+import { VersionService, Version } from '../../services/version/version.service';
 
 @Component({
     selector: 'uxd-navigation-bar-search',
@@ -29,11 +29,13 @@ export class NavigationBarSearchComponent {
 
     private angular = true;
 
+    private ngVersions = Version;
+
     constructor(private router: Router, private navigation: NavigationService, private versionService: VersionService) {
 
         // get version
-        this.versionService.versionChange.subscribe((value: string) => {
-            this.angular = value === 'Angular';
+        this.versionService.version.subscribe((value: Version) => {
+            this.angular = value === this.ngVersions.Angular;
             this.data = [];
             this.data = this.data.concat(this.getSearchResults(componentsData));
             this.data = this.data.concat(this.getSearchResults(cssData));
@@ -56,19 +58,15 @@ export class NavigationBarSearchComponent {
     }
 
     getSearchResults(page: IDocumentationPage): ISearchResult[] {
+        if (!page) {
+            return; 
+        }
         var results: ISearchResult[] = [];
         page.categories.forEach((category: ICategory) => {
-            let addCategory = false;
-            for (let i = 0; i < category.sections.length; i++) {
-                if (this.angular && !category.sections[i].deprecated) {
-                    addCategory = true;
-                    break;
-                } else if (!this.angular && category.sections[i].version === 'AngularJS') {
-                    addCategory = true;
-                    break;
-                } 
-            }
-            if (addCategory) {
+
+            let showCategory = !!category.sections.find((section, idx) => this.angular && !category.sections[idx].deprecated || !this.angular && category.sections[idx].version === 'AngularJS');
+            
+            if (showCategory) {
                 results.push({
                     section: page.title,
                     link: {
@@ -77,10 +75,11 @@ export class NavigationBarSearchComponent {
                     }
                 });
             }
+            
             if (category.sections) {
                 this.navigation.setSectionIds(category.sections);
                 category.sections.forEach((section: ISection) => {
-                    if (this.angular && !section.deprecated) {
+                    if (this.angular && !section.deprecated || !this.angular && section.version === 'AngularJS') {
                         results.push({
                             section: page.title,
                             link: {
@@ -89,15 +88,6 @@ export class NavigationBarSearchComponent {
                                 fragment: section.id
                             }
                         });
-                    } else if (!this.angular && section.version === 'AngularJS') {
-                        results.push({
-                            section: page.title,
-                            link: {
-                                title: section.title,
-                                link: category.link,
-                                fragment: section.id
-                            }
-                        }); 
                     }
                 });
             }

@@ -1,20 +1,30 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 @Injectable()
 export class VersionService {
 
-    version: string = 'Angular';
+    version: BehaviorSubject<Version> = new BehaviorSubject<Version>(Version.Angular);
 
-    @Output() versionChange: EventEmitter<string> = new EventEmitter<string>();
+    constructor() {
+        this.toggle(this.toVersion(window.localStorage.getItem('version')));
+    }
 
-    constructor() {}
-
-    toggle(version: string): void {
-        if (this.version !== version) {
-            this.version = version;
-            this.versionChange.emit(this.version);
+    toggle(version: Version): void {
+        if (this.version.getValue() !== version) {
+            window.localStorage.setItem('version', version.toString());
+            this.version.next(version);
         }
     }
 
+    toVersion(version: string): Version {
+        return version.toLowerCase() === '0' ? Version.AngularJS : Version.Angular;
+    }
+
+}
+
+export enum Version {
+    AngularJS,
+    Angular
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ICategory } from '../../interfaces/ICategory';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { ISection } from '../../interfaces/ISection';
-import { VersionService } from '../../services/version/version.service';
+import { VersionService, Version } from '../../services/version/version.service';
 
 @Component({
     selector: 'uxd-documentation-category',
@@ -16,12 +16,20 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
     private trackScroll: boolean = false;
 
     angular: boolean = true;
+    ngVersions = Version;
     
-    constructor(private activatedRoute: ActivatedRoute,
+    constructor(private router: Router, private activatedRoute: ActivatedRoute,
         private navigation: NavigationService, private versionService: VersionService) {
         // get version
-        this.versionService.versionChange.subscribe((value: string) => {
-            this.angular = value === 'Angular';
+        this.versionService.version.subscribe((value: Version) => {
+            this.angular = value === this.ngVersions.Angular;
+            if (this.category) {
+                let hasSection = !!this.category.sections.find((section, idx) => this.angular && this.category.sections[idx].version === 'Angular' 
+                || !this.angular && this.category.sections[idx].version === 'AngularJS');
+                if (!hasSection) {
+                    this.router.navigate(['/'], {});
+                }
+            }
         });
     }
 
@@ -29,7 +37,6 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
         // Fetch category details from the route metadata
         this.category = this.activatedRoute.snapshot.data['category'];
         this.navigation.setSectionIds(this.category.sections);
-        this.angular = this.versionService.version === 'Angular';
     }
 
     ngAfterViewInit() {

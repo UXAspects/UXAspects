@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
-import { VersionService } from '../../services/version/version.service';
+import { VersionService, Version } from '../../services/version/version.service';
 
 @Component({
     selector: 'uxd-charts',
@@ -12,42 +12,50 @@ export class ChartsPageComponent {
     navigation: IDocumentationPage;
     fullNavigation: IDocumentationPage;
 
-    versionRadioValue: string = 'Angular';
+    versionRadioValue: Version;
 
-    version: string;
+    version: Version;
+    ngVersions = Version;
 
     constructor(private versionService: VersionService) {
-
         // get version
-        this.versionService.versionChange.subscribe((value: string) => this.filterNavigation(value));
+        this.versionRadioValue = this.versionService.version.getValue();
+        this.versionService.version.subscribe((value: Version) => this.filterNavigation(value));
 
         // load in the navigation json for this page
         this.fullNavigation = require('../../data/charts-page.json');
 
-        this.filterNavigation('Angular');
-
+        this.filterNavigation(this.versionService.version.getValue());
     }
 
-    filterNavigation(version: string) {
+    filterNavigation(version: Version) {
+        if (this.fullNavigation) {
+            let categories = this.fullNavigation.categories.map(category => {
+                return {
+                    link: category.link,
+                    title: category.title,
+                    sections: category.sections.filter(
+                        section => version === Version.Angular ? !section.deprecated : 
+                        this.toVersion(section.version) === Version.AngularJS)
+                };
+            });
 
-        let categories = this.fullNavigation.categories.map(category => {
-            return {
-                link: category.link,
-                title: category.title,
-                sections: category.sections.filter(section => {
-                    return version === 'Angular' ? !section.deprecated : section.version === version;
-                })
+            this.navigation = {
+                title: this.fullNavigation.title,
+                categories: categories
             };
-        });
-
-        this.navigation = {
-            title: this.fullNavigation.title,
-            categories: categories
-        };
+        }
     }
 
-    radioToggled(version: string) {
+    radioToggled(version: Version) {
         this.versionService.toggle(version);
     }
+
+    toVersion(version: string): Version {
+        if (version) {
+            return version.toLowerCase() === 'angularjs' ? Version.AngularJS : Version.Angular;
+        }
+    }
+
 
 }

@@ -19,13 +19,12 @@
         </div>
 
         <!-- Side Navigation -->
-        <!-- Side Navigation -->
         <div class="col-md-3 push-md-9 hidden-sm hidden-xs">
             <div class="btn-group version-toggle">
                 <button type="button" class="btn button-toggle-primary"
-                    [(ngModel)]="versionRadioValue" (ngModelChange)="radioToggled('AngularJS')" btnRadio="AngularJs">Angular 1</button>
+                    [(ngModel)]="versionRadioValue" (ngModelChange)="radioToggled(ngVersions.AngularJS)" [btnRadio]="ngVersions.AngularJS">Angular 1</button>
                 <button type="button" class="btn button-toggle-accent"
-                    [(ngModel)]="versionRadioValue" (ngModelChange)="radioToggled('Angular')" btnRadio="Angular">Angular 4</button>
+                    [(ngModel)]="versionRadioValue" (ngModelChange)="radioToggled(ngVersions.Angular)" [btnRadio]="ngVersions.Angular">Angular 4</button>
             </div>
             <uxd-side-navigation [navigation]="navigation"></uxd-side-navigation>
         </div>
