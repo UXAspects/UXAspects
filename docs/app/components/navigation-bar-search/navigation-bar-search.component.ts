@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const QUERY_MIN_CHARS = 3;
 const MAX_HISTORY = 5;
+const SHORTCUT_KEYCODE = 191;
 const LOCAL_STORAGE_KEY = 'uxd-search-history';
 
 @Component({
@@ -104,7 +105,7 @@ export class NavigationBarSearchComponent {
     @HostListener('window:keydown', ['$event'])
     windowKeydown(event: KeyboardEvent) {
         // Open the search dialog on alt+/
-        if (event.altKey && event.key === '/') {
+        if (event.altKey && event.which === SHORTCUT_KEYCODE) {
             this.searching = true;
             event.preventDefault();
         }
