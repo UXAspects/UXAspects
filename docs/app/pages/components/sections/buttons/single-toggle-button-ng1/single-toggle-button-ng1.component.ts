@@ -2,20 +2,24 @@ import { Component } from '@angular/core';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-single-toggle-button-ng1',
     templateUrl: './single-toggle-button-ng1.component.html',
 })
 @DocumentationSectionComponent('ComponentsSingleToggleButtonNg1Component')
-export class ComponentsSingleToggleButtonNg1Component implements ICodePenProvider {
-    private htmlCode = require('./snippets/single-toggle-button.html');
-    private javascriptCode = require('./snippets/single-toggle-button.js');
+export class ComponentsSingleToggleButtonNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.singleToggleButtonHtml,
         htmlAttributes: {
             'ng-controller': 'SingleToggleButtonCtrl as vm'
         },
-        js: [this.javascriptCode]
+        js: [this.snippets.examples.singleToggleButtonJs]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 }

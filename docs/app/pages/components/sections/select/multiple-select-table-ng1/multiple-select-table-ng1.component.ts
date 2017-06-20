@@ -15,21 +15,15 @@ export class ComponentsMultipleSelectTableNg1Component extends BaseDocumentation
     public codeSnippet = '{ id: 1, name: "Eric Carpenter" }';
 
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.sampleHtml,
+        html: this.snippets.examples.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'MultipleSelectTableCtrl as vm'
         },
-        js: [this.snippets.raw.sampleFullJs]
+        js: [this.snippets.examples.sampleFullJs]
     };
 
 }

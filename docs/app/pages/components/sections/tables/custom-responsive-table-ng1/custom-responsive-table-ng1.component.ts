@@ -12,21 +12,15 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsCustomResponsiveTableNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.sampleHtml,
+        html: this.snippets.examples.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'CustomResponsiveTableCtrl as vm'
         },
-        js: [this.snippets.raw.sampleJs],
-        css: [this.snippets.raw.sampleCss]
+        js: [this.snippets.examples.sampleJs],
+        css: [this.snippets.examples.sampleCss]
     };
     
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

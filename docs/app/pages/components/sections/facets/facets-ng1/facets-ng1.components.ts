@@ -1,19 +1,15 @@
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-facets-ng1',
     templateUrl: './facets-ng1.components.html'
 })
 @DocumentationSectionComponent('ComponentsFacetsNg1Component')
-export class ComponentsFacetsNg1Component {
+export class ComponentsFacetsNg1Component extends BaseDocumentationSection {
 
-    public facetContainerCode = require('./snippets/facet-container.html');
-    public facetCode = require('./snippets/facet.html');
-
-    public facetOptionHtmlCode = require('./snippets/facet-option.html');
-    public facetOptionJsCode = require('./snippets/facet-option.js');
-
-    public facetVisibility = require('./snippets/facet-visibility.js');
-
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 }

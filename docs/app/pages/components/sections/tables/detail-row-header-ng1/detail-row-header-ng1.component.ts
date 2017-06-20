@@ -19,33 +19,27 @@ export class ComponentsDetailRowHeaderNg1Component extends BaseDocumentationSect
     private serviceCode = this.snippets.compiled.serviceJs;
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.snippets.examples.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'DetailRowResponsiveTableCtrl as vm'
         },
         htmlTemplates: [
             {
                 id: 'detailRowHeaderPopover.html',
-                content: this.snippets.raw.popoverHtml
+                content: this.snippets.examples.popoverHtml
             }
         ],
         js: [
-            this.snippets.raw.controllerJs,
-            this.snippets.raw.popoverControllerJs,
-            this.snippets.raw.serviceJs
+            this.snippets.examples.controllerJs,
+            this.snippets.examples.popoverControllerJs,
+            this.snippets.examples.serviceJs
         ],
         css: [
-            this.snippets.raw.stylesCss
+            this.snippets.examples.stylesCss
         ]
     };
     
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

@@ -17,8 +17,8 @@ export class ComponentsRadioButtonsComponent extends BaseDocumentationSection im
 
     public plunk: IPlunk = {
         files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs
+            'app.component.html': this.snippets.examples.appHtml,
+            'app.component.ts': this.snippets.examples.appTs
         },
         modules: [{
             library: 'ngx-bootstrap',
@@ -29,12 +29,6 @@ export class ComponentsRadioButtonsComponent extends BaseDocumentationSection im
     };
 
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

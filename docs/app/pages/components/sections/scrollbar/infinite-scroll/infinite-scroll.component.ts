@@ -63,9 +63,9 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
 
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.ts': this.snippets.examples.appTs,
+            'app.component.html': this.snippets.examples.appHtml,
+            'app.component.css': this.snippets.examples.appCss
         },
         modules: [{
             imports: ['InfiniteScrollModule', 'CheckboxModule'],
@@ -79,13 +79,7 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
     };
 
     constructor() {
-        super(
-            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         for (let i = 0; i < 111; i += 1) {
             const name = chance.name();

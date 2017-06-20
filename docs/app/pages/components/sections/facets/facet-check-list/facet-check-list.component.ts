@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '../../../../../../../src/index';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import 'chance';
 
 @Component({
@@ -10,18 +11,15 @@ import 'chance';
     templateUrl: './facet-check-list.component.html'
 })
 @DocumentationSectionComponent('ComponentsFacetCheckListComponent')
-export class ComponentsFacetCheckListComponent implements IPlunkProvider {
+export class ComponentsFacetCheckListComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     facets: Facet[] = [];
     event: string;
 
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
-
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html')
+            'app.component.ts': this.snippets.examples.appTs,
+            'app.component.html': this.snippets.examples.appHtml
         },
         mappings: [
             {
@@ -36,6 +34,7 @@ export class ComponentsFacetCheckListComponent implements IPlunkProvider {
     };
 
     constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         // generate some facets
         for (let idx = 0; idx < 30; idx++) {

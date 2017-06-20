@@ -12,21 +12,15 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsSliderChartsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.codepenHtml,
+        html: this.snippets.examples.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'SlidersChartsCtrl as vm'
         },
-        js: [this.snippets.raw.codepenJs]
+        js: [this.snippets.examples.codepenJs]
     };
 
 }

@@ -24,9 +24,7 @@ export class SnippetComponent implements OnInit {
             this.loadCode();
         } else if (this.content) {
             // removing for temporary build output improvements
-            // this.loadContent();
-            this.code = this.content;
-            this.loadCode();
+            this.loadContent();
         }
     }
 

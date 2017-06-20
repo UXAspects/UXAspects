@@ -2,17 +2,20 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-draggable-panels-ng1',
     templateUrl: './draggable-panels-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsDraggablePanelsNg1Component')
-export class ComponentsDraggablePanelsNg1Component implements ICodePenProvider {
-    private htmlCode = require('./snippets/draggable-panels.html');
-    private containerHtmlCode = require('./snippets/draggable-panels-container.html');
-    private panelHtmlCode = require('./snippets/draggable-panels-panel.html');
+export class ComponentsDraggablePanelsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+
     public codepen: ICodePen = {
-        html: this.htmlCode
+        html: this.snippets.examples.draggablePanelsHtml
     };
+    
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 }

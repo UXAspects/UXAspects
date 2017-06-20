@@ -57,7 +57,7 @@
     <code>model</code> or another property as appropriate.
 </p>
 
-<uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+<uxd-snippet language="html" [content]="snippets.compiled.sampleSnippetHtml"></uxd-snippet>
 
 <p>
     Inside this directive, define the required control. The key feature is to ensure the computed value of the control is set
@@ -72,10 +72,10 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [code]="customFacetHtmlCode"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.customFacetsSnippetHtml"></uxd-snippet>
     </tab>
 
     <tab heading="Javascript">
-        <uxd-snippet language="javascript" [code]="customFacetJsCode"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.customFacetsSnippetJs"></uxd-snippet>
     </tab>
 </tabset>

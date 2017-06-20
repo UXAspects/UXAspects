@@ -12,20 +12,14 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsSearchToolbarNg1Component')
 export class ComponentsSearchToolbarNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.snippets.examples.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'SearchToolbarDemoCtrl as vm'
         },
-        js: [this.snippets.raw.controllerJs, this.snippets.raw.modalControllerJs]
+        js: [this.snippets.examples.controllerJs, this.snippets.examples.modalControllerJs]
     };
 
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

@@ -1,4 +1,4 @@
 export interface ISnippets {
-    raw: any;
+    examples: any;
     compiled: any;
 }

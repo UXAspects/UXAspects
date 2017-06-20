@@ -12,34 +12,28 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsItemDisplayPanelNg1Component')
 export class ComponentsItemDisplayPanelNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.snippets.examples.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ItemDisplayPanelDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'modalDOC.html',
-            content: this.snippets.raw.modalDOCHtml
+            content: this.snippets.examples.modalDOCHtml
         }, {
             id: 'modalPDF.html',
-            content: this.snippets.raw.modalPDFHtml
+            content: this.snippets.examples.modalPDFHtml
         }, {
             id: 'modalPPT.html',
-            content: this.snippets.raw.modalPPTHtml
+            content: this.snippets.examples.modalPPTHtml
         }, {
             id: 'modalFooter.html',
-            content: this.snippets.raw.modalFooterHtml
+            content: this.snippets.examples.modalFooterHtml
         }],
-        css: [this.snippets.raw.stylesCss],
-        js: [this.snippets.raw.controllerJs]
+        css: [this.snippets.examples.stylesCss],
+        js: [this.snippets.examples.controllerJs]
     };
 
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

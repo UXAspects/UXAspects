@@ -12,20 +12,14 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsSideInsetPanelNg1Component')
 export class ComponentsSideInsetPanelNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.snippets.examples.layoutHtml,
         htmlAttributes: {
             'id': 'ux-codepen-container-ns'
         },
-        css: [this.snippets.raw.stylesCss]
+        css: [this.snippets.examples.stylesCss]
     };
 
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

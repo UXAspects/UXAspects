@@ -18,7 +18,7 @@ export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSe
     private footerCode = this.snippets.compiled.footerHtml;
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.snippets.examples.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'PreviewPaneWindowCtrl as vm'
         },
@@ -45,19 +45,13 @@ export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSe
             }
         ],
         js: [ 
-            this.snippets.raw.controllerJs
+            this.snippets.examples.controllerJs
         ],
-        css: [this.snippets.raw.stylesCss]
+        css: [this.snippets.examples.stylesCss]
     };
     
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
 }

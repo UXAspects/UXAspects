@@ -50,8 +50,8 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
 
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
+            'app.component.ts': this.snippets.examples.appTs,
+            'app.component.html': this.snippets.examples.appHtml
         },
         modules: [{
             imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule'],
@@ -65,12 +65,6 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
     };
 
     constructor() {
-        super(
-            require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

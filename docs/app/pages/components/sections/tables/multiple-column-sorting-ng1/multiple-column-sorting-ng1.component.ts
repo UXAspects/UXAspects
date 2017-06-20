@@ -14,20 +14,14 @@ export class ComponentsMultipleColumnSortingNg1Component extends BaseDocumentati
     private jsCode = this.snippets.compiled.sampleJs;
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.sampleHtml,
+        html: this.snippets.examples.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'MultipleColumnSortingCtrl as vm'
         },
-        js: [this.snippets.raw.sampleJs]
+        js: [this.snippets.examples.sampleJs]
     };
     
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

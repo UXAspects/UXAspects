@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-thumbnail-ng1',
@@ -10,16 +11,18 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsThumbnailNg1Component')
-export class ComponentsThumbnailNg1Component implements ICodePenProvider {
-    private htmlCode = require('./snippets/thumbnail.html');
-    private cssCode = require('./snippets/thumbnail.css');
-    private javascriptCode = require('./snippets/thumbnail.js');
+export class ComponentsThumbnailNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.thumbnailHtml,
         htmlAttributes: {
             'ng-controller': 'ThumbnailDemoCtrl as vm'
         },
-        css: [require('./snippets/thumbnail-codepen.css')],
-        js: [require('./snippets/thumbnail-codepen.js')]
+        css: [this.snippets.examples.thumbnailExampleCss],
+        js: [this.snippets.examples.thumbnailExampleJs]
     };
+    
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 }

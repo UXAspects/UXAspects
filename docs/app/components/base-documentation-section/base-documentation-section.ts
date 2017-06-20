@@ -4,41 +4,31 @@ export abstract class BaseDocumentationSection {
 
     protected snippets: ISnippets;
 
-    constructor(compiledHtmlContext: __WebpackModuleApi.RequireContext,
-        compiledCssContext: __WebpackModuleApi.RequireContext,
-        compiledJavascriptContext: __WebpackModuleApi.RequireContext,
-        compiledTypescriptContext: __WebpackModuleApi.RequireContext,
-        rawContext?: __WebpackModuleApi.RequireContext) {
+    constructor(context?: __WebpackModuleApi.RequireContext) {
 
         this.snippets = {
             compiled: {},
-            raw: {}
+            examples: {}
         };
 
-        // Use the context supplied by the implementing component to load all snippets in both raw and compiled versions
-        // this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledHtmlContext);
-        // this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledCssContext);
-        // this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledJavascriptContext);
-        // this.loadSnippetsFromRequireContext(this.snippets.compiled, compiledTypescriptContext);
-        // this.loadSnippetsFromRequireContext(this.snippets.raw, rawContext);
-        this.loadSnippetsFromRequireContext(this.snippets.raw, rawContext);
-        this.snippets.compiled = this.snippets.raw;
+        context.keys().forEach(key => {
+
+            let snippetName = key.replace('./', '').replace(/\W+(\w)/g, (m) => { return m[1].toUpperCase(); });
+            let codeSnippet: CodeSnippet = context(key);
+
+            if (codeSnippet.snippet) {
+                this.snippets.compiled[snippetName] = codeSnippet.snippet;
+            }
+
+            if (codeSnippet.example) {
+                this.snippets.examples[snippetName] = codeSnippet.example;
+            }
+
+        });
     }
+}
 
-    private loadSnippetsFromRequireContext(snippets: any, requireContext: any) {
-
-        if (requireContext) {
-
-            // requireContext contains all the resources in the given context, e.g. HTML files loaded with prism
-            requireContext.keys().forEach((key: string) => {
-
-                // Convert filename into camelcase identifier
-                const snippetName = key.replace('./', '').replace(/\W+(\w)/g, (m) => { return m[1].toUpperCase(); });
-
-                // Require the content and add to snippets object
-                snippets[snippetName] = requireContext(key);
-            });
-
-        }
-    }
+export interface CodeSnippet {
+    snippet?: string;
+    example?: string;
 }

@@ -14,21 +14,15 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsLayoutSwitchingSplitterNg1Component')
 export class ComponentsLayoutSwitchingSplitterNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.snippets.examples.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'LayoutSwitchingSplitterDemoCtrl as vm'
         },
-        css: [this.snippets.raw.stylesCss],
-        js: [this.snippets.raw.controllerJs]
+        css: [this.snippets.examples.stylesCss],
+        js: [this.snippets.examples.controllerJs]
     };
 
     constructor() {
-        super(
-            null,
-            null,
-            null,
-            null,
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

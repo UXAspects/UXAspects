@@ -15,21 +15,15 @@ export class ComponentsColumnVisibilityNg1Component extends BaseDocumentationSec
     private tableData: any[];
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.layoutHtml,
+        html: this.snippets.examples.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ColumnVisibilityCtrl as vm'
         },
-        js: [this.snippets.raw.controllerJs]
+        js: [this.snippets.examples.controllerJs]
     };
 
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         let chance = require('chance').Chance();
 

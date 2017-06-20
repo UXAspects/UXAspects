@@ -11,25 +11,19 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsContactsNg1Component')
 export class ComponentsContactsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.raw.contactsHtml,
+        html: this.snippets.examples.contactsHtml,
         htmlAttributes: {
             'ng-controller': 'ContactsDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'contacts-popover.html',
-            content: this.snippets.raw.contactsPopoverHtml
+            content: this.snippets.examples.contactsPopoverHtml
         }],
-        css: [this.snippets.raw.contactsCss],
-        js: [this.snippets.raw.contactsJs]
+        css: [this.snippets.examples.contactsCss],
+        js: [this.snippets.examples.contactsJs]
     };
 
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-draggable-panels-views-ng1',
@@ -10,16 +11,18 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsDraggablePanelsViewsNg1Component')
-export class ComponentsDraggablePanelsViewsNg1Component implements ICodePenProvider {
-    private htmlCode = require('./snippets/draggable-panels-views.html');
-    private cssCode = require('./snippets/draggable-panels-views.css');
-    private javascriptCode = require('./snippets/draggable-panels-views.js');
+export class ComponentsDraggablePanelsViewsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.draggablePanelsViewsHtml,
         htmlAttributes: {
             'ng-controller': 'DraggablePanelsViewsDemoCtrl as vm'
         },
-        css: [this.cssCode],
-        js: [this.javascriptCode]
+        css: [this.snippets.examples.draggablePanelsViewsCss],
+        js: [this.snippets.examples.draggablePanelsViewsJs]
     };
+    
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 }

@@ -16,21 +16,15 @@ export class ComponentsDetailRowResponsiveNg1Component extends BaseDocumentation
     public cssCode = this.snippets.compiled.stylesCss;
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.codepenHtml,
+        html: this.snippets.examples.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'DetailRowResponsiveTableCtrl as vm'
         },
-        js: [this.snippets.raw.codepenJs],
-        css: [this.snippets.raw.stylesCss]
+        js: [this.snippets.examples.codepenJs],
+        css: [this.snippets.examples.stylesCss]
     };
     
     constructor() {
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }
