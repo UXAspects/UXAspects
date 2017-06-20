@@ -120,7 +120,8 @@ fi
 
 echo Start the new Selenium Grid hub process
 cd $rootFolder/ux-aspects/configuration
-java -jar $rootFolder/ux-aspects/Selenium/selenium-server-standalone-3.3.1.jar -role hub -hubConfig hub/hubConfig.json &
+java -jar $rootFolder/ux-aspects/Selenium/selenium-server-standalone-3.3.1.jar -role hub \
+    -hubConfig $rootFolder/ux-aspects/Selenium/hub/hubConfig.json &
 # Loop until the new process has started
 wait_for_grid_hub_process_status_to_change 1 "start" $hubProcessPort
 

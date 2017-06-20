@@ -120,7 +120,7 @@ cd $rootFolder/ux-aspects
 rm -rf target
 cd $rootFolder/ux-aspects/configuration
 java -jar /home/UXAspectsTestUser/ux-aspects/Selenium/selenium-server-standalone-3.3.1.jar -role hub \
-    -hubConfig hub/hubConfigReleaseBuild.json &
+    -hubConfig /home/UXAspectsTestUser/ux-aspects/Selenium/hub/hubConfigReleaseBuild.json &
 wait_for_grid_hub_process_status_to_change 1 "start" $hubProcessPort
 
 echo Started the Selenium Grid hub process
