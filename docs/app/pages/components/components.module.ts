@@ -1,8 +1,5 @@
-import { VersionService } from './../../services/version/version.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { FormsModule } from '@angular/forms';
 import { DocumentationComponentsModule } from '../../components/components.module';
 
 import { ComponentsPageComponent } from './components.component';
@@ -58,8 +55,6 @@ const ROUTES: Routes = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
-        FormsModule,
-        ButtonsModule.forRoot(),
         RouterModule.forChild(ROUTES)
     ],
     exports: [ComponentsPageComponent],

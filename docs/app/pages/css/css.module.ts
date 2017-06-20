@@ -1,11 +1,10 @@
-import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DocumentationComponentsModule } from '../../components/components.module';
 
 import { CssPageComponent } from './css.component';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
+
 
 const ROUTES: Routes = [
     {
@@ -38,8 +37,6 @@ const ROUTES: Routes = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
-        FormsModule,
-        ButtonsModule.forRoot(),
         RouterModule.forChild(ROUTES)
     ],
     exports: [CssPageComponent],

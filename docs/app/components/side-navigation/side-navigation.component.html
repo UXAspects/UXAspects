@@ -1,8 +1,14 @@
 <div class="side-navigation-container" #container>
     <div class="side-navigation" [style.width.px]="width" [style.height.px]="height" [style.top.px]="top">
+         <div class="btn-group version-toggle p-b-sm">
+            <button type="button" class="btn button-toggle-primary"
+                [(ngModel)]="versionRadioValue" (ngModelChange)="radioToggled(ngVersions.AngularJS)" [btnRadio]="ngVersions.AngularJS">Angular 1</button>
+            <button type="button" class="btn button-toggle-accent"
+                [(ngModel)]="versionRadioValue" (ngModelChange)="radioToggled(ngVersions.Angular)" [btnRadio]="ngVersions.Angular">Angular 4</button>
+        </div>
         <div class="side-navigation-scroll-pane">
             <ul class="side-navigation-list">
-                <li class="side-navigation-list-item" *ngFor="let category of navigation.categories" [hidden]="category.sections.length === 0">
+                <li class="side-navigation-list-item" *ngFor="let category of filteredNavigation.categories" [hidden]="category.sections.length === 0">
                     <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive">{{ category.title }}</a>
                     <ul *ngIf="rla.isActive" class="side-navigation-subsection-list">
                         <li class="side-navigation-list-item" *ngFor="let section of category.sections">
