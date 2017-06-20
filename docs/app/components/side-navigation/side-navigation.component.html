@@ -1,5 +1,6 @@
 <div class="side-navigation-container" #container>
     <div class="side-navigation" [style.width.px]="width" [style.height.px]="height" [style.top.px]="top">
+        <ng-content></ng-content>
         <div class="side-navigation-scroll-pane">
             <ul class="side-navigation-list">
                 <li class="side-navigation-list-item" *ngFor="let category of navigation.categories" [hidden]="category.sections.length === 0">
