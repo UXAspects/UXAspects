@@ -17,6 +17,7 @@ module.exports = {
 
     externals: [
         /^@angular\//,
+        /^ngx-bootstrap/,
         /^rxjs\//
     ],
 

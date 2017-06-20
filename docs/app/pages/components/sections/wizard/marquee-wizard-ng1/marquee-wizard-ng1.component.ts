@@ -20,6 +20,8 @@ export class ComponentsMarqueeWizardNg1Component implements ICodePenProvider {
     private second = require('./snippets/second.html');
     private third = require('./snippets/third.html');
     private fourth = require('./snippets/fourth.html');
+    private fifth = require('./snippets/fifth.html');
+    private sixth = require('./snippets/sixth.html');
 
     public codepen: ICodePen = {
         html: this.modalHtml,
@@ -41,6 +43,13 @@ export class ComponentsMarqueeWizardNg1Component implements ICodePenProvider {
         }, {
             id: 'fourth.html',
             content: this.fourth
+        }, {
+            id: 'fifth.html',
+            content: this.fifth
+        }
+        , {
+            id: 'sixth.html',
+            content: this.sixth
         }],
         css: [this.cssCode],
         js: [this.modalJs, this.jsCode]

@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <input type="text" class="form-control" placeholder="Filter"
+            [ngModel]="filterText | async" (ngModelChange)="filterText.next($event)">
+    </div>
+</div>
+<div class="row m-t-sm">
+    <div class="col-md-6 col-sm-12">
+
+        <div class="employee-list"
+            [uxInfiniteScroll]="loadCallback"
+            [(collection)]="loadedEmployees"
+            [filter]="debouncedFilterText | async"
+            [pageSize]="pageSize"
+            [loadOnScroll]="loadOnScroll">
+
+            <ol>
+                <li *ngFor="let employee of loadedEmployees" class="employee-item">
+                    <div class="employee-details">
+                        <div>
+                            <span class="employee-name">{{employee.name}}</span>
+                            <span class="employee-department">({{employee.department}})</span>
+                        </div>
+                        <div>
+                            <span class="employee-email">{{employee.email}}</span>
+                        </div>
+                    </div>
+                    <div class="employee-id">{{employee.id}}</div>
+                </li>
+            </ol>
+
+            <button *uxInfiniteScrollLoadButton type="button"
+                class="btn btn-link button-primary employee-load-more">Load more</button>
+
+            <div *uxInfiniteScrollLoading class="employee-loading">
+                <div class="spinner spinner-accent spinner-bounce-middle"></div>
+                <div>Loading...</div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="uxd-customize-example">
+    <accordion>
+        <accordion-group heading="Customize Example...">
+            <div class="row uxd-customize-row">
+                <div class="col-md-6 col-sm-12">
+                    <ux-checkbox [(value)]="loadOnScroll">loadOnScroll</ux-checkbox>
+                </div>
+            </div>
+            <div class="row uxd-customize-row">
+                <div class="col-md-6 col-sm-12">
+                    <label for="pageSize">pageSize</label>
+                    <input type="number" name="pageSize" class="form-control"
+                        [ngModel]="pageSize" (ngModelChange)="pageSize = $event" min="1">
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</div>

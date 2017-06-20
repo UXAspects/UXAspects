@@ -128,7 +128,8 @@ export class ComponentsFiltersComponent implements IPlunkProvider {
     }];
 
     typeaheadOptions = {
-        placeholder: 'Find Author'
+        placeholder: 'Find Author',
+        minCharacters: 1
     };
 
     filteredTable: FilterSampleItem[] = this.table;
@@ -148,7 +149,7 @@ export class ComponentsFiltersComponent implements IPlunkProvider {
             }
         ],
         modules: [{
-            imports: ['FiltersModule', 'ColorServiceModule', 'SparkModule'],
+            imports: ['FilterModule', 'ColorServiceModule', 'SparkModule'],
             library: 'ux-aspects'
         }]
     };

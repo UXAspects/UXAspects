@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html',
-    styleUrls: ['./src/app.component.css']
+    templateUrl: './src/app.component.html'
 })
 export class AppComponent {
     tags = ['Alpha', 'Beta', 'Kappa'];

@@ -11,7 +11,7 @@
             <th class="text-black">AUTHOR</th>
             <th class="text-black">DATE MODIFIED</th>
             <th class="text-black">WORK COMPLETED</th>
-            <th class="text-black">STATUS</th>
+            <th class="text-black text-center">STATUS</th>
         </tr>
     </thead>
     <tbody>
@@ -25,7 +25,7 @@
             <td>
                 <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed"></ux-spark>
             </td>
-            <td class="text-center">
+            <td class="text-center vertical-center-icon">
                 <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
             </td>
         </tr>
@@ -65,7 +65,7 @@
             <td>This will be triggered when a filter is added, removed or all filters removed. 
                 The event will be an instance of either <code>FilterAddEvent</code>, <code>FilterRemoveEvent</code> 
                 or <code>FilterRemoveAllEvent</code> and will contain the filter being added or removed in a filter property 
-                (remove all will no contain affected filters).</td>
+                (remove all will not contain affected filters).</td>
         </tr>
 
     </tbody>
@@ -99,7 +99,7 @@
         <tr>
             <td><b>@Input</b> initial</td>
             <td><b>Filter</b></td>
-            <td>Sets the initial filter state, this should be set to the state where nothing has been filtered as it will revert to this when the filters have been removed.</td>
+            <td>Sets the initial filter state. This should be set to the state where nothing has been filtered as it will revert to this when the filters have been removed.</td>
         </tr>
 
     </tbody>
@@ -124,7 +124,7 @@
         <tr>
             <td>group</td>
             <td><b>string</b></td>
-            <td>Sets the filter group, all filters in the same filter dropdown should have the same group.</td>
+            <td>Sets the filter group. All filters in the same filter dropdown should have the same group.</td>
         </tr>
 
         <tr>
@@ -142,7 +142,7 @@
         <tr>
             <td>initial</td>
             <td><b>boolean?</b></td>
-            <td>One of the filters in a group should be set to initial, this refers to the unfiltered state.</td>
+            <td>One of the filters in a group should be set to initial. This refers to the unfiltered state.</td>
         </tr>
 
     </tbody>
@@ -181,7 +181,7 @@
         <tr>
             <td><b>@Input</b> initial</td>
             <td><b>Filter</b></td>
-            <td>Sets the initial filter state, this should be set to the state where nothing has been filtered.</td>
+            <td>Sets the initial filter state. This should be set to the state where nothing has been filtered.</td>
         </tr>
 
         <tr>

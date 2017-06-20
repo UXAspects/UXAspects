@@ -18,7 +18,8 @@
     <ul class="marquee-wizard-steps">
       <li class="marquee-wizard-step" ng-repeat="step in wizardSteps"
                                       ng-class="{ 'active': mc.currentStep.title === step.title, 'visited': step.visited, 'error': step.error }"
-                                      ng-click="mc.goToStep($index)">
+                                      ng-click="mc.goToStep($index)"
+                                      ng-if="!step.hidden">
         <div class="step-label">
           <div class="step-title">
             <div ng-if="step.html" class="m-nil" ng-bind-html="step.html"></div> 

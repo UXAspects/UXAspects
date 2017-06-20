@@ -56,4 +56,4 @@ npm start
 
 # License
 
-UX Aspects code is released under the MIT License. Licenses for 3rd party code included in this repository can be found in the [licenses summary](https://uxaspects.github.io/UXAspects/assets/licenses.txt).
+UX Aspects code is released under the Apache 2.0 License. Licenses for 3rd party code included in this repository can be found in the [licenses summary](https://uxaspects.github.io/UXAspects/assets/licenses.txt).

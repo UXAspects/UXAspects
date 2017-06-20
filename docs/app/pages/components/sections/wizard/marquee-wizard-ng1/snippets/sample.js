@@ -25,6 +25,16 @@ function MarqueeWizardModalCtrl($scope, $modalInstance) {
         html: '<div><i class="hpe-icon hpe-scorecard"></i><p class="inline-title">Fourth step</p></div>',
         header: 'Fourth step title',
         templateUrl: 'fourth.html'
+    },{
+        title: 'Fifth step',
+        html: '<div><i class="hpe-icon hpe-storage"></i><p class="inline-title">Fifth step</p></div>',
+        header: 'Fifth step title',
+        templateUrl: 'fifth.html'
+    }, {
+        title: 'Sixth step',
+        html: '<div><i class="hpe-icon hpe-scorecard"></i><p class="inline-title">Sixth step</p></div>',
+        header: 'Sixth step title',
+        templateUrl: 'sixth.html'
     }];
 
     vm.buttonOptions = {
@@ -36,29 +46,57 @@ function MarqueeWizardModalCtrl($scope, $modalInstance) {
     vm.isVisited = false;
 
     vm.onChanging = function(from, to) {
-        //do stuff here on page changing
+        if (from === 1 && $scope.requiredInput.errorDemo) {
+            return false;
+        }
     };
 
-    //for performing validation when the finish button is pressed
+    $scope.$watch('requiredInput.errorDemo', function(nv, ov) {
+        if (nv !== ov) {
+            if (nv === true) {
+                vm.steps[1].error = true;
+                for (var i = 2; i < vm.steps.length; i++) {
+                    vm.steps[i].completed = false;
+                    vm.steps[i].visited = false;
+                }
+            } else {
+                vm.steps[1].error = false;
+            }
+        }
+    });
+
+    $scope.$watch('requiredInput.skipSteps', function(nv, ov) {
+        if (nv !== ov) {
+            if (nv === true) {
+                vm.steps[3].hidden = true;
+                vm.steps[4].hidden = true;
+            } else {
+                vm.steps[3].hidden = false;
+                vm.steps[4].hidden = false;
+            }
+        }
+    });
+
+    // for performing validation when the finish button is pressed
     vm.onFinishing = function() {
-        //sets the submitted value on the form to true
+        // sets the submitted value on the form to true
         $scope.requiredInput.$setSubmitted();
 
-        //returns boolean value for validation check
+        // returns boolean value for validation check
         return $scope.requiredInput.requiredText.$valid;
     };
 
     vm.onFinished = function() {
-        //do stuff here when finished
+        // do stuff here when finished
 
-        //including dismissing the modal
+        // including dismissing the modal
         $modalInstance.dismiss('ok');
     };
 
     vm.onCanceled = function() {
-        //do stuff here if user attempts to close modal
+        // do stuff here if user attempts to close modal
 
-        //including dismissing the modal
+        // including dismissing the modal
         $modalInstance.dismiss('ok');
     };
 

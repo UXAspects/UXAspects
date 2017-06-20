@@ -46,6 +46,8 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
     let second = require('!file-loader?name=[path][name].[ext]!../snippets/second.html');
     let third = require('!file-loader?name=[path][name].[ext]!../snippets/third.html');
     let fourth = require('!file-loader?name=[path][name].[ext]!../snippets/fourth.html');
+    let fifth = require('!file-loader?name=[path][name].[ext]!../snippets/fifth.html');
+    let sixth = require('!file-loader?name=[path][name].[ext]!../snippets/sixth.html');
 
     vm.steps = [{
         title: 'First step',
@@ -61,11 +63,19 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
         header: 'Third step title'
     }, {
         title: 'Fourth step',
-        html: '<div><i class="hpe-icon hpe-scorecard"></i><p class="inline-title">Fourth step</p></div>',
+        html: '<div><i class="hpe-icon hpe-compliance"></i><p class="inline-title">Fourth step</p></div>',
         header: 'Fourth step title'
+    }, {
+        title: 'Fifth step',
+        html: '<div><i class="hpe-icon hpe-storage"></i><p class="inline-title">Fifth step</p></div>',
+        header: 'Fifth step title'
+    }, {
+        title: 'Sixth step',
+        html: '<div><i class="hpe-icon hpe-scorecard"></i><p class="inline-title">Sixth step</p></div>',
+        header: 'Sixth step title'
     }];
 
-    let templates = [first, second, third, fourth];
+    let templates = [first, second, third, fourth, fifth, sixth];
 
     vm.steps.map((step: any, idx: number) => {
         step['templateUrl'] = templates[idx];
@@ -81,8 +91,36 @@ function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
     vm.isVisited = false;
 
     vm.onChanging = function(from: any, to: any) {
-        // do stuff here on page changing
+        if (from === 1 && $scope.requiredInput.errorDemo) {
+            return false;
+        }
     };
+
+    $scope.$watch('requiredInput.errorDemo', function(nv: any, ov: any) {
+        if (nv !== ov) {
+            if (nv === true) {
+                vm.steps[1].error = true;
+                for (var i = 2; i < vm.steps.length; i++) {
+                    vm.steps[i].completed = false;
+                    vm.steps[i].visited = false;
+                }
+            } else {
+                vm.steps[1].error = false;
+            }
+        }
+    });
+
+    $scope.$watch('requiredInput.skipSteps', function(nv: any, ov: any) {
+        if (nv !== ov) {
+            if (nv === true) {
+                vm.steps[3].hidden = true;
+                vm.steps[4].hidden = true;
+            } else {
+                vm.steps[3].hidden = false;
+                vm.steps[4].hidden = false;
+            }
+        }
+    });
 
     // for performing validation when the finish button is pressed
     vm.onFinishing = function() {

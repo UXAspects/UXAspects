@@ -128,6 +128,78 @@
     </table>
 </div>
 
+<p>UX Aspects offers a wide range of chart colors. Set the color of the chart by setting the <code>type</code> property to one
+    of the following:</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="demo-attributes table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th class="col-md-6">Spark Type</th>
+                        <th class="col-md-6"></th>
+                    </tr>
+                    <tr>
+                        <td class="attribute">spark-chart1</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark-ng1 type="spark-chart1" value="50" fillheight="10"></ux-spark-ng1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">spark-chart2</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark-ng1 type="spark-chart2" value="50" fillheight="10"></ux-spark-ng1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">spark-chart3</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark-ng1 type="spark-chart3" value="50" fillheight="10"></ux-spark-ng1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">spark-chart4</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark-ng1 type="spark-chart4" value="50" fillheight="10"></ux-spark-ng1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">spark-chart5</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark-ng1 type="spark-chart5" value="50" fillheight="10"></ux-spark-ng1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">spark-chart6</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark-ng1 type="spark-chart6" value="50" fillheight="10"></ux-spark-ng1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">spark-ok</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark-ng1 type="spark-ok" value="50" fillheight="10"></ux-spark-ng1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">spark-warning</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark-ng1 type="spark-warning" value="50" fillheight="10"></ux-spark-ng1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">spark-critical</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark-ng1 type="spark-critical" value="50" fillheight="10"></ux-spark-ng1>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <p>You can also create your own class to use for the spark colors. Name your class and specify a <code>background-color</code>.
     Within this class you must specify a <code>fill</code> class which also has a <code>background-color</code> set as the
     fill for the spark chart. See an example below:</p>
@@ -149,75 +221,6 @@
 Multiline tooltips can be added to the Spark Line indicator using the `spark-tooltip` attribute to the spark directive.
 
 <uxd-snippet language="html" [code]="tooltipsHtml"></uxd-snippet>
-
-<p>Colors are defined from the set of chart colors and the pre-defined class choices are as follows:</p>
-
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">spark-chart1</td>
-                <td>color</td>
-                <td>@chart1 fill, 0.1 background opacity.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">spark-chart2</td>
-                <td>color</td>
-                <td>@chart2 fill, 0.2 background opacity.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">spark-chart3</td>
-                <td>color</td>
-                <td>@chart3 fill, 0.2 background opacity.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">spark-chart4</td>
-                <td>color</td>
-                <td>@chart4 fill, 0.2 background opacity.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">spark-chart5</td>
-                <td>color</td>
-                <td>@chart5 fill, 0.2 background opacity.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">spark-chart6</td>
-                <td>color</td>
-                <td>@chart6 fill, 0.2 background opacity.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">spark-ok</td>
-                <td>color</td>
-                <td>@ok fill, 0.25 background opacity.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">spark-warning</td>
-                <td>color</td>
-                <td>@warning fill, 0.25 background opacity.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">spark-critical</td>
-                <td>color</td>
-                <td>@critical fill, 0.25 background opacity.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 
 <blockquote>
     <p><strong>Note</strong>: To upgrade this component to use in an Angular 4 application use: <code>upgradeAdapter.upgradeNg1Component('uxSparkNg1')</code></p>
