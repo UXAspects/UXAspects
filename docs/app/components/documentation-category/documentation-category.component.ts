@@ -1,9 +1,10 @@
 import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ICategory } from '../../interfaces/ICategory';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { ISection } from '../../interfaces/ISection';
+import { VersionService, Version } from '../../services/version/version.service';
 
 @Component({
     selector: 'uxd-documentation-category',
@@ -14,8 +15,21 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
     private category: ICategory;
     private trackScroll: boolean = false;
     
-    constructor(private activatedRoute: ActivatedRoute,
-        private navigation: NavigationService) { }
+    ngVersion = Version;
+
+    constructor(private router: Router, private activatedRoute: ActivatedRoute,
+        private navigation: NavigationService, public versionService: VersionService) {
+        // get version
+        this.versionService.version.subscribe((value: Version) => {
+            if (this.category) {
+                let hasSection = !!this.category.sections.find((section, idx) => this.versionService.version.getValue() === Version.Angular && this.category.sections[idx].version === 'Angular' 
+                || this.versionService.version.getValue() !== Version.Angular && this.category.sections[idx].version === 'AngularJS');
+                if (!hasSection) {
+                    this.router.navigate(['/'], {});
+                }
+            }
+        });
+    }
 
     ngOnInit() {
         // Fetch category details from the route metadata

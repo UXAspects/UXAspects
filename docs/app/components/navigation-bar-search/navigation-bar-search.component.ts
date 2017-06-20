@@ -3,6 +3,7 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { ISearchResult } from '../../interfaces/ISearch';
 import { ISection } from '../../interfaces/ISection';
 import { NavigationService } from '../../services/navigation/navigation.service';
+import { VersionService, Version } from '../../services/version/version.service';
 import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -32,7 +33,16 @@ export class NavigationBarSearchComponent {
     private data: ISearchResult[];
     private history: ISearchResult[] = [];
 
-    constructor(private router: Router, private navigation: NavigationService) {
+    constructor(private router: Router, private navigation: NavigationService, private versionService: VersionService) {
+
+        // get version
+        this.versionService.version.subscribe((value: Version) => {
+            this.data = [];
+            this.data = this.data.concat(this.getSearchResults(componentsData));
+            this.data = this.data.concat(this.getSearchResults(cssData));
+            this.data = this.data.concat(this.getSearchResults(chartsData));
+        });
+
         this.searching = false;
         this.query = new BehaviorSubject<string>('');
         this.data = [];
@@ -53,28 +63,36 @@ export class NavigationBarSearchComponent {
     }
 
     getSearchResults(page: IDocumentationPage): ISearchResult[] {
+        if (!page) {
+            return; 
+        }
         var results: ISearchResult[] = [];
         page.categories.forEach((category: ICategory) => {
-            let addCategoryResult = true;
+            
+            let showCategory = !!category.sections.find((section, idx) => this.versionService.version.getValue() === Version.Angular && !category.sections[idx].deprecated || this.versionService.version.getValue() !== Version.Angular && category.sections[idx].version === 'AngularJS');  
+            
             if (category.sections) {
                 this.navigation.setSectionIds(category.sections);
                 category.sections.forEach((section: ISection) => {
-                    results.push({
-                        section: page.title,
-                        link: {
-                            title: section.title,
-                            link: category.link,
-                            fragment: section.id
-                        }
-                    });
+                    if (this.versionService.version.getValue() === Version.Angular && !section.deprecated || this.versionService.version.getValue() !== Version.Angular && section.version === 'AngularJS') {
+                        results.push({
+                            section: page.title,
+                            link: {
+                                title: section.title,
+                                link: category.link,
+                                fragment: section.id
+                            }
+                        });
+                    }
+
 
                     // Prevent addition of a category entry with the same title as a child section.
                     if (section.title === category.title) {
-                        addCategoryResult = false;
+                        showCategory = false;
                     }
                 });
             }
-            if (addCategoryResult) {
+            if (showCategory) {
                 results.push({
                     section: page.title,
                     link: {
@@ -84,6 +102,7 @@ export class NavigationBarSearchComponent {
                 });
             }
         });
+
         return results;
     }
 
