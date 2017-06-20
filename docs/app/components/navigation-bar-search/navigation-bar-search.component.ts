@@ -73,19 +73,8 @@ export class NavigationBarSearchComponent {
         }
         var results: ISearchResult[] = [];
         page.categories.forEach((category: ICategory) => {
-            let addCategoryResult = true;
-
-            let showCategory = !!category.sections.find((section, idx) => this.angular && !category.sections[idx].deprecated || !this.angular && category.sections[idx].version === 'AngularJS');
             
-            if (showCategory) {
-                results.push({
-                    section: page.title,
-                    link: {
-                        title: category.title,
-                        link: category.link
-                    }
-                });
-            }
+            let showCategory = !!category.sections.find((section, idx) => this.angular && !category.sections[idx].deprecated || !this.angular && category.sections[idx].version === 'AngularJS');  
             
             if (category.sections) {
                 this.navigation.setSectionIds(category.sections);
@@ -104,11 +93,11 @@ export class NavigationBarSearchComponent {
 
                     // Prevent addition of a category entry with the same title as a child section.
                     if (section.title === category.title) {
-                        addCategoryResult = false;
+                        showCategory = false;
                     }
                 });
             }
-            if (addCategoryResult) {
+            if (showCategory) {
                 results.push({
                     section: page.title,
                     link: {
