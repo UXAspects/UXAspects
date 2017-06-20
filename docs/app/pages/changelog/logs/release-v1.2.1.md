@@ -2,9 +2,9 @@ UX Aspects 1.2.1 is available! Check out the documentation at [https://uxaspects
 
 New Features:
 * New Angular 4 components and documentation:
-    * [Select](/components/select#select)
-    * [Infinite Scroll](/components/scrollbar#infinite-scroll)
-    * [Filters](/components/tables#filters)
+    * [Select](https://uxaspects.github.io/UXAspects/#/components/select#select)
+    * [Infinite Scroll](https://uxaspects.github.io/UXAspects/#/components/scrollbar#infinite-scroll)
+    * [Filters](https://uxaspects.github.io/UXAspects/#/components/tables#filters)
 * Angular version selector added to the [documentation site](https://uxaspects.github.io/UXAspects/#/components). Use the toggle buttons above the side navigation panel to select the appropriate version for your project!
 
 Bug Fixes:
