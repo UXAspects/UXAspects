@@ -4,6 +4,14 @@ UX Aspects is an open source user interface framework for building modern, respo
 
 # Installation
 
+## NPM
+
+1. Install [Node.js](https://nodejs.org/), which provides the npm package manager.
+2. Install the UX Aspects package:
+```bash
+npm install @ux-aspects/ux-aspects --save
+```
+
 ## Bower
 
 1. Install [Node.js](https://nodejs.org/), which provides the npm package manager.
