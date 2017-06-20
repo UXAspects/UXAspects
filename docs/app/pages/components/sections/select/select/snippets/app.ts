@@ -25,7 +25,8 @@ export class AppComponent implements OnInit {
         return this._pageSize;
     }
     set pageSize(value: number) {
-        this._pageSize = (value >= 1) ? value : 1;
+        const numValue = Number(value);
+        this._pageSize = (numValue >= 1) ? numValue : 1;
     }
 
     // Customize settings

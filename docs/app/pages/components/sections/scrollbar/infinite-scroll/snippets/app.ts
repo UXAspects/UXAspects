@@ -21,7 +21,14 @@ export class AppComponent {
 
     loadCallback = this.load.bind(this);
 
-    pageSize = 20;
+    private _pageSize = 20;
+    get pageSize() {
+        return this._pageSize;
+    }
+    set pageSize(value: any) {
+        const numValue = Number(value);
+        this._pageSize = (numValue >= 1) ? numValue : 1;
+    }
 
     loadOnScroll: boolean = true;
 

@@ -32,8 +32,9 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
     get pageSize() {
         return this._pageSize;
     }
-    set pageSize(value: number) {
-        this._pageSize = (value >= 1) ? value : 1;
+    set pageSize(value: any) {
+        const numValue = Number(value);
+        this._pageSize = (numValue >= 1) ? numValue : 1;
     }
 
     loadOnScroll: boolean = true;
