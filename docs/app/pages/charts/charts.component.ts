@@ -48,7 +48,7 @@ export class ChartsPageComponent {
     }
 
     radioToggled(version: Version) {
-        this.versionService.toggle(version);
+        this.versionService.setVersion(version);
     }
 
     toVersion(version: string): Version {

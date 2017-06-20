@@ -8,10 +8,10 @@ export class VersionService {
     version: BehaviorSubject<Version> = new BehaviorSubject<Version>(Version.Angular);
 
     constructor() {
-        this.toggle(this.toVersion(window.localStorage.getItem('version')));
+        this.setVersion(this.toVersion(window.localStorage.getItem('version')));
     }
 
-    toggle(version: Version): void {
+    setVersion(version: Version): void {
         if (this.version.getValue() !== version) {
             window.localStorage.setItem('version', version.toString());
             this.version.next(version);
@@ -19,7 +19,11 @@ export class VersionService {
     }
 
     toVersion(version: string): Version {
-        return version.toLowerCase() === '0' ? Version.AngularJS : Version.Angular;
+        let value = parseInt(version);
+        if (!value) {
+            value = 1;
+        }
+        return value === Version.AngularJS ? Version.AngularJS : Version.Angular;
     }
 
 }

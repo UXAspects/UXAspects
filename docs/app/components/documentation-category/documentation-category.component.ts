@@ -14,18 +14,16 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
 
     private category: ICategory;
     private trackScroll: boolean = false;
-
-    angular: boolean = true;
-    ngVersions = Version;
     
+    ngVersion = Version;
+
     constructor(private router: Router, private activatedRoute: ActivatedRoute,
-        private navigation: NavigationService, private versionService: VersionService) {
+        private navigation: NavigationService, public versionService: VersionService) {
         // get version
         this.versionService.version.subscribe((value: Version) => {
-            this.angular = value === this.ngVersions.Angular;
             if (this.category) {
-                let hasSection = !!this.category.sections.find((section, idx) => this.angular && this.category.sections[idx].version === 'Angular' 
-                || !this.angular && this.category.sections[idx].version === 'AngularJS');
+                let hasSection = !!this.category.sections.find((section, idx) => this.versionService.version.getValue() === Version.Angular && this.category.sections[idx].version === 'Angular' 
+                || this.versionService.version.getValue() !== Version.Angular && this.category.sections[idx].version === 'AngularJS');
                 if (!hasSection) {
                     this.router.navigate(['/'], {});
                 }

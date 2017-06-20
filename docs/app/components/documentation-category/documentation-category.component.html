@@ -1,6 +1,6 @@
 <span *ngFor="let section of category.sections">
     <uxd-component-section [id]="section.id" [title]="section.title" [componentName]="section.component"
         [version]="section.version" [deprecated]="section.deprecated" [externalUrl]="section.externalUrl" [usage]="section.usage"
-        *ngIf="!angular && section.version === 'AngularJS' ||
-        angular && !section.deprecated"></uxd-component-section>
+        *ngIf="(versionService.version | async) !== ngVersion.Angular && section.version === 'AngularJS' ||
+        (versionService.version | async) === ngVersion.Angular && !section.deprecated"></uxd-component-section>
 </span>
