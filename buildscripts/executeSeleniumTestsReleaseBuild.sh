@@ -38,8 +38,8 @@ cd $rootFolder/ux-aspects
 
 # Update testng.xml to use the correct ports for testing of the release build
 echo Updating testng.xml
-sed -i.bak 's/4000/$documentationPort/g' testng.xml    # Documentation wil be published on port 4001
-sed -i.bak 's/4444/$hubProcessPort/g' testng.xml       # The Selenium Grid hub process will use port 4445
+sed -i.bak 's/4000/4001/g' testng.xml    # Documentation wil be published on port 4001
+sed -i.bak 's/4444/4445/g' testng.xml       # The Selenium Grid hub process will use port 4445
 
 # Create the latest ux-aspects-build image if it does not exist
 docker_image_build "$rootFolder/ux-aspects/docker"; echo
@@ -67,7 +67,7 @@ fi
 
 # Create a new container which will build the new web service
 echo Starting new container
-docker_image_run_detached "$rootFolder/ux-aspects" $documentationPort "bash buildscripts/executeSeleniumTestsReleaseBuildDocker.sh &"
+docker_image_run_detached "$rootFolder/ux-aspects" $documentationPort "ContainerIDReleaseBuild" "bash buildscripts/executeSeleniumTestsReleaseBuildDocker.sh &"
 
 # Loop until the container has been created
 containerIDCheckDelay=5
@@ -105,9 +105,7 @@ done
 
 # Kill any process using port 4445 (the Selenium Grid hub process) and start a new process
 echo Kill any existing Selenium Grid hub process
-command="/usr/sbin/fuser -n tcp "$hubProcessPort" 2> /dev/null"
-echo command is $command
-PID_SELENIUM=`"$command"`
+PID_SELENIUM=`/usr/sbin/fuser -n tcp 4445 2> /dev/null`
 echo Old Selenium Grid hub process ID is $PID_SELENIUM
 if [ ! -z "$PID_SELENIUM" ] ; then
     echo "Killing existing Selenium Grid hub process" ; kill -9 $PID_SELENIUM ;
@@ -124,9 +122,7 @@ java -jar /home/UXAspectsTestUser/ux-aspects/Selenium/selenium-server-standalone
 wait_for_grid_hub_process_status_to_change 1 "start" $hubProcessPort
 
 echo Started the Selenium Grid hub process
-command="/usr/sbin/fuser -n tcp "$hubProcessPort" 2> /dev/null"
-echo command is $command
-PID_SELENIUM=`"$command"`
+PID_SELENIUM=`/usr/sbin/fuser -n tcp 4445 2> /dev/null`
 echo New Selenium Grid hub process ID is $PID_SELENIUM
 
 # Run the tests

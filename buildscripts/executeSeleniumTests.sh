@@ -70,7 +70,7 @@ fi
 
 # Create a new container which will build the new web service
 echo Starting new container
-docker_image_run_detached "$rootFolder/ux-aspects" 4000 "bash buildscripts/executeSeleniumTestsDocker.sh &"
+docker_image_run_detached "$rootFolder/ux-aspects" 4000 "ContainerID" "bash buildscripts/executeSeleniumTestsDocker.sh &"
 
 # Loop until the container has been created
 containerIDCheckDelay=5
@@ -108,9 +108,7 @@ done
 
 # Kill any process using port 4444 (the Selenium Grid hub process)
 echo Kill any existing Selenium Grid hub process
-command="/usr/sbin/fuser -n tcp "$hubProcessPort" 2> /dev/null"
-echo command is $command
-PID_SELENIUM=`$command`
+PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
 echo Old Selenium Grid hub process ID is $PID_SELENIUM
 if [ ! -z "$PID_SELENIUM" ] ; then
     echo "Killing existing Selenium Grid hub process" ; kill -9 $PID_SELENIUM ;
@@ -131,7 +129,7 @@ cd $rootFolder/ux-aspects
 mvn test
 
 # Create the file indicating to the container that the tests have finished
-PID_SELENIUM=`/usr/sbin/fuser -n tcp $hubProcessPort 2> /dev/null`
+PID_SELENIUM=`/usr/sbin/fuser -n tcp 4444 2> /dev/null`
 echo $PID_SELENIUM > "$PWD/GridHubFinished"
 
 # Kill and remove the container
