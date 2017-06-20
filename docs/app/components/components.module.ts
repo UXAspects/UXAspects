@@ -29,6 +29,7 @@ import { SnippetComponent } from './snippet/snippet.component';
 import { TextPageLayoutComponent } from './text-page-layout/text-page-layout.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { UsageLinkComponent } from './usage-link/usage-link.component';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 const DOCUMENTATION_COMPONENTS = [
     ComponentSectionComponent,
@@ -57,6 +58,7 @@ const DOCUMENTATION_COMPONENTS = [
         RouterModule,
         FormsModule,
         EboxModule,
+        ButtonsModule.forRoot(),
         TooltipModule.forRoot(),
         PopoverModule.forRoot(),
         TypeaheadModule.forRoot(),

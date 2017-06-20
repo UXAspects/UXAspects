@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { Subscription } from 'rxjs/Subscription';
+import { VersionService, Version } from '../../services/version/version.service';
 
 const BANNER_OFFSET = 186;
 const FOOTER_OFFSET = 162;
@@ -15,6 +16,7 @@ const FOOTER_OFFSET = 162;
     styleUrls: ['./side-navigation.component.less']
 })
 export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
+
     @Input() navigation: IDocumentationPage;
 
     @ViewChild('container') container: ElementRef;
@@ -24,15 +26,27 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     private width: number;
     private scrollApi: any = {};
     private routeSubscription: Subscription;
+    filteredNavigation: IDocumentationPage;
+    versionRadioValue: Version;
+    version: Version;
+    ngVersions = Version;
 
     constructor(@Inject(DOCUMENT) private document: Document,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private navigationService: NavigationService) { }
+        private navigationService: NavigationService,
+        public versionService: VersionService) { 
+            // get version
+            this.versionRadioValue = this.versionService.version.getValue();
+            this.versionService.version.subscribe((value: Version) => this.filterNavigation(value));
+
+        }
 
     ngOnInit() {
+
+        this.filterNavigation(this.versionService.version.getValue());
         // Set up fragment IDs
-        for (let category of this.navigation.categories) {
+        for (let category of this.filteredNavigation.categories) {
             this.navigationService.setSectionIds(category.sections);
         }
 
@@ -69,6 +83,35 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
 
     setPaneWidth(width: number) {
         this.width = width;
+    }
+
+    filterNavigation(version: Version) {
+        if (this.navigation) {
+            let categories = this.navigation.categories.map(category => {
+                return {
+                    link: category.link,
+                    title: category.title,
+                    sections: category.sections.filter(
+                        section => version === Version.Angular ? !section.deprecated : 
+                        this.toVersion(section.version) !== Version.Angular)
+                };
+            });
+
+            this.filteredNavigation = {
+                title: this.navigation.title,
+                categories: categories
+            };
+        }
+    }
+
+    radioToggled(version: Version) {
+        this.versionService.setVersion(version);
+    }
+
+    toVersion(version: string): Version {
+        if (version) {
+            return version.toLowerCase() === 'angularjs' ? Version.AngularJS : Version.Angular;
+        }
     }
 
     @HostListener('window:scroll')
