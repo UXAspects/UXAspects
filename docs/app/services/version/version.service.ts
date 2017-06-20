@@ -20,8 +20,8 @@ export class VersionService {
 
     toVersion(version: string): Version {
         let value = parseInt(version);
-        if (!value) {
-            value = 1;
+        if (isNaN(value)) {
+            value = Version.Angular;
         }
         return value === Version.AngularJS ? Version.AngularJS : Version.Angular;
     }
