@@ -1,14 +1,32 @@
 ux-filter-container {
-    .clear-button {
-        background: url(../../img/filter_clear_light.png) no-repeat;
-        width: 22px;
-        height: 12px;
-        margin-left: 3px;
-        margin-right: 10px;
-        margin-bottom: 2px;
-        padding-right: 9px;
-        box-shadow: none;
-        font-weight: bold;
+    .filter-selected-clear-button {
         display: inline-block;
+        position: relative;
+        flex: none;
+        width: 21px;
+        height: 10px;
+        transition: border-color 0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            .filter-selected-clear-graphic {
+                border-color: @aspects-outline;
+            }
+        }
+
+        .filter-selected-clear-graphic {
+            position: absolute;
+            top: 0;
+            border: 1px solid transparent;
+
+            .dark-grey {
+                fill: @grey2;
+            }
+
+            .light-grey {
+                fill: @grey4;
+            }
+        }
     }
 }
