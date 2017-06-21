@@ -8548,7 +8548,7 @@ module.exports = "<ux-facet-header [header]=\"header\" [(expanded)]=\"expanded\"
 /* 120 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <ng-content></ng-content>\n    <button type=\"button\" class=\"btn btn-icon clear-button\" *ngIf=\"filters.length > 0\" (click)=\"removeAll()\" [tooltip]=\"clearTooltip || 'Clear All'\"></button>\n</div>"
+module.exports = "<ng-content></ng-content>\n\n<!-- Add a Clear Button -->\n<div class=\"filter-selected-clear-button\" *ngIf=\"filters.length > 0\" [tooltip]=\"clearTooltip || 'Clear All'\" (click)=\"removeAll()\">\n    \n    <svg class=\"filter-selected-clear-graphic\" width=\"19\" height=\"12\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n        <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n        <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n        <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n        <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n        <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n    </svg>\n\n</div>"
 
 /***/ }),
 /* 121 */
