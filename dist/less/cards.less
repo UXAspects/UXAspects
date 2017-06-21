@@ -903,10 +903,13 @@
         }
 
         .title-container {
+          display: flex;
+          justify-content: space-between;
           width: 100%;
           height: 25px;
 
           .title {
+            flex: 1 0 auto;
             display: inline-flex;
             align-items: baseline;
             font-size: 1.125rem;
@@ -918,7 +921,6 @@
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
-              flex-grow: 1;
               height: 25px;
             }
             .title-subtext {
@@ -941,7 +943,6 @@
           	overflow: hidden;
           	width: 17px;
             height: 17px;
-            float: right;
             top: 4px;
 
           	&::before {

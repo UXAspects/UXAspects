@@ -1,9 +1,9 @@
+import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { ElementRef, EventEmitter, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export declare class TypeaheadComponent implements OnInit, OnChanges {
     typeaheadElement: ElementRef;
-    options: any[];
+    options: any[] | InfiniteScrollLoadFunction;
     filter: string;
     private _open;
     open: boolean;
@@ -13,48 +13,56 @@ export declare class TypeaheadComponent implements OnInit, OnChanges {
     disabledOptions: any[];
     dropDirection: 'up' | 'down';
     maxHeight: string;
-    optionTemplate: TemplateRef<any>;
-    noOptionsTemplate: TemplateRef<any>;
+    openOnFilterChange: boolean;
     pageSize: number;
     selectFirst: boolean;
+    loadingTemplate: TemplateRef<any>;
+    optionTemplate: TemplateRef<any>;
+    noOptionsTemplate: TemplateRef<any>;
     optionSelected: EventEmitter<TypeaheadOptionEvent>;
-    highlighted: BehaviorSubject<any>;
+    private _highlighted;
+    readonly highlighted: any;
+    private _defaultLoadingTemplate;
     private _defaultOptionTemplate;
     private _defaultNoOptionsTemplate;
+    protected loadOptionsCallback: InfiniteScrollLoadFunction;
     protected visibleOptions: any[];
-    private _highlightedOption;
-    private highlightedOption;
+    protected loading: boolean;
     optionApi: TypeaheadOptionApi;
     constructor(typeaheadElement: ElementRef);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
-    optionMousedownHandler(event: MouseEvent): void;
-    optionClickHandler(event: MouseEvent, option: any): void;
+    protected optionMousedownHandler(event: MouseEvent): void;
+    protected optionClickHandler(event: MouseEvent, option: any): void;
     /**
      * Returns the unique key value of the given option.
      */
-    getKey(option: any): string;
+    protected getKey(option: any): string;
     /**
      * Returns the display value of the given option.
      */
-    getDisplay(option: any): string;
+    protected getDisplay(option: any): string;
     /**
      * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value.
      * @param option
      */
-    getDisplayHtml(option: any): string;
+    protected getDisplayHtml(option: any): string;
+    /**
+     * Returns true if the infinite scroll component should load
+     */
+    protected isInfiniteScroll(): boolean;
     /**
      * Selects the given option, emitting the optionSelected event and closing the dropdown.
      */
-    select(option: any): void;
+    protected select(option: any): void;
     /**
      * Returns true if the given option is part of the disabledOptions array.
      */
-    isDisabled(option: any): boolean;
+    protected isDisabled(option: any): boolean;
     /**
      * Set the given option as the current highlighted option, available in the highlightedOption parameter.
      */
-    highlight(option: any): void;
+    protected highlight(option: any): void;
     /**
      * Increment or decrement the highlighted option in the list. Disabled options are skipped.
      * @param d Value to be added to the index of the highlighted option, i.e. -1 to move backwards, +1 to move forwards.
@@ -63,7 +71,7 @@ export declare class TypeaheadComponent implements OnInit, OnChanges {
     /**
      * Returns true if the given option is the highlighted option.
      */
-    isHighlighted(option: any): boolean;
+    protected isHighlighted(option: any): boolean;
     /**
      * Set up the options before the dropdown is displayed.
      */

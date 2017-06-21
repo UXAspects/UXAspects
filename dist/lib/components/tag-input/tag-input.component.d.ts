@@ -1,20 +1,21 @@
-import { TypeaheadComponent } from '../typeahead/index';
+import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
 import { TagInputEvent } from './tag-input-event';
 import { AfterContentInit, ElementRef, EventEmitter, OnChanges, OnInit, QueryList, SimpleChanges, TemplateRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 export declare class TagInputComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
-    private element;
-    private document;
+    private _element;
+    private _document;
+    private _typeaheadKeyService;
     private _tags;
     tags: any[];
     tagsChange: EventEmitter<any[]>;
     private _input;
     input: string;
     inputChange: EventEmitter<string>;
+    display: (option: any) => string | string;
     addOnPaste: boolean;
     disabled: boolean;
-    displayProperty: string;
     enforceTagLimits: boolean;
     freeInput: boolean;
     maxTags: number;
@@ -42,7 +43,7 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     typeahead: TypeaheadComponent;
     private onChangeHandler;
     private onTouchedHandler;
-    constructor(element: ElementRef, document: Document);
+    constructor(_element: ElementRef, _document: Document, _typeaheadKeyService: TypeaheadKeyService);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
@@ -82,7 +83,7 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
      */
     moveSelection(d: number): void;
     /**
-     * Returns a value to display for the given tag. Uses displayProperty if set, otherwise assumes that the tag is a simple string.
+     * Returns a value to display for the given tag. Uses display function/property name if set, otherwise assumes that the tag is a simple string.
      */
     getTagDisplay(tag: any): string;
     /**
@@ -113,6 +114,7 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
      * Returns true if any part of the control has focus.
      */
     hasFocus(): boolean;
+    private connectTypeahead(typeahead);
     /**
      * Validate the given tagValue with the tagPattern, if set. Update validationErrors on validation failure.
      */
