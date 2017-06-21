@@ -91,9 +91,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
                 return {
                     link: category.link,
                     title: category.title,
-                    sections: category.sections.filter(
-                        section => version === Version.Angular ? !section.deprecated : 
-                        this.toVersion(section.version) !== Version.Angular)
+                    sections: category.sections.filter(section => this.versionService.isSectionVersionMatch(section))
                 };
             });
 

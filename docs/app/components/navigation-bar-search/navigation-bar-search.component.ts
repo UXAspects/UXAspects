@@ -1,12 +1,13 @@
+import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { ICategory } from '../../interfaces/ICategory';
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { ISearchResult } from '../../interfaces/ISearch';
 import { ISection } from '../../interfaces/ISection';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { VersionService, Version } from '../../services/version/version.service';
-import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Version, VersionService } from '../../services/version/version.service';
 
 const QUERY_MIN_CHARS = 3;
 const MAX_HISTORY = 5;
@@ -68,30 +69,29 @@ export class NavigationBarSearchComponent {
         }
         var results: ISearchResult[] = [];
         page.categories.forEach((category: ICategory) => {
-            
-            let showCategory = !!category.sections.find((section, idx) => this.versionService.version.getValue() === Version.Angular && !category.sections[idx].deprecated || this.versionService.version.getValue() !== Version.Angular && category.sections[idx].version === 'AngularJS');  
-            
-            if (category.sections) {
-                this.navigation.setSectionIds(category.sections);
-                category.sections.forEach((section: ISection) => {
-                    if (this.versionService.version.getValue() === Version.Angular && !section.deprecated || this.versionService.version.getValue() !== Version.Angular && section.version === 'AngularJS') {
-                        results.push({
-                            section: page.title,
-                            link: {
-                                title: section.title,
-                                link: category.link,
-                                fragment: section.id
-                            }
-                        });
-                    }
 
+            category.sections = category.sections || [];
+            
+            let showCategory = !!category.sections.find((section) => this.versionService.isSectionVersionMatch(section));
+            
+            this.navigation.setSectionIds(category.sections);
+            category.sections.forEach((section: ISection) => {
+                if (this.versionService.isSectionVersionMatch(section)) {
+                    results.push({
+                        section: page.title,
+                        link: {
+                            title: section.title,
+                            link: category.link,
+                            fragment: section.id
+                        }
+                    });
 
                     // Prevent addition of a category entry with the same title as a child section.
                     if (section.title === category.title) {
                         showCategory = false;
                     }
-                });
-            }
+                }
+            });
             if (showCategory) {
                 results.push({
                     section: page.title,
