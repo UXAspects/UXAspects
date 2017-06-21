@@ -24,8 +24,7 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
         // get version
         this.subscription = this.versionService.version.subscribe((value: Version) => {
             if (this.category) {
-                let hasSection = !!this.category.sections.find((section, idx) => this.versionService.version.getValue() === Version.Angular && this.category.sections[idx].deprecated !== true 
-                || this.versionService.version.getValue() !== Version.Angular && this.category.sections[idx].version !== 'Angular');
+                let hasSection = !!this.category.sections.find((section) => this.versionService.isSectionVersionMatch(section));
                 if (!hasSection) {
                     this.router.navigate(['/'], {});
                 }

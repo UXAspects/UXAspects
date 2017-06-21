@@ -723,13 +723,13 @@
                     ]
                 },
                 {
-                    "title": "Infinite Scroll (Angular 1)",
+                    "title": "Infinite Scroll",
                     "component": "ComponentsInfiniteScrollNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
                 {
-                    "title": "Infinite Scroll with Load More Button (Angular 1)",
+                    "title": "Infinite Scroll with Load More Button",
                     "component": "ComponentsInfiniteScrollLoadMoreNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
@@ -774,7 +774,7 @@
                     ]
                 },
                 {
-                    "title": "Select (Angular 1)",
+                    "title": "Select",
                     "component": "ComponentsSelectNg1Component",
                     "version": "AngularJS",
                     "deprecated": true

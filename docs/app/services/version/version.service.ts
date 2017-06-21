@@ -1,6 +1,7 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import { ISection } from '../../interfaces/ISection';
 
 @Injectable()
 export class VersionService {
@@ -24,6 +25,16 @@ export class VersionService {
             value = Version.Angular;
         }
         return value === Version.AngularJS ? Version.AngularJS : Version.Angular;
+    }
+
+    isSectionVersionMatch(section: ISection): boolean {
+        switch (this.version.getValue()) {
+            case Version.AngularJS:
+                return section.version === 'AngularJS' || section.version === undefined;
+            case Version.Angular:
+                return section.version === 'Angular' || !section.deprecated;
+        }
+        return true;
     }
 
 }
