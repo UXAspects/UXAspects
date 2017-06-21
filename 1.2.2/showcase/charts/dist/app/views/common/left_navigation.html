@@ -1,0 +1,46 @@
+<div class="nav-menu-btn-container nav-menu-btn-container-dark nav-menu-btn-container-top-dark">
+    <a class="nav-menu-toggle-btn" minimize-menu animate="true" href="">
+        <i class="hpe-icon hpe-menu"></i>
+    </a>
+</div>
+<nav class="navbar-static-side-container navbar-static-side-container-dark" 
+     ng-class="sidecontainer" 
+     scroll-config="{autoReinitialise: false,autoReinitialiseDelay: 0,showOnlyOnHover:true,enableKeyboardNavigation:true}" 
+     scroll-pane  id="menuScroll" role="navigation"
+     ng-controller="LeftNavigationCtrl as vm">
+
+    <div class="navbar-default navbar-static-side navbar-static-side-dark" role="navigation">
+        <ul class="nav" side-navigation id="side-menu">
+            <li class="nav-header nav-header-dark">
+               <a class="logo-element-container" href="../../../">
+                    <div class="logo-element-image"></div>
+                    <div class="logo-element-text">UX Aspects</div>
+                </a>
+            </li>
+            
+            <li class="app-navigator">
+                <div class="app-navigator-contents" 
+                     popover-template="'app/views/common/app_navigation_popover.html'" 
+                     popover-placement="bottom" 
+                     popover-class="app-navigator-popover" 
+                     popover-fixed="true"
+                     popover-trigger="outsideClick"
+                     popover-offset-x="15"
+                     popover-offset-y="120"
+                     popover-append-to-body="false"> 
+
+                        <p class="brand">Showcase <span class="application" ng-bind="$parent.vm.pageName"></span><span class="application-hover">Applications</span></p>
+                        <i class="hpe-icon hpe-down"></i>
+                </div>
+            </li>
+
+            <li ng-class="{ active: $state.includes('socialchart')}"><a ui-sref="socialchart">Social Chart</a></li>
+            <li ng-class="{ active: $state.includes('partitionmap')}"><a ui-sref="partitionmap">Partition Map</a></li>
+            <li ng-class="{ active: $state.includes('sankeychart')}"><a ui-sref="sankeychart">Sankey Chart</a></li>
+
+        </ul>
+    </div>
+</nav>
+
+
+
