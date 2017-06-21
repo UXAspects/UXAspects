@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-timline-ng1',
@@ -9,17 +10,18 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsTimelineNg1Component')
-export class ComponentsTimelineNg1Component implements ICodePenProvider {
-
-    private htmlCode = require('./snippets/sample.html');
-    private jsCode = require('./snippets/sample.js');
+export class ComponentsTimelineNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TimelineCtrl as vm'
         },
-        js: [this.jsCode]
+        js: [this.snippets.examples.sampleHtml]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
     
 }

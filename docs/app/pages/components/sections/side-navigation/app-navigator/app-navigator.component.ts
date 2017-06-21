@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from './../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from './../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 
 @Component({
@@ -9,23 +10,19 @@ import { ICodePen } from './../../../../../interfaces/ICodePen';
     templateUrl: './app-navigator.component.html'
 })
 @DocumentationSectionComponent('ComponentsAppNavigatorComponent')
-export class ComponentsAppNavigatorComponent implements ICodePenProvider {
-
-    private htmlCode = require('./snippets/sample.html');
-
-    private popoverCode = require('./snippets/popover.html');
-
-    private codepenSnippet = require('./codepen/codepen.html');
-
-    private cssCode = require('./snippets/snippet.css');
+export class ComponentsAppNavigatorComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.codepenSnippet,
+        html: this.snippets.examples.appExampleHtml,
         htmlTemplates: [{
             id: 'app_navigator_popover.tmpl.html',
-            content: this.popoverCode,
+            content: this.snippets.examples.popoverHtml,
         }],
-        css: [this.cssCode]
+        css: [this.snippets.examples.sampleCss]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 
 }

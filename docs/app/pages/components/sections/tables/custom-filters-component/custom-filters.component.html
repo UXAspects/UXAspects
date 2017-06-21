@@ -20,22 +20,22 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
     </tab>
 
     <tab heading="TypeScript">
-        <uxd-snippet language="javascript" [code]="tsCode"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
     </tab>
 
     <tab heading="Filter HTML">
-        <uxd-snippet language="html" [code]="sampleHtml"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.sampleHtml"></uxd-snippet>
     </tab>
 
     <tab heading="Filter TypeScript">
-        <uxd-snippet language="javascript" [code]="sampleTs"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.sampleTs"></uxd-snippet>
     </tab>
 
     <tab heading="Filter CSS">
-        <uxd-snippet language="css" [code]="sampleLess"></uxd-snippet>
+        <uxd-snippet language="css" [content]="snippets.compiled.sampleCss"></uxd-snippet>
     </tab>
 </tabset>

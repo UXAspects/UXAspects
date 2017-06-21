@@ -19,9 +19,9 @@ export class ComponentsFocusIfComponent extends BaseDocumentationSection impleme
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html'),
-            'app.component.less': require('./snippets/app.less')
+            'app.component.ts': this.snippets.examples.appTs,
+            'app.component.html': this.snippets.examples.appHtml,
+            'app.component.css': this.snippets.examples.appCss
         },
         modules: [{
           imports: ['FocusIfModule'],
@@ -30,7 +30,7 @@ export class ComponentsFocusIfComponent extends BaseDocumentationSection impleme
     };
 
     constructor() {
-        super(require.context('./snippets/', false, /\.(html|less|js|ts)$/));
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
     
 }

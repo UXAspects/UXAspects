@@ -5,13 +5,14 @@ import { ColorService } from '../../../../../../../src/index';
 import { FilterEvent } from '../../../../../../../src/components/filters/index';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-filters',
     templateUrl: './filters.component.html'
 })
 @DocumentationSectionComponent('ComponentsFiltersComponent')
-export class ComponentsFiltersComponent implements IPlunkProvider {
+export class ComponentsFiltersComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     activeFilters: Filter[] = [];  
 
@@ -134,13 +135,10 @@ export class ComponentsFiltersComponent implements IPlunkProvider {
 
     filteredTable: FilterSampleItem[] = this.table;
 
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
-
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html')
+            'app.component.ts': this.snippets.examples.appTs,
+            'app.component.html': this.snippets.examples.appHtml
         },
         mappings: [
             {
@@ -157,7 +155,9 @@ export class ComponentsFiltersComponent implements IPlunkProvider {
     sparkTrackColor: string = this.colorService.getColor('accent').setAlpha(0.2).toRgba();
     sparkBarColor: string = this.colorService.getColor('accent').toHex();
 
-    constructor(private colorService: ColorService) { }
+    constructor(private colorService: ColorService) {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 
     filtersChanged(event: FilterEvent) {
 

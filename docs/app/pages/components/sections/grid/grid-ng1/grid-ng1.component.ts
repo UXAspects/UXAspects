@@ -2,23 +2,25 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-grid-ng1',
     templateUrl: './grid-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsGridNg1Component')
-export class ComponentsGridNg1Component implements ICodePenProvider {
-    
-    private htmlCode = require('./snippets/app.html');
-    private jsCode = require('./snippets/app.js');
+export class ComponentsGridNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.appHtml,
         htmlAttributes: {
             'ng-controller': 'GridDemoCtrl as vm'
         },
-        js: [this.jsCode]
+        js: [this.snippets.examples.appJs]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 
 }

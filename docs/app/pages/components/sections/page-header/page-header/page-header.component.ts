@@ -4,21 +4,19 @@ import { Breadcrumb } from '../../../../../../../src/components/breadcrumbs/inde
 import { PageHeaderNavigationItem, PageHeaderIconMenu } from '../../../../../../../src/index';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-page-header',
     templateUrl: './page-header.component.html'
 })
 @DocumentationSectionComponent('ComponentsPageHeaderComponent')
-export class ComponentsPageHeaderComponent implements IPlunkProvider {
-
-    htmlCode: string = require('./snippets/app.html');
-    tsCode: string = require('./snippets/app.ts');
+export class ComponentsPageHeaderComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     plunk: IPlunk = {
         files: {
-            'app.component.html': this.htmlCode,
-            'app.component.ts': this.tsCode,
+            'app.component.html': this.snippets.examples.appHtml,
+            'app.component.ts': this.snippets.examples.appTs,
         },
         modules: [{
             imports: ['PageHeaderModule'],
@@ -115,5 +113,9 @@ export class ComponentsPageHeaderComponent implements IPlunkProvider {
             ]
         }
     ];
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 
 }

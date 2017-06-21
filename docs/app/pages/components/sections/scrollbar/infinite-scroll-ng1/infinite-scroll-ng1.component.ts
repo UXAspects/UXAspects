@@ -13,6 +13,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('ComponentsInfiniteScrollNg1Component')
 export class ComponentsInfiniteScrollNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+    
     public codepen: ICodePen = {
         html: this.snippets.examples.layoutHtml,
         htmlAttributes: {

@@ -21,7 +21,7 @@ function MarqueeModalCtrl($modal: any, $scope: angular.IScope) {
 
         var modalInstance = $modal.open({
             animation: false,
-            templateUrl: '../snippets/sample.html',
+            template: require('!!raw-loader!../snippets/sample.html'),
             controller: 'MarqueeModalInstanceCtrl',
             controllerAs: 'vm',
             keyboard: 'true',
@@ -42,12 +42,12 @@ MarqueeModalInstanceCtrl.$inject = ['$scope', '$modalInstance'];
 function MarqueeModalInstanceCtrl($scope: any, $modalInstance: any) {
     var vm = this;
 
-    let first = require('!file-loader?name=[path][name].[ext]!../snippets/first.html');
-    let second = require('!file-loader?name=[path][name].[ext]!../snippets/second.html');
-    let third = require('!file-loader?name=[path][name].[ext]!../snippets/third.html');
-    let fourth = require('!file-loader?name=[path][name].[ext]!../snippets/fourth.html');
-    let fifth = require('!file-loader?name=[path][name].[ext]!../snippets/fifth.html');
-    let sixth = require('!file-loader?name=[path][name].[ext]!../snippets/sixth.html');
+    let first = require('!!file-loader?name=[path][name].[ext]!../snippets/first.html');
+    let second = require('!!file-loader?name=[path][name].[ext]!../snippets/second.html');
+    let third = require('!!file-loader?name=[path][name].[ext]!../snippets/third.html');
+    let fourth = require('!!file-loader?name=[path][name].[ext]!../snippets/fourth.html');
+    let fifth = require('!!file-loader?name=[path][name].[ext]!../snippets/fifth.html');
+    let sixth = require('!!file-loader?name=[path][name].[ext]!../snippets/sixth.html');
 
     vm.steps = [{
         title: 'First step',

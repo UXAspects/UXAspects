@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from './../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from './../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 
 @Component({
@@ -9,17 +10,17 @@ import { ICodePen } from './../../../../../interfaces/ICodePen';
     templateUrl: './navigation.component.html'
 })
 @DocumentationSectionComponent('ComponentsNavigationComponent')
-export class ComponentsNavigationComponent implements ICodePenProvider {
+export class ComponentsNavigationComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    private htmlCode = require('./snippets/sample.html');
-
-    private jsCode = require('./snippets/sample.js');
-
-    private noteCode = require('./snippets/ng-class.html');
+    private noteCode = require('!!raw-loader!./snippets/ng-class.html');
 
     public codepen: ICodePen = {
-        html: this.htmlCode,
-        js: [this.jsCode]
+        html: this.snippets.examples.sampleHtml,
+        js: [this.snippets.examples.sampleJs]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 
 }

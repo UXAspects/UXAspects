@@ -3,7 +3,7 @@ angular.module('app').directive('uxdInfiniteScrollWrapper', () => {
         restrict: 'E',
         template: require('./infinite-scroll-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$q', 'safeTimeout', function ($scope, $templateCache, $q, safeTimeout) {
-            $templateCache.put('infinite-scroll-ng1/itemTemplate.html', require('../snippets/itemTemplate.html'));
+            $templateCache.put('infinite-scroll-ng1/itemTemplate.html', require('./itemTemplate.html'));
 
             var chance = require('chance').Chance();
 

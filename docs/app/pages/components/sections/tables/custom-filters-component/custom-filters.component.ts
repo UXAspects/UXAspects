@@ -4,13 +4,14 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { Filter } from '../../../../../../../src/index';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-custom-filters',
     templateUrl: './custom-filters.component.html'
 })
 @DocumentationSectionComponent('ComponentsCustomFiltersComponent')
-export class ComponentsCustomFiltersComponent implements IPlunkProvider {
+export class ComponentsCustomFiltersComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     statusFilters: Filter[] = [{
         group: 'custom',
@@ -27,19 +28,13 @@ export class ComponentsCustomFiltersComponent implements IPlunkProvider {
         name: 'Inactive'
     }];
 
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
-    sampleHtml = require('./snippets/sample.html');
-    sampleTs = require('./snippets/sample.ts');
-    sampleLess = require('./snippets/sample.less');
-
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': this.tsCode,
-            'app.component.html': this.htmlCode,
-            'sample-filter.component.html': this.sampleHtml,
-            'sample-filter.component.css': this.sampleLess,
-            'sample-filter.component.ts': this.sampleTs
+            'app.component.ts': this.snippets.examples.appTs,
+            'app.component.html': this.snippets.examples.appHtml,
+            'sample-filter.component.html': this.snippets.examples.sampleHtml,
+            'sample-filter.component.css': this.snippets.examples.sampleCss,
+            'sample-filter.component.ts': this.snippets.examples.sampleTs
         },
         mappings: [
             MAPPINGS.NgxBootstrap
@@ -57,5 +52,9 @@ export class ComponentsCustomFiltersComponent implements IPlunkProvider {
             forRoot: true
         }]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 
 }
