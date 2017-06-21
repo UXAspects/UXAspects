@@ -1,4 +1,4 @@
-UX Aspects 1.2.1 is available! Check out the documentation at [https://uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects).
+UX Aspects 1.2.2 is available! Check out the documentation at [https://uxaspects.github.io/UXAspects](https://uxaspects.github.io/UXAspects).
 
 New Features:
 * New Angular 4 components and documentation:
