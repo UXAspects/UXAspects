@@ -698,6 +698,15 @@
             ]
         },
         {
+            "title": "PDF Export",
+            "link": "pdf-export",
+            "sections": [{
+                "title": "PDF Export",
+                "component": "ComponentsPdfExportComponent",
+                "version": "Angular"
+            }]
+        },
+        {
             "title": "Popover",
             "link": "popover",
             "sections": [{
