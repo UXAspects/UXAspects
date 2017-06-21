@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-css-page-header-condensed-header-toolbar',
     templateUrl: './condensed-header-toolbar.component.html'
 })
 @DocumentationSectionComponent('CssCondensedHeaderToolbarComponent')
-export class CssCondensedHeaderToolbarComponent {
+export class CssCondensedHeaderToolbarComponent extends BaseDocumentationSection {
 
-    private htmlCode1 = require('./snippets/sample1.html');
-
-    private htmlCode2 = require('./snippets/sample2.html');
-
-    private htmlCode3 = require('./snippets/sample3.html');
-
+    constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+    }
 }

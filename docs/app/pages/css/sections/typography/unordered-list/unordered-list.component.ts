@@ -2,20 +2,20 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from './../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from './../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-css-typography-unordered-list',
     templateUrl: './unordered-list.component.html'
 })
 @DocumentationSectionComponent('CssUnorderedListComponent')
-export class CssUnorderedListComponent implements ICodePenProvider {
-
-    private htmlCode = require('./snippets/sample.html');
-
-    private codepenSnippet = require('./codepen/codepen.html');
+export class CssUnorderedListComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.codepenSnippet
+        html: this.snippets.examples.codeExampleHtml
     };
 
+    constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+    }
 }

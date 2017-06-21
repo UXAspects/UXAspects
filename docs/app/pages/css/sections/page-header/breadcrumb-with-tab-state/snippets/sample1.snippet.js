@@ -6,12 +6,12 @@ function BreadCrumbWithTabStateCtrl($scope, $state) {
     $scope.additionalTabActive = false;
 
 
-    $scope.load = function(state) {
-    $state.go(state);
+    $scope.load = function (state) {
+        $state.go(state);
     };
 
-    $scope.$on("$stateChangeSuccess", function() {
-    $scope.documentationTabActive = !!$state.is("patterns.pagelayout.breadCrumbWithTabState.documentationTab");
-    $scope.additionalTabActive = !!$state.is("patterns.pagelayout.breadCrumbWithTabState.additionalTab");
+    $scope.$on("$stateChangeSuccess", function () {
+        $scope.documentationTabActive = !!$state.is("patterns.pagelayout.breadCrumbWithTabState.documentationTab");
+        $scope.additionalTabActive = !!$state.is("patterns.pagelayout.breadCrumbWithTabState.additionalTab");
     });
 }
