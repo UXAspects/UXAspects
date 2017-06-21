@@ -15,9 +15,9 @@ export class ChangeLogPageComponent {
 
         this.logs = [
             {
-                version: '1.2.1',
+                version: '1.2.2',
                 date: 'June 20th 2017',
-                content: require('./logs/release-v1.2.1.md')
+                content: require('./logs/release-v1.2.2.md')
             },
             {
                 version: '1.2.0',
