@@ -1,0 +1,20 @@
+<div class="p-r-nil scroll-cardview" ng-if="vm.activeLayout === 'stack'" scroll-config="::vm.scrollBarConfig" scroll-name="stackscroll" scroll-pane>
+  <ul class="card-view stacked list-stack card-hover">
+    <li class="card clickable p-r-nil" index="{{::$index}}" multiple-select-item="item" ng-repeat="item in vm.items track by item.id"
+      preview-pane-item="vm.goToDetails(itemIndex)" tabIndex="{{ $index == 0 ? 1 : -1 }}">
+      <span class="label label-accent card-label" ng-show="::item.active">ACTIVE</span>
+      <div class="icon">
+        <div class="card-icon"></div>
+      </div>
+      <div class="content">
+        <h3 class="m-b-nil m-t-nil overflow-ellipse card-text-emphasis" ng-bind="::item.document"></h3>
+        <p class="m-b-nil overflow-ellipse p-t-xxs">
+          <span class="card-text-subtle">Authored</span>
+          <span class="card-text-subtle" ng-show="::item.dateString!='Today'"> on</span> <span ng-bind="::item.dateString"></span>
+          <span class="card-text-subtle"> by</span> <span ng-bind="::item.name"></span>
+        </p>
+        <spark type="'spark-accent'" value="::item.storage" fillheight="3" top-left-label="::item.storage" class="col-xs-3 inline-block no-padding align-right"></spark>
+      </div>
+    </li>
+  </ul>
+</div>
