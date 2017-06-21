@@ -16366,17 +16366,34 @@ ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-se
 ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-selected-container .facet-typeahead-list-selected-option .facet-typeahead-list-selected-option-count {
   color: #999;
 }
-ux-filter-container .clear-button {
-  background: url(../../img/filter_clear_light.png) no-repeat;
-  width: 22px;
-  height: 12px;
-  margin-left: 3px;
-  margin-right: 10px;
-  margin-bottom: 2px;
-  padding-right: 9px;
-  box-shadow: none;
-  font-weight: bold;
+ux-filter-container {
+  display: flex;
+  align-items: center;
+}
+ux-filter-container .filter-selected-clear-button {
   display: inline-block;
+  position: relative;
+  flex: none;
+  width: 21px;
+  height: 14px;
+  border: 1px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+ux-filter-container .filter-selected-clear-button:hover,
+ux-filter-container .filter-selected-clear-button:focus {
+  border-color: #333;
+  outline-style: none;
+}
+ux-filter-container .filter-selected-clear-button .filter-selected-clear-graphic {
+  position: absolute;
+  top: 0;
+}
+ux-filter-container .filter-selected-clear-button .filter-selected-clear-graphic .dark-grey {
+  fill: #333;
+}
+ux-filter-container .filter-selected-clear-button .filter-selected-clear-graphic .light-grey {
+  fill: #999;
 }
 ux-filter-dropdown .filter-dropdown {
   padding: 6px;
