@@ -12,12 +12,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsDetailedTabExampleNg1Component')
 export class ComponentsDetailedTabExampleNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    // private htmlCode = require('./snippets/sample.html');
-    // private jsCode = require('./snippets/sample.js');
-    // private barCtrl = require('./snippets/tab-bar.js');
-    // private sankeyCtrl = require('./snippets/tab-sankey.js');
-    // private tableCtrl = require('./snippets/tab-table.js');
-
     private barHtml = require('./wrapper/tab-bar.html');
     private sankeyHtml = require('./wrapper/tab-sankey.html');
     private tableHtml = require('./wrapper/tab-table.html');

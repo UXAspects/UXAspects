@@ -12,18 +12,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsMarqueeWizardNg1Component')
 export class ComponentsMarqueeWizardNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    // private htmlCode = require('./snippets/sample.html');
-    // private jsCode = require('./snippets/sample.js');
-    // private cssCode = require('./snippets/sample.css');
-    // private modalHtml = require('./snippets/modal.html');
-    // private modalJs = require('./snippets/modal.js');
-    // private first = require('./snippets/first.html');
-    // private second = require('./snippets/second.html');
-    // private third = require('./snippets/third.html');
-    // private fourth = require('./snippets/fourth.html');
-    // private fifth = require('./snippets/fifth.html');
-    // private sixth = require('./snippets/sixth.html');
-
     public codepen: ICodePen = {
         html: this.snippets.raw.modalHtml,
         htmlAttributes: {

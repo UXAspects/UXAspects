@@ -63,8 +63,8 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
 
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html')
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
             imports: ['CheckboxModule'],

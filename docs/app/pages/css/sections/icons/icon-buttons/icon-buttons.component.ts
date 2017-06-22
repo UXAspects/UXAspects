@@ -11,8 +11,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('CssIconButtonsComponent')
 export class CssIconButtonsComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    private htmlCode = require('./snippets/sample.html');
-
     public codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml
     };

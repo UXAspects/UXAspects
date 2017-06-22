@@ -12,9 +12,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsTooltipsNg1Component')
 export class ComponentsTooltipsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private htmlCode = require('./snippets/sample.html');
-    private jsCode = require('./snippets/sample.js');
-
     public codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
