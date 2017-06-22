@@ -4,6 +4,7 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { ComponentsPdfExportComponent } from './pdf-export/pdf-export.component';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
+import { PdfExportModule } from '../../../../../../src/components/pdf-export/pdf-export.module';
 
 const SECTIONS = [
     ComponentsPdfExportComponent
@@ -22,6 +23,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
+        PdfExportModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
