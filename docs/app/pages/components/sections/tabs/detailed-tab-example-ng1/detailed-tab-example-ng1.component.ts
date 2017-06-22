@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-detailed-tab-example-ng1',
@@ -9,19 +10,14 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsDetailedTabExampleNg1Component')
-export class ComponentsDetailedTabExampleNg1Component implements ICodePenProvider {
+export class ComponentsDetailedTabExampleNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private htmlCode = require('./snippets/sample.html');
-    private jsCode = require('./snippets/sample.js');
     private barHtml = require('./wrapper/tab-bar.html');
-    private barCtrl = require('./snippets/tab-bar.js');
     private sankeyHtml = require('./wrapper/tab-sankey.html');
-    private sankeyCtrl = require('./snippets/tab-sankey.js');
     private tableHtml = require('./wrapper/tab-table.html');
-    private tableCtrl = require('./snippets/tab-table.js');
 
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TabsCtrl as vm'
         },
@@ -39,7 +35,11 @@ export class ComponentsDetailedTabExampleNg1Component implements ICodePenProvide
                 content: this.tableHtml
             }
         ],
-        js: [this.jsCode, this.barCtrl, this.sankeyCtrl, this.tableCtrl]
+        js: [this.snippets.raw.sampleJs, this.snippets.raw.tabBarJs, this.snippets.raw.tabSankeyJs, this.snippets.raw.tabTableJs]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
     
 }

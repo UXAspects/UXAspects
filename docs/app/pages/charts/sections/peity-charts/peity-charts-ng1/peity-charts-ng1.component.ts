@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-peity-charts-ng1',
@@ -10,24 +11,22 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsPeityChartNg1Component')
-export class ChartsPeityChartNg1Component implements ICodePenProvider {
+export class ChartsPeityChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private lineChart: any;
     private updatingLineChart: any;
     private barChart: any;
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'PeityChartCtrl as pc'
         },
-        js: [this.jsCode],
+        js: [this.snippets.raw.chartJs],
     };
 
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let peityChartColors = {
             chartColor1: colorService.getColor('chart1').toRgb(),

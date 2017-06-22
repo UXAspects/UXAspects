@@ -1,19 +1,15 @@
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-css-page-header-back-button',
     templateUrl: './back-button.component.html'
 })
 @DocumentationSectionComponent('CssBackButtonComponent')
-export class CssBackButtonComponent {
+export class CssBackButtonComponent extends BaseDocumentationSection {
 
-    private htmlCode = require('./snippets/sample.html');
-
-    private jsCode = require('./snippets/sample.js');
-
-    private htmlCodeHide = require('./snippets/sample-hide.html');
-
-    private jsCodeHide = require('./snippets/sample-hide.js');
-
+    constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+    }
 }

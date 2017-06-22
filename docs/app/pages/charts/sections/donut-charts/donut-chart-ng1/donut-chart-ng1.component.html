@@ -47,11 +47,11 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [code]="chartHtml"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
     </tab>
     
     <tab heading="Javascript">
-        <uxd-snippet language="javascript" [code]="chartJs"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
     </tab>
 </tabset>
 
@@ -332,7 +332,7 @@
 <p>To convey chart information to users with assistive technologies, you can include a text version of the data. Use the <code>sr-only</code>    class to make the text hidden but visible to screen readers, and give the container a <code>tabindex</code> attribute
     so it can be reached with the keyboard, and place it near the chart.</p>
 
-<uxd-snippet [code]="accessibilityHtml"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.accessibilityHtml"></uxd-snippet>
 
 <h4 id="dynamic-chart-labels">Dynamic Chart Labels</h4>
 
@@ -342,11 +342,11 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [code]="labelsHtml"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.labelsHtml"></uxd-snippet>
     </tab>
     
     <tab heading="Javascript">
-        <uxd-snippet language="javascript" [code]="labelsJs"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.labelsJs"></uxd-snippet>
     </tab>
 </tabset>
 
@@ -360,11 +360,11 @@
 <tabset>
 
     <tab heading="Javascript">
-        <uxd-snippet language="javascript" [code]="legendJs"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.legendJs"></uxd-snippet>
     </tab>
 
     <tab heading="CSS">
-        <uxd-snippet language="css" [code]="legendCss"></uxd-snippet>
+        <uxd-snippet language="css" [content]="snippets.compiled.legendCss"></uxd-snippet>
     </tab>
 
 </tabset>

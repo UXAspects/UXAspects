@@ -23,12 +23,6 @@ export class ComponentsLayoutSwitchingSplitterNg1Component extends BaseDocumenta
     };
 
     constructor() {
-        super(
-            null,
-            null,
-            null,
-            null,
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 }

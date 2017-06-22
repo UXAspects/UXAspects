@@ -7,7 +7,7 @@
 <p>Draggable functionality can be implemented by adding a <code>draggable-panel-container</code> directive to the page. 
 This will act as a container for any <code>draggable-panel</code> directives.</p>
 
-<uxd-snippet [code]="containerHtmlCode" language="html"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.draggablePanelsContainerHtml" language="html"></uxd-snippet>
 
 <p>To specify the size of the <code>draggable-panel-container</code> you can apply a class that will set the width and height, such as <code>.col-xs-6</code> as in the sample code above.</p>
 
@@ -73,7 +73,7 @@ Any <code>draggable-panel-container</code> elements that share the same <code>dr
 <p>To identify which elements should be draggable use the <code>draggable-panel</code> directive. 
 The <code>draggable-panel</code> directives should be placed within the <code>draggable-card-container</code> they will begin in.</p>
 
-<uxd-snippet [code]="panelHtmlCode" language="html"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.draggablePanelsPanelHtml" language="html"></uxd-snippet>
 
 <p>The <code>draggable-panel</code> directive should contain a single <code>div</code> element which will become the draggable panel. 
 This <code>div</code> can be styled in any way and have child elements.</p>
@@ -89,4 +89,4 @@ If the user should be allowed to drag anywhere within the panel simply apply the
 <p>The following code is used to produce the example displayed at the top of the page. 
 This example uses two different <code>draggable-panel-container</code> elements, both with the same <code>draggable-group</code> so cards can be moved between them.</p>
 
-<uxd-snippet [code]="htmlCode" language="html"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.draggablePanelsHtml" language="html"></uxd-snippet>

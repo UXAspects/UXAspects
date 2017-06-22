@@ -63,8 +63,8 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
 
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html')
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
             imports: ['CheckboxModule'],
@@ -74,13 +74,7 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
 
     constructor() {
  
-        super(
-            null, // require.context('!!prismjs-loader?lang=html!./snippets/', false, /\.html$/),
-            null, // require.context('!!prismjs-loader?lang=css!./snippets/', false, /\.css$/),
-            null, // require.context('!!prismjs-loader?lang=javascript!./snippets/', false, /\.js$/),
-            null, // require.context('!!prismjs-loader?lang=typescript!./snippets/', false, /\.ts$/),
-            require.context('./snippets/', false, /\.(html|css|js|ts)$/)
-        );
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         this.checkModel = {
             option1: true,

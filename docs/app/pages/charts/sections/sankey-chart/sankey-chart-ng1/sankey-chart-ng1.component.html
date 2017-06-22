@@ -6,7 +6,7 @@
 
 <p>To create a Sankey chart, use the <code>sankey</code> directive.</p>
 
-<uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+<uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
 
 <p>The data for the chart should be set with the <code>chart-data</code> attribute. There are two optional attributes, a <code>click</code> attribute for handling interaction, and an <code>options</code> attribute for configuration of the chart.</p>
 
@@ -14,7 +14,7 @@
 
 <p>Sankey Charts are composed of a number of nodes representing areas of a system. These are arranged into columns and connected by links. The required format for the chart data is as shown:</p>
 
-<uxd-snippet language="javascript" [code]="dataJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.dataJs"></uxd-snippet>
 
 <p>Each column should be defined with a <code>name</code> and an <code>id</code>. The value given for <code>ordinal</code> defines the order in which the columns will be presented.</p>
 
@@ -30,7 +30,7 @@
 
 <p>The configuration object for the Sankey Chart allows data properties to be mapped to positions on the chart nodes.</p>
 
-<uxd-snippet language="javascript" [code]="optionsJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.optionsJs"></uxd-snippet>
 
 <div class="demo-attributes table-responsive">
   <table class="table m-t">
@@ -325,7 +325,7 @@
 
 <p>This attribute allows a function to be passed to the Sankey chart which exposes the behaviour of clicking on a node. The code sample below shows the function being passed in the above example. The node object clicked will be passed to this function, and exposes the same attributes as when the data source was initially supplied, as well as the HTML and SVG elements the node comprises.</p>
 
-<uxd-snippet language="javascript" [code]="clickJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.clickJs"></uxd-snippet>
 
 <h4 id="responsiveness">Responsiveness</h4>
 

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-help-center-ng1',
     templateUrl: './help-center-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsHelpCenterNg1Component')
-export class ComponentsHelpCenterNg1Component {
-    
-    private htmlCode = require('./snippets/help-center.html');
+export class ComponentsHelpCenterNg1Component extends BaseDocumentationSection {
 
-    private exampleHtmlCode = require('./snippets/help-center-button.html');
-    private exampleJsCode = require('./snippets/help-center.js');
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 }

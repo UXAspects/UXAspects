@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ColorService } from '../../../../../../../src/index';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
   selector: 'uxd-charts-multiple-axis-line-chart-ng1',
@@ -10,23 +11,21 @@ import { ColorService } from '../../../../../../../src/index';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsMultipleAxisLineChartNg1Component')
-export class ChartsMultipleAxisLineChartNg1Component implements ICodePenProvider {
+export class ChartsMultipleAxisLineChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
   private data: any[];
   private options: any;
 
-  private htmlCode = require('./snippets/chart.html');
-  private jsCode = require('./snippets/chart.js');
-
   public codepen: ICodePen = {
-    html: this.htmlCode,
+    html: this.snippets.raw.chartHtml,
     htmlAttributes: {
       'ng-controller': 'MultipleAxisLineChartCtrl as lc'
     },
-    js: [this.jsCode]
+    js: [this.snippets.raw.chartHtml]
   };
 
   constructor(colorService: ColorService, @Inject('flotDataService') flotDataService: any) {
+    super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
     let flotChartColors = {
       chart1Color: colorService.getColor('chart1').toRgb(),

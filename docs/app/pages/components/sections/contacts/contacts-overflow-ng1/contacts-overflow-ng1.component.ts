@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-contacts-overflow-ng1',
@@ -10,26 +11,25 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsContactsOverflowNg1Component')
-export class ComponentsContactsOverflowNg1Component implements ICodePenProvider {
-    private htmlCode = require('./snippets/contacts-overflow.html');
-    private cssCode = require('./snippets/contacts-overflow.css');
-    private javascriptCode = require('./snippets/contacts-overflow.js');
-    private modalHtmlCode = require('./snippets/contacts-overflow-modal.html');
-    private modalJavascriptCode = require('./snippets/contacts-overflow-modal.js');
-    private modalItemHtmlCode = require('./snippets/contacts-overflow-modal-item.html');
+export class ComponentsContactsOverflowNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.raw.contactsOverflowHtml,
         htmlAttributes: {
             'ng-controller': 'ContactsOverflowDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'contacts-overflow-modal.html',
-            content: this.modalHtmlCode
+            content: this.snippets.raw.contactsOverflowModalHtml
         }, {
             id: 'contacts-overflow-modal-item.html',
-            content: this.modalItemHtmlCode
+            content: this.snippets.raw.contactsOverflowModalItemHtml
         }],
-        css: [this.cssCode],
-        js: [this.javascriptCode, this.modalJavascriptCode]
+        css: [this.snippets.raw.contactsOverflowCss],
+        js: [this.snippets.raw.contactsOverflowJs, this.snippets.raw.contactsOverflowModalJs]
     };
+    
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 }

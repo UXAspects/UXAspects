@@ -6,25 +6,23 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import 'chance';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-facet-typeahead-list',
     templateUrl: './facet-typeahead-list.component.html'
 })
 @DocumentationSectionComponent('ComponentsFacetTypeaheadListComponent')
-export class ComponentsFacetTypeaheadListComponent implements IPlunkProvider {
+export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     facets: Observable<Facet[]>;
 
     private users: Facet[] = [];
 
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
-
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html')
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml
         },
         mappings: [
             {
@@ -39,6 +37,7 @@ export class ComponentsFacetTypeaheadListComponent implements IPlunkProvider {
     };
 
     constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         // generate random facet data
         for (let idx = 0; idx < 1000; idx++) {

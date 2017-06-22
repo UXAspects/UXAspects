@@ -4,19 +4,20 @@ import { ColorService } from '../../../../../../../src/index';
 import { BaseChartDirective } from 'ng2-charts';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-live-chart',
     templateUrl: './live-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsLiveChartComponent')
-export class ChartsLiveChartComponent implements IPlunkProvider {
+export class ChartsLiveChartComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/live-chart.ts'),
-            'app.component.html': require('./snippets/live-chart.html'),
-            'app.component.css': require('./snippets/live-chart.css')
+            'app.component.ts': this.snippets.raw.liveChartTs,
+            'app.component.html': this.snippets.raw.liveChartHtml,
+            'app.component.css': this.snippets.raw.liveChartCss
         },
         modules: [{
             library: 'chart.js'
@@ -51,11 +52,8 @@ export class ChartsLiveChartComponent implements IPlunkProvider {
 
     private livedata: number[] = [];
 
-    htmlCode = require('./snippets/live-chart.html');
-    tsCode = require('./snippets/live-chart.ts');
-    cssCode = require('./snippets/live-chart.css');
-
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let gridColor = colorService.getColor('grey6').toHex();
         let lineBorderColor = colorService.getColor('chart1').toRgb();

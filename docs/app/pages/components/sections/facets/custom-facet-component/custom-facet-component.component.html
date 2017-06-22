@@ -50,7 +50,7 @@
 
 <p>The following code demonstrates how the header can be used:</p>
 
-<uxd-snippet language="html" [code]="headerHtmlCode"></uxd-snippet>
+<uxd-snippet language="html" [content]="snippets.compiled.headerHtml"></uxd-snippet>
 
 <hr>
 
@@ -102,18 +102,18 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
     </tab>
 
     <tab heading="Facet HTML">
-        <uxd-snippet language="html" [code]="facetHtmlCode"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.facetComponentHtml"></uxd-snippet>
     </tab>
 
     <tab heading="Facet TypeScript">
-        <uxd-snippet language="javascript" [code]="facetTsCode"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.facetComponentTs"></uxd-snippet>
     </tab>
 
     <tab heading="Facet CSS">
-        <uxd-snippet language="css" [code]="facetCssCode"></uxd-snippet>
+        <uxd-snippet language="css" [content]="snippets.compiled.facetComponentCss"></uxd-snippet>
     </tab>
 </tabset>

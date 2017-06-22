@@ -13,7 +13,7 @@
     to define a user method.
 </p>
 
-<uxd-snippet language="html" [code]="facetContainerCode"></uxd-snippet>
+<uxd-snippet language="html" [content]="snippets.compiled.facetContainerSnippetHtml"></uxd-snippet>
 
 <p>A <code>facet</code> element may have the following attributes:</p>
 
@@ -45,7 +45,7 @@
     </table>
 </div>
 
-<uxd-snippet language="html" [code]="facetCode"></uxd-snippet>
+<uxd-snippet language="html" [content]="snippets.compiled.facetSnippetHtml"></uxd-snippet>
 
 <p>
     A <code>facet</code> element can contain many <code>facet-option</code> elements. <code>facet-option</code> elements
@@ -142,11 +142,11 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [code]="facetOptionHtmlCode"></uxd-snippet>
+        <uxd-snippet language="html"  [content]="snippets.compiled.facetOptionSnippetHtml"></uxd-snippet>
     </tab>
 
     <tab heading="Javascript">
-        <uxd-snippet language="javascript" [code]="facetOptionJsCode"></uxd-snippet>
+        <uxd-snippet language="javascript"  [content]="snippets.compiled.facetOptionSnippetJs"></uxd-snippet>
     </tab>
 </tabset>
 
@@ -177,4 +177,4 @@
     time.
 </p>
 
-<uxd-snippet language="javascript" [code]="facetVisibility"></uxd-snippet>
+<uxd-snippet language="javascript"  [content]="snippets.compiled.facetVisibilitySnippetJs"></uxd-snippet>

@@ -10,10 +10,10 @@
 
 <tabset>
   <tab heading="HTML">
-    <uxd-snippet [code]="sampleHtml"></uxd-snippet>
+    <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
   </tab>
   <tab heading="JavaScript">
-    <uxd-snippet language="javascript" [code]="sampleJs"></uxd-snippet>
+    <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
   </tab>
 </tabset>
 
@@ -24,7 +24,7 @@
     <uxd-snippet [code]="actionsHtml"></uxd-snippet>
   </tab>
   <tab heading="JavaScript">
-    <uxd-snippet language="javascript" [code]="actionsJs"></uxd-snippet>
+    <uxd-snippet language="javascript" [content]="snippets.compiled.actionsJs"></uxd-snippet>
   </tab>
 </tabset>
 
@@ -262,7 +262,7 @@
 
 <p>The following function may be useful in searching the <code>tree-data</code> structure for specific items:</p>
 
-<uxd-snippet language="javascript" [code]="jsCode1"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.code1Js"></uxd-snippet>
 
 <h4>Options</h4>
 
@@ -364,7 +364,7 @@
         <p>
           See below for an example sorting function suitable for the tree grid:
         </p>
-        <uxd-snippet [content]="sortExampleJs" language="javascript"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.sortSnippetJs" language="javascript"></uxd-snippet>
       </td>
       <td>false</td>
     </tr>
@@ -375,14 +375,14 @@
 
 <p>An example <code>options</code> definition with alternative expanders and icons:</p>
 
-<uxd-snippet language="javascript" [code]="jsCode2"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.code2Js"></uxd-snippet>
 
 <p>An example <code>options</code> definition using images:</p>
 
-<uxd-snippet language="javascript" [code]="jsCode3"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.code3Js"></uxd-snippet>
 
 <h4>Events</h4>
 
 <p>To reload the tree grid to its initial state, issue the <code>treegrid.reload</code> event.</p>
 
-<uxd-snippet language="javascript" [code]="jsCode4"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.code4Js"></uxd-snippet>

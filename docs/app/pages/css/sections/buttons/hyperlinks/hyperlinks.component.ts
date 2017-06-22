@@ -2,22 +2,21 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from './../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from './../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-css-buttons-hyperlinks',
     templateUrl: './hyperlinks.component.html'
 })
 @DocumentationSectionComponent('CssHyperlinksComponent')
-export class CssHyperlinksComponent implements ICodePenProvider {
-
-    private singleCode = require('./snippets/singleSample.html'); 
-
-    private listCode = require('./snippets/listSample.html');
-
-    private codepenSnippet = require('./codepen/codepen.html');
+export class CssHyperlinksComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.codepenSnippet
+        html: this.snippets.raw.codepenExampleHtml
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+    }
 
 }

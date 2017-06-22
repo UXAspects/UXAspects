@@ -48,7 +48,7 @@
     </table>
 </div>
 
-<uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+<uxd-snippet language="html" [content]="snippets.compiled.helpCenterSnippetHtml"></uxd-snippet>
 
 <p>
     Help Center Menu consists of items that can be populated using the <code>help-center-item</code> attribute in each element.
@@ -96,10 +96,10 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [code]="exampleHtmlCode"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.helpCenterButtonSnippetHtml"></uxd-snippet>
     </tab>
     <tab heading="Javascript">
-        <uxd-snippet language="javascript" [code]="exampleJsCode"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.helpCenterSnippetJs"></uxd-snippet>
     </tab>
 </tabset>
 

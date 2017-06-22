@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-tree-grid-ng1',
@@ -9,22 +10,14 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsTreeGridNg1Component')
-export class ComponentsTreeGridNg1Component implements ICodePenProvider {
+export class ComponentsTreeGridNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private sampleHtml = require('./snippets/sample.html');
-    private sampleJs = require('./snippets/sample.js');
-    private jsCode1 = require('./snippets/code1.js');
-    private jsCode2 = require('./snippets/code2.js');
-    private jsCode3 = require('./snippets/code3.js');
-    private jsCode4 = require('./snippets/code4.js');
-    private actionsJs = require('./snippets/actions.js');
     private actionsHtml = require('./wrapper/actions.html');
     private displayPanel = require('./wrapper/displayPanel.html');
     private displayPanelFooter = require('./wrapper/displayPanelFooter.html');
-    private sortExampleJs = require('./snippets/sort.example.js');
 
     public codepen: ICodePen = {
-        html: this.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TreeGridCtrl as vm'
         },
@@ -38,7 +31,11 @@ export class ComponentsTreeGridNg1Component implements ICodePenProvider {
             id: 'displayPanelFooter.html',
             content: this.displayPanelFooter
         }],
-        js: [this.sampleJs, this.actionsJs]
+        js: [this.snippets.raw.sampleJs, this.snippets.raw.actionsJs]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
     
 }

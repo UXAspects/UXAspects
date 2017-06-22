@@ -5,7 +5,7 @@
 <p>The Marquee Wizard can be implemented within a modal with the use of a <code>button</code> to initialize the modal. The controller
   for our example is as follows:</p>
 
-<uxd-snippet language="javascript" [code]="modalJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.modalJs"></uxd-snippet>
 
 <blockquote>
   <p>Refer to the <a routerLink="/components/modals">Modal View</a> page for an example of how use a modal.</p>
@@ -13,7 +13,7 @@
 
 <p>The below HTML is used in the above example to launch the modal.</p>
 
-<uxd-snippet [code]="modalHtml"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.modalHtml"></uxd-snippet>
 
 <p>We specify the options for the modal, such as the <code>templateUrl</code>, <code>controller</code> and <code>windowClass</code>.</p>
 
@@ -22,13 +22,13 @@
 
 <tabset>
   <tab heading="HTML">
-    <uxd-snippet [code]="htmlCode"></uxd-snippet>
+    <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
   </tab>
   <tab heading="JavaScript">
-    <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
   </tab>
   <tab heading="Css">
-    <uxd-snippet language="css" [code]="cssCode"></uxd-snippet>
+    <uxd-snippet language="css" [content]="snippets.compiled.sampleCss"></uxd-snippet>
   </tab>
 </tabset>
 
@@ -147,12 +147,12 @@
 
 <p>See below an example of the HTML first.html step template.</p>
 
-<uxd-snippet [code]="first"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.firstHtml"></uxd-snippet>
 
 <p>See below an example of the HTML fourth.html step template which contains validation.</p>
 
 <p>The <code>FormController</code> can be referenced using <code>form</code>.</p>
 
-<uxd-snippet [code]="fourth"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.fourthHtml"></uxd-snippet>
 
 <p>To see all the code required to make the demo see the codepen</p>

@@ -78,11 +78,11 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
     </tab>
 
     <tab heading="Javascript">
-        <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
     </tab>
 </tabset>
 
@@ -115,22 +115,22 @@
     <code
        >sr-only</code> class to make the text hidden but visible to screen readers, and give the container a <code>tabindex</code>        attribute so it can be reached with the keyboard, and place it near the chart.</p>
 
-<uxd-snippet language="html" [code]="accessibilityCode"></uxd-snippet>
+<uxd-snippet language="html" [content]="snippets.compiled.accessibilityHtml"></uxd-snippet>
 
 <p>The legends are custom-styled in this example. To place the legends separately from the chart, you can define a <code>div</code>    with an id and specify this in legend options. The <code>div</code> is then placed below the
     HTML of the stacked bar chart. The styles and options applied here are:</p>
 
 <tabset>
     <tab heading="Legend HTML">
-        <uxd-snippet language="html" [code]="legendHtml"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.legendHtml"></uxd-snippet>
     </tab>
 
     <tab heading="Legend CSS">
-        <uxd-snippet language="css" [code]="legendCss"></uxd-snippet>
+        <uxd-snippet language="css" [content]="snippets.compiled.legendCss"></uxd-snippet>
     </tab>
 
     <tab heading="Legend Options">
-        <uxd-snippet language="javascript" [code]="legendJs"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.legendJs"></uxd-snippet>
     </tab>
 </tabset>
 

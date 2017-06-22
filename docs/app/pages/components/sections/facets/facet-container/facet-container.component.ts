@@ -4,23 +4,21 @@ import { Facet } from '../../../../../../../src/index';
 import 'chance';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-facet-container',
     templateUrl: './facet-container.component.html'
 })
 @DocumentationSectionComponent('ComponentsFacetContainerComponent')
-export class ComponentsFacetContainerComponent implements IPlunkProvider {
+export class ComponentsFacetContainerComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     facets: Facet[] = [];
 
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
-
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html')
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml
         },
         mappings: [
             {
@@ -33,6 +31,10 @@ export class ComponentsFacetContainerComponent implements IPlunkProvider {
             library: 'ux-aspects'
         }]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 
     addFacet() {
 

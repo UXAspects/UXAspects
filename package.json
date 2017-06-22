@@ -4,7 +4,7 @@
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "src/index.ts",
   "author": "Ashley Hunter",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "scripts": {
     "start": "webpack-dev-server --config configs/webpack.dev.config.js"
   },

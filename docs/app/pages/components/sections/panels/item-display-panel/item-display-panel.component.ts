@@ -16,7 +16,7 @@ import { ItemDisplayPanelComponent } from '../../../../../../../src/index';
     }
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelComponent')
-export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
+export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     visible: boolean = false;
     selectedItem: Item;
@@ -28,8 +28,6 @@ export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
     sparkBarColor: string;
     sparkTrackColor: string;
 
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
     modalDoc = require('./modalDOC.html');
     modalPdf = require('./modalPDF.html');
     modalPpt = require('./modalPPT.html');
@@ -98,6 +96,8 @@ export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
     ];
 
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
         this.sparkTrackColor = colorService.getColor('accent').setAlpha(0.2).toRgba();
         this.sparkBarColor = colorService.getColor('accent').toHex();
     }
@@ -156,8 +156,8 @@ export class ComponentsItemDisplayPanelComponent implements IPlunkProvider {
 
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': this.tsCode,
-            'app.component.html': this.htmlCode
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml
         },
         mappings: [
             {

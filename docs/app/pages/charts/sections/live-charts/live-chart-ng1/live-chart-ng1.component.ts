@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-live-chart-ng1',
@@ -10,24 +11,22 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsLiveChartNg1Component')
-export class ChartsLiveChartNg1Component implements ICodePenProvider {
+export class ChartsLiveChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private series: any;
     private options: any;
     private livedata: any[] = [];
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'LiveChartCtrl as lc'
         },
-        js: [this.jsCode]
+        js: [this.snippets.raw.chartJs]
     };
 
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let flotChartColors = {
             primary: colorService.getColor('chart1').toRgb(),

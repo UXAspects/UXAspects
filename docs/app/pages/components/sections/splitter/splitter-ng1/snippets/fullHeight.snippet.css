@@ -1,0 +1,7 @@
+body, .wrapper, .page-content, .page-content > div {
+    height: 100%;
+}
+
+.splitter-container {
+    height: calc(100% - 57px);
+}

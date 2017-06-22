@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from './../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from './../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 
 @Component({
@@ -9,16 +10,14 @@ import { ICodePen } from './../../../../../interfaces/ICodePen';
     templateUrl: './inputs-help-text.component.html'
 })
 @DocumentationSectionComponent('CssInputsHelpTextComponent')
-export class CssInputsHelpTextComponent implements ICodePenProvider {
-
-    private htmlCode  = require('./snippets/sample.html');
-
-    private htmlCodeAdvanced = require('./snippets/sample-advanced.html');
-
-    private codepenSnippet  = require('./codepen/codepen.html');
+export class CssInputsHelpTextComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.codepenSnippet
+        html: this.snippets.raw.codeExampleHtml
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+    }
 
 }

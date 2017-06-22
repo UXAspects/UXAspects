@@ -1,0 +1,11 @@
+.ux-filter-custom .filter-dropdown.active {
+    font-weight: 600;
+}
+
+.ux-filter-custom .filter-dropdown .hpe-down {
+    font-size: 0.625rem;
+}
+
+.ux-filter-custom .dropdown-menu {
+    padding: 10px;
+}

@@ -3,6 +3,7 @@ import { ColorService } from '../../../../../../../src/index';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-donut-chart-ng1',
@@ -10,28 +11,21 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsDonutChartNg1Component')
-export class ChartsDonutChartNg1Component implements ICodePenProvider {
+export class ChartsDonutChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private data: any;
     private options: any;
 
-    private chartHtml = require('./snippets/chart.html');
-    private chartJs = require('./snippets/chart.js');
-    private accessibilityHtml = require('./snippets/accessibility.html');
-    private labelsHtml = require('./snippets/labels.html');
-    private labelsJs = require('./snippets/labels.js');
-    private legendJs = require('./snippets/legend.js');
-    private legendCss = require('./snippets/legend.css');
-
     public codepen: ICodePen = {
-        html: this.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'DonutChartCtrl as dc'
         },
-        js: [this.chartJs]
+        js: [this.snippets.raw.chartJs]
     };
 
     constructor(private colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let flotChartColors = {
             chartColor1: colorService.getColor('chart1').toRgb(),

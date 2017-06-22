@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-horizontal-bar-chart-ng1',
@@ -10,23 +11,21 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsHorizontalBarChartNg1Component')
-export class ChartsHorizontalBarChartNg1Component implements ICodePenProvider {
+export class ChartsHorizontalBarChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private data: any;
     private options: any;
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'HorizontalBarChartCtrl as bc'
         },
-        js: [this.jsCode],
+        js: [this.snippets.raw.chartJs],
     };
 
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         this.data = [{
             label: 'bar',

@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '../../../../../../../src/index';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import 'chance';
 
 @Component({
@@ -10,22 +11,15 @@ import 'chance';
     templateUrl: './custom-facet-component.component.html'
 })
 @DocumentationSectionComponent('ComponentsCustomFacetComponent')
-export class ComponentsCustomFacetComponent implements IPlunkProvider {
-
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
-    headerHtmlCode = require('./snippets/header.html');
-    facetHtmlCode = require('./snippets/facet-component.html');
-    facetTsCode = require('./snippets/facet-component.ts');
-    facetCssCode = require('./snippets/facet-component.css');
+export class ComponentsCustomFacetComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html'),
-            'facet-component.component.html': require('./snippets/facet-component.html'),
-            'facet-component.component.css': require('./snippets/facet-component.css'),
-            'facet-component.component.ts': require('./snippets/facet-component.ts')
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml,
+            'facet-component.component.html': this.snippets.raw.facetComponentHtml,
+            'facet-component.component.css': this.snippets.raw.facetComponentCss,
+            'facet-component.component.ts': this.snippets.raw.facetComponentTs
         },
         modules: [{
             imports: ['FacetsModule', 'CheckboxModule'],
@@ -36,4 +30,8 @@ export class ComponentsCustomFacetComponent implements IPlunkProvider {
             declaration: true
         }]
     };
+    
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 }

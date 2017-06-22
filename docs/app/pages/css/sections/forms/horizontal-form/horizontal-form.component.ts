@@ -2,24 +2,23 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from './../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from './../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-css-forms-horizontal-form',
     templateUrl: './horizontal-form.component.html'
 })
 @DocumentationSectionComponent('CssHorizontalFormComponent')
-export class CssHorizontalFormComponent implements ICodePenProvider {
+export class CssHorizontalFormComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    private htmlCode1 = require('./snippets/sample1.html');
-
-    private htmlCode2 = require('./snippets/sample2.html');
-
-    private htmlCode3 = require('./snippets/sample3.html');
-
-    private codepenSnippet = require('./codepen/codepen.html');
+    checked: boolean = false;
 
     public codepen: ICodePen = {
-        html: this.codepenSnippet
+        html: this.snippets.raw.codeExampleHtml
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+    }
 
 }

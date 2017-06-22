@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-draggable-cards-list-view-ng1',
@@ -10,16 +11,18 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsDraggableCardsListViewNg1Component')
-export class ComponentsDraggableCardsListViewNg1Component implements ICodePenProvider {
-    private htmlCode = require('./snippets/draggable-cards-list-view.html');
-    private cssCode = require('./snippets/draggable-cards-list-view.css');
-    private javascriptCode = require('./snippets/draggable-cards-list-view.js');
+export class ComponentsDraggableCardsListViewNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+    
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.raw.draggableCardsListViewHtml,
         htmlAttributes: {
             'ng-controller': 'DraggableCardsListViewDemoCtrl as vm'
         },
-        css: [this.cssCode],
-        js: [this.javascriptCode]
+        css: [this.snippets.raw.draggableCardsListViewCss],
+        js: [this.snippets.raw.draggableCardsListViewJs]
     };
+
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 }
