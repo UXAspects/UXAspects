@@ -200,11 +200,11 @@
 
 <tabset>
   <tab heading="HTML">
-    <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
   </tab>
 
   <tab heading="Javascript">
-    <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
   </tab>
 </tabset>
 
@@ -220,7 +220,7 @@
 
 <p>Edges will be assigned ids based on the order they arrive in the graph, prefixed with the letter ‘e’.</p>
 
-<uxd-snippet language="javascript" [code]="layoutJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.layoutJs"></uxd-snippet>
 
 <p>Edges also support the additional property described above.</p>
 
@@ -265,7 +265,7 @@
   and prefixed with the letter ‘e’. Use of these methods is demonstrated below the chart on this page. The code for the two
   text inputs is as shown, showing how to control the chart from an external controller:</p>
 
-<uxd-snippet language="html" [code]="apiHtml"></uxd-snippet>
+<uxd-snippet language="html" [content]="snippets.compiled.apiHtml"></uxd-snippet>
 
 <p>To execute custom logic on the node, edge, or stage click events, the following functions should be set on the API object.</p>
 
@@ -332,13 +332,13 @@
 <p>To access external objects and API calls that may be required to populate on-demand values, remember that a function closure
   will have access to its original context when executing. For example, if the API object was defined like this:</p>
 
-<uxd-snippet language="javascript" [code]="apiJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.apiJs"></uxd-snippet>
 
 <p>You can define the functions in the following way (this example uses random values in place of where you could perform API
   calls):
 </p>
 
-<uxd-snippet language="javascript" [code]="clickJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.clickJs"></uxd-snippet>
 
 <p>Functions defined in this way will have access to the context where you created the original “vm.api” object even when they
   are executed in the context of the chart’s internal code.</p>
@@ -397,14 +397,14 @@
   </table>
 </div>
 
-<uxd-snippet language="javascript" [code]="titleJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.titleJs"></uxd-snippet>
 
 <h4 id="communities">Communities</h4>
 
 <p>Communities allow styles and colors to be set for groups of nodes. The default render will be a solid fill in the default
   chart color; here this can be changed to any color and to a stroke style. An example community is shown:</p>
 
-<uxd-snippet language="javascript" [code]="communitiesJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.communitiesJs"></uxd-snippet>
 
 <p>Nodes which should receive this style should have a <code>community</code> attribute set to example_group_1. The <code>color</code>  attribute can be any CSS color value, and the <code>style</code> attribute can be set to <code>stroke</code> or <code>fill</code>  (the default).
 </p>
@@ -426,7 +426,7 @@
   of these containers use the <code>detail-style</code> parameter for the Detail Panels and the
   <code>popover-style</code> parameter for the Popover Panels:</p>
 
-<uxd-snippet language="javascript" [code]="stylesJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.stylesJs"></uxd-snippet>
 
 <h4 id="tooltips">Tooltips</h4>
 
@@ -476,7 +476,7 @@
 <p>The initial state of the graph will be zoomed to show all nodes. The <code>onLoadComplete</code> API call is available for
   changing this behaviour. For example, to start the graph with a particular node selected, the following code could be used:</p>
 
-<uxd-snippet language="javascript" [code]="stateJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.stateJs"></uxd-snippet>
 
 <h4 id="full-screen-mode">Full Screen Mode</h4>
 
@@ -495,7 +495,7 @@
   to fullscreen) and <code>minimize</code> (the button that switches from fullscreen back to the standard view). CSS Positioning
   values should be used, as the button will be absolutely positioned. An example is given below:</p>
 
-<uxd-snippet language="javascript" [code]="buttonsJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.buttonsJs"></uxd-snippet>
 
 <p>This example uses <code>%</code> but other units are also acceptable.</p>
 
@@ -547,7 +547,7 @@
 <p>Additionally the layout can be influenced by edge weights. This will position the nodes with the largest weights closer to
   each other where possible. Depending on the number of nodes in the chart increasing the <code>force-atlas-duration</code>  may improve the layout. To utilize this layout option a <code>weight</code> property should be added to edges:</p>
 
-<uxd-snippet language="javascript" [code]="layoutJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.layoutJs"></uxd-snippet>
 
 <p>If no weight property is given to an edge it will be assumed to have a weight of zero. Finally the <code>edge-weight-influence</code>  attribute needs to be set to a value of <code>true</code>.</p>
 

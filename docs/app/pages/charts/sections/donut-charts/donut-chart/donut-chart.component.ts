@@ -3,19 +3,20 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-donut-chart',
     templateUrl: './donut-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsDonutChartComponent')
-export class ChartsDonutChartComponent implements IPlunkProvider {
+export class ChartsDonutChartComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html'),
-            'app.component.css': require('./snippets/app.css')
+            'app.component.ts': this.snippets.examples.appTs,
+            'app.component.html': this.snippets.examples.appHtml,
+            'app.component.css': this.snippets.examples.appCss
         },
         modules: [{
             library: 'chart.js'
@@ -50,11 +51,8 @@ export class ChartsDonutChartComponent implements IPlunkProvider {
     donutChartLegend: boolean = true;
     donutChartColors: any;
 
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
-    cssCode = require('./snippets/app.css');
-
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 

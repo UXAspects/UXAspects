@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-stacked-line-chart-ng1',
@@ -10,29 +11,21 @@ import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsStackedLineChartNg1Component')
-export class ChartsStackedLineChartNg1Component implements ICodePenProvider {
+export class ChartsStackedLineChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private data: any[];
     private options: any;
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-
-    private accessibilityHtml = require('./snippets/accessibility.html');
-
-    private legendHtml = require('./snippets/legend.html');
-    private legendCss = require('./snippets/legend.css');
-    private legendJs = require('./snippets/legend.js');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.chartHtml,
         htmlAttributes: {
             'ng-controller': 'StackedLineChartCtrl as lc'
         },
-        js: [this.jsCode]
+        js: [this.snippets.examples.chartJs]
     };
 
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let flotChartColors = {
             chart1Color: colorService.getColor('chart1').toRgb(),

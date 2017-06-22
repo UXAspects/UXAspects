@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-scrollable-chart-ng1',
@@ -10,24 +11,20 @@ import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsScrollableChartNg1Component')
-export class ChartsScrollableChartNg1Component implements ICodePenProvider {
+export class ChartsScrollableChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     private data: any;
     private options: any;
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-
-    private optionsJs = require('./snippets/options.js');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.chartHtml,
         htmlAttributes: {
             'ng-controller': 'ScrollableChartCtrl as sc'
         },
-        js: [this.jsCode]
+        js: [this.snippets.examples.chartHtml]
     };
 
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         var flotChartColors = {
             chartColor: colorService.getColor('chart1').toRgb(),

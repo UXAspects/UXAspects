@@ -24,6 +24,12 @@ module.exports = {
         extensions: ['.ts', '.js']
     },
 
+    resolveLoader: {
+        alias: {
+            "code-snippet-loader": path.join(process.cwd(), 'configs', 'loaders', 'code-snippet-loader.js')
+        }
+    },
+
     module: {
         rules: [{
                 test: /\.html$/,
@@ -72,22 +78,22 @@ module.exports = {
             */
             {
                 test: /\.html$/,
-                use: 'raw-loader',
+                use: 'code-snippet-loader',
                 include: /(snippets)/
             },
             {
                 test: /\.js$/,
-                use: 'raw-loader',
+                use: 'code-snippet-loader',
                 include: /(snippets)/
             },
             {
                 test: /\.css$/,
-                use: 'raw-loader',
+                use: 'code-snippet-loader',
                 include: /(snippets)/
             },
             {
                 test: /\.ts$/,
-                use: 'raw-loader',
+                use: 'code-snippet-loader',
                 include: /(snippets)/
             },
             {

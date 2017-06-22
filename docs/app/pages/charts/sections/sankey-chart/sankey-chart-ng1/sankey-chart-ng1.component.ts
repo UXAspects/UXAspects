@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
   selector: 'uxd-charts-sankey-chart-ng1',
@@ -9,31 +10,25 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsSankeyChartNg1Component')
-export class ChartsSankeyChartNg1Component implements ICodePenProvider {
+export class ChartsSankeyChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
   private resizeId: number = null;
   private container: any = {};
   private chart: any = {};
   private data: any;
   private options: any;
-
-  private htmlCode = require('./snippets/chart.html');
-  private jsCode = require('./snippets/chart.js');
-
-  private dataJs = require('./snippets/data.js');
-  private optionsJs = require('./snippets/options.js');
-  private clickJs = require('./snippets/click.js');
   
   public codepen: ICodePen = {
-    html: this.htmlCode,
+    html: this.snippets.examples.chartHtml,
     htmlAttributes: {
       'ng-controller': 'SankeyCtrl as vm'
     },
-    js: [this.jsCode]
+    js: [this.snippets.examples.chartJs]
   };
 
   constructor() {
-
+    super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+    
     this.data = {
       columns: [
         { id: 'data_source', name: 'Repository', ordinal: 0 },

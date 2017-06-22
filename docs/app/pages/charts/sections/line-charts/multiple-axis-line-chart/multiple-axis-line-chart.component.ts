@@ -5,6 +5,7 @@ import { ColorService } from '../../../../../../../src/index';
 import { BaseChartDirective } from 'ng2-charts';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-multi-axis-line-chart',
@@ -13,14 +14,14 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ChartsMultipleAxisLineChartComponent')
-export class ChartsMultipleAxisLineChartComponent implements AfterViewInit, IPlunkProvider {
+export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSection implements AfterViewInit, IPlunkProvider {
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/line-chart.ts'),
-            'app.component.html': require('./snippets/line-chart.html'),
-            'app.component.css': require('./snippets/line-chart.css'),
-            'flot-data.ts': require('./snippets/flot-service.ts')
+            'app.component.ts': this.snippets.examples.lineChartTs,
+            'app.component.html': this.snippets.examples.lineChartHtml,
+            'app.component.css': this.snippets.examples.lineChartCss,
+            'flot-data.ts': this.snippets.examples.flotServiceTs
         },
         modules: [{
             library: 'chart.js'
@@ -52,14 +53,10 @@ export class ChartsMultipleAxisLineChartComponent implements AfterViewInit, IPlu
     lineChartOptions: Chart.ChartOptions;
     lineChartLegend: boolean = false;
     lineChartColors: any;
-
     lineChartLegendContents: SafeHtml;
 
-    htmlCode = require('./snippets/line-chart.html');
-    tsCode = require('./snippets/line-chart.ts');
-    cssCode = require('./snippets/line-chart.css');
-
     constructor(private sanitizer: DomSanitizer, colorService: ColorService, @Inject('flotDataService') flotDataService: any) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         let gridColor = colorService.getColor('grey6').toHex();

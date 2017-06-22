@@ -5,6 +5,7 @@ const chance = require('chance').Chance();
 
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-partition-map-ng1',
@@ -12,37 +13,31 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsPartitionMapNg1Component')
-export class ChartsPartitionMapNg1Component implements ICodePenProvider {
-
+export class ChartsPartitionMapNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private data: any;
     private options: any;
     private isLoading: boolean;
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-    private cssCode = require('./snippets/chart.css');
-
-    private popoverHtml = require('./snippets/popover.html');
-    private popoverJs = require('./snippets/popover.js');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.chartHtml,
         htmlAttributes: {
             'ng-controller': 'PartitionMapCtrl as vm'
         },
         htmlTemplates: [
             {
                 id: 'templateId.html',
-                content: this.popoverHtml
+                content: this.snippets.examples.popoverHtml
             }
         ],
-        js: [this.jsCode, this.popoverJs],
-        css: [this.cssCode]
+        js: [this.snippets.examples.chartJs, this.snippets.examples.popoverJs],
+        css: [this.snippets.examples.chartCss]
     };
 
 
     constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
+
         this.options = {
             edit: {
                 text: 'Edit',
@@ -74,7 +69,7 @@ export class ChartsPartitionMapNg1Component implements ICodePenProvider {
                 shouldResize: true,
                 onToggle: function () { }
             },
-            popoverTemplate: require('!file-loader?name=[path][name].[ext]!./snippets/popover.html'),
+            popoverTemplate: require('!!file-loader?name=[path][name].[ext]!./snippets/popover.html'),
             popoverEnabled: true,
             valueFormatter: function (value: string) {
                 return value.toLocaleString();

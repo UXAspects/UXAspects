@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-spark-chart-ng1',
@@ -9,25 +10,21 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsSparkChartNg1Component')
-export class ChartsSparkChartNg1Component implements ICodePenProvider {
+export class ChartsSparkChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private charts: ISparkChart[];
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-    private cssCode = require('./snippets/chart.css');
-    private tooltipsHtml = require('./snippets/tooltips.html');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.chartHtml,
         htmlAttributes: {
             'ng-controller': 'SparkChartCtrl as vm'
         },
-        js: [this.jsCode],
-        css: [this.cssCode]
+        js: [this.snippets.examples.chartJs],
+        css: [this.snippets.examples.chartCss]
     };
 
     constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         this.charts = [
             {

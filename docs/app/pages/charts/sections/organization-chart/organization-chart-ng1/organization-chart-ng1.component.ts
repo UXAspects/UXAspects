@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 const chance = require('chance').Chance();
 
@@ -10,37 +11,32 @@ const chance = require('chance').Chance();
     templateUrl: './organization-chart-ng1.component.html'
 })
 @DocumentationSectionComponent('ChartsOrganizationChartNg1Component')
-export class ChartsOrganizationChartNg1Component implements ICodePenProvider {
+export class ChartsOrganizationChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private data: IOrganizationChartNode;
     private options: any;
-
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-    private cssCode = require('./snippets/chart.css');
-    private nodeHtml = require('./snippets/chart-node.html');
-    private searchHtml = require('./snippets/search-item.html');
     
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.chartHtml,
         htmlTemplates: [
             {
                 id: 'chart-node.html',
-                content: this.nodeHtml
+                content: this.snippets.examples.chartNodeHtml
             },
             {
                 id: 'search-item.html',
-                content: this.searchHtml
+                content: this.snippets.examples.searchItemHtml
             }
         ],
         htmlAttributes: {
             'ng-controller': 'OrganizationChartDemoCtrl as vm'
         },
-        js: [this.jsCode],
-        css: [this.cssCode]
+        js: [this.snippets.examples.chartJs],
+        css: [this.snippets.examples.chartCss]
     };
 
     constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let adminIcon = require('../../../../../assets/img/IconManagerColorized.png');
         let userIcon = require('../../../../../assets/img/IconCustodianColorized.png');
@@ -68,7 +64,7 @@ export class ChartsOrganizationChartNg1Component implements ICodePenProvider {
                 }
             },
             nodes: {
-                template: require('!file-loader?name=[path][name].[ext]!./snippets/chart-node.html')
+                template: require('!!file-loader?name=[path][name].[ext]!./snippets/chart-node.html')
             },
             reveal: () => {
 
@@ -91,7 +87,7 @@ export class ChartsOrganizationChartNg1Component implements ICodePenProvider {
             search: {
                 enabled: true,
                 placeholder: 'Enter name or job title',
-                template: require('!file-loader?name=[path][name].[ext]!./snippets/search-item.html'),
+                template: require('!!file-loader?name=[path][name].[ext]!./snippets/search-item.html'),
                 query: (query: string, node: IOrganizationChartNode) => {
                     // return true if the name or title contains the search query
                     return node.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||

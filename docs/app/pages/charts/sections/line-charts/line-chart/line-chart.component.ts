@@ -3,19 +3,20 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-line-chart',
     templateUrl: './line-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsLineChartComponent')
-export class ChartsLineChartComponent implements IPlunkProvider {
+export class ChartsLineChartComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/line-chart.ts'),
-            'app.component.html': require('./snippets/line-chart.html'),
-            'app.component.css': require('./snippets/line-chart.css')
+            'app.component.ts': this.snippets.examples.lineChartTs,
+            'app.component.html': this.snippets.examples.lineChartHtml,
+            'app.component.css': this.snippets.examples.lineChartCss
         },
         modules: [{
             library: 'chart.js'
@@ -47,11 +48,8 @@ export class ChartsLineChartComponent implements IPlunkProvider {
     lineChartLegend: boolean = false;
     lineChartColors: any;
 
-    htmlCode = require('./snippets/line-chart.html');
-    tsCode = require('./snippets/line-chart.ts');
-    cssCode = require('./snippets/line-chart.css');
-
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
         let gridBorderColor = colorService.getColor('grey4').toHex();

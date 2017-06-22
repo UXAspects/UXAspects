@@ -82,15 +82,15 @@
 <tabset>
 
     <tab heading="HTML">
-        <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
     </tab>
     
     <tab heading="TypeScript">
-        <uxd-snippet language="javascript" [code]="tsCode"></uxd-snippet>
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
     </tab>
     
     <tab heading="CSS">
-        <uxd-snippet language="css" [code]="cssCode"></uxd-snippet>
+        <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
     </tab>
 
 </tabset>

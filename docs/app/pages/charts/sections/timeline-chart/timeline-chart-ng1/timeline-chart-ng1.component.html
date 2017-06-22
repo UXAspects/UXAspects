@@ -13,11 +13,11 @@
 
 <tabset>
   <tab heading="HTML">
-    <uxd-snippet language="html" [code]="htmlCode"></uxd-snippet>
+    <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
   </tab>
 
   <tab heading="Javascript">
-    <uxd-snippet language="javascript" [code]="jsCode"></uxd-snippet>
+    <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
   </tab>
 </tabset>
 
@@ -55,7 +55,7 @@
 
 <p>An example of how the <code>lineDataService</code> can be used in the controller is shown below:</p>
 
-<uxd-snippet language="javascript" [code]="serviceJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.serviceJs"></uxd-snippet>
 
 <div class="demo-attributes table-responsive">
   <table class="table">
@@ -436,7 +436,7 @@
   data being displayed. The following function has been designed to work with the above sample code and the function should
   be called after the chart range has been changed.</p>
 
-<uxd-snippet language="javascript" [code]="rescaleJs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.rescaleJs"></uxd-snippet>
 
 <blockquote>
   <p><strong>Note</strong>: Refer to the <a routerLink="/components/facets">Facets</a> page to see an example of Y axis rescaling.

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 const chance = require('chance').Chance();
 
@@ -10,7 +11,7 @@ const chance = require('chance').Chance();
     templateUrl: './social-chart-ng1.component.html'
 })
 @DocumentationSectionComponent('ChartsSocialChartNg1Component')
-export class ChartsSocialChartNg1Component implements ICodePenProvider {
+export class ChartsSocialChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private minLabels: number;
     private forceAtlasDuration: number;
@@ -25,47 +26,48 @@ export class ChartsSocialChartNg1Component implements ICodePenProvider {
     private startMaximized: boolean = false;
     private templates: any;
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
+    // private htmlCode = require('./snippets/chart.html');
+    // private jsCode = require('./snippets/chart.js');
 
-    private apiHtml = require('./snippets/api.html');
-    private apiJs = require('./snippets/api.js');
-    private buttonsJs = require('./snippets/buttons.js');
-    private clickJs = require('./snippets/click.js');
-    private communitiesJs = require('./snippets/communities.js');
-    private layoutJs = require('./snippets/layout.js');
-    private stateJs = require('./snippets/state.js');
-    private stylesJs = require('./snippets/styles.js');
-    private titleJs = require('./snippets/title.js');
+    // private apiHtml = require('./snippets/api.html');
+    // private apiJs = require('./snippets/api.js');
+    // private buttonsJs = require('./snippets/buttons.js');
+    // private clickJs = require('./snippets/click.js');
+    // private communitiesJs = require('./snippets/communities.js');
+    // private layoutJs = require('./snippets/layout.js');
+    // private stateJs = require('./snippets/state.js');
+    // private stylesJs = require('./snippets/styles.js');
+    // private titleJs = require('./snippets/title.js');
 
     public codepen: ICodePen = {
-        html: require('./snippets/codepen/chart.html'),
+        html: this.snippets.examples.chartExampleHtml,
         htmlAttributes: {
             'ng-controller': 'SocialCtrl as vm'
         },
         htmlTemplates: [
             {
                 id: 'nodeDetails.html',
-                content: require('./snippets/node-detail.html')
+                content: this.snippets.examples.nodeDetailHtml
             },
             {
                 id: 'nodePopover.html',
-                content: require('./snippets/node-popover.html')
+                content: this.snippets.examples.nodePopoverHtml
             },
             {
                 id: 'edgeDetails.html',
-                content: require('./snippets/edge-detail.html')
+                content: this.snippets.examples.edgeDetailHtml
             },
             {
                 id: 'edgePopover.html',
-                content: require('./snippets/edge-popover.html')
+                content: this.snippets.examples.edgePopoverHtml
             }
         ],
-        js: [ require('./snippets/codepen/chart.js') ],
-        css: [ require('./snippets/codepen/chart.css') ]
+        js: [ this.snippets.examples.chartExampleJs ],
+        css: [ this.snippets.examples.chartExampleCss ]
     };
 
     constructor() {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         this.chartTitle = {
             title: 'Entire network',
@@ -76,10 +78,10 @@ export class ChartsSocialChartNg1Component implements ICodePenProvider {
         };
 
         this.templates = {
-            edgeDetail: require('!file-loader?name=[path][name].[ext]!./snippets/edge-detail.html'),
-            edgePopover: require('!file-loader?name=[path][name].[ext]!./snippets/edge-popover.html'),
-            nodeDetail: require('!file-loader?name=[path][name].[ext]!./snippets/node-detail.html'),
-            nodePopover: require('!file-loader?name=[path][name].[ext]!./snippets/node-popover.html')
+            edgeDetail: require('!!file-loader?name=[path][name].[ext]!./snippets/edge-detail.html'),
+            edgePopover: require('!!file-loader?name=[path][name].[ext]!./snippets/edge-popover.html'),
+            nodeDetail: require('!!file-loader?name=[path][name].[ext]!./snippets/node-detail.html'),
+            nodePopover: require('!!file-loader?name=[path][name].[ext]!./snippets/node-popover.html')
         };
 
         this.api = {

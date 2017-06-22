@@ -3,19 +3,20 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-stacked-bar-chart',
     templateUrl: './stacked-bar-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsStackedBarChartComponent')
-export class ChartsStackedBarChartComponent implements IPlunkProvider {
+export class ChartsStackedBarChartComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html'),
-            'app.component.css': require('./snippets/app.css')
+            'app.component.ts': this.snippets.examples.appTs,
+            'app.component.html': this.snippets.examples.appHtml,
+            'app.component.css': this.snippets.examples.appCss
         },
         modules: [{
             library: 'chart.js'
@@ -46,11 +47,8 @@ export class ChartsStackedBarChartComponent implements IPlunkProvider {
     barChartLegend: boolean = false;
     barChartColors: any;
 
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
-    cssCode = require('./snippets/app.css');
-
     constructor(private colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let borderColor = colorService.getColor('grey2').setAlpha(0.5).toRgba();
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();

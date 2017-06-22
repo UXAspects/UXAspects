@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-nested-donut-chart',
@@ -10,25 +11,22 @@ import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsNestedDonutChartNg1Component')
-export class ChartsNestedDonutChartNg1Component implements ICodePenProvider {
+export class ChartsNestedDonutChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private data: any[];
     private options: any;
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-    private cssCode = require('./snippets/chart.css');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
-        js: [this.jsCode],
-        css: [this.cssCode],
+        html: this.snippets.examples.chartHtml,
+        js: [this.snippets.examples.chartJs],
+        css: [this.snippets.examples.chartCss],
         htmlAttributes: {
             'ng-controller': 'NestedDonutChartCtrl as dc'
         }
     };
 
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         this.data = [{
             label: 'documents',

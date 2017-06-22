@@ -5,22 +5,23 @@ import { BaseChartDirective } from 'ng2-charts';
 import { Chart } from 'chart.js';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-bar-chart',
     templateUrl: './bar-chart.component.html'
 })
 @DocumentationSectionComponent('ChartsBarChartComponent')
-export class ChartsBarChartComponent implements AfterViewInit, IPlunkProvider {
+export class ChartsBarChartComponent extends BaseDocumentationSection implements AfterViewInit, IPlunkProvider {
 
     // access the chart directive properties
     @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': require('./snippets/app.ts'),
-            'app.component.html': require('./snippets/app.html'),
-            'app.component.css': require('./snippets/app.css')
+            'app.component.ts': this.snippets.examples.appTs,
+            'app.component.html': this.snippets.examples.appHtml,
+            'app.component.css': this.snippets.examples.appCss
         },
         modules: [{
             library: 'chart.js'
@@ -55,11 +56,8 @@ export class ChartsBarChartComponent implements AfterViewInit, IPlunkProvider {
     barChartLegend: boolean = false;
     barChartColors: any;
 
-    htmlCode = require('./snippets/app.html');
-    tsCode = require('./snippets/app.ts');
-    cssCode = require('./snippets/app.css');
-
     constructor(colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         // Prepare colors used in chart
         let borderColor = colorService.getColor('grey2').setAlpha(0.5).toRgba();

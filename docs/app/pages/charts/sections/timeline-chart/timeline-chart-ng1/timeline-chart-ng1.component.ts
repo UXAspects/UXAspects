@@ -3,6 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService } from '../../../../../../../src/index';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-charts-timeline-chart-ng1',
@@ -10,27 +11,23 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ChartsTimelineChartNg1Component')
-export class ChartsTimelineChartNg1Component implements ICodePenProvider {
+export class ChartsTimelineChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     private timelineData: any;
     private timelineOptions: any;
     private detailedData: any;
     private detailedOptions: any;
 
-    private htmlCode = require('./snippets/chart.html');
-    private jsCode = require('./snippets/chart.js');
-    private serviceJs = require('./snippets/service.js');
-    private rescaleJs = require('./snippets/rescale.js');
-
     public codepen: ICodePen = {
-        html: this.htmlCode,
+        html: this.snippets.examples.chartHtml,
         htmlAttributes: {
             'ng-controller': 'TimelineChartCtrl as tc'
         },
-        js: [this.jsCode]
+        js: [this.snippets.examples.chartJs]
     };
 
     constructor(@Inject('lineDataService') private lineDataService: any, colorService: ColorService) {
+        super(require.context('./snippets/', false, /(html|css|js|ts)$/));
 
         let flotChartColors = {
             chartColor: colorService.getColor('chart1').toRgb(),
