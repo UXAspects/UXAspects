@@ -148,9 +148,10 @@ LICENSE-END
                 var width = parseInt(computedStyles.width);
                 // use offsetHeight as getting height from computed style is buggy in IE
                 var height = tableDisplayed.offsetHeight;
+                var overflow = computedStyles.overflowY === 'visible';
 
                 //check if a parent element has a display of none or a width of 0px and if so dont fix the header widths
-                if(display === 'none' || display === 'block' && height === 0 || width === 0){
+                if(display === 'none' || display === 'block' && (height === 0 && !overflow) || width === 0){
                   resolve = false;                 
                   break;
                 }
