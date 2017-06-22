@@ -15,16 +15,16 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 export class ComponentsInfiniteScrollNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'InfiniteScrollDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'itemTemplate.html',
-            content: this.snippets.examples.itemTemplateHtml
+            content: this.snippets.raw.itemTemplateHtml
         }],
-        css: [this.snippets.examples.stylesCss],
-        js: [this.snippets.examples.controllerJs]
+        css: [this.snippets.raw.stylesCss],
+        js: [this.snippets.raw.controllerJs]
     };
 
     constructor() {

@@ -13,7 +13,7 @@ export class ComponentsToggleButtonsNg1Component extends BaseDocumentationSectio
     
     
     public codepen = {
-        html: this.snippets.examples.toggleButtonsTopHtml + '\n' + this.snippets.examples.toggleButtonsBottomHtml
+        html: this.snippets.raw.toggleButtonsTopHtml + '\n' + this.snippets.raw.toggleButtonsBottomHtml
     };
 
     constructor() {

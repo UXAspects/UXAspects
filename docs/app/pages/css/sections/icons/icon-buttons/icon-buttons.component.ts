@@ -14,7 +14,7 @@ export class CssIconButtonsComponent extends BaseDocumentationSection implements
     private htmlCode = require('./snippets/sample.html');
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml
+        html: this.snippets.raw.sampleHtml
     };
     
     constructor() {

@@ -13,15 +13,15 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsTreeGridAsynchronousLoadingNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TreeGridAsyncDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'template.html',
-            content: this.snippets.examples.templateHtml
+            content: this.snippets.raw.templateHtml
         }],
-        js: [this.snippets.examples.sampleJs]
+        js: [this.snippets.raw.sampleJs]
     };
 
     constructor() {

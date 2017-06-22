@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsComponentListNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.componentListHtml,
+        html: this.snippets.raw.componentListHtml,
         htmlAttributes: {
             'ng-controller': 'ComponentListDemoCtrl as vm'
         },
-        js: [this.snippets.examples.componentListJs]
+        js: [this.snippets.raw.componentListJs]
     };
     
     constructor() {

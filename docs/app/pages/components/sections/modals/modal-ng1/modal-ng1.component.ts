@@ -12,15 +12,15 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsModalNg1Component')
 export class ComponentsModalNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ModalDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'modalLayout.html',
-            content: this.snippets.examples.modalLayoutHtml
+            content: this.snippets.raw.modalLayoutHtml
         }],
-        js: [this.snippets.examples.controllerJs, this.snippets.examples.modalControllerJs]
+        js: [this.snippets.raw.controllerJs, this.snippets.raw.modalControllerJs]
     };
 
     constructor() {

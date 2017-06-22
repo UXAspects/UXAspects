@@ -18,10 +18,10 @@ export class ChartsMultipleAxisLineChartComponent extends BaseDocumentationSecti
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.examples.lineChartTs,
-            'app.component.html': this.snippets.examples.lineChartHtml,
-            'app.component.css': this.snippets.examples.lineChartCss,
-            'flot-data.ts': this.snippets.examples.flotServiceTs
+            'app.component.ts': this.snippets.raw.lineChartTs,
+            'app.component.html': this.snippets.raw.lineChartHtml,
+            'app.component.css': this.snippets.raw.lineChartCss,
+            'flot-data.ts': this.snippets.raw.flotServiceTs
         },
         modules: [{
             library: 'chart.js'

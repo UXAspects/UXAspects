@@ -40,30 +40,30 @@ export class ChartsSocialChartNg1Component extends BaseDocumentationSection impl
     // private titleJs = require('./snippets/title.js');
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartExampleHtml,
+        html: this.snippets.raw.chartExampleHtml,
         htmlAttributes: {
             'ng-controller': 'SocialCtrl as vm'
         },
         htmlTemplates: [
             {
                 id: 'nodeDetails.html',
-                content: this.snippets.examples.nodeDetailHtml
+                content: this.snippets.raw.nodeDetailHtml
             },
             {
                 id: 'nodePopover.html',
-                content: this.snippets.examples.nodePopoverHtml
+                content: this.snippets.raw.nodePopoverHtml
             },
             {
                 id: 'edgeDetails.html',
-                content: this.snippets.examples.edgeDetailHtml
+                content: this.snippets.raw.edgeDetailHtml
             },
             {
                 id: 'edgePopover.html',
-                content: this.snippets.examples.edgePopoverHtml
+                content: this.snippets.raw.edgePopoverHtml
             }
         ],
-        js: [ this.snippets.examples.chartExampleJs ],
-        css: [ this.snippets.examples.chartExampleCss ]
+        js: [ this.snippets.raw.chartExampleJs ],
+        css: [ this.snippets.raw.chartExampleCss ]
     };
 
     constructor() {

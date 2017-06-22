@@ -50,8 +50,8 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
 
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.examples.appTs,
-            'app.component.html': this.snippets.examples.appHtml
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
             imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule'],

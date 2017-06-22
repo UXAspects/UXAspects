@@ -19,11 +19,11 @@ export class ChartsTimelineChartNg1Component extends BaseDocumentationSection im
     private detailedOptions: any;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'TimelineChartCtrl as tc'
         },
-        js: [this.snippets.examples.chartJs]
+        js: [this.snippets.raw.chartJs]
     };
 
     constructor(@Inject('lineDataService') private lineDataService: any, colorService: ColorService) {

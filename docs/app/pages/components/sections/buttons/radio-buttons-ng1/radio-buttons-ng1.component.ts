@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsRadioButtonsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.radioButtonsHtml,
+        html: this.snippets.raw.radioButtonsHtml,
         htmlAttributes: {
             'ng-controller': 'RadioButtonsCtrl as vm'
         },
-        js: [this.snippets.examples.radioButtonsJs]
+        js: [this.snippets.raw.radioButtonsJs]
     };
 
     constructor() {

@@ -19,11 +19,11 @@ export class ComponentsMultipleSelectTableNg1Component extends BaseDocumentation
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'MultipleSelectTableCtrl as vm'
         },
-        js: [this.snippets.examples.sampleFullJs]
+        js: [this.snippets.raw.sampleFullJs]
     };
 
 }

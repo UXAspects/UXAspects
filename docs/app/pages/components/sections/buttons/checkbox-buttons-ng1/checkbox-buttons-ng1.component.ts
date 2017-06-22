@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsCheckboxButtonsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.checkboxButtonsHtml,
+        html: this.snippets.raw.checkboxButtonsHtml,
         htmlAttributes: {
             'ng-controller': 'CheckboxButtonsCtrl as vm'
         },
-        js: [this.snippets.examples.checkboxButtonsJs]
+        js: [this.snippets.raw.checkboxButtonsJs]
     };
     
     constructor() {

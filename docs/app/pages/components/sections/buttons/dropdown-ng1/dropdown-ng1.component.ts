@@ -14,12 +14,12 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsDropdownNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.dropdownHtml + '\n' + this.snippets.examples.dropdownMenuHtml,
+        html: this.snippets.raw.dropdownHtml + '\n' + this.snippets.raw.dropdownMenuHtml,
         htmlAttributes: {
             'ng-controller': 'DropdownCtrl as vm'
         },
-        css: [this.snippets.examples.dropdownCss],
-        js: [this.snippets.examples.dropdownJs]
+        css: [this.snippets.raw.dropdownCss],
+        js: [this.snippets.raw.dropdownJs]
     };
 
     constructor() {

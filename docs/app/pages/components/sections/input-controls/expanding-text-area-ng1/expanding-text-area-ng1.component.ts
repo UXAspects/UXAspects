@@ -17,7 +17,7 @@ export class ComponentsExpandingTextAreaNg1Component extends BaseDocumentationSe
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml
+        html: this.snippets.raw.sampleHtml
     };
 
 }

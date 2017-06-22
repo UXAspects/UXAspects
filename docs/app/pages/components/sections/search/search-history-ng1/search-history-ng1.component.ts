@@ -14,16 +14,16 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsSearchHistoryNg1Component')
 export class ComponentsSearchHistoryNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'SearchHistoryDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'modalLayout.html',
-            content: this.snippets.examples.modalLayoutHtml
+            content: this.snippets.raw.modalLayoutHtml
         }],
-        css: [this.snippets.examples.stylesCss],
-        js: [this.snippets.examples.controllerJs, this.snippets.examples.modalControllerJs]
+        css: [this.snippets.raw.stylesCss],
+        js: [this.snippets.raw.controllerJs, this.snippets.raw.modalControllerJs]
     };
 
     constructor() {

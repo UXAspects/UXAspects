@@ -30,11 +30,11 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
 
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.examples.appTs,
-            'app.component.html': this.snippets.examples.appHtml,
-            'sample-filter.component.html': this.snippets.examples.sampleHtml,
-            'sample-filter.component.css': this.snippets.examples.sampleCss,
-            'sample-filter.component.ts': this.snippets.examples.sampleTs
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml,
+            'sample-filter.component.html': this.snippets.raw.sampleHtml,
+            'sample-filter.component.css': this.snippets.raw.sampleCss,
+            'sample-filter.component.ts': this.snippets.raw.sampleTs
         },
         mappings: [
             MAPPINGS.NgxBootstrap

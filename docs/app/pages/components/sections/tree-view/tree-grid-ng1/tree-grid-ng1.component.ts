@@ -17,7 +17,7 @@ export class ComponentsTreeGridNg1Component extends BaseDocumentationSection imp
     private displayPanelFooter = require('./wrapper/displayPanelFooter.html');
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TreeGridCtrl as vm'
         },
@@ -31,7 +31,7 @@ export class ComponentsTreeGridNg1Component extends BaseDocumentationSection imp
             id: 'displayPanelFooter.html',
             content: this.displayPanelFooter
         }],
-        js: [this.snippets.examples.sampleJs, this.snippets.examples.actionsJs]
+        js: [this.snippets.raw.sampleJs, this.snippets.raw.actionsJs]
     };
 
     constructor() {

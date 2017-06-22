@@ -17,9 +17,9 @@ export class ChartsScrollableChartComponent extends BaseDocumentationSection imp
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.examples.scrollableChartTs,
-            'app.component.html': this.snippets.examples.scrollableChartHtml,
-            'app.component.css': this.snippets.examples.scrollableChartCss
+            'app.component.ts': this.snippets.raw.scrollableChartTs,
+            'app.component.html': this.snippets.raw.scrollableChartHtml,
+            'app.component.css': this.snippets.raw.scrollableChartCss
         },
         modules: [{
             library: 'chart.js'

@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class CssMiniActivityIndicatorComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: `${this.snippets.examples.sample1Html} ${this.snippets.examples.sample2Html} ${this.snippets.examples.sample3Html} ${this.snippets.examples.sample4Html}`
+        html: `${this.snippets.raw.sample1Html} ${this.snippets.raw.sample2Html} ${this.snippets.raw.sample3Html} ${this.snippets.raw.sample4Html}`
     };
 
     constructor() {

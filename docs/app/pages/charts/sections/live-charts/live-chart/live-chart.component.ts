@@ -15,9 +15,9 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.examples.liveChartTs,
-            'app.component.html': this.snippets.examples.liveChartHtml,
-            'app.component.css': this.snippets.examples.liveChartCss
+            'app.component.ts': this.snippets.raw.liveChartTs,
+            'app.component.html': this.snippets.raw.liveChartHtml,
+            'app.component.css': this.snippets.raw.liveChartCss
         },
         modules: [{
             library: 'chart.js'

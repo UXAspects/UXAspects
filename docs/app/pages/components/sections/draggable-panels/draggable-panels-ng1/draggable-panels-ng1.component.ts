@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsDraggablePanelsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.draggablePanelsHtml
+        html: this.snippets.raw.draggablePanelsHtml
     };
     
     constructor() {

@@ -18,11 +18,11 @@ export class ChartsPeityChartNg1Component extends BaseDocumentationSection imple
     private barChart: any;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'PeityChartCtrl as pc'
         },
-        js: [this.snippets.examples.chartJs],
+        js: [this.snippets.raw.chartJs],
     };
 
     constructor(colorService: ColorService) {

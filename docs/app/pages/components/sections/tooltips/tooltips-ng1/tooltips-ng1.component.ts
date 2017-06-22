@@ -16,11 +16,11 @@ export class ComponentsTooltipsNg1Component extends BaseDocumentationSection imp
     private jsCode = require('./snippets/sample.js');
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TooltipsCtrl as vm'
         },
-        js: [this.snippets.examples.sampleJs]
+        js: [this.snippets.raw.sampleJs]
     };
 
     constructor() {

@@ -17,11 +17,11 @@ export class ComponentsSingleSelectTableNg1Component extends BaseDocumentationSe
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'SingleSelectTableCtrl as vm'
         },
-        js: [this.snippets.examples.sampleFullJs]
+        js: [this.snippets.raw.sampleFullJs]
     };
 
 }

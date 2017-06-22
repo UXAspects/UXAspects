@@ -16,12 +16,12 @@ export class ComponentsDetailRowResponsiveNg1Component extends BaseDocumentation
     public cssCode = this.snippets.compiled.stylesCss;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.codepenHtml,
+        html: this.snippets.raw.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'DetailRowResponsiveTableCtrl as vm'
         },
-        js: [this.snippets.examples.codepenJs],
-        css: [this.snippets.examples.stylesCss]
+        js: [this.snippets.raw.codepenJs],
+        css: [this.snippets.raw.stylesCss]
     };
     
     constructor() {

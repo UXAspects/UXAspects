@@ -25,35 +25,35 @@ export class ComponentsMarqueeWizardNg1Component extends BaseDocumentationSectio
     // private sixth = require('./snippets/sixth.html');
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.modalHtml,
+        html: this.snippets.raw.modalHtml,
         htmlAttributes: {
             'ng-controller': 'MarqueeModalCtrl as vm'
         },
         htmlTemplates: [{
             id: 'sample.html',
-            content: this.snippets.examples.sampleHtml
+            content: this.snippets.raw.sampleHtml
         }, {
             id: 'first.html',
-            content: this.snippets.examples.firstHtml
+            content: this.snippets.raw.firstHtml
         }, {
             id: 'second.html',
-            content: this.snippets.examples.secondHtml
+            content: this.snippets.raw.secondHtml
         }, {
             id: 'third.html',
-            content: this.snippets.examples.thirdHtml
+            content: this.snippets.raw.thirdHtml
         }, {
             id: 'fourth.html',
-            content: this.snippets.examples.fourthHtml
+            content: this.snippets.raw.fourthHtml
         }, {
             id: 'fifth.html',
-            content: this.snippets.examples.fifthHtml
+            content: this.snippets.raw.fifthHtml
         }
         , {
             id: 'sixth.html',
-            content: this.snippets.examples.sixthHtml
+            content: this.snippets.raw.sixthHtml
         }],
-        css: [this.snippets.examples.sampleCss],
-        js: [this.snippets.examples.modalJs, this.snippets.examples.sampleJs]
+        css: [this.snippets.raw.sampleCss],
+        js: [this.snippets.raw.modalJs, this.snippets.raw.sampleJs]
     };
 
     constructor() {

@@ -12,11 +12,11 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsAlertStylesNg1Component')
 export class ComponentsAlertStylesNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'AlertStylesDemoCtrl as vm'
         },
-        js: [this.snippets.examples.controllerJs]
+        js: [this.snippets.raw.controllerJs]
     };
 
     constructor() {

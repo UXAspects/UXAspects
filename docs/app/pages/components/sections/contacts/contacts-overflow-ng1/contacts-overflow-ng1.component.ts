@@ -14,19 +14,19 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsContactsOverflowNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.contactsOverflowHtml,
+        html: this.snippets.raw.contactsOverflowHtml,
         htmlAttributes: {
             'ng-controller': 'ContactsOverflowDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'contacts-overflow-modal.html',
-            content: this.snippets.examples.contactsOverflowModalHtml
+            content: this.snippets.raw.contactsOverflowModalHtml
         }, {
             id: 'contacts-overflow-modal-item.html',
-            content: this.snippets.examples.contactsOverflowModalItemHtml
+            content: this.snippets.raw.contactsOverflowModalItemHtml
         }],
-        css: [this.snippets.examples.contactsOverflowCss],
-        js: [this.snippets.examples.contactsOverflowJs, this.snippets.examples.contactsOverflowModalJs]
+        css: [this.snippets.raw.contactsOverflowCss],
+        js: [this.snippets.raw.contactsOverflowJs, this.snippets.raw.contactsOverflowModalJs]
     };
     
     constructor() {

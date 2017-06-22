@@ -30,9 +30,9 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
 
     public plunk: IPlunk = {
         files: {
-            'app.component.html': this.snippets.examples.appHtml,
-            'app.component.css': this.snippets.examples.appCss,
-            'app.component.ts': this.snippets.examples.appTs
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.css': this.snippets.raw.appCss,
+            'app.component.ts': this.snippets.raw.appTs
         },
         modules: [{
             library: 'ngx-bootstrap',

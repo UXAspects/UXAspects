@@ -17,9 +17,9 @@ export class ChartsNestedDonutChartNg1Component extends BaseDocumentationSection
     private options: any;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
-        js: [this.snippets.examples.chartJs],
-        css: [this.snippets.examples.chartCss],
+        html: this.snippets.raw.chartHtml,
+        js: [this.snippets.raw.chartJs],
+        css: [this.snippets.raw.chartCss],
         htmlAttributes: {
             'ng-controller': 'NestedDonutChartCtrl as dc'
         }

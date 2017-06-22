@@ -18,7 +18,7 @@ export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSe
     private footerCode = this.snippets.compiled.footerHtml;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'PreviewPaneWindowCtrl as vm'
         },
@@ -45,9 +45,9 @@ export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSe
             }
         ],
         js: [ 
-            this.snippets.examples.controllerJs
+            this.snippets.raw.controllerJs
         ],
-        css: [this.snippets.examples.stylesCss]
+        css: [this.snippets.raw.stylesCss]
     };
     
     constructor() {

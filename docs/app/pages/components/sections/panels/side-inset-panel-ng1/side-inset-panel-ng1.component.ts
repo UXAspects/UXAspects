@@ -12,11 +12,11 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsSideInsetPanelNg1Component')
 export class ComponentsSideInsetPanelNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'id': 'ux-codepen-container-ns'
         },
-        css: [this.snippets.examples.stylesCss]
+        css: [this.snippets.raw.stylesCss]
     };
 
     constructor() {

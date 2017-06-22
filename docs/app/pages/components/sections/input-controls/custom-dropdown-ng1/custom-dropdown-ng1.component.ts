@@ -17,13 +17,13 @@ export class ComponentsCustomDropdownNg1Component extends BaseDocumentationSecti
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlTemplates: [{
             id: 'template.html',
-            content: this.snippets.examples.templateHtml
+            content: this.snippets.raw.templateHtml
         }],
-        css: [this.snippets.examples.sampleCss],
-        js: [this.snippets.examples.sampleJs]
+        css: [this.snippets.raw.sampleCss],
+        js: [this.snippets.raw.sampleJs]
     };
 
 }

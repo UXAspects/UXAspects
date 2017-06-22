@@ -14,8 +14,8 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsNestedSplitterNg1Component')
 export class ComponentsNestedSplitterNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
-        css: [this.snippets.examples.stylesCss]
+        html: this.snippets.raw.layoutHtml,
+        css: [this.snippets.raw.stylesCss]
     };
 
     constructor() {

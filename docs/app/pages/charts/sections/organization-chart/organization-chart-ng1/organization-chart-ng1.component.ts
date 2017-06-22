@@ -17,22 +17,22 @@ export class ChartsOrganizationChartNg1Component extends BaseDocumentationSectio
     private options: any;
     
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlTemplates: [
             {
                 id: 'chart-node.html',
-                content: this.snippets.examples.chartNodeHtml
+                content: this.snippets.raw.chartNodeHtml
             },
             {
                 id: 'search-item.html',
-                content: this.snippets.examples.searchItemHtml
+                content: this.snippets.raw.searchItemHtml
             }
         ],
         htmlAttributes: {
             'ng-controller': 'OrganizationChartDemoCtrl as vm'
         },
-        js: [this.snippets.examples.chartJs],
-        css: [this.snippets.examples.chartCss]
+        js: [this.snippets.raw.chartJs],
+        css: [this.snippets.raw.chartCss]
     };
 
     constructor() {

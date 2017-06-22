@@ -12,12 +12,12 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsFlippableCardsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.appHtml,
+        html: this.snippets.raw.appHtml,
         htmlAttributes: {
             'ng-controller': 'FlippableCardCtrl as vm'
         },
-        js: [this.snippets.examples.appJs],
-        css: [this.snippets.examples.appCss]
+        js: [this.snippets.raw.appJs],
+        css: [this.snippets.raw.appCss]
     };
 
     constructor() {

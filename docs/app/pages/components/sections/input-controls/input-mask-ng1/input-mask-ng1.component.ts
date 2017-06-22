@@ -17,11 +17,11 @@ export class ComponentsInputMaskNg1Component extends BaseDocumentationSection im
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'InputMaskCtrl as vm'
         },
-        js: [this.snippets.examples.sampleJs]
+        js: [this.snippets.raw.sampleJs]
     };
 
 }

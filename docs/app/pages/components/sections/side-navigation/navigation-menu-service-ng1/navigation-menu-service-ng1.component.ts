@@ -13,9 +13,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsNavigationMenuServiceNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutExampleHtml,
-        css: [this.snippets.examples.stylesExampleCss],
-        js: [this.snippets.examples.controllerJs]
+        html: this.snippets.raw.layoutExampleHtml,
+        css: [this.snippets.raw.stylesExampleCss],
+        js: [this.snippets.raw.controllerJs]
     };
 
     constructor() {

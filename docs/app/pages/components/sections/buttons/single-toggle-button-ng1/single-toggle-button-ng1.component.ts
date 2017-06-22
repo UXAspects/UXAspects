@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsSingleToggleButtonNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.singleToggleButtonHtml,
+        html: this.snippets.raw.singleToggleButtonHtml,
         htmlAttributes: {
             'ng-controller': 'SingleToggleButtonCtrl as vm'
         },
-        js: [this.snippets.examples.singleToggleButtonJs]
+        js: [this.snippets.raw.singleToggleButtonJs]
     };
 
     constructor() {

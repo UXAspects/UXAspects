@@ -17,12 +17,12 @@ export class ComponentsToggleSwitchNg1Component extends BaseDocumentationSection
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'ToggleSwitchDemoCtrl as vm'
         },
-        css: [this.snippets.examples.sampleCss],
-        js: [this.snippets.examples.sampleJs]
+        css: [this.snippets.raw.sampleCss],
+        js: [this.snippets.raw.sampleJs]
     };
 
 }

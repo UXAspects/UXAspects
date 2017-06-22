@@ -11,16 +11,16 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsContactsNg1Component')
 export class ComponentsContactsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.contactsHtml,
+        html: this.snippets.raw.contactsHtml,
         htmlAttributes: {
             'ng-controller': 'ContactsDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'contacts-popover.html',
-            content: this.snippets.examples.contactsPopoverHtml
+            content: this.snippets.raw.contactsPopoverHtml
         }],
-        css: [this.snippets.examples.contactsCss],
-        js: [this.snippets.examples.contactsJs]
+        css: [this.snippets.raw.contactsCss],
+        js: [this.snippets.raw.contactsJs]
     };
 
     constructor() {

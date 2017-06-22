@@ -14,12 +14,12 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsHotkeysNg1Component')
 export class ComponentsHotkeysNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'HotkeysDemoCtrl as vm'
         },
-        css: [this.snippets.examples.stylesCss],
-        js: [this.snippets.examples.controllerJs]
+        css: [this.snippets.raw.stylesCss],
+        js: [this.snippets.raw.controllerJs]
     };
 
     constructor() {

@@ -17,11 +17,11 @@ export class ChartsMultipleAxisLineChartNg1Component extends BaseDocumentationSe
   private options: any;
 
   public codepen: ICodePen = {
-    html: this.snippets.examples.chartHtml,
+    html: this.snippets.raw.chartHtml,
     htmlAttributes: {
       'ng-controller': 'MultipleAxisLineChartCtrl as lc'
     },
-    js: [this.snippets.examples.chartHtml]
+    js: [this.snippets.raw.chartHtml]
   };
 
   constructor(colorService: ColorService, @Inject('flotDataService') flotDataService: any) {

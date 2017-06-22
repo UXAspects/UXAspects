@@ -29,8 +29,8 @@ export class ComponentsToggleButtonsComponent extends BaseDocumentationSection i
 
     public plunk: IPlunk = {
         files: {
-            'app.component.html': this.snippets.examples.toggleHtml + this.snippets.examples.checkHtml,
-            'app.component.ts': this.snippets.examples.appTs
+            'app.component.html': this.snippets.raw.toggleHtml + this.snippets.raw.checkHtml,
+            'app.component.ts': this.snippets.raw.appTs
         },
         modules: [{
             library: 'ngx-bootstrap',

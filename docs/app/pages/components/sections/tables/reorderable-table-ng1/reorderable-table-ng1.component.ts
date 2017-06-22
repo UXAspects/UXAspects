@@ -22,12 +22,12 @@ export class ComponentsReorderableTableNg1Component extends BaseDocumentationSec
     private removeRowJsCode = this.snippets.compiled.removeRowJs;
     
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ReorderableCtrl as vm'
         },
-        js: [this.snippets.examples.controllerJs],
-        css: [this.snippets.examples.stylesCss]
+        js: [this.snippets.raw.controllerJs],
+        css: [this.snippets.raw.stylesCss]
     };
     
     constructor() {

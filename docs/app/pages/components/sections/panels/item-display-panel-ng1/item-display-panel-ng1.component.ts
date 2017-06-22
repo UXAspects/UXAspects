@@ -12,25 +12,25 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsItemDisplayPanelNg1Component')
 export class ComponentsItemDisplayPanelNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ItemDisplayPanelDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'modalDOC.html',
-            content: this.snippets.examples.modalDOCHtml
+            content: this.snippets.raw.modalDOCHtml
         }, {
             id: 'modalPDF.html',
-            content: this.snippets.examples.modalPDFHtml
+            content: this.snippets.raw.modalPDFHtml
         }, {
             id: 'modalPPT.html',
-            content: this.snippets.examples.modalPPTHtml
+            content: this.snippets.raw.modalPPTHtml
         }, {
             id: 'modalFooter.html',
-            content: this.snippets.examples.modalFooterHtml
+            content: this.snippets.raw.modalFooterHtml
         }],
-        css: [this.snippets.examples.stylesCss],
-        js: [this.snippets.examples.controllerJs]
+        css: [this.snippets.raw.stylesCss],
+        js: [this.snippets.raw.controllerJs]
     };
 
     constructor() {

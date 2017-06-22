@@ -13,7 +13,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsFocusOnShowNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml
+        html: this.snippets.raw.sampleHtml
     };
 
     constructor() {

@@ -14,7 +14,7 @@ export class CssHorizontalFormComponent extends BaseDocumentationSection impleme
     checked: boolean = false;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.codeExampleHtml
+        html: this.snippets.raw.codeExampleHtml
     };
 
     constructor() {

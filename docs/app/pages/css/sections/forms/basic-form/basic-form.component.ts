@@ -14,7 +14,7 @@ export class CssBasicFormComponent extends BaseDocumentationSection implements I
     checked: boolean = false;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml
+        html: this.snippets.raw.sampleHtml
     };
 
     constructor() {

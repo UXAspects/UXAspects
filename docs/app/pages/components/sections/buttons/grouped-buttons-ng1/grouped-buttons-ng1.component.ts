@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsGroupedButtonsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.grouptedButtonsTopHtml + '\n' + this.snippets.examples.grouptedButtonsBottomHtml,
+        html: this.snippets.raw.grouptedButtonsTopHtml + '\n' + this.snippets.raw.grouptedButtonsBottomHtml,
         htmlAttributes: {
             'ng-controller': 'GroupedButtonsCtrl as vm'
         },
-        js: [this.snippets.examples.groupedButtonsControllerJs]
+        js: [this.snippets.raw.groupedButtonsControllerJs]
     };
 
     constructor() {

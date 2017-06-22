@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsPaginationNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.paginationHtml,
+        html: this.snippets.raw.paginationHtml,
         htmlAttributes: {
             'ng-controller': 'PaginationCtrl as vm'
         },
-        js: [this.snippets.examples.paginationJs]
+        js: [this.snippets.raw.paginationJs]
     };
 
     constructor() {

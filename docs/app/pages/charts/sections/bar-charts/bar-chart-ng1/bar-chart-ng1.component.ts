@@ -17,8 +17,8 @@ export class ChartsBarChartNg1Component extends BaseDocumentationSection impleme
     private options: any;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
-        js: [this.snippets.examples.chartJs],
+        html: this.snippets.raw.chartHtml,
+        js: [this.snippets.raw.chartJs],
         htmlAttributes: {
             'ng-controller': 'BarChartCtrl as bc'
         }

@@ -19,23 +19,23 @@ export class ComponentsDetailRowHeaderNg1Component extends BaseDocumentationSect
     private serviceCode = this.snippets.compiled.serviceJs;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'DetailRowResponsiveTableCtrl as vm'
         },
         htmlTemplates: [
             {
                 id: 'detailRowHeaderPopover.html',
-                content: this.snippets.examples.popoverHtml
+                content: this.snippets.raw.popoverHtml
             }
         ],
         js: [
-            this.snippets.examples.controllerJs,
-            this.snippets.examples.popoverControllerJs,
-            this.snippets.examples.serviceJs
+            this.snippets.raw.controllerJs,
+            this.snippets.raw.popoverControllerJs,
+            this.snippets.raw.serviceJs
         ],
         css: [
-            this.snippets.examples.stylesCss
+            this.snippets.raw.stylesCss
         ]
     };
     

@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class CssHyperlinksComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.codepenExampleHtml
+        html: this.snippets.raw.codepenExampleHtml
     };
 
     constructor() {

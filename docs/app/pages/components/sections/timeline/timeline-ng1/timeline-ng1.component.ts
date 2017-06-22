@@ -13,11 +13,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsTimelineNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TimelineCtrl as vm'
         },
-        js: [this.snippets.examples.sampleHtml]
+        js: [this.snippets.raw.sampleHtml]
     };
 
     constructor() {

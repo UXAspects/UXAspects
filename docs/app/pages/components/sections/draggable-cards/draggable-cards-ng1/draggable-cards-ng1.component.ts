@@ -14,12 +14,12 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsDraggableCardsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.draggableCardsHtml,
+        html: this.snippets.raw.draggableCardsHtml,
         htmlAttributes: {
             'ng-controller': 'DraggableCardsDemoCtrl as vm'
         },
-        css: [this.snippets.examples.draggableCardsCss],
-        js: [this.snippets.examples.draggableCardsJs]
+        css: [this.snippets.raw.draggableCardsCss],
+        js: [this.snippets.raw.draggableCardsJs]
     };
     
     constructor() {

@@ -12,9 +12,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class CssPageHeaderExampleComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
-        css: [this.snippets.examples.sampleCss],
-        js: [this.snippets.examples.sampleJs]
+        html: this.snippets.raw.sampleHtml,
+        css: [this.snippets.raw.sampleCss],
+        js: [this.snippets.raw.sampleJs]
     };
 
     constructor() {

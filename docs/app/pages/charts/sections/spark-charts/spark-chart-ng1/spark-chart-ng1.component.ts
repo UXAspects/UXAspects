@@ -15,12 +15,12 @@ export class ChartsSparkChartNg1Component extends BaseDocumentationSection imple
     private charts: ISparkChart[];
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'SparkChartCtrl as vm'
         },
-        js: [this.snippets.examples.chartJs],
-        css: [this.snippets.examples.chartCss]
+        js: [this.snippets.raw.chartJs],
+        css: [this.snippets.raw.chartCss]
     };
 
     constructor() {

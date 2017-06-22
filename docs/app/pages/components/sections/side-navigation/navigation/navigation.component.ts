@@ -15,8 +15,8 @@ export class ComponentsNavigationComponent extends BaseDocumentationSection impl
     private noteCode = require('!!raw-loader!./snippets/ng-class.html');
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
-        js: [this.snippets.examples.sampleJs]
+        html: this.snippets.raw.sampleHtml,
+        js: [this.snippets.raw.sampleJs]
     };
 
     constructor() {

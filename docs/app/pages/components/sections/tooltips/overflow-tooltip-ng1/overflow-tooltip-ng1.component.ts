@@ -13,8 +13,8 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsOverflowTooltipNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
-        css: [this.snippets.examples.sampleCss]
+        html: this.snippets.raw.sampleHtml,
+        css: [this.snippets.raw.sampleCss]
     };
 
     constructor() {

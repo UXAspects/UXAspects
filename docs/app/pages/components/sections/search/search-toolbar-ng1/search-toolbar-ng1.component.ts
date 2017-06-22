@@ -12,11 +12,11 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsSearchToolbarNg1Component')
 export class ComponentsSearchToolbarNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'SearchToolbarDemoCtrl as vm'
         },
-        js: [this.snippets.examples.controllerJs, this.snippets.examples.modalControllerJs]
+        js: [this.snippets.raw.controllerJs, this.snippets.raw.modalControllerJs]
     };
 
     constructor() {

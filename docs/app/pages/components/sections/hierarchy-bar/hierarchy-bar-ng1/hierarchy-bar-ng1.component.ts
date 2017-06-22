@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsHierarchyBarNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.appHtml,
+        html: this.snippets.raw.appHtml,
         htmlAttributes: {
             'ng-controller': 'HierarchyBarDemoCtrl as vm'
         },
-        js: [ this.snippets.examples.appJs ]
+        js: [ this.snippets.raw.appJs ]
     };
 
     constructor() {

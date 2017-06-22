@@ -81,9 +81,9 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
 
     plunk: IPlunk = {
         files: {
-            'app.component.html': this.snippets.examples.appHtml,
-            'app.component.ts': this.snippets.examples.appTs,
-            'app.component.css': this.snippets.examples.appCss
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.css': this.snippets.raw.appCss
         },
         mappings: [
             MAPPINGS.Chance,

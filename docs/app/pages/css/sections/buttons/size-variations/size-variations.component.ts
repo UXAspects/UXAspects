@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class CssButtonsSizeVariationsComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.codeExampleHtml
+        html: this.snippets.raw.codeExampleHtml
     };
 
     constructor() {

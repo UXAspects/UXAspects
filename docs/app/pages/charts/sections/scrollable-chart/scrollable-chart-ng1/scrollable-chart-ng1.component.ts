@@ -16,11 +16,11 @@ export class ChartsScrollableChartNg1Component extends BaseDocumentationSection 
     private options: any;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'ScrollableChartCtrl as sc'
         },
-        js: [this.snippets.examples.chartHtml]
+        js: [this.snippets.raw.chartHtml]
     };
 
     constructor(colorService: ColorService) {

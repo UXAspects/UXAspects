@@ -17,11 +17,11 @@ export class ChartsHorizontalBarChartNg1Component extends BaseDocumentationSecti
     private options: any;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'HorizontalBarChartCtrl as bc'
         },
-        js: [this.snippets.examples.chartJs],
+        js: [this.snippets.raw.chartJs],
     };
 
     constructor(colorService: ColorService) {

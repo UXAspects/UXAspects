@@ -14,19 +14,19 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsNotificationListNg1Component')
 export class ComponentsNotificationListNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'NotificationListDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'modalLayout.html',
-            content: this.snippets.examples.modalLayoutHtml
+            content: this.snippets.raw.modalLayoutHtml
         }, {
             id: 'notification.html',
-            content: this.snippets.examples.notificationHtml
+            content: this.snippets.raw.notificationHtml
         }],
-        css: [this.snippets.examples.stylesCss],
-        js: [this.snippets.examples.controllerJs, this.snippets.examples.modalControllerJs]
+        css: [this.snippets.raw.stylesCss],
+        js: [this.snippets.raw.controllerJs, this.snippets.raw.modalControllerJs]
     };
 
     constructor() {

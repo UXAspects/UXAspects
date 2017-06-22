@@ -23,7 +23,7 @@ export class ComponentsDetailedTabExampleNg1Component extends BaseDocumentationS
     private tableHtml = require('./wrapper/tab-table.html');
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TabsCtrl as vm'
         },
@@ -41,7 +41,7 @@ export class ComponentsDetailedTabExampleNg1Component extends BaseDocumentationS
                 content: this.tableHtml
             }
         ],
-        js: [this.snippets.examples.sampleJs, this.snippets.examples.tabBarJs, this.snippets.examples.tabSankeyJs, this.snippets.examples.tabTableJs]
+        js: [this.snippets.raw.sampleJs, this.snippets.raw.tabBarJs, this.snippets.raw.tabSankeyJs, this.snippets.raw.tabTableJs]
     };
 
     constructor() {

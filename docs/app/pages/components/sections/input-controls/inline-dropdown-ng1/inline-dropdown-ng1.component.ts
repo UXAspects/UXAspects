@@ -17,11 +17,11 @@ export class ComponentsInlineDropdownNg1Component extends BaseDocumentationSecti
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'InlineDropDownCtrl as vm'
         },
-        js: [this.snippets.examples.sampleJs]
+        js: [this.snippets.raw.sampleJs]
     };
 
 }

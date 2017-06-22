@@ -14,9 +14,9 @@ export class ChartsStackedLineChartComponent extends BaseDocumentationSection im
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.examples.lineChartTs,
-            'app.component.html': this.snippets.examples.lineChartHtml,
-            'app.component.css': this.snippets.examples.lineChartCss
+            'app.component.ts': this.snippets.raw.lineChartTs,
+            'app.component.html': this.snippets.raw.lineChartHtml,
+            'app.component.css': this.snippets.raw.lineChartCss
         },
         modules: [{
             library: 'chart.js'

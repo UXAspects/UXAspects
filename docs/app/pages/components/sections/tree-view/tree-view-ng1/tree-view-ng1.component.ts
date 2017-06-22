@@ -13,11 +13,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsTreeViewNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TreeViewDocumentationCtrl as vm'
         },
-        js: [this.snippets.examples.sampleJs]
+        js: [this.snippets.raw.sampleJs]
     };
     
     constructor() {

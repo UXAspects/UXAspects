@@ -15,7 +15,7 @@ export class ComponentsTabsNg1Component extends BaseDocumentationSection impleme
     private tabContent = require('./wrapper/tab.html');
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TabsCtrl as vm'
         },
@@ -25,7 +25,7 @@ export class ComponentsTabsNg1Component extends BaseDocumentationSection impleme
                 content: this.tabContent
             }
         ],
-        js: [this.snippets.examples.sampleJs]
+        js: [this.snippets.raw.sampleJs]
     };
 
     constructor() {

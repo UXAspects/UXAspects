@@ -17,11 +17,11 @@ export class ComponentsSelectNg1Component extends BaseDocumentationSection imple
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'SelectDemoCtrl as vm'
         },
-        js: [this.snippets.examples.sampleFullJs]
+        js: [this.snippets.raw.sampleFullJs]
     };
 
 }

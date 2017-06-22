@@ -16,12 +16,12 @@ export class ComponentsHoverActionsNg1Component extends BaseDocumentationSection
     private cssCode = this.snippets.compiled.stylesCss;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'HoverActionCtrl'
         },
-        js: [this.snippets.examples.controllerJs],
-        css: [this.snippets.examples.stylesCss]
+        js: [this.snippets.raw.controllerJs],
+        css: [this.snippets.raw.stylesCss]
     };
     
     constructor() {

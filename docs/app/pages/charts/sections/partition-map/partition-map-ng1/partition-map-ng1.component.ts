@@ -20,18 +20,18 @@ export class ChartsPartitionMapNg1Component extends BaseDocumentationSection imp
     private isLoading: boolean;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'PartitionMapCtrl as vm'
         },
         htmlTemplates: [
             {
                 id: 'templateId.html',
-                content: this.snippets.examples.popoverHtml
+                content: this.snippets.raw.popoverHtml
             }
         ],
-        js: [this.snippets.examples.chartJs, this.snippets.examples.popoverJs],
-        css: [this.snippets.examples.chartCss]
+        js: [this.snippets.raw.chartJs, this.snippets.raw.popoverJs],
+        css: [this.snippets.raw.chartCss]
     };
 
 

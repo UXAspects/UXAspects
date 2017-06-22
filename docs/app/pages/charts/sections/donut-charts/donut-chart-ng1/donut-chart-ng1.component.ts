@@ -17,11 +17,11 @@ export class ChartsDonutChartNg1Component extends BaseDocumentationSection imple
     private options: any;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'DonutChartCtrl as dc'
         },
-        js: [this.snippets.examples.chartJs]
+        js: [this.snippets.raw.chartJs]
     };
 
     constructor(private colorService: ColorService) {

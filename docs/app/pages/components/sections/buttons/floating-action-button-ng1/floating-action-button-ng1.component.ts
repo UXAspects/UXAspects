@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsFloatingActionButtonNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.floatingActionButtonHtml,
+        html: this.snippets.raw.floatingActionButtonHtml,
         htmlAttributes: {
             'ng-controller': 'FloatingActionButtonCtrl as vm'
         },
-        js: [this.snippets.examples.floatingActionButtonJs]
+        js: [this.snippets.raw.floatingActionButtonJs]
     };
 
     constructor() {

@@ -8,7 +8,7 @@ export abstract class BaseDocumentationSection {
 
         this.snippets = {
             compiled: {},
-            examples: {}
+            raw: {}
         };
 
         context.keys().forEach(key => {
@@ -21,7 +21,7 @@ export abstract class BaseDocumentationSection {
             }
 
             if (codeSnippet.example) {
-                this.snippets.examples[snippetName] = codeSnippet.example;
+                this.snippets.raw[snippetName] = codeSnippet.example;
             }
 
         });

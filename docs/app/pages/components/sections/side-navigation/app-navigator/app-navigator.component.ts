@@ -13,12 +13,12 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsAppNavigatorComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.appExampleHtml,
+        html: this.snippets.raw.appExampleHtml,
         htmlTemplates: [{
             id: 'app_navigator_popover.tmpl.html',
-            content: this.snippets.examples.popoverHtml,
+            content: this.snippets.raw.popoverHtml,
         }],
-        css: [this.snippets.examples.sampleCss]
+        css: [this.snippets.raw.sampleCss]
     };
 
     constructor() {

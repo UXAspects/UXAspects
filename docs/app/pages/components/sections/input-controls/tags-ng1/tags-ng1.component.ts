@@ -17,11 +17,11 @@ export class ComponentsTagsNg1Component extends BaseDocumentationSection impleme
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.codepenHtml,
+        html: this.snippets.raw.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'TagsCtrl as vm'
         },
-        js: [this.snippets.examples.codepenJs]
+        js: [this.snippets.raw.codepenJs]
     };
 
 }

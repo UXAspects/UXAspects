@@ -12,9 +12,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsFacetLineChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.appHtml,
-        js: [this.snippets.examples.appJs],
-        css: [this.snippets.examples.appCss]
+        html: this.snippets.raw.appHtml,
+        js: [this.snippets.raw.appJs],
+        css: [this.snippets.raw.appCss]
     };
 
     constructor() {

@@ -14,12 +14,12 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsSideInsetPanelSplitterNg1Component')
 export class ComponentsSideInsetPanelSplitterNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'SideInsetPanelSplitterDemoCtrl as vm'
         },
-        css: [this.snippets.examples.stylesCss],
-        js: [this.snippets.examples.controllerJs]
+        css: [this.snippets.raw.stylesCss],
+        js: [this.snippets.raw.controllerJs]
     };
 
     constructor() {

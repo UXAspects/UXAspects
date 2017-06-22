@@ -72,8 +72,8 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
 
     public plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.examples.appTs,
-            'app.component.html': this.snippets.examples.appHtml
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
             imports: [

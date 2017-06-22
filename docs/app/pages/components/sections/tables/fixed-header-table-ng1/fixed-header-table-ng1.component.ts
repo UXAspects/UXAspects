@@ -15,11 +15,11 @@ export class ComponentsFixedHeaderTableNg1Component extends BaseDocumentationSec
     private jsCode = this.snippets.compiled.controllerJs;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'FixedHeaderCtrl'
         },
-        js: [this.snippets.examples.codepenJs]
+        js: [this.snippets.raw.codepenJs]
     };
     
     constructor() {

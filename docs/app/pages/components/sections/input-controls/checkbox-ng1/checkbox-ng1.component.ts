@@ -17,11 +17,11 @@ export class ComponentsCheckboxNg1Component extends BaseDocumentationSection imp
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'CheckboxDemoCtrl as vm'
         },
-        js: [this.snippets.examples.sampleJs]
+        js: [this.snippets.raw.sampleJs]
     };
 
 }

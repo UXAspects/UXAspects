@@ -14,19 +14,19 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsPopoverNg1Component')
 export class ComponentsPopoverNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'PopoverDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'popoverLayout.html',
-            content: this.snippets.examples.popoverLayoutHtml
+            content: this.snippets.raw.popoverLayoutHtml
         }, {
             id: 'nestedPopoverLayout.html',
-            content: this.snippets.examples.nestedPopoverLayoutHtml
+            content: this.snippets.raw.nestedPopoverLayoutHtml
         }],
-        css: [this.snippets.examples.stylesCss],
-        js: [this.snippets.examples.controllerJs]
+        css: [this.snippets.raw.stylesCss],
+        js: [this.snippets.raw.controllerJs]
     };
 
     constructor() {

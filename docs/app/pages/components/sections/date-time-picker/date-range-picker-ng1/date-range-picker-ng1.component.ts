@@ -17,12 +17,12 @@ export class ComponentsDateRangePickerNg1Component extends BaseDocumentationSect
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.sampleHtml,
+        html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'DateRangePickerCtrl as vm'
         },
-        js: [this.snippets.examples.sampleJs],
-        css: [this.snippets.examples.sampleCss]
+        js: [this.snippets.raw.sampleJs],
+        css: [this.snippets.raw.sampleCss]
     };
 
 }

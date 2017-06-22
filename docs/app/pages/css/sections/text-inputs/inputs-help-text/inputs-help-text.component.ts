@@ -13,7 +13,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class CssInputsHelpTextComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.codeExampleHtml
+        html: this.snippets.raw.codeExampleHtml
     };
 
     constructor() {

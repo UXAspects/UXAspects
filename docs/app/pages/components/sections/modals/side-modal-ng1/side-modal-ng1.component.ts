@@ -14,19 +14,19 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsSideModalNg1Component')
 export class ComponentsSideModalNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'SideModalDemoCtrl as vm'
         },
         htmlTemplates: [{
             id: 'modalContent.html',
-            content: this.snippets.examples.modalContentHtml
+            content: this.snippets.raw.modalContentHtml
         }, {
             id: 'modalFooter.html',
-            content: this.snippets.examples.modalFooterHtml
+            content: this.snippets.raw.modalFooterHtml
         }],
-        css: [this.snippets.examples.stylesCss],
-        js: [this.snippets.examples.controllerJs, this.snippets.examples.modalControllerJs]
+        css: [this.snippets.raw.stylesCss],
+        js: [this.snippets.raw.controllerJs, this.snippets.raw.modalControllerJs]
     };
 
     constructor() {

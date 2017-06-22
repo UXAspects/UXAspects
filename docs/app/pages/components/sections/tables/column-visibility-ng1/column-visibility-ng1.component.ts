@@ -15,11 +15,11 @@ export class ComponentsColumnVisibilityNg1Component extends BaseDocumentationSec
     private tableData: any[];
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.layoutHtml,
+        html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ColumnVisibilityCtrl as vm'
         },
-        js: [this.snippets.examples.controllerJs]
+        js: [this.snippets.raw.controllerJs]
     };
 
     constructor() {

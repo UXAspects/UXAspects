@@ -17,11 +17,11 @@ export class ChartsLineChartNg1Component extends BaseDocumentationSection implem
     private options: any;
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.chartHtml,
+        html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'LineChartCtrl as lc'
         },
-        js: [this.snippets.examples.chartJs]
+        js: [this.snippets.raw.chartJs]
     };
 
     constructor(colorService: ColorService) {

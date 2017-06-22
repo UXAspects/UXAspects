@@ -14,12 +14,12 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsThumbnailNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.thumbnailHtml,
+        html: this.snippets.raw.thumbnailHtml,
         htmlAttributes: {
             'ng-controller': 'ThumbnailDemoCtrl as vm'
         },
-        css: [this.snippets.examples.thumbnailExampleCss],
-        js: [this.snippets.examples.thumbnailExampleJs]
+        css: [this.snippets.raw.thumbnailExampleCss],
+        js: [this.snippets.raw.thumbnailExampleJs]
     };
     
     constructor() {

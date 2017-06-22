@@ -15,11 +15,11 @@ export class ComponentsCustomFacetComponent extends BaseDocumentationSection imp
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.examples.appTs,
-            'app.component.html': this.snippets.examples.appHtml,
-            'facet-component.component.html': this.snippets.examples.facetComponentHtml,
-            'facet-component.component.css': this.snippets.examples.facetComponentCss,
-            'facet-component.component.ts': this.snippets.examples.facetComponentTs
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml,
+            'facet-component.component.html': this.snippets.raw.facetComponentHtml,
+            'facet-component.component.css': this.snippets.raw.facetComponentCss,
+            'facet-component.component.ts': this.snippets.raw.facetComponentTs
         },
         modules: [{
             imports: ['FacetsModule', 'CheckboxModule'],

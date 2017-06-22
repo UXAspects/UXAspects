@@ -17,11 +17,11 @@ export class ComponentsSlidersNg1Component extends BaseDocumentationSection impl
     }
 
     public codepen: ICodePen = {
-        html: this.snippets.examples.codepenHtml,
+        html: this.snippets.raw.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'SlidersCtrl as vm'
         },
-        js: [this.snippets.examples.codepenJs]
+        js: [this.snippets.raw.codepenJs]
     };
 
 }
