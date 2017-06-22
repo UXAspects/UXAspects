@@ -26,19 +26,6 @@ export class ChartsSocialChartNg1Component extends BaseDocumentationSection impl
     private startMaximized: boolean = false;
     private templates: any;
 
-    // private htmlCode = require('./snippets/chart.html');
-    // private jsCode = require('./snippets/chart.js');
-
-    // private apiHtml = require('./snippets/api.html');
-    // private apiJs = require('./snippets/api.js');
-    // private buttonsJs = require('./snippets/buttons.js');
-    // private clickJs = require('./snippets/click.js');
-    // private communitiesJs = require('./snippets/communities.js');
-    // private layoutJs = require('./snippets/layout.js');
-    // private stateJs = require('./snippets/state.js');
-    // private stylesJs = require('./snippets/styles.js');
-    // private titleJs = require('./snippets/title.js');
-
     public codepen: ICodePen = {
         html: this.snippets.raw.chartExampleHtml,
         htmlAttributes: {
