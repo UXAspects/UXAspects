@@ -27,5 +27,5 @@
 </div>
 
 <ng-template #facetTypeaheadListOptionTemplate let-model="item" let-index="index">
-    <p class="facet-typeahead-list-option">{{ model.title }} <span class="facet-typeahead-list-option-count" *ngIf="model.count">({{ model.count }})</span></p>
+    <p class="facet-typeahead-list-option"><span [innerHTML]="model.title | facetTypeaheadHighlight: searchQuery"></span> <span class="facet-typeahead-list-option-count" *ngIf="model.count">({{ model.count }})</span></p>
 </ng-template>

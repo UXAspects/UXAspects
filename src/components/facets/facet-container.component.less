@@ -52,22 +52,30 @@ ux-facet-container {
             flex-wrap: wrap;
 
             .facet-selected-tag {
-                padding: 5px;
                 margin-right: 5px;
                 margin-bottom: 5px;
-                border: 1px solid @grey6;
                 cursor: pointer;
                 outline: none;
                 transition: background-color 0.3s ease-in-out;
                 max-width: 100%;
+                color: @tag-input-tag-color;
+                background-color: @tag-input-tag-bg;
+                border: 1px solid @tag-input-tag-border;
+                border-radius: 1px;
+                padding: 0 5px;
 
                 .facet-selected-tag-label {
                     word-break: break-all;
                 }
 
-                &:hover,
-                &:focus {
-                    background-color: @grey7;
+                .hpe-close {
+                    font-size: 80%;
+                    opacity: 0.7;
+                    transition: 0.3s opacity ease-in-out;
+
+                    &:hover {
+                        opacity: 1;
+                    }
                 }
             }
         }

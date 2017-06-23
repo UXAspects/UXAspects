@@ -9,7 +9,7 @@
 
         <!-- Add a Clear Button -->
         <div class="facets-selected-clear-button" tabindex="0" [tooltip]="clearTooltip" placement="left" container="body" (click)="deselectAllFacets()"
-            (keyup.enter)="deselectAllFacets()">
+            (keyup.enter)="deselectAllFacets()" *ngIf="facets.length > 0">
 
             <svg class="facets-selected-clear-graphic" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
                 <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>

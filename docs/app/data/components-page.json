@@ -281,27 +281,32 @@
                 {
                     "title": "Facets",
                     "component": "ComponentsFacetsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Dynamic Facets",
                     "component": "ComponentsDynamicFacetsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Custom Facets",
                     "component": "ComponentsCustomFacetsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Line Chart Example with Facet Panel",
                     "component": "ComponentsFacetLineChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Programmatic Selection",
                     "component": "ComponentsProgrammaticSelectionNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
