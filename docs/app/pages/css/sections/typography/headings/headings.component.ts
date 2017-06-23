@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from './../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from './../../../../../interfaces/ICodePen';
-import { BaseDocumentationSection } from "../../../../../components/base-documentation-section/base-documentation-section";
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-css-typography-headings',
