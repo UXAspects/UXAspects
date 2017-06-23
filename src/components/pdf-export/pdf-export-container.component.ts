@@ -22,45 +22,64 @@ export class PdfExportContainerComponent {
 
     content: string = '';
     styles: string[] = [];
+    links: string[] = [];
     iframe: any;
+    fullHtml: string = '';
+    link = '';
 
     ngAfterContentInit() {
-        for (let stylesheetIdx = 0; stylesheetIdx < document.styleSheets.length; stylesheetIdx++) {
-            let stylesheet = document.styleSheets.item(stylesheetIdx) as any;
 
-            let rules = stylesheet.rules as CSSRuleList;
-
-            for (let ruleIdx = 0; ruleIdx < rules.length; ruleIdx++) {
-                this.styles.push(rules.item(ruleIdx).cssText);
-            }
-        }
-
-
-        this.content += `<body>`;
+        // get computed styles
         this.contentChildren.forEach(child => {
-            this.content += child.getElement().outerHTML + '\n';
+            let childElement = child.getElement().cloneNode(true) as HTMLElement;
+            let height = childElement.style.height || '';
+            let width = childElement.style.width || '';
+            let style = window.getComputedStyle(child.getElement());
+            childElement.setAttribute('style', style.cssText);
+            childElement.style.height = width;
+            childElement.style.width = height;
+            let children = childElement.getElementsByTagName('*');
+            let originalChildren = (<HTMLElement>child.getElement()).getElementsByTagName('*');
+            for (let i = 0; i < children.length; i++) {
+                let childStyle = window.getComputedStyle(originalChildren[i]);
+                let childHeight = (<HTMLElement>originalChildren[i]).style.height || '';
+                let childWidth = (<HTMLElement>originalChildren[i]).style.width || '';
+                children[i].setAttribute('style', childStyle.cssText);
+                (<HTMLElement>children[i]).style.height = width;
+                (<HTMLElement>children[i]).style.width = height;
+            }
+            this.content += childElement.outerHTML + '\n';
         });
-        this.content += `</body>`;
 
+        this.content += `<script type="text/javascript" src="polyfills.js"></script><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="app.js"></script>`;
+        this.link = `<link rel="shortcut icon" href="favicon.ico"><link href="styles.css" rel="stylesheet">`;      
+        
+        // create iframe
         this.iframe = document.createElement('iframe');
         document.body.appendChild(this.iframe);
+        let linkElement = document.createElement('span');
+        linkElement.innerHTML = this.link;
+        // need the timeout for firefox
+        setTimeout(() => {
+            this.iframe.contentDocument.head.appendChild(linkElement);
+        });
+
+        // get full HTML
+        this.fullHtml = `<head>` + this.link + `</head><body>` + this.content + `</body>`;
+
+        // console.log(this.content);
+
     }
 
     test() {
-        
-        
-        let styleElement = document.createElement('style');
-        styleElement.innerHTML = this.styles.join('\n');
-       
-        console.log(styleElement);
-        
-        let head = this.iframe.contentDocument.head;
-
-        console.log(head);
-        head.appendChild(styleElement);
-        
-        this.iframe.src = 'data:text/html;charset=utf-8,' + encodeURI(this.content);
-        
-         
+        let contentElement = document.createElement('span');
+        contentElement.innerHTML = this.content;
+        this.iframe.contentDocument.body.appendChild(contentElement);         
     }
+
+    openWindow() {
+        window.open('about:blank', '', '_blank').document.write(this.fullHtml);
+    }
+
+    
 }
