@@ -417,8 +417,21 @@
                 },
                 {
                     "title": "Number Picker",
+                    "component": "ComponentsNumberPickerComponent",
+                    "version": "Angular",
+                    "usage":[{
+                        "title": "Selector",
+                        "content": "ux-number-picker"
+                    }, {
+                        "title": "Module name",
+                        "content": "NumberPickerModule"
+                    }]
+                },
+                {
+                    "title": "Number Picker",
                     "component": "ComponentsNumberPickerNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Inline Dropdown",

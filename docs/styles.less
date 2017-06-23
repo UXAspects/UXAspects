@@ -2,7 +2,8 @@
 @import '../node_modules/prismjs/themes/prism.css';
 @import '../src/styles/ux-aspects.less';
 
-html, body {
+html,
+body {
     font-family: @font-family;
     text-rendering: optimizeLegibility;
     font-size: 16px;
@@ -15,14 +16,14 @@ body {
 }
 
 .loading-screen {
-    position: absolute; 
-    display: flex; 
-    flex-direction: column; 
-    width: 100vw; 
-    height: 100vh; 
-    justify-content: center; 
-    align-items: center; 
-    overflow:hidden;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     top: 0;
     bottom: 0;
     z-index: 999;
@@ -44,7 +45,10 @@ body {
     }
 }
 
-uxd-navigation-bar, uxd-page-header, uxd-side-navigation, uxd-page-footer {
+uxd-navigation-bar,
+uxd-page-header,
+uxd-side-navigation,
+uxd-page-footer {
     font-family: 'Source Sans Pro';
 }
 
@@ -53,11 +57,13 @@ uxd-navigation-bar, uxd-page-header, uxd-side-navigation, uxd-page-footer {
 }
 
 .uxd-documentation-container {
-    padding: 15px 0 0 0;
+    padding: 15px 0 0;
+
     uxd-component-section > ux-ebox {
         .ux-ebox-header {
             padding: 14px 0 7px;
         }
+
         .ux-ebox-content {
             padding: 15px 0 20px;
         }
@@ -68,11 +74,10 @@ uxd-navigation-bar, uxd-page-header, uxd-side-navigation, uxd-page-footer {
     margin-top: 30px;
 }
 
-
 kbd {
-  color: #c7254e;
-  background-color: #f9f2f4;
-  box-shadow: none;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    box-shadow: none;
 }
 
 /*
@@ -90,8 +95,7 @@ pre[class*="language-"] {
 }
 
 pre[class*="language-"],
-pre[class*="language-"] code { 
-
+pre[class*="language-"] code {
     font-family: Menlo, Consolas, "Courier New", monospace !important;
     background-color: #f5f5f5;
     border-color: #ddd;
@@ -99,7 +103,6 @@ pre[class*="language-"] code {
     border-radius: 3px;
 
     .token {
-
         &.attr-name {
             color: #008080;
         }
@@ -129,15 +132,16 @@ pre[class*="language-"] code {
 */
 
 .attribute {
-	color: #c7254e;
+    color: #c7254e;
 }
 
 .demo-attributes {
     &.table-responsive {
-        &>.table {
-            &>tbody {
-                &>tr {
-                    &>th, &>td {
+        & > .table {
+            & > tbody {
+                & > tr {
+                    & > th,
+                    & > td {
                         white-space: normal;
                     }
                 }
@@ -155,14 +159,15 @@ pre[class*="language-"] code {
 .header-documentation h3,
 .header-documentation h4,
 .header-documentation h5 {
-  display: inline-block;
+    display: inline-block;
 }
+
 .header-documentation h1.fixed-width,
 .header-documentation h2.fixed-width,
 .header-documentation h3.fixed-width,
 .header-documentation h4.fixed-width,
 .header-documentation h5.fixed-width {
-  width: 50px;
+    width: 50px;
 }
 
 /*
@@ -178,10 +183,9 @@ pre[class*="language-"] code {
     white-space: pre;
 }
 
-
-.demo-attributes.table-responsive > .table > tbody > tr > th, 
+.demo-attributes.table-responsive > .table > tbody > tr > th,
 .demo-attributes.table-responsive > .table > tbody > tr > td {
-  white-space: normal; 
+    white-space: normal;
 }
 
 .attribute {
@@ -195,6 +199,7 @@ pre[class*="language-"] code {
 /*
     Detail Row Header
 */
+
 .detail-row-popover {
     overflow: auto;
     height: 300px;
@@ -221,7 +226,7 @@ pre[class*="language-"] code {
     padding-bottom: 15px;
     margin-top: 5px;
     text-align: right;
-    border-top: 1px solid #e5e5e5; 
+    border-top: 1px solid #e5e5e5;
 }
 
 .detail-row-header-popover .popover-content {
@@ -256,13 +261,14 @@ pre[class*="language-"] code {
 /*
   Hover Actions
 */
+
 .hover-actions-demo-container {
     display: table;
     width: 100%;
     height: 50px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
     padding: 10px 15px;
     margin: 10px 10px 20px;
 }
@@ -300,7 +306,7 @@ pre[class*="language-"] code {
 /*
     Reorderable Table
 */
-.table>tbody>tr.table-vertically-center>td {
+.table > tbody > tr.table-vertically-center > td {
     vertical-align: middle;
 }
 
@@ -310,7 +316,7 @@ tr.dragging td {
 
 tr .remove-row {
     opacity: 0;
-    color: #666666;
+    color: #666;
 }
 
 tr:hover .remove-row {
@@ -366,15 +372,15 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 .reorderable-controls .reorder-up {
-    border-width: 0 5px 8px 5px;
-    border-color: transparent transparent #666666 transparent;
+    border-width: 0 5px 8px;
+    border-color: transparent transparent #666;
     margin-bottom: 2px;
 }
 
 .reorderable-controls .reorder-down {
-    border-width: 8px 5px 0 5px;
-    border-color: #666 transparent transparent transparent;
-    margin-top: 2px;    
+    border-width: 8px 5px 0;
+    border-color: #666 transparent transparent;
+    margin-top: 2px;
 }
 
 .reorderable-controls .reorder-drag {
@@ -398,121 +404,121 @@ tr.dragging .reorderable-controls .reorder-drag {
 */
 
 @media screen and (max-width: 769px) {
-	.preview-pane-window .preview-items {
-		max-height: 445px;
-	}
+    .preview-pane-window .preview-items {
+        max-height: 445px;
+    }
 }
 
 .preview-pane-window .preview-items .card {
-	padding: 16px 0 16px 11px;
-	height: 105px;
+    padding: 16px 0 16px 11px;
+    height: 105px;
 
-	&:first-of-type {
-		border-top: none;
-	}
+    &:first-of-type {
+        border-top: none;
+    }
 
-	.icon {
-		background-image: url('./app/assets/img/page.png');
-		background-repeat: no-repeat;
-	    width: 24px;
-	    height: 28px;
-	    background-size: contain;
-	}
+    .icon {
+        background-image: url('./app/assets/img/page.png');
+        background-repeat: no-repeat;
+        width: 24px;
+        height: 28px;
+        background-size: contain;
+    }
 
-	.content {
-	    width: ~'calc(100% - 50px)';
-	    padding-left: 2px;
-		
-		.document-name {
-			color: #333;
-			font-weight: 200;
-		    font-size: 1.3rem;
+    .content {
+        width: ~'calc(100% - 50px)';
+        padding-left: 2px;
+
+        .document-name {
+            color: #333;
+            font-weight: 200;
+            font-size: 1.3rem;
             margin-top: 0;
-    		margin-bottom: 2px;
-    		overflow: hidden;
+            margin-bottom: 2px;
+            overflow: hidden;
             max-width: ~'calc(100% - 85px)';
-		    white-space: nowrap;
-		    text-overflow: ellipsis;
-		    word-break: break-all;
-		}
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-break: break-all;
+        }
 
-		.document-description {
-		    color: #999;
-		    white-space: nowrap;
-		    overflow: hidden;
-		    word-break: break-all;
-		    text-overflow: ellipsis;
-		    margin: 0;
-		    max-width: ~'calc(100% - 20px)';
+        .document-description {
+            color: #999;
+            white-space: nowrap;
+            overflow: hidden;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            margin: 0;
+            max-width: ~'calc(100% - 20px)';
 
-		    span {
-		    	color: #676a6c;
-		    }
-		}
+            span {
+                color: #676a6c;
+            }
+        }
 
-		.document-progress {
-		    margin-right: 20px;
-		    float: right;
-		    width: 25%;
-		}
-	}
+        .document-progress {
+            margin-right: 20px;
+            float: right;
+            width: 25%;
+        }
+    }
 
-	.label {
-		position: absolute;
-		top: 17px;
-		right: 25px;
-	}
+    .label {
+        position: absolute;
+        top: 17px;
+        right: 25px;
+    }
 }
 
 .preview-pane-window .spark-bottom-label {
-	font-size: 14px;
+    font-size: 14px;
 }
 
 @media screen and (max-width: 630px) {
-	.preview-pane-window .preview-items .card .card-label {
-		display: none;
-	} 
+    .preview-pane-window .preview-items .card .card-label {
+        display: none;
+    }
 }
 
 .pp-toggle {
-	display: none;
+    display: none;
 }
 
 .ppw-button-container {
-	display: flex;
-	justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 
-	.ppw-button {
-	    padding: 0;
+    .ppw-button {
+        padding: 0;
 
-	    .ppw-open {
-			padding: 4px 8px;
-    		display: inline-block;
-		}
-	}
+        .ppw-open {
+            padding: 4px 8px;
+            display: inline-block;
+        }
+    }
 }
 
 .spark-chart-pw {
-	width: 100%;
-	float: left;
-	padding-left: 0px;
+    width: 100%;
+    float: left;
+    padding-left: 0;
 }
 
 .spark-chart-pw .spark-label-left {
-	width: auto;
+    width: auto;
 }
 
 .preview-pane-window .preview-pane-right {
-	height: 480px;
-	max-height: 480px;
-	min-height: 480px;
+    height: 480px;
+    max-height: 480px;
+    min-height: 480px;
 }
 
 .preview-pane-window .preview-items {
-	height: 550px;
-	overflow-y: auto;
-	border-top: 1px solid #e7eaec;
-	border-bottom: 1px solid #e7eaec;
+    height: 550px;
+    overflow-y: auto;
+    border-top: 1px solid #e7eaec;
+    border-bottom: 1px solid #e7eaec;
 }
 
 .preview-pane-shadow {
@@ -525,7 +531,6 @@ tr.dragging .reorderable-controls .reorder-drag {
     padding-right: 20px;
 }
 
-
 .multiSortContainer {
     display: inline-flex;
     align-items: center;
@@ -533,22 +538,24 @@ tr.dragging .reorderable-controls .reorder-drag {
     padding-left: 5px;
 }
 
-
 /*
     Side Navigation > Navigation
 */
+
 .selected-side-menu-item {
-  font-family: @font-family !important;
-  font-weight: 600 !important;
-  color: #333333 !important;
+    font-family: @font-family !important;
+    font-weight: 600 !important;
+    color: #333 !important;
 }
 
 /*
     Side Navigation > App Navigator
 */
+
 .app-navigator-demo {
     max-width: 270px;
 }
+
 /*
   Flot Line Chart With Facet Panel
 */
@@ -566,7 +573,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 
 .flot-facet-container .flot-side-panel {
     height: 500px;
-    box-shadow: -5px 0px 12px #ccc;
+    box-shadow: -5px 0 12px #ccc;
     border: 1px solid #ddd;
 }
 
@@ -586,27 +593,24 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 .file-upload-dropzone {
-  border: 2px dashed rgba(96, 121, 141, 0.8);
-  background: white;
-  font-size: 18px;
-  font-weight: 300;
-  width: 100%;
-  padding-top: 60px;
-  text-align: center;
-  min-height: 150px;
-  color: #676a6c;
-  cursor: pointer;
+    border: 2px dashed rgba(96, 121, 141, 0.8);
+    background: white;
+    font-size: 18px;
+    font-weight: 300;
+    width: 100%;
+    padding-top: 60px;
+    text-align: center;
+    min-height: 150px;
+    color: #676a6c;
+    cursor: pointer;
 }
-
 
 /*
     Flippable Cards
 */
+
 .flip-card-content {
-    padding-top: 35px;
-    padding-left: 20px;
-    padding-right: 10px;
-    padding-bottom: 15px;
+    padding: 35px 10px 15px 35px;
 }
 
 .flip-card-content.cursor-pointer {
@@ -620,8 +624,8 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 .flip-card-content.card-back {
-    padding: 15px 10px 10px 10px;
-    background-color: #7B63A3;
+    padding: 15px 10px 10px;
+    background-color: #7b63a3;
     height: 100%;
 }
 
@@ -712,7 +716,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 .card-text.produced {
     color: #ea7e65;
     display: inline-block;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .card-text .text-muted {
@@ -723,7 +727,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 .clickable-icon {
     margin: 10px;
     cursor: pointer;
-    color: #999
+    color: #999;
 }
 
 .clickable-icon.icon-back {
@@ -771,7 +775,7 @@ tr.dragging .reorderable-controls .reorder-drag {
     color: @chart3;
 }
 
-.nested-donut-text p span+span {
+.nested-donut-text p span + span {
     font-size: 14px;
     color: #999;
 }
@@ -798,7 +802,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 .organization-chart-demo-container {
     width: 100%;
     height: 700px;
-    border: 1px solid #E2E2E2;
+    border: 1px solid #e2e2e2;
     border-top: none;
 }
 
@@ -835,7 +839,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 .org-node .org-node-indicators .org-node-reports .hpe-user-manager {
-    color: #cccccc;
+    color: #ccc;
     transition: color 0.3s ease-in-out;
     font-size: 1.063rem;
 }
@@ -875,7 +879,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 
 .org-node .org-node-position {
     color: #999;
-    font-size: 1.063rem;    
+    font-size: 1.063rem;
     margin-top: 0;
     margin-bottom: 5px;
     max-height: 24px;
@@ -888,8 +892,8 @@ tr.dragging .reorderable-controls .reorder-drag {
 
 .org-node .org-node-email {
     color: #999;
-    font-size: 0.9375rem;    
-    margin: 0;                    
+    font-size: 0.9375rem;
+    margin: 0;
 }
 
 .organization-chart-search-item-name {
@@ -899,81 +903,85 @@ tr.dragging .reorderable-controls .reorder-drag {
 /*
     Card Tabs
 */
+
 .cardTab {
-  padding: 7px 9px;
+    padding: 7px 9px;
 }
 
 .cardTab .cardTitle {
-  color: #333;
-  font-size: 17px;
+    color: #333;
+    font-size: 17px;
 }
 
 .cardTab .cardValue {
-  text-align: center;
-  font-size: 26px;
-  color: #686868;
-  margin: 0;
+    text-align: center;
+    font-size: 26px;
+    color: #686868;
+    margin: 0;
 }
 
 .cardTab .cardSubtitle {
-  text-align: center;
-  color: #B8B8B8;
-  margin-bottom: 0;
+    text-align: center;
+    color: #b8b8b8;
+    margin-bottom: 0;
 }
 
 .cardTab .cardImg {
-  width: 100%;
-  height: 60px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
+    width: 100%;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 
 .cardTab .cardImg.img1 {
-  background-image: url("./app/assets/img/card-img1.png");
+    background-image: url("./app/assets/img/card-img1.png");
 }
 
 .cardTab .cardImg.img2 {
-  background-image: url("./app/assets/img/card-img2.png");
+    background-image: url("./app/assets/img/card-img2.png");
 }
 
 .cardTab .cardImg.img3 {
-  background-image: url("./app/assets/img/card-img3.png");
+    background-image: url("./app/assets/img/card-img3.png");
 }
 
 .cardTab .cardImg.img4 {
-  background-image: url("./app/assets/img/card-img4.png");
+    background-image: url("./app/assets/img/card-img4.png");
 }
 
 .cardTab .cardImg.img5 {
-  background-image: url("./app/assets/img/card-img5.png");
+    background-image: url("./app/assets/img/card-img5.png");
 }
 
 /*
     Overflow Tooltip
 */
+
 .overflow-tooltip-demo {
-  box-shadow: 0px 0px 15px 0px #eee;
-  display: inline-block;
-  width: 50%;
-  height: 120px;
-  padding: 20px;
+    box-shadow: 0 0 15px 0 #eee;
+    display: inline-block;
+    width: 50%;
+    height: 120px;
+    padding: 20px;
 }
 
 /*
     Single Line Overflow Tooltip
 */
+
 .single-line-overflow-tooltip-demo {
-  box-shadow: 0px 0px 15px 0px #eee;
-  display: inline-block;
-  width: 50%;
-  height: 62px;
-  padding: 20px;
+    box-shadow: 0 0 15px 0 #eee;
+    display: inline-block;
+    width: 50%;
+    height: 62px;
+    padding: 20px;
 }
 
 /*
     Static Tooltip
 */
+
 .static-tooltip-demo {
     height: 200px;
 }
@@ -981,6 +989,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 /*
     Marquee Wizard
 */
+
 .inline-title {
     font-family: @font-family;
     font-weight: 200;
@@ -992,6 +1001,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 /*
     Partition Map
 */
+
 .partition-user-popover {
     width: 100%;
     padding: 10px;
@@ -1012,7 +1022,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 .partition-user-popover .title {
-    color: #ffffff;
+    color: #fff;
     font-family: @font-family;
     line-height: 36px;
     margin-top: 0;
@@ -1062,7 +1072,6 @@ tr.dragging .reorderable-controls .reorder-drag {
     left: 0;
 }
 
-
 .docked .partition-popover-buttons {
     position: static;
 }
@@ -1109,24 +1118,25 @@ tr.dragging .reorderable-controls .reorder-drag {
 /*
     Social Chart
 */
+
 .social-demo .hold-icon {
-  background-image: url('./app/assets/img/lock.png');
-  width: 18px;
-  height: 18px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  margin:-2px 5px -2px 0px;
-  display: inline-block;
+    background-image: url('./app/assets/img/lock.png');
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: -2px 5px -2px 0;
+    display: inline-block;
 }
 
 .social-demo .workbook-icon {
-  background-image: url('./app/assets/img/book.png');
-  width: 18px;
-  height: 18px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  margin:-2px 9px -4px 0px;
-  display: inline-block;
+    background-image: url('./app/assets/img/book.png');
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: -2px 9px -4px 0;
+    display: inline-block;
 }
 
 /*
@@ -1136,33 +1146,42 @@ tr.dragging .reorderable-controls .reorder-drag {
 .dropdown-popover {
     z-index: 1005;
 }
+
 .dropdown-outer-container {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.dropdown-container{
+
+.dropdown-container {
     overflow: auto;
     width: 250px;
 }
+
 .dropdown-container table {
     border-bottom: 1px solid #e5e5e5;
 }
+
 .dropdown-container table tbody tr td {
     padding-bottom: 6px;
 }
+
 .dropdown-container table .check > label {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
+
 .btn-pull-right {
     float: right;
     margin-top: 3px;
 }
+
 .group-header {
-    font-size:18px;
+    font-size: 18px;
 }
+
 .dropdown-body {
-    font-size:16px;
+    font-size: 16px;
 }
+
 .dropdown-footer {
     text-align: right;
     border-top: 1px solid #e5e5e5;
@@ -1170,11 +1189,13 @@ tr.dragging .reorderable-controls .reorder-drag {
     margin-left: -15px;
     margin-right: -15px;
 }
+
 .inner-addon {
     position: relative;
 }
 
 /* style icon */
+
 .inner-addon .hpe-icon {
     position: absolute;
     padding: 10px;
@@ -1182,66 +1203,79 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 /* align icon */
-.left-addon .hpe-icon  {
-    left:  0px;
+
+.left-addon .hpe-icon {
+    left: 0;
 }
+
 .right-addon .hpe-icon {
-    right: 0px;
+    right: 0;
 }
 
 /* add padding  */
-.left-addon input  {
-    padding-left:  30px;
+
+.left-addon input {
+    padding-left: 30px;
 }
+
 .right-addon input {
     padding-right: 30px;
 }
 
-/* 
+/*
     Custom Toggle
 */
 
 .toggleswitch-custom .el-toggleswitch > .el-toggleswitch-bg {
-    /* This is the color of the background in the unchecked state. */ 
+    /* This is the color of the background in the unchecked state. */
     background-color: #ebebeb;
+
     /* These three properties are used to "shrink" the default rounded backdrop. */
     box-sizing: border-box;
     background-clip: content-box;
     border: 2px solid transparent;
+
     /* The new animation for the background. */
     transition: background-color 0.3s;
 }
 
 .toggleswitch-custom .el-toggleswitch.checked > .el-toggleswitch-bg {
-    /* This is the color of the background in the checked state. */ 
+    /* This is the color of the background in the checked state. */
     background-color: #9dd4a1;
+
     /* The default control uses box-shadow to create the animation, so remove that. */
     box-shadow: none;
+
     /* The default control changes the border, so override that. */
     border: 2px solid transparent;
+
     /* The default control has a slightly different animation for unchecking, so override that. */
     transition: background-color 0.3s;
 }
 
 .toggleswitch-custom .el-toggleswitch > .el-toggleswitch-nub {
-    /* This is the color of the switch in the unchecked state. */ 
+    /* This is the color of the switch in the unchecked state. */
     background-color: #fff;
+
     /* Remove the border. */
     border: 0;
+
     /* Create a dropshadow. */
-    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.3);
+
     /* Add a color transition to the switch as well as the slide animation. */
     transition: background-color 0.3s, left 0.15s;
 }
 
 .toggleswitch-custom .el-toggleswitch.checked > .el-toggleswitch-nub {
-    /* This is the color of the switch in the checked state. */ 
+    /* This is the color of the switch in the checked state. */
     background-color: #fff;
 }
 
 /*
     Number Picker
 */
+
 .number-picker-demo {
     width: 70px;
 }
@@ -1249,54 +1283,56 @@ tr.dragging .reorderable-controls .reorder-drag {
 /*
     Date Range Picker
 */
+
 .date-picker-validation-error {
-	margin-top: -30px;
+    margin-top: -30px;
 }
 
 .date-picker-validation-error > span {
-	width: 100%;
-	text-align: right;
+    width: 100%;
+    text-align: right;
 }
 
-
-.social-demo .nodeDetailButton{
-  box-shadow: none !important;
-  color:#fff;
-  background-color: #444;
-  border-color: #444;
-  font-family: @font-family;
-  font-weight: 300;
+.social-demo .nodeDetailButton {
+    box-shadow: none !important;
+    color: #fff;
+    background-color: #444;
+    border-color: #444;
+    font-family: @font-family;
+    font-weight: 300;
 }
 
 .social-demo .nodeDetailButton:hover,
 .nodeDetailButton:active,
-.nodeDetailButton:focus{
-  background-color: #555;
+.nodeDetailButton:focus {
+    background-color: #555;
 }
 
-.social-demo .nodeDetailButtonSub{
-  color: #aaa;
+.social-demo .nodeDetailButtonSub {
+    color: #aaa;
 }
 
-.social-demo hr{
-  border-color: #444;
+.social-demo hr {
+    border-color: #444;
 }
+
 .social-demo .jspDrag {
-  background: #989898;
+    background: #989898;
 }
 
 /*
   Social Chart Screenshots
 */
+
 .social-sreenshot-container {
-  padding: 10px;
-  text-align: center;
+    padding: 10px;
+    text-align: center;
 }
 
 .social-sreenshot-container .screenshot {
-  display: inline-block;
-  padding: 10px;
-  text-align: center;
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
 }
 
 .social-chart-container {
@@ -1306,6 +1342,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 /*
     Notification
 */
+
 .notification-modal {
     width: 340px;
 }
@@ -1315,96 +1352,99 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 .inset-scroll {
-  overflow: auto;
-  height: 100%; 
+    overflow: auto;
+    height: 100%;
 }
 
-.notification-header, 
+.notification-header,
 .notification-icon-header {
-  position: relative;
-  width: 100%;
-  height: 57px;
-  box-shadow: 0px 5px 5px -2px #c3c3c3;
-  padding: 16px 0 10px 20px;
-  font-size: 15px;
-  color: #fff;
+    position: relative;
+    width: 100%;
+    height: 57px;
+    box-shadow: 0 5px 5px -2px #c3c3c3;
+    padding: 16px 0 10px 20px;
+    font-size: 15px;
+    color: #fff;
 }
 
 .notification-header {
-  margin-bottom: 15px;
-  background-color: #333;
+    margin-bottom: 15px;
+    background-color: #333;
 }
 
 .notification-icon-header {
-  margin-top: -15px;
-  background-color: #2a2a2a;
+    margin-top: -15px;
+    background-color: #2a2a2a;
 }
 
 .notification-header .breadcrumb {
-  display: inline-block;
-  font-size: 15px;
-  margin-top: 2px;
+    display: inline-block;
+    font-size: 15px;
+    margin-top: 2px;
 }
 
 .notification-header .breadcrumb > li:after {
-  content: none;
+    content: none;
 }
 
 .notification-header .breadcrumb > li i {
-  transform: rotate(90deg);
-  font-size: 11px;
-  vertical-align: middle;
-  padding: 9px 5px 5px 3px;
-  display: inline-block;
-  opacity: 0.8;
+    transform: rotate(90deg);
+    font-size: 11px;
+    vertical-align: middle;
+    padding: 9px 5px 5px 3px;
+    display: inline-block;
+    opacity: 0.8;
 }
+
 .notification-header .breadcrumb > li i.hpe-more {
-  transform: none;
+    transform: none;
 }
 
-.notification-header .nav-buttons, .notification-icon-header .nav-buttons {
-  position: absolute;
-  top: 8px;
-  right: 5px;
-  list-style-type: none;
-  bottom: 8px;
-  margin: 0;
-  padding: 0;
+.notification-header .nav-buttons,
+.notification-icon-header .nav-buttons {
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    list-style-type: none;
+    bottom: 8px;
+    margin: 0;
+    padding: 0;
 }
 
-.notification-header .nav-buttons .dropdown, .notification-icon-header .nav-buttons .dropdown {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  color: #333;
-  cursor: pointer;
+.notification-header .nav-buttons .dropdown,
+.notification-icon-header .nav-buttons .dropdown {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    color: #333;
+    cursor: pointer;
 }
 
 .notification-header .nav-buttons .dropdown:hover,
 .notification-header .nav-buttons .dropdown.open,
 .notification-icon-header .nav-buttons .dropdown:hover,
 .notification-icon-header .nav-buttons .dropdown.open {
-  background-color: #4d4d4d;
+    background-color: #4d4d4d;
 }
 
 .notification-header .nav-buttons .dropdown .dropdown-toggle,
 .notification-icon-header .nav-buttons .dropdown .dropdown-toggle {
-  display: inline-block;
-  padding: 10px;
-  color: #fff;
+    display: inline-block;
+    padding: 10px;
+    color: #fff;
 }
 
 .notification-header .nav-buttons .dropdown .dropdown-menu,
 .notification-icon-header .nav-buttons .dropdown .dropdown-menu {
-  width: 310px;
-  color: #666;
-  right: 0;
-  left: auto;
+    width: 310px;
+    color: #666;
+    right: 0;
+    left: auto;
 }
 
 .notification-header .heading {
-  display: inline-block;
-  font-size: 15px;
+    display: inline-block;
+    font-size: 15px;
 }
 
 /*
@@ -1412,84 +1452,85 @@ tr.dragging .reorderable-controls .reorder-drag {
 */
 
 .dropdown-notification {
-  display: table !important;
-  width: 100%;
-  min-height: 40px;
-  font-size: 16px;
-  padding: 10px !important;
-  margin: 0 !important;
-  border-bottom: 1px solid #e5e5e5;
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+    display: table !important;
+    width: 100%;
+    min-height: 40px;
+    font-size: 16px;
+    padding: 10px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #e5e5e5;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .dropdown-notification .notification-icon {
-  display: table-cell;
-  width: 30px;
-  padding-right: 10px;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 22px;
-  color: #888;
+    display: table-cell;
+    width: 30px;
+    padding-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 22px;
+    color: #888;
 }
 
 .dropdown-notification .notification-text {
-  display: table-cell;
-  vertical-align: middle;
-  color: #888;
-  font-size: 17px;
+    display: table-cell;
+    vertical-align: middle;
+    color: #888;
+    font-size: 17px;
 }
 
 .dropdown-notification .notification-text span,
 .dropdown-notification .notification-time span {
-  white-space: normal;
+    white-space: normal;
 }
 
-.dropdown-notification  .notification-time {
-  display: table-cell;
-  width: 90px;
-  text-align: right;
-  vertical-align: middle;
+.dropdown-notification .notification-time {
+    display: table-cell;
+    width: 90px;
+    text-align: right;
+    vertical-align: middle;
 }
 
 .no-notifications-dropdown {
-  height: 47px;
-  margin: 0;
-  text-align: center;
-  line-height: 47px;
-  color: #888;
-  border-bottom: 1px solid #e5e5e5;
+    height: 47px;
+    margin: 0;
+    text-align: center;
+    line-height: 47px;
+    color: #888;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .dropdown-notification-options {
-  height: 40px;
-  font-size: 17px;
-  padding: 6px 10px 10px;
-  cursor: default;
+    height: 40px;
+    font-size: 17px;
+    padding: 6px 10px 10px;
+    cursor: default;
 }
 
 .dropdown-notification-options .hyperlink {
-  padding: 0 !important;
+    padding: 0 !important;
 }
 
 .dropdown-notification-options .hide-notifications {
-  display: inline-block;
-  float: right;
-  font-size: 14px;
-  color: #888888;
+    display: inline-block;
+    float: right;
+    font-size: 14px;
+    color: #888;
 }
 
 .dropdown-notification-options .hide-notifications span {
-  display: inline-block;
-  padding-top: 0px;
-  height: 23px;
-  line-height: 23px;
-  vertical-align: bottom;
+    display: inline-block;
+    padding-top: 0;
+    height: 23px;
+    line-height: 23px;
+    vertical-align: bottom;
 }
 
 /*
     Chart Styles
 */
+
 .demo-chart-container {
     display: block;
     position: relative;
@@ -1502,9 +1543,10 @@ tr.dragging .reorderable-controls .reorder-drag {
     height: 400px;
 }
 
-/* 
-    Version selector 
+/*
+    Version selector
 */
+
 .version-toggle {
     padding-left: 12px;
 }
@@ -1512,8 +1554,16 @@ tr.dragging .reorderable-controls .reorder-drag {
 /*
 Spark table documentation styles
 */
+
 .table-responsive {
     .spark-color-example-cell {
         vertical-align: middle;
     }
+}
+
+/*
+    Number Picker Component
+*/
+.number-picker-component-demo {
+    width: 100px;
 }
