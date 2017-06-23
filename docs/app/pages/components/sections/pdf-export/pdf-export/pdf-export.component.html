@@ -1,6 +1,19 @@
 <h4>Demo</h4>
 
-<ux-pdf-export-container>
+<ux-pdf-export-container #pdfExport>
+
+    <div class="demo-chart-container" pdfExportItem>
+
+        <canvas baseChart 
+                [datasets]="barChartData" 
+                [labels]="barChartLabels" 
+                [options]="barChartOptions" 
+                [legend]="barChartLegend"
+                [colors]="barChartColors" 
+                chartType="bar">
+        </canvas>
+
+    </div>
 
     <table class="table table-hover" pdfExportItem>
         <thead>
@@ -58,3 +71,6 @@
     <button class="btn btn-primary" pdfExportItem>test2</button>
 
 </ux-pdf-export-container>
+
+<button class="btn btn-secondary" (click)="pdfExport.showIframe()">Show Ifame</button>
+<button class="btn btn-secondary" (click)="pdfExport.openWindow()">Show in new window</button>

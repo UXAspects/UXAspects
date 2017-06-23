@@ -28,8 +28,12 @@ export class PdfExportContainerComponent {
     link = '';
 
     ngAfterContentInit() {
+        this.createIframe(); 
+    }
 
-        // get computed styles
+    getContent() {
+        this.content = '';
+        // get computed styles and add to content
         this.contentChildren.forEach(child => {
             let childElement = child.getElement().cloneNode(true) as HTMLElement;
             let height = childElement.style.height || '';
@@ -41,6 +45,14 @@ export class PdfExportContainerComponent {
             let children = childElement.getElementsByTagName('*');
             let originalChildren = (<HTMLElement>child.getElement()).getElementsByTagName('*');
             for (let i = 0; i < children.length; i++) {
+                if (children[i].tagName === 'CANVAS') {
+                    // convert canvas to an image
+                    let parentElement = children[i].parentNode;
+                    let image = (<HTMLCanvasElement>originalChildren[i]).toDataURL();
+                    let imageElement = document.createElement('img');
+                    imageElement.src = image;
+                    parentElement.replaceChild(imageElement, children[i]);
+                }
                 let childStyle = window.getComputedStyle(originalChildren[i]);
                 let childHeight = (<HTMLElement>originalChildren[i]).style.height || '';
                 let childWidth = (<HTMLElement>originalChildren[i]).style.width || '';
@@ -54,7 +66,13 @@ export class PdfExportContainerComponent {
         this.content += `<script type="text/javascript" src="polyfills.js"></script><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="app.js"></script>`;
         this.link = `<link rel="shortcut icon" href="favicon.ico"><link href="styles.css" rel="stylesheet">`;      
         
-        // create iframe
+        // get full HTML
+        this.fullHtml = `<head>` + this.link + `</head><body>` + this.content + `</body>`;
+    }
+
+    createIframe() {
+        // create iframe ( dont know if we want this all yet)
+        this.link = `<link rel="shortcut icon" href="favicon.ico"><link href="styles.css" rel="stylesheet">`; 
         this.iframe = document.createElement('iframe');
         document.body.appendChild(this.iframe);
         let linkElement = document.createElement('span');
@@ -63,21 +81,18 @@ export class PdfExportContainerComponent {
         setTimeout(() => {
             this.iframe.contentDocument.head.appendChild(linkElement);
         });
-
-        // get full HTML
-        this.fullHtml = `<head>` + this.link + `</head><body>` + this.content + `</body>`;
-
-        // console.log(this.content);
-
     }
 
-    test() {
+    showIframe() {
+        this.getContent();
+        // this.createIframe();
         let contentElement = document.createElement('span');
         contentElement.innerHTML = this.content;
         this.iframe.contentDocument.body.appendChild(contentElement);         
     }
 
     openWindow() {
+        this.getContent();
         window.open('about:blank', '', '_blank').document.write(this.fullHtml);
     }
 
