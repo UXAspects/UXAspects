@@ -53,15 +53,12 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <label for="minTags">minTags</label>
-                        <ux-number-picker-ng1 [(value)]="minTags" step="1" min="0" [max]="maxTags"
-                            [disabled]="false">
-                        </ux-number-picker-ng1>
+                        <ux-number-picker [(value)]="minTags" min="0" [max]="maxTags"></ux-number-picker>
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <label for="maxTags">maxTags</label>
-                        <ux-number-picker-ng1 [(value)]="maxTags" step="1" [min]="minTags" max="1000"
-                            [disabled]="false">
-                        </ux-number-picker-ng1>
+                        <ux-number-picker [(value)]="maxTags" [min]="minTags" max="1000">
+                        </ux-number-picker>
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <label for="tagPattern">tagPattern</label>

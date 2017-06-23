@@ -22,7 +22,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
     private _step: number = 1;
     private _disabled: boolean = false;
     private _value: number = 0;
-    private propagateChange = (_: any) => { };
+    private _propagateChange = (_: any) => { };
 
     @Input() valid: boolean = true;
     @Output() valueChange = new EventEmitter<number>();
@@ -34,7 +34,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
     set value(value: number) {
         this._value = value;
         this.valueChange.emit(value);
-        this.propagateChange(value);
+        this._propagateChange(value);
     }
 
     @Input()
@@ -68,7 +68,6 @@ export class NumberPickerComponent implements ControlValueAccessor {
     set disabled(value) {
         this._disabled = typeof value === 'string' && value === 'disabled' || value === true;
     }
-
 
     increment(event: MouseEvent | KeyboardEvent): void {
         event.preventDefault();
@@ -120,7 +119,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
     }
 
     registerOnChange(fn: any): void {
-        this.propagateChange = fn;
+        this._propagateChange = fn;
     }
 
     registerOnTouched(fn: any): void { }

@@ -1,4 +1,4 @@
-import { CheckboxModule, InfiniteScrollModule } from '../../../../../../src/index';
+import { CheckboxModule, InfiniteScrollModule, NumberPickerModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import {
     DocumentationCategoryComponent
@@ -45,6 +45,7 @@ const ROUTES = [
         InfiniteScrollModule,
         RouterModule.forChild(ROUTES),
         TabsModule,
+        NumberPickerModule,
         WrappersModule
     ],
     exports: SECTIONS,
