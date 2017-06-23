@@ -22,7 +22,6 @@ export class PdfExportContainerComponent {
 
     content: string = '';
     styles: string[] = [];
-    links: string[] = [];
     iframe: any;
     fullHtml: string = '';
     link = '';
