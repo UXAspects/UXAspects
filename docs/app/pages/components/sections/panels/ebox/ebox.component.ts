@@ -13,8 +13,8 @@ export class ComponentsEboxComponent extends BaseDocumentationSection implements
     
     plunk: IPlunk = {
         files: {
-            'app.component.html': this.snippets.compiled.appHtml,
-            'app.component.ts': this.snippets.compiled.appTs
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.ts': this.snippets.raw.appTs
         },
         modules: [
             {

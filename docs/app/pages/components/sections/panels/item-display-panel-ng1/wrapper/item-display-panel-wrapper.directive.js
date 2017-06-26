@@ -3,10 +3,10 @@ angular.module('app').directive('uxdItemDisplayPanelWrapper', () => {
         restrict: 'E',
         template: require('./item-display-panel-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', function ($scope, $templateCache) {
-            $templateCache.put('item-display-panel-ng1/modalFooter.html', require('../snippets/modalFooter.html'));
-            $templateCache.put('modalPDF.html', require('../snippets/modalPDF.html'));
-            $templateCache.put('modalPPT.html', require('../snippets/modalPPT.html'));
-            $templateCache.put('modalDOC.html', require('../snippets/modalDOC.html'));
+            $templateCache.put('item-display-panel-ng1/modalFooter.html', require('!!raw-loader!../snippets/modalFooter.html'));
+            $templateCache.put('modalPDF.html', require('!!raw-loader!../snippets/modalPDF.html'));
+            $templateCache.put('modalPPT.html', require('!!raw-loader!../snippets/modalPPT.html'));
+            $templateCache.put('modalDOC.html', require('!!raw-loader!../snippets/modalDOC.html'));
 
             var vm = this;
 

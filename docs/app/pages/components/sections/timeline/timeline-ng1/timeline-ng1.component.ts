@@ -17,7 +17,7 @@ export class ComponentsTimelineNg1Component extends BaseDocumentationSection imp
         htmlAttributes: {
             'ng-controller': 'TimelineCtrl as vm'
         },
-        js: [this.snippets.raw.sampleHtml]
+        js: [this.snippets.raw.sampleJs]
     };
 
     constructor() {

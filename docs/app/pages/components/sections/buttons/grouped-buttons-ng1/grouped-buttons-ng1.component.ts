@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsGroupedButtonsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.grouptedButtonsTopHtml + '\n' + this.snippets.raw.grouptedButtonsBottomHtml,
+        html: this.snippets.raw.groupedButtonsTopHtml + '\n' + this.snippets.raw.groupedButtonsBottomHtml,
         htmlAttributes: {
             'ng-controller': 'GroupedButtonsCtrl as vm'
         },

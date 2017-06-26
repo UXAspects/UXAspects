@@ -3,8 +3,8 @@ angular.module('app').directive('uxdSideModalWrapper', () => {
         restrict: 'E',
         template: require('./side-modal-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', function ($scope, $templateCache) {
-            $templateCache.put('side-modal-ng1/modalContent.html', require('../snippets/modalContent.html'));
-            $templateCache.put('side-modal-ng1/modalFooter.html', require('../snippets/modalFooter.html'));
+            $templateCache.put('side-modal-ng1/modalContent.html', require('!!raw-loader!../snippets/modalContent.html'));
+            $templateCache.put('side-modal-ng1/modalFooter.html', require('!!raw-loader!../snippets/modalFooter.html'));
 
             var vm = this;
 

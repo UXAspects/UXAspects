@@ -3,8 +3,8 @@ angular.module('app').directive('uxdPopoverWrapper', () => {
         restrict: 'E',
         template: require('./popover-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', function ($scope, $templateCache) {
-            $templateCache.put('popover-ng1/popoverLayout.html', require('../snippets/popoverLayout.html'));
-            $templateCache.put('nestedPopoverLayout.html', require('../snippets/nestedPopoverLayout.html'));
+            $templateCache.put('popover-ng1/popoverLayout.html', require('!!raw-loader!../snippets/popoverLayout.html'));
+            $templateCache.put('nestedPopoverLayout.html', require('!!raw-loader!../snippets/nestedPopoverLayout.html'));
 
             var vm = this;
 

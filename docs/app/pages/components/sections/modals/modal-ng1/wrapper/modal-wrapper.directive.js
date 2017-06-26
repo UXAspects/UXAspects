@@ -3,7 +3,7 @@ angular.module('app').directive('uxdModalWrapper', () => {
         restrict: 'E',
         template: require('./modal-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
-            $templateCache.put('modal-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
+            $templateCache.put('modal-ng1/modalLayout.html', require('!!raw-loader!../snippets/modalLayout.html'));
 
             var vm = this;
 

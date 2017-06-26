@@ -20,7 +20,7 @@ export class ChartsScrollableChartNg1Component extends BaseDocumentationSection 
         htmlAttributes: {
             'ng-controller': 'ScrollableChartCtrl as sc'
         },
-        js: [this.snippets.raw.chartHtml]
+        js: [this.snippets.raw.chartJs]
     };
 
     constructor(colorService: ColorService) {

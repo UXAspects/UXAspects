@@ -3,8 +3,8 @@ angular.module('app').directive('uxdNotificationListWrapper', () => {
         restrict: 'E',
         template: require('./notification-list-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', function ($scope, $templateCache) {
-            $templateCache.put('notification-list-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
-            $templateCache.put('notification-list-ng1/notification.html', require('../snippets/notification.html'));
+            $templateCache.put('notification-list-ng1/modalLayout.html', require('!!raw-loader!../snippets/modalLayout.html'));
+            $templateCache.put('notification-list-ng1/notification.html', require('!!raw-loader!../snippets/notification.html'));
 
             var vm = this;
 

@@ -3,8 +3,8 @@ angular.module('app').directive('uxdContactsOverflowWrapper', () => {
         restrict: 'E',
         template: require('./contacts-overflow-wrapper.directive.html'),
         controller: ['$templateCache', '$modal', function ($templateCache, $modal) {
-            $templateCache.put('contacts-overflow-modal.html', require('../snippets/contacts-overflow-modal.html'));
-            $templateCache.put('contacts-overflow-modal-item.html', require('../snippets/contacts-overflow-modal-item.html'));
+            $templateCache.put('contacts-overflow-modal.html', require('!!raw-loader!../snippets/contacts-overflow-modal.html'));
+            $templateCache.put('contacts-overflow-modal-item.html', require('!!raw-loader!../snippets/contacts-overflow-modal-item.html'));
 
             var vm = this;
 

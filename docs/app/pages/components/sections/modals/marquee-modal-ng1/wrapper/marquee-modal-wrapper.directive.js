@@ -3,7 +3,7 @@ angular.module('app').directive('uxdMarqueeModalWrapper', () => {
         restrict: 'E',
         template: require('./marquee-modal-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
-            $templateCache.put('marquee-modal-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
+            $templateCache.put('marquee-modal-ng1/modalLayout.html', require('!!raw-loader!../snippets/modalLayout.html'));
 
             var vm = this;
 

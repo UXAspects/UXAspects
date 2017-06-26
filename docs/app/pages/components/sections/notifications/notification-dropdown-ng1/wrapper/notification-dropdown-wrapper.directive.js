@@ -3,8 +3,8 @@ angular.module('app').directive('uxdNotificationDropdownWrapper', () => {
         restrict: 'E',
         template: require('./notification-dropdown-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', 'notificationService', '$colorService', function ($scope, $templateCache, notificationService, $colorService) {
-            $templateCache.put('notification-dropdown-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
-            $templateCache.put('notification-dropdown-ng1/notification.html', require('../snippets/notification.html'));
+            $templateCache.put('notification-dropdown-ng1/modalLayout.html', require('!!raw-loader!../snippets/modalLayout.html'));
+            $templateCache.put('notification-dropdown-ng1/notification.html', require('!!raw-loader!../snippets/notification.html'));
             
             var vm = this;
 

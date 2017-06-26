@@ -3,20 +3,20 @@ angular.module('app').directive('uxdSearchBuilderWrapper', () => {
         restrict: 'E',
         template: require('./search-builder-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
-            $templateCache.put('search-builder-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
-            $templateCache.put('authorComponent.html', require('../snippets/authorComponent.html'));
-            $templateCache.put('custodianComponent.html', require('../snippets/custodianComponent.html'));
-            $templateCache.put('dateRangeComponent.html', require('../snippets/dateRangeComponent.html'));
-            $templateCache.put('keywordComponent.html', require('../snippets/keywordComponent.html'));
-            $templateCache.put('fileNameComponent.html', require('../snippets/fileNameComponent.html'));
-            $templateCache.put('fileTypesComponent.html', require('../snippets/fileTypesComponent.html'));
-            $templateCache.put('repositoryComponent.html', require('../snippets/repositoryComponent.html'));
-            $templateCache.put('textComponent.html', require('../snippets/textComponent.html'));
-            $templateCache.put('custodianComponent.html', require('../snippets/custodianComponent.html'));
-            $templateCache.put('addFieldPanel.html', require('../snippets/addFieldPanel.html'));
-            $templateCache.put('custodianPanel.html', require('../snippets/custodianPanel.html'));
-            $templateCache.put('fileTypesPanel.html', require('../snippets/fileTypesPanel.html'));
-            $templateCache.put('repositoryPanel.html', require('../snippets/repositoryPanel.html'));
+            $templateCache.put('search-builder-ng1/modalLayout.html', require('!!raw-loader!../snippets/modalLayout.html'));
+            $templateCache.put('authorComponent.html', require('!!raw-loader!../snippets/authorComponent.html'));
+            $templateCache.put('custodianComponent.html', require('!!raw-loader!../snippets/custodianComponent.html'));
+            $templateCache.put('dateRangeComponent.html', require('!!raw-loader!../snippets/dateRangeComponent.html'));
+            $templateCache.put('keywordComponent.html', require('!!raw-loader!../snippets/keywordComponent.html'));
+            $templateCache.put('fileNameComponent.html', require('!!raw-loader!../snippets/fileNameComponent.html'));
+            $templateCache.put('fileTypesComponent.html', require('!!raw-loader!../snippets/fileTypesComponent.html'));
+            $templateCache.put('repositoryComponent.html', require('!!raw-loader!../snippets/repositoryComponent.html'));
+            $templateCache.put('textComponent.html', require('!!raw-loader!../snippets/textComponent.html'));
+            $templateCache.put('custodianComponent.html', require('!!raw-loader!../snippets/custodianComponent.html'));
+            $templateCache.put('addFieldPanel.html', require('!!raw-loader!../snippets/addFieldPanel.html'));
+            $templateCache.put('custodianPanel.html', require('!!raw-loader!../snippets/custodianPanel.html'));
+            $templateCache.put('fileTypesPanel.html', require('!!raw-loader!../snippets/fileTypesPanel.html'));
+            $templateCache.put('repositoryPanel.html', require('!!raw-loader!../snippets/repositoryPanel.html'));
 
             var vm = this;
 
