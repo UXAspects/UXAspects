@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { PdfExportContainerComponent, PdfExportItemDirective } from './pdf-export-container.component';
+import { PdfExportContainerComponent, PdfExportItemDirective, PdfExportBoxDirective } from './pdf-export-container.component';
 
 const DECLARATIONS = [
     PdfExportContainerComponent,
-    PdfExportItemDirective
+    PdfExportItemDirective,
+    PdfExportBoxDirective
 ];
 
 @NgModule({
