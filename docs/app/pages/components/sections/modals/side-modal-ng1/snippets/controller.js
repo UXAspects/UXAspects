@@ -8,6 +8,7 @@ function SideModalDemoCtrl() {
         main: "modalContent.html",
         footer: "modalFooter.html",
         modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
-        affixHeader: true
+        affixHeader: true,
+        animate: true
     };
 }

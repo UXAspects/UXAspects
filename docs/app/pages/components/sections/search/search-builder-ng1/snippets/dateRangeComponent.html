@@ -14,8 +14,8 @@
             <span class="input-group-addon" ng-click="vm.fromOpen($event)">
             <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
           </span>
-            <input type="text" class="form-control" ng-model="model.from" datepicker-popup="dd MMMM yyyy"
-              ng-click="vm.fromOpen($event)" is-open="vm.fromOpened" aria-label="From date">
+            <input type="text" class="form-control" ng-model="vm.model.from" date-time-picker-popup choose-time="false" choose-timezone="false"
+              choose-date="true" aria-label="From date" ng-click="vm.fromOpen($event)" date-format="'dd-MM-yyyy'" is-open="vm.fromOpened">
           </div>
         </div>
 
@@ -26,8 +26,8 @@
             <span class="input-group-addon" ng-click="vm.toOpen($event)">
             <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
           </span>
-            <input type="text" class="form-control" ng-model="model.to" datepicker-popup="dd MMMM yyyy"
-              ng-click="vm.toOpen($event)" is-open="vm.toOpened" aria-label="To date">
+            <input type="text" class="form-control" ng-model="vm.model.to" date-time-picker-popup choose-time="false" choose-timezone="false"
+              choose-date="true" aria-label="From date" ng-click="vm.toOpen($event)" date-format="'dd-MM-yyyy'" is-open="vm.toOpened">
           </div>
         </div>
 

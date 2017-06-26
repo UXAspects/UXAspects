@@ -3,8 +3,8 @@ angular.module('app').directive('uxdSideModalWrapper', () => {
         restrict: 'E',
         template: require('./side-modal-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', function ($scope, $templateCache) {
-            $templateCache.put('side-modal-ng1/modalContent.html', require('../snippets/modalContent.html'));
-            $templateCache.put('side-modal-ng1/modalFooter.html', require('../snippets/modalFooter.html'));
+            $templateCache.put('side-modal-ng1/modalContent.html', require('!!raw-loader!../snippets/modalContent.html'));
+            $templateCache.put('side-modal-ng1/modalFooter.html', require('!!raw-loader!../snippets/modalFooter.html'));
 
             var vm = this;
 
@@ -13,7 +13,8 @@ angular.module('app').directive('uxdSideModalWrapper', () => {
                 main: "side-modal-ng1/modalContent.html",
                 footer: "side-modal-ng1/modalFooter.html",
                 modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
-                affixHeader: true
+                affixHeader: true,
+                animate: true
             };
 
             // Clean up scope
