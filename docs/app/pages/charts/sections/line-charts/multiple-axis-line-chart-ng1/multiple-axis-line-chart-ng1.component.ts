@@ -21,7 +21,7 @@ export class ChartsMultipleAxisLineChartNg1Component extends BaseDocumentationSe
     htmlAttributes: {
       'ng-controller': 'MultipleAxisLineChartCtrl as lc'
     },
-    js: [this.snippets.raw.chartHtml]
+    js: [this.snippets.raw.chartJs]
   };
 
   constructor(colorService: ColorService, @Inject('flotDataService') flotDataService: any) {

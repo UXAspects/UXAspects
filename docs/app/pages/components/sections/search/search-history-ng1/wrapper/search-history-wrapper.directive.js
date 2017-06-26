@@ -3,7 +3,7 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
         restrict: 'E',
         template: require('./search-history-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
-            $templateCache.put('search-history-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
+            $templateCache.put('search-history-ng1/modalLayout.html', require('!!raw-loader!../snippets/modalLayout.html'));
 
             var vm = this;
             

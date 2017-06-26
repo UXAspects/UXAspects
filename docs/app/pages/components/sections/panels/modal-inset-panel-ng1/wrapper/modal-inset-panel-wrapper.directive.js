@@ -3,7 +3,7 @@ angular.module('app').directive('uxdModalInsetPanelWrapper', () => {
         restrict: 'E',
         template: require('./modal-inset-panel-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
-            $templateCache.put('modal-inset-panel-ng1/modalLayout.html', require('../snippets/modalLayout.html'));
+            $templateCache.put('modal-inset-panel-ng1/modalLayout.html', require('!!raw-loader!../snippets/modalLayout.html'));
 
             var vm = this;
 

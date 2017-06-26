@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class CssLabelsComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     public codepen: ICodePen = {
-        html: this.snippets.raw.codeExampleJs
+        html: this.snippets.raw.codeExampleHtml
     };
 
     constructor() {
