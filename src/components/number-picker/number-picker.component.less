@@ -5,7 +5,7 @@ ux-number-picker {
 
     &.has-error {
         > .number-picker-input:focus {
-            border-color: #ff454f;
+            border-color: @critical;
         }
     }
 
@@ -36,16 +36,16 @@ ux-number-picker {
             justify-content: center;
             align-items: center;
             font-size: 0.875rem;
-            border-right: 1px solid #e5e6e7;
-            border-bottom: 1px solid #e5e6e7;
+            border-right: 1px solid @form-control-border;
+            border-bottom: 1px solid @form-control-border;
             cursor: pointer;
-            color: #ccc;
-            background-color: #fff;
+            color: @grey5;
+            background-color: @white;
             transition: 0.3s color ease-in-out, 0.3s background-color ease-in-out;
 
             &:hover {
-                color: #666;
-                background-color: #f2f2f2;
+                color: @grey3;
+                background-color: @btn-secondary-hover-bg;
             }
 
             &:active {
@@ -53,15 +53,15 @@ ux-number-picker {
             }
 
             &.disabled {
-                background-color: #f2f2f2;
+                background-color: @btn-secondary-hover-bg;
                 cursor: default;
-                color: #ccc;
+                color: @grey5;
                 pointer-events: none;
             }
         }
 
         > .number-picker-control-up {
-            border-top: 1px solid #e5e6e7;
+            border-top: 1px solid @form-control-border;
         }
     }
 }

@@ -53,16 +53,14 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
         // Fix nav position on navigate
         this.routeSubscription = this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
-                this.updatePosition();
+                setTimeout(this.updatePosition.bind(this), 100);
             }
         });
     }
 
     ngAfterViewInit() {
         // Delay to allow the document to render in order to get the correct initial height
-        setTimeout(() => {
-            this.updatePosition();
-        }, 100);
+        setTimeout(this.updatePosition.bind(this), 100);
     }
 
     ngOnDestroy() {

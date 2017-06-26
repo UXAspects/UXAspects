@@ -52,11 +52,11 @@
         <div class="row m-t-md">
             <div class="col-md-4 col-sm-12">
                 <label for="minTags">minTags</label>
-                <input type="number" name="minTags" class="form-control" [(ngModel)]="minTags">
+                <ux-number-picker [(value)]="minTags" min="0" [max]="maxTags"></ux-number-picker>
             </div>
             <div class="col-md-4 col-sm-12">
                 <label for="maxTags">maxTags</label>
-                <input type="number" name="maxTags" class="form-control" [(ngModel)]="maxTags">
+                <ux-number-picker [(value)]="maxTags" [min]="minTags" max="1000"></ux-number-picker>
             </div>
             <div class="col-md-4 col-sm-12">
                 <label for="tagPattern">tagPattern</label>
