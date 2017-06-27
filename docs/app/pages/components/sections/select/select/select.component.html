@@ -66,9 +66,7 @@
                 <div class="row uxd-customize-row">
                     <div class="col-md-4 col-sm-12">
                         <label for="pageSize">pageSize</label>
-                        <ux-number-picker-ng1 [(value)]="pageSize" step="1" min="1" max="1000"
-                            [disabled]="!(pagingEnabled | async)">
-                        </ux-number-picker-ng1>
+                        <ux-number-picker [(value)]="pageSize" min="1" max="1000" [disabled]="!(pagingEnabled | async)"></ux-number-picker>
                     </div>
                 </div>
             </accordion-group>

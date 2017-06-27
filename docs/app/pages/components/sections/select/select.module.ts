@@ -1,4 +1,4 @@
-import { CheckboxModule, RadioButtonModule, SelectModule } from '../../../../../../src/index';
+import { CheckboxModule, RadioButtonModule, SelectModule, NumberPickerModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import {
     DocumentationCategoryComponent
@@ -46,7 +46,8 @@ const ROUTES = [
         RouterModule.forChild(ROUTES),
         SelectModule,
         TabsModule,
-        WrappersModule
+        WrappersModule,
+        NumberPickerModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

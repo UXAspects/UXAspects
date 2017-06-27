@@ -1,0 +1,14 @@
+<input type="number" class="form-control number-picker-input" [(ngModel)]="value" [min]="min" [max]="max" (keydown.ArrowDown)="decrement($event)"
+    (keydown.ArrowUp)="increment($event)" (wheel)="onScroll($event)" step="any" [disabled]="disabled">
+
+<div class="number-picker-controls">
+
+    <div class="number-picker-control-up" (click)="increment($event)" [class.disabled]="!canIncrement()">
+        <span class="hpe-icon hpe-up"></span>
+    </div>
+
+    <div class="number-picker-control-down" (click)="decrement($event)" [class.disabled]="!canDecrement()">
+        <span class="hpe-icon hpe-down"></span>
+    </div>
+
+</div>

@@ -79,7 +79,8 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
             imports: [
                 'SelectModule',
                 'CheckboxModule',
-                'RadioButtonModule'
+                'RadioButtonModule',
+                'NumberPickerModule'
             ],
             library: 'ux-aspects'
         }, {

@@ -54,7 +54,7 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
             'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
-            imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule'],
+            imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule', 'NumberPickerModule'],
             library: 'ux-aspects'
         }, {
             library: 'ngx-bootstrap',

@@ -52,8 +52,7 @@
             <div class="row uxd-customize-row">
                 <div class="col-md-6 col-sm-12">
                     <label for="pageSize">pageSize</label>
-                    <input type="number" name="pageSize" class="form-control"
-                        [ngModel]="pageSize" (ngModelChange)="pageSize = $event" min="1">
+                    <ux-number-picker [(value)]="pageSize" min="1" max="1000"></ux-number-picker>
                 </div>
             </div>
         </accordion-group>

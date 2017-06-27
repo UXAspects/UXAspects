@@ -7,7 +7,7 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
-import { CheckboxModule, ToggleSwitchModule, RadioButtonModule, ColorServiceModule, SliderModule, TagInputModule, TypeaheadModule } from '../../../../../../src/index';
+import { CheckboxModule, ToggleSwitchModule, RadioButtonModule, ColorServiceModule, SliderModule, TagInputModule, TypeaheadModule, NumberPickerModule } from '../../../../../../src/index';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { WrappersModule } from '../../../../wrappers.module';
 
@@ -28,6 +28,7 @@ import { ComponentsTagsComponent } from './tags/tags.component';
 import { ComponentsTagsNg1Component } from './tags-ng1/tags-ng1.component';
 import { ComponentsToggleSwitchComponent } from './toggleswitch/toggleswitch.component';
 import { ComponentsToggleSwitchNg1Component } from './toggle-switch-ng1/toggle-switch-ng1.component';
+import { ComponentsNumberPickerComponent } from './number-picker/number-picker.component';
 
 const SECTIONS = [
     ComponentsCheckboxComponent,
@@ -47,6 +48,7 @@ const SECTIONS = [
     ComponentsTagsNg1Component,
     ComponentsToggleSwitchComponent,
     ComponentsToggleSwitchNg1Component,
+    ComponentsNumberPickerComponent,
 ];
 
 const ROUTES = [
@@ -73,6 +75,7 @@ const ROUTES = [
         TypeaheadModule,
         SliderModule,
         FormsModule,
+        NumberPickerModule,
         ColorServiceModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
