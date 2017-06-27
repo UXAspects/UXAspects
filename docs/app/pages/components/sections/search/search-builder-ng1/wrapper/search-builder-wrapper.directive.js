@@ -254,6 +254,11 @@ angular.module('app').controller('DateRangeComponentCtrl', DateRangeComponentCtr
 function DateRangeComponentCtrl() {
     var vm = this;
 
+    vm.model = {
+        from: {},
+        to: {}
+    };
+
     vm.fromOpened = false;
     vm.toOpened = false;
 

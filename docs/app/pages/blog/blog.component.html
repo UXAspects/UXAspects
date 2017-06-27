@@ -17,7 +17,7 @@
                 <ux-ebox-content>
                     <div class="blog-post-content" [class.blog-post-content-expanded]="post.expanded" [innerHtml]="post.content"></div>
 
-                    <a href="" class="hyperlink blog-post-expand-link" (click)="togglePost(post, $event)">{{ post.expanded ? 'Show less' : 'Show more' }}</a>
+                    <a href="" class="hyperlink-toggle blog-post-expand-link" (click)="togglePost(post, $event)">{{ post.expanded ? 'Show less' : 'Show more' }}</a>
                 </ux-ebox-content>
 
             </ux-ebox>
