@@ -11,6 +11,7 @@ import 'chance';
 export class AppComponent {
 
     facets: Observable<Facet[]>;
+    suggestions: Facet[] = [];
 
     private users: Facet[] = [];
 
@@ -20,6 +21,9 @@ export class AppComponent {
         for (let idx = 0; idx < 1000; idx++) {
             this.users.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100 })));
         }
+
+        // present the top 6 items as suggestions
+        this.suggestions = this.users.slice(0, 6);
 
         // Create an observable which can be used for fetching data from server
         this.facets = Observable.create((observer: Observer<Facet[]>) => {

@@ -2,15 +2,16 @@
 
 <div class="facet-typeahead-list-container" *ngIf="expanded">
 
-    <div class="facet-typeahead-list-selected-container">
+    <div class="facet-typeahead-list-selected-container" *ngIf="suggestions?.length > 0">
 
-        <div class="facet-typeahead-list-selected-option" tabindex="0" *ngFor="let facet of selected" (click)="deselectFacet(facet)"
-            (keyup.enter)="deselectFacet(facet)">
+        <div class="facet-typeahead-list-selected-option" tabindex="0" *ngFor="let facet of suggestions" (click)="toggleFacetSelection(facet)"
+            (keyup.enter)="toggleFacetSelection(facet)">
 
-            <span class="facet-typeahead-list-selected-check hpe-icon hpe-active"></span>
-            <span class="facet-typeahead-list-selected-option-title">{{ facet.title }}</span>
-            <span class="facet-typeahead-list-selected-option-count" *ngIf="facet.count">({{ facet.count }})</span>
-            
+            <ux-checkbox [clickable]="false" [value]="isFacetSelected(facet)" [simplified]="simplified">
+                <span class="facet-typeahead-list-selected-option-title">{{ facet.title }}</span>
+                <span class="facet-typeahead-list-selected-option-count">({{ facet.count }})</span>
+            </ux-checkbox>
+
         </div>
 
     </div>
@@ -27,5 +28,6 @@
 </div>
 
 <ng-template #facetTypeaheadListOptionTemplate let-model="item" let-index="index">
-    <p class="facet-typeahead-list-option">{{ model.title }} <span class="facet-typeahead-list-option-count" *ngIf="model.count">({{ model.count }})</span></p>
+    <p class="facet-typeahead-list-option"><span [innerHTML]="model.title | facetTypeaheadHighlight: searchQuery"></span> <span class="facet-typeahead-list-option-count"
+            *ngIf="model.count">({{ model.count }})</span></p>
 </ng-template>

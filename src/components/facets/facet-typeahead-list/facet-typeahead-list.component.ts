@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Host } from '@angular/core';
+import { Component, OnInit, Input, Host, Pipe, PipeTransform } from '@angular/core';
 import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
 import { Observable } from 'rxjs/Observable';
 import { Facet } from '../models/facet';
@@ -18,6 +18,8 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
     @Input() header: string;
     @Input() expanded: boolean = true;
     @Input() typeaheadConfig: FacetTypeaheadListConfig = {};
+    @Input() suggestions: Facet[] = [];
+    @Input() simplified: boolean = true;
 
     typeaheadOptions: Observable<Facet[]>;
     searchQuery: string;
@@ -85,4 +87,14 @@ export interface FacetTypeaheadListConfig {
     minCharacters?: number;
     maxResults?: number;
     delay?: number;
+}
+
+@Pipe({
+    name: 'facetTypeaheadHighlight'
+})
+export class FacetTypeaheadHighlight implements PipeTransform {
+    transform(value: string, searchQuery: string): string {
+        let regex = new RegExp(searchQuery, 'i');
+        return value.replace(regex, `<b class="facet-typeahead-highlighted">${ value.match(regex) }</b>`);
+    }
 }

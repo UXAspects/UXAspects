@@ -14,7 +14,6 @@ import 'chance';
 export class ComponentsFacetCheckListComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     facets: Facet[] = [];
-    event: string;
 
     plunk: IPlunk = {
         files: {
@@ -40,21 +39,5 @@ export class ComponentsFacetCheckListComponent extends BaseDocumentationSection 
         for (let idx = 0; idx < 30; idx++) {
             this.facets.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100})));
         }
-    }
-
-    onEvent(event: FacetEvent) {
-
-        if (event instanceof FacetSelect) {
-            this.event = `${ event.facet.title } was selected!`;
-        }
-
-        if (event instanceof FacetDeselect) {
-            this.event = `${ event.facet.title } was deselected!`;
-        }
-
-        if (event instanceof FacetDeselectAll) {
-            this.event = 'All facets were deselected!';
-        }
-
     }
 }

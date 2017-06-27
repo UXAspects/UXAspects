@@ -1,15 +1,8 @@
 <div class="row">
     <div class="col-md-12">
-        <ux-facet-container (events)="onEvent($event)">
+        <ux-facet-container>
             <ux-facet-check-list header="Authors" [facets]="facets"></ux-facet-check-list>
         </ux-facet-container>
-
-        <!-- If there has been an event show some information -->
-        <div *ngIf="event">
-            <hr>
-            <p>{{ event }}</p>
-        </div>
-
     </div>
 </div>
 
