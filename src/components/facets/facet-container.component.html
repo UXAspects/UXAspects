@@ -26,7 +26,7 @@
     <div class="facets-selected-list">
 
         <!-- Show Selected Tags -->
-        <div class="facet-selected-tag" tabindex="0" *ngFor="let facet of facets" (click)="deselectFacet(facet)" (keyup.enter)="deselectFacet(facet)">
+        <div class="facet-selected-tag" tabindex="0" *ngFor="let facet of facets" (mousedown)="$event.preventDefault()" (click)="deselectFacet(facet)" (keyup.enter)="deselectFacet(facet)">
 
             <!-- Display Label -->
             <span class="facet-selected-tag-label">{{ facet.title }}</span>
