@@ -38,16 +38,7 @@ ux-facet-typeahead-list {
         }
 
         .facet-typeahead-list-selected-container {
-            .facet-typeahead-list-selected-check {
-                display: flex;
-                flex: none;
-                justify-content: flex-start;
-                align-items: center;
-                color: @accent;
-                width: 22px;
-                margin-right: 5px;
-                margin-left: 5px;
-            }
+            margin-top: 5px;
 
             .facet-typeahead-list-selected-option {
                 display: flex;
@@ -64,10 +55,12 @@ ux-facet-typeahead-list {
                     text-overflow: ellipsis;
                     word-break: break-all;
                     white-space: nowrap;
+                    cursor: pointer;
                 }
 
                 .facet-typeahead-list-selected-option-count {
                     color: @grey4;
+                    cursor: pointer;
                 }
             }
         }

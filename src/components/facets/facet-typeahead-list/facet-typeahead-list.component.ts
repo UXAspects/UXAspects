@@ -18,6 +18,8 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
     @Input() header: string;
     @Input() expanded: boolean = true;
     @Input() typeaheadConfig: FacetTypeaheadListConfig = {};
+    @Input() suggestions: Facet[] = [];
+    @Input() simplified: boolean = true;
 
     typeaheadOptions: Observable<Facet[]>;
     searchQuery: string;

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <ux-facet-container>
-            <ux-facet-typeahead-list header="Authors" [facets]="facets"></ux-facet-typeahead-list>
+            <ux-facet-typeahead-list header="Authors" [facets]="facets" [suggestions]="suggestions" [simplified]="false"></ux-facet-typeahead-list>
         </ux-facet-container>
     </div>
 </div>
@@ -22,6 +22,10 @@
 <p>
     To add a Facet Typeahead List component to your application you need to import the <code>FacetsModule</code> which allows
     the use of the <code>ux-facet-typeahead-list</code> component.
+</p>
+
+<p>
+    A list of suggested facets can be displayed above the typeahead to allow a user to quickly select some options without having to perform a search.
 </p>
 
 <p>The following attributes can be used to customise the behavior of the component:</p>
@@ -72,6 +76,18 @@
             <td><b>@Input</b> header</td>
             <td><b>string</b></td>
             <td>Defines the text displayed at the top of the Facet Typeahead List.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> suggestions</td>
+            <td><b>Facet[]</b></td>
+            <td>Defines a list of facets which will be displayed above the typeahead to allow the user to quickly select some facets.</td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> simplified</td>
+            <td><b>boolean</b></td>
+            <td>Defines whether or not the checkboxes displayed alongside suggestions will appear in simplified form.</td>
         </tr>
 
         <tr>
