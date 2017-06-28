@@ -1,0 +1,78 @@
+ux-media-player-timeline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+
+    .current-time,
+    .duration-time {
+        margin: 0;
+        color: @grey3;
+        padding: 0 10px;
+    }
+
+    .timeline-bar {
+        position: relative;
+        flex: 1;
+        height: 10px;
+        background-color: @grey6;
+        cursor: pointer;
+
+        .buffered-bar {
+            position: absolute;
+            height: 100%;
+            background-color: @grey5;
+            pointer-events: none;
+        }
+
+        .media-progress-bar {
+            position: absolute;
+            height: 100%;
+            background-color: @primary;
+        }
+
+        .scrub-handle {
+            position: absolute;
+            width: 2px;
+            background-color: @grey2;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none;
+        }
+
+        .tooltip {
+            pointer-events: none;
+        }
+
+        &:hover {
+            .scrub-handle {
+                opacity: 1;
+            }
+        }
+    }
+
+    // Quiet Mode Styling
+    &.quiet {
+        .current-time,
+        .duration-time {
+            color: @grey4;
+        }
+
+        .timeline-bar {
+            background-color: rgba(232, 232, 232, 0.2);
+
+            .buffered-bar {
+                background-color: rgba(207, 207, 207, 0.1);
+            }
+
+            .media-progress-bar {
+                background-color: @primary;
+            }
+
+            .scrub-handle {
+                background-color: @grey4;
+            }
+        }
+    }
+}

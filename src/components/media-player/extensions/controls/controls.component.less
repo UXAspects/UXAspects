@@ -1,0 +1,106 @@
+ux-media-player-controls {
+    display: flex;
+    padding: 2px 10px;
+    align-items: center;
+
+    .hpe-icon {
+        flex: none;
+        cursor: pointer;
+        padding: 2px 5px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: color 0.3s ease-in-out;
+
+        &:hover {
+            color: @grey2;
+        }
+    }
+
+    .control-button {
+        fill: @grey3;
+        margin: 0 10px 8px;
+        cursor: pointer;
+        transition: fill 0.3s ease-in-out;
+
+        &:hover {
+            fill: @grey2;
+        }
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    &.quiet {
+        .hpe-icon {
+            color: @grey4;
+
+            &:hover {
+                color: @grey6;
+            }
+        }
+
+        .control-button {
+            fill: @grey4;
+
+            &:hover {
+                fill: @grey6;
+            }
+        }
+
+        .volume-container {
+            .volume-slider-container {
+                .volume-slider {
+                    background-color: rgba(207, 207, 207, 0.1);
+
+                    .volume-track-lower {
+                        background-color: rgba(153, 153, 153, 0.5);
+                    }
+
+                    .volume-slider-thumb {
+                        background-color: @white;
+                        border: 1px solid @grey3;
+                    }
+                }
+            }
+        }
+    }
+
+    .volume-container {
+        position: relative;
+        height: 28px;
+
+        .volume-slider-container {
+            position: absolute;
+            display: flex;
+            justify-content: space-between;
+            width: 120px;
+            top: 0;
+
+            .volume-slider {
+                position: relative;
+                width: 70px;
+                height: 4px;
+                background-color: @grey6;
+                margin: 10px 7px;
+
+                .volume-track-lower {
+                    background-color: @grey3;
+                    height: 100%;
+                }
+
+                .volume-slider-thumb {
+                    position: absolute;
+                    width: 14px;
+                    height: 14px;
+                    border-radius: 7px;
+                    background-color: @white;
+                    border: 1px solid @grey3;
+                    top: -5px;
+                    cursor: pointer;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+    }
+}

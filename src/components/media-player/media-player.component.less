@@ -1,0 +1,104 @@
+ux-media-player {
+    position: relative;
+    display: block;
+    height: 500px;
+    box-shadow: 0 1px 1px 2px @grey6;
+    outline: none;
+    background-color: #101010; // Not a variable - matches standard video background color
+
+    &.fullscreen {
+        width: 100vw;
+        height: 100vh;
+        border: none;
+    }
+
+    &.quiet {
+        .control-bar {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        &.hover {
+            .control-bar {
+                opacity: 1;
+            }
+        }
+    }
+
+    .video-player-container {
+        position: relative;
+        height: ~'calc(100% - 71px)';
+
+        .video-player {
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-overlay {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+
+            .play-graphic {
+                width: 100px;
+                height: 100px;
+
+                .play-circle {
+                    fill: rgba(0, 0, 0, 0.5);
+                }
+
+                .play-triangle {
+                    fill: rgba(255, 255, 255, 0.4);
+                }
+            }
+
+            &.playing {
+                .play-graphic {
+                    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+                    opacity: 0;
+                    transform: scale(1.2);
+                }
+            }
+        }
+    }
+
+    .audio-player {
+        display: flex;
+        flex-direction: column;
+        background-color: @white;
+        align-items: center;
+        padding: 18px 18px 16px;
+        border-bottom: 1px solid @grey8;
+        box-shadow: inset 0 -2px 3px -1px @grey6;
+
+        .audio-file-name {
+            color: @grey3;
+            margin-bottom: 0;
+            margin-top: 6px;
+        }
+
+        .audio-file-format {
+            color: @grey4;
+            margin-bottom: 0;
+        }
+
+        .audio-file-size {
+            color: @grey4;
+            margin-bottom: 0;
+        }
+    }
+
+    .control-bar {
+        width: 100%;
+        background-color: @white;
+    }
+}

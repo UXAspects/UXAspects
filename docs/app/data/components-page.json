@@ -539,6 +539,27 @@
             ]
         },
         {
+            "title": "Media Player",
+            "link": "media-player",
+            "sections": [{
+                    "title": "Media Player",
+                    "component": "ComponentsMediaPlayerComponent",
+                    "version": "Angular",
+                    "usage": [{
+                            "title": "Selector",
+                            "content": "ux-media-player"
+                        }, {
+                            "title": "Module name",
+                            "content": "MediaPlayerModule"
+                        }, {
+                            "title": "Dependencies",
+                            "content": "TooltipModule"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "title": "Modals",
             "link": "modals",
             "sections": [{
