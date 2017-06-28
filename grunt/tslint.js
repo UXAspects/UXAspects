@@ -9,5 +9,8 @@ module.exports = {
     },
     documentation: {
         src: ['docs/**/*.ts']
+    },
+    e2e: {
+        src: ['e2e/**/*.ts']
     }
 };

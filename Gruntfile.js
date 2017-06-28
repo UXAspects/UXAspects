@@ -12,11 +12,12 @@ module.exports = function (grunt) {
         jitGrunt: {
             staticMappings: {
                 'webpack-dev-server': 'grunt-webpack',
-                'usebanner': 'grunt-banner'
+                'usebanner': 'grunt-banner',
+                'protractor': 'grunt-protractor-runner'
             }
         }
     });
-
+    
     // Register Tasks
     grunt.registerTask('cleanup', ['clean:library', 'clean:documentation', 'clean:ng1', 'clean:styles', 'clean:fonts', 'clean:images', 'clean:less', 'clean:licenses']);
     grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'jshint:ng1', 'stylelint:components']);
@@ -34,6 +35,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('documentation:serve', ['iconset', 'styles', 'library', 'webpack-dev-server:documentation']);
     grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'webpack:documentation']);
+    
+    grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e']);
 
     // Tasks with larger chains of events
     grunt.registerTask('build', ['cleanup', 'lint', 'scripts', 'iconset', 'styles', 'library', 'documentation:build', 'minify', 'assets', 'licenses']);

@@ -6,5 +6,6 @@ module.exports = {
     fonts: 'dist/fonts',
     images: 'dist/img',
     less: 'dist/less',
-    licenses: 'dist/Licenses'
+    licenses: 'dist/Licenses',
+    e2e: ['e2e/dist', 'e2e/_test-output', 'e2e/tests/**/*.js', 'e2e/tests/**/*.map']
 };
