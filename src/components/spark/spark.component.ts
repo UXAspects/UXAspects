@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ColorService } from '../../services/color/index';
+import { ColorIdentifier } from '../../index';
 
 @Component({
     selector: 'ux-spark',
@@ -17,6 +18,12 @@ export class SparkComponent {
     @Input() bottomLeftLabel: string;
     @Input() bottomRightLabel: string;
     @Input() tooltip: string;
+
+    @Input()
+    set theme(themeName: ColorIdentifier) {
+        this.trackColor = this.colorService.getColor(themeName).setAlpha(0.2).toRgba();
+        this.barColor = this.colorService.getColor(themeName).toHex();
+    }
 
     constructor(private colorService: ColorService) { }
 
