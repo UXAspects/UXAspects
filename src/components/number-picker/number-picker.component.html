@@ -3,11 +3,11 @@
 
 <div class="number-picker-controls">
 
-    <div class="number-picker-control-up" (click)="increment($event)" [class.disabled]="!canIncrement()">
+    <div class="number-picker-control-up" (click)="increment($event)" [class.disabled]="disabled || value >= max">
         <span class="hpe-icon hpe-up"></span>
     </div>
 
-    <div class="number-picker-control-down" (click)="decrement($event)" [class.disabled]="!canDecrement()">
+    <div class="number-picker-control-down" (click)="decrement($event)" [class.disabled]="disabled || value <= min">
         <span class="hpe-icon hpe-down"></span>
     </div>
 
