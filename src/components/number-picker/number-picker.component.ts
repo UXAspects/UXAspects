@@ -66,7 +66,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
         return this._disabled;
     }
     set disabled(value) {
-        this._disabled = typeof value === 'string' && value === 'disabled' || value === true;
+        this._disabled = typeof value === 'string' && (value === '' || value === 'true' || value === 'disabled') || value === true;
     }
 
     increment(event: MouseEvent | KeyboardEvent): void {
@@ -91,14 +91,6 @@ export class NumberPickerComponent implements ControlValueAccessor {
         }
 
         return this.valid;
-    }
-
-    canIncrement(): boolean {
-        return !this.disabled && (this.value + this.step) <= this.max;
-    }
-
-    canDecrement(): boolean {
-        return !this.disabled && (this.value - this.step) >= this.min;
     }
 
     onScroll(event: WheelEvent): void {
