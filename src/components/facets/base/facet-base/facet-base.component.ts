@@ -1,4 +1,4 @@
-import { Component, Host, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Host, Input, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
 import { FacetContainerComponent } from '../../facet-container.component';
 import { FacetEvent, FacetDeselectAll, FacetDeselect, FacetSelect } from '../../facet-events';
 import { Facet } from '../../models/facet';
@@ -16,7 +16,7 @@ export class FacetBaseComponent implements OnInit {
 
     @Output() events: Subject<FacetEvent> = new Subject<FacetEvent>();
 
-    constructor( @Host() private facetContainer: FacetContainerComponent) {
+    constructor( @Host() private facetContainer: FacetContainerComponent, protected _elementRef: ElementRef) {
 
         if (facetContainer) {
 

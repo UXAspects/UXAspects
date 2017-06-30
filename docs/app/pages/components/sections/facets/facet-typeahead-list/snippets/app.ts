@@ -22,6 +22,19 @@ export class AppComponent {
             this.users.push(new Facet(chance.name(), null, chance.integer({ min: 0, max: 100 })));
         }
 
+        // sort the users alphabetically
+        this.users.sort((userOne, userTwo) => {
+            if (userOne.title < userTwo.title) {
+                return -1;
+            } 
+
+            if (userOne.title > userTwo.title) {
+                return 1;
+            }
+
+            return 0;
+        });
+
         // present the top 6 items as suggestions
         this.suggestions = this.users.slice(0, 6);
 
