@@ -1,17 +1,16 @@
 <div class="volume-container">
-    <span class="hpe-icon" [class.hpe-volume]="volume > 70" 
-        [class.hpe-volume-low]="volume > 0 && volume <= 70"
-        [class.hpe-volume-mute]="volume === 0" style="opacity: 0"></span>
 
-    <div class="volume-slider-container">
-        <span class="hpe-icon hpe-volume-mute" tooltip="Mute" (click)="volume = 0"></span>
-        
-        <div class="volume-slider" #volumeSlider>
-            <div class="volume-track-lower" [style.width.%]="volume"></div>
-            <div class="volume-slider-thumb" (mousedown)="dragStart($event)" [style.left.%]="volume"></div>
+    <div class="volume-slider-container" #volumeContainer [class.active]="volumeActive">
+        <div class="volume-slider-icon" #volumeIcon>
+            <span class="hpe-icon" [class.hpe-volume-mute]="volume === 0" [class.hpe-volume-low]="volume > 0 && volume <= 70" [class.hpe-volume]="volume > 70" [tooltip]="muteTooltip" (click)="toggleMute()"></span>
         </div>
-
-        <span class="hpe-icon hpe-volume"></span>
+        
+        <div class="volume-slider-node">
+            <div class="volume-slider" #volumeSlider>
+                <div class="volume-track-lower" [style.width.%]="volume"></div>
+                <div class="volume-slider-thumb" (mousedown)="dragStart($event)" [style.left.%]="volume" tabindex="0" (keydown.ArrowRight)="volume = volume + 10" (keydown.ArrowLeft)="volume = volume - 10"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -40,3 +39,5 @@
 
 <span class="hpe-icon" *ngIf="mediaPlayerComponent.type !== 'audio'" [class.hpe-expand]="!mediaPlayerComponent.fullscreen" [class.hpe-contract]="mediaPlayerComponent.fullscreen"
     (click)="setFullscreen()"></span>
+
+<ng-template #muteTooltip>{{ volume === 0 ? 'Unmute' : 'Mute' }}</ng-template>

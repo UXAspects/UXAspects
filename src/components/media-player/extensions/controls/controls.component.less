@@ -74,15 +74,25 @@ ux-media-player-controls {
             position: absolute;
             display: flex;
             justify-content: space-between;
-            width: 120px;
+            align-items: center;
+            width: 110px;
             top: 0;
 
+            .volume-slider-icon {
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                padding-top: 1px;
+            }
+
             .volume-slider {
+                opacity: 0;
                 position: relative;
                 width: 70px;
                 height: 4px;
                 background-color: @grey6;
                 margin: 10px 7px;
+                transition: opacity 0.3s ease-in-out;
 
                 .volume-track-lower {
                     background-color: @grey3;
@@ -99,6 +109,13 @@ ux-media-player-controls {
                     top: -5px;
                     cursor: pointer;
                     transform: translateX(-50%);
+                    outline: none;
+                }
+            }
+
+            &.active {
+                .volume-slider {
+                    opacity: 1;
                 }
             }
         }
