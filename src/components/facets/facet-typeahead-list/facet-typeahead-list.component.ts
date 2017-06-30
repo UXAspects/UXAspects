@@ -24,9 +24,10 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
     typeaheadOptions: Observable<Facet[]>;
     searchQuery: string;
 
+    private nativeElement: HTMLElement = this._elementRef.nativeElement as HTMLElement;
     private defaultTypeaheadConfig: FacetTypeaheadListConfig = {
         placeholder: '',
-        maxResults: 5,
+        maxResults: 50,
         minCharacters: 1
     };
 
@@ -78,6 +79,33 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
 
         // clear the typeahead
         this.searchQuery = '';
+    }
+
+    scrollToFocused(): void {
+
+        let dropdown = this.nativeElement.querySelector('.dropdown-menu');
+
+        // delay to allow the typeahead ui to update
+        setTimeout(() => {
+
+            // find the currently active element if there is one
+            let activeElement = dropdown.querySelector('.dropdown-menu > li.active');
+
+            if (activeElement) {
+
+                // check if element is not in view
+                let elementBounds = activeElement.getBoundingClientRect();
+                let dropdownBounds = dropdown.getBoundingClientRect();
+
+                if (elementBounds.top < dropdownBounds.top) {
+                    dropdown.scrollTop += elementBounds.top - dropdownBounds.top;
+                }
+
+                if (elementBounds.bottom > dropdownBounds.bottom) {
+                    dropdown.scrollTop += elementBounds.bottom - dropdownBounds.bottom;
+                }
+            }
+        });
     }
 
 }
