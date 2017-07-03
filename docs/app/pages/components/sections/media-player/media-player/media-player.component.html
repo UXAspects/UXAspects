@@ -1,5 +1,89 @@
-<ux-media-player class="media-player" src="https://news.hpe.com/uploads/2017/05/HPE_360-with-Logo_V3.mp4"></ux-media-player>
+<ux-media-player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource"
+    [quietMode]="mode === 'quiet'"></ux-media-player>
+<ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio" [source]="audioSource"></ux-media-player>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="dataSet">Format</label>
+                        <ux-radio-button [(value)]="type" option="video">Video</ux-radio-button>
+                        <ux-radio-button [(value)]="type" option="audio">Audio</ux-radio-button>
+                    </div>
+                </div>
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="dataSet">Mode</label>
+                        <ux-radio-button [(value)]="mode" option="standard" [disabled]="type === 'audio'">Standard</ux-radio-button>
+                        <ux-radio-button [(value)]="mode" option="quiet" [disabled]="type === 'audio'">Quiet</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
 
 <hr>
 
-<p>Media Player component</p>
+<p>
+    The media player component can be used to view video and audio files. It supports a range of the most popular video and audio
+    file formats. A comprehensive list of supported formats in each browser can be <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats">found here</a>.
+</p>
+
+<p>To add a media player to your page use the <code>ux-media-player</code> selector. The following attributes can be used to
+    configure the appearance and behavior of the media player:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><b>@Input</b> type</td>
+                <td>string</td>
+                <td>
+                    Defines the appearance of the media player. The two possible values are <code>video</code> and <code>audio</code>.
+                    The media player will adapt it's appearance to best suit the type specified.
+                </td>
+            </tr>
+
+            <tr>
+                <td><b>@Input</b> source</td>
+                <td>string</td>
+                <td>The url to the media file to be loaded by the media player.</td>
+            </tr>
+
+            <tr>
+                <td><b>@Input</b> quietMode</td>
+                <td>boolean</td>
+                <td>
+                    If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker
+                    style. Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypesScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

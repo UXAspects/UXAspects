@@ -1,6 +1,6 @@
 <div class="video-player-container" *ngIf="type === 'video'">
 
-    <video class="video-player" #player [src]="source" [autoplay]="autoPlay" [muted]="mute" (abort)="abortEvent.next()" (canplay)="canPlayEvent.next()"
+    <video class="video-player" #player [src]="source" (abort)="abortEvent.next()" (canplay)="canPlayEvent.next()"
         (canplaythrough)="canPlayThroughEvent.next()" (durationchange)="durationChangeEvent.next(player.duration)" (ended)="endedEvent.next()"
         (error)="errorEvent.next($event)" (loadeddata)="loadedDataEvent.next($event)" (loadedmetadata)="loadedMetadataEvent.next($event)"
         (loadstart)="loadStartEvent.next()" (pause)="pauseEvent.next()" (play)="playEvent.next()" (playing)="playingEvent.next(!player.paused)"
@@ -40,7 +40,7 @@
     <p class="audio-file-format">{{ (audioMetadata | async)?.description }}</p>
     <p class="audio-file-size">{{ (audioMetadata | async)?.size | fileSize }}</p>
 
-    <audio #player [src]="source" [autoplay]="autoPlay" [muted]="mute" (abort)="abortEvent.next()" (canplay)="canPlayEvent.next(true)"
+    <audio #player [src]="source" (abort)="abortEvent.next()" (canplay)="canPlayEvent.next(true)"
         (canplaythrough)="canPlayThroughEvent.next(true)" (durationchange)="durationChangeEvent.next(player.duration)" (ended)="endedEvent.next()"
         (error)="errorEvent.next($event)" (loadeddata)="loadedDataEvent.next($event)" (loadedmetadata)="loadedMetadataEvent.next($event)"
         (loadstart)="loadStartEvent.next()" (pause)="pauseEvent.next()" (play)="playEvent.next()" (playing)="playingEvent.next(!player.paused)"

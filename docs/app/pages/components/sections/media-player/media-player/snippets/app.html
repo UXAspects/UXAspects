@@ -1,0 +1,34 @@
+<ux-media-player *ngIf="type === 'video'" class="media-player" type="video" 
+    [source]="videoSource" [quietMode]="mode === 'quiet'"></ux-media-player>
+
+<ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio" 
+    [source]="audioSource"></ux-media-player>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="dataSet">Format</label>
+                        <ux-radio-button [(value)]="type" option="video">Video</ux-radio-button>
+                        <ux-radio-button [(value)]="type" option="audio">Audio</ux-radio-button>
+                    </div>
+                </div>
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="dataSet">Mode</label>
+                        
+                        <ux-radio-button [(value)]="mode" option="standard" 
+                            [disabled]="type === 'audio'">Standard</ux-radio-button>
+                        
+                        <ux-radio-button [(value)]="mode" option="quiet" 
+                            [disabled]="type === 'audio'">Quiet</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

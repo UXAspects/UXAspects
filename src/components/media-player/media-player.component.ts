@@ -17,8 +17,10 @@ import 'rxjs/add/operator/switchMap';
         '(keydown.Space)': 'togglePlay()',
         '[class.standard]': '!fullscreen',
         '[class.fullscreen]': 'fullscreen',
-        '[class.quiet]': 'quietMode || fullscreen',
+        '[class.quiet]': 'quietMode && type === "video" || fullscreen',
         '[class.hover]': 'hovering',
+        '[class.video]': 'type === "video"',
+        '[class.audio]': 'type === "audio"',
         '(mouseenter)': 'hovering = true',
         '(mouseleave)': 'hovering = false',
         '(document:webkitfullscreenchange)': 'fullscreenChange($event)',
@@ -28,9 +30,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
-    @Input('src') source: string;
-    @Input('autoplay') autoPlay: boolean;
-    @Input('muted') mute: boolean;
+    @Input() source: string;
     @Input() type: MediaPlayerType = 'video';
 
     @ViewChild('player') private _playerRef: ElementRef;

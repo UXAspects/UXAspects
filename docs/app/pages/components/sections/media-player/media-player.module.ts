@@ -1,11 +1,13 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { ComponentsMediaPlayerComponent } from './media-player/media-player.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { MediaPlayerModule } from '../../../../../../src/index';
+import { MediaPlayerModule, RadioButtonModule } from '../../../../../../src/index';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 const SECTIONS = [
     ComponentsMediaPlayerComponent
@@ -23,9 +25,12 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
+        TabsModule.forRoot(),
         MediaPlayerModule,
+        RadioButtonModule,
+        AccordionModule.forRoot(),
         DocumentationComponentsModule,
+        CommonModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,

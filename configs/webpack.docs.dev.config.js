@@ -73,7 +73,7 @@ var docsConfig = {
                 })
             },
             {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf)$/,
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|otf|mp4|mp3)$/,
                 use: 'file-loader?name=assets/[name].[ext]'
             },
 

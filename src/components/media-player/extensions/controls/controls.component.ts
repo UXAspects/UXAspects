@@ -1,8 +1,7 @@
 import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
-import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
-import { Observer } from "rxjs/Observer";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 
 @Component({
     selector: 'ux-media-player-controls',
@@ -45,11 +44,15 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
         this.mediaPlayerComponent.pauseEvent.subscribe(_ => this.playing = false);
         this.mediaPlayerComponent.quietModeEvent.subscribe(quietMode => this.quietMode = quietMode);
         this.mediaPlayerComponent.volumeChangeEvent.subscribe(volume => this.volume = volume * 100);
-        this.mediaPlayerComponent.initEvent.filter(init => init === true).subscribe(() => this.volume = this.mediaPlayerComponent.volume * 100);
+        this.mediaPlayerComponent.initEvent.debounceTime(1).filter(init => init === true).subscribe(() => this.volume = this.mediaPlayerComponent.volume * 100);
         this.mediaPlayerComponent.fullscreenEvent.subscribe(fullscreen => this.fullscreen = fullscreen);
 
         let mouseenter$ = Observable.fromEvent(this.volumeIcon.nativeElement, 'mouseenter');
-        let mouseleave$ = Observable.fromEvent(this.volumeContainer.nativeElement, 'mouseleave');
+        let mouseenterContainer$ = Observable.fromEvent(this.volumeContainer.nativeElement, 'mouseenter');
+        let mouseleaveContainer$ = Observable.fromEvent(this.volumeContainer.nativeElement, 'mouseleave');
+
+        mouseenter$.subscribe(() => this.volumeActive = true);
+        mouseleaveContainer$.switchMap(() => Observable.timer(1500).takeUntil(mouseenterContainer$)).subscribe(() => this.volumeActive = false);
     }
 
     toggleMute(): void {
