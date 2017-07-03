@@ -14,30 +14,42 @@ var fs = require('fs');
 var path = require('canonical-path');
 var _ = require('lodash');
 
+var JasmineReporters = require('jasmine-reporters');
+var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
 exports.config = {
   directConnect: false,
 
-  // Capabilities to be passed to the webdriver instance.
+  // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+    // 'browserName': 'internet explorer',
+    // 'browserName': 'firefox',
   },
 
+  // Test one browser at a time
+  maxSessions: 1,
+
+  // For future use with browsers other than Chrome. Assumes local execution of 'webmanager-driver update'.
+  // localSeleniumStandaloneOpts: {
+  //   jvmArgs: [
+  //     "-Dwebdriver.chrome.driver=.\\node_modules\\protractor\\node_modules\\webdriver-manager\\selenium\\chromedriver_2.30.exe",
+  //     "-Dwebdriver.ie.driver=.\\node_modules\\protractor\\node_modules\\webdriver-manager\\selenium\\IEDriverServer3.4.0.exe",
+  //     "-Dwebdriver.gecko.driver=.\\node_modules\\protractor\\node_modules\\webdriver-manager\\selenium\\geckodriver-v0.17.0.exe"
+  //   ]
+  // },
+  
   // Framework to use. Jasmine is recommended.
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
   specs: ['**/*e2e-spec.js' ],
 
-
   // For angular tests
   useAllAngular2AppRoots: true,
 
   // Base URL for application server
   baseUrl: 'http://localhost:8080',
-
-  // doesn't seem to work.
-  // resultJsonOutputFile: "foo.json",
 
   onPrepare: function() {
     //// SpecReporter
@@ -54,6 +66,52 @@ exports.config = {
       browser.useAllAngular2AppRoots = false;
       browser.rootEl = 'body';
     };
+    
+    // returning the promise makes protractor wait for the reporter config before executing tests
+    return browser.getProcessedConfig().then(function(config) {
+        //var browserName;
+        browser.driver.getCapabilities().then(function(caps) {
+            browser.browserName = caps.get('browserName');
+        });
+        var browserName = config.capabilities.browserName;
+    
+        // Add reporter which will output results in XML format
+        var junitReporter = new JasmineReporters.JUnitXmlReporter({
+            consolidateAll: true,
+                
+            // Save XML results files in this folder
+            savePath: './e2e/xml',
+                
+            //filePrefix: 'reportXMLoutput',
+            // this will produce distinct xml files for each capability
+            filePrefix: browserName + '-xmloutput',
+            modifySuiteName: function(generatedSuiteName, suite) {
+                // this will produce distinct suite names for each capability,
+                // e.g. 'firefox.login tests' and 'chrome.login tests'
+                return browserName + '.' + generatedSuiteName;
+            }
+        });
+        jasmine.getEnv().addReporter(junitReporter);
+        
+        // Add reporter which will output results in HTML format
+        jasmine.getEnv().addReporter(
+            new Jasmine2HtmlReporter({
+                takeScreenshots: false,
+                
+                // Save HTML results files in this folder
+                savePath: './e2e/html',
+                
+                // Iclude browser name and date in the name of the HTML results file
+                fileNamePrefix: browserName,
+                fileNameDateSuffix: true,
+                
+                // Set to false to display only failures in the HTML results file
+                showPassed: true,
+                
+                cleanDestination: false
+            })
+        );
+    });
   },
 
   jasmineNodeOpts: {

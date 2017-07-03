@@ -11,16 +11,7 @@ const ROUTES: Routes = [
   {
     path: 'checkboxes',
     component: CheckboxTestPageComponent
-  },
-  // {
-  //   path: '**',
-  //   redirectTo: 'checkboxes'
-  // },
-  // {
-  //   path: '',
-  //   pathMatch: 'full',
-  //   redirectTo: 'checkboxes'
-  // }
+  }
 ];
 
 @NgModule({

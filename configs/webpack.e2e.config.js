@@ -21,7 +21,7 @@ module.exports = {
         rules: [
             {
                 test: /\.ts$/,
-                use: ['awesome-typescript-loader?configFileName=./e2e/pages/tsconfig.json', 'angular2-template-loader']
+                use: ['awesome-typescript-loader?configFileName=./e2e/tsconfig.json', 'angular2-template-loader']
             },
 
             {
