@@ -1,7 +1,7 @@
 // New Variables
 
 // Typography
-@font-family: 'Source Sans Pro'; 
+@font-family: 'Source Sans Pro';
 @font-weight: 400;
 @font-weight-bold: 600;
 
@@ -45,7 +45,7 @@
 @spacing-md: 20px;
 @spacing-lg: 30px;
 @spacing-xl: 50px;
-@spacing-nil: 0px;
+@spacing-nil: 0;
 
 @headings-font-family: @font-family;
 @headings-color: inherit;
@@ -55,7 +55,7 @@
 @border-color: #e7eaec;
 
 // Background
-@body-bg: #fff;
+@body-bg: #fafafa;
 @body-bg-dark: #001632;
 
 // Accordion
@@ -105,14 +105,14 @@
 @btn-font-size: 0.875rem;
 
 @btn-text-transform: uppercase;
-@btn-border-radius: 0px;
+@btn-border-radius: 0;
 @btn-circular-border-radius: 50%;
 @btn-shadow: none;
 @btn-hover-shadow: none;
 @btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 @btn-disabled-shadow: none;
-@btn-shadow-dark: 1px 1px 3px #1A1A1A; //dark styling
-@btn-hover-shadow-dark: 1px 1px 8px #1A1A1A;
+@btn-shadow-dark: 1px 1px 3px #1a1a1a; //dark styling
+@btn-hover-shadow-dark: 1px 1px 8px #1a1a1a;
 
 @btn-large-font-size: 1.125rem;
 @btn-small-font-size: 0.75rem;
@@ -130,53 +130,53 @@
 @btn-primary-focus-color-dark: @white;
 @btn-primary-active-color: @white;
 
-@btn-primary-disabled-bg: #EDEDED;
-@btn-primary-disabled-color: #A8A8A8;
-@btn-primary-disabled-border: #EDEDED;
-@btn-primary-disabled-bg-dark: #464646; 
+@btn-primary-disabled-bg: #ededed;
+@btn-primary-disabled-color: #a8a8a8;
+@btn-primary-disabled-border: #ededed;
+@btn-primary-disabled-bg-dark: #464646;
 @btn-primary-disabled-color-dark: #636363;
 @btn-primary-disabled-border-dark: #464646;
 
 // Secondary Buttons
 @btn-secondary-bg: @white;
-@btn-secondary-color: #999999;
-@btn-secondary-border: #cccccc;
+@btn-secondary-color: #999;
+@btn-secondary-border: #ccc;
 @btn-secondary-shadow: none;
-@btn-secondary-bg-dark: #575757; 
-@btn-secondary-color-dark: #FFFFFF;
-@btn-secondary-border-dark: #666666;
-@btn-secondary-shadow-dark: #1A1A1A;
+@btn-secondary-bg-dark: #575757;
+@btn-secondary-color-dark: #fff;
+@btn-secondary-border-dark: #666;
+@btn-secondary-shadow-dark: #1a1a1a;
 
 @btn-secondary-hover-bg: #f2f2f2;
 @btn-secondary-hover-color: @btn-secondary-color;
 @btn-secondary-hover-border: #bfbfbf;
-@btn-secondary-hover-bg-dark: #4A4A4A; 
-@btn-secondary-hover-color-dark: #FFFFFF;
+@btn-secondary-hover-bg-dark: #4a4a4a;
+@btn-secondary-hover-color-dark: #fff;
 @btn-secondary-hover-border-dark: #595959;
 
 @btn-secondary-focus-bg: @white;
 @btn-secondary-focus-color: @btn-secondary-color;
 @btn-secondary-focus-border: @btn-secondary-border;
-@btn-secondary-focus-color-dark: #FFFFFF; 
+@btn-secondary-focus-color-dark: #fff;
 
 @btn-secondary-active-bg: #ebebeb;
 @btn-secondary-active-color: @btn-secondary-color;
 @btn-secondary-active-border: #b8b8b8;
 @btn-secondary-active-hover-shadow: #ddd;
-@btn-secondary-active-bg-dark: #424242; 
+@btn-secondary-active-bg-dark: #424242;
 @btn-secondary-active-border-dark: #525252;
 @btn-secondary-active-hover-bg-dark: #525252;
-@btn-secondary-active-hover-shadow-dark: 1px 1px 8px #1A1A1A;
+@btn-secondary-active-hover-shadow-dark: 1px 1px 8px #1a1a1a;
 
-@btn-secondary-disabled-bg: #EDEDED;
-@btn-secondary-disabled-color: #A8A8A8;
-@btn-secondary-disabled-border: #EDEDED;
-@btn-secondary-disabled-bg-dark: #464646; 
+@btn-secondary-disabled-bg: #ededed;
+@btn-secondary-disabled-color: #a8a8a8;
+@btn-secondary-disabled-border: #ededed;
+@btn-secondary-disabled-bg-dark: #464646;
 @btn-secondary-disabled-color-dark: #636363;
 @btn-secondary-disabled-border-dark: #464646;
 
-@btn-secondary-link-color-dark: #666666;
-@btn-secondary-link-active-color-dark: #666666;
+@btn-secondary-link-color-dark: #666;
+@btn-secondary-link-active-color-dark: #666;
 
 @btn-secondary-stroke-hover-color-dark: #8c8c8c;
 @btn-secondary-stroke-active-color-dark: #858585;
@@ -192,16 +192,15 @@
 @btn-accent-active-color-dark: @white;
 @btn-accent-active-border-dark: #445664;
 
-@btn-accent-disabled-bg: #EDEDED;
-@btn-accent-disabled-color: #A8A8A8;
-@btn-accent-disabled-border: #EDEDED;
+@btn-accent-disabled-bg: #ededed;
+@btn-accent-disabled-color: #a8a8a8;
+@btn-accent-disabled-border: #ededed;
 @btn-accent-disabled-bg-dark: #464646; //dark styling
 @btn-accent-disabled-color-dark: #636363;
 @btn-accent-disabled-border-dark: #464646;
 
-@btn-accent-link-color-dark: #60798D;
-@btn-accent-link-active-color-dark: #60798D;
-
+@btn-accent-link-color-dark: #60798d;
+@btn-accent-link-active-color-dark: #60798d;
 
 // Warning Buttons
 @btn-warning-bg: @critical;
@@ -223,35 +222,35 @@
 @btn-warning-active-color-dark: @white;
 @btn-warning-active-border-dark: #d63a42;
 
-@btn-warning-disabled-bg: #EDEDED;
-@btn-warning-disabled-color: #A8A8A8;
-@btn-warning-disabled-border: #EDEDED;
+@btn-warning-disabled-bg: #ededed;
+@btn-warning-disabled-color: #a8a8a8;
+@btn-warning-disabled-border: #ededed;
 @btn-warning-disabled-bg-dark: #464646; //dark styling
 @btn-warning-disabled-color-dark: #636363;
 @btn-warning-disabled-border-dark: #464646;
 
-@btn-warning-link-color-dark: #FF454F;
-@btn-warning-link-active-color-dark: #FF454F;
+@btn-warning-link-color-dark: #ff454f;
+@btn-warning-link-active-color-dark: #ff454f;
 
 @btn-dark: #222;
 
-@btn-link-hover-bg-dark: #1A4965;
-@btn-link-active-bg-dark: #0D3C58;
+@btn-link-hover-bg-dark: #1a4965;
+@btn-link-active-bg-dark: #0d3c58;
 
 @floating-action-child-btn-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 @floating-action-child-btn-hover-shadow: 1px 1px 8px rgba(0, 0, 0, 0.4);
 
 // Hyperlinks
-@hyperlink-color-dark: #CCCCCC; //dark styling
+@hyperlink-color-dark: #ccc; //dark styling
 @hyperlink-action-color-dark: @white;
-@hyperlink-hover-color: #000000;
+@hyperlink-hover-color: #000;
 
 // Cards
 @card-bg: @white;
 @card-border: #e7eaec;
-@card-border-dark: #444444; //dark styling
-@card-bg-dark: #2A2A2A;
-@card-callout-border-dark: #2A2A2A;
+@card-border-dark: #444; //dark styling
+@card-bg-dark: #2a2a2a;
+@card-callout-border-dark: #2a2a2a;
 @card-callout-hover-border-dark: #262626;
 
 @card-hover-bg: #f5f5f5;
@@ -266,10 +265,9 @@
 @card-title-color: @grey2;
 @card-subtitle-color: #999;
 
-
 // Card Tabs
 @card-tab-bg: @white;
-@card-tab-border: #CECECE;
+@card-tab-border: #cecece;
 @card-tab-active-border: @primary;
 @card-tab-hover-border: @primary;
 @card-tab-pagination-bg: rgba(51, 51, 51, 0.5);
@@ -286,28 +284,28 @@
 
 // Date Picker
 @date-picker-bg-dark: #262626;
-@date-picker-color-dark: #999999;
-@date-picker-border-dark: #666666;
+@date-picker-color-dark: #999;
+@date-picker-border-dark: #666;
 
 @date-picker-active-disabled-bg: #428bca;
 @date-picker-active-disabled-border: #357ebd;
 @date-picker-active-disabled-hover-border: #285e8e;
 
-@date-picker-today-color: #000000;
+@date-picker-today-color: #000;
 @date-picker-today-bg: #ffdb99;
 @date-picker-today-border: #ffb733;
 @date-picker-today-disabled-bg: #ffcd70;
 @date-picker-today-disabled-border: #f59e00;
 
-@date-picker-selected-bg: #999999;
-@date-picker-selected-border: #555555;
+@date-picker-selected-bg: #999;
+@date-picker-selected-border: #555;
 @date-picker-selected-hover-bg: #858585;
 @date-picker-selected-hover-border: #373737;
 
 @date-picker-today-btn-bg: transparent;
 @date-picker-today-btn-color: @grey2;
-@date-picker-today-btn-hover-bg: #eeeeee;
-@date-picker-today-btn-hover-bg-dark: #4A4A4A;
+@date-picker-today-btn-hover-bg: #eee;
+@date-picker-today-btn-hover-bg-dark: #4a4a4a;
 @date-picker-today-btn-hover-border-dark: #595959;
 
 @date-picker-range-today-bg: #f7ca77;
@@ -325,20 +323,20 @@
 
 @date-picker-active-bg: @accent;
 @date-picker-active-color: @white;
-@date-picker-hover-bg: #eeeeee;
-@date-picker-disabled-hover-bg: #999999;
-@date-picker-hover-bg-dark: #4A4A4A;
+@date-picker-hover-bg: #eee;
+@date-picker-disabled-hover-bg: #999;
+@date-picker-hover-bg-dark: #4a4a4a;
 
 // Draggable Cards
 @draggable-card-bg: @white;
-@draggable-card-shadow: #666666;
-@draggable-card-border: #cccccc;
-@draggable-card-bg-dark: #4A4A4A; // dark styling
-@draggable-card-border-dark: #666666;
+@draggable-card-shadow: #666;
+@draggable-card-border: #ccc;
+@draggable-card-bg-dark: #4a4a4a; // dark styling
+@draggable-card-border-dark: #666;
 
 @draggable-card-child-bg-dark: #575757;
-@draggable-card-child-border-dark: #666666;
-@draggable-card-child-shadow-dark: #1A1A1A;
+@draggable-card-child-border-dark: #666;
+@draggable-card-child-shadow-dark: #1a1a1a;
 
 @draggable-card-hover-border: @primary;
 
@@ -363,7 +361,7 @@
 @contacts-overflow-bg: @grey2;
 @contacts-overflow-color: @white;
 
-@contacts-popover-bg: #2A2A2A;
+@contacts-popover-bg: #2a2a2a;
 @contacts-popover-border: #3b3d3f;
 @contacts-popover-color: @white;
 
@@ -371,20 +369,20 @@
 @display-panel-item-selected: #fdfdfd;
 @display-panel-bg: @white;
 @display-panel-color: @grey2;
-@display-panel-border: rgba(51,51,51,0.4);
-@display-panel-shadow: rgba(51,51,51,0.4);
+@display-panel-border: rgba(51, 51, 51, 0.4);
+@display-panel-shadow: rgba(51, 51, 51, 0.4);
 @display-panel-header-shadow: rgba(204, 204, 204, 0.5);
 @display-panel-close-color: @text-color;
 @display-panel-close-hover-color: @grey2;
 @display-panel-footer-bg: @white;
-@display-panel-footer-border: rgba(51,51,51,0.1);
+@display-panel-footer-border: rgba(51, 51, 51, 0.1);
 @display-panel-item-selected-bg-dark: #262626;
 @display-panel-bg-dark: @grey2;
 @display-panel-color-dark: @grey5;
 @display-panel-modal-color-dark: @white;
 @display-panel-footer-bg-dark: @grey2;
 @display-panel-modal-button-bg-dark: @grey2;
-@display-panel-modal-button-color-dark: #999999;
+@display-panel-modal-button-color-dark: #999;
 
 // Dropdowns
 @dropdown-bg: @white;
@@ -393,13 +391,13 @@
 
 @dropdown-hover-bg: #f5f5f5;
 @dropdown-hover-color: @text-color;
-@dropdown-divider-bg-dark: #444444; 
+@dropdown-divider-bg-dark: #444;
 
-@dropdown-menu-color-dark: #999999;
+@dropdown-menu-color-dark: #999;
 @dropdown-menu-focus-bg-dark: #262626;
-@dropdown-menu-shadow: #999999;
+@dropdown-menu-shadow: #999;
 @dropdown-menu-hover-bg: #ebebeb;
-@dropdown-menu-hint: #999999;
+@dropdown-menu-hint: #999;
 
 @dropdown-bg-dark: @navbar-bg-dark;
 
@@ -407,12 +405,12 @@
 @facets-container-bg: @white;
 @facets-container-bg-dark: #262626;
 @facet-header-border: #e5e5e5;
-@facet-header-border-dark: #444444;
-@facet-name-color-dark: #999999;
-@facet-option-count-color-dark: #777777;
+@facet-header-border-dark: #444;
+@facet-name-color-dark: #999;
+@facet-option-count-color-dark: #777;
 
 @facet-focus-bg-dark: #404040;
-@facet-option-color-dark: #999999;
+@facet-option-color-dark: #999;
 @facet-before-after-bg-dark: #262626;
 
 @facet-count-color: #9a9d9f;
@@ -428,21 +426,21 @@
 @selected-facet-color: @text-color;
 @selected-facet-border: #e5e5e5;
 @selected-facet-hover-bg: #f5f5f5;
-@selected-facet-border-dark: #444444;
-@selected-facet-color-dark: #999999;
+@selected-facet-border-dark: #444;
+@selected-facet-color-dark: #999;
 @selected-facet-hover-focus-bg-dark: #404040;
 
 @dynamic-facet-divider: #f5f5f5;
 
 @dynamic-facet-active-bg: #f5f5f5;
 @dynamic-facet-active-color: inherit;
-@dynamic-facet-input-border-dark: #444444;
+@dynamic-facet-input-border-dark: #444;
 
 // Filters
 @dynamic-filter-divider: #f5f5f5;
 @dynamic-filter-option-active: #f5f5f5;
 
-@dynamic-filter-border-dark: #444444;
+@dynamic-filter-border-dark: #444;
 @dynamic-filter-active-bg-dark: #262626;
 
 @filter-selected-bg: #f5f5f5;
@@ -455,12 +453,12 @@
 @filter-dropdown-hover-border: #445664;
 @filter-dropdown-hover-focus-bg-dark: #262626;
 
-@filter-dropdown-color-dark: #999999;
+@filter-dropdown-color-dark: #999;
 
 @filter-dropdown-focus-bg: #ebebeb;
 @filter-dropdown-focus-border: #445664;
 
-@filter-sorter-title-color-dark: #999999;
+@filter-sorter-title-color-dark: #999;
 
 // File Upload
 @file-upload-dropzone-bg: @white;
@@ -488,12 +486,12 @@
 @form-control-border: #e5e6e7;
 @form-control-border-radius: 1px;
 @form-control-focus-border: @accent;
-@form-control-color-dark: #999999;
+@form-control-color-dark: #999;
 @form-control-bg-dark: #262626;
-@form-control-border-dark: #444444;
+@form-control-border-dark: #444;
 
-@form-control-disabled-color: #B3B3B3;
-@form-control-placeholder-color: #cccccc;
+@form-control-disabled-color: #b3b3b3;
+@form-control-placeholder-color: #ccc;
 
 @form-control-validation: @accent;
 
@@ -515,26 +513,26 @@
 
 @ebox-title-bg-dark: #002f4b;
 @ebox-title-color-dark: @grey8;
-@ebox-border-dark: rgba(255,255,255,0.08);
+@ebox-border-dark: rgba(255, 255, 255, 0.08);
 
 @ebox-draghandle-hover-bg-dark: #404040;
 
 // Input Expand
 @input-group-button-bg-dark: #262626;
-@input-group-button-border-dark: #444444;
-@input-group-button-color-dark: #999999;
+@input-group-button-border-dark: #444;
+@input-group-button-color-dark: #999;
 
 // Login Form
-@login-form-color: #999999;
+@login-form-color: #999;
 @login-form-dark-color: @white;
 @login-form-light-color: @grey2;
-@login-form-border: #999999;
+@login-form-border: #999;
 
 // Panels
 @draggable-panel-placeholder-bg: #e7eaec;
 @draggable-panel-placeholder-border: #cecece;
 @draggable-panel-background: @white;
-@draggable-panel-border: #cccccc;
+@draggable-panel-border: #ccc;
 @draggable-panel-hover-border: @primary;
 
 @draggable-panel-list-bg: @white;
@@ -544,39 +542,38 @@
 @draggable-panel-highlight: @primary;
 @draggable-panel-dragging-bg: #f2f2f2;
 
-@draggable-panel-list-bg-dark: #444444;
-@draggable-panel-list-border-dark: #4A4A4A;
+@draggable-panel-list-bg-dark: #444;
+@draggable-panel-list-border-dark: #4a4a4a;
 @draggable-panel-list-hover-bg-dark: #404040;
 @draggable-panel-list-gutter-bg-dark: #404040;
 @draggable-panel-list-title-color-dark: @white;
 @draggable-panel-dragging-bg-dark: #404040;
 
-@draggable-panel-card-border-dark: #666666;
+@draggable-panel-card-border-dark: #666;
 @draggable-panel-card-bg-dark: #575757;
-@draggable-panel-card-shadow-dark: #1A1A1A;
+@draggable-panel-card-shadow-dark: #1a1a1a;
 @draggable-panel-card-hover-border-dark: @primary;
 @draggable-panel-card-content-color-dark: @grey8;
 
-
 @sortable-placeholder-border-dark: #7a7a7a;
-@sortable-placeholder-bg-dark: #555555;
+@sortable-placeholder-bg-dark: #555;
 @sortable-placeholder-bg: #e7eaec;
 
-@side-inset-panel-bg: #eeeeee;
+@side-inset-panel-bg: #eee;
 
 @side-inset-panel-bg-dark: #404040;
 @side-inset-panel-title-color-dark: @white;
 @side-inset-panel-content-color-dark: @grey5;
 
-@panel-border-dark: #666666;
-@panel-heading-bg-dark: #4A4A4A;
+@panel-border-dark: #666;
+@panel-heading-bg-dark: #4a4a4a;
 @panel-heading-color-dark: @grey8;
 @panel-body-bg-dark: @grey2;
 @panel-body-color-dark: @grey5;
-@panel-body-border-dark: #666666;
+@panel-body-border-dark: #666;
 
 // Multiple Select
-@multiple-list-select-color-dark: #cccccc;
+@multiple-list-select-color-dark: #ccc;
 @multiple-select-link-dark: @primary;
 @multiple-select-selecting-hover-bg-dark: #2e2e2e;
 
@@ -595,7 +592,6 @@
 @partition-map-docked-popover-border: #3b3d3f;
 @partition-map-docked-popover-hover-bg: #444;
 
-
 @partition-map-edit-bg: @grey2;
 @partition-map-edit-color: @white;
 @partition-map-edit-done-btn-bg: rgba(0, 0, 0, 0.2);
@@ -605,23 +601,23 @@
 @partition-map-edit-segment-shadow: #111;
 
 @partition-map-maximize-btn-bg: #222;
-@partition-map-maximize-btn-border: rgba(255,255,255,0.1);
-@partition-map-maximize-btn-shadow: rgba(20,20,20,0.8);
+@partition-map-maximize-btn-border: rgba(255, 255, 255, 0.1);
+@partition-map-maximize-btn-shadow: rgba(20, 20, 20, 0.8);
 
 @partition-map-maximize-btn-hover-bg: #222;
 @partition-map-maximize-btn-hover-border: #222;
 
-@partition-map-maximize-btn-active-border: rgba(255,255,255,0.1);
+@partition-map-maximize-btn-active-border: rgba(255, 255, 255, 0.1);
 
 @partition-map-dragging-shadow: #111;
-@partition-map-selection-segment-bg: #FAFAFA;
+@partition-map-selection-segment-bg: #fafafa;
 
 @partition1: #635387;
 @partition9: #4a4066;
 @partition10: #308935;
 @partition11: #023e42;
 @partition12: #91744d;
-@partition13: #999999;
+@partition13: #999;
 @partition14: #294266;
 
 // progress bar
@@ -636,7 +632,7 @@
 
 // Search Builder Modal
 @search-builder-modal-close-bg: @grey2;
-@search-builder-modal-close-color: #999999;
+@search-builder-modal-close-color: #999;
 @search-builder-modal-close-hover-bg: #222;
 
 @search-builder-modal-header-bg: #f2f2f2;
@@ -644,14 +640,14 @@
 
 @search-builder-modal-footer-bg: #f2f2f2;
 
-@search-builder-modal-content-bg-dark: #2A2A2A;
+@search-builder-modal-content-bg-dark: #2a2a2a;
 @search-builder-modal-header-footer-bg-dark: #262626;
-@search-builder-title-color-dark: #FFFFFF;
+@search-builder-title-color-dark: #fff;
 
 // Single Select
 @single-select-selected-bg: #fdfdfd;
 @single-select-selected-bg-dark: #262626;
-@single-select-td-color-dark: #999999;
+@single-select-td-color-dark: #999;
 
 // Select Table
 @select-table-border-dark: #404040;
@@ -663,11 +659,11 @@
 @social-chart-title-color: @white;
 @social-chart-shadow: #222;
 @social-chart-maximize-btn-bg: #222;
-@social-chart-maximize-btn-border: rgba(255,255,255,0.1);
-@social-chart-maximize-btn-shadow: rgba(20,20,20,0.8);
+@social-chart-maximize-btn-border: rgba(255, 255, 255, 0.1);
+@social-chart-maximize-btn-shadow: rgba(20, 20, 20, 0.8);
 @social-chart-maximize-btn-hover-bg: #222;
 @social-chart-maximize-btn-hover-border: #222;
-@social-chart-maximize-btn-active-border: rgba(255,255,255,0.1);
+@social-chart-maximize-btn-active-border: rgba(255, 255, 255, 0.1);
 
 @social-chart-popover-bg: #3a3a3a;
 @social-chart-popover-border: #3a3a3a;
@@ -677,24 +673,23 @@
 // Side Modal
 @side-modal-background: @white;
 @side-modal-color: @grey2;
-@side-modal-close-color: #999999;
+@side-modal-close-color: #999;
 @side-modal-close-hover-color: @grey2;
-@side-modal-footer-border: rgba(51,51,51,0.1);
+@side-modal-footer-border: rgba(51, 51, 51, 0.1);
 
 @side-modal-bg-dark: @grey2;
 @side-modal-color-dark: @grey5;
 @side-modal-header-color-dark: @white;
 @side-modal-close-btn-bg-dark: @grey2;
-@side-modal-close-btn-color-dark: #999999;
+@side-modal-close-btn-color-dark: #999;
 @side-modal-close-btn-hover-bg-dark: @grey2;
-@side-modal-close-btn-hover-color-dark: #999999;
-@side-modal-footer-border-dark: #444444;
+@side-modal-close-btn-hover-color-dark: #999;
+@side-modal-footer-border-dark: #444;
 
 // Square modal
 @square-modal-close-bg: @grey2;
 @square-modal-close-color: #999;
 @square-modal-close-hover-bg: #222;
-
 
 // Spark Charts
 @spark-chart1-track: rgba(0, 177, 171, 0.2);
@@ -710,7 +705,7 @@
 @spark-chart6-track: rgba(204, 204, 204, 0.2);
 @spark-chart6-fill: @chart6;
 @spark-vibrant1-track: rgba(0, 204, 235, 0.2);
-@spark-vibrant1-fill: @vibrant1; 
+@spark-vibrant1-fill: @vibrant1;
 @spark-vibrant2-track: rgba(255, 144, 72, 0.2);
 @spark-vibrant2-fill: @vibrant2;
 @spark-primary-track: rgba(0, 167, 162, 0.2);
@@ -724,12 +719,12 @@
 @spark-warning-fill: @warning;
 @spark-alert-track: rgba(255, 69, 79, 0.2);
 @spark-alert-fill: @critical;
-@spark-critical-track: rgba(255, 69, 79, 0.2);		
+@spark-critical-track: rgba(255, 69, 79, 0.2);
 @spark-critical-fill: @critical;
 
 // Splitter Control
 @splitter-gutter: #f2f2f2;
-@splitter-gutter-dark: #444444;
+@splitter-gutter-dark: #444;
 
 // Infinite Scroll Button
 @infinite-scroll-load-button-bg: transparent;
@@ -737,8 +732,8 @@
 @infinite-scroll-load-button-border: @primary;
 
 @infinite-scroll-load-button-hover-bg: #f2f2f2;
-@infinite-scroll-load-button-hover-color: #018F6E;
-@infinite-scroll-load-button-hover-border: #018F6E;
+@infinite-scroll-load-button-hover-color: #018f6e;
+@infinite-scroll-load-button-hover-border: #018f6e;
 
 @infinite-scroll-load-button-bg-dark: @grey2;
 @infinite-scroll-load-button-hover-bg-dark: #262626;
@@ -747,7 +742,7 @@
 @hotkey-hint-color: #f1f1f1;
 
 // Hover actions
-@hover-action-color-dark: #999999;
+@hover-action-color-dark: #999;
 
 // JScrollPane Control
 @scrollbar-drag-bg: rgba(0, 0, 0, 0.4);
@@ -757,15 +752,15 @@
 @scrollbar-jsp-corner-bg: #eeeef4;
 
 // Time Picker
-@timepicker-arrow-color: #cccccc;
-@timepicker-arrow-hover-color: #E6E6E6;
-@timepicker-arrow-color-dark: #999999;
-@timepicker-arrow-hover-color-dark: #444444;
+@timepicker-arrow-color: #ccc;
+@timepicker-arrow-hover-color: #e6e6e6;
+@timepicker-arrow-color-dark: #999;
+@timepicker-arrow-hover-color-dark: #444;
 
-@timepicker-bg-dark: #2A2A2A;
-@timepicker-border-dark: #666666;
+@timepicker-bg-dark: #2a2a2a;
+@timepicker-border-dark: #666;
 
-@timepicker-timezone-dropdown-hover-bg-dark: #4A4A4A;
+@timepicker-timezone-dropdown-hover-bg-dark: #4a4a4a;
 
 // Labels
 @label-size: 0.8125rem;
@@ -777,10 +772,10 @@
 @label-primary: @primary;
 @label-accent: @accent;
 @label-warning: @critical;
-@label-alternate1: @alternate1;		
-@label-alternate2: @alternate2;		
-@label-alternate3: @alternate3;		
-@label-vibrant1: @vibrant1;		
+@label-alternate1: @alternate1;
+@label-alternate2: @alternate2;
+@label-alternate3: @alternate3;
+@label-vibrant1: @vibrant1;
 @label-vibrant2: @vibrant2;
 @label-purple: @alternate1;
 @label-lightgray: #999;
@@ -793,9 +788,9 @@
 @label-v-light-gray: @grey5;
 
 // Link Buttons
-@link-btn-hover: #E6E6E6;
-@link-btn-active: #cccccc;
-@link-btn-disabled-color:#C8C8C8;
+@link-btn-hover: #e6e6e6;
+@link-btn-active: #ccc;
+@link-btn-disabled-color:#c8c8c8;
 
 @link-btn-border: none;
 @link-btn-shadow: none;
@@ -806,11 +801,11 @@
 @link-btn-focus-text-decoration: none;
 
 // Layout Switching
-@switchery-border-dark: #666666;
+@switchery-border-dark: #666;
 @switchery-bg-dark: #2a2a2a;
 
 // Marquee Wizard Control
-@marquee-wizard-color: #999999;
+@marquee-wizard-color: #999;
 @marquee-wizard-step-color: @white;
 
 @marquee-wizard-step-active-bg: rgba(0, 0, 0, 0.2);
@@ -819,8 +814,8 @@
 
 // Marquee Modal
 @marquee-modal-close-bg: @grey2;
-@marquee-modal-close-color: #999999;
-@marquee-modal-close-hover-bg: #222222;
+@marquee-modal-close-color: #999;
+@marquee-modal-close-hover-bg: #222;
 
 @marquee-modal-side-panel-bg: @accent;
 @marquee-modal-side-panel-color: @white;
@@ -829,65 +824,65 @@
 @marquee-modal-title-color: @grey2;
 @marquee-modal-footer-bg: #f2f2f2;
 
-@marquee-modal-main-panel-bg-dark: #2A2A2A;
+@marquee-modal-main-panel-bg-dark: #2a2a2a;
 @marquee-modal-title-color-dark: @white;
 @marquee-modal-footer-bg-dark: @grey2;
 
 // Modals
 @modal-content-bg-dark: @grey2;
 @modal-header-color-dark: @white;
-@modal-header-border-dark: #444444;
+@modal-header-border-dark: #444;
 @modal-body-color-dark: @grey5;
-@modal-body-hr-color-border-dark: #444444;
-@modal-body-bg-dark: #2A2A2A;
+@modal-body-hr-color-border-dark: #444;
+@modal-body-bg-dark: #2a2a2a;
 @modal-body-form-color-dark: @grey5;
-@modal-footer-border-dark: #444444;
+@modal-footer-border-dark: #444;
 
 // Modal Inset Panels
 @modal-inset-panel-bg: @white;
-@modal-inset-panel-border: #E2E2E2;
+@modal-inset-panel-border: #e2e2e2;
 @modal-inset-panel-shadow: #c3c3c3;
 
-@modal-inset-panel-close-color: #999999;
+@modal-inset-panel-close-color: #999;
 @modal-inset-panel-close-hover-color: @grey2;
 
 @modal-inset-panel-header-color: @grey2;
 @modal-inset-panel-header-border: #e5e5e5;
 
 @modal-inset-panel-bg-dark: @grey2;
-@modal-inset-panel-right-left-border-dark: #444444;
-@modal-inset-panel-right-left-shadow-dark: #1A1A1A;
-@modal-inset-panel-header-border-dark: #444444;
-@modal-inset-panel-user-container-border-dark: #444444;
+@modal-inset-panel-right-left-border-dark: #444;
+@modal-inset-panel-right-left-shadow-dark: #1a1a1a;
+@modal-inset-panel-header-border-dark: #444;
+@modal-inset-panel-user-container-border-dark: #444;
 
-@modal-inset-panel-detail-text-color: #999999;
+@modal-inset-panel-detail-text-color: #999;
 
 // Preview Pane
 @preview-pane-bg: @white;
 @preview-pane-shadow: rgba(204, 204, 204, 0.5);
-@preview-pane-message-color: #CCCCCC;
-@preview-pane-new-window-color: rgba(0,0,0,0.5);
-@preview-pane-new-window-hover-color: rgb(0,0,0);
+@preview-pane-message-color: #ccc;
+@preview-pane-new-window-color: rgba(0, 0, 0, 0.5);
+@preview-pane-new-window-hover-color: rgb(0, 0, 0);
 
 @preview-pane-bg-dark: #404040;
-@preview-pane-new-window-color-dark: rgba(255,255,255,0.5);
-@preview-pane-new-window-hover-color-dark: rgb(255,255,255);
+@preview-pane-new-window-color-dark: rgba(255, 255, 255, 0.5);
+@preview-pane-new-window-hover-color-dark: rgb(255, 255, 255);
 @preview-pane-shadow-bg-dark: #404040;
-@preview-pane-shadow-display-panel-bg-dark: #333333;
+@preview-pane-shadow-display-panel-bg-dark: #333;
 
 // Popover
-@popover-bg-border-dark: #2A2A2A;
+@popover-bg-border-dark: #2a2a2a;
 
 // Static Tooltip
 @static-tooltip-bg: @white;
-@static-tooltip-border: #cccccc;
+@static-tooltip-border: #ccc;
 @static-tooltip-hover-border: @accent;
-@static-tooltip-shadow: #cccccc;
+@static-tooltip-shadow: #ccc;
 @static-tooltip-color: @grey2;
-@static-tooltip-hide-tips: #999999;
-@static-tooltip-bg-dark: #2A2A2A;
-@static-tooltip-border-dark: #444444;
-@static-tooltip-shadow-dark: #444444;
+@static-tooltip-hide-tips: #999;
+@static-tooltip-bg-dark: #2a2a2a;
+@static-tooltip-border-dark: #444;
+@static-tooltip-shadow-dark: #444;
 @static-tooltip-hover-border-dark: @accent;
 @static-tooltip-content-color-dark: @white;
 
@@ -911,7 +906,7 @@
 @navbar-side-container-light: @white;
 
 @navbar-search-color: @white;
-@navbar-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.4);
+@navbar-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.4);
 @navbar-search-expanded-border: #bfbfbf;
 @navbar-search-expanded-btn-border: #f2f2f2;
 
@@ -920,13 +915,13 @@
 @navbar-tabs-bg: @white;
 @navbar-tabs-border: @white;
 
-@navbar-tab-option-selected-color-dark: #666666;
+@navbar-tab-option-selected-color-dark: #666;
 @navbar-tabs-bg-dark: #262626;
 @navbar-tabs-item-color-dark: #cacaca;
-@navbar-tabs-item-focus-bg-dark: #2A2A2A;
-@navbar-tabs-item-active-bg-dark: #ffffff;
+@navbar-tabs-item-focus-bg-dark: #2a2a2a;
+@navbar-tabs-item-active-bg-dark: #fff;
 
-@navbar-tabs-affix-toolbar-bg-dark: #2A2A2A;
+@navbar-tabs-affix-toolbar-bg-dark: #2a2a2a;
 @navbar-divider-tabs-border: #e2e2e2;
 @navbar-divider-tabs-border-dark: #3c3c3c;
 @navbar-integrated-tabs-bg-dark: #2a2a2a;
@@ -939,11 +934,11 @@
 @nav-top-link-width: 100px;
 @nav-top-link-width-dropdown: 40px;
 @nav-top-link-width-small: 30px;
-@nav-fifth-level-color-dark: #999999;
-@nav-fifth-level-color: #666666;
+@nav-fifth-level-color-dark: #999;
+@nav-fifth-level-color: #666;
 
 @nav-header-text-muted-color: #8095a8;
-@nav-header-color: #DFE4ED;
+@nav-header-color: #dfe4ed;
 
 // Toolbar
 @toolbar-bg: #fafafa;
@@ -959,9 +954,8 @@
 @tabs-hover-bg: #f5f5f5;
 @tabs-hover-color: #808486;
 
-@tabs-dropdown-selected-color: #cccccc;
+@tabs-dropdown-selected-color: #ccc;
 @tabs-dropdown-arrow-border: #c3c3c3;
-
 
 // Notifications
 @notification-bg: @accent;
@@ -979,12 +973,12 @@
 // Tag Input Control
 @tag-input-border: @form-control-border;
 @tag-input-invalid: @critical;
-@tag-input-disabled-bg: #eeeeee;
+@tag-input-disabled-bg: #eee;
 @tag-input-disabled-color: #585858;
 
 @tag-input-tag-bg: #e2e3e5;
 @tag-input-tag-border: #d8d9db;
-@tag-input-tag-color: #555555;
+@tag-input-tag-color: #555;
 @tag-input-tag-border-radius: 1px;
 
 @tag-input-tag-active-bg: @accent;
@@ -998,8 +992,8 @@
 @tag-input-autocomplete-active-color: @grey2;
 
 @tag-input-tag-border-dark: #595959;
-@tag-input-tag-bg-dark: #4A4A4A;
-@tag-input-tag-color-dark: #999999;
+@tag-input-tag-bg-dark: #4a4a4a;
+@tag-input-tag-color-dark: #999;
 
 @tag-item-remove-button-color: #585858;
 @tag-item-remove-button-active-color: #000;
@@ -1010,15 +1004,15 @@
 @table-hover-bg: #f5f5f5;
 
 @table-grid-border: #ddd;
-@table-grid-bg: #eeeeee;
+@table-grid-bg: #eee;
 
 @table-sort-hover-bg: #ebebeb;
 @table-sort-focus-outline: @accent;
 
 @table-sort-hover-bg-dark: #262626;
 
-@table-border-dark: #444444;
-@table-color-dark: #999999;
+@table-border-dark: #444;
+@table-color-dark: #999;
 
 @table-hover-bg-dark: #404040;
 
@@ -1027,23 +1021,23 @@
 
 @table-multiple-select-item-hover-bg-dark: #262626;
 
-@table-header-color-dark: #cccccc;
+@table-header-color-dark: #ccc;
 
 // Thumbnails
 @thumbnail-border: #e5e5e5;
 @thumbnail-bg: #f5f5f5;
-@thumbnail-icon-color: #dddddd;
+@thumbnail-icon-color: #ddd;
 
 // Tree View
 @treeview-color: @text-color;
-@treeview-icon-color: rgba(95,120,140,0.35);
+@treeview-icon-color: rgba(95, 120, 140, 0.35);
 @treeview-outline: #ccc;
-@treeview-hover-bg: #F0F0F0;
+@treeview-hover-bg: #f0f0f0;
 
-@tree-node-color-dark: #cccccc;
+@tree-node-color-dark: #ccc;
 @tree-node-highlight-color-dark: @white;
 @tree-node-hover-focus-bg-dark: #404040;
-@tree-node-icon-color: #999999;
+@tree-node-icon-color: #999;
 @tree-node-input-bg-dark: #262626;
 
 @tree-placeholder-bg: #f0f9ff;
@@ -1065,18 +1059,18 @@
 @document-bg: #fdfdfd;
 
 // Pgaination
-@pagination-color: #999999;
-@pagination-border: #cccccc;
+@pagination-color: #999;
+@pagination-border: #ccc;
 @pagination-shadow: none;
 
 @pagination-hover-bg: #f2f2f2;
 @pagination-hover-border: #bfbfbf;
-@pagination-hover-color: #999999;
+@pagination-hover-color: #999;
 @pagination-hover-shadow: none;
 
 @pagination-focus-bg: @white;
-@pagination-focus-color: #999999;
-@pagination-focus-shadow: 0px 0px 1px 1px @accent;
+@pagination-focus-color: #999;
+@pagination-focus-shadow: 0 0 1px 1px @accent;
 
 @pagination-active-bg: @primary;
 @pagination-active-border: @primary;
@@ -1111,16 +1105,16 @@
 
 @sankey-divider: #979797;
 
-@sankey-node-hover-fill-dark: rgba(42,42,42,0.5);
-@sankey-link-node-hover-fill-dark: rgba(42,42,42,0.75);
+@sankey-node-hover-fill-dark: rgba(42, 42, 42, 0.5);
+@sankey-link-node-hover-fill-dark: rgba(42, 42, 42, 0.75);
 @sankey-column-fill-dark: #2a2a2a;
-@sankey-column-header-fill-dark: #CCC;
+@sankey-column-header-fill-dark: #ccc;
 
 // Search Builder
 
 @search-builder-group-title-color: @grey2;
 @search-builder-operator-border: rgba(1, 169, 130, 0.2);
-@search-builder-operator-border: #999999;
+@search-builder-operator-border: #999;
 
 @search-builder-operator-or-border: #cce3ed;
 @search-builder-operator-and-border: #cceee6;
@@ -1130,21 +1124,21 @@
 @search-builder-remove-color: #abacad;
 @search-builder-add-bg: rgba(123, 99, 163, 0.5);
 @search-builder-add-icon-color: @white;
-@search-builder-add-color: #999999;
+@search-builder-add-color: #999;
 @search-builder-add-hover-bg: @accent;
-@search-builder-add-disabled-bg: #A8A8A8;
+@search-builder-add-disabled-bg: #a8a8a8;
 @search-builder-placeholder-border: @accent;
 
 @search-builder-divider: #e5e5e5;
 
-@search-builder-divider-dark: #444444;
+@search-builder-divider-dark: #444;
 @search-builder-field-hover-dark: #262626;
-@search-builder-component-form-label-dark: #999999;
-@search-builder-component-icon-dark: #999999;
+@search-builder-component-form-label-dark: #999;
+@search-builder-component-icon-dark: #999;
 
 // Timeline Control
 @timeline-color: #e5e5e5;
-@timeline-bg: #999999;
+@timeline-bg: #999;
 @timeline-panel-bg: @white;
 @timeline-panel-border: #d4d4d4;
 @timeline-panel-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
@@ -1167,17 +1161,17 @@
 @timeline-badge-grey4: @grey4;
 @timeline-badge-grey5: @grey5;
 
-@timeline-bg-dark: #444444;
-@timeline-arrow-color-dark: #444444;
-@timeline-panel-bg-dark: #2A2A2A;
-@timeline-panel-border-dark: #444444;
-@timeline-panel-shadow-dark: #444444;
+@timeline-bg-dark: #444;
+@timeline-arrow-color-dark: #444;
+@timeline-panel-bg-dark: #2a2a2a;
+@timeline-panel-border-dark: #444;
+@timeline-panel-shadow-dark: #444;
 
 // V separator
-@v-separator-border: #D3D3D3;
-@v-separator-shadow: #FFFFFF;
-@v-separator-border-dark: #222222;
-@v-separator-shadow-dark: #444444;
+@v-separator-border: #d3d3d3;
+@v-separator-shadow: #fff;
+@v-separator-border-dark: #222;
+@v-separator-shadow-dark: #444;
 
 // Wizard Control
 @wizard-content-bg: #fafafa;
@@ -1200,20 +1194,19 @@
 @wizard-steps-disabled-bg-dark: #262626;
 
 // Wells
-@well-bg-dark: #444444;
-@well-border-dark: #999999;
+@well-bg-dark: #444;
+@well-border-dark: #999;
 
 // Other
-@row-divider-bg-dark: #444444;
+@row-divider-bg-dark: #444;
 @code-bg-dark: #404040;
-@landing-page-shadow: #444444;
+@landing-page-shadow: #444;
 @show-grid-bg-dark: #4a4a4a;
-@selecting-text-color-dark: #CCCCCC;
+@selecting-text-color-dark: #ccc;
 @hr-dark-border: #555;
-@listview-document-bg: #EDEDED;
+@listview-document-bg: #ededed;
 @group-title-bg: #687074;
 @no-drop-bg: #f2dede;
-
 
 // Component List
 @component-list-field-hover: #f7f8f9;
@@ -1223,7 +1216,7 @@
 @component-list-add-icon-color: @white;
 @component-list-add-hover-bg: @accent;
 @component-list-add-hover-bg-opacity: 1;
-@component-list-add-color: #999999;
+@component-list-add-color: #999;
 
 // Organization Chart
 @organization-chart-hierarchy-bar-border: @modal-inset-panel-border;
@@ -1254,3 +1247,37 @@
 @page-header-nav-dropdown-hover-bg: @page-header-nav-active-bg;
 @page-header-nav-dropdown-hover-color: @grey6;
 @page-header-nav-dropdown-selected-color: @white;
+
+// Media Player
+@mediaplayer-shadow: 0 1px 1px 2px @grey6;
+@mediaplayer-play-btn-bg: rgba(0, 0, 0, 0.5);
+@mediaplayer-play-btn-color: rgba(255, 255, 255, 0.4);
+@mediaplayer-controls-bg: @white;
+@mediaplayer-controls-quiet-bg: rgba(0, 0, 0, 0.7);
+@mediaplayer-controls-quiet-color: @grey4;
+@mediaplayer-controls-quiet-hover-color: @grey6;
+@mediaplayer-controls-btn-color: @grey3;
+@mediaplayer-controls-btn-hover-color: @grey2;
+@mediaplayer-audio-bg: @white;
+@mediaplayer-audio-border: @grey8;
+@mediaplayer-audio-shadow: inset 0 -2px 3px -1px @grey6;
+@mediaplyer-audio-title: @grey3;
+@mediaplyer-audio-subtitle: @grey4;
+@mediaplayer-volume-slider-track-upper: @grey6;
+@mediaplayer-volume-slider-track-lower: @grey3;
+@mediaplayer-volume-slider-thumb-bg: @white;
+@mediaplayer-volume-slider-thumb-border: @grey3;
+@mediaplayer-volume-slider-quiet-track-upper: rgba(207, 207, 207, 0.1);
+@mediaplayer-volume-slider-quiet-track-lower: rgba(153, 153, 153, 0.5);
+@mediaplayer-volume-slider-quiet-thumb-bg: @white;
+@mediaplayer-volume-slider-quiet-thumb-border: @grey3;
+@mediaplayer-timeline-bg: @grey6;
+@mediaplayer-timeline-buffered-bg: @grey5;
+@mediaplayer-timeline-track: @primary;
+@mediaplayer-timeline-handle: @grey2;
+@mediaplayer-timeline-text: @grey3;
+@mediaplayer-timeline-quiet-bg: rgba(232, 232, 232, 0.2);
+@mediaplayer-timeline-quiet-buffered-bg: rgba(207, 207, 207, 0.1);
+@mediaplayer-timeline-quiet-track: @primary;
+@mediaplayer-timeline-quiet-handle: @grey4;
+@mediaplayer-timeline-quiet-text: @grey4;

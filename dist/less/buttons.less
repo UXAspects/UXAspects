@@ -780,6 +780,7 @@ button {
   .dropdown-toggle {
     &:focus {
       .aspects-outline;
+
       z-index: @button-group-front-z-index;
     }
   }
@@ -842,7 +843,7 @@ fieldset[disabled] .btn-toggle.active {
   }
   .btn-sm {
     padding: 5px 10px;
-    height: 30px!important;
+    height: 30px !important;
   }
   .btn-lg {
     padding: 10px 20px;
@@ -913,6 +914,31 @@ fieldset[disabled] .btn-toggle.active {
   &:visited {
     color: @hyperlink-color;
     border-bottom: 2px solid @hyperlink-color;
+  }
+}
+
+.hyperlink-toggle {
+  .hyperlink();
+
+  &:focus {
+    border-bottom: 2px dotted @grey2;
+
+    &:hover {
+      border-bottom: 2px solid @primary;
+    }
+  }
+
+  &:visited {
+    color: @hyperlink-color;
+    border-bottom: 2px solid @primary;
+
+    &:focus {
+      border-bottom: 2px dotted @grey2;
+
+      &:hover {
+        border-bottom: 2px solid @primary;
+      }
+    }
   }
 }
 
@@ -1006,6 +1032,7 @@ fieldset[disabled] .btn-toggle.active {
     color: white;
     margin-top: 7px;
   }
+
   width: 45px;
   height: 30px;
   background-color: @primary;
@@ -1084,7 +1111,7 @@ fieldset[disabled] .btn-toggle.active {
 
 //required to prevent IEs disappearing scrollbar
 @-ms-viewport {
-  width: auto!important
+  width: auto !important;
 }
 
 .scroll-top {
