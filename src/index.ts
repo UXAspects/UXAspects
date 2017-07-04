@@ -20,6 +20,7 @@ export * from './components/spark/index';
 export * from './components/tag-input/index';
 export * from './components/toggleswitch/index';
 export * from './components/typeahead/index';
+export * from './components/media-player/index';
 
 /*
   Export Directives
@@ -32,9 +33,13 @@ export * from './directives/scroll-into-view-if/index';
 /*
   Export Pipes
 */
+export * from './pipes/duration/index';
+export * from './pipes/file-size/index';
 export * from './pipes/string-filter/index';
 
 /*
   Export Services
 */
+export * from './services/audio/index';
 export * from './services/color/index';
+export * from './services/frame-extraction/index';

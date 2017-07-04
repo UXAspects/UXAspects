@@ -1,0 +1,19 @@
+<p class="current-time">{{ current | duration }}</p>
+
+<div #timeline class="timeline-bar" (mouseenter)="scrub.visible = true; pop.show()" (mouseleave)="scrub.visible = false; pop.hide()"
+    (mousemove)="updateScrub($event)" (mouseup)="updateScrub($event)" (mousedown)="mouseDown = true; $event.preventDefault()">
+
+    <div class="buffered-bar" *ngFor="let buffer of buffered" [style.left.%]="buffer.start" [style.width.%]="buffer.end - buffer.start"></div>
+
+    <div class="media-progress-bar" [style.width.%]="position"></div>
+
+    <div class="scrub-handle" [style.left.px]="scrub.position" [tooltip]="popTemplate" placement="top" triggers="" #pop="bs-tooltip"
+        container="body" tooltipPopupDelay="100" [isDisabled]="duration === 0"></div>
+
+</div>
+
+<p class="duration-time">{{ duration | duration }}</p>
+
+<ng-template #popTemplate>
+    <span>{{ scrub.time | duration }}</span>
+</ng-template>

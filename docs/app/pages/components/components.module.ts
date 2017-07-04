@@ -25,6 +25,7 @@ const ROUTES: Routes = [
             { path: 'hierarchy-bar', loadChildren: './sections/hierarchy-bar/hierarchy-bar.module#ComponentsHierarchyBarModule' },
             { path: 'input-controls', loadChildren: './sections/input-controls/input-controls.module#ComponentsInputControlsModule' },
             { path: 'keyboard', loadChildren: './sections/keyboard/keyboard.module#ComponentsKeyboardModule' },
+            { path: 'media-player', loadChildren: './sections/media-player/media-player.module#ComponentsMediaPlayerModule' },
             { path: 'modals', loadChildren: './sections/modals/modals.module#ComponentsModalsModule' },
             { path: 'notifications', loadChildren: './sections/notifications/notifications.module#ComponentsNotificationsModule' },
             { path: 'page-header', loadChildren: './sections/page-header/page-header.module.ts#ComponentsPageHeaderModule' },

@@ -21,13 +21,13 @@
         <!-- Create Typeahead Control -->
         <input type="text" class="form-control" [placeholder]="typeaheadConfig?.placeholder" [typeahead]="typeaheadOptions" [(ngModel)]="searchQuery"
             [typeaheadMinLength]="typeaheadConfig?.minCharacters" [typeaheadOptionsLimit]="typeaheadConfig?.maxResults" [typeaheadWaitMs]="typeaheadConfig?.delay"
-            (typeaheadOnSelect)="selectOption($event)" [typeaheadItemTemplate]="facetTypeaheadListOptionTemplate">
+            (typeaheadOnSelect)="selectOption($event)" [typeaheadItemTemplate]="facetOptionTemplate" (keyup.ArrowUp)="scrollToFocused()" (keyup.ArrowDown)="scrollToFocused()">
 
     </div>
 
 </div>
 
-<ng-template #facetTypeaheadListOptionTemplate let-model="item" let-index="index">
+<ng-template #facetOptionTemplate let-model="item" let-index="index">
     <p class="facet-typeahead-list-option"><span [innerHTML]="model.title | facetTypeaheadHighlight: searchQuery"></span> <span class="facet-typeahead-list-option-count"
             *ngIf="model.count">({{ model.count }})</span></p>
 </ng-template>
