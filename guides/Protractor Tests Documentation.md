@@ -24,6 +24,8 @@ Clone the UXAspects repository
 
 #### Building UXAspects
 
+The Protractor tests require assets created when UXAspects is built.
+
 - In the 'UXAspects' folder run the commands `npm install` and `grunt build`.
 
 #### Running the Protractor tests
