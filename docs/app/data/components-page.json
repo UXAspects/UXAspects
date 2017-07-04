@@ -553,7 +553,7 @@
                             "content": "MediaPlayerModule"
                         }, {
                             "title": "Dependencies",
-                            "content": "TooltipModule"
+                            "content": "ngx-bootstrap"
                         }
                     ]
                 }

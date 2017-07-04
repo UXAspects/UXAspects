@@ -10,6 +10,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AudioServiceModule } from '../../services/audio/index';
 import { DurationPipeModule } from '../../pipes/duration/index';
 import { FileSizePipeModule } from '../../pipes/file-size/index';
+import { MediaPlayerService } from './media-player.service';
 
 const DECLARATIONS = [
     MediaPlayerComponent,
@@ -29,6 +30,6 @@ const DECLARATIONS = [
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS,
-    providers: []
+    providers: [MediaPlayerService]
 })
 export class MediaPlayerModule { }

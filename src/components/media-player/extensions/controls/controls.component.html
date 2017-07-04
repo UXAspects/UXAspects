@@ -37,7 +37,7 @@
 
 <div class="spacer"></div>
 
-<span class="hpe-icon" *ngIf="mediaPlayerComponent.type !== 'audio'" [class.hpe-expand]="!mediaPlayerComponent.fullscreen" [class.hpe-contract]="mediaPlayerComponent.fullscreen"
+<span class="hpe-icon" *ngIf="mediaPlayerService.type !== 'audio'" [class.hpe-expand]="!mediaPlayerService.fullscreen" [class.hpe-contract]="mediaPlayerService.fullscreen"
     (click)="setFullscreen()"></span>
 
 <ng-template #muteTooltip>{{ volume === 0 ? 'Unmute' : 'Mute' }}</ng-template>

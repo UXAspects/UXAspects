@@ -36,16 +36,16 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
         }
         
         this._volume = Math.min(Math.max(value, 0), 100);
-        this.mediaPlayerComponent.volume = this._volume / 100;
+        this.mediaPlayerService.volume = this._volume / 100;
     }
 
     ngOnInit(): void {
-        this.mediaPlayerComponent.playEvent.subscribe(_ => this.playing = true);
-        this.mediaPlayerComponent.pauseEvent.subscribe(_ => this.playing = false);
-        this.mediaPlayerComponent.quietModeEvent.subscribe(quietMode => this.quietMode = quietMode);
-        this.mediaPlayerComponent.volumeChangeEvent.subscribe(volume => this.volume = volume * 100);
-        this.mediaPlayerComponent.initEvent.debounceTime(1).filter(init => init === true).subscribe(() => this.volume = this.mediaPlayerComponent.volume * 100);
-        this.mediaPlayerComponent.fullscreenEvent.subscribe(fullscreen => this.fullscreen = fullscreen);
+        this.mediaPlayerService.playEvent.subscribe(_ => this.playing = true);
+        this.mediaPlayerService.pauseEvent.subscribe(_ => this.playing = false);
+        this.mediaPlayerService.quietModeEvent.subscribe(quietMode => this.quietMode = quietMode);
+        this.mediaPlayerService.volumeChangeEvent.subscribe(volume => this.volume = volume * 100);
+        this.mediaPlayerService.initEvent.debounceTime(1).filter(init => init === true).subscribe(() => this.volume = this.mediaPlayerService.volume * 100);
+        this.mediaPlayerService.fullscreenEvent.subscribe(fullscreen => this.fullscreen = fullscreen);
 
         let mouseenter$ = Observable.fromEvent(this.volumeIcon.nativeElement, 'mouseenter');
         let mouseenterContainer$ = Observable.fromEvent(this.volumeContainer.nativeElement, 'mouseenter');
@@ -65,22 +65,22 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
 
     togglePlay(): void {
         if (this.playing) {
-            this.mediaPlayerComponent.pause();
+            this.mediaPlayerService.pause();
         } else {
-            this.mediaPlayerComponent.play();
+            this.mediaPlayerService.play();
         }
     }
 
     setFullscreen(): void {
-        this.mediaPlayerComponent.toggleFullscreen();
+        this.mediaPlayerService.toggleFullscreen();
     }
 
     goToStart(): void {
-        this.mediaPlayerComponent.currentTime = 0;
+        this.mediaPlayerService.currentTime = 0;
     }
 
     goToEnd(): void {
-        this.mediaPlayerComponent.currentTime = this.mediaPlayerComponent.duration;
+        this.mediaPlayerService.currentTime = this.mediaPlayerService.duration;
     }
 
     dragStart(event: MouseEvent): void {

@@ -1,9 +1,9 @@
 import { Directive, Host } from '@angular/core';
-import { MediaPlayerComponent } from '../media-player.component';
+import { MediaPlayerService } from '../media-player.service';
 
-@Directive({ 
-    selector: '[media-player-base-extension]' 
+@Directive({
+    selector: '[mediaPlayerBaseExtension]' 
 })
 export class MediaPlayerBaseExtensionDirective {
-    constructor(@Host() public mediaPlayerComponent: MediaPlayerComponent) { }
+    constructor(public mediaPlayerService: MediaPlayerService) { }
 }

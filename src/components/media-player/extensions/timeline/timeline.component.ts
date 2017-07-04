@@ -33,19 +33,19 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
     ngOnInit(): void {
 
         // watch for changes to the current time
-        this.mediaPlayerComponent.durationChangeEvent.subscribe(duration => this.duration = duration);
-        this.mediaPlayerComponent.quietModeEvent.subscribe(quietMode => this.quietMode = quietMode);
-        this.mediaPlayerComponent.fullscreenEvent.subscribe(fullscreen => {
+        this.mediaPlayerService.durationChangeEvent.subscribe(duration => this.duration = duration);
+        this.mediaPlayerService.quietModeEvent.subscribe(quietMode => this.quietMode = quietMode);
+        this.mediaPlayerService.fullscreenEvent.subscribe(fullscreen => {
             this.fullscreen = fullscreen;
             this.scrub.position = 0;
         });
 
-        this.mediaPlayerComponent.timeUpdateEvent.subscribe(current => {
+        this.mediaPlayerService.timeUpdateEvent.subscribe(current => {
             this.current = current;
             this.position = (this.current / this.duration) * 100;
         });
 
-        this.mediaPlayerComponent.progressEvent.subscribe((buffered: TimeRanges) => {
+        this.mediaPlayerService.progressEvent.subscribe((buffered: TimeRanges) => {
             this.buffered = [];
 
             for (let idx = 0; idx < buffered.length; idx++) {
@@ -60,11 +60,11 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
         let bounds = timeline.getBoundingClientRect();
 
         this.scrub.position = event.offsetX;
-        this.scrub.time = (event.offsetX / bounds.width) * this.mediaPlayerComponent.duration;
+        this.scrub.time = (event.offsetX / bounds.width) * this.mediaPlayerService.duration;
 
         if (this.mouseDown) {
-            this.mediaPlayerComponent.pause();
-            this.mediaPlayerComponent.currentTime = this.scrub.time;
+            this.mediaPlayerService.pause();
+            this.mediaPlayerService.currentTime = this.scrub.time;
         }
     }
 

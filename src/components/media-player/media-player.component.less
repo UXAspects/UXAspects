@@ -1,7 +1,7 @@
 ux-media-player {
     position: relative;
     display: block;
-    box-shadow: 0 1px 1px 2px @grey6;
+    box-shadow: @mediaplayer-shadow;
     outline: none;
     background-color: #101010; // Not a variable - matches standard video background color
 
@@ -18,7 +18,7 @@ ux-media-player {
     &.quiet {
         .control-bar {
             position: absolute;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: @mediaplayer-controls-quiet-bg;
             bottom: 0;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
@@ -60,11 +60,11 @@ ux-media-player {
                 height: 100px;
 
                 .play-circle {
-                    fill: rgba(0, 0, 0, 0.5);
+                    fill: @mediaplayer-play-btn-bg;
                 }
 
                 .play-triangle {
-                    fill: rgba(255, 255, 255, 0.4);
+                    fill: @mediaplayer-play-btn-color;
                 }
             }
 
@@ -81,31 +81,31 @@ ux-media-player {
     .audio-player {
         display: flex;
         flex-direction: column;
-        background-color: @white;
+        background-color: @mediaplayer-audio-bg;
         align-items: center;
         padding: 18px 18px 16px;
-        border-bottom: 1px solid @grey8;
-        box-shadow: inset 0 -2px 3px -1px @grey6;
+        border-bottom: 1px solid @mediaplayer-audio-border;
+        box-shadow: @mediaplayer-audio-shadow;
 
         .audio-file-name {
-            color: @grey3;
+            color: @mediaplyer-audio-title;
             margin-bottom: 0;
             margin-top: 6px;
         }
 
         .audio-file-format {
-            color: @grey4;
+            color: @mediaplyer-audio-subtitle;
             margin-bottom: 0;
         }
 
         .audio-file-size {
-            color: @grey4;
+            color: @mediaplyer-audio-subtitle;
             margin-bottom: 0;
         }
     }
 
     .control-bar {
         width: 100%;
-        background-color: @white;
+        background-color: @mediaplayer-controls-bg;
     }
 }
