@@ -35,7 +35,7 @@ export declare class SelectComponent implements OnInit, OnChanges, ControlValueA
     protected singleTypeahead: TypeaheadComponent;
     protected filter: Observable<string>;
     private propagateChange;
-    constructor(_element: ElementRef, _document: Document, _typeaheadKeyService: TypeaheadKeyService);
+    constructor(_element: ElementRef, _document: HTMLDocument, _typeaheadKeyService: TypeaheadKeyService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     writeValue(obj: any): void;
