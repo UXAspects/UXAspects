@@ -6,6 +6,18 @@
 .spark-label .x-large {
   font-size: 24px;
 }
+.spark-chart-col-width2 .spark-label-left {
+  width: 20%;
+}
+.spark-column {
+  line-height: normal !important;
+}
+.spark-column .spark-label-left {
+  width: 20%;
+}
+.count-info .label {
+  top: 12px;
+}
 .column-choose-icon {
   display: inline-block;
   width: 30px;
@@ -196,11 +208,6 @@ table.list-view-table thead tr.table-header-dark th {
 }
 table.list-view-table tbody + tbody {
   border-top: none;
-}
-table.list-view-table .list-view-spark {
-  width: calc(60%);
-  transform: translate(-50%, 0%);
-  position: relative;
 }
 table.list-view-table.table .spark-column {
   width: 180px;
