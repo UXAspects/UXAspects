@@ -11,5 +11,8 @@ module.exports = {
     webpack_import_cert: {
         cmd: 'certutil',
         args: ['-addstore', '-enterprise', '-f', 'Root',  crtFile]
+    },
+    e2e: {
+        exec: 'npm run e2e',
     }
 };
