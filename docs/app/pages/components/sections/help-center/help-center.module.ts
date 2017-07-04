@@ -7,9 +7,12 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { ComponentsHelpCenterNg1Component } from './help-center-ng1/help-center-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsHelpCenterComponent } from './help-center/help-center.component';
+import { HelpCenterModule, PageHeaderModule } from '../../../../../../src/index';
 
 const SECTIONS = [
-    ComponentsHelpCenterNg1Component
+    ComponentsHelpCenterNg1Component,
+    ComponentsHelpCenterComponent
 ];
 
 const ROUTES = [
@@ -26,6 +29,8 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        HelpCenterModule,
+        PageHeaderModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],
