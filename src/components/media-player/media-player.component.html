@@ -1,0 +1,55 @@
+<div class="video-player-container" *ngIf="type === 'video'">
+
+    <video class="video-player" #player [src]="source" (abort)="mediaPlayerService.abortEvent.next()" (canplay)="mediaPlayerService.canPlayEvent.next()"
+        (canplaythrough)="mediaPlayerService.canPlayThroughEvent.next()" (durationchange)="mediaPlayerService.durationChangeEvent.next(player.duration)" (ended)="mediaPlayerService.endedEvent.next()"
+        (error)="mediaPlayerService.errorEvent.next($event)" (loadeddata)="mediaPlayerService.loadedDataEvent.next($event)" (loadedmetadata)="mediaPlayerService.loadedMetadataEvent.next($event)"
+        (loadstart)="mediaPlayerService.loadStartEvent.next()" (pause)="mediaPlayerService.pauseEvent.next()" (play)="mediaPlayerService.playEvent.next()" (playing)="mediaPlayerService.playingEvent.next(!player.paused)"
+        (ratechange)="mediaPlayerService.rateChangeEvent.next(player.playbackRate)" (seeked)="mediaPlayerService.seekedEvent.next(player.currentTime)" (seeking)="mediaPlayerService.seekingEvent.next(player.currentTime)"
+        (stalled)="mediaPlayerService.stalledEvent.next()" (suspend)="mediaPlayerService.suspendEvent.next()" (timeupdate)="mediaPlayerService.timeUpdateEvent.next(player.currentTime)"
+        (volumechange)="mediaPlayerService.volumeChangeEvent.next(player.volume)" (waiting)="mediaPlayerService.waitingEvent.next()" (click)="mediaPlayerService.mediaClickEvent.next($event)"></video>
+
+    <div class="video-overlay" [class.playing]="mediaPlayerService.playing | async">
+        <svg class="play-graphic" x="0px" y="0px" viewBox="0 0 64 64">
+            <circle class="play-circle" cx="32.2" cy="31.8" r="31.8" />
+            <polygon class="play-triangle" points="23,14.1 23,50.8 48.3,32.5" />
+        </svg>
+    </div>
+
+</div>
+
+
+<div class="audio-player" *ngIf="type === 'audio'">
+
+    <svg width="24px" height="24px" viewBox="0 0 24 24">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-98.000000, -458.000000)">
+                <g transform="translate(98.000000, 458.000000)">
+                    <path d="M4.5,0.5 L18.0435308,0.5 L23.5,6.22251502 L23.5,23.5 L4.5,23.5 L4.5,0.5 Z" fill="#CCEAE2"></path>
+                    <path d="M4.5,8 L4.5,0.5 L18,0.5 L23.5,6 L23.5,23.5 L18,23.5" stroke="#60798D" fill="#CCEAE2"></path>
+                    <path d="M4,13.5 L0.5,13.5 L0.5,18.5 L4,18.5 L9.5,22.5 L9.5,9.5 L4,13.5 Z" stroke="#60798D" fill="#85D2BE"></path>
+                    <path d="M11.5,12.5137939 C13.7576225,12.5137939 14.5,14.3709236 14.5,16 C14.5,17.6849236 13.7089152,19.5420532 11.5,19.5420532"
+                        stroke="#60798D"></path>
+                    <path d="M11.5,9 C15.8037643,9.04168701 18.5,11.6604805 18.5,16 C18.5,20.3395195 15.8804302,23.0079956 11.5,23" stroke="#60798D"></path>
+                    <path d="M17.5219116,0.761413574 L17.5219116,6 L23,6" stroke="#60798D" fill="#85D2BE"></path>
+                </g>
+            </g>
+        </g>
+    </svg>
+
+    <p class="audio-file-name">{{ (audioMetadata | async)?.filename }}</p>
+    <p class="audio-file-format">{{ (audioMetadata | async)?.description }}</p>
+    <p class="audio-file-size">{{ (audioMetadata | async)?.size | fileSize }}</p>
+
+    <audio #player [src]="source" (abort)="mediaPlayerService.abortEvent.next()" (canplay)="mediaPlayerService.canPlayEvent.next(true)"
+        (canplaythrough)="mediaPlayerService.canPlayThroughEvent.next(true)" (durationchange)="mediaPlayerService.durationChangeEvent.next(player.duration)" (ended)="mediaPlayerService.endedEvent.next()"
+        (error)="mediaPlayerService.errorEvent.next($event)" (loadeddata)="mediaPlayerService.loadedDataEvent.next($event)" (loadedmetadata)="mediaPlayerService.loadedMetadataEvent.next($event)"
+        (loadstart)="mediaPlayerService.loadStartEvent.next()" (pause)="mediaPlayerService.pauseEvent.next()" (play)="mediaPlayerService.playEvent.next()" (playing)="mediaPlayerService.playingEvent.next(!player.paused)"
+        (ratechange)="mediaPlayerService.rateChangeEvent.next(player.playbackRate)" (seeked)="mediaPlayerService.seekedEvent.next(player.currentTime)" (seeking)="mediaPlayerService.seekingEvent.next(player.currentTime)"
+        (stalled)="mediaPlayerService.stalledEvent.next()" (suspend)="mediaPlayerService.suspendEvent.next()" (timeupdate)="mediaPlayerService.timeUpdateEvent.next(player.currentTime)"
+        (volumechange)="mediaPlayerService.volumeChangeEvent.next(player.volume)" (waiting)="mediaPlayerService.waitingEvent.next()" (click)="mediaPlayerService.mediaClickEvent.next($event)"></audio>
+</div>
+
+<div class="control-bar">
+    <ux-media-player-timeline></ux-media-player-timeline>
+    <ux-media-player-controls></ux-media-player-controls>
+</div>
