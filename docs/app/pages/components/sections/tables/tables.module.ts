@@ -36,6 +36,8 @@ import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ComponentsCustomFiltersComponent } from './custom-filters-component/custom-filters.component';
 import { SampleFilterCustomComponent } from './custom-filters-component/sample/sample-filter.component';
+import { ComponentsLayoutSwitchingComponent } from './layout-switching/layout-switching.component';
+import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
 
 const SECTIONS = [
     ComponentsColumnSortingComponent,
@@ -63,7 +65,8 @@ const SECTIONS = [
     ComponentsMultipleColumnSortingNg1Component,
     ComponentsColumnVisibilityNg1Component,
     ComponentsCustomResponsiveTableNg1Component,
-    SampleFilterCustomComponent
+    SampleFilterCustomComponent,
+    ComponentsLayoutSwitchingComponent
 ];
 
 const ROUTES = [
@@ -87,6 +90,7 @@ const ROUTES = [
         ColumnSortingModule,
         SparkModule,
         FilterModule,
+        LayoutSwitcherModule,
         DocumentationComponentsModule,
         BsDropdownModule.forRoot(),
         RouterModule.forChild(ROUTES)

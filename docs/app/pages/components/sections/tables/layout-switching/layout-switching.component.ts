@@ -3,13 +3,11 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
-    selector: 'uxd-components-layout-switching-ng1',
-    templateUrl: './layout-switching-ng1.component.html'
+    selector: 'uxd-components-layout-switching',
+    templateUrl: './layout-switching.component.html'
 })
-@DocumentationSectionComponent('ComponentsLayoutSwitchingNg1Component')
-export class ComponentsLayoutSwitchingNg1Component extends BaseDocumentationSection {
-    
-    private htmlCode = this.snippets.compiled.sampleHtml;
+@DocumentationSectionComponent('ComponentsLayoutSwitchingComponent')
+export class ComponentsLayoutSwitchingComponent extends BaseDocumentationSection {
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
