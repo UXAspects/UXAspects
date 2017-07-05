@@ -36,13 +36,23 @@
         </table>
     </ng-template>
 
-     <ux-dashboard-widget id="custodians-list" colSpan="1" rowSpan="2">
+    <ux-dashboard-widget id="privacy-table" colSpan="1" rowSpan="1">
         <div class="widget-content" ux-dashboard-widget-drag-handle>
             <div pdfExportItem row="3" columns="3">
-                <h3 class="widget-title">Custodians</h3>
-                <ul class="widget-feature-list">
-                        <li *ngFor="let custodian of custodians" class="widget-feature-list-item">{{ custodian }}</li>
-                </ul>
+                <h3 class="widget-title">Privacy</h3>
+                <table class="m-md" style="width: 200px;">
+                    <thead>
+                        <tr>
+                            <th>Document Type</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of privacy">
+                            <td>{{ item.type }}</td>
+                            <td>{{ item.value }}</td>
+                        </tr>
+                </table>
             </div>
         </div>
     </ux-dashboard-widget>
@@ -67,7 +77,7 @@
 
     <ux-dashboard-widget id="donut-2-widget">
         <div class="widget-content" ux-dashboard-widget-drag-handle>
-            <div pdfExportItem>
+            <div pdfExportItem row="3" columns="3">
                 <h3 class="widget-title">Produced</h3>
                 <div class="demo-donut-container">
 

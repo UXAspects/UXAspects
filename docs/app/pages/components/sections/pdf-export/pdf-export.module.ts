@@ -9,6 +9,7 @@ import { ResolverService, DocumentationPage } from '../../../../services/resolve
 import { PdfExportModule } from '../../../../../../src/components/pdf-export/pdf-export.module';
 import { ChartsModule } from 'ng2-charts';
 import { CommonModule } from '@angular/common';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 const SECTIONS = [
     ComponentsPdfExportComponent
@@ -26,6 +27,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        TabsModule,
         DocumentationComponentsModule,
         PdfExportModule,
         ChartsModule,

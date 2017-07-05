@@ -5,6 +5,9 @@ import { ColorService, DashboardOptions } from '../../../../../../../src/index';
 import { Chart } from 'chart.js';
 import { PdfExportService } from '../../../../../../../src/components/pdf-export/index';
 import 'chance';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-components-pdf-export',
@@ -12,7 +15,7 @@ import 'chance';
     styleUrls: ['./pdf-export.component.less']
 })
 @DocumentationSectionComponent('ComponentsPdfExportComponent')
-export class ComponentsPdfExportComponent {
+export class ComponentsPdfExportComponent extends BaseDocumentationSection implements IPlunkProvider  {
 
 
     @ViewChild(BaseChartDirective) baseChart: BaseChartDirective;
@@ -27,8 +30,6 @@ export class ComponentsPdfExportComponent {
     barChartOptions: Chart.ChartOptions;
     barChartLegend: boolean = false;
     barChartColors: any;
-
-     // this can go
 
     dataTable = [{
         document: '.doc',
@@ -56,6 +57,23 @@ export class ComponentsPdfExportComponent {
         value: 67,
     }];
 
+    privacy = [{
+        type: 'Employee data',
+        value: 139
+    }, {
+        type: 'Health data',
+        value: 56
+    }, {
+        type: 'Financial',
+        value: 34
+    }, {
+        type: 'Personal ID',
+        value: 13
+    }, {
+        type: 'Other',
+        value: 2
+    }];
+
     // configure the directive data
     donutChart1Data: Chart.ChartData = [{
         data: [287, 23],
@@ -69,9 +87,7 @@ export class ComponentsPdfExportComponent {
 
     donutChartOptions: Chart.ChartOptions;
     donutChart1Colors: any;
-    donutChart2Colors: any;  
-
-    custodians: string[] = [];
+    donutChart2Colors: any;
 
     options: DashboardOptions = {
         columns: 3,
@@ -81,9 +97,35 @@ export class ComponentsPdfExportComponent {
         minWidth: 187
     };
 
+    plunk: IPlunk = {
+        files: {
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.css': this.snippets.raw.appCss
+        },
+        mappings: [
+            MAPPINGS.Chance,
+            MAPPINGS.ChartJs,
+            MAPPINGS.Ng2Charts
+        ],
+        modules: [{
+            imports: ['DashboardModule', 'ColorServiceModule', 'PdfExportModule'],
+            library: 'ux-aspects'
+        }, {
+            library: 'chance'
+        },
+        {
+            library: 'chart.js'
+        },
+        {
+            imports: ['ChartsModule'],
+            library: 'ng2-charts'
+        }]
+    };
+
     constructor(public colorService: ColorService, private _pdfExportService: PdfExportService) {
 
-        this.getCustodians();
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
          // Prepare colors used in chart
         let borderColor = colorService.getColor('grey2').setAlpha(0.5).toRgba();
@@ -139,9 +181,6 @@ export class ComponentsPdfExportComponent {
                 borderColor: barBorderColor
             }
         ];
-
-
-
 
         this.donutChartOptions = {
             maintainAspectRatio: false,
@@ -229,15 +268,9 @@ export class ComponentsPdfExportComponent {
         });
     }
 
-     getCustodians() {
-        for (let i = 0; i < 14; i++) {
-            this.custodians.push(chance.name());
-        }
-    }
-
     getDocument() {
         let output = this._pdfExportService.getDocument();
-        window.open('about:blank', '', '_blank').document.write(output.outerHTML);
+        window.open('about:blank').document.write(output.outerHTML);
     }
 
 }

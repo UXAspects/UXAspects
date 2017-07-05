@@ -6,8 +6,8 @@ import 'chance';
 
 @Component({
     selector: 'app',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.less']
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
 export class AppComponent {
 
@@ -50,6 +50,23 @@ export class AppComponent {
     }, {
         document: '.mht',
         value: 67,
+    }];
+
+    privacy = [{
+        type: 'Employee data',
+        value: 139
+    }, {
+        type: 'Health data',
+        value: 56
+    }, {
+        type: 'Financial',
+        value: 34
+    }, {
+        type: 'Personal ID',
+        value: 13
+    }, {
+        type: 'Other',
+        value: 2
     }];
 
     // configure the directive data
@@ -230,7 +247,7 @@ export class AppComponent {
 
     getDocument() {
         let output = this._pdfExportService.getDocument();
-        window.open('about:blank', '', '_blank').document.write(output.outerHTML);
+        window.open('about:blank').document.write(output.outerHTML);
     }
 
 }
