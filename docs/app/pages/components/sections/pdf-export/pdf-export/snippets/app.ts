@@ -24,8 +24,6 @@ export class AppComponent {
     barChartLegend: boolean = false;
     barChartColors: any;
 
-     // this can go
-
     dataTable = [{
         document: '.doc',
         value: 34,
