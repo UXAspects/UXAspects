@@ -1,0 +1,176 @@
+<ux-dashboard class="customizable-dashboard" [options]="options">
+
+    <ux-dashboard-widget id="chart-widget" colSpan="3" rowSpan="2">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <div pdfExportItem row="1" columns="12">
+                <h3 class="widget-title">Documents</h3>
+                <div class="demo-chart-container">
+
+                    <canvas baseChart 
+                            [datasets]="barChartData" 
+                            [labels]="barChartLabels" 
+                            [options]="barChartOptions" 
+                            [legend]="barChartLegend"
+                            [colors]="barChartColors" 
+                            chartType="bar">
+                    </canvas>
+
+                </div>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ng-template pdfExportItem row="2" columns="3" let-data="data" [data]="dataTable">
+        <table class="m-md pdf-export-table">
+            <thead>
+                <tr>
+                    <th>Document Type</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <td>{{ item.document }}</td>
+                    <td>{{ item.value }}</td>
+                </tr>
+        </table>
+    </ng-template>
+
+    <ux-dashboard-widget id="privacy-table" colSpan="1" rowSpan="1">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <div pdfExportItem row="3" columns="3">
+                <h3 class="widget-title">Privacy</h3>
+                <table class="m-md pdf-export-table">
+                    <thead>
+                        <tr>
+                            <th>Document Type</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of privacy">
+                            <td>{{ item.type }}</td>
+                            <td>{{ item.value }}</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="donut-1-widget">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <div pdfExportItem row="2" columns="3">
+                <h3 class="widget-title">Reviewed</h3>
+                <div class="demo-donut-container">
+
+                    <canvas baseChart 
+                            [datasets]="donutChart1Data"
+                            [options]="donutChartOptions"
+                            [colors]="donutChart1Colors"
+                            chartType="doughnut">
+                    </canvas>
+
+                </div>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="donut-2-widget">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <div pdfExportItem row="3" columns="3">
+                <h3 class="widget-title">Produced</h3>
+                <div class="demo-donut-container">
+
+                    <canvas baseChart 
+                            [datasets]="donutChart2Data"
+                            [options]="donutChartOptions"
+                            [colors]="donutChart2Colors"
+                            chartType="doughnut">
+                    </canvas>
+
+                </div>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+</ux-dashboard>
+
+<button class="btn btn-secondary" (click)="getDocument()">Get Document</button>
+
+<hr>
+
+<p>The <code>PdfExportService</code> can be used to export sections of a webpage to be saved as PDF or printed.</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+       <tr>
+           <td>getDocument()</td>
+           <td><b>HTMLElement</b></td>
+           <td>This will return the HTMLElement containing the items that will be exported only.</td>
+       </tr>
+
+    </tbody>
+</table>
+
+<p>Items can be marked for exporting using the <code>pdfExportItem</code> directive. Items can be set to only be visible in 
+    the pdf view and not on the webpage by setting the directive on an <code>ng-template</code>.</p>
+
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+       <tr>
+           <td><b>@Input</b> row</td>
+           <td><b>number?</b></td>
+           <td>Defines which row the exported item should be displayed on.</td>
+       </tr>
+
+       <tr>
+           <td><b>@Input</b> columns</td>
+           <td><b>number?</b></td>
+           <td>Defines how many columns the exported item should fill.</td>
+       </tr>
+
+       <tr>
+           <td><b>@Input</b> data</td>
+           <td><b>any?</b></td>
+           <td>Sets the data required for items inside the <code>ng-template</code>.</td>
+       </tr>
+
+    </tbody>
+</table>
+
+<p>The following code can be used to create the example above.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

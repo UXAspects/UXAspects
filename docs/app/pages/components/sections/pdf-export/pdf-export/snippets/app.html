@@ -1,0 +1,98 @@
+<ux-dashboard class="customizable-dashboard" [options]="options">
+
+    <ux-dashboard-widget id="chart-widget" colSpan="3" rowSpan="2">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <div pdfExportItem row="1" columns="12">
+                <h3 class="widget-title">Documents</h3>
+                <div class="demo-chart-container">
+
+                    <canvas baseChart 
+                            [datasets]="barChartData" 
+                            [labels]="barChartLabels" 
+                            [options]="barChartOptions" 
+                            [legend]="barChartLegend"
+                            [colors]="barChartColors" 
+                            chartType="bar">
+                    </canvas>
+
+                </div>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ng-template pdfExportItem row="2" columns="3" let-data="data" [data]="dataTable">
+        <table class="m-md pdf-export-table">
+            <thead>
+                <tr>
+                    <th>Document Type</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <td>{{ item.document }}</td>
+                    <td>{{ item.value }}</td>
+                </tr>
+        </table>
+    </ng-template>
+
+    <ux-dashboard-widget id="privacy-table" colSpan="1" rowSpan="1">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <div pdfExportItem row="3" columns="3">
+                <h3 class="widget-title">Privacy</h3>
+                <table class="m-md pdf-export-table">
+                    <thead>
+                        <tr>
+                            <th>Document Type</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of privacy">
+                            <td>{{ item.type }}</td>
+                            <td>{{ item.value }}</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="donut-1-widget">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <div pdfExportItem row="2" columns="3">
+                <h3 class="widget-title">Reviewed</h3>
+                <div class="demo-donut-container">
+
+                    <canvas baseChart 
+                            [datasets]="donutChart1Data"
+                            [options]="donutChartOptions"
+                            [colors]="donutChart1Colors"
+                            chartType="doughnut">
+                    </canvas>
+
+                </div>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="donut-2-widget">
+        <div class="widget-content" ux-dashboard-widget-drag-handle>
+            <div pdfExportItem row="3" columns="3">
+                <h3 class="widget-title">Produced</h3>
+                <div class="demo-donut-container">
+
+                    <canvas baseChart 
+                            [datasets]="donutChart2Data"
+                            [options]="donutChartOptions"
+                            [colors]="donutChart2Colors"
+                            chartType="doughnut">
+                    </canvas>
+
+                </div>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+</ux-dashboard>
+
+<button class="btn btn-secondary" (click)="getDocument()">Get Document</button>

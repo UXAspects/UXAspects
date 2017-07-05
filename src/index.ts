@@ -12,6 +12,7 @@ export * from './components/flippable-card/index';
 export * from './components/item-display-panel/index';
 export * from './components/number-picker/index';
 export * from './components/page-header/index';
+export * from './components/pdf-export/index';
 export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';
 export * from './components/select/index';

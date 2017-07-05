@@ -30,6 +30,7 @@ const ROUTES: Routes = [
             { path: 'notifications', loadChildren: './sections/notifications/notifications.module#ComponentsNotificationsModule' },
             { path: 'page-header', loadChildren: './sections/page-header/page-header.module.ts#ComponentsPageHeaderModule' },
             { path: 'panels', loadChildren: './sections/panels/panels.module#ComponentsPanelsModule' },
+            { path: 'pdf-export', loadChildren: './sections/pdf-export/pdf-export.module#ComponentsPdfExportModule' },
             { path: 'popover', loadChildren: './sections/popover/popover.module#ComponentsPopoverModule' },
             { path: 'progress', loadChildren: './sections/progress/progress.module#ComponentsProgressModule' },
             { path: 'scrollbar', loadChildren: './sections/scrollbar/scrollbar.module#ComponentsScrollbarModule' },
