@@ -70,19 +70,18 @@ export class PdfExportService {
     }
 
     private cloneHead(): HTMLHeadElement {
-        let head = document.head.cloneNode(true) as HTMLHeadElement;
-        return head;
+        return document.head.cloneNode(true) as HTMLHeadElement;
     }
 
     private clone(element: HTMLElement): HTMLElement {
-        return element instanceof HTMLCanvasElement ? this.cloneCanvas(element) 
-        : element.tagName === 'ng-template' ? this.template(element)
-        : this.cloneElement(element);
-    }
 
-    private template(element: HTMLElement): HTMLElement {
-        let x = element;
-        return element;
+        if (element instanceof HTMLCanvasElement) {
+            return this.cloneCanvas(element);
+        } else if (element.tagName === 'ng-template') {
+            return element;
+        } else {
+            return this.cloneElement(element);
+        } 
     }
 
     private cloneCanvas(canvas: HTMLCanvasElement): HTMLImageElement {

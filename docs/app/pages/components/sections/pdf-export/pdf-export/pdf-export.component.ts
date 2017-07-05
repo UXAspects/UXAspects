@@ -123,7 +123,7 @@ export class ComponentsPdfExportComponent extends BaseDocumentationSection imple
         }]
     };
 
-    constructor(public colorService: ColorService, private _pdfExportService: PdfExportService) {
+    constructor(colorService: ColorService, private _pdfExportService: PdfExportService) {
 
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 

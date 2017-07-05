@@ -92,7 +92,7 @@ export class AppComponent {
         minWidth: 187
     };
 
-    constructor(public colorService: ColorService, private _pdfExportService: PdfExportService) {
+    constructor(colorService: ColorService, private _pdfExportService: PdfExportService) {
 
         this.getCustodians();
 
