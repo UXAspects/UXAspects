@@ -703,7 +703,20 @@
             "sections": [{
                 "title": "PDF Export",
                 "component": "ComponentsPdfExportComponent",
-                "version": "Angular"
+                "version": "Angular",
+                "usage": [{
+                        "title": "Selector",
+                        "content": "pdfExportItem"
+                    },
+                    {
+                        "title": "Service",
+                        "content": "PdfExportService"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "PdfExportModule"
+                    }
+                ]
             }]
         },
         {
