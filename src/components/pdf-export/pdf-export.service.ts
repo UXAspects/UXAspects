@@ -74,14 +74,8 @@ export class PdfExportService {
     }
 
     private clone(element: HTMLElement): HTMLElement {
-
-        if (element instanceof HTMLCanvasElement) {
-            return this.cloneCanvas(element);
-        } else if (element.tagName === 'ng-template') {
-            return element;
-        } else {
-            return this.cloneElement(element);
-        } 
+        return element instanceof HTMLCanvasElement ? this.cloneCanvas(element)
+        : this.cloneElement(element);
     }
 
     private cloneCanvas(canvas: HTMLCanvasElement): HTMLImageElement {
