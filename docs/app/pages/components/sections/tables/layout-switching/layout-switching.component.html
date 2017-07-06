@@ -90,9 +90,34 @@
 
 <p>
     To use the layout switcher add the <code>uxLayoutSwitcher</code> directive to the container element. The size of this
-    element will be monitored and the appropriate layout will be displayed based on the containers dimensions. A <code>group</code>    
-    attribute can be added to the container element to specify which layout group should be shown.
+    element will be monitored and the appropriate layout will be displayed based on the containers dimensions. The following attribute 
+    can be used to configure the directive:
 </p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td><b>@Input</b> group</td>
+                <td><b>string</b></td>
+                <td>
+                    Defines which layout group should be shown. This will show a layout from the specified group name and will 
+                    take into account any size constraints if there are multiple layouts in that group.
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
 
 <p>
     Inside the container element you should add all the various layouts you wish to have. A layout is defined by adding
