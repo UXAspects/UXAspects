@@ -1,4 +1,4 @@
-# Upgrading Angular 1 Application
+# Upgrading AngularJS Application
 
 ### Overview
 
@@ -6,21 +6,21 @@
 - Adding TypeScript
 - Adding Webpack
 - Create Hybrid Application
-- Consuming Angular 4+ Components
+- Consuming Angular Components
 
 ##### Step Two
 - Begin Migration
 - Upgrade Tips and Notes
 
 ##### Step Three
-- Deprecate Angular 1
+- Deprecate AngularJS
 
 
 ## Adding TypeScript
 
-TypeScript is a superset of Javascript that allow us to use static typing in our web applications. It comes with many benefits such as better tooling, including the ability to add intelligent code completion in editors, and compile time error checking. 
+TypeScript is a superset of Javascript that allow us to use static typing in our web applications. It comes with many benefits such as better tooling, intelligent code completion in editors and compile time error checking. 
 
-Angular 4+ recommends the use of TypeScript for building applications and provides the most comprehensive support and documentation for TypeScript.
+Angular recommends the use of TypeScript for building applications and provides the most comprehensive support and documentation for TypeScript.
 
 We can easily add TypeScript to an existing project using NPM:
 
@@ -49,9 +49,13 @@ To configure TypeScript we should add a `tsconfig.json` file to the root directo
 
 ## Adding Webpack
 
-Webpack is a module loader and bundler tool that allows us to use ES2015 modules in our code providing us with better encapsulation and other great features such as tree shaking which outputs only the parts of code that are actually used rather than simply concatenating all script files as was traditionally done.
+Traditionally when building your application, you would run some automated task that bundles all your code together into one file. This worked well, but with the advent modules in JavaScript we can handle this process much more intelligently.
 
-Additionally Webpack has many additional features such as providing a local web server, automatic reloading, building Less or Sass through loaders and much more.
+Webpack is a module loader and bundler tool that allows us to use JavaScript modules in our code. It builds up a dependency graph so it can detect when you change some code and only updates that parts that are changed. It can also detect if there is any code that is never used and can safely discard it, reducing your bundle size. Using modules provides us with better encapsulation and prevents the need to pollute the global scope, reducing conflicts.
+
+Webpack is very extensible, and is not limited to JavaScript. It can handle TypeScript, Scss, Less, Css, and just about every other popular format as well.
+
+Additionally Webpack has many additional features such as providing a local web server, automatic reloading, and hot module replacement which can allow you to make changes to your code and see them on the page without losing the current state of the application.
 
 We can include Webpack in our project by running the following command in the command prompt:
 
@@ -59,7 +63,7 @@ We can include Webpack in our project by running the following command in the co
 npm install webpack --save-dev
 ```
 
-To allow us to run Webpack from the command line you should install Webpack globally:
+To allow us to run Webpack from the command line you should also install Webpack globally:
 
 ```
 npm install webpack -g
@@ -71,25 +75,27 @@ We will configure Webpack after we have our Hybrid application set up.
 
 #### Installing Dependencies
 
-To begin creating our hybrid application we need to install Angular 4+ and its dependencies. We can do this by running the following in the command prompt:
+To begin creating our hybrid application we need to install Angular and its dependencies. We can do this by running the following in the command prompt:
 
 ```
 npm install @angular/common @angular/compiler @angular/core @angular/forms @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade @types/node core-js rxjs zone.js --save-dev
 ```
 
-Additionally we should install typings for Angular 1. Type Definition files are files used by TypeScript to know which functions and properties a library (not written in TypeScript) exposes and what types they accept and return. They are similar to header files in C++.
+Additionally we should install typings for AngularJS. Type Definition files are files used by TypeScript to know which functions and properties a library (not written in TypeScript) exposes and what types they accept and return. You should install types for any additional libraries your application uses also (see [here](http://definitelytyped.org/) for more info).
 
 ```
-npm install @types/jasmine @types/angular  @types/angular-animate @types/angular-cookies @types/angular-mocks @types/angular-resource @types/angular-route @types/angular-sanitize --save-dev
+npm install @types/angular @types/angular-route @types/jquery @types/node --save-dev
 ```
 
-#### Creating Angular 4+ Application
+We recommend moving to use NPM over Bower for all your existing dependencies as Webpack and TypeScript will require additional configuration to work correctly with Bower.
 
-We can now begin creating our Angular 4+ application that will run alongside the Angular 1 application. 
+#### Creating Angular Application
 
-It is often useful to create a separate folder under the `src` folder to contain our Angular 4+ files so that we can easily identify which files are part of the Angular 1 app and which are part of the Angular 4+ app.
+We can now begin creating our Angular application that will run alongside the AngularJS application. 
 
-We need to start by adding an entry point for our Angular 4+ application, which is usually done by creating a `main.ts` file. In this file we can import some required libraries and bootstrap our Angular 4+ application.
+It is often useful to create a separate folder under the `src` folder to contain our Angular files so that we can easily identify which files are part of the AngularJS app and which are part of the Angular app.
+
+We need to start by adding an entry point for our Angular application, which is usually done by creating a `main.ts` file. In this file we can import some required libraries and bootstrap our Angular application.
 
 ```typescript
 import 'core-js/es6';
@@ -104,11 +110,11 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 The `main.ts` references an `AppModule` file which we need to create in a file named `app.module.ts`. 
 
-In our `AppModule` we need to import the `UpgradeAdapter` tool which allows us to both upgrade Angular 1 components to Angular 4+ and to downgrade Angular 4+ components to Angular 1 which can be very useful when migrating our applications.
+In our `AppModule` we need to import the `UpgradeAdapter` tool which allows us to both upgrade AngularJS components to Angular and to downgrade Angular components to AngularJS which can be very useful when migrating our applications.
 
 We should export the instance of the `UpgradeAdapter` so it is a singleton that can be used throughout the application.
 
-We also need to bootstrap the Angular 1 from this file also - this mean you should remove the existing Angular 1 bootstrapping which is usually an `ng-app` attribute in your `index.html` file.
+We also need to bootstrap the AngularJS from this file also - this mean you should remove the existing AngularJS bootstrapping which is usually an `ng-app` attribute in your `index.html` file.
 
 ```typescript
 import { NgModule, forwardRef } from '@angular/core';
@@ -127,17 +133,18 @@ export class AppModule {
     ngDoBootstrap() {}
 }
 
-// bootstrap the Angular 1 application here
+// bootstrap the AngularJS application here
 upgradeAdapter.bootstrap(document.documentElement, ['app']);
 ```
 
 #### Configuring Webpack
 
-Now that we have our Angular 4+ application set up we can configure Webpack to bundle it for us. We do this in a `webpack.config.js` file in the root directory of our project. Below is an example of how the file may initially look.
+Now that we have our Angular application set up we can configure Webpack to bundle it for us. We do this in a `webpack.config.js` file in the root directory of our project. Below is an example of how the file may initially look.
 
 ```javascript
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
@@ -158,10 +165,10 @@ module.exports = {
         rules: [{
             test: /\.ts$/,
             include: path.join(__dirname, 'src', 'app4'),
-            loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+            use: ['awesome-typescript-loader', 'angular2-template-loader']
         }, {
             test: /\.html$/,
-            loader: 'html-loader'
+            use: 'html-loader'
         }]
     },
 
@@ -170,7 +177,11 @@ module.exports = {
         new webpack.ContextReplacementPlugin(
             /angular(\\|\/)core(\\|\/)@angular/,
             path.resolve(__dirname, 'docs')
-        )
+        ),
+
+        new HtmlWebpackPlugin({
+          template: './index.html'
+        })
     ]
 };
 ```
@@ -178,8 +189,12 @@ module.exports = {
 To run Webpack we first need to install any loaders that our configuration has used and we can do this using NPM:
 
 ```
-npm install awesome-typescript-loader angular2-template-loader html-loader --save-dev
+npm install awesome-typescript-loader angular2-template-loader html-loader html-webpack-plugin --save-dev
 ```
+
+You will notice an HtmlWebpackPlugin, this will automatically create an index.html file in your output folder for you. Any scripts or stylesheets that Webpack creates will automatically be added as script or link tags in this file. You should create an `index.html` file that will act as a template (this will allow you to add any scripts or styles or meta tags etc.. that Webpack is not currently responsible for). See [here](https://github.com/jantimon/html-webpack-plugin) for more information.
+
+If you want to let Webpack handle your stylesheets for you look at [this](https://github.com/webpack-contrib/extract-text-webpack-plugin) plugin.
 
 
 #### Running Webpack
@@ -194,28 +209,18 @@ Additionally we can supply the `--watch` parameter which will keep Webpack alive
 
 Webpack can also be run as part of an existing Grunt or Gulp build with plugins available through NPM.
 
-Next we need to ensure we include the Webpack bundle in our `index.html` file. We should include the script after the Angular 1 script eg:
-
-```html
-<!--  Angular 1 Application -->
-<script src="js/app.js"></script>
-
-<!--  Angular 4 Application -->
-<script src="js/bundle.js"></script>
-```
-
 #### Setup Complete
 
-The hybrid application is now setup, and you should now have both Angular 1 and Angular 4+ running in the same application. You can now easily begin to use Angular 4+ components in your Angular 1 application.
+The hybrid application is now setup, and you should now have both AngularJS and Angular running in the same application. You can now easily begin to use Angular components in your AngularJS application.
 
 
-## Consuming Angular 4+ Components/Services
+## Consuming Angular Components/Services
 
-We can now begin to use Angular 4+ components and services in our Angular 1 applications simply by importing them and using the `UpgradeAdapter` to downgrade them to Angular 1 components.
+We can now begin to use Angular components and services in our AngularJS applications simply by importing them and using the `UpgradeAdapter` to downgrade them to AngularJS components.
 
 This process should work for components or services that are part of UX Aspects or any other components library.
 
-For this example we are going to create a new Angular 4+ component and downgrade it to Angular 1. In the folder containing our Angular 4+ app create a folder called `components` that will store all our Angular 4+ components. Each component should be given its own sub folder.
+For this example we are going to create a new Angular component and downgrade it to AngularJS. In the folder containing our Angular app create a folder called `components` that will store all our Angular components. Each component should be given its own sub folder.
 
 Let's create a new `test` folder under `components` and add a `test.component.ts` file with the following contents:
 
@@ -228,7 +233,7 @@ import { Component } from '@angular/core';
 })
 export class TestComponent {
 
-    public text: string;
+    text: string;
 
     constructor() {
         this.text = 'Component is Working!';
@@ -236,7 +241,7 @@ export class TestComponent {
 }
 ```
 
-We can then import this into our `AppModule` and downgrade it to and Angular 1 directive:
+We can then import this into our `AppModule` and downgrade it to and AngularJS directive:
 
 ```typescript
 // Inform TypeScript there is a global variable for AngularJS and state the associated type
@@ -246,7 +251,7 @@ import { NgModule, forwardRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeAdapter } from '@angular/upgrade';
 
-// import Angular 4+ components
+// import Angular components
 import { TestComponent } from './components/test/test.component';
 
 // create a singleton of the upgrade adapter
@@ -264,30 +269,30 @@ export class AppModule {
     ngDoBootstrap() {}
 }
 
-// downgrade the Angular 4+ component and register it as an Angular 1 directive
+// downgrade the Angular component and register it as an AngularJS directive
 angular.module('app').directive('test', upgradeAdapter.downgradeNg2Component(TestComponent) as angular.IDirectiveFactory);
 
-// bootstrap the Angular 1 application here
+// bootstrap the AngularJS application here
 upgradeAdapter.bootstrap(document.documentElement, ['app']);
 ```
 
 To test this directive simply add the `<test></test>` tag to your HTML.
 
-There is also a `downgradeNg2Provider` function on the `UpgradeAdpater` instance that allows us to use any Angular 4+ service in our Angular 1 application.
+There is also a `downgradeNg2Provider` function on the `UpgradeAdpater` instance that allows us to use any Angular service in our AngularJS application.
 
 > **Note:** There is no wrapper function for non-component directives.
 
 ## Begin Migration
 
-At this point you should now be able to begin migrating your existing application to Angular 4+ at a pace that suits you.
+At this point you should now be able to begin migrating your existing application to Angular at a pace that suits you.
 
-Angular 4 provides us with useful upgrade and downgrade tools that allow us to expose components and services to each framework, however there is no tool to upgrade or downgrade non-component directives. So migrating any non-component directives early will help make sure everything you need is available once you start migrating components.
+Angular provides us with useful upgrade and downgrade tools that allow us to expose components and services to each framework, however there is no tool to upgrade or downgrade non-component directives. So migrating any non-component directives early will help make sure everything you need is available once you start migrating components.
 
 When you are ready to start migrating components/services, it is important to identify which components/services have the fewest dependencies and migrate these first.
 
-Once you have migrated a component to Angular 4+ you can remove the Angular 1 variant, import it into your `AppModule` and downgrade it as shown in the above section. This will allow you to continue using it within your Angular 1 application until you have converted the entire application at which point you would remove Angular 1 completely.
+Once you have migrated a component to Angular you can remove the AngularJS variant, import it into your `AppModule` and downgrade it as shown in the above section. This will allow you to continue using it within your AngularJS application until you have converted the entire application at which point you would remove AngularJS completely.
 
-If you upgrade a component or service that has a dependency that you have not yet migrated you can use the `UpgradeAdapter` module to upgrade Angular 1 components/services to Angular 4+ until you have migrated them. For more information on this [look here](https://angular.io/docs/js/latest/api/upgrade/index/UpgradeAdapter-class.html).
+If you upgrade a component or service that has a dependency that you have not yet migrated you can use the `UpgradeAdapter` module to upgrade AngularJS components/services to Angular until you have migrated them. For more information on this [look here](https://angular.io/docs/js/latest/api/upgrade/index/UpgradeAdapter-class.html).
 
 #### Components
 
@@ -297,7 +302,7 @@ A complete guide on migrating can be [found here](https://angular.io/docs/ts/lat
 
 ##### Things to note:
 
-- Each Angular 4+ component always has its own isolated scope
+- Each Angular component always has its own isolated scope
 - It must have a template
 - No longer a concept of `compile` or `link` functions
 - No more `$apply` or `$digest`
@@ -306,7 +311,7 @@ A complete guide on migrating can be [found here](https://angular.io/docs/ts/lat
 
 This is an example component that displays some text and changes the text when it is clicked.
 
-###### Angular 1
+###### AngularJS
 
 ```javascript
 angular.module('app').directive('myComponent', function() {
@@ -329,7 +334,7 @@ angular.module('app').directive('myComponent', function() {
 });
 ```
 
-###### Angular 4+
+###### Angular
 
 ```typescript
 @Component({
@@ -347,11 +352,11 @@ export class MyComponent {
 
 #### Services
 
-Angular 4+ injectables tend to be most similar to Angular 1 services, and the Angular 4+ version is essentially just an annotated class. 
+Angular injectables tend to be most similar to AngularJS services, and the Angular version is essentially just an annotated class. 
 
 ##### Example
 
-###### Angular 1
+###### AngularJS
 
 ```javascript
 angular.module("app").service("exampleDataService", function() {
@@ -372,7 +377,7 @@ angular.module("app").service("exampleDataService", function() {
 });
 ```
 
-###### Angular 4+
+###### Angular
 
 ```typescript
 @Injectable()
@@ -395,13 +400,13 @@ export class ExampleDataService {
 
 #### Pages
 
-In Angular 1 it was common practice to have an HTML file as a page in your application and associate a controller with either it or part of it by using a router or the `ng-controller` directive.
+In AngularJS it was common practice to have an HTML file as a page in your application and associate a controller with either it or part of it by using a router or the `ng-controller` directive.
 
-In Angular 4+ everything should be a component. There should be no html page files that aren't associated with a component. Because of this you should convert each page to a component.
+In Angular everything should be a component. There should be no html page files that aren't associated with a component. Because of this you should convert each page to a component.
 
 ##### Example
 
-###### Angular 1
+###### AngularJS
 
 *HTML*
 ```html
@@ -439,7 +444,7 @@ angular.module('app').controller('PageCtrl', function() {
 });
 ```
 
-###### Angular 4
+###### Angular
 
 *HTML*
 ```html
@@ -465,8 +470,8 @@ angular.module('app').controller('PageCtrl', function() {
 })
 export class PageComponent {
 	
-    private tableData: any[] = [...];
-    private pageSize: number = 10;
+    tableData: any[] = [...];
+    pageSize: number = 10;
     
     getPage(pageNumber: number) {
     	let startIndex = pageNumber * this.pageSize;
@@ -477,7 +482,7 @@ export class PageComponent {
 }
 ```
 
-This will allow you to continue using your Angular 1 router, but instead of specifying an HTML file for a route, change it to display the downgraded Angular 4+ component, eg:
+This will allow you to continue using your AngularJS router, but instead of specifying an HTML file for a route, change it to display the downgraded Angular component, eg:
 
 ###### Before
 ```javascript
@@ -493,21 +498,21 @@ $stateProvider.state('page', {
 })
 ```
 
-Once all the pages in your application have been upgraded you can then easily switch out the Angular 1 router for the Angular 4 router as it expects components instead of urls.
+Once all the pages in your application have been upgraded you can then easily switch out the AngularJS router for the Angular router as it expects components instead of urls.
 
 ## Upgrade Tips and Notes
 
-#### Angular 4+ Directives
+#### Angular Directives
 
-Directives provided as part of Angular 4+ do not work when used in an Angular 1 application, for example `ngFor`, `ngIf` and also including `ngModel` from the `FormsModule`. 
+Directives provided as part of Angular do not work when used in an AngularJS application, for example `ngFor`, `ngIf` and also including `ngModel` from the `FormsModule`. 
 
-While this can be inconvenient, the Angular 1 equivalent (eg. `ng-if` and `ng-repeat`) directives should work as expected and be able to fulfil your requirements. 
+While this can be inconvenient, the AngularJS equivalent (eg. `ng-if` and `ng-repeat`) directives should work as expected and be able to fulfil your requirements. 
 
 The exception to the rule is `ng-model` which will not work across the two frameworks. To work around this issue all UX Aspects components that accept `ngModel` will have an additional two-way property you can bind to that will provide the same functionality.
 
 #### Component Templates
 
-When using both Angular 1 and Angular 4+ components within the one application you need to ensure that any component used in a component's template has either been upgraded or downgraded to the appropriate framework. 
+When using both AngularJS and Angular components within the one application you need to ensure that any component used in a component's template has either been upgraded or downgraded to the appropriate framework. 
 
 For example if I have the following components:
 
@@ -530,7 +535,7 @@ angular.module('app').directive('parentComponent', function() {
 });
 ```
 
-You will need to have made sure that the Angular 4+ component has been downgraded and registered as an Angular 1 directive:
+You will need to have made sure that the Angular component has been downgraded and registered as an AngularJS directive:
 
 ```typescript
 angular.module('app').directive('myComponent', upgradeAdapter.downgradeNg2Component(MyComponent) as angular.IDirectiveFactory);
@@ -561,7 +566,7 @@ angular.module('app').directive('myComponent', function() {
 export class ParentComponent {}
 ```
 
-In this case you will need to make sure the Angular 1 component has been upgraded to an Angular 4+ component:
+In this case you will need to make sure the AngularJS component has been upgraded to an Angular component:
 
 ```typescript
 @NgModule({
@@ -577,13 +582,13 @@ export class AppModule {
 }
 ```
 
-#### Limitations Upgrading Angular 1 Components
+#### Limitations Upgrading AngularJS Components
 
-There are a few features of Angular 1 directives that are not supported by the upgrade tool. These include `compile` function, `postLink` function, `attributes` as a link function parameter, injection of `$attrs` or `$transclude` to a controller and the `replace` property.
+There are a few features of AngularJS directives that are not supported by the upgrade tool. These include `compile` function, `postLink` function, `attributes` as a link function parameter, injection of `$attrs` or `$transclude` to a controller and the `replace` property.
 
-Any component directives that use these features can either be modified or a simple wrapper directive can be created, which essentially creates an Angular 1 container, in which your existing Angular 1 component can run correctly even if it uses some of the unsupported features.
+Any component directives that use these features can either be modified or a simple wrapper directive can be created, which essentially creates an AngularJS container, in which your existing AngularJS component can run correctly even if it uses some of the unsupported features.
 
-Here is an example of an Angular 1 component that uses some unsupported features:
+Here is an example of an AngularJS component that uses some unsupported features:
 
 ```javascript
 angular.module('app').directive('myNg1Component', function() {
@@ -623,16 +628,16 @@ angular.module('app').directive('myNg1ComponentWrapper', function() {
 });
 ```
 
-As this wrapper directive uses no unsupported features we can simply use the upgrade module to make this component available in Angular 4:
+As this wrapper directive uses no unsupported features we can simply use the upgrade module to make this component available in Angular:
 
 ```javascript
 upgradeAdapter.upgradeNg1Component('myNg1ComponentWrapper')
 ```
 
 
-#### Interacting with Angular 4+ components
+#### Interacting with Angular components
 
-When passing data to and from Angular 4+ components you must use the appropriate Angular 4+ syntax, even though we are running within an Angular 1 application.
+When passing data to and from Angular components you must use the appropriate Angular syntax, even though we are running within an AngularJS application.
 
 For example, let's take the `ux-checkbox` component which has several attributes we can use to pass data to and from the component.
 
@@ -659,8 +664,8 @@ To pass a value to a component that you expect the component to update you can w
 <ux-checkbox [(value)]="value"></ux-checkbox>
 ```
 
-## Deprecate Angular 1
+## Deprecate AngularJS
 
-Once you have migrated all your Angular 1 components, directives and services and are no longer dependent on any Angular 1 libraries you are now ready to deprecate Angular 1. You can simply remove any files containing old Angular 1 content, and remove any references to Angular 1 and outdated libraries in your `package.json` or `bower.json` files.
+Once you have migrated all your AngularJS components, directives and services and are no longer dependent on any AngularJS libraries you are now ready to deprecate AngularJS. You can simply remove any files containing old AngularJS content, and remove any references to AngularJS and outdated libraries in your `package.json` or `bower.json` files.
 
-Your application is now fully Angular 4+!
+Your application is now fully Angular!
