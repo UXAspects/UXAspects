@@ -49,7 +49,13 @@ export class ResizeService {
             let iframeDoc = iframe.contentDocument || iframe.contentWindow.document as HTMLDocument;
 
             let attachListener = function () {
-                Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: any) => subject.next(event));
+                Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: Event) => {
+
+                    subject.next({
+                        width: nativeElement.offsetWidth,
+                        height: nativeElement.offsetHeight
+                    });
+                });
             };
 
             if (iframeDoc.readyState === 'complete') {
@@ -69,7 +75,7 @@ export class ResizeService {
         if (iframe.contentDocument || iframe.contentWindow) {
             callback.call(this);
         } else {
-            setTimeout(this.waitUntilReady.bind(this));
+            setTimeout(() => this.waitUntilReady(iframe, callback));
         }
     }
 }

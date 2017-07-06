@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="btn-group pull-right">
+        <button type="button" class="btn button-toggle-primary" 
+            [(ngModel)]="group" btnRadio="table">Table</button>
+
+        <button type="button" class="btn button-toggle-primary" 
+            [(ngModel)]="group" btnRadio="card">Card</button>
+    </div>
+</div>
+
+<div class="row m-t">
+
+    <div class="layout-switcher-example" uxLayoutSwitcher [group]="group" 
+        [style.width.%]="width">
+
+        <!-- Table Layout -->
+        <div class="table-reponsive" *uxLayoutSwitcherItem="layouts.table">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Document</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let document of documents">
+                        <td class="text-black">{{ document.name }}</td>
+                        <td>{{ document.author }}</td>
+                        <td>{{ document.date.toLocaleDateString() }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Card Layout-->
+        <div class="layout-switcher-card-container" *uxLayoutSwitcherItem="layouts.card">
+            <div class="layout-switcher-card" *ngFor="let document of documents">
+                <h3 class="text-black m-t-nil">{{ document.name }}</h3>
+                <p class="m-b-nil">
+                    <span class="text-muted">Authored on</span> 
+                    {{ document.date.toLocaleDateString() }}
+                    <span class="text-muted">by</span> {{ document.author }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Card Stack Layout-->
+        <div class="layout-switcher-card-stack-container" *uxLayoutSwitcherItem="layouts.cardstack">
+            <div class="layout-switcher-card-stack-card" *ngFor="let document of documents">
+                <h3 class="text-black m-t-nil">{{ document.name }}</h3>
+                <p class="m-b-nil">
+                    <span class="text-muted">Authored on</span> 
+                    {{ document.date.toLocaleDateString() }}
+                    <span class="text-muted">by</span> {{ document.author }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-12">
+                        <label>Container Width</label>
+                        <ux-slider class="dimension-slider" [(value)]="width" 
+                            [options]="options"></ux-slider>
+                    </div>
+                </div>
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-12">
+                        <i>
+                            Use the slider above to change the width of the container element. 
+                            When displaying the <b>table</b> group the layout will simply resize, 
+                            however when displaying the <b>card</b> group it will
+                            switch between a grid and stacked layout depending on the size of the container.
+                        </i>
+                    </div>
+                </div>
+
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

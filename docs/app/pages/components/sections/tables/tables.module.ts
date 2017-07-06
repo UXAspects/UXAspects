@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule } from '../../../../../../src/index';
+import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -38,6 +38,8 @@ import { ComponentsCustomFiltersComponent } from './custom-filters-component/cus
 import { SampleFilterCustomComponent } from './custom-filters-component/sample/sample-filter.component';
 import { ComponentsLayoutSwitchingComponent } from './layout-switching/layout-switching.component';
 import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 const SECTIONS = [
     ComponentsColumnSortingComponent,
@@ -93,6 +95,9 @@ const ROUTES = [
         LayoutSwitcherModule,
         DocumentationComponentsModule,
         BsDropdownModule.forRoot(),
+        ButtonsModule.forRoot(),
+        AccordionModule.forRoot(),
+        SliderModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
