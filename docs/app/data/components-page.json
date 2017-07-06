@@ -951,8 +951,22 @@
                 },
                 {
                     "title": "Layout Switching",
+                    "component": "ComponentsLayoutSwitchingComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selectors",
+                        "content": "[uxLayoutSwitcher], [uxLayoutSwitcherItem]"
+                    },
+                    {
+                        "title": "Module name",
+                        "content": "LayoutSwitcherModule"
+                    }]
+                },
+                {
+                    "title": "Layout Switching",
                     "component": "ComponentsLayoutSwitchingNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Fixed Header Table",

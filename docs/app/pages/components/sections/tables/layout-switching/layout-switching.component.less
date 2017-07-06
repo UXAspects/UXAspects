@@ -1,0 +1,43 @@
+.layout-switcher-example {
+    height: 430px;
+    overflow-y: auto;
+}
+
+.layout-switcher-card-container {
+    .layout-switcher-card {
+        display: inline-block;
+        width: ~'calc(33% - 20px)';
+        height: 115px;
+        border: 1px solid #e7eaec;
+        margin: 10px;
+        padding: 15px 10px;
+        cursor: default;
+        vertical-align: top;
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
+    }
+}
+
+.layout-switcher-card-stack-container {
+    .layout-switcher-card-stack-card {
+        border-left: 1px solid #e7eaec;
+        border-right: 1px solid #e7eaec;
+        border-bottom: 1px solid #e7eaec;
+        padding: 10px;
+
+        &:first-of-type {
+            border-top: 1px solid #e7eaec;
+        }
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
+    }
+}
+
+.dimension-slider {
+    width: 400px;
+    margin-left: 30px;
+}
