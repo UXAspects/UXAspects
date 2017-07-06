@@ -1,11 +1,13 @@
-import { Component, Directive, Input, SimpleChange, Output, EventEmitter } from '@angular/core';
+import { Component, Directive, Input, SimpleChange, Output, EventEmitter, Renderer2, ElementRef, Host } from '@angular/core';
 
 @Component({
     selector: 'ux-item-display-panel',
     templateUrl: './item-display-panel.component.html',
     host: {
         '(document:click)': 'clickOff($event)',
-        '(document:keyup.escape)': 'visible = false'
+        '(document:keyup.escape)': 'visible = false',
+        '[class.inlineHost]' : 'inline', 
+        '[class.visibleHost]' : 'visible' 
     }
 })
 export class ItemDisplayPanelComponent { 
@@ -13,12 +15,22 @@ export class ItemDisplayPanelComponent {
     @Input() shadow: boolean;
     @Input() title: string;
     @Input() animate: boolean;
+    @Input() inline: boolean;
+    @Input() preventClose: boolean;
+    @Input() hideCloseButton: boolean;
+    @Input() boxShadow: boolean;
 
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
     get visible() {
         return this._visible;
+    }
+
+    ngOnInit() {
+        if (this.boxShadow === undefined) {
+            this.boxShadow = true;
+        }
     }
 
     set visible(visible: boolean) {
@@ -43,6 +55,11 @@ export class ItemDisplayPanelComponent {
     }
 
     clickOff(event: any) {
+
+        // dont close
+        if (this.preventClose) {
+            return;
+        }
        
         // dont do anything if the panel is hidden
         if (this._visible) {

@@ -1,0 +1,68 @@
+<button class="btn button-primary m-b-sm" (click)="togglePanel()">Toggle Preview</button>
+
+<div class="demo-attributes item-display-panel-inline-container">
+    
+    <div class="table-responsive preview-pane-table-demo">
+        <table class="table table-hover item-display-panel-inline" [class.animate]="animate" [class.item-display-panel-visible]="visible">
+            <thead>
+                <tr class="table-header-dark">
+                    <th class="listview-document-th"></th>
+                    <th>NAME</th>
+                    <th>AUTHOR</th>
+                    <th>DATE MODIFIED</th>
+                    <th>STORAGE (GB)</th>
+                    <th class="text-center">STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="clickable single-select" [class.highlight]="item.id === selectedItem?.id && visible" *ngFor="let item of items" (click)="selectItem(item)">
+                    <td class="text-center">
+                        <div class="listview-page-icon"></div>
+                    </td>
+                    <td class="listview-text-emphasis">{{ item.document }}</td>
+                    <td>
+                        <div>{{ item.name }}</div>
+                    </td>
+                    <td>{{ item.dateString }}</td>
+                    <td>
+                        <ux-spark [barColor]="sparkBarColor" [trackColor]="sparkTrackColor" [value]="item.storage" [inlineLabel]="item.storage" [barHeight]="3"></ux-spark>
+                    </td>
+                    <td class="text-center vertical-center-icon">
+                        <div class="hpe-icon" [class.text-secondary]="item.active" [class.hpe-checkmark]="item.active"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ux-item-display-panel [boxShadow]="boxShadow" [preventClose]="preventClose" [hideCloseButton]="hideCloseButton" [inline]="inline" [(visible)]="visible" [shadow]="shadow" [title]="selectedItem?.panel.title" [animate]="animate">
+
+        <div *ngIf="selectedItem" uxItemDisplayPanelContent [innerHTML]="selectedItem?.panel.content"></div>
+
+        <div *ngIf="!selectedItem" uxItemDisplayPanelContent [innerHTML]="noSelectedItem"></div>
+
+    </ux-item-display-panel>
+
+</div>
+
+<hr>
+
+<p>The above example shows how the item display panel can be used inline rather than coming in from the side of the screen.</p>
+
+<p>The code to create this demo can be found below:</p>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+    
+</tabset>
