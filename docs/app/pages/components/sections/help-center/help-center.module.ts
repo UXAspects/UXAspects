@@ -1,4 +1,5 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
@@ -31,6 +32,7 @@ const ROUTES = [
         TabsModule,
         HelpCenterModule,
         PageHeaderModule,
+        CommonModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

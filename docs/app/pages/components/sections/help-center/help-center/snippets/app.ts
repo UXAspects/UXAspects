@@ -1,23 +1,19 @@
 import { Component, OnDestroy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { Breadcrumb, PageHeaderIconMenu, PageHeaderIconMenuDropdownItem, HelpCenterService, HelpCenterItem } from '../../../../../../../src/index';
+import { Breadcrumb, PageHeaderIconMenu, HelpCenterItem, HelpCenterService } from 'ux-aspects';
 import { Subscription } from 'rxjs/Subscription';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
 import 'chance';
 
 @Component({
-    selector: 'uxd-components-help-center',
-    templateUrl: './help-center.component.html',
-    styleUrls: ['./help-center.component.less']
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
-@DocumentationSectionComponent('ComponentsHelpCenterComponent')
-export class ComponentsHelpCenterComponent extends BaseDocumentationSection implements OnDestroy, IPlunkProvider {
+export class AppComponent implements OnDestroy {
 
     repositories: HelpCenterTableData[] = [];
-    loading: boolean = false;
     crumbs: Breadcrumb[] = [{ title: 'Overview' }];
+    loading: boolean = false;
+
     menus: PageHeaderIconMenu[] = [
         {
             icon: 'hpe-help',
@@ -31,27 +27,9 @@ export class ComponentsHelpCenterComponent extends BaseDocumentationSection impl
         select: this.loadData.bind(this)
     };
 
-    plunk: IPlunk = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
-        },
-        modules: [
-            {
-                imports: ['HelpCenterModule', 'PageHeaderModule'],
-                library: 'ux-aspects'
-            }
-        ],
-        mappings: [
-            MAPPINGS.Chance
-        ]
-    };
-
     private _helpCenter$: Subscription;
 
     constructor(private _helpCenterService: HelpCenterService) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         // update the menu items when new ones are added
         this._helpCenter$ = this._helpCenterService.items.subscribe(items => this.menus[0].dropdown = items);

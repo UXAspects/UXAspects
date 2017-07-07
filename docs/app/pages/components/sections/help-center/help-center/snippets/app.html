@@ -1,0 +1,36 @@
+<ux-page-header [crumbs]="crumbs" header="Repositories" [iconMenus]="menus"></ux-page-header>
+
+<div class="help-center-toolbar">
+    <button class="btn button-primary" [disabled]="loading" (click)="loadData()" [uxHelpCenterItem]="refreshHelpCenterItem">
+        <i class="hpe-icon hpe-refresh p-r-xs"></i> Refresh
+    </button>
+</div>
+
+<div class="table-responsive" *ngIf="!loading">
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-header-dark">
+                <th>NAME</th>
+                <th>TYPE</th>
+                <th>LOCATION</th>
+                <th>ITEMS</th>
+                <th>SIZE (GB)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let repository of repositories">
+                <td class="text-black">{{ repository.name }}</td>
+                <td>{{ repository.type }}</td>
+                <td>{{ repository.location }}</td>
+                <td>{{ repository.items.toLocaleString() }}</td>
+                <td>{{ repository.size }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Loading Indicator -->
+<div class="help-center-loading-container" *ngIf="loading">
+    <div class="indicator"></div>
+</div>
