@@ -1,0 +1,8 @@
+.help-center-toolbar {
+    margin: 10px 0;
+}
+
+.help-center-loading-container {
+    display: flex;
+    justify-content: center;
+}

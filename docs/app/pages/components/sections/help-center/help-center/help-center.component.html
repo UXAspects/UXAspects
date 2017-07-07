@@ -1,0 +1,99 @@
+<ux-page-header [crumbs]="crumbs" header="Repositories" [iconMenus]="menus"></ux-page-header>
+
+<div class="help-center-toolbar">
+    <button class="btn button-primary" [disabled]="loading" (click)="loadData()" [uxHelpCenterItem]="refreshHelpCenterItem">
+        <i class="hpe-icon hpe-refresh p-r-xs"></i> Refresh
+    </button>
+</div>
+
+<div class="table-responsive" *ngIf="!loading">
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-header-dark">
+                <th>NAME</th>
+                <th>TYPE</th>
+                <th>LOCATION</th>
+                <th>ITEMS</th>
+                <th>SIZE (GB)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let repository of repositories">
+                <td class="text-black">{{ repository.name }}</td>
+                <td>{{ repository.type }}</td>
+                <td>{{ repository.location }}</td>
+                <td>{{ repository.items.toLocaleString() }}</td>
+                <td>{{ repository.size }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Loading Indicator -->
+<div class="help-center-loading-container" *ngIf="loading">
+    <div class="indicator"></div>
+</div>
+
+<hr>
+
+<p>
+    The help center is designed to allow you to easily provide a list of actions to assist the user. This can either be help
+    with particular things specific to the current page or general help items relevant to all pages. We recommend
+    displaying help center items in a dropdown in the page header, however you are not limited to this.
+</p>
+
+<p>
+    We provide two ways to utilize the help center functionality. The first is the <code>HelpCenterService</code> which can
+    be injected into any component. The service exposes two functions:
+</p>
+
+<ul>
+    <li>
+        <code>registerItem</code> - This allows you to add a new item to the help center. It expects one argument, an object
+        following the <code>HelpCenterItem</code> interface.
+    </li>
+
+    <li>
+        <code>unregisterItem</code> - This allows you to remove an item from the help center. It expects one argument, an
+        object following the <code>HelpCenterItem</code> interface.
+    </li>
+</ul>
+
+<p>
+    The service exposes an <code>items</code> property which is a <code>BehaviorSubject</code> of <code>HelpCenterItems</code>.
+    This can be subscribed to and can be used to show the Help Center items in your UI. It is designed to work well with
+    the <code>ux-page-header</code> component icon menus as seen in the example above.
+</p>
+
+<p>
+    If you wish to associate an element on a page with a help center item you can use the <code>uxHelpCenterItem</code> directive
+    which will show the help center item when the element is on the current page and remove it when the user navigates away
+    from the page.
+</p>
+
+<p>
+    The <code>uxHelpCenterItem</code> directive expects a value containing an object that follows the <code>HelpCenterItem</code> interface.
+</p>
+
+The <code>HelpCenterItem</code> interface is as follows:
+
+<uxd-snippet [content]="snippets.compiled.interfaceSnippetTs"></uxd-snippet>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>
