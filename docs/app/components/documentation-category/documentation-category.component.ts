@@ -15,14 +15,12 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
 
     private category: ICategory;
     private trackScroll: boolean = false;
-    private subscription: Subscription;
-    
-    ngVersion = Version;
+    private versionSub: Subscription;
 
     constructor(private router: Router, private activatedRoute: ActivatedRoute,
         private navigation: NavigationService, public versionService: VersionService) {
         // get version
-        this.subscription = this.versionService.version.subscribe((value: Version) => {
+        this.versionSub = this.versionService.version.subscribe((value: Version) => {
             if (this.category) {
                 let hasSection = !!this.category.sections.find((section) => this.versionService.isSectionVersionMatch(section));
                 if (!hasSection) {
@@ -33,7 +31,7 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.versionSub.unsubscribe();
     }
 
     ngOnInit() {

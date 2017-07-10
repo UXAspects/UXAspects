@@ -6,12 +6,12 @@
             <button type="button" class="btn button-toggle-accent"
                 [(ngModel)]="versionRadioValue" (ngModelChange)="radioToggled(ngVersions.Angular)" [btnRadio]="ngVersions.Angular">Angular 4</button>
         </div>
-        <div class="side-navigation-scroll-pane">
+        <div class="side-navigation-scroll-pane" #scrollParent>
             <ul class="side-navigation-list">
-                <li class="side-navigation-list-item" *ngFor="let category of filteredNavigation.categories" [hidden]="category.sections.length === 0">
-                    <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive">{{ category.title }}</a>
+                <li class="side-navigation-list-item" *ngFor="let category of filteredNavigation.categories">
+                    <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive" [uxScrollIntoViewIf]="rla.isActive" [scrollParent]="scrollParent">{{ category.title }}</a>
                     <ul *ngIf="rla.isActive" class="side-navigation-subsection-list">
-                        <li class="side-navigation-list-item" *ngFor="let section of category.sections">
+                        <li class="side-navigation-list-item" *ngFor="let section of category.sections" [uxScrollIntoViewIf]="isActive(section.id)" [scrollParent]="scrollParent">
                             <a class="side-navigation-list-item-link" [class.active]="isActive(section.id)" (click)="goToSection(category.link, section.id)">
                                 {{ section.title }}
                             </a>

@@ -21,30 +21,30 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
 
     @ViewChild('container') container: ElementRef;
 
-    private top: number;
-    private height: number;
-    private width: number;
-    private scrollApi: any = {};
-    private routeSubscription: Subscription;
+    top: number;
+    height: number;
+    width: number;
     filteredNavigation: IDocumentationPage;
     versionRadioValue: Version;
-    version: Version;
     ngVersions = Version;
+
+    private routeSubscription: Subscription;
 
     constructor(@Inject(DOCUMENT) private document: Document,
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private navigationService: NavigationService,
-        public versionService: VersionService) { 
-            // get version
-            this.versionRadioValue = this.versionService.version.getValue();
-            this.versionService.version.subscribe((value: Version) => this.filterNavigation(value));
+        public versionService: VersionService) {
 
-        }
+        // get version
+        this.versionRadioValue = this.versionService.version.getValue();
+        this.versionService.version.subscribe((value: Version) => this.filterNavigation(value));
+    }
 
     ngOnInit() {
 
         this.filterNavigation(this.versionService.version.getValue());
+
         // Set up fragment IDs
         for (let category of this.filteredNavigation.categories) {
             this.navigationService.setSectionIds(category.sections);
@@ -85,13 +85,15 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
 
     filterNavigation(version: Version) {
         if (this.navigation) {
-            let categories = this.navigation.categories.map(category => {
-                return {
-                    link: category.link,
-                    title: category.title,
-                    sections: category.sections.filter(section => this.versionService.isSectionVersionMatch(section))
-                };
-            });
+            let categories = this.navigation.categories
+                .map(category => {
+                    return {
+                        link: category.link,
+                        title: category.title,
+                        sections: category.sections.filter(section => this.versionService.isSectionVersionMatch(section))
+                    };
+                })
+                .filter((category) => category.sections.length > 0);
 
             this.filteredNavigation = {
                 title: this.navigation.title,
@@ -102,12 +104,6 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
 
     radioToggled(version: Version) {
         this.versionService.setVersion(version);
-    }
-
-    toVersion(version: string): Version {
-        if (version) {
-            return version.toLowerCase() === 'angularjs' ? Version.AngularJS : Version.Angular;
-        }
     }
 
     @HostListener('window:scroll')
