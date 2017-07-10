@@ -139,7 +139,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
 
         this.updateOptions();
         this.updateValues();
-        
+
         this.setThumbState(SliderThumb.Lower, false, false);
         this.setThumbState(SliderThumb.Upper, false, false);
     }
@@ -174,13 +174,22 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
 
         // when a user begins to drag lower thumb - subscribe to mouse move events until the mouse is lifted
         this.lowerThumbDown = Observable.fromEvent(this.lowerThumb.nativeElement, 'mousedown');
-        this.lowerDrag = this.lowerThumbDown.switchMap(() => this.mouseMove.takeUntil(this.mouseUp)).subscribe((event: MouseEvent) => {
+
+        this.lowerDrag = this.lowerThumbDown.switchMap(event => {
+            event.preventDefault();
+            return this.mouseMove.takeUntil(this.mouseUp);
+        }).subscribe(event => {
+            event.preventDefault();
             this.updateThumbPosition(event, SliderThumb.Lower);
         });
 
         // when a user begins to drag upper thumb - subscribe to mouse move events until the mouse is lifted
         this.upperThumbDown = Observable.fromEvent(this.upperThumb.nativeElement, 'mousedown');
-        this.upperDrag = this.upperThumbDown.switchMap(() => this.mouseMove.takeUntil(this.mouseUp)).subscribe((event: MouseEvent) => {
+        this.upperDrag = this.upperThumbDown.switchMap(event => {
+            event.preventDefault();
+            return this.mouseMove.takeUntil(this.mouseUp);
+        }).subscribe(event => {
+            event.preventDefault();
             this.updateThumbPosition(event, SliderThumb.Upper);
         });
     }

@@ -5,13 +5,15 @@ import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular
 export class ScrollIntoViewIfDirective implements OnChanges {
 
     @Input('uxScrollIntoViewIf') condition = false;
-    @Input() scrollParent: ElementRef;
+    @Input() scrollParent: HTMLElement;
 
     constructor(private element: ElementRef, private scrollIntoViewService: ScrollIntoViewService) {}
     
     ngOnChanges(changes: SimpleChanges) {
         if (this.condition) {
-            this.scrollIntoViewService.scrollIntoView(this.element.nativeElement, this.scrollParent.nativeElement);
+            setTimeout(() => {
+                this.scrollIntoViewService.scrollIntoView(this.element.nativeElement, this.scrollParent);
+            });
         }
     }
 }

@@ -16,4 +16,3 @@ export class CheckboxTestPageComponent {
     private indeterminateValue = -1;
     private disableCheck = false;
 }
-

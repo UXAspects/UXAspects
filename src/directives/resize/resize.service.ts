@@ -16,7 +16,7 @@ export class ResizeService {
         let displayMode = window.getComputedStyle(nativeElement).getPropertyValue('display');
 
         // create the iframe element
-        let iframe = renderer.createElement('iframe');
+        let iframe: HTMLIFrameElement = renderer.createElement('iframe');
 
         // style the iframe to be invisible but fill containing element
         renderer.setStyle(iframe, 'position', 'absolute');
@@ -44,25 +44,38 @@ export class ResizeService {
         // add the iframe to the container element
         renderer.appendChild(nativeElement, iframe);
 
-        let iframeDoc = iframe.contentDocument || iframe.contentWindow.document as HTMLDocument;
 
-        let attachListener = function() {
-             Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: any) => {
-                subject.next(event);
-            });
-        };
+        this.waitUntilReady(iframe, () => {
+            let iframeDoc = iframe.contentDocument || iframe.contentWindow.document as HTMLDocument;
 
-        if (iframeDoc.readyState === 'complete') {
-            attachListener();
-        } else {
+            let attachListener = function () {
+                Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: Event) => {
 
-            // wait for iframe to load
-            iframe.addEventListener('load', () => {
+                    subject.next({
+                        width: nativeElement.offsetWidth,
+                        height: nativeElement.offsetHeight
+                    });
+                });
+            };
+
+            if (iframeDoc.readyState === 'complete') {
                 attachListener();
-            });
-        }
+            } else {
+
+                // wait for iframe to load
+                iframe.addEventListener('load', () => attachListener());
+            }
+        });
 
 
         return subject;
+    }
+
+    waitUntilReady(iframe: HTMLIFrameElement, callback: () => void) {
+        if (iframe.contentDocument || iframe.contentWindow) {
+            callback.call(this);
+        } else {
+            setTimeout(() => this.waitUntilReady(iframe, callback));
+        }
     }
 }

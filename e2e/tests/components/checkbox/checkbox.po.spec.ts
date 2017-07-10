@@ -40,3 +40,4 @@ export class CheckBoxesPage {
         checkbox.$('div.ux-checkbox').sendKeys(key);
     };
 }
+

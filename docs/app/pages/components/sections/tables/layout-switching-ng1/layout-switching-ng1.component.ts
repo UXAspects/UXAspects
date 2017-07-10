@@ -3,7 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
-    selector: 'uxd-components-layout-switching',
+    selector: 'uxd-components-layout-switching-ng1',
     templateUrl: './layout-switching-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsLayoutSwitchingNg1Component')
