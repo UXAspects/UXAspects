@@ -5,13 +5,13 @@
         <img [attr.src]="logo" class="page-header-logo">
     </div>
 
-    <div class="page-header-navigation" [ngClass]="alignment" *ngIf="items">
+    <div class="page-header-navigation" [ngClass]="alignment">
 
         <!-- The Top Navigation Options -->
         <ux-page-header-horizontal-navigation [items]="items"></ux-page-header-horizontal-navigation>
     </div>
 
-    <div class="page-header-icon-menus" *ngIf="iconMenus">
+    <div class="page-header-icon-menus">
         <ux-page-header-icon-menu *ngFor="let menu of iconMenus" [menu]="menu"></ux-page-header-icon-menu>
     </div>
 </div>
