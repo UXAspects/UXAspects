@@ -1,17 +1,17 @@
 <!-- Display Upper Section when not condensed -->
 <div class="page-header-actions" *ngIf="!condensed">
 
-    <div class="page-header-logo-container" *ngIf="logo">
+    <div class="page-header-logo-container" [hidden]="!logo">
         <img [attr.src]="logo" class="page-header-logo">
     </div>
 
-    <div class="page-header-navigation" [ngClass]="alignment">
+    <div class="page-header-navigation" [ngClass]="alignment" *ngIf="items">
 
         <!-- The Top Navigation Options -->
         <ux-page-header-horizontal-navigation [items]="items"></ux-page-header-horizontal-navigation>
     </div>
 
-    <div class="page-header-icon-menus">
+    <div class="page-header-icon-menus" *ngIf="iconMenus">
         <ux-page-header-icon-menu *ngFor="let menu of iconMenus" [menu]="menu"></ux-page-header-icon-menu>
     </div>
 </div>
