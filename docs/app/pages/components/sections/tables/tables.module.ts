@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule } from '../../../../../../src/index';
+import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule, HoverActionModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -40,6 +40,7 @@ import { ComponentsLayoutSwitchingComponent } from './layout-switching/layout-sw
 import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ComponentsHoverActionsComponent } from './hover-actions/hover-actions.component';
 
 const SECTIONS = [
     ComponentsColumnSortingComponent,
@@ -68,7 +69,8 @@ const SECTIONS = [
     ComponentsColumnVisibilityNg1Component,
     ComponentsCustomResponsiveTableNg1Component,
     SampleFilterCustomComponent,
-    ComponentsLayoutSwitchingComponent
+    ComponentsLayoutSwitchingComponent,
+    ComponentsHoverActionsComponent
 ];
 
 const ROUTES = [
@@ -98,6 +100,7 @@ const ROUTES = [
         ButtonsModule.forRoot(),
         AccordionModule.forRoot(),
         SliderModule,
+        HoverActionModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,

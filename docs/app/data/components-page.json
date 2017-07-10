@@ -976,12 +976,27 @@
                 {
                     "title": "List Hover Actions",
                     "component": "ComponentsListHoverActionsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Hover Actions",
                     "component": "ComponentsHoverActionsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Hover Actions",
+                    "component": "ComponentsHoverActionsComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selectors",
+                        "content": "[uxHoverActionContainer], [uxHoverAction]"
+                    },
+                    {
+                        "title": "Module name",
+                        "content": "HoverActionModule"
+                    }]
                 },
                 {
                     "title": "Preview Pane",
