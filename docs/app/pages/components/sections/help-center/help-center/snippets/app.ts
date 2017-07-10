@@ -32,7 +32,8 @@ export class AppComponent implements OnDestroy {
     constructor(private _helpCenterService: HelpCenterService) {
 
         // update the menu items when new ones are added
-        this._helpCenter$ = this._helpCenterService.items.subscribe(items => this.menus[0].dropdown = items);
+        this._helpCenter$ = this._helpCenterService.items
+            .subscribe(items => this.menus[0].dropdown = items);
 
         // load table data
         this.loadData();

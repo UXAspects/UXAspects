@@ -9,7 +9,7 @@ export class PageHeaderNavigationComponent {
     
     @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;
      
-    @Input() items: PageHeaderNavigationItem[];
+    @Input() items: PageHeaderNavigationItem[] = [];
 
     onSelect(item: PageHeaderNavigationItem) {
         
