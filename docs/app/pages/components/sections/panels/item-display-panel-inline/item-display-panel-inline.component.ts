@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewChildren, TemplateRef, QueryList, ContentChild } from '@angular/core';
+import { Component, ViewChild, ViewChildren, TemplateRef, QueryList, ContentChild, AfterContentInit } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import 'chance';
@@ -16,7 +16,7 @@ import { ItemDisplayPanelComponent } from '../../../../../../../src/index';
     }
 })
 @DocumentationSectionComponent('ComponentsItemDisplayPanelInlineComponent')
-export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentationSection implements IPlunkProvider, AfterContentInit {
 
     @ViewChild('modalDoc') modalDoc: TemplateRef<any>;
     @ViewChild('modalPpt') modalPpt: TemplateRef<any>;
@@ -27,7 +27,6 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
     previousEnabled: boolean = true;
     nextEnabled: boolean = true;
     shadow: boolean = false;
-    animate: boolean = true;
 
     items: DisplayPanelItem[] = [];
 

@@ -21,7 +21,6 @@ export class AppComponent {
     previousEnabled: boolean = true;
     nextEnabled: boolean = true;
     shadow: boolean = false;
-    animate: boolean = true;
 
     items: DisplayPanelItem[] = [];
 

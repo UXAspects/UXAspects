@@ -1,4 +1,4 @@
-import { Component, Directive, Input, SimpleChange, Output, EventEmitter, Renderer2, ElementRef, Host } from '@angular/core';
+import { Component, Directive, Input, SimpleChange, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'ux-item-display-panel',
@@ -7,14 +7,22 @@ import { Component, Directive, Input, SimpleChange, Output, EventEmitter, Render
         '(document:click)': 'clickOff($event)',
         '(document:keyup.escape)': 'visible = false',
         '[class.inline-host]' : 'inline', 
-        '[class.visible-host]' : 'visible' 
+        '[class.visible-host]' : 'visible'
     }
 })
-export class ItemDisplayPanelComponent { 
-    @Input() top: number;
+export class ItemDisplayPanelComponent {
     @Input() title: string;
     
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @Input()
+    get top(): number {
+        return this._top;
+    }
+
+    set top(top: number) {
+        this._top = typeof top === 'string' ? parseFloat(top) : top;
+    }
 
     @Input()
     get visible() {
@@ -22,93 +30,99 @@ export class ItemDisplayPanelComponent {
     }
 
     set visible(visible: boolean) {
+
         this._visible = visible;
 
         // invoke change event
         this.visibleChange.emit(this._visible);
-
-        // call callback
-        this.onChangeCallback(this._visible);  
+ 
     }
 
     @Input()
     get boxShadow() {
-        let value: any = this._boxShadow;
-        if (value === 'false') {
-            this._boxShadow = false;
-        }
         return this._boxShadow;
     }
 
     set boxShadow(boxShadow: boolean) {
-        this._boxShadow = boxShadow;
+        let value: any = boxShadow;
+        if (value === 'false') {
+            this._boxShadow = false;
+        } else {
+            this._boxShadow = true;
+        }
     }
 
     @Input()
     get closeVisible() {
-        let value: any = this._closeVisible;
-        if (value === 'false') {
-            this._closeVisible = false;
-        }
         return this._closeVisible;
     }
 
     set closeVisible(closeVisible: boolean) {
-        this._closeVisible = closeVisible;
+        let value: any = closeVisible;
+        if (value === 'false') {
+            this._closeVisible = false;
+        } else {
+            this._closeVisible = true;
+        }
     }
 
     @Input()
     get preventClose() {
-        let value: any = this._preventClose;
-        if (value === 'true') {
-            this._preventClose = true;
-        }
         return this._preventClose;
     }
 
     set preventClose(preventClose: boolean) {
-        this._preventClose = preventClose;
+        let value: any = preventClose;
+        if (value === 'true') {
+            this._preventClose = true;
+        } else {
+            this._preventClose = false;
+        }
     }
 
     @Input()
     get inline() {
-        let value: any = this._inline;
-        if (value === 'true') {
-            this._inline = true;
-        }
         return this._inline;
     }
 
     set inline(inline: boolean) {
-        this._inline = inline;
+        let value: any = inline;
+        if (value === 'true') {
+            this._inline = true;
+        } else {
+            this._inline = false;
+        }
     }
 
     @Input()
     get animate() {
-        let value: any = this._animate;
-        if (value === 'true') {
-            this._animate = true;
-        }
         return this._animate;
     }
 
     set animate(animate: boolean) {
-        this._animate = animate;
+        let value: any = animate;
+        if (value === 'true') {
+            this._animate = true;
+        } else {
+            this._animate = false;
+        }
     }
 
     @Input()
     get shadow() {
-        let value: any = this._shadow;
-        if (value === 'true') {
-            this._shadow = true;
-        }
         return this._shadow;
     }
 
     set shadow(shadow: boolean) {
-        this._shadow = shadow;
+        let value: any = shadow;
+        if (value === 'true') {
+            this._shadow = true;
+        } else {
+            this._shadow = false;
+        }
     }
 
+    private _top: number;
     private _visible: boolean = false;
     private _boxShadow: boolean = true;
     private _closeVisible: boolean = true;
@@ -116,15 +130,6 @@ export class ItemDisplayPanelComponent {
     private _inline: boolean = false;
     private _animate: boolean = false;
     private _shadow: boolean = false;
-
-    // private onTouchedCallback: () => void = () => { };
-    private onChangeCallback: (_: boolean) => void = () => { };
-
-    height: string;
-
-    ngOnChanges(changes: {[top: number]: SimpleChange}) {
-        this.height = 'calc(100% - ' + this.top + 'px)';
-    }
 
     clickOff(event: any) {
 
