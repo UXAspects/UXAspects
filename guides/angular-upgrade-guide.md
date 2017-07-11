@@ -1,4 +1,4 @@
-# Upgrading AngularJS Application
+# Upgrading an AngularJS Application
 
 ### Overview
 
@@ -49,11 +49,11 @@ To configure TypeScript we should add a `tsconfig.json` file to the root directo
 
 ## Adding Webpack
 
-Traditionally when building your application, you would run some automated task that bundles all your code together into one file. This worked well, but with the advent modules in JavaScript we can handle this process much more intelligently.
+Traditionally when building your application, you would run some automated task that bundles all your code together into one file. This worked well, but with the advent of modules in JavaScript we can handle this process much more intelligently.
 
-Webpack is a module loader and bundler tool that allows us to use JavaScript modules in our code. It builds up a dependency graph so it can detect when you change some code and only updates that parts that are changed. It can also detect if there is any code that is never used and can safely discard it, reducing your bundle size. Using modules provides us with better encapsulation and prevents the need to pollute the global scope, reducing conflicts.
+Webpack is a module loader and bundler tool that allows us to use JavaScript modules in our code. It builds up a dependency graph so it can detect when you change some code and only updates the parts that have changed. It can also detect if there is any code that is never used and can safely discard it, reducing your bundle size. Using modules provides us with better encapsulation and prevents the need to pollute the global scope, potentially reducing conflicts.
 
-Webpack is very extensible, and is not limited to JavaScript. It can handle TypeScript, Scss, Less, Css, and just about every other popular format as well.
+Webpack is very extensible, and is not limited to JavaScript. It can handle TypeScript, SCSS, LESS, CSS, and just about every other popular format as well.
 
 Additionally Webpack has many additional features such as providing a local web server, automatic reloading, and hot module replacement which can allow you to make changes to your code and see them on the page without losing the current state of the application.
 
