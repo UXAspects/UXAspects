@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
-import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import 'chance';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-components-hover-actions',
@@ -11,9 +11,26 @@ import 'chance';
     styleUrls: ['./hover-actions.component.less']
 })
 @DocumentationSectionComponent('ComponentsHoverActionsComponent')
-export class ComponentsHoverActionsComponent extends BaseDocumentationSection {
+export class ComponentsHoverActionsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     documents: HoverActionDocument[] = [];
+
+    plunk: IPlunk = {
+        files: {
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.css': this.snippets.raw.appCss
+        },
+        modules: [
+            {
+                library: 'chance'
+            },
+            {
+                imports: ['HoverActionModule', 'SparkModule'],
+                library: 'ux-aspects'
+            }
+        ]
+    };
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

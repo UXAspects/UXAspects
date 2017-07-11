@@ -1,0 +1,14 @@
+.hover-action-container {
+    outline: none;
+}
+
+.hover-action-container:focus,
+.hover-action-container.hover-action-container-active {
+    background-color: #f5f5f5;
+}
+
+.hover-action-container .hover-action-icon {
+    display: inline-block;
+    padding: 3px 6px;
+    cursor: pointer;
+}

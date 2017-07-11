@@ -1,28 +1,56 @@
-import { Directive, ContentChildren, QueryList, HostListener } from '@angular/core';
+import { Directive, ContentChildren, QueryList, HostListener, ElementRef, OnDestroy, Input } from '@angular/core';
 import { HoverActionDirective } from './hover-action.directive';
 import { HoverActionService } from './hover-action.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
     selector: '[uxHoverActionContainer]',
-    providers: [HoverActionService]
+    providers: [HoverActionService],
+    host: {
+        '[class.hover-action-container-active]': 'active',
+        '[tabindex]': 'tabindex'
+    }
 })
-export class HoverActionContainerDirective {
+export class HoverActionContainerDirective implements OnDestroy {
 
-    @ContentChildren(HoverActionDirective) hoverActions: QueryList<HoverActionDirective>;
+    @Input() tabindex: number = 0;
+    active: boolean = false;
 
-    @HostListener('focus') focus(): void {
-        this.hoverActions.forEach(action => action.active = true);
+    private active$: Subscription;
+
+    constructor(private _elementRef: ElementRef, private _hoverActionService: HoverActionService) {
+        // register the container element with the service
+        this._hoverActionService.setContainer(this);
+        
+        // apply a class based on the active state of the container and it's actions
+        this.active$ = this._hoverActionService.active.subscribe(active => this.active = active);
     }
 
-    @HostListener('blur') blur(): void {
-        this.hoverActions.forEach(action => action.active = false);
+    ngOnDestroy(): void {
+        this.active$.unsubscribe();
     }
 
-    @HostListener('mouseenter') hover(): void {
-        this.hoverActions.forEach(action => action.hovered = true);
+    focus(): void {
+        this._elementRef.nativeElement.focus();
     }
 
-    @HostListener('mouseleave') leave(): void {
-        this.hoverActions.forEach(action => action.hovered = false);
+    @HostListener('focus') onFocus(): void {
+        this._hoverActionService.setFocusState(true);
+    }
+
+    @HostListener('blur') onBlur(): void {
+        this._hoverActionService.setFocusState(false);
+    }
+
+    @HostListener('mouseenter') onHover(): void {
+        this._hoverActionService.setHoverState(true);
+    }
+
+    @HostListener('mouseleave') onLeave(): void {
+        this._hoverActionService.setHoverState(false);
+    }
+
+    @HostListener('keydown.arrowright') next(): void {
+        this._hoverActionService.next();
     }
 }
