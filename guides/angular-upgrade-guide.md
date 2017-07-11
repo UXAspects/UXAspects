@@ -78,7 +78,7 @@ We will configure Webpack after we have our Hybrid application set up.
 To begin creating our hybrid application we need to install Angular and its dependencies. We can do this by running the following in the command prompt:
 
 ```
-npm install @angular/common @angular/compiler @angular/core @angular/forms @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade @types/node core-js rxjs zone.js --save-dev
+npm install @angular/common @angular/compiler @angular/core @angular/forms @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade core-js rxjs zone.js --save
 ```
 
 Additionally we should install typings for AngularJS. Type Definition files are files used by TypeScript to know which functions and properties a library (not written in TypeScript) exposes and what types they accept and return. You should install types for any additional libraries your application uses also (see [here](http://definitelytyped.org/) for more info).
