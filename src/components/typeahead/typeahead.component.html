@@ -14,7 +14,7 @@
             [class.disabled]="isDisabled(option)"
             [class.highlighted]="isHighlighted(option)"
             [uxScrollIntoViewIf]="isHighlighted(option)"
-            [scrollParent]="typeaheadElement"
+            [scrollParent]="typeaheadElement.nativeElement"
             (mousedown)="optionMousedownHandler($event)"
             (click)="optionClickHandler($event, option)"
             (mouseover)="highlight(option)">

@@ -1,7 +1,7 @@
 <!-- Display Upper Section when not condensed -->
 <div class="page-header-actions" *ngIf="!condensed">
 
-    <div class="page-header-logo-container" *ngIf="logo">
+    <div class="page-header-logo-container" [hidden]="!logo">
         <img [attr.src]="logo" class="page-header-logo">
     </div>
 
