@@ -33,26 +33,6 @@ input::-ms-clear, input::-ms-reveal {
 	display: none;
 }
 
-// Deprecated
-
-.body-dark {
-  .form-control::-moz-placeholder {
-    color: @form-control-color-dark;
-  }
-}
-.body-dark {
-  .form-control::-webkit-input-placeholder {
-    color: @form-control-color-dark;
-  }
-}
-:-ms-input-placeholder {
-  .body-dark {
-    .form-control {
-      color: @form-control-color-dark;
-    }
-  }
-}
-
 .input-lg {
  font-size: @font-size-lg;
 }
@@ -92,14 +72,6 @@ label{
   color: @form-control-validation;
 }
 
-// Deprecated
-.body-dark {
-  .form-control {
-    background-color: @form-control-bg-dark;
-    border: 1px solid @form-control-border-dark;
-    color: @form-control-color-dark;
-  }
-}
 .has-error {
   .form-control-validation{
     color: @form-control-invalid-color;
@@ -308,11 +280,7 @@ select {
   cursor: pointer;
   margin-right: 1px;
 }
-.body-dark {
-  .multi-select-checkbox {
-    background-position: -480px 0;
-  }
-}
+
 .donot-disp {
   display: none;
 }
@@ -329,32 +297,10 @@ select {
     background-position: -48px 0;
   }
 }
-.body-dark .multi-select-checkbox {
-  &.multi-select-checkbox-checked {
-    background-position: -456px 0;
-  }
-}
+
 .single-select-selected-bg
 {
   background-color: @single-select-selected-bg;
-}
-// Deprecated
-.body-dark {
-  .single-select-selected-bg {
-    background: @single-select-selected-bg-dark;
-  }
-}
-.body-dark {
-  tr {
-    &.single-select >td {
-      color:@single-select-td-color-dark;
-    }
-  }
-}
-.body-dark {
-  .listview-text-emphasis {
-    color: @selecting-text-color-dark !important;
-  }
 }
 
 //Date picker
@@ -1299,14 +1245,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .timepicker-arrow:focus {
    color: @timepicker-arrow-hover-color;
 }
-// Deprecated
-.body-dark .timepicker-arrow {
-    color: @timepicker-arrow-color-dark;
-}
-.body-dark .timepicker-arrow:hover,
-.body-dark .timepicker-arrow:focus  {
-    color: @timepicker-arrow-hover-color-dark;
-}
 
  //Integrated date-time picker styling
 .timezone-dropdown {
@@ -1314,9 +1252,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 .timezone-dropdown > span {
   border: none !important;
-}
-.body-dark .timezone-dropdown > span {
-  color: @white !important;
 }
 
 .date-picker {
@@ -1348,20 +1283,11 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 	   }
  }
 }
-.body-dark .date-picker table thead {
-    color: @date-picker-dropdown-color-dark;
-}
+
 .timepicker-light {
  	padding: 12px;
 }
 
-.body-dark .date-picker .today-btn:hover {
-	background-color: @date-picker-today-btn-hover-bg-dark !important;
-}
-.body-dark .date-picker{
-  background-color: @date-picker-bg-dark;
-  color: @date-picker-color-dark;
-}
 .date-picker-popover {
     left: 40px !important;
     margin-top: 7px !important;
@@ -1371,9 +1297,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 	}
 }
 
-.body-dark .date-picker-popover {
-  background-color: @date-picker-bg-dark;
-}
 .date-picker-popover-arrow {
   left: 7% !important;
   border-width: 8px !important;
@@ -1387,9 +1310,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   }
 }
 
-.body-dark .date-picker-popover-arrow:after {
- border-bottom-color: @date-picker-dropdown-border-dark !important;
-}
 .date-picker {
   font-family: @font-family !important;
   .datepicker table {
@@ -1413,13 +1333,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   padding: 12px;
   margin-top: 6px;
   border-top: 1px solid @grey5;
-}
-.body-dark .timepicker-dark {
-  background-color: @timepicker-bg-dark;
-   border-top: 1px solid @timepicker-border-dark;
-}
-.body-dark .btn.inline-dropdown.dropdown-toggle.timezone-dropdown:hover {
-  background-color: @timepicker-timezone-dropdown-hover-bg-dark !important;
 }
 
 //========================
@@ -2320,29 +2233,6 @@ tree-view > div:first-child > ol:nth-of-type(1){
     Static tooltip styling
 */
 
-.body-dark {
-  .static-tooltip {
-    background-color: @static-tooltip-bg-dark;
-    border: 1px solid @static-tooltip-border-dark;
-    box-shadow: 2px 2px 2px @static-tooltip-shadow-dark;
-
-    .callout {
-      background-color: @static-tooltip-bg-dark;
-      border-color: @static-tooltip-border-dark !important;
-    }
-
-    &:hover {
-      .callout {
-        border-color: @static-tooltip-hover-border-dark !important;
-      }
-    }
-
-    .content {
-      color: @static-tooltip-content-color-dark;
-    }
-  }
-}
-
 .static-tooltip {
   position: fixed;
   width: 250px;
@@ -2680,15 +2570,6 @@ search-builder {
 /*
   Hover Actions
 */
-
-.body-dark {
-  .hover-actions {
-    .hover-action {
-      color: @hover-action-color-dark;
-    }
-  }
-}
-
 .hover-actions {
 
   .hover-action {
@@ -2718,9 +2599,7 @@ search-builder {
     margin-right: 5px;
   }
 }
-.body-dark .select-table-container {
-  border: 2px solid @select-table-border-dark;
-}
+
 table.select-table {
   margin-bottom: 1px;
   
@@ -2753,14 +2632,6 @@ table.select-table > tbody > tr.highlight {
   }
 }
 
-.body-dark table.select-table > tbody > tr.highlight {
-  td {
-    background-color: @select-table-highlight-bg-dark;
-    font-family: @font-family;
-    font-weight: @font-weight-semibold;
-  }
-}
-
 table.select-table tr > td{
   border: none;
 }
@@ -2768,18 +2639,6 @@ table.select-table tr > td{
 .popover {
   z-index: @popover-z-index;
   font-family: @font-family;
-}
-.body-dark .popover {
-  background: @popover-bg-border-dark;
-}
-.body-dark .popover.bottom > .arrow:after {
-  border-bottom-color: @popover-bg-border-dark;
-}
-.body-dark .popover.left > .arrow:after {
-  border-left-color: @popover-bg-border-dark;
-}
-.body-dark .popover.right > .arrow:after {
-  border-right-color: @popover-bg-border-dark;
 }
 
 /* 
