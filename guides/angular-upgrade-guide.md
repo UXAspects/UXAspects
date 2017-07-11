@@ -114,7 +114,7 @@ In our `AppModule` we need to import the `UpgradeAdapter` tool which allows us t
 
 We should export the instance of the `UpgradeAdapter` so it is a singleton that can be used throughout the application.
 
-We also need to bootstrap the AngularJS from this file also - this mean you should remove the existing AngularJS bootstrapping which is usually an `ng-app` attribute in your `index.html` file.
+We also need to bootstrap AngularJS from this file also - this means you should remove the existing AngularJS bootstrapping which is usually an `ng-app` attribute in your `index.html` file.
 
 ```typescript
 import { NgModule, forwardRef } from '@angular/core';
@@ -180,7 +180,7 @@ module.exports = {
         ),
 
         new HtmlWebpackPlugin({
-          template: './index.html'
+          template: './index.ejs'
         })
     ]
 };
@@ -192,9 +192,9 @@ To run Webpack we first need to install any loaders that our configuration has u
 npm install awesome-typescript-loader angular2-template-loader html-loader html-webpack-plugin --save-dev
 ```
 
-You will notice an HtmlWebpackPlugin, this will automatically create an index.html file in your output folder for you. Any scripts or stylesheets that Webpack creates will automatically be added as script or link tags in this file. You should create an `index.html` file that will act as a template (this will allow you to add any scripts or styles or meta tags etc.. that Webpack is not currently responsible for). See [here](https://github.com/jantimon/html-webpack-plugin) for more information.
+You will notice an HtmlWebpackPlugin, this will automatically create an index.html file in your output folder for you. Any scripts or stylesheets that Webpack creates will automatically be added as script or link tags in this file. You should create an `index.ejs` file that will act as a template (this will allow you to add any scripts or styles or meta tags etc.. that Webpack is not currently responsible for). See [here](https://github.com/jantimon/html-webpack-plugin) for more information.
 
-If you want to let Webpack handle your stylesheets for you look at [this](https://github.com/webpack-contrib/extract-text-webpack-plugin) plugin.
+If you want to let Webpack handle your stylesheets for you look at the [Extract Text Webpack](https://github.com/webpack-contrib/extract-text-webpack-plugin) plugin.
 
 
 #### Running Webpack
