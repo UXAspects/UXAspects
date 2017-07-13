@@ -32,7 +32,7 @@ export class ComponentsHoverActionsComponent extends BaseDocumentationSection im
             {
                 imports: ['TooltipModule'],
                 forRoot: true,
-                library: 'ngx-bootstrap'
+                library: 'ngx-bootstrap/tooltip'
             }
         ]
     };
