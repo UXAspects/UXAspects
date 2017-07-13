@@ -30,7 +30,7 @@ export class HoverActionContainerDirective implements OnDestroy {
         this.active$.unsubscribe();
     }
 
-    focus(): void {
+    @HostListener('click') focus(): void {
         this._elementRef.nativeElement.focus();
     }
 

@@ -41,6 +41,7 @@ import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-sw
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ComponentsHoverActionsComponent } from './hover-actions/hover-actions.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 const SECTIONS = [
     ComponentsColumnSortingComponent,
@@ -101,6 +102,7 @@ const ROUTES = [
         AccordionModule.forRoot(),
         SliderModule,
         HoverActionModule,
+        TooltipModule.forRoot(),
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,
