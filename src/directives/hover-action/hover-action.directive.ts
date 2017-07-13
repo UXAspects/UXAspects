@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class HoverActionDirective implements OnDestroy {
 
-    @Input() tabindex: number = -1;
+    @Input() tabindex: number = 1;
     active: boolean = false;
     focused: boolean = false;
 
