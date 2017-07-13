@@ -15,18 +15,13 @@ describe('Checkbox Tests', () => {
     });
   });
 
-  it('should have the correct tab title', () => {
-    let expectedTitle = 'UX Aspects E2E Tests';
-    expect<any>(page.titleText).toEqual(expectedTitle);
-  });
-
   it('should have correct initial states', () => {
     if (browserName === 'internet explorer') {
         console.log('Skipping test in ' + browserName);
         return;
     }   
     
-    // Initial values
+    // Initial values.
     expect(page.confirmIsChecked(page.checkbox1)).toBeTruthy();
     expect(page.confirmIsChecked(page.checkbox2)).toBeFalsy();
     expect(page.confirmIsChecked(page.checkbox3)).toBeFalsy();
@@ -36,19 +31,19 @@ describe('Checkbox Tests', () => {
     expect<any>(page.text3.getText()).toBe('false');
     expect<any>(page.text4.getText()).toBe('false');
 
-    // All enabled
+    // All enabled.
     expect(page.confirmIsDisabled(page.checkbox1)).toBeFalsy();
     expect(page.confirmIsDisabled(page.checkbox2)).toBeFalsy();
     expect(page.confirmIsDisabled(page.checkbox3)).toBeFalsy();
     expect(page.confirmIsDisabled(page.checkbox4)).toBeFalsy();
 
-    // None indeterminate
+    // None indeterminate.
     expect(page.confirmIsIndeterminate(page.checkbox1)).toBeFalsy();
     expect(page.confirmIsIndeterminate(page.checkbox2)).toBeFalsy();
     expect(page.confirmIsIndeterminate(page.checkbox3)).toBeFalsy();
     expect(page.confirmIsIndeterminate(page.checkbox4)).toBeFalsy();
 
-    // None with simplified style
+    // None with simplified style.
     expect(page.confirmIsSimplified(page.checkbox1)).toBeFalsy();
     expect(page.confirmIsSimplified(page.checkbox2)).toBeFalsy();
     expect(page.confirmIsSimplified(page.checkbox3)).toBeFalsy();

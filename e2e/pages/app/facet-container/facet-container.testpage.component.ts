@@ -3,7 +3,7 @@ import { Facet } from '../../../../dist/lib/index.js';
 import 'chance';
 
 @Component({
-    selector: 'app',
+    selector: 'facet-container-app',
     templateUrl: './facet-container.testpage.component.html'
 })
 export class FacetContainerTestPageComponent {

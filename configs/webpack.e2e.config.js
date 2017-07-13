@@ -37,10 +37,16 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                exclude: /snippets/,
+                exclude: path.join(process.cwd(), 'e2e', 'pages', 'app'),
                 use: ExtractTextPlugin.extract({
                     use: 'css-loader'
                 })
+            },
+            
+            {
+                test: /\.css$/,
+                include: path.join(process.cwd(), 'e2e', 'pages', 'app'),
+                use: 'raw-loader'
             }
         ]
     },

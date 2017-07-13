@@ -15,11 +15,6 @@ describe('ToggleSwitchesPage Tests', () => {
     });
   });
 
-  it('should have the correct tab title', () => {
-    let expectedTitle = 'UX Aspects E2E Tests';
-    expect<any>(page.titleText).toEqual(expectedTitle);
-  });
-
   it('should have correct initial states', () => {
     // Initial values
     expect(page.confirmIsChecked(page.toggleswitch1)).toBeTruthy();

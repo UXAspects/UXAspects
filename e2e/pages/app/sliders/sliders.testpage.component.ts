@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SliderValue, SliderOptions, ColorService, SliderStyle, SliderCalloutTrigger, SliderSize, SliderSnap, SliderType } from '../../../../dist/lib/index.js';
 
 @Component({
-  selector: 'my-app',
+  selector: 'sliders-app',
   templateUrl: './sliders.testpage.component.html',
 })
 export class SlidersTestPageComponent {

@@ -15,26 +15,21 @@ describe('RadioButton Tests', () => {
     });
   });
 
-  it('should have the correct tab title', () => {
-    let expectedTitle = 'UX Aspects E2E Tests';
-    expect<any>(page.titleText).toEqual(expectedTitle);
-  });
-
   it('should have correct initial states', () => {
-    // Initial values
+    // Initial values.
     expect(page.confirmIsChecked(page.radiobutton1)).toBeTruthy();
     expect(page.confirmIsChecked(page.radiobutton2)).toBeFalsy();
     expect(page.confirmIsChecked(page.radiobutton3)).toBeFalsy();
     expect(page.confirmIsChecked(page.radiobutton4)).toBeFalsy();
     expect<any>(page.text1.getText()).toBe('100');
 
-    // All enabled
+    // All enabled.
     expect(page.confirmIsDisabled(page.radiobutton1)).toBeFalsy();
     expect(page.confirmIsDisabled(page.radiobutton2)).toBeFalsy();
     expect(page.confirmIsDisabled(page.radiobutton3)).toBeFalsy();
     expect(page.confirmIsDisabled(page.radiobutton4)).toBeFalsy();
 
-    // None with simplified style
+    // None with simplified style.
     expect(page.confirmIsSimplified(page.radiobutton1)).toBeFalsy();
     expect(page.confirmIsSimplified(page.radiobutton2)).toBeFalsy();
     expect(page.confirmIsSimplified(page.radiobutton3)).toBeFalsy();

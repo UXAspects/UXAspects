@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'my-app',
+  selector: 'toggleswitches-app',
   templateUrl: './toggleswitches.testpage.component.html',
 })
 export class ToggleSwitchesTestPageComponent {

@@ -15,14 +15,10 @@ describe('FacetContainerPage Tests', () => {
     });
   });
 
-  it('should have the correct tab title', () => {
-    let expectedTitle = 'UX Aspects E2E Tests';
-    expect<any>(page.titleText).toEqual(expectedTitle);
-  });
-
   it('should start with no facets', () => {
     
-    expect(page.getNumberOfFacets()).toEqual(0);
+    // No facets should be visible.
+    expect<any>(page.getNumberOfFacets()).toEqual(0);
     expect(page.getClearAllButton().isPresent()).toBeFalsy();
     expect(page.getNoItemsLabel().isPresent()).toBeTruthy();
     
@@ -30,13 +26,14 @@ describe('FacetContainerPage Tests', () => {
   
   it('should allow addition of facets', () => {
     
+    // Create facets, checking the number displayed.
     page.addFacet.click();
     expect(page.getClearAllButton().isPresent()).toBeTruthy();
     expect(page.getNoItemsLabel().isPresent()).toBeFalsy();
     
     page.addFacet.click();
     page.addFacet.click();
-    expect(page.getNumberOfFacets()).toEqual(3);
+    expect<any>(page.getNumberOfFacets()).toEqual(3);
     
     expect(page.getFacetName(0)).toMatch('\\w+\\d*\\w*');
     expect(page.getFacetName(1)).toMatch('\\w+\\d*\\w*');
@@ -46,27 +43,31 @@ describe('FacetContainerPage Tests', () => {
   
   it('should allow deletion of facets one by one', () => {
     
+    // Create some facets.
     page.addFacet.click();
     page.addFacet.click();
     page.addFacet.click();
-    expect(page.getNumberOfFacets()).toEqual(3);
+    expect<any>(page.getNumberOfFacets()).toEqual(3);
     
+    // Close the facets and confirm that the corresponding list items are unchecked.
     page.closeFacet(2);    
-    expect(page.getNumberOfFacets()).toEqual(2);
+    expect<any>(page.getNumberOfFacets()).toEqual(2);
     page.closeFacet(0);    
-    expect(page.getNumberOfFacets()).toEqual(1);
+    expect<any>(page.getNumberOfFacets()).toEqual(1);
     
   });
   
   it('should allow deletion of all facets', () => {
     
+    // Create some facets.
     page.addFacet.click();
     page.addFacet.click();
     page.addFacet.click();
-    expect(page.getNumberOfFacets()).toEqual(3);
+    expect<any>(page.getNumberOfFacets()).toEqual(3);
     
+    // Close all the facets and then confirm that the corresponding list items are unchecked.
     page.getClearAllButton().click();
-    expect(page.getNumberOfFacets()).toEqual(0);
+    expect<any>(page.getNumberOfFacets()).toEqual(0);
     
   });
 });

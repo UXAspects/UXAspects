@@ -5,7 +5,7 @@ import { Observer } from 'rxjs/Observer';
 import 'chance';
 
 @Component({
-    selector: 'app',
+    selector: 'facet-typeahead-list-app',
     templateUrl: './facet-typeahead-list.testpage.component.html'
 })
 export class FacetTypeaheadListPageComponent {
@@ -13,7 +13,7 @@ export class FacetTypeaheadListPageComponent {
     facets: Observable<Facet[]>;
     suggestions: Facet[] = [];
 
-    private users: Facet[] = [];
+    users: Facet[] = [];
 
     constructor() {
 

@@ -6,45 +6,47 @@ export class FacetCheckListPage {
         browser.get('/facet-check-list');
     }
     
-    titleText = browser.getTitle();
-    
     container = element(by.id('container1'));
     
-    getNumberOfFacets = function() {
+    getNumberOfFacets() {
         return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').count();
-    };
+    }
     
-    getClearAllButton = function() {
+    getClearAllButton() {
         return this.container.$('div.facets-selected-container').$('div.facets-selected-header-container').$('div.facets-selected-clear-button');
-    };
+    }
     
-    getFacet = function(index: number) {
+    getFacet(index: number) {
         return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index);
-    };
+    }
     
-    getFacetName = function(index: number) {
+    getFacetName(index: number) {
         return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('span.facet-selected-tag-label').getText();
-    };
+    }
     
-    closeFacet = function(index: number) {
+    closeFacet(index: number) {
         this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').get(index).$('span.hpe-close').click();
-    };
+    }
     
-    getNoItemsLabel = function() {
+    getNoItemsLabel() {
         return this.container.$('div.facets-selected-container').$('p.facets-selected-none-label');
-    };
+    }
     
-    getNumberOfFacetsInCheckList = function() {
+    getNumberOfFacetsInCheckList() {
         return this.container.$('div.facets-region').$('ux-facet-check-list').$('div.facet-check-list-container').$$('div.facet-check-list-item').count();
-    };
+    }
     
-    getFacetFromCheckList = function(index: number) {
+    getFacetFromCheckList(index: number) {
         return this.container.$('div.facets-region').$('ux-facet-check-list').$('div.facet-check-list-container').$$('div.facet-check-list-item').get(index);
-    };
+    }
     
-    confirmCheckListFacetIsTicked = function(index: number) {
+    getFacetNameFromCheckList(index: number) {
+        return this.container.$('div.facets-region').$('ux-facet-check-list').$('div.facet-check-list-container').$$('div.facet-check-list-item').get(index).$('span.facet-check-list-item-title').getText();
+    }
+    
+    confirmCheckListFacetIsTicked(index: number) {
         return this.container.$('div.facets-region').$('ux-facet-check-list').$('div.facet-check-list-container').$$('div.facet-check-list-item').get(index).
-            getAttribute('class').then(function(classes: any){
+            getAttribute('class').then(function(classes: string){
                 var allClasses = classes.split(' ');
                 if (allClasses.indexOf('facet-active') > -1) {
                     return true;
@@ -52,9 +54,9 @@ export class FacetCheckListPage {
                     return false;
                 }
             });
-    };
+    }
     
-    confirmCheckListScrollbarExists = function() {
-        return this.container.$('div.facets-region').$('ux-facet-check-list').$('div.facet-check-list-container').getAttribute('facet-check-list-scrollbar').isPresent();
-    };    
+    confirmCheckListScrollbarExists() {
+        return browser.isElementPresent(this.container.$('div.facets-region').$('ux-facet-check-list').$('div.facet-check-list-container').getAttribute('facet-check-list-scrollbar'));
+    }
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app',
+    selector: 'tags-app',
     templateUrl: './tags.testpage.component.html'
 })
 export class TagsTestPageComponent {

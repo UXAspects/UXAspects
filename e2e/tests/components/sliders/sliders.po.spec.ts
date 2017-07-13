@@ -1,12 +1,10 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, ElementFinder } from 'protractor';
 
 export class SlidersPage {
         
     getPage(): void {
         browser.get('/sliders');
     }
-    
-    titleText = browser.getTitle();
     
     slider1 = element(by.id('slider1'));
     slider2 = element(by.id('slider2'));
@@ -18,39 +16,39 @@ export class SlidersPage {
     input1 = element(by.id('input1'));
     input2 = element(by.id('input2'));
     
-    getHandleAttribute = function(slider: any, handle: string, attribute: string) {
+    getHandleAttribute(slider: ElementFinder, handle: string, attribute: string) {
         if (handle === 'lower') {
             return slider.$('div.track').$('div.thumb.lower').getAttribute(attribute);
         } else {
             return slider.$('div.track').$('div.thumb.upper').getAttribute(attribute);
         }
-    };
+    }
     
-    mouseDownOnHandle = function(slider: any, handle: string) {
+    mouseDownOnHandle(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
             browser.actions().mouseDown(slider.$('div.track').$('div.thumb.lower')).perform();
         } else {
             browser.actions().mouseDown(slider.$('div.track').$('div.thumb.upper')).perform();
         }
-    };
+    }
     
-    mouseUpFromHandle = function(slider: any, handle: string) {
+    mouseUpFromHandle(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
             browser.actions().mouseUp(slider.$('div.track').$('div.thumb.lower')).perform();
         } else {
             browser.actions().mouseUp(slider.$('div.track').$('div.thumb.upper')).perform();
         }
-    };
+    }
     
-    moveMouseToHandle = function(slider: any, handle: string) {
+    moveMouseToHandle(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
             browser.actions().mouseMove(slider.$('div.track').$('div.thumb.lower')).perform();
         } else {
             browser.actions().mouseMove(slider.$('div.track').$('div.thumb.upper')).perform();
         }
-    };
+    }
     
-    moveHandleToTick = function(slider: any, handle: string, tick: number) {
+    moveHandleToTick(slider: ElementFinder, handle: string, tick: number) {
         if (handle === 'lower') {
             browser.actions().
                 mouseDown(slider.$('div.track').$('div.thumb.lower')).
@@ -64,65 +62,65 @@ export class SlidersPage {
                 mouseUp(slider.$('div.track').$('div.thumb.upper')).
                 perform();
         }
-    };
+    }
     
-    moveMouseToTick = function(slider: any, tick: number) {
+    moveMouseToTick(slider: ElementFinder, tick: number) {
         browser.actions().mouseMove(slider.$('div.tick-container').$$('div.tick').get(tick)).perform();
-    };
+    }
     
-    dragAndDropHande = function(slider: any, handle: string, target: any) {
+    dragAndDropHandle(slider: ElementFinder, handle: string, offset: { x: number, y: number }) {
         if (handle === 'lower') {
-            browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.lower'), target).perform();
+            browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.lower'), offset).perform();
         } else {
-            browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.upper'), target).perform();
+            browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.upper'), offset).perform();
         }
-    };
+    }
     
-    getTooltipValue = function(slider: any, handle: string) {
+    getTooltipValue(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
             return slider.$('div.track').$('div.thumb.lower').$('div.tooltip-lower').$('div.tooltip-inner').getText();
         } else {
             return slider.$('div.track').$('div.thumb.upper').$('div.tooltip-upper').$('div.tooltip-inner').getText();
         }
-    };
+    }
     
-    getTooltipAttribute = function(slider: any, handle: string, attribute: string) {
+    getTooltipAttribute(slider: ElementFinder, handle: string, attribute: string) {
         if (handle === 'lower') {
             return slider.$('div.track').$('div.thumb.lower').$('div.tooltip-lower').$('div.tooltip-inner').getAttribute(attribute);
         } else {
             return slider.$('div.track').$('div.thumb.upper').$('div.tooltip-upper').$('div.tooltip-inner').getAttribute(attribute);
         }
-    };
+    }
     
-    confirmTooltipExists = function(slider: any, handle: string) {
+    confirmTooltipExists(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
             return slider.$('div.track').$('div.thumb.lower').$('div.tooltip-lower').$('div.tooltip-inner').isPresent();
         } else {
             return slider.$('div.track').$('div.thumb.upper').$('div.tooltip-upper').$('div.tooltip-inner').isPresent();
         }
-    };
+    }
     
-    getSliderRangeAttribute = function(slider: any, attribute: string) {
+    getSliderRangeAttribute(slider: ElementFinder, attribute: string) {
         return slider.$('div.track').$('div.track-range').getAttribute(attribute);
-    };
+    }
     
-    getTickAttribute = function(slider: any, attribute: string, tick: any) {
+    getTickAttribute(slider: ElementFinder, attribute: string, tick: number) {
         return slider.$('div.tick-container').$$('div.tick').get(tick).getAttribute(attribute);
-    };
+    }
     
-    getTickLabel = function(slider: any, tick: any) {
+    getTickLabel(slider: ElementFinder, tick: number) {
         return slider.$('div.tick-container').$$('div.tick').get(tick).$('div.tick-label').getText();
-    };
+    }
     
-    confirmTicksExist = function(slider: any) {
+    confirmTicksExist(slider: ElementFinder) {
         return slider.$('div.tick-container').isPresent();
-    };
+    }
     
-    getInputValue = function(input: any) {
+    getInputValue(input: ElementFinder) {
         return input.getAttribute('value');
-    };
+    }
     
-    clickOnSlider = function(slider: any) {
+    clickOnSlider(slider: ElementFinder) {
         slider.$('div.track').click();
-    };
+    }
 }

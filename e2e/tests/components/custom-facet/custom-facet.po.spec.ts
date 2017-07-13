@@ -1,13 +1,13 @@
 import { browser, element, by } from 'protractor';
 
-export class FacetContainerPage {
+export class CustomFacetPage {
         
     getPage(): void {
-        browser.get('/facet-container');
+        browser.get('/custom-facet');
     }
     
-    container = element(by.id('container1'));
-    addFacet = element(by.id('button1'));
+    container = element(by.id('customFacetContainer'));
+    checkboxContainer = element(by.id('facetCheckboxContainer'));
     
     getNumberOfFacets() {
         return this.container.$('div.facets-selected-container').$('div.facets-selected-list').$$('div.facet-selected-tag').count();
@@ -32,4 +32,12 @@ export class FacetContainerPage {
     getNoItemsLabel() {
         return this.container.$('div.facets-selected-container').$('p.facets-selected-none-label');
     }
+    
+    getCheckbox(index: number) {
+        return this.checkboxContainer.$$('ux-checkbox').get(index).$('div.ux-checkbox');
+    }
+    
+    confirmIsChecked(index: number) {    
+        return this.checkboxContainer.$$('ux-checkbox').get(index).$('div.ux-checked').isPresent();
+    }    
 }

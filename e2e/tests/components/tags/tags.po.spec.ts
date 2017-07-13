@@ -1,12 +1,10 @@
-import { browser, element, by, Key } from 'protractor';
+import { browser, element, by, Key, ElementFinder } from 'protractor';
 
 export class TagsPage {
     
     getPage(): void {
         browser.get('/tags');
     }
-    
-    titleText = browser.getTitle();
     
     tagsInput = element(by.id('tagsInput'));
     customizeExampleSection = element(by.id('accordion'));
@@ -25,37 +23,37 @@ export class TagsPage {
     selectFirst = element(by.id('selectFirst'));
     showTypeaheadOnClick = element(by.id('showTypeaheadOnClick'));
     
-    getNumberOfTags = function() {
+    getNumberOfTags() {
         return this.tagsInput.$('ol').$$('li.ux-tag').count();
-    };
+    }
     
-    getTagName = function(index: number) {
+    getTagName(index: number) {
         return this.tagsInput.$('ol').$$('li.ux-tag').get(index).$('span.ux-tag-text').getText();
-    };
+    }
     
-    sendCharactersToTagsInput = function(chars: string) {
+    sendCharactersToTagsInput(chars: string) {
         this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').sendKeys(chars);
-    };
+    }
     
-    clickOnTagsInput = function() {
+    clickOnTagsInput() {
         this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').click();
-    };
+    }
     
-    typeInATag = function(tagName: string) {
+    typeInATag(tagName: string) {
         this.sendCharactersToTagsInput(tagName);
         this.sendCharactersToTagsInput(Key.ENTER);
-    };
+    }
     
-    confirmTagCloseIconIsVisible = function(index: number) {
+    confirmTagCloseIconIsVisible(index: number) {
         return this.tagsInput.$('ol').$$('li.ux-tag').get(index).$('button.ux-tag-remove').isPresent();
-    };
+    }
     
-    closeATag = function(index: number) {
+    closeATag(index: number) {
         return this.tagsInput.$('ol').$$('li.ux-tag').get(index).$('button.ux-tag-remove').click();
-    };
+    }
     
-    copyAndPasteTags = function(tags: string) {
-        // Create a temporary input element if it does not already exist        
+    copyAndPasteTags(tags: string) {
+        // Create a temporary input element if it does not already exist.
         browser.executeScript(function () {
             if (!document.getElementById('tempInput')) {
                 var el = document.createElement('input');
@@ -64,48 +62,60 @@ export class TagsPage {
             }
         });
 
-        // Set the input value to the specified text
+        // Set the input value to the specified text.
         var newInput = element(by.id('tempInput'));
         newInput.clear();
         newInput.sendKeys(tags);
 
-        // Select all and copy
+        // Select all and copy.
         newInput.sendKeys(Key.chord(Key.CONTROL, 'a'));
         newInput.sendKeys(Key.chord(Key.CONTROL, 'c'));
         
-        // Paste into the tags input box
+        // Paste into the tags input box.
         this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').sendKeys(Key.chord(Key.CONTROL, 'v') + Key.ENTER);
-        // this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').sendKeys(Key.ENTER);
-    };
+    }
     
-    confirmTagsInputIsDisabled = function() {
-        return this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('disabled').isPresent();
-    };
+    confirmTagsInputIsAvailable() {
+        return browser.isElementPresent(this.tagsInput.$('ol').$('li.ux-tag-input'));
+    }
 
-    changeMinTags = function(chars: string) {
+    confirmTagsInputIsDisabled() {
+        return browser.isElementPresent(this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('disabled'));
+    }
+
+    clearTagsInput() {
+        this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').clear();
+    }
+
+    changeTagPattern(chars: string) {
+        this.tagPattern.clear();
+        this.tagPattern.sendKeys(chars);
+    }
+    
+    changeMinTags(chars: string) {
         this.minTags.$('input').clear();
         this.minTags.$('input').sendKeys(chars);
-    };
+    }
     
-    changeMaxTags = function(chars: string) {
+    changeMaxTags(chars: string) {
         this.maxTags.$('input').clear();
         this.maxTags.$('input').sendKeys(chars);
-    };
+    }
     
-    getTagInputsPlaceholderText = function() {
+    getTagInputsPlaceholderText() {
         return this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('placeholder');
-    };
+    }
 
-    getNumberOfTagsInTypeaheadList = function() {
+    getNumberOfTagsInTypeaheadList() {
         return this.tagsInput.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').count();
-    };
+    }
     
-    getTypeaheadItem = function(index: number) {
+    getTypeaheadItem(index: number) {
         return this.tagsInput.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').get(index);
-    };
+    }
     
-    confirmTypeaheadClassExists = function(item: any, soughtClass: string) {
-        return item.getAttribute('class').then(function(classes: any) {
+    confirmTypeaheadClassExists(item: ElementFinder, soughtClass: string) {
+        return item.getAttribute('class').then(function(classes: string) {
             var allClasses = classes.split(' ');
             if (allClasses.indexOf(soughtClass) > -1) {
                 return true;
@@ -113,29 +123,29 @@ export class TagsPage {
                 return false;
             }
         });
-    };
+    }
     
-    confirmTypeaheadItemIsDisabled = function(index: number) {
+    confirmTypeaheadItemIsDisabled(index: number) {
         var typeaheadItem = this.getTypeaheadItem(index);
         return this.confirmTypeaheadClassExists(typeaheadItem, 'disabled');
-    };
+    }
 
-    confirmTypeaheadItemIsHighlighted = function(index: number) {
+    confirmTypeaheadItemIsHighlighted(index: number) {
         var typeaheadItem = this.getTypeaheadItem(index);
         return this.confirmTypeaheadClassExists(typeaheadItem, 'highlighted');
-    };
+    }
     
-    addTypeaheadItem = function(index: number) {
+    addTypeaheadItem(index: number) {
         var typeaheadItem = this.getTypeaheadItem(index);
         typeaheadItem.$('span.ux-typeahead-option').click();
-    };
+    }
 
-    toggleCustomizeExampleSection = function() {
+    toggleCustomizeExampleSection() {
         this.customizeExampleSection.$('accordion-group').$('div.panel').$('div.panel-heading').$('div.panel-title').$('div.accordion-toggle').click();
-    };
+    }
     
-    confirmCustomizeExampleSectionIsOpen = function() {
-        return this.customizeExampleSection.$('accordion-group').getAttribute('class').then(function(classes: any) {
+    confirmCustomizeExampleSectionIsOpen() {
+        return this.customizeExampleSection.$('accordion-group').getAttribute('class').then(function(classes: string) {
             var allClasses = classes.split(' ');
             if (allClasses.indexOf('panel-open') > -1) {
                 return true;
@@ -143,21 +153,21 @@ export class TagsPage {
                 return false;
             }
         });
-    };
+    }
 
-    confirmRangeErrorIsVisible = function() {
+    confirmRangeErrorIsVisible() {
         return this.rangeErrorMessage.isPresent();
-    };
+    }
     
-    confirmInputPatternErrorIsVisible = function() {
+    confirmInputPatternErrorIsVisible() {
         return this.inputPatternErrorMessage.isPresent();
-    };
+    }
     
-    getRangeErrorMessage = function() {
+    getRangeErrorMessage() {
         return this.rangeErrorMessage.getText();
-    };
+    }
     
-    getInputPatternErrorMessage = function() {
+    getInputPatternErrorMessage() {
         return this.inputPatternErrorMessage.getText();
-    };    
+    }
 }

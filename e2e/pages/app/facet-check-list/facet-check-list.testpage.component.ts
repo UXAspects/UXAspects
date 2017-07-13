@@ -3,7 +3,7 @@ import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from 
 import 'chance';
 
 @Component({
-    selector: 'app',
+    selector: 'facet-check-list-app',
     templateUrl: './facet-check-list.testpage.component.html'
 })
 export class FacetCheckListTestPageComponent {

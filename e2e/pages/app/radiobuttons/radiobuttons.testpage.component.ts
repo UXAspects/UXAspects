@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'my-app',
+  selector: 'radiobuttons-my-app',
   templateUrl: './radiobuttons.testpage.component.html',
 })
 export class RadioButtonsTestPageComponent {
     selected = 100;
     
-    private radioOptions = {
+    radioOptions = {
         option1: 100,
         option2: 'string',
         option3: {
@@ -16,7 +16,7 @@ export class RadioButtonsTestPageComponent {
         option4: 'Wrap-Text'
     };
 
-    private disabled  = false;
-    private simplified  = false;
+    disabled  = false;
+    simplified  = false;
 }
 
