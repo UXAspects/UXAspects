@@ -1,6 +1,6 @@
 <button class="btn button-primary m-b-sm" (click)="togglePanel()">Toggle Preview</button>
 
-<div class="demo-attributes item-display-panel-inline-container">
+<div class="demo-attributes item-display-panel-inline-container item-display-panel-inline-demo">
     
     <div class="table-responsive preview-pane-table-demo">
         <table class="table table-hover item-display-panel-inline animate" [class.item-display-panel-visible]="visible">
@@ -35,7 +35,7 @@
         </table>
     </div>
 
-    <ux-item-display-panel boxShadow="false" preventClose="true" closeVisible="false" inline="true" [(visible)]="visible" [shadow]="shadow" [title]="selectedItem?.panel.title" animate="true">
+    <ux-item-display-panel footer="false" boxShadow="false" preventClose="true" closeVisible="false" inline="true" [(visible)]="visible" [shadow]="shadow" [title]="selectedItem?.panel.title" animate="true">
 
         <div *ngIf="selectedItem" uxItemDisplayPanelContent>
             <div *ngTemplateOutlet="selectedItem?.panel.content"></div>
@@ -75,6 +75,7 @@
             commodo. Sed vestibulum hendrerit ultrices.</p>
     </div>
 </ng-template>
+
 <hr>
 
 <p>The above example shows how the item display panel can be used inline rather than coming in from the side of the screen.</p>

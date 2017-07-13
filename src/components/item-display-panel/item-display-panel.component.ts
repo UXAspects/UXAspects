@@ -39,17 +39,21 @@ export class ItemDisplayPanelComponent {
     }
 
     @Input()
+    get footer() {
+        return this._footer;
+    }
+
+    set footer(footer: boolean) {
+        this._footer = typeof footer === 'string' ? !(footer === 'false') : footer;
+    }
+
+    @Input()
     get boxShadow() {
         return this._boxShadow;
     }
 
     set boxShadow(boxShadow: boolean) {
-        let value: any = boxShadow;
-        if (value === 'false') {
-            this._boxShadow = false;
-        } else {
-            this._boxShadow = true;
-        }
+        this._boxShadow = typeof boxShadow === 'string' ? !(boxShadow === 'false') : boxShadow;
     }
 
     @Input()
@@ -58,12 +62,7 @@ export class ItemDisplayPanelComponent {
     }
 
     set closeVisible(closeVisible: boolean) {
-        let value: any = closeVisible;
-        if (value === 'false') {
-            this._closeVisible = false;
-        } else {
-            this._closeVisible = true;
-        }
+        this._closeVisible = typeof closeVisible === 'string' ? !(closeVisible === 'false') : closeVisible;
     }
 
     @Input()
@@ -72,12 +71,7 @@ export class ItemDisplayPanelComponent {
     }
 
     set preventClose(preventClose: boolean) {
-        let value: any = preventClose;
-        if (value === 'true') {
-            this._preventClose = true;
-        } else {
-            this._preventClose = false;
-        }
+        this._preventClose = typeof preventClose === 'string' ? preventClose === 'true' : preventClose;
     }
 
     @Input()
@@ -86,12 +80,7 @@ export class ItemDisplayPanelComponent {
     }
 
     set inline(inline: boolean) {
-        let value: any = inline;
-        if (value === 'true') {
-            this._inline = true;
-        } else {
-            this._inline = false;
-        }
+        this._inline = typeof inline === 'string' ? inline === 'true' : inline;
     }
 
     @Input()
@@ -100,12 +89,7 @@ export class ItemDisplayPanelComponent {
     }
 
     set animate(animate: boolean) {
-        let value: any = animate;
-        if (value === 'true') {
-            this._animate = true;
-        } else {
-            this._animate = false;
-        }
+        this._animate = typeof animate === 'string' ? animate === 'true' : animate;
     }
 
     @Input()
@@ -114,12 +98,7 @@ export class ItemDisplayPanelComponent {
     }
 
     set shadow(shadow: boolean) {
-        let value: any = shadow;
-        if (value === 'true') {
-            this._shadow = true;
-        } else {
-            this._shadow = false;
-        }
+        this._shadow = typeof shadow === 'string' ? shadow === 'true' : shadow;
     }
 
     private _top: number;
@@ -130,6 +109,7 @@ export class ItemDisplayPanelComponent {
     private _inline: boolean = false;
     private _animate: boolean = false;
     private _shadow: boolean = false;
+    private _footer: boolean = true;
 
     clickOff(event: any) {
 

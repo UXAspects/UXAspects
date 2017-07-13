@@ -21,6 +21,7 @@ ux-item-display-panel {
         width: 0;
         overflow: hidden;
         transition: width 0.4s;
+        will-change: width;
 
         &.visible-host {
             width: 100%;
@@ -35,28 +36,32 @@ ux-item-display-panel {
         position: fixed;
         background: @display-panel-bg;
         color: @display-panel-color;
-        border-left: 1px solid @display-panel-border;
         z-index: @display-panel-z-index;
-        left: 50%;
+        transform: translateX(0);
+        will-change: transform;
 
         &.box-shadow {
             box-shadow: 1px 0 20px 0 @display-panel-shadow;
+            border-left: 1px solid @display-panel-border;
         }
 
         &.inline {
             position: relative;
             display: block;
-            left: 0;
             flex: 1;
             width: 100%;
+
+            &.item-display-panel-hide {
+                flex: 0;
+            }
         }
 
         &.animate {
-            transition: left 0.4s;
+            transition: transform 0.4s;
         }
 
         &.item-display-panel-hide {
-            left: 100%;
+            transform: translateX(100%);
             box-shadow: none;
         }
 
