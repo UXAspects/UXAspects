@@ -28,6 +28,11 @@ export class ComponentsHoverActionsComponent extends BaseDocumentationSection im
             {
                 imports: ['HoverActionModule', 'SparkModule'],
                 library: 'ux-aspects'
+            },
+            {
+                imports: ['TooltipModule'],
+                forRoot: true,
+                library: 'ngx-bootstrap'
             }
         ]
     };
