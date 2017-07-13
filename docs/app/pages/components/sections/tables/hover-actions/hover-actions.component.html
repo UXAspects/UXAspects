@@ -1,0 +1,72 @@
+<table class="table table-hover">
+    <thead>
+        <tr class="table-header-dark">
+            <th>Name</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Work Completed (%)</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr class="hover-action-container" *ngFor="let document of documents" uxHoverActionContainer>
+            <td class="text-black">{{ document.name }}</td>
+            <td>{{ document.author }}</td>
+            <td>{{ document.date.toLocaleDateString() }}</td>
+            <td>
+                <ux-spark theme="chart2" [value]="document.complete" [inlineLabel]="document.complete" barHeight="3"></ux-spark>
+            </td>
+            <td>
+                <i class="hpe-icon hpe-view hover-action-icon" uxHoverAction></i>
+                <i class="hpe-icon hpe-share hover-action-icon" uxHoverAction></i>
+                <i class="hpe-icon hpe-trash hover-action-icon" uxHoverAction></i>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<p>
+    Hover actions are a simple way to display additional controls on a component only on hover or when focused. It also provides
+    keyboard control for navigating through the hover actions. It is commonly used within table rows, however it can be used
+    within an element of any kind.
+</p>
+
+<p>
+    To add hover actions to an element add a <code>uxHoverActionContainer</code> directive to it. This will define the container
+    element that will contain hover actions. By default, container elements are given a <code>tabindex</code> of <code>0</code>.
+</p>
+
+<p>
+    Within the container you should add the <code>uxHoverAction</code> directive to any element that is a hover action.
+</p>
+
+<p>
+    When the hover action container is hovered or focused, or a hover action within it is focused, the container will receive
+    a <code>hover-action-container-active</code> class which can be used to apply additional styles when the container
+    is active.
+</p>
+
+<p>
+    Additionally, each hover action will receive a <code>hover-action-active</code> class when the container is hovered or
+    focused. A hover action will also receive a <code>hover-action-focused</code> class when that individual hover action
+    is focused.
+</p>
+
+<p>
+    The following code can be used to create the example shown above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

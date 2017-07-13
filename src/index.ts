@@ -27,6 +27,7 @@ export * from './components/media-player/index';
 */
 export * from './directives/focus-if/index';
 export * from './directives/help-center/index';
+export * from './directives/hover-action/index';
 export * from './directives/infinite-scroll/index';
 export * from './directives/layout-switcher/index';
 export * from './directives/resize/index';

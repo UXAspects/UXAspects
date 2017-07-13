@@ -5,7 +5,7 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
-    selector: 'uxd-components-hover-actions',
+    selector: 'uxd-components-hover-actions-ng1',
     templateUrl: './hover-actions-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsHoverActionsNg1Component')
