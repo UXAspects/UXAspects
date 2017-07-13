@@ -1,5 +1,15 @@
 <p>Selecting an integer:</p>
-<ux-number-picker class="number-picker-component-demo" min="-10" max="10"></ux-number-picker>
+
+<ux-number-picker class="number-picker-component-demo" min="-10" max="10" [valid]="form.controls['integer'].valid" [formControl]="form.controls['integer']"></ux-number-picker>
+
+<p class="text-error" *ngIf="form.controls['integer'].invalid">
+    <span class="hpe-icon hpe-alert"></span> Enter a number between -10 and 10.
+</p>
 
 <p class="m-t-md">Selecting a decimal:</p>
-<ux-number-picker class="number-picker-component-demo" step="0.5" min="0" max="10"></ux-number-picker>
+
+<ux-number-picker class="number-picker-component-demo" step="0.5" min="0" max="10" [valid]="form.controls['decimal'].valid" [formControl]="form.controls['decimal']"></ux-number-picker>
+
+<p class="text-error" *ngIf="form.controls['decimal'].invalid">
+    <span class="hpe-icon hpe-alert"></span> Enter a number between 0 and 10.
+</p>
