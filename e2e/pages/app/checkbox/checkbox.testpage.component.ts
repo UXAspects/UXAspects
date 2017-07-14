@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'my-app',
+  selector: 'checkbox-app',
   templateUrl: './checkbox.testpage.component.html',
 })
 export class CheckboxTestPageComponent {
-    private checkModel = {
+    checkModel = {
         option1: true,
         option2: false,
         option3: false,
         option4: false
     };
 
-    private simplified = false;
-    private indeterminateValue = -1;
-    private disableCheck = false;
+    simplified = false;
+    indeterminateValue = -1;
+    disableCheck = false;
 }

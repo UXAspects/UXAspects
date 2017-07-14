@@ -1,12 +1,10 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, ElementFinder } from 'protractor';
 
 export class CheckBoxesPage {
         
     getPage(): void {
         browser.get('/checkboxes');
     }
-    
-    titleText = browser.getTitle();
     
     checkbox1 = element(by.id('checkbox1'));
     checkbox2 = element(by.id('checkbox2'));
@@ -16,8 +14,28 @@ export class CheckBoxesPage {
     text2 = element(by.id('text2'));
     text3 = element(by.id('text3'));
     text4 = element(by.id('text4'));        
-    button1 = element(by.id('button1'));
-    button2 = element(by.id('button2'));
-    button3 = element(by.id('button3'));
-    button4 = element(by.id('button4'));        
+    disableButton = element(by.id('button1'));
+    setToIndeterminateState = element(by.id('button2'));
+    changeToSimplified = element(by.id('button3'));
+    
+    confirmIsChecked(checkbox: ElementFinder) {    
+        return checkbox.$('div.ux-checked').isPresent();
+    }
+    
+    confirmIsDisabled(checkbox: ElementFinder) {
+        return checkbox.$('div.ux-disabled').isPresent();
+    }
+    
+    confirmIsIndeterminate(checkbox: ElementFinder) {
+        return checkbox.$('div.ux-indeterminate').isPresent();
+    }
+    
+    confirmIsSimplified(checkbox: ElementFinder) {
+        return checkbox.$('div.ux-simplified').isPresent();
+    }
+    
+    toggleByKey(checkbox: ElementFinder, key: string) {
+        checkbox.$('div.ux-checkbox').sendKeys(key);
+    }
 }
+
