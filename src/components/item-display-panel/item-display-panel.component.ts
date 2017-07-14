@@ -1,4 +1,14 @@
-import { Component, Directive, Input, SimpleChange, Output, EventEmitter } from '@angular/core';
+import { Component, Directive, Input, SimpleChange, Output, EventEmitter, ContentChild } from '@angular/core';
+
+@Directive({
+    selector: '[uxItemDisplayPanelContent]'
+})
+export class ItemDisplayPanelContentDirective { }
+
+@Directive({
+    selector: '[uxItemDisplayPanelFooter]'
+})
+export class ItemDisplayPanelFooterDirective { }
 
 @Component({
     selector: 'ux-item-display-panel',
@@ -12,6 +22,7 @@ import { Component, Directive, Input, SimpleChange, Output, EventEmitter } from 
 })
 export class ItemDisplayPanelComponent {
     @Input() title: string;
+    @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
     
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -36,15 +47,6 @@ export class ItemDisplayPanelComponent {
         // invoke change event
         this.visibleChange.emit(this._visible);
  
-    }
-
-    @Input()
-    get footer() {
-        return this._footer;
-    }
-
-    set footer(footer: boolean) {
-        this._footer = typeof footer === 'string' ? !(footer === 'false') : footer;
     }
 
     @Input()
@@ -109,7 +111,6 @@ export class ItemDisplayPanelComponent {
     private _inline: boolean = false;
     private _animate: boolean = false;
     private _shadow: boolean = false;
-    private _footer: boolean = true;
 
     clickOff(event: any) {
 
@@ -146,13 +147,3 @@ export class ItemDisplayPanelComponent {
     }
 
 }
-
-@Directive({
-    selector: '[uxItemDisplayPanelContent]'
-})
-export class ItemDisplayPanelContentDirective { }
-
-@Directive({
-    selector: '[uxItemDisplayPanelFooter]'
-})
-export class ItemDisplayPanelFooterDirective { }
