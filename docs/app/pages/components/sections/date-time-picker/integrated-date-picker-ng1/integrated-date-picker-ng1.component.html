@@ -27,6 +27,13 @@
             <td>false</td>
         </tr>
         <tr>
+            <td class="attribute">ng-model-options</td>
+            <td>object</td>
+            <td>variable</td>
+            <td>Should contain a json object with options. you can set updateOn here to define which event will update the model for validation. Use keyup to update on each keypress.</td>
+            <td>true</td>
+        </tr>
+        <tr>
             <td class="attribute">is-meridian</td>
             <td>boolean</td>
             <td>variable</td>
@@ -82,6 +89,13 @@
             <td>literal</td>
             <td>Choose whether the default time should be the start or end of the day. Valid values are <code>start</code> (default)
                 and <code>end</code>.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">validator</td>
+            <td>function</td>
+            <td>variable</td>
+            <td>Set a funtion here to override the default validation checks with your own custom checks.</td>
             <td>true</td>
         </tr>
     </table>
