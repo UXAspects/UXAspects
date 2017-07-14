@@ -6,10 +6,10 @@ export class RadioButtonsPage {
         browser.get('/radiobuttons');
     }
     
-    radiobutton1 = element(by.id('radiobutton1'));
-    radiobutton2 = element(by.id('radiobutton2'));
-    radiobutton3 = element(by.id('radiobutton3'));
-    radiobutton4 = element(by.id('radiobutton4'));
+    radiobutton1 = element(by.css('ux-radio-button#radiobutton1'));
+    radiobutton2 = element(by.css('ux-radio-button#radiobutton2'));
+    radiobutton3 = element(by.css('ux-radio-button#radiobutton3'));
+    radiobutton4 = element(by.css('ux-radio-button#radiobutton4'));
     text1 = element(by.id('text1'));
     disableFirstButton = element(by.id('button1'));
     changeToSimplified = element(by.id('button2'));

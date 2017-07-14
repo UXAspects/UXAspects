@@ -24,19 +24,19 @@ export class TagsPage {
     showTypeaheadOnClick = element(by.id('showTypeaheadOnClick'));
     
     getNumberOfTags() {
-        return this.tagsInput.$('ol').$$('li.ux-tag').count();
+        return this.tagsInput.$$('ol').get(0).$$('li.ux-tag').count();
     }
     
     getTagName(index: number) {
-        return this.tagsInput.$('ol').$$('li.ux-tag').get(index).$('span.ux-tag-text').getText();
+        return this.tagsInput.$$('ol').get(0).$$('li.ux-tag').get(index).$('span.ux-tag-text').getText();
     }
     
     sendCharactersToTagsInput(chars: string) {
-        this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').sendKeys(chars);
+        this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').sendKeys(chars);
     }
     
     clickOnTagsInput() {
-        this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').click();
+        this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').click();
     }
     
     typeInATag(tagName: string) {
@@ -45,11 +45,11 @@ export class TagsPage {
     }
     
     confirmTagCloseIconIsVisible(index: number) {
-        return this.tagsInput.$('ol').$$('li.ux-tag').get(index).$('button.ux-tag-remove').isPresent();
+        return this.tagsInput.$$('ol').get(0).$$('li.ux-tag').get(index).$('button.ux-tag-remove').isPresent();
     }
     
     closeATag(index: number) {
-        return this.tagsInput.$('ol').$$('li.ux-tag').get(index).$('button.ux-tag-remove').click();
+        return this.tagsInput.$$('ol').get(0).$$('li.ux-tag').get(index).$('button.ux-tag-remove').click();
     }
     
     copyAndPasteTags(tags: string) {
@@ -76,15 +76,15 @@ export class TagsPage {
     }
     
     confirmTagsInputIsAvailable() {
-        return browser.isElementPresent(this.tagsInput.$('ol').$('li.ux-tag-input'));
+        return browser.isElementPresent(this.tagsInput.$$('ol').get(0).$('li.ux-tag-input'));
     }
 
     confirmTagsInputIsDisabled() {
-        return browser.isElementPresent(this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('disabled'));
+        return browser.isElementPresent(this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('disabled'));
     }
 
     clearTagsInput() {
-        this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').clear();
+        this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').clear();
     }
 
     changeTagPattern(chars: string) {
@@ -103,7 +103,7 @@ export class TagsPage {
     }
     
     getTagInputsPlaceholderText() {
-        return this.tagsInput.$('ol').$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('placeholder');
+        return this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('placeholder');
     }
 
     getNumberOfTagsInTypeaheadList() {
