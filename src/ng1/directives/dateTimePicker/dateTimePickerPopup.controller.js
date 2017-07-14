@@ -136,11 +136,6 @@ export default function DateTimePickerPopupCtrl($scope, $parse, $attrs) {
 
         var valid;
 
-        /* jshint ignore:start */
-            debugger;
-            console.log()
-            /* jshint ignore:end */
-
         if ($attrs.validator) {
             valid = ($parse($attrs.validator)($scope))();
         } else {
