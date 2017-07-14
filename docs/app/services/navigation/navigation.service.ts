@@ -74,7 +74,7 @@ export class NavigationService {
             // Check if the navigated section is already in view
             if (!this.isFragmentActive(parsed.fragment) || parsed.fragment !== this.activeRoute.snapshot.fragment) {
                 // Otherwise, scroll to the top of that section
-                this.afterDoneRendering(() => {
+                setTimeout(() => {
                     this.scrollToFragment(parsed.fragment);
                 });
             }
@@ -94,22 +94,6 @@ export class NavigationService {
                     .toLowerCase();
             }
         }
-    }
-
-    public setRendering() {
-        this.renderingCount += 1;
-    }
-
-    public doneRendering() {
-        this.renderingCount -= 1;
-    }
-
-    public afterDoneRendering(callback: () => any) {
-        if (this.renderingCount > 0) {
-            setTimeout(() => { this.afterDoneRendering(callback); }, 50);
-            return;
-        }
-        callback();
     }
 
     private urlHasFragment() {

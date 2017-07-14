@@ -4,10 +4,11 @@ import { Injectable, Inject } from '@angular/core';
 export class ScrollIntoViewService {
 
     scrollIntoView(elem: HTMLElement, scrollParent: HTMLElement) {
-        if (elem.offsetTop < scrollParent.scrollTop) {
-            scrollParent.scrollTop = elem.offsetTop;
+        const offsetTop = (elem.getBoundingClientRect().top + scrollParent.scrollTop) - scrollParent.getBoundingClientRect().top;
+        if (offsetTop < scrollParent.scrollTop) {
+            scrollParent.scrollTop = offsetTop;
         } else {
-            const offsetBottom = elem.offsetTop + elem.offsetHeight;
+            const offsetBottom = offsetTop + elem.offsetHeight;
             if (offsetBottom > (scrollParent.scrollTop + scrollParent.clientHeight)) {
                 scrollParent.scrollTop = offsetBottom - scrollParent.clientHeight;
             }

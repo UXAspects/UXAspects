@@ -49,7 +49,11 @@ export class AppComponent {
     constructor() {
         // create some sample data
         for (let idx = 1; idx < 10; idx++) {
-            this.documents.push({ name: `Document ${idx}`, author: chance.name(), date: chance.date({ year: 2017 }) as Date });
+            this.documents.push({
+                name: `Document ${idx}`,
+                author: chance.name(),
+                date: chance.date({ year: 2017 }) as Date
+            });
         }
     }
 }

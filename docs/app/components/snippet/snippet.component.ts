@@ -29,18 +29,13 @@ export class SnippetComponent implements OnInit {
     }
 
     loadUrl() {
-        this.navigation.setRendering();
-
         this.http.get(this.url).subscribe(response => {
             this.code = response.text();
             this.loadCode();
-            this.navigation.doneRendering();
         });
     }
 
     private loadCode() {
-        this.navigation.setRendering();
-
         // create a blob containing prismjs
         let blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
 
@@ -54,8 +49,6 @@ export class SnippetComponent implements OnInit {
 
             // terminate worker
             worker.terminate();
-
-            this.navigation.doneRendering();
         };
 
         // send the language and code through to the other thread
