@@ -1,3 +1,4 @@
+import { ComponentsItemDisplayPanelInlineComponent } from './item-display-panel-inline/item-display-panel-inline.component';
 import { SparkModule } from './../../../../../../src/components/spark/spark.module';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -24,6 +25,7 @@ const SECTIONS = [
     ComponentsItemDisplayPanelComponent,
     ComponentsItemDisplayPanelNg1Component,
     ComponentsItemDisplayPanelServiceNg1Component,
+    ComponentsItemDisplayPanelInlineComponent,
     ComponentsModalInsetPanelNg1Component,
     ComponentsSideInsetPanelNg1Component,
     ComponentsEboxComponent

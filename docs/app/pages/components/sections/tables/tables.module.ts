@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule, HoverActionModule } from '../../../../../../src/index';
+import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule, HoverActionModule, ItemDisplayPanelModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
