@@ -134,7 +134,8 @@ export default function DateTimePickerPopupCtrl($scope, $parse, $attrs) {
             }
         }
 
-        var valid = date.isValid();
+        var valid = $attrs.validator ? $parse($attrs.validator)($scope)() : date.isValid();
+
         if (!valid) {
             return {};
         }
