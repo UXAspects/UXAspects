@@ -680,10 +680,6 @@
                         {
                             "title": "Module",
                             "content": "ItemDisplayPanelModule"
-                        },
-                        {
-                            "title": "Export as",
-                            "content": "ux-item-display-panel"
                         }
                     ]
                 },
@@ -698,10 +694,6 @@
                         {
                             "title": "Module",
                             "content": "ItemDisplayPanelModule"
-                        },
-                        {
-                            "title": "Export as",
-                            "content": "ux-item-display-panel"
                         }
                     ]
                 },
