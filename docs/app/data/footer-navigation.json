@@ -2,7 +2,7 @@
     "columns": [{
         "title": "About",
         "links": [{
-            "title": "Currently v1.3.0",
+            "title": "Currently v1.3.1",
             "link": "/landing"
         }, {
             "title": "View Changes Log",
