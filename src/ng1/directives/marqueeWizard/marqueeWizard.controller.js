@@ -135,6 +135,11 @@ export default function MarqueeWizardCtrl($scope) {
     if (typeof $scope.onFinishing === 'function') {
       var response = $scope.onFinishing();
 
+      if (typeof response === 'number') {
+        vm.goToStep(response);
+        return;
+      }
+
       //dont go to the next page if the response is false
       if (response === false) {
         vm.currentStep.error = true;
