@@ -1,0 +1,40 @@
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 0;
+    font-family: @font-family;
+    font-size: 0.875rem;
+    font-weight: 400;
+    height: 100%;
+    min-height: 22px;
+
+    li {
+        a,
+        span {
+            color: fade(@text-color, 70%);
+        }
+    }
+}
+
+.breadcrumb > li a:hover {
+    color: @primary;
+}
+
+.breadcrumb > li:before,
+.breadcrumb > li:last-child:after {
+    display: none;
+}
+
+.breadcrumb > li:after {
+    content: "\F1BD";
+    font-family: "hpe-icons";
+    display: inline-block;
+    padding: 0 2px 0 0;
+    font-size: 0.6875rem;
+    color: fade(@text-color, 40%);
+}
+
+.breadcrumb-inverse {
+    background-color: @white;
+    color: @grey2;
+}

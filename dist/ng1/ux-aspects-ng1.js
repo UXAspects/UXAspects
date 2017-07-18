@@ -1,5 +1,5 @@
 /* 
-* ux-aspects - v1.3.0 
+* ux-aspects - v1.3.1-rc.1 
 * © Copyright 2017 Hewlett Packard Enterprise Development Company LP
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -7298,7 +7298,8 @@ function dateTimePickerPopup($compile, $document, $parse) {
                 'default-day-time': attrs.defaultDayTime,
                 'timezones': attrs.timezones,
                 'timezoneDefaultIndex': attrs.timezoneDefaultIndex,
-                'editing': 'dtpp.editing || !dtpp.ngModelCtrl.$valid || !dtpp.ngModelCtrl.$viewValue'
+                'editing': 'dtpp.editing || !dtpp.ngModelCtrl.$valid || !dtpp.ngModelCtrl.$viewValue',
+                'validator': attrs.validator
             });
 
             //compile the element before adding it to the popover
@@ -7524,7 +7525,8 @@ function DateTimePickerPopupCtrl($scope, $parse, $attrs) {
             }
         }
 
-        var valid = date.isValid();
+        var valid = $attrs.validator ? $parse($attrs.validator)($scope)() : date.isValid();
+
         if (!valid) {
             return {};
         }
