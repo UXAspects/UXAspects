@@ -19,6 +19,18 @@ module.exports = {
         dest: path.join(process.cwd(), 'dist', 'less'),
         expand: true
     },
+    component_styles: {
+        cwd: path.join(process.cwd(), 'src', 'components'),
+        src: '**/*.less',
+        dest: path.join(process.cwd(), 'dist', 'lib', 'components'),
+        expand: true
+    },
+    directive_styles: {
+        cwd: path.join(process.cwd(), 'src', 'directives'),
+        src: '**/*.less',
+        dest: path.join(process.cwd(), 'dist', 'lib', 'directives'),
+        expand: true
+    },
     ng1: {
         cwd: path.join(process.cwd(), 'dist', 'styles'),
         src: '**',
