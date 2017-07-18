@@ -47,7 +47,10 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
     @HostListener('window:scroll')
     onWindowScroll() {
         if (this.trackScroll) {
-            this.updateActiveSection();
+            setTimeout(() => {
+                this.updateActiveSection();
+            });
+            
         }
     }
 
