@@ -105,7 +105,7 @@
       <td>function</td>
       <td>variable</td>
       <td>Expression that is called when Finish is clicked but before <code>on-finished</code> expression is evaluated. The expression
-        should return a boolean result. If false current step goes into error state and the step change is stopped. e.g.
+        should return a boolean or number result. If the function returns a number the wizard will go to that step. If it returns false current step goes into error state and the step change is stopped. e.g.
         <code>on-finishing="canChange()"</code>.</td>
       <td>true</td>
     </tr>
