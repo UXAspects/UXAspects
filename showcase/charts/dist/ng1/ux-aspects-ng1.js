@@ -7294,7 +7294,8 @@ function dateTimePickerPopup($compile, $document, $parse) {
                 'default-day-time': attrs.defaultDayTime,
                 'timezones': attrs.timezones,
                 'timezoneDefaultIndex': attrs.timezoneDefaultIndex,
-                'editing': 'dtpp.editing || !dtpp.ngModelCtrl.$valid || !dtpp.ngModelCtrl.$viewValue'
+                'editing': 'dtpp.editing || !dtpp.ngModelCtrl.$valid || !dtpp.ngModelCtrl.$viewValue',
+                'validator': attrs.validator
             });
 
             //compile the element before adding it to the popover
@@ -7520,7 +7521,8 @@ function DateTimePickerPopupCtrl($scope, $parse, $attrs) {
             }
         }
 
-        var valid = date.isValid();
+        var valid = $attrs.validator ? $parse($attrs.validator)($scope)() : date.isValid();
+
         if (!valid) {
             return {};
         }
