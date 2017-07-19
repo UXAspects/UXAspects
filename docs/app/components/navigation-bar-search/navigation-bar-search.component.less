@@ -50,7 +50,7 @@
         list-style-type: none;
         padding-left: 0;
         margin-bottom: 0;
-        box-shadow: 0px 3px 5px @nav-search-bg;
+        box-shadow: 0 3px 5px @nav-search-bg;
 
         .nav-bar-search-result {
             font-size: 1rem;
@@ -63,7 +63,11 @@
                 color: @nav-search-result-color;
             }
 
-            &.active,
+            &.active {
+                background-color: @nav-search-result-active-bg;
+                color: @nav-search-result-active-color;
+            }
+
             &:hover {
                 background-color: @nav-search-result-hover-bg;
                 color: @nav-search-result-hover-color;
