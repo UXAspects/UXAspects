@@ -4,7 +4,7 @@ export declare class ScrollIntoViewIfDirective implements OnChanges {
     private element;
     private scrollIntoViewService;
     condition: boolean;
-    scrollParent: ElementRef;
+    scrollParent: HTMLElement;
     constructor(element: ElementRef, scrollIntoViewService: ScrollIntoViewService);
     ngOnChanges(changes: SimpleChanges): void;
 }
