@@ -294,11 +294,11 @@ describe('SlidersPage Tests', () => {
     
     page.moveHandleToTick(page.slider4, 'lower', 9);
     page.moveMouseToHandle(page.slider4, 'lower');
-    expect<any>(page.getTooltipValue(page.slider4, 'lower')).toEqual('90');
+    expect<any>(page.getTooltipValue(page.slider4, 'lower')).toEqual('91');
     
     page.moveMouseToTick(page.slider4, 8);
     page.moveMouseToHandle(page.slider4, 'lower');
-    expect<any>(page.getTooltipValue(page.slider4, 'lower')).toEqual('90');
+    expect<any>(page.getTooltipValue(page.slider4, 'lower')).toEqual('91');
     
   });
   
