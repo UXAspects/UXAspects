@@ -34,6 +34,10 @@ export class ItemDisplayPanelPage {
         return this.confirmClassExists(this.table1.$('tbody').$$('tr').get(index), 'highlight');
     }
     
+    waitForPanelToBeDisplayed() {
+        browser.wait(protractor.ExpectedConditions.visibilityOf(this.panel1));
+    }
+    
     confirmPanelIsDisplayed() {
         return this.confirmClassExists(this.panel1, 'visible-host');
     }

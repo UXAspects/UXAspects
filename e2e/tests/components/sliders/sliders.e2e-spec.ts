@@ -368,22 +368,19 @@ describe('SlidersPage Tests', () => {
     expect<any>(page.getTooltipValue(page.slider7, 'lower')).toEqual('40');
     
     page.input2.clear();
-    page.input2.sendKeys('65');
-    page.clickOnSlider(page.slider7);
+    page.input2.sendKeys('65' + Key.ENTER);
     page.moveMouseToHandle(page.slider7, 'upper');
     expect<any>(page.getTooltipValue(page.slider7, 'upper')).toEqual('65');
    
     page.input1.clear();
-    page.input1.sendKeys('50');
-    page.clickOnSlider(page.slider7);
+    page.input1.sendKeys('50' + Key.ENTER);
     page.moveMouseToHandle(page.slider7, 'lower');
     expect<any>(page.getTooltipValue(page.slider7, 'lower')).toEqual('50');
     
     page.input2.clear();
-    page.input2.sendKeys('40');
-    page.clickOnSlider(page.slider7);
+    page.input2.sendKeys('40' + Key.ENTER);
     page.moveMouseToHandle(page.slider7, 'upper');
-    expect<any>(page.getTooltipValue(page.slider7, 'upper')).toEqual('65');
+    expect<any>(page.getTooltipValue(page.slider7, 'upper')).toEqual('50');
     
   });
 });

@@ -210,7 +210,8 @@ describe('TagsPage Tests', () => {
     page.toggleCustomizeExampleSection();
     page.enableTypeahead.click();
     
-    page.sendCharactersToTagsInput('l');    
+    page.sendCharactersToTagsInput('l');
+    page.waitForTypeaheadListToBeDisplayed();
     expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
     
     // The first list item, 'Alpha', should be disabled.
@@ -230,6 +231,7 @@ describe('TagsPage Tests', () => {
     page.toggleCustomizeExampleSection();
     page.enableTypeahead.click();
     page.sendCharactersToTagsInput('l');
+    page.waitForTypeaheadListToBeDisplayed();
     expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
     page.addTypeaheadItem(4);
     expect<any>(page.getNumberOfTags()).toEqual(4);
@@ -243,6 +245,7 @@ describe('TagsPage Tests', () => {
     page.toggleCustomizeExampleSection();
     page.enableTypeahead.click();
     page.sendCharactersToTagsInput('l');
+    page.waitForTypeaheadListToBeDisplayed();
     expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);    
     page.sendCharactersToTagsInput('l');
     page.sendCharactersToTagsInput(Key.ENTER);
@@ -253,6 +256,7 @@ describe('TagsPage Tests', () => {
     page.freeInput.click();
     
     page.sendCharactersToTagsInput('l');
+    page.waitForTypeaheadListToBeDisplayed();
     expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
     page.sendCharactersToTagsInput('l2');
     page.sendCharactersToTagsInput(Key.ENTER);
@@ -269,6 +273,7 @@ describe('TagsPage Tests', () => {
     
     // 'Delta' should not be highlighted in the list.
     page.sendCharactersToTagsInput('l');
+    page.waitForTypeaheadListToBeDisplayed();
     expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
     expect(page.confirmTypeaheadItemIsHighlighted(1)).toBeFalsy();
     
@@ -281,6 +286,7 @@ describe('TagsPage Tests', () => {
     page.showTypeaheadOnClick.click();    
     
     page.clickOnTagsInput();
+    page.waitForTypeaheadListToBeDisplayed();
     expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(24);
     
   });

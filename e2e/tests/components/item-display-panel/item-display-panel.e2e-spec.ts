@@ -26,6 +26,7 @@ describe('Item Display Panel Tests', () => {
   it('should display the panel upon clicking', () => {
   
     page.clickARow(0);
+    page.waitForPanelToBeDisplayed();
     expect(page.confirmPanelIsDisplayed()).toBeTruthy();
     expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PPT)');
     expect<any>(page.getPanelContent()).toEqual('Preview PPT');
@@ -38,6 +39,7 @@ describe('Item Display Panel Tests', () => {
   it('should display each item upon clicking next', () => {
   
     page.clickARow(0);
+    page.waitForPanelToBeDisplayed();
     expect(page.confirmRowIsHighlighted(0)).toBeTruthy();
     expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (PPT)');
     expect<any>(page.getPanelContent()).toEqual('Preview PPT');
@@ -67,6 +69,7 @@ describe('Item Display Panel Tests', () => {
   it('should display each item upon clicking previous', () => {
   
     page.clickARow(4);
+    page.waitForPanelToBeDisplayed();
     expect(page.confirmRowIsHighlighted(4)).toBeTruthy();
     expect<any>(page.getPanelHeader()).toEqual('Site Detail - UX Aspects (DOC)');
     expect<any>(page.getPanelContent()).toEqual('Preview DOC');
@@ -98,6 +101,7 @@ describe('Item Display Panel Tests', () => {
   it('should be possible to use the close button to close the panel', () => {
   
     page.clickARow(4);
+    page.waitForPanelToBeDisplayed();
     expect(page.confirmPanelIsDisplayed()).toBeTruthy();
     page.clickCloseButton();
     expect(page.confirmPanelIsDisplayed()).toBeFalsy();
