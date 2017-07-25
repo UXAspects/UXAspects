@@ -35,7 +35,7 @@ export class ItemDisplayPanelPage {
     }
     
     waitForPanelToBeDisplayed() {
-        browser.wait(protractor.ExpectedConditions.visibilityOf(this.panel1));
+        return browser.wait(protractor.ExpectedConditions.visibilityOf(this.panel1));
     }
     
     confirmPanelIsDisplayed() {

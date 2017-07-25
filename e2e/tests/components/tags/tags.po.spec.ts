@@ -107,7 +107,7 @@ export class TagsPage {
     }
 
     waitForTypeaheadListToBeDisplayed() {
-        browser.wait(protractor.ExpectedConditions.visibilityOf(this.tagsInput.$('ux-typeahead')));
+        return browser.wait(protractor.ExpectedConditions.visibilityOf(this.tagsInput.$('ux-typeahead')));
     }
     
     getNumberOfTagsInTypeaheadList() {
