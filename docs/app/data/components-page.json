@@ -796,6 +796,20 @@
                     "component": "ComponentsInfiniteScrollLoadMoreNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
+                },
+                {
+                    "title": "Virtual Scroll",
+                    "component": "ComponentsVirtualScrollComponent",
+                    "version": "Angular",
+                    "usage": [{
+                            "title": "Selector",
+                            "content": "ux-virtual-scroll"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "VirtualScrollModule"
+                        }
+                    ]
                 }
             ]
         },
