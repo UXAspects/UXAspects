@@ -210,18 +210,20 @@ describe('TagsPage Tests', () => {
     page.toggleCustomizeExampleSection();
     page.enableTypeahead.click();
     
-    page.sendCharactersToTagsInput('l');    
-    expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
+    page.sendCharactersToTagsInput('l');
+    page.waitForTypeaheadListToBeDisplayed().then(() => {
+        expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
     
-    // The first list item, 'Alpha', should be disabled.
-    expect(page.confirmTypeaheadItemIsDisabled(0)).toBeTruthy();
-    expect(page.confirmTypeaheadItemIsDisabled(1)).toBeFalsy();
-    expect(page.confirmTypeaheadItemIsDisabled(4)).toBeFalsy();
+        // The first list item, 'Alpha', should be disabled.
+        expect(page.confirmTypeaheadItemIsDisabled(0)).toBeTruthy();
+        expect(page.confirmTypeaheadItemIsDisabled(1)).toBeFalsy();
+        expect(page.confirmTypeaheadItemIsDisabled(4)).toBeFalsy();
     
-    // The second list item, 'Delta', should be highlighted.
-    expect(page.confirmTypeaheadItemIsHighlighted(0)).toBeFalsy();
-    expect(page.confirmTypeaheadItemIsHighlighted(1)).toBeTruthy();
-    expect(page.confirmTypeaheadItemIsHighlighted(4)).toBeFalsy();
+        // The second list item, 'Delta', should be highlighted.
+        expect(page.confirmTypeaheadItemIsHighlighted(0)).toBeFalsy();
+        expect(page.confirmTypeaheadItemIsHighlighted(1)).toBeTruthy();
+        expect(page.confirmTypeaheadItemIsHighlighted(4)).toBeFalsy();
+    });
     
   });
   
@@ -230,10 +232,12 @@ describe('TagsPage Tests', () => {
     page.toggleCustomizeExampleSection();
     page.enableTypeahead.click();
     page.sendCharactersToTagsInput('l');
-    expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
-    page.addTypeaheadItem(4);
-    expect<any>(page.getNumberOfTags()).toEqual(4);
-    expect<any>(page.getTagName(3)).toEqual('Upsilon');
+    page.waitForTypeaheadListToBeDisplayed().then(() => {
+        expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
+        page.addTypeaheadItem(4);
+        expect<any>(page.getNumberOfTags()).toEqual(4);
+        expect<any>(page.getTagName(3)).toEqual('Upsilon');
+    });
     
   });
   
@@ -243,21 +247,25 @@ describe('TagsPage Tests', () => {
     page.toggleCustomizeExampleSection();
     page.enableTypeahead.click();
     page.sendCharactersToTagsInput('l');
-    expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);    
-    page.sendCharactersToTagsInput('l');
-    page.sendCharactersToTagsInput(Key.ENTER);
-    expect<any>(page.getNumberOfTags()).toEqual(4);
-    expect<any>(page.getTagName(3)).toEqual('ll');
+    page.waitForTypeaheadListToBeDisplayed().then(() => {
+        expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);    
+        page.sendCharactersToTagsInput('l');
+        page.sendCharactersToTagsInput(Key.ENTER);
+        expect<any>(page.getNumberOfTags()).toEqual(4);
+        expect<any>(page.getTagName(3)).toEqual('ll');
     
-    // Turn freeInput off. A name which is not in the typeahead list should not be converted to a tag.
-    page.freeInput.click();
+        // Turn freeInput off. A name which is not in the typeahead list should not be converted to a tag.
+        page.freeInput.click();
     
-    page.sendCharactersToTagsInput('l');
-    expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
-    page.sendCharactersToTagsInput('l2');
-    page.sendCharactersToTagsInput(Key.ENTER);
-    expect<any>(page.getNumberOfTags()).toEqual(4);
-    expect<any>(page.getTagName(3)).toEqual('ll');
+        page.sendCharactersToTagsInput('l');
+        page.waitForTypeaheadListToBeDisplayed().then(() => {
+            expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
+            page.sendCharactersToTagsInput('l2');
+            page.sendCharactersToTagsInput(Key.ENTER);
+            expect<any>(page.getNumberOfTags()).toEqual(4);
+            expect<any>(page.getTagName(3)).toEqual('ll');
+        });
+    });
     
   });
   
@@ -269,8 +277,10 @@ describe('TagsPage Tests', () => {
     
     // 'Delta' should not be highlighted in the list.
     page.sendCharactersToTagsInput('l');
-    expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
-    expect(page.confirmTypeaheadItemIsHighlighted(1)).toBeFalsy();
+    page.waitForTypeaheadListToBeDisplayed().then(() => {
+        expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(5);
+        expect(page.confirmTypeaheadItemIsHighlighted(1)).toBeFalsy();
+    });
     
   });
   
@@ -281,7 +291,9 @@ describe('TagsPage Tests', () => {
     page.showTypeaheadOnClick.click();    
     
     page.clickOnTagsInput();
-    expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(24);
+    page.waitForTypeaheadListToBeDisplayed().then(() => {
+        expect<any>(page.getNumberOfTagsInTypeaheadList()).toEqual(24);
+    });
     
   });
 });

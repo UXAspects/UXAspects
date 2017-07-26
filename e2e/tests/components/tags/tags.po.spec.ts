@@ -1,4 +1,4 @@
-import { browser, element, by, Key, ElementFinder } from 'protractor';
+import { browser, element, by, Key, ElementFinder, protractor } from 'protractor';
 
 export class TagsPage {
     
@@ -106,6 +106,10 @@ export class TagsPage {
         return this.tagsInput.$$('ol').get(0).$('li.ux-tag-input').$('input.ux-tag-input').getAttribute('placeholder');
     }
 
+    waitForTypeaheadListToBeDisplayed() {
+        return browser.wait(protractor.ExpectedConditions.visibilityOf(this.tagsInput.$('ux-typeahead')));
+    }
+    
     getNumberOfTagsInTypeaheadList() {
         return this.tagsInput.$('ux-typeahead').$('div.ux-typeahead-options').$('ol').$$('li').count();
     }
