@@ -1,17 +1,30 @@
-import { Component, Input, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, ViewChildren, QueryList, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
+import { ResizeService } from '../../../directives/resize/index';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation',
     templateUrl: './navigation.component.html'
 })
-export class PageHeaderNavigationComponent {
+export class PageHeaderNavigationComponent implements AfterViewInit {
     
     @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;
      
     @Input() items: PageHeaderNavigationItem[] = [];
 
-    onSelect(item: PageHeaderNavigationItem) {
+    indicatorVisible: boolean = false;
+    indicatorX: number = 0;
+    indicatorWidth: number = 0;
+
+    constructor(elementRef: ElementRef, resizeService: ResizeService, renderer: Renderer2) {
+        resizeService.addResizeListener(elementRef.nativeElement, renderer).subscribe(this.updateSelectedIndicator.bind(this));
+    }
+
+    ngAfterViewInit(): void {
+        this.updateSelectedIndicator();
+    }
+
+    onSelect(item: PageHeaderNavigationItem): void {
         
         if (item.select) {
             item.select.call(item, item);
@@ -19,13 +32,16 @@ export class PageHeaderNavigationComponent {
 
         // deselect all items in all menus
         this.deselectAll();
+
+        // update the selected indicator
+        this.updateSelectedIndicator();
     }
 
-    deselectAll() {
+    deselectAll(): void {
         this.items.forEach(item => this.deselect(item));
     }
 
-    deselect(navItem: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem) {
+    deselect(navItem: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem): void {
         
         // deselect the current item
         navItem.selected = false;
@@ -34,6 +50,29 @@ export class PageHeaderNavigationComponent {
         if (navItem.children) {
             navItem.children.forEach(item => this.deselect(item));
         }
+
+        // update the selected indicator
+        this.updateSelectedIndicator();
+    }
+
+    updateSelectedIndicator(): void {
+
+        setTimeout(() => {
+
+            // find the selected item
+            let selectedItem = this.menuItems.find(item => item.item.selected);
+
+            // determine whether or not to show the indicator
+            this.indicatorVisible = !!selectedItem;
+
+            // set the width of the indicator to match the width of the navigation item
+            if (selectedItem) {
+                let styles = getComputedStyle(selectedItem.elementRef.nativeElement);
+
+                this.indicatorX = selectedItem.elementRef.nativeElement.offsetLeft;
+                this.indicatorWidth = parseInt(styles.getPropertyValue('width'));
+            }
+        });
     }
 
 }

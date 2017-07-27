@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
+import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
 
 @Component({
     selector: 'ux-page-header',
@@ -22,6 +23,8 @@ export class PageHeaderComponent {
     @Input() backVisible: boolean = true;
     
     @Output() backClick = new EventEmitter();
+
+    @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;
 
     goBack() {
         this.backClick.emit();
