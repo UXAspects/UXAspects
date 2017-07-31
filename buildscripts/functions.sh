@@ -3,31 +3,41 @@
 UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
 UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.10.0
 
-# Define a function to build a specified Docker image.
+UX_ASPECTS_QUANTUM_BUILD_IMAGE_NAME=ux-aspects-quantum-build
+UX_ASPECTS_QUANTUM_BUILD_IMAGE_TAG_LATEST=0.1.0
+
+# Define a functions to build a specified Docker image.
 docker_image_build()
 {
     dockerfileLocation=$1
+    dockerfileName=$2
+    imageName=$3
+    imageTag=$4
     
     echo ${FUNCNAME[0]} - dockerfileLocation is $dockerfileLocation
+    echo ${FUNCNAME[0]} - dockerfileName is $dockerfileName
+    echo ${FUNCNAME[0]} - imageName is $imageName
+    echo ${FUNCNAME[0]} - imageTag is $imageTag
     echo ${FUNCNAME[0]} - HttpProxy is $HttpProxy
     echo ${FUNCNAME[0]} - HttpsProxy is $HttpsProxy
     echo Displaying Docker version
     docker -v
     echo
     
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
+    DOCKER_IMAGE_ID=`docker images | grep $imageName | grep $imageTag | awk '{print $3}'`
+    echo ID for $imageName:$imageTag image is $DOCKER_IMAGE_ID
     if [ -z "$DOCKER_IMAGE_ID" ] ; then
         # Create the docker image
         pushd $dockerfileLocation
         echo Building the image
-        docker build -t $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
+        docker build -t $imageName:$imageTag \
             --build-arg http_proxy=$HttpProxy \
             --build-arg https_proxy=$HttpsProxy \
             --build-arg no_proxy="localhost, 127.0.0.1" \
             --no-cache .
-        DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-        echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
+            -f $dockerfileName
+        DOCKER_IMAGE_ID=`docker images | grep $imageName | grep $imageTag | awk '{print $3}'`
+        echo ID for new $imageName:$imageTag image is $DOCKER_IMAGE_ID
         popd
     fi
 }
@@ -74,22 +84,26 @@ docker_image_run_detached()
 docker_image_run()
 {
     localRootFolder=$1
-    command=$2
+    imageName=$2
+    imageTag=$3
+    command=$4
     
     echo ${FUNCNAME[0]} - localRootFolder is $localRootFolder
+    echo ${FUNCNAME[0]} - imageName is $imageName
+    echo ${FUNCNAME[0]} - imageTag is $imageTag
     echo ${FUNCNAME[0]} - command is $command
     
-    DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
-    echo ID for $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
+    DOCKER_IMAGE_ID=`docker images | grep $imageName | grep $imageTag | awk '{print $3}'`
+    echo ID for $imageName:$imageTag image is $DOCKER_IMAGE_ID
     if [ -z "$DOCKER_IMAGE_ID" ] ; then
-        echo Image $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST does not exist!
+        echo Image $imageName:$imageTag does not exist!
     else
         pushd $localRootFolder
         echo Calling docker run with command ... "$command"
         dockerCommand="docker run --rm --volume \"$PWD\":/workspace \
             --workdir /workspace \
             --user $UID:$GROUPS \
-            $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
+            $imageName:$imageTag \
             $command"
         
         echo dockerCommand is $dockerCommand

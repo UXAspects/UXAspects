@@ -80,12 +80,13 @@ if [ "$RunTests" == "true" ]; then
 fi
 
 # Create the latest ux-aspects-build image if it does not exist
-docker_image_build "$WORKSPACE/docker"; echo
+docker_image_build "$WORKSPACE/docker" "Dockerfile" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST; echo
 
 if [ "$RunTests" == "true" ]; then
     echo Executing the unit tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
     chmod a+rw .
-    docker_image_run "$WORKSPACE" "bash buildscripts/executeUnitTestsDocker.sh"
+    docker_image_run "$WORKSPACE" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
+        "bash buildscripts/executeUnitTestsDocker.sh"
 
     # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
     # ignore unwanted strings.
@@ -217,7 +218,8 @@ cp -p -r ux-aspects-hpe-master/styles $WORKSPACE/src
 popd
 
 # Update JSON files with the new version number
-docker_image_run "$WORKSPACE" "bash buildscripts/updateVersionNumbers.sh $NextVersion"
+docker_image_run "$WORKSPACE" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
+    "bash buildscripts/updateVersionNumbers.sh $NextVersion"
 
 # Record the product name read from bower.json
 bowerName=$(<"$PWD/bowerName.txt")
@@ -228,10 +230,10 @@ rm -f bowerName.txt
 echo
 echo Building using the HPE theme
 echo Run npm install
-docker_image_run "$WORKSPACE" "npm install"
+docker_image_run "$WORKSPACE" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "npm install"
 echo Building
-docker_image_run "$WORKSPACE" "grunt clean"
-docker_image_run "$WORKSPACE" "grunt build --force"
+docker_image_run "$WORKSPACE" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "grunt clean"
+docker_image_run "$WORKSPACE" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "grunt build --force"
 
 # Archive the HPE-themed documentation files
 echo
@@ -289,9 +291,9 @@ cp -p -r $WORKSPACE/KeppelThemeFiles/* $WORKSPACE/src
 # Build using the Keppel theme
 echo
 echo Building using the Keppel theme
-docker_image_run "$WORKSPACE" "grunt clean"
+docker_image_run "$WORKSPACE" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "grunt clean"
 rm -rf dist
-docker_image_run "$WORKSPACE" "grunt build --force"
+docker_image_run "$WORKSPACE" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "grunt build --force"
 
 # Archive the Keppel-themed documentation files
 echo

@@ -22,25 +22,24 @@ echo PWD is $PWD
 echo HOME is $HOME
 
 echo Moving to repository
-cd $WORKSPACE/ux-aspects
-
-echo
+cd $WORKSPACE/ux-aspects; echo
 
 # Create the latest ux-aspects-build image if it does not exist
 docker_image_build "$WORKSPACE/ux-aspects/docker"; echo
 
 # Update assetsUrl in config.json
 echo Updating assetsUrl in config.json
-docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/updateConfigJSON.sh $theme"
+docker_image_run "$WORKSPACE/ux-aspects" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
+    "bash buildscripts/updateConfigJSON.sh $theme"
 
 # Build the documentation
 cd $WORKSPACE/ux-aspects
 echo Run npm install
-docker_image_run "$WORKSPACE/ux-aspects" "npm install"
+docker_image_run "$WORKSPACE/ux-aspects" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "npm install"
 echo Building the documentation
-docker_image_run "$WORKSPACE/ux-aspects" "grunt clean"
+docker_image_run "$WORKSPACE/ux-aspects" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "grunt clean"
 rm -rf dist
-docker_image_run "$WORKSPACE/ux-aspects" "grunt build --force"
+docker_image_run "$WORKSPACE/ux-aspects" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST "grunt build --force"
 
 # Clean up previous build
 rm -f $WORKSPACE/ux-aspects/docs-gh-pages-$theme.tar.gz

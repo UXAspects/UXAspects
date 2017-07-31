@@ -1,0 +1,29 @@
+########################################
+#      UX Aspects Ruby sass Build      #
+########################################
+
+# Set the base image for this installation
+FROM ruby:2.2.7
+
+# File Author / Maintainer
+MAINTAINER Pearse McMurray (pearse.mcmurray@hpe.com)
+
+ENV NODE_VERSION 7.9.0
+ENV NODE_DIR /opt/nodejs
+
+# Install NodeJS
+RUN mkdir ${NODE_DIR} && \
+    curl -L https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz | tar xvzf - -C ${NODE_DIR} --strip-components=1
+
+# Add Node Directory to path variables
+ENV PATH $PATH:${NODE_DIR}/bin
+
+# Set default encoding for Ruby
+ENV RUBYOPT "-E utf-8"
+
+# Install Prerequisites
+RUN gem install sass && \
+    npm install -g grunt-cli && \
+    mkdir /.npm && \
+    chmod a+rw /.npm && \
+    chmod a+rw /home
