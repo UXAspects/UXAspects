@@ -7,10 +7,10 @@
     </ng-container>
 
     <!-- Loading Indicator -->
-    <ng-container *ngIf="loadingIndicatorTemplate" [ngTemplateOutlet]="loadingIndicatorTemplate"></ng-container>
+    <ng-container *ngIf="loadingIndicatorTemplate && isLoading" [ngTemplateOutlet]="loadingIndicatorTemplate"></ng-container>
 
     <!-- Loading Button -->
-    <div class="virtual-scroll-load-button" *ngIf="loadButtonTemplate" (click)="loadNextPage()">
+    <div class="virtual-scroll-load-button" *ngIf="loadButtonTemplate && !loadOnScroll && !loadingComplete && !isLoading" (click)="loadNextPage()">
         <ng-container *ngTemplateOutlet="loadButtonTemplate"></ng-container>
     </div>
     

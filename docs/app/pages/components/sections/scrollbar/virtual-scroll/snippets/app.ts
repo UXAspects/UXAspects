@@ -1,46 +1,18 @@
 import 'chance';
-import { BaseDocumentationSection} from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { Component, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 
 @Component({
-    selector: 'uxd-components-virtual-scroll',
-    templateUrl: './virtual-scroll.component.html',
-    styleUrls: ['./virtual-scroll.component.less']
+    selector: 'app',
+    templateUrl: './src/app.component.html',
+    styleUrls: ['./src/app.component.css']
 })
-@DocumentationSectionComponent('ComponentsVirtualScrollComponent')
-export class ComponentsVirtualScrollComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class AppComponent {
 
     loadOnScroll: boolean = true;
     employees: Subject<Employee[]> = new Subject<Employee[]>();
-
-    plunk: IPlunk = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss
-        },
-        modules: [
-            {
-                imports: ['VirtualScrollModule', 'CheckboxModule'],
-                library: 'ux-aspects'
-            },
-            {
-                imports: ['AccordionModule'],
-                library: 'ngx-bootstrap/accordion',
-                forRoot: true
-            }
-        ]
-    };
-
-    constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
 
     loadPage(pageNumber: number): void {
 

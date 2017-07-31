@@ -1,4 +1,5 @@
-<ux-virtual-scroll class="virtual-scroll-container" [collection]="items" [cellHeight]="63">
+<ux-virtual-scroll class="virtual-scroll-container" [collection]="employees" [cellHeight]="63" [loadOnScroll]="loadOnScroll"
+    (loading)="loadPage($event)">
 
     <div *uxVirtualScrollCell="let cell = cell" class="virtual-cell">
 
@@ -25,3 +26,95 @@
     </button>
 
 </ux-virtual-scroll>
+
+<div class="uxd-customize-example">
+    <accordion>
+        <accordion-group heading="Customize Example...">
+            <div class="row uxd-customize-row">
+                <div class="col-md-6 col-sm-12">
+                    <ux-checkbox [(value)]="loadOnScroll">loadOnScroll</ux-checkbox>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</div>
+
+<hr>
+
+<p>
+    The <code>ux-virtual-scroll</code> component is designed to allow you to display a list of many thousands of items without
+    any noticeable performance degradation.
+</p>
+
+<p>
+    This virtual scroll component is similar to the infinite scroll directive but will be much more performant with large datasets.
+    One limitation of the virtual scroll component is that each cell must be the same height.
+</p>
+
+<p>
+    The component supports both a "Load More" button and paging on scroll which can be styled using the <code>*uxVirtualScrollLoadButton</code>    
+    structural directive. The loading indicator can also be defined using then <code>*uxVirtualScrollLoading</code> structural directive.
+</p>
+
+<p>The following attributes can be used to customize the component:</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><b>@Input</b> collection</td>
+            <td><b>Subject&lt;any[]&gt;</b></td>
+            <td>
+                A subject observable that will emit a page of items to display in the component. When all pages have been loaded, the <code>.complete()</code>
+                function should be called on the observable to prevent the component from trying to load any additional items. If you want to reset the list 
+                simply create a new subject instance and the list will remove all current items and request the first page of data.
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> loadOnScroll</td>
+            <td><b>boolean</b></td>
+            <td>
+                If <code>true</code> the next page of data will be requested when the scrollbar nears the end of the list. If <code>false</code> a "Load More" 
+                button will be displayed at the end of the list allowing the user to request additional items by clicking it. Default value is <code>true</code>.
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>@Input</b> cellHeight</td>
+            <td><b>number</b></td>
+            <td>
+                The height of the cells must be specified to allow scrolling to be optimized. Each cell must have the same height. This attribute is mandatory
+                and an error will appear if this value is not defined.
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>@Output</b> loading</td>
+            <td><b>number</b></td>
+            <td>
+                This will be called whenever a new page of data is requested. This should be used to provide the component with the next page of data via the subject observable.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>
