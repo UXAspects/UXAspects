@@ -1,4 +1,4 @@
-import { CheckboxModule, InfiniteScrollModule, NumberPickerModule } from '../../../../../../src/index';
+import { CheckboxModule, InfiniteScrollModule, NumberPickerModule, VirtualScrollModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import {
     DocumentationCategoryComponent
@@ -17,12 +17,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ComponentsVirtualScrollComponent } from './virtual-scroll/virtual-scroll.component';
 
 const SECTIONS = [
     ComponentsCustomScrollbarNg1Component,
     ComponentsInfiniteScrollComponent,
     ComponentsInfiniteScrollNg1Component,
-    ComponentsInfiniteScrollLoadMoreNg1Component
+    ComponentsInfiniteScrollLoadMoreNg1Component,
+    ComponentsVirtualScrollComponent
 ];
 
 const ROUTES = [
@@ -46,6 +48,7 @@ const ROUTES = [
         RouterModule.forChild(ROUTES),
         TabsModule,
         NumberPickerModule,
+        VirtualScrollModule,
         WrappersModule
     ],
     exports: SECTIONS,

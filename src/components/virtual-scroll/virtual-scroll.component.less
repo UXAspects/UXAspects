@@ -1,0 +1,14 @@
+ux-virtual-scroll {
+    position: relative;
+    display: block;
+    overflow: auto;
+
+    .virtual-scroll-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        will-change: transform;
+    }
+}

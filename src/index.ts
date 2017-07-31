@@ -21,6 +21,7 @@ export * from './components/tag-input/index';
 export * from './components/toggleswitch/index';
 export * from './components/typeahead/index';
 export * from './components/media-player/index';
+export * from './components/virtual-scroll/index';
 
 /*
   Export Directives

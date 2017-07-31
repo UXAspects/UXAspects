@@ -19,7 +19,7 @@
     "node_modules",
     "dist",
     "**/snippets/*.ts",
-    "**/e2e/**/*.ts",
+    "**/e2e",
     "test"
   ]
 }

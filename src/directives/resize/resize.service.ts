@@ -71,7 +71,7 @@ export class ResizeService {
         return subject;
     }
 
-    waitUntilReady(iframe: HTMLIFrameElement, callback: () => void) {
+    private waitUntilReady(iframe: HTMLIFrameElement, callback: () => void) {
         if (iframe.contentDocument || iframe.contentWindow) {
             callback.call(this);
         } else {
