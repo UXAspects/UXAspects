@@ -42,7 +42,7 @@ sed -i.bak 's/4000/$documentationPort/g' testng.xml    # Documentation wil be pu
 sed -i.bak 's/4444/$hubProcessPort/g' testng.xml       # The Selenium Grid hub process will use port 4445
 
 # Create the latest ux-aspects-build image if it does not exist
-docker_image_build "$rootFolder/ux-aspects/docker"; echo
+docker_image_build "$rootFolder/ux-aspects/docker" "Dockerfile" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST; echo
 echo Executing the Selenium tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
 
 # Remove any ContainerID file left behind by the previous container

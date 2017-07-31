@@ -15,7 +15,7 @@ sed -i.bak 's/hostname: '"'"'localhost'"'"'/hostname: '"'"'0.0.0.0'"'"'/' grunt/
 sed -i.bak 's/livereload: true/livereload: false/g' grunt/connect.js
 
 # Create the latest ux-aspects-build image if it does not exist
-docker_image_build "$rootFolder/docker"; echo
+docker_image_build "$rootFolder/docker" "Dockerfile" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST; echo
 echo Building the web service in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
 
 # Remove any ContainerID file left behind be the previous container

@@ -52,7 +52,7 @@ date -u >> UXAspectsTestsResults.html
 echo "</h2></br>" >> UXAspectsTestsResults.html
 
 # Create the latest elements-build image if it does not exist
-docker_image_build "$WORKSPACE/ux-aspects/docker"; echo
+docker_image_build "$WORKSPACE/ux-aspects/docker" "Dockerfile" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST; echo
 
 echo Executing the unit tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
 cd $WORKSPACE/ux-aspects
@@ -66,7 +66,8 @@ chmod a+rw .
 # ls -alR | grep root
 date -u > $WORKSPACE/ux-aspects/BeforeUnitTestsStarted
 ls -al BeforeUnitTestsStarted
-docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/executeUnitTestsDocker.sh"; echo
+docker_image_run "$WORKSPACE/ux-aspects" $UX_ASPECTS_BUILD_IMAGE_NAME $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
+    "bash buildscripts/executeUnitTestsDocker.sh"; echo
 
 # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
 # ignore unwanted strings.
