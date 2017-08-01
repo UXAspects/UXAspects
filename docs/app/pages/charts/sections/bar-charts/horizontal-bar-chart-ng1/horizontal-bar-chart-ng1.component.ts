@@ -13,10 +13,10 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ChartsHorizontalBarChartNg1Component')
 export class ChartsHorizontalBarChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private data: any;
-    private options: any;
+    data: any;
+    options: any;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'HorizontalBarChartCtrl as bc'

@@ -15,11 +15,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ChartsPartitionMapNg1Component')
 export class ChartsPartitionMapNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private data: any;
-    private options: any;
-    private isLoading: boolean;
+    data: any;
+    options: any;
+    isLoading: boolean;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'PartitionMapCtrl as vm'

@@ -28,7 +28,7 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
         name: 'Inactive'
     }];
 
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,

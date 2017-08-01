@@ -13,20 +13,20 @@ const chance = require('chance').Chance();
 @DocumentationSectionComponent('ChartsSocialChartNg1Component')
 export class ChartsSocialChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private minLabels: number;
-    private forceAtlasDuration: number;
-    private edgeWeightInfluence: boolean;
-    private options: any;
-    private detailStyle: any;
-    private communities: any;
-    private api: any;
-    private chartTitle: any;
-    private data: any;
-    private showMaximizeControl: boolean = false;
-    private startMaximized: boolean = false;
-    private templates: any;
+    minLabels: number;
+    forceAtlasDuration: number;
+    edgeWeightInfluence: boolean;
+    options: any;
+    detailStyle: any;
+    communities: any;
+    api: any;
+    chartTitle: any;
+    data: any;
+    showMaximizeControl: boolean = false;
+    startMaximized: boolean = false;
+    templates: any;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartExampleHtml,
         htmlAttributes: {
             'ng-controller': 'SocialCtrl as vm'

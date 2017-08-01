@@ -114,7 +114,7 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
         }
     }
 
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml,

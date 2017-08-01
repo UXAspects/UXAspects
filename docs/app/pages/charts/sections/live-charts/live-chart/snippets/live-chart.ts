@@ -18,7 +18,7 @@ export class AppComponent {
     lineChartLegend: boolean = false;
     lineChartColors: any;
 
-    private livedata: number[] = [];
+    livedata: number[] = [];
 
     constructor(colorService: ColorService) {
 

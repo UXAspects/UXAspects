@@ -5,14 +5,14 @@ import { Component } from '@angular/core';
     templateUrl: './src/app.component.html'
 })
 export class AppComponent {
-    private checkModel = {
+    checkModel = {
         option1: true,
         option2: false,
         option3: false,
         option4: false
     };
 
-    private simplified = false;
-    private indeterminateValue = -1;
-    private disableCheck = false;
+    simplified = false;
+    indeterminateValue = -1;
+    disableCheck = false;
 }

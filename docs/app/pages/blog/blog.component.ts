@@ -18,7 +18,7 @@ export class BlogPageComponent {
         allows us to convert markdown to html
         at compile time rather than run time.
     */
-    private posts: IBlogPost[];
+    posts: IBlogPost[];
 
     constructor(private domSanitizer: DomSanitizer) {
 

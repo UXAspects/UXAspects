@@ -11,10 +11,10 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsColumnVisibilityNg1Component')
 export class ComponentsColumnVisibilityNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private columns: any;
-    private tableData: any[];
+    columns: any;
+    tableData: any[];
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ColumnVisibilityCtrl as vm'

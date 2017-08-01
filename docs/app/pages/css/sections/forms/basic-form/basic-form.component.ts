@@ -13,7 +13,7 @@ export class CssBasicFormComponent extends BaseDocumentationSection implements I
 
     checked: boolean = false;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml
     };
 

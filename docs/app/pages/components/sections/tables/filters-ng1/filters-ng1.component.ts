@@ -9,9 +9,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsFiltersNg1Component')
 export class ComponentsFiltersNg1Component extends BaseDocumentationSection {
     
-    private filterContainerCode = this.snippets.compiled.filterContainerHtml;
-    private filterCode = this.snippets.compiled.filterHtml;
-    private filterOptionsCode = this.snippets.compiled.filterOptionsHtml;
+    filterContainerCode = this.snippets.compiled.filterContainerHtml;
+    filterCode = this.snippets.compiled.filterHtml;
+    filterOptionsCode = this.snippets.compiled.filterOptionsHtml;
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

@@ -15,7 +15,7 @@ export class ComponentsSliderChartsNg1Component extends BaseDocumentationSection
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'SlidersChartsCtrl as vm'

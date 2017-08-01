@@ -10,10 +10,10 @@ export class ResizeDirective {
     @Input() throttle: number = 0;
     @Output('uxResize') resize: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(private elementRef: ElementRef, private resizeService: ResizeService, private renderer: Renderer2) { }
+    constructor(private _elementRef: ElementRef, private _resizeService: ResizeService, private _renderer: Renderer2) { }
 
     ngOnInit(): void {
-        this.resizeService.addResizeListener(this.elementRef.nativeElement, this.renderer).debounceTime(this.throttle).subscribe(event => {
+        this._resizeService.addResizeListener(this._elementRef.nativeElement, this._renderer).debounceTime(this.throttle).subscribe(event => {
             this.resize.emit(event);
         });
     }

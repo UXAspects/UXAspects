@@ -9,7 +9,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('CssColorPaletteComponent')
 export class CssColorPaletteComponent {
 
-    private colors: object;
+    colors: object;
 
     constructor(private colorService: ColorService) {
 

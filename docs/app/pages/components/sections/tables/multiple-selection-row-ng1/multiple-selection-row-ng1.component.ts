@@ -9,7 +9,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsMultipleSelectionRowNg1Component')
 export class ComponentsMultipleSelectionRowNg1Component extends BaseDocumentationSection {
     
-    private htmlCode = this.snippets.compiled.layoutHtml;
+    htmlCode = this.snippets.compiled.layoutHtml;
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

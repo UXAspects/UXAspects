@@ -39,8 +39,8 @@ export class RadioButtonComponent implements ControlValueAccessor {
 
     private _value: any = false;
 
-    private onTouchedCallback: () => void = () => { };
-    private onChangeCallback: (_: any) => void = () => { };
+    onTouchedCallback: () => void = () => { };
+    onChangeCallback: (_: any) => void = () => { };
 
     @HostListener('click')
     checkItem() {

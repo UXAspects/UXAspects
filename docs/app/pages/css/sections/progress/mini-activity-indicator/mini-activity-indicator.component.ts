@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('CssMiniActivityIndicatorComponent')
 export class CssMiniActivityIndicatorComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: `${this.snippets.raw.sample1Html} ${this.snippets.raw.sample2Html} ${this.snippets.raw.sample3Html} ${this.snippets.raw.sample4Html}`
     };
 

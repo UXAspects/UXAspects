@@ -12,9 +12,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ChartsSparkChartNg1Component')
 export class ChartsSparkChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private charts: ISparkChart[];
+    charts: ISparkChart[];
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'SparkChartCtrl as vm'

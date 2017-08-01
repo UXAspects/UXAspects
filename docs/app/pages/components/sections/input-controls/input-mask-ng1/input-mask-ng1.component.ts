@@ -16,7 +16,7 @@ export class ComponentsInputMaskNg1Component extends BaseDocumentationSection im
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'InputMaskCtrl as vm'

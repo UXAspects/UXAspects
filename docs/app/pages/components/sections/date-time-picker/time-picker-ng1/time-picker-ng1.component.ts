@@ -16,7 +16,7 @@ export class ComponentsTimePickerNg1Component extends BaseDocumentationSection i
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TimePickerCtrl as vm'

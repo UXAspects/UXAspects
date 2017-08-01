@@ -10,11 +10,11 @@ angular.module('app').directive('uxdMultiColumnSortingWrapper', () => {
 
 class MultiColumnSortingController {
 
-    private activeSorter = ['none', 'none', 'none'];
-    private orderDesc = ['none', 'none', 'none'];
+    activeSorter = ['none', 'none', 'none'];
+    orderDesc = ['none', 'none', 'none'];
 
-    private sorterHeaders: any[];
-    private sortableTable: any[];
+    sorterHeaders: any[];
+    sortableTable: any[];
 
     static $inject = ['$scope'];
 

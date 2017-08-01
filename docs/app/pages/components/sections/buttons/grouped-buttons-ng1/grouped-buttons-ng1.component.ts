@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsGroupedButtonsNg1Component')
 export class ComponentsGroupedButtonsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.groupedButtonsTopHtml + '\n' + this.snippets.raw.groupedButtonsBottomHtml,
         htmlAttributes: {
             'ng-controller': 'GroupedButtonsCtrl as vm'

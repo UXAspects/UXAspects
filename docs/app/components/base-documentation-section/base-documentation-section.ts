@@ -2,7 +2,7 @@ import { ISnippets } from '../../interfaces/ISnippets';
 
 export abstract class BaseDocumentationSection {
 
-    protected snippets: ISnippets;
+    snippets: ISnippets;
 
     constructor(context?: __WebpackModuleApi.RequireContext) {
 

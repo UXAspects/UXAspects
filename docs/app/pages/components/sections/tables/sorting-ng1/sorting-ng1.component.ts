@@ -9,9 +9,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsSortingNg1Component')
 export class ComponentsSortingNg1Component extends BaseDocumentationSection {
     
-    private sortingCode = this.snippets.compiled.layoutHtml;
-    private htmlCode = this.snippets.compiled.sampleHtml;
-    private jsCode = this.snippets.compiled.sampleJs;
+    sortingCode = this.snippets.compiled.layoutHtml;
+    htmlCode = this.snippets.compiled.sampleHtml;
+    jsCode = this.snippets.compiled.sampleJs;
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

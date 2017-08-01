@@ -11,7 +11,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('ComponentsCollapsiblePanelsNg1Component')
 export class ComponentsCollapsiblePanelsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'CollapsiblePanelsDemoCtrl as vm'

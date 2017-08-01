@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
     templateUrl: './text-page-layout.component.html',
     styleUrls: ['./text-page-layout.component.less']
 })
-export class TextPageLayoutComponent {
-    constructor() {}
-}
+export class TextPageLayoutComponent { }

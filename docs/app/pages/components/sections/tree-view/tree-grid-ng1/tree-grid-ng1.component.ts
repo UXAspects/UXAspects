@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsTreeGridNg1Component')
 export class ComponentsTreeGridNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private actionsHtml = require('./wrapper/actions.html');
-    private displayPanel = require('./wrapper/displayPanel.html');
-    private displayPanelFooter = require('./wrapper/displayPanelFooter.html');
+    actionsHtml = require('./wrapper/actions.html');
+    displayPanel = require('./wrapper/displayPanel.html');
+    displayPanelFooter = require('./wrapper/displayPanelFooter.html');
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TreeGridCtrl as vm'

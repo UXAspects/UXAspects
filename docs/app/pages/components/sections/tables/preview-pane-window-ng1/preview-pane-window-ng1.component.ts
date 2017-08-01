@@ -11,13 +11,13 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsPreviewPaneWindowNg1Component')
 export class ComponentsPreviewPaneWindowNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     
-    private sampleCode = this.snippets.compiled.sampleHtml;
-    private htmlCode = this.snippets.compiled.layoutHtml;
-    private jsCode = this.snippets.compiled.controllerJs;
-    private cssCode = this.snippets.compiled.stylesCss;
-    private footerCode = this.snippets.compiled.footerHtml;
+    sampleCode = this.snippets.compiled.sampleHtml;
+    htmlCode = this.snippets.compiled.layoutHtml;
+    jsCode = this.snippets.compiled.controllerJs;
+    cssCode = this.snippets.compiled.stylesCss;
+    footerCode = this.snippets.compiled.footerHtml;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'PreviewPaneWindowCtrl as vm'

@@ -11,27 +11,27 @@ angular.module('app').directive('uxdPreviewPaneWindowWrapper', () => {
 
 class PreviewPaneWindowController {
 
-    private sparklabel: any;
-    private previewFile: string;
-    private previewTitle: string;
-    private previewSubtitle: string;
-    private previewEmptyText = 'No document selected';
-    private previewName = 'preview-pane-example';
-    private selectedIndex = 0;
-    private reviewed = false;
-    private signed = '';
-    private items: any[];
-    private childScope: angular.IScope;
-    private bottomLeftLabel = "<span class='spark-bottom-label'>completed</span>";
+    sparklabel: any;
+    previewFile: string;
+    previewTitle: string;
+    previewSubtitle: string;
+    previewEmptyText = 'No document selected';
+    previewName = 'preview-pane-example';
+    selectedIndex = 0;
+    reviewed = false;
+    signed = '';
+    items: any[];
+    childScope: angular.IScope;
+    bottomLeftLabel = "<span class='spark-bottom-label'>completed</span>";
 
-    private scrollBarConfig = {
+    scrollBarConfig = {
         enableKeyboardNavigation: true,
         verticalGutter: -10,
         resizeSensor: true,
         isScrollableH: false
     };
 
-    private tooltip = {
+    tooltip = {
         content: 'Opens another window for a larger or full-screen preview',
         dismiss: 'HIDE TIP',
         direction: 'right',

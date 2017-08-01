@@ -15,15 +15,12 @@ export class PageHeaderNavigationDropdownItemComponent {
 
     dropdownOpen: boolean = false;
 
-    private dropdownEvents: Subject<boolean>;
+    private _dropdownEvents: Subject<boolean> = new Subject<boolean>();
 
     constructor() {
 
-        // create a new subject observable
-        this.dropdownEvents = new Subject<boolean>();
-
         // subscribe to stream with a debounce (a small debounce is all that is required)
-        this.dropdownEvents.debounceTime(1).subscribe(visible => this.dropdownOpen = visible);
+        this._dropdownEvents.debounceTime(1).subscribe(visible => this.dropdownOpen = visible);
     }
 
     selectItem(item: PageHeaderNavigationDropdownItem, parentItem?: PageHeaderNavigationDropdownItem) {
@@ -46,11 +43,11 @@ export class PageHeaderNavigationDropdownItemComponent {
     }
 
     hoverStart() {
-        this.dropdownEvents.next(true);
+        this._dropdownEvents.next(true);
     }
 
     hoverLeave() {
-        this.dropdownEvents.next(false);
+        this._dropdownEvents.next(false);
     }
 
     close() {

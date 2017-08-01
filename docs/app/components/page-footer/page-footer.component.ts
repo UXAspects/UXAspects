@@ -11,11 +11,11 @@ import { IFooter } from '../../interfaces/IFooter';
 })
 export class PageFooterComponent {
     
-    private copyright: string;
-    private logo: string;
-    private columns: IFooterColumn[];
-    private feedback: ILink;
-    private year: number;
+    copyright: string;
+    logo: string;
+    columns: IFooterColumn[];
+    feedback: ILink;
+    year: number;
 
     constructor() {
         // get the footer navigation data

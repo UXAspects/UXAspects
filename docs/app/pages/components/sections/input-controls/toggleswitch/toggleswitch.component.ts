@@ -11,10 +11,10 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsToggleSwitchComponent')
 export class ComponentsToggleSwitchComponent extends BaseDocumentationSection  implements IPlunkProvider {
 
-  public toggleSwitches: any;
-  public toggleSwitchDisable: boolean;
+  toggleSwitches: any;
+  toggleSwitchDisable: boolean;
 
-  public plunk: IPlunk = {
+  plunk: IPlunk = {
       files: {
           'app.component.ts': this.snippets.raw.appTs,
           'app.component.html': this.snippets.raw.appHtml

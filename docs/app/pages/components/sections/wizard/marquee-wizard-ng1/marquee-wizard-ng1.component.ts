@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsMarqueeWizardNg1Component')
 export class ComponentsMarqueeWizardNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.modalHtml,
         htmlAttributes: {
             'ng-controller': 'MarqueeModalCtrl as vm'

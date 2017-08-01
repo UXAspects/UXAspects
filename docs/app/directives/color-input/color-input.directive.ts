@@ -11,7 +11,7 @@ export class ColorInputDirective implements OnChanges {
 
     @Input('uxd-color-input') value: string; 
 
-    private shadowStyle: SafeStyle;
+    shadowStyle: SafeStyle;
 
     constructor(private domSanitizer: DomSanitizer) { }
 

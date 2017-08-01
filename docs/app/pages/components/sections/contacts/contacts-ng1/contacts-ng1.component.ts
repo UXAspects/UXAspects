@@ -10,7 +10,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('ComponentsContactsNg1Component')
 export class ComponentsContactsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.contactsHtml,
         htmlAttributes: {
             'ng-controller': 'ContactsDemoCtrl as vm'

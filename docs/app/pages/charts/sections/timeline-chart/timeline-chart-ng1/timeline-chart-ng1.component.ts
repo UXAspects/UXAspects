@@ -13,12 +13,12 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ChartsTimelineChartNg1Component')
 export class ChartsTimelineChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private timelineData: any;
-    private timelineOptions: any;
-    private detailedData: any;
-    private detailedOptions: any;
+    timelineData: any;
+    timelineOptions: any;
+    detailedData: any;
+    detailedOptions: any;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'TimelineChartCtrl as tc'

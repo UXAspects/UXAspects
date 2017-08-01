@@ -13,10 +13,10 @@ const chance = require('chance').Chance();
 @DocumentationSectionComponent('ChartsOrganizationChartNg1Component')
 export class ChartsOrganizationChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private data: IOrganizationChartNode;
-    private options: any;
+    data: IOrganizationChartNode;
+    options: any;
     
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartHtml,
         htmlTemplates: [
             {

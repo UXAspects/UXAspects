@@ -13,11 +13,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ChartsPeityChartNg1Component')
 export class ChartsPeityChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private lineChart: any;
-    private updatingLineChart: any;
-    private barChart: any;
+    lineChart: any;
+    updatingLineChart: any;
+    barChart: any;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'PeityChartCtrl as pc'

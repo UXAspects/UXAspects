@@ -4,11 +4,11 @@ export class TagInputEvent {
 
     constructor(public tag: any) {}
 
-    public preventDefault() {
+    preventDefault() {
         this._defaultPrevented = true;
     }
 
-    public defaultPrevented(): boolean {
+    defaultPrevented(): boolean {
         return this._defaultPrevented;
     }
 }

@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsFacetLineChartNg1Component')
 export class ComponentsFacetLineChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.appHtml,
         js: [this.snippets.raw.appJs],
         css: [this.snippets.raw.appCss]

@@ -12,10 +12,10 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 export class ComponentsRadioButtonsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     // Radio model
-    public primaryRadioValue = 'left';
-    public accentRadioValue = 'left';
+    primaryRadioValue = 'left';
+    accentRadioValue = 'left';
 
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs

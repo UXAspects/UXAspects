@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsFlippableCardsNg1Component')
 export class ComponentsFlippableCardsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.appHtml,
         htmlAttributes: {
             'ng-controller': 'FlippableCardCtrl as vm'

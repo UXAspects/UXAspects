@@ -9,7 +9,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsLayoutSwitchingNg1Component')
 export class ComponentsLayoutSwitchingNg1Component extends BaseDocumentationSection {
     
-    private htmlCode = this.snippets.compiled.sampleHtml;
+    htmlCode = this.snippets.compiled.sampleHtml;
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

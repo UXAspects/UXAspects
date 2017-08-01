@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsNavigationMenuServiceNg1Component')
 export class ComponentsNavigationMenuServiceNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutExampleHtml,
         css: [this.snippets.raw.stylesExampleCss],
         js: [this.snippets.raw.controllerJs]

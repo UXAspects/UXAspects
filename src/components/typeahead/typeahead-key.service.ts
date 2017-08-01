@@ -6,7 +6,7 @@ export class TypeaheadKeyService {
 
     constructor() { }
 
-    public handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent) {
+    handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent) {
         if (typeahead) {
             switch (event.key) {
                 case 'ArrowUp':

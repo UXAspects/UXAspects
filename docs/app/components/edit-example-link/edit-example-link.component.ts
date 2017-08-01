@@ -22,8 +22,6 @@ export class EditExampleLinkComponent {
     @Input() type: 'codepen' | 'plunker';
     @Input() version: 'Angular' | 'AngularJS' = 'Angular';
 
-    private linkClickHandler = this.linkClick.bind(this);
-
     constructor(private editExampleService: EditExampleService) {}
 
     linkClick(event: MouseEvent) {

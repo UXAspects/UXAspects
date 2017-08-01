@@ -50,7 +50,7 @@ export class ChartsLiveChartComponent extends BaseDocumentationSection implement
     lineChartLegend: boolean = false;
     lineChartColors: any;
 
-    private livedata: number[] = [];
+    livedata: number[] = [];
 
     constructor(colorService: ColorService) {
         super(require.context('./snippets/', false, /(html|css|js|ts)$/));

@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsGridNg1Component')
 export class ComponentsGridNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.appHtml,
         htmlAttributes: {
             'ng-controller': 'GridDemoCtrl as vm'

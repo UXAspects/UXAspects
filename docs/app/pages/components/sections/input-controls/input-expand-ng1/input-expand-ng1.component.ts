@@ -16,7 +16,7 @@ export class ComponentsInputExpandNg1Component extends BaseDocumentationSection 
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'InputExpandCtrl as vm'

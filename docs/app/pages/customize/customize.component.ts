@@ -8,8 +8,8 @@ import { ICustomisePage, ICustomisePageSection, ICustomisePageVariable } from '.
 })
 export class CustomizePageComponent {
 
-    private sections: ICustomisePageSection[];
-    private variables: any;
+    sections: ICustomisePageSection[];
+    variables: any;
 
     constructor(private lessService: LessService) {
 

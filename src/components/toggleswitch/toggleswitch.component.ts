@@ -38,8 +38,8 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
 
     private _value: boolean = false;
 
-    private onTouchedCallback: () => void = () => { };
-    private onChangeCallback: (_: any) => void = () => { };
+    onTouchedCallback: () => void = () => { };
+    onChangeCallback: (_: any) => void = () => { };
 
     toggleChecked() {
         if (!this.disabled && this.clickable) {

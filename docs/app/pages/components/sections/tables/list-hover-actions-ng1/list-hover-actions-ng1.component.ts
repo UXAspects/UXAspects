@@ -9,7 +9,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsListHoverActionsNg1Component')
 export class ComponentsListHoverActionsNg1Component extends BaseDocumentationSection {
     
-    private htmlCode = this.snippets.compiled.sampleHtml;
+    htmlCode = this.snippets.compiled.sampleHtml;
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsToggleButtonsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     
     
-    public codepen = {
+    codepen = {
         html: this.snippets.raw.toggleButtonsTopHtml + '\n' + this.snippets.raw.toggleButtonsBottomHtml
     };
 

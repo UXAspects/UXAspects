@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsPaginationNg1Component')
 export class ComponentsPaginationNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.paginationHtml,
         htmlAttributes: {
             'ng-controller': 'PaginationCtrl as vm'

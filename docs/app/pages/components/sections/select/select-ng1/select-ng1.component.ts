@@ -16,7 +16,7 @@ export class ComponentsSelectNg1Component extends BaseDocumentationSection imple
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'SelectDemoCtrl as vm'

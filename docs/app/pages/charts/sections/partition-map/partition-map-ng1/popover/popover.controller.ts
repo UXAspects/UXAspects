@@ -1,6 +1,6 @@
 class PartitionMapPopoverCtrl {
 
-    private lineChart: any;
+    lineChart: any;
 
     static $inject = ['$scope'];
 

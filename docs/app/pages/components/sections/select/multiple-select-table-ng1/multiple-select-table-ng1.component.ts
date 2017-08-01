@@ -12,13 +12,13 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsMultipleSelectTableNg1Component')
 export class ComponentsMultipleSelectTableNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codeSnippet = '{ id: 1, name: "Eric Carpenter" }';
+    codeSnippet = '{ id: 1, name: "Eric Carpenter" }';
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'MultipleSelectTableCtrl as vm'

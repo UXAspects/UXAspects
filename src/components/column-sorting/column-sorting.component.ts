@@ -13,14 +13,14 @@ export class ColumnSortingComponent {
     @Input() orderNumber: number;
     @Output() stateChange: EventEmitter<ColumnSortingState> = new EventEmitter<ColumnSortingState>();
 
-    private parent: ColumnSortingDirective;
+    private _parent: ColumnSortingDirective;
     columnSortingState = ColumnSortingState;
 
     initParent(parent: ColumnSortingDirective) {
-        this.parent = parent;
+        this._parent = parent;
 
         // watch for any events
-        this.parent.events.subscribe(event => {
+        this._parent.events.subscribe(event => {
 
             let idx = event.findIndex(column => column.key === this.key);
 
@@ -51,7 +51,7 @@ export class ColumnSortingComponent {
         }
 
         // inform parent
-        return this.parent.toggleColumn(this.key, this.state);
+        return this._parent.toggleColumn(this.key, this.state);
 
     }
 }

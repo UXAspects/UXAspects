@@ -11,7 +11,7 @@ export class SectionSelectComponent implements OnInit, OnDestroy {
 
     @Input() navigation: IDocumentationPage;
 
-    private section: any;
+    section: any;
     private path: string;
     private routeSubscription: Subscription;
 

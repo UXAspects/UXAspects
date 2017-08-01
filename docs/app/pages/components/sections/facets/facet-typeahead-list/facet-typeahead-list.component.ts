@@ -18,7 +18,7 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
     facets: Observable<Facet[]>;
     suggestions: Facet[] = [];
 
-    private users: Facet[] = [];
+    users: Facet[] = [];
 
     plunk: IPlunk = {
         files: {

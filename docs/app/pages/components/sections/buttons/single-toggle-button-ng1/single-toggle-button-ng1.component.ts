@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsSingleToggleButtonNg1Component')
 export class ComponentsSingleToggleButtonNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.singleToggleButtonHtml,
         htmlAttributes: {
             'ng-controller': 'SingleToggleButtonCtrl as vm'

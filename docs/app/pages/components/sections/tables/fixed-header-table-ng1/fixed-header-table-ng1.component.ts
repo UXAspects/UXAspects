@@ -11,10 +11,10 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsFixedHeaderTableNg1Component')
 export class ComponentsFixedHeaderTableNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     
-    private htmlCode = this.snippets.compiled.layoutHtml;
-    private jsCode = this.snippets.compiled.controllerJs;
+    htmlCode = this.snippets.compiled.layoutHtml;
+    jsCode = this.snippets.compiled.controllerJs;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'FixedHeaderCtrl'
