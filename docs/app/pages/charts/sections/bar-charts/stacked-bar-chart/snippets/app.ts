@@ -41,6 +41,7 @@ export class AppComponent {
             },
             scales: {
                 xAxes: [{
+                    stacked: true,
                     barPercentage: 0.6,
                     categoryPercentage: 1,
                     gridLines: {
