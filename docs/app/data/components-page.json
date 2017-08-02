@@ -17,6 +17,10 @@
                             "content": "ButtonsModule"
                         },
                         {
+                            "title": "Import As",
+                            "content": "ButtonsModule.forRoot()"
+                        },
+                        {
                             "title": "Library",
                             "content": "ngx-bootstrap"
                         }
@@ -34,6 +38,10 @@
                         {
                             "title": "Module",
                             "content": "ButtonsModule"
+                        },
+                        {
+                            "title": "Import As",
+                            "content": "ButtonsModule.forRoot()"
                         },
                         {
                             "title": "Library",
@@ -55,6 +63,10 @@
                             "content": "PaginationModule"
                         },
                         {
+                            "title": "Import As",
+                            "content": "PaginationModule.forRoot()"
+                        },
+                        {
                             "title": "Library",
                             "content": "ngx-bootstrap"
                         }
@@ -72,6 +84,10 @@
                         {
                             "title": "Module",
                             "content": "BsDropdownModule"
+                        },
+                        {
+                            "title": "Import As",
+                            "content": "BsDropdownModule.forRoot()"
                         },
                         {
                             "title": "Library",
