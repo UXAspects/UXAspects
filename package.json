@@ -1,9 +1,14 @@
 {
   "name": "ux-aspects",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "src/index.ts",
-  "author": "Ashley Hunter",
+  "contributors": [
+    "Ashley Hunter",
+    "Alastair McKee",
+    "Pearse McMurray",
+    "Donna Marijne Worby"
+  ],
   "license": "Apache-2.0",
   "scripts": {
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
