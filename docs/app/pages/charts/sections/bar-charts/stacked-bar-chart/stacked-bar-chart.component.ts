@@ -31,7 +31,7 @@ export class ChartsStackedBarChartComponent extends BaseDocumentationSection imp
         mappings: [
             {
                 alias: 'chart.js',
-                source: 'https://unpkg.com/chart.js@2.5.0/dist/Chart.min.js'
+                source: 'https://unpkg.com/chart.js@2.6.0/dist/Chart.min.js'
             },
             {
                 alias: 'ng2-charts',
@@ -74,6 +74,7 @@ export class ChartsStackedBarChartComponent extends BaseDocumentationSection imp
             },
             scales: {
                 xAxes: [{
+                    stacked: true,
                     barPercentage: 0.6,
                     categoryPercentage: 1,
                     gridLines: {
