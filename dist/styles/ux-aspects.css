@@ -1,5 +1,5 @@
 /* 
-* ux-aspects - v1.3.1 
+* ux-aspects - v1.3.2-rc.1 
 * © Copyright 2017 Hewlett Packard Enterprise Development Company LP
 */
 .clearfix {
@@ -17751,6 +17751,19 @@ ux-media-player-timeline.quiet .timeline-bar .media-progress-bar {
 }
 ux-media-player-timeline.quiet .timeline-bar .scrub-handle {
   background-color: #999;
+}
+ux-virtual-scroll {
+  position: relative;
+  display: block;
+  overflow: auto;
+}
+ux-virtual-scroll .virtual-scroll-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
 }
 [uxHoverActionContainer] [uxHoverAction] {
   opacity: 0;
