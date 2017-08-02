@@ -8,8 +8,9 @@ let stylesPath = path.join(rootPath, 'src', 'styles');
 let stylesheetPath = path.join(stylesPath, 'ux-aspects.less');
 
 // dist folder paths
-let lessDistPath = path.join(rootPath, 'dist', 'less');
-let cssDistPath = path.join(rootPath, 'dist', 'styles');
+let distPath = path.join(rootPath, 'dist');
+let lessDistPath = path.join(distPath, 'less');
+let cssDistPath = path.join(distPath, 'styles');
 
 // output file paths
 let lessDestinationPath = path.join(lessDistPath, 'ux-aspects.less');
@@ -26,6 +27,10 @@ let options = {
 };
 
 // ensure output directories exists
+if (!fs.existsSync(distPath)) {
+    fs.mkdirSync(distPath);
+}
+
 if (!fs.existsSync(lessDistPath)) {
     fs.mkdirSync(lessDistPath);
 }
