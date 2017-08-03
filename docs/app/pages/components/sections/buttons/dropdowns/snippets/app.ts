@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./src/app.component.css']
 })
 export class AppComponent {
-    public cases = [
+    cases = [
         'Alpha',
         'Beta',
         'Gamma',
@@ -19,5 +19,5 @@ export class AppComponent {
         'Alpha 2',
         'Alpha 3',
     ];
-    public caseFilter = '';
+    caseFilter = '';
 }

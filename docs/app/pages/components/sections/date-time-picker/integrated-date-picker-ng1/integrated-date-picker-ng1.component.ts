@@ -16,7 +16,7 @@ export class ComponentsIntegratedDatePickerNg1Component extends BaseDocumentatio
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'IntegratedDatePickerCtrl as vm'

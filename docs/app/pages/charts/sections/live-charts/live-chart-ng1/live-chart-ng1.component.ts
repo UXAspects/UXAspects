@@ -13,11 +13,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ChartsLiveChartNg1Component')
 export class ChartsLiveChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private series: any;
-    private options: any;
-    private livedata: any[] = [];
+    series: any;
+    options: any;
+    livedata: any[] = [];
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'LiveChartCtrl as lc'

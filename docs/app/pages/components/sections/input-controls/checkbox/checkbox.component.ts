@@ -11,13 +11,13 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsCheckboxComponent')
 export class ComponentsCheckboxComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    public checkModel: any;
-    public simplified: boolean;
-    public indeterminateValue: number;
-    public disableCheck: boolean;
+    checkModel: any;
+    simplified: boolean;
+    indeterminateValue: number;
+    disableCheck: boolean;
 
-    public sliderValue: number = 50;
-    public sliderOptions: any = {
+    sliderValue: number = 50;
+    sliderOptions: any = {
         type: 'value',
         handles: {
             style: 'button',
@@ -61,7 +61,7 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
         }
     };
 
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml

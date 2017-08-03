@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('CssLabelsComponent')
 export class CssLabelsComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.codeExampleHtml
     };
 

@@ -12,11 +12,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsDetailedTabExampleNg1Component')
 export class ComponentsDetailedTabExampleNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private barHtml = require('./wrapper/tab-bar.html');
-    private sankeyHtml = require('./wrapper/tab-sankey.html');
-    private tableHtml = require('./wrapper/tab-table.html');
+    barHtml = require('./wrapper/tab-bar.html');
+    sankeyHtml = require('./wrapper/tab-sankey.html');
+    tableHtml = require('./wrapper/tab-table.html');
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TabsCtrl as vm'

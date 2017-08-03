@@ -39,38 +39,11 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     // Customize settings
     pagingEnabled = new BehaviorSubject<boolean>(false);
     dataSet = new BehaviorSubject<string>('strings');
-
-    selectedDataSet(): any[] {
-        return this.dataSets[this.dataSet.getValue()];
-    }
-
-    loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
-        // Return a promise using setTimeout to simulate an HTTP request.
-        let promise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const pageStart = pageNum * pageSize;
-                const newItems = this.selectedDataSet()
-                    .filter((option) => this.isFilterMatch(option, filter))
-                    .slice(pageStart, pageStart + pageSize);
-                resolve(newItems);
-            }, 2000);
-        });
-
-        return promise;
-    }
-
     loadOptionsCallback = this.loadOptions.bind(this);
 
-    isFilterMatch(option: string, filter: string): boolean {
-        if (!filter) {
-            return true;
-        }
-        return option.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
-    }
+    dataSets: { strings?: any[], objects?: any[] } = {};
 
-    private dataSets: { strings?: any[], objects?: any[] } = {};
-
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml
@@ -127,5 +100,31 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     
     ngOnInit() {
         this.options = this.selectedDataSet();
+    }
+
+    selectedDataSet(): any[] {
+        return this.dataSets[this.dataSet.getValue()];
+    }
+
+    loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
+        // Return a promise using setTimeout to simulate an HTTP request.
+        let promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const pageStart = pageNum * pageSize;
+                const newItems = this.selectedDataSet()
+                    .filter((option) => this.isFilterMatch(option, filter))
+                    .slice(pageStart, pageStart + pageSize);
+                resolve(newItems);
+            }, 2000);
+        });
+
+        return promise;
+    }
+
+    isFilterMatch(option: string, filter: string): boolean {
+        if (!filter) {
+            return true;
+        }
+        return option.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
     }
 }

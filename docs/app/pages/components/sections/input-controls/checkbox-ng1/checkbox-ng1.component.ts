@@ -16,7 +16,7 @@ export class ComponentsCheckboxNg1Component extends BaseDocumentationSection imp
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'CheckboxDemoCtrl as vm'

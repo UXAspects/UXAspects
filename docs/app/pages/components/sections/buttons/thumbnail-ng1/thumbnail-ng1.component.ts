@@ -13,7 +13,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsThumbnailNg1Component')
 export class ComponentsThumbnailNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.thumbnailHtml,
         htmlAttributes: {
             'ng-controller': 'ThumbnailDemoCtrl as vm'

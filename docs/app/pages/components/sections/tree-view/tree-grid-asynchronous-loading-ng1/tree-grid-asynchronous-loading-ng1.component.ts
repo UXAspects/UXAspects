@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsTreeGridAsynchronousLoadingNg1Component')
 export class ComponentsTreeGridAsynchronousLoadingNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TreeGridAsyncDemoCtrl as vm'

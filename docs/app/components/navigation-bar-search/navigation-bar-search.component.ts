@@ -26,10 +26,10 @@ export class NavigationBarSearchComponent {
 
     @ViewChildren('searchInput') searchInput: QueryList<ElementRef>;
 
-    protected searching: boolean;
-    protected query: BehaviorSubject<string>;
-    protected results: ISearchResult[];
-    protected activeIdx: number;
+    searching: boolean;
+    query: BehaviorSubject<string>;
+    results: ISearchResult[];
+    activeIdx: number;
 
     private data: ISearchResult[];
     private history: ISearchResult[] = [];

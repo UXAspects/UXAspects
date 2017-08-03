@@ -9,9 +9,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsGroupingNg1Component')
 export class ComponentsGroupingNg1Component extends BaseDocumentationSection {
     
-    private idsCode = this.snippets.compiled.idsJs;
-    private rootCode = this.snippets.compiled.rootJs;
-    private hierarchyCode = this.snippets.compiled.hierarchyJs;
+    idsCode = this.snippets.compiled.idsJs;
+    rootCode = this.snippets.compiled.rootJs;
+    hierarchyCode = this.snippets.compiled.hierarchyJs;
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('CssPageHeaderExampleComponent')
 export class CssPageHeaderExampleComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         css: [this.snippets.raw.sampleCss],
         js: [this.snippets.raw.sampleJs]

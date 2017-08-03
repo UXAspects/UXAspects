@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('CssMobileTabletDesktopComponent')
 export class CssMobileTabletDesktopComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml
     };
 

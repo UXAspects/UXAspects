@@ -12,15 +12,15 @@ import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
 export class ComponentsPaginationComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     // Pagination
-    public currentPage: number = 1;
-    public totalItems: number = 100;
-    public itemsPerPage: number = 10;
-    public totalPages: number;
-    public maxSize: number = 5;
-    public previousButton = `<i class="hpe-icon hpe-previous" aria-label="previous page"></i>`;
-    public nextButton = `<i class="hpe-icon hpe-next" aria-label="next page"></i>`;
+    currentPage: number = 1;
+    totalItems: number = 100;
+    itemsPerPage: number = 10;
+    totalPages: number;
+    maxSize: number = 5;
+    previousButton = `<i class="hpe-icon hpe-previous" aria-label="previous page"></i>`;
+    nextButton = `<i class="hpe-icon hpe-next" aria-label="next page"></i>`;
 
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs

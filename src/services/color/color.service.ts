@@ -8,7 +8,7 @@ import {
 
 export class ColorService {
 
-    private html = '<div class="primary-color"></div>' +
+    private _html = '<div class="primary-color"></div>' +
     '<div class="accent-color"></div>' +
     '<div class="secondary-color"></div>' +
     '<div class="alternate1-color"></div>' +
@@ -34,17 +34,17 @@ export class ColorService {
     '<div class="warning-color"></div>' +
     '<div class="critical-color"></div>';
 
-    private element: HTMLElement;
-    private colors: any;
+    private _element: HTMLElement;
+    private _colors: any;
 
     constructor( @Inject(DOCUMENT) document: any) {
-        this.element = document.createElement('div');
-        this.element.className = 'color-chart';
-        this.element.innerHTML = this.html;
+        this._element = document.createElement('div');
+        this._element.className = 'color-chart';
+        this._element.innerHTML = this._html;
 
-        document.body.appendChild(this.element);
+        document.body.appendChild(this._element);
 
-        this.colors = {
+        this._colors = {
             primary: this.getColorValue('primary'),
             accent: this.getColorValue('accent'),
             secondary: this.getColorValue('secondary'),
@@ -72,12 +72,12 @@ export class ColorService {
             critical: this.getColorValue('critical')
         };
 
-        this.element.parentNode.removeChild(this.element);
+        this._element.parentNode.removeChild(this._element);
     }
 
     private getColorValue(color: ColorIdentifier): ThemeColor {
 
-        let target = this.element.querySelector('.' + color + '-color');
+        let target = this._element.querySelector('.' + color + '-color');
 
         if (!target) {
             throw new Error('Invalid color');
@@ -91,29 +91,29 @@ export class ColorService {
     }
 
     getColor(color: ColorIdentifier): ThemeColor {
-        return this.colors[color];
+        return this._colors[color];
     }
 
 }
 
 export class ThemeColor {
 
-    private r: string;
-    private g: string;
-    private b: string;
-    private a: string;
+    private _r: string;
+    private _g: string;
+    private _b: string;
+    private _a: string;
 
     constructor(r: string, g: string, b: string, a: string) {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-        this.a = a === undefined ? '1' : a;
+        this._r = r;
+        this._g = g;
+        this._b = b;
+        this._a = a === undefined ? '1' : a;
     }
 
     toHex() {
-        var red = parseInt(this.r).toString(16);
-        var green = parseInt(this.g).toString(16);
-        var blue = parseInt(this.b).toString(16);
+        var red = parseInt(this._r).toString(16);
+        var green = parseInt(this._g).toString(16);
+        var blue = parseInt(this._b).toString(16);
 
         if (red.length < 2) {
             red = '0' + red;
@@ -129,30 +129,30 @@ export class ThemeColor {
     }
 
     toRgb() {
-        return 'rgb(' + this.r + ', ' + this.g + ', ' + this.b + ')';
+        return 'rgb(' + this._r + ', ' + this._g + ', ' + this._b + ')';
     }
 
     toRgba() {
-        return 'rgba(' + this.r + ', ' + this.g + ', ' + this.b + ', ' + this.a + ')';
+        return 'rgba(' + this._r + ', ' + this._g + ', ' + this._b + ', ' + this._a + ')';
     }
 
     setRed(red: string) {
-        this.r = red;
+        this._r = red;
         return this;
     }
 
     setGreen(green: string) {
-        this.g = green;
+        this._g = green;
         return this;
     }
 
     setBlue(blue: string) {
-        this.b = blue;
+        this._b = blue;
         return this;
     }
 
     setAlpha(alpha: string | number) {
-        this.a = alpha.toString();
+        this._a = alpha.toString();
         return this;
     }
 }

@@ -11,7 +11,7 @@ angular.module('app').directive('uxdReorderableTableWrapper', () => {
 class ReorderableTableController {
 
     // create an array of documents
-    private documents: any[] = [];
+    documents: any[] = [];
 
     static $inject = ['$scope'];
 

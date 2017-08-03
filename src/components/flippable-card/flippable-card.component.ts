@@ -27,8 +27,7 @@ export class FlippableCardComponent {
         this.setFlipped(!this.flipped);
     }
 
-    @HostListener('click')
-    private clickTrigger() {
+    @HostListener('click') clickTrigger() {
 
         // add or remove the class depending on whether or not the card has been flipped
         if (this.trigger === 'click') {
@@ -36,16 +35,14 @@ export class FlippableCardComponent {
         }
     }
 
-    @HostListener('mouseenter')
-    private hoverEnter() {
+    @HostListener('mouseenter') hoverEnter() {
         // if the trigger is hover then begin to flip
         if (this.trigger === 'hover') {
             this.setFlipped(true);
         }
     }
 
-    @HostListener('mouseleave')
-    private hoverExit() {
+    @HostListener('mouseleave') hoverExit() {
         if (this.trigger === 'hover') {
             this.setFlipped(false);
         }

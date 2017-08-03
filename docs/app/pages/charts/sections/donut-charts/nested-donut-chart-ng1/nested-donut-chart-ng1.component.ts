@@ -13,10 +13,10 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ChartsNestedDonutChartNg1Component')
 export class ChartsNestedDonutChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private data: any[];
-    private options: any;
+    data: any[];
+    options: any;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartHtml,
         js: [this.snippets.raw.chartJs],
         css: [this.snippets.raw.chartCss],

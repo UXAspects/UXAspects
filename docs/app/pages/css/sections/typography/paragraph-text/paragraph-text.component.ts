@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('CssParagraphTextComponent')
 export class CssParagraphTextComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.codeExampleHtml
     };
 

@@ -48,7 +48,7 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
     dropDirection: 'up' | 'down' = 'down';
     showTypeaheadOnClick: boolean = false;
 
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml

@@ -13,7 +13,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('ComponentsNotificationListNg1Component')
 export class ComponentsNotificationListNg1Component extends BaseDocumentationSection implements ICodePenProvider {
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'NotificationListDemoCtrl as vm'

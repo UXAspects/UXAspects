@@ -24,8 +24,8 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
     typeaheadOptions: Observable<Facet[]>;
     searchQuery: string;
 
-    private nativeElement: HTMLElement = this._elementRef.nativeElement as HTMLElement;
-    private defaultTypeaheadConfig: FacetTypeaheadListConfig = {
+    private _nativeElement: HTMLElement = this._elementRef.nativeElement as HTMLElement;
+    private _defaultTypeaheadConfig: FacetTypeaheadListConfig = {
         placeholder: '',
         maxResults: 50,
         minCharacters: 1
@@ -58,11 +58,11 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
         }
 
         // provide default values for typeahead config
-        for (let prop in this.defaultTypeaheadConfig) {
+        for (let prop in this._defaultTypeaheadConfig) {
 
             // check if prop has been defined in the users typeahead config - if not set default value
             if (this.typeaheadConfig.hasOwnProperty(prop) === false) {
-                this.typeaheadConfig[prop] = this.defaultTypeaheadConfig[prop];
+                this.typeaheadConfig[prop] = this._defaultTypeaheadConfig[prop];
             }
         }
     }
@@ -83,7 +83,7 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
 
     scrollToFocused(): void {
 
-        let dropdown = this.nativeElement.querySelector('.dropdown-menu');
+        let dropdown = this._nativeElement.querySelector('.dropdown-menu');
 
         // delay to allow the typeahead ui to update
         setTimeout(() => {

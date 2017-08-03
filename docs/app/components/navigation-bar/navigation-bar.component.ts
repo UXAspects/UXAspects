@@ -8,10 +8,10 @@ import { ILink } from '../../interfaces/ILink';
 })
 export class NavigationBarComponent {
 
-    private brand: ILink;
-    private links: ILink[];
-    private social: ILink[];
-    private expanded: boolean = false;
+    brand: ILink;
+    links: ILink[];
+    social: ILink[];
+    expanded: boolean = false;
 
     constructor() {
 

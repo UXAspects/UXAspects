@@ -84,13 +84,13 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     @Input() noOptionsTemplate: TemplateRef<any>;
     @Input() optionTemplate: TemplateRef<any>;
 
-    @ViewChild('singleInput') protected singleInput: ElementRef;
-    @ViewChild('multipleTypeahead') protected multipleTypeahead: TypeaheadComponent;
-    @ViewChild('singleTypeahead') protected singleTypeahead: TypeaheadComponent;
+    @ViewChild('singleInput') singleInput: ElementRef;
+    @ViewChild('multipleTypeahead') multipleTypeahead: TypeaheadComponent;
+    @ViewChild('singleTypeahead') singleTypeahead: TypeaheadComponent;
 
-    protected filter: Observable<string>;
+    filter: Observable<string>;
 
-    private propagateChange = (_: any) => { };
+    propagateChange = (_: any) => { };
 
     constructor(
         private _element: ElementRef,
@@ -155,12 +155,12 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
         this.disabled = isDisabled;
     }
 
-    protected inputClickHandler(event: MouseEvent) {
+    inputClickHandler(event: MouseEvent) {
         this.selectInputText();
         this.dropdownOpen = true;
     }
 
-    protected inputBlurHandler(event: Event) {
+    inputBlurHandler(event: Event) {
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
             if (!this._element.nativeElement.contains(this._document.activeElement)) {
@@ -175,7 +175,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     /**
      * Key handler for single select only. Multiple select key handling is in TagInputComponent.
      */
-    protected inputKeyHandler(event: KeyboardEvent) {
+    inputKeyHandler(event: KeyboardEvent) {
 
         // Standard keys for typeahead (up/down/esc)
         this._typeaheadKeyService.handleKey(event, this.singleTypeahead);
@@ -195,7 +195,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
         }
     }
 
-    protected singleOptionSelected(event: TypeaheadOptionEvent) {
+    singleOptionSelected(event: TypeaheadOptionEvent) {
         if (event.option) {
             this.value = event.option;
             this.dropdownOpen = false;
@@ -205,7 +205,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     /**
      * Returns the display value of the given option.
      */
-    protected getDisplay(option: any): string {
+    getDisplay(option: any): string {
         if (option === null || option === undefined) {
             return '';
         }

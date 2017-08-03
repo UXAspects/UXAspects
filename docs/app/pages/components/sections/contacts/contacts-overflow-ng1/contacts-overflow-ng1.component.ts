@@ -13,7 +13,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsContactsOverflowNg1Component')
 export class ComponentsContactsOverflowNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.contactsOverflowHtml,
         htmlAttributes: {
             'ng-controller': 'ContactsOverflowDemoCtrl as vm'

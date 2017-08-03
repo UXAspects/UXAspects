@@ -13,7 +13,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsDraggableCardsNg1Component')
 export class ComponentsDraggableCardsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.draggableCardsHtml,
         htmlAttributes: {
             'ng-controller': 'DraggableCardsDemoCtrl as vm'

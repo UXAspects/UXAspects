@@ -12,9 +12,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsNavigationComponent')
 export class ComponentsNavigationComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    private noteCode = require('!!raw-loader!./snippets/ng-class.html');
+    noteCode = require('!!raw-loader!./snippets/ng-class.html');
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         js: [this.snippets.raw.sampleJs]
     };

@@ -24,8 +24,8 @@ export class ComponentSectionComponent implements OnInit {
 
     @ViewChild('container', { read: ViewContainerRef }) viewContainer: ViewContainerRef; 
     
-    private codepen: ICodePen;
-    private plunk: IPlunk;
+    codepen: ICodePen;
+    plunk: IPlunk;
     
     constructor(private resolverService: ResolverService) { }
 

@@ -1,6 +1,6 @@
-import 'chance';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import 'chance';
 
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 

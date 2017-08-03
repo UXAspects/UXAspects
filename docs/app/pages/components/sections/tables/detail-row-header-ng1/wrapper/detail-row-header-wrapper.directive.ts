@@ -73,16 +73,16 @@ angular.module('app').directive('uxdDetailRowHeaderWrapper', () => {
 
 class DetailRowHeaderPopoverCtrl {
 
-    private scrollBarConfig = {
+    scrollBarConfig = {
         autoReinitialise: true,
         autoReinitialiseDelay: 500,
         enableKeyboardNavigation: true,
         scrollMargin: 5
     };
 
-    public filterList: any[] = [];
-    public activeFilters: any[] = [];
-    public addresses: any[];
+    filterList: any[] = [];
+    activeFilters: any[] = [];
+    addresses: any[];
 
     static $inject = ['$scope', 'detailRowDataService'];
 

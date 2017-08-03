@@ -11,11 +11,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsHoverActionsNg1Component')
 export class ComponentsHoverActionsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     
-    private htmlCode = this.snippets.compiled.layoutHtml;
-    private jsCode = this.snippets.compiled.controllerJs;
-    private cssCode = this.snippets.compiled.stylesCss;
+    htmlCode = this.snippets.compiled.layoutHtml;
+    jsCode = this.snippets.compiled.controllerJs;
+    cssCode = this.snippets.compiled.stylesCss;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'HoverActionCtrl'

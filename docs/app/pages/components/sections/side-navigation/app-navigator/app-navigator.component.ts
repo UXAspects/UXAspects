@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsAppNavigatorComponent')
 export class ComponentsAppNavigatorComponent extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.appExampleHtml,
         htmlTemplates: [{
             id: 'app_navigator_popover.tmpl.html',

@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsCheckboxButtonsNg1Component')
 export class ComponentsCheckboxButtonsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.checkboxButtonsHtml,
         htmlAttributes: {
             'ng-controller': 'CheckboxButtonsCtrl as vm'

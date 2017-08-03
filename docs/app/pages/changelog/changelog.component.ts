@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ChangeLogPageComponent {
 
-    private logs: IChangeLog[];
+    logs: IChangeLog[];
 
     constructor(private domSanitizer: DomSanitizer) {
 

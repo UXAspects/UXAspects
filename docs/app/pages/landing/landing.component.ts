@@ -9,7 +9,7 @@ import { ILandingPage } from '../../interfaces/ILandingPage';
 })
 export class LandingPageComponent {
 
-    private landingPage: ILandingPage;
+    landingPage: ILandingPage;
 
     constructor() {
 

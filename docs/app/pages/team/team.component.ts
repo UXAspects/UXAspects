@@ -9,7 +9,7 @@ import { ITeam } from '../../interfaces/ITeam';
 })
 export class TeamPageComponent {
 
-    private data: ITeam;
+    data: ITeam;
 
     constructor() {
         this.data = require('../../data/team-page.json');

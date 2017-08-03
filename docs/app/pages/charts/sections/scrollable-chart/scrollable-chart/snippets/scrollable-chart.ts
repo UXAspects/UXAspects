@@ -18,14 +18,14 @@ export class AppComponent {
     barChartLegend: boolean = false;
     barChartColors: any;
 
-    private labels: string[] = [
+    labels: string[] = [
         '.doc', '.ppt', '.pdf', '.xls', '.html', '.txt',
         '.png', '.bmp', '.gif', '.svg', '.ttf', '.wav'
     ];
-    private data: number[] = [34, 25, 19, 34, 32, 44, 12, 27, 15, 48, 40, 36];
+    data: number[] = [34, 25, 19, 34, 32, 44, 12, 27, 15, 48, 40, 36];
 
-    private page: number = 0;
-    private pageSize: number = 4;
+    page: number = 0;
+    pageSize: number = 4;
 
     constructor(colorService: ColorService) {
 

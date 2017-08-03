@@ -13,7 +13,7 @@ export class AppComponent {
     facets: Observable<Facet[]>;
     suggestions: Facet[] = [];
 
-    private users: Facet[] = [];
+    users: Facet[] = [];
 
     constructor() {
 

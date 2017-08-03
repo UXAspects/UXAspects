@@ -380,10 +380,10 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
  * The internal data associated with a load/check request.
  */
 class InfiniteScrollRequest {
-    public check: boolean;
-    public pageNumber: number;
-    public pageSize: number;
-    public filter: any;
+    check: boolean;
+    pageNumber: number;
+    pageSize: number;
+    filter: any;
 }
 
 export type InfiniteScrollLoadFunction = (pageNum: number, pageSize: number, filter: any) => any | Promise<any>;
@@ -412,11 +412,11 @@ export class InfiniteScrollLoadingEvent {
     /**
      * Prevents the default behaviour of the `loading` event (loading function will not be called).
      */
-    public preventDefault() {
+    preventDefault() {
         this._defaultPrevented = true;
     }
 
-    public defaultPrevented(): boolean {
+    defaultPrevented(): boolean {
         return this._defaultPrevented;
     }
 }

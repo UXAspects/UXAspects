@@ -12,7 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsSingleLineOverflowTooltipNg1Component')
 export class ComponentsSingleLineOverflowTooltipNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         css: [this.snippets.raw.sampleCss]
     };

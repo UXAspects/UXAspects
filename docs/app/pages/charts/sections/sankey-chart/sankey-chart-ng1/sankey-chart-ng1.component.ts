@@ -12,13 +12,13 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ChartsSankeyChartNg1Component')
 export class ChartsSankeyChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-  private resizeId: number = null;
-  private container: any = {};
-  private chart: any = {};
-  private data: any;
-  private options: any;
+  resizeId: number = null;
+  container: any = {};
+  chart: any = {};
+  data: any;
+  options: any;
   
-  public codepen: ICodePen = {
+  codepen: ICodePen = {
     html: this.snippets.raw.chartHtml,
     htmlAttributes: {
       'ng-controller': 'SankeyCtrl as vm'

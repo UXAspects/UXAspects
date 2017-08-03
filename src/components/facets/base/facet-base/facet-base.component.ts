@@ -16,7 +16,7 @@ export class FacetBaseComponent implements OnInit {
 
     @Output() events: Subject<FacetEvent> = new Subject<FacetEvent>();
 
-    constructor( @Host() private facetContainer: FacetContainerComponent, protected _elementRef: ElementRef) {
+    constructor( @Host() private facetContainer: FacetContainerComponent, public _elementRef: ElementRef) {
 
         if (facetContainer) {
 

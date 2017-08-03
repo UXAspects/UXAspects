@@ -16,7 +16,7 @@ export class ComponentsToggleSwitchNg1Component extends BaseDocumentationSection
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'ToggleSwitchDemoCtrl as vm'

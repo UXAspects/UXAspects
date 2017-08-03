@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsComponentListNg1Component')
 export class ComponentsComponentListNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.componentListHtml,
         htmlAttributes: {
             'ng-controller': 'ComponentListDemoCtrl as vm'

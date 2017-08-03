@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsFloatingActionButtonNg1Component')
 export class ComponentsFloatingActionButtonNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.floatingActionButtonHtml,
         htmlAttributes: {
             'ng-controller': 'FloatingActionButtonCtrl as vm'

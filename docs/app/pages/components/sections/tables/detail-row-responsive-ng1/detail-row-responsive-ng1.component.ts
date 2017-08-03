@@ -11,11 +11,11 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsDetailRowResponsiveNg1Component')
 export class ComponentsDetailRowResponsiveNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public htmlCode = this.snippets.compiled.layoutHtml;
-    public jsCode = this.snippets.compiled.controllerJs;
-    public cssCode = this.snippets.compiled.stylesCss;
+    htmlCode = this.snippets.compiled.layoutHtml;
+    jsCode = this.snippets.compiled.controllerJs;
+    cssCode = this.snippets.compiled.stylesCss;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'DetailRowResponsiveTableCtrl as vm'

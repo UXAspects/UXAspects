@@ -13,7 +13,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('ComponentsModalInsetPanelNg1Component')
 export class ComponentsModalInsetPanelNg1Component extends BaseDocumentationSection implements ICodePenProvider {
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ModalInsetPanelDemoCtrl as vm'

@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsHierarchyBarNg1Component')
 export class ComponentsHierarchyBarNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.appHtml,
         htmlAttributes: {
             'ng-controller': 'HierarchyBarDemoCtrl as vm'

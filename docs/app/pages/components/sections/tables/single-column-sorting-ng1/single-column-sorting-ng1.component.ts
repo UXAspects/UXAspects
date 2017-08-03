@@ -11,10 +11,10 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsSingleColumnSortingNg1Component')
 export class ComponentsSingleColumnSortingNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     
-    private htmlCode = this.snippets.compiled.sampleHtml;
-    private jsCode = this.snippets.compiled.sampleJs;
+    htmlCode = this.snippets.compiled.sampleHtml;
+    jsCode = this.snippets.compiled.sampleJs;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'SingleColumnSortingCtrl as vm'

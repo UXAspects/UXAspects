@@ -13,10 +13,10 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ChartsLineChartNg1Component')
 export class ChartsLineChartNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private data: any;
-    private options: any;
+    data: any;
+    options: any;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.chartHtml,
         htmlAttributes: {
             'ng-controller': 'LineChartCtrl as lc'

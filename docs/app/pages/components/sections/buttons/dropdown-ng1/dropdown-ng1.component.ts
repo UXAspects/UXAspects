@@ -13,7 +13,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsDropdownNg1Component')
 export class ComponentsDropdownNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.dropdownHtml + '\n' + this.snippets.raw.dropdownMenuHtml,
         htmlAttributes: {
             'ng-controller': 'DropdownCtrl as vm'

@@ -1,7 +1,7 @@
 import 'chance';
 import { BaseDocumentationSection} from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';

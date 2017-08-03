@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-
 import { ILink } from '../../interfaces/ILink';
 
 @Component({

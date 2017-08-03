@@ -11,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsRadioButtonsNg1Component')
 export class ComponentsRadioButtonsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.radioButtonsHtml,
         htmlAttributes: {
             'ng-controller': 'RadioButtonsCtrl as vm'

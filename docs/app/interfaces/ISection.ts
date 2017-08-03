@@ -6,4 +6,8 @@ export interface ISection {
     version: 'AngularJS' | 'Angular';
     deprecated?: boolean;
     externalUrl?: string;
+    usage: [{
+        title: string;
+        content: string;
+    }];
 }

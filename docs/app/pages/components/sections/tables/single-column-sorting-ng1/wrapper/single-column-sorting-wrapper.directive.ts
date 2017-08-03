@@ -10,10 +10,10 @@ angular.module('app').directive('uxdSingleColumnSortingWrapper', () => {
 
 class SingleColumnSortingController {
 
-    private activeSorter: string = 'date';
-    private orderDesc: boolean = false;
-    private sorterHeaders: any[];
-    private sortableTable: any[];
+    activeSorter: string = 'date';
+    orderDesc: boolean = false;
+    sorterHeaders: any[];
+    sortableTable: any[];
 
     static $inject = ['$scope'];
 

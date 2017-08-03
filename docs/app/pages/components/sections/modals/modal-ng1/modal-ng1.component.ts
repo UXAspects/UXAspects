@@ -11,7 +11,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('ComponentsModalNg1Component')
 export class ComponentsModalNg1Component extends BaseDocumentationSection implements ICodePenProvider {
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ModalDemoCtrl as vm'

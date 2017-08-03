@@ -13,7 +13,7 @@ export class CssInlineFormComponent extends BaseDocumentationSection implements 
 
     checked: boolean = false;
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.codeExampleHtml
     };
 

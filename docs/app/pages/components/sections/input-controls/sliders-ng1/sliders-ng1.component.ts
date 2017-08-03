@@ -16,7 +16,7 @@ export class ComponentsSlidersNg1Component extends BaseDocumentationSection impl
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'SlidersCtrl as vm'

@@ -5,16 +5,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     // Toggle model
-    public primaryToggleValue: number = 0;
-    public accentToggleValue: string = 'off';
+    primaryToggleValue: number = 0;
+    accentToggleValue: string = 'off';
 
     // Check model
-    public primaryCheckValue = {
+    primaryCheckValue = {
         bold: false,
         italic: true,
         underline: false
     };
-    public accentCheckValue = {
+    
+    accentCheckValue = {
         bold: false,
         italic: true,
         underline: false

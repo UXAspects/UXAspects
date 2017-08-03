@@ -16,7 +16,7 @@ export class ComponentsTagsNg1Component extends BaseDocumentationSection impleme
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.codepenHtml,
         htmlAttributes: {
             'ng-controller': 'TagsCtrl as vm'

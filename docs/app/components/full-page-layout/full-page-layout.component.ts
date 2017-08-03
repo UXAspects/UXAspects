@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
     templateUrl: './full-page-layout.component.html',
     styleUrls: ['./full-page-layout.component.less']
 })
-export class FullPageLayoutComponent {
-    constructor() {}
-}
+export class FullPageLayoutComponent { }

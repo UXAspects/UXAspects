@@ -12,22 +12,23 @@ import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
 export class ComponentsToggleButtonsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     // Toggle model
-    public primaryToggleValue: number = 0;
-    public accentToggleValue: string = 'off';
+    primaryToggleValue: number = 0;
+    accentToggleValue: string = 'off';
 
     // Check model
-    public primaryCheckValue = {
+    primaryCheckValue = {
         bold: false,
         italic: true,
         underline: false
     };
-    public accentCheckValue = {
+    
+    accentCheckValue = {
         bold: false,
         italic: true,
         underline: false
     };
 
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.toggleHtml + this.snippets.raw.checkHtml,
             'app.component.ts': this.snippets.raw.appTs

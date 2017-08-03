@@ -12,9 +12,9 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsTabsNg1Component')
 export class ComponentsTabsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
 
-    private tabContent = require('./wrapper/tab.html');
+    tabContent = require('./wrapper/tab.html');
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'TabsCtrl as vm'

@@ -16,7 +16,7 @@ export class ComponentsInlineDropdownNg1Component extends BaseDocumentationSecti
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.sampleHtml,
         htmlAttributes: {
             'ng-controller': 'InlineDropDownCtrl as vm'

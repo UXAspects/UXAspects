@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     // Radio model
-    public primaryRadioValue = 'left';
-    public accentRadioValue = 'left';
+    primaryRadioValue = 'left';
+    accentRadioValue = 'left';
 }

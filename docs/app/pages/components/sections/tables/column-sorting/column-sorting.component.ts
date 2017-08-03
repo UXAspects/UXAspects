@@ -108,7 +108,7 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         });
     }
 
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml

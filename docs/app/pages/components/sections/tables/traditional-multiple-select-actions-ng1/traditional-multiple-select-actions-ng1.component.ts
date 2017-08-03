@@ -9,8 +9,8 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsTraditionalMultipleSelectActionsNg1Component')
 export class ComponentsTraditionalMultipleSelectActionsNg1Component extends BaseDocumentationSection {
     
-    private htmlCode = this.snippets.compiled.layoutHtml;
-    private selectionCode = this.snippets.compiled.selectionHtml;
+    htmlCode = this.snippets.compiled.layoutHtml;
+    selectionCode = this.snippets.compiled.selectionHtml;
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

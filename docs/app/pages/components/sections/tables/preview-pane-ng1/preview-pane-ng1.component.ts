@@ -9,8 +9,8 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsPreviewPaneNg1Component')
 export class ComponentsPreviewPaneNg1Component extends BaseDocumentationSection {
     
-    private toggleCode = this.snippets.compiled.toggleHtml;
-    private previewItemCode = this.snippets.compiled.previewPaneItemHtml;
+    toggleCode = this.snippets.compiled.toggleHtml;
+    previewItemCode = this.snippets.compiled.previewPaneItemHtml;
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));

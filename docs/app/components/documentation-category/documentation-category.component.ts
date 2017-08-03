@@ -13,7 +13,7 @@ import { VersionService, Version } from '../../services/version/version.service'
 })
 export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
 
-    private category: ICategory;
+    category: ICategory;
     private trackScroll: boolean = false;
     private versionSub: Subscription;
 

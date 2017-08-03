@@ -12,7 +12,7 @@ import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
 @DocumentationSectionComponent('ComponentsDropdownsComponent')
 export class ComponentsDropdownsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    public cases = [
+    cases = [
         'Alpha',
         'Beta',
         'Gamma',
@@ -26,9 +26,9 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
         'Alpha 2',
         'Alpha 3',
     ];
-    public caseFilter = '';
+    caseFilter = '';
 
-    public plunk: IPlunk = {
+    plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.css': this.snippets.raw.appCss,

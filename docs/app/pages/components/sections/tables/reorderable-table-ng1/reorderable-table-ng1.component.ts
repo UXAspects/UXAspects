@@ -11,17 +11,17 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @DocumentationSectionComponent('ComponentsReorderableTableNg1Component')
 export class ComponentsReorderableTableNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     
-    private htmlCode = this.snippets.compiled.layoutHtml;
-    private jsCode = this.snippets.compiled.controllerJs;
-    private cssCode = this.snippets.compiled.stylesCss;
+    htmlCode = this.snippets.compiled.layoutHtml;
+    jsCode = this.snippets.compiled.controllerJs;
+    cssCode = this.snippets.compiled.stylesCss;
 
-    private tableDataCode = this.snippets.compiled.tableDataHtml;
-    private controlsCode = this.snippets.compiled.controlsHtml;
+    tableDataCode = this.snippets.compiled.tableDataHtml;
+    controlsCode = this.snippets.compiled.controlsHtml;
 
-    private removeRowHtmlCode = this.snippets.compiled.removeRowHtml;
-    private removeRowJsCode = this.snippets.compiled.removeRowJs;
+    removeRowHtmlCode = this.snippets.compiled.removeRowHtml;
+    removeRowJsCode = this.snippets.compiled.removeRowJs;
     
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'ReorderableCtrl as vm'

@@ -13,7 +13,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 })
 @DocumentationSectionComponent('ComponentsSearchHistoryNg1Component')
 export class ComponentsSearchHistoryNg1Component extends BaseDocumentationSection implements ICodePenProvider {
-    public codepen: ICodePen = {
+    codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
             'ng-controller': 'SearchHistoryDemoCtrl as vm'
