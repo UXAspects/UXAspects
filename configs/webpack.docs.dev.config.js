@@ -1,3 +1,4 @@
+var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 
@@ -229,7 +230,9 @@ var docsConfig = {
     },
 
     devServer: {
-        https: true,
+        https: {
+            pfx: fs.readFileSync(path.join(process.cwd(), 'configs', 'webpack.docs.dev.pfx'))
+        },
         historyApiFallback: true,
         stats: {
             colors: true,

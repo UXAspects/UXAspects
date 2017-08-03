@@ -1,16 +1,11 @@
 var path = require('path');
 
-var pemFile = path.join('node_modules', 'webpack-dev-server', 'ssl', 'server.pem');
-var crtFile = path.join('node_modules', 'webpack-dev-server', 'ssl', 'server.crt');
+var certificateFile = path.join('configs', 'webpack.docs.dev.pfx');
 
 module.exports = {
-    webpack_extract_cert: {
-        cmd: 'openssl',
-        args: ['x509', '-outform', 'der', '-in', pemFile, '-out', crtFile]
-    },
     webpack_import_cert: {
         cmd: 'certutil',
-        args: ['-addstore', '-enterprise', '-f', 'Root',  crtFile]
+        args: ['-f', '-importpfx', certificateFile]
     },
     e2e: {
         exec: 'npm run e2e',
