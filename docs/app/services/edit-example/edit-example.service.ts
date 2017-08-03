@@ -10,7 +10,7 @@ export class EditExampleService {
 
     constructor(private codePenService: CodePenService, private plunkerService: PlunkerService) {}
 
-    public launchEditor(title: string, content: any, type: 'codepen' | 'plunker') {
+    launchEditor(title: string, content: any, type: 'codepen' | 'plunker') {
         switch (type) {
             case 'codepen':
                 this.codePenService.launch(title, <ICodePen>content);

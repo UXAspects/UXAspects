@@ -21,15 +21,15 @@ export class NavigationService {
         private activeRoute: ActivatedRoute,
         private router: Router) { }
 
-    public getTopOffset() {
+    getTopOffset() {
         return NAVIGATION_TOP_OFFSET;
     }
 
-    public isScrolledToBottom() {
+    isScrolledToBottom() {
         return (this.document.body.scrollTop + window.innerHeight) >= this.document.body.offsetHeight;
     }
 
-    public isFragmentActive(id: string) {
+    isFragmentActive(id: string) {
         const element = document.getElementById(id);
         if (id === this.activeFragment) {
             return true;
@@ -44,7 +44,7 @@ export class NavigationService {
         return false;
     }
 
-    public setActiveFragment(id: string, replaceOnly: boolean = false, updateUrl: boolean = true) {
+    setActiveFragment(id: string, replaceOnly: boolean = false, updateUrl: boolean = true) {
         if (updateUrl) {
             // If replaceOnly is specified then only navigate if URL already has a fragment
             if (!replaceOnly || this.urlHasFragment()) {
@@ -57,7 +57,7 @@ export class NavigationService {
         }
     }
 
-    public scrollToFragment(id: string) {
+    scrollToFragment(id: string) {
         const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView(true);
@@ -68,7 +68,7 @@ export class NavigationService {
         }
     }
 
-    public scrollOnNavigationChange(event: NavigationEnd) {
+    scrollOnNavigationChange(event: NavigationEnd) {
         const parsed = this.router.parseUrl(event.url);
         if (parsed.fragment) {
             // Check if the navigated section is already in view
@@ -84,7 +84,7 @@ export class NavigationService {
         this.activeFragment = null;
     }
 
-    public setSectionIds(sections: ISection[]) {
+    setSectionIds(sections: ISection[]) {
         // Ensure that every section has an ID suitable for fragment navigation
         for (let section of sections) {
             if (!section.id) {

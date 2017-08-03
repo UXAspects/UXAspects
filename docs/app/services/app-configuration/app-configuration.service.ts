@@ -5,7 +5,7 @@ export class AppConfiguration {
 
     private config = this.getConfig();
 
-    public get(key: string): any {
+    get(key: string): any {
         return key.split('.').reduce((prev, curr) => {
             return prev ? prev[curr] : undefined;
         }, this.config);

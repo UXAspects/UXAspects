@@ -8,11 +8,11 @@ export class ResolverService {
 
     private static resolvers: ComponentFactoryResolver[] = [];
 
-    public registerResolver(resolver: ComponentFactoryResolver) {
+    registerResolver(resolver: ComponentFactoryResolver) {
         ResolverService.resolvers.push(resolver);
     }
 
-    public resolveComponentFactory(component: any): ComponentFactory<any> {
+    resolveComponentFactory(component: any): ComponentFactory<any> {
 
         // try resolving component in all available modules
         for (let resolver of ResolverService.resolvers) {
@@ -25,7 +25,7 @@ export class ResolverService {
         throw new Error('Component doesn not exist in any module: ' + component);
     }
 
-    public static resolveCategoryData(page: DocumentationPage, categoryTitle: string) {
+    static resolveCategoryData(page: DocumentationPage, categoryTitle: string) {
 
         let data: IDocumentationPage;
 
