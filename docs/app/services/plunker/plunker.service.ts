@@ -18,7 +18,7 @@ export class PlunkerService {
 
     constructor( @Inject(DOCUMENT) private document: Document, private appConfig: AppConfiguration) { }
 
-    public launch(title: string, plunk: IPlunk) {
+    launch(title: string, plunk: IPlunk) {
 
         const form = this.initForm(title, plunk);
 

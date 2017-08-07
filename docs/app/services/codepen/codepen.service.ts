@@ -12,7 +12,7 @@ export class CodePenService {
     
     constructor(@Inject(DOCUMENT) private document: Document, private appConfig: AppConfiguration) {}
 
-    public launch(title: string, codepen: ICodePen) {
+    launch(title: string, codepen: ICodePen) {
         
         const form = this.initForm(title, codepen);
 
