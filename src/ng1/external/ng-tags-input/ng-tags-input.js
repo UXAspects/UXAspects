@@ -154,6 +154,7 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "tagsInput
                 template: [String, 'ngTagsInput/tag-item.html'],
                 type: [String, 'text', validateType],
                 placeholder: [String, 'Add a tag'],
+                initialPlaceholder: [Boolean, false],
                 tabindex: [Number, null],
                 removeTagSymbol: [String, String.fromCharCode(215)],
                 replaceSpacesWithDashes: [Boolean, true],
@@ -270,9 +271,12 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "tagsInput
 
             scope.$watch('tags.length', function() {
                 setElementValidity();
+
                 if(options.maxTagsHidden && tagList.items.length >= options.maxTags)
                     options.placeholder = "";
-                else if(options.maxTagsHidden)
+                else if(options.initialPlaceholder && tagList.items.length > 0)
+                    options.placeholder = "";
+                else if(options.maxTagsHidden || options.initialPlaceholder && tagList.items.length === 0)
                     options.placeholder = placeholderOriginal;
                 // ngModelController won't trigger validators when the model changes (because it's an array),
                 // so we need to do it ourselves. Unfortunately this won't trigger any registered formatter.
