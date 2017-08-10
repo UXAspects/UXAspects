@@ -176,20 +176,16 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         this._lowerThumbDown = Observable.fromEvent(this.lowerThumb.nativeElement, 'mousedown');
 
         this._lowerDrag = this._lowerThumbDown.switchMap(event => {
-            event.preventDefault();
             return this._mouseMove.takeUntil(this._mouseUp);
         }).subscribe(event => {
-            event.preventDefault();
             this.updateThumbPosition(event, SliderThumb.Lower);
         });
 
         // when a user begins to drag upper thumb - subscribe to mouse move events until the mouse is lifted
         this._upperThumbDown = Observable.fromEvent(this.upperThumb.nativeElement, 'mousedown');
         this._upperDrag = this._upperThumbDown.switchMap(event => {
-            event.preventDefault();
             return this._mouseMove.takeUntil(this._mouseUp);
         }).subscribe(event => {
-            event.preventDefault();
             this.updateThumbPosition(event, SliderThumb.Upper);
         });
     }
