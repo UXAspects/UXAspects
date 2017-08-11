@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-sm-6">
+        <button id="toggle1" type="button" class="btn button-toggle-primary" [(ngModel)]="primaryToggleValue"
+            btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0">
+            Primary Toggle
+        </button>
+        <p id="p1" class="m-t-md">Primary Toggle value: {{primaryToggleValue}}</p>
+    </div>
+    <div class="col-sm-6">
+        <button id="toggle2" type="button" class="btn button-toggle-accent" [(ngModel)]="accentToggleValue"
+            btnCheckbox btnCheckboxTrue="on" btnCheckboxFalse="off">
+            Accent Toggle
+        </button>
+        <p id="p2" class="m-t-md">Accent Toggle value: {{accentToggleValue}}</p>
+    </div>
+</div><div class="row">
+    <div class="col-sm-6">
+        <div class="btn-group">
+            <button id="toggle3" type="button" class="btn button-toggle-primary"
+                [(ngModel)]="primaryCheckValue.bold" btnCheckbox>Bold</button>
+            <button id="toggle4" type="button" class="btn button-toggle-primary"
+                [(ngModel)]="primaryCheckValue.italic" btnCheckbox>Italic</button>
+            <button id="toggle5" type="button" class="btn button-toggle-primary"
+                [(ngModel)]="primaryCheckValue.underline" btnCheckbox>Underline</button>
+        </div>
+        <p id="p3" class="m-t-md"
+            [style.fontWeight]="primaryCheckValue.bold ? 'bold' : 'normal'"
+            [style.fontStyle]="primaryCheckValue.italic ? 'italic' : 'normal'"
+            [style.textDecoration]="primaryCheckValue.underline ? 'underline' : 'none'">
+            The quick brown fox jumped over the lazy dog.
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <div class="btn-group">
+            <button id="toggle6" type="button" class="btn button-toggle-accent"
+                [(ngModel)]="accentCheckValue.bold" btnCheckbox>Bold</button>
+            <button id="toggle7" type="button" class="btn button-toggle-accent"
+                [(ngModel)]="accentCheckValue.italic" btnCheckbox>Italic</button>
+            <button id="toggle8" type="button" class="btn button-toggle-accent"
+                [(ngModel)]="accentCheckValue.underline" btnCheckbox>Underline</button>
+        </div>
+        <p id="p4" class="m-t-md"
+            [style.fontWeight]="accentCheckValue.bold ? 'bold' : 'normal'"
+            [style.fontStyle]="accentCheckValue.italic ? 'italic' : 'normal'"
+            [style.textDecoration]="accentCheckValue.underline ? 'underline' : 'none'">
+            The quick brown fox jumped over the lazy dog.
+        </p>
+    </div>
+</div>
