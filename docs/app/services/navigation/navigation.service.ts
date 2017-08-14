@@ -1,7 +1,10 @@
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ICategory } from '../../interfaces/ICategory';
 import { ISection } from '../../interfaces/ISection';
+import { VersionService, versionFromString } from '../version/version.service';
 
 const NAVIGATION_TOP_OFFSET = 50;
 
@@ -19,7 +22,8 @@ export class NavigationService {
 
     constructor( @Inject(DOCUMENT) private document: Document,
         private activeRoute: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        private versionService: VersionService) { }
 
     getTopOffset() {
         return NAVIGATION_TOP_OFFSET;
@@ -68,8 +72,19 @@ export class NavigationService {
         }
     }
 
-    scrollOnNavigationChange(event: NavigationEnd) {
-        const parsed = this.router.parseUrl(event.url);
+    configureForRoute(route: ActivatedRoute) {
+        const category = <ICategory>route.snapshot.data['category'];
+        if (category && route.snapshot.fragment) {
+            const section = category.sections.find((s) => s.id === route.snapshot.fragment);
+            const version = versionFromString(section.version);
+            if (!this.versionService.isSectionVersionMatch(section) && version !== null) {
+                this.versionService.setVersion(version);
+            }
+        }
+    }
+
+    scrollOnNavigationChange(url: string) {
+        const parsed = this.router.parseUrl(url);
         if (parsed.fragment) {
             // Check if the navigated section is already in view
             if (!this.isFragmentActive(parsed.fragment) || parsed.fragment !== this.activeRoute.snapshot.fragment) {

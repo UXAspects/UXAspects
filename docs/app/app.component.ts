@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 
 import { NavigationService } from './services/navigation/navigation.service';
 
@@ -11,6 +11,7 @@ import { NavigationService } from './services/navigation/navigation.service';
 export class AppComponent implements OnInit {
 
     constructor(private router: Router,
+        private activatedRoute: ActivatedRoute,
         private navigation: NavigationService,
         ngZone: NgZone) {
             (<any>window).ngZone = ngZone;
@@ -18,13 +19,23 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
 
-        // when the route is changed scroll to the top of the page
-        this.router.events.subscribe((evt) => {
-            if (!(evt instanceof NavigationEnd)) {
-                return;
-            }
-            this.navigation.scrollOnNavigationChange(evt);
-        });
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .map(event => {
+                let route = this.activatedRoute;
+                while (route.firstChild) {
+                    route = route.firstChild;
+                }
+                return {
+                    event: <NavigationEnd>event,
+                    route: route
+                };
+            })
+            .filter(data => data.route.outlet === 'primary')
+            .subscribe(data => {
+                this.navigation.configureForRoute(data.route);
+                this.navigation.scrollOnNavigationChange(data.event.url);
+            });
 
         // manually perform initial navigation - required in hybrid app
         this.router.initialNavigation();
