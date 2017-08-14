@@ -165,6 +165,16 @@ export default function MarqueeWizardCtrl($scope) {
     var targetStep = vm.steps[stepIdx];
 
     if (targetStep.visited === true) {
+
+      if (typeof $scope.onChanging === 'function') {
+        var response = $scope.onChanging(vm.stepIndex, stepIdx);
+
+        //dont go to the selected step if the response is false
+        if (response === false) {
+          return;
+        }
+      }
+
       vm.currentStep.error = false;
       vm.stepIndex = stepIdx;
       vm.currentStep = vm.steps[vm.stepIndex];
