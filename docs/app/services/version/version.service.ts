@@ -43,3 +43,14 @@ export enum Version {
     AngularJS,
     Angular
 }
+
+export function versionFromString(value: string) {
+    switch (value) {
+        case 'AngularJS':
+            return Version.AngularJS;
+        case 'Angular':
+            return Version.Angular;
+    }
+
+    return null;
+}

@@ -1,11 +1,21 @@
-import { Component, Input, OnInit, HostListener, Inject, AfterViewInit, ViewEncapsulation, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    HostListener,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { Subscription } from 'rxjs/Subscription';
-import { VersionService, Version } from '../../services/version/version.service';
+import { Version, VersionService } from '../../services/version/version.service';
 
 const BANNER_OFFSET = 186;
 const FOOTER_OFFSET = 162;
@@ -25,8 +35,8 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     height: number;
     width: number;
     filteredNavigation: IDocumentationPage;
-    versionRadioValue: Version;
-    ngVersions = Version;
+
+    Version = Version;
 
     private routeSubscription: Subscription;
 
@@ -36,19 +46,19 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
         private navigationService: NavigationService,
         public versionService: VersionService) {
 
-        // get version
-        this.versionRadioValue = this.versionService.version.getValue();
-        this.versionService.version.subscribe((value: Version) => this.filterNavigation(value));
+        // Subscribe to version changes in order to re-filter the sections.
+        this.versionService.version.subscribe((value: Version) => this.versionChanged(value));
     }
 
     ngOnInit() {
 
-        this.filterNavigation(this.versionService.version.getValue());
-
         // Set up fragment IDs
-        for (let category of this.filteredNavigation.categories) {
+        for (let category of this.navigation.categories) {
             this.navigationService.setSectionIds(category.sections);
         }
+
+        // Get initial filtered content
+        this.versionChanged(this.versionService.version.getValue());
 
         // Fix nav position on navigate
         this.routeSubscription = this.router.events.subscribe((event) => {
@@ -83,7 +93,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
         this.width = width;
     }
 
-    filterNavigation(version: Version) {
+    private versionChanged(version: Version) {
         if (this.navigation) {
             let categories = this.navigation.categories
                 .map(category => {
@@ -100,10 +110,6 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
                 categories: categories
             };
         }
-    }
-
-    radioToggled(version: Version) {
-        this.versionService.setVersion(version);
     }
 
     @HostListener('window:scroll')
