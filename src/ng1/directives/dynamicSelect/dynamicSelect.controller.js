@@ -17,11 +17,12 @@ export default function DynamicSelectCtrl($scope, $element, $attrs, $compile, $t
     allowNull: true,
     scroll: true,
     pageSize: 20,
-    dropDirection: "down"
+    dropDirection: "down",
+    initialPlaceholder: false
   };
 
   vm.allOptions = angular.extend({}, defaultOptions, vm.options);
-  
+
   // Update UI when model changes
   $scope.$watch("vm.ngModel", function(nv) {
     if (vm.multiple) {
@@ -45,6 +46,9 @@ export default function DynamicSelectCtrl($scope, $element, $attrs, $compile, $t
       display: "display"
     }
   };
+
+  // support showing placeholder only when there are no selected tags
+  vm.tagOptions.initialPlaceholder = vm.allOptions.initialPlaceholder;
 
   // Callbacks from tag input
   vm.tagApi = {
