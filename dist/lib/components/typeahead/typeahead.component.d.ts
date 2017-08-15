@@ -25,44 +25,44 @@ export declare class TypeaheadComponent implements OnInit, OnChanges {
     private _defaultLoadingTemplate;
     private _defaultOptionTemplate;
     private _defaultNoOptionsTemplate;
-    protected loadOptionsCallback: InfiniteScrollLoadFunction;
-    protected visibleOptions: any[];
-    protected loading: boolean;
+    loadOptionsCallback: InfiniteScrollLoadFunction;
+    visibleOptions: any[];
+    loading: boolean;
     optionApi: TypeaheadOptionApi;
     constructor(typeaheadElement: ElementRef);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
-    protected optionMousedownHandler(event: MouseEvent): void;
-    protected optionClickHandler(event: MouseEvent, option: any): void;
+    optionMousedownHandler(event: MouseEvent): void;
+    optionClickHandler(event: MouseEvent, option: any): void;
     /**
      * Returns the unique key value of the given option.
      */
-    protected getKey(option: any): string;
+    getKey(option: any): string;
     /**
      * Returns the display value of the given option.
      */
-    protected getDisplay(option: any): string;
+    getDisplay(option: any): string;
     /**
      * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value.
      * @param option
      */
-    protected getDisplayHtml(option: any): string;
+    getDisplayHtml(option: any): string;
     /**
      * Returns true if the infinite scroll component should load
      */
-    protected isInfiniteScroll(): boolean;
+    isInfiniteScroll(): boolean;
     /**
      * Selects the given option, emitting the optionSelected event and closing the dropdown.
      */
-    protected select(option: any): void;
+    select(option: any): void;
     /**
      * Returns true if the given option is part of the disabledOptions array.
      */
-    protected isDisabled(option: any): boolean;
+    isDisabled(option: any): boolean;
     /**
      * Set the given option as the current highlighted option, available in the highlightedOption parameter.
      */
-    protected highlight(option: any): void;
+    highlight(option: any): void;
     /**
      * Increment or decrement the highlighted option in the list. Disabled options are skipped.
      * @param d Value to be added to the index of the highlighted option, i.e. -1 to move backwards, +1 to move forwards.
@@ -71,15 +71,15 @@ export declare class TypeaheadComponent implements OnInit, OnChanges {
     /**
      * Returns true if the given option is the highlighted option.
      */
-    protected isHighlighted(option: any): boolean;
+    isHighlighted(option: any): boolean;
     /**
      * Set up the options before the dropdown is displayed.
      */
-    private initOptions();
+    initOptions(): void;
     /**
      * Update the visibleOptions array with the current filter.
      */
-    private updateOptions();
+    updateOptions(): void;
     /**
      * Return the index of the given option in the visibleOptions array. Returns -1 if the option is not currently visible.
      */

@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/filter';
 export declare class FacetBaseComponent implements OnInit {
     private facetContainer;
-    protected _elementRef: ElementRef;
+    _elementRef: ElementRef;
     selected: Facet[];
     selectedChange: EventEmitter<Facet[]>;
     events: Subject<FacetEvent>;

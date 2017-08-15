@@ -1,16 +1,16 @@
 export declare class ColorService {
-    private html;
-    private element;
-    private colors;
+    private _html;
+    private _element;
+    private _colors;
     constructor(document: any);
     private getColorValue(color);
     getColor(color: ColorIdentifier): ThemeColor;
 }
 export declare class ThemeColor {
-    private r;
-    private g;
-    private b;
-    private a;
+    private _r;
+    private _g;
+    private _b;
+    private _a;
     constructor(r: string, g: string, b: string, a: string);
     toHex(): string;
     toRgb(): string;

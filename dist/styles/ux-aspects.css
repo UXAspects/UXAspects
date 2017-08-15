@@ -1,5 +1,5 @@
 /* 
-* ux-aspects - v1.3.2 
+* ux-aspects - v1.3.3-rc.1 
 * © Copyright 2017 Hewlett Packard Enterprise Development Company LP
 */
 .clearfix {
@@ -4108,24 +4108,41 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .timepicker-light {
   padding: 12px;
 }
-.date-picker-popover {
-  left: 40px !important;
-  margin-top: 7px !important;
+.popover.date-picker-popover .popover-content {
+  padding: 0;
 }
-.date-picker-popover .popover-content {
-  padding: 0 !important;
+.popover.date-picker-popover .date-picker-popover-arrow {
+  border-width: 8px;
 }
-.date-picker-popover-arrow {
+.popover.date-picker-popover .date-picker-popover-arrow:after {
+  border-width: 7px;
+}
+.popover.date-picker-popover.bottom {
+  left: 40px;
+  margin-top: 7px;
+}
+.popover.date-picker-popover.bottom .date-picker-popover-arrow {
   left: 7% !important;
-  border-width: 8px !important;
-  top: -16px !important;
-  margin-left: -8px !important;
+  top: -16px;
+  margin-left: -8px;
 }
-.date-picker-popover-arrow:after {
-  left: 10% !important;
-  margin-left: -7px !important;
-  border-width: 7px !important;
-  top: -6px !important;
+.popover.date-picker-popover.bottom .date-picker-popover-arrow:after {
+  left: 10%;
+  margin-left: -7px;
+  top: -6px;
+}
+.popover.date-picker-popover.top {
+  left: 40px;
+}
+.popover.date-picker-popover.top .date-picker-popover-arrow {
+  left: 7% !important;
+  bottom: -16px;
+  margin-left: -8px;
+}
+.popover.date-picker-popover.top .date-picker-popover-arrow:after {
+  left: 10%;
+  margin-left: -7px;
+  bottom: -6px;
 }
 .date-picker {
   font-family: 'Source Sans Pro' !important;
@@ -16740,9 +16757,17 @@ ux-page-header.page-header-condensed .page-header-condensed-content .page-header
   justify-content: center;
 }
 ux-page-header-horizontal-navigation {
+  position: relative;
   display: inline-flex;
   justify-content: center;
   height: 57px;
+}
+ux-page-header-horizontal-navigation .selected-indicator {
+  height: 3px;
+  background-color: #00a7a2;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 ux-page-header-horizontal-navigation-item .horizontal-navigation-button {
   position: relative;
@@ -16777,7 +16802,6 @@ ux-page-header-horizontal-navigation-item .horizontal-navigation-button.open {
 }
 ux-page-header-horizontal-navigation-item .horizontal-navigation-button.selected {
   color: #fff;
-  box-shadow: inset 0 3px 0 0 #00a7a2;
 }
 .horizontal-navigation-dropdown-menu,
 .horizontal-navigation-dropdown-submenu {

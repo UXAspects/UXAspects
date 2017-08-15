@@ -8397,27 +8397,56 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
  	padding: 12px;
 }
 
-.date-picker-popover {
-    left: 40px !important;
-    margin-top: 7px !important;
+.popover {
+  &.date-picker-popover {
 
-	.popover-content {
-		padding: 0 !important;
-	}
-}
+    .popover-content {
+      padding: 0;
+    }
 
-.date-picker-popover-arrow {
-  left: 7% !important;
-  border-width: 8px !important;
-  top: -16px !important;
-  margin-left: -8px !important;
-  &:after {
-  left: 10% !important;
-  margin-left: -7px !important;
-  border-width: 7px !important;
-  top:-6px !important;
+    .date-picker-popover-arrow {
+      border-width: 8px;
+
+      &:after {
+        border-width: 7px;
+      }
+    }
+
+    &.bottom {
+      left: 40px;
+      margin-top: 7px;
+
+      .date-picker-popover-arrow {
+        left: 7% !important; // required to override inline style added by bootstrap.js
+        top: -16px;
+        margin-left: -8px;
+
+        &:after {
+          left: 10%;
+          margin-left: -7px;
+          top: -6px;
+        }
+      }
+    }
+
+    &.top {
+      left: 40px;
+
+      .date-picker-popover-arrow {
+        left: 7% !important; // required to override inline style added by bootstrap.js
+        bottom: -16px;
+        margin-left: -8px;
+
+        &:after {
+          left: 10%;
+          margin-left: -7px;
+          bottom: -6px;
+        }
+      }
+    }
   }
 }
+
 
 .date-picker {
   font-family: @font-family !important;
@@ -22668,10 +22697,20 @@ ux-page-header {
     }
 }
 ux-page-header-horizontal-navigation {
+    position: relative;
     display: inline-flex;
     justify-content: center;
     height: 57px;
+
+    .selected-indicator {
+        height: 3px;
+        background-color: @page-header-nav-selected-shadow;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }
+
 ux-page-header-horizontal-navigation-item {
     .horizontal-navigation-button {
         position: relative;
@@ -22711,7 +22750,6 @@ ux-page-header-horizontal-navigation-item {
 
         &.selected {
             color: @page-header-nav-selected-color;
-            box-shadow: inset 0 3px 0 0 @page-header-nav-selected-shadow;
         }
     }
 }

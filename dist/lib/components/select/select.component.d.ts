@@ -30,11 +30,11 @@ export declare class SelectComponent implements OnInit, OnChanges, ControlValueA
     loadingTemplate: TemplateRef<any>;
     noOptionsTemplate: TemplateRef<any>;
     optionTemplate: TemplateRef<any>;
-    protected singleInput: ElementRef;
-    protected multipleTypeahead: TypeaheadComponent;
-    protected singleTypeahead: TypeaheadComponent;
-    protected filter: Observable<string>;
-    private propagateChange;
+    singleInput: ElementRef;
+    multipleTypeahead: TypeaheadComponent;
+    singleTypeahead: TypeaheadComponent;
+    filter: Observable<string>;
+    propagateChange: (_: any) => void;
     constructor(_element: ElementRef, _document: HTMLDocument, _typeaheadKeyService: TypeaheadKeyService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
@@ -42,16 +42,16 @@ export declare class SelectComponent implements OnInit, OnChanges, ControlValueA
     registerOnChange(fn: any): void;
     registerOnTouched(fn: any): void;
     setDisabledState(isDisabled: boolean): void;
-    protected inputClickHandler(event: MouseEvent): void;
-    protected inputBlurHandler(event: Event): void;
+    inputClickHandler(event: MouseEvent): void;
+    inputBlurHandler(event: Event): void;
     /**
      * Key handler for single select only. Multiple select key handling is in TagInputComponent.
      */
-    protected inputKeyHandler(event: KeyboardEvent): void;
-    protected singleOptionSelected(event: TypeaheadOptionEvent): void;
+    inputKeyHandler(event: KeyboardEvent): void;
+    singleOptionSelected(event: TypeaheadOptionEvent): void;
     /**
      * Returns the display value of the given option.
      */
-    protected getDisplay(option: any): string;
+    getDisplay(option: any): string;
     private selectInputText();
 }
