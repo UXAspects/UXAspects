@@ -7,8 +7,8 @@ export declare class ToggleSwitchComponent implements ControlValueAccessor {
     valueChange: EventEmitter<any>;
     value: boolean;
     private _value;
-    private onTouchedCallback;
-    private onChangeCallback;
+    onTouchedCallback: () => void;
+    onChangeCallback: (_: any) => void;
     toggleChecked(): void;
     keydown(event: any): void;
     writeValue(value: any): void;

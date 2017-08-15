@@ -5,7 +5,7 @@ export declare class PageHeaderNavigationDropdownItemComponent {
     item: PageHeaderNavigationDropdownItem;
     onSelect: EventEmitter<PageHeaderNavigationDropdownItem>;
     dropdownOpen: boolean;
-    private dropdownEvents;
+    private _dropdownEvents;
     constructor();
     selectItem(item: PageHeaderNavigationDropdownItem, parentItem?: PageHeaderNavigationDropdownItem): void;
     hoverStart(): void;

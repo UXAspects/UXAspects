@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, QueryList, TemplateRef } from '@angular/core';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
 export declare class PageHeaderComponent {
@@ -11,6 +11,7 @@ export declare class PageHeaderComponent {
     iconMenus: PageHeaderIconMenu[];
     backVisible: boolean;
     backClick: EventEmitter<{}>;
+    customMenus: QueryList<TemplateRef<any>>;
     goBack(): void;
     getCondensedBreadcrumbs(): Breadcrumb[];
 }

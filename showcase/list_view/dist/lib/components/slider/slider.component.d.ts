@@ -63,12 +63,12 @@ export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck, 
     };
     ticks: SliderTick[];
     defaultOptions: SliderOptions;
-    private lowerThumbDown;
-    private upperThumbDown;
-    private mouseMove;
-    private mouseUp;
-    private lowerDrag;
-    private upperDrag;
+    private _lowerThumbDown;
+    private _upperThumbDown;
+    private _mouseMove;
+    private _mouseUp;
+    private _lowerDrag;
+    private _upperDrag;
     constructor(colorService: ColorService);
     ngOnInit(): void;
     ngDoCheck(): void;

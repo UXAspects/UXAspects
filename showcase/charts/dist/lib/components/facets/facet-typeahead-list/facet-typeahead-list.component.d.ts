@@ -14,8 +14,8 @@ export declare class FacetTypeaheadListComponent extends FacetBaseComponent impl
     simplified: boolean;
     typeaheadOptions: Observable<Facet[]>;
     searchQuery: string;
-    private nativeElement;
-    private defaultTypeaheadConfig;
+    private _nativeElement;
+    private _defaultTypeaheadConfig;
     ngOnInit(): void;
     selectOption(typeaheadOption: TypeaheadMatch): void;
     scrollToFocused(): void;
