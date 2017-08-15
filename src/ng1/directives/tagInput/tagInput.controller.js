@@ -26,6 +26,7 @@ export default function TagInputCtrl($scope, $q) {
     //Options
     $scope.options = $scope.options || {};
     ti.placeholder = $scope.options.placeholder || "";
+    ti.initialPlaceholder = $scope.options.initialPlaceholder || false;
     ti.minTagLength = $scope.options.minTagLength || 1;
     ti.maxTagLength = $scope.options.maxTagLength || Number.MAX_SAFE_INTEGER;
     ti.minNumberTags = $scope.options.minNumberTags || 0;
