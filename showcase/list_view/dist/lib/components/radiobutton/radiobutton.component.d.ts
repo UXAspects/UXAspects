@@ -11,8 +11,8 @@ export declare class RadioButtonComponent implements ControlValueAccessor {
     valueChange: EventEmitter<any>;
     value: boolean;
     private _value;
-    private onTouchedCallback;
-    private onChangeCallback;
+    onTouchedCallback: () => void;
+    onChangeCallback: (_: any) => void;
     checkItem(): void;
     keyDown(event: KeyboardEvent): void;
     writeValue(value: boolean): void;

@@ -5,7 +5,7 @@ export declare class ColumnSortingComponent {
     key: string;
     orderNumber: number;
     stateChange: EventEmitter<ColumnSortingState>;
-    private parent;
+    private _parent;
     columnSortingState: typeof ColumnSortingState;
     initParent(parent: ColumnSortingDirective): void;
     changeState(): ColumnSortingOrder[];

@@ -8,9 +8,9 @@ export declare class FlippableCardComponent {
     flippedChange: EventEmitter<boolean>;
     setFlipped(state: boolean): void;
     toggleFlipped(): void;
-    private clickTrigger();
-    private hoverEnter();
-    private hoverExit();
+    clickTrigger(): void;
+    hoverEnter(): void;
+    hoverExit(): void;
 }
 export declare class FlippableCardFrontDirective {
 }

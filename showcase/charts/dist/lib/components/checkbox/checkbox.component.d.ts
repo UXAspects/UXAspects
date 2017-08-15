@@ -10,8 +10,8 @@ export declare class CheckboxComponent implements ControlValueAccessor {
     valueChange: EventEmitter<any>;
     value: any;
     private _value;
-    private onTouchedCallback;
-    private onChangeCallback;
+    onTouchedCallback: () => void;
+    onChangeCallback: (_: any) => void;
     constructor();
     toggleChecked(): void;
     keyDown(event: KeyboardEvent): void;
