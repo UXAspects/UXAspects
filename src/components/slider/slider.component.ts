@@ -32,8 +32,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     sliderThumb = SliderThumb;
     sliderTickType = SliderTickType;
     sliderThumbEvent = SliderThumbEvent;
-    lowerDragging = false;
-    upperDragging = false;
 
     tracks = {
         lower: {
@@ -230,20 +228,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
 
             case SliderThumbEvent.DragStart:
                 state.drag = true;
-                if (thumb === SliderThumb.Lower) {
-                    this.lowerDragging = true;
-                } else {
-                    this.upperDragging = true;
-                }
                 break;
 
             case SliderThumbEvent.DragEnd:
                 state.drag = false;
-                if (thumb === SliderThumb.Lower) {
-                    this.lowerDragging = false;
-                } else {
-                    this.upperDragging = false;
-                }
                 break;
 
             case SliderThumbEvent.MouseOver:
