@@ -1229,8 +1229,14 @@
                 },
                 {
                     "title": "Color Service",
+                    "component": "ComponentsColorServiceComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Color Service",
                     "component": "ComponentsColorServiceNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Force Focus",
