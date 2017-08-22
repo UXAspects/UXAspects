@@ -166,6 +166,22 @@ export class ThemeColor {
         return 'rgba(' + this._r + ', ' + this._g + ', ' + this._b + ', ' + this._a + ')';
     }
 
+    getRed() {
+        return this._r;
+    }
+
+    getGreen() {
+        return this._g;
+    }
+
+    getBlue() {
+        return this._b;
+    }
+
+    getAlpha() {
+        return this._a;
+    }
+
     setRed(red: string) {
         this._r = red;
         return this;
