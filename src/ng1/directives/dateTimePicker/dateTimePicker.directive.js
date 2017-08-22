@@ -23,8 +23,7 @@ export default function dateTimePicker() {
       defaultDayTime: '@?',
       timezones: '=?',
       timezoneDefaultIndex: '=?',
-      editing: '=?', // boolean value indicating that the model value is not yet finalised
-      customClass: '=?'
+      editing: '=?' // boolean value indicating that the model value is not yet finalised
     },
     controller: "DateTimePickerCtrl as dtpk",
     template: require('./dateTimePicker.html'),

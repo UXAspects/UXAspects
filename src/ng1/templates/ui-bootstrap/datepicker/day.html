@@ -13,8 +13,8 @@
   <tbody>
     <tr ng-repeat="row in rows track by $index">
       <td ng-show="showWeeks"><em>{{ weekNumbers[$index] }}</em></td>
-      <td ng-repeat="dt in row track by dt.date" class="day {{dt.customClass}}" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}"
-          ng-class="{active: isActive(dt),'old':dt.secondary}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1">{{dt.label}}
+      <td ng-repeat="dt in row track by dt.date" class="day" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}"
+          ng-class="{ active: isActive(dt),'old':dt.secondary}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1">{{dt.label}}
       </td>
     </tr>
   </tbody>
