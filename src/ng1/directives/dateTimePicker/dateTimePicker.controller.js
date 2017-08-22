@@ -46,4 +46,8 @@ export default function DateTimePickerCtrl($scope) {
         $scope.ngModel.date = new Date();
     };
 
+    vm.applyCustomClass = function(date, mode) {
+        return $scope.customClass ? $scope.customClass(date, mode): '';
+    };
+
 }
