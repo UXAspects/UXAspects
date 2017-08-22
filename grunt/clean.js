@@ -7,5 +7,5 @@ module.exports = {
     images: 'dist/img',
     less: 'dist/less',
     licenses: 'dist/Licenses',
-    e2e: ['e2e/dist', 'e2e/_test-output', 'e2e/pages/**/*.js', 'e2e/pages/**/*.map', 'e2e/tests/**/*.js', 'e2e/tests/**/*.map']
+    e2e: ['e2e/dist', 'e2e/_test-output']
 };

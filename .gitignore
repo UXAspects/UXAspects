@@ -17,7 +17,3 @@ e2e/_test-output/
 e2e/dist/
 e2e/html/
 e2e/xml/
-e2e/pages/**/*.js
-e2e/pages/**/*.map
-e2e/tests/**/*.js
-e2e/tests/**/*.map
