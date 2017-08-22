@@ -45,8 +45,7 @@ export default function dateTimePickerPopup($compile, $document, $parse) {
                 'timezones': attrs.timezones,
                 'timezoneDefaultIndex': attrs.timezoneDefaultIndex,
                 'editing': 'dtpp.editing || !dtpp.ngModelCtrl.$valid || !dtpp.ngModelCtrl.$viewValue',
-                'validator': attrs.validator,
-                'custom-class': attrs.customClass
+                'validator': attrs.validator
             });
 
             //compile the element before adding it to the popover

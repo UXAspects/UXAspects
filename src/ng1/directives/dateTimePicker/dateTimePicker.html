@@ -1,5 +1,5 @@
 <div class="date-picker" ng-show="chooseDate">
-    <datepicker ng-model="dtpk.date" custom-class="dtpk.applyCustomClass(date, mode)" class="datepicker" hide-active="editing"></datepicker>
+    <datepicker ng-model="dtpk.date" class="datepicker" hide-active="editing"></datepicker>
     <button type="button" class="btn today-btn button-secondary" ng-click="dtpk.goToday()">Today</button>
 </div>
 <div ng-show="chooseTime||chooseTimeZone" ng-class="{'timepicker-dark':chooseDate, 'timepicker-light': !chooseDate}">
