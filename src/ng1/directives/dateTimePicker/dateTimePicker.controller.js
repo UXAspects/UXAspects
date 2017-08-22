@@ -22,7 +22,6 @@ export default function DateTimePickerCtrl($scope) {
         vm.defaultDayTime = $scope.defaultDayTime;
         vm.timezones = $scope.timezones ? $scope.timezones : ["GMT", "IST", "EST", "CST", "WST"];
         vm.timezoneDefaultIndex = $scope.timezoneDefaultIndex ? $scope.timezoneDefaultIndex : 0;
-        vm.customClass = $scope.customClass ? $scope.customClass : angular.noop;
     };
 
     $scope.$watch("ngModel.date", function (nv, ov) {
@@ -48,10 +47,7 @@ export default function DateTimePickerCtrl($scope) {
     };
 
     vm.applyCustomClass = function(date, mode) {
-        if($scope.customClass) {
-            return $scope.customClass(date, mode);
-        }
-        return; 
+        return $scope.customClass ? $scope.customClass(date, mode): '';
     };
 
 }
