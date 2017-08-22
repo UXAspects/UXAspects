@@ -1274,10 +1274,12 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
 
         // 42 is the number of days on a six-month calendar
         var days = getDates(firstDate, 42);
+        var todaysDate = new Date();
         for (var i = 0; i < 42; i ++) {
           days[i] = angular.extend(ctrl.createDateObject(days[i], ctrl.formatDay), {
             secondary: days[i].getMonth() !== month,
-            uid: scope.uniqueId + '-' + i
+            uid: scope.uniqueId + '-' + i,
+            today: (days[i].toDateString() === todaysDate.toDateString())
           });
         }
 
