@@ -17,7 +17,7 @@ export class ComponentsColorServiceComponent extends BaseDocumentationSection im
 
     plunk: IPlunk = {
         files: {
-            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.ts': this.snippets.raw.appExampleTs,
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.css': this.snippets.raw.appCss
         },

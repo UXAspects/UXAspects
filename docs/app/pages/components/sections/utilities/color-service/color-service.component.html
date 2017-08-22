@@ -1,4 +1,7 @@
-<p>The <code>ColorService</code> can be used to get the Hex, RGB or RGBA value for a color in the Color Palette.</p>
+<p>The <code>ColorService</code> can be used to get the Hex, RGB or RGBA value for a color in the 
+    <a routerLink="/css/color-palette">Color Palette</a>
+    .
+</p>
 
 
 <div class="demo-attributes table-responsive">
@@ -12,16 +15,17 @@
         <tr>
             <td>getColor</td>
             <td>string</td>
-            <td>Object</td>
+            <td>ThemeColor</td>
             <td>This method will accept a string parameter for a color from the Color Palette and return a <code>ThemeColor</code> 
-                object.</td>
+                    object.
+            </td>
         </tr>
     </table>
 </div>
 
 <h4>ThemeColor Object</h4>
 
-<p>The <code>ThemeColor</code> object is used to provide the selected color from the Color Palette</p>
+<p>The <code>ThemeColor</code> object is used to provide the selected color from the Color Palette.</p>
 
 <p>The following functions can be used on the <code>ThemeColor</code> object:</p>
 
@@ -40,43 +44,49 @@
                 <td>setRed</td>
                 <td>number</td>
                 <td></td>
-                <td>This method will set the red value of the <code>ThemeColor</code>. It will take a number as a parameter.</td>
+                <td>This method will set the red value of the <code>ThemeColor</code>. The valid range is 0-255.</td>
             </tr>
             <tr>
                 <td>setGreen</td>
                 <td>number</td>
                 <td></td>
-                <td>This method will set the green value of the <code>ThemeColor</code>. It will take a number as a parameter.</td>
+                <td>This method will set the green value of the <code>ThemeColor</code>. The valid range is 0-255.</td>
             </tr>
             <tr>
                 <td>setBlue</td>
                 <td>number</td>
                 <td></td>
-                <td>This method will set the blue value of the <code>ThemeColor</code>. It will take a number as a parameter.</td>
+                <td>This method will set the blue value of the <code>ThemeColor</code>. The valid range is 0-255.</td>
             </tr>
             <tr>
                 <td>setAlpha</td>
                 <td>number</td>
                 <td></td>
-                <td>This method will set the alpha value of the <code>ThemeColor</code>. It will take a number as a parameter.</td>
+                <td>This method will set the alpha value of the <code>ThemeColor</code>. The valid range is 0.0-1.0.</td>
             </tr>
             <tr>
                 <td>toRgb</td>
                 <td></td>
-                <td>number</td>
-                <td>This method will return the RGB value of the <code>ThemeColor</code>.</td>
+                <td>string</td>
+                <td>This method will return the RGB value of the <code>ThemeColor</code> in the following arrangment:
+                        <code>rgb(0, 167, 162)</code>.
+                </td>
             </tr>
             <tr>
                 <td>toRgba</td>
                 <td></td>
-                <td>number</td>
-                <td>This method will return the RGBA value of the <code>ThemeColor</code>.</td>
+                <td>string</td>
+                <td>This method will return the RGBA value of the <code>ThemeColor</code> in the following arrangment:
+                        <code>rgb(0, 167, 162, 0.5)</code>.
+                </td>
             </tr>
             <tr>
                 <td>toHex</td>
                 <td></td>
-                <td>number</td>
-                <td>This method will return the hexadecimal value of the <code>ThemeColor</code>.</td>
+                <td>string</td>
+                <td>This method will return the hexadecimal value of the <code>ThemeColor</code> in the following arrangment:
+                        <code>#00a7a2</code>.
+                </td>
             </tr>
         </tbody>
     </table>
@@ -84,7 +94,7 @@
 
 <h4>Color Palette</h4>
 
-<p>Below is a list of colors that can be used with <code>ColorService</code>:</p>
+<p>Below is a list of color names which the <code>getColor</code> function accepts:</p>
 
 <div class="demo-attributes table-responsive">
     <table class="table m-t">
@@ -94,15 +104,15 @@
             <tr>
                 <th>
                     <div class="color-box-container">
-                        <p>Primary</p>
+                        <p>primary</p>
                         <div class="color-box primary-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Accent</p>
+                        <p>accent</p>
                         <div class="color-box accent-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Secondary</p>
+                        <p>secondary</p>
                         <div class="color-box secondary-color"></div>
                     </div>
                 </th>
@@ -110,15 +120,15 @@
             <tr>
                 <th>
                     <div class="color-box-container">
-                        <p>Alternate1</p>
+                        <p>alternate1</p>
                         <div class="color-box alternate1-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Alternate2</p>
+                        <p>alternate2</p>
                         <div class="color-box alternate2-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Alternate3</p>
+                        <p>alternate3</p>
                         <div class="color-box alternate3-color"></div>
                     </div>
                 </th>
@@ -126,11 +136,11 @@
             <tr>
                 <th>
                     <div class="color-box-container">
-                        <p>Vibrant1</p>
+                        <p>vibrant1</p>
                         <div class="color-box vibrant1-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Vibrant2</p>
+                        <p>vibrant2</p>
                         <div class="color-box vibrant2-color"></div>
                     </div>
                 </th>
@@ -138,35 +148,35 @@
             <tr>
                 <th>
                     <div class="color-box-container">
-                        <p>Grey1</p>
+                        <p>grey1</p>
                         <div class="color-box grey1-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Grey2</p>
+                        <p>grey2</p>
                         <div class="color-box grey2-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Grey3</p>
+                        <p>grey3</p>
                         <div class="color-box grey3-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Grey4</p>
+                        <p>grey4</p>
                         <div class="color-box grey4-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Grey5</p>
+                        <p>grey5</p>
                         <div class="color-box grey5-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Grey6</p>
+                        <p>grey6</p>
                         <div class="color-box grey6-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Grey7</p>
+                        <p>grey7</p>
                         <div class="color-box grey7-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Grey8</p>
+                        <p>grey8</p>
                         <div class="color-box grey8-color"></div>
                     </div>
                 </th>
@@ -174,27 +184,27 @@
             <tr>
                 <th>
                     <div class="color-box-container">
-                        <p>Chart1</p>
+                        <p>chart1</p>
                         <div class="color-box chart1-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Chart2</p>
+                        <p>chart2</p>
                         <div class="color-box chart2-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Chart3</p>
+                        <p>chart3</p>
                         <div class="color-box chart3-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Chart4</p>
+                        <p>chart4</p>
                         <div class="color-box chart4-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Chart5</p>
+                        <p>chart5</p>
                         <div class="color-box chart5-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Chart6</p>
+                        <p>chart6</p>
                         <div class="color-box chart6-color"></div>
                     </div>
                 </th>
@@ -202,15 +212,15 @@
             <tr>
                 <th>
                     <div class="color-box-container">
-                        <p>OK</p>
+                        <p>ok</p>
                         <div class="color-box ok-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Warning</p>
+                        <p>warning</p>
                         <div class="color-box warning-color"></div>
                     </div>
                     <div class="color-box-container">
-                        <p>Critical</p>
+                        <p>critical</p>
                         <div class="color-box critical-color"></div>
                     </div>
                 </th>
@@ -221,9 +231,10 @@
 
 <blockquote>
     <p><strong>Note</strong>: Refer to the <a routerLink="/css/color-palette">Color Palette</a> page for details about available
-        colors.</p>
+        colors.
+    </p>
 </blockquote>
 
 <p>Below is an example of how the <code>ColorService</code> can be used:</p>
 
-<uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+<uxd-snippet language="javascript" [content]="snippets.compiled.appSnippetTs"></uxd-snippet>

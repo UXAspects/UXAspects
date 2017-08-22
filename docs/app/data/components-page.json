@@ -1230,7 +1230,12 @@
                 {
                     "title": "Color Service",
                     "component": "ComponentsColorServiceComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [{
+                            "title": "Module",
+                            "content": "ColorServiceModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Color Service",
