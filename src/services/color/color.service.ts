@@ -110,6 +110,36 @@ export class ThemeColor {
         this._a = a === undefined ? '1' : a;
     }
 
+    static parse(value: string): ThemeColor {
+        let r, g, b, a = '1';
+
+        var rgbaPattern = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/;
+        var shortHexPattern = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        var longHexPattern = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/;
+
+        let rgbaMatch = value.match(rgbaPattern);
+        let shortHexMatch = value.match(shortHexPattern);
+        let longHexMatch = value.match(longHexPattern);
+
+        if (rgbaMatch) {
+            r = rgbaMatch[1];
+            g = rgbaMatch[2];
+            b = rgbaMatch[3];
+            a = rgbaMatch[4] ? rgbaMatch[4] : '1';
+        } else if (longHexMatch) {
+            r = parseInt(longHexMatch[1], 16).toString();
+            g = parseInt(longHexMatch[2], 16).toString();
+            b = parseInt(longHexMatch[3], 16).toString();
+        } else if (shortHexMatch) {
+            r = parseInt(shortHexMatch[1] + shortHexMatch[1], 16).toString();
+            g = parseInt(shortHexMatch[2] + shortHexMatch[2], 16).toString();
+            b = parseInt(shortHexMatch[3] + shortHexMatch[3], 16).toString();
+        } else {
+            throw new Error(`Cannot parse color - ${value} is not a valid color.`);
+        }
+        return new ThemeColor(r, g, b, a);
+    }
+
     toHex() {
         var red = parseInt(this._r).toString(16);
         var green = parseInt(this._g).toString(16);
@@ -134,6 +164,22 @@ export class ThemeColor {
 
     toRgba() {
         return 'rgba(' + this._r + ', ' + this._g + ', ' + this._b + ', ' + this._a + ')';
+    }
+
+    getRed() {
+        return this._r;
+    }
+
+    getGreen() {
+        return this._g;
+    }
+
+    getBlue() {
+        return this._b;
+    }
+
+    getAlpha() {
+        return this._a;
     }
 
     setRed(red: string) {

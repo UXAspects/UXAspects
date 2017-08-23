@@ -5,6 +5,7 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
+import { ComponentsColorServiceComponent } from './color-service/color-service.component';
 import { ComponentsColorServiceNg1Component } from './color-service-ng1/color-service-ng1.component';
 import { ComponentsForceFocusNg1Component } from './force-focus-ng1/force-focus-ng1.component';
 import { ComponentsFocusOnShowNg1Component } from './focus-on-show-ng1/focus-on-show-component';
@@ -21,6 +22,7 @@ import { ComponentsFocusIfComponent } from './focus-if/focus-if.component';
 
 const SECTIONS = [
     ComponentsFocusIfComponent,
+    ComponentsColorServiceComponent,
     ComponentsColorServiceNg1Component,
     ComponentsForceFocusNg1Component,
     ComponentsFocusOnShowNg1Component,
