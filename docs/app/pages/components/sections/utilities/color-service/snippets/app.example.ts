@@ -1,4 +1,3 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ColorService, ThemeColor } from 'ux-aspects';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,18 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-    // ux-select configuration properties
-    maxHeight: string = '250px';
- 
-    // Customize settings
-    colorSet = new BehaviorSubject<string>('colors');
+    // color list
+    public colorSet = ['primary', 'accent', 'secondary', 'alternate1', 'alternate2', 'alternate3', 'vibrant1', 'vibrant2', 'grey1', 'grey2', 'grey3', 'grey4', 'grey5', 'grey6', 'grey7', 'grey8', 'chart1', 'chart2', 'chart3', 'chart4', 'chart5', 'chart6', 'ok', 'warning', 'critical'];
+
+    salesColorNames = ['chart1', 'chart2', 'chart3'];
+    salesColorValues = this.salesColorNames.map(color => this.colorService.getColor(color).toHex());
     
-    private colorSets: { sales?: any[] } = {};
-
-    selectedColorSet(): any[] {
-        return this.colorSets[this.colorSet.getValue()];
-    }
-
     // configure the directive data
     donutChartData: Chart.ChartData = [{
         data: [33, 34, 33],
@@ -28,14 +21,9 @@ export class AppComponent implements OnInit {
     }];
 
     donutChartOptions: Chart.ChartOptions;
-    donutChartColors: any;
+    donutChartColors: any = [];
 
     constructor(public colorService: ColorService) {
-
-        // color list
-        this.colorSets.colors = ['Primary', 'Accent', 'Secondary', 'Alternate1', 'Alternate2', 'Alternate3', 'Vibrant1', 'Vibrant2',
-                'Grey1', 'Grey2', 'Grey3', 'Grey4', 'Grey5', 'Grey6', 'Grey7', 'Grey8', 'Chart1', 'Chart2', 'Chart3', 'Chart4', 'Chart5',
-                'Chart6', 'OK', 'Warning', 'Critical'];
 
         let tooltipBackgroundColor = colorService.getColor('grey2').toHex();
 
@@ -49,22 +37,7 @@ export class AppComponent implements OnInit {
                         return;
                     },
                     label: (item: Chart.ChartTooltipItem, data: any) => {
-
-                        // get the dataset
-                        let dataset = data.datasets[0];
-
-                        // calculate the total of all segment values
-                        let total = dataset.data.reduce((previousValue: any, currentValue: any) => {
-                            return previousValue + currentValue;
-                        });
-
-                        // get the value of the current segment
-                        let segmentValue = dataset.data[item.index];
-
-                        // calculate the percentage of the current segment compared to the total
-                        let precentage = Math.round(((segmentValue / total) * 100));
-
-                        return `${ precentage }%, Sales ${ item.index + 1 }`;
+                        return `Sales ${item.index + 1}`;
                     }
                 },
                 backgroundColor: tooltipBackgroundColor,
@@ -72,94 +45,39 @@ export class AppComponent implements OnInit {
                 displayColors: false
             } as any
         };
-
-        this.donutChartColors = [
-            {
-                backgroundColor: [
-                    colorService.getColor('chart1').toRgb(),
-                    colorService.getColor('chart2').toRgb(),
-                    colorService.getColor('chart3').toRgb(),
-                ],
-                hoverBackgroundColor: [
-                    colorService.getColor('chart1').setAlpha(0.3).toRgba(),
-                    colorService.getColor('chart2').setAlpha(0.3).toRgba(),
-                    colorService.getColor('chart3').setAlpha(0.3).toRgba(),
-                ]
-            }
-        ];
     }
-    
-    changeSalesColor(sales: string, color: string): void {
-        
-          if (!sales || !color) {
-              return;
-              
-          } else {
-        
-            switch (sales) {
 
-                case 'sales1':
-                    this.sales1 = color;
-                    break;
-
-                case 'sales2':
-                    this.sales2 = color;
-                    break;
-                    
-                case 'sales3':
-                    this.sales3 = color;
-            }
-              let colorString = this.colorService.getColor(color.toLowerCase()).toHex();
-              this.setColor(sales, colorString, false);
-          }
-      }
-      
-      setColor(sales: string, color: string, customized: boolean = false): void {
-        
-          if (!sales || !color) {
-              return;
-            
-          } else if (customized && (color.length != 7)) {
-              return;
-            
-          } else {
-            
-              let index;
-            
-              switch (sales) {
-                
-                  case 'sales1':
-                    index = 0;
-                    if (customized) {
-                        this.sales1 = '';
-                    }
-                    break;
-                    
-                  case 'sales2':
-                    index = 1;
-                    if (customized) {
-                        this.sales2 = '';
-                    }
-                    break;
-                    
-                  case 'sales3':
-                    index = 2;
-                    if (customized) {
-                        this.sales3 = '';
-                    }
-              }
-              
-              let newColor = ThemeColor.parse(color);
-              this.donutChartColors[0].backgroundColor[index] = color;
-              this.donutChartColors[0].hoverBackgroundColor[index] = newColor.setAlpha(0.3).toRgba();
-              this.donutChartColors = this.donutChartColors.slice();
-          }
-      }
-    
     ngOnInit() {
-        this.options = this.selectedColorSet();
-        this.changeSalesColor('sales1', 'Chart1');
-        this.changeSalesColor('sales2', 'Chart2');
-        this.changeSalesColor('sales3', 'Chart3');
+        this.colorNamesUpdated();
+    }
+
+    colorNamesUpdated() {
+        this.salesColorValues = this.salesColorNames.map((colorName, index) => colorName ? this.colorService.getColor(colorName).toHex() : this.salesColorValues[index]);
+        this.colorValuesUpdated();
+    }
+
+    colorValuesUpdated() {
+
+        // check if all colors are valid
+        for (let value of this.salesColorValues) {
+            try {
+                ThemeColor.parse(value);
+            } catch (err) {
+                return;
+            }
+        }
+
+        const chartColors = this.salesColorValues.slice();
+        const chartHoverColors = this.salesColorValues.map(color => ThemeColor.parse(color).setAlpha(0.3).toRgba());
+        this.donutChartColors = [{
+            backgroundColor: chartColors,
+            hoverBackgroundColor: chartHoverColors
+        }];
+
+        this.salesColorValues.forEach((color, index) => {
+            if (!this.colorSet.find(colorName => this.colorService.getColor(colorName).toHex() === color)) {
+                this.salesColorNames[index] = '';
+            }
+        });
     }
 }

@@ -1,46 +1,30 @@
 <div class="demo-chart-container">
-    <canvas baseChart 
-            [datasets]="donutChartData"
-            [options]="donutChartOptions"
-            [colors]="donutChartColors"
-            chartType="doughnut">
+    <canvas baseChart [datasets]="donutChartData" [options]="donutChartOptions" [colors]="donutChartColors" chartType="doughnut">
     </canvas>
 </div>
 <div class="row">
     <div class="col-sm-4 col-xs-4">
         <div class="form-group m-nil">
             <label>Sales 1:</label>
-            <ux-select [value]="sales1"
-                (valueChange)="changeSalesColor('sales1', $event)"
-                [options]="options"
-                placeholder="Select Color">
+            <ux-select [(value)]="salesColorNames[0]" (valueChange)="colorNamesUpdated()" [options]="colorSet" placeholder="Select Color">
             </ux-select>
-            <input class="form-control" type="text" [ngModel]="donutChartColors[0].backgroundColor[0]"
-                    (ngModelChange)="setColor('sales1', $event, true);">
+            <input class="form-control" type="text" [(ngModel)]="salesColorValues[0]" (keyup.enter)="colorValuesUpdated()" (blur)="colorValuesUpdated()">
         </div>
     </div>
     <div class="col-sm-4 col-xs-4">
         <div class="form-group m-nil">
             <label>Sales 2:</label>
-            <ux-select [value]="sales2"
-                (valueChange)="changeSalesColor('sales2', $event)"
-                [options]="options"
-                placeholder="Select Color">
+            <ux-select [(value)]="salesColorNames[1]" (valueChange)="colorNamesUpdated()" [options]="colorSet" placeholder="Select Color">
             </ux-select>
-            <input class="form-control" type="text" [ngModel]="donutChartColors[0].backgroundColor[1]"
-                    (ngModelChange)="setColor('sales2', $event, true);">
+            <input class="form-control" type="text" [(ngModel)]="salesColorValues[1]" (keyup.enter)="colorValuesUpdated()" (blur)="colorValuesUpdated()">
         </div>
     </div>
     <div class="col-sm-4 col-xs-4">
         <div class="form-group m-nil">
             <label>Sales 3:</label>
-            <ux-select [value]="sales3"
-                (valueChange)="changeSalesColor('sales3', $event)"
-                [options]="options"
-                placeholder="Select Color">
+            <ux-select [(value)]="salesColorNames[2]" (valueChange)="colorNamesUpdated()" [options]="colorSet" placeholder="Select Color">
             </ux-select>
-            <input class="form-control" type="text" [ngModel]="donutChartColors[0].backgroundColor[2]"
-                    (ngModelChange)="setColor('sales3', $event, true);">
+            <input class="form-control" type="text" [(ngModel)]="salesColorValues[2]" (keyup.enter)="colorValuesUpdated()" (blur)="colorValuesUpdated()">
         </div>
     </div>
 </div>
