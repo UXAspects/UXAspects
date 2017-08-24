@@ -211,8 +211,32 @@
                 },
                 {
                     "title": "Time Picker",
+                    "component": "ComponentsTimePickerComponent",
+                    "version": "Angular",
+                    "externalUrl": "http://valor-software.com/ngx-bootstrap/#/timepicker",
+                    "usage": [{
+                            "title": "Selector",
+                            "content": "timepicker"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TimepickerModule"
+                        },
+                        {
+                            "title": "Import As",
+                            "content": "TimepickerModule.forRoot()"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
+                },
+                {
+                    "title": "Time Picker",
                     "component": "ComponentsTimePickerNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

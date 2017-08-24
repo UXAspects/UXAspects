@@ -1,0 +1,86 @@
+<timepicker [ngModel]="myTime" [min]="minTime" [max]="maxTime" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian"
+    [showSeconds]="showSec" [readonlyInput]="!isEnabled" [mousewheel]="mousewheel" [arrowkeys]="arrowkeys" (ngModelChange)="changed($event)">
+</timepicker>
+
+<p class="m-t">Time is: <em>{{myTime}}</em></p>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 col-sm-6">
+                        <div>
+                            <label for="minHour">min hour</label>
+                            <ux-number-picker [(value)]="minHour" min="0" max="23" (valueChange)="minTime.setHours($event)"></ux-number-picker>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div>
+                            <label for="maxHour">max hour</label>
+                            <ux-number-picker [(value)]="maxHour" min="0" max="23" (valueChange)="maxTime.setHours($event)"></ux-number-picker>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div>
+                            <label for="minMinute">min minute</label>
+                            <ux-number-picker [(value)]="minMinute" min="0" max="59" (valueChange)="minTime.setMinutes($event)"></ux-number-picker>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div>
+                            <label for="maxMinute">max minute</label>
+                            <ux-number-picker [(value)]="maxMinute" min="0" max="59" (valueChange)="maxTime.setMinutes($event)"></ux-number-picker>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 col-sm-6">
+                        <div>
+                            <label for="hstep">hours step</label>
+                            <ux-select [(value)]="hstep" [options]="options.hstep"></ux-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div>
+                            <label for="mstep">minutes step</label>
+                            <ux-select [(value)]="mstep" [options]="options.mstep"></ux-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-t-md">
+                    <div class="col-md-12 col-sm-12">
+                        <div>
+                            <ux-checkbox [(value)]="checkModel.showMeridian" (click)="ismeridian = !ismeridian">12H / 24H</ux-checkbox>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-t-md">
+                    <div class="col-md-12 col-sm-12">
+                        <div>
+                            <ux-checkbox [(value)]="checkModel.showSeconds" (click)="showSec = !showSec">show / hide seconds</ux-checkbox>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-t-md">
+                    <div class="col-md-12 col-sm-12">
+                        <label>disable:</label>
+                        <div>
+                            <ux-checkbox [(value)]="checkModel.readonlyInput" (click)="isEnabled=!isEnabled">input</ux-checkbox>
+                        </div>
+                        <div>
+                            <ux-checkbox [(value)]="checkModel.mousewheel" (click)="mousewheel=!mousewheel">mouse wheel</ux-checkbox>
+                        </div>
+                        <div>
+                            <ux-checkbox [(value)]="checkModel.arrowkeys" (click)="arrowkeys=!arrowkeys">arrow keys</ux-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
