@@ -43,7 +43,7 @@ exports.config = {
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['**/*e2e-spec.js' ],
+  specs: ['dist/**/*e2e-spec.js'],
 
   // For angular tests
   useAllAngular2AppRoots: true,
