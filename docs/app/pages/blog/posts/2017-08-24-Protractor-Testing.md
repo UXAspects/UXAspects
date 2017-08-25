@@ -1,4 +1,4 @@
-End-to-end (E2E) testing complements unit testing and does not replace it. It allows you to test the way users see your application.
+Unit tests test the smallest level of functionality e.g. the result of executing a method. End-to-end (E2E) tests build on unit tests by combining units of code and testing that the resulting combination functions correctly. They test a particular feature for correctness by comparing the results for a given input against the specification e.g. 'pressing button X should result in checkbox Y becoming disabled'.
 
 Protractor is an end-to-end, open source test framework for Angular. It uses the Jasmine framework by default and runs on top of Selenium WebDriver. Tests may be run against a local Selenium server or against a remote server e.g. a Selenium Grid system. Tests may be written in JavaScript and TypeScript.
 
@@ -8,26 +8,13 @@ The UXAspects project includes a suite of E2E tests in the 'e2e' folder of the p
 
 Install [Node.js](https://nodejs.org/), which provides the npm package manager.
 
-Execute the command
-```
-npm install -g grunt-cli
-```
-to install the grunt command line interface.
+Execute the command `npm install -g grunt-cli` to install the grunt command line interface.
 
 Follow the instructions in the "Building from Source" section in the [Getting Started](https://uxaspects.github.io/UXAspects/#/gettingstarted) page of the UX Aspects documentation to build the components to be tested.
 
-Before the first test run, execute
-```
-./node_modules/.bin/webdriver-manager update
-```
-to download the binaries necessary to get an instance of the Selenium Server running.
+Before the first test run, execute `./node_modules/.bin/webdriver-manager update` to download the binaries necessary to get an instance of the Selenium Server running.
 
-Execute the command
-```
-grunt e2e
-```
-to run the tests.
-
+Execute the command `grunt e2e` to run the tests.
 
 ### Architecture
 
@@ -35,25 +22,9 @@ All Protractor methods are asynchronous and return promises. WebDriver maintains
 
 In our tests, elements are located on the test page by using ‘by.ID’ and ‘by.CSS’ locators.
 
-The Protractor global elements() function takes a locator for an element and returns that element. When using CSS selectors as a locator, the shortcut $() notation may be used. For example, 
-```
-checkbox1.$('div .ux-checked')
-```
- is the same as 
-```
-checkbox1.element(by.css('div .ux-checked'))
-```.
+The Protractor global elements() function takes a locator for an element and returns that element. When using CSS selectors as a locator, the shortcut $() notation may be used. For example, `checkbox1.$('div .ux-checked')` is the same as `checkbox1.element(by.css('div .ux-checked'))`.
 
-Multiple DOM elements may be found using the global element.all() function. As with single elements, a shortcut notation, $$(), may be used. For example, 
-```
-textsContainer.$$('em').get(1)
-```
- is the same as 
-```
-textsContainer.elements.all(by.css('em').get(1))
-```
- and returns the second of an array of ‘em’ elements.
-
+Multiple DOM elements may be found using the global element.all() function. As with single elements, a shortcut notation, $$(), may be used. For example `textsContainer.$$('em').get(1)` is the same as `textsContainer.elements.all(by.css('em').get(1))` and returns the second of an array of ‘em’ elements.
 
 ### Test organisation
 
@@ -76,7 +47,6 @@ Encapsulating this information in a separate file means that if the organization
 #### Test specifications
 
 The test instructions themselves are written using Jasmine syntax in test specification files. The page object class is exported from the page object file and imported into the test specification file.
-
 
 ### Results
 
