@@ -19,12 +19,14 @@ timepicker {
     }
 
     td {
-        .btn-default, .btn-default.active, .btn-default.focus, .btn-default:active,
-        .btn-default:focus, .btn-default:hover, .open>.dropdown-toggle.btn-default {
-        
-            background-color: @accent;
-            border-color: @accent;
-            color: @secondary;
+        .btn-default {
+            .button-accent();
+
+            &:active,
+            &:focus,
+            &:active:focus {
+                .button-accent-active();
+            }
         }
     }
 }

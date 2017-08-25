@@ -1,6 +1,6 @@
 <timepicker [ngModel]="myTime" [min]="min" [max]="max" [hourStep]="hourStep" [minuteStep]="minuteStep"
-    [showMeridian]="showMeridian" [showSeconds]="showSeconds" [readonlyInput]="!readonlyInput"
-    [mousewheel]="mousewheel" [arrowkeys]="arrowkeys" (ngModelChange)="changed($event)">
+    [showMeridian]="showMeridian" [showSeconds]="showSeconds" [readonlyInput]="readonlyInput"
+    [mousewheel]="!mousewheel" [arrowkeys]="!arrowkeys" (ngModelChange)="changed($event)">
 </timepicker>
 
 <p class="m-t">Time is: <em>{{myTime}}</em></p>
@@ -11,12 +11,12 @@
             <accordion-group heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-6 col-sm-6">
-                        <label for="myMinTime">min time:</label>
+                        <label for="min">min time:</label>
                         <timepicker [(ngModel)]="min" [max]="max"></timepicker>
                     </div>
-                    
+
                     <div class="col-md-6 col-sm-6">
-                        <label for="myMaxTime">max time:</label>
+                        <label for="max">max time:</label>
                         <timepicker [(ngModel)]="max" [min]="min"></timepicker>
                     </div>
                 </div>
@@ -39,17 +39,15 @@
 
                 <div class="row m-t-md">
                     <div class="col-md-12 col-sm-12">
-                        <ux-checkbox [(value)]="checkModel.showMeridian"
-                            (click)="showMeridian = !showMeridian">12H / 24H
-                        </ux-checkbox>
+                        <ux-checkbox [(value)]="showMeridian"></ux-checkbox>
+                        <label for="showMeridian">12H / 24H</label>
                     </div>
                 </div>
 
                 <div class="row m-t-md">
                     <div class="col-md-12 col-sm-12">
-                        <ux-checkbox [(value)]="checkModel.showSeconds"
-                            (click)="showSeconds = !showSeconds">show / hide seconds
-                        </ux-checkbox>
+                        <ux-checkbox [(value)]="showSeconds"></ux-checkbox>
+                        <label for="showSeconds">show / hide seconds</label>
                     </div>
                 </div>
 
@@ -57,19 +55,16 @@
                     <div class="col-md-12 col-sm-12">
                         <label>disable:</label>
                         <div>
-                            <ux-checkbox [(value)]="checkModel.readonlyInput"
-                                (click)="readonlyInput=!readonlyInput">input
-                            </ux-checkbox>
+                            <ux-checkbox [(value)]="readonlyInput"></ux-checkbox>
+                            <label for="readonlyInput">input</label>
                         </div>
                         <div>
-                            <ux-checkbox [(value)]="checkModel.mousewheel"
-                                (click)="mousewheel=!mousewheel">mouse wheel
-                            </ux-checkbox>
+                            <ux-checkbox [(value)]="mousewheel"></ux-checkbox>
+                            <label for="mousewheel">mouse wheel</label>
                         </div>
                         <div>
-                            <ux-checkbox [(value)]="checkModel.arrowkeys" (click)="arrowkeys=!arrowkeys">
-                                arrow keys
-                            </ux-checkbox>
+                            <ux-checkbox [(value)]="arrowkeys">arrow keys</ux-checkbox>
+                            <label for="arrowkeys">arrow keys</label>
                         </div>
                     </div>
                 </div>
@@ -81,8 +76,8 @@
 <hr>
 
 <p>The Bootstrap <code>timepicker</code> component can be used to select a valid time. The value can be
-        bound as a JavaScript <code>Date</code> object with <code>ngModel</code>. Additional customization
-        options can be seen in the example above; see the Angular Bootstrap documentation for full details.
+    bound as a JavaScript <code>Date</code> object with <code>ngModel</code>. Additional customization
+    options can be seen in the example above; see the Angular Bootstrap documentation for full details.
 </p>
 
 <p>The sample code is given below:</p>

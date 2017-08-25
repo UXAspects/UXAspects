@@ -13,9 +13,9 @@ export class AppComponent {
     public minuteStep: number = 1;
     public showMeridian: boolean = true;
     public showSeconds: boolean = false;
-    public readonlyInput: boolean = true;
-    public mousewheel: boolean = true;
-    public arrowkeys: boolean = true;
+    public readonlyInput: boolean = false;
+    public mousewheel: boolean = false;
+    public arrowkeys: boolean = false;
 
     private _hourStep = 1;
     private _minuteStep = 1;
@@ -33,12 +33,6 @@ export class AppComponent {
     set mStep(value: number) {
         this._minuteStep = (value >= 1) ? value : 1;
     }
-
-    checkModel = {
-        readonlyInput: false,
-        mousewheel: false,
-        arrowkeys: false
-    };
 
     constructor() {
 
