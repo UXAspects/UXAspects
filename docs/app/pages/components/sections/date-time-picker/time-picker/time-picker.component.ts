@@ -20,8 +20,8 @@ export class ComponentsTimePickerComponent extends BaseDocumentationSection impl
     public showMeridian: boolean = true;
     public showSeconds: boolean = false;
     public readonlyInput: boolean = false;
-    public mousewheel: boolean = false;
-    public arrowkeys: boolean = false;
+    public mousewheel: boolean = true;
+    public arrowkeys: boolean = true;
 
     private _hourStep = 1;
     private _minuteStep = 1;

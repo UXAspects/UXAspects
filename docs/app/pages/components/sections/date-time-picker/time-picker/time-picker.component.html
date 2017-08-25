@@ -1,6 +1,6 @@
 <timepicker [ngModel]="myTime" [min]="min" [max]="max" [hourStep]="hourStep" [minuteStep]="minuteStep"
     [showMeridian]="showMeridian" [showSeconds]="showSeconds" [readonlyInput]="readonlyInput"
-    [mousewheel]="!mousewheel" [arrowkeys]="!arrowkeys" (ngModelChange)="changed($event)">
+    [mousewheel]="mousewheel" [arrowkeys]="arrowkeys" (ngModelChange)="changed($event)">
 </timepicker>
 
 <p class="m-t">Time is: <em>{{myTime}}</em></p>
@@ -11,26 +11,26 @@
             <accordion-group heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-6 col-sm-6">
-                        <label for="min">min time:</label>
+                        <label for="myMinTime">min</label>
                         <timepicker [(ngModel)]="min" [max]="max"></timepicker>
                     </div>
 
                     <div class="col-md-6 col-sm-6">
-                        <label for="max">max time:</label>
+                        <label for="myMaxTime">max</label>
                         <timepicker [(ngModel)]="max" [min]="min"></timepicker>
                     </div>
                 </div>
 
                 <div class="row uxd-customize-row">
                     <div class="col-md-6 col-sm-6">
-                        <label for="hourStep">hours step</label>
+                        <label for="hourStep">hourStep</label>
                         <ux-number-picker [(value)]="hourStep" min="1" max="22"
                             (valueChange)="hourStep=($event)">
                         </ux-number-picker>
                     </div>
 
                     <div class="col-md-6 col-sm-6">
-                        <label for="minuteStep">minutes step</label>
+                        <label for="minuteStep">minuteStep</label>
                         <ux-number-picker [(value)]="minuteStep" min="1" max="58"
                             (valueChange)="minuteStep=($event)">
                         </ux-number-picker>
@@ -40,31 +40,31 @@
                 <div class="row m-t-md">
                     <div class="col-md-12 col-sm-12">
                         <ux-checkbox [(value)]="showMeridian"></ux-checkbox>
-                        <label for="showMeridian">12H / 24H</label>
+                        <label for="showMeridian">showMeridian</label>
                     </div>
                 </div>
 
                 <div class="row m-t-md">
                     <div class="col-md-12 col-sm-12">
                         <ux-checkbox [(value)]="showSeconds"></ux-checkbox>
-                        <label for="showSeconds">show / hide seconds</label>
+                        <label for="showSeconds">showSeconds</label>
                     </div>
                 </div>
 
                 <div class="row m-t-md">
                     <div class="col-md-12 col-sm-12">
-                        <label>disable:</label>
+                        <label>enable:</label>
                         <div>
                             <ux-checkbox [(value)]="readonlyInput"></ux-checkbox>
-                            <label for="readonlyInput">input</label>
+                            <label for="readonlyInput">readonlyInput</label>
                         </div>
                         <div>
                             <ux-checkbox [(value)]="mousewheel"></ux-checkbox>
-                            <label for="mousewheel">mouse wheel</label>
+                            <label for="mousewheel">mousewheel</label>
                         </div>
                         <div>
-                            <ux-checkbox [(value)]="arrowkeys">arrow keys</ux-checkbox>
-                            <label for="arrowkeys">arrow keys</label>
+                            <ux-checkbox [(value)]="arrowkeys"></ux-checkbox>
+                            <label for="arrowkeys">arrowkeys</label>
                         </div>
                     </div>
                 </div>
