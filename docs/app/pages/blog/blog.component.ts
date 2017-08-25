@@ -23,6 +23,13 @@ export class BlogPageComponent {
     constructor(private domSanitizer: DomSanitizer) {
 
         this.posts = [{
+            title: 'End-to-end testing using Protractor',
+            author: 'Pearse McMurray',
+            category: 'Technical',
+            datestamp: 'August 24th',
+            content: require('./posts/2017-08-24-Protractor-Testing.md')
+        },
+        {
             title: 'Angular Productivity',
             author: 'Ashley Hunter',
             category: 'Technical',
