@@ -12,7 +12,7 @@ import { ComponentsTimePickerComponent } from './time-picker/time-picker.compone
 import { ComponentsTimePickerNg1Component } from './time-picker-ng1/time-picker-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { CheckboxModule, NumberPickerModule, SelectModule} from '../../../../../../src/index';
+import { CheckboxModule, NumberPickerModule} from '../../../../../../src/index';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
@@ -41,7 +41,6 @@ const ROUTES = [
         TabsModule,
         CheckboxModule,
         NumberPickerModule,
-        SelectModule,
         AccordionModule.forRoot(),
         TimepickerModule.forRoot(),
         DocumentationComponentsModule,

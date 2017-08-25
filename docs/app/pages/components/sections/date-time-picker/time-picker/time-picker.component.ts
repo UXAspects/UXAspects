@@ -7,63 +7,41 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 @Component({
     selector: 'uxd-components-time-picker',
     templateUrl: './time-picker.component.html',
-    styleUrls: ['./time-picker.component.less'],
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsTimePickerComponent')
 export class ComponentsTimePickerComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     public myTime: Date = new Date();
-    public minTime: Date = new Date();
-    public maxTime: Date = new Date();
-    public hstep: number = 1;
-    public mstep: number = 1;
-    public ismeridian: boolean = true;
-    public showSec: boolean = false;
-    public isEnabled: boolean = true;
+    public min: Date = new Date();
+    public max: Date = new Date();
+    public hourStep: number = 1;
+    public minuteStep: number = 1;
+    public showMeridian: boolean = true;
+    public showSeconds: boolean = false;
+    public readonlyInput: boolean = true;
     public mousewheel: boolean = true;
     public arrowkeys: boolean = true;
 
-    public options: any = {
-        hstep: ['1', '2', '3', '4', '5', '6'],
-        mstep: ['1', '5', '10', '15', '25', '30']
-    };
+    private _hourStep = 1;
+    private _minuteStep = 1;
 
-    private _minHour = 0;
-    private _maxHour = 23;
-    private _minMinute = 0;
-    private _maxMinute = 59;
-
-    get minHour() {
-        return this._minHour;
+    get hStep() {
+        return this._hourStep;
     }
-    set minHour(value: number) {
-        this._minHour = (value >= 0) ? value : 0;
+    set hStep(value: number) {
+        this._hourStep = (value >= 1) ? value : 1;
     }
 
-    get maxHour() {
-        return this._maxHour;
+    get mStep() {
+        return this._minuteStep;
     }
-    set maxHour(value: number) {
-        this._maxHour = (value >= 0) ? value : 0;
-    }
-
-    get minMinute() {
-        return this._minMinute;
-    }
-    set minMinute(value: number) {
-        this._minMinute = (value >= 0) ? value : 0;
-    }
-
-    get maxMinute() {
-        return this._maxMinute;
-    }
-    set maxMinute(value: number) {
-        this._maxMinute = (value >= 0) ? value : 0;
+    set mStep(value: number) {
+        this._minuteStep = (value >= 1) ? value : 1;
     }
 
     checkModel = {
-        input: false,
+        readonlyInput: false,
         mousewheel: false,
         arrowkeys: false
     };
@@ -71,14 +49,12 @@ export class ComponentsTimePickerComponent extends BaseDocumentationSection impl
     plunk: IPlunk = {
         files: {
             'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.css': this.snippets.raw.appCss
+            'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
             imports: [
                 'CheckboxModule',
-                'NumberPickerModule',
-                'SelectModule'
+                'NumberPickerModule'
             ],
             library: 'ux-aspects'
         }, {
@@ -95,10 +71,10 @@ export class ComponentsTimePickerComponent extends BaseDocumentationSection impl
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
-        this.minTime.setHours(0);
-        this.minTime.setMinutes(0);
-        this.maxTime.setHours(23);
-        this.maxTime.setMinutes(59);
+        this.min.setHours(0);
+        this.min.setMinutes(0);
+        this.max.setHours(23);
+        this.max.setMinutes(59);
     }
 
     changed(time: Date): void {

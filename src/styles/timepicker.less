@@ -1,0 +1,30 @@
+timepicker {
+    a {
+        .glyphicon {
+            font-family: 'hpe-icons';
+            color: @timepicker-arrow-color;
+        }
+
+        .glyphicon:hover {
+            color: @timepicker-arrow-hover-color;
+        }
+
+        .glyphicon-chevron-down:before {
+            content: "\F176";
+        }
+
+        .glyphicon-chevron-up:before {
+            content: "\F226";
+        }
+    }
+
+    td {
+        .btn-default, .btn-default.active, .btn-default.focus, .btn-default:active,
+        .btn-default:focus, .btn-default:hover, .open>.dropdown-toggle.btn-default {
+        
+            background-color: @accent;
+            border-color: @accent;
+            color: @secondary;
+        }
+    }
+}

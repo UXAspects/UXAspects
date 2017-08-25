@@ -1,6 +1,6 @@
-<timepicker [ngModel]="myTime" [min]="minTime" [max]="maxTime" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian"
-    [showSeconds]="showSec" [readonlyInput]="!isEnabled" [mousewheel]="mousewheel" [arrowkeys]="arrowkeys"
-    (ngModelChange)="changed($event)">
+<timepicker [ngModel]="myTime" [min]="min" [max]="max" [hourStep]="hourStep" [minuteStep]="minuteStep"
+    [showMeridian]="showMeridian" [showSeconds]="showSeconds" [readonlyInput]="!readonlyInput"
+    [mousewheel]="mousewheel" [arrowkeys]="arrowkeys" (ngModelChange)="changed($event)">
 </timepicker>
 
 <p class="m-t">Time is: <em>{{myTime}}</em></p>
@@ -11,79 +11,65 @@
             <accordion-group heading="Customize Example...">
                 <div class="row uxd-customize-row">
                     <div class="col-md-6 col-sm-6">
-                        <div>
-                            <label for="minHour">min hour</label>
-                            <ux-number-picker
-                                [(value)]="minHour" min="0" max="23" (valueChange)="minTime.setHours($event)">
-                            </ux-number-picker>
-                        </div>
+                        <label for="myMinTime">min time:</label>
+                        <timepicker [(ngModel)]="min" [max]="max"></timepicker>
                     </div>
+                    
                     <div class="col-md-6 col-sm-6">
-                        <div>
-                            <label for="maxHour">max hour</label>
-                            <ux-number-picker
-                                [(value)]="maxHour" min="0" max="23" (valueChange)="maxTime.setHours($event)">
-                            </ux-number-picker>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div>
-                            <label for="minMinute">min minute</label>
-                            <ux-number-picker
-                                [(value)]="minMinute" min="0" max="59" (valueChange)="minTime.setMinutes($event)">
-                            </ux-number-picker>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div>
-                            <label for="maxMinute">max minute</label>
-                            <ux-number-picker
-                                [(value)]="maxMinute" min="0" max="59" (valueChange)="maxTime.setMinutes($event)">
-                            </ux-number-picker>
-                        </div>
+                        <label for="myMaxTime">max time:</label>
+                        <timepicker [(ngModel)]="max" [min]="min"></timepicker>
                     </div>
                 </div>
+
                 <div class="row uxd-customize-row">
                     <div class="col-md-6 col-sm-6">
-                        <div>
-                            <label for="hstep">hours step</label>
-                            <ux-select [(value)]="hstep" [options]="options.hstep"></ux-select>
-                        </div>
+                        <label for="hourStep">hours step</label>
+                        <ux-number-picker [(value)]="hourStep" min="1" max="22"
+                            (valueChange)="hourStep=($event)">
+                        </ux-number-picker>
                     </div>
+
                     <div class="col-md-6 col-sm-6">
-                        <div>
-                            <label for="mstep">minutes step</label>
-                            <ux-select [(value)]="mstep" [options]="options.mstep"></ux-select>
-                        </div>
+                        <label for="minuteStep">minutes step</label>
+                        <ux-number-picker [(value)]="minuteStep" min="1" max="58"
+                            (valueChange)="minuteStep=($event)">
+                        </ux-number-picker>
                     </div>
                 </div>
+
                 <div class="row m-t-md">
                     <div class="col-md-12 col-sm-12">
-                        <div>
-                            <ux-checkbox [(value)]="checkModel.showMeridian" (click)="ismeridian = !ismeridian">12H / 24H</ux-checkbox>
-                        </div>
+                        <ux-checkbox [(value)]="checkModel.showMeridian"
+                            (click)="showMeridian = !showMeridian">12H / 24H
+                        </ux-checkbox>
                     </div>
                 </div>
+
                 <div class="row m-t-md">
                     <div class="col-md-12 col-sm-12">
-                        <div>
-                            <ux-checkbox [(value)]="checkModel.showSeconds" (click)="showSec = !showSec">
-                                show / hide seconds
-                            </ux-checkbox>
-                        </div>
+                        <ux-checkbox [(value)]="checkModel.showSeconds"
+                            (click)="showSeconds = !showSeconds">show / hide seconds
+                        </ux-checkbox>
                     </div>
                 </div>
+
                 <div class="row m-t-md">
                     <div class="col-md-12 col-sm-12">
                         <label>disable:</label>
                         <div>
-                            <ux-checkbox [(value)]="checkModel.readonlyInput" (click)="isEnabled=!isEnabled">input</ux-checkbox>
+                            <ux-checkbox [(value)]="checkModel.readonlyInput"
+                                (click)="readonlyInput=!readonlyInput">input
+                            </ux-checkbox>
                         </div>
                         <div>
-                            <ux-checkbox [(value)]="checkModel.mousewheel" (click)="mousewheel=!mousewheel">mouse wheel</ux-checkbox>
+                            <ux-checkbox [(value)]="checkModel.mousewheel"
+                                (click)="mousewheel=!mousewheel">mouse wheel
+                            </ux-checkbox>
                         </div>
                         <div>
-                            <ux-checkbox [(value)]="checkModel.arrowkeys" (click)="arrowkeys=!arrowkeys">arrow keys</ux-checkbox>
+                            <ux-checkbox [(value)]="checkModel.arrowkeys" (click)="arrowkeys=!arrowkeys">
+                                arrow keys
+                            </ux-checkbox>
                         </div>
                     </div>
                 </div>
@@ -94,14 +80,9 @@
 
 <hr>
 
-<p>The timepicker can be created using the <code>timepicker</code> element. The <code>ngModel</code> should be set to the
-    <code>Date</code> object that provides the time state. The <code>min</code> and <code>max</code> attributes define minimum or maximum
-    time selectable by the timepicker. The <code>hourStep</code> and <code>minuteStep</code> attributes indicate the number of hours or
-    minutes to increase or decrease when using a button respectively. The <code>showMeridian</code> attribute can be used to display a
-    12-hour clock. An additional component which displays seconds can be included using the <code>showSeconds</code> attribute.
-    <code>readonlyInput</code> can be used to control the disabled state of the time picker. <code>mousewheel</code> and
-    <code>arrowkeys</code> will determine whether using mousewheel or arrow keys respectively to change the time is allowed. A callback
-    function can be provided to the <code>ngModelChange</code> attribute which will be called when the model changes.
+<p>The Bootstrap <code>timepicker</code> component can be used to select a valid time. The value can be
+        bound as a JavaScript <code>Date</code> object with <code>ngModel</code>. Additional customization
+        options can be seen in the example above; see the Angular Bootstrap documentation for full details.
 </p>
 
 <p>The sample code is given below:</p>
@@ -116,7 +97,7 @@
 </tabset>
 
 <blockquote>
-    <p><strong>Note</strong>: Refer to <a href="http://valor-software.com/ngx-bootstrap/#/timepicker">ngx-bootstrap</a> timepicker for
-        more options.
+    <p><strong>Note</strong>: Refer to <a href="http://valor-software.com/ngx-bootstrap/#/timepicker">
+        ngx-bootstrap</a> timepicker for more options.
     </p>
 </blockquote>
