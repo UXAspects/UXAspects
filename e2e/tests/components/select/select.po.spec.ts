@@ -5,7 +5,7 @@ export namespace SelectPage {
     export const numberOfCountries: number = 249;
     export const scrollingTimeout: number = 5000;
     
-    export class SelectPage {
+    export class Page {
             
         getPage(): void {
             browser.get('select');
