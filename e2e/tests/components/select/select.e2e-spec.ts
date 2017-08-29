@@ -3,11 +3,11 @@ import { SelectPage } from './select.po.spec';
 
 describe('Select Tests', () => {
 
-  let page: SelectPage.SelectPage;
+  let page: SelectPage.Page;
   let browserName: string;
 
   beforeEach(() => {
-    page = new SelectPage.SelectPage();
+    page = new SelectPage.Page();
     page.getPage();
     
     browser.getCapabilities().then(function(caps) {
