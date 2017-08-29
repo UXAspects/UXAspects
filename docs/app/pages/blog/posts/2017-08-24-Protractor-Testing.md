@@ -20,11 +20,11 @@ Execute the command `grunt e2e` to run the tests.
 
 All Protractor methods are asynchronous and return promises. WebDriver maintains a queue of pending promises called the control flow. Promises are queued and resolved in the order they were created in.
 
-In our tests, elements are located on the test page by using ‘by.ID’ and ‘by.CSS’ locators.
+In our tests, elements are located on the test page by using 'by.ID' and 'by.CSS' locators.
 
 The Protractor global elements() function takes a locator for an element and returns that element. When using CSS selectors as a locator, the shortcut $() notation may be used. For example, `checkbox1.$('div .ux-checked')` is the same as `checkbox1.element(by.css('div .ux-checked'))`.
 
-Multiple DOM elements may be found using the global element.all() function. As with single elements, a shortcut notation, $$(), may be used. For example `textsContainer.$$('em').get(1)` is the same as `textsContainer.elements.all(by.css('em').get(1))` and returns the second of an array of ‘em’ elements.
+Multiple DOM elements may be found using the global element.all() function. As with single elements, a shortcut notation, $$(), may be used. For example `textsContainer.$$('em').get(1)` is the same as `textsContainer.elements.all(by.css('em').get(1))` and returns the second of an array of 'em' elements.
 
 ### Test organisation
 
@@ -34,11 +34,11 @@ The components being tested are grouped in HTML pages under the e2e/pages folder
 
 The tests to be run against these pages are found under the e2e/tests folder.
 
-The e2e/protractor.config.js configuration file defines the location of the test files to be executed (in the ‘specs’ property) and the URL for the Selenium server. The browser the tests are to run in is defined in the ‘capabilities’ property (at the moment tests are run only in Chrome).
+The e2e/protractor.config.js configuration file defines the location of the test files to be executed (in the 'specs' property) and the URL for the Selenium server. The browser the tests are to run in is defined in the 'capabilities' property (at the moment tests are run only in Chrome).
 
 #### Page Objects
 
-When writing Protractor tests, it is good practice to place information about the location of elements in ‘page object’ files, separate from the definitions of the tests themselves.
+When writing Protractor tests, it is good practice to place information about the location of elements in 'page object' files, separate from the definitions of the tests themselves.
 
 A page object is a class that serves as an interface to the UI page being tested. The tests then use the methods of this class whenever they need to interact with that page.
 
@@ -58,12 +58,13 @@ To illustrate the organization of our Protractor tests, here is a simplified ver
 
 #### HTML file containing components to be tested
 
-Some checkboxes and associated elements are displayed in the HTML file to be tested (e2e\pages\app\checkbox\checkbox.testpage.component.html).
+Some checkboxes and associated elements are displayed in the HTML file to be tested ([e2e\pages\app\checkbox\checkbox.testpage.component.html](https://github.com/UXAspects/UXAspects/blob/develop/e2e/pages/app/checkbox/checkbox.testpage.component.html)).
 
 
 ```html
 <div>
-    <ux-checkbox id="checkbox1" [(value)]="checkModel.option1" [disabled]="disableCheck" [simplified]="simplified">Option1
+    <ux-checkbox id="checkbox1" [(value)]="checkModel.option1" [disabled]="disableCheck" 
+        [simplified]="simplified">Option1
     </ux-checkbox>
 </div>
 
@@ -83,7 +84,7 @@ Some checkboxes and associated elements are displayed in the HTML file to be tes
 
 #### Page object file
 
-The page object file for the tests defines an interface to be used to access the elements in the test page (e2e\tests\components\checkbox\checkbox.po.spec.ts).
+The page object file for the tests defines an interface to be used to access the elements in the test page ([e2e\tests\components\checkbox\checkbox.po.spec.ts](https://github.com/UXAspects/UXAspects/blob/develop/e2e/tests/components/checkbox/checkbox.po.spec.ts)).
 
 ```javascript
 import { browser, element, by, ElementFinder } from 'protractor';
@@ -109,7 +110,7 @@ export class CheckBoxesPage {
 
 #### Test specification file
 
-The tests specification file (e2e\tests\components\checkbox\checkbox.e2e-spec.ts) uses the page object class to access the elements on the page being tested. The tests use Jasmine syntax to check the values associated with elements (e.g. ‘expect(page.confirmIsChecked(page.checkbox1)).toBeTruthy()’) and to perform operations on elements e.g. (‘page.disableButton.click()’).
+The tests specification file ([e2e\tests\components\checkbox\checkbox.e2e-spec.ts](https://github.com/UXAspects/UXAspects/blob/develop/e2e/protractor.config.js)) uses the page object class to access the elements on the page being tested. The tests use Jasmine syntax to check the values associated with elements (e.g. `'expect(page.confirmIsChecked(page.checkbox1)).toBeTruthy()'`) and to perform operations on elements e.g. (`'page.disableButton.click()'`).
 
 
 ```javascript
