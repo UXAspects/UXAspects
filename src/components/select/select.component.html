@@ -26,7 +26,7 @@
 
 </ux-tag-input>
 
-<div *ngIf="!multiple" class="inner-addon right-addon">
+<div *ngIf="!multiple" class="inner-addon right-addon" [class.disabled]="disabled">
 
     <i class="hpe-icon"
         [class.hpe-down]="dropDirection === 'down'"
