@@ -1,6 +1,7 @@
 @import '../node_modules/bootstrap/less/bootstrap.less';
 @import '../node_modules/prismjs/themes/prism.css';
 @import '../src/styles/ux-aspects.less';
+@import '../node_modules/highlight.js/styles/atelier-heath-light.css';
 
 html,
 body {
@@ -1572,3 +1573,34 @@ Spark table documentation styles
 .number-picker-component-demo {
     width: 100px;
 }
+
+/*
+    Blog post code snippets
+*/
+.hljs {
+  background: #f5f5f5;
+  color: #000;
+  font-size: .875rem;
+  font-family: Menlo, Consolas, "Courier New", monospace;
+}
+
+/* Blue */
+.hljs-tag,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-selector-class,
+.hljs-name {
+  color: #4472c4;
+}
+
+/* Red */
+.hljs-string {
+  color: #c7254e;
+}
+
+/* Black */
+.hljs-title,
+.hljs-number {
+  color: #000;
+}
+
