@@ -125,7 +125,15 @@
   },
   "files": [
     "configs/loaders",
-    "docs",
+    "docs/app/assets",
+    "docs/app/components",
+    "docs/app/data",
+    "docs/app/decorators",
+    "docs/app/directives",
+    "docs/app/interfaces",
+    "docs/app/pages",
+    "docs/app/services",
+    "docs/styles.less",
     "src",
     "LICENSE.md",
     "README.md"
