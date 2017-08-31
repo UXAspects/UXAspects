@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ILink } from '../../interfaces/ILink';
 import { IFooterColumn } from '../../interfaces/IFooterColumn';
 import { IFooter } from '../../interfaces/IFooter';
+import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 @Component({
     selector: 'uxd-page-footer',
@@ -17,9 +18,9 @@ export class PageFooterComponent {
     feedback: ILink;
     year: number;
 
-    constructor() {
+    constructor(private _appConfig: AppConfiguration) {
         // get the footer navigation data
-        let footerData: IFooter = require('../../data/footer-navigation.json');
+        let footerData: IFooter = this._appConfig.getConfigurationData('footer-navigation');
 
         // get the current year for footer
         this.year = new Date().getFullYear();

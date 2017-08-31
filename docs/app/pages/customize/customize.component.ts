@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LessService } from '../../services/less/less.service';
 import { ICustomisePage, ICustomisePageSection, ICustomisePageVariable } from '../../interfaces/ICustomisePage';
+import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 @Component({
     selector: 'uxd-customize',
@@ -11,13 +12,13 @@ export class CustomizePageComponent {
     sections: ICustomisePageSection[];
     variables: any;
 
-    constructor(private lessService: LessService) {
+    constructor(private lessService: LessService, private _appConfig: AppConfiguration) {
 
         // import the less variables file
         let lessInput: string = require('!raw-loader!../../../../src/styles/variables.less');
 
         // load the variables to show
-        let data: ICustomisePage = require('../../data/customize-page.json');
+        let data: ICustomisePage = this._appConfig.getConfigurationData('customize-page');
 
         // store data on each section
         this.sections = data.sections;
