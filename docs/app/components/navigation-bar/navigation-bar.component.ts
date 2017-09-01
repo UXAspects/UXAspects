@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ILink } from '../../interfaces/ILink';
+import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 @Component({
     selector: 'uxd-navigation-bar',
@@ -13,10 +14,10 @@ export class NavigationBarComponent {
     social: ILink[];
     expanded: boolean = false;
 
-    constructor() {
+    constructor(private _appConfig: AppConfiguration) {
 
         // load the data from the json file
-        let navigation = require('../../data/top-navigation.json');
+        let navigation = this._appConfig.getConfigurationData('top-navigation');
 
         // store the relevant parts of the navigation file
         this.brand = navigation.brand;

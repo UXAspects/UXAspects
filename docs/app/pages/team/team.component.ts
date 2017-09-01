@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ITeam } from '../../interfaces/ITeam';
+import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 @Component({
     selector: 'uxd-team',
@@ -11,8 +12,8 @@ export class TeamPageComponent {
 
     data: ITeam;
 
-    constructor() {
-        this.data = require('../../data/team-page.json');
+    constructor(private _appConfig: AppConfiguration) {
+        this.data = this._appConfig.getConfigurationData('team-page');
     }
 
 }

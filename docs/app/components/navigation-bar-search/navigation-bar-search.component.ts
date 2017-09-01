@@ -8,6 +8,7 @@ import { ISearchResult } from '../../interfaces/ISearch';
 import { ISection } from '../../interfaces/ISection';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { Version, VersionService } from '../../services/version/version.service';
+import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
 const QUERY_MIN_CHARS = 3;
 const MAX_HISTORY = 5;
@@ -34,46 +35,35 @@ export class NavigationBarSearchComponent {
     private data: ISearchResult[];
     private history: ISearchResult[] = [];
 
-    constructor(private router: Router, private navigation: NavigationService, private versionService: VersionService) {
-
-        // get version
-        this.versionService.version.subscribe((value: Version) => {
-            this.data = [];
-            this.data = this.data.concat(this.getSearchResults(componentsData));
-            this.data = this.data.concat(this.getSearchResults(cssData));
-            this.data = this.data.concat(this.getSearchResults(chartsData));
-        });
+    constructor(private router: Router, private navigation: NavigationService, private versionService: VersionService, private _appConfig: AppConfiguration) {
 
         this.searching = false;
         this.query = new BehaviorSubject<string>('');
-        this.data = [];
         this.results = [];
         this.activeIdx = 0;
 
-        let componentsData: IDocumentationPage = require('../../data/components-page.json');
-        let cssData: IDocumentationPage = require('../../data/css-page.json');
-        let chartsData: IDocumentationPage = require('../../data/charts-page.json');
-
-        this.data = this.data.concat(this.getSearchResults(componentsData));
-        this.data = this.data.concat(this.getSearchResults(cssData));
-        this.data = this.data.concat(this.getSearchResults(chartsData));
+        this.data = this.createSearchData();
 
         this.history = this.loadHistory();
 
         this.query.debounceTime(200).subscribe(this.search.bind(this));
+
+        this.versionService.version.subscribe((value: Version) => {
+            this.data = this.createSearchData();
+        });
     }
 
     getSearchResults(page: IDocumentationPage): ISearchResult[] {
         if (!page) {
-            return; 
+            return;
         }
         var results: ISearchResult[] = [];
         page.categories.forEach((category: ICategory) => {
 
             category.sections = category.sections || [];
-            
+
             let showCategory = !!category.sections.find((section) => this.versionService.isSectionVersionMatch(section));
-            
+
             this.navigation.setSectionIds(category.sections);
             category.sections.forEach((section: ISection) => {
                 if (this.versionService.isSectionVersionMatch(section)) {
@@ -212,6 +202,12 @@ export class NavigationBarSearchComponent {
     */
     isDuplicate(item: ISearchResult) {
         return this.results.filter((result: ISearchResult) => result.link.title === item.link.title).length > 1;
+    }
+
+    private createSearchData(): ISearchResult[] {
+        return this._appConfig.documentationPages
+            .map(name => this.getSearchResults(this._appConfig.getConfigurationData(name)))
+            .reduce((pre, cur) => pre.concat(cur));
     }
 
     /**
