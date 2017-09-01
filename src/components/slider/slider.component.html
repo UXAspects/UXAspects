@@ -4,7 +4,7 @@
     <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="tracks.lower.color"></div>
 
     <!-- Lower Thumb Button / Line -->
-    <div class="thumb lower" #lowerThumb [style.left.%]="thumbs.lower.position" [style.z-index]="thumbs.lower.order" [class.button]="options.handles.style === sliderStyle.Button"
+    <div class="thumb lower" #lowerThumb [style.left.%]="thumbs.lower.position" [class.active]="thumbs.lower.drag" [style.z-index]="thumbs.lower.order" [class.button]="options.handles.style === sliderStyle.Button"
         [class.line]="options.handles.style === sliderStyle.Line" [class.narrow]="options.track.height === sliderSize.Narrow"
         [class.wide]="options.track.height === sliderSize.Wide" (mouseenter)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
         (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)" (mousedown)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)">
@@ -24,7 +24,7 @@
     </div>
 
     <!-- Upper Thumb Button / Line -->
-    <div class="thumb upper" #upperThumb [hidden]="options.type !== sliderType.Range" [style.left.%]="thumbs.upper.position" [style.z-index]="thumbs.upper.order"
+    <div class="thumb upper" #upperThumb [hidden]="options.type !== sliderType.Range" [class.active]="thumbs.upper.drag" [style.left.%]="thumbs.upper.position" [style.z-index]="thumbs.upper.order"
         [class.button]="options.handles.style === sliderStyle.Button" [class.line]="options.handles.style === sliderStyle.Line"
         [class.narrow]="options.track.height === sliderSize.Narrow" [class.wide]="options.track.height === sliderSize.Wide" (mouseenter)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
         (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)" (mousedown)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)">
