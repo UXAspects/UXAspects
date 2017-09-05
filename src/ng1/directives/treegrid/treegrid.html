@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody ng-if="!vm.loading">
-      <tr ng-repeat="row in vm.getGridRows()" class="clickable hover-actions" ng-class="row.rowClass" multiple-row-select-item="row.dataItem" treegrid-row-key-handler treegrid-expand="vm.expand(row)" treegrid-contract="vm.contract(row)" ng-focus="vm.rowFocus(row, $event)" tabindex="-1">
+      <tr ng-repeat="row in vm.getGridRows()" class="clickable hover-actions" ng-class="row.rowClass" treegrid-multiple-select-item="row" treegrid-row-key-handler treegrid-expand="vm.expand(row)" treegrid-contract="vm.contract(row)" ng-focus="vm.rowFocus(row, $event)" tabindex="-1">
         <td ng-repeat="col in vm.columns" ng-class="col.cellClass">
           <span ng-if="$first" class="treegrid-indent" ng-class="row.levelClass"></span>
           <span ng-if="$first" class="treegrid-expand">
@@ -20,6 +20,9 @@
               <i ng-if="row.expander.type === 'class'" ng-class="vm.iconClass(row.expander.expanding)"></i>
               <img ng-if="row.expander.type === 'url'" ng-src="{{row.expander.expanding}}" alt="expander" />
             </span>
+          </span>
+          <span ng-if="$first">
+            <checkbox class="treegrid-multiple-select-checkbox" ng-model="row.selected"></checkbox>
           </span>
           <span ng-if="$first" class="treegrid-icon">
             <i ng-if="row.icon.type === 'class'" class="hpe-icon" ng-class="row.icon.get(row.dataItem, row.expanded)"></i>
