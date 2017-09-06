@@ -9,6 +9,9 @@ const MODULES_PLACEHOLDER = /\$\{modules\}/g;
 const DECLARATIONS_PLACEHOLDER = /\$\{declarations\}/g;
 const IMPORTS_PLACEHOLDER = /\$\{imports\}/g;
 const MAPPINGS_PLACEHOLDER = /\$\{mappings\}/g;
+const INDEX_PLACEHOLDER = /\$\{index\}/g;
+const MAIN_PLACEHOLDER = /\$\{main\}/g;
+const CONFIG_PLACEHOLDER = /\$\{config\}/g;
 
 @Injectable()
 export class PlunkerService {
@@ -38,7 +41,7 @@ export class PlunkerService {
 
         if (plunk.modules) {
             // create list of declarations
-            plunk.modules.filter(mapping => mapping.declaration).forEach(mapping => {                
+            plunk.modules.filter(mapping => mapping.declaration).forEach(mapping => {
                 if (mapping.imports instanceof Array) {
                     declarations = declarations.concat(mapping.imports);
                 } else {
@@ -86,16 +89,49 @@ export class PlunkerService {
             mappings = plunk.mappings.map(mapping => `'${mapping.alias}': '${mapping.source}'`);
         }
 
-        let indexHtml = require('./templates/index_html.txt')
-            .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
+        let indexHtml;
+        let mainTs;
+        let configJs;
 
-        let mainTs = require('./templates/main_ts.txt')
-            .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
-            .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
-            .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
+        if (plunk.templates) {
 
-        let configJs = require('./templates/config_js.txt')
-            .replace(MAPPINGS_PLACEHOLDER, mappings.join(',\n\t\t\t\t'));
+            if (plunk.templates.index) {
+                indexHtml = require('./templates/index-custom_html.txt')
+                    .replace(INDEX_PLACEHOLDER, plunk.templates.index);
+            } else {
+                indexHtml = require('./templates/index_html.txt')
+                    .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
+            }
+
+            if (plunk.templates.main) {
+                mainTs = require('./templates/main-custom_ts.txt').
+                    replace(MAIN_PLACEHOLDER, plunk.templates.main);
+            } else {
+                mainTs = require('./templates/main_ts.txt')
+                    .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
+                    .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
+                    .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
+            }
+
+            if (plunk.templates.config) {
+                configJs = require('./templates/config-custom_js.txt')
+                    .replace(CONFIG_PLACEHOLDER, plunk.templates.config);
+            } else {
+                configJs = require('./templates/config_js.txt')
+                    .replace(MAPPINGS_PLACEHOLDER, mappings.join(',\n\t\t\t\t'));
+            }
+        } else {
+            indexHtml = require('./templates/index_html.txt')
+                .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
+
+            mainTs = require('./templates/main_ts.txt')
+                .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
+                .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
+                .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
+
+            configJs = require('./templates/config_js.txt')
+                .replace(MAPPINGS_PLACEHOLDER, mappings.join(',\n\t\t\t\t'));
+        }
 
         const postData = {
             'description': title,

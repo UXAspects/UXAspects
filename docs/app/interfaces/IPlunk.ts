@@ -14,6 +14,11 @@ export interface IPlunk {
         alias: string;
         source: string;
     }[];
+    templates?: {
+        config?: string;
+        index?: string;
+        main?: string;
+    };
 }
 
 export const MAPPINGS = {
