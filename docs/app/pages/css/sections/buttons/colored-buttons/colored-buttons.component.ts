@@ -12,8 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class CssColoredButtonsComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     codepen: ICodePen = {
-        html: this.snippets.raw.sampleHtml,
-        css: ['@import url("https://localhost:8081/dist/assets/main.css");']
+        html: this.snippets.raw.sampleHtml
     };
 
     constructor() {
