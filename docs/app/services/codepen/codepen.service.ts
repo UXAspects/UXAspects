@@ -8,6 +8,7 @@ import { ICodePen } from '../../interfaces/ICodePen';
 export class CodePenService {
 
     private codepenAssetsBaseUrl = this.appConfig.get('assetsUrl');
+    private codepenSecondaryAssetsUrl = this.appConfig.get('secondaryAssetsUrl');
     private codePenUrl = this.appConfig.get('codePen');
     
     constructor(@Inject(DOCUMENT) private document: Document, private appConfig: AppConfiguration) {}
@@ -32,6 +33,10 @@ export class CodePenService {
 
         // determine which editors to show
         const editors = (html ? '1' : '0') + (css ? '1' : '0') + (codepen.js ? '1' : '0');
+
+        if (this.codepenSecondaryAssetsUrl) {
+            this.CODEPEN_STYLESHEETS.push(this.codepenSecondaryAssetsUrl + '/styles/quantum-ux-aspects.css');
+        }
 
         // options for codepen
         const options = {
