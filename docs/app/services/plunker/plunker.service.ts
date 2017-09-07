@@ -13,6 +13,7 @@ const MAPPINGS_PLACEHOLDER = /\$\{mappings\}/g;
 @Injectable()
 export class PlunkerService {
 
+    indexTemplate: string;
     private assetsUrl = this.appConfig.get('assetsUrl');
     private plunkerPostUrl = this.appConfig.get('plunker');
 
@@ -86,8 +87,10 @@ export class PlunkerService {
             mappings = plunk.mappings.map(mapping => `'${mapping.alias}': '${mapping.source}'`);
         }
 
-        let indexHtml = require('./templates/index_html.txt')
-            .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
+        if (!this.indexTemplate) {
+            this.indexTemplate = require('./templates/index_html.txt')
+                .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
+        }
 
         let mainTs = require('./templates/main_ts.txt')
             .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
@@ -100,7 +103,7 @@ export class PlunkerService {
         const postData = {
             'description': title,
             'private': true,
-            'files[index.html]': indexHtml,
+            'files[index.html]': this.indexTemplate,
             'files[config.js]': configJs,
             'files[src/main.ts]': mainTs
         };

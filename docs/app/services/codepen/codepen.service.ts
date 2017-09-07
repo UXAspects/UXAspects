@@ -43,7 +43,7 @@ export class CodePenService {
             js: code,
             js_pre_processor: 'none',
             head: `<meta name="viewport" content="width=device-width, initial-scale=1">`,
-            css_external: this.CODEPEN_STYLESHEETS.join(';'),
+            css_external: this.codepenStylesheets.join(';'),
             js_external: this.CODEPEN_SCRIPTS.join(';')
         };
 
@@ -154,7 +154,7 @@ export class CodePenService {
     }
 
     // Stylesheets for CodePen to reference
-    private CODEPEN_STYLESHEETS = [
+    codepenStylesheets = [
         'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
         this.codepenAssetsBaseUrl + '/css/ux-aspects.css'
     ];
