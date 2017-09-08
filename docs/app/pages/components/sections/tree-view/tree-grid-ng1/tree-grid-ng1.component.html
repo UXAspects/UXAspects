@@ -307,6 +307,21 @@
       <td>true</td>
     </tr>
     <tr>
+      <td class="attribute">select</td>
+      <td>object</td>
+      <td>
+        <p>Defines the functionality of row selection. This object contains the following properties:
+        </p>
+        <ul>
+          <li><code>row</code> (boolean) - when set to true, rows are selected by clicking anywhere on them. The selection can be extended by shift-clicking, and non-continuous rows can be added to the selection by control-clicking. Default is true.</li>
+          <li><code>check</code> (boolean) - when set to true, rows can be selected by checkboxes. Default is false.</li>
+          <li><code>selectChildren</code> (boolean) - when set to true, selecting a row also selects its currently-loaded children.</li>
+          <li><code>rowClass</code> (string) - the name of a class which will be applied to the row while it is selected. To remove the default appearance, set this to null or an empty string.</li>
+        </ul>
+      </td>
+      <td>true</td>
+    </tr>
+    <tr>
       <td class="attribute">expander</td>
       <td>object</td>
       <td>

@@ -7,6 +7,12 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
     maxDepth: 5,
     childrenProperty: "nodes",
     expandTopLevel: false,
+    select: {
+      row: true,
+      check: false,
+      selectChildren: false,
+      rowClass: "shift-select-selected-bg"
+    },
     expander: {
       type: "class",
       contracted: "hpe-next",
@@ -87,6 +93,10 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
     if (!row.canExpand) return;
     e.stopPropagation();
     return toggleExpand(row);
+  };
+
+  vm.checkboxClick = function(event) {
+    event.stopPropagation();
   };
 
   // Expand the specified row if possible. Returns true if the row is expandable.

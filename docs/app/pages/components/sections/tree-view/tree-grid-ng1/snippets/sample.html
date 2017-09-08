@@ -1,3 +1,9 @@
-<checkbox ng-model="vm.enableDisplayPanel" class="pull-right">Display Panel</checkbox>
-<treegrid data="vm.data" columns="vm.columns" selected="vm.selected" current-row="vm.currentRow" options="vm.options"></treegrid>
-<p class="m-t-md">Selected items: <span ng-repeat="item in vm.selected" ng-bind="item.title + ($last ? '.' : ', ')"></span></p>
+<treegrid data="vm.data" columns="vm.columns" selected="vm.selected"
+    current-row="vm.currentRow" options="vm.options">
+</treegrid>
+
+<p class="m-t-md">
+    Selected items:
+    <span ng-repeat="item in vm.selected" ng-bind="item.title + ($last ? '.' : ', ')"></span>
+    <em ng-if="vm.selected.length === 0">none</em>
+</p>
