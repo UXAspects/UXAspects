@@ -124,7 +124,13 @@ angular.module('app').controller('TreeGridDemoCtrl', ['$scope', '$displayPanel',
     vm.selected = null;
 
     vm.options = {
-      childrenProperty: 'nodes'
+      childrenProperty: 'nodes',
+      select: {
+        row: true,
+        check: false,
+        selectChildren: false,
+        rowClass: 'shift-select-selected-bg'
+      }
     };
 
     // Display Panel
