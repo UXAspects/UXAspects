@@ -180,6 +180,13 @@ angular.module('app').controller('TreeGridDemoCtrl', ['$scope', '$displayPanel',
       }
     }
 
+    // Force selectChildren off if row selection is enabled
+    $scope.$watch('vm.options.select.row', function(nv: boolean) {
+      if (nv) {
+        vm.options.select.selectChildren = false;
+      }
+    });
+
   }
 
 angular.module('app').controller('TreeGridActionsCtrl', TreeGridActionsCtrl);
