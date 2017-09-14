@@ -8,7 +8,9 @@ import {
 
 export class ColorService {
 
-    private _html = '<div class="primary-color"></div>' +
+    private _html: string = '';
+
+    private _html2 = '<div class="primary-color"></div>' +
     '<div class="accent-color"></div>' +
     '<div class="secondary-color"></div>' +
     '<div class="alternate1-color"></div>' +
@@ -35,16 +37,55 @@ export class ColorService {
     '<div class="critical-color"></div>';
 
     private _element: HTMLElement;
-    private _colors: any;
+    private _colors: any = {};
+    private _colors2: any = {};
+    // Themes
+    private _keppel: string[] = [
+        'primary',
+        'accent',
+        'secondary',
+        'alternate1',
+        'alternate2',
+        'alternate3',
+        'vibrant1',
+        'vibrant2',
+        'grey1',
+        'grey2',
+        'grey3',
+        'grey4',
+        'grey5',
+        'grey6',
+        'grey7',
+        'grey8',
+        'chart1',
+        'chart2',
+        'chart3',
+        'chart4',
+        'chart5',
+        'chart6',
+        'ok',
+        'warning',
+        'critical'
+    ];
 
     constructor( @Inject(DOCUMENT) document: any) {
+
+        for (let i = 0; i < this._keppel.length; i++) {
+            this._html += '<div class="' + this._keppel[i] + '-color"></div>';
+        }
+
+
         this._element = document.createElement('div');
         this._element.className = 'color-chart';
         this._element.innerHTML = this._html;
 
         document.body.appendChild(this._element);
 
-        this._colors = {
+        for (let i = 0; i < this._keppel.length; i++) {
+            this._colors[this._keppel[i]] = this.getColorValue(this._keppel[i]);
+        }
+
+        this._colors2 = {
             primary: this.getColorValue('primary'),
             accent: this.getColorValue('accent'),
             secondary: this.getColorValue('secondary'),
@@ -71,6 +112,8 @@ export class ColorService {
             warning: this.getColorValue('warning'),
             critical: this.getColorValue('critical')
         };
+
+
 
         this._element.parentNode.removeChild(this._element);
     }
