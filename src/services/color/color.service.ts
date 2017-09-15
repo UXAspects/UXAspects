@@ -1,3 +1,4 @@
+import { ColorIdentifier } from 'ux-aspects';
 import {
     DOCUMENT
 } from '@angular/platform-browser';
@@ -10,35 +11,13 @@ export class ColorService {
 
     private _html: string = '';
 
-    private _html2 = '<div class="primary-color"></div>' +
-    '<div class="accent-color"></div>' +
-    '<div class="secondary-color"></div>' +
-    '<div class="alternate1-color"></div>' +
-    '<div class="alternate2-color"></div>' +
-    '<div class="alternate3-color"></div>' +
-    '<div class="vibrant1-color"></div>' +
-    '<div class="vibrant2-color"></div>' +
-    '<div class="grey1-color"></div>' +
-    '<div class="grey2-color"></div>' +
-    '<div class="grey3-color"></div>' +
-    '<div class="grey4-color"></div>' +
-    '<div class="grey5-color"></div>' +
-    '<div class="grey6-color"></div>' +
-    '<div class="grey7-color"></div>' +
-    '<div class="grey8-color"></div>' +
-    '<div class="chart1-color"></div>' +
-    '<div class="chart2-color"></div>' +
-    '<div class="chart3-color"></div>' +
-    '<div class="chart4-color"></div>' +
-    '<div class="chart5-color"></div>' +
-    '<div class="chart6-color"></div>' +
-    '<div class="ok-color"></div>' +
-    '<div class="warning-color"></div>' +
-    '<div class="critical-color"></div>';
-
     private _element: HTMLElement;
     private _colors: any = {};
-    private _colors2: any = {};
+
+    private _activeTheme: UXThemes;
+
+    private _theme: string[];
+
     // Themes
     private _keppel: string[] = [
         'primary',
@@ -68,12 +47,94 @@ export class ColorService {
         'critical'
     ];
 
-    constructor( @Inject(DOCUMENT) document: any) {
+    private _hpe: string[] = [
+        'primary',
+        'accent',
+        'secondary',
+        'alternate1',
+        'alternate2',
+        'alternate3',
+        'vibrant1',
+        'vibrant2',
+        'grey1',
+        'grey2',
+        'grey3',
+        'grey4',
+        'grey5',
+        'grey6',
+        'grey7',
+        'grey8',
+        'chart1',
+        'chart2',
+        'chart3',
+        'chart4',
+        'chart5',
+        'chart6',
+        'ok',
+        'warning',
+        'critical'
+    ];
 
-        for (let i = 0; i < this._keppel.length; i++) {
-            this._html += '<div class="' + this._keppel[i] + '-color"></div>';
+    private _microfocus: string[] = [
+        'brand-blue',
+        'cerulean',
+        'aqua',
+        'aquamarine',
+        'fushsia',
+        'indigo',
+        'dark-blue',
+        'white',
+        'slightly-gray',
+        'bright-gray',
+        'gray',
+        'silver',
+        'dim-gray',
+        'dark-gray',
+        'black',
+        'crimson-negative',
+        'apricot',
+        'yellow',
+        'green-positive',
+        'ultramarine',
+        'skyblue',
+        'pale-aqua',
+        'pale-green',
+        'lime',
+        'orange',
+        'magenta',
+        'pale-purple',
+        'dark-ultramarine',
+        'steelblue',
+        'arctic-blue',
+        'emerald',
+        'olive',
+        'goldenrod',
+        'purple',
+        'pale-eggplant',
+        'red',
+        'pale-amber',
+        'pale-lemon',
+        'pale-emerald',
+        'plum',
+        'coper',
+        'amber',
+        'leaf-green'
+    ];
+
+    constructor(@Inject(DOCUMENT) document: any) {
+        this._setColors();
+    }
+
+    private _setColors() {
+        this._theme = this._keppel;
+
+        if (this._activeTheme === UXThemes.MicroFocus) {
+            this._theme.push.apply(this._theme, this._microfocus);
         }
 
+        for (let i = 0; i < this._theme.length; i++) {
+            this._html += '<div class="' + this._keppel[i] + '-color"></div>';
+        }
 
         this._element = document.createElement('div');
         this._element.className = 'color-chart';
@@ -81,39 +142,9 @@ export class ColorService {
 
         document.body.appendChild(this._element);
 
-        for (let i = 0; i < this._keppel.length; i++) {
+        for (let i = 0; i < this._theme.length; i++) {
             this._colors[this._keppel[i]] = this.getColorValue(this._keppel[i]);
         }
-
-        this._colors2 = {
-            primary: this.getColorValue('primary'),
-            accent: this.getColorValue('accent'),
-            secondary: this.getColorValue('secondary'),
-            alternate1: this.getColorValue('alternate1'),
-            alternate2: this.getColorValue('alternate2'),
-            alternate3: this.getColorValue('alternate3'),
-            vibrant1: this.getColorValue('vibrant1'),
-            vibrant2: this.getColorValue('vibrant2'),
-            grey1: this.getColorValue('grey1'),
-            grey2: this.getColorValue('grey2'),
-            grey3: this.getColorValue('grey3'),
-            grey4: this.getColorValue('grey4'),
-            grey5: this.getColorValue('grey5'),
-            grey6: this.getColorValue('grey6'),
-            grey7: this.getColorValue('grey7'),
-            grey8: this.getColorValue('grey8'),
-            chart1: this.getColorValue('chart1'),
-            chart2: this.getColorValue('chart2'),
-            chart3: this.getColorValue('chart3'),
-            chart4: this.getColorValue('chart4'),
-            chart5: this.getColorValue('chart5'),
-            chart6: this.getColorValue('chart6'),
-            ok: this.getColorValue('ok'),
-            warning: this.getColorValue('warning'),
-            critical: this.getColorValue('critical')
-        };
-
-
 
         this._element.parentNode.removeChild(this._element);
     }
@@ -135,6 +166,11 @@ export class ColorService {
 
     getColor(color: ColorIdentifier): ThemeColor {
         return this._colors[color];
+    }
+
+    setTheme(theme: UXThemes) {
+        this._activeTheme = theme;
+        this._setColors();
     }
 
 }
@@ -244,6 +280,12 @@ export class ThemeColor {
         this._a = alpha.toString();
         return this;
     }
+}
+
+export enum UXThemes {
+    Keppel,
+    HPE,
+    MicroFocus
 }
 
 export type ColorIdentifier = 'primary' | 'accent' | 'secondary' | 'alternate1' | 'alternate2' | 'alternate3' | 'vibrant1' | 'vibrant2' | 'grey1'
