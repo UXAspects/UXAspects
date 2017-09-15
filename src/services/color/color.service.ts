@@ -1,4 +1,3 @@
-import { ColorIdentifier } from 'ux-aspects';
 import {
     DOCUMENT
 } from '@angular/platform-browser';
@@ -9,131 +8,50 @@ import {
 
 export class ColorService {
 
+    private _defaultTheme = [
+        'primary',
+        'accent',
+        'secondary',
+        'alternate1',
+        'alternate2',
+        'alternate3',
+        'vibrant1',
+        'vibrant2',
+        'grey1',
+        'grey2',
+        'grey3',
+        'grey4',
+        'grey5',
+        'grey6',
+        'grey7',
+        'grey8',
+        'chart1',
+        'chart2',
+        'chart3',
+        'chart4',
+        'chart5',
+        'chart6',
+        'ok',
+        'warning',
+        'critical'
+    ];
+
+
     private _html: string = '';
 
     private _element: HTMLElement;
     private _colors: any = {};
 
-    private _activeTheme: UXThemes;
-
-    private _theme: string[];
-
-    // Themes
-    private _keppel: string[] = [
-        'primary',
-        'accent',
-        'secondary',
-        'alternate1',
-        'alternate2',
-        'alternate3',
-        'vibrant1',
-        'vibrant2',
-        'grey1',
-        'grey2',
-        'grey3',
-        'grey4',
-        'grey5',
-        'grey6',
-        'grey7',
-        'grey8',
-        'chart1',
-        'chart2',
-        'chart3',
-        'chart4',
-        'chart5',
-        'chart6',
-        'ok',
-        'warning',
-        'critical'
-    ];
-
-    private _hpe: string[] = [
-        'primary',
-        'accent',
-        'secondary',
-        'alternate1',
-        'alternate2',
-        'alternate3',
-        'vibrant1',
-        'vibrant2',
-        'grey1',
-        'grey2',
-        'grey3',
-        'grey4',
-        'grey5',
-        'grey6',
-        'grey7',
-        'grey8',
-        'chart1',
-        'chart2',
-        'chart3',
-        'chart4',
-        'chart5',
-        'chart6',
-        'ok',
-        'warning',
-        'critical'
-    ];
-
-    private _microfocus: string[] = [
-        'brand-blue',
-        'cerulean',
-        'aqua',
-        'aquamarine',
-        'fushsia',
-        'indigo',
-        'dark-blue',
-        'white',
-        'slightly-gray',
-        'bright-gray',
-        'gray',
-        'silver',
-        'dim-gray',
-        'dark-gray',
-        'black',
-        'crimson-negative',
-        'apricot',
-        'yellow',
-        'green-positive',
-        'ultramarine',
-        'skyblue',
-        'pale-aqua',
-        'pale-green',
-        'lime',
-        'orange',
-        'magenta',
-        'pale-purple',
-        'dark-ultramarine',
-        'steelblue',
-        'arctic-blue',
-        'emerald',
-        'olive',
-        'goldenrod',
-        'purple',
-        'pale-eggplant',
-        'red',
-        'pale-amber',
-        'pale-lemon',
-        'pale-emerald',
-        'plum',
-        'coper',
-        'amber',
-        'leaf-green'
-    ];
+    private _theme: string[] = this._defaultTheme;
 
     constructor(@Inject(DOCUMENT) document: any) {
         this._setColors();
     }
 
     private _setColors() {
-        this._theme = this._keppel;
-
-        if (this._activeTheme === UXThemes.MicroFocus) {
-            this._theme.push.apply(this._theme, this._microfocus);
-        }
 
         for (let i = 0; i < this._theme.length; i++) {
-            this._html += '<div class="' + this._keppel[i] + '-color"></div>';
+            this._html += '<div class="' + this._theme[i] + '-color"></div>';
         }
 
         this._element = document.createElement('div');
@@ -143,7 +61,7 @@ export class ColorService {
         document.body.appendChild(this._element);
 
         for (let i = 0; i < this._theme.length; i++) {
-            this._colors[this._keppel[i]] = this.getColorValue(this._keppel[i]);
+            this._colors[this._theme[i]] = this.getColorValue(this._theme[i]);
         }
 
         this._element.parentNode.removeChild(this._element);
@@ -165,11 +83,11 @@ export class ColorService {
     }
 
     getColor(color: ColorIdentifier): ThemeColor {
-        return this._colors[color];
+        return this._colors[color.toLowerCase()];
     }
 
-    setTheme(theme: UXThemes) {
-        this._activeTheme = theme;
+    setTheme(theme: string[]) {
+        this._theme.push.apply(this._theme, theme);
         this._setColors();
     }
 
@@ -282,11 +200,51 @@ export class ThemeColor {
     }
 }
 
-export enum UXThemes {
-    Keppel,
-    HPE,
-    MicroFocus
-}
+export const microFocusTheme = [
+    'brand-blue',
+    'cerulean',
+    'aqua',
+    'aquamarine',
+    'fushsia',
+    'indigo',
+    'dark-blue',
+    'white',
+    'slightly-gray',
+    'bright-gray',
+    'gray',
+    'silver',
+    'dim-gray',
+    'dark-gray',
+    'black',
+    'crimson-negative',
+    'apricot',
+    'yellow',
+    'green-positive',
+    'ultramarine',
+    'skyblue',
+    'pale-aqua',
+    'pale-green',
+    'lime',
+    'orange',
+    'magenta',
+    'pale-purple',
+    'dark-ultramarine',
+    'steelblue',
+    'arctic-blue',
+    'emerald',
+    'olive',
+    'goldenrod',
+    'purple',
+    'pale-eggplant',
+    'red',
+    'pale-amber',
+    'pale-lemon',
+    'pale-emerald',
+    'plum',
+    'coper',
+    'amber',
+    'leaf-green'
+];
 
 export type ColorIdentifier = 'primary' | 'accent' | 'secondary' | 'alternate1' | 'alternate2' | 'alternate3' | 'vibrant1' | 'vibrant2' | 'grey1'
     | 'grey2' | 'grey3' | 'grey4' | 'grey5' | 'grey6' | 'grey7' | 'grey8' | 'chart1' | 'chart2' | 'chart3' | 'chart4' | 'chart5' | 'chart6' | 'ok' | 'warning' | 'critical' | string;

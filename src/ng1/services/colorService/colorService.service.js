@@ -2,46 +2,52 @@ export default function $colorService() {
 
 	var $colorService = {};
 
-	var html = '<div class="primary-color"></div>'+
-				'<div class="accent-color"></div>'+
-				'<div class="secondary-color"></div>'+
-				'<div class="alternate1-color"></div>'+
-				'<div class="alternate2-color"></div>'+
-				'<div class="alternate3-color"></div>'+
-				'<div class="vibrant1-color"></div>'+
-				'<div class="vibrant2-color"></div>'+
-				'<div class="grey1-color"></div>'+
-				'<div class="grey2-color"></div>'+
-				'<div class="grey3-color"></div>'+
-				'<div class="grey4-color"></div>'+
-				'<div class="grey5-color"></div>'+
-				'<div class="grey6-color"></div>'+
-				'<div class="grey7-color"></div>'+
-				'<div class="grey8-color"></div>'+
-				'<div class="chart1-color"></div>'+
-				'<div class="chart2-color"></div>'+
-				'<div class="chart3-color"></div>'+
-				'<div class="chart4-color"></div>'+
-				'<div class="chart5-color"></div>'+
-				'<div class="chart6-color"></div>'+
-				'<div class="ok-color"></div>'+
-				'<div class="warning-color"></div>'+
-				'<div class="critical-color"></div>'+
-				'<div class="partition1-color"></div>'+
-				'<div class="partition9-color"></div>'+
-				'<div class="partition10-color"></div>'+
-				'<div class="partition11-color"></div>'+
-				'<div class="partition12-color"></div>'+
-				'<div class="partition13-color"></div>'+
-				'<div class="partition14-color"></div>'+
-				'<div class="social-chart-node-color"></div>'+
-				'<div class="social-chart-edge-color"></div>';
+	const defaultTheme = [
+		'primary',
+		'accent',
+		'secondary',
+		'alternate1',
+		'alternate2',
+		'alternate3',
+		'vibrant1',
+		'vibrant2',
+		'grey1',
+		'grey2',
+		'grey3',
+		'grey4',
+		'grey5',
+		'grey6',
+		'grey7',
+		'grey8',
+		'chart1',
+		'chart2',
+		'chart3',
+		'chart4',
+		'chart5',
+		'chart6',
+		'ok',
+		'warning',
+		'critical'
+	];
 
-	var element = document.createElement('div');
-	element.className = 'color-chart';
-	element.innerHTML = html;
+	var theme = defaultTheme;
+	var html;
+	var element;
 
-	document.body.appendChild(element);
+	function setColors() {
+
+		for (var i = 0; i < theme.length; i++) {
+			html += '<div class="' + theme[i] + '-color"></div>';
+		}
+
+		element = document.createElement('div');
+		element.className = 'color-chart';
+		element.innerHTML = html;
+
+		document.body.appendChild(element);
+	}
+
+	setColors();
 
 	function getColorValue(color) {
 		
@@ -59,47 +65,27 @@ export default function $colorService() {
 
 	}
 
-	var colors = {
-		primary: getColorValue('primary'),
-		accent: getColorValue('accent'),
-		secondary: getColorValue('secondary'),
-		alternate1: getColorValue('alternate1'),
-		alternate2: getColorValue('alternate2'),
-		alternate3: getColorValue('alternate3'),
-		vibrant1: getColorValue('vibrant1'),
-		vibrant2: getColorValue('vibrant2'),
-		grey1: getColorValue('grey1'),
-		grey2: getColorValue('grey2'),
-		grey3: getColorValue('grey3'),
-		grey4: getColorValue('grey4'),
-		grey5: getColorValue('grey5'),
-		grey6: getColorValue('grey6'),
-		grey7: getColorValue('grey7'),
-		grey8: getColorValue('grey8'),
-		chart1: getColorValue('chart1'),
-		chart2: getColorValue('chart2'),
-		chart3: getColorValue('chart3'),
-		chart4: getColorValue('chart4'),
-		chart5: getColorValue('chart5'),
-		chart6: getColorValue('chart6'),
-		ok: getColorValue('ok'),
-		warning: getColorValue('warning'),
-		critical: getColorValue('critical'),
-		partition1: getColorValue('partition1'),
-		partition9: getColorValue('partition9'),
-		partition10: getColorValue('partition10'),
-		partition11: getColorValue('partition11'),
-		partition12: getColorValue('partition12'),
-		partition13: getColorValue('partition13'),
-		partition14: getColorValue('partition14'),
-		'social-chart-node': getColorValue('social-chart-node'),
-		'social-chart-edge': getColorValue('social-chart-edge')
-   	};
+	var colors = {};
 
-   	element.parentNode.removeChild(element);
+	function getColors() {
+
+		for (var i = 0; i < theme.length; i++) {
+			colors[theme[i]] = getColorValue(theme[i]);
+		}
+
+		element.parentNode.removeChild(element);
+	}
+
+	getColors();
 
    	$colorService.getColor = function(color) {
-	    return colors[color];
+	    return colors[color.toLowerCase()];
+	};
+
+	$colorService.setTheme = function(customTheme) {
+	    theme.push.apply(theme, customTheme);
+		setColors();
+		getColors();
 	};
 
   	return $colorService;
@@ -158,3 +144,49 @@ class ThemeColor {
 	    return this;
 	}
 }
+
+export const microFocusTheme = [
+    'brand-blue',
+    'cerulean',
+    'aqua',
+    'aquamarine',
+    'fushsia',
+    'indigo',
+    'dark-blue',
+    'white',
+    'slightly-gray',
+    'bright-gray',
+    'gray',
+    'silver',
+    'dim-gray',
+    'dark-gray',
+    'black',
+    'crimson-negative',
+    'apricot',
+    'yellow',
+    'green-positive',
+    'ultramarine',
+    'skyblue',
+    'pale-aqua',
+    'pale-green',
+    'lime',
+    'orange',
+    'magenta',
+    'pale-purple',
+    'dark-ultramarine',
+    'steelblue',
+    'arctic-blue',
+    'emerald',
+    'olive',
+    'goldenrod',
+    'purple',
+    'pale-eggplant',
+    'red',
+    'pale-amber',
+    'pale-lemon',
+    'pale-emerald',
+    'plum',
+    'coper',
+    'amber',
+    'leaf-green'
+];
