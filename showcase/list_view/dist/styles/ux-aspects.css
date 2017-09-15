@@ -15540,15 +15540,6 @@ tags-input .tags .input:-ms-input-placeholder {
 .treegrid .treegrid-expand .treegrid-expand-toggle:hover {
   opacity: 1;
 }
-.treegrid .treegrid-checkbox {
-  margin-right: 5px;
-}
-.treegrid .treegrid-checkbox .treegrid-multiple-select-checkbox {
-  margin: 0;
-}
-.treegrid .treegrid-checkbox .treegrid-multiple-select-checkbox .el-checkbox-content {
-  margin: 0;
-}
 .treegrid .treegrid-icon {
   display: inline-block;
   min-width: 20px;

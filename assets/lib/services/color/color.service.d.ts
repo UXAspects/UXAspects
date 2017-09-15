@@ -12,14 +12,9 @@ export declare class ThemeColor {
     private _b;
     private _a;
     constructor(r: string, g: string, b: string, a: string);
-    static parse(value: string): ThemeColor;
     toHex(): string;
     toRgb(): string;
     toRgba(): string;
-    getRed(): string;
-    getGreen(): string;
-    getBlue(): string;
-    getAlpha(): string;
     setRed(red: string): this;
     setGreen(green: string): this;
     setBlue(blue: string): this;
