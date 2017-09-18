@@ -1,66 +1,39 @@
 export default function $colorService() {
 
 	var $colorService = {};
-
-	const defaultTheme = [
-		'primary',
-		'accent',
-		'secondary',
-		'alternate1',
-		'alternate2',
-		'alternate3',
-		'vibrant1',
-		'vibrant2',
-		'grey1',
-		'grey2',
-		'grey3',
-		'grey4',
-		'grey5',
-		'grey6',
-		'grey7',
-		'grey8',
-		'chart1',
-		'chart2',
-		'chart3',
-		'chart4',
-		'chart5',
-		'chart6',
-		'ok',
-		'warning',
-		'critical',
-		'partition1',
-		'partition9',
-		'partition10',
-		'partition11',
-		'partition12',
-		'partition13',
-		'partition14',
-		'social-chart-node',
-		'social-chart-edge'
-    ];
-
-	var theme = defaultTheme;
+	var colorSet = colorSets.keppel;
 	var html;
 	var element;
+	var colors;
 
 	function setColors() {
 
-		for (var i = 0; i < theme.length; i++) {
-			html += '<div class="' + theme[i] + '-color"></div>';
-		}
+		html = '';
+
+		for (let key in colorSet) {
+            html += '<div class="' + colorSet[key] + '-color"></div>';
+        }
 
 		element = document.createElement('div');
 		element.className = 'color-chart';
 		element.innerHTML = html;
 
 		document.body.appendChild(element);
+
+		colors = {};
+
+        for (let key in colorSet) {
+            colors[key] = getColorValue(colorSet[key]);
+        }
+
+		element.parentNode.removeChild(element);
 	}
 
 	setColors();
 
 	function getColorValue(color) {
 		
-		let target = element.querySelector('.' + color + '-color');
+		let target = element.querySelector('.' + colorSet[color] + '-color');
 
 		if(!target) {
 			throw new Error('Invalid color');
@@ -74,27 +47,17 @@ export default function $colorService() {
 
 	}
 
-	var colors = {};
-
-	function getColors() {
-
-		for (var i = 0; i < theme.length; i++) {
-			colors[theme[i]] = getColorValue(theme[i]);
-		}
-
-		element.parentNode.removeChild(element);
-	}
-
-	getColors();
-
    	$colorService.getColor = function(color) {
 	    return colors[color.toLowerCase()];
 	};
 
-	$colorService.setTheme = function(customTheme) {
-	    theme.push.apply(theme, customTheme);
+	$colorService.setColorSet = function(customColorSet) {
+	    colorSet = customColorSet;
 		setColors();
-		getColors();
+	};
+
+	$colorService.getColorSet = function() {
+	    return colorSet;
 	};
 
   	return $colorService;
@@ -154,48 +117,7 @@ class ThemeColor {
 	}
 }
 
-export const microFocusTheme = [
-    'brand-blue',
-    'cerulean',
-    'aqua',
-    'aquamarine',
-    'fuchsia',
-    'indigo',
-    'dark-blue',
-    'white',
-    'slightly-gray',
-    'bright-gray',
-    'gray',
-    'silver',
-    'dim-gray',
-    'dark-gray',
-    'black',
-    'crimson-negative',
-    'apricot',
-    'yellow',
-    'green-positive',
-    'ultramarine',
-    'skyblue',
-    'pale-aqua',
-    'pale-green',
-    'lime',
-    'orange',
-    'magenta',
-    'pale-purple',
-    'dark-ultramarine',
-    'steelblue',
-    'arctic-blue',
-    'emerald',
-    'olive',
-    'goldenrod',
-    'purple',
-    'pale-eggplant',
-    'red',
-    'pale-amber',
-    'pale-lemon',
-    'pale-emerald',
-    'plum',
-    'coper',
-    'amber',
-    'leaf-green'
-];
+export const colorSets = {
+	keppel: require('../../../data/keppel-colors.json'),
+	microFocus: require('../../../data/micro-focus-colors.json')
+};

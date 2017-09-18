@@ -8,41 +8,10 @@ import {
 
 export class ColorService {
 
-    private _defaultTheme = [
-        'primary',
-        'accent',
-        'secondary',
-        'alternate1',
-        'alternate2',
-        'alternate3',
-        'vibrant1',
-        'vibrant2',
-        'grey1',
-        'grey2',
-        'grey3',
-        'grey4',
-        'grey5',
-        'grey6',
-        'grey7',
-        'grey8',
-        'chart1',
-        'chart2',
-        'chart3',
-        'chart4',
-        'chart5',
-        'chart6',
-        'ok',
-        'warning',
-        'critical'
-    ];
-
-
-    private _html: string = '';
-
+    private _html: string;
     private _element: HTMLElement;
-    private _colors: any = {};
-
-    private _theme: string[] = this._defaultTheme;
+    private _colors: ThemeColors;
+    private _colorSet: any  = colorSets.keppel;
 
     constructor(@Inject(DOCUMENT) document: any) {
         this._setColors();
@@ -50,8 +19,10 @@ export class ColorService {
 
     private _setColors() {
 
-        for (let i = 0; i < this._theme.length; i++) {
-            this._html += '<div class="' + this._theme[i] + '-color"></div>';
+        this._html = '';
+
+        for (let key in this._colorSet) {
+            this._html += '<div class="' + this._colorSet[key] + '-color"></div>';
         }
 
         this._element = document.createElement('div');
@@ -60,8 +31,10 @@ export class ColorService {
 
         document.body.appendChild(this._element);
 
-        for (let i = 0; i < this._theme.length; i++) {
-            this._colors[this._theme[i]] = this.getColorValue(this._theme[i]);
+        this._colors = {};
+
+        for (let key in this._colorSet) {
+            this._colors[key] = this.getColorValue(this._colorSet[key]);
         }
 
         this._element.parentNode.removeChild(this._element);
@@ -69,7 +42,7 @@ export class ColorService {
 
     private getColorValue(color: ColorIdentifier): ThemeColor {
 
-        let target = this._element.querySelector('.' + color + '-color');
+        let target = this._element.querySelector('.' + this._colorSet[color] + '-color');
 
         if (!target) {
             throw new Error('Invalid color');
@@ -86,11 +59,14 @@ export class ColorService {
         return this._colors[color.toLowerCase()];
     }
 
-    setTheme(theme: string[]) {
-        this._theme.push.apply(this._theme, theme);
-        this._setColors();
+    getColorSet() {
+        return this._colorSet;
     }
 
+    setColorSet(colorSet: ColorSet) {
+        this._colorSet = colorSet;
+        this._setColors();
+    }
 }
 
 export class ThemeColor {
@@ -200,51 +176,17 @@ export class ThemeColor {
     }
 }
 
-export const microFocusTheme = [
-    'brand-blue',
-    'cerulean',
-    'aqua',
-    'aquamarine',
-    'fuchsia',
-    'indigo',
-    'dark-blue',
-    'white',
-    'slightly-gray',
-    'bright-gray',
-    'gray',
-    'silver',
-    'dim-gray',
-    'dark-gray',
-    'black',
-    'crimson-negative',
-    'apricot',
-    'yellow',
-    'green-positive',
-    'ultramarine',
-    'skyblue',
-    'pale-aqua',
-    'pale-green',
-    'lime',
-    'orange',
-    'magenta',
-    'pale-purple',
-    'dark-ultramarine',
-    'steelblue',
-    'arctic-blue',
-    'emerald',
-    'olive',
-    'goldenrod',
-    'purple',
-    'pale-eggplant',
-    'red',
-    'pale-amber',
-    'pale-lemon',
-    'pale-emerald',
-    'plum',
-    'coper',
-    'amber',
-    'leaf-green'
-];
+export const colorSets = {
+    keppel: require('../../data/keppel-colors.json'),
+    microFocus: require('../../data/micro-focus-colors.json')
+};
 
-export type ColorIdentifier = 'primary' | 'accent' | 'secondary' | 'alternate1' | 'alternate2' | 'alternate3' | 'vibrant1' | 'vibrant2' | 'grey1'
-    | 'grey2' | 'grey3' | 'grey4' | 'grey5' | 'grey6' | 'grey7' | 'grey8' | 'chart1' | 'chart2' | 'chart3' | 'chart4' | 'chart5' | 'chart6' | 'ok' | 'warning' | 'critical' | string;
+export interface ThemeColors {
+    [name: string]: ThemeColor;
+}
+
+export interface ColorSet {
+    [name: string]: string;
+}
+
+export type ColorIdentifier = string;
