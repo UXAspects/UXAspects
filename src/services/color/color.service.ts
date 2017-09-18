@@ -205,7 +205,7 @@ export const microFocusTheme = [
     'cerulean',
     'aqua',
     'aquamarine',
-    'fushsia',
+    'fuchsia',
     'indigo',
     'dark-blue',
     'white',
