@@ -91,7 +91,6 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
     return vm.gridRows;
   };
 
-  /*jslint browser:true, white: true, debug: true */
   vm.toggleAllRows = function () {
     vm.allSelected =  !vm.allSelected;
     if (vm.allSelected) {
