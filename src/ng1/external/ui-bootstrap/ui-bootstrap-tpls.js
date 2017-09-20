@@ -32,9 +32,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 LICENSE-END
  */
-angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdown","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.transition","ui.bootstrap.typeahead"]);
-angular.module("ui.bootstrap.tpls", ["template/accordion/accordion-group.html","template/accordion/accordion.html","template/alert/alert.html","template/carousel/carousel.html","template/carousel/slide.html","template/datepicker/datepicker.html","template/datepicker/day.html","template/datepicker/month.html","template/datepicker/popup.html","template/datepicker/year.html","template/modal/backdrop.html","template/modal/window.html","template/pagination/pager.html","template/pagination/pagination.html","template/tooltip/tooltip-html-popup.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/tooltip/tooltip-template-popup.html","template/popover/popover-template.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/rating/rating.html","template/tabs/tab.html","template/tabs/tabset.html","template/timepicker/timepicker.html","template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]);
-angular.module('ui.bootstrap.collapse', [])
+angular.module("ui.bootstrap.ux-aspects", ["ui.bootstrap.ux-aspects.tpls", "ui.bootstrap.ux-aspects.collapse","ui.bootstrap.ux-aspects.accordion","ui.bootstrap.ux-aspects.alert","ui.bootstrap.ux-aspects.bindHtml","ui.bootstrap.ux-aspects.buttons","ui.bootstrap.ux-aspects.carousel","ui.bootstrap.ux-aspects.dateparser","ui.bootstrap.ux-aspects.position","ui.bootstrap.ux-aspects.datepicker","ui.bootstrap.ux-aspects.dropdown","ui.bootstrap.ux-aspects.modal","ui.bootstrap.ux-aspects.pagination","ui.bootstrap.ux-aspects.tooltip","ui.bootstrap.ux-aspects.popover","ui.bootstrap.ux-aspects.progressbar","ui.bootstrap.ux-aspects.rating","ui.bootstrap.ux-aspects.tabs","ui.bootstrap.ux-aspects.timepicker","ui.bootstrap.ux-aspects.transition","ui.bootstrap.ux-aspects.typeahead"]);
+angular.module("ui.bootstrap.ux-aspects.tpls", ["template/accordion/accordion-group.html","template/accordion/accordion.html","template/alert/alert.html","template/carousel/carousel.html","template/carousel/slide.html","template/datepicker/datepicker.html","template/datepicker/day.html","template/datepicker/month.html","template/datepicker/popup.html","template/datepicker/year.html","template/modal/backdrop.html","template/modal/window.html","template/pagination/pager.html","template/pagination/pagination.html","template/tooltip/tooltip-html-popup.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/tooltip/tooltip-template-popup.html","template/popover/popover-template.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/rating/rating.html","template/tabs/tab.html","template/tabs/tabset.html","template/timepicker/timepicker.html","template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]);
+angular.module('ui.bootstrap.ux-aspects.collapse', [])
 
   .directive('collapse', ['$animate', function ($animate) {
 
@@ -85,7 +85,7 @@ angular.module('ui.bootstrap.collapse', [])
     };
   }]);
 
-angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
+angular.module('ui.bootstrap.ux-aspects.accordion', ['ui.bootstrap.ux-aspects.collapse'])
 
 .constant('accordionConfig', {
   closeOthers: true
@@ -218,7 +218,7 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
 
 ;
 
-angular.module('ui.bootstrap.alert', [])
+angular.module('ui.bootstrap.ux-aspects.alert', [])
 
 .controller('AlertController', ['$scope', '$attrs', function ($scope, $attrs) {
   $scope.closeable = 'close' in $attrs;
@@ -250,7 +250,7 @@ angular.module('ui.bootstrap.alert', [])
   };
 }]);
 
-angular.module('ui.bootstrap.bindHtml', [])
+angular.module('ui.bootstrap.ux-aspects.bindHtml', [])
 
   .directive('bindHtmlUnsafe', function () {
     return function (scope, element, attr) {
@@ -260,7 +260,7 @@ angular.module('ui.bootstrap.bindHtml', [])
       });
     };
   });
-angular.module('ui.bootstrap.buttons', [])
+angular.module('ui.bootstrap.ux-aspects.buttons', [])
 
 .constant('buttonConfig', {
   activeClass: 'active',
@@ -337,13 +337,13 @@ angular.module('ui.bootstrap.buttons', [])
 
 /**
 * @ngdoc overview
-* @name ui.bootstrap.carousel
+* @name ui.bootstrap.ux-aspects.carousel
 *
 * @description
 * AngularJS version of an image carousel.
 *
 */
-angular.module('ui.bootstrap.carousel', [])
+angular.module('ui.bootstrap.ux-aspects.carousel', [])
 .controller('CarouselController', ['$scope', '$interval', '$animate', function ($scope, $interval, $animate) {
   var self = this,
     slides = self.slides = $scope.slides = [],
@@ -509,7 +509,7 @@ angular.module('ui.bootstrap.carousel', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.carousel.directive:carousel
+ * @name ui.bootstrap.ux-aspects.carousel.directive:carousel
  * @restrict EA
  *
  * @description
@@ -520,7 +520,7 @@ angular.module('ui.bootstrap.carousel', [])
  * @param {boolean=} noPause Whether to disable pausing on the carousel (by default, the carousel interval pauses on hover).
  *
  * @example
-<example module="ui.bootstrap">
+<example module="ui.bootstrap.ux-aspects.ux-aspects">
   <file name="index.html">
     <carousel>
       <slide>
@@ -563,17 +563,17 @@ angular.module('ui.bootstrap.carousel', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.carousel.directive:slide
+ * @name ui.bootstrap.ux-aspects.carousel.directive:slide
  * @restrict EA
  *
  * @description
- * Creates a slide inside a {@link ui.bootstrap.carousel.directive:carousel carousel}.  Must be placed as a child of a carousel element.
+ * Creates a slide inside a {@link ui.bootstrap.ux-aspects.carousel.directive:carousel carousel}.  Must be placed as a child of a carousel element.
  *
  * @param {boolean=} active Model binding, whether or not this slide is currently active.
  * @param {number=} index The index of the slide. The slides will be sorted by this parameter.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="ui.bootstrap.ux-aspects.ux-aspects">
   <file name="index.html">
 <div ng-controller="CarouselDemoCtrl">
   <carousel>
@@ -681,7 +681,7 @@ function ($animate) {
 
 ;
 
-angular.module('ui.bootstrap.dateparser', [])
+angular.module('ui.bootstrap.ux-aspects.dateparser', [])
 
 .service('dateParser', ['$locale', 'orderByFilter', function($locale, orderByFilter) {
   // Pulled from https://github.com/mbostock/d3/blob/master/src/format/requote.js
@@ -857,7 +857,7 @@ angular.module('ui.bootstrap.dateparser', [])
   }
 }]);
 
-angular.module('ui.bootstrap.position', [])
+angular.module('ui.bootstrap.ux-aspects.position', [])
 
 /**
  * A set of utility methods that can be use to retrieve position of DOM elements.
@@ -1010,7 +1010,7 @@ angular.module('ui.bootstrap.position', [])
     };
   }]);
 
-angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootstrap.position'])
+angular.module('ui.bootstrap.ux-aspects.datepicker', ['ui.bootstrap.ux-aspects.dateparser', 'ui.bootstrap.ux-aspects.position'])
 
 .constant('datepickerConfig', {
   formatDay: 'dd',
@@ -1782,7 +1782,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
     };
   });
 
-angular.module('ui.bootstrap.dropdown', ['ui.bootstrap.position'])
+angular.module('ui.bootstrap.ux-aspects.dropdown', ['ui.bootstrap.ux-aspects.position'])
 
 .constant('dropdownConfig', {
   openClass: 'open'
@@ -1993,7 +1993,7 @@ angular.module('ui.bootstrap.dropdown', ['ui.bootstrap.position'])
   };
 });
 
-angular.module('ui.bootstrap.modal', [])
+angular.module('ui.bootstrap.ux-aspects.modal', [])
 
 /**
  * A helper, internal data structure that acts as a map but also allows getting / removing
@@ -2485,7 +2485,7 @@ angular.module('ui.bootstrap.modal', [])
     return $modalProvider;
   });
 
-angular.module('ui.bootstrap.pagination', [])
+angular.module('ui.bootstrap.ux-aspects.pagination', [])
 
 .controller('PaginationController', ['$scope', '$attrs', '$parse', function ($scope, $attrs, $parse) {
   var self = this,
@@ -2711,7 +2711,7 @@ angular.module('ui.bootstrap.pagination', [])
  * function, placement as a function, inside, support for more triggers than
  * just mouse enter/leave, html tooltips, and selector delegation.
  */
-angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap.bindHtml' ] )
+angular.module( 'ui.bootstrap.ux-aspects.tooltip', [ 'ui.bootstrap.ux-aspects.position', 'ui.bootstrap.ux-aspects.bindHtml' ] )
 
 /**
  * The $tooltip service creates tooltip- and popover-like directives as well as
@@ -2742,7 +2742,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
    * `options({})` allows global configuration of all tooltips in the
    * application.
    *
-   *   var app = angular.module( 'App', ['ui.bootstrap.tooltip'], function( $tooltipProvider ) {
+   *   var app = angular.module( 'App', ['ui.bootstrap.ux-aspects.tooltip'], function( $tooltipProvider ) {
    *     // place tooltips left instead of top by default
    *     $tooltipProvider.options( { placement: 'left' } );
    *   });
@@ -3481,7 +3481,7 @@ function ( $tooltip ,  tooltipHtmlUnsafeSuppressDeprecated ,  $log) {
  * function, placement as a function, inside, support for more triggers than
  * just mouse enter/leave, html popovers, and selector delegatation.
  */
-angular.module( 'ui.bootstrap.popover', [ 'ui.bootstrap.tooltip' ] )
+angular.module( 'ui.bootstrap.ux-aspects.popover', [ 'ui.bootstrap.ux-aspects.tooltip' ] )
 
 .directive( 'popoverTemplatePopup', function () {
   return {
@@ -3512,7 +3512,7 @@ angular.module( 'ui.bootstrap.popover', [ 'ui.bootstrap.tooltip' ] )
   return $tooltip( 'popover', 'popover', 'click' );
 }]);
 
-angular.module('ui.bootstrap.progressbar', [])
+angular.module('ui.bootstrap.ux-aspects.progressbar', [])
 
 .constant('progressConfig', {
   animate: true,
@@ -3596,7 +3596,7 @@ angular.module('ui.bootstrap.progressbar', [])
     };
 });
 
-angular.module('ui.bootstrap.rating', [])
+angular.module('ui.bootstrap.ux-aspects.rating', [])
 
 .constant('ratingConfig', {
   max: 5,
@@ -3686,13 +3686,13 @@ angular.module('ui.bootstrap.rating', [])
 
 /**
  * @ngdoc overview
- * @name ui.bootstrap.tabs
+ * @name ui.bootstrap.ux-aspects.tabs
  *
  * @description
  * AngularJS version of the tabs directive.
  */
 
-angular.module('ui.bootstrap.tabs', [])
+angular.module('ui.bootstrap.ux-aspects.tabs', [])
 
 .controller('TabsetController', ['$scope', function TabsetCtrl($scope) {
   var ctrl = this,
@@ -3742,7 +3742,7 @@ angular.module('ui.bootstrap.tabs', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.tabs.directive:tabset
+ * @name ui.bootstrap.ux-aspects.tabs.directive:tabset
  * @restrict EA
  *
  * @description
@@ -3752,7 +3752,7 @@ angular.module('ui.bootstrap.tabs', [])
  * @param {boolean=} justified Whether or not to use justified styling for the tabs.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="ui.bootstrap.ux-aspects.ux-aspects">
   <file name="index.html">
     <tabset>
       <tab heading="Tab 1"><b>First</b> Content!</tab>
@@ -3789,19 +3789,19 @@ angular.module('ui.bootstrap.tabs', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.tabs.directive:tab
+ * @name ui.bootstrap.ux-aspects.tabs.directive:tab
  * @restrict EA
  *
- * @param {string=} heading The visible heading, or title, of the tab. Set HTML headings with {@link ui.bootstrap.tabs.directive:tabHeading tabHeading}.
+ * @param {string=} heading The visible heading, or title, of the tab. Set HTML headings with {@link ui.bootstrap.ux-aspects.tabs.directive:tabHeading tabHeading}.
  * @param {string=} select An expression to evaluate when the tab is selected.
  * @param {boolean=} active A binding, telling whether or not this tab is selected.
  * @param {boolean=} disabled A binding, telling whether or not this tab is disabled.
  *
  * @description
- * Creates a tab with a heading and content. Must be placed within a {@link ui.bootstrap.tabs.directive:tabset tabset}.
+ * Creates a tab with a heading and content. Must be placed within a {@link ui.bootstrap.ux-aspects.tabs.directive:tabset tabset}.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="ui.bootstrap.ux-aspects.ux-aspects">
   <file name="index.html">
     <div ng-controller="TabsDemoCtrl">
       <button class="btn btn-small" ng-click="items[0].active = true">
@@ -3845,14 +3845,14 @@ angular.module('ui.bootstrap.tabs', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.tabs.directive:tabHeading
+ * @name ui.bootstrap.ux-aspects.tabs.directive:tabHeading
  * @restrict EA
  *
  * @description
- * Creates an HTML heading for a {@link ui.bootstrap.tabs.directive:tab tab}. Must be placed as a child of a tab element.
+ * Creates an HTML heading for a {@link ui.bootstrap.ux-aspects.tabs.directive:tab tab}. Must be placed as a child of a tab element.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="ui.bootstrap.ux-aspects.ux-aspects">
   <file name="index.html">
     <tabset>
       <tab>
@@ -3979,7 +3979,7 @@ angular.module('ui.bootstrap.tabs', [])
 
 ;
 
-angular.module('ui.bootstrap.timepicker', [])
+angular.module('ui.bootstrap.ux-aspects.timepicker', [])
 
 .constant('timepickerConfig', {
   hourStep: 1,
@@ -4328,7 +4328,7 @@ function addMinutes(minutes, type, changeTotTime) {
   };
 });
 
-angular.module('ui.bootstrap.transition', [])
+angular.module('ui.bootstrap.ux-aspects.transition', [])
 
 .value('$transitionSuppressDeprecated', false)
 /**
@@ -4418,7 +4418,7 @@ function($q ,  $timeout ,  $rootScope ,  $log ,  $transitionSuppressDeprecated) 
   return $transition;
 }]);
 
-angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap.bindHtml'])
+angular.module('ui.bootstrap.ux-aspects.typeahead', ['ui.bootstrap.ux-aspects.position', 'ui.bootstrap.ux-aspects.bindHtml'])
 
 /**
  * A helper service that can parse typeahead's syntax (string provided by users)

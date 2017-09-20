@@ -1,6 +1,6 @@
 declare var angular: angular.IAngularStatic;
 
-let app = angular.module('app', ['ux-aspects']);
+let app = angular.module('app', ['ux-aspects', 'ui.bootstrap']);
 
 import { NgModule, forwardRef } from '@angular/core';
 import { HttpModule } from '@angular/http';

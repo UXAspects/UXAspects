@@ -2,13 +2,13 @@ angular.module('app').directive('uxdModalWrapper', () => {
     return {
         restrict: 'E',
         template: require('./modal-wrapper.directive.html'),
-        controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
+        controller: ['$scope', '$templateCache', '$modal', '$uibModal', function ($scope, $templateCache, $modal, $uibModal) {
             $templateCache.put('modal-ng1/modalLayout.html', require('!!raw-loader!../snippets/modalLayout.html'));
 
             var vm = this;
 
             vm.openModal1 = function () {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                     templateUrl: 'modal-ng1/modalLayout.html',
                     controller: 'ModalDemoModalCtrl',
                     controllerAs: 'vm',
@@ -29,14 +29,14 @@ angular.module('app').directive('uxdModalWrapper', () => {
     };
 });
 
-angular.module('app').controller('ModalDemoModalCtrl', ['$modalInstance', function ($modalInstance) {
+angular.module('app').controller('ModalDemoModalCtrl', ['$uibModalInstance', function ($uibModalInstance) {
     var vm = this;
 
     vm.ok = function () {
-        $modalInstance.close('true');
+        $uibModalInstance.close('true');
     };
 
     vm.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 }]);

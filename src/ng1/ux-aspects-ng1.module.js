@@ -7,7 +7,6 @@ import './external/angular-sanitize/angular-sanitize.min.js';
 import './external/angular-scrollable-table/angular-scrollable-table.js';
 import './external/angular-scrollPane/angular-jscrollpane.js';
 import './external/angular-timeline/angular-timeline.js';
-import './external/angular-ui-router/angular-ui-router.js';
 import './external/angular-ui-tree/angular-ui-tree.js';
 import './plugins/d3/d3.js';
 import './external/d3/_module.js';
@@ -131,8 +130,8 @@ import './wrappers/wrappers.module';
 
 // create the UX Aspects module
 let aspects = angular.module('ux-aspects', [
-    'ui.router',
-    'ui.bootstrap',
+    //'ui.router',
+    'ui.bootstrap.ux-aspects',
     'ngSanitize',
     'angular-timeline',
     'angular-peity',
