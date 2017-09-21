@@ -1,3 +1,4 @@
+import { ColorValueSet, ColorClassSet } from './color.service';
 import {
     DOCUMENT
 } from '@angular/platform-browser';
@@ -14,15 +15,21 @@ export class ColorService {
     private _colorSet: any  = colorSets.keppel;
 
     constructor(@Inject(DOCUMENT) document: any) {
-        this._setColors();
+        if (this._colorSet.colorClassSet) {
+            this._setColors();
+        } else {
+            for (let key in this._colorSet.colorValueSet) {
+                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
     }
 
     private _setColors() {
 
         this._html = '';
 
-        for (let key in this._colorSet) {
-            this._html += '<div class="' + this._colorSet[key] + '-bg"></div>';
+        for (let key in this._colorSet.colorClassSet) {
+            this._html += '<div class="' + this._colorSet.colorClassSet[key] + '-bg"></div>';
         }
 
         this._element = document.createElement('div');
@@ -33,16 +40,26 @@ export class ColorService {
 
         this._colors = {};
 
-        for (let key in this._colorSet) {
-            this._colors[key] = this.getColorValue(this._colorSet[key]);
+        for (let key in this._colorSet.colorClassSet) {
+            this._colors[key] = this.getColorValue(this._colorSet.colorClassSet[key]);
         }
 
         this._element.parentNode.removeChild(this._element);
     }
 
+    private _getColorValueByHex(color: string): ThemeColor {
+        let hex = color.replace('#', '');
+
+        let r = parseInt(hex.substring(0, 2), 16).toString();
+        let g = parseInt(hex.substring(2, 4), 16).toString();
+        let b = parseInt(hex.substring(4, 6), 16).toString();
+
+        return new ThemeColor(r, g, b, '1');      
+    }
+
     private getColorValue(color: ColorIdentifier): ThemeColor {
 
-        let target = this._element.querySelector('.' + this._colorSet[color] + '-bg');
+        let target = this._element.querySelector('.' + this._colorSet.colorClassSet[color] + '-bg');
 
         if (!target) {
             throw new Error('Invalid color');
@@ -65,7 +82,15 @@ export class ColorService {
 
     setColorSet(colorSet: ColorSet) {
         this._colorSet = colorSet;
-        this._setColors();
+        this._colors = {};
+
+        if (this._colorSet.colorClassSet) {
+            this._setColors();
+        } else {
+            for (let key in this._colorSet.colorValueSet) {
+                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
     }
 }
 
@@ -186,6 +211,15 @@ export interface ThemeColors {
 }
 
 export interface ColorSet {
+    colorClassSet?: ColorClassSet;
+    colorValueSet?: ColorValueSet;
+}
+
+export interface ColorClassSet {
+    [name: string]: string;
+}
+
+export interface ColorValueSet {
     [name: string]: string;
 }
 

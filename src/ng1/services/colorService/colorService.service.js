@@ -10,8 +10,8 @@ export default function $colorService() {
 
     html = '';
 
-    for (let key in colorSet) {
-      html += '<div class="' + colorSet[key] + '-color"></div>';
+    for (let key in colorSet.colorClassSet) {
+      html += '<div class="' + colorSet.colorClassSet[key] + '-bg"></div>';
     }
 
     element = document.createElement('div');
@@ -22,18 +22,34 @@ export default function $colorService() {
 
     colors = {};
 
-    for (let key in colorSet) {
-      colors[key] = getColorValue(colorSet[key]);
+    for (let key in colorSet.colorClassSet) {
+      colors[key] = getColorValue(colorSet.colorClassSet[key]);
     }
 
     element.parentNode.removeChild(element);
   }
 
-  setColors();
+  if (colorSet.colorClassSet) {
+      setColors();
+  } else {
+      for (let key in colorSet.colorValueSet) {
+          colors[key] = getColorValueByHex(colorSet.colorValueSet[key]);
+      }
+  }
+
+  function getColorValueByHex(color) {
+        let hex = color.replace('#', '');
+
+        let r = parseInt(hex.substring(0, 2), 16).toString();
+        let g = parseInt(hex.substring(2, 4), 16).toString();
+        let b = parseInt(hex.substring(4, 6), 16).toString();
+
+        return new ThemeColor(r, g, b, '1');      
+    }
 
   function getColorValue(color) {
 		
-    let target = element.querySelector('.' + colorSet[color] + '-color');
+    let target = element.querySelector('.' + colorSet.colorClassSet[color] + '-bg');
 
     if(!target) {
       throw new Error('Invalid color');
@@ -53,7 +69,15 @@ export default function $colorService() {
 
   $colorService.setColorSet = function(customColorSet) {
     colorSet = customColorSet;
-    setColors();
+    colors = {};
+
+    if (colorSet.colorClassSet) {
+      setColors();
+    } else {
+      for (let key in colorSet.colorValueSet) {
+          colors[key] = getColorValueByHex(colorSet.colorValueSet[key]);
+      }
+    }
   };
 
   $colorService.getColorSet = function() {
