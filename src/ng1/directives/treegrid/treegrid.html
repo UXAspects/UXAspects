@@ -6,7 +6,7 @@
           <span ng-if="$first && vm.allOptions.select.check" class="treegrid-header-checkbox">
             <checkbox class="treegrid-multiple-select-checkbox" ng-model="selected" ng-click="vm.toggleAllRows($event); $event.preventDefault();"></checkbox>
           </span>
-          <span ng-class="[$first ? 'treegrid-expand-header' : '', vm.allOptions.select.check ? 'hasCheckbox' : '']" ng-bind="column.name"></span>
+          <span ng-class="[$first ? 'treegrid-expand-header' : '', vm.allOptions.select.check ? 'has-checkbox' : '']" ng-bind="column.name"></span>
         </th>
       </tr>
     </thead>

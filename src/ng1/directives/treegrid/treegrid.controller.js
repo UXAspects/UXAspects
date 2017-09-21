@@ -94,9 +94,9 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   vm.toggleAllRows = function () {
     vm.allSelected =  !vm.allSelected;
     if (vm.allSelected) {
-      vm.getGridRows().forEach(row => row.selected = true);
+      vm.gridRows.forEach(row => row.selected = true);
     } else {
-      vm.getGridRows().forEach(row => row.selected = false);
+      vm.gridRows.forEach(row => row.selected = false);
     }
   };
 
