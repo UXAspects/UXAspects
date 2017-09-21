@@ -22,7 +22,7 @@ export class ColorService {
         this._html = '';
 
         for (let key in this._colorSet) {
-            this._html += '<div class="' + this._colorSet[key] + '-color"></div>';
+            this._html += '<div class="' + this._colorSet[key] + '-bg"></div>';
         }
 
         this._element = document.createElement('div');
@@ -42,7 +42,7 @@ export class ColorService {
 
     private getColorValue(color: ColorIdentifier): ThemeColor {
 
-        let target = this._element.querySelector('.' + this._colorSet[color] + '-color');
+        let target = this._element.querySelector('.' + this._colorSet[color] + '-bg');
 
         if (!target) {
             throw new Error('Invalid color');

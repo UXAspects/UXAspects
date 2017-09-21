@@ -1,137 +1,136 @@
-.primary-color {
+.primary-bg {
   background: @primary;
 }
 
-.accent-color {
+.accent-bg {
   background: @accent;
 }
 
-.secondary-color {
+.secondary-bg {
   background: @secondary;
-  border: 1px solid @grey5;
 }
 
-.alternate1-color {
+.alternate1-bg {
   background: @alternate1;
 }
 
-.alternate2-color {
+.alternate2-bg {
   background: @alternate2;
 }
 
-.alternate3-color {
+.alternate3-bg {
   background: @alternate3;
 }
 
-.vibrant1-color {
+.vibrant1-bg {
   background: @vibrant1;
 }
 
-.vibrant2-color {
+.vibrant2-bg {
   background: @vibrant2;
 }
 
-.grey1-color {
+.grey1-bg {
   background: @grey1;
 }
 
-.grey2-color {
+.grey2-bg {
   background: @grey2;
 }
 
-.grey3-color {
+.grey3-bg {
   background: @grey3;
 }
 
-.grey4-color {
+.grey4-bg {
   background: @grey4;
 }
 
-.grey5-color {
+.grey5-bg {
   background: @grey5;
 }
 
-.grey6-color {
+.grey6-bg {
   background: @grey6;
 }
 
-.grey7-color {
+.grey7-bg {
   background: @grey7;
 }
 
-.grey8-color {
+.grey8-bg {
   background: @grey8;
 }
 
-.chart1-color {
+.chart1-bg {
   background: @chart1;
 }
 
-.chart2-color {
+.chart2-bg {
   background: @chart2;
 }
 
-.chart3-color {
+.chart3-bg {
   background: @chart3;
 }
 
-.chart4-color {
+.chart4-bg {
   background: @chart4;
 }
 
-.chart5-color {
+.chart5-bg {
   background: @chart5;
 }
 
-.chart6-color {
+.chart6-bg {
   background: @chart6;
 }
 
-.ok-color {
+.ok-bg {
   background: @ok;
 }
 
-.warning-color {
+.warning-bg {
   background: @warning;
 }
 
-.critical-color {
+.critical-bg {
   background: @critical;
 }
 
-.partition1-color {
+.partition1-bg {
   background: @partition1;
 }
 
-.partition9-color {
+.partition9-bg {
   background: @partition9;
 }
 
-.partition10-color {
+.partition10-bg {
   background: @partition10;
 }
 
-.partition11-color {
+.partition11-bg {
   background: @partition11;
 }
 
-.partition12-color {
+.partition12-bg {
   background: @partition12;
 }
 
-.partition13-color {
+.partition13-bg {
   background: @partition13;
 }
 
-.partition14-color {
+.partition14-bg {
   background: @partition14;
 }
 
-.social-chart-node-color {
+.social-chart-node-bg {
   background: @social-chart-node-color;
 }
 
-.social-chart-edge-color {
+.social-chart-edge-bg {
   background: @social-chart-edge-color;
 }
 
@@ -145,7 +144,10 @@
   display: inline-block;
   .color-box {
     height: 120px;
-    width: 120px; 
+    width: 120px;
+    &.color-box-border {
+      border: 1px solid @grey5;
+    }
   }
   p {
     width: 120px;
