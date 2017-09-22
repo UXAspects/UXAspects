@@ -1,3 +1,4 @@
+import { ColorValueSet, ColorClassSet } from './color.service';
 import {
     DOCUMENT
 } from '@angular/platform-browser';
@@ -8,76 +9,57 @@ import {
 
 export class ColorService {
 
-    private _html = '<div class="primary-color"></div>' +
-    '<div class="accent-color"></div>' +
-    '<div class="secondary-color"></div>' +
-    '<div class="alternate1-color"></div>' +
-    '<div class="alternate2-color"></div>' +
-    '<div class="alternate3-color"></div>' +
-    '<div class="vibrant1-color"></div>' +
-    '<div class="vibrant2-color"></div>' +
-    '<div class="grey1-color"></div>' +
-    '<div class="grey2-color"></div>' +
-    '<div class="grey3-color"></div>' +
-    '<div class="grey4-color"></div>' +
-    '<div class="grey5-color"></div>' +
-    '<div class="grey6-color"></div>' +
-    '<div class="grey7-color"></div>' +
-    '<div class="grey8-color"></div>' +
-    '<div class="chart1-color"></div>' +
-    '<div class="chart2-color"></div>' +
-    '<div class="chart3-color"></div>' +
-    '<div class="chart4-color"></div>' +
-    '<div class="chart5-color"></div>' +
-    '<div class="chart6-color"></div>' +
-    '<div class="ok-color"></div>' +
-    '<div class="warning-color"></div>' +
-    '<div class="critical-color"></div>';
-
+    private _html: string;
     private _element: HTMLElement;
-    private _colors: any;
+    private _colors: ThemeColors;
+    private _colorSet: any  = colorSets.keppel;
 
-    constructor( @Inject(DOCUMENT) document: any) {
+    constructor(@Inject(DOCUMENT) document: any) {
+        if (this._colorSet.colorClassSet) {
+            this._setColors();
+        } else {
+            for (let key in this._colorSet.colorValueSet) {
+                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
+    }
+
+    private _setColors() {
+
+        this._html = '';
+
+        for (let key in this._colorSet.colorClassSet) {
+            this._html += '<div class="' + this._colorSet.colorClassSet[key] + '-color"></div>';
+        }
+
         this._element = document.createElement('div');
         this._element.className = 'color-chart';
         this._element.innerHTML = this._html;
 
         document.body.appendChild(this._element);
 
-        this._colors = {
-            primary: this.getColorValue('primary'),
-            accent: this.getColorValue('accent'),
-            secondary: this.getColorValue('secondary'),
-            alternate1: this.getColorValue('alternate1'),
-            alternate2: this.getColorValue('alternate2'),
-            alternate3: this.getColorValue('alternate3'),
-            vibrant1: this.getColorValue('vibrant1'),
-            vibrant2: this.getColorValue('vibrant2'),
-            grey1: this.getColorValue('grey1'),
-            grey2: this.getColorValue('grey2'),
-            grey3: this.getColorValue('grey3'),
-            grey4: this.getColorValue('grey4'),
-            grey5: this.getColorValue('grey5'),
-            grey6: this.getColorValue('grey6'),
-            grey7: this.getColorValue('grey7'),
-            grey8: this.getColorValue('grey8'),
-            chart1: this.getColorValue('chart1'),
-            chart2: this.getColorValue('chart2'),
-            chart3: this.getColorValue('chart3'),
-            chart4: this.getColorValue('chart4'),
-            chart5: this.getColorValue('chart5'),
-            chart6: this.getColorValue('chart6'),
-            ok: this.getColorValue('ok'),
-            warning: this.getColorValue('warning'),
-            critical: this.getColorValue('critical')
-        };
+        this._colors = {};
+
+        for (let key in this._colorSet.colorClassSet) {
+            this._colors[key] = this.getColorValue(this._colorSet.colorClassSet[key]);
+        }
 
         this._element.parentNode.removeChild(this._element);
     }
 
+    private _getColorValueByHex(color: string): ThemeColor {
+        let hex = color.replace('#', '');
+
+        let r = parseInt(hex.substring(0, 2), 16).toString();
+        let g = parseInt(hex.substring(2, 4), 16).toString();
+        let b = parseInt(hex.substring(4, 6), 16).toString();
+
+        return new ThemeColor(r, g, b, '1');      
+    }
+
     private getColorValue(color: ColorIdentifier): ThemeColor {
 
-        let target = this._element.querySelector('.' + color + '-color');
+        let target = this._element.querySelector('.' + this._colorSet.colorClassSet[color] + '-color');
 
         if (!target) {
             throw new Error('Invalid color');
@@ -91,9 +73,25 @@ export class ColorService {
     }
 
     getColor(color: ColorIdentifier): ThemeColor {
-        return this._colors[color];
+        return this._colors[color.toLowerCase()];
     }
 
+    getColorSet() {
+        return this._colorSet;
+    }
+
+    setColorSet(colorSet: ColorSet) {
+        this._colorSet = colorSet;
+        this._colors = {};
+
+        if (this._colorSet.colorClassSet) {
+            this._setColors();
+        } else {
+            for (let key in this._colorSet.colorValueSet) {
+                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
+    }
 }
 
 export class ThemeColor {
@@ -203,5 +201,26 @@ export class ThemeColor {
     }
 }
 
-export type ColorIdentifier = 'primary' | 'accent' | 'secondary' | 'alternate1' | 'alternate2' | 'alternate3' | 'vibrant1' | 'vibrant2' | 'grey1'
-    | 'grey2' | 'grey3' | 'grey4' | 'grey5' | 'grey6' | 'grey7' | 'grey8' | 'chart1' | 'chart2' | 'chart3' | 'chart4' | 'chart5' | 'chart6' | 'ok' | 'warning' | 'critical' | string;
+export const colorSets = {
+    keppel: require('../../data/keppel-colors.json'),
+    microFocus: require('../../data/micro-focus-colors.json')
+};
+
+export interface ThemeColors {
+    [name: string]: ThemeColor;
+}
+
+export interface ColorSet {
+    colorClassSet?: ColorClassSet;
+    colorValueSet?: ColorValueSet;
+}
+
+export interface ColorClassSet {
+    [name: string]: string;
+}
+
+export interface ColorValueSet {
+    [name: string]: string;
+}
+
+export type ColorIdentifier = string;
