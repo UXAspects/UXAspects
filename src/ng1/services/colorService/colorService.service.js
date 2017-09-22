@@ -11,7 +11,7 @@ export default function $colorService() {
     html = '';
 
     for (let key in colorSet.colorClassSet) {
-      html += '<div class="' + colorSet.colorClassSet[key] + '-bg"></div>';
+      html += '<div class="' + colorSet.colorClassSet[key] + '-color"></div>';
     }
 
     element = document.createElement('div');
@@ -49,7 +49,7 @@ export default function $colorService() {
 
   function getColorValue(color) {
 		
-    let target = element.querySelector('.' + colorSet.colorClassSet[color] + '-bg');
+    let target = element.querySelector('.' + colorSet.colorClassSet[color] + '-color');
 
     if(!target) {
       throw new Error('Invalid color');
