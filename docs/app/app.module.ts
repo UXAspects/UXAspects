@@ -135,9 +135,12 @@ app.directive('uxdApp', upgradeAdapter.downgradeNg2Component(AppComponent) as an
 /*
   Configure Angular 1
 */
-app.config(['$anchorScrollProvider', function ($anchorScrollProvider: angular.IAnchorScrollProvider) {
+app.config(['$anchorScrollProvider', '$locationProvider', function ($anchorScrollProvider: angular.IAnchorScrollProvider, $locationProvider: angular.ILocationProvider) {
   // Disabling AngularJS autoscroll since it conflicts with the new router behaviour
   $anchorScrollProvider.disableAutoScrolling();
+
+  // Removing new prefix
+  $locationProvider.hashPrefix('');
 }]);
 
 // bootstrap the Angular 1 application here
