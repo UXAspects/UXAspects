@@ -61,8 +61,8 @@ export default function DateTimePickerPopupCtrl($scope, $parse, $attrs) {
         addTimeToDate(vm.modelGetter($scope));
 
         // watch for changes to the min and max date properties
-        $scope.$watch(()=> $parse($attrs.minDate)($scope), vm.ngModelCtrl.$validate);
-        $scope.$watch(()=> $parse($attrs.maxDate)($scope), vm.ngModelCtrl.$validate);
+        $scope.$watch(()=> $parse($attrs.minDate)($scope), () => vm.ngModelCtrl.$validate());
+        $scope.$watch(()=> $parse($attrs.maxDate)($scope), () => vm.ngModelCtrl.$validate());
     };
 
     // Model value changed by the picker

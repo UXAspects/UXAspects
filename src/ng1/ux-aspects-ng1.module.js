@@ -28,7 +28,7 @@ import './directives/checkbox/checkbox.module.js';
 import './directives/componentList/componentList.module.js';
 import './directives/condensedHeader/condensedHeader.module.js';
 import './directives/contacts/contacts.module.js';
-import './directives/dateTimePicker/dateTimePicker.module.js'; 
+import './directives/dateTimePicker/dateTimePicker.module.js';
 import './directives/displayPanels/displayPanels.module.js';
 import './directives/draggableCards/draggableCards.module.js';
 import './directives/draggablePanels/draggablePanels.module.js';
@@ -165,7 +165,7 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.extendedCheckboxHit',
     'ux-aspects.facets',
     'ux-aspects.filters',
-    'ux-aspects.flippableCard', 
+    'ux-aspects.flippableCard',
     'ux-aspects.floatingActionButton',
     'ux-aspects.floatLabel',
     'ux-aspects.focusIf',
@@ -205,7 +205,7 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.searchBuilder',
     'ux-aspects.searchCategories',
     'ux-aspects.searchToolbar',
-    'ux-aspects.selectTable',    
+    'ux-aspects.selectTable',
     'ux-aspects.sideInset',
     'ux-aspects.sideModal',
     'ux-aspects.sideNavigation',
@@ -223,7 +223,7 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.toggleswitch',
     'ux-aspects.tooltipOnOverflow',
     'ux-aspects.treegrid',
-    'ux-aspects.treeview',    
+    'ux-aspects.treeview',
     'ux-aspects.wizard',
 
     //services
@@ -252,7 +252,8 @@ aspects.config(["datepickerPopupConfig",
     "paginationConfig",
     "$tooltipProvider",
     "$breadcrumbProvider",
-    function(datepickerPopupConfig, datepickerConfig, paginationConfig, $tooltipProvider, $breadcrumbProvider) {
+    "$compileProvider",
+    function (datepickerPopupConfig, datepickerConfig, paginationConfig, $tooltipProvider, $breadcrumbProvider, $compileProvider) {
         datepickerPopupConfig.showButtonBar = true;
         datepickerPopupConfig.appendToBody = true;
         datepickerConfig.showWeeks = false;
@@ -271,14 +272,19 @@ aspects.config(["datepickerPopupConfig",
         $breadcrumbProvider.setOptions({
             templateUrl: 'templates/angular-breadcrumb/angular-breadcrumb.html'
         });
+
+        // AngularJS 1.6.x compatibility; remove when bindings have been migrated to $onInit
+        if (typeof $compileProvider.preAssignBindingsEnabled === 'function') {
+            $compileProvider.preAssignBindingsEnabled(true);
+        }
     }
 ]);
 
 // perform some initial setup
-aspects.run(["$rootScope", function($rootScope) {
+aspects.run(["$rootScope", function ($rootScope) {
 
     $rootScope.$on('$stateChangeStart',
-        function() {
+        function () {
             if (angular.element('.customTooltip').length > 0)
                 angular.element('.customTooltip').remove();
             if (angular.element('.tooltip').length > 0)
