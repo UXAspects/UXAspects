@@ -403,6 +403,7 @@ if [ "$BuildPackages" == "true" ]; then
                 mkdir -p $WORKSPACE/npm
                 pushd $WORKSPACE/npm
                 cp -p -r $WORKSPACE/src/package.json .
+                cp -p -r $WORKSPACE/README.md .
                 cp -p -r $WORKSPACE/dist .
                 # Write the token to the .npmrc file
                 echo "//registry.npmjs.org/:_authToken="$NPMUserPassword > .npmrc
