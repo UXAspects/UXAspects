@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.3.5 
+* @ux-aspects/ux-aspects-docs - v1.3.6-rc.1 
 * © Copyright 2017 Hewlett Packard Enterprise Development Company LP
 */
 .clearfix {
@@ -15508,6 +15508,12 @@ tags-input .tags .input:-ms-input-placeholder {
 }
 .treegrid .treegrid-expand-header {
   margin-left: 58px;
+}
+.treegrid .treegrid-expand-header.has-checkbox {
+  margin-left: 0;
+}
+.treegrid .treegrid-header-checkbox {
+  margin-left: 31px;
 }
 .treegrid .treegrid-indent {
   display: inline-block;

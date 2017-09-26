@@ -1,10 +1,16 @@
+import { ColorValueSet, ColorClassSet } from './color.service';
 export declare class ColorService {
     private _html;
     private _element;
     private _colors;
+    private _colorSet;
     constructor(document: any);
+    private _setColors();
+    private _getColorValueByHex(color);
     private getColorValue(color);
     getColor(color: ColorIdentifier): ThemeColor;
+    getColorSet(): any;
+    setColorSet(colorSet: ColorSet): void;
 }
 export declare class ThemeColor {
     private _r;
@@ -25,4 +31,21 @@ export declare class ThemeColor {
     setBlue(blue: string): this;
     setAlpha(alpha: string | number): this;
 }
-export declare type ColorIdentifier = 'primary' | 'accent' | 'secondary' | 'alternate1' | 'alternate2' | 'alternate3' | 'vibrant1' | 'vibrant2' | 'grey1' | 'grey2' | 'grey3' | 'grey4' | 'grey5' | 'grey6' | 'grey7' | 'grey8' | 'chart1' | 'chart2' | 'chart3' | 'chart4' | 'chart5' | 'chart6' | 'ok' | 'warning' | 'critical' | string;
+export declare const colorSets: {
+    keppel: any;
+    microFocus: any;
+};
+export interface ThemeColors {
+    [name: string]: ThemeColor;
+}
+export interface ColorSet {
+    colorClassSet?: ColorClassSet;
+    colorValueSet?: ColorValueSet;
+}
+export interface ColorClassSet {
+    [name: string]: string;
+}
+export interface ColorValueSet {
+    [name: string]: string;
+}
+export declare type ColorIdentifier = string;
