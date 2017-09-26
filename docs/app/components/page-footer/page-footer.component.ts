@@ -17,6 +17,7 @@ export class PageFooterComponent {
     columns: IFooterColumn[];
     feedback: ILink;
     year: number;
+    title: string;
 
     constructor(private _appConfig: AppConfiguration) {
         // get the footer navigation data
@@ -28,6 +29,7 @@ export class PageFooterComponent {
         // extract specific data from the footer
         this.columns = footerData.columns;
         this.logo = footerData.logo;
+        this.title = footerData.logoTitle;
         this.copyright = footerData.copyright;
         this.feedback = footerData.feedback;
     }
