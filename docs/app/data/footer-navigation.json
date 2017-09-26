@@ -9,7 +9,8 @@
             "link": "/changelog"
         }]
     }],
-    "logo": "assets/img/UX-Aspects-Logo.png",
+    "logo": "assets/img/UX-graphic-small.png",
+    "logoTitle": "UX Aspects",
     "copyright": "Hewlett Packard Enterprise Development LP",
     "feedback": {
         "title": "Feedback",
