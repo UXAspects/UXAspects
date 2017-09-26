@@ -5,3 +5,7 @@ export declare class ResizeService {
     addResizeListener(nativeElement: HTMLElement, renderer: Renderer2): Subject<any>;
     private waitUntilReady(iframe, callback);
 }
+export interface ResizeDimensions {
+    width: number;
+    height: number;
+}

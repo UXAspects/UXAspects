@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("@angular/core"), require("@angular/common"), require("@angular/forms"), require("rxjs/Observable"), require("rxjs/Subject"), require("rxjs/BehaviorSubject"), require("ngx-bootstrap/tooltip"), require("ngx-bootstrap/dropdown"), require("rxjs/add/operator/takeUntil"), require("@angular/platform-browser"), require("rxjs/add/operator/switchMap"), require("rxjs/add/observable/fromEvent"), require("rxjs/add/operator/debounceTime"), require("ngx-bootstrap/typeahead"), require("rxjs/add/observable/of"), require("@angular/http"), require("@angular/router"), require("rxjs/add/operator/filter"), require("rxjs/add/operator/map"), require("rxjs/add/operator/auditTime"), require("rxjs/add/operator/combineLatest"), require("rxjs/add/operator/partition"), require("rxjs/add/observable/concat"), require("rxjs/add/observable/from"), require("rxjs/add/observable/timer")) : factory(root["@angular/core"], root["@angular/common"], root["@angular/forms"], root["rxjs/Observable"], root["rxjs/Subject"], root["rxjs/BehaviorSubject"], root["ngx-bootstrap/tooltip"], root["ngx-bootstrap/dropdown"], root["rxjs/add/operator/takeUntil"], root["@angular/platform-browser"], root["rxjs/add/operator/switchMap"], root["rxjs/add/observable/fromEvent"], root["rxjs/add/operator/debounceTime"], root["ngx-bootstrap/typeahead"], root["rxjs/add/observable/of"], root["@angular/http"], root["@angular/router"], root["rxjs/add/operator/filter"], root["rxjs/add/operator/map"], root["rxjs/add/operator/auditTime"], root["rxjs/add/operator/combineLatest"], root["rxjs/add/operator/partition"], root["rxjs/add/observable/concat"], root["rxjs/add/observable/from"], root["rxjs/add/observable/timer"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_23__, __WEBPACK_EXTERNAL_MODULE_28__, __WEBPACK_EXTERNAL_MODULE_43__, __WEBPACK_EXTERNAL_MODULE_45__, __WEBPACK_EXTERNAL_MODULE_47__, __WEBPACK_EXTERNAL_MODULE_51__, __WEBPACK_EXTERNAL_MODULE_85__, __WEBPACK_EXTERNAL_MODULE_101__, __WEBPACK_EXTERNAL_MODULE_119__, __WEBPACK_EXTERNAL_MODULE_122__, __WEBPACK_EXTERNAL_MODULE_156__, __WEBPACK_EXTERNAL_MODULE_157__, __WEBPACK_EXTERNAL_MODULE_158__, __WEBPACK_EXTERNAL_MODULE_177__, __WEBPACK_EXTERNAL_MODULE_179__, __WEBPACK_EXTERNAL_MODULE_182__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_23__, __WEBPACK_EXTERNAL_MODULE_28__, __WEBPACK_EXTERNAL_MODULE_43__, __WEBPACK_EXTERNAL_MODULE_45__, __WEBPACK_EXTERNAL_MODULE_47__, __WEBPACK_EXTERNAL_MODULE_51__, __WEBPACK_EXTERNAL_MODULE_85__, __WEBPACK_EXTERNAL_MODULE_101__, __WEBPACK_EXTERNAL_MODULE_119__, __WEBPACK_EXTERNAL_MODULE_122__, __WEBPACK_EXTERNAL_MODULE_158__, __WEBPACK_EXTERNAL_MODULE_159__, __WEBPACK_EXTERNAL_MODULE_160__, __WEBPACK_EXTERNAL_MODULE_179__, __WEBPACK_EXTERNAL_MODULE_181__, __WEBPACK_EXTERNAL_MODULE_184__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -135,6 +135,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__color_service__ = __webpack_require__(63);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__color_service__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__color_service__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__color_service__["c"]; });
 
 
 
@@ -1094,7 +1095,7 @@ var Rounding;
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__typeahead_key_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__typeahead_component__ = __webpack_require__(68);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__typeahead_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__typeahead_module__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__typeahead_module__ = __webpack_require__(157);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__typeahead_module__["a"]; });
 
 
@@ -2091,7 +2092,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_23__;
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__infinite_scroll_load_button_directive__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__infinite_scroll_loading_directive__ = __webpack_require__(26);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_2__infinite_scroll_loading_directive__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__infinite_scroll_module__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__infinite_scroll_module__ = __webpack_require__(161);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_3__infinite_scroll_module__["a"]; });
 
 
@@ -2741,7 +2742,7 @@ MediaPlayerService = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__audio_module__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__audio_module__ = __webpack_require__(180);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__audio_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__audio_service__ = __webpack_require__(84);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__audio_service__["a"]; });
@@ -3006,15 +3007,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_progress_bar_index__ = __webpack_require__(146);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ProgressBarModule", function() { return __WEBPACK_IMPORTED_MODULE_11__components_progress_bar_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ProgressBarComponent", function() { return __WEBPACK_IMPORTED_MODULE_11__components_progress_bar_index__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__ = __webpack_require__(152);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RadioButtonModule", function() { return __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RADIOBUTTON_VALUE_ACCESSOR", function() { return __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_select_index__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_select_index__ = __webpack_require__(155);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SELECT_VALUE_ACCESSOR", function() { return __WEBPACK_IMPORTED_MODULE_13__components_select_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return __WEBPACK_IMPORTED_MODULE_13__components_select_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SelectModule", function() { return __WEBPACK_IMPORTED_MODULE_13__components_select_index__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_slider_index__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_slider_index__ = __webpack_require__(168);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderModule", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderComponent", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderType", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["j"]; });
@@ -3025,14 +3026,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderTickType", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["i"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderThumbEvent", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["h"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderThumb", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["g"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_spark_index__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_spark_index__ = __webpack_require__(171);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SparkModule", function() { return __WEBPACK_IMPORTED_MODULE_15__components_spark_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SparkComponent", function() { return __WEBPACK_IMPORTED_MODULE_15__components_spark_index__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_tag_input_index__ = __webpack_require__(72);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TagInputEvent", function() { return __WEBPACK_IMPORTED_MODULE_16__components_tag_input_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TagInputComponent", function() { return __WEBPACK_IMPORTED_MODULE_16__components_tag_input_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TagInputModule", function() { return __WEBPACK_IMPORTED_MODULE_16__components_tag_input_index__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_toggleswitch_index__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_toggleswitch_index__ = __webpack_require__(174);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ToggleSwitchModule", function() { return __WEBPACK_IMPORTED_MODULE_17__components_toggleswitch_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ToggleSwitchComponent", function() { return __WEBPACK_IMPORTED_MODULE_17__components_toggleswitch_index__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_typeahead_index__ = __webpack_require__(9);
@@ -3040,13 +3041,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TypeaheadKeyService", function() { return __WEBPACK_IMPORTED_MODULE_18__components_typeahead_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TypeaheadComponent", function() { return __WEBPACK_IMPORTED_MODULE_18__components_typeahead_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TypeaheadModule", function() { return __WEBPACK_IMPORTED_MODULE_18__components_typeahead_index__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__ = __webpack_require__(177);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerModule", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["d"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerComponent", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerBaseExtensionDirective", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerControlsExtensionComponent", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerTimelineExtensionComponent", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["e"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__ = __webpack_require__(188);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "VirtualScrollModule", function() { return __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__["e"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "VirtualScrollComponent", function() { return __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "VirtualScrollLoadingDirective", function() { return __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__["d"]; });
@@ -3055,11 +3056,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__directives_focus_if_index__ = __webpack_require__(75);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FocusIfDirective", function() { return __WEBPACK_IMPORTED_MODULE_21__directives_focus_if_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FocusIfModule", function() { return __WEBPACK_IMPORTED_MODULE_21__directives_focus_if_index__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__ = __webpack_require__(191);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HelpCenterModule", function() { return __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HelpCenterService", function() { return __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HelpCenterItemDirective", function() { return __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__ = __webpack_require__(193);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HoverActionModule", function() { return __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HoverActionContainerDirective", function() { return __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HoverActionDirective", function() { return __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__["b"]; });
@@ -3071,7 +3072,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InfiniteScrollLoadButtonDirective", function() { return __WEBPACK_IMPORTED_MODULE_24__directives_infinite_scroll_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InfiniteScrollLoadingDirective", function() { return __WEBPACK_IMPORTED_MODULE_24__directives_infinite_scroll_index__["e"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InfiniteScrollModule", function() { return __WEBPACK_IMPORTED_MODULE_24__directives_infinite_scroll_index__["g"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__ = __webpack_require__(195);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "LayoutSwitcherModule", function() { return __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "LayoutSwitcherDirective", function() { return __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "LayoutSwitcherItemDirective", function() { return __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__["b"]; });
@@ -3089,7 +3090,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pipes_file_size_index__ = __webpack_require__(90);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FileSizePipeModule", function() { return __WEBPACK_IMPORTED_MODULE_29__pipes_file_size_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FileSizePipe", function() { return __WEBPACK_IMPORTED_MODULE_29__pipes_file_size_index__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pipes_string_filter_index__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pipes_string_filter_index__ = __webpack_require__(197);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StringFilterPipe", function() { return __WEBPACK_IMPORTED_MODULE_30__pipes_string_filter_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StringFilterModule", function() { return __WEBPACK_IMPORTED_MODULE_30__pipes_string_filter_index__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__services_audio_index__ = __webpack_require__(30);
@@ -3099,6 +3100,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorServiceModule", function() { return __WEBPACK_IMPORTED_MODULE_32__services_color_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorService", function() { return __WEBPACK_IMPORTED_MODULE_32__services_color_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ThemeColor", function() { return __WEBPACK_IMPORTED_MODULE_32__services_color_index__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "colorSets", function() { return __WEBPACK_IMPORTED_MODULE_32__services_color_index__["d"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__services_frame_extraction_index__ = __webpack_require__(81);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FrameExtractionModule", function() { return __WEBPACK_IMPORTED_MODULE_33__services_frame_extraction_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FrameExtractionService", function() { return __WEBPACK_IMPORTED_MODULE_33__services_frame_extraction_index__["b"]; });
@@ -3477,8 +3479,7 @@ var DashboardComponent = (function () {
         var _this = this;
         // ensure this gets run inside Angular
         this._ngZone.run(function () {
-            var target = event.target;
-            _this._dashboardService.setDimensions(target.innerWidth, target.innerHeight);
+            _this._dashboardService.setDimensions(event.width, event.height);
         });
     };
     return DashboardComponent;
@@ -5148,7 +5149,7 @@ __decorate([
 ProgressBarComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-progress-bar',
-        template: __webpack_require__(149)
+        template: __webpack_require__(151)
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_color_index__["a" /* ColorService */]])
 ], ProgressBarComponent);
@@ -5162,6 +5163,7 @@ ProgressBarComponent = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ColorService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ThemeColor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return colorSets; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
@@ -5182,66 +5184,40 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 var ColorService = (function () {
     function ColorService(document) {
-        this._html = '<div class="primary-color"></div>' +
-            '<div class="accent-color"></div>' +
-            '<div class="secondary-color"></div>' +
-            '<div class="alternate1-color"></div>' +
-            '<div class="alternate2-color"></div>' +
-            '<div class="alternate3-color"></div>' +
-            '<div class="vibrant1-color"></div>' +
-            '<div class="vibrant2-color"></div>' +
-            '<div class="grey1-color"></div>' +
-            '<div class="grey2-color"></div>' +
-            '<div class="grey3-color"></div>' +
-            '<div class="grey4-color"></div>' +
-            '<div class="grey5-color"></div>' +
-            '<div class="grey6-color"></div>' +
-            '<div class="grey7-color"></div>' +
-            '<div class="grey8-color"></div>' +
-            '<div class="chart1-color"></div>' +
-            '<div class="chart2-color"></div>' +
-            '<div class="chart3-color"></div>' +
-            '<div class="chart4-color"></div>' +
-            '<div class="chart5-color"></div>' +
-            '<div class="chart6-color"></div>' +
-            '<div class="ok-color"></div>' +
-            '<div class="warning-color"></div>' +
-            '<div class="critical-color"></div>';
+        this._colorSet = colorSets.keppel;
+        if (this._colorSet.colorClassSet) {
+            this._setColors();
+        }
+        else {
+            for (var key in this._colorSet.colorValueSet) {
+                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
+    }
+    ColorService.prototype._setColors = function () {
+        this._html = '';
+        for (var key in this._colorSet.colorClassSet) {
+            this._html += '<div class="' + this._colorSet.colorClassSet[key] + '-color"></div>';
+        }
         this._element = document.createElement('div');
         this._element.className = 'color-chart';
         this._element.innerHTML = this._html;
         document.body.appendChild(this._element);
-        this._colors = {
-            primary: this.getColorValue('primary'),
-            accent: this.getColorValue('accent'),
-            secondary: this.getColorValue('secondary'),
-            alternate1: this.getColorValue('alternate1'),
-            alternate2: this.getColorValue('alternate2'),
-            alternate3: this.getColorValue('alternate3'),
-            vibrant1: this.getColorValue('vibrant1'),
-            vibrant2: this.getColorValue('vibrant2'),
-            grey1: this.getColorValue('grey1'),
-            grey2: this.getColorValue('grey2'),
-            grey3: this.getColorValue('grey3'),
-            grey4: this.getColorValue('grey4'),
-            grey5: this.getColorValue('grey5'),
-            grey6: this.getColorValue('grey6'),
-            grey7: this.getColorValue('grey7'),
-            grey8: this.getColorValue('grey8'),
-            chart1: this.getColorValue('chart1'),
-            chart2: this.getColorValue('chart2'),
-            chart3: this.getColorValue('chart3'),
-            chart4: this.getColorValue('chart4'),
-            chart5: this.getColorValue('chart5'),
-            chart6: this.getColorValue('chart6'),
-            ok: this.getColorValue('ok'),
-            warning: this.getColorValue('warning'),
-            critical: this.getColorValue('critical')
-        };
+        this._colors = {};
+        for (var key in this._colorSet.colorClassSet) {
+            this._colors[key] = this.getColorValue(this._colorSet.colorClassSet[key]);
+        }
         this._element.parentNode.removeChild(this._element);
-    }
+    };
+    ColorService.prototype._getColorValueByHex = function (color) {
+        var hex = color.replace('#', '');
+        var r = parseInt(hex.substring(0, 2), 16).toString();
+        var g = parseInt(hex.substring(2, 4), 16).toString();
+        var b = parseInt(hex.substring(4, 6), 16).toString();
+        return new ThemeColor(r, g, b, '1');
+    };
     ColorService.prototype.getColorValue = function (color) {
-        var target = this._element.querySelector('.' + color + '-color');
+        var target = this._element.querySelector('.' + this._colorSet.colorClassSet[color] + '-color');
         if (!target) {
             throw new Error('Invalid color');
         }
@@ -5250,7 +5226,22 @@ var ColorService = (function () {
         return new ThemeColor(rgba[1], rgba[2], rgba[3], rgba[4]);
     };
     ColorService.prototype.getColor = function (color) {
-        return this._colors[color];
+        return this._colors[color.toLowerCase()];
+    };
+    ColorService.prototype.getColorSet = function () {
+        return this._colorSet;
+    };
+    ColorService.prototype.setColorSet = function (colorSet) {
+        this._colorSet = colorSet;
+        this._colors = {};
+        if (this._colorSet.colorClassSet) {
+            this._setColors();
+        }
+        else {
+            for (var key in this._colorSet.colorValueSet) {
+                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
     };
     return ColorService;
 }());
@@ -5347,6 +5338,10 @@ var ThemeColor = (function () {
     return ThemeColor;
 }());
 
+var colorSets = {
+    keppel: __webpack_require__(149),
+    microFocus: __webpack_require__(150)
+};
 
 
 /***/ }),
@@ -5473,7 +5468,7 @@ __decorate([
 RadioButtonComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-radio-button',
-        template: __webpack_require__(152),
+        template: __webpack_require__(154),
         providers: [RADIOBUTTON_VALUE_ACCESSOR]
     })
 ], RadioButtonComponent);
@@ -5774,7 +5769,7 @@ __decorate([
 SelectComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"]({
         selector: 'ux-select',
-        template: __webpack_require__(161),
+        template: __webpack_require__(163),
         providers: [SELECT_VALUE_ACCESSOR]
     }),
     __param(1, __WEBPACK_IMPORTED_MODULE_1__angular_core__["Inject"](__WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DOCUMENT"])),
@@ -6193,7 +6188,7 @@ __decorate([
 TypeaheadComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"]({
         selector: 'ux-typeahead',
-        template: __webpack_require__(154),
+        template: __webpack_require__(156),
         host: {
             '[class.open]': 'open',
             '[class.drop-up]': 'dropDirection === "up"',
@@ -6224,11 +6219,11 @@ TypeaheadComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Subject__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_auditTime__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_auditTime__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_auditTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_auditTime__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_combineLatest__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_combineLatest__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_combineLatest___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_combineLatest__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_partition__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_partition__ = __webpack_require__(160);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_partition___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_partition__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6705,7 +6700,7 @@ var InfiniteScrollLoadErrorEvent = (function () {
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__scroll_into_view_if_directive__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scroll_into_view_service__ = __webpack_require__(27);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__scroll_into_view_service__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scroll_into_view_if_module__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scroll_into_view_if_module__ = __webpack_require__(162);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__scroll_into_view_if_module__["a"]; });
 
 
@@ -6772,7 +6767,7 @@ ScrollIntoViewIfDirective = __decorate([
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__tag_input_event__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tag_input_component__ = __webpack_require__(74);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__tag_input_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tag_input_module__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tag_input_module__ = __webpack_require__(166);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__tag_input_module__["a"]; });
 
 
@@ -7473,7 +7468,7 @@ __decorate([
 TagInputComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"]({
         selector: 'ux-tag-input',
-        template: __webpack_require__(163),
+        template: __webpack_require__(165),
         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
         host: {
             '[class.disabled]': 'disabled',
@@ -7496,7 +7491,7 @@ TagInputComponent = __decorate([
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__focus_if_directive__ = __webpack_require__(76);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__focus_if_directive__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__focus_if_module__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__focus_if_module__ = __webpack_require__(167);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__focus_if_module__["a"]; });
 
 
@@ -8119,7 +8114,7 @@ __decorate([
 SliderComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-slider',
-        template: __webpack_require__(168)
+        template: __webpack_require__(170)
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__services_color_index__["a" /* ColorService */]])
 ], SliderComponent);
@@ -8259,7 +8254,7 @@ __decorate([
 SparkComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-spark',
-        template: __webpack_require__(171)
+        template: __webpack_require__(173)
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_color_index__["a" /* ColorService */]])
 ], SparkComponent);
@@ -8364,7 +8359,7 @@ __decorate([
 ToggleSwitchComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-toggleswitch',
-        template: __webpack_require__(174),
+        template: __webpack_require__(176),
         providers: [TOGGLESWITCH_VALUE_ACCESSOR],
         host: {
             '(click)': 'toggleChecked()'
@@ -8386,7 +8381,7 @@ ToggleSwitchComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_audio_index__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_from__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_from__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_from___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_from__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap__);
@@ -8492,7 +8487,7 @@ __decorate([
 MediaPlayerComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-media-player',
-        template: __webpack_require__(180),
+        template: __webpack_require__(182),
         providers: [__WEBPACK_IMPORTED_MODULE_1__media_player_service__["a" /* MediaPlayerService */]],
         host: {
             'tabindex': '0',
@@ -8568,7 +8563,7 @@ FrameExtractionModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_concat__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_concat__ = __webpack_require__(179);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_concat___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_concat__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8914,7 +8909,7 @@ __decorate([
 MediaPlayerTimelineExtensionComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-media-player-timeline',
-        template: __webpack_require__(181),
+        template: __webpack_require__(183),
         host: {
             '(document:mouseup)': 'mouseDown = false',
             '[class.quiet]': 'quietMode || fullscreen'
@@ -8935,7 +8930,7 @@ MediaPlayerTimelineExtensionComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base_extension_directive__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_timer__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_timer__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_timer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_timer__);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -9073,7 +9068,7 @@ __decorate([
 MediaPlayerControlsExtensionComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-media-player-controls',
-        template: __webpack_require__(183),
+        template: __webpack_require__(185),
         host: {
             '[class.quiet]': 'quietMode || fullscreen'
         }
@@ -9087,7 +9082,7 @@ MediaPlayerControlsExtensionComponent = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__duration_module__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__duration_module__ = __webpack_require__(186);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__duration_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration_pipe__ = __webpack_require__(89);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__duration_pipe__["a"]; });
@@ -9148,7 +9143,7 @@ DurationPipe = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__file_size_module__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__file_size_module__ = __webpack_require__(187);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__file_size_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__file_size_pipe__ = __webpack_require__(91);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__file_size_pipe__["a"]; });
@@ -9365,7 +9360,7 @@ __decorate([
 VirtualScrollComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-virtual-scroll',
-        template: __webpack_require__(188)
+        template: __webpack_require__(190)
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_1__directives_resize_index__["c" /* ResizeService */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"]])
 ], VirtualScrollComponent);
@@ -10839,14 +10834,26 @@ ColorServiceModule = __decorate([
 /* 149 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"progressbar-track\" [style.width.%]=\"percentage\" [style.backgroundColor]=\"barColor\">\n    <ng-content></ng-content>\n</div>"
+module.exports = {"colorClassSet":{"primary":"primary","accent":"accent","secondary":"secondary","alternate1":"alternate1","alternate2":"alternate2","alternate3":"alternate3","vibrant1":"vibrant1","vibrant2":"vibrant2","grey1":"grey1","grey2":"grey2","grey3":"grey3","grey4":"grey4","grey5":"grey5","grey6":"grey6","grey7":"grey7","grey8":"grey8","chart1":"chart1","chart2":"chart2","chart3":"chart3","chart4":"chart4","chart5":"chart5","chart6":"chart6","ok":"ok","warning":"warning","critical":"critical","partition1":"partition1","partition9":"partition9","partition10":"partition10","partition11":"partition11","partition12":"partition12","partition13":"partition13","partition14":"partition14","social-chart-node":"social-chart-node","social-chart-edge":"social-chart-edge"}}
 
 /***/ }),
 /* 150 */
+/***/ (function(module, exports) {
+
+module.exports = {"colorValueSet":{"cerulean":"#1668c1","aqua":"#29ceff","aquamarine":"#2fd6c3","fuchsia":"#c6179d","indigo":"#7425ad","dark-blue":"#231ca5","white":"#ffffff","slightly-gray":"#f5f7f8","bright-gray":"#f1f2f3","gray":"#dcdedf","silver":"#bdbec0","dim-gray":"#656668","dark-gray":"#323435","black":"#000000","crimson-negative":"#e5004c","apricot":"#f48b34","yellow":"#fcdb1f","green-positive":"#1aac60","ultramarine":"#3939c6","skyblue":"#00abf3","pale-aqua":"#43e4ff","pale-green":"#1ffbba","lime":"#75da4d","orange":"#ffce00","magenta":"#eb23c2","pale-purple":"#ba47e2","dark-ultramarine":"#271782","steelblue":"#014272","arctic-blue":"#0b8eac","emerald":"#00a989","olive":"#5bba36","goldenrod":"#ffb000","purple":"#9b1e83","pale-eggplant":"#5216ac","red":"#ff454f","pale-amber":"#ffb24d","pale-lemon":"#fde159","pale-emerald":"#33c180","plum":"#b21646","copper":"#e57828","amber":"#ffc002","leaf-green":"#118c4f","primary":"#0073e7","accent":"#7425ad","secondary":"#ffffff","alternate1":"#29ceff","alternate2":"#2fd6c3","alternate3":"#c6179d","vibrant1":"#43e4ff","vibrant2":"#ffce00","grey1":"#000000","grey2":"#323435","grey3":"#656668","grey4":"#bdbec0","grey5":"#dcdedf","grey6":"#f1f2f3","grey7":"#f5f7f8","grey8":"#ffffff","chart1":"#3939c6","chart2":"#00abf3","chart3":"#75da4d","chart4":"#ffce00","chart5":"#eb23c2","chart6":"#ba47e2","ok":"#1aac60","warning":"#f48b34","critical":"e5004c","partition1":"#7425ad","partition9":"#5216ac","partition10":"#5bba36","partition11":"#014272","partition12":"#ffb000","partition13":"#bdbec0","partition14":"#271782","social-chart-node":"#ff00ff","social-chart-edge":"#ff00ff"}}
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"progressbar-track\" [style.width.%]=\"percentage\" [style.backgroundColor]=\"barColor\">\n    <ng-content></ng-content>\n</div>"
+
+/***/ }),
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__radiobutton_module__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__radiobutton_module__ = __webpack_require__(153);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__radiobutton_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__radiobutton_component__ = __webpack_require__(64);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__radiobutton_component__["a"]; });
@@ -10856,7 +10863,7 @@ module.exports = "<div class=\"progressbar-track\" [style.width.%]=\"percentage\
 
 
 /***/ }),
-/* 151 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10891,33 +10898,33 @@ RadioButtonModule = __decorate([
 
 
 /***/ }),
-/* 152 */
+/* 154 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"ux-radio-button\" tabindex=\"0\"\n    [class.ux-checked]=\"value === option\"\n    [class.ux-simplified]=\"simplified === true\"\n    [class.ux-disabled]=\"disabled === true\"\n    (keydown.space)=\"keyDown($event)\">\n\n    <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\n        [name]=\"name\" \n        [checked]=\"value === option\" \n        [disabled]=\"disabled\"\n        [value]=\"option\"\n        [id]=\"id\" />\n        \n</div>\n\n<div class=\"ux-radio-button-content\">\n    <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
-/* 153 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__select_component__ = __webpack_require__(65);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__select_component__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__select_component__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_module__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_module__ = __webpack_require__(164);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__select_module__["a"]; });
 
 
 
 
 /***/ }),
-/* 154 */
+/* 156 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"ux-typeahead-options\"\n    [uxInfiniteScroll]=\"loadOptionsCallback\"\n    [(collection)]=\"visibleOptions\"\n    [enabled]=\"isInfiniteScroll()\"\n    [filter]=\"filter\"\n    [loadOnScroll]=\"true\"\n    [pageSize]=\"pageSize\"\n    [scrollElement]=\"typeaheadElement\"\n    (loading)=\"loading = true\"\n    (loaded)=\"loading = false\">\n\n    <ol *ngIf=\"visibleOptions.length > 0\">\n        <li *ngFor=\"let option of visibleOptions; let i = index\"\n            [class.disabled]=\"isDisabled(option)\"\n            [class.highlighted]=\"isHighlighted(option)\"\n            [uxScrollIntoViewIf]=\"isHighlighted(option)\"\n            [scrollParent]=\"typeaheadElement.nativeElement\"\n            (mousedown)=\"optionMousedownHandler($event)\"\n            (click)=\"optionClickHandler($event, option)\"\n            (mouseover)=\"highlight(option)\">\n\n            <ng-container [ngTemplateOutlet]=\"optionTemplate\"\n                [ngOutletContext]=\"{option: option, api: optionApi}\">\n            </ng-container>\n\n        </li>\n    </ol>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate\">\n        </ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"visibleOptions.length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>"
 
 /***/ }),
-/* 155 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10963,18 +10970,6 @@ TypeaheadModule = __decorate([
 
 
 /***/ }),
-/* 156 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_156__;
-
-/***/ }),
-/* 157 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_157__;
-
-/***/ }),
 /* 158 */
 /***/ (function(module, exports) {
 
@@ -10982,6 +10977,18 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_158__;
 
 /***/ }),
 /* 159 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_159__;
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_160__;
+
+/***/ }),
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11026,7 +11033,7 @@ InfiniteScrollModule = __decorate([
 
 
 /***/ }),
-/* 160 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11061,13 +11068,13 @@ ScrollIntoViewIfModule = __decorate([
 
 
 /***/ }),
-/* 161 */
+/* 163 */
 /***/ (function(module, exports) {
 
 module.exports = "<ux-tag-input *ngIf=\"multiple\"\n    [(tags)]=\"value\"\n    [(input)]=\"input\"\n    [addOnPaste]=\"false\"\n    [disabled]=\"disabled\"\n    [display]=\"display\"\n    [freeInput]=\"false\"\n    [placeholder]=\"placeholder\"\n    [showTypeaheadOnClick]=\"true\">\n\n    <ux-typeahead #multipleTypeahead\n        [options]=\"options\"\n        [filter]=\"filter | async\"\n        [(open)]=\"dropdownOpen\"\n        [display]=\"display\"\n        [key]=\"key\"\n        [disabledOptions]=\"value\"\n        [dropDirection]=\"dropDirection\"\n        [maxHeight]=\"maxHeight\"\n        [pageSize]=\"pageSize\"\n        [selectFirst]=\"true\"\n        [loadingTemplate]=\"loadingTemplate\"\n        [optionTemplate]=\"optionTemplate\"\n        [noOptionsTemplate]=\"noOptionsTemplate\">\n    </ux-typeahead>\n\n</ux-tag-input>\n\n<div *ngIf=\"!multiple\" class=\"inner-addon right-addon\" [class.disabled]=\"disabled\">\n\n    <i class=\"hpe-icon\"\n        [class.hpe-down]=\"dropDirection === 'down'\"\n        [class.hpe-up]=\"dropDirection === 'up'\"></i>\n\n    <input #singleInput type=\"text\" class=\"form-control\"\n        [(ngModel)]=\"input\"\n        [placeholder]=\"placeholder\"\n        [disabled]=\"disabled\"\n        (click)=\"inputClickHandler($event)\"\n        (blur)=\"inputBlurHandler($event)\"\n        (keydown)=\"inputKeyHandler($event)\">\n\n    <ux-typeahead #singleTypeahead\n        [options]=\"options\"\n        [filter]=\"filter | async\"\n        [(open)]=\"dropdownOpen\"\n        [display]=\"display\"\n        [key]=\"key\"\n        [dropDirection]=\"dropDirection\"\n        [maxHeight]=\"maxHeight\"\n        [openOnFilterChange]=\"false\"\n        [pageSize]=\"pageSize\"\n        [selectFirst]=\"true\"\n        [loadingTemplate]=\"loadingTemplate\"\n        [optionTemplate]=\"optionTemplate\"\n        [noOptionsTemplate]=\"noOptionsTemplate\"\n        (optionSelected)=\"singleOptionSelected($event)\" >\n    </ux-typeahead>\n\n</div>\n"
 
 /***/ }),
-/* 162 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11117,13 +11124,13 @@ SelectModule = __decorate([
 
 
 /***/ }),
-/* 163 */
+/* 165 */
 /***/ (function(module, exports) {
 
 module.exports = "<ol>\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [attr.tabindex]=\"disabled ? null : i\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i)\"\n        (focus)=\"selectTagAt(i)\">\n        \n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n            [ngOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\">\n        <input #tagInput type=\"text\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [class.invalid]=\"!inputValid\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"inputClickHandler()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\">\n    </li>\n</ol>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\" type=\"button\" class=\"ux-tag-remove\" [disabled]=\"disabled\" (click)=\"api.removeTagAt(index); $event.stopPropagation();\"><i class=\"hpe-icon hpe-close\"></i></button>\n</ng-template>"
 
 /***/ }),
-/* 164 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11171,7 +11178,7 @@ TagInputModule = __decorate([
 
 
 /***/ }),
-/* 165 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11202,11 +11209,11 @@ FocusIfModule = __decorate([
 
 
 /***/ }),
-/* 166 */
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider_module__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider_module__ = __webpack_require__(169);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__slider_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__slider_component__ = __webpack_require__(77);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__slider_component__["a"]; });
@@ -11223,7 +11230,7 @@ FocusIfModule = __decorate([
 
 
 /***/ }),
-/* 167 */
+/* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11263,17 +11270,17 @@ SliderModule = __decorate([
 
 
 /***/ }),
-/* 168 */
+/* 170 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"track\" #track [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" [class.range]=\"options.type === sliderType.Range\">\n\n    <!-- Section Beneath Lower Thumb -->\n    <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n    <!-- Lower Thumb Button / Line -->\n    <div class=\"thumb lower\" #lowerThumb [style.left.%]=\"thumbs.lower.position\" [class.active]=\"thumbs.lower.drag\" [style.z-index]=\"thumbs.lower.order\" [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\" [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)\">\n\n        <!-- Lower Thumb Callout -->\n        <div class=\"tooltip top tooltip-lower\" #lowerTooltip [style.opacity]=\"tooltips.lower.visible ? 1 : 0\" [style.left.px]=\"tooltips.lower.position\">\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n            <div class=\"tooltip-inner\" [style.background-color]=\"options.handles.callout.background\" [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.lower.label }}\n            </div>\n        </div>\n\n    </div>\n\n    <!-- Section of Track Between Lower and Upper Thumbs -->\n    <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n    </div>\n\n    <!-- Upper Thumb Button / Line -->\n    <div class=\"thumb upper\" #upperThumb [hidden]=\"options.type !== sliderType.Range\" [class.active]=\"thumbs.upper.drag\" [style.left.%]=\"thumbs.upper.position\" [style.z-index]=\"thumbs.upper.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\" [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)\">\n\n        <!-- Upper Thumb Callout -->\n        <div class=\"tooltip top tooltip-upper\" #upperTooltip [style.opacity]=\"tooltips.upper.visible ? 1 : 0\" [style.left.px]=\"tooltips.upper.position\">\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n            <div class=\"tooltip-inner\" *ngIf=\"options.type === sliderType.Range\" [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.upper.label }}\n            </div>\n        </div>\n    </div>\n\n    <!-- Section of Track Abover Upper Thumb -->\n    <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n</div>\n\n<!-- Chart Ticks and Tick Labels -->\n<div class=\"tick-container\" *ngIf=\"options.track.ticks.major.show || options.track.ticks.minor.show\" [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n    <div class=\"tick\" *ngFor=\"let tick of ticks\" [class.major]=\"tick.type === sliderTickType.Major\" [class.minor]=\"tick.type === sliderTickType.Minor\"\n        [style.left.%]=\"tick.position\" [hidden]=\"!tick.showTicks\">\n        <div class=\"tick-indicator\"></div>\n        <div class=\"tick-label\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n    </div>\n</div>"
 
 /***/ }),
-/* 169 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spark_module__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spark_module__ = __webpack_require__(172);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__spark_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spark_component__ = __webpack_require__(78);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__spark_component__["a"]; });
@@ -11282,7 +11289,7 @@ module.exports = "<div class=\"track\" #track [class.narrow]=\"options.track.hei
 
 
 /***/ }),
-/* 170 */
+/* 172 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11326,17 +11333,17 @@ SparkModule = __decorate([
 
 
 /***/ }),
-/* 171 */
+/* 173 */
 /***/ (function(module, exports) {
 
 module.exports = "<!-- Inline Spark Chart -->\n<div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\n\n    <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\n\n    <div class=\"ux-spark-line\">\n\n        <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n            <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n            <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n        </div>\n\n        <div class=\"ux-spark ux-inline\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\n            <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n        </div>\n\n        <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n            <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n            <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n        </div>\n\n    </div>\n</div>\n\n<!-- End Inline Spark Chart -->\n\n\n<!-- Non Inline Spark Chart -->\n<div *ngIf=\"!inlineLabel\">\n\n    <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n        <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n        <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n    </div>\n\n    <div class=\"ux-spark\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\n        <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n    </div>\n\n    <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n        <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n        <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n    </div>\n</div>\n\n<!-- End Non Inline Spark Chart -->"
 
 /***/ }),
-/* 172 */
+/* 174 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toggleswitch_module__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toggleswitch_module__ = __webpack_require__(175);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__toggleswitch_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toggleswitch_component__ = __webpack_require__(79);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__toggleswitch_component__["a"]; });
@@ -11345,7 +11352,7 @@ module.exports = "<!-- Inline Spark Chart -->\n<div *ngIf=\"inlineLabel\" class=
 
 
 /***/ }),
-/* 173 */
+/* 175 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11380,17 +11387,17 @@ ToggleSwitchModule = __decorate([
 
 
 /***/ }),
-/* 174 */
+/* 176 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"ux-toggleswitch\" \n  tabindex=\"0\"\n  (keydown)=\"keydown($event)\"\n  [class.checked]=\"value === true\"\n  [class.disabled]=\"disabled === true\">\n\n  <span class=\"ux-toggleswitch-bg\"></span>\n  \n  <span class=\"ux-toggleswitch-nub\"></span>\n\n  <input type=\"checkbox\" \n    role=\"checkbox\"\n    [name]=\"name\" \n    [checked]=\"value === true\"\n    [disabled]=\"disabled === true\"\n    tabindex=\"-1\" />\n</div>\n\n<div class=\"ux-toggleswitch-content\">\n  <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
-/* 175 */
+/* 177 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__media_player_module__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__media_player_module__ = __webpack_require__(178);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_0__media_player_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__media_player_component__ = __webpack_require__(80);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__media_player_component__["a"]; });
@@ -11408,7 +11415,7 @@ module.exports = "<div class=\"ux-toggleswitch\" \n  tabindex=\"0\"\n  (keydown)
 
 
 /***/ }),
-/* 176 */
+/* 178 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11476,13 +11483,13 @@ MediaPlayerModule = __decorate([
 
 
 /***/ }),
-/* 177 */
+/* 179 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_177__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_179__;
 
 /***/ }),
-/* 178 */
+/* 180 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11518,37 +11525,37 @@ AudioServiceModule = __decorate([
 
 
 /***/ }),
-/* 179 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_179__;
-
-/***/ }),
-/* 180 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"video-player-container\" *ngIf=\"type === 'video'\">\n\n    <video class=\"video-player\" #player [src]=\"source\" (abort)=\"mediaPlayerService.abortEvent.next()\" (canplay)=\"mediaPlayerService.canPlayEvent.next()\"\n        (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next()\" (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\" (ended)=\"mediaPlayerService.endedEvent.next()\"\n        (error)=\"mediaPlayerService.errorEvent.next($event)\" (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\" (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n        (loadstart)=\"mediaPlayerService.loadStartEvent.next()\" (pause)=\"mediaPlayerService.pauseEvent.next()\" (play)=\"mediaPlayerService.playEvent.next()\" (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n        (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\" (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\" (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n        (stalled)=\"mediaPlayerService.stalledEvent.next()\" (suspend)=\"mediaPlayerService.suspendEvent.next()\" (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n        (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\" (waiting)=\"mediaPlayerService.waitingEvent.next()\" (click)=\"mediaPlayerService.mediaClickEvent.next($event)\"></video>\n\n    <div class=\"video-overlay\" [class.playing]=\"mediaPlayerService.playing | async\">\n        <svg class=\"play-graphic\" x=\"0px\" y=\"0px\" viewBox=\"0 0 64 64\">\n            <circle class=\"play-circle\" cx=\"32.2\" cy=\"31.8\" r=\"31.8\" />\n            <polygon class=\"play-triangle\" points=\"23,14.1 23,50.8 48.3,32.5\" />\n        </svg>\n    </div>\n\n</div>\n\n\n<div class=\"audio-player\" *ngIf=\"type === 'audio'\">\n\n    <svg width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\">\n        <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n            <g transform=\"translate(-98.000000, -458.000000)\">\n                <g transform=\"translate(98.000000, 458.000000)\">\n                    <path d=\"M4.5,0.5 L18.0435308,0.5 L23.5,6.22251502 L23.5,23.5 L4.5,23.5 L4.5,0.5 Z\" fill=\"#CCEAE2\"></path>\n                    <path d=\"M4.5,8 L4.5,0.5 L18,0.5 L23.5,6 L23.5,23.5 L18,23.5\" stroke=\"#60798D\" fill=\"#CCEAE2\"></path>\n                    <path d=\"M4,13.5 L0.5,13.5 L0.5,18.5 L4,18.5 L9.5,22.5 L9.5,9.5 L4,13.5 Z\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                    <path d=\"M11.5,12.5137939 C13.7576225,12.5137939 14.5,14.3709236 14.5,16 C14.5,17.6849236 13.7089152,19.5420532 11.5,19.5420532\"\n                        stroke=\"#60798D\"></path>\n                    <path d=\"M11.5,9 C15.8037643,9.04168701 18.5,11.6604805 18.5,16 C18.5,20.3395195 15.8804302,23.0079956 11.5,23\" stroke=\"#60798D\"></path>\n                    <path d=\"M17.5219116,0.761413574 L17.5219116,6 L23,6\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                </g>\n            </g>\n        </g>\n    </svg>\n\n    <p class=\"audio-file-name\">{{ (audioMetadata | async)?.filename }}</p>\n    <p class=\"audio-file-format\">{{ (audioMetadata | async)?.description }}</p>\n    <p class=\"audio-file-size\">{{ (audioMetadata | async)?.size | fileSize }}</p>\n\n    <audio #player [src]=\"source\" (abort)=\"mediaPlayerService.abortEvent.next()\" (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\n        (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\" (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\" (ended)=\"mediaPlayerService.endedEvent.next()\"\n        (error)=\"mediaPlayerService.errorEvent.next($event)\" (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\" (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n        (loadstart)=\"mediaPlayerService.loadStartEvent.next()\" (pause)=\"mediaPlayerService.pauseEvent.next()\" (play)=\"mediaPlayerService.playEvent.next()\" (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n        (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\" (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\" (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n        (stalled)=\"mediaPlayerService.stalledEvent.next()\" (suspend)=\"mediaPlayerService.suspendEvent.next()\" (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n        (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\" (waiting)=\"mediaPlayerService.waitingEvent.next()\" (click)=\"mediaPlayerService.mediaClickEvent.next($event)\"></audio>\n</div>\n\n<div class=\"control-bar\">\n    <ux-media-player-timeline></ux-media-player-timeline>\n    <ux-media-player-controls></ux-media-player-controls>\n</div>"
-
-/***/ }),
 /* 181 */
 /***/ (function(module, exports) {
 
-module.exports = "<p class=\"current-time\">{{ current | duration }}</p>\n\n<div #timeline class=\"timeline-bar\" (mouseenter)=\"scrub.visible = true; pop.show()\" (mouseleave)=\"scrub.visible = false; pop.hide()\"\n    (mousemove)=\"updateScrub($event)\" (mouseup)=\"updateScrub($event)\" (mousedown)=\"mouseDown = true; $event.preventDefault()\">\n\n    <div class=\"buffered-bar\" *ngFor=\"let buffer of buffered\" [style.left.%]=\"buffer.start\" [style.width.%]=\"buffer.end - buffer.start\"></div>\n\n    <div class=\"media-progress-bar\" [style.width.%]=\"position\"></div>\n\n    <div class=\"scrub-handle\" [style.left.px]=\"scrub.position\" [tooltip]=\"popTemplate\" placement=\"top\" triggers=\"\" #pop=\"bs-tooltip\"\n        container=\"body\" tooltipPopupDelay=\"100\" [isDisabled]=\"duration === 0\"></div>\n\n</div>\n\n<p class=\"duration-time\">{{ duration | duration }}</p>\n\n<ng-template #popTemplate>\n    <span>{{ scrub.time | duration }}</span>\n</ng-template>"
+module.exports = __WEBPACK_EXTERNAL_MODULE_181__;
 
 /***/ }),
 /* 182 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_182__;
+module.exports = "<div class=\"video-player-container\" *ngIf=\"type === 'video'\">\n\n    <video class=\"video-player\" #player [src]=\"source\" (abort)=\"mediaPlayerService.abortEvent.next()\" (canplay)=\"mediaPlayerService.canPlayEvent.next()\"\n        (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next()\" (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\" (ended)=\"mediaPlayerService.endedEvent.next()\"\n        (error)=\"mediaPlayerService.errorEvent.next($event)\" (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\" (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n        (loadstart)=\"mediaPlayerService.loadStartEvent.next()\" (pause)=\"mediaPlayerService.pauseEvent.next()\" (play)=\"mediaPlayerService.playEvent.next()\" (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n        (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\" (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\" (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n        (stalled)=\"mediaPlayerService.stalledEvent.next()\" (suspend)=\"mediaPlayerService.suspendEvent.next()\" (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n        (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\" (waiting)=\"mediaPlayerService.waitingEvent.next()\" (click)=\"mediaPlayerService.mediaClickEvent.next($event)\"></video>\n\n    <div class=\"video-overlay\" [class.playing]=\"mediaPlayerService.playing | async\">\n        <svg class=\"play-graphic\" x=\"0px\" y=\"0px\" viewBox=\"0 0 64 64\">\n            <circle class=\"play-circle\" cx=\"32.2\" cy=\"31.8\" r=\"31.8\" />\n            <polygon class=\"play-triangle\" points=\"23,14.1 23,50.8 48.3,32.5\" />\n        </svg>\n    </div>\n\n</div>\n\n\n<div class=\"audio-player\" *ngIf=\"type === 'audio'\">\n\n    <svg width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\">\n        <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n            <g transform=\"translate(-98.000000, -458.000000)\">\n                <g transform=\"translate(98.000000, 458.000000)\">\n                    <path d=\"M4.5,0.5 L18.0435308,0.5 L23.5,6.22251502 L23.5,23.5 L4.5,23.5 L4.5,0.5 Z\" fill=\"#CCEAE2\"></path>\n                    <path d=\"M4.5,8 L4.5,0.5 L18,0.5 L23.5,6 L23.5,23.5 L18,23.5\" stroke=\"#60798D\" fill=\"#CCEAE2\"></path>\n                    <path d=\"M4,13.5 L0.5,13.5 L0.5,18.5 L4,18.5 L9.5,22.5 L9.5,9.5 L4,13.5 Z\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                    <path d=\"M11.5,12.5137939 C13.7576225,12.5137939 14.5,14.3709236 14.5,16 C14.5,17.6849236 13.7089152,19.5420532 11.5,19.5420532\"\n                        stroke=\"#60798D\"></path>\n                    <path d=\"M11.5,9 C15.8037643,9.04168701 18.5,11.6604805 18.5,16 C18.5,20.3395195 15.8804302,23.0079956 11.5,23\" stroke=\"#60798D\"></path>\n                    <path d=\"M17.5219116,0.761413574 L17.5219116,6 L23,6\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                </g>\n            </g>\n        </g>\n    </svg>\n\n    <p class=\"audio-file-name\">{{ (audioMetadata | async)?.filename }}</p>\n    <p class=\"audio-file-format\">{{ (audioMetadata | async)?.description }}</p>\n    <p class=\"audio-file-size\">{{ (audioMetadata | async)?.size | fileSize }}</p>\n\n    <audio #player [src]=\"source\" (abort)=\"mediaPlayerService.abortEvent.next()\" (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\n        (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\" (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\" (ended)=\"mediaPlayerService.endedEvent.next()\"\n        (error)=\"mediaPlayerService.errorEvent.next($event)\" (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\" (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n        (loadstart)=\"mediaPlayerService.loadStartEvent.next()\" (pause)=\"mediaPlayerService.pauseEvent.next()\" (play)=\"mediaPlayerService.playEvent.next()\" (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n        (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\" (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\" (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n        (stalled)=\"mediaPlayerService.stalledEvent.next()\" (suspend)=\"mediaPlayerService.suspendEvent.next()\" (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n        (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\" (waiting)=\"mediaPlayerService.waitingEvent.next()\" (click)=\"mediaPlayerService.mediaClickEvent.next($event)\"></audio>\n</div>\n\n<div class=\"control-bar\">\n    <ux-media-player-timeline></ux-media-player-timeline>\n    <ux-media-player-controls></ux-media-player-controls>\n</div>"
 
 /***/ }),
 /* 183 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"volume-container\">\n\n    <div class=\"volume-slider-container\" #volumeContainer [class.active]=\"volumeActive\">\n        <div class=\"volume-slider-icon\" #volumeIcon>\n            <span class=\"hpe-icon\" [class.hpe-volume-mute]=\"volume === 0\" [class.hpe-volume-low]=\"volume > 0 && volume <= 70\" [class.hpe-volume]=\"volume > 70\" [tooltip]=\"muteTooltip\" (click)=\"toggleMute()\"></span>\n        </div>\n        \n        <div class=\"volume-slider-node\">\n            <div class=\"volume-slider\" #volumeSlider>\n                <div class=\"volume-track-lower\" [style.width.%]=\"volume\"></div>\n                <div class=\"volume-slider-thumb\" (mousedown)=\"dragStart($event)\" [style.left.%]=\"volume\" tabindex=\"0\" (keydown.ArrowRight)=\"volume = volume + 10\" (keydown.ArrowLeft)=\"volume = volume - 10\"></div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"spacer\"></div>\n\n<svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" class=\"control-button\" (click)=\"goToStart()\">\n    <rect x=\"0\" y=\"0\" width=\"7.5\" height=\"64\" />\n    <polygon points=\"51.5,64 51.5,0 7.4,32 \" />\n</svg>\n\n<svg viewBox=\"0 0 45 64\" width=\"20\" height=\"29\" class=\"control-button\" *ngIf=\"!playing\" (click)=\"togglePlay()\">\n    <polygon points=\"0.4,0 0.4,64 44.6,32\" />\n</svg>\n\n<svg viewBox=\"0 0 43 56.9\" class=\"control-button\" width=\"20\" height=\"29\" *ngIf=\"playing\" (click)=\"togglePlay()\">\n    <rect y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n    <rect x=\"27.3\" y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n</svg>\n\n<svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" class=\"control-button\" (click)=\"goToEnd()\">\n    <rect x=\"44.1\" y=\"0\" width=\"7.5\" height=\"64\" />\n    <polygon points=\"0,64 0,0 44.1,32 \" />\n</svg>\n\n<div class=\"spacer\"></div>\n\n<span class=\"hpe-icon\" *ngIf=\"mediaPlayerService.type !== 'audio'\" [class.hpe-expand]=\"!mediaPlayerService.fullscreen\" [class.hpe-contract]=\"mediaPlayerService.fullscreen\"\n    (click)=\"setFullscreen()\"></span>\n\n<ng-template #muteTooltip>{{ volume === 0 ? 'Unmute' : 'Mute' }}</ng-template>"
+module.exports = "<p class=\"current-time\">{{ current | duration }}</p>\n\n<div #timeline class=\"timeline-bar\" (mouseenter)=\"scrub.visible = true; pop.show()\" (mouseleave)=\"scrub.visible = false; pop.hide()\"\n    (mousemove)=\"updateScrub($event)\" (mouseup)=\"updateScrub($event)\" (mousedown)=\"mouseDown = true; $event.preventDefault()\">\n\n    <div class=\"buffered-bar\" *ngFor=\"let buffer of buffered\" [style.left.%]=\"buffer.start\" [style.width.%]=\"buffer.end - buffer.start\"></div>\n\n    <div class=\"media-progress-bar\" [style.width.%]=\"position\"></div>\n\n    <div class=\"scrub-handle\" [style.left.px]=\"scrub.position\" [tooltip]=\"popTemplate\" placement=\"top\" triggers=\"\" #pop=\"bs-tooltip\"\n        container=\"body\" tooltipPopupDelay=\"100\" [isDisabled]=\"duration === 0\"></div>\n\n</div>\n\n<p class=\"duration-time\">{{ duration | duration }}</p>\n\n<ng-template #popTemplate>\n    <span>{{ scrub.time | duration }}</span>\n</ng-template>"
 
 /***/ }),
 /* 184 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_184__;
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"volume-container\">\n\n    <div class=\"volume-slider-container\" #volumeContainer [class.active]=\"volumeActive\">\n        <div class=\"volume-slider-icon\" #volumeIcon>\n            <span class=\"hpe-icon\" [class.hpe-volume-mute]=\"volume === 0\" [class.hpe-volume-low]=\"volume > 0 && volume <= 70\" [class.hpe-volume]=\"volume > 70\" [tooltip]=\"muteTooltip\" (click)=\"toggleMute()\"></span>\n        </div>\n        \n        <div class=\"volume-slider-node\">\n            <div class=\"volume-slider\" #volumeSlider>\n                <div class=\"volume-track-lower\" [style.width.%]=\"volume\"></div>\n                <div class=\"volume-slider-thumb\" (mousedown)=\"dragStart($event)\" [style.left.%]=\"volume\" tabindex=\"0\" (keydown.ArrowRight)=\"volume = volume + 10\" (keydown.ArrowLeft)=\"volume = volume - 10\"></div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"spacer\"></div>\n\n<svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" class=\"control-button\" (click)=\"goToStart()\">\n    <rect x=\"0\" y=\"0\" width=\"7.5\" height=\"64\" />\n    <polygon points=\"51.5,64 51.5,0 7.4,32 \" />\n</svg>\n\n<svg viewBox=\"0 0 45 64\" width=\"20\" height=\"29\" class=\"control-button\" *ngIf=\"!playing\" (click)=\"togglePlay()\">\n    <polygon points=\"0.4,0 0.4,64 44.6,32\" />\n</svg>\n\n<svg viewBox=\"0 0 43 56.9\" class=\"control-button\" width=\"20\" height=\"29\" *ngIf=\"playing\" (click)=\"togglePlay()\">\n    <rect y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n    <rect x=\"27.3\" y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n</svg>\n\n<svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" class=\"control-button\" (click)=\"goToEnd()\">\n    <rect x=\"44.1\" y=\"0\" width=\"7.5\" height=\"64\" />\n    <polygon points=\"0,64 0,0 44.1,32 \" />\n</svg>\n\n<div class=\"spacer\"></div>\n\n<span class=\"hpe-icon\" *ngIf=\"mediaPlayerService.type !== 'audio'\" [class.hpe-expand]=\"!mediaPlayerService.fullscreen\" [class.hpe-contract]=\"mediaPlayerService.fullscreen\"\n    (click)=\"setFullscreen()\"></span>\n\n<ng-template #muteTooltip>{{ volume === 0 ? 'Unmute' : 'Mute' }}</ng-template>"
+
+/***/ }),
+/* 186 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11579,7 +11586,7 @@ DurationPipeModule = __decorate([
 
 
 /***/ }),
-/* 185 */
+/* 187 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11610,11 +11617,11 @@ FileSizePipeModule = __decorate([
 
 
 /***/ }),
-/* 186 */
+/* 188 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__virtual_scroll_module__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__virtual_scroll_module__ = __webpack_require__(189);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__virtual_scroll_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__virtual_scroll_component__ = __webpack_require__(92);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__virtual_scroll_component__["a"]; });
@@ -11632,7 +11639,7 @@ FileSizePipeModule = __decorate([
 
 
 /***/ }),
-/* 187 */
+/* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11684,17 +11691,17 @@ VirtualScrollModule = __decorate([
 
 
 /***/ }),
-/* 188 */
+/* 190 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"virtual-scroll-content-height\" [style.height.px]=\"getTotalHeight()\"></div>\n<div class=\"virtual-scroll-content\" [style.transform]=\"'translateY(' + scrollTop + 'px)'\">\n\n    <!-- Virtually Render Cells -->\n    <ng-container *ngFor=\"let cell of cells | async\">\n        <ng-container *ngTemplateOutlet=\"cellTemplate; context: { cell: cell }\"></ng-container>\n    </ng-container>\n\n    <!-- Loading Indicator -->\n    <ng-container *ngIf=\"loadingIndicatorTemplate && isLoading\" [ngTemplateOutlet]=\"loadingIndicatorTemplate\"></ng-container>\n\n    <!-- Loading Button -->\n    <div class=\"virtual-scroll-load-button\" *ngIf=\"loadButtonTemplate && !loadOnScroll && !loadingComplete && !isLoading\" (click)=\"loadNextPage()\">\n        <ng-container *ngTemplateOutlet=\"loadButtonTemplate\"></ng-container>\n    </div>\n    \n</div>"
 
 /***/ }),
-/* 189 */
+/* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__help_center_module__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__help_center_module__ = __webpack_require__(192);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__help_center_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__help_center_service__ = __webpack_require__(34);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__help_center_service__["a"]; });
@@ -11706,7 +11713,7 @@ module.exports = "<div class=\"virtual-scroll-content-height\" [style.height.px]
 
 
 /***/ }),
-/* 190 */
+/* 192 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11741,11 +11748,11 @@ HelpCenterModule = __decorate([
 
 
 /***/ }),
-/* 191 */
+/* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hover_action_module__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hover_action_module__ = __webpack_require__(194);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__hover_action_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hover_action_container_directive__ = __webpack_require__(94);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__hover_action_container_directive__["a"]; });
@@ -11757,7 +11764,7 @@ HelpCenterModule = __decorate([
 
 
 /***/ }),
-/* 192 */
+/* 194 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11794,11 +11801,11 @@ HoverActionModule = __decorate([
 
 
 /***/ }),
-/* 193 */
+/* 195 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_switcher_module__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_switcher_module__ = __webpack_require__(196);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__layout_switcher_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_switcher_directive__ = __webpack_require__(97);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__layout_switcher_directive__["a"]; });
@@ -11810,7 +11817,7 @@ HoverActionModule = __decorate([
 
 
 /***/ }),
-/* 194 */
+/* 196 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11853,20 +11860,20 @@ LayoutSwitcherModule = __decorate([
 
 
 /***/ }),
-/* 195 */
+/* 197 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__string_filter_pipe__ = __webpack_require__(98);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__string_filter_pipe__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__string_filter_module__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__string_filter_module__ = __webpack_require__(198);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__string_filter_module__["a"]; });
 
 
 
 
 /***/ }),
-/* 196 */
+/* 198 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
