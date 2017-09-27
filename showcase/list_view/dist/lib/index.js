@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("@angular/core"), require("@angular/common"), require("@angular/forms"), require("rxjs/Observable"), require("rxjs/Subject"), require("rxjs/BehaviorSubject"), require("ngx-bootstrap/tooltip"), require("ngx-bootstrap/dropdown"), require("rxjs/add/operator/takeUntil"), require("@angular/platform-browser"), require("rxjs/add/operator/switchMap"), require("rxjs/add/observable/fromEvent"), require("rxjs/add/operator/debounceTime"), require("ngx-bootstrap/typeahead"), require("rxjs/add/observable/of"), require("@angular/http"), require("@angular/router"), require("rxjs/add/operator/filter"), require("rxjs/add/operator/map"), require("rxjs/add/operator/auditTime"), require("rxjs/add/operator/combineLatest"), require("rxjs/add/operator/partition"), require("rxjs/add/observable/concat"), require("rxjs/add/observable/from"), require("rxjs/add/observable/timer")) : factory(root["@angular/core"], root["@angular/common"], root["@angular/forms"], root["rxjs/Observable"], root["rxjs/Subject"], root["rxjs/BehaviorSubject"], root["ngx-bootstrap/tooltip"], root["ngx-bootstrap/dropdown"], root["rxjs/add/operator/takeUntil"], root["@angular/platform-browser"], root["rxjs/add/operator/switchMap"], root["rxjs/add/observable/fromEvent"], root["rxjs/add/operator/debounceTime"], root["ngx-bootstrap/typeahead"], root["rxjs/add/observable/of"], root["@angular/http"], root["@angular/router"], root["rxjs/add/operator/filter"], root["rxjs/add/operator/map"], root["rxjs/add/operator/auditTime"], root["rxjs/add/operator/combineLatest"], root["rxjs/add/operator/partition"], root["rxjs/add/observable/concat"], root["rxjs/add/observable/from"], root["rxjs/add/observable/timer"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_23__, __WEBPACK_EXTERNAL_MODULE_28__, __WEBPACK_EXTERNAL_MODULE_43__, __WEBPACK_EXTERNAL_MODULE_45__, __WEBPACK_EXTERNAL_MODULE_47__, __WEBPACK_EXTERNAL_MODULE_51__, __WEBPACK_EXTERNAL_MODULE_85__, __WEBPACK_EXTERNAL_MODULE_101__, __WEBPACK_EXTERNAL_MODULE_119__, __WEBPACK_EXTERNAL_MODULE_122__, __WEBPACK_EXTERNAL_MODULE_156__, __WEBPACK_EXTERNAL_MODULE_157__, __WEBPACK_EXTERNAL_MODULE_158__, __WEBPACK_EXTERNAL_MODULE_177__, __WEBPACK_EXTERNAL_MODULE_179__, __WEBPACK_EXTERNAL_MODULE_182__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_17__, __WEBPACK_EXTERNAL_MODULE_23__, __WEBPACK_EXTERNAL_MODULE_28__, __WEBPACK_EXTERNAL_MODULE_43__, __WEBPACK_EXTERNAL_MODULE_45__, __WEBPACK_EXTERNAL_MODULE_47__, __WEBPACK_EXTERNAL_MODULE_51__, __WEBPACK_EXTERNAL_MODULE_85__, __WEBPACK_EXTERNAL_MODULE_101__, __WEBPACK_EXTERNAL_MODULE_119__, __WEBPACK_EXTERNAL_MODULE_122__, __WEBPACK_EXTERNAL_MODULE_158__, __WEBPACK_EXTERNAL_MODULE_159__, __WEBPACK_EXTERNAL_MODULE_160__, __WEBPACK_EXTERNAL_MODULE_179__, __WEBPACK_EXTERNAL_MODULE_181__, __WEBPACK_EXTERNAL_MODULE_184__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -135,6 +135,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__color_service__ = __webpack_require__(63);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__color_service__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__color_service__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__color_service__["c"]; });
 
 
 
@@ -1094,7 +1095,7 @@ var Rounding;
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__typeahead_key_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__typeahead_component__ = __webpack_require__(68);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__typeahead_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__typeahead_module__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__typeahead_module__ = __webpack_require__(157);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__typeahead_module__["a"]; });
 
 
@@ -2091,7 +2092,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_23__;
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__infinite_scroll_load_button_directive__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__infinite_scroll_loading_directive__ = __webpack_require__(26);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_2__infinite_scroll_loading_directive__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__infinite_scroll_module__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__infinite_scroll_module__ = __webpack_require__(161);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_3__infinite_scroll_module__["a"]; });
 
 
@@ -2741,7 +2742,7 @@ MediaPlayerService = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__audio_module__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__audio_module__ = __webpack_require__(180);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__audio_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__audio_service__ = __webpack_require__(84);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__audio_service__["a"]; });
@@ -3006,15 +3007,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_progress_bar_index__ = __webpack_require__(146);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ProgressBarModule", function() { return __WEBPACK_IMPORTED_MODULE_11__components_progress_bar_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ProgressBarComponent", function() { return __WEBPACK_IMPORTED_MODULE_11__components_progress_bar_index__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__ = __webpack_require__(152);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RadioButtonModule", function() { return __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RADIOBUTTON_VALUE_ACCESSOR", function() { return __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RadioButtonComponent", function() { return __WEBPACK_IMPORTED_MODULE_12__components_radiobutton_index__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_select_index__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_select_index__ = __webpack_require__(155);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SELECT_VALUE_ACCESSOR", function() { return __WEBPACK_IMPORTED_MODULE_13__components_select_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return __WEBPACK_IMPORTED_MODULE_13__components_select_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SelectModule", function() { return __WEBPACK_IMPORTED_MODULE_13__components_select_index__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_slider_index__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_slider_index__ = __webpack_require__(168);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderModule", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderComponent", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderType", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["j"]; });
@@ -3025,14 +3026,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderTickType", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["i"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderThumbEvent", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["h"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SliderThumb", function() { return __WEBPACK_IMPORTED_MODULE_14__components_slider_index__["g"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_spark_index__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_spark_index__ = __webpack_require__(171);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SparkModule", function() { return __WEBPACK_IMPORTED_MODULE_15__components_spark_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SparkComponent", function() { return __WEBPACK_IMPORTED_MODULE_15__components_spark_index__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_tag_input_index__ = __webpack_require__(72);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TagInputEvent", function() { return __WEBPACK_IMPORTED_MODULE_16__components_tag_input_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TagInputComponent", function() { return __WEBPACK_IMPORTED_MODULE_16__components_tag_input_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TagInputModule", function() { return __WEBPACK_IMPORTED_MODULE_16__components_tag_input_index__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_toggleswitch_index__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_toggleswitch_index__ = __webpack_require__(174);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ToggleSwitchModule", function() { return __WEBPACK_IMPORTED_MODULE_17__components_toggleswitch_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ToggleSwitchComponent", function() { return __WEBPACK_IMPORTED_MODULE_17__components_toggleswitch_index__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_typeahead_index__ = __webpack_require__(9);
@@ -3040,13 +3041,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TypeaheadKeyService", function() { return __WEBPACK_IMPORTED_MODULE_18__components_typeahead_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TypeaheadComponent", function() { return __WEBPACK_IMPORTED_MODULE_18__components_typeahead_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TypeaheadModule", function() { return __WEBPACK_IMPORTED_MODULE_18__components_typeahead_index__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__ = __webpack_require__(177);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerModule", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["d"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerComponent", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerBaseExtensionDirective", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerControlsExtensionComponent", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MediaPlayerTimelineExtensionComponent", function() { return __WEBPACK_IMPORTED_MODULE_19__components_media_player_index__["e"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__ = __webpack_require__(188);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "VirtualScrollModule", function() { return __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__["e"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "VirtualScrollComponent", function() { return __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "VirtualScrollLoadingDirective", function() { return __WEBPACK_IMPORTED_MODULE_20__components_virtual_scroll_index__["d"]; });
@@ -3055,11 +3056,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__directives_focus_if_index__ = __webpack_require__(75);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FocusIfDirective", function() { return __WEBPACK_IMPORTED_MODULE_21__directives_focus_if_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FocusIfModule", function() { return __WEBPACK_IMPORTED_MODULE_21__directives_focus_if_index__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__ = __webpack_require__(191);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HelpCenterModule", function() { return __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HelpCenterService", function() { return __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HelpCenterItemDirective", function() { return __WEBPACK_IMPORTED_MODULE_22__directives_help_center_index__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__ = __webpack_require__(193);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HoverActionModule", function() { return __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HoverActionContainerDirective", function() { return __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "HoverActionDirective", function() { return __WEBPACK_IMPORTED_MODULE_23__directives_hover_action_index__["b"]; });
@@ -3071,7 +3072,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InfiniteScrollLoadButtonDirective", function() { return __WEBPACK_IMPORTED_MODULE_24__directives_infinite_scroll_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InfiniteScrollLoadingDirective", function() { return __WEBPACK_IMPORTED_MODULE_24__directives_infinite_scroll_index__["e"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InfiniteScrollModule", function() { return __WEBPACK_IMPORTED_MODULE_24__directives_infinite_scroll_index__["g"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__ = __webpack_require__(195);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "LayoutSwitcherModule", function() { return __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "LayoutSwitcherDirective", function() { return __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "LayoutSwitcherItemDirective", function() { return __WEBPACK_IMPORTED_MODULE_25__directives_layout_switcher_index__["b"]; });
@@ -3089,7 +3090,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pipes_file_size_index__ = __webpack_require__(90);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FileSizePipeModule", function() { return __WEBPACK_IMPORTED_MODULE_29__pipes_file_size_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FileSizePipe", function() { return __WEBPACK_IMPORTED_MODULE_29__pipes_file_size_index__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pipes_string_filter_index__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pipes_string_filter_index__ = __webpack_require__(197);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StringFilterPipe", function() { return __WEBPACK_IMPORTED_MODULE_30__pipes_string_filter_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "StringFilterModule", function() { return __WEBPACK_IMPORTED_MODULE_30__pipes_string_filter_index__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__services_audio_index__ = __webpack_require__(30);
@@ -3099,6 +3100,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorServiceModule", function() { return __WEBPACK_IMPORTED_MODULE_32__services_color_index__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ColorService", function() { return __WEBPACK_IMPORTED_MODULE_32__services_color_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ThemeColor", function() { return __WEBPACK_IMPORTED_MODULE_32__services_color_index__["c"]; });
+/* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "colorSets", function() { return __WEBPACK_IMPORTED_MODULE_32__services_color_index__["d"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__services_frame_extraction_index__ = __webpack_require__(81);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FrameExtractionModule", function() { return __WEBPACK_IMPORTED_MODULE_33__services_frame_extraction_index__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FrameExtractionService", function() { return __WEBPACK_IMPORTED_MODULE_33__services_frame_extraction_index__["b"]; });
@@ -3477,8 +3479,7 @@ var DashboardComponent = (function () {
         var _this = this;
         // ensure this gets run inside Angular
         this._ngZone.run(function () {
-            var target = event.target;
-            _this._dashboardService.setDimensions(target.innerWidth, target.innerHeight);
+            _this._dashboardService.setDimensions(event.width, event.height);
         });
     };
     return DashboardComponent;
@@ -5148,7 +5149,7 @@ __decorate([
 ProgressBarComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-progress-bar',
-        template: __webpack_require__(149)
+        template: __webpack_require__(151)
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_color_index__["a" /* ColorService */]])
 ], ProgressBarComponent);
@@ -5162,6 +5163,7 @@ ProgressBarComponent = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ColorService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ThemeColor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return colorSets; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
@@ -5182,66 +5184,40 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 var ColorService = (function () {
     function ColorService(document) {
-        this._html = '<div class="primary-color"></div>' +
-            '<div class="accent-color"></div>' +
-            '<div class="secondary-color"></div>' +
-            '<div class="alternate1-color"></div>' +
-            '<div class="alternate2-color"></div>' +
-            '<div class="alternate3-color"></div>' +
-            '<div class="vibrant1-color"></div>' +
-            '<div class="vibrant2-color"></div>' +
-            '<div class="grey1-color"></div>' +
-            '<div class="grey2-color"></div>' +
-            '<div class="grey3-color"></div>' +
-            '<div class="grey4-color"></div>' +
-            '<div class="grey5-color"></div>' +
-            '<div class="grey6-color"></div>' +
-            '<div class="grey7-color"></div>' +
-            '<div class="grey8-color"></div>' +
-            '<div class="chart1-color"></div>' +
-            '<div class="chart2-color"></div>' +
-            '<div class="chart3-color"></div>' +
-            '<div class="chart4-color"></div>' +
-            '<div class="chart5-color"></div>' +
-            '<div class="chart6-color"></div>' +
-            '<div class="ok-color"></div>' +
-            '<div class="warning-color"></div>' +
-            '<div class="critical-color"></div>';
+        this._colorSet = colorSets.keppel;
+        if (this._colorSet.colorClassSet) {
+            this._setColors();
+        }
+        else {
+            for (var key in this._colorSet.colorValueSet) {
+                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
+    }
+    ColorService.prototype._setColors = function () {
+        this._html = '';
+        for (var key in this._colorSet.colorClassSet) {
+            this._html += '<div class="' + this._colorSet.colorClassSet[key] + '-color"></div>';
+        }
         this._element = document.createElement('div');
         this._element.className = 'color-chart';
         this._element.innerHTML = this._html;
         document.body.appendChild(this._element);
-        this._colors = {
-            primary: this.getColorValue('primary'),
-            accent: this.getColorValue('accent'),
-            secondary: this.getColorValue('secondary'),
-            alternate1: this.getColorValue('alternate1'),
-            alternate2: this.getColorValue('alternate2'),
-            alternate3: this.getColorValue('alternate3'),
-            vibrant1: this.getColorValue('vibrant1'),
-            vibrant2: this.getColorValue('vibrant2'),
-            grey1: this.getColorValue('grey1'),
-            grey2: this.getColorValue('grey2'),
-            grey3: this.getColorValue('grey3'),
-            grey4: this.getColorValue('grey4'),
-            grey5: this.getColorValue('grey5'),
-            grey6: this.getColorValue('grey6'),
-            grey7: this.getColorValue('grey7'),
-            grey8: this.getColorValue('grey8'),
-            chart1: this.getColorValue('chart1'),
-            chart2: this.getColorValue('chart2'),
-            chart3: this.getColorValue('chart3'),
-            chart4: this.getColorValue('chart4'),
-            chart5: this.getColorValue('chart5'),
-            chart6: this.getColorValue('chart6'),
-            ok: this.getColorValue('ok'),
-            warning: this.getColorValue('warning'),
-            critical: this.getColorValue('critical')
-        };
+        this._colors = {};
+        for (var key in this._colorSet.colorClassSet) {
+            this._colors[key] = this.getColorValue(this._colorSet.colorClassSet[key]);
+        }
         this._element.parentNode.removeChild(this._element);
-    }
+    };
+    ColorService.prototype._getColorValueByHex = function (color) {
+        var hex = color.replace('#', '');
+        var r = parseInt(hex.substring(0, 2), 16).toString();
+        var g = parseInt(hex.substring(2, 4), 16).toString();
+        var b = parseInt(hex.substring(4, 6), 16).toString();
+        return new ThemeColor(r, g, b, '1');
+    };
     ColorService.prototype.getColorValue = function (color) {
-        var target = this._element.querySelector('.' + color + '-color');
+        var target = this._element.querySelector('.' + this._colorSet.colorClassSet[color] + '-color');
         if (!target) {
             throw new Error('Invalid color');
         }
@@ -5250,7 +5226,22 @@ var ColorService = (function () {
         return new ThemeColor(rgba[1], rgba[2], rgba[3], rgba[4]);
     };
     ColorService.prototype.getColor = function (color) {
-        return this._colors[color];
+        return this._colors[color.toLowerCase()];
+    };
+    ColorService.prototype.getColorSet = function () {
+        return this._colorSet;
+    };
+    ColorService.prototype.setColorSet = function (colorSet) {
+        this._colorSet = colorSet;
+        this._colors = {};
+        if (this._colorSet.colorClassSet) {
+            this._setColors();
+        }
+        else {
+            for (var key in this._colorSet.colorValueSet) {
+                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
     };
     return ColorService;
 }());
@@ -5347,6 +5338,10 @@ var ThemeColor = (function () {
     return ThemeColor;
 }());
 
+var colorSets = {
+    keppel: __webpack_require__(149),
+    microFocus: __webpack_require__(150)
+};
 
 
 /***/ }),
@@ -5473,7 +5468,7 @@ __decorate([
 RadioButtonComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-radio-button',
-        template: __webpack_require__(152),
+        template: __webpack_require__(154),
         providers: [RADIOBUTTON_VALUE_ACCESSOR]
     })
 ], RadioButtonComponent);
@@ -5774,7 +5769,7 @@ __decorate([
 SelectComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"]({
         selector: 'ux-select',
-        template: __webpack_require__(161),
+        template: __webpack_require__(163),
         providers: [SELECT_VALUE_ACCESSOR]
     }),
     __param(1, __WEBPACK_IMPORTED_MODULE_1__angular_core__["Inject"](__WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["DOCUMENT"])),
@@ -6193,7 +6188,7 @@ __decorate([
 TypeaheadComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"]({
         selector: 'ux-typeahead',
-        template: __webpack_require__(154),
+        template: __webpack_require__(156),
         host: {
             '[class.open]': 'open',
             '[class.drop-up]': 'dropDirection === "up"',
@@ -6224,11 +6219,11 @@ TypeaheadComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Subject__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_auditTime__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_auditTime__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_auditTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_auditTime__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_combineLatest__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_combineLatest__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_combineLatest___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_combineLatest__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_partition__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_partition__ = __webpack_require__(160);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_partition___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_partition__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6705,7 +6700,7 @@ var InfiniteScrollLoadErrorEvent = (function () {
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__scroll_into_view_if_directive__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scroll_into_view_service__ = __webpack_require__(27);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__scroll_into_view_service__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scroll_into_view_if_module__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scroll_into_view_if_module__ = __webpack_require__(162);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__scroll_into_view_if_module__["a"]; });
 
 
@@ -6772,7 +6767,7 @@ ScrollIntoViewIfDirective = __decorate([
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__tag_input_event__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tag_input_component__ = __webpack_require__(74);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__tag_input_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tag_input_module__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tag_input_module__ = __webpack_require__(166);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__tag_input_module__["a"]; });
 
 
@@ -7473,7 +7468,7 @@ __decorate([
 TagInputComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"]({
         selector: 'ux-tag-input',
-        template: __webpack_require__(163),
+        template: __webpack_require__(165),
         providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
         host: {
             '[class.disabled]': 'disabled',
@@ -7496,7 +7491,7 @@ TagInputComponent = __decorate([
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__focus_if_directive__ = __webpack_require__(76);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__focus_if_directive__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__focus_if_module__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__focus_if_module__ = __webpack_require__(167);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__focus_if_module__["a"]; });
 
 
@@ -8119,7 +8114,7 @@ __decorate([
 SliderComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-slider',
-        template: __webpack_require__(168)
+        template: __webpack_require__(170)
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__services_color_index__["a" /* ColorService */]])
 ], SliderComponent);
@@ -8259,7 +8254,7 @@ __decorate([
 SparkComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-spark',
-        template: __webpack_require__(171)
+        template: __webpack_require__(173)
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_color_index__["a" /* ColorService */]])
 ], SparkComponent);
@@ -8364,7 +8359,7 @@ __decorate([
 ToggleSwitchComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-toggleswitch',
-        template: __webpack_require__(174),
+        template: __webpack_require__(176),
         providers: [TOGGLESWITCH_VALUE_ACCESSOR],
         host: {
             '(click)': 'toggleChecked()'
@@ -8386,7 +8381,7 @@ ToggleSwitchComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_audio_index__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_from__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_from__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_from___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_from__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_switchMap__);
@@ -8492,7 +8487,7 @@ __decorate([
 MediaPlayerComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-media-player',
-        template: __webpack_require__(180),
+        template: __webpack_require__(182),
         providers: [__WEBPACK_IMPORTED_MODULE_1__media_player_service__["a" /* MediaPlayerService */]],
         host: {
             'tabindex': '0',
@@ -8568,7 +8563,7 @@ FrameExtractionModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_concat__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_concat__ = __webpack_require__(179);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_concat___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_concat__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8914,7 +8909,7 @@ __decorate([
 MediaPlayerTimelineExtensionComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-media-player-timeline',
-        template: __webpack_require__(181),
+        template: __webpack_require__(183),
         host: {
             '(document:mouseup)': 'mouseDown = false',
             '[class.quiet]': 'quietMode || fullscreen'
@@ -8935,7 +8930,7 @@ MediaPlayerTimelineExtensionComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base_extension_directive__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_timer__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_timer__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_timer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_timer__);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -9073,7 +9068,7 @@ __decorate([
 MediaPlayerControlsExtensionComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-media-player-controls',
-        template: __webpack_require__(183),
+        template: __webpack_require__(185),
         host: {
             '[class.quiet]': 'quietMode || fullscreen'
         }
@@ -9087,7 +9082,7 @@ MediaPlayerControlsExtensionComponent = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__duration_module__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__duration_module__ = __webpack_require__(186);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__duration_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration_pipe__ = __webpack_require__(89);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__duration_pipe__["a"]; });
@@ -9148,7 +9143,7 @@ DurationPipe = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__file_size_module__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__file_size_module__ = __webpack_require__(187);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__file_size_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__file_size_pipe__ = __webpack_require__(91);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__file_size_pipe__["a"]; });
@@ -9365,7 +9360,7 @@ __decorate([
 VirtualScrollComponent = __decorate([
     __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"]({
         selector: 'ux-virtual-scroll',
-        template: __webpack_require__(188)
+        template: __webpack_require__(190)
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], __WEBPACK_IMPORTED_MODULE_1__directives_resize_index__["c" /* ResizeService */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"]])
 ], VirtualScrollComponent);
@@ -9859,7 +9854,7 @@ StringFilterPipe = __decorate([
 /* 99 */
 /***/ (function(module, exports) {
 
-module.exports = "<ol class=\"breadcrumb\">\r\n    <li *ngFor=\"let crumb of crumbs\">\r\n\r\n        <!-- If there is a router link then use a tag -->\r\n        <a *ngIf=\"crumb.routerLink\"\r\n           [routerLink]=\"crumb.routerLink\" \r\n           [fragment]=\"crumb.fragment\" \r\n           [queryParams]=\"crumb.queryParams\" \r\n           (click)=\"clickCrumb($event, crumb)\">\r\n                {{ crumb.title }}\r\n        </a>\r\n\r\n        <!-- If there is not router link then display text in a span -->\r\n        <span *ngIf=\"!crumb.routerLink\">{{ crumb.title }}</span>\r\n    </li>\r\n</ol>"
+module.exports = "<ol class=\"breadcrumb\">\n    <li *ngFor=\"let crumb of crumbs\">\n\n        <!-- If there is a router link then use a tag -->\n        <a *ngIf=\"crumb.routerLink\"\n           [routerLink]=\"crumb.routerLink\" \n           [fragment]=\"crumb.fragment\" \n           [queryParams]=\"crumb.queryParams\" \n           (click)=\"clickCrumb($event, crumb)\">\n                {{ crumb.title }}\n        </a>\n\n        <!-- If there is not router link then display text in a span -->\n        <span *ngIf=\"!crumb.routerLink\">{{ crumb.title }}</span>\n    </li>\n</ol>"
 
 /***/ }),
 /* 100 */
@@ -9961,7 +9956,7 @@ CheckboxModule = __decorate([
 /* 104 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-checkbox\" tabindex=\"0\"\r\n    [class.ux-checked]=\"value == true\"\r\n    [class.ux-indeterminate]=\"value == indeterminateValue\"\r\n    [class.ux-simplified]=\"simplified == true\"\r\n    [class.ux-disabled]=\"disabled == true\"\r\n    (keydown.space)=\"keyDown($event)\">\r\n\r\n    <input type=\"checkbox\" role=\"checkbox\" tabindex=\"-1\"\r\n        [name]=\"name\" \r\n        [checked]=\"value\" \r\n        [disabled]=\"disabled\" />\r\n        \r\n</div>\r\n\r\n<div class=\"ux-checkbox-content\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
+module.exports = "<div class=\"ux-checkbox\" tabindex=\"0\"\n    [class.ux-checked]=\"value == true\"\n    [class.ux-indeterminate]=\"value == indeterminateValue\"\n    [class.ux-simplified]=\"simplified == true\"\n    [class.ux-disabled]=\"disabled == true\"\n    (keydown.space)=\"keyDown($event)\">\n\n    <input type=\"checkbox\" role=\"checkbox\" tabindex=\"-1\"\n        [name]=\"name\" \n        [checked]=\"value\" \n        [disabled]=\"disabled\" />\n        \n</div>\n\n<div class=\"ux-checkbox-content\">\n    <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
 /* 105 */
@@ -10017,7 +10012,7 @@ ColumnSortingModule = __decorate([
 /* 107 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-column-sorting\">\r\n    <i class=\"ux-column-sorting-icon hpe-icon\" \r\n        [class.hpe-ascend]=\"state === columnSortingState.Ascending\" \r\n        [class.hpe-descend]=\"state === columnSortingState.Descending\" \r\n        [class.column-sorting-icon-hidden]=\"state === columnSortingState.NoSort\"></i>\r\n    <p class=\"ux-column-sorting-number\">{{ orderNumber }}</p>\r\n</div>"
+module.exports = "<div class=\"ux-column-sorting\">\n    <i class=\"ux-column-sorting-icon hpe-icon\" \n        [class.hpe-ascend]=\"state === columnSortingState.Ascending\" \n        [class.hpe-descend]=\"state === columnSortingState.Descending\" \n        [class.column-sorting-icon-hidden]=\"state === columnSortingState.NoSort\"></i>\n    <p class=\"ux-column-sorting-number\">{{ orderNumber }}</p>\n</div>"
 
 /***/ }),
 /* 108 */
@@ -10099,13 +10094,13 @@ DashboardModule = __decorate([
 /* 110 */
 /***/ (function(module, exports) {
 
-module.exports = "<div (uxResize)=\"onResize($event)\" throttle=\"16\" class=\"dashboard-container\">\r\n    <ng-content></ng-content>\r\n</div>\r\n\r\n<div class=\"position-indicator\" *ngIf=\"placeholder.visible\" [style.left.px]=\"placeholder.x\" [style.top.px]=\"placeholder.y\" [style.width.px]=\"placeholder.width\"\r\n    [style.height.px]=\"placeholder.height\"></div>"
+module.exports = "<div (uxResize)=\"onResize($event)\" throttle=\"16\" class=\"dashboard-container\">\n    <ng-content></ng-content>\n</div>\n\n<div class=\"position-indicator\" *ngIf=\"placeholder.visible\" [style.left.px]=\"placeholder.x\" [style.top.px]=\"placeholder.y\" [style.width.px]=\"placeholder.width\"\n    [style.height.px]=\"placeholder.height\"></div>"
 
 /***/ }),
 /* 111 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"widget-content widget-col-span-{{ getColumnSpan() }} widget-row-span-{{ getRowSpan() }}\">\r\n    <ng-content></ng-content>\r\n</div>\r\n\r\n<div class=\"resizer-handle handle-top\" [style.top.px]=\"padding\" [hidden]=\"!resizable\"></div>\r\n<div class=\"resizer-handle handle-top-right\" [style.top.px]=\"padding\" [style.right.px]=\"padding\" [hidden]=\"!resizable && !stacked\"></div>\r\n<div class=\"resizer-handle handle-right\" [style.right.px]=\"padding\" [hidden]=\"!resizable || stacked\"></div>\r\n<div class=\"resizer-handle handle-bottom-right\" [style.bottom.px]=\"padding\" [style.right.px]=\"padding\" [hidden]=\"!resizable && !stacked\"></div>\r\n<div class=\"resizer-handle handle-bottom\" [style.bottom.px]=\"padding\" [hidden]=\"!resizable\"></div>\r\n<div class=\"resizer-handle handle-bottom-left\" [style.bottom.px]=\"padding\" [style.left.px]=\"padding\" [hidden]=\"!resizable && !stacked\"></div>\r\n<div class=\"resizer-handle handle-left\" [style.left.px]=\"padding\" [hidden]=\"!resizable || stacked\"></div>\r\n<div class=\"resizer-handle handle-top-left\" [style.top.px]=\"padding\" [style.left.px]=\"padding\" [hidden]=\"!resizable && !stacked\"></div>"
+module.exports = "<div class=\"widget-content widget-col-span-{{ getColumnSpan() }} widget-row-span-{{ getRowSpan() }}\">\n    <ng-content></ng-content>\n</div>\n\n<div class=\"resizer-handle handle-top\" [style.top.px]=\"padding\" [hidden]=\"!resizable\"></div>\n<div class=\"resizer-handle handle-top-right\" [style.top.px]=\"padding\" [style.right.px]=\"padding\" [hidden]=\"!resizable && !stacked\"></div>\n<div class=\"resizer-handle handle-right\" [style.right.px]=\"padding\" [hidden]=\"!resizable || stacked\"></div>\n<div class=\"resizer-handle handle-bottom-right\" [style.bottom.px]=\"padding\" [style.right.px]=\"padding\" [hidden]=\"!resizable && !stacked\"></div>\n<div class=\"resizer-handle handle-bottom\" [style.bottom.px]=\"padding\" [hidden]=\"!resizable\"></div>\n<div class=\"resizer-handle handle-bottom-left\" [style.bottom.px]=\"padding\" [style.left.px]=\"padding\" [hidden]=\"!resizable && !stacked\"></div>\n<div class=\"resizer-handle handle-left\" [style.left.px]=\"padding\" [hidden]=\"!resizable || stacked\"></div>\n<div class=\"resizer-handle handle-top-left\" [style.top.px]=\"padding\" [style.left.px]=\"padding\" [hidden]=\"!resizable && !stacked\"></div>"
 
 /***/ }),
 /* 112 */
@@ -10191,7 +10186,7 @@ EboxModule = __decorate([
 /* 115 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-ebox-header\">\r\n    <ng-content select=\"ux-ebox-header\"></ng-content>\r\n</div>\r\n\r\n<div class=\"ux-ebox-content\">\r\n    <ng-content select=\"ux-ebox-content\"></ng-content>\r\n</div>"
+module.exports = "<div class=\"ux-ebox-header\">\n    <ng-content select=\"ux-ebox-header\"></ng-content>\n</div>\n\n<div class=\"ux-ebox-content\">\n    <ng-content select=\"ux-ebox-content\"></ng-content>\n</div>"
 
 /***/ }),
 /* 116 */
@@ -10299,7 +10294,7 @@ FacetsModule = __decorate([
 /* 118 */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Display Any Selected Facets -->\r\n<div class=\"facets-selected-container\">\r\n\r\n    <!-- Display Title an Clear Button -->\r\n    <div class=\"facets-selected-header-container\">\r\n\r\n        <!-- Show The Selected Text -->\r\n        <span class=\"facets-selected-header-label\">{{ header }}</span>\r\n\r\n        <!-- Add a Clear Button -->\r\n        <div class=\"facets-selected-clear-button\" tabindex=\"0\" [tooltip]=\"clearTooltip\" placement=\"left\" container=\"body\" (click)=\"deselectAllFacets()\"\r\n            (keyup.enter)=\"deselectAllFacets()\" *ngIf=\"facets.length > 0\">\r\n\r\n            <svg class=\"facets-selected-clear-graphic\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\r\n                <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\r\n                <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\r\n                <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\r\n                <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\r\n                <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\r\n            </svg>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <!-- Display Tags For Selected Items -->\r\n    <div class=\"facets-selected-list\">\r\n\r\n        <!-- Show Selected Tags -->\r\n        <div class=\"facet-selected-tag\" tabindex=\"0\" *ngFor=\"let facet of facets\" (mousedown)=\"$event.preventDefault()\" (click)=\"deselectFacet(facet)\" (keyup.enter)=\"deselectFacet(facet)\">\r\n\r\n            <!-- Display Label -->\r\n            <span class=\"facet-selected-tag-label\">{{ facet.title }}</span>\r\n\r\n            <!-- Display Remove Icon -->\r\n            <span class=\"hpe-icon hpe-close\"></span>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <!-- Show Message Here if No Facets Selected -->\r\n    <p class=\"facets-selected-none-label\" *ngIf=\"emptyText && facets.length === 0\">{{ emptyText }}</p>\r\n\r\n</div>\r\n\r\n<!-- Any Facet Elements Should be Added Here By User -->\r\n<div class=\"facets-region\">\r\n    <ng-content></ng-content>\r\n</div>"
+module.exports = "<!-- Display Any Selected Facets -->\n<div class=\"facets-selected-container\">\n\n    <!-- Display Title an Clear Button -->\n    <div class=\"facets-selected-header-container\">\n\n        <!-- Show The Selected Text -->\n        <span class=\"facets-selected-header-label\">{{ header }}</span>\n\n        <!-- Add a Clear Button -->\n        <div class=\"facets-selected-clear-button\" tabindex=\"0\" [tooltip]=\"clearTooltip\" placement=\"left\" container=\"body\" (click)=\"deselectAllFacets()\"\n            (keyup.enter)=\"deselectAllFacets()\" *ngIf=\"facets.length > 0\">\n\n            <svg class=\"facets-selected-clear-graphic\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n                <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n                <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n                <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n                <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n                <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n            </svg>\n        </div>\n\n    </div>\n\n    <!-- Display Tags For Selected Items -->\n    <div class=\"facets-selected-list\">\n\n        <!-- Show Selected Tags -->\n        <div class=\"facet-selected-tag\" tabindex=\"0\" *ngFor=\"let facet of facets\" (mousedown)=\"$event.preventDefault()\" (click)=\"deselectFacet(facet)\" (keyup.enter)=\"deselectFacet(facet)\">\n\n            <!-- Display Label -->\n            <span class=\"facet-selected-tag-label\">{{ facet.title }}</span>\n\n            <!-- Display Remove Icon -->\n            <span class=\"hpe-icon hpe-close\"></span>\n        </div>\n\n    </div>\n\n    <!-- Show Message Here if No Facets Selected -->\n    <p class=\"facets-selected-none-label\" *ngIf=\"emptyText && facets.length === 0\">{{ emptyText }}</p>\n\n</div>\n\n<!-- Any Facet Elements Should be Added Here By User -->\n<div class=\"facets-region\">\n    <ng-content></ng-content>\n</div>"
 
 /***/ }),
 /* 119 */
@@ -10311,13 +10306,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_119__;
 /* 120 */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"facet-header-title\">{{ header }}</span>\r\n<span class=\"hpe-icon\" [class.hpe-down]=\"expanded\" [class.hpe-previous]=\"!expanded\" *ngIf=\"canExpand\"></span>"
+module.exports = "<span class=\"facet-header-title\">{{ header }}</span>\n<span class=\"hpe-icon\" [class.hpe-down]=\"expanded\" [class.hpe-previous]=\"!expanded\" *ngIf=\"canExpand\"></span>"
 
 /***/ }),
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = "<ux-facet-header [header]=\"header\" [(expanded)]=\"expanded\"></ux-facet-header>\r\n\r\n<!-- Create a container which will show when section is expanded -->\r\n<div class=\"facet-check-list-container\" [class.facet-check-list-scrollbar]=\"scrollbar\" *ngIf=\"expanded\">\r\n\r\n    <!-- Iterate through each possible facet -->\r\n    <div class=\"facet-check-list-item\" *ngFor=\"let facet of facets\" [class.facet-active]=\"isFacetSelected(facet)\" tabindex=\"0\"\r\n        (click)=\"toggleFacetSelection(facet)\" (keyup.enter)=\"toggleFacetSelection(facet)\" [class.disabled]=\"facet.disabled\">\r\n\r\n        <!-- Show check icon to indicate the state -->\r\n        <span class=\"facet-check-list-item-check\">\r\n            <span class=\"hpe-icon hpe-active\"></span>\r\n        </span>\r\n\r\n        <!-- Display the title -->\r\n        <span class=\"facet-check-list-item-title\">{{ facet.title }}</span>\r\n\r\n        <!-- Display the count if specified -->\r\n        <span class=\"facet-check-list-item-count\" *ngIf=\"facet.count !== undefined\">({{ facet.count }})</span>\r\n    </div>\r\n</div>"
+module.exports = "<ux-facet-header [header]=\"header\" [(expanded)]=\"expanded\"></ux-facet-header>\n\n<!-- Create a container which will show when section is expanded -->\n<div class=\"facet-check-list-container\" [class.facet-check-list-scrollbar]=\"scrollbar\" *ngIf=\"expanded\">\n\n    <!-- Iterate through each possible facet -->\n    <div class=\"facet-check-list-item\" *ngFor=\"let facet of facets\" [class.facet-active]=\"isFacetSelected(facet)\" tabindex=\"0\"\n        (click)=\"toggleFacetSelection(facet)\" (keyup.enter)=\"toggleFacetSelection(facet)\" [class.disabled]=\"facet.disabled\">\n\n        <!-- Show check icon to indicate the state -->\n        <span class=\"facet-check-list-item-check\">\n            <span class=\"hpe-icon hpe-active\"></span>\n        </span>\n\n        <!-- Display the title -->\n        <span class=\"facet-check-list-item-title\">{{ facet.title }}</span>\n\n        <!-- Display the count if specified -->\n        <span class=\"facet-check-list-item-count\" *ngIf=\"facet.count !== undefined\">({{ facet.count }})</span>\n    </div>\n</div>"
 
 /***/ }),
 /* 122 */
@@ -10329,7 +10324,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_122__;
 /* 123 */
 /***/ (function(module, exports) {
 
-module.exports = "<ux-facet-header [header]=\"header\" [(expanded)]=\"expanded\"></ux-facet-header>\r\n\r\n<div class=\"facet-typeahead-list-container\" *ngIf=\"expanded\">\r\n\r\n    <div class=\"facet-typeahead-list-selected-container\" *ngIf=\"suggestions?.length > 0\">\r\n\r\n        <div class=\"facet-typeahead-list-selected-option\" tabindex=\"0\" *ngFor=\"let facet of suggestions\" (click)=\"toggleFacetSelection(facet)\"\r\n            (keyup.enter)=\"toggleFacetSelection(facet)\">\r\n\r\n            <ux-checkbox [clickable]=\"false\" [value]=\"isFacetSelected(facet)\" [simplified]=\"simplified\">\r\n                <span class=\"facet-typeahead-list-selected-option-title\">{{ facet.title }}</span>\r\n                <span class=\"facet-typeahead-list-selected-option-count\">({{ facet.count }})</span>\r\n            </ux-checkbox>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"facet-typeahead-list-control\">\r\n\r\n        <!-- Create Typeahead Control -->\r\n        <input type=\"text\" class=\"form-control\" [placeholder]=\"typeaheadConfig?.placeholder\" [typeahead]=\"typeaheadOptions\" [(ngModel)]=\"searchQuery\"\r\n            [typeaheadMinLength]=\"typeaheadConfig?.minCharacters\" [typeaheadOptionsLimit]=\"typeaheadConfig?.maxResults\" [typeaheadWaitMs]=\"typeaheadConfig?.delay\"\r\n            (typeaheadOnSelect)=\"selectOption($event)\" [typeaheadItemTemplate]=\"facetOptionTemplate\" (keyup.ArrowUp)=\"scrollToFocused()\" (keyup.ArrowDown)=\"scrollToFocused()\">\r\n\r\n    </div>\r\n\r\n</div>\r\n\r\n<ng-template #facetOptionTemplate let-model=\"item\" let-index=\"index\">\r\n    <p class=\"facet-typeahead-list-option\"><span [innerHTML]=\"model.title | facetTypeaheadHighlight: searchQuery\"></span> <span class=\"facet-typeahead-list-option-count\"\r\n            *ngIf=\"model.count\">({{ model.count }})</span></p>\r\n</ng-template>"
+module.exports = "<ux-facet-header [header]=\"header\" [(expanded)]=\"expanded\"></ux-facet-header>\n\n<div class=\"facet-typeahead-list-container\" *ngIf=\"expanded\">\n\n    <div class=\"facet-typeahead-list-selected-container\" *ngIf=\"suggestions?.length > 0\">\n\n        <div class=\"facet-typeahead-list-selected-option\" tabindex=\"0\" *ngFor=\"let facet of suggestions\" (click)=\"toggleFacetSelection(facet)\"\n            (keyup.enter)=\"toggleFacetSelection(facet)\">\n\n            <ux-checkbox [clickable]=\"false\" [value]=\"isFacetSelected(facet)\" [simplified]=\"simplified\">\n                <span class=\"facet-typeahead-list-selected-option-title\">{{ facet.title }}</span>\n                <span class=\"facet-typeahead-list-selected-option-count\">({{ facet.count }})</span>\n            </ux-checkbox>\n\n        </div>\n\n    </div>\n\n    <div class=\"facet-typeahead-list-control\">\n\n        <!-- Create Typeahead Control -->\n        <input type=\"text\" class=\"form-control\" [placeholder]=\"typeaheadConfig?.placeholder\" [typeahead]=\"typeaheadOptions\" [(ngModel)]=\"searchQuery\"\n            [typeaheadMinLength]=\"typeaheadConfig?.minCharacters\" [typeaheadOptionsLimit]=\"typeaheadConfig?.maxResults\" [typeaheadWaitMs]=\"typeaheadConfig?.delay\"\n            (typeaheadOnSelect)=\"selectOption($event)\" [typeaheadItemTemplate]=\"facetOptionTemplate\" (keyup.ArrowUp)=\"scrollToFocused()\" (keyup.ArrowDown)=\"scrollToFocused()\">\n\n    </div>\n\n</div>\n\n<ng-template #facetOptionTemplate let-model=\"item\" let-index=\"index\">\n    <p class=\"facet-typeahead-list-option\"><span [innerHTML]=\"model.title | facetTypeaheadHighlight: searchQuery\"></span> <span class=\"facet-typeahead-list-option-count\"\n            *ngIf=\"model.count\">({{ model.count }})</span></p>\n</ng-template>"
 
 /***/ }),
 /* 124 */
@@ -10446,19 +10441,19 @@ FilterModule = __decorate([
 /* 127 */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-content></ng-content>\r\n\r\n<!-- Add a Clear Button -->\r\n<div class=\"filter-selected-clear-button\" *ngIf=\"filters.length > 0\" [tooltip]=\"clearTooltip || 'Clear All'\" (click)=\"removeAll()\">\r\n    \r\n    <svg class=\"filter-selected-clear-graphic\" width=\"19\" height=\"12\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\r\n        <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\r\n        <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\r\n        <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\r\n        <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\r\n        <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\r\n    </svg>\r\n\r\n</div>"
+module.exports = "<ng-content></ng-content>\n\n<!-- Add a Clear Button -->\n<div class=\"filter-selected-clear-button\" *ngIf=\"filters.length > 0\" [tooltip]=\"clearTooltip || 'Clear All'\" (click)=\"removeAll()\">\n    \n    <svg class=\"filter-selected-clear-graphic\" width=\"19\" height=\"12\" viewBox=\"0 0 19 12\" shape-rendering=\"geometricPrecision\">\n        <rect class=\"light-grey\" x=\"0\" y=\"2\" width=\"7\" height=\"2\"></rect>\n        <rect class=\"dark-grey\" x=\"0\" y=\"5\" width=\"9\" height=\"2\"></rect>\n        <rect class=\"light-grey\" x=\"0\" y=\"8\" width=\"7\" height=\"2\"></rect>\n        <path class=\"dark-grey\" d=\"M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z\"></path>\n        <path class=\"dark-grey\" d=\"M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z\"></path>\n    </svg>\n\n</div>"
 
 /***/ }),
 /* 128 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"btn-group ux-dynamic-filter\" dropdown #dynamicDropdown=\"bs-dropdown\">\r\n    <button (click)=\"dynamicDropdown.show()\" type=\"button\" [class.active]=\"selected !== initial\" class=\"filter-dropdown btn dropdown-toggle\">{{ selected?.title }} \r\n        <span class=\"hpe-icon hpe-down\"></span>\r\n    </button>\r\n    <ul *dropdownMenu class=\"dropdown-menu\" role=\"menu\">\r\n\r\n        <li class=\"dropdown-list-item\" *ngIf=\"showTypeahead\" role=\"menuitem\">\r\n            <a class=\"dropdown-item\" (click)=\"removeFilter(); dynamicDropdown.hide();\">\r\n                <i class=\"hpe-icon\" [class.hpe-checkmark]=\"initial === selected\"></i>\r\n                <span class=\"filter-dropdown-title\">{{ initial.name }}</span>\r\n            </a>\r\n        </li>\r\n\r\n        <li class=\"dropdown-list-item\" *ngIf=\"selected !== initial && showTypeahead\" role=\"menuitem\">\r\n            <a class=\"dropdown-item\">\r\n                <i class=\"hpe-icon hpe-checkmark\"></i>\r\n                <span class=\"filter-dropdown-title\">{{ selected.name }}</span>\r\n            </a>\r\n        </li>\r\n\r\n        <hr>\r\n\r\n        <li *ngIf=\"showTypeahead\" class=\"typeahead-box\">\r\n            <input [(ngModel)]=\"searchQuery\" [typeahead]=\"typeaheadItems\" class=\"form-control\" \r\n            (typeaheadOnSelect)=\"selectOption($event)\" \r\n            [placeholder]=\"options?.placeholder || defaultOptions.placeholder\"\r\n            [typeaheadMinLength]=\"options?.minCharacters || defaultOptions.minCharacters\"\r\n            [typeaheadOptionsLimit]=\"options?.maxResults\">\r\n        </li>\r\n\r\n        <span *ngIf=\"!showTypeahead\">\r\n            <li class=\"dropdown-list-item\" *ngFor=\"let filter of filters\" role=\"menuitem\">\r\n                <a class=\"dropdown-item\" (click)=\"selectFilter(filter)\">\r\n                    <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\r\n                    <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\r\n                </a>\r\n            </li>\r\n        </span>\r\n\r\n    </ul>\r\n</div>"
+module.exports = "<div class=\"btn-group ux-dynamic-filter\" dropdown #dynamicDropdown=\"bs-dropdown\">\n    <button (click)=\"dynamicDropdown.show()\" type=\"button\" [class.active]=\"selected !== initial\" class=\"filter-dropdown btn dropdown-toggle\">{{ selected?.title }} \n        <span class=\"hpe-icon hpe-down\"></span>\n    </button>\n    <ul *dropdownMenu class=\"dropdown-menu\" role=\"menu\">\n\n        <li class=\"dropdown-list-item\" *ngIf=\"showTypeahead\" role=\"menuitem\">\n            <a class=\"dropdown-item\" (click)=\"removeFilter(); dynamicDropdown.hide();\">\n                <i class=\"hpe-icon\" [class.hpe-checkmark]=\"initial === selected\"></i>\n                <span class=\"filter-dropdown-title\">{{ initial.name }}</span>\n            </a>\n        </li>\n\n        <li class=\"dropdown-list-item\" *ngIf=\"selected !== initial && showTypeahead\" role=\"menuitem\">\n            <a class=\"dropdown-item\">\n                <i class=\"hpe-icon hpe-checkmark\"></i>\n                <span class=\"filter-dropdown-title\">{{ selected.name }}</span>\n            </a>\n        </li>\n\n        <hr>\n\n        <li *ngIf=\"showTypeahead\" class=\"typeahead-box\">\n            <input [(ngModel)]=\"searchQuery\" [typeahead]=\"typeaheadItems\" class=\"form-control\" \n            (typeaheadOnSelect)=\"selectOption($event)\" \n            [placeholder]=\"options?.placeholder || defaultOptions.placeholder\"\n            [typeaheadMinLength]=\"options?.minCharacters || defaultOptions.minCharacters\"\n            [typeaheadOptionsLimit]=\"options?.maxResults\">\n        </li>\n\n        <span *ngIf=\"!showTypeahead\">\n            <li class=\"dropdown-list-item\" *ngFor=\"let filter of filters\" role=\"menuitem\">\n                <a class=\"dropdown-item\" (click)=\"selectFilter(filter)\">\n                    <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\n                    <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n                </a>\n            </li>\n        </span>\n\n    </ul>\n</div>"
 
 /***/ }),
 /* 129 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"btn-group\" dropdown>\r\n    <button dropdownToggle type=\"button\" class=\"filter-dropdown btn dropdown-toggle\" [class.active]=\"selected !== initial\">{{ selected?.title }} \r\n        <span class=\"hpe-icon hpe-down\"></span>\r\n    </button>\r\n    <ul *dropdownMenu class=\"dropdown-menu\" role=\"menu\">\r\n        <li class=\"dropdown-list-item\" *ngFor=\"let filter of filters\" role=\"menuitem\">\r\n            <a class=\"dropdown-item\" (click)=\"selectFilter(filter)\">\r\n                <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\r\n                <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\r\n            </a>\r\n        </li>\r\n    </ul>\r\n</div>"
+module.exports = "<div class=\"btn-group\" dropdown>\n    <button dropdownToggle type=\"button\" class=\"filter-dropdown btn dropdown-toggle\" [class.active]=\"selected !== initial\">{{ selected?.title }} \n        <span class=\"hpe-icon hpe-down\"></span>\n    </button>\n    <ul *dropdownMenu class=\"dropdown-menu\" role=\"menu\">\n        <li class=\"dropdown-list-item\" *ngFor=\"let filter of filters\" role=\"menuitem\">\n            <a class=\"dropdown-item\" (click)=\"selectFilter(filter)\">\n                <i class=\"hpe-icon\" [class.hpe-checkmark]=\"filter === selected\"></i>\n                <span class=\"filter-dropdown-title\">{{ filter.name }}</span>\n            </a>\n        </li>\n    </ul>\n</div>"
 
 /***/ }),
 /* 130 */
@@ -10510,7 +10505,7 @@ FlippableCardModule = __decorate([
 /* 132 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-flipper\" [class.ux-flip-card]=\"flipped\" [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n\r\n    <div class=\"ux-flippable-card-front\" [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n        <ng-content select=\"ux-flippable-card-front\"></ng-content>\r\n    </div>\r\n\r\n    <div class=\"ux-flippable-card-back\" [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n        <ng-content select=\"ux-flippable-card-back\"></ng-content>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"ux-flipper\" [class.ux-flip-card]=\"flipped\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n\n    <div class=\"ux-flippable-card-front\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n        <ng-content select=\"ux-flippable-card-front\"></ng-content>\n    </div>\n\n    <div class=\"ux-flippable-card-back\" [style.width.px]=\"width\" [style.height.px]=\"height\">\n        <ng-content select=\"ux-flippable-card-back\"></ng-content>\n    </div>\n</div>"
 
 /***/ }),
 /* 133 */
@@ -10573,7 +10568,7 @@ ItemDisplayPanelModule = __decorate([
 /* 135 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-item-display-panel\" [class.box-shadow]=\"boxShadow\" [class.inline]=\"inline\" [class.animate]=\"animate\" [class.item-display-panel-hide]=\"!visible\" [style.top]=\"top\" [style.height]='\"calc(100% - \" + top + \"px)\"'>\r\n\r\n    <div class=\"item-display-panel-header\" [class.item-display-panel-shadow]=\"shadow\">\r\n        <div class=\"heading-flex-box\">\r\n            <h3>{{ title }}</h3>\r\n            <span *ngIf=\"closeVisible\" class=\"heading-close-button\" tabindex=\"0\" (click)=\"visible = false\" (keydown.enter)=\"visible = false\">\r\n                <i class=\"hpe-icon hpe-close\"></i>\r\n            </span>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"item-display-panel-content\">\r\n        <ng-content select=\"[uxItemDisplayPanelContent]\"></ng-content>\r\n    </div>\r\n\r\n    <div class=\"item-display-panel-footer\" *ngIf=\"footer\">\r\n        <ng-content select=\"[uxItemDisplayPanelFooter]\"></ng-content>\r\n    </div>\r\n\r\n</div>"
+module.exports = "<div class=\"ux-item-display-panel\" [class.box-shadow]=\"boxShadow\" [class.inline]=\"inline\" [class.animate]=\"animate\" [class.item-display-panel-hide]=\"!visible\" [style.top]=\"top\" [style.height]='\"calc(100% - \" + top + \"px)\"'>\n\n    <div class=\"item-display-panel-header\" [class.item-display-panel-shadow]=\"shadow\">\n        <div class=\"heading-flex-box\">\n            <h3>{{ title }}</h3>\n            <span *ngIf=\"closeVisible\" class=\"heading-close-button\" tabindex=\"0\" (click)=\"visible = false\" (keydown.enter)=\"visible = false\">\n                <i class=\"hpe-icon hpe-close\"></i>\n            </span>\n        </div>\n    </div>\n\n    <div class=\"item-display-panel-content\">\n        <ng-content select=\"[uxItemDisplayPanelContent]\"></ng-content>\n    </div>\n\n    <div class=\"item-display-panel-footer\" *ngIf=\"footer\">\n        <ng-content select=\"[uxItemDisplayPanelFooter]\"></ng-content>\n    </div>\n\n</div>"
 
 /***/ }),
 /* 136 */
@@ -10634,7 +10629,7 @@ NumberPickerModule = __decorate([
 /* 138 */
 /***/ (function(module, exports) {
 
-module.exports = "<input type=\"number\" class=\"form-control number-picker-input\" [(ngModel)]=\"value\" [min]=\"min\" [max]=\"max\" (keydown.ArrowDown)=\"decrement($event)\"\r\n    (keydown.ArrowUp)=\"increment($event)\" (wheel)=\"onScroll($event)\" step=\"any\" [disabled]=\"disabled\">\r\n\r\n<div class=\"number-picker-controls\">\r\n\r\n    <div class=\"number-picker-control-up\" (click)=\"increment($event)\" [class.disabled]=\"disabled || value >= max\">\r\n        <span class=\"hpe-icon hpe-up\"></span>\r\n    </div>\r\n\r\n    <div class=\"number-picker-control-down\" (click)=\"decrement($event)\" [class.disabled]=\"disabled || value <= min\">\r\n        <span class=\"hpe-icon hpe-down\"></span>\r\n    </div>\r\n\r\n</div>"
+module.exports = "<input type=\"number\" class=\"form-control number-picker-input\" [(ngModel)]=\"value\" [min]=\"min\" [max]=\"max\" (keydown.ArrowDown)=\"decrement($event)\"\n    (keydown.ArrowUp)=\"increment($event)\" (wheel)=\"onScroll($event)\" step=\"any\" [disabled]=\"disabled\">\n\n<div class=\"number-picker-controls\">\n\n    <div class=\"number-picker-control-up\" (click)=\"increment($event)\" [class.disabled]=\"disabled || value >= max\">\n        <span class=\"hpe-icon hpe-up\"></span>\n    </div>\n\n    <div class=\"number-picker-control-down\" (click)=\"decrement($event)\" [class.disabled]=\"disabled || value <= min\">\n        <span class=\"hpe-icon hpe-down\"></span>\n    </div>\n\n</div>"
 
 /***/ }),
 /* 139 */
@@ -10729,31 +10724,31 @@ PageHeaderModule = __decorate([
 /* 141 */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Display Upper Section when not condensed -->\r\n<div class=\"page-header-actions\" *ngIf=\"!condensed\">\r\n\r\n    <div class=\"page-header-logo-container\" [hidden]=\"!logo\">\r\n        <img [attr.src]=\"logo\" class=\"page-header-logo\">\r\n    </div>\r\n\r\n    <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\r\n\r\n        <!-- The Top Navigation Options -->\r\n        <ux-page-header-horizontal-navigation [items]=\"items\"></ux-page-header-horizontal-navigation>\r\n    </div>\r\n\r\n    <div class=\"page-header-icon-menus\">\r\n        <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\r\n\r\n        <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\r\n    </div>\r\n</div>\r\n\r\n<!-- Display Lower Section When Not Condensed -->\r\n<div class=\"page-header-details\" *ngIf=\"!condensed\">\r\n\r\n    <div class=\"page-header-state-container\">\r\n\r\n        <div *ngIf=\"backVisible == true\" class=\"page-header-back-button\" (click)=\"goBack()\">\r\n            <span class=\"hpe-icon hpe-previous text-primary\"></span>\r\n        </div>\r\n\r\n        <div class=\"page-header-title-container\">\r\n\r\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\r\n\r\n            <h1 class=\"page-header-title\">{{ header }}</h1>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n\r\n<!-- Display This Section Optimized for Condensed Mode -->\r\n<div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\r\n\r\n    <div class=\"page-header-breadcrumbs\">\r\n        <ux-breadcrumbs [crumbs]=\"getCondensedBreadcrumbs()\"></ux-breadcrumbs>\r\n    </div>\r\n\r\n    <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\r\n\r\n        <!-- The Top Navigation Options -->\r\n        <ux-page-header-horizontal-navigation [items]=\"items\"></ux-page-header-horizontal-navigation>\r\n    </div>\r\n\r\n    <div class=\"page-header-icon-menus\">\r\n        <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\r\n        <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\r\n    </div>\r\n\r\n</div>"
+module.exports = "<!-- Display Upper Section when not condensed -->\n<div class=\"page-header-actions\" *ngIf=\"!condensed\">\n\n    <div class=\"page-header-logo-container\" [hidden]=\"!logo\">\n        <img [attr.src]=\"logo\" class=\"page-header-logo\">\n    </div>\n\n    <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\n\n        <!-- The Top Navigation Options -->\n        <ux-page-header-horizontal-navigation [items]=\"items\"></ux-page-header-horizontal-navigation>\n    </div>\n\n    <div class=\"page-header-icon-menus\">\n        <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n\n        <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n    </div>\n</div>\n\n<!-- Display Lower Section When Not Condensed -->\n<div class=\"page-header-details\" *ngIf=\"!condensed\">\n\n    <div class=\"page-header-state-container\">\n\n        <div *ngIf=\"backVisible == true\" class=\"page-header-back-button\" (click)=\"goBack()\">\n            <span class=\"hpe-icon hpe-previous text-primary\"></span>\n        </div>\n\n        <div class=\"page-header-title-container\">\n\n            <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n            <h1 class=\"page-header-title\">{{ header }}</h1>\n        </div>\n\n    </div>\n\n</div>\n\n<!-- Display This Section Optimized for Condensed Mode -->\n<div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n    <div class=\"page-header-breadcrumbs\">\n        <ux-breadcrumbs [crumbs]=\"getCondensedBreadcrumbs()\"></ux-breadcrumbs>\n    </div>\n\n    <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\n\n        <!-- The Top Navigation Options -->\n        <ux-page-header-horizontal-navigation [items]=\"items\"></ux-page-header-horizontal-navigation>\n    </div>\n\n    <div class=\"page-header-icon-menus\">\n        <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n        <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n    </div>\n\n</div>"
 
 /***/ }),
 /* 142 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page-header-icon-menu\" dropdown dropdownToggle placement=\"bottom right\">\r\n\r\n    <a class=\"page-header-icon-menu-button\" (click)=\"select(menu)\">\r\n        <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\r\n        <span class=\"label label-primary\" *ngIf=\"menu?.badge\">{{ menu.badge }}</span>\r\n    </a>\r\n\r\n    <ul *dropdownMenu class=\"dropdown-menu\" role=\"menu\">\r\n\r\n        <li role=\"menuitem\" *ngFor=\"let dropdown of menu?.dropdown\" [class.dropdown-header]=\"dropdown.header\" [class.dropdown-divider]=\"dropdown.divider\">\r\n\r\n            <span class=\"font-bold\" *ngIf=\"dropdown.header\">{{ dropdown.title }}</span>\r\n\r\n            <a class=\"dropdown-item\" *ngIf=\"!dropdown.header\" (click)=\"select(dropdown)\">\r\n                <i class=\"hpe-icon hp-fw text-muted\" [ngClass]=\"dropdown.icon\"></i>\r\n                {{ dropdown.title }}\r\n                <span class=\"pull-right text-muted small\" *ngIf=\"dropdown.subtitle\">{{ dropdown.subtitle }}</span>\r\n            </a>\r\n        </li>\r\n\r\n    </ul>\r\n</div>"
+module.exports = "<div class=\"page-header-icon-menu\" dropdown dropdownToggle placement=\"bottom right\">\n\n    <a class=\"page-header-icon-menu-button\" (click)=\"select(menu)\">\n        <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\n        <span class=\"label label-primary\" *ngIf=\"menu?.badge\">{{ menu.badge }}</span>\n    </a>\n\n    <ul *dropdownMenu class=\"dropdown-menu\" role=\"menu\">\n\n        <li role=\"menuitem\" *ngFor=\"let dropdown of menu?.dropdown\" [class.dropdown-header]=\"dropdown.header\" [class.dropdown-divider]=\"dropdown.divider\">\n\n            <span class=\"font-bold\" *ngIf=\"dropdown.header\">{{ dropdown.title }}</span>\n\n            <a class=\"dropdown-item\" *ngIf=\"!dropdown.header\" (click)=\"select(dropdown)\">\n                <i class=\"hpe-icon hp-fw text-muted\" [ngClass]=\"dropdown.icon\"></i>\n                {{ dropdown.title }}\n                <span class=\"pull-right text-muted small\" *ngIf=\"dropdown.subtitle\">{{ dropdown.subtitle }}</span>\n            </a>\n        </li>\n\n    </ul>\n</div>"
 
 /***/ }),
 /* 143 */
 /***/ (function(module, exports) {
 
-module.exports = "<div role=\"menu-item\" dropdown [isOpen]=\"dropdownOpen\" container=\"body\" placement=\"right\" [isDisabled]=\"!item.children\" (mouseenter)=\"hoverStart()\"\r\n    (mouseleave)=\"hoverLeave()\" #subMenu=\"bs-dropdown\">\r\n\r\n    <!-- Show the menu item and the arrow if there are children -->\r\n    <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"item.selected\" (keyup.enter)=\"selectItem(item); subMenu.toggle()\" (click)=\"selectItem(item)\">\r\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\r\n        <span class=\"dropdown-item-icon hpe-icon hpe-next\" *ngIf=\"item.children\"></span>\r\n    </a>\r\n\r\n    <!-- Allow another level of menu items -->\r\n    <ul *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-submenu\" role=\"menu\" (mouseenter)=\"hoverStart()\" (mouseleave)=\"hoverLeave()\">\r\n\r\n        <li role=\"menuitem\" *ngFor=\"let subItem of item.children\" (click)=\"selectItem(subItem, item)\" (keyup.enter)=\"selectItem(subItem, item)\">\r\n            <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"subItem.selected\">\r\n                <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\r\n            </a>\r\n        </li>\r\n    </ul>\r\n</div>"
+module.exports = "<div role=\"menu-item\" dropdown [isOpen]=\"dropdownOpen\" container=\"body\" placement=\"right\" [isDisabled]=\"!item.children\" (mouseenter)=\"hoverStart()\"\n    (mouseleave)=\"hoverLeave()\" #subMenu=\"bs-dropdown\">\n\n    <!-- Show the menu item and the arrow if there are children -->\n    <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"item.selected\" (keyup.enter)=\"selectItem(item); subMenu.toggle()\" (click)=\"selectItem(item)\">\n        <span class=\"dropdown-item-title\">{{ item.title }}</span>\n        <span class=\"dropdown-item-icon hpe-icon hpe-next\" *ngIf=\"item.children\"></span>\n    </a>\n\n    <!-- Allow another level of menu items -->\n    <ul *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-submenu\" role=\"menu\" (mouseenter)=\"hoverStart()\" (mouseleave)=\"hoverLeave()\">\n\n        <li role=\"menuitem\" *ngFor=\"let subItem of item.children\" (click)=\"selectItem(subItem, item)\" (keyup.enter)=\"selectItem(subItem, item)\">\n            <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"subItem.selected\">\n                <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\n            </a>\n        </li>\n    </ul>\n</div>"
 
 /***/ }),
 /* 144 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"horizontal-navigation-button\" dropdown dropdownToggle placement=\"bottom left\" [isDisabled]=\"!item?.children\" tabindex=\"0\" container=\"body\"\r\n    #menu=\"bs-dropdown\" (keyup.enter)=\"menu.toggle()\" [class.selected]=\"item?.selected\" (click)=\"selectItem()\">\r\n\r\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\r\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\r\n    <span class=\"hpe-icon hpe-down\" *ngIf=\"item?.children\"></span>\r\n\r\n    <div *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-menu\" role=\"menu\">\r\n        <ux-page-header-horizontal-navigation-dropdown-item *ngFor=\"let item of item?.children\" [item]=\"item\" (onSelect)=\"onItemSelect($event)\"></ux-page-header-horizontal-navigation-dropdown-item>\r\n    </div>\r\n\r\n</div>"
+module.exports = "<div class=\"horizontal-navigation-button\" dropdown dropdownToggle placement=\"bottom left\" [isDisabled]=\"!item?.children\" tabindex=\"0\" container=\"body\"\n    #menu=\"bs-dropdown\" (keyup.enter)=\"menu.toggle()\" [class.selected]=\"item?.selected\" (click)=\"selectItem()\">\n\n    <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n    <span class=\"navigation-item-label\">{{ item?.title }}</span>\n    <span class=\"hpe-icon hpe-down\" *ngIf=\"item?.children\"></span>\n\n    <div *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-menu\" role=\"menu\">\n        <ux-page-header-horizontal-navigation-dropdown-item *ngFor=\"let item of item?.children\" [item]=\"item\" (onSelect)=\"onItemSelect($event)\"></ux-page-header-horizontal-navigation-dropdown-item>\n    </div>\n\n</div>"
 
 /***/ }),
 /* 145 */
 /***/ (function(module, exports) {
 
-module.exports = "<ux-page-header-horizontal-navigation-item *ngFor=\"let item of items\" [item]=\"item\" (onSelect)=\"onSelect($event)\"></ux-page-header-horizontal-navigation-item>\r\n<div class=\"selected-indicator\" [style.opacity]=\"indicatorVisible ? 1 : 0\" [style.margin-left.px]=\"indicatorX\" [style.width.px]=\"indicatorWidth\"></div>"
+module.exports = "<ux-page-header-horizontal-navigation-item *ngFor=\"let item of items\" [item]=\"item\" (onSelect)=\"onSelect($event)\"></ux-page-header-horizontal-navigation-item>\n<div class=\"selected-indicator\" [style.opacity]=\"indicatorVisible ? 1 : 0\" [style.margin-left.px]=\"indicatorX\" [style.width.px]=\"indicatorWidth\"></div>"
 
 /***/ }),
 /* 146 */
@@ -10839,14 +10834,26 @@ ColorServiceModule = __decorate([
 /* 149 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"progressbar-track\" [style.width.%]=\"percentage\" [style.backgroundColor]=\"barColor\">\r\n    <ng-content></ng-content>\r\n</div>"
+module.exports = {"colorClassSet":{"primary":"primary","accent":"accent","secondary":"secondary","alternate1":"alternate1","alternate2":"alternate2","alternate3":"alternate3","vibrant1":"vibrant1","vibrant2":"vibrant2","grey1":"grey1","grey2":"grey2","grey3":"grey3","grey4":"grey4","grey5":"grey5","grey6":"grey6","grey7":"grey7","grey8":"grey8","chart1":"chart1","chart2":"chart2","chart3":"chart3","chart4":"chart4","chart5":"chart5","chart6":"chart6","ok":"ok","warning":"warning","critical":"critical","partition1":"partition1","partition9":"partition9","partition10":"partition10","partition11":"partition11","partition12":"partition12","partition13":"partition13","partition14":"partition14","social-chart-node":"social-chart-node","social-chart-edge":"social-chart-edge"}}
 
 /***/ }),
 /* 150 */
+/***/ (function(module, exports) {
+
+module.exports = {"colorValueSet":{"cerulean":"#1668c1","aqua":"#29ceff","aquamarine":"#2fd6c3","fuchsia":"#c6179d","indigo":"#7425ad","dark-blue":"#231ca5","white":"#ffffff","slightly-gray":"#f5f7f8","bright-gray":"#f1f2f3","gray":"#dcdedf","silver":"#bdbec0","dim-gray":"#656668","dark-gray":"#323435","black":"#000000","crimson-negative":"#e5004c","apricot":"#f48b34","yellow":"#fcdb1f","green-positive":"#1aac60","ultramarine":"#3939c6","skyblue":"#00abf3","pale-aqua":"#43e4ff","pale-green":"#1ffbba","lime":"#75da4d","orange":"#ffce00","magenta":"#eb23c2","pale-purple":"#ba47e2","dark-ultramarine":"#271782","steelblue":"#014272","arctic-blue":"#0b8eac","emerald":"#00a989","olive":"#5bba36","goldenrod":"#ffb000","purple":"#9b1e83","pale-eggplant":"#5216ac","red":"#ff454f","pale-amber":"#ffb24d","pale-lemon":"#fde159","pale-emerald":"#33c180","plum":"#b21646","copper":"#e57828","amber":"#ffc002","leaf-green":"#118c4f","primary":"#0073e7","accent":"#7425ad","secondary":"#ffffff","alternate1":"#29ceff","alternate2":"#2fd6c3","alternate3":"#c6179d","vibrant1":"#43e4ff","vibrant2":"#ffce00","grey1":"#000000","grey2":"#323435","grey3":"#656668","grey4":"#bdbec0","grey5":"#dcdedf","grey6":"#f1f2f3","grey7":"#f5f7f8","grey8":"#ffffff","chart1":"#3939c6","chart2":"#00abf3","chart3":"#75da4d","chart4":"#ffce00","chart5":"#eb23c2","chart6":"#ba47e2","ok":"#1aac60","warning":"#f48b34","critical":"e5004c","partition1":"#7425ad","partition9":"#5216ac","partition10":"#5bba36","partition11":"#014272","partition12":"#ffb000","partition13":"#bdbec0","partition14":"#271782","social-chart-node":"#ff00ff","social-chart-edge":"#ff00ff"}}
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"progressbar-track\" [style.width.%]=\"percentage\" [style.backgroundColor]=\"barColor\">\n    <ng-content></ng-content>\n</div>"
+
+/***/ }),
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__radiobutton_module__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__radiobutton_module__ = __webpack_require__(153);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__radiobutton_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__radiobutton_component__ = __webpack_require__(64);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__radiobutton_component__["a"]; });
@@ -10856,7 +10863,7 @@ module.exports = "<div class=\"progressbar-track\" [style.width.%]=\"percentage\
 
 
 /***/ }),
-/* 151 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10891,33 +10898,33 @@ RadioButtonModule = __decorate([
 
 
 /***/ }),
-/* 152 */
+/* 154 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-radio-button\" tabindex=\"0\"\r\n    [class.ux-checked]=\"value === option\"\r\n    [class.ux-simplified]=\"simplified === true\"\r\n    [class.ux-disabled]=\"disabled === true\"\r\n    (keydown.space)=\"keyDown($event)\">\r\n\r\n    <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\r\n        [name]=\"name\" \r\n        [checked]=\"value === option\" \r\n        [disabled]=\"disabled\"\r\n        [value]=\"option\"\r\n        [id]=\"id\" />\r\n        \r\n</div>\r\n\r\n<div class=\"ux-radio-button-content\">\r\n    <ng-content></ng-content>\r\n</div>\r\n"
+module.exports = "<div class=\"ux-radio-button\" tabindex=\"0\"\n    [class.ux-checked]=\"value === option\"\n    [class.ux-simplified]=\"simplified === true\"\n    [class.ux-disabled]=\"disabled === true\"\n    (keydown.space)=\"keyDown($event)\">\n\n    <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\n        [name]=\"name\" \n        [checked]=\"value === option\" \n        [disabled]=\"disabled\"\n        [value]=\"option\"\n        [id]=\"id\" />\n        \n</div>\n\n<div class=\"ux-radio-button-content\">\n    <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
-/* 153 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__select_component__ = __webpack_require__(65);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__select_component__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__select_component__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_module__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_module__ = __webpack_require__(164);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__select_module__["a"]; });
 
 
 
 
 /***/ }),
-/* 154 */
+/* 156 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-typeahead-options\"\r\n    [uxInfiniteScroll]=\"loadOptionsCallback\"\r\n    [(collection)]=\"visibleOptions\"\r\n    [enabled]=\"isInfiniteScroll()\"\r\n    [filter]=\"filter\"\r\n    [loadOnScroll]=\"true\"\r\n    [pageSize]=\"pageSize\"\r\n    [scrollElement]=\"typeaheadElement\"\r\n    (loading)=\"loading = true\"\r\n    (loaded)=\"loading = false\">\r\n\r\n    <ol *ngIf=\"visibleOptions.length > 0\">\r\n        <li *ngFor=\"let option of visibleOptions; let i = index\"\r\n            [class.disabled]=\"isDisabled(option)\"\r\n            [class.highlighted]=\"isHighlighted(option)\"\r\n            [uxScrollIntoViewIf]=\"isHighlighted(option)\"\r\n            [scrollParent]=\"typeaheadElement.nativeElement\"\r\n            (mousedown)=\"optionMousedownHandler($event)\"\r\n            (click)=\"optionClickHandler($event, option)\"\r\n            (mouseover)=\"highlight(option)\">\r\n\r\n            <ng-container [ngTemplateOutlet]=\"optionTemplate\"\r\n                [ngOutletContext]=\"{option: option, api: optionApi}\">\r\n            </ng-container>\r\n\r\n        </li>\r\n    </ol>\r\n\r\n    <div *uxInfiniteScrollLoading>\r\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate\">\r\n        </ng-container>\r\n    </div>\r\n\r\n</div>\r\n<div *ngIf=\"visibleOptions.length === 0 && !loading\">\r\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate\">\r\n    </ng-container>\r\n</div>\r\n\r\n<ng-template #defaultLoadingTemplate>\r\n    <div class=\"ux-typeahead-loading\">\r\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\r\n        <div>Loading...</div>\r\n    </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\r\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\r\n</ng-template>\r\n\r\n<ng-template #defaultNoOptionsTemplate>\r\n    <span class=\"ux-typeahead-no-options\">No results</span>\r\n</ng-template>"
+module.exports = "<div class=\"ux-typeahead-options\"\n    [uxInfiniteScroll]=\"loadOptionsCallback\"\n    [(collection)]=\"visibleOptions\"\n    [enabled]=\"isInfiniteScroll()\"\n    [filter]=\"filter\"\n    [loadOnScroll]=\"true\"\n    [pageSize]=\"pageSize\"\n    [scrollElement]=\"typeaheadElement\"\n    (loading)=\"loading = true\"\n    (loaded)=\"loading = false\">\n\n    <ol *ngIf=\"visibleOptions.length > 0\">\n        <li *ngFor=\"let option of visibleOptions; let i = index\"\n            [class.disabled]=\"isDisabled(option)\"\n            [class.highlighted]=\"isHighlighted(option)\"\n            [uxScrollIntoViewIf]=\"isHighlighted(option)\"\n            [scrollParent]=\"typeaheadElement.nativeElement\"\n            (mousedown)=\"optionMousedownHandler($event)\"\n            (click)=\"optionClickHandler($event, option)\"\n            (mouseover)=\"highlight(option)\">\n\n            <ng-container [ngTemplateOutlet]=\"optionTemplate\"\n                [ngOutletContext]=\"{option: option, api: optionApi}\">\n            </ng-container>\n\n        </li>\n    </ol>\n\n    <div *uxInfiniteScrollLoading>\n        <ng-container [ngTemplateOutlet]=\"loadingTemplate\">\n        </ng-container>\n    </div>\n\n</div>\n<div *ngIf=\"visibleOptions.length === 0 && !loading\">\n    <ng-container [ngTemplateOutlet]=\"noOptionsTemplate\">\n    </ng-container>\n</div>\n\n<ng-template #defaultLoadingTemplate>\n    <div class=\"ux-typeahead-loading\">\n        <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n        <div>Loading...</div>\n    </div>\n</ng-template>\n\n<ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n    <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n</ng-template>\n\n<ng-template #defaultNoOptionsTemplate>\n    <span class=\"ux-typeahead-no-options\">No results</span>\n</ng-template>"
 
 /***/ }),
-/* 155 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10963,18 +10970,6 @@ TypeaheadModule = __decorate([
 
 
 /***/ }),
-/* 156 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_156__;
-
-/***/ }),
-/* 157 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_157__;
-
-/***/ }),
 /* 158 */
 /***/ (function(module, exports) {
 
@@ -10982,6 +10977,18 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_158__;
 
 /***/ }),
 /* 159 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_159__;
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_160__;
+
+/***/ }),
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11026,7 +11033,7 @@ InfiniteScrollModule = __decorate([
 
 
 /***/ }),
-/* 160 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11061,13 +11068,13 @@ ScrollIntoViewIfModule = __decorate([
 
 
 /***/ }),
-/* 161 */
+/* 163 */
 /***/ (function(module, exports) {
 
-module.exports = "<ux-tag-input *ngIf=\"multiple\"\r\n    [(tags)]=\"value\"\r\n    [(input)]=\"input\"\r\n    [addOnPaste]=\"false\"\r\n    [disabled]=\"disabled\"\r\n    [display]=\"display\"\r\n    [freeInput]=\"false\"\r\n    [placeholder]=\"placeholder\"\r\n    [showTypeaheadOnClick]=\"true\">\r\n\r\n    <ux-typeahead #multipleTypeahead\r\n        [options]=\"options\"\r\n        [filter]=\"filter | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [disabledOptions]=\"value\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\">\r\n    </ux-typeahead>\r\n\r\n</ux-tag-input>\r\n\r\n<div *ngIf=\"!multiple\" class=\"inner-addon right-addon\" [class.disabled]=\"disabled\">\r\n\r\n    <i class=\"hpe-icon\"\r\n        [class.hpe-down]=\"dropDirection === 'down'\"\r\n        [class.hpe-up]=\"dropDirection === 'up'\"></i>\r\n\r\n    <input #singleInput type=\"text\" class=\"form-control\"\r\n        [(ngModel)]=\"input\"\r\n        [placeholder]=\"placeholder\"\r\n        [disabled]=\"disabled\"\r\n        (click)=\"inputClickHandler($event)\"\r\n        (blur)=\"inputBlurHandler($event)\"\r\n        (keydown)=\"inputKeyHandler($event)\">\r\n\r\n    <ux-typeahead #singleTypeahead\r\n        [options]=\"options\"\r\n        [filter]=\"filter | async\"\r\n        [(open)]=\"dropdownOpen\"\r\n        [display]=\"display\"\r\n        [key]=\"key\"\r\n        [dropDirection]=\"dropDirection\"\r\n        [maxHeight]=\"maxHeight\"\r\n        [openOnFilterChange]=\"false\"\r\n        [pageSize]=\"pageSize\"\r\n        [selectFirst]=\"true\"\r\n        [loadingTemplate]=\"loadingTemplate\"\r\n        [optionTemplate]=\"optionTemplate\"\r\n        [noOptionsTemplate]=\"noOptionsTemplate\"\r\n        (optionSelected)=\"singleOptionSelected($event)\" >\r\n    </ux-typeahead>\r\n\r\n</div>\r\n"
+module.exports = "<ux-tag-input *ngIf=\"multiple\"\n    [(tags)]=\"value\"\n    [(input)]=\"input\"\n    [addOnPaste]=\"false\"\n    [disabled]=\"disabled\"\n    [display]=\"display\"\n    [freeInput]=\"false\"\n    [placeholder]=\"placeholder\"\n    [showTypeaheadOnClick]=\"true\">\n\n    <ux-typeahead #multipleTypeahead\n        [options]=\"options\"\n        [filter]=\"filter | async\"\n        [(open)]=\"dropdownOpen\"\n        [display]=\"display\"\n        [key]=\"key\"\n        [disabledOptions]=\"value\"\n        [dropDirection]=\"dropDirection\"\n        [maxHeight]=\"maxHeight\"\n        [pageSize]=\"pageSize\"\n        [selectFirst]=\"true\"\n        [loadingTemplate]=\"loadingTemplate\"\n        [optionTemplate]=\"optionTemplate\"\n        [noOptionsTemplate]=\"noOptionsTemplate\">\n    </ux-typeahead>\n\n</ux-tag-input>\n\n<div *ngIf=\"!multiple\" class=\"inner-addon right-addon\" [class.disabled]=\"disabled\">\n\n    <i class=\"hpe-icon\"\n        [class.hpe-down]=\"dropDirection === 'down'\"\n        [class.hpe-up]=\"dropDirection === 'up'\"></i>\n\n    <input #singleInput type=\"text\" class=\"form-control\"\n        [(ngModel)]=\"input\"\n        [placeholder]=\"placeholder\"\n        [disabled]=\"disabled\"\n        (click)=\"inputClickHandler($event)\"\n        (blur)=\"inputBlurHandler($event)\"\n        (keydown)=\"inputKeyHandler($event)\">\n\n    <ux-typeahead #singleTypeahead\n        [options]=\"options\"\n        [filter]=\"filter | async\"\n        [(open)]=\"dropdownOpen\"\n        [display]=\"display\"\n        [key]=\"key\"\n        [dropDirection]=\"dropDirection\"\n        [maxHeight]=\"maxHeight\"\n        [openOnFilterChange]=\"false\"\n        [pageSize]=\"pageSize\"\n        [selectFirst]=\"true\"\n        [loadingTemplate]=\"loadingTemplate\"\n        [optionTemplate]=\"optionTemplate\"\n        [noOptionsTemplate]=\"noOptionsTemplate\"\n        (optionSelected)=\"singleOptionSelected($event)\" >\n    </ux-typeahead>\n\n</div>\n"
 
 /***/ }),
-/* 162 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11117,13 +11124,13 @@ SelectModule = __decorate([
 
 
 /***/ }),
-/* 163 */
+/* 165 */
 /***/ (function(module, exports) {
 
-module.exports = "<ol>\r\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\r\n        [class.disabled]=\"disabled\"\r\n        [attr.tabindex]=\"disabled ? null : i\"\r\n        [focusIf]=\"isSelected(i)\"\r\n        (click)=\"tagClickHandler($event, tag, i)\"\r\n        (focus)=\"selectTagAt(i)\">\r\n        \r\n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\r\n            [ngOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\r\n        </ng-container>\r\n\r\n    </li>\r\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\">\r\n        <input #tagInput type=\"text\" class=\"ux-tag-input\"\r\n            [(ngModel)]=\"input\"\r\n            [class.invalid]=\"!inputValid\"\r\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\r\n            [disabled]=\"disabled\"\r\n            [focusIf]=\"isSelected(tags.length)\"\r\n            (click)=\"inputClickHandler()\"\r\n            (focus)=\"inputFocusHandler()\"\r\n            (paste)=\"inputPasteHandler($event)\">\r\n    </li>\r\n</ol>\r\n\r\n<ng-content #typeahead></ng-content>\r\n\r\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\r\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\r\n    <button *ngIf=\"api.canRemoveTagAt(index)\" type=\"button\" class=\"ux-tag-remove\" [disabled]=\"disabled\" (click)=\"api.removeTagAt(index); $event.stopPropagation();\"><i class=\"hpe-icon hpe-close\"></i></button>\r\n</ng-template>"
+module.exports = "<ol>\n    <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n        [class.disabled]=\"disabled\"\n        [attr.tabindex]=\"disabled ? null : i\"\n        [focusIf]=\"isSelected(i)\"\n        (click)=\"tagClickHandler($event, tag, i)\"\n        (focus)=\"selectTagAt(i)\">\n        \n        <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n            [ngOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n        </ng-container>\n\n    </li>\n    <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\">\n        <input #tagInput type=\"text\" class=\"ux-tag-input\"\n            [(ngModel)]=\"input\"\n            [class.invalid]=\"!inputValid\"\n            [placeholder]=\"disabled ? '' : (placeholder || '')\"\n            [disabled]=\"disabled\"\n            [focusIf]=\"isSelected(tags.length)\"\n            (click)=\"inputClickHandler()\"\n            (focus)=\"inputFocusHandler()\"\n            (paste)=\"inputPasteHandler($event)\">\n    </li>\n</ol>\n\n<ng-content #typeahead></ng-content>\n\n<ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n    <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n    <button *ngIf=\"api.canRemoveTagAt(index)\" type=\"button\" class=\"ux-tag-remove\" [disabled]=\"disabled\" (click)=\"api.removeTagAt(index); $event.stopPropagation();\"><i class=\"hpe-icon hpe-close\"></i></button>\n</ng-template>"
 
 /***/ }),
-/* 164 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11171,7 +11178,7 @@ TagInputModule = __decorate([
 
 
 /***/ }),
-/* 165 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11202,11 +11209,11 @@ FocusIfModule = __decorate([
 
 
 /***/ }),
-/* 166 */
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider_module__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider_module__ = __webpack_require__(169);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__slider_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__slider_component__ = __webpack_require__(77);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__slider_component__["a"]; });
@@ -11223,7 +11230,7 @@ FocusIfModule = __decorate([
 
 
 /***/ }),
-/* 167 */
+/* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11263,17 +11270,17 @@ SliderModule = __decorate([
 
 
 /***/ }),
-/* 168 */
+/* 170 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"track\" #track [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" [class.range]=\"options.type === sliderType.Range\">\r\n\r\n    <!-- Section Beneath Lower Thumb -->\r\n    <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\r\n\r\n    <!-- Lower Thumb Button / Line -->\r\n    <div class=\"thumb lower\" #lowerThumb [style.left.%]=\"thumbs.lower.position\" [class.active]=\"thumbs.lower.drag\" [style.z-index]=\"thumbs.lower.order\" [class.button]=\"options.handles.style === sliderStyle.Button\"\r\n        [class.line]=\"options.handles.style === sliderStyle.Line\" [class.narrow]=\"options.track.height === sliderSize.Narrow\"\r\n        [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\r\n        (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)\">\r\n\r\n        <!-- Lower Thumb Callout -->\r\n        <div class=\"tooltip top tooltip-lower\" #lowerTooltip [style.opacity]=\"tooltips.lower.visible ? 1 : 0\" [style.left.px]=\"tooltips.lower.position\">\r\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\r\n            <div class=\"tooltip-inner\" [style.background-color]=\"options.handles.callout.background\" [style.color]=\"options.handles.callout.color\">\r\n                {{ tooltips.lower.label }}\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <!-- Section of Track Between Lower and Upper Thumbs -->\r\n    <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\r\n    </div>\r\n\r\n    <!-- Upper Thumb Button / Line -->\r\n    <div class=\"thumb upper\" #upperThumb [hidden]=\"options.type !== sliderType.Range\" [class.active]=\"thumbs.upper.drag\" [style.left.%]=\"thumbs.upper.position\" [style.z-index]=\"thumbs.upper.order\"\r\n        [class.button]=\"options.handles.style === sliderStyle.Button\" [class.line]=\"options.handles.style === sliderStyle.Line\"\r\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\r\n        (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)\">\r\n\r\n        <!-- Upper Thumb Callout -->\r\n        <div class=\"tooltip top tooltip-upper\" #upperTooltip [style.opacity]=\"tooltips.upper.visible ? 1 : 0\" [style.left.px]=\"tooltips.upper.position\">\r\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\r\n            <div class=\"tooltip-inner\" *ngIf=\"options.type === sliderType.Range\" [style.background-color]=\"options.handles.callout.background\"\r\n                [style.color]=\"options.handles.callout.color\">\r\n                {{ tooltips.upper.label }}\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- Section of Track Abover Upper Thumb -->\r\n    <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\r\n\r\n</div>\r\n\r\n<!-- Chart Ticks and Tick Labels -->\r\n<div class=\"tick-container\" *ngIf=\"options.track.ticks.major.show || options.track.ticks.minor.show\" [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\r\n\r\n    <div class=\"tick\" *ngFor=\"let tick of ticks\" [class.major]=\"tick.type === sliderTickType.Major\" [class.minor]=\"tick.type === sliderTickType.Minor\"\r\n        [style.left.%]=\"tick.position\" [hidden]=\"!tick.showTicks\">\r\n        <div class=\"tick-indicator\"></div>\r\n        <div class=\"tick-label\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"track\" #track [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" [class.range]=\"options.type === sliderType.Range\">\n\n    <!-- Section Beneath Lower Thumb -->\n    <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n    <!-- Lower Thumb Button / Line -->\n    <div class=\"thumb lower\" #lowerThumb [style.left.%]=\"thumbs.lower.position\" [class.active]=\"thumbs.lower.drag\" [style.z-index]=\"thumbs.lower.order\" [class.button]=\"options.handles.style === sliderStyle.Button\"\n        [class.line]=\"options.handles.style === sliderStyle.Line\" [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n        [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)\">\n\n        <!-- Lower Thumb Callout -->\n        <div class=\"tooltip top tooltip-lower\" #lowerTooltip [style.opacity]=\"tooltips.lower.visible ? 1 : 0\" [style.left.px]=\"tooltips.lower.position\">\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n            <div class=\"tooltip-inner\" [style.background-color]=\"options.handles.callout.background\" [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.lower.label }}\n            </div>\n        </div>\n\n    </div>\n\n    <!-- Section of Track Between Lower and Upper Thumbs -->\n    <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n    </div>\n\n    <!-- Upper Thumb Button / Line -->\n    <div class=\"thumb upper\" #upperThumb [hidden]=\"options.type !== sliderType.Range\" [class.active]=\"thumbs.upper.drag\" [style.left.%]=\"thumbs.upper.position\" [style.z-index]=\"thumbs.upper.order\"\n        [class.button]=\"options.handles.style === sliderStyle.Button\" [class.line]=\"options.handles.style === sliderStyle.Line\"\n        [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n        (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)\">\n\n        <!-- Upper Thumb Callout -->\n        <div class=\"tooltip top tooltip-upper\" #upperTooltip [style.opacity]=\"tooltips.upper.visible ? 1 : 0\" [style.left.px]=\"tooltips.upper.position\">\n            <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n            <div class=\"tooltip-inner\" *ngIf=\"options.type === sliderType.Range\" [style.background-color]=\"options.handles.callout.background\"\n                [style.color]=\"options.handles.callout.color\">\n                {{ tooltips.upper.label }}\n            </div>\n        </div>\n    </div>\n\n    <!-- Section of Track Abover Upper Thumb -->\n    <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n</div>\n\n<!-- Chart Ticks and Tick Labels -->\n<div class=\"tick-container\" *ngIf=\"options.track.ticks.major.show || options.track.ticks.minor.show\" [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n    <div class=\"tick\" *ngFor=\"let tick of ticks\" [class.major]=\"tick.type === sliderTickType.Major\" [class.minor]=\"tick.type === sliderTickType.Minor\"\n        [style.left.%]=\"tick.position\" [hidden]=\"!tick.showTicks\">\n        <div class=\"tick-indicator\"></div>\n        <div class=\"tick-label\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n    </div>\n</div>"
 
 /***/ }),
-/* 169 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spark_module__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spark_module__ = __webpack_require__(172);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__spark_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spark_component__ = __webpack_require__(78);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__spark_component__["a"]; });
@@ -11282,7 +11289,7 @@ module.exports = "<div class=\"track\" #track [class.narrow]=\"options.track.hei
 
 
 /***/ }),
-/* 170 */
+/* 172 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11326,17 +11333,17 @@ SparkModule = __decorate([
 
 
 /***/ }),
-/* 171 */
+/* 173 */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Inline Spark Chart -->\r\n<div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\r\n\r\n    <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\r\n\r\n    <div class=\"ux-spark-line\">\r\n\r\n        <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\r\n            <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\r\n            <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\r\n        </div>\r\n\r\n        <div class=\"ux-spark ux-inline\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\r\n            <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\r\n        </div>\r\n\r\n        <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\r\n            <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\r\n            <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\r\n        </div>\r\n\r\n    </div>\r\n</div>\r\n\r\n<!-- End Inline Spark Chart -->\r\n\r\n\r\n<!-- Non Inline Spark Chart -->\r\n<div *ngIf=\"!inlineLabel\">\r\n\r\n    <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\r\n        <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\r\n        <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\r\n    </div>\r\n\r\n    <div class=\"ux-spark\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\r\n        <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\r\n    </div>\r\n\r\n    <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\r\n        <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\r\n        <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\r\n    </div>\r\n</div>\r\n\r\n<!-- End Non Inline Spark Chart -->"
+module.exports = "<!-- Inline Spark Chart -->\n<div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\n\n    <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\n\n    <div class=\"ux-spark-line\">\n\n        <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n            <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n            <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n        </div>\n\n        <div class=\"ux-spark ux-inline\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\n            <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n        </div>\n\n        <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n            <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n            <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n        </div>\n\n    </div>\n</div>\n\n<!-- End Inline Spark Chart -->\n\n\n<!-- Non Inline Spark Chart -->\n<div *ngIf=\"!inlineLabel\">\n\n    <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n        <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n        <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n    </div>\n\n    <div class=\"ux-spark\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\n        <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n    </div>\n\n    <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n        <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n        <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n    </div>\n</div>\n\n<!-- End Non Inline Spark Chart -->"
 
 /***/ }),
-/* 172 */
+/* 174 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toggleswitch_module__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toggleswitch_module__ = __webpack_require__(175);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__toggleswitch_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__toggleswitch_component__ = __webpack_require__(79);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__toggleswitch_component__["a"]; });
@@ -11345,7 +11352,7 @@ module.exports = "<!-- Inline Spark Chart -->\r\n<div *ngIf=\"inlineLabel\" clas
 
 
 /***/ }),
-/* 173 */
+/* 175 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11380,17 +11387,17 @@ ToggleSwitchModule = __decorate([
 
 
 /***/ }),
-/* 174 */
+/* 176 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ux-toggleswitch\" \r\n  tabindex=\"0\"\r\n  (keydown)=\"keydown($event)\"\r\n  [class.checked]=\"value === true\"\r\n  [class.disabled]=\"disabled === true\">\r\n\r\n  <span class=\"ux-toggleswitch-bg\"></span>\r\n  \r\n  <span class=\"ux-toggleswitch-nub\"></span>\r\n\r\n  <input type=\"checkbox\" \r\n    role=\"checkbox\"\r\n    [name]=\"name\" \r\n    [checked]=\"value === true\"\r\n    [disabled]=\"disabled === true\"\r\n    tabindex=\"-1\" />\r\n</div>\r\n\r\n<div class=\"ux-toggleswitch-content\">\r\n  <ng-content></ng-content>\r\n</div>\r\n"
+module.exports = "<div class=\"ux-toggleswitch\" \n  tabindex=\"0\"\n  (keydown)=\"keydown($event)\"\n  [class.checked]=\"value === true\"\n  [class.disabled]=\"disabled === true\">\n\n  <span class=\"ux-toggleswitch-bg\"></span>\n  \n  <span class=\"ux-toggleswitch-nub\"></span>\n\n  <input type=\"checkbox\" \n    role=\"checkbox\"\n    [name]=\"name\" \n    [checked]=\"value === true\"\n    [disabled]=\"disabled === true\"\n    tabindex=\"-1\" />\n</div>\n\n<div class=\"ux-toggleswitch-content\">\n  <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
-/* 175 */
+/* 177 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__media_player_module__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__media_player_module__ = __webpack_require__(178);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_0__media_player_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__media_player_component__ = __webpack_require__(80);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__media_player_component__["a"]; });
@@ -11408,7 +11415,7 @@ module.exports = "<div class=\"ux-toggleswitch\" \r\n  tabindex=\"0\"\r\n  (keyd
 
 
 /***/ }),
-/* 176 */
+/* 178 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11476,13 +11483,13 @@ MediaPlayerModule = __decorate([
 
 
 /***/ }),
-/* 177 */
+/* 179 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_177__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_179__;
 
 /***/ }),
-/* 178 */
+/* 180 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11518,37 +11525,37 @@ AudioServiceModule = __decorate([
 
 
 /***/ }),
-/* 179 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_179__;
-
-/***/ }),
-/* 180 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"video-player-container\" *ngIf=\"type === 'video'\">\r\n\r\n    <video class=\"video-player\" #player [src]=\"source\" (abort)=\"mediaPlayerService.abortEvent.next()\" (canplay)=\"mediaPlayerService.canPlayEvent.next()\"\r\n        (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next()\" (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\" (ended)=\"mediaPlayerService.endedEvent.next()\"\r\n        (error)=\"mediaPlayerService.errorEvent.next($event)\" (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\" (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\r\n        (loadstart)=\"mediaPlayerService.loadStartEvent.next()\" (pause)=\"mediaPlayerService.pauseEvent.next()\" (play)=\"mediaPlayerService.playEvent.next()\" (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\r\n        (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\" (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\" (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\r\n        (stalled)=\"mediaPlayerService.stalledEvent.next()\" (suspend)=\"mediaPlayerService.suspendEvent.next()\" (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\r\n        (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\" (waiting)=\"mediaPlayerService.waitingEvent.next()\" (click)=\"mediaPlayerService.mediaClickEvent.next($event)\"></video>\r\n\r\n    <div class=\"video-overlay\" [class.playing]=\"mediaPlayerService.playing | async\">\r\n        <svg class=\"play-graphic\" x=\"0px\" y=\"0px\" viewBox=\"0 0 64 64\">\r\n            <circle class=\"play-circle\" cx=\"32.2\" cy=\"31.8\" r=\"31.8\" />\r\n            <polygon class=\"play-triangle\" points=\"23,14.1 23,50.8 48.3,32.5\" />\r\n        </svg>\r\n    </div>\r\n\r\n</div>\r\n\r\n\r\n<div class=\"audio-player\" *ngIf=\"type === 'audio'\">\r\n\r\n    <svg width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\">\r\n        <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n            <g transform=\"translate(-98.000000, -458.000000)\">\r\n                <g transform=\"translate(98.000000, 458.000000)\">\r\n                    <path d=\"M4.5,0.5 L18.0435308,0.5 L23.5,6.22251502 L23.5,23.5 L4.5,23.5 L4.5,0.5 Z\" fill=\"#CCEAE2\"></path>\r\n                    <path d=\"M4.5,8 L4.5,0.5 L18,0.5 L23.5,6 L23.5,23.5 L18,23.5\" stroke=\"#60798D\" fill=\"#CCEAE2\"></path>\r\n                    <path d=\"M4,13.5 L0.5,13.5 L0.5,18.5 L4,18.5 L9.5,22.5 L9.5,9.5 L4,13.5 Z\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\r\n                    <path d=\"M11.5,12.5137939 C13.7576225,12.5137939 14.5,14.3709236 14.5,16 C14.5,17.6849236 13.7089152,19.5420532 11.5,19.5420532\"\r\n                        stroke=\"#60798D\"></path>\r\n                    <path d=\"M11.5,9 C15.8037643,9.04168701 18.5,11.6604805 18.5,16 C18.5,20.3395195 15.8804302,23.0079956 11.5,23\" stroke=\"#60798D\"></path>\r\n                    <path d=\"M17.5219116,0.761413574 L17.5219116,6 L23,6\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\r\n                </g>\r\n            </g>\r\n        </g>\r\n    </svg>\r\n\r\n    <p class=\"audio-file-name\">{{ (audioMetadata | async)?.filename }}</p>\r\n    <p class=\"audio-file-format\">{{ (audioMetadata | async)?.description }}</p>\r\n    <p class=\"audio-file-size\">{{ (audioMetadata | async)?.size | fileSize }}</p>\r\n\r\n    <audio #player [src]=\"source\" (abort)=\"mediaPlayerService.abortEvent.next()\" (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\r\n        (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\" (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\" (ended)=\"mediaPlayerService.endedEvent.next()\"\r\n        (error)=\"mediaPlayerService.errorEvent.next($event)\" (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\" (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\r\n        (loadstart)=\"mediaPlayerService.loadStartEvent.next()\" (pause)=\"mediaPlayerService.pauseEvent.next()\" (play)=\"mediaPlayerService.playEvent.next()\" (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\r\n        (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\" (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\" (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\r\n        (stalled)=\"mediaPlayerService.stalledEvent.next()\" (suspend)=\"mediaPlayerService.suspendEvent.next()\" (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\r\n        (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\" (waiting)=\"mediaPlayerService.waitingEvent.next()\" (click)=\"mediaPlayerService.mediaClickEvent.next($event)\"></audio>\r\n</div>\r\n\r\n<div class=\"control-bar\">\r\n    <ux-media-player-timeline></ux-media-player-timeline>\r\n    <ux-media-player-controls></ux-media-player-controls>\r\n</div>"
-
-/***/ }),
 /* 181 */
 /***/ (function(module, exports) {
 
-module.exports = "<p class=\"current-time\">{{ current | duration }}</p>\r\n\r\n<div #timeline class=\"timeline-bar\" (mouseenter)=\"scrub.visible = true; pop.show()\" (mouseleave)=\"scrub.visible = false; pop.hide()\"\r\n    (mousemove)=\"updateScrub($event)\" (mouseup)=\"updateScrub($event)\" (mousedown)=\"mouseDown = true; $event.preventDefault()\">\r\n\r\n    <div class=\"buffered-bar\" *ngFor=\"let buffer of buffered\" [style.left.%]=\"buffer.start\" [style.width.%]=\"buffer.end - buffer.start\"></div>\r\n\r\n    <div class=\"media-progress-bar\" [style.width.%]=\"position\"></div>\r\n\r\n    <div class=\"scrub-handle\" [style.left.px]=\"scrub.position\" [tooltip]=\"popTemplate\" placement=\"top\" triggers=\"\" #pop=\"bs-tooltip\"\r\n        container=\"body\" tooltipPopupDelay=\"100\" [isDisabled]=\"duration === 0\"></div>\r\n\r\n</div>\r\n\r\n<p class=\"duration-time\">{{ duration | duration }}</p>\r\n\r\n<ng-template #popTemplate>\r\n    <span>{{ scrub.time | duration }}</span>\r\n</ng-template>"
+module.exports = __WEBPACK_EXTERNAL_MODULE_181__;
 
 /***/ }),
 /* 182 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_182__;
+module.exports = "<div class=\"video-player-container\" *ngIf=\"type === 'video'\">\n\n    <video class=\"video-player\" #player [src]=\"source\" (abort)=\"mediaPlayerService.abortEvent.next()\" (canplay)=\"mediaPlayerService.canPlayEvent.next()\"\n        (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next()\" (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\" (ended)=\"mediaPlayerService.endedEvent.next()\"\n        (error)=\"mediaPlayerService.errorEvent.next($event)\" (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\" (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n        (loadstart)=\"mediaPlayerService.loadStartEvent.next()\" (pause)=\"mediaPlayerService.pauseEvent.next()\" (play)=\"mediaPlayerService.playEvent.next()\" (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n        (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\" (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\" (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n        (stalled)=\"mediaPlayerService.stalledEvent.next()\" (suspend)=\"mediaPlayerService.suspendEvent.next()\" (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n        (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\" (waiting)=\"mediaPlayerService.waitingEvent.next()\" (click)=\"mediaPlayerService.mediaClickEvent.next($event)\"></video>\n\n    <div class=\"video-overlay\" [class.playing]=\"mediaPlayerService.playing | async\">\n        <svg class=\"play-graphic\" x=\"0px\" y=\"0px\" viewBox=\"0 0 64 64\">\n            <circle class=\"play-circle\" cx=\"32.2\" cy=\"31.8\" r=\"31.8\" />\n            <polygon class=\"play-triangle\" points=\"23,14.1 23,50.8 48.3,32.5\" />\n        </svg>\n    </div>\n\n</div>\n\n\n<div class=\"audio-player\" *ngIf=\"type === 'audio'\">\n\n    <svg width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\">\n        <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n            <g transform=\"translate(-98.000000, -458.000000)\">\n                <g transform=\"translate(98.000000, 458.000000)\">\n                    <path d=\"M4.5,0.5 L18.0435308,0.5 L23.5,6.22251502 L23.5,23.5 L4.5,23.5 L4.5,0.5 Z\" fill=\"#CCEAE2\"></path>\n                    <path d=\"M4.5,8 L4.5,0.5 L18,0.5 L23.5,6 L23.5,23.5 L18,23.5\" stroke=\"#60798D\" fill=\"#CCEAE2\"></path>\n                    <path d=\"M4,13.5 L0.5,13.5 L0.5,18.5 L4,18.5 L9.5,22.5 L9.5,9.5 L4,13.5 Z\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                    <path d=\"M11.5,12.5137939 C13.7576225,12.5137939 14.5,14.3709236 14.5,16 C14.5,17.6849236 13.7089152,19.5420532 11.5,19.5420532\"\n                        stroke=\"#60798D\"></path>\n                    <path d=\"M11.5,9 C15.8037643,9.04168701 18.5,11.6604805 18.5,16 C18.5,20.3395195 15.8804302,23.0079956 11.5,23\" stroke=\"#60798D\"></path>\n                    <path d=\"M17.5219116,0.761413574 L17.5219116,6 L23,6\" stroke=\"#60798D\" fill=\"#85D2BE\"></path>\n                </g>\n            </g>\n        </g>\n    </svg>\n\n    <p class=\"audio-file-name\">{{ (audioMetadata | async)?.filename }}</p>\n    <p class=\"audio-file-format\">{{ (audioMetadata | async)?.description }}</p>\n    <p class=\"audio-file-size\">{{ (audioMetadata | async)?.size | fileSize }}</p>\n\n    <audio #player [src]=\"source\" (abort)=\"mediaPlayerService.abortEvent.next()\" (canplay)=\"mediaPlayerService.canPlayEvent.next(true)\"\n        (canplaythrough)=\"mediaPlayerService.canPlayThroughEvent.next(true)\" (durationchange)=\"mediaPlayerService.durationChangeEvent.next(player.duration)\" (ended)=\"mediaPlayerService.endedEvent.next()\"\n        (error)=\"mediaPlayerService.errorEvent.next($event)\" (loadeddata)=\"mediaPlayerService.loadedDataEvent.next($event)\" (loadedmetadata)=\"mediaPlayerService.loadedMetadataEvent.next($event)\"\n        (loadstart)=\"mediaPlayerService.loadStartEvent.next()\" (pause)=\"mediaPlayerService.pauseEvent.next()\" (play)=\"mediaPlayerService.playEvent.next()\" (playing)=\"mediaPlayerService.playingEvent.next(!player.paused)\"\n        (ratechange)=\"mediaPlayerService.rateChangeEvent.next(player.playbackRate)\" (seeked)=\"mediaPlayerService.seekedEvent.next(player.currentTime)\" (seeking)=\"mediaPlayerService.seekingEvent.next(player.currentTime)\"\n        (stalled)=\"mediaPlayerService.stalledEvent.next()\" (suspend)=\"mediaPlayerService.suspendEvent.next()\" (timeupdate)=\"mediaPlayerService.timeUpdateEvent.next(player.currentTime)\"\n        (volumechange)=\"mediaPlayerService.volumeChangeEvent.next(player.volume)\" (waiting)=\"mediaPlayerService.waitingEvent.next()\" (click)=\"mediaPlayerService.mediaClickEvent.next($event)\"></audio>\n</div>\n\n<div class=\"control-bar\">\n    <ux-media-player-timeline></ux-media-player-timeline>\n    <ux-media-player-controls></ux-media-player-controls>\n</div>"
 
 /***/ }),
 /* 183 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"volume-container\">\r\n\r\n    <div class=\"volume-slider-container\" #volumeContainer [class.active]=\"volumeActive\">\r\n        <div class=\"volume-slider-icon\" #volumeIcon>\r\n            <span class=\"hpe-icon\" [class.hpe-volume-mute]=\"volume === 0\" [class.hpe-volume-low]=\"volume > 0 && volume <= 70\" [class.hpe-volume]=\"volume > 70\" [tooltip]=\"muteTooltip\" (click)=\"toggleMute()\"></span>\r\n        </div>\r\n        \r\n        <div class=\"volume-slider-node\">\r\n            <div class=\"volume-slider\" #volumeSlider>\r\n                <div class=\"volume-track-lower\" [style.width.%]=\"volume\"></div>\r\n                <div class=\"volume-slider-thumb\" (mousedown)=\"dragStart($event)\" [style.left.%]=\"volume\" tabindex=\"0\" (keydown.ArrowRight)=\"volume = volume + 10\" (keydown.ArrowLeft)=\"volume = volume - 10\"></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"spacer\"></div>\r\n\r\n<svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" class=\"control-button\" (click)=\"goToStart()\">\r\n    <rect x=\"0\" y=\"0\" width=\"7.5\" height=\"64\" />\r\n    <polygon points=\"51.5,64 51.5,0 7.4,32 \" />\r\n</svg>\r\n\r\n<svg viewBox=\"0 0 45 64\" width=\"20\" height=\"29\" class=\"control-button\" *ngIf=\"!playing\" (click)=\"togglePlay()\">\r\n    <polygon points=\"0.4,0 0.4,64 44.6,32\" />\r\n</svg>\r\n\r\n<svg viewBox=\"0 0 43 56.9\" class=\"control-button\" width=\"20\" height=\"29\" *ngIf=\"playing\" (click)=\"togglePlay()\">\r\n    <rect y=\"0.1\" width=\"15.7\" height=\"56.9\" />\r\n    <rect x=\"27.3\" y=\"0.1\" width=\"15.7\" height=\"56.9\" />\r\n</svg>\r\n\r\n<svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" class=\"control-button\" (click)=\"goToEnd()\">\r\n    <rect x=\"44.1\" y=\"0\" width=\"7.5\" height=\"64\" />\r\n    <polygon points=\"0,64 0,0 44.1,32 \" />\r\n</svg>\r\n\r\n<div class=\"spacer\"></div>\r\n\r\n<span class=\"hpe-icon\" *ngIf=\"mediaPlayerService.type !== 'audio'\" [class.hpe-expand]=\"!mediaPlayerService.fullscreen\" [class.hpe-contract]=\"mediaPlayerService.fullscreen\"\r\n    (click)=\"setFullscreen()\"></span>\r\n\r\n<ng-template #muteTooltip>{{ volume === 0 ? 'Unmute' : 'Mute' }}</ng-template>"
+module.exports = "<p class=\"current-time\">{{ current | duration }}</p>\n\n<div #timeline class=\"timeline-bar\" (mouseenter)=\"scrub.visible = true; pop.show()\" (mouseleave)=\"scrub.visible = false; pop.hide()\"\n    (mousemove)=\"updateScrub($event)\" (mouseup)=\"updateScrub($event)\" (mousedown)=\"mouseDown = true; $event.preventDefault()\">\n\n    <div class=\"buffered-bar\" *ngFor=\"let buffer of buffered\" [style.left.%]=\"buffer.start\" [style.width.%]=\"buffer.end - buffer.start\"></div>\n\n    <div class=\"media-progress-bar\" [style.width.%]=\"position\"></div>\n\n    <div class=\"scrub-handle\" [style.left.px]=\"scrub.position\" [tooltip]=\"popTemplate\" placement=\"top\" triggers=\"\" #pop=\"bs-tooltip\"\n        container=\"body\" tooltipPopupDelay=\"100\" [isDisabled]=\"duration === 0\"></div>\n\n</div>\n\n<p class=\"duration-time\">{{ duration | duration }}</p>\n\n<ng-template #popTemplate>\n    <span>{{ scrub.time | duration }}</span>\n</ng-template>"
 
 /***/ }),
 /* 184 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_184__;
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"volume-container\">\n\n    <div class=\"volume-slider-container\" #volumeContainer [class.active]=\"volumeActive\">\n        <div class=\"volume-slider-icon\" #volumeIcon>\n            <span class=\"hpe-icon\" [class.hpe-volume-mute]=\"volume === 0\" [class.hpe-volume-low]=\"volume > 0 && volume <= 70\" [class.hpe-volume]=\"volume > 70\" [tooltip]=\"muteTooltip\" (click)=\"toggleMute()\"></span>\n        </div>\n        \n        <div class=\"volume-slider-node\">\n            <div class=\"volume-slider\" #volumeSlider>\n                <div class=\"volume-track-lower\" [style.width.%]=\"volume\"></div>\n                <div class=\"volume-slider-thumb\" (mousedown)=\"dragStart($event)\" [style.left.%]=\"volume\" tabindex=\"0\" (keydown.ArrowRight)=\"volume = volume + 10\" (keydown.ArrowLeft)=\"volume = volume - 10\"></div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"spacer\"></div>\n\n<svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" class=\"control-button\" (click)=\"goToStart()\">\n    <rect x=\"0\" y=\"0\" width=\"7.5\" height=\"64\" />\n    <polygon points=\"51.5,64 51.5,0 7.4,32 \" />\n</svg>\n\n<svg viewBox=\"0 0 45 64\" width=\"20\" height=\"29\" class=\"control-button\" *ngIf=\"!playing\" (click)=\"togglePlay()\">\n    <polygon points=\"0.4,0 0.4,64 44.6,32\" />\n</svg>\n\n<svg viewBox=\"0 0 43 56.9\" class=\"control-button\" width=\"20\" height=\"29\" *ngIf=\"playing\" (click)=\"togglePlay()\">\n    <rect y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n    <rect x=\"27.3\" y=\"0.1\" width=\"15.7\" height=\"56.9\" />\n</svg>\n\n<svg viewBox=\"0 0 51.5 64\" width=\"14\" height=\"17\" class=\"control-button\" (click)=\"goToEnd()\">\n    <rect x=\"44.1\" y=\"0\" width=\"7.5\" height=\"64\" />\n    <polygon points=\"0,64 0,0 44.1,32 \" />\n</svg>\n\n<div class=\"spacer\"></div>\n\n<span class=\"hpe-icon\" *ngIf=\"mediaPlayerService.type !== 'audio'\" [class.hpe-expand]=\"!mediaPlayerService.fullscreen\" [class.hpe-contract]=\"mediaPlayerService.fullscreen\"\n    (click)=\"setFullscreen()\"></span>\n\n<ng-template #muteTooltip>{{ volume === 0 ? 'Unmute' : 'Mute' }}</ng-template>"
+
+/***/ }),
+/* 186 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11579,7 +11586,7 @@ DurationPipeModule = __decorate([
 
 
 /***/ }),
-/* 185 */
+/* 187 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11610,11 +11617,11 @@ FileSizePipeModule = __decorate([
 
 
 /***/ }),
-/* 186 */
+/* 188 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__virtual_scroll_module__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__virtual_scroll_module__ = __webpack_require__(189);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__virtual_scroll_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__virtual_scroll_component__ = __webpack_require__(92);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__virtual_scroll_component__["a"]; });
@@ -11632,7 +11639,7 @@ FileSizePipeModule = __decorate([
 
 
 /***/ }),
-/* 187 */
+/* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11684,17 +11691,17 @@ VirtualScrollModule = __decorate([
 
 
 /***/ }),
-/* 188 */
+/* 190 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"virtual-scroll-content-height\" [style.height.px]=\"getTotalHeight()\"></div>\r\n<div class=\"virtual-scroll-content\" [style.transform]=\"'translateY(' + scrollTop + 'px)'\">\r\n\r\n    <!-- Virtually Render Cells -->\r\n    <ng-container *ngFor=\"let cell of cells | async\">\r\n        <ng-container *ngTemplateOutlet=\"cellTemplate; context: { cell: cell }\"></ng-container>\r\n    </ng-container>\r\n\r\n    <!-- Loading Indicator -->\r\n    <ng-container *ngIf=\"loadingIndicatorTemplate && isLoading\" [ngTemplateOutlet]=\"loadingIndicatorTemplate\"></ng-container>\r\n\r\n    <!-- Loading Button -->\r\n    <div class=\"virtual-scroll-load-button\" *ngIf=\"loadButtonTemplate && !loadOnScroll && !loadingComplete && !isLoading\" (click)=\"loadNextPage()\">\r\n        <ng-container *ngTemplateOutlet=\"loadButtonTemplate\"></ng-container>\r\n    </div>\r\n    \r\n</div>"
+module.exports = "<div class=\"virtual-scroll-content-height\" [style.height.px]=\"getTotalHeight()\"></div>\n<div class=\"virtual-scroll-content\" [style.transform]=\"'translateY(' + scrollTop + 'px)'\">\n\n    <!-- Virtually Render Cells -->\n    <ng-container *ngFor=\"let cell of cells | async\">\n        <ng-container *ngTemplateOutlet=\"cellTemplate; context: { cell: cell }\"></ng-container>\n    </ng-container>\n\n    <!-- Loading Indicator -->\n    <ng-container *ngIf=\"loadingIndicatorTemplate && isLoading\" [ngTemplateOutlet]=\"loadingIndicatorTemplate\"></ng-container>\n\n    <!-- Loading Button -->\n    <div class=\"virtual-scroll-load-button\" *ngIf=\"loadButtonTemplate && !loadOnScroll && !loadingComplete && !isLoading\" (click)=\"loadNextPage()\">\n        <ng-container *ngTemplateOutlet=\"loadButtonTemplate\"></ng-container>\n    </div>\n    \n</div>"
 
 /***/ }),
-/* 189 */
+/* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__help_center_module__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__help_center_module__ = __webpack_require__(192);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__help_center_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__help_center_service__ = __webpack_require__(34);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__help_center_service__["a"]; });
@@ -11706,7 +11713,7 @@ module.exports = "<div class=\"virtual-scroll-content-height\" [style.height.px]
 
 
 /***/ }),
-/* 190 */
+/* 192 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11741,11 +11748,11 @@ HelpCenterModule = __decorate([
 
 
 /***/ }),
-/* 191 */
+/* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hover_action_module__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hover_action_module__ = __webpack_require__(194);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__hover_action_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hover_action_container_directive__ = __webpack_require__(94);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__hover_action_container_directive__["a"]; });
@@ -11757,7 +11764,7 @@ HelpCenterModule = __decorate([
 
 
 /***/ }),
-/* 192 */
+/* 194 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11794,11 +11801,11 @@ HoverActionModule = __decorate([
 
 
 /***/ }),
-/* 193 */
+/* 195 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_switcher_module__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__layout_switcher_module__ = __webpack_require__(196);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__layout_switcher_module__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_switcher_directive__ = __webpack_require__(97);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__layout_switcher_directive__["a"]; });
@@ -11810,7 +11817,7 @@ HoverActionModule = __decorate([
 
 
 /***/ }),
-/* 194 */
+/* 196 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11853,20 +11860,20 @@ LayoutSwitcherModule = __decorate([
 
 
 /***/ }),
-/* 195 */
+/* 197 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__string_filter_pipe__ = __webpack_require__(98);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__string_filter_pipe__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__string_filter_module__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__string_filter_module__ = __webpack_require__(198);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__string_filter_module__["a"]; });
 
 
 
 
 /***/ }),
-/* 196 */
+/* 198 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
