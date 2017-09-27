@@ -219,9 +219,7 @@ var docsConfig = {
             'process.env': {
                 'ENV': '"development"'
             }
-        }),
-
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+        })
     ],
 
     stats: {

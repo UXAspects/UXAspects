@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, DoCheck, ElementRef, AfterViewInit, NgZone, EventEmitter, Output } from '@angular/core';
 import { DashboardService, DashboardLayoutData, DashboardPlaceholder } from './dashboard.service';
+import { ResizeDimensions } from '../../directives/resize/resize.service';
 
 @Component({
     selector: 'ux-dashboard',
     templateUrl: './dashboard.component.html',
-    providers: [ DashboardService ],
+    providers: [DashboardService],
     host: {
         '[style.height.px]': 'height'
     }
@@ -41,7 +42,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
     }
 
     ngDoCheck(): void {
-        
+
         // get the current set of options
         let options = Object.assign({}, this._dashboardService.getDefaultOptions(), this.options);
 
@@ -66,11 +67,10 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
         this._dashboardService.setOptions(options);
     }
 
-    onResize(event: Event): void {
+    onResize(event: ResizeDimensions): void {
         // ensure this gets run inside Angular
         this._ngZone.run(() => {
-            let target = event.target as Window;
-            this._dashboardService.setDimensions(target.innerWidth, target.innerHeight);
+            this._dashboardService.setDimensions(event.width, event.height);
         });
     }
 }

@@ -49,7 +49,7 @@ export class ResizeService {
             let iframeDoc = iframe.contentDocument || iframe.contentWindow.document as HTMLDocument;
 
             let attachListener = function () {
-                Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: Event) => {
+                Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) => {
 
                     subject.next({
                         width: nativeElement.offsetWidth,
@@ -78,4 +78,9 @@ export class ResizeService {
             setTimeout(() => this.waitUntilReady(iframe, callback));
         }
     }
+}
+
+export interface ResizeDimensions {
+    width: number;
+    height: number;
 }

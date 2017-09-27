@@ -21,9 +21,9 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
     },
     icons: {
       type: "class",
-      get: function(item, expanded) {
+      get: function (item, expanded) {
         if ((angular.isFunction(vm.allOptions.hasChildren) && vm.allOptions.hasChildren(item)) ||
-            item.hasOwnProperty(vm.allOptions.childrenProperty)) {
+          item.hasOwnProperty(vm.allOptions.childrenProperty)) {
           return expanded ? "hpe-folder-open" : "hpe-folder";
         }
         return "hpe-document";
@@ -43,25 +43,27 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
 
   vm.multipleSelectProvider = multipleSelectProvider;
 
+  vm.allSelected = false;
+
   // Set up multi select to work standalone
   if (!vm.multipleSelectProvider.keyFn) {
-    vm.multipleSelectProvider.keyFn = function(e) {
+    vm.multipleSelectProvider.keyFn = function (e) {
       return JSON.stringify(e.item);
     };
   }
   if (!vm.multipleSelectProvider.onSelect) {
-    vm.multipleSelectProvider.onSelect = function() {};
+    vm.multipleSelectProvider.onSelect = function () {};
   }
   if (!vm.multipleSelectProvider.onDeselect) {
-    vm.multipleSelectProvider.onDeselect = function() {};
+    vm.multipleSelectProvider.onDeselect = function () {};
   }
 
   // Watch for changes to the tree data and update the view when it changes
-  $scope.$watch('vm.data', function() {
+  $scope.$watch('vm.data', function () {
     updateView();
   }, true);
 
-  $scope.$watch("vm.multipleSelectProvider.selectedItems", function(nv) {
+  $scope.$watch("vm.multipleSelectProvider.selectedItems", function (nv) {
     if (angular.isArray(nv)) {
       // selectedItems are JSON from keyFn above
       var selected = [];
@@ -73,41 +75,50 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   }, true);
 
   // Event for reloading the grid to its initial state
-  $scope.$on("treegrid.reload", function() {
+  $scope.$on("treegrid.reload", function () {
     updateView();
   });
 
-  $scope.$on("$destroy", function() {
+  $scope.$on("$destroy", function () {
     vm.multipleSelectProvider.reset();
   });
 
   // Retrieves array for ng-repeat of grid rows
-  vm.getGridRows = function() {
+  vm.getGridRows = function () {
     // Reusing an array object to prevent unnecessary change detection (endless digest cycle)
     vm.gridRows.length = 0;
     populateGridRows(vm.treeData, vm.gridRows);
     return vm.gridRows;
   };
 
-  vm.expanderClick = function(row, e) {
+  vm.toggleAllRows = function () {
+    vm.allSelected =  !vm.allSelected;
+    if (vm.allSelected) {
+      vm.gridRows.forEach(row => row.selected = true);
+    } else {
+      vm.gridRows.forEach(row => row.selected = false);
+    }
+  };
+
+  vm.expanderClick = function (row, e) {
     if (!row.canExpand) return;
     e.stopPropagation();
     return toggleExpand(row);
   };
 
-  vm.checkboxClick = function(event) {
-    event.stopPropagation();
+  vm.checkboxClick = function (event) {
+    event.stopPropagation(); 
   };
 
   // Expand the specified row if possible. Returns true if the row is expandable.
-  vm.expand = function(row) {
+  vm.expand = function (row) {
     if (!row.canExpand || row.expanded) return false;
     expand(row);
     return true;
   };
 
   // Expand the specified row if possible and return the data load promise.
-  vm.expandAsync = function(row) {
+  vm.expandAsync = function (row) {
     if (!row.canExpand || row.expanded) {
       return $q.when(false);
     }
@@ -115,21 +126,21 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   };
 
   // Contract the specified row if possible. Returns true if the row is contractable.
-  vm.contract = function(row) {
+  vm.contract = function (row) {
     if (!row.canExpand || !row.expanded) return false;
     contract(row);
     return true;
   };
 
   // Reload the specified row if it has children. Returns the data load promise.
-  vm.reloadAsync = function(row) {
+  vm.reloadAsync = function (row) {
     if (!row.canExpand) {
       return $q.when(false);
     }
     return reload(row);
   };
 
-  vm.rowFocus = function(row, event) {
+  vm.rowFocus = function (row, event) {
     vm.currentRow = {
       element: angular.element(event.target),
       item: row.dataItem,
@@ -138,7 +149,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   };
 
   // Format user defined icon class to include hpe-icon if required
-  vm.iconClass = function(className) {
+  vm.iconClass = function (className) {
     if (className && className.indexOf("hpe-") >= 0) {
       return ["hpe-icon", className];
     }
@@ -151,11 +162,11 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   function updateView() {
     vm.loading = true;
     getTreeData(getChildren(), 0)
-      .then(function(rows) {
+      .then(function (rows) {
         // Populate top level rows
         vm.treeData = rows;
       })
-      .then(function() {
+      .then(function () {
         // Expand top level items if configured
         var promises = [];
         if (vm.allOptions.expandTopLevel) {
@@ -167,11 +178,11 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
         }
         return $q.all(promises);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         vm.loading = false;
         console.error("Data load error: " + err);
       })
-      .finally(function() {
+      .finally(function () {
         vm.loading = false;
       });
   }
@@ -179,7 +190,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   // Get row data suitable for angular binding from an array of source data
   function getTreeData(dataPromise, level) {
     // dataPromise might also be just regular data
-    return $q.when(dataPromise).then(function(data) {
+    return $q.when(dataPromise).then(function (data) {
       var rows = [];
       for (var i = 0; i < data.length; i += 1) {
         var canExpand = hasChildren(data[i]) && level < vm.allOptions.maxDepth;
@@ -225,7 +236,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
       reload: function () {
         return vm.reloadAsync(row);
       },
-      getValueForColumn: function(colIndex) {
+      getValueForColumn: function (colIndex) {
         return getValueForColumn(row, colIndex);
       }
     };
@@ -284,15 +295,15 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   function expand(row) {
     row.expanding = true;
     return getTreeData(getChildren(row.dataItem), row.level + 1)
-      .then(function(newRows) {
+      .then(function (newRows) {
         row.children = newRows;
         row.expanded = true;
         return row;
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.error("Data load error: " + err);
       })
-      .finally(function() {
+      .finally(function () {
         row.expanding = false;
       });
   }
