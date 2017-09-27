@@ -1,5 +1,6 @@
 import { OnInit, DoCheck, ElementRef, AfterViewInit, NgZone, EventEmitter } from '@angular/core';
 import { DashboardService, DashboardLayoutData, DashboardPlaceholder } from './dashboard.service';
+import { ResizeDimensions } from '../../directives/resize/resize.service';
 export declare class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
     private _dashboardService;
     private _elementRef;
@@ -17,7 +18,7 @@ export declare class DashboardComponent implements OnInit, DoCheck, AfterViewIni
     ngDoCheck(): void;
     ngAfterViewInit(): void;
     setOptions(options: DashboardOptions): void;
-    onResize(event: Event): void;
+    onResize(event: ResizeDimensions): void;
 }
 export interface DashboardOptions {
     columns?: number;
