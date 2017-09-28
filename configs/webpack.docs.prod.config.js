@@ -186,8 +186,8 @@ module.exports = {
         }]),
 
         new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist', 'bundles', 'ux-aspects.umd.js'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'assets', 'lib', 'index.js')
+            from: path.join(process.cwd(), 'dist', 'lib'),
+            to: path.join(process.cwd(), 'dist', 'docs', 'assets', 'lib')
         }]),
 
         new CopyWebpackPlugin([{
@@ -267,6 +267,7 @@ module.exports = {
             'process.env': {
                 'ENV': '"production"'
             }
-        })
+        }),
+        
     ]
 };
