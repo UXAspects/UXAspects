@@ -267,7 +267,6 @@ module.exports = {
             'process.env': {
                 'ENV': '"production"'
             }
-        }),
-        
+        })
     ]
 };

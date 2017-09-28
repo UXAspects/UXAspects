@@ -5,8 +5,8 @@ import * as moment from 'moment-timezone';
 export default function DateTimePickerPopupCtrl($scope, $parse, $attrs) {
     var vm = this;
 
-    var DisplayFormat12h = $attrs.displayFormat12hr || "ddd MMM DD, YYYY h:mm:ss A";
-    var DisplayFormat24h = $attrs.displayFormat24hr || "ddd MMM DD, YYYY HH:mm:ss";
+    var DisplayFormat12h = $parse($attrs.displayFormat12hr)($scope)|| $attrs.displayFormat12hr || "ddd MMM DD, YYYY h:mm:ss A";
+    var DisplayFormat24h = $parse($attrs.displayFormat24hr)($scope)|| $attrs.displayFormat24hr || "ddd MMM DD, YYYY HH:mm:ss";
 
     var DateFormats = [
         "ddd MMM D, YYYY",
