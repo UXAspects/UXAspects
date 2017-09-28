@@ -5,7 +5,7 @@
                 [ngModel]="versionService.version | async"
                 (ngModelChange)="versionService.setVersion($event)"
                 [btnRadio]="Version.AngularJS">AngularJS</button>
-            <button type="button" class="btn button-toggle-accent"
+            <button type="button" class="btn button-toggle-accent primary-override"
                 [ngModel]="versionService.version | async"
                 (ngModelChange)="versionService.setVersion($event)"
                 [btnRadio]="Version.Angular">Angular 4</button>
