@@ -219,12 +219,8 @@ var docsConfig = {
             'process.env': {
                 'ENV': '"development"'
             }
-<<<<<<< HEAD
-        })
-=======
         }),
 
->>>>>>> Fixed page load column error, updated search functionality to work on the microfocus documentation site,  changed footer logo to use CSS for text
     ],
 
     stats: {
