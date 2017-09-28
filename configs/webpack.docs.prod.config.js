@@ -268,7 +268,6 @@ module.exports = {
                 'ENV': '"production"'
             }
         }),
-
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+        
     ]
 };

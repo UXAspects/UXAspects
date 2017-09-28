@@ -68,6 +68,7 @@ export class NavigationBarSearchComponent {
             category.sections.forEach((section: ISection) => {
                 if (this.versionService.isSectionVersionMatch(section)) {
                     results.push({
+                        id: page.id || page.title,
                         section: page.title,
                         link: {
                             title: section.title,
@@ -84,6 +85,7 @@ export class NavigationBarSearchComponent {
             });
             if (showCategory) {
                 results.push({
+                    id: page.id || page.title,
                     section: page.title,
                     link: {
                         title: category.title,
@@ -189,7 +191,7 @@ export class NavigationBarSearchComponent {
     navigate(item: ISearchResult) {
 
         // navigate to a selected item
-        this.router.navigate([item.section.toLowerCase(), item.link.link], { fragment: item.link.fragment });
+        this.router.navigate([item.id.toLowerCase(), item.link.link], { fragment: item.link.fragment });
 
         // hide the search once selected
         this.hideSearch();

@@ -221,7 +221,6 @@ var docsConfig = {
             }
         }),
 
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ],
 
     stats: {
