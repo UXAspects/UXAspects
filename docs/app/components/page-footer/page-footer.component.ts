@@ -30,7 +30,6 @@ export class PageFooterComponent {
         // extract specific data from the footer
         this.columns = footerData.columns;
         this.logo = footerData.logo;
-        this.title = footerData.logoTitle;
         this.copyright = footerData.copyright;
         this.feedback = footerData.feedback;
     }
