@@ -79,8 +79,16 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
         // Check if no section matched, this means that the document is scrolled at or near the top.
         if (activeSection === null) {
 
+            // find all currently visible sections
+            let sections = this.category.sections.filter(section => this.versionService.isSectionVersionMatch(section));
+
+            // ensure there is at least one match
+            if (sections.length === 0) {
+                sections = this.category.sections;
+            }
+
             // Make the first section active.
-            activeSection = this.category.sections[0];
+            activeSection = sections[0];
 
             // To prevent initially navigating to the first section and hiding the banner, this flag
             // indicates that the URL should only be updated if it already has a fragment.

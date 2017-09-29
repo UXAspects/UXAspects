@@ -1,0 +1,61 @@
+<tree-root [nodes]="nodes">
+    <ng-template #treeNodeTemplate let-node let-index="index">
+        <span class="hpe-icon m-r-xxs" [class.hpe-folder]="node.hasChildren && !node.isExpanded" [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
+            [class.hpe-document]="!node.hasChildren"></span>
+        <span>{{ node.data.name }}</span>
+    </ng-template>
+</tree-root>
+
+<hr>
+
+<p>
+    The Tree View component can be created by using the <code>tree-root</code> tag. It allows tree content to be displayed
+    in a familiar Explorer-like format. The component is highly extensible and supports the following features:
+</p>
+
+<ul>
+    <li>Custom Templates</li>
+    <li>Drag &amp; Drop</li>
+    <li>Filtering</li>
+    <li>Lazy Loading</li>
+    <li>Virtual Scrolling</li>
+</ul>
+
+<p>
+    The data to be displayed in the Tree View should be set by using the <code>nodes</code> input on the component. Each
+    node should have a <code>name</code> property which will define the text displayed in the node.
+</p>
+
+<p>
+    A node may have child nodes by adding a <code>children</code> property to the node object. Additional custom properties
+    can also be added to a node object, for example an <code>id</code>.
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appSnippetHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appSnippetTs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+
+    <p class="m-b-nil">
+        <b>Dependencies: </b>
+        <a class="hyperlink" href="https://github.com/500tech/angular-tree-component">angular-tree-component</a>
+    </p>
+
+    <p class="m-b-nil">
+        <b>Modules: </b>
+        <span>TreeModule</span>
+    </p>
+
+
+    <p class="m-b-nil">
+        <b>Documentation: </b>
+        <a class="hyperlink" href="https://angular2-tree.readme.io/docs/">Angular Component Documentation</a>
+    </p>
+</blockquote>

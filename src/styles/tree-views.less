@@ -1,76 +1,199 @@
+@import '~angular-tree-component/dist/angular-tree-component.css';
+
 .treegrid {
+    .treegrid-expand-header {
+        margin-left: 58px;
 
-  .treegrid-expand-header {
-    margin-left: 58px;
-    &.has-checkbox {
-        margin-left: 0;
+        &.has-checkbox {
+            margin-left: 0;
+        }
     }
-  }
 
-  .treegrid-header-checkbox {
-    margin-left: 31px;
-  }
+    .treegrid-header-checkbox {
+        margin-left: 31px;
+    }
 
-  .treegrid-indent {
-    display: inline-block;
-    &.treegrid-level-0 {
-      width: 0;
-    }
-    &.treegrid-level-1 {
-      width: 25px;
-    }
-    &.treegrid-level-2 {
-      width: 50px;
-    }
-    &.treegrid-level-3 {
-      width: 75px;
-    }
-    &.treegrid-level-4 {
-      width: 100px;
-    }
-    &.treegrid-level-5 {
-      width: 125px;
-    }
-  }
+    .treegrid-indent {
+        display: inline-block;
 
-  .treegrid-expand {
-    display: inline-block;
-    min-width: 20px;
-    text-align: center;
-    margin-left: 2px;
-    margin-right: 3px;
+        &.treegrid-level-0 {
+            width: 0;
+        }
 
-    .treegrid-expand-toggle {
-      cursor: pointer;
-      opacity: 0.5;
-      &:hover {
-        opacity: 1; 
-      }
+        &.treegrid-level-1 {
+            width: 25px;
+        }
+
+        &.treegrid-level-2 {
+            width: 50px;
+        }
+
+        &.treegrid-level-3 {
+            width: 75px;
+        }
+
+        &.treegrid-level-4 {
+            width: 100px;
+        }
+
+        &.treegrid-level-5 {
+            width: 125px;
+        }
     }
-  }
 
-  .treegrid-checkbox {
-    margin-right: 5px;
-    
-    .treegrid-multiple-select-checkbox {
-      margin: 0;
+    .treegrid-expand {
+        display: inline-block;
+        min-width: 20px;
+        text-align: center;
+        margin-left: 2px;
+        margin-right: 3px;
 
-      .el-checkbox-content {
-        margin: 0;
-      }
+        .treegrid-expand-toggle {
+            cursor: pointer;
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
     }
-  }
 
-  .treegrid-icon {
-    display: inline-block;
-    min-width: 20px;
-    text-align: center;
-    margin-right: 5px;
-  }
+    .treegrid-checkbox {
+        margin-right: 5px;
 
+        .treegrid-multiple-select-checkbox {
+            margin: 0;
+
+            .el-checkbox-content {
+                margin: 0;
+            }
+        }
+    }
+
+    .treegrid-icon {
+        display: inline-block;
+        min-width: 20px;
+        text-align: center;
+        margin-right: 5px;
+    }
 }
 
 .treegrid-loading {
-  text-align: center;
-  margin-bottom: 15px;
+    text-align: center;
+    margin-bottom: 15px;
 }
+
+// Angular Tree Component Styling - Third Party Component
+tree-root {
+    tree-viewport {
+        height: auto;
+    }
+}
+
+.angular-tree-component {
+    .tree-node {
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    // Node Content Outline
+    .node-wrapper {
+        position: relative;
+
+        .node-content-wrapper {
+            width: 100%;
+            background-color: transparent;
+            box-shadow: none;
+            border-radius: 0;
+
+            &:hover {
+                background-color: #f0f0f0;
+            }
+
+            &.node-content-wrapper-active,
+            &.node-content-wrapper-focused {
+                background-color: #e7f1f9;
+            }
+        }
+    }
+
+    // Expand/Collapse Arrow
+    tree-node-expander {
+        .toggle-children-wrapper {
+            .toggle-children {
+                background-image: none;
+                font-family: 'hpe-icons';
+                opacity: 0.5;
+                font-size: 12px;
+                width: 11px;
+                height: 17px;
+
+                &:before {
+                    content: "\F1BD";
+                }
+            }
+        }
+    }
+}
+
+// .angular-tree-component {
+//     .tree-node {
+//         &:hover {
+//             background-color: transparent;
+//         }
+
+//         ux-checkbox {
+//             .ux-checkbox-content {
+//                 display: none;
+//             }
+//         }
+//     }
+// }
+
+// .toggle-children-wrapper {
+//     padding: 0 0 0 4px;
+
+//     .toggle-children {
+//         background-image: none;
+//         font-family: 'hpe-icons';
+//         opacity: 0.5;
+//         font-size: 12px;
+//         width: 11px;
+//         height: 17px;
+//         vertical-align: text-top;
+
+//         &:before {
+//             content: "\F1BD";
+//         }
+//     }
+
+//     &.toggle-children-wrapper-expanded {
+//         .toggle-children {
+//             transform: none;
+
+//             &:before {
+//                 content: "\F176";
+//             }
+//         }
+//     }
+// }
+
+// .toggle-children-placeholder {
+//     width: 11px;
+//     height: 17px;
+//     padding-right: 4px;
+//     box-sizing: content-box;
+// }
+
+// .node-content-wrapper {
+//     &.node-content-wrapper-active,
+//     &.node-content-wrapper-focused,
+//     &.node-content-wrapper-active.node-content-wrapper-focused {
+//         background-color: #e7f1f9;
+
+//         &:hover {
+//             background-color: #e7f1f9;
+//         }
+//     }
+// }
