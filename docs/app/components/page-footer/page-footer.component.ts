@@ -4,6 +4,7 @@ import { ILink } from '../../interfaces/ILink';
 import { IFooterColumn } from '../../interfaces/IFooterColumn';
 import { IFooter } from '../../interfaces/IFooter';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
+import { ILogo } from '../../interfaces/ILogo';
 
 @Component({
     selector: 'uxd-page-footer',
@@ -13,7 +14,7 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
 export class PageFooterComponent {
     
     copyright: string;
-    logo: string;
+    logo: ILogo;
     columns: IFooterColumn[];
     feedback: ILink;
     year: number;
@@ -29,7 +30,6 @@ export class PageFooterComponent {
         // extract specific data from the footer
         this.columns = footerData.columns;
         this.logo = footerData.logo;
-        this.title = footerData.logoTitle;
         this.copyright = footerData.copyright;
         this.feedback = footerData.feedback;
     }
