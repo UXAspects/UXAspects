@@ -219,8 +219,7 @@ var docsConfig = {
             'process.env': {
                 'ENV': '"development"'
             }
-        }),
-
+        })
     ],
 
     stats: {
