@@ -28,6 +28,8 @@ const FOOTER_OFFSET = 162;
 export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() navigation: IDocumentationPage;
+    @Input() angularJsButtonClass: string = 'button-toggle-primary';
+    @Input() angularButtonClass: string = 'button-toggle-accent';
 
     @ViewChild('container') container: ElementRef;
 
