@@ -1,11 +1,13 @@
 <div class="side-navigation-container" #container>
     <div class="side-navigation" [style.width.px]="width" [style.height.px]="height" [style.top.px]="top">
          <div class="btn-group version-toggle p-b-sm">
-            <button type="button" class="btn button-toggle-primary"
+            <button type="button" class="btn"
+                [ngClass]="angularButtonClass"
                 [ngModel]="versionService.version | async"
                 (ngModelChange)="versionService.setVersion($event)"
                 [btnRadio]="Version.AngularJS">AngularJS</button>
-            <button type="button" class="btn button-toggle-accent primary-override"
+            <button type="button" class="btn"
+                [ngClass]="angularButtonClass"
                 [ngModel]="versionService.version | async"
                 (ngModelChange)="versionService.setVersion($event)"
                 [btnRadio]="Version.Angular">Angular 4</button>
