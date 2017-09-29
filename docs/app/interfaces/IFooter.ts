@@ -7,5 +7,4 @@ export interface IFooter {
     copyright: string;
     logo: ILogo;
     feedback: ILink;
-    logoTitle: string;
 }
