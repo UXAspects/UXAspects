@@ -1,4 +1,5 @@
 var path = require('path');
+var process = require('process');
 var configLoader = require('load-grunt-config');
 
 module.exports = function (grunt) {
@@ -22,9 +23,9 @@ module.exports = function (grunt) {
     grunt.registerTask('cleanup', ['clean:library', 'clean:documentation', 'clean:ng1', 'clean:styles', 'clean:fonts', 'clean:images', 'clean:less', 'clean:licenses']);
     grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'jshint:ng1', 'stylelint:components']);
     grunt.registerTask('library', ['clean:library', 'webpack:library', 'webpack:ng1']);
-    grunt.registerTask('styles', ['clean:styles', 'execute:less']);
+    grunt.registerTask('styles', ['clean:styles', 'less:styles']);
     grunt.registerTask('scripts', ['execute:iconset']);
-    grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:ng1', 'copy:styles']);
+    grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:ng1', 'copy:styles', 'copy:less', 'execute:inline-component-less']);
     grunt.registerTask('iconset', ['webfont:iconset']);
     grunt.registerTask('minify', ['uglify:ng1', 'cssmin:styles']);
     grunt.registerTask('licenses', ['execute:licenses', 'usebanner:ng1']);

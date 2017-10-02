@@ -1,4 +1,5 @@
 const path = require('path');
+const process = require('process');
 
 module.exports = {
     fonts: {
@@ -11,6 +12,12 @@ module.exports = {
         cwd: path.join(process.cwd(), 'src', 'img'),
         src: '**',
         dest: path.join(process.cwd(), 'dist', 'img'),
+        expand: true
+    },
+    less: {
+        cwd: path.join(process.cwd(), 'src', 'styles'),
+        src: '**',
+        dest: path.join(process.cwd(), 'dist', 'less'),
         expand: true
     },
     ng1: {

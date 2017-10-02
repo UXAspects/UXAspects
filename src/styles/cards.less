@@ -179,7 +179,7 @@
     }
 
     .card-icon {
-      background: url('../img/page.png') no-repeat;
+      background: @card-icon-bg;
       width: 24px;
       height: 28px;
       background-size: contain;
@@ -231,7 +231,7 @@
 
       &:before {
         position: absolute;
-        background: url("../img/blue_checkboxes.png") no-repeat;
+        background: @img-checkbox-sprites no-repeat;
         background-position: -120px 0;
         height: 22px;
         width: 22px;
@@ -712,15 +712,15 @@
         }
 
         .arrow-up {
-          background-image: url('../img/uparrow.png') !important;
+          background-image: @img-arrow-up-light !important;
         }
 
         .arrow-down {
-          background-image: url('../img/downarrow.png') !important;
+          background-image: @img-arrow-down-light !important;
         }
 
         .drag-handle {
-          background-image: url('../img/draghandle.png') !important;
+          background-image: @img-drag-handle-vertical-white !important;
         }
 
         &.draggable {
@@ -997,7 +997,7 @@
               transform: translateY(-50%);
 
               .arrow-up {
-                background-image: url('../img/uparrow-dark.png');
+                background-image: @card-controls-arrow-up;
                 width: 14px;
                 height: 13px;
                 background-repeat: no-repeat;
@@ -1007,7 +1007,7 @@
               }
 
               .drag-handle {
-                background-image: url('../img/draghandle-dark.png');
+                background-image: @card-controls-drag-handler;
                 width: 14px;
                 height: 24px;
                 background-repeat: no-repeat;
@@ -1018,7 +1018,7 @@
               }
 
               .arrow-down {
-                background-image: url('../img/downarrow-dark.png');
+                background-image: @card-controls-arrow-down;
                 width: 14px;
                 height: 13px;
                 background-repeat: no-repeat;
