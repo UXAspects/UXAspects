@@ -1,5 +1,5 @@
 module.exports = {
-    library: 'dist/lib',
+    library: ['dist/@ux-aspects', 'dist/bundles', 'dist/components', 'dist/directives', 'dist/pipes', 'dist/services', 'dist/index.d.ts', 'dist/package.json', 'dist/ux-aspects.d.ts', 'dist/ux-aspects.metadata.json'],
     documentation: 'dist/docs',
     ng1: 'dist/ng1',
     styles: 'dist/styles',

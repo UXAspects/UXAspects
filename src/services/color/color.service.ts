@@ -12,9 +12,9 @@ export class ColorService {
     private _html: string;
     private _element: HTMLElement;
     private _colors: ThemeColors;
-    private _colorSet: any  = colorSets.keppel;
+    private _colorSet: any = colorSets.keppel;
 
-    constructor(@Inject(DOCUMENT) document: any) {
+    constructor( @Inject(DOCUMENT) document: any) {
         if (this._colorSet.colorClassSet) {
             this._setColors();
         } else {
@@ -54,7 +54,7 @@ export class ColorService {
         let g = parseInt(hex.substring(2, 4), 16).toString();
         let b = parseInt(hex.substring(4, 6), 16).toString();
 
-        return new ThemeColor(r, g, b, '1');      
+        return new ThemeColor(r, g, b, '1');
     }
 
     private getColorValue(color: ColorIdentifier): ThemeColor {
@@ -202,8 +202,124 @@ export class ThemeColor {
 }
 
 export const colorSets = {
-    keppel: require('../../data/keppel-colors.json'),
-    microFocus: require('../../data/micro-focus-colors.json')
+    keppel: {
+        colorClassSet: {
+            'primary': 'primary',
+            'accent': 'accent',
+            'secondary': 'secondary',
+            'alternate1': 'alternate1',
+            'alternate2': 'alternate2',
+            'alternate3': 'alternate3',
+            'vibrant1': 'vibrant1',
+            'vibrant2': 'vibrant2',
+            'grey1': 'grey1',
+            'grey2': 'grey2',
+            'grey3': 'grey3',
+            'grey4': 'grey4',
+            'grey5': 'grey5',
+            'grey6': 'grey6',
+            'grey7': 'grey7',
+            'grey8': 'grey8',
+            'chart1': 'chart1',
+            'chart2': 'chart2',
+            'chart3': 'chart3',
+            'chart4': 'chart4',
+            'chart5': 'chart5',
+            'chart6': 'chart6',
+            'ok': 'ok',
+            'warning': 'warning',
+            'critical': 'critical',
+            'partition1': 'partition1',
+            'partition9': 'partition9',
+            'partition10': 'partition10',
+            'partition11': 'partition11',
+            'partition12': 'partition12',
+            'partition13': 'partition13',
+            'partition14': 'partition14',
+            'social-chart-node': 'social-chart-node',
+            'social-chart-edge': 'social-chart-edge'
+        }
+    },
+    microFocus: {
+        'colorValueSet': {
+            'cerulean': '#1668c1',
+            'aqua': '#29ceff',
+            'aquamarine': '#2fd6c3',
+            'fuchsia': '#c6179d',
+            'indigo': '#7425ad',
+            'dark-blue': '#231ca5',
+            'white': '#ffffff',
+            'slightly-gray': '#f5f7f8',
+            'bright-gray': '#f1f2f3',
+            'gray': '#dcdedf',
+            'silver': '#bdbec0',
+            'dim-gray': '#656668',
+            'dark-gray': '#323435',
+            'black': '#000000',
+            'crimson-negative': '#e5004c',
+            'apricot': '#f48b34',
+            'yellow': '#fcdb1f',
+            'green-positive': '#1aac60',
+            'ultramarine': '#3939c6',
+            'skyblue': '#00abf3',
+            'pale-aqua': '#43e4ff',
+            'pale-green': '#1ffbba',
+            'lime': '#75da4d',
+            'orange': '#ffce00',
+            'magenta': '#eb23c2',
+            'pale-purple': '#ba47e2',
+            'dark-ultramarine': '#271782',
+            'steelblue': '#014272',
+            'arctic-blue': '#0b8eac',
+            'emerald': '#00a989',
+            'olive': '#5bba36',
+            'goldenrod': '#ffb000',
+            'purple': '#9b1e83',
+            'pale-eggplant': '#5216ac',
+            'red': '#ff454f',
+            'pale-amber': '#ffb24d',
+            'pale-lemon': '#fde159',
+            'pale-emerald': '#33c180',
+            'plum': '#b21646',
+            'copper': '#e57828',
+            'amber': '#ffc002',
+            'leaf-green': '#118c4f',
+            'primary': '#0073e7',
+            'accent': '#7425ad',
+            'secondary': '#ffffff',
+            'alternate1': '#29ceff',
+            'alternate2': '#2fd6c3',
+            'alternate3': '#c6179d',
+            'vibrant1': '#43e4ff',
+            'vibrant2': '#ffce00',
+            'grey1': '#000000',
+            'grey2': '#323435',
+            'grey3': '#656668',
+            'grey4': '#bdbec0',
+            'grey5': '#dcdedf',
+            'grey6': '#f1f2f3',
+            'grey7': '#f5f7f8',
+            'grey8': '#ffffff',
+            'chart1': '#3939c6',
+            'chart2': '#00abf3',
+            'chart3': '#75da4d',
+            'chart4': '#ffce00',
+            'chart5': '#eb23c2',
+            'chart6': '#ba47e2',
+            'ok': '#1aac60',
+            'warning': '#f48b34',
+            'critical': 'e5004c',
+            'partition1': '#7425ad',
+            'partition9': '#5216ac',
+            'partition10': '#5bba36',
+            'partition11': '#014272',
+            'partition12': '#ffb000',
+            'partition13': '#bdbec0',
+            'partition14': '#271782',
+            'social-chart-node': '#ff00ff',
+            'social-chart-edge': '#ff00ff'
+        }
+    }
 };
 
 export interface ThemeColors {

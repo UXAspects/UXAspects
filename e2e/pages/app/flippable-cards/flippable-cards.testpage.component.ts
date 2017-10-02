@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColorService } from '../../../../dist/lib/index.js';
+import { ColorService } from '../../../../dist';
 
 @Component({
     selector: 'flippable-cards-app',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColorService, DashboardOptions } from '../../../../dist/lib/index.js';
+import { ColorService, DashboardOptions } from '../../../../dist';
 import 'chance';
 
 @Component({

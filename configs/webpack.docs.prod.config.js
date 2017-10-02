@@ -186,7 +186,7 @@ module.exports = {
         }]),
 
         new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist', 'lib'),
+            from: path.join(process.cwd(), 'dist'),
             to: path.join(process.cwd(), 'dist', 'docs', 'assets', 'lib')
         }]),
 

@@ -1,4 +1,4 @@
-import { ColorService, ItemDisplayPanelComponent } from '../../../../dist/lib/index.js';
+import { ColorService, ItemDisplayPanelComponent } from '../../../../dist';
 import { Component } from '@angular/core';
 import 'chance';
 
