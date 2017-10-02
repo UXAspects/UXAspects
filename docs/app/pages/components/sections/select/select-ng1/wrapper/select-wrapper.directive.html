@@ -12,11 +12,9 @@
     <div class="col-sm-6 col-xs-12">
         <div class="form-group m-nil">
             <h4>Multiple Select</h4>
-            <div>
-                <dynamic-select multiple ng-model="vm.multipleSelectLocations" source="vm.locationObjects" select-as="country" track-by="id"
-                    options="vm.multipleSelectOptions" ng-disabled="vm.disabled">
-                </dynamic-select>
-            </div>
+            <dynamic-select multiple ng-model="vm.multipleSelectLocations" source="vm.locationObjects" select-as="country" track-by="id"
+                options="vm.multipleSelectOptions" ng-disabled="vm.disabled">
+            </dynamic-select>
         </div>
         <p class="m-t">
             Selected locations:
@@ -38,11 +36,9 @@
     <div class="col-sm-6 col-xs-12">
         <div class="form-group m-nil">
             <h4>Multiple Select with Paging</h4>
-            <div>
-                <dynamic-select multiple ng-model="vm.multipleSelectPagingLocations" source="vm.locationObjectPageFn" select-as="country"
-                    track-by="id" options="vm.multipleSelectOptions" ng-disabled="vm.disabled">
-                </dynamic-select>
-            </div>
+            <dynamic-select multiple ng-model="vm.multipleSelectPagingLocations" source="vm.locationObjectPageFn" select-as="country"
+                track-by="id" options="vm.multipleSelectOptions" ng-disabled="vm.disabled">
+            </dynamic-select>
         </div>
         <p class="m-t">
             Selected locations:
