@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/UXAspects/UXAspects"
   },
-  "main": "dist@ux-aspects/ux-aspects.es5.js",
+  "main": "dist/@ux-aspects/ux-aspects.es5.js",
   "moduleType": "globals",
   "dependencies": {
     "jquery": "~2.1.0",
