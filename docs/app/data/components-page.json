@@ -1008,13 +1008,14 @@
                     "component": "ComponentsLayoutSwitchingComponent",
                     "version": "Angular",
                     "usage": [{
-                        "title": "Selectors",
-                        "content": "[uxLayoutSwitcher], [uxLayoutSwitcherItem]"
-                    },
-                    {
-                        "title": "Module name",
-                        "content": "LayoutSwitcherModule"
-                    }]
+                            "title": "Selectors",
+                            "content": "[uxLayoutSwitcher], [uxLayoutSwitcherItem]"
+                        },
+                        {
+                            "title": "Module name",
+                            "content": "LayoutSwitcherModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Layout Switching",
@@ -1044,13 +1045,14 @@
                     "component": "ComponentsHoverActionsComponent",
                     "version": "Angular",
                     "usage": [{
-                        "title": "Selectors",
-                        "content": "[uxHoverActionContainer], [uxHoverAction]"
-                    },
-                    {
-                        "title": "Module name",
-                        "content": "HoverActionModule"
-                    }]
+                            "title": "Selectors",
+                            "content": "[uxHoverActionContainer], [uxHoverAction]"
+                        },
+                        {
+                            "title": "Module name",
+                            "content": "HoverActionModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Preview Pane",
@@ -1182,12 +1184,50 @@
             "sections": [{
                     "title": "Tree View",
                     "component": "ComponentsTreeViewNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Tree View with Companion View",
                     "component": "ComponentsTreeViewCompanionViewNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Tree View",
+                    "component": "ComponentsTreeViewComponent",
+                    "version": "Angular",
+                    "externalUrl": "https://angular2-tree.readme.io/docs",
+                    "usage": [{
+                            "title": "Selector",
+                            "content": "tree-root"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TreeModule"
+                        }, {
+                            "title": "Library",
+                            "content": "angular-tree-component"
+                        }
+                    ]
+                },
+                {
+                    "title": "Tree View - Custom Nodes",
+                    "component": "ComponentsTreeViewCustomNodeComponent",
+                    "externalUrl": "https://angular2-tree.readme.io/docs",
+                    "version": "Angular",
+                    "usage": [{
+                            "title": "Selector",
+                            "content": "tree-root"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TreeModule"
+                        }, {
+                            "title": "Library",
+                            "content": "angular-tree-component"
+                        }
+                    ]
                 },
                 {
                     "title": "Tree Grid",
@@ -1232,10 +1272,9 @@
                     "component": "ComponentsColorServiceComponent",
                     "version": "Angular",
                     "usage": [{
-                            "title": "Module",
-                            "content": "ColorServiceModule"
-                        }
-                    ]
+                        "title": "Module",
+                        "content": "ColorServiceModule"
+                    }]
                 },
                 {
                     "title": "Color Service",
