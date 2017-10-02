@@ -5,7 +5,8 @@ import { TreeModel, TreeNode, TreeComponent } from 'angular-tree-component';
 
 @Component({
     selector: 'uxd-components-tree-view',
-    templateUrl: './tree-view.component.html'
+    templateUrl: './tree-view.component.html',
+    styleUrls: ['./tree-view.component.less']
 })
 @DocumentationSectionComponent('ComponentsTreeViewComponent')
 export class ComponentsTreeViewComponent extends BaseDocumentationSection {

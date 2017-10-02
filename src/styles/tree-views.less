@@ -84,12 +84,6 @@
 }
 
 // Angular Tree Component Styling - Third Party Component
-tree-root {
-    tree-viewport {
-        height: auto;
-    }
-}
-
 .angular-tree-component {
     .tree-node {
         &:hover {
@@ -98,23 +92,19 @@ tree-root {
     }
 
     // Node Content Outline
-    .node-wrapper {
-        position: relative;
+    .node-content-wrapper {
+        width: 100%;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
 
-        .node-content-wrapper {
-            width: 100%;
-            background-color: transparent;
-            box-shadow: none;
-            border-radius: 0;
+        &:hover {
+            background-color: @treeview-hover-bg;
+        }
 
-            &:hover {
-                background-color: #f0f0f0;
-            }
-
-            &.node-content-wrapper-active,
-            &.node-content-wrapper-focused {
-                background-color: #e7f1f9;
-            }
+        &.node-content-wrapper-active,
+        &.node-content-wrapper-focused {
+            background-color: @shift-select-selected-light;
         }
     }
 
@@ -136,64 +126,3 @@ tree-root {
         }
     }
 }
-
-// .angular-tree-component {
-//     .tree-node {
-//         &:hover {
-//             background-color: transparent;
-//         }
-
-//         ux-checkbox {
-//             .ux-checkbox-content {
-//                 display: none;
-//             }
-//         }
-//     }
-// }
-
-// .toggle-children-wrapper {
-//     padding: 0 0 0 4px;
-
-//     .toggle-children {
-//         background-image: none;
-//         font-family: 'hpe-icons';
-//         opacity: 0.5;
-//         font-size: 12px;
-//         width: 11px;
-//         height: 17px;
-//         vertical-align: text-top;
-
-//         &:before {
-//             content: "\F1BD";
-//         }
-//     }
-
-//     &.toggle-children-wrapper-expanded {
-//         .toggle-children {
-//             transform: none;
-
-//             &:before {
-//                 content: "\F176";
-//             }
-//         }
-//     }
-// }
-
-// .toggle-children-placeholder {
-//     width: 11px;
-//     height: 17px;
-//     padding-right: 4px;
-//     box-sizing: content-box;
-// }
-
-// .node-content-wrapper {
-//     &.node-content-wrapper-active,
-//     &.node-content-wrapper-focused,
-//     &.node-content-wrapper-active.node-content-wrapper-focused {
-//         background-color: #e7f1f9;
-
-//         &:hover {
-//             background-color: #e7f1f9;
-//         }
-//     }
-// }

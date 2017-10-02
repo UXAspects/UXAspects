@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { TreeModel, TreeNode, TreeComponent } from 'angular-tree-component';
-import { TreeViewService } from './tree-view-custom-node.service';
+import { TreeViewService } from './service.ts';
 
 @Component({
-    selector: 'uxd-components-tree-view-custom-node',
-    templateUrl: './tree-view-custom-node.component.html',
-    styleUrls: ['./tree-view-custom-node.component.less']
+    selector: 'app',
+    templateUrl: './src/app.html',
+    styleUrls: ['./src/app.css']
 })
-@DocumentationSectionComponent('ComponentsTreeViewCustomNodeComponent')
-export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSection {
+export class AppComponent {
 
     nodes: TreeViewExampleNode[] = [
         {
@@ -29,9 +26,7 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
         getChildren: (node: TreeNode) => node.data.source ? node.data.source() : [],
     };
 
-    constructor(private _treeViewService: TreeViewService) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
+    constructor(private _treeViewService: TreeViewService) { }
 
     /**
      * When a node is checked the state of it's children should be updated (if there are any)

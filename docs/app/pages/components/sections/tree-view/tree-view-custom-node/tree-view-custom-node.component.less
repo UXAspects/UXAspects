@@ -1,3 +1,8 @@
-.tree-view-container {
-    height: 550px;
+:host {
+     ::ng-deep {
+        tree-root tree-viewport {
+            height: auto;
+            max-height: 550px;
+        }
+    }
 }

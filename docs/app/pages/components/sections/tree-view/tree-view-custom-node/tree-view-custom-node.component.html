@@ -1,38 +1,94 @@
-<div class="tree-view-container">
+<tree-root #tree [nodes]="nodes" [options]="options" (loadNodeChildren)="onChildrenLoaded($event.node)">
 
-    <tree-root #tree [nodes]="nodes" [options]="options" (loadNodeChildren)="onChildrenLoaded($event.node)">
-    
-        <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
-    
-            <div class="tree-node">
-    
-                <ux-checkbox [value]="node.data.checked" (valueChange)="setChecked(node, $event)"
-                     [indeterminateValue]="-1"></ux-checkbox>
-    
+    <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+
+        <div class="tree-node">
+
+            <div class="node-wrapper">
+
+                <ux-checkbox [value]="node.data.checked" (valueChange)="setChecked(node, $event)" [indeterminateValue]="-1"></ux-checkbox>
+
                 <tree-node-expander [node]="node"></tree-node-expander>
-    
+
                 <div class="node-content-wrapper" [class.node-content-wrapper-active]="node.data.checked" [class.node-content-wrapper-focused]="node.data.checked"
                     (click)="setChecked(node, !node.data.checked)">
-    
+
                     <span class="hpe-icon" [class.hpe-folder]="node.hasChildren && !node.isExpanded" [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
                         [class.hpe-document]="!node.hasChildren"></span>
                     <span [class.title]="true">{{ node.data.name }}</span>
-    
+
                 </div>
-    
-                <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+
             </div>
-    
-        </ng-template>
-    
-        <ng-template #loadingTemplate>
-            <div class="spinner spinner-accent spinner-bounce-middle"></div>
-        </ng-template>
-    </tree-root>
-    
-</div>
+
+            <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+        </div>
+
+    </ng-template>
+
+    <ng-template #loadingTemplate>
+        <div class="spinner spinner-accent spinner-bounce-middle"></div>
+    </ng-template>
+</tree-root>
 
 <hr>
 
 <button class="btn button-primary" (click)="tree.treeModel.expandAll()">Expand All Nodes</button>
 <button class="btn button-primary" (click)="tree.treeModel.collapseAll()">Collapse All Nodes</button>
+
+<hr>
+
+<p>
+    The tree view component supports custom templates which can be used to further enhance its capabilities. One example of this
+    is to add checkboxes to nodes making it possible to select multiple nodes, or even select/deselect an entire subtree.
+</p>
+
+<p>
+    The example above also shows how it is possible to lazy load child nodes only when the user expands the parent node.
+</p>
+
+<p>
+    The tree view also exposes a <code>treeModel</code> object which provides functions to allow programmatic selection,
+    expanding and contracting of nodes.
+</p>
+
+<p>
+    The example above can be created using the following sample code:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appSnippetHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appSnippetTs"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appSnippetCss"></uxd-snippet>
+    </tab>
+
+    <tab heading="Service">
+        <uxd-snippet [content]="snippets.compiled.serviceSnippetTs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+    
+    <p class="m-b-nil">
+        <b>Dependencies: </b>
+        <a class="hyperlink" href="https://github.com/500tech/angular-tree-component">angular-tree-component</a>
+    </p>
+
+    <p class="m-b-nil">
+        <b>Modules: </b>
+        <span>TreeModule</span>
+    </p>
+
+
+    <p class="m-b-nil">
+        <b>Documentation: </b>
+        <a class="hyperlink" href="https://angular2-tree.readme.io/docs/">Angular Component Documentation</a>
+    </p>
+</blockquote>
