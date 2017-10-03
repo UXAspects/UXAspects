@@ -131,13 +131,13 @@ table {
 .dataTable {
   thead {
     .sorting_asc {
-      background: url('../img/sort_asc.png') no-repeat center right;
+      background: @img-sort-asc no-repeat center right;
     }
     .sorting_desc {
-      background: url('../img/sort_desc.png') no-repeat center right;
+      background: @img-sort-desc no-repeat center right;
     }
     .sorting {
-      background: url('../img/sort.png') no-repeat center right;
+      background: @img-sort no-repeat center right;
     }
   }
 }
@@ -463,7 +463,7 @@ table {
     
     &:before {
       position: absolute;
-      background: url(../img/blue_checkboxes.png) no-repeat;
+      background: @img-checkbox-sprites no-repeat;
       background-position: 0px 0;
       height: 22px;
       width: 22px;
@@ -632,7 +632,7 @@ table {
 }
 
 .listview-page-icon {
-    background: url('../img/page.png') no-repeat;
+    background: @img-icon-page no-repeat;
     width: 20px;
     height: 23px;
     background-size: contain;

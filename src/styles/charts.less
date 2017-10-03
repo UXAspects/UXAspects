@@ -611,7 +611,7 @@
         }
 
         .icon {
-          background-image: url('../img/check.png');
+          background-image: @img-check;
           background-repeat: no-repeat;
           background-size: contain;
           width: 16px;
@@ -700,7 +700,7 @@
           .up-icon {
             position: absolute;
             cursor: pointer;
-            background-image: url('../img/uparrow.png');
+            background-image: @img-arrow-up-light;
             left: ~'calc(50% - 6px)';
             top: ~'calc(50% - 26px)';
             width: 10px;
@@ -718,7 +718,7 @@
           .down-icon {
             position: absolute;
             cursor: pointer;
-            background-image: url('../img/downarrow.png');
+            background-image: @img-arrow-down-light;
             left: ~'calc(50% - 6px)';
             bottom: ~'calc(50% - 28px)';;
             width: 10px;
@@ -735,7 +735,7 @@
 
           .icon {
             position: relative;
-            background-image: url('../img/draghandle.png');
+            background-image: @img-drag-handle-vertical-white;
             width: 14px;
             height: 18px;
             background-repeat: no-repeat;
@@ -760,7 +760,7 @@
 
           .icon {
             position: relative;
-            background-image: url('../img/close-white.png');
+            background-image: @img-close-light;
             width: 14px;
             height: 14px;
             background-repeat: no-repeat;
@@ -895,7 +895,7 @@
       }
 
       .icon {
-        background-image: url("../img/close-white.png");
+        background-image: @img-close-light;
         width: 12px;
         height: 12px;
         display: inline-block;
@@ -1126,7 +1126,7 @@
 }
 
 .partition-fullscreen-icon {
-  background-image: url("../img/fullscreen.png");
+  background-image: @img-fullscreen-enter;
   width: 18px;
   height: 18px;
   display: inline-block;
@@ -1136,7 +1136,7 @@
 }
 
 .partition-close-icon {
-  background-image: url("../img/fullscreen-exit.png");
+  background-image: @img-fullscreen-exit;
   width: 18px;
   height: 18px;
   display: inline-block;
@@ -1344,7 +1344,7 @@
 
 .sigma-panel-close-icon {
   z-index: 1;
-  background-image: url("../img/close-white.png");
+  background-image: @img-close-light;
   width: 12px;
   height: 12px;
   display: inline-block;

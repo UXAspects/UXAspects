@@ -1,4 +1,5 @@
 const path = require('path');
+const process = require('process');
 
 module.exports = {
     iconset: {
@@ -7,7 +8,7 @@ module.exports = {
     licenses: {
         src: [ path.join(process.cwd(), 'scripts', 'licenses.js') ]
     },
-    less: {
-        src: [ path.join(process.cwd(), 'scripts', 'inline-less.js') ]
+    'inline-component-less': {
+        src: [ path.join(process.cwd(), 'scripts', 'inline-component-less.js') ]
     }
 };
