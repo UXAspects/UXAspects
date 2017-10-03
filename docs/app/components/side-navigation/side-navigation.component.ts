@@ -40,10 +40,10 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
 
     private routeSubscription: Subscription;
 
-    constructor(@Inject(DOCUMENT) private document: Document,
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private navigationService: NavigationService,
+    constructor(@Inject(DOCUMENT) private _document: Document,
+        private _router: Router,
+        private _activatedRoute: ActivatedRoute,
+        private _navigationService: NavigationService,
         public versionService: VersionService) {
 
         // Subscribe to version changes in order to re-filter the sections.
@@ -54,14 +54,14 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
 
         // Set up fragment IDs
         for (let category of this.navigation.categories) {
-            this.navigationService.setSectionIds(category.sections);
+            this._navigationService.setSectionIds(category.sections);
         }
 
         // Get initial filtered content
         this.versionChanged(this.versionService.version.getValue());
 
         // Fix nav position on navigate
-        this.routeSubscription = this.router.events.subscribe((event) => {
+        this.routeSubscription = this._router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 setTimeout(this.updatePosition.bind(this), 100);
             }
@@ -78,14 +78,14 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     isActive(section: string) {
-        return (section === this.activatedRoute.snapshot.fragment);
+        return (section === this._activatedRoute.snapshot.fragment);
     }
 
     goToSection(category: string, section: string) {
-        if (this.navigationService.isFragmentActive(section)) {
-            this.navigationService.scrollToFragment(section);
+        if (this._navigationService.isFragmentActive(section)) {
+            this._navigationService.scrollToFragment(section);
         } else {
-            this.router.navigate([], { fragment: section });
+            this._router.navigate([], { fragment: section });
         }
     }
 
@@ -123,26 +123,23 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     private updatePosition() {
+
         // Adjust the top position to stick to the banner until it disappears under the header.
-        const topOffset = BANNER_OFFSET - this.document.body.scrollTop;
-        if (topOffset >= this.navigationService.getTopOffset()) {
+        const topOffset = BANNER_OFFSET - window.scrollY;
+        if (topOffset >= this._navigationService.getTopOffset()) {
             this.top = topOffset;
         } else {
-            this.top = this.navigationService.getTopOffset();
+            this.top = this._navigationService.getTopOffset();
         }
         // Find the offset for the footer
-        const scrollBottom = this.document.body.scrollTop + this.document.body.clientHeight;
-        let bottomOffset = FOOTER_OFFSET - (this.document.body.scrollHeight - scrollBottom);
+        const scrollBottom = window.scrollY + window.innerHeight;
+        let bottomOffset = FOOTER_OFFSET - (this._document.body.offsetHeight - scrollBottom);
         if (bottomOffset < 0) {
             bottomOffset = 0;
         }
-        this.height = this.document.documentElement.clientHeight - this.top - bottomOffset;
 
+        this.height = window.innerHeight - this.top - bottomOffset;
         this.width = this.container.nativeElement.offsetWidth;
 
-        // TODO: jscrollpane support
-        // if (this.scrollApi && this.scrollApi.reinitialize) {
-        //     this.scrollApi.reinitialize();
-        // }
     }
 }
