@@ -82,6 +82,12 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
 
         // Reset and reassign options when the dataset changes. Also set display and key properties.
         this.dataSet.subscribe((value) => {
+
+            // WORKAROUND to reset Enable Option Paging when user switches between string and object options. 
+            if (this.multiple.getValue() === true) {
+                this.pagingEnabled.next(false);
+            } 
+
             this.selected = null;
             this.dropdownOpen = false;
             this.options = this.pagingEnabled.getValue() ? this.loadOptionsCallback : this.selectedDataSet();
@@ -97,7 +103,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
             return { id: i, name: option };
         });
     }
-    
+
     ngOnInit() {
         this.options = this.selectedDataSet();
     }
@@ -107,8 +113,9 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
     }
 
     loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
+
         // Return a promise using setTimeout to simulate an HTTP request.
-        let promise = new Promise((resolve, reject) => {
+        let promise = new Promise<any[]>((resolve, reject) => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;
                 const newItems = this.selectedDataSet()
@@ -121,10 +128,20 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
         return promise;
     }
 
-    isFilterMatch(option: string, filter: string): boolean {
+    isFilterMatch(option: string | FilterOption, filter: string): boolean {
         if (!filter) {
             return true;
         }
-        return option.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+
+        if (typeof option === 'string') {
+            return option.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+        } else {
+            return option.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+        }
     }
+}
+
+export interface FilterOption {
+    id: string;
+    name: string;
 }
