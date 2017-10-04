@@ -161,7 +161,12 @@ export class TypeaheadComponent implements OnInit, OnChanges {
      * @param option 
      */
     getDisplayHtml(option: any) {
-        const displayText = this.getDisplay(option).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        let displayText;
+        if (typeof option === 'string') {
+            displayText = this.getDisplay(option).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        } else {
+            displayText = this.getDisplay(option.name).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
         let displayHtml = displayText;
         if (this.filter) {
             const length = this.filter.length;
