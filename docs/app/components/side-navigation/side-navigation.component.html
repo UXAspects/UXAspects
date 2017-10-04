@@ -2,7 +2,7 @@
     <div class="side-navigation" [style.width.px]="width" [style.height.px]="height" [style.top.px]="top">
          <div class="btn-group version-toggle p-b-sm">
             <button type="button" class="btn"
-                [ngClass]="angularButtonClass"
+                [ngClass]="angularJsButtonClass"
                 [ngModel]="versionService.version | async"
                 (ngModelChange)="versionService.setVersion($event)"
                 [btnRadio]="Version.AngularJS">AngularJS</button>
