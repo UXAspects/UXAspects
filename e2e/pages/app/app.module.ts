@@ -35,7 +35,7 @@ import { VirtualScrollTestPageComponent }  from './virtual-scroll/virtual-scroll
 import { CheckboxModule, ColorServiceModule, DashboardModule, FacetsModule, FilterModule, FlippableCardModule,
 InfiniteScrollModule, ItemDisplayPanelModule, NumberPickerModule, PageHeaderModule, RadioButtonModule, SelectModule,
 SliderModule, SparkModule, StringFilterModule, TagInputModule, ToggleSwitchModule, TypeaheadModule, VirtualScrollModule }
-from '../../../dist/lib/index.js';
+from '../../../dist';
 
 const ROUTES: Routes = [
   {

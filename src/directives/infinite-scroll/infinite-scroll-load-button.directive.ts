@@ -38,7 +38,7 @@ export class InfiniteScrollLoadButtonDirective {
         private _viewContainer: ViewContainerRef,
         private _renderer: Renderer2) {
 
-        this.load = this._load.asObservable();
+        this.load = this._load.asObservable() as Observable<Event>;
     }
 
     private onClick(event: MouseEvent) {
