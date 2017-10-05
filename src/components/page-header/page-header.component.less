@@ -66,7 +66,15 @@ ux-page-header {
                 transition: background-color 0.3s ease-in-out;
 
                 &:hover {
-                    background-color: rgba(0, 0, 0, 0.1);
+                    background-color: @page-header-back-button-hover-bg;
+                }
+
+                & > * {
+                    color: @page-header-back-button-color;
+
+                    &:hover {
+                        color: @page-header-back-button-hover-color;
+                    }
                 }
             }
 

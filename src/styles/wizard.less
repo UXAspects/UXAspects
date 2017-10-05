@@ -217,14 +217,22 @@ Wizard
     padding: 8px 20px;
     cursor: default;
     transition: background-color 0.3s linear;
-
-    &.active{
-      background-color: @marquee-wizard-step-active-bg;
-    }
-
+    
     &.visited:hover {
       cursor: pointer;
       background-color: @marquee-wizard-step-hover-bg;
+    }
+
+    &.active{
+      background-color: @marquee-wizard-step-active-bg;
+
+      &:hover {
+        background-color: @marquee-wizard-step-active-hover-bg;
+      }
+
+      .step-label {
+        color: @marquee-wizard-step-active-color;
+      }
     }
 
     &.error {
@@ -253,7 +261,7 @@ Wizard
       .step-complete {
         display: table-cell;
         width: 15px;
-        color: @marquee-wizard-step-color;
+        color: @marquee-wizard-step-complete-color;
       }
     }
   }

@@ -100,6 +100,11 @@
 
 @aspects-outline: @primary;
 
+// Breadcrumb
+@breadcrumb-color: fade(@text-color, 70%);
+@breadcrumb-hover-color: @primary;
+@breadcrumb-separator-color: fade(@text-color, 40%);
+
 // Buttons
 @btn-font-family: @font-family;
 @btn-font-size: 0.875rem;
@@ -650,6 +655,8 @@
 @single-select-td-color-dark: #999;
 
 // Select Table
+@select-table-highlight-bg: @table-hover-bg;
+
 @select-table-border-dark: #404040;
 @select-table-highlight-bg-dark: #404040;
 
@@ -807,9 +814,12 @@
 // Marquee Wizard Control
 @marquee-wizard-color: #999;
 @marquee-wizard-step-color: @white;
+@marquee-wizard-step-complete-color: @marquee-wizard-step-color;
 
+@marquee-wizard-step-active-color: @marquee-wizard-step-color;
 @marquee-wizard-step-active-bg: rgba(0, 0, 0, 0.2);
 @marquee-wizard-step-hover-bg: rgba(0, 0, 0, 0.2);
+@marquee-wizard-step-active-hover-bg: @marquee-wizard-step-hover-bg;
 @marquee-wizard-step-error-bg: @critical;
 
 // Marquee Modal
@@ -1247,6 +1257,10 @@
 @page-header-nav-dropdown-hover-bg: @page-header-nav-active-bg;
 @page-header-nav-dropdown-hover-color: @grey6;
 @page-header-nav-dropdown-selected-color: @white;
+
+@page-header-back-button-color: @primary;
+@page-header-back-button-hover-color: @primary;
+@page-header-back-button-hover-bg: rgba(0, 0, 0, 0.1);
 
 // Media Player
 @mediaplayer-shadow: 0 1px 1px 2px @grey6;
