@@ -123,7 +123,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     private updatePosition() {
-        
+
         // Adjust the top position to stick to the banner until it disappears under the header.
         const topOffset = BANNER_OFFSET - window.pageYOffset;
         if (topOffset >= this._navigationService.getTopOffset()) {
