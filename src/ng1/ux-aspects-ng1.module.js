@@ -130,7 +130,6 @@ import './wrappers/wrappers.module';
 
 // create the UX Aspects module
 let aspects = angular.module('ux-aspects', [
-    //'ui.router',
     'ui.bootstrap.ux-aspects',
     'ngSanitize',
     'angular-timeline',
