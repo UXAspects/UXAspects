@@ -43,7 +43,9 @@ if (!fs.existsSync(cssDistPath)) {
 less.parse(stylesheet, options, (err, ruleset, imports, options) => {
 
     // make all the import statements inline
-    let statements = ruleset.rules.filter(rule => rule.type === 'Import').map(rule => `@import (inline) "${ rule.path.value }";`).join('\n');
+    let statements = ruleset.rules.filter(rule => rule.type === 'Import')
+        .map(rule => `@import (inline) "${ resolveTildePaths(rule.path.value) }";`)
+        .join('\n');
 
     // produce the inline less file
     less.render(statements, options, (err, output) => {
@@ -63,3 +65,24 @@ less.parse(stylesheet, options, (err, ruleset, imports, options) => {
 
     });
 });
+
+/**
+ * Webpack allows the use of tilde to reference the node_modules folder
+ * however the less.js library does not. This function will allow us to
+ * continue to use the tilde to represent the node modules folder even
+ * when using less.js to compile the source.
+ * 
+ * This will allow people to import the ux-aspects.less file in their projects
+ * as if we use a relative path to node_modules this may be incorrect due
+ * to NPM flattening the folder structure.
+ */
+function resolveTildePaths(location) {
+
+    // only make changes if the path starts with a tilde otherwise it is fine as it is
+    if (location.indexOf('~') === 0) {
+        // update the path to be {package_root}/node_nodules/{path}
+        location = path.join(rootPath, 'node_modules', location.substr(1));
+    }
+
+    return location;
+}
