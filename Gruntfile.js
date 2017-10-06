@@ -21,7 +21,7 @@ module.exports = function (grunt) {
     // Register Tasks
     grunt.registerTask('cleanup', ['clean:library', 'clean:documentation', 'clean:ng1', 'clean:styles', 'clean:fonts', 'clean:images', 'clean:less', 'clean:licenses']);
     grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'jshint:ng1', 'stylelint:components']);
-    grunt.registerTask('library', ['clean:library', 'webpack:library', 'webpack:ng1']);
+    grunt.registerTask('library', ['clean:library', 'run:build_library', 'webpack:ng1']);
     grunt.registerTask('styles', ['clean:styles', 'execute:less']);
     grunt.registerTask('scripts', ['execute:iconset']);
     grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:ng1', 'copy:styles']);
@@ -33,13 +33,13 @@ module.exports = function (grunt) {
     grunt.registerTask('selenium', ['documentation:build', 'connect:selenium']);
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
 
-    grunt.registerTask('documentation:serve', ['iconset', 'styles', 'library', 'webpack-dev-server:documentation']);
+    grunt.registerTask('documentation:serve', ['library', 'iconset', 'styles', 'webpack-dev-server:documentation']);
     grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'webpack:documentation']);
     
     grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e']);
 
     // Tasks with larger chains of events
-    grunt.registerTask('build', ['cleanup', 'lint', 'scripts', 'iconset', 'styles', 'library', 'documentation:build', 'minify', 'assets', 'licenses']);
+    grunt.registerTask('build', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses']);
 
     // default task will run dev environment
     grunt.registerTask('default', ['documentation:serve']);

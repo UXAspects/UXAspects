@@ -1,76 +1,126 @@
 .treegrid {
+    .treegrid-expand-header {
+        margin-left: 58px;
 
-  .treegrid-expand-header {
-    margin-left: 58px;
-    &.has-checkbox {
-        margin-left: 0;
+        &.has-checkbox {
+            margin-left: 0;
+        }
     }
-  }
 
-  .treegrid-header-checkbox {
-    margin-left: 31px;
-  }
+    .treegrid-header-checkbox {
+        margin-left: 31px;
+    }
 
-  .treegrid-indent {
-    display: inline-block;
-    &.treegrid-level-0 {
-      width: 0;
-    }
-    &.treegrid-level-1 {
-      width: 25px;
-    }
-    &.treegrid-level-2 {
-      width: 50px;
-    }
-    &.treegrid-level-3 {
-      width: 75px;
-    }
-    &.treegrid-level-4 {
-      width: 100px;
-    }
-    &.treegrid-level-5 {
-      width: 125px;
-    }
-  }
+    .treegrid-indent {
+        display: inline-block;
 
-  .treegrid-expand {
-    display: inline-block;
-    min-width: 20px;
-    text-align: center;
-    margin-left: 2px;
-    margin-right: 3px;
+        &.treegrid-level-0 {
+            width: 0;
+        }
 
-    .treegrid-expand-toggle {
-      cursor: pointer;
-      opacity: 0.5;
-      &:hover {
-        opacity: 1; 
-      }
+        &.treegrid-level-1 {
+            width: 25px;
+        }
+
+        &.treegrid-level-2 {
+            width: 50px;
+        }
+
+        &.treegrid-level-3 {
+            width: 75px;
+        }
+
+        &.treegrid-level-4 {
+            width: 100px;
+        }
+
+        &.treegrid-level-5 {
+            width: 125px;
+        }
     }
-  }
 
-  .treegrid-checkbox {
-    margin-right: 5px;
-    
-    .treegrid-multiple-select-checkbox {
-      margin: 0;
+    .treegrid-expand {
+        display: inline-block;
+        min-width: 20px;
+        text-align: center;
+        margin-left: 2px;
+        margin-right: 3px;
 
-      .el-checkbox-content {
-        margin: 0;
-      }
+        .treegrid-expand-toggle {
+            cursor: pointer;
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
     }
-  }
 
-  .treegrid-icon {
-    display: inline-block;
-    min-width: 20px;
-    text-align: center;
-    margin-right: 5px;
-  }
+    .treegrid-checkbox {
+        margin-right: 5px;
 
+        .treegrid-multiple-select-checkbox {
+            margin: 0;
+
+            .el-checkbox-content {
+                margin: 0;
+            }
+        }
+    }
+
+    .treegrid-icon {
+        display: inline-block;
+        min-width: 20px;
+        text-align: center;
+        margin-right: 5px;
+    }
 }
 
 .treegrid-loading {
-  text-align: center;
-  margin-bottom: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+// Angular Tree Component Styling - Third Party Component
+.angular-tree-component {
+    .tree-node {
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    // Node Content Outline
+    .node-content-wrapper {
+        width: 100%;
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0;
+
+        &:hover {
+            background-color: @treeview-hover-bg;
+        }
+
+        &.node-content-wrapper-active,
+        &.node-content-wrapper-focused {
+            background-color: @shift-select-selected-light;
+        }
+    }
+
+    // Expand/Collapse Arrow
+    tree-node-expander {
+        .toggle-children-wrapper {
+            .toggle-children {
+                background-image: none;
+                font-family: 'hpe-icons';
+                opacity: 0.5;
+                font-size: 12px;
+                width: 11px;
+                height: 17px;
+
+                &:before {
+                    content: "\F1BD";
+                }
+            }
+        }
+    }
 }

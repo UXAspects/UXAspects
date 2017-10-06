@@ -11,13 +11,13 @@
     li {
         a,
         span {
-            color: fade(@text-color, 70%);
+            color: @breadcrumb-color;
         }
     }
 }
 
 .breadcrumb > li a:hover {
-    color: @primary;
+    color: @breadcrumb-hover-color;
 }
 
 .breadcrumb > li:before,
@@ -31,7 +31,7 @@
     display: inline-block;
     padding: 0 2px 0 0;
     font-size: 0.6875rem;
-    color: fade(@text-color, 40%);
+    color: @breadcrumb-separator-color;
 }
 
 .breadcrumb-inverse {

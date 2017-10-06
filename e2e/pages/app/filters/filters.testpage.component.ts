@@ -1,5 +1,5 @@
 import { ColorService, Filter, FilterEvent, FilterRemoveEvent, FilterAddEvent, 
-    FilterRemoveAllEvent } from '../../../../dist/lib/index.js';
+    FilterRemoveAllEvent } from '../../../../dist';
 import { Component } from '@angular/core';
 import 'chance';
 

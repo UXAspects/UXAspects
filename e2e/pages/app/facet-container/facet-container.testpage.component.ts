@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Facet } from '../../../../dist/lib/index.js';
+import { Facet } from '../../../../dist';
 import 'chance';
 
 @Component({
