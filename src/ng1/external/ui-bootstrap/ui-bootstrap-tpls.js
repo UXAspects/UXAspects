@@ -520,7 +520,7 @@ angular.module('ui.bootstrap.ux-aspects.carousel', [])
  * @param {boolean=} noPause Whether to disable pausing on the carousel (by default, the carousel interval pauses on hover).
  *
  * @example
-<example module="ui.bootstrap.ux-aspects.ux-aspects">
+<example module="ui.bootstrap.ux-aspects">
   <file name="index.html">
     <carousel>
       <slide>
@@ -573,7 +573,7 @@ angular.module('ui.bootstrap.ux-aspects.carousel', [])
  * @param {number=} index The index of the slide. The slides will be sorted by this parameter.
  *
  * @example
-<example module="ui.bootstrap.ux-aspects.ux-aspects">
+<example module="ui.bootstrap.ux-aspects">
   <file name="index.html">
 <div ng-controller="CarouselDemoCtrl">
   <carousel>
@@ -3752,7 +3752,7 @@ angular.module('ui.bootstrap.ux-aspects.tabs', [])
  * @param {boolean=} justified Whether or not to use justified styling for the tabs.
  *
  * @example
-<example module="ui.bootstrap.ux-aspects.ux-aspects">
+<example module="ui.bootstrap.ux-aspects">
   <file name="index.html">
     <tabset>
       <tab heading="Tab 1"><b>First</b> Content!</tab>
@@ -3801,7 +3801,7 @@ angular.module('ui.bootstrap.ux-aspects.tabs', [])
  * Creates a tab with a heading and content. Must be placed within a {@link ui.bootstrap.ux-aspects.tabs.directive:tabset tabset}.
  *
  * @example
-<example module="ui.bootstrap.ux-aspects.ux-aspects">
+<example module="ui.bootstrap.ux-aspects">
   <file name="index.html">
     <div ng-controller="TabsDemoCtrl">
       <button class="btn btn-small" ng-click="items[0].active = true">
@@ -3852,7 +3852,7 @@ angular.module('ui.bootstrap.ux-aspects.tabs', [])
  * Creates an HTML heading for a {@link ui.bootstrap.ux-aspects.tabs.directive:tab tab}. Must be placed as a child of a tab element.
  *
  * @example
-<example module="ui.bootstrap.ux-aspects.ux-aspects">
+<example module="ui.bootstrap.ux-aspects">
   <file name="index.html">
     <tabset>
       <tab>
