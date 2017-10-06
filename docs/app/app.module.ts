@@ -1,6 +1,6 @@
 declare var angular: angular.IAngularStatic;
 
-let app = angular.module('app', ['ux-aspects', 'ui.bootstrap']);
+let app = angular.module('app', ['ux-aspects']);
 
 import { NgModule, forwardRef } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -135,7 +135,12 @@ app.directive('uxdApp', upgradeAdapter.downgradeNg2Component(AppComponent) as an
 /*
   Configure Angular 1
 */
-app.config(['$anchorScrollProvider', '$locationProvider', function ($anchorScrollProvider: angular.IAnchorScrollProvider, $locationProvider: angular.ILocationProvider) {
+app.config([
+  '$anchorScrollProvider',
+  '$locationProvider',
+  function ($anchorScrollProvider: angular.IAnchorScrollProvider,
+    $locationProvider: angular.ILocationProvider) {
+
   // Disabling AngularJS autoscroll since it conflicts with the new router behaviour
   $anchorScrollProvider.disableAutoScrolling();
 
