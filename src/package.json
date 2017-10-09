@@ -23,7 +23,6 @@
   },
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
-    "@uirouter/angularjs": "^1.0.0",
     "chart.js": "^2.5.0",
     "ng2-charts": "^1.5.0",
     "ngx-bootstrap": "^1.6.6",
