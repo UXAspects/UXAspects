@@ -39,7 +39,7 @@ module.exports = function (grunt) {
     grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e']);
 
     // Tasks with larger chains of events
-    grunt.registerTask('build', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses']);
+    grunt.registerTask('build', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim']);
 
     // default task will run dev environment
     grunt.registerTask('default', ['documentation:serve']);
