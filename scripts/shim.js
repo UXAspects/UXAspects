@@ -30,6 +30,12 @@ fs.writeFileSync(
     `@import url("../../styles/ux-aspects.css");`
 );
 
+fs.writeFileSync(
+   path.join(cssPath, 'ux-aspects.min.css'), 
+   `@import url("../../styles/ux-aspects.min.css");`
+);
+
+
 /**
  * Shim the Less Files
  */
@@ -60,6 +66,15 @@ let ng1FileContents = fs.readFileSync(path.join(buildPath, 'ng1', 'ux-aspects-ng
 fs.writeFileSync(
     path.join(ng1Path, 'ux-aspects-ng1.js'), 
     ng1FileContents
+);
+
+
+//  Duplicating this file as they may not be using a module loader if using ng1 only
+let ng1MinFileContents = fs.readFileSync(path.join(buildPath, 'ng1', 'ux-aspects-ng1.min.js'), 'utf8');
+
+fs.writeFileSync(
+    path.join(ng1Path, 'ux-aspects-ng1.min.js'), 
+    ng1MinFileContents
 );
 
 /**
