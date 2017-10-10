@@ -1,0 +1,98 @@
+<timepicker [ngModel]="myTime" [min]="min" [max]="max" [hourStep]="hourStep" [minuteStep]="minuteStep"
+    [showMeridian]="showMeridian" [showSeconds]="showSeconds" [readonlyInput]="readonlyInput"
+    [mousewheel]="mousewheel" [arrowkeys]="arrowkeys" (ngModelChange)="changed($event)">
+</timepicker>
+
+<p class="m-t">Time is: <em>{{myTime}}</em></p>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 col-sm-6">
+                        <label for="myMinTime">min</label>
+                        <timepicker [(ngModel)]="min" [max]="max"></timepicker>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                        <label for="myMaxTime">max</label>
+                        <timepicker [(ngModel)]="max" [min]="min"></timepicker>
+                    </div>
+                </div>
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 col-sm-6">
+                        <label for="hourStep">hourStep</label>
+                        <ux-number-picker [(value)]="hourStep" min="1" max="22"
+                            (valueChange)="hourStep=($event)">
+                        </ux-number-picker>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                        <label for="minuteStep">minuteStep</label>
+                        <ux-number-picker [(value)]="minuteStep" min="1" max="58"
+                            (valueChange)="minuteStep=($event)">
+                        </ux-number-picker>
+                    </div>
+                </div>
+
+                <div class="row m-t-md">
+                    <div class="col-md-12 col-sm-12">
+                        <ux-checkbox [(value)]="showMeridian"></ux-checkbox>
+                        <label for="showMeridian">showMeridian</label>
+                    </div>
+                </div>
+
+                <div class="row m-t-md">
+                    <div class="col-md-12 col-sm-12">
+                        <ux-checkbox [(value)]="showSeconds"></ux-checkbox>
+                        <label for="showSeconds">showSeconds</label>
+                    </div>
+                </div>
+
+                <div class="row m-t-md">
+                    <div class="col-md-12 col-sm-12">
+                        <label>enable:</label>
+                        <div>
+                            <ux-checkbox [(value)]="readonlyInput"></ux-checkbox>
+                            <label for="readonlyInput">readonlyInput</label>
+                        </div>
+                        <div>
+                            <ux-checkbox [(value)]="mousewheel"></ux-checkbox>
+                            <label for="mousewheel">mousewheel</label>
+                        </div>
+                        <div>
+                            <ux-checkbox [(value)]="arrowkeys"></ux-checkbox>
+                            <label for="arrowkeys">arrowkeys</label>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>The Bootstrap <code>timepicker</code> component can be used to select a valid time. The value can be
+    bound as a JavaScript <code>Date</code> object with <code>ngModel</code>. Additional customization
+    options can be seen in the example above; see the Angular Bootstrap documentation for full details.
+</p>
+
+<p>The sample code is given below:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+    <p><strong>Note</strong>: Refer to <a href="http://valor-software.com/ngx-bootstrap/#/timepicker">
+        ngx-bootstrap</a> timepicker for more options.
+    </p>
+</blockquote>
