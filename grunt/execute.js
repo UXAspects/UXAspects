@@ -9,5 +9,8 @@ module.exports = {
     },
     less: {
         src: [ path.join(process.cwd(), 'scripts', 'inline-less.js') ]
+    },
+    shim: {
+        src: [ path.join(process.cwd(), 'scripts', 'shim.js') ]
     }
 };
