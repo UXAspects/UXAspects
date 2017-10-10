@@ -54,9 +54,12 @@ if (!fs.existsSync(ng1Path)) {
     fs.mkdirSync(ng1Path);
 }
 
+//  Duplicating this file as they may not be using a module loader if using ng1 only
+let ng1FileContents = fs.readFileSync(path.join(buildPath, 'ng1', 'ux-aspects-ng1.js'), 'utf8');
+
 fs.writeFileSync(
     path.join(ng1Path, 'ux-aspects-ng1.js'), 
-    `export * from '../../ng1/ux-aspects-ng1';`
+    ng1FileContents
 );
 
 /**
