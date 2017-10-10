@@ -4,6 +4,7 @@ import { ILink } from '../../interfaces/ILink';
 import { IFooterColumn } from '../../interfaces/IFooterColumn';
 import { IFooter } from '../../interfaces/IFooter';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
+import { ILogo } from '../../interfaces/ILogo';
 
 @Component({
     selector: 'uxd-page-footer',
@@ -13,10 +14,11 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
 export class PageFooterComponent {
     
     copyright: string;
-    logo: string;
+    logo: ILogo;
     columns: IFooterColumn[];
     feedback: ILink;
     year: number;
+    title: string;
 
     constructor(private _appConfig: AppConfiguration) {
         // get the footer navigation data

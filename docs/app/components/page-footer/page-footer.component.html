@@ -14,8 +14,9 @@
         <div class="col-12 col-md-4 col-sm-12 col-xs-12">
             <p class="page-footer-copyright-notice">© {{ year }} {{ copyright }}</p>
         </div>
-        <div class="col-12 col-md-4 col-sm-12 col-xs-12">
-            <img class="page-footer-brand-logo" [src]="logo">
+        <div class="col-12 col-md-4 col-sm-12 col-xs-12 page-footer-brand-logo-container">
+            <img class="page-footer-brand-logo" [src]="logo.image">
+            <span class="page-footer-brand-logo-title">{{ logo.title }}</span>
         </div>
         <div class="col-12 col-md-4 col-sm-12 col-xs-12">
             <a class="page-footer-feedback-link" [href]="feedback.link">{{ feedback.title }}</a>
