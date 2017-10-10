@@ -357,13 +357,14 @@ if [ "$BuildPackages" == "true" ]; then
     # Remove existing files and copy the newly-built package files from the workspace. Only the 'dist'
     # folder and bower.json are needed.
     rm -rf *
-    cp -p -r $WORKSPACE/dist .
+    cp -p -r $WORKSPACE/dist/* .
+    rm -rf ./docs
     cp -p $WORKSPACE/bower.json .
 
     # Push the new files to the branch
     echo
     echo Pushing the new files to the branch
-    git add dist/ bower.json
+    git add *
     git commit -m "Committing changes for package $NextVersion-package-test. Latest develop commit ID is $latestDevelopCommitID."
     git push --set-upstream origin $NextVersion-package-test
     popd; popd
@@ -376,6 +377,18 @@ git checkout docs/app/data/footer-navigation.json
 git checkout docs/app/data/landing-page.json
 
 if [ "$BuildPackages" == "true" ]; then
+    echo Creating the NPM package
+    if [ -d "$WORKSPACE/npm" ]; then
+        echo "Folder $WORKSPACE/npm exists... deleting it!"
+        rm -rf $WORKSPACE/npm
+    fi
+    mkdir -p $WORKSPACE/npm
+    pushd $WORKSPACE/npm
+    cp -p -r $WORKSPACE/README.md .
+    cp -p -r $WORKSPACE/dist/* .
+    rm -rf ./docs
+    popd
+     
     # Loop while waiting for the $NextVersion-package-test branch to be merged into the Bower
     # branch or deleted. Merging signals that the release is verified and so the NPM package may
     # be created and published.
@@ -392,19 +405,11 @@ if [ "$BuildPackages" == "true" ]; then
             branchMerged=`echo "$latestBowerCommitMessage" | grep "$NextVersion-package-test" | wc -l`
             # If this contains $NextVersion-package-test, the branch was merged
             if [ $branchMerged == 1 ] ; then
-                # Create the NPM package, including a valid authentication token
-                echo Branch $NextVersion-package-test has been merged into the Bower branch. Create the NPM package.
+                echo Branch $NextVersion-package-test has been merged into the Bower branch. Publish the NPM package.
                 echo
-                echo Creating the NPM package
-                if [ -d "$WORKSPACE/npm" ]; then
-                    echo "Folder $WORKSPACE/npm exists... deleting it!"
-                    rm -rf $WORKSPACE/npm
-                fi
-                mkdir -p $WORKSPACE/npm
+                # Add a valid authentication token to the NPM package and publish it
+                echo Adding an authentication token to the NPM package
                 pushd $WORKSPACE/npm
-                cp -p -r $WORKSPACE/src/package.json .
-                cp -p -r $WORKSPACE/README.md .
-                cp -p -r $WORKSPACE/dist .
                 # Write the token to the .npmrc file
                 echo "//registry.npmjs.org/:_authToken="$NPMUserPassword > .npmrc
                 # Create a .npmignore file to prevent the .npmrc file ending up in the package
