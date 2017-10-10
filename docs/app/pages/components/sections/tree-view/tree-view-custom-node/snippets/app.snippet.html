@@ -1,40 +1,44 @@
-<tree-root #tree [nodes]="nodes" [options]="options" 
-    (loadNodeChildren)="onChildrenLoaded($event.node)">
+<div class="tree-view-example-container">
 
-    <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
-
-        <div class="tree-node">
-
-            <div class="node-wrapper">
-
-                <ux-checkbox [value]="node.data.checked" (valueChange)="setChecked(node, $event)" 
-                [indeterminateValue]="-1"></ux-checkbox>
-
-                <tree-node-expander [node]="node"></tree-node-expander>
-
-                <div class="node-content-wrapper" 
-                    [class.node-content-wrapper-active]="node.data.checked" 
-                    [class.node-content-wrapper-focused]="node.data.checked"
-                    (click)="setChecked(node, !node.data.checked)">
-
-                    <span class="hpe-icon" [class.hpe-folder]="node.hasChildren && !node.isExpanded" 
-                        [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
-                        [class.hpe-document]="!node.hasChildren"></span>
-                    <span [class.title]="true">{{ node.data.name }}</span>
-
+    <tree-root #tree [nodes]="nodes" [options]="options" 
+        (loadNodeChildren)="onChildrenLoaded($event.node)">
+    
+        <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+    
+            <div class="tree-node">
+    
+                <div class="node-wrapper">
+    
+                    <ux-checkbox [value]="node.data.checked" (valueChange)="setChecked(node, $event)" 
+                    [indeterminateValue]="-1"></ux-checkbox>
+    
+                    <tree-node-expander [node]="node"></tree-node-expander>
+    
+                    <div class="node-content-wrapper" 
+                        [class.node-content-wrapper-active]="node.data.checked" 
+                        [class.node-content-wrapper-focused]="node.data.checked"
+                        (click)="setChecked(node, !node.data.checked)">
+    
+                        <span class="hpe-icon" [class.hpe-folder]="node.hasChildren && !node.isExpanded" 
+                            [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
+                            [class.hpe-document]="!node.hasChildren"></span>
+                        <span [class.title]="true">{{ node.data.name }}</span>
+    
+                    </div>
+    
                 </div>
-
+    
+                <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
             </div>
-
-            <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
-        </div>
-
-    </ng-template>
-
-    <ng-template #loadingTemplate>
-        <div class="spinner spinner-accent spinner-bounce-middle"></div>
-    </ng-template>
-</tree-root>
+    
+        </ng-template>
+    
+        <ng-template #loadingTemplate>
+            <div class="spinner spinner-accent spinner-bounce-middle"></div>
+        </ng-template>
+    </tree-root>
+    
+</div>
 
 <hr>
 
