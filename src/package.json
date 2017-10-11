@@ -1,8 +1,8 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "1.3.6",
+  "version": "1.4.0",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
-  "main": "dist/lib/index.js",
+  "main": "dist/bundles/ux-aspects.umd.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UXAspects/UXAspects.git"
