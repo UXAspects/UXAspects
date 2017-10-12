@@ -1,0 +1,50 @@
+{
+  "name": "@ux-aspects/ux-aspects",
+  "version": "1.4.0",
+  "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
+  "main": "bundles/ux-aspects.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UXAspects/UXAspects.git"
+  },
+  "keywords": [
+    "ux",
+    "aspects",
+    "ui",
+    "framework",
+    "angular",
+    "angularjs",
+    "bootstrap"
+  ],
+  "contributors": [
+    "Ashley Hunter",
+    "Alastair McKee",
+    "Pearse McMurray",
+    "Donna Marijne Worby",
+    "Chris Brennan"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/UXAspects/UXAspects/issues"
+  },
+  "homepage": "https://uxaspects.github.io/UXAspects",
+  "dependencies": {
+    "chart.js": "^2.5.0",
+    "ng2-charts": "^1.5.0",
+    "ngx-bootstrap": "^1.6.6",
+    "angular-tree-component": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/chart.js": "^2.4.2"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=4.0.0",
+    "@angular/compiler": ">=4.0.0",
+    "@angular/core": ">=4.0.0",
+    "@angular/forms": ">=4.0.0"
+  },
+  "module": "@ux-aspects/ux-aspects.es5.js",
+  "es2015": "@ux-aspects/ux-aspects.js",
+  "typings": "ux-aspects.d.ts",
+  "metadata": "ux-aspects.metadata.json"
+}
