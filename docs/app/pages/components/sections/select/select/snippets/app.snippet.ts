@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './src/app.component.html'
 })
 export class AppComponent implements OnInit {
-    
+
     // ux-select configuration properties
     options: string[] | Function;
     display: string = null;
@@ -25,7 +25,8 @@ export class AppComponent implements OnInit {
         return this._pageSize;
     }
     set pageSize(value: number) {
-        this._pageSize = (value >= 1) ? value : 1;
+        const numValue = Number(value);
+        this._pageSize = (numValue >= 1) ? numValue : 1;
     }
 
     // Customize settings
@@ -33,9 +34,8 @@ export class AppComponent implements OnInit {
     dataSet = new BehaviorSubject<string>('strings');
     loadOptionsCallback = this.loadOptions.bind(this);
 
-
     dataSets: { strings?: any[], objects?: any[] } = {};
-
+ 
     constructor() {
 
         // Reset select when "multiple" checkbox changes.
@@ -48,18 +48,19 @@ export class AppComponent implements OnInit {
         this.pagingEnabled.subscribe((value) => {
             this.selected = null;
             this.dropdownOpen = false;
-            this.options = this.pagingEnabled.getValue() ?
-                this.loadOptionsCallback :
-                this.selectedDataSet();
+            this.options = this.pagingEnabled.getValue() ? this.loadOptionsCallback : this.selectedDataSet();
         });
 
         // Reset and reassign options when the dataset changes. Also set display and key properties.
         this.dataSet.subscribe((value) => {
+
+            if (this.multiple.getValue() === true) {
+                this.pagingEnabled.next(false);
+            } 
+
             this.selected = null;
             this.dropdownOpen = false;
-            this.options = this.pagingEnabled.getValue() ?
-                this.loadOptionsCallback :
-                this.selectedDataSet();
+            this.options = this.pagingEnabled.getValue() ? this.loadOptionsCallback : this.selectedDataSet();
             this.display = (value === 'objects') ? 'name' : null;
             this.key = (value === 'objects') ? 'id' : null;
         });
@@ -83,7 +84,7 @@ export class AppComponent implements OnInit {
 
     loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
         // Return a promise using setTimeout to simulate an HTTP request.
-        let promise = new Promise((resolve, reject) => {
+        let promise = new Promise<any[]>((resolve, reject) => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;
                 const newItems = this.selectedDataSet()
@@ -96,10 +97,20 @@ export class AppComponent implements OnInit {
         return promise;
     }
 
-    isFilterMatch(option: string, filter: string): boolean {
+    isFilterMatch(option: string | FilterOption, filter: string): boolean {
         if (!filter) {
             return true;
         }
-        return option.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+
+        if (typeof option === 'string') {
+            return option.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+        } else {
+            return option.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+        }
     }
+}
+
+export interface FilterOption {
+    id: string;
+    name: string;
 }
