@@ -1334,8 +1334,23 @@
             "link": "wizard",
             "sections": [{
                     "title": "Wizard",
+                    "component": "ComponentsWizardComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-wizard"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "WizardModule"
+                    }
+                ]
+                },
+                {
+                    "title": "Wizard",
                     "component": "ComponentsWizardNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Wizard with Validation",

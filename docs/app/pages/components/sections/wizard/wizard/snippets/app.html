@@ -1,0 +1,24 @@
+<ux-wizard [orientation]="orientation">
+
+    <ux-wizard-step *ngFor="let step of steps; let idx = index" [header]="step">
+        <p>Content of step {{ idx + 1 }}.</p>
+    </ux-wizard-step>
+
+</ux-wizard>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-radio-button [(value)]="orientation" option="horizontal">Horizontal</ux-radio-button>
+                        <ux-radio-button [(value)]="orientation" option="vertical">Vertical</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

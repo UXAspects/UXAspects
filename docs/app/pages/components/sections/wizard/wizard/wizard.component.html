@@ -1,0 +1,358 @@
+<ux-wizard [orientation]="orientation">
+
+    <ux-wizard-step *ngFor="let step of steps; let idx = index" [header]="step">
+        <p>Content of step {{ idx + 1 }}.</p>
+    </ux-wizard-step>
+
+</ux-wizard>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-radio-button [(value)]="orientation" option="horizontal">Horizontal</ux-radio-button>
+                        <ux-radio-button [(value)]="orientation" option="vertical">Vertical</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The <code>ux-wizard</code> component can be used to present a user with a series of sequential steps. The content of each step
+    should be defined within a <code>ux-wizard-step</code> component.
+</p>
+
+<p>
+    The following attributes can be used to customize the <code>ux-wizard</code> component:
+</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td>
+                <b>@Input @Output</b> step</td>
+            <td>
+                <b>number</b>
+            </td>
+            <td>
+                The current active step. When the step changes an event will be emitted containing the index of the newly active step. 
+                If this is not specifed the wizard will start on the first step.
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>@Input</b> orientation</td>
+            <td>
+                <b>'vertical' | 'horizontal'</b>
+            </td>
+            <td>Defines whether or not the wizard should be displayed in a horizontal or vertical layout. The default value is <code>horizontal</code>.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <b>@Input</b> nextText</td>
+            <td>
+                <b>string</b>
+            </td>
+            <td>Defines the text displayed in the 'Next' button.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <b>@Input</b> previousText</td>
+            <td>
+                <b>string</b>
+            </td>
+            <td>Defines the text displayed in the 'Previous' button.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <b>@Input</b> cancelText</td>
+            <td>
+                <b>string</b>
+            </td>
+            <td>Defines the text displayed in the 'Cancel' button.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <b>@Input</b> finishText</td>
+            <td>
+                <b>string</b>
+            </td>
+            <td>Defines the text displayed in the 'Finish' button.</td>
+        </tr>
+
+        
+        <tr>
+            <td>
+                <b>@Input</b> nextTooltip</td>
+            <td>
+                <b>string</b>
+            </td>
+            <td>Defines the text displayed in the tooltip when the 'Next' button is hovered.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <b>@Input</b> previousTooltip</td>
+            <td>
+                <b>string</b>
+            </td>
+            <td>Defines the text displayed in the tooltip when the 'Previous' button is hovered.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <b>@Input</b> cancelTooltip</td>
+            <td>
+                <b>string</b>
+            </td>
+            <td>Defines the text displayed in the tooltip when the 'Cancel' button is hovered.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <b>@Input</b> finishTooltip</td>
+            <td>
+                <b>string</b>
+            </td>
+            <td>Defines the text displayed in the tooltip when the 'Finish' button is hovered.</td>
+        </tr>
+
+        
+        <tr>
+            <td>
+                <b>@Input</b> nextDisabled</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>If set to <code>true</code> the 'Next' button will appear disabled and will not respond to clicks.</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>@Input</b> previousDisabled</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>If set to <code>true</code> the 'Previous' button will appear disabled and will not respond to clicks.</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>@Input</b> cancelDisabled</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>If set to <code>true</code> the 'Cancel' button will appear disabled and will not respond to clicks.</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>@Input</b> finishDisabled</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>If set to <code>true</code> the 'Finish' button will appear disabled and will not respond to clicks.</td>
+        </tr>
+        
+                
+        <tr>
+            <td>
+                <b>@Input</b> nextVisible</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>If set to <code>false</code> the 'Next' button will be hidden.</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>@Input</b> previousVisible</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>If set to <code>false</code> the 'Previous' button will be hidden.</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>@Input</b> cancelVisible</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>If set to <code>false</code> the 'Cancel' button will be hidden.</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>@Input</b> finishVisible</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>If set to <code>false</code> the 'Finish' button will be hidden.</td>
+        </tr>
+        
+        <tr>
+            <td>
+                <b>@Input</b> cancelAlwaysVisible</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>
+                If set to <code>true</code> the 'Cancel' button will be visible even on the last step. 
+                By default it will be hidden on the final step.
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>@Input</b> finishAlwaysVisible</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>
+                If set to <code>true</code> the 'Finish' button will be visible on all steps of the wizard. 
+                By default this button will only be visible on the final step of the wizard.
+            </td>
+        </tr>
+        
+
+        <tr>
+            <td>
+                <b>@Output</b> onNext</td>
+            <td>
+                <b>number</b>
+            </td>
+            <td>
+                This event will be fired when the 'Next' button is pressed. It will receive the current step index as a parameter.
+            </td>
+        </tr>
+        
+
+        <tr>
+            <td>
+                <b>@Output</b> onPrevious</td>
+            <td>
+                <b>number</b>
+            </td>
+            <td>
+                This event will be fired when the 'Previous' button is pressed. It will receive the current step index as a parameter.
+            </td>
+        </tr>
+        
+
+        <tr>
+            <td>
+                <b>@Output</b> onCancel</td>
+            <td>
+                <b>void</b>
+            </td>
+            <td>
+                This event will be fired when the 'Cancel' button is pressed.
+            </td>
+        </tr>
+        
+
+        <tr>
+            <td>
+                <b>@Output</b> onFinish</td>
+            <td>
+                <b>void</b>
+            </td>
+            <td>
+                This event will be fired when the 'Finish' button is pressed.
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<p>
+    The following properties can be used to configure the <code>ux-wizard-step</code>:
+</p>
+
+<table class="table">
+        
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td>
+                <b>@Input</b> header</td>
+            <td>
+                <b>string</b>
+            </td>
+            <td>
+                The text to be displayed in the wizard step tab.
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <b>@Input</b> valid</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>
+                Allows you to define whether or not a step is valid. 
+                The user will not be able to proceed to the next step if this property has a value of false.
+            </td>
+        </tr>
+        
+        
+        <tr>
+            <td>
+                <b>@Input @Output</b> visited</td>
+            <td>
+                <b>boolean</b>
+            </td>
+            <td>
+                Defines whether or not this step has previously been visited. 
+                A visited step can be clicked on and jumped to at any time.
+                By default, steps will become 'visited' when the user navigates to a step for the first time.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+    The following code can be used create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>
