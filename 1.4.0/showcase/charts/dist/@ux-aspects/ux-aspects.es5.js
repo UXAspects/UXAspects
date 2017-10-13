@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, HostListener, Inject, Injectable, Injector, Input, NgModule, NgZone, Output, Pipe, ReflectiveInjector, Renderer, Renderer2, TemplateRef, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, HostListener, Inject, Injectable, Injector, Input, NgModule, NgZone, Output, Pipe, QueryList, ReflectiveInjector, Renderer, Renderer2, TemplateRef, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
@@ -11822,6 +11822,295 @@ VirtualScrollModule.decorators = [
  * @nocollapse
  */
 VirtualScrollModule.ctorParameters = function () { return []; };
+var WizardStepComponent = (function () {
+    function WizardStepComponent() {
+        this.valid = true;
+        this.visitedChange = new EventEmitter();
+        this._active = false;
+        this._visited = false;
+    }
+    Object.defineProperty(WizardStepComponent.prototype, "visited", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._visited;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._visited = value;
+            this.visitedChange.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WizardStepComponent.prototype, "active", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._active;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            // store the active state of the step
+            this._active = value;
+            // if the value is true then the step should also be marked as visited
+            if (value === true) {
+                this.visited = true;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return WizardStepComponent;
+}());
+WizardStepComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-wizard-step',
+                template: "\n      <ng-container *ngIf=\"active\">\n          <ng-content></ng-content>\n      </ng-container>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardStepComponent.ctorParameters = function () { return []; };
+WizardStepComponent.propDecorators = {
+    'header': [{ type: Input },],
+    'valid': [{ type: Input },],
+    'visitedChange': [{ type: Input },],
+    'visited': [{ type: Input },],
+};
+var WizardComponent = (function () {
+    function WizardComponent() {
+        this._step = 0;
+        this.steps = new QueryList();
+        this.orientation = 'horizontal';
+        this.nextText = 'Next';
+        this.previousText = 'Previous';
+        this.cancelText = 'Cancel';
+        this.finishText = 'Finish';
+        this.nextTooltip = 'Go to the next step';
+        this.previousTooltip = 'Go to the previous step';
+        this.cancelTooltip = 'Cancel the wizard';
+        this.finishTooltip = 'Finish the wizard';
+        this.nextDisabled = false;
+        this.previousDisabled = false;
+        this.cancelDisabled = false;
+        this.finishDisabled = false;
+        this.nextVisible = true;
+        this.previousVisible = true;
+        this.cancelVisible = true;
+        this.finishVisible = true;
+        this.cancelAlwaysVisible = false;
+        this.finishAlwaysVisible = false;
+        this.onNext = new EventEmitter();
+        this.onPrevious = new EventEmitter();
+        this.onCancel = new EventEmitter();
+        this.onFinish = new EventEmitter();
+        this.stepChange = new EventEmitter();
+        this.invalidIndicator = false;
+    }
+    Object.defineProperty(WizardComponent.prototype, "step", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._step;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            // only accept numbers as valid options
+            if (typeof value === 'number') {
+                // store the active step
+                this._step = value;
+                // update which steps should be active
+                this.update();
+                // emit the change event
+                this.stepChange.next(this.step);
+                // reset the invalid state
+                this.invalidIndicator = false;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    WizardComponent.prototype.ngAfterViewInit = function () {
+        // initially set the correct visibility of the steps
+        setTimeout(this.update.bind(this));
+    };
+    /**
+     * Navigate to the next step
+     * @return {?}
+     */
+    WizardComponent.prototype.next = function () {
+        // check if current step is invalid
+        if (!this.getCurrentStep().valid) {
+            this.invalidIndicator = true;
+            return;
+        }
+        // check if we are currently on the last step
+        if ((this.step + 1) < this.steps.length) {
+            this.step++;
+            // emit the current step
+            this.onNext.next(this.step);
+        }
+    };
+    /**
+     * Navigate to the previous step
+     * @return {?}
+     */
+    WizardComponent.prototype.previous = function () {
+        // check if we are currently on the last step
+        if (this.step > 0) {
+            this.step--;
+            // emit the current step
+            this.onPrevious.next(this.step);
+        }
+    };
+    /**
+     * Perform actions when the finish button is clicked
+     * @return {?}
+     */
+    WizardComponent.prototype.finish = function () {
+        this.onFinish.next();
+    };
+    /**
+     * Perform actions when the cancel button is clicked
+     * @return {?}
+     */
+    WizardComponent.prototype.cancel = function () {
+        this.onCancel.next();
+    };
+    /**
+     * Update the active state of each step
+     * @return {?}
+     */
+    WizardComponent.prototype.update = function () {
+        var _this = this;
+        // update which steps should be active
+        this.steps.forEach(function (step, idx) { return step.active = idx === _this.step; });
+    };
+    /**
+     * Jump to a specific step only if the step has previously been visited
+     * @param {?} step
+     * @return {?}
+     */
+    WizardComponent.prototype.gotoStep = function (step) {
+        if (step.visited) {
+            this.step = this.steps.toArray().findIndex(function (stp) { return stp === step; });
+        }
+    };
+    /**
+     * Determine if the current step is the last step
+     * @return {?}
+     */
+    WizardComponent.prototype.isLastStep = function () {
+        return this.step === (this.steps.length - 1);
+    };
+    /**
+     * Reset the wizard - goes to first step and resets visited state
+     * @return {?}
+     */
+    WizardComponent.prototype.reset = function () {
+        // mark all steps as not visited
+        this.steps.forEach(function (step) { return step.visited = false; });
+        // go to the first step
+        this.step = 0;
+    };
+    /**
+     * Get the step at the current index
+     * @return {?}
+     */
+    WizardComponent.prototype.getCurrentStep = function () {
+        return this.getStepAtIndex(this.step);
+    };
+    /**
+     * Return a step at a specific index
+     * @param {?} index
+     * @return {?}
+     */
+    WizardComponent.prototype.getStepAtIndex = function (index) {
+        return this.steps.toArray()[index];
+    };
+    return WizardComponent;
+}());
+WizardComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-wizard',
+                template: "\n      <div class=\"wizard-body\">\n\n          <div class=\"wizard-steps\">\n    \n              <div class=\"wizard-step\" [class.active]=\"stp.active\" [class.visited]=\"stp.visited\" [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\" (click)=\"gotoStep(stp)\" *ngFor=\"let stp of steps\">\n                  {{ stp.header }}\n              </div>\n    \n          </div>\n    \n          <div class=\"wizard-content\">\n              <ng-content></ng-content>\n          </div>\n    \n      </div>\n\n      <div class=\"wizard-footer\">\n          <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"previousVisible\" [tooltip]=\"previousTooltip\" container=\"body\" [disabled]=\"previousDisabled || step === 0\"\n              (click)=\"previous(); tip.hide()\">{{ previousText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"nextVisible && !isLastStep()\" [tooltip]=\"nextTooltip\" container=\"body\" [disabled]=\"nextDisabled\"\n              (click)=\"next(); tip.hide()\">{{ nextText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\" [tooltip]=\"finishTooltip\"\n              container=\"body\" [disabled]=\"finishDisabled\" (click)=\"finish(); tip.hide()\">{{ finishText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\" [tooltip]=\"cancelTooltip\"\n              container=\"body\" [disabled]=\"cancelDisabled\" (click)=\"cancel(); tip.hide()\">{{ cancelText }}</button>\n      </div>\n    ",
+                host: {
+                    '[class]': 'orientation'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardComponent.ctorParameters = function () { return []; };
+WizardComponent.propDecorators = {
+    'steps': [{ type: ContentChildren, args: [WizardStepComponent,] },],
+    'orientation': [{ type: Input },],
+    'nextText': [{ type: Input },],
+    'previousText': [{ type: Input },],
+    'cancelText': [{ type: Input },],
+    'finishText': [{ type: Input },],
+    'nextTooltip': [{ type: Input },],
+    'previousTooltip': [{ type: Input },],
+    'cancelTooltip': [{ type: Input },],
+    'finishTooltip': [{ type: Input },],
+    'nextDisabled': [{ type: Input },],
+    'previousDisabled': [{ type: Input },],
+    'cancelDisabled': [{ type: Input },],
+    'finishDisabled': [{ type: Input },],
+    'nextVisible': [{ type: Input },],
+    'previousVisible': [{ type: Input },],
+    'cancelVisible': [{ type: Input },],
+    'finishVisible': [{ type: Input },],
+    'cancelAlwaysVisible': [{ type: Input },],
+    'finishAlwaysVisible': [{ type: Input },],
+    'onNext': [{ type: Output },],
+    'onPrevious': [{ type: Output },],
+    'onCancel': [{ type: Output },],
+    'onFinish': [{ type: Output },],
+    'stepChange': [{ type: Output },],
+    'step': [{ type: Input },],
+};
+var DECLARATIONS$6 = [
+    WizardComponent,
+    WizardStepComponent
+];
+var WizardModule = (function () {
+    function WizardModule() {
+    }
+    return WizardModule;
+}());
+WizardModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    TooltipModule.forRoot()
+                ],
+                exports: DECLARATIONS$6,
+                declarations: DECLARATIONS$6
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardModule.ctorParameters = function () { return []; };
 var HelpCenterService = (function () {
     function HelpCenterService() {
         this.items = new BehaviorSubject$1([]);
@@ -12208,7 +12497,7 @@ HoverActionDirective.propDecorators = {
     'previous': [{ type: HostListener, args: ['keydown.arrowleft', ['$event'],] },],
     'next': [{ type: HostListener, args: ['keydown.arrowright', ['$event'],] },],
 };
-var DECLARATIONS$6 = [
+var DECLARATIONS$7 = [
     HoverActionDirective,
     HoverActionContainerDirective
 ];
@@ -12219,8 +12508,8 @@ var HoverActionModule = (function () {
 }());
 HoverActionModule.decorators = [
     { type: NgModule, args: [{
-                exports: DECLARATIONS$6,
-                declarations: DECLARATIONS$6
+                exports: DECLARATIONS$7,
+                declarations: DECLARATIONS$7
             },] },
 ];
 /**
@@ -12373,7 +12662,7 @@ LayoutSwitcherDirective.propDecorators = {
     'group': [{ type: Input },],
     '_layouts': [{ type: ContentChildren, args: [LayoutSwitcherItemDirective,] },],
 };
-var DECLARATIONS$7 = [
+var DECLARATIONS$8 = [
     LayoutSwitcherDirective,
     LayoutSwitcherItemDirective
 ];
@@ -12387,8 +12676,8 @@ LayoutSwitcherModule.decorators = [
                 imports: [
                     ResizeModule
                 ],
-                exports: DECLARATIONS$7,
-                declarations: DECLARATIONS$7,
+                exports: DECLARATIONS$8,
+                declarations: DECLARATIONS$8,
                 providers: [],
             },] },
 ];
@@ -12443,5 +12732,5 @@ StringFilterModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, MediaPlayerService as ɵc, PageHeaderNavigationDropdownItemComponent as ɵb, PageHeaderNavigationItemComponent as ɵa, HoverActionService as ɵd };
+export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, MediaPlayerService as ɵc, PageHeaderNavigationDropdownItemComponent as ɵb, PageHeaderNavigationItemComponent as ɵa, HoverActionService as ɵd };
 //# sourceMappingURL=ux-aspects.es5.js.map
