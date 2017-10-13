@@ -11804,6 +11804,295 @@ VirtualScrollModule.decorators = [
  * @nocollapse
  */
 VirtualScrollModule.ctorParameters = function () { return []; };
+var WizardStepComponent = (function () {
+    function WizardStepComponent() {
+        this.valid = true;
+        this.visitedChange = new core.EventEmitter();
+        this._active = false;
+        this._visited = false;
+    }
+    Object.defineProperty(WizardStepComponent.prototype, "visited", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._visited;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._visited = value;
+            this.visitedChange.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WizardStepComponent.prototype, "active", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._active;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            // store the active state of the step
+            this._active = value;
+            // if the value is true then the step should also be marked as visited
+            if (value === true) {
+                this.visited = true;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return WizardStepComponent;
+}());
+WizardStepComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-wizard-step',
+                template: "\n      <ng-container *ngIf=\"active\">\n          <ng-content></ng-content>\n      </ng-container>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardStepComponent.ctorParameters = function () { return []; };
+WizardStepComponent.propDecorators = {
+    'header': [{ type: core.Input },],
+    'valid': [{ type: core.Input },],
+    'visitedChange': [{ type: core.Input },],
+    'visited': [{ type: core.Input },],
+};
+var WizardComponent = (function () {
+    function WizardComponent() {
+        this._step = 0;
+        this.steps = new core.QueryList();
+        this.orientation = 'horizontal';
+        this.nextText = 'Next';
+        this.previousText = 'Previous';
+        this.cancelText = 'Cancel';
+        this.finishText = 'Finish';
+        this.nextTooltip = 'Go to the next step';
+        this.previousTooltip = 'Go to the previous step';
+        this.cancelTooltip = 'Cancel the wizard';
+        this.finishTooltip = 'Finish the wizard';
+        this.nextDisabled = false;
+        this.previousDisabled = false;
+        this.cancelDisabled = false;
+        this.finishDisabled = false;
+        this.nextVisible = true;
+        this.previousVisible = true;
+        this.cancelVisible = true;
+        this.finishVisible = true;
+        this.cancelAlwaysVisible = false;
+        this.finishAlwaysVisible = false;
+        this.onNext = new core.EventEmitter();
+        this.onPrevious = new core.EventEmitter();
+        this.onCancel = new core.EventEmitter();
+        this.onFinish = new core.EventEmitter();
+        this.stepChange = new core.EventEmitter();
+        this.invalidIndicator = false;
+    }
+    Object.defineProperty(WizardComponent.prototype, "step", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._step;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            // only accept numbers as valid options
+            if (typeof value === 'number') {
+                // store the active step
+                this._step = value;
+                // update which steps should be active
+                this.update();
+                // emit the change event
+                this.stepChange.next(this.step);
+                // reset the invalid state
+                this.invalidIndicator = false;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    WizardComponent.prototype.ngAfterViewInit = function () {
+        // initially set the correct visibility of the steps
+        setTimeout(this.update.bind(this));
+    };
+    /**
+     * Navigate to the next step
+     * @return {?}
+     */
+    WizardComponent.prototype.next = function () {
+        // check if current step is invalid
+        if (!this.getCurrentStep().valid) {
+            this.invalidIndicator = true;
+            return;
+        }
+        // check if we are currently on the last step
+        if ((this.step + 1) < this.steps.length) {
+            this.step++;
+            // emit the current step
+            this.onNext.next(this.step);
+        }
+    };
+    /**
+     * Navigate to the previous step
+     * @return {?}
+     */
+    WizardComponent.prototype.previous = function () {
+        // check if we are currently on the last step
+        if (this.step > 0) {
+            this.step--;
+            // emit the current step
+            this.onPrevious.next(this.step);
+        }
+    };
+    /**
+     * Perform actions when the finish button is clicked
+     * @return {?}
+     */
+    WizardComponent.prototype.finish = function () {
+        this.onFinish.next();
+    };
+    /**
+     * Perform actions when the cancel button is clicked
+     * @return {?}
+     */
+    WizardComponent.prototype.cancel = function () {
+        this.onCancel.next();
+    };
+    /**
+     * Update the active state of each step
+     * @return {?}
+     */
+    WizardComponent.prototype.update = function () {
+        var _this = this;
+        // update which steps should be active
+        this.steps.forEach(function (step, idx) { return step.active = idx === _this.step; });
+    };
+    /**
+     * Jump to a specific step only if the step has previously been visited
+     * @param {?} step
+     * @return {?}
+     */
+    WizardComponent.prototype.gotoStep = function (step) {
+        if (step.visited) {
+            this.step = this.steps.toArray().findIndex(function (stp) { return stp === step; });
+        }
+    };
+    /**
+     * Determine if the current step is the last step
+     * @return {?}
+     */
+    WizardComponent.prototype.isLastStep = function () {
+        return this.step === (this.steps.length - 1);
+    };
+    /**
+     * Reset the wizard - goes to first step and resets visited state
+     * @return {?}
+     */
+    WizardComponent.prototype.reset = function () {
+        // mark all steps as not visited
+        this.steps.forEach(function (step) { return step.visited = false; });
+        // go to the first step
+        this.step = 0;
+    };
+    /**
+     * Get the step at the current index
+     * @return {?}
+     */
+    WizardComponent.prototype.getCurrentStep = function () {
+        return this.getStepAtIndex(this.step);
+    };
+    /**
+     * Return a step at a specific index
+     * @param {?} index
+     * @return {?}
+     */
+    WizardComponent.prototype.getStepAtIndex = function (index) {
+        return this.steps.toArray()[index];
+    };
+    return WizardComponent;
+}());
+WizardComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-wizard',
+                template: "\n      <div class=\"wizard-body\">\n\n          <div class=\"wizard-steps\">\n    \n              <div class=\"wizard-step\" [class.active]=\"stp.active\" [class.visited]=\"stp.visited\" [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\" (click)=\"gotoStep(stp)\" *ngFor=\"let stp of steps\">\n                  {{ stp.header }}\n              </div>\n    \n          </div>\n    \n          <div class=\"wizard-content\">\n              <ng-content></ng-content>\n          </div>\n    \n      </div>\n\n      <div class=\"wizard-footer\">\n          <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"previousVisible\" [tooltip]=\"previousTooltip\" container=\"body\" [disabled]=\"previousDisabled || step === 0\"\n              (click)=\"previous(); tip.hide()\">{{ previousText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"nextVisible && !isLastStep()\" [tooltip]=\"nextTooltip\" container=\"body\" [disabled]=\"nextDisabled\"\n              (click)=\"next(); tip.hide()\">{{ nextText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\" [tooltip]=\"finishTooltip\"\n              container=\"body\" [disabled]=\"finishDisabled\" (click)=\"finish(); tip.hide()\">{{ finishText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\" [tooltip]=\"cancelTooltip\"\n              container=\"body\" [disabled]=\"cancelDisabled\" (click)=\"cancel(); tip.hide()\">{{ cancelText }}</button>\n      </div>\n    ",
+                host: {
+                    '[class]': 'orientation'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardComponent.ctorParameters = function () { return []; };
+WizardComponent.propDecorators = {
+    'steps': [{ type: core.ContentChildren, args: [WizardStepComponent,] },],
+    'orientation': [{ type: core.Input },],
+    'nextText': [{ type: core.Input },],
+    'previousText': [{ type: core.Input },],
+    'cancelText': [{ type: core.Input },],
+    'finishText': [{ type: core.Input },],
+    'nextTooltip': [{ type: core.Input },],
+    'previousTooltip': [{ type: core.Input },],
+    'cancelTooltip': [{ type: core.Input },],
+    'finishTooltip': [{ type: core.Input },],
+    'nextDisabled': [{ type: core.Input },],
+    'previousDisabled': [{ type: core.Input },],
+    'cancelDisabled': [{ type: core.Input },],
+    'finishDisabled': [{ type: core.Input },],
+    'nextVisible': [{ type: core.Input },],
+    'previousVisible': [{ type: core.Input },],
+    'cancelVisible': [{ type: core.Input },],
+    'finishVisible': [{ type: core.Input },],
+    'cancelAlwaysVisible': [{ type: core.Input },],
+    'finishAlwaysVisible': [{ type: core.Input },],
+    'onNext': [{ type: core.Output },],
+    'onPrevious': [{ type: core.Output },],
+    'onCancel': [{ type: core.Output },],
+    'onFinish': [{ type: core.Output },],
+    'stepChange': [{ type: core.Output },],
+    'step': [{ type: core.Input },],
+};
+var DECLARATIONS$6 = [
+    WizardComponent,
+    WizardStepComponent
+];
+var WizardModule = (function () {
+    function WizardModule() {
+    }
+    return WizardModule;
+}());
+WizardModule.decorators = [
+    { type: core.NgModule, args: [{
+                imports: [
+                    common.CommonModule,
+                    TooltipModule.forRoot()
+                ],
+                exports: DECLARATIONS$6,
+                declarations: DECLARATIONS$6
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardModule.ctorParameters = function () { return []; };
 var HelpCenterService = (function () {
     function HelpCenterService() {
         this.items = new BehaviorSubject.BehaviorSubject([]);
@@ -12190,7 +12479,7 @@ HoverActionDirective.propDecorators = {
     'previous': [{ type: core.HostListener, args: ['keydown.arrowleft', ['$event'],] },],
     'next': [{ type: core.HostListener, args: ['keydown.arrowright', ['$event'],] },],
 };
-var DECLARATIONS$6 = [
+var DECLARATIONS$7 = [
     HoverActionDirective,
     HoverActionContainerDirective
 ];
@@ -12201,8 +12490,8 @@ var HoverActionModule = (function () {
 }());
 HoverActionModule.decorators = [
     { type: core.NgModule, args: [{
-                exports: DECLARATIONS$6,
-                declarations: DECLARATIONS$6
+                exports: DECLARATIONS$7,
+                declarations: DECLARATIONS$7
             },] },
 ];
 /**
@@ -12355,7 +12644,7 @@ LayoutSwitcherDirective.propDecorators = {
     'group': [{ type: core.Input },],
     '_layouts': [{ type: core.ContentChildren, args: [LayoutSwitcherItemDirective,] },],
 };
-var DECLARATIONS$7 = [
+var DECLARATIONS$8 = [
     LayoutSwitcherDirective,
     LayoutSwitcherItemDirective
 ];
@@ -12369,8 +12658,8 @@ LayoutSwitcherModule.decorators = [
                 imports: [
                     ResizeModule
                 ],
-                exports: DECLARATIONS$7,
-                declarations: DECLARATIONS$7,
+                exports: DECLARATIONS$8,
+                declarations: DECLARATIONS$8,
                 providers: [],
             },] },
 ];
@@ -12514,6 +12803,9 @@ exports.VirtualScrollComponent = VirtualScrollComponent;
 exports.VirtualScrollLoadingDirective = VirtualScrollLoadingDirective;
 exports.VirtualScrollLoadButtonDirective = VirtualScrollLoadButtonDirective;
 exports.VirtualScrollCellDirective = VirtualScrollCellDirective;
+exports.WizardModule = WizardModule;
+exports.WizardComponent = WizardComponent;
+exports.WizardStepComponent = WizardStepComponent;
 exports.FocusIfDirective = FocusIfDirective;
 exports.FocusIfModule = FocusIfModule;
 exports.HelpCenterModule = HelpCenterModule;

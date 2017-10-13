@@ -19,6 +19,7 @@ export * from './components/toggleswitch/index';
 export * from './components/typeahead/index';
 export * from './components/media-player/index';
 export * from './components/virtual-scroll/index';
+export * from './components/wizard/index';
 export * from './directives/focus-if/index';
 export * from './directives/help-center/index';
 export * from './directives/hover-action/index';
