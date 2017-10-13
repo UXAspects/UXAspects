@@ -1,7 +1,19 @@
 <ux-wizard [orientation]="orientation">
-
-    <ux-wizard-step *ngFor="let step of steps; let idx = index" [header]="step">
-        <p>Content of step {{ idx + 1 }}.</p>
+        
+    <ux-wizard-step header="1. First Step">
+        <p>Content of step 1.</p>
+    </ux-wizard-step>
+    
+    <ux-wizard-step header="2. Second Step">
+        <p>Content of step 2.</p>
+    </ux-wizard-step>
+    
+    <ux-wizard-step header="3. Third Step">
+        <p>Content of step 3.</p>
+    </ux-wizard-step>
+    
+    <ux-wizard-step header="4. Fourth Step">
+        <p>Content of step 4.</p>
     </ux-wizard-step>
 
 </ux-wizard>

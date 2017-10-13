@@ -12,7 +12,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsWizardComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     orientation: string = 'horizontal';
-    steps = ['1. First Step', '2. Second Step', '3. Third Step', '4. Fourth Step'];
 
     plunk: IPlunk = {
         files: {
