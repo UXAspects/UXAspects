@@ -1,0 +1,106 @@
+ux-wizard {
+    .wizard-body {
+        display: flex;
+        flex-direction: column;
+
+        .wizard-steps {
+            display: flex;
+            flex-direction: row;
+            flex: none;
+            height: 38px;
+            margin-bottom: 8px;
+
+            .wizard-step {
+                flex: 1;
+                max-width: 25%;
+                height: 100%;
+                padding: 8px;
+                background: @wizard-steps-disabled-bg;
+                color: @wizard-steps-disabled-color;
+                margin: 0 8px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                word-break: break-all;
+
+                &.visited {
+                    background-color: @wizard-step-complete-bg;
+                    color: @wizard-step-complete-color;
+                    opacity: @wizard-step-complete-opacity;
+                    cursor: pointer;
+                }
+
+                &.active {
+                    background-color: @wizard-step-active-bg;
+                    color: @wizard-step-active-color;
+                    opacity: 1;
+                    cursor: default;
+                }
+
+                &.invalid {
+                    background-color: @wizard-step-error-bg;
+                    color: @wizard-step-error-color;
+                }
+
+                &:first-of-type {
+                    margin-left: 0;
+                }
+
+                &:last-of-type {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .wizard-content {
+            flex: none;
+            background-color: @wizard-content-bg;
+            margin: 5px 0 10px;
+            padding: 20px;
+            min-height: 120px;
+        }
+    }
+
+    .wizard-footer {
+        display: flex;
+        flex: none;
+        justify-content: flex-end;
+        margin: 0 20px;
+
+        .btn {
+            margin: 0 8px;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+
+    /*
+    * Support vertical presentation of the wizard
+    */
+    &.vertical {
+        .wizard-body {
+            flex-direction: row;
+
+            .wizard-steps {
+                flex: 1;
+                max-width: 260px;
+                flex-direction: column;
+                height: auto;
+
+                .wizard-step {
+                    flex: none;
+                    margin: 0 8px 8px 0;
+                    max-width: none;
+                    height: 38px;
+                }
+            }
+
+            .wizard-content {
+                flex: 1;
+                margin: 0 22px 8px;
+            }
+        }
+    }
+}

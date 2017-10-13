@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -10,8 +11,13 @@ import { ComponentsVerticalWizardNg1Component } from './vertical-wizard-ng1/vert
 import { ComponentsMarqueeWizardNg1Component } from './marquee-wizard-ng1/marquee-wizard-ng1.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { WrappersModule } from '../../../../wrappers.module';
+import { ComponentsWizardComponent } from './wizard/wizard.component';
+import { WizardModule, RadioButtonModule } from '../../../../../../src/index';
+
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 const SECTIONS = [
+    ComponentsWizardComponent,
     ComponentsWizardNg1Component,
     ComponentsWizardValidationNg1Component,
     ComponentsVerticalWizardNg1Component,
@@ -30,10 +36,14 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        CommonModule,
         WrappersModule,
         TabsModule,
+        AccordionModule.forRoot(),
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        RadioButtonModule,
+        WizardModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

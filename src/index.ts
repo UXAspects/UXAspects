@@ -22,6 +22,7 @@ export * from './components/toggleswitch/index';
 export * from './components/typeahead/index';
 export * from './components/media-player/index';
 export * from './components/virtual-scroll/index';
+export * from './components/wizard/index';
 
 /*
   Export Directives
