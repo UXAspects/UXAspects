@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnInit, ElementRef, ViewChild, HostListener, AfterViewInit, OnDestroy, DoCheck } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, ElementRef, ViewChild, HostListener, AfterViewInit, OnDestroy, DoCheck, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
@@ -8,7 +8,8 @@ import { ColorService } from '../../services/color/index';
 
 @Component({
     selector: 'ux-slider',
-    templateUrl: './slider.component.html'
+    templateUrl: './slider.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestroy {
 
@@ -90,7 +91,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     private _lowerDrag: Subscription;
     private _upperDrag: Subscription;
 
-    constructor(colorService: ColorService) {
+    constructor(colorService: ColorService, private _changeDetectorRef: ChangeDetectorRef) {
 
         // setup default options
         this.defaultOptions = {
@@ -145,9 +146,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     }
 
     ngDoCheck() {
-
+        
         // check if value has changed
-        if (!this.deepCompare(this.value, this._value)) {
+        if (!this.detectValueChange(this.value, this._value)) {
             this.updateValues();
             this._value = this.clone(this.value);
         }
@@ -158,6 +159,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         setTimeout(() => {
             this.updateTooltipPosition(SliderThumb.Lower);
             this.updateTooltipPosition(SliderThumb.Upper);
+
+            // mark as dirty
+            this._changeDetectorRef.markForCheck();
         });
     }
 
@@ -377,6 +381,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         // update tooltip text & position
         this.updateTooltipText(thumb);
         this.updateTooltipPosition(thumb);
+
+        // mark as dirty for change detection
+        this._changeDetectorRef.markForCheck();
     }
 
     private updateOrder(thumb: SliderThumb): void {
@@ -652,20 +659,53 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         return destination;
     }
 
-    private deepCompare(value1: any, value2: any): boolean {
+    private detectValueChange(value1: number | SliderValue, value2: number | SliderValue): boolean {
 
-        if (typeof value1 === 'number' && typeof value2 === 'number') {
-            return value1 === value2;
+        // compare two slider values
+        if (this.isSliderValue(value1) && this.isSliderValue(value2)) {
+            
+            // references to the objects in the correct types
+            const obj1 = value1 as SliderValue;
+            const obj2 = value2 as SliderValue;
+            
+            return obj1.low === obj2.low && obj1.high === obj2.high;
         }
 
-        return JSON.stringify(value1) === JSON.stringify(value2);
+        // if not a slider value - should be number of nullable type - compare normally
+        return value1 === value2;
     }
 
-    private clone(value: any): any {
+    /**
+     * Determines whether or not an object conforms to the
+     * SliderValue interface.
+     * @param value - The object to check - this must be type any
+     */
+    private isSliderValue(value: any): boolean {
+
+        // check if is an object
+        if (typeof value !== 'object') {
+            return false;
+        }
+
+        // next check if it contains the necessary properties
+        return 'low' in value && 'high' in value;
+    }
+
+    private clone(value: number | SliderValue): number | SliderValue {
+
+        // if it is not an object simply return the value
         if (typeof value !== 'object') {
             return value;
         }
-        return Object.assign({}, value);
+
+        // create a new object from the existing one
+        const instance =  Object.assign({}, value);
+
+        // delete remove the value from the old object
+        value = undefined;
+
+        // return the new instance of the object
+        return instance;
     }
 }
 
