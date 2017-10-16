@@ -503,13 +503,13 @@ export class DashboardService {
     onDrag(action: DashboardAction): void {
 
         // if there was no movement then do nothing
-        if (action.event.x === this._mouseEvent.x && action.event.y === this._mouseEvent.y) {
+        if (action.event.pageX === this._mouseEvent.pageX && action.event.pageY === this._mouseEvent.pageY) {
             return;
         }
 
         // get the current mouse position
-        let mouseX = action.event.x - this._mouseEvent.x;
-        let mouseY = action.event.y - this._mouseEvent.y;
+        let mouseX = action.event.pageX - this._mouseEvent.pageX;
+        let mouseY = action.event.pageY - this._mouseEvent.pageY;
 
         // store the latest event
         this._mouseEvent = action.event;
