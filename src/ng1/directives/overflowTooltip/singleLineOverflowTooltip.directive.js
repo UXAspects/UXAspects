@@ -40,9 +40,19 @@ export default function singleLineOverflowTooltip(safeTimeout, $window, $resize)
             //watch for changes to window size
             $window.addEventListener('resize', updateTooltipFn);
 
-            scope.$on('$destroy', function () {
+            scope.$on('$destroy', function () {              
                 element.tooltip('destroy');
                 $window.removeEventListener('resize', updateTooltipFn);
+
+                // check tooltip is removed
+                var remainingTooltipID = element.get(0).getAttribute('aria-describedBy');
+                if (remainingTooltipID) {
+                    var remainingTooltip = document.getElementById(remainingTooltipID);
+                    if (remainingTooltip) {
+                        remainingTooltip.remove();
+                    }
+                }
+
                 $resize.unbind(nativeElement, updateTooltip.bind(this));
             });
 
