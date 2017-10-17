@@ -40,7 +40,7 @@ export default function singleLineOverflowTooltip(safeTimeout, $window, $resize)
             //watch for changes to window size
             $window.addEventListener('resize', updateTooltipFn);
 
-            scope.$on('$destroy', function () {              
+            scope.$on('$destroy', function () {
                 element.tooltip('destroy');
                 $window.removeEventListener('resize', updateTooltipFn);
 
