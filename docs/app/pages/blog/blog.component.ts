@@ -23,6 +23,13 @@ export class BlogPageComponent {
     constructor(private domSanitizer: DomSanitizer) {
 
         this.posts = [{
+            title: 'Data Visualization with UX Aspects',
+            author: 'Alastair McKee',
+            category: 'Technical',
+            datestamp: 'October 17th',
+            content: require('./posts/2017-10-17-Data-Visualization-with-UX-Aspects.md')
+        },
+        {
             title: 'End-to-end testing using Protractor',
             author: 'Pearse McMurray',
             category: 'Technical',
