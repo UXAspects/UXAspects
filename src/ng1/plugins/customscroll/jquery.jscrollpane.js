@@ -108,6 +108,12 @@ LICENSE-END
 				}
 			};
 
+			// UX Aspects modification to reinitialise when popovers are shown
+			elem.on('click', '*', function() {
+				if(settings) {
+					initialise(settings);
+				}
+			});
 
 			if (elem.css('box-sizing') === 'border-box') {
 				originalPadding = 0;
@@ -123,7 +129,6 @@ LICENSE-END
 
 			function initialise(s)
 			{
-				
 
 				var /*firstChild, lastChild, */isMaintainingPositon, lastContentX, lastContentY,
 						hasContainingSpaceChanged, originalScrollTop, originalScrollLeft,
@@ -133,6 +138,7 @@ LICENSE-END
 				// UX Aspects - scrollMargin setting
 				scrollMargin = parseInt(settings.scrollMargin || "0");
 				if (pane === undefined) {
+
 					originalScrollTop = elem.scrollTop();
 					originalScrollLeft = elem.scrollLeft();
 
@@ -190,7 +196,7 @@ LICENSE-END
 						// UX Aspects - modify width and height to account for scrollMargin setting
 						paneWidth = (elem.innerWidth() - (scrollMargin * 2)) + originalPaddingTotalWidth;
 						paneHeight = getContentHeightByMaxHeight(scrollMargin) || (elem.innerHeight() - (scrollMargin * 2));
-						
+
 						container.css({
 							'width': paneWidth + 'px',
 							'height': paneHeight + 'px',
@@ -239,8 +245,6 @@ LICENSE-END
 				isScrollableV = percentInViewV > 1;
 
 				isScrollableH = s.isScrollableH && percentInViewH > 1;
-
-				//console.log(paneWidth, paneHeight, contentWidth, contentHeight, percentInViewH, percentInViewV, isScrollableH, isScrollableV);
 
 				if (!(isScrollableH || isScrollableV)) {
 					elem.removeClass('jspScrollable');
