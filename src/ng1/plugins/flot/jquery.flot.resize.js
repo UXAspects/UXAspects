@@ -51,7 +51,14 @@ LICENSE-END
             });
             if (i.length === 1) {
                 a = t;
-                h()
+
+                if(window.ngZone) {
+                    window.ngZone.runOutsideAngular(function() {
+                        h();
+                    });
+                } else {
+                    h()
+                }
             }
         },
         teardown: function () {
