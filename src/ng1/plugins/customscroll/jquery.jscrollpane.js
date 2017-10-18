@@ -108,12 +108,21 @@ LICENSE-END
 				}
 			};
 
-			// UX Aspects modification to reinitialise when popovers are shown
-			elem.on('click', '*', function() {
-				if(settings) {
-					initialise(settings);
+			// UX Aspects modification to reinitialise when popovers are shown	
+			var timer = null;
+			var observer = new MutationObserver(function() {
+				if (timer !== null) {
+					return;
 				}
+				timer = setTimeout(function() {
+					if(settings) {
+						initialise(settings);
+					}
+					timer = null;	
+				}, 1000);
 			});
+			observer.observe(elem[0], {attributes: true, childList: true, subtree: true});
+
 
 			if (elem.css('box-sizing') === 'border-box') {
 				originalPadding = 0;
@@ -190,7 +199,7 @@ LICENSE-END
 					maintainAtBottom = settings.stickToBottom && isCloseToBottom();
 					maintainAtRight  = settings.stickToRight  && isCloseToRight();
 
-					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem.outerHeight() != paneHeight;
+					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem[0].outerHeight != paneHeight;
 
 					if (hasContainingSpaceChanged) {
 						// UX Aspects - modify width and height to account for scrollMargin setting
