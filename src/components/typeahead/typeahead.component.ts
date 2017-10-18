@@ -10,7 +10,9 @@ import {
     Output,
     SimpleChanges,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    AfterViewInit,
+    ChangeDetectorRef
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -24,7 +26,7 @@ import { Observable } from 'rxjs/Observable';
         '[style.maxHeight]': 'maxHeight'
     }
 })
-export class TypeaheadComponent implements OnInit, OnChanges {
+export class TypeaheadComponent implements AfterViewInit, OnChanges {
 
     @Input() options: any[] | InfiniteScrollLoadFunction;
     @Input() filter: string;
@@ -82,7 +84,7 @@ export class TypeaheadComponent implements OnInit, OnChanges {
         getDisplayHtml: this.getDisplayHtml.bind(this)
     };
 
-    constructor(public typeaheadElement: ElementRef) {
+    constructor(public typeaheadElement: ElementRef, private cdRef: ChangeDetectorRef) {
 
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
             if (typeof this.options === 'function') {
@@ -92,7 +94,7 @@ export class TypeaheadComponent implements OnInit, OnChanges {
         };
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         // Attach default loading template
         if (!this.loadingTemplate) {
             this.loadingTemplate = this._defaultLoadingTemplate;
@@ -107,6 +109,8 @@ export class TypeaheadComponent implements OnInit, OnChanges {
         if (!this.noOptionsTemplate) {
             this.noOptionsTemplate = this._defaultNoOptionsTemplate;
         }
+
+        this.cdRef.detectChanges();
     }
 
     ngOnChanges(changes: SimpleChanges) {
