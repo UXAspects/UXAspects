@@ -136,7 +136,7 @@ LICENSE-END
 											(parseInt(elem.css('paddingRight'), 10) || 0);
 			}
 
-			function initialise(s, mutationObserved)
+			function initialise(s, forceResize)
 			{
 
 				var /*firstChild, lastChild, */isMaintainingPositon, lastContentX, lastContentY,
@@ -199,7 +199,7 @@ LICENSE-END
 					maintainAtBottom = settings.stickToBottom && isCloseToBottom();
 					maintainAtRight  = settings.stickToRight  && isCloseToRight();
 
-					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem.outerHeight() != paneHeight || mutationObserved;
+					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem.outerHeight() != paneHeight || forceResize;
 
 					if (hasContainingSpaceChanged) {
 
