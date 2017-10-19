@@ -839,13 +839,13 @@
                 },
                 {
                     "title": "Search History",
--                   "component": "ComponentsSearchHistoryNg1Component",
+                    "component": "ComponentsSearchHistoryNg1Component",
                     "version": "AngularJS"
--               },
--               {
+                },
+                {
                     "title": "Search Toolbar",
--                   "component": "ComponentsSearchToolbarNg1Component",
--                   "version": "AngularJS"
+                    "component": "ComponentsSearchToolbarNg1Component",
+                    "version": "AngularJS"
                 }
             ]
         },
