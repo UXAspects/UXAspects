@@ -836,16 +836,6 @@
                     "title": "Search Builder",
                     "component": "ComponentsSearchBuilderNg1Component",
                     "version": "AngularJS"
-                },
-                {
-                    "title": "Search History",
-                    "component": "ComponentsSearchHistoryNg1Component",
-                    "version": "AngularJS"
-                },
-                {
-                    "title": "Search Toolbar",
-                    "component": "ComponentsSearchToolbarNg1Component",
-                    "version": "AngularJS"
                 }
             ]
         },

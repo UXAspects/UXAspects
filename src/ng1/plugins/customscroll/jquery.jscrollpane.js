@@ -116,10 +116,10 @@ LICENSE-END
 				}
 				timer = setTimeout(function() {
 					if(settings) {
-						initialise(settings);
+						initialise(settings, true);
 					}
 					timer = null;	
-				}, 1000);
+				}, settings.autoReinitialiseDelay);
 			});
 			observer.observe(elem[0], {attributes: true, childList: true, subtree: true});
 
@@ -136,7 +136,7 @@ LICENSE-END
 											(parseInt(elem.css('paddingRight'), 10) || 0);
 			}
 
-			function initialise(s)
+			function initialise(s, mutationObserved)
 			{
 
 				var /*firstChild, lastChild, */isMaintainingPositon, lastContentX, lastContentY,
@@ -199,9 +199,10 @@ LICENSE-END
 					maintainAtBottom = settings.stickToBottom && isCloseToBottom();
 					maintainAtRight  = settings.stickToRight  && isCloseToRight();
 
-					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem[0].outerHeight != paneHeight;
+					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem.outerHeight() != paneHeight || mutationObserved;
 
 					if (hasContainingSpaceChanged) {
+
 						// UX Aspects - modify width and height to account for scrollMargin setting
 						paneWidth = (elem.innerWidth() - (scrollMargin * 2)) + originalPaddingTotalWidth;
 						paneHeight = getContentHeightByMaxHeight(scrollMargin) || (elem.innerHeight() - (scrollMargin * 2));
