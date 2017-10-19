@@ -1411,6 +1411,12 @@ LICENSE-END
 
 				window.removeEventListener('resize', reinitialiseFn);
 
+				if(timer) {
+					clearTimeout(timer);
+				}
+
+				observer.disconnect();
+
 				if(retainDom !== true) {
 
 					var currentY = contentPositionY(),
