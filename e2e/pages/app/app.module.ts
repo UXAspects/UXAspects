@@ -32,9 +32,10 @@ import { TagsTestPageComponent }  from './tags/tags.testpage.component';
 import { ToggleButtonTestPageComponent }  from './toggle-button/toggle-button.testpage.component';
 import { ToggleSwitchesTestPageComponent }  from './toggleswitches/toggleswitches.testpage.component';
 import { VirtualScrollTestPageComponent }  from './virtual-scroll/virtual-scroll.testpage.component';
+import { WizardTestPageComponent } from './wizard/wizard.testpage.component';
 import { CheckboxModule, ColorServiceModule, DashboardModule, FacetsModule, FilterModule, FlippableCardModule,
 InfiniteScrollModule, ItemDisplayPanelModule, NumberPickerModule, PageHeaderModule, RadioButtonModule, SelectModule,
-SliderModule, SparkModule, StringFilterModule, TagInputModule, ToggleSwitchModule, TypeaheadModule, VirtualScrollModule }
+SliderModule, SparkModule, StringFilterModule, TagInputModule, ToggleSwitchModule, TypeaheadModule, VirtualScrollModule, WizardModule }
 from '../../../dist';
 
 const ROUTES: Routes = [
@@ -101,6 +102,9 @@ const ROUTES: Routes = [
   }, {
     path: 'virtual-scroll',
     component: VirtualScrollTestPageComponent
+  }, {
+    path: 'wizard',
+    component: WizardTestPageComponent
   }
 ];
 
@@ -133,7 +137,8 @@ const ROUTES: Routes = [
     TagInputModule,
     ToggleSwitchModule,
     TypeaheadModule,
-    VirtualScrollModule
+    VirtualScrollModule,
+    WizardModule
   ],
   declarations: [
     AppComponent,
@@ -158,7 +163,8 @@ const ROUTES: Routes = [
     TagsTestPageComponent,
     ToggleButtonTestPageComponent,
     ToggleSwitchesTestPageComponent,
-    VirtualScrollTestPageComponent
+    VirtualScrollTestPageComponent,
+    WizardTestPageComponent
   ],
   bootstrap: [
     AppComponent
