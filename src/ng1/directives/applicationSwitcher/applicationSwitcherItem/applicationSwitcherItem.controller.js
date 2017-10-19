@@ -4,7 +4,7 @@ export default function ApplicationSwitcherItemCtrl($scope) {
     var vm = this;
     vm.value = $scope.value;
 
-    if (localStorage.getItem(vm.value) === "true") {
+    if (localStorage && localStorage.getItem(vm.value) === "true") {
         vm.checked = true;
     } else {
         vm.checked = false;

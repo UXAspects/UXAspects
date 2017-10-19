@@ -29,6 +29,8 @@ import { DocumentationComponentsModule } from './components/components.module';
 import { DocumentationDirectivesModule } from './directives/directives.module';
 import { DocumentationProvidersModule } from './services/services.module';
 
+import { PersistentDataService } from './../../src/services/persistent-data/persistent-data.service'
+
 // Import Root Component
 import { AppComponent } from './app.component';
 
@@ -126,6 +128,7 @@ upgradeAdapter.upgradeNg1Provider('$rootScope');
 upgradeAdapter.upgradeNg1Provider('$state');
 upgradeAdapter.upgradeNg1Provider('flotDataService');
 upgradeAdapter.upgradeNg1Provider('lineDataService');
+app.service('$persistentDataService', upgradeAdapter.downgradeNg2Provider(PersistentDataService));
 
 /*
   Register Angular 1 module

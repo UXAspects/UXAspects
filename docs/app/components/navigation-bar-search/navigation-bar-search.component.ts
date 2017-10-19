@@ -7,6 +7,7 @@ import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 import { ISearchResult } from '../../interfaces/ISearch';
 import { ISection } from '../../interfaces/ISection';
 import { NavigationService } from '../../services/navigation/navigation.service';
+import { PersistentDataService, PersistentDataStorageType } from '../../../../src/services/persistent-data/persistent-data.service';
 import { Version, VersionService } from '../../services/version/version.service';
 import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
 
@@ -35,7 +36,9 @@ export class NavigationBarSearchComponent {
     private data: ISearchResult[];
     private history: ISearchResult[] = [];
 
-    constructor(private router: Router, private navigation: NavigationService, private versionService: VersionService, private _appConfig: AppConfiguration) {
+    constructor(private router: Router, private navigation: NavigationService, 
+    private versionService: VersionService, private _appConfig: AppConfiguration,
+    private persistentDataService: PersistentDataService) {
 
         this.searching = false;
         this.query = new BehaviorSubject<string>('');
@@ -236,11 +239,11 @@ export class NavigationBarSearchComponent {
     }
 
     private loadHistory(): ISearchResult[] {
-        const json = localStorage.getItem(LOCAL_STORAGE_KEY);
+        const json = this.persistentDataService.getData(LOCAL_STORAGE_KEY);
         return json ? JSON.parse(json) : [];
     }
 
     private saveHistory(history: ISearchResult[]) {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(history));
+        this.persistentDataService.setData(LOCAL_STORAGE_KEY, JSON.stringify(history));
     }
 }

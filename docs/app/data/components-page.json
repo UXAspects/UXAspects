@@ -1303,6 +1303,15 @@
                     "version": "AngularJS"
                 },
                 {
+                    "title": "Persistent Data Service",
+                    "component": "ComponentsPersistentDataServiceComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Module",
+                        "content": "PersistentDataModule"
+                    }]
+                },
+                {
                     "title": "Safe Timeout",
                     "component": "ComponentsSafeTimeoutNg1Component",
                     "version": "AngularJS"
