@@ -93,7 +93,8 @@ LICENSE-END
 				reinitialiseInterval, resizeSensorDelay, resizeEventsAdded, originalPadding, originalPaddingTotalWidth, previousContentWidth,
 				wasAtTop = true, wasAtLeft = true, wasAtBottom = false, wasAtRight = false,
 				originalElement = elem.clone(false, false).empty(),
-				mwEvent = $.fn.mwheelIntent ? 'mwheelIntent.jsp' : 'mousewheel.jsp';
+				mwEvent = $.fn.mwheelIntent ? 'mwheelIntent.jsp' : 'mousewheel.jsp',
+				contentUpdateSensor, contentUpdateSensorDelay, timer, observer;;
 
 			// UX Aspects modification
 			var reinitialiseFn = function() {
@@ -107,22 +108,6 @@ LICENSE-END
 					initialise(settings);
 				}
 			};
-
-			// UX Aspects modification to reinitialise when popovers are shown	
-			var timer = null;
-			var observer = new MutationObserver(function() {
-				if (timer !== null) {
-					return;
-				}
-				timer = setTimeout(function() {
-					if(settings) {
-						initialise(settings, true);
-					}
-					timer = null;	
-				}, settings.autoReinitialiseDelay);
-			});
-			observer.observe(elem[0], {attributes: true, childList: true, subtree: true});
-
 
 			if (elem.css('box-sizing') === 'border-box') {
 				originalPadding = 0;
@@ -144,6 +129,24 @@ LICENSE-END
 						maintainAtBottom = false, maintainAtRight = false, scrollMargin;
 
 				settings = s;
+
+				// UX Aspects modification to reinitialise when popovers are shown
+				if (settings.contentUpdateSensor && !observer) {
+					timer = null;
+					observer = new MutationObserver(function() {
+						if (timer !== null) {
+							return;
+						}
+						timer = setTimeout(function() {
+							if(settings) {
+								initialise(settings, true);
+							}
+							timer = null;	
+						}, settings.contentUpdateSensorDelay);
+					});
+					observer.observe(elem[0], {attributes: true, childList: true, subtree: true});
+				}
+
 				// UX Aspects - scrollMargin setting
 				scrollMargin = parseInt(settings.scrollMargin || "0");
 				if (pane === undefined) {
@@ -1415,7 +1418,9 @@ LICENSE-END
 					clearTimeout(timer);
 				}
 
-				observer.disconnect();
+				if (observer) {
+					observer.disconnect();
+				}
 
 				if(retainDom !== true) {
 
@@ -1661,6 +1666,9 @@ LICENSE-END
 		// UX Aspects - Use resize Sensor instead
 		resizeSensor				: false,
 		resizeSensorDelay			: 0,
+		// UX Aspects mutation observer
+		contentUpdateSensor			:false,
+		contentUpdateSensorDelay	:500,
 		horizontalDragMinWidth		: 0,
 		horizontalDragMaxWidth		: 99999,
 		contentWidth				: undefined,

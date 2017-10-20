@@ -49,6 +49,18 @@
         <td>number</td>
         <td>Margin in pixels to add around the scrollable area. The recommended margin as seen in the example above is 5. Default is 0.</td>
       </tr>
+      <tr>
+        <td class="attribute">contentUpdateSensor</td>
+        <td>boolean</td>
+        <td>This should be enabled if you have dropdowns within the scroll pane to allow the panel to resize when 
+          the dropdown is opened. It will be less performant with this enabled so should not be used unless needed.
+        </td>
+      </tr>
+      <tr>
+        <td class="attribute">contentUpdateSensorDelay</td>
+        <td>number</td>
+        <td>This will set the delay for the content update sensor. Lower numbers will have a greater impact to performance. By default this is set to 500ms.</td>
+      </tr>
     </tbody>
   </table>
 </div>
