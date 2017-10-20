@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical', 'Auditing', 'Labs'];
 
 @Component({
-    selector: 'app',
+    selector: 'virtual-scroll-app',
     templateUrl: './virtual-scroll.testpage.component.html',
     styleUrls: ['./virtual-scroll.testpage.component.css']
 })
