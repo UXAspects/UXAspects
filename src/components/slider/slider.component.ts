@@ -504,8 +504,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         let upperValue = typeof this.value === 'number' ? this.value : this.value.high;
 
         // validate values
-        lowerValue = this.validateValue(SliderThumb.Lower, lowerValue);
-        upperValue = this.validateValue(SliderThumb.Upper, upperValue);
+        lowerValue = this.validateValue(SliderThumb.Lower, Number(lowerValue.toFixed(4)));
+        upperValue = this.validateValue(SliderThumb.Upper, Number(upperValue.toFixed(4)));
 
         // calculate the positions as percentages
         let lowerPosition = (((lowerValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
@@ -529,12 +529,12 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         this.thumbs.lower.value = low;
         this.thumbs.upper.value = high;
 
-        let previousValue = this.value;
+        let previousValue = this.clone(this.value);
 
         this.value = this.options.type === SliderType.Value ? low : { low: low, high: high };
 
         // call the event emitter if changes occured
-        if (this.value !== previousValue) {
+        if (this.detectValueChange(this.value, previousValue)) {
             this.valueChange.emit(this.value);
 
             this.updateTooltipText(SliderThumb.Lower);
