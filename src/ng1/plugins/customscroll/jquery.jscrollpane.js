@@ -93,7 +93,8 @@ LICENSE-END
 				reinitialiseInterval, resizeSensorDelay, resizeEventsAdded, originalPadding, originalPaddingTotalWidth, previousContentWidth,
 				wasAtTop = true, wasAtLeft = true, wasAtBottom = false, wasAtRight = false,
 				originalElement = elem.clone(false, false).empty(),
-				mwEvent = $.fn.mwheelIntent ? 'mwheelIntent.jsp' : 'mousewheel.jsp';
+				mwEvent = $.fn.mwheelIntent ? 'mwheelIntent.jsp' : 'mousewheel.jsp',
+				contentUpdateSensor, contentUpdateSensorDelay, timer, observer;
 
 			// UX Aspects modification
 			var reinitialiseFn = function() {
@@ -108,7 +109,6 @@ LICENSE-END
 				}
 			};
 
-
 			if (elem.css('box-sizing') === 'border-box') {
 				originalPadding = 0;
 				originalPaddingTotalWidth = 0;
@@ -121,18 +121,36 @@ LICENSE-END
 											(parseInt(elem.css('paddingRight'), 10) || 0);
 			}
 
-			function initialise(s)
+			function initialise(s, forceResize)
 			{
-				
 
 				var /*firstChild, lastChild, */isMaintainingPositon, lastContentX, lastContentY,
 						hasContainingSpaceChanged, originalScrollTop, originalScrollLeft,
 						maintainAtBottom = false, maintainAtRight = false, scrollMargin;
 
 				settings = s;
+
+				// UX Aspects modification to reinitialise when popovers are shown
+				if (settings.contentUpdateSensor && !observer) {
+					timer = null;
+					observer = new MutationObserver(function() {
+						if (timer !== null) {
+							return;
+						}
+						timer = setTimeout(function() {
+							if(settings) {
+								initialise(settings, true);
+							}
+							timer = null;	
+						}, settings.contentUpdateSensorDelay);
+					});
+					observer.observe(elem[0], {attributes: true, childList: true, subtree: true});
+				}
+
 				// UX Aspects - scrollMargin setting
 				scrollMargin = parseInt(settings.scrollMargin || "0");
 				if (pane === undefined) {
+
 					originalScrollTop = elem.scrollTop();
 					originalScrollLeft = elem.scrollLeft();
 
@@ -184,13 +202,14 @@ LICENSE-END
 					maintainAtBottom = settings.stickToBottom && isCloseToBottom();
 					maintainAtRight  = settings.stickToRight  && isCloseToRight();
 
-					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem.outerHeight() != paneHeight;
+					hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem.outerHeight() != paneHeight || forceResize;
 
 					if (hasContainingSpaceChanged) {
+
 						// UX Aspects - modify width and height to account for scrollMargin setting
 						paneWidth = (elem.innerWidth() - (scrollMargin * 2)) + originalPaddingTotalWidth;
 						paneHeight = getContentHeightByMaxHeight(scrollMargin) || (elem.innerHeight() - (scrollMargin * 2));
-						
+
 						container.css({
 							'width': paneWidth + 'px',
 							'height': paneHeight + 'px',
@@ -239,8 +258,6 @@ LICENSE-END
 				isScrollableV = percentInViewV > 1;
 
 				isScrollableH = s.isScrollableH && percentInViewH > 1;
-
-				//console.log(paneWidth, paneHeight, contentWidth, contentHeight, percentInViewH, percentInViewV, isScrollableH, isScrollableV);
 
 				if (!(isScrollableH || isScrollableV)) {
 					elem.removeClass('jspScrollable');
@@ -1397,6 +1414,14 @@ LICENSE-END
 
 				window.removeEventListener('resize', reinitialiseFn);
 
+				if(timer) {
+					clearTimeout(timer);
+				}
+
+				if (observer) {
+					observer.disconnect();
+				}
+
 				if(retainDom !== true) {
 
 					var currentY = contentPositionY(),
@@ -1641,6 +1666,9 @@ LICENSE-END
 		// UX Aspects - Use resize Sensor instead
 		resizeSensor				: false,
 		resizeSensorDelay			: 0,
+		// UX Aspects mutation observer
+		contentUpdateSensor			:false,
+		contentUpdateSensorDelay	:500,
 		horizontalDragMinWidth		: 0,
 		horizontalDragMaxWidth		: 99999,
 		contentWidth				: undefined,

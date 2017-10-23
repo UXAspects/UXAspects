@@ -79,7 +79,8 @@ function SearchBuilderDemoModalCtrl($modalInstance, $scope, searchBuilderPanel, 
     // scrollbar conguration
     vm.scrollBarConfig = {
         resizeSensor: true,
-        enableKeyboardNavigation: true
+        enableKeyboardNavigation: true,
+        contentUpdateSensor: true
     };
 
     //use a service to store these values - make them more accessible by all modal contents
