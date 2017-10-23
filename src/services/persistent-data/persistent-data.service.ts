@@ -139,9 +139,7 @@ export class PersistentDataService {
 
         }
     
-    return null;
-
-        
+        return null;        
     }
 
     /**
