@@ -143,12 +143,14 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
 
         this.setThumbState(SliderThumb.Lower, false, false);
         this.setThumbState(SliderThumb.Upper, false, false);
+
+        // emit the initial value
+        this.valueChange.next(this.clone(this.value));
     }
 
     ngDoCheck() {
-        
-        // check if value has changed
-        if (!this.detectValueChange(this.value, this._value)) {
+
+        if (this.detectValueChange(this.value, this._value)) {
             this.updateValues();
             this._value = this.clone(this.value);
         }
@@ -529,16 +531,18 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         this.thumbs.lower.value = low;
         this.thumbs.upper.value = high;
 
-        let previousValue = this.clone(this.value);
+        let previousValue = this.clone(this._value);
 
         this.value = this.options.type === SliderType.Value ? low : { low: low, high: high };
 
         // call the event emitter if changes occured
         if (this.detectValueChange(this.value, previousValue)) {
-            this.valueChange.emit(this.value);
+            this.valueChange.emit(this.clone(this.value));
 
             this.updateTooltipText(SliderThumb.Lower);
             this.updateTooltipText(SliderThumb.Upper);
+        } else {
+            this.valueChange.emit(this.clone(this.value));
         }
     }
 
@@ -668,11 +672,11 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
             const obj1 = value1 as SliderValue;
             const obj2 = value2 as SliderValue;
             
-            return obj1.low === obj2.low && obj1.high === obj2.high;
+            return obj1.low !== obj2.low || obj1.high !== obj2.high;
         }
 
         // if not a slider value - should be number of nullable type - compare normally
-        return value1 === value2;
+        return value1 !== value2;
     }
 
     /**
