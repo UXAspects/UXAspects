@@ -67,20 +67,30 @@ export default function infiniteScroll($parse, $templateRequest, $compile, $time
                     //store the new search query
                     searchQuery = nv;
 
-                    //remove all previous list items
-                    getContainer().empty();
-
-                    //set the page back to zero
-                    currentPage = 0;
-                    isLoading = false;
-
-                    //load the next page
-                    loadPage();
+                    // Clear the container and start from the first page
+                    reset();
                 }
+            });
+
+            // Reset on external event, e.g. if dataset changes
+            scope.$on('infiniteScroll.reset', function () {
+                reset();
             });
 
             //allow jScrollPane to initialise
             $timeout(bindToScroll);
+
+            function reset() {
+                //remove all previous list items
+                getContainer().empty();
+
+                //set the page back to zero
+                currentPage = 0;
+                isLoading = false;
+
+                //load the next page
+                loadPage();
+            }
 
             function showLoadingIndicator() {
 
@@ -196,8 +206,8 @@ export default function infiniteScroll($parse, $templateRequest, $compile, $time
                 //ensure enough items are visible to show a scrollbar
 
                 // if we are running in Angular 2 and ngZone is globally available then run outside of ngZone
-                if(window.ngZone) {
-                    window.ngZone.runOutsideAngular(function() {
+                if (window.ngZone) {
+                    window.ngZone.runOutsideAngular(function () {
                         ensureScrollable();
                     });
                 } else {
@@ -313,7 +323,7 @@ export default function infiniteScroll($parse, $templateRequest, $compile, $time
                 // jspInitialised is true only when the element is visible and jsp init is complete
                 var jspInitialised;
                 if (jScrollPane) {
-                    element.bind("jsp-initialised", function() {
+                    element.bind("jsp-initialised", function () {
                         jspInitialised = true;
                     });
                 }
