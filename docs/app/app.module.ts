@@ -29,7 +29,7 @@ import { DocumentationComponentsModule } from './components/components.module';
 import { DocumentationDirectivesModule } from './directives/directives.module';
 import { DocumentationProvidersModule } from './services/services.module';
 
-import { PersistentDataService } from './../../src/services/persistent-data/persistent-data.service'
+import { PersistentDataService } from './../../src/services/persistent-data/persistent-data.service';
 
 // Import Root Component
 import { AppComponent } from './app.component';
@@ -114,6 +114,9 @@ const DECLARATIONS = [
 
     // Routing Module
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
+  ],
+  providers: [
+    PersistentDataService
   ],
   declarations: DECLARATIONS
 })

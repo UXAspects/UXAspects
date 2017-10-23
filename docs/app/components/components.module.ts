@@ -1,4 +1,3 @@
-import { PersistentDataModule } from './../../../src/services/persistent-data/persistent-data.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -64,8 +63,7 @@ const DOCUMENTATION_COMPONENTS = [
         RouterModule,
         ScrollIntoViewIfModule,
         TooltipModule.forRoot(),
-        TypeaheadModule.forRoot(),
-        PersistentDataModule
+        TypeaheadModule.forRoot()
     ],
     exports: DOCUMENTATION_COMPONENTS,
     declarations: DOCUMENTATION_COMPONENTS,

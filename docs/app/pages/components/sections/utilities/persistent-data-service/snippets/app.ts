@@ -9,14 +9,21 @@ export class AppComponent {
 
     searches = ['checkbox', 'toggle switch', 'tree grid'];
 
-    constructor(public persistentDataService: PersistentDataService) {
-        this.persistentDataService.setData(
+    constructor(public _persistentDataService: PersistentDataService) {
+        this._persistentDataService.setItem(
             'mySearches',
             this.searches,
             PersistentDataStorageType.LocalStorage
         );
-        let mySearches = this.persistentDataService.getData(
+        let mySearches = this._persistentDataService.getItem(
             'mySearches',
+            PersistentDataStorageType.LocalStorage
+        );
+        this._persistentDataService.removeItem(
+            'mySearches',
+            PersistentDataStorageType.LocalStorage
+        );
+        this._persistentDataService.clear(
             PersistentDataStorageType.LocalStorage
         );
     }

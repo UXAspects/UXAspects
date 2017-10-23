@@ -9,13 +9,13 @@ export class VersionService {
 
     version: BehaviorSubject<Version> = new BehaviorSubject<Version>(Version.Angular);
 
-    constructor(private persistentDataService: PersistentDataService) {
-        this.setVersion(this.toVersion(this.persistentDataService.getData('version')));
+    constructor(private _persistentDataService: PersistentDataService) {
+        this.setVersion(this.toVersion(this._persistentDataService.getItem('version')));
     }
 
     setVersion(version: Version): void {
         if (this.version.getValue() !== version) {
-            this.persistentDataService.setData('version', version.toString());
+            this._persistentDataService.setItem('version', version.toString());
             this.version.next(version);
         }
     }
