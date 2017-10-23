@@ -9,7 +9,7 @@ export class AppComponent {
 
     searches = ['checkbox', 'toggle switch', 'tree grid'];
 
-    constructor(public _persistentDataService: PersistentDataService) {
+    constructor(private _persistentDataService: PersistentDataService) {
         this._persistentDataService.setItem(
             'mySearches',
             this.searches,

@@ -1,8 +1,8 @@
 angular.module('app').controller('SearchHistoryDemoCtrl', SearchHistoryDemoCtrl);
 
-SearchHistoryDemoCtrl.$inject = ['$scope', '$modal', '$persistentDataService'];
+SearchHistoryDemoCtrl.$inject = ['$scope', '$modal'];
 
-function SearchHistoryDemoCtrl($scope, $modal, $persistentDataService) {
+function SearchHistoryDemoCtrl($scope, $modal) {
     var vm = this;
 
     vm.scrollConfig = {
@@ -64,7 +64,7 @@ function SearchHistoryDemoCtrl($scope, $modal, $persistentDataService) {
     storeSearches();
 
     vm.getHistory = function () {
-        vm.searches = JSON.parse($persistentDataService.getData('mySearches'));
+        vm.searches = JSON.parse(localStorage.getData('mySearches'));
     };
 
     vm.openModal = function () {
@@ -81,7 +81,7 @@ function SearchHistoryDemoCtrl($scope, $modal, $persistentDataService) {
         modalInstance.result.then(function (result) {
             if (result === "cancel") return;
 
-            vm.searches = JSON.parse($persistentDataService.getData('mySearches'));
+            vm.searches = JSON.parse(localStorage.getData('mySearches'));
             vm.searches.unshift(result);
             vm.searches.pop();
 
@@ -96,6 +96,6 @@ function SearchHistoryDemoCtrl($scope, $modal, $persistentDataService) {
     };
 
     function storeSearches() {
-        $persistentDataService.setData('mySearches', JSON.stringify(vm.searches));
+        localStorage.setData('mySearches', JSON.stringify(vm.searches));
     }
 }
