@@ -1,0 +1,1 @@
+$scope.$broadcast('infiniteScroll.reset');
