@@ -40,6 +40,7 @@ module.exports = function (grunt) {
 
     // Tasks with larger chains of events
     grunt.registerTask('build', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim']);
+    grunt.registerTask('releasebuild', ['build', 'compress:bower']);
 
     // default task will run dev environment
     grunt.registerTask('default', ['documentation:serve']);
