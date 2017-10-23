@@ -94,7 +94,7 @@ LICENSE-END
 				wasAtTop = true, wasAtLeft = true, wasAtBottom = false, wasAtRight = false,
 				originalElement = elem.clone(false, false).empty(),
 				mwEvent = $.fn.mwheelIntent ? 'mwheelIntent.jsp' : 'mousewheel.jsp',
-				contentUpdateSensor, contentUpdateSensorDelay, timer, observer;;
+				contentUpdateSensor, contentUpdateSensorDelay, timer, observer;
 
 			// UX Aspects modification
 			var reinitialiseFn = function() {
