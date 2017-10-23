@@ -86,6 +86,9 @@ export class DashboardService {
      */
     addWidget(widget: DashboardWidgetComponent): void {
         this._widgets.push(widget);
+        
+        // re-render the dashboard
+        this.renderDashboard();
     }
 
     /**
@@ -93,7 +96,12 @@ export class DashboardService {
      * @param widget The widget to remove
      */
     removeWidget(widget: DashboardWidgetComponent): void {
-        this._widgets.findIndex(wgt => wgt === widget);
+
+        // remove a widget from the dashboard
+        this._widgets = this._widgets.filter(wgt => wgt !== widget);
+        
+        // re-render the dashboard
+        this.renderDashboard();
     }
 
     /**
@@ -142,6 +150,11 @@ export class DashboardService {
      * Update the positions and sizes of the widgets
      */
     renderDashboard(): void {
+
+        // do nothing if chart options haven't yet been initialised
+        if (!this._options) {
+            return;
+        }
 
         // get the dimensions of the dashboard
         this._columnWidth = this._dimensions.width / this._options.columns;
