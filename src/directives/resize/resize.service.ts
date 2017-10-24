@@ -7,10 +7,10 @@ import 'rxjs/add/observable/fromEvent';
 @Injectable()
 export class ResizeService {
 
-    addResizeListener(nativeElement: HTMLElement, renderer: Renderer2): Subject<any> {
+    addResizeListener(nativeElement: HTMLElement, renderer: Renderer2): Subject<ResizeDimensions> {
 
         // create subject
-        let subject = new Subject<any>();
+        let subject = new Subject<ResizeDimensions>();
 
         // determine the style of the element
         let displayMode = window.getComputedStyle(nativeElement).getPropertyValue('display');
