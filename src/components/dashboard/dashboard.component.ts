@@ -69,9 +69,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
 
     onResize(event: ResizeDimensions): void {
         // ensure this gets run inside Angular
-        this._ngZone.run(() => {
-            this._dashboardService.setDimensions(event.width, event.height);
-        });
+        this._ngZone.run(() => this._dashboardService.setDimensions(event.width, event.height));
     }
 }
 
