@@ -21,23 +21,26 @@ export class CookieAdapter implements StorageAdapter {
     }
 
     setItem(key: string, value: string): void {
-        document.cookie = key + '=' + value + '; path=/';
+        document.cookie = `${key}=${value}; path=/`;
     }
 
-    removeItem(key: string): void {  
-        window.document.cookie.split(';').forEach(function(c) {
-            let eqPos = c.indexOf('=');
-            let name = eqPos > -1 ? c.substr(0, eqPos).replace(' ', '') : c;
+    removeItem(key: string): void {
+
+        document.cookie.split(';').forEach(cookie => {
+            const eqPos = cookie.indexOf('=');
+            const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie;
+
             if (name === key) {
-                document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/'); 
+                document.cookie = cookie.trim().replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
             }
         });
     }
 
     clear(): void {
-        window.document.cookie.split(';').forEach(function(c) {
-            document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/'); 
-        });
+
+        // call remove item on each cookie
+        document.cookie.split(';').map(cookie => cookie.split('=')[0].trim())
+            .forEach(cookie => this.removeItem(cookie));
     }
 
     getSupported(): StorageAdapter {
