@@ -24,18 +24,19 @@ export class CookieAdapter implements StorageAdapter {
         document.cookie = key + '=' + value + '; path=/';
     }
 
-    removeItem(key: string): void {
-        // making cookie expire
-        document.cookie = key + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    removeItem(key: string): void {  
+        window.document.cookie.split(';').forEach(function(c) {
+            let eqPos = c.indexOf('=');
+            let name = eqPos > -1 ? c.substr(0, eqPos).replace(' ', '') : c;
+            if (name === key) {
+                document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/'); 
+            }
+        });
     }
 
     clear(): void {
-        
-        document.cookie.split(';').forEach(cookie => {
-            let eqPos = cookie.indexOf('=');
-            let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-            // make cookie expire
-            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        window.document.cookie.split(';').forEach(function(c) {
+            document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/'); 
         });
     }
 
