@@ -63,7 +63,7 @@ const DOCUMENTATION_COMPONENTS = [
         RouterModule,
         ScrollIntoViewIfModule,
         TooltipModule.forRoot(),
-        TypeaheadModule.forRoot(),
+        TypeaheadModule.forRoot()
     ],
     exports: DOCUMENTATION_COMPONENTS,
     declarations: DOCUMENTATION_COMPONENTS,

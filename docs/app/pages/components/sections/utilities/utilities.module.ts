@@ -16,6 +16,7 @@ import { ComponentsSafeIntervalNg1Component } from './safe-interval-ng1/safe-int
 import { ComponentsTimeAgoServiceNg1Component } from './time-ago-service-ng1/time-ago-service-ng1.component';
 import { ComponentsListItemFilterNg1Component } from './list-item-filter-ng1/list-item-filter-ng1.component';
 import { ComponentsWindowCommunicationServiceNg1Component } from './window-communication-service-ng1/window-communication-service-ng1.component';
+import { ComponentsPersistentDataServiceComponent } from './persistent-data-service/persistent-data-service.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ComponentsFocusIfComponent } from './focus-if/focus-if.component';
@@ -32,7 +33,8 @@ const SECTIONS = [
     ComponentsSafeIntervalNg1Component,
     ComponentsTimeAgoServiceNg1Component,
     ComponentsListItemFilterNg1Component,
-    ComponentsWindowCommunicationServiceNg1Component
+    ComponentsWindowCommunicationServiceNg1Component,
+    ComponentsPersistentDataServiceComponent,
 ];
 
 const ROUTES = [

@@ -2,7 +2,7 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
     return {
         restrict: 'E',
         template: require('./search-history-wrapper.directive.html'),
-        controller: ['$scope', '$templateCache', '$modal', function ($scope, $templateCache, $modal) {
+        controller: ['$scope', '$persistentDataService', '$templateCache', '$modal', function ($scope, $persistentDataService, $templateCache, $modal) {
             $templateCache.put('search-history-ng1/modalLayout.html', require('!!raw-loader!../snippets/modalLayout.html'));
 
             var vm = this;
@@ -66,7 +66,7 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
             storeSearches();
 
             vm.getHistory = function () {
-                vm.searches = JSON.parse(localStorage.getItem('mySearches'));
+                vm.searches = JSON.parse($persistentDataService.getItem('mySearches'));
             };
 
             vm.openModal = function () {
@@ -83,7 +83,7 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
                 modalInstance.result.then(function (result) {
                     if (result === "cancel") return;
 
-                    vm.searches = JSON.parse(localStorage.getItem('mySearches'));
+                    vm.searches = JSON.parse($persistentDataService.getItem('mySearches'));
                     vm.searches.unshift(result);
                     vm.searches.pop();
 
@@ -98,7 +98,7 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
             };
 
             function storeSearches() {
-                localStorage.setItem('mySearches', JSON.stringify(vm.searches));
+                $persistentDataService.setItem('mySearches', JSON.stringify(vm.searches));
             }
 
             // Clean up scope

@@ -2,19 +2,20 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { ISection } from '../../interfaces/ISection';
+import { PersistentDataService } from '../../../../src/index';
 
 @Injectable()
 export class VersionService {
 
     version: BehaviorSubject<Version> = new BehaviorSubject<Version>(Version.Angular);
 
-    constructor() {
-        this.setVersion(this.toVersion(window.localStorage.getItem('version')));
+    constructor(private _persistentDataService: PersistentDataService) {
+        this.setVersion(this.toVersion(this._persistentDataService.getItem('version')));
     }
 
     setVersion(version: Version): void {
         if (this.version.getValue() !== version) {
-            window.localStorage.setItem('version', version.toString());
+            this._persistentDataService.setItem('version', version.toString());
             this.version.next(version);
         }
     }
