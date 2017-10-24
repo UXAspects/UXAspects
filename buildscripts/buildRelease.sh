@@ -365,7 +365,7 @@ if [ "$BuildPackages" == "true" ]; then
     echo
     echo Pushing the new files to the branch
     git add *
-    git commit -m "Committing changes for package $NextVersion-package-test. Latest develop commit ID is $latestDevelopCommitID."
+    git commit -a -m "Committing changes for package $NextVersion-package-test. Latest develop commit ID is $latestDevelopCommitID."
     git push --set-upstream origin $NextVersion-package-test
     popd; popd
 fi
