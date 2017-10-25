@@ -1,9 +1,10 @@
-import { EventEmitter, OnInit, ElementRef, AfterViewInit, OnDestroy, DoCheck } from '@angular/core';
+import { EventEmitter, OnInit, ElementRef, AfterViewInit, OnDestroy, DoCheck, ChangeDetectorRef } from '@angular/core';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
 import { ColorService } from '../../services/color/index';
 export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestroy {
+    private _changeDetectorRef;
     value: SliderValue | number;
     options: SliderOptions;
     valueChange: EventEmitter<SliderValue | number>;
@@ -69,7 +70,7 @@ export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck, 
     private _mouseUp;
     private _lowerDrag;
     private _upperDrag;
-    constructor(colorService: ColorService);
+    constructor(colorService: ColorService, _changeDetectorRef: ChangeDetectorRef);
     ngOnInit(): void;
     ngDoCheck(): void;
     ngAfterViewInit(): void;
@@ -101,7 +102,13 @@ export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck, 
     private getTicks(options, type);
     private unionTicks(majorTicks, minorTicks);
     private deepMerge(destination, source);
-    private deepCompare(value1, value2);
+    private detectValueChange(value1, value2);
+    /**
+     * Determines whether or not an object conforms to the
+     * SliderValue interface.
+     * @param value - The object to check - this must be type any
+     */
+    private isSliderValue(value);
     private clone(value);
 }
 export declare enum SliderType {

@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.4.0 
+* @ux-aspects/ux-aspects-docs - v1.4.1-rc.1 
 * © Copyright 2017 Hewlett Packard Enterprise Development Company LP
 */
 .tree-children.tree-children-no-padding {
@@ -17953,6 +17953,95 @@ ux-media-player-timeline.quiet .timeline-bar .media-progress-bar {
 }
 ux-media-player-timeline.quiet .timeline-bar .scrub-handle {
   background-color: #999;
+}
+ux-wizard {
+  /*
+    * Support vertical presentation of the wizard
+    */
+}
+ux-wizard .wizard-body {
+  display: flex;
+  flex-direction: column;
+}
+ux-wizard .wizard-body .wizard-steps {
+  display: flex;
+  flex-direction: row;
+  flex: none;
+  height: 38px;
+  margin-bottom: 8px;
+}
+ux-wizard .wizard-body .wizard-steps .wizard-step {
+  flex: 1;
+  max-width: 25%;
+  height: 100%;
+  padding: 8px;
+  background: #fafafa;
+  color: #c2c2c2;
+  margin: 0 8px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+ux-wizard .wizard-body .wizard-steps .wizard-step.visited {
+  background-color: #7b63a3;
+  color: #fff;
+  opacity: 0.5;
+  cursor: pointer;
+}
+ux-wizard .wizard-body .wizard-steps .wizard-step.active {
+  background-color: #7b63a3;
+  color: #fff;
+  opacity: 1;
+  cursor: default;
+}
+ux-wizard .wizard-body .wizard-steps .wizard-step.invalid {
+  background-color: #ff454f;
+  color: #fff;
+}
+ux-wizard .wizard-body .wizard-steps .wizard-step:first-of-type {
+  margin-left: 0;
+}
+ux-wizard .wizard-body .wizard-steps .wizard-step:last-of-type {
+  margin-right: 0;
+}
+ux-wizard .wizard-body .wizard-content {
+  flex: none;
+  background-color: #fafafa;
+  margin: 5px 0 10px;
+  padding: 20px;
+  min-height: 120px;
+}
+ux-wizard .wizard-footer {
+  display: flex;
+  flex: none;
+  justify-content: flex-end;
+  margin: 0 20px;
+}
+ux-wizard .wizard-footer .btn {
+  margin: 0 8px;
+}
+ux-wizard .wizard-footer .btn:last-of-type {
+  margin-right: 0;
+}
+ux-wizard.vertical .wizard-body {
+  flex-direction: row;
+}
+ux-wizard.vertical .wizard-body .wizard-steps {
+  flex: 1;
+  max-width: 260px;
+  flex-direction: column;
+  height: auto;
+}
+ux-wizard.vertical .wizard-body .wizard-steps .wizard-step {
+  flex: none;
+  margin: 0 8px 8px 0;
+  max-width: none;
+  height: 38px;
+}
+ux-wizard.vertical .wizard-body .wizard-content {
+  flex: 1;
+  margin: 0 22px 8px;
 }
 ux-virtual-scroll {
   position: relative;
