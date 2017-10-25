@@ -36,6 +36,12 @@ module.exports = {
             },
 
             {
+                test: /\.less$/,
+                include: path.join(process.cwd(), 'e2e', 'pages', 'app'),
+                use:  ['raw-loader', 'less-loader']
+            },
+           
+            {
                 test: /\.css$/,
                 exclude: path.join(process.cwd(), 'e2e', 'pages', 'app'),
                 use: ExtractTextPlugin.extract({
