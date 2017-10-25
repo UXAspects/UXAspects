@@ -12,8 +12,8 @@ export class LinkButtonsPage {
     buttonDisabled = element(by.id('buttonDisabled'));
     
     confirmBackgroundIsTransparent(button: ElementFinder) {
-        return button.getCssValue('background-color').then((color: string) => {
-            if (color === 'transparent') {
+        return button.getCssValue('background-color').then((backgroundColor: string) => {
+            if (backgroundColor === 'transparent' || backgroundColor === 'rgba(0, 0, 0, 0)') {
                 return true;
             } else {
                 return false;
