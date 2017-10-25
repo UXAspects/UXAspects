@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { EboxModule, ScrollIntoViewIfModule } from '../../../src/index';
+import { EboxModule, ScrollIntoViewIfModule, PersistentDataModule } from '../../../src/index';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PopoverModule } from 'ngx-bootstrap/popover';
@@ -63,7 +63,8 @@ const DOCUMENTATION_COMPONENTS = [
         RouterModule,
         ScrollIntoViewIfModule,
         TooltipModule.forRoot(),
-        TypeaheadModule.forRoot()
+        TypeaheadModule.forRoot(),
+        PersistentDataModule
     ],
     exports: DOCUMENTATION_COMPONENTS,
     declarations: DOCUMENTATION_COMPONENTS,
