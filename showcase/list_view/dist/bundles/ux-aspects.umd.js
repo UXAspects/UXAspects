@@ -787,12 +787,12 @@ var DashboardService = (function () {
      */
     DashboardService.prototype.onDrag = function (action) {
         // if there was no movement then do nothing
-        if (action.event.x === this._mouseEvent.x && action.event.y === this._mouseEvent.y) {
+        if (action.event.pageX === this._mouseEvent.pageX && action.event.pageY === this._mouseEvent.pageY) {
             return;
         }
         // get the current mouse position
-        var /** @type {?} */ mouseX = action.event.x - this._mouseEvent.x;
-        var /** @type {?} */ mouseY = action.event.y - this._mouseEvent.y;
+        var /** @type {?} */ mouseX = action.event.pageX - this._mouseEvent.pageX;
+        var /** @type {?} */ mouseY = action.event.pageY - this._mouseEvent.pageY;
         // store the latest event
         this._mouseEvent = action.event;
         var /** @type {?} */ dimensions = {
@@ -7201,10 +7201,12 @@ TypeaheadKeyService.ctorParameters = function () { return []; };
 var TypeaheadComponent = (function () {
     /**
      * @param {?} typeaheadElement
+     * @param {?} cdRef
      */
-    function TypeaheadComponent(typeaheadElement) {
+    function TypeaheadComponent(typeaheadElement, cdRef) {
         var _this = this;
         this.typeaheadElement = typeaheadElement;
+        this.cdRef = cdRef;
         this._open = false;
         this.openChange = new core.EventEmitter();
         this.dropDirection = 'down';
@@ -7265,7 +7267,7 @@ var TypeaheadComponent = (function () {
     /**
      * @return {?}
      */
-    TypeaheadComponent.prototype.ngOnInit = function () {
+    TypeaheadComponent.prototype.ngAfterViewInit = function () {
         // Attach default loading template
         if (!this.loadingTemplate) {
             this.loadingTemplate = this._defaultLoadingTemplate;
@@ -7278,6 +7280,7 @@ var TypeaheadComponent = (function () {
         if (!this.noOptionsTemplate) {
             this.noOptionsTemplate = this._defaultNoOptionsTemplate;
         }
+        this.cdRef.detectChanges();
     };
     /**
      * @param {?} changes
@@ -7493,6 +7496,7 @@ TypeaheadComponent.decorators = [
  */
 TypeaheadComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
+    { type: core.ChangeDetectorRef, },
 ]; };
 TypeaheadComponent.propDecorators = {
     'options': [{ type: core.Input },],
@@ -9267,8 +9271,10 @@ SelectModule.ctorParameters = function () { return []; };
 var SliderComponent = (function () {
     /**
      * @param {?} colorService
+     * @param {?} _changeDetectorRef
      */
-    function SliderComponent(colorService) {
+    function SliderComponent(colorService, _changeDetectorRef) {
+        this._changeDetectorRef = _changeDetectorRef;
         this.value = 0;
         this.valueChange = new core.EventEmitter();
         // expose enums to Angular view
@@ -9373,13 +9379,14 @@ var SliderComponent = (function () {
         this.updateValues();
         this.setThumbState(SliderThumb.Lower, false, false);
         this.setThumbState(SliderThumb.Upper, false, false);
+        // emit the initial value
+        this.valueChange.next(this.clone(this.value));
     };
     /**
      * @return {?}
      */
     SliderComponent.prototype.ngDoCheck = function () {
-        // check if value has changed
-        if (!this.deepCompare(this.value, this._value)) {
+        if (this.detectValueChange(this.value, this._value)) {
             this.updateValues();
             this._value = this.clone(this.value);
         }
@@ -9393,6 +9400,8 @@ var SliderComponent = (function () {
         setTimeout(function () {
             _this.updateTooltipPosition(SliderThumb.Lower);
             _this.updateTooltipPosition(SliderThumb.Upper);
+            // mark as dirty
+            _this._changeDetectorRef.markForCheck();
         });
     };
     /**
@@ -9620,6 +9629,8 @@ var SliderComponent = (function () {
         // update tooltip text & position
         this.updateTooltipText(thumb);
         this.updateTooltipPosition(thumb);
+        // mark as dirty for change detection
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * @param {?} thumb
@@ -9725,8 +9736,8 @@ var SliderComponent = (function () {
         var /** @type {?} */ lowerValue = typeof this.value === 'number' ? this.value : this.value.low;
         var /** @type {?} */ upperValue = typeof this.value === 'number' ? this.value : this.value.high;
         // validate values
-        lowerValue = this.validateValue(SliderThumb.Lower, lowerValue);
-        upperValue = this.validateValue(SliderThumb.Upper, upperValue);
+        lowerValue = this.validateValue(SliderThumb.Lower, Number(lowerValue.toFixed(4)));
+        upperValue = this.validateValue(SliderThumb.Upper, Number(upperValue.toFixed(4)));
         // calculate the positions as percentages
         var /** @type {?} */ lowerPosition = (((lowerValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
         var /** @type {?} */ upperPosition = (((upperValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
@@ -9748,13 +9759,16 @@ var SliderComponent = (function () {
     SliderComponent.prototype.setValue = function (low, high) {
         this.thumbs.lower.value = low;
         this.thumbs.upper.value = high;
-        var /** @type {?} */ previousValue = this.value;
+        var /** @type {?} */ previousValue = this.clone(this._value);
         this.value = this.options.type === SliderType.Value ? low : { low: low, high: high };
         // call the event emitter if changes occured
-        if (this.value !== previousValue) {
-            this.valueChange.emit(this.value);
+        if (this.detectValueChange(this.value, previousValue)) {
+            this.valueChange.emit(this.clone(this.value));
             this.updateTooltipText(SliderThumb.Lower);
             this.updateTooltipText(SliderThumb.Upper);
+        }
+        else {
+            this.valueChange.emit(this.clone(this.value));
         }
     };
     /**
@@ -9880,28 +9894,54 @@ var SliderComponent = (function () {
      * @param {?} value2
      * @return {?}
      */
-    SliderComponent.prototype.deepCompare = function (value1, value2) {
-        if (typeof value1 === 'number' && typeof value2 === 'number') {
-            return value1 === value2;
+    SliderComponent.prototype.detectValueChange = function (value1, value2) {
+        // compare two slider values
+        if (this.isSliderValue(value1) && this.isSliderValue(value2)) {
+            // references to the objects in the correct types
+            var /** @type {?} */ obj1 = (value1);
+            var /** @type {?} */ obj2 = (value2);
+            return obj1.low !== obj2.low || obj1.high !== obj2.high;
         }
-        return JSON.stringify(value1) === JSON.stringify(value2);
+        // if not a slider value - should be number of nullable type - compare normally
+        return value1 !== value2;
+    };
+    /**
+     * Determines whether or not an object conforms to the
+     * SliderValue interface.
+     * @param {?} value - The object to check - this must be type any
+     * @return {?}
+     */
+    SliderComponent.prototype.isSliderValue = function (value) {
+        // check if is an object
+        if (typeof value !== 'object') {
+            return false;
+        }
+        // next check if it contains the necessary properties
+        return 'low' in value && 'high' in value;
     };
     /**
      * @param {?} value
      * @return {?}
      */
     SliderComponent.prototype.clone = function (value) {
+        // if it is not an object simply return the value
         if (typeof value !== 'object') {
             return value;
         }
-        return Object.assign({}, value);
+        // create a new object from the existing one
+        var /** @type {?} */ instance = Object.assign({}, value);
+        // delete remove the value from the old object
+        value = undefined;
+        // return the new instance of the object
+        return instance;
     };
     return SliderComponent;
 }());
 SliderComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-slider',
-                template: "\n      <div class=\"track\" #track [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" [class.range]=\"options.type === sliderType.Range\">\n\n          <!-- Section Beneath Lower Thumb -->\n          <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n          <!-- Lower Thumb Button / Line -->\n          <div class=\"thumb lower\" #lowerThumb [style.left.%]=\"thumbs.lower.position\" [class.active]=\"thumbs.lower.drag\" [style.z-index]=\"thumbs.lower.order\" [class.button]=\"options.handles.style === sliderStyle.Button\"\n              [class.line]=\"options.handles.style === sliderStyle.Line\" [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n              [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n              (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)\">\n\n              <!-- Lower Thumb Callout -->\n              <div class=\"tooltip top tooltip-lower\" #lowerTooltip [style.opacity]=\"tooltips.lower.visible ? 1 : 0\" [style.left.px]=\"tooltips.lower.position\">\n                  <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n                  <div class=\"tooltip-inner\" [style.background-color]=\"options.handles.callout.background\" [style.color]=\"options.handles.callout.color\">\n                      {{ tooltips.lower.label }}\n                  </div>\n              </div>\n\n          </div>\n\n          <!-- Section of Track Between Lower and Upper Thumbs -->\n          <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n          </div>\n\n          <!-- Upper Thumb Button / Line -->\n          <div class=\"thumb upper\" #upperThumb [hidden]=\"options.type !== sliderType.Range\" [class.active]=\"thumbs.upper.drag\" [style.left.%]=\"thumbs.upper.position\" [style.z-index]=\"thumbs.upper.order\"\n              [class.button]=\"options.handles.style === sliderStyle.Button\" [class.line]=\"options.handles.style === sliderStyle.Line\"\n              [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n              (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)\">\n\n              <!-- Upper Thumb Callout -->\n              <div class=\"tooltip top tooltip-upper\" #upperTooltip [style.opacity]=\"tooltips.upper.visible ? 1 : 0\" [style.left.px]=\"tooltips.upper.position\">\n                  <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n                  <div class=\"tooltip-inner\" *ngIf=\"options.type === sliderType.Range\" [style.background-color]=\"options.handles.callout.background\"\n                      [style.color]=\"options.handles.callout.color\">\n                      {{ tooltips.upper.label }}\n                  </div>\n              </div>\n          </div>\n\n          <!-- Section of Track Abover Upper Thumb -->\n          <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n      </div>\n\n      <!-- Chart Ticks and Tick Labels -->\n      <div class=\"tick-container\" *ngIf=\"options.track.ticks.major.show || options.track.ticks.minor.show\" [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n          <div class=\"tick\" *ngFor=\"let tick of ticks\" [class.major]=\"tick.type === sliderTickType.Major\" [class.minor]=\"tick.type === sliderTickType.Minor\"\n              [style.left.%]=\"tick.position\" [hidden]=\"!tick.showTicks\">\n              <div class=\"tick-indicator\"></div>\n              <div class=\"tick-label\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n          </div>\n      </div>\n    "
+                template: "\n      <div class=\"track\" #track [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" [class.range]=\"options.type === sliderType.Range\">\n\n          <!-- Section Beneath Lower Thumb -->\n          <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n          <!-- Lower Thumb Button / Line -->\n          <div class=\"thumb lower\" #lowerThumb [style.left.%]=\"thumbs.lower.position\" [class.active]=\"thumbs.lower.drag\" [style.z-index]=\"thumbs.lower.order\" [class.button]=\"options.handles.style === sliderStyle.Button\"\n              [class.line]=\"options.handles.style === sliderStyle.Line\" [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n              [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n              (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)\">\n\n              <!-- Lower Thumb Callout -->\n              <div class=\"tooltip top tooltip-lower\" #lowerTooltip [style.opacity]=\"tooltips.lower.visible ? 1 : 0\" [style.left.px]=\"tooltips.lower.position\">\n                  <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n                  <div class=\"tooltip-inner\" [style.background-color]=\"options.handles.callout.background\" [style.color]=\"options.handles.callout.color\">\n                      {{ tooltips.lower.label }}\n                  </div>\n              </div>\n\n          </div>\n\n          <!-- Section of Track Between Lower and Upper Thumbs -->\n          <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n          </div>\n\n          <!-- Upper Thumb Button / Line -->\n          <div class=\"thumb upper\" #upperThumb [hidden]=\"options.type !== sliderType.Range\" [class.active]=\"thumbs.upper.drag\" [style.left.%]=\"thumbs.upper.position\" [style.z-index]=\"thumbs.upper.order\"\n              [class.button]=\"options.handles.style === sliderStyle.Button\" [class.line]=\"options.handles.style === sliderStyle.Line\"\n              [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n              (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\" (mousedown)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)\">\n\n              <!-- Upper Thumb Callout -->\n              <div class=\"tooltip top tooltip-upper\" #upperTooltip [style.opacity]=\"tooltips.upper.visible ? 1 : 0\" [style.left.px]=\"tooltips.upper.position\">\n                  <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n                  <div class=\"tooltip-inner\" *ngIf=\"options.type === sliderType.Range\" [style.background-color]=\"options.handles.callout.background\"\n                      [style.color]=\"options.handles.callout.color\">\n                      {{ tooltips.upper.label }}\n                  </div>\n              </div>\n          </div>\n\n          <!-- Section of Track Abover Upper Thumb -->\n          <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n      </div>\n\n      <!-- Chart Ticks and Tick Labels -->\n      <div class=\"tick-container\" *ngIf=\"options.track.ticks.major.show || options.track.ticks.minor.show\" [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n          <div class=\"tick\" *ngFor=\"let tick of ticks\" [class.major]=\"tick.type === sliderTickType.Major\" [class.minor]=\"tick.type === sliderTickType.Minor\"\n              [style.left.%]=\"tick.position\" [hidden]=\"!tick.showTicks\">\n              <div class=\"tick-indicator\"></div>\n              <div class=\"tick-label\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n          </div>\n      </div>\n    ",
+                changeDetection: core.ChangeDetectionStrategy.OnPush
             },] },
 ];
 /**
@@ -9909,6 +9949,7 @@ SliderComponent.decorators = [
  */
 SliderComponent.ctorParameters = function () { return [
     { type: ColorService, },
+    { type: core.ChangeDetectorRef, },
 ]; };
 SliderComponent.propDecorators = {
     'value': [{ type: core.Input },],
@@ -12708,6 +12749,293 @@ StringFilterModule.decorators = [
  * @nocollapse
  */
 StringFilterModule.ctorParameters = function () { return []; };
+var CookieAdapter = (function () {
+    function CookieAdapter() {
+    }
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    CookieAdapter.prototype.getItem = function (key) {
+        if (document.cookie) {
+            // get all the cookies for this site
+            var /** @type {?} */ cookies = document.cookie.split(';');
+            // process the cookies into a from we can easily manage
+            var /** @type {?} */ match = cookies
+                .map(function (cookie) { return ({ key: cookie.split('=')[0].trim(), value: cookie.split('=')[1].trim() }); })
+                .find(function (cookie) { return cookie.key === key; });
+            return match ? match.value : null;
+        }
+        return null;
+    };
+    /**
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    CookieAdapter.prototype.setItem = function (key, value) {
+        document.cookie = key + "=" + value + "; path=/";
+    };
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    CookieAdapter.prototype.removeItem = function (key) {
+        document.cookie.split(';').forEach(function (cookie) {
+            var /** @type {?} */ eqPos = cookie.indexOf('=');
+            var /** @type {?} */ name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie;
+            if (name === key) {
+                document.cookie = cookie.trim().replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            }
+        });
+    };
+    /**
+     * @return {?}
+     */
+    CookieAdapter.prototype.clear = function () {
+        var _this = this;
+        // call remove item on each cookie
+        document.cookie.split(';').map(function (cookie) { return cookie.split('=')[0].trim(); })
+            .forEach(function (cookie) { return _this.removeItem(cookie); });
+    };
+    /**
+     * @return {?}
+     */
+    CookieAdapter.prototype.getSupported = function () {
+        // cookies are supported in all browsers
+        return this;
+    };
+    return CookieAdapter;
+}());
+var LocalStorageAdapter = (function () {
+    function LocalStorageAdapter() {
+    }
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    LocalStorageAdapter.prototype.getItem = function (key) {
+        return localStorage.getItem(key);
+    };
+    /**
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    LocalStorageAdapter.prototype.setItem = function (key, value) {
+        localStorage.setItem(key, value);
+    };
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    LocalStorageAdapter.prototype.removeItem = function (key) {
+        localStorage.removeItem(key);
+    };
+    /**
+     * @return {?}
+     */
+    LocalStorageAdapter.prototype.clear = function () {
+        localStorage.clear();
+    };
+    /**
+     * @return {?}
+     */
+    LocalStorageAdapter.prototype.getSupported = function () {
+        // if local storage variable does not exist fall back to cookies
+        if (!localStorage) {
+            return new CookieAdapter();
+        }
+        // try to make a test save to local storage to see if there are any exceptions
+        try {
+            localStorage.setItem('ux-persistent-data-service', 'ux-persistent-data-service');
+            localStorage.removeItem('ux-persistent-data-service');
+            return this;
+        }
+        catch (err) {
+            return new CookieAdapter();
+        }
+    };
+    return LocalStorageAdapter;
+}());
+var SessionStorageAdapter = (function () {
+    function SessionStorageAdapter() {
+    }
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    SessionStorageAdapter.prototype.getItem = function (key) {
+        return sessionStorage.getItem(key);
+    };
+    /**
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    SessionStorageAdapter.prototype.setItem = function (key, value) {
+        sessionStorage.setItem(key, value);
+    };
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    SessionStorageAdapter.prototype.removeItem = function (key) {
+        sessionStorage.removeItem(key);
+    };
+    /**
+     * @return {?}
+     */
+    SessionStorageAdapter.prototype.clear = function () {
+        sessionStorage.clear();
+    };
+    /**
+     * @return {?}
+     */
+    SessionStorageAdapter.prototype.getSupported = function () {
+        // if local storage variable does not exist fall back to cookies
+        if (!sessionStorage) {
+            return new CookieAdapter();
+        }
+        // try to make a test save to local storage to see if there are any exceptions
+        try {
+            sessionStorage.setItem('ux-persistent-data-service', 'ux-persistent-data-service');
+            sessionStorage.removeItem('ux-persistent-data-service');
+            return this;
+        }
+        catch (err) {
+            return new CookieAdapter();
+        }
+    };
+    return SessionStorageAdapter;
+}());
+var PersistentDataService = (function () {
+    function PersistentDataService() {
+    }
+    /**
+     * Save the item in some form of persistent storage
+     * @param {?} key
+     * @param {?} value
+     * @param {?=} type
+     * @return {?}
+     */
+    PersistentDataService.prototype.setItem = function (key, value, type) {
+        if (type === void 0) { type = PersistentDataStorageType.LocalStorage; }
+        this.getAdapter(type).setItem(key, value);
+    };
+    /**
+     * Get a stored value from persistent storage
+     * @param {?} key
+     * @param {?=} type
+     * @return {?}
+     */
+    PersistentDataService.prototype.getItem = function (key, type) {
+        if (type === void 0) { type = PersistentDataStorageType.LocalStorage; }
+        return this.getAdapter(type).getItem(key);
+    };
+    /**
+     * Remove a stored value from persistent storage
+     * @param {?} key
+     * @param {?=} type
+     * @return {?}
+     */
+    PersistentDataService.prototype.removeItem = function (key, type) {
+        if (type === void 0) { type = PersistentDataStorageType.LocalStorage; }
+        this.getAdapter(type).removeItem(key);
+    };
+    /**
+     * Remove a stored value from persistent storage
+     * @param {?=} type
+     * @return {?}
+     */
+    PersistentDataService.prototype.clear = function (type) {
+        if (type === void 0) { type = PersistentDataStorageType.LocalStorage; }
+        this.getAdapter(type).clear();
+    };
+    /**
+     * Return the appropriate adapter based on the type requested
+     * @param {?} type
+     * @return {?}
+     */
+    PersistentDataService.prototype.getAdapter = function (type) {
+        switch (type) {
+            case PersistentDataStorageType.Cookie:
+                return new CookieAdapter();
+            case PersistentDataStorageType.LocalStorage:
+                var /** @type {?} */ localStorageAdapter = new LocalStorageAdapter();
+                return localStorageAdapter.getSupported();
+            case PersistentDataStorageType.SessionStorage:
+                var /** @type {?} */ sessionStorageAdapter = new SessionStorageAdapter();
+                return sessionStorageAdapter.getSupported();
+        }
+    };
+    return PersistentDataService;
+}());
+PersistentDataService.decorators = [
+    { type: core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+PersistentDataService.ctorParameters = function () { return []; };
+var PersistentDataStorageType = {};
+PersistentDataStorageType.LocalStorage = 0;
+PersistentDataStorageType.Cookie = 1;
+PersistentDataStorageType.SessionStorage = 2;
+PersistentDataStorageType[PersistentDataStorageType.LocalStorage] = "LocalStorage";
+PersistentDataStorageType[PersistentDataStorageType.Cookie] = "Cookie";
+PersistentDataStorageType[PersistentDataStorageType.SessionStorage] = "SessionStorage";
+var PersistentDataModule = (function () {
+    function PersistentDataModule() {
+    }
+    return PersistentDataModule;
+}());
+PersistentDataModule.decorators = [
+    { type: core.NgModule, args: [{
+                providers: [PersistentDataService],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PersistentDataModule.ctorParameters = function () { return []; };
+/**
+ * @abstract
+ */
+var StorageAdapter = (function () {
+    function StorageAdapter() {
+    }
+    /**
+     * @abstract
+     * @param {?} key
+     * @return {?}
+     */
+    StorageAdapter.prototype.getItem = function (key) { };
+    /**
+     * @abstract
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    StorageAdapter.prototype.setItem = function (key, value) { };
+    /**
+     * @abstract
+     * @param {?} key
+     * @return {?}
+     */
+    StorageAdapter.prototype.removeItem = function (key) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    StorageAdapter.prototype.clear = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    StorageAdapter.prototype.getSupported = function () { };
+    return StorageAdapter;
+}());
 
 exports.BreadcrumbsComponent = BreadcrumbsComponent;
 exports.BreadcrumbsModule = BreadcrumbsModule;
@@ -12844,6 +13172,13 @@ exports.ThemeColor = ThemeColor;
 exports.colorSets = colorSets;
 exports.FrameExtractionModule = FrameExtractionModule;
 exports.FrameExtractionService = FrameExtractionService;
+exports.PersistentDataModule = PersistentDataModule;
+exports.PersistentDataService = PersistentDataService;
+exports.PersistentDataStorageType = PersistentDataStorageType;
+exports.StorageAdapter = StorageAdapter;
+exports.CookieAdapter = CookieAdapter;
+exports.LocalStorageAdapter = LocalStorageAdapter;
+exports.SessionStorageAdapter = SessionStorageAdapter;
 exports.ɵc = MediaPlayerService;
 exports.ɵb = PageHeaderNavigationDropdownItemComponent;
 exports.ɵa = PageHeaderNavigationItemComponent;

@@ -810,12 +810,12 @@ class DashboardService {
      */
     onDrag(action) {
         // if there was no movement then do nothing
-        if (action.event.x === this._mouseEvent.x && action.event.y === this._mouseEvent.y) {
+        if (action.event.pageX === this._mouseEvent.pageX && action.event.pageY === this._mouseEvent.pageY) {
             return;
         }
         // get the current mouse position
-        let /** @type {?} */ mouseX = action.event.x - this._mouseEvent.x;
-        let /** @type {?} */ mouseY = action.event.y - this._mouseEvent.y;
+        let /** @type {?} */ mouseX = action.event.pageX - this._mouseEvent.pageX;
+        let /** @type {?} */ mouseY = action.event.pageY - this._mouseEvent.pageY;
         // store the latest event
         this._mouseEvent = action.event;
         let /** @type {?} */ dimensions = {
@@ -7440,9 +7440,11 @@ TypeaheadKeyService.ctorParameters = () => [];
 class TypeaheadComponent {
     /**
      * @param {?} typeaheadElement
+     * @param {?} cdRef
      */
-    constructor(typeaheadElement) {
+    constructor(typeaheadElement, cdRef) {
         this.typeaheadElement = typeaheadElement;
+        this.cdRef = cdRef;
         this._open = false;
         this.openChange = new EventEmitter();
         this.dropDirection = 'down';
@@ -7495,7 +7497,7 @@ class TypeaheadComponent {
     /**
      * @return {?}
      */
-    ngOnInit() {
+    ngAfterViewInit() {
         // Attach default loading template
         if (!this.loadingTemplate) {
             this.loadingTemplate = this._defaultLoadingTemplate;
@@ -7508,6 +7510,7 @@ class TypeaheadComponent {
         if (!this.noOptionsTemplate) {
             this.noOptionsTemplate = this._defaultNoOptionsTemplate;
         }
+        this.cdRef.detectChanges();
     }
     /**
      * @param {?} changes
@@ -7773,6 +7776,7 @@ TypeaheadComponent.decorators = [
  */
 TypeaheadComponent.ctorParameters = () => [
     { type: ElementRef, },
+    { type: ChangeDetectorRef, },
 ];
 TypeaheadComponent.propDecorators = {
     'options': [{ type: Input },],
@@ -9583,8 +9587,10 @@ SelectModule.ctorParameters = () => [];
 class SliderComponent {
     /**
      * @param {?} colorService
+     * @param {?} _changeDetectorRef
      */
-    constructor(colorService) {
+    constructor(colorService, _changeDetectorRef) {
+        this._changeDetectorRef = _changeDetectorRef;
         this.value = 0;
         this.valueChange = new EventEmitter();
         // expose enums to Angular view
@@ -9689,13 +9695,14 @@ class SliderComponent {
         this.updateValues();
         this.setThumbState(SliderThumb.Lower, false, false);
         this.setThumbState(SliderThumb.Upper, false, false);
+        // emit the initial value
+        this.valueChange.next(this.clone(this.value));
     }
     /**
      * @return {?}
      */
     ngDoCheck() {
-        // check if value has changed
-        if (!this.deepCompare(this.value, this._value)) {
+        if (this.detectValueChange(this.value, this._value)) {
             this.updateValues();
             this._value = this.clone(this.value);
         }
@@ -9708,6 +9715,8 @@ class SliderComponent {
         setTimeout(() => {
             this.updateTooltipPosition(SliderThumb.Lower);
             this.updateTooltipPosition(SliderThumb.Upper);
+            // mark as dirty
+            this._changeDetectorRef.markForCheck();
         });
     }
     /**
@@ -9934,6 +9943,8 @@ class SliderComponent {
         // update tooltip text & position
         this.updateTooltipText(thumb);
         this.updateTooltipPosition(thumb);
+        // mark as dirty for change detection
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * @param {?} thumb
@@ -10039,8 +10050,8 @@ class SliderComponent {
         let /** @type {?} */ lowerValue = typeof this.value === 'number' ? this.value : this.value.low;
         let /** @type {?} */ upperValue = typeof this.value === 'number' ? this.value : this.value.high;
         // validate values
-        lowerValue = this.validateValue(SliderThumb.Lower, lowerValue);
-        upperValue = this.validateValue(SliderThumb.Upper, upperValue);
+        lowerValue = this.validateValue(SliderThumb.Lower, Number(lowerValue.toFixed(4)));
+        upperValue = this.validateValue(SliderThumb.Upper, Number(upperValue.toFixed(4)));
         // calculate the positions as percentages
         let /** @type {?} */ lowerPosition = (((lowerValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
         let /** @type {?} */ upperPosition = (((upperValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
@@ -10062,13 +10073,16 @@ class SliderComponent {
     setValue(low, high) {
         this.thumbs.lower.value = low;
         this.thumbs.upper.value = high;
-        let /** @type {?} */ previousValue = this.value;
+        let /** @type {?} */ previousValue = this.clone(this._value);
         this.value = this.options.type === SliderType.Value ? low : { low: low, high: high };
         // call the event emitter if changes occured
-        if (this.value !== previousValue) {
-            this.valueChange.emit(this.value);
+        if (this.detectValueChange(this.value, previousValue)) {
+            this.valueChange.emit(this.clone(this.value));
             this.updateTooltipText(SliderThumb.Lower);
             this.updateTooltipText(SliderThumb.Upper);
+        }
+        else {
+            this.valueChange.emit(this.clone(this.value));
         }
     }
     /**
@@ -10194,21 +10208,46 @@ class SliderComponent {
      * @param {?} value2
      * @return {?}
      */
-    deepCompare(value1, value2) {
-        if (typeof value1 === 'number' && typeof value2 === 'number') {
-            return value1 === value2;
+    detectValueChange(value1, value2) {
+        // compare two slider values
+        if (this.isSliderValue(value1) && this.isSliderValue(value2)) {
+            // references to the objects in the correct types
+            const /** @type {?} */ obj1 = (value1);
+            const /** @type {?} */ obj2 = (value2);
+            return obj1.low !== obj2.low || obj1.high !== obj2.high;
         }
-        return JSON.stringify(value1) === JSON.stringify(value2);
+        // if not a slider value - should be number of nullable type - compare normally
+        return value1 !== value2;
+    }
+    /**
+     * Determines whether or not an object conforms to the
+     * SliderValue interface.
+     * @param {?} value - The object to check - this must be type any
+     * @return {?}
+     */
+    isSliderValue(value) {
+        // check if is an object
+        if (typeof value !== 'object') {
+            return false;
+        }
+        // next check if it contains the necessary properties
+        return 'low' in value && 'high' in value;
     }
     /**
      * @param {?} value
      * @return {?}
      */
     clone(value) {
+        // if it is not an object simply return the value
         if (typeof value !== 'object') {
             return value;
         }
-        return Object.assign({}, value);
+        // create a new object from the existing one
+        const /** @type {?} */ instance = Object.assign({}, value);
+        // delete remove the value from the old object
+        value = undefined;
+        // return the new instance of the object
+        return instance;
     }
 }
 SliderComponent.decorators = [
@@ -10270,7 +10309,8 @@ SliderComponent.decorators = [
               <div class="tick-label" [hidden]="!tick.showLabels">{{ tick.label }}</div>
           </div>
       </div>
-    `
+    `,
+                changeDetection: ChangeDetectionStrategy.OnPush
             },] },
 ];
 /**
@@ -10278,6 +10318,7 @@ SliderComponent.decorators = [
  */
 SliderComponent.ctorParameters = () => [
     { type: ColorService, },
+    { type: ChangeDetectorRef, },
 ];
 SliderComponent.propDecorators = {
     'value': [{ type: Input },],
@@ -13094,6 +13135,276 @@ StringFilterModule.decorators = [
  */
 StringFilterModule.ctorParameters = () => [];
 
+class CookieAdapter {
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    getItem(key) {
+        if (document.cookie) {
+            // get all the cookies for this site
+            const /** @type {?} */ cookies = document.cookie.split(';');
+            // process the cookies into a from we can easily manage
+            const /** @type {?} */ match = cookies
+                .map(cookie => ({ key: cookie.split('=')[0].trim(), value: cookie.split('=')[1].trim() }))
+                .find(cookie => cookie.key === key);
+            return match ? match.value : null;
+        }
+        return null;
+    }
+    /**
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    setItem(key, value) {
+        document.cookie = `${key}=${value}; path=/`;
+    }
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    removeItem(key) {
+        document.cookie.split(';').forEach(cookie => {
+            const /** @type {?} */ eqPos = cookie.indexOf('=');
+            const /** @type {?} */ name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie;
+            if (name === key) {
+                document.cookie = cookie.trim().replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
+            }
+        });
+    }
+    /**
+     * @return {?}
+     */
+    clear() {
+        // call remove item on each cookie
+        document.cookie.split(';').map(cookie => cookie.split('=')[0].trim())
+            .forEach(cookie => this.removeItem(cookie));
+    }
+    /**
+     * @return {?}
+     */
+    getSupported() {
+        // cookies are supported in all browsers
+        return this;
+    }
+}
+
+class LocalStorageAdapter {
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    getItem(key) {
+        return localStorage.getItem(key);
+    }
+    /**
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    setItem(key, value) {
+        localStorage.setItem(key, value);
+    }
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    removeItem(key) {
+        localStorage.removeItem(key);
+    }
+    /**
+     * @return {?}
+     */
+    clear() {
+        localStorage.clear();
+    }
+    /**
+     * @return {?}
+     */
+    getSupported() {
+        // if local storage variable does not exist fall back to cookies
+        if (!localStorage) {
+            return new CookieAdapter();
+        }
+        // try to make a test save to local storage to see if there are any exceptions
+        try {
+            localStorage.setItem('ux-persistent-data-service', 'ux-persistent-data-service');
+            localStorage.removeItem('ux-persistent-data-service');
+            return this;
+        }
+        catch (err) {
+            return new CookieAdapter();
+        }
+    }
+}
+
+class SessionStorageAdapter {
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    getItem(key) {
+        return sessionStorage.getItem(key);
+    }
+    /**
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    setItem(key, value) {
+        sessionStorage.setItem(key, value);
+    }
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    removeItem(key) {
+        sessionStorage.removeItem(key);
+    }
+    /**
+     * @return {?}
+     */
+    clear() {
+        sessionStorage.clear();
+    }
+    /**
+     * @return {?}
+     */
+    getSupported() {
+        // if local storage variable does not exist fall back to cookies
+        if (!sessionStorage) {
+            return new CookieAdapter();
+        }
+        // try to make a test save to local storage to see if there are any exceptions
+        try {
+            sessionStorage.setItem('ux-persistent-data-service', 'ux-persistent-data-service');
+            sessionStorage.removeItem('ux-persistent-data-service');
+            return this;
+        }
+        catch (err) {
+            return new CookieAdapter();
+        }
+    }
+}
+
+class PersistentDataService {
+    /**
+     * Save the item in some form of persistent storage
+     * @param {?} key
+     * @param {?} value
+     * @param {?=} type
+     * @return {?}
+     */
+    setItem(key, value, type = PersistentDataStorageType.LocalStorage) {
+        this.getAdapter(type).setItem(key, value);
+    }
+    /**
+     * Get a stored value from persistent storage
+     * @param {?} key
+     * @param {?=} type
+     * @return {?}
+     */
+    getItem(key, type = PersistentDataStorageType.LocalStorage) {
+        return this.getAdapter(type).getItem(key);
+    }
+    /**
+     * Remove a stored value from persistent storage
+     * @param {?} key
+     * @param {?=} type
+     * @return {?}
+     */
+    removeItem(key, type = PersistentDataStorageType.LocalStorage) {
+        this.getAdapter(type).removeItem(key);
+    }
+    /**
+     * Remove a stored value from persistent storage
+     * @param {?=} type
+     * @return {?}
+     */
+    clear(type = PersistentDataStorageType.LocalStorage) {
+        this.getAdapter(type).clear();
+    }
+    /**
+     * Return the appropriate adapter based on the type requested
+     * @param {?} type
+     * @return {?}
+     */
+    getAdapter(type) {
+        switch (type) {
+            case PersistentDataStorageType.Cookie:
+                return new CookieAdapter();
+            case PersistentDataStorageType.LocalStorage:
+                const /** @type {?} */ localStorageAdapter = new LocalStorageAdapter();
+                return localStorageAdapter.getSupported();
+            case PersistentDataStorageType.SessionStorage:
+                const /** @type {?} */ sessionStorageAdapter = new SessionStorageAdapter();
+                return sessionStorageAdapter.getSupported();
+        }
+    }
+}
+PersistentDataService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+PersistentDataService.ctorParameters = () => [];
+let PersistentDataStorageType = {};
+PersistentDataStorageType.LocalStorage = 0;
+PersistentDataStorageType.Cookie = 1;
+PersistentDataStorageType.SessionStorage = 2;
+PersistentDataStorageType[PersistentDataStorageType.LocalStorage] = "LocalStorage";
+PersistentDataStorageType[PersistentDataStorageType.Cookie] = "Cookie";
+PersistentDataStorageType[PersistentDataStorageType.SessionStorage] = "SessionStorage";
+
+class PersistentDataModule {
+}
+PersistentDataModule.decorators = [
+    { type: NgModule, args: [{
+                providers: [PersistentDataService],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PersistentDataModule.ctorParameters = () => [];
+
+/**
+ * @abstract
+ */
+class StorageAdapter {
+    /**
+     * @abstract
+     * @param {?} key
+     * @return {?}
+     */
+    getItem(key) { }
+    /**
+     * @abstract
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    setItem(key, value) { }
+    /**
+     * @abstract
+     * @param {?} key
+     * @return {?}
+     */
+    removeItem(key) { }
+    /**
+     * @abstract
+     * @return {?}
+     */
+    clear() { }
+    /**
+     * @abstract
+     * @return {?}
+     */
+    getSupported() { }
+}
+
 /*
   Export Components
 */
@@ -13102,5 +13413,5 @@ StringFilterModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, MediaPlayerService as ɵc, PageHeaderNavigationDropdownItemComponent as ɵb, PageHeaderNavigationItemComponent as ɵa, HoverActionService as ɵd };
+export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, MediaPlayerService as ɵc, PageHeaderNavigationDropdownItemComponent as ɵb, PageHeaderNavigationItemComponent as ɵa, HoverActionService as ɵd };
 //# sourceMappingURL=ux-aspects.js.map
