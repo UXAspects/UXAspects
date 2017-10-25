@@ -13,7 +13,7 @@ export class LinkButtonsPage {
     
     confirmBackgroundIsTransparent(button: ElementFinder) {
         return button.getCssValue('background-color').then((color: string) => {
-            if (color = 'transparent') {
+            if (color === 'transparent') {
                 return true;
             } else {
                 return false;
