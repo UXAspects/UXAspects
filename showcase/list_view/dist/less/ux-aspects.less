@@ -483,6 +483,8 @@ tree-root .angular-tree-component-rtl .tree-children {
 @dropdown-menu-hover-bg: #ebebeb;
 @dropdown-menu-hint: #999;
 
+@dropdown-highlight-bg: @shift-select-selected-light;
+
 @dropdown-bg-dark: @navbar-bg-dark;
 
 // Facets
@@ -23771,7 +23773,7 @@ ux-typeahead {
                 cursor: pointer;
 
                 &.highlighted {
-                    background-color: @shift-select-selected-light;
+                    background-color: @dropdown-highlight-bg;
                 }
 
                 &.disabled {
