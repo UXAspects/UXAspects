@@ -452,18 +452,18 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
 
     private validateValue(thumb: SliderThumb, value: number): number {
 
-        // if slider is not a range value is always valid
+        // if slider is not a range value is always valid providing it is within the chart min and max values
         if (this.options.type === SliderType.Value) {
-            return value;
+            return Math.max(Math.min(value, this.options.track.max), this.options.track.min);
         }
 
         // check if value is with chart ranges
         if (value > this.options.track.max) {
-            return this.options.track.max;
+            return thumb === SliderThumb.Lower ? Math.min(this.options.track.max, this.thumbs.upper.value) : this.options.track.max;
         }
 
         if (value < this.options.track.min) {
-            return this.options.track.min;
+            return thumb === SliderThumb.Upper ? Math.max(this.options.track.min, this.thumbs.lower.value) : this.options.track.min;
         }
 
         // otherwise we need to check to make sure lower thumb cannot go above higher and vice versa
