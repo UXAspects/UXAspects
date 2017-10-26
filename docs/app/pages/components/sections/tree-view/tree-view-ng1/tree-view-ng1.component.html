@@ -13,6 +13,9 @@
     <tab heading="JavaScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
     </tab>
+    <tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.sampleCss"></uxd-snippet>
+    </tab>
 </tabset>
 
 <p>The data to be displayed in the Tree View should be set to the <code>data</code> attribute of the directive. It should adhere
@@ -44,6 +47,11 @@
             <td class="attribute">nodes</td>
             <td>array</td>
             <td>A collection of child objects, following the same interface.</td>
+        </tr>
+        <tr>
+            <td class="attribute">class</td>
+            <td>string</td>
+            <td>Set this to the name of a custom class to apply this class to the tree node.</td>
         </tr>
     </table>
 </div>

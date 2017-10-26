@@ -17,7 +17,8 @@ export class ComponentsTreeViewNg1Component extends BaseDocumentationSection imp
         htmlAttributes: {
             'ng-controller': 'TreeViewDocumentationCtrl as vm'
         },
-        js: [this.snippets.raw.sampleJs]
+        js: [this.snippets.raw.sampleJs],
+        css: [this.snippets.raw.sampleCss]
     };
     
     constructor() {

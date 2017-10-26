@@ -1,6 +1,6 @@
-angular.module('app').controller('TreeViewDocumentationCtrl', TreeViewDocumentationCtrl);
+angular.module('app').controller('TreeViewDocumentationCtrl', ['$scope', TreeViewDocumentationCtrl]);
 
-  function TreeViewDocumentationCtrl() {
+  function TreeViewDocumentationCtrl($scope) {
     var vm = this;
 
     vm.selected = {
@@ -150,5 +150,15 @@ angular.module('app').controller('TreeViewDocumentationCtrl', TreeViewDocumentat
         'nodes': []
       }]
     }];
+
+    vm.customClassApplied = false;
+
+    $scope.$watch('vm.customClassApplied', function() {
+      if (vm.customClassApplied) {
+        vm.data[0].class = 'tree-view-custom-class';
+      } else {
+        vm.data[0].class = '';
+      }
+    });
 
   }
