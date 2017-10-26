@@ -129,6 +129,22 @@ export default function splitter($compile, $timeout) {
                 return sizes;
             }
 
+            /**
+             * Get the size of the main panel
+             */
+            function getMainPanelSize() {
+                const panel = panels.find(panel => panel.hasAttribute('splitter-main'));
+                return panel ? panel.getAttribute('size') : 0;
+            }
+
+            /**
+             * Get the size of the side panel
+             */
+            function getSidePanelSize() {
+                const panel = panels.find(panel => panel.hasAttribute('splitter-side'));
+                return panel ? panel.getAttribute('size') : 0;
+            }
+
             /*
               Get all the minimum sizes for the panels
             */
@@ -340,18 +356,16 @@ export default function splitter($compile, $timeout) {
 
             function getWidths(mainPanel, sidePanel) {
                 parentWidth = mainPanel.parent().outerWidth();
-                width = mainPanel.outerWidth();
-                if (sidePanel) {
-                    sidePanelW = sidePanel.outerWidth();
-                }
+
+                width = (parentWidth / 100) * getMainPanelSize();
+                sidePanelW = sidePanel ? (parentWidth / 100) * getSidePanelSize() : parentWidth - width;
             }
 
             function getHeights(mainPanel, sidePanel) {
-                parentHeight = mainPanel.parent().outerHeight();
-                height = mainPanel.outerHeight();
-                if (sidePanel) {
-                    sidePanelH = sidePanel.outerHeight();
-                }
+                parentHeight = mainPanel.parent().outerWidth();
+                
+                height = (parentHeight / 100) * getMainPanelSize();
+                sidePanelH = sidePanel ? (parentHeight / 100) * getSidePanelSize() : parentHeight - height;
             }
 
             function collapseSidePanel(mainPanel, sidePanel, initial) {
@@ -361,11 +375,7 @@ export default function splitter($compile, $timeout) {
                     getWidths(mainPanel, sidePanel);
 
                     //calculate how the sizes should be split when we expand again
-                    if (width > sidePanelW) {
-                        ratio = width / (width + sidePanelW);
-                    } else {
-                        ratio = 1 - sidePanelW / (width + sidePanelW);
-                    }
+                    ratio = mainPanel.outerWidth() / (mainPanel.outerWidth() + sidePanel.outerWidth());
 
                     //get the percentage the of the splitter the main panel should fill
                     var percentageWidth = ((width + sidePanelW + options.gutterSize) / (parentWidth)) * 100;
@@ -381,11 +391,7 @@ export default function splitter($compile, $timeout) {
                     getHeights(mainPanel, sidePanel);
 
                     //calculate how the sizes should be split when we expand again
-                    if (height > sidePanelH) {
-                        ratio = height / (height + sidePanelH);
-                    } else {
-                        ratio = 1 - sidePanelH / (height + sidePanelH);
-                    }
+                    ratio = mainPanel.outerHeight() / (mainPanel.outerHeight() + sidePanel.outerHeight());
 
                     var percentageHeight;
                     //calculate the percentage of the splitter the main panel should fill
@@ -413,18 +419,20 @@ export default function splitter($compile, $timeout) {
                 if (options.direction === "horizontal") {
                     //get the sizes
                     getWidths(mainPanel);
+
                     //calculate the percentage the panels need to fill
-                    var percentageWidth = ((width + options.gutterSize) / parentWidth) * 100;
+                    var percentageWidth = ((width - options.gutterSize) / parentWidth) * 100;
 
                     //set the styles
                     sidePanel[0].style.overflowY = "auto";
+
                     if (ratio) {
-                        mainPanel[0].style.width = percentageWidth * ratio + "%";
-                        sidePanel[0].style.width = percentageWidth * (1 - ratio) + "%";
+                        mainPanel[0].style.width = (((parentWidth * ratio) / parentWidth) * 100) + "%";
+                        sidePanel[0].style.width = (((parentWidth * (1 - ratio)) / parentWidth) * 100) + "%";
                     } else {
-                        //initially they are split 50/50
-                        sidePanel[0].style.width = percentageWidth / 2 + "%";
-                        mainPanel[0].style.width = percentageWidth / 2 + "%";
+                        //initially they are split to the specified sizes
+                        mainPanel[0].style.width = percentageWidth + "%";
+                        sidePanel[0].style.width = (100 - percentageWidth) + "%";
                     }
 
                 } else {
@@ -441,13 +449,14 @@ export default function splitter($compile, $timeout) {
                     //set the styles
                     sidePanel[0].style.overflowY = "auto";
                     sidePanel[0].style.width = "100%";
+
                     if (ratio) {
-                        mainPanel[0].style.height = percentageHeight * ratio + "%";
-                        sidePanel[0].style.height = percentageHeight * (1 - ratio) + "%";
+                        mainPanel[0].style.height = (((parentHeight * ratio) / parentHeight) * 100) + "%";
+                        sidePanel[0].style.height = (((parentHeight * (1 - ratio)) / parentHeight) * 100) + "%";
                     } else {
-                        //initially they are split 50/50
-                        sidePanel[0].style.height = percentageHeight / 2 + "%";
-                        mainPanel[0].style.height = percentageHeight / 2 + "%";
+                        //initially they are split to the specified sizes
+                        mainPanel[0].style.height = percentageHeight + "%";
+                        sidePanel[0].style.height = (100 - percentageHeight) + "%";
                     }
 
                 }
