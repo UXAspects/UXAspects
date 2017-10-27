@@ -15,7 +15,7 @@ export default function splitter($compile, $timeout) {
             onDragEnd: '=?',
             reinitialize: '=?'
         },
-        link: function(scope, element) {
+        link: function (scope, element) {
 
             var container, panels, horizontal, gutter, options, dragHandle, ratio, parentHeight, parentWidth, height, width, sidePanelW, sidePanelH;
 
@@ -37,7 +37,7 @@ export default function splitter($compile, $timeout) {
                 //Add a side-inset panel style toggle button
                 setUpToggleButton();
             }
-            scope.reinitialize = function() {
+            scope.reinitialize = function () {
                 element.children(".gutter").remove();
                 init();
             };
@@ -115,7 +115,7 @@ export default function splitter($compile, $timeout) {
             function getPanelSizes() {
                 var sizes = [];
 
-                panels.forEach(function(panel) {
+                panels.forEach(function (panel) {
 
                     //get sizes
                     var size = panel.hasAttribute('size') ? parseInt(panel.getAttribute('size')) : null;
@@ -133,16 +133,32 @@ export default function splitter($compile, $timeout) {
              * Get the size of the main panel
              */
             function getMainPanelSize() {
-                const panel = panels.find(panel => panel.hasAttribute('splitter-main'));
-                return panel ? panel.getAttribute('size') : 0;
+
+                let match;
+
+                panels.forEach(panel => {
+                    if (panel.hasAttribute('splitter-main')) {
+                        match = panel;
+                    }
+                });
+
+                return match ? match.getAttribute('size') : 0;
             }
 
             /**
              * Get the size of the side panel
              */
             function getSidePanelSize() {
-                const panel = panels.find(panel => panel.hasAttribute('splitter-side'));
-                return panel ? panel.getAttribute('size') : 0;
+
+                let match;
+
+                panels.forEach(panel => {
+                    if (panel.hasAttribute('splitter-side')) {
+                        match = panel;
+                    }
+                });
+
+                return match ? match.getAttribute('size') : 0;
             }
 
             /*
@@ -151,7 +167,7 @@ export default function splitter($compile, $timeout) {
             function getMinimumSizes() {
                 var minSizes = [];
 
-                panels.forEach(function(panel) {
+                panels.forEach(function (panel) {
                     var minSize = panel.hasAttribute('min-size') ? parseInt(panel.getAttribute('min-size')) : 100;
                     minSizes.push(minSize);
                 });
@@ -166,7 +182,7 @@ export default function splitter($compile, $timeout) {
 
                 var mainPanel, sidePanel;
 
-                panels.forEach(function(panel, index) {
+                panels.forEach(function (panel, index) {
 
                     if (panel.hasAttribute('splitter-side')) {
                         sidePanel = angular.element(panel);
@@ -240,19 +256,19 @@ export default function splitter($compile, $timeout) {
                 }
 
                 //The transitions will only be added temporarily when the toggle is clicked
-                mainPanel.on("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function() {
+                mainPanel.on("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function () {
                     removeTransitionClasses(mainPanel);
                 });
-                sidePanel.on("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function() {
+                sidePanel.on("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function () {
                     removeTransitionClasses(sidePanel);
                 });
 
-                toggle.on('mousedown', function(event) {
+                toggle.on('mousedown', function (event) {
                     event.stopPropagation();
                 });
 
                 //Bind the click logic for the toggle button
-                toggle.on("click", function() {
+                toggle.on("click", function () {
 
                     addTransitionClasses(mainPanel, sidePanel);
 
@@ -363,7 +379,7 @@ export default function splitter($compile, $timeout) {
 
             function getHeights(mainPanel, sidePanel) {
                 parentHeight = mainPanel.parent().outerWidth();
-                
+
                 height = (parentHeight / 100) * getMainPanelSize();
                 sidePanelH = sidePanel ? (parentHeight / 100) * getSidePanelSize() : parentHeight - height;
             }
