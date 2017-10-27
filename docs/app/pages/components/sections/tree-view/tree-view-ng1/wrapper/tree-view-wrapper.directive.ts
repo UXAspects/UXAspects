@@ -164,15 +164,5 @@ angular.module('app').controller('TreeViewDocumentationCtrl', ['$scope', TreeVie
         'nodes': []
       }]
     }];
-
-    vm.customClassApplied = false;
-
-    $scope.$watch('vm.customClassApplied', function() {
-      if (vm.customClassApplied) {
-        vm.data[0].class = 'tree-view-custom-class';
-      } else {
-        vm.data[0].class = '';
-      }
-    });
-
+    
   }

@@ -1,4 +1,4 @@
-<div class="tree-node tree-node-content {{node.class}}" data-nodrag ng-click="tv.select(this)" ng-class="{highlight : tv.isSelected(this)}" >
+<div class="tree-node tree-node-content {{node.className}}" data-nodrag ng-click="tv.select(this)" ng-class="{highlight : tv.isSelected(this)}" >
 
 <a class="btn btn-link button-secondary btn-icon btn-sm toggle chevron" ng-if="node.allowChildren && (node.nodes || node.nodes.length > 0)" ng-disabled="!node.nodes || node.nodes.length <= 0" ng-click="toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur();" tabIndex="0" href>
   <span ng-if="node.nodes.length > 0"
