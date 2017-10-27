@@ -7,41 +7,43 @@
     attribute which is used solely for selecting multiple items. All other attributes for the <code>select-table</code> maintain
     the same functionality with the exception of the following:</p>
 
-<table class="table m-t">
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Binding</th>
-        <th>Description</th>
-        <th>Optional</th>
-    </tr>
-    <tr>
-        <td class="attribute">multiple-select</td>
-        <td>boolean</td>
-        <td>literal</td>
-        <td>Allows selection of multiple items. If set to <code>true</code> the user will be able to select and deselect multiple
-            items.</td>
-        <td>true</td>
-    </tr>
-    <tr>
-        <td class="attribute">selected</td>
-        <td>array</td>
-        <td>variable</td>
-        <td>This should be set as an array for the Multiple Select Table as there can be multiple selected values, whereas the
-            Single Select Table only takes one selected value. It can be an array of strings or an array of objects. If it
-            is an array of objects, the <code>select-key</code> attribute (as described in the Single Select Table) should
-            be set to the name of the key, whose value from the object will be displayed. For example, if you have an object
-            like: <code>{{codeSnippet}}</code> and you want the name to be displayed, you would set <code>select-key="name"</code>.</td>
-        <td>false</td>
-    </tr>
-    <tr>
-        <td class="attribute">select-hidden-items</td>
-        <td>string</td>
-        <td>variable</td>
-        <td>This attribute is not used in the Multiple Select Table.</td>
-        <td>true</td>
-    </tr>
-</table>
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Binding</th>
+            <th>Description</th>
+            <th>Optional</th>
+        </tr>
+        <tr>
+            <td class="attribute">multiple-select</td>
+            <td>boolean</td>
+            <td>literal</td>
+            <td>Allows selection of multiple items. If set to <code>true</code> the user will be able to select and deselect multiple
+                items.</td>
+            <td>true</td>
+        </tr>
+        <tr>
+            <td class="attribute">selected</td>
+            <td>array</td>
+            <td>variable</td>
+            <td>This should be set as an array for the Multiple Select Table as there can be multiple selected values, whereas the
+                Single Select Table only takes one selected value. It can be an array of strings or an array of objects. If it
+                is an array of objects, the <code>select-key</code> attribute (as described in the Single Select Table) should
+                be set to the name of the key, whose value from the object will be displayed. For example, if you have an object
+                like: <code>{{codeSnippet}}</code> and you want the name to be displayed, you would set <code>select-key="name"</code>.</td>
+            <td>false</td>
+        </tr>
+        <tr>
+            <td class="attribute">select-hidden-items</td>
+            <td>string</td>
+            <td>variable</td>
+            <td>This attribute is not used in the Multiple Select Table.</td>
+            <td>true</td>
+        </tr>
+    </table>
+</div>
 
 <p>You can see the code used in our example above by selecting the appropriate tabs below:</p>
 

@@ -198,7 +198,7 @@
             <td><b>@Input</b> tagTemplate</td>
             <td><b>TemplateRef</b></td>
             <td>
-                <p>A template which will be rendered as the content of each tag. The following context properties are available in the template:</p>
+                <span>A template which will be rendered as the content of each tag. The following context properties are available in the template:</span>
                 <ul>
                     <li><code>tag: any</code> - the string or custom object representing the tag.</li>
                     <li><code>index: number</code> - the zero-based index of the tag as it appears in the tag input.</li>
@@ -210,7 +210,7 @@
             <td><b>@Input</b> validationErrors</td>
             <td><b>any</b></td>
             <td>
-                <p>An object which contains details of validation errors. The following properties will be present if there is a related validation error:</p>
+                <span>An object which contains details of validation errors. The following properties will be present if there is a related validation error:</span>
                 <ul>
                     <li><code>tagRangeError</code> - present if the number of tags is outside the range specified by <code>minTags</code> and <code>maxTags</code>.</li>
                     <li><code>inputPattern</code> - present if an input has been submitted which does not match the <code>tagPattern</code>.</li>
@@ -307,14 +307,14 @@
             <td><b>@Input</b> options</td>
             <td><b>any[] | InfiniteScrollLoadFunction</b></td>
             <td>
-                <p>If an array is provided, this is the list of options which can be chosen from. It can be an array of strings or custom objects, matching the format used by the tag input control. If custom objects are required, the <code>display</code> property must also be set.</p>
-                <p>If a function is provided, this is used as a callback to dynamically retrieve options in pages. The parameters are:</p>
+                <span>If an array is provided, this is the list of options which can be chosen from. It can be an array of strings or custom objects, matching the format used by the tag input control. If custom objects are required, the <code>display</code> property must also be set.</span>
+                <span>If a function is provided, this is used as a callback to dynamically retrieve options in pages. The parameters are:</span>
                 <ul>
                     <li><code>pageNum: number</code> - The index of the requested page, starting from 0.</li>
                     <li><code>pageSize: number</code> - The number of items requested.</li>
                     <li><code>filter: any</code> - The filter details as provided via the <code>filter</code> binding.</li>
                 </ul>
-                <p>The return value should be either a promise which resolves to an array, or a plain array in case the data can be loaded synchronously. An empty array or an array with fewer than <code>pageSize</code> items can be returned, which indicates that the end of the data set has been reached.</p>
+                <span>The return value should be either a promise which resolves to an array, or a plain array in case the data can be loaded synchronously. An empty array or an array with fewer than <code>pageSize</code> items can be returned, which indicates that the end of the data set has been reached.</span>
             </td>
         </tr>
         <tr>
@@ -361,7 +361,7 @@
             <td><b>@Input</b> optionTemplate</td>
             <td><b>TemplateRef</b></td>
             <td>
-                <p>A template which will be rendered in the dropdown for each option. The following context properties are available in the template:</p>
+                <span>A template which will be rendered in the dropdown for each option. The following context properties are available in the template:</span>
                 <ul>
                     <li><code>option: any</code> - the string or custom object representing the option.</li>
                     <li><code>api: TypeaheadOptionApi</code> - provides the functions <code>getKey</code>, <code>getDisplay</code> and <code>getDisplayHtml</code>. See the section below for more information.</li>

@@ -62,44 +62,47 @@
 
 <p>The component will be exported as <code>ux-column-sorting</code>.</p>
 
-<table class="table">
+<div class="demo-attributes table-responsive">
+    <table class="table">
 
-    <thead>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td><b>@Input</b> key</td>
+                <td><b>string</b></td>
+                <td>Defines a unique identifier for the column that can be used when sorting.</td>
+            </tr>
+
+            <tr>
+                <td><b>@Input @Output</b> state</td>
+                <td><b>ColumnSortingState</b></td>
+                <td>Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code></td>
+            </tr>
+
         <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>@Input</b> key</td>
-            <td><b>string</b></td>
-            <td>Defines a unique identifier for the column that can be used when sorting.</td>
+            <td>changeState()</td>
+            <td><b>Object</b></td>
+            <td>Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
+            This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
+            State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>. 
+            The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.</td>
         </tr>
 
-        <tr>
-            <td><b>@Input @Output</b> state</td>
-            <td><b>ColumnSortingState</b></td>
-            <td>Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code></td>
-        </tr>
-
-       <tr>
-           <td>changeState()</td>
-           <td><b>Object</b></td>
-           <td>Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
-           This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
-           State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>. 
-           The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.</td>
-       </tr>
-
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 
 <p>The <code>uxColumnSorting</code> directive should be added to the <code>tr</code> and will accept the following attributes:</p>
 
+<div class="demo-attributes table-responsive">
 <table class="table">
 
     <thead>
@@ -118,5 +121,6 @@
         </tr>
     </tbody>
 </table>
+</div>
 
 <p>The <code>.column-sorting-header</code> class can be used to align the sorting icon to the right of the table header as seen in the example above.</p>
