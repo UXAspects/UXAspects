@@ -25,12 +25,17 @@ export class NavigationService {
         private router: Router,
         private versionService: VersionService) { }
 
+    getScrollTop(): number {
+        // support all browsers
+        return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    }
+
     getTopOffset() {
         return NAVIGATION_TOP_OFFSET;
     }
 
     isScrolledToBottom() {
-        return (this.document.body.scrollTop + window.innerHeight) >= this.document.body.offsetHeight;
+        return (this.getScrollTop() + window.innerHeight) >= this.document.body.offsetHeight;
     }
 
     isFragmentActive(id: string) {
@@ -66,7 +71,8 @@ export class NavigationService {
         if (element) {
             element.scrollIntoView(true);
             // Offset for fixed header unless scrolled to the bottom
-            if ((this.document.body.scrollTop + this.document.body.clientHeight) < this.document.body.offsetHeight) {
+
+            if (!this.isScrolledToBottom()) {
                 window.scrollBy(0, -this.getTopOffset());
             }
         }
