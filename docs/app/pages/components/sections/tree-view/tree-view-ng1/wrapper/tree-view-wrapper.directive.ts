@@ -164,5 +164,5 @@ angular.module('app').controller('TreeViewDocumentationCtrl', ['$scope', TreeVie
         'nodes': []
       }]
     }];
-    
+
   }

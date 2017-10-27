@@ -1,6 +1,6 @@
-angular.module('app').controller('TreeViewDocumentationCtrl', ['$scope', TreeViewDocumentationCtrl]);
+angular.module('app').controller('TreeViewDocumentationCtrl', TreeViewDocumentationCtrl);
 
-  function TreeViewDocumentationCtrl($scope) {
+  function TreeViewDocumentationCtrl() {
     var vm = this;
 
     vm.selected = {
