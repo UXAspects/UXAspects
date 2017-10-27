@@ -18,9 +18,9 @@ describe('Dropdown Tests', () => {
   it('should have correct initial states', () => {
   
     expect(page.confirmButtonIsExpanded(page.group)).toBeFalsy();
-    expect(page.menu1.isDisplayed()).toBeFalsy();
-    expect(page.menu2.isDisplayed()).toBeFalsy();
-    expect(page.menu3.isDisplayed()).toBeFalsy();
+    expect(page.menu1.isPresent()).toBeFalsy();
+    expect(page.menu2.isPresent()).toBeFalsy();
+    expect(page.menu3.isPresent()).toBeFalsy();
 
   });
 
@@ -118,6 +118,6 @@ describe('Dropdown Tests', () => {
     page.getTextBox(1).sendKeys('alpha ');
     expect<any>(page.getListContent(0)).toBe('Alpha 2');
     expect<any>(page.getListContent(1)).toBe('Alpha 3');
-    
+
   });
 });
