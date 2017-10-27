@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { DashboardService, ActionDirection } from '../dashboard.service';
 
 @Directive({
-    selector: '[ux-dashboard-widget-drag-handle]'
+    selector: '[uxDashboardWidgetDragHandle], [ux-dashboard-widget-drag-handle]'
 })
 export class DashboardDragHandleDirective {
 

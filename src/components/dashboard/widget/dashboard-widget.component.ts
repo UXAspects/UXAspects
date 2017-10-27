@@ -48,11 +48,11 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
         // add the widget to the dashboard
         _dashboardService.addWidget(this);
 
+        // apply the current options
+        this.applyOptions();
+
         // watch for changes to the options
-        _dashboardService.options().subscribe(options => {
-            this.padding = options.padding;
-            this._columnSpan.stacked = options.columns;
-        });
+        _dashboardService.options().subscribe(opts => this.applyOptions());
     }
 
     ngOnInit(): void {
@@ -104,6 +104,22 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      */
     getId(): string {
         return this.id;
+    }
+
+    /**
+     * Apply the current dashboard options
+     */
+    applyOptions(): void {
+
+        // get the current options at the time 
+        let options = this._dashboardService.getOptions();
+
+        // only update the values if options have been defined
+        if (options) {
+            // apply the initial options
+            this.padding = options.padding;
+            this._columnSpan.stacked = options.columns;
+        }
     }
 
     /**
