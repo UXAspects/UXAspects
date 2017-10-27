@@ -13,7 +13,7 @@
 
 <span class="icon"><i class="hpe-icon" ng-class="tv.getIcon(node.type, collapsed)"></i><span class="sr-only" ng-bind="node.type"></span></span>
 
-<span class="title-readonly" ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation();" ng-show="!tv.isBeingEdited(this)" tabIndex="0" ng-keydown="tv.keyboardSelect(this,$event);">{{node.title}}</span>
+<span class="title-readonly" tooltip="{{ tv.getTooltip(node) }}" ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation();" ng-show="!tv.isBeingEdited(this)" tabIndex="0" ng-keydown="tv.keyboardSelect(this,$event);">{{node.title}}</span>
 <input class="title-edit" ng-click="tv.edit(this); $event.preventDefault(); $event.stopPropagation();" ng-keypress="tv.finishEdit(this,$event)" ng-blur="tv.finishEdit(this,$event)"
 ng-show="tv.isBeingEdited(this)" ng-model="node.title" focus-on-show tabIndex="0">
 

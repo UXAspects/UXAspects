@@ -85,6 +85,14 @@ export default function TreeViewCtrl($scope, $element, $timeout) {
         }
     };
 
+    tv.getTooltip = function(node) {
+        if (!node.tooltip) {
+            return;
+        }
+
+        return typeof node.tooltip === 'function' ? node.tooltip.call(null, node) : node.tooltip;
+    };
+
     tv.canAddItem = function(scope) {
         return scope.$modelValue.allowChildren && !tv.readOnly && (!tv.selectedNode.permissions || (tv.selectedNode.permissions && tv.selectedNode.permissions.add));
     };
