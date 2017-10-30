@@ -28,7 +28,7 @@ export class ComponentsVirtualScrollComponent extends BaseDocumentationSection i
         modules: [
             {
                 imports: ['VirtualScrollModule', 'CheckboxModule'],
-                library: 'ux-aspects'
+                library: '@ux-aspects/ux-aspects'
             },
             {
                 imports: ['AccordionModule'],

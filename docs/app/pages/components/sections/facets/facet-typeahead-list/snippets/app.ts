@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from 'ux-aspects';
+import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '@ux-aspects/ux-aspects';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import 'chance';

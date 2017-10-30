@@ -33,7 +33,7 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
         ],
         modules: [{
             imports: ['FacetsModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }]
     };
 

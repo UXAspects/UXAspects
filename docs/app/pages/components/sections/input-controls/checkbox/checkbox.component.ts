@@ -68,7 +68,7 @@ export class ComponentsCheckboxComponent extends BaseDocumentationSection implem
         },
         modules: [{
             imports: ['CheckboxModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }]
     };
 

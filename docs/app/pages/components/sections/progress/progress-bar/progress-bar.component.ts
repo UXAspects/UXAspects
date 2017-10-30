@@ -20,7 +20,7 @@ export class ComponentsProgressBarComponent extends BaseDocumentationSection imp
         },
         modules: [{
             imports: ['ProgressBarModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }]
     };
 

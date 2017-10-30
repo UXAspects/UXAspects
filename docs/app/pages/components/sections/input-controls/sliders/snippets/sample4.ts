@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
     SliderValue, SliderOptions, ColorService, SliderStyle,
     SliderCalloutTrigger, SliderSnap, SliderType
-} from 'ux-aspects';
+} from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'my-slider-example',

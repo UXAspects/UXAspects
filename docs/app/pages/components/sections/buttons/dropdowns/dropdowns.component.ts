@@ -40,7 +40,7 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
             providers: ['BsDropdownModule.forRoot()']
         }, {
             imports: ['StringFilterModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }],
         mappings: [MAPPINGS.NgxBootstrap]
     };

@@ -46,7 +46,7 @@ System.config({
         'ngx-bootstrap/tooltip': 'npm:ngx-bootstrap@1.8.1/bundles/ngx-bootstrap.umd.js',
         'ngx-bootstrap/typeahead': 'npm:ngx-bootstrap@1.8.1/bundles/ngx-bootstrap.umd.js',
 
-        'ux-aspects': window.uxdAssetsUrl + '/lib/index.js',
+        '@ux-aspects/ux-aspects': window.uxdAssetsUrl + '/lib/index.js',
         ${mappings}
     },
     //packages defines our app package

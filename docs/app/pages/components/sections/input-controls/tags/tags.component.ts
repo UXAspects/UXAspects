@@ -55,7 +55,7 @@ export class ComponentsTagsComponent extends BaseDocumentationSection implements
         },
         modules: [{
             imports: ['TagInputModule', 'TypeaheadModule', 'CheckboxModule', 'RadioButtonModule', 'NumberPickerModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }, {
             library: 'ngx-bootstrap',
             imports: ['AccordionModule'],

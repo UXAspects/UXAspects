@@ -22,7 +22,7 @@ export class ComponentsNumberPickerComponent extends BaseDocumentationSection im
         },
         modules: [{
             imports: ['NumberPickerModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }]
     };
 

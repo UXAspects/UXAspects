@@ -1,6 +1,6 @@
 import { Component, Inject, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ColorService } from 'ux-aspects';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
 import { FlotData } from './flot-data';
 

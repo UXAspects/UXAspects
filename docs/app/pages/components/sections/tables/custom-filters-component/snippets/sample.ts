@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FilterBaseComponent, Filter, FilterContainerComponent, FilterRemoveAllEvent } from 'ux-aspects';
+import { FilterBaseComponent, Filter, FilterContainerComponent, FilterRemoveAllEvent } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'ux-filter-custom',

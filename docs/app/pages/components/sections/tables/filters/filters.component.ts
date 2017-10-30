@@ -148,7 +148,7 @@ export class ComponentsFiltersComponent extends BaseDocumentationSection impleme
         ],
         modules: [{
             imports: ['FilterModule', 'ColorServiceModule', 'SparkModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }]
     };
 

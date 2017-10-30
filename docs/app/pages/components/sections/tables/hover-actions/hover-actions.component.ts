@@ -27,7 +27,7 @@ export class ComponentsHoverActionsComponent extends BaseDocumentationSection im
             },
             {
                 imports: ['HoverActionModule', 'SparkModule'],
-                library: 'ux-aspects'
+                library: '@ux-aspects/ux-aspects'
             },
             {
                 imports: ['TooltipModule'],

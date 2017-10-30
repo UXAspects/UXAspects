@@ -41,7 +41,7 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
         ],
         modules: [{
             imports: ['FilterModule', 'RadioButtonModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }, {
             imports: ['SampleFilterCustomComponent'],
             library: './sample-filter.component',

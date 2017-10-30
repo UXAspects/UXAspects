@@ -19,7 +19,7 @@ export class ComponentsEboxComponent extends BaseDocumentationSection implements
         modules: [
             {
                 imports: ['EboxModule'],
-                library: 'ux-aspects'
+                library: '@ux-aspects/ux-aspects'
             }
         ]
     };

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FacetBaseComponent, Facet, FacetDeselect, FacetDeselectAll } from 'ux-aspects';
+import { FacetBaseComponent, Facet, FacetDeselect, FacetDeselectAll } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'my-custom-facet-component',

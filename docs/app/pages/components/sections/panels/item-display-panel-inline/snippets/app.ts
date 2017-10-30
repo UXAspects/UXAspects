@@ -1,5 +1,5 @@
 import { Component, ViewChild, TemplateRef } from '@angular/core';
-import { ItemDisplayPanelComponent } from 'ux-aspects';
+import { ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
 import 'chance';
 @Component({
     selector: 'app',

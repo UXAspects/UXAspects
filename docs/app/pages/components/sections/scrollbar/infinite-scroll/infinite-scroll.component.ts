@@ -69,7 +69,7 @@ export class ComponentsInfiniteScrollComponent extends BaseDocumentationSection 
         },
         modules: [{
             imports: ['InfiniteScrollModule', 'CheckboxModule', 'NumberPickerModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }, {
             library: 'ngx-bootstrap',
             imports: ['AccordionModule'],

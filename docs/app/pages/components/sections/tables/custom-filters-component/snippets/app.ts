@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Filter } from 'ux-aspects';
+import { Filter } @ux-aspects/;
 
 @Component({
     selector: 'app',

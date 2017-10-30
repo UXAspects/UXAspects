@@ -92,7 +92,7 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
         ],
         modules: [{
             imports: ['DashboardModule', 'ColorServiceModule', 'SparkModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }, {
             library: 'chance'
         },

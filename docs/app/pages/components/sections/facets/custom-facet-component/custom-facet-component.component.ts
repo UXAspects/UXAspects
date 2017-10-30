@@ -23,7 +23,7 @@ export class ComponentsCustomFacetComponent extends BaseDocumentationSection imp
         },
         modules: [{
             imports: ['FacetsModule', 'CheckboxModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }, {
             imports: ['SampleCustomFacetComponent'],
             library: './facet-component.component',

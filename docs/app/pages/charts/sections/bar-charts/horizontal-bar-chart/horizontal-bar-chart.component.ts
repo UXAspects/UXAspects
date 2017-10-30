@@ -26,7 +26,7 @@ export class ChartsHorizontalBarChartComponent extends BaseDocumentationSection 
             library: 'ng2-charts'
         }, {
             imports: ['ColorServiceModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }],
         mappings: [
             {

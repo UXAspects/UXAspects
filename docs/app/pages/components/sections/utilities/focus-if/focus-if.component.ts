@@ -25,7 +25,7 @@ export class ComponentsFocusIfComponent extends BaseDocumentationSection impleme
         },
         modules: [{
           imports: ['FocusIfModule'],
-          library: 'ux-aspects'
+          library: '@ux-aspects/ux-aspects'
       }]
     };
 
