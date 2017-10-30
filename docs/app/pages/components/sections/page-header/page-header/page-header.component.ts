@@ -20,7 +20,7 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
         },
         modules: [{
             imports: ['PageHeaderModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         },
         {
             library: 'ngx-bootstrap',

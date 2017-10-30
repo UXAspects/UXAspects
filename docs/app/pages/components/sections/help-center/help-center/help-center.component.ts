@@ -40,7 +40,7 @@ export class ComponentsHelpCenterComponent extends BaseDocumentationSection impl
         modules: [
             {
                 imports: ['HelpCenterModule', 'PageHeaderModule'],
-                library: 'ux-aspects'
+                library: '@ux-aspects/ux-aspects'
             }
         ],
         mappings: [

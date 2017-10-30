@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { ColorService } from 'ux-aspects';
+import { ColorService } from '@ux-aspects/ux-aspects';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart } from 'chart.js';
 

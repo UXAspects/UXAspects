@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SliderOptions, SliderType } from 'ux-aspects';
+import { SliderOptions, SliderType } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({

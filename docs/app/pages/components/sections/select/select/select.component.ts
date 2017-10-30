@@ -56,7 +56,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
                 'RadioButtonModule',
                 'NumberPickerModule'
             ],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }, {
             library: 'ngx-bootstrap',
             imports: ['AccordionModule'],

@@ -33,7 +33,7 @@ export class ComponentsRadioButtonComponent extends BaseDocumentationSection imp
         modules: [
             {
                imports: ['RadioButtonModule'],
-               library: 'ux-aspects' 
+               library: '@ux-aspects/ux-aspects' 
             }
         ]
     };

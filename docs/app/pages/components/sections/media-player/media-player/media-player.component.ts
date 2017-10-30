@@ -26,7 +26,7 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
         },
         modules: [{
             imports: ['RadioButtonModule', 'MediaPlayerModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }, {
             imports: ['AccordionModule'],
             forRoot: true,

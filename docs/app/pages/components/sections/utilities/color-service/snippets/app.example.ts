@@ -1,4 +1,4 @@
-import { ColorService, ThemeColor } from 'ux-aspects';
+import { ColorService, ThemeColor } from '@ux-aspects/ux-aspects';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

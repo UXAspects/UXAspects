@@ -28,7 +28,7 @@ export class ComponentsFacetCheckListComponent extends BaseDocumentationSection 
         ],
         modules: [{
             imports: ['FacetsModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }]
     };
 

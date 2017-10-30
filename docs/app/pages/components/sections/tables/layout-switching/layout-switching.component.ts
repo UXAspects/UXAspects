@@ -61,7 +61,7 @@ export class ComponentsLayoutSwitchingComponent extends BaseDocumentationSection
         modules: [
             {
                 imports: ['SliderModule', 'LayoutSwitcherModule' ],
-                library: 'ux-aspects'
+                library: '@ux-aspects/ux-aspects'
             },
             {
                 library: 'chance'

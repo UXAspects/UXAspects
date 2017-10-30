@@ -1,4 +1,4 @@
-import { PersistentDataService, PersistentDataStorageType } from 'ux-aspects';
+import { PersistentDataService, PersistentDataStorageType } from '@ux-aspects/ux-aspects';
 import { Component } from '@angular/core';
 
 @Component({

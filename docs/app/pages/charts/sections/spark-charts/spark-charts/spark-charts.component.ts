@@ -79,7 +79,7 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
         },
         modules: [{
             imports: ['SparkModule', 'ColorServiceModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }]
     };
 

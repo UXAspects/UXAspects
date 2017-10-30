@@ -21,7 +21,7 @@ export class ComponentsToggleSwitchComponent extends BaseDocumentationSection  i
       },
       modules: [{
           imports: ['ToggleSwitchModule'],
-          library: 'ux-aspects'
+          library: '@ux-aspects/ux-aspects'
       }]
   };
 

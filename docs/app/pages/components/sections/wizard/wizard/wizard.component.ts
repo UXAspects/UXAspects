@@ -25,7 +25,7 @@ export class ComponentsWizardComponent extends BaseDocumentationSection implemen
                 forRoot: true
             },
             {
-                library: 'ux-aspects',
+                library: '@ux-aspects/ux-aspects',
                 imports: ['RadioButtonModule', 'WizardModule']
             }
         ]

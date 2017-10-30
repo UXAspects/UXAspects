@@ -128,7 +128,7 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
         ],
         modules: [{
             imports: ['ItemDisplayPanelModule', 'ColorServiceModule', 'SparkModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }]
     };
 

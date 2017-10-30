@@ -33,7 +33,7 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
         },
         modules: [{
             imports: ['SliderModule', 'ColorServiceModule'],
-            library: 'ux-aspects'
+            library: '@ux-aspects/ux-aspects'
         }]
     };
 

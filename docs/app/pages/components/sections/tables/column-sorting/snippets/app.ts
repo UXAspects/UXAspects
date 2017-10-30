@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColumnSortingComponent, ColumnSortingState, ColorService, ColumnSortingOrder } from 'ux-aspects';
+import { ColumnSortingComponent, ColumnSortingState, ColorService, ColumnSortingOrder } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({

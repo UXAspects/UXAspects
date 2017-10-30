@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Breadcrumb, PageHeaderIconMenu, HelpCenterItem, HelpCenterService } from 'ux-aspects';
+import { Breadcrumb, PageHeaderIconMenu, HelpCenterItem, HelpCenterService } from '@ux-aspects/ux-aspects';
 import { Subscription } from 'rxjs/Subscription';
 import 'chance';
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColorService, ColorIdentifier } from 'ux-aspects';
+import { ColorService, ColorIdentifier } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
