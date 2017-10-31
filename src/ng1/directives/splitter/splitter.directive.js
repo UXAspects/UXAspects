@@ -13,6 +13,7 @@ export default function splitter($compile, $timeout) {
             onDrag: '=?',
             onDragStart: '=?',
             onDragEnd: '=?',
+            onToggle: '=?',
             reinitialize: '=?'
         },
         link: function(scope, element) {
@@ -261,6 +262,11 @@ export default function splitter($compile, $timeout) {
                         showGutter();
                         toggleButtonIcon(toggle);
                         expandSidePanel(mainPanel, sidePanel);
+                        
+                        if (scope.onToggle) {
+                            scope.onToggle.call(scope, true);
+                        }
+
                         return;
                     }
                     if (toggleState === "expanded") {
@@ -268,6 +274,10 @@ export default function splitter($compile, $timeout) {
                         hideGutter();
                         toggleButtonIcon(toggle);
                         collapseSidePanel(mainPanel, sidePanel);
+
+                        if (scope.onToggle) {
+                            scope.onToggle.call(scope, false);
+                        }
                         return;
                     }
                 });

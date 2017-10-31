@@ -2,9 +2,15 @@
 
 <hr>
 
-<p>The splitter supports a toggle button to collapse the panels in the style of the <a routerLink="/components/panels" fragment="side-inset-panel-ng1">Side Inset Panel</a>.
+<p>
+    The splitter supports a toggle button to collapse the panels in the style of the <a routerLink="/components/panels" fragment="side-inset-panel-ng1">Side Inset Panel</a>.
     To add the toggle button, define your splitter panels
     as described above but add the <code>splitter-side</code> attribute to the side panel, and the <code>splitter-main</code>
-    to the main panel.</p>
+    to the main panel.
+</p>
+
+<p>
+    An <code>on-toggle</code> attribute can be added to the splitter to specify a function to be called when the inset panel is expanding/collapsing.
+</p>
 
 <uxd-snippet [content]="snippets.compiled.layoutSnippetHtml" language="html"></uxd-snippet>
