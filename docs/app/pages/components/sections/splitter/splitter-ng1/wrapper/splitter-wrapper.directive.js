@@ -5,12 +5,6 @@ angular.module('app').directive('uxdSplitterWrapper', () => {
         controller: ['$scope', function ($scope) {
             var vm = this;
 
-            // vm.scrollConfig = {
-            //     resizeSensor: true,
-            //     isScrollableH: false,
-            //     scrollMargin: 5
-            // };
-
             vm.dragStart = function () {
                 //this will be called when the user begins to drag
             };
