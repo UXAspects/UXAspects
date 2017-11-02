@@ -22,6 +22,7 @@ describe('Hyperlinks Tests', () => {
   });
   
   it('should have correct initial states', () => {
+
     // Initial values.
     expect<any>(page.textLink.getCssValue('border-bottom-width')).toBe('2px');
     expect<any>(page.textLink.getCssValue('border-bottom-style')).toBe('dotted');
@@ -30,13 +31,16 @@ describe('Hyperlinks Tests', () => {
     expect<any>(page.firstLink.getCssValue('border-bottom-width')).toBe('2px');
     expect<any>(page.firstLink.getCssValue('border-bottom-style')).toBe('dotted');
     expect<any>(page.firstLink.getCssValue('border-bottom-color')).toBe('rgba(0, 0, 0, 0)');
+
   });
   
-  it('should change colour when hovered over', () => {    
+  it('should change colour when hovered over', () => {
+
     // Hover over link
-    functions.hoverOverElement(page.firstLink);
+    functions.moveToElement(page.firstLink);
     expect<any>(page.firstLink.getCssValue('border-bottom-width')).toBe('2px');
     expect<any>(page.firstLink.getCssValue('border-bottom-style')).toBe('dotted');
     expect<any>(functions.getElementColourHex(page.firstLink, 'border-bottom-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
+
   });  
 });
