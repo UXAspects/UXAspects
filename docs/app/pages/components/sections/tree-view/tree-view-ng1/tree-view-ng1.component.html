@@ -41,6 +41,15 @@
             <td>Used to configure the appearance (see Icon Configuration below for more details).</td>
         </tr>
         <tr>
+            <td class="attribute">tooltip</td>
+            <td>string | function</td>
+            <td>
+                Allows you to show a tooltip when the node label is hovered. If this value is a function, 
+                the function will be called with the node object as an argument and should return a string to display in the tooltip. 
+                By default no tooltip will be shown.
+            </td>
+        </tr>
+        <tr>
             <td class="attribute">nodes</td>
             <td>array</td>
             <td>A collection of child objects, following the same interface.</td>
