@@ -12,6 +12,7 @@ export class SparkComponent {
 
     @Input() trackColor: string = this._colorService.getColor('primary').setAlpha(0.2).toRgba();
     @Input() barColor: string | string[] = this._colorService.getColor('primary').toHex();
+    // @Input() value: number | number[] = 0;
     @Input() barHeight: number = 10;
     @Input() inlineLabel: string;
     @Input() topLeftLabel: string;
