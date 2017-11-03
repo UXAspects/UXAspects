@@ -8,11 +8,10 @@ import { ColorIdentifier } from '../../index';
 })
 export class SparkComponent {
 
-    private _values: number[] = [];
+    values: number[] = [];
 
     @Input() trackColor: string = this._colorService.getColor('primary').setAlpha(0.2).toRgba();
     @Input() barColor: string | string[] = this._colorService.getColor('primary').toHex();
-    // @Input() value: number | number[] = 0;
     @Input() barHeight: number = 10;
     @Input() inlineLabel: string;
     @Input() topLeftLabel: string;
@@ -31,18 +30,23 @@ export class SparkComponent {
     set value(value: number | number[]) {
 
         // ensure 'value' is an array at this point
-        const values = Array.isArray(this.value) ? this.value : [this.value];
+        const values = Array.isArray(value) ? value : [value];
 
         // get the total value of all lines
         let total = Math.max(values.reduce((previous, current) => previous + current, 0), 100);
 
         // figure out the percentages for each spark line
-        this._values = values.map(val => (val / total) * 100);
+        this.values = values.map(val => (val / total) * 100);
+
+        // ensure 'barColor' is an array
+        this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
     }
 
     get value() {
-        return this._values;
+        return this.values;
     }
 
-    constructor(private _colorService: ColorService) { }
+    constructor(private _colorService: ColorService) { 
+
+    }
 }
