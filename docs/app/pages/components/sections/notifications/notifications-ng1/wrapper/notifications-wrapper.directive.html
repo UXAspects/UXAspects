@@ -36,13 +36,13 @@
             </div>
             <small class="text-muted">Recommended Colors</small>
             <div class="color-palette">
-                <div class="color-box primary-color" ng-click="vm.setColor('primary')"></div>
-                <div class="color-box accent-color" ng-click="vm.setColor('accent')"></div>
-                <div class="color-box chart4-color" ng-click="vm.setColor('chart4')"></div>
-                <div class="color-box chart5-color" ng-click="vm.setColor('chart5')"></div>
-                <div class="color-box ok-color" ng-click="vm.setColor('ok')"></div>
-                <div class="color-box warning-color" ng-click="vm.setColor('warning')"></div>
-                <div class="color-box critical-color" ng-click="vm.setColor('critical')"></div>
+                <div class="color-box" ng-style="{ backgroundColor: vm.notificationColors.primary }" ng-click="vm.setColor('primary')"></div>
+                <div class="color-box" ng-style="{ backgroundColor: vm.notificationColors.accent }" ng-click="vm.setColor('accent')"></div>
+                <div class="color-box" ng-style="{ backgroundColor: vm.notificationColors.chart4 }" ng-click="vm.setColor('chart4')"></div>
+                <div class="color-box" ng-style="{ backgroundColor: vm.notificationColors.chart5 }" ng-click="vm.setColor('chart5')"></div>
+                <div class="color-box" ng-style="{ backgroundColor: vm.notificationColors.ok }" ng-click="vm.setColor('ok')"></div>
+                <div class="color-box" ng-style="{ backgroundColor: vm.notificationColors.warning }" ng-click="vm.setColor('warning')"></div>
+                <div class="color-box" ng-style="{ backgroundColor: vm.notificationColors.critical }" ng-click="vm.setColor('critical')"></div>
             </div>
         </div>
     </div>
