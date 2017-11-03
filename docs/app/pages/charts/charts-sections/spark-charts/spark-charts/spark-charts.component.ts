@@ -91,7 +91,7 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
 
 interface SparkChart {
     theme?: ColorIdentifier;
-    value: number;
+    value: number | number[];
     barHeight?: number;
     topLeftLabel?: string;
     topRightLabel?: string;
