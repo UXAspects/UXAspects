@@ -4,9 +4,15 @@ export default function NotificationService() {
     vm.notifications = [];
     vm.notificationsVisible = true;
 
+    vm.direction = 'append';
+
     /*
       Public Functions
     */
+    vm.setDirection = function(direction) {
+        vm.direction = direction;
+    };
+
     vm.showNotification = function(options) {
 
         var defaultOptions = {
@@ -16,6 +22,7 @@ export default function NotificationService() {
             duration: 4000,
             backgroundColor: '#60798D',
             subtitle: '',
+            customClass: '',
             date: new Date()
         };
 
@@ -111,7 +118,7 @@ export default function NotificationService() {
         */
 
         var notification = document.createElement('div');
-        notification.className = 'notification';
+        notification.className = 'notification ' + (options.customClass ? options.customClass : '');
 
         //create close button
         var closeBtn = document.createElement('div');
@@ -161,6 +168,11 @@ export default function NotificationService() {
         textElement.innerHTML = options.text;
         textContainer.appendChild(textElement);
 
+        // create band - invisible by default
+        var band = document.createElement('div');
+        band.className = 'notification-band';
+        band.style.display = 'none';
+
         //if a date string was specified then show it
         if (options.subtitle && options.subtitle !== '') {
             var subtitleElement = document.createElement('small');
@@ -175,18 +187,24 @@ export default function NotificationService() {
 
         contentContainer.appendChild(textContainer);
         notification.appendChild(contentContainer);
+        notification.appendChild(band);
 
         //find or create the container
         var container = getContainer();
 
         //add the element to the container
-        container.appendChild(notification);
+        if (vm.direction.toLowerCase().trim() === 'append') {
+            container.appendChild(notification);
+        } else {
+            container.insertBefore(notification, container.firstChild);
+        }
 
         //once the element has been added - add the animation class
         notification.className = 'notification fadeInNotification';
 
         //set the background color of the notification
         notification.style.backgroundColor = options.backgroundColor;
+        band.style.backgroundColor = options.backgroundColor;
 
         //if a duration was set then automatically dismiss after that time
         if (options.duration && options.duration > 0) {
