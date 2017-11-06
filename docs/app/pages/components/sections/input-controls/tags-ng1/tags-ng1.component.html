@@ -210,6 +210,18 @@ All of these functions will be called with the tag available as <code class="hig
         </ul>
     </td>
   </tr>
+  <tr>
+    <td class="attribute">tagClass</td>
+    <td>
+      Function which returns an <code>ng-class</code>-type object defining one or more custom classes and their conditions for activating. The function receives the following parameters:
+      <ul>
+        <li><code>tag</code> - the tag object, or if an array of strings are being used as tags, an object with a <code>text</code> property.</li>
+        <li><code>index</code> - the zero-based index of the tag.</li>
+        <li><code>selected</code> - true if the tag is selected.</li>
+      </ul>
+      <uxd-snippet [content]="snippets.compiled.tagClassSnippetJs" language="javascript"></uxd-snippet>
+    </td>
+  </tr>
 </table>
 </div>
 
