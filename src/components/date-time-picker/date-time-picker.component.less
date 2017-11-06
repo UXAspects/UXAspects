@@ -1,0 +1,29 @@
+@import './day-view/day-view.component.less';
+@import './month-view/month-view.component.less';
+@import './year-view/year-view.component.less';
+@import './time-view/time-view.component.less';
+@import './header/header.component.less';
+
+ux-date-time-picker {
+    display: block;
+}
+
+.calendar-container {
+    padding: 4px;
+}
+
+.now-button {
+    width: 100%;
+    padding: 4px 5px;
+    text-align: center;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    color: @date-picker-today-btn-color;
+
+    &:hover {
+        background-color: @date-picker-today-btn-hover-bg;
+    }
+}

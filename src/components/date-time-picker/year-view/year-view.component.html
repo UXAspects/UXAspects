@@ -1,0 +1,8 @@
+<ux-date-time-picker-header [header]="header" [canAscend]="false" (previous)="previous()" (next)="next()"></ux-date-time-picker-header>
+
+<div class="calendar">
+  <div class="calendar-row" *ngFor="let row of years">
+    <div *ngFor="let item of row" class="calendar-item" [class.current]="item === currentYear" [class.active]="item === year"
+    (click)="select(item); $event.stopPropagation()" (keyup.enter)="select(item)" tabindex="0">{{ item }}</div>
+  </div>
+</div>

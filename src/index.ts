@@ -5,6 +5,7 @@ export * from './components/breadcrumbs/index';
 export * from './components/checkbox/index';
 export * from './components/column-sorting/index';
 export * from './components/dashboard/index';
+export * from './components/date-time-picker/index';
 export * from './components/ebox/index';
 export * from './components/facets/index';
 export * from './components/filters/index';

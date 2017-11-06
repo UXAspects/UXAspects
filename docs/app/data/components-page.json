@@ -194,15 +194,32 @@
         {
             "title": "Date & Time Pickers",
             "link": "date-time-picker",
-            "sections": [{
+            "sections": [
+                {
+                    "title": "Date & Time Picker",
+                    "component": "ComponentsDateTimePickerComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-date-time-picker"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "DateTimePickerModule"
+                    }
+                ]
+                },
+                {
                     "title": "Date Picker",
                     "component": "ComponentsDatePickerNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Integrated Date Picker",
                     "component": "ComponentsIntegratedDatePickerNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Date Range Picker",
