@@ -164,8 +164,8 @@ const ROUTES: Routes = [
     path: 'toggle-button',
     component: ToggleButtonTestPageComponent
   }, {
-    path: 'toggle-button',
-    component: ToggleButtonTestPageComponent
+    path: 'toggleswitches',
+    component: ToggleSwitchesTestPageComponent
   }, {
     path: 'tree-grid',
     component: TreeGridNg1TestPageComponent
