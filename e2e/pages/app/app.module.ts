@@ -13,8 +13,11 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { UpgradeAdapter } from '@angular/upgrade';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TreeModule } from 'angular-tree-component';
 
 import { AppComponent } from './app.component';
+import { ButtonDropdownsTestPageComponent }  from './button-dropdowns/button-dropdowns.testpage.component';
 import { ButtonsRadioButtonsTestPageComponent }  from './buttons-radio-buttons/buttons-radio-buttons.testpage.component';
 import { ButtonSizeVariationsTestPageComponent }  from './button-size-variations/button-size-variations.testpage.component';
 import { CheckboxTestPageComponent }  from './checkbox/checkbox.testpage.component';
@@ -28,6 +31,7 @@ import { FacetContainerTestPageComponent }  from './facet-container/facet-contai
 import { FacetTypeaheadListPageComponent }  from './facet-typeahead-list/facet-typeahead-list.testpage.component';
 import { FiltersTestPageComponent } from './filters/filters.testpage.component';
 import { FlippableCardsTestPageComponent }  from './flippable-cards/flippable-cards.testpage.component';
+import { FloatingActionButtonsNg1TestPageComponent }  from './floating-action-buttons-ng1/floating-action-buttons-ng1.testpage.component';
 import { HyperlinksTestPageComponent }  from './hyperlinks/hyperlinks.testpage.component';
 import { InfiniteScrollTestPageComponent }  from './infinite-scroll/infinite-scroll.testpage.component';
 import { ItemDisplayPanelTestPageComponent }  from './item-display-panel/item-display-panel.testpage.component';
@@ -38,24 +42,38 @@ import { PaginationTestPageComponent } from './pagination/pagination.testpage.co
 import { RadioButtonsTestPageComponent }  from './radiobuttons/radiobuttons.testpage.component';
 import { SampleCustomFacetComponent }  from './custom-facet/facet-component.testpage.component';
 import { SelectTestPageComponent } from './select/select.testpage.component';
+import { SideInsetPanelSplitterNg1TestPageComponent }  from './side-inset-panel-splitter-ng1/side-inset-panel-splitter-ng1.testpage.component';
 import { SlidersTestPageComponent }  from './sliders/sliders.testpage.component';
+import { SplitButtonDropdownsTestPageComponent }  from './split-button-dropdowns/split-button-dropdowns.testpage.component';
+import { StackedTabsNg1TestPageComponent }  from './stacked-tabs-ng1/stacked-tabs-ng1.testpage.component';
+import { TabsNg1TestPageComponent }  from './tabs-ng1/tabs-ng1.testpage.component';
 import { TagsTestPageComponent }  from './tags/tags.testpage.component';
 import { ToggleButtonTestPageComponent }  from './toggle-button/toggle-button.testpage.component';
 import { ToggleSwitchesTestPageComponent }  from './toggleswitches/toggleswitches.testpage.component';
+import { TreeGridNg1TestPageComponent }  from './tree-grid-ng1/tree-grid-ng1.testpage.component';
 import { VirtualScrollTestPageComponent }  from './virtual-scroll/virtual-scroll.testpage.component';
 import { WizardTestPageComponent } from './wizard/wizard.testpage.component';
 import { CheckboxModule, ColorServiceModule, DashboardModule, FacetsModule, FilterModule, FlippableCardModule,
 InfiniteScrollModule, ItemDisplayPanelModule, NumberPickerModule, PageHeaderModule, RadioButtonModule, SelectModule,
-SliderModule, SparkModule, StringFilterModule, TagInputModule, ToggleSwitchModule, TypeaheadModule, VirtualScrollModule, WizardModule }
+SliderModule, SparkModule, StringFilterModule, TagInputModule, ToggleSwitchModule, TypeaheadModule,
+VirtualScrollModule, WizardModule }
 from '../../../dist';
 
 // import scripts that require upgrade
+import './floating-action-buttons-ng1/wrapper/floating-action-button-wrapper.directive';
+import './side-inset-panel-splitter-ng1/wrapper/side-inset-panel-splitter-wrapper.directive';
+import './stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
+import './tabs-ng1/wrapper/tabs-wrapper.directive';
+import './tree-grid-ng1/wrapper/tree-grid-wrapper.directive';
 
 // create a singleton of the upgrade adapter
 export const upgradeAdapter = new UpgradeAdapter(forwardRef(() => AppModule));
 
 const ROUTES: Routes = [
   {
+    path: 'button-dropdowns',
+    component: ButtonDropdownsTestPageComponent
+  }, {
     path: 'button-size-variations',
     component: ButtonSizeVariationsTestPageComponent
   }, {
@@ -95,6 +113,9 @@ const ROUTES: Routes = [
     path: 'flippable-cards',
     component: FlippableCardsTestPageComponent
   }, {
+    path: 'floating-action-buttons',
+    component: FloatingActionButtonsNg1TestPageComponent
+  }, {
     path: 'hyperlinks',
     component: HyperlinksTestPageComponent
   }, {
@@ -122,8 +143,20 @@ const ROUTES: Routes = [
     path: 'select',
     component: SelectTestPageComponent
   }, {
+    path: 'side-inset-panel-splitter',
+    component: SideInsetPanelSplitterNg1TestPageComponent
+  }, {
     path: 'sliders',
     component: SlidersTestPageComponent
+  }, {
+    path: 'split-button-dropdowns',
+    component: SplitButtonDropdownsTestPageComponent
+  }, {
+    path: 'stacked-tabs',
+    component: StackedTabsNg1TestPageComponent
+  }, {
+    path: 'tabs',
+    component: TabsNg1TestPageComponent
   }, {
     path: 'tags',
     component: TagsTestPageComponent
@@ -133,6 +166,9 @@ const ROUTES: Routes = [
   }, {
     path: 'toggleswitches',
     component: ToggleSwitchesTestPageComponent
+  }, {
+    path: 'tree-grid',
+    component: TreeGridNg1TestPageComponent
   }, {
     path: 'virtual-scroll',
     component: VirtualScrollTestPageComponent
@@ -168,6 +204,7 @@ const ROUTES: Routes = [
     SliderModule,
     SparkModule,
     StringFilterModule,
+    TabsModule.forRoot(),
     TagInputModule,
     ToggleSwitchModule,
     TypeaheadModule,
@@ -176,6 +213,7 @@ const ROUTES: Routes = [
   ],
   declarations: [
     AppComponent,
+    ButtonDropdownsTestPageComponent,
     ButtonsRadioButtonsTestPageComponent,
     ButtonSizeVariationsTestPageComponent,
     CheckboxTestPageComponent,
@@ -189,6 +227,7 @@ const ROUTES: Routes = [
     FacetTypeaheadListPageComponent,
     FiltersTestPageComponent,
     FlippableCardsTestPageComponent,
+    FloatingActionButtonsNg1TestPageComponent,
     HyperlinksTestPageComponent,
     InfiniteScrollTestPageComponent,
     ItemDisplayPanelTestPageComponent,
@@ -199,12 +238,23 @@ const ROUTES: Routes = [
     RadioButtonsTestPageComponent,
     SampleCustomFacetComponent,
     SelectTestPageComponent,
+    SideInsetPanelSplitterNg1TestPageComponent,
     SlidersTestPageComponent,
+    SplitButtonDropdownsTestPageComponent,
+    TabsNg1TestPageComponent,
+    StackedTabsNg1TestPageComponent,
     TagsTestPageComponent,
     ToggleButtonTestPageComponent,
     ToggleSwitchesTestPageComponent,
+    TreeGridNg1TestPageComponent,
     VirtualScrollTestPageComponent,
-    WizardTestPageComponent    
+    WizardTestPageComponent,
+    
+    upgradeAdapter.upgradeNg1Component('uxdFloatingActionButtonWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdSideInsetPanelSplitterWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdStackedTabsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTabsWrapper'),
+    upgradeAdapter.upgradeNg1Component('uxdTreeGridWrapper')
   ]
 })
 export class AppModule {
