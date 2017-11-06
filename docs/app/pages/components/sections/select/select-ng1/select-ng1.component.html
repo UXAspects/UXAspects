@@ -52,18 +52,18 @@
             <td>array or function</td>
             <td>variable</td>
             <td>
-                <p>Provides the items that the user may select from. Items may be strings or objects. Use <code>select-as</code>                    and <code>track-by</code> to present objects as required.</p>
-                <p>If an array is provided then the full contents will be displayed in the dropdown. There must be no identical
-                    items.</p>
-                <p>If a function is provided, this will retrieve pages of items as required when scrolling or filtering the
-                    item dropdown. The arguments are as follows:</p>
+                <span>Provides the items that the user may select from. Items may be strings or objects. Use <code>select-as</code> and <code>track-by</code> to present objects as required.</span>
+                <span>If an array is provided then the full contents will be displayed in the dropdown. There must be no identical
+                    items.</span>
+                <span>If a function is provided, this will retrieve pages of items as required when scrolling or filtering the
+                    item dropdown. The arguments are as follows:</span>
                 <ul>
                     <li><code>pageNumber</code> (numeric) - The index of the requested page, starting from 0.</li>
                     <li><code>pageSize</code> (numeric) - The number of items requested.</li>
                     <li><code>searchString</code> (string) - The text entered by the user to filter the results.</li>
                 </ul>
-                <p>The function should return either an array, or if the data is retrieved asynchronously, a promise containing
-                    an array. Return an empty array if there are no more items.</p>
+                <span>The function should return either an array, or if the data is retrieved asynchronously, a promise containing
+                    an array. Return an empty array if there are no more items.</span>
             </td>
             <td>false</td>
         </tr>

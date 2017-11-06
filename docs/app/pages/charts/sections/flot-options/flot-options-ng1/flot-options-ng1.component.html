@@ -192,65 +192,67 @@
 
 <p>The following attributes should be defined within <code>valueLabels</code></p>
 
-<table class="table">
-    <tbody>
-        <tr>
-            <th>Property</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">show</td>
-            <td>boolean</td>
-            <td>When set to true labels will be displayed.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">valign</td>
-            <td>string</td>
-            <td>Defines the vertical alignment of the text. The available options are: 'top', 'above', 'below', 'middle' or 'bottom'.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">plotAxis</td>
-            <td>string</td>
-            <td>Defines the axis you wish to display the values of. The available options are: 'x' or 'y'.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">xoffset</td>
-            <td>number</td>
-            <td>Defines the number of pixels the label should move to the left or right of its original position.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">yoffset</td>
-            <td>number</td>
-            <td>Defines the number of pixels the label should move up or down from its original position.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">font</td>
-            <td>string</td>
-            <td>Defines the font size and font family the labels should use.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">fontColor</td>
-            <td>color</td>
-            <td>Sets the text color of the labels.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">labelFormatter</td>
-            <td>function</td>
-            <td>Should accept one argument that will contain the axis position of the associated data. The function can be used
-                to change the text in the label and should do this by returning the desired text.</td>
-            <td>true</td>
-        </tr>
-    </tbody>
-</table>
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Property</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">show</td>
+                <td>boolean</td>
+                <td>When set to true labels will be displayed.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">valign</td>
+                <td>string</td>
+                <td>Defines the vertical alignment of the text. The available options are: 'top', 'above', 'below', 'middle' or 'bottom'.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">plotAxis</td>
+                <td>string</td>
+                <td>Defines the axis you wish to display the values of. The available options are: 'x' or 'y'.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">xoffset</td>
+                <td>number</td>
+                <td>Defines the number of pixels the label should move to the left or right of its original position.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">yoffset</td>
+                <td>number</td>
+                <td>Defines the number of pixels the label should move up or down from its original position.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">font</td>
+                <td>string</td>
+                <td>Defines the font size and font family the labels should use.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">fontColor</td>
+                <td>color</td>
+                <td>Sets the text color of the labels.</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td class="attribute">labelFormatter</td>
+                <td>function</td>
+                <td>Should accept one argument that will contain the axis position of the associated data. The function can be used
+                    to change the text in the label and should do this by returning the desired text.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <hr>
 
