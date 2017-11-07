@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-view/time-view.component';
 import { weekdaysShort } from './date-time-picker.utils';
+import { DateTimePickerConfig } from './date-time-picker.config';
 
 @Component({
   selector: 'ux-date-time-picker',
@@ -17,40 +18,15 @@ export class DateTimePickerComponent {
   private _date: Date = new Date();
   private _timezone: DateTimePickerTimezone;
 
-  @Input() showDate: boolean = true;
-  @Input() showTime: boolean = true;
-  @Input() showTimezone: boolean = true;
-  @Input() showSeconds: boolean = false;
-  @Input() showMeridian: boolean = true;
-  @Input() showSpinners: boolean = true;
-  @Input() weekdays: string[] = weekdaysShort;
-  @Input() nowBtnText: string = 'Today';
-  @Input() timezones: DateTimePickerTimezone[] = [
-    { name: 'GMT-11', offset: -660 },
-    { name: 'GMT-10', offset: -600 },
-    { name: 'GMT-9', offset: -540 },
-    { name: 'GMT-8', offset: -480 },
-    { name: 'GMT-7', offset: -420 },
-    { name: 'GMT-6', offset: -360 },
-    { name: 'GMT-5', offset: -300 },
-    { name: 'GMT-4', offset: -240 },
-    { name: 'GMT-3', offset: -180 },
-    { name: 'GMT-2', offset: -12 },
-    { name: 'GMT-1', offset: -60 },
-    { name: 'GMT', offset: 0 },
-    { name: 'GMT+1', offset: 60 },
-    { name: 'GMT+2', offset: 120 },
-    { name: 'GMT+3', offset: 180 },
-    { name: 'GMT+4', offset: 240 },
-    { name: 'GMT+5', offset: 300 },
-    { name: 'GMT+6', offset: 360 },
-    { name: 'GMT+7', offset: 420 },
-    { name: 'GMT+8', offset: 480 },
-    { name: 'GMT+9', offset: 540 },
-    { name: 'GMT+10', offset: 600 },
-    { name: 'GMT+11', offset: 660 },
-    { name: 'GMT+12', offset: 720 }
-  ];
+  @Input() showDate: boolean = this._config.showDate;
+  @Input() showTime: boolean = this._config.showTime;
+  @Input() showTimezone: boolean = this._config.showTimezone;
+  @Input() showSeconds: boolean = this._config.showSeconds;
+  @Input() showMeridian: boolean = this._config.showMeridian;
+  @Input() showSpinners: boolean = this._config.showSpinners;
+  @Input() weekdays: string[] = this._config.weekdays;
+  @Input() nowBtnText: string = this._config.nowBtnText;
+  @Input() timezones: DateTimePickerTimezone[] = this._config.timezones;
 
   @Output() dateChange: EventEmitter<Date> = new EventEmitter<Date>();
   @Output() timezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
@@ -90,6 +66,8 @@ export class DateTimePickerComponent {
 
   // expose enum to view
   DatePickerMode = DatePickerMode;
+
+  constructor(private _config: DateTimePickerConfig) { }
 
   /**
    * This will emit the newly selected date
