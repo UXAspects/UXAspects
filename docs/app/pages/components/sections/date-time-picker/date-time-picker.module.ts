@@ -13,8 +13,8 @@ import { ComponentsDateRangePickerNg1Component } from './date-range-picker-ng1/d
 import { ComponentsTimePickerNg1Component } from './time-picker-ng1/time-picker-ng1.component';
 import { WrappersModule } from '../../../../wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ComponentsDateTimePickerComponent } from "./date-time-picker/date-time-picker.component";
-import { DateTimePickerModule } from '../../../../../../src/index';
+import { ComponentsDateTimePickerComponent } from './date-time-picker/date-time-picker.component';
+import { DateTimePickerModule, CheckboxModule } from '../../../../../../src/index';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 
@@ -45,6 +45,7 @@ const ROUTES = [
         TabsModule,
         DateTimePickerModule,
         FormsModule,
+        CheckboxModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

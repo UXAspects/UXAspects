@@ -17,8 +17,9 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
 
     showTime: boolean = true;
     showTimezones: boolean = true;
+    showMeridians: boolean = true;
+    showSpinners: boolean = true;
     
-
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }

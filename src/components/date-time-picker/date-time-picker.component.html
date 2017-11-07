@@ -1,13 +1,17 @@
-<div class="calendar-container" [ngSwitch]="mode">
+<div class="calendar-container">
 
-  <!-- Display days in the current month -->
-  <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day" [(date)]="activeDate" [(month)]="month" [(year)]="year" [weekdays]="weekdays" (dateChange)="commit()" (ascend)="mode = DatePickerMode.Month"></ux-date-time-picker-day-view>
+  <ng-container *ngIf="showDate" [ngSwitch]="mode">
 
-  <!-- Display the months in the current year -->
-  <ux-date-time-picker-month-view *ngSwitchCase="DatePickerMode.Month" [date]="activeDate" [(month)]="month" [(year)]="year" (monthChange)="mode = DatePickerMode.Day" (ascend)="mode = DatePickerMode.Year"></ux-date-time-picker-month-view>
-
-  <!-- Display a decade -->
-  <ux-date-time-picker-year-view *ngSwitchCase="DatePickerMode.Year" [(year)]="year" (yearChange)="mode = DatePickerMode.Month"></ux-date-time-picker-year-view>
+    <!-- Display days in the current month -->
+    <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day" [(date)]="activeDate" [(month)]="month" [(year)]="year" [weekdays]="weekdays" (dateChange)="commit()" (ascend)="mode = DatePickerMode.Month"></ux-date-time-picker-day-view>
+  
+    <!-- Display the months in the current year -->
+    <ux-date-time-picker-month-view *ngSwitchCase="DatePickerMode.Month" [date]="activeDate" [(month)]="month" [(year)]="year" (monthChange)="mode = DatePickerMode.Day" (ascend)="mode = DatePickerMode.Year"></ux-date-time-picker-month-view>
+  
+    <!-- Display a decade -->
+    <ux-date-time-picker-year-view *ngSwitchCase="DatePickerMode.Year" [(year)]="year" (yearChange)="mode = DatePickerMode.Month"></ux-date-time-picker-year-view>
+  
+  </ng-container>
 
   <!-- Display a Time Picker -->
   <ux-date-time-picker-time-view *ngIf="showTime" #timePicker [(date)]="activeDate" (dateChange)="commit()" [showSpinners]="showSpinners" [showTimezone]="showTimezone" [showSeconds]="showSeconds" [showMeridian]="showMeridian" (dateChange)="commit()" [timezone]="timezone" (timezoneChange)="timezoneChange.emit($event)" [timezones]="timezones"></ux-date-time-picker-time-view>

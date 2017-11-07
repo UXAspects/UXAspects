@@ -15,15 +15,16 @@ export class DateTimePickerComponent {
   year: number = new Date().getFullYear();
 
   private _date: Date = new Date();
-  
+  private _timezone: DateTimePickerTimezone;
+
+  @Input() showDate: boolean = true;
   @Input() showTime: boolean = true;
   @Input() showTimezone: boolean = true;
   @Input() showSeconds: boolean = false;
   @Input() showMeridian: boolean = true;
   @Input() showSpinners: boolean = true;
   @Input() weekdays: string[] = weekdaysShort;
-  @Input() timezone: DateTimePickerTimezone;
-  @Input() nowBtnText: string = 'Today';  
+  @Input() nowBtnText: string = 'Today';
   @Input() timezones: DateTimePickerTimezone[] = [
     { name: 'GMT-11', offset: -660 },
     { name: 'GMT-10', offset: -600 },
@@ -49,7 +50,7 @@ export class DateTimePickerComponent {
     { name: 'GMT+10', offset: 600 },
     { name: 'GMT+11', offset: 660 },
     { name: 'GMT+12', offset: 720 }
-]
+  ];
 
   @Output() dateChange: EventEmitter<Date> = new EventEmitter<Date>();
   @Output() timezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
@@ -69,6 +70,21 @@ export class DateTimePickerComponent {
   get date(): Date {
     return this._date;
   }
+
+  @Input()
+  set timezone(value: DateTimePickerTimezone) {
+    const timezone = this.timezones.find(timezone => timezone.offset === value.offset);
+
+    // only update if the timezone is valid
+    if (timezone) {
+      this._timezone = timezone;
+    }
+  }
+
+  get timezone(): DateTimePickerTimezone {
+    return this._timezone;
+  }
+
 
   mode: DatePickerMode = DatePickerMode.Day;
 
