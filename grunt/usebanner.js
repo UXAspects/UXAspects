@@ -8,7 +8,7 @@ module.exports = {
     ng1: {
         options: {
             position: 'top',
-            banner: `/* \n* ${ package.name } - v${ package.version } \n* © Copyright ${ new Date().getFullYear() } Hewlett Packard Enterprise Development Company LP\n*/`,
+            banner: `/* \n* ${ package.name } - v${ package.version } \n* © Copyright ${ new Date().getFullYear() } EntIT Software LLC, a Micro Focus company\n*/`,
             linebreak: true
         },
         files: {
