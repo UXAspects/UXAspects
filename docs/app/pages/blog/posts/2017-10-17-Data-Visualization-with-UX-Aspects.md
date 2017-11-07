@@ -4,6 +4,11 @@ It is important to remember that not all data should be visualized in the same w
 
 These cover simple bar charts, line charts and donut charts as well as some more specific charts such as the partition map, which is useful for displaying files in a repository, the organization chart, used for displaying the hierarchy of your organization, and the social chart for displaying social interactions between users. 
 
+<div class="row">
+    <img class="col-md-6" src="../../../assets/img/blog/sankey.jpg" />
+    <img class="col-md-6" src="../../../assets/img/blog/social.jpg" />
+</div>
+
 UX Aspects also provides a [color service](https://uxaspects.github.io/UXAspects/#/components/utilities#color-service) which allows you to quickly and easily update the colors on your charts to give your application that personal touch.
 
 This is just a small overview of some of the data visualization tools UX Aspects offers to help you get the most out of your data, check out our documentation sections to preview these components in action and find out how to use them in your own application.
