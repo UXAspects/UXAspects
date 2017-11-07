@@ -44,7 +44,7 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
                 forRoot: true
             }
         ]
-    }
+    };
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
