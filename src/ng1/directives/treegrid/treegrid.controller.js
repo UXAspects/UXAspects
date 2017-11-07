@@ -15,8 +15,8 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
     },
     expander: {
       type: "class",
-      contracted: "hpe-next",
-      expanded: "hpe-down",
+      contracted: "hpe-chevron-right",
+      expanded: "hpe-chevron-down",
       expanding: "spinner spinner-accent spinner-bounce-middle"
     },
     icons: {
