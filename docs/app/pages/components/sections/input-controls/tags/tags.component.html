@@ -120,152 +120,154 @@
 
 <p>The <code>ux-tag-input</code> component provides the input field seen in the example, and has the following properties:</p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><b>@Input @Output</b> tags</td>
-            <td><b>any[]</b></td>
-            <td>The list of tags appearing in the tag input. This can be an array of strings or custom objects. See the <code>displayProperty</code> property for details of using a custom object.</td>
-        </tr>
-        <tr>
-            <td><b>@Input @Output</b> input</td>
-            <td><b>string</b></td>
-            <td>The editable text appearing in the tag input.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> addOnPaste</td>
-            <td><b>boolean</b></td>
-            <td>Controls whether pasting text into the text input area automatically converts that text into one or more tags. Default is true.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> disabled</td>
-            <td><b>boolean</b></td>
-            <td>Controls the disabled state of the tag input. Default is false.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> display</td>
-            <td><b>(option: any) => string | string</b></td>
-            <td>Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate display value. If the name of a property is provided as a string, that property is used as the display value.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> enforceTagLimits</td>
-            <td><b>boolean</b></td>
-            <td>If set to true, the tag input will prevent addition and removal of tags to enforce the <code>minTags</code> and <code>maxTags</code> settings. Otherwise, a validation error will be raised. Default is false.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> freeInput</td>
-            <td><b>boolean</b></td>
-            <td>If true, input entered into the text input area can be converted into a tag by pressing enter. Otherwise, tags can only be added from the typeahead list or other external means. (Note that the <code>maxTags</code> and <code>tagPattern</code> will prevent invalid inputs regardless of this setting.) Default is true.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> maxTags</td>
-            <td><b>number</b></td>
-            <td>The maximum number of tags permitted in the tag input. If the number of tags is equal to <code>maxTags</code> and <code>enforceTagLimits</code> is true, addition of tags will be prevented until a tag is removed. Default is unlimited.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> minTags</td>
-            <td><b>number</b></td>
-            <td>The minimum number of tags permitted in the tag input. If the number of tags is equal to <code>minTags</code> and <code>enforceTagLimits</code> is true, removal of tags will be prevented until a new tag is added. Default is 0.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> placeholder</td>
-            <td><b>string</b></td>
-            <td>The placeholder text which appears in the text input area when it is empty.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> showTypeaheadOnClick</td>
-            <td><b>boolean</b></td>
-            <td>Controls whether the typeahead appears when the text input area is clicked. This has no effect if the <code>ux-typeahead</code> component is not configured. Default is false.</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> tagDelimiters</td>
-            <td><b>string</b></td>
-            <td>A string containing the characters which delimit tags. Typing one of the characters in <code>tagDelimiters</code> will cause the preceding text to be added as a tag, and the text input area will be cleared. Pasting a string containing one or more of characters in <code>tagDelimiters</code> will cause the string to be split into multiple tags. Note that the delimiter character will not be part of the tag text. Default is empty (no delimiters).</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> tagPattern</td>
-            <td><b>RegExp</b></td>
-            <td>The validation expression for tags added via the input text area. Strings which do not match this expression will not be added as tags. Default is null (no validation).</td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> tagTemplate</td>
-            <td><b>TemplateRef</b></td>
-            <td>
-                <p>A template which will be rendered as the content of each tag. The following context properties are available in the template:</p>
-                <ul>
-                    <li><code>tag: any</code> - the string or custom object representing the tag.</li>
-                    <li><code>index: number</code> - the zero-based index of the tag as it appears in the tag input.</li>
-                    <li><code>api: TagApi</code> - provides the functions <code>getTagDisplay</code>, <code>removeTagAt</code> and <code>canRemoveTagAt</code>. See the section below for more information.</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> tagClass</td>
-            <td><b>TagClassFunction</b></td>
-            <td>
-                <p>A function which returns either a <code>string</code>, <code>string[]</code>, or <code>Set&lt;string&gt;</code>, compatible with the <a href="https://angular.io/api/common/NgClass">NgClass directive</a>. The function receives the following parameters:</p>
-                <ul>
-                    <li><code>tag: any</code> - the string or custom object representing the tag.</li>
-                    <li><code>index: number</code> - the zero-based index of the tag as it appears in the tag input.</li>
-                    <li><code>selected: boolean</code> - true if the tag is currently selected.</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> validationErrors</td>
-            <td><b>any</b></td>
-            <td>
-                <p>An object which contains details of validation errors. The following properties will be present if there is a related validation error:</p>
-                <ul>
-                    <li><code>tagRangeError</code> - present if the number of tags is outside the range specified by <code>minTags</code> and <code>maxTags</code>.</li>
-                    <li><code>inputPattern</code> - present if an input has been submitted which does not match the <code>tagPattern</code>.</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td><b>@Input</b> createTag</td>
-            <td><b>(value: string) => any</b></td>
-            <td>A custom function which is called to create a new tag object. This can be used to populate other properties in the tag object. If <code>createTag</code> is not provided, then an object is created with the <code>displayProperty</code> set to the input. If <code>displayProperty</code> is also not set, then the tag is created as a simple string.</td>
-        </tr>
-        <tr>
-            <td><b>@Output</b> tagAdding</td>
-            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
-            <td>Raised when a tag is about to be added. The <code>tag</code> property of the event contains the tag to be added. Call <code>preventDefault()</code> on the event to prevent addition.</td>
-        </tr>
-        <tr>
-            <td><b>@Output</b> tagAdded</td>
-            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
-            <td>Raised when a tag has been added. The <code>tag</code> property of the event contains the tag.</td>
-        </tr>
-        <tr>
-            <td><b>@Output</b> tagInvalidated</td>
-            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
-            <td>Raised when a tag has failed validation according to the <code>tagPattern</code>. The <code>tag</code> property of the event contains the string which failed validation.</td>
-        </tr>
-        <tr>
-            <td><b>@Output</b> tagRemoving</td>
-            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
-            <td>Raised when a tag is about to be removed. The <code>tag</code> property of the event contains the tag to be removed. Call <code>preventDefault()</code> on the event to prevent removal.</td>
-        </tr>
-        <tr>
-            <td><b>@Output</b> tagRemoved</td>
-            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
-            <td>Raised when a tag has been removed. The <code>tag</code> property of the event contains the tag.</td>
-        </tr>
-        <tr>
-            <td><b>@Output</b> tagClick</td>
-            <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
-            <td>Raised when a tag has been clicked. The <code>tag</code> property of the event contains the clicked tag. Call <code>preventDefault()</code> on the event to prevent the default behaviour of selecting the tag.</td>
-        </tr>
-    </tbody>
-</table>
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>@Input @Output</b> tags</td>
+                <td><b>any[]</b></td>
+                <td>The list of tags appearing in the tag input. This can be an array of strings or custom objects. See the <code>displayProperty</code> property for details of using a custom object.</td>
+            </tr>
+            <tr>
+                <td><b>@Input @Output</b> input</td>
+                <td><b>string</b></td>
+                <td>The editable text appearing in the tag input.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> addOnPaste</td>
+                <td><b>boolean</b></td>
+                <td>Controls whether pasting text into the text input area automatically converts that text into one or more tags. Default is true.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> disabled</td>
+                <td><b>boolean</b></td>
+                <td>Controls the disabled state of the tag input. Default is false.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> display</td>
+                <td><b>(option: any) => string | string</b></td>
+                <td>Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate display value. If the name of a property is provided as a string, that property is used as the display value.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> enforceTagLimits</td>
+                <td><b>boolean</b></td>
+                <td>If set to true, the tag input will prevent addition and removal of tags to enforce the <code>minTags</code> and <code>maxTags</code> settings. Otherwise, a validation error will be raised. Default is false.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> freeInput</td>
+                <td><b>boolean</b></td>
+                <td>If true, input entered into the text input area can be converted into a tag by pressing enter. Otherwise, tags can only be added from the typeahead list or other external means. (Note that the <code>maxTags</code> and <code>tagPattern</code> will prevent invalid inputs regardless of this setting.) Default is true.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> maxTags</td>
+                <td><b>number</b></td>
+                <td>The maximum number of tags permitted in the tag input. If the number of tags is equal to <code>maxTags</code> and <code>enforceTagLimits</code> is true, addition of tags will be prevented until a tag is removed. Default is unlimited.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> minTags</td>
+                <td><b>number</b></td>
+                <td>The minimum number of tags permitted in the tag input. If the number of tags is equal to <code>minTags</code> and <code>enforceTagLimits</code> is true, removal of tags will be prevented until a new tag is added. Default is 0.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> placeholder</td>
+                <td><b>string</b></td>
+                <td>The placeholder text which appears in the text input area when it is empty.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> showTypeaheadOnClick</td>
+                <td><b>boolean</b></td>
+                <td>Controls whether the typeahead appears when the text input area is clicked. This has no effect if the <code>ux-typeahead</code> component is not configured. Default is false.</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> tagDelimiters</td>
+                <td><b>string</b></td>
+                <td>A string containing the characters which delimit tags. Typing one of the characters in <code>tagDelimiters</code> will cause the preceding text to be added as a tag, and the text input area will be cleared. Pasting a string containing one or more of characters in <code>tagDelimiters</code> will cause the string to be split into multiple tags. Note that the delimiter character will not be part of the tag text. Default is empty (no delimiters).</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> tagPattern</td>
+                <td><b>RegExp</b></td>
+                <td>The validation expression for tags added via the input text area. Strings which do not match this expression will not be added as tags. Default is null (no validation).</td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> tagTemplate</td>
+                <td><b>TemplateRef</b></td>
+                <td>
+                    <span>A template which will be rendered as the content of each tag. The following context properties are available in the template:</span>
+                    <ul>
+                        <li><code>tag: any</code> - the string or custom object representing the tag.</li>
+                        <li><code>index: number</code> - the zero-based index of the tag as it appears in the tag input.</li>
+                        <li><code>api: TagApi</code> - provides the functions <code>getTagDisplay</code>, <code>removeTagAt</code> and <code>canRemoveTagAt</code>. See the section below for more information.</li>
+                    </ul>
+                </td>
+            </tr>
+        	<tr>
+            	<td><b>@Input</b> tagClass</td>
+            	<td><b>TagClassFunction</b></td>
+            	<td>
+                	<p>A function which returns either a <code>string</code>, <code>string[]</code>, or <code>Set&lt;string&gt;</code>, compatible with the <a href="https://angular.io/api/common/NgClass">NgClass directive</a>. The function receives the following parameters:</p>
+                	<ul>
+                    	<li><code>tag: any</code> - the string or custom object representing the tag.</li>
+                    	<li><code>index: number</code> - the zero-based index of the tag as it appears in the tag input.</li>
+                    	<li><code>selected: boolean</code> - true if the tag is currently selected.</li>
+                	</ul>
+            	</td>
+        	</tr>
+            <tr>
+                <td><b>@Input</b> validationErrors</td>
+                <td><b>any</b></td>
+                <td>
+                    <span>An object which contains details of validation errors. The following properties will be present if there is a related validation error:</span>
+                    <ul>
+                        <li><code>tagRangeError</code> - present if the number of tags is outside the range specified by <code>minTags</code> and <code>maxTags</code>.</li>
+                        <li><code>inputPattern</code> - present if an input has been submitted which does not match the <code>tagPattern</code>.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><b>@Input</b> createTag</td>
+                <td><b>(value: string) => any</b></td>
+                <td>A custom function which is called to create a new tag object. This can be used to populate other properties in the tag object. If <code>createTag</code> is not provided, then an object is created with the <code>displayProperty</code> set to the input. If <code>displayProperty</code> is also not set, then the tag is created as a simple string.</td>
+            </tr>
+            <tr>
+                <td><b>@Output</b> tagAdding</td>
+                <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+                <td>Raised when a tag is about to be added. The <code>tag</code> property of the event contains the tag to be added. Call <code>preventDefault()</code> on the event to prevent addition.</td>
+            </tr>
+            <tr>
+                <td><b>@Output</b> tagAdded</td>
+                <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+                <td>Raised when a tag has been added. The <code>tag</code> property of the event contains the tag.</td>
+            </tr>
+            <tr>
+                <td><b>@Output</b> tagInvalidated</td>
+                <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+                <td>Raised when a tag has failed validation according to the <code>tagPattern</code>. The <code>tag</code> property of the event contains the string which failed validation.</td>
+            </tr>
+            <tr>
+                <td><b>@Output</b> tagRemoving</td>
+                <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+                <td>Raised when a tag is about to be removed. The <code>tag</code> property of the event contains the tag to be removed. Call <code>preventDefault()</code> on the event to prevent removal.</td>
+            </tr>
+            <tr>
+                <td><b>@Output</b> tagRemoved</td>
+                <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+                <td>Raised when a tag has been removed. The <code>tag</code> property of the event contains the tag.</td>
+            </tr>
+            <tr>
+                <td><b>@Output</b> tagClick</td>
+                <td><b>EventEmitter&lt;TagInputEvent&gt;</b></td>
+                <td>Raised when a tag has been clicked. The <code>tag</code> property of the event contains the clicked tag. Call <code>preventDefault()</code> on the event to prevent the default behaviour of selecting the tag.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <h4>TagApi</h4>
 
@@ -319,14 +321,14 @@
             <td><b>@Input</b> options</td>
             <td><b>any[] | InfiniteScrollLoadFunction</b></td>
             <td>
-                <p>If an array is provided, this is the list of options which can be chosen from. It can be an array of strings or custom objects, matching the format used by the tag input control. If custom objects are required, the <code>display</code> property must also be set.</p>
-                <p>If a function is provided, this is used as a callback to dynamically retrieve options in pages. The parameters are:</p>
+                <span>If an array is provided, this is the list of options which can be chosen from. It can be an array of strings or custom objects, matching the format used by the tag input control. If custom objects are required, the <code>display</code> property must also be set.</span>
+                <span>If a function is provided, this is used as a callback to dynamically retrieve options in pages. The parameters are:</span>
                 <ul>
                     <li><code>pageNum: number</code> - The index of the requested page, starting from 0.</li>
                     <li><code>pageSize: number</code> - The number of items requested.</li>
                     <li><code>filter: any</code> - The filter details as provided via the <code>filter</code> binding.</li>
                 </ul>
-                <p>The return value should be either a promise which resolves to an array, or a plain array in case the data can be loaded synchronously. An empty array or an array with fewer than <code>pageSize</code> items can be returned, which indicates that the end of the data set has been reached.</p>
+                <span>The return value should be either a promise which resolves to an array, or a plain array in case the data can be loaded synchronously. An empty array or an array with fewer than <code>pageSize</code> items can be returned, which indicates that the end of the data set has been reached.</span>
             </td>
         </tr>
         <tr>
@@ -373,7 +375,7 @@
             <td><b>@Input</b> optionTemplate</td>
             <td><b>TemplateRef</b></td>
             <td>
-                <p>A template which will be rendered in the dropdown for each option. The following context properties are available in the template:</p>
+                <span>A template which will be rendered in the dropdown for each option. The following context properties are available in the template:</span>
                 <ul>
                     <li><code>option: any</code> - the string or custom object representing the option.</li>
                     <li><code>api: TypeaheadOptionApi</code> - provides the functions <code>getKey</code>, <code>getDisplay</code> and <code>getDisplayHtml</code>. See the section below for more information.</li>

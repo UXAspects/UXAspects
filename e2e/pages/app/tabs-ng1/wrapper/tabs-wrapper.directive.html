@@ -1,0 +1,87 @@
+<h3>Icon Only</h3>
+
+<div class="m-b-lg">
+    <tabset id="tabSetIconOnly" type="tabs minimal-tab">
+        <tab align="text-center" ng-repeat="tab in ::vm.tabs">
+            <tab-heading>
+                <i class="hpe-icon" ng-class="tab.icon" aria-hidden="true"></i>&nbsp;
+                <span class="sr-only" ng-bind="tab.title"></span>
+            </tab-heading>
+            <ng-include src="tab.content"></ng-include>
+        </tab>
+    </tabset>
+</div>
+
+<hr>
+
+<h3>Text and Icon</h3>
+
+<div class="m-b-lg">
+    <tabset id="tabSetTextAndIcon" type="tabs minimal-tab">
+        <tab align="text-center" ng-repeat="tab in ::vm.tabs">
+            <tab-heading>
+                <i class="hpe-icon" ng-class="tab.icon" aria-hidden="true"></i>
+                <span class="tab-title visible-md-inline visible-lg-inline" ng-bind="::tab.title"></span>
+            </tab-heading>
+            <ng-include src="tab.content"></ng-include>
+        </tab>
+    </tabset>
+</div>
+
+<hr>
+
+<h3>Text Only</h3>
+
+<div class="m-b-lg">
+    <tabset id="tabSetTextOnly" type="tabs minimal-tab">
+        <tab align="text-center" ng-repeat="tab in ::vm.tabs">
+            <tab-heading>
+                <span class="tab-title" ng-bind="::tab.title"></span>
+            </tab-heading>
+            <ng-include src="tab.content"></ng-include>
+        </tab>
+    </tabset>
+</div>
+
+<hr>
+
+<h3>Alternative Style</h3>
+
+<div class="m-b-lg">
+    <tabset id="tabSetAlternativeStyle" class="outline-tab">
+        <tab ng-repeat="tab in ::vm.tabs">
+            <tab-heading>
+                <span ng-bind="::tab.title"></span>
+            </tab-heading>
+            <ng-include src="tab.content"></ng-include>
+        </tab>
+    </tabset>
+</div>
+
+<hr>
+
+<h3>Dynamic Tabs</h3>
+
+<div class="m-b-lg">
+    <tabset id="tabSetDynamicTabs" type="tabs minimal-tab">
+        <tab align="text-center" ng-repeat="tab in vm.dynamicTabs">
+            <tab-heading>
+                <span class="tab-title" ng-bind="::tab.title"></span>
+            </tab-heading>
+            <ng-include src="tab.content"></ng-include>
+        </tab>
+        <div id="buttonGroup" class="btn-group tab-dropdown" dropdown>
+            <div dropdown-toggle>
+                <button id="dropdown" type="button" class="btn btn-icon btn-circular button-accent btn-sm" aria-label="Contract">
+                        <span class="hpe-icon hpe-add" aria-hidden="true"></span>
+                    </button>
+                <span class="tab-title">Add</span>
+            </div>
+            <ul id="dropdownMenu" class="dropdown-menu" role="menu">
+                <li ng-repeat="option in ::vm.inlineDropDownOptions">
+                    <a href="" ng-click="vm.dropClick($index)" ng-class="{'tab-option-selected': vm.tabSelected(option) }" ng-bind="::option"></a>
+                </li>
+            </ul>
+        </div>
+    </tabset>
+</div>

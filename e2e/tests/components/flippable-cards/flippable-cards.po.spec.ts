@@ -15,15 +15,15 @@ export class FlippableCardsPage {
     }
     
     clickOnCard(card: ElementFinder, offset: { x: number, y: number }) {
-        browser.actions().
-            mouseMove(card, offset).
-            mouseDown().
-            mouseUp().
-            perform();
+        return browser.actions().
+                    mouseMove(card, offset).
+                    mouseDown().
+                    mouseUp().
+                    perform();
     }
     
     clickOnCardIcon(card: ElementFinder) {
-        this.confirmIsFlipped(card).then(function(isFlipped: boolean) {        
+        return this.confirmIsFlipped(card).then(function(isFlipped: boolean) {
             if (isFlipped) {
                 card.$('div.ux-flipper').$('div.ux-flippable-card-back').$('ux-flippable-card-back').$('i').click();
             } else {
@@ -37,9 +37,9 @@ export class FlippableCardsPage {
     }
     
     hoverOverCard(card: ElementFinder, offset: { x: number, y: number }) {
-        browser.actions().
-            mouseMove(card, offset).
-            perform();
+        return browser.actions().
+                    mouseMove(card, offset).
+                    perform();
     }    
 }
 
