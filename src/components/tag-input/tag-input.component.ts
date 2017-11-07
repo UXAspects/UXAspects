@@ -86,6 +86,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     @Input() tagDelimiters: string = '';
     @Input() tagPattern: RegExp;
     @Input() tagTemplate: TemplateRef<any>;
+    @Input() tagClass: TagClassFunction;
     @Input() validationErrors: any = {};
     @Input('createTag') createTagHandler: (value: string) => any;
 
@@ -434,6 +435,16 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     }
 
     /**
+     * Returns custom class data from the `tagClass` function, if provided.
+     */
+    getTagClass(tag: any, index: number, selected: boolean): string | string[] | Set<string> {
+        if (typeof this.tagClass === 'function') {
+            return this.tagClass(tag, index, selected);
+        }
+        return undefined;
+    }
+
+    /**
      * Returns true if the given index is selected (tag index or input field).
      */
     isSelected(index: number): boolean {
@@ -630,3 +641,8 @@ export interface TagApi {
      */
     canRemoveTagAt: (index: number) => boolean;
 }
+
+/**
+ * The function used to return custom class information, for use in `ngClass`.
+ */
+export type TagClassFunction = (tag: any, index: number, selected: boolean) => (string | string[] | Set<string>);
