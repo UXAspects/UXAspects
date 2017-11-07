@@ -45,7 +45,7 @@ export function dateRange(start: Date, end: Date): Date[] {
         dates.push(new Date(start));
 
         // move to the next day
-        start.setDate(start.getDate() + 1)
+        start.setDate(start.getDate() + 1);
     }
 
     return dates;

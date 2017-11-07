@@ -73,7 +73,7 @@ export class DateTimePickerComponent {
 
   @Input()
   set timezone(value: DateTimePickerTimezone) {
-    const timezone = this.timezones.find(timezone => timezone.offset === value.offset);
+    const timezone = this.timezones.find(zone => zone.offset === value.offset);
 
     // only update if the timezone is valid
     if (timezone) {
