@@ -4,8 +4,12 @@
             <span class="input-group-addon" tabindex="1" (click)="popover.show()">
                 <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
             </span>
-            <input type="text" #input #popover="bs-popover" [ngModel]="date | date:'dd MMMM yyyy HH:mm'" (keyup.enter)="parse(input.value)"
-                [popover]="popoverTemplate" placement="bottom" [outsideClick]="true" containerClass="date-time-picker-popover"
+            <input type="text" #input #popover="bs-popover" 
+                [ngModel]="date | date:'dd MMMM yyyy HH:mm'" 
+                (keyup.enter)="parse(input.value)"
+                [popover]="popoverTemplate" placement="bottom" 
+                [outsideClick]="true" 
+                containerClass="date-time-picker-popover"
                 class="form-control" aria-label="Selected date">
         </div>
 
@@ -16,8 +20,10 @@
 </div>
 
 <ng-template #popoverTemplate>
-    <ux-date-time-picker [(date)]="date" [(timezone)]="timezone" [showTime]="showTime" [showMeridian]="showMeridians" [showSpinners]="showSpinners"
-        [showTimezone]="showTimezones"></ux-date-time-picker>
+    <ux-date-time-picker [(date)]="date" [(timezone)]="timezone" 
+        [showTime]="showTime" [showMeridian]="showMeridians" 
+        [showSpinners]="showSpinners" [showTimezone]="showTimezones">
+    </ux-date-time-picker>
 </ng-template>
 
 <hr>

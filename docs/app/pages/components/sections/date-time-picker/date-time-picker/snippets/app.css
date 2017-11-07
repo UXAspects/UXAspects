@@ -1,0 +1,7 @@
+.date-time-picker-popover {
+    max-width: none;
+}
+
+.date-time-picker-popover .popover-content {
+    padding: 0;
+}

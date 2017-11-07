@@ -1,7 +1,9 @@
-import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DateTimePickerTimezone } from '../../../../../../../src/index';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-components-date-time-picker',
@@ -10,7 +12,7 @@ import { DateTimePickerTimezone } from '../../../../../../../src/index';
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsDateTimePickerComponent')
-export class ComponentsDateTimePickerComponent extends BaseDocumentationSection {
+export class ComponentsDateTimePickerComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     date: Date = new Date();
     timezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
@@ -19,6 +21,30 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
     showTimezones: boolean = true;
     showMeridians: boolean = true;
     showSpinners: boolean = true;
+
+    plunk: IPlunk = {
+        files: {
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.css': this.snippets.raw.appCss,
+        },
+        modules: [
+            { 
+                imports: ['DateTimePickerModule', 'CheckboxModule'],
+                library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['AccordionModule'],
+                library: 'ngx-bootstrap/accordion',
+                forRoot: true
+            },
+            {
+                imports: ['PopoverModule'],
+                library: 'ngx-bootstrap/popover',
+                forRoot: true
+            }
+        ]
+    }
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
