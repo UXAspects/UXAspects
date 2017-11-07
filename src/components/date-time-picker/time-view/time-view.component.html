@@ -7,7 +7,7 @@
     <button type="button" class="btn button-toggle-accent" [(ngModel)]="meridian" (ngModelChange)="setMeridian($event)" [btnRadio]="DatePickerMeridian.PM">PM</button>
   </div>
 
-  <table *ngIf="showTimezone && showSpinners">
+  <table class="time-zone-picker-container" *ngIf="showTimezone && showSpinners">
     <tbody>
       <tr>
         <td class="text-center">
