@@ -1,0 +1,107 @@
+ux-date-time-picker-time-view {
+    display: flex;
+    padding: 12px 4px;
+    margin-top: 6px;
+    border-top: 1px solid @date-picker-dropdown-border;
+    border-bottom: 1px solid @date-picker-dropdown-border;
+    align-items: center;
+    justify-content: center;
+
+    &:first-child {
+        border-top: none;
+    }
+
+    .time-input-container {
+        display: flex;
+        align-items: center;
+
+        > * {
+            margin-right: 22px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .meridian-picker {
+            .button-toggle-accent {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+        }
+
+        .btn {
+            &.btn-link {
+                padding: 2px 10px;
+
+                .hpe-icon {
+                    &.hpe-up,
+                    &.hpe-down {
+                        color: @date-picker-border-dark;
+                        font-weight: 900;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        .time-zone-picker {
+            display: flex;
+            width: 60px;
+            font-size: 14px;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            cursor: default;
+        }
+
+        .time-zone-picker-select {
+            font-size: 14px;
+            padding: 0;
+            text-align: center;
+        }
+
+        timepicker {
+            .form-control {
+                font-size: 14px;
+                width: 33px !important;
+                padding: 0;
+            }
+
+            .glyphicon {
+                font-family: hpe-icons;
+                color: @date-picker-border-dark;
+                font-weight: 900;
+                font-size: 14px;
+
+                &.glyphicon-chevron-up:before {
+                    content: "\F226";
+                }
+
+                &.glyphicon-chevron-down:before {
+                    content: "\F176";
+                }
+            }
+
+            .btn-default {
+                display: none;
+            }
+
+            tr {
+                td:nth-child(2) {
+                    max-width: 12px;
+                }
+
+                td:nth-child(4) {
+                    display: none;
+                }
+
+                td {
+                    .btn {
+                        padding: 2px 10px;
+                    }
+                }
+            }
+        }
+    }
+}

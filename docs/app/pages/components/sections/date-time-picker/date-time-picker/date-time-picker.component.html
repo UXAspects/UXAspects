@@ -1,0 +1,174 @@
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <div class="input-group date m-nil">
+            <span class="input-group-addon" tabindex="1" (click)="popover.show()">
+                <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+            </span>
+            <input type="text" #input #popover="bs-popover" [ngModel]="date | date:'dd MMMM yyyy HH:mm'" (keyup.enter)="parse(input.value)" [popover]="popoverTemplate" placement="bottom" [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date">
+        </div>
+
+        <p class="m-t">Selected date is:  <em>{{ date | date:'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em></p>
+    </div>
+</div>
+
+<ng-template #popoverTemplate>
+    <ux-date-time-picker [(date)]="date" [(timezone)]="timezone" [showTime]="showTime" [showMeridian]="showMeridians" [showSpinners]="showSpinners" [showTimezone]="showTimezones"></ux-date-time-picker>
+</ng-template>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-panel heading="Customize Example...">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="showTime">Show Time</ux-checkbox>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="showTimezones">Show Timezones</ux-checkbox>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="showMeridians">Show Meridians</ux-checkbox>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-checkbox [(ngModel)]="showSpinners">Show Spinners</ux-checkbox>
+                    </div>
+                </div>
+            </accordion-panel>
+        </accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The <code>ux-date-time-picker</code> component can be used to select a date/time or timezone. It can be displayed as a standalone component or within
+    an <code>ngx-bootstrap</code> popover.
+</p>
+
+<p>
+    The following options can be used to configure the appearance and behavior of the component.
+</p>
+
+<table class="table">
+    
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td><b>@Input @Output</b> date</td>
+            <td><b>Date</b></td>
+            <td>
+                The selected date to be displayed in the component. This will also emit an event when the date 
+                is changed using the component.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input @Output</b> timezone</td>
+            <td><b>DateTimePickerTimezone</b></td>
+            <td>
+                Will set the selected timezone. If not defined the users current timezone will try to be used. 
+                If their timezone is not available it will revert to GMT. This will also emit an event if 
+                the selected timezone is changed.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> timezones</td>
+            <td><b>DateTimePickerTimezone[]</b></td>
+            <td>
+                Defines the list of available timezones. The <b>DateTimePickerTimezone</b> interface specifies that 
+                each timezone should be an object with a <b>name</b> property that represents the timezone, eg. <code>GMT+2</code>, 
+                and an <b>offset</b> property that represents the number of minutes relative to GMT the timezone is.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> showDate</td>
+            <td><b>boolean</b></td>
+            <td>
+                Defines whether or not the date picker should be visible.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> showTime</td>
+            <td><b>boolean</b></td>
+            <td>
+                Defines whether or not the time picker should be visible.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> showTimezone</td>
+            <td><b>boolean</b></td>
+            <td>
+                Defines whether or not the time picker should allow the user to choose a timezone.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> showSeconds</td>
+            <td><b>boolean</b></td>
+            <td>
+                Defines whether or not the time picker should allow the user to specify seconds.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> showMeridian</td>
+            <td><b>boolean</b></td>
+            <td>
+                Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> showSpinners</td>
+            <td><b>boolean</b></td>
+            <td>
+                Defines whether or not the time picker should allow the user to select the time using spinners.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> weekdays</td>
+            <td><b>string[]</b></td>
+            <td>
+                If defined will override the weekday names displayed.
+            </td>
+        </tr>
+        
+        <tr>
+            <td><b>@Input</b> nowBtnText</td>
+            <td><b>string</b></td>
+            <td>
+                Defines the text to be displayed in the button used to set the selected time to the current time.
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

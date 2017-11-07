@@ -1,0 +1,42 @@
+<div class="time-input-container">
+  <timepicker [ngModel]="date" (ngModelChange)="update($event)" [minuteStep]="1" [hourStep]="1" [secondsStep]="1" [showSeconds]="showSeconds"
+    [showSpinners]="showSpinners"></timepicker>
+
+  <div class="btn-group meridian-picker" *ngIf="showMeridian">
+    <button type="button" class="btn button-toggle-accent" [(ngModel)]="meridian" (ngModelChange)="setMeridian($event)" [btnRadio]="DatePickerMeridian.AM">AM</button>
+    <button type="button" class="btn button-toggle-accent" [(ngModel)]="meridian" (ngModelChange)="setMeridian($event)" [btnRadio]="DatePickerMeridian.PM">PM</button>
+  </div>
+
+  <table class="time-zone-picker-container" *ngIf="showTimezone && showSpinners">
+    <tbody>
+      <tr>
+        <td class="text-center">
+          <a class="btn btn-link" (click)="nextTimezone()">
+            <span class="hpe-icon hpe-up"></span>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td class="form-group">
+          <div class="form-control time-zone-picker">
+            <span class="time-zone">{{ timezone?.name }}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-center">
+          <a class="btn btn-link" (click)="previousTimezone()">
+            <span class="hpe-icon hpe-down"></span>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="showTimezone && !showSpinners">
+    <select class="form-control time-zone-picker-select" [(ngModel)]="timezone">
+      <option *ngFor="let zone of timezones" [ngValue]="zone">{{ zone?.name }}</option>
+    </select>
+  </div>
+
+</div>
