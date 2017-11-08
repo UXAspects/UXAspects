@@ -207,6 +207,18 @@
                     </ul>
                 </td>
             </tr>
+        	<tr>
+            	<td><b>@Input</b> tagClass</td>
+            	<td><b>TagClassFunction</b></td>
+            	<td>
+                	<p>A function which returns either a <code>string</code>, <code>string[]</code>, or <code>Set&lt;string&gt;</code>, compatible with the <a href="https://angular.io/api/common/NgClass">NgClass directive</a>. The function receives the following parameters:</p>
+                	<ul>
+                    	<li><code>tag: any</code> - the string or custom object representing the tag.</li>
+                    	<li><code>index: number</code> - the zero-based index of the tag as it appears in the tag input.</li>
+                    	<li><code>selected: boolean</code> - true if the tag is currently selected.</li>
+                	</ul>
+            	</td>
+        	</tr>
             <tr>
                 <td><b>@Input</b> validationErrors</td>
                 <td><b>any</b></td>

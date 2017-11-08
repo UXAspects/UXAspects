@@ -1,6 +1,7 @@
 <ol>
     <li *ngFor="let tag of tags; let i = index" class="ux-tag"
         [class.disabled]="disabled"
+        [ngClass]="getTagClass(tag, i, isSelected(i))"
         [attr.tabindex]="disabled ? null : i"
         [focusIf]="isSelected(i)"
         (click)="tagClickHandler($event, tag, i)"

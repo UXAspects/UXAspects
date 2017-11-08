@@ -59,6 +59,7 @@ export default function TagInputCtrl($scope, $q) {
 
     //API
     $scope.api = $scope.api || {};
+    ti.tagClass = $scope.options.tagClass || undefined;
     ti.onTagAdding = $scope.api.onTagAdding || undefined;
     ti.onTagAdded = $scope.api.onTagAdded || undefined;
     ti.onInvalidTag = $scope.api.onInvalidTag || undefined;
