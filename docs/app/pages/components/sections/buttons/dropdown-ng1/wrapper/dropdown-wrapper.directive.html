@@ -2,7 +2,7 @@
     <p>Button dropdown open: <em ng-bind="vm.buttonOpen" class="ng-binding">false</em>. Split dropdown open: <em ng-bind="vm.splitOpen"
             class="ng-binding">false</em>.</p>
 
-    <div class="m-t m-b">
+    <div class="btn-container">
         <div class="btn-group" dropdown is-open="vm.buttonOpen">
             <button type="button" class="btn button-primary dropdown-toggle" dropdown-toggle aria-haspopup="true" aria-expanded="false">
             Button dropdown <span class="hpe-icon hpe-down dropdown-icon-inline"></span>
@@ -38,7 +38,6 @@
                 </li>
             </ul>
         </div>
-        &nbsp;
         <div class="btn-group" dropdown is-open="vm.splitOpen">
             <button type="button" class="btn button-secondary">Split dropdown</button>
             <button type="button" class="btn button-secondary dropdown-toggle" dropdown-toggle aria-haspopup="true" aria-expanded="false">
