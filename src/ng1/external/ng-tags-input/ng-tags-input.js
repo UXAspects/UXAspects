@@ -326,7 +326,8 @@ tagsInput.directive('tagsInput', ["$timeout", "$document", "$window", "$q", "tag
             scope.getTagClass = function(tag, index) {
                 var selected = tag === tagList.selected;
                 var custom = scope.tagClass({$tag: tag, $index: index, $selected: selected});
-                return Object.assign({ selected: selected }, custom);
+                custom.selected = selected;
+                return custom;
             };
 
             scope.$watch('tags', function(value) {
