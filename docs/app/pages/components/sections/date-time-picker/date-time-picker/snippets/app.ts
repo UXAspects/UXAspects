@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { DateTimePickerTimezone } from '@ux-aspects/ux-aspects';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 
