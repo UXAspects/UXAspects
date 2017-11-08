@@ -4,7 +4,7 @@
             <span class="input-group-addon" tabindex="1" (click)="popover.show()">
                 <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
             </span>
-            <input type="text" #input #popover="bs-popover" [ngModel]="date | date:'dd MMMM yyyy HH:mm'" (keyup.enter)="parse(input.value)" [popover]="popoverTemplate" placement="bottom" [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date">
+            <input type="text" #input #popover="bs-popover" [ngModel]="date | date:'dd MMMM yyyy HH:mm'" [popover]="popoverTemplate" placement="bottom" [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date">
         </div>
 
         <p class="m-t">Selected date is:  <em>{{ date | date:'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em></p>

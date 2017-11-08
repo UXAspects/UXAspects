@@ -1,9 +1,13 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DateTimePickerTimezone } from '../../../../../../../src/index';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from "rxjs/Subscription";
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
     selector: 'uxd-components-date-time-picker',
@@ -12,7 +16,9 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
     encapsulation: ViewEncapsulation.None
 })
 @DocumentationSectionComponent('ComponentsDateTimePickerComponent')
-export class ComponentsDateTimePickerComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsDateTimePickerComponent extends BaseDocumentationSection implements IPlunkProvider, AfterViewInit, OnDestroy {
+
+    @ViewChild('input') dateInput: ElementRef;
 
     date: Date = new Date();
     timezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
@@ -21,6 +27,7 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
     showTimezones: boolean = true;
     showMeridians: boolean = true;
     showSpinners: boolean = true;
+    subscription: Subscription;
 
     plunk: IPlunk = {
         files: {
@@ -48,6 +55,16 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
     
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    ngAfterViewInit(): void {
+        this.subscription = Observable.fromEvent(this.dateInput.nativeElement, 'input')
+            .debounceTime(500)
+            .subscribe(event => this.parse(this.dateInput.nativeElement.value));
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     parse(value: string): void {

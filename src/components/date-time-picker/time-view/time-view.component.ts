@@ -66,7 +66,7 @@ export class DateTimePickerTimeViewComponent implements AfterViewInit {
 
         // update the meridian
         this.meridian = date.getHours() < 12 ? DatePickerMeridian.AM : DatePickerMeridian.PM;
-
+        
         // if the date has not changed then don't emit
         if (date.getTime() !== this.date.getTime()) {
             this.date = date;

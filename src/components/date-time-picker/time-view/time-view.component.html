@@ -1,6 +1,6 @@
 <div class="time-input-container">
   <timepicker [ngModel]="date" (ngModelChange)="update($event)" [minuteStep]="1" [hourStep]="1" [secondsStep]="1" [showSeconds]="showSeconds"
-    [showSpinners]="showSpinners"></timepicker>
+    [showSpinners]="showSpinners" [showMeridian]="showMeridian"></timepicker>
 
   <div class="btn-group meridian-picker" *ngIf="showMeridian">
     <button type="button" class="btn button-toggle-accent" [(ngModel)]="meridian" (ngModelChange)="setMeridian($event)" [btnRadio]="DatePickerMeridian.AM">AM</button>
