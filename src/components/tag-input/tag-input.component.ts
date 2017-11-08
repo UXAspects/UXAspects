@@ -86,7 +86,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     @Input() tagDelimiters: string = '';
     @Input() tagPattern: RegExp;
     @Input() tagTemplate: TemplateRef<any>;
-    @Input() tagClass: TagClassFunction;
+    @Input() tagClass: TagClassFunction = () => undefined;
     @Input() validationErrors: any = {};
     @Input('createTag') createTagHandler: (value: string) => any;
 
@@ -432,16 +432,6 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
             return tag[<string>this.display];
         }
         return tag;
-    }
-
-    /**
-     * Returns custom class data from the `tagClass` function, if provided.
-     */
-    getTagClass(tag: any, index: number, selected: boolean): string | string[] | Set<string> {
-        if (typeof this.tagClass === 'function') {
-            return this.tagClass(tag, index, selected);
-        }
-        return undefined;
     }
 
     /**
