@@ -161,6 +161,7 @@ export class CodePenService {
 
     // Script files for CodePen to reference
     private CODEPEN_SCRIPTS = [
+        'https://unpkg.com/core-js@2.5.1/client/core.js',
         'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js',
         'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js',
