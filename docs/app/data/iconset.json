@@ -177,6 +177,22 @@
             "classname": "hpe-checkmark"
         },
         {
+            "name": "chevron-down",
+            "classname": "hpe-chevron-down"
+        },
+        {
+            "name": "chevron-left",
+            "classname": "hpe-chevron-left"
+        },
+        {
+            "name": "chevron-right",
+            "classname": "hpe-chevron-right"
+        },
+        {
+            "name": "chevron-up",
+            "classname": "hpe-chevron-up"
+        },
+        {
             "name": "circular-view",
             "classname": "hpe-circular-view"
         },
