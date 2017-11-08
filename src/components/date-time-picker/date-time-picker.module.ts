@@ -10,6 +10,7 @@ import { DateTimePickerMonthViewComponent } from './month-view/month-view.compon
 import { DateTimePickerYearViewComponent } from './year-view/year-view.component';
 import { DateTimePickerHeaderComponent } from './header/header.component';
 import { DateTimePickerTimeViewComponent } from './time-view/time-view.component';
+import { DateTimePickerConfig } from './date-time-picker.config';
 
 const DECLARATIONS = [
     DateTimePickerComponent,
@@ -29,5 +30,8 @@ const DECLARATIONS = [
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS,
+    providers: [
+        DateTimePickerConfig
+    ]
 })
 export class DateTimePickerModule { }
