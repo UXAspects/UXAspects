@@ -25,6 +25,7 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     tagDelimiters: string;
     tagPattern: RegExp;
     tagTemplate: TemplateRef<any>;
+    tagClass: TagClassFunction;
     validationErrors: any;
     createTagHandler: (value: string) => any;
     tagAdding: EventEmitter<TagInputEvent>;
@@ -161,3 +162,7 @@ export interface TagApi {
      */
     canRemoveTagAt: (index: number) => boolean;
 }
+/**
+ * The function used to return custom class information, for use in `ngClass`.
+ */
+export declare type TagClassFunction = (tag: any, index: number, selected: boolean) => (string | string[] | Set<string>);

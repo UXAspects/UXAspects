@@ -1,8 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/router'), require('@angular/forms'), require('rxjs/Subject'), require('rxjs/BehaviorSubject'), require('rxjs/Observable'), require('rxjs/add/operator/takeUntil'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/operator/debounceTime'), require('rxjs/add/observable/from'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/map'), require('rxjs/add/operator/mergeMap'), require('rxjs/add/operator/toArray'), require('rxjs/add/observable/of'), require('@angular/platform-browser'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/combineLatest'), require('rxjs/add/operator/partition'), require('rxjs/add/operator/switchMap'), require('rxjs/add/observable/concat'), require('@angular/http'), require('rxjs/add/observable/timer')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/router', '@angular/forms', 'rxjs/Subject', 'rxjs/BehaviorSubject', 'rxjs/Observable', 'rxjs/add/operator/takeUntil', 'rxjs/add/observable/fromEvent', 'rxjs/add/operator/debounceTime', 'rxjs/add/observable/from', 'rxjs/add/operator/filter', 'rxjs/add/operator/map', 'rxjs/add/operator/mergeMap', 'rxjs/add/operator/toArray', 'rxjs/add/observable/of', '@angular/platform-browser', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/combineLatest', 'rxjs/add/operator/partition', 'rxjs/add/operator/switchMap', 'rxjs/add/observable/concat', '@angular/http', 'rxjs/add/observable/timer'], factory) :
-	(factory((global['ux-aspects'] = {}),global.ng.core,global.ng.common,global.ng.router,global.ng.forms,global.Rx,global.Rx,global.Rx,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.platformBrowser,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.http));
-}(this, (function (exports,core,common,router,forms,Subject,BehaviorSubject,Observable,takeUntil,fromEvent,debounceTime,from,filter,map,mergeMap,toArray,of,platformBrowser,auditTime,combineLatest,partition,switchMap,concat,http) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/router'), require('@angular/forms'), require('rxjs/Subject'), require('rxjs/BehaviorSubject'), require('rxjs/Observable'), require('rxjs/add/operator/takeUntil'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/operator/debounceTime'), require('rxjs/operator/distinctUntilChanged'), require('rxjs/operator/map'), require('rxjs/operator/observeOn'), require('rxjs/operator/scan'), require('rxjs/add/observable/from'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/map'), require('rxjs/add/operator/mergeMap'), require('rxjs/add/operator/toArray'), require('rxjs/add/observable/of'), require('@angular/platform-browser'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/combineLatest'), require('rxjs/add/operator/partition'), require('rxjs/add/operator/switchMap'), require('rxjs/add/observable/concat'), require('@angular/http'), require('rxjs/add/observable/timer')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/router', '@angular/forms', 'rxjs/Subject', 'rxjs/BehaviorSubject', 'rxjs/Observable', 'rxjs/add/operator/takeUntil', 'rxjs/add/observable/fromEvent', 'rxjs/add/operator/debounceTime', 'rxjs/operator/distinctUntilChanged', 'rxjs/operator/map', 'rxjs/operator/observeOn', 'rxjs/operator/scan', 'rxjs/add/observable/from', 'rxjs/add/operator/filter', 'rxjs/add/operator/map', 'rxjs/add/operator/mergeMap', 'rxjs/add/operator/toArray', 'rxjs/add/observable/of', '@angular/platform-browser', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/combineLatest', 'rxjs/add/operator/partition', 'rxjs/add/operator/switchMap', 'rxjs/add/observable/concat', '@angular/http', 'rxjs/add/observable/timer'], factory) :
+	(factory((global['ux-aspects'] = {}),global.ng.core,global.ng.common,global.ng.router,global.ng.forms,global.Rx,global.Rx,global.Rx,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.platformBrowser,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.http));
+}(this, (function (exports,core,common,router,forms,Subject,BehaviorSubject,Observable,takeUntil,fromEvent,debounceTime,distinctUntilChanged,map,observeOn,scan,from,filter,map$2,mergeMap,toArray,of,platformBrowser,auditTime,combineLatest,partition,switchMap,concat,http) { 'use strict';
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -407,6 +407,8 @@ var DashboardService = (function () {
      */
     DashboardService.prototype.addWidget = function (widget) {
         this._widgets.push(widget);
+        // re-render the dashboard
+        this.renderDashboard();
     };
     /**
      * Remove a widget from the dashboard
@@ -414,7 +416,10 @@ var DashboardService = (function () {
      * @return {?}
      */
     DashboardService.prototype.removeWidget = function (widget) {
-        this._widgets.findIndex(function (wgt) { return wgt === widget; });
+        // remove a widget from the dashboard
+        this._widgets = this._widgets.filter(function (wgt) { return wgt !== widget; });
+        // re-render the dashboard
+        this.renderDashboard();
     };
     /**
      * Indicate that the dashboard element has been resized
@@ -463,6 +468,10 @@ var DashboardService = (function () {
      */
     DashboardService.prototype.renderDashboard = function () {
         var _this = this;
+        // do nothing if chart options haven't yet been initialised
+        if (!this._options) {
+            return;
+        }
         // get the dimensions of the dashboard
         this._columnWidth = this._dimensions.width / this._options.columns;
         this._rowHeight = this._options.rowHeight || this._columnWidth;
@@ -1443,9 +1452,7 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.onResize = function (event) {
         var _this = this;
         // ensure this gets run inside Angular
-        this._ngZone.run(function () {
-            _this._dashboardService.setDimensions(event.width, event.height);
-        });
+        this._ngZone.run(function () { return _this._dashboardService.setDimensions(event.width, event.height); });
     };
     return DashboardComponent;
 }());
@@ -1500,11 +1507,10 @@ var DashboardWidgetComponent = (function () {
         this._nativeElement = _elementRef.nativeElement;
         // add the widget to the dashboard
         _dashboardService.addWidget(this);
+        // apply the current options
+        this.applyOptions();
         // watch for changes to the options
-        _dashboardService.options().subscribe(function (options) {
-            _this.padding = options.padding;
-            _this._columnSpan.stacked = options.columns;
-        });
+        _dashboardService.options().subscribe(function (opts) { return _this.applyOptions(); });
     }
     /**
      * @return {?}
@@ -1551,6 +1557,20 @@ var DashboardWidgetComponent = (function () {
      */
     DashboardWidgetComponent.prototype.getId = function () {
         return this.id;
+    };
+    /**
+     * Apply the current dashboard options
+     * @return {?}
+     */
+    DashboardWidgetComponent.prototype.applyOptions = function () {
+        // get the current options at the time 
+        var /** @type {?} */ options = this._dashboardService.getOptions();
+        // only update the values if options have been defined
+        if (options) {
+            // apply the initial options
+            this.padding = options.padding;
+            this._columnSpan.stacked = options.columns;
+        }
     };
     /**
      * Set the actual position and size values
@@ -1818,7 +1838,7 @@ var DashboardDragHandleDirective = (function () {
 }());
 DashboardDragHandleDirective.decorators = [
     { type: core.Directive, args: [{
-                selector: '[ux-dashboard-widget-drag-handle]'
+                selector: '[uxDashboardWidgetDragHandle], [ux-dashboard-widget-drag-handle]'
             },] },
 ];
 /**
@@ -1927,9 +1947,9 @@ var ResizeDirective = (function () {
      */
     ResizeDirective.prototype.ngOnInit = function () {
         var _this = this;
-        this._resizeService.addResizeListener(this._elementRef.nativeElement, this._renderer).debounceTime(this.throttle).subscribe(function (event) {
-            _this.resize.emit(event);
-        });
+        this._resizeService.addResizeListener(this._elementRef.nativeElement, this._renderer)
+            .debounceTime(this.throttle)
+            .subscribe(function (event) { return _this.resize.emit(event); });
     };
     return ResizeDirective;
 }());
@@ -1991,6 +2011,2323 @@ DashboardModule.decorators = [
  * @nocollapse
  */
 DashboardModule.ctorParameters = function () { return []; };
+var TimepickerActions = (function () {
+    function TimepickerActions() {
+    }
+    TimepickerActions.prototype.writeValue = function (value) {
+        return {
+            type: TimepickerActions.WRITE_VALUE,
+            payload: value
+        };
+    };
+    TimepickerActions.prototype.changeHours = function (event) {
+        return {
+            type: TimepickerActions.CHANGE_HOURS,
+            payload: event
+        };
+    };
+    TimepickerActions.prototype.changeMinutes = function (event) {
+        return {
+            type: TimepickerActions.CHANGE_MINUTES,
+            payload: event
+        };
+    };
+    TimepickerActions.prototype.changeSeconds = function (event) {
+        return {
+            type: TimepickerActions.CHANGE_SECONDS,
+            payload: event
+        };
+    };
+    TimepickerActions.prototype.setTime = function (value) {
+        return {
+            type: TimepickerActions.SET_TIME_UNIT,
+            payload: value
+        };
+    };
+    TimepickerActions.prototype.updateControls = function (value) {
+        return {
+            type: TimepickerActions.UPDATE_CONTROLS,
+            payload: value
+        };
+    };
+    TimepickerActions.WRITE_VALUE = '[timepicker] write value from ng model';
+    TimepickerActions.CHANGE_HOURS = '[timepicker] change hours';
+    TimepickerActions.CHANGE_MINUTES = '[timepicker] change minutes';
+    TimepickerActions.CHANGE_SECONDS = '[timepicker] change seconds';
+    TimepickerActions.SET_TIME_UNIT = '[timepicker] set time unit';
+    TimepickerActions.UPDATE_CONTROLS = '[timepicker] update controls';
+    TimepickerActions.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    TimepickerActions.ctorParameters = function () { return []; };
+    return TimepickerActions;
+}());
+var dex = 10;
+var hoursPerDay = 24;
+var hoursPerDayHalf = 12;
+var minutesPerHour = 60;
+var secondsPerMinute = 60;
+function isValidDate(value) {
+    if (!value) {
+        return false;
+    }
+    if (value instanceof Date && isNaN(value.getHours())) {
+        return false;
+    }
+    if (typeof value === 'string') {
+        return isValidDate(new Date(value));
+    }
+    return true;
+}
+function toNumber(value) {
+    if (typeof value === 'number') {
+        return value;
+    }
+    return parseInt(value, dex);
+}
+function parseHours(value, isPM) {
+    if (isPM === void 0) {
+        isPM = false;
+    }
+    var hour = toNumber(value);
+    if (isNaN(hour) || hour < 0 || hour > (isPM ? hoursPerDayHalf : hoursPerDay)) {
+        return NaN;
+    }
+    return hour;
+}
+function parseMinutes(value) {
+    var minute = toNumber(value);
+    if (isNaN(minute) || minute < 0 || minute > minutesPerHour) {
+        return NaN;
+    }
+    return minute;
+}
+function parseSeconds(value) {
+    var seconds = toNumber(value);
+    if (isNaN(seconds) || seconds < 0 || seconds > secondsPerMinute) {
+        return NaN;
+    }
+    return seconds;
+}
+function parseTime(value) {
+    if (typeof value === 'string') {
+        return new Date(value);
+    }
+    return value;
+}
+function changeTime(value, diff) {
+    if (!value) {
+        return changeTime(createDate(new Date(), 0, 0, 0), diff);
+    }
+    var hour = value.getHours();
+    var minutes = value.getMinutes();
+    var seconds = value.getSeconds();
+    if (diff.hour) {
+        hour = (hour + toNumber(diff.hour)) % hoursPerDay;
+        if (hour < 0) {
+            hour += hoursPerDay;
+        }
+    }
+    if (diff.minute) {
+        minutes = (minutes + toNumber(diff.minute));
+    }
+    if (diff.seconds) {
+        seconds = (seconds + toNumber(diff.seconds));
+    }
+    return createDate(value, hour, minutes, seconds);
+}
+function setTime(value, opts) {
+    var hour = parseHours(opts.hour);
+    var minute = parseMinutes(opts.minute);
+    var seconds = parseSeconds(opts.seconds) || 0;
+    if (opts.isPM) {
+        hour += hoursPerDayHalf;
+    }
+    // fixme: unreachable code, value is mandatory
+    if (!value) {
+        if (!isNaN(hour) && !isNaN(minute)) {
+            return createDate(new Date(), hour, minute, seconds);
+        }
+        return value;
+    }
+    if (isNaN(hour) || isNaN(minute)) {
+        return value;
+    }
+    return createDate(value, hour, minute, seconds);
+}
+function createDate(value, hours, minutes, seconds) {
+    // fixme: unreachable code, value is mandatory
+    var _value = value || new Date();
+    return new Date(_value.getFullYear(), _value.getMonth(), _value.getDate(), hours, minutes, seconds, _value.getMilliseconds());
+}
+function padNumber(value) {
+    var _value = value.toString();
+    if (_value.length > 1) {
+        return _value;
+    }
+    return "0" + _value;
+}
+function isInputValid(hours, minutes, seconds, isPM) {
+    if (seconds === void 0) {
+        seconds = '0';
+    }
+    if (isNaN(parseHours(hours, isPM)) || isNaN(parseMinutes(minutes)) || isNaN(parseSeconds(seconds))) {
+        return false;
+    }
+    return true;
+}
+function canChangeValue(state, event) {
+    if (state.readonlyInput) {
+        return false;
+    }
+    if (event) {
+        if (event.source === 'wheel' && !state.mousewheel) {
+            return false;
+        }
+        if (event.source === 'key' && !state.arrowkeys) {
+            return false;
+        }
+    }
+    return true;
+}
+function canChangeHours(event, controls) {
+    if (!event.step) {
+        return false;
+    }
+    if (event.step > 0 && !controls.canIncrementHours) {
+        return false;
+    }
+    if (event.step < 0 && !controls.canDecrementHours) {
+        return false;
+    }
+    return true;
+}
+function canChangeMinutes(event, controls) {
+    if (!event.step) {
+        return false;
+    }
+    if (event.step > 0 && !controls.canIncrementMinutes) {
+        return false;
+    }
+    if (event.step < 0 && !controls.canDecrementMinutes) {
+        return false;
+    }
+    return true;
+}
+function canChangeSeconds(event, controls) {
+    if (!event.step) {
+        return false;
+    }
+    if (event.step > 0 && !controls.canIncrementSeconds) {
+        return false;
+    }
+    if (event.step < 0 && !controls.canDecrementSeconds) {
+        return false;
+    }
+    return true;
+}
+function getControlsValue(state) {
+    var hourStep = state.hourStep, minuteStep = state.minuteStep, secondsStep = state.secondsStep, readonlyInput = state.readonlyInput, mousewheel = state.mousewheel, arrowkeys = state.arrowkeys, showSpinners = state.showSpinners, showMeridian = state.showMeridian, showSeconds = state.showSeconds, meridians = state.meridians, min = state.min, max = state.max;
+    return {
+        hourStep: hourStep, minuteStep: minuteStep, secondsStep: secondsStep,
+        readonlyInput: readonlyInput, mousewheel: mousewheel, arrowkeys: arrowkeys,
+        showSpinners: showSpinners, showMeridian: showMeridian, showSeconds: showSeconds,
+        meridians: meridians, min: min, max: max
+    };
+}
+function timepickerControls(value, state) {
+    var min = state.min, max = state.max, hourStep = state.hourStep, minuteStep = state.minuteStep, secondsStep = state.secondsStep, showSeconds = state.showSeconds;
+    var res = {
+        canIncrementHours: true,
+        canIncrementMinutes: true,
+        canIncrementSeconds: true,
+        canDecrementHours: true,
+        canDecrementMinutes: true,
+        canDecrementSeconds: true
+    };
+    if (!value) {
+        return res;
+    }
+    // compare dates
+    if (max) {
+        var _newHour = changeTime(value, { hour: hourStep });
+        res.canIncrementHours = max > _newHour;
+        if (!res.canIncrementHours) {
+            var _newMinutes = changeTime(value, { minute: minuteStep });
+            res.canIncrementMinutes = showSeconds ? max > _newMinutes : max >= _newMinutes;
+        }
+        if (!res.canIncrementMinutes) {
+            var _newSeconds = changeTime(value, { seconds: secondsStep });
+            res.canIncrementSeconds = max >= _newSeconds;
+        }
+    }
+    if (min) {
+        var _newHour = changeTime(value, { hour: -hourStep });
+        res.canDecrementHours = min < _newHour;
+        if (!res.canDecrementHours) {
+            var _newMinutes = changeTime(value, { minute: -minuteStep });
+            res.canDecrementMinutes = showSeconds ? min < _newMinutes : min <= _newMinutes;
+        }
+        if (!res.canDecrementMinutes) {
+            var _newSeconds = changeTime(value, { seconds: -secondsStep });
+            res.canDecrementSeconds = min <= _newSeconds;
+        }
+    }
+    return res;
+}
+/** Provides default configuration values for timepicker */
+var TimepickerConfig = (function () {
+    function TimepickerConfig() {
+        /** hours change step */
+        this.hourStep = 1;
+        /** hours change step */
+        this.minuteStep = 5;
+        /** seconds changes step */
+        this.secondsStep = 10;
+        /** if true works in 12H mode and displays AM/PM. If false works in 24H mode and hides AM/PM */
+        this.showMeridian = true;
+        /** meridian labels based on locale */
+        this.meridians = ['AM', 'PM'];
+        /** if true hours and minutes fields will be readonly */
+        this.readonlyInput = false;
+        /** if true scroll inside hours and minutes inputs will change time */
+        this.mousewheel = true;
+        /** if true up/down arrowkeys inside hours and minutes inputs will change time */
+        this.arrowkeys = true;
+        /** if true spinner arrows above and below the inputs will be shown */
+        this.showSpinners = true;
+        /** show seconds in timepicker */
+        this.showSeconds = false;
+    }
+    TimepickerConfig.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    TimepickerConfig.ctorParameters = function () { return []; };
+    return TimepickerConfig;
+}());
+var initialState = {
+    value: null,
+    config: new TimepickerConfig(),
+    controls: {
+        canIncrementHours: true,
+        canIncrementMinutes: true,
+        canIncrementSeconds: true,
+        canDecrementHours: true,
+        canDecrementMinutes: true,
+        canDecrementSeconds: true
+    }
+};
+function timepickerReducer(state, action) {
+    if (state === void 0) {
+        state = initialState;
+    }
+    switch (action.type) {
+        case (TimepickerActions.WRITE_VALUE): {
+            return Object.assign({}, state, { value: action.payload });
+        }
+        case (TimepickerActions.CHANGE_HOURS): {
+            if (!canChangeValue(state.config, action.payload) ||
+                !canChangeHours(action.payload, state.controls)) {
+                return state;
+            }
+            var _newTime = changeTime(state.value, { hour: action.payload.step });
+            return Object.assign({}, state, { value: _newTime });
+        }
+        case (TimepickerActions.CHANGE_MINUTES): {
+            if (!canChangeValue(state.config, action.payload) ||
+                !canChangeMinutes(action.payload, state.controls)) {
+                return state;
+            }
+            var _newTime = changeTime(state.value, { minute: action.payload.step });
+            return Object.assign({}, state, { value: _newTime });
+        }
+        case (TimepickerActions.CHANGE_SECONDS): {
+            if (!canChangeValue(state.config, action.payload) ||
+                !canChangeSeconds(action.payload, state.controls)) {
+                return state;
+            }
+            var _newTime = changeTime(state.value, { seconds: action.payload.step });
+            return Object.assign({}, state, { value: _newTime });
+        }
+        case (TimepickerActions.SET_TIME_UNIT): {
+            if (!canChangeValue(state.config)) {
+                return state;
+            }
+            var _newTime = setTime(state.value, action.payload);
+            return Object.assign({}, state, { value: _newTime });
+        }
+        case (TimepickerActions.UPDATE_CONTROLS): {
+            var _newControlsState = timepickerControls(state.value, action.payload);
+            var _newState = {
+                value: state.value,
+                config: action.payload,
+                controls: _newControlsState
+            };
+            if (state.config.showMeridian !== _newState.config.showMeridian) {
+                _newState.value = new Date(state.value);
+            }
+            return Object.assign({}, state, _newState);
+        }
+        default:
+            return state;
+    }
+}
+var __extends$1 = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b)
+            if (b.hasOwnProperty(p))
+                d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @copyright ngrx
+ */
+var MiniStore = (function (_super) {
+    __extends$1(MiniStore, _super);
+    function MiniStore(_dispatcher, _reducer, state$) {
+        var _this = _super.call(this) || this;
+        _this._dispatcher = _dispatcher;
+        _this._reducer = _reducer;
+        _this.source = state$;
+        return _this;
+    }
+    MiniStore.prototype.select = function (pathOrMapFn) {
+        var mapped$ = map.map.call(this, pathOrMapFn);
+        return distinctUntilChanged.distinctUntilChanged.call(mapped$);
+    };
+    MiniStore.prototype.lift = function (operator) {
+        var store = new MiniStore(this._dispatcher, this._reducer, this);
+        store.operator = operator;
+        return store;
+    };
+    MiniStore.prototype.dispatch = function (action) { this._dispatcher.next(action); };
+    MiniStore.prototype.next = function (action) { this._dispatcher.next(action); };
+    MiniStore.prototype.error = function (err) { this._dispatcher.error(err); };
+    MiniStore.prototype.complete = function () { };
+    return MiniStore;
+}(Observable.Observable));
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+"use strict";
+// CommonJS / Node have global context exposed as "global" variable.
+// We don't want to include the whole node.d.ts this this compilation unit so we'll just fake
+// the global "global" var for now.
+var __window = typeof window !== 'undefined' && window;
+var __self = typeof self !== 'undefined' && typeof WorkerGlobalScope !== 'undefined' &&
+    self instanceof WorkerGlobalScope && self;
+var __global = typeof commonjsGlobal !== 'undefined' && commonjsGlobal;
+var _root = __window || __global || __self;
+var root_1 = _root;
+// Workaround Closure Compiler restriction: The body of a goog.module cannot use throw.
+// This is needed when used with angular/tsickle which inserts a goog.module statement.
+// Wrap in IIFE
+(function () {
+    if (!_root) {
+        throw new Error('RxJS could not find any global context (window, self, global)');
+    }
+})();
+var root = {
+    root: root_1
+};
+"use strict";
+var isArray_1 = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
+var isArray = {
+    isArray: isArray_1
+};
+"use strict";
+function isObject(x) {
+    return x != null && typeof x === 'object';
+}
+var isObject_2 = isObject;
+var isObject_1 = {
+    isObject: isObject_2
+};
+"use strict";
+function isFunction(x) {
+    return typeof x === 'function';
+}
+var isFunction_2 = isFunction;
+var isFunction_1 = {
+    isFunction: isFunction_2
+};
+"use strict";
+// typeof any so that it we don't have to cast when comparing a result to the error object
+var errorObject_1 = { e: {} };
+var errorObject = {
+    errorObject: errorObject_1
+};
+"use strict";
+var tryCatchTarget;
+function tryCatcher() {
+    try {
+        return tryCatchTarget.apply(this, arguments);
+    }
+    catch (e) {
+        errorObject.errorObject.e = e;
+        return errorObject.errorObject;
+    }
+}
+function tryCatch(fn) {
+    tryCatchTarget = fn;
+    return tryCatcher;
+}
+var tryCatch_2 = tryCatch;
+var tryCatch_1 = {
+    tryCatch: tryCatch_2
+};
+"use strict";
+var __extends$6 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/**
+ * An error thrown when one or more errors have occurred during the
+ * `unsubscribe` of a {@link Subscription}.
+ */
+var UnsubscriptionError = (function (_super) {
+    __extends$6(UnsubscriptionError, _super);
+    function UnsubscriptionError(errors) {
+        _super.call(this);
+        this.errors = errors;
+        var err = Error.call(this, errors ?
+            errors.length + " errors occurred during unsubscription:\n  " + errors.map(function (err, i) { return ((i + 1) + ") " + err.toString()); }).join('\n  ') : '');
+        this.name = err.name = 'UnsubscriptionError';
+        this.stack = err.stack;
+        this.message = err.message;
+    }
+    return UnsubscriptionError;
+}(Error));
+var UnsubscriptionError_2 = UnsubscriptionError;
+var UnsubscriptionError_1 = {
+    UnsubscriptionError: UnsubscriptionError_2
+};
+"use strict";
+/**
+ * Represents a disposable resource, such as the execution of an Observable. A
+ * Subscription has one important method, `unsubscribe`, that takes no argument
+ * and just disposes the resource held by the subscription.
+ *
+ * Additionally, subscriptions may be grouped together through the `add()`
+ * method, which will attach a child Subscription to the current Subscription.
+ * When a Subscription is unsubscribed, all its children (and its grandchildren)
+ * will be unsubscribed as well.
+ *
+ * @class Subscription
+ */
+var Subscription = (function () {
+    /**
+     * @param {function(): void} [unsubscribe] A function describing how to
+     * perform the disposal of resources when the `unsubscribe` method is called.
+     */
+    function Subscription(unsubscribe) {
+        /**
+         * A flag to indicate whether this Subscription has already been unsubscribed.
+         * @type {boolean}
+         */
+        this.closed = false;
+        this._parent = null;
+        this._parents = null;
+        this._subscriptions = null;
+        if (unsubscribe) {
+            this._unsubscribe = unsubscribe;
+        }
+    }
+    /**
+     * Disposes the resources held by the subscription. May, for instance, cancel
+     * an ongoing Observable execution or cancel any other type of work that
+     * started when the Subscription was created.
+     * @return {void}
+     */
+    Subscription.prototype.unsubscribe = function () {
+        var hasErrors = false;
+        var errors;
+        if (this.closed) {
+            return;
+        }
+        var _a = this, _parent = _a._parent, _parents = _a._parents, _unsubscribe = _a._unsubscribe, _subscriptions = _a._subscriptions;
+        this.closed = true;
+        this._parent = null;
+        this._parents = null;
+        // null out _subscriptions first so any child subscriptions that attempt
+        // to remove themselves from this subscription will noop
+        this._subscriptions = null;
+        var index = -1;
+        var len = _parents ? _parents.length : 0;
+        // if this._parent is null, then so is this._parents, and we
+        // don't have to remove ourselves from any parent subscriptions.
+        while (_parent) {
+            _parent.remove(this);
+            // if this._parents is null or index >= len,
+            // then _parent is set to null, and the loop exits
+            _parent = ++index < len && _parents[index] || null;
+        }
+        if (isFunction_1.isFunction(_unsubscribe)) {
+            var trial = tryCatch_1.tryCatch(_unsubscribe).call(this);
+            if (trial === errorObject.errorObject) {
+                hasErrors = true;
+                errors = errors || (errorObject.errorObject.e instanceof UnsubscriptionError_1.UnsubscriptionError ?
+                    flattenUnsubscriptionErrors(errorObject.errorObject.e.errors) : [errorObject.errorObject.e]);
+            }
+        }
+        if (isArray.isArray(_subscriptions)) {
+            index = -1;
+            len = _subscriptions.length;
+            while (++index < len) {
+                var sub = _subscriptions[index];
+                if (isObject_1.isObject(sub)) {
+                    var trial = tryCatch_1.tryCatch(sub.unsubscribe).call(sub);
+                    if (trial === errorObject.errorObject) {
+                        hasErrors = true;
+                        errors = errors || [];
+                        var err = errorObject.errorObject.e;
+                        if (err instanceof UnsubscriptionError_1.UnsubscriptionError) {
+                            errors = errors.concat(flattenUnsubscriptionErrors(err.errors));
+                        }
+                        else {
+                            errors.push(err);
+                        }
+                    }
+                }
+            }
+        }
+        if (hasErrors) {
+            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
+        }
+    };
+    /**
+     * Adds a tear down to be called during the unsubscribe() of this
+     * Subscription.
+     *
+     * If the tear down being added is a subscription that is already
+     * unsubscribed, is the same reference `add` is being called on, or is
+     * `Subscription.EMPTY`, it will not be added.
+     *
+     * If this subscription is already in an `closed` state, the passed
+     * tear down logic will be executed immediately.
+     *
+     * @param {TeardownLogic} teardown The additional logic to execute on
+     * teardown.
+     * @return {Subscription} Returns the Subscription used or created to be
+     * added to the inner subscriptions list. This Subscription can be used with
+     * `remove()` to remove the passed teardown logic from the inner subscriptions
+     * list.
+     */
+    Subscription.prototype.add = function (teardown) {
+        if (!teardown || (teardown === Subscription.EMPTY)) {
+            return Subscription.EMPTY;
+        }
+        if (teardown === this) {
+            return this;
+        }
+        var subscription = teardown;
+        switch (typeof teardown) {
+            case 'function':
+                subscription = new Subscription(teardown);
+            case 'object':
+                if (subscription.closed || typeof subscription.unsubscribe !== 'function') {
+                    return subscription;
+                }
+                else if (this.closed) {
+                    subscription.unsubscribe();
+                    return subscription;
+                }
+                else if (typeof subscription._addParent !== 'function' /* quack quack */) {
+                    var tmp = subscription;
+                    subscription = new Subscription();
+                    subscription._subscriptions = [tmp];
+                }
+                break;
+            default:
+                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
+        }
+        var subscriptions = this._subscriptions || (this._subscriptions = []);
+        subscriptions.push(subscription);
+        subscription._addParent(this);
+        return subscription;
+    };
+    /**
+     * Removes a Subscription from the internal list of subscriptions that will
+     * unsubscribe during the unsubscribe process of this Subscription.
+     * @param {Subscription} subscription The subscription to remove.
+     * @return {void}
+     */
+    Subscription.prototype.remove = function (subscription) {
+        var subscriptions = this._subscriptions;
+        if (subscriptions) {
+            var subscriptionIndex = subscriptions.indexOf(subscription);
+            if (subscriptionIndex !== -1) {
+                subscriptions.splice(subscriptionIndex, 1);
+            }
+        }
+    };
+    Subscription.prototype._addParent = function (parent) {
+        var _a = this, _parent = _a._parent, _parents = _a._parents;
+        if (!_parent || _parent === parent) {
+            // If we don't have a parent, or the new parent is the same as the
+            // current parent, then set this._parent to the new parent.
+            this._parent = parent;
+        }
+        else if (!_parents) {
+            // If there's already one parent, but not multiple, allocate an Array to
+            // store the rest of the parent Subscriptions.
+            this._parents = [parent];
+        }
+        else if (_parents.indexOf(parent) === -1) {
+            // Only add the new parent to the _parents list if it's not already there.
+            _parents.push(parent);
+        }
+    };
+    Subscription.EMPTY = (function (empty) {
+        empty.closed = true;
+        return empty;
+    }(new Subscription()));
+    return Subscription;
+}());
+var Subscription_2 = Subscription;
+function flattenUnsubscriptionErrors(errors) {
+    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
+}
+var Subscription_1 = {
+    Subscription: Subscription_2
+};
+"use strict";
+var __extends$5 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/**
+ * A unit of work to be executed in a {@link Scheduler}. An action is typically
+ * created from within a Scheduler and an RxJS user does not need to concern
+ * themselves about creating and manipulating an Action.
+ *
+ * ```ts
+ * class Action<T> extends Subscription {
+ *   new (scheduler: Scheduler, work: (state?: T) => void);
+ *   schedule(state?: T, delay: number = 0): Subscription;
+ * }
+ * ```
+ *
+ * @class Action<T>
+ */
+var Action = (function (_super) {
+    __extends$5(Action, _super);
+    function Action(scheduler, work) {
+        _super.call(this);
+    }
+    /**
+     * Schedules this action on its parent Scheduler for execution. May be passed
+     * some context object, `state`. May happen at some point in the future,
+     * according to the `delay` parameter, if specified.
+     * @param {T} [state] Some contextual data that the `work` function uses when
+     * called by the Scheduler.
+     * @param {number} [delay] Time to wait before executing the work, where the
+     * time unit is implicit and defined by the Scheduler.
+     * @return {void}
+     */
+    Action.prototype.schedule = function (state, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        return this;
+    };
+    return Action;
+}(Subscription_1.Subscription));
+var Action_2 = Action;
+var Action_1 = {
+    Action: Action_2
+};
+"use strict";
+var __extends$4 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var AsyncAction = (function (_super) {
+    __extends$4(AsyncAction, _super);
+    function AsyncAction(scheduler, work) {
+        _super.call(this, scheduler, work);
+        this.scheduler = scheduler;
+        this.work = work;
+        this.pending = false;
+    }
+    AsyncAction.prototype.schedule = function (state, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        if (this.closed) {
+            return this;
+        }
+        // Always replace the current state with the new state.
+        this.state = state;
+        // Set the pending flag indicating that this action has been scheduled, or
+        // has recursively rescheduled itself.
+        this.pending = true;
+        var id = this.id;
+        var scheduler = this.scheduler;
+        //
+        // Important implementation note:
+        //
+        // Actions only execute once by default, unless rescheduled from within the
+        // scheduled callback. This allows us to implement single and repeat
+        // actions via the same code path, without adding API surface area, as well
+        // as mimic traditional recursion but across asynchronous boundaries.
+        //
+        // However, JS runtimes and timers distinguish between intervals achieved by
+        // serial `setTimeout` calls vs. a single `setInterval` call. An interval of
+        // serial `setTimeout` calls can be individually delayed, which delays
+        // scheduling the next `setTimeout`, and so on. `setInterval` attempts to
+        // guarantee the interval callback will be invoked more precisely to the
+        // interval period, regardless of load.
+        //
+        // Therefore, we use `setInterval` to schedule single and repeat actions.
+        // If the action reschedules itself with the same delay, the interval is not
+        // canceled. If the action doesn't reschedule, or reschedules with a
+        // different delay, the interval will be canceled after scheduled callback
+        // execution.
+        //
+        if (id != null) {
+            this.id = this.recycleAsyncId(scheduler, id, delay);
+        }
+        this.delay = delay;
+        // If this action has already an async Id, don't request a new one.
+        this.id = this.id || this.requestAsyncId(scheduler, this.id, delay);
+        return this;
+    };
+    AsyncAction.prototype.requestAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        return root.root.setInterval(scheduler.flush.bind(scheduler, this), delay);
+    };
+    AsyncAction.prototype.recycleAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        // If this action is rescheduled with the same delay time, don't clear the interval id.
+        if (delay !== null && this.delay === delay && this.pending === false) {
+            return id;
+        }
+        // Otherwise, if the action's delay time is different from the current delay,
+        // or the action has been rescheduled before it's executed, clear the interval id
+        return root.root.clearInterval(id) && undefined || undefined;
+    };
+    /**
+     * Immediately executes this action and the `work` it contains.
+     * @return {any}
+     */
+    AsyncAction.prototype.execute = function (state, delay) {
+        if (this.closed) {
+            return new Error('executing a cancelled action');
+        }
+        this.pending = false;
+        var error = this._execute(state, delay);
+        if (error) {
+            return error;
+        }
+        else if (this.pending === false && this.id != null) {
+            // Dequeue if the action didn't reschedule itself. Don't call
+            // unsubscribe(), because the action could reschedule later.
+            // For example:
+            // ```
+            // scheduler.schedule(function doWork(counter) {
+            //   /* ... I'm a busy worker bee ... */
+            //   var originalAction = this;
+            //   /* wait 100ms before rescheduling the action */
+            //   setTimeout(function () {
+            //     originalAction.schedule(counter + 1);
+            //   }, 100);
+            // }, 1000);
+            // ```
+            this.id = this.recycleAsyncId(this.scheduler, this.id, null);
+        }
+    };
+    AsyncAction.prototype._execute = function (state, delay) {
+        var errored = false;
+        var errorValue = undefined;
+        try {
+            this.work(state);
+        }
+        catch (e) {
+            errored = true;
+            errorValue = !!e && e || new Error(e);
+        }
+        if (errored) {
+            this.unsubscribe();
+            return errorValue;
+        }
+    };
+    AsyncAction.prototype._unsubscribe = function () {
+        var id = this.id;
+        var scheduler = this.scheduler;
+        var actions = scheduler.actions;
+        var index = actions.indexOf(this);
+        this.work = null;
+        this.state = null;
+        this.pending = false;
+        this.scheduler = null;
+        if (index !== -1) {
+            actions.splice(index, 1);
+        }
+        if (id != null) {
+            this.id = this.recycleAsyncId(scheduler, id, null);
+        }
+        this.delay = null;
+    };
+    return AsyncAction;
+}(Action_1.Action));
+var AsyncAction_2 = AsyncAction;
+var AsyncAction_1 = {
+    AsyncAction: AsyncAction_2
+};
+"use strict";
+var __extends$3 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var QueueAction = (function (_super) {
+    __extends$3(QueueAction, _super);
+    function QueueAction(scheduler, work) {
+        _super.call(this, scheduler, work);
+        this.scheduler = scheduler;
+        this.work = work;
+    }
+    QueueAction.prototype.schedule = function (state, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        if (delay > 0) {
+            return _super.prototype.schedule.call(this, state, delay);
+        }
+        this.delay = delay;
+        this.state = state;
+        this.scheduler.flush(this);
+        return this;
+    };
+    QueueAction.prototype.execute = function (state, delay) {
+        return (delay > 0 || this.closed) ?
+            _super.prototype.execute.call(this, state, delay) :
+            this._execute(state, delay);
+    };
+    QueueAction.prototype.requestAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        // If delay exists and is greater than 0, or if the delay is null (the
+        // action wasn't rescheduled) but was originally scheduled as an async
+        // action, then recycle as an async action.
+        if ((delay !== null && delay > 0) || (delay === null && this.delay > 0)) {
+            return _super.prototype.requestAsyncId.call(this, scheduler, id, delay);
+        }
+        // Otherwise flush the scheduler starting with this action.
+        return scheduler.flush(this);
+    };
+    return QueueAction;
+}(AsyncAction_1.AsyncAction));
+var QueueAction_2 = QueueAction;
+var QueueAction_1 = {
+    QueueAction: QueueAction_2
+};
+"use strict";
+/**
+ * An execution context and a data structure to order tasks and schedule their
+ * execution. Provides a notion of (potentially virtual) time, through the
+ * `now()` getter method.
+ *
+ * Each unit of work in a Scheduler is called an {@link Action}.
+ *
+ * ```ts
+ * class Scheduler {
+ *   now(): number;
+ *   schedule(work, delay?, state?): Subscription;
+ * }
+ * ```
+ *
+ * @class Scheduler
+ */
+var Scheduler = (function () {
+    function Scheduler(SchedulerAction, now) {
+        if (now === void 0) {
+            now = Scheduler.now;
+        }
+        this.SchedulerAction = SchedulerAction;
+        this.now = now;
+    }
+    /**
+     * Schedules a function, `work`, for execution. May happen at some point in
+     * the future, according to the `delay` parameter, if specified. May be passed
+     * some context object, `state`, which will be passed to the `work` function.
+     *
+     * The given arguments will be processed an stored as an Action object in a
+     * queue of actions.
+     *
+     * @param {function(state: ?T): ?Subscription} work A function representing a
+     * task, or some unit of work to be executed by the Scheduler.
+     * @param {number} [delay] Time to wait before executing the work, where the
+     * time unit is implicit and defined by the Scheduler itself.
+     * @param {T} [state] Some contextual data that the `work` function uses when
+     * called by the Scheduler.
+     * @return {Subscription} A subscription in order to be able to unsubscribe
+     * the scheduled work.
+     */
+    Scheduler.prototype.schedule = function (work, delay, state) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        return new this.SchedulerAction(this, work).schedule(state, delay);
+    };
+    Scheduler.now = Date.now ? Date.now : function () { return +new Date(); };
+    return Scheduler;
+}());
+var Scheduler_2 = Scheduler;
+var Scheduler_1 = {
+    Scheduler: Scheduler_2
+};
+"use strict";
+var __extends$8 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var AsyncScheduler = (function (_super) {
+    __extends$8(AsyncScheduler, _super);
+    function AsyncScheduler() {
+        _super.apply(this, arguments);
+        this.actions = [];
+        /**
+         * A flag to indicate whether the Scheduler is currently executing a batch of
+         * queued actions.
+         * @type {boolean}
+         */
+        this.active = false;
+        /**
+         * An internal ID used to track the latest asynchronous task such as those
+         * coming from `setTimeout`, `setInterval`, `requestAnimationFrame`, and
+         * others.
+         * @type {any}
+         */
+        this.scheduled = undefined;
+    }
+    AsyncScheduler.prototype.flush = function (action) {
+        var actions = this.actions;
+        if (this.active) {
+            actions.push(action);
+            return;
+        }
+        var error;
+        this.active = true;
+        do {
+            if (error = action.execute(action.state, action.delay)) {
+                break;
+            }
+        } while (action = actions.shift()); // exhaust the scheduler queue
+        this.active = false;
+        if (error) {
+            while (action = actions.shift()) {
+                action.unsubscribe();
+            }
+            throw error;
+        }
+    };
+    return AsyncScheduler;
+}(Scheduler_1.Scheduler));
+var AsyncScheduler_2 = AsyncScheduler;
+var AsyncScheduler_1 = {
+    AsyncScheduler: AsyncScheduler_2
+};
+"use strict";
+var __extends$7 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var QueueScheduler = (function (_super) {
+    __extends$7(QueueScheduler, _super);
+    function QueueScheduler() {
+        _super.apply(this, arguments);
+    }
+    return QueueScheduler;
+}(AsyncScheduler_1.AsyncScheduler));
+var QueueScheduler_2 = QueueScheduler;
+var QueueScheduler_1 = {
+    QueueScheduler: QueueScheduler_2
+};
+"use strict";
+/**
+ *
+ * Queue Scheduler
+ *
+ * <span class="informal">Put every next task on a queue, instead of executing it immediately</span>
+ *
+ * `queue` scheduler, when used with delay, behaves the same as {@link async} scheduler.
+ *
+ * When used without delay, it schedules given task synchronously - executes it right when
+ * it is scheduled. However when called recursively, that is when inside the scheduled task,
+ * another task is scheduled with queue scheduler, instead of executing immediately as well,
+ * that task will be put on a queue and wait for current one to finish.
+ *
+ * This means that when you execute task with `queue` scheduler, you are sure it will end
+ * before any other task scheduled with that scheduler will start.
+ *
+ * @examples <caption>Schedule recursively first, then do something</caption>
+ *
+ * Rx.Scheduler.queue.schedule(() => {
+ *   Rx.Scheduler.queue.schedule(() => console.log('second')); // will not happen now, but will be put on a queue
+ *
+ *   console.log('first');
+ * });
+ *
+ * // Logs:
+ * // "first"
+ * // "second"
+ *
+ *
+ * @example <caption>Reschedule itself recursively</caption>
+ *
+ * Rx.Scheduler.queue.schedule(function(state) {
+ *   if (state !== 0) {
+ *     console.log('before', state);
+ *     this.schedule(state - 1); // `this` references currently executing Action,
+ *                               // which we reschedule with new state
+ *     console.log('after', state);
+ *   }
+ * }, 0, 3);
+ *
+ * // In scheduler that runs recursively, you would expect:
+ * // "before", 3
+ * // "before", 2
+ * // "before", 1
+ * // "after", 1
+ * // "after", 2
+ * // "after", 3
+ *
+ * // But with queue it logs:
+ * // "before", 3
+ * // "after", 3
+ * // "before", 2
+ * // "after", 2
+ * // "before", 1
+ * // "after", 1
+ *
+ *
+ * @static true
+ * @name queue
+ * @owner Scheduler
+ */
+var queue_1 = new QueueScheduler_1.QueueScheduler(QueueAction_1.QueueAction);
+var __extends$2 = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b)
+            if (b.hasOwnProperty(p))
+                d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @copyright ngrx
+ */
+var MiniState = (function (_super) {
+    __extends$2(MiniState, _super);
+    function MiniState(_initialState, actionsDispatcher$, reducer) {
+        var _this = _super.call(this, _initialState) || this;
+        var actionInQueue$ = observeOn.observeOn.call(actionsDispatcher$, queue_1);
+        var state$ = scan.scan.call(actionInQueue$, function (state, action) {
+            if (!action) {
+                return state;
+            }
+            return reducer(state, action);
+        }, _initialState);
+        state$.subscribe(function (value) { return _this.next(value); });
+        return _this;
+    }
+    return MiniState;
+}(BehaviorSubject.BehaviorSubject));
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b)
+            if (b.hasOwnProperty(p))
+                d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var TimepickerStore = (function (_super) {
+    __extends(TimepickerStore, _super);
+    function TimepickerStore() {
+        var _this = this;
+        var _dispatcher = new BehaviorSubject.BehaviorSubject({ type: '[mini-ngrx] dispatcher init' });
+        var state = new MiniState(initialState, _dispatcher, timepickerReducer);
+        _this = _super.call(this, _dispatcher, timepickerReducer, state) || this;
+        return _this;
+    }
+    TimepickerStore.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    TimepickerStore.ctorParameters = function () { return []; };
+    return TimepickerStore;
+}(MiniStore));
+/* tslint:disable:no-forward-ref max-file-line-count */
+var TIMEPICKER_CONTROL_VALUE_ACCESSOR = {
+    provide: forms.NG_VALUE_ACCESSOR,
+    // tslint:disable-next-line
+    useExisting: core.forwardRef(function () { return TimepickerComponent; }),
+    multi: true
+};
+var TimepickerComponent = (function () {
+    function TimepickerComponent(_config, _cd, _store, _timepickerActions) {
+        var _this = this;
+        this._cd = _cd;
+        this._store = _store;
+        this._timepickerActions = _timepickerActions;
+        /** emits true if value is a valid date */
+        this.isValid = new core.EventEmitter();
+        // min\max validation for input fields
+        this.invalidHours = false;
+        this.invalidMinutes = false;
+        this.invalidSeconds = false;
+        // control value accessor methods
+        this.onChange = Function.prototype;
+        this.onTouched = Function.prototype;
+        Object.assign(this, _config);
+        // todo: add unsubscribe
+        _store
+            .select(function (state) { return state.value; })
+            .subscribe(function (value) {
+            // update UI values if date changed
+            _this._renderTime(value);
+            _this.onChange(value);
+            _this._store.dispatch(_this._timepickerActions.updateControls(getControlsValue(_this)));
+        });
+        _store
+            .select(function (state) { return state.controls; })
+            .subscribe(function (controlsState) {
+            _this.isValid.emit(isInputValid(_this.hours, _this.minutes, _this.seconds, _this.isPM()));
+            Object.assign(_this, controlsState);
+            _cd.markForCheck();
+        });
+    }
+    Object.defineProperty(TimepickerComponent.prototype, "isSpinnersVisible", {
+        get: function () {
+            return this.showSpinners && !this.readonlyInput;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TimepickerComponent.prototype.isPM = function () {
+        return this.showMeridian && this.meridian === this.meridians[1];
+    };
+    TimepickerComponent.prototype.prevDef = function ($event) {
+        $event.preventDefault();
+    };
+    TimepickerComponent.prototype.wheelSign = function ($event) {
+        return Math.sign($event.deltaY) * -1;
+    };
+    TimepickerComponent.prototype.ngOnChanges = function (changes) {
+        this._store.dispatch(this._timepickerActions.updateControls(getControlsValue(this)));
+    };
+    TimepickerComponent.prototype.changeHours = function (step, source) {
+        if (source === void 0) {
+            source = '';
+        }
+        this._store.dispatch(this._timepickerActions.changeHours({ step: step, source: source }));
+    };
+    TimepickerComponent.prototype.changeMinutes = function (step, source) {
+        if (source === void 0) {
+            source = '';
+        }
+        this._store.dispatch(this._timepickerActions.changeMinutes({ step: step, source: source }));
+    };
+    TimepickerComponent.prototype.changeSeconds = function (step, source) {
+        if (source === void 0) {
+            source = '';
+        }
+        this._store.dispatch(this._timepickerActions.changeSeconds({ step: step, source: source }));
+    };
+    TimepickerComponent.prototype.updateHours = function (hours) {
+        this.hours = hours;
+        this._updateTime();
+    };
+    TimepickerComponent.prototype.updateMinutes = function (minutes) {
+        this.minutes = minutes;
+        this._updateTime();
+    };
+    TimepickerComponent.prototype.updateSeconds = function (seconds) {
+        this.seconds = seconds;
+        this._updateTime();
+    };
+    TimepickerComponent.prototype._updateTime = function () {
+        if (!isInputValid(this.hours, this.minutes, this.seconds, this.isPM())) {
+            this.onChange(null);
+            return;
+        }
+        this._store.dispatch(this._timepickerActions
+            .setTime({
+            hour: this.hours,
+            minute: this.minutes,
+            seconds: this.seconds,
+            isPM: this.isPM()
+        }));
+    };
+    TimepickerComponent.prototype.toggleMeridian = function () {
+        if (!this.showMeridian || this.readonlyInput) {
+            return;
+        }
+        var _hoursPerDayHalf = 12;
+        this._store.dispatch(this._timepickerActions.changeHours({ step: _hoursPerDayHalf, source: '' }));
+    };
+    /**
+     * Write a new value to the element.
+     */
+    TimepickerComponent.prototype.writeValue = function (obj) {
+        if (isValidDate(obj)) {
+            this._store.dispatch(this._timepickerActions.writeValue(parseTime(obj)));
+        }
+    };
+    /**
+     * Set the function to be called when the control receives a change event.
+     */
+    TimepickerComponent.prototype.registerOnChange = function (fn) {
+        this.onChange = fn;
+    };
+    /**
+     * Set the function to be called when the control receives a touch event.
+     */
+    TimepickerComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouched = fn;
+    };
+    /**
+     * This function is called when the control status changes to or from "DISABLED".
+     * Depending on the value, it will enable or disable the appropriate DOM element.
+     *
+     * @param isDisabled
+     */
+    TimepickerComponent.prototype.setDisabledState = function (isDisabled) {
+        this.readonlyInput = isDisabled;
+    };
+    TimepickerComponent.prototype._renderTime = function (value) {
+        if (!isValidDate(value)) {
+            this.hours = '';
+            this.minutes = '';
+            this.seconds = '';
+            this.meridian = this.meridians[0];
+            return;
+        }
+        var _value = parseTime(value);
+        var _hoursPerDayHalf = 12;
+        var _hours = _value.getHours();
+        if (this.showMeridian) {
+            this.meridian = this.meridians[_hours >= _hoursPerDayHalf ? 1 : 0];
+            _hours = _hours % _hoursPerDayHalf;
+            // should be 12 PM, not 00 PM
+            if (_hours === 0) {
+                _hours = _hoursPerDayHalf;
+            }
+        }
+        this.hours = padNumber(_hours);
+        this.minutes = padNumber(_value.getMinutes());
+        this.seconds = padNumber(_value.getUTCSeconds());
+    };
+    TimepickerComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'timepicker',
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, TimepickerStore],
+                    template: "\n    <table>\n      <tbody>\n      <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\">\n        <!-- increment hours button-->\n        <td>\n          <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours\"\n             (click)=\"changeHours(hourStep)\"\n          ><span class=\"glyphicon glyphicon-chevron-up\"></span></a>\n        </td>\n        <!-- divider -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- increment minutes button -->\n        <td>\n          <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes\"\n             (click)=\"changeMinutes(minuteStep)\"\n          ><span class=\"glyphicon glyphicon-chevron-up\"></span></a>\n        </td>\n        <!-- divider -->\n        <td *ngIf=\"showSeconds\">&nbsp;</td>\n        <!-- increment seconds button -->\n        <td *ngIf=\"showSeconds\">\n          <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds\"\n             (click)=\"changeSeconds(secondsStep)\">\n            <span class=\"glyphicon glyphicon-chevron-up\"></span>\n          </a>\n        </td>\n        <!-- space between -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- meridian placeholder-->\n        <td *ngIf=\"showMeridian\"></td>\n      </tr>\n      <tr>\n        <!-- hours -->\n        <td class=\"form-group\" [class.has-error]=\"invalidHours\">\n          <input type=\"text\" style=\"width:50px;\"\n                 class=\"form-control text-center\"\n                 placeholder=\"HH\"\n                 maxlength=\"2\"\n                 [readonly]=\"readonlyInput\"\n                 [value]=\"hours\"\n                 (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\"\n                 (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\"\n                 (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\"\n                 (change)=\"updateHours($event.target.value)\"></td>\n        <!-- divider -->\n        <td>&nbsp;:&nbsp;</td>\n        <!-- minutes -->\n        <td class=\"form-group\" [class.has-error]=\"invalidMinutes\">\n          <input style=\"width:50px;\" type=\"text\"\n                 class=\"form-control text-center\"\n                 placeholder=\"MM\"\n                 maxlength=\"2\"\n                 [readonly]=\"readonlyInput\"\n                 [value]=\"minutes\"\n                 (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\"\n                 (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\"\n                 (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\"\n                 (change)=\"updateMinutes($event.target.value)\">\n        </td>\n        <!-- divider -->\n        <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td>\n        <!-- seconds -->\n        <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\">\n          <input style=\"width:50px;\" type=\"text\"\n                 class=\"form-control text-center\"\n                 placeholder=\"SS\"\n                 maxlength=\"2\"\n                 [readonly]=\"readonlyInput\"\n                 [value]=\"seconds\"\n                 (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\"\n                 (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\"\n                 (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\"\n                 (change)=\"updateSeconds($event.target.value)\">\n        </td>\n        <!-- space between -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- meridian -->\n        <td *ngIf=\"showMeridian\">\n          <button type=\"button\" class=\"btn btn-default text-center\"\n                  [disabled]=\"readonlyInput\"\n                  [class.disabled]=\"readonlyInput\"\n                  (click)=\"toggleMeridian()\"\n          >{{ meridian }}\n          </button>\n        </td>\n      </tr>\n      <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\">\n        <!-- decrement hours button-->\n        <td>\n          <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours\" (click)=\"changeHours(-hourStep)\">\n            <span class=\"glyphicon glyphicon-chevron-down\"></span>\n          </a>\n        </td>\n        <!-- divider -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- decrement minutes button-->\n        <td>\n          <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes\" (click)=\"changeMinutes(-minuteStep)\">\n            <span class=\"glyphicon glyphicon-chevron-down\"></span>\n          </a>\n        </td>\n        <!-- divider -->\n        <td *ngIf=\"showSeconds\">&nbsp;</td>\n        <!-- decrement seconds button-->\n        <td *ngIf=\"showSeconds\">\n          <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds\" (click)=\"changeSeconds(-secondsStep)\">\n            <span class=\"glyphicon glyphicon-chevron-down\"></span>\n          </a>\n        </td>\n        <!-- space between -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- meridian placeholder-->\n        <td *ngIf=\"showMeridian\"></td>\n      </tr>\n      </tbody>\n    </table>\n  "
+                },] },
+    ];
+    /** @nocollapse */
+    TimepickerComponent.ctorParameters = function () {
+        return [
+            { type: TimepickerConfig, },
+            { type: core.ChangeDetectorRef, },
+            { type: TimepickerStore, },
+            { type: TimepickerActions, },
+        ];
+    };
+    TimepickerComponent.propDecorators = {
+        'hourStep': [{ type: core.Input },],
+        'minuteStep': [{ type: core.Input },],
+        'secondsStep': [{ type: core.Input },],
+        'readonlyInput': [{ type: core.Input },],
+        'mousewheel': [{ type: core.Input },],
+        'arrowkeys': [{ type: core.Input },],
+        'showSpinners': [{ type: core.Input },],
+        'showMeridian': [{ type: core.Input },],
+        'showSeconds': [{ type: core.Input },],
+        'meridians': [{ type: core.Input },],
+        'min': [{ type: core.Input },],
+        'max': [{ type: core.Input },],
+        'isValid': [{ type: core.Output },],
+    };
+    return TimepickerComponent;
+}());
+var TimepickerModule = (function () {
+    function TimepickerModule() {
+    }
+    TimepickerModule.forRoot = function () {
+        return {
+            ngModule: TimepickerModule,
+            providers: [TimepickerConfig, TimepickerActions, TimepickerStore]
+        };
+    };
+    TimepickerModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [common.CommonModule],
+                    declarations: [TimepickerComponent],
+                    exports: [TimepickerComponent]
+                },] },
+    ];
+    /** @nocollapse */
+    TimepickerModule.ctorParameters = function () { return []; };
+    return TimepickerModule;
+}());
+// TODO: config: activeClass - Class to apply to the checked buttons
+var CHECKBOX_CONTROL_VALUE_ACCESSOR = {
+    provide: forms.NG_VALUE_ACCESSOR,
+    useExisting: core.forwardRef(function () { return ButtonCheckboxDirective; }),
+    multi: true
+};
+/**
+ * Add checkbox functionality to any element
+ */
+var ButtonCheckboxDirective = (function () {
+    function ButtonCheckboxDirective() {
+        /** Truthy value, will be set to ngModel */
+        this.btnCheckboxTrue = true;
+        /** Falsy value, will be set to ngModel */
+        this.btnCheckboxFalse = false;
+        this.state = false;
+        this.onChange = Function.prototype;
+        this.onTouched = Function.prototype;
+    }
+    // view -> model
+    ButtonCheckboxDirective.prototype.onClick = function () {
+        if (this.isDisabled) {
+            return;
+        }
+        this.toggle(!this.state);
+        this.onChange(this.value);
+    };
+    ButtonCheckboxDirective.prototype.ngOnInit = function () {
+        this.toggle(this.trueValue === this.value);
+    };
+    Object.defineProperty(ButtonCheckboxDirective.prototype, "trueValue", {
+        get: function () {
+            return typeof this.btnCheckboxTrue !== 'undefined'
+                ? this.btnCheckboxTrue
+                : true;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ButtonCheckboxDirective.prototype, "falseValue", {
+        get: function () {
+            return typeof this.btnCheckboxFalse !== 'undefined'
+                ? this.btnCheckboxFalse
+                : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ButtonCheckboxDirective.prototype.toggle = function (state) {
+        this.state = state;
+        this.value = this.state ? this.trueValue : this.falseValue;
+    };
+    // ControlValueAccessor
+    // model -> view
+    ButtonCheckboxDirective.prototype.writeValue = function (value) {
+        this.state = this.trueValue === value;
+        this.value = value ? this.trueValue : this.falseValue;
+    };
+    ButtonCheckboxDirective.prototype.setDisabledState = function (isDisabled) {
+        this.isDisabled = isDisabled;
+    };
+    ButtonCheckboxDirective.prototype.registerOnChange = function (fn) {
+        this.onChange = fn;
+    };
+    ButtonCheckboxDirective.prototype.registerOnTouched = function (fn) {
+        this.onTouched = fn;
+    };
+    ButtonCheckboxDirective.decorators = [
+        { type: core.Directive, args: [{ selector: '[btnCheckbox]', providers: [CHECKBOX_CONTROL_VALUE_ACCESSOR] },] },
+    ];
+    /** @nocollapse */
+    ButtonCheckboxDirective.ctorParameters = function () { return []; };
+    ButtonCheckboxDirective.propDecorators = {
+        'btnCheckboxTrue': [{ type: core.Input },],
+        'btnCheckboxFalse': [{ type: core.Input },],
+        'state': [{ type: core.HostBinding, args: ['class.active',] },],
+        'onClick': [{ type: core.HostListener, args: ['click',] },],
+    };
+    return ButtonCheckboxDirective;
+}());
+var RADIO_CONTROL_VALUE_ACCESSOR = {
+    provide: forms.NG_VALUE_ACCESSOR,
+    useExisting: core.forwardRef(function () { return ButtonRadioDirective; }),
+    multi: true
+};
+/**
+ * Create radio buttons or groups of buttons.
+ * A value of a selected button is bound to a variable specified via ngModel.
+ */
+var ButtonRadioDirective = (function () {
+    function ButtonRadioDirective(el, cdr) {
+        this.cdr = cdr;
+        this.onChange = Function.prototype;
+        this.onTouched = Function.prototype;
+        this.el = el;
+    }
+    Object.defineProperty(ButtonRadioDirective.prototype, "isActive", {
+        get: function () {
+            return this.btnRadio === this.value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ButtonRadioDirective.prototype.onClick = function () {
+        if (this.el.nativeElement.attributes.disabled) {
+            return;
+        }
+        if (this.uncheckable && this.btnRadio === this.value) {
+            this.value = undefined;
+            this.onTouched();
+            this.onChange(this.value);
+            return;
+        }
+        if (this.btnRadio !== this.value) {
+            this.value = this.btnRadio;
+            this.onTouched();
+            this.onChange(this.value);
+            return;
+        }
+    };
+    ButtonRadioDirective.prototype.ngOnInit = function () {
+        this.uncheckable = typeof this.uncheckable !== 'undefined';
+    };
+    ButtonRadioDirective.prototype.onBlur = function () {
+        this.onTouched();
+    };
+    // ControlValueAccessor
+    // model -> view
+    ButtonRadioDirective.prototype.writeValue = function (value) {
+        this.value = value;
+        this.cdr.markForCheck();
+    };
+    ButtonRadioDirective.prototype.registerOnChange = function (fn) {
+        this.onChange = fn;
+    };
+    ButtonRadioDirective.prototype.registerOnTouched = function (fn) {
+        this.onTouched = fn;
+    };
+    ButtonRadioDirective.decorators = [
+        { type: core.Directive, args: [{ selector: '[btnRadio]', providers: [RADIO_CONTROL_VALUE_ACCESSOR] },] },
+    ];
+    /** @nocollapse */
+    ButtonRadioDirective.ctorParameters = function () {
+        return [
+            { type: core.ElementRef, },
+            { type: core.ChangeDetectorRef, },
+        ];
+    };
+    ButtonRadioDirective.propDecorators = {
+        'btnRadio': [{ type: core.Input },],
+        'uncheckable': [{ type: core.Input },],
+        'value': [{ type: core.Input },],
+        'isActive': [{ type: core.HostBinding, args: ['class.active',] },],
+        'onClick': [{ type: core.HostListener, args: ['click',] },],
+    };
+    return ButtonRadioDirective;
+}());
+var ButtonsModule = (function () {
+    function ButtonsModule() {
+    }
+    ButtonsModule.forRoot = function () {
+        return { ngModule: ButtonsModule, providers: [] };
+    };
+    ButtonsModule.decorators = [
+        { type: core.NgModule, args: [{
+                    declarations: [ButtonCheckboxDirective, ButtonRadioDirective],
+                    exports: [ButtonCheckboxDirective, ButtonRadioDirective]
+                },] },
+    ];
+    /** @nocollapse */
+    ButtonsModule.ctorParameters = function () { return []; };
+    return ButtonsModule;
+}());
+/**
+ * Convert a single dimension array to a double dimension array
+ * @template T
+ * @param {?} items the single dimension array to convert
+ * @param {?} columns the number of items each array should have
+ * @return {?}
+ */
+function gridify(items, columns) {
+    var /** @type {?} */ grid = [];
+    while (items.length) {
+        grid.push(items.splice(0, columns));
+    }
+    return grid;
+}
+/**
+ * Create an array of numbers between two limits
+ * @param {?} start the lower limit
+ * @param {?} end the upper limit
+ * @return {?}
+ */
+function range(start, end) {
+    var /** @type {?} */ list = [];
+    for (var /** @type {?} */ idx = start; idx <= end; idx++) {
+        list.push(idx);
+    }
+    return list;
+}
+/**
+ * Create an array of dates between two points
+ * @param {?} start the date to start the array
+ * @param {?} end the date to end the array
+ * @return {?}
+ */
+function dateRange(start, end) {
+    var /** @type {?} */ dates = [];
+    // loop through all the days between the date range
+    while (start <= end) {
+        // add the date to the array
+        dates.push(new Date(start));
+        // move to the next day
+        start.setDate(start.getDate() + 1);
+    }
+    return dates;
+}
+/**
+ * Compare two dates to see if they are on the same day
+ * @param {?} day1 the first date to compare
+ * @param {?} day2 the second date to compare
+ * @return {?}
+ */
+function compareDays(day1, day2) {
+    return day1.getDate() === day2.getDate() &&
+        day1.getMonth() === day2.getMonth() &&
+        day1.getFullYear() === day2.getFullYear();
+}
+/**
+ * Export an array of all the available months
+ */
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var monthsShort = months.map(function (month) { return month.substring(0, 3); });
+/**
+ * Export an array of all the available days of the week
+ */
+var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+var weekdaysShort = weekdays.map(function (weekday) { return weekday.substring(0, 3); });
+/**
+ * Add a config service to allow an application
+ * to customize the date time picker default settings
+ * across the entire application
+ */
+var DateTimePickerConfig = (function () {
+    function DateTimePickerConfig() {
+        this.showDate = true;
+        this.showTime = true;
+        this.showTimezone = true;
+        this.showSeconds = false;
+        this.showMeridian = true;
+        this.showSpinners = true;
+        this.weekdays = weekdaysShort;
+        this.nowBtnText = 'Today';
+        this.timezones = [
+            { name: 'GMT-11', offset: -660 },
+            { name: 'GMT-10', offset: -600 },
+            { name: 'GMT-9', offset: -540 },
+            { name: 'GMT-8', offset: -480 },
+            { name: 'GMT-7', offset: -420 },
+            { name: 'GMT-6', offset: -360 },
+            { name: 'GMT-5', offset: -300 },
+            { name: 'GMT-4', offset: -240 },
+            { name: 'GMT-3', offset: -180 },
+            { name: 'GMT-2', offset: -12 },
+            { name: 'GMT-1', offset: -60 },
+            { name: 'GMT', offset: 0 },
+            { name: 'GMT+1', offset: 60 },
+            { name: 'GMT+2', offset: 120 },
+            { name: 'GMT+3', offset: 180 },
+            { name: 'GMT+4', offset: 240 },
+            { name: 'GMT+5', offset: 300 },
+            { name: 'GMT+6', offset: 360 },
+            { name: 'GMT+7', offset: 420 },
+            { name: 'GMT+8', offset: 480 },
+            { name: 'GMT+9', offset: 540 },
+            { name: 'GMT+10', offset: 600 },
+            { name: 'GMT+11', offset: 660 },
+            { name: 'GMT+12', offset: 720 }
+        ];
+    }
+    return DateTimePickerConfig;
+}());
+DateTimePickerConfig.decorators = [
+    { type: core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerConfig.ctorParameters = function () { return []; };
+var DateTimePickerComponent = (function () {
+    /**
+     * @param {?} _config
+     */
+    function DateTimePickerComponent(_config) {
+        this._config = _config;
+        this.activeDate = new Date();
+        this.month = new Date().getMonth();
+        this.year = new Date().getFullYear();
+        this._date = new Date();
+        this.showDate = this._config.showDate;
+        this.showTime = this._config.showTime;
+        this.showTimezone = this._config.showTimezone;
+        this.showSeconds = this._config.showSeconds;
+        this.showMeridian = this._config.showMeridian;
+        this.showSpinners = this._config.showSpinners;
+        this.weekdays = this._config.weekdays;
+        this.nowBtnText = this._config.nowBtnText;
+        this.timezones = this._config.timezones;
+        this.dateChange = new core.EventEmitter();
+        this.timezoneChange = new core.EventEmitter();
+        this.mode = DatePickerMode.Day;
+        // expose enum to view
+        this.DatePickerMode = DatePickerMode;
+    }
+    Object.defineProperty(DateTimePickerComponent.prototype, "date", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._date;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._date = new Date(value);
+            // update the month and year
+            this.month = this._date.getMonth();
+            this.year = this._date.getFullYear();
+            // set the active date to the new date
+            this.activeDate = new Date(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "timezone", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._timezone;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            var /** @type {?} */ timezone = this.timezones.find(function (zone) { return zone.offset === value.offset; });
+            // only update if the timezone is valid
+            if (timezone) {
+                this._timezone = timezone;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * This will emit the newly selected date
+     * @return {?}
+     */
+    DateTimePickerComponent.prototype.commit = function () {
+        this.dateChange.emit(this.activeDate);
+    };
+    /**
+     * Change the date to the current date and time
+     * @return {?}
+     */
+    DateTimePickerComponent.prototype.setToNow = function () {
+        // set the date to the current moment
+        this.date = new Date();
+        // reset the timezone to the default
+        if (this.timePickerComponent) {
+            this.timePickerComponent.setDefaultTimezone();
+        }
+        // emit the changes
+        this.commit();
+    };
+    return DateTimePickerComponent;
+}());
+DateTimePickerComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-date-time-picker',
+                template: "\n    <div class=\"calendar-container\">\n\n      <ng-container *ngIf=\"showDate\" [ngSwitch]=\"mode\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\" [(date)]=\"activeDate\" [(month)]=\"month\" [(year)]=\"year\" [weekdays]=\"weekdays\" (dateChange)=\"commit()\" (ascend)=\"mode = DatePickerMode.Month\"></ux-date-time-picker-day-view>\n  \n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\" [date]=\"activeDate\" [(month)]=\"month\" [(year)]=\"year\" (monthChange)=\"mode = DatePickerMode.Day\" (ascend)=\"mode = DatePickerMode.Year\"></ux-date-time-picker-month-view>\n  \n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\" [(year)]=\"year\" (yearChange)=\"mode = DatePickerMode.Month\"></ux-date-time-picker-year-view>\n  \n      </ng-container>\n\n      <!-- Display a Time Picker -->\n      <ux-date-time-picker-time-view *ngIf=\"showTime\" #timePicker [(date)]=\"activeDate\" (dateChange)=\"commit()\" [showSpinners]=\"showSpinners\" [showTimezone]=\"showTimezone\" [showSeconds]=\"showSeconds\" [showMeridian]=\"showMeridian\" (dateChange)=\"commit()\" [timezone]=\"timezone\" (timezoneChange)=\"timezoneChange.emit($event)\" [timezones]=\"timezones\"></ux-date-time-picker-time-view>\n\n    </div>\n\n    <button class=\"now-button\" (click)=\"setToNow()\">{{ nowBtnText }}</button>\n  "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerComponent.ctorParameters = function () { return [
+    { type: DateTimePickerConfig, },
+]; };
+DateTimePickerComponent.propDecorators = {
+    'timePickerComponent': [{ type: core.ViewChild, args: ['timePicker',] },],
+    'showDate': [{ type: core.Input },],
+    'showTime': [{ type: core.Input },],
+    'showTimezone': [{ type: core.Input },],
+    'showSeconds': [{ type: core.Input },],
+    'showMeridian': [{ type: core.Input },],
+    'showSpinners': [{ type: core.Input },],
+    'weekdays': [{ type: core.Input },],
+    'nowBtnText': [{ type: core.Input },],
+    'timezones': [{ type: core.Input },],
+    'dateChange': [{ type: core.Output },],
+    'timezoneChange': [{ type: core.Output },],
+    'date': [{ type: core.Input },],
+    'timezone': [{ type: core.Input },],
+};
+var DatePickerMode = {};
+DatePickerMode.Day = 0;
+DatePickerMode.Month = 1;
+DatePickerMode.Year = 2;
+DatePickerMode[DatePickerMode.Day] = "Day";
+DatePickerMode[DatePickerMode.Month] = "Month";
+DatePickerMode[DatePickerMode.Year] = "Year";
+var DateTimePickerDayViewComponent = (function () {
+    function DateTimePickerDayViewComponent() {
+        this.days = [];
+        this.month = new Date().getMonth();
+        this.year = new Date().getFullYear();
+        this.weekdays = weekdaysShort;
+        this.ascend = new core.EventEmitter();
+        this.dateChange = new core.EventEmitter();
+        this.monthChange = new core.EventEmitter();
+        this.yearChange = new core.EventEmitter();
+    }
+    Object.defineProperty(DateTimePickerDayViewComponent.prototype, "date", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._date;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._date = value;
+            // update the month and year
+            this.month = this._date.getMonth();
+            this.year = this._date.getFullYear();
+            // emit the changes
+            this.monthChange.emit(this.month);
+            this.yearChange.emit(this.year);
+            this.update();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Navigate to the previous page of dates
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.previous = function () {
+        // update the month
+        this.month--;
+        // if the month is now the previous year take that into account
+        if (this.month < 0) {
+            this.month = 11;
+            this.year--;
+        }
+        // emit the changes
+        this.monthChange.emit(this.month);
+        this.yearChange.emit(this.year);
+        // update the grid
+        this.update();
+    };
+    /**
+     * Navigate to the next page of dates
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.next = function () {
+        // update the month
+        this.month++;
+        // if the month is now the previous year take that into account
+        if (this.month > 11) {
+            this.month = 0;
+            this.year++;
+        }
+        // emit the changes
+        this.monthChange.emit(this.month);
+        this.yearChange.emit(this.year);
+        // update the grid
+        this.update();
+    };
+    /**
+     * Updates the grid of all the days in the month
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.update = function () {
+        var _this = this;
+        // find the lower and upper boundaries
+        var /** @type {?} */ start = new Date(this.year, this.month, 1);
+        var /** @type {?} */ end = new Date(this.year, this.month + 1, 0);
+        // we always want to show from the sunday - this may include showing some dates from the previous month
+        start.setDate(start.getDate() - start.getDay());
+        // we also want to make sure that the range ends on a saturday
+        end.setDate(end.getDate() + (6 - end.getDay()));
+        // create an array of all the days to display
+        var /** @type {?} */ dates = dateRange(start, end);
+        // update the page header
+        this.header = months[this.month] + " " + this.year;
+        // turn the dates into a grid
+        this.days = gridify(dates, 7).map(function (week) { return week.map(function (date) { return ({
+            date: date,
+            today: _this.isToday(date),
+            active: _this.isActive(date),
+            currentMonth: _this.isCurrentMonth(date)
+        }); }); });
+    };
+    /**
+     * Select a particular date
+     * @param {?} date the date to select
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.select = function (date) {
+        // update the current date object
+        this._date = new Date(date);
+        // emit the new date
+        this.dateChange.emit(this._date);
+    };
+    /**
+     * Determine whether or not a specific date is today
+     * @param {?} date The date to check
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.isToday = function (date) {
+        return compareDays(new Date(), date);
+    };
+    /**
+     * Determines whether or not a specific date is the selected one
+     * @param {?} date the date to check
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.isActive = function (date) {
+        return compareDays(this.date, date);
+    };
+    /**
+     * Determine whether or not a date is within the current month
+     * or is it part of another month being show to fill the grid
+     * @param {?} date The date in question
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.isCurrentMonth = function (date) {
+        return date.getMonth() === this.month;
+    };
+    return DateTimePickerDayViewComponent;
+}());
+DateTimePickerDayViewComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-date-time-picker-day-view',
+                template: "\n    <ux-date-time-picker-header [header]=\"header\" (previous)=\"previous()\" (next)=\"next()\" (ascend)=\"ascend.emit()\"></ux-date-time-picker-header>\n\n    <table class=\"calendar\">\n      <thead>\n        <tr>\n          <th *ngFor=\"let day of weekdays\" class=\"weekday\">{{ day }}</th>\n        </tr>\n      </thead>\n\n      <tbody>\n        <tr *ngFor=\"let row of days\">\n          <td *ngFor=\"let day of row\" class=\"date-cell\" [class.current]=\"day.today\" \n            [class.active]=\"day.active\" [class.preview]=\"!day.currentMonth\" \n            (click)=\"select(day.date)\" (keyup.enter)=\"select(day.date)\" \n            tabindex=\"0\">{{ day.date.getDate() }}</td>\n        </tr>\n      </tbody>\n    </table>\n  "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerDayViewComponent.ctorParameters = function () { return []; };
+DateTimePickerDayViewComponent.propDecorators = {
+    'month': [{ type: core.Input },],
+    'year': [{ type: core.Input },],
+    'weekdays': [{ type: core.Input },],
+    'ascend': [{ type: core.Output },],
+    'dateChange': [{ type: core.Output },],
+    'monthChange': [{ type: core.Output },],
+    'yearChange': [{ type: core.Output },],
+    'date': [{ type: core.Input },],
+};
+var DateTimePickerMonthViewComponent = (function () {
+    function DateTimePickerMonthViewComponent() {
+        this.date = new Date();
+        this.year = new Date().getFullYear();
+        this.month = new Date().getMonth();
+        this.monthChange = new core.EventEmitter();
+        this.yearChange = new core.EventEmitter();
+        this.ascend = new core.EventEmitter();
+        this.months = gridify(range(0, 11), 4);
+        this.currentDate = new Date();
+    }
+    /**
+     * Go to the previous year and emit the change
+     * @return {?}
+     */
+    DateTimePickerMonthViewComponent.prototype.previous = function () {
+        this.yearChange.emit(--this.year);
+    };
+    /**
+     * Go to the next year and emit the change
+     * @return {?}
+     */
+    DateTimePickerMonthViewComponent.prototype.next = function () {
+        this.yearChange.emit(++this.year);
+    };
+    /**
+     * Select a month in the calendar
+     * @param {?} month the index of the month to select
+     * @return {?}
+     */
+    DateTimePickerMonthViewComponent.prototype.select = function (month) {
+        // store the new month
+        this.month = month;
+        // emit the changes
+        this.monthChange.emit(this.month);
+        this.yearChange.emit(this.year);
+    };
+    /**
+     * Get the name of a month
+     * @param {?} month the month in question
+     * @return {?}
+     */
+    DateTimePickerMonthViewComponent.prototype.getMonthName = function (month) {
+        return monthsShort[month];
+    };
+    return DateTimePickerMonthViewComponent;
+}());
+DateTimePickerMonthViewComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-date-time-picker-month-view',
+                template: "\n    <ux-date-time-picker-header [header]=\"year\" (previous)=\"previous()\" (next)=\"next()\" (ascend)=\"ascend.emit()\"></ux-date-time-picker-header>\n\n    <div class=\"calendar\">\n      <div class=\"calendar-row\" *ngFor=\"let row of months\">\n        <div class=\"calendar-item\" *ngFor=\"let item of row\" [class.active]=\"item === date.getMonth() && year === date.getFullYear()\"\n          [class.current]=\"item === currentDate.getMonth() && year === currentDate.getFullYear()\" (click)=\"select(item); $event.stopPropagation()\" (keyup.enter)=\"select(item)\" tabindex=\"0\">{{ getMonthName(item) }}</div>\n      </div>\n    </div>\n  "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerMonthViewComponent.ctorParameters = function () { return []; };
+DateTimePickerMonthViewComponent.propDecorators = {
+    'date': [{ type: core.Input },],
+    'year': [{ type: core.Input },],
+    'month': [{ type: core.Input },],
+    'monthChange': [{ type: core.Output },],
+    'yearChange': [{ type: core.Output },],
+    'ascend': [{ type: core.Output },],
+};
+var DateTimePickerYearViewComponent = (function () {
+    function DateTimePickerYearViewComponent() {
+        this._page = 0;
+        this.years = [];
+        this.currentYear = new Date().getFullYear();
+        this.year = new Date().getFullYear();
+        this.yearChange = new core.EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    DateTimePickerYearViewComponent.prototype.ngOnInit = function () {
+        this.update();
+    };
+    /**
+     * @param {?} year
+     * @return {?}
+     */
+    DateTimePickerYearViewComponent.prototype.select = function (year) {
+        // set the year of of the date
+        this.year = year;
+        // emit the date change
+        this.yearChange.emit(this.year);
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerYearViewComponent.prototype.previous = function () {
+        this._page--;
+        this.update();
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerYearViewComponent.prototype.next = function () {
+        this._page++;
+        this.update();
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerYearViewComponent.prototype.update = function () {
+        // get the years to display
+        var /** @type {?} */ decade = this.getDecade();
+        // update the header
+        this.header = decade.start + " - " + decade.end;
+        // create the grid
+        this.years = gridify(decade.range, 4);
+    };
+    /**
+     * Get the years in the current decade to display
+     * @return {?}
+     */
+    DateTimePickerYearViewComponent.prototype.getDecade = function () {
+        // the number of years to display
+        var /** @type {?} */ yearCount = 10;
+        // figure the start and end points
+        var /** @type {?} */ start = (this.year - (this.year % yearCount)) + (this._page * yearCount);
+        var /** @type {?} */ end = start + yearCount - 1;
+        // create an array containing all the numbers between the start and end points
+        return { start: start, end: end, range: range(start, end) };
+    };
+    return DateTimePickerYearViewComponent;
+}());
+DateTimePickerYearViewComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-date-time-picker-year-view',
+                template: "\n    <ux-date-time-picker-header [header]=\"header\" [canAscend]=\"false\" (previous)=\"previous()\" (next)=\"next()\"></ux-date-time-picker-header>\n\n    <div class=\"calendar\">\n      <div class=\"calendar-row\" *ngFor=\"let row of years\">\n        <div *ngFor=\"let item of row\" class=\"calendar-item\" [class.current]=\"item === currentYear\" [class.active]=\"item === year\"\n        (click)=\"select(item); $event.stopPropagation()\" (keyup.enter)=\"select(item)\" tabindex=\"0\">{{ item }}</div>\n      </div>\n    </div>\n  "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerYearViewComponent.ctorParameters = function () { return []; };
+DateTimePickerYearViewComponent.propDecorators = {
+    'year': [{ type: core.Input },],
+    'yearChange': [{ type: core.Output },],
+};
+var DateTimePickerHeaderComponent = (function () {
+    function DateTimePickerHeaderComponent() {
+        this.canAscend = true;
+        this.next = new core.EventEmitter();
+        this.previous = new core.EventEmitter();
+        this.ascend = new core.EventEmitter();
+    }
+    return DateTimePickerHeaderComponent;
+}());
+DateTimePickerHeaderComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-date-time-picker-header',
+                template: "\n      <header class=\"header\">\n\n        <div class=\"header-navigation\" (click)=\"previous.emit(); $event.stopPropagation()\" (keyup.enter)=\"previous.emit()\" tabindex=\"0\">\n          <i class=\"hpe-icon hpe-previous\"></i>\n        </div>\n\n        <div class=\"header-title\" [class.active]=\"canAscend\" (click)=\"ascend.emit(); $event.stopPropagation()\" (keyup.enter)=\"ascend.emit()\" tabindex=\"0\">{{ header }}</div>\n\n        <div class=\"header-navigation\" (click)=\"next.emit(); $event.stopPropagation()\" (keyup.enter)=\"next.emit()\" tabindex=\"0\">\n          <i class=\"hpe-icon hpe-next\"></i>\n        </div>\n      </header>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerHeaderComponent.ctorParameters = function () { return []; };
+DateTimePickerHeaderComponent.propDecorators = {
+    'header': [{ type: core.Input },],
+    'canAscend': [{ type: core.Input },],
+    'next': [{ type: core.Output },],
+    'previous': [{ type: core.Output },],
+    'ascend': [{ type: core.Output },],
+};
+var DateTimePickerTimeViewComponent = (function () {
+    function DateTimePickerTimeViewComponent() {
+        this.date = new Date();
+        this.showSeconds = false;
+        this.showSpinners = true;
+        this.showTimezone = true;
+        this.showMeridian = true;
+        this.dateChange = new core.EventEmitter();
+        this.timezoneChange = new core.EventEmitter();
+        this.meridian = DatePickerMeridian.AM;
+        // Expose enum to view
+        this.DatePickerMeridian = DatePickerMeridian;
+    }
+    Object.defineProperty(DateTimePickerTimeViewComponent.prototype, "timezone", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._timezone;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            if (value !== this._timezone) {
+                this._timezone = value;
+                this.timezoneChange.emit(this._timezone);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    DateTimePickerTimeViewComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        // if the user did not specify a timezone - choose a default one
+        if (!this.timezone) {
+            setTimeout(function () { return _this.setDefaultTimezone(); });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerTimeViewComponent.prototype.setDefaultTimezone = function () {
+        // determine the user default timezone
+        var /** @type {?} */ offset = new Date().getTimezoneOffset();
+        // find the closest timezone
+        this.timezone = this.timezones.find(function (zone) { return zone.offset === offset; });
+        // if not match was found then set to GMT
+        if (!this.timezone) {
+            this.timezone = this.timezones.find(function (zone) { return zone.offset === 0; });
+        }
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    DateTimePickerTimeViewComponent.prototype.update = function (date) {
+        // if the date is invalid then stop here
+        if (!date) {
+            return;
+        }
+        // update the meridian
+        this.meridian = date.getHours() < 12 ? DatePickerMeridian.AM : DatePickerMeridian.PM;
+        // if the date has not changed then don't emit
+        if (date.getTime() !== this.date.getTime()) {
+            this.date = date;
+            this.dateChange.emit(date);
+        }
+    };
+    /**
+     * @param {?} meridian
+     * @return {?}
+     */
+    DateTimePickerTimeViewComponent.prototype.setMeridian = function (meridian) {
+        // get the current hours
+        var /** @type {?} */ hours = this.date.getHours();
+        // if we are transitioning to AM and time is currently PM
+        if (meridian === DatePickerMeridian.AM && hours >= 12) {
+            this.date.setHours(hours - 12);
+            this.dateChange.emit(this.date);
+        }
+        // if we are transitioning to PM and time is currently AM
+        if (meridian === DatePickerMeridian.PM && hours < 12) {
+            this.date.setHours(hours + 12);
+            this.dateChange.emit(this.date);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerTimeViewComponent.prototype.previousTimezone = function () {
+        var _this = this;
+        // get the current zone
+        var /** @type {?} */ currentZone = this.timezones.findIndex(function (zone) { return zone.name === _this.timezone.name && zone.offset === _this.timezone.offset; });
+        // try to get the previous zone
+        this.timezone = this.timezones[currentZone - 1] ? this.timezones[currentZone - 1] : this.timezones[currentZone];
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerTimeViewComponent.prototype.nextTimezone = function () {
+        var _this = this;
+        // get the current zone
+        var /** @type {?} */ currentZone = this.timezones.findIndex(function (zone) { return zone.name === _this.timezone.name && zone.offset === _this.timezone.offset; });
+        // try to get the next zone
+        this.timezone = this.timezones[currentZone + 1] ? this.timezones[currentZone + 1] : this.timezones[currentZone];
+    };
+    return DateTimePickerTimeViewComponent;
+}());
+DateTimePickerTimeViewComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-date-time-picker-time-view',
+                template: "\n      <div class=\"time-input-container\">\n        <timepicker [ngModel]=\"date\" (ngModelChange)=\"update($event)\" [minuteStep]=\"1\" [hourStep]=\"1\" [secondsStep]=\"1\" [showSeconds]=\"showSeconds\"\n          [showSpinners]=\"showSpinners\" [showMeridian]=\"showMeridian\"></timepicker>\n\n        <div class=\"btn-group meridian-picker\" *ngIf=\"showMeridian\">\n          <button type=\"button\" class=\"btn button-toggle-accent\" [(ngModel)]=\"meridian\" (ngModelChange)=\"setMeridian($event)\" [btnRadio]=\"DatePickerMeridian.AM\">AM</button>\n          <button type=\"button\" class=\"btn button-toggle-accent\" [(ngModel)]=\"meridian\" (ngModelChange)=\"setMeridian($event)\" [btnRadio]=\"DatePickerMeridian.PM\">PM</button>\n        </div>\n\n        <table class=\"time-zone-picker-container\" *ngIf=\"showTimezone && showSpinners\">\n          <tbody>\n            <tr>\n              <td class=\"text-center\">\n                <a class=\"btn btn-link\" (click)=\"nextTimezone()\">\n                  <span class=\"hpe-icon hpe-up\"></span>\n                </a>\n              </td>\n            </tr>\n            <tr>\n              <td class=\"form-group\">\n                <div class=\"form-control time-zone-picker\">\n                  <span class=\"time-zone\">{{ timezone?.name }}</span>\n                </div>\n              </td>\n            </tr>\n            <tr>\n              <td class=\"text-center\">\n                <a class=\"btn btn-link\" (click)=\"previousTimezone()\">\n                  <span class=\"hpe-icon hpe-down\"></span>\n                </a>\n              </td>\n            </tr>\n          </tbody>\n        </table>\n\n        <div *ngIf=\"showTimezone && !showSpinners\">\n          <select class=\"form-control time-zone-picker-select\" [(ngModel)]=\"timezone\">\n            <option *ngFor=\"let zone of timezones\" [ngValue]=\"zone\">{{ zone?.name }}</option>\n          </select>\n        </div>\n\n      </div>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerTimeViewComponent.ctorParameters = function () { return []; };
+DateTimePickerTimeViewComponent.propDecorators = {
+    'date': [{ type: core.Input },],
+    'showSeconds': [{ type: core.Input },],
+    'showSpinners': [{ type: core.Input },],
+    'showTimezone': [{ type: core.Input },],
+    'showMeridian': [{ type: core.Input },],
+    'timezones': [{ type: core.Input },],
+    'dateChange': [{ type: core.Output },],
+    'timezoneChange': [{ type: core.Output },],
+    'timezone': [{ type: core.Input },],
+};
+var DatePickerMeridian = {};
+DatePickerMeridian.AM = 0;
+DatePickerMeridian.PM = 1;
+DatePickerMeridian[DatePickerMeridian.AM] = "AM";
+DatePickerMeridian[DatePickerMeridian.PM] = "PM";
+var DECLARATIONS$1 = [
+    DateTimePickerComponent,
+    DateTimePickerDayViewComponent,
+    DateTimePickerMonthViewComponent,
+    DateTimePickerYearViewComponent,
+    DateTimePickerTimeViewComponent,
+    DateTimePickerHeaderComponent
+];
+var DateTimePickerModule = (function () {
+    function DateTimePickerModule() {
+    }
+    return DateTimePickerModule;
+}());
+DateTimePickerModule.decorators = [
+    { type: core.NgModule, args: [{
+                imports: [
+                    common.CommonModule,
+                    forms.FormsModule,
+                    TimepickerModule.forRoot(),
+                    ButtonsModule.forRoot()
+                ],
+                exports: DECLARATIONS$1,
+                declarations: DECLARATIONS$1,
+                providers: [
+                    DateTimePickerConfig
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerModule.ctorParameters = function () { return []; };
 var EboxComponent = (function () {
     function EboxComponent() {
     }
@@ -4861,7 +7198,7 @@ FacetTypeaheadHighlight.decorators = [
  * @nocollapse
  */
 FacetTypeaheadHighlight.ctorParameters = function () { return []; };
-var DECLARATIONS$1 = [
+var DECLARATIONS$2 = [
     FacetContainerComponent,
     FacetHeaderComponent,
     FacetBaseComponent,
@@ -4883,8 +7220,8 @@ FacetsModule.decorators = [
                     TooltipModule.forRoot(),
                     TypeaheadModule.forRoot()
                 ],
-                exports: DECLARATIONS$1,
-                declarations: DECLARATIONS$1
+                exports: DECLARATIONS$2,
+                declarations: DECLARATIONS$2
             },] },
 ];
 /**
@@ -5638,7 +7975,7 @@ FilterDropdownComponent.ctorParameters = function () { return []; };
 FilterDropdownComponent.propDecorators = {
     'initial': [{ type: core.Input },],
 };
-var DECLARATIONS$2 = [
+var DECLARATIONS$3 = [
     FilterBaseComponent,
     FilterContainerComponent,
     FilterDropdownComponent,
@@ -5658,8 +7995,8 @@ FilterModule.decorators = [
                     forms.FormsModule,
                     common.CommonModule
                 ],
-                exports: DECLARATIONS$2,
-                declarations: DECLARATIONS$2
+                exports: DECLARATIONS$3,
+                declarations: DECLARATIONS$3
             },] },
 ];
 /**
@@ -6026,7 +8363,7 @@ ItemDisplayPanelComponent.propDecorators = {
     'animate': [{ type: core.Input },],
     'shadow': [{ type: core.Input },],
 };
-var DECLARATIONS$3 = [
+var DECLARATIONS$4 = [
     ItemDisplayPanelComponent,
     ItemDisplayPanelContentDirective,
     ItemDisplayPanelFooterDirective
@@ -6041,8 +8378,8 @@ ItemDisplayPanelModule.decorators = [
                 imports: [
                     common.CommonModule
                 ],
-                exports: DECLARATIONS$3,
-                declarations: DECLARATIONS$3
+                exports: DECLARATIONS$4,
+                declarations: DECLARATIONS$4
             },] },
 ];
 /**
@@ -8536,6 +10873,7 @@ var TagInputComponent = (function () {
         this.placeholder = '';
         this.showTypeaheadOnClick = false;
         this.tagDelimiters = '';
+        this.tagClass = function () { return undefined; };
         this.validationErrors = {};
         this.tagAdding = new core.EventEmitter();
         this.tagAdded = new core.EventEmitter();
@@ -9130,7 +11468,7 @@ var TagInputComponent = (function () {
 TagInputComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-tag-input',
-                template: "\n      <ol>\n          <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n              [class.disabled]=\"disabled\"\n              [attr.tabindex]=\"disabled ? null : i\"\n              [focusIf]=\"isSelected(i)\"\n              (click)=\"tagClickHandler($event, tag, i)\"\n              (focus)=\"selectTagAt(i)\">\n        \n              <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n                  [ngOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n              </ng-container>\n\n          </li>\n          <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\">\n              <input #tagInput type=\"text\" class=\"ux-tag-input\"\n                  [(ngModel)]=\"input\"\n                  [class.invalid]=\"!inputValid\"\n                  [placeholder]=\"disabled ? '' : (placeholder || '')\"\n                  [disabled]=\"disabled\"\n                  [focusIf]=\"isSelected(tags.length)\"\n                  (click)=\"inputClickHandler()\"\n                  (focus)=\"inputFocusHandler()\"\n                  (paste)=\"inputPasteHandler($event)\">\n          </li>\n      </ol>\n\n      <ng-content #typeahead></ng-content>\n\n      <ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n          <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n          <button *ngIf=\"api.canRemoveTagAt(index)\" type=\"button\" class=\"ux-tag-remove\" [disabled]=\"disabled\" (click)=\"api.removeTagAt(index); $event.stopPropagation();\"><i class=\"hpe-icon hpe-close\"></i></button>\n      </ng-template>\n    ",
+                template: "\n      <ol>\n          <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n              [class.disabled]=\"disabled\"\n              [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n              [attr.tabindex]=\"disabled ? null : i\"\n              [focusIf]=\"isSelected(i)\"\n              (click)=\"tagClickHandler($event, tag, i)\"\n              (focus)=\"selectTagAt(i)\">\n        \n              <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n                  [ngOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n              </ng-container>\n\n          </li>\n          <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\">\n              <input #tagInput type=\"text\" class=\"ux-tag-input\"\n                  [(ngModel)]=\"input\"\n                  [class.invalid]=\"!inputValid\"\n                  [placeholder]=\"disabled ? '' : (placeholder || '')\"\n                  [disabled]=\"disabled\"\n                  [focusIf]=\"isSelected(tags.length)\"\n                  (click)=\"inputClickHandler()\"\n                  (focus)=\"inputFocusHandler()\"\n                  (paste)=\"inputPasteHandler($event)\">\n          </li>\n      </ol>\n\n      <ng-content #typeahead></ng-content>\n\n      <ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n          <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n          <button *ngIf=\"api.canRemoveTagAt(index)\" type=\"button\" class=\"ux-tag-remove\" [disabled]=\"disabled\" (click)=\"api.removeTagAt(index); $event.stopPropagation();\"><i class=\"hpe-icon hpe-close\"></i></button>\n      </ng-template>\n    ",
                 providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                 host: {
                     '[class.disabled]': 'disabled',
@@ -9164,6 +11502,7 @@ TagInputComponent.propDecorators = {
     'tagDelimiters': [{ type: core.Input },],
     'tagPattern': [{ type: core.Input },],
     'tagTemplate': [{ type: core.Input },],
+    'tagClass': [{ type: core.Input },],
     'validationErrors': [{ type: core.Input },],
     'createTagHandler': [{ type: core.Input, args: ['createTag',] },],
     'tagAdding': [{ type: core.Output },],
@@ -9691,16 +12030,16 @@ var SliderComponent = (function () {
      * @return {?}
      */
     SliderComponent.prototype.validateValue = function (thumb, value) {
-        // if slider is not a range value is always valid
+        // if slider is not a range value is always valid providing it is within the chart min and max values
         if (this.options.type === SliderType.Value) {
-            return value;
+            return Math.max(Math.min(value, this.options.track.max), this.options.track.min);
         }
         // check if value is with chart ranges
         if (value > this.options.track.max) {
-            return this.options.track.max;
+            return thumb === SliderThumb.Lower ? Math.min(this.options.track.max, this.thumbs.upper.value) : this.options.track.max;
         }
         if (value < this.options.track.min) {
-            return this.options.track.min;
+            return thumb === SliderThumb.Upper ? Math.max(this.options.track.min, this.thumbs.lower.value) : this.options.track.min;
         }
         // otherwise we need to check to make sure lower thumb cannot go above higher and vice versa
         if (thumb === SliderThumb.Lower) {
@@ -11587,7 +13926,7 @@ FileSizePipeModule.decorators = [
  * @nocollapse
  */
 FileSizePipeModule.ctorParameters = function () { return []; };
-var DECLARATIONS$4 = [
+var DECLARATIONS$5 = [
     MediaPlayerComponent,
     MediaPlayerTimelineExtensionComponent,
     MediaPlayerBaseExtensionDirective,
@@ -11608,8 +13947,8 @@ MediaPlayerModule.decorators = [
                     DurationPipeModule,
                     FileSizePipeModule
                 ],
-                exports: DECLARATIONS$4,
-                declarations: DECLARATIONS$4,
+                exports: DECLARATIONS$5,
+                declarations: DECLARATIONS$5,
                 providers: [MediaPlayerService]
             },] },
 ];
@@ -11820,7 +14159,7 @@ VirtualScrollComponent.propDecorators = {
     'loadButtonTemplate': [{ type: core.ContentChild, args: [VirtualScrollLoadButtonDirective, { read: core.TemplateRef },] },],
     'renderCells': [{ type: core.HostListener, args: ['scroll',] },],
 };
-var DECLARATIONS$5 = [
+var DECLARATIONS$6 = [
     VirtualScrollComponent,
     VirtualScrollLoadingDirective,
     VirtualScrollLoadButtonDirective,
@@ -11837,8 +14176,8 @@ VirtualScrollModule.decorators = [
                     common.CommonModule,
                     ResizeModule
                 ],
-                exports: DECLARATIONS$5,
-                declarations: DECLARATIONS$5
+                exports: DECLARATIONS$6,
+                declarations: DECLARATIONS$6
             },] },
 ];
 /**
@@ -12111,7 +14450,7 @@ WizardComponent.propDecorators = {
     'stepChange': [{ type: core.Output },],
     'step': [{ type: core.Input },],
 };
-var DECLARATIONS$6 = [
+var DECLARATIONS$7 = [
     WizardComponent,
     WizardStepComponent
 ];
@@ -12126,8 +14465,8 @@ WizardModule.decorators = [
                     common.CommonModule,
                     TooltipModule.forRoot()
                 ],
-                exports: DECLARATIONS$6,
-                declarations: DECLARATIONS$6
+                exports: DECLARATIONS$7,
+                declarations: DECLARATIONS$7
             },] },
 ];
 /**
@@ -12520,7 +14859,7 @@ HoverActionDirective.propDecorators = {
     'previous': [{ type: core.HostListener, args: ['keydown.arrowleft', ['$event'],] },],
     'next': [{ type: core.HostListener, args: ['keydown.arrowright', ['$event'],] },],
 };
-var DECLARATIONS$7 = [
+var DECLARATIONS$8 = [
     HoverActionDirective,
     HoverActionContainerDirective
 ];
@@ -12531,8 +14870,8 @@ var HoverActionModule = (function () {
 }());
 HoverActionModule.decorators = [
     { type: core.NgModule, args: [{
-                exports: DECLARATIONS$7,
-                declarations: DECLARATIONS$7
+                exports: DECLARATIONS$8,
+                declarations: DECLARATIONS$8
             },] },
 ];
 /**
@@ -12685,7 +15024,7 @@ LayoutSwitcherDirective.propDecorators = {
     'group': [{ type: core.Input },],
     '_layouts': [{ type: core.ContentChildren, args: [LayoutSwitcherItemDirective,] },],
 };
-var DECLARATIONS$8 = [
+var DECLARATIONS$9 = [
     LayoutSwitcherDirective,
     LayoutSwitcherItemDirective
 ];
@@ -12699,8 +15038,8 @@ LayoutSwitcherModule.decorators = [
                 imports: [
                     ResizeModule
                 ],
-                exports: DECLARATIONS$8,
-                declarations: DECLARATIONS$8,
+                exports: DECLARATIONS$9,
+                declarations: DECLARATIONS$9,
                 providers: [],
             },] },
 ];
@@ -13053,6 +15392,16 @@ exports.ActionDirection = ActionDirection;
 exports.Rounding = Rounding;
 exports.DashboardDragHandleDirective = DashboardDragHandleDirective;
 exports.DashboardWidgetComponent = DashboardWidgetComponent;
+exports.DateTimePickerModule = DateTimePickerModule;
+exports.DateTimePickerComponent = DateTimePickerComponent;
+exports.DatePickerMode = DatePickerMode;
+exports.DateTimePickerDayViewComponent = DateTimePickerDayViewComponent;
+exports.DateTimePickerMonthViewComponent = DateTimePickerMonthViewComponent;
+exports.DateTimePickerYearViewComponent = DateTimePickerYearViewComponent;
+exports.DateTimePickerTimeViewComponent = DateTimePickerTimeViewComponent;
+exports.DatePickerMeridian = DatePickerMeridian;
+exports.DateTimePickerHeaderComponent = DateTimePickerHeaderComponent;
+exports.DateTimePickerConfig = DateTimePickerConfig;
 exports.EboxModule = EboxModule;
 exports.EboxComponent = EboxComponent;
 exports.EboxHeaderDirective = EboxHeaderDirective;

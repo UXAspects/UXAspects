@@ -41,6 +41,10 @@ export declare class DashboardWidgetComponent implements OnInit, AfterViewInit, 
      */
     getId(): string;
     /**
+     * Apply the current dashboard options
+     */
+    applyOptions(): void;
+    /**
      * Set the actual position and size values
      */
     render(): void;
