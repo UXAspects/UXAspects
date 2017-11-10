@@ -29,6 +29,24 @@ ux-media-player-timeline {
             position: absolute;
             height: 100%;
             background-color: @mediaplayer-timeline-track;
+
+            .media-progress-bar-thumb {
+                position: absolute;
+                right: 0;
+                width: 20px;
+                height: 20px;
+                background-color: #fff;
+                border-radius: 50%;
+                border: 1px solid #ddd;
+                transform: translateX(50%) translateY(-28%);
+                z-index: 10000;                        
+                opacity: 0;
+                display: none;            
+
+                &:hover, &:active {
+                    opacity: 1;
+                }
+            }
         }
 
         .scrub-handle {
@@ -45,9 +63,12 @@ ux-media-player-timeline {
             pointer-events: none;
         }
 
-        &:hover {
+        &:hover, &:active, &:hover:active {
             .scrub-handle {
                 opacity: 1;
+                &.scrub-hide {
+                    opacity: 0;
+                }
             }
         }
     }
