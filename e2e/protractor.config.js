@@ -16,6 +16,7 @@ var _ = require('lodash');
 
 var JasmineReporters = require('jasmine-reporters');
 var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
+var istanbulPlugin = require('protractor-istanbul-plugin');
 
 exports.config = {
   directConnect: false,
@@ -45,6 +46,12 @@ exports.config = {
   // Spec patterns are relative to this config file
   specs: ['dist/**/*e2e-spec.js'],
 
+  // protractor_istanbul_plugin package
+  plugins: [{
+    path: '../node_modules/protractor-istanbul-plugin',
+    outputPath: './e2e/coverage'
+  }],
+ 
   // For angular tests
   useAllAngular2AppRoots: true,
 

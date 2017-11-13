@@ -24,5 +24,11 @@ module.exports = {
         src: '**',
         dest: path.join(process.cwd(), 'dist', 'docs', 'assets', 'ng1'),
         expand: true
+    },
+    e2e_coverage: {
+        cwd: path.join(process.cwd(), 'e2e'),
+        src: ['dist/*.html', 'dist/*.css', 'dist/assets/*', '!dist/*.js'],
+        dest: path.join(process.cwd(), 'e2e', 'instrumented', 'e2e'),
+        expand: true
     }
 };

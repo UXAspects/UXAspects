@@ -9,5 +9,6 @@ module.exports = {
     licenses: 'dist/Licenses',
     e2e: ['e2e/dist', 'e2e/_test-output'],
     shim: 'dist/dist',
-    bower: 'target/bower'
+    bower: 'target/bower',
+    e2e_coverage: ['e2e/instrumented', 'e2e/coverage'],
 };
