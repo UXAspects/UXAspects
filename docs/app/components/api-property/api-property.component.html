@@ -1,0 +1,12 @@
+<td class="api-property col-md-3">
+    <span class="highlight">{{ name }}</span>
+</td>
+<td class="api-property col-md-9">
+    <span *ngIf="required" class="italic">Required<br /></span> 
+    <span *ngIf="type" class="italic">Type: <span class="highlight">{{ type }}</span><br /></span>
+    <span *ngIf="args" class="italic">Args: <span class="highlight">{{ args }}</span><br /></span>
+    <span *ngIf="returns" class="italic">Returns: <span class="highlight">{{ returns }}</span><br /></span>
+    <span *ngIf="binding" class="italic">Binding: <span class="highlight">{{ binding }}</span><br /></span>
+    <span *ngIf="defaultValue" class="italic">Default Value: <span class="highlight">{{ defaultValue }}</span><br /></span>
+    <ng-content></ng-content>
+</td>

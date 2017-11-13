@@ -105,123 +105,37 @@
 
 <p>The following attributes can be added to the <code>ux-dashboard</code> component to configure its behavior:</p>
 
-<table class="table">
+<uxd-api-properties title="Inputs">
+    <tr uxd-api-property name="layout" type="DashboardLayoutData[]">If defined or changed this will set 
+        the positions of the widgets within the dashboard. This is a two way binding that will be 
+        updated with the current layout when it changes.
+    </tr>
+    <tr uxd-api-property name="options" type="DashboardOptions">Configures the options for the dashboard, if an option is not 
+        specified the default value will be used.</tr>
+</uxd-api-properties>
 
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>@Input @Output</b> layout</td>
-            <td><b>DashboardLayoutData[]</b></td>
-            <td>
-                If defined or changed this will set the positions of the widgets within the dashboard. 
-                This is a two way binding that will be updated with the current layout when it changes.
-            </td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> options</td>
-            <td><b>DashboardOptions</b></td>
-            <td>Configures the options for the dashboard, if an option is not specified the default value will be used.</td>
-        </tr>
-
-    </tbody>
-</table>
+<uxd-api-properties title="Outputs">
+    <tr uxd-api-property name="layoutChange" type="DashboardOptions">Emits when layout has been changed.</tr>
+</uxd-api-properties>
 
 <p>The following <code>DashboardOptions</code> are available to configure:</p>
 
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td>columns</td>
-            <td><b>number</b></td>
-            <td>Defines the number of columns the dashboard should have.</td>
-        </tr>
-
-        <tr>
-            <td>minWidth</td>
-            <td><b>number</b></td>
-            <td>Defines minimum widget width.</td>
-        </tr>
-
-        <tr>
-            <td>minHeight</td>
-            <td><b>number</b></td>
-            <td>Defines minimum widget height.</td>
-        </tr>
-
-        <tr>
-            <td>rowHeight</td>
-            <td><b>number</b></td>
-            <td>Defines the height of each row on the dashboard.</td>
-        </tr>
-
-        <tr>
-            <td>emptyRow</td>
-            <td><b>boolean</b></td>
-            <td>Defines whether or not an empty row should always be visible on the bottom of the dashboard to allow for additional items or dragging/resizing.</td>
-        </tr>
-
-    </tbody>
-</table>
+<uxd-api-properties>
+    <tr uxd-api-property name="columns" type="number">Defines the number of columns the dashboard should have.</tr>
+    <tr uxd-api-property name="minWidth" type="number">Defines minimum widget width.</tr>
+    <tr uxd-api-property name="minHeight" type="number">Defines minimum widget height.</tr>
+    <tr uxd-api-property name="rowHeight" type="number">Defines the height of each row on the dashboard.</tr>
+    <tr uxd-api-property name="emptyRow" type="boolean">Defines whether or not an empty row should always be visible on the bottom of the dashboard to allow for additional items or dragging/resizing.</tr>
+</uxd-api-properties>
 
 <p>The following attributes can be added to the <code>ux-dashboard-widget</code> components to configure their behavior:</p>
 
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>@Input</b> id</td>
-            <td><b>string</b></td>
-            <td>Sets the ID of the widget. Each widget should be given a unique ID.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> colSpan</td>
-            <td><b>number</b></td>
-            <td>Defines the number of columns this widget should occupy.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> rowSpan</td>
-            <td><b>number</b></td>
-            <td>Defines the number of rows this widget should occupy.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> resizable</td>
-            <td><b>boolean</b></td>
-            <td>Defines whether or not this widget can be resized.</td>
-        </tr>
-
-    </tbody>
-</table>
+<uxd-api-properties title="Inputs">
+    <tr uxd-api-property name="id" type="string">Sets the ID of the widget. Each widget should be given a unique ID.</tr>
+    <tr uxd-api-property name="colSpan" type="number">Defines the number of columns this widget should occupy.</tr>
+    <tr uxd-api-property name="rowSpan" type="number">Defines the number of rows this widget should occupy.</tr>
+    <tr uxd-api-property name="resizable" type="boolean">Defines whether or not this widget can be resized.</tr>
+</uxd-api-properties>
 
 <p>The following code can be used to create the example above.</p>
 
