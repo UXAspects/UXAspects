@@ -7,19 +7,19 @@
             <span class="api-property-metadata-name">Required</span> 
         </div>
         <div *ngIf="type" class="api-property-detail-type">
-            <span class="api-property-metadata-name">Type: <span class="api-property-metadata-value">{{ type }}</span></span>
+            <span class="api-property-metadata-name">Type: </span><span class="api-property-metadata-value">{{ type }}</span>
         </div>
         <div *ngIf="args"  class="api-property-detail-args">
-            <span class="api-property-metadata-name">Args: <span class="api-property-metadata-value">{{ args }}</span></span>
+            <span class="api-property-metadata-name">Args: </span><span class="api-property-metadata-value">{{ args }}</span>
         </div>
         <div *ngIf="returns"  class="api-property-detail-returns">
-            <span class="api-property-metadata-name">Returns: <span class="api-property-metadata-value">{{ returns }}</span></span>
+            <span class="api-property-metadata-name">Returns: </span><span class="api-property-metadata-value">{{ returns }}</span>
         </div>
         <div *ngIf="binding"  class="api-property-detail-binding">
-            <span class="api-property-metadata-name">Binding: <span class="api-property-metadata-value">{{ binding }}</span></span>
+            <span class="api-property-metadata-name">Binding: </span><span class="api-property-metadata-value">{{ binding }}</span>
         </div>
         <div *ngIf="defaultValue" class="api-property-detail-default-value">
-            <span class="api-property-metadata-name">Default Value: <span class="api-property-metadata-value">{{ defaultValue }}</span></span>
+            <span class="api-property-metadata-name">Default Value: </span><span class="api-property-metadata-value">{{ defaultValue }}</span>
         </div>
     </div>
     <ng-content></ng-content>

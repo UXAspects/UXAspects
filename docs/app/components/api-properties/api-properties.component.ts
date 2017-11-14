@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./api-properties.component.less']
 })
 export class ApiPropertiesComponent {
-    @Input() title: string;
+    @Input() tableTitle: string;
 }
