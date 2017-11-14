@@ -57,7 +57,7 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
         },
         {
             theme: 'vibrant1',
-            value: 55,
+            value: [70, 20, 10],
             barHeight: 10,
             topLeftLabel: "<span class='spark-label hidden-xxs'><span class='large'>8.6</span><span class='medium light'>&nbsp;GB&nbsp;Disk Space&nbsp;&nbsp;(55%)</span></span>"
         },
