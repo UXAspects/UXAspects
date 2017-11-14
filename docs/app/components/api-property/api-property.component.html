@@ -1,12 +1,26 @@
-<td class="api-property col-md-3">
-    <span class="highlight">{{ name }}</span>
+<td class="api-property-name col-md-3">
+    <span class="api-property-metadata-value">{{ name }}</span>
 </td>
-<td class="api-property col-md-9">
-    <span *ngIf="required" class="italic">Required<br /></span> 
-    <span *ngIf="type" class="italic">Type: <span class="highlight">{{ type }}</span><br /></span>
-    <span *ngIf="args" class="italic">Args: <span class="highlight">{{ args }}</span><br /></span>
-    <span *ngIf="returns" class="italic">Returns: <span class="highlight">{{ returns }}</span><br /></span>
-    <span *ngIf="binding" class="italic">Binding: <span class="highlight">{{ binding }}</span><br /></span>
-    <span *ngIf="defaultValue" class="italic">Default Value: <span class="highlight">{{ defaultValue }}</span><br /></span>
+<td class="api-property-details col-md-9">
+    <div class="api-property-details-container">
+        <div *ngIf="required"  class="api-property-detail-required">
+            <span class="api-property-metadata-name">Required</span> 
+        </div>
+        <div *ngIf="type" class="api-property-detail-type">
+            <span class="api-property-metadata-name">Type: <span class="api-property-metadata-value">{{ type }}</span></span>
+        </div>
+        <div *ngIf="args"  class="api-property-detail-args">
+            <span class="api-property-metadata-name">Args: <span class="api-property-metadata-value">{{ args }}</span></span>
+        </div>
+        <div *ngIf="returns"  class="api-property-detail-returns">
+            <span class="api-property-metadata-name">Returns: <span class="api-property-metadata-value">{{ returns }}</span></span>
+        </div>
+        <div *ngIf="binding"  class="api-property-detail-binding">
+            <span class="api-property-metadata-name">Binding: <span class="api-property-metadata-value">{{ binding }}</span></span>
+        </div>
+        <div *ngIf="defaultValue" class="api-property-detail-default-value">
+            <span class="api-property-metadata-name">Default Value: <span class="api-property-metadata-value">{{ defaultValue }}</span></span>
+        </div>
+    </div>
     <ng-content></ng-content>
 </td>
