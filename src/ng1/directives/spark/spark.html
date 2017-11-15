@@ -1,5 +1,5 @@
 <div>
-    <div ng-if="sc.inline === true">
+    <div ng-if="sc.inline === true" class="spark-container">
         <div class="spark-label-left">
             <div ng-bind-html="sc.label"></div>
         </div>
@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div ng-if="sc.inline === false">
+    <div ng-if="sc.inline === false" class="spark-container">
         <div>
             <div class="inline-block" ng-if="sc.topLeftLabel" ng-bind-html="sc.topLeftLabel"></div>
             <div class="align-right inline-block" ng-if="sc.topRightLabel" ng-bind-html="sc.topRightLabel" class="text-right"></div>
