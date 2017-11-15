@@ -17,6 +17,7 @@ export default function SparkCtrl() {
     // figure out the percentages for each spark line
     this.values = values.map(val => (val / total) * 100);
 
+    // ensure 'barColor' is an array
     this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
     
     return this.values;   
