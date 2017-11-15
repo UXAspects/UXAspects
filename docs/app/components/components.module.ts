@@ -14,6 +14,8 @@ import { SideNavigationComponent } from './side-navigation/side-navigation.compo
 import { FullPageLayoutComponent } from './full-page-layout/full-page-layout.component';
 
 // Import UI Components
+import { ApiPropertiesComponent } from './api-properties/api-properties.component';
+import { ApiPropertyComponent } from './api-property/api-property.component';
 import { ComponentSectionComponent } from './component-section/component-section.component';
 import { DocumentationCategoryComponent } from './documentation-category/documentation-category.component';
 import { EditExampleLinkComponent } from './edit-example-link/edit-example-link.component';
@@ -31,7 +33,10 @@ import { SnippetComponent } from './snippet/snippet.component';
 import { TextPageLayoutComponent } from './text-page-layout/text-page-layout.component';
 import { UsageLinkComponent } from './usage-link/usage-link.component';
 
+
 const DOCUMENTATION_COMPONENTS = [
+    ApiPropertiesComponent,
+    ApiPropertyComponent,
     ComponentSectionComponent,
     DocumentationCategoryComponent,
     EditExampleLinkComponent,
