@@ -1,7 +1,7 @@
 <uxd-page-header header="Getting Started"></uxd-page-header>
 <uxd-text-page-layout>
 
-    <p>UX Aspects components can be used in Angular projects (Angular 4 or AngularJS 1.x), and those shown in the
+    <p>UX Aspects components can be used in Angular projects (Angular or AngularJS 1.x), and those shown in the
         <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using
         the components are shown below.</p>
 
@@ -17,7 +17,7 @@
     <ol>
         <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
         <li>Install <a href="https://www.typescriptlang.org/">TypeScript</a>: <kbd>npm install typescript --save-dev</kbd></li>
-        <li>Install <a href="https://angular.io/">Angular 4</a> and other dependencies:
+        <li>Install <a href="https://angular.io/">Angular</a> and other dependencies:
             <div>
                 <kbd>npm install @angular/common @angular/compiler @angular/compiler-cli
                 @angular/core @angular/forms @angular/http @angular/platform-browser
@@ -49,7 +49,7 @@
 
     <uxd-snippet [code]="stylesheetHtml" language="html"></uxd-snippet>
 
-    <h4>In an Angular 4 project</h4>
+    <h4>In an Angular project</h4>
 
     <p>Configure TypeScript to search for the UX Aspects module in the correct location by adding the following to your <code>tsconfig.json</code> file:</p>
 
@@ -67,9 +67,9 @@
     <h4>In an AngularJS project</h4>
 
     <p>The components marked <span class="label label-primary">AngularJS</span> can be included by importing <code>ng1/ux-aspects-ng1.js</code>.
-        Over the coming months, these will be replaced with Angular 4 components, so it is recommended to set up
-        the project as a hybrid AngularJS/Angular 4 site. See the <a href="https://github.com/UXAspects/UXAspects/blob/develop/guides/angular-upgrade-guide.md">Angular Upgrade Guide</a>
-        for details on modifying a project to support Angular 4 components. Components marked <span class="label label-accent">Angular 4</span>
+        Over the coming months, these will be replaced with Angular components, so it is recommended to set up
+        the project as a hybrid AngularJS/Angular site. See the <a href="https://github.com/UXAspects/UXAspects/blob/develop/guides/angular-upgrade-guide.md">Angular Upgrade Guide</a>
+        for details on modifying a project to support Angular components. Components marked <span class="label label-accent">Angular</span>
         in the documentation should be included via the <code>import</code> keyword and downgraded to be used in a hybrid site.</p>
 
     <uxd-snippet [code]="angular1DowngradeJs" language="javascript"></uxd-snippet>
