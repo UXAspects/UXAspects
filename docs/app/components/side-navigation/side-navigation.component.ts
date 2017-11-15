@@ -1,15 +1,5 @@
-import {
-    AfterViewInit,
-    Component,
-    ElementRef,
-    HostListener,
-    Inject,
-    Input,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { AfterViewInit, Component, ElementRef, HostListener, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 

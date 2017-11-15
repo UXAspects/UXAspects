@@ -1,9 +1,8 @@
 /*
   Import jQuery and expose to global scope
 */
-import * as $ from 'jquery';
-(<any>window).$ = $;
-(<any>window).jQuery = $;
+import 'expose-loader?$!jquery';
+import 'expose-loader?jQuery!jquery';
 
 // import only the required jquery ui functionality
 import 'jquery-ui/ui/unique-id';
@@ -26,9 +25,13 @@ import '../src/ng1/ux-aspects-ng1.module';
     Import Angular Libraries
 */
 import '@angular/platform-browser';
-import '@angular/platform-browser-dynamic';
 import '@angular/core';
 import '@angular/common';
 import '@angular/http';
 import '@angular/router';
 import '@angular/upgrade';
+
+import * as angular from 'angular';
+
+// create the AngularJS module
+angular.module('app', ['ux-aspects']);

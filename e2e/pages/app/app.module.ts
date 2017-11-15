@@ -14,7 +14,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { UpgradeAdapter } from '@angular/upgrade';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { TreeModule } from 'angular-tree-component';
+import { TreeModule } from 'angular5-tree-component';
 
 import { AppComponent } from './app.component';
 import { ButtonDropdownsTestPageComponent }  from './button-dropdowns/button-dropdowns.testpage.component';

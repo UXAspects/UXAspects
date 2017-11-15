@@ -20,7 +20,7 @@
             (mouseover)="highlight(option)">
 
             <ng-container [ngTemplateOutlet]="optionTemplate"
-                [ngOutletContext]="{option: option, api: optionApi}">
+                [ngTemplateOutletContext]="{option: option, api: optionApi}">
             </ng-container>
 
         </li>

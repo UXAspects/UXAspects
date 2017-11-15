@@ -36,7 +36,7 @@ module.exports = {
                 query: {
                     cacheDirectory: true,
                     presets: [
-                        ["es2015", {
+                        ["env", {
                             "modules": false
                         }]
                     ]

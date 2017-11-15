@@ -36,7 +36,7 @@ var ng1AssetsConfig = {
                 query: {
                     cacheDirectory: true,
                     presets: [
-                        ["es2015", {
+                        ["env", {
                             "modules": false
                         }]
                     ]
