@@ -3,6 +3,7 @@ var webpack = require('webpack');
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
 
@@ -53,6 +54,22 @@ module.exports = {
                 test: /\.css$/,
                 include: path.join(process.cwd(), 'e2e', 'pages', 'app'),
                 use: 'raw-loader'
+            },
+            
+            {
+              test: /\.js$|\.ts$/,
+              use: {
+                loader: 'istanbul-instrumenter-loader',
+                options: { esModules: true }
+              },
+              enforce: 'post',
+              exclude: [
+                /node_modules/,
+                /ng1/,
+                /e2e\\pages/,
+                /\.e2e-spec\.ts$/,
+                /\.po\.spec\.ts$/
+              ]
             }
         ]
     },
@@ -69,6 +86,8 @@ module.exports = {
         }),
 
         new ExtractTextPlugin("styles.css"),
+        
+        new UglifyJSPlugin()
      ],
 
      devServer: {

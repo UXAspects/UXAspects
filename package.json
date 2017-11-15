@@ -15,9 +15,7 @@
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
     "serve:e2e": "lite-server -c=e2e/bs-config.e2e.json",
     "e2e": "concurrently \"npm run serve:e2e\" \"grunt protractor:e2e\" --kill-others --success first",
-    "build:library": "ng-packagr -p ng-package.json",
-    "serve:e2e_coverage": "lite-server -c=e2e/bs-config.e2e.coverage.json",
-    "e2e_coverage": "concurrently \"npm run serve:e2e_coverage\" \"grunt protractor:e2e_coverage\" --kill-others --success first"
+    "build:library": "ng-packagr -p ng-package.json"
   },
   "dependencies": {
     "@angular/animations": "^4.2.4",
@@ -39,6 +37,7 @@
     "chart.js": "~2.6.0",
     "core-js": "^2.4.1",
     "highlight.js": "^9.12.0",
+    "istanbul-instrumenter-loader": "^3.0.0",
     "jquery": "^3.2.1",
     "jquery-ui": "1.12.1",
     "less": "^2.7.2",

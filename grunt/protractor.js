@@ -6,18 +6,9 @@ module.exports = {
             configFile: path.join(process.cwd(), 'e2e', 'protractor.config.js'),
             keepAlive: true,
             noColor: false,
-            webdriverManagerUpdate: true
-            
+            webdriverManagerUpdate: true,            
             // For future use with browsers other than Chrome. Assumes local execution of 'webmanager-driver update'.
             //seleniumServerJar: path.join(process.cwd(), 'node_modules', 'protractor', 'node_modules', 'webdriver-manager', 'selenium', 'selenium-server-standalone-3.4.0.jar')
-        }
-    },
-    e2e_coverage: {
-        options: {
-            configFile: path.join(process.cwd(), 'e2e', 'protractor.config.js'),
-            keepAlive: true,
-            noColor: false,
-            webdriverManagerUpdate: true,
             
             collectorPort: 3011,
             coverageDir: path.join(process.cwd(), 'e2e'),

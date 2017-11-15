@@ -12,8 +12,5 @@ module.exports = {
     },
     build_library: {
         exec: 'npm run build:library'
-    },
-    e2e_coverage: {
-        exec: 'npm run e2e_coverage',
     }
 };

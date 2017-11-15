@@ -14,7 +14,6 @@ module.exports = function (grunt) {
                 'webpack-dev-server': 'grunt-webpack',
                 'usebanner': 'grunt-banner',
                 'protractor': 'grunt-protractor-runner',
-                'instrument': 'grunt-istanbul',
                 'makeReport': 'grunt-istanbul'
             }
         }
@@ -38,9 +37,7 @@ module.exports = function (grunt) {
     grunt.registerTask('documentation:serve', ['library', 'iconset', 'styles', 'webpack-dev-server:documentation']);
     grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'webpack:documentation']);
     
-    grunt.registerTask('e2e_build', ['tslint:e2e', 'clean:e2e', 'webpack:e2e', 'ts:e2e']);
-    grunt.registerTask('e2e', ['e2e_build', 'run:e2e']);
-    grunt.registerTask('e2e_plus_coverage', ['clean:e2e_coverage', 'e2e_build', 'instrument', 'copy:e2e_coverage', 'run:e2e_coverage', 'makeReport']);
+    grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e', 'makeReport']);
     
     // Tasks with larger chains of events
     grunt.registerTask('build', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim']);
