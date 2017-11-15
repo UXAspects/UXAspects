@@ -11,9 +11,10 @@ export function SparkDirective() {
             topRightLabel: "=?",
             bottomLeftLabel: "=?",
             bottomRightLabel: "=?",
-            sparkTooltip: "@?"
+            sparkTooltip: "@?",
+            barColor: "=?"
         },
-        template: `<spark type="type" spark-tooltip="{{ sparkTooltip }}" value="value" fillheight="fillheight" inline-label="inlineLabel" top="top" top-left-label="topLeftLabel" top-right-label="topRightLabel" bottom-left-label="bottomLeftLabel" bottom-right-label="bottomRightLabel"></spark>`,
+        template: `<spark type="type" spark-tooltip="{{ sparkTooltip }}" value="value" fillheight="fillheight" inline-label="inlineLabel" top="top" top-left-label="topLeftLabel" top-right-label="topRightLabel" bottom-left-label="bottomLeftLabel" bottom-right-label="bottomRightLabel" bar-color="barColor"></spark>`,
         controller: ['$scope', function($scope) {
             this.$onDestroy = function() {
                 $scope.$destroy();
@@ -31,6 +32,7 @@ export function SparkDirective() {
             scope.topRightLabel = typeof scope.topRightLabel === 'function' ? scope.topRightLabel() : scope.topRightLabel;
             scope.bottomLeftLabel = typeof scope.bottomLeftLabel === 'function' ? scope.bottomLeftLabel() : scope.bottomLeftLabel;
             scope.bottomRightLabel = typeof scope.bottomRightLabel === 'function' ? scope.bottomRightLabel() : scope.bottomRightLabel;
+            scope.barColor = typeof scope.barColor === 'function' ? scope.barColor() : scope.barColor;
         }
     };
 }
