@@ -19,6 +19,5 @@ export default function SparkCtrl() {
 
     this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
     
-    
     return this.values;   
 }
