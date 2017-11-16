@@ -21,50 +21,22 @@ Your component should update this property which will update the <code>ng-model<
 
 <p>Use the following attributes to customize the behavior of the component:</p>
 
-<div class="demo-attributes table-responsive">
-<table class="table m-t">
-  <tbody><tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Binding</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">min-components</td>
-    <td>number</td>
-    <td>variable</td>
-    <td>Specifies the minimum number of components that will be displayed. If no values have been set for these components in the <code>ng-model</code> then the default value they will be given is null. The default value is 0.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">max-components</td>
-    <td>number</td>
-    <td>variable</td>
-    <td>Specifies the maximum number of components that will be displayed. The add button will be disabled when the limit has been reached. By default there is no limit.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">button-text</td>
-    <td>string</td>
-    <td>literal</td>
-    <td>Specifies the text to be displayed beside the add button. The default text is 'Add a field'.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">on-add</td>
-    <td>function</td>
-    <td>variable</td>
-    <td>If specified the function will be called when a new item is being added to the list.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">on-remove</td>
-    <td>function</td>
-    <td>variable</td>
-    <td>If specified the function will be called when an item is being removed from the list.</td>
-    <td>true</td>
-  </tr>
-</tbody>
-</table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="min-components" type="number" binding="variable" defaultValue="0">
+      Specifies the minimum number of components that will be displayed. If no values have been set for 
+      these components in the <code>ng-model</code> then the default value they will be given is null.
+    </tr>
+    <tr uxd-api-property name="max-components" type="number" binding="variable">
+      Specifies the maximum number of components that will be displayed. The add button will be disabled 
+      when the limit has been reached. By default there is no limit.
+    </tr>
+    <tr uxd-api-property name="button-text" type="string" binding="literal" defaultValue="Add a field">
+      Specifies the text to be displayed beside the add button.
+    </tr>
+    <tr uxd-api-property name="on-add" type="function" binding="variable">
+      If specified the function will be called when a new item is being added to the list.
+    </tr>
+    <tr uxd-api-property name="on-remove" type="function" binding="variable">
+      If specified the function will be called when an item is being removed from the list.
+    </tr>
+</uxd-api-properties>

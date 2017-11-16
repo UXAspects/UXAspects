@@ -29,43 +29,18 @@
 
 <p>Here are some more attribute options you can specify for the datepicker:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Binding</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">min-date</td>
-            <td>date</td>
-            <td>literal</td>
-            <td>The minimum date that can be chosen. By default there is no limitations.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">max-date</td>
-            <td>date</td>
-            <td>literal</td>
-            <td>The maximum date that can be chosen. By default there is no limitations.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">datepicker-mode</td>
-            <td>string</td>
-            <td>literal</td>
-            <td>The current mode of the date picker (day|month|year). The default mode is day.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">date-disabled</td>
-            <td>function</td>
-            <td>variable</td>
-            <td>A function thats returns a boolean as to whether a date is disabled or not. Function is passed in the date then
-                the mode e.g. <code>date-disabled="isDateDisabled(date,mode)"</code>.</td>
-            <td>true</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="min-date" type="date" binding="literal">
+        The minimum date that can be chosen. By default there is no limitations.
+    </tr>
+    <tr uxd-api-property name="max-date" type="date" binding="literal">
+        The maximum date that can be chosen. By default there is no limitations.
+    </tr>
+    <tr uxd-api-property name="datepicker-mode" type="string" binding="literal" defaultValue="day">
+        The current mode of the date picker (day|month|year).
+    </tr>
+    <tr uxd-api-property name="datepicker-disabled" type="function" binding="variable" >
+        A function thats returns a boolean as to whether a date is disabled or not. Function is passed in the date then
+        the mode e.g. <code>date-disabled="isDateDisabled(date,mode)"</code>.
+    </tr>
+</uxd-api-properties>

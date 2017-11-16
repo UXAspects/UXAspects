@@ -6,88 +6,44 @@
 
 <p>To use the Contacts control use the <code>contact-group</code> directive. The full list of configuration attributes for this control is defined below:</p>
 
-<div class="demo-attributes table-responsive">
-<table class="table m-t">
-  <tbody><tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Binding</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">contacts</td>
-    <td>array</td>
-    <td>variable</td>
-    <td>An array of contacts to display (format defined below) or a single contact object.</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">organization</td>
-    <td>object</td>
-    <td>variable</td>
-    <td>An object defining the organization (format defined below).</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">size</td>
-    <td>string</td>
-    <td>variable</td>
-    <td>The size of the control, either <code>medium</code> or <code>small</code>.</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">colors</td>
-    <td>object</td>
-    <td>variable</td>
-    <td>An object mapping the <code>primary</code>, <code>secondary</code>, <code>active</code>, and <code>passive</code> colors in #HTML format. The primary color will be used as the background for the contact. We recommend you use colors from the <a routerLink="/css/color-palette" fragment="color-palette">Color Palette</a>.</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">max-contacts</td>
-    <td>number</td>
-    <td>literal</td>
-    <td>The maximum number of contacts to display. The remainder will be condensed into an overflow segment.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">overflow-click</td>
-    <td>function</td>
-    <td>variable</td>
-    <td>Handler for the click event in the overflow segment.</td>
-    <td>true</td>
-  </tr>
-</tbody></table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="contacts" type="array" binding="variable" required="true">
+      An array of contacts to display (format defined below) or a single contact object.
+    </tr>
+    <tr uxd-api-property name="organization" type="object" binding="variable" required="true">
+      An object defining the organization (format defined below).
+    </tr>
+    <tr uxd-api-property name="size" type="string" binding="variable" required="true">
+      The size of the control, either <code>medium</code> or <code>small</code>.
+    </tr>
+    <tr uxd-api-property name="colors" type="object" binding="variable" required="true">
+      An object mapping the <code>primary</code>, <code>secondary</code>, <code>active</code>, and 
+      <code>passive</code> colors in #HTML format. The primary color will be used as the background 
+      for the contact. We recommend you use colors from the <a routerLink="/css/color-palette" fragment="color-palette">Color Palette</a>.
+    </tr>
+    <tr uxd-api-property name="max-contacts" type="number" binding="literal">
+      The maximum number of contacts to display. The remainder will be condensed into an overflow segment.
+    </tr>
+    <tr uxd-api-property name="overflow-click" type="function" binding="variable">
+      Handler for the click event in the overflow segment.
+    </tr>
+</uxd-api-properties>
 
 <h4>Contact Object</h4>
 
 <p>Contacts can be supplied either as a single object, or more typically as an array of objects.</p>
-<div class="demo-attributes table-responsive">
-<table class="table m-t">
-  <tbody><tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">text</td>
-    <td>The name to be displayed for the contact.</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">status</td>
-    <td>Either "active" or "passive".</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">tooltip</td>
-    <td>Simple tooltip to show text or HTML for the contact on hover.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">customTooltip</td>
-    <td>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="text" required="true">
+      The name to be displayed for the contact.
+    </tr>
+    <tr uxd-api-property name="status">
+      Either "active" or "passive".
+    </tr>
+    <tr uxd-api-property name="tooltip">
+      Simple tooltip to show text or HTML for the contact on hover.
+    </tr>
+    <tr uxd-api-property name="customTooltip">
       This can be used to design a complex tooltip which appears on hover. The <code>customTooltip</code> object can have the following attributes :
       <ul>
         <li><code>template</code>: (required) The relative path to the HTML template to be displayed for the contact on hover.
@@ -97,11 +53,9 @@
         <li><code>data</code>: (optional) The data attribute can be defined as an object to contain information for the tooltip. The values in the data object can be displayed accordingly through the template HTML.
         </li>
       </ul>
-    </td>
-    <td>true</td>
-  </tr>
-</tbody></table>
-</div>
+    </tr>
+</uxd-api-properties>
+
 <p>The example at the top of the page shows usage of the ‘active’ status, the ‘passive’ status, and no status.</p>
 
 <uxd-snippet [content]="snippets.compiled.contactsContactsJs" language="javascript"></uxd-snippet>
@@ -109,45 +63,30 @@
 <h4>Organization Object</h4>
 
 <p>Organizations should be objects with the following properties:</p>
-<div class="demo-attributes table-responsive">
-<table class="table m-t">
-  <tbody><tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">text</td>
-    <td>The name to be displayed for the organization.</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">label</td>
-    <td>String, either <code>external</code> or <code>risk</code>.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">tooltip</td>
-    <td>Simple tooltip to show text or HTML for the organization on hover</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">customTooltip</td>
-    <td>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="text" required="true">
+      The name to be displayed for the organization.
+    </tr>
+    <tr uxd-api-property name="label">
+      String, either <code>external</code> or <code>risk</code>.
+    </tr>
+    <tr uxd-api-property name="tooltip">
+      Simple tooltip to show text or HTML for the organization on hover.
+    </tr>
+    <tr uxd-api-property name="customTooltip">
       This can be used to design a complex tooltip which appears on hover. The <code>customTooltip</code> object can have the following attributes :
       <ul>
-      <li><code>template</code>: (required) The relative path to the HTML template to be displayed for the contact on hover.
-      </li>
-      <li><code>tooltipPosition</code>: (optional) either "top" or "bottom" - default value is "bottom".
-      </li>
-      <li><code>data</code>: (optional) The data attribute can be defined as an object to contain information for the tooltip. The values in the data object can be displayed accordingly through the template HTML.
-      </li>
+        <li><code>template</code>: (required) The relative path to the HTML template to be displayed for the contact on hover.
+        </li>
+        <li><code>tooltipPosition</code>: (optional) either "top" or "bottom" - default value is "bottom".
+        </li>
+        <li><code>data</code>: (optional) The data attribute can be defined as an object to contain information for the tooltip. The values in the data object can be displayed accordingly through the template HTML.
+        </li>
       </ul>
-    </td>
-    <td>true</td>
-  </tr>
-</tbody></table>
-</div>
+    </tr>
+</uxd-api-properties>
+
 <p>The example at the top of the page shows usage of both the “risk” and “external” labels.</p>
 
 <uxd-snippet [content]="snippets.compiled.contactsLabelsJs" language="javascript"></uxd-snippet>

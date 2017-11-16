@@ -51,112 +51,52 @@
     The following options can be used to configure the appearance and behavior of the component.
 </p>
 
-<table class="table">
-    
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="date" type="Date">
+        The selected date to be displayed in the component.
+    </tr>
+    <tr uxd-api-property name="timezone" type="DateTimePickerTimezone">
+        Will set the selected timezone.
+    </tr>
+    <tr uxd-api-property name="timezones" type="DateTimePickerTimezone[]">
+        Defines the list of available timezones. The <b>DateTimePickerTimezone</b> interface specifies that 
+        each timezone should be an object with a <b>name</b> property that represents the timezone, eg. <code>GMT+2</code>, 
+        and an <b>offset</b> property that represents the number of minutes relative to GMT the timezone is.
+    </tr>
+    <tr uxd-api-property name="showDate" type="boolean">
+        Defines whether or not the date picker should be visible.
+    </tr>
+    <tr uxd-api-property name="showTime" type="boolean">
+        Defines whether or not the time picker should be visible.
+    </tr>
+    <tr uxd-api-property name="showTimezone" type="boolean">
+        Defines whether or not the time picker should allow the user to choose a timezone.
+    </tr>
+    <tr uxd-api-property name="showSeconds" type="boolean">
+        Defines whether or not the time picker should allow the user to specify seconds.
+    </tr>
+    <tr uxd-api-property name="showMeridian" type="boolean">
+        Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
+    </tr>
+    <tr uxd-api-property name="showSpinners" type="boolean">
+        Defines whether or not the time picker should allow the user to select the time using spinners.
+    </tr>
+    <tr uxd-api-property name="weekdays" type="string[]">
+        If defined will override the weekday names displayed.
+    </tr>
+    <tr uxd-api-property name="nowBtnText" type="string">
+        Defines the text to be displayed in the button used to set the selected time to the current time.
+    </tr>
+</uxd-api-properties>
 
-    <tbody>
-
-        <tr>
-            <td><b>@Input @Output</b> date</td>
-            <td><b>Date</b></td>
-            <td>
-                The selected date to be displayed in the component. This will also emit an event when the date 
-                is changed using the component.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input @Output</b> timezone</td>
-            <td><b>DateTimePickerTimezone</b></td>
-            <td>
-                Will set the selected timezone. If not defined the picker will try to use the user's timezone. 
-                If that is not available, it will revert to GMT.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> timezones</td>
-            <td><b>DateTimePickerTimezone[]</b></td>
-            <td>
-                Defines the list of available timezones. The <b>DateTimePickerTimezone</b> interface specifies that 
-                each timezone should be an object with a <b>name</b> property that represents the timezone, eg. <code>GMT+2</code>, 
-                and an <b>offset</b> property that represents the number of minutes relative to GMT the timezone is.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> showDate</td>
-            <td><b>boolean</b></td>
-            <td>
-                Defines whether or not the date picker should be visible.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> showTime</td>
-            <td><b>boolean</b></td>
-            <td>
-                Defines whether or not the time picker should be visible.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> showTimezone</td>
-            <td><b>boolean</b></td>
-            <td>
-                Defines whether or not the time picker should allow the user to choose a timezone.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> showSeconds</td>
-            <td><b>boolean</b></td>
-            <td>
-                Defines whether or not the time picker should allow the user to specify seconds.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> showMeridian</td>
-            <td><b>boolean</b></td>
-            <td>
-                Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> showSpinners</td>
-            <td><b>boolean</b></td>
-            <td>
-                Defines whether or not the time picker should allow the user to select the time using spinners.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> weekdays</td>
-            <td><b>string[]</b></td>
-            <td>
-                If defined will override the weekday names displayed.
-            </td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> nowBtnText</td>
-            <td><b>string</b></td>
-            <td>
-                Defines the text to be displayed in the button used to set the selected time to the current time.
-            </td>
-        </tr>
-
-    </tbody>
-</table>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="dateChange" type="Date">
+        Emits an event when the date is changed using the component.
+    </tr>
+    <tr uxd-api-property name="timezoneChange" type="DateTimePickerTimezone">
+        If not defined the picker will try to use the user's timezone. If that is not available, it will revert to GMT.
+    </tr>
+</uxd-api-properties>
 
 <p>The following code can be used to create the example above:</p>
 

@@ -6,45 +6,20 @@
 
 <p>Thumbnails can be easily implemented with the use of our <code>thumbnail</code> directive. This allows you to specify a thumbnail for an element and dynamically update the visibility of the thumbnail. There are some attributes you can specify on the <code>thumbnail</code> directive to customize it to suit your needs. These include:</p>
 
-<div class="demo-attributes table-responsive">
-<table class="table m-t">
-  <tbody><tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Binding</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">url</td>
-    <td>string</td>
-    <td>variable</td>
-    <td>Specifies the url of the image to be used as the thumbnail. If no url is defined the <code>hpe-document</code> icon will appear instead.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">show</td>
-    <td>boolean</td>
-    <td>variable</td>
-    <td>Specifies whether or not the thumbnail should be visible. Defaults to <code>true</code>.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">width</td>
-    <td>string</td>
-    <td>variable</td>
-    <td>Defines the width of the thumbnail and the directive element. Takes <code>%</code> and <code>px</code> values. Defaults to <code>220px</code>.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">height</td>
-    <td>string</td>
-    <td>variable</td>
-    <td>Defines the height of the thumbnail. Takes <code>%</code> and <code>px</code> values. Defaults to <code>120px</code>.</td>
-    <td>true</td>
-  </tr>
-</tbody></table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="url" type="string" binding="variable">
+      Specifies the url of the image to be used as the thumbnail. If no url is defined the <code>hpe-document</code> icon will appear instead.
+    </tr>
+    <tr uxd-api-property name="show" type="boolean" binding="variable" defaultValue="true">
+      Specifies whether or not the thumbnail should be visible.
+    </tr>
+    <tr uxd-api-property name="width" type="string" binding="variable" defaultValue="220px">
+      Defines the width of the thumbnail and the directive element. Takes <code>%</code> and <code>px</code> values.
+    </tr>
+    <tr uxd-api-property name="height" type="string" binding="variable" defaultValue="120px">
+      Defines the height of the thumbnail. Takes <code>%</code> and <code>px</code> values.
+    </tr>
+</uxd-api-properties>
 
 <p>You can see the code used in our example by selecting the appropriate tabs below:</p>
 

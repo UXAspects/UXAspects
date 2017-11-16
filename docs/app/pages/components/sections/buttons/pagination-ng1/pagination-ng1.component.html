@@ -17,45 +17,20 @@
     </tab>
 </tabset>
 
-<div class="demo-attributes table-responsive">
-<table class="table m-t">
-  <tbody><tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Binding</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">total-items</td>
-    <td>number</td>
-    <td>variable</td>
-    <td>The total number of items in all pages.</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">items-per-page</td>
-    <td>number</td>
-    <td>variable</td>
-    <td>Maximum number of items per page. A value less than one indicates all items on one page. Defaults to 10 if not set.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">current-page</td>
-    <td>number</td>
-    <td>variable</td>
-    <td>The currently selected page.</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">num-pages</td>
-    <td>number</td>
-    <td>variable</td>
-    <td>The total number of pages, this is a read only property which can be used for displaying the total number of pages.</td>
-    <td>true</td>
-  </tr>
-</tbody></table>
-</div>
+<uxd-api-properties tableTitle="Attributes">
+    <tr uxd-api-property name="total-items" type="number" binding="variable" required="true">
+      The total number of items in all pages.
+    </tr>
+    <tr uxd-api-property name="items-per-page" type="number" binding="variable" defaultValue="10">
+      Maximum number of items per page. A value less than one indicates all items on one page.
+    </tr>
+    <tr uxd-api-property name="current-page" type="number" binding="variable" required="true">
+      The currently selected page.
+    </tr>
+    <tr uxd-api-property name="num-pages" type="number" binding="variable">
+      The total number of pages, this is a read only property which can be used for displaying the total number of pages.
+    </tr>
+</uxd-api-properties>
 
 <blockquote>
   <p><strong>Note</strong>: Refer to <a href="http://angular-ui.github.io/bootstrap/">UI Bootstrap</a> pagination for more options.</p>
