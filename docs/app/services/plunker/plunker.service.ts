@@ -14,6 +14,7 @@ const MAPPINGS_PLACEHOLDER = /\$\{mappings\}/g;
 export class PlunkerService {
 
     indexTemplate: string;
+    mainTs: string;
     private assetsUrl = this.appConfig.get('assetsUrl');
     private plunkerPostUrl = this.appConfig.get('plunker');
 
@@ -39,7 +40,7 @@ export class PlunkerService {
 
         if (plunk.modules) {
             // create list of declarations
-            plunk.modules.filter(mapping => mapping.declaration).forEach(mapping => {                
+            plunk.modules.filter(mapping => mapping.declaration).forEach(mapping => {
                 if (mapping.imports instanceof Array) {
                     declarations = declarations.concat(mapping.imports);
                 } else {
@@ -92,10 +93,12 @@ export class PlunkerService {
                 .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
         }
 
-        let mainTs = require('./templates/main_ts.txt')
-            .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
-            .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
-            .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
+        if (!this.mainTs) {
+            this.mainTs = require('./templates/main_ts.txt')
+                .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
+                .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
+                .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
+        }
 
         let configJs = require('./templates/config_js.txt')
             .replace(MAPPINGS_PLACEHOLDER, mappings.join(',\n\t\t\t\t'));
@@ -105,7 +108,7 @@ export class PlunkerService {
             'private': true,
             'files[index.html]': this.indexTemplate,
             'files[config.js]': configJs,
-            'files[src/main.ts]': mainTs
+            'files[src/main.ts]': this.mainTs
         };
 
         for (let key in plunk.files) {
