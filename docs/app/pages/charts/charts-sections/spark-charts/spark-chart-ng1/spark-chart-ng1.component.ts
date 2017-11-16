@@ -66,7 +66,7 @@ export class ChartsSparkChartNg1Component extends BaseDocumentationSection imple
                 value: 30,
                 fillHeight: 8,
                 topLeftLabel: '<span class="spark-label">21.7 MB</span>',
-                topRightLabel: '<span class="spark-label">75.0M</span>',
+                topRightLabel: '<span class="spark-label">75.0 MB</span>',
                 bottomLeftLabel: '<span class="spark-label">ITEMS ON HOLD</span>',
                 bottomRightLabel: '<span class="spark-label">TOTAL</span>'
             },
