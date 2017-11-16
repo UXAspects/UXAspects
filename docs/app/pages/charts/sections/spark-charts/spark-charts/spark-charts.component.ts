@@ -68,7 +68,7 @@ export class ChartsSparkChartsComponent extends BaseDocumentationSection impleme
             barHeight: 8,
             topLeftLabel: '30%',
             bottomLeftLabel: '<span class="spark-label hidden-xxxs"><span class="medium light">ITEMS ON HOLD</span></span>',
-            topRightLabel: '<span class="spark-label hidden-spark"><span class="medium light">75.0M</span></span>',
+            topRightLabel: '<span class="spark-label hidden-spark"><span class="medium light">75.0 MB</span></span>',
             bottomRightLabel: '<span class="spark-label hidden-xxs"><span class="medium light">TOTAL</span></span>'
         }
     ];
