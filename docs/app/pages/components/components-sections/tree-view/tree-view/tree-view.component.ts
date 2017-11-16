@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { TreeModel, TreeNode, TreeComponent } from 'angular5-tree-component';
+import { TreeModel, TreeNode, TreeComponent } from 'angular-tree-component';
 
 @Component({
     selector: 'uxd-components-tree-view',

@@ -1,19 +1,20 @@
-var path = require('path');
-var webpack = require('webpack');
+const { join } = require('path');
+const { IgnorePlugin } = require('webpack');
+const project_dir = process.cwd();
 
 module.exports = {
 
     entry: {
-        'ux-aspects-ng1': path.join(process.cwd(), 'src', 'ng1', 'ux-aspects-ng1.module.js'),
+        'ux-aspects-ng1': join(project_dir, 'src', 'ng1', 'ux-aspects-ng1.module.js'),
     },
 
     output: {
-        path: path.join(process.cwd(), 'dist', 'ng1'),
+        path: join(project_dir, 'dist', 'ng1'),
         filename: '[name].js',
         libraryTarget: 'umd'
     },
 
-    devtool: "none",
+    devtool: 'none',
 
     module: {
 
@@ -36,15 +37,15 @@ module.exports = {
                 query: {
                     cacheDirectory: true,
                     presets: [
-                        ["env", {
-                            "modules": false
+                        ['env', {
+                            'modules': false
                         }]
                     ]
                 }
             }
         }, {
             test: /\.html$/,
-            use: "ng-cache-loader?prefix=[dir]/[dir]",
+            use: 'ng-cache-loader?prefix=[dir]/[dir]',
             include: /(directives|templates)/
         }, {
             test: /(plugins|external)/,
@@ -64,7 +65,7 @@ module.exports = {
     },
 
     plugins: [
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+        new IgnorePlugin(/^\.\/locale$/, /moment$/)
     ]
 
 };

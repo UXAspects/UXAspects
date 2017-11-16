@@ -36,7 +36,7 @@ export class InfiniteScrollTestPageComponent {
     exhausted: boolean = false;
 
     load(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
-        let promise = new Promise((resolve, reject) => {
+        let promise = new Promise<any[]>((resolve, reject) => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;
                 const newItems = this.allEmployees

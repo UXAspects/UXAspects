@@ -14,7 +14,7 @@ const project_dir = process.cwd();
 /*
     Define Compilation Options
 */
-var docsConfig = {
+module.exports = {
 
     entry: {
         main: join(project_dir, 'docs', 'main.ts'),
@@ -243,5 +243,3 @@ var docsConfig = {
         }
     }
 };
-
-module.exports = docsConfig;
