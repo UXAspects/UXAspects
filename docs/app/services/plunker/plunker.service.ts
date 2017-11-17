@@ -97,7 +97,7 @@ export class PlunkerService {
             this.mainTs = require('./templates/main_ts.txt');
         }
 
-        this.mainTs.replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
+        this.mainTs = this.mainTs.replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
             .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
             .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
 
