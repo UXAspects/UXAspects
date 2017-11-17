@@ -10,8 +10,8 @@ export class AppComponent {
     
     charts: SparkChart[] = [
         {
+            theme: 'chart1',
             value: 35,
-            trackColor: '#ECEEEF',
             barHeight: 8,
             topLeftLabel: `<span class='spark-label'>21.7 MB</span>`,
             tooltip: 'Spark Line indicator - 2.17MB of 8.2GB occupied (35%)'
