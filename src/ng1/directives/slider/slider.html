@@ -6,9 +6,9 @@
              ng-style="{ 'flex-grow': vm.trackSizes.lower, 'background': vm.trackColors.lower }">
         </div>
 
-        <div class="thumb lower"
+        <div class="thumb lower {{vm.options.handles.style}} {{vm.options.track.height}}"
              ng-style="{ 'left': vm.thumbPositions.lower, 'z-index': vm.thumbOrder.lower }"      
-             ng-class="[vm.options.handles.style, vm.options.track.height]"
+             ng-class="{ 'active': vm.lowerThumbState.drag }"
              ng-mouseenter="vm.lowerThumbState.hover = true"
              ng-mouseleave="vm.lowerThumbState.hover = false">
 
@@ -31,10 +31,10 @@
              ng-style="{ 'flex-grow': vm.trackSizes.range, 'background': vm.trackColors.range }">
         </div>
 
-        <div class="thumb upper" 
+        <div class="thumb upper {{vm.options.handles.style}} {{vm.options.track.height}}" 
              ng-show="vm.options.type === 'range'"
              ng-style="{ 'left': vm.thumbPositions.upper, 'z-index': vm.thumbOrder.upper }"
-             ng-class="[vm.options.handles.style, vm.options.track.height]"
+             ng-class="{ 'active': vm.upperThumbState.drag }"
              ng-mouseenter="vm.upperThumbState.hover = true"
              ng-mouseleave="vm.upperThumbState.hover = false">
 
