@@ -80,7 +80,7 @@ module.exports = {
                     join(project_dir, 'src', 'services')
                 ],
                 use: ExtractTextPlugin.extract({
-                    use: 'css-loader!less-loader'
+                    use: ['css-loader', 'less-loader']
                 })
             },
             {
