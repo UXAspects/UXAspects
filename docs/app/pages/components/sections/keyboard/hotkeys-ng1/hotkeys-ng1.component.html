@@ -18,36 +18,18 @@
   child elements as being part of that hotkey group, give them the <code>hotkey-item</code> attribute.</p>
 
 <p>The container element can take two additional attribute parameters:</p>
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Binding</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">hotkey-action</td>
-        <td>function</td>
-        <td>variable</td>
-        <td>A function which will be called every time your hotkey is pressed, in addition to the tabbing/focusing logic. This
-          function is called with the focused element as an argument, so you can configure different behaviour for each child
-          element.
-        </td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">hotkey-hint</td>
-        <td>boolean</td>
-        <td>literal</td>
-        <td>This attribute will place the hotkey hint graphic in the top-left corner.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="hotkey-action" type="function" binding="variable">
+      A function which will be called every time your hotkey is pressed, in addition to the 
+      tabbing/focusing logic. This function is called with the focused element as an argument, 
+      so you can configure different behaviour for each child element.
+    </tr>
+    <tr uxd-api-property name="hotkey-hint" type="boolean" binding="literal">
+      This attribute will place the hotkey hint graphic in the top-left corner.
+    </tr>
+</uxd-api-properties>
+
 <p>When using the <code>hotkey-hint</code>, the precise styling can be controlled using the
   <code>hotkey-group-hint</code> class. This class exists in UX Aspects and will show a hotkey hint in the style shown in this
   page. To customise the appearance of the hotkey hint, you can override this class with your own values. As an example of

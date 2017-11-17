@@ -11,45 +11,20 @@
 <p>The slider chart has been primarily designed for use for filtering by date eg. within facets and should have the following
     attributes:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tr>
-            <th>Property</th>
-            <th>Type</th>
-            <th>Binding</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">ng-model</td>
-            <td>Object</td>
-            <td>Variable</td>
-            <td>The range of values for the slider.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">slider-options</td>
-            <td>Object</td>
-            <td>Variable</td>
-            <td>The options for the slider.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">chart-data</td>
-            <td>Object</td>
-            <td>Variable</td>
-            <td>The data to populate the chart.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">chart-options</td>
-            <td>Object</td>
-            <td>Variable</td>
-            <td>The options for the chart.</td>
-            <td>false</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="ng-model" type="object" binding="variable" required="true">
+        The range of values for the slider.
+    </tr>
+    <tr uxd-api-property name="slider-options" type="object" binding="variable" required="true">
+        The options for the slider.
+    </tr>
+    <tr uxd-api-property name="chart-data" type="object" binding="variable" required="true">
+        The data to populate the chart.
+    </tr>
+    <tr uxd-api-property name="chart-options" type="object" binding="variable" required="true">
+        The options for the chart.
+    </tr>
+</uxd-api-properties>
 
 <blockquote>
     <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>

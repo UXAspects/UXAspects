@@ -59,41 +59,24 @@
 
 <p>In an Angular application, <code>ngModel</code> may be used to bind the control to a form.</p>
 
-<table class="table">
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="value" type="any" defaultValue="false">
+        Determines if the checkbox should be checked, unchecked or indeterminate.
+    </tr>
+    <tr uxd-api-property name="indeterminateValue" type="any" defaultValue="-1">
+        If <code>value</code> is set to the indeterminate value specified using this attribute, it will 
+        neither display the checkbox as checked or unchecked, and will instead show the indeterminate variation.
+    </tr>
+    <tr uxd-api-property name="simplified" type="Boolean" defaultValue="false">
+        If set to <code>true</code> the checkbox will be displayed without a border and background.
+    </tr>
+    <tr uxd-api-property name="clickable" type="Boolean" defaultValue="false">
+        If set to <code>true</code> the checkbox will not toggle state when clicked.
+    </tr>
+</uxd-api-properties>
 
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>@Input @Output</b> value</td>
-            <td><b>any</b></td>
-            <td>Determines if the checkbox should be checked, unchecked or indeterminate. The default value is <code>false</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> indeterminateValue</td>
-            <td><b>any</b></td>
-            <td>If <code>value</code> is set to the indeterminate value specified using this attribute, it will neither display the checkbox as checked or unchecked, and will instead show the indeterminate variation. The default value is <code>-1</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> simplified</td>
-            <td><b>boolean</b></td>
-            <td>If set to <code>true</code> the checkbox will be displayed without a border and background. The default value is <code>false</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> clickable</td>
-            <td><b>boolean</b></td>
-            <td>If set to <code>true</code> the checkbox will not toggle state when clicked. The default value is <code>false</code>.</td>
-        </tr>
-
-    </tbody>
-</table>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="any">
+        Emits when value has been changed.
+    </tr>
+</uxd-api-properties>
