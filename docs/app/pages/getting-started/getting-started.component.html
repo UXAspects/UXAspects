@@ -1,84 +1,161 @@
 <uxd-page-header header="Getting Started"></uxd-page-header>
 <uxd-text-page-layout>
 
+    <h3>Installation</h3>
+
+    <div class="row-divider"></div>
+
     <p>UX Aspects components can be used in Angular projects (Angular 4 or AngularJS 1.x), and those shown in the
-        <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using
-        the components are shown below.</p>
+        <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using the components 
+        are shown below. The installation instructions are broken down into four <u>alternative</u> methods as detailed in the 
+        following tabsets:</p>
 
-    <h3>Install with NPM</h3>
+    <br>
 
-    <ol>
-        <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
-        <li>Install the UX Aspects package and its dependencies: <kbd>npm install @ux-aspects/ux-aspects --save</kbd></li>
-    </ol>
+    <tabset>
+        <tab heading="NPM">
+            <br>
+            <ol>
+                <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
+                <li>Install the UX Aspects package and its dependencies: <kbd>npm install @ux-aspects/ux-aspects --save</kbd></li>
+            </ol>
+        </tab>
+        <tab heading="Bower">
+            <br>
+            <ol>
+                <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
+                <li>Install <a href="https://www.typescriptlang.org/">TypeScript</a>: <kbd>npm install typescript --save-dev</kbd></li>
+                <li>Install <a href="https://angular.io/">Angular 4</a> and other dependencies:
+                    <div>
+                        <kbd>npm install @angular/common @angular/compiler @angular/compiler-cli @angular/core @angular/forms
+                            @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/platform-server
+                            @angular/router chart.js ngx-bootstrap ng2-charts @types/chart.js --save</kbd>
+                    </div>
+                </li>
+                <li>Install <a href="https://bower.io/">Bower</a>: <kbd>npm install -g bower</kbd></li>
+                <li>Install the UX Aspects bower package: <kbd>bower install ux-aspects#{{ version }}</kbd></li>
+            </ol>
+        </tab>
+        <tab heading="Direct Download">
+            <br>
+            <p>The UX Aspects resources (scripts, CSS, fonts, and images) can be downloaded from the
+                <a href="https://github.com/UXAspects/UXAspects/releases">GitHub releases page</a>.</p>
+        </tab>
+        <tab heading="Building from Source">
+            <br>
+            <ol>
+                <li>Clone the <a href="https://github.com/UXAspects/UXAspects">GitHub repository</a>.</li>
+                <li>Install the dependencies: <kbd>npm install</kbd></li>
+                <li>Build the project: <kbd>grunt build</kbd>. The resources (scripts, CSS, fonts, and images) can be found in the
+                    <code>dist</code> folder.
+                </li>
+            </ol>
+        </tab>
+    </tabset>
 
-    <h3>Install with Bower</h3>
+    <br>
 
-    <ol>
-        <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
-        <li>Install <a href="https://www.typescriptlang.org/">TypeScript</a>: <kbd>npm install typescript --save-dev</kbd></li>
-        <li>Install <a href="https://angular.io/">Angular 4</a> and other dependencies:
-            <div>
-                <kbd>npm install @angular/common @angular/compiler @angular/compiler-cli
-                @angular/core @angular/forms @angular/http @angular/platform-browser
-                @angular/platform-browser-dynamic @angular/platform-server @angular/router
-                chart.js ngx-bootstrap ng2-charts @types/chart.js --save</kbd>
-            </div>
-        </li>
-        <li>Install <a href="https://bower.io/">Bower</a>: <kbd>npm install -g bower</kbd></li>
-        <li>Install the UX Aspects bower package: <kbd>bower install ux-aspects#{{ version }}</kbd></li>
-    </ol>
+    <h3>Applying the Stylesheet</h3>
 
-    <h3>Direct Download</h3>
+    <div class="row-divider"></div>
 
-    <p>The UX Aspects resources (scripts, CSS, fonts, and images) can be downloaded from the
-        <a href="https://github.com/UXAspects/UXAspects/releases">GitHub releases page</a>.</p>
+    <p>The UX Aspects stylesheet can be applied in four different ways as outlined in the following tabs:</p>
 
-    <h3>Building from Source</h3>
+    <br>
 
-    <ol>
-        <li>Clone the <a href="https://github.com/UXAspects/UXAspects">GitHub repository</a>.</li>
-        <li>Install the dependencies: <kbd>npm install</kbd></li>
-        <li>Build the project: <kbd>grunt build</kbd>. The resources (scripts, CSS, fonts, and images) can be found
-            in the <code>dist</code> folder.</li>
-    </ol>
+    <tabset>
+        <tab heading="CLI">
+            <br>
+            <ul>
+                <li>If using the CLI, the UX Aspects stylesheet can be added in the <code>angular-cli.json</code> file:
+                    <br><br>
+                    <uxd-snippet [code]="cliJson" language="javascript"></uxd-snippet>
+                </li>
+            </ul>
+        </tab>
+        <tab heading="Regular Webpack">
+            <br>
+            <ul>
+                <li>When using regular webpack, UX Aspects can be included in a stylesheet by using:
+                    <br><br>
+                    <uxd-snippet [code]="stylesheetCss" language="css"></uxd-snippet>
+                </li>
+            </ul>
+        </tab>
+        <tab heading="JavaScript/Typescript">
+            <br>
+            <ul>
+                <li>The UX Aspects stylesheet can also be included directly from JavaScript/TypeScript by using webpack:
+                    <br><br>
+                    <uxd-snippet [code]="webpackJs" language="javascript"></uxd-snippet>
+                </li>
+            </ul>
+        </tab>
+        <tab heading="Non-Angular Sites">
+            <br>
+            <ul>
+                <li>The UX Aspects stylesheet can be applied by adding it to the header of the site as follows:
+                    <br><br>
+                    <uxd-snippet [code]="headerHtml" language="html"></uxd-snippet>
+                    <p>Please note this is the only required step for non-Angular sites. However, this method is not recommended with
+                        the use of <code>node_modules</code>.</p>
+                </li>
+            </ul>
+        </tab>
+    </tabset>
+
+    <br>
 
     <h3>Using UX Aspects</h3>
+    
+    <div class="row-divider"></div>
 
-    <p>Add the UX Aspects stylesheet to the header of the site. This is the only required step for non-Angular sites.</p>
+    <p>UX Aspects can be used in Angular 4 and Angular JS projects as follows:</p>
 
-    <uxd-snippet [code]="stylesheetHtml" language="html"></uxd-snippet>
+    <br>
 
-    <h4>In an Angular 4 project</h4>
+    <tabset>
+        <tab heading="Angular 4">
+            <br>
 
-    <p>Configure TypeScript to search for the UX Aspects module in the correct location by adding the following to your <code>tsconfig.json</code> file:</p>
+            <p>Import the required component module(s) into the module that will be using them.</p>
 
-    <uxd-snippet language="javascript" [code]="tsconfig"></uxd-snippet>
+            <uxd-snippet [code]="angular4Ts" language="javascript"></uxd-snippet>
 
-    <p>Import the required component(s) into the module that will be using them.</p>
+            <p>Please note if using Bower, you must specify the relative path to the bower package, e.g. 
+                <code>import {{ '{' }} CheckboxModule {{ '}' }} from '../../bower_components/ux-aspects';</code></p>
 
-    <uxd-snippet [code]="angular4Ts" language="javascript"></uxd-snippet>
+            <h4>Upgrading Angular JS Components</h4>
 
-    <p>If the component is marked <span class="label label-primary">AngularJS</span> in the documentation, it will
-        need to be upgraded using Angular's <a href="https://angular.io/docs/ts/latest/api/upgrade/index/UpgradeAdapter-class.html">UpgradeAdapter</a>.</p>
+            <p>If the component is marked <span class="label label-primary">AngularJS</span> in the documentation, it will need to be
+                upgraded using Angular's <a href="https://angular.io/docs/ts/latest/api/upgrade/index/UpgradeAdapter-class.html">UpgradeAdapter</a>.</p>
 
-    <uxd-snippet [code]="angular4UpgradeTs" language="javascript"></uxd-snippet>
+            <uxd-snippet [code]="angular4UpgradeTs" language="javascript"></uxd-snippet>
+        </tab>
+        
+        <tab heading="AngularJS">
+            <br>
+            <p>The components marked <span class="label label-primary">AngularJS</span> can be included by importing
+                <code>ng1/ux-aspects-ng1.js</code>. Over the coming months, these will be replaced with Angular 4 components, so
+                it is recommended to set up the project as a hybrid AngularJS/Angular 4 site. See the
+                <a href="https://github.com/UXAspects/UXAspects/blob/develop/guides/angular-upgrade-guide.md">Angular Upgrade Guide</a>
+                for details on modifying a project to support Angular 4 components. Components marked <span class="label label-accent">Angular 4</span>
+                in the documentation should be included via the <code>import</code> keyword and downgraded to be used in a hybrid site.</p>
 
-    <h4>In an AngularJS project</h4>
+            <uxd-snippet [code]="angular1DowngradeJs" language="javascript"></uxd-snippet>
+        </tab>
+        
 
-    <p>The components marked <span class="label label-primary">AngularJS</span> can be included by importing <code>ng1/ux-aspects-ng1.js</code>.
-        Over the coming months, these will be replaced with Angular 4 components, so it is recommended to set up
-        the project as a hybrid AngularJS/Angular 4 site. See the <a href="https://github.com/UXAspects/UXAspects/blob/develop/guides/angular-upgrade-guide.md">Angular Upgrade Guide</a>
-        for details on modifying a project to support Angular 4 components. Components marked <span class="label label-accent">Angular 4</span>
-        in the documentation should be included via the <code>import</code> keyword and downgraded to be used in a hybrid site.</p>
+    </tabset>
 
-    <uxd-snippet [code]="angular1DowngradeJs" language="javascript"></uxd-snippet>
+    <br>
 
     <h3>Additional Information</h3>
 
+    <div class="row-divider"></div>
+
     <p>The <a routerLink="/changelog">changelog</a> contains details of current and previous releases of UX Aspects.</p>
 
-    <p>The <a routerLink="/licenses">licenses page</a> contains the licensing details for UX Aspects and the 3rd party
-        libraries that it depends upon.</p>
+    <p>The <a routerLink="/licenses">licenses page</a> contains the licensing details for UX Aspects and the 3rd party libraries that it depends upon.</p>
 
 </uxd-text-page-layout>
