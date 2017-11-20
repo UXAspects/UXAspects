@@ -52,7 +52,7 @@
   "devDependencies": {
     "@angular-devkit/build-optimizer": "0.0.32",
     "@angular/tsc-wrapped": "^4.4.6",
-    "@ngtools/webpack": "^1.8.0",
+    "@ngtools/webpack": "1.8.0",
     "@types/angular": "1.6.6",
     "@types/angular-ui-router": "^1.1.36",
     "@types/chance": "^0.7.33",
