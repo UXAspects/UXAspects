@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
-
-import { AudioService } from './audio.service';
 import { HttpModule } from '@angular/http';
+import { AudioService } from './audio.service';
 
 @NgModule({
-    imports: [
-        HttpModule
-    ],
+    imports: [ HttpModule ],
     providers: [AudioService]
 })
 export class AudioServiceModule { }

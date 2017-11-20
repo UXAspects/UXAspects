@@ -1,19 +1,6 @@
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    Inject,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -79,7 +66,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     @Input() multiple: boolean = false;
     @Input() pageSize: number = 20;
     @Input() placeholder: string;
-    
+
     @Input() loadingTemplate: TemplateRef<any>;
     @Input() noOptionsTemplate: TemplateRef<any>;
     @Input() optionTemplate: TemplateRef<any>;
@@ -117,7 +104,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
                 return input;
             })
             .debounceTime(200);
-        
+
         // Changes to filter value
         this.filter.subscribe((next) => {
 

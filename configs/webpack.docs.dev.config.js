@@ -1,27 +1,34 @@
-var fs = require('fs');
-var path = require('path');
-var webpack = require('webpack');
+const { readFileSync } = require('fs');
+const { join } = require('path');
+const webpack = require('webpack');
+const { NamedModulesPlugin, NoEmitOnErrorsPlugin } = webpack;
+const { CommonsChunkPlugin } = webpack.optimize;
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const project_dir = process.cwd();
 
 /*
     Define Compilation Options
 */
-var docsConfig = {
+module.exports = {
 
     entry: {
-        app: path.join(process.cwd(), 'docs', 'main.ts'),
-        vendor: path.join(process.cwd(), 'docs', 'vendor.ts'),
-        polyfills: path.join(process.cwd(), 'docs', 'polyfills.ts')
+        main: join(project_dir, 'docs', 'main.ts'),
+        vendor: join(project_dir, 'docs', 'vendor.ts'),
+        polyfills: join(project_dir, 'docs', 'polyfills.ts')
     },
 
     output: {
-        path: path.join(process.cwd(), 'dist', 'docs'),
+        path: join(project_dir, 'dist', 'docs'),
         filename: '[name].js',
         chunkFilename: 'modules/[id].chunk.js'
     },
+
+    devtool: 'none',
 
     resolve: {
         extensions: ['.ts', '.js']
@@ -29,16 +36,15 @@ var docsConfig = {
 
     resolveLoader: {
         alias: {
-            "code-snippet-loader": path.join(process.cwd(), 'configs', 'loaders', 'code-snippet-loader.js')
+            'code-snippet-loader': join(project_dir, 'configs', 'loaders', 'code-snippet-loader.js')
         }
     },
 
-    devtool: 'none',
-
     module: {
-        rules: [{
+        rules: [
+            {
                 test: /\.html$/,
-                use: 'html-loader',
+                use: 'raw-loader',
                 exclude: /(directives|templates|snippets)/
             },
             {
@@ -59,18 +65,22 @@ var docsConfig = {
             {
                 test: /\.ts$/,
                 exclude: /snippets/,
-                use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader']
+                use: '@ngtools/webpack'
             },
             {
                 test: /\.less$/,
-                include: [path.join(process.cwd(), 'docs', 'app')],
+                include: [join(project_dir, 'docs', 'app')],
                 use: ['raw-loader', 'less-loader']
             },
             {
                 test: /\.less$/,
-                exclude: [path.join(process.cwd(), 'docs', 'app'), path.join(process.cwd(), 'src', 'components'), path.join(process.cwd(), 'src', 'services')],
+                exclude: [
+                    join(project_dir, 'docs', 'app'),
+                    join(project_dir, 'src', 'components'),
+                    join(project_dir, 'src', 'services')
+                ],
                 use: ExtractTextPlugin.extract({
-                    use: 'css-loader!less-loader'
+                    use: ['css-loader', 'less-loader']
                 })
             },
             {
@@ -82,25 +92,11 @@ var docsConfig = {
                 Support Code Snippets
             */
             {
-                test: /\.html$/,
+                test: /\.(html|js|css|ts)$/,
                 use: 'code-snippet-loader',
                 include: /(snippets)/
             },
-            {
-                test: /\.js$/,
-                use: 'code-snippet-loader',
-                include: /(snippets)/
-            },
-            {
-                test: /\.css$/,
-                use: 'code-snippet-loader',
-                include: /(snippets)/
-            },
-            {
-                test: /\.ts$/,
-                use: 'code-snippet-loader',
-                include: /(snippets)/
-            },
+
             {
                 test: /\.txt$/,
                 use: 'raw-loader',
@@ -115,16 +111,16 @@ var docsConfig = {
                 exclude: [
                     /node_modules/,
                     /snippets/,
-                    path.join(process.cwd(), 'src', 'ng1', 'plugins'),
-                    path.join(process.cwd(), 'src', 'ng1', 'external')
+                    join(project_dir, 'src', 'ng1', 'plugins'),
+                    join(project_dir, 'src', 'ng1', 'external')
                 ],
                 use: {
                     loader: 'babel-loader',
                     query: {
                         cacheDirectory: true,
                         presets: [
-                            ["es2015", {
-                                "modules": false
+                            ['env', {
+                                modules: false
                             }]
                         ]
                     }
@@ -133,14 +129,14 @@ var docsConfig = {
             {
                 test: /\.js$/,
                 include: [
-                    path.join(process.cwd(), 'src', 'ng1', 'plugins'),
-                    path.join(process.cwd(), 'src', 'ng1', 'external')
+                    join(project_dir, 'src', 'ng1', 'plugins'),
+                    join(project_dir, 'src', 'ng1', 'external')
                 ],
                 use: 'script-loader'
             },
             {
                 test: /\.html$/,
-                use: "ng-cache-loader?prefix=[dir]/[dir]",
+                use: 'ng-cache-loader?prefix=[dir]/[dir]',
                 include: /(directives|templates)/
             }
         ]
@@ -148,98 +144,102 @@ var docsConfig = {
 
     plugins: [
 
-        new webpack.ContextReplacementPlugin(
-            /angular(\\|\/)core(\\|\/)@angular/,
-            path.resolve(process.cwd(), 'docs')
-        ),
-
         new HtmlWebpackPlugin({
             template: './docs/index.ejs',
-            favicon: './docs/favicon.ico'
+            favicon: './docs/favicon.ico',
+            hash: false,
+            inject: true,
+            compile: true,
+            minify: false,
+            cache: true,
+            showErrors: true,
+            chunks: 'all',
+            excludeChunks: [],
+            xhtml: true
         }),
 
-        new ExtractTextPlugin("styles.css"),
+        new ExtractTextPlugin('styles.css'),
 
         new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'docs', 'app', 'assets'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'assets')
-        }]),
-
-        new CopyWebpackPlugin([{
-                from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'list_view', 'dist'),
-                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
+                from: join(project_dir, 'docs', 'app', 'assets'),
+                to: join(project_dir, 'dist', 'docs', 'assets')
             },
             {
-                from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'list_view', 'bower_components'),
-                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'bower_components')
+                from: join(project_dir, 'docs', 'app', 'showcase', 'list_view', 'dist'),
+                to: join(project_dir, 'dist', 'docs', 'showcase', 'list_view', 'dist')
             },
             {
-                from: path.join(process.cwd(), 'src', 'fonts'),
-                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist', 'fonts')
+                from: join(project_dir, 'docs', 'app', 'showcase', 'list_view', 'bower_components'),
+                to: join(project_dir, 'dist', 'docs', 'showcase', 'list_view', 'bower_components')
+            },
+            {
+                from: join(project_dir, 'src', 'fonts'),
+                to: join(project_dir, 'dist', 'docs', 'showcase', 'list_view', 'dist', 'fonts')
+            },
+            {
+                from: join(project_dir, 'docs', 'app', 'showcase', 'charts', 'dist'),
+                to: join(project_dir, 'dist', 'docs', 'showcase', 'charts', 'dist')
+            },
+            {
+                from: join(project_dir, 'docs', 'app', 'showcase', 'charts', 'bower_components'),
+                to: join(project_dir, 'dist', 'docs', 'showcase', 'charts', 'bower_components')
+            },
+            {
+                from: join(project_dir, 'src', 'fonts'),
+                to: join(project_dir, 'dist', 'docs', 'showcase', 'charts', 'dist', 'fonts')
             }
         ]),
 
         new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'list_view', 'dist')
+            from: join(project_dir, 'dist'),
+            to: join(project_dir, 'dist', 'docs', 'showcase', 'charts', 'dist')
+        }, {
+            from: join(project_dir, 'dist'),
+            to: join(project_dir, 'dist', 'docs', 'showcase', 'list_view', 'dist')
         }], {
             ignore: [
                 '/docs'
             ]
         }),
 
-        new CopyWebpackPlugin([{
-                from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'charts', 'dist'),
-                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
-            },
-            {
-                from: path.join(process.cwd(), 'docs', 'app', 'showcase', 'charts', 'bower_components'),
-                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'bower_components')
-            },
-            {
-                from: path.join(process.cwd(), 'src', 'fonts'),
-                to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist', 'fonts')
-            }
-        ]),
-
-        new CopyWebpackPlugin([{
-            from: path.join(process.cwd(), 'dist'),
-            to: path.join(process.cwd(), 'dist', 'docs', 'showcase', 'charts', 'dist')
-        }], {
-            ignore: [
-                '/docs'
-            ]
+        new CommonsChunkPlugin({
+            name: ['main', 'vendor', 'polyfills']
         }),
 
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
-        }),
+        new NamedModulesPlugin({}),
 
-        new webpack.DefinePlugin({
-            'process.env': {
-                'ENV': '"development"'
+        new AngularCompilerPlugin({
+            mainPath: join(project_dir, 'docs', 'main.ts'),
+            tsConfigPath: join(project_dir, 'tsconfig.json'),
+            sourceMap: false,
+            skipCodeGeneration: true,
+            hostReplacementPaths: {
+                'environments\\environment.ts': 'environments\\environment.ts'
             }
         }),
+
+        new ProgressPlugin(),
+
+        new NoEmitOnErrorsPlugin(),
     ],
 
     stats: {
         colors: true,
         reasons: true
-    },
+    },    
 
     devServer: {
         https: {
-            pfx: fs.readFileSync(path.join(process.cwd(), 'configs', 'webpack.docs.dev.pfx'))
+            pfx: readFileSync(join(project_dir, 'configs', 'webpack.docs.dev.pfx'))
         },
         historyApiFallback: true,
         stats: {
             colors: true,
             reasons: true
         },
+        overlay: true,
         headers: {
-            "Access-Control-Allow-Origin": "*"
+            'Access-Control-Allow-Origin': '*'
         }
     }
 };
-
-module.exports = docsConfig;

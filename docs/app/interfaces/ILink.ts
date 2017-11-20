@@ -3,4 +3,5 @@ export interface ILink {
     link: string;
     fragment?: string;
     router?: boolean;
+    logo?: string;
 }

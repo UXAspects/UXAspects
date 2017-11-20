@@ -1,25 +1,26 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path = require('path');
+const { join } = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const project_dir = process.cwd();
 
-var cssAssetsConfig = {
+module.exports = {
 
-    entry: path.join(process.cwd(), 'src', 'styles', 'index.js'),
+    entry: join(project_dir, 'src', 'styles', 'index.js'),
 
     output: {
-        path: path.join(process.cwd(), 'dist', 'docs', 'assets', 'css'),
+        path: join(project_dir, 'dist', 'docs', 'assets', 'css'),
         filename: 'index.js'
     },
 
     module: {
         rules: [{
             test: /\.css$/,
-            include: [path.join(process.cwd(), 'src')],
+            include: [join(project_dir, 'src')],
             use: ExtractTextPlugin.extract({
                 use: 'css-loader'
             })
         }, {
             test: /\.less$/,
-            include: [path.join(process.cwd(), 'src')],
+            include: [join(project_dir, 'src')],
             use: ExtractTextPlugin.extract({
                 use: 'css-loader!less-loader'
             })
@@ -36,5 +37,3 @@ var cssAssetsConfig = {
     ]
 
 };
-
-module.exports = cssAssetsConfig;
