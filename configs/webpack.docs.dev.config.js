@@ -44,7 +44,7 @@ module.exports = {
         rules: [
             {
                 test: /\.html$/,
-                use: 'raw-loader',
+                use: 'html-loader',
                 exclude: /(directives|templates|snippets)/
             },
             {
@@ -70,7 +70,7 @@ module.exports = {
             {
                 test: /\.less$/,
                 include: [join(project_dir, 'docs', 'app')],
-                use: ['raw-loader', 'less-loader']
+                use: ['to-string-loader', 'css-loader', 'less-loader']
             },
             {
                 test: /\.less$/,
