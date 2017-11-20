@@ -16,27 +16,14 @@
     directive is then added before defining the tabs.</p>
 <p>The dropdown content is defined using the <code>tab-menu-content</code>directive which will require the following properties:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td class="attribute">title</td>
-                <td>string</td>
-                <td>String for the title of the section.</td>
-            </tr>
-            <tr>
-                <td class="attribute">content</td>
-                <td>array</td>
-                <td>Array of strings containing the tab names.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string">
+        String for the title of the section.
+    </tr>
+    <tr uxd-api-property name="content" type="array">
+        Array of strings containing the tab names.
+    </tr>
+</uxd-api-properties>
 
 <p>The tabs are then created as normal with the headings matching the content from <code>tab-menu-content</code> and the 
     <code>hidden</code>class added to any tabs which will be displayed in the menu</p>
