@@ -9,7 +9,6 @@ export class GettingStartedPageComponent {
     
     version = this.appConfig.get('version');
     angular4Ts = require('!!raw-loader!./snippets/angular4.txt');
-    angular4BowerTs = require('!!raw-loader!./snippets/angular4Bower.txt');
     angular4UpgradeTs = require('!!raw-loader!./snippets/angular4-upgrade.txt');
     angular1DowngradeJs = require('!!raw-loader!./snippets/angular1-downgrade.js');
     stylesheetCss = require('!!raw-loader!./snippets/stylesheet.css');
