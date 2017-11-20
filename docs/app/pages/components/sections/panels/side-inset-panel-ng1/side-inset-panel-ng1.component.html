@@ -21,35 +21,18 @@
 <p>On the wrapper element where the <code>side-inset</code> directive is declared, the following additional properties can be
     configured:
 </p>
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">side-inset-width</td>
-                <td>number</td>
-                <td>literal</td>
-                <td>A value between 0 and 100, this is the percentage width of the parent element the expanded side inset panel
-                    will occupy (Default: 20).</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">side-inset-button-top</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>A string that will be set as the <code>top</code> CSS position property of the toggle button, allowing its
-                    vertical placement to be configured (Default: '0px').</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="side-inset-width" binding="literal" type="number" defaultValue="20">
+        A value between 0 and 100, this is the percentage width of the parent element the expanded side inset panel
+        will occupy.
+    </tr>
+    <tr uxd-api-property name="side-inset-button-top" binding="literal" type="string" defaultValue="0px">
+        A string that will be set as the <code>top</code> CSS position property of the toggle button, allowing its
+        vertical placement to be configured
+    </tr>
+</uxd-api-properties>
+
 <p>The CodePen example uses the following example code and styles.</p>
 
 <tabset>
