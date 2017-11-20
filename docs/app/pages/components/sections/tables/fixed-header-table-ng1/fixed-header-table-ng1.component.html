@@ -9,48 +9,20 @@
 
 <p>The attributes of this directive are:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">watch</td>
-                <td>object</td>
-                <td>variable</td>
-                <td>Defines the values of the rows.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">container-height</td>
-                <td>number</td>
-                <td>literal</td>
-                <td>Defines the height of the scrollable container.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">header-height</td>
-                <td>number</td>
-                <td>literal</td>
-                <td>Defines the height of the fixed header.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">watchHeaders</td>
-                <td>object</td>
-                <td>variable</td>
-                <td>Defines the values of the headers, required if using dynamically changing headers.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
+<uxd-api-properties>
+    <tr uxd-api-property name="watch" type="object" binding="variable" required="true">
+        Defines the values of the rows.
+    </tr>
+    <tr uxd-api-property name="container-height" type="number" binding="literal" required="true">
+        Defines the height of the scrollable container.
+    </tr>
+    <tr uxd-api-property name="header-height" type="number" binding="literal" required="true">
+        Defines the height of the fixed header.
+    </tr>
+    <tr uxd-api-property name="watchHeaders" type="object" binding="variable">
+        Defines the values of the headers, required if using dynamically changing headers.
+    </tr>
+</uxd-api-properties>
 
 <tabset>
     <tab heading="HTML">

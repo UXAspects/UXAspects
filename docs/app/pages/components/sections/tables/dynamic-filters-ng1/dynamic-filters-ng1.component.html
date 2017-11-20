@@ -16,29 +16,17 @@
     of the following format:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td class="attribute">minCharacters</td>
-                <td>How many characters should be typed before a dropdown is shown (default: 3).</td>
-            </tr>
-            <tr>
-                <td class="attribute">maxDisplayableItems</td>
-                <td>How many entries to show in the typeahead dropdown (default: show all matches).</td>
-            </tr>
-            <tr>
-                <td class="attribute">maxIndividualItems</td>
-                <td>When there are fewer than this many items, a list of Filter Options will be shown instead of a text input
-                    (default: 0).</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="minCharacters" defaultValue="3">
+        How many characters should be typed before a dropdown is shown.
+    </tr>
+    <tr uxd-api-property name="maxDisplayableItems" defaultValue="show all matches">
+        How many entries to show in the typeahead dropdown.
+    </tr>
+    <tr uxd-api-property name="maxIndividualItems" defaultValue="0">
+        When there are fewer than this many items, a list of Filter Options will be shown instead of a text input.
+    </tr>
+</uxd-api-properties>
 
 <p>
     The values presented in the dropdown can also be changed dynamically. This is optional behaviour, but useful if you wish

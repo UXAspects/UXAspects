@@ -1,22 +1,10 @@
 <p>The <code>ColorService</code> can be used to get the Hex, RGB or RGBA value for a color in the <a routerLink="/css/color-palette">Color Palette</a>.</p>
 
-
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Args</th>
-            <th>Returns</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td>getColor</td>
-            <td>string</td>
-            <td>ThemeColor</td>
-            <td>This method will accept a string parameter for a color from the Color Palette and return a <code>ThemeColor</code> object.</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="getColor" args="string" returns="ThemeColor">
+        This method will accept a string parameter for a color from the Color Palette and return a <code>ThemeColor</code> object.
+    </tr>
+</uxd-api-properties>
 
 <h4>ThemeColor Object</h4>
 
@@ -24,62 +12,29 @@
 
 <p>The following functions can be used on the <code>ThemeColor</code> object:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Args</th>
-                <th>Returns</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>setRed</td>
-                <td>number</td>
-                <td></td>
-                <td>This method will set the red value of the <code>ThemeColor</code>. The valid range is 0-255.</td>
-            </tr>
-            <tr>
-                <td>setGreen</td>
-                <td>number</td>
-                <td></td>
-                <td>This method will set the green value of the <code>ThemeColor</code>. The valid range is 0-255.</td>
-            </tr>
-            <tr>
-                <td>setBlue</td>
-                <td>number</td>
-                <td></td>
-                <td>This method will set the blue value of the <code>ThemeColor</code>. The valid range is 0-255.</td>
-            </tr>
-            <tr>
-                <td>setAlpha</td>
-                <td>number</td>
-                <td></td>
-                <td>This method will set the alpha value of the <code>ThemeColor</code>. The valid range is 0.0-1.0.</td>
-            </tr>
-            <tr>
-                <td>toRgb</td>
-                <td></td>
-                <td>string</td>
-                <td>This method will return the RGB value of the <code>ThemeColor</code> in the following arrangement: <code>rgb(0, 167, 162)</code>.</td>
-            </tr>
-            <tr>
-                <td>toRgba</td>
-                <td></td>
-                <td>string</td>
-                <td>This method will return the RGBA value of the <code>ThemeColor</code> in the following arrangement: <code>rgb(0, 167, 162, 0.5)</code>.</td>
-            </tr>
-            <tr>
-                <td>toHex</td>
-                <td></td>
-                <td>string</td>
-                <td>This method will return the hexadecimal value of the <code>ThemeColor</code> in the following arrangement: <code>#00a7a2</code>.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="setRed" args="number">
+        This method will set the red value of the <code>ThemeColor</code>. The valid range is 0-255.
+    </tr>
+    <tr uxd-api-property name="setGreen" args="number">
+        This method will set the green value of the <code>ThemeColor</code>. The valid range is 0-255.
+    </tr>
+    <tr uxd-api-property name="setBlue" args="number">
+        This method will set the blue value of the <code>ThemeColor</code>. The valid range is 0-255.
+    </tr>
+    <tr uxd-api-property name="setAlpha" args="number">
+        This method will set the alpha value of the <code>ThemeColor</code>. The valid range is 0.0-1.0.
+    </tr>
+    <tr uxd-api-property name="toRgb" returns="string">
+        This method will return the RGB value of the <code>ThemeColor</code> in the following arrangement: <code>rgb(0, 167, 162)</code>.
+    </tr>
+    <tr uxd-api-property name="toRgba" returns="string">
+        This method will return the RGBA value of the <code>ThemeColor</code> in the following arrangement: <code>rgb(0, 167, 162, 0.5)</code>.
+    </tr>
+    <tr uxd-api-property name="toHex" returns="string">
+        This method will return the hexadecimal value of the <code>ThemeColor</code> in the following arrangement: <code>#00a7a2</code>.
+    </tr>
+</uxd-api-properties>
 
 <h4>Color Palette</h4>
 

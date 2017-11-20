@@ -8,49 +8,22 @@
     Use the <code>multiple-list-select-actions</code> element to wrap all the actions. The <code>multiple-list-select-actions</code>    has the following attributes:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">on-select</td>
-                <td>function</td>
-                <td>variable</td>
-                <td>Should take in an item as a parameter. This is called with the selected item when it is selected. <code>on-select="vm.select(item)"</code></td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">on-deselect</td>
-                <td>function</td>
-                <td>variable</td>
-                <td>Should take in an item as a parameter. This is called with the selected item when it is deselected. When
-                    clearing all selections this method will be passed <code>null</code> as the item. <code>on-deselect="vm.deselect(item)"</code></td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">key-fn</td>
-                <td>function</td>
-                <td>variable</td>
-                <td>Should take in an item as a parameter. This is called when it is necessary for the directive to uniquely
-                    identify an item. <code>key-fn="vm.getId(item)"</code></td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">total</td>
-                <td>number</td>
-                <td>variable</td>
-                <td>Should return the total count of items. This is used for the Select All function. <code>total="vm.totalItems"</code></td>
-                <td>false</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="on-select" type="function" binding="variable" required="true">
+        Should take in an item as a parameter. This is called with the selected item when it is selected. <code>on-select="vm.select(item)"</code>
+    </tr>
+    <tr uxd-api-property name="on-deselect" type="function" binding="variable" required="true">
+        Should take in an item as a parameter. This is called with the selected item when it is deselected. When
+        clearing all selections this method will be passed <code>null</code> as the item. <code>on-deselect="vm.deselect(item)"</code>
+    </tr>
+    <tr uxd-api-property name="key-fn" type="function" binding="variable" required="true">
+        Should take in an item as a parameter. This is called when it is necessary for the directive to uniquely
+        identify an item. <code>key-fn="vm.getId(item)"</code>
+    </tr>
+    <tr uxd-api-property name="total" type="function" binding="variable" required="true">
+        Should return the total count of items. This is used for the Select All function. <code>total="vm.totalItems"</code>
+    </tr>
+</uxd-api-properties>
 
 <p>
     All HTML elements that need to be displayed in the toolbar when list is not in selection mode are enclosed in <code>div .disp</code>.
@@ -60,41 +33,18 @@
     which can also trigger the selection mode.The <code>multiple-select-action</code> can have following attributes:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">name</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>The name of the action.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">action</td>
-                <td>function</td>
-                <td>variable</td>
-                <td>This is called when the user confirms they want to proceed with the action.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">type</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>Used to style the action button. Values that can be given here are <code>primary</code>, <code>accent</code>,
-                    <code>secondary</code> and <code>warning</code>.</td>
-                <td>false</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string" binding="literal" required="true">
+        The name of the action.
+    </tr>
+    <tr uxd-api-property name="action" type="function" binding="variable" required="true">
+        This is called when the user confirms they want to proceed with the action.
+    </tr>
+    <tr uxd-api-property name="type" type="string" binding="literal" required="true">
+        Used to style the action button. Values that can be given here are <code>primary</code>, <code>accent</code>,
+        <code>secondary</code> and <code>warning</code>.
+    </tr>
+</uxd-api-properties>
 
 <p>
     The <code>div .reverse-disp</code> can have elements <code>display-select-options</code> and <code>display-cancel-option</code>.
@@ -121,63 +71,29 @@
     following properties on the <code>multipleSelectProvider</code>:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">cancelText</td>
-                <td>string</td>
-                <td>Displayed beside the "x" when in selection mode. Default : "Cancel"</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">selectItemsText</td>
-                <td>string</td>
-                <td>Displayed when no items are selected, should encourage user to select items. Default : "Select Items or"</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">selectedItemsText</td>
-                <td>string</td>
-                <td>Displayed when items are selected. Default : "Selected"</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">selectedItemsUnitText</td>
-                <td>string</td>
-                <td>Displayed beside the item count when more than one item is selected. Default : "Items."</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">selectedItemUnitText</td>
-                <td>string</td>
-                <td>Displayed beside the item count when a single item is selected. Default : "Item."</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">selectAllText</td>
-                <td>string</td>
-                <td>Displayed in the link for selecting all. Default : "Select All"</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">selectNoneText</td>
-                <td>string</td>
-                <td>Displayed in the link for selecting none. Default : "Select None"</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">selectionInvalidText</td>
-                <td>string</td>
-                <td>Displayed when the selection becomes invalid. Default: "This selection is no longer valid"</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="cancelText" type="string" defaultValue="Cancel">
+        Displayed beside the "x" when in selection mode.
+    </tr>
+    <tr uxd-api-property name="selectItemsText" type="string" defaultValue="Select Items or">
+        Displayed when no items are selected, should encourage user to select items.
+    </tr>
+    <tr uxd-api-property name="selectedItemsText" type="string" defaultValue="Selected">
+        Displayed when items are selected.
+    </tr>
+    <tr uxd-api-property name="selectedItemsUnitText" type="string" defaultValue="Items.">
+        Displayed beside the item count when more than one item is selected.
+    </tr>
+    <tr uxd-api-property name="selectedItemUnitText" type="string" defaultValue="Item.">
+        Displayed beside the item count when a single item is selected.
+    </tr>
+    <tr uxd-api-property name="selectAllText" type="string" defaultValue="Select All">
+        Displayed in the link for selecting all.
+    </tr>
+    <tr uxd-api-property name="selectNoneText" type="string" defaultValue="Select None">
+        Displayed in the link for selecting none.
+    </tr>
+    <tr uxd-api-property name="selectionInvalidText" type="string" defaultValue="This selection is no longer valid">
+        Displayed when the selection becomes invalid.
+    </tr>
+</uxd-api-properties>

@@ -24,35 +24,14 @@
 
 <p>The following attributes are available to configure the behavior:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">on-reorder</td>
-                <td>function</td>
-                <td>variable</td>
-                <td>This defines a function to be called when the order of the chart changes at any stage. This function should
-                    accept one argument which will contain the updated model.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">on-reorder-complete</td>
-                <td>function</td>
-                <td>variable</td>
-                <td>This defines a function to be called when the user has finished dragging or reordering the rows. This function
-                    should accept one argument which will contain the updated model.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="on-reorder" type="function" binding="variable">
+        	This defines a function to be called when the order of the chart changes at any stage. This function should accept one argument which will contain the updated model.
+    </tr>
+    <tr uxd-api-property name="on-reorder-complete" type="function" binding="variable">
+        	This defines a function to be called when the user has finished dragging or reordering the rows. This function should accept one argument which will contain the updated model.
+    </tr>
+</uxd-api-properties>
 
 <h4 id="table-data">Table Data</h4>
 
@@ -78,28 +57,17 @@
     specific attributes to them. The following attributes can be added to elements to give them reorder actions:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td class="attribute">reorder-up</td>
-                <td>When the element with this attribute is clicked the row will be moved up one position.</td>
-            </tr>
-            <tr>
-                <td class="attribute">reorder-drag</td>
-                <td>The element with this attribute can be used to drag a row to a different position in the list.</td>
-            </tr>
-            <tr>
-                <td class="attribute">reorder-down</td>
-                <td>When the element with this attribute is clicked the row will be moved down one position.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="reorder-up">
+        When the element with this attribute is clicked the row will be moved up one position.
+    </tr>
+    <tr uxd-api-property name="reorder-drag">
+        The element with this attribute can be used to drag a row to a different position in the list.
+    </tr>
+    <tr uxd-api-property name="reorder-down">
+        When the element with this attribute is clicked the row will be moved down one position.
+    </tr>
+</uxd-api-properties>
 
 <p>In the example above we added the following as our reordering controls:</p>
 

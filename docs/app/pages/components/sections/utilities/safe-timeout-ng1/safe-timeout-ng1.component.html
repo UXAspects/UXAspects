@@ -12,22 +12,14 @@
 
 <p>The returned instance has two methods.</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td class="attribute">timeout</td>
-            <td>Two parameters, a function to execute and an optional delay in milliseconds. Returns a timer object.</td>
-        </tr>
-        <tr>
-            <td class="attribute">cancel</td>
-            <td>One parameter, a timer object to be cancelled.</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="timeout">
+        Two parameters, a function to execute and an optional delay in milliseconds. Returns a timer object.
+    </tr>
+    <tr uxd-api-property name="cancel">
+        One parameter, a timer object to be cancelled.
+    </tr>
+</uxd-api-properties>
 
 <p>The signature of these methods is the same as that on the <code>$timeout</code> service. The example below shows how to defer
     execution using the safeTimeout service.</p>
