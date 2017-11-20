@@ -43,7 +43,7 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.html$/,
-                use: 'raw-loader',
+                use: 'html-loader',
                 exclude: /(directives|templates|snippets)/
             },
             {
@@ -76,13 +76,13 @@ module.exports = {
             {
                 test: /\.less$/,
                 include: [join(project_dir, 'docs', 'app'), join(project_dir, 'src', 'components')],
-                use: ['raw-loader', 'less-loader']
+                use: ['to-string-loader', 'css-loader', 'less-loader']
             },
             {
                 test: /\.less$/,
                 exclude: [join(project_dir, 'docs', 'app'), join(project_dir, 'src', 'components')],
                 use: ExtractTextPlugin.extract({
-                    use: 'css-loader!less-loader'
+                    use: ['css-loader', 'less-loader']
                 })
             },
             {
