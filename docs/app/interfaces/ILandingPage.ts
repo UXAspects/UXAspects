@@ -5,6 +5,8 @@ export interface ILandingPage {
         title: string;
         slogan: string;
         action: ILink;
+        version: string;
+        changelog: string;
     };
     overview: {
         title: string;

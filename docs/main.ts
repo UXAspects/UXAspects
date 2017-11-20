@@ -4,21 +4,22 @@
 import './styles.less';
 
 /*
-  Import Angular 4+ modules
+  Import Angular modules
 */
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
-
 import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
 /*
   Configure Settings for Specific Build Modes
 */
-if (process.env.ENV === 'production') {
+
+if (environment.production) {
   enableProdMode();
 }
 
 /*
-  Bootstrap Angular 4+
+  Bootstrap Angular
 */
 platformBrowserDynamic().bootstrapModule(AppModule);
