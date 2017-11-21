@@ -4,6 +4,8 @@ export default function NotificationService() {
     vm.notifications = [];
     vm.notificationsVisible = true;
 
+    vm.visibleNotifications = [];
+
     vm.direction = 'append';
 
     /*
@@ -119,6 +121,7 @@ export default function NotificationService() {
 
         var notification = document.createElement('div');
         notification.className = 'notification ' + (options.customClass ? options.customClass : '');
+        notification.style.position = 'absolute';
 
         //create close button
         var closeBtn = document.createElement('div');
@@ -216,7 +219,36 @@ export default function NotificationService() {
             }, options.duration);
         }
 
+        // keep an internal list of visible notifications
+        if (this.direction === 'append') {
+            this.visibleNotifications.push(notification);
+        } else {
+            this.visibleNotifications.unshift(notification);
+        }
+
+        // update the notification positions
+        updateNotificationPositions.call(this);
+
         return notification;
+    }
+
+    function updateNotificationPositions() {
+        var yPosition = 0;
+        var spacing = 10;
+
+        for (var idx = 0; idx < this.visibleNotifications.length; idx++) {
+            // get the notification in question
+            var notification = this.visibleNotifications[idx];
+            
+            // get the size of the notification
+            var height = notification.offsetHeight;
+
+            // set the position of the notification
+            notification.style.top = yPosition + 'px';
+
+            // update the y position
+            yPosition += (height + spacing);
+        }
     }
 
     function dismissNotification(notification) {
@@ -224,10 +256,15 @@ export default function NotificationService() {
         //apply fade out animation
         notification.className = 'notification fadeOutNotification';
 
+        // remove the notification from the list of visible notifications
+        this.visibleNotifications = this.visibleNotifications.filter(item => item !== notification);
+
         //delay for 700ms (animation length) - then remove dom element
-        setTimeout(function() {
+        setTimeout(() => {
             //ensure element still exists before trying to remove
             if (notification && notification.parentElement) notification.parentElement.removeChild(notification);
+
+            updateNotificationPositions.call(this);
         }, 700);
     }
 
