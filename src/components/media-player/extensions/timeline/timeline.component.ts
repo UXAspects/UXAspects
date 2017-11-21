@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/fromEvent';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -14,7 +15,7 @@ import 'rxjs/add/observable/fromEvent';
         '[class.quiet]': 'quietMode || fullscreen'
     }
 })
-export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, AfterViewInit {
+export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('progressThumb') thumb: ElementRef;
     @ViewChild('timeline') timelineRef: ElementRef;
@@ -26,6 +27,7 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
     mouseDown: boolean = false;
     quietMode: boolean = false;
     fullscreen: boolean = false;
+    private _mouseEventSubscription: Subscription;
 
     scrub = {
         visible: false,
@@ -62,9 +64,13 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
         let mousemove$ = Observable.fromEvent(document, 'mousemove');
         let mouseup$ = Observable.fromEvent(document, 'mouseup');
 
-        mousedown$.switchMap(event => mousemove$.takeUntil(mouseup$)).subscribe(event => {
+        this._mouseEventSubscription = mousedown$.switchMap(event => mousemove$.takeUntil(mouseup$)).subscribe(event => {
             this.scrub.visible = false;
         });
+    }
+
+    ngOnDestroy() {
+        this._mouseEventSubscription.unsubscribe();
     }
 
     updateScrub(event?: MouseEvent): void {

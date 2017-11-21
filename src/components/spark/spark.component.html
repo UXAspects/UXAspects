@@ -11,7 +11,7 @@
         </div>
 
         <div class="ux-spark ux-inline" [style.height.px]="barHeight" [style.backgroundColor]="trackColor" [tooltip]="tooltip">
-            <div class="ux-spark-bar" *ngFor="let line of value; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
+            <div class="ux-spark-bar" *ngFor="let line of values; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
         </div>
 
         <div class="ux-spark-bottom-container" *ngIf="bottomLeftLabel || bottomRightLabel">
