@@ -1,0 +1,63 @@
+<div class="flot-chart">
+    <ux-flot-ng1 [dataset]="series" [options]="options"></ux-flot-ng1>
+</div>
+
+<hr>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="data" type="number or array" required="true">
+        Coordinates in the Live chart.
+    </tr>
+    <tr uxd-api-property name="series" type="string" required="true">
+        Defines the chart type and its layout. Values include 'lines', 'bar' and 'points'.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>series</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="lineWidth" type="number">
+        Defines the thickness of the line chart.
+    </tr>
+    <tr uxd-api-property name="show" type="boolean" required="true">
+        If set to true displays the chart.
+    </tr>
+    <tr uxd-api-property name="fillColor" type="array">
+        Specifies the colors of the fill. For Line chart this produces area graphs. If more than one color is specified this will produce a gradient.
+    </tr>
+    <tr uxd-api-property name="fill" type="boolean or number">
+        If set to true fills the chart with colors in the fillColors property. A number between 0 and 1 defines the opacity of the fill.
+    </tr>
+    <tr uxd-api-property name="shadowSize" type="number">
+        Default size of shadows in pixels. Set it to 0 to remove shadows.
+    </tr>
+</uxd-api-properties>
+
+<p>Live Charts are defined by the <code>flot</code> directive. The dataset and options attribute define the live chart data and options respectively.
+Dataset and Options are defined within the LiveChartCtrl.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
+    </tab>
+    
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="markings" type="array">
+        Markings used to draw simple lines and rectangular areas in the background of the plot. It can be an array of ranges in the form of &#123; xaxis: &#123; from, to &#125;, yaxis: &#123; from, to &#125; &#125; or a function(above example) that returns this range.
+    </tr>
+</uxd-api-properties>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>
+</blockquote>
+
+<p>To support users of assistive technologies, provide a text summary of the chart with an <code>aria-label</code> or <code>span</code> hidden with the <code>sr-only</code> class. For live charts the most appropriate information to convey will vary depending on the chart’s purpose, but may typically be the highest or most recent data point.</p>
+
+<blockquote>
+    <p><strong>Note</strong>: To upgrade this component to use in an Angular application use: <code>upgradeAdapter.upgradeNg1Component('uxFlotNg1')</code></p>
+</blockquote>

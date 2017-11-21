@@ -84,7 +84,7 @@ export class SelectTestPageComponent implements OnInit {
 
     loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
         // Return a promise using setTimeout to simulate an HTTP request.
-        let promise = new Promise((resolve, reject) => {
+        let promise = new Promise<any[]>((resolve, reject) => {
             setTimeout(() => {
                 const pageStart = pageNum * pageSize;
                 const newItems = this.selectedDataSet()

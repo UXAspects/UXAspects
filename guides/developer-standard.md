@@ -304,7 +304,7 @@ Each snippet should identify the language attribute as either `html`, `css` or `
 
 ### CodePen & Plunker Support
 
-Where possible, a CodePen example (for Angular 1 components) or a Plunker example (for Angular 4+ components) should be provided. The code snippets displayed in the section should also be used to produce the example where possible.
+Where possible, a CodePen example (for Angular 1 components) or a Plunker example (for Angular components) should be provided. The code snippets displayed in the section should also be used to produce the example where possible.
 
 #### CodePen
 

@@ -1,0 +1,42 @@
+<div class="flot-chart">
+    <ux-flot-ng1 [dataset]="data" [options]="options"></ux-flot-ng1>
+</div>
+
+<hr>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="label" type="string">
+        Label name specified in the legend.
+    </tr>
+    <tr uxd-api-property name="data" type="number or array" required="true">
+        An array of coordinates in the chart e.g. [ [x1, y1], [x2, y2], ... ]
+    </tr>
+    <tr uxd-api-property name="forecastData" type="number or array">
+        An array of coordinates defining the forecast or future data.
+    </tr>
+</uxd-api-properties>
+
+<p>Line Charts are defined by the <code>flot</code> directive. The dataset and options attribute define the line chart data and options respectively.
+Dataset and Options are defined within the LineChartCtrl.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
+    </tab>
+    
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>
+</blockquote>
+
+<p>To convey chart information to users with assistive technologies, you can include a text version of the data. Use the sr-only class to make the text hidden but visible to screen readers, and give the container a tabindex attribute so it can be reached with the keyboard, and place it near the chart.</p>
+
+<uxd-snippet language="html" [content]="snippets.compiled.accessibilityHtml"></uxd-snippet>
+
+<blockquote>
+    <p><strong>Note</strong>: To upgrade this component to use in an Angular application use: <code>upgradeAdapter.upgradeNg1Component('uxFlotNg1')</code></p>
+</blockquote>

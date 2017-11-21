@@ -18,4 +18,5 @@ e2e/dist/
 e2e/html/
 e2e/xml/
 .ng_build/
+.ng_pkg_build/
 target/

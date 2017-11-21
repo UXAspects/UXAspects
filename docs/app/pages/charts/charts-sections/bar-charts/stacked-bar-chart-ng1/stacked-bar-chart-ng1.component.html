@@ -1,0 +1,100 @@
+<div class="flot-chart-stack">
+    <ux-flot-ng1 [dataset]="data" [options]="options"></ux-flot-ng1>
+</div>
+
+<hr>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="label" type="string">
+        Label name specified in the legend.
+    </tr>
+    <tr uxd-api-property name="data" type="number or array" required="true">
+        An array of coordinates defining the data, e.g. [ [x1, y1], [x2, y2], ... ]
+    </tr>
+    <tr uxd-api-property name="color" type="color">
+        Defines the color of each section.
+    </tr>
+    <tr uxd-api-property name="highlightColor" type="color">
+        Default color of the translucent overlay used to highlight on mouse hover.
+    </tr>
+    <tr uxd-api-property name="forecastFillColor" type="color">
+        Defines the fill color for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastColor" type="color">
+        Defines the stroke color for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastHighLightColor" type="color">
+        Default color of the translucent overlay used to highlight on mouse hover for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastDashStyle" type="array" defaultValue="[5]">
+        Defines a list of numbers that specifies distances to alternately draw a line and a gap (in coordinate space units). Similar to this property in HTML5 Canvas.
+    </tr>
+    <tr uxd-api-property name="forecastData" type="number or array">
+        An array of coordinates defining the forecast or future data, e.g. [ [x1, y1], [x2, y2], ... ]
+    </tr>
+</uxd-api-properties>
+
+<p>Stacked Bar Charts are defined by the <code>flot</code> directive. The dataset and options attributes
+    define the chart data and options respectively.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<div class="demo-attributes table-responsive">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Property</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Optional</th>
+            </tr>
+            <tr>
+                <td class="attribute">stack</td>
+                <td>boolean</td>
+                <td>If set to true shows the chart in stacked form.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<blockquote>
+    <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>
+</blockquote>
+
+<p>Stacked bar charts are an enhanced version of bar charts. For more information on options, refer to the bar chart documentation.</p>
+
+<p>To convey chart information to users with assistive technologies, you can include a text version of the data. Use the
+    <code
+       >sr-only</code> class to make the text hidden but visible to screen readers, and give the container a <code>tabindex</code>        attribute so it can be reached with the keyboard, and place it near the chart.</p>
+
+<uxd-snippet language="html" [content]="snippets.compiled.accessibilityHtml"></uxd-snippet>
+
+<p>The legends are custom-styled in this example. To place the legends separately from the chart, you can define a <code>div</code>    with an id and specify this in legend options. The <code>div</code> is then placed below the
+    HTML of the stacked bar chart. The styles and options applied here are:</p>
+
+<tabset>
+    <tab heading="Legend HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.legendHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="Legend CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.legendCss"></uxd-snippet>
+    </tab>
+
+    <tab heading="Legend Options">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.legendJs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+    <p><strong>Note</strong>: To upgrade this component to use in an Angular application use: <code>upgradeAdapter.upgradeNg1Component('uxFlotNg1')</code></p>
+</blockquote>

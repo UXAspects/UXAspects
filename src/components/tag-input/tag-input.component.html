@@ -8,7 +8,7 @@
         (focus)="selectTagAt(i)">
         
         <ng-container [ngTemplateOutlet]="tagTemplate"
-            [ngOutletContext]="{tag: tag, index: i, disabled: disabled, api: tagApi}">
+            [ngTemplateOutletContext]="{tag: tag, index: i, disabled: disabled, api: tagApi}">
         </ng-container>
 
     </li>

@@ -1,0 +1,217 @@
+<div class="flot-chart-timeline">
+  <ux-flot-ng1 [dataset]="timelineData" [options]="timelineOptions"></ux-flot-ng1>
+</div>
+
+<div class="flot-chart">
+  <ux-flot-ng1 [dataset]="detailedData" [options]="detailedOptions"></ux-flot-ng1>
+</div>
+
+<hr>
+
+<p>Timeline Charts are defined by the <code>flot</code> directive. The dataset and options attributes define the chart data
+  and options respectively. Dataset and Options are defined within the TimelineChartCtrl.</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
+  </tab>
+
+  <tab heading="Javascript">
+    <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+  </tab>
+</tabset>
+
+<p>The <code>lineDataService</code> can be used to add zero-points to the data. This makes the y coordinates as zero when there
+  is no data within a specified offset and the graph will lie at the x-axis within this interval.</p>
+
+<p>The <code>lineDataService</code> contains the method <code>addZeroPoints</code> which should be called to add the zero points
+  to the data. This method accepts two parameters:</p>
+
+<uxd-api-properties>
+  <tr uxd-api-property name="datapoints" type="number or array" required="true">
+    Returns data points with the zero points added. The returned data is an array of coordinates.
+  </tr>
+  <tr uxd-api-property name="offset" type="number" defaultValue="1">
+    The zero points are added if there is an interval between the coordinates greater than the offset value passed. 
+  </tr>
+</uxd-api-properties>
+
+<p>An example of how the <code>lineDataService</code> can be used in the controller is shown below:</p>
+
+<uxd-snippet language="javascript" [content]="snippets.compiled.serviceJs"></uxd-snippet>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="data" type="number or array" required="true">
+      It is an array of coordinates in Timeline Chart. E.g. [ [x1, y1], [x2, y2], ... ]
+    </tr>
+    <tr uxd-api-property name="lines" type="object">
+      Defines the parameters of the axis line.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>lines.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean" required="true">
+      If set to true displays the chart.
+    </tr>
+    <tr uxd-api-property name="fill" type="boolean or number">
+      If set to true fills the chart with colors in the fillColors property. A number between 0 and 1 defines the opacity of the fill.
+    </tr>
+    <tr uxd-api-property name="fillColor" type="array(colors)">
+      Specifies the colors of the fill. If more than one color is specified this will produce a gradient.
+    </tr>
+    <tr uxd-api-property name="lineWidth" type="number">
+      Defines the thickness of the line or outline in pixels.
+    </tr>
+    <tr uxd-api-property name="shadowSize" type="number">
+      Default size of shadows in pixels. Set it to 0 to remove shadows.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="xaxes" type="array">
+    	Defines if more than one x-axis is used.
+    </tr>
+    <tr uxd-api-property name="yaxes" type="array">
+      Defines if more than one y-axis is used.
+    </tr>
+    <tr uxd-api-property name="timeline" type="array">
+    	Helps configure the selection area on the chart.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>xaxes.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="mode" type="null or time">
+      Defines how data is represented on the x-axes.
+    </tr>
+    <tr uxd-api-property name="min" type="number">
+      Defines the minimum value of the x-axis.
+    </tr>
+    <tr uxd-api-property name="max" type="number">
+      Defines the maximum value of the x-axis.
+    </tr>
+    <tr uxd-api-property name="tickColor" type="null or string(color)">
+      Specifies the colors of the ticks in the x-axis.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>yaxes.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean">
+      If set to true displays the axis.
+    </tr>
+    <tr uxd-api-property name="min" type="number">
+      Defines the minimum value of the y-axis.
+    </tr>
+    <tr uxd-api-property name="max" type="number">
+      Defines the maximum value of the y-axis.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>timeline.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="color" type="string">
+      Specifies the color of the selected area.
+    </tr>
+    <tr uxd-api-property name="start" type="number">
+      Defines the position on the x axis that the selection should initially start.
+    </tr>
+    <tr uxd-api-property name="end" type="number">
+      Defines the position on the x axis that the selection should initially end.
+    </tr>
+    <tr uxd-api-property name="keyboardNavigation" type="boolean">
+      Defines if arrow keys are allowed to move selected area.
+    </tr>
+    <tr uxd-api-property name="enabled" type="boolean">
+      If set to true this will enable selection on the grid.
+    </tr>
+    <tr uxd-api-property name="zoom" type="array">
+      Helps configure chart zooming.
+    </tr>
+    <tr uxd-api-property name="dragHandles" type="array">
+      This helps configure the handles on either end of the selection that the user can drag.
+    </tr>
+    <tr uxd-api-property name="callback" type="functional">
+      This will be called whenever the selected range changes. It should accept one argument that will be an object containing two values.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>zoom.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="enabled" type="boolean">
+      Defines if chart should zoom when the range is changed.
+    </tr>
+    <tr uxd-api-property name="minimumRange" type="number">
+      Defines the smallest range the chart will allow to be selected.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>dragHandles.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="width" type="number" required="true">
+      Defines the width of the handles.
+    </tr>
+    <tr uxd-api-property name="color" type="string" required="true">
+      Defines the color of the handles.
+    </tr>
+    <tr uxd-api-property name="tooltips" type="array" required="true">
+      Helps configure tooltips on the selection region.
+    </tr>
+    <tr uxd-api-property name="tooltipFormatter" type="function">
+      Use this function to define the tooltip text. It should accept one parameter which will be the value on the x axis and should return a string.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>tooltips.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="enabled" type="boolean" required="true">
+      If set to true shows the tooltip on the selection region based on the onHover, onDrag and onDrag options.
+    </tr>
+    <tr uxd-api-property name="onHover" type="boolean">
+      If set to true the tooltip will show when the cursor is over the selection region.
+    </tr>
+    <tr uxd-api-property name="onDrag" type="boolean">
+    	If set to true the tooltip will show when the selection region is being dragged/resized.
+    </tr>
+    <tr uxd-api-property name="onDragEnd" type="boolean">
+      If set to true the tooltip will show when the chart has finished being dragged/resized but the mouse is still pressed.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>callback.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="start" type="number" required="true">
+      The position on the x-axis where the selected area starts.
+    </tr>
+    <tr uxd-api-property name="end" type="number" required="true">
+      The position on the x-axis where the selected area ends.
+    </tr>
+</uxd-api-properties>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>
+</blockquote>
+
+<p>It may be desirable to rescale the Y axis on the detailed chart to show a more appropriate scale based on the new range of
+  data being displayed. The following function has been designed to work with the above sample code and the function should
+  be called after the chart range has been changed.</p>
+
+<uxd-snippet language="javascript" [content]="snippets.compiled.rescaleJs"></uxd-snippet>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a routerLink="/components/facets">Facets</a> page to see an example of Y axis rescaling.
+    This is seen in the Line Chart Example with Facet Panel.</p>
+</blockquote>
+
+<blockquote>
+    <p><strong>Note</strong>: To upgrade this component to use in an Angular application use: <code>upgradeAdapter.upgradeNg1Component('uxFlotNg1')</code></p>
+</blockquote>

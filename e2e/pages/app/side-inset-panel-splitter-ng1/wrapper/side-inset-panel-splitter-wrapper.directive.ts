@@ -1,3 +1,7 @@
+import { Directive, ElementRef, Injector } from '@angular/core';
+import { UpgradeComponent } from '@angular/upgrade/static';
+import * as angular from 'angular';
+
 angular.module('app').directive('uxdSideInsetPanelSplitterWrapper', () => {
     return {
         restrict: 'E',
@@ -9,3 +13,13 @@ angular.module('app').directive('uxdSideInsetPanelSplitterWrapper', () => {
         controllerAs: 'vm'
     };
 });
+
+@Directive({
+    selector: 'uxd-side-inset-panel-splitter-wrapper'
+})
+export class SideInsetPanelSplitterComponent extends UpgradeComponent {
+
+    constructor(elementRef: ElementRef, injector: Injector) {
+        super('uxdSideInsetPanelSplitterWrapper', elementRef, injector);
+    }
+}

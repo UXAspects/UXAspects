@@ -19,7 +19,7 @@ npm install @ux-aspects/ux-aspects --save
 ```bash
 npm install typescript --save-dev
 ```
-3. Install [Angular 4](https://angular.io/) and other dependencies:
+3. Install [Angular](https://angular.io/) and other dependencies:
 ```bash
 npm install @angular/common @angular/compiler @angular/compiler-cli @angular/core @angular/forms @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/platform-server @angular/router ngx-bootstrap chart.js ng2-charts @types/chart.js core-js zone.js rxjs --save
 ```

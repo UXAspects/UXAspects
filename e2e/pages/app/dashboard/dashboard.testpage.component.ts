@@ -10,7 +10,7 @@ import 'chance';
 export class DashboardTestPageComponent {
 
     // configure the directive data
-    lineChartData: Chart.ChartData = [{
+    lineChartData: Chart.ChartDataSets[] = [{
         data: [],
         borderWidth: 2,
         fill: false
@@ -90,12 +90,15 @@ export class DashboardTestPageComponent {
 
             this.lineChartLabels.push(label);
 
-            this.lineChartData[0].data.push({
+            let dataset1 = this.lineChartData[0].data as Chart.ChartPoint[];
+            let dataset2 = this.lineChartData[1].data as Chart.ChartPoint[];
+
+            dataset1.push({
                 x: idx,
                 y: chance.integer({ min: 280, max: 460 })
             });
 
-            this.lineChartData[1].data.push({
+            dataset2.push({
                 x: idx,
                 y: chance.integer({ min: 50, max: 250 })
             });

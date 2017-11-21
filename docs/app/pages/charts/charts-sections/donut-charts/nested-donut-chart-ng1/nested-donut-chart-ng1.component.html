@@ -1,0 +1,110 @@
+<div class="nested-donut-example">
+    <div class="nested-donut-text">
+        <div>
+            <p class="documents"><span>23,456</span><span> documents</span></p>
+            <p class="reviewed"><span>19,876</span><span> reviewed</span></p>
+            <p class="produced"><span>11,123</span><span> produced</span></p>
+        </div>
+    </div>
+    <ux-nested-donut-ng1 [dataset]="data" [options]="options"></ux-nested-donut-ng1>
+</div>
+<hr>
+
+<p>The available options are:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="size" type="number" defaultValue="150">
+        Defines the diameter of the chart. This will also accept a percentage value in the form of a string, e.g. "50%".
+    </tr>
+    <tr uxd-api-property name="donutWidth" type="number" defaultValue="4">
+        Defines the width of each ring.
+    </tr>
+    <tr uxd-api-property name="donutSpacing" type="number" defaultValue="4">
+        Defines the spacing between each ring.
+    </tr>
+    <tr uxd-api-property name="hoverAnimation" type="boolean" defaultValue="true">
+        Defines whether or not ring should show a hover effect when the mouse is over it.
+    </tr>
+    <tr uxd-api-property name="onHover" type="function">
+        Defines a function to be called when a ring is hovered. The function should accept one argument that will contain the data corresponding to the hovered ring.
+    </tr>
+    <tr uxd-api-property name="onClick" type="function">
+        Defines a function to be called when a ring is clicked. The function should accept one argument that will contain the data corresponding to the clicked ring.
+    </tr>
+    <tr uxd-api-property name="centerLabel" type="object">
+        Defines the content and appearance of a center label if one is defined.
+    </tr>
+    <tr uxd-api-property name="tooltip" type="object">
+        Defines tooltip options.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>centerLabel.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean">
+        Whether or not the chart should show a center label.
+    </tr>
+    <tr uxd-api-property name="text" type="string">
+        Defines the content of the center label.
+    </tr>
+    <tr uxd-api-property name="color" type="color">
+        Defines the color of the center label text.
+    </tr>
+    <tr uxd-api-property name="font" type="string">
+        Defines the font family of the center label.
+    </tr>
+    <tr uxd-api-property name="fontSize" type="number">
+        Defines the font size of the center label. Take into account the size of the chart when considering a font size to ensure text is suitably displayed within the chart.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>tooltip.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean" defaultValue="true">
+        Defines whether a tooltip should show when a ring is hovered.
+    </tr>
+    <tr uxd-api-property name="content" type="function" required="true">
+        Defines the content of the tooltip. The function should accept one argument which will contain the data corresponding to the ring that was hovered. The function should return a HTML string.
+    </tr>
+    <tr uxd-api-property name="shifts" type="object">
+        Defines how the tooltip should be offset from the mouse position.
+    </tr>
+</uxd-api-properties>
+
+<p>The following attributes should be defined within <code>shifts.</code></p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="x" type="number" defaultValue="0">
+        Defines how many pixels left or right the tooltip should be positioned from the mouse position.
+    </tr>
+    <tr uxd-api-property name="x" type="number" defaultValue="0">
+        Defines how many pixels up or down the tooltip should be positioned from the mouse.
+    </tr>
+</uxd-api-properties>
+
+<p>Nested Donut Charts are defined by the <code>nested-donut</code> directive. The dataset and options
+    attributes define the nested donut chart data and options respectively. Dataset and Options are defined within the NestedDonutChartCtrl.</p>
+
+<blockquote>
+    <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>
+</blockquote>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.chartCss"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+    <p><strong>Note</strong>: To upgrade this component to use in an Angular application use: <code>upgradeAdapter.upgradeNg1Component('uxNestedDonutNg1')</code></p>
+</blockquote>

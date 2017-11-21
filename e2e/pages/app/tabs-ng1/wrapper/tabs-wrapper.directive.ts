@@ -1,91 +1,105 @@
+import { Directive, ElementRef, Injector } from '@angular/core';
+import { UpgradeComponent } from '@angular/upgrade/static';
+import * as angular from 'angular';
+
 angular.module('app').directive('uxdTabsWrapper', () => {
-    return {
-        restrict: 'E',
-        template: require('./tabs-wrapper.directive.html'),
-        controller: 'TabsCtrl as vm',
-        scope: true
-    };
+  return {
+    restrict: 'E',
+    template: require('./tabs-wrapper.directive.html'),
+    controller: 'TabsCtrl as vm',
+    scope: true
+  };
 });
 
 angular.module('app').controller('TabsCtrl', ['$scope', TabsCtrl]);
 
 function TabsCtrl($scope: angular.IScope) {
 
-    var vm = this;
+  var vm = this;
 
-    vm.$onDestroy = function() {
-      $scope.$destroy();
-    };
+  vm.$onDestroy = function () {
+    $scope.$destroy();
+  };
 
-    // load tab templates as angular 1 templates
-    require('!ng-cache-loader?name=tab-demo-template.html!./tab.html');
+  // load tab templates as angular 1 templates
+  require('!ng-cache-loader?name=tab-demo-template.html!./tab.html');
 
-    vm.tabs = [{
-      title: 'Schedule',
-      icon: 'hpe-schedule',
-      content: 'tab-demo-template.html'
-    }, {
-      title: 'Protection',
-      icon: 'hpe-shield',
-      content: 'tab-demo-template.html'
-    }, {
-      title: 'Solution',
-      icon: 'hpe-information',
-      content: 'tab-demo-template.html'
-    }, {
-      title: 'Analytics',
-      icon: 'hpe-analytics',
-      content: 'tab-demo-template.html'
-    }, ];
+  vm.tabs = [{
+    title: 'Schedule',
+    icon: 'hpe-schedule',
+    content: 'tab-demo-template.html'
+  }, {
+    title: 'Protection',
+    icon: 'hpe-shield',
+    content: 'tab-demo-template.html'
+  }, {
+    title: 'Solution',
+    icon: 'hpe-information',
+    content: 'tab-demo-template.html'
+  }, {
+    title: 'Analytics',
+    icon: 'hpe-analytics',
+    content: 'tab-demo-template.html'
+  }];
 
-    vm.dynamicTabs = [{
-      title: 'Schedule',
-      icon: 'hpe-schedule',
-      content: 'tab-demo-template.html'
-    }, {
-      title: 'Protection',
-      icon: 'hpe-shield',
-      content: 'tab-demo-template.html'
-    }, {
-      title: 'Solution',
-      icon: 'hpe-information',
-      content: 'tab-demo-template.html'
-    }, {
-      title: 'Analytics',
-      icon: 'hpe-analytics',
-      content: 'tab-demo-template.html'
-    }];
+  vm.dynamicTabs = [{
+    title: 'Schedule',
+    icon: 'hpe-schedule',
+    content: 'tab-demo-template.html'
+  }, {
+    title: 'Protection',
+    icon: 'hpe-shield',
+    content: 'tab-demo-template.html'
+  }, {
+    title: 'Solution',
+    icon: 'hpe-information',
+    content: 'tab-demo-template.html'
+  }, {
+    title: 'Analytics',
+    icon: 'hpe-analytics',
+    content: 'tab-demo-template.html'
+  }];
 
-    vm.inlineDropDownOptions = ['Security', 'Progress', 'Actions'];
+  vm.inlineDropDownOptions = ['Security', 'Progress', 'Actions'];
 
-    let dropDownOptionTabs = [{
-      title: 'Security',
-      icon: 'hpe-secure',
-      content: 'tab-demo-template.html'
-    }, {
-      title: 'Progress',
-      icon: 'hpe-optimization',
-      content: 'tab-demo-template.html'
-    }, {
-      title: 'Actions',
-      icon: 'hpe-actions',
-      content: 'tab-demo-template.html'
-    }];
+  let dropDownOptionTabs = [{
+    title: 'Security',
+    icon: 'hpe-secure',
+    content: 'tab-demo-template.html'
+  }, {
+    title: 'Progress',
+    icon: 'hpe-optimization',
+    content: 'tab-demo-template.html'
+  }, {
+    title: 'Actions',
+    icon: 'hpe-actions',
+    content: 'tab-demo-template.html'
+  }];
 
-    vm.dropClick = function (index: number) {
+  vm.dropClick = function (index: number) {
 
-      if (vm.dynamicTabs.indexOf(dropDownOptionTabs[index]) === -1) {
-        vm.dynamicTabs.push(dropDownOptionTabs[index]);
-      }
-    };
+    if (vm.dynamicTabs.indexOf(dropDownOptionTabs[index]) === -1) {
+      vm.dynamicTabs.push(dropDownOptionTabs[index]);
+    }
+  };
 
-    vm.tabSelected = function (tabName: string) {
+  vm.tabSelected = function (tabName: string) {
 
-      let matchingTabs = vm.dynamicTabs.filter(function (tab: any) {
-        return tab.title === tabName;
-      });
+    let matchingTabs = vm.dynamicTabs.filter(function (tab: any) {
+      return tab.title === tabName;
+    });
 
-      return matchingTabs.length !== 0;
-    };
+    return matchingTabs.length !== 0;
+  };
 
+}
+
+@Directive({
+  selector: 'uxd-tabs-wrapper'
+})
+export class TabsComponent extends UpgradeComponent {
+
+  constructor(elementRef: ElementRef, injector: Injector) {
+    super('uxdTabsWrapper', elementRef, injector);
   }
+}
