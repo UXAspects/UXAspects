@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AppConfiguration {
@@ -32,10 +33,6 @@ export class AppConfiguration {
     }
 
     private getConfig() {
-        switch (process.env.ENV) {
-            case 'development':
-                return this._data['config.dev'];
-        }
-        return this._data['config'];
+        return environment.production ? this._data['config'] : this._data['config.dev'];
     }
 }

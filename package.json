@@ -12,7 +12,7 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
-    "start": "webpack-dev-server --config configs/webpack.docs.dev.config.js",
+    "start": "webpack-dev-server --config configs/webpack.dev.config.js",
     "serve:e2e": "lite-server -c=e2e/bs-config.e2e.json",
     "e2e": "concurrently \"npm run serve:e2e\" \"grunt protractor:e2e\" --kill-others --success first",
     "build:library": "ng-packagr -p ng-package.json"
