@@ -98,6 +98,9 @@ export class PlunkerService {
         }
 
         this.mainTs = this.mainTs.replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
+            .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
+            .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
+            .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
 
         let configJs = require('./templates/config_js.txt')
             .replace(MAPPINGS_PLACEHOLDER, mappings.join(',\n\t\t\t\t'));
