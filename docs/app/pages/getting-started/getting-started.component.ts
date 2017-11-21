@@ -3,7 +3,8 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
 
 @Component({
     selector: 'uxd-getting-started',
-    templateUrl: './getting-started.component.html'
+    templateUrl: './getting-started.component.html',
+    styleUrls: ['./getting-started.component.less']
 })
 export class GettingStartedPageComponent {
     
