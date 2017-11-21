@@ -234,9 +234,9 @@ export default function NotificationService() {
 
     function updateNotificationPositions() {
         var yPosition = 0;
-        var paddingBottom = 10;
+        var spacing = 10;
 
-        for (var idx = 0; idx < this.visibleNotifications.length; idx ++) {
+        for (var idx = 0; idx < this.visibleNotifications.length; idx++) {
             // get the notification in question
             var notification = this.visibleNotifications[idx];
             
@@ -247,7 +247,7 @@ export default function NotificationService() {
             notification.style.top = yPosition + 'px';
 
             // update the y position
-            yPosition += (height + paddingBottom);
+            yPosition += (height + spacing);
         }
     }
 
@@ -256,9 +256,8 @@ export default function NotificationService() {
         //apply fade out animation
         notification.className = 'notification fadeOutNotification';
 
-        this.visibleNotifications = this.visibleNotifications.filter(function(item) {
-            return item !== notification;
-        });
+        // remove the notification from the list of visible notifications
+        this.visibleNotifications = this.visibleNotifications.filter(item => item !== notification);
 
         //delay for 700ms (animation length) - then remove dom element
         setTimeout(() => {
