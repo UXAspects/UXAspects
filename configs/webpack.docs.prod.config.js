@@ -255,7 +255,6 @@ module.exports = {
         new NoEmitOnErrorsPlugin(),
 
         new UglifyJsPlugin({
-            test: /(main|polyfills|vendor).js$/i,
             extractComments: false,
             sourceMap: false,
             cache: false,

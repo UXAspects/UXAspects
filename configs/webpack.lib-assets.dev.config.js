@@ -1,5 +1,5 @@
 const { join } = require('path');
-const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const { ContextReplacementPlugin } = require('webpack');
 const project_dir = process.cwd();
 
 module.exports = {
@@ -27,7 +27,14 @@ module.exports = {
                 use: 'raw-loader'
             }, {
                 test: /\.ts$/,
-                use: '@ngtools/webpack'
+                use: [{
+                    loader: 'awesome-typescript-loader',
+                    options: {
+                        configFileName: join(project_dir, 'src', 'tsconfig-build.json')
+                    },
+                }, {
+                    loader: 'angular2-template-loader'
+                }]
             }, {
                 test: /\.less$/,
                 use: ['raw-loader', 'less-loader']
@@ -39,10 +46,9 @@ module.exports = {
     },
 
     plugins: [
-        new AngularCompilerPlugin({
-            tsConfigPath: join(project_dir, 'src', 'tsconfig-build.json'),
-            sourceMap: false,
-            skipCodeGeneration: true
-        }),
+        new ContextReplacementPlugin(
+            /(.+)?angular(\\|\/)core(.+)?/,
+            join(project_dir, 'docs')
+        ),
     ]
 };
