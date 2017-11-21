@@ -3,7 +3,6 @@ const { join } = require('path');
 const webpack = require('webpack');
 const { NamedModulesPlugin, NoEmitOnErrorsPlugin } = webpack;
 const { CommonsChunkPlugin } = webpack.optimize;
-const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -65,7 +64,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 exclude: /snippets/,
-                use: '@ngtools/webpack'
+                use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader']
             },
             {
                 test: /\.less$/,
@@ -208,15 +207,10 @@ module.exports = {
 
         new NamedModulesPlugin({}),
 
-        new AngularCompilerPlugin({
-            mainPath: join(project_dir, 'docs', 'main.ts'),
-            tsConfigPath: join(project_dir, 'tsconfig.json'),
-            sourceMap: false,
-            skipCodeGeneration: true,
-            hostReplacementPaths: {
-                'environments\\environment.ts': 'environments\\environment.ts'
-            }
-        }),
+        new webpack.ContextReplacementPlugin(
+            /(.+)?angular(\\|\/)core(.+)?/,
+            join(project_dir, 'docs')
+        ),
 
         new ProgressPlugin(),
 
