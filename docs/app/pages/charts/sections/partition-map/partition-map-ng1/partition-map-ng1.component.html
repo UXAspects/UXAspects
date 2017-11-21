@@ -5,88 +5,40 @@
 
 <p>There are several attributes that you can supply for the chart:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">chart-data</td>
-        <td>array</td>
-        <td>This should contain the data to be displayed on the chart.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">chart-options</td>
-        <td>array</td>
-        <td>This should contain options to describe the presentation of the chart and any event functions.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">chart-loading</td>
-        <td>array</td>
-        <td>This will state whether or not to show the loading overlay.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="chart-data" type="array" required="true">
+      This should contain the data to be displayed on the chart.
+    </tr>
+    <tr uxd-api-property name="chart-options" type="array">
+      This should contain options to describe the presentation of the chart and any event functions.
+    </tr>
+    <tr uxd-api-property name="chart-loading" type="array">
+      This will state whether or not to show the loading overlay.
+    </tr>
+</uxd-api-properties>
 
 <p><br> Each segment can have the following data:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">groupName</td>
-        <td>string</td>
-        <td>This defines the group a segment is part of. This is used for editing the partition map.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">label</td>
-        <td>string</td>
-        <td>This defines the text to be displayed on the segment.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">value</td>
-        <td>number</td>
-        <td>This defines the size of each segment. A value must be defined if the segment has no children. If it has children
-          a value should not be specified, as the value will be calculated from the values of its children.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">children</td>
-        <td>array</td>
-        <td>This defines the child segments.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">image</td>
-        <td>string</td>
-        <td>This defines an image to appear above the text in the segment.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">color</td>
-        <td>color</td>
-        <td>This defines the color of the segment. If no color is specified, one will be selected automatically.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="groupName" type="string" required="true">
+      This defines the group a segment is part of. This is used for editing the partition map.
+    </tr>
+    <tr uxd-api-property name="label" type="string" required="true">
+      This defines the text to be displayed on the segment.
+    </tr>
+    <tr uxd-api-property name="value" type="number">
+      This defines the size of each segment. A value must be defined if the segment has no children. If it has children a value should not be specified, as the value will be calculated from the values of its children.
+    </tr>
+    <tr uxd-api-property name="children" type="array">
+      This defines the child segments.
+    </tr>
+    <tr uxd-api-property name="image" type="string">
+      	This defines an image to appear above the text in the segment.
+    </tr>
+    <tr uxd-api-property name="color" type="color">
+      	This defines the color of the segment. If no color is specified, one will be selected automatically.
+    </tr>
+</uxd-api-properties>
 
 <p>Segments can also have custom data that may be useful. These additional properties will have no effect on how the chart is
   displayed, however this data can be used to display more information in the popover or help identify which item has been
@@ -104,335 +56,140 @@
   </tab>
 </tabset>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">edit</td>
-        <td>object</td>
-        <td>Allows a clickable edit region on the root node.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">select</td>
-        <td>function</td>
-        <td>Defines a function to be called when a segment is clicked. It should accept two arguments which will contain the
-          data of the selected segment and the element of the selected segment.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">maximize</td>
-        <td>object</td>
-        <td>Defines if the chart should be able to maximize and how it should present itself when maximized.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">popoverEnabled</td>
-        <td>boolean</td>
-        <td>Defines whether a popover should appear when a segment is hovered over. If not specified it will default to true.
-          This will only affect the hover popover and when maximized the docked popover will still be present.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">popoverTemplate</td>
-        <td>string</td>
-        <td>Defines a template file that will display in the popover alongside the list of child nodes. Note that you can also
-          create a template in a `script` tag with a unique ID in your HTML file. The popoverTemplate string can then be
-          set to this ID to use that template.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">valueFormatter</td>
-        <td>function</td>
-        <td>Defines a function to format segment values. In the popover a list of child segments are displayed alongside their
-          values. If you would like to alter how these numbers are presented use this function to do so. It accepts one argument
-          which will be the original number, and expects a string or number value to be returned.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">noDataLabel</td>
-        <td>string</td>
-        <td>Defines the text to display if the data is empty.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">loadingLabel</td>
-        <td>string</td>
-        <td>Defines the text to display on the loading overlay.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">popoverDelay</td>
-        <td>number</td>
-        <td>Defines how long (in milliseconds) a user must hover over a segment before showing the popover. The default value
-          is 650.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">buttonOffset</td>
-        <td>object</td>
-        <td>Defines the position of the maximize/minimize button.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="edit" type="object">
+      	Allows a clickable edit region on the root node.
+    </tr>
+    <tr uxd-api-property name="select" type="function">
+      Defines a function to be called when a segment is clicked. It should accept two arguments which will contain the data of the selected segment and the element of the selected segment.
+    </tr>
+    <tr uxd-api-property name="maximize" type="object">
+      Defines if the chart should be able to maximize and how it should present itself when maximized.
+    </tr>
+    <tr uxd-api-property name="popoverEnabled" type="boolean">
+      Defines whether a popover should appear when a segment is hovered over. If not specified it will default to true. This will only affect the hover popover and when maximized the docked popover will still be present.
+    </tr>
+    <tr uxd-api-property name="popoverTemplate" type="string">
+      Defines a template file that will display in the popover alongside the list of child nodes. Note that you can also create a template in a `script` tag with a unique ID in your HTML file. The popoverTemplate string can then be set to this ID to use that template.
+    </tr>
+    <tr uxd-api-property name="valueFormatter" type="function">
+      Defines a function to format segment values. In the popover a list of child segments are displayed alongside their values. If you would like to alter how these numbers are presented use this function to do so. It accepts one argument which will be the original number, and expects a string or number value to be returned.
+    </tr>
+    <tr uxd-api-property name="noDataLabel" type="string">
+      Defines the text to display if the data is empty.
+    </tr>
+    <tr uxd-api-property name="loadingLabel" type="string" defaultValue="650">
+      Defines the text to display on the loading overlay.
+    </tr>
+    <tr uxd-api-property name="popoverDelay" type="number">
+      Defines how long (in milliseconds) a user must hover over a segment before showing the popover.
+    </tr>
+    <tr uxd-api-property name="buttonOffset" type="object">
+      Defines the position of the maximize/minimize button.
+    </tr>
+</uxd-api-properties>
 
 <p>The following attributes are defined within <code>edit</code></p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">text</td>
-        <td>string</td>
-        <td>Defines the text to display in the edit region.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">image</td>
-        <td>string</td>
-        <td>Defines the image to display in the edit region above the text.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">click</td>
-        <td>function</td>
-        <td>Defines the function to be called when the edit region is clicked and allows you to implement editing functionality.
-          It should accept one argument which will provide data for the root segment.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">editor</td>
-        <td>object</td>
-        <td>Helps configure the default partition map editor functionality.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="text" type="string" required="true">
+      Defines the text to display in the edit region.
+    </tr>
+    <tr uxd-api-property name="image" type="string">
+      Defines the image to display in the edit region above the text.
+    </tr>
+    <tr uxd-api-property name="click" type="function" required="true">
+      Defines the function to be called when the edit region is clicked and allows you to implement editing functionality. It should accept one argument which will provide data for the root segment.
+    </tr>
+    <tr uxd-api-property name="editor" type="object">
+      Helps configure the default partition map editor functionality.
+    </tr>
+</uxd-api-properties>
 
 <p>The following attributes are defined within <code>editor</code></p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">enabled</td>
-        <td>boolean</td>
-        <td>If true the editor will appear when the edit button is clicked.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">finishedText</td>
-        <td>string</td>
-        <td>This will set the text below the button that the user will click to finish editing. The default text is 'Done'.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">noGroupsText</td>
-        <td>string</td>
-        <td>This will set the text in the dropdown if there are no available groups. The default text is 'No groups available'.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">availableGroups</td>
-        <td>array(strings)</td>
-        <td>This will define all the possible groups the user can choose from the dropdown. The initial groups displayed are
-          taken from the partition map data.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">maxRows</td>
-        <td>number</td>
-        <td>The maximum number of rows the partition map can have (this does not include the root segment). The default is 3.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">minRows</td>
-        <td>number</td>
-        <td>The minimum number of rows the partition map can have (this does not include the root segment). The default is 0.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">onFinish</td>
-        <td>function</td>
-        <td>This function will be called when the user has finished editing. The function should accept one argument which will
-          contain an array of groups the user selected in order from highest to lowest. In this function the chart data should
-          be updated accordingly.</td>
-        <td>false</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="enabled" type="boolean" required="true">
+      If true the editor will appear when the edit button is clicked.
+    </tr>
+    <tr uxd-api-property name="finishedText" type="string" defaultValue="Done">
+      This will set the text below the button that the user will click to finish editing. 
+    </tr>
+    <tr uxd-api-property name="noGroupsText" type="string" defaultValue="No groups available">
+      This will set the text in the dropdown if there are no available groups.
+    </tr>
+    <tr uxd-api-property name="availableGroups" type="array(strings)">
+      This will define all the possible groups the user can choose from the dropdown. The initial groups displayed are taken from the partition map data.
+    </tr>
+    <tr uxd-api-property name="maxRows" type="number" defaultValue="3">
+      The maximum number of rows the partition map can have (this does not include the root segment).
+    </tr>
+    <tr uxd-api-property name="minRows" type="number" defaultValue="0">
+      The minimum number of rows the partition map can have (this does not include the root segment). 
+    </tr>
+    <tr uxd-api-property name="onFinish" type="function" required="true">
+      This function will be called when the user has finished editing. The function should accept one argument which will contain an array of groups the user selected in order from highest to lowest. In this function the chart data should be updated accordingly.
+    </tr>
+</uxd-api-properties>
 
 <p>The following attributes are defined within <code>maximize</code></p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">buttonVisible</td>
-        <td>boolean</td>
-        <td>Defines if the maximize/minimize button should be visible.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">disableScrolling</td>
-        <td>boolean</td>
-        <td>Defines if page scrolling should be disabled when the chart is maximized.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">isMaximized</td>
-        <td>boolean</td>
-        <td>Defines if the chart should present itself in the maximized state initially.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">fillScreen</td>
-        <td>boolean</td>
-        <td>Defines if the maximized chart should fill the remaining space on the screen, or fill the container element.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">sidePanelWidth</td>
-        <td>number</td>
-        <td>Defines the width of the side panel when the Partition Map is maximized. The default value is 235.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">shouldResize</td>
-        <td>boolean</td>
-        <td>Defines if the chart should resize to fill the container (or remaining screen space) when the maximize/minimize button
-          is clicked. The default value is `true.` This is useful if you wish to see the side panel without having to resize
-          the map. Note: If you set `isMaximized` to true and `shouldResize` to false, the map will load with the side panel
-          displayed.
-        </td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">onToggle</td>
-        <td>function</td>
-        <td>Defines a function to be called when the maximize/minimize button is clicked. It should accept one argument which
-          will represent the state the chart is transitioning to - `true` for maximized and `false` for minimized. To prevent
-          the default maximize/minimize behavior, make the function return `true`.</td>
-        <td>false</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="buttonVisible" type="boolean" required="true">
+      Defines if the maximize/minimize button should be visible.
+    </tr>
+    <tr uxd-api-property name="disableScrolling" type="boolean" required="true">
+      Defines if page scrolling should be disabled when the chart is maximized.
+    </tr>
+    <tr uxd-api-property name="ixMaximized" type="boolean" required="true">
+      	Defines if the chart should present itself in the maximized state initially.
+    </tr>
+    <tr uxd-api-property name="fillScreen" type="boolean" required="true">
+      Defines if the maximized chart should fill the remaining space on the screen, or fill the container element.
+    </tr>
+    <tr uxd-api-property name="sidePanelWidth" type="boolean" defaultValue="235">
+      Defines the width of the side panel when the Partition Map is maximized. 
+    </tr>
+    <tr uxd-api-property name="shouldResize" type="boolean" required="true">
+      Defines if the chart should resize to fill the container (or remaining screen space) when the maximize/minimize button is clicked. The default value is `true.` This is useful if you wish to see the side panel without having to resize the map. Note: If you set `isMaximized` to true and `shouldResize` to false, the map will load with the side panel displayed.
+    </tr>
+    <tr uxd-api-property name="onToggle" type="function" required="true">
+      Defines a function to be called when the maximize/minimize button is clicked. It should accept one argument which will represent the state the chart is transitioning to - `true` for maximized and `false` for minimized. To prevent the default maximize/minimize behavior, make the function return `true`.
+    </tr>
+</uxd-api-properties>
 
 <p>The following attributes are defined within <code>buttonOffset</code></p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">maximize</td>
-        <td>object</td>
-        <td>Defines the offset for the button when in the maximized state.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">minimize</td>
-        <td>object</td>
-        <td>Defines the offset for the button when in the minimized state.</td>
-        <td>false</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="maximize" type="object" required="true">
+      Defines the offset for the button when in the maximized state.
+    </tr>
+    <tr uxd-api-property name="minimize" type="object" required="true">
+      Defines the offset for the button when in the minimized state.
+    </tr>
+</uxd-api-properties>
 
 <p>The following attributes are defined within the <code>maximize</code> property in <code>buttonOffset</code></p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">x</td>
-        <td>number</td>
-        <td>Defines how many pixels left or right to offset the button from the default position when the chart is maximized.
-          A positive number indicates moving the button to the right and a negative number indicates moving the button to
-          the left.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">y</td>
-        <td>number</td>
-        <td>Defines how many pixels up or down to offset the button from the default position when the chart is maximized. A
-          positive number indicates moving the button down and a negative number indicates moving the button up.</td>
-        <td>false</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="x" type="number" required="true">
+      Defines how many pixels left or right to offset the button from the default position when the chart is maximized. A positive number indicates moving the button to the right and a negative number indicates moving the button to the left.
+    </tr>
+    <tr uxd-api-property name="y" type="number" required="true">
+      Defines how many pixels up or down to offset the button from the default position when the chart is maximized. A positive number indicates moving the button down and a negative number indicates moving the button up.
+    </tr>
+</uxd-api-properties>
 
 <p>The following attributes are defined within the <code>minimize</code> property of <code>buttonOffset</code></p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">x</td>
-        <td>number</td>
-        <td>Defines how many pixels left or right to offset the button from the default position when the chart is minimized.
-          A positive number indicates moving the button to the right and a negative number indicates moving the button to
-          the left.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">y</td>
-        <td>number</td>
-        <td>Defines how many pixels up or down to offset the button from the default position when the chart is minimized. A
-          positive number indicates moving the button down and a negative number indicates moving the button up.</td>
-        <td>false</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties tableTitle="">
+    <tr uxd-api-property name="x" type="number" required="true">
+      Defines how many pixels left or right to offset the button from the default position when the chart is minimized. A positive number indicates moving the button to the right and a negative number indicates moving the button to the left.
+    </tr>
+    <tr uxd-api-property name="y" type="number" required="true">
+      	Defines how many pixels up or down to offset the button from the default position when the chart is minimized. A positive number indicates moving the button down and a negative number indicates moving the button up.
+    </tr>
+</uxd-api-properties>
 
 <h4 id="maximizing">Maximizing</h4>
 
@@ -472,100 +229,46 @@
 
 <p>The popover template will have access to the following data about the segment selected/hovered:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">children</td>
-        <td>array</td>
-        <td>If the segment has any children this contains the data on them.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">color</td>
-        <td>string</td>
-        <td>This will contain the color of the current segment.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">data</td>
-        <td>object</td>
-        <td>This will contain the original segment data specified, including any custom data.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">depth</td>
-        <td>number</td>
-        <td>This represents the level the segment is on the chart.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">key</td>
-        <td>string</td>
-        <td>This will contain the label displayed on the segment.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">value</td>
-        <td>number</td>
-        <td>This will contain the value of the current segment.</td>
-        <td>false</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="children" type="array" required="true">
+      If the segment has any children this contains the data on them.
+    </tr>
+    <tr uxd-api-property name="color" type="string" required="true">
+      This will contain the color of the current segment.
+    </tr>
+    <tr uxd-api-property name="data" type="object" required="true">
+      This will contain the original segment data specified, including any custom data.
+    </tr>
+    <tr uxd-api-property name="depth" type="number" required="true">
+      This represents the level the segment is on the chart.
+    </tr>
+    <tr uxd-api-property name="key" type="string" required="true">
+      This will contain the label displayed on the segment.
+    </tr>
+    <tr uxd-api-property name="value" type="number" required="true">
+      This will contain the value of the current segment.
+    </tr>
+</uxd-api-properties>
 
 <p>The following attributes are defined within <code>data</code></p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">label</td>
-        <td>string</td>
-        <td>The label specified for the segment.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">image</td>
-        <td>string</td>
-        <td>The image file specified for the segment (if one was specified).</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">children</td>
-        <td>array</td>
-        <td>The child segments if any were specified.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">parents</td>
-        <td>array</td>
-        <td>The parent segments if any exist. The list is ordered starting with the immediate parent and moving up until the
-          root node is reached.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">value</td>
-        <td>number</td>
-        <td>The value of the segment if one was specified.</td>
-        <td>false</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="label" type="string" required="true">
+      The label specified for the segment.
+    </tr>
+    <tr uxd-api-property name="image" type="string" required="true">
+      The image file specified for the segment (if one was specified).
+    </tr>
+    <tr uxd-api-property name="children" type="array" required="true">
+      The child segments if any were specified.
+    </tr>
+    <tr uxd-api-property name="parents" type="array" required="true">
+      The parent segments if any exist. The list is ordered starting with the immediate parent and moving up until the root node is reached.
+    </tr>
+    <tr uxd-api-property name="value" type="number" required="true">
+      The value of the segment if one was specified.
+    </tr>
+</uxd-api-properties>
 
 <p>Any additional custom data that you specified for this segment will also be found here. In this example <code>groupName</code>  was added to each segment, and it is here this data can be accessed</p>
 

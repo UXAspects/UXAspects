@@ -12,100 +12,49 @@
 
 <hr>
 
-<div class="demo-attributes table-responsive">
-<table class="table">
-  <tbody><tr>
-    <th>Property</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">scrollable</td>
-    <td>array</td>
-    <td>Helps configure the scrolling behavior.</td>
-    <td>true</td>
-  </tr>
-</tbody></table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="scrollable" type="array">
+      Helps configure the scrolling behavior.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
 <p>The following attributes should be defined within <code>scrollable</code></p>
 
-<div class="demo-attributes table-responsive">
-<table class="table">
-  <tbody><tr>
-    <th>Property</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">enabled</td>
-    <td>boolean</td>
-    <td>Set to true if scrolling will be enabled.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">range</td>
-    <td>number</td>
-    <td>Represents the size of each page in relation to the points on the x-axis. For example, in the chart above a value of 4 will initially show any points between 0.5 and 4.5. When the next button is clicked it will show points between 4.5 and 8.5</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">lowerBound</td>
-    <td>number</td>
-    <td>Represents the minimum point on the x-axis that can be scrolled to. Once the chart is at this position the scroll left button will be hidden.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">upperBound</td>
-    <td>number</td>
-    <td>Represents the maximum point on the x-axis that can be scrolled to. Once the chart is at this point the scroll right button will be hidden.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">color</td>
-    <td>color</td>
-    <td>Sets the color of the scroll buttons.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">callback</td>
-    <td>function</td>
-    <td>Will be called when the chart is scrolled. It should take in one parameter that will contain two properties.</td>
-    <td>true</td>
-  </tr>
-</tbody></table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="enabled" type="boolean">
+      Set to true if scrolling will be enabled.
+    </tr>
+    <tr uxd-api-property name="range" type="number">
+      Represents the size of each page in relation to the points on the x-axis. For example, in the chart above a value of 4 will initially show any points between 0.5 and 4.5. When the next button is clicked it will show points between 4.5 and 8.5
+    </tr>
+    <tr uxd-api-property name="lowerBound" type="number">
+      Represents the minimum point on the x-axis that can be scrolled to. Once the chart is at this position the scroll left button will be hidden.
+    </tr>
+    <tr uxd-api-property name="upperBound" type="number">
+      Represents the maximum point on the x-axis that can be scrolled to. Once the chart is at this point the scroll right button will be hidden.
+    </tr>
+    <tr uxd-api-property name="color" type="color">
+      Sets the color of the scroll buttons.
+    </tr>
+    <tr uxd-api-property name="callback" type="function">
+      Will be called when the chart is scrolled. It should take in one parameter that will contain two properties.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
 <p>The following attributes should be defined within <code>callback</code></p>
 
-<div class="demo-attributes table-responsive">
-<table class="table">
-  <tbody><tr>
-    <th>Property</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">start</td>
-    <td>number</td>
-    <td>Contains the minimum value on the x-axis that is currently visible.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">end</td>
-    <td>number</td>
-    <td>Contains the maximum value on the x-axis that is currently visible.</td>
-    <td>true</td>
-  </tr>
-</tbody></table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="start" type="number">
+      Contains the minimum value on the x-axis that is currently visible.
+    </tr>
+    <tr uxd-api-property name="end" type="number">
+      Contains the maximum value on the x-axis that is currently visible.
+    </tr>
+</uxd-api-properties>
 
 <blockquote>
   <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>

@@ -22,64 +22,32 @@
 
 <p>The <code>baseChart</code> directive should be added to a <code>canvas</code> element and the following attributes can be used to customize the chart behavior and appearance:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="dataSets" type="object[]">
+        Contains the data and properties for each data set to be displayed in the chart.
+    </tr>
+    <tr uxd-api-property name="chartType" type="string">
+        Indicates the type of the chart. Possible options are: <code>line</code>, <code>bar</code>, <code>radar</code>, <code>pie</code>, <code>polarArea</code>, <code>doughnut</code>
+    </tr>
+    <tr uxd-api-property name="options" type="ChartOptions">
+        Configures the appearance and behavior of all aspects of the chart.
+    </tr>
+    <tr uxd-api-property name="colors" type="object[]">
+        Configure the color values to be used within the chart.
+    </tr>
+    <tr uxd-api-property name="legend" type="boolean">
+        Determines whether or not the legend should be displayed.
+    </tr>
+</uxd-api-properties>
 
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            <tr>
-                <td><b>@Input</b> datasets</td>
-                <td><b>object[]</b></td>
-                <td>Contains the data and properties for each data set to be displayed in the chart.</td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> chartType</td>
-                <td><b>string</b></td>
-                <td>Indicates the type of the chart. Possible options are: <code>line</code>, <code>bar</code>, <code>radar</code>, <code>pie</code>, <code>polarArea</code>, <code>doughnut</code></td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> options</td>
-                <td><b>ChartOptions</b></td>
-                <td>Configures the appearance and behavior of all aspects of the chart.</td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> colors</td>
-                <td><b>object[]</b></td>
-                <td>Configure the color values to be used within the chart.</td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> legend</td>
-                <td><b>boolean</b></td>
-                <td>Determines whether or not the legend should be displayed.</td>
-            </tr>
-
-            <tr>
-                <td><b>@Output</b> chartClick</td>
-                <td></td>
-                <td>Fires when click on a chart has occurred, returns information regarding active points and labels</td>
-            </tr>
-
-            <tr>
-                <td><b>@Output</b> chartHover</td>
-                <td></td>
-                <td>Fires when mousemove (hover) on a chart has occurred, returns information regarding active points and labels.</td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="chartClick">
+        Fires when click on a chart has occurred, returns information regarding active points and labels.
+    </tr>
+    <tr uxd-api-property name="chartHover">
+        Fires when mousemove (hover) on a chart has occurred, returns information regarding active points and labels.
+    </tr>
+</uxd-api-properties>
 
 <p>Complete documentation on the directive and chart options can be found at the documentation links below.</p>
 
