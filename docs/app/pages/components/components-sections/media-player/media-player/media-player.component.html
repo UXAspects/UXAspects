@@ -37,42 +37,19 @@
 <p>To add a media player to your page use the <code>ux-media-player</code> selector. The following attributes can be used to
     configure the appearance and behavior of the media player:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-                <td><b>@Input</b> type</td>
-                <td>string</td>
-                <td>
-                    Defines the appearance of the media player. The two possible values are <code>video</code> and <code>audio</code>.
-                    The media player will adapt it's appearance to best suit the type specified.
-                </td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> source</td>
-                <td>string</td>
-                <td>The url to the media file to be loaded by the media player.</td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> quietMode</td>
-                <td>boolean</td>
-                <td>
-                    If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker
-                    style. Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="type" type="string">
+        Defines the appearance of the media player. The two possible values are <code>video</code> and <code>audio</code>.
+        The media player will adapt it's appearance to best suit the type specified.
+    </tr>
+    <tr uxd-api-property name="source" type="string">
+        The url to the media file to be loaded by the media player.
+    </tr>
+    <tr uxd-api-property name="quietMode" type="boolean">
+        If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker
+        style. Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.
+    </tr>
+</uxd-api-properties>
 
 <p>The following code can be used to create the example above:</p>
 

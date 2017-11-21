@@ -36,198 +36,88 @@
 
 <p>The following attributes can be used to configure the chart:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">data</td>
-                <td>object</td>
-                <td>variable</td>
-                <td>The data the chart should display. The object can contain any properties, however any child items should
-                    be listed in an array under a <code>children</code> property.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">options</td>
-                <td>object</td>
-                <td>variable</td>
-                <td>Allows you to configure the appearance and behavior of the chart. All available options can be found in the
-                    table below.</td>
-                <td>false</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="data" type="object" binding="variable" required="true">
+    </tr>
+    <tr uxd-api-property name="options" type="object" binding="variable" required="true">
+    </tr>
+</uxd-api-properties>
 
 <h4 id="chart-options">Chart Options</h4>
 
 <p>All of the following options are optional, with the exception of the node template, and the default value will be used when
     an option has not been specified.</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-
-            <tr>
-                <td class="attribute">transition</td>
-                <td>number</td>
-                <td>Specifies the duration of any animations used in the chart in milliseconds (default: 750).</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">levels</td>
-                <td>number</td>
-                <td>Specifies number of node levels to show initially. Eg. 1 will show the root node and any of its immediate
-                    children (default: 1).</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">reveal</td>
-                <td>function</td>
-                <td>If specified an arrow will appear above the root node. When clicked this function will be called. This could
-                    be used for updating the data in the chart to show more parent levels in the hierarchy. To hide the button
-                    after it has been clicked the function should return <code>false</code>.
-                </td>
-            </tr>
-            <tr>
-                <td class="attribute">hierarchyBar</td>
-                <td>object</td>
-                <td>Specifies the appearance and behavior of the breadcrumb bar along the top of the chart.</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">nodes</td>
-                <td>object</td>
-                <td>Specifies the appearance and behavior of the nodes displayed in the chart. See table below for more info.</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">connector</td>
-                <td>string</td>
-                <td>Specifies the style of connector, <code>curved</code> or <code>elbow</code>. If unspecified the curved connector
-                    will be used.</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">search</td>
-                <td>object</td>
-                <td>Specifies whether the search functionality should be enabled and how it should be configured.</td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="transition" type="number" defaultValue="750">
+        Specifies the duration of any animations used in the chart in milliseconds.
+    </tr>
+    <tr uxd-api-property name="levels" type="number" defaultValue="1">
+        Specifies number of node levels to show initially. Eg. 1 will show the root node and any of its immediate children.
+    </tr>
+    <tr uxd-api-property name="reveal" type="function">
+        If specified an arrow will appear above the root node. When clicked this function will be called. This could
+        be used for updating the data in the chart to show more parent levels in the hierarchy. To hide the button
+        after it has been clicked the function should return <code>false</code>.
+    </tr>
+    <tr uxd-api-property name="hierarchyBar" type="object">
+        Specifies the appearance and behavior of the breadcrumb bar along the top of the chart.
+    </tr>
+    <tr uxd-api-property name="nodes" type="object">
+        Specifies the appearance and behavior of the nodes displayed in the chart. See table below for more info.
+    </tr>
+    <tr uxd-api-property name="connector" type="string">
+        Specifies the style of connector, <code>curved</code> or <code>elbow</code>. If unspecified the curved connector
+        will be used.
+    </tr>
+    <tr uxd-api-property name="search" type="object">
+        Specifies whether the search functionality should be enabled and how it should be configured.
+    </tr>
+</uxd-api-properties>
 
 <blockquote>
     <p><strong>Note</strong>: Refer to the <a routerLink="/components/hierarchy-bar">Hierarchy Bar Options</a> for ‘hierarchyBar’
         object attributes.</p>
 </blockquote>
 
-<h4 id="node-options">Node Options</h4>
+<uxd-api-properties tableTitle="Node Options">
+    <tr uxd-api-property name="template" type="string">
+        The url of a template file that will be inserted into each node.
+    </tr>
+    <tr uxd-api-property name="" type="" defaultValue="true">
+        If true, then clicking anywhere within a node will toggle the expanded/collapsed state of the node. Setting it to false will require you to manually expand and contract nodes.
+    </tr>
+    <tr uxd-api-property name="size" type="object" defaultValue="width: -210, height: -90">
+        Specifies the size of each node in pixels. It should have a width and height property
+    </tr>
+</uxd-api-properties>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-
-            <tr>
-                <td class="attribute">template</td>
-                <td>string</td>
-                <td>The url of a template file that will be inserted into each node.</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">toggle</td>
-                <td>boolean</td>
-                <td>If true, then clicking anywhere within a node will toggle the expanded/collapsed state of the node. Setting
-                    it to false will require you to manually expand and contract nodes (default: true).</td>
-            </tr>
-
-
-            <tr>
-                <td class="attribute">size</td>
-                <td>object</td>
-                <td>Specifies the size of each node in pixels. It should have a <code>width</code> and <code>height</code> property
-                    (default: width - 210, height - 90).</td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
-
-<h4 id="search-options">Search Options</h4>
-
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-
-            <tr>
-                <td class="attribute">enabled</td>
-                <td>boolean</td>
-                <td>If true the search icon will appear at the top of the chart allowing a user to search all chart nodes and
-                    quickly navigate to them. (default: false)</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">template</td>
-                <td>string</td>
-                <td>This should specify the url to a custom template file for the typeahead results. The default template will
-                    show one line of text from a <code>name</code> property on a node. See <a href="http://angular-ui.github.io/bootstrap/versioned-docs/0.13.3/#/typeahead">UI Bootstrap</a>                    for more information on typeahead templates.</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">placeholder</td>
-                <td>string</td>
-                <td>Specifies placeholder text to show in the search input field. (default: '')</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">query</td>
-                <td>function</td>
-                <td>This function controls which items are suggested for any given search query. The function should expect two
-                    arguments, the first is the search query and the second is a node model. This function should return
-                    true if the node meets the search criteria and false if it does not. By default the nodes are filtered
-                    based on a case insensitive match on a <code>name</code> property.</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">selected</td>
-                <td>function</td>
-                <td>Specifies a callback function that will be called when a search item has been selected. The select node model
-                    will be passed as an argument to the function.</td>
-            </tr>
-
-            <tr>
-                <td class="attribute">key</td>
-                <td>string</td>
-                <td>The primary identity property on a node model. This will be displayed in the search input field when an item
-                    is selected. (default: 'name')</td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties tableTitle="Search Options">
+    <tr uxd-api-property name="enabled" type="boolean" defaultValue="false">
+        If true the search icon will appear at the top of the chart allowing a user to search all chart nodes and quickly navigate to them.
+    </tr>
+    <tr uxd-api-property name="template" type="string">
+        This should specify the url to a custom template file for the typeahead results. The default template will
+                    show one line of text from a <code>name</code> property on a node. See 
+                    <a href="http://angular-ui.github.io/bootstrap/versioned-docs/0.13.3/#/typeahead">UI Bootstrap</a> 
+                    for more information on typeahead templates.
+    </tr>
+    <tr uxd-api-property name="placeholder" type="string" defaultValue="''">
+        Specifies placeholder text to show in the search input field. 
+    </tr>
+    <tr uxd-api-property name="query" type="function">
+        This function controls which items are suggested for any given search query. The function should expect two
+        arguments, the first is the search query and the second is a node model. This function should return
+        true if the node meets the search criteria and false if it does not. By default the nodes are filtered
+        based on a case insensitive match on a <code>name</code> property.
+    </tr>
+    <tr uxd-api-property name="selected" type="function">
+        Specifies a callback function that will be called when a search item has been selected. The select node model will be passed as an argument to the function.
+    </tr>
+    <tr uxd-api-property name="key" type="string" defaultValue="name">
+        The primary identity property on a node model. This will be displayed in the search input field when an item is selected.
+    </tr>
+</uxd-api-properties>
 
 <h4 id="node-template">Node Template</h4>
 

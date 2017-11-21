@@ -22,28 +22,17 @@
 
 <p>The full set of configuration options for this directive are as follows:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td class="attribute">skip</td>
-                <td>A count of how many additional items are in the row and will need an index value (default: 0).</td>
-            </tr>
-            <tr>
-                <td class="attribute">offset</td>
-                <td>A constant offset to apply to each calculated index (default: 0).</td>
-            </tr>
-            <tr>
-                <td class="attribute">base</td>
-                <td>The lowest index value (default: 0).</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="skip" defaultValue="0">
+        A count of how many additional items are in the row and will need an index value.
+    </tr>
+    <tr uxd-api-property name="offset" defaultValue="0">
+        A constant offset to apply to each calculated index.
+    </tr>
+    <tr uxd-api-property name="base" defaultValue="0">
+        The lowest index value.
+    </tr>
+</uxd-api-properties>
 
 <p>
     If no values are provided then each item subject to the <code>ng-repeat</code> would receive an index value <em>0, 1, 2, 3 …</em>.

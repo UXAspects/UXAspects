@@ -1,53 +1,22 @@
 <p>Preview Pane is contained in <code>preview-pane</code> directive. This directive contains the following attributes:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">preview-file</td>
-                <td>string</td>
-                <td>variable</td>
-                <td>A binding which specifies the file to be previewed.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">preview-title</td>
-                <td>string</td>
-                <td>variable</td>
-                <td>An optional binding that when set will display a title.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">preview-subtitle</td>
-                <td>string</td>
-                <td>variable</td>
-                <td>An optional binding that when set will display a subtitle.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">preview-empty-text</td>
-                <td>string</td>
-                <td>variable</td>
-                <td>An optional binding that when set will display a text when preview pane is empty.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">shadow</td>
-                <td>boolean</td>
-                <td>literak</td>
-                <td>An optional binding that will display a curved shadow on the bottom of the title or subtitle.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="preview-file" type="string" binding="variable" required="true">
+        A binding which specifies the file to be previewed.
+    </tr>
+    <tr uxd-api-property name="preview-title" type="string" binding="variable">
+        An optional binding that when set will display a title.
+    </tr>
+    <tr uxd-api-property name="preview-subtitle" type="string" binding="variable">
+        An optional binding that when set will display a subtitle.
+    </tr>
+    <tr uxd-api-property name="preview-empty-text" type="string" binding="variable">
+    	An optional binding that when set will display a text when preview pane is empty.
+    </tr>
+    <tr uxd-api-property name="shadow" type="boolean" binding="literal">
+        An optional binding that will display a curved shadow on the bottom of the title or subtitle.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet language="html" [content]="toggleCode"></uxd-snippet>
 
@@ -56,40 +25,17 @@
     of this directive are:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">set-preview</td>
-                <td>boolean</td>
-                <td>variable</td>
-                <td>Defines if a Preview is enabled or disabled.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">tooltip</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>The tooltip for the toggle button.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">aria-label</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>Labels the preview button for assistive technologies.</td>
-                <td>false</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="set-preview" type="boolean" binding="variable" required="true">
+        Defines if a Preview is enabled or disabled.
+    </tr>
+    <tr uxd-api-property name="tooltip" type="string" binding="literal" required="true">
+        The tooltip for the toggle button.
+    </tr>
+    <tr uxd-api-property name="aria-label" type="string" binding="literal" required="true">
+        Labels the preview button for assistive technologies.
+    </tr>
+</uxd-api-properties>
 
 <p>
     <code>.hpe-divide-right</code> or <code>hpe-checkbox</code> classes are used along with <code>.hpe-lg</code> class for

@@ -5,52 +5,25 @@
 <p>The Search Toolbar is contained in the <code>search-toolbar</code> directive and the <code>.expand-input</code> class.</p>
 
 <p>Search Toolbar takes the following attributes:</p>
-<div class="demo-attributes table-responsive">
-<table class="table m-t">
- <tbody><tr>
-   <th>Name</th>
-   <th>Type</th>
-   <th>Binding</th>
-   <th>Description</th>
-   <th>Optional</th>
- </tr>
- <tr>
-   <td class="attribute">search-typeahead</td>
-   <td>array</td>
-   <td>variable</td>
-   <td>Name of the list where the typeahead data is stored.</td>
-   <td>false</td>
- </tr>
- <tr>
-   <td class="attribute">place-holder</td>
-   <td>string</td>
-   <td>literal</td>
-   <td>Placeholder text for an input.</td>
-   <td>false</td>
- </tr>
- <tr>
-   <td class="attribute">close-search</td>
-   <td>string</td>
-   <td>literal</td>
-   <td>Should be set to a value which when clicked closes the input text.</td>
-   <td>false</td>
- </tr>
- <tr>
-   <td class="attribute">on-search</td>
-   <td>function</td>
-   <td>variable</td>
-   <td>Defines the function to be called when the enter key is pressed. The function will be called with the current text entered in the field as an argument.</td>
-   <td>false</td>
- </tr>
- <tr>
-   <td class="attribute">on-focus</td>
-   <td>function</td>
-   <td>variable</td>
-   <td>Defines the function to be called when the search bar is focused.</td>
-   <td>true</td>
- </tr>
-</tbody></table>
-</div>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="search-typeahead" type="array" binding="variable" required="true">
+      Name of the list where the typeahead data is stored.
+    </tr>
+    <tr uxd-api-property name="place-holder" type="string" binding="literal" required="true">
+      Placeholder text for an input.
+    </tr>
+    <tr uxd-api-property name="close-search" type="string" binding="literal" required="true">
+      Should be set to a value which when clicked closes the input text.
+    </tr>
+    <tr uxd-api-property name="on-search" type="function" binding="variable" required="true">
+      Defines the function to be called when the enter key is pressed. The function will be called with the current text entered in the field as an argument.
+    </tr>
+    <tr uxd-api-property name="on-focus" type="function" binding="variable">
+      Defines the function to be called when the search bar is focused.
+    </tr>
+</uxd-api-properties>
+
 <p>An example of the required HTML is as follows:</p>
 
 <tabset>

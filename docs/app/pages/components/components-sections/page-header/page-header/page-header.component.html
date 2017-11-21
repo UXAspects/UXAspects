@@ -14,309 +14,125 @@
 
 <p>The appearance and behavior of the component can be configured using the following attributes:</p>
 
-<table class="table">
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="logo" type="string">
+        The path to an image to display within the top left part of the header.
+    </tr>
+    <tr uxd-api-property name="items" type="PageHeaderNavigationItem[]">
+        The list of items to display in the navigation menu.
+    </tr>
+    <tr uxd-api-property name="crumbs" type="Breadcrumb">
+        The breadcrumbs to display above the page header.
+    </tr>
+    <tr uxd-api-property name="header" type="string">
+        The title of the current page.
+    </tr>
+    <tr uxd-api-property name="alignment" type="left, center, right" defaultValue="center">
+        Defines how the navigation menu should be positioned horizontally.
+    </tr>
+    <tr uxd-api-property name="condensed" type="boolean" defaultValue="false">
+        Determines whether or not to display the page header in the regular or condensed form.
+    </tr>
+    <tr uxd-api-property name="iconMenus" type="PageHeaderIconMenu[]">
+        The list of icon menus to display in the top right area of the page header.
+    </tr>
+    <tr uxd-api-property name="backVisible" type="boolean" defaultValue="false">
+        Determines whether or not a back button should be visible in the page header.
+    </tr>
+</uxd-api-properties>
 
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>@Input</b> logo</td>
-            <td><b>string</b></td>
-            <td>The path to an image to display within the top left part of the header.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> items</td>
-            <td><b>PageHeaderNavigationItem[]</b></td>
-            <td>The list of items to display in the navigation menu.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> crumbs</td>
-            <td><b>Breadcrumb</b></td>
-            <td>The breadcrumbs to display above the page header.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> header</td>
-            <td><b>string</b></td>
-            <td>The title of the current page.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> alignment</td>
-            <td><b>left, center, right</b></td>
-            <td>Defines how the navigation menu should be positioned horizontally. Default <code>center</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> condensed</td>
-            <td><b>boolean</b></td>
-            <td>Determines whether or not to display the page header in the regular or condensed form.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> iconMenus</td>
-            <td><b>PageHeaderIconMenu[]</b></td>
-            <td>The list of icon menus to display in the top right area of the page header.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> backVisible</td>
-            <td><b>boolean</b></td>
-            <td>Determines whether or not a back button should be visible in the page header.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Output</b> backClick</td>
-            <td><b>EventEmitter</b></td>
-            <td>The event fired when the back button is clicked.</td>
-        </tr>
-
-    </tbody>
-</table>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="backClick" type="EventEmitter">
+        The event fired when the back button is clicked.
+    </tr>
+</uxd-api-properties>
 
 <p>The following interfaces are used within the configuration of the page header:</p>
 
-<h4>PageHeaderNavigationItem</h4>
-
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>icon</b></td>
-            <td><b>string?</b></td>
-            <td>The icon from the <a routerLink="/css/icons">UX Aspects iconset</a> to display in the navigation item.</td>
-        </tr>
-
-        <tr>
-            <td><b>title</b></td>
-            <td><b>string</b></td>
-            <td>The text to be displayed in the navigation button.</td>
-        </tr>
-
-        <tr>
-            <td><b>select</b></td>
-            <td><b>(item: PageHeaderNavigationItem) => void</b></td>
-            <td>Function that will be called when the navigation button is clicked.</td>
-        </tr>
-
-        <tr>
-            <td><b>children</b></td>
-            <td><b>PageHeaderNavigationDropdownItem[]?</b></td>
-            <td>If specified, a dropdown will be displayed containing additional items for the user to select.</td>
-        </tr>
-
-    </tbody>
-
-</table>
+<uxd-api-properties tableTitle="PageHeaderNavigationItem">
+    <tr uxd-api-property name="icon" type="string">
+        The icon from the <a routerLink="/css/icons">UX Aspects iconset</a> to display in the navigation item.
+    </tr>
+    <tr uxd-api-property name="title" type="string" required="true">
+        The text to be displayed in the navigation button.
+    </tr>
+    <tr uxd-api-property name="select" type="(item: PageHeaderNavigationItem) => void" required="true">
+        Function that will be called when the navigation button is clicked.
+    </tr>
+    <tr uxd-api-property name="children" type="PageHeaderNavigationDropdownItem[]">
+        If specified, a dropdown will be displayed containing additional items for the user to select.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
-
-<h4>PageHeaderNavigationDropdownItem</h4>
-
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>title</b></td>
-            <td><b>string</b></td>
-            <td>The text to be displayed in the dropdown item.</td>
-        </tr>
-
-        <tr>
-            <td><b>select</b></td>
-            <td><b>(item: PageHeaderNavigationDropdownItem) => void</b></td>
-            <td>Function that will be called when the dropdown item is clicked.</td>
-        </tr>
-
-        <tr>
-            <td><b>children</b></td>
-            <td><b>PageHeaderNavigationDropdownItem[]?</b></td>
-            <td>If specified, a nested dropdown will be displayed containing additional items for the user to select (maximum of 1 nested level).</td>
-        </tr>
-
-    </tbody>
-
-</table>
+<uxd-api-properties tableTitle="PageHeaderNavigationDropdownItem">
+    <tr uxd-api-property name="title" type="string" required="true">
+        The text to be displayed in the dropdown item.
+    </tr>
+    <tr uxd-api-property name="select" type="(item: PageHeaderNavigationDropdownItem) => void" required="true">
+        Function that will be called when the dropdown item is clicked.
+    </tr>
+    <tr uxd-api-property name="children" type="PageHeaderNavigationDropdownItem[]">
+        If specified, a nested dropdown will be displayed containing additional items for the user to select (maximum of 1 nested level).
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
-
-<h4>Breadcrumb</h4>
-
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>title</b></td>
-            <td><b>string</b></td>
-            <td>The text to be displayed in the breadcrumb.</td>
-        </tr>
-
-        <tr>
-            <td><b>routerLink</b></td>
-            <td><b>string?</b></td>
-            <td>Performs navigation to a router link if that breadcrumb is clicked.</td>
-        </tr>
-
-        <tr>
-            <td><b>fragment</b></td>
-            <td><b>string?</b></td>
-            <td>Performs navigation to a fragment if that breadcrumb is clicked.</td>
-        </tr>
-
-        <tr>
-            <td><b>queryParams</b></td>
-            <td><b>string?</b></td>
-            <td>Allows you to pass query parameters to a route when a breadcrumb is clicked.</td>
-        </tr>
-
-        <tr>
-            <td><b>onClick</b></td>
-            <td><b>(event: MouseEvent) => void</b></td>
-            <td>This function will be called when a breadcrumb is clicked.</td>
-        </tr>
-
-    </tbody>
-
-</table>
+<uxd-api-properties tableTitle="Breadcrumb">
+    <tr uxd-api-property name="title" type="string" required="true">
+        The text to be displayed in the breadcrumb.
+    </tr>
+    <tr uxd-api-property name="routerLink" type="string">
+        Performs navigation to a router link if that breadcrumb is clicked.
+    </tr>
+    <tr uxd-api-property name="fragment" type="string">
+        Performs navigation to a fragment if that breadcrumb is clicked.
+    </tr>
+    <tr uxd-api-property name="queryParams" type="string">
+        Allows you to pass query parameters to a route when a breadcrumb is clicked.
+    </tr>
+    <tr uxd-api-property name="onClick" type="(event: MouseEvent) => void" required="true">
+        This function will be called when a breadcrumb is clicked.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
-
-<h4>PageHeaderIconMenu</h4>
-
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>icon</b></td>
-            <td><b>string</b></td>
-            <td>The icon from the <a routerLink="/css/icons">UX Aspects iconset</a> to display.</td>
-        </tr>
-
-        <tr>
-            <td><b>badge</b></td>
-            <td><b>string? | number?</b></td>
-            <td>The text/number to be displayed in a badge beside the icon.</td>
-        </tr>
-
-        <tr>
-            <td><b>select</b></td>
-            <td><b>(menu: PageHeaderIconMenu) => void</b></td>
-            <td>This function will be called when the icon is clicked.</td>
-        </tr>
-
-        <tr>
-            <td><b>dropdown</b></td>
-            <td><b>PageHeaderIconMenuDropdownItem[]?</b></td>
-            <td>The items to display in the dropdown menu that will appear when the icon is clicked.</td>
-        </tr>
-
-    </tbody>
-
-</table>
+<uxd-api-properties tableTitle="PageHeaderIconMenu">
+    <tr uxd-api-property name="icon" type="string" required="true">
+    </tr>
+    <tr uxd-api-property name="badge" type="string | number">
+    </tr>
+    <tr uxd-api-property name="select" type="(menu: PageHeaderIconMenu) => void" required="true">
+    </tr>
+    <tr uxd-api-property name="dropdown" type="PageHeaderIconMenuDropdownItem[]">
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
-<h4>PageHeaderIconMenuDropdownItem</h4>
-
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>icon</b></td>
-            <td><b>string</b></td>
-            <td>The icon from the <a routerLink="/css/icons">UX Aspects iconset</a> to display in the dropdown item.</td>
-        </tr>
-
-        <tr>
-            <td><b>title</b></td>
-            <td><b>string? | number?</b></td>
-            <td>The text to display in the dropdown item.</td>
-        </tr>
-
-        <tr>
-            <td><b>subtitle</b></td>
-            <td><b>string?</b></td>
-            <td>The text to display on the right side of the dropdown item.</td>
-        </tr>
-
-        <tr>
-            <td><b>header</b></td>
-            <td><b>boolean?</b></td>
-            <td>Determines if this item should be displayed as a dropdown header.</td>
-        </tr>
-
-        <tr>
-            <td><b>divider</b></td>
-            <td><b>boolean?</b></td>
-            <td>If <code>true</code> a divider will be placed beneath this dropdown item.</td>
-        </tr>
-
-        <tr>
-            <td><b>select</b></td>
-            <td><b>() => void</b></td>
-            <td>This function will be called when a dropdown item is clicked.</td>
-        </tr>
-
-    </tbody>
-
-</table>
+<uxd-api-properties tableTitle="PageHeaderIconMenuDropdownItem">
+    <tr uxd-api-property name="icon" type="string" required="true">
+        The icon from the UX Aspects iconset to display in the dropdown item.
+    </tr>
+    <tr uxd-api-property name="title" type="string | number">
+        The text to display in the dropdown item.
+    </tr>
+    <tr uxd-api-property name="subtitle" type="string">
+        The text to display on the right side of the dropdown item.
+    </tr>
+    <tr uxd-api-property name="header" type="boolean">
+        Determines if this item should be displayed as a dropdown header.
+    </tr>
+    <tr uxd-api-property name="divider" type="boolean">
+        If <code>true</code> a divider will be placed beneath this dropdown item.
+    </tr>
+    <tr uxd-api-property name="select" type="() => void" required="true">
+        This function will be called when a dropdown item is clicked.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 

@@ -21,38 +21,17 @@ It is contained in the <code>application-switcher-container</code> directive.</p
 
 <p>Each application is contained in the <code>application-switcher-item</code> directive which provides the following options:</p>
 
-<div class="demo-attributes table-responsive">
-<table class="table">
-  <tbody><tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Binding</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">name</td>
-    <td>string</td>
-    <td>literal</td>
-    <td>This will be the application name.</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">select</td>
-    <td>string</td>
-    <td>expression</td>
-    <td>This function expression will be called when an application option is selected. This function should perform application switching.</td>
-    <td>false</td>
-  </tr>
-  <tr>
-    <td class="attribute">value</td>
-    <td>string</td>
-    <td>literal</td>
-    <td>This defines an abbreviated value used to recognize the application option.</td>
-    <td>false</td>
-  </tr>
-</tbody></table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string" binding="literal" required="true">
+      This will be the application name.
+    </tr>
+    <tr uxd-api-property name="select" type="string" binding="expression" required="true">
+      This function expression will be called when an application option is selected. This function should perform application switching.
+    </tr>
+    <tr uxd-api-property name="value" type="string" binding="literal" required="true">
+      This defines an abbreviated value used to recognize the application option.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet [content]="snippets.compiled.sample5SnippetHtml"></uxd-snippet>
 

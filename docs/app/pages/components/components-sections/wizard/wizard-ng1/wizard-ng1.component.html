@@ -10,89 +10,55 @@
 
 <p>Attributes that can be defined on the <code>wizard</code> element are:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Binding</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">button-options</td>
-            <td>object</td>
-            <td>variable</td>
-            <td>Defines the text, tooltip and visibility of a button.
-                <ul>
-                    <li><code>nextText</code> - (default:"Next") - defines the text for the 'Next' button.</li>
-                    <li><code>previousText</code> - (default:"Previous") - defines the text for the 'Previous' button.</li>
-                    <li><code>cancelText</code> - (default:"Cancel") - defines the text for the 'Cancel' button.</li>
-                    <li><code>finishText</code> - (default:"Finish") - defines the text for the 'Finish' button.</li>
-                    <li><code>showNext</code> - (default: true) - defines whether or not to show the 'Next' button.</li>
-                    <li><code>showPrevious</code> - (default: true) - defines whether or not to show the 'Previous' button.</li>
-                    <li><code>showCancel</code> - (default: true) - defines whether or not to show the 'Cancel' button.</li>
-                    <li><code>showFinish</code> - (default: true) - defines whether or not to show the 'Finish' button.</li>
-                    <li><code>nextTooltip</code> - optional attribute that allows you to set the tooltip for the 'Next' button.</li>
-                    <li><code>previousTooltip</code> - optional attribute that allows you to set the tooltip for the 'Previous'
-                        button.</li>
-                    <li><code>cancelTooltip</code> - optional attribute that allows you to set the tooltip for the 'Cancel' button.</li>
-                    <li><code>finishTooltip</code> - optional attribute that allows you to set the tooltip for the 'Finish' button.</li>
-                    <li><code>hideCancelOnFinish</code> - (default: true) - defines whether or not the show the 'Cancel' button
-                        when on the final (finish) step.</li>
-                    <li><code>previousEnabled</code> - (default: true) - defines whether or not the 'Previous' button is enabled.</li>
-                    <li><code>nextEnabled</code> - (default: true) - defines whether or not the 'Next' button is enabled.</li>
-                    <li><code>cancelEnabled</code> - (default: true) - defines whether or not the 'Cancel' button is enabled.</li>
-                    <li><code>finishEnabled</code> - (default: true) - defines whether or not the 'Finish' button is enabled.</li>
-                    <li><code>alwaysShowFinish</code> - (default: false) - defines whether or not the 'Finish' button is shown
-                        in all the steps.</li>
-                </ul>
-            </td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">on-changing</td>
-            <td>function</td>
-            <td>variable</td>
-            <td>Expression that is called when changing steps. The expression should take in two parameters, from and to, which
-                are the indexes of the steps involved in the change. If it returns false then the current step goes into
-                error state and the step change is stopped. e.g. <code>on-changing="canChange(from,to)"</code>. The expression
-                can also return a number representing a step index to move to, overriding the <code>to</code> parameter.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">on-finishing</td>
-            <td>function</td>
-            <td>variable</td>
-            <td>Expression that is called when Finish is clicked but before <code>on-finished</code> expression is evaluated.
-                The expression should return a boolean result. If false current step goes into error state and the step change
-                is stopped. e.g. <code>on-finishing="canChange()"</code>.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">on-finished</td>
-            <td>function</td>
-            <td>variable</td>
-            <td>Expression that is called when Finish is clicked, after <code>on-finishing</code> expression is evaluated. e.g.
-                <code>on-finished="wizardComplete()"</code>.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">on-canceled</td>
-            <td>function</td>
-            <td>variable</td>
-            <td>Expression that is called when Cancel is clicked. e.g. <code>on-canceled="wizardCanceled()"</code>.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">is-visited</td>
-            <td>boolean</td>
-            <td>variable</td>
-            <td>Set to indicate if a wizard is already visited(edited) and to enable all the steps (default: false).</td>
-            <td>false</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="button-options" type="object" binding="variable" required="true">
+        Defines the text, tooltip and visibility of a button.
+        <ul>
+            <li><code>nextText</code> - (default:"Next") - defines the text for the 'Next' button.</li>
+            <li><code>previousText</code> - (default:"Previous") - defines the text for the 'Previous' button.</li>
+            <li><code>cancelText</code> - (default:"Cancel") - defines the text for the 'Cancel' button.</li>
+            <li><code>finishText</code> - (default:"Finish") - defines the text for the 'Finish' button.</li>
+            <li><code>showNext</code> - (default: true) - defines whether or not to show the 'Next' button.</li>
+            <li><code>showPrevious</code> - (default: true) - defines whether or not to show the 'Previous' button.</li>
+            <li><code>showCancel</code> - (default: true) - defines whether or not to show the 'Cancel' button.</li>
+            <li><code>showFinish</code> - (default: true) - defines whether or not to show the 'Finish' button.</li>
+            <li><code>nextTooltip</code> - optional attribute that allows you to set the tooltip for the 'Next' button.</li>
+            <li><code>previousTooltip</code> - optional attribute that allows you to set the tooltip for the 'Previous'
+                button.</li>
+            <li><code>cancelTooltip</code> - optional attribute that allows you to set the tooltip for the 'Cancel' button.</li>
+            <li><code>finishTooltip</code> - optional attribute that allows you to set the tooltip for the 'Finish' button.</li>
+            <li><code>hideCancelOnFinish</code> - (default: true) - defines whether or not the show the 'Cancel' button
+                when on the final (finish) step.</li>
+            <li><code>previousEnabled</code> - (default: true) - defines whether or not the 'Previous' button is enabled.</li>
+            <li><code>nextEnabled</code> - (default: true) - defines whether or not the 'Next' button is enabled.</li>
+            <li><code>cancelEnabled</code> - (default: true) - defines whether or not the 'Cancel' button is enabled.</li>
+            <li><code>finishEnabled</code> - (default: true) - defines whether or not the 'Finish' button is enabled.</li>
+            <li><code>alwaysShowFinish</code> - (default: false) - defines whether or not the 'Finish' button is shown
+                in all the steps.</li>
+        </ul>
+    </tr>
+    <tr uxd-api-property name="on-changing" type="function" binding="variable">
+        Expression that is called when changing steps. The expression should take in two parameters, from and to, which
+        are the indexes of the steps involved in the change. If it returns false then the current step goes into
+        error state and the step change is stopped. e.g. <code>on-changing="canChange(from,to)"</code>. The expression
+        can also return a number representing a step index to move to, overriding the <code>to</code> parameter.
+    </tr>
+    <tr uxd-api-property name="on-finishing" type="function" binding="variable">
+        Expression that is called when Finish is clicked but before <code>on-finished</code> expression is evaluated.
+        The expression should return a boolean result. If false current step goes into error state and the step change
+        is stopped. e.g. <code>on-finishing="canChange()"</code>.
+    </tr>
+    <tr uxd-api-property name="on-finished" type="function" binding="variable">
+        Expression that is called when Finish is clicked, after <code>on-finishing</code> expression is evaluated. e.g.
+        <code>on-finished="wizardComplete()"</code>.
+    </tr>
+    <tr uxd-api-property name="on-canceled" type="function" binding="variable">
+        Expression that is called when Cancel is clicked. e.g. <code>on-canceled="wizardCanceled()"</code>.
+    </tr>
+    <tr uxd-api-property name="is-visited" type="boolean" binding="variable" defaultValue="false">
+        Set to indicate if a wizard is already visited(edited) and to enable all the steps.
+    </tr>
+</uxd-api-properties>
 
 <tabset>
     <tab heading="HTML">

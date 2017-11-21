@@ -12,41 +12,16 @@
 
 <p>Filter Options should have the following attributes:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">name</td>
-                <td>object</td>
-                <td>variable</td>
-                <td>An object containing the filter option name to be displayed.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">select</td>
-                <td>function</td>
-                <td>variable</td>
-                <td>A function expression called when the option is selected. This method performs filtering, pagination and
-                    updates the data count.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">default</td>
-                <td>boolean</td>
-                <td>variable</td>
-                <td>A boolean object indicating if this is the default filter (e.g., AUTHOR) applied when Clear All button in
-                    the filter container is clicked.</td>
-                <td>false</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="object" binding="variable" required="true">
+        An object containing the filter option name to be displayed.
+    </tr>
+    <tr uxd-api-property name="select" type="function" binding="variable" required="true">
+        A function expression called when the option is selected. This method performs filtering, pagination and updates the data count.
+    </tr>
+    <tr uxd-api-property name="default" type="boolean" binding="variable" required="true">
+        A boolean object indicating if this is the default filter (e.g., AUTHOR) applied when Clear All button in the filter container is clicked.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet language="html" [content]="filterOptionsCode"></uxd-snippet>

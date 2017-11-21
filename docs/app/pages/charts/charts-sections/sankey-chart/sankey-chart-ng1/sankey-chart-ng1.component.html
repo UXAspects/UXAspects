@@ -32,292 +32,133 @@
 
 <uxd-snippet language="javascript" [content]="snippets.compiled.optionsJs"></uxd-snippet>
 
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody><tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Optional</th>
+<uxd-api-properties>
+    <tr uxd-api-property name="linkHoverHL" type="boolean" defaultValue="true">
+      Determines whether to have a link hover highlight.
     </tr>
-    <tr>
-      <td class="attribute">linkHoverHL</td>
-      <td>boolean</td>
-      <td>Determines whether to have a link hover highlight. Default is <code>true</code>.</td>
-      <td>true</td>
+    <tr uxd-api-property name="linkTooltip" type="object">
+      Configuration for tooltips on the Sankey ribbons. See the <code>linkTooltip</code> object definition below.
     </tr>
-    <tr>
-      <td class="attribute">linkTooltip</td>
-      <td>object</td>
-      <td>Configuration for tooltips on the Sankey ribbons. See the <code>linkTooltip</code> object definition below.</td>
-      <td>true</td>
+    <tr uxd-api-property name="col" type="object" required="true">
+      Configuration for the column header. See the <code>col</code> object definition below.
     </tr>
-    <tr>
-      <td class="attribute">col</td>
-      <td>object</td>
-      <td>Configuration for the column header. See the <code>col</code> object definition below.</td>
-      <td>false</td>
+    <tr uxd-api-property name="block" type="object">
+      Configuration for the chart blocks. See the <code>block</code> object definition below.
     </tr>
-    <tr>
-      <td class="attribute">block</td>
-      <td>object</td>
-      <td>Configuration for the chart blocks. See the <code>block</code> object definition below.</td>
-      <td>true</td>
+    <tr uxd-api-property name="overflow" type="object">
+      Configuration for the overflow links. See the <code>overflow</code> object definition below.
     </tr>
-    <tr>
-      <td class="attribute">overflow</td>
-      <td>object</td>
-      <td>Configuration for the overflow links. See the <code>overflow</code> object definition below.</td>
-      <td>true</td>
+    <tr uxd-api-property name="showColNumber" type="boolean" defaultValue="false">
+      Determines whether the column number is shown in the header. 
     </tr>
-    <tr>
-      <td class="attribute">showColNumber</td>
-      <td>boolean</td>
-      <td>Determines whether the column number is shown in the header. Default is <code>false</code>.</td>
-      <td>true</td>
-    </tr>
-  </tbody></table>
-</div>
+</uxd-api-properties>
 
 <p>The <code>linkTooltip</code> object is defined as follows:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody><tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Optional</th>
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean" defaultValue="true">
+      Determines whether the tooltip is shown.
     </tr>
-    <tr>
-      <td class="attribute">show</td>
-      <td>boolean</td>
-      <td>Determines whether the tooltip is shown. Default is <code>true</code>.</td>
-      <td>true</td>
+    <tr uxd-api-property name="label" type="string">
+      Text to show in the tooltip, as a suffix to the numeric value.
     </tr>
-    <tr>
-      <td class="attribute">label</td>
-      <td>string</td>
-      <td>Text to show in the tooltip, as a suffix to the numeric value.</td>
-      <td>true</td>
-    </tr>
-  </tbody></table>
-</div>
+</uxd-api-properties>
 
 <p>The <code>col</code> object is defined as follows:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody><tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Optional</th>
+<uxd-api-properties>
+    <tr uxd-api-property name="paddingTop" type="number">
+      Space in pixels between the header and the top of the chart column.
     </tr>
-    <tr>
-      <td class="attribute">paddingTop</td>
-      <td>number</td>
-      <td>Space in pixels between the header and the top of the chart column.</td>
-      <td>true</td>
+    <tr uxd-api-property name="paddingBottom" type="number">
+      Space in pixels at the bottom of the chart.
     </tr>
-    <tr>
-      <td class="attribute">paddingBottom</td>
-      <td>number</td>
-      <td>Space in pixels at the bottom of the chart.</td>
-      <td>true</td>
+    <tr uxd-api-property name="headerLabelLength" type="number" required="false">
+      The number of characters after which column content is truncated.
     </tr>
-    <tr>
-      <td class="attribute">headerLabelLength</td>
-      <td>number</td>
-      <td>The number of characters after which column content is truncated.</td>
-      <td>false</td>
+    <tr uxd-api-property name="headerLabelSpacing" type="number" required="false">
+      The number of pixels between the column number (if visible) and the label.
     </tr>
-    <tr>
-      <td class="attribute">headerLabelSpacing</td>
-      <td>number</td>
-      <td>The number of pixels between the column number (if visible) and the label.</td>
-      <td>false</td>
-    </tr>
-  </tbody></table>
-</div>
+</uxd-api-properties>
 
 <p>The <code>block</code> object is defined as follows:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody><tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Optional</th>
+<uxd-api-properties>
+    <tr uxd-api-property name="minWidth" type="number">
+      Minimum width of the block in pixels. This depends on the container and columns, if the value is set too low it will revert to a default value.
     </tr>
-    <tr>
-      <td class="attribute">minWidth</td>
-      <td>number</td>
-      <td>Minimum width of the block in pixels. This depends on the container and columns, if the value is set too low it will revert
-        to a default value.</td>
-      <td>true</td>
+    <tr uxd-api-property name="minHeight" type="number">
+      Minimum height of the block in pixels. Setting this to smaller values will show a greater differentiation in box size.
     </tr>
-    <tr>
-      <td class="attribute">minHeight</td>
-      <td>number</td>
-      <td>Minimum height of the block in pixels. Setting this to smaller values will show a greater differentiation in box size.</td>
-      <td>true</td>
+    <tr uxd-api-property name="calloutData" type="object">
+      Configuration for the values shown in the blocks. See the <code>calloutData</code> object definition below.
     </tr>
-    <tr>
-      <td class="attribute">calloutData</td>
-      <td>object</td>
-      <td>Configuration for the values shown in the blocks. See the <code>calloutData</code> object definition below.</td>
-      <td>true</td>
-    </tr>
-  </tbody></table>
-</div>
+</uxd-api-properties>
 
 <p>The <code>calloutData</code> object is defined as follows:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody><tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Optional</th>
+<uxd-api-properties>
+    <tr uxd-api-property name="topLeft" type="object">
+      Configuration for the top left section of the blocks. See the callout section object definition below.
     </tr>
-    <tr>
-      <td class="attribute">topLeft</td>
-      <td>object</td>
-      <td>Configuration for the top left section of the blocks. See the callout section object definition below.</td>
-      <td>true</td>
+    <tr uxd-api-property name="topRight" type="object">
+      Configuration for the top right section of the blocks. See the callout section object definition below.
     </tr>
-    <tr>
-      <td class="attribute">topRight</td>
-      <td>object</td>
-      <td>Configuration for the top right section of the blocks. See the callout section object definition below.</td>
-      <td>true</td>
+    <tr uxd-api-property name="bottomRight" type="object">
+      Configuration for the bottom right section of the blocks. See the callout section object definition below.
     </tr>
-    <tr>
-      <td class="attribute">bottomRight</td>
-      <td>object</td>
-      <td>Configuration for the bottom right section of the blocks. See the callout section object definition below.</td>
-      <td>true</td>
+    <tr uxd-api-property name="bottomLeft" type="object">
+      Configuration for the bottom left section of the blocks. See the callout section object definition below.
     </tr>
-    <tr>
-      <td class="attribute">bottomLeft</td>
-      <td>object</td>
-      <td>Configuration for the bottom left section of the blocks. See the callout section object definition below.</td>
-      <td>true</td>
-    </tr>
-  </tbody></table>
-</div>
+</uxd-api-properties>
 
 <p>The callout section (<code>topLeft</code>, <code>topRight</code>, <code>bottomRight</code>, <code>bottomLeft</code>) object is defined as follows:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody><tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Optional</th>
+<uxd-api-properties>
+    <tr uxd-api-property name="key" type="string" required="true">
+      Specifies the key of the value from the data source to be displayed.
     </tr>
-    <tr>
-      <td class="attribute">key</td>
-      <td>string</td>
-      <td>Specifies the key of the value from the data source to be displayed.</td>
-      <td>false</td>
+    <tr uxd-api-property name="nodeLabel" type="boolean">
+      Set to true for the value which defines the name of the node. This will be truncated to ensure it fits inside the block.
     </tr>
-    <tr>
-      <td class="attribute">nodeLabel</td>
-      <td>boolean</td>
-      <td>Set to true for the value which defines the name of the node. This will be truncated to ensure it fits inside the block.</td>
-      <td>true</td>
+    <tr uxd-api-property name="defaultShow" type="boolean" defaultValue="true">
+      Determines whether the data will be visible without hover. 
     </tr>
-    <tr>
-      <td class="attribute">defaultShow</td>
-      <td>boolean</td>
-      <td>Determines whether the data will be visible without hover. Default is <code>true</code>.</td>
-      <td>true</td>
+    <tr uxd-api-property name="label" type="string">
+      Describes the unit of measurement for the data.
     </tr>
-    <tr>
-      <td class="attribute">label</td>
-      <td>string</td>
-      <td>Describes the unit of measurement for the data.</td>
-      <td>true</td>
+    <tr uxd-api-property name="valueUnit" type="string">
+      Provides a data-formatter for certain data types - the letter supplied here will receive a prefix (K, M, G, etc.) as appropriate and the associated value will be scaled. In the above example all values for file size are given in bytes and automatically formatted to GB, MB etc. by supplying the value B.
     </tr>
-    <tr>
-      <td class="attribute">valueUnit</td>
-      <td>string</td>
-      <td>Provides a data-formatter for certain data types - the letter supplied here will receive a prefix (K, M, G, etc.) as appropriate
-        and the associated value will be scaled. In the above example all values for file size are given in bytes and automatically
-        formatted to GB, MB etc. by supplying the value B.</td>
-      <td>true</td>
+    <tr uxd-api-property name="binary" type="boolean">
+      Set to <code>true</code> to use binary prefixes (e.g. k = 1024) instead of decimal (k = 1000). This is particularly useful for showing file sizes.
     </tr>
-    <tr>
-      <td class="attribute">binary</td>
-      <td>boolean</td>
-      <td>Set to <code>true</code> to use binary prefixes (e.g. k = 1024) instead of decimal (k = 1000). This is particularly useful
-        for showing file sizes.</td>
-      <td>true</td>
+    <tr uxd-api-property name="valueFormatter" type="boolean">
+      Allows the value to be formatted as desired. The argument to the function is the numeric value, and it should return a formatted string. This may be useful for locale presentation, using the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString"><code>toLocaleString</code></a> function.
     </tr>
-    <tr>
-      <td class="attribute">valueFormatter</td>
-      <td>function</td>
-      <td>Allows the value to be formatted as desired. The argument to the function is the numeric value, and it should return a
-        formatted string. This may be useful for locale presentation, using the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString"><code>toLocaleString</code></a>				function.</td>
-      <td>true</td>
+    <tr uxd-api-property name="click" type="function">
+      Allows an on click function to be added to the callout and returns the data.
     </tr>
-    <tr>
-      <td class="attribute">click</td>
-      <td>function</td>
-      <td>Allows an on click function to be added to the callout and returns the data.</td>
-      <td>true</td>
-    </tr>
-  </tbody></table>
-</div>
+</uxd-api-properties>
 
 <p>The <code>overflow</code> object is defined as follows:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody><tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Optional</th>
+<uxd-api-properties>
+    <tr uxd-api-property name="tooltip" type="string">
+      Configuration for the tooltip on overflow links. See the <code>overflow.tooltip</code> object definition below.
     </tr>
-    <tr>
-      <td class="attribute">tooltip</td>
-      <td>string</td>
-      <td>Configuration for the tooltip on overflow links. See the <code>overflow.tooltip</code> object definition below.</td>
-      <td>true</td>
-    </tr>
-  </tbody></table>
-</div>
+</uxd-api-properties>
 
 <p>The <code>overflow.tooltip</code> object is defined as follows:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody><tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Optional</th>
+<uxd-api-properties>
+    <tr uxd-api-property name="showTooltip" type="boolean" defaultValue="true">
+      Determines whether a tooltip will be shown on overflow links.
     </tr>
-    <tr>
-      <td class="attribute">showTooltip</td>
-      <td>boolean</td>
-      <td>Determines whether a tooltip will be shown on overflow links. Default is <code>true</code>.</td>
-      <td>true</td>
+    <tr uxd-api-property name="label" type="string">
+      Text to show in the tooltip, as a suffix to the numeric value.
     </tr>
-    <tr>
-      <td class="attribute">label</td>
-      <td>string</td>
-      <td>Text to show in the tooltip, as a suffix to the numeric value.</td>
-      <td>true</td>
-    </tr>
-  </tbody></table>
-</div>
+</uxd-api-properties>
 
 <p>The Sankey chart will grow and shrink in size where possible to fit the space available to it. To have further control over the size of the chart provide styling for the <code>.sankey</code> class.</p>
 

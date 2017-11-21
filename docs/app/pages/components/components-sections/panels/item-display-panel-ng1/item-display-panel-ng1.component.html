@@ -11,46 +11,33 @@
 <p>The input value of the directive is an <code>object</code>. It is defined by the <code>panel</code> property of each <code>item</code> object in <code>vm.items</code> which in turn defines the item display panel.</p>
 
 <p>The following defining the modal are set in the <code>panel</code> property of each <code>item</code>.</p>
-<div class="demo-attributes table-responsive">
-<table class="table">
-    <tbody><tr>
-        <th>Property</th>
-        <th>Description</th>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string">
+        Defines the Header title of the item display panel.
     </tr>
-    <tr>
-        <td class="attribute">title</td>
-        <td>Defines the Header title of the item display panel.</td>
+    <tr uxd-api-property name="main" type="string">
+        Provides a path to a template representing item display panel content.
     </tr>
-    <tr>
-        <td class="attribute">main</td>
-        <td>Provides a path to a template representing item display panel content.</td>
+    <tr uxd-api-property name="footer" type="string">
+        Provides a path to a template representing item display panel footer content.
     </tr>
-    <tr>
-        <td class="attribute">footer</td>
-        <td>Provides a path to a template representing item display panel footer content.</td>
+    <tr uxd-api-property name="modalColumns" type="string">
+        Classes defining the number of columns as per the grid system for a responsive item display panel or a class with a preset width.
     </tr>
-    <tr>
-        <td class="attribute">modalColumns</td>
-        <td>Classes defining the number of columns as per the grid system for a responsive item display panel or a class with a preset width.</td>
+    <tr uxd-api-property name="top" type="number">
+        Defines the initial top position of the modal with respect to standard header, condensed header or toolbar.
     </tr>
-    <tr>
-        <td class="attribute">top</td>
-        <td>Number, defines the initial top position of the modal with respect to standard header, condensed header or toolbar.</td>
+    <tr uxd-api-property name="reference" type="string">
+        Element id or class, item display panel is displayed in reference to this element after scroll.
     </tr>
-    <tr>
-        <td class="attribute">reference</td>
-        <td>Element id or class, item display panel is displayed in reference to this element after scroll.</td>
+    <tr uxd-api-property name="scope" type="scope">
+        A scope instance to be used for the modal's main content.
     </tr>
-    <tr>
-        <td class="attribute">scope</td>
-        <td>A scope instance to be used for the modal's main content.</td>
+    <tr uxd-api-property name="animate" type="boolean" defaultValue="false">
+        A boolean value to set the panel to animate in and out of the screen.
     </tr>
-    <tr>
-        <td class="attribute">animate</td>
-        <td>(Optional) A boolean value to set the panel to animate in and out of the screen.</td>
-    </tr>
-</tbody></table>
-</div>
+</uxd-api-properties>
 
 <tabset>
     <tab heading="HTML">

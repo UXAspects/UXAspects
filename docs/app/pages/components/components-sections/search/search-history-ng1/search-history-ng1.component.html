@@ -12,25 +12,16 @@ or if you are running a hybrid application you can use the <code>PersistentDataS
   to see details of the last 10 searches.</p>
 
 <p>The <code>localStorage</code> object has the following methods which we use in our example above:</p>
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td class="attribute">setItem</td>
-        <td>This method takes 2 parameters, a <code>key name</code> and <code>key value</code> pair, and will add the key to
-          the storage or update it if it already exists.</td>
-      </tr>
-      <tr>
-        <td class="attribute">getItem</td>
-        <td>This method takes a <code>key name</code> as a parameter and returns its value (if it exists).</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+<uxd-api-properties >
+    <tr uxd-api-property name="setItem">
+      This method takes 2 parameters, a <code>key name</code> and <code>key value</code> pair, and will add the key to
+      the storage or update it if it already exists.
+    </tr>
+    <tr uxd-api-property name="getItem">
+      This method takes a <code>key name</code> as a parameter and returns its value (if it exists).
+    </tr>
+</uxd-api-properties>
 
 <blockquote>
   <p><strong>Note</strong>: Refer to the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage">Storage API</a>
