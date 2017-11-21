@@ -1,7 +1,7 @@
 <div class="row">
 
-    <ux-spark [value]="charts[0].value" [barHeight]="charts[0].barHeight" [topLeftLabel]="charts[0].topLeftLabel" class="col-md-5 col-sm-5 col-xs-5"
-        [tooltip]="charts[0].tooltip"></ux-spark>
+    <ux-spark [theme]="charts[0].theme" [value]="charts[0].value" [barHeight]="charts[0].barHeight" [topLeftLabel]="charts[0].topLeftLabel" class="col-md-5 col-sm-5 col-xs-5"
+        [tooltip]="charts[0].tooltip" [trackColor]="charts[0].trackColor"></ux-spark>
 
     <div class="col-md-1 col-sm-1 col-xs-1"></div>
 
@@ -39,7 +39,7 @@
 
 <div class="row">
 
-    <ux-spark [theme]="charts[6].theme" [value]="charts[6].value" [barHeight]="charts[6].barHeight" [topLeftLabel]="charts[6].topLeftLabel"
+    <ux-spark [barColor]="charts[6].barColor" [value]="charts[6].value" [barHeight]="charts[6].barHeight" [topLeftLabel]="charts[6].topLeftLabel"
         class="col-md-5 col-sm-5 col-xs-5"></ux-spark>
 
     <div class="col-md-1 col-sm-1 col-xs-1"></div>
@@ -59,16 +59,18 @@
         Defines the color of the bar and the track. This should specify a color from our color palette. Defaults to the <code>chart1</code> color in the
         color palette and with an opacity of 0.2 for the track.
     </tr>
-    <tr uxd-api-property name="barColor" type="string">
+    <tr uxd-api-property name="barColor" type="string | array">
         Defines the color of the bar. Defaults to the <code>chart1</code> color in the color palette. Enhances customization
-        by permitting arbitrary colors to be speficied.
+        by permitting arbitrary colors to be speficied. For multi-value spark charts multiple colors can be specified in an array 
+        and should match the number of values supplied.
     </tr>
     <tr uxd-api-property name="trackColor" type="string">
         Defines the color of the track. Defaults to the <code>chart1</code> color in the color palette with an opacity
         of 0.2. Enhances customization by permitting arbitrary colors to be speficied.
     </tr>
-    <tr uxd-api-property name="value" type="number" defaultValue="0">
-        Indicates the current value of the spark chart. This should be a value between 0-100. 
+    <tr uxd-api-property name="value" type="number | array" defaultValue="0">
+        Indicates the current value of the spark chart. This should be a value between 0-100. Default value is 0. For 
+        multi-value spark charts multiple values can be specified in an array and should match the number of bar colors supplied. 
     </tr>
     <tr uxd-api-property name="barHeight" type="number" defaultValue="10">
         Indicates the height of the bar in pixels.

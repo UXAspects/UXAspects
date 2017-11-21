@@ -39,7 +39,7 @@
 
 <div class="row">
 
-    <ux-spark-ng1 [type]="charts[6].type" [value]="charts[6].value" [fillheight]="charts[6].fillHeight" [topLeftLabel]="charts[6].topLeftLabel"
+    <ux-spark-ng1 [barColor]="charts[6].barColor" [value]="charts[6].value" [fillheight]="charts[6].fillHeight" [topLeftLabel]="charts[6].topLeftLabel"
         class="col-md-5 col-sm-5 col-xs-5"></ux-spark-ng1>
 
     <div class="col-md-1 col-sm-1 col-xs-1"></div>
@@ -59,8 +59,13 @@
     <tr uxd-api-property name="type" type="string">
         Defines the class name that is used to specify the spark line color.
     </tr>
-    <tr uxd-api-property name="value" type="number" required="true">
-        Indicates the current value of the spark line (progress).
+    <tr uxd-api-property name="bar-color" type="string | array">
+        Defines the color of the bar. For multi-value spark charts multiple colors can be specified in an array and should match 
+        the number of values supplied.
+    </tr>
+    <tr uxd-api-property name="value" type="number | array" required="true">
+        Indicates the current value of the spark line (progress). For multi-value spark charts multiple values can be specified in an array and should match 
+        the number of barColors supplied.
     </tr>
     <tr uxd-api-property name="fillheight" type="number" required="true">
         Indicates the current value of the spark fill (height).

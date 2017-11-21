@@ -1,10 +1,23 @@
 export default function SparkCtrl() {
-    var vm = this;
+    var sc = this;
 
-    vm.inline = vm.label !== undefined;
+    sc.inline = sc.label !== undefined;
 
-    vm.setPosition = {
-        'height': vm.fillheight + 'px',
-        'margin-top': (vm.top !== undefined) ? vm.top : 0 + 'px'
+    sc.setPosition = {
+        'height': sc.fillheight + 'px',
+        'margin-top': (sc.top !== undefined) ? sc.top : 0 + 'px'
     };
+        
+    // ensure 'value' is an array at this point
+    const values = Array.isArray(sc.value) ? sc.value : [sc.value];
+
+    // get the total value of all lines
+    let total = Math.max(values.reduce((previous, current) => previous + current, 0), 100);
+
+    // figure out the percentages for each spark line
+    this.values = values.map(val => (val / total) * 100);
+
+    this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
+    
+    return this.values;   
 }

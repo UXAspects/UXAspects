@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/observable/fromEvent';
+import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
     selector: 'ux-media-player-timeline',
@@ -12,7 +15,10 @@ import 'rxjs/add/operator/takeUntil';
         '[class.quiet]': 'quietMode || fullscreen'
     }
 })
-export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit {
+export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, AfterViewInit, OnDestroy {
+
+    @ViewChild('progressThumb') thumb: ElementRef;
+    @ViewChild('timeline') timelineRef: ElementRef;
 
     current: number = 0;
     position: number = 0;
@@ -21,14 +27,13 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
     mouseDown: boolean = false;
     quietMode: boolean = false;
     fullscreen: boolean = false;
+    private _mouseEventSubscription: Subscription;
 
     scrub = {
         visible: false,
         position: 0,
         time: 0
     };
-
-    @ViewChild('timeline') timelineRef: ElementRef;
 
     ngOnInit(): void {
 
@@ -54,7 +59,27 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
         });
     }
 
+    ngAfterViewInit(): void {
+        let mousedown$ = Observable.fromEvent(this.thumb.nativeElement, 'mousedown');
+        let mousemove$ = Observable.fromEvent(document, 'mousemove');
+        let mouseup$ = Observable.fromEvent(document, 'mouseup');
+
+        this._mouseEventSubscription = mousedown$.switchMap(event => mousemove$.takeUntil(mouseup$)).subscribe(event => {
+            this.scrub.visible = false;
+        });
+    }
+
+    ngOnDestroy() {
+        this._mouseEventSubscription.unsubscribe();
+    }
+
     updateScrub(event?: MouseEvent): void {
+
+        let target = event.target as HTMLElement;
+      
+        if (target.classList.contains('media-progress-bar-thumb')) {
+            return;
+        }
 
         let timeline = this.timelineRef.nativeElement as HTMLDivElement;
         let bounds = timeline.getBoundingClientRect();
@@ -67,7 +92,6 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
             this.mediaPlayerService.currentTime = this.scrub.time;
         }
     }
-
 }
 
 export interface MediaPlayerBuffered {
