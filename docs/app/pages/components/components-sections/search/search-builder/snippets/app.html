@@ -1,0 +1,39 @@
+<button class="btn button-primary" (click)="openModal(template)">
+    <span class="hpe-icon hpe-deployment m-r-xs" aria-hidden="true"></span>
+    Launch Search Builder Modal
+</button>
+
+<hr>
+
+<h4>Search Query</h4>
+
+<pre>{{ preview }}</pre>
+
+<ng-template #template>
+    <div class="search-builder-dismiss" (click)="cancel()">
+        <button class="btn btn-icon button-dark btn-circular btn-close">
+            <i class="hpe-icon hpe-close"></i>
+        </button>
+    </div>
+
+    <div class="search-builder-header">
+        <div class="search-builder-icon"></div>
+        <h1 class="search-builder-title">Search builder</h1>
+    </div>
+
+    <div class="search-builder-body">
+
+        <ux-search-builder [(query)]="query">
+            <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" (add)="addKeyword()"></ux-search-builder-group>
+            <ux-search-builder-group id="authors" header="ANY of the following" operator="or" (add)="addAuthor()"></ux-search-builder-group>
+            <ux-search-builder-group id="repositories" header="ALL of the following" (add)="addRepository()"></ux-search-builder-group>
+            <ux-search-builder-group id="terms" header="NONE of the following" operator="not" (add)="addTerm()"></ux-search-builder-group>
+        </ux-search-builder>
+
+    </div>
+
+    <div class="search-builder-footer">
+        <button type="button" class="btn button-primary m-r-xs" (click)="save()">Search</button>
+        <button type="button" class="btn button-secondary" (click)="cancel()">Cancel</button>
+    </div>
+</ng-template>

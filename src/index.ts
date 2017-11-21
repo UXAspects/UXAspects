@@ -15,6 +15,7 @@ export * from './components/number-picker/index';
 export * from './components/page-header/index';
 export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';
+export * from './components/search-builder/index';
 export * from './components/select/index';
 export * from './components/slider/index';
 export * from './components/spark/index';

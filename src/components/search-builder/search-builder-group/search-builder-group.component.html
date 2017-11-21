@@ -1,0 +1,52 @@
+<h4 class="search-group-title">{{ header }}</h4>
+
+<main class="search-group-content">
+
+  <section class="search-group-operator search-group-operator-{{ operator }}" [class.hidden-operator]="searchBuilderGroupService.getQuery().length < 2">{{ operator }}</section>
+
+  <section class="search-group-items">
+
+    <div class="search-group-item-container" *ngFor="let field of searchBuilderGroupService.getQuery()">
+
+      <div class="search-group-item">
+        <ng-container *uxSearchBuilderOutlet="field.type; context: field"></ng-container>
+      </div>
+
+      <div class="search-group-item-remove" (click)="removeField(field)">
+        <span class="hpe-icon hpe-close"></span>
+      </div>
+    </div>
+
+    <!-- Placeholder Item -->
+    <ng-container *ngIf="showPlaceholder">
+
+      <!-- The Default Placeholder -->
+      <div class="search-group-item-container placeholder-item" *ngIf="!placeholder">
+        
+        <div class="search-group-item">
+          <label class="form-label">New field</label>
+          <div class="form-control"></div>
+        </div>
+  
+      </div>
+
+      <!-- Allow a custom placeholder -->
+    <ng-container *ngTemplateOutlet="placeholder"></ng-container>
+
+    </ng-container>
+
+  </section>
+
+  <section class="search-builder-group-add-field" (click)="add.emit()">
+
+    <button type="button" class="btn btn-icon btn-circular button-accent" aria-label="Add Field">
+      <span class="hpe-icon hpe-add" aria-hidden="true"></span>
+    </button>
+
+    <span class="search-builder-group-add-field-label">{{ addText }}</span>
+
+  </section>
+
+</main>
+
+<hr class="search-builder-group-divider">

@@ -851,8 +851,22 @@
             "link": "search",
             "sections": [{
                     "title": "Search Builder",
+                    "component": "ComponentsSearchBuilderComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-search-builder"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "SearchBuilderModule"
+                    }]
+                },
+                {
+                    "title": "Search Builder",
                     "component": "ComponentsSearchBuilderNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Search History",
