@@ -280,5 +280,9 @@ module.exports = {
                 'environments\\environment.ts': 'environments\\environment.prod.ts'
             }
         }),
+        
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(require('../src/package.json').version)
+        }),
     ]
 };
