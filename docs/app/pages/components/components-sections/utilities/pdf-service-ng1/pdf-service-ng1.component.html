@@ -1,0 +1,79 @@
+<uxd-pdf-service-wrapper></uxd-pdf-service-wrapper>
+
+<hr>
+
+<p>PDF documents can be created to display table data using the <code>$pdf</code> service. By supplying the column definitions
+    and a dataset a table can automatically be created and a PDF can then be generated. Currently the service is limited
+    to creating PDFs from tables of rows and columns consisting of <strong>alphanumeric text</strong> only.</p>
+
+<p>To create a document call the <code>createTable</code> function on the <code>$pdf</code> service. The <code>createTable</code>    function can take three parameters, the first an array of column definitions (which are explained below), the second
+    containing the data for each row and the third defining any additional configuration.</p>
+
+<p>Below is an example of how to create the table and download the generated PDF.</p>
+
+<uxd-snippet [content]="snippets.compiled.codeSnippetJs" language="javascript"></uxd-snippet>
+
+<p>In the code snippet above, the function will return an object containing the newly created document. The returned object
+    will have a <code>download</code> function that will allow you to download the generated PDF.</p>
+
+<p>Column definitions should be an array of objects, each object can contain the following properties:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string">
+        Should contain the text in the column header.
+    </tr>
+    <tr uxd-api-property name="value" type="string | function">
+        Should either specify the property name in the row object containing the value or a function that will be passed
+        the row data and should return the value to display in that column.
+    </tr>
+    <tr uxd-api-property name="width" type="size">
+        Specifies the width of the column. You can specify sizes as a pixel value (<code>100</code>) or a percentage
+        (<code>'30%'</code>). Additionally you can let the service determine the size using <code>'auto'</code> which
+        will take only the size required to display the data in the column, or <code>'*'</code> which will stretch
+        to fill up any available space.
+    </tr>
+</uxd-api-properties>
+
+<p>You can also provide several options to customize the PDF being generated. If not specified then default values will be used.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="pageSize" type="string">
+        Can specify the document page size. The following sizes are available:
+        <br><br>
+        <ul>
+            <li>'4A0', '2A0', 'A0', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10'</li>
+            <li>'B0', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10'</li>
+            <li>'C0', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10'</li>
+            <li>'RA0', 'RA1', 'RA2', 'RA3', 'RA4'</li>
+            <li>'SRA0', 'SRA1', 'SRA2', 'SRA3', 'SRA4'</li>
+            <li>'EXECUTIVE', 'FOLIO', 'LEGAL', 'LETTER', 'TABLOID'</li>
+        </ul>
+    </tr>
+    <tr uxd-api-property name="pageOrientation" type="string">
+        Can specify the orientation of the page. The possible values are <code>portrait</code> or <code>landscape</code>.
+    </tr>
+    <tr uxd-api-property name="pageMargins" type="array">
+        Can specify the spacing on each side of the document. The array should have four values indicating the spacing
+        (in pixels) on the left, top, right &amp; bottom of the page.
+    </tr>
+    <tr uxd-api-property name="metadata" type="object">
+        Can specify the document metadata. The available properties are:
+        <ul>
+            <li><code>title</code> - The title of the document.</li>
+            <li><code>author</code> - The author of the document.</li>
+            <li><code>subject</code> - The subject of the document contents.</li>
+            <li><code>keywords</code> - Relevant keywords for the document.</li>
+        </ul>
+    </tr>
+</uxd-api-properties>
+
+<p>Below is the code used in the example above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
+    </tab>
+</tabset>

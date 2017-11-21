@@ -1,0 +1,156 @@
+<uxd-file-upload-wrapper></uxd-file-upload-wrapper>
+
+<hr>
+
+<blockquote>
+  <p><strong>Note</strong>: Files will not be uploaded to the server by the demo control. Application teams must implement server
+    code.
+  </p>
+</blockquote>
+
+<p>Angular File Upload provides a control for uploading files. It supports native HTML5 uploads and degrades to an iframe target
+  implementation for legacy browsers.</p>
+
+<p>To create an area where files can be dragged for upload, use the <code>nv-file-drop</code> directive.</p>
+
+<p>If the <code>nv-file-over</code> directive is placed on an element, it will have a class added to it when a file is about
+  to be placed into the drop area. By default this class is <code>nv-file-over</code> but can be set with the parameter attribute
+  <code>over-class="className"</code>.</p>
+
+<p>Alternatively the <code>nv-file-select</code> attribute can be added to an <code>&lt;input type="file"&gt;</code> element
+  to create a button which will open a standard file browsing dialogue.</p>
+
+<p>When creating a control with <code>nv-file-drop</code> or <code>nv-file-select</code>, you must also pass an instance of
+  FileUploader to the uploader attribute. FileUploader at minimum should be instantiated with the url to upload to, but can
+  take additional parameters including formData for POST requests and filters to be applied to files before they are added
+  to the upload queue.</p>
+
+<p>Attributes are defined in the controller: <code>uploader</code> - mandatory, instance of FileUploader.</p>
+
+<uxd-snippet language="javascript" [content]="snippets.compiled.sampleSnippetJs"></uxd-snippet>
+
+<p>The FileUploader object has the following callbacks for adding custom logic:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="onWhenAddingFileFailed">
+      Is called with the parameters <code>(item, filter, options)</code>.
+    </tr>
+    <tr uxd-api-property name="onAfterAddingFile">
+      Is called with the parameter <code>(item)</code>.
+    </tr>
+    <tr uxd-api-property name="onAfterAddingAll">
+      Is called with the parameter <code>(addedFileItems)</code>.
+    </tr>
+    <tr uxd-api-property name="onBeforeUploadItem">
+      Is called with the parameter <code>(item)</code>.
+    </tr>
+    <tr uxd-api-property name="onProgressItem">
+      Is called with the parameters <code>(item, progress)</code>.
+    </tr>
+    <tr uxd-api-property name="onProgressAll">
+      Is called with the parameter <code>(progress)</code>.
+    </tr>
+    <tr uxd-api-property name="onSuccessItem">
+      Is called with the parameters <code>(item, response, status, headers)</code>.
+    </tr>
+    <tr uxd-api-property name="onErrorItem">
+      Is called with the parameters <code>(item, response, status, headers)</code>.
+    </tr>
+    <tr uxd-api-property name="onCancelItem">
+      Is called with the parameters <code>(item, response, status, headers)</code>.
+    </tr>
+    <tr uxd-api-property name="onCompleteItem">
+      Is called with the parameters <code>(item, response, status, headers)</code>.
+    </tr>
+    <tr uxd-api-property name="onSuccessAll">
+      Does not take any parameters.
+    </tr>
+</uxd-api-properties>
+
+<p>Below you can see the methods available on the FileUploader object.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="addToQueue">
+      Adds items to the queue. Takes parameters <code>(files, options, filters)</code> where files is a <code>FileList|File|HTMLInputElement</code>,
+      options is an object and filters is a string.
+    </tr>
+    <tr uxd-api-property name="removeFromQueue">
+      Removes an item from the queue. Takes a parameter where the value is a <code>FileItem</code> or index of item.
+    </tr>
+    <tr uxd-api-property name="clearQueue">
+      Removes all elements from the queue.
+    </tr>
+    <tr uxd-api-property name="uploadItem">
+      Uploads an item. Takes a parameter where the value is a <code>FileItem</code> or index of item.
+    </tr>
+    <tr uxd-api-property name="cancelItem">
+      Cancels uploading of item. Takes a parameter where the value is a <code>FileItem</code> or index of item.
+    </tr>
+    <tr uxd-api-property name="uploadAll">
+      Uploads all pending items on the queue.
+    </tr>
+    <tr uxd-api-property name="cancelAll">
+      Cancels all current uploads.
+    </tr>
+    <tr uxd-api-property name="getNotUploadedItems">
+      Returns an array of all pending items on the queue.
+    </tr>
+</uxd-api-properties>
+
+<p>Below is a brief description of the parameters:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="item">
+      The file to be uploaded.
+    </tr>
+    <tr uxd-api-property name="filter">
+      	Filters to be applied to the files before adding them to the queue. 
+        If the filter returns true the file will be added to the queue.
+    </tr>
+    <tr uxd-api-property name="options">
+      Custom properties added to the file uploader.
+    </tr>
+    <tr uxd-api-property name="addedFileItems">
+      The list of files to be uploaded.
+    </tr>
+    <tr uxd-api-property name="progress">
+      Upload queue progress percentage.
+    </tr>
+    <tr uxd-api-property name="response">
+      The response from the server.
+    </tr>
+    <tr uxd-api-property name="status">
+      The status code from the server.
+    </tr>
+    <tr uxd-api-property name="headers">
+      Headers to be sent along with the files.
+    </tr>
+</uxd-api-properties>
+
+<p>These callbacks return FileItem objects, which contain the data of your uploaded file. You can then apply your own processing
+  or use the upload method on the FileItem object to send the file to the url you previously set.</p>
+
+<p>If creating a file drop zone, hide the file input with the <code>sr-only</code> class, as this will allow users of assistive
+  technologies to access it via the keyboard.</p>
+
+<p>File upload on click is also available in this drop area by adding the <code>&lt;input type="file"&gt;</code> element. The
+  <code>for</code> attribute of the <code>label</code> should refer to the <code>id</code> of the <code>input</code> element.</p>
+
+<p>Below you can see the sample code used in our example:</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </tab>
+  <tab heading="Javascript">
+    <uxd-snippet language="javascript" [content]="snippets.compiled.appJs"></uxd-snippet>    
+  </tab>
+  <tab heading="CSS">
+    <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>    
+  </tab>
+</tabset>
+
+<blockquote>
+  <p>Refer to <a href="https://github.com/nervgh/angular-file-upload/">AngularFileUpload</a> for further details on methods
+    and options available.</p>
+</blockquote>

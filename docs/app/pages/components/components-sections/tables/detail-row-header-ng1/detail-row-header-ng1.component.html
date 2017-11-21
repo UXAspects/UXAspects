@@ -1,0 +1,59 @@
+<uxd-detail-row-header-wrapper></uxd-detail-row-header-wrapper>
+
+<hr>
+
+<p>
+    A <code>detail-row-header</code> can be added to a detail row responsive table which will enable multi column sorting
+    and filtering on the table headers.
+    <br>
+    <br>
+    The options for creating the headers are specified using <code>headers</code> which should contain the following
+    attributes:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string" required="true">
+        This is used to define the name on the column.
+    </tr>
+    <tr uxd-api-property name="class" type="string">
+        This is used to define the class on the header for setting the width, this should match the class on each div in the table body.
+    </tr>
+    <tr uxd-api-property name="sort" type="string">
+        This is used to define how the column will be sorted. If this is not defined the column will be unsortable.
+    </tr>
+    <tr uxd-api-property name="filter" type="string">
+        This is used to define the url of the filter popover. If this is not defined the column will not include
+                    a filter. The filter template will have a scope containing a <code>closePopover</code> function which
+                    it can call to close the popover manually. The filter template scope will also receive the events <code>detailRowHeaderPopoverOpened</code> when the filter popover is opened, and <code>detailRowHeaderPopoverClosed</code> when it is closed.
+    </tr>
+</uxd-api-properties>
+
+<p>The sample code for the detail row header is as follows:</p>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Controller">
+        <uxd-snippet language="javascript" [content]="controllerCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Popover HTML">
+        <uxd-snippet language="html" [content]="popoverHtmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Popover Controller">
+        <uxd-snippet language="javascript" [content]="popoverControllerCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [content]="styleCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Data Service">
+        <uxd-snippet language="javascript" [content]="serviceCode"></uxd-snippet>
+    </tab>
+
+</tabset>

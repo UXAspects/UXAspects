@@ -1,0 +1,23 @@
+<p>
+    These are actions that can be performed against a single item in a <code>table</code>. There should never be more than
+    3 of these actions and they should be restricted to the most common actions a user would want to perform.
+</p>
+
+<p>
+    To create these actions add the <code>.item-actions</code> class to the last <code>td</code> in each <code>tr</code>.
+    Inside the <code>td.item-actions</code> add an <code>item-hover-actions</code> element which will contain the <code>item-hover-action</code> elements. The <code>item-hover-action</code> can have the following attributes:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string" binding="literal" required="true">
+        A literal which is the name of the action and is placed in a tooltip.
+    </tr>
+    <tr uxd-api-property name="icon" type="string" binding="literal" required="true">
+        A literal for the icon class which is added to the action element along with <code>.hpe-icon</code>.
+    </tr>
+    <tr uxd-api-property name="click" type="function" binding="variable" required="true">
+        A function which is executed when the action is clicked.
+    </tr>
+</uxd-api-properties>
+
+<uxd-snippet language="html" [content]="htmlCode"></uxd-snippet>

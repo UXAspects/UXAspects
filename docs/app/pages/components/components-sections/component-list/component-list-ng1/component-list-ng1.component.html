@@ -1,0 +1,42 @@
+<uxd-component-list-wrapper></uxd-component-list-wrapper>
+
+<hr>
+
+<p>The <code>component-list</code> directive allows you to add or remove instances of the same component. 
+It should be given an <code>ng-model</code> containing an array. If the array has any items components will initially be created for those values.
+This array will be updated when a new field is added or when a component changes its model.</p>
+
+<p>You should provide the html for the component you want to duplicate in a <code>component</code> tag inside the <code>component-list</code> directive. 
+Each component will have a property called <code>model</code> available in its scope. 
+Your component should update this property which will update the <code>ng-model</code> on the <code>component-list</code>.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.componentListHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.componentListJs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>Use the following attributes to customize the behavior of the component:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="min-components" type="number" binding="variable" defaultValue="0">
+      Specifies the minimum number of components that will be displayed. If no values have been set for 
+      these components in the <code>ng-model</code> then the default value they will be given is null.
+    </tr>
+    <tr uxd-api-property name="max-components" type="number" binding="variable">
+      Specifies the maximum number of components that will be displayed. The add button will be disabled 
+      when the limit has been reached. By default there is no limit.
+    </tr>
+    <tr uxd-api-property name="button-text" type="string" binding="literal" defaultValue="Add a field">
+      Specifies the text to be displayed beside the add button.
+    </tr>
+    <tr uxd-api-property name="on-add" type="function" binding="variable">
+      If specified the function will be called when a new item is being added to the list.
+    </tr>
+    <tr uxd-api-property name="on-remove" type="function" binding="variable">
+      If specified the function will be called when an item is being removed from the list.
+    </tr>
+</uxd-api-properties>

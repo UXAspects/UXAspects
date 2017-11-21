@@ -1,9 +1,13 @@
+import { Directive, ElementRef, Injector } from '@angular/core';
+import { UpgradeComponent } from '@angular/upgrade/static';
+import * as angular from 'angular';
+
 angular.module('app').directive('uxdTreeGridWrapper', () => {
   return {
-      restrict: 'E',
-      template: require('./tree-grid-wrapper.directive.html'),
-      controller: 'TreeGridDemoCtrl as vm',
-      scope: true
+    restrict: 'E',
+    template: require('./tree-grid-wrapper.directive.html'),
+    controller: 'TreeGridDemoCtrl as vm',
+    scope: true
   };
 });
 
@@ -12,7 +16,7 @@ angular.module('app').controller('TreeGridDemoCtrl', ['$scope', '$displayPanel',
 function TreeGridDemoCtrl($scope: ng.IScope, $displayPanel: any, $templateCache: ng.ITemplateCacheService) {
   var vm = this;
 
-  vm.$onDestroy = function() {
+  vm.$onDestroy = function () {
     $scope.$destroy();
   };
 
@@ -135,7 +139,7 @@ function TreeGridDemoCtrl($scope: ng.IScope, $displayPanel: any, $templateCache:
 
   // Display Panel
   vm.enableDisplayPanel = false;
-  $scope.$watch('vm.enableDisplayPanel', function(nv: any) {
+  $scope.$watch('vm.enableDisplayPanel', function (nv: any) {
     if (nv && vm.currentRow) {
       showDisplayPanel(vm.currentRow);
     } else {
@@ -144,17 +148,17 @@ function TreeGridDemoCtrl($scope: ng.IScope, $displayPanel: any, $templateCache:
   });
 
   // Watch the row with focus to show and update the display panel
-  $scope.$watch('vm.currentRow', function(nv: any) {
+  $scope.$watch('vm.currentRow', function (nv: any) {
     if (vm.enableDisplayPanel && nv) {
       showDisplayPanel(nv);
     }
   });
 
   // Events triggered by 'Previous' and 'Next' buttons
-  $scope.$on('$displayPanelPrevious', function() {
+  $scope.$on('$displayPanelPrevious', function () {
     $displayPanel.movePrev();
   });
-  $scope.$on('$displayPanelNext', function() {
+  $scope.$on('$displayPanelNext', function () {
     $displayPanel.moveNext();
   });
 
@@ -181,7 +185,7 @@ function TreeGridDemoCtrl($scope: ng.IScope, $displayPanel: any, $templateCache:
   }
 
   // Force selectChildren off if row selection is enabled
-  $scope.$watch('vm.options.select.row', function(nv: boolean) {
+  $scope.$watch('vm.options.select.row', function (nv: boolean) {
     if (nv) {
       vm.options.select.selectChildren = false;
     }
@@ -192,17 +196,27 @@ function TreeGridDemoCtrl($scope: ng.IScope, $displayPanel: any, $templateCache:
 angular.module('app').controller('TreeGridActionsCtrl', TreeGridActionsCtrl);
 
 function TreeGridActionsCtrl() {
-var vm = this;
+  var vm = this;
 
-vm.share = function(item: any) {
-  // Action button behaviour goes here
-};
+  vm.share = function (item: any) {
+    // Action button behaviour goes here
+  };
 
-vm.goToDetails = function(item: any) {
-  // Action button behaviour goes here
-};
+  vm.goToDetails = function (item: any) {
+    // Action button behaviour goes here
+  };
 
-vm.delete = function(item: any) {
-  // Action button behaviour goes here
-};
+  vm.delete = function (item: any) {
+    // Action button behaviour goes here
+  };
+}
+
+@Directive({
+  selector: 'uxd-tree-grid-wrapper'
+})
+export class TreeGridComponent extends UpgradeComponent {
+
+  constructor(elementRef: ElementRef, injector: Injector) {
+    super('uxdTreeGridWrapper', elementRef, injector);
+  }
 }

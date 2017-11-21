@@ -1,0 +1,137 @@
+<div class="row">
+    <div class="btn-group pull-right send-to-back">
+        <button type="button" class="btn button-toggle-primary" [(ngModel)]="group" btnRadio="table">Table</button>
+        <button type="button" class="btn button-toggle-primary" [(ngModel)]="group" btnRadio="card">Card</button>
+    </div>
+</div>
+
+<div class="row m-t">
+
+    <div class="layout-switcher-example" uxLayoutSwitcher [group]="group" [style.width.%]="width">
+
+        <!-- Table Layout -->
+        <div class="table-reponsive" *uxLayoutSwitcherItem="layouts.table">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Document</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let document of documents">
+                        <td class="text-black">{{ document.name }}</td>
+                        <td>{{ document.author }}</td>
+                        <td>{{ document.date.toLocaleDateString() }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Card Layout-->
+        <div class="layout-switcher-card-container" *uxLayoutSwitcherItem="layouts.card">
+            <div class="layout-switcher-card" *ngFor="let document of documents">
+                <h3 class="text-black m-t-nil">{{ document.name }}</h3>
+                <p class="m-b-nil">
+                    <span class="text-muted">Authored on</span> {{ document.date.toLocaleDateString() }}
+                    <span class="text-muted">by</span> {{ document.author }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Card Stack Layout-->
+        <div class="layout-switcher-card-stack-container" *uxLayoutSwitcherItem="layouts.cardstack">
+            <div class="layout-switcher-card-stack-card" *ngFor="let document of documents">
+                <h3 class="text-black m-t-nil">{{ document.name }}</h3>
+                <p class="m-b-nil">
+                    <span class="text-muted">Authored on</span> {{ document.date.toLocaleDateString() }}
+                    <span class="text-muted">by</span> {{ document.author }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-12">
+                        <label>Container Width</label>
+                        <ux-slider class="dimension-slider" [(value)]="width" [options]="options"></ux-slider>
+                    </div>
+                </div>
+
+                <div class="row uxd-customize-row">
+                    <div class="col-md-12">
+                        <i>
+                            Use the slider above to change the width of the container element. When displaying the <b>table</b> 
+                            group the layout will simply resize, however when displaying the <b>card</b> group it will
+                            switch between a grid and stacked layout depending on the size of the container.
+                        </i>
+                    </div>
+                </div>
+
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The <code>uxLayoutSwitcher</code> directive can be used to easily switch between several different layouts, either by
+    selecting a desired layout or based on size constraints.
+</p>
+
+<p>
+    To use the layout switcher add the <code>uxLayoutSwitcher</code> directive to the container element. The size of this
+    element will be monitored and the appropriate layout will be displayed based on the container's dimensions. The following attribute 
+    can be used to configure the directive:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="group" type="string">
+        Defines which layout group should be shown. This will show a layout from the specified group name and will 
+        take into account any size constraints if there are multiple layouts in that group.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    Inside the container element you should add all the various layouts you wish to have. A layout is defined by adding
+    <code>*uxLayoutSwitcherItem</code> as a structural directive to an element. The attribute value can be used to define
+    several things by following the <code>LayoutSwitcherItem</code> interface:
+</p>
+
+<ul>
+    <li>
+        <code>group</code> - defines which layout group the layout should belong to. Each group can contain multiple layouts,
+        in which case size constraints should be used to define when each layout should be shown.
+    </li>
+
+    <li>
+        <code>minWidth</code> - defines the minimum width required for this layout to be shown.
+    </li>
+
+    <li>
+        <code>maxWidth</code> - defines the maximum width allowed for this layout to be shown.
+    </li>
+</ul>
+
+<p>The following code can be used to create the example shown above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

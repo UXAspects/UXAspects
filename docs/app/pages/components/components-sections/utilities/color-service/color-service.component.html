@@ -1,0 +1,182 @@
+<p>The <code>ColorService</code> can be used to get the Hex, RGB or RGBA value for a color in the <a routerLink="/css/color-palette">Color Palette</a>.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="getColor" args="string" returns="ThemeColor">
+        This method will accept a string parameter for a color from the Color Palette and return a <code>ThemeColor</code> object.
+    </tr>
+</uxd-api-properties>
+
+<h4>ThemeColor Object</h4>
+
+<p>The <code>ThemeColor</code> object is used to provide the selected color from the Color Palette.</p>
+
+<p>The following functions can be used on the <code>ThemeColor</code> object:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="setRed" args="number">
+        This method will set the red value of the <code>ThemeColor</code>. The valid range is 0-255.
+    </tr>
+    <tr uxd-api-property name="setGreen" args="number">
+        This method will set the green value of the <code>ThemeColor</code>. The valid range is 0-255.
+    </tr>
+    <tr uxd-api-property name="setBlue" args="number">
+        This method will set the blue value of the <code>ThemeColor</code>. The valid range is 0-255.
+    </tr>
+    <tr uxd-api-property name="setAlpha" args="number">
+        This method will set the alpha value of the <code>ThemeColor</code>. The valid range is 0.0-1.0.
+    </tr>
+    <tr uxd-api-property name="toRgb" returns="string">
+        This method will return the RGB value of the <code>ThemeColor</code> in the following arrangement: <code>rgb(0, 167, 162)</code>.
+    </tr>
+    <tr uxd-api-property name="toRgba" returns="string">
+        This method will return the RGBA value of the <code>ThemeColor</code> in the following arrangement: <code>rgb(0, 167, 162, 0.5)</code>.
+    </tr>
+    <tr uxd-api-property name="toHex" returns="string">
+        This method will return the hexadecimal value of the <code>ThemeColor</code> in the following arrangement: <code>#00a7a2</code>.
+    </tr>
+</uxd-api-properties>
+
+<h4>Color Palette</h4>
+
+<p>Below is a list of color names which the <code>getColor</code> function accepts:</p>
+
+<div class="demo-attributes table-responsive">
+    <table class="table m-t">
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <th>
+                    <div class="color-box-container">
+                        <p>primary</p>
+                        <div class="color-box primary-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>accent</p>
+                        <div class="color-box accent-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>secondary</p>
+                        <div class="color-box secondary-color"></div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <div class="color-box-container">
+                        <p>alternate1</p>
+                        <div class="color-box alternate1-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>alternate2</p>
+                        <div class="color-box alternate2-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>alternate3</p>
+                        <div class="color-box alternate3-color"></div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <div class="color-box-container">
+                        <p>vibrant1</p>
+                        <div class="color-box vibrant1-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>vibrant2</p>
+                        <div class="color-box vibrant2-color"></div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <div class="color-box-container">
+                        <p>grey1</p>
+                        <div class="color-box grey1-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>grey2</p>
+                        <div class="color-box grey2-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>grey3</p>
+                        <div class="color-box grey3-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>grey4</p>
+                        <div class="color-box grey4-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>grey5</p>
+                        <div class="color-box grey5-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>grey6</p>
+                        <div class="color-box grey6-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>grey7</p>
+                        <div class="color-box grey7-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>grey8</p>
+                        <div class="color-box grey8-color"></div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <div class="color-box-container">
+                        <p>chart1</p>
+                        <div class="color-box chart1-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>chart2</p>
+                        <div class="color-box chart2-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>chart3</p>
+                        <div class="color-box chart3-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>chart4</p>
+                        <div class="color-box chart4-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>chart5</p>
+                        <div class="color-box chart5-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>chart6</p>
+                        <div class="color-box chart6-color"></div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <div class="color-box-container">
+                        <p>ok</p>
+                        <div class="color-box ok-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>warning</p>
+                        <div class="color-box warning-color"></div>
+                    </div>
+                    <div class="color-box-container">
+                        <p>critical</p>
+                        <div class="color-box critical-color"></div>
+                    </div>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<blockquote>
+    <p><strong>Note</strong>: Refer to the <a routerLink="/css/color-palette">Color Palette</a> page for details about available colors.</p>
+</blockquote>
+
+<p>Below is an example of how the <code>ColorService</code> can be used:</p>
+
+<uxd-snippet language="javascript" [content]="snippets.compiled.appSnippetTs"></uxd-snippet>

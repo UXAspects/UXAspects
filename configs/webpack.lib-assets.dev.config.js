@@ -1,12 +1,13 @@
-var path = require('path');
-var webpack = require('webpack');
+const { join } = require('path');
+const { ContextReplacementPlugin } = require('webpack');
+const project_dir = process.cwd();
 
-var libAssetsConfig = {
+module.exports = {
 
-    entry: path.join(process.cwd(), 'src', 'index.ts'),
+    entry: join(project_dir, 'src', 'index.ts'),
 
     output: {
-        path: path.join(process.cwd(), 'dist', 'docs', 'assets', 'lib'),
+        path: join(project_dir, 'dist', 'docs', 'assets', 'lib'),
         filename: 'index.js',
         libraryTarget: 'umd'
     },
@@ -29,7 +30,7 @@ var libAssetsConfig = {
                 use: [{
                     loader: 'awesome-typescript-loader',
                     options: {
-                        configFileName: path.join(process.cwd(), 'src', 'tsconfig-build.json')
+                        configFileName: join(project_dir, 'src', 'tsconfig-build.json')
                     },
                 }, {
                     loader: 'angular2-template-loader'
@@ -38,18 +39,16 @@ var libAssetsConfig = {
                 test: /\.less$/,
                 use: ['raw-loader', 'less-loader']
             }, {
-                test: path.join(process.cwd(), 'node_modules', 'webpack-dev-server', 'client'),
+                test: join(project_dir, 'node_modules', 'webpack-dev-server', 'client'),
                 loader: 'null-loader'
             }
         ]
     },
 
     plugins: [
-        new webpack.ContextReplacementPlugin(
-            /angular(\\|\/)core(\\|\/)@angular/,
-            path.resolve(process.cwd(), 'docs')
-        )
+        new ContextReplacementPlugin(
+            /(.+)?angular(\\|\/)core(.+)?/,
+            join(project_dir, 'docs')
+        ),
     ]
 };
-
-module.exports = libAssetsConfig;

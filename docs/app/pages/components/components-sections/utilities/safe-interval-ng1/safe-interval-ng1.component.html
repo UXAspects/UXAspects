@@ -1,0 +1,31 @@
+<p>The <code>safeInterval</code> service is a scope-safe way to execute repeating functions in your code. It provides a wrapper
+    to the Angular <code>$interval</code> service that will automatically cancel your intervals when their scope is destroyed,
+    preventing the memory leaks, race conditions and unexpected behaviour that can result from intervals which have not been
+    properly destroyed.</p>
+
+<p>To use the <code>safeInterval</code> service, <code>inject</code> it into your controller or directive in the same way you
+    would normally inject the Angular <code>$interval</code> service. Then call the constructor to get an instance that will
+    be local to your execution context. The constructor takes the <code>$scope</code> variable as a parameter - this is used
+    to listen for the <code>$destroy</code> event raised by Angular.</p>
+
+<uxd-snippet language="javascript" [content]="snippets.compiled.sample1SnippetJs"></uxd-snippet>
+
+<p>The returned instance has two methods.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="interval">
+        Two parameters, a function to execute and an optional delay in milliseconds to specify how often the function should repeat. Returns an interval object.
+    </tr>
+    <tr uxd-api-property name="cancel">
+        One parameter, an interval object to be cancelled.
+    </tr>
+</uxd-api-properties>
+
+<p>The signature of these methods is the same as that on the <code>$interval</code> service. The example below shows how to
+    defer execution using the safeInterval service.</p>
+
+<uxd-snippet language="javascript" [content]="snippets.compiled.sample2SnippetJs"></uxd-snippet>
+
+<p>To manually cancel an interval:</p>
+
+<uxd-snippet language="javascript" [content]="snippets.compiled.sample3SnippetJs"></uxd-snippet>

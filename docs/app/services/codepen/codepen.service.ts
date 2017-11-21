@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
 import { ICodePen } from '../../interfaces/ICodePen';

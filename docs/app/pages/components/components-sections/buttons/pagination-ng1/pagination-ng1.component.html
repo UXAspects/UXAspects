@@ -1,0 +1,37 @@
+<uxd-pagination-wrapper></uxd-pagination-wrapper>
+
+<hr>
+
+<p>Create a <code>pagination</code> element and set the <code>total-items</code> to the total number of items and set <code>ng-model</code> to the current page being displayed.</p>
+
+<p>To trigger a function call when the page is changed set <code>ng-change</code> to the function e.g. <code>ng-change="pageChanged()"</code>.</p>
+
+<p>We recommend accompanying the pagination control with a label like “Page X of Y”.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.paginationHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.paginationJs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<uxd-api-properties tableTitle="Attributes">
+    <tr uxd-api-property name="total-items" type="number" binding="variable" required="true">
+      The total number of items in all pages.
+    </tr>
+    <tr uxd-api-property name="items-per-page" type="number" binding="variable" defaultValue="10">
+      Maximum number of items per page. A value less than one indicates all items on one page.
+    </tr>
+    <tr uxd-api-property name="current-page" type="number" binding="variable" required="true">
+      The currently selected page.
+    </tr>
+    <tr uxd-api-property name="num-pages" type="number" binding="variable">
+      The total number of pages, this is a read only property which can be used for displaying the total number of pages.
+    </tr>
+</uxd-api-properties>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to <a href="http://angular-ui.github.io/bootstrap/">UI Bootstrap</a> pagination for more options.</p>
+</blockquote>

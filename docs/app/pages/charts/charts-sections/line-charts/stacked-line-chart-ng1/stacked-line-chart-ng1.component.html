@@ -1,0 +1,92 @@
+<div class="flot-chart-stack">
+    <ux-flot-ng1 [dataset]="data" [options]="options"></ux-flot-ng1>
+</div>
+
+<hr>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="label" type="string">
+        Label name specified in the legend.
+    </tr>
+    <tr uxd-api-property name="data" type="number or array" required="true">
+        An array of coordinates in the chart e.g. [ [x1, y1], [x2, y2], ... ]
+    </tr>
+    <tr uxd-api-property name="color" type="color">
+        Defines the color of each line.
+    </tr>
+    <tr uxd-api-property name="fillColor" type="color">
+        Defines the color of the filled area beneath each line.
+    </tr>
+    <tr uxd-api-property name="highlightColor" type="color">
+        Default color of the translucent overlay used to highlight on mouse hover.
+    </tr>
+    <tr uxd-api-property name="forecastFillColor" type="color">
+        Defines the fill color for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastColor" type="color">
+        Defines the stroke color for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastHighLightColor" type="color">
+        Default color of the translucent overlay used to highlight on mouse hover for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastDashStyle" type="array" defaultValue="[5]">
+        Defines a list of numbers that specifies distances to alternately draw a line and a gap (in coordinate space units). Similar to this property in HTML5 Canvas.
+    </tr>
+    <tr uxd-api-property name="forecastData" type="number or array">
+        Coordinates defining the forecast or future data. An array of coordinates in chart e.g. [ [x1, y1], [x2, y2], ... ]
+    </tr>
+    <tr uxd-api-property name="shadowSize" type="number">
+        Default size of shadows in pixels. Set it to 0 to remove shadows.
+    </tr>
+</uxd-api-properties>
+
+<p>Stacked Line Charts are defined by the <code>flot</code> directive. The dataset and options attributes define the chart data
+    and options respectively. Dataset and Options are defined within the StackedLineChartCtrl.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.chartHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.chartJs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="stack" type="boolean">
+        If set to true shows the chart in stacked form.
+    </tr>
+</uxd-api-properties>
+
+<blockquote>
+    <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>
+</blockquote>
+
+<p>Stacked line charts are an enhanced version of line charts. For more information on options, refer to the line chart documentation.</p>
+
+<p>To convey chart information to users with assistive technologies, you can include a text version of the data. Use the <code>sr-only</code>    class to make the text hidden but visible to screen readers, and give the container a <code>tabindex</code> attribute
+    so it can be reached with the keyboard, and place it near the chart.</p>
+
+<uxd-snippet language="html" [content]="snippets.compiled.accessibilityHtml"></uxd-snippet>
+
+<p>The legends are custom-styled in this example. To place the legends separately from the chart, you can define a <code>div</code>    with an id and specify this in legend options. The styles and options applied here are:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.legendHtml"></uxd-snippet>
+    </tab>
+    
+    <tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.legendCss"></uxd-snippet>
+    </tab>
+    
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.legendJs"></uxd-snippet>
+    </tab>
+
+</tabset>
+
+<blockquote>
+    <p><strong>Note</strong>: To upgrade this component to use in an Angular application use: <code>upgradeAdapter.upgradeNg1Component('uxFlotNg1')</code></p>
+</blockquote>

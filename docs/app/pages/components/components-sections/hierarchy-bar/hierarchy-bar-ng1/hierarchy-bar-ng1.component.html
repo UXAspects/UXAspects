@@ -1,0 +1,74 @@
+<uxd-hierarchy-bar-wrapper></uxd-hierarchy-bar-wrapper>
+
+<hr>
+
+<p>Hierarchy Bar defines a hierarchy of nodes in any component which are contained inside a <code>hierarchy-bar</code> element.
+    The popover in the hierarchy bar lists the child nodes and when clicked will highlight that node.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appJs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>A <code>hierarchy-bar</code> element has the following attributes:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="data" type="array of objects" binding="variable" required="true">
+        The data the hierarchy bar should display. This array of objects contains a node and its parent and can contain
+        any properties, however all possible child items should be listed in an array under a <code>children</code>                    property. The first item in the array should be the root node with the selected child node as the next
+        item in the array.
+    </tr>
+    <tr uxd-api-property name="options" type="object" binding="variable" required="true">
+        Allows you to configure the appearance and behavior of the hierarchy bar. All available options can be found
+        in the table below.
+    </tr>
+    <tr uxd-api-property name="select-node" type="function" binding="variable" required="true">
+        A function expression with parameters (function signature is sufficient) which is called when a hierarchy
+        item (node) in the hierarchy bar is clicked. This could be used to update the hierarchy bar or perform
+        actions on the element.
+    </tr>
+    <tr uxd-api-property name="container-class" type="string" binding="literal">
+        Provides the container class name. The hierarchy bar will clip/overflow based on the container dimensions (re-size).
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="HierarchyBar Options">
+    <tr uxd-api-property name="enabled" type="boolean" defaultValue="true">
+        Specifies whether or not the hierarchy bar will be shown.
+    </tr>
+    <tr uxd-api-property name="overview" type="function">
+        	If specified, a button on the left of the hierarchy bar will be shown. When clicked this 
+            function will be called. The purpose of this would be to allow you to present more information 
+            regarding the tree or a list of all items in the chart.
+    </tr>
+    <tr uxd-api-property name="image" type="function">
+        	If specified, this function will be called and passed a node. It should return the url to an 
+            image if one should be shown beside the hierarchy bar.
+    </tr>
+    <tr uxd-api-property name="valueFormatter" type="function">
+        If specified, this function will be called and passed a node. It should return the text to display in the
+        hierarchy bar. By default it looks for a <code>name</code> property.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Action">
+    <tr uxd-api-property name="title" type="string">
+        Text to display along side the activity indicator displayed when data is loading.
+    </tr>
+    <tr uxd-api-property name="event" type="function">
+        A function that is called when an arrow is clicked. It will be passed the associated breadcrumb as a parameter.
+        To display a loading indicator in the dropdown have the function return a <code>$q.defer().promise</code>.
+        The loading indicator will be displayed until the promise is resolved.
+    </tr>
+</uxd-api-properties>
+
+<blockquote>
+    <p>
+        <strong>Note</strong>: Refer to the <a routerLink="/charts/organization-chart" fragment="organization-chart-ng1">Organization Chart</a> page for an example of the hierarchy bar with popovers on top of the chart.
+    </p>
+</blockquote>

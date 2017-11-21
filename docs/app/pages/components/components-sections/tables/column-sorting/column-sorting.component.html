@@ -1,0 +1,94 @@
+<table class="table table-hover">
+    <thead>
+        <tr uxColumnSorting>
+            <th></th>
+            <th class="clickable" (click)="changeState(nameColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">NAME</p>
+                    <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable" (click)="changeState(authorColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">AUTHOR</p>
+                    <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable" (click)="changeState(dateColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">DATE MODIFIED</p>
+                    <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="clickable" (click)="changeState(completedColumn)">
+                <div class="column-sorting-header">
+                    <p class="text-black">WORK COMPLETED</p>
+                    <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
+                </div>
+            </th>
+            <th class="text-black">STATUS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="clickable" *ngFor="let item of sortableTable">
+            <td>
+                <div class="listview-page-icon"></div>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date }}</td>
+            <td>
+                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed"></ux-spark>
+            </td>
+            <td class="text-center">
+                <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<p>The code used for the above example is shown below:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>The component will be exported as <code>ux-column-sorting</code>.</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="key" type="string">
+        Defines a unique identifier for the column that can be used when sorting.
+    </tr>
+    <tr uxd-api-property name="state" type="ColumnSortingState">
+        Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code>.
+    </tr>
+    <tr uxd-api-property name="changeState()" type="Object">
+        Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
+        This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
+        State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>. 
+        The <code>ColumnSortingOrder</code> interface has been provided for objects in the array.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="stateChange" type="ColumnSortingState">
+        Emits when state changes.
+    </tr>
+</uxd-api-properties>
+
+<p>The <code>uxColumnSorting</code> directive should be added to the <code>tr</code> and will accept the following attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="singleSort" type="boolean">
+        If set to true the column will sort by only this column, removing sorting from all others.
+    </tr>
+</uxd-api-properties>
+
+<p>The <code>.column-sorting-header</code> class can be used to align the sorting icon to the right of the table header as seen in the example above.</p>

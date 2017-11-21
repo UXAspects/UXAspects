@@ -24,9 +24,10 @@
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
     "chart.js": "~2.6.0",
-    "ng2-charts": "^1.5.0",
-    "ngx-bootstrap": "1.9.3",
-    "angular-tree-component": "^5.0.0"
+    "ng2-charts": "^1.6.0",
+    "ngx-bootstrap": "2.0.0-beta.8",
+    "angular-tree-component": "^5.2.0",
+    "bootstrap": "^3.3.7"
   },
   "devDependencies": {
     "@types/chart.js": "^2.4.2"

@@ -1,0 +1,38 @@
+<uxd-input-expand-wrapper></uxd-input-expand-wrapper>
+
+<hr>
+
+<p>Input Expand is contained in the <code>expand-input</code> directive and the <code>.expand-input</code> class.</p>
+
+<p>Input Expand takes the following attributes:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="elname" type="string" binding="literal" required="true">
+        Name of the input element.
+    </tr>
+    <tr uxd-api-property name="place-holder" type="string" binding="literal" required="true">
+        Placeholder text for an input.
+    </tr>
+    <tr uxd-api-property name="class-name" type="string" binding="literal" required="true">
+        Defines the classes for the input.
+    </tr>
+    <tr uxd-api-property name="focus" type="function" binding="expression" required="true">
+        A method that defines a boolean value to indicate whether an input is expanded. Can be used to display or hide other elements.
+    </tr>
+    <tr uxd-api-property name="clear-text-icon" type="string" binding="literal" required="true">
+        Icon used in the clear input text button.
+    </tr>
+    <tr uxd-api-property name="close-search" type="string" binding="literal" required="true">
+        Should be set to a value which when clicked closes the input text
+    </tr>
+    <tr uxd-api-property name="expand-always" type="boolean" binding="variable" required="true">
+        Indicates whether the search should always expand or only on a larger viewport.
+    </tr>
+    <tr uxd-api-property name="on-enter" type="function" binding="variable">
+        Defines the function to be called when the enter key is pressed. The function will be called with the current text entered in the field as an argument.
+    </tr>
+</uxd-api-properties>
+
+<p>The HTML used in the example above can be found below:</p>
+
+<uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>

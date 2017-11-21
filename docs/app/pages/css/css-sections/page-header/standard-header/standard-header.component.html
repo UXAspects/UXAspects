@@ -1,0 +1,58 @@
+<p>The page header contains the product name and logo, application switcher, a text search box and links on the right hand side. 
+There should be no more than two links on the right hand side.</p>
+<p>The content of the page header should be placed in the following html.</p>
+<p>Add <code>affix-element</code> directive to fix the header when a page scrolls. The <code>affix-element</code> directive must appear inside a <code>div.affix-container</code>.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample1SnippetHtml"></uxd-snippet>
+
+<p>The product name, logo, application switcher and the text search box are contained in the <code>.navbar-header</code>. This is how it should be structured:</p>
+<p>“Search…” text box is contained in the <code>expand-input</code> directive, explained in <a routerLink="/components/input-controls" fragment="ComponentsInputExpandNg1Component">Input Expand</a>.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample2SnippetHtml"></uxd-snippet>
+
+<p>The links are contained in <code>.navbar-top-links</code> with the addition of <code>.navbar-right</code> to right align its content.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample3SnippetHtml"></uxd-snippet>
+
+<p>The feature to switch applications is contained in the standard header within the <code>product-styling</code> class. 
+It is contained in the <code>application-switcher-container</code> directive.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample4SnippetHtml"></uxd-snippet>
+
+<p>Each application is contained in the <code>application-switcher-item</code> directive which provides the following options:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string" binding="literal" required="true">
+      This will be the application name.
+    </tr>
+    <tr uxd-api-property name="select" type="string" binding="expression" required="true">
+      This function expression will be called when an application option is selected. This function should perform application switching.
+    </tr>
+    <tr uxd-api-property name="value" type="string" binding="literal" required="true">
+      This defines an abbreviated value used to recognize the application option.
+    </tr>
+</uxd-api-properties>
+
+<uxd-snippet [content]="snippets.compiled.sample5SnippetHtml"></uxd-snippet>
+
+<p>A link can be a simple anchor tag:</p>
+
+<uxd-snippet [content]="snippets.compiled.sample6SnippetHtml"></uxd-snippet>
+
+<p>Alternatively it can be a dropdown containing a list of options. This can be useful for displaying notifications as demonstrated on this page.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample7SnippetHtml"></uxd-snippet>
+
+<p>When using the links it is also important to add the correct classes to the <code>.nav-header</code> so that the search text input can take up the appropriate width. 
+<code>.top-link</code> should be added when only one anchor link with text is present. 
+You can use <code>.top-link-2</code> if you are using 2 anchor links with text. <code>.top-link-dropdown</code> should be added when using a link with a dropdown 
+and <code>.top-link-dropdown-2</code> when using 2.</p>
+
+<p>Add <code>expand-search</code> directive to the search icon (which appears when the header is condensed) to expand and collapse the search text entry.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample8SnippetHtml"></uxd-snippet>
+
+<p>When the screen is below 500px in width the links will be hidden, if you wish to show the icons on a small window you can add a link with the <code>show-icon-header-btn</code> and place the other links inside the div using the ng-class as follows:</p>
+
+<uxd-snippet [content]="snippets.compiled.sample9SnippetHtml"></uxd-snippet>
+

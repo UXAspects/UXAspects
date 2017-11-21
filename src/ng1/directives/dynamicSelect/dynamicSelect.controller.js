@@ -3,6 +3,8 @@ DynamicSelectCtrl.$inject = ["$scope", "$element", "$attrs", "$compile", "$timeo
 export default function DynamicSelectCtrl($scope, $element, $attrs, $compile, $timeout, $sanitize, debounceService) {
   var vm = this;
 
+  var inputModelCtrl = null;
+
   var Keys = {
     enter: 13,
     up: 38,
@@ -68,6 +70,7 @@ export default function DynamicSelectCtrl($scope, $element, $attrs, $compile, $t
     $scope.$watch("vm.singleText", function(nv) {
       if (nv === displayValueOf(vm.ngModel)) {
         vm.filterText = "";
+        setDirty();
       }
       else {
         vm.filterText = nv;
@@ -397,6 +400,13 @@ export default function DynamicSelectCtrl($scope, $element, $attrs, $compile, $t
 
   function setDropdown(state) {
     vm.dropdownOpen = (state && !vm.ngDisabled);
+  }
+
+  function setDirty() {
+    inputModelCtrl = inputModelCtrl || $element.find("input").controller("ngModel");
+    if (inputModelCtrl) {
+      inputModelCtrl.$setDirty();
+    }
   }
 
 }

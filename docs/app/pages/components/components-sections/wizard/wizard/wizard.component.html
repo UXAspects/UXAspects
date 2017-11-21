@@ -1,0 +1,165 @@
+<ux-wizard [orientation]="orientation">
+    
+    <ux-wizard-step header="1. First Step">
+        <p>Content of step 1.</p>
+    </ux-wizard-step>
+    
+    <ux-wizard-step header="2. Second Step">
+        <p>Content of step 2.</p>
+    </ux-wizard-step>
+    
+    <ux-wizard-step header="3. Third Step">
+        <p>Content of step 3.</p>
+    </ux-wizard-step>
+    
+    <ux-wizard-step header="4. Fourth Step">
+        <p>Content of step 4.</p>
+    </ux-wizard-step>
+
+</ux-wizard>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-radio-button [(value)]="orientation" option="horizontal">Horizontal</ux-radio-button>
+                        <ux-radio-button [(value)]="orientation" option="vertical">Vertical</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The <code>ux-wizard</code> component can be used to present a user with a series of sequential steps. The content of each step
+    should be defined within a <code>ux-wizard-step</code> component.
+</p>
+
+<p>
+    The following attributes can be used to customize the <code>ux-wizard</code> component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="step" type="number">
+        The current active step. When the step changes an event will be emitted containing the index of the newly active step. If this is not specifed the wizard will start on the first step.
+    </tr>
+    <tr uxd-api-property name="orientation" type="'vertical' | 'horizontal'" defaultValue="horizontal">
+        Defines whether or not the wizard should be displayed in a horizontal or vertical layout. 
+    </tr>
+    <tr uxd-api-property name="nextText" type="string">
+        Defines the text displayed in the 'Next' button.
+    </tr>
+    <tr uxd-api-property name="previousText" type="string">
+        Defines the text displayed in the 'Previous' button.
+    </tr>
+    <tr uxd-api-property name="cancelText" type="string">
+        Defines the text displayed in the 'Cancel' button.
+    </tr>
+    <tr uxd-api-property name="finishText" type="string">
+        Defines the text displayed in the 'Finish' button.
+    </tr>
+    <tr uxd-api-property name="nextTooltip" type="string">
+        Defines the text displayed in the tooltip when the 'Next' button is hovered.
+    </tr>
+    <tr uxd-api-property name="previousTooltip" type="string">
+        Defines the text displayed in the tooltip when the 'Previous' button is hovered.
+    </tr>
+    <tr uxd-api-property name="cancelTooltip" type="string">
+        Defines the text displayed in the tooltip when the 'Cancel' button is hovered.
+    </tr>
+    <tr uxd-api-property name="finishTooltip" type="striung">
+        Defines the text displayed in the tooltip when the 'Finish' button is hovered.
+    </tr>
+    <tr uxd-api-property name="nextDisabled" type="boolean">
+        If set to <code>true</code> the 'Next' button will appear disabled and will not respond to clicks.
+    </tr>
+    <tr uxd-api-property name="previousDisabled" type="boolean">
+        If set to <code>true</code> the 'Previous' button will appear disabled and will not respond to clicks.
+    </tr>
+    <tr uxd-api-property name="cancelDisabled" type="boolean">
+        If set to <code>true</code> the 'Cancel' button will appear disabled and will not respond to clicks.
+    </tr>
+    <tr uxd-api-property name="finishDisabled" type="boolean">
+        If set to <code>true</code> the 'Finish' button will appear disabled and will not respond to clicks.
+    </tr>
+    <tr uxd-api-property name="nextVisible" type="boolean">
+        If set to <code>false</code> the 'Next' button will be hidden.
+    </tr>
+    <tr uxd-api-property name="previousVisible" type="boolean">
+        If set to <code>false</code> the 'Previous' button will be hidden.
+    </tr>
+    <tr uxd-api-property name="cancelVisible" type="boolean">
+        If set to <code>false</code> the 'Cancel' button will be hidden.
+    </tr>
+    <tr uxd-api-property name="finishVisible" type="boolean">
+        If set to <code>false</code> the 'Finish' button will be hidden.
+    </tr>
+    <tr uxd-api-property name="cancelAlwaysVisible" type="boolean">
+        If set to <code>true</code> the 'Cancel' button will be visible even on the last step. 
+        By default it will be hidden on the final step.
+    </tr>
+    <tr uxd-api-property name="finishAlwaysVisible" type="boolean">
+        If set to <code>true</code> the 'Finish' button will be visible on all steps of the wizard. 
+        By default this button will only be visible on the final step of the wizard.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="stepChange" type="number">
+        Emits when step changes.
+    </tr>
+    <tr uxd-api-property name="onNext" type="number">
+        This event will be fired when the 'Next' button is pressed. It will receive the current step index as a parameter.
+    </tr>
+    <tr uxd-api-property name="onPrevious" type="number">
+        This event will be fired when the 'Previous' button is pressed. It will receive the current step index as a parameter.
+    </tr>
+    <tr uxd-api-property name="onCancel" type="void">
+        This event will be fired when the 'Cancel' button is pressed.
+    </tr>
+    <tr uxd-api-property name="onFinish" type="void">
+        This event will be fired when the 'Finish' button is pressed.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The following properties can be used to configure the <code>ux-wizard-step</code>:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="header" type="string">
+        The text to be displayed in the wizard step tab.
+    </tr>
+    <tr uxd-api-property name="vaid" type="boolean">
+        Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
+    </tr>
+    <tr uxd-api-property name="visited" type="boolean">
+        Defines whether or not this step has previously been visited. A visited step can be clicked on and jumped to at any time. By default, steps will become 'visited' when the user navigates to a step for the first time.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="visitedChange" type="boolean">
+        Emits when visited changes.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The following code can be used create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>

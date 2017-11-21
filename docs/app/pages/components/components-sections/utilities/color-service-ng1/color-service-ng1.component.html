@@ -1,0 +1,41 @@
+<p>The <code>$colorService</code> can be used to easily get the value for a color in the Color Palette.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="getColor" args="string" returns="ThemeColor">
+        This method will accept a string parameter for a color from the Color Palette and return a <code>ThemeColor</code> object.
+    </tr>
+</uxd-api-properties>
+
+<p>The following functions can be used on the ThemeColor object:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="setRed" args="number">
+        This method will set the red value of the <code>ThemeColor</code>. The valid range is 0-255.
+    </tr>
+    <tr uxd-api-property name="setGreen" args="number">
+        This method will set the green value of the <code>ThemeColor</code>. The valid range is 0-255.
+    </tr>
+    <tr uxd-api-property name="setBlue" args="number">
+        This method will set the blue value of the <code>ThemeColor</code>. The valid range is 0-255.
+    </tr>
+    <tr uxd-api-property name="setAlpha" args="number">
+        This method will set the alpha value of the <code>ThemeColor</code>. The valid range is 0.0-1.0.
+    </tr>
+    <tr uxd-api-property name="toRgb" returns="string">
+        This method will return the RGB value of the <code>ThemeColor</code> in the following arrangement: <code>rgb(0, 167, 162)</code>.
+    </tr>
+    <tr uxd-api-property name="toRgba" returns="string">
+        This method will return the RGBA value of the <code>ThemeColor</code> in the following arrangement: <code>rgb(0, 167, 162, 0.5)</code>.
+    </tr>
+    <tr uxd-api-property name="toHex" returns="string">
+        This method will return the hexadecimal value of the <code>ThemeColor</code> in the following arrangement: <code>#00a7a2</code>.
+    </tr>
+</uxd-api-properties>
+
+<p>Below is an example of how the <code>$colorService</code> can be used in a controller:</p>
+
+<uxd-snippet language="javascript" [content]="snippets.compiled.sampleSnippetJs"></uxd-snippet>
+
+<blockquote>
+  <p><strong>Note</strong>: Refer to the <a routerLink="/css/color-palette">Color Palette</a> page for a list of colors.</p>
+</blockquote>

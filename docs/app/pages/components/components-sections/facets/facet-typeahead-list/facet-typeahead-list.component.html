@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-12">
+        <ux-facet-container>
+            <ux-facet-typeahead-list header="Authors" [facets]="facets" [suggestions]="suggestions" [simplified]="false"></ux-facet-typeahead-list>
+        </ux-facet-container>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    The Facet Typeahead List component can be used to select and deselect facets to provide the user with filtering capabilities.
+    The Facet Typeahead List component is particularly useful when there can be a large number of facets that can be selected
+    and allows users to find the appropriate facet by searching using a typeahead control.
+</p>
+
+<p>
+    The typeahead can support an array of facets to filter or if there is a significant amount of data, an observable can be
+    used to fetch data from the server when the user performs a search.
+</p>
+
+<p>
+    To add a Facet Typeahead List component to your application you need to import the <code>FacetsModule</code> which allows
+    the use of the <code>ux-facet-typeahead-list</code> component.
+</p>
+
+<p>
+    A list of suggested facets can be displayed above the typeahead to allow a user to quickly select some options without having to perform a search.
+</p>
+
+<p>The following attributes can be used to customise the behavior of the component:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="facets" type="Facet[] | Observable<Facet[]>">
+        Defines the complete list of facets that can be selected. Alternatively an observable can be used to allow values to be fetched
+        dynamically. The search query is available on the <code>destination.outerValue</code> property
+        on the observer.
+    </tr>
+    <tr uxd-api-property name="selected" type="Facet[]">
+        This will allow you to define an initial set of selected facets.
+    </tr>
+    <tr uxd-api-property name="header" type="string">
+        Defines the text displayed at the top of the Facet Typeahead List.
+    </tr>
+    <tr uxd-api-property name="suggestions" type="Facet[]">
+        Defines a list of facets which will be displayed above the typeahead to allow the user to quickly select some facets.
+    </tr>
+    <tr uxd-api-property name="simplified" type="boolean" defaultValue="false">
+        Defines whether or not the checkboxes displayed alongside suggestions will appear in simplified form.
+    </tr>
+    <tr uxd-api-property name="typeaheadConfig" type="FacetTypeaheadListConfig">
+        Allows configuration of the typeahead control. The possible values are:
+        <ul>
+            <li><code>placeholder</code> - <b>string</b> - Sets the placeholder of the typeahead.</li>
+            <li><code>minCharacters</code> - <b>number</b> - Defines the minimum number of characters that are required before results will be shown. <b>Default:</b> <code>1</code>.</li>
+            <li><code>maxResults</code> - <b>number</b> - Sets the maximum number of results to display. <b>Default:</b> <code>50</code>.</li>
+            <li><code>delay</code> - <b>number</b> - Defines the number of milliseconds to wait before the results are filtered. <b>Default: </b> <code>0</code>.</li>
+        </ul>
+    </tr>
+    <tr uxd-api-property name="expanded" type="boolean" defaultValue="true">
+        Defines whether or not the Facet Typeahead List should be initially expanded or not.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="selectedChange" type="Facet[]">
+        If two-way binding is used this array will get updated any time the selected facets change.
+    </tr>
+    <tr uxd-api-property name="events" type="FacetEvent">
+        This will be triggered when a facet is selected, deselected or all facets are deselected. The event will be an instance of
+        either <code>FacetSelect</code>, <code>FacetDeselect</code> or <code>FacetDeselectAll</code>
+        and will contain the facet being selected or deselected in a <code>facet</code> property (deselect all will
+        not contain affected facets).
+    </tr>
+</uxd-api-properties>
+
+<p>The following code will produce the example shown above:</p>
+
+<tabset>
+
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    
+</tabset>

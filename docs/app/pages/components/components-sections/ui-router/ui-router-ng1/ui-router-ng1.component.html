@@ -1,0 +1,41 @@
+<p>UI Router is a routing framework for Angular, which allows organizing parts of the user interface into a state machine.</p>
+
+<p>The power of UI router lies in its ability to nest views and states.</p>
+
+<p>Add <code>ui-view</code> directive inside the <code>body</code> tag.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample1SnippetHtml"></uxd-snippet>
+
+<p>Add <code>a</code> tags for navigation. &nbsp;Adding <code>ui-sref</code> directive helps with state transitions and auto-generates
+    the <code>href</code> attribute of the element it’s attached to, if the corresponding state has a URL.</p>
+
+<p>A navigation entry is highighted when the state is selected and is contained in the <code>active</code>, <code>selected</code>    classes.</p>
+
+<uxd-snippet [content]="snippets.compiled.sample2SnippetHtml"></uxd-snippet>
+
+<p>Set up the states with<code>$stateProvider</code>.</p>
+
+<p>State parameters are discussed below:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="url">
+        Defines the path provided in ui-sref.
+    </tr>
+    <tr uxd-api-property name="templateUrl">
+        Configures a state's template, e.g. physical path of the page.
+    </tr>
+    <tr uxd-api-property name="abstract">
+        Indicates that a state can have child states but can't be self activated.
+    </tr>
+    <tr uxd-api-property name="template">
+        Simplest way to set your template.
+    </tr>
+    <tr uxd-api-property name="data">
+        Sets custom data, e.g. pageTitle.
+    </tr>
+    <tr uxd-api-property name="controller">
+        Assign a controller to the state, e.g. SideNavigationCtrl as sn, pageTitle.
+    </tr>
+</uxd-api-properties>
+
+<uxd-snippet language="javascript" [content]="snippets.compiled.sample3SnippetJs"></uxd-snippet>

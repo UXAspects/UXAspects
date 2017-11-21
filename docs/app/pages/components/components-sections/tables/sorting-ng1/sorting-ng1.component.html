@@ -1,0 +1,39 @@
+<p>
+    The different options to sort are contained in the <code>sorter</code> directive. The attribute <code>sorter-title</code> takes a string which is displayed before the sorter dropdown.
+</p>
+
+<uxd-snippet language="html" [content]="sortingCode"></uxd-snippet>
+
+<p>Each option to sort is specified using <code>sorter-option</code> directive.</p>
+
+<p><code>sorter-option</code> should have the following attributes:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string" binding="variable" required="true">
+        Sorter option name displayed.
+    </tr>
+    <tr uxd-api-property name="select" type="function" binding="variable" required="true">
+        Called when the option is selected. This method performs sorting, pagination and updates the data count.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" binding="variable" defaultValue="false">
+        Allows a sorter option to be disabled.
+    </tr>
+    <tr uxd-api-property name="default" type="boolean" binding="variable" required="true">
+        True if this is the default sorter.
+    </tr>
+    <tr uxd-api-property name="icon-class" type="string" binding="variable">
+        Class name of an icon to display on the right side of the sorter name (Example value: <code>hpe-icon hpe-actions</code>).
+    </tr>
+</uxd-api-properties>
+
+<p>An example code would look like:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="jsCode"></uxd-snippet>
+    </tab>
+</tabset>

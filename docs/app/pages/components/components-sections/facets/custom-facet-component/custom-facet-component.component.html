@@ -1,0 +1,106 @@
+<p>
+    As part of UX Aspects we provide two common prebuilt Facet list components, however you may require different facet components
+    specifically for your application. We provide some useful classes for you to use to make the process of creating your
+    own facet component simple while ensuring that it will work well with Facet Containers automatically.
+</p>
+
+<h4>Facet Header</h4>
+
+<p>
+    First we recommend each facet component has a header, to identify what kind of type of filtering it will provide. It also
+    allows a user to easily collapse and expand the component. We provide a header component for you to use as part of the
+    <code>FacetsModule</code>. It can be added using the <code>ux-facet-header</code> selector.
+</p>
+
+<p>The Facet Header component can use the following attributes to customize the behavior and appearance:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="header" type="string">
+        Defines the text to display in the header.
+    </tr>
+    <tr uxd-api-property name="canExpand" type="boolean" defaultValue="true">
+        Defines whether or not clicking on the header will toggle the expanded state.
+    </tr>
+    <tr uxd-api-property name="expanded" type="boolean">
+        Can be used to set the initial expanded.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="expandedChange" type="boolean">
+        If two-way binding is used it will be updated when the expanded state changes.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code demonstrates how the header can be used:</p>
+
+<uxd-snippet language="html" [content]="snippets.compiled.headerHtml"></uxd-snippet>
+
+<hr>
+
+<h4>Creating a Custom Facet Component</h4>
+
+<p>
+    Your custom facet component should extend the <code>FacetBaseComponent</code> component class. This base class will provide
+    you with the following functions:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="selectFacet" args="Facet">
+        Will select the facet and update the selected values in the facet container.
+    </tr>
+    <tr uxd-api-property name="deselectFacet" args="Facet">
+        Will deselect the facet and update the selected values in the facet container.
+    </tr>
+    <tr uxd-api-property name="deselectAll">
+        Will deselect all facets associated with this component and update the selected values
+        in the facet container.
+    </tr>
+    <tr uxd-api-property name="toggleFacetSelection" args="Facet">
+        If the facet passed to this function is currently selected it will be deselected. 
+        If the facet is currently not selected it will be selected. This will update the selected 
+        values in the facet container.
+    </tr>
+    <tr uxd-api-property name="isFacetSelected" args="Facet" returns="boolean">
+        Will return a <code>true</code> if the facet passed to the function is currently selected, 
+        otherwise will return false.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The base class also adds a <code>selected</code> two way binding and an <code>events</code> output which will automatically
+    be triggered when facets are selected or deselected. The <code>events</code> property is an observable which can be subscribed
+    to to watch for external events such as deselecting being triggered by the Facet Container.
+</p>
+
+<hr>
+
+<h4>Sample Custom Facet Component</h4>
+
+<div class="row">
+    <div class="col-md-12">
+        <ux-facet-container>
+            <my-custom-facet-component></my-custom-facet-component>
+        </ux-facet-container>
+    </div>
+</div>
+
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="Facet HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.facetComponentHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="Facet TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.facetComponentTs"></uxd-snippet>
+    </tab>
+
+    <tab heading="Facet CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.facetComponentCss"></uxd-snippet>
+    </tab>
+</tabset>

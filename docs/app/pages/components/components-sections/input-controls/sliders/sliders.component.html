@@ -1,0 +1,249 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="text-black p-t-md p-b-md">Single Value Sliders</h4>
+        </div>
+
+        <div class="col-md-6 p-r-md p-b-md">
+            <p class="text-black p-b-md">Button Handle - Custom Labels</p>
+            <ux-slider [value]="slider1.value" [options]="slider1.options"></ux-slider>
+        </div>
+        <div class="col-md-6 p-l-md p-b-md">
+            <p class="text-black p-b-md">Line Handle - Callout on Drag</p>
+            <ux-slider [value]="slider2.value" [options]="slider2.options"></ux-slider>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-md-6 p-r-md p-b-md">
+            <p class="text-black p-b-md">Narrow - Track Styling - Snapping</p>
+            <ux-slider [value]="slider3.value" [options]="slider3.options"></ux-slider>
+        </div>
+        <div class="col-md-6 p-l-md p-b-md">
+            <p class="text-black p-b-md">Narrow - Gradient Track Styling - Callout on Hover</p>
+            <ux-slider [value]="slider4.value" [options]="slider4.options"></ux-slider>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="text-black p-t-md p-b-md">Range Value Sliders</h4>
+        </div>
+
+        <div class="col-md-6 p-r-md p-b-md">
+            <p class="text-black p-b-lg">Range Track - Persistent Callout</p>
+            <ux-slider [value]="slider5.value" [options]="slider5.options"></ux-slider>
+        </div>
+        <div class="col-md-6 p-l-md p-b-md">
+            <p class="text-black p-b-lg">Range Track Style - Custom Callout Styles</p>
+            <ux-slider [value]="slider6.value" [options]="slider6.options"></ux-slider>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4 class="text-black p-t-md p-b-md">Range Slider with Text Inputs</h4>
+        </div>
+
+        <div class="col-md-12">
+            <ux-slider [value]="slider7.value" (valueChange)="valueHasChanged($event)" [options]="slider7.options"></ux-slider>
+        </div>
+    </div>
+
+    <div class="row m-t-sm p-t-xs">
+        <div class="col-sm-2">
+            <input type="text" class="form-control m-b" [(ngModel)]="lowerValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
+        </div>
+        <div class="col-sm-offset-8 col-sm-2">
+            <input type="text" class="form-control m-b" [(ngModel)]="upperValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
+        </div>
+    </div>
+
+</div>
+
+<hr>
+
+<p>The slider component can be used to allow a user to select a single value or a range of values. It can easily be customized
+    to match the desired appearance and behavior.</p>
+
+<h4>Slider Component</h4>
+
+<p>The component can be added to a page by using the following HTML:</p>
+
+<uxd-snippet [content]="snippets.compiled.sample1Html"></uxd-snippet>
+
+<blockquote>
+    <p>Reference Plunker for the code used in all examples above</p>
+</blockquote>
+
+
+<h4>Values</h4>
+
+<p>The value or range should be specified by adding an <code>value</code> attribute to the component tag. This should reference
+    either a single number or a <code>SliderValue</code> object, depending on the slider type specified.</p>
+
+<p>For single value selection, an example value might be:</p>
+
+<uxd-snippet [content]="snippets.compiled.sample1Ts" language="javascript"></uxd-snippet>
+
+<p>For range selection, an example value might be:</p>
+
+<uxd-snippet [content]="snippets.compiled.sample2Ts" language="javascript"></uxd-snippet>
+
+<p>The variable containing the value can be updated with the correct value, or values, when the slider is dragged if two way
+    binding is used.</p>
+
+<h4>Options</h4>
+
+<p>A wide range of options can used to customize the appearance and behavior of the component. These options should be stored
+    in an object and passed to the component by adding an <code>options</code> attribute to the directive.</p>
+
+<p>The default options for each chart are as follows:</p>
+
+<uxd-snippet [content]="snippets.compiled.sample3Ts" language="javascript"></uxd-snippet>
+
+<p>Full details on each property and the possible values for each can be found below. All properties are optional, if they are
+    not specified the default value will be used.</p>
+
+<uxd-api-properties tableTitle="SliderOptions">
+    <tr uxd-api-property name="type" type="SliderType" defaultValue="SliderType.Value">
+        Defines whether the slider should allow selection of a single value or a range of values. The two valid values
+        are <code>SliderType.Value</code> and <code>SliderType.Range</code>.
+    </tr>
+    <tr uxd-api-property name="handles" type="SliderHandleOptions">
+        This should be an object that contains properties configuring the appearance and behavior of the 
+        draggable handles on the slider. If not specified the default options will be used.
+    </tr>
+    <tr uxd-api-property name="track" type="SliderTrackOptions">
+        This should be an object that contains properties configuring the appearance and behavior of the 
+        track on the slider. If not specified the default options will be used.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SliderHandleOptions">
+    <tr uxd-api-property name="style" type="SliderStyle" defaultValue="SliderStyle.Button">
+        This allows you to choose the appearance of the drag handles. The two available options are <code>SliderStyle.Button</code>
+        and <code>SliderStyle.Line</code>.
+    </tr>
+    <tr uxd-api-property name="callout" type="SliderCallout" defaultValue="No Callout Shown">
+        This should be an object that configures the appearance and behavior of the drag handle callout.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SliderCallout">
+    <tr uxd-api-property name="trigger" type="SliderCalloutTrigger" defaultValue="SliderCalloutTrigger.None">
+        This option will specify when the callout should appear. The available options are:
+        <br>
+        <ul>
+            <li><code>SliderCalloutTrigger.None</code> - The callout will never appear.</li>
+            <li><code>SliderCalloutTrigger.Hover</code> - The callout will appear when the mouse is over the handle and will remain visible
+                when dragging the handle.</li>
+            <li><code>SliderCalloutTrigger.Drag</code> - The callout will appear only when the handle is being dragged.</li>
+            <li><code>SliderCalloutTrigger.Persistent</code> - The callout will always be visible.</li>
+        </ul>
+    </tr>
+    <tr uxd-api-property name="background" type="string" defaultValue="grey2">
+        Specifies the background color of the callout. 
+    </tr>
+    <tr uxd-api-property name="color" type="string" defaultValue="white">
+        Specifies the text color of the callout.
+    </tr>
+    <tr uxd-api-property name="formatter" type="(value: number) => string | number" defaultValue="Not Modified">
+        This allows you to specify a function that will format the value in the callout. The function should accept the value as a parameter and return the modified value.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SliderTrackOptions">
+    <tr uxd-api-property name="height" type="SliderSize" defaultValue="SliderSize.Wide">
+        This specifies the height of the track. There are two available values, <code>SliderSize.Wide</code> and <code>SliderSize.Narrow</code>.
+    </tr>
+    <tr uxd-api-property name="min" type="number" defaultValue="0">
+        Specifies the minimum value shown on the slider.
+    </tr>
+    <tr uxd-api-property name="max" type="number" defaultValue="100">
+        Specifies the maximum value shown on the slider. 
+    </tr>
+    <tr uxd-api-property name="ticks" type="SliderTicksOptions">
+        Should be an object containing properties to customize the ticks shown beneath the chart. 
+        By default major ticks are shown on every 10th value with labels, minor ticks are shown every 5 values with no labels.
+    </tr>
+    <tr uxd-api-property name="colors" type="SliderTrackColors">
+        Specifies the colors that should be used on different parts of the track. This should be an object that can contain
+        the following properties:
+        <br>
+        <ul>
+            <li><code>lower</code> - Specifies the color or colors to be shown in the area before the first drag handle.
+                This can be a string containing a color value or an array of strings which will result in a gradient.</li>
+            <li><code>range</code> - Specifies the color or colors to be shown in the area between the first and second
+                drag handle (the selected range of values). This only applies when a range of values can be selected.
+                This can be a string containing a color value or an array of strings which will result in a gradient.</li>
+            <li><code>higher</code> - Specifies the color or colors to be shown in the area after the last drag handle.
+                This can be a string containing a color value or an array of strings which will result in a gradient.</li>
+        </ul>
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SliderTicksOptions">
+    <tr uxd-api-property name="snap" type="SliderSnap" defaultValue="SliderSnap.None">
+        Specifies if the slider should snap to the ticks. There are several available options:
+        <br>
+        <ul>
+            <li><code>SliderSnap.None</code> - No snapping will occur. This is the default value.</li>
+            <li><code>SliderSnap.Major</code> - Will snap to the major ticks.</li>
+            <li><code>SliderSnap.Minor</code> - Will snap to the minor ticks.</li>
+            <li><code>SliderSnap.All</code> - Will snap to both the major and minor ticks.</li>
+        </ul>
+    </tr>
+    <tr uxd-api-property name="major" type="SliderTickOptions">
+        Should be an object containing properties that configure the major ticks. Major ticks will be more prominent than minor ticks and tend to be less frequent.
+    </tr>
+    <tr uxd-api-property name="minor" type="SliderTickOptions">
+        Should be an object containing properties that configure the minor ticks. Minor ticks will be less prominent than major ticks and tend to be more frequent.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SliderTickOptions">
+    <tr uxd-api-property name="show" type="boolean">
+        Specifies whether this variety of ticks should be shown. The available options are <code>true</code> or <code>false</code>.
+                By default both major and minor ticks will be shown.
+    </tr>
+    <tr uxd-api-property name="steps" type="number | number[]">
+        Specifies at what interval this variety of tick should appear. Default for major ticks is <code>10</code>, the
+        default for minor ticks is <code>5</code>. Additionally this can be an array containing precise values of
+        where ticks should appear. This can be useful when ticks should not appear at regular intervals.
+    </tr>
+    <tr uxd-api-property name="labels" type="boolean">
+        Specifies whether or not this variety of ticks should display labels. The available options are 
+        <code>true</code> or <code>false</code>. By default major ticks will show labels, minor ticks will not.
+    </tr>
+    <tr uxd-api-property name="formatter" type="(value: number) => string | number">
+        This allows you to specify a function that will format the value in the tick label. 
+        This should accept a value as a parameter and return a modified value. By default the value will not be modified.
+    </tr>
+</uxd-api-properties>
+
+<h4>Adding Text Input Controls</h4>
+
+<p>Text inputs, or other controls can be used to allow users to change the value shown on the slider or to display the value
+    the slider has selected. These controls are not part of the slider component but can be easily combined by using the
+    <code>ngModel</code> directive. Below is an example of how this can be achieved:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.sample4Html"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.sample4Ts"></uxd-snippet>
+    </tab>
+</tabset>

@@ -1,0 +1,58 @@
+<div>
+  <ux-toggleswitch [(value)]="toggleSwitches.option1" [disabled]="toggleSwitchDisable">Toggle 1</ux-toggleswitch>
+</div>
+<div class="m-t-xs">
+  <ux-toggleswitch [(value)]="toggleSwitches.option2">Toggle 2</ux-toggleswitch>
+</div>
+<div class="m-t-xs">
+  <ux-toggleswitch [(value)]="toggleSwitches.option3">Toggle 3</ux-toggleswitch>
+</div>
+<div class="m-t-sm">
+  <ux-toggleswitch class="toggleswitch-lg" [(value)]="toggleSwitches.option4">Large Toggle</ux-toggleswitch>
+</div>
+<p class="m-t-md">
+  <code>toggleSwitches.option1</code> is <em>{{toggleSwitches.option1}}</em>.
+  <code>toggleSwitches.option2</code> is <em>{{toggleSwitches.option2}}</em>.
+  <code>toggleSwitches.option3</code> is <em>{{toggleSwitches.option3}}</em>.
+  <code>toggleSwitches.option4</code> is <em>{{toggleSwitches.option4}}</em>.
+</p>
+<button class="btn button-primary" (click)="toggleSwitchDisable = !toggleSwitchDisable">
+  {{toggleSwitchDisable ? 'Click to enable Toggle 1' : 'Click to disable Toggle 1'}}
+</button>
+
+<hr>
+
+<p>To create a toggle switch, use the <code>toggleswitch</code> component with the <code>value</code> attribute to bind the value. Use <code>disabled</code>
+to control the disabled state.</p>
+
+<p>The code used for the above example is shown below:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>In an Angular application, <code>ngModel</code> may be used to bind the control to a form.</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="value" type="boolean">
+      Binding for the state of the switch; <code>true</code> for "on" and <code>false</code> for "off."
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
+      If this value is set to <code>true</code> then the toggle switch will be disabled.
+    </tr>
+    <tr uxd-api-property name="clickable" type="boolean" defaultValue="true">
+      If set to <code>false</code> the switch will not be updated when clicking on it, can be used if 
+      something else is updating the state of the switch.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="boolean">
+      Emits when value has been changed.
+    </tr>
+</uxd-api-properties>

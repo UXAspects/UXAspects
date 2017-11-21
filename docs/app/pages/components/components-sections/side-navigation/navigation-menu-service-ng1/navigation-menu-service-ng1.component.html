@@ -1,0 +1,30 @@
+<p>The navigation menu service (<code>$navigationMenu</code>) can be used in combination with the navigation menu button to control the visibility of the side navigation menu from anywhere in the application.</p>
+
+<p>The following code shows an example of using this service; the full example can be seen via the CodePen link above.</p>
+
+<uxd-snippet [content]="snippets.compiled.controllerJs" language="javascript"></uxd-snippet>
+
+<p>The following functions are available on the <code>$navigationMenu</code> service.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="show">
+      Shows the side navigation menu.
+    </tr>
+    <tr uxd-api-property name="hide">
+      Hides the side navigation menu.
+    </tr>
+    <tr uxd-api-property name="visible">
+      Returns true if the side navigation menu is currently visible; otherwise false.
+    </tr>
+    <tr uxd-api-property name="collapseAtWidth">
+      Returns the minimum window width (in pixels) at which the side navigation menu is displayed. At window widths narrower than this value, the menu will be hidden.
+    </tr>
+    <tr uxd-api-property name="setCollapseAtWidth(width)">
+      	Set the minimum window width (in pixels) at which the side navigation menu is displayed. Set the value to 0 to prevent hiding the side navigation menu based on window width.
+    </tr>
+    <tr uxd-api-property name="setDefaultCollapseAtWidth">
+      Set the <code>collapseAtWidth</code> value to its default.
+    </tr>
+</uxd-api-properties>
+
+<p>The event <code>navigationMenu.visibilityChanged</code> is also broadcast on the root scope whenever the visible state changes. The data parameter of this event is a boolean indicating whether the side navigation menu has become visible.</p>

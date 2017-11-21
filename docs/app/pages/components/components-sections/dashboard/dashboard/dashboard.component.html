@@ -1,0 +1,154 @@
+<ux-dashboard class="customizable-dashboard" [options]="options">
+
+    <ux-dashboard-widget id="analytics-1-widget" colSpan="4" rowSpan="2" [resizable]="true">
+        <div class="widget-content" uxDashboardWidgetDragHandle>
+            <h3 class="widget-title">Usage Analytics</h3>
+
+            <div class="widget-chart">
+                <canvas baseChart [datasets]="lineChartData" [options]="lineChartOptions" [labels]="lineChartLabels" [legend]="lineChartLegend"
+                    [colors]="lineChartColors" chartType="line">
+                </canvas>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="subscription-widget" colSpan="2">
+        <div class="widget-content" uxDashboardWidgetDragHandle>
+            <div class="dashboard-split-panel">
+                <div class="dashboard-section-large dashboard-section-divider">
+                    <h3 class="widget-title">Service status</h3>
+                    <ul class="widget-feature-list">
+                        <li class="widget-feature-list-item">Archiving Service</li>
+                        <li class="widget-feature-list-item">Analytics Service</li>
+                        <li class="widget-feature-list-item">Search Service</li>
+                        <li class="widget-feature-list-item warning">Backup Service</li>
+                    </ul>
+                </div>
+                <div class="dashboard-section-small">
+                    <div>
+                        <h4 class="info-title">Package</h4>
+                        <p class="info-value">Aspects Ultimate</p>
+                    </div>
+
+                    <div>
+                        <h4 class="info-title">Last Updated</h4>
+                        <p class="info-value">16 Dec, 2016</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="users-widget">
+        <div class="widget-content" uxDashboardWidgetDragHandle>
+            <h3 class="widget-title">Users</h3>
+
+            <div class="widget-split">
+                <h1 class="text-count text-primary">5</h1>
+                <h1 class="text-count text-black">18</h1>
+            </div>
+
+            <ux-spark value="28" barHeight="5" [trackColor]="colorService.getColor('grey6').toHex()"></ux-spark>
+
+            <div class="widget-split">
+                <p class="text-label">Logged in</p>
+                <p class="text-label">Total</p>
+            </div>
+
+        </div>
+    </ux-dashboard-widget>
+
+    <ux-dashboard-widget id="alert-widget">
+        <div class="widget-content prominent" uxDashboardWidgetDragHandle>
+            <h3 class="widget-title">Alert</h3>
+
+            <p class="info-title">18 Dec, 2016 10:17 AM</p>
+            <p class="info-value m-t text-black">
+                Planned downtime:
+                <br> 31 Dec, 2016 11PM PST -
+                <br> 01 Jan, 2017 6 AM PST
+            </p>
+        </div>
+    </ux-dashboard-widget>
+
+</ux-dashboard>
+
+<hr>
+
+<p>
+    The <code>ux-dashboard</code> component allow you to easily create a customizable dashboard for your application. Simply
+    add <code>ux-dashboard-widget</code> elements inside the <code>ux-dashboard</code> tag and the dashboard component will automatically
+    arrange the widgets for you.
+</p>
+
+<p>
+    The dashboard layout can be manually configured using the <code>layout</code> attribute. This is a two way binding which will be updated 
+    whenever the layout changes.
+</p>
+
+<p>
+    In the example above all widgets can be dragged to reposition them. This is achieved by adding a 
+    <code>uxDashboardWidgetDragHandle</code> attribute to an element within the widget. Whichever element has the attribute is the one
+    the user has to perform the drag on.
+</p>
+
+<p>
+    Widgets can also be resized, by setting the <code>resizable</code> attribute to <code>true</code> on a <code>ux-dashboard-widget</code> component.
+    Widgets are given two classes, <code>widget-col-span-*</code> and <code>widget-row-span-*</code>, with the <code>*</code> being replaced by the number 
+    of columns and rows the widget is occupying. This can be used to apply different styles based on the size of the widget.
+</p>
+
+<p>
+    If the dashboard becomes too small to display widgets without them becoming smaller than the specified minimum size, the dashboard will display 
+    in stacked mode where all items are presented in a vertical list and will span the entire width of the dashboard.
+</p>
+
+<p>The following attributes can be added to the <code>ux-dashboard</code> component to configure its behavior:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="layout" type="DashboardLayoutData[]">If defined or changed this will set 
+        the positions of the widgets within the dashboard. This is a two way binding that will be 
+        updated with the current layout when it changes.
+    </tr>
+    <tr uxd-api-property name="options" type="DashboardOptions">Configures the options for the dashboard, if an option is not 
+        specified the default value will be used.</tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="layoutChange" type="DashboardOptions">Emits when layout has been changed.</tr>
+</uxd-api-properties>
+
+<p>The following <code>DashboardOptions</code> are available to configure:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="columns" type="number">Defines the number of columns the dashboard should have.</tr>
+    <tr uxd-api-property name="minWidth" type="number">Defines minimum widget width.</tr>
+    <tr uxd-api-property name="minHeight" type="number">Defines minimum widget height.</tr>
+    <tr uxd-api-property name="rowHeight" type="number">Defines the height of each row on the dashboard.</tr>
+    <tr uxd-api-property name="emptyRow" type="boolean">Defines whether or not an empty row should always be visible on the bottom of the dashboard to allow for additional items or dragging/resizing.</tr>
+</uxd-api-properties>
+
+<p>The following attributes can be added to the <code>ux-dashboard-widget</code> components to configure their behavior:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="id" type="string">Sets the ID of the widget. Each widget should be given a unique ID.</tr>
+    <tr uxd-api-property name="colSpan" type="number">Defines the number of columns this widget should occupy.</tr>
+    <tr uxd-api-property name="rowSpan" type="number">Defines the number of rows this widget should occupy.</tr>
+    <tr uxd-api-property name="resizable" type="boolean">Defines whether or not this widget can be resized.</tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example above.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

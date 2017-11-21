@@ -1,17 +1,25 @@
-var path = require('path');
-var webpack = require('webpack');
+const { join } = require('path');
+const webpack = require('webpack');
+const { NoEmitOnErrorsPlugin } = webpack;
+const { CommonsChunkPlugin, UglifyJsPlugin } = webpack.optimize;
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const project_dir = process.cwd();
 
 module.exports = {
 
-    entry: path.join(process.cwd(), 'e2e/pages/main.ts'),
+    entry: {
+        main: join(project_dir, 'e2e', 'pages', 'main.ts'),
+        vendor: join(project_dir, 'e2e', 'pages', 'vendor.ts'),
+        polyfills: join(project_dir, 'e2e', 'pages', 'polyfills.ts')
+    },
 
     output: {
-        path: path.join(process.cwd(), 'e2e', 'dist'),
-        filename: 'app.js'
+        path: join(project_dir, 'e2e', 'dist'),
+        filename: '[name].js'
     },
 
     resolve: {
@@ -19,16 +27,21 @@ module.exports = {
     },
 
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.ts$/,
-                use: ['awesome-typescript-loader?configFileName=./e2e/tsconfig.json', 'angular2-template-loader']
+                use: [{
+                        loader: '@angular-devkit/build-optimizer/webpack-loader',
+                        options: {
+                            sourceMap: false
+                        }
+                    },
+                    '@ngtools/webpack'
+                ]
             },
 
             {
                 test: /\.html$/,
-                use: 'html-loader',
-                exclude: /(directives|templates|snippets)/
+                use: 'raw-loader'
             },
 
             {
@@ -38,21 +51,21 @@ module.exports = {
 
             {
                 test: /\.less$/,
-                include: path.join(process.cwd(), 'e2e', 'pages', 'app'),
-                use:  ['raw-loader', 'less-loader']
+                include: join(project_dir, 'e2e', 'pages', 'app'),
+                use: ['raw-loader', 'less-loader']
             },
-           
+
             {
                 test: /\.css$/,
-                exclude: path.join(process.cwd(), 'e2e', 'pages', 'app'),
+                exclude: join(project_dir, 'e2e', 'pages', 'app'),
                 use: ExtractTextPlugin.extract({
                     use: 'css-loader'
                 })
             },
-            
+
             {
                 test: /\.css$/,
-                include: path.join(process.cwd(), 'e2e', 'pages', 'app'),
+                include: join(project_dir, 'e2e', 'pages', 'app'),
                 use: 'raw-loader'
             },
             
@@ -74,30 +87,54 @@ module.exports = {
         ]
     },
 
-     plugins: [
+    plugins: [
 
-        new webpack.ContextReplacementPlugin(
-            /angular(\\|\/)core(\\|\/)@angular/,
-            path.resolve(process.cwd(), './e2e/pages')
-        ),
+        new CommonsChunkPlugin({
+            name: ['main', 'vendor', 'polyfills']
+        }),
+
+        new AngularCompilerPlugin({
+            mainPath: join(project_dir, 'e2e', 'pages', 'main.ts'),
+            tsConfigPath: join(project_dir, 'e2e', 'tsconfig-app.json'),
+            sourceMap: false,
+            skipCodeGeneration: true
+        }),
+
+        new NoEmitOnErrorsPlugin(),
 
         new HtmlWebpackPlugin({
             template: './e2e/pages/index.ejs'
         }),
 
-        new ExtractTextPlugin("styles.css"),
-        
-        new UglifyJSPlugin()
-     ],
+        new ExtractTextPlugin('styles.css'),
 
-     devServer: {
+        new UglifyJsPlugin({
+            test: /(main|polyfills|vendor).js$/i,
+            extractComments: false,
+            sourceMap: false,
+            cache: false,
+            parallel: true,
+            uglifyOptions: {
+                output: {
+                    ascii_only: true,
+                    comments: false
+                },
+                ecma: 5,
+                warnings: false,
+                ie8: false,
+                compress: true
+            }
+        }),
+    ],
+
+    devServer: {
         historyApiFallback: true,
         stats: {
             colors: true,
             reasons: true
         },
         headers: {
-            "Access-Control-Allow-Origin": "*"
+            'Access-Control-Allow-Origin': '*'
         }
     }
 

@@ -1,0 +1,276 @@
+<div class="flex-container">
+
+  <ux-flippable-card #flippableCard="ux-flippable-card" class="m-sm" trigger="manual" direction="vertical" width="260" height="220">
+
+    <ux-flippable-card-front>
+      <i class="hpe-icon hpe-link-down pull-right clickable-icon" aria-hidden="true" (click)="flippableCard.toggleFlipped()"></i>
+      <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
+      <div class="flip-card-content">
+        <p class="front-title">NYC vs Volkswagen</p>
+        <div class="m-t-md">
+          <p class="card-text documents">23,456<span class="text-muted"> documents</span></p>
+          <p class="card-text reviewed">19,976<span class="text-muted"> reviewed</span></p>
+          <p class="card-text produced">11,123<span class="text-muted"> produced</span></p>
+        </div>
+        <ux-nested-donut-ng1 class="flip-card-nested-donut" [dataset]="donut1" [options]="options"></ux-nested-donut-ng1>
+      </div>
+    </ux-flippable-card-front>
+
+    <ux-flippable-card-back>
+      <i class="hpe-icon hpe-link-up pull-right clickable-icon icon-back" aria-hidden="true" (click)="flippableCard.toggleFlipped()"></i>
+      <div class="flip-card-content card-back">
+        <p>NYC vs Volkswagen</p>
+        <div class="row">
+          <div class="col-xs-5">
+            <p>23,456 <span class="muted"> documents</span></p>
+          </div>
+          <div class="col-xs-7">
+            <p>
+              <span class="muted right-align">total </span>
+              <span class="left-align">1.2 GB</span>
+            </p>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-5">
+            <p>
+              <span class="reviewed">19,976</span>
+              <span class="muted"> reviewed</span>
+            </p>
+          </div>
+          <div class="col-xs-7">
+            <p class="m-b-xxs">
+              <span class="muted right-align">responsive</span>
+              <ux-spark value="65" barHeight="5" class="spark-left-align"></ux-spark>
+            </p>
+            <p class="m-b-xxs">
+              <span class="muted right-align">privilege</span>
+              <ux-spark value="65" barHeight="5" class="spark-left-align second"></ux-spark>
+            </p>
+          </div>
+
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-5">
+            <p>
+              <span class="produced">11,123</span>
+              <span class="muted"> produced</span>
+            </p>
+          </div>
+          <div class="col-xs-7">
+            <p class="m-b-xxs">
+              <span class="muted right-align">productions</span>
+              <span class="produced left-align">22</span>
+            </p>
+            <p class="m-b-xxs">
+              <span class="muted right-align">active</span>
+              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()" [trackColor]="colorService.getColor('vibrant2').setAlpha(0.2).toRgba()"
+                value="60" barHeight="5" class="spark-left-align"></ux-spark>
+            </p>
+          </div>
+        </div>
+      </div>
+    </ux-flippable-card-back>
+
+  </ux-flippable-card>
+
+
+  <ux-flippable-card class="m-sm" trigger="hover" direction="horizontal" height="220" width="260">
+
+    <ux-flippable-card-front>
+      <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
+      <div class="flip-card-content">
+        <p class="front-title">The Dorling Case</p>
+        <div class="m-t-md">
+          <p class="card-text documents">15,678<span class="text-muted"> documents</span></p>
+          <p class="card-text reviewed">10,123<span class="text-muted"> reviewed</span></p>
+          <p class="card-text produced">3,123<span class="text-muted"> produced</span></p>
+        </div>
+        <ux-nested-donut-ng1 class="flip-card-nested-donut" [dataset]="donut2" [options]="options"></ux-nested-donut-ng1>
+      </div>
+    </ux-flippable-card-front>
+
+    <ux-flippable-card-back>
+      <div class="flip-card-content card-back">
+        <p>The Dorling Case</p>
+        <div class="row">
+          <div class="col-xs-5">
+            <p>
+              <span>15,678</span>
+              <span class="muted"> documents</span>
+            </p>
+          </div>
+          <div class="col-xs-7">
+            <p>
+              <span class="muted right-align">total </span>
+              <span class="left-align">0.8 GB</span>
+            </p>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-5">
+            <p>
+              <span class="reviewed">10,123</span>
+              <span class="muted"> reviewed</span>
+            </p>
+          </div>
+          <div class="col-xs-7">
+            <p class="m-b-xxs">
+              <span class="muted right-align">responsive</span>
+              <ux-spark value="65" barHeight="5" class="spark-left-align"></ux-spark>
+            </p>
+            <p class="m-b-xxs">
+              <span class="muted right-align">privilege</span>
+              <ux-spark value="65" barHeight="5" class="spark-left-align second"></ux-spark>
+            </p>
+          </div>
+
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-5">
+            <p>
+              <span class="produced">3,123</span>
+              <span class="muted"> produced</span>
+            </p>
+          </div>
+          <div class="col-xs-7">
+            <p class="m-b-xxs">
+              <span class="muted right-align">productions</span>
+              <span class="produced left-align">22</span>
+            </p>
+            <p class="m-b-xxs">
+              <span class="muted right-align">active</span>
+              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()" [trackColor]="colorService.getColor('vibrant2').setAlpha(0.2).toRgba()"
+                value="65" barHeight="5" class="spark-left-align"></ux-spark>
+            </p>
+          </div>
+        </div>
+      </div>
+    </ux-flippable-card-back>
+  </ux-flippable-card>
+
+
+  <ux-flippable-card class="m-sm" trigger="click" direction="horizontal" height="220" width="260">
+    <ux-flippable-card-front>
+      <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
+      <div class="flip-card-content">
+        <p class="front-title">The Salisbury Case</p>
+        <div class="m-t-md">
+          <p class="card-text documents">256,987<span class="text-muted"> documents</span></p>
+          <p class="card-text reviewed">143,567<span class="text-muted"> reviewed</span></p>
+          <p class="card-text produced">45,678<span class="text-muted"> produced</span></p>
+        </div>
+        <ux-nested-donut-ng1 class="flip-card-nested-donut" [dataset]="donut3" [options]="options"></ux-nested-donut-ng1>
+      </div>
+    </ux-flippable-card-front>
+
+    <ux-flippable-card-back>
+      <div class="flip-card-content card-back">
+        <p>The Salisbury Case</p>
+        <div class="row">
+          <div class="col-xs-5">
+            <p>256,987<span class="muted"> documents</span></p>
+          </div>
+          <div class="col-xs-7">
+            <p>
+              <span class="muted right-align">total </span>
+              <span class="left-align">10.7 GB</span>
+            </p>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-5">
+            <p>
+              <span class="reviewed">143,567</span>
+              <span class="muted"> reviewed</span>
+            </p>
+          </div>
+          <div class="col-xs-7">
+            <p class="m-b-xxs">
+              <span class="muted right-align">responsive</span>
+              <ux-spark value="65" barHeight="5" class="spark-left-align"></ux-spark>
+            </p>
+            <p class="m-b-xxs">
+              <span class="muted right-align">privilege</span>
+              <ux-spark value="65" barHeight="5" class="spark-left-align second"></ux-spark>
+            </p>
+          </div>
+
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-5">
+            <p>
+              <span class="produced">45,678</span>
+              <span class="muted"> produced</span>
+            </p>
+          </div>
+          <div class="col-xs-7">
+            <p class="m-b-xxs">
+              <span class="muted right-align">productions</span>
+              <span class="produced left-align">22</span>
+            </p>
+            <p class="m-b-xxs">
+              <span class="muted right-align">active</span>
+              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()" [trackColor]="colorService.getColor('vibrant2').setAlpha(0.2).toRgba()"
+                value="65" barHeight="5" class="spark-left-align"></ux-spark>
+            </p>
+          </div>
+        </div>
+      </div>
+    </ux-flippable-card-back>
+  </ux-flippable-card>
+</div>
+
+<hr>
+
+<p>Flippable Cards are a neat and tidy way to show more information about something, without taking up screen space.</p>
+
+<p>To define the content that should be displayed on the front and back sides of the card you should add html to
+  <code>ux-flippable-card-front</code> and <code>ux-flippable-card-back</code> components that are placed inside the <code>ux-flippable-card</code>  tags.</p>
+
+<p>You can customize the appearance and behavior of Flippable Cards by using the following attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="flipped" type="boolean">
+      Determines whether or not the card is flipped.
+    </tr>
+    <tr uxd-api-property name="direction" type="string" defaultValue="horizontal">
+      Determines whether the card should flip horizontally or vertically. 
+    </tr>
+    <tr uxd-api-property name="trigger" type="string" defaultValue="hover">
+      Determines when the card should flip. Possible options are <code>click</code>, <code>hover</code> and <code>manual</code>.
+        The <code>manual</code> option should be used if you want complete control over when the card should flip.
+    </tr>
+    <tr uxd-api-property name="width" type="number" defaultValue="280">
+      Sets the width (in pixels) of the card.
+    </tr>
+    <tr uxd-api-property name="height" type="number" defaultValue="200">
+      Sets the height (in pixels) of the card.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="flippedChange" type="boolean">
+      If two way binding is used this value will be updated when the state of the card changes.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code was used in the example above:</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </tab>
+  <tab heading="Javascript">
+    <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+  </tab>
+  <tab heading="CSS">
+    <uxd-snippet language="css" [content]="snippets.compiled.appCss"></uxd-snippet>
+  </tab>
+</tabset>

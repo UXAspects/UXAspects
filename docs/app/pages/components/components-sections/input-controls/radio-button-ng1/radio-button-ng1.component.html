@@ -1,0 +1,35 @@
+<uxd-radio-button-wrapper></uxd-radio-button-wrapper>
+
+<hr>
+
+<p>To create a radio button use the <code>radiobutton</code> directive with an <code>ng-model</code> to set and store the value.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.sampleJs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>The following attributes can be set to customize the behavior of the control.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="ng-model" type="boolean" binding="variable" required="true">
+        Initially sets the value of the radio button and will be updated to contain the current value if a user toggles the radio button.
+    </tr>
+    <tr uxd-api-property name="ng-value" type="value" binding="variable" required="true">
+        If this value equals the value in <code>ng-model</code> then the radio button will appear selected. If a user
+        clicks the radio button <code>ng-model</code> will be given the value specified by this attribute.
+    </tr>
+    <tr uxd-api-property name="simplified" type="boolean" binding="variable">
+        If set to <code>true</code> the radio button will be displayed without a border and background.
+    </tr>
+    <tr uxd-api-property name="clickable" type="boolean" binding="variable">
+        If set to <code>false</code> the radio button will not be updated when clicking on it, can be used if something
+        else is updating the state of the radio button.
+    </tr>
+</uxd-api-properties>
+
+<p>Use the <code>name</code> attribute to indicate which radio buttons are part of the same group.</p>

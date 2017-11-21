@@ -1,0 +1,72 @@
+<p>These are actions that can be performed against multiple items in a <code>table</code> or a <code>ul</code> with the <code>.card-view</code>    class applied.</p>
+
+<p>
+    Multiple selection actions should be inside a <code>div.affix-toolbar</code> which should be inside a <code>div.affix-container</code>.
+    Use the <code>multiple-select-actions</code> element to wrap all the actions. The <code>multiple-select-actions</code>    should also contain any other HTML elements that are not actions but need to be displayed in the toolbar. The <code>multiple-select-actions</code>    has the following attributes:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="on-select" type="function" binding="variable" required="true">
+        Should take in an item as a parameter. This is called with the selected item when it is selected. <code>on-select="vm.select(item)"</code>
+    </tr>
+    <tr uxd-api-property name="on-deselect" type="function" binding="variable" required="true">
+        Should take in an item as a parameter. This is called with the selected item when it is deselected. When
+        clearing all selections this method will be passed <code>null</code> as the item. <code>on-deselect="vm.deselect(item)"</code>
+    </tr>
+    <tr uxd-api-property name="key-fn" type="function" binding="variable" required="true">
+        Should take in an item as a parameter. This is called when it is necessary for the directive to uniquely
+        identify an item. <code>key-fn="vm.getId(item)"</code>
+    </tr>
+    <tr uxd-api-property name="total" type="function" binding="variable" required="true">
+        Should return the total count of items. This is used for the Select All function. <code>total="vm.totalItems"</code>
+    </tr>
+</uxd-api-properties>
+
+<uxd-snippet language="html" [content]="htmlCode"></uxd-snippet>
+
+<p>
+    To allow items to be selectable when in selection mode you must have the <code>multiple-select-item="item"</code> attribute
+    set to the specified item you want to select. If using a <code>table</code> you should put this attribute on the <code>tr</code>,
+    or if being used with <code>.card-view</code> then put this attribute on the <code>li</code>. Note the value specified
+    for the attribute is evaluated against the current <code>$scope</code>. A checkbox can be added to the item with the
+    <code>multiple-select-checkbox</code> class and the attribute <code>ng-model="multipleSelectChecked"</code>. The <code>td</code>    should also be given the <code>multiple-select-checkbox-table</code> class.
+</p>
+
+<uxd-snippet language="html" [content]="selectionCode"></uxd-snippet>
+
+<p>
+    A selection can be made invalid by changing the items in the grid. A selection can only be made invalid if "Select All" was
+    clicked to select all items. The items are considered to have changed when the count, specifed in the <code>total</code>    attribute on the <code>multiple-select-actions</code>, has changed.
+</p>
+
+<p>
+    <code>multipleSelectProvider</code> can be used to set the text that is displayed by these directives. You can set the
+    following properties on the <code>multipleSelectProvider</code>:
+</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="cancelText" type="string" defaultValue="Cancel">
+        Displayed beside the "x" when in selection mode.
+    </tr>
+    <tr uxd-api-property name="selectItemsText" type="string" defaultValue="Select Items or">
+        Displayed when no items are selected, should encourage user to select items. 
+    </tr>
+    <tr uxd-api-property name="selectedItemsText" type="string" defaultValue="Selected">
+        Displayed when items are selected.
+    </tr>
+    <tr uxd-api-property name="selectedItemsUnitText" type="string" defaultValue="Items.">
+        Displayed beside the item count when more than one item is selected.
+    </tr>
+    <tr uxd-api-property name="selectedItemUnitText" type="string" defaultValue="Item.">
+        Displayed beside the item count when a single item is selected.
+    </tr>
+    <tr uxd-api-property name="selectAllText" type="string" defaultValue="Select All">
+        Displayed in the link for selecting all.
+    </tr>
+    <tr uxd-api-property name="selectNoneText" type="string" defaultValue="Select None">
+        Displayed in the link for selecting none.
+    </tr>
+    <tr uxd-api-property name="selectionInvalidText" type="string" defaultValue="This selection is no longer valid">
+        Displayed when the selection becomes invalid. 
+    </tr>
+</uxd-api-properties>

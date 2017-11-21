@@ -1,0 +1,179 @@
+<div class="row">
+
+    <ux-spark [theme]="charts[0].theme" [value]="charts[0].value" [barHeight]="charts[0].barHeight" [topLeftLabel]="charts[0].topLeftLabel" class="col-md-5 col-sm-5 col-xs-5"
+        [tooltip]="charts[0].tooltip" [trackColor]="charts[0].trackColor"></ux-spark>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark [theme]="charts[1].theme" [value]="charts[1].value" [barHeight]="charts[1].barHeight" [inlineLabel]="charts[1].inlineLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark>
+</div>
+
+<hr>
+
+<div class="row">
+
+    <ux-spark [theme]="charts[2].theme" [value]="charts[2].value" [barHeight]="charts[2].barHeight" [topLeftLabel]="charts[2].topLeftLabel"
+        [bottomLeftLabel]="charts[2].bottomLeftLabel" class="col-md-5 col-sm-5 col-xs-5" [tooltip]="charts[2].tooltip"></ux-spark>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark [theme]="charts[3].theme" [value]="charts[3].value" [barHeight]="charts[3].barHeight" [inlineLabel]="charts[3].inlineLabel"
+        class="col-md-5 col-sm-5 col-xs-5" [topLeftLabel]="charts[3].topLeftLabel"></ux-spark>
+</div>
+
+<hr>
+
+<div class="row">
+    <ux-spark [theme]="charts[4].theme" [value]="charts[4].value" [barHeight]="charts[4].barHeight" [topLeftLabel]="charts[4].topLeftLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark [theme]="charts[5].theme" [value]="charts[5].value" [barHeight]="charts[5].barHeight" [topLeftLabel]="charts[5].topLeftLabel"
+        [bottomLeftLabel]="charts[5].bottomLeftLabel" [topRightLabel]="charts[5].topRightLabel" [bottomRightLabel]="charts[5].bottomRightLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark>
+</div>
+
+<hr>
+
+<div class="row">
+
+    <ux-spark [barColor]="charts[6].barColor" [value]="charts[6].value" [barHeight]="charts[6].barHeight" [topLeftLabel]="charts[6].topLeftLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark>
+
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+
+    <ux-spark [theme]="charts[7].theme" [value]="charts[7].value" [barHeight]="charts[7].barHeight" [topLeftLabel]="charts[7].topLeftLabel"
+        [bottomLeftLabel]="charts[7].bottomLeftLabel" [topRightLabel]="charts[7].topRightLabel" [bottomRightLabel]="charts[7].bottomRightLabel"
+        class="col-md-5 col-sm-5 col-xs-5"></ux-spark>
+</div>
+
+<hr>
+
+<p>A spark chart can be created by using the <code>ux-spark</code> directive. The spark chart appearance and behavior can be
+    customized by using the following attributes:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="theme" type="string">
+        Defines the color of the bar and the track. This should specify a color from our color palette. Defaults to the <code>chart1</code> color in the
+        color palette and with an opacity of 0.2 for the track.
+    </tr>
+    <tr uxd-api-property name="barColor" type="string | array">
+        Defines the color of the bar. Defaults to the <code>chart1</code> color in the color palette. Enhances customization
+        by permitting arbitrary colors to be speficied. For multi-value spark charts multiple colors can be specified in an array 
+        and should match the number of values supplied.
+    </tr>
+    <tr uxd-api-property name="trackColor" type="string">
+        Defines the color of the track. Defaults to the <code>chart1</code> color in the color palette with an opacity
+        of 0.2. Enhances customization by permitting arbitrary colors to be speficied.
+    </tr>
+    <tr uxd-api-property name="value" type="number | array" defaultValue="0">
+        Indicates the current value of the spark chart. This should be a value between 0-100. Default value is 0. For 
+        multi-value spark charts multiple values can be specified in an array and should match the number of bar colors supplied. 
+    </tr>
+    <tr uxd-api-property name="barHeight" type="number" defaultValue="10">
+        Indicates the height of the bar in pixels.
+    </tr>
+    <tr uxd-api-property name="inlineLabel" type="string">
+        Defines the text to be displayed inline with the bar.
+    </tr>
+    <tr uxd-api-property name="topLeftLabel" type="string">
+        Defines the text to be displayed in the top left region of the chart.
+    </tr>
+    <tr uxd-api-property name="topRightLabel" type="string">
+        Defines the text to be displayed in the top right region of the chart.
+    </tr>
+    <tr uxd-api-property name="bottomLeftLabel" type="string">
+        Defines the text to be displayed in the bottom left region of the chart.
+    </tr>
+    <tr uxd-api-property name="bottomRightLabel" type="string">
+        Defines the text to be displayed in the bottom right region of the chart.
+    </tr>
+    <tr uxd-api-property name="tooltip" type="string">
+        If defined, this text will be displayed in a tooltip when the mouse is over the bar.
+    </tr>
+</uxd-api-properties>
+
+<p>UX Aspects offers a wide range of chart colors. Set the color of the chart by setting the <code>theme</code> property to
+    one of the following:</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="demo-attributes table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th class="col-md-6">Theme Name</th>
+                        <th class="col-md-6"></th>
+                    </tr>
+                    <tr>
+                        <td class="attribute">chart1</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark theme="chart1" value="50" fillheight="10"></ux-spark>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">chart2</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark theme="chart2" value="50" fillheight="10"></ux-spark>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">chart3</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark theme="chart3" value="50" fillheight="10"></ux-spark>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">chart4</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark theme="chart4" value="50" fillheight="10"></ux-spark>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">chart5</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark theme="chart5" value="50" fillheight="10"></ux-spark>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">chart6</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark theme="chart6" value="50" fillheight="10"></ux-spark>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">ok</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark theme="ok" value="50" fillheight="10"></ux-spark>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">warning</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark theme="warning" value="50" fillheight="10"></ux-spark>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attribute">critical</td>
+                        <td class="spark-color-example-cell">
+                            <ux-spark theme="critical" value="50" fillheight="10"></ux-spark>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<p>The code below can be used to create the example shown above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>

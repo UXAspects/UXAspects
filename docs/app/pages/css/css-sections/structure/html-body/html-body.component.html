@@ -1,0 +1,28 @@
+<p>The <code>body</code> structure is shown below. Everything except the navigation is contained in the <code>div.page-content</code>.</p>
+
+<blockquote>
+  <p><strong>Note</strong>: All <code>script</code> tags are loaded at the end.</p>
+</blockquote>
+
+<p>By default, <code>body</code> will have full width. Dark background theme is invoked by adding the <code>.body-dark</code> class to the <code>body</code> tag.</p>
+
+<p>The following classes can be used with the wrapper class to format the <code>body</code> similar to the default style:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name=".container-max">
+      Restricts <code>max-width</code> to 1000px
+    </tr>
+    <tr uxd-api-property name=".wrapper-content">
+      Gives <code>padding</code> as 20px 20px 40px
+    </tr>
+    <tr uxd-api-property name=".container-left">
+      Keeps <code>margin-left</code> as 0px
+    </tr>
+    <tr uxd-api-property name=".container-fluid">
+      Keeps <code>padding-left</code> and <code>padding-right</code> as 15px, <code>margin-left</code> and <code>margin-right</code> are auto-aligned.
+    </tr>
+</uxd-api-properties>
+
+<p>The page header can be set to light or dark theme by adding the <code>page-content-navbar-top-light</code> and <code>page-content-navbar-top-dark</code> classes to the page content respectively.</p>
+
+<uxd-snippet [content]="snippets.compiled.sampleSnippetHtml"></uxd-snippet>

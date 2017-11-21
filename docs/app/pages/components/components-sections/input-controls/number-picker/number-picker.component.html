@@ -1,0 +1,66 @@
+<p>Selecting an integer:</p>
+
+<ux-number-picker class="number-picker-component-demo" min="-10" max="10" [valid]="form.controls['integer'].valid" [formControl]="form.controls['integer']"></ux-number-picker>
+
+<p class="text-error" *ngIf="form.controls['integer'].invalid">
+    <span class="hpe-icon hpe-alert"></span> Enter a number between -10 and 10.
+</p>
+
+<p class="m-t-md">Selecting a decimal:</p>
+
+<ux-number-picker class="number-picker-component-demo" step="0.5" min="0" max="10" [valid]="form.controls['decimal'].valid" [formControl]="form.controls['decimal']"></ux-number-picker>
+
+<p class="text-error" *ngIf="form.controls['decimal'].invalid">
+    <span class="hpe-icon hpe-alert"></span> Enter a number between 0 and 10.
+</p>
+
+<hr>
+
+<p>
+    The <code>ux-number-picker</code> component provides a way in which users can easily select a number value from a specified
+    range by clicking the up and down buttons, using the up/down arrow keys or by using the mouse wheel while hovering over
+    the control.
+</p>
+
+<p>The number picker behavior can be customized by using the following attributes:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="value" type="number">
+        Sets the value displayed in the number picker component.
+    </tr>
+    <tr uxd-api-property name="step" type="number" defaultValue="1">
+        Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. 
+    </tr>
+    <tr uxd-api-property name="min" type="number" defaultValue="-Infinity">
+        Defines the minimum value the number picker can set.
+    </tr>
+    <tr uxd-api-property name="max" type="number" defaultValue="Infinity">
+        	Defines the maximum value the number picker can set.
+    </tr>
+    <tr uxd-api-property name="valid" type="boolean">
+        Can be used to show a red outline around the input to indicate an invalid value. By default the 
+        error state will appear if the user enters a number below the minimum value or above the maximum value.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="number">
+        If two way binding is used this value will be updated any time the number picker value changes.
+    </tr>
+</uxd-api-properties>
+
+<p>The number picker component can be disabled using the <code>disabled</code> attribute. It also supports <code>ngModel</code>    for use within forms.</p>
+
+<p>The following code can be used to create the example shown above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

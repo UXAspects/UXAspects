@@ -1,0 +1,45 @@
+<uxd-side-modal-wrapper></uxd-side-modal-wrapper>
+
+<hr>
+
+<p>The side modal view is defined by the <code>side-modal-window</code> directive. The input value of the directive is an <code>object</code>.
+  It is defined by the <code>vm.sideModalOptions</code> object which in turn defines the modal options in the example provided.</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.layoutHtml" language="html"></uxd-snippet>
+  </tab>
+  <tab heading="JavaScript">
+    <uxd-snippet [content]="snippets.compiled.controllerJs" language="javascript"></uxd-snippet>
+  </tab>
+  <tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.stylesCss" language="css"></uxd-snippet>
+  </tab>
+</tabset>
+
+<p>The following defining the modal are set in the <code>vm.sideModalOptions</code>.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string">
+      Defines the Header title of the modal view.
+    </tr>
+    <tr uxd-api-property name="main" type="string">
+      Provides a path to a template representing modal content.
+    </tr>
+    <tr uxd-api-property name="footer" type="string">
+      Provides a path to a template representing modal footer content.
+    </tr>
+    <tr uxd-api-property name="modalColumns" type="string">
+      Classes defining the number of columns as per the grid system for a responsive modal.
+    </tr>
+    <tr uxd-api-property name="affixHeader" type="boolean">
+      Defines whether header should be latched.
+    </tr>
+    <tr uxd-api-property name="animate" defaultValue="boolean">
+      Defines whether the modal should open and close with an animation.
+    </tr>
+</uxd-api-properties>
+
+<p>The modal can be closed or dismissed using the <code>closeModal()</code> and <code>dismissModal()</code> methods respectively.</p>
+
+<uxd-snippet [content]="snippets.compiled.modalFooterHtml" language="html"></uxd-snippet>

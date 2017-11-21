@@ -365,6 +365,13 @@ if [ "$BuildPackages" == "true" ]; then
                 echo "//registry.npmjs.org/:_authToken="$NPMUserPassword > .npmrc
                 # Create a .npmignore file to prevent the .npmrc file ending up in the package
                 echo -e ".npmrc\n.npmignore" > .npmignore
+
+                # Set tag - "latest" for release; "next" for release candidate
+                NPMTag=latest
+                if [[ "$NextVersion" =~ "rc" ]]; then
+                    NPMTag=next
+                fi
+                echo NPMTag is $NPMTag
                 
                 # Publish the package
                 echo Publishing the NPM package
@@ -375,7 +382,7 @@ if [ "$BuildPackages" == "true" ]; then
                     -e "https_proxy=$HttpsProxy" \
                     -e "no_proxy=localhost, 127.0.0.1" \
                     $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST \
-                    npm publish --access public
+                    npm publish --access public --tag $NPMTag
                 echo NPM package published
                 
                 # Delete the package

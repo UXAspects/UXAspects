@@ -1,0 +1,92 @@
+<uxd-tree-view-wrapper></uxd-tree-view-wrapper>
+
+<hr>
+
+<p>The Tree View is created using the <code>tree-view</code> directive. It allows tree content to be displayed in a familiar
+    Explorer-like format and supports dynamic data and editing of content, and is designed for use with an accompanying List
+    View or Detail View.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>The data to be displayed in the Tree View should be set to the <code>data</code> attribute of the directive. It should adhere
+    to the following interface:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string">
+        The name of the item, which will be displayed in the tree.
+    </tr>
+    <tr uxd-api-property name="allowChildren" type="boolean">
+        Whether child nodes are possible for this node.
+    </tr>
+    <tr uxd-api-property name="type" type="string">
+        Used to configure the appearance (see Icon Configuration below for more details).
+    </tr>
+    <tr uxd-api-property name="tooltip" type="string | function">
+        Allows you to show a tooltip when the node label is hovered. If this value is a function, the 
+        function will be called with the node object as an argument and should return a string to display 
+        in the tooltip. By default no tooltip will be shown.
+    </tr>
+    <tr uxd-api-property name="nodes" type="array">
+        A collection of child objects, following the same interface.
+    </tr>
+    <tr uxd-api-property name="className" type="string">
+        Set this to the name of a custom class to apply this class to the tree node.
+    </tr>
+</uxd-api-properties>
+
+<p>You can watch this data object for changes within your own controller, allowing you to save changes if needed.</p>
+
+<p>Additionally you can attach a <code>permissions</code> object to a node to control how users will interact with it. If not
+    supplied, these values will default to <code>true</code>.</p>
+
+<ul>
+    <li><code>add</code></li>
+    <li><code>edit</code></li>
+    <li><code>delete</code></li>
+</ul>
+
+<h4>Exposed Functions</h4>
+
+<p>In the accompanying View, you can add controls to add or delete items from the Tree View. Pass functions defining these to
+    the Tree View via the <code>add-item</code> and <code>delete-item</code> attributes. These functions will be decorated
+    within the Tree View, so you can define custom logic inside them. The <code>add-item</code> function can return an item
+    in the format defined above and it will be included in the tree. The <code>delete</code> function can return a boolean
+    indicating if the delete is permitted or successful, depending on the intended usage of the tree.</p>
+
+<p>If no functions are provided, the Tree View will display small inline editing buttons to allow basic interaction.</p>
+
+<p>Alternatively, you can pass the <code>read-only</code> attribute to the tree to disable adding, editing and deleting for
+    all nodes. Otherwise this can be configured on a per-node basis using the <code>permissions</code> object described above.</p>
+
+<h4>Icon Configuration</h4>
+
+<p>The Tree View supports extensible types. By default, <code>folder</code> and <code>item</code> types are defined. To display
+    custom icons for your application, define a mapping as shown, using the types you will set on your node objects and icons
+    from the Elements Icon set. You can define <code>collapsed</code> and <code>expanded</code> alternative icons for nodes
+    which you expect to use as containers.</p>
+
+<uxd-snippet [content]="snippets.compiled.codeSnippetJs" language="js"></uxd-snippet>
+
+<h4>Options</h4>
+
+<p>You can pass a configuration object to the <code>options</code> attribute of the directive to control:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="showTreeLines" type="boolean" defaultValue="true">
+        Toggles the display of the dashed lines that outline the tree structure.
+    </tr>
+    <tr uxd-api-property name="openOnSelect" type="boolean" defaultValue="false">
+        Sets if nodes should expand when selected.
+    </tr>
+    <tr uxd-api-property name="loadHeight" type="number">
+        The number of pixels that indicates the initial height of the tree. This optional parameter can be set to prevent
+        the page flicker during tree load. The user should pass an appropriate value to the <code>loadHeight</code> option.
+    </tr>
+</uxd-api-properties>

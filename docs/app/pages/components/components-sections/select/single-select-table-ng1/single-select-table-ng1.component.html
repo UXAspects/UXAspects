@@ -1,0 +1,43 @@
+<uxd-single-select-table-wrapper></uxd-single-select-table-wrapper>
+
+<hr>
+
+<p>The <code>select-table</code> component can be used for single select in a table format. The component can be defined using
+    a <code>select-table</code> element. The options for the select component should be passed as attributes as explained
+    below:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="values" type="array" binding="variable" required="true">
+        Array of strings or Array of objects, this attribute should be passed with the values to be shown in the select table.
+    </tr>
+    <tr uxd-api-property name="select-key" type="string" binding="variable">
+        When the options are passed as an array of objects, this attribute should be set to the name of the key, whose value from the object will be displayed. Note that this should only be set when the options are passed as an array of objects, and not required when the options are passed as an array of strings.
+    </tr>
+    <tr uxd-api-property name="selected" type="string" binding="variable" required="true">
+        The selected option will be set to the variable passed to the <code>selected</code> attribute.
+    </tr>
+    <tr uxd-api-property name="search-text" type="string" binding="variable" required="true">
+        The component can be associated with a search text which can filter the options. The <code>search-text</code> attribute can be set to the text with which options will be filtered.
+    </tr>
+    <tr uxd-api-property name="table-height" type="string" binding="variable" required="true">
+        The height of the table can be changed by providing a string to the <code>table-height</code> attribute (e.g.
+        "50%"). This can be set to px, % etc.
+    </tr>
+    <tr uxd-api-property name="select-hidden-items" type="string" binding="variable">
+        Controls the behaviour when selected items are filtered from view. By default filtered items remain selected.
+        Set to the string <code>'clear'</code> to clear the selected item when the search-text filter has removed
+        it from the list of visible items. Alternatively, set to <code>'reselect'</code> to both clear the selected
+        item, and reselect it when it becomes visible again.
+    </tr>
+</uxd-api-properties>
+
+<p>The sample code for the above example is:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.sampleJs" language="javascript"></uxd-snippet>
+    </tab>
+</tabset>
