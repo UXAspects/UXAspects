@@ -13,7 +13,8 @@ export default function SparkDirective() {
             topRightLabel: "=",
             bottomLeftLabel: "=",
             bottomRightLabel: "=",
-            sparkTooltip: "@?"
+            sparkTooltip: "@?",
+            barColor: '=?'
         },
         bindToController: true
     };

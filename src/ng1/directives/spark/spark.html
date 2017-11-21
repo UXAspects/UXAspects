@@ -1,36 +1,37 @@
 <div>
-    <div ng-if="sc.inline === true">
+    <div ng-if="sc.inline === true" class="spark-container-inline">
         <div class="spark-label-left">
             <div ng-bind-html="sc.label"></div>
         </div>
         <div class="inline-block spark-line">
-            <div>
+            <div class="spark-top-container">
                 <div class="inline-block" ng-if="sc.topLeftLabel" ng-bind-html="sc.topLeftLabel"></div>
                 <div class="align-right inline-block" ng-if="sc.topRightLabel" ng-bind-html="sc.topRightLabel" class="text-right"></div>
             </div>
             <div class="spark" ng-class="[ 'inline', sc.type ]" ng-style="sc.setPosition" tooltip="{{sc.sparkTooltip}}">
-                <div class="progress-bar fill" aria-valuenow="{{sc.value}}" aria-valuemin="0"
-                     aria-valuemax="100" ng-style="{width: (sc.value < 100 ? sc.value : 100) + '%'}"
+
+                <div class="progress-bar fill" ng-repeat="bar in sc.values" aria-valuenow="{{sc.value}}" aria-valuemin="0"
+                     aria-valuemax="100" ng-style="{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}"
                      aria-valuetext="sc.label"></div>
             </div>
-            <div>
+            <div class="spark-bottom-container">
                 <div class="inline-block" ng-if="sc.bottomLeftLabel" ng-bind-html="sc.bottomLeftLabel"></div>
                 <div class="align-right inline-block" ng-if="sc.bottomRightLabel" ng-bind-html="sc.bottomRightLabel" class="text-right"></div>
             </div>
         </div>
     </div>
 
-    <div ng-if="sc.inline === false">
-        <div>
+    <div ng-if="sc.inline === false" class="spark-container">
+        <div class="spark-top-container">
             <div class="inline-block" ng-if="sc.topLeftLabel" ng-bind-html="sc.topLeftLabel"></div>
             <div class="align-right inline-block" ng-if="sc.topRightLabel" ng-bind-html="sc.topRightLabel" class="text-right"></div>
         </div>
         <div class="spark" ng-class="sc.type" ng-style="{height: sc.fillheight + 'px'}" tooltip="{{sc.sparkTooltip}}">
-            <div class="progress-bar fill" aria-valuenow="{{sc.value}}" aria-valuemin="0"
-                 aria-valuemax="100" ng-style="{width: (sc.value < 100 ? sc.value : 100) + '%'}"
+            <div class="progress-bar fill" ng-repeat="bar in sc.values" aria-valuenow="{{sc.value}}" aria-valuemin="0"
+                 aria-valuemax="100" ng-style="{width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}" 
                  aria-valuetext="sc.top-left-label"></div>
         </div>
-        <div>
+        <div class="spark-bottom-container">
             <div class="inline-block" ng-if="sc.bottomLeftLabel" ng-bind-html="sc.bottomLeftLabel"></div>
             <div class="align-right inline-block" ng-if="sc.bottomRightLabel" ng-bind-html="sc.bottomRightLabel" class="text-right"></div>
         </div>

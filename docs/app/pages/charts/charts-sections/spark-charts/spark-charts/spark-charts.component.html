@@ -1,7 +1,7 @@
 <div class="row">
 
-    <ux-spark [value]="charts[0].value" [barHeight]="charts[0].barHeight" [topLeftLabel]="charts[0].topLeftLabel" class="col-md-5 col-sm-5 col-xs-5"
-        [tooltip]="charts[0].tooltip"></ux-spark>
+    <ux-spark [theme]="charts[0].theme" [value]="charts[0].value" [barHeight]="charts[0].barHeight" [topLeftLabel]="charts[0].topLeftLabel" class="col-md-5 col-sm-5 col-xs-5"
+        [tooltip]="charts[0].tooltip" [trackColor]="charts[0].trackColor"></ux-spark>
 
     <div class="col-md-1 col-sm-1 col-xs-1"></div>
 
@@ -39,7 +39,7 @@
 
 <div class="row">
 
-    <ux-spark [theme]="charts[6].theme" [value]="charts[6].value" [barHeight]="charts[6].barHeight" [topLeftLabel]="charts[6].topLeftLabel"
+    <ux-spark [barColor]="charts[6].barColor" [value]="charts[6].value" [barHeight]="charts[6].barHeight" [topLeftLabel]="charts[6].topLeftLabel"
         class="col-md-5 col-sm-5 col-xs-5"></ux-spark>
 
     <div class="col-md-1 col-sm-1 col-xs-1"></div>
@@ -70,9 +70,10 @@
             </tr>
             <tr>
                 <td class="attribute">barColor</td>
-                <td>string</td>
+                <td>string or array</td>
                 <td>Defines the color of the bar. Defaults to the <code>chart1</code> color in the color palette. Enhances customization
-                    by permitting arbitrary colors to be speficied.</td>
+                    by permitting arbitrary colors to be speficied. For multi-value spark charts multiple colors can be specified in an array 
+                    and should match the number of values supplied.</td>
             </tr>
             <tr>
                 <td class="attribute">trackColor</td>
@@ -82,8 +83,9 @@
             </tr>
             <tr>
                 <td class="attribute">value</td>
-                <td>number</td>
-                <td>Indicates the current value of the spark chart. This should be a value between 0-100. Default value is 0.</td>
+                <td>number or array</td>
+                <td>Indicates the current value of the spark chart. This should be a value between 0-100. Default value is 0. For 
+                    multi-value spark charts multiple values can be specified in an array and should match the number of bar colors supplied.</td>
             </tr>
             <tr>
                 <td class="attribute">barHeight</td>

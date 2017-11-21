@@ -16,6 +16,7 @@ export class SparkChartComponent extends UpgradeComponent {
     @Input() bottomLeftLabel: any;
     @Input() bottomRightLabel: any;
     @Input() sparkTooltip: any;
+    @Input() barColor: any;
 
     constructor(elementRef: ElementRef, injector: Injector) {
         super('uxSparkNg1', elementRef, injector);
