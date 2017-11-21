@@ -145,6 +145,7 @@
     "docs/app/pages",
     "docs/app/services",
     "docs/styles.less",
+    "docs/environments",
     "src",
     "LICENSE.md",
     "README.md"
