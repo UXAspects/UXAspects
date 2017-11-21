@@ -24,55 +24,30 @@
 
 <p>The number picker behavior can be customized by using the following attributes:</p>
 
-<table class="table">
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="value" type="number">
+        Sets the value displayed in the number picker component.
+    </tr>
+    <tr uxd-api-property name="step" type="number" defaultValue="1">
+        Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. 
+    </tr>
+    <tr uxd-api-property name="min" type="number" defaultValue="-Infinity">
+        Defines the minimum value the number picker can set.
+    </tr>
+    <tr uxd-api-property name="max" type="number" defaultValue="Infinity">
+        	Defines the maximum value the number picker can set.
+    </tr>
+    <tr uxd-api-property name="valid" type="boolean">
+        Can be used to show a red outline around the input to indicate an invalid value. By default the 
+        error state will appear if the user enters a number below the minimum value or above the maximum value.
+    </tr>
+</uxd-api-properties>
 
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>@Input @Output</b> value</td>
-            <td><b>number</b></td>
-            <td>Sets the value displayed in the number picker component. If two way binding is used this value will be updated
-                any time the number picker value changes.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> step</td>
-            <td><b>number</b></td>
-            <td>Defines the amount the number picker should increase or decrease when the buttons or arrow keys are used. Default
-                value is <code>1</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> min</td>
-            <td><b>number</b></td>
-            <td>Defines the minimum value the number picker can set. Default value is <code>-Infinity</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> max</td>
-            <td><b>number</b></td>
-            <td>Defines the maximum value the number picker can set. Default value is <code>Infinity</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> valid</td>
-            <td><b>boolean</b></td>
-            <td>
-                Can be used to show a red outline around the input to indicate an invalid value. By default the error state will appear if
-                the user enters a number below the minimum value or above the maximum value.
-            </td>
-        </tr>
-
-    </tbody>
-</table>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="number">
+        If two way binding is used this value will be updated any time the number picker value changes.
+    </tr>
+</uxd-api-properties>
 
 <p>The number picker component can be disabled using the <code>disabled</code> attribute. It also supports <code>ngModel</code>    for use within forms.</p>
 

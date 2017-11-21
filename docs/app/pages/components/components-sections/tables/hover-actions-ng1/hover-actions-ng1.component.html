@@ -9,64 +9,25 @@
 
 <p>To add hover actions to an element add the <code>hover-actions</code> directive. This can have the following attribute:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">hover-element</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>This should specify a CSS selector that defines which parent element should be hovered to show the hover
-                    actions. If this is not specified, the immediate parent will be set as the hover element.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties >
+    <tr uxd-api-property name="hover-element" type="string" binding="literal">
+        This should specify a CSS selector that defines which parent element should be hovered to show the hover actions. If this is not specified, the immediate parent will be set as the hover element.
+    </tr>
+</uxd-api-properties>
 
-<p>To add hover actions add <code>hover-action</code> directives to the <code>hover-actions</code> directive. A <code>hover-action</code>    can use the following attributes to configure it’s appearance:</p>
+<p>To add hover actions add <code>hover-action</code> directives to the <code>hover-actions</code> directive. A <code>hover-action</code> can use the following attributes to configure it’s appearance:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">name</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>The name of the action, placed in a tooltip that is shown when the action is hovered.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">icon</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>The icon class from the icon set.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">click</td>
-                <td>function</td>
-                <td>variable</td>
-                <td>This expression will be evaluated when the action is clicked or enter is pressed when it has focus.</td>
-                <td>false</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string" binding="literal" required="true">
+        The name of the action, placed in a tooltip that is shown when the action is hovered.
+    </tr>
+    <tr uxd-api-property name="icon" type="string" binding="literal" required="true">
+        The icon class from the icon set.
+    </tr>
+    <tr uxd-api-property name="click" type="function" binding="variable" required="true">
+        This expression will be evaluated when the action is clicked or enter is pressed when it has focus.
+    </tr>
+</uxd-api-properties>
 
 <tabset>
 

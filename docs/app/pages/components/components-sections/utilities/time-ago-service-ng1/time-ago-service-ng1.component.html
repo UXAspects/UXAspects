@@ -1,30 +1,19 @@
 <p>The <code>timeAgoService</code> can be used to generate a string reflecting the duration between two specific points in time.
     The service should be injected into the controller and has the following functions:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td class="attribute">setStrings</td>
-            <td>This can be used to localize or customize the strings that are generated. The function expects an object which
-                contains strings for each time period. See below for the default options.</td>
-        </tr>
-        <tr>
-            <td class="attribute">timeSinceNow</td>
-            <td>This function will generate a string based on the current date and time. It expects one argument which should
-                be a date object representing a date and time that has already passed.</td>
-        </tr>
-        <tr>
-            <td class="attribute">timeSince</td>
-            <td>Similar to the <code>timeSinceNow</code> function, however it expects a second argument which will be the date
-                and time you wish to assume as 'the present'. The string returned will reflect the time that has passed since
-                this date.</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="setStrings">
+        This can be used to localize or customize the strings that are generated. The function expects an object which contains strings for each time period. See below for the default options.
+    </tr>
+    <tr uxd-api-property name="timeSinceNow">
+        This function will generate a string based on the current date and time. It expects one argument which should be a date object representing a date and time that has already passed.
+    </tr>
+    <tr uxd-api-property name="timeSince">
+        Similar to the <code>timeSinceNow</code> function, however it expects a second argument which will be the date
+        and time you wish to assume as 'the present'. The string returned will reflect the time that has passed since
+        this date.
+    </tr>
+</uxd-api-properties>
 
 <p>Below is an example of how the <code>timeAgoService</code> can be used in a controller:</p>
 

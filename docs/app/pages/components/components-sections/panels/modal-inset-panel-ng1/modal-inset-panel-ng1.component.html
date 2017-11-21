@@ -10,47 +10,21 @@
   used.</p>
 
 <p>The following attributes can be specified to configure the behavior of the <code>modal-inset-panel</code>.</p>
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Binding</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">show-panel</td>
-        <td>boolean</td>
-        <td>variable</td>
-        <td>This value should be changed to show or hide the panel.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">panel-side</td>
-        <td>string</td>
-        <td>variable</td>
-        <td>Sets which side of the modal the panel should appear on. The available options are <code>right</code> or <code>left</code>.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">panel-width</td>
-        <td>number</td>
-        <td>variable</td>
-        <td>Sets the desired width of the panel in pixels.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">on-dismiss</td>
-        <td>variable</td>
-        <td>literal</td>
-        <td>If specified, this will be called when the panel has been dismissed.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="show-panel" binding="variable" type="boolean" required="true">
+      This value should be changed to show or hide the panel.
+    </tr>
+    <tr uxd-api-property name="panel-side" binding="variable" type="string" required="true">
+      Sets which side of the modal the panel should appear on. The available options are <code>right</code> or <code>left</code>.
+    </tr>
+    <tr uxd-api-property name="panel-width" binding="variable" type="number" required="true">
+      Sets the desired width of the panel in pixels.
+    </tr>
+    <tr uxd-api-property name="on-dismiss" binding="literal" type="variable">
+      If specified, this will be called when the panel has been dismissed.
+    </tr>
+</uxd-api-properties>
 
 <h4>Modal Inset Panel Contents</h4>
 
@@ -60,51 +34,23 @@
 <p>The <code>modal-inset-header</code> directive will add a header to the panel that contains a close button to dismiss the
   modal inset panel. Add any elements inside the directive that you wish to display in the header such as a title or an icon.
   The header behavior can be configured using the following attribute:</p>
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Binding</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">allow-dismiss</td>
-        <td>boolean</td>
-        <td>literal</td>
-        <td>If set to false the close button will be hidden and the visibility of the panel must be handled manually. The default
-          value is <code>true</code>.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="allow-dismiss" binding="literal" type="boolean" defaultValue="true">
+      If set to false the close button will be hidden and the visibility of the panel must be handled manually.
+    </tr>
+</uxd-api-properties>
+
 <p>The <code>modal-inset-content</code> directive should act as a container for the main content of the panel. The height of
   the panel will always fill the modal body, however if the content may be larger than the available space consider adding
   a scrollbar. The content of the panel can be set by adding child elements or by specifying a template using the following
   attribute:</p>
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Binding</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">panel-template</td>
-        <td>string</td>
-        <td>literal</td>
-        <td>If specified will load the template file and add the contents of the template to the panel.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="panel-template" binding="literal" type="string">
+      If specified will load the template file and add the contents of the template to the panel.  
+    </tr>
+</uxd-api-properties>
 
 <tabset>
   <tab heading="HTML">

@@ -45,155 +45,77 @@
 
 <p>The <code>social-chart</code> directive accepts the following parameters:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">data</td>
-        <td>object</td>
-        <td>The data to be displayed in the chart.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">width</td>
-        <td>string</td>
-        <td>The dimensions of the chart container (all CSS dimension units accepted). Note that the containing element must have
-          specified dimensions in order to use percentage values.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">height</td>
-        <td>string</td>
-        <td>The dimensions of the chart container (all CSS dimension units accepted). Note that the containing element must have
-          specified dimensions in order to use percentage values.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">api</td>
-        <td>object</td>
-        <td>A host object for returned objects and functions.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">communities</td>
-        <td>object</td>
-        <td>A map of node types to colors and styles.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">detail-style</td>
-        <td>object</td>
-        <td>CSS styles to override the detail panel container styling.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">popover-style</td>
-        <td>object</td>
-        <td>CSS styles to override the popover panel container styling.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">node-detail</td>
-        <td>URL</td>
-        <td>The HTML template for the node detail panel.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">edge-detail</td>
-        <td>URL</td>
-        <td>The HTML template for the edge detail panel.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">node-popover</td>
-        <td>URL</td>
-        <td>The HTML template for the node popover panel.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">edge-popover</td>
-        <td>URL</td>
-        <td>The HTML template for the edge popover panel.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">force-atlas-duration</td>
-        <td>number</td>
-        <td>Time in milliseconds to run the ForceAtlas2 layout algorithm (default 1800).</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">node-size-attribute</td>
-        <td>expression</td>
-        <td>The node attribute to be used to calculate relative sizes (see below).</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">start-maximized</td>
-        <td>boolean</td>
-        <td>When true the chart will initially be shown full-screen.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">show-maximize-control</td>
-        <td>boolean</td>
-        <td>When true the fullscreen display toggle button will be shown.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">fullscreen-button-position</td>
-        <td>object</td>
-        <td>Override the placement of the fullscreen display toggle button (see below).</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">social-chart-container</td>
-        <td>string</td>
-        <td>Class name of the container element for full-screen display.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">local-strings</td>
-        <td>object</td>
-        <td>Localizable strings for internal control labels and tooltips (see below).</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">options</td>
-        <td>options</td>
-        <td>Additional configuration parameters.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">chart-title</td>
-        <td>object</td>
-        <td>Configuration options for the title which is displayed when the chart is fullscreen.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">edge-weight-influence</td>
-        <td>boolean</td>
-        <td>When true the edge weight will be taken into account when positioning the nodes (see layout section).</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">min-labels</td>
-        <td>number</td>
-        <td>When specified the chart will add labels to at least this many nodes where possible. If a node or edge has been selected
-          then only the nodes with focus are eligible to have labels added to them. Labels are added based on the node size,
-          with the largest getting labels added first. Nodes near the edges of the chart will also not get labels added to
-          them to ensure labels will be fully visible. For more control over when nodes should display labels use the <code>labelThreshold</code>          option.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="data" type="object" required="true">
+      The data to be displayed in the chart.
+    </tr>
+    <tr uxd-api-property name="width" type="string" required="true">
+      The dimensions of the chart container (all CSS dimension units accepted). Note that the containing element must have specified dimensions in order to use percentage values.
+    </tr>
+    <tr uxd-api-property name="height" type="string" required="true">
+      The dimensions of the chart container (all CSS dimension units accepted). Note that the containing element must have specified dimensions in order to use percentage values.
+    </tr>
+    <tr uxd-api-property name="api" type="object" required="true">
+      A host object for returned objects and functions.
+    </tr>
+    <tr uxd-api-property name="communities" type="object">
+      A map of node types to colors and styles.
+    </tr>
+    <tr uxd-api-property name="detail-style" type="object">
+      CSS styles to override the detail panel container styling.
+    </tr>
+    <tr uxd-api-property name="popover-style" type="object">
+      CSS styles to override the popover panel container styling.
+    </tr>
+    <tr uxd-api-property name="node-detail" type="URL">
+      The HTML template for the node detail panel.
+    </tr>
+    <tr uxd-api-property name="edge-detail" type="URL">
+      The HTML template for the edge detail panel.
+    </tr>
+    <tr uxd-api-property name="node-popover" type="URL">
+      The HTML template for the node popover panel.
+    </tr>
+    <tr uxd-api-property name="edge-popover" type="Url">
+      The HTML template for the edge popover panel.
+    </tr>
+    <tr uxd-api-property name="force-atlas-duration" type="number" defaultValue="1800">
+      Time in milliseconds to run the ForceAtlas2 layout algorithm.
+    </tr>
+    <tr uxd-api-property name="node-size-attribute" type="expression">
+      The node attribute to be used to calculate relative sizes (see below).
+    </tr>
+    <tr uxd-api-property name="start-maximized" type="boolean">
+      When true the chart will initially be shown full-screen.
+    </tr>
+    <tr uxd-api-property name="show-maximize-control" type="boolean">
+      When true the fullscreen display toggle button will be shown.
+    </tr>
+    <tr uxd-api-property name="fullscreen-button-position" type="object">
+      Override the placement of the fullscreen display toggle button (see below).
+    </tr>
+    <tr uxd-api-property name="social-chart-container" type="string">
+      Class name of the container element for full-screen display.
+    </tr>
+    <tr uxd-api-property name="local-strings" type="object">
+      Localizable strings for internal control labels and tooltips (see below).
+    </tr>
+    <tr uxd-api-property name="options" type="options">
+      Additional configuration parameters.
+    </tr>
+    <tr uxd-api-property name="chart-title" type="object">
+      Configuration options for the title which is displayed when the chart is fullscreen.
+    </tr>
+    <tr uxd-api-property name="edge-weight-influence" type="boolean">
+      When true the edge weight will be taken into account when positioning the nodes (see layout section).
+    </tr>
+    <tr uxd-api-property name="min-labels" type="number">
+      When specified the chart will add labels to at least this many nodes where possible. If a node or edge has been selected
+      then only the nodes with focus are eligible to have labels added to them. Labels are added based on the node size,
+      with the largest getting labels added first. Nodes near the edges of the chart will also not get labels added to
+      them to ensure labels will be fully visible. For more control over when nodes should display labels use the <code>labelThreshold</code> option.
+    </tr>
+</uxd-api-properties>
 
 <p>The Social Chart is defined by the <code>social-chart</code> directive. The nodes should have a
   <code>label</code> and <code>id</code> defined.</p>
@@ -236,30 +158,14 @@
 <p>The chart can be driven via two methods also exposed in this object - these functions are added to the supplied API object
   after the chart is instantiated for use in the developer’s own controller context:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">setSelectedNodeById</td>
-        <td>function</td>
-        <td>Updates the currently selected node.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">SetSelectedEdgeById</td>
-        <td>function</td>
-        <td>Updates the currently selected edge.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="setSelectedNodeById" type="function">
+      Updates the currently selected node.
+    </tr>
+    <tr uxd-api-property name="SetSelectedEdgeById" type="function">
+      Updates the currently selected edge.
+    </tr>
+</uxd-api-properties>
 
 <p>Node Ids are persisted from the original data source; edge Ids are generated based on the order the edges arrive in the graph
   and prefixed with the letter ‘e’. Use of these methods is demonstrated below the chart on this page. The code for the two
@@ -269,65 +175,33 @@
 
 <p>To execute custom logic on the node, edge, or stage click events, the following functions should be set on the API object.</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">onNodeClick</td>
-        <td>function</td>
-        <td>Invoked with the selected/hovered node as a parameter.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">onNodeHover</td>
-        <td>function</td>
-        <td>Invoked with the selected/hovered node as a parameter.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">onEdgeClick</td>
-        <td>function</td>
-        <td>Invoked with the selected/hovered node as a parameter.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">onEdgeHover</td>
-        <td>function</td>
-        <td>Invoked with the selected/hovered node as a parameter.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">onStageClick</td>
-        <td>function</td>
-        <td>Invoked with no parameters.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">onLoadComplete</td>
-        <td>function</td>
-        <td>Invoked with no parameters, when the graph is initially loaded and the initial layout algorithm has completed.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">onToggleFullscreen</td>
-        <td>function</td>
-        <td>Invoked with no parameters when the fullscreen/standard toggle button is clicked, if this button is shown. <b>Important:</b>          this function should return a value:
-          <ul>
-            <li><code>true</code> - perform the default toggle between fullscreen and standard.</li>
-            <li><code>false</code> - do not perform the toggle.</li>
-          </ul>
-        </td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="onNodeClick" type="function">
+      Invoked with the selected/hovered node as a parameter.
+    </tr>
+    <tr uxd-api-property name="onNodeHover" type="function">
+      Invoked with the selected/hovered node as a parameter.
+    </tr>
+    <tr uxd-api-property name="onEdgeClick" type="function">
+      Invoked with the selected/hovered node as a parameter.
+    </tr>
+    <tr uxd-api-property name="onEdgeHover" type="function">
+      Invoked with the selected/hovered node as a parameter.
+    </tr>
+    <tr uxd-api-property name="onStageClick" type="function">
+      Invoked with no parameters.
+    </tr>
+    <tr uxd-api-property name="onLoadComplete" type="function">
+      Invoked with no parameters, when the graph is initially loaded and the initial layout algorithm has completed.
+    </tr>
+    <tr uxd-api-property name="onToggleFullscreen" type="function">
+      Invoked with no parameters when the fullscreen/standard toggle button is clicked, if this button is shown. <b>Important:</b>          this function should return a value:
+      <ul>
+        <li><code>true</code> - perform the default toggle between fullscreen and standard.</li>
+        <li><code>false</code> - do not perform the toggle.</li>
+      </ul>
+    </tr>
+</uxd-api-properties>
 
 <p>To access external objects and API calls that may be required to populate on-demand values, remember that a function closure
   will have access to its original context when executing. For example, if the API object was defined like this:</p>
@@ -349,53 +223,25 @@
 
 <p>The chart title will accept the following properties.</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">title</td>
-        <td>string</td>
-        <td>The initial title string which will be displayed before the chart has been used.</td>
-        <td>false</td>
-      </tr>
-      <tr>
-        <td class="attribute">timeout</td>
-        <td>number</td>
-        <td>The time in milliseconds before the title fades, if this is not defined the title will be permanently displayed.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">nodeSelectedTitle</td>
-        <td>string</td>
-        <td>
-          <p ng-non-bindable="">The string which will replace the title when a node is selected, <code ngNonBindable>{{ node }}</code> will be replaced by the
-            name of the currently selected node.</p>
-        </td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">edgeSelectedTitle</td>
-        <td>string</td>
-        <td>
-          <p ng-non-bindable="">The string which will replace the title when an edge is selected, <code ngNonBindable>{{ source }}</code> and <code ngNonBindable>{{ target }}</code>            will be replaced by the name of the source and target nodes.</p>
-        </td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">stageSelectedTitle</td>
-        <td>string</td>
-        <td>The string which will replace the title when the stage is clicked.</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string" required="true">
+      The initial title string which will be displayed before the chart has been used.
+    </tr>
+    <tr uxd-api-property name="timeout" type="number">
+    	The time in milliseconds before the title fades, if this is not defined the title will be permanently displayed.
+    </tr>
+    <tr uxd-api-property name="nodeSelectedTitle" type="string">
+      <p ng-non-bindable="">The string which will replace the title when a node is selected, <code ngNonBindable>{{ node }}</code> will be replaced by the
+        name of the currently selected node.</p>
+    </tr>
+    <tr uxd-api-property name="edgeSelectedTitle" type="string">
+      <p ng-non-bindable="">The string which will replace the title when an edge is selected, <code ngNonBindable>{{ source }}</code> and <code ngNonBindable>{{ target }}</code> will be replaced by the name of the source and target nodes.</p>
+    </tr>
+    <tr uxd-api-property name="stageSelectedTitle" type="string">
+      The string which will replace the title when the stage is clicked.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet language="javascript" [content]="snippets.compiled.titleJs"></uxd-snippet>
 
@@ -434,42 +280,20 @@
   <code>local-strings</code> parameter. This should be an object map of keys to localized strings. The following properties
   can be mapped:</p>
 
-<div class="demo-attributes table-responsive">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Property</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Optional</th>
-      </tr>
-      <tr>
-        <td class="attribute">title</td>
-        <td>string</td>
-        <td>The name of your chart; defaults to "Entire Network" in English.</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">reset</td>
-        <td>string</td>
-        <td>Localized string for English word "reset".</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">zoomIn</td>
-        <td>string</td>
-        <td>Localized string for English phrase "Zoom In".</td>
-        <td>true</td>
-      </tr>
-      <tr>
-        <td class="attribute">zoomOut</td>
-        <td>string</td>
-        <td>Localized string for English phrase "Zoom Out".</td>
-        <td>true</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string" defaultValue="Entire Network">
+      The name of your chart; defaults to "Entire Network" in English.
+    </tr>
+    <tr uxd-api-property name="reset" type="string">
+      Localized string for English word "reset".
+    </tr>
+    <tr uxd-api-property name="zoomIn" type="string">
+      Localized string for English phrase "Zoom In".
+    </tr>
+    <tr uxd-api-property name="zoomOut" type="string">
+      Localized string for English phrase "Zoom Out".
+    </tr>
+</uxd-api-properties>
 
 <h4 id="initial-state">Initial State</h4>
 

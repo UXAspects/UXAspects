@@ -6,75 +6,32 @@
 
 <p>Input Expand takes the following attributes:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Binding</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">elname</td>
-            <td>string</td>
-            <td>literal</td>
-            <td>Name of the input element.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">place-holder</td>
-            <td>string</td>
-            <td>literal</td>
-            <td>Placeholder text for an input.<br></td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">class-name</td>
-            <td>string</td>
-            <td>literal</td>
-            <td>Defines the classes for the input.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">focus</td>
-            <td>function</td>
-            <td>expression</td>
-            <td>A method that defines a boolean value to indicate whether an input is expanded. Can be used to display or hide
-                other elements.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">clear-text-icon</td>
-            <td>string</td>
-            <td>literal</td>
-            <td>Icon used in the clear input text button.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">close-search</td>
-            <td>string</td>
-            <td>literal</td>
-            <td>Should be set to a value which when clicked closes the input text</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">expand-always</td>
-            <td>boolean</td>
-            <td>variable</td>
-            <td>Indicates whether the search should always expand or only on a larger viewport.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">on-enter</td>
-            <td>function</td>
-            <td>variable</td>
-            <td>Defines the function to be called when the enter key is pressed. The function will be called with the current
-                text entered in the field as an argument.</td>
-            <td>true</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="elname" type="string" binding="literal" required="true">
+        Name of the input element.
+    </tr>
+    <tr uxd-api-property name="place-holder" type="string" binding="literal" required="true">
+        Placeholder text for an input.
+    </tr>
+    <tr uxd-api-property name="class-name" type="string" binding="literal" required="true">
+        Defines the classes for the input.
+    </tr>
+    <tr uxd-api-property name="focus" type="function" binding="expression" required="true">
+        A method that defines a boolean value to indicate whether an input is expanded. Can be used to display or hide other elements.
+    </tr>
+    <tr uxd-api-property name="clear-text-icon" type="string" binding="literal" required="true">
+        Icon used in the clear input text button.
+    </tr>
+    <tr uxd-api-property name="close-search" type="string" binding="literal" required="true">
+        Should be set to a value which when clicked closes the input text
+    </tr>
+    <tr uxd-api-property name="expand-always" type="boolean" binding="variable" required="true">
+        Indicates whether the search should always expand or only on a larger viewport.
+    </tr>
+    <tr uxd-api-property name="on-enter" type="function" binding="variable">
+        Defines the function to be called when the enter key is pressed. The function will be called with the current text entered in the field as an argument.
+    </tr>
+</uxd-api-properties>
 
 <p>The HTML used in the example above can be found below:</p>
 

@@ -23,132 +23,62 @@
 
 <p>The following attributes are available to configure the <code>dynamic-select</code> directive.</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Binding</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">multiple</td>
-            <td>none</td>
-            <td></td>
-            <td>Specifies that the control should allow multiple selection; otherwise only a single item may be selected at a
-                time. This attribute does not require a value.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">ng-model</td>
-            <td>object or array</td>
-            <td>variable</td>
-            <td>The selected item(s).</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">source</td>
-            <td>array or function</td>
-            <td>variable</td>
-            <td>
-                <span>Provides the items that the user may select from. Items may be strings or objects. Use <code>select-as</code> and <code>track-by</code> to present objects as required.</span>
-                <span>If an array is provided then the full contents will be displayed in the dropdown. There must be no identical
-                    items.</span>
-                <span>If a function is provided, this will retrieve pages of items as required when scrolling or filtering the
-                    item dropdown. The arguments are as follows:</span>
-                <ul>
-                    <li><code>pageNumber</code> (numeric) - The index of the requested page, starting from 0.</li>
-                    <li><code>pageSize</code> (numeric) - The number of items requested.</li>
-                    <li><code>searchString</code> (string) - The text entered by the user to filter the results.</li>
-                </ul>
-                <span>The function should return either an array, or if the data is retrieved asynchronously, a promise containing
-                    an array. Return an empty array if there are no more items.</span>
-            </td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">select-as</td>
-            <td>string</td>
-            <td>literal</td>
-            <td>If the <code>source</code> provides objects, specify the object property name which will contain the text to
-                be displayed in the control.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">track-by</td>
-            <td>string</td>
-            <td>literal</td>
-            <td>If the <code>source</code> provides objects and the <code>select-as</code> property is not unique, specify the
-                object property to use as a unique key.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">options</td>
-            <td>object</td>
-            <td>variable</td>
-            <td>Additional configuration options for the control, see below for available properties.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">ng-disabled</td>
-            <td>boolean</td>
-            <td>variable</td>
-            <td>Determines whether the control is disabled. Default is false.</td>
-            <td>true</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="multiple" type="none">
+        Specifies that the control should allow multiple selection; otherwise only a single item may be selected at a time.
+    </tr>
+    <tr uxd-api-property name="ng-model" type="object or array" binding="variable" required="true">
+        The selected item(s).
+    </tr>
+    <tr uxd-api-property name="source" type="array or function" binding="variable" required="true">
+        <span>Provides the items that the user may select from. Items may be strings or objects. Use <code>select-as</code> and <code>track-by</code> to present objects as required.</span>
+        <span>If an array is provided then the full contents will be displayed in the dropdown. There must be no identical
+            items.</span>
+        <span>If a function is provided, this will retrieve pages of items as required when scrolling or filtering the
+            item dropdown. The arguments are as follows:</span>
+        <ul>
+            <li><code>pageNumber</code> (numeric) - The index of the requested page, starting from 0.</li>
+            <li><code>pageSize</code> (numeric) - The number of items requested.</li>
+            <li><code>searchString</code> (string) - The text entered by the user to filter the results.</li>
+        </ul>
+        <span>The function should return either an array, or if the data is retrieved asynchronously, a promise containing
+            an array. Return an empty array if there are no more items.</span>
+    </tr>
+    <tr uxd-api-property name="select-as" type="string" binding="literal">
+        If the <code>source</code> provides objects, specify the object property name which will contain the text to
+        be displayed in the control.
+    </tr>
+    <tr uxd-api-property name="track-by" type="string" binding="literal">
+        If the <code>source</code> provides objects and the <code>select-as</code> property is not unique, specify the
+        object property to use as a unique key.
+    </tr>
+    <tr uxd-api-property name="options" type="object" binding="variable">
+        Additional configuration options for the control, see below for available properties.
+    </tr>
+    <tr uxd-api-property name="ng-disabled" type="boolean" binding="variable" defaultValue="false">
+        Determines whether the control is disabled.
+    </tr>
+</uxd-api-properties>
 
 <p>The <code>options</code> attribute receives an object with the following properties:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">placeholder</td>
-            <td>string</td>
-            <td>The informational text to display in the input area when no text has been entered.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">initialPlaceholder</td>
-            <td>boolean</td>
-            <td>If true the placeholder will only be shown when no items are selected. This only applies when multiple selection is enabled. Default is "false".</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">allowNull</td>
-            <td>boolean</td>
-            <td>Determines whether the selected value may be set to null by deleting or editing the text in single selection
-                mode. Default is true.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">scroll</td>
-            <td>boolean</td>
-            <td>Determines whether the dropdown has a fixed height and scrolls. This is always true when a paging function is
-                supplied, but may be set to false for small, fixed data sets to ensure that the dropdown fits the displayed
-                items. Default is true.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">pageSize</td>
-            <td>numeric</td>
-            <td>The number of items per page to request. Applicable only when using a paging function in the <code>source</code>                attribute. Default is 20.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">dropDirection</td>
-            <td>string</td>
-            <td>The direction in which the dropdown list expands from the control. "up" specifies that list appears above the
-                input area, and "down" specifies that it appears below. Default is "down".</td>
-            <td>true</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="placeholder" type="string">
+        The informational text to display in the input area when no text has been entered.
+    </tr>
+    <tr uxd-api-property name="initialPlaceholder" type="boolean" defaultValue="false">
+        If true the placeholder will only be shown when no items are selected. This only applies when multiple selection is enabled.
+    </tr>
+    <tr uxd-api-property name="allowNull" type="boolean" defaultValue="true">
+        Determines whether the selected value may be set to null by deleting or editing the text in single selection mode.
+    </tr>
+    <tr uxd-api-property name="scroll" type="boolean" defaultValue="true">
+        Determines whether the dropdown has a fixed height and scrolls. This is always true when a paging function is supplied, but may be set to false for small, fixed data sets to ensure that the dropdown fits the displayed items.
+    </tr>
+    <tr uxd-api-property name="pageSize" type="number" defaultValue="20">
+        The number of items per page to request. Applicable only when using a paging function in the <code>source</code> attribute.
+    </tr>
+    <tr uxd-api-property name="dropDirection" type="string" defaultValue="down">
+        	The direction in which the dropdown list expands from the control. "up" specifies that list appears above the input area, and "down" specifies that it appears below. 
+    </tr>
+</uxd-api-properties>

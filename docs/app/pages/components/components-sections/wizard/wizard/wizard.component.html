@@ -46,319 +46,110 @@
     The following attributes can be used to customize the <code>ux-wizard</code> component:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="step" type="number">
+        The current active step. When the step changes an event will be emitted containing the index of the newly active step. If this is not specifed the wizard will start on the first step.
+    </tr>
+    <tr uxd-api-property name="orientation" type="'vertical' | 'horizontal'" defaultValue="horizontal">
+        Defines whether or not the wizard should be displayed in a horizontal or vertical layout. 
+    </tr>
+    <tr uxd-api-property name="nextText" type="string">
+        Defines the text displayed in the 'Next' button.
+    </tr>
+    <tr uxd-api-property name="previousText" type="string">
+        Defines the text displayed in the 'Previous' button.
+    </tr>
+    <tr uxd-api-property name="cancelText" type="string">
+        Defines the text displayed in the 'Cancel' button.
+    </tr>
+    <tr uxd-api-property name="finishText" type="string">
+        Defines the text displayed in the 'Finish' button.
+    </tr>
+    <tr uxd-api-property name="nextTooltip" type="string">
+        Defines the text displayed in the tooltip when the 'Next' button is hovered.
+    </tr>
+    <tr uxd-api-property name="previousTooltip" type="string">
+        Defines the text displayed in the tooltip when the 'Previous' button is hovered.
+    </tr>
+    <tr uxd-api-property name="cancelTooltip" type="string">
+        Defines the text displayed in the tooltip when the 'Cancel' button is hovered.
+    </tr>
+    <tr uxd-api-property name="finishTooltip" type="striung">
+        Defines the text displayed in the tooltip when the 'Finish' button is hovered.
+    </tr>
+    <tr uxd-api-property name="nextDisabled" type="boolean">
+        If set to <code>true</code> the 'Next' button will appear disabled and will not respond to clicks.
+    </tr>
+    <tr uxd-api-property name="previousDisabled" type="boolean">
+        If set to <code>true</code> the 'Previous' button will appear disabled and will not respond to clicks.
+    </tr>
+    <tr uxd-api-property name="cancelDisabled" type="boolean">
+        If set to <code>true</code> the 'Cancel' button will appear disabled and will not respond to clicks.
+    </tr>
+    <tr uxd-api-property name="finishDisabled" type="boolean">
+        If set to <code>true</code> the 'Finish' button will appear disabled and will not respond to clicks.
+    </tr>
+    <tr uxd-api-property name="nextVisible" type="boolean">
+        If set to <code>false</code> the 'Next' button will be hidden.
+    </tr>
+    <tr uxd-api-property name="previousVisible" type="boolean">
+        If set to <code>false</code> the 'Previous' button will be hidden.
+    </tr>
+    <tr uxd-api-property name="cancelVisible" type="boolean">
+        If set to <code>false</code> the 'Cancel' button will be hidden.
+    </tr>
+    <tr uxd-api-property name="finishVisible" type="boolean">
+        If set to <code>false</code> the 'Finish' button will be hidden.
+    </tr>
+    <tr uxd-api-property name="cancelAlwaysVisible" type="boolean">
+        If set to <code>true</code> the 'Cancel' button will be visible even on the last step. 
+        By default it will be hidden on the final step.
+    </tr>
+    <tr uxd-api-property name="finishAlwaysVisible" type="boolean">
+        If set to <code>true</code> the 'Finish' button will be visible on all steps of the wizard. 
+        By default this button will only be visible on the final step of the wizard.
+    </tr>
+</uxd-api-properties>
 
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            <tr>
-                <td>
-                    <b>@Input @Output</b> step</td>
-                <td>
-                    <b>number</b>
-                </td>
-                <td>
-                    The current active step. When the step changes an event will be emitted containing the index of the newly active step. 
-                    If this is not specifed the wizard will start on the first step.
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <b>@Input</b> orientation</td>
-                <td>
-                    <b>'vertical' | 'horizontal'</b>
-                </td>
-                <td>Defines whether or not the wizard should be displayed in a horizontal or vertical layout. The default value is <code>horizontal</code>.</td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <b>@Input</b> nextText</td>
-                <td>
-                    <b>string</b>
-                </td>
-                <td>Defines the text displayed in the 'Next' button.</td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <b>@Input</b> previousText</td>
-                <td>
-                    <b>string</b>
-                </td>
-                <td>Defines the text displayed in the 'Previous' button.</td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <b>@Input</b> cancelText</td>
-                <td>
-                    <b>string</b>
-                </td>
-                <td>Defines the text displayed in the 'Cancel' button.</td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <b>@Input</b> finishText</td>
-                <td>
-                    <b>string</b>
-                </td>
-                <td>Defines the text displayed in the 'Finish' button.</td>
-            </tr>
-
-            
-            <tr>
-                <td>
-                    <b>@Input</b> nextTooltip</td>
-                <td>
-                    <b>string</b>
-                </td>
-                <td>Defines the text displayed in the tooltip when the 'Next' button is hovered.</td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <b>@Input</b> previousTooltip</td>
-                <td>
-                    <b>string</b>
-                </td>
-                <td>Defines the text displayed in the tooltip when the 'Previous' button is hovered.</td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <b>@Input</b> cancelTooltip</td>
-                <td>
-                    <b>string</b>
-                </td>
-                <td>Defines the text displayed in the tooltip when the 'Cancel' button is hovered.</td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <b>@Input</b> finishTooltip</td>
-                <td>
-                    <b>string</b>
-                </td>
-                <td>Defines the text displayed in the tooltip when the 'Finish' button is hovered.</td>
-            </tr>
-
-            
-            <tr>
-                <td>
-                    <b>@Input</b> nextDisabled</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>If set to <code>true</code> the 'Next' button will appear disabled and will not respond to clicks.</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <b>@Input</b> previousDisabled</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>If set to <code>true</code> the 'Previous' button will appear disabled and will not respond to clicks.</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <b>@Input</b> cancelDisabled</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>If set to <code>true</code> the 'Cancel' button will appear disabled and will not respond to clicks.</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <b>@Input</b> finishDisabled</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>If set to <code>true</code> the 'Finish' button will appear disabled and will not respond to clicks.</td>
-            </tr>
-            
-                    
-            <tr>
-                <td>
-                    <b>@Input</b> nextVisible</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>If set to <code>false</code> the 'Next' button will be hidden.</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <b>@Input</b> previousVisible</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>If set to <code>false</code> the 'Previous' button will be hidden.</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <b>@Input</b> cancelVisible</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>If set to <code>false</code> the 'Cancel' button will be hidden.</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <b>@Input</b> finishVisible</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>If set to <code>false</code> the 'Finish' button will be hidden.</td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <b>@Input</b> cancelAlwaysVisible</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>
-                    If set to <code>true</code> the 'Cancel' button will be visible even on the last step. 
-                    By default it will be hidden on the final step.
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <b>@Input</b> finishAlwaysVisible</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>
-                    If set to <code>true</code> the 'Finish' button will be visible on all steps of the wizard. 
-                    By default this button will only be visible on the final step of the wizard.
-                </td>
-            </tr>
-            
-
-            <tr>
-                <td>
-                    <b>@Output</b> onNext</td>
-                <td>
-                    <b>number</b>
-                </td>
-                <td>
-                    This event will be fired when the 'Next' button is pressed. It will receive the current step index as a parameter.
-                </td>
-            </tr>
-            
-
-            <tr>
-                <td>
-                    <b>@Output</b> onPrevious</td>
-                <td>
-                    <b>number</b>
-                </td>
-                <td>
-                    This event will be fired when the 'Previous' button is pressed. It will receive the current step index as a parameter.
-                </td>
-            </tr>
-            
-
-            <tr>
-                <td>
-                    <b>@Output</b> onCancel</td>
-                <td>
-                    <b>void</b>
-                </td>
-                <td>
-                    This event will be fired when the 'Cancel' button is pressed.
-                </td>
-            </tr>
-            
-
-            <tr>
-                <td>
-                    <b>@Output</b> onFinish</td>
-                <td>
-                    <b>void</b>
-                </td>
-                <td>
-                    This event will be fired when the 'Finish' button is pressed.
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="stepChange" type="number">
+        Emits when step changes.
+    </tr>
+    <tr uxd-api-property name="onNext" type="number">
+        This event will be fired when the 'Next' button is pressed. It will receive the current step index as a parameter.
+    </tr>
+    <tr uxd-api-property name="onPrevious" type="number">
+        This event will be fired when the 'Previous' button is pressed. It will receive the current step index as a parameter.
+    </tr>
+    <tr uxd-api-property name="onCancel" type="void">
+        This event will be fired when the 'Cancel' button is pressed.
+    </tr>
+    <tr uxd-api-property name="onFinish" type="void">
+        This event will be fired when the 'Finish' button is pressed.
+    </tr>
+</uxd-api-properties>
 
 <p>
     The following properties can be used to configure the <code>ux-wizard-step</code>:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-            
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="header" type="string">
+        The text to be displayed in the wizard step tab.
+    </tr>
+    <tr uxd-api-property name="vaid" type="boolean">
+        Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
+    </tr>
+    <tr uxd-api-property name="visited" type="boolean">
+        Defines whether or not this step has previously been visited. A visited step can be clicked on and jumped to at any time. By default, steps will become 'visited' when the user navigates to a step for the first time.
+    </tr>
+</uxd-api-properties>
 
-        <tbody>
-
-            <tr>
-                <td>
-                    <b>@Input</b> header</td>
-                <td>
-                    <b>string</b>
-                </td>
-                <td>
-                    The text to be displayed in the wizard step tab.
-                </td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <b>@Input</b> valid</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>
-                    Allows you to define whether or not a step is valid. 
-                    The user will not be able to proceed to the next step if this property has a value of false.
-                </td>
-            </tr>
-            
-            
-            <tr>
-                <td>
-                    <b>@Input @Output</b> visited</td>
-                <td>
-                    <b>boolean</b>
-                </td>
-                <td>
-                    Defines whether or not this step has previously been visited. 
-                    A visited step can be clicked on and jumped to at any time.
-                    By default, steps will become 'visited' when the user navigates to a step for the first time.
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="visitedChange" type="boolean">
+        Emits when visited changes.
+    </tr>
+</uxd-api-properties>
 
 <p>
     The following code can be used create the example above:

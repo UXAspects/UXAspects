@@ -4,87 +4,41 @@
 
 <hr>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">label</td>
-                <td>string</td>
-                <td>Label name specified in the legend.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">data</td>
-                <td>number or array</td>
-                <td>An array of coordinates in the chart e.g. [ [x1, y1], [x2, y2], ... ]</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">color</td>
-                <td>color</td>
-                <td>Defines the color of each line.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">fillColor</td>
-                <td>color</td>
-                <td>Defines the color of the filled area beneath each line.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">highlightColor</td>
-                <td>color</td>
-                <td>Default color of the translucent overlay used to highlight on mouse hover.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">forecastFillColor</td>
-                <td>color</td>
-                <td>Defines the fill color for the portion representing forecast data.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">forecastColor</td>
-                <td>color</td>
-                <td>Defines the stroke color for the portion representing forecast data.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">forecastHighlightColor</td>
-                <td>color</td>
-                <td>Default color of the translucent overlay used to highlight on mouse hover for the portion representing forecast
-                    data.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">forecastDashStyle</td>
-                <td>array</td>
-                <td>Default is [5], defines a list of numbers that specifies distances to alternately draw a line and a gap (in
-                    coordinate space units). Similar to this property in HTML5 Canvas.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">forecastData</td>
-                <td>number or array</td>
-                <td>Coordinates defining the forecast or future data. An array of coordinates in chart e.g. [ [x1, y1], [x2,
-                    y2], ... ]</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">shadowSize</td>
-                <td>number</td>
-                <td>Default size of shadows in pixels. Set it to 0 to remove shadows.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="label" type="string">
+        Label name specified in the legend.
+    </tr>
+    <tr uxd-api-property name="data" type="number or array" required="true">
+        An array of coordinates in the chart e.g. [ [x1, y1], [x2, y2], ... ]
+    </tr>
+    <tr uxd-api-property name="color" type="color">
+        Defines the color of each line.
+    </tr>
+    <tr uxd-api-property name="fillColor" type="color">
+        Defines the color of the filled area beneath each line.
+    </tr>
+    <tr uxd-api-property name="highlightColor" type="color">
+        Default color of the translucent overlay used to highlight on mouse hover.
+    </tr>
+    <tr uxd-api-property name="forecastFillColor" type="color">
+        Defines the fill color for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastColor" type="color">
+        Defines the stroke color for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastHighLightColor" type="color">
+        Default color of the translucent overlay used to highlight on mouse hover for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastDashStyle" type="array" defaultValue="[5]">
+        Defines a list of numbers that specifies distances to alternately draw a line and a gap (in coordinate space units). Similar to this property in HTML5 Canvas.
+    </tr>
+    <tr uxd-api-property name="forecastData" type="number or array">
+        Coordinates defining the forecast or future data. An array of coordinates in chart e.g. [ [x1, y1], [x2, y2], ... ]
+    </tr>
+    <tr uxd-api-property name="shadowSize" type="number">
+        Default size of shadows in pixels. Set it to 0 to remove shadows.
+    </tr>
+</uxd-api-properties>
 
 <p>Stacked Line Charts are defined by the <code>flot</code> directive. The dataset and options attributes define the chart data
     and options respectively. Dataset and Options are defined within the StackedLineChartCtrl.</p>
@@ -99,24 +53,11 @@
     </tab>
 </tabset>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">stack</td>
-                <td>boolean</td>
-                <td>If set to true shows the chart in stacked form.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="stack" type="boolean">
+        If set to true shows the chart in stacked form.
+    </tr>
+</uxd-api-properties>
 
 <blockquote>
     <p><strong>Note</strong>: Refer to the <a routerLink="/charts/flot-options">Flot Options</a> page for details of chart options.</p>

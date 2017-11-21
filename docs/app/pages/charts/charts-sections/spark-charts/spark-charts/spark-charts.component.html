@@ -54,75 +54,44 @@
 <p>A spark chart can be created by using the <code>ux-spark</code> directive. The spark chart appearance and behavior can be
     customized by using the following attributes:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td class="attribute">theme</td>
-                <td>string</td>
-                <td>Defines the color of the bar and the track. This should specify a color from our color palette. Defaults to the <code>chart1</code> color in the
-                    color palette and with an opacity of 0.2 for the track.</td>
-            </tr>
-            <tr>
-                <td class="attribute">barColor</td>
-                <td>string</td>
-                <td>Defines the color of the bar. Defaults to the <code>chart1</code> color in the color palette. Enhances customization
-                    by permitting arbitrary colors to be speficied.</td>
-            </tr>
-            <tr>
-                <td class="attribute">trackColor</td>
-                <td>string</td>
-                <td>Defines the color of the track. Defaults to the <code>chart1</code> color in the color palette with an opacity
-                    of 0.2. Enhances customization by permitting arbitrary colors to be speficied.</td>
-            </tr>
-            <tr>
-                <td class="attribute">value</td>
-                <td>number</td>
-                <td>Indicates the current value of the spark chart. This should be a value between 0-100. Default value is 0.</td>
-            </tr>
-            <tr>
-                <td class="attribute">barHeight</td>
-                <td>number</td>
-                <td>Indicates the height of the bar in pixels. Default value is 10.</td>
-            </tr>
-            <tr>
-                <td class="attribute">inlineLabel</td>
-                <td>string</td>
-                <td>Defines the text to be displayed inline with the bar.</td>
-            </tr>
-            <tr>
-                <td class="attribute">topLeftLabel</td>
-                <td>string</td>
-                <td>Defines the text to be displayed in the top left region of the chart.</td>
-            </tr>
-            <tr>
-                <td class="attribute">topRightLabel</td>
-                <td>string</td>
-                <td>Defines the text to be displayed in the top right region of the chart.</td>
-            </tr>
-            <tr>
-                <td class="attribute">bottomLeftLabel</td>
-                <td>string</td>
-                <td>Defines the text to be displayed in the bottom left region of the chart.</td>
-            </tr>
-            <tr>
-                <td class="attribute">bottomRightLabel</td>
-                <td>string</td>
-                <td>Defines the text to be displayed in the bottom right region of the chart.</td>
-            </tr>
-            <tr>
-                <td class="attribute">tooltip</td>
-                <td>string</td>
-                <td>If defined, this text will be displayed in a tooltip when the mouse is over the bar.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="theme" type="string">
+        Defines the color of the bar and the track. This should specify a color from our color palette. Defaults to the <code>chart1</code> color in the
+        color palette and with an opacity of 0.2 for the track.
+    </tr>
+    <tr uxd-api-property name="barColor" type="string">
+        Defines the color of the bar. Defaults to the <code>chart1</code> color in the color palette. Enhances customization
+        by permitting arbitrary colors to be speficied.
+    </tr>
+    <tr uxd-api-property name="trackColor" type="string">
+        Defines the color of the track. Defaults to the <code>chart1</code> color in the color palette with an opacity
+        of 0.2. Enhances customization by permitting arbitrary colors to be speficied.
+    </tr>
+    <tr uxd-api-property name="value" type="number" defaultValue="0">
+        Indicates the current value of the spark chart. This should be a value between 0-100. 
+    </tr>
+    <tr uxd-api-property name="barHeight" type="number" defaultValue="10">
+        Indicates the height of the bar in pixels.
+    </tr>
+    <tr uxd-api-property name="inlineLabel" type="string">
+        Defines the text to be displayed inline with the bar.
+    </tr>
+    <tr uxd-api-property name="topLeftLabel" type="string">
+        Defines the text to be displayed in the top left region of the chart.
+    </tr>
+    <tr uxd-api-property name="topRightLabel" type="string">
+        Defines the text to be displayed in the top right region of the chart.
+    </tr>
+    <tr uxd-api-property name="bottomLeftLabel" type="string">
+        Defines the text to be displayed in the bottom left region of the chart.
+    </tr>
+    <tr uxd-api-property name="bottomRightLabel" type="string">
+        Defines the text to be displayed in the bottom right region of the chart.
+    </tr>
+    <tr uxd-api-property name="tooltip" type="string">
+        If defined, this text will be displayed in a tooltip when the mouse is over the bar.
+    </tr>
+</uxd-api-properties>
 
 <p>UX Aspects offers a wide range of chart colors. Set the color of the chart by setting the <code>theme</code> property to
     one of the following:</p>

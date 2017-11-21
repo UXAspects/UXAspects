@@ -15,45 +15,19 @@
 
 <p>The following attributes can be set to customize the behavior of the control.</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Binding</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">ng-model</td>
-            <td>boolean</td>
-            <td>variable</td>
-            <td>Initially sets the value of the checkbox and will be updated to contain the current value if a user toggles the
-                checkbox.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">indeterminate-value</td>
-            <td>value</td>
-            <td>variable</td>
-            <td>If <code>ng-model</code> is set to the indeterminate value specified using this attribute, it will neither display
-                the checkbox as checked or unchecked, and will instead show the indeterminate variation.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">simplified</td>
-            <td>boolean</td>
-            <td>variable</td>
-            <td>If set to <code>true</code> the checkbox will be displayed without a border and background.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">clickable</td>
-            <td>boolean</td>
-            <td>variable</td>
-            <td>If set to <code>false</code> the checkbox will not be updated when clicking on it, can be used if something else
-                is updating the state of the checkbox.</td>
-            <td>true</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="ng-model" type="boolean" binding="variable" required="true">
+        Initially sets the value of the checkbox and will be updated to contain the current value if a user toggles the checkbox.
+    </tr>
+    <tr uxd-api-property name="indeterminate-value" type="value" binding="variable">
+        If <code>ng-model</code> is set to the indeterminate value specified using this attribute, it will neither display
+        the checkbox as checked or unchecked, and will instead show the indeterminate variation.
+    </tr>
+    <tr uxd-api-property name="simplified" type="boolean" binding="variable">
+        If set to <code>true</code> the checkbox will be displayed without a border and background.
+    </tr>
+    <tr uxd-api-property name="clickable" type="boolean" binding="variable">
+        If set to <code>false</code> the checkbox will not be updated when clicking on it, 
+        can be used if something else is updating the state of the checkbox.
+    </tr>
+</uxd-api-properties>

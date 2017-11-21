@@ -18,49 +18,28 @@
 <p>The data to be displayed in the Tree View should be set to the <code>data</code> attribute of the directive. It should adhere
     to the following interface:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td class="attribute">title</td>
-            <td>string</td>
-            <td>The name of the item, which will be displayed in the tree.</td>
-        </tr>
-        <tr>
-            <td class="attribute">allowChildren</td>
-            <td>boolean</td>
-            <td>Whether child nodes are possible for this node.</td>
-        </tr>
-        <tr>
-            <td class="attribute">type</td>
-            <td>string</td>
-            <td>Used to configure the appearance (see Icon Configuration below for more details).</td>
-        </tr>
-        <tr>
-            <td class="attribute">tooltip</td>
-            <td>string | function</td>
-            <td>
-                Allows you to show a tooltip when the node label is hovered. If this value is a function, 
-                the function will be called with the node object as an argument and should return a string to display in the tooltip. 
-                By default no tooltip will be shown.
-            </td>
-        </tr>
-        <tr>
-            <td class="attribute">nodes</td>
-            <td>array</td>
-            <td>A collection of child objects, following the same interface.</td>
-        </tr>
-        <tr>
-            <td class="attribute">className</td>
-            <td>string</td>
-            <td>Set this to the name of a custom class to apply this class to the tree node.</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string">
+        The name of the item, which will be displayed in the tree.
+    </tr>
+    <tr uxd-api-property name="allowChildren" type="boolean">
+        Whether child nodes are possible for this node.
+    </tr>
+    <tr uxd-api-property name="type" type="string">
+        Used to configure the appearance (see Icon Configuration below for more details).
+    </tr>
+    <tr uxd-api-property name="tooltip" type="string | function">
+        Allows you to show a tooltip when the node label is hovered. If this value is a function, the 
+        function will be called with the node object as an argument and should return a string to display 
+        in the tooltip. By default no tooltip will be shown.
+    </tr>
+    <tr uxd-api-property name="nodes" type="array">
+        A collection of child objects, following the same interface.
+    </tr>
+    <tr uxd-api-property name="className" type="string">
+        Set this to the name of a custom class to apply this class to the tree node.
+    </tr>
+</uxd-api-properties>
 
 <p>You can watch this data object for changes within your own controller, allowing you to save changes if needed.</p>
 
@@ -99,28 +78,15 @@
 
 <p>You can pass a configuration object to the <code>options</code> attribute of the directive to control:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td class="attribute">showTreeLines</td>
-            <td>boolean</td>
-            <td>Toggles the display of the dashed lines that outline the tree structure. Defaults to true.</td>
-        </tr>
-        <tr>
-            <td class="attribute">openOnSelect</td>
-            <td>boolean</td>
-            <td>Sets if nodes should expand when selected. Defaults to false.</td>
-        </tr>
-        <tr>
-            <td class="attribute">loadHeight</td>
-            <td>number</td>
-            <td>The number of pixels that indicates the initial height of the tree. This optional parameter can be set to prevent
-                the page flicker during tree load. The user should pass an appropriate value to the <code>loadHeight</code>                option.</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="showTreeLines" type="boolean" defaultValue="true">
+        Toggles the display of the dashed lines that outline the tree structure.
+    </tr>
+    <tr uxd-api-property name="openOnSelect" type="boolean" defaultValue="false">
+        Sets if nodes should expand when selected.
+    </tr>
+    <tr uxd-api-property name="loadHeight" type="number">
+        The number of pixels that indicates the initial height of the tree. This optional parameter can be set to prevent
+        the page flicker during tree load. The user should pass an appropriate value to the <code>loadHeight</code> option.
+    </tr>
+</uxd-api-properties>

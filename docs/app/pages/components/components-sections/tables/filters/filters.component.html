@@ -41,35 +41,20 @@
 
 <p>The following attributes can be used to customise the behaviour of the component:</p>
 
-<table class="table">
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="clearTooltip" type="string" defaultValue="Clear All">
+        Defines the text to display on the clear button tooltip. 
+    </tr>
+</uxd-api-properties>
 
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>@Input</b> clearTooltip</td>
-            <td><b>string</b></td>
-            <td>Defines the text to display on the clear button tooltip. Default: <code>Clear All</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Output</b> events</td>
-            <td><b>FilterEvent</b></td>
-            <td>This will be triggered when a filter is added, removed or all filters removed. 
-                The event will be an instance of either <code>FilterAddEvent</code>, <code>FilterRemoveEvent</code> 
-                or <code>FilterRemoveAllEvent</code> and will contain the filter being added or removed in a filter property 
-                (remove all will not contain affected filters).</td>
-        </tr>
-
-    </tbody>
-</table>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="events" type="FilterEvent">
+        This will be triggered when a filter is added, removed or all filters removed. 
+        The event will be an instance of either <code>FilterAddEvent</code>, <code>FilterRemoveEvent</code> 
+        or <code>FilterRemoveAllEvent</code> and will contain the filter being added or removed in a filter property 
+        (remove all will not contain affected filters).
+    </tr>
+</uxd-api-properties>
 
 <h3>Filter Dropdown</h3>
 
@@ -78,79 +63,33 @@
 
 <p>The following attributes can be used to customise the behavior of the component:</p>
 
-<div class="demo-attributes table-responsive">
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>@Input</b> filters</td>
-            <td><b>Filter[]</b></td>
-            <td>Sets the list of filters to be displayed.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> initial</td>
-            <td><b>Filter</b></td>
-            <td>Sets the initial filter state. This should be set to the state where nothing has been filtered as it will revert to this when the filters have been removed.</td>
-        </tr>
-
-    </tbody>
-</table>
-</div>
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="filters" type="Filter[]">
+        Sets the list of filters to be displayed.
+    </tr>
+    <tr uxd-api-property name="initial" type="Filter">
+        Sets the initial filter state. This should be set to the state where nothing has been filtered as it will revert to this when the filters have been removed.
+    </tr>
+</uxd-api-properties>
 
 <h4>Filter Options</h4>
 
 <p>A filter object can contain the following properties:</p>
 
-<div class="demo-attributes table-responsive">
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td>group</td>
-            <td><b>string</b></td>
-            <td>Sets the filter group. All filters in the same filter dropdown should have the same group.</td>
-        </tr>
-
-        <tr>
-            <td>title</td>
-            <td><b>string</b></td>
-            <td>The text which will be displayed on the button when this filter is active.</td>
-        </tr>
-
-        <tr>
-            <td>name</td>
-            <td><b>string</b></td>
-            <td>The text which will be displayed in the dropdown menu.</td>
-        </tr>
-
-        <tr>
-            <td>initial</td>
-            <td><b>boolean?</b></td>
-            <td>One of the filters in a group should be set to initial. This refers to the unfiltered state.</td>
-        </tr>
-
-    </tbody>
-</table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="group" type="string" required="true">
+        Sets the filter group. All filters in the same filter dropdown should have the same group.
+    </tr>
+    <tr uxd-api-property name="title" type="string" required="true">
+        The text which will be displayed on the button when this filter is active.
+    </tr>
+    <tr uxd-api-property name="name" type="string" required="true">
+        The text which will be displayed in the dropdown menu.
+    </tr>
+    <tr uxd-api-property name="initial" type="boolean">
+        One of the filters in a group should be set to initial. This refers to the unfiltered state.
+    </tr>
+</uxd-api-properties>
 
 <h3>Filter Dynamic</h3>
 
@@ -164,83 +103,34 @@
 
 <p>The following attributes can be used to customise the behavior of the component:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            <tr>
-                <td><b>@Input</b> filters</td>
-                <td><b>Filter[]</b></td>
-                <td>Sets the list of filters to be displayed.</td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> initial</td>
-                <td><b>Filter</b></td>
-                <td>Sets the initial filter state. This should be set to the state where nothing has been filtered.</td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> options</td>
-                <td><b>FilterDynamicListConfig</b></td>
-                <td>Sets the typeahead options.</td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="filters" type="Filter[]">
+        Sets the list of filters to be displayed.
+    </tr>
+    <tr uxd-api-property name="initial" type="Filter">
+        Sets the initial filter state. This should be set to the state where nothing has been filtered.
+    </tr>
+    <tr uxd-api-property name="options" type="FilterDynamicListConfig">
+        Sets the typeahead options.
+    </tr>
+</uxd-api-properties>
 
 <p>The FilterDynamicListConfig can contain the following properties:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            <tr>
-                <td>placeholder</td>
-                <td><b>string?</b></td>
-                <td>Sets the placeholder text for the typeahead.</td>
-            </tr>
-
-            <tr>
-                <td>minCharacters</td>
-                <td><b>number?</b></td>
-                <td>Defines the minimum number of characters that are required before results will be shown. <b>Default:</b> <code>3</code>.</td>
-            </tr>
-
-            <tr>
-                <td>maxResults</td>
-                <td><b>number?</b></td>
-                <td>Sets the maximum number of results to display.</td>
-            </tr>
-
-            <tr>
-                <td>maxIndividualItems</td>
-                <td><b>number?</b></td>
-                <td>Defines the number of items that can be displayed before switching to use the typeahead. <b>Default:</b> <code>0</code>.</td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="placeholder" type="string">
+        Sets the placeholder text for the typeahead.
+    </tr>
+    <tr uxd-api-property name="minCharacters" type="number" defaultValue="3">
+        Defines the minimum number of characters that are required before results will be shown. 
+    </tr>
+    <tr uxd-api-property name="maxResults" type="number">
+        Sets the maximum number of results to display.
+    </tr>
+    <tr uxd-api-property name="maxIndividualItems" type="number" defaultValue="0">
+        Defines the number of items that can be displayed before switching to use the typeahead. 
+    </tr>
+</uxd-api-properties>
 
 <p>The following code can be used to create the example above:</p>
 

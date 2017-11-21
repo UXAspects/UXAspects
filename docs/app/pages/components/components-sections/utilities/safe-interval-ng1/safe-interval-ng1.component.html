@@ -12,23 +12,14 @@
 
 <p>The returned instance has two methods.</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td class="attribute">interval</td>
-            <td>Two parameters, a function to execute and an optional delay in milliseconds to specify how often the function
-                should repeat. Returns an interval object.</td>
-        </tr>
-        <tr>
-            <td class="attribute">cancel</td>
-            <td>One parameter, an interval object to be cancelled.</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="interval">
+        Two parameters, a function to execute and an optional delay in milliseconds to specify how often the function should repeat. Returns an interval object.
+    </tr>
+    <tr uxd-api-property name="cancel">
+        One parameter, an interval object to be cancelled.
+    </tr>
+</uxd-api-properties>
 
 <p>The signature of these methods is the same as that on the <code>$interval</code> service. The example below shows how to
     defer execution using the safeInterval service.</p>

@@ -18,40 +18,27 @@
 </tabset>
 
 <p>The following defining the modal are set in the <code>vm.sideModalOptions</code>.</p>
-<div class="demo-attributes table-responsive">
-  <table class="table m-t">
-    <tbody>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td class="attribute">title</td>
-        <td>Defines the Header title of the modal view.</td>
-      </tr>
-      <tr>
-        <td class="attribute">main</td>
-        <td>Provides a path to a template representing modal content.</td>
-      </tr>
-      <tr>
-        <td class="attribute">footer</td>
-        <td>Provides a path to a template representing modal footer content.</td>
-      </tr>
-      <tr>
-        <td class="attribute">modalColumns</td>
-        <td>Classes defining the number of columns as per the grid system for a responsive modal.</td>
-      </tr>
-      <tr>
-        <td class="attribute">affixHeader</td>
-        <td>Boolean, defines whether header should be latched.</td>
-      </tr>
-      <tr>
-        <td class="attribute">animate</td>
-        <td>Boolean, defines whether the modal should open and close with an animation.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="title" type="string">
+      Defines the Header title of the modal view.
+    </tr>
+    <tr uxd-api-property name="main" type="string">
+      Provides a path to a template representing modal content.
+    </tr>
+    <tr uxd-api-property name="footer" type="string">
+      Provides a path to a template representing modal footer content.
+    </tr>
+    <tr uxd-api-property name="modalColumns" type="string">
+      Classes defining the number of columns as per the grid system for a responsive modal.
+    </tr>
+    <tr uxd-api-property name="affixHeader" type="boolean">
+      Defines whether header should be latched.
+    </tr>
+    <tr uxd-api-property name="animate" defaultValue="boolean">
+      Defines whether the modal should open and close with an animation.
+    </tr>
+</uxd-api-properties>
 
 <p>The modal can be closed or dismissed using the <code>closeModal()</code> and <code>dismissModal()</code> methods respectively.</p>
 

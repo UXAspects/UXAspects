@@ -94,30 +94,12 @@
     can be used to configure the directive:
 </p>
 
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            <tr>
-                <td><b>@Input</b> group</td>
-                <td><b>string</b></td>
-                <td>
-                    Defines which layout group should be shown. This will show a layout from the specified group name and will 
-                    take into account any size constraints if there are multiple layouts in that group.
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="group" type="string">
+        Defines which layout group should be shown. This will show a layout from the specified group name and will 
+        take into account any size constraints if there are multiple layouts in that group.
+    </tr>
+</uxd-api-properties>
 
 <p>
     Inside the container element you should add all the various layouts you wish to have. A layout is defined by adding

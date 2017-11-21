@@ -14,39 +14,23 @@
 
 <p>The Facet Header component can use the following attributes to customize the behavior and appearance:</p>
 
-<table class="table">
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="header" type="string">
+        Defines the text to display in the header.
+    </tr>
+    <tr uxd-api-property name="canExpand" type="boolean" defaultValue="true">
+        Defines whether or not clicking on the header will toggle the expanded state.
+    </tr>
+    <tr uxd-api-property name="expanded" type="boolean">
+        Can be used to set the initial expanded.
+    </tr>
+</uxd-api-properties>
 
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td><b>@Input</b> header</td>
-            <td><b>string</b></td>
-            <td>Defines the text to display in the header.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> canExpand</td>
-            <td><b>boolean</b></td>
-            <td>Defines whether or not clicking on the header will toggle the expanded state. <b>Default:</b> <code>true</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input @Output</b> expanded</td>
-            <td><b>boolean</b></td>
-            <td>Can be used to set the initial expanded state and if two-way binding is used it will be updated when the expanded
-                state changes.</td>
-        </tr>
-
-    </tbody>
-</table>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="expandedChange" type="boolean">
+        If two-way binding is used it will be updated when the expanded state changes.
+    </tr>
+</uxd-api-properties>
 
 <p>The following code demonstrates how the header can be used:</p>
 
@@ -61,24 +45,27 @@
     you with the following functions:
 </p>
 
-<ul>
-    <li><code>selectFacet(facet: Facet): void</code> - Will select the facet and update the selected values in the facet container.
-    </li>
-
-    <li><code>deselectFacet(facet: Facet): void</code> - Will deselect the facet and update the selected values in the facet
-        container.
-    </li>
-
-    <li><code>deselectAll(): void</code> - Will deselect all facets associated with this component and update the selected values
-        in the facet container.</li>
-
-    <li><code>toggleFacetSelection(facet: Facet): void</code> - If the facet passed to this function is currently selected it
-        will be deselected. If the facet is currently not selected it will be selected. This will update the selected values
-        in the facet container.</li>
-
-    <li><code>isFacetSelected(facet: Facet): boolean</code> - Will return a <code>true</code> if the facet passed to the function
-        is currently selected, otherwise will return false.</li>
-</ul>
+<uxd-api-properties>
+    <tr uxd-api-property name="selectFacet" args="Facet">
+        Will select the facet and update the selected values in the facet container.
+    </tr>
+    <tr uxd-api-property name="deselectFacet" args="Facet">
+        Will deselect the facet and update the selected values in the facet container.
+    </tr>
+    <tr uxd-api-property name="deselectAll">
+        Will deselect all facets associated with this component and update the selected values
+        in the facet container.
+    </tr>
+    <tr uxd-api-property name="toggleFacetSelection" args="Facet">
+        If the facet passed to this function is currently selected it will be deselected. 
+        If the facet is currently not selected it will be selected. This will update the selected 
+        values in the facet container.
+    </tr>
+    <tr uxd-api-property name="isFacetSelected" args="Facet" returns="boolean">
+        Will return a <code>true</code> if the facet passed to the function is currently selected, 
+        otherwise will return false.
+    </tr>
+</uxd-api-properties>
 
 <p>
     The base class also adds a <code>selected</code> two way binding and an <code>events</code> output which will automatically

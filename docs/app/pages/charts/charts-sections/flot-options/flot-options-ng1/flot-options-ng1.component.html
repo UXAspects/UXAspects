@@ -1,556 +1,259 @@
 <p>Listed below are the options which can be specified in the controller for a chart:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">series</td>
-                <td>string</td>
-                <td>Defines the chart type and its layout. Values include 'lines', 'bars', 'points', 'pie' etc. E.g. If data
-                    represents a bar chart, then the value is set to 'bars' etc.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">xaxis</td>
-                <td>array</td>
-                <td>Configures the X-axis with options like show, color, etc.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">yaxis</td>
-                <td>array</td>
-                <td>Configures the Y-axis with options.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">margin</td>
-                <td>object</td>
-                <td>Defined with "top", "left", "bottom" and "right", space in pixels between the canvas edge and the grid.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">markings</td>
-                <td>array</td>
-                <td>Markings, used to draw simple lines and rectangular areas in the background of the plot. It can be an array
-                    of ranges in the form of &#123; xaxis: &#123; from, to &#125;, yaxis: &#123; from, to &#125; &#125; or a function(above example) that
-                    returns this range (note: markings are only used for Live Charts).</td>
-            </tr>
-            <tr>
-                <td class="attribute">colors</td>
-                <td>array(colors)</td>
-                <td>Specifies colors used to represent a chart.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">grid</td>
-                <td>array</td>
-                <td>Helps configure the grid options</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">legend</td>
-                <td>array</td>
-                <td>Defines the data series labels and label boxes with the color of the series</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">tooltip</td>
-                <td>array</td>
-                <td>Defines how a tooltip should be shown</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">onPlotClick</td>
-                <td>function</td>
-                <td>Called when plot area is clicked. Parameters are event, the position and a nearby data item object. This
-                    option works when the "clickable" attribute is set to true</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">onPlotHover</td>
-                <td>function</td>
-                <td>Called when plot area is hovered. Parameters are event, the position and a nearby data item object. This
-                    option works when the "hoverable" attribute is set to true. If "autoHighlight" is true (the default),
-                    nearby data items are highlighted automatically.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="series" type="string" required="true">
+        Defines the chart type and its layout. Values include 'lines', 'bars', 'points', 'pie' etc. E.g. If data represents a bar chart, then the value is set to 'bars' etc.
+    </tr>
+    <tr uxd-api-property name="xaxis" type="array">
+        Configures the X-axis with options like show, color, etc.
+    </tr>
+    <tr uxd-api-property name="yaxis" type="array">
+        Configures the Y-axis with options.
+    </tr>
+    <tr uxd-api-property name="margin" type="object">
+        Defined with "top", "left", "bottom" and "right", space in pixels between the canvas edge and the grid.
+    </tr>
+    <tr uxd-api-property name="markings" type="array">
+        Markings, used to draw simple lines and rectangular areas in the background of the plot. It can be an array
+        of ranges in the form of &#123; xaxis: &#123; from, to &#125;, yaxis: &#123; from, to &#125; &#125; or a function(above example) that
+        returns this range (note: markings are only used for Live Charts).
+    </tr>
+    <tr uxd-api-property name="colors" type="array(colors)">
+        Specifies colors used to represent a chart.
+    </tr>
+    <tr uxd-api-property name="grid" type="array">
+        Helps configure the grid options.
+    </tr>
+    <tr uxd-api-property name="legend" type="array">
+        Defines the data series labels and label boxes with the color of the series.
+    </tr>
+    <tr uxd-api-property name="tooltip" type="array">
+        Defines how a tooltip should be shown.
+    </tr>
+    <tr uxd-api-property name="onPlotClick" type="function">
+        Called when plot area is clicked. Parameters are event, the position and a nearby data item object. This option works when the "clickable" attribute is set to true.
+    </tr>
+    <tr uxd-api-property name="onPlotHover" type="function">
+        Called when plot area is hovered. Parameters are event, the position and a nearby data item object. This option works when the "hoverable" attribute is set to true. If "autoHighlight" is true (the default), nearby data items are highlighted automatically.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
 <p>The following attributes should be defined within <code>series</code></p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">show</td>
-                <td>boolean</td>
-                <td>If set to true the chart is displayed.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">fillColor</td>
-                <td>array(colors)</td>
-                <td>Specifies the colors of the fill. If more than one color is specified this will produce a gradient.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">fill</td>
-                <td>boolean or number</td>
-                <td>If set to true fills the chart with colors in the fillColors property. A number between 0 and 1 defines the
-                    opacity of the fill.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">lineWidth</td>
-                <td>number</td>
-                <td>Defines the thickness of the line or outline in pixels.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">align</td>
-                <td>string</td>
-                <td>Centers the axis labels if set to `center`.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">highlightColor</td>
-                <td>color</td>
-                <td>Default color of the translucent overlay used to highlight on mouse hover.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">forecastFillColor</td>
-                <td>color</td>
-                <td>Defines the fill color for the portion representing forecast data.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">forecastColor</td>
-                <td>color</td>
-                <td>Defines the stroke color for the portion representing forecast data.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">forecastHighLightColor</td>
-                <td>color</td>
-                <td>Default color of the translucent overlay used to highlight on mouse hover for the portion representing forecast
-                    data.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">forecastDashStyle</td>
-                <td>array</td>
-                <td>Default is [5], defines a list of numbers that specifies distances to alternately draw a line and a gap (in
-                    coordinate space units). Similar to this property in HTML5 Canvas.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">shadowSize</td>
-                <td>number</td>
-                <td>Default size of shadows in pixels. Set it to 0 to remove shadows.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">horizontal</td>
-                <td>boolean</td>
-                <td>If true the bars will be presented horizontally (note: this can only be set for Bar Charts).</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">stack</td>
-                <td>boolean</td>
-                <td>If set to true shows the chart in stacked form (note: this can only be used to create Stacked Bar/Line Charts).</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">valueLabels</td>
-                <td>array</td>
-                <td>Allows labels to be displayed beside bars or data points.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean" required="true">
+        If set to true the chart is displayed.
+    </tr>
+    <tr uxd-api-property name="fillColor" type="array(colors)">
+        Specifies the colors of the fill. If more than one color is specified this will produce a gradient.
+    </tr>
+    <tr uxd-api-property name="fill" type="boolean or number">
+        If set to true fills the chart with colors in the fillColors property. A number between 0 and 1 defines the opacity of the fill.
+    </tr>
+    <tr uxd-api-property name="lineWidth" type="number">
+        Defines the thickness of the line or outline in pixels.
+    </tr>
+    <tr uxd-api-property name="align" type="string">
+        Centers the axis labels if set to `center`.
+    </tr>
+    <tr uxd-api-property name="highlightColor" type="color">
+        Default color of the translucent overlay used to highlight on mouse hover.
+    </tr>
+    <tr uxd-api-property name="forecastFillColor" type="color">
+        Defines the fill color for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastColor" type="color">
+        Defines the stroke color for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastHighLightColor" type="color">
+        Default color of the translucent overlay used to highlight on mouse hover for the portion representing forecast data.
+    </tr>
+    <tr uxd-api-property name="forecastDashStyle" type="array" defaultValue="[5]">
+        Defines a list of numbers that specifies distances to alternately draw a line and a gap (in coordinate space units). Similar to this property in HTML5 Canvas.
+    </tr>
+    <tr uxd-api-property name="shadowSize" type="number">
+        Default size of shadows in pixels. Set it to 0 to remove shadows.
+    </tr>
+    <tr uxd-api-property name="horizontal" type="boolean">
+        If true the bars will be presented horizontally (note: this can only be set for Bar Charts).
+    </tr>
+    <tr uxd-api-property name="stack" type="boolean">
+        If set to true shows the chart in stacked form (note: this can only be used to create Stacked Bar/Line Charts).
+    </tr>
+    <tr uxd-api-property name="valueLabels" type="array">
+        Allows labels to be displayed beside bars or data points.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
 <p>The following attributes should be defined within <code>valueLabels</code></p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">show</td>
-                <td>boolean</td>
-                <td>When set to true labels will be displayed.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">valign</td>
-                <td>string</td>
-                <td>Defines the vertical alignment of the text. The available options are: 'top', 'above', 'below', 'middle' or 'bottom'.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">plotAxis</td>
-                <td>string</td>
-                <td>Defines the axis you wish to display the values of. The available options are: 'x' or 'y'.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">xoffset</td>
-                <td>number</td>
-                <td>Defines the number of pixels the label should move to the left or right of its original position.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">yoffset</td>
-                <td>number</td>
-                <td>Defines the number of pixels the label should move up or down from its original position.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">font</td>
-                <td>string</td>
-                <td>Defines the font size and font family the labels should use.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">fontColor</td>
-                <td>color</td>
-                <td>Sets the text color of the labels.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">labelFormatter</td>
-                <td>function</td>
-                <td>Should accept one argument that will contain the axis position of the associated data. The function can be used
-                    to change the text in the label and should do this by returning the desired text.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean">
+        When set to true labels will be displayed.
+    </tr>
+    <tr uxd-api-property name="valign" type="string">
+        Defines the vertical alignment of the text. The available options are: 'top', 'above', 'below', 'middle' or 'bottom'.
+    </tr>
+    <tr uxd-api-property name="plotAxis" type="string">
+        Defines the axis you wish to display the values of. The available options are: 'x' or 'y'.
+    </tr>
+    <tr uxd-api-property name="xoffset" type="number">
+        Defines the number of pixels the label should move to the left or right of its original position.
+    </tr>
+    <tr uxd-api-property name="yoffset" type="number">
+        Defines the number of pixels the label should move up or down from its original position.
+    </tr>
+    <tr uxd-api-property name="font" type="string">
+        Defines the font size and font family the labels should use.
+    </tr>
+    <tr uxd-api-property name="fontColor" type="color">
+        Sets the text color of the labels.
+    </tr>
+    <tr uxd-api-property name="labelFormatter" type="function">
+        Should accept one argument that will contain the axis position of the associated data. The function can be used to change the text in the label and should do this by returning the desired text.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
 <p>The following attributes should be defined within <code>xaxis</code></p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">show</td>
-                <td>boolean</td>
-                <td>If set to true displays the axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">tickDecimals</td>
-                <td>null or number</td>
-                <td>Default is auto-detected, describes ticks of the axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">min</td>
-                <td>number</td>
-                <td>Set the start value of the x-axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">max</td>
-                <td>number</td>
-                <td>Set the end value of the x-axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">color</td>
-                <td>color</td>
-                <td>Defines the color of the axis lines.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">ticks</td>
-                <td>array</td>
-                <td>Sets the x-axis labels to a specified value.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">tickFormatter</td>
-                <td>function</td>
-                <td>Defines how ticks are formatted.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">mode</td>
-                <td>null or time</td>
-                <td>Defines how data is represented on the x-axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">position</td>
-                <td>string</td>
-                <td>Set as "top" or "bottom", specifies the position of the axis.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean">
+        If set to true displays the axis.
+    </tr>
+    <tr uxd-api-property name="tickDecimals" type="null or number" defaultValue="auto-detected">
+        Describes ticks of the axis.
+    </tr>
+    <tr uxd-api-property name="min" type="number">
+        Set the start value of the x-axis.
+    </tr>
+    <tr uxd-api-property name="max" type="number">
+        Set the end value of the x-axis.
+    </tr>
+    <tr uxd-api-property name="color" type="color">
+        Defines the color of the axis lines.
+    </tr>
+    <tr uxd-api-property name="ticks" type="array">
+        Sets the x-axis labels to a specified value.
+    </tr>
+    <tr uxd-api-property name="tickFormatter" type="function">
+        Defines how ticks are formatted.
+    </tr>
+    <tr uxd-api-property name="mode" type="null or time">
+        Defines how data is represented on the x-axis.
+    </tr>
+    <tr uxd-api-property name="position" type="string">
+        Set as "top" or "bottom", specifies the position of the axis.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
 <p>The following attributes should be defined within <code>yaxis</code></p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">show</td>
-                <td>boolean</td>
-                <td>If set to true displays the axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">min</td>
-                <td>number</td>
-                <td>Set the start value of the y-axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">max</td>
-                <td>number</td>
-                <td>Set the end value of the y-axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">tickFormatter</td>
-                <td>function</td>
-                <td>Defines how ticks are formatted.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">alignTicksWithAxis</td>
-                <td>null or number</td>
-                <td>Aligns the ticks of this axis with the ticks of the other axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">position</td>
-                <td>string</td>
-                <td>Set as "right" or "left", specifies the position of the axis.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean">
+        If set to true displays the axis.
+    </tr>
+    <tr uxd-api-property name="min" type="number">
+        Set the start value of the y-axis.
+    </tr>
+    <tr uxd-api-property name="max" type="number">
+        Set the end value of the y-axis.
+    </tr>
+    <tr uxd-api-property name="tickFormatter" type="function">
+        Defines how ticks are formatted.
+    </tr>
+    <tr uxd-api-property name="alignTicksWithAxis" type="null or number">
+        Aligns the ticks of this axis with the ticks of the other axis.
+    </tr>
+    <tr uxd-api-property name="position" type="string">
+        Set as "right" or "left", specifies the position of the axis.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
 <p>The following attributes should be defined within <code>grid</code></p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">color</td>
-                <td>color</td>
-                <td>Specifies the color of the grid lines.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">hoverable</td>
-                <td>boolean</td>
-                <td>If set to true enables interactivity in the grid.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">clickable</td>
-                <td>boolean</td>
-                <td>If set to true enables interactivity in the grid.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">borderWidth</td>
-                <td>number or object</td>
-                <td>Defines the width of the grid border.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">tickColor</td>
-                <td>null or color</td>
-                <td>Specifies the colors of the ticks in an axis.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">borderColor</td>
-                <td>color</td>
-                <td>Defines the border grid lines.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">preventOverlap</td>
-                <td>boolean</td>
-                <td>If set to true this will prevent any x-axis labels from overlapping.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">minBorderMargin</td>
-                <td>number or null</td>
-                <td>Specifies the default minimum margin around the border. Used to make sure that points aren't accidentally
-                    clipped by the canvas edge.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">backgroundColor</td>
-                <td>color or object</td>
-                <td>Specifies the background color or background gradient colors of the chart.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="color" type="color">
+        Specifies the color of the grid lines.
+    </tr>
+    <tr uxd-api-property name="hoverable" type="boolean">
+        If set to true enables interactivity in the grid.
+    </tr>
+    <tr uxd-api-property name="clickable" type="boolean">
+        If set to true enables interactivity in the grid.
+    </tr>
+    <tr uxd-api-property name="borderWidth" type="number or object">
+        Defines the width of the grid border.
+    </tr>
+    <tr uxd-api-property name="tickColor" type="null or color">
+        Specifies the colors of the ticks in an axis.
+    </tr>
+    <tr uxd-api-property name="borderColor" type="color">
+        Defines the border grid lines.
+    </tr>
+    <tr uxd-api-property name="preventOverlap" type="boolean">
+        If set to true this will prevent any x-axis labels from overlapping.
+    </tr>
+    <tr uxd-api-property name="minBorderMargin" type="number or null">
+        Specifies the default minimum margin around the border. Used to make sure that points aren't accidentally clipped by the canvas edge.
+    </tr>
+    <tr uxd-api-property name="backgroundColor" type="color or object">
+        Specifies the background color or background gradient colors of the chart.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
 <p>The following attributes should be defined within <code>legend</code></p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">show</td>
-                <td>boolean</td>
-                <td>If set to true shows the legend.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">container</td>
-                <td>string</td>
-                <td>The id or class name of the container to hold the legend.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">noColumns</td>
-                <td>number</td>
-                <td>The number of columns for the legend.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">position</td>
-                <td>string</td>
-                <td>"ne" or "nw" or "se" or "sw", defines the position of the legend.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="boolean">
+        If set to true shows the legend.
+    </tr>
+    <tr uxd-api-property name="container" type="string">
+        The id or class name of the container to hold the legend.
+    </tr>
+    <tr uxd-api-property name="noColumns" type="number">
+        The number of columns for the legend.
+    </tr>
+    <tr uxd-api-property name="position" type="string">
+        "ne" or "nw" or "se" or "sw", defines the position of the legend.
+    </tr>
+</uxd-api-properties>
 
 <hr>
 
 <p>The following attributes should be defined within <code>tooltip</code></p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">show</td>
-                <td>boolean</td>
-                <td>Set to true to show the tooltip.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">cssClass</td>
-                <td>string</td>
-                <td>Set to the name of a custom css class to style the tooltip.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">defaultTheme</td>
-                <td>boolean</td>
-                <td>Set to false if you are using a custom css class.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">snap</td>
-                <td>boolean</td>
-                <td>Set to true to have tooltip in fixed position. When set to false, the tooltip moves along with the mouse
-                    pointer.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">shifts</td>
-                <td>array</td>
-                <td>Values to shift tooltip position relative to the mouse pointer for x and y, negative values are allowed.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">content</td>
-                <td>string or function</td>
-                <td>Specifies the tooltip text e.g. "x : %x, y : %y" - displays x : x-value, y : y-value. Function can be used
-                    if you require more control over how the content is generated. Note that if you wish to access the axis
-                    labels rather than the number value (co-ordinates) assigned to them when using a function, you must use
-                    the "%" identifier followed by the axis (x or y) rather than the "xval" or "yval" parameters that are
-                    passed to the function.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">xDateFormat</td>
-                <td>String</td>
-                <td>provides the format of the x-axis Date.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="show" type="booleans">
+        Set to true to show the tooltip.
+    </tr>
+    <tr uxd-api-property name="cssClass" type="string">
+        Set to the name of a custom css class to style the tooltip.
+    </tr>
+    <tr uxd-api-property name="defaultTheme" type="boolean">
+        Set to false if you are using a custom css class.
+    </tr>
+    <tr uxd-api-property name="snap" type="boolean">
+        Set to true to have tooltip in fixed position. When set to false, the tooltip moves along with the mouse pointer.
+    </tr>
+    <tr uxd-api-property name="shifts" type="array">
+        Values to shift tooltip position relative to the mouse pointer for x and y, negative values are allowed.
+    </tr>
+    <tr uxd-api-property name="content" type="string or function">
+        Specifies the tooltip text e.g. "x : %x, y : %y" - displays x : x-value, y : y-value. Function can be used if you require more control over how the content is generated. Note that if you wish to access the axis labels rather than the number value (co-ordinates) assigned to them when using a function, you must use the "%" identifier followed by the axis (x or y) rather than the "xval" or "yval" parameters that are passed to the function.
+    </tr>
+    <tr uxd-api-property name="xDateFormat" type="string">
+        Provides the format of the x-axis Date.
+    </tr>
+</uxd-api-properties>

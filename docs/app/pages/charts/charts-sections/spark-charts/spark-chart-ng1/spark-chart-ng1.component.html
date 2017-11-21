@@ -55,78 +55,38 @@
     below:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Property</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">type</td>
-                <td>string</td>
-                <td>Defines the class name that is used to specify the spark line color.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">value</td>
-                <td>number</td>
-                <td>Indicates the current value of the spark line (progress).</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">fillheight</td>
-                <td>number</td>
-                <td>Indicates the current value of the spark fill (height).</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">inlineLabel</td>
-                <td>HTML</td>
-                <td>Defines the spark line label and works if inline.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">top</td>
-                <td>number</td>
-                <td>Indicates the top margin alignment of the spark line.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">topLeftLabel</td>
-                <td>string</td>
-                <td>Defines the top left label value.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">topRightLabel</td>
-                <td>string</td>
-                <td>Defines the top right label value.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">bottomLeftLabel</td>
-                <td>string</td>
-                <td>Defines the bottom left label value.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">bottomRightLabel</td>
-                <td>string</td>
-                <td>Defines the bottom right label value.</td>
-                <td>true</td>
-            </tr>
-            <tr>
-                <td class="attribute">spark-tooltip</td>
-                <td>string</td>
-                <td>Defines the value of the tooltip on the spark chart.</td>
-                <td>true</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="type" type="string">
+        Defines the class name that is used to specify the spark line color.
+    </tr>
+    <tr uxd-api-property name="value" type="number" required="true">
+        Indicates the current value of the spark line (progress).
+    </tr>
+    <tr uxd-api-property name="fillheight" type="number" required="true">
+        Indicates the current value of the spark fill (height).
+    </tr>
+    <tr uxd-api-property name="inlineLabel" type="HTML">
+        Defines the spark line label and works if inline.
+    </tr>
+    <tr uxd-api-property name="top" type="number">
+        Indicates the top margin alignment of the spark line.
+    </tr>
+    <tr uxd-api-property name="topLeftLabel" type="string">
+        Defines the top left label value.
+    </tr>
+    <tr uxd-api-property name="topRightLabel" type="string">
+        Defines the top right label value.
+    </tr>
+    <tr uxd-api-property name="bottomLeftLabel" type="string">
+        Defines the bottom left label value.
+    </tr>
+    <tr uxd-api-property name="bottomRightLabel" type="string">
+        Defines the bottom right label value.
+    </tr>
+    <tr uxd-api-property name="spark-tooltip" type="string">
+        Defines the value of the tooltip on the spark chart.
+    </tr>
+</uxd-api-properties>
 
 <p>UX Aspects offers a wide range of chart colors. Set the color of the chart by setting the <code>type</code> property to one
     of the following:</p>

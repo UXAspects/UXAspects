@@ -50,74 +50,42 @@
 
 <p>The following attributes can be used to customise the behaviour of the component.</p>
 
-<table class="table">
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="visible" type="boolean" required="true">
+        Defines whether the item display panel is visible.
+    </tr>
+    <tr uxd-api-property name="title" type="string">
+        The title displayed at the top of the item display panel.
+    </tr>
+    <tr uxd-api-property name="top" type="number" defaultValue="0">
+        The number of pixels from the top of the screen, this can be used to keep the item display panel below the page header.
+    </tr>
+    <tr uxd-api-property name="animate" type="boolean" defaultValue="false">
+        Defines whether the item display panel will animate in and out from the side of the screen. 
+    </tr>
+    <tr uxd-api-property name="shadow" type="boolean" defaultValue="false">
+        Defines whether the item display panel will have a rounded shadow visible under the header. 
+    </tr>
+    <tr uxd-api-property name="boxShadow" type="boolean" defaultValue="true">
+        Defines whether the item display panel will have a box shadow.
+    </tr>
+    <tr uxd-api-property name="inline" type="boolean" defaultValue="false">
+        Defines whether the item display panel will be inline with the page content as opposed to coming in from the side of the screen .
+    </tr>
+    <tr uxd-api-property name="preventClose" type="boolean" defaultValue="false">
+        Defines whether the item display panel should prevent closing when clicking outside the panel. 
+    </tr>
+    <tr uxd-api-property name="closeVisible" type="boolean" defaultValue="true">
+        Defines whether the close button should be visible on the item display panel.
+    </tr>
+</uxd-api-properties>
 
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-        </tr>
-    </thead>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="visibleChange" type="boolean">
+        If using two-way binding this will update when the item display panel is shown and hidden.
+    </tr>
+</uxd-api-properties>
 
-    <tbody>
-
-        <tr>
-            <td><b>@Input @Output</b> visible</td>
-            <td><b>boolean</b></td>
-            <td>Defines whether the item display panel is visible, if using two-way binding this will update when the item display panel is shown and hidden.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> title</td>
-            <td><b>string?</b></td>
-            <td>The title displayed at the top of the item display panel.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> top</td>
-            <td><b>number?</b></td>
-            <td>The number of pixels from the top of the screen, this can be used to keep the item display panel below the page header. Default: <code>0</code>.</td>
-        </tr>
-        
-        <tr>
-            <td><b>@Input</b> animate</td>
-            <td><b>boolean?</b></td>
-            <td>Defines whether the item display panel will animate in and out from the side of the screen. Default: <code>false</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> shadow</td>
-            <td><b>boolean?</b></td>
-            <td>Defines whether the item display panel will have a rounded shadow visible under the header. Default: <code>false</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> boxShadow</td>
-            <td><b>boolean?</b></td>
-            <td>Defines whether the item display panel will have a box shadow. Default: <code>true</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> inline</td>
-            <td><b>boolean?</b></td>
-            <td>Defines whether the item display panel will be inline with the page content as opposed to coming in from the side of the screen . Default: <code>false</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> preventClose</td>
-            <td><b>boolean?</b></td>
-            <td>Defines whether the item display panel should prevent closing when clicking outside the panel. Default: <code>false</code>.</td>
-        </tr>
-
-        <tr>
-            <td><b>@Input</b> closeVisible</td>
-            <td><b>boolean?</b></td>
-            <td>Defines whether the close button should be visible on the item display panel. Default: <code>true</code>.</td>
-        </tr>
-
-    </tbody>
-</table>
 
 <hr>
 

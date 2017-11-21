@@ -20,38 +20,19 @@ Any <code>draggable-panel-container</code> elements that share the same <code>dr
 <h4 id="events">Events</h4>
 
 <p>You can also add the following attributes to a <code>draggable-panel-container</code> directive to specify which function to be called when certain events occur.</p>
-<div class="demo-attributes table-responsive">
-<table class="table">
-  <tbody><tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Binding</th>
-    <th>Description</th>
-    <th>Optional</th>
-  </tr>
-  <tr>
-    <td class="attribute">on-drag-start</td>
-    <td>function</td>
-    <td>variable</td>
-    <td>Will be called when the user first begins to move a panel.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">on-drag-over</td>
-    <td>function</td>
-    <td>variable</td>
-    <td>Will be called when the user moves a panel over a <code>draggable-panel-container</code>.</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td class="attribute">on-drag-end</td>
-    <td>function</td>
-    <td>variable</td>
-    <td>Will be called when the user finishes dragging a panel.</td>
-    <td>true</td>
-  </tr>
-</tbody></table>
-</div>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="on-drag-start" type="function" binding="variable">
+      Will be called when the user first begins to move a panel.
+    </tr>
+    <tr uxd-api-property name="on-drag-over" type="function" binding="variable">
+      Will be called when the user moves a panel over a <code>draggable-panel-container</code>.
+    </tr>
+    <tr uxd-api-property name="on-drag-end" type="function" binding="variable">
+      Will be called when the user finishes dragging a panel.
+    </tr>
+</uxd-api-properties>
+
 <p>Each function should expect two arguments:</p>
 
 <ul>

@@ -39,48 +39,29 @@
     to configure the appearance and behavior of the component:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="value" type="any">
+        This should be a two way binding and will store the currently selected option. Each radio button in the same
+        group should have the same <code>value</code> variable.
+    </tr>
+    <tr uxd-api-property name="option" type="any">
+        This should contain the value that this radio button represents. This will be stored in the <code>value</code> 
+        variable when the radio button is selected. No two radio buttons should have the same <code>option</code> 
+        value within the same group of radio buttons.
+    </tr>
+    <tr uxd-api-property name="simplified" type="boolean" defaultValue="false">
+        If set to <code>true</code> the checkbox will be displayed without a border and background.
+    </tr>
+    <tr uxd-api-property name="clickable" type="boolean" defaultValue="false">
+        If set to <code>true</code> the checkbox will not toggle state when clicked.
+    </tr>
+</uxd-api-properties>
 
-        <tbody>
-            <tr>
-                <td><b>@Input @Output</b> value</td>
-                <td>any</td>
-                <td>This should be a two way binding and will store the currently selected option. Each radio button in the same
-                    group should have the same <code>value</code> variable.</td>
-            </tr>
-            <tr>
-                <td><b>@Input</b> option</td>
-                <td>any</td>
-                <td>
-                    This should contain the value that this radio button represents. This will be stored in the <code>value</code> 
-                    variable when the radio button is selected. No two radio buttons should have the same <code>option</code> 
-                    value within the same group of radio buttons.
-                </td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> simplified</td>
-                <td><b>boolean</b></td>
-                <td>If set to <code>true</code> the checkbox will be displayed without a border and background. The default value
-                    is <code>false</code>.</td>
-            </tr>
-
-            <tr>
-                <td><b>@Input</b> clickable</td>
-                <td><b>boolean</b></td>
-                <td>If set to <code>true</code> the checkbox will not toggle state when clicked. The default value is <code>false</code>.</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="any" defaultValue="">
+        Emits when the value has been changed.
+    </tr>
+</uxd-api-properties>
 
 <p>
     In addition to the options listed above, a radio button can be disabled using the <code>disabled</code> attribute. You can also provide

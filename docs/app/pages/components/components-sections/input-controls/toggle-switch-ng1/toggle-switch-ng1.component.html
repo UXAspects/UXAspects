@@ -13,40 +13,18 @@
 
 <p>The following attributes can be set to customize the behavior of the control.</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Binding</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">ng-model</td>
-            <td>boolean</td>
-            <td>variable</td>
-            <td>Initially sets the value of the swtich and will be updated to contain the current value if a user toggles the
-                switch.</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">ng-disabled</td>
-            <td>value</td>
-            <td>variable</td>
-            <td>If this value is set to <code>true</code> the toggle switch will be disabled.</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">clickable</td>
-            <td>boolean</td>
-            <td>variable</td>
-            <td>If set to <code>false</code> the switch will not be updated when clicking on it, can be used if something else
-                is updating the state of the switch.</td>
-            <td>true</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="ng-model" type="boolean" binding="variable" required="true">
+        Initially sets the value of the swtich and will be updated to contain the current value if a user toggles the switch.
+    </tr>
+    <tr uxd-api-property name="ng-disabled" type="boolean" binding="variable">
+        If this value is set to <code>true</code> the toggle switch will be disabled.
+    </tr>
+    <tr uxd-api-property name="clickable" type="boolean" binding="variable">
+        If set to <code>false</code> the switch will not be updated when clicking on it, can be used if something else
+        is updating the state of the switch.
+    </tr>
+</uxd-api-properties>
 
 <h4>Custom Styling</h4>
 

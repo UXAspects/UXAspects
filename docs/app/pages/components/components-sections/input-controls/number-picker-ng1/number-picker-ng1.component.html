@@ -8,61 +8,28 @@
 <p>To implement the Number Picker you must use the <code>number-picker</code> directive. There are some attributes you may specify
     on the <code>number-picker</code> directive to obtain the functionality you desire:</p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Binding</th>
-            <th>Description</th>
-            <th>Optional</th>
-        </tr>
-        <tr>
-            <td class="attribute">ng-model</td>
-            <td>number</td>
-            <td>variable</td>
-            <td>Describes the value the Number Picker is initialised with. It should be a value within the <code>max</code> and
-                <code>min</code> range and must be declared</td>
-            <td>false</td>
-        </tr>
-        <tr>
-            <td class="attribute">step</td>
-            <td>number</td>
-            <td>variable</td>
-            <td>Describes the value the Number Picker is incremeted/decremented by each time. The default value is <code>1</code></td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">max</td>
-            <td>number</td>
-            <td>variable</td>
-            <td>Describes the upper limit value</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">min</td>
-            <td>number</td>
-            <td>variable</td>
-            <td>Describes the lower limit value</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">validate</td>
-            <td>function</td>
-            <td>variable</td>
-            <td>Describes the function that will validate the input value. It should return <code>true</code> if the input is
-                invalid, <code>false</code> otherwise</td>
-            <td>true</td>
-        </tr>
-        <tr>
-            <td class="attribute">ng-disabled</td>
-            <td>boolean</td>
-            <td>variable</td>
-            <td>Determines the disabled state of the Number Picker.</td>
-            <td>true</td>
-        </tr>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="ng-model" type="number" binding="variable" required="true">
+        Describes the value the Number Picker is initialised with. It should be a value within the 
+        <code>max</code> and <code>min</code> range and must be declared.
+    </tr>
+    <tr uxd-api-property name="step" type="number" binding="variable" defaultValue="1">
+        Describes the value the Number Picker is incremeted/decremented by each time. 
+    </tr>
+    <tr uxd-api-property name="max" type="number" binding="variable">
+        Describes the upper limit value.
+    </tr>
+    <tr uxd-api-property name="min" type="number" binding="variable">
+        Describes the lower limit value.
+    </tr>
+    <tr uxd-api-property name="validate" type="function" binding="variable">
+        Describes the function that will validate the input value. It should return <code>true</code> 
+        if the input is invalid, <code>false</code> otherwise.
+    </tr>
+    <tr uxd-api-property name="ng-disabled" type="boolean" binding="variable">
+        Determines the disabled state of the Number Picker.
+    </tr>
+</uxd-api-properties>
 
 <p>The Number Picker contains validation that will show if an input value is invalid which can occur for a number of reasons:</p>
 

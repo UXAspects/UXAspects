@@ -8,39 +8,16 @@
     Inside the <code>td.item-actions</code> add an <code>item-hover-actions</code> element which will contain the <code>item-hover-action</code> elements. The <code>item-hover-action</code> can have the following attributes:
 </p>
 
-<div class="demo-attributes table-responsive">
-    <table class="table m-t">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Binding</th>
-                <th>Description</th>
-                <th>Optional</th>
-            </tr>
-            <tr>
-                <td class="attribute">name</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>A literal which is the name of the action and is placed in a tooltip.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">icon</td>
-                <td>string</td>
-                <td>literal</td>
-                <td>A literal for the icon class which is added to the action element along with <code>.hpe-icon</code>.</td>
-                <td>false</td>
-            </tr>
-            <tr>
-                <td class="attribute">click</td>
-                <td>function</td>
-                <td>variable</td>
-                <td>A function which is executed when the action is clicked.</td>
-                <td>false</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<uxd-api-properties>
+    <tr uxd-api-property name="name" type="string" binding="literal" required="true">
+        A literal which is the name of the action and is placed in a tooltip.
+    </tr>
+    <tr uxd-api-property name="icon" type="string" binding="literal" required="true">
+        A literal for the icon class which is added to the action element along with <code>.hpe-icon</code>.
+    </tr>
+    <tr uxd-api-property name="click" type="function" binding="variable" required="true">
+        A function which is executed when the action is clicked.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet language="html" [content]="htmlCode"></uxd-snippet>
