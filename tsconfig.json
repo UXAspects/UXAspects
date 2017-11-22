@@ -13,8 +13,7 @@
   },
   "angularCompilerOptions": {
     "debug": true,
-    "skipMetadataEmit": true,
-    "preserveWhitespaces": false
+    "skipMetadataEmit": true
   },
   "exclude": [
     "node_modules",
