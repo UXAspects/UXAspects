@@ -1,17 +1,18 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, OnDestroy } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SearchBuilderQuery } from '../../../../../../../src/index';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'uxd-search-builder',
     templateUrl: './search-builder.component.html'
 })
 @DocumentationSectionComponent('ComponentsSearchBuilderComponent')
-export class ComponentsSearchBuilderComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsSearchBuilderComponent extends BaseDocumentationSection implements IPlunkProvider, OnDestroy {
 
     modalRef: BsModalRef;
     query: SearchBuilderQuery = {};
@@ -35,8 +36,17 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
       ]
     };
 
+    private _subscription: Subscription;
+
     constructor(private modalService: BsModalService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+
+        // if the modal is closed by clicking on backdrop perform cancel
+        this._subscription = this.modalService.onHide.subscribe(() => this.cancel());
+    }
+
+    ngOnDestroy(): void {
+      this._subscription.unsubscribe();
     }
   
     openModal(template: TemplateRef<any>) {
