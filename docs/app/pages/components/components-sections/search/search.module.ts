@@ -7,13 +7,17 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { ComponentsSearchBuilderNg1Component } from './search-builder-ng1/search-builder-ng1.component';
 import { ComponentsSearchHistoryNg1Component } from './search-history-ng1/search-history-ng1.component';
 import { ComponentsSearchToolbarNg1Component } from './search-toolbar-ng1/search-toolbar-ng1.component';
+import { ComponentsSearchBuilderComponent } from './search-builder/search-builder.component';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { SearchBuilderModule } from '../../../../../../src/index';
 
 const SECTIONS = [
     ComponentsSearchBuilderNg1Component,
     ComponentsSearchHistoryNg1Component,
-    ComponentsSearchToolbarNg1Component
+    ComponentsSearchToolbarNg1Component,
+    ComponentsSearchBuilderComponent
 ];
 
 const ROUTES = [
@@ -30,8 +34,10 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        ModalModule.forRoot(),
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        SearchBuilderModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

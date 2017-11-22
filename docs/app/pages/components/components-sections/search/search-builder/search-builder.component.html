@@ -1,0 +1,188 @@
+<button class="btn button-primary" (click)="openModal(template)">
+    <span class="hpe-icon hpe-deployment m-r-xs" aria-hidden="true"></span>
+    Launch Search Builder Modal
+</button>
+
+<hr>
+
+<h4>Search Query</h4>
+
+<pre>{{ preview }}</pre>
+
+<ng-template #template>
+    <div class="search-builder-dismiss" (click)="cancel()">
+        <button class="btn btn-icon button-dark btn-circular btn-close">
+            <i class="hpe-icon hpe-close"></i>
+        </button>
+    </div>
+
+    <div class="search-builder-header">
+        <div class="search-builder-icon"></div>
+        <h1 class="search-builder-title">Search builder</h1>
+    </div>
+
+    <div class="search-builder-body">
+
+        <ux-search-builder [(query)]="query">
+            <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" (add)="addKeyword()"></ux-search-builder-group>
+            <ux-search-builder-group id="authors" header="ANY of the following" operator="or" (add)="addAuthor()"></ux-search-builder-group>
+            <ux-search-builder-group id="repositories" header="ALL of the following" (add)="addRepository()"></ux-search-builder-group>
+            <ux-search-builder-group id="terms" header="NONE of the following" operator="not" (add)="addTerm()"></ux-search-builder-group>
+        </ux-search-builder>
+
+    </div>
+
+    <div class="search-builder-footer">
+        <button type="button" class="btn button-primary m-r-xs" (click)="save()">Search</button>
+        <button type="button" class="btn button-secondary" (click)="cancel()">Cancel</button>
+    </div>
+</ng-template>
+
+<hr>
+
+<p>
+    The Search Builder provides a visual way for a user to easily build up complex search queries. It can be used both standalone
+    and within a modal.
+</p>
+
+<h4>Search Builder Component</h4>
+
+<p>
+    The <code>ux-search-builder</code> component is designed to act as a container for 
+    <code>ux-search-group</code> components. It will be responsible for creating the overall search query object. It can also be
+    used to define custom components that can be used to create search queries.
+</p>
+
+<p>The following properties can be used to interact and configure the search builder:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="query" type="SearchBuilderQuery">
+        If defined this will populate the search builder will the specified fields and values
+    </tr>
+    <tr uxd-api-property name="components" type="SearchBuilderComponentDefinition[]">
+        If specified, this allows custom components to be used within the search builder
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="queryChange" type="SearchBuilderQuery">
+        This event will fire whenever the query has been modified. It will contain the latest query value
+    </tr>
+</uxd-api-properties>
+
+
+<h4>Search Group Component</h4>
+
+<p>
+    The <code>ux-search-builder-group</code> component allows us to group related search terms. Each group has an operator,
+    either <code>and</code>, <code>or</code> or <code>not</code> to describe how these search terms are related.
+</p>
+
+<p>
+    The following attributes can be used to customize and configure the <code>ux-search-builder-group</code> component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="id" type="string" [required]="true">
+        This is a unique identifier for this group. 
+        This will be used in the search query object to identify which fields belong to this group.
+    </tr>
+    <tr uxd-api-property name="header" type="string">
+        The header to be displayed above the search group.
+    </tr>
+    <tr uxd-api-property name="operator" type="'and' | 'or' | 'not'" defaultValue="'and'">
+        The operator to be displayed beside the group.
+    </tr>
+    <tr uxd-api-property name="addText" type="string" defaultValue="Add a field">
+        Allows customization of the text beside the add field button.
+    </tr>
+    <tr uxd-api-property name="showPlaceholder" type="boolean" defaultValue="false">
+        If true a placeholder field will be displayed. One common use case is to display a panel
+        containing a list of potential fields when the user clicks the 'Add a field' button. This allows 
+        the user to pick the desired field. The placeholder could be shown until a field is selected.
+    </tr>
+    <tr uxd-api-property name="placeholder" type="TemplateRef">
+        Allows a custom template to be used as the placeholder.
+    </tr>
+    
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="add" type="void">
+        This will be fired when the user clicks the 'Add a field' button. This event should be used to add 
+        a new entry to the query object.
+    </tr>
+    <tr uxd-api-property name="remove" type="SearchBuilderGroupQuery">
+        This will be fired when the user clicks the remove button. The field being removed will be emitted.
+    </tr>
+</uxd-api-properties>
+
+<h4>Search Components</h4>
+
+<p>
+    The search builder comes with a text input component predefined. This can be used for simple string searches. To use the
+    text component simply specify the type of a SearchGroupQuery to be <code>text</code>, eg:
+</p>
+
+<uxd-snippet [content]="snippets.compiled.searchComponentTs"></uxd-snippet>
+
+<p>
+    You can also add a <code>config</code> property to pass additional options to the component. The two available config options for the text component
+    are:
+</p>
+
+<ul>
+    <li><code>placeholder</code> - defines the placeholder in the input field</li>
+    <li><code>label</code> - if specified this text will be displayed as a label above the input.</li>
+</ul>
+
+<uxd-snippet [content]="snippets.compiled.searchComponentConfigTs"></uxd-snippet>
+
+<h4>Custom Search Components</h4>
+
+<p>
+    A custom search component can be created simply by creating an Angular component and having it extend
+    <code>BaseSearchComponent</code>. 
+</p>
+
+<p>
+    Simply give the class a <code>type</code> property which will be the component's identifier, and have it call 
+    the <code>setValue</code> function passing it the latest value when changes are made.
+</p>
+
+<p>
+    A <code>context</code> object is also available that will contain the value and any configuration you may want to allow.
+</p>
+
+<p>
+    For example, we can create a component to allow users to enter a number as a search query. 
+    The following code can be used to create the component:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.customComponentHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.customComponentTs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<p>
+    Custom components should then be defined in <code>components</code> property on the <code>ux-search-builder</code> component, eg:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.searchBuilderComponentsHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.searchBuilderComponentsTs"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+    <p>
+        <b>Note:</b> Any custom search components should be added to the entryComponents of the appropriate module.
+    </p>
+</blockquote>
