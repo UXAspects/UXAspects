@@ -274,14 +274,12 @@ module.exports = {
         new AngularCompilerPlugin({
             entryModule: './docs/app/app.module#AppModule',
             tsConfigPath: join(project_dir, 'tsconfig.json'),
-            sourceMap: false,
-            hostReplacementPaths: {
-                'environments\\environment.ts': 'environments\\environment.prod.ts'
-            }
+            sourceMap: false
         }),
         
         new webpack.DefinePlugin({
-            VERSION: JSON.stringify(require('../src/package.json').version)
+            VERSION: JSON.stringify(require('../src/package.json').version),
+            PRODUCTION: true
         }),
     ]
 };
