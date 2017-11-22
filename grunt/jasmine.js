@@ -13,6 +13,7 @@ module.exports = {
                 path.join(process.cwd(), 'node_modules', 'jquery', 'dist', 'jquery.js'),
                 path.join(process.cwd(), 'node_modules', 'jquery-ui', 'ui', 'unique-id.js'),
                 path.join(process.cwd(), 'node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.js'),
+                path.join(process.cwd(), 'node_modules', 'moment', 'moment.js'),
                 path.join(process.cwd(), 'node_modules', 'angular', 'angular.js'),
                 path.join(process.cwd(), 'node_modules', 'angular-mocks', 'angular-mocks.js'),
             ],
