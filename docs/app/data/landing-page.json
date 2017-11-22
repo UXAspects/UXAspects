@@ -6,7 +6,7 @@
             "title": "Download UX Aspects",
             "link": "https://github.com/UXAspects/UXAspects/releases"
         },
-        "version": "Currently v1.4.2",
+        "version": "Currently v{{VERSION}}",
         "changelog": {
             "title": "View Changes Log",
             "link": "/changelog"

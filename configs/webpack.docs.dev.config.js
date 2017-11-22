@@ -215,6 +215,10 @@ module.exports = {
         new ProgressPlugin(),
 
         new NoEmitOnErrorsPlugin(),
+
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(require('../src/package.json').version)
+        }),
     ],
 
     stats: {
