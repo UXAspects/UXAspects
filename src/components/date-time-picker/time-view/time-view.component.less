@@ -68,18 +68,25 @@ ux-date-time-picker-time-view {
                 padding: 0;
             }
 
-            .glyphicon {
-                font-family: hpe-icons;
-                color: @date-picker-border-dark;
-                font-weight: 900;
-                font-size: 14px;
+            .btn-link {
+                .bs-chevron {
+                    .hpe-icon();
 
-                &.glyphicon-chevron-up {
-                    .hpe-icon-up();
-                }
+                    border: none;
+                    transform: none;
+                    width: auto;
+                    height: auto;
+                    color: @date-picker-border-dark;
+                    font-weight: 900;
+                    font-size: 14px;
 
-                &.glyphicon-chevron-down {
-                    .hpe-icon-down();
+                    &.bs-chevron-up {
+                        .hpe-icon-up();
+                    }
+
+                    &.bs-chevron-down {
+                        .hpe-icon-down();
+                    }
                 }
             }
 

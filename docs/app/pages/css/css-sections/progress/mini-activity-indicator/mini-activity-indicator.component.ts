@@ -6,7 +6,8 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 
 @Component({
     selector: 'uxd-css-progress-mini-activity-indicator',
-    templateUrl: './mini-activity-indicator.component.html'
+    templateUrl: './mini-activity-indicator.component.html',
+    styleUrls: ['./mini-activity-indicator.component.less']
 })
 @DocumentationSectionComponent('CssMiniActivityIndicatorComponent')
 export class CssMiniActivityIndicatorComponent extends BaseDocumentationSection implements ICodePenProvider {
