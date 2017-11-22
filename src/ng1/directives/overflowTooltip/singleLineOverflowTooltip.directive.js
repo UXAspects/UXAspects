@@ -7,6 +7,7 @@ export default function singleLineOverflowTooltip(safeTimeout, $window, $resize)
 
             var nativeElement = element.get(0);
             var tooltipReady = false;
+            var tooltipDestroyed = false;
 
             var safeTimeoutInstance = safeTimeout.create(scope);
 
@@ -36,15 +37,11 @@ export default function singleLineOverflowTooltip(safeTimeout, $window, $resize)
                 subtree: true
             });
 
-
             //watch for changes to window size
             $window.addEventListener('resize', updateTooltipFn);
 
-            element.on('$destroy', function () {
-                element.tooltip('destroy');
-                $window.removeEventListener('resize', updateTooltipFn);
-                $resize.unbind(nativeElement, updateTooltip.bind(this));
-            });
+            element.on('$destroy', destroy);
+            scope.$on('$destroy', destroy);
 
             function updateTooltipFn() {
                 updateTooltip();
@@ -98,6 +95,20 @@ export default function singleLineOverflowTooltip(safeTimeout, $window, $resize)
                 }
 
                 hidden.remove();
+            }
+
+            function destroy() {
+
+                // if it is already destroyed then stop here
+                if (tooltipDestroyed) {
+                    return;
+                }
+
+                tooltipDestroyed = true;
+
+                element.tooltip('destroy');
+                $window.removeEventListener('resize', updateTooltipFn);
+                $resize.unbind(nativeElement, updateTooltip.bind(this));
             }
 
         }
