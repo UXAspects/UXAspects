@@ -1,13 +1,13 @@
 <uxd-page-header header="Getting Started"></uxd-page-header>
 <uxd-text-page-layout>
 
-    <h3 class="initial-heading">Installation</h3>
+    <h3>Installation</h3>
 
     <div class="row-divider"></div>
 
     <p>UX Aspects components can be used in Angular projects (Angular or AngularJS 1.x), and those shown in the
         <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using the components 
-        are shown below. The installation instructions are broken down into four <em>alternative</em> methods as detailed in the 
+        are shown below. The installation instructions are broken down into four alternative methods as detailed in the 
         following tabsets:</p> 
 
     <tabset>
@@ -59,18 +59,13 @@
             <uxd-snippet [code]="cliJson" language="javascript"></uxd-snippet>
         </tab>
         <tab heading="Webpack">
-            <p>When using Webpack the UX Aspects stylesheet can be included as follows:</p>          
+            <p>When using Webpack the UX Aspects stylesheet can be included in the main stylesheet of the application:</p>          
             <uxd-snippet [code]="stylesheetCss" language="css"></uxd-snippet>
-        </tab>
-        <tab heading="JavaScript/TypeScript">
-            <p>The UX Aspects stylesheet can be included directly from JavaScript/TypeScript by using Webpack:</p>
-            <uxd-snippet [code]="webpackJs" language="javascript"></uxd-snippet>
         </tab>
         <tab heading="Non-Angular Sites">
             <p>If your application does not use Node or Webpack, you can copy the UX Aspects stylesheet into your site's assets 
-                directory from the following location and include it in the head of your HTML:</p>
-            <uxd-snippet [code]="headerHtml" language="html"></uxd-snippet>
-            <p>Please note this is the only required step for non-Angular sites.</p>
+                directory from <code>bower_components/ux-aspects/styles/ux-aspects.css</code> and include it in the head of your HTML.  
+                This is the only required step for non-Angular sites.</p>
         </tab>
     </tabset>
 
