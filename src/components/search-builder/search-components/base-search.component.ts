@@ -4,11 +4,12 @@ import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
 import { SearchBuilderGroupService } from '../search-builder-group/search-builder-group.service';
 
 @Component({
-    selector: 'ux-base-search'
+    selector: 'ux-base-search',
+    template: ''
 })
-export abstract class BaseSearchComponent {
+export class BaseSearchComponent {
 
-    abstract type: string;
+    type: string;
     context: SearchBuilderGroupQuery;
 
     constructor(

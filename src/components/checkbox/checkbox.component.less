@@ -49,8 +49,8 @@ ux-checkbox {
         color: @grey5;
     }
 
-    .ux-checkbox:before {
-        content: "\f12c";
+    .ux-checkbox {
+        .hpe-icon-checkmark();
     }
 
     .ux-checkbox:focus {
@@ -61,8 +61,8 @@ ux-checkbox {
         display: none;
     }
 
-    .ux-checkbox.ux-indeterminate:before {
-        content: "\f20b";
+    .ux-checkbox.ux-indeterminate {
+        .hpe-icon-subtract();
     }
 
     .ux-checkbox.ux-checked,

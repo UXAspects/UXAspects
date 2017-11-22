@@ -1,8 +1,8 @@
-{
-  "keywords": [
+this.query = {
+  keywords: [
     {
-      "type": "text",
-      "value": ""
+      type: 'text',
+      value: ''
     }
-  ];
-}
+  ]
+};
