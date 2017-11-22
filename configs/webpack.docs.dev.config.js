@@ -217,7 +217,8 @@ module.exports = {
         new NoEmitOnErrorsPlugin(),
 
         new webpack.DefinePlugin({
-            VERSION: JSON.stringify(require('../src/package.json').version)
+            VERSION: JSON.stringify(require('../src/package.json').version),
+            PRODUCTION: false
         }),
     ],
 
