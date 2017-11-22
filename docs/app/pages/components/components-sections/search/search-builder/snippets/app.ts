@@ -1,18 +1,28 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, OnDestroy } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SearchBuilderQuery } from '@ux-aspects/ux-aspects';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app',
     templateUrl: './src/app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
 
     modalRef: BsModalRef;
     query: SearchBuilderQuery = {};
     preview: string = '{}';
 
-    constructor(private modalService: BsModalService) { }
+    private _subscription: Subscription;
+
+    constructor(private modalService: BsModalService) {
+        // if the modal is closed by clicking on backdrop perform cancel
+        this._subscription = this.modalService.onHide.subscribe(() => this.cancel());
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
+    }
 
     openModal(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template, {
