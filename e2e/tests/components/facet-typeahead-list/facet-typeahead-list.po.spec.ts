@@ -52,7 +52,7 @@ export class FacetTypeaheadListPage {
         return this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
             $('div.facet-typeahead-list-selected-container').$$('div.facet-typeahead-list-selected-option').get(index).
             $('ux-checkbox').$('div.ux-checkbox').
-            getAttribute('class').then(function(classes: string){
+            getAttribute('class').then(function(classes: string) {
                 var allClasses = classes.split(' ');
                 if (allClasses.indexOf('ux-checked') > -1) {
                     return true;

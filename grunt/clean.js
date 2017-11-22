@@ -7,7 +7,7 @@ module.exports = {
     images: 'dist/img',
     less: 'dist/less',
     licenses: 'dist/Licenses',
-    e2e: ['e2e/dist', 'e2e/_test-output'],
+    e2e: ['e2e/dist', 'e2e/_test-output', 'e2e/coverage'],
     shim: 'dist/dist',
     bower: 'target/bower'
 };

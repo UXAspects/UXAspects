@@ -5,6 +5,7 @@ const { CommonsChunkPlugin, UglifyJsPlugin } = webpack.optimize;
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const project_dir = process.cwd();
 
@@ -66,6 +67,22 @@ module.exports = {
                 test: /\.css$/,
                 include: join(project_dir, 'e2e', 'pages', 'app'),
                 use: 'raw-loader'
+            },
+            
+            {
+              test: /\.js$|\.ts$/,
+              use: {
+                loader: 'istanbul-instrumenter-loader',
+                options: { esModules: true }
+              },
+              enforce: 'post',
+              exclude: [
+                /node_modules/,
+                /ng1/,
+                /e2e\\pages/,
+                /\.e2e-spec\.ts$/,
+                /\.po\.spec\.ts$/
+              ]
             }
         ]
     },
