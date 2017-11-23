@@ -41,37 +41,6 @@ else
    exit 1
 fi
 
-# Bump up the version in footer-navigation.json and landing-page.json
-tmp=$(mktemp)
-NewLinkTitle="Currently v"$NextVersion
-echo NewLinkTitle is $NewLinkTitle
-jq --arg NewLinkTitle "$NewLinkTitle" '.columns[0].links[0].title |= $NewLinkTitle' docs/app/data/footer-navigation.json > "$tmp" \
-    && mv "$tmp" docs/app/data/footer-navigation.json
-NewLinkTitle=`jq '.columns[0].links[0].title' docs/app/data/footer-navigation.json`
-echo New footer title is $NewLinkTitle
-if [[ $NewLinkTitle == *"$NewLinkTitle"* ]]
-then
-   echo "Updated footer-navigation.json with $NewLinkTitle"
-else
-   echo "ERROR: footer-navigation.json isn't updated with $NewLinkTitle"
-   exit 1
-fi
-
-tmp=$(mktemp)
-NewVersion="Currently v"$NextVersion
-echo NewVersion is $NewVersion
-jq --arg NewVersion "$NewVersion" '.brand.version |= $NewVersion' docs/app/data/landing-page.json > "$tmp" \
-    && mv "$tmp" docs/app/data/landing-page.json
-NewVersion=`jq '.brand.version' docs/app/data/landing-page.json`
-echo New landing page version is $NewVersion
-if [[ $NewVersion == *"$NextVersion"* ]]
-then
-   echo "Updated NPM landing-page.json with $NewVersion"
-else
-   echo "ERROR: NPM landing-page.json isn't updated with $NewVersion"
-   exit 1
-fi
-
 # Bump up the version in the HPE bower.json
 tmp=$(mktemp)
 jq --arg NextVersion $NextVersion '.version |= $NextVersion' HPEThemeFiles/ux-aspects-hpe-master/bower.json > "$tmp" \
