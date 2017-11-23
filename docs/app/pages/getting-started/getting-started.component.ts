@@ -3,7 +3,8 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
 
 @Component({
     selector: 'uxd-getting-started',
-    templateUrl: './getting-started.component.html'
+    templateUrl: './getting-started.component.html',
+    styleUrls: ['./getting-started.component.less']
 })
 export class GettingStartedPageComponent {
     
@@ -11,7 +12,8 @@ export class GettingStartedPageComponent {
     angular4Ts = require('!!raw-loader!./snippets/angular4.txt');
     angular4UpgradeTs = require('!!raw-loader!./snippets/angular4-upgrade.txt');
     angular1DowngradeJs = require('!!raw-loader!./snippets/angular1-downgrade.js');
-    stylesheetHtml = require('!!raw-loader!./snippets/stylesheet.html');
+    stylesheetCss = require('!!raw-loader!./snippets/stylesheet.css');
+    cliJson = require('!!raw-loader!./snippets/cli.txt');
     tsconfig = require('!!raw-loader!./snippets/tsconfig.txt');
 
     constructor(private appConfig: AppConfiguration) {}
