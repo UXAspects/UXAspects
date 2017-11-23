@@ -38,7 +38,7 @@ describe('Tree Grid Tests', () => {
     
     // Row 1 - No indentation, expander icon visible, open folder icon visible, hover actions invisible
     expect(page.getTitleColumnIndentation(0).getAttribute('class')).toContain('treegrid-level-0');
-    expect(page.getTitleColumnExpanderIcon(0).getAttribute('class')).toContain('hpe-next');
+    expect(page.getTitleColumnExpanderIcon(0).getAttribute('class')).toContain('hpe-chevron-right');
     expect(page.getTitleColumnObjectIcon(0).getAttribute('class')).toContain('hpe-folder');
     expect<any>(page.getTitleColumnValue(0)).toBe('Documents');
     expect<any>(page.getDateColumnValue(0)).toBe('2/16/2013');
@@ -48,7 +48,7 @@ describe('Tree Grid Tests', () => {
 
     // Row 2 - No indentation, expander icon visible, open folder icon visible, hover actions invisible
     expect(page.getTitleColumnIndentation(1).getAttribute('class')).toContain('treegrid-level-0');
-    expect(page.getTitleColumnExpanderIcon(1).getAttribute('class')).toContain('hpe-next');
+    expect(page.getTitleColumnExpanderIcon(1).getAttribute('class')).toContain('hpe-chevron-right');
     expect(page.getTitleColumnObjectIcon(1).getAttribute('class')).toContain('hpe-folder');
     expect<any>(page.getTitleColumnValue(1)).toBe('Emails');
     expect<any>(page.getDateColumnValue(1)).toBe('3/17/2013');
@@ -102,7 +102,7 @@ describe('Tree Grid Tests', () => {
     page.getTitleColumnExpanderIcon(0).click();
 
     // Expander icon should have changed
-    expect(page.getTitleColumnExpanderIcon(0).getAttribute('class')).toContain('hpe-down');
+    expect(page.getTitleColumnExpanderIcon(0).getAttribute('class')).toContain('hpe-chevron-down');
 
     // Check rows displayed
     expect<any>(page.getNumberOfRows()).toBe(5);
@@ -123,7 +123,7 @@ describe('Tree Grid Tests', () => {
     page.getTitleColumnExpanderIcon(0).click();
 
     // Expander icon should be the original
-    expect(page.getTitleColumnExpanderIcon(0).getAttribute('class')).toContain('hpe-next');
+    expect(page.getTitleColumnExpanderIcon(0).getAttribute('class')).toContain('hpe-chevron-right');
 
     // Check rows displayed
     expect<any>(page.getNumberOfRows()).toBe(3);
