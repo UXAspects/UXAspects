@@ -27,39 +27,3 @@ This label will be available to assistive technologies, but it will not be visib
 <p>Buttons are <code>inline-block</code> level elements so whitespace in the HTML of the page is significant and will affect their layout.</p>
 
 <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
-
-<br>
-
-<h3>Focus On Keyboard Control Only</h3>
-
-<hr>
-
-<div class="btn-container">
-    <button type="button" class="m-b btn button-primary button-keyboard-focus">
-        <span class="button-content" tabindex="-1">Primary</span>
-    </button>
-
-    <button type="button" class="m-b btn button-secondary button-keyboard-focus">
-        <span class="button-content" tabindex="-1">Secondary</span>
-    </button>
-
-    <button type="button" class="m-b btn button-accent button-keyboard-focus">
-        <span class="button-content" tabindex="-1">Accent</span>
-    </button>
-
-    <button type="button" class="m-b btn button-warning button-keyboard-focus">
-        <span class="button-content" tabindex="-1">Warning</span>
-    </button>
-
-    <button type="button" disabled="" class="m-b btn button-primary button-keyboard-focus">
-        <span class="button-content" tabindex="-1">Disabled</span>
-    </button>
-</div>
-
-<hr>
-
-<p>Buttons can also be set up to only get the focused state when using keyboard controls. To do this we can add the <code>.button-keyboard-focus</code> class and inside the button we can add a span with the <code>.button-content</code> class.</p>
-
-<uxd-snippet [content]="snippets.compiled.sampleKeyboardOnlyHtml"></uxd-snippet>
-
-
