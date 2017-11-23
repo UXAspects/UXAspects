@@ -3,7 +3,6 @@
       "target": "es5",
       "module": "es2015",
       "moduleResolution": "node",
-      "sourceMap": true,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "lib": ["es2017", "dom"],
@@ -12,8 +11,7 @@
       "suppressImplicitAnyIndexErrors": true
     },
     "angularCompilerOptions": {
-      "skipMetadataEmit": true,
-      "preserveWhitespaces": false
+      "skipMetadataEmit": true
     }
   }
   

@@ -1,11 +1,12 @@
 const { join } = require('path');
 const webpack = require('webpack');
 const { NoEmitOnErrorsPlugin } = webpack;
-const { CommonsChunkPlugin, UglifyJsPlugin } = webpack.optimize;
+const { CommonsChunkPlugin } = webpack.optimize;
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const project_dir = process.cwd();
 
@@ -109,7 +110,6 @@ module.exports = {
         new ExtractTextPlugin('styles.css'),
 
         new UglifyJsPlugin({
-            test: /(main|polyfills|vendor).js$/i,
             extractComments: false,
             sourceMap: false,
             cache: false,
@@ -122,8 +122,19 @@ module.exports = {
                 ecma: 5,
                 warnings: false,
                 ie8: false,
-                compress: true
+                compress: true,
+
             }
+        }),
+
+        new OptimizeCssAssetsPlugin({
+            cssProcessor: require('cssnano'),
+            cssProcessorOptions: {
+                discardComments: {
+                    removeAll: true
+                }
+            },
+            canPrint: true
         }),
     ],
 

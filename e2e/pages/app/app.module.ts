@@ -1,4 +1,4 @@
-declare var angular: ng.IAngularStatic;
+import * as angular from 'angular';
 
 let app = angular.module('app');
 
