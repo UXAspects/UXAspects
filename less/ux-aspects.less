@@ -18969,6 +18969,7 @@ p.no-margin
   z-index: 9999999;
   top: 12px;
   right: 12px;
+  width: 300px;
 
   .notification {
     position: relative;
@@ -18978,6 +18979,7 @@ p.no-margin
     border-radius: @notification-border-radius;
     opacity: 0;
     margin-bottom: 4px;
+    transition: top 500ms ease-in-out;
 
     .dismiss {
       position: absolute;
@@ -21950,8 +21952,8 @@ ux-checkbox {
         color: @grey5;
     }
 
-    .ux-checkbox:before {
-        content: "\f12c";
+    .ux-checkbox {
+        .hpe-icon-checkmark();
     }
 
     .ux-checkbox:focus {
@@ -21962,8 +21964,8 @@ ux-checkbox {
         display: none;
     }
 
-    .ux-checkbox.ux-indeterminate:before {
-        content: "\f20b";
+    .ux-checkbox.ux-indeterminate {
+        .hpe-icon-subtract();
     }
 
     .ux-checkbox.ux-checked,
@@ -22313,18 +22315,25 @@ ux-date-time-picker-time-view {
                 padding: 0;
             }
 
-            .glyphicon {
-                font-family: hpe-icons;
-                color: @date-picker-border-dark;
-                font-weight: 900;
-                font-size: 14px;
+            .btn-link {
+                .bs-chevron {
+                    .hpe-icon();
 
-                &.glyphicon-chevron-up {
-                    .hpe-icon-up();
-                }
+                    border: none;
+                    transform: none;
+                    width: auto;
+                    height: auto;
+                    color: @date-picker-border-dark;
+                    font-weight: 900;
+                    font-size: 14px;
 
-                &.glyphicon-chevron-down {
-                    .hpe-icon-down();
+                    &.bs-chevron-up {
+                        .hpe-icon-up();
+                    }
+
+                    &.bs-chevron-down {
+                        .hpe-icon-down();
+                    }
                 }
             }
 
@@ -23557,6 +23566,200 @@ ux-radio-button {
         line-height: 22px;
     }
 }
+.search-builder-modal {
+    width: 1100px;
+    max-width: ~'calc(100% - 50px)';
+
+    .search-builder-dismiss {
+        position: absolute;
+        right: 0;
+
+        .btn-close {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            box-shadow: none;
+            background-color: #333;
+            outline: none;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: 10021;
+
+            &:hover {
+                background-color: #222;
+            }
+
+            .hpe-icon {
+                color: #999;
+                font-size: 1.125rem;
+                padding-top: 2px;
+            }
+        }
+    }
+
+    .search-builder-header {
+        display: flex;
+        padding: 18px 35px 15px;
+        background-color: #f2f2f2;
+
+        .search-builder-title {
+            margin: 0;
+            color: #333;
+        }
+    }
+
+    .search-builder-body {
+        padding: 15px 35px;
+        height: 600px;
+        overflow-y: auto;
+    }
+
+    .search-builder-footer {
+        width: 100%;
+        height: 60px;
+        background-color: #f2f2f2;
+        text-align: right;
+        padding: 15px;
+    }
+}
+ux-search-builder-group {
+    .search-group-title {
+        color: @search-builder-group-title-color;
+        font-size: 19px;
+        margin: 0 0 11px;
+        font-weight: 400;
+    }
+
+    .search-group-content {
+        display: flex;
+
+        .search-group-operator {
+            display: flex;
+            align-items: center;
+            flex: none;
+            width: 100px;
+            padding-left: 5px;
+            text-transform: uppercase;
+            color: @search-builder-operator-border;
+            transition: opacity 300ms linear;
+            border-left-width: 4px;
+            border-left-style: solid;
+            opacity: 1;
+
+            &.search-group-operator-or {
+                border-left-color: @search-builder-operator-or-border;
+            }
+
+            &.search-group-operator-and {
+                border-left-color: @search-builder-operator-and-border;
+            }
+
+            &.search-group-operator-not {
+                border-left-color: @search-builder-operator-not-border;
+            }
+
+            &.hidden-operator {
+                opacity: 0;
+            }
+        }
+
+        .search-group-items {
+            flex: 1;
+
+            .search-group-item-container {
+                display: flex;
+                padding: 5px;
+                margin-right: 10px;
+                transition: background-color 300ms linear;
+
+                &:hover {
+                    background-color: @search-builder-field-hover;
+
+                    .search-group-item-remove {
+                        opacity: 1;
+                    }
+                }
+
+                .search-group-item {
+                    flex: 1;
+                }
+
+                &.placeholder-item {
+                    pointer-events: none;
+
+                    .search-group-item {
+                        padding-right: 33px;
+
+                        .form-control {
+                            height: 34px;
+                            border: 1px dashed @search-builder-placeholder-border;
+                        }
+                    }
+                }
+
+                .search-group-item-remove {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex: none;
+                    margin: 9px;
+                    color: @search-builder-remove-color;
+                    cursor: pointer;
+                    opacity: 0;
+                    transition: opacity 300ms linear;
+                }
+            }
+        }
+
+        .search-builder-group-add-field {
+            display: flex;
+            flex: none;
+            width: 135px;
+            height: 30px;
+            justify-content: flex-start;
+            align-items: center;
+            align-self: flex-end;
+            cursor: pointer;
+
+            .btn {
+                transition: background-color 300ms linear;
+                pointer-events: none;
+                background-color: @search-builder-add-bg;
+                border: none;
+                width: 30px;
+                height: 30px;
+            }
+
+            .search-builder-group-add-field-label {
+                position: relative;
+                color: @search-builder-add-color;
+                font-size: 0.9375rem;
+                padding-left: 8px;
+                max-width: 120px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &:hover {
+                .btn {
+                    background-color: @search-builder-add-hover-bg;
+                }
+            }
+        }
+    }
+
+    .search-builder-group-divider {
+        border-top-color: @search-builder-divider;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    &:last-of-type {
+        .search-builder-group-divider {
+            display: none;
+        }
+    }
+}
 ux-slider {
     display: block;
     -webkit-user-select: none;
@@ -23901,6 +24104,10 @@ ux-spark {
     .ux-spark-label-bottom-right {
         float: right;
         text-align: right;
+    }
+
+    .ux-spark-multi-value {
+        display: flex;
     }
 }
 ux-tag-input {
@@ -24465,6 +24672,24 @@ ux-media-player-timeline {
             position: absolute;
             height: 100%;
             background-color: @mediaplayer-timeline-track;
+
+            .media-progress-bar-thumb {
+                position: absolute;
+                right: 0;
+                width: 20px;
+                height: 20px;
+                background-color: #fff;
+                border-radius: 50%;
+                border: 1px solid #ddd;
+                transform: translateX(50%) translateY(-28%);
+                z-index: 10000;
+                opacity: 0;
+                display: none;
+
+                &:hover, &:active {
+                    opacity: 1;
+                }
+            }
         }
 
         .scrub-handle {
@@ -24481,9 +24706,13 @@ ux-media-player-timeline {
             pointer-events: none;
         }
 
-        &:hover {
+        &:hover, &:active, &:hover:active {
             .scrub-handle {
                 opacity: 1;
+
+                &.scrub-handle-hidden {
+                    opacity: 0;
+                }
             }
         }
     }
