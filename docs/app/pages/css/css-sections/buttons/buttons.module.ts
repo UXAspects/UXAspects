@@ -11,7 +11,7 @@ import { CssColoredButtonsComponent } from './colored-buttons/colored-buttons.co
 import { CssHyperlinksComponent } from './hyperlinks/hyperlinks.component';
 import { CssLinkButtonsComponent } from './link-buttons/link-buttons.component';
 import { CssButtonsSizeVariationsComponent } from './size-variations/size-variations.component';
-import { CssKeyboardFocusOnlyButtonsComponent } from './keyboard-focus-only-buttons/keyboard-focus-only-buttons';
+import { CssKeyboardFocusOnlyButtonsComponent } from './keyboard-focus-only-buttons/keyboard-focus-only-buttons.component';
 
 const SECTIONS = [
     CssButtonDropdownsComponent,

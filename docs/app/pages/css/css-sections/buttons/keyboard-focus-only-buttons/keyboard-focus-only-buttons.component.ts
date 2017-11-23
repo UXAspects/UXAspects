@@ -6,7 +6,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 
 @Component({
     selector: 'uxd-keybaord-focus-only-buttons',
-    templateUrl: './keyboard-focus-only-buttons.html'
+    templateUrl: './keyboard-focus-only-buttons.component.html'
 })
 @DocumentationSectionComponent('CssKeyboardFocusOnlyButtonsComponent')
 export class CssKeyboardFocusOnlyButtonsComponent extends BaseDocumentationSection implements ICodePenProvider {
