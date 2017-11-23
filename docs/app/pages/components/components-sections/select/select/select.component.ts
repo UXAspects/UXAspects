@@ -58,7 +58,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
             ],
             library: '@ux-aspects/ux-aspects'
         }, {
-            library: 'ngx-bootstrap',
+            library: 'ngx-bootstrap/accordion',
             imports: ['AccordionModule'],
             providers: ['AccordionModule.forRoot()']
         }],

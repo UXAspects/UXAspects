@@ -35,7 +35,7 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
             'app.component.ts': this.snippets.raw.appTs
         },
         modules: [{
-            library: 'ngx-bootstrap',
+            library: 'ngx-bootstrap/dropdown',
             imports: ['BsDropdownModule'],
             providers: ['BsDropdownModule.forRoot()']
         }, {
