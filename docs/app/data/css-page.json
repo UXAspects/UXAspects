@@ -22,10 +22,6 @@
                     "component": "CssCircularIconButtonsComponent"  
                 },
                 {
-                    "title": "Keyboard Focus Only Buttons",
-                    "component": "CssKeyboardFocusOnlyButtonsComponent"
-                },
-                {
                     "title": "Hyperlinks",
                     "component": "CssHyperlinksComponent"  
                 },
