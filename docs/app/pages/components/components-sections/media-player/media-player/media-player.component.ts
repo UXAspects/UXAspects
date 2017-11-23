@@ -30,7 +30,7 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
         }, {
             imports: ['AccordionModule'],
             forRoot: true,
-            library: 'ngx-bootstrap'
+            library: 'ngx-bootstrap/accordion'
         }],
         mappings: [
             MAPPINGS.NgxBootstrap

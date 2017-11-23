@@ -21,7 +21,7 @@ export class ComponentsRadioButtonsComponent extends BaseDocumentationSection im
             'app.component.ts': this.snippets.raw.appTs
         },
         modules: [{
-            library: 'ngx-bootstrap',
+            library: 'ngx-bootstrap/buttons',
             imports: ['ButtonsModule'],
             providers: ['ButtonsModule.forRoot()']
         }],

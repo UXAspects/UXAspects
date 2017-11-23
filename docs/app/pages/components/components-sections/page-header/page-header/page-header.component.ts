@@ -23,7 +23,7 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
             library: '@ux-aspects/ux-aspects'
         },
         {
-            library: 'ngx-bootstrap',
+            library: 'ngx-bootstrap/dropdown',
             imports: ['BsDropdownModule'],
             providers: ['BsDropdownModule.forRoot()']
         }],

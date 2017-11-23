@@ -26,7 +26,7 @@ export class ComponentsPaginationComponent extends BaseDocumentationSection impl
             'app.component.ts': this.snippets.raw.appTs
         },
         modules: [{
-            library: 'ngx-bootstrap',
+            library: 'ngx-bootstrap/pagination',
             imports: ['PaginationModule'],
             providers: ['PaginationModule.forRoot()']
         }],

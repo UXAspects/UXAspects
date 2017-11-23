@@ -69,7 +69,7 @@ export class ComponentsLayoutSwitchingComponent extends BaseDocumentationSection
             {
                 imports: ['AccordionModule', 'ButtonsModule'],
                 forRoot: true,
-                library: 'ngx-bootstrap'
+                library: 'ngx-bootstrap/accordion'
             }
         ],
         mappings: [

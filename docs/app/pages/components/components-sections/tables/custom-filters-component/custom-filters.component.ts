@@ -48,7 +48,7 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
             declaration: true
         }, {
             imports: ['BsDropdownModule'],
-            library: 'ngx-bootstrap',
+            library: 'ngx-bootstrap/dropdown',
             forRoot: true
         }]
     };
