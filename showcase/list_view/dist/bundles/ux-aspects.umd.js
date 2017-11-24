@@ -1069,6 +1069,8 @@ var DashboardService = (function () {
      */
     DashboardService.prototype.setPlaceholderBounds = function (visible, x, y, width, height) {
         var _this = this;
+        var /** @type {?} */ rounding = this._actionWidget.direction === ActionDirection.Left ||
+            this._actionWidget.direction === ActionDirection.Top ? Rounding.RoundDownBelowHalf : Rounding.RoundUpOverHalf;
         this._placeholder.visible = visible;
         this._placeholder.column = this.getPlaceholderColumn(x, width);
         this._placeholder.row = this.getPlaceholderRow(y, height);
@@ -2091,7 +2093,9 @@ function parseHours(value, isPM) {
         isPM = false;
     }
     var hour = toNumber(value);
-    if (isNaN(hour) || hour < 0 || hour > (isPM ? hoursPerDayHalf : hoursPerDay)) {
+    if (isNaN(hour) ||
+        hour < 0 ||
+        hour > (isPM ? hoursPerDayHalf : hoursPerDay)) {
         return NaN;
     }
     return hour;
@@ -2130,10 +2134,10 @@ function changeTime(value, diff) {
         }
     }
     if (diff.minute) {
-        minutes = (minutes + toNumber(diff.minute));
+        minutes = minutes + toNumber(diff.minute);
     }
     if (diff.seconds) {
-        seconds = (seconds + toNumber(diff.seconds));
+        seconds = seconds + toNumber(diff.seconds);
     }
     return createDate(value, hour, minutes, seconds);
 }
@@ -2172,10 +2176,9 @@ function isInputValid(hours, minutes, seconds, isPM) {
     if (seconds === void 0) {
         seconds = '0';
     }
-    if (isNaN(parseHours(hours, isPM)) || isNaN(parseMinutes(minutes)) || isNaN(parseSeconds(seconds))) {
-        return false;
-    }
-    return true;
+    return !(isNaN(parseHours(hours, isPM))
+        || isNaN(parseMinutes(minutes))
+        || isNaN(parseSeconds(seconds)));
 }
 function canChangeValue(state, event) {
     if (state.readonlyInput) {
@@ -2230,10 +2233,18 @@ function canChangeSeconds(event, controls) {
 function getControlsValue(state) {
     var hourStep = state.hourStep, minuteStep = state.minuteStep, secondsStep = state.secondsStep, readonlyInput = state.readonlyInput, mousewheel = state.mousewheel, arrowkeys = state.arrowkeys, showSpinners = state.showSpinners, showMeridian = state.showMeridian, showSeconds = state.showSeconds, meridians = state.meridians, min = state.min, max = state.max;
     return {
-        hourStep: hourStep, minuteStep: minuteStep, secondsStep: secondsStep,
-        readonlyInput: readonlyInput, mousewheel: mousewheel, arrowkeys: arrowkeys,
-        showSpinners: showSpinners, showMeridian: showMeridian, showSeconds: showSeconds,
-        meridians: meridians, min: min, max: max
+        hourStep: hourStep,
+        minuteStep: minuteStep,
+        secondsStep: secondsStep,
+        readonlyInput: readonlyInput,
+        mousewheel: mousewheel,
+        arrowkeys: arrowkeys,
+        showSpinners: showSpinners,
+        showMeridian: showMeridian,
+        showSeconds: showSeconds,
+        meridians: meridians,
+        min: min,
+        max: max
     };
 }
 function timepickerControls(value, state) {
@@ -2255,7 +2266,9 @@ function timepickerControls(value, state) {
         res.canIncrementHours = max > _newHour;
         if (!res.canIncrementHours) {
             var _newMinutes = changeTime(value, { minute: minuteStep });
-            res.canIncrementMinutes = showSeconds ? max > _newMinutes : max >= _newMinutes;
+            res.canIncrementMinutes = showSeconds
+                ? max > _newMinutes
+                : max >= _newMinutes;
         }
         if (!res.canIncrementMinutes) {
             var _newSeconds = changeTime(value, { seconds: secondsStep });
@@ -2267,7 +2280,9 @@ function timepickerControls(value, state) {
         res.canDecrementHours = min < _newHour;
         if (!res.canDecrementHours) {
             var _newMinutes = changeTime(value, { minute: -minuteStep });
-            res.canDecrementMinutes = showSeconds ? min < _newMinutes : min <= _newMinutes;
+            res.canDecrementMinutes = showSeconds
+                ? min < _newMinutes
+                : min <= _newMinutes;
         }
         if (!res.canDecrementMinutes) {
             var _newSeconds = changeTime(value, { seconds: -secondsStep });
@@ -2324,10 +2339,10 @@ function timepickerReducer(state, action) {
         state = initialState;
     }
     switch (action.type) {
-        case (TimepickerActions.WRITE_VALUE): {
+        case TimepickerActions.WRITE_VALUE: {
             return Object.assign({}, state, { value: action.payload });
         }
-        case (TimepickerActions.CHANGE_HOURS): {
+        case TimepickerActions.CHANGE_HOURS: {
             if (!canChangeValue(state.config, action.payload) ||
                 !canChangeHours(action.payload, state.controls)) {
                 return state;
@@ -2335,7 +2350,7 @@ function timepickerReducer(state, action) {
             var _newTime = changeTime(state.value, { hour: action.payload.step });
             return Object.assign({}, state, { value: _newTime });
         }
-        case (TimepickerActions.CHANGE_MINUTES): {
+        case TimepickerActions.CHANGE_MINUTES: {
             if (!canChangeValue(state.config, action.payload) ||
                 !canChangeMinutes(action.payload, state.controls)) {
                 return state;
@@ -2343,22 +2358,24 @@ function timepickerReducer(state, action) {
             var _newTime = changeTime(state.value, { minute: action.payload.step });
             return Object.assign({}, state, { value: _newTime });
         }
-        case (TimepickerActions.CHANGE_SECONDS): {
+        case TimepickerActions.CHANGE_SECONDS: {
             if (!canChangeValue(state.config, action.payload) ||
                 !canChangeSeconds(action.payload, state.controls)) {
                 return state;
             }
-            var _newTime = changeTime(state.value, { seconds: action.payload.step });
+            var _newTime = changeTime(state.value, {
+                seconds: action.payload.step
+            });
             return Object.assign({}, state, { value: _newTime });
         }
-        case (TimepickerActions.SET_TIME_UNIT): {
+        case TimepickerActions.SET_TIME_UNIT: {
             if (!canChangeValue(state.config)) {
                 return state;
             }
             var _newTime = setTime(state.value, action.payload);
             return Object.assign({}, state, { value: _newTime });
         }
-        case (TimepickerActions.UPDATE_CONTROLS): {
+        case TimepickerActions.UPDATE_CONTROLS: {
             var _newControlsState = timepickerControls(state.value, action.payload);
             var _newState = {
                 value: state.value,
@@ -2407,14 +2424,21 @@ var MiniStore = (function (_super) {
         store.operator = operator;
         return store;
     };
-    MiniStore.prototype.dispatch = function (action) { this._dispatcher.next(action); };
-    MiniStore.prototype.next = function (action) { this._dispatcher.next(action); };
-    MiniStore.prototype.error = function (err) { this._dispatcher.error(err); };
-    MiniStore.prototype.complete = function () { };
+    MiniStore.prototype.dispatch = function (action) {
+        this._dispatcher.next(action);
+    };
+    MiniStore.prototype.next = function (action) {
+        this._dispatcher.next(action);
+    };
+    MiniStore.prototype.error = function (err) {
+        this._dispatcher.error(err);
+    };
+    MiniStore.prototype.complete = function () {
+        /*noop*/
+    };
     return MiniStore;
 }(Observable.Observable));
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-"use strict";
 // CommonJS / Node have global context exposed as "global" variable.
 // We don't want to include the whole node.d.ts this this compilation unit so we'll just fake
 // the global "global" var for now.
@@ -2435,12 +2459,10 @@ var root_1 = _root;
 var root = {
     root: root_1
 };
-"use strict";
 var isArray_1 = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
 var isArray = {
     isArray: isArray_1
 };
-"use strict";
 function isObject(x) {
     return x != null && typeof x === 'object';
 }
@@ -2448,7 +2470,6 @@ var isObject_2 = isObject;
 var isObject_1 = {
     isObject: isObject_2
 };
-"use strict";
 function isFunction(x) {
     return typeof x === 'function';
 }
@@ -2456,13 +2477,11 @@ var isFunction_2 = isFunction;
 var isFunction_1 = {
     isFunction: isFunction_2
 };
-"use strict";
 // typeof any so that it we don't have to cast when comparing a result to the error object
 var errorObject_1 = { e: {} };
 var errorObject = {
     errorObject: errorObject_1
 };
-"use strict";
 var tryCatchTarget;
 function tryCatcher() {
     try {
@@ -2481,7 +2500,6 @@ var tryCatch_2 = tryCatch;
 var tryCatch_1 = {
     tryCatch: tryCatch_2
 };
-"use strict";
 var __extends$6 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b)
         if (b.hasOwnProperty(p))
@@ -2510,7 +2528,6 @@ var UnsubscriptionError_2 = UnsubscriptionError;
 var UnsubscriptionError_1 = {
     UnsubscriptionError: UnsubscriptionError_2
 };
-"use strict";
 /**
  * Represents a disposable resource, such as the execution of an Observable. A
  * Subscription has one important method, `unsubscribe`, that takes no argument
@@ -2699,7 +2716,6 @@ function flattenUnsubscriptionErrors(errors) {
 var Subscription_1 = {
     Subscription: Subscription_2
 };
-"use strict";
 var __extends$5 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b)
         if (b.hasOwnProperty(p))
@@ -2748,7 +2764,6 @@ var Action_2 = Action;
 var Action_1 = {
     Action: Action_2
 };
-"use strict";
 var __extends$4 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b)
         if (b.hasOwnProperty(p))
@@ -2898,7 +2913,6 @@ var AsyncAction_2 = AsyncAction;
 var AsyncAction_1 = {
     AsyncAction: AsyncAction_2
 };
-"use strict";
 var __extends$3 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b)
         if (b.hasOwnProperty(p))
@@ -2954,7 +2968,6 @@ var QueueAction_2 = QueueAction;
 var QueueAction_1 = {
     QueueAction: QueueAction_2
 };
-"use strict";
 /**
  * An execution context and a data structure to order tasks and schedule their
  * execution. Provides a notion of (potentially virtual) time, through the
@@ -3009,7 +3022,6 @@ var Scheduler_2 = Scheduler;
 var Scheduler_1 = {
     Scheduler: Scheduler_2
 };
-"use strict";
 var __extends$8 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b)
         if (b.hasOwnProperty(p))
@@ -3063,7 +3075,6 @@ var AsyncScheduler_2 = AsyncScheduler;
 var AsyncScheduler_1 = {
     AsyncScheduler: AsyncScheduler_2
 };
-"use strict";
 var __extends$7 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b)
         if (b.hasOwnProperty(p))
@@ -3082,7 +3093,6 @@ var QueueScheduler_2 = QueueScheduler;
 var QueueScheduler_1 = {
     QueueScheduler: QueueScheduler_2
 };
-"use strict";
 /**
  *
  * Queue Scheduler
@@ -3192,7 +3202,9 @@ var TimepickerStore = (function (_super) {
     __extends(TimepickerStore, _super);
     function TimepickerStore() {
         var _this = this;
-        var _dispatcher = new BehaviorSubject.BehaviorSubject({ type: '[mini-ngrx] dispatcher init' });
+        var _dispatcher = new BehaviorSubject.BehaviorSubject({
+            type: '[mini-ngrx] dispatcher init'
+        });
         var state = new MiniState(initialState, _dispatcher, timepickerReducer);
         _this = _super.call(this, _dispatcher, timepickerReducer, state) || this;
         return _this;
@@ -3214,7 +3226,6 @@ var TIMEPICKER_CONTROL_VALUE_ACCESSOR = {
 var TimepickerComponent = (function () {
     function TimepickerComponent(_config, _cd, _store, _timepickerActions) {
         var _this = this;
-        this._cd = _cd;
         this._store = _store;
         this._timepickerActions = _timepickerActions;
         /** emits true if value is a valid date */
@@ -3228,17 +3239,13 @@ var TimepickerComponent = (function () {
         this.onTouched = Function.prototype;
         Object.assign(this, _config);
         // todo: add unsubscribe
-        _store
-            .select(function (state) { return state.value; })
-            .subscribe(function (value) {
+        _store.select(function (state) { return state.value; }).subscribe(function (value) {
             // update UI values if date changed
             _this._renderTime(value);
             _this.onChange(value);
             _this._store.dispatch(_this._timepickerActions.updateControls(getControlsValue(_this)));
         });
-        _store
-            .select(function (state) { return state.controls; })
-            .subscribe(function (controlsState) {
+        _store.select(function (state) { return state.controls; }).subscribe(function (controlsState) {
             _this.isValid.emit(isInputValid(_this.hours, _this.minutes, _this.seconds, _this.isPM()));
             Object.assign(_this, controlsState);
             _cd.markForCheck();
@@ -3294,12 +3301,13 @@ var TimepickerComponent = (function () {
         this._updateTime();
     };
     TimepickerComponent.prototype._updateTime = function () {
-        if (!isInputValid(this.hours, this.minutes, this.seconds, this.isPM())) {
+        var _seconds = this.showSeconds ? this.seconds : void 0;
+        if (!isInputValid(this.hours, this.minutes, _seconds, this.isPM())) {
+            this.isValid.emit(false);
             this.onChange(null);
             return;
         }
-        this._store.dispatch(this._timepickerActions
-            .setTime({
+        this._store.dispatch(this._timepickerActions.setTime({
             hour: this.hours,
             minute: this.minutes,
             seconds: this.seconds,
@@ -3311,7 +3319,10 @@ var TimepickerComponent = (function () {
             return;
         }
         var _hoursPerDayHalf = 12;
-        this._store.dispatch(this._timepickerActions.changeHours({ step: _hoursPerDayHalf, source: '' }));
+        this._store.dispatch(this._timepickerActions.changeHours({
+            step: _hoursPerDayHalf,
+            source: ''
+        }));
     };
     /**
      * Write a new value to the element.
@@ -3319,6 +3330,9 @@ var TimepickerComponent = (function () {
     TimepickerComponent.prototype.writeValue = function (obj) {
         if (isValidDate(obj)) {
             this._store.dispatch(this._timepickerActions.writeValue(parseTime(obj)));
+        }
+        else if (obj == null) {
+            this._store.dispatch(this._timepickerActions.writeValue(null));
         }
     };
     /**
@@ -3370,7 +3384,9 @@ var TimepickerComponent = (function () {
                     selector: 'timepicker',
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, TimepickerStore],
-                    template: "\n    <table>\n      <tbody>\n      <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\">\n        <!-- increment hours button-->\n        <td>\n          <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours\"\n             (click)=\"changeHours(hourStep)\"\n          ><span class=\"glyphicon glyphicon-chevron-up\"></span></a>\n        </td>\n        <!-- divider -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- increment minutes button -->\n        <td>\n          <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes\"\n             (click)=\"changeMinutes(minuteStep)\"\n          ><span class=\"glyphicon glyphicon-chevron-up\"></span></a>\n        </td>\n        <!-- divider -->\n        <td *ngIf=\"showSeconds\">&nbsp;</td>\n        <!-- increment seconds button -->\n        <td *ngIf=\"showSeconds\">\n          <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds\"\n             (click)=\"changeSeconds(secondsStep)\">\n            <span class=\"glyphicon glyphicon-chevron-up\"></span>\n          </a>\n        </td>\n        <!-- space between -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- meridian placeholder-->\n        <td *ngIf=\"showMeridian\"></td>\n      </tr>\n      <tr>\n        <!-- hours -->\n        <td class=\"form-group\" [class.has-error]=\"invalidHours\">\n          <input type=\"text\" style=\"width:50px;\"\n                 class=\"form-control text-center\"\n                 placeholder=\"HH\"\n                 maxlength=\"2\"\n                 [readonly]=\"readonlyInput\"\n                 [value]=\"hours\"\n                 (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\"\n                 (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\"\n                 (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\"\n                 (change)=\"updateHours($event.target.value)\"></td>\n        <!-- divider -->\n        <td>&nbsp;:&nbsp;</td>\n        <!-- minutes -->\n        <td class=\"form-group\" [class.has-error]=\"invalidMinutes\">\n          <input style=\"width:50px;\" type=\"text\"\n                 class=\"form-control text-center\"\n                 placeholder=\"MM\"\n                 maxlength=\"2\"\n                 [readonly]=\"readonlyInput\"\n                 [value]=\"minutes\"\n                 (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\"\n                 (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\"\n                 (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\"\n                 (change)=\"updateMinutes($event.target.value)\">\n        </td>\n        <!-- divider -->\n        <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td>\n        <!-- seconds -->\n        <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\">\n          <input style=\"width:50px;\" type=\"text\"\n                 class=\"form-control text-center\"\n                 placeholder=\"SS\"\n                 maxlength=\"2\"\n                 [readonly]=\"readonlyInput\"\n                 [value]=\"seconds\"\n                 (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\"\n                 (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\"\n                 (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\"\n                 (change)=\"updateSeconds($event.target.value)\">\n        </td>\n        <!-- space between -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- meridian -->\n        <td *ngIf=\"showMeridian\">\n          <button type=\"button\" class=\"btn btn-default text-center\"\n                  [disabled]=\"readonlyInput\"\n                  [class.disabled]=\"readonlyInput\"\n                  (click)=\"toggleMeridian()\"\n          >{{ meridian }}\n          </button>\n        </td>\n      </tr>\n      <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\">\n        <!-- decrement hours button-->\n        <td>\n          <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours\" (click)=\"changeHours(-hourStep)\">\n            <span class=\"glyphicon glyphicon-chevron-down\"></span>\n          </a>\n        </td>\n        <!-- divider -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- decrement minutes button-->\n        <td>\n          <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes\" (click)=\"changeMinutes(-minuteStep)\">\n            <span class=\"glyphicon glyphicon-chevron-down\"></span>\n          </a>\n        </td>\n        <!-- divider -->\n        <td *ngIf=\"showSeconds\">&nbsp;</td>\n        <!-- decrement seconds button-->\n        <td *ngIf=\"showSeconds\">\n          <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds\" (click)=\"changeSeconds(-secondsStep)\">\n            <span class=\"glyphicon glyphicon-chevron-down\"></span>\n          </a>\n        </td>\n        <!-- space between -->\n        <td>&nbsp;&nbsp;&nbsp;</td>\n        <!-- meridian placeholder-->\n        <td *ngIf=\"showMeridian\"></td>\n      </tr>\n      </tbody>\n    </table>\n  "
+                    template: "<table> <tbody> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td>&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" [class.has-error]=\"invalidMinutes\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"readonlyInput\" [class.disabled]=\"readonlyInput\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
+                    styles: ["\n    .bs-chevron{\n      border-style: solid;\n      display: block;\n      width: 9px;\n      height: 9px;\n      position: relative;\n      border-width: 3px 0px 0 3px;\n    }\n    .bs-chevron-up{\n      -webkit-transform: rotate(45deg);\n      transform: rotate(45deg);\n      top: 2px;\n    }\n    .bs-chevron-down{\n      -webkit-transform: rotate(-135deg);\n      transform: rotate(-135deg);\n      top: -2px;\n    }\n    .bs-timepicker-field{\n      width: 50px;\n    }\n  "],
+                    encapsulation: core.ViewEncapsulation.None
                 },] },
     ];
     /** @nocollapse */
@@ -3419,6 +3435,7 @@ var TimepickerModule = (function () {
     TimepickerModule.ctorParameters = function () { return []; };
     return TimepickerModule;
 }());
+// tslint:disable:no-use-before-declare
 // TODO: config: activeClass - Class to apply to the checked buttons
 var CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
@@ -3487,7 +3504,10 @@ var ButtonCheckboxDirective = (function () {
         this.onTouched = fn;
     };
     ButtonCheckboxDirective.decorators = [
-        { type: core.Directive, args: [{ selector: '[btnCheckbox]', providers: [CHECKBOX_CONTROL_VALUE_ACCESSOR] },] },
+        { type: core.Directive, args: [{
+                    selector: '[btnCheckbox]',
+                    providers: [CHECKBOX_CONTROL_VALUE_ACCESSOR]
+                },] },
     ];
     /** @nocollapse */
     ButtonCheckboxDirective.ctorParameters = function () { return []; };
@@ -3499,6 +3519,7 @@ var ButtonCheckboxDirective = (function () {
     };
     return ButtonCheckboxDirective;
 }());
+// tslint:disable:no-use-before-declare
 var RADIO_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return ButtonRadioDirective; }),
@@ -3510,10 +3531,10 @@ var RADIO_CONTROL_VALUE_ACCESSOR = {
  */
 var ButtonRadioDirective = (function () {
     function ButtonRadioDirective(el, cdr) {
+        this.el = el;
         this.cdr = cdr;
         this.onChange = Function.prototype;
         this.onTouched = Function.prototype;
-        this.el = el;
     }
     Object.defineProperty(ButtonRadioDirective.prototype, "isActive", {
         get: function () {
@@ -3536,7 +3557,6 @@ var ButtonRadioDirective = (function () {
             this.value = this.btnRadio;
             this.onTouched();
             this.onChange(this.value);
-            return;
         }
     };
     ButtonRadioDirective.prototype.ngOnInit = function () {
@@ -3558,7 +3578,10 @@ var ButtonRadioDirective = (function () {
         this.onTouched = fn;
     };
     ButtonRadioDirective.decorators = [
-        { type: core.Directive, args: [{ selector: '[btnRadio]', providers: [RADIO_CONTROL_VALUE_ACCESSOR] },] },
+        { type: core.Directive, args: [{
+                    selector: '[btnRadio]',
+                    providers: [RADIO_CONTROL_VALUE_ACCESSOR]
+                },] },
     ];
     /** @nocollapse */
     ButtonRadioDirective.ctorParameters = function () {
@@ -4412,7 +4435,18 @@ var TooltipConfig = (function () {
 /**
  * JS version of browser APIs. This library can only run in the browser.
  */
-var win = typeof window !== 'undefined' && window || {};
+var win = (typeof window !== 'undefined' && window) || {};
+var document$1 = win.document;
+var location = win.location;
+var gc = win['gc'] ? function () { return win['gc'](); } : function () { return null; };
+var performance = win['performance'] ? win['performance'] : null;
+var Event = win['Event'];
+var MouseEvent$1 = win['MouseEvent'];
+var KeyboardEvent = win['KeyboardEvent'];
+var EventTarget = win['EventTarget'];
+var History = win['History'];
+var Location = win['Location'];
+var EventListener = win['EventListener'];
 var guessedVersion;
 function _guessBsVersion() {
     if (typeof document === 'undefined') {
@@ -4457,7 +4491,7 @@ var TooltipContainerComponent = (function () {
     TooltipContainerComponent.prototype.ngAfterViewInit = function () {
         this.classMap = { in: false, fade: false };
         this.classMap[this.placement] = true;
-        this.classMap['tooltip-' + this.placement] = true;
+        this.classMap["tooltip-" + this.placement] = true;
         this.classMap.in = true;
         if (this.animation) {
             this.classMap.fade = true;
@@ -4476,27 +4510,10 @@ var TooltipContainerComponent = (function () {
                         '[class.show]': '!isBs3',
                         role: 'tooltip'
                     },
-                    styles: ["    \n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: calc(50% - 2.5px);\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: calc(50% - 2.5px);\n    }\n  "],
+                    styles: [
+                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: calc(50% - 2.5px);\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: calc(50% - 2.5px);\n    }\n  "
+                    ],
                     template: "\n    <div class=\"tooltip-arrow arrow\"></div>\n    <div class=\"tooltip-inner\"><ng-content></ng-content></div>\n    "
-                    // template: `<div class="tooltip" role="tooltip"
-                    //    [ngStyle]="{top: top, left: left, display: display}"
-                    //    [ngClass]="classMap">
-                    //     <div class="tooltip-arrow"></div>
-                    //     <div class="tooltip-inner"
-                    //          *ngIf="htmlContent && !isTemplate"
-                    //          innerHtml="{{htmlContent}}">
-                    //     </div>
-                    //     <div class="tooltip-inner"
-                    //          *ngIf="htmlContent && isTemplate">
-                    //       <template [ngTemplateOutlet]="htmlContent"
-                    //                 [ngOutletContext]="{model: context}">
-                    //       </template>
-                    //     </div>
-                    //     <div class="tooltip-inner"
-                    //          *ngIf="content">
-                    //       {{content}}
-                    //     </div>
-                    //   </div>`
                 },] },
     ];
     /** @nocollapse */
@@ -4516,7 +4533,9 @@ var Trigger = (function () {
         this.open = open;
         this.close = close || open;
     }
-    Trigger.prototype.isManual = function () { return this.open === 'manual' || this.close === 'manual'; };
+    Trigger.prototype.isManual = function () {
+        return this.open === 'manual' || this.close === 'manual';
+    };
     return Trigger;
 }());
 var DEFAULT_ALIASES = {
@@ -4531,19 +4550,21 @@ function parseTriggers(triggers, aliases) {
     if (trimmedTriggers.length === 0) {
         return [];
     }
-    var parsedTriggers = trimmedTriggers.split(/\s+/)
+    var parsedTriggers = trimmedTriggers
+        .split(/\s+/)
         .map(function (trigger) { return trigger.split(':'); })
         .map(function (triggerPair) {
         var alias = aliases[triggerPair[0]] || triggerPair;
         return new Trigger(alias[0], alias[1]);
     });
-    var manualTriggers = parsedTriggers
-        .filter(function (triggerPair) { return triggerPair.isManual(); });
+    var manualTriggers = parsedTriggers.filter(function (triggerPair) {
+        return triggerPair.isManual();
+    });
     if (manualTriggers.length > 1) {
-        throw 'Triggers parse error: only one manual trigger is allowed';
+        throw new Error('Triggers parse error: only one manual trigger is allowed');
     }
     if (manualTriggers.length === 1 && parsedTriggers.length > 1) {
-        throw 'Triggers parse error: manual trigger can\'t be mixed with other triggers';
+        throw new Error('Triggers parse error: manual trigger can\'t be mixed with other triggers');
     }
     return parsedTriggers;
 }
@@ -4569,7 +4590,9 @@ function listenToTriggersV2(renderer, options) {
         var useToggle = trigger.open === trigger.close;
         var showFn = useToggle ? options.toggle : options.show;
         if (!useToggle) {
-            _registerHide.push(function () { return renderer.listen(target, trigger.close, options.hide); });
+            _registerHide.push(function () {
+                return renderer.listen(target, trigger.close, options.hide);
+            });
         }
         listeners.push(renderer.listen(target, trigger.open, function () { return showFn(registerHide); }));
     });
@@ -4581,11 +4604,12 @@ function registerOutsideClick(renderer, options) {
     if (!options.outsideClick) {
         return Function.prototype;
     }
-    return renderer.listenGlobal('document', 'click', function (event) {
+    return renderer.listen('document', 'click', function (event) {
         if (options.target && options.target.contains(event.target)) {
             return;
         }
-        if (options.targets && options.targets.some(function (target) { return target.contains(event.target); })) {
+        if (options.targets &&
+            options.targets.some(function (target) { return target.contains(event.target); })) {
             return;
         }
         options.hide();
@@ -4603,6 +4627,7 @@ var ContentRef = (function () {
     }
     return ContentRef;
 }());
+// tslint:disable:max-file-line-count
 // todo: add delay support
 // todo: merge events onShow, onShown, etc...
 // todo: add global positioning configuration?
@@ -4627,11 +4652,15 @@ var ComponentLoader = (function () {
         this.onBeforeHide = new core.EventEmitter();
         this.onHidden = new core.EventEmitter();
         this._providers = [];
+        this._isHiding = false;
         this._listenOpts = {};
         this._globalListener = Function.prototype;
     }
     Object.defineProperty(ComponentLoader.prototype, "isShown", {
         get: function () {
+            if (this._isHiding) {
+                return false;
+            }
             return !!this._componentRef;
         },
         enumerable: true,
@@ -4674,16 +4703,17 @@ var ComponentLoader = (function () {
             this.instance = this._componentRef.instance;
             Object.assign(this._componentRef.instance, opts);
             if (this.container instanceof core.ElementRef) {
-                this.container.nativeElement
-                    .appendChild(this._componentRef.location.nativeElement);
+                this.container.nativeElement.appendChild(this._componentRef.location.nativeElement);
             }
             if (this.container === 'body' && typeof document !== 'undefined') {
-                document.querySelector(this.container)
+                document
+                    .querySelector(this.container)
                     .appendChild(this._componentRef.location.nativeElement);
             }
-            if (!this.container && this._elementRef && this._elementRef.nativeElement.parentElement) {
-                this._elementRef.nativeElement.parentElement
-                    .appendChild(this._componentRef.location.nativeElement);
+            if (!this.container &&
+                this._elementRef &&
+                this._elementRef.nativeElement.parentElement) {
+                this._elementRef.nativeElement.parentElement.appendChild(this._componentRef.location.nativeElement);
             }
             // we need to manually invoke change detection since events registered
             // via
@@ -4747,18 +4777,22 @@ var ComponentLoader = (function () {
         this.triggers = listenOpts.triggers || this.triggers;
         this._listenOpts.outsideClick = listenOpts.outsideClick;
         listenOpts.target = listenOpts.target || this._elementRef.nativeElement;
-        var hide = this._listenOpts.hide = function () { return listenOpts.hide ? listenOpts.hide() : _this.hide(); };
-        var show = this._listenOpts.show = function (registerHide) {
+        var hide = (this._listenOpts.hide = function () {
+            return listenOpts.hide ? listenOpts.hide() : void _this.hide();
+        });
+        var show = (this._listenOpts.show = function (registerHide) {
             listenOpts.show ? listenOpts.show(registerHide) : _this.show(registerHide);
             registerHide();
-        };
+        });
         var toggle = function (registerHide) {
             _this.isShown ? hide() : show(registerHide);
         };
         this._unregisterListenersFn = listenToTriggersV2(this._renderer, {
             target: listenOpts.target,
             triggers: listenOpts.triggers,
-            show: show, hide: hide, toggle: toggle
+            show: show,
+            hide: hide,
+            toggle: toggle
         });
         return this;
     };
@@ -4797,8 +4831,7 @@ var ComponentLoader = (function () {
         if (this._zoneSubscription || !this.attachment) {
             return;
         }
-        this._zoneSubscription = this._ngZone
-            .onStable.subscribe(function () {
+        this._zoneSubscription = this._ngZone.onStable.subscribe(function () {
             if (!_this._componentRef) {
                 return;
             }
@@ -4823,9 +4856,10 @@ var ComponentLoader = (function () {
         }
         if (content instanceof core.TemplateRef) {
             if (this._viewContainerRef) {
-                var viewRef_1 = this._viewContainerRef.createEmbeddedView(content, context);
-                viewRef_1.markForCheck();
-                return new ContentRef([viewRef_1.rootNodes], viewRef_1);
+                var _viewRef = this._viewContainerRef
+                    .createEmbeddedView(content, context);
+                _viewRef.markForCheck();
+                return new ContentRef([_viewRef.rootNodes], _viewRef);
             }
             var viewRef = content.createEmbeddedView({});
             this._applicationRef.attachView(viewRef);
@@ -4833,12 +4867,12 @@ var ComponentLoader = (function () {
         }
         if (typeof content === 'function') {
             var contentCmptFactory = this._componentFactoryResolver.resolveComponentFactory(content);
-            var modalContentInjector = core.ReflectiveInjector.resolveAndCreate(this._providers.concat([content]), this._injector);
+            var modalContentInjector = core.ReflectiveInjector.resolveAndCreate(this._providers.slice(), this._injector);
             var componentRef = contentCmptFactory.create(modalContentInjector);
             this._applicationRef.attachView(componentRef.hostView);
             return new ContentRef([[componentRef.location.nativeElement]], componentRef.hostView, componentRef);
         }
-        return new ContentRef([[this._renderer.createText(null, "" + content)]]);
+        return new ContentRef([[this._renderer.createText("" + content)]]);
     };
     return ComponentLoader;
 }());
@@ -4857,7 +4891,14 @@ var Positioning = (function () {
             round = true;
         }
         var elPosition;
-        var parentOffset = { width: 0, height: 0, top: 0, bottom: 0, left: 0, right: 0 };
+        var parentOffset = {
+            width: 0,
+            height: 0,
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+        };
         if (this.getStyle(element, 'position') === 'fixed') {
             var bcRect = element.getBoundingClientRect();
             elPosition = {
@@ -4918,16 +4959,22 @@ var Positioning = (function () {
         return elOffset;
     };
     Positioning.prototype.positionElements = function (hostElement, targetElement, placement, appendToBody) {
-        var hostElPosition = appendToBody ? this.offset(hostElement, false) : this.position(hostElement, false);
+        var hostElPosition = appendToBody
+            ? this.offset(hostElement, false)
+            : this.position(hostElement, false);
         var targetElStyles = this.getAllStyles(targetElement);
         var shiftWidth = {
             left: hostElPosition.left,
-            center: hostElPosition.left + hostElPosition.width / 2 - targetElement.offsetWidth / 2,
+            center: hostElPosition.left +
+                hostElPosition.width / 2 -
+                targetElement.offsetWidth / 2,
             right: hostElPosition.left + hostElPosition.width
         };
         var shiftHeight = {
             top: hostElPosition.top,
-            center: hostElPosition.top + hostElPosition.height / 2 - targetElement.offsetHeight / 2,
+            center: hostElPosition.top +
+                hostElPosition.height / 2 -
+                targetElement.offsetHeight / 2,
             bottom: hostElPosition.top + hostElPosition.height
         };
         var targetElBCR = targetElement.getBoundingClientRect();
@@ -4941,7 +4988,7 @@ var Positioning = (function () {
             left: 0,
             right: targetElBCR.width || targetElement.offsetWidth
         };
-        if (placementPrimary === "auto") {
+        if (placementPrimary === 'auto') {
             var newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement, placementSecondary);
             if (!newPlacementPrimary)
                 newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement);
@@ -4951,8 +4998,12 @@ var Positioning = (function () {
         }
         switch (placementPrimary) {
             case 'top':
-                targetElPosition.top = hostElPosition.top - (targetElement.offsetHeight + parseFloat(targetElStyles.marginBottom));
-                targetElPosition.bottom += hostElPosition.top - targetElement.offsetHeight;
+                targetElPosition.top =
+                    hostElPosition.top -
+                        (targetElement.offsetHeight +
+                            parseFloat(targetElStyles.marginBottom));
+                targetElPosition.bottom +=
+                    hostElPosition.top - targetElement.offsetHeight;
                 targetElPosition.left = shiftWidth[placementSecondary];
                 targetElPosition.right += shiftWidth[placementSecondary];
                 break;
@@ -4965,8 +5016,11 @@ var Positioning = (function () {
             case 'left':
                 targetElPosition.top = shiftHeight[placementSecondary];
                 targetElPosition.bottom += shiftHeight[placementSecondary];
-                targetElPosition.left = hostElPosition.left - (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
-                targetElPosition.right += hostElPosition.left - targetElement.offsetWidth;
+                targetElPosition.left =
+                    hostElPosition.left -
+                        (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
+                targetElPosition.right +=
+                    hostElPosition.left - targetElement.offsetWidth;
                 break;
             case 'right':
                 targetElPosition.top = shiftHeight[placementSecondary];
@@ -4982,28 +5036,45 @@ var Positioning = (function () {
         return targetElPosition;
     };
     Positioning.prototype.autoPosition = function (targetElPosition, hostElPosition, targetElement, preferredPosition) {
-        if ((!preferredPosition || preferredPosition === "right") && targetElPosition.left + hostElPosition.left - targetElement.offsetWidth < 0) {
-            return "right";
+        if ((!preferredPosition || preferredPosition === 'right') &&
+            targetElPosition.left + hostElPosition.left - targetElement.offsetWidth <
+                0) {
+            return 'right';
         }
-        else if ((!preferredPosition || preferredPosition === "top") && targetElPosition.bottom + hostElPosition.bottom + targetElement.offsetHeight > window.innerHeight) {
-            return "top";
+        else if ((!preferredPosition || preferredPosition === 'top') &&
+            targetElPosition.bottom +
+                hostElPosition.bottom +
+                targetElement.offsetHeight >
+                window.innerHeight) {
+            return 'top';
         }
-        else if ((!preferredPosition || preferredPosition === "bottom") && targetElPosition.top + hostElPosition.top - targetElement.offsetHeight < 0) {
-            return "bottom";
+        else if ((!preferredPosition || preferredPosition === 'bottom') &&
+            targetElPosition.top + hostElPosition.top - targetElement.offsetHeight < 0) {
+            return 'bottom';
         }
-        else if ((!preferredPosition || preferredPosition === "left") && targetElPosition.right + hostElPosition.right + targetElement.offsetWidth > window.innerWidth) {
-            return "left";
+        else if ((!preferredPosition || preferredPosition === 'left') &&
+            targetElPosition.right +
+                hostElPosition.right +
+                targetElement.offsetWidth >
+                window.innerWidth) {
+            return 'left';
         }
         return null;
     };
-    Positioning.prototype.getAllStyles = function (element) { return window.getComputedStyle(element); };
-    Positioning.prototype.getStyle = function (element, prop) { return this.getAllStyles(element)[prop]; };
+    Positioning.prototype.getAllStyles = function (element) {
+        return window.getComputedStyle(element);
+    };
+    Positioning.prototype.getStyle = function (element, prop) {
+        return this.getAllStyles(element)[prop];
+    };
     Positioning.prototype.isStaticPositioned = function (element) {
         return (this.getStyle(element, 'position') || 'static') === 'static';
     };
     Positioning.prototype.offsetParent = function (element) {
         var offsetParentEl = element.offsetParent || document.documentElement;
-        while (offsetParentEl && offsetParentEl !== document.documentElement && this.isStaticPositioned(offsetParentEl)) {
+        while (offsetParentEl &&
+            offsetParentEl !== document.documentElement &&
+            this.isStaticPositioned(offsetParentEl)) {
             offsetParentEl = offsetParentEl.offsetParent;
         }
         return offsetParentEl || document.documentElement;
@@ -5021,17 +5092,7 @@ var PositioningService = (function () {
     }
     PositioningService.prototype.position = function (options) {
         var element = options.element, target = options.target, attachment = options.attachment, appendToBody = options.appendToBody;
-        positionElements(this._getHtmlElement(target), this._getHtmlElement(element), attachment, appendToBody);
-    };
-    PositioningService.prototype._getHtmlElement = function (element) {
-        // it means that we got a selector
-        if (typeof element === 'string') {
-            return document.querySelector(element);
-        }
-        if (element instanceof core.ElementRef) {
-            return element.nativeElement;
-        }
-        return element;
+        positionElements(_getHtmlElement(target), _getHtmlElement(element), attachment, appendToBody);
     };
     PositioningService.decorators = [
         { type: core.Injectable },
@@ -5040,6 +5101,16 @@ var PositioningService = (function () {
     PositioningService.ctorParameters = function () { return []; };
     return PositioningService;
 }());
+function _getHtmlElement(element) {
+    // it means that we got a selector
+    if (typeof element === 'string') {
+        return document.querySelector(element);
+    }
+    if (element instanceof core.ElementRef) {
+        return element.nativeElement;
+    }
+    return element;
+}
 var ComponentLoaderFactory = (function () {
     function ComponentLoaderFactory(_componentFactoryResolver, _ngZone, _injector, _posService, _applicationRef) {
         this._componentFactoryResolver = _componentFactoryResolver;
@@ -5079,7 +5150,9 @@ function OnChange(defaultValue) {
     return function OnChangeHandler(target, propertyKey) {
         var _key = " __" + propertyKey + "Value";
         Object.defineProperty(target, propertyKey, {
-            get: function () { return this[_key]; },
+            get: function () {
+                return this[_key];
+            },
             set: function (value) {
                 var prevValue = this[_key];
                 this[_key] = value;
@@ -5092,7 +5165,7 @@ function OnChange(defaultValue) {
 }
 /* tslint:enable */
 var _messagesHash = {};
-var _hideMsg = typeof console === 'undefined' || !console.warn;
+var _hideMsg = typeof console === 'undefined' || !('warn' in console);
 function warnOnce(msg) {
     if (!core.isDevMode() || _hideMsg || msg in _messagesHash) {
         return;
@@ -5115,8 +5188,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
         return Reflect.metadata(k, v);
 };
+// tslint:disable:deprecation
 var TooltipDirective = (function () {
-    // tslint:disable-next-line
     function TooltipDirective(_viewContainerRef, _renderer, _elementRef, cis, config) {
         /** Fired when tooltip content changes */
         this.tooltipChange = new core.EventEmitter();
@@ -5143,7 +5216,9 @@ var TooltipDirective = (function () {
         /**
          * Returns whether or not the tooltip is currently being shown
          */
-        get: function () { return this._tooltip.isShown; },
+        get: function () {
+            return this._tooltip.isShown;
+        },
         set: function (value) {
             if (value) {
                 this.show();
@@ -5156,7 +5231,6 @@ var TooltipDirective = (function () {
         configurable: true
     });
     Object.defineProperty(TooltipDirective.prototype, "htmlContent", {
-        /* tslint:disable */
         /** @deprecated - please use `tooltip` instead */
         set: function (value) {
             warnOnce('tooltipHtml was deprecated, please use `tooltip` instead');
@@ -5190,12 +5264,12 @@ var TooltipDirective = (function () {
     Object.defineProperty(TooltipDirective.prototype, "_enable", {
         get: function () {
             warnOnce('tooltipEnable was deprecated, please use `isDisabled` instead');
-            return this.isDisabled === true;
+            return this.isDisabled;
         },
         /** @deprecated - please use `isDisabled` instead */
         set: function (value) {
             warnOnce('tooltipEnable was deprecated, please use `isDisabled` instead');
-            this.isDisabled = value === true;
+            this.isDisabled = value;
         },
         enumerable: true,
         configurable: true
@@ -5270,11 +5344,17 @@ var TooltipDirective = (function () {
      */
     TooltipDirective.prototype.show = function () {
         var _this = this;
-        if (this.isOpen || this.isDisabled || this._delayTimeoutId || !this.tooltip) {
+        if (this.isOpen ||
+            this.isDisabled ||
+            this._delayTimeoutId ||
+            !this.tooltip) {
             return;
         }
         var showTooltip = function () {
-            return _this._tooltip
+            if (_this._delayTimeoutId) {
+                _this._delayTimeoutId = undefined;
+            }
+            _this._tooltip
                 .attach(TooltipContainerComponent)
                 .to(_this.container)
                 .position({ attachment: _this.placement })
@@ -5285,7 +5365,9 @@ var TooltipDirective = (function () {
             });
         };
         if (this._delay) {
-            this._delayTimeoutId = setTimeout(function () { showTooltip(); }, this._delay);
+            this._delayTimeoutId = setTimeout(function () {
+                showTooltip();
+            }, this._delay);
         }
         else {
             showTooltip();
@@ -5322,7 +5404,7 @@ var TooltipDirective = (function () {
     TooltipDirective.ctorParameters = function () {
         return [
             { type: core.ViewContainerRef, },
-            { type: core.Renderer, },
+            { type: core.Renderer2, },
             { type: core.ElementRef, },
             { type: ComponentLoaderFactory, },
             { type: TooltipConfig, },
@@ -5381,830 +5463,830 @@ var TooltipModule = (function () {
 }());
 /* tslint:disable:max-file-line-count */
 var latinMap = {
-    'Á': 'A',
-    'Ă': 'A',
-    'Ắ': 'A',
-    'Ặ': 'A',
-    'Ằ': 'A',
-    'Ẳ': 'A',
-    'Ẵ': 'A',
-    'Ǎ': 'A',
-    'Â': 'A',
-    'Ấ': 'A',
-    'Ậ': 'A',
-    'Ầ': 'A',
-    'Ẩ': 'A',
-    'Ẫ': 'A',
-    'Ä': 'A',
-    'Ǟ': 'A',
-    'Ȧ': 'A',
-    'Ǡ': 'A',
-    'Ạ': 'A',
-    'Ȁ': 'A',
-    'À': 'A',
-    'Ả': 'A',
-    'Ȃ': 'A',
-    'Ā': 'A',
-    'Ą': 'A',
-    'Å': 'A',
-    'Ǻ': 'A',
-    'Ḁ': 'A',
-    'Ⱥ': 'A',
-    'Ã': 'A',
-    'Ꜳ': 'AA',
-    'Æ': 'AE',
-    'Ǽ': 'AE',
-    'Ǣ': 'AE',
-    'Ꜵ': 'AO',
-    'Ꜷ': 'AU',
-    'Ꜹ': 'AV',
-    'Ꜻ': 'AV',
-    'Ꜽ': 'AY',
-    'Ḃ': 'B',
-    'Ḅ': 'B',
-    'Ɓ': 'B',
-    'Ḇ': 'B',
-    'Ƀ': 'B',
-    'Ƃ': 'B',
-    'Ć': 'C',
-    'Č': 'C',
-    'Ç': 'C',
-    'Ḉ': 'C',
-    'Ĉ': 'C',
-    'Ċ': 'C',
-    'Ƈ': 'C',
-    'Ȼ': 'C',
-    'Ď': 'D',
-    'Ḑ': 'D',
-    'Ḓ': 'D',
-    'Ḋ': 'D',
-    'Ḍ': 'D',
-    'Ɗ': 'D',
-    'Ḏ': 'D',
-    'ǲ': 'D',
-    'ǅ': 'D',
-    'Đ': 'D',
-    'Ƌ': 'D',
-    'Ǳ': 'DZ',
-    'Ǆ': 'DZ',
-    'É': 'E',
-    'Ĕ': 'E',
-    'Ě': 'E',
-    'Ȩ': 'E',
-    'Ḝ': 'E',
-    'Ê': 'E',
-    'Ế': 'E',
-    'Ệ': 'E',
-    'Ề': 'E',
-    'Ể': 'E',
-    'Ễ': 'E',
-    'Ḙ': 'E',
-    'Ë': 'E',
-    'Ė': 'E',
-    'Ẹ': 'E',
-    'Ȅ': 'E',
-    'È': 'E',
-    'Ẻ': 'E',
-    'Ȇ': 'E',
-    'Ē': 'E',
-    'Ḗ': 'E',
-    'Ḕ': 'E',
-    'Ę': 'E',
-    'Ɇ': 'E',
-    'Ẽ': 'E',
-    'Ḛ': 'E',
-    'Ꝫ': 'ET',
-    'Ḟ': 'F',
-    'Ƒ': 'F',
-    'Ǵ': 'G',
-    'Ğ': 'G',
-    'Ǧ': 'G',
-    'Ģ': 'G',
-    'Ĝ': 'G',
-    'Ġ': 'G',
-    'Ɠ': 'G',
-    'Ḡ': 'G',
-    'Ǥ': 'G',
-    'Ḫ': 'H',
-    'Ȟ': 'H',
-    'Ḩ': 'H',
-    'Ĥ': 'H',
-    'Ⱨ': 'H',
-    'Ḧ': 'H',
-    'Ḣ': 'H',
-    'Ḥ': 'H',
-    'Ħ': 'H',
-    'Í': 'I',
-    'Ĭ': 'I',
-    'Ǐ': 'I',
-    'Î': 'I',
-    'Ï': 'I',
-    'Ḯ': 'I',
-    'İ': 'I',
-    'Ị': 'I',
-    'Ȉ': 'I',
-    'Ì': 'I',
-    'Ỉ': 'I',
-    'Ȋ': 'I',
-    'Ī': 'I',
-    'Į': 'I',
-    'Ɨ': 'I',
-    'Ĩ': 'I',
-    'Ḭ': 'I',
-    'Ꝺ': 'D',
-    'Ꝼ': 'F',
-    'Ᵹ': 'G',
-    'Ꞃ': 'R',
-    'Ꞅ': 'S',
-    'Ꞇ': 'T',
-    'Ꝭ': 'IS',
-    'Ĵ': 'J',
-    'Ɉ': 'J',
-    'Ḱ': 'K',
-    'Ǩ': 'K',
-    'Ķ': 'K',
-    'Ⱪ': 'K',
-    'Ꝃ': 'K',
-    'Ḳ': 'K',
-    'Ƙ': 'K',
-    'Ḵ': 'K',
-    'Ꝁ': 'K',
-    'Ꝅ': 'K',
-    'Ĺ': 'L',
-    'Ƚ': 'L',
-    'Ľ': 'L',
-    'Ļ': 'L',
-    'Ḽ': 'L',
-    'Ḷ': 'L',
-    'Ḹ': 'L',
-    'Ⱡ': 'L',
-    'Ꝉ': 'L',
-    'Ḻ': 'L',
-    'Ŀ': 'L',
-    'Ɫ': 'L',
-    'ǈ': 'L',
-    'Ł': 'L',
-    'Ǉ': 'LJ',
-    'Ḿ': 'M',
-    'Ṁ': 'M',
-    'Ṃ': 'M',
-    'Ɱ': 'M',
-    'Ń': 'N',
-    'Ň': 'N',
-    'Ņ': 'N',
-    'Ṋ': 'N',
-    'Ṅ': 'N',
-    'Ṇ': 'N',
-    'Ǹ': 'N',
-    'Ɲ': 'N',
-    'Ṉ': 'N',
-    'Ƞ': 'N',
-    'ǋ': 'N',
-    'Ñ': 'N',
-    'Ǌ': 'NJ',
-    'Ó': 'O',
-    'Ŏ': 'O',
-    'Ǒ': 'O',
-    'Ô': 'O',
-    'Ố': 'O',
-    'Ộ': 'O',
-    'Ồ': 'O',
-    'Ổ': 'O',
-    'Ỗ': 'O',
-    'Ö': 'O',
-    'Ȫ': 'O',
-    'Ȯ': 'O',
-    'Ȱ': 'O',
-    'Ọ': 'O',
-    'Ő': 'O',
-    'Ȍ': 'O',
-    'Ò': 'O',
-    'Ỏ': 'O',
-    'Ơ': 'O',
-    'Ớ': 'O',
-    'Ợ': 'O',
-    'Ờ': 'O',
-    'Ở': 'O',
-    'Ỡ': 'O',
-    'Ȏ': 'O',
-    'Ꝋ': 'O',
-    'Ꝍ': 'O',
-    'Ō': 'O',
-    'Ṓ': 'O',
-    'Ṑ': 'O',
-    'Ɵ': 'O',
-    'Ǫ': 'O',
-    'Ǭ': 'O',
-    'Ø': 'O',
-    'Ǿ': 'O',
-    'Õ': 'O',
-    'Ṍ': 'O',
-    'Ṏ': 'O',
-    'Ȭ': 'O',
-    'Ƣ': 'OI',
-    'Ꝏ': 'OO',
-    'Ɛ': 'E',
-    'Ɔ': 'O',
-    'Ȣ': 'OU',
-    'Ṕ': 'P',
-    'Ṗ': 'P',
-    'Ꝓ': 'P',
-    'Ƥ': 'P',
-    'Ꝕ': 'P',
-    'Ᵽ': 'P',
-    'Ꝑ': 'P',
-    'Ꝙ': 'Q',
-    'Ꝗ': 'Q',
-    'Ŕ': 'R',
-    'Ř': 'R',
-    'Ŗ': 'R',
-    'Ṙ': 'R',
-    'Ṛ': 'R',
-    'Ṝ': 'R',
-    'Ȑ': 'R',
-    'Ȓ': 'R',
-    'Ṟ': 'R',
-    'Ɍ': 'R',
-    'Ɽ': 'R',
-    'Ꜿ': 'C',
-    'Ǝ': 'E',
-    'Ś': 'S',
-    'Ṥ': 'S',
-    'Š': 'S',
-    'Ṧ': 'S',
-    'Ş': 'S',
-    'Ŝ': 'S',
-    'Ș': 'S',
-    'Ṡ': 'S',
-    'Ṣ': 'S',
-    'Ṩ': 'S',
-    'Ť': 'T',
-    'Ţ': 'T',
-    'Ṱ': 'T',
-    'Ț': 'T',
-    'Ⱦ': 'T',
-    'Ṫ': 'T',
-    'Ṭ': 'T',
-    'Ƭ': 'T',
-    'Ṯ': 'T',
-    'Ʈ': 'T',
-    'Ŧ': 'T',
-    'Ɐ': 'A',
-    'Ꞁ': 'L',
-    'Ɯ': 'M',
-    'Ʌ': 'V',
-    'Ꜩ': 'TZ',
-    'Ú': 'U',
-    'Ŭ': 'U',
-    'Ǔ': 'U',
-    'Û': 'U',
-    'Ṷ': 'U',
-    'Ü': 'U',
-    'Ǘ': 'U',
-    'Ǚ': 'U',
-    'Ǜ': 'U',
-    'Ǖ': 'U',
-    'Ṳ': 'U',
-    'Ụ': 'U',
-    'Ű': 'U',
-    'Ȕ': 'U',
-    'Ù': 'U',
-    'Ủ': 'U',
-    'Ư': 'U',
-    'Ứ': 'U',
-    'Ự': 'U',
-    'Ừ': 'U',
-    'Ử': 'U',
-    'Ữ': 'U',
-    'Ȗ': 'U',
-    'Ū': 'U',
-    'Ṻ': 'U',
-    'Ų': 'U',
-    'Ů': 'U',
-    'Ũ': 'U',
-    'Ṹ': 'U',
-    'Ṵ': 'U',
-    'Ꝟ': 'V',
-    'Ṿ': 'V',
-    'Ʋ': 'V',
-    'Ṽ': 'V',
-    'Ꝡ': 'VY',
-    'Ẃ': 'W',
-    'Ŵ': 'W',
-    'Ẅ': 'W',
-    'Ẇ': 'W',
-    'Ẉ': 'W',
-    'Ẁ': 'W',
-    'Ⱳ': 'W',
-    'Ẍ': 'X',
-    'Ẋ': 'X',
-    'Ý': 'Y',
-    'Ŷ': 'Y',
-    'Ÿ': 'Y',
-    'Ẏ': 'Y',
-    'Ỵ': 'Y',
-    'Ỳ': 'Y',
-    'Ƴ': 'Y',
-    'Ỷ': 'Y',
-    'Ỿ': 'Y',
-    'Ȳ': 'Y',
-    'Ɏ': 'Y',
-    'Ỹ': 'Y',
-    'Ź': 'Z',
-    'Ž': 'Z',
-    'Ẑ': 'Z',
-    'Ⱬ': 'Z',
-    'Ż': 'Z',
-    'Ẓ': 'Z',
-    'Ȥ': 'Z',
-    'Ẕ': 'Z',
-    'Ƶ': 'Z',
-    'Ĳ': 'IJ',
-    'Œ': 'OE',
-    'ᴀ': 'A',
-    'ᴁ': 'AE',
-    'ʙ': 'B',
-    'ᴃ': 'B',
-    'ᴄ': 'C',
-    'ᴅ': 'D',
-    'ᴇ': 'E',
-    'ꜰ': 'F',
-    'ɢ': 'G',
-    'ʛ': 'G',
-    'ʜ': 'H',
-    'ɪ': 'I',
-    'ʁ': 'R',
-    'ᴊ': 'J',
-    'ᴋ': 'K',
-    'ʟ': 'L',
-    'ᴌ': 'L',
-    'ᴍ': 'M',
-    'ɴ': 'N',
-    'ᴏ': 'O',
-    'ɶ': 'OE',
-    'ᴐ': 'O',
-    'ᴕ': 'OU',
-    'ᴘ': 'P',
-    'ʀ': 'R',
-    'ᴎ': 'N',
-    'ᴙ': 'R',
-    'ꜱ': 'S',
-    'ᴛ': 'T',
-    'ⱻ': 'E',
-    'ᴚ': 'R',
-    'ᴜ': 'U',
-    'ᴠ': 'V',
-    'ᴡ': 'W',
-    'ʏ': 'Y',
-    'ᴢ': 'Z',
-    'á': 'a',
-    'ă': 'a',
-    'ắ': 'a',
-    'ặ': 'a',
-    'ằ': 'a',
-    'ẳ': 'a',
-    'ẵ': 'a',
-    'ǎ': 'a',
-    'â': 'a',
-    'ấ': 'a',
-    'ậ': 'a',
-    'ầ': 'a',
-    'ẩ': 'a',
-    'ẫ': 'a',
-    'ä': 'a',
-    'ǟ': 'a',
-    'ȧ': 'a',
-    'ǡ': 'a',
-    'ạ': 'a',
-    'ȁ': 'a',
-    'à': 'a',
-    'ả': 'a',
-    'ȃ': 'a',
-    'ā': 'a',
-    'ą': 'a',
-    'ᶏ': 'a',
-    'ẚ': 'a',
-    'å': 'a',
-    'ǻ': 'a',
-    'ḁ': 'a',
-    'ⱥ': 'a',
-    'ã': 'a',
-    'ꜳ': 'aa',
-    'æ': 'ae',
-    'ǽ': 'ae',
-    'ǣ': 'ae',
-    'ꜵ': 'ao',
-    'ꜷ': 'au',
-    'ꜹ': 'av',
-    'ꜻ': 'av',
-    'ꜽ': 'ay',
-    'ḃ': 'b',
-    'ḅ': 'b',
-    'ɓ': 'b',
-    'ḇ': 'b',
-    'ᵬ': 'b',
-    'ᶀ': 'b',
-    'ƀ': 'b',
-    'ƃ': 'b',
-    'ɵ': 'o',
-    'ć': 'c',
-    'č': 'c',
-    'ç': 'c',
-    'ḉ': 'c',
-    'ĉ': 'c',
-    'ɕ': 'c',
-    'ċ': 'c',
-    'ƈ': 'c',
-    'ȼ': 'c',
-    'ď': 'd',
-    'ḑ': 'd',
-    'ḓ': 'd',
-    'ȡ': 'd',
-    'ḋ': 'd',
-    'ḍ': 'd',
-    'ɗ': 'd',
-    'ᶑ': 'd',
-    'ḏ': 'd',
-    'ᵭ': 'd',
-    'ᶁ': 'd',
-    'đ': 'd',
-    'ɖ': 'd',
-    'ƌ': 'd',
-    'ı': 'i',
-    'ȷ': 'j',
-    'ɟ': 'j',
-    'ʄ': 'j',
-    'ǳ': 'dz',
-    'ǆ': 'dz',
-    'é': 'e',
-    'ĕ': 'e',
-    'ě': 'e',
-    'ȩ': 'e',
-    'ḝ': 'e',
-    'ê': 'e',
-    'ế': 'e',
-    'ệ': 'e',
-    'ề': 'e',
-    'ể': 'e',
-    'ễ': 'e',
-    'ḙ': 'e',
-    'ë': 'e',
-    'ė': 'e',
-    'ẹ': 'e',
-    'ȅ': 'e',
-    'è': 'e',
-    'ẻ': 'e',
-    'ȇ': 'e',
-    'ē': 'e',
-    'ḗ': 'e',
-    'ḕ': 'e',
-    'ⱸ': 'e',
-    'ę': 'e',
-    'ᶒ': 'e',
-    'ɇ': 'e',
-    'ẽ': 'e',
-    'ḛ': 'e',
-    'ꝫ': 'et',
-    'ḟ': 'f',
-    'ƒ': 'f',
-    'ᵮ': 'f',
-    'ᶂ': 'f',
-    'ǵ': 'g',
-    'ğ': 'g',
-    'ǧ': 'g',
-    'ģ': 'g',
-    'ĝ': 'g',
-    'ġ': 'g',
-    'ɠ': 'g',
-    'ḡ': 'g',
-    'ᶃ': 'g',
-    'ǥ': 'g',
-    'ḫ': 'h',
-    'ȟ': 'h',
-    'ḩ': 'h',
-    'ĥ': 'h',
-    'ⱨ': 'h',
-    'ḧ': 'h',
-    'ḣ': 'h',
-    'ḥ': 'h',
-    'ɦ': 'h',
-    'ẖ': 'h',
-    'ħ': 'h',
-    'ƕ': 'hv',
-    'í': 'i',
-    'ĭ': 'i',
-    'ǐ': 'i',
-    'î': 'i',
-    'ï': 'i',
-    'ḯ': 'i',
-    'ị': 'i',
-    'ȉ': 'i',
-    'ì': 'i',
-    'ỉ': 'i',
-    'ȋ': 'i',
-    'ī': 'i',
-    'į': 'i',
-    'ᶖ': 'i',
-    'ɨ': 'i',
-    'ĩ': 'i',
-    'ḭ': 'i',
-    'ꝺ': 'd',
-    'ꝼ': 'f',
-    'ᵹ': 'g',
-    'ꞃ': 'r',
-    'ꞅ': 's',
-    'ꞇ': 't',
-    'ꝭ': 'is',
-    'ǰ': 'j',
-    'ĵ': 'j',
-    'ʝ': 'j',
-    'ɉ': 'j',
-    'ḱ': 'k',
-    'ǩ': 'k',
-    'ķ': 'k',
-    'ⱪ': 'k',
-    'ꝃ': 'k',
-    'ḳ': 'k',
-    'ƙ': 'k',
-    'ḵ': 'k',
-    'ᶄ': 'k',
-    'ꝁ': 'k',
-    'ꝅ': 'k',
-    'ĺ': 'l',
-    'ƚ': 'l',
-    'ɬ': 'l',
-    'ľ': 'l',
-    'ļ': 'l',
-    'ḽ': 'l',
-    'ȴ': 'l',
-    'ḷ': 'l',
-    'ḹ': 'l',
-    'ⱡ': 'l',
-    'ꝉ': 'l',
-    'ḻ': 'l',
-    'ŀ': 'l',
-    'ɫ': 'l',
-    'ᶅ': 'l',
-    'ɭ': 'l',
-    'ł': 'l',
-    'ǉ': 'lj',
-    'ſ': 's',
-    'ẜ': 's',
-    'ẛ': 's',
-    'ẝ': 's',
-    'ḿ': 'm',
-    'ṁ': 'm',
-    'ṃ': 'm',
-    'ɱ': 'm',
-    'ᵯ': 'm',
-    'ᶆ': 'm',
-    'ń': 'n',
-    'ň': 'n',
-    'ņ': 'n',
-    'ṋ': 'n',
-    'ȵ': 'n',
-    'ṅ': 'n',
-    'ṇ': 'n',
-    'ǹ': 'n',
-    'ɲ': 'n',
-    'ṉ': 'n',
-    'ƞ': 'n',
-    'ᵰ': 'n',
-    'ᶇ': 'n',
-    'ɳ': 'n',
-    'ñ': 'n',
-    'ǌ': 'nj',
-    'ó': 'o',
-    'ŏ': 'o',
-    'ǒ': 'o',
-    'ô': 'o',
-    'ố': 'o',
-    'ộ': 'o',
-    'ồ': 'o',
-    'ổ': 'o',
-    'ỗ': 'o',
-    'ö': 'o',
-    'ȫ': 'o',
-    'ȯ': 'o',
-    'ȱ': 'o',
-    'ọ': 'o',
-    'ő': 'o',
-    'ȍ': 'o',
-    'ò': 'o',
-    'ỏ': 'o',
-    'ơ': 'o',
-    'ớ': 'o',
-    'ợ': 'o',
-    'ờ': 'o',
-    'ở': 'o',
-    'ỡ': 'o',
-    'ȏ': 'o',
-    'ꝋ': 'o',
-    'ꝍ': 'o',
-    'ⱺ': 'o',
-    'ō': 'o',
-    'ṓ': 'o',
-    'ṑ': 'o',
-    'ǫ': 'o',
-    'ǭ': 'o',
-    'ø': 'o',
-    'ǿ': 'o',
-    'õ': 'o',
-    'ṍ': 'o',
-    'ṏ': 'o',
-    'ȭ': 'o',
-    'ƣ': 'oi',
-    'ꝏ': 'oo',
-    'ɛ': 'e',
-    'ᶓ': 'e',
-    'ɔ': 'o',
-    'ᶗ': 'o',
-    'ȣ': 'ou',
-    'ṕ': 'p',
-    'ṗ': 'p',
-    'ꝓ': 'p',
-    'ƥ': 'p',
-    'ᵱ': 'p',
-    'ᶈ': 'p',
-    'ꝕ': 'p',
-    'ᵽ': 'p',
-    'ꝑ': 'p',
-    'ꝙ': 'q',
-    'ʠ': 'q',
-    'ɋ': 'q',
-    'ꝗ': 'q',
-    'ŕ': 'r',
-    'ř': 'r',
-    'ŗ': 'r',
-    'ṙ': 'r',
-    'ṛ': 'r',
-    'ṝ': 'r',
-    'ȑ': 'r',
-    'ɾ': 'r',
-    'ᵳ': 'r',
-    'ȓ': 'r',
-    'ṟ': 'r',
-    'ɼ': 'r',
-    'ᵲ': 'r',
-    'ᶉ': 'r',
-    'ɍ': 'r',
-    'ɽ': 'r',
-    'ↄ': 'c',
-    'ꜿ': 'c',
-    'ɘ': 'e',
-    'ɿ': 'r',
-    'ś': 's',
-    'ṥ': 's',
-    'š': 's',
-    'ṧ': 's',
-    'ş': 's',
-    'ŝ': 's',
-    'ș': 's',
-    'ṡ': 's',
-    'ṣ': 's',
-    'ṩ': 's',
-    'ʂ': 's',
-    'ᵴ': 's',
-    'ᶊ': 's',
-    'ȿ': 's',
-    'ɡ': 'g',
-    'ᴑ': 'o',
-    'ᴓ': 'o',
-    'ᴝ': 'u',
-    'ť': 't',
-    'ţ': 't',
-    'ṱ': 't',
-    'ț': 't',
-    'ȶ': 't',
-    'ẗ': 't',
-    'ⱦ': 't',
-    'ṫ': 't',
-    'ṭ': 't',
-    'ƭ': 't',
-    'ṯ': 't',
-    'ᵵ': 't',
-    'ƫ': 't',
-    'ʈ': 't',
-    'ŧ': 't',
-    'ᵺ': 'th',
-    'ɐ': 'a',
-    'ᴂ': 'ae',
-    'ǝ': 'e',
-    'ᵷ': 'g',
-    'ɥ': 'h',
-    'ʮ': 'h',
-    'ʯ': 'h',
-    'ᴉ': 'i',
-    'ʞ': 'k',
-    'ꞁ': 'l',
-    'ɯ': 'm',
-    'ɰ': 'm',
-    'ᴔ': 'oe',
-    'ɹ': 'r',
-    'ɻ': 'r',
-    'ɺ': 'r',
-    'ⱹ': 'r',
-    'ʇ': 't',
-    'ʌ': 'v',
-    'ʍ': 'w',
-    'ʎ': 'y',
-    'ꜩ': 'tz',
-    'ú': 'u',
-    'ŭ': 'u',
-    'ǔ': 'u',
-    'û': 'u',
-    'ṷ': 'u',
-    'ü': 'u',
-    'ǘ': 'u',
-    'ǚ': 'u',
-    'ǜ': 'u',
-    'ǖ': 'u',
-    'ṳ': 'u',
-    'ụ': 'u',
-    'ű': 'u',
-    'ȕ': 'u',
-    'ù': 'u',
-    'ủ': 'u',
-    'ư': 'u',
-    'ứ': 'u',
-    'ự': 'u',
-    'ừ': 'u',
-    'ử': 'u',
-    'ữ': 'u',
-    'ȗ': 'u',
-    'ū': 'u',
-    'ṻ': 'u',
-    'ų': 'u',
-    'ᶙ': 'u',
-    'ů': 'u',
-    'ũ': 'u',
-    'ṹ': 'u',
-    'ṵ': 'u',
-    'ᵫ': 'ue',
-    'ꝸ': 'um',
-    'ⱴ': 'v',
-    'ꝟ': 'v',
-    'ṿ': 'v',
-    'ʋ': 'v',
-    'ᶌ': 'v',
-    'ⱱ': 'v',
-    'ṽ': 'v',
-    'ꝡ': 'vy',
-    'ẃ': 'w',
-    'ŵ': 'w',
-    'ẅ': 'w',
-    'ẇ': 'w',
-    'ẉ': 'w',
-    'ẁ': 'w',
-    'ⱳ': 'w',
-    'ẘ': 'w',
-    'ẍ': 'x',
-    'ẋ': 'x',
-    'ᶍ': 'x',
-    'ý': 'y',
-    'ŷ': 'y',
-    'ÿ': 'y',
-    'ẏ': 'y',
-    'ỵ': 'y',
-    'ỳ': 'y',
-    'ƴ': 'y',
-    'ỷ': 'y',
-    'ỿ': 'y',
-    'ȳ': 'y',
-    'ẙ': 'y',
-    'ɏ': 'y',
-    'ỹ': 'y',
-    'ź': 'z',
-    'ž': 'z',
-    'ẑ': 'z',
-    'ʑ': 'z',
-    'ⱬ': 'z',
-    'ż': 'z',
-    'ẓ': 'z',
-    'ȥ': 'z',
-    'ẕ': 'z',
-    'ᵶ': 'z',
-    'ᶎ': 'z',
-    'ʐ': 'z',
-    'ƶ': 'z',
-    'ɀ': 'z',
-    'ﬀ': 'ff',
-    'ﬃ': 'ffi',
-    'ﬄ': 'ffl',
-    'ﬁ': 'fi',
-    'ﬂ': 'fl',
-    'ĳ': 'ij',
-    'œ': 'oe',
-    'ﬆ': 'st',
-    'ₐ': 'a',
-    'ₑ': 'e',
-    'ᵢ': 'i',
-    'ⱼ': 'j',
-    'ₒ': 'o',
-    'ᵣ': 'r',
-    'ᵤ': 'u',
-    'ᵥ': 'v',
-    'ₓ': 'x'
+    Á: 'A',
+    Ă: 'A',
+    Ắ: 'A',
+    Ặ: 'A',
+    Ằ: 'A',
+    Ẳ: 'A',
+    Ẵ: 'A',
+    Ǎ: 'A',
+    Â: 'A',
+    Ấ: 'A',
+    Ậ: 'A',
+    Ầ: 'A',
+    Ẩ: 'A',
+    Ẫ: 'A',
+    Ä: 'A',
+    Ǟ: 'A',
+    Ȧ: 'A',
+    Ǡ: 'A',
+    Ạ: 'A',
+    Ȁ: 'A',
+    À: 'A',
+    Ả: 'A',
+    Ȃ: 'A',
+    Ā: 'A',
+    Ą: 'A',
+    Å: 'A',
+    Ǻ: 'A',
+    Ḁ: 'A',
+    Ⱥ: 'A',
+    Ã: 'A',
+    Ꜳ: 'AA',
+    Æ: 'AE',
+    Ǽ: 'AE',
+    Ǣ: 'AE',
+    Ꜵ: 'AO',
+    Ꜷ: 'AU',
+    Ꜹ: 'AV',
+    Ꜻ: 'AV',
+    Ꜽ: 'AY',
+    Ḃ: 'B',
+    Ḅ: 'B',
+    Ɓ: 'B',
+    Ḇ: 'B',
+    Ƀ: 'B',
+    Ƃ: 'B',
+    Ć: 'C',
+    Č: 'C',
+    Ç: 'C',
+    Ḉ: 'C',
+    Ĉ: 'C',
+    Ċ: 'C',
+    Ƈ: 'C',
+    Ȼ: 'C',
+    Ď: 'D',
+    Ḑ: 'D',
+    Ḓ: 'D',
+    Ḋ: 'D',
+    Ḍ: 'D',
+    Ɗ: 'D',
+    Ḏ: 'D',
+    ǲ: 'D',
+    ǅ: 'D',
+    Đ: 'D',
+    Ƌ: 'D',
+    Ǳ: 'DZ',
+    Ǆ: 'DZ',
+    É: 'E',
+    Ĕ: 'E',
+    Ě: 'E',
+    Ȩ: 'E',
+    Ḝ: 'E',
+    Ê: 'E',
+    Ế: 'E',
+    Ệ: 'E',
+    Ề: 'E',
+    Ể: 'E',
+    Ễ: 'E',
+    Ḙ: 'E',
+    Ë: 'E',
+    Ė: 'E',
+    Ẹ: 'E',
+    Ȅ: 'E',
+    È: 'E',
+    Ẻ: 'E',
+    Ȇ: 'E',
+    Ē: 'E',
+    Ḗ: 'E',
+    Ḕ: 'E',
+    Ę: 'E',
+    Ɇ: 'E',
+    Ẽ: 'E',
+    Ḛ: 'E',
+    Ꝫ: 'ET',
+    Ḟ: 'F',
+    Ƒ: 'F',
+    Ǵ: 'G',
+    Ğ: 'G',
+    Ǧ: 'G',
+    Ģ: 'G',
+    Ĝ: 'G',
+    Ġ: 'G',
+    Ɠ: 'G',
+    Ḡ: 'G',
+    Ǥ: 'G',
+    Ḫ: 'H',
+    Ȟ: 'H',
+    Ḩ: 'H',
+    Ĥ: 'H',
+    Ⱨ: 'H',
+    Ḧ: 'H',
+    Ḣ: 'H',
+    Ḥ: 'H',
+    Ħ: 'H',
+    Í: 'I',
+    Ĭ: 'I',
+    Ǐ: 'I',
+    Î: 'I',
+    Ï: 'I',
+    Ḯ: 'I',
+    İ: 'I',
+    Ị: 'I',
+    Ȉ: 'I',
+    Ì: 'I',
+    Ỉ: 'I',
+    Ȋ: 'I',
+    Ī: 'I',
+    Į: 'I',
+    Ɨ: 'I',
+    Ĩ: 'I',
+    Ḭ: 'I',
+    Ꝺ: 'D',
+    Ꝼ: 'F',
+    Ᵹ: 'G',
+    Ꞃ: 'R',
+    Ꞅ: 'S',
+    Ꞇ: 'T',
+    Ꝭ: 'IS',
+    Ĵ: 'J',
+    Ɉ: 'J',
+    Ḱ: 'K',
+    Ǩ: 'K',
+    Ķ: 'K',
+    Ⱪ: 'K',
+    Ꝃ: 'K',
+    Ḳ: 'K',
+    Ƙ: 'K',
+    Ḵ: 'K',
+    Ꝁ: 'K',
+    Ꝅ: 'K',
+    Ĺ: 'L',
+    Ƚ: 'L',
+    Ľ: 'L',
+    Ļ: 'L',
+    Ḽ: 'L',
+    Ḷ: 'L',
+    Ḹ: 'L',
+    Ⱡ: 'L',
+    Ꝉ: 'L',
+    Ḻ: 'L',
+    Ŀ: 'L',
+    Ɫ: 'L',
+    ǈ: 'L',
+    Ł: 'L',
+    Ǉ: 'LJ',
+    Ḿ: 'M',
+    Ṁ: 'M',
+    Ṃ: 'M',
+    Ɱ: 'M',
+    Ń: 'N',
+    Ň: 'N',
+    Ņ: 'N',
+    Ṋ: 'N',
+    Ṅ: 'N',
+    Ṇ: 'N',
+    Ǹ: 'N',
+    Ɲ: 'N',
+    Ṉ: 'N',
+    Ƞ: 'N',
+    ǋ: 'N',
+    Ñ: 'N',
+    Ǌ: 'NJ',
+    Ó: 'O',
+    Ŏ: 'O',
+    Ǒ: 'O',
+    Ô: 'O',
+    Ố: 'O',
+    Ộ: 'O',
+    Ồ: 'O',
+    Ổ: 'O',
+    Ỗ: 'O',
+    Ö: 'O',
+    Ȫ: 'O',
+    Ȯ: 'O',
+    Ȱ: 'O',
+    Ọ: 'O',
+    Ő: 'O',
+    Ȍ: 'O',
+    Ò: 'O',
+    Ỏ: 'O',
+    Ơ: 'O',
+    Ớ: 'O',
+    Ợ: 'O',
+    Ờ: 'O',
+    Ở: 'O',
+    Ỡ: 'O',
+    Ȏ: 'O',
+    Ꝋ: 'O',
+    Ꝍ: 'O',
+    Ō: 'O',
+    Ṓ: 'O',
+    Ṑ: 'O',
+    Ɵ: 'O',
+    Ǫ: 'O',
+    Ǭ: 'O',
+    Ø: 'O',
+    Ǿ: 'O',
+    Õ: 'O',
+    Ṍ: 'O',
+    Ṏ: 'O',
+    Ȭ: 'O',
+    Ƣ: 'OI',
+    Ꝏ: 'OO',
+    Ɛ: 'E',
+    Ɔ: 'O',
+    Ȣ: 'OU',
+    Ṕ: 'P',
+    Ṗ: 'P',
+    Ꝓ: 'P',
+    Ƥ: 'P',
+    Ꝕ: 'P',
+    Ᵽ: 'P',
+    Ꝑ: 'P',
+    Ꝙ: 'Q',
+    Ꝗ: 'Q',
+    Ŕ: 'R',
+    Ř: 'R',
+    Ŗ: 'R',
+    Ṙ: 'R',
+    Ṛ: 'R',
+    Ṝ: 'R',
+    Ȑ: 'R',
+    Ȓ: 'R',
+    Ṟ: 'R',
+    Ɍ: 'R',
+    Ɽ: 'R',
+    Ꜿ: 'C',
+    Ǝ: 'E',
+    Ś: 'S',
+    Ṥ: 'S',
+    Š: 'S',
+    Ṧ: 'S',
+    Ş: 'S',
+    Ŝ: 'S',
+    Ș: 'S',
+    Ṡ: 'S',
+    Ṣ: 'S',
+    Ṩ: 'S',
+    Ť: 'T',
+    Ţ: 'T',
+    Ṱ: 'T',
+    Ț: 'T',
+    Ⱦ: 'T',
+    Ṫ: 'T',
+    Ṭ: 'T',
+    Ƭ: 'T',
+    Ṯ: 'T',
+    Ʈ: 'T',
+    Ŧ: 'T',
+    Ɐ: 'A',
+    Ꞁ: 'L',
+    Ɯ: 'M',
+    Ʌ: 'V',
+    Ꜩ: 'TZ',
+    Ú: 'U',
+    Ŭ: 'U',
+    Ǔ: 'U',
+    Û: 'U',
+    Ṷ: 'U',
+    Ü: 'U',
+    Ǘ: 'U',
+    Ǚ: 'U',
+    Ǜ: 'U',
+    Ǖ: 'U',
+    Ṳ: 'U',
+    Ụ: 'U',
+    Ű: 'U',
+    Ȕ: 'U',
+    Ù: 'U',
+    Ủ: 'U',
+    Ư: 'U',
+    Ứ: 'U',
+    Ự: 'U',
+    Ừ: 'U',
+    Ử: 'U',
+    Ữ: 'U',
+    Ȗ: 'U',
+    Ū: 'U',
+    Ṻ: 'U',
+    Ų: 'U',
+    Ů: 'U',
+    Ũ: 'U',
+    Ṹ: 'U',
+    Ṵ: 'U',
+    Ꝟ: 'V',
+    Ṿ: 'V',
+    Ʋ: 'V',
+    Ṽ: 'V',
+    Ꝡ: 'VY',
+    Ẃ: 'W',
+    Ŵ: 'W',
+    Ẅ: 'W',
+    Ẇ: 'W',
+    Ẉ: 'W',
+    Ẁ: 'W',
+    Ⱳ: 'W',
+    Ẍ: 'X',
+    Ẋ: 'X',
+    Ý: 'Y',
+    Ŷ: 'Y',
+    Ÿ: 'Y',
+    Ẏ: 'Y',
+    Ỵ: 'Y',
+    Ỳ: 'Y',
+    Ƴ: 'Y',
+    Ỷ: 'Y',
+    Ỿ: 'Y',
+    Ȳ: 'Y',
+    Ɏ: 'Y',
+    Ỹ: 'Y',
+    Ź: 'Z',
+    Ž: 'Z',
+    Ẑ: 'Z',
+    Ⱬ: 'Z',
+    Ż: 'Z',
+    Ẓ: 'Z',
+    Ȥ: 'Z',
+    Ẕ: 'Z',
+    Ƶ: 'Z',
+    Ĳ: 'IJ',
+    Œ: 'OE',
+    ᴀ: 'A',
+    ᴁ: 'AE',
+    ʙ: 'B',
+    ᴃ: 'B',
+    ᴄ: 'C',
+    ᴅ: 'D',
+    ᴇ: 'E',
+    ꜰ: 'F',
+    ɢ: 'G',
+    ʛ: 'G',
+    ʜ: 'H',
+    ɪ: 'I',
+    ʁ: 'R',
+    ᴊ: 'J',
+    ᴋ: 'K',
+    ʟ: 'L',
+    ᴌ: 'L',
+    ᴍ: 'M',
+    ɴ: 'N',
+    ᴏ: 'O',
+    ɶ: 'OE',
+    ᴐ: 'O',
+    ᴕ: 'OU',
+    ᴘ: 'P',
+    ʀ: 'R',
+    ᴎ: 'N',
+    ᴙ: 'R',
+    ꜱ: 'S',
+    ᴛ: 'T',
+    ⱻ: 'E',
+    ᴚ: 'R',
+    ᴜ: 'U',
+    ᴠ: 'V',
+    ᴡ: 'W',
+    ʏ: 'Y',
+    ᴢ: 'Z',
+    á: 'a',
+    ă: 'a',
+    ắ: 'a',
+    ặ: 'a',
+    ằ: 'a',
+    ẳ: 'a',
+    ẵ: 'a',
+    ǎ: 'a',
+    â: 'a',
+    ấ: 'a',
+    ậ: 'a',
+    ầ: 'a',
+    ẩ: 'a',
+    ẫ: 'a',
+    ä: 'a',
+    ǟ: 'a',
+    ȧ: 'a',
+    ǡ: 'a',
+    ạ: 'a',
+    ȁ: 'a',
+    à: 'a',
+    ả: 'a',
+    ȃ: 'a',
+    ā: 'a',
+    ą: 'a',
+    ᶏ: 'a',
+    ẚ: 'a',
+    å: 'a',
+    ǻ: 'a',
+    ḁ: 'a',
+    ⱥ: 'a',
+    ã: 'a',
+    ꜳ: 'aa',
+    æ: 'ae',
+    ǽ: 'ae',
+    ǣ: 'ae',
+    ꜵ: 'ao',
+    ꜷ: 'au',
+    ꜹ: 'av',
+    ꜻ: 'av',
+    ꜽ: 'ay',
+    ḃ: 'b',
+    ḅ: 'b',
+    ɓ: 'b',
+    ḇ: 'b',
+    ᵬ: 'b',
+    ᶀ: 'b',
+    ƀ: 'b',
+    ƃ: 'b',
+    ɵ: 'o',
+    ć: 'c',
+    č: 'c',
+    ç: 'c',
+    ḉ: 'c',
+    ĉ: 'c',
+    ɕ: 'c',
+    ċ: 'c',
+    ƈ: 'c',
+    ȼ: 'c',
+    ď: 'd',
+    ḑ: 'd',
+    ḓ: 'd',
+    ȡ: 'd',
+    ḋ: 'd',
+    ḍ: 'd',
+    ɗ: 'd',
+    ᶑ: 'd',
+    ḏ: 'd',
+    ᵭ: 'd',
+    ᶁ: 'd',
+    đ: 'd',
+    ɖ: 'd',
+    ƌ: 'd',
+    ı: 'i',
+    ȷ: 'j',
+    ɟ: 'j',
+    ʄ: 'j',
+    ǳ: 'dz',
+    ǆ: 'dz',
+    é: 'e',
+    ĕ: 'e',
+    ě: 'e',
+    ȩ: 'e',
+    ḝ: 'e',
+    ê: 'e',
+    ế: 'e',
+    ệ: 'e',
+    ề: 'e',
+    ể: 'e',
+    ễ: 'e',
+    ḙ: 'e',
+    ë: 'e',
+    ė: 'e',
+    ẹ: 'e',
+    ȅ: 'e',
+    è: 'e',
+    ẻ: 'e',
+    ȇ: 'e',
+    ē: 'e',
+    ḗ: 'e',
+    ḕ: 'e',
+    ⱸ: 'e',
+    ę: 'e',
+    ᶒ: 'e',
+    ɇ: 'e',
+    ẽ: 'e',
+    ḛ: 'e',
+    ꝫ: 'et',
+    ḟ: 'f',
+    ƒ: 'f',
+    ᵮ: 'f',
+    ᶂ: 'f',
+    ǵ: 'g',
+    ğ: 'g',
+    ǧ: 'g',
+    ģ: 'g',
+    ĝ: 'g',
+    ġ: 'g',
+    ɠ: 'g',
+    ḡ: 'g',
+    ᶃ: 'g',
+    ǥ: 'g',
+    ḫ: 'h',
+    ȟ: 'h',
+    ḩ: 'h',
+    ĥ: 'h',
+    ⱨ: 'h',
+    ḧ: 'h',
+    ḣ: 'h',
+    ḥ: 'h',
+    ɦ: 'h',
+    ẖ: 'h',
+    ħ: 'h',
+    ƕ: 'hv',
+    í: 'i',
+    ĭ: 'i',
+    ǐ: 'i',
+    î: 'i',
+    ï: 'i',
+    ḯ: 'i',
+    ị: 'i',
+    ȉ: 'i',
+    ì: 'i',
+    ỉ: 'i',
+    ȋ: 'i',
+    ī: 'i',
+    į: 'i',
+    ᶖ: 'i',
+    ɨ: 'i',
+    ĩ: 'i',
+    ḭ: 'i',
+    ꝺ: 'd',
+    ꝼ: 'f',
+    ᵹ: 'g',
+    ꞃ: 'r',
+    ꞅ: 's',
+    ꞇ: 't',
+    ꝭ: 'is',
+    ǰ: 'j',
+    ĵ: 'j',
+    ʝ: 'j',
+    ɉ: 'j',
+    ḱ: 'k',
+    ǩ: 'k',
+    ķ: 'k',
+    ⱪ: 'k',
+    ꝃ: 'k',
+    ḳ: 'k',
+    ƙ: 'k',
+    ḵ: 'k',
+    ᶄ: 'k',
+    ꝁ: 'k',
+    ꝅ: 'k',
+    ĺ: 'l',
+    ƚ: 'l',
+    ɬ: 'l',
+    ľ: 'l',
+    ļ: 'l',
+    ḽ: 'l',
+    ȴ: 'l',
+    ḷ: 'l',
+    ḹ: 'l',
+    ⱡ: 'l',
+    ꝉ: 'l',
+    ḻ: 'l',
+    ŀ: 'l',
+    ɫ: 'l',
+    ᶅ: 'l',
+    ɭ: 'l',
+    ł: 'l',
+    ǉ: 'lj',
+    ſ: 's',
+    ẜ: 's',
+    ẛ: 's',
+    ẝ: 's',
+    ḿ: 'm',
+    ṁ: 'm',
+    ṃ: 'm',
+    ɱ: 'm',
+    ᵯ: 'm',
+    ᶆ: 'm',
+    ń: 'n',
+    ň: 'n',
+    ņ: 'n',
+    ṋ: 'n',
+    ȵ: 'n',
+    ṅ: 'n',
+    ṇ: 'n',
+    ǹ: 'n',
+    ɲ: 'n',
+    ṉ: 'n',
+    ƞ: 'n',
+    ᵰ: 'n',
+    ᶇ: 'n',
+    ɳ: 'n',
+    ñ: 'n',
+    ǌ: 'nj',
+    ó: 'o',
+    ŏ: 'o',
+    ǒ: 'o',
+    ô: 'o',
+    ố: 'o',
+    ộ: 'o',
+    ồ: 'o',
+    ổ: 'o',
+    ỗ: 'o',
+    ö: 'o',
+    ȫ: 'o',
+    ȯ: 'o',
+    ȱ: 'o',
+    ọ: 'o',
+    ő: 'o',
+    ȍ: 'o',
+    ò: 'o',
+    ỏ: 'o',
+    ơ: 'o',
+    ớ: 'o',
+    ợ: 'o',
+    ờ: 'o',
+    ở: 'o',
+    ỡ: 'o',
+    ȏ: 'o',
+    ꝋ: 'o',
+    ꝍ: 'o',
+    ⱺ: 'o',
+    ō: 'o',
+    ṓ: 'o',
+    ṑ: 'o',
+    ǫ: 'o',
+    ǭ: 'o',
+    ø: 'o',
+    ǿ: 'o',
+    õ: 'o',
+    ṍ: 'o',
+    ṏ: 'o',
+    ȭ: 'o',
+    ƣ: 'oi',
+    ꝏ: 'oo',
+    ɛ: 'e',
+    ᶓ: 'e',
+    ɔ: 'o',
+    ᶗ: 'o',
+    ȣ: 'ou',
+    ṕ: 'p',
+    ṗ: 'p',
+    ꝓ: 'p',
+    ƥ: 'p',
+    ᵱ: 'p',
+    ᶈ: 'p',
+    ꝕ: 'p',
+    ᵽ: 'p',
+    ꝑ: 'p',
+    ꝙ: 'q',
+    ʠ: 'q',
+    ɋ: 'q',
+    ꝗ: 'q',
+    ŕ: 'r',
+    ř: 'r',
+    ŗ: 'r',
+    ṙ: 'r',
+    ṛ: 'r',
+    ṝ: 'r',
+    ȑ: 'r',
+    ɾ: 'r',
+    ᵳ: 'r',
+    ȓ: 'r',
+    ṟ: 'r',
+    ɼ: 'r',
+    ᵲ: 'r',
+    ᶉ: 'r',
+    ɍ: 'r',
+    ɽ: 'r',
+    ↄ: 'c',
+    ꜿ: 'c',
+    ɘ: 'e',
+    ɿ: 'r',
+    ś: 's',
+    ṥ: 's',
+    š: 's',
+    ṧ: 's',
+    ş: 's',
+    ŝ: 's',
+    ș: 's',
+    ṡ: 's',
+    ṣ: 's',
+    ṩ: 's',
+    ʂ: 's',
+    ᵴ: 's',
+    ᶊ: 's',
+    ȿ: 's',
+    ɡ: 'g',
+    ᴑ: 'o',
+    ᴓ: 'o',
+    ᴝ: 'u',
+    ť: 't',
+    ţ: 't',
+    ṱ: 't',
+    ț: 't',
+    ȶ: 't',
+    ẗ: 't',
+    ⱦ: 't',
+    ṫ: 't',
+    ṭ: 't',
+    ƭ: 't',
+    ṯ: 't',
+    ᵵ: 't',
+    ƫ: 't',
+    ʈ: 't',
+    ŧ: 't',
+    ᵺ: 'th',
+    ɐ: 'a',
+    ᴂ: 'ae',
+    ǝ: 'e',
+    ᵷ: 'g',
+    ɥ: 'h',
+    ʮ: 'h',
+    ʯ: 'h',
+    ᴉ: 'i',
+    ʞ: 'k',
+    ꞁ: 'l',
+    ɯ: 'm',
+    ɰ: 'm',
+    ᴔ: 'oe',
+    ɹ: 'r',
+    ɻ: 'r',
+    ɺ: 'r',
+    ⱹ: 'r',
+    ʇ: 't',
+    ʌ: 'v',
+    ʍ: 'w',
+    ʎ: 'y',
+    ꜩ: 'tz',
+    ú: 'u',
+    ŭ: 'u',
+    ǔ: 'u',
+    û: 'u',
+    ṷ: 'u',
+    ü: 'u',
+    ǘ: 'u',
+    ǚ: 'u',
+    ǜ: 'u',
+    ǖ: 'u',
+    ṳ: 'u',
+    ụ: 'u',
+    ű: 'u',
+    ȕ: 'u',
+    ù: 'u',
+    ủ: 'u',
+    ư: 'u',
+    ứ: 'u',
+    ự: 'u',
+    ừ: 'u',
+    ử: 'u',
+    ữ: 'u',
+    ȗ: 'u',
+    ū: 'u',
+    ṻ: 'u',
+    ų: 'u',
+    ᶙ: 'u',
+    ů: 'u',
+    ũ: 'u',
+    ṹ: 'u',
+    ṵ: 'u',
+    ᵫ: 'ue',
+    ꝸ: 'um',
+    ⱴ: 'v',
+    ꝟ: 'v',
+    ṿ: 'v',
+    ʋ: 'v',
+    ᶌ: 'v',
+    ⱱ: 'v',
+    ṽ: 'v',
+    ꝡ: 'vy',
+    ẃ: 'w',
+    ŵ: 'w',
+    ẅ: 'w',
+    ẇ: 'w',
+    ẉ: 'w',
+    ẁ: 'w',
+    ⱳ: 'w',
+    ẘ: 'w',
+    ẍ: 'x',
+    ẋ: 'x',
+    ᶍ: 'x',
+    ý: 'y',
+    ŷ: 'y',
+    ÿ: 'y',
+    ẏ: 'y',
+    ỵ: 'y',
+    ỳ: 'y',
+    ƴ: 'y',
+    ỷ: 'y',
+    ỿ: 'y',
+    ȳ: 'y',
+    ẙ: 'y',
+    ɏ: 'y',
+    ỹ: 'y',
+    ź: 'z',
+    ž: 'z',
+    ẑ: 'z',
+    ʑ: 'z',
+    ⱬ: 'z',
+    ż: 'z',
+    ẓ: 'z',
+    ȥ: 'z',
+    ẕ: 'z',
+    ᵶ: 'z',
+    ᶎ: 'z',
+    ʐ: 'z',
+    ƶ: 'z',
+    ɀ: 'z',
+    ﬀ: 'ff',
+    ﬃ: 'ffi',
+    ﬄ: 'ffl',
+    ﬁ: 'fi',
+    ﬂ: 'fl',
+    ĳ: 'ij',
+    œ: 'oe',
+    ﬆ: 'st',
+    ₐ: 'a',
+    ₑ: 'e',
+    ᵢ: 'i',
+    ⱼ: 'j',
+    ₒ: 'o',
+    ᵣ: 'r',
+    ᵤ: 'u',
+    ᵥ: 'v',
+    ₓ: 'x'
 };
 var TypeaheadMatch = (function () {
     function TypeaheadMatch(item, value, header) {
@@ -6243,12 +6325,13 @@ function tokenize(str, wordRegexDelimiters, phraseRegexDelimiters) {
         phraseRegexDelimiters = '';
     }
     /* tslint:enable */
-    var regexStr = '(?:[' + phraseRegexDelimiters + '])([^' + phraseRegexDelimiters + ']+)(?:[' + phraseRegexDelimiters + '])|([^' + wordRegexDelimiters + ']+)';
+    var regexStr = "(?:[" + phraseRegexDelimiters + "])([^" + phraseRegexDelimiters + "]+)" +
+        ("(?:[" + phraseRegexDelimiters + "])|([^" + wordRegexDelimiters + "]+)");
     var preTokenized = str.split(new RegExp(regexStr, 'g'));
     var result = [];
     var preTokenizedLength = preTokenized.length;
     var token;
-    var replacePhraseDelimiters = new RegExp('[' + phraseRegexDelimiters + ']+', 'g');
+    var replacePhraseDelimiters = new RegExp("[" + phraseRegexDelimiters + "]+", 'g');
     for (var i = 0; i < preTokenizedLength; i += 1) {
         token = preTokenized[i];
         if (token && token.length && token !== wordRegexDelimiters) {
@@ -6265,23 +6348,53 @@ function getValueFromObject(object, option) {
         var functionName = option.slice(0, option.length - 2);
         return object[functionName]().toString();
     }
-    var properties = option.replace(/\[(\w+)\]/g, '.$1')
+    var properties = option
+        .replace(/\[(\w+)\]/g, '.$1')
         .replace(/^\./, '');
     var propertiesArray = properties.split('.');
     for (var _i = 0, propertiesArray_1 = propertiesArray; _i < propertiesArray_1.length; _i++) {
         var property = propertiesArray_1[_i];
         if (property in object) {
+            // tslint:disable-next-line
             object = object[property];
         }
     }
-    if (!object)
-        return "";
+    if (!object) {
+        return '';
+    }
     return object.toString();
 }
+var Utils = (function () {
+    function Utils() {
+    }
+    Utils.reflow = function (element) {
+        (function (bs) { return bs; })(element.offsetHeight);
+    };
+    // source: https://github.com/jquery/jquery/blob/master/src/css/var/getStyles.js
+    Utils.getStyles = function (elem) {
+        // Support: IE <=11 only, Firefox <=30 (#15098, #14150)
+        // IE throws on elements created in popups
+        // FF meanwhile throws on frame elements through "defaultView.getComputedStyle"
+        var view = elem.ownerDocument.defaultView;
+        if (!view || !view.opener) {
+            view = win;
+        }
+        return view.getComputedStyle(elem);
+    };
+    return Utils;
+}());
 var TypeaheadContainerComponent = (function () {
-    function TypeaheadContainerComponent(element) {
+    function TypeaheadContainerComponent(element, renderer) {
+        this.renderer = renderer;
         this.isFocused = false;
         this._matches = [];
+        this.isScrolledIntoView = function (elem) {
+            var containerViewTop = this.ulElement.nativeElement.scrollTop;
+            var containerViewBottom = containerViewTop + this.ulElement.nativeElement.offsetHeight;
+            var elemTop = elem.offsetTop;
+            var elemBottom = elemTop + elem.offsetHeight;
+            return ((elemBottom <= containerViewBottom) && (elemTop >= containerViewTop));
+        };
         this.element = element;
     }
     Object.defineProperty(TypeaheadContainerComponent.prototype, "isBs4", {
@@ -6303,7 +6416,14 @@ var TypeaheadContainerComponent = (function () {
             return this._matches;
         },
         set: function (value) {
+            var _this = this;
             this._matches = value;
+            this.needScrollbar = this.typeaheadScrollable && this.typeaheadOptionsInScrollableView < this.matches.length;
+            if (this.typeaheadScrollable) {
+                setTimeout(function () {
+                    _this.setScrollableMode();
+                });
+            }
             if (this._matches.length > 0) {
                 this._active = this._matches[0];
                 if (this._active.isHeader()) {
@@ -6321,6 +6441,20 @@ var TypeaheadContainerComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TypeaheadContainerComponent.prototype, "typeaheadScrollable", {
+        get: function () {
+            return this.parent ? this.parent.typeaheadScrollable : false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeaheadContainerComponent.prototype, "typeaheadOptionsInScrollableView", {
+        get: function () {
+            return this.parent ? this.parent.typeaheadOptionsInScrollableView : 5;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(TypeaheadContainerComponent.prototype, "itemTemplate", {
         get: function () {
             return this.parent ? this.parent.typeaheadItemTemplate : undefined;
@@ -6333,20 +6467,22 @@ var TypeaheadContainerComponent = (function () {
     };
     TypeaheadContainerComponent.prototype.prevActiveMatch = function () {
         var index = this.matches.indexOf(this._active);
-        this._active = this.matches[index - 1 < 0
-            ? this.matches.length - 1
-            : index - 1];
+        this._active = this.matches[index - 1 < 0 ? this.matches.length - 1 : index - 1];
         if (this._active.isHeader()) {
             this.prevActiveMatch();
+        }
+        if (this.typeaheadScrollable) {
+            this.scrollPrevious(index);
         }
     };
     TypeaheadContainerComponent.prototype.nextActiveMatch = function () {
         var index = this.matches.indexOf(this._active);
-        this._active = this.matches[index + 1 > this.matches.length - 1
-            ? 0
-            : index + 1];
+        this._active = this.matches[index + 1 > this.matches.length - 1 ? 0 : index + 1];
         if (this._active.isHeader()) {
             this.nextActiveMatch();
+        }
+        if (this.typeaheadScrollable) {
+            this.scrollNext(index);
         }
     };
     TypeaheadContainerComponent.prototype.selectActive = function (value) {
@@ -6368,8 +6504,12 @@ var TypeaheadContainerComponent = (function () {
                 startIdx = itemStrHelper.indexOf(query[i]);
                 tokenLen = query[i].length;
                 if (startIdx >= 0 && tokenLen > 0) {
-                    itemStr = itemStr.substring(0, startIdx) + '<strong>' + itemStr.substring(startIdx, startIdx + tokenLen) + '</strong>' + itemStr.substring(startIdx + tokenLen);
-                    itemStrHelper = itemStrHelper.substring(0, startIdx) + '        ' + ' '.repeat(tokenLen) + '         ' + itemStrHelper.substring(startIdx + tokenLen);
+                    itemStr =
+                        itemStr.substring(0, startIdx) + "<strong>" + itemStr.substring(startIdx, startIdx + tokenLen) + "</strong>" +
+                            ("" + itemStr.substring(startIdx + tokenLen));
+                    itemStrHelper =
+                        itemStrHelper.substring(0, startIdx) + "        " + ' '.repeat(tokenLen) + "         " +
+                            ("" + itemStrHelper.substring(startIdx + tokenLen));
                 }
             }
         }
@@ -6378,7 +6518,9 @@ var TypeaheadContainerComponent = (function () {
             startIdx = itemStrHelper.indexOf(query);
             tokenLen = query.length;
             if (startIdx >= 0 && tokenLen > 0) {
-                itemStr = itemStr.substring(0, startIdx) + '<strong>' + itemStr.substring(startIdx, startIdx + tokenLen) + '</strong>' + itemStr.substring(startIdx + tokenLen);
+                itemStr =
+                    itemStr.substring(0, startIdx) + "<strong>" + itemStr.substring(startIdx, startIdx + tokenLen) + "</strong>" +
+                        ("" + itemStr.substring(startIdx + tokenLen));
             }
         }
         return itemStr;
@@ -6399,55 +6541,133 @@ var TypeaheadContainerComponent = (function () {
             e.preventDefault();
         }
         this.parent.changeModel(value);
-        setTimeout(function () {
-            return _this.parent.typeaheadOnSelect.emit(value);
-        }, 0);
+        setTimeout(function () { return _this.parent.typeaheadOnSelect.emit(value); }, 0);
         return false;
+    };
+    TypeaheadContainerComponent.prototype.setScrollableMode = function () {
+        if (!this.ulElement) {
+            this.ulElement = this.element;
+        }
+        if (this.liElements.first) {
+            var ulStyles = Utils.getStyles(this.ulElement.nativeElement);
+            var liStyles = Utils.getStyles(this.liElements.first.nativeElement);
+            var ulPaddingBottom = parseFloat((ulStyles['padding-bottom'] ? ulStyles['padding-bottom'] : '').replace('px', ''));
+            var ulPaddingTop = parseFloat((ulStyles['padding-top'] ? ulStyles['padding-top'] : '0').replace('px', ''));
+            var optionHeight = parseFloat((liStyles['height'] ? liStyles['height'] : '0').replace('px', ''));
+            var height = this.typeaheadOptionsInScrollableView * optionHeight;
+            this.guiHeight = (height + ulPaddingTop + ulPaddingBottom) + 'px';
+        }
+        this.renderer.setStyle(this.element.nativeElement, 'visibility', 'visible');
+    };
+    TypeaheadContainerComponent.prototype.scrollPrevious = function (index) {
+        if (index === 0) {
+            this.scrollToBottom();
+            return;
+        }
+        if (this.liElements) {
+            var liElement = this.liElements.toArray()[index - 1];
+            if (liElement && !this.isScrolledIntoView(liElement.nativeElement)) {
+                this.ulElement.nativeElement.scrollTop = liElement.nativeElement.offsetTop;
+            }
+        }
+    };
+    TypeaheadContainerComponent.prototype.scrollNext = function (index) {
+        if (index + 1 > this.matches.length - 1) {
+            this.scrollToTop();
+            return;
+        }
+        if (this.liElements) {
+            var liElement = this.liElements.toArray()[index + 1];
+            if (liElement && !this.isScrolledIntoView(liElement.nativeElement)) {
+                this.ulElement.nativeElement.scrollTop =
+                    liElement.nativeElement.offsetTop -
+                        this.ulElement.nativeElement.offsetHeight +
+                        liElement.nativeElement.offsetHeight;
+            }
+        }
+    };
+    TypeaheadContainerComponent.prototype.scrollToBottom = function () {
+        this.ulElement.nativeElement.scrollTop = this.ulElement.nativeElement.scrollHeight;
+    };
+    TypeaheadContainerComponent.prototype.scrollToTop = function () {
+        this.ulElement.nativeElement.scrollTop = 0;
     };
     TypeaheadContainerComponent.decorators = [
         { type: core.Component, args: [{
                     selector: 'typeahead-container',
                     // tslint:disable-next-line
-                    template: "\n<!-- inject options list template -->\n<template [ngTemplateOutlet]=\"optionsListTemplate || (isBs4 ? bs4Template : bs3Template)\"\n  [ngOutletContext]=\"{matches:matches, itemTemplate:itemTemplate, query:query}\"></template>\n\n<!-- default options item template -->\n<template #bsItemTemplate let-match=\"match\" let-query=\"query\"><span [innerHtml]=\"hightlight(match, query)\"></span></template>\n\n<!-- Bootstrap 3 options list template -->\n<template #bs3Template>\n<ul class=\"dropdown-menu\">\n  <template ngFor let-match let-i=\"index\" [ngForOf]=\"matches\">\n    <li *ngIf=\"match.isHeader()\" class=\"dropdown-header\">{{match}}</li>\n    <li *ngIf=\"!match.isHeader()\" [class.active]=\"isActive(match)\" (mouseenter)=\"selectActive(match)\">\n      <a href=\"#\" (click)=\"selectMatch(match, $event)\" tabindex=\"-1\">\n        <template [ngTemplateOutlet]=\"itemTemplate || bsItemTemplate\" \n          [ngOutletContext]=\"{item:match.item, index:i, match:match, query:query}\"></template>\n      </a>\n    </li>\n  </template>\n</ul>\n</template>\n\n<!-- Bootstrap 4 options list template -->\n<template #bs4Template >\n<template ngFor let-match let-i=\"index\" [ngForOf]=\"matches\">\n   <h6 *ngIf=\"match.isHeader()\" class=\"dropdown-header\">{{match}}</h6>\n   <template [ngIf]=\"!match.isHeader()\">\n      <button\n        class=\"dropdown-item\"\n        (click)=\"selectMatch(match, $event)\"\n        (mouseenter)=\"selectActive(match)\"\n        [class.active]=\"isActive(match)\">\n          <template [ngTemplateOutlet]=\"itemTemplate || bsItemTemplate\" \n            [ngOutletContext]=\"{item:match.item, index:i, match:match, query:query}\"></template>\n      </button>\n  </template>\n</template>\n</template>\n",
-                    // tslint:disable
+                    template: "<!-- inject options list template --> <ng-template [ngTemplateOutlet]=\"optionsListTemplate || (isBs4 ? bs4Template : bs3Template)\" [ngTemplateOutletContext]=\"{matches:matches, itemTemplate:itemTemplate, query:query}\"></ng-template> <!-- default options item template --> <ng-template #bsItemTemplate let-match=\"match\" let-query=\"query\"><span [innerHtml]=\"hightlight(match, query)\"></span> </ng-template> <!-- Bootstrap 3 options list template --> <ng-template #bs3Template> <ul class=\"dropdown-menu\" #ulElement [style.overflow-y]=\"needScrollbar ? 'scroll': 'auto'\" [style.height]=\"needScrollbar ? guiHeight: 'auto'\"> <ng-template ngFor let-match let-i=\"index\" [ngForOf]=\"matches\"> <li #liElements *ngIf=\"match.isHeader()\" class=\"dropdown-header\">{{ match }}</li> <li #liElements *ngIf=\"!match.isHeader()\" [class.active]=\"isActive(match)\" (mouseenter)=\"selectActive(match)\"> <a href=\"#\" (click)=\"selectMatch(match, $event)\" tabindex=\"-1\"> <ng-template [ngTemplateOutlet]=\"itemTemplate || bsItemTemplate\" [ngTemplateOutletContext]=\"{item:match.item, index:i, match:match, query:query}\"></ng-template> </a> </li> </ng-template> </ul> </ng-template> <!-- Bootstrap 4 options list template --> <ng-template #bs4Template> <ng-template ngFor let-match let-i=\"index\" [ngForOf]=\"matches\"> <h6 *ngIf=\"match.isHeader()\" class=\"dropdown-header\">{{ match }}</h6> <ng-template [ngIf]=\"!match.isHeader()\"> <button #liElements class=\"dropdown-item\" (click)=\"selectMatch(match, $event)\" (mouseenter)=\"selectActive(match)\" [class.active]=\"isActive(match)\"> <ng-template [ngTemplateOutlet]=\"itemTemplate || bsItemTemplate\" [ngTemplateOutletContext]=\"{item:match.item, index:i, match:match, query:query}\"></ng-template> </button> </ng-template> </ng-template> </ng-template> ",
                     host: {
-                        'class': 'dropdown open',
+                        class: 'dropdown open',
                         '[class.dropdown-menu]': 'isBs4',
+                        '[style.overflow-y]': "isBs4 && needScrollbar ? 'scroll': 'visible'",
+                        '[style.height]': "isBs4 && needScrollbar ? guiHeight: 'auto'",
+                        '[style.visibility]': "typeaheadScrollable ? 'hidden' : 'visible'",
                         '[class.dropup]': 'dropup',
                         style: 'position: absolute;display: block;'
-                    },
-                    // tslint: enable
-                    encapsulation: core.ViewEncapsulation.None
+                    }
                 },] },
     ];
     /** @nocollapse */
     TypeaheadContainerComponent.ctorParameters = function () {
         return [
             { type: core.ElementRef, },
+            { type: core.Renderer2, },
         ];
     };
     TypeaheadContainerComponent.propDecorators = {
+        'ulElement': [{ type: core.ViewChild, args: ['ulElement',] },],
+        'liElements': [{ type: core.ViewChildren, args: ['liElements',] },],
         'focusLost': [{ type: core.HostListener, args: ['mouseleave',] }, { type: core.HostListener, args: ['blur',] },],
     };
     return TypeaheadContainerComponent;
 }());
+/* tslint:disable:max-file-line-count */
 var TypeaheadDirective = (function () {
-    function TypeaheadDirective(control, viewContainerRef, element, renderer, cis) {
-        /** minimal no of characters that needs to be entered before typeahead kicks-in. When set to 0, typeahead shows on focus with full list of options (limited as normal by typeaheadOptionsLimit) */
+    function TypeaheadDirective(ngControl, element, viewContainerRef, renderer, cis, changeDetection) {
+        this.ngControl = ngControl;
+        this.element = element;
+        this.renderer = renderer;
+        this.changeDetection = changeDetection;
+        /** minimal no of characters that needs to be entered before
+         * typeahead kicks-in. When set to 0, typeahead shows on focus with full
+         * list of options (limited as normal by typeaheadOptionsLimit)
+         */
         this.typeaheadMinLength = void 0;
-        /** should be used only in case of typeahead attribute is array. If true - loading of options will be async, otherwise - sync. true make sense if options array is large. */
+        /** should be used only in case of typeahead attribute is array.
+         * If true - loading of options will be async, otherwise - sync.
+         * true make sense if options array is large.
+         */
         this.typeaheadAsync = void 0;
-        /** match latin symbols. If true the word súper would match super and vice versa. */
+        /** match latin symbols.
+         * If true the word súper would match super and vice versa.
+         */
         this.typeaheadLatinize = true;
-        /** break words with spaces. If true the text "exact phrase" here match would match with match exact phrase here but not with phrase here exact match (kind of "google style"). */
+        /** break words with spaces. If true the text "exact phrase"
+         * here match would match with match exact phrase here
+         * but not with phrase here exact match (kind of "google style").
+         */
         this.typeaheadSingleWords = true;
-        /** should be used only in case typeaheadSingleWords attribute is true. Sets the word delimiter to break words. Defaults to space. */
+        /** should be used only in case typeaheadSingleWords attribute is true.
+         * Sets the word delimiter to break words. Defaults to space.
+         */
         this.typeaheadWordDelimiters = ' ';
-        /** should be used only in case typeaheadSingleWords attribute is true. Sets the word delimiter to match exact phrase. Defaults to simple and double quotes. */
+        /** should be used only in case typeaheadSingleWords attribute is true.
+         * Sets the word delimiter to match exact phrase.
+         * Defaults to simple and double quotes.
+         */
         this.typeaheadPhraseDelimiters = '\'"';
-        /** fired when 'busy' state of this component was changed, fired on async mode only, returns boolean */
+        /** specifies if typeahead is scrollable  */
+        this.typeaheadScrollable = false;
+        /** specifies number of options to show in scroll view  */
+        this.typeaheadOptionsInScrollableView = 5;
+        /** fired when 'busy' state of this component was changed,
+         * fired on async mode only, returns boolean
+         */
         this.typeaheadLoading = new core.EventEmitter();
-        /** fired on every key event and returns true in case of matches are not detected */
+        /** fired on every key event and returns true
+         * in case of matches are not detected
+         */
         this.typeaheadNoResults = new core.EventEmitter();
         /** fired when option was selected, return object with data of this option */
         this.typeaheadOnSelect = new core.EventEmitter();
@@ -6459,36 +6679,29 @@ var TypeaheadDirective = (function () {
         this.keyUpEventEmitter = new core.EventEmitter();
         this.placement = 'bottom-left';
         this._subscriptions = [];
-        this.element = element;
-        this.ngControl = control;
-        this.viewContainerRef = viewContainerRef;
-        this.renderer = renderer;
-        this._typeahead = cis
-            .createLoader(element, viewContainerRef, renderer);
+        this._typeahead = cis.createLoader(element, viewContainerRef, renderer);
     }
-    TypeaheadDirective.prototype.onChange = function (e) {
-        if (this._container) {
-            // esc
-            if (e.keyCode === 27) {
-                this.hide();
-                return;
-            }
-            // up
-            if (e.keyCode === 38) {
-                this._container.prevActiveMatch();
-                return;
-            }
-            // down
-            if (e.keyCode === 40) {
-                this._container.nextActiveMatch();
-                return;
-            }
-            // enter
-            if (e.keyCode === 13) {
-                this._container.selectActiveMatch();
-                return;
-            }
+    TypeaheadDirective.prototype.ngOnInit = function () {
+        this.typeaheadOptionsLimit = this.typeaheadOptionsLimit || 20;
+        this.typeaheadMinLength =
+            this.typeaheadMinLength === void 0 ? 1 : this.typeaheadMinLength;
+        this.typeaheadWaitMs = this.typeaheadWaitMs || 0;
+        // async should be false in case of array
+        if (this.typeaheadAsync === undefined &&
+            !(this.typeahead instanceof Observable.Observable)) {
+            this.typeaheadAsync = false;
         }
+        if (this.typeahead instanceof Observable.Observable) {
+            this.typeaheadAsync = true;
+        }
+        if (this.typeaheadAsync) {
+            this.asyncActions();
+        }
+        else {
+            this.syncActions();
+        }
+    };
+    TypeaheadDirective.prototype.onInput = function (e) {
         // For `<input>`s, use the `value` property. For others that don't have a
         // `value` (such as `<span contenteditable="true">`), use either
         // `textContent` or `innerText` (depending on which one is supported, i.e.
@@ -6508,6 +6721,30 @@ var TypeaheadDirective = (function () {
             this.hide();
         }
     };
+    TypeaheadDirective.prototype.onChange = function (e) {
+        if (this._container) {
+            // esc
+            if (e.keyCode === 27) {
+                this.hide();
+                return;
+            }
+            // up
+            if (e.keyCode === 38) {
+                this._container.prevActiveMatch();
+                return;
+            }
+            // down
+            if (e.keyCode === 40) {
+                this._container.nextActiveMatch();
+                return;
+            }
+            // enter, tab
+            if (e.keyCode === 13 || e.keyCode === 9) {
+                this._container.selectActiveMatch();
+                return;
+            }
+        }
+    };
     TypeaheadDirective.prototype.onFocus = function () {
         if (this.typeaheadMinLength === 0) {
             this.typeaheadLoading.emit(true);
@@ -6517,7 +6754,6 @@ var TypeaheadDirective = (function () {
     TypeaheadDirective.prototype.onBlur = function () {
         if (this._container && !this._container.isFocused) {
             this.typeaheadOnBlur.emit(this._container.active);
-            this.hide();
         }
     };
     TypeaheadDirective.prototype.onKeydown = function (e) {
@@ -6525,36 +6761,22 @@ var TypeaheadDirective = (function () {
         if (!this._container) {
             return;
         }
-        // if items is visible - prevent form submition
+        // if an item is visible - prevent form submission
         if (e.keyCode === 13) {
             e.preventDefault();
             return;
         }
-    };
-    TypeaheadDirective.prototype.ngOnInit = function () {
-        this.typeaheadOptionsLimit = this.typeaheadOptionsLimit || 20;
-        this.typeaheadMinLength = this.typeaheadMinLength === void 0
-            ? 1
-            : this.typeaheadMinLength;
-        this.typeaheadWaitMs = this.typeaheadWaitMs || 0;
-        // async should be false in case of array
-        if (this.typeaheadAsync === undefined && !(this.typeahead instanceof Observable.Observable)) {
-            this.typeaheadAsync = false;
-        }
-        if (this.typeahead instanceof Observable.Observable) {
-            this.typeaheadAsync = true;
-        }
-        if (this.typeaheadAsync) {
-            this.asyncActions();
-        }
-        else {
-            this.syncActions();
+        // if an item is visible - don't change focus
+        if (e.keyCode === 9) {
+            e.preventDefault();
+            return;
         }
     };
     TypeaheadDirective.prototype.changeModel = function (match) {
         var valueStr = match.value;
         this.ngControl.viewToModelUpdate(valueStr);
-        this.ngControl.control.setValue(valueStr);
+        (this.ngControl.control).setValue(valueStr);
+        this.changeDetection.markForCheck();
         this.hide();
     };
     Object.defineProperty(TypeaheadDirective.prototype, "matches", {
@@ -6565,6 +6787,7 @@ var TypeaheadDirective = (function () {
         configurable: true
     });
     TypeaheadDirective.prototype.show = function () {
+        var _this = this;
         this._typeahead
             .attach(TypeaheadContainerComponent)
             .to(this.container)
@@ -6575,12 +6798,16 @@ var TypeaheadDirective = (function () {
             animation: false,
             dropup: this.dropup
         });
+        this._outsideClickListener = this.renderer.listen('document', 'click', function () {
+            _this.onOutsideClick();
+        });
         this._container = this._typeahead.instance;
         this._container.parent = this;
         // This improves the speed as it won't have to be done for each list item
         var normalizedQuery = (this.typeaheadLatinize
             ? latinize(this.ngControl.control.value)
-            : this.ngControl.control.value).toString()
+            : this.ngControl.control.value)
+            .toString()
             .toLowerCase();
         this._container.query = this.typeaheadSingleWords
             ? tokenize(normalizedQuery, this.typeaheadWordDelimiters, this.typeaheadPhraseDelimiters)
@@ -6591,7 +6818,13 @@ var TypeaheadDirective = (function () {
     TypeaheadDirective.prototype.hide = function () {
         if (this._typeahead.isShown) {
             this._typeahead.hide();
+            this._outsideClickListener();
             this._container = null;
+        }
+    };
+    TypeaheadDirective.prototype.onOutsideClick = function () {
+        if (this._container && !this._container.isFocused) {
+            this.hide();
         }
     };
     TypeaheadDirective.prototype.ngOnDestroy = function () {
@@ -6609,8 +6842,6 @@ var TypeaheadDirective = (function () {
             .mergeMap(function () { return _this.typeahead; })
             .subscribe(function (matches) {
             _this.finalizeAsyncCall(matches);
-        }, function (err) {
-            console.error(err);
         }));
     };
     TypeaheadDirective.prototype.syncActions = function () {
@@ -6621,14 +6852,13 @@ var TypeaheadDirective = (function () {
             var normalizedQuery = _this.normalizeQuery(value);
             return Observable.Observable.from(_this.typeahead)
                 .filter(function (option) {
-                return option && _this.testMatch(_this.normalizeOption(option), normalizedQuery);
+                return (option &&
+                    _this.testMatch(_this.normalizeOption(option), normalizedQuery));
             })
                 .toArray();
         })
             .subscribe(function (matches) {
             _this.finalizeAsyncCall(matches);
-        }, function (err) {
-            console.error(err);
         }));
     };
     TypeaheadDirective.prototype.normalizeOption = function (option) {
@@ -6641,7 +6871,9 @@ var TypeaheadDirective = (function () {
     TypeaheadDirective.prototype.normalizeQuery = function (value) {
         // If singleWords, break model here to not be doing extra work on each
         // iteration
-        var normalizedQuery = (this.typeaheadLatinize ? latinize(value) : value)
+        var normalizedQuery = (this.typeaheadLatinize
+            ? latinize(value)
+            : value)
             .toString()
             .toLowerCase();
         normalizedQuery = this.typeaheadSingleWords
@@ -6660,9 +6892,7 @@ var TypeaheadDirective = (function () {
             }
             return true;
         }
-        else {
-            return match.indexOf(test) >= 0;
-        }
+        return match.indexOf(test) >= 0;
     };
     TypeaheadDirective.prototype.finalizeAsyncCall = function (matches) {
         this.prepareMatches(matches);
@@ -6676,7 +6906,8 @@ var TypeaheadDirective = (function () {
             // This improves the speed as it won't have to be done for each list item
             var normalizedQuery = (this.typeaheadLatinize
                 ? latinize(this.ngControl.control.value)
-                : this.ngControl.control.value).toString()
+                : this.ngControl.control.value)
+                .toString()
                 .toLowerCase();
             this._container.query = this.typeaheadSingleWords
                 ? tokenize(normalizedQuery, this.typeaheadWordDelimiters, this.typeaheadPhraseDelimiters)
@@ -6694,20 +6925,28 @@ var TypeaheadDirective = (function () {
             var matches_1 = [];
             // extract all group names
             var groups = limited
-                .map(function (option) { return getValueFromObject(option, _this.typeaheadGroupField); })
+                .map(function (option) {
+                return getValueFromObject(option, _this.typeaheadGroupField);
+            })
                 .filter(function (v, i, a) { return a.indexOf(v) === i; });
             groups.forEach(function (group) {
                 // add group header to array of matches
                 matches_1.push(new TypeaheadMatch(group, group, true));
                 // add each item of group to array of matches
                 matches_1 = matches_1.concat(limited
-                    .filter(function (option) { return getValueFromObject(option, _this.typeaheadGroupField) === group; })
-                    .map(function (option) { return new TypeaheadMatch(option, getValueFromObject(option, _this.typeaheadOptionField)); }));
+                    .filter(function (option) {
+                    return getValueFromObject(option, _this.typeaheadGroupField) === group;
+                })
+                    .map(function (option) {
+                    return new TypeaheadMatch(option, getValueFromObject(option, _this.typeaheadOptionField));
+                }));
             });
             this._matches = matches_1;
         }
         else {
-            this._matches = limited.map(function (option) { return new TypeaheadMatch(option, getValueFromObject(option, _this.typeaheadOptionField)); });
+            this._matches = limited.map(function (option) {
+                return new TypeaheadMatch(option, getValueFromObject(option, _this.typeaheadOptionField));
+            });
         }
     };
     TypeaheadDirective.prototype.hasMatches = function () {
@@ -6720,10 +6959,11 @@ var TypeaheadDirective = (function () {
     TypeaheadDirective.ctorParameters = function () {
         return [
             { type: forms.NgControl, },
-            { type: core.ViewContainerRef, },
             { type: core.ElementRef, },
-            { type: core.Renderer, },
+            { type: core.ViewContainerRef, },
+            { type: core.Renderer2, },
             { type: ComponentLoaderFactory, },
+            { type: core.ChangeDetectorRef, },
         ];
     };
     TypeaheadDirective.propDecorators = {
@@ -6740,14 +6980,17 @@ var TypeaheadDirective = (function () {
         'typeaheadPhraseDelimiters': [{ type: core.Input },],
         'typeaheadItemTemplate': [{ type: core.Input },],
         'optionsListTemplate': [{ type: core.Input },],
+        'typeaheadScrollable': [{ type: core.Input },],
+        'typeaheadOptionsInScrollableView': [{ type: core.Input },],
         'typeaheadLoading': [{ type: core.Output },],
         'typeaheadNoResults': [{ type: core.Output },],
         'typeaheadOnSelect': [{ type: core.Output },],
         'typeaheadOnBlur': [{ type: core.Output },],
         'container': [{ type: core.Input },],
         'dropup': [{ type: core.Input },],
+        'onInput': [{ type: core.HostListener, args: ['input', ['$event'],] },],
         'onChange': [{ type: core.HostListener, args: ['keyup', ['$event'],] },],
-        'onFocus': [{ type: core.HostListener, args: ['focus',] },],
+        'onFocus': [{ type: core.HostListener, args: ['click',] }, { type: core.HostListener, args: ['focus',] },],
         'onBlur': [{ type: core.HostListener, args: ['blur',] },],
         'onKeydown': [{ type: core.HostListener, args: ['keydown', ['$event'],] },],
     };
@@ -7289,14 +7532,14 @@ var BsDropdownContainerComponent = (function () {
             _this.isOpen = value;
             var dropdown = _element.nativeElement.querySelector('.dropdown-menu');
             if (dropdown) {
-                _this._renderer.setElementClass(dropdown, 'show', true);
+                _this._renderer.addClass(dropdown, 'show');
                 if (dropdown.classList.contains('dropdown-menu-right')) {
-                    _this._renderer.setElementStyle(dropdown, 'left', 'auto');
-                    _this._renderer.setElementStyle(dropdown, 'right', '0');
+                    _this._renderer.setStyle(dropdown, 'left', 'auto');
+                    _this._renderer.setStyle(dropdown, 'right', '0');
                 }
                 if (_this.direction === 'up') {
-                    _this._renderer.setElementStyle(dropdown, 'top', 'auto');
-                    _this._renderer.setElementStyle(dropdown, 'transform', 'translateY(-101%)');
+                    _this._renderer.setStyle(dropdown, 'top', 'auto');
+                    _this._renderer.setStyle(dropdown, 'transform', 'translateY(-101%)');
                 }
             }
             _this.cd.markForCheck();
@@ -7328,12 +7571,13 @@ var BsDropdownContainerComponent = (function () {
         return [
             { type: BsDropdownState, },
             { type: core.ChangeDetectorRef, },
-            { type: core.Renderer, },
+            { type: core.Renderer2, },
             { type: core.ElementRef, },
         ];
     };
     return BsDropdownContainerComponent;
 }());
+// tslint:disable:max-file-line-count
 var BsDropdownDirective = (function () {
     function BsDropdownDirective(_elementRef, _renderer, _viewContainerRef, _cis, _config, _state) {
         this._elementRef = _elementRef;
@@ -7346,6 +7590,8 @@ var BsDropdownDirective = (function () {
         this._isInlineOpen = false;
         this._subscriptions = [];
         this._isInited = false;
+        // set initial dropdown state from config
+        this._state.autoClose = this._config.autoClose;
         // create dropdown component loader
         this._dropdown = this._cis
             .createLoader(this._elementRef, this._viewContainerRef, this._renderer)
@@ -7353,8 +7599,6 @@ var BsDropdownDirective = (function () {
         this.onShown = this._dropdown.onShown;
         this.onHidden = this._dropdown.onHidden;
         this.isOpenChange = this._state.isOpenChange;
-        // set initial dropdown state from config
-        this._state.autoClose = this._config.autoClose;
     }
     Object.defineProperty(BsDropdownDirective.prototype, "autoClose", {
         get: function () {
@@ -7365,15 +7609,15 @@ var BsDropdownDirective = (function () {
          * and after pressing ESC
          */
         set: function (value) {
-            if (typeof value === 'boolean') {
-                this._state.autoClose = value;
-            }
+            this._state.autoClose = value;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BsDropdownDirective.prototype, "isDisabled", {
-        get: function () { return this._isDisabled; },
+        get: function () {
+            return this._isDisabled;
+        },
         /**
          * Disables dropdown toggle and hides dropdown menu if opened
          */
@@ -7433,16 +7677,16 @@ var BsDropdownDirective = (function () {
         this._isInited = true;
         // attach DOM listeners
         this._dropdown.listen({
+            // because of dropdown inline mode
+            outsideClick: false,
             triggers: this.triggers,
             show: function () { return _this.show(); }
         });
         // toggle visibility on toggle element click
-        this._subscriptions.push(this._state
-            .toggleClick.subscribe(function (value) { return _this.toggle(value); }));
+        this._subscriptions.push(this._state.toggleClick.subscribe(function (value) { return _this.toggle(value); }));
         // hide dropdown if set disabled while opened
-        this._subscriptions.push(this._state
-            .isDisabledChange
-            .filter(function (value) { return value === true; })
+        this._subscriptions.push(this._state.isDisabledChange
+            .filter(function (value) { return value; })
             .subscribe(function (value) { return _this.hide(); }));
     };
     /**
@@ -7456,12 +7700,12 @@ var BsDropdownDirective = (function () {
         }
         if (this._showInline) {
             if (!this._inlinedMenu) {
-                this._state.dropdownMenu
-                    .then(function (dropdownMenu) {
+                this._state.dropdownMenu.then(function (dropdownMenu) {
                     _this._dropdown.attachInline(dropdownMenu.viewContainer, dropdownMenu.templateRef);
                     _this._inlinedMenu = _this._dropdown._inlineViewRef;
                     _this.addBs4Polyfills();
-                });
+                })
+                    .catch();
             }
             this.addBs4Polyfills();
             this._isInlineOpen = true;
@@ -7469,14 +7713,12 @@ var BsDropdownDirective = (function () {
             this._state.isOpenChange.emit(true);
             return;
         }
-        this._state.dropdownMenu
-            .then(function (dropdownMenu) {
+        this._state.dropdownMenu.then(function (dropdownMenu) {
             // check direction in which dropdown should be opened
-            var _dropup = _this.dropup === true ||
-                (typeof _this.dropup !== 'undefined' && _this.dropup !== false);
+            var _dropup = _this.dropup ||
+                (typeof _this.dropup !== 'undefined' && _this.dropup);
             _this._state.direction = _dropup ? 'up' : 'down';
-            var _placement = _this.placement ||
-                (_dropup ? 'top left' : 'bottom left');
+            var _placement = _this.placement || (_dropup ? 'top left' : 'bottom left');
             // show dropdown
             _this._dropdown
                 .attach(BsDropdownContainerComponent)
@@ -7487,7 +7729,8 @@ var BsDropdownDirective = (function () {
                 placement: _placement
             });
             _this._state.isOpenChange.emit(true);
-        });
+        })
+            .catch();
     };
     /**
      * Closes an element’s popover. This is considered a “manual” triggering of
@@ -7512,7 +7755,7 @@ var BsDropdownDirective = (function () {
      * the popover.
      */
     BsDropdownDirective.prototype.toggle = function (value) {
-        if (this.isOpen || value === false) {
+        if (this.isOpen || !value) {
             return this.hide();
         }
         return this.show();
@@ -7534,28 +7777,26 @@ var BsDropdownDirective = (function () {
     };
     BsDropdownDirective.prototype.addShowClass = function () {
         if (this._inlinedMenu && this._inlinedMenu.rootNodes[0]) {
-            this._renderer.setElementClass(this._inlinedMenu.rootNodes[0], 'show', true);
+            this._renderer.addClass(this._inlinedMenu.rootNodes[0], 'show');
         }
     };
     BsDropdownDirective.prototype.removeShowClass = function () {
         if (this._inlinedMenu && this._inlinedMenu.rootNodes[0]) {
-            this._renderer.setElementClass(this._inlinedMenu.rootNodes[0], 'show', false);
+            this._renderer.removeClass(this._inlinedMenu.rootNodes[0], 'show');
         }
     };
     BsDropdownDirective.prototype.checkRightAlignment = function () {
         if (this._inlinedMenu && this._inlinedMenu.rootNodes[0]) {
             var isRightAligned = this._inlinedMenu.rootNodes[0].classList.contains('dropdown-menu-right');
-            this._renderer.setElementStyle(this._inlinedMenu.rootNodes[0], 'left', isRightAligned ? 'auto' : '0');
-            this._renderer.setElementStyle(this._inlinedMenu.rootNodes[0], 'right', isRightAligned ? '0' : 'auto');
+            this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'left', isRightAligned ? 'auto' : '0');
+            this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'right', isRightAligned ? '0' : 'auto');
         }
     };
     BsDropdownDirective.prototype.checkDropup = function () {
         if (this._inlinedMenu && this._inlinedMenu.rootNodes[0]) {
             // a little hack to not break support of bootstrap 4 beta
-            var top_1 = getComputedStyle(this._inlinedMenu.rootNodes[0])['top'];
-            var topAuto = top_1 === 'auto' || top_1 === '100%';
-            this._renderer.setElementStyle(this._inlinedMenu.rootNodes[0], 'top', this.dropup ? 'auto' : '100%');
-            this._renderer.setElementStyle(this._inlinedMenu.rootNodes[0], 'transform', this.dropup && !topAuto ? 'translateY(-101%)' : 'translateY(0)');
+            this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'top', this.dropup ? 'auto' : '100%');
+            this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'transform', this.dropup ? 'translateY(-101%)' : 'translateY(0)');
         }
     };
     BsDropdownDirective.decorators = [
@@ -7574,7 +7815,7 @@ var BsDropdownDirective = (function () {
     BsDropdownDirective.ctorParameters = function () {
         return [
             { type: core.ElementRef, },
-            { type: core.Renderer, },
+            { type: core.Renderer2, },
             { type: core.ViewContainerRef, },
             { type: ComponentLoaderFactory, },
             { type: BsDropdownConfig, },
@@ -7626,21 +7867,19 @@ var BsDropdownToggleDirective = (function () {
         this.isDisabled = null;
         this._subscriptions = [];
         // sync is open value with state
-        this._subscriptions.push(this._state
-            .isOpenChange.subscribe(function (value) { return _this.isOpen = value; }));
+        this._subscriptions.push(this._state.isOpenChange.subscribe(function (value) { return (_this.isOpen = value); }));
         // populate disabled state
-        this._subscriptions.push(this._state
-            .isDisabledChange
-            .subscribe(function (value) { return _this.isDisabled = value || null; }));
+        this._subscriptions.push(this._state.isDisabledChange.subscribe(function (value) { return (_this.isDisabled = value || null); }));
     }
     BsDropdownToggleDirective.prototype.onClick = function () {
         if (this.isDisabled) {
             return;
         }
-        this._state.toggleClick.emit();
+        this._state.toggleClick.emit(true);
     };
     BsDropdownToggleDirective.prototype.onDocumentClick = function (event) {
-        if (this._state.autoClose && event.button !== 2 &&
+        if (this._state.autoClose &&
+            event.button !== 2 &&
             !this._element.nativeElement.contains(event.target)) {
             this._state.toggleClick.emit(false);
         }
@@ -7675,7 +7914,7 @@ var BsDropdownToggleDirective = (function () {
     BsDropdownToggleDirective.propDecorators = {
         'isDisabled': [{ type: core.HostBinding, args: ['attr.disabled',] },],
         'isOpen': [{ type: core.HostBinding, args: ['attr.aria-expanded',] },],
-        'onClick': [{ type: core.HostListener, args: ['click',] },],
+        'onClick': [{ type: core.HostListener, args: ['click', [],] },],
         'onDocumentClick': [{ type: core.HostListener, args: ['document:click', ['$event'],] },],
         'onEsc': [{ type: core.HostListener, args: ['keyup.esc',] },],
     };
@@ -7686,11 +7925,15 @@ var BsDropdownModule = (function () {
     }
     BsDropdownModule.forRoot = function (config) {
         return {
-            ngModule: BsDropdownModule, providers: [
+            ngModule: BsDropdownModule,
+            providers: [
                 ComponentLoaderFactory,
                 PositioningService,
                 BsDropdownState,
-                { provide: BsDropdownConfig, useValue: config ? config : { autoClose: true } }
+                {
+                    provide: BsDropdownConfig,
+                    useValue: config ? config : { autoClose: true }
+                }
             ]
         };
     };
@@ -9479,6 +9722,402 @@ RadioButtonModule.decorators = [
  * @nocollapse
  */
 RadioButtonModule.ctorParameters = function () { return []; };
+var SearchBuilderService = (function () {
+    function SearchBuilderService() {
+        this.query = {};
+        this.queryChange = new Subject.Subject();
+        this._components = {};
+    }
+    /**
+     * Add a component to the internal list of components
+     * @param {?} name
+     * @param {?} component
+     * @return {?}
+     */
+    SearchBuilderService.prototype.registerComponent = function (name, component) {
+        // ensure there are no components with a matching name
+        if (this._components.hasOwnProperty(name)) {
+            throw new Error("Search builder components must have a unique name. The name " + component.name + " has already been used.");
+        }
+        // if unique then add the component to the list
+        this._components[name] = component;
+    };
+    /**
+     * Bulk registration of components
+     * (Just a helper method)
+     * @param {?} components
+     * @return {?}
+     */
+    SearchBuilderService.prototype.registerComponents = function (components) {
+        var _this = this;
+        components.forEach(function (component) { return _this.registerComponent(component.name, component.component); });
+    };
+    /**
+     * Get a registered component class
+     * @param {?} type
+     * @return {?}
+     */
+    SearchBuilderService.prototype.getComponent = function (type) {
+        return this._components[type];
+    };
+    /**
+     * Update the internal search query state
+     * note that the query will be immutable
+     * @param {?} query
+     * @return {?}
+     */
+    SearchBuilderService.prototype.setQuery = function (query) {
+        this.query = Object.assign({}, query);
+    };
+    /**
+     * Return the current query state
+     * @return {?}
+     */
+    SearchBuilderService.prototype.getQuery = function () {
+        return this.query;
+    };
+    /**
+     * Trigger the observable to indicate the query has been updated
+     * @return {?}
+     */
+    SearchBuilderService.prototype.queryHasChanged = function () {
+        this.queryChange.next(this.query);
+    };
+    return SearchBuilderService;
+}());
+SearchBuilderService.decorators = [
+    { type: core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+SearchBuilderService.ctorParameters = function () { return []; };
+var SearchBuilderGroupService = (function () {
+    /**
+     * @param {?} _searchBuilderService
+     */
+    function SearchBuilderGroupService(_searchBuilderService) {
+        this._searchBuilderService = _searchBuilderService;
+    }
+    /**
+     * Initialise the group by defining an id
+     * @param {?} id
+     * @return {?}
+     */
+    SearchBuilderGroupService.prototype.init = function (id) {
+        var _this = this;
+        // store the name of the group
+        this._id = id;
+        // create the entry in the query object if it doesn't exist
+        if (!this._searchBuilderService.query[this._id]) {
+            // create the section
+            this._searchBuilderService.query[this._id] = [];
+            // emit the changes after the initial setup
+            setTimeout(function () { return _this._searchBuilderService.queryHasChanged(); });
+        }
+    };
+    /**
+     * Remove a field from the search builder query
+     * @param {?} field
+     * @return {?}
+     */
+    SearchBuilderGroupService.prototype.remove = function (field) {
+        // get the query for this group
+        var /** @type {?} */ query = this.getQuery();
+        // remove the field from the array
+        query.splice(query.indexOf(field), 1);
+    };
+    /**
+     * Get the query for this specific search group
+     * @return {?}
+     */
+    SearchBuilderGroupService.prototype.getQuery = function () {
+        return this._searchBuilderService.query[this._id] ? this._searchBuilderService.query[this._id] : [];
+    };
+    return SearchBuilderGroupService;
+}());
+SearchBuilderGroupService.decorators = [
+    { type: core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+SearchBuilderGroupService.ctorParameters = function () { return [
+    { type: SearchBuilderService, },
+]; };
+var SearchBuilderGroupComponent = (function () {
+    /**
+     * @param {?} searchBuilderGroupService
+     * @param {?} _searchBuilderService
+     */
+    function SearchBuilderGroupComponent(searchBuilderGroupService, _searchBuilderService) {
+        this.searchBuilderGroupService = searchBuilderGroupService;
+        this._searchBuilderService = _searchBuilderService;
+        this.operator = 'and';
+        this.addText = 'Add a field';
+        this.showPlaceholder = false;
+        this.add = new core.EventEmitter();
+        this.remove = new core.EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    SearchBuilderGroupComponent.prototype.ngOnInit = function () {
+        // ensure we have a name otherwise throw an error
+        if (!this.id) {
+            throw new Error('Search builder group must have a name attribute.');
+        }
+        // otherwise register the group
+        this.searchBuilderGroupService.init(this.id);
+    };
+    /**
+     * @param {?} field
+     * @return {?}
+     */
+    SearchBuilderGroupComponent.prototype.removeField = function (field) {
+        this.searchBuilderGroupService.remove(field);
+        this.remove.emit(field);
+    };
+    return SearchBuilderGroupComponent;
+}());
+SearchBuilderGroupComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-search-builder-group',
+                template: "\n    <h4 class=\"search-group-title\">{{ header }}</h4>\n\n    <main class=\"search-group-content\">\n\n      <section class=\"search-group-operator search-group-operator-{{ operator }}\" [class.hidden-operator]=\"searchBuilderGroupService.getQuery().length < 2\">{{ operator }}</section>\n\n      <section class=\"search-group-items\">\n\n        <div class=\"search-group-item-container\" *ngFor=\"let field of searchBuilderGroupService.getQuery()\">\n\n          <div class=\"search-group-item\">\n            <ng-container *uxSearchBuilderOutlet=\"field.type; context: field\"></ng-container>\n          </div>\n\n          <div class=\"search-group-item-remove\" (click)=\"removeField(field)\">\n            <span class=\"hpe-icon hpe-close\"></span>\n          </div>\n        </div>\n\n        <!-- Placeholder Item -->\n        <ng-container *ngIf=\"showPlaceholder\">\n\n          <!-- The Default Placeholder -->\n          <div class=\"search-group-item-container placeholder-item\" *ngIf=\"!placeholder\">\n        \n            <div class=\"search-group-item\">\n              <label class=\"form-label\">New field</label>\n              <div class=\"form-control\"></div>\n            </div>\n  \n          </div>\n\n          <!-- Allow a custom placeholder -->\n        <ng-container *ngTemplateOutlet=\"placeholder\"></ng-container>\n\n        </ng-container>\n\n      </section>\n\n      <section class=\"search-builder-group-add-field\" (click)=\"add.emit()\">\n\n        <button type=\"button\" class=\"btn btn-icon btn-circular button-accent\" aria-label=\"Add Field\">\n          <span class=\"hpe-icon hpe-add\" aria-hidden=\"true\"></span>\n        </button>\n\n        <span class=\"search-builder-group-add-field-label\">{{ addText }}</span>\n\n      </section>\n\n    </main>\n\n    <hr class=\"search-builder-group-divider\">\n  ",
+                providers: [SearchBuilderGroupService]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchBuilderGroupComponent.ctorParameters = function () { return [
+    { type: SearchBuilderGroupService, },
+    { type: SearchBuilderService, },
+]; };
+SearchBuilderGroupComponent.propDecorators = {
+    'id': [{ type: core.Input },],
+    'header': [{ type: core.Input },],
+    'operator': [{ type: core.Input },],
+    'addText': [{ type: core.Input },],
+    'placeholder': [{ type: core.Input },],
+    'showPlaceholder': [{ type: core.Input },],
+    'add': [{ type: core.Output },],
+    'remove': [{ type: core.Output },],
+};
+var SearchBuilderOutletDirective = (function () {
+    /**
+     * @param {?} _viewContainerRef
+     * @param {?} _componentFactoryResolver
+     * @param {?} _searchBuilderService
+     */
+    function SearchBuilderOutletDirective(_viewContainerRef, _componentFactoryResolver, _searchBuilderService) {
+        this._viewContainerRef = _viewContainerRef;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._searchBuilderService = _searchBuilderService;
+    }
+    /**
+     * @return {?}
+     */
+    SearchBuilderOutletDirective.prototype.ngOnInit = function () {
+        // get the class from the type
+        var /** @type {?} */ component = this._searchBuilderService.getComponent(this.uxSearchBuilderOutlet);
+        // create the component factory
+        var /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(component);
+        // create the component instance
+        this._componentRef = this._viewContainerRef.createComponent(componentFactory);
+        // set the context and config property on the component instance
+        this._componentRef.instance.context = this.uxSearchBuilderOutletContext;
+    };
+    return SearchBuilderOutletDirective;
+}());
+SearchBuilderOutletDirective.decorators = [
+    { type: core.Directive, args: [{
+                selector: '[uxSearchBuilderOutlet]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchBuilderOutletDirective.ctorParameters = function () { return [
+    { type: core.ViewContainerRef, },
+    { type: core.ComponentFactoryResolver, },
+    { type: SearchBuilderService, },
+]; };
+SearchBuilderOutletDirective.propDecorators = {
+    'uxSearchBuilderOutlet': [{ type: core.Input },],
+    'uxSearchBuilderOutletContext': [{ type: core.Input },],
+};
+var BaseSearchComponent = (function () {
+    /**
+     * @param {?} _searchBuilderService
+     * @param {?} _searchBuilderGroupService
+     */
+    function BaseSearchComponent(_searchBuilderService, _searchBuilderGroupService) {
+        this._searchBuilderService = _searchBuilderService;
+        this._searchBuilderGroupService = _searchBuilderGroupService;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    BaseSearchComponent.prototype.setValue = function (value) {
+        this.context.value = value;
+        this._searchBuilderService.queryHasChanged();
+    };
+    return BaseSearchComponent;
+}());
+BaseSearchComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-base-search',
+                template: ''
+            },] },
+];
+/**
+ * @nocollapse
+ */
+BaseSearchComponent.ctorParameters = function () { return [
+    { type: SearchBuilderService, },
+    { type: SearchBuilderGroupService, },
+]; };
+var SearchTextComponent = (function (_super) {
+    __extends(SearchTextComponent, _super);
+    function SearchTextComponent() {
+        var _this = _super.apply(this, arguments) || this;
+        _this.type = 'text';
+        _this.placeholder = 'Enter text';
+        return _this;
+    }
+    /**
+     * @return {?}
+     */
+    SearchTextComponent.prototype.ngOnInit = function () {
+        // set initial value if there is one
+        if (this.context.value) {
+            this.value = this.context.value;
+        }
+        // if there are no configuration options we can stop here
+        if (!this.context.config) {
+            return;
+        }
+        // if there is placeholder property then use it
+        if (this.context.config.placeholder) {
+            this.placeholder = this.context.config.placeholder;
+        }
+        // if there is label property then use it
+        if (this.context.config.label) {
+            this.label = this.context.config.label;
+        }
+    };
+    return SearchTextComponent;
+}(BaseSearchComponent));
+SearchTextComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-search-text',
+                template: "\n    <label class=\"form-label\" *ngIf=\"label\">{{ label }}</label>\n    <input [placeholder]=\"placeholder\" [(ngModel)]=\"value\" (ngModelChange)=\"setValue($event)\" class=\"form-control\">\n  "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchTextComponent.ctorParameters = function () { return []; };
+var SearchBuilderComponent = (function () {
+    /**
+     * Register the default search builder components
+     * @param {?} _searchBuilderService
+     */
+    function SearchBuilderComponent(_searchBuilderService) {
+        var _this = this;
+        this._searchBuilderService = _searchBuilderService;
+        this.queryChange = new core.EventEmitter();
+        // add the default components
+        _searchBuilderService.registerComponent('text', SearchTextComponent);
+        // watch for any query changes
+        this._subscription = _searchBuilderService.queryChange.subscribe(function (query) { return _this.queryChange.emit(query); });
+    }
+    Object.defineProperty(SearchBuilderComponent.prototype, "components", {
+        /**
+         * @param {?} components
+         * @return {?}
+         */
+        set: function (components) {
+            this._searchBuilderService.registerComponents(components);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchBuilderComponent.prototype, "query", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._searchBuilderService.getQuery();
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._searchBuilderService.setQuery(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    SearchBuilderComponent.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
+    };
+    return SearchBuilderComponent;
+}());
+SearchBuilderComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-search-builder',
+                template: "\n    <ng-content></ng-content>\n  ",
+                providers: [SearchBuilderService]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchBuilderComponent.ctorParameters = function () { return [
+    { type: SearchBuilderService, },
+]; };
+SearchBuilderComponent.propDecorators = {
+    'components': [{ type: core.Input },],
+    'query': [{ type: core.Input },],
+    'queryChange': [{ type: core.Output },],
+};
+var SearchBuilderModule = (function () {
+    function SearchBuilderModule() {
+    }
+    return SearchBuilderModule;
+}());
+SearchBuilderModule.decorators = [
+    { type: core.NgModule, args: [{
+                imports: [
+                    common.CommonModule,
+                    forms.FormsModule
+                ],
+                exports: [
+                    SearchBuilderComponent,
+                    SearchBuilderGroupComponent,
+                    BaseSearchComponent
+                ],
+                declarations: [
+                    SearchBuilderComponent,
+                    SearchBuilderGroupComponent,
+                    SearchTextComponent,
+                    SearchBuilderOutletDirective,
+                    BaseSearchComponent
+                ],
+                entryComponents: [SearchTextComponent]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchBuilderModule.ctorParameters = function () { return []; };
 var TypeaheadOptionEvent = (function () {
     /**
      * @param {?} option
@@ -9820,7 +10459,7 @@ var TypeaheadComponent = (function () {
 TypeaheadComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-typeahead',
-                template: "\n      <div class=\"ux-typeahead-options\"\n          [uxInfiniteScroll]=\"loadOptionsCallback\"\n          [(collection)]=\"visibleOptions\"\n          [enabled]=\"isInfiniteScroll()\"\n          [filter]=\"filter\"\n          [loadOnScroll]=\"true\"\n          [pageSize]=\"pageSize\"\n          [scrollElement]=\"typeaheadElement\"\n          (loading)=\"loading = true\"\n          (loaded)=\"loading = false\">\n\n          <ol *ngIf=\"visibleOptions.length > 0\">\n              <li *ngFor=\"let option of visibleOptions; let i = index\"\n                  [class.disabled]=\"isDisabled(option)\"\n                  [class.highlighted]=\"isHighlighted(option)\"\n                  [uxScrollIntoViewIf]=\"isHighlighted(option)\"\n                  [scrollParent]=\"typeaheadElement.nativeElement\"\n                  (mousedown)=\"optionMousedownHandler($event)\"\n                  (click)=\"optionClickHandler($event, option)\"\n                  (mouseover)=\"highlight(option)\">\n\n                  <ng-container [ngTemplateOutlet]=\"optionTemplate\"\n                      [ngOutletContext]=\"{option: option, api: optionApi}\">\n                  </ng-container>\n\n              </li>\n          </ol>\n\n          <div *uxInfiniteScrollLoading>\n              <ng-container [ngTemplateOutlet]=\"loadingTemplate\">\n              </ng-container>\n          </div>\n\n      </div>\n      <div *ngIf=\"visibleOptions.length === 0 && !loading\">\n          <ng-container [ngTemplateOutlet]=\"noOptionsTemplate\">\n          </ng-container>\n      </div>\n\n      <ng-template #defaultLoadingTemplate>\n          <div class=\"ux-typeahead-loading\">\n              <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n              <div>Loading...</div>\n          </div>\n      </ng-template>\n\n      <ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n          <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n      </ng-template>\n\n      <ng-template #defaultNoOptionsTemplate>\n          <span class=\"ux-typeahead-no-options\">No results</span>\n      </ng-template>\n    ",
+                template: "\n      <div class=\"ux-typeahead-options\"\n          [uxInfiniteScroll]=\"loadOptionsCallback\"\n          [(collection)]=\"visibleOptions\"\n          [enabled]=\"isInfiniteScroll()\"\n          [filter]=\"filter\"\n          [loadOnScroll]=\"true\"\n          [pageSize]=\"pageSize\"\n          [scrollElement]=\"typeaheadElement\"\n          (loading)=\"loading = true\"\n          (loaded)=\"loading = false\">\n\n          <ol *ngIf=\"visibleOptions.length > 0\">\n              <li *ngFor=\"let option of visibleOptions; let i = index\"\n                  [class.disabled]=\"isDisabled(option)\"\n                  [class.highlighted]=\"isHighlighted(option)\"\n                  [uxScrollIntoViewIf]=\"isHighlighted(option)\"\n                  [scrollParent]=\"typeaheadElement.nativeElement\"\n                  (mousedown)=\"optionMousedownHandler($event)\"\n                  (click)=\"optionClickHandler($event, option)\"\n                  (mouseover)=\"highlight(option)\">\n\n                  <ng-container [ngTemplateOutlet]=\"optionTemplate\"\n                      [ngTemplateOutletContext]=\"{option: option, api: optionApi}\">\n                  </ng-container>\n\n              </li>\n          </ol>\n\n          <div *uxInfiniteScrollLoading>\n              <ng-container [ngTemplateOutlet]=\"loadingTemplate\">\n              </ng-container>\n          </div>\n\n      </div>\n      <div *ngIf=\"visibleOptions.length === 0 && !loading\">\n          <ng-container [ngTemplateOutlet]=\"noOptionsTemplate\">\n          </ng-container>\n      </div>\n\n      <ng-template #defaultLoadingTemplate>\n          <div class=\"ux-typeahead-loading\">\n              <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n              <div>Loading...</div>\n          </div>\n      </ng-template>\n\n      <ng-template #defaultOptionTemplate let-option=\"option\" let-api=\"api\">\n          <span class=\"ux-typeahead-option\" [innerHtml]=\"api.getDisplayHtml(option)\"></span>\n      </ng-template>\n\n      <ng-template #defaultNoOptionsTemplate>\n          <span class=\"ux-typeahead-no-options\">No results</span>\n      </ng-template>\n    ",
                 host: {
                     '[class.open]': 'open',
                     '[class.drop-up]': 'dropDirection === "up"',
@@ -11468,7 +12107,7 @@ var TagInputComponent = (function () {
 TagInputComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-tag-input',
-                template: "\n      <ol>\n          <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n              [class.disabled]=\"disabled\"\n              [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n              [attr.tabindex]=\"disabled ? null : i\"\n              [focusIf]=\"isSelected(i)\"\n              (click)=\"tagClickHandler($event, tag, i)\"\n              (focus)=\"selectTagAt(i)\">\n        \n              <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n                  [ngOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n              </ng-container>\n\n          </li>\n          <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\">\n              <input #tagInput type=\"text\" class=\"ux-tag-input\"\n                  [(ngModel)]=\"input\"\n                  [class.invalid]=\"!inputValid\"\n                  [placeholder]=\"disabled ? '' : (placeholder || '')\"\n                  [disabled]=\"disabled\"\n                  [focusIf]=\"isSelected(tags.length)\"\n                  (click)=\"inputClickHandler()\"\n                  (focus)=\"inputFocusHandler()\"\n                  (paste)=\"inputPasteHandler($event)\">\n          </li>\n      </ol>\n\n      <ng-content #typeahead></ng-content>\n\n      <ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n          <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n          <button *ngIf=\"api.canRemoveTagAt(index)\" type=\"button\" class=\"ux-tag-remove\" [disabled]=\"disabled\" (click)=\"api.removeTagAt(index); $event.stopPropagation();\"><i class=\"hpe-icon hpe-close\"></i></button>\n      </ng-template>\n    ",
+                template: "\n      <ol>\n          <li *ngFor=\"let tag of tags; let i = index\" class=\"ux-tag\"\n              [class.disabled]=\"disabled\"\n              [ngClass]=\"tagClass(tag, i, isSelected(i))\"\n              [attr.tabindex]=\"disabled ? null : i\"\n              [focusIf]=\"isSelected(i)\"\n              (click)=\"tagClickHandler($event, tag, i)\"\n              (focus)=\"selectTagAt(i)\">\n        \n              <ng-container [ngTemplateOutlet]=\"tagTemplate\"\n                  [ngTemplateOutletContext]=\"{tag: tag, index: i, disabled: disabled, api: tagApi}\">\n              </ng-container>\n\n          </li>\n          <li *ngIf=\"isInputVisible()\" class=\"ux-tag-input\">\n              <input #tagInput type=\"text\" class=\"ux-tag-input\"\n                  [(ngModel)]=\"input\"\n                  [class.invalid]=\"!inputValid\"\n                  [placeholder]=\"disabled ? '' : (placeholder || '')\"\n                  [disabled]=\"disabled\"\n                  [focusIf]=\"isSelected(tags.length)\"\n                  (click)=\"inputClickHandler()\"\n                  (focus)=\"inputFocusHandler()\"\n                  (paste)=\"inputPasteHandler($event)\">\n          </li>\n      </ol>\n\n      <ng-content #typeahead></ng-content>\n\n      <ng-template #defaultTagTemplate let-tag=\"tag\" let-index=\"index\" let-disabled=\"disabled\" let-api=\"api\">\n          <span class=\"ux-tag-text\">{{api.getTagDisplay(tag)}}</span>\n          <button *ngIf=\"api.canRemoveTagAt(index)\" type=\"button\" class=\"ux-tag-remove\" [disabled]=\"disabled\" (click)=\"api.removeTagAt(index); $event.stopPropagation();\"><i class=\"hpe-icon hpe-close\"></i></button>\n      </ng-template>\n    ",
                 providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
                 host: {
                     '[class.disabled]': 'disabled',
@@ -12376,13 +13015,13 @@ SliderModule.decorators = [
 SliderModule.ctorParameters = function () { return []; };
 var SparkComponent = (function () {
     /**
-     * @param {?} colorService
+     * @param {?} _colorService
      */
-    function SparkComponent(colorService) {
-        this.colorService = colorService;
-        this.trackColor = this.colorService.getColor('primary').setAlpha(0.2).toRgba();
-        this.barColor = this.colorService.getColor('primary').toHex();
-        this.value = 0;
+    function SparkComponent(_colorService) {
+        this._colorService = _colorService;
+        this.values = [];
+        this.trackColor = this._colorService.getColor('primary').setAlpha(0.2).toRgba();
+        this.barColor = this._colorService.getColor('primary').toHex();
         this.barHeight = 10;
     }
     Object.defineProperty(SparkComponent.prototype, "theme", {
@@ -12391,8 +13030,32 @@ var SparkComponent = (function () {
          * @return {?}
          */
         set: function (themeName) {
-            this.trackColor = this.colorService.getColor(themeName).setAlpha(0.2).toRgba();
-            this.barColor = this.colorService.getColor(themeName).toHex();
+            this.trackColor = this._colorService.getColor(themeName).setAlpha(0.2).toRgba();
+            this.barColor = this._colorService.getColor(themeName).toHex();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SparkComponent.prototype, "value", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.values;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            // ensure 'value' is an array at this point
+            var /** @type {?} */ values = Array.isArray(value) ? value : [value];
+            // get the total value of all lines
+            var /** @type {?} */ total = Math.max(values.reduce(function (previous, current) { return previous + current; }, 0), 100);
+            // figure out the percentages for each spark line
+            this.values = values.map(function (val) { return (val / total) * 100; });
+            // ensure 'barColor' is an array
+            this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
         },
         enumerable: true,
         configurable: true
@@ -12402,7 +13065,7 @@ var SparkComponent = (function () {
 SparkComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-spark',
-                template: "\n      <!-- Inline Spark Chart -->\n      <div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\n\n          <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\n\n          <div class=\"ux-spark-line\">\n\n              <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n                  <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n                  <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n              </div>\n\n              <div class=\"ux-spark ux-inline\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\n                  <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n              </div>\n\n              <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n                  <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n                  <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n              </div>\n\n          </div>\n      </div>\n\n      <!-- End Inline Spark Chart -->\n\n\n      <!-- Non Inline Spark Chart -->\n      <div *ngIf=\"!inlineLabel\">\n\n          <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n              <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n              <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n          </div>\n\n          <div class=\"ux-spark\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\n              <div class=\"ux-spark-bar\" [style.width]=\"(value < 100 ? value : 100) + '%'\" [style.backgroundColor]=\"barColor\"></div>\n          </div>\n\n          <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n              <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n              <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n          </div>\n      </div>\n\n      <!-- End Non Inline Spark Chart -->\n    "
+                template: "\n      <!-- Inline Spark Chart -->\n      <div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\n\n          <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\n\n          <div class=\"ux-spark-line\">\n\n              <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n                  <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n                  <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n              </div>\n\n              <div class=\"ux-spark ux-inline\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\n                  <div class=\"ux-spark-bar\" *ngFor=\"let line of values; let idx = index;\" [style.width.%]=\"line\" [style.backgroundColor]=\"barColor[idx]\"></div>\n              </div>\n\n              <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n                  <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n                  <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n              </div>\n\n          </div>\n      </div>\n\n      <!-- End Inline Spark Chart -->\n\n\n      <!-- Non Inline Spark Chart -->\n      <div *ngIf=\"!inlineLabel\">\n\n          <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n              <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n              <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n          </div>\n\n          <div class=\"ux-spark\" [class.ux-spark-multi-value]=\"values.length > 0\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\"\n              [tooltip]=\"tooltip\">\n              <div class=\"ux-spark-bar\" *ngFor=\"let line of value; let idx = index;\" [style.width.%]=\"line\" [style.backgroundColor]=\"barColor[idx]\"></div>\n          </div>\n\n          <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n              <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n              <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n          </div>\n      </div>\n\n      <!-- End Non Inline Spark Chart -->\n    "
             },] },
 ];
 /**
@@ -12414,7 +13077,6 @@ SparkComponent.ctorParameters = function () { return [
 SparkComponent.propDecorators = {
     'trackColor': [{ type: core.Input },],
     'barColor': [{ type: core.Input },],
-    'value': [{ type: core.Input },],
     'barHeight': [{ type: core.Input },],
     'inlineLabel': [{ type: core.Input },],
     'topLeftLabel': [{ type: core.Input },],
@@ -12423,6 +13085,7 @@ SparkComponent.propDecorators = {
     'bottomRightLabel': [{ type: core.Input },],
     'tooltip': [{ type: core.Input },],
     'theme': [{ type: core.Input },],
+    'value': [{ type: core.Input },],
 };
 var SparkModule = (function () {
     function SparkModule() {
@@ -13449,9 +14112,7 @@ var AudioServiceModule = (function () {
 }());
 AudioServiceModule.decorators = [
     { type: core.NgModule, args: [{
-                imports: [
-                    http.HttpModule
-                ],
+                imports: [http.HttpModule],
                 providers: [AudioService]
             },] },
 ];
@@ -13651,10 +14312,32 @@ var MediaPlayerTimelineExtensionComponent = (function (_super) {
         });
     };
     /**
+     * @return {?}
+     */
+    MediaPlayerTimelineExtensionComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        var /** @type {?} */ mousedown$ = Observable.Observable.fromEvent(this.thumb.nativeElement, 'mousedown');
+        var /** @type {?} */ mousemove$ = Observable.Observable.fromEvent(document, 'mousemove');
+        var /** @type {?} */ mouseup$ = Observable.Observable.fromEvent(document, 'mouseup');
+        this._mouseEventSubscription = mousedown$.switchMap(function (event) { return mousemove$.takeUntil(mouseup$); }).subscribe(function (event) {
+            _this.scrub.visible = false;
+        });
+    };
+    /**
+     * @return {?}
+     */
+    MediaPlayerTimelineExtensionComponent.prototype.ngOnDestroy = function () {
+        this._mouseEventSubscription.unsubscribe();
+    };
+    /**
      * @param {?=} event
      * @return {?}
      */
     MediaPlayerTimelineExtensionComponent.prototype.updateScrub = function (event) {
+        var /** @type {?} */ target = (event.target);
+        if (target.classList.contains('media-progress-bar-thumb')) {
+            return;
+        }
         var /** @type {?} */ timeline = (this.timelineRef.nativeElement);
         var /** @type {?} */ bounds = timeline.getBoundingClientRect();
         this.scrub.position = event.offsetX;
@@ -13669,7 +14352,7 @@ var MediaPlayerTimelineExtensionComponent = (function (_super) {
 MediaPlayerTimelineExtensionComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-media-player-timeline',
-                template: "\n      <p class=\"current-time\">{{ current | duration }}</p>\n\n      <div #timeline class=\"timeline-bar\" (mouseenter)=\"scrub.visible = true; pop.show()\" (mouseleave)=\"scrub.visible = false; pop.hide()\"\n          (mousemove)=\"updateScrub($event)\" (mouseup)=\"updateScrub($event)\" (mousedown)=\"mouseDown = true; $event.preventDefault()\">\n\n          <div class=\"buffered-bar\" *ngFor=\"let buffer of buffered\" [style.left.%]=\"buffer.start\" [style.width.%]=\"buffer.end - buffer.start\"></div>\n\n          <div class=\"media-progress-bar\" [style.width.%]=\"position\"></div>\n\n          <div class=\"scrub-handle\" [style.left.px]=\"scrub.position\" [tooltip]=\"popTemplate\" placement=\"top\" triggers=\"\" #pop=\"bs-tooltip\"\n              container=\"body\" tooltipPopupDelay=\"100\" [isDisabled]=\"duration === 0\"></div>\n\n      </div>\n\n      <p class=\"duration-time\">{{ duration | duration }}</p>\n\n      <ng-template #popTemplate>\n          <span>{{ scrub.time | duration }}</span>\n      </ng-template>\n    ",
+                template: "\n      <p class=\"current-time\">{{ current | duration }}</p>\n\n      <div #timeline class=\"timeline-bar\" (mouseenter)=\"scrub.visible = true; pop.show()\" (mouseleave)=\"scrub.visible = false; pop.hide()\"\n          (mousemove)=\"updateScrub($event)\" (mouseup)=\"updateScrub($event)\" (mousedown)=\"mouseDown = true; $event.preventDefault()\">\n\n          <div class=\"buffered-bar\" *ngFor=\"let buffer of buffered\" [style.left.%]=\"buffer.start\" [style.width.%]=\"buffer.end - buffer.start\"></div>\n\n          <div class=\"media-progress-bar\" [style.width.%]=\"position\">\n              <div #progressThumb class=\"media-progress-bar-thumb\" (mouseenter)=\"scrub.visible = false; pop.hide(); $event.stopPropagation()\"\n                  (mouseleave)=\"scrub.visible = true; pop.show(); $event.stopPropagation()\"></div>\n          </div>\n\n          <div class=\"scrub-handle\" [class.scrub-handle-hidden]=\"!scrub.visible\" [style.left.px]=\"scrub.position\" [tooltip]=\"popTemplate\" placement=\"top\" triggers=\"\" #pop=\"bs-tooltip\"\n              container=\"body\" tooltipPopupDelay=\"100\" [isDisabled]=\"duration === 0\"></div>\n      </div>\n\n      <p class=\"duration-time\">{{ duration | duration }}</p>\n\n      <ng-template #popTemplate>\n          <span>{{ scrub.time | duration }}</span>\n      </ng-template>\n    ",
                 host: {
                     '(document:mouseup)': 'mouseDown = false',
                     '[class.quiet]': 'quietMode || fullscreen'
@@ -13681,6 +14364,7 @@ MediaPlayerTimelineExtensionComponent.decorators = [
  */
 MediaPlayerTimelineExtensionComponent.ctorParameters = function () { return []; };
 MediaPlayerTimelineExtensionComponent.propDecorators = {
+    'thumb': [{ type: core.ViewChild, args: ['progressThumb',] },],
     'timelineRef': [{ type: core.ViewChild, args: ['timeline',] },],
 };
 var MediaPlayerControlsExtensionComponent = (function (_super) {
@@ -15446,6 +16130,14 @@ exports.ProgressBarComponent = ProgressBarComponent;
 exports.RadioButtonModule = RadioButtonModule;
 exports.RADIOBUTTON_VALUE_ACCESSOR = RADIOBUTTON_VALUE_ACCESSOR;
 exports.RadioButtonComponent = RadioButtonComponent;
+exports.SearchBuilderGroupComponent = SearchBuilderGroupComponent;
+exports.SearchBuilderGroupService = SearchBuilderGroupService;
+exports.SearchBuilderOutletDirective = SearchBuilderOutletDirective;
+exports.BaseSearchComponent = BaseSearchComponent;
+exports.SearchTextComponent = SearchTextComponent;
+exports.SearchBuilderComponent = SearchBuilderComponent;
+exports.SearchBuilderService = SearchBuilderService;
+exports.SearchBuilderModule = SearchBuilderModule;
 exports.SELECT_VALUE_ACCESSOR = SELECT_VALUE_ACCESSOR;
 exports.SelectComponent = SelectComponent;
 exports.SelectModule = SelectModule;

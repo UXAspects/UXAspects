@@ -13582,6 +13582,7 @@ p.no-margin {
   z-index: 9999999;
   top: 12px;
   right: 12px;
+  width: 300px;
 }
 .notification-container .notification {
   position: relative;
@@ -13591,6 +13592,7 @@ p.no-margin {
   border-radius: 3px;
   opacity: 0;
   margin-bottom: 4px;
+  transition: top 500ms ease-in-out;
 }
 .notification-container .notification .dismiss {
   position: absolute;
@@ -16159,7 +16161,7 @@ ux-checkbox input[type="checkbox"] {
   display: none;
 }
 ux-checkbox .ux-checkbox.ux-indeterminate:before {
-  content: "\f20b";
+  content: "\f20f";
 }
 ux-checkbox .ux-checkbox.ux-checked,
 ux-checkbox .ux-checkbox.ux-indeterminate {
@@ -16447,16 +16449,32 @@ ux-date-time-picker-time-view .time-input-container timepicker .form-control {
   width: 33px !important;
   padding: 0;
 }
-ux-date-time-picker-time-view .time-input-container timepicker .glyphicon {
-  font-family: hpe-icons;
+ux-date-time-picker-time-view .time-input-container timepicker .btn-link .bs-chevron {
+  font-family: "hpe-icons";
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  font-weight: normal;
+  font-style: normal;
+  speak: none;
+  text-decoration: inherit;
+  text-transform: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: baseline;
+  border: none;
+  transform: none;
+  width: auto;
+  height: auto;
   color: #666;
   font-weight: 900;
   font-size: 14px;
 }
-ux-date-time-picker-time-view .time-input-container timepicker .glyphicon.glyphicon-chevron-up:before {
+ux-date-time-picker-time-view .time-input-container timepicker .btn-link .bs-chevron.bs-chevron-up:before {
   content: "\f22a";
 }
-ux-date-time-picker-time-view .time-input-container timepicker .glyphicon.glyphicon-chevron-down:before {
+ux-date-time-picker-time-view .time-input-container timepicker .btn-link .bs-chevron.bs-chevron-down:before {
   content: "\f17a";
 }
 ux-date-time-picker-time-view .time-input-container timepicker .btn-default {
@@ -17471,6 +17489,165 @@ ux-radio-button .ux-radio-button-content {
   cursor: default;
   line-height: 22px;
 }
+.search-builder-modal {
+  width: 1100px;
+  max-width: calc(100% - 50px);
+}
+.search-builder-modal .search-builder-dismiss {
+  position: absolute;
+  right: 0;
+}
+.search-builder-modal .search-builder-dismiss .btn-close {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  box-shadow: none;
+  background-color: #333;
+  outline: none;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 10021;
+}
+.search-builder-modal .search-builder-dismiss .btn-close:hover {
+  background-color: #222;
+}
+.search-builder-modal .search-builder-dismiss .btn-close .hpe-icon {
+  color: #999;
+  font-size: 1.125rem;
+  padding-top: 2px;
+}
+.search-builder-modal .search-builder-header {
+  display: flex;
+  padding: 18px 35px 15px;
+  background-color: #f2f2f2;
+}
+.search-builder-modal .search-builder-header .search-builder-title {
+  margin: 0;
+  color: #333;
+}
+.search-builder-modal .search-builder-body {
+  padding: 15px 35px;
+  height: 600px;
+  overflow-y: auto;
+}
+.search-builder-modal .search-builder-footer {
+  width: 100%;
+  height: 60px;
+  background-color: #f2f2f2;
+  text-align: right;
+  padding: 15px;
+}
+ux-search-builder-group .search-group-title {
+  color: #333;
+  font-size: 19px;
+  margin: 0 0 11px;
+  font-weight: 400;
+}
+ux-search-builder-group .search-group-content {
+  display: flex;
+}
+ux-search-builder-group .search-group-content .search-group-operator {
+  display: flex;
+  align-items: center;
+  flex: none;
+  width: 100px;
+  padding-left: 5px;
+  text-transform: uppercase;
+  color: #999;
+  transition: opacity 300ms linear;
+  border-left-width: 4px;
+  border-left-style: solid;
+  opacity: 1;
+}
+ux-search-builder-group .search-group-content .search-group-operator.search-group-operator-or {
+  border-left-color: #cce3ed;
+}
+ux-search-builder-group .search-group-content .search-group-operator.search-group-operator-and {
+  border-left-color: #cceee6;
+}
+ux-search-builder-group .search-group-content .search-group-operator.search-group-operator-not {
+  border-left-color: rgba(255, 69, 79, 0.2);
+}
+ux-search-builder-group .search-group-content .search-group-operator.hidden-operator {
+  opacity: 0;
+}
+ux-search-builder-group .search-group-content .search-group-items {
+  flex: 1;
+}
+ux-search-builder-group .search-group-content .search-group-items .search-group-item-container {
+  display: flex;
+  padding: 5px;
+  margin-right: 10px;
+  transition: background-color 300ms linear;
+}
+ux-search-builder-group .search-group-content .search-group-items .search-group-item-container:hover {
+  background-color: #f7f8f9;
+}
+ux-search-builder-group .search-group-content .search-group-items .search-group-item-container:hover .search-group-item-remove {
+  opacity: 1;
+}
+ux-search-builder-group .search-group-content .search-group-items .search-group-item-container .search-group-item {
+  flex: 1;
+}
+ux-search-builder-group .search-group-content .search-group-items .search-group-item-container.placeholder-item {
+  pointer-events: none;
+}
+ux-search-builder-group .search-group-content .search-group-items .search-group-item-container.placeholder-item .search-group-item {
+  padding-right: 33px;
+}
+ux-search-builder-group .search-group-content .search-group-items .search-group-item-container.placeholder-item .search-group-item .form-control {
+  height: 34px;
+  border: 1px dashed #7b63a3;
+}
+ux-search-builder-group .search-group-content .search-group-items .search-group-item-container .search-group-item-remove {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+  margin: 9px;
+  color: #abacad;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 300ms linear;
+}
+ux-search-builder-group .search-group-content .search-builder-group-add-field {
+  display: flex;
+  flex: none;
+  width: 135px;
+  height: 30px;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: flex-end;
+  cursor: pointer;
+}
+ux-search-builder-group .search-group-content .search-builder-group-add-field .btn {
+  transition: background-color 300ms linear;
+  pointer-events: none;
+  background-color: rgba(123, 99, 163, 0.5);
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+ux-search-builder-group .search-group-content .search-builder-group-add-field .search-builder-group-add-field-label {
+  position: relative;
+  color: #999;
+  font-size: 0.9375rem;
+  padding-left: 8px;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+ux-search-builder-group .search-group-content .search-builder-group-add-field:hover .btn {
+  background-color: #7b63a3;
+}
+ux-search-builder-group .search-builder-group-divider {
+  border-top-color: #e5e5e5;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+ux-search-builder-group:last-of-type .search-builder-group-divider {
+  display: none;
+}
 ux-slider {
   display: block;
   -webkit-user-select: none;
@@ -17757,6 +17934,9 @@ ux-spark .ux-spark-label-top-right,
 ux-spark .ux-spark-label-bottom-right {
   float: right;
   text-align: right;
+}
+ux-spark .ux-spark-multi-value {
+  display: flex;
 }
 ux-tag-input {
   display: inline-block;
@@ -18218,6 +18398,23 @@ ux-media-player-timeline .timeline-bar .media-progress-bar {
   height: 100%;
   background-color: #00a7a2;
 }
+ux-media-player-timeline .timeline-bar .media-progress-bar .media-progress-bar-thumb {
+  position: absolute;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  transform: translateX(50%) translateY(-28%);
+  z-index: 10000;
+  opacity: 0;
+  display: none;
+}
+ux-media-player-timeline .timeline-bar .media-progress-bar .media-progress-bar-thumb:hover,
+ux-media-player-timeline .timeline-bar .media-progress-bar .media-progress-bar-thumb:active {
+  opacity: 1;
+}
 ux-media-player-timeline .timeline-bar .scrub-handle {
   position: absolute;
   width: 2px;
@@ -18230,8 +18427,15 @@ ux-media-player-timeline .timeline-bar .scrub-handle {
 ux-media-player-timeline .timeline-bar .tooltip {
   pointer-events: none;
 }
-ux-media-player-timeline .timeline-bar:hover .scrub-handle {
+ux-media-player-timeline .timeline-bar:hover .scrub-handle,
+ux-media-player-timeline .timeline-bar:active .scrub-handle,
+ux-media-player-timeline .timeline-bar:hover:active .scrub-handle {
   opacity: 1;
+}
+ux-media-player-timeline .timeline-bar:hover .scrub-handle.scrub-handle-hidden,
+ux-media-player-timeline .timeline-bar:active .scrub-handle.scrub-handle-hidden,
+ux-media-player-timeline .timeline-bar:hover:active .scrub-handle.scrub-handle-hidden {
+  opacity: 0;
 }
 ux-media-player-timeline.quiet .current-time,
 ux-media-player-timeline.quiet .duration-time {

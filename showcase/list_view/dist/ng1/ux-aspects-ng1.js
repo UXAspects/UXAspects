@@ -3445,7 +3445,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
-//! version : 2.19.1
+//! version : 2.19.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -4260,7 +4260,7 @@ function get (mom, unit) {
 
 function set$1 (mom, unit, value) {
     if (mom.isValid() && !isNaN(value)) {
-        if (unit === 'FullYear' && isLeapYear(mom.year())) {
+        if (unit === 'FullYear' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
             mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
         }
         else {
@@ -5366,10 +5366,11 @@ function defineLocale (name, config) {
 
 function updateLocale(name, config) {
     if (config != null) {
-        var locale, parentConfig = baseConfig;
+        var locale, tmpLocale, parentConfig = baseConfig;
         // MERGE
-        if (locales[name] != null) {
-            parentConfig = locales[name]._config;
+        tmpLocale = loadLocale(name);
+        if (tmpLocale != null) {
+            parentConfig = tmpLocale._config;
         }
         config = mergeConfigs(parentConfig, config);
         locale = new Locale(config);
@@ -7923,7 +7924,7 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 
-hooks.version = '2.19.1';
+hooks.version = '2.19.2';
 
 setHookCallback(createLocal);
 
@@ -10357,6 +10358,8 @@ DynamicSelectCtrl.$inject = ["$scope", "$element", "$attrs", "$compile", "$timeo
 function DynamicSelectCtrl($scope, $element, $attrs, $compile, $timeout, $sanitize, debounceService) {
   var vm = this;
 
+  var inputModelCtrl = null;
+
   var Keys = {
     enter: 13,
     up: 38,
@@ -10423,6 +10426,7 @@ function DynamicSelectCtrl($scope, $element, $attrs, $compile, $timeout, $saniti
     $scope.$watch("vm.singleText", function (nv) {
       if (nv === displayValueOf(vm.ngModel)) {
         vm.filterText = "";
+        setDirty();
       } else {
         vm.filterText = nv;
         if (vm.allOptions.allowNull) {
@@ -10749,6 +10753,13 @@ function DynamicSelectCtrl($scope, $element, $attrs, $compile, $timeout, $saniti
 
   function setDropdown(state) {
     vm.dropdownOpen = state && !vm.ngDisabled;
+  }
+
+  function setDirty() {
+    inputModelCtrl = inputModelCtrl || $element.find("input").controller("ngModel");
+    if (inputModelCtrl) {
+      inputModelCtrl.$setDirty();
+    }
   }
 }
 
@@ -19202,6 +19213,7 @@ function singleLineOverflowTooltip(safeTimeout, $window, $resize) {
 
             var nativeElement = element.get(0);
             var tooltipReady = false;
+            var tooltipDestroyed = false;
 
             var safeTimeoutInstance = safeTimeout.create(scope);
 
@@ -19234,11 +19246,8 @@ function singleLineOverflowTooltip(safeTimeout, $window, $resize) {
             //watch for changes to window size
             $window.addEventListener('resize', updateTooltipFn);
 
-            element.on('$destroy', function () {
-                element.tooltip('destroy');
-                $window.removeEventListener('resize', updateTooltipFn);
-                $resize.unbind(nativeElement, updateTooltip.bind(this));
-            });
+            element.on('$destroy', destroy);
+            scope.$on('$destroy', destroy);
 
             function updateTooltipFn() {
                 updateTooltip();
@@ -19290,6 +19299,20 @@ function singleLineOverflowTooltip(safeTimeout, $window, $resize) {
                 }
 
                 hidden.remove();
+            }
+
+            function destroy() {
+
+                // if it is already destroyed then stop here
+                if (tooltipDestroyed) {
+                    return;
+                }
+
+                tooltipDestroyed = true;
+
+                element.tooltip('destroy');
+                $window.removeEventListener('resize', updateTooltipFn);
+                $resize.unbind(nativeElement, updateTooltip.bind(this));
             }
         }
     };
@@ -26184,7 +26207,7 @@ function slider($timeout) {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"slider\">\n<div class=\"track\" ng-class=\"vm.options.track.height\">\n<div class=\"track-section track-lower\" ng-style=\"{ 'flex-grow': vm.trackSizes.lower, 'background': vm.trackColors.lower }\">\n</div>\n<div class=\"thumb lower\" ng-style=\"{ 'left': vm.thumbPositions.lower, 'z-index': vm.thumbOrder.lower }\" ng-class=\"[vm.options.handles.style, vm.options.track.height]\" ng-mouseenter=\"vm.lowerThumbState.hover = true\" ng-mouseleave=\"vm.lowerThumbState.hover = false\">\n<div class=\"tooltip top tooltip-lower\" ng-style=\"{ 'opacity': vm.tooltipLowerVisible ? 1 : 0 }\">\n<div class=\"tooltip-arrow\" ng-style=\"{'border-top-color': vm.options.handles.callout.background }\">\n</div>\n<div class=\"tooltip-inner\" ng-style=\"{ 'background-color': vm.options.handles.callout.background, 'color': vm.options.handles.callout.color }\" ng-bind=\"vm.options.handles.callout.formatter(vm.thumbLowerValue)\">\n</div>\n</div>\n</div>\n<div class=\"track-section track-range\" ng-show=\"vm.options.type === 'range'\" ng-style=\"{ 'flex-grow': vm.trackSizes.range, 'background': vm.trackColors.range }\">\n</div>\n<div class=\"thumb upper\" ng-show=\"vm.options.type === 'range'\" ng-style=\"{ 'left': vm.thumbPositions.upper, 'z-index': vm.thumbOrder.upper }\" ng-class=\"[vm.options.handles.style, vm.options.track.height]\" ng-mouseenter=\"vm.upperThumbState.hover = true\" ng-mouseleave=\"vm.upperThumbState.hover = false\">\n<div class=\"tooltip top tooltip-upper\" ng-style=\"{ 'opacity': vm.tooltipUpperVisible ? 1 : 0 }\">\n<div class=\"tooltip-arrow\" ng-style=\"{'border-top-color': vm.options.handles.callout.background }\">\n</div>\n<div class=\"tooltip-inner\" ng-if=\"vm.options.type === 'range'\" ng-style=\"{ 'background-color': vm.options.handles.callout.background, 'color': vm.options.handles.callout.color }\" ng-bind=\"vm.options.handles.callout.formatter(vm.thumbUpperValue)\">\n</div>\n</div>\n</div>\n<div class=\"track-section track-higher\" ng-style=\"{ 'flex-grow': vm.trackSizes.higher, 'background': vm.trackColors.higher }\">\n</div>\n</div>\n<div class=\"tick-container\" ng-if=\"vm.options.track.ticks.major.show || vm.options.track.ticks.minor.show\" ng-class=\"{ 'show-labels': vm.options.track.ticks.major.labels || vm.options.track.ticks.minor.labels }\">\n<div class=\"tick\" ng-repeat=\"tick in vm.ticks\" ng-class=\"::tick.type\" ng-style=\"::{ 'left': tick.position + '%' }\" ng-show=\"::tick.showTicks\">\n<div class=\"tick-indicator\"></div>\n<div class=\"tick-label\" ng-show=\"::tick.showLabels\" ng-bind=\"::tick.label\"></div>\n</div>\n</div>\n</div>";
+var v1="<div class=\"slider\">\n<div class=\"track\" ng-class=\"vm.options.track.height\">\n<div class=\"track-section track-lower\" ng-style=\"{ 'flex-grow': vm.trackSizes.lower, 'background': vm.trackColors.lower }\">\n</div>\n<div class=\"thumb lower {{vm.options.handles.style}} {{vm.options.track.height}}\" ng-style=\"{ 'left': vm.thumbPositions.lower, 'z-index': vm.thumbOrder.lower }\" ng-class=\"{ 'active': vm.lowerThumbState.drag }\" ng-mouseenter=\"vm.lowerThumbState.hover = true\" ng-mouseleave=\"vm.lowerThumbState.hover = false\">\n<div class=\"tooltip top tooltip-lower\" ng-style=\"{ 'opacity': vm.tooltipLowerVisible ? 1 : 0 }\">\n<div class=\"tooltip-arrow\" ng-style=\"{'border-top-color': vm.options.handles.callout.background }\">\n</div>\n<div class=\"tooltip-inner\" ng-style=\"{ 'background-color': vm.options.handles.callout.background, 'color': vm.options.handles.callout.color }\" ng-bind=\"vm.options.handles.callout.formatter(vm.thumbLowerValue)\">\n</div>\n</div>\n</div>\n<div class=\"track-section track-range\" ng-show=\"vm.options.type === 'range'\" ng-style=\"{ 'flex-grow': vm.trackSizes.range, 'background': vm.trackColors.range }\">\n</div>\n<div class=\"thumb upper {{vm.options.handles.style}} {{vm.options.track.height}}\" ng-show=\"vm.options.type === 'range'\" ng-style=\"{ 'left': vm.thumbPositions.upper, 'z-index': vm.thumbOrder.upper }\" ng-class=\"{ 'active': vm.upperThumbState.drag }\" ng-mouseenter=\"vm.upperThumbState.hover = true\" ng-mouseleave=\"vm.upperThumbState.hover = false\">\n<div class=\"tooltip top tooltip-upper\" ng-style=\"{ 'opacity': vm.tooltipUpperVisible ? 1 : 0 }\">\n<div class=\"tooltip-arrow\" ng-style=\"{'border-top-color': vm.options.handles.callout.background }\">\n</div>\n<div class=\"tooltip-inner\" ng-if=\"vm.options.type === 'range'\" ng-style=\"{ 'background-color': vm.options.handles.callout.background, 'color': vm.options.handles.callout.color }\" ng-bind=\"vm.options.handles.callout.formatter(vm.thumbUpperValue)\">\n</div>\n</div>\n</div>\n<div class=\"track-section track-higher\" ng-style=\"{ 'flex-grow': vm.trackSizes.higher, 'background': vm.trackColors.higher }\">\n</div>\n</div>\n<div class=\"tick-container\" ng-if=\"vm.options.track.ticks.major.show || vm.options.track.ticks.minor.show\" ng-class=\"{ 'show-labels': vm.options.track.ticks.major.labels || vm.options.track.ticks.minor.labels }\">\n<div class=\"tick\" ng-repeat=\"tick in vm.ticks\" ng-class=\"::tick.type\" ng-style=\"::{ 'left': tick.position + '%' }\" ng-show=\"::tick.showTicks\">\n<div class=\"tick-indicator\"></div>\n<div class=\"tick-label\" ng-show=\"::tick.showLabels\" ng-bind=\"::tick.label\"></div>\n</div>\n</div>\n</div>";
 var id1="directives/slider/slider.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -30075,7 +30098,8 @@ function SparkDirective() {
             topRightLabel: "=",
             bottomLeftLabel: "=",
             bottomRightLabel: "=",
-            sparkTooltip: "@?"
+            sparkTooltip: "@?",
+            barColor: '=?'
         },
         bindToController: true
     };
@@ -30088,7 +30112,7 @@ function SparkDirective() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div>\n<div ng-if=\"sc.inline === true\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div>\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc.type ]\" ng-style=\"sc.setPosition\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width: (sc.value < 100 ? sc.value : 100) + '%'}\" aria-valuetext=\"sc.label\"></div>\n</div>\n<div>\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc.inline === false\">\n<div>\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc.type\" ng-style=\"{height: sc.fillheight + 'px'}\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width: (sc.value < 100 ? sc.value : 100) + '%'}\" aria-valuetext=\"sc.top-left-label\"></div>\n</div>\n<div>\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
+var v1="<div>\n<div ng-if=\"sc.inline === true\" class=\"spark-container-inline\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc.type ]\" ng-style=\"sc.setPosition\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc.inline === false\" class=\"spark-container\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc.type\" ng-style=\"{height: sc.fillheight + 'px'}\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.top-left-label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
 var id1="directives/spark/spark.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -30102,14 +30126,31 @@ module.exports=v1;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = SparkCtrl;
 function SparkCtrl() {
-    var vm = this;
+    var sc = this;
 
-    vm.inline = vm.label !== undefined;
+    sc.inline = sc.label !== undefined;
 
-    vm.setPosition = {
-        'height': vm.fillheight + 'px',
-        'margin-top': vm.top !== undefined ? vm.top : 0 + 'px'
+    sc.setPosition = {
+        'height': sc.fillheight + 'px',
+        'margin-top': sc.top !== undefined ? sc.top : 0 + 'px'
     };
+
+    // ensure 'value' is an array at this point
+    var values = Array.isArray(sc.value) ? sc.value : [sc.value];
+
+    // get the total value of all lines
+    var total = Math.max(values.reduce(function (previous, current) {
+        return previous + current;
+    }, 0), 100);
+
+    // figure out the percentages for each spark line
+    this.values = values.map(function (val) {
+        return val / total * 100;
+    });
+
+    this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
+
+    return this.values;
 }
 
 /***/ }),
@@ -33733,6 +33774,8 @@ function NotificationService() {
     vm.notifications = [];
     vm.notificationsVisible = true;
 
+    vm.visibleNotifications = [];
+
     vm.direction = 'append';
 
     /*
@@ -33847,6 +33890,7 @@ function NotificationService() {
 
         var notification = document.createElement('div');
         notification.className = 'notification ' + (options.customClass ? options.customClass : '');
+        notification.style.position = 'absolute';
 
         //create close button
         var closeBtn = document.createElement('div');
@@ -33942,18 +33986,55 @@ function NotificationService() {
             }, options.duration);
         }
 
+        // keep an internal list of visible notifications
+        if (this.direction === 'append') {
+            this.visibleNotifications.push(notification);
+        } else {
+            this.visibleNotifications.unshift(notification);
+        }
+
+        // update the notification positions
+        updateNotificationPositions.call(this);
+
         return notification;
     }
 
+    function updateNotificationPositions() {
+        var yPosition = 0;
+        var spacing = 10;
+
+        for (var idx = 0; idx < this.visibleNotifications.length; idx++) {
+            // get the notification in question
+            var notification = this.visibleNotifications[idx];
+
+            // get the size of the notification
+            var height = notification.offsetHeight;
+
+            // set the position of the notification
+            notification.style.top = yPosition + 'px';
+
+            // update the y position
+            yPosition += height + spacing;
+        }
+    }
+
     function dismissNotification(notification) {
+        var _this = this;
 
         //apply fade out animation
         notification.className = 'notification fadeOutNotification';
+
+        // remove the notification from the list of visible notifications
+        this.visibleNotifications = this.visibleNotifications.filter(function (item) {
+            return item !== notification;
+        });
 
         //delay for 700ms (animation length) - then remove dom element
         setTimeout(function () {
             //ensure element still exists before trying to remove
             if (notification && notification.parentElement) notification.parentElement.removeChild(notification);
+
+            updateNotificationPositions.call(_this);
         }, 700);
     }
 
@@ -34776,27 +34857,27 @@ function SparkDirective() {
             topRightLabel: "=?",
             bottomLeftLabel: "=?",
             bottomRightLabel: "=?",
-            sparkTooltip: "@?"
+            sparkTooltip: "@?",
+            barColor: "=?"
         },
-        template: "<spark type=\"type\" spark-tooltip=\"{{ sparkTooltip }}\" value=\"value\" fillheight=\"fillheight\" inline-label=\"inlineLabel\" top=\"top\" top-left-label=\"topLeftLabel\" top-right-label=\"topRightLabel\" bottom-left-label=\"bottomLeftLabel\" bottom-right-label=\"bottomRightLabel\"></spark>",
+        template: "<spark type=\"type\" spark-tooltip=\"{{ sparkTooltip }}\" value=\"value\" fillheight=\"fillheight\" inline-label=\"inlineLabel\" top=\"top\" top-left-label=\"topLeftLabel\" top-right-label=\"topRightLabel\" bottom-left-label=\"bottomLeftLabel\" bottom-right-label=\"bottomRightLabel\" bar-color=\"barColor\"></spark>",
         controller: ['$scope', function ($scope) {
+
+            $scope.type = typeof $scope.type === 'function' ? $scope.type() : $scope.type;
+            $scope.value = typeof $scope.value === 'function' ? $scope.value() : $scope.value;
+            $scope.fillheight = typeof $scope.fillheight === 'function' ? $scope.fillheight() : $scope.fillheight;
+            $scope.inlineLabel = typeof $scope.inlineLabel === 'function' ? $scope.inlineLabel() : $scope.inlineLabel;
+            $scope.top = typeof $scope.top === 'function' ? $scope.top() : $scope.top;
+            $scope.topLeftLabel = typeof $scope.topLeftLabel === 'function' ? $scope.topLeftLabel() : $scope.topLeftLabel;
+            $scope.topRightLabel = typeof $scope.topRightLabel === 'function' ? $scope.topRightLabel() : $scope.topRightLabel;
+            $scope.bottomLeftLabel = typeof $scope.bottomLeftLabel === 'function' ? $scope.bottomLeftLabel() : $scope.bottomLeftLabel;
+            $scope.bottomRightLabel = typeof $scope.bottomRightLabel === 'function' ? $scope.bottomRightLabel() : $scope.bottomRightLabel;
+            $scope.barColor = typeof $scope.barColor === 'function' ? $scope.barColor() : $scope.barColor;
+
             this.$onDestroy = function () {
                 $scope.$destroy();
             };
-        }],
-        link: function link(scope) {
-
-            // ensure scope values have a valid value - functions are not accepted
-            scope.type = typeof scope.type === 'function' ? scope.type() : scope.type;
-            scope.value = typeof scope.value === 'function' ? scope.value() : scope.value;
-            scope.fillheight = typeof scope.fillheight === 'function' ? scope.fillheight() : scope.fillheight;
-            scope.inlineLabel = typeof scope.inlineLabel === 'function' ? scope.inlineLabel() : scope.inlineLabel;
-            scope.top = typeof scope.top === 'function' ? scope.top() : scope.top;
-            scope.topLeftLabel = typeof scope.topLeftLabel === 'function' ? scope.topLeftLabel() : scope.topLeftLabel;
-            scope.topRightLabel = typeof scope.topRightLabel === 'function' ? scope.topRightLabel() : scope.topRightLabel;
-            scope.bottomLeftLabel = typeof scope.bottomLeftLabel === 'function' ? scope.bottomLeftLabel() : scope.bottomLeftLabel;
-            scope.bottomRightLabel = typeof scope.bottomRightLabel === 'function' ? scope.bottomRightLabel() : scope.bottomRightLabel;
-        }
+        }]
     };
 }
 
