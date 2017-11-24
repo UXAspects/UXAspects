@@ -8,8 +8,7 @@ export class DateTimePickerPage {
     }
     
     todayBtn = element(by.className('now-button'));
-    numberPicker1 = element(by.id('numberPicker1'));
-    numberPicker2 = element(by.id('numberPicker2'));
+    dateTimePicker = element(by.id('dateTimePicker'));
 
     async getTodayButtonText(): Promise<string> {
         return new Promise<string>((resolve) => {
