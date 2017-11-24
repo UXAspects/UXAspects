@@ -97,7 +97,7 @@ export class PlunkerService {
             this.mainTs = require('./templates/main_ts.txt');
         }
 
-        this.mainTs = this.mainTs.replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
+        let mainTs = this.mainTs.replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
             .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
             .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
             .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
@@ -110,7 +110,7 @@ export class PlunkerService {
             'private': true,
             'files[index.html]': this.indexTemplate,
             'files[config.js]': configJs,
-            'files[src/main.ts]': this.mainTs
+            'files[src/main.ts]': mainTs
         };
 
         for (let key in plunk.files) {
