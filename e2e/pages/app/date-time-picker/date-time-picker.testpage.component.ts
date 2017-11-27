@@ -1,9 +1,5 @@
-import { Component, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { DateTimePickerTimezone } from '../../../../dist';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/debounceTime';
 
 @Component({
     selector: 'date-time-picker-app',
@@ -11,37 +7,14 @@ import 'rxjs/add/operator/debounceTime';
     styleUrls: ['./date-time-picker.testpage.component.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class DateTimePickerTestPageComponent implements AfterViewInit, OnDestroy {
 
-    @ViewChild('input') dateInput: ElementRef;
+export class DateTimePickerTestPageComponent {
 
     date: Date = new Date();
     timezone: DateTimePickerTimezone = { name: 'GMT', offset: 0 };
-
     showTime: boolean = true;
     showTimezones: boolean = true;
     showMeridians: boolean = true;
     showSpinners: boolean = true;
-    subscription: Subscription;
 
-    ngAfterViewInit(): void {
-        this.subscription = Observable.fromEvent(this.dateInput.nativeElement, 'input')
-            .debounceTime(500)
-            .subscribe(event => this.parse(this.dateInput.nativeElement.value));
-    }
-
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-    }
-
-    parse(value: string): void {
-
-        // try and parse the date
-        const date = new Date(value);
-
-        // check if the date is valid
-        if (!isNaN(date.getDate())) {
-            this.date = date;
-        }
-    }
 }

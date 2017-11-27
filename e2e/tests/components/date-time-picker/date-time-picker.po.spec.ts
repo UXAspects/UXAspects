@@ -7,16 +7,59 @@ export class DateTimePickerPage {
         browser.get('/date-time-picker');
     }
     
+    dateTimePicker = element(by.id('date-time-picker'));
     todayBtn = element(by.className('now-button'));
-    dateTimePicker = element(by.id('dateTimePicker'));
+    currentDate = element(by.id('current-date'));
+    selectedDay = element(by.css('.date-cell.active'));
+    selectedMonthYear = element(by.css('.header-title.active'));
+    initialTimezone = element(by.className('time-zone'));
+    headerTitle = element(by.className('header-title'));
 
-    async getTodayButtonText(): Promise<string> {
+    getTodayButtonText(): Promise<string> {
         return new Promise<string>((resolve) => {
             this.todayBtn.getText().then(result => {
                 resolve(result);
             });
         });
     }
+
+    getSelectedDay(): Promise<string> {
+        return new Promise<string>((resolve) => {
+            this.selectedDay.getText().then(result => {
+                resolve(result);
+            });
+        });
+    }
+
+    getSelectedMonth(): Promise<string> {
+        return new Promise<string>((resolve) => {
+            this.selectedMonthYear.getText().then(result => {
+                resolve(result.substring(0, result.indexOf(' ')));
+            });
+        });
+    }
+
+    getSelectedYear(): Promise<string> {
+        return new Promise<string>((resolve) => {
+            this.selectedMonthYear.getText().then(result => {
+                resolve(result.slice(-4));
+            });
+        });
+    }
+
+    // async getDatePickerInitialDate(dateTimePicker: ElementFinder): Promise<string> {
+    //     return new Promise<string>((resolve) => {
+    //         dateTimePicker.getAttribute('date').then((date: string) => {
+    //             resolve(date);
+    //         });
+    //     });
+    // }
+
+    // getDatePickerInitialDate(dateTimePicker: ElementFinder) {
+    //     return dateTimePicker.getAttribute('date').then((date: string) => {
+    //         return date;
+    //     });
+    // }
 
     // getNumberPickerMinimum(numberPicker: ElementFinder) {
     //     return numberPicker.getAttribute('min').then(function(min: string) {
