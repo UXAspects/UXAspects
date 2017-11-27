@@ -1073,6 +1073,16 @@ fieldset[disabled] .btn-toggle.active {
     height: 30px;
     position: relative;
   }
+  &.disabled {
+    .side-inset-splitter-toggle {
+      background-color: @btn-primary-disabled-bg;
+      cursor: not-allowed;
+      > a {
+        color: @btn-primary-disabled-color;
+        cursor: inherit;
+      }
+    }
+  }
   &.top {
     left: ~'calc(100% - 30px)';
     .side-inset-splitter-toggle {
