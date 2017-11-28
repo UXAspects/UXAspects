@@ -1,5 +1,5 @@
 import { browser, Key, protractor, element, by } from 'protractor';
-import { DateTimePickerPage } from './date-time-picker.po.spec';
+import { DateTimePickerPage, HeaderType } from './date-time-picker.po.spec';
 
 describe('Date Time Picker Tests', () => {
 
@@ -13,20 +13,15 @@ describe('Date Time Picker Tests', () => {
 
     it('should have correct initial states', () => {
 
-        let date: Date = new Date();
-        let day = date.getDate().toString();
-        let month = date.getMonth().toString();
-        let year = date.getFullYear().toString();
-        let monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'];
-        
         // Initial values.
         expect(page.dateTimePicker.isPresent()).toBeTruthy();
         expect(page.currentDate.isPresent()).toBeTruthy();
         expect<any>(page.getTodayButtonText()).toBe('Today');
-        expect<any>(page.getSelectedDay()).toBe(day);
-        expect<any>(page.getSelectedMonth()).toBe(monthNames[month]);
-        expect<any>(page.getSelectedYear()).toBe(year);
+        expect<any>(page.getSelectedDay()).toBe(page.day.toString());
+        expect<any>(page.getSelectedMonth()).toBe(page.monthNames[page.month]);
+        expect<any>(page.getSelectedYear()).toBe(page.year.toString());
+        expect<any>(page.getSelectedHour()).toBe(page.hours.toString());
+        expect<any>(page.getSelectedMinute()).toBe(page.minutes.toString());        
         expect<any>(page.initialTimezone.getText()).toBe('GMT');
         
     });
@@ -34,7 +29,30 @@ describe('Date Time Picker Tests', () => {
     it('should allow changes to the value by clicking', () => {
 
         // Date Time Picker
-        page.headerTitle.click();
+        page.incrementHeaderNavigation(HeaderType.Month, 2);
+        expect<any>(page.getSelectedMonth()).toBe(page.monthNames[page.month]);
+
+        page.decrementHeaderNavigation(HeaderType.Month, 4);
+        expect<any>(page.getSelectedMonth()).toBe(page.monthNames[page.month]);   
+        
+        page.incrementHour();
+        // expected hour?
+        
+        page.decrementHour();
+        // expected hour?
+
+        // TODO send keys to hour input box to check upper limit, i.e. 12
+
+
+        // expect<any>(page.getSelectedHour()).toBe((page.hours + 1).toString());
+        
+        // page.headerTitle.click();
+        // page.incrementHeaderNavigation(4);
+        // expect<any>(page.getSelectedYear()).toBe((year + 4).toString());
+
+        // expect<any>(page.getFeb()).toBe('Feb');
+        // page.monthViewFeb.click();
+        // expect<any>(page.getSelectedMonth()).toBe('February');
 
   //   // Number Picker 1
   //   page.incrementNumberPickerValue(page.numberPicker1);
