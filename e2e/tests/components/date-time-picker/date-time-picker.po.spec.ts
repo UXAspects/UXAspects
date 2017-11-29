@@ -22,6 +22,11 @@ export class DateTimePickerPage {
     selectedDay = element(by.css('.date-cell.active'));
     selectedMonthYear = element(by.css('.header-title.active'));
 
+    initialTimezone = element(by.className('time-zone'));
+    headerTitle = element(by.className('header-title'));
+    incrementHeader = element(by.className('hpe-next'));
+    decrementHeader = element(by.className('hpe-previous'));
+
     timePicker = element(by.css('time-picker'));
     timePickerInputs = $$('.bs-timepicker-field');
     timePickerIncrements = $$('.bs-chevron-up');
@@ -35,15 +40,11 @@ export class DateTimePickerPage {
     minutePickerIncrement = this.timePickerIncrements.get(1);
     minutePickerDecrement = this.timePickerDecrements.get(1);
 
-    initialTimezone = element(by.className('time-zone'));
-    headerTitle = element(by.className('header-title'));
-    incrementHeader = element(by.className('hpe-next'));
-    decrementHeader = element(by.className('hpe-previous'));
+    timezonePicker = this.timePickerInputs.get(2);
+    timezonePickerIncrement = this.timePickerIncrements.get(2);
+    timezonePickerDecrement = this.timePickerDecrements.get(2);
     
-
-
-
-
+   
     // monthViewFeb = element(by.css('.calendar-row:first-child .calendar-item:nth-child(2)'));
 
 
@@ -55,6 +56,21 @@ export class DateTimePickerPage {
         this.hourPickerDecrement.click();
     }
 
+    incrementMinutes() {
+        this.minutePickerIncrement.click();
+    }
+
+    decrementMinutes() {
+        this.minutePickerDecrement.click();
+    }
+
+    incrementTimezone() {
+        this.timezonePickerIncrement.click();        
+    }
+
+    decrementTimeZone() {
+        this.timezonePickerDecrement.click(); 
+    }
 
     incrementHeaderNavigation(headerType: HeaderType, increment: number) {
 

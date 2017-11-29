@@ -41,6 +41,18 @@ describe('Date Time Picker Tests', () => {
         page.decrementHour();
         // expected hour?
 
+        page.incrementMinutes();
+        // expected minutes
+
+        page.decrementMinutes();
+        // expected minutes
+
+        page.incrementTimezone();
+        // expected timezone?
+
+        page.decrementTimeZone();
+        // expected timezone
+
         // TODO send keys to hour input box to check upper limit, i.e. 12
 
 
