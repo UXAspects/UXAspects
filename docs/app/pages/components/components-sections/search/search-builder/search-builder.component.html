@@ -23,7 +23,7 @@
 
     <div class="search-builder-body">
 
-        <ux-search-builder [(query)]="query">
+        <ux-search-builder [(query)]="query" [components]="components">
             <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" (add)="addKeyword()"></ux-search-builder-group>
             <ux-search-builder-group id="authors" header="ANY of the following" operator="or" (add)="addAuthor()"></ux-search-builder-group>
             <ux-search-builder-group id="repositories" header="ALL of the following" (add)="addRepository()"></ux-search-builder-group>

@@ -10,20 +10,20 @@ export class SearchBuilderService {
   query: SearchBuilderQuery = {};
   queryChange: Subject<SearchBuilderQuery> = new Subject<SearchBuilderQuery>();
 
-  private _components: { [key: string]: any } = {};
+  private _components: SearchBuilderComponentDefinition[] = [];
 
   /**
    * Add a component to the internal list of components
    */
-  registerComponent(name: string, component: any): void {
+  registerComponent(component: SearchBuilderComponentDefinition): void {
 
     // ensure there are no components with a matching name
-    if (this._components.hasOwnProperty(name)) {
+    if (this._components.find(cmp => cmp.name === component.name)) {
       throw new Error(`Search builder components must have a unique name. The name ${component.name} has already been used.`);
     }
 
     // if unique then add the component to the list
-    this._components[name] = component;
+    this._components.push(component);
   }
 
   /**
@@ -31,14 +31,26 @@ export class SearchBuilderService {
    * (Just a helper method)
    */
   registerComponents(components: SearchBuilderComponentDefinition[]): void {
-    components.forEach(component => this.registerComponent(component.name, component.component));
+    components.forEach(component => this.registerComponent(component));
   }
 
   /**
    * Get a registered component class
    */
-  getComponent(type: string): any {
-    return this._components[type];
+  getComponent(name: string): any {
+
+    // find the component
+    const component = this._components.find(cmp => cmp.name === name);
+
+    // if there is no match throw an exception
+    if (!component) {
+      throw new Error(`No search build component with the name ${name} exists`);
+    }
+
+    // ensure config is defined - at least to an empty object
+    component.config = component.config || {};
+
+    return component;
   }
 
   /**

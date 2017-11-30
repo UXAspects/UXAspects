@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-6">
+            <label class="form-label" *ngIf="label">{{ label }}</label>
+
+            <div class="input-group date m-nil">
+                <span class="input-group-addon" tabindex="1" (click)="fromPopover.show()">
+                    <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+                </span>
+                <input type="text" #fromPopover="bs-popover" [ngModel]="from | date:'dd MMMM yyyy'" [popover]="fromPopoverTemplate" placement="bottom"
+                    [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label" *ngIf="label">{{ label }}</label>
+
+            <div class="input-group date m-nil">
+                <span class="input-group-addon" tabindex="1" (click)="toPopover.show()">
+                    <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+                </span>
+                <input type="text" #toPopover="bs-popover" [ngModel]="to | date:'dd MMMM yyyy'" [popover]="toPopoverTemplate" placement="bottom"
+                    [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date">
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #fromPopoverTemplate>
+    <ux-date-time-picker [(date)]="from" [showTime]="false">
+    </ux-date-time-picker>
+</ng-template>
+
+<ng-template #toPopoverTemplate>
+    <ux-date-time-picker [(date)]="to" [showTime]="false">
+    </ux-date-time-picker>
+</ng-template>
