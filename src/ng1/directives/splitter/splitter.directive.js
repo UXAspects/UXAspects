@@ -14,11 +14,12 @@ export default function splitter($compile, $timeout) {
             onDragStart: '=?',
             onDragEnd: '=?',
             onToggle: '=?',
-            reinitialize: '=?'
+            reinitialize: '=?',
+            disabled: '=?'
         },
         link: function (scope, element) {
 
-            var container, panels, horizontal, gutter, options, dragHandle, ratio, parentHeight, parentWidth, height, width, sidePanelW, sidePanelH;
+            var container, toggle, mainPanel, sidePanel, toggleState, panels, horizontal, gutter, options, dragHandle, ratio, parentHeight, parentWidth, height, width, sidePanelW, sidePanelH;
 
             function init() {
                 //get splitter container element
@@ -181,8 +182,6 @@ export default function splitter($compile, $timeout) {
             */
             function setUpToggleButton() {
 
-                var mainPanel, sidePanel;
-
                 panels.forEach(function (panel, index) {
 
                     if (panel.hasAttribute('splitter-side')) {
@@ -229,7 +228,7 @@ export default function splitter($compile, $timeout) {
                 scope.splitterPositionClass = toggleDirection;
 
                 //Create a toggle button
-                var toggle = angular.element('<div class="side-inset-splitter-toggle-container ' + scope.splitterPositionClass + '"><div class="side-inset-splitter-toggle"><a class="hpe-icon"></a></div></div>');
+                toggle = angular.element('<div class="side-inset-splitter-toggle-container ' + scope.splitterPositionClass + '"><div class="side-inset-splitter-toggle"><a class="hpe-icon"></a></div></div>');
 
                 //Add the toggle button to the main panel
                 dragHandle = gutter[0].querySelector(".drag-handle");
@@ -240,9 +239,13 @@ export default function splitter($compile, $timeout) {
                     toggle.insertBefore(gutter);
 
                 //Remember the toggle state
-                var toggleState = "collapsed";
+                toggleState = "collapsed";
                 //Start with the gutter hidden
                 hideGutter();
+
+                if (scope.disabled) {
+                    setToggleDisabled(true);
+                }
                 //Set the right direction for the toggle button
                 if (options.direction === "horizontal") {
                     //Start with the side panel collapsed
@@ -270,6 +273,10 @@ export default function splitter($compile, $timeout) {
 
                 //Bind the click logic for the toggle button
                 toggle.on("click", function () {
+
+                    if (scope.disabled) {
+                        return;
+                    }
 
                     addTransitionClasses(mainPanel, sidePanel);
 
@@ -312,6 +319,31 @@ export default function splitter($compile, $timeout) {
             function removeTransitionClasses(elem) {
                 elem[0].style.transition = "";
             }
+
+            function setToggleDisabled(state) {
+                if (state && !toggle.hasClass("disabled")) {
+                    toggle.addClass("disabled");
+                    if(toggleState === "expanded") {
+                        addTransitionClasses(mainPanel, sidePanel);
+                        toggleState = "collapsed";
+                        hideGutter();
+                        toggleButtonIcon(toggle);
+                        collapseSidePanel(mainPanel, sidePanel);
+
+                        if (scope.onToggle) {
+                            scope.onToggle.call(scope, false);
+                        }
+                    }
+                } else if (!state && toggle.hasClass("disabled")) {
+                    toggle.removeClass("disabled");
+                }
+            }
+
+            scope.$watch('disabled', function(nv, ov) {
+                if (nv !== ov) {
+                    setToggleDisabled(nv);
+                }
+            });
 
             function toggleButtonIcon(toggle, iconClass) {
                 //Find the <a> element with our icon
