@@ -9,13 +9,15 @@
     to the main panel.
 </p>
 
-<p>
-    An <code>on-toggle</code> attribute can be added to the splitter to specify a function to be called when the inset panel is expanding/collapsing.
-</p>
+<p>The following attributes can be added to the splitter:</p>
 
-<p>
-    A <code>disabled</code> attribute can be added to the splitter to specify if the toggle button is disabled.
-    Setting this to <code>true</code> will set the disabled style and make the button unclickable.
-</p>
+<uxd-api-properties>
+    <tr uxd-api-property name="on-toggle" type="function" binding="variable">
+      	Specifies a function to be called when the inset panel is expanding/collapsing.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" binding="variable" defaultValue="false">
+        Setting this to <code>true</code> will set the disabled style and make the button unclickable.
+    </tr>
+</uxd-api-properties>
 
 <uxd-snippet [content]="snippets.compiled.layoutSnippetHtml" language="html"></uxd-snippet>
