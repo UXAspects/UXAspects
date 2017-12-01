@@ -6,10 +6,12 @@ import { SearchBuilderQuery, SearchBuilderComponentDefinition, SearchTextCompone
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { Subscription } from 'rxjs/Subscription';
+import { SearchSelectComponent } from '../../../../../../../src/components/search-builder/search-components/select/select.component';
 
 @Component({
   selector: 'uxd-search-builder',
-  templateUrl: './search-builder.component.html'
+  templateUrl: './search-builder.component.html',
+  styleUrls: ['./search-builder.component.less']
 })
 @DocumentationSectionComponent('ComponentsSearchBuilderComponent')
 export class ComponentsSearchBuilderComponent extends BaseDocumentationSection implements IPlunkProvider, OnDestroy {
@@ -17,6 +19,9 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
   modalRef: BsModalRef;
   query: SearchBuilderQuery = {};
   preview: string = '{}';
+  valid: boolean = true;
+
+  panelOpen: boolean = false;
 
   plunk: IPlunk = {
     files: {
@@ -64,6 +69,14 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
       config: {
         placeholder: 'Enter a Term'
       }
+    },
+    {
+      name: 'select',
+      component: SearchSelectComponent,
+      config: {
+        options: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'],
+        multiple: false
+      }
     }
   ];
 
@@ -97,7 +110,7 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
   }
 
   addKeyword(): void {
-    this.query.keywords.push({ type: 'date-range', value: new Date() });
+    this.query.keywords.push({ type: 'select', value: null });
   }
 
   addAuthor(): void {

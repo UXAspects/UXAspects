@@ -35,8 +35,8 @@
     </table>
 </div>
 
-<ux-item-display-panel [(visible)]="visible" top="53" [shadow]="shadow" 
-[title]="selectedItem?.panel.title" [animate]="animate">
+<ux-item-display-panel [(visible)]="visible" [top]="53" [shadow]="shadow" 
+[header]="selectedItem?.panel.header" [animate]="animate">
 
     <div uxItemDisplayPanelContent [innerHTML]="selectedItem?.panel.content"></div>
 

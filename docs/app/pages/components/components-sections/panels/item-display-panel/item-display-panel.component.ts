@@ -41,7 +41,7 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
         storage: '95.25',
         active: false,
         panel: {
-            title: 'Site Detail - UX Aspects (PPT)',
+            header: 'Site Detail - UX Aspects (PPT)',
             content: this.modalPpt
         }
         }, {
@@ -53,7 +53,7 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
             storage: '15.25',
             active: true,
             panel: {
-                title: 'Site Detail - UX Aspects (PDF)',
+                header: 'Site Detail - UX Aspects (PDF)',
                 content: this.modalPdf
             }
         }, {
@@ -65,7 +65,7 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
             storage: '25.25',
             active: false,
             panel: {
-                title: 'Site Detail - UX Aspects (DOC)',
+                header: 'Site Detail - UX Aspects (DOC)',
                 content: this.modalDoc
             }
         }, {
@@ -77,7 +77,7 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
             storage: '15.25',
             active: true,
             panel: {
-                title: 'Site Detail - UX Aspects (PDF)',
+                header: 'Site Detail - UX Aspects (PDF)',
                 content: this.modalPdf
             }
         }, {
@@ -89,7 +89,7 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
             storage: '15.25',
             active: false,
             panel: {
-                title: 'Site Detail - UX Aspects (DOC)',
+                header: 'Site Detail - UX Aspects (DOC)',
                 content: this.modalDoc
             }
         }
@@ -102,14 +102,14 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
         this.sparkBarColor = colorService.getColor('accent').toHex();
     }
 
-    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item) {
+    show(panel: ItemDisplayPanelComponent, $event: MouseEvent, item: Item): void {
         $event.stopPropagation();
         this.selectedItem = item;
         this.updatePanel();
         this.visible = true;
     }
 
-    previous() {
+    previous(): void {
         if (this.previousEnabled) {
             let id = this.selectedItem.id - 1;
             this.selectedItem = this.items[id - 1];
@@ -117,7 +117,7 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
         }
     }
 
-    next() {
+    next(): void {
         if (this.nextEnabled) {
             let id = this.selectedItem.id + 1;
             this.selectedItem = this.items[id - 1];
@@ -125,21 +125,21 @@ export class ComponentsItemDisplayPanelComponent extends BaseDocumentationSectio
         }
     }
 
-    upArrow(event: KeyboardEvent) {
+    upArrow(event: KeyboardEvent): void {
         if (this.visible) {
             event.preventDefault();
             this.previous();
         }
     }
 
-    downArrow(event: KeyboardEvent) {
+    downArrow(event: KeyboardEvent): void {
         if (this.visible) {
             event.preventDefault();
             this.next();
         }
     }
 
-    updatePanel() {
+    updatePanel(): void {
 
         if (this.selectedItem.id < 5) {
             this.nextEnabled = true;
@@ -185,6 +185,6 @@ interface Item {
 }
 
 interface Panel {
-    title: string;
+    header: string;
     content: string;
 }

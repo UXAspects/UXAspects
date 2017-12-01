@@ -17,7 +17,7 @@ export class SearchBuilderGroupComponent implements OnInit {
   @Input() placeholder: TemplateRef<any>;
   @Input() showPlaceholder: boolean = false;
 
-  @Output() add: EventEmitter<void> = new EventEmitter<void>();
+  @Output() add: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
   @Output() remove: EventEmitter<SearchBuilderGroupQuery> = new EventEmitter<SearchBuilderGroupQuery>();
 
   constructor(public searchBuilderGroupService: SearchBuilderGroupService, private _searchBuilderService: SearchBuilderService) { }

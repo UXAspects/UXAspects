@@ -1,5 +1,7 @@
 import { Component, Input, EventEmitter, Output, SimpleChanges, OnInit } from '@angular/core';
 import { gridify, range } from '../date-time-picker.utils';
+import { DateTimePickerService } from '../date-time-picker.service';
+import { DatePickerMode } from '../date-time-picker.component';
 
 @Component({
   selector: 'ux-date-time-picker-year-view',
@@ -13,20 +15,25 @@ export class DateTimePickerYearViewComponent implements OnInit {
   years: number[][] = [];
   currentYear: number = new Date().getFullYear();
 
-  @Input() year: number = new Date().getFullYear();
-  @Output() yearChange: EventEmitter<number> = new EventEmitter<number>();
-
   ngOnInit(): void {
     this.update();
   }
 
-  select(year: number): void {
+  set year(value: number) {
+    this._dateTimePickerService.year.next(value);
+  }
 
-    // set the year of of the date
+  get year(): number {
+    return this._dateTimePickerService.year.getValue();
+  }
+
+  constructor(private _dateTimePickerService: DateTimePickerService) {}
+
+  select(year: number): void {
     this.year = year;
 
-    // emit the date change
-    this.yearChange.emit(this.year);
+    // show the month picker
+    this.showMonthPicker();
   }
 
   previous(): void {
@@ -65,6 +72,13 @@ export class DateTimePickerYearViewComponent implements OnInit {
 
     // create an array containing all the numbers between the start and end points
     return { start: start, end: end, range: range(start, end) };
+  }
+
+  /**
+   * Show the month picker view
+   */
+  showMonthPicker(): void {
+    this._dateTimePickerService.mode.next(DatePickerMode.Month);
   }
 
 }

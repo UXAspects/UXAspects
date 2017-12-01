@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" [class.has-error]="!valid">
     <div class="row">
 
         <div class="col-md-6">
@@ -28,11 +28,9 @@
 </div>
 
 <ng-template #fromPopoverTemplate>
-    <ux-date-time-picker [(date)]="from" [showTime]="false">
-    </ux-date-time-picker>
+    <ux-date-time-picker [(date)]="from" [showTime]="false"></ux-date-time-picker>
 </ng-template>
 
 <ng-template #toPopoverTemplate>
-    <ux-date-time-picker [(date)]="to" [showTime]="false">
-    </ux-date-time-picker>
+    <ux-date-time-picker [(date)]="to" [showTime]="false"></ux-date-time-picker>
 </ng-template>

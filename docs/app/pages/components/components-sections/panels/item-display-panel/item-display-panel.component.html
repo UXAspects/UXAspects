@@ -31,7 +31,7 @@
     </table>
 </div>
 
-<ux-item-display-panel [(visible)]="visible" top="53" [shadow]="shadow" [title]="selectedItem?.panel.title" [animate]="animate">
+<ux-item-display-panel [(visible)]="visible" [top]="53" [shadow]="shadow" [header]="selectedItem?.panel.header" [animate]="animate">
 
     <div uxItemDisplayPanelContent [innerHTML]="selectedItem?.panel.content"></div>
 
@@ -54,8 +54,8 @@
     <tr uxd-api-property name="visible" type="boolean" required="true">
         Defines whether the item display panel is visible.
     </tr>
-    <tr uxd-api-property name="title" type="string">
-        The title displayed at the top of the item display panel.
+    <tr uxd-api-property name="header" type="string">
+        The header displayed at the top of the item display panel.
     </tr>
     <tr uxd-api-property name="top" type="number" defaultValue="0">
         The number of pixels from the top of the screen, this can be used to keep the item display panel below the page header.

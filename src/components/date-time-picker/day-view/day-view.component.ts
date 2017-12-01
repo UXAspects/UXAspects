@@ -1,42 +1,67 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { dateRange, gridify, compareDays, months, weekdaysShort } from '../date-time-picker.utils';
+import { DateTimePickerService } from '../date-time-picker.service';
+import { DatePickerMode } from '../date-time-picker.component';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/observable/merge';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ux-date-time-picker-day-view',
   templateUrl: './day-view.component.html'
 })
-export class DateTimePickerDayViewComponent {
+export class DateTimePickerDayViewComponent implements OnInit, OnDestroy {
 
   header: string;
   days: DatePickerDay[][] = [];
 
-  private _date: Date;
-
-  @Input() month: number = new Date().getMonth();
-  @Input() year: number = new Date().getFullYear();
   @Input() weekdays: string[] = weekdaysShort;
-  @Output() ascend: EventEmitter<void> = new EventEmitter<void>();
-  @Output() dateChange: EventEmitter<Date> = new EventEmitter<Date>();
-  @Output() monthChange: EventEmitter<number> = new EventEmitter<number>();
-  @Output() yearChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() dateChange: EventEmitter<void> = new EventEmitter<void>();
 
-  @Input()
   set date(value: Date) {
-    this._date = value;
-    
-    // update the month and year
-    this.month = this._date.getMonth();
-    this.year = this._date.getFullYear();
-
-    // emit the changes
-    this.monthChange.emit(this.month);
-    this.yearChange.emit(this.year);
-
-    this.update();
+    this.dateTimePickerService.activeDate.next(value);
   }
 
-  get date(): Date {
-    return this._date;
+  get date() {
+    return this.dateTimePickerService.activeDate.getValue();
+  }
+
+  set month(value: number) {
+    this.dateTimePickerService.month.next(value);
+  }
+
+  get month(): number {
+    return this.dateTimePickerService.month.getValue();
+  }
+
+  set year(value: number) {
+    this.dateTimePickerService.year.next(value);
+  }
+
+  get year(): number {
+    return this.dateTimePickerService.year.getValue();
+  }
+
+  private _subscription: Subscription;
+
+  constructor(public dateTimePickerService: DateTimePickerService) {}
+
+  ngOnInit(): void {
+
+    // update the grid only when the value of the active date, month or year has changed
+    this._subscription = Observable.merge(
+      this.dateTimePickerService.activeDate.distinctUntilChanged(),
+      this.dateTimePickerService.month.distinctUntilChanged(),
+      this.dateTimePickerService.year.distinctUntilChanged()
+    )
+    .subscribe(() => this.update());
+
+  }
+
+  ngOnDestroy(): void {
+    // remove all subscriptions
+    this._subscription.unsubscribe();
   }
 
   /**
@@ -52,10 +77,6 @@ export class DateTimePickerDayViewComponent {
       this.month = 11;
       this.year--;
     }
-
-    // emit the changes
-    this.monthChange.emit(this.month);
-    this.yearChange.emit(this.year);
 
     // update the grid
     this.update();
@@ -74,10 +95,6 @@ export class DateTimePickerDayViewComponent {
       this.month = 0;
       this.year++;
     }
-
-    // emit the changes
-    this.monthChange.emit(this.month);
-    this.yearChange.emit(this.year);
 
     // update the grid
     this.update();
@@ -119,10 +136,10 @@ export class DateTimePickerDayViewComponent {
    */
   select(date: Date): void {
     // update the current date object
-    this._date = new Date(date);
+    this.date = new Date(date);
 
     // emit the new date
-    this.dateChange.emit(this._date);
+    this.dateChange.emit();
   }
 
   /**
@@ -148,6 +165,13 @@ export class DateTimePickerDayViewComponent {
    */
   isCurrentMonth(date: Date): boolean {
     return date.getMonth() === this.month;
+  }
+
+  /**
+   * Update the date picker view to show the month picker
+   */
+  showMonthPicker(): void {
+    this.dateTimePickerService.mode.next(DatePickerMode.Month);
   }
 }
 

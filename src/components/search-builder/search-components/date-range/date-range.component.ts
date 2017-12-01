@@ -13,34 +13,46 @@ export class SearchDateRangeComponent extends BaseSearchComponent implements OnI
     placeholder: string = 'Enter date';
 
     get from() {
-        return this.value.hasOwnProperty('from') ? this.value.from : new Date();
+
+        // if value does not exist the set it
+        if (!this.value || !this.value.from) {
+            this.from = new Date();
+        }
+
+        return this.value.from;
     }
 
     set from(fromValue: any) {
 
-        // create a new value object - promote immutability
+        // create new object based on the current value
         const value = Object.assign({}, this.value);
 
-        // update the from property on the value object
+        // set the latest value
         value.from = fromValue;
 
-        // update the value
+        // update the value object while ensuring immutability
         this.value = value;
     }
 
     get to() {
-        return this.value.hasOwnProperty('to') ? this.value.to : new Date();
+
+        // if value does not exist the set it
+        if (!this.value || !this.value.to) {
+            this.to = new Date();
+        }
+
+        return this.value.to;
     }
 
     set to(toValue: any) {
 
-        // create a new value object - promote immutability
+        // create new object based on the current value
         const value = Object.assign({}, this.value);
 
-        // update the to property on the value object
+        // set the latest value
         value.to = toValue;
 
-        // update the value
+        // update the value object while ensuring immutability
         this.value = value;
     }
 
@@ -49,5 +61,21 @@ export class SearchDateRangeComponent extends BaseSearchComponent implements OnI
         // take into account any configuration
         this.label = this.config.label || this.label;
         this.placeholder = this.config.placeholder || this.placeholder;
+    }
+
+    /**
+     * Override the default validation
+     */
+    validate(): void {
+
+        // check if there is a config validation function
+        if (this.config.validation) {
+            return super.validate();
+        }
+
+        // otherwise perform the built in validation function
+        this.valid = this.from.getDate() <= this.to.getDate() &&
+            this.from.getMonth() <= this.to.getMonth() &&
+            this.from.getYear() <= this.to.getYear();
     }
 }

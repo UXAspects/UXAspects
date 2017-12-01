@@ -14,6 +14,11 @@ export class SearchDateComponent extends BaseSearchComponent implements OnInit {
 
   ngOnInit(): void {
     
+    // by default set to the current date if not specified
+    if (!this.value) {
+      this.value = new Date();
+    }
+
     // take into account any configuration
     this.label = this.config.label || this.label;
     this.placeholder = this.config.placeholder || this.placeholder;

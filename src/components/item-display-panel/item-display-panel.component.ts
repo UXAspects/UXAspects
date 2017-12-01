@@ -21,18 +21,33 @@ export class ItemDisplayPanelFooterDirective { }
     }
 })
 export class ItemDisplayPanelComponent {
-    @Input() title: string;
+
+    @Input() header: string;
+    @Input() top: number;
+    @Input() boxShadow: boolean = true;
+    @Input() closeVisible: boolean = true;
+    @Input() preventClose: boolean = false;
+    @Input() inline: boolean = false;
+    @Input() animate: boolean = false;
+    @Input() shadow: boolean = false;
+
     @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
     
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @Input()
-    get top(): number {
-        return this._top;
+    /**
+     * @deprecated
+     * Title used for adding tooltips and shouldnt be used as an input
+     * instead header will be used. This is here to support backward compatibility only
+     * this property should not be used.
+     */
+    @Input() 
+    set title(value: string) {
+        this.header = value;
     }
 
-    set top(top: number) {
-        this._top = typeof top === 'string' ? parseFloat(top) : top;
+    get title() {
+        return this.header;
     }
 
     @Input()
@@ -49,71 +64,10 @@ export class ItemDisplayPanelComponent {
  
     }
 
-    @Input()
-    get boxShadow() {
-        return this._boxShadow;
-    }
-
-    set boxShadow(boxShadow: boolean) {
-        this._boxShadow = typeof boxShadow === 'string' ? !(boxShadow === 'false') : boxShadow;
-    }
-
-    @Input()
-    get closeVisible() {
-        return this._closeVisible;
-    }
-
-    set closeVisible(closeVisible: boolean) {
-        this._closeVisible = typeof closeVisible === 'string' ? !(closeVisible === 'false') : closeVisible;
-    }
-
-    @Input()
-    get preventClose() {
-        return this._preventClose;
-    }
-
-    set preventClose(preventClose: boolean) {
-        this._preventClose = typeof preventClose === 'string' ? preventClose === 'true' : preventClose;
-    }
-
-    @Input()
-    get inline() {
-        return this._inline;
-    }
-
-    set inline(inline: boolean) {
-        this._inline = typeof inline === 'string' ? inline === 'true' : inline;
-    }
-
-    @Input()
-    get animate() {
-        return this._animate;
-    }
-
-    set animate(animate: boolean) {
-        this._animate = typeof animate === 'string' ? animate === 'true' : animate;
-    }
-
-    @Input()
-    get shadow() {
-        return this._shadow;
-    }
-
-    set shadow(shadow: boolean) {
-        this._shadow = typeof shadow === 'string' ? shadow === 'true' : shadow;
-    }
-
-    private _top: number;
     private _visible: boolean = false;
-    private _boxShadow: boolean = true;
-    private _closeVisible: boolean = true;
-    private _preventClose: boolean = false;
-    private _inline: boolean = false;
-    private _animate: boolean = false;
-    private _shadow: boolean = false;
 
-    clickOff(event: any) {
-
+    clickOff(event: MouseEvent) {
+        
         // dont close
         if (this.preventClose) {
             return;
@@ -121,7 +75,8 @@ export class ItemDisplayPanelComponent {
        
         // dont do anything if the panel is hidden
         if (this._visible) {
-            let target = event.target;
+
+            let target = event.target as HTMLElement;
 
             // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
             if (target.nodeName === 'HTML') {

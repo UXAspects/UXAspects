@@ -10,13 +10,16 @@ import { BaseSearchComponent } from './search-components/base-search.component';
 import { DateTimePickerModule } from '../date-time-picker/date-time-picker.module';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { SearchDateRangeComponent } from './search-components/date-range/date-range.component';
+import { SearchSelectComponent } from './search-components/select/select.component';
+import { SelectModule } from '../select/index';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     DateTimePickerModule,
-    PopoverModule
+    PopoverModule,
+    SelectModule
   ],
   exports: [
     SearchBuilderComponent,
@@ -30,12 +33,14 @@ import { SearchDateRangeComponent } from './search-components/date-range/date-ra
     SearchDateComponent,
     SearchDateRangeComponent,
     SearchBuilderOutletDirective,
+    SearchSelectComponent,
     BaseSearchComponent
   ],
   entryComponents: [
     SearchTextComponent,
     SearchDateComponent,
-    SearchDateRangeComponent
+    SearchDateRangeComponent,
+    SearchSelectComponent
   ]
 })
 export class SearchBuilderModule { }

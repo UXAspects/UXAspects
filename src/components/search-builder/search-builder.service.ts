@@ -3,14 +3,18 @@ import { Subject } from 'rxjs/Subject';
 import { SearchBuilderQuery } from './interfaces/query.interface';
 import { SearchBuilderGroupQuery } from './interfaces/group-query.interface';
 import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class SearchBuilderService {
 
   query: SearchBuilderQuery = {};
   queryChange: Subject<SearchBuilderQuery> = new Subject<SearchBuilderQuery>();
+  validationChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
+  private _componentId: number = 0;
   private _components: SearchBuilderComponentDefinition[] = [];
+  private _validation: { [key: number]: boolean } = {};
 
   /**
    * Add a component to the internal list of components
@@ -73,5 +77,24 @@ export class SearchBuilderService {
    */
   queryHasChanged(): void {
     this.queryChange.next(this.query);
+  }
+
+  /**
+   * Store the validation state of the query
+   */
+  setValid(id: number, valid: boolean): void {
+
+    // store the state for this specific component
+    this._validation[id] = valid;
+
+    // evaluate the entire validation state
+    this.validationChange.next(!Object.keys(this._validation).some(key => !this._validation[key]));
+  }
+
+  /**
+   * Generate a unique id for each component
+   */
+  generateComponentId(): number {
+    return this._componentId++;
   }
 }

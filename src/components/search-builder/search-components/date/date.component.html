@@ -5,10 +5,9 @@
         <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
     </span>
     <input type="text" #popover="bs-popover" [ngModel]="value | date:'dd MMMM yyyy'" [popover]="popoverTemplate"
-        placement="bottom" [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date">
+        placement="bottom" [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="placeholder">
 </div>
 
 <ng-template #popoverTemplate>
-    <ux-date-time-picker [(date)]="value" [showTime]="false">
-    </ux-date-time-picker>
+    <ux-date-time-picker [(date)]="value" [showTime]="false"></ux-date-time-picker>
 </ng-template>
