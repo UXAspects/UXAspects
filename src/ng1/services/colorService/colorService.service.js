@@ -68,6 +68,11 @@ export default function $colorService() {
   };
 
   $colorService.setColorSet = function(customColorSet) {
+
+    if (typeof customColorSet === 'string') {
+      customColorSet = colorSets[customColorSet] || {};
+    }
+
     colorSet = customColorSet;
     colors = {};
 
@@ -78,6 +83,20 @@ export default function $colorService() {
           colors[key] = getColorValueByHex(colorSet.colorValueSet[key]);
       }
     }
+  };
+
+  $colorService.resolve = function resolve(value) {
+    if (!value) {
+        return;
+    }
+
+    for (let color in colors) {
+        if (value.toLowerCase() === color.toLowerCase()) {
+            return $colorService.getColor(value).toRgba();
+        }
+    }
+
+    return value;
   };
 
   $colorService.getColorSet = function() {

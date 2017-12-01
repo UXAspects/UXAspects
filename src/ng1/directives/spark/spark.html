@@ -8,8 +8,7 @@
                 <div class="inline-block" ng-if="sc.topLeftLabel" ng-bind-html="sc.topLeftLabel"></div>
                 <div class="align-right inline-block" ng-if="sc.topRightLabel" ng-bind-html="sc.topRightLabel" class="text-right"></div>
             </div>
-            <div class="spark" ng-class="[ 'inline', sc.type ]" ng-style="sc.setPosition" tooltip="{{sc.sparkTooltip}}">
-
+            <div class="spark" ng-class="[ 'inline', sc.type ]" ng-style="sc.styles" tooltip="{{sc.sparkTooltip}}">
                 <div class="progress-bar fill" ng-repeat="bar in sc.values" aria-valuenow="{{sc.value}}" aria-valuemin="0"
                      aria-valuemax="100" ng-style="{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}"
                      aria-valuetext="sc.label"></div>
@@ -26,7 +25,7 @@
             <div class="inline-block" ng-if="sc.topLeftLabel" ng-bind-html="sc.topLeftLabel"></div>
             <div class="align-right inline-block" ng-if="sc.topRightLabel" ng-bind-html="sc.topRightLabel" class="text-right"></div>
         </div>
-        <div class="spark" ng-class="sc.type" ng-style="{height: sc.fillheight + 'px'}" tooltip="{{sc.sparkTooltip}}">
+        <div class="spark" ng-class="sc.type" ng-style="{height: sc.fillheight + 'px', backgroundColor: sc.trackColor}" tooltip="{{sc.sparkTooltip}}">
             <div class="progress-bar fill" ng-repeat="bar in sc.values" aria-valuenow="{{sc.value}}" aria-valuemin="0"
                  aria-valuemax="100" ng-style="{width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}" 
                  aria-valuetext="sc.top-left-label"></div>

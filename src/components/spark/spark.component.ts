@@ -10,8 +10,6 @@ export class SparkComponent {
 
     values: number[] = [];
 
-    @Input() trackColor: string;
-    @Input() barColor: string | string[];
     @Input() barHeight: number = 10;
     @Input() inlineLabel: string;
     @Input() topLeftLabel: string;
@@ -20,6 +18,33 @@ export class SparkComponent {
     @Input() bottomRightLabel: string;
     @Input() tooltip: string;
     @Input() theme: ColorIdentifier = 'primary';
+    
+    private _trackColor: string;
+    private _barColor: string | string[];
+
+    @Input() 
+    set trackColor(value: string) {
+        this._trackColor = this._colorService.resolve(value);
+    }
+
+    get trackColor(): string {
+        return this._trackColor;
+    }
+
+    @Input() 
+    set barColor(value: string | string[]) {
+
+        if (Array.isArray(value)) {
+            this._barColor = value.map(color => this._colorService.resolve(color));
+        } else {
+            this._barColor = this._colorService.resolve(value);
+        }
+    }
+
+    get barColor(): string | string[] {
+        return this._barColor;
+    }
+
 
     @Input()
     set value(value: number | number[]) {

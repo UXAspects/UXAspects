@@ -92,6 +92,20 @@ export class ColorService {
             }
         }
     }
+
+    resolve(value: string): string {
+        if (!value) {
+            return;
+        }
+
+        for (let color in this._colors) {
+            if (value.toLowerCase() === color.toLowerCase()) {
+                return this.getColor(value).toRgba();
+            }
+        }
+
+        return value;
+    }
 }
 
 export class ThemeColor {
