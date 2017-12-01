@@ -11,6 +11,7 @@ import 'chart.js';
 import { ChartsModule } from 'ng2-charts';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { UpgradeComponent, UpgradeModule, downgradeComponent } from '@angular/upgrade/static';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -57,7 +58,7 @@ import {
   CheckboxModule, ColorServiceModule, DashboardModule, FacetsModule, FilterModule, FlippableCardModule,
   InfiniteScrollModule, ItemDisplayPanelModule, NumberPickerModule, PageHeaderModule, RadioButtonModule, SelectModule,
   SliderModule, SparkModule, StringFilterModule, TagInputModule, ToggleSwitchModule, TypeaheadModule,
-  VirtualScrollModule, WizardModule
+  VirtualScrollModule, WizardModule, DateTimePickerModule
 }
   from '../../../dist';
   import { FloatingActionButtonComponent } from './floating-action-buttons-ng1/wrapper/floating-action-button-wrapper.directive';
@@ -65,6 +66,7 @@ import { SideInsetPanelSplitterComponent } from './side-inset-panel-splitter-ng1
 import { StackedTabsComponent } from './stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
 import { TabsComponent } from './tabs-ng1/wrapper/tabs-wrapper.directive';
 import { TreeGridComponent } from './tree-grid-ng1/wrapper/tree-grid-wrapper.directive';
+import { DateTimePickerTestPageComponent } from './date-time-picker/date-time-picker.testpage.component';
 
 // import scripts that require upgrade
 
@@ -94,6 +96,9 @@ const ROUTES: Routes = [
   }, {
     path: 'dashboard',
     component: DashboardTestPageComponent
+  }, {
+    path: 'date-time-picker',
+    component: DateTimePickerTestPageComponent
   }, {
     path: 'dropdowns',
     component: DropdownsTestPageComponent
@@ -189,6 +194,7 @@ const ROUTES: Routes = [
     CheckboxModule,
     ColorServiceModule,
     DashboardModule,
+    DateTimePickerModule,
     FacetsModule,
     FilterModule,
     FlippableCardModule,
@@ -197,6 +203,7 @@ const ROUTES: Routes = [
     NumberPickerModule,
     PageHeaderModule,
     PaginationModule.forRoot(),
+    PopoverModule.forRoot(),
     RadioButtonModule,
     ReactiveFormsModule,
     RouterModule.forRoot(ROUTES, { initialNavigation: false }),
@@ -222,6 +229,7 @@ const ROUTES: Routes = [
     ColoredButtonsTestPageComponent,
     CustomFacetTestPageComponent,
     DashboardTestPageComponent,
+    DateTimePickerTestPageComponent,
     DropdownsTestPageComponent,
     FacetCheckListTestPageComponent,
     FacetContainerTestPageComponent,

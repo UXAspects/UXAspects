@@ -1,0 +1,11 @@
+<ux-date-time-picker id="date-time-picker" [(date)]="date" [(timezone)]="timezone" [showTime]="showTime" [showMeridian]="showMeridians"
+[showSpinners]="showSpinners" [showTimezone]="showTimezones">
+</ux-date-time-picker>
+
+<p class="m-t">Selected date is:
+    <em id="current-date">{{ date | date:'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em>
+</p>
+
+<p id="day">{{ date.getDate() }}</p>
+<p id="month">{{ date.getMonth() }}</p>
+<p id="year">{{ date.getFullYear() }}</p>
