@@ -17,10 +17,20 @@ export class SparkComponent {
     @Input() bottomLeftLabel: string;
     @Input() bottomRightLabel: string;
     @Input() tooltip: string;
-    @Input() theme: ColorIdentifier = 'primary';
-    
+
     private _trackColor: string;
+    private _theme: ColorIdentifier = 'primary';    
     private _barColor: string | string[];
+
+    
+    @Input() 
+    set theme(value: string) {
+        this._theme = this._colorService.resolveColorName(value);
+    }
+
+    get theme(): string {
+        return this._theme;
+    }
 
     @Input() 
     set trackColor(value: string) {
@@ -37,14 +47,13 @@ export class SparkComponent {
         if (Array.isArray(value)) {
             this._barColor = value.map(color => this._colorService.resolve(color));
         } else {
-            this._barColor = this._colorService.resolve(value);
+            this._barColor = [this._colorService.resolve(value)];
         }
     }
 
     get barColor(): string | string[] {
         return this._barColor;
     }
-
 
     @Input()
     set value(value: number | number[]) {
@@ -57,9 +66,6 @@ export class SparkComponent {
 
         // figure out the percentages for each spark line
         this.values = values.map(val => (val / total) * 100);
-
-        // ensure 'barColor' is an array
-        this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
     }
 
     get value() {
@@ -67,6 +73,9 @@ export class SparkComponent {
     }
 
     constructor(private _colorService: ColorService) { 
-
+        
+        // ensure 'barColor' is an array
+        this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
+        
     }
 }

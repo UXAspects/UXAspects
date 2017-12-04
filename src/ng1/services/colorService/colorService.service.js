@@ -90,13 +90,19 @@ export default function $colorService() {
         return;
     }
 
+    value = value.replace(/\s+/g, '-').toLowerCase();
+
     for (let color in colors) {
-        if (value.toLowerCase() === color.toLowerCase()) {
+        if (value === color.toLowerCase()) {
             return $colorService.getColor(value).toRgba();
         }
     }
 
     return value;
+  };
+
+  $colorService.resolveColorName = function resolveColorName(value) {
+    return value.replace(/\s+/g, '-').toLowerCase();
   };
 
   $colorService.getColorSet = function() {

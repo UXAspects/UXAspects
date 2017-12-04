@@ -15,6 +15,8 @@ export default function SparkCtrl($colorService) {
     // figure out the percentages for each spark line
     sc.values = values.map(val => (val / total) * 100);
 
+    sc.type = $colorService.resolveColorName(sc.type);
+
     if (sc.barColor) {
         if (Array.isArray(sc.barColor)) {
             sc.barColor = sc.barColor.map(color => $colorService.resolve(color));

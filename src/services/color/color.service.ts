@@ -97,14 +97,20 @@ export class ColorService {
         if (!value) {
             return;
         }
-
+        
+        value = value.replace(/\s+/g, '-').toLowerCase();
+        
         for (let color in this._colors) {
-            if (value.toLowerCase() === color.toLowerCase()) {
+            if (value === color.toLowerCase()) {
                 return this.getColor(value).toRgba();
             }
         }
 
         return value;
+    }
+
+    resolveColorName(value: string): string {
+        return value.replace(/\s+/g, '-').toLowerCase();
     }
 }
 
