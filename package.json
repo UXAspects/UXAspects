@@ -148,6 +148,7 @@
     "docs/app/interfaces",
     "docs/app/pages",
     "docs/app/services",
+    "docs/app/wrappers",
     "docs/styles.less",
     "docs/environments",
     "src",
