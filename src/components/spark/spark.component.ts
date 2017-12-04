@@ -20,7 +20,7 @@ export class SparkComponent {
 
     private _trackColor: string;
     private _theme: ColorIdentifier = 'primary';    
-    private _barColor: string | string[];
+    private _barColor: string | string[] = [];
 
     
     @Input() 
@@ -72,10 +72,5 @@ export class SparkComponent {
         return this.values;
     }
 
-    constructor(private _colorService: ColorService) { 
-        
-        // ensure 'barColor' is an array
-        this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
-        
-    }
+    constructor(private _colorService: ColorService) { }
 }
