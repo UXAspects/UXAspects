@@ -1,12 +1,10 @@
-export default function SparkCtrl() {
+export default function SparkCtrl($colorService) {
     var sc = this;
 
     sc.inline = sc.label !== undefined;
 
-    sc.setPosition = {
-        'height': sc.fillheight + 'px',
-        'margin-top': (sc.top !== undefined) ? sc.top : 0 + 'px'
-    };
+    // give the chart a default theme
+    sc.type = sc.type || 'spark-chart1';
         
     // ensure 'value' is an array at this point
     const values = Array.isArray(sc.value) ? sc.value : [sc.value];
@@ -15,9 +13,29 @@ export default function SparkCtrl() {
     let total = Math.max(values.reduce((previous, current) => previous + current, 0), 100);
 
     // figure out the percentages for each spark line
-    this.values = values.map(val => (val / total) * 100);
+    sc.values = values.map(val => (val / total) * 100);
 
-    this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
+    sc.type = $colorService.resolveColorName(sc.type);
+
+    if (sc.barColor) {
+        if (Array.isArray(sc.barColor)) {
+            sc.barColor = sc.barColor.map(color => $colorService.resolve(color));
+        } else {
+            sc.barColor = $colorService.resolve(sc.barColor);
+        }
+    }
+
+    if (sc.trackColor) {
+        sc.trackColor = $colorService.resolve(sc.trackColor);
+    }
     
-    return this.values;   
+    sc.barColor = Array.isArray(sc.barColor) ? sc.barColor : [sc.barColor]; 
+
+    sc.styles = {
+        height: sc.fillheight + 'px',
+        marginTop: (sc.top !== undefined) ? sc.top : 0 + 'px',
+        backgroundColor: sc.trackColor
+    };
 }
+
+SparkCtrl.$inject = ['$colorService'];

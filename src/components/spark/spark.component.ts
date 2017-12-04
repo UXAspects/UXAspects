@@ -10,8 +10,6 @@ export class SparkComponent {
 
     values: number[] = [];
 
-    @Input() trackColor: string = this._colorService.getColor('primary').setAlpha(0.2).toRgba();
-    @Input() barColor: string | string[] = this._colorService.getColor('primary').toHex();
     @Input() barHeight: number = 10;
     @Input() inlineLabel: string;
     @Input() topLeftLabel: string;
@@ -20,10 +18,41 @@ export class SparkComponent {
     @Input() bottomRightLabel: string;
     @Input() tooltip: string;
 
-    @Input()
-    set theme(themeName: ColorIdentifier) {
-        this.trackColor = this._colorService.getColor(themeName).setAlpha(0.2).toRgba();
-        this.barColor = this._colorService.getColor(themeName).toHex();
+    private _trackColor: string;
+    private _theme: ColorIdentifier = 'primary';    
+    private _barColor: string | string[] = [];
+
+    
+    @Input() 
+    set theme(value: string) {
+        this._theme = this._colorService.resolveColorName(value);
+    }
+
+    get theme(): string {
+        return this._theme;
+    }
+
+    @Input() 
+    set trackColor(value: string) {
+        this._trackColor = this._colorService.resolve(value);
+    }
+
+    get trackColor(): string {
+        return this._trackColor;
+    }
+
+    @Input() 
+    set barColor(value: string | string[]) {
+
+        if (Array.isArray(value)) {
+            this._barColor = value.map(color => this._colorService.resolve(color));
+        } else {
+            this._barColor = [this._colorService.resolve(value)];
+        }
+    }
+
+    get barColor(): string | string[] {
+        return this._barColor;
     }
 
     @Input()
@@ -37,16 +66,11 @@ export class SparkComponent {
 
         // figure out the percentages for each spark line
         this.values = values.map(val => (val / total) * 100);
-
-        // ensure 'barColor' is an array
-        this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
     }
 
     get value() {
         return this.values;
     }
 
-    constructor(private _colorService: ColorService) { 
-
-    }
+    constructor(private _colorService: ColorService) { }
 }

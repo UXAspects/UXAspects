@@ -92,6 +92,26 @@ export class ColorService {
             }
         }
     }
+
+    resolve(value: string): string {
+        if (!value) {
+            return;
+        }
+        
+        value = value.replace(/\s+/g, '-').toLowerCase();
+        
+        for (let color in this._colors) {
+            if (value === color.toLowerCase()) {
+                return this.getColor(value).toRgba();
+            }
+        }
+
+        return value;
+    }
+
+    resolveColorName(value: string): string {
+        return value.replace(/\s+/g, '-').toLowerCase();
+    }
 }
 
 export class ThemeColor {

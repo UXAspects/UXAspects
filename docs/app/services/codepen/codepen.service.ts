@@ -7,6 +7,7 @@ import { ICodePen } from '../../interfaces/ICodePen';
 @Injectable()
 export class CodePenService {
 
+    colorSet: ColorSetName = 'keppel';
     private codepenAssetsBaseUrl = this.appConfig.get('assetsUrl');
     private codePenUrl = this.appConfig.get('codePen');
     
@@ -69,6 +70,13 @@ export class CodePenService {
         form.appendChild(formData);
 
         return form;
+    }
+
+    private getBoilerPlate() {
+        return {
+            prefix: `angular.module('app', ['ux-aspects']).run(['$colorService', function($colorService) {$colorService.setColorSet('${this.colorSet}'); }]);`,
+            suffix: `angular.bootstrap(document, ['app']);`
+        };
     }
 
     private formatHtml(codepen: ICodePen): string {
@@ -138,7 +146,7 @@ export class CodePenService {
     private formatCode(codepen: ICodePen): string {
 
         // Set up with angular.module(...)
-        let result = this.CODEPEN_BOILERPLATE.prefix + '\n\n';
+        let result = this.getBoilerPlate().prefix + '\n\n';
 
         // Append the code fragments with trailing semicolon in case it was missed
         if (codepen.js) {
@@ -148,7 +156,7 @@ export class CodePenService {
         }
 
         // Append angular.bootstrap(...)
-        result += this.CODEPEN_BOILERPLATE.suffix;
+        result += this.getBoilerPlate().suffix;
 
         return result;
     }
@@ -171,10 +179,6 @@ export class CodePenService {
         'https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js',
         this.codepenAssetsBaseUrl + '/ng1/ux-aspects-ng1.js'
     ];
-
-    // Prefix and suffix for the provided code
-    private CODEPEN_BOILERPLATE = {
-        prefix: `angular.module('app', ['ux-aspects']);`,
-        suffix: `angular.bootstrap(document, ['app']);`
-    };
 }
+
+export type ColorSetName = 'keppel' | 'microFocus';
