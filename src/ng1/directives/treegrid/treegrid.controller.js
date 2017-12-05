@@ -2,6 +2,8 @@ TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider"];
 
 export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   var vm = this;
+  
+  var treegridId = multipleSelectProvider.getNextComponentId();
 
   var defaultOptions = {
     maxDepth: 5,
@@ -41,21 +43,21 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
 
   vm.treeData = [];
 
-  vm.multipleSelectProvider = multipleSelectProvider;
+  vm.multipleSelectInstance = multipleSelectProvider.getComponentInstance(treegridId);
 
   vm.allSelected = false;
 
   // Set up multi select to work standalone
-  if (!vm.multipleSelectProvider.keyFn) {
-    vm.multipleSelectProvider.keyFn = function (e) {
+  if (!vm.multipleSelectInstance.keyFn) {
+    vm.multipleSelectInstance.keyFn = function (e) {
       return JSON.stringify(e.item);
     };
   }
-  if (!vm.multipleSelectProvider.onSelect) {
-    vm.multipleSelectProvider.onSelect = function () {};
+  if (!vm.multipleSelectInstance.onSelect) {
+    vm.multipleSelectInstance.onSelect = function () {};
   }
-  if (!vm.multipleSelectProvider.onDeselect) {
-    vm.multipleSelectProvider.onDeselect = function () {};
+  if (!vm.multipleSelectInstance.onDeselect) {
+    vm.multipleSelectInstance.onDeselect = function () {};
   }
 
   // Watch for changes to the tree data and update the view when it changes
@@ -63,7 +65,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
     updateView();
   }, true);
 
-  $scope.$watch("vm.multipleSelectProvider.selectedItems", function (nv) {
+  $scope.$watch("vm.multipleSelectInstance.selectedItems", function (nv) {
     if (angular.isArray(nv)) {
       // selectedItems are JSON from keyFn above
       var selected = [];
@@ -80,7 +82,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   });
 
   $scope.$on("$destroy", function () {
-    vm.multipleSelectProvider.reset();
+    vm.multipleSelectInstance.reset();
   });
 
   // Retrieves array for ng-repeat of grid rows
@@ -195,6 +197,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
       for (var i = 0; i < data.length; i += 1) {
         var canExpand = hasChildren(data[i]) && level < vm.allOptions.maxDepth;
         var row = {
+          treegridId: treegridId,
           level: level,
           levelClass: "treegrid-level-" + level,
           rowClass: getRowClass(data[i]),

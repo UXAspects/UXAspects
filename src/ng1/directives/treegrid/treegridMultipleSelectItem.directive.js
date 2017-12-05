@@ -16,6 +16,8 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
                 if (treeGridRow) {
 
+                    var multipleSelectInstance = multipleSelectProvider.getComponentInstance(treeGridRow.treegridId);
+
                     // Prevent text selection on shift-click
                     angular.element(element).children("*").css({
                         "user-select": "none",
@@ -65,8 +67,8 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
                             }
                             else {
                                 // if shift key not held then dont select any
-                                multipleSelectProvider.selectNone();
-                                multipleSelectProvider.multipleRowSelectOriginIndex = scope.$index;
+                                multipleSelectInstance.selectNone();
+                                multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
                             }
                         }
                         scope.$apply();
@@ -80,16 +82,16 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
                     // Handler for row click, or external change to selection via multipleSelectProvider
                     scope.$watch(function () {
-                        return multipleSelectProvider.isSelected(treeGridRow.dataItem);
+                        return multipleSelectInstance.isSelected(treeGridRow.dataItem);
                     }, function (nv) {
                         setSelected(treeGridRow, nv);
                     });
 
                     // Handler for checkbox click, which uses ng-model="row.selected"
                     scope.$watch(attrs.treegridMultipleSelectItem + ".selected", function (nv) {
-                        var currentState = multipleSelectProvider.isSelected(treeGridRow.dataItem);
+                        var currentState = multipleSelectInstance.isSelected(treeGridRow.dataItem);
                         if (nv !== undefined && nv !== currentState) {
-                            currentState = multipleSelectProvider.itemClicked(treeGridRow.dataItem);
+                            currentState = multipleSelectInstance.itemClicked(treeGridRow.dataItem);
                         }
                     }, true);
 
@@ -104,29 +106,29 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
             // Clear selection and select this row
             function startSelection() {
-                multipleSelectProvider.state.selecting = true;
-                if (multipleSelectProvider.state.selectedFromButton === false) {
-                    multipleSelectProvider.state.selectedFromCheckBox = true;
+                multipleSelectInstance.state.selecting = true;
+                if (multipleSelectInstance.state.selectedFromButton === false) {
+                    multipleSelectInstance.state.selectedFromCheckBox = true;
                 }
 
-                multipleSelectProvider.selectNone();
+                multipleSelectInstance.selectNone();
 
-                multipleSelectProvider.multipleRowSelectItemPreviousSelectionDirection = undefined;
-                if (multipleSelectProvider.itemClicked(treeGridRow.dataItem)) {
-                    multipleSelectProvider.multipleRowSelectOriginIndex = scope.$index;
+                multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
+                if (multipleSelectInstance.itemClicked(treeGridRow.dataItem)) {
+                    multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
                     setSelected(treeGridRow, true);
                 }
             }
 
             // Add this row to the current selection
             function addToOrStartSelection() {
-                if (!multipleSelectProvider.state.selecting) {
+                if (!multipleSelectInstance.state.selecting) {
                     startSelection();
                 }
                 else {
-                    multipleSelectProvider.multipleRowSelectItemPreviousSelectionDirection = undefined;
-                    if (multipleSelectProvider.itemClicked(treeGridRow.dataItem)) {
-                        multipleSelectProvider.multipleRowSelectOriginIndex = scope.$index;
+                    multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
+                    if (multipleSelectInstance.itemClicked(treeGridRow.dataItem)) {
+                        multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
                         setSelected(treeGridRow, true);
                     }
                     else {
@@ -137,7 +139,7 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
             // Add this row and all intermediate rows to the current selection
             function extendOrStartSelection() {
-                if (!multipleSelectProvider.state.selecting) {
+                if (!multipleSelectInstance.state.selecting) {
                     startSelection();
                 }
                 else {
@@ -147,18 +149,18 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
             // Select previous row, this row, and all intermediate rows
             function extendSelectionFromPrevious() {
-                multipleSelectProvider.state.selecting = true;
-                if (multipleSelectProvider.state.selectedFromButton === false) {
-                    multipleSelectProvider.state.selectedFromCheckBox = true;
+                multipleSelectInstance.state.selecting = true;
+                if (multipleSelectInstance.state.selectedFromButton === false) {
+                    multipleSelectInstance.state.selectedFromCheckBox = true;
                 }
-                multipleSelectProvider.multipleRowSelectItemPreviousSelectionDirection = undefined;
+                multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
                 extendSelection();
             }
 
             function extendSelection() {
-                var rows = getRowDataItemsToSelect(multipleSelectProvider.multipleRowSelectOriginIndex, scope.$index);
+                var rows = getRowDataItemsToSelect(multipleSelectInstance.multipleRowSelectOriginIndex, scope.$index);
                 var dataItems = rows.map(function(row) { return row.dataItem; });
-                var isSelected = multipleSelectProvider.rangeClicked(dataItems);
+                var isSelected = multipleSelectInstance.rangeClicked(dataItems);
                 for (var row of rows) {
                     setSelected(row, isSelected);
                 }

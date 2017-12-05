@@ -51,7 +51,22 @@ function MultipleSelect($timeout) {
     //used for us to keep track of total items selected.
     this.keyFn = null;
 
+    this.nextComponentId = 0;
+    this.componentInstances = {};
+
 }
+
+MultipleSelect.prototype.getNextComponentId = function() {
+    return this.nextComponentId++;
+};
+
+MultipleSelect.prototype.getComponentInstance = function(componentId) {
+    if (!this.componentInstances[componentId]) {
+        this.componentInstances[componentId] = new MultipleSelect(this.$timeout);
+    }
+
+    return this.componentInstances[componentId];
+};
 
 MultipleSelect.prototype.validateSelection = function() {
     if (this.state.selectAllMode === true && this.state.selecting === true) {
