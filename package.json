@@ -140,6 +140,8 @@
   },
   "files": [
     "configs/loaders",
+    "docs/app/app.component.less",
+    "docs/app/app.component.ts",
     "docs/app/assets",
     "docs/app/components",
     "docs/app/data",
