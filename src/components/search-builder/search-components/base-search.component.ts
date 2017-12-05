@@ -65,3 +65,9 @@ export class BaseSearchComponent implements OnDestroy {
     }
 
 }
+
+export interface BaseSearchComponentConfig {
+    label?: string;
+    placeholder?: string;
+    validation?: (value: any) => boolean;
+}

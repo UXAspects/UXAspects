@@ -1,5 +1,8 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -38,7 +41,9 @@ const ROUTES = [
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
         SearchBuilderModule,
-        ItemDisplayPanelModule
+        ItemDisplayPanelModule,
+        FormsModule,
+        CommonModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

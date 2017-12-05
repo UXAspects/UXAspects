@@ -25,9 +25,9 @@
 
         <ux-search-builder [(query)]="query" [components]="components" (valid)="valid = $event">
             <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" (add)="addKeyword()"></ux-search-builder-group>
-            <ux-search-builder-group id="authors" header="ANY of the following" operator="or" (add)="panelOpen = true; $event.stopPropagation()"></ux-search-builder-group>
-            <ux-search-builder-group id="repositories" header="ALL of the following" (add)="addRepository()"></ux-search-builder-group>
-            <ux-search-builder-group id="terms" header="NONE of the following" operator="not" (add)="addTerm()"></ux-search-builder-group>
+            <ux-search-builder-group id="any" header="ANY of the following" operator="or" (add)="addField('any'); $event.stopPropagation()" [showPlaceholder]="placeholders.any"></ux-search-builder-group>
+            <ux-search-builder-group id="all" header="ALL of the following" (add)="addField('all'); $event.stopPropagation()" [showPlaceholder]="placeholders.all"></ux-search-builder-group>
+            <ux-search-builder-group id="none" header="NONE of the following" operator="not" (add)="addField('none'); $event.stopPropagation()" [showPlaceholder]="placeholders.none"></ux-search-builder-group>
         </ux-search-builder>
 
     </div>
@@ -37,7 +37,18 @@
         <button type="button" class="btn button-secondary" (click)="cancel()">Cancel</button>
     </div>
 
-    <ux-item-display-panel class="search-build-panel" [class.search-build-panel-open]="panelOpen" [animate]="true" [inline]="true" header="Add Field" [(visible)]="panelOpen"></ux-item-display-panel>
+    <ux-item-display-panel class="search-builder-panel" [class.search-builder-panel-open]="panelOpen" [animate]="true" [inline]="true" header="Add Field" [(visible)]="panelOpen" (visibleChange)="onPanelEvent($event)" width="400px">
+        
+        <div class="field-list-panel" uxItemDisplayPanelContent>
+            <input type="text" placeholder="Find a field" class="form-control" [(ngModel)]="filter">
+
+            <ul class="field-list">
+                <ng-container *ngFor="let field of fields">
+                    <li class="field-list-item" *ngIf="field.title.toLowerCase().indexOf(filter.toLowerCase()) !== -1" (click)="selectField(field)">{{ field.title }}</li>
+                </ng-container>
+            </ul>
+        </div>
+    </ux-item-display-panel>
 </ng-template>
 
 <hr>
@@ -46,6 +57,22 @@
     The Search Builder provides a visual way for a user to easily build up complex search queries. It can be used both standalone
     and within a modal.
 </p>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>
 
 <h4>Search Builder Component</h4>
 
@@ -69,6 +96,10 @@
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="queryChange" type="SearchBuilderQuery">
         This event will fire whenever the query has been modified. It will contain the latest query value
+    </tr>
+    <tr uxd-api-property name="valid" type="boolean">
+        This will fire whenever the search builders validity changes. It will provide a boolean representing the validity of the search query.
+        A value of <code>true</code> will be given if the query is valid and a value of <code>false</code> when it is invalid.
     </tr>
 </uxd-api-properties>
 
@@ -122,23 +153,73 @@
 <h4>Search Components</h4>
 
 <p>
-    The search builder comes with a text input component predefined. This can be used for simple string searches. To use the
-    text component simply specify the type of a SearchGroupQuery to be <code>text</code>, eg:
+    The Search Builder comes with several prebuilt components for you to easily consume and configure.
+    To begin consuming these components you must first create a components array in your component class. 
+    This allows you to define each type of field you need, to specify which component should be used and 
+    provide any additional configuration.
 </p>
 
-<uxd-snippet [content]="snippets.compiled.searchComponentTs"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.componentDefinitionTs"></uxd-snippet>
 
-<p>
-    You can also add a <code>config</code> property to pass additional options to the component. The two available config options for the text component
-    are:
-</p>
+<p>The following prebuilt components are available to use:</p>
 
-<ul>
-    <li><code>placeholder</code> - defines the placeholder in the input field</li>
-    <li><code>label</code> - if specified this text will be displayed as a label above the input.</li>
-</ul>
+<uxd-api-properties tableTitle="Components">
+    <tr uxd-api-property name="SearchTextComponent">
+        <p class="m-b">A simple text input component. The following configuration options are available:</p>
 
-<uxd-snippet [content]="snippets.compiled.searchComponentConfigTs"></uxd-snippet>
+        <ul>
+            <li><code>label</code> - If specified will display a label above the input field.</li>
+            <li><code>placeholder</code> - If specified will display a placeholder in the input field.</li>
+            <li><code>validation</code> - If specified will allow custom validation to be used to determine if this field is valid.</li>
+        </ul>
+    </tr>
+
+    <tr uxd-api-property name="SearchDateComponent">
+        <p class="m-b">A date picker component. The following configuration options are available:</p>
+
+        <ul>
+            <li><code>label</code> - If specified will display a label above the input field.</li>
+            <li><code>placeholder</code> - If specified will display a placeholder in the input field.</li>
+            <li><code>validation</code> - If specified will allow custom validation to be used to determine if this field is valid.</li>
+        </ul>
+    </tr>
+    
+    <tr uxd-api-property name="SearchDateRangeComponent">
+        <p class="m-b">A date range picker component. The following configuration options are available:</p>
+
+        <ul>
+            <li><code>label</code> - If specified will display a label above the input field.</li>
+            <li><code>validation</code> - If specified will allow custom validation to be used to determine if this fields are valid.</li>
+            <li><code>fromLabel</code> - Defines the text displayed beside the first date picker. Defaults to <code>From</code>.</li>
+            <li><code>toLabel</code> - Defines the text displayed beside the second date picker. Defaults to <code>To</code>.</li>
+            <li><code>fromPlaceholder</code> - If specified will display a placeholder in the first date picker.</li>
+            <li><code>toPlaceholder</code> - If specified will display a placeholder in the second date picker.</li>
+        </ul>
+    </tr>
+    
+
+    <tr uxd-api-property name="SearchDateComponent">
+        <p class="m-b">A select component allowing both single and multiple selection. The following configuration options are available:</p>
+
+        <ul>
+            <li><code>label</code> - If specified will display a label above the input field.</li>
+            <li><code>placeholder</code> - If specified will display a placeholder in the input field.</li>
+            <li><code>validation</code> - If specified will allow custom validation to be used to determine if this field is valid.</li>
+            <li><code>options</code> - A list of selectable options or a function to get options.</li>
+            <li><code>multiple</code> - Specifies whether to allow multiple items to be selected.</li>
+            <li><code>dropDirection</code> - Specifies whether the dropdown should appear below or above the the input field.</li>
+            <li><code>allowNull</code> - Controls whether the value of the single select control can be cleared by deleting the selected value in the input field.</li>
+            <li><code>disabled</code> - Controls the disabled state of the tag input.</li>
+            <li><code>maxHeight</code> - The maximum height of the typeahead dropdown, as a CSS value.</li>
+            <li><code>pageSize</code> - The number of options to request in a page.</li>
+            <li><code>loadingTemplate</code> - A template which will be rendered in the dropdown while options are being loaded.</li>
+            <li><code>optionTemplate</code> - A template which will be rendered in the dropdown for each option.</li>
+            <li><code>noOptionsTemplate</code> - A template which will be rendered in the dropdown if no options match the current filter value.</li>
+        </ul>
+
+        <p>Full information on the select configuration options can be found on the <a routerLink="/components/select">select component page</a>.</p>
+    </tr>
+</uxd-api-properties>
 
 <h4>Custom Search Components</h4>
 
@@ -149,11 +230,16 @@
 
 <p>
     Simply give the class a <code>type</code> property which will be the component's identifier, and have it call 
-    the <code>setValue</code> function passing it the latest value when changes are made.
+    the <code>value</code> property passing it the latest value when changes are made.
 </p>
 
 <p>
-    A <code>context</code> object is also available that will contain the value and any configuration you may want to allow.
+    A <code>config</code> object is also available that will contain any configuration options you want to support.
+</p>
+
+<p>
+    The function can also override the default <code>validate</code> function to provide custom validation. This function should 
+    update the <code>valid</code> property on the class.
 </p>
 
 <p>

@@ -41,11 +41,6 @@ export class SearchBuilderComponent implements OnDestroy {
    */
   constructor(private _searchBuilderService: SearchBuilderService) {
 
-    // add the default components
-    _searchBuilderService.registerComponent({ name: 'text', component: SearchTextComponent });
-    _searchBuilderService.registerComponent({ name: 'date', component: SearchDateComponent });
-    _searchBuilderService.registerComponent({ name: 'date-range', component: SearchDateRangeComponent });
-
     // watch for any query changes
     this._querySubscription = _searchBuilderService.queryChange.subscribe(query => this.queryChange.emit(query));
 

@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseSearchComponent } from '../base-search.component';
+import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
 
 @Component({
   selector: 'ux-search-text',
   templateUrl: './text.component.html'
 })
-export class SearchTextComponent extends BaseSearchComponent implements OnInit {
+export class SearchTextComponent extends BaseSearchComponent {
 
   type: string = 'text';
-  label: string;
-  placeholder: string = 'Enter text';
+  
+  get label(): string {
+    return this.config.label;
+  }
 
-  ngOnInit(): void {
-
-    // take into account any configuration
-    this.label = this.config.label || this.label;
-    this.placeholder = this.config.placeholder || this.placeholder;
+  get placeholder(): string {
+    return this.config.placeholder || 'Enter text';
   }
 }
+
+export interface SearchTextConfig extends BaseSearchComponentConfig { }

@@ -16,8 +16,8 @@ export class ItemDisplayPanelFooterDirective { }
     host: {
         '(document:click)': 'clickOff($event)',
         '(document:keyup.escape)': 'visible = false',
-        '[class.inline-host]' : 'inline', 
-        '[class.visible-host]' : 'visible'
+        '[class.inline-host]': 'inline',
+        '[class.visible-host]': 'visible'
     }
 })
 export class ItemDisplayPanelComponent {
@@ -30,18 +30,19 @@ export class ItemDisplayPanelComponent {
     @Input() inline: boolean = false;
     @Input() animate: boolean = false;
     @Input() shadow: boolean = false;
+    @Input() width: number;
 
     @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
-    
+
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     /**
      * @deprecated
-     * Title used for adding tooltips and shouldnt be used as an input
+     * Title used for adding tooltips and shouldn't be used as an input
      * instead header will be used. This is here to support backward compatibility only
      * this property should not be used.
      */
-    @Input() 
+    @Input()
     set title(value: string) {
         this.header = value;
     }
@@ -51,28 +52,28 @@ export class ItemDisplayPanelComponent {
     }
 
     @Input()
-    get visible() {
-        return this._visible;
-    }
-
     set visible(visible: boolean) {
 
         this._visible = visible;
 
         // invoke change event
         this.visibleChange.emit(this._visible);
- 
+
+    }
+    
+    get visible() {
+        return this._visible;
     }
 
     private _visible: boolean = false;
 
     clickOff(event: MouseEvent) {
-        
+
         // dont close
         if (this.preventClose) {
             return;
         }
-       
+
         // dont do anything if the panel is hidden
         if (this._visible) {
 

@@ -9,6 +9,7 @@ export * from './search-components/base-search.component';
 export * from './search-components/text/text.component';
 export * from './search-components/date/date.component';
 export * from './search-components/date-range/date-range.component';
+export * from './search-components/select/select.component';
 export * from './search-builder.component';
 export * from './search-builder.service';
 export * from './search-builder.module';

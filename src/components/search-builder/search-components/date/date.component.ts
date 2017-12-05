@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseSearchComponent } from '../base-search.component';
+import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
 import { DateTimePickerTimezone } from '../../../date-time-picker/index';
 
 @Component({
@@ -9,18 +9,22 @@ import { DateTimePickerTimezone } from '../../../date-time-picker/index';
 export class SearchDateComponent extends BaseSearchComponent implements OnInit {
 
   type: string = 'date';
-  label: string;
-  placeholder: string = 'Enter date';
+
+  get label(): string {
+    return this.config.label;
+  }
+
+  get placeholder(): string {
+    return this.config.placeholder || 'Enter date';
+  }
 
   ngOnInit(): void {
-    
+
     // by default set to the current date if not specified
     if (!this.value) {
       this.value = new Date();
     }
-
-    // take into account any configuration
-    this.label = this.config.label || this.label;
-    this.placeholder = this.config.placeholder || this.placeholder;
   }
 }
+
+export interface SearchDateConfig extends BaseSearchComponentConfig { }

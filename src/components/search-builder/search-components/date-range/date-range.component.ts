@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseSearchComponent } from '../base-search.component';
 import { DateTimePickerTimezone } from '../../../date-time-picker/index';
 
@@ -6,17 +6,24 @@ import { DateTimePickerTimezone } from '../../../date-time-picker/index';
     selector: 'ux-search-date-range',
     templateUrl: './date-range.component.html'
 })
-export class SearchDateRangeComponent extends BaseSearchComponent implements OnInit {
+export class SearchDateRangeComponent extends BaseSearchComponent {
 
     type: string = 'date-range';
-    label: string;
-    placeholder: string = 'Enter date';
+
+    get label(): string {
+        return this.config.label;
+    }
 
     get from() {
 
         // if value does not exist the set it
         if (!this.value || !this.value.from) {
             this.from = new Date();
+        }
+
+        // ensure that the from value is a date object
+        if (this.value.from instanceof Date === false) {
+            this.value.from = new Date(this.value.from);
         }
 
         return this.value.from;
@@ -26,6 +33,11 @@ export class SearchDateRangeComponent extends BaseSearchComponent implements OnI
 
         // create new object based on the current value
         const value = Object.assign({}, this.value);
+
+        // ensure that the from value is a date
+        if (fromValue instanceof Date === false) {
+            fromValue = new Date(fromValue);
+        }
 
         // set the latest value
         value.from = fromValue;
@@ -41,6 +53,11 @@ export class SearchDateRangeComponent extends BaseSearchComponent implements OnI
             this.to = new Date();
         }
 
+        // ensure that the to value is a date object
+        if (this.value.to instanceof Date === false) {
+            this.value.to = new Date(this.value.to);
+        }
+
         return this.value.to;
     }
 
@@ -49,6 +66,11 @@ export class SearchDateRangeComponent extends BaseSearchComponent implements OnI
         // create new object based on the current value
         const value = Object.assign({}, this.value);
 
+        // ensure that the to value is a date
+        if (toValue instanceof Date === false) {
+            toValue = new Date(toValue);
+        }
+
         // set the latest value
         value.to = toValue;
 
@@ -56,11 +78,20 @@ export class SearchDateRangeComponent extends BaseSearchComponent implements OnI
         this.value = value;
     }
 
-    ngOnInit(): void {
+    get fromLabel(): string {
+        return this.config.fromLabel || 'From';
+    }
 
-        // take into account any configuration
-        this.label = this.config.label || this.label;
-        this.placeholder = this.config.placeholder || this.placeholder;
+    get toLabel(): string {
+        return this.config.toLabel || 'To';
+    }
+
+    get fromPlaceholder(): string {
+        return this.config.fromPlaceholder;
+    }
+
+    get toPlaceholder(): string {
+        return this.config.toPlaceholder;
     }
 
     /**
@@ -73,9 +104,24 @@ export class SearchDateRangeComponent extends BaseSearchComponent implements OnI
             return super.validate();
         }
 
-        // otherwise perform the built in validation function
-        this.valid = this.from.getDate() <= this.to.getDate() &&
-            this.from.getMonth() <= this.to.getMonth() &&
-            this.from.getYear() <= this.to.getYear();
+        // create copies of the dates so we can modify time value (to ignore it)
+        const from = new Date(this.value.from);
+        const to = new Date(this.value.to);
+
+        // set the time to the same so we dont compare it
+        from.setHours(0, 0, 0, 0);
+        to.setHours(0, 0, 0, 0);
+
+        // valid if the from date is less than or equal to the to date
+        this.valid = from <= to;
     }
+}
+
+export interface SearchDateRangeConfig {
+    label?: string;
+    fromLabel?: string;
+    toLabel?: string;
+    fromPlaceholder?: string;
+    toPlaceholder?: string;
+    validation: (value: any) => boolean;
 }

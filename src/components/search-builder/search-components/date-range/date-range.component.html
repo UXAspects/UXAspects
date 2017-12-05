@@ -1,28 +1,33 @@
-<div class="container-fluid" [class.has-error]="!valid">
-    <div class="row">
+<label class="form-label" *ngIf="label">{{ label }}</label>
 
-        <div class="col-md-6">
-            <label class="form-label" *ngIf="label">{{ label }}</label>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-inline" [class.has-error]="!valid">
 
-            <div class="input-group date m-nil">
-                <span class="input-group-addon" tabindex="1" (click)="fromPopover.show()">
-                    <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
-                </span>
-                <input type="text" #fromPopover="bs-popover" [ngModel]="from | date:'dd MMMM yyyy'" [popover]="fromPopoverTemplate" placement="bottom"
-                    [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date">
+            <div class="form-group p-r-md">
+                <label class="form-label m-r-xs">{{ fromLabel }}</label>
+
+                <div class="input-group date m-nil">
+                    <span class="input-group-addon p-r-xs" tabindex="1" (click)="fromPopover.show()">
+                        <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" #fromPopover="bs-popover" [ngModel]="from | date:'dd MMMM yyyy'" [popover]="fromPopoverTemplate" placement="bottom"
+                        [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="fromPlaceholder">
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-6">
-            <label class="form-label" *ngIf="label">{{ label }}</label>
+            <div class="form-group p-r-xs">
+                <label class="form-label m-r-xs">{{ toLabel }}</label>
 
-            <div class="input-group date m-nil">
-                <span class="input-group-addon" tabindex="1" (click)="toPopover.show()">
-                    <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
-                </span>
-                <input type="text" #toPopover="bs-popover" [ngModel]="to | date:'dd MMMM yyyy'" [popover]="toPopoverTemplate" placement="bottom"
-                    [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date">
+                <div class="input-group date m-nil">
+                    <span class="input-group-addon" tabindex="1" (click)="toPopover.show()">
+                        <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" #toPopover="bs-popover" [ngModel]="to | date:'dd MMMM yyyy'" [popover]="toPopoverTemplate" placement="bottom"
+                        [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="toPlaceholder">
+                </div>
             </div>
+
         </div>
     </div>
 </div>

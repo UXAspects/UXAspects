@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseSearchComponent } from '../base-search.component';
+import { Component } from '@angular/core';
+import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
+import { InfiniteScrollLoadFunction } from '../../../../index';
 
 @Component({
   selector: 'ux-search-select',
   templateUrl: './select.component.html'
 })
-export class SearchSelectComponent extends BaseSearchComponent implements OnInit {
+export class SearchSelectComponent extends BaseSearchComponent {
 
   type: string = 'select';
-  label: string;
 
   /**
    * Provide defaults for undefined properties
    */
+  get label(): string {
+    return this.config.label;
+  }
+
   get options() {
     return this.config.options || [];
   }
@@ -44,8 +48,14 @@ export class SearchSelectComponent extends BaseSearchComponent implements OnInit
   get pageSize(): number {
     return this.config.pageSize || 20;
   }
+}
 
-  ngOnInit(): void {
-    
-  }
+export interface SearchSelectConfig extends BaseSearchComponentConfig {
+  options?: any[] | InfiniteScrollLoadFunction;
+  multiple?: boolean;
+  dropDirection?: 'up' | 'down';
+  allowNull?: boolean;
+  disabled?: boolean;
+  maxHeight?: string;
+  pageSize?: number;
 }
