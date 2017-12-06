@@ -11,6 +11,7 @@ import { CssColoredButtonsComponent } from './colored-buttons/colored-buttons.co
 import { CssHyperlinksComponent } from './hyperlinks/hyperlinks.component';
 import { CssLinkButtonsComponent } from './link-buttons/link-buttons.component';
 import { CssButtonsSizeVariationsComponent } from './size-variations/size-variations.component';
+import { IconButtonsDocumentationComponent } from './icon-buttons/icon-buttons.component';
 
 const SECTIONS = [
     CssButtonDropdownsComponent,
@@ -19,7 +20,8 @@ const SECTIONS = [
     CssHyperlinksComponent,
     CssLinkButtonsComponent,
     CssButtonsSizeVariationsComponent,
-    CssSplitButtonDropdownsComponent
+    CssSplitButtonDropdownsComponent,
+    IconButtonsDocumentationComponent
 ];
 
 const ROUTES = [
