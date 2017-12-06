@@ -35,7 +35,7 @@
         </table>
     </div>
 
-    <ux-item-display-panel boxShadow="false" preventClose="true" closeVisible="false" inline="true" [(visible)]="visible" [shadow]="shadow" [title]="selectedItem?.panel.title" animate="true">
+    <ux-item-display-panel [boxShadow]="false" [preventClose]="true" [closeVisible]="false" [inline]="true" [(visible)]="visible" [shadow]="shadow" [header]="selectedItem?.panel.title" [animate]="true">
 
         <div *ngIf="selectedItem" uxItemDisplayPanelContent>
             <div *ngTemplateOutlet="selectedItem?.panel.content"></div>

@@ -20,7 +20,8 @@ export const SELECT_VALUE_ACCESSOR: any = {
 export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor {
 
     private _value: any;
-    @Input('value')
+
+    @Input()
     get value() {
         return this._value;
     }
@@ -33,7 +34,8 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     @Output() valueChange = new EventEmitter<any>();
 
     private _input = new BehaviorSubject<string>('');
-    @Input('input')
+
+    @Input()
     get input() {
         return this._input.getValue();
     }
@@ -45,7 +47,8 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     @Output() inputChange = new EventEmitter<string>();
 
     private _dropdownOpen: boolean = false;
-    @Input('dropdownOpen')
+
+    @Input()
     get dropdownOpen() {
         return this._dropdownOpen;
     }
@@ -121,7 +124,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
                 this.input = this.getDisplay(changes.value.currentValue);
             }
         }
-        if (changes.multiple && changes.multiple.currentValue !== changes.multiple.previousValue) {
+        if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input = '';
         }
     }

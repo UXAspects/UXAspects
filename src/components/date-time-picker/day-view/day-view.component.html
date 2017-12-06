@@ -1,4 +1,4 @@
-<ux-date-time-picker-header [header]="header" (previous)="previous()" (next)="next()" (ascend)="ascend.emit()"></ux-date-time-picker-header>
+<ux-date-time-picker-header [header]="header" (previous)="previous()" (next)="next()" (ascend)="showMonthPicker()"></ux-date-time-picker-header>
 
 <table class="calendar">
   <thead>
@@ -11,7 +11,7 @@
     <tr *ngFor="let row of days">
       <td *ngFor="let day of row" class="date-cell" [class.current]="day.today" 
         [class.active]="day.active" [class.preview]="!day.currentMonth" 
-        (click)="select(day.date)" (keyup.enter)="select(day.date)" 
+        (mousedown)="select(day.date)" (keyup.enter)="select(day.date)" 
         tabindex="0">{{ day.date.getDate() }}</td>
     </tr>
   </tbody>

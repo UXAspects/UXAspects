@@ -1,5 +1,8 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -11,7 +14,7 @@ import { ComponentsSearchBuilderComponent } from './search-builder/search-builde
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { SearchBuilderModule } from '../../../../../../src/index';
+import { SearchBuilderModule, ItemDisplayPanelModule } from '../../../../../../src/index';
 
 const SECTIONS = [
     ComponentsSearchBuilderNg1Component,
@@ -37,7 +40,10 @@ const ROUTES = [
         ModalModule.forRoot(),
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
-        SearchBuilderModule
+        SearchBuilderModule,
+        ItemDisplayPanelModule,
+        FormsModule,
+        CommonModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

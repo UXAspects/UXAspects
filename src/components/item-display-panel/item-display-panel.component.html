@@ -1,8 +1,8 @@
-<div class="ux-item-display-panel" [class.box-shadow]="boxShadow" [class.inline]="inline" [class.animate]="animate" [class.item-display-panel-hide]="!visible" [style.top]="top" [style.height]='"calc(100% - " + top + "px)"'>
+<div class="ux-item-display-panel" [class.box-shadow]="boxShadow" [class.inline]="inline" [class.animate]="animate" [class.item-display-panel-hide]="!visible" [style.width]="width" [style.top]="top" [style.height]='"calc(100% - " + top + "px)"'>
 
     <div class="item-display-panel-header" [class.item-display-panel-shadow]="shadow">
         <div class="heading-flex-box">
-            <h3>{{ title }}</h3>
+            <h3>{{ header }}</h3>
             <span *ngIf="closeVisible" class="heading-close-button" tabindex="0" (click)="visible = false" (keydown.enter)="visible = false">
                 <i class="hpe-icon hpe-close"></i>
             </span>

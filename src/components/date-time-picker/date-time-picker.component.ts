@@ -2,20 +2,17 @@ import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core
 import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-view/time-view.component';
 import { weekdaysShort } from './date-time-picker.utils';
 import { DateTimePickerConfig } from './date-time-picker.config';
+import { DateTimePickerService } from './date-time-picker.service';
 
 @Component({
   selector: 'ux-date-time-picker',
-  templateUrl: './date-time-picker.component.html'
+  templateUrl: './date-time-picker.component.html',
+  providers: [DateTimePickerService]
 })
 export class DateTimePickerComponent {
 
   @ViewChild('timePicker') timePickerComponent: DateTimePickerTimeViewComponent;
 
-  activeDate: Date = new Date();
-  month: number = new Date().getMonth();
-  year: number = new Date().getFullYear();
-
-  private _date: Date = new Date();
   private _timezone: DateTimePickerTimezone;
 
   @Input() showDate: boolean = this._config.showDate;
@@ -33,18 +30,15 @@ export class DateTimePickerComponent {
 
   @Input()
   set date(value: Date) {
-    this._date = new Date(value);
 
-    // update the month and year
-    this.month = this._date.getMonth();
-    this.year = this._date.getFullYear();
+    this.dateTimePickerService.date.next(new Date(value));
 
     // set the active date to the new date
-    this.activeDate = new Date(value);
+    this.dateTimePickerService.activeDate.next(new Date(value));
   }
 
   get date(): Date {
-    return this._date;
+    return this.dateTimePickerService.date.getValue();
   }
 
   @Input()
@@ -61,19 +55,16 @@ export class DateTimePickerComponent {
     return this._timezone;
   }
 
-
-  mode: DatePickerMode = DatePickerMode.Day;
-
   // expose enum to view
   DatePickerMode = DatePickerMode;
 
-  constructor(private _config: DateTimePickerConfig) { }
+  constructor(private _config: DateTimePickerConfig, public dateTimePickerService: DateTimePickerService) { }
 
   /**
    * This will emit the newly selected date
    */
   commit(): void {
-    this.dateChange.emit(this.activeDate);
+    this.dateChange.emit(this.dateTimePickerService.activeDate.getValue());
   }
 
   /**

@@ -3,7 +3,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { SearchBuilderService } from './search-builder.service';
 import { SearchBuilderQuery } from './interfaces/query.interface';
 import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
-import { SearchTextComponent } from './search-components/search-text/search-text.component';
+import { SearchTextComponent } from './search-components/text/text.component';
+import { SearchDateComponent } from './search-components/date/date.component';
+import { SearchDateRangeComponent } from './search-components/date-range/date-range.component';
+import { SearchSelectComponent } from './search-components/select/select.component';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'ux-search-builder',
@@ -27,23 +31,29 @@ export class SearchBuilderComponent implements OnDestroy {
   }
 
   @Output() queryChange: EventEmitter<SearchBuilderQuery> = new EventEmitter<SearchBuilderQuery>();
+  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>(true);
 
-  private _subscription: Subscription;
+  private _querySubscription: Subscription;
+  private _validSubscription: Subscription;
 
   /**
    * Register the default search builder components
    */
   constructor(private _searchBuilderService: SearchBuilderService) {
 
-    // add the default components
-    _searchBuilderService.registerComponent('text', SearchTextComponent);
-
     // watch for any query changes
-    this._subscription = _searchBuilderService.queryChange.subscribe(query => this.queryChange.emit(query));
+    this._querySubscription = _searchBuilderService.queryChange.subscribe(query => this.queryChange.emit(query));
+
+    // watch for any changes to the validation
+    this._validSubscription = _searchBuilderService.validationChange.distinctUntilChanged().subscribe(valid => this.valid.emit(valid));
   }
 
+  /**
+   * Remove any subscriptions and cleanup
+   */
   ngOnDestroy(): void {
-    this._subscription.unsubscribe();
+    this._querySubscription.unsubscribe();
+    this._validSubscription.unsubscribe();
   }
 
 }

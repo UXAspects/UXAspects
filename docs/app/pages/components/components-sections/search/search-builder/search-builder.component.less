@@ -1,0 +1,33 @@
+.search-builder-panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+}
+
+.search-builder-panel-open {
+    pointer-events: all;
+}
+
+.field-list-panel {
+    border-top: 1px solid #e5e5e5;
+    padding: 10px;
+
+    .field-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 8px 5px;
+
+        .field-list-item {
+            font-size: 17px;
+            padding: 3px 10px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #f2f2f2;
+            }
+        }
+    }
+}

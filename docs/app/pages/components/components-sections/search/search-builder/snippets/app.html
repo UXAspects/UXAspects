@@ -23,17 +23,43 @@
 
     <div class="search-builder-body">
 
-        <ux-search-builder [(query)]="query">
-            <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" (add)="addKeyword()"></ux-search-builder-group>
-            <ux-search-builder-group id="authors" header="ANY of the following" operator="or" (add)="addAuthor()"></ux-search-builder-group>
-            <ux-search-builder-group id="repositories" header="ALL of the following" (add)="addRepository()"></ux-search-builder-group>
-            <ux-search-builder-group id="terms" header="NONE of the following" operator="not" (add)="addTerm()"></ux-search-builder-group>
+        <ux-search-builder [(query)]="query" [components]="components" (valid)="valid = $event">
+            <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" 
+                (add)="addKeyword()"></ux-search-builder-group>
+            <ux-search-builder-group id="any" header="ANY of the following" operator="or" 
+                (add)="addField('any'); $event.stopPropagation()"
+                [showPlaceholder]="placeholders.any"></ux-search-builder-group>
+            <ux-search-builder-group id="all" header="ALL of the following" 
+                (add)="addField('all'); $event.stopPropagation()" 
+                [showPlaceholder]="placeholders.all"></ux-search-builder-group>
+            <ux-search-builder-group id="none" header="NONE of the following" operator="not" 
+                (add)="addField('none'); $event.stopPropagation()"
+                [showPlaceholder]="placeholders.none"></ux-search-builder-group>
         </ux-search-builder>
 
     </div>
 
     <div class="search-builder-footer">
-        <button type="button" class="btn button-primary m-r-xs" (click)="save()">Search</button>
+        <button type="button" class="btn button-primary m-r-xs" [disabled]="!valid" 
+            (click)="save()">Search</button>
+
         <button type="button" class="btn button-secondary" (click)="cancel()">Cancel</button>
     </div>
+
+    <ux-item-display-panel class="search-builder-panel" [class.search-builder-panel-open]="panelOpen" 
+        [animate]="true" [inline]="true" header="Add Field" [(visible)]="panelOpen" 
+        (visibleChange)="onPanelEvent($event)" width="400px">
+
+        <div class="field-list-panel" uxItemDisplayPanelContent>
+            <input type="text" placeholder="Find a field" class="form-control" [(ngModel)]="filter">
+
+            <ul class="field-list">
+                <ng-container *ngFor="let field of fields">
+                    <li class="field-list-item" 
+                        *ngIf="field.title.toLowerCase().indexOf(filter.toLowerCase()) !== -1" 
+                        (click)="selectField(field)">{{ field.title }}</li>
+                </ng-container>
+            </ul>
+        </div>
+    </ux-item-display-panel>
 </ng-template>
