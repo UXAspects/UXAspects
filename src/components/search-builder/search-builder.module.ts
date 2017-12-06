@@ -18,7 +18,7 @@ import { SelectModule } from '../select/index';
     CommonModule,
     FormsModule,
     DateTimePickerModule,
-    PopoverModule,
+    PopoverModule.forRoot(),
     SelectModule
   ],
   exports: [
