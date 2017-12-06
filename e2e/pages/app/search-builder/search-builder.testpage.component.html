@@ -1,0 +1,23 @@
+<ux-search-builder [(query)]="query" [components]="components" (valid)="valid = $event">
+
+    <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" (add)="addKeyword()"></ux-search-builder-group>
+
+    <ux-search-builder-group id="any" header="ANY of the following" operator="or" (add)="addAny()"
+        [showPlaceholder]="placeholders.any"></ux-search-builder-group>
+
+    <ux-search-builder-group id="all" header="ALL of the following" (add)="addAll()" [showPlaceholder]="placeholders.all"></ux-search-builder-group>
+    
+    <ux-search-builder-group id="none" header="NONE of the following" operator="not" (add)="addNone()"
+        [showPlaceholder]="placeholders.none"></ux-search-builder-group>
+
+</ux-search-builder>
+
+<br>
+
+<pre>{{ query | json }}</pre>
+
+<p>The query is <span id="validity">{{ valid ? 'valid' : 'invalid' }}</span></p>
+
+<br>
+
+<button class="btn button-primary" id="set-query" (click)="setQuery()">Set Query</button>
