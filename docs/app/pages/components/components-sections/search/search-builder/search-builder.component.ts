@@ -19,8 +19,18 @@ import 'chance';
 export class ComponentsSearchBuilderComponent extends BaseDocumentationSection implements IPlunkProvider, OnDestroy {
 
   modalRef: BsModalRef;
-  query: SearchBuilderQuery = {};
-  preview: string = '{}';
+  query: SearchBuilderQuery = {
+    keywords: [
+      {
+        type: 'keyword',
+        value: null
+      }
+    ],
+    any: [],
+    all: [],
+    none: []
+  };
+  preview: string = JSON.stringify(this.query, null, 2);
   valid: boolean = true;
   filter: string = '';
   panelOpen: boolean = false;
@@ -55,7 +65,7 @@ export class ComponentsSearchBuilderComponent extends BaseDocumentationSection i
       name: 'keyword',
       component: SearchTextComponent,
       config: {
-        placeholder: 'Enter a keyword'
+        placeholder: 'Enter keywords'
       } as SearchTextConfig
     },
     {
