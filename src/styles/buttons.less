@@ -123,11 +123,13 @@
   display: flex;
   align-items: flex-start;
 
-  > .btn, 
-  > .btn-group {
-    margin-right: 8px;
+  > .btn + .btn,
+  > .btn + .btn-group,
+  > .btn-group + .btn,
+  > .btn-group + .btn-group {
+    margin-left: 8px;
     &.btn-link {
-        margin-right: 0;
+        margin-left: 0;
     }
   }
 }
