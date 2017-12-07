@@ -1,14 +1,18 @@
 import { Subject } from 'rxjs/Subject';
 import { SearchBuilderQuery } from './interfaces/query.interface';
 import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export declare class SearchBuilderService {
     query: SearchBuilderQuery;
     queryChange: Subject<SearchBuilderQuery>;
+    validationChange: BehaviorSubject<boolean>;
+    private _componentId;
     private _components;
+    private _validation;
     /**
      * Add a component to the internal list of components
      */
-    registerComponent(name: string, component: any): void;
+    registerComponent(component: SearchBuilderComponentDefinition): void;
     /**
      * Bulk registration of components
      * (Just a helper method)
@@ -17,7 +21,7 @@ export declare class SearchBuilderService {
     /**
      * Get a registered component class
      */
-    getComponent(type: string): any;
+    getComponent(name: string): any;
     /**
      * Update the internal search query state
      * note that the query will be immutable
@@ -31,4 +35,12 @@ export declare class SearchBuilderService {
      * Trigger the observable to indicate the query has been updated
      */
     queryHasChanged(): void;
+    /**
+     * Store the validation state of the query
+     */
+    setValid(id: number, valid: boolean): void;
+    /**
+     * Generate a unique id for each component
+     */
+    generateComponentId(): number;
 }

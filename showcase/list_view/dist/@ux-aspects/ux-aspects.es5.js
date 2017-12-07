@@ -22,6 +22,8 @@ import { distinctUntilChanged as distinctUntilChanged$1 } from 'rxjs/operator/di
 import { map as map$1 } from 'rxjs/operator/map';
 import { observeOn as observeOn$1 } from 'rxjs/operator/observeOn';
 import { scan as scan$1 } from 'rxjs/operator/scan';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
@@ -3753,16 +3755,37 @@ DateTimePickerConfig.decorators = [
  * @nocollapse
  */
 DateTimePickerConfig.ctorParameters = function () { return []; };
+var DateTimePickerService = (function () {
+    function DateTimePickerService() {
+        var _this = this;
+        this.date = new BehaviorSubject$1(new Date());
+        this.activeDate = new BehaviorSubject$1(new Date());
+        this.mode = new BehaviorSubject$1(DatePickerMode.Day);
+        this.month = new BehaviorSubject$1(new Date().getMonth());
+        this.year = new BehaviorSubject$1(new Date().getFullYear());
+        // when the date changes update the current month and year
+        this.date.distinctUntilChanged(function (previous, current) { return previous.getTime() === current.getTime(); }).subscribe(function (date) {
+            _this.month.next(date.getMonth());
+            _this.year.next(date.getFullYear());
+        });
+    }
+    return DateTimePickerService;
+}());
+DateTimePickerService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerService.ctorParameters = function () { return []; };
 var DateTimePickerComponent = (function () {
     /**
      * @param {?} _config
+     * @param {?} dateTimePickerService
      */
-    function DateTimePickerComponent(_config) {
+    function DateTimePickerComponent(_config, dateTimePickerService) {
         this._config = _config;
-        this.activeDate = new Date();
-        this.month = new Date().getMonth();
-        this.year = new Date().getFullYear();
-        this._date = new Date();
+        this.dateTimePickerService = dateTimePickerService;
         this.showDate = this._config.showDate;
         this.showTime = this._config.showTime;
         this.showTimezone = this._config.showTimezone;
@@ -3774,7 +3797,6 @@ var DateTimePickerComponent = (function () {
         this.timezones = this._config.timezones;
         this.dateChange = new EventEmitter();
         this.timezoneChange = new EventEmitter();
-        this.mode = DatePickerMode.Day;
         // expose enum to view
         this.DatePickerMode = DatePickerMode;
     }
@@ -3783,19 +3805,16 @@ var DateTimePickerComponent = (function () {
          * @return {?}
          */
         get: function () {
-            return this._date;
+            return this.dateTimePickerService.date.getValue();
         },
         /**
          * @param {?} value
          * @return {?}
          */
         set: function (value) {
-            this._date = new Date(value);
-            // update the month and year
-            this.month = this._date.getMonth();
-            this.year = this._date.getFullYear();
+            this.dateTimePickerService.date.next(new Date(value));
             // set the active date to the new date
-            this.activeDate = new Date(value);
+            this.dateTimePickerService.activeDate.next(new Date(value));
         },
         enumerable: true,
         configurable: true
@@ -3826,7 +3845,7 @@ var DateTimePickerComponent = (function () {
      * @return {?}
      */
     DateTimePickerComponent.prototype.commit = function () {
-        this.dateChange.emit(this.activeDate);
+        this.dateChange.emit(this.dateTimePickerService.activeDate.getValue());
     };
     /**
      * Change the date to the current date and time
@@ -3847,7 +3866,8 @@ var DateTimePickerComponent = (function () {
 DateTimePickerComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-date-time-picker',
-                template: "\n    <div class=\"calendar-container\">\n\n      <ng-container *ngIf=\"showDate\" [ngSwitch]=\"mode\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\" [(date)]=\"activeDate\" [(month)]=\"month\" [(year)]=\"year\" [weekdays]=\"weekdays\" (dateChange)=\"commit()\" (ascend)=\"mode = DatePickerMode.Month\"></ux-date-time-picker-day-view>\n  \n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\" [date]=\"activeDate\" [(month)]=\"month\" [(year)]=\"year\" (monthChange)=\"mode = DatePickerMode.Day\" (ascend)=\"mode = DatePickerMode.Year\"></ux-date-time-picker-month-view>\n  \n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\" [(year)]=\"year\" (yearChange)=\"mode = DatePickerMode.Month\"></ux-date-time-picker-year-view>\n  \n      </ng-container>\n\n      <!-- Display a Time Picker -->\n      <ux-date-time-picker-time-view *ngIf=\"showTime\" #timePicker [(date)]=\"activeDate\" (dateChange)=\"commit()\" [showSpinners]=\"showSpinners\" [showTimezone]=\"showTimezone\" [showSeconds]=\"showSeconds\" [showMeridian]=\"showMeridian\" (dateChange)=\"commit()\" [timezone]=\"timezone\" (timezoneChange)=\"timezoneChange.emit($event)\" [timezones]=\"timezones\"></ux-date-time-picker-time-view>\n\n    </div>\n\n    <button class=\"now-button\" (click)=\"setToNow()\">{{ nowBtnText }}</button>\n  "
+                template: "\n    <div class=\"calendar-container\">\n\n      <ng-container *ngIf=\"showDate\" [ngSwitch]=\"dateTimePickerService.mode | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\" [weekdays]=\"weekdays\" (dateChange)=\"commit()\"></ux-date-time-picker-day-view>\n  \n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n  \n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n  \n      </ng-container>\n\n      <!-- Display a Time Picker -->\n      <ux-date-time-picker-time-view *ngIf=\"showTime\" #timePicker (dateChange)=\"commit()\" [showSpinners]=\"showSpinners\" [showTimezone]=\"showTimezone\" [showSeconds]=\"showSeconds\" [showMeridian]=\"showMeridian\" (dateChange)=\"commit()\" [timezone]=\"timezone\" (timezoneChange)=\"timezoneChange.emit($event)\" [timezones]=\"timezones\"></ux-date-time-picker-time-view>\n\n    </div>\n\n    <button class=\"now-button\" (click)=\"setToNow()\">{{ nowBtnText }}</button>\n  ",
+                providers: [DateTimePickerService]
             },] },
 ];
 /**
@@ -3855,6 +3875,7 @@ DateTimePickerComponent.decorators = [
  */
 DateTimePickerComponent.ctorParameters = function () { return [
     { type: DateTimePickerConfig, },
+    { type: DateTimePickerService, },
 ]; };
 DateTimePickerComponent.propDecorators = {
     'timePickerComponent': [{ type: ViewChild, args: ['timePicker',] },],
@@ -3880,40 +3901,82 @@ DatePickerMode[DatePickerMode.Day] = "Day";
 DatePickerMode[DatePickerMode.Month] = "Month";
 DatePickerMode[DatePickerMode.Year] = "Year";
 var DateTimePickerDayViewComponent = (function () {
-    function DateTimePickerDayViewComponent() {
+    /**
+     * @param {?} dateTimePickerService
+     */
+    function DateTimePickerDayViewComponent(dateTimePickerService) {
+        this.dateTimePickerService = dateTimePickerService;
         this.days = [];
-        this.month = new Date().getMonth();
-        this.year = new Date().getFullYear();
         this.weekdays = weekdaysShort;
-        this.ascend = new EventEmitter();
         this.dateChange = new EventEmitter();
-        this.monthChange = new EventEmitter();
-        this.yearChange = new EventEmitter();
     }
     Object.defineProperty(DateTimePickerDayViewComponent.prototype, "date", {
         /**
          * @return {?}
          */
         get: function () {
-            return this._date;
+            return this.dateTimePickerService.activeDate.getValue();
         },
         /**
          * @param {?} value
          * @return {?}
          */
         set: function (value) {
-            this._date = value;
-            // update the month and year
-            this.month = this._date.getMonth();
-            this.year = this._date.getFullYear();
-            // emit the changes
-            this.monthChange.emit(this.month);
-            this.yearChange.emit(this.year);
-            this.update();
+            this.dateTimePickerService.activeDate.next(value);
         },
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(DateTimePickerDayViewComponent.prototype, "month", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.dateTimePickerService.month.getValue();
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.dateTimePickerService.month.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerDayViewComponent.prototype, "year", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.dateTimePickerService.year.getValue();
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.dateTimePickerService.year.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // update the grid only when the value of the active date, month or year has changed
+        this._subscription = Observable$1.merge(this.dateTimePickerService.activeDate.distinctUntilChanged(), this.dateTimePickerService.month.distinctUntilChanged(), this.dateTimePickerService.year.distinctUntilChanged())
+            .subscribe(function () { return _this.update(); });
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.ngOnDestroy = function () {
+        // remove all subscriptions
+        this._subscription.unsubscribe();
+    };
     /**
      * Navigate to the previous page of dates
      * @return {?}
@@ -3926,9 +3989,6 @@ var DateTimePickerDayViewComponent = (function () {
             this.month = 11;
             this.year--;
         }
-        // emit the changes
-        this.monthChange.emit(this.month);
-        this.yearChange.emit(this.year);
         // update the grid
         this.update();
     };
@@ -3944,9 +4004,6 @@ var DateTimePickerDayViewComponent = (function () {
             this.month = 0;
             this.year++;
         }
-        // emit the changes
-        this.monthChange.emit(this.month);
-        this.yearChange.emit(this.year);
         // update the grid
         this.update();
     };
@@ -3982,9 +4039,9 @@ var DateTimePickerDayViewComponent = (function () {
      */
     DateTimePickerDayViewComponent.prototype.select = function (date) {
         // update the current date object
-        this._date = new Date(date);
+        this.date = new Date(date);
         // emit the new date
-        this.dateChange.emit(this._date);
+        this.dateChange.emit();
     };
     /**
      * Determine whether or not a specific date is today
@@ -4011,52 +4068,97 @@ var DateTimePickerDayViewComponent = (function () {
     DateTimePickerDayViewComponent.prototype.isCurrentMonth = function (date) {
         return date.getMonth() === this.month;
     };
+    /**
+     * Update the date picker view to show the month picker
+     * @return {?}
+     */
+    DateTimePickerDayViewComponent.prototype.showMonthPicker = function () {
+        this.dateTimePickerService.mode.next(DatePickerMode.Month);
+    };
     return DateTimePickerDayViewComponent;
 }());
 DateTimePickerDayViewComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-date-time-picker-day-view',
-                template: "\n    <ux-date-time-picker-header [header]=\"header\" (previous)=\"previous()\" (next)=\"next()\" (ascend)=\"ascend.emit()\"></ux-date-time-picker-header>\n\n    <table class=\"calendar\">\n      <thead>\n        <tr>\n          <th *ngFor=\"let day of weekdays\" class=\"weekday\">{{ day }}</th>\n        </tr>\n      </thead>\n\n      <tbody>\n        <tr *ngFor=\"let row of days\">\n          <td *ngFor=\"let day of row\" class=\"date-cell\" [class.current]=\"day.today\" \n            [class.active]=\"day.active\" [class.preview]=\"!day.currentMonth\" \n            (click)=\"select(day.date)\" (keyup.enter)=\"select(day.date)\" \n            tabindex=\"0\">{{ day.date.getDate() }}</td>\n        </tr>\n      </tbody>\n    </table>\n  "
+                template: "\n    <ux-date-time-picker-header [header]=\"header\" (previous)=\"previous()\" (next)=\"next()\" (ascend)=\"showMonthPicker()\"></ux-date-time-picker-header>\n\n    <table class=\"calendar\">\n      <thead>\n        <tr>\n          <th *ngFor=\"let day of weekdays\" class=\"weekday\">{{ day }}</th>\n        </tr>\n      </thead>\n\n      <tbody>\n        <tr *ngFor=\"let row of days\">\n          <td *ngFor=\"let day of row\" class=\"date-cell\" [class.current]=\"day.today\" \n            [class.active]=\"day.active\" [class.preview]=\"!day.currentMonth\" \n            (mousedown)=\"select(day.date)\" (keyup.enter)=\"select(day.date)\" \n            tabindex=\"0\">{{ day.date.getDate() }}</td>\n        </tr>\n      </tbody>\n    </table>\n  "
             },] },
 ];
 /**
  * @nocollapse
  */
-DateTimePickerDayViewComponent.ctorParameters = function () { return []; };
+DateTimePickerDayViewComponent.ctorParameters = function () { return [
+    { type: DateTimePickerService, },
+]; };
 DateTimePickerDayViewComponent.propDecorators = {
-    'month': [{ type: Input },],
-    'year': [{ type: Input },],
     'weekdays': [{ type: Input },],
-    'ascend': [{ type: Output },],
     'dateChange': [{ type: Output },],
-    'monthChange': [{ type: Output },],
-    'yearChange': [{ type: Output },],
-    'date': [{ type: Input },],
 };
 var DateTimePickerMonthViewComponent = (function () {
-    function DateTimePickerMonthViewComponent() {
-        this.date = new Date();
-        this.year = new Date().getFullYear();
-        this.month = new Date().getMonth();
-        this.monthChange = new EventEmitter();
-        this.yearChange = new EventEmitter();
-        this.ascend = new EventEmitter();
+    /**
+     * @param {?} _dateTimePickerService
+     */
+    function DateTimePickerMonthViewComponent(_dateTimePickerService) {
+        this._dateTimePickerService = _dateTimePickerService;
         this.months = gridify(range(0, 11), 4);
         this.currentDate = new Date();
     }
+    Object.defineProperty(DateTimePickerMonthViewComponent.prototype, "date", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._dateTimePickerService.activeDate.getValue();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerMonthViewComponent.prototype, "month", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._dateTimePickerService.month.getValue();
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._dateTimePickerService.month.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerMonthViewComponent.prototype, "year", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._dateTimePickerService.year.getValue();
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._dateTimePickerService.year.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Go to the previous year and emit the change
      * @return {?}
      */
     DateTimePickerMonthViewComponent.prototype.previous = function () {
-        this.yearChange.emit(--this.year);
+        this.year--;
     };
     /**
      * Go to the next year and emit the change
      * @return {?}
      */
     DateTimePickerMonthViewComponent.prototype.next = function () {
-        this.yearChange.emit(++this.year);
+        this.year++;
     };
     /**
      * Select a month in the calendar
@@ -4064,11 +4166,9 @@ var DateTimePickerMonthViewComponent = (function () {
      * @return {?}
      */
     DateTimePickerMonthViewComponent.prototype.select = function (month) {
-        // store the new month
         this.month = month;
-        // emit the changes
-        this.monthChange.emit(this.month);
-        this.yearChange.emit(this.year);
+        // show the day picker
+        this.showDayPicker();
     };
     /**
      * Get the name of a month
@@ -4078,33 +4178,43 @@ var DateTimePickerMonthViewComponent = (function () {
     DateTimePickerMonthViewComponent.prototype.getMonthName = function (month) {
         return monthsShort[month];
     };
+    /**
+     * Show the daye picker view
+     * @return {?}
+     */
+    DateTimePickerMonthViewComponent.prototype.showDayPicker = function () {
+        this._dateTimePickerService.mode.next(DatePickerMode.Day);
+    };
+    /**
+     * Show the year picker view
+     * @return {?}
+     */
+    DateTimePickerMonthViewComponent.prototype.showYearPicker = function () {
+        this._dateTimePickerService.mode.next(DatePickerMode.Year);
+    };
     return DateTimePickerMonthViewComponent;
 }());
 DateTimePickerMonthViewComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-date-time-picker-month-view',
-                template: "\n    <ux-date-time-picker-header [header]=\"year\" (previous)=\"previous()\" (next)=\"next()\" (ascend)=\"ascend.emit()\"></ux-date-time-picker-header>\n\n    <div class=\"calendar\">\n      <div class=\"calendar-row\" *ngFor=\"let row of months\">\n        <div class=\"calendar-item\" *ngFor=\"let item of row\" [class.active]=\"item === date.getMonth() && year === date.getFullYear()\"\n          [class.current]=\"item === currentDate.getMonth() && year === currentDate.getFullYear()\" (click)=\"select(item); $event.stopPropagation()\" (keyup.enter)=\"select(item)\" tabindex=\"0\">{{ getMonthName(item) }}</div>\n      </div>\n    </div>\n  "
+                template: "\n    <ux-date-time-picker-header [header]=\"year\" (previous)=\"previous()\" (next)=\"next()\" (ascend)=\"showYearPicker()\"></ux-date-time-picker-header>\n\n    <div class=\"calendar\">\n      <div class=\"calendar-row\" *ngFor=\"let row of months\">\n        <div class=\"calendar-item\" *ngFor=\"let item of row\" [class.active]=\"item === date.getMonth() && year === date.getFullYear()\"\n          [class.current]=\"item === currentDate.getMonth() && year === currentDate.getFullYear()\" (mousedown)=\"select(item)\" (keyup.enter)=\"select(item)\" tabindex=\"0\">{{ getMonthName(item) }}</div>\n      </div>\n    </div>\n  "
             },] },
 ];
 /**
  * @nocollapse
  */
-DateTimePickerMonthViewComponent.ctorParameters = function () { return []; };
-DateTimePickerMonthViewComponent.propDecorators = {
-    'date': [{ type: Input },],
-    'year': [{ type: Input },],
-    'month': [{ type: Input },],
-    'monthChange': [{ type: Output },],
-    'yearChange': [{ type: Output },],
-    'ascend': [{ type: Output },],
-};
+DateTimePickerMonthViewComponent.ctorParameters = function () { return [
+    { type: DateTimePickerService, },
+]; };
 var DateTimePickerYearViewComponent = (function () {
-    function DateTimePickerYearViewComponent() {
+    /**
+     * @param {?} _dateTimePickerService
+     */
+    function DateTimePickerYearViewComponent(_dateTimePickerService) {
+        this._dateTimePickerService = _dateTimePickerService;
         this._page = 0;
         this.years = [];
         this.currentYear = new Date().getFullYear();
-        this.year = new Date().getFullYear();
-        this.yearChange = new EventEmitter();
     }
     /**
      * @return {?}
@@ -4112,15 +4222,31 @@ var DateTimePickerYearViewComponent = (function () {
     DateTimePickerYearViewComponent.prototype.ngOnInit = function () {
         this.update();
     };
+    Object.defineProperty(DateTimePickerYearViewComponent.prototype, "year", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._dateTimePickerService.year.getValue();
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._dateTimePickerService.year.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} year
      * @return {?}
      */
     DateTimePickerYearViewComponent.prototype.select = function (year) {
-        // set the year of of the date
         this.year = year;
-        // emit the date change
-        this.yearChange.emit(this.year);
+        // show the month picker
+        this.showMonthPicker();
     };
     /**
      * @return {?}
@@ -4160,22 +4286,27 @@ var DateTimePickerYearViewComponent = (function () {
         // create an array containing all the numbers between the start and end points
         return { start: start, end: end, range: range(start, end) };
     };
+    /**
+     * Show the month picker view
+     * @return {?}
+     */
+    DateTimePickerYearViewComponent.prototype.showMonthPicker = function () {
+        this._dateTimePickerService.mode.next(DatePickerMode.Month);
+    };
     return DateTimePickerYearViewComponent;
 }());
 DateTimePickerYearViewComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-date-time-picker-year-view',
-                template: "\n    <ux-date-time-picker-header [header]=\"header\" [canAscend]=\"false\" (previous)=\"previous()\" (next)=\"next()\"></ux-date-time-picker-header>\n\n    <div class=\"calendar\">\n      <div class=\"calendar-row\" *ngFor=\"let row of years\">\n        <div *ngFor=\"let item of row\" class=\"calendar-item\" [class.current]=\"item === currentYear\" [class.active]=\"item === year\"\n        (click)=\"select(item); $event.stopPropagation()\" (keyup.enter)=\"select(item)\" tabindex=\"0\">{{ item }}</div>\n      </div>\n    </div>\n  "
+                template: "\n    <ux-date-time-picker-header [header]=\"header\" [canAscend]=\"false\" (previous)=\"previous()\" (next)=\"next()\"></ux-date-time-picker-header>\n\n    <div class=\"calendar\">\n      <div class=\"calendar-row\" *ngFor=\"let row of years\">\n        <div *ngFor=\"let item of row\" class=\"calendar-item\" [class.current]=\"item === currentYear\" [class.active]=\"item === year\"\n        (mousedown)=\"select(item)\" (keyup.enter)=\"select(item)\" tabindex=\"0\">{{ item }}</div>\n      </div>\n    </div>\n  "
             },] },
 ];
 /**
  * @nocollapse
  */
-DateTimePickerYearViewComponent.ctorParameters = function () { return []; };
-DateTimePickerYearViewComponent.propDecorators = {
-    'year': [{ type: Input },],
-    'yearChange': [{ type: Output },],
-};
+DateTimePickerYearViewComponent.ctorParameters = function () { return [
+    { type: DateTimePickerService, },
+]; };
 var DateTimePickerHeaderComponent = (function () {
     function DateTimePickerHeaderComponent() {
         this.canAscend = true;
@@ -4766,6 +4897,9 @@ var ComponentLoader = (function () {
         this._componentRef.destroy();
         if (this._viewContainerRef && this._contentRef.viewRef) {
             this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._contentRef.viewRef));
+        }
+        if (this._contentRef.viewRef) {
+            this._contentRef.viewRef.destroy();
         }
         // this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._componentRef.hostView));
         //
@@ -8418,28 +8552,32 @@ ItemDisplayPanelFooterDirective.decorators = [
 ItemDisplayPanelFooterDirective.ctorParameters = function () { return []; };
 var ItemDisplayPanelComponent = (function () {
     function ItemDisplayPanelComponent() {
+        this.boxShadow = true;
+        this.closeVisible = true;
+        this.preventClose = false;
+        this.inline = false;
+        this.animate = false;
+        this.shadow = false;
         this.visibleChange = new EventEmitter();
         this._visible = false;
-        this._boxShadow = true;
-        this._closeVisible = true;
-        this._preventClose = false;
-        this._inline = false;
-        this._animate = false;
-        this._shadow = false;
     }
-    Object.defineProperty(ItemDisplayPanelComponent.prototype, "top", {
+    Object.defineProperty(ItemDisplayPanelComponent.prototype, "title", {
         /**
          * @return {?}
          */
         get: function () {
-            return this._top;
+            return this.header;
         },
         /**
-         * @param {?} top
+         * @deprecated
+         * Title used for adding tooltips and shouldn't be used as an input
+         * instead header will be used. This is here to support backward compatibility only
+         * this property should not be used.
+         * @param {?} value
          * @return {?}
          */
-        set: function (top) {
-            this._top = typeof top === 'string' ? parseFloat(top) : top;
+        set: function (value) {
+            this.header = value;
         },
         enumerable: true,
         configurable: true
@@ -8463,108 +8601,6 @@ var ItemDisplayPanelComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ItemDisplayPanelComponent.prototype, "boxShadow", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._boxShadow;
-        },
-        /**
-         * @param {?} boxShadow
-         * @return {?}
-         */
-        set: function (boxShadow) {
-            this._boxShadow = typeof boxShadow === 'string' ? !(boxShadow === 'false') : boxShadow;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ItemDisplayPanelComponent.prototype, "closeVisible", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._closeVisible;
-        },
-        /**
-         * @param {?} closeVisible
-         * @return {?}
-         */
-        set: function (closeVisible) {
-            this._closeVisible = typeof closeVisible === 'string' ? !(closeVisible === 'false') : closeVisible;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ItemDisplayPanelComponent.prototype, "preventClose", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._preventClose;
-        },
-        /**
-         * @param {?} preventClose
-         * @return {?}
-         */
-        set: function (preventClose) {
-            this._preventClose = typeof preventClose === 'string' ? preventClose === 'true' : preventClose;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ItemDisplayPanelComponent.prototype, "inline", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._inline;
-        },
-        /**
-         * @param {?} inline
-         * @return {?}
-         */
-        set: function (inline) {
-            this._inline = typeof inline === 'string' ? inline === 'true' : inline;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ItemDisplayPanelComponent.prototype, "animate", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._animate;
-        },
-        /**
-         * @param {?} animate
-         * @return {?}
-         */
-        set: function (animate) {
-            this._animate = typeof animate === 'string' ? animate === 'true' : animate;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ItemDisplayPanelComponent.prototype, "shadow", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._shadow;
-        },
-        /**
-         * @param {?} shadow
-         * @return {?}
-         */
-        set: function (shadow) {
-            this._shadow = typeof shadow === 'string' ? shadow === 'true' : shadow;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} event
      * @return {?}
@@ -8576,7 +8612,7 @@ var ItemDisplayPanelComponent = (function () {
         }
         // dont do anything if the panel is hidden
         if (this._visible) {
-            var /** @type {?} */ target = event.target;
+            var /** @type {?} */ target = (event.target);
             // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
             if (target.nodeName === 'HTML') {
                 return;
@@ -8602,7 +8638,7 @@ var ItemDisplayPanelComponent = (function () {
 ItemDisplayPanelComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-item-display-panel',
-                template: "\n      <div class=\"ux-item-display-panel\" [class.box-shadow]=\"boxShadow\" [class.inline]=\"inline\" [class.animate]=\"animate\" [class.item-display-panel-hide]=\"!visible\" [style.top]=\"top\" [style.height]='\"calc(100% - \" + top + \"px)\"'>\n\n          <div class=\"item-display-panel-header\" [class.item-display-panel-shadow]=\"shadow\">\n              <div class=\"heading-flex-box\">\n                  <h3>{{ title }}</h3>\n                  <span *ngIf=\"closeVisible\" class=\"heading-close-button\" tabindex=\"0\" (click)=\"visible = false\" (keydown.enter)=\"visible = false\">\n                      <i class=\"hpe-icon hpe-close\"></i>\n                  </span>\n              </div>\n          </div>\n\n          <div class=\"item-display-panel-content\">\n              <ng-content select=\"[uxItemDisplayPanelContent]\"></ng-content>\n          </div>\n\n          <div class=\"item-display-panel-footer\" *ngIf=\"footer\">\n              <ng-content select=\"[uxItemDisplayPanelFooter]\"></ng-content>\n          </div>\n\n      </div>\n    ",
+                template: "\n      <div class=\"ux-item-display-panel\" [class.box-shadow]=\"boxShadow\" [class.inline]=\"inline\" [class.animate]=\"animate\" [class.item-display-panel-hide]=\"!visible\" [style.width]=\"width\" [style.top]=\"top\" [style.height]='\"calc(100% - \" + top + \"px)\"'>\n\n          <div class=\"item-display-panel-header\" [class.item-display-panel-shadow]=\"shadow\">\n              <div class=\"heading-flex-box\">\n                  <h3>{{ header }}</h3>\n                  <span *ngIf=\"closeVisible\" class=\"heading-close-button\" tabindex=\"0\" (click)=\"visible = false\" (keydown.enter)=\"visible = false\">\n                      <i class=\"hpe-icon hpe-close\"></i>\n                  </span>\n              </div>\n          </div>\n\n          <div class=\"item-display-panel-content\">\n              <ng-content select=\"[uxItemDisplayPanelContent]\"></ng-content>\n          </div>\n\n          <div class=\"item-display-panel-footer\" *ngIf=\"footer\">\n              <ng-content select=\"[uxItemDisplayPanelFooter]\"></ng-content>\n          </div>\n\n      </div>\n    ",
                 host: {
                     '(document:click)': 'clickOff($event)',
                     '(document:keyup.escape)': 'visible = false',
@@ -8616,17 +8652,19 @@ ItemDisplayPanelComponent.decorators = [
  */
 ItemDisplayPanelComponent.ctorParameters = function () { return []; };
 ItemDisplayPanelComponent.propDecorators = {
-    'title': [{ type: Input },],
-    'footer': [{ type: ContentChild, args: [ItemDisplayPanelFooterDirective,] },],
-    'visibleChange': [{ type: Output },],
+    'header': [{ type: Input },],
     'top': [{ type: Input },],
-    'visible': [{ type: Input },],
     'boxShadow': [{ type: Input },],
     'closeVisible': [{ type: Input },],
     'preventClose': [{ type: Input },],
     'inline': [{ type: Input },],
     'animate': [{ type: Input },],
     'shadow': [{ type: Input },],
+    'width': [{ type: Input },],
+    'footer': [{ type: ContentChild, args: [ItemDisplayPanelFooterDirective,] },],
+    'visibleChange': [{ type: Output },],
+    'title': [{ type: Input },],
+    'visible': [{ type: Input },],
 };
 var DECLARATIONS$4 = [
     ItemDisplayPanelComponent,
@@ -9287,6 +9325,29 @@ var ColorService = (function () {
             }
         }
     };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    ColorService.prototype.resolve = function (value) {
+        if (!value) {
+            return;
+        }
+        value = value.replace(/\s+/g, '-').toLowerCase();
+        for (var /** @type {?} */ color in this._colors) {
+            if (value === color.toLowerCase()) {
+                return this.getColor(value).toRgba();
+            }
+        }
+        return value;
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    ColorService.prototype.resolveColorName = function (value) {
+        return value.replace(/\s+/g, '-').toLowerCase();
+    };
     return ColorService;
 }());
 /**
@@ -9748,21 +9809,23 @@ var SearchBuilderService = (function () {
     function SearchBuilderService() {
         this.query = {};
         this.queryChange = new Subject$1();
-        this._components = {};
+        this.validationChange = new BehaviorSubject$1(true);
+        this._componentId = 0;
+        this._components = [];
+        this._validation = {};
     }
     /**
      * Add a component to the internal list of components
-     * @param {?} name
      * @param {?} component
      * @return {?}
      */
-    SearchBuilderService.prototype.registerComponent = function (name, component) {
+    SearchBuilderService.prototype.registerComponent = function (component) {
         // ensure there are no components with a matching name
-        if (this._components.hasOwnProperty(name)) {
+        if (this._components.find(function (cmp) { return cmp.name === component.name; })) {
             throw new Error("Search builder components must have a unique name. The name " + component.name + " has already been used.");
         }
         // if unique then add the component to the list
-        this._components[name] = component;
+        this._components.push(component);
     };
     /**
      * Bulk registration of components
@@ -9772,15 +9835,23 @@ var SearchBuilderService = (function () {
      */
     SearchBuilderService.prototype.registerComponents = function (components) {
         var _this = this;
-        components.forEach(function (component) { return _this.registerComponent(component.name, component.component); });
+        components.forEach(function (component) { return _this.registerComponent(component); });
     };
     /**
      * Get a registered component class
-     * @param {?} type
+     * @param {?} name
      * @return {?}
      */
-    SearchBuilderService.prototype.getComponent = function (type) {
-        return this._components[type];
+    SearchBuilderService.prototype.getComponent = function (name) {
+        // find the component
+        var /** @type {?} */ component = this._components.find(function (cmp) { return cmp.name === name; });
+        // if there is no match throw an exception
+        if (!component) {
+            throw new Error("No search build component with the name " + name + " exists");
+        }
+        // ensure config is defined - at least to an empty object
+        component.config = component.config || {};
+        return component;
     };
     /**
      * Update the internal search query state
@@ -9804,6 +9875,26 @@ var SearchBuilderService = (function () {
      */
     SearchBuilderService.prototype.queryHasChanged = function () {
         this.queryChange.next(this.query);
+    };
+    /**
+     * Store the validation state of the query
+     * @param {?} id
+     * @param {?} valid
+     * @return {?}
+     */
+    SearchBuilderService.prototype.setValid = function (id, valid) {
+        var _this = this;
+        // store the state for this specific component
+        this._validation[id] = valid;
+        // evaluate the entire validation state
+        this.validationChange.next(!Object.keys(this._validation).some(function (key) { return !_this._validation[key]; }));
+    };
+    /**
+     * Generate a unique id for each component
+     * @return {?}
+     */
+    SearchBuilderService.prototype.generateComponentId = function () {
+        return this._componentId++;
     };
     return SearchBuilderService;
 }());
@@ -9905,7 +9996,7 @@ var SearchBuilderGroupComponent = (function () {
 SearchBuilderGroupComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-search-builder-group',
-                template: "\n    <h4 class=\"search-group-title\">{{ header }}</h4>\n\n    <main class=\"search-group-content\">\n\n      <section class=\"search-group-operator search-group-operator-{{ operator }}\" [class.hidden-operator]=\"searchBuilderGroupService.getQuery().length < 2\">{{ operator }}</section>\n\n      <section class=\"search-group-items\">\n\n        <div class=\"search-group-item-container\" *ngFor=\"let field of searchBuilderGroupService.getQuery()\">\n\n          <div class=\"search-group-item\">\n            <ng-container *uxSearchBuilderOutlet=\"field.type; context: field\"></ng-container>\n          </div>\n\n          <div class=\"search-group-item-remove\" (click)=\"removeField(field)\">\n            <span class=\"hpe-icon hpe-close\"></span>\n          </div>\n        </div>\n\n        <!-- Placeholder Item -->\n        <ng-container *ngIf=\"showPlaceholder\">\n\n          <!-- The Default Placeholder -->\n          <div class=\"search-group-item-container placeholder-item\" *ngIf=\"!placeholder\">\n        \n            <div class=\"search-group-item\">\n              <label class=\"form-label\">New field</label>\n              <div class=\"form-control\"></div>\n            </div>\n  \n          </div>\n\n          <!-- Allow a custom placeholder -->\n        <ng-container *ngTemplateOutlet=\"placeholder\"></ng-container>\n\n        </ng-container>\n\n      </section>\n\n      <section class=\"search-builder-group-add-field\" (click)=\"add.emit()\">\n\n        <button type=\"button\" class=\"btn btn-icon btn-circular button-accent\" aria-label=\"Add Field\">\n          <span class=\"hpe-icon hpe-add\" aria-hidden=\"true\"></span>\n        </button>\n\n        <span class=\"search-builder-group-add-field-label\">{{ addText }}</span>\n\n      </section>\n\n    </main>\n\n    <hr class=\"search-builder-group-divider\">\n  ",
+                template: "\n    <h4 class=\"search-group-title\">{{ header }}</h4>\n\n    <main class=\"search-group-content\">\n\n      <section class=\"search-group-operator search-group-operator-{{ operator }}\" [class.hidden-operator]=\"searchBuilderGroupService.getQuery().length < 2\">{{ operator }}</section>\n\n      <section class=\"search-group-items\">\n\n        <div class=\"search-group-item-container\" *ngFor=\"let field of searchBuilderGroupService.getQuery()\">\n\n          <div class=\"search-group-item\">\n            <ng-container *uxSearchBuilderOutlet=\"field.type; context: field\"></ng-container>\n          </div>\n\n          <div class=\"search-group-item-remove\" (click)=\"removeField(field)\">\n            <span class=\"hpe-icon hpe-close\"></span>\n          </div>\n        </div>\n\n        <!-- Placeholder Item -->\n        <ng-container *ngIf=\"showPlaceholder\">\n\n          <!-- The Default Placeholder -->\n          <div class=\"search-group-item-container placeholder-item\" *ngIf=\"!placeholder\">\n        \n            <div class=\"search-group-item\">\n              <label class=\"form-label\">New field</label>\n              <div class=\"form-control\"></div>\n            </div>\n  \n          </div>\n\n          <!-- Allow a custom placeholder -->\n        <ng-container *ngTemplateOutlet=\"placeholder\"></ng-container>\n\n        </ng-container>\n\n      </section>\n\n      <section class=\"search-builder-group-add-field\" (click)=\"add.emit($event)\">\n\n        <button type=\"button\" class=\"btn btn-icon btn-circular button-accent\" aria-label=\"Add Field\">\n          <span class=\"hpe-icon hpe-add\" aria-hidden=\"true\"></span>\n        </button>\n\n        <span class=\"search-builder-group-add-field-label\">{{ addText }}</span>\n\n      </section>\n\n    </main>\n\n    <hr class=\"search-builder-group-divider\">\n  ",
                 providers: [SearchBuilderGroupService]
             },] },
 ];
@@ -9942,13 +10033,16 @@ var SearchBuilderOutletDirective = (function () {
      */
     SearchBuilderOutletDirective.prototype.ngOnInit = function () {
         // get the class from the type
-        var /** @type {?} */ component = this._searchBuilderService.getComponent(this.uxSearchBuilderOutlet);
+        var /** @type {?} */ componentDefinition = this._searchBuilderService.getComponent(this.uxSearchBuilderOutlet);
         // create the component factory
-        var /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(component);
+        var /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(componentDefinition.component);
         // create the component instance
         this._componentRef = this._viewContainerRef.createComponent(componentFactory);
+        // combine the predefined config with any dynmaic config
+        var /** @type {?} */ config = Object.assign({}, componentDefinition.config, this.uxSearchBuilderOutletContext.config || {});
         // set the context and config property on the component instance
         this._componentRef.instance.context = this.uxSearchBuilderOutletContext;
+        this._componentRef.instance.config = config;
     };
     return SearchBuilderOutletDirective;
 }());
@@ -9977,14 +10071,63 @@ var BaseSearchComponent = (function () {
     function BaseSearchComponent(_searchBuilderService, _searchBuilderGroupService) {
         this._searchBuilderService = _searchBuilderService;
         this._searchBuilderGroupService = _searchBuilderGroupService;
+        this._id = this._searchBuilderService.generateComponentId();
+        this._valid = true;
     }
+    Object.defineProperty(BaseSearchComponent.prototype, "value", {
+        /**
+         * Get the current value of the component
+         * @return {?}
+         */
+        get: function () {
+            return this.context.value;
+        },
+        /**
+         * Set the current value of the component
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.context.value = value;
+            this._searchBuilderService.queryHasChanged();
+            // if value has been set perform validation
+            this.validate();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BaseSearchComponent.prototype, "valid", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._valid;
+        },
+        /**
+         * @param {?} valid
+         * @return {?}
+         */
+        set: function (valid) {
+            this._valid = valid;
+            this._searchBuilderService.setValid(this._id, valid);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
-     * @param {?} value
+     * Make sure we clean up after ourselves
      * @return {?}
      */
-    BaseSearchComponent.prototype.setValue = function (value) {
-        this.context.value = value;
-        this._searchBuilderService.queryHasChanged();
+    BaseSearchComponent.prototype.ngOnDestroy = function () {
+        this.valid = true;
+    };
+    /**
+     * Perform any required validation on the value
+     * @return {?}
+     */
+    BaseSearchComponent.prototype.validate = function () {
+        // if a custom validation function has been provided then use it
+        this.valid = this.config.validation ? this.config.validation(this, this.value) : true;
     };
     return BaseSearchComponent;
 }());
@@ -10006,42 +10149,353 @@ var SearchTextComponent = (function (_super) {
     function SearchTextComponent() {
         var _this = _super.apply(this, arguments) || this;
         _this.type = 'text';
-        _this.placeholder = 'Enter text';
         return _this;
     }
-    /**
-     * @return {?}
-     */
-    SearchTextComponent.prototype.ngOnInit = function () {
-        // set initial value if there is one
-        if (this.context.value) {
-            this.value = this.context.value;
-        }
-        // if there are no configuration options we can stop here
-        if (!this.context.config) {
-            return;
-        }
-        // if there is placeholder property then use it
-        if (this.context.config.placeholder) {
-            this.placeholder = this.context.config.placeholder;
-        }
-        // if there is label property then use it
-        if (this.context.config.label) {
-            this.label = this.context.config.label;
-        }
-    };
+    Object.defineProperty(SearchTextComponent.prototype, "label", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchTextComponent.prototype, "placeholder", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.placeholder || 'Enter text';
+        },
+        enumerable: true,
+        configurable: true
+    });
     return SearchTextComponent;
 }(BaseSearchComponent));
 SearchTextComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-search-text',
-                template: "\n    <label class=\"form-label\" *ngIf=\"label\">{{ label }}</label>\n    <input [placeholder]=\"placeholder\" [(ngModel)]=\"value\" (ngModelChange)=\"setValue($event)\" class=\"form-control\">\n  "
+                template: "\n    <label class=\"form-label\" *ngIf=\"label\">{{ label }}</label>\n    <input [placeholder]=\"placeholder\" [(ngModel)]=\"value\" class=\"form-control\">\n  "
             },] },
 ];
 /**
  * @nocollapse
  */
 SearchTextComponent.ctorParameters = function () { return []; };
+var SearchDateComponent = (function (_super) {
+    __extends(SearchDateComponent, _super);
+    function SearchDateComponent() {
+        var _this = _super.apply(this, arguments) || this;
+        _this.type = 'date';
+        return _this;
+    }
+    Object.defineProperty(SearchDateComponent.prototype, "label", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchDateComponent.prototype, "placeholder", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.placeholder || 'Enter date';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    SearchDateComponent.prototype.ngOnInit = function () {
+        // by default set to the current date if not specified
+        if (!this.value) {
+            this.value = new Date();
+        }
+    };
+    return SearchDateComponent;
+}(BaseSearchComponent));
+SearchDateComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-search-date',
+                template: "\n    <label class=\"form-label\" *ngIf=\"label\">{{ label }}</label>\n\n    <div class=\"input-group date m-nil\">\n        <span class=\"input-group-addon\" tabindex=\"1\" (click)=\"popover.show()\">\n            <i class=\"hpe-icon hpe-calendar\" aria-hidden=\"true\"></i>\n        </span>\n        <input type=\"text\" #popover=\"bs-popover\" [ngModel]=\"value | date:'dd MMMM yyyy'\" [popover]=\"popoverTemplate\"\n            placement=\"bottom\" [outsideClick]=\"true\" containerClass=\"date-time-picker-popover\" class=\"form-control\" aria-label=\"Selected date\" [placeholder]=\"placeholder\">\n    </div>\n\n    <ng-template #popoverTemplate>\n        <ux-date-time-picker [(date)]=\"value\" [showTime]=\"false\"></ux-date-time-picker>\n    </ng-template>\n  "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchDateComponent.ctorParameters = function () { return []; };
+var SearchDateRangeComponent = (function (_super) {
+    __extends(SearchDateRangeComponent, _super);
+    function SearchDateRangeComponent() {
+        var _this = _super.apply(this, arguments) || this;
+        _this.type = 'date-range';
+        return _this;
+    }
+    Object.defineProperty(SearchDateRangeComponent.prototype, "label", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchDateRangeComponent.prototype, "from", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            // if value does not exist the set it
+            if (!this.value || !this.value.from) {
+                this.from = new Date();
+            }
+            // ensure that the from value is a date object
+            if (this.value.from instanceof Date === false) {
+                this.value.from = new Date(this.value.from);
+            }
+            return this.value.from;
+        },
+        /**
+         * @param {?} fromValue
+         * @return {?}
+         */
+        set: function (fromValue) {
+            // create new object based on the current value
+            var /** @type {?} */ value = Object.assign({}, this.value);
+            // ensure that the from value is a date
+            if (fromValue instanceof Date === false) {
+                fromValue = new Date(fromValue);
+            }
+            // set the latest value
+            value.from = fromValue;
+            // update the value object while ensuring immutability
+            this.value = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchDateRangeComponent.prototype, "to", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            // if value does not exist the set it
+            if (!this.value || !this.value.to) {
+                this.to = new Date();
+            }
+            // ensure that the to value is a date object
+            if (this.value.to instanceof Date === false) {
+                this.value.to = new Date(this.value.to);
+            }
+            return this.value.to;
+        },
+        /**
+         * @param {?} toValue
+         * @return {?}
+         */
+        set: function (toValue) {
+            // create new object based on the current value
+            var /** @type {?} */ value = Object.assign({}, this.value);
+            // ensure that the to value is a date
+            if (toValue instanceof Date === false) {
+                toValue = new Date(toValue);
+            }
+            // set the latest value
+            value.to = toValue;
+            // update the value object while ensuring immutability
+            this.value = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchDateRangeComponent.prototype, "fromLabel", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.fromLabel || 'From';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchDateRangeComponent.prototype, "toLabel", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.toLabel || 'To';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchDateRangeComponent.prototype, "fromPlaceholder", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.fromPlaceholder;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchDateRangeComponent.prototype, "toPlaceholder", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.toPlaceholder;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Override the default validation
+     * @return {?}
+     */
+    SearchDateRangeComponent.prototype.validate = function () {
+        // check if there is a config validation function
+        if (this.config.validation) {
+            return _super.prototype.validate.call(this);
+        }
+        // create copies of the dates so we can modify time value (to ignore it)
+        var /** @type {?} */ from$$1 = new Date(this.value.from);
+        var /** @type {?} */ to = new Date(this.value.to);
+        // set the time to the same so we dont compare it
+        from$$1.setHours(0, 0, 0, 0);
+        to.setHours(0, 0, 0, 0);
+        // valid if the from date is less than or equal to the to date
+        this.valid = from$$1 <= to;
+    };
+    return SearchDateRangeComponent;
+}(BaseSearchComponent));
+SearchDateRangeComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-search-date-range',
+                template: "\n      <label class=\"form-label\" *ngIf=\"label\">{{ label }}</label>\n\n      <div class=\"row\">\n          <div class=\"col-sm-12\">\n              <div class=\"form-inline\" [class.has-error]=\"!valid\">\n\n                  <div class=\"form-group p-r-md\">\n                      <label class=\"form-label m-r-xs\">{{ fromLabel }}</label>\n\n                      <div class=\"input-group date m-nil\">\n                          <span class=\"input-group-addon p-r-xs\" tabindex=\"1\" (click)=\"fromPopover.show()\">\n                              <i class=\"hpe-icon hpe-calendar\" aria-hidden=\"true\"></i>\n                          </span>\n                          <input type=\"text\" #fromPopover=\"bs-popover\" [ngModel]=\"from | date:'dd MMMM yyyy'\" [popover]=\"fromPopoverTemplate\" placement=\"bottom\"\n                              [outsideClick]=\"true\" containerClass=\"date-time-picker-popover\" class=\"form-control\" aria-label=\"Selected date\" [placeholder]=\"fromPlaceholder\">\n                      </div>\n                  </div>\n\n                  <div class=\"form-group p-r-xs\">\n                      <label class=\"form-label m-r-xs\">{{ toLabel }}</label>\n\n                      <div class=\"input-group date m-nil\">\n                          <span class=\"input-group-addon\" tabindex=\"1\" (click)=\"toPopover.show()\">\n                              <i class=\"hpe-icon hpe-calendar\" aria-hidden=\"true\"></i>\n                          </span>\n                          <input type=\"text\" #toPopover=\"bs-popover\" [ngModel]=\"to | date:'dd MMMM yyyy'\" [popover]=\"toPopoverTemplate\" placement=\"bottom\"\n                              [outsideClick]=\"true\" containerClass=\"date-time-picker-popover\" class=\"form-control\" aria-label=\"Selected date\" [placeholder]=\"toPlaceholder\">\n                      </div>\n                  </div>\n\n              </div>\n          </div>\n      </div>\n\n      <ng-template #fromPopoverTemplate>\n          <ux-date-time-picker [(date)]=\"from\" [showTime]=\"false\"></ux-date-time-picker>\n      </ng-template>\n\n      <ng-template #toPopoverTemplate>\n          <ux-date-time-picker [(date)]=\"to\" [showTime]=\"false\"></ux-date-time-picker>\n      </ng-template>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchDateRangeComponent.ctorParameters = function () { return []; };
+var SearchSelectComponent = (function (_super) {
+    __extends(SearchSelectComponent, _super);
+    function SearchSelectComponent() {
+        var _this = _super.apply(this, arguments) || this;
+        _this.type = 'select';
+        return _this;
+    }
+    Object.defineProperty(SearchSelectComponent.prototype, "label", {
+        /**
+         * Provide defaults for undefined properties
+         * @return {?}
+         */
+        get: function () {
+            return this.config.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchSelectComponent.prototype, "options", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.options || [];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchSelectComponent.prototype, "multiple", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.multiple || false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchSelectComponent.prototype, "placeholder", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.placeholder || 'Select item';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchSelectComponent.prototype, "dropDirection", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.dropDirection || 'down';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchSelectComponent.prototype, "allowNull", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.allowNull || false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchSelectComponent.prototype, "disabled", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.disabled || false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchSelectComponent.prototype, "maxHeight", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.maxHeight || '250px';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchSelectComponent.prototype, "pageSize", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.config.pageSize || 20;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return SearchSelectComponent;
+}(BaseSearchComponent));
+SearchSelectComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-search-select',
+                template: "\n    <label class=\"form-label\" *ngIf=\"label\">{{ label }}</label>\n\n    <ux-select [(value)]=\"value\" \n               [options]=\"options\" \n               [multiple]=\"multiple\" \n               [placeholder]=\"placeholder\" \n               [dropDirection]=\"dropDirection\"\n               [pageSize]=\"pageSize\"\n               [allowNull]=\"allowNull\"\n               [disabled]=\"disabled\"\n               [maxHeight]=\"maxHeight\"\n               [key]=\"config.key\"\n               [display]=\"config.display\"\n               [loadingTemplate]=\"config.loadingTemplate\"\n               [optionTemplate]=\"config.optionTemplate\"\n               [noOptionsTemplate]=\"config.noOptionsTemplate\">\n    </ux-select>\n  "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchSelectComponent.ctorParameters = function () { return []; };
 var SearchBuilderComponent = (function () {
     /**
      * Register the default search builder components
@@ -10051,10 +10505,11 @@ var SearchBuilderComponent = (function () {
         var _this = this;
         this._searchBuilderService = _searchBuilderService;
         this.queryChange = new EventEmitter();
-        // add the default components
-        _searchBuilderService.registerComponent('text', SearchTextComponent);
+        this.valid = new EventEmitter(true);
         // watch for any query changes
-        this._subscription = _searchBuilderService.queryChange.subscribe(function (query) { return _this.queryChange.emit(query); });
+        this._querySubscription = _searchBuilderService.queryChange.subscribe(function (query) { return _this.queryChange.emit(query); });
+        // watch for any changes to the validation
+        this._validSubscription = _searchBuilderService.validationChange.distinctUntilChanged().subscribe(function (valid) { return _this.valid.emit(valid); });
     }
     Object.defineProperty(SearchBuilderComponent.prototype, "components", {
         /**
@@ -10085,10 +10540,12 @@ var SearchBuilderComponent = (function () {
         configurable: true
     });
     /**
+     * Remove any subscriptions and cleanup
      * @return {?}
      */
     SearchBuilderComponent.prototype.ngOnDestroy = function () {
-        this._subscription.unsubscribe();
+        this._querySubscription.unsubscribe();
+        this._validSubscription.unsubscribe();
     };
     return SearchBuilderComponent;
 }());
@@ -10109,37 +10566,232 @@ SearchBuilderComponent.propDecorators = {
     'components': [{ type: Input },],
     'query': [{ type: Input },],
     'queryChange': [{ type: Output },],
+    'valid': [{ type: Output },],
 };
-var SearchBuilderModule = (function () {
-    function SearchBuilderModule() {
-    }
-    return SearchBuilderModule;
-}());
-SearchBuilderModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    FormsModule
-                ],
-                exports: [
-                    SearchBuilderComponent,
-                    SearchBuilderGroupComponent,
-                    BaseSearchComponent
-                ],
-                declarations: [
-                    SearchBuilderComponent,
-                    SearchBuilderGroupComponent,
-                    SearchTextComponent,
-                    SearchBuilderOutletDirective,
-                    BaseSearchComponent
-                ],
-                entryComponents: [SearchTextComponent]
-            },] },
-];
 /**
- * @nocollapse
+ * Configuration service for the Popover directive.
+ * You can inject this service, typically in your root component, and customize
+ * the values of its properties in order to provide default values for all the
+ * popovers used in the application.
  */
-SearchBuilderModule.ctorParameters = function () { return []; };
+var PopoverConfig = (function () {
+    function PopoverConfig() {
+        /**
+         * Placement of a popover. Accepts: "top", "bottom", "left", "right", "auto"
+         */
+        this.placement = 'top';
+        /**
+         * Specifies events that should trigger. Supports a space separated list of
+         * event names.
+         */
+        this.triggers = 'click';
+        this.outsideClick = false;
+    }
+    PopoverConfig.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    PopoverConfig.ctorParameters = function () { return []; };
+    return PopoverConfig;
+}());
+var PopoverContainerComponent = (function () {
+    function PopoverContainerComponent(config) {
+        Object.assign(this, config);
+    }
+    Object.defineProperty(PopoverContainerComponent.prototype, "isBs3", {
+        get: function () {
+            return isBs3();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    PopoverContainerComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'popover-container',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    // tslint:disable-next-line
+                    host: {
+                        '[class]': '"popover in popover-" + placement + " " + "bs-popover-" + placement + " " + placement + " " + containerClass',
+                        '[class.show]': '!isBs3',
+                        role: 'tooltip',
+                        style: 'display:block;'
+                    },
+                    styles: [
+                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: calc(50% - 5px);\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: calc(50% - 2.5px);\n    }\n  "
+                    ],
+                    template: "<div class=\"popover-arrow arrow\"></div> <h3 class=\"popover-title popover-header\" *ngIf=\"title\">{{ title }}</h3> <div class=\"popover-content popover-body\"> <ng-content></ng-content> </div> "
+                },] },
+    ];
+    /** @nocollapse */
+    PopoverContainerComponent.ctorParameters = function () {
+        return [
+            { type: PopoverConfig, },
+        ];
+    };
+    PopoverContainerComponent.propDecorators = {
+        'placement': [{ type: Input },],
+        'title': [{ type: Input },],
+    };
+    return PopoverContainerComponent;
+}());
+/**
+ * A lightweight, extensible directive for fancy popover creation.
+ */
+var PopoverDirective = (function () {
+    function PopoverDirective(_elementRef, _renderer, _viewContainerRef, _config, cis) {
+        /**
+         * Close popover on outside click
+         */
+        this.outsideClick = false;
+        /**
+         * Css class for popover container
+         */
+        this.containerClass = '';
+        this._isInited = false;
+        this._popover = cis
+            .createLoader(_elementRef, _viewContainerRef, _renderer)
+            .provide({ provide: PopoverConfig, useValue: _config });
+        Object.assign(this, _config);
+        this.onShown = this._popover.onShown;
+        this.onHidden = this._popover.onHidden;
+        // fix: no focus on button on Mac OS #1795
+        if (typeof window !== 'undefined') {
+            _elementRef.nativeElement.addEventListener('click', function () {
+                try {
+                    _elementRef.nativeElement.focus();
+                }
+                catch (err) {
+                    return;
+                }
+            });
+        }
+    }
+    Object.defineProperty(PopoverDirective.prototype, "isOpen", {
+        /**
+         * Returns whether or not the popover is currently being shown
+         */
+        get: function () {
+            return this._popover.isShown;
+        },
+        set: function (value) {
+            if (value) {
+                this.show();
+            }
+            else {
+                this.hide();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Opens an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.show = function () {
+        if (this._popover.isShown || !this.popover) {
+            return;
+        }
+        this._popover
+            .attach(PopoverContainerComponent)
+            .to(this.container)
+            .position({ attachment: this.placement })
+            .show({
+            content: this.popover,
+            context: this.popoverContext,
+            placement: this.placement,
+            title: this.popoverTitle,
+            containerClass: this.containerClass
+        });
+        this.isOpen = true;
+    };
+    /**
+     * Closes an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.hide = function () {
+        if (this.isOpen) {
+            this._popover.hide();
+            this.isOpen = false;
+        }
+    };
+    /**
+     * Toggles an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.toggle = function () {
+        if (this.isOpen) {
+            return this.hide();
+        }
+        this.show();
+    };
+    PopoverDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        // fix: seems there are an issue with `routerLinkActive`
+        // which result in duplicated call ngOnInit without call to ngOnDestroy
+        // read more: https://github.com/valor-software/ngx-bootstrap/issues/1885
+        if (this._isInited) {
+            return;
+        }
+        this._isInited = true;
+        this._popover.listen({
+            triggers: this.triggers,
+            outsideClick: this.outsideClick,
+            show: function () { return _this.show(); }
+        });
+    };
+    PopoverDirective.prototype.ngOnDestroy = function () {
+        this._popover.dispose();
+    };
+    PopoverDirective.decorators = [
+        { type: Directive, args: [{ selector: '[popover]', exportAs: 'bs-popover' },] },
+    ];
+    /** @nocollapse */
+    PopoverDirective.ctorParameters = function () {
+        return [
+            { type: ElementRef, },
+            { type: Renderer2, },
+            { type: ViewContainerRef, },
+            { type: PopoverConfig, },
+            { type: ComponentLoaderFactory, },
+        ];
+    };
+    PopoverDirective.propDecorators = {
+        'popover': [{ type: Input },],
+        'popoverContext': [{ type: Input },],
+        'popoverTitle': [{ type: Input },],
+        'placement': [{ type: Input },],
+        'outsideClick': [{ type: Input },],
+        'triggers': [{ type: Input },],
+        'container': [{ type: Input },],
+        'containerClass': [{ type: Input },],
+        'isOpen': [{ type: Input },],
+        'onShown': [{ type: Output },],
+        'onHidden': [{ type: Output },],
+    };
+    return PopoverDirective;
+}());
+var PopoverModule = (function () {
+    function PopoverModule() {
+    }
+    PopoverModule.forRoot = function () {
+        return {
+            ngModule: PopoverModule,
+            providers: [PopoverConfig, ComponentLoaderFactory, PositioningService]
+        };
+    };
+    PopoverModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CommonModule],
+                    declarations: [PopoverDirective, PopoverContainerComponent],
+                    exports: [PopoverDirective],
+                    entryComponents: [PopoverContainerComponent]
+                },] },
+    ];
+    /** @nocollapse */
+    PopoverModule.ctorParameters = function () { return []; };
+    return PopoverModule;
+}());
 var TypeaheadOptionEvent = (function () {
     /**
      * @param {?} option
@@ -11328,7 +11980,7 @@ var SelectComponent = (function () {
                 this.input = this.getDisplay(changes.value.currentValue);
             }
         }
-        if (changes.multiple && changes.multiple.currentValue !== changes.multiple.previousValue) {
+        if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input = '';
         }
     };
@@ -11456,11 +12108,11 @@ SelectComponent.ctorParameters = function () { return [
     { type: TypeaheadKeyService, },
 ]; };
 SelectComponent.propDecorators = {
-    'value': [{ type: Input, args: ['value',] },],
+    'value': [{ type: Input },],
     'valueChange': [{ type: Output },],
-    'input': [{ type: Input, args: ['input',] },],
+    'input': [{ type: Input },],
     'inputChange': [{ type: Output },],
-    'dropdownOpen': [{ type: Input, args: ['dropdownOpen',] },],
+    'dropdownOpen': [{ type: Input },],
     'dropdownOpenChange': [{ type: Output },],
     'options': [{ type: Input },],
     'display': [{ type: Input },],
@@ -12268,6 +12920,47 @@ SelectModule.decorators = [
  * @nocollapse
  */
 SelectModule.ctorParameters = function () { return []; };
+var SearchBuilderModule = (function () {
+    function SearchBuilderModule() {
+    }
+    return SearchBuilderModule;
+}());
+SearchBuilderModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    FormsModule,
+                    DateTimePickerModule,
+                    PopoverModule.forRoot(),
+                    SelectModule
+                ],
+                exports: [
+                    SearchBuilderComponent,
+                    SearchBuilderGroupComponent,
+                    BaseSearchComponent
+                ],
+                declarations: [
+                    SearchBuilderComponent,
+                    SearchBuilderGroupComponent,
+                    SearchTextComponent,
+                    SearchDateComponent,
+                    SearchDateRangeComponent,
+                    SearchBuilderOutletDirective,
+                    SearchSelectComponent,
+                    BaseSearchComponent
+                ],
+                entryComponents: [
+                    SearchTextComponent,
+                    SearchDateComponent,
+                    SearchDateRangeComponent,
+                    SearchSelectComponent
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchBuilderModule.ctorParameters = function () { return []; };
 var SliderComponent = (function () {
     /**
      * @param {?} colorService
@@ -13042,18 +13735,63 @@ var SparkComponent = (function () {
     function SparkComponent(_colorService) {
         this._colorService = _colorService;
         this.values = [];
-        this.trackColor = this._colorService.getColor('primary').setAlpha(0.2).toRgba();
-        this.barColor = this._colorService.getColor('primary').toHex();
         this.barHeight = 10;
+        this._theme = 'primary';
+        this._barColor = [];
     }
     Object.defineProperty(SparkComponent.prototype, "theme", {
         /**
-         * @param {?} themeName
          * @return {?}
          */
-        set: function (themeName) {
-            this.trackColor = this._colorService.getColor(themeName).setAlpha(0.2).toRgba();
-            this.barColor = this._colorService.getColor(themeName).toHex();
+        get: function () {
+            return this._theme;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._theme = this._colorService.resolveColorName(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SparkComponent.prototype, "trackColor", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._trackColor;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._trackColor = this._colorService.resolve(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SparkComponent.prototype, "barColor", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._barColor;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            var _this = this;
+            if (Array.isArray(value)) {
+                this._barColor = value.map(function (color) { return _this._colorService.resolve(color); });
+            }
+            else {
+                this._barColor = [this._colorService.resolve(value)];
+            }
         },
         enumerable: true,
         configurable: true
@@ -13076,8 +13814,6 @@ var SparkComponent = (function () {
             var /** @type {?} */ total = Math.max(values.reduce(function (previous, current) { return previous + current; }, 0), 100);
             // figure out the percentages for each spark line
             this.values = values.map(function (val) { return (val / total) * 100; });
-            // ensure 'barColor' is an array
-            this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
         },
         enumerable: true,
         configurable: true
@@ -13087,7 +13823,7 @@ var SparkComponent = (function () {
 SparkComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-spark',
-                template: "\n      <!-- Inline Spark Chart -->\n      <div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\n\n          <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\n\n          <div class=\"ux-spark-line\">\n\n              <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n                  <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n                  <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n              </div>\n\n              <div class=\"ux-spark ux-inline\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\n                  <div class=\"ux-spark-bar\" *ngFor=\"let line of values; let idx = index;\" [style.width.%]=\"line\" [style.backgroundColor]=\"barColor[idx]\"></div>\n              </div>\n\n              <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n                  <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n                  <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n              </div>\n\n          </div>\n      </div>\n\n      <!-- End Inline Spark Chart -->\n\n\n      <!-- Non Inline Spark Chart -->\n      <div *ngIf=\"!inlineLabel\">\n\n          <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n              <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n              <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n          </div>\n\n          <div class=\"ux-spark\" [class.ux-spark-multi-value]=\"values.length > 0\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\"\n              [tooltip]=\"tooltip\">\n              <div class=\"ux-spark-bar\" *ngFor=\"let line of value; let idx = index;\" [style.width.%]=\"line\" [style.backgroundColor]=\"barColor[idx]\"></div>\n          </div>\n\n          <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n              <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n              <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n          </div>\n      </div>\n\n      <!-- End Non Inline Spark Chart -->\n    "
+                template: "\n      <!-- Inline Spark Chart -->\n      <div *ngIf=\"inlineLabel\" class=\"ux-spark-inline-label-container\">\n\n          <div class=\"ux-spark-inline-label-left\" [innerHtml]=\"inlineLabel\"></div>\n\n          <div class=\"ux-spark-line\">\n\n              <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n                  <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n                  <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n              </div>\n\n              <div class=\"ux-spark ux-inline ux-spark-theme-{{theme}}\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\" [tooltip]=\"tooltip\">\n                  <div class=\"ux-spark-bar\" *ngFor=\"let line of values; let idx = index;\" [style.width.%]=\"line\" [style.backgroundColor]=\"barColor[idx]\"></div>\n              </div>\n\n              <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n                  <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n                  <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n              </div>\n\n          </div>\n      </div>\n\n      <!-- End Inline Spark Chart -->\n\n\n      <!-- Non Inline Spark Chart -->\n      <div *ngIf=\"!inlineLabel\">\n\n          <div class=\"ux-spark-top-container\" *ngIf=\"topLeftLabel || topRightLabel\">\n              <div class=\"ux-spark-label-top-left\" *ngIf=\"topLeftLabel\" [innerHtml]=\"topLeftLabel\"></div>\n              <div class=\"ux-spark-label-top-right\" *ngIf=\"topRightLabel\" [innerHtml]=\"topRightLabel\"></div>\n          </div>\n\n          <div class=\"ux-spark ux-spark-theme-{{theme}}\" [class.ux-spark-multi-value]=\"values.length > 1\" [style.height.px]=\"barHeight\" [style.backgroundColor]=\"trackColor\"\n              [tooltip]=\"tooltip\">\n              <div class=\"ux-spark-bar\" *ngFor=\"let line of value; let idx = index;\" [style.width.%]=\"line\" [style.backgroundColor]=\"barColor[idx]\"></div>\n          </div>\n\n          <div class=\"ux-spark-bottom-container\" *ngIf=\"bottomLeftLabel || bottomRightLabel\">\n              <div class=\"ux-spark-label-bottom-left\" *ngIf=\"bottomLeftLabel\" [innerHtml]=\"bottomLeftLabel\"></div>\n              <div class=\"ux-spark-label-bottom-right\" *ngIf=\"bottomRightLabel\" [innerHtml]=\"bottomRightLabel\"></div>\n          </div>\n      </div>\n\n      <!-- End Non Inline Spark Chart -->\n    "
             },] },
 ];
 /**
@@ -13097,8 +13833,6 @@ SparkComponent.ctorParameters = function () { return [
     { type: ColorService, },
 ]; };
 SparkComponent.propDecorators = {
-    'trackColor': [{ type: Input },],
-    'barColor': [{ type: Input },],
     'barHeight': [{ type: Input },],
     'inlineLabel': [{ type: Input },],
     'topLeftLabel': [{ type: Input },],
@@ -13107,6 +13841,8 @@ SparkComponent.propDecorators = {
     'bottomRightLabel': [{ type: Input },],
     'tooltip': [{ type: Input },],
     'theme': [{ type: Input },],
+    'trackColor': [{ type: Input },],
+    'barColor': [{ type: Input },],
     'value': [{ type: Input },],
 };
 var SparkModule = (function () {
@@ -16087,5 +16823,5 @@ var StorageAdapter = (function () {
 /**
  * Generated bundle index. Do not edit.
  */
-export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, MediaPlayerService as ɵc, PageHeaderNavigationDropdownItemComponent as ɵb, PageHeaderNavigationItemComponent as ɵa, HoverActionService as ɵd };
+export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, DateTimePickerService as ɵa, MediaPlayerService as ɵd, PageHeaderNavigationDropdownItemComponent as ɵc, PageHeaderNavigationItemComponent as ɵb, HoverActionService as ɵe };
 //# sourceMappingURL=ux-aspects.es5.js.map

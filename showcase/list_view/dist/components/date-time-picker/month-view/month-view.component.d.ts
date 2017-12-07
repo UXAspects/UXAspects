@@ -1,13 +1,12 @@
-import { EventEmitter } from '@angular/core';
+import { DateTimePickerService } from '../date-time-picker.service';
 export declare class DateTimePickerMonthViewComponent {
-    date: Date;
-    year: number;
-    month: number;
-    monthChange: EventEmitter<number>;
-    yearChange: EventEmitter<number>;
-    ascend: EventEmitter<void>;
+    private _dateTimePickerService;
     months: number[][];
     currentDate: Date;
+    readonly date: Date;
+    month: number;
+    year: number;
+    constructor(_dateTimePickerService: DateTimePickerService);
     /**
      * Go to the previous year and emit the change
      */
@@ -26,4 +25,12 @@ export declare class DateTimePickerMonthViewComponent {
      * @param month the month in question
      */
     getMonthName(month: number): string;
+    /**
+     * Show the daye picker view
+     */
+    showDayPicker(): void;
+    /**
+     * Show the year picker view
+     */
+    showYearPicker(): void;
 }

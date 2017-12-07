@@ -1,13 +1,11 @@
 import { EventEmitter } from '@angular/core';
 import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-view/time-view.component';
 import { DateTimePickerConfig } from './date-time-picker.config';
+import { DateTimePickerService } from './date-time-picker.service';
 export declare class DateTimePickerComponent {
     private _config;
+    dateTimePickerService: DateTimePickerService;
     timePickerComponent: DateTimePickerTimeViewComponent;
-    activeDate: Date;
-    month: number;
-    year: number;
-    private _date;
     private _timezone;
     showDate: boolean;
     showTime: boolean;
@@ -22,9 +20,8 @@ export declare class DateTimePickerComponent {
     timezoneChange: EventEmitter<DateTimePickerTimezone>;
     date: Date;
     timezone: DateTimePickerTimezone;
-    mode: DatePickerMode;
     DatePickerMode: typeof DatePickerMode;
-    constructor(_config: DateTimePickerConfig);
+    constructor(_config: DateTimePickerConfig, dateTimePickerService: DateTimePickerService);
     /**
      * This will emit the newly selected date
      */

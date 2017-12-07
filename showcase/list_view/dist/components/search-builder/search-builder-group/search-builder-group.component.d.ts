@@ -11,7 +11,7 @@ export declare class SearchBuilderGroupComponent implements OnInit {
     addText: string;
     placeholder: TemplateRef<any>;
     showPlaceholder: boolean;
-    add: EventEmitter<void>;
+    add: EventEmitter<MouseEvent>;
     remove: EventEmitter<SearchBuilderGroupQuery>;
     constructor(searchBuilderGroupService: SearchBuilderGroupService, _searchBuilderService: SearchBuilderService);
     ngOnInit(): void;
