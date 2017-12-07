@@ -1,11 +1,35 @@
+import { OnDestroy } from '@angular/core';
 import { SearchBuilderService } from '../search-builder.service';
-import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
 import { SearchBuilderGroupService } from '../search-builder-group/search-builder-group.service';
-export declare class BaseSearchComponent {
+import { SearchBuilderComponentContext } from '../interfaces/component-context.interface';
+export declare class BaseSearchComponent implements OnDestroy {
     private _searchBuilderService;
     private _searchBuilderGroupService;
     type: string;
-    context: SearchBuilderGroupQuery;
+    config: any;
+    context: SearchBuilderComponentContext;
+    private _id;
+    private _valid;
+    /**
+     * Get the current value of the component
+     */
+    /**
+     * Set the current value of the component
+     */
+    value: any;
+    valid: boolean;
     constructor(_searchBuilderService: SearchBuilderService, _searchBuilderGroupService: SearchBuilderGroupService);
-    setValue(value: any): void;
+    /**
+     * Make sure we clean up after ourselves
+     */
+    ngOnDestroy(): void;
+    /**
+     * Perform any required validation on the value
+     */
+    validate(): void;
+}
+export interface BaseSearchComponentConfig {
+    label?: string;
+    placeholder?: string;
+    validation?: (value: any) => boolean;
 }

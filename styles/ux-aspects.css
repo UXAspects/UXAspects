@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.0 
+* @ux-aspects/ux-aspects-docs - v1.5.1-rc.1 
 * © Copyright 2017 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -9374,13 +9374,17 @@ layout-switcher-container {
   display: flex;
   align-items: flex-start;
 }
-.btn-container > .btn,
-.btn-container > .btn-group {
-  margin-right: 8px;
+.btn-container > .btn + .btn,
+.btn-container > .btn + .btn-group,
+.btn-container > .btn-group + .btn,
+.btn-container > .btn-group + .btn-group {
+  margin-left: 8px;
 }
-.btn-container > .btn.btn-link,
-.btn-container > .btn-group.btn-link {
-  margin-right: 0;
+.btn-container > .btn + .btn.btn-link,
+.btn-container > .btn + .btn-group.btn-link,
+.btn-container > .btn-group + .btn.btn-link,
+.btn-container > .btn-group + .btn-group.btn-link {
+  margin-left: 0;
 }
 .btn-primary {
   background-color: #00a7a2;
@@ -10581,6 +10585,14 @@ fieldset[disabled] .btn-toggle.active {
   height: 30px;
   position: relative;
 }
+.side-inset-splitter-toggle-container.disabled .side-inset-splitter-toggle {
+  background-color: #ededed;
+  cursor: not-allowed;
+}
+.side-inset-splitter-toggle-container.disabled .side-inset-splitter-toggle > a {
+  color: #a8a8a8;
+  cursor: inherit;
+}
 .side-inset-splitter-toggle-container.top {
   left: calc(100% - 30px);
 }
@@ -11113,6 +11125,7 @@ p.no-margin {
 }
 .spark {
   overflow: hidden;
+  background-color: rgba(0, 177, 171, 0.2);
 }
 .spark.inline {
   margin-bottom: 0;
@@ -11122,6 +11135,7 @@ p.no-margin {
 }
 .spark .fill {
   transition: none;
+  background-color: #00a7a2;
 }
 .spark-label .x-large {
   font-size: 24px;
@@ -17005,6 +17019,7 @@ ux-item-display-panel .ux-item-display-panel {
   z-index: 999;
   transform: translateX(0);
   will-change: transform;
+  float: right;
 }
 ux-item-display-panel .ux-item-display-panel.box-shadow {
   box-shadow: 1px 0 20px 0 rgba(51, 51, 51, 0.4);
@@ -17622,6 +17637,7 @@ ux-search-builder-group .search-group-content .search-builder-group-add-field {
   align-items: center;
   align-self: flex-end;
   cursor: pointer;
+  margin-bottom: 5px;
 }
 ux-search-builder-group .search-group-content .search-builder-group-add-field .btn {
   transition: background-color 300ms linear;
@@ -17888,6 +17904,162 @@ ux-spark {
 ux-spark .ux-spark {
   background-color: rgba(0, 167, 162, 0.2);
   overflow: hidden;
+}
+ux-spark .ux-spark.ux-spark-theme-primary {
+  background-color: rgba(0, 167, 162, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-primary .ux-spark-bar {
+  background-color: #00a7a2;
+}
+ux-spark .ux-spark.ux-spark-theme-accent {
+  background-color: rgba(123, 99, 163, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-accent .ux-spark-bar {
+  background-color: #7b63a3;
+}
+ux-spark .ux-spark.ux-spark-theme-secondary {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-secondary .ux-spark-bar {
+  background-color: #fff;
+}
+ux-spark .ux-spark.ux-spark-theme-alternate1 {
+  background-color: rgba(59, 170, 67, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-alternate1 .ux-spark-bar {
+  background-color: #3baa43;
+}
+ux-spark .ux-spark.ux-spark-theme-alternate2 {
+  background-color: rgba(2, 86, 98, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-alternate2 .ux-spark-bar {
+  background-color: #025662;
+}
+ux-spark .ux-spark.ux-spark-theme-alternate3 {
+  background-color: rgba(176, 143, 92, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-alternate3 .ux-spark-bar {
+  background-color: #b08f5c;
+}
+ux-spark .ux-spark.ux-spark-theme-vibrant1 {
+  background-color: rgba(0, 204, 235, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-vibrant1 .ux-spark-bar {
+  background-color: #00cceb;
+}
+ux-spark .ux-spark.ux-spark-theme-vibrant2 {
+  background-color: rgba(255, 144, 72, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-vibrant2 .ux-spark-bar {
+  background-color: #ff9048;
+}
+ux-spark .ux-spark.ux-spark-theme-grey1 {
+  background-color: rgba(42, 42, 42, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-grey1 .ux-spark-bar {
+  background-color: #2a2a2a;
+}
+ux-spark .ux-spark.ux-spark-theme-grey2 {
+  background-color: rgba(51, 51, 51, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-grey2 .ux-spark-bar {
+  background-color: #333;
+}
+ux-spark .ux-spark.ux-spark-theme-grey3 {
+  background-color: rgba(102, 102, 102, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-grey3 .ux-spark-bar {
+  background-color: #666;
+}
+ux-spark .ux-spark.ux-spark-theme-grey4 {
+  background-color: rgba(153, 153, 153, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-grey4 .ux-spark-bar {
+  background-color: #999;
+}
+ux-spark .ux-spark.ux-spark-theme-grey5 {
+  background-color: rgba(204, 204, 204, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-grey5 .ux-spark-bar {
+  background-color: #ccc;
+}
+ux-spark .ux-spark.ux-spark-theme-grey6 {
+  background-color: rgba(238, 238, 238, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-grey6 .ux-spark-bar {
+  background-color: #eee;
+}
+ux-spark .ux-spark.ux-spark-theme-grey7 {
+  background-color: rgba(245, 245, 245, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-grey7 .ux-spark-bar {
+  background-color: #f5f5f5;
+}
+ux-spark .ux-spark.ux-spark-theme-grey8 {
+  background-color: rgba(250, 250, 250, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-grey8 .ux-spark-bar {
+  background-color: #fafafa;
+}
+ux-spark .ux-spark.ux-spark-theme-white {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-white .ux-spark-bar {
+  background-color: #fff;
+}
+ux-spark .ux-spark.ux-spark-theme-chart1 {
+  background-color: rgba(0, 167, 162, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-chart1 .ux-spark-bar {
+  background-color: #00a7a2;
+}
+ux-spark .ux-spark.ux-spark-theme-chart2 {
+  background-color: rgba(123, 99, 163, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-chart2 .ux-spark-bar {
+  background-color: #7b63a3;
+}
+ux-spark .ux-spark.ux-spark-theme-chart3 {
+  background-color: rgba(59, 170, 67, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-chart3 .ux-spark-bar {
+  background-color: #3baa43;
+}
+ux-spark .ux-spark.ux-spark-theme-chart4 {
+  background-color: rgba(2, 86, 98, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-chart4 .ux-spark-bar {
+  background-color: #025662;
+}
+ux-spark .ux-spark.ux-spark-theme-chart5 {
+  background-color: rgba(176, 143, 92, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-chart5 .ux-spark-bar {
+  background-color: #b08f5c;
+}
+ux-spark .ux-spark.ux-spark-theme-chart6 {
+  background-color: rgba(204, 204, 204, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-chart6 .ux-spark-bar {
+  background-color: #ccc;
+}
+ux-spark .ux-spark.ux-spark-theme-ok {
+  background-color: rgba(59, 170, 67, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-ok .ux-spark-bar {
+  background-color: #3baa43;
+}
+ux-spark .ux-spark.ux-spark-theme-warning {
+  background-color: rgba(255, 144, 72, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-warning .ux-spark-bar {
+  background-color: #ff9048;
+}
+ux-spark .ux-spark.ux-spark-theme-critical {
+  background-color: rgba(255, 69, 79, 0.2);
+}
+ux-spark .ux-spark.ux-spark-theme-critical .ux-spark-bar {
+  background-color: #ff454f;
 }
 ux-spark .ux-spark .ux-spark-bar {
   background-color: #00a7a2;

@@ -1,10 +1,7 @@
 import { ColorService } from '../../services/color/index';
-import { ColorIdentifier } from '../../index';
 export declare class SparkComponent {
     private _colorService;
     values: number[];
-    trackColor: string;
-    barColor: string | string[];
     barHeight: number;
     inlineLabel: string;
     topLeftLabel: string;
@@ -12,7 +9,12 @@ export declare class SparkComponent {
     bottomLeftLabel: string;
     bottomRightLabel: string;
     tooltip: string;
-    theme: ColorIdentifier;
+    private _trackColor;
+    private _theme;
+    private _barColor;
+    theme: string;
+    trackColor: string;
+    barColor: string | string[];
     value: number | number[];
     constructor(_colorService: ColorService);
 }

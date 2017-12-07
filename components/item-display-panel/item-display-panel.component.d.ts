@@ -4,24 +4,25 @@ export declare class ItemDisplayPanelContentDirective {
 export declare class ItemDisplayPanelFooterDirective {
 }
 export declare class ItemDisplayPanelComponent {
-    title: string;
-    footer: ItemDisplayPanelFooterDirective;
-    visibleChange: EventEmitter<boolean>;
+    header: string;
     top: number;
-    visible: boolean;
     boxShadow: boolean;
     closeVisible: boolean;
     preventClose: boolean;
     inline: boolean;
     animate: boolean;
     shadow: boolean;
-    private _top;
+    width: number;
+    footer: ItemDisplayPanelFooterDirective;
+    visibleChange: EventEmitter<boolean>;
+    /**
+     * @deprecated
+     * Title used for adding tooltips and shouldn't be used as an input
+     * instead header will be used. This is here to support backward compatibility only
+     * this property should not be used.
+     */
+    title: string;
+    visible: boolean;
     private _visible;
-    private _boxShadow;
-    private _closeVisible;
-    private _preventClose;
-    private _inline;
-    private _animate;
-    private _shadow;
-    clickOff(event: any): void;
+    clickOff(event: MouseEvent): void;
 }

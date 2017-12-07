@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.0 
+* @ux-aspects/ux-aspects-docs - v1.5.1-rc.1 
 * © Copyright 2017 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -11,7 +11,7 @@
 		var a = factory();
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -3449,7 +3449,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
-//! version : 2.19.2
+//! version : 2.19.3
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -4109,7 +4109,7 @@ var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
 
 // any word (or two) characters or numbers including two/three word month in arabic.
 // includes scottish gaelic two word and hyphenated months
-var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
+var matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i;
 
 
 var regexes = {};
@@ -7928,7 +7928,7 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 
-hooks.version = '2.19.2';
+hooks.version = '2.19.3';
 
 setHookCallback(createLocal);
 
@@ -8392,7 +8392,7 @@ function timePicker() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<table class=\"timepicker\">\n<tbody>\n<tr>\n<td>\n<span ng-show=\"!chooseDate\" class=\"p-l-md\"> </span>\n<span ng-show=\"chooseDate\" class=\"hpe-icon hpe-alarm hp-lg\"></span>\n</td>\n<td ng-show=\"chooseTime\" class=\"form-group\" ng-class=\"{'has-error': invalidHours}\">\n<input style=\"width: 40px; padding-right: 12px\" type=\"text\" ng-model=\"tmpk.hours\" class=\"form-control text-center\" ng-model-options=\"{ updateOn: 'blur' }\" maxlength=\"2\">\n</td>\n<td ng-show=\"chooseTime\" class=\"form-group\" ng-class=\"{'has-error': invalidMinutes}\">\n<input style=\"width: 40px; padding-right: 12px\" type=\"text\" ng-model=\"tmpk.minutes\" class=\"form-control text-center\" ng-model-options=\"{ updateOn: 'blur' }\" maxlength=\"2\">\n</td>\n<td ng-show=\"chooseTime && chooseSeconds\" class=\"form-group\" ng-class=\"{'has-error': invalidSeconds}\">\n<input style=\"width: 40px; padding-right: 12px\" type=\"text\" ng-model=\"tmpk.seconds\" class=\"form-control text-center\" ng-model-options=\"{ updateOn: 'blur' }\" maxlength=\"2\">\n</td>\n<td ng-show=\"chooseTime && isMeridian\">\n<button style=\"width: 40px\" type=\"button\" class=\"btn meridian-btn btn-secondary text-center\" ng-click=\"tmpk.toggleMeridian()\" ng-bind=\"tmpk.meridian\"></button>\n</td>\n<td ng-show=\"chooseTimeZone\">\n<div class=\"btn-group\" dropdown is-open=\"timezoneDropDownOpen\">\n<button type=\"button\" class=\"btn inline-dropdown timezone-dropdown dropdown-toggle\" dropdown-toggle>\n<span ng-bind=\"tmpk.timezone\" style=\"vertical-align:inherit\"></span>\n<span class=\"hpe-icon hpe-down\"></span>\n</button>\n<ul class=\"dropdown-menu\" role=\"menu\">\n<li ng-repeat=\"timezone in dtpk.timezones\"><a href=\"\" ng-click=\"tmpk.selectTimezone($index)\" ng-bind=\"timezone\"></a></li>\n</ul>\n</div>\n</td>\n</tr>\n</tbody>\n</table>\n";
+var v1="<table class=\"timepicker\">\n<tbody>\n<tr>\n<td>\n<span ng-show=\"!chooseDate\" class=\"p-l-md\"> </span>\n<span ng-show=\"chooseDate\" class=\"hpe-icon hpe-alarm hp-lg\"></span>\n</td>\n<td ng-show=\"chooseTime\" class=\"form-group\" ng-class=\"{'has-error': invalidHours}\">\n<input style=\"width: 40px; padding-right: 12px\" type=\"text\" ng-model=\"tmpk.hours\" class=\"form-control text-center\" ng-model-options=\"{ updateOn: 'blur' }\" maxlength=\"2\">\n</td>\n<td ng-show=\"chooseTime\" class=\"form-group\" ng-class=\"{'has-error': invalidMinutes}\">\n<input style=\"width: 40px; padding-right: 12px\" type=\"text\" ng-model=\"tmpk.minutes\" class=\"form-control text-center\" ng-model-options=\"{ updateOn: 'blur' }\" maxlength=\"2\">\n</td>\n<td ng-show=\"chooseTime && chooseSeconds\" class=\"form-group\" ng-class=\"{'has-error': invalidSeconds}\">\n<input style=\"width: 40px; padding-right: 12px\" type=\"text\" ng-model=\"tmpk.seconds\" class=\"form-control text-center\" ng-model-options=\"{ updateOn: 'blur' }\" maxlength=\"2\">\n</td>\n<td ng-show=\"chooseTime && isMeridian\">\n<button style=\"width: 40px\" type=\"button\" class=\"btn meridian-btn btn-secondary text-center\" ng-click=\"tmpk.toggleMeridian()\" ng-bind=\"tmpk.meridian\"></button>\n</td>\n<td ng-show=\"chooseTimeZone\">\n<div class=\"btn-group\" dropdown is-open=\"timezoneDropDownOpen\">\n<button type=\"button\" class=\"btn inline-dropdown timezone-dropdown dropdown-toggle\" dropdown-toggle>\n<span ng-bind=\"tmpk.timezone\" style=\"vertical-align:inherit;\"></span>\n<span class=\"hpe-icon hpe-down\"></span>\n</button>\n<ul class=\"dropdown-menu\" role=\"menu\">\n<li ng-repeat=\"timezone in dtpk.timezones\"><a href=\"\" ng-click=\"tmpk.selectTimezone($index)\" ng-bind=\"timezone\"></a></li>\n</ul>\n</div>\n</td>\n</tr>\n</tbody>\n</table>\n";
 var id1="directives/dateTimePicker/timePicker.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -16700,7 +16700,22 @@ function MultipleSelect($timeout) {
 
     //used for us to keep track of total items selected.
     this.keyFn = null;
+
+    this.nextComponentId = 0;
+    this.componentInstances = {};
 }
+
+MultipleSelect.prototype.getNextComponentId = function () {
+    return this.nextComponentId++;
+};
+
+MultipleSelect.prototype.getComponentInstance = function (componentId) {
+    if (!this.componentInstances[componentId]) {
+        this.componentInstances[componentId] = new MultipleSelect(this.$timeout);
+    }
+
+    return this.componentInstances[componentId];
+};
 
 MultipleSelect.prototype.validateSelection = function () {
     if (this.state.selectAllMode === true && this.state.selecting === true) {
@@ -21931,7 +21946,7 @@ function partitionEditing($window, safeInterval) {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"edit-container\" style=\"display: none\">\n<div class=\"root-segment\" ng-style=\"{ 'background-color': chart.rootColor }\">\n<div class=\"done-btn\" ng-click=\"editing.done()\">\n<div class=\"icon\"></div>\n</div>\n<p class=\"done-text\" ng-bind=\"chart.finishText\"></p>\n</div>\n<ul class=\"segment-list\">\n</ul>\n</div>\n";
+var v1="<div class=\"edit-container\" style=\"display: none;\">\n<div class=\"root-segment\" ng-style=\"{ 'background-color': chart.rootColor }\">\n<div class=\"done-btn\" ng-click=\"editing.done()\">\n<div class=\"icon\"></div>\n</div>\n<p class=\"done-text\" ng-bind=\"chart.finishText\"></p>\n</div>\n<ul class=\"segment-list\">\n</ul>\n</div>\n";
 var id1="partitionMap/editing/editTemplate.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -24411,7 +24426,7 @@ function scrollTop() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"scroll-top\">\n<i class=\"hpe-icon hpe-up\" style=\"color: #fff\" aria-hidden=\"true\"></i>\n</div>\n";
+var v1="<div class=\"scroll-top\">\n<i class=\"hpe-icon hpe-up\" style=\"color: #fff;\" aria-hidden=\"true\"></i>\n</div>\n";
 var id1="directives/scrollTop/scrollTop.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -25237,7 +25252,7 @@ function SelectTableDirective() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"select-table-container\" ng-style=\"{ 'height': vm.tableHeight }\">\n<div scroll-config=\"{ autoReinitialise: false, showOnlyOnHover:false, enableKeyboardNavigation:true }\" style=\"overflow: auto; height: calc(100% - 5px)\" scroll-pane id=\"{{ vm.id }}\">\n<table class=\"table table-hover select-table\">\n<tbody>\n<tr tabindex=\"0\" ng-keydown=\"vm.keydown($event)\" ng-repeat=\"value in vm.displayVals track by $index\" ng-click=\"vm.select(value, $event)\" ng-class=\"{'highlight': vm.isselected(value) }\">\n<td ng-bind=\"vm.displayFn(value)\"></td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>";
+var v1="<div class=\"select-table-container\" ng-style=\"{ 'height': vm.tableHeight }\">\n<div scroll-config=\"{ autoReinitialise: false, showOnlyOnHover:false, enableKeyboardNavigation:true }\" style=\"overflow: auto; height: calc(100% - 5px);\" scroll-pane id=\"{{ vm.id }}\">\n<table class=\"table table-hover select-table\">\n<tbody>\n<tr tabindex=\"0\" ng-keydown=\"vm.keydown($event)\" ng-repeat=\"value in vm.displayVals track by $index\" ng-click=\"vm.select(value, $event)\" ng-class=\"{'highlight': vm.isselected(value) }\">\n<td ng-bind=\"vm.displayFn(value)\"></td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>";
 var id1="directives/selectTable/selectTable.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -27004,7 +27019,7 @@ function socialChart($timeout, $interval, $colorService) {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"sigma-chart-maximise-control\" ng-if=\"sc.showMaximiseControl && sc.isFullscreen\" ng-style=\"sc.minimiseControlStyle\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<button class=\"btn btn-icon button-primary btn-lg btn-circular social-expand fullscreen\" type=\"button\" ng-click=\"sc.toggleFullscreen()\">\n<div class=\"partition-close-icon\"></div>\n</button>\n</div>\n<div class=\"sigma-wrapper\" style=\"position:relative; height:100%\">\n<div id=\"sigma-container\" ng-style=\"sc.style\">\n</div>\n<p ng-if=\"sc.isFullscreen && sc.showTitle\" class=\"sigma-chart-title\" ng-class=\"{'sigma-chart-title-visible': sc.updateTitle}\">{{sc.socialChartTitle}}</p>\n<div class=\"sigma-chart-actions\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<ul>\n<li>\n<i class=\"hpe-icon hpe-link-top black-tooltip\" ng-click=\"sc.top()\" tooltip-html=\"sc.tooltipResetHtml\" tooltip-placement=\"right\"></i>\n</li>\n<li>\n<i class=\"hpe-icon hpe-add black-tooltip\" ng-click=\"sc.zoomIn()\" tooltip=\"{{sc.localStrings.zoomIn}}\" tooltip-placement=\"right\"></i>\n</li>\n<li>\n<i class=\"hpe-icon hpe-subtract black-tooltip\" ng-click=\"sc.zoomOut()\" tooltip=\"{{sc.localStrings.zoomOut}}\" tooltip-placement=\"right\"></i>\n</li>\n</ul>\n</div>\n<div class=\"sigma-chart-maximise-control\" ng-if=\"sc.showMaximiseControl && !sc.isFullscreen\" ng-style=\"sc.maximiseControlStyle\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<button class=\"btn btn-icon button-primary btn-lg btn-circular social-expand\" type=\"button\" ng-click=\"sc.toggleFullscreen()\">\n<div class=\"partition-fullscreen-icon\"></div>\n</button>\n</div>\n<div class=\"sigma-chart-popover node\" ng-class=\"sc.popoverPosition\" ng-if=\"sc.hoveredItem && sc.hoveredItem.node && sc.nodePopover\" ng-mouseleave=\"sc.leavePopover($event)\" ng-style=\"sc.nodePopoverStyle\" ng-click=\"sc.popoverClick()\">\n<div class=\"arrow\" ng-style=\"sc.popoverArrowStyle\"></div>\n<div ng-include=\"sc.nodePopover\"></div>\n</div>\n<div class=\"sigma-chart-popover edge\" ng-class=\"sc.popoverPosition\" ng-if=\"sc.hoveredItem && sc.hoveredItem.edge && sc.edgePopover\" ng-mouseleave=\"sc.leavePopover($event)\" ng-style=\"sc.edgePopoverStyle\" ng-click=\"sc.popoverClick()\">\n<div class=\"arrow\" ng-style=\"sc.popoverArrowStyle\"></div>\n<div ng-include=\"sc.edgePopover\"></div>\n</div>\n<div class=\"sigma-chart-detail node\" ng-if=\"sc.selectedNode && sc.nodeDetail\" ng-style=\"sc.nodeDetailStyle\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<div class=\"panel\" ng-style=\"sc.detailInlayStyle\">\n<span class=\"sigma-panel-close-icon\" ng-click=\"sc.closeDetail();\" ng-if=\"sc.showDetailCloseButton\"></span>\n<div class=\"node-detail-container\" ng-include=\"sc.nodeDetail\" ng-class=\"{'fullscreen-shadow':sc.isFullscreen}\"></div>\n</div>\n</div>\n<div class=\"sigma-chart-detail edge\" ng-if=\"sc.selectedEdge && sc.edgeDetail\" ng-style=\"sc.edgeDetailStyle\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<div class=\"panel\" ng-style=\"sc.detailInlayStyle\">\n<span class=\"sigma-panel-close-icon\" ng-click=\"sc.closeDetail();\" ng-if=\"sc.showDetailCloseButton\"></span>\n<div ng-include=\"sc.edgeDetail\" ng-class=\"{'fullscreen-shadow':sc.isFullscreen}\" class=\"edge-detail\"></div>\n</div>\n</div>\n</div>\n";
+var v1="<div class=\"sigma-chart-maximise-control\" ng-if=\"sc.showMaximiseControl && sc.isFullscreen\" ng-style=\"sc.minimiseControlStyle\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<button class=\"btn btn-icon button-primary btn-lg btn-circular social-expand fullscreen\" type=\"button\" ng-click=\"sc.toggleFullscreen()\">\n<div class=\"partition-close-icon\"></div>\n</button>\n</div>\n<div class=\"sigma-wrapper\" style=\"position:relative; height:100%;\">\n<div id=\"sigma-container\" ng-style=\"sc.style\">\n</div>\n<p ng-if=\"sc.isFullscreen && sc.showTitle\" class=\"sigma-chart-title\" ng-class=\"{'sigma-chart-title-visible': sc.updateTitle}\">{{sc.socialChartTitle}}</p>\n<div class=\"sigma-chart-actions\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<ul>\n<li>\n<i class=\"hpe-icon hpe-link-top black-tooltip\" ng-click=\"sc.top()\" tooltip-html=\"sc.tooltipResetHtml\" tooltip-placement=\"right\"></i>\n</li>\n<li>\n<i class=\"hpe-icon hpe-add black-tooltip\" ng-click=\"sc.zoomIn()\" tooltip=\"{{sc.localStrings.zoomIn}}\" tooltip-placement=\"right\"></i>\n</li>\n<li>\n<i class=\"hpe-icon hpe-subtract black-tooltip\" ng-click=\"sc.zoomOut()\" tooltip=\"{{sc.localStrings.zoomOut}}\" tooltip-placement=\"right\"></i>\n</li>\n</ul>\n</div>\n<div class=\"sigma-chart-maximise-control\" ng-if=\"sc.showMaximiseControl && !sc.isFullscreen\" ng-style=\"sc.maximiseControlStyle\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<button class=\"btn btn-icon button-primary btn-lg btn-circular social-expand\" type=\"button\" ng-click=\"sc.toggleFullscreen()\">\n<div class=\"partition-fullscreen-icon\"></div>\n</button>\n</div>\n<div class=\"sigma-chart-popover node\" ng-class=\"sc.popoverPosition\" ng-if=\"sc.hoveredItem && sc.hoveredItem.node && sc.nodePopover\" ng-mouseleave=\"sc.leavePopover($event)\" ng-style=\"sc.nodePopoverStyle\" ng-click=\"sc.popoverClick()\">\n<div class=\"arrow\" ng-style=\"sc.popoverArrowStyle\"></div>\n<div ng-include=\"sc.nodePopover\"></div>\n</div>\n<div class=\"sigma-chart-popover edge\" ng-class=\"sc.popoverPosition\" ng-if=\"sc.hoveredItem && sc.hoveredItem.edge && sc.edgePopover\" ng-mouseleave=\"sc.leavePopover($event)\" ng-style=\"sc.edgePopoverStyle\" ng-click=\"sc.popoverClick()\">\n<div class=\"arrow\" ng-style=\"sc.popoverArrowStyle\"></div>\n<div ng-include=\"sc.edgePopover\"></div>\n</div>\n<div class=\"sigma-chart-detail node\" ng-if=\"sc.selectedNode && sc.nodeDetail\" ng-style=\"sc.nodeDetailStyle\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<div class=\"panel\" ng-style=\"sc.detailInlayStyle\">\n<span class=\"sigma-panel-close-icon\" ng-click=\"sc.closeDetail();\" ng-if=\"sc.showDetailCloseButton\"></span>\n<div class=\"node-detail-container\" ng-include=\"sc.nodeDetail\" ng-class=\"{'fullscreen-shadow':sc.isFullscreen}\"></div>\n</div>\n</div>\n<div class=\"sigma-chart-detail edge\" ng-if=\"sc.selectedEdge && sc.edgeDetail\" ng-style=\"sc.edgeDetailStyle\" ng-mouseenter=\"sc.mouseEnterUIElement($event)\" ng-mouseleave=\"sc.mouseLeaveUIElement($event)\">\n<div class=\"panel\" ng-style=\"sc.detailInlayStyle\">\n<span class=\"sigma-panel-close-icon\" ng-click=\"sc.closeDetail();\" ng-if=\"sc.showDetailCloseButton\"></span>\n<div ng-include=\"sc.edgeDetail\" ng-class=\"{'fullscreen-shadow':sc.isFullscreen}\" class=\"edge-detail\"></div>\n</div>\n</div>\n</div>\n";
 var id1="directives/socialChart/socialChart.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -30103,7 +30118,8 @@ function SparkDirective() {
             bottomLeftLabel: "=",
             bottomRightLabel: "=",
             sparkTooltip: "@?",
-            barColor: '=?'
+            barColor: '=?',
+            trackColor: '=?'
         },
         bindToController: true
     };
@@ -30116,7 +30132,7 @@ function SparkDirective() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div>\n<div ng-if=\"sc.inline === true\" class=\"spark-container-inline\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc.type ]\" ng-style=\"sc.setPosition\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc.inline === false\" class=\"spark-container\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc.type\" ng-style=\"{height: sc.fillheight + 'px'}\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.top-left-label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
+var v1="<div>\n<div ng-if=\"sc.inline === true\" class=\"spark-container-inline\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc.type ]\" ng-style=\"sc.styles\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc.inline === false\" class=\"spark-container\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc.type\" ng-style=\"{height: sc.fillheight + 'px', backgroundColor: sc.trackColor}\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.top-left-label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
 var id1="directives/spark/spark.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -30129,15 +30145,13 @@ module.exports=v1;
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = SparkCtrl;
-function SparkCtrl() {
+function SparkCtrl($colorService) {
     var sc = this;
 
     sc.inline = sc.label !== undefined;
 
-    sc.setPosition = {
-        'height': sc.fillheight + 'px',
-        'margin-top': sc.top !== undefined ? sc.top : 0 + 'px'
-    };
+    // give the chart a default theme
+    sc.type = sc.type || 'spark-chart1';
 
     // ensure 'value' is an array at this point
     var values = Array.isArray(sc.value) ? sc.value : [sc.value];
@@ -30148,14 +30162,36 @@ function SparkCtrl() {
     }, 0), 100);
 
     // figure out the percentages for each spark line
-    this.values = values.map(function (val) {
+    sc.values = values.map(function (val) {
         return val / total * 100;
     });
 
-    this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
+    sc.type = $colorService.resolveColorName(sc.type);
 
-    return this.values;
+    if (sc.barColor) {
+        if (Array.isArray(sc.barColor)) {
+            sc.barColor = sc.barColor.map(function (color) {
+                return $colorService.resolve(color);
+            });
+        } else {
+            sc.barColor = $colorService.resolve(sc.barColor);
+        }
+    }
+
+    if (sc.trackColor) {
+        sc.trackColor = $colorService.resolve(sc.trackColor);
+    }
+
+    sc.barColor = Array.isArray(sc.barColor) ? sc.barColor : [sc.barColor];
+
+    sc.styles = {
+        height: sc.fillheight + 'px',
+        marginTop: sc.top !== undefined ? sc.top : 0 + 'px',
+        backgroundColor: sc.trackColor
+    };
 }
+
+SparkCtrl.$inject = ['$colorService'];
 
 /***/ }),
 /* 443 */
@@ -30195,11 +30231,12 @@ function splitter($compile, $timeout) {
             onDragStart: '=?',
             onDragEnd: '=?',
             onToggle: '=?',
-            reinitialize: '=?'
+            reinitialize: '=?',
+            disabled: '=?'
         },
         link: function link(scope, element) {
 
-            var container, panels, horizontal, gutter, options, dragHandle, ratio, parentHeight, parentWidth, height, width, sidePanelW, sidePanelH;
+            var container, toggle, mainPanel, sidePanel, toggleState, panels, horizontal, gutter, options, dragHandle, ratio, parentHeight, parentWidth, height, width, sidePanelW, sidePanelH;
 
             function init() {
                 //get splitter container element
@@ -30362,8 +30399,6 @@ function splitter($compile, $timeout) {
             */
             function setUpToggleButton() {
 
-                var mainPanel, sidePanel;
-
                 panels.forEach(function (panel, index) {
 
                     if (panel.hasAttribute('splitter-side')) {
@@ -30410,7 +30445,7 @@ function splitter($compile, $timeout) {
                 scope.splitterPositionClass = toggleDirection;
 
                 //Create a toggle button
-                var toggle = angular.element('<div class="side-inset-splitter-toggle-container ' + scope.splitterPositionClass + '"><div class="side-inset-splitter-toggle"><a class="hpe-icon"></a></div></div>');
+                toggle = angular.element('<div class="side-inset-splitter-toggle-container ' + scope.splitterPositionClass + '"><div class="side-inset-splitter-toggle"><a class="hpe-icon"></a></div></div>');
 
                 //Add the toggle button to the main panel
                 dragHandle = gutter[0].querySelector(".drag-handle");
@@ -30418,9 +30453,13 @@ function splitter($compile, $timeout) {
                 if (scope.splitterPositionClass === "top" || scope.splitterPositionClass === "left") toggle.insertAfter(gutter);else toggle.insertBefore(gutter);
 
                 //Remember the toggle state
-                var toggleState = "collapsed";
+                toggleState = "collapsed";
                 //Start with the gutter hidden
                 hideGutter();
+
+                if (scope.disabled) {
+                    setToggleDisabled(true);
+                }
                 //Set the right direction for the toggle button
                 if (options.direction === "horizontal") {
                     //Start with the side panel collapsed
@@ -30448,6 +30487,10 @@ function splitter($compile, $timeout) {
 
                 //Bind the click logic for the toggle button
                 toggle.on("click", function () {
+
+                    if (scope.disabled) {
+                        return;
+                    }
 
                     addTransitionClasses(mainPanel, sidePanel);
 
@@ -30490,6 +30533,31 @@ function splitter($compile, $timeout) {
             function removeTransitionClasses(elem) {
                 elem[0].style.transition = "";
             }
+
+            function setToggleDisabled(state) {
+                if (state && !toggle.hasClass("disabled")) {
+                    toggle.addClass("disabled");
+                    if (toggleState === "expanded") {
+                        addTransitionClasses(mainPanel, sidePanel);
+                        toggleState = "collapsed";
+                        hideGutter();
+                        toggleButtonIcon(toggle);
+                        collapseSidePanel(mainPanel, sidePanel);
+
+                        if (scope.onToggle) {
+                            scope.onToggle.call(scope, false);
+                        }
+                    }
+                } else if (!state && toggle.hasClass("disabled")) {
+                    toggle.removeClass("disabled");
+                }
+            }
+
+            scope.$watch('disabled', function (nv, ov) {
+                if (nv !== ov) {
+                    setToggleDisabled(nv);
+                }
+            });
 
             function toggleButtonIcon(toggle, iconClass) {
                 //Find the <a> element with our icon
@@ -31595,6 +31663,8 @@ TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider"];
 function TreegridCtrl($scope, $q, multipleSelectProvider) {
   var vm = this;
 
+  var treegridId = multipleSelectProvider.getNextComponentId();
+
   var defaultOptions = {
     maxDepth: 5,
     childrenProperty: "nodes",
@@ -31632,21 +31702,21 @@ function TreegridCtrl($scope, $q, multipleSelectProvider) {
 
   vm.treeData = [];
 
-  vm.multipleSelectProvider = multipleSelectProvider;
+  vm.multipleSelectInstance = multipleSelectProvider.getComponentInstance(treegridId);
 
   vm.allSelected = false;
 
   // Set up multi select to work standalone
-  if (!vm.multipleSelectProvider.keyFn) {
-    vm.multipleSelectProvider.keyFn = function (e) {
+  if (!vm.multipleSelectInstance.keyFn) {
+    vm.multipleSelectInstance.keyFn = function (e) {
       return JSON.stringify(e.item);
     };
   }
-  if (!vm.multipleSelectProvider.onSelect) {
-    vm.multipleSelectProvider.onSelect = function () {};
+  if (!vm.multipleSelectInstance.onSelect) {
+    vm.multipleSelectInstance.onSelect = function () {};
   }
-  if (!vm.multipleSelectProvider.onDeselect) {
-    vm.multipleSelectProvider.onDeselect = function () {};
+  if (!vm.multipleSelectInstance.onDeselect) {
+    vm.multipleSelectInstance.onDeselect = function () {};
   }
 
   // Watch for changes to the tree data and update the view when it changes
@@ -31654,7 +31724,7 @@ function TreegridCtrl($scope, $q, multipleSelectProvider) {
     updateView();
   }, true);
 
-  $scope.$watch("vm.multipleSelectProvider.selectedItems", function (nv) {
+  $scope.$watch("vm.multipleSelectInstance.selectedItems", function (nv) {
     if (angular.isArray(nv)) {
       // selectedItems are JSON from keyFn above
       var selected = [];
@@ -31671,7 +31741,7 @@ function TreegridCtrl($scope, $q, multipleSelectProvider) {
   });
 
   $scope.$on("$destroy", function () {
-    vm.multipleSelectProvider.reset();
+    vm.multipleSelectInstance.reset();
   });
 
   // Retrieves array for ng-repeat of grid rows
@@ -31786,6 +31856,7 @@ function TreegridCtrl($scope, $q, multipleSelectProvider) {
       for (var i = 0; i < data.length; i += 1) {
         var canExpand = hasChildren(data[i]) && level < vm.allOptions.maxDepth;
         var row = {
+          treegridId: treegridId,
           level: level,
           levelClass: "treegrid-level-" + level,
           rowClass: getRowClass(data[i]),
@@ -32079,6 +32150,8 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
 
                 if (treeGridRow) {
 
+                    var multipleSelectInstance = multipleSelectProvider.getComponentInstance(treeGridRow.treegridId);
+
                     // Prevent text selection on shift-click
                     angular.element(element).children("*").css({
                         "user-select": "none",
@@ -32125,8 +32198,8 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
                                 extendSelectionFromPrevious();
                             } else {
                                 // if shift key not held then dont select any
-                                multipleSelectProvider.selectNone();
-                                multipleSelectProvider.multipleRowSelectOriginIndex = scope.$index;
+                                multipleSelectInstance.selectNone();
+                                multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
                             }
                         }
                         scope.$apply();
@@ -32140,16 +32213,16 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
 
                     // Handler for row click, or external change to selection via multipleSelectProvider
                     scope.$watch(function () {
-                        return multipleSelectProvider.isSelected(treeGridRow.dataItem);
+                        return multipleSelectInstance.isSelected(treeGridRow.dataItem);
                     }, function (nv) {
                         setSelected(treeGridRow, nv);
                     });
 
                     // Handler for checkbox click, which uses ng-model="row.selected"
                     scope.$watch(attrs.treegridMultipleSelectItem + ".selected", function (nv) {
-                        var currentState = multipleSelectProvider.isSelected(treeGridRow.dataItem);
+                        var currentState = multipleSelectInstance.isSelected(treeGridRow.dataItem);
                         if (nv !== undefined && nv !== currentState) {
-                            currentState = multipleSelectProvider.itemClicked(treeGridRow.dataItem);
+                            currentState = multipleSelectInstance.itemClicked(treeGridRow.dataItem);
                         }
                     }, true);
 
@@ -32164,28 +32237,28 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
 
             // Clear selection and select this row
             function startSelection() {
-                multipleSelectProvider.state.selecting = true;
-                if (multipleSelectProvider.state.selectedFromButton === false) {
-                    multipleSelectProvider.state.selectedFromCheckBox = true;
+                multipleSelectInstance.state.selecting = true;
+                if (multipleSelectInstance.state.selectedFromButton === false) {
+                    multipleSelectInstance.state.selectedFromCheckBox = true;
                 }
 
-                multipleSelectProvider.selectNone();
+                multipleSelectInstance.selectNone();
 
-                multipleSelectProvider.multipleRowSelectItemPreviousSelectionDirection = undefined;
-                if (multipleSelectProvider.itemClicked(treeGridRow.dataItem)) {
-                    multipleSelectProvider.multipleRowSelectOriginIndex = scope.$index;
+                multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
+                if (multipleSelectInstance.itemClicked(treeGridRow.dataItem)) {
+                    multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
                     setSelected(treeGridRow, true);
                 }
             }
 
             // Add this row to the current selection
             function addToOrStartSelection() {
-                if (!multipleSelectProvider.state.selecting) {
+                if (!multipleSelectInstance.state.selecting) {
                     startSelection();
                 } else {
-                    multipleSelectProvider.multipleRowSelectItemPreviousSelectionDirection = undefined;
-                    if (multipleSelectProvider.itemClicked(treeGridRow.dataItem)) {
-                        multipleSelectProvider.multipleRowSelectOriginIndex = scope.$index;
+                    multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
+                    if (multipleSelectInstance.itemClicked(treeGridRow.dataItem)) {
+                        multipleSelectInstance.multipleRowSelectOriginIndex = scope.$index;
                         setSelected(treeGridRow, true);
                     } else {
                         setSelected(treeGridRow, false);
@@ -32195,7 +32268,7 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
 
             // Add this row and all intermediate rows to the current selection
             function extendOrStartSelection() {
-                if (!multipleSelectProvider.state.selecting) {
+                if (!multipleSelectInstance.state.selecting) {
                     startSelection();
                 } else {
                     extendSelection();
@@ -32204,20 +32277,20 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
 
             // Select previous row, this row, and all intermediate rows
             function extendSelectionFromPrevious() {
-                multipleSelectProvider.state.selecting = true;
-                if (multipleSelectProvider.state.selectedFromButton === false) {
-                    multipleSelectProvider.state.selectedFromCheckBox = true;
+                multipleSelectInstance.state.selecting = true;
+                if (multipleSelectInstance.state.selectedFromButton === false) {
+                    multipleSelectInstance.state.selectedFromCheckBox = true;
                 }
-                multipleSelectProvider.multipleRowSelectItemPreviousSelectionDirection = undefined;
+                multipleSelectInstance.multipleRowSelectItemPreviousSelectionDirection = undefined;
                 extendSelection();
             }
 
             function extendSelection() {
-                var rows = getRowDataItemsToSelect(multipleSelectProvider.multipleRowSelectOriginIndex, scope.$index);
+                var rows = getRowDataItemsToSelect(multipleSelectInstance.multipleRowSelectOriginIndex, scope.$index);
                 var dataItems = rows.map(function (row) {
                     return row.dataItem;
                 });
-                var isSelected = multipleSelectProvider.rangeClicked(dataItems);
+                var isSelected = multipleSelectInstance.rangeClicked(dataItems);
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
                 var _iteratorError = undefined;
@@ -32700,7 +32773,7 @@ function TreeViewCtrl($scope, $element, $timeout) {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div class=\"tree-node tree-node-content {{node.className}}\" data-nodrag ng-click=\"tv.select(this)\" ng-class=\"{highlight : tv.isSelected(this)}\">\n<a class=\"btn btn-link button-secondary btn-icon btn-sm toggle chevron\" ng-if=\"node.allowChildren && (node.nodes || node.nodes.length > 0)\" ng-disabled=\"!node.nodes || node.nodes.length <= 0\" ng-click=\"toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur();\" tabindex=\"0\" href>\n<span ng-if=\"node.nodes.length > 0\" class=\"hpe-icon\" ng-class=\"{\n      'hpe-chevron-right': collapsed,\n      'hpe-chevron-down': !collapsed\n    }\">\n</span>\n</a>\n<span ng-if=\"!node.allowChildren\" style=\"padding-left: 17px\"></span>\n<span class=\"icon\"><i class=\"hpe-icon\" ng-class=\"tv.getIcon(node.type, collapsed)\"></i><span class=\"sr-only\" ng-bind=\"node.type\"></span></span>\n<span class=\"title-readonly\" tooltip=\"{{ tv.getTooltip(node) }}\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation();\" ng-show=\"!tv.isBeingEdited(this)\" tabindex=\"0\" ng-keydown=\"tv.keyboardSelect(this,$event);\">{{node.title}}</span>\n<input class=\"title-edit\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation();\" ng-keypress=\"tv.finishEdit(this,$event)\" ng-blur=\"tv.finishEdit(this,$event)\" ng-show=\"tv.isBeingEdited(this)\" ng-model=\"node.title\" focus-on-show tabindex=\"0\">\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canDeleteItem(this)\" data-nodrag ng-click=\"tv.remove(this); $event.preventDefault(); $event.stopPropagation();\" tabindex=\"0\">\n<span class=\"hpe-icon hpe-close\"></span>\n</a>\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canAddItem(this)\" data-nodrag ng-click=\"tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation();\" tabindex=\"0\">\n<span class=\"hpe-icon hpe-add\"></span>\n</a>\n</div>\n<ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n<li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'directives/treeView/treeView.partial.html'\"></li>\n</ol>\n";
+var v1="<div class=\"tree-node tree-node-content {{node.className}}\" data-nodrag ng-click=\"tv.select(this)\" ng-class=\"{highlight : tv.isSelected(this)}\">\n<a class=\"btn btn-link button-secondary btn-icon btn-sm toggle chevron\" ng-if=\"node.allowChildren && (node.nodes || node.nodes.length > 0)\" ng-disabled=\"!node.nodes || node.nodes.length <= 0\" ng-click=\"toggle(this); $event.preventDefault(); $event.stopPropagation(); this.blur();\" tabindex=\"0\" href>\n<span ng-if=\"node.nodes.length > 0\" class=\"hpe-icon\" ng-class=\"{\n      'hpe-chevron-right': collapsed,\n      'hpe-chevron-down': !collapsed\n    }\">\n</span>\n</a>\n<span ng-if=\"!node.allowChildren\" style=\"padding-left: 17px;\"></span>\n<span class=\"icon\"><i class=\"hpe-icon\" ng-class=\"tv.getIcon(node.type, collapsed)\"></i><span class=\"sr-only\" ng-bind=\"node.type\"></span></span>\n<span class=\"title-readonly\" tooltip=\"{{ tv.getTooltip(node) }}\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation();\" ng-show=\"!tv.isBeingEdited(this)\" tabindex=\"0\" ng-keydown=\"tv.keyboardSelect(this,$event);\">{{node.title}}</span>\n<input class=\"title-edit\" ng-click=\"tv.edit(this); $event.preventDefault(); $event.stopPropagation();\" ng-keypress=\"tv.finishEdit(this,$event)\" ng-blur=\"tv.finishEdit(this,$event)\" ng-show=\"tv.isBeingEdited(this)\" ng-model=\"node.title\" focus-on-show tabindex=\"0\">\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canDeleteItem(this)\" data-nodrag ng-click=\"tv.remove(this); $event.preventDefault(); $event.stopPropagation();\" tabindex=\"0\">\n<span class=\"hpe-icon hpe-close\"></span>\n</a>\n<a class=\"pull-right btn btn-link btn-icon button-secondary btn-xs tree-action-button\" ng-show=\"tv.inlineEdit && tv.canAddItem(this)\" data-nodrag ng-click=\"tv.newSubItem(this, true); expand(this); $event.preventDefault(); $event.stopPropagation();\" tabindex=\"0\">\n<span class=\"hpe-icon hpe-add\"></span>\n</a>\n</div>\n<ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n<li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'directives/treeView/treeView.partial.html'\"></li>\n</ol>\n";
 var id1="directives/treeView/treeView.partial.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -33264,6 +33337,11 @@ function $colorService() {
   };
 
   $colorService.setColorSet = function (customColorSet) {
+
+    if (typeof customColorSet === 'string') {
+      customColorSet = colorSets[customColorSet] || {};
+    }
+
     colorSet = customColorSet;
     colors = {};
 
@@ -33274,6 +33352,26 @@ function $colorService() {
         colors[_key2] = getColorValueByHex(colorSet.colorValueSet[_key2]);
       }
     }
+  };
+
+  $colorService.resolve = function resolve(value) {
+    if (!value) {
+      return;
+    }
+
+    value = value.replace(/\s+/g, '-').toLowerCase();
+
+    for (var color in colors) {
+      if (value === color.toLowerCase()) {
+        return $colorService.getColor(value).toRgba();
+      }
+    }
+
+    return value;
+  };
+
+  $colorService.resolveColorName = function resolveColorName(value) {
+    return value.replace(/\s+/g, '-').toLowerCase();
   };
 
   $colorService.getColorSet = function () {
@@ -34862,9 +34960,10 @@ function SparkDirective() {
             bottomLeftLabel: "=?",
             bottomRightLabel: "=?",
             sparkTooltip: "@?",
-            barColor: "=?"
+            barColor: "=?",
+            trackColor: "=?"
         },
-        template: "<spark type=\"type\" spark-tooltip=\"{{ sparkTooltip }}\" value=\"value\" fillheight=\"fillheight\" inline-label=\"inlineLabel\" top=\"top\" top-left-label=\"topLeftLabel\" top-right-label=\"topRightLabel\" bottom-left-label=\"bottomLeftLabel\" bottom-right-label=\"bottomRightLabel\" bar-color=\"barColor\"></spark>",
+        template: "<spark type=\"type\" spark-tooltip=\"{{ sparkTooltip }}\" value=\"value\" fillheight=\"fillheight\" inline-label=\"inlineLabel\" top=\"top\" top-left-label=\"topLeftLabel\" top-right-label=\"topRightLabel\" bottom-left-label=\"bottomLeftLabel\" bottom-right-label=\"bottomRightLabel\" bar-color=\"barColor\" track-color=\"trackColor\"></spark>",
         controller: ['$scope', function ($scope) {
 
             $scope.type = typeof $scope.type === 'function' ? $scope.type() : $scope.type;
@@ -34877,6 +34976,7 @@ function SparkDirective() {
             $scope.bottomLeftLabel = typeof $scope.bottomLeftLabel === 'function' ? $scope.bottomLeftLabel() : $scope.bottomLeftLabel;
             $scope.bottomRightLabel = typeof $scope.bottomRightLabel === 'function' ? $scope.bottomRightLabel() : $scope.bottomRightLabel;
             $scope.barColor = typeof $scope.barColor === 'function' ? $scope.barColor() : $scope.barColor;
+            $scope.trackColor = typeof $scope.trackColor === 'function' ? $scope.trackColor() : $scope.trackColor;
 
             this.$onDestroy = function () {
                 $scope.$destroy();

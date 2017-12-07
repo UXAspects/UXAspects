@@ -1,16 +1,20 @@
-import { EventEmitter } from '@angular/core';
-export declare class DateTimePickerDayViewComponent {
+import { EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { DateTimePickerService } from '../date-time-picker.service';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/observable/merge';
+export declare class DateTimePickerDayViewComponent implements OnInit, OnDestroy {
+    dateTimePickerService: DateTimePickerService;
     header: string;
     days: DatePickerDay[][];
-    private _date;
+    weekdays: string[];
+    dateChange: EventEmitter<void>;
+    date: Date;
     month: number;
     year: number;
-    weekdays: string[];
-    ascend: EventEmitter<void>;
-    dateChange: EventEmitter<Date>;
-    monthChange: EventEmitter<number>;
-    yearChange: EventEmitter<number>;
-    date: Date;
+    private _subscription;
+    constructor(dateTimePickerService: DateTimePickerService);
+    ngOnInit(): void;
+    ngOnDestroy(): void;
     /**
      * Navigate to the previous page of dates
      */
@@ -44,6 +48,10 @@ export declare class DateTimePickerDayViewComponent {
      * @param date The date in question
      */
     isCurrentMonth(date: Date): boolean;
+    /**
+     * Update the date picker view to show the month picker
+     */
+    showMonthPicker(): void;
 }
 export interface DatePickerDay {
     date: Date;
