@@ -11,6 +11,8 @@ export declare class ColorService {
     getColor(color: ColorIdentifier): ThemeColor;
     getColorSet(): any;
     setColorSet(colorSet: ColorSet): void;
+    resolve(value: string): string;
+    resolveColorName(value: string): string;
 }
 export declare class ThemeColor {
     private _r;
