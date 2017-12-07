@@ -20,6 +20,30 @@ UX ASPECTS OPEN SOURCE LICENSES
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -----------------------------------------------------------------------------------
+* jScrollPane - v2.0.22 - 2015-04-25
+ * http://jscrollpane.kelvinluck.com/
+ *
+ * Copyright (c) 2014 Kelvin Luck
+ * Dual licensed under the MIT or GPL licenses.
+
+
+// Script: jScrollPane - cross browser customisable scrollbars
+//
+// *Version: 2.0.22, Last updated: 2015-04-25*
+//
+// Project Home - http://jscrollpane.kelvinluck.com/
+// GitHub       - http://github.com/vitch/jScrollPane
+// Source       - http://github.com/vitch/jScrollPane/raw/master/script/jquery.jscrollpane.js
+// (Minified)   - http://github.com/vitch/jScrollPane/raw/master/script/jquery.jscrollpane.min.js
+//
+// About: License
+//
+// Copyright (c) 2014 Kelvin Luck
+// Dual licensed under the MIT or GPL Version 2 licenses.
+// http://jscrollpane.kelvinluck.com/MIT-LICENSE.txt
+// http://jscrollpane.kelvinluck.com/GPL-LICENSE.txt
+//
+-----------------------------------------------------------------------------------
 * jQuery Mousewheel 3.1.12
  *
  * Copyright 2014 jQuery Foundation and other contributors
@@ -53,6 +77,9 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -----------------------------------------------------------------------------------
+DataTables 1.10.4
+ * ©2008-2014 SpryMedia Ltd - datatables.net/license
+-----------------------------------------------------------------------------------
 /*
  *
  * More info at [www.dropzonejs.com](http://www.dropzonejs.com)
@@ -78,33 +105,6 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * THE SOFTWARE.
  *
 -----------------------------------------------------------------------------------
-* jScrollPane - v2.0.22 - 2015-04-25
- * http://jscrollpane.kelvinluck.com/
- *
- * Copyright (c) 2014 Kelvin Luck
- * Dual licensed under the MIT or GPL licenses.
-
-
-// Script: jScrollPane - cross browser customisable scrollbars
-//
-// *Version: 2.0.22, Last updated: 2015-04-25*
-//
-// Project Home - http://jscrollpane.kelvinluck.com/
-// GitHub       - http://github.com/vitch/jScrollPane
-// Source       - http://github.com/vitch/jScrollPane/raw/master/script/jquery.jscrollpane.js
-// (Minified)   - http://github.com/vitch/jScrollPane/raw/master/script/jquery.jscrollpane.min.js
-//
-// About: License
-//
-// Copyright (c) 2014 Kelvin Luck
-// Dual licensed under the MIT or GPL Version 2 licenses.
-// http://jscrollpane.kelvinluck.com/MIT-LICENSE.txt
-// http://jscrollpane.kelvinluck.com/GPL-LICENSE.txt
-//
------------------------------------------------------------------------------------
-DataTables 1.10.4
- * ©2008-2014 SpryMedia Ltd - datatables.net/license
------------------------------------------------------------------------------------
 /**
 // Copyright 2006 Google Inc.
 //
@@ -119,6 +119,11 @@ DataTables 1.10.4
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+-----------------------------------------------------------------------------------
+/* Javascript plotting library for jQuery, version 0.8.3.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
 -----------------------------------------------------------------------------------
 Flot plugin for rendering pie charts.
 
@@ -157,16 +162,16 @@ can just fix the size of their placeholders.
  * Dual licensed under the MIT and GPL licenses.
  * http://benalman.com/about/license/
 -----------------------------------------------------------------------------------
-Flot plugin for stacking data sets rather than overlyaing them.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
------------------------------------------------------------------------------------
 * Flot plugin that provides spline interpolation for line graphs
  * author: Alex Bardas < alex.bardas@gmail.com >
  * modified by: Avi Kohn https://github.com/AMKohn
  * based on the spline interpolation described at:
  *		 http://scaledinnovation.com/analytics/splines/aboutSplines.html
+-----------------------------------------------------------------------------------
+Flot plugin for stacking data sets rather than overlyaing them.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
 -----------------------------------------------------------------------------------
 Flot plugin that adds some extra symbols for plotting points.
 
@@ -182,19 +187,6 @@ Flot plugin that adds some extra symbols for plotting points.
  *
  * build on 2015-06-12
  * released under MIT License, 2012
------------------------------------------------------------------------------------
-/* Javascript plotting library for jQuery, version 0.8.3.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
------------------------------------------------------------------------------------
-Pretty handling of time axes.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
-
-Set axis.mode to "time" to enable. See the section "Time series data" in
-API.txt for details.
 -----------------------------------------------------------------------------------
 * Value Labels Plugin for flot.
 * https://github.com/winne27/flot-valuelabels
@@ -214,6 +206,31 @@ API.txt for details.
  * Copyright 2012-2014 Arnold Daniels
  * Licensed under Apache-2.0 (https://github.com/jasny/bootstrap/blob/master/LICENSE)
 -----------------------------------------------------------------------------------
+*	jQuery dotdotdot 1.7.4
+ *
+ *	Copyright (c) Fred Heusschen
+ *	www.frebsite.nl
+ *
+ *	Plugin website:
+ *	dotdotdot.frebsite.nl
+ *
+ *	Licensed under the MIT license.
+ *	http://en.wikipedia.org/wiki/MIT_License
+-----------------------------------------------------------------------------------
+Pretty handling of time axes.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
+
+Set axis.mode to "time" to enable. See the section "Time series data" in
+API.txt for details.
+-----------------------------------------------------------------------------------
+* jquery.inputmask.bundle.js
+* http://github.com/RobinHerbots/jquery.inputmask
+* Copyright (c) 2010 - 2015 Robin Herbots
+* Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+* Version: 3.2.6-24
+-----------------------------------------------------------------------------------
 jQuery Knob
 /*
  * Downward compatible, touchable dial
@@ -226,26 +243,9 @@ jQuery Knob
  *
  * Thanks to vor, eskimoblood, spiffistan, FabrizioC
 -----------------------------------------------------------------------------------
-*	jQuery dotdotdot 1.7.4
- *
- *	Copyright (c) Fred Heusschen
- *	www.frebsite.nl
- *
- *	Plugin website:
- *	dotdotdot.frebsite.nl
- *
- *	Licensed under the MIT license.
- *	http://en.wikipedia.org/wiki/MIT_License
------------------------------------------------------------------------------------
 * jQuery Steps v1.1.0 - 09/04/2014
  * Copyright (c) 2014 Rafael Staib (http://www.jquery-steps.com)
  * Licensed under MIT http://www.opensource.org/licenses/MIT
------------------------------------------------------------------------------------
-* jquery.inputmask.bundle.js
-* http://github.com/RobinHerbots/jquery.inputmask
-* Copyright (c) 2010 - 2015 Robin Herbots
-* Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-* Version: 3.2.6-24
 -----------------------------------------------------------------------------------
 * metismenu - v1.0.3
  * Easy menu jQuery plugin for Twitter Bootstrap 3
@@ -388,27 +388,6 @@ angular-file-upload v1.1.5
 -----------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2014 Alec LaLonde and contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
------------------------------------------------------------------------------------
-The MIT License (MIT)
-
 Copyright (c) 2014 Geoffrey Bauduin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -450,6 +429,27 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-----------------------------------------------------------------------------------
+The MIT License (MIT)
+
+Copyright (c) 2014 Alec LaLonde and contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------
 * @license Angular UI Tree v2.9.0
  * (c) 2010-2015. https://github.com/angular-ui-tree/angular-ui-tree

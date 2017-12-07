@@ -14396,11 +14396,13 @@ layout-switcher-container {
   display: flex;
   align-items: flex-start;
 
-  > .btn, 
-  > .btn-group {
-    margin-right: 8px;
+  > .btn + .btn,
+  > .btn + .btn-group,
+  > .btn-group + .btn,
+  > .btn-group + .btn-group {
+    margin-left: 8px;
     &.btn-link {
-        margin-right: 0;
+        margin-left: 0;
     }
   }
 }
@@ -15346,6 +15348,16 @@ fieldset[disabled] .btn-toggle.active {
     height: 30px;
     position: relative;
   }
+  &.disabled {
+    .side-inset-splitter-toggle {
+      background-color: @btn-primary-disabled-bg;
+      cursor: not-allowed;
+      > a {
+        color: @btn-primary-disabled-color;
+        cursor: inherit;
+      }
+    }
+  }
   &.top {
     left: ~'calc(100% - 30px)';
     .side-inset-splitter-toggle {
@@ -15976,6 +15988,7 @@ p.no-margin
 
 .spark {
   overflow: hidden;
+  background-color: @spark-chart1-track;
 
   &.inline {
    margin-bottom: 0;
@@ -15985,6 +15998,7 @@ p.no-margin
   }
   .fill {
    transition: none;
+   background-color: @spark-chart1-fill;
   }
 }
 
@@ -16021,7 +16035,6 @@ p.no-margin
       background-color: @spark-chart2-fill;
   }
 }
-
 
 .spark-chart3 {
   background-color: @spark-chart3-track;
@@ -22986,6 +22999,7 @@ ux-item-display-panel {
         z-index: @display-panel-z-index;
         transform: translateX(0);
         will-change: transform;
+        float: right;
 
         &.box-shadow {
             box-shadow: 1px 0 20px 0 @display-panel-shadow;
@@ -23719,6 +23733,7 @@ ux-search-builder-group {
             align-items: center;
             align-self: flex-end;
             cursor: pointer;
+            margin-bottom: 5px;
 
             .btn {
                 transition: background-color 300ms linear;
@@ -24042,6 +24057,33 @@ ux-spark {
     .ux-spark {
         background-color: fade(@primary, 20%);
         overflow: hidden;
+
+        .ux-spark-theme(primary, @primary);
+        .ux-spark-theme(accent, @accent);
+        .ux-spark-theme(secondary, @secondary);
+        .ux-spark-theme(alternate1, @alternate1);
+        .ux-spark-theme(alternate2, @alternate2);
+        .ux-spark-theme(alternate3, @alternate3);
+        .ux-spark-theme(vibrant1, @vibrant1);
+        .ux-spark-theme(vibrant2, @vibrant2);
+        .ux-spark-theme(grey1, @grey1);
+        .ux-spark-theme(grey2, @grey2);
+        .ux-spark-theme(grey3, @grey3);
+        .ux-spark-theme(grey4, @grey4);
+        .ux-spark-theme(grey5, @grey5);
+        .ux-spark-theme(grey6, @grey6);
+        .ux-spark-theme(grey7, @grey7);
+        .ux-spark-theme(grey8, @grey8);
+        .ux-spark-theme(white, @white);
+        .ux-spark-theme(chart1, @chart1);
+        .ux-spark-theme(chart2, @chart2);
+        .ux-spark-theme(chart3, @chart3);
+        .ux-spark-theme(chart4, @chart4);
+        .ux-spark-theme(chart5, @chart5);
+        .ux-spark-theme(chart6, @chart6);
+        .ux-spark-theme(ok, @ok);
+        .ux-spark-theme(warning, @warning);
+        .ux-spark-theme(critical, @critical);
     }
 
     .ux-spark .ux-spark-bar {
@@ -24108,6 +24150,16 @@ ux-spark {
 
     .ux-spark-multi-value {
         display: flex;
+    }
+}
+
+.ux-spark-theme(@themeName, @color) {
+    &.ux-spark-theme-@{themeName} {
+        background-color: fade(@color, 20%);
+
+        .ux-spark-bar {
+            background-color: @color;
+        }
     }
 }
 ux-tag-input {

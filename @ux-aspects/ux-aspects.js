@@ -12,6 +12,8 @@ import { distinctUntilChanged as distinctUntilChanged$1 } from 'rxjs/operator/di
 import { map as map$1 } from 'rxjs/operator/map';
 import { observeOn as observeOn$1 } from 'rxjs/operator/observeOn';
 import { scan as scan$1 } from 'rxjs/operator/scan';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
@@ -3753,16 +3755,36 @@ DateTimePickerConfig.decorators = [
  */
 DateTimePickerConfig.ctorParameters = () => [];
 
+class DateTimePickerService {
+    constructor() {
+        this.date = new BehaviorSubject$1(new Date());
+        this.activeDate = new BehaviorSubject$1(new Date());
+        this.mode = new BehaviorSubject$1(DatePickerMode.Day);
+        this.month = new BehaviorSubject$1(new Date().getMonth());
+        this.year = new BehaviorSubject$1(new Date().getFullYear());
+        // when the date changes update the current month and year
+        this.date.distinctUntilChanged((previous, current) => previous.getTime() === current.getTime()).subscribe(date => {
+            this.month.next(date.getMonth());
+            this.year.next(date.getFullYear());
+        });
+    }
+}
+DateTimePickerService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+DateTimePickerService.ctorParameters = () => [];
+
 class DateTimePickerComponent {
     /**
      * @param {?} _config
+     * @param {?} dateTimePickerService
      */
-    constructor(_config) {
+    constructor(_config, dateTimePickerService) {
         this._config = _config;
-        this.activeDate = new Date();
-        this.month = new Date().getMonth();
-        this.year = new Date().getFullYear();
-        this._date = new Date();
+        this.dateTimePickerService = dateTimePickerService;
         this.showDate = this._config.showDate;
         this.showTime = this._config.showTime;
         this.showTimezone = this._config.showTimezone;
@@ -3774,7 +3796,6 @@ class DateTimePickerComponent {
         this.timezones = this._config.timezones;
         this.dateChange = new EventEmitter();
         this.timezoneChange = new EventEmitter();
-        this.mode = DatePickerMode.Day;
         // expose enum to view
         this.DatePickerMode = DatePickerMode;
     }
@@ -3783,18 +3804,15 @@ class DateTimePickerComponent {
      * @return {?}
      */
     set date(value) {
-        this._date = new Date(value);
-        // update the month and year
-        this.month = this._date.getMonth();
-        this.year = this._date.getFullYear();
+        this.dateTimePickerService.date.next(new Date(value));
         // set the active date to the new date
-        this.activeDate = new Date(value);
+        this.dateTimePickerService.activeDate.next(new Date(value));
     }
     /**
      * @return {?}
      */
     get date() {
-        return this._date;
+        return this.dateTimePickerService.date.getValue();
     }
     /**
      * @param {?} value
@@ -3818,7 +3836,7 @@ class DateTimePickerComponent {
      * @return {?}
      */
     commit() {
-        this.dateChange.emit(this.activeDate);
+        this.dateChange.emit(this.dateTimePickerService.activeDate.getValue());
     }
     /**
      * Change the date to the current date and time
@@ -3841,26 +3859,27 @@ DateTimePickerComponent.decorators = [
                 template: `
     <div class="calendar-container">
 
-      <ng-container *ngIf="showDate" [ngSwitch]="mode">
+      <ng-container *ngIf="showDate" [ngSwitch]="dateTimePickerService.mode | async">
 
         <!-- Display days in the current month -->
-        <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day" [(date)]="activeDate" [(month)]="month" [(year)]="year" [weekdays]="weekdays" (dateChange)="commit()" (ascend)="mode = DatePickerMode.Month"></ux-date-time-picker-day-view>
+        <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day" [weekdays]="weekdays" (dateChange)="commit()"></ux-date-time-picker-day-view>
   
         <!-- Display the months in the current year -->
-        <ux-date-time-picker-month-view *ngSwitchCase="DatePickerMode.Month" [date]="activeDate" [(month)]="month" [(year)]="year" (monthChange)="mode = DatePickerMode.Day" (ascend)="mode = DatePickerMode.Year"></ux-date-time-picker-month-view>
+        <ux-date-time-picker-month-view *ngSwitchCase="DatePickerMode.Month"></ux-date-time-picker-month-view>
   
         <!-- Display a decade -->
-        <ux-date-time-picker-year-view *ngSwitchCase="DatePickerMode.Year" [(year)]="year" (yearChange)="mode = DatePickerMode.Month"></ux-date-time-picker-year-view>
+        <ux-date-time-picker-year-view *ngSwitchCase="DatePickerMode.Year"></ux-date-time-picker-year-view>
   
       </ng-container>
 
       <!-- Display a Time Picker -->
-      <ux-date-time-picker-time-view *ngIf="showTime" #timePicker [(date)]="activeDate" (dateChange)="commit()" [showSpinners]="showSpinners" [showTimezone]="showTimezone" [showSeconds]="showSeconds" [showMeridian]="showMeridian" (dateChange)="commit()" [timezone]="timezone" (timezoneChange)="timezoneChange.emit($event)" [timezones]="timezones"></ux-date-time-picker-time-view>
+      <ux-date-time-picker-time-view *ngIf="showTime" #timePicker (dateChange)="commit()" [showSpinners]="showSpinners" [showTimezone]="showTimezone" [showSeconds]="showSeconds" [showMeridian]="showMeridian" (dateChange)="commit()" [timezone]="timezone" (timezoneChange)="timezoneChange.emit($event)" [timezones]="timezones"></ux-date-time-picker-time-view>
 
     </div>
 
     <button class="now-button" (click)="setToNow()">{{ nowBtnText }}</button>
-  `
+  `,
+                providers: [DateTimePickerService]
             },] },
 ];
 /**
@@ -3868,6 +3887,7 @@ DateTimePickerComponent.decorators = [
  */
 DateTimePickerComponent.ctorParameters = () => [
     { type: DateTimePickerConfig, },
+    { type: DateTimePickerService, },
 ];
 DateTimePickerComponent.propDecorators = {
     'timePickerComponent': [{ type: ViewChild, args: ['timePicker',] },],
@@ -3894,35 +3914,68 @@ DatePickerMode[DatePickerMode.Month] = "Month";
 DatePickerMode[DatePickerMode.Year] = "Year";
 
 class DateTimePickerDayViewComponent {
-    constructor() {
+    /**
+     * @param {?} dateTimePickerService
+     */
+    constructor(dateTimePickerService) {
+        this.dateTimePickerService = dateTimePickerService;
         this.days = [];
-        this.month = new Date().getMonth();
-        this.year = new Date().getFullYear();
         this.weekdays = weekdaysShort;
-        this.ascend = new EventEmitter();
         this.dateChange = new EventEmitter();
-        this.monthChange = new EventEmitter();
-        this.yearChange = new EventEmitter();
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set date(value) {
-        this._date = value;
-        // update the month and year
-        this.month = this._date.getMonth();
-        this.year = this._date.getFullYear();
-        // emit the changes
-        this.monthChange.emit(this.month);
-        this.yearChange.emit(this.year);
-        this.update();
+        this.dateTimePickerService.activeDate.next(value);
     }
     /**
      * @return {?}
      */
     get date() {
-        return this._date;
+        return this.dateTimePickerService.activeDate.getValue();
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set month(value) {
+        this.dateTimePickerService.month.next(value);
+    }
+    /**
+     * @return {?}
+     */
+    get month() {
+        return this.dateTimePickerService.month.getValue();
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set year(value) {
+        this.dateTimePickerService.year.next(value);
+    }
+    /**
+     * @return {?}
+     */
+    get year() {
+        return this.dateTimePickerService.year.getValue();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        // update the grid only when the value of the active date, month or year has changed
+        this._subscription = Observable$1.merge(this.dateTimePickerService.activeDate.distinctUntilChanged(), this.dateTimePickerService.month.distinctUntilChanged(), this.dateTimePickerService.year.distinctUntilChanged())
+            .subscribe(() => this.update());
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        // remove all subscriptions
+        this._subscription.unsubscribe();
     }
     /**
      * Navigate to the previous page of dates
@@ -3936,9 +3989,6 @@ class DateTimePickerDayViewComponent {
             this.month = 11;
             this.year--;
         }
-        // emit the changes
-        this.monthChange.emit(this.month);
-        this.yearChange.emit(this.year);
         // update the grid
         this.update();
     }
@@ -3954,9 +4004,6 @@ class DateTimePickerDayViewComponent {
             this.month = 0;
             this.year++;
         }
-        // emit the changes
-        this.monthChange.emit(this.month);
-        this.yearChange.emit(this.year);
         // update the grid
         this.update();
     }
@@ -3991,9 +4038,9 @@ class DateTimePickerDayViewComponent {
      */
     select(date) {
         // update the current date object
-        this._date = new Date(date);
+        this.date = new Date(date);
         // emit the new date
-        this.dateChange.emit(this._date);
+        this.dateChange.emit();
     }
     /**
      * Determine whether or not a specific date is today
@@ -4020,12 +4067,19 @@ class DateTimePickerDayViewComponent {
     isCurrentMonth(date) {
         return date.getMonth() === this.month;
     }
+    /**
+     * Update the date picker view to show the month picker
+     * @return {?}
+     */
+    showMonthPicker() {
+        this.dateTimePickerService.mode.next(DatePickerMode.Month);
+    }
 }
 DateTimePickerDayViewComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-date-time-picker-day-view',
                 template: `
-    <ux-date-time-picker-header [header]="header" (previous)="previous()" (next)="next()" (ascend)="ascend.emit()"></ux-date-time-picker-header>
+    <ux-date-time-picker-header [header]="header" (previous)="previous()" (next)="next()" (ascend)="showMonthPicker()"></ux-date-time-picker-header>
 
     <table class="calendar">
       <thead>
@@ -4038,7 +4092,7 @@ DateTimePickerDayViewComponent.decorators = [
         <tr *ngFor="let row of days">
           <td *ngFor="let day of row" class="date-cell" [class.current]="day.today" 
             [class.active]="day.active" [class.preview]="!day.currentMonth" 
-            (click)="select(day.date)" (keyup.enter)="select(day.date)" 
+            (mousedown)="select(day.date)" (keyup.enter)="select(day.date)" 
             tabindex="0">{{ day.date.getDate() }}</td>
         </tr>
       </tbody>
@@ -4049,42 +4103,68 @@ DateTimePickerDayViewComponent.decorators = [
 /**
  * @nocollapse
  */
-DateTimePickerDayViewComponent.ctorParameters = () => [];
+DateTimePickerDayViewComponent.ctorParameters = () => [
+    { type: DateTimePickerService, },
+];
 DateTimePickerDayViewComponent.propDecorators = {
-    'month': [{ type: Input },],
-    'year': [{ type: Input },],
     'weekdays': [{ type: Input },],
-    'ascend': [{ type: Output },],
     'dateChange': [{ type: Output },],
-    'monthChange': [{ type: Output },],
-    'yearChange': [{ type: Output },],
-    'date': [{ type: Input },],
 };
 
 class DateTimePickerMonthViewComponent {
-    constructor() {
-        this.date = new Date();
-        this.year = new Date().getFullYear();
-        this.month = new Date().getMonth();
-        this.monthChange = new EventEmitter();
-        this.yearChange = new EventEmitter();
-        this.ascend = new EventEmitter();
+    /**
+     * @param {?} _dateTimePickerService
+     */
+    constructor(_dateTimePickerService) {
+        this._dateTimePickerService = _dateTimePickerService;
         this.months = gridify(range(0, 11), 4);
         this.currentDate = new Date();
+    }
+    /**
+     * @return {?}
+     */
+    get date() {
+        return this._dateTimePickerService.activeDate.getValue();
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set month(value) {
+        this._dateTimePickerService.month.next(value);
+    }
+    /**
+     * @return {?}
+     */
+    get month() {
+        return this._dateTimePickerService.month.getValue();
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set year(value) {
+        this._dateTimePickerService.year.next(value);
+    }
+    /**
+     * @return {?}
+     */
+    get year() {
+        return this._dateTimePickerService.year.getValue();
     }
     /**
      * Go to the previous year and emit the change
      * @return {?}
      */
     previous() {
-        this.yearChange.emit(--this.year);
+        this.year--;
     }
     /**
      * Go to the next year and emit the change
      * @return {?}
      */
     next() {
-        this.yearChange.emit(++this.year);
+        this.year++;
     }
     /**
      * Select a month in the calendar
@@ -4092,11 +4172,9 @@ class DateTimePickerMonthViewComponent {
      * @return {?}
      */
     select(month) {
-        // store the new month
         this.month = month;
-        // emit the changes
-        this.monthChange.emit(this.month);
-        this.yearChange.emit(this.year);
+        // show the day picker
+        this.showDayPicker();
     }
     /**
      * Get the name of a month
@@ -4106,17 +4184,31 @@ class DateTimePickerMonthViewComponent {
     getMonthName(month) {
         return monthsShort[month];
     }
+    /**
+     * Show the daye picker view
+     * @return {?}
+     */
+    showDayPicker() {
+        this._dateTimePickerService.mode.next(DatePickerMode.Day);
+    }
+    /**
+     * Show the year picker view
+     * @return {?}
+     */
+    showYearPicker() {
+        this._dateTimePickerService.mode.next(DatePickerMode.Year);
+    }
 }
 DateTimePickerMonthViewComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-date-time-picker-month-view',
                 template: `
-    <ux-date-time-picker-header [header]="year" (previous)="previous()" (next)="next()" (ascend)="ascend.emit()"></ux-date-time-picker-header>
+    <ux-date-time-picker-header [header]="year" (previous)="previous()" (next)="next()" (ascend)="showYearPicker()"></ux-date-time-picker-header>
 
     <div class="calendar">
       <div class="calendar-row" *ngFor="let row of months">
         <div class="calendar-item" *ngFor="let item of row" [class.active]="item === date.getMonth() && year === date.getFullYear()"
-          [class.current]="item === currentDate.getMonth() && year === currentDate.getFullYear()" (click)="select(item); $event.stopPropagation()" (keyup.enter)="select(item)" tabindex="0">{{ getMonthName(item) }}</div>
+          [class.current]="item === currentDate.getMonth() && year === currentDate.getFullYear()" (mousedown)="select(item)" (keyup.enter)="select(item)" tabindex="0">{{ getMonthName(item) }}</div>
       </div>
     </div>
   `
@@ -4125,23 +4217,19 @@ DateTimePickerMonthViewComponent.decorators = [
 /**
  * @nocollapse
  */
-DateTimePickerMonthViewComponent.ctorParameters = () => [];
-DateTimePickerMonthViewComponent.propDecorators = {
-    'date': [{ type: Input },],
-    'year': [{ type: Input },],
-    'month': [{ type: Input },],
-    'monthChange': [{ type: Output },],
-    'yearChange': [{ type: Output },],
-    'ascend': [{ type: Output },],
-};
+DateTimePickerMonthViewComponent.ctorParameters = () => [
+    { type: DateTimePickerService, },
+];
 
 class DateTimePickerYearViewComponent {
-    constructor() {
+    /**
+     * @param {?} _dateTimePickerService
+     */
+    constructor(_dateTimePickerService) {
+        this._dateTimePickerService = _dateTimePickerService;
         this._page = 0;
         this.years = [];
         this.currentYear = new Date().getFullYear();
-        this.year = new Date().getFullYear();
-        this.yearChange = new EventEmitter();
     }
     /**
      * @return {?}
@@ -4150,14 +4238,26 @@ class DateTimePickerYearViewComponent {
         this.update();
     }
     /**
+     * @param {?} value
+     * @return {?}
+     */
+    set year(value) {
+        this._dateTimePickerService.year.next(value);
+    }
+    /**
+     * @return {?}
+     */
+    get year() {
+        return this._dateTimePickerService.year.getValue();
+    }
+    /**
      * @param {?} year
      * @return {?}
      */
     select(year) {
-        // set the year of of the date
         this.year = year;
-        // emit the date change
-        this.yearChange.emit(this.year);
+        // show the month picker
+        this.showMonthPicker();
     }
     /**
      * @return {?}
@@ -4197,6 +4297,13 @@ class DateTimePickerYearViewComponent {
         // create an array containing all the numbers between the start and end points
         return { start: start, end: end, range: range(start, end) };
     }
+    /**
+     * Show the month picker view
+     * @return {?}
+     */
+    showMonthPicker() {
+        this._dateTimePickerService.mode.next(DatePickerMode.Month);
+    }
 }
 DateTimePickerYearViewComponent.decorators = [
     { type: Component, args: [{
@@ -4207,7 +4314,7 @@ DateTimePickerYearViewComponent.decorators = [
     <div class="calendar">
       <div class="calendar-row" *ngFor="let row of years">
         <div *ngFor="let item of row" class="calendar-item" [class.current]="item === currentYear" [class.active]="item === year"
-        (click)="select(item); $event.stopPropagation()" (keyup.enter)="select(item)" tabindex="0">{{ item }}</div>
+        (mousedown)="select(item)" (keyup.enter)="select(item)" tabindex="0">{{ item }}</div>
       </div>
     </div>
   `
@@ -4216,11 +4323,9 @@ DateTimePickerYearViewComponent.decorators = [
 /**
  * @nocollapse
  */
-DateTimePickerYearViewComponent.ctorParameters = () => [];
-DateTimePickerYearViewComponent.propDecorators = {
-    'year': [{ type: Input },],
-    'yearChange': [{ type: Output },],
-};
+DateTimePickerYearViewComponent.ctorParameters = () => [
+    { type: DateTimePickerService, },
+];
 
 class DateTimePickerHeaderComponent {
     constructor() {
@@ -4860,6 +4965,9 @@ var ComponentLoader = (function () {
         this._componentRef.destroy();
         if (this._viewContainerRef && this._contentRef.viewRef) {
             this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._contentRef.viewRef));
+        }
+        if (this._contentRef.viewRef) {
+            this._contentRef.viewRef.destroy();
         }
         // this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._componentRef.hostView));
         //
@@ -8645,33 +8753,31 @@ ItemDisplayPanelFooterDirective.decorators = [
 ItemDisplayPanelFooterDirective.ctorParameters = () => [];
 class ItemDisplayPanelComponent {
     constructor() {
+        this.boxShadow = true;
+        this.closeVisible = true;
+        this.preventClose = false;
+        this.inline = false;
+        this.animate = false;
+        this.shadow = false;
         this.visibleChange = new EventEmitter();
         this._visible = false;
-        this._boxShadow = true;
-        this._closeVisible = true;
-        this._preventClose = false;
-        this._inline = false;
-        this._animate = false;
-        this._shadow = false;
+    }
+    /**
+     * @deprecated
+     * Title used for adding tooltips and shouldn't be used as an input
+     * instead header will be used. This is here to support backward compatibility only
+     * this property should not be used.
+     * @param {?} value
+     * @return {?}
+     */
+    set title(value) {
+        this.header = value;
     }
     /**
      * @return {?}
      */
-    get top() {
-        return this._top;
-    }
-    /**
-     * @param {?} top
-     * @return {?}
-     */
-    set top(top) {
-        this._top = typeof top === 'string' ? parseFloat(top) : top;
-    }
-    /**
-     * @return {?}
-     */
-    get visible() {
-        return this._visible;
+    get title() {
+        return this.header;
     }
     /**
      * @param {?} visible
@@ -8685,80 +8791,8 @@ class ItemDisplayPanelComponent {
     /**
      * @return {?}
      */
-    get boxShadow() {
-        return this._boxShadow;
-    }
-    /**
-     * @param {?} boxShadow
-     * @return {?}
-     */
-    set boxShadow(boxShadow) {
-        this._boxShadow = typeof boxShadow === 'string' ? !(boxShadow === 'false') : boxShadow;
-    }
-    /**
-     * @return {?}
-     */
-    get closeVisible() {
-        return this._closeVisible;
-    }
-    /**
-     * @param {?} closeVisible
-     * @return {?}
-     */
-    set closeVisible(closeVisible) {
-        this._closeVisible = typeof closeVisible === 'string' ? !(closeVisible === 'false') : closeVisible;
-    }
-    /**
-     * @return {?}
-     */
-    get preventClose() {
-        return this._preventClose;
-    }
-    /**
-     * @param {?} preventClose
-     * @return {?}
-     */
-    set preventClose(preventClose) {
-        this._preventClose = typeof preventClose === 'string' ? preventClose === 'true' : preventClose;
-    }
-    /**
-     * @return {?}
-     */
-    get inline() {
-        return this._inline;
-    }
-    /**
-     * @param {?} inline
-     * @return {?}
-     */
-    set inline(inline) {
-        this._inline = typeof inline === 'string' ? inline === 'true' : inline;
-    }
-    /**
-     * @return {?}
-     */
-    get animate() {
-        return this._animate;
-    }
-    /**
-     * @param {?} animate
-     * @return {?}
-     */
-    set animate(animate) {
-        this._animate = typeof animate === 'string' ? animate === 'true' : animate;
-    }
-    /**
-     * @return {?}
-     */
-    get shadow() {
-        return this._shadow;
-    }
-    /**
-     * @param {?} shadow
-     * @return {?}
-     */
-    set shadow(shadow) {
-        this._shadow = typeof shadow === 'string' ? shadow === 'true' : shadow;
+    get visible() {
+        return this._visible;
     }
     /**
      * @param {?} event
@@ -8771,7 +8805,7 @@ class ItemDisplayPanelComponent {
         }
         // dont do anything if the panel is hidden
         if (this._visible) {
-            let /** @type {?} */ target = event.target;
+            let /** @type {?} */ target = (event.target);
             // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
             if (target.nodeName === 'HTML') {
                 return;
@@ -8797,11 +8831,11 @@ ItemDisplayPanelComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-item-display-panel',
                 template: `
-      <div class="ux-item-display-panel" [class.box-shadow]="boxShadow" [class.inline]="inline" [class.animate]="animate" [class.item-display-panel-hide]="!visible" [style.top]="top" [style.height]='"calc(100% - " + top + "px)"'>
+      <div class="ux-item-display-panel" [class.box-shadow]="boxShadow" [class.inline]="inline" [class.animate]="animate" [class.item-display-panel-hide]="!visible" [style.width]="width" [style.top]="top" [style.height]='"calc(100% - " + top + "px)"'>
 
           <div class="item-display-panel-header" [class.item-display-panel-shadow]="shadow">
               <div class="heading-flex-box">
-                  <h3>{{ title }}</h3>
+                  <h3>{{ header }}</h3>
                   <span *ngIf="closeVisible" class="heading-close-button" tabindex="0" (click)="visible = false" (keydown.enter)="visible = false">
                       <i class="hpe-icon hpe-close"></i>
                   </span>
@@ -8831,17 +8865,19 @@ ItemDisplayPanelComponent.decorators = [
  */
 ItemDisplayPanelComponent.ctorParameters = () => [];
 ItemDisplayPanelComponent.propDecorators = {
-    'title': [{ type: Input },],
-    'footer': [{ type: ContentChild, args: [ItemDisplayPanelFooterDirective,] },],
-    'visibleChange': [{ type: Output },],
+    'header': [{ type: Input },],
     'top': [{ type: Input },],
-    'visible': [{ type: Input },],
     'boxShadow': [{ type: Input },],
     'closeVisible': [{ type: Input },],
     'preventClose': [{ type: Input },],
     'inline': [{ type: Input },],
     'animate': [{ type: Input },],
     'shadow': [{ type: Input },],
+    'width': [{ type: Input },],
+    'footer': [{ type: ContentChild, args: [ItemDisplayPanelFooterDirective,] },],
+    'visibleChange': [{ type: Output },],
+    'title': [{ type: Input },],
+    'visible': [{ type: Input },],
 };
 
 const DECLARATIONS$4 = [
@@ -9602,6 +9638,29 @@ class ColorService {
             }
         }
     }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    resolve(value) {
+        if (!value) {
+            return;
+        }
+        value = value.replace(/\s+/g, '-').toLowerCase();
+        for (let /** @type {?} */ color in this._colors) {
+            if (value === color.toLowerCase()) {
+                return this.getColor(value).toRgba();
+            }
+        }
+        return value;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    resolveColorName(value) {
+        return value.replace(/\s+/g, '-').toLowerCase();
+    }
 }
 /**
  * @nocollapse
@@ -10075,21 +10134,23 @@ class SearchBuilderService {
     constructor() {
         this.query = {};
         this.queryChange = new Subject$1();
-        this._components = {};
+        this.validationChange = new BehaviorSubject$1(true);
+        this._componentId = 0;
+        this._components = [];
+        this._validation = {};
     }
     /**
      * Add a component to the internal list of components
-     * @param {?} name
      * @param {?} component
      * @return {?}
      */
-    registerComponent(name, component) {
+    registerComponent(component) {
         // ensure there are no components with a matching name
-        if (this._components.hasOwnProperty(name)) {
+        if (this._components.find(cmp => cmp.name === component.name)) {
             throw new Error(`Search builder components must have a unique name. The name ${component.name} has already been used.`);
         }
         // if unique then add the component to the list
-        this._components[name] = component;
+        this._components.push(component);
     }
     /**
      * Bulk registration of components
@@ -10098,15 +10159,23 @@ class SearchBuilderService {
      * @return {?}
      */
     registerComponents(components) {
-        components.forEach(component => this.registerComponent(component.name, component.component));
+        components.forEach(component => this.registerComponent(component));
     }
     /**
      * Get a registered component class
-     * @param {?} type
+     * @param {?} name
      * @return {?}
      */
-    getComponent(type) {
-        return this._components[type];
+    getComponent(name) {
+        // find the component
+        const /** @type {?} */ component = this._components.find(cmp => cmp.name === name);
+        // if there is no match throw an exception
+        if (!component) {
+            throw new Error(`No search build component with the name ${name} exists`);
+        }
+        // ensure config is defined - at least to an empty object
+        component.config = component.config || {};
+        return component;
     }
     /**
      * Update the internal search query state
@@ -10130,6 +10199,25 @@ class SearchBuilderService {
      */
     queryHasChanged() {
         this.queryChange.next(this.query);
+    }
+    /**
+     * Store the validation state of the query
+     * @param {?} id
+     * @param {?} valid
+     * @return {?}
+     */
+    setValid(id, valid) {
+        // store the state for this specific component
+        this._validation[id] = valid;
+        // evaluate the entire validation state
+        this.validationChange.next(!Object.keys(this._validation).some(key => !this._validation[key]));
+    }
+    /**
+     * Generate a unique id for each component
+     * @return {?}
+     */
+    generateComponentId() {
+        return this._componentId++;
     }
 }
 SearchBuilderService.decorators = [
@@ -10269,7 +10357,7 @@ SearchBuilderGroupComponent.decorators = [
 
       </section>
 
-      <section class="search-builder-group-add-field" (click)="add.emit()">
+      <section class="search-builder-group-add-field" (click)="add.emit($event)">
 
         <button type="button" class="btn btn-icon btn-circular button-accent" aria-label="Add Field">
           <span class="hpe-icon hpe-add" aria-hidden="true"></span>
@@ -10320,13 +10408,16 @@ class SearchBuilderOutletDirective {
      */
     ngOnInit() {
         // get the class from the type
-        const /** @type {?} */ component = this._searchBuilderService.getComponent(this.uxSearchBuilderOutlet);
+        const /** @type {?} */ componentDefinition = this._searchBuilderService.getComponent(this.uxSearchBuilderOutlet);
         // create the component factory
-        const /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(component);
+        const /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(componentDefinition.component);
         // create the component instance
         this._componentRef = this._viewContainerRef.createComponent(componentFactory);
+        // combine the predefined config with any dynmaic config
+        const /** @type {?} */ config = Object.assign({}, componentDefinition.config, this.uxSearchBuilderOutletContext.config || {});
         // set the context and config property on the component instance
         this._componentRef.instance.context = this.uxSearchBuilderOutletContext;
+        this._componentRef.instance.config = config;
     }
 }
 SearchBuilderOutletDirective.decorators = [
@@ -10355,14 +10446,55 @@ class BaseSearchComponent {
     constructor(_searchBuilderService, _searchBuilderGroupService) {
         this._searchBuilderService = _searchBuilderService;
         this._searchBuilderGroupService = _searchBuilderGroupService;
+        this._id = this._searchBuilderService.generateComponentId();
+        this._valid = true;
     }
     /**
+     * Get the current value of the component
+     * @return {?}
+     */
+    get value() {
+        return this.context.value;
+    }
+    /**
+     * Set the current value of the component
      * @param {?} value
      * @return {?}
      */
-    setValue(value) {
+    set value(value) {
         this.context.value = value;
         this._searchBuilderService.queryHasChanged();
+        // if value has been set perform validation
+        this.validate();
+    }
+    /**
+     * @return {?}
+     */
+    get valid() {
+        return this._valid;
+    }
+    /**
+     * @param {?} valid
+     * @return {?}
+     */
+    set valid(valid) {
+        this._valid = valid;
+        this._searchBuilderService.setValid(this._id, valid);
+    }
+    /**
+     * Make sure we clean up after ourselves
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.valid = true;
+    }
+    /**
+     * Perform any required validation on the value
+     * @return {?}
+     */
+    validate() {
+        // if a custom validation function has been provided then use it
+        this.valid = this.config.validation ? this.config.validation(this, this.value) : true;
     }
 }
 BaseSearchComponent.decorators = [
@@ -10383,28 +10515,18 @@ class SearchTextComponent extends BaseSearchComponent {
     constructor() {
         super(...arguments);
         this.type = 'text';
-        this.placeholder = 'Enter text';
     }
     /**
      * @return {?}
      */
-    ngOnInit() {
-        // set initial value if there is one
-        if (this.context.value) {
-            this.value = this.context.value;
-        }
-        // if there are no configuration options we can stop here
-        if (!this.context.config) {
-            return;
-        }
-        // if there is placeholder property then use it
-        if (this.context.config.placeholder) {
-            this.placeholder = this.context.config.placeholder;
-        }
-        // if there is label property then use it
-        if (this.context.config.label) {
-            this.label = this.context.config.label;
-        }
+    get label() {
+        return this.config.label;
+    }
+    /**
+     * @return {?}
+     */
+    get placeholder() {
+        return this.config.placeholder || 'Enter text';
     }
 }
 SearchTextComponent.decorators = [
@@ -10412,7 +10534,7 @@ SearchTextComponent.decorators = [
                 selector: 'ux-search-text',
                 template: `
     <label class="form-label" *ngIf="label">{{ label }}</label>
-    <input [placeholder]="placeholder" [(ngModel)]="value" (ngModelChange)="setValue($event)" class="form-control">
+    <input [placeholder]="placeholder" [(ngModel)]="value" class="form-control">
   `
             },] },
 ];
@@ -10420,6 +10542,315 @@ SearchTextComponent.decorators = [
  * @nocollapse
  */
 SearchTextComponent.ctorParameters = () => [];
+
+class SearchDateComponent extends BaseSearchComponent {
+    constructor() {
+        super(...arguments);
+        this.type = 'date';
+    }
+    /**
+     * @return {?}
+     */
+    get label() {
+        return this.config.label;
+    }
+    /**
+     * @return {?}
+     */
+    get placeholder() {
+        return this.config.placeholder || 'Enter date';
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        // by default set to the current date if not specified
+        if (!this.value) {
+            this.value = new Date();
+        }
+    }
+}
+SearchDateComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-search-date',
+                template: `
+    <label class="form-label" *ngIf="label">{{ label }}</label>
+
+    <div class="input-group date m-nil">
+        <span class="input-group-addon" tabindex="1" (click)="popover.show()">
+            <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+        </span>
+        <input type="text" #popover="bs-popover" [ngModel]="value | date:'dd MMMM yyyy'" [popover]="popoverTemplate"
+            placement="bottom" [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="placeholder">
+    </div>
+
+    <ng-template #popoverTemplate>
+        <ux-date-time-picker [(date)]="value" [showTime]="false"></ux-date-time-picker>
+    </ng-template>
+  `
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchDateComponent.ctorParameters = () => [];
+
+class SearchDateRangeComponent extends BaseSearchComponent {
+    constructor() {
+        super(...arguments);
+        this.type = 'date-range';
+    }
+    /**
+     * @return {?}
+     */
+    get label() {
+        return this.config.label;
+    }
+    /**
+     * @return {?}
+     */
+    get from() {
+        // if value does not exist the set it
+        if (!this.value || !this.value.from) {
+            this.from = new Date();
+        }
+        // ensure that the from value is a date object
+        if (this.value.from instanceof Date === false) {
+            this.value.from = new Date(this.value.from);
+        }
+        return this.value.from;
+    }
+    /**
+     * @param {?} fromValue
+     * @return {?}
+     */
+    set from(fromValue) {
+        // create new object based on the current value
+        const /** @type {?} */ value = Object.assign({}, this.value);
+        // ensure that the from value is a date
+        if (fromValue instanceof Date === false) {
+            fromValue = new Date(fromValue);
+        }
+        // set the latest value
+        value.from = fromValue;
+        // update the value object while ensuring immutability
+        this.value = value;
+    }
+    /**
+     * @return {?}
+     */
+    get to() {
+        // if value does not exist the set it
+        if (!this.value || !this.value.to) {
+            this.to = new Date();
+        }
+        // ensure that the to value is a date object
+        if (this.value.to instanceof Date === false) {
+            this.value.to = new Date(this.value.to);
+        }
+        return this.value.to;
+    }
+    /**
+     * @param {?} toValue
+     * @return {?}
+     */
+    set to(toValue) {
+        // create new object based on the current value
+        const /** @type {?} */ value = Object.assign({}, this.value);
+        // ensure that the to value is a date
+        if (toValue instanceof Date === false) {
+            toValue = new Date(toValue);
+        }
+        // set the latest value
+        value.to = toValue;
+        // update the value object while ensuring immutability
+        this.value = value;
+    }
+    /**
+     * @return {?}
+     */
+    get fromLabel() {
+        return this.config.fromLabel || 'From';
+    }
+    /**
+     * @return {?}
+     */
+    get toLabel() {
+        return this.config.toLabel || 'To';
+    }
+    /**
+     * @return {?}
+     */
+    get fromPlaceholder() {
+        return this.config.fromPlaceholder;
+    }
+    /**
+     * @return {?}
+     */
+    get toPlaceholder() {
+        return this.config.toPlaceholder;
+    }
+    /**
+     * Override the default validation
+     * @return {?}
+     */
+    validate() {
+        // check if there is a config validation function
+        if (this.config.validation) {
+            return super.validate();
+        }
+        // create copies of the dates so we can modify time value (to ignore it)
+        const /** @type {?} */ from$$1 = new Date(this.value.from);
+        const /** @type {?} */ to = new Date(this.value.to);
+        // set the time to the same so we dont compare it
+        from$$1.setHours(0, 0, 0, 0);
+        to.setHours(0, 0, 0, 0);
+        // valid if the from date is less than or equal to the to date
+        this.valid = from$$1 <= to;
+    }
+}
+SearchDateRangeComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-search-date-range',
+                template: `
+      <label class="form-label" *ngIf="label">{{ label }}</label>
+
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="form-inline" [class.has-error]="!valid">
+
+                  <div class="form-group p-r-md">
+                      <label class="form-label m-r-xs">{{ fromLabel }}</label>
+
+                      <div class="input-group date m-nil">
+                          <span class="input-group-addon p-r-xs" tabindex="1" (click)="fromPopover.show()">
+                              <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+                          </span>
+                          <input type="text" #fromPopover="bs-popover" [ngModel]="from | date:'dd MMMM yyyy'" [popover]="fromPopoverTemplate" placement="bottom"
+                              [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="fromPlaceholder">
+                      </div>
+                  </div>
+
+                  <div class="form-group p-r-xs">
+                      <label class="form-label m-r-xs">{{ toLabel }}</label>
+
+                      <div class="input-group date m-nil">
+                          <span class="input-group-addon" tabindex="1" (click)="toPopover.show()">
+                              <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+                          </span>
+                          <input type="text" #toPopover="bs-popover" [ngModel]="to | date:'dd MMMM yyyy'" [popover]="toPopoverTemplate" placement="bottom"
+                              [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="toPlaceholder">
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+
+      <ng-template #fromPopoverTemplate>
+          <ux-date-time-picker [(date)]="from" [showTime]="false"></ux-date-time-picker>
+      </ng-template>
+
+      <ng-template #toPopoverTemplate>
+          <ux-date-time-picker [(date)]="to" [showTime]="false"></ux-date-time-picker>
+      </ng-template>
+    `
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchDateRangeComponent.ctorParameters = () => [];
+
+class SearchSelectComponent extends BaseSearchComponent {
+    constructor() {
+        super(...arguments);
+        this.type = 'select';
+    }
+    /**
+     * Provide defaults for undefined properties
+     * @return {?}
+     */
+    get label() {
+        return this.config.label;
+    }
+    /**
+     * @return {?}
+     */
+    get options() {
+        return this.config.options || [];
+    }
+    /**
+     * @return {?}
+     */
+    get multiple() {
+        return this.config.multiple || false;
+    }
+    /**
+     * @return {?}
+     */
+    get placeholder() {
+        return this.config.placeholder || 'Select item';
+    }
+    /**
+     * @return {?}
+     */
+    get dropDirection() {
+        return this.config.dropDirection || 'down';
+    }
+    /**
+     * @return {?}
+     */
+    get allowNull() {
+        return this.config.allowNull || false;
+    }
+    /**
+     * @return {?}
+     */
+    get disabled() {
+        return this.config.disabled || false;
+    }
+    /**
+     * @return {?}
+     */
+    get maxHeight() {
+        return this.config.maxHeight || '250px';
+    }
+    /**
+     * @return {?}
+     */
+    get pageSize() {
+        return this.config.pageSize || 20;
+    }
+}
+SearchSelectComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-search-select',
+                template: `
+    <label class="form-label" *ngIf="label">{{ label }}</label>
+
+    <ux-select [(value)]="value" 
+               [options]="options" 
+               [multiple]="multiple" 
+               [placeholder]="placeholder" 
+               [dropDirection]="dropDirection"
+               [pageSize]="pageSize"
+               [allowNull]="allowNull"
+               [disabled]="disabled"
+               [maxHeight]="maxHeight"
+               [key]="config.key"
+               [display]="config.display"
+               [loadingTemplate]="config.loadingTemplate"
+               [optionTemplate]="config.optionTemplate"
+               [noOptionsTemplate]="config.noOptionsTemplate">
+    </ux-select>
+  `
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchSelectComponent.ctorParameters = () => [];
 
 class SearchBuilderComponent {
     /**
@@ -10429,10 +10860,11 @@ class SearchBuilderComponent {
     constructor(_searchBuilderService) {
         this._searchBuilderService = _searchBuilderService;
         this.queryChange = new EventEmitter();
-        // add the default components
-        _searchBuilderService.registerComponent('text', SearchTextComponent);
+        this.valid = new EventEmitter(true);
         // watch for any query changes
-        this._subscription = _searchBuilderService.queryChange.subscribe(query => this.queryChange.emit(query));
+        this._querySubscription = _searchBuilderService.queryChange.subscribe(query => this.queryChange.emit(query));
+        // watch for any changes to the validation
+        this._validSubscription = _searchBuilderService.validationChange.distinctUntilChanged().subscribe(valid => this.valid.emit(valid));
     }
     /**
      * @param {?} components
@@ -10455,10 +10887,12 @@ class SearchBuilderComponent {
         return this._searchBuilderService.getQuery();
     }
     /**
+     * Remove any subscriptions and cleanup
      * @return {?}
      */
     ngOnDestroy() {
-        this._subscription.unsubscribe();
+        this._querySubscription.unsubscribe();
+        this._validSubscription.unsubscribe();
     }
 }
 SearchBuilderComponent.decorators = [
@@ -10480,35 +10914,232 @@ SearchBuilderComponent.propDecorators = {
     'components': [{ type: Input },],
     'query': [{ type: Input },],
     'queryChange': [{ type: Output },],
+    'valid': [{ type: Output },],
 };
 
-class SearchBuilderModule {
-}
-SearchBuilderModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    FormsModule
-                ],
-                exports: [
-                    SearchBuilderComponent,
-                    SearchBuilderGroupComponent,
-                    BaseSearchComponent
-                ],
-                declarations: [
-                    SearchBuilderComponent,
-                    SearchBuilderGroupComponent,
-                    SearchTextComponent,
-                    SearchBuilderOutletDirective,
-                    BaseSearchComponent
-                ],
-                entryComponents: [SearchTextComponent]
-            },] },
-];
 /**
- * @nocollapse
+ * Configuration service for the Popover directive.
+ * You can inject this service, typically in your root component, and customize
+ * the values of its properties in order to provide default values for all the
+ * popovers used in the application.
  */
-SearchBuilderModule.ctorParameters = () => [];
+var PopoverConfig = (function () {
+    function PopoverConfig() {
+        /**
+         * Placement of a popover. Accepts: "top", "bottom", "left", "right", "auto"
+         */
+        this.placement = 'top';
+        /**
+         * Specifies events that should trigger. Supports a space separated list of
+         * event names.
+         */
+        this.triggers = 'click';
+        this.outsideClick = false;
+    }
+    PopoverConfig.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    PopoverConfig.ctorParameters = function () { return []; };
+    return PopoverConfig;
+}());
+
+var PopoverContainerComponent = (function () {
+    function PopoverContainerComponent(config) {
+        Object.assign(this, config);
+    }
+    Object.defineProperty(PopoverContainerComponent.prototype, "isBs3", {
+        get: function () {
+            return isBs3();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    PopoverContainerComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'popover-container',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    // tslint:disable-next-line
+                    host: {
+                        '[class]': '"popover in popover-" + placement + " " + "bs-popover-" + placement + " " + placement + " " + containerClass',
+                        '[class.show]': '!isBs3',
+                        role: 'tooltip',
+                        style: 'display:block;'
+                    },
+                    styles: [
+                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: calc(50% - 5px);\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: calc(50% - 2.5px);\n    }\n  "
+                    ],
+                    template: "<div class=\"popover-arrow arrow\"></div> <h3 class=\"popover-title popover-header\" *ngIf=\"title\">{{ title }}</h3> <div class=\"popover-content popover-body\"> <ng-content></ng-content> </div> "
+                },] },
+    ];
+    /** @nocollapse */
+    PopoverContainerComponent.ctorParameters = function () { return [
+        { type: PopoverConfig, },
+    ]; };
+    PopoverContainerComponent.propDecorators = {
+        'placement': [{ type: Input },],
+        'title': [{ type: Input },],
+    };
+    return PopoverContainerComponent;
+}());
+
+/**
+ * A lightweight, extensible directive for fancy popover creation.
+ */
+var PopoverDirective = (function () {
+    function PopoverDirective(_elementRef, _renderer, _viewContainerRef, _config, cis) {
+        /**
+         * Close popover on outside click
+         */
+        this.outsideClick = false;
+        /**
+         * Css class for popover container
+         */
+        this.containerClass = '';
+        this._isInited = false;
+        this._popover = cis
+            .createLoader(_elementRef, _viewContainerRef, _renderer)
+            .provide({ provide: PopoverConfig, useValue: _config });
+        Object.assign(this, _config);
+        this.onShown = this._popover.onShown;
+        this.onHidden = this._popover.onHidden;
+        // fix: no focus on button on Mac OS #1795
+        if (typeof window !== 'undefined') {
+            _elementRef.nativeElement.addEventListener('click', function () {
+                try {
+                    _elementRef.nativeElement.focus();
+                }
+                catch (err) {
+                    return;
+                }
+            });
+        }
+    }
+    Object.defineProperty(PopoverDirective.prototype, "isOpen", {
+        /**
+         * Returns whether or not the popover is currently being shown
+         */
+        get: function () {
+            return this._popover.isShown;
+        },
+        set: function (value) {
+            if (value) {
+                this.show();
+            }
+            else {
+                this.hide();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Opens an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.show = function () {
+        if (this._popover.isShown || !this.popover) {
+            return;
+        }
+        this._popover
+            .attach(PopoverContainerComponent)
+            .to(this.container)
+            .position({ attachment: this.placement })
+            .show({
+            content: this.popover,
+            context: this.popoverContext,
+            placement: this.placement,
+            title: this.popoverTitle,
+            containerClass: this.containerClass
+        });
+        this.isOpen = true;
+    };
+    /**
+     * Closes an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.hide = function () {
+        if (this.isOpen) {
+            this._popover.hide();
+            this.isOpen = false;
+        }
+    };
+    /**
+     * Toggles an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.toggle = function () {
+        if (this.isOpen) {
+            return this.hide();
+        }
+        this.show();
+    };
+    PopoverDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        // fix: seems there are an issue with `routerLinkActive`
+        // which result in duplicated call ngOnInit without call to ngOnDestroy
+        // read more: https://github.com/valor-software/ngx-bootstrap/issues/1885
+        if (this._isInited) {
+            return;
+        }
+        this._isInited = true;
+        this._popover.listen({
+            triggers: this.triggers,
+            outsideClick: this.outsideClick,
+            show: function () { return _this.show(); }
+        });
+    };
+    PopoverDirective.prototype.ngOnDestroy = function () {
+        this._popover.dispose();
+    };
+    PopoverDirective.decorators = [
+        { type: Directive, args: [{ selector: '[popover]', exportAs: 'bs-popover' },] },
+    ];
+    /** @nocollapse */
+    PopoverDirective.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: Renderer2, },
+        { type: ViewContainerRef, },
+        { type: PopoverConfig, },
+        { type: ComponentLoaderFactory, },
+    ]; };
+    PopoverDirective.propDecorators = {
+        'popover': [{ type: Input },],
+        'popoverContext': [{ type: Input },],
+        'popoverTitle': [{ type: Input },],
+        'placement': [{ type: Input },],
+        'outsideClick': [{ type: Input },],
+        'triggers': [{ type: Input },],
+        'container': [{ type: Input },],
+        'containerClass': [{ type: Input },],
+        'isOpen': [{ type: Input },],
+        'onShown': [{ type: Output },],
+        'onHidden': [{ type: Output },],
+    };
+    return PopoverDirective;
+}());
+
+var PopoverModule = (function () {
+    function PopoverModule() {
+    }
+    PopoverModule.forRoot = function () {
+        return {
+            ngModule: PopoverModule,
+            providers: [PopoverConfig, ComponentLoaderFactory, PositioningService]
+        };
+    };
+    PopoverModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CommonModule],
+                    declarations: [PopoverDirective, PopoverContainerComponent],
+                    exports: [PopoverDirective],
+                    entryComponents: [PopoverContainerComponent]
+                },] },
+    ];
+    /** @nocollapse */
+    PopoverModule.ctorParameters = function () { return []; };
+    return PopoverModule;
+}());
 
 class TypeaheadOptionEvent {
     /**
@@ -11699,7 +12330,7 @@ class SelectComponent {
                 this.input = this.getDisplay(changes.value.currentValue);
             }
         }
-        if (changes.multiple && changes.multiple.currentValue !== changes.multiple.previousValue) {
+        if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input = '';
         }
     }
@@ -11886,11 +12517,11 @@ SelectComponent.ctorParameters = () => [
     { type: TypeaheadKeyService, },
 ];
 SelectComponent.propDecorators = {
-    'value': [{ type: Input, args: ['value',] },],
+    'value': [{ type: Input },],
     'valueChange': [{ type: Output },],
-    'input': [{ type: Input, args: ['input',] },],
+    'input': [{ type: Input },],
     'inputChange': [{ type: Output },],
-    'dropdownOpen': [{ type: Input, args: ['dropdownOpen',] },],
+    'dropdownOpen': [{ type: Input },],
     'dropdownOpenChange': [{ type: Output },],
     'options': [{ type: Input },],
     'display': [{ type: Input },],
@@ -12714,6 +13345,45 @@ SelectModule.decorators = [
  * @nocollapse
  */
 SelectModule.ctorParameters = () => [];
+
+class SearchBuilderModule {
+}
+SearchBuilderModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    FormsModule,
+                    DateTimePickerModule,
+                    PopoverModule.forRoot(),
+                    SelectModule
+                ],
+                exports: [
+                    SearchBuilderComponent,
+                    SearchBuilderGroupComponent,
+                    BaseSearchComponent
+                ],
+                declarations: [
+                    SearchBuilderComponent,
+                    SearchBuilderGroupComponent,
+                    SearchTextComponent,
+                    SearchDateComponent,
+                    SearchDateRangeComponent,
+                    SearchBuilderOutletDirective,
+                    SearchSelectComponent,
+                    BaseSearchComponent
+                ],
+                entryComponents: [
+                    SearchTextComponent,
+                    SearchDateComponent,
+                    SearchDateRangeComponent,
+                    SearchSelectComponent
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchBuilderModule.ctorParameters = () => [];
 
 class SliderComponent {
     /**
@@ -13541,17 +14211,53 @@ class SparkComponent {
     constructor(_colorService) {
         this._colorService = _colorService;
         this.values = [];
-        this.trackColor = this._colorService.getColor('primary').setAlpha(0.2).toRgba();
-        this.barColor = this._colorService.getColor('primary').toHex();
         this.barHeight = 10;
+        this._theme = 'primary';
+        this._barColor = [];
     }
     /**
-     * @param {?} themeName
+     * @param {?} value
      * @return {?}
      */
-    set theme(themeName) {
-        this.trackColor = this._colorService.getColor(themeName).setAlpha(0.2).toRgba();
-        this.barColor = this._colorService.getColor(themeName).toHex();
+    set theme(value) {
+        this._theme = this._colorService.resolveColorName(value);
+    }
+    /**
+     * @return {?}
+     */
+    get theme() {
+        return this._theme;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set trackColor(value) {
+        this._trackColor = this._colorService.resolve(value);
+    }
+    /**
+     * @return {?}
+     */
+    get trackColor() {
+        return this._trackColor;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set barColor(value) {
+        if (Array.isArray(value)) {
+            this._barColor = value.map(color => this._colorService.resolve(color));
+        }
+        else {
+            this._barColor = [this._colorService.resolve(value)];
+        }
+    }
+    /**
+     * @return {?}
+     */
+    get barColor() {
+        return this._barColor;
     }
     /**
      * @param {?} value
@@ -13564,8 +14270,6 @@ class SparkComponent {
         let /** @type {?} */ total = Math.max(values.reduce((previous, current) => previous + current, 0), 100);
         // figure out the percentages for each spark line
         this.values = values.map(val => (val / total) * 100);
-        // ensure 'barColor' is an array
-        this.barColor = Array.isArray(this.barColor) ? this.barColor : [this.barColor];
     }
     /**
      * @return {?}
@@ -13590,7 +14294,7 @@ SparkComponent.decorators = [
                   <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
               </div>
 
-              <div class="ux-spark ux-inline" [style.height.px]="barHeight" [style.backgroundColor]="trackColor" [tooltip]="tooltip">
+              <div class="ux-spark ux-inline ux-spark-theme-{{theme}}" [style.height.px]="barHeight" [style.backgroundColor]="trackColor" [tooltip]="tooltip">
                   <div class="ux-spark-bar" *ngFor="let line of values; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
               </div>
 
@@ -13613,7 +14317,7 @@ SparkComponent.decorators = [
               <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
           </div>
 
-          <div class="ux-spark" [class.ux-spark-multi-value]="values.length > 0" [style.height.px]="barHeight" [style.backgroundColor]="trackColor"
+          <div class="ux-spark ux-spark-theme-{{theme}}" [class.ux-spark-multi-value]="values.length > 1" [style.height.px]="barHeight" [style.backgroundColor]="trackColor"
               [tooltip]="tooltip">
               <div class="ux-spark-bar" *ngFor="let line of value; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
           </div>
@@ -13635,8 +14339,6 @@ SparkComponent.ctorParameters = () => [
     { type: ColorService, },
 ];
 SparkComponent.propDecorators = {
-    'trackColor': [{ type: Input },],
-    'barColor': [{ type: Input },],
     'barHeight': [{ type: Input },],
     'inlineLabel': [{ type: Input },],
     'topLeftLabel': [{ type: Input },],
@@ -13645,6 +14347,8 @@ SparkComponent.propDecorators = {
     'bottomRightLabel': [{ type: Input },],
     'tooltip': [{ type: Input },],
     'theme': [{ type: Input },],
+    'trackColor': [{ type: Input },],
+    'barColor': [{ type: Input },],
     'value': [{ type: Input },],
 };
 
@@ -16587,5 +17291,5 @@ class StorageAdapter {
  * Generated bundle index. Do not edit.
  */
 
-export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, MediaPlayerService as ɵc, PageHeaderNavigationDropdownItemComponent as ɵb, PageHeaderNavigationItemComponent as ɵa, HoverActionService as ɵd };
+export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, DateTimePickerService as ɵa, MediaPlayerService as ɵd, PageHeaderNavigationDropdownItemComponent as ɵc, PageHeaderNavigationItemComponent as ɵb, HoverActionService as ɵe };
 //# sourceMappingURL=ux-aspects.js.map
