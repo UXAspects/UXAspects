@@ -6,16 +6,16 @@
 <p>It is contained in the <code>help-center-menu</code> directive. The attributes of this directive are:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="url" type="string" binding="literal" required="true">
+    <tr uxdApiProperty name="url" type="string" binding="literal" required="true">
         Defines the Help Center URL.
     </tr>
-    <tr uxd-api-property name="help-text" type="string" binding="literal" required="true">
+    <tr uxdApiProperty name="help-text" type="string" binding="literal" required="true">
         Defines the Help Center text for the general Help Center.
     </tr>
-    <tr uxd-api-property name="icon" type="string" binding="variable" required="true">
+    <tr uxdApiProperty name="icon" type="string" binding="variable" required="true">
         Defines the icon that should be displayed to represent the help Center.
     </tr>
-    <tr uxd-api-property name="target" type="string" binding="literal" defaultValue="_self">
+    <tr uxdApiProperty name="target" type="string" binding="literal" defaultValue="_self">
         Defines where to open the URL. The available options are: <code>_self</code>, <code>_blank</code>,
         <code>_parent</code>, <code>_top</code>, <code>framename</code>.
     </tr>
@@ -29,13 +29,13 @@
 </p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="help-center-title" type="string" binding="literal" required="true">
+    <tr uxdApiProperty name="help-center-title" type="string" binding="literal" required="true">
         Defines the title of the menu item for a specific page.
     </tr>
-    <tr uxd-api-property name="help-center-url" type="string" binding="literal" required="true">
+    <tr uxdApiProperty name="help-center-url" type="string" binding="literal" required="true">
         Defines the url to which the page navigates when this menu item is clicked.
     </tr>
-    <tr uxd-api-property name="sort-fn" type="function" binding="literal">
+    <tr uxdApiProperty name="sort-fn" type="function" binding="literal">
         Defines a sort function (similar to sort function in JS Array.prototype) based on which the menu items are displayed.
     </tr>
 </uxd-api-properties>

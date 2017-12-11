@@ -11,50 +11,50 @@
 <p>The component can be configured with the following options provided as attributes:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="ng-model" type="object" binding="variable" required="true">
+    <tr uxdApiProperty name="ng-model" type="object" binding="variable" required="true">
         Should contain a json object with date, time and timezone values.
     </tr>
-    <tr uxd-api-property name="is-meridian" type="boolean" binding="variable">
+    <tr uxdApiProperty name="is-meridian" type="boolean" binding="variable">
         Indicating whether the time picker should work in 12 hour mode or 24 hour mode. The 12 hour mode 
         is selected when is-meridian is set to true and the 24 hour mode is selected when is-meridian is 
         set to false.Indicating whether the time picker should work in 12 hour mode or 24 hour mode. 
         The 12 hour mode is selected when is-meridian is set to true and the 24 hour mode is selected 
         when is-meridian is set to false.
     </tr>
-    <tr uxd-api-property name="timezones" type="array" binding="variable">
+    <tr uxdApiProperty name="timezones" type="array" binding="variable">
         An array of values containing the timezones.
     </tr>
-    <tr uxd-api-property name="timezone-default-index" type="number" binding="variable">
+    <tr uxdApiProperty name="timezone-default-index" type="number" binding="variable">
         The array index of the default timezone to be selected.
     </tr>
-    <tr uxd-api-property name="choose-time" type="boolean" binding="variable">
+    <tr uxdApiProperty name="choose-time" type="boolean" binding="variable">
         Indicates whether time picker should be displayed.
     </tr>
-    <tr uxd-api-property name="chose-date" type="boolean" binding="variable">
+    <tr uxdApiProperty name="chose-date" type="boolean" binding="variable">
         Indicates whether date picker should be displayed.
     </tr>
-    <tr uxd-api-property name="choose-seconds" type="boolean" binding="variable">
+    <tr uxdApiProperty name="choose-seconds" type="boolean" binding="variable">
         Indicates whether the seconds field in the time picker should be displayed.
     </tr>
-    <tr uxd-api-property name="choose-timezone" type="boolean" binding="variable">
+    <tr uxdApiProperty name="choose-timezone" type="boolean" binding="variable">
         Indicates whether timezone picker should be displayed.
     </tr>
-    <tr uxd-api-property name="default-day-time" type="string" binding="literal" defaultValue="start">
+    <tr uxdApiProperty name="default-day-time" type="string" binding="literal" defaultValue="start">
         Choose whether the default time should be the start or end of the day. Valid values are 
         <code>start</code> and <code>end</code>.
     </tr>
-    <tr uxd-api-property name="validator" type="function" binding="variable">
+    <tr uxdApiProperty name="validator" type="function" binding="variable">
         Set a funtion here to override the default validation checks with your own custom checks. 
         This should return true if the validation passes; otherwise return false.
     </tr>
-    <tr uxd-api-property name="placement" type="string" binding="variable" defaultValue="bottom">
+    <tr uxdApiProperty name="placement" type="string" binding="variable" defaultValue="bottom">
         Defines whether the popover should appear to the bottom or top of the input. The valid options 
         are <code>top</code> and <code>bottom</code>. The default value is <code>bottom</code>.
     </tr>
-    <tr uxd-api-property name="display-format-12hr" type="string" binding="variable" defaultValue="ddd MMM DD, YYYY h:mm:ss A">
+    <tr uxdApiProperty name="display-format-12hr" type="string" binding="variable" defaultValue="ddd MMM DD, YYYY h:mm:ss A">
         Sets the format for how the date will appear in the input box when in 12hour mode.
     </tr>
-    <tr uxd-api-property name="display-format-24hr" type="string" binding="variable" defaultValue="ddd MMM DD, YYYY HH:mm:ss">
+    <tr uxdApiProperty name="display-format-24hr" type="string" binding="variable" defaultValue="ddd MMM DD, YYYY HH:mm:ss">
         Sets the format for how the date will appear in the input box when in 24 hour mode.
     </tr>
 </uxd-api-properties>

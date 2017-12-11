@@ -3,19 +3,19 @@
 <p>To include a Custom Facet in a <code>facet-container</code>, use the <code>facet-custom</code> directive in place of a <code>facet</code>    directive. The required attributes are:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="name" type="string" binding="variable" required="true">
+    <tr uxdApiProperty name="name" type="string" binding="variable" required="true">
         A string name for the facet.
     </tr>
-    <tr uxd-api-property name="model" type="object" binding="variable" required="true">
+    <tr uxdApiProperty name="model" type="object" binding="variable" required="true">
         An object in the controller context which contains the computed value of the custom facet.
     </tr>
-    <tr uxd-api-property name="select" type="function" binding="variable" required="true">
+    <tr uxdApiProperty name="select" type="function" binding="variable" required="true">
         A function called when the value of <code>model</code> changes.
     </tr>
-    <tr uxd-api-property name="deselect" type="function" binding="variable" required="true">
+    <tr uxdApiProperty name="deselect" type="function" binding="variable" required="true">
         A function called when the facet is deselected.
     </tr>
-    <tr uxd-api-property name="display" type="function" binding="variable" required="true">
+    <tr uxdApiProperty name="display" type="function" binding="variable" required="true">
         A function which computes a display name for the facet when selected.
     </tr>
 </uxd-api-properties>

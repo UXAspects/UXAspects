@@ -1205,3 +1205,33 @@ th {
   }
 
 }
+
+/*
+ * Fixed Header Table Styling
+ */
+
+.ux-fixed-header-table {
+  display: flex;
+  flex-direction: column;
+
+  thead, tbody {
+      display: block;
+
+      tr {
+          display: flex;
+
+          th, td {
+              display: block;
+              flex: 1;
+              overflow: hidden;
+              text-overflow: ellipsis;
+          }
+      }
+  }
+
+  tbody {
+      overflow-y: scroll;
+      min-height: 1px;
+      margin-top: -1px;
+  }
+}

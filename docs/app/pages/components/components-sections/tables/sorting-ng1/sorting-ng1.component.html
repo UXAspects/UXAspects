@@ -9,19 +9,19 @@
 <p><code>sorter-option</code> should have the following attributes:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="name" type="string" binding="variable" required="true">
+    <tr uxdApiProperty name="name" type="string" binding="variable" required="true">
         Sorter option name displayed.
     </tr>
-    <tr uxd-api-property name="select" type="function" binding="variable" required="true">
+    <tr uxdApiProperty name="select" type="function" binding="variable" required="true">
         Called when the option is selected. This method performs sorting, pagination and updates the data count.
     </tr>
-    <tr uxd-api-property name="disabled" type="boolean" binding="variable" defaultValue="false">
+    <tr uxdApiProperty name="disabled" type="boolean" binding="variable" defaultValue="false">
         Allows a sorter option to be disabled.
     </tr>
-    <tr uxd-api-property name="default" type="boolean" binding="variable" required="true">
+    <tr uxdApiProperty name="default" type="boolean" binding="variable" required="true">
         True if this is the default sorter.
     </tr>
-    <tr uxd-api-property name="icon-class" type="string" binding="variable">
+    <tr uxdApiProperty name="icon-class" type="string" binding="variable">
         Class name of an icon to display on the right side of the sorter name (Example value: <code>hpe-icon hpe-actions</code>).
     </tr>
 </uxd-api-properties>

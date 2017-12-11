@@ -7,24 +7,24 @@
 <p>To use the Contacts control use the <code>contact-group</code> directive. The full list of configuration attributes for this control is defined below:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="contacts" type="array" binding="variable" required="true">
+    <tr uxdApiProperty name="contacts" type="array" binding="variable" required="true">
       An array of contacts to display (format defined below) or a single contact object.
     </tr>
-    <tr uxd-api-property name="organization" type="object" binding="variable" required="true">
+    <tr uxdApiProperty name="organization" type="object" binding="variable" required="true">
       An object defining the organization (format defined below).
     </tr>
-    <tr uxd-api-property name="size" type="string" binding="variable" required="true">
+    <tr uxdApiProperty name="size" type="string" binding="variable" required="true">
       The size of the control, either <code>medium</code> or <code>small</code>.
     </tr>
-    <tr uxd-api-property name="colors" type="object" binding="variable" required="true">
+    <tr uxdApiProperty name="colors" type="object" binding="variable" required="true">
       An object mapping the <code>primary</code>, <code>secondary</code>, <code>active</code>, and 
       <code>passive</code> colors in #HTML format. The primary color will be used as the background 
       for the contact. We recommend you use colors from the <a routerLink="/css/color-palette" fragment="color-palette">Color Palette</a>.
     </tr>
-    <tr uxd-api-property name="max-contacts" type="number" binding="literal">
+    <tr uxdApiProperty name="max-contacts" type="number" binding="literal">
       The maximum number of contacts to display. The remainder will be condensed into an overflow segment.
     </tr>
-    <tr uxd-api-property name="overflow-click" type="function" binding="variable">
+    <tr uxdApiProperty name="overflow-click" type="function" binding="variable">
       Handler for the click event in the overflow segment.
     </tr>
 </uxd-api-properties>
@@ -34,16 +34,16 @@
 <p>Contacts can be supplied either as a single object, or more typically as an array of objects.</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="text" required="true">
+    <tr uxdApiProperty name="text" required="true">
       The name to be displayed for the contact.
     </tr>
-    <tr uxd-api-property name="status">
+    <tr uxdApiProperty name="status">
       Either "active" or "passive".
     </tr>
-    <tr uxd-api-property name="tooltip">
+    <tr uxdApiProperty name="tooltip">
       Simple tooltip to show text or HTML for the contact on hover.
     </tr>
-    <tr uxd-api-property name="customTooltip">
+    <tr uxdApiProperty name="customTooltip">
       This can be used to design a complex tooltip which appears on hover. The <code>customTooltip</code> object can have the following attributes :
       <ul>
         <li><code>template</code>: (required) The relative path to the HTML template to be displayed for the contact on hover.
@@ -65,16 +65,16 @@
 <p>Organizations should be objects with the following properties:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="text" required="true">
+    <tr uxdApiProperty name="text" required="true">
       The name to be displayed for the organization.
     </tr>
-    <tr uxd-api-property name="label">
+    <tr uxdApiProperty name="label">
       String, either <code>external</code> or <code>risk</code>.
     </tr>
-    <tr uxd-api-property name="tooltip">
+    <tr uxdApiProperty name="tooltip">
       Simple tooltip to show text or HTML for the organization on hover.
     </tr>
-    <tr uxd-api-property name="customTooltip">
+    <tr uxdApiProperty name="customTooltip">
       This can be used to design a complex tooltip which appears on hover. The <code>customTooltip</code> object can have the following attributes :
       <ul>
         <li><code>template</code>: (required) The relative path to the HTML template to be displayed for the contact on hover.

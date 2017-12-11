@@ -35,10 +35,10 @@
 <p>Attributes that can be defined for the Marquee Wizard:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="wizard-icon" type="string" binding="variable" required="true">
+    <tr uxdApiProperty name="wizard-icon" type="string" binding="variable" required="true">
       Specifies the icon for the wizard.
     </tr>
-    <tr uxd-api-property name="wizard-steps" type="array" binding="variable" required="true">
+    <tr uxdApiProperty name="wizard-steps" type="array" binding="variable" required="true">
       Specifies the behaviour of each step:
       <ul>
         <li><code>title</code> - String for the title of the step.</li>
@@ -51,7 +51,7 @@
         <li><code>visited</code> - This value will update as each step is visited but can be overwritten by setting the boolean value.</li>
       </ul>
     </tr>
-    <tr uxd-api-property name="button-options" type="object" binding="variable" required="true">
+    <tr uxdApiProperty name="button-options" type="object" binding="variable" required="true">
       Defines the text, tooltip and visibility of a button.
       <ul>
         <li><code>nextText</code> - (default:"Next") - defines the text for the 'Next' button.</li>
@@ -68,27 +68,27 @@
         <li><code>finishEnabled</code> - (default: true) - defines whether or not the 'Finish' button is enabled.</li>
       </ul>
     </tr>
-    <tr uxd-api-property name="on-changing" type="function" binding="variable">
+    <tr uxdApiProperty name="on-changing" type="function" binding="variable">
       Expression that is called when changing steps. The expression should take in two parameters, from and to, which are
       the indexes of the steps involved in the change. If it returns false then the current step goes into error state
       and the step change is stopped. e.g. <code>on-changing="canChange(from,to)"</code>. The expression can also return
       a number representing a step index to move to, overriding the <code>to</code> parameter.
     </tr>
-    <tr uxd-api-property name="on-finishing" type="function" binding="variable">
+    <tr uxdApiProperty name="on-finishing" type="function" binding="variable">
       Expression that is called when Finish is clicked but before <code>on-finished</code> expression is evaluated. The expression
       should return a boolean or number result. If the function returns a number the wizard will go to that step. If it returns false current step goes into error state and the step change is stopped. e.g.
       <code>on-finishing="canChange()"</code>.
     </tr>
-    <tr uxd-api-property name="on-finished" type="function" binding="variable">
+    <tr uxdApiProperty name="on-finished" type="function" binding="variable">
       Expression that is called when Finish is clicked, after <code>on-finishing</code> expression is evaluated. e.g. <code>on-finished="wizardComplete()"</code>.
     </tr>
-    <tr uxd-api-property name="on-canceled" type="function" binding="variable">
+    <tr uxdApiProperty name="on-canceled" type="function" binding="variable">
       Expression that is called when Cancel is clicked. e.g. <code>on-canceled="wizardCanceled()"</code>.
     </tr>
-    <tr uxd-api-property name="is-visited" type="boolean" binding="variable" defaultValue="false">
+    <tr uxdApiProperty name="is-visited" type="boolean" binding="variable" defaultValue="false">
       Set to indicate if a wizard is already visited(edited) and to enable all the steps.
     </tr>
-    <tr uxd-api-property name="side-info" type="string" binding="variable">
+    <tr uxdApiProperty name="side-info" type="string" binding="variable">
       Object to define the side panel info between the icon and the steps.
       <ul>
         <li><code>title</code> - optional string to define the title in the side info panel.</li>

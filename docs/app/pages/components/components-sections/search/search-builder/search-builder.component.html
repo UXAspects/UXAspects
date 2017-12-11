@@ -85,19 +85,19 @@
 <p>The following properties can be used to interact with and to configure the search builder:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="query" type="SearchBuilderQuery">
+    <tr uxdApiProperty name="query" type="SearchBuilderQuery">
         If defined this will populate the search builder with the specified fields and values
     </tr>
-    <tr uxd-api-property name="components" type="SearchBuilderComponentDefinition[]">
+    <tr uxdApiProperty name="components" type="SearchBuilderComponentDefinition[]">
         If specified, this allows custom components to be used within the search builder
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="queryChange" type="SearchBuilderQuery">
+    <tr uxdApiProperty name="queryChange" type="SearchBuilderQuery">
         This event will fire whenever the query has been modified. It will contain the latest query value
     </tr>
-    <tr uxd-api-property name="valid" type="boolean">
+    <tr uxdApiProperty name="valid" type="boolean">
         This will fire whenever the search builders validity changes. It will provide a boolean representing the validity of the search query.
         A value of <code>true</code> will be given if the query is valid and a value of <code>false</code> when it is invalid.
     </tr>
@@ -116,36 +116,36 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="id" type="string" [required]="true">
+    <tr uxdApiProperty name="id" type="string" [required]="true">
         This is a unique identifier for this group. 
         This will be used in the search query object to identify which fields belong to this group.
     </tr>
-    <tr uxd-api-property name="header" type="string">
+    <tr uxdApiProperty name="header" type="string">
         The header to be displayed above the search group.
     </tr>
-    <tr uxd-api-property name="operator" type="'and' | 'or' | 'not'" defaultValue="'and'">
+    <tr uxdApiProperty name="operator" type="'and' | 'or' | 'not'" defaultValue="'and'">
         The operator to be displayed beside the group.
     </tr>
-    <tr uxd-api-property name="addText" type="string" defaultValue="Add a field">
+    <tr uxdApiProperty name="addText" type="string" defaultValue="Add a field">
         Allows customization of the text beside the add field button.
     </tr>
-    <tr uxd-api-property name="showPlaceholder" type="boolean" defaultValue="false">
+    <tr uxdApiProperty name="showPlaceholder" type="boolean" defaultValue="false">
         If true a placeholder field will be displayed. One common use case is to display a panel
         containing a list of potential fields when the user clicks the 'Add a field' button. This allows 
         the user to pick the desired field. The placeholder could be shown until a field is selected.
     </tr>
-    <tr uxd-api-property name="placeholder" type="TemplateRef">
+    <tr uxdApiProperty name="placeholder" type="TemplateRef">
         Allows a custom template to be used as the placeholder.
     </tr>
     
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="add" type="void">
+    <tr uxdApiProperty name="add" type="void">
         This will be fired when the user clicks the 'Add a field' button. This event should be used to add 
         a new entry to the query object.
     </tr>
-    <tr uxd-api-property name="remove" type="SearchBuilderGroupQuery">
+    <tr uxdApiProperty name="remove" type="SearchBuilderGroupQuery">
         This will be fired when the user clicks the remove button. The field being removed will be emitted.
     </tr>
 </uxd-api-properties>
@@ -164,7 +164,7 @@
 <p>The following prebuilt components are available to use:</p>
 
 <uxd-api-properties tableTitle="Components">
-    <tr uxd-api-property name="SearchTextComponent">
+    <tr uxdApiProperty name="SearchTextComponent">
         <p class="m-b">A simple text input component. The following configuration options are available:</p>
 
         <ul>
@@ -174,7 +174,7 @@
         </ul>
     </tr>
 
-    <tr uxd-api-property name="SearchDateComponent">
+    <tr uxdApiProperty name="SearchDateComponent">
         <p class="m-b">A date picker component. The following configuration options are available:</p>
 
         <ul>
@@ -184,7 +184,7 @@
         </ul>
     </tr>
     
-    <tr uxd-api-property name="SearchDateRangeComponent">
+    <tr uxdApiProperty name="SearchDateRangeComponent">
         <p class="m-b">A date range picker component. The following configuration options are available:</p>
 
         <ul>
@@ -198,7 +198,7 @@
     </tr>
     
 
-    <tr uxd-api-property name="SearchDateComponent">
+    <tr uxdApiProperty name="SearchDateComponent">
         <p class="m-b">A select component allowing both single and multiple selection. The following configuration options are available:</p>
 
         <ul>

@@ -106,35 +106,35 @@
 <p>The following attributes can be added to the <code>ux-dashboard</code> component to configure its behavior:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="layout" type="DashboardLayoutData[]">If defined or changed this will set 
+    <tr uxdApiProperty name="layout" type="DashboardLayoutData[]">If defined or changed this will set 
         the positions of the widgets within the dashboard. This is a two way binding that will be 
         updated with the current layout when it changes.
     </tr>
-    <tr uxd-api-property name="options" type="DashboardOptions">Configures the options for the dashboard, if an option is not 
+    <tr uxdApiProperty name="options" type="DashboardOptions">Configures the options for the dashboard, if an option is not 
         specified the default value will be used.</tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="layoutChange" type="DashboardOptions">Emits when layout has been changed.</tr>
+    <tr uxdApiProperty name="layoutChange" type="DashboardOptions">Emits when layout has been changed.</tr>
 </uxd-api-properties>
 
 <p>The following <code>DashboardOptions</code> are available to configure:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="columns" type="number">Defines the number of columns the dashboard should have.</tr>
-    <tr uxd-api-property name="minWidth" type="number">Defines minimum widget width.</tr>
-    <tr uxd-api-property name="minHeight" type="number">Defines minimum widget height.</tr>
-    <tr uxd-api-property name="rowHeight" type="number">Defines the height of each row on the dashboard.</tr>
-    <tr uxd-api-property name="emptyRow" type="boolean">Defines whether or not an empty row should always be visible on the bottom of the dashboard to allow for additional items or dragging/resizing.</tr>
+    <tr uxdApiProperty name="columns" type="number">Defines the number of columns the dashboard should have.</tr>
+    <tr uxdApiProperty name="minWidth" type="number">Defines minimum widget width.</tr>
+    <tr uxdApiProperty name="minHeight" type="number">Defines minimum widget height.</tr>
+    <tr uxdApiProperty name="rowHeight" type="number">Defines the height of each row on the dashboard.</tr>
+    <tr uxdApiProperty name="emptyRow" type="boolean">Defines whether or not an empty row should always be visible on the bottom of the dashboard to allow for additional items or dragging/resizing.</tr>
 </uxd-api-properties>
 
 <p>The following attributes can be added to the <code>ux-dashboard-widget</code> components to configure their behavior:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="id" type="string">Sets the ID of the widget. Each widget should be given a unique ID.</tr>
-    <tr uxd-api-property name="colSpan" type="number">Defines the number of columns this widget should occupy.</tr>
-    <tr uxd-api-property name="rowSpan" type="number">Defines the number of rows this widget should occupy.</tr>
-    <tr uxd-api-property name="resizable" type="boolean">Defines whether or not this widget can be resized.</tr>
+    <tr uxdApiProperty name="id" type="string">Sets the ID of the widget. Each widget should be given a unique ID.</tr>
+    <tr uxdApiProperty name="colSpan" type="number">Defines the number of columns this widget should occupy.</tr>
+    <tr uxdApiProperty name="rowSpan" type="number">Defines the number of rows this widget should occupy.</tr>
+    <tr uxdApiProperty name="resizable" type="boolean">Defines whether or not this widget can be resized.</tr>
 </uxd-api-properties>
 
 <p>The following code can be used to create the example above.</p>

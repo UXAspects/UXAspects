@@ -20,20 +20,20 @@
 <p>The Popover directive also provides some optional attributes to configure how it will be displayed:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="popover-title" type="string" binding="literal">
+    <tr uxdApiProperty name="popover-title" type="string" binding="literal">
       A string to display as the popover title.
     </tr>
-    <tr uxd-api-property name="popover-placement" type="string" binding="literal" defaultValue="top">
+    <tr uxdApiProperty name="popover-placement" type="string" binding="literal" defaultValue="top">
       Describes where the popover should be placed. Available options are <code>top</code>, <code>bottom</code>, <code>left</code>
       and <code>right</code>.
     </tr>
-    <tr uxd-api-property name="popover-animation" type="boolean" binding="literal" defaultValue="true">
+    <tr uxdApiProperty name="popover-animation" type="boolean" binding="literal" defaultValue="true">
       Describes whether the popover should fade in/out.
     </tr>
-    <tr uxd-api-property name="popover-popup-delay" type="number" binding="literal" defaultValue="0">
+    <tr uxdApiProperty name="popover-popup-delay" type="number" binding="literal" defaultValue="0">
     	Describes how long the delay (in milliseconds) should be before the popover appears. 
     </tr>
-    <tr uxd-api-property name="popover-trigger" type="string" binding="literal">
+    <tr uxdApiProperty name="popover-trigger" type="string" binding="literal">
       Describes the event which will trigger the popover to appear. The options are:
       <ul>
         <li><code>mouseenter</code> - popover will display while the element is hovered.</li>
@@ -46,14 +46,14 @@
           element or popover are hovered.</li>
       </ul>
     </tr>
-    <tr uxd-api-property name="popover-inside-delay" type="number" binding="literal" defaultValue="500">
+    <tr uxdApiProperty name="popover-inside-delay" type="number" binding="literal" defaultValue="500">
       Describes how long the delay should be before the popover disappears while the popover or directive element are not
       hovered. Only required when <code>popover-trigger="insideHover"</code> is used.
     </tr>
-    <tr uxd-api-property name="popover-append-to-body" type="boolean" binding="literal" defaultValue="true">
+    <tr uxdApiProperty name="popover-append-to-body" type="boolean" binding="literal" defaultValue="true">
       Describes whether the popover should be appended to the body instead of the parent element.
     </tr>
-    <tr uxd-api-property name="popover-class" type="string" binding="literal">
+    <tr uxdApiProperty name="popover-class" type="string" binding="literal">
       Custom class to be applied to the popover.
     </tr>
 </uxd-api-properties>

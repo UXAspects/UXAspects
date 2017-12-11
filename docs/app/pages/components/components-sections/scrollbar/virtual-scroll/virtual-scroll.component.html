@@ -59,22 +59,22 @@
 <p>The following attributes can be used to customize the component:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="collection" type="Subject&lt;any[]&gt;">
+    <tr uxdApiProperty name="collection" type="Subject&lt;any[]&gt;">
         A subject observable that will emit a page of items to display in the component. When all pages have been loaded, the <code>.complete()</code>
         function should be called on the observable to prevent the component from trying to load any additional items. If you want to reset the list 
         simply create a new subject instance and the list will remove all current items and request the first page of data.
     </tr>
-    <tr uxd-api-property name="loadOnScroll" type="boolean" defaultValue="true">
+    <tr uxdApiProperty name="loadOnScroll" type="boolean" defaultValue="true">
         If <code>true</code> the next page of data will be requested when the scrollbar nears the end of the list. If <code>false</code> a "Load More" 
         button will be displayed at the end of the list allowing the user to request additional items by clicking it.
     </tr>
-    <tr uxd-api-property name="callHeight" type="number">
+    <tr uxdApiProperty name="callHeight" type="number">
         The height of the cells must be specified to allow scrolling to be optimized. Each cell must have the same height. This attribute is mandatory and an error will appear if this value is not defined.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="loading" type="number">
+    <tr uxdApiProperty name="loading" type="number">
         This will be called whenever a new page of data is requested. This should be used to provide the component with the next page of data via the subject observable.
     </tr>
 </uxd-api-properties>

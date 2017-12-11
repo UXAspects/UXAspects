@@ -63,13 +63,13 @@
 <p>The component will be exported as <code>ux-column-sorting</code>.</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="key" type="string">
+    <tr uxdApiProperty name="key" type="string">
         Defines a unique identifier for the column that can be used when sorting.
     </tr>
-    <tr uxd-api-property name="state" type="ColumnSortingState">
+    <tr uxdApiProperty name="state" type="ColumnSortingState">
         Defines the sorting order of a column: <code>NoSort</code>, <code>Ascending</code> or <code>Descending</code>.
     </tr>
-    <tr uxd-api-property name="changeState()" type="Object">
+    <tr uxdApiProperty name="changeState()" type="Object">
         Changes the state of the sorting on the column between <code>NoSort</code>, <code>Ascending</code> and <code>Descending</code>.
         This returns an array of objects for each column being sorted containing <code>key: string</code> and <code>state: ColumnSortingState</code>.
         State can be used to find the current sorting state of the column eg. <code>(state === ColumnSortingState.Ascending)</code>. 
@@ -78,7 +78,7 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="stateChange" type="ColumnSortingState">
+    <tr uxdApiProperty name="stateChange" type="ColumnSortingState">
         Emits when state changes.
     </tr>
 </uxd-api-properties>
@@ -86,7 +86,7 @@
 <p>The <code>uxColumnSorting</code> directive should be added to the <code>tr</code> and will accept the following attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="singleSort" type="boolean">
+    <tr uxdApiProperty name="singleSort" type="boolean">
         If set to true the column will sort by only this column, removing sorting from all others.
     </tr>
 </uxd-api-properties>

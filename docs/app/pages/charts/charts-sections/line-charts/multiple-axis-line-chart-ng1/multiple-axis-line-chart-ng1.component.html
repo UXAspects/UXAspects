@@ -5,13 +5,13 @@
 <hr>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="label" type="string">
+    <tr uxdApiProperty name="label" type="string">
         Label name specified in the legend.
     </tr>
-    <tr uxd-api-property name="data" type="array">
+    <tr uxdApiProperty name="data" type="array">
         Coordinates in the chart e.g. [ [x1, y1], [x2, y2], ... ]
     </tr>
-    <tr uxd-api-property name="lines" type="object">
+    <tr uxdApiProperty name="lines" type="object">
         Defines the parameters of the axis line.
     </tr>
 </uxd-api-properties>
@@ -19,22 +19,22 @@
 <p>The following attributes should be defined within <code>lines</code></p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="show" type="boolean">
+    <tr uxdApiProperty name="show" type="boolean">
         If set to true displays the chart.
     </tr>
-    <tr uxd-api-property name="fillColor" type="array">
+    <tr uxdApiProperty name="fillColor" type="array">
         Specifies the colors of the fill. If more than one color is specified this will produce a gradient.
     </tr>
-    <tr uxd-api-property name="fill" type="boolean or number">
+    <tr uxdApiProperty name="fill" type="boolean or number">
         If set to true fills the chart with colors in the fillColors property. A number between 0 and 1 defines the opacity of the fill.
     </tr>
-    <tr uxd-api-property name="lineWidth" type="number">
+    <tr uxdApiProperty name="lineWidth" type="number">
         Defines the thickness of the line or outline in pixels.
     </tr>
-    <tr uxd-api-property name="highlightColor" type="color">
+    <tr uxdApiProperty name="highlightColor" type="color">
         Default color of the translucent overlay used to highlight on mouse hover.
     </tr>
-    <tr uxd-api-property name="shadowSize" type="number">
+    <tr uxdApiProperty name="shadowSize" type="number">
         Default size of shadows in pixels. Set it to 0 to remove shadows.
     </tr>
 </uxd-api-properties>
@@ -55,10 +55,10 @@
 <p>The following attributes should be defined within <code>options</code></p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="xaxis" type="array">
+    <tr uxdApiProperty name="xaxis" type="array">
         Defines if more than one x-axis is used.
     </tr>
-    <tr uxd-api-property name="yaxis" type="array">
+    <tr uxdApiProperty name="yaxis" type="array">
         Defines if more than one y-axis is used.
     </tr>
 </uxd-api-properties>
@@ -66,7 +66,7 @@
 <p>The following attributes should be defined within <code>xaxis</code></p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="mode" type="null or time">
+    <tr uxdApiProperty name="mode" type="null or time">
         Defines how data is represented on the x-axes.
     </tr>
 </uxd-api-properties>
@@ -74,16 +74,16 @@
 <p>The following attributes should be defined within <code>yaxis</code></p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="min" type="number">
+    <tr uxdApiProperty name="min" type="number">
         Defines the minimum value of the y-axis.
     </tr>
-    <tr uxd-api-property name="alignTicksWidthAxis" type="null or number">
+    <tr uxdApiProperty name="alignTicksWidthAxis" type="null or number">
         Aligns the ticks of this axis with the ticks of the other axis.
     </tr>
-    <tr uxd-api-property name="position" type="string">
+    <tr uxdApiProperty name="position" type="string">
         Set as "top" or "bottom" or "right" or "left", specifies the position of the axis.
     </tr>
-    <tr uxd-api-property name="tickFormatter" type="function">
+    <tr uxdApiProperty name="tickFormatter" type="function">
         Defines how ticks are formatted.
     </tr>
 </uxd-api-properties>

@@ -52,48 +52,48 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="date" type="Date">
+    <tr uxdApiProperty name="date" type="Date">
         The selected date to be displayed in the component.
     </tr>
-    <tr uxd-api-property name="timezone" type="DateTimePickerTimezone">
+    <tr uxdApiProperty name="timezone" type="DateTimePickerTimezone">
         Will set the selected timezone.
     </tr>
-    <tr uxd-api-property name="timezones" type="DateTimePickerTimezone[]">
+    <tr uxdApiProperty name="timezones" type="DateTimePickerTimezone[]">
         Defines the list of available timezones. The <b>DateTimePickerTimezone</b> interface specifies that 
         each timezone should be an object with a <b>name</b> property that represents the timezone, eg. <code>GMT+2</code>, 
         and an <b>offset</b> property that represents the number of minutes relative to GMT the timezone is.
     </tr>
-    <tr uxd-api-property name="showDate" type="boolean">
+    <tr uxdApiProperty name="showDate" type="boolean">
         Defines whether or not the date picker should be visible.
     </tr>
-    <tr uxd-api-property name="showTime" type="boolean">
+    <tr uxdApiProperty name="showTime" type="boolean">
         Defines whether or not the time picker should be visible.
     </tr>
-    <tr uxd-api-property name="showTimezone" type="boolean">
+    <tr uxdApiProperty name="showTimezone" type="boolean">
         Defines whether or not the time picker should allow the user to choose a timezone.
     </tr>
-    <tr uxd-api-property name="showSeconds" type="boolean">
+    <tr uxdApiProperty name="showSeconds" type="boolean">
         Defines whether or not the time picker should allow the user to specify seconds.
     </tr>
-    <tr uxd-api-property name="showMeridian" type="boolean">
+    <tr uxdApiProperty name="showMeridian" type="boolean">
         Defines whether or not the time picker should show an AM/PM button, or time should be represented in 24hr format instead.
     </tr>
-    <tr uxd-api-property name="showSpinners" type="boolean">
+    <tr uxdApiProperty name="showSpinners" type="boolean">
         Defines whether or not the time picker should allow the user to select the time using spinners.
     </tr>
-    <tr uxd-api-property name="weekdays" type="string[]">
+    <tr uxdApiProperty name="weekdays" type="string[]">
         If defined will override the weekday names displayed.
     </tr>
-    <tr uxd-api-property name="nowBtnText" type="string">
+    <tr uxdApiProperty name="nowBtnText" type="string">
         Defines the text to be displayed in the button used to set the selected time to the current time.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="dateChange" type="Date">
+    <tr uxdApiProperty name="dateChange" type="Date">
         Emits an event when the date is changed using the component.
     </tr>
-    <tr uxd-api-property name="timezoneChange" type="DateTimePickerTimezone">
+    <tr uxdApiProperty name="timezoneChange" type="DateTimePickerTimezone">
         If not defined the picker will try to use the user's timezone. If that is not available, it will revert to GMT.
     </tr>
 </uxd-api-properties>

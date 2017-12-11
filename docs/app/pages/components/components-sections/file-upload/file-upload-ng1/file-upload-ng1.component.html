@@ -32,37 +32,37 @@
 <p>The FileUploader object has the following callbacks for adding custom logic:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="onWhenAddingFileFailed">
+    <tr uxdApiProperty name="onWhenAddingFileFailed">
       Is called with the parameters <code>(item, filter, options)</code>.
     </tr>
-    <tr uxd-api-property name="onAfterAddingFile">
+    <tr uxdApiProperty name="onAfterAddingFile">
       Is called with the parameter <code>(item)</code>.
     </tr>
-    <tr uxd-api-property name="onAfterAddingAll">
+    <tr uxdApiProperty name="onAfterAddingAll">
       Is called with the parameter <code>(addedFileItems)</code>.
     </tr>
-    <tr uxd-api-property name="onBeforeUploadItem">
+    <tr uxdApiProperty name="onBeforeUploadItem">
       Is called with the parameter <code>(item)</code>.
     </tr>
-    <tr uxd-api-property name="onProgressItem">
+    <tr uxdApiProperty name="onProgressItem">
       Is called with the parameters <code>(item, progress)</code>.
     </tr>
-    <tr uxd-api-property name="onProgressAll">
+    <tr uxdApiProperty name="onProgressAll">
       Is called with the parameter <code>(progress)</code>.
     </tr>
-    <tr uxd-api-property name="onSuccessItem">
+    <tr uxdApiProperty name="onSuccessItem">
       Is called with the parameters <code>(item, response, status, headers)</code>.
     </tr>
-    <tr uxd-api-property name="onErrorItem">
+    <tr uxdApiProperty name="onErrorItem">
       Is called with the parameters <code>(item, response, status, headers)</code>.
     </tr>
-    <tr uxd-api-property name="onCancelItem">
+    <tr uxdApiProperty name="onCancelItem">
       Is called with the parameters <code>(item, response, status, headers)</code>.
     </tr>
-    <tr uxd-api-property name="onCompleteItem">
+    <tr uxdApiProperty name="onCompleteItem">
       Is called with the parameters <code>(item, response, status, headers)</code>.
     </tr>
-    <tr uxd-api-property name="onSuccessAll">
+    <tr uxdApiProperty name="onSuccessAll">
       Does not take any parameters.
     </tr>
 </uxd-api-properties>
@@ -70,29 +70,29 @@
 <p>Below you can see the methods available on the FileUploader object.</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="addToQueue">
+    <tr uxdApiProperty name="addToQueue">
       Adds items to the queue. Takes parameters <code>(files, options, filters)</code> where files is a <code>FileList|File|HTMLInputElement</code>,
       options is an object and filters is a string.
     </tr>
-    <tr uxd-api-property name="removeFromQueue">
+    <tr uxdApiProperty name="removeFromQueue">
       Removes an item from the queue. Takes a parameter where the value is a <code>FileItem</code> or index of item.
     </tr>
-    <tr uxd-api-property name="clearQueue">
+    <tr uxdApiProperty name="clearQueue">
       Removes all elements from the queue.
     </tr>
-    <tr uxd-api-property name="uploadItem">
+    <tr uxdApiProperty name="uploadItem">
       Uploads an item. Takes a parameter where the value is a <code>FileItem</code> or index of item.
     </tr>
-    <tr uxd-api-property name="cancelItem">
+    <tr uxdApiProperty name="cancelItem">
       Cancels uploading of item. Takes a parameter where the value is a <code>FileItem</code> or index of item.
     </tr>
-    <tr uxd-api-property name="uploadAll">
+    <tr uxdApiProperty name="uploadAll">
       Uploads all pending items on the queue.
     </tr>
-    <tr uxd-api-property name="cancelAll">
+    <tr uxdApiProperty name="cancelAll">
       Cancels all current uploads.
     </tr>
-    <tr uxd-api-property name="getNotUploadedItems">
+    <tr uxdApiProperty name="getNotUploadedItems">
       Returns an array of all pending items on the queue.
     </tr>
 </uxd-api-properties>
@@ -100,29 +100,29 @@
 <p>Below is a brief description of the parameters:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="item">
+    <tr uxdApiProperty name="item">
       The file to be uploaded.
     </tr>
-    <tr uxd-api-property name="filter">
+    <tr uxdApiProperty name="filter">
       	Filters to be applied to the files before adding them to the queue. 
         If the filter returns true the file will be added to the queue.
     </tr>
-    <tr uxd-api-property name="options">
+    <tr uxdApiProperty name="options">
       Custom properties added to the file uploader.
     </tr>
-    <tr uxd-api-property name="addedFileItems">
+    <tr uxdApiProperty name="addedFileItems">
       The list of files to be uploaded.
     </tr>
-    <tr uxd-api-property name="progress">
+    <tr uxdApiProperty name="progress">
       Upload queue progress percentage.
     </tr>
-    <tr uxd-api-property name="response">
+    <tr uxdApiProperty name="response">
       The response from the server.
     </tr>
-    <tr uxd-api-property name="status">
+    <tr uxdApiProperty name="status">
       The status code from the server.
     </tr>
-    <tr uxd-api-property name="headers">
+    <tr uxdApiProperty name="headers">
       Headers to be sent along with the files.
     </tr>
 </uxd-api-properties>

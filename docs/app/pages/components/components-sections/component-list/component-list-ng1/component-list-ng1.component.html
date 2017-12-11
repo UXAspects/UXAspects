@@ -22,21 +22,21 @@ Your component should update this property which will update the <code>ng-model<
 <p>Use the following attributes to customize the behavior of the component:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="min-components" type="number" binding="variable" defaultValue="0">
+    <tr uxdApiProperty name="min-components" type="number" binding="variable" defaultValue="0">
       Specifies the minimum number of components that will be displayed. If no values have been set for 
       these components in the <code>ng-model</code> then the default value they will be given is null.
     </tr>
-    <tr uxd-api-property name="max-components" type="number" binding="variable">
+    <tr uxdApiProperty name="max-components" type="number" binding="variable">
       Specifies the maximum number of components that will be displayed. The add button will be disabled 
       when the limit has been reached. By default there is no limit.
     </tr>
-    <tr uxd-api-property name="button-text" type="string" binding="literal" defaultValue="Add a field">
+    <tr uxdApiProperty name="button-text" type="string" binding="literal" defaultValue="Add a field">
       Specifies the text to be displayed beside the add button.
     </tr>
-    <tr uxd-api-property name="on-add" type="function" binding="variable">
+    <tr uxdApiProperty name="on-add" type="function" binding="variable">
       If specified the function will be called when a new item is being added to the list.
     </tr>
-    <tr uxd-api-property name="on-remove" type="function" binding="variable">
+    <tr uxdApiProperty name="on-remove" type="function" binding="variable">
       If specified the function will be called when an item is being removed from the list.
     </tr>
 </uxd-api-properties>

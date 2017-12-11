@@ -4,16 +4,16 @@ The service can be used to choose which to set or will attempt to use <code>loca
 <p>The <code>PersistentDataStorageType</code> enum is used when setting the storage type.</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="setItem" args="string, string, PersistentDataStorageType?">
+    <tr uxdApiProperty name="setItem" args="string, string, PersistentDataStorageType?">
         This method expects a key and value parameter as strings and can also accept a PersistentDataStorageType if you wish to set the storage type, otherwise it will follow default behaviour.
     </tr>
-    <tr uxd-api-property name="getItem" args="string, PersistentDataStorageType?" returns="string">
+    <tr uxdApiProperty name="getItem" args="string, PersistentDataStorageType?" returns="string">
         This method will accept a string parameter for the key and will return a string containing the value associated with that key. It will also accept a PersistentDataStorageType parameter which is required if this was used when setting the data.
     </tr>
-    <tr uxd-api-property name="removeItem" args="string, PersistentDataStorageType?" returns="string">
+    <tr uxdApiProperty name="removeItem" args="string, PersistentDataStorageType?" returns="string">
         This method will accept a string parameter for the key and will remove that item from Storage. It will also accept a PersistentDataStorageType parameter which is required if this was used when setting the data.
     </tr>
-    <tr uxd-api-property name="clear" args="PersistentDataStorageType?" returns="string">
+    <tr uxdApiProperty name="clear" args="PersistentDataStorageType?" returns="string">
         This method will clear the default storage type or a specific storage type if one is specified.
     </tr>
 </uxd-api-properties>

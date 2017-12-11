@@ -35,13 +35,13 @@
 <p>The following attributes will need to be supplied to the sortable header:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="headers" type="array" binding="variable" required="true">
+    <tr uxdApiProperty name="headers" type="array" binding="variable" required="true">
         Array of objects (defined below) used to store all the required header information.
     </tr>
-    <tr uxd-api-property name="default-sorter" type="string" binding="variable" required="true">
+    <tr uxdApiProperty name="default-sorter" type="string" binding="variable" required="true">
         String indicating which column will be sorted by default when the page loads, setting this to a variable will allow the sort to be remembered between visits.
     </tr>
-    <tr uxd-api-property name="default-order" type="boolean" binding="variable" required="true">
+    <tr uxdApiProperty name="default-order" type="boolean" binding="variable" required="true">
         Boolean option indicating the sort order of the default column when the page loads, setting this to a variable will allow the sort to be remembered between visits.
     </tr>
 </uxd-api-properties>
@@ -49,19 +49,19 @@
 <p>The controller implements the select function and will accept the following attributes within the headers object:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="sorterHeader" type="string" required="true">
+    <tr uxdApiProperty name="sorterHeader" type="string" required="true">
         The column header.
     </tr>
-    <tr uxd-api-property name="sortable" type="boolean" required="true">
+    <tr uxdApiProperty name="sortable" type="boolean" required="true">
         True if the column can be used as a sorter.
     </tr>
-    <tr uxd-api-property name="sort" type="string" required="true">
+    <tr uxdApiProperty name="sort" type="string" required="true">
         Sort expression for the column.
     </tr>
-    <tr uxd-api-property name="center" type="boolean" required="true">
+    <tr uxdApiProperty name="center" type="boolean" required="true">
         True if the column header should be centered.
     </tr>
-    <tr uxd-api-property name="fixedClass" type="string">
+    <tr uxdApiProperty name="fixedClass" type="string">
         A class for the header in order to set the column to a fixed width. This results in columns that do not change
         size when a sort has been applied or according to data in the cells.
         <span>The following classes have been created to allow for fixed column widths:</span>

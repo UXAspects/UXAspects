@@ -43,7 +43,7 @@
 
 
 <uxd-api-properties>
-    <tr uxd-api-property name="data" type="array or function" binding="variable" required="true">
+    <tr uxdApiProperty name="data" type="array or function" binding="variable" required="true">
       <span>The data source of the tree grid. For smaller data sets, the entire hierachy may be loaded and passed to
           the <code>data</code> attribute as an array of objects. Each object may have an array of child objects;
           the name of the property containing this array must be specified in the <code>options</code> parameter.
@@ -55,17 +55,17 @@
           representing the immediate children of the parent. In this mode, the <code>hasChildren</code> function
           must be defined in the <code>options</code> parameter, to determine which rows may be expanded.</span>
     </tr>
-    <tr uxd-api-property name="columns" type="array" binding="variable" required="true">
+    <tr uxdApiProperty name="columns" type="array" binding="variable" required="true">
       A list of the columns to be presented in the tree grid, along with details of how to present the data in that column. It is important to define at least one column, since there is no default behaviour.
     </tr>
-    <tr uxd-api-property name="tree-data" type="array" binding="variable" required="true">
+    <tr uxdApiProperty name="tree-data" type="array" binding="variable" required="true">
       This will be bound to a hierarchy of objects representing the current tree state. It can be used to access the data objects which are currently loaded into the grid, which is useful in asynchronous mode since items dynamically retrieved from a web service do not have to be manually tracked in the controller. It also provides information on the state of the item's row in the tree grid.
     </tr>
-    <tr uxd-api-property name="selected" type="array" binding="variable">
+    <tr uxdApiProperty name="selected" type="array" binding="variable">
       This array will contain the objects currently selected in the tree grid. This is a standard multiple selection
         component, so the techniques described in <a routerLink="/components/tables" fragment="multiple-select-actions-ng1">Multiple Selection Actions</a> may also be applied to the tree grid.
     </tr>
-    <tr uxd-api-property name="current-row" type="object" binding="variable">
+    <tr uxdApiProperty name="current-row" type="object" binding="variable">
       <span>This object is bound to the row in the tree grid with focus. The current row is the most recently clicked,
         or the row which is highlighted when using keyboard navigation. The object contains the following properties:</span>
       <ul>
@@ -74,7 +74,7 @@
         <li><code>row</code> - the row object with the properties described in the Tree Data section.</li>
       </ul>
     </tr>
-    <tr uxd-api-property name="options" type="object" binding="variable" required="true">
+    <tr uxdApiProperty name="options" type="object" binding="variable" required="true">
       Configuration options which can be used to customise the appearance and behaviour of the tree grid. Most importantly, the property which contains child nodes can be set here. This is also where the icon set and expander graphics can be customised.
     </tr>
 </uxd-api-properties>
@@ -84,40 +84,40 @@
 <p>The <code>columns</code> attribute receives an array of objects with the following properties:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="name" type="string" required="true">
+    <tr uxdApiProperty name="name" type="string" required="true">
       The text which appears in the column header.
     </tr>
-    <tr uxd-api-property name="value" type="string or function">
+    <tr uxdApiProperty name="value" type="string or function">
       <ul>
         <li>As a string, the name of a property in the source data object to display in the column.</li>
         <li>As a function, this will be called to provide the value to display in the column. The argument to the
           function will be the data object to render, and the return value should be a string.</li>
       </ul>
     </tr>
-    <tr uxd-api-property name="template" type="string">
+    <tr uxdApiProperty name="template" type="string">
       Instead of the <code>value</code> property, this may specify the URL or identifier of an Angular template
         to render in the column. In the scope of the template, the <code>item</code> property will contain the
         data object to render. The <code>row</code> property is also available with the properties described in
         the Tree Data section. If controller logic is required in the template, the Angular <code>ng-controller</code>
         attribute may be used within the template markup. Note that the first column should not be a template.
     </tr>
-    <tr uxd-api-property name="headerClass" type="string">
+    <tr uxdApiProperty name="headerClass" type="string">
       One or more (space-separated) CSS classes to apply to the header <code>th</code> element. A common use may
       be to align the text using the built-in <code>text-center</code> or <code>text-right</code> classes.
     </tr>
-    <tr uxd-api-property name="cellClass" type="string">
+    <tr uxdApiProperty name="cellClass" type="string">
       One or more (space-separated) CSS classes to apply to the <code>td</code> elements in the column. A common
       use may be to align the text using the built-in <code>text-center</code> or <code>text-right</code> classes.
     </tr>
-    <tr uxd-api-property name="width" type="string">
+    <tr uxdApiProperty name="width" type="string">
       The width of the column. Values which are valid on the CSS <code>width</code> property are accepted here.
       This is provided as an alternative to specifying width in CSS via the <code>headerClass</code> property.
     </tr>
-    <tr uxd-api-property name="tooltip" type="string">
+    <tr uxdApiProperty name="tooltip" type="string">
       Text to display as a tooltip when hovering over cells in this column. The source data object is available
       as <code>item</code> for the purposes of binding.
     </tr>
-    <tr uxd-api-property name="tooltipPlacement" type="string">
+    <tr uxdApiProperty name="tooltipPlacement" type="string">
       Position of the tooltip relative to the cell. Value may be "top", "bottom", "left", or "right".
     </tr>
 </uxd-api-properties>
@@ -127,24 +127,24 @@
 <p>The <code>tree-data</code> attribute receives an array of objects with the following properties:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="dataItem" type="onject" required="true">
+    <tr uxdApiProperty name="dataItem" type="onject" required="true">
       A reference to the custom data object representing the row in the tree grid.
     </tr>
-    <tr uxd-api-property name="children" type="array" required="true">
+    <tr uxdApiProperty name="children" type="array" required="true">
       An array containing objects of the same format describing the child items of the row. This property 
       is read only; to add or remove rows in the tree grid, update the source data and reload.
     </tr>
-    <tr uxd-api-property name="expanded" type="boolean" required="true">
+    <tr uxdApiProperty name="expanded" type="boolean" required="true">
       Whether the row is expanded in the tree grid. This will be true when the row has been expanded and 
       child items have completed loading. This property is read only.
     </tr>
-    <tr uxd-api-property name="expanding" type="boolean" required="true">
+    <tr uxdApiProperty name="expanding" type="boolean" required="true">
       Whether the row is currently loading children; applies in asynchronous mode. This property is read only.
     </tr>
-    <tr uxd-api-property name="level" type="number" required="true">
+    <tr uxdApiProperty name="level" type="number" required="true">
       	The depth of the row in the tree grid. The top level items will have the value 0. This property is read only.
     </tr>
-    <tr uxd-api-property name="api" type="object" required="true">
+    <tr uxdApiProperty name="api" type="object" required="true">
       <span>Contains functions which may be used to control the row. The following functions are available:</span>
       <ul>
         <li><code>expand()</code> - expands the row, if not already expanded. Returns a promise which resolves when
@@ -166,25 +166,25 @@
 <p>The <code>options</code> attribute receives an object with the following properties:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="childrenProperty" type="string">
+    <tr uxdApiProperty name="childrenProperty" type="string">
       If the value of the <code>data</code> attribute is an array, then this must be set to the name of an array
         property on the source data objects which contains the child objects, defining the hierarchy. If the array
         is present and contains items, an expander will be rendered on the corresponding row to show or hide the
         children.
     </tr>
-    <tr uxd-api-property name="hasChildren" type="function">
+    <tr uxdApiProperty name="hasChildren" type="function">
       If the value of the <code>data</code> attribute is a function (asynchronous operation), then this must be
         set to a function which returns true if the provided object may have children and should therefore display
         an expander on its row.
     </tr>
-    <tr uxd-api-property name="maxDepth" type="number" defaultValue="5">
+    <tr uxdApiProperty name="maxDepth" type="number" defaultValue="5">
       The expansion depth limit. After this is reached, expanders will not display even if the data object contains
         children.
     </tr>
-    <tr uxd-api-property name="expandTopLevel" type="boolean" defaultValue="false">
+    <tr uxdApiProperty name="expandTopLevel" type="boolean" defaultValue="false">
       Set to true if the top-level rows should initially appear expanded.
     </tr>
-    <tr uxd-api-property name="select" type="object">
+    <tr uxdApiProperty name="select" type="object">
       <span>Defines the functionality of row selection. This object contains the following properties:
       </span>
       <ul>
@@ -194,7 +194,7 @@
         <li><code>rowClass</code> (string) - the name of a class which will be applied to the row while it is selected. To remove the default appearance, set this to null or an empty string.</li>
       </ul>
     </tr>
-    <tr uxd-api-property name="expander" type="object">
+    <tr uxdApiProperty name="expander" type="object">
       <span>Defines the appearance of the expanders (buttons which toggle display of child rows). This object contains
         the following properties:
       </span>
@@ -209,7 +209,7 @@
           Either a CSS class or an image URL, according to the <code>type</code>.</li>
       </ul>
     </tr>
-    <tr uxd-api-property name="icons" type="object">
+    <tr uxdApiProperty name="icons" type="object">
       <span>Configures the set of icons which appear on the left of the first column. This object contains the following
         properties:</span>
       <ul>
@@ -220,12 +220,12 @@
           The function should return either a CSS class or an image URL, according to the <code>type</code>.</li>
       </ul>
     </tr>
-    <tr uxd-api-property name="rowClass" type="string or function" required="true">
+    <tr uxdApiProperty name="rowClass" type="string or function" required="true">
       If a string is provided, this is used as the name of a property on the source data object to bind as 
       a class on the corresponding tree grid row. If a function is provided, this is called with the source 
       data object as an argument, and the return value is bound as a class on the corresponding tree grid row.
     </tr>
-    <tr uxd-api-property name="sort" type="function" required="true">
+    <tr uxdApiProperty name="sort" type="function" required="true">
       <span>
         Defines the sort order of the rows at each level. This function takes two parameters <code>a</code> and <code>b</code>
         representing a pair of rows in the grid, and should return: -1 if <code>a</code> is ordered before <code>b</code>;

@@ -12,30 +12,30 @@
 <p>The <code class="highlighter-rouge">notificationService</code> has several functions available to control notifications.</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="showNotification">
+    <tr uxdApiProperty name="showNotification">
       This function should be called to show a notification. It should be given an object containing properties to configure
       the appearance and content of the notification. It will return the notification element (if notifications are visible
       - see <code>setNotificationVisibility</code>), this can be used to dismiss this individual notification at a later
       point.
     </tr>
-    <tr uxd-api-property name="dismissNotification">
+    <tr uxdApiProperty name="dismissNotification">
       This function can be called to dismiss a notification. It should be passed the notification element to dismiss.
     </tr>
-    <tr uxd-api-property name="dismissAllNotifications">
+    <tr uxdApiProperty name="dismissAllNotifications">
       This function will return an array of all notifications shown since the browser was last refreshed. The objects in
       the array returned will contain the properties passed to the <code>showNotification</code> function along with
       an additional <code>date</code> property which will contain the time at which the notification was shown. If a
       more permanent history of notifications is required consider using local storage or a database.
     </tr>
-    <tr uxd-api-property name="getNotifications">
+    <tr uxdApiProperty name="getNotifications">
       This function will dismiss any currently visible notifications.
     </tr>
-    <tr uxd-api-property name="setNotificationVisibility">
+    <tr uxdApiProperty name="setNotificationVisibility">
       This function will determine whether notifications should be visibly displayed on screen when the <code>showNotification</code> function is called. If the <code>showNotification</code> function is called and the visibility is set to false,
       no notification will show, however a record of it will still be kept and can be accessed using the <code>getNotifications</code> function. This function expects a boolean value as an argument, a value of <code>true</code> will display notifications
       and a value of <code>false</code> will hide them. The default value is <code>true</code>.
     </tr>
-    <tr uxd-api-property name="setDirection">
+    <tr uxdApiProperty name="setDirection">
       This function allows you to set the order notifications are displayed. The two possible options are <code>append</code> (default) and <code>prepend</code>.
       When set to <code>append</code> new notifications will appear below older notifications. When set to <code>prepend</code> new notifications will appear above
       older notifications.
@@ -45,22 +45,22 @@
 <p>The following options can be used to configure the appearance and content of the notification:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="icon" type="string">
+    <tr uxdApiProperty name="icon" type="string">
       	Sets the icon from the icon set to display within the notification.
     </tr>
-    <tr uxd-api-property name="title" type="string">
+    <tr uxdApiProperty name="title" type="string">
       Sets the title displayed at the top of the notification.
     </tr>
-    <tr uxd-api-property name="text" type="string">
+    <tr uxdApiProperty name="text" type="string">
       Sets the text displayed within the notification.
     </tr>
-    <tr uxd-api-property name="subtitle" type="string">
+    <tr uxdApiProperty name="subtitle" type="string">
       Sets the text displayed beneath the main notification text. This is useful for adding a timestamp to the notification.
     </tr>
-    <tr uxd-api-property name="duration" type="number">
+    <tr uxdApiProperty name="duration" type="number">
       Sets the duration (in milliseconds) the notification should appear before automatically dismissing. A value of <code>0</code> will show the notification until manually dismissed.
     </tr>
-    <tr uxd-api-property name="backgroundColor" type="string">
+    <tr uxdApiProperty name="backgroundColor" type="string">
       Sets the background color of the notification.
     </tr>
 </uxd-api-properties>

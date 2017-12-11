@@ -33,22 +33,22 @@
 <uxd-snippet language="javascript" [content]="snippets.compiled.optionsJs"></uxd-snippet>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="linkHoverHL" type="boolean" defaultValue="true">
+    <tr uxdApiProperty name="linkHoverHL" type="boolean" defaultValue="true">
       Determines whether to have a link hover highlight.
     </tr>
-    <tr uxd-api-property name="linkTooltip" type="object">
+    <tr uxdApiProperty name="linkTooltip" type="object">
       Configuration for tooltips on the Sankey ribbons. See the <code>linkTooltip</code> object definition below.
     </tr>
-    <tr uxd-api-property name="col" type="object" required="true">
+    <tr uxdApiProperty name="col" type="object" required="true">
       Configuration for the column header. See the <code>col</code> object definition below.
     </tr>
-    <tr uxd-api-property name="block" type="object">
+    <tr uxdApiProperty name="block" type="object">
       Configuration for the chart blocks. See the <code>block</code> object definition below.
     </tr>
-    <tr uxd-api-property name="overflow" type="object">
+    <tr uxdApiProperty name="overflow" type="object">
       Configuration for the overflow links. See the <code>overflow</code> object definition below.
     </tr>
-    <tr uxd-api-property name="showColNumber" type="boolean" defaultValue="false">
+    <tr uxdApiProperty name="showColNumber" type="boolean" defaultValue="false">
       Determines whether the column number is shown in the header. 
     </tr>
 </uxd-api-properties>
@@ -56,10 +56,10 @@
 <p>The <code>linkTooltip</code> object is defined as follows:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="show" type="boolean" defaultValue="true">
+    <tr uxdApiProperty name="show" type="boolean" defaultValue="true">
       Determines whether the tooltip is shown.
     </tr>
-    <tr uxd-api-property name="label" type="string">
+    <tr uxdApiProperty name="label" type="string">
       Text to show in the tooltip, as a suffix to the numeric value.
     </tr>
 </uxd-api-properties>
@@ -67,16 +67,16 @@
 <p>The <code>col</code> object is defined as follows:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="paddingTop" type="number">
+    <tr uxdApiProperty name="paddingTop" type="number">
       Space in pixels between the header and the top of the chart column.
     </tr>
-    <tr uxd-api-property name="paddingBottom" type="number">
+    <tr uxdApiProperty name="paddingBottom" type="number">
       Space in pixels at the bottom of the chart.
     </tr>
-    <tr uxd-api-property name="headerLabelLength" type="number" required="false">
+    <tr uxdApiProperty name="headerLabelLength" type="number" required="false">
       The number of characters after which column content is truncated.
     </tr>
-    <tr uxd-api-property name="headerLabelSpacing" type="number" required="false">
+    <tr uxdApiProperty name="headerLabelSpacing" type="number" required="false">
       The number of pixels between the column number (if visible) and the label.
     </tr>
 </uxd-api-properties>
@@ -84,13 +84,13 @@
 <p>The <code>block</code> object is defined as follows:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="minWidth" type="number">
+    <tr uxdApiProperty name="minWidth" type="number">
       Minimum width of the block in pixels. This depends on the container and columns, if the value is set too low it will revert to a default value.
     </tr>
-    <tr uxd-api-property name="minHeight" type="number">
+    <tr uxdApiProperty name="minHeight" type="number">
       Minimum height of the block in pixels. Setting this to smaller values will show a greater differentiation in box size.
     </tr>
-    <tr uxd-api-property name="calloutData" type="object">
+    <tr uxdApiProperty name="calloutData" type="object">
       Configuration for the values shown in the blocks. See the <code>calloutData</code> object definition below.
     </tr>
 </uxd-api-properties>
@@ -98,16 +98,16 @@
 <p>The <code>calloutData</code> object is defined as follows:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="topLeft" type="object">
+    <tr uxdApiProperty name="topLeft" type="object">
       Configuration for the top left section of the blocks. See the callout section object definition below.
     </tr>
-    <tr uxd-api-property name="topRight" type="object">
+    <tr uxdApiProperty name="topRight" type="object">
       Configuration for the top right section of the blocks. See the callout section object definition below.
     </tr>
-    <tr uxd-api-property name="bottomRight" type="object">
+    <tr uxdApiProperty name="bottomRight" type="object">
       Configuration for the bottom right section of the blocks. See the callout section object definition below.
     </tr>
-    <tr uxd-api-property name="bottomLeft" type="object">
+    <tr uxdApiProperty name="bottomLeft" type="object">
       Configuration for the bottom left section of the blocks. See the callout section object definition below.
     </tr>
 </uxd-api-properties>
@@ -115,28 +115,28 @@
 <p>The callout section (<code>topLeft</code>, <code>topRight</code>, <code>bottomRight</code>, <code>bottomLeft</code>) object is defined as follows:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="key" type="string" required="true">
+    <tr uxdApiProperty name="key" type="string" required="true">
       Specifies the key of the value from the data source to be displayed.
     </tr>
-    <tr uxd-api-property name="nodeLabel" type="boolean">
+    <tr uxdApiProperty name="nodeLabel" type="boolean">
       Set to true for the value which defines the name of the node. This will be truncated to ensure it fits inside the block.
     </tr>
-    <tr uxd-api-property name="defaultShow" type="boolean" defaultValue="true">
+    <tr uxdApiProperty name="defaultShow" type="boolean" defaultValue="true">
       Determines whether the data will be visible without hover. 
     </tr>
-    <tr uxd-api-property name="label" type="string">
+    <tr uxdApiProperty name="label" type="string">
       Describes the unit of measurement for the data.
     </tr>
-    <tr uxd-api-property name="valueUnit" type="string">
+    <tr uxdApiProperty name="valueUnit" type="string">
       Provides a data-formatter for certain data types - the letter supplied here will receive a prefix (K, M, G, etc.) as appropriate and the associated value will be scaled. In the above example all values for file size are given in bytes and automatically formatted to GB, MB etc. by supplying the value B.
     </tr>
-    <tr uxd-api-property name="binary" type="boolean">
+    <tr uxdApiProperty name="binary" type="boolean">
       Set to <code>true</code> to use binary prefixes (e.g. k = 1024) instead of decimal (k = 1000). This is particularly useful for showing file sizes.
     </tr>
-    <tr uxd-api-property name="valueFormatter" type="boolean">
+    <tr uxdApiProperty name="valueFormatter" type="boolean">
       Allows the value to be formatted as desired. The argument to the function is the numeric value, and it should return a formatted string. This may be useful for locale presentation, using the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString"><code>toLocaleString</code></a> function.
     </tr>
-    <tr uxd-api-property name="click" type="function">
+    <tr uxdApiProperty name="click" type="function">
       Allows an on click function to be added to the callout and returns the data.
     </tr>
 </uxd-api-properties>
@@ -144,7 +144,7 @@
 <p>The <code>overflow</code> object is defined as follows:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="tooltip" type="string">
+    <tr uxdApiProperty name="tooltip" type="string">
       Configuration for the tooltip on overflow links. See the <code>overflow.tooltip</code> object definition below.
     </tr>
 </uxd-api-properties>
@@ -152,10 +152,10 @@
 <p>The <code>overflow.tooltip</code> object is defined as follows:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="showTooltip" type="boolean" defaultValue="true">
+    <tr uxdApiProperty name="showTooltip" type="boolean" defaultValue="true">
       Determines whether a tooltip will be shown on overflow links.
     </tr>
-    <tr uxd-api-property name="label" type="string">
+    <tr uxdApiProperty name="label" type="string">
       Text to show in the tooltip, as a suffix to the numeric value.
     </tr>
 </uxd-api-properties>

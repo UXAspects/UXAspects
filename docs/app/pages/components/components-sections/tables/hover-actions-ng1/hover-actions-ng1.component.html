@@ -10,7 +10,7 @@
 <p>To add hover actions to an element add the <code>hover-actions</code> directive. This can have the following attribute:</p>
 
 <uxd-api-properties >
-    <tr uxd-api-property name="hover-element" type="string" binding="literal">
+    <tr uxdApiProperty name="hover-element" type="string" binding="literal">
         This should specify a CSS selector that defines which parent element should be hovered to show the hover actions. If this is not specified, the immediate parent will be set as the hover element.
     </tr>
 </uxd-api-properties>
@@ -18,13 +18,13 @@
 <p>To add hover actions add <code>hover-action</code> directives to the <code>hover-actions</code> directive. A <code>hover-action</code> can use the following attributes to configure it’s appearance:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="name" type="string" binding="literal" required="true">
+    <tr uxdApiProperty name="name" type="string" binding="literal" required="true">
         The name of the action, placed in a tooltip that is shown when the action is hovered.
     </tr>
-    <tr uxd-api-property name="icon" type="string" binding="literal" required="true">
+    <tr uxdApiProperty name="icon" type="string" binding="literal" required="true">
         The icon class from the icon set.
     </tr>
-    <tr uxd-api-property name="click" type="function" binding="variable" required="true">
+    <tr uxdApiProperty name="click" type="function" binding="variable" required="true">
         This expression will be evaluated when the action is clicked or enter is pressed when it has focus.
     </tr>
 </uxd-api-properties>

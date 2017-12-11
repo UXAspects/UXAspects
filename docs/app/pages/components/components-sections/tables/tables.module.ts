@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule, HoverActionModule, ItemDisplayPanelModule } from '../../../../../../src/index';
+import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule, HoverActionModule, ItemDisplayPanelModule, FixedHeaderTableModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -17,7 +17,7 @@ import { ComponentsDynamicFiltersNg1Component } from './dynamic-filters-ng1/dyna
 import { ComponentsIndicesNg1Component } from './indices-ng1/indices-ng1.component';
 import { ComponentsGroupingNg1Component } from './grouping-ng1/grouping-ng1.component';
 import { ComponentsLayoutSwitchingNg1Component } from './layout-switching-ng1/layout-switching-ng1.component';
-import { ComponentsFixedHeaderTableNg1Component } from './fixed-header-table-ng1/fixed-header-table-ng1.component';
+import { ComponentsScrollableTableNg1Component } from './scrollable-table-ng1/scrollable-table-ng1.component';
 import { ComponentsListHoverActionsNg1Component } from './list-hover-actions-ng1/list-hover-actions-ng1.component';
 import { ComponentsHoverActionsNg1Component } from './hover-actions-ng1/hover-actions-ng1.component';
 import { ComponentsPreviewPaneNg1Component } from './preview-pane-ng1/preview-pane-ng1.component';
@@ -42,6 +42,8 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ComponentsHoverActionsComponent } from './hover-actions/hover-actions.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ComponentsFixedHeaderTableComponent } from './fixed-header-table/fixed-header-table.component';
+import { ComponentsFixedHeaderTableNg1Component } from './fixed-header-table-ng1/fixed-header-table-ng1.component';
 
 const SECTIONS = [
     ComponentsColumnSortingComponent,
@@ -54,7 +56,7 @@ const SECTIONS = [
     ComponentsIndicesNg1Component,
     ComponentsGroupingNg1Component,
     ComponentsLayoutSwitchingNg1Component,
-    ComponentsFixedHeaderTableNg1Component,
+    ComponentsScrollableTableNg1Component,
     ComponentsListHoverActionsNg1Component,
     ComponentsHoverActionsNg1Component,
     ComponentsPreviewPaneNg1Component,
@@ -71,7 +73,9 @@ const SECTIONS = [
     ComponentsCustomResponsiveTableNg1Component,
     SampleFilterCustomComponent,
     ComponentsLayoutSwitchingComponent,
-    ComponentsHoverActionsComponent
+    ComponentsHoverActionsComponent,
+    ComponentsFixedHeaderTableComponent,
+    ComponentsFixedHeaderTableNg1Component
 ];
 
 const ROUTES = [
@@ -102,6 +106,7 @@ const ROUTES = [
         AccordionModule.forRoot(),
         SliderModule,
         HoverActionModule,
+        FixedHeaderTableModule,
         TooltipModule.forRoot(),
         RouterModule.forChild(ROUTES)
     ],

@@ -11,40 +11,40 @@
 <p>There are several other attributes that can be added to configure the behavior:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="page-size" type="number" binding="variable" required="true">
+    <tr uxdApiProperty name="page-size" type="number" binding="variable" required="true">
       This should inform the directive of the number of items each page will contain. If a page contains less than the specified number of items then it will be assumed that it is the last page and no more should be loaded.
     </tr>
-    <tr uxd-api-property name="page-fn" type="boolean" binding="variable" required="true">
+    <tr uxdApiProperty name="page-fn" type="boolean" binding="variable" required="true">
       This function will be called when a page of data is required. The function will be called with three arguments, the
       first will be the number representing which page to load, the second will be the number of items expected to be
       in each page and the third will be the search query if one was specified. This function should either return an
       array containing the data for the associated page, or a <code>$q.defer().promise</code> if data is not immediately
       available.
     </tr>
-    <tr uxd-api-property name="page-position" type="number" binding="variable">
+    <tr uxdApiProperty name="page-position" type="number" binding="variable">
       Represents the point at which the next page should be loaded. This number is a represents a percentage so the value should be between 1 - 100. The default behavior will attempt to load the next page when the scroll handle reaches 85% of the way down the track.
     </tr>
-    <tr uxd-api-property name="item-template" type="string" binding="variable" required="true">
+    <tr uxdApiProperty name="item-template" type="string" binding="variable" required="true">
       The url of the template for each item in the list. Each item in the list will have the same template, when an item
       is added to the list it is created with a scope containing a <code>data</code> property that holds the data associated
       with that item.
     </tr>
-    <tr uxd-api-property name="container-id" type="string" binding="variable">
+    <tr uxdApiProperty name="container-id" type="string" binding="variable">
       If the list items should be added to a different element than the one this directive is added to, this should be
       used to identify the element. This should be used with the <code>infinite-scroll-container</code> directive, see
       example code for more information. This is particularly useful when using a infinite scrolling with custom scrollbars.
     </tr>
-    <tr uxd-api-property name="show-loading" type="boolean" binding="variable" defaultValue="true">
+    <tr uxdApiProperty name="show-loading" type="boolean" binding="variable" defaultValue="true">
       This specifies whether or not a loading indicator should be shown when a page is loading.
     </tr>
-    <tr uxd-api-property name="search-query" type="string" binding="variable">
+    <tr uxdApiProperty name="search-query" type="string" binding="variable">
       If specified when this query changes, the list will be cleared and the page function will be called to return results relevant to the search query.
     </tr>
-    <tr uxd-api-property name="window-scroll" type="boolean" binding="variable">
+    <tr uxdApiProperty name="window-scroll" type="boolean" binding="variable">
       If set to true the <code>page-fn</code> will be called when the browser window is scrolled to the <code>page-position</code>
       rather than binding to the scroll event of the element the directive is on.
     </tr>
-    <tr uxd-api-property name="load-more-button" type="object" binding="variable">
+    <tr uxdApiProperty name="load-more-button" type="object" binding="variable">
       If specified this can be used to enable and configure a button to appear at the bottom of the list. Clicking this
       button will load the next page of items rather than scrolling near the bottom. The following options can be used
       to configure the button:

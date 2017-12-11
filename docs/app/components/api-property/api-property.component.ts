@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: '[uxd-api-property]',
+    selector: '[uxdApiProperty]',
     templateUrl: './api-property.component.html',
     styleUrls: ['./api-property.component.less']
 })

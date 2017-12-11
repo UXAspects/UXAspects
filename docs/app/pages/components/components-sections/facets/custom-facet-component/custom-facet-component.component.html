@@ -15,19 +15,19 @@
 <p>The Facet Header component can use the following attributes to customize the behavior and appearance:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="header" type="string">
+    <tr uxdApiProperty name="header" type="string">
         Defines the text to display in the header.
     </tr>
-    <tr uxd-api-property name="canExpand" type="boolean" defaultValue="true">
+    <tr uxdApiProperty name="canExpand" type="boolean" defaultValue="true">
         Defines whether or not clicking on the header will toggle the expanded state.
     </tr>
-    <tr uxd-api-property name="expanded" type="boolean">
+    <tr uxdApiProperty name="expanded" type="boolean">
         Can be used to set the initial expanded.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxd-api-property name="expandedChange" type="boolean">
+    <tr uxdApiProperty name="expandedChange" type="boolean">
         If two-way binding is used it will be updated when the expanded state changes.
     </tr>
 </uxd-api-properties>
@@ -46,22 +46,22 @@
 </p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="selectFacet" args="Facet">
+    <tr uxdApiProperty name="selectFacet" args="Facet">
         Will select the facet and update the selected values in the facet container.
     </tr>
-    <tr uxd-api-property name="deselectFacet" args="Facet">
+    <tr uxdApiProperty name="deselectFacet" args="Facet">
         Will deselect the facet and update the selected values in the facet container.
     </tr>
-    <tr uxd-api-property name="deselectAll">
+    <tr uxdApiProperty name="deselectAll">
         Will deselect all facets associated with this component and update the selected values
         in the facet container.
     </tr>
-    <tr uxd-api-property name="toggleFacetSelection" args="Facet">
+    <tr uxdApiProperty name="toggleFacetSelection" args="Facet">
         If the facet passed to this function is currently selected it will be deselected. 
         If the facet is currently not selected it will be selected. This will update the selected 
         values in the facet container.
     </tr>
-    <tr uxd-api-property name="isFacetSelected" args="Facet" returns="boolean">
+    <tr uxdApiProperty name="isFacetSelected" args="Facet" returns="boolean">
         Will return a <code>true</code> if the facet passed to the function is currently selected, 
         otherwise will return false.
     </tr>

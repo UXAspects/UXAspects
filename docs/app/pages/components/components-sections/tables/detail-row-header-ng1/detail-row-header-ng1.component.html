@@ -12,16 +12,16 @@
 </p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="title" type="string" required="true">
+    <tr uxdApiProperty name="title" type="string" required="true">
         This is used to define the name on the column.
     </tr>
-    <tr uxd-api-property name="class" type="string">
+    <tr uxdApiProperty name="class" type="string">
         This is used to define the class on the header for setting the width, this should match the class on each div in the table body.
     </tr>
-    <tr uxd-api-property name="sort" type="string">
+    <tr uxdApiProperty name="sort" type="string">
         This is used to define how the column will be sorted. If this is not defined the column will be unsortable.
     </tr>
-    <tr uxd-api-property name="filter" type="string">
+    <tr uxdApiProperty name="filter" type="string">
         This is used to define the url of the filter popover. If this is not defined the column will not include
                     a filter. The filter template will have a scope containing a <code>closePopover</code> function which
                     it can call to close the popover manually. The filter template scope will also receive the events <code>detailRowHeaderPopoverOpened</code> when the filter popover is opened, and <code>detailRowHeaderPopoverClosed</code> when it is closed.
