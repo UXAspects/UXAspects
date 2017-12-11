@@ -20,26 +20,26 @@
 <p>The following attributes can be added to the <code>splitter</code> directive to configure its behavior.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="direction" type="string" binding="literal" required="true">
+    <tr uxd-api-property name="direction" type="string" binding="literal" required="true">
       Should be set to either 'horizontal' or 'vertical' depending on the desired orientation.
     </tr>
-    <tr uxdApiProperty name="gutter-size" type="number" binding="literal">
+    <tr uxd-api-property name="gutter-size" type="number" binding="literal">
       Specifies the thickness, in pixels, of the divider between panels. The default value is <code>10</code>. The minimum
         recommended width is <code>4</code>.
     </tr>
-    <tr uxdApiProperty name="snap-offset" type="number" binding="literal" defaultValue="30">
+    <tr uxd-api-property name="snap-offset" type="number" binding="literal" defaultValue="30">
       If the user resizes a panel within this amount of pixels of its minimum size it will automatically snap to the minimum size.
     </tr>
-    <tr uxdApiProperty name="on-drag-start" type="function" binding="variable">
+    <tr uxd-api-property name="on-drag-start" type="function" binding="variable">
       Specifies a function to be called when the user begins dragging the divider.
     </tr>
-    <tr uxdApiProperty name="on-drag" type="function" binding="variable">
+    <tr uxd-api-property name="on-drag" type="function" binding="variable">
       Specifies a function to be called when the divider is being moved.
     </tr>
-    <tr uxdApiProperty name="on-drag-end" type="function" binding="variable">
+    <tr uxd-api-property name="on-drag-end" type="function" binding="variable">
       Specifies a function to be called when the user finishes dragging the divider.
     </tr>
-    <tr uxdApiProperty name="on-toggle" type="function" binding="variable">
+    <tr uxd-api-property name="on-toggle" type="function" binding="variable">
       	Specifies a function to be called when the user expands or collapses a side inset splitter panel. It will be passed a value of true if it is being expanded and false if it is collapsing.
     </tr>
 </uxd-api-properties>
@@ -47,11 +47,11 @@
 <p>The following attributes can be added to the <code>splitter-panel</code> directive to configure its behavior.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="size" type="number" binding="literal" required="true">
+    <tr uxd-api-property name="size" type="number" binding="literal" required="true">
       Specifies the initial size of the panel as a percentage. The size of all panels combined should total <code>100</code>.
       A total higher than this will cause overflow.
     </tr>
-    <tr uxdApiProperty name="min-size" type="number" binding="literal">
+    <tr uxd-api-property name="min-size" type="number" binding="literal">
       Specifies the desired minimum size of a panel in pixels.
     </tr>
 </uxd-api-properties>

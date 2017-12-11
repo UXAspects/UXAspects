@@ -3,10 +3,10 @@
     <code>layout-switcher-container</code> directive. The directive must have the following attribute:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="selected" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="selected" type="string" binding="variable" required="true">
         A bindable property which will have the name of the layout to display.
     </tr>
-    <tr uxdApiProperty name="active" type="string" binding="variable">
+    <tr uxd-api-property name="active" type="string" binding="variable">
         A bindable property which, if specified, will store the layout name of the active layout. This differs from
         the <code>selected</code> value as if the layout is collapsed this property will contain the name of
         the collapsed layout.
@@ -17,18 +17,18 @@
     the <code>layout-switcher-item</code> directive. They can have the following attributes:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="name" type="string" binding="literal" required="true">
+    <tr uxd-api-property name="name" type="string" binding="literal" required="true">
         The name of the layout which will be used by <code>layout-switcher-container</code> to indicate which layout
         to display.
     </tr>
-    <tr uxdApiProperty name="layout" type="string" binding="literal">
+    <tr uxd-api-property name="layout" type="string" binding="literal">
         The URL of the HTML file to be used as the layout. If no layout is specified you should place the HTML of
         the template within the <code>layout-switcher-item</code> element.
     </tr>
-    <tr uxdApiProperty name="collapse-layout" type="string" binding="literal">
+    <tr uxd-api-property name="collapse-layout" type="string" binding="literal">
         The name of the layout to be used when the display becomes small.
     </tr>
-    <tr uxdApiProperty name="collapse-size" type="string" binding="literal">
+    <tr uxd-api-property name="collapse-size" type="string" binding="literal">
         The size at which the layout should change to the collapse layout.
     </tr>
 </uxd-api-properties>

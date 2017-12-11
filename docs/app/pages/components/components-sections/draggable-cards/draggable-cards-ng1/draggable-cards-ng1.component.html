@@ -31,28 +31,28 @@ The main content of the card should be specified inside the <code>draggable-card
 <p>The <code>draggable-cards</code> directive can have the following attributes to configure it:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="direction" type="string" binding="literal">
+    <tr uxd-api-property name="direction" type="string" binding="literal">
       Can be set to 'left' or 'right'. This will change the side the callout will display on a selected card.
     </tr>
-    <tr uxdApiProperty name="allow-reordering" type="boolean" binding="variable" defaultValue="true">
+    <tr uxd-api-property name="allow-reordering" type="boolean" binding="variable" defaultValue="true">
       If specified, this will show or hide the reordering controls on the card.
     </tr>
-    <tr uxdApiProperty name="allow-editing" type="boolean" binding="variable" defaultValue="true">
+    <tr uxd-api-property name="allow-editing" type="boolean" binding="variable" defaultValue="true">
       If specified, this will show or hide the edit button on a card. Note, the edit button will not appear if an edit function has not been specified.
     </tr>
-    <tr uxdApiProperty name="allow-removing" type="boolean" binding="variable" defaultValue="true">
+    <tr uxd-api-property name="allow-removing" type="boolean" binding="variable" defaultValue="true">
       If specified, this will show or hide the remove button on a card. Note, the remove button will not appear if a remove function has not been specified. 
     </tr>
-    <tr uxdApiProperty name="on-select" type="function" binding="variable">
+    <tr uxd-api-property name="on-select" type="function" binding="variable">
       If specified, this function will be called when a card is clicked. The function should accept one parameter which will contain the scope of the selected card.
     </tr>
-    <tr uxdApiProperty name="on-remove" type="function" binding="variable">
+    <tr uxd-api-property name="on-remove" type="function" binding="variable">
       	If specified, this function will be called when the remove button is clicked on a card. The function should accept one parameter which will contain the scope of the card. In this function you should remove the item from the array of draggable cards in the controller (see sample code). The remove button will not appear on any cards if this has not been set.
     </tr>
-    <tr uxdApiProperty name="on-edit" type="function" binding="variable">
+    <tr uxd-api-property name="on-edit" type="function" binding="variable">
       If specified, this function will be called when the edit button is clicked on a card. The function should accept one parameter which will contain the scope of the card. The edit button will not appear on any cards if this has not been set.
     </tr>
-    <tr uxdApiProperty name="on-reorder" type="function" binding="variable">
+    <tr uxd-api-property name="on-reorder" type="function" binding="variable">
       If specified, this function will be called when a card is moved. The function should accept one parameter which will contain an array of the card scopes in their new order.
     </tr>
 </uxd-api-properties>
@@ -60,22 +60,22 @@ The main content of the card should be specified inside the <code>draggable-card
 <p>The <code>fixed-card</code> and <code>draggable-card</code> elements can have the following attributes to configure it:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="card-title" type="string" binding="variable">
+    <tr uxd-api-property name="card-title" type="string" binding="variable">
       This will set the title text on the card.
     </tr>
-    <tr uxdApiProperty name="card-subtitle" type="string" binding="variable">
+    <tr uxd-api-property name="card-subtitle" type="string" binding="variable">
       This will set the text to the right of the title on the card.
     </tr>
-    <tr uxdApiProperty name="card-selected" type="boolean" biding="variable">
+    <tr uxd-api-property name="card-selected" type="boolean" biding="variable">
       If set to true this card will be selected by default. Only one card should have this set to true.
     </tr>
-    <tr uxdApiProperty name="disable-remove" type="boolean" binding="variable">
+    <tr uxd-api-property name="disable-remove" type="boolean" binding="variable">
       If set to true the remove button will be greyed out and unclickable.
     </tr>
-    <tr uxdApiProperty name="disable-edit" type="boolean" binding="variable">
+    <tr uxd-api-property name="disable-edit" type="boolean" binding="variable">
       If set to true the edit button will be greyed out and unclickable.
     </tr>
-    <tr uxdApiProperty name="card-icons" type="object" binding="variable">
+    <tr uxd-api-property name="card-icons" type="object" binding="variable">
       Contains the attributes to add additional icons and functions alongside the card title.
     </tr>
 </uxd-api-properties>
@@ -83,19 +83,19 @@ The main content of the card should be specified inside the <code>draggable-card
 <p>The following attributes are contained in the <code>card-icons</code> object.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="icon" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="icon" type="string" binding="variable" required="true">
       The icon class to display the icon.
     </tr>
-    <tr uxdApiProperty name="tooltip" type="string" binding="variable">
+    <tr uxd-api-property name="tooltip" type="string" binding="variable">
       This will be displayed in the tooltip when the icon is hovered.
     </tr>
-    <tr uxdApiProperty name="tooltipPlacement" type="string" binding="variable" defaultValue="top">
+    <tr uxd-api-property name="tooltipPlacement" type="string" binding="variable" defaultValue="top">
       Can be set to <code>top</code>, <code>bottom</code>, <code>right</code> or <code>left</code>.
     </tr>
-    <tr uxdApiProperty name="click" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="click" type="function" binding="variable" required="true">
       This will be called when the icon is clicked.
     </tr>
-    <tr uxdApiProperty name="disabled" type="boolean" binding="variable">
+    <tr uxd-api-property name="disabled" type="boolean" binding="variable">
       If set to true the icon will be greyed out and unclickable.
     </tr>
 </uxd-api-properties>

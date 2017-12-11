@@ -5,19 +5,19 @@
 <p>The tag input is set with the <code class="highlighter-rouge">tag-input</code> directive. It accepts the following attributes:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="tags" type="array" binding="variable" required="true">
+    <tr uxd-api-property name="tags" type="array" binding="variable" required="true">
       An initial set of tags to be displayed.
     </tr>
-    <tr uxdApiProperty name="full-tag-set" type="array" binding="variable">
+    <tr uxd-api-property name="full-tag-set" type="array" binding="variable">
       A set of tags to be used for autocompletion.
     </tr>
-    <tr uxdApiProperty name="api" type="object" binding="variable">
+    <tr uxd-api-property name="api" type="object" binding="variable">
       A set of callback functions for events and validation.
     </tr>
-    <tr uxdApiProperty name="options" type="object" binding="variable">
+    <tr uxd-api-property name="options" type="object" binding="variable">
       An object allowing configuration of the control's behaviour.
     </tr>
-    <tr uxdApiProperty name="ng-disabled" type="boolean" binding="variable" defaultValue="false">
+    <tr uxd-api-property name="ng-disabled" type="boolean" binding="variable" defaultValue="false">
       Determines whether the control is disabled. 
     </tr>
 </uxd-api-properties>
@@ -54,24 +54,24 @@ The Options section below describes how to configure the autocomplete behaviour.
 All of these functions will be called with the tag available as <code class="highlighter-rouge">$tag</code>.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="onTagAdding">
+    <tr uxd-api-property name="onTagAdding">
       Called before a new tag is added. This method must return <code>true</code> or <code>false</code>, 
       with a return value of <code>false</code> preventing the tag from being added.
     </tr>
-    <tr uxdApiProperty name="onTagAdded">
+    <tr uxd-api-property name="onTagAdded">
       Called after a new tag is added.
     </tr>
-    <tr uxdApiProperty name="onInvalidTag">
+    <tr uxd-api-property name="onInvalidTag">
       Called when a tag is invalid.
     </tr>
-    <tr uxdApiProperty name="onTagRemoving">
+    <tr uxd-api-property name="onTagRemoving">
       Called before removing a tag. This method must return <code>true</code> or <code>false</code>, 
       with a return value of <code>false</code> preventing the tag from being removed.
     </tr>
-    <tr uxdApiProperty name="onTagRemoved">
+    <tr uxd-api-property name="onTagRemoved">
       Called after a tag is removed.
     </tr>
-    <tr uxdApiProperty name="onTagClicked">
+    <tr uxd-api-property name="onTagClicked">
       	Called when the user clicks on an existing tag.
     </tr>
 </uxd-api-properties>
@@ -81,59 +81,59 @@ All of these functions will be called with the tag available as <code class="hig
 <p>The <code class="highlighter-rouge">options</code> attribute allows you to provide an object which will configure the behaviour of the control. The following options are available:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="placeholder">
+    <tr uxd-api-property name="placeholder">
       Placeholder text for the input control.
     </tr>
-    <tr uxdApiProperty name="initialPlaceholder" defaultValue="false">
+    <tr uxd-api-property name="initialPlaceholder" defaultValue="false">
       Defines if the placeholder should only show when there are no selected tags.
     </tr>
-    <tr uxdApiProperty name="minTagLength" defaultValue="1">
+    <tr uxd-api-property name="minTagLength" defaultValue="1">
       Minimum length for a new tag.
     </tr>
-    <tr uxdApiProperty name="maxTagLength" defaultValue="Max Int">
+    <tr uxd-api-property name="maxTagLength" defaultValue="Max Int">
       	Maximum length for a new tag.
     </tr>
-    <tr uxdApiProperty name="minNumberTags" defaultValue="0">
+    <tr uxd-api-property name="minNumberTags" defaultValue="0">
       Minimum valid number of tags.
     </tr>
-    <tr uxdApiProperty name="maxNumberTags" defaultValue="Max Int">
+    <tr uxd-api-property name="maxNumberTags" defaultValue="Max Int">
       Maximum valid number of tags.
     </tr>
-    <tr uxdApiProperty name="addOnSpace" defaultValue="false">
+    <tr uxd-api-property name="addOnSpace" defaultValue="false">
       Flag for if new tags should be added when the space key is pressed.
     </tr>
-    <tr uxdApiProperty name="addOnComma" defaultValue="false">
+    <tr uxd-api-property name="addOnComma" defaultValue="false">
       Flag for if new tags should be added when the comma key is pressed.
     </tr>
-    <tr uxdApiProperty name="addOnBlur" defaultValue="true">
+    <tr uxd-api-property name="addOnBlur" defaultValue="true">
       Flag for if new tags should be added when the control loses focus.
     </tr>
-    <tr uxdApiProperty name="addOnPaste" defaultValue="true">
+    <tr uxd-api-property name="addOnPaste" defaultValue="true">
       Flag for if new tags should be added when pasting from the clipboard.
     </tr>
-    <tr uxdApiProperty name="pasteSplitPattern" defaultValue=",">
+    <tr uxd-api-property name="pasteSplitPattern" defaultValue=",">
       When pasting from the clipboard, string delimiter for parsing input into tags.
     </tr>
-    <tr uxdApiProperty name="tabIndex" defaultValue="undefined">
+    <tr uxd-api-property name="tabIndex" defaultValue="undefined">
       Tabindex for the control.
     </tr>
-    <tr uxdApiProperty name="template">
+    <tr uxd-api-property name="template">
       HTML for custom tag style.
     </tr>
-    <tr uxdApiProperty name="maxTagsMessage">
+    <tr uxd-api-property name="maxTagsMessage">
       String for the message which will be displayed if the user exceeds the maximum number of tags.
     </tr>
-    <tr uxdApiProperty name="maxTagsHidden" defaultValue="false">
+    <tr uxd-api-property name="maxTagsHidden" defaultValue="false">
       Boolean value to hide the placeholder and autocomplete dropdown if the maximum number of tags has been reached.
     </tr>
-    <tr uxdApiProperty name="format">
+    <tr uxd-api-property name="format">
       Object with the following properties:
       <ul>
           <li><code>key</code> - property name in your object format for uniquely identifying tags (Default: 'text').</li>
           <li><code>display</code> - property name in your object format for displaying as the tag's text (Default: 'text').</li>
       </ul>
     </tr>
-    <tr uxdApiProperty name="autocomplete">
+    <tr uxd-api-property name="autocomplete">
       Object with the following properties:
       <ul>
           <li><code>addFromAutocompleteOnly</code> - flag for allowing only autocomplete values (Default: 'false').</li>
@@ -143,7 +143,7 @@ All of these functions will be called with the tag available as <code class="hig
           <li><code>source</code> - expression to evaluate upon changing the input content (optional).</li>
       </ul>
     </tr>
-    <tr uxdApiProperty name="tagClass">
+    <tr uxd-api-property name="tagClass">
       Function which returns an <code>ng-class</code>-type object defining one or more custom classes and 
       their conditions for activating. The function receives the following parameters:
       <ul>

@@ -3,7 +3,7 @@
     will update the original window, and vice versa. The service should be injected and has the following functions:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="createWindow">
+    <tr uxd-api-property name="createWindow">
         This is the main function that will be used. It allows the user to open a new window with the following parameters
         and returns the opened window as an object:
         <ul>
@@ -21,7 +21,7 @@
             width.
         </ul>
     </tr>
-    <tr uxdApiProperty name="updateContent">
+    <tr uxd-api-property name="updateContent">
         This method should be called when you wish to keep the current window open BUT change the url of the window (hence
         changing the content). This is useful if you don't want to have to close the window each time you change
         the window url (e.g. if you were navigating through a list of HTML templates). This function takes the 

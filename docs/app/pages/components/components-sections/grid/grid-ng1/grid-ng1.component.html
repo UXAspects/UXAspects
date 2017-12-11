@@ -27,16 +27,16 @@ To do this you can broadcast the <code>$gridReload</code> event, e.g.:</p>
 <p>The following properties can be set on columns to customize their appearance:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="title" type="string" required="true">
+    <tr uxd-api-property name="title" type="string" required="true">
         This defines the title to be displayed in the column header.
     </tr>
-    <tr uxdApiProperty name="template" type="string">
+    <tr uxd-api-property name="template" type="string">
         This defines the HTML to be used in the cells in this column. This property is required if the <code>templateUrl</code> property is not defined.
     </tr>
-    <tr uxdApiProperty name="teamplteUrl" type="string">
+    <tr uxd-api-property name="teamplteUrl" type="string">
         This defines a path to an HTML file to be used in the cells in this column. This property is required if the <code>template</code> property is not defined.
     </tr>
-    <tr uxdApiProperty name="width" type="number">
+    <tr uxd-api-property name="width" type="number">
         This defines the width of the column. If not specified the column will be automatically sized.
     </tr>
 </uxd-api-properties>

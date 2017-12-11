@@ -19,35 +19,35 @@
 <p>The following attributes can be used to configure static tooltips:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="content" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="content" type="string" binding="variable" required="true">
         Specifies the text to be displayed within the tooltip.
     </tr>
-    <tr uxdApiProperty name="dismiss-text" type="string" binding="variable" defaultValue="HIDE TIPS">
+    <tr uxd-api-property name="dismiss-text" type="string" binding="variable" defaultValue="HIDE TIPS">
         If specified will set the text of the dismiss all static tooltips option that will be displayed on hover. 
     </tr>
-    <tr uxdApiProperty name="direction" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="direction" type="string" binding="variable" required="true">
         Specifies the direction the tooltip will point to the chosen element. Available options are: <code>up</code>,
         <code>down</code>, <code>left</code> and <code>right</code>.
     </tr>
-    <tr uxdApiProperty name="position" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="position" type="string" binding="variable" required="true">
         Specifies where the callout should be placed on the tooltip. Available options are: <code>start</code>, <code>middle</code> and <code>end</code>.
     </tr>
-    <tr uxdApiProperty name="offset-x" type="number" binding="variable">
+    <tr uxd-api-property name="offset-x" type="number" binding="variable">
         Specifies the number of pixels to the left or right that the tooltip should be offset.
     </tr>
-    <tr uxdApiProperty name="offset-y" type="number" binding="variable">
+    <tr uxd-api-property name="offset-y" type="number" binding="variable">
         Specifies the number of pixels up or down that the tooltip should be offset.
     </tr>
-    <tr uxdApiProperty name="z-index" type="number" binding="variable" defaultValue="10098">
+    <tr uxd-api-property name="z-index" type="number" binding="variable" defaultValue="10098">
         If specified will set the z-index of the tooltip.
     </tr>
-    <tr uxdApiProperty name="tooltip-class" type="string" binding="variable">
+    <tr uxd-api-property name="tooltip-class" type="string" binding="variable">
         If specified will allow a custom class to be set on the tooltip offering more customization.
     </tr>
-    <tr uxdApiProperty name="tooltip-hidden" type="boolean" binding="variable">
+    <tr uxd-api-property name="tooltip-hidden" type="boolean" binding="variable">
         If set to true this tooltip will not be displayed initially
     </tr>
-    <tr uxdApiProperty name="tooltip-id" type="string" binding="variable">
+    <tr uxd-api-property name="tooltip-id" type="string" binding="variable">
         Can be used to set a custom id on the tooltip, these must be unique for each tooltip.
     </tr>
 </uxd-api-properties>
@@ -56,27 +56,27 @@
     and check if any tooltips are visible. The full API for this service is as follows:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="showAllTooltips">
+    <tr uxd-api-property name="showAllTooltips">
         This function will hide all the tooltips.
     </tr>
-    <tr uxdApiProperty name="hideAllTooltips">
+    <tr uxd-api-property name="hideAllTooltips">
         This function will hide all the tooltips.
     </tr>
-    <tr uxdApiProperty name="showTooltip">
+    <tr uxd-api-property name="showTooltip">
         Arguments:
         <ul>
             <li><code>id</code> - string</li>
         </ul>
         <span>This function will show the tooltip with the matching id.</span>
     </tr>
-    <tr uxdApiProperty name="hideTooltip">
+    <tr uxd-api-property name="hideTooltip">
         Arguments:
         <ul>
             <li><code>id</code> - string</li>
         </ul>
         <span>This function will hide the tooltip with the matching id.</span>
     </tr>
-    <tr uxdApiProperty name="tooltipsVisible">
+    <tr uxd-api-property name="tooltipsVisible">
         This function returns true if any tooltips are visible, otherwise returns false.
     </tr>
 </uxd-api-properties>

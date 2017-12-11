@@ -6,16 +6,16 @@
 <hr>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="label" type="string">
+    <tr uxd-api-property name="label" type="string">
         Label name specified in the legend.
     </tr>
-    <tr uxdApiProperty name="data" type="number or array" required="true">
+    <tr uxd-api-property name="data" type="number or array" required="true">
         A number in the donut chart defining the area of each donut section.
     </tr>
-    <tr uxdApiProperty name="color" type="color">
+    <tr uxd-api-property name="color" type="color">
         Defines the color of each donut section.
     </tr>
-    <tr uxdApiProperty name="highlightColor" type="color">
+    <tr uxd-api-property name="highlightColor" type="color">
         Default color of the translucent overlay used to highlight on mouse hover.
     </tr>
 </uxd-api-properties>
@@ -34,10 +34,10 @@
 </tabset>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="series" type="string" required="true">
+    <tr uxd-api-property name="series" type="string" required="true">
         Defines the chart type and its layout. Values include 'lines', 'bar' and 'points', e.g. if data represents a donut chart, then the value is set to 'pie'.
     </tr>
-    <tr uxdApiProperty name="grid" type="array">
+    <tr uxd-api-property name="grid" type="array">
         Helps configure the grid options.
     </tr>
 </uxd-api-properties>
@@ -45,22 +45,22 @@
 <p>Chart layout parameters are explained below. These are defined in <code>series</code>.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="show" type="boolean" required="true">
+    <tr uxd-api-property name="show" type="boolean" required="true">
         If set to true displays the chart.
     </tr>
-    <tr uxdApiProperty name="innerRadius" type="number">
+    <tr uxd-api-property name="innerRadius" type="number">
         Sets the radius of the donut hole. If value is between 0 and 1 (inclusive) then it will use that as a percentage of the radius, otherwise it will use the value as a direct pixel length.
     </tr>
-    <tr uxdApiProperty name="centerLabel" type="array">
+    <tr uxd-api-property name="centerLabel" type="array">
         Defines how a label should be shown in the center of the donut.
     </tr>
-    <tr uxdApiProperty name="subLabel" type="array">
+    <tr uxd-api-property name="subLabel" type="array">
         Defines how a label should be shown in the center of the donut beneath the center label.
     </tr>
-    <tr uxdApiProperty name="donutLabel" type="array">
+    <tr uxd-api-property name="donutLabel" type="array">
         Defines how a label should be shown beneath the donut.
     </tr>
-    <tr uxdApiProperty name="width" type="number">
+    <tr uxd-api-property name="width" type="number">
         Defined inside stroke object, pixel width of the border of each slice.
     </tr>
 </uxd-api-properties>
@@ -68,28 +68,28 @@
 <p>The following attributes should be defined within <code>centerLabel</code>.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="show" type="boolean">
+    <tr uxd-api-property name="show" type="boolean">
         Whether or not the chart should show a center label.
     </tr>
-     <tr uxdApiProperty name="color" type="string">
+     <tr uxd-api-property name="color" type="string">
         Specifies the color to be used for the center label.
     </tr>
-     <tr uxdApiProperty name="text" type="string">
+     <tr uxd-api-property name="text" type="string">
         The text to display in the center label.
     </tr>
-     <tr uxdApiProperty name="font" type="string">
+     <tr uxd-api-property name="font" type="string">
         The name of the font family to be used by the label.
     </tr>
-    <tr uxdApiProperty name="fontSize" type="number">
+    <tr uxd-api-property name="fontSize" type="number">
         The desired font size of the label. The size may be reduced automatically to fit the label inside the donut.
     </tr>
-     <tr uxdApiProperty name="paddingX" type="number">
+     <tr uxd-api-property name="paddingX" type="number">
         Defines the horizontal padding required to center the position.
     </tr>
-     <tr uxdApiProperty name="paddingY" type="number">
+     <tr uxd-api-property name="paddingY" type="number">
         Defines the vertical padding required to center the position.
     </tr>
-     <tr uxdApiProperty name="textBaseline" type="HTML">
+     <tr uxd-api-property name="textBaseline" type="HTML">
         Canvas textBaseline property, defines the position of the label.
     </tr>
 </uxd-api-properties>
@@ -97,28 +97,28 @@
 <p>The following attributes should be defined within <code>subLabel</code>.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="show" type="boolean">
+    <tr uxd-api-property name="show" type="boolean">
         Whether or not the chart should show a sub label.
     </tr>
-    <tr uxdApiProperty name="color" type="string">
+    <tr uxd-api-property name="color" type="string">
         Specifies the color to be used for the sub label.
     </tr>
-    <tr uxdApiProperty name="text" type="string">
+    <tr uxd-api-property name="text" type="string">
         The text to display in the sub label.
     </tr>
-    <tr uxdApiProperty name="font" type="string">
+    <tr uxd-api-property name="font" type="string">
         The name of the font family to be used by the label.
     </tr>
-    <tr uxdApiProperty name="fontSize" type="number">
+    <tr uxd-api-property name="fontSize" type="number">
         The desired font size of the label. The size may be reduced automatically to fit the label inside the donut.
     </tr>
-    <tr uxdApiProperty name="paddingX" type="number">
+    <tr uxd-api-property name="paddingX" type="number">
         Defines the horizontal padding required to center the position.
     </tr>
-    <tr uxdApiProperty name="paddingY" type="number">
+    <tr uxd-api-property name="paddingY" type="number">
         Defines the vertical padding required to center the position.
     </tr>
-    <tr uxdApiProperty name="textBaseline" type="HTML">
+    <tr uxd-api-property name="textBaseline" type="HTML">
         Canvas textBaseline property, defines the position of the label.
     </tr>
 </uxd-api-properties>
@@ -126,19 +126,19 @@
 <p>The following attributes should be defined within <code>donutLabel</code>.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="show" type="boolean">
+    <tr uxd-api-property name="show" type="boolean">
         Whether or not the chart should show a donut label.
     </tr>
-    <tr uxdApiProperty name="color" type="string">
+    <tr uxd-api-property name="color" type="string">
         Specifies the color to be used for the donut label.
     </tr>
-    <tr uxdApiProperty name="text" type="string">
+    <tr uxd-api-property name="text" type="string">
         The text to display in the donut label.
     </tr>
-    <tr uxdApiProperty name="font" type="string">
+    <tr uxd-api-property name="font" type="string">
         The name of the font family to be used by the label.
     </tr>
-    <tr uxdApiProperty name="fontSize" type="number">
+    <tr uxd-api-property name="fontSize" type="number">
         The desired font size of the label. The size may be reduced automatically to fit the label inside the donut.
     </tr>
 </uxd-api-properties>
@@ -146,7 +146,7 @@
 <p>Grid options are explained below.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="hoverable" type="boolean">
+    <tr uxd-api-property name="hoverable" type="boolean">
         If set to true enables interactivity in the grid.
     </tr>
 </uxd-api-properties>

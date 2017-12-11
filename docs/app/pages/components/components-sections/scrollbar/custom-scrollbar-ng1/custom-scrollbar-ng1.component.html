@@ -10,32 +10,32 @@
   attribute. Some of the options are:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="showOnlyOnHover" type="boolean">
+    <tr uxd-api-property name="showOnlyOnHover" type="boolean">
       The scrollbar will be displayed only on hover when this option is set to <code>true</code>.
     </tr>
-    <tr uxdApiProperty name="resizeSensor" type="boolean">
+    <tr uxd-api-property name="resizeSensor" type="boolean">
       The scrollbar will be re-initialised automatically when the content changes size or the viewport size changes. Use
       <code>resizeSensorDelay</code> property to add a delay before reinitialising.
     </tr>
-    <tr uxdApiProperty name="autoReinitialise" type="boolean">
+    <tr uxd-api-property name="autoReinitialise" type="boolean">
       An alternative to the resizeSensor property. This is a less performant option and uses polling to check for size
       changes, however in certain circumstances due to positioning of elements resizeSensor may not be suitable. The
       scrollbar will be re-initialised automatically when there is a change in size of the viewport.
     </tr>
-    <tr uxdApiProperty name="enableKeyboardNavigation" type="boolean">
+    <tr uxd-api-property name="enableKeyboardNavigation" type="boolean">
       The content will scroll using keyboard controls when it is given focus.
     </tr>
-    <tr uxdApiProperty name="isScrollableH" type="boolean">
+    <tr uxd-api-property name="isScrollableH" type="boolean">
       Disables the horizontal scrollbar when this option is set to <code>false</code>.
     </tr>
-    <tr uxdApiProperty name="scrollMargin" type="number" defaultValue="0">
+    <tr uxd-api-property name="scrollMargin" type="number" defaultValue="0">
       Margin in pixels to add around the scrollable area. The recommended margin as seen in the example above is 5.
     </tr>
-    <tr uxdApiProperty name="contentUpdateSensor" type="boolean">
+    <tr uxd-api-property name="contentUpdateSensor" type="boolean">
       This should be enabled if you have dropdowns within the scroll pane to allow the panel to resize when 
       the dropdown is opened. It will be less performant with this enabled so should not be used unless needed.
     </tr>
-    <tr uxdApiProperty name="contentUpdateSensorDelay" type="number" defaultValue="500">
+    <tr uxd-api-property name="contentUpdateSensorDelay" type="number" defaultValue="500">
       This will set the delay for the content update sensor. Lower numbers will have a greater impact to performance.
     </tr>
 </uxd-api-properties>

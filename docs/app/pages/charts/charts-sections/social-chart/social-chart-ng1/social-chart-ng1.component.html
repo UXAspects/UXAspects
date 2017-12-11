@@ -46,70 +46,70 @@
 <p>The <code>social-chart</code> directive accepts the following parameters:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="data" type="object" required="true">
+    <tr uxd-api-property name="data" type="object" required="true">
       The data to be displayed in the chart.
     </tr>
-    <tr uxdApiProperty name="width" type="string" required="true">
+    <tr uxd-api-property name="width" type="string" required="true">
       The dimensions of the chart container (all CSS dimension units accepted). Note that the containing element must have specified dimensions in order to use percentage values.
     </tr>
-    <tr uxdApiProperty name="height" type="string" required="true">
+    <tr uxd-api-property name="height" type="string" required="true">
       The dimensions of the chart container (all CSS dimension units accepted). Note that the containing element must have specified dimensions in order to use percentage values.
     </tr>
-    <tr uxdApiProperty name="api" type="object" required="true">
+    <tr uxd-api-property name="api" type="object" required="true">
       A host object for returned objects and functions.
     </tr>
-    <tr uxdApiProperty name="communities" type="object">
+    <tr uxd-api-property name="communities" type="object">
       A map of node types to colors and styles.
     </tr>
-    <tr uxdApiProperty name="detail-style" type="object">
+    <tr uxd-api-property name="detail-style" type="object">
       CSS styles to override the detail panel container styling.
     </tr>
-    <tr uxdApiProperty name="popover-style" type="object">
+    <tr uxd-api-property name="popover-style" type="object">
       CSS styles to override the popover panel container styling.
     </tr>
-    <tr uxdApiProperty name="node-detail" type="URL">
+    <tr uxd-api-property name="node-detail" type="URL">
       The HTML template for the node detail panel.
     </tr>
-    <tr uxdApiProperty name="edge-detail" type="URL">
+    <tr uxd-api-property name="edge-detail" type="URL">
       The HTML template for the edge detail panel.
     </tr>
-    <tr uxdApiProperty name="node-popover" type="URL">
+    <tr uxd-api-property name="node-popover" type="URL">
       The HTML template for the node popover panel.
     </tr>
-    <tr uxdApiProperty name="edge-popover" type="Url">
+    <tr uxd-api-property name="edge-popover" type="Url">
       The HTML template for the edge popover panel.
     </tr>
-    <tr uxdApiProperty name="force-atlas-duration" type="number" defaultValue="1800">
+    <tr uxd-api-property name="force-atlas-duration" type="number" defaultValue="1800">
       Time in milliseconds to run the ForceAtlas2 layout algorithm.
     </tr>
-    <tr uxdApiProperty name="node-size-attribute" type="expression">
+    <tr uxd-api-property name="node-size-attribute" type="expression">
       The node attribute to be used to calculate relative sizes (see below).
     </tr>
-    <tr uxdApiProperty name="start-maximized" type="boolean">
+    <tr uxd-api-property name="start-maximized" type="boolean">
       When true the chart will initially be shown full-screen.
     </tr>
-    <tr uxdApiProperty name="show-maximize-control" type="boolean">
+    <tr uxd-api-property name="show-maximize-control" type="boolean">
       When true the fullscreen display toggle button will be shown.
     </tr>
-    <tr uxdApiProperty name="fullscreen-button-position" type="object">
+    <tr uxd-api-property name="fullscreen-button-position" type="object">
       Override the placement of the fullscreen display toggle button (see below).
     </tr>
-    <tr uxdApiProperty name="social-chart-container" type="string">
+    <tr uxd-api-property name="social-chart-container" type="string">
       Class name of the container element for full-screen display.
     </tr>
-    <tr uxdApiProperty name="local-strings" type="object">
+    <tr uxd-api-property name="local-strings" type="object">
       Localizable strings for internal control labels and tooltips (see below).
     </tr>
-    <tr uxdApiProperty name="options" type="options">
+    <tr uxd-api-property name="options" type="options">
       Additional configuration parameters.
     </tr>
-    <tr uxdApiProperty name="chart-title" type="object">
+    <tr uxd-api-property name="chart-title" type="object">
       Configuration options for the title which is displayed when the chart is fullscreen.
     </tr>
-    <tr uxdApiProperty name="edge-weight-influence" type="boolean">
+    <tr uxd-api-property name="edge-weight-influence" type="boolean">
       When true the edge weight will be taken into account when positioning the nodes (see layout section).
     </tr>
-    <tr uxdApiProperty name="min-labels" type="number">
+    <tr uxd-api-property name="min-labels" type="number">
       When specified the chart will add labels to at least this many nodes where possible. If a node or edge has been selected
       then only the nodes with focus are eligible to have labels added to them. Labels are added based on the node size,
       with the largest getting labels added first. Nodes near the edges of the chart will also not get labels added to
@@ -159,10 +159,10 @@
   after the chart is instantiated for use in the developer’s own controller context:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="setSelectedNodeById" type="function">
+    <tr uxd-api-property name="setSelectedNodeById" type="function">
       Updates the currently selected node.
     </tr>
-    <tr uxdApiProperty name="SetSelectedEdgeById" type="function">
+    <tr uxd-api-property name="SetSelectedEdgeById" type="function">
       Updates the currently selected edge.
     </tr>
 </uxd-api-properties>
@@ -176,25 +176,25 @@
 <p>To execute custom logic on the node, edge, or stage click events, the following functions should be set on the API object.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="onNodeClick" type="function">
+    <tr uxd-api-property name="onNodeClick" type="function">
       Invoked with the selected/hovered node as a parameter.
     </tr>
-    <tr uxdApiProperty name="onNodeHover" type="function">
+    <tr uxd-api-property name="onNodeHover" type="function">
       Invoked with the selected/hovered node as a parameter.
     </tr>
-    <tr uxdApiProperty name="onEdgeClick" type="function">
+    <tr uxd-api-property name="onEdgeClick" type="function">
       Invoked with the selected/hovered node as a parameter.
     </tr>
-    <tr uxdApiProperty name="onEdgeHover" type="function">
+    <tr uxd-api-property name="onEdgeHover" type="function">
       Invoked with the selected/hovered node as a parameter.
     </tr>
-    <tr uxdApiProperty name="onStageClick" type="function">
+    <tr uxd-api-property name="onStageClick" type="function">
       Invoked with no parameters.
     </tr>
-    <tr uxdApiProperty name="onLoadComplete" type="function">
+    <tr uxd-api-property name="onLoadComplete" type="function">
       Invoked with no parameters, when the graph is initially loaded and the initial layout algorithm has completed.
     </tr>
-    <tr uxdApiProperty name="onToggleFullscreen" type="function">
+    <tr uxd-api-property name="onToggleFullscreen" type="function">
       Invoked with no parameters when the fullscreen/standard toggle button is clicked, if this button is shown. <b>Important:</b>          this function should return a value:
       <ul>
         <li><code>true</code> - perform the default toggle between fullscreen and standard.</li>
@@ -225,20 +225,20 @@
 
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="title" type="string" required="true">
+    <tr uxd-api-property name="title" type="string" required="true">
       The initial title string which will be displayed before the chart has been used.
     </tr>
-    <tr uxdApiProperty name="timeout" type="number">
+    <tr uxd-api-property name="timeout" type="number">
     	The time in milliseconds before the title fades, if this is not defined the title will be permanently displayed.
     </tr>
-    <tr uxdApiProperty name="nodeSelectedTitle" type="string">
+    <tr uxd-api-property name="nodeSelectedTitle" type="string">
       <p ng-non-bindable="">The string which will replace the title when a node is selected, <code ngNonBindable>{{ node }}</code> will be replaced by the
         name of the currently selected node.</p>
     </tr>
-    <tr uxdApiProperty name="edgeSelectedTitle" type="string">
+    <tr uxd-api-property name="edgeSelectedTitle" type="string">
       <p ng-non-bindable="">The string which will replace the title when an edge is selected, <code ngNonBindable>{{ source }}</code> and <code ngNonBindable>{{ target }}</code> will be replaced by the name of the source and target nodes.</p>
     </tr>
-    <tr uxdApiProperty name="stageSelectedTitle" type="string">
+    <tr uxd-api-property name="stageSelectedTitle" type="string">
       The string which will replace the title when the stage is clicked.
     </tr>
 </uxd-api-properties>
@@ -281,16 +281,16 @@
   can be mapped:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="title" type="string" defaultValue="Entire Network">
+    <tr uxd-api-property name="title" type="string" defaultValue="Entire Network">
       The name of your chart; defaults to "Entire Network" in English.
     </tr>
-    <tr uxdApiProperty name="reset" type="string">
+    <tr uxd-api-property name="reset" type="string">
       Localized string for English word "reset".
     </tr>
-    <tr uxdApiProperty name="zoomIn" type="string">
+    <tr uxd-api-property name="zoomIn" type="string">
       Localized string for English phrase "Zoom In".
     </tr>
-    <tr uxdApiProperty name="zoomOut" type="string">
+    <tr uxd-api-property name="zoomOut" type="string">
       Localized string for English phrase "Zoom Out".
     </tr>
 </uxd-api-properties>

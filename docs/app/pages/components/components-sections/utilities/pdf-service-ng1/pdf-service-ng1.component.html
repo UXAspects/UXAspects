@@ -19,14 +19,14 @@
 <p>Column definitions should be an array of objects, each object can contain the following properties:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="title" type="string">
+    <tr uxd-api-property name="title" type="string">
         Should contain the text in the column header.
     </tr>
-    <tr uxdApiProperty name="value" type="string | function">
+    <tr uxd-api-property name="value" type="string | function">
         Should either specify the property name in the row object containing the value or a function that will be passed
         the row data and should return the value to display in that column.
     </tr>
-    <tr uxdApiProperty name="width" type="size">
+    <tr uxd-api-property name="width" type="size">
         Specifies the width of the column. You can specify sizes as a pixel value (<code>100</code>) or a percentage
         (<code>'30%'</code>). Additionally you can let the service determine the size using <code>'auto'</code> which
         will take only the size required to display the data in the column, or <code>'*'</code> which will stretch
@@ -37,7 +37,7 @@
 <p>You can also provide several options to customize the PDF being generated. If not specified then default values will be used.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="pageSize" type="string">
+    <tr uxd-api-property name="pageSize" type="string">
         Can specify the document page size. The following sizes are available:
         <br><br>
         <ul>
@@ -49,14 +49,14 @@
             <li>'EXECUTIVE', 'FOLIO', 'LEGAL', 'LETTER', 'TABLOID'</li>
         </ul>
     </tr>
-    <tr uxdApiProperty name="pageOrientation" type="string">
+    <tr uxd-api-property name="pageOrientation" type="string">
         Can specify the orientation of the page. The possible values are <code>portrait</code> or <code>landscape</code>.
     </tr>
-    <tr uxdApiProperty name="pageMargins" type="array">
+    <tr uxd-api-property name="pageMargins" type="array">
         Can specify the spacing on each side of the document. The array should have four values indicating the spacing
         (in pixels) on the left, top, right &amp; bottom of the page.
     </tr>
-    <tr uxdApiProperty name="metadata" type="object">
+    <tr uxd-api-property name="metadata" type="object">
         Can specify the document metadata. The available properties are:
         <ul>
             <li><code>title</code> - The title of the document.</li>

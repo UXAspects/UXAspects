@@ -9,18 +9,18 @@
 </p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="on-select" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="on-select" type="function" binding="variable" required="true">
         Should take in an item as a parameter. This is called with the selected item when it is selected. <code>on-select="vm.select(item)"</code>
     </tr>
-    <tr uxdApiProperty name="on-deselect" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="on-deselect" type="function" binding="variable" required="true">
         Should take in an item as a parameter. This is called with the selected item when it is deselected. When
         clearing all selections this method will be passed <code>null</code> as the item. <code>on-deselect="vm.deselect(item)"</code>
     </tr>
-    <tr uxdApiProperty name="key-fn" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="key-fn" type="function" binding="variable" required="true">
         Should take in an item as a parameter. This is called when it is necessary for the directive to uniquely
         identify an item. <code>key-fn="vm.getId(item)"</code>
     </tr>
-    <tr uxdApiProperty name="total" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="total" type="function" binding="variable" required="true">
         Should return the total count of items. This is used for the Select All function. <code>total="vm.totalItems"</code>
     </tr>
 </uxd-api-properties>
@@ -34,13 +34,13 @@
 </p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="name" type="string" binding="literal" required="true">
+    <tr uxd-api-property name="name" type="string" binding="literal" required="true">
         The name of the action.
     </tr>
-    <tr uxdApiProperty name="action" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="action" type="function" binding="variable" required="true">
         This is called when the user confirms they want to proceed with the action.
     </tr>
-    <tr uxdApiProperty name="type" type="string" binding="literal" required="true">
+    <tr uxd-api-property name="type" type="string" binding="literal" required="true">
         Used to style the action button. Values that can be given here are <code>primary</code>, <code>accent</code>,
         <code>secondary</code> and <code>warning</code>.
     </tr>
@@ -72,28 +72,28 @@
 </p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="cancelText" type="string" defaultValue="Cancel">
+    <tr uxd-api-property name="cancelText" type="string" defaultValue="Cancel">
         Displayed beside the "x" when in selection mode.
     </tr>
-    <tr uxdApiProperty name="selectItemsText" type="string" defaultValue="Select Items or">
+    <tr uxd-api-property name="selectItemsText" type="string" defaultValue="Select Items or">
         Displayed when no items are selected, should encourage user to select items.
     </tr>
-    <tr uxdApiProperty name="selectedItemsText" type="string" defaultValue="Selected">
+    <tr uxd-api-property name="selectedItemsText" type="string" defaultValue="Selected">
         Displayed when items are selected.
     </tr>
-    <tr uxdApiProperty name="selectedItemsUnitText" type="string" defaultValue="Items.">
+    <tr uxd-api-property name="selectedItemsUnitText" type="string" defaultValue="Items.">
         Displayed beside the item count when more than one item is selected.
     </tr>
-    <tr uxdApiProperty name="selectedItemUnitText" type="string" defaultValue="Item.">
+    <tr uxd-api-property name="selectedItemUnitText" type="string" defaultValue="Item.">
         Displayed beside the item count when a single item is selected.
     </tr>
-    <tr uxdApiProperty name="selectAllText" type="string" defaultValue="Select All">
+    <tr uxd-api-property name="selectAllText" type="string" defaultValue="Select All">
         Displayed in the link for selecting all.
     </tr>
-    <tr uxdApiProperty name="selectNoneText" type="string" defaultValue="Select None">
+    <tr uxd-api-property name="selectNoneText" type="string" defaultValue="Select None">
         Displayed in the link for selecting none.
     </tr>
-    <tr uxdApiProperty name="selectionInvalidText" type="string" defaultValue="This selection is no longer valid">
+    <tr uxd-api-property name="selectionInvalidText" type="string" defaultValue="This selection is no longer valid">
         Displayed when the selection becomes invalid.
     </tr>
 </uxd-api-properties>

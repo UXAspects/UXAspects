@@ -7,19 +7,19 @@
 <p>Search Toolbar takes the following attributes:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="search-typeahead" type="array" binding="variable" required="true">
+    <tr uxd-api-property name="search-typeahead" type="array" binding="variable" required="true">
       Name of the list where the typeahead data is stored.
     </tr>
-    <tr uxdApiProperty name="place-holder" type="string" binding="literal" required="true">
+    <tr uxd-api-property name="place-holder" type="string" binding="literal" required="true">
       Placeholder text for an input.
     </tr>
-    <tr uxdApiProperty name="close-search" type="string" binding="literal" required="true">
+    <tr uxd-api-property name="close-search" type="string" binding="literal" required="true">
       Should be set to a value which when clicked closes the input text.
     </tr>
-    <tr uxdApiProperty name="on-search" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="on-search" type="function" binding="variable" required="true">
       Defines the function to be called when the enter key is pressed. The function will be called with the current text entered in the field as an argument.
     </tr>
-    <tr uxdApiProperty name="on-focus" type="function" binding="variable">
+    <tr uxd-api-property name="on-focus" type="function" binding="variable">
       Defines the function to be called when the search bar is focused.
     </tr>
 </uxd-api-properties>

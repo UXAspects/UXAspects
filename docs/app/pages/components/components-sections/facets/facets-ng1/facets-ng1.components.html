@@ -18,10 +18,10 @@
 <p>A <code>facet</code> element may have the following attributes:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="name" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="name" type="string" binding="variable" required="true">
         The facet title.
     </tr>
-    <tr uxdApiProperty name="facet-scroll" type="string" binding="literal" defaultValue="on">
+    <tr uxd-api-property name="facet-scroll" type="string" binding="literal" defaultValue="on">
         Set to "on" to enable a scrollbar for the facet options, or "off" to disable it.
     </tr>
 </uxd-api-properties>
@@ -34,36 +34,36 @@
 </p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="name" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="name" type="string" binding="variable" required="true">
         A bindable property which will be displayed as the option.
     </tr>
-    <tr uxdApiProperty name="count" type="number" binding="variable">
+    <tr uxd-api-property name="count" type="number" binding="variable">
         An optional bindable property which will appear alongside the name in braces. Note that the count should update as facets are applied.
     </tr>
-    <tr uxdApiProperty name="select" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="select" type="function" binding="variable" required="true">
         A function expression which will be called when the option is selected. This function should perform any 
         filtering that is required and update counts as necessary. The select count should update as facets are applied, 
         based on the number of items selected which will be displayed on the toolbar in selection mode.
     </tr>
-    <tr uxdApiProperty name="deselect" type="function" binding="variable" required="true">
+    <tr uxd-api-property name="deselect" type="function" binding="variable" required="true">
         a function expression which will be called when the option is deselected. This function should 
         perform any filtering that is required and update counts as necessary. The select count should 
         update as facets are applied, based on the number of items selected which will be displayed on the 
         toolbar in selection mode.
     </tr>
-    <tr uxdApiProperty name="load-delay" type="number" binding="variable" required="true">
+    <tr uxd-api-property name="load-delay" type="number" binding="variable" required="true">
         An optional property to specify a delay in milliseconds to load the facets.
     </tr>
-    <tr uxdApiProperty name="disabled" type="boolean" binding="variable" required="true" defaultValue="false">
+    <tr uxd-api-property name="disabled" type="boolean" binding="variable" required="true" defaultValue="false">
         If true the <code>facet-option</code> will appear disabled and clicking on it will have no effect.
     </tr>
-    <tr uxdApiProperty name="show-zero" type="boolean" binding="variable" required="true" defaultValue="false">
+    <tr uxd-api-property name="show-zero" type="boolean" binding="variable" required="true" defaultValue="false">
         If true the <code>facet-option</code> will be visible even if the count is 0.
     </tr>
-    <tr uxdApiProperty name="selected-aria-label" type="boolean" binding="variable" required="true">
+    <tr uxd-api-property name="selected-aria-label" type="boolean" binding="variable" required="true">
         A property which accepts a string used in assistive technologies to indicate whether the facet option is selected.
     </tr>
-    <tr uxdApiProperty name="simplified" type="boolean" binding="variable" required="true" defaultValue="true">
+    <tr uxd-api-property name="simplified" type="boolean" binding="variable" required="true" defaultValue="true">
         Setting this to false will use the standard checkbox style.
     </tr>
 </uxd-api-properties>
@@ -79,7 +79,7 @@
 </tabset>
 
 <uxd-api-properties tableTitle="Function">
-    <tr uxdApiProperty name="updateSelectCounts">
+    <tr uxd-api-property name="updateSelectCounts">
         A function expression which will be called when facet option is selected (<code>select</code>) or 
         deselected (<code>deselect</code>). This will update the count based on the number of items that 
         are selected in selection mode when the filtering is done on facets.

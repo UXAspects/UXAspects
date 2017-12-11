@@ -18,28 +18,28 @@
 <p>The <code>baseChart</code> directive should be added to a <code>canvas</code> element and the following attributes can be used to customize the chart behavior and appearance:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxdApiProperty name="dataSets" type="object[]">
+    <tr uxd-api-property name="dataSets" type="object[]">
         Contains the data and properties for each data set to be displayed in the chart.
     </tr>
-    <tr uxdApiProperty name="chartType" type="string">
+    <tr uxd-api-property name="chartType" type="string">
         Indicates the type of the chart. Possible options are: <code>line</code>, <code>bar</code>, <code>radar</code>, <code>pie</code>, <code>polarArea</code>, <code>doughnut</code>
     </tr>
-    <tr uxdApiProperty name="options" type="ChartOptions">
+    <tr uxd-api-property name="options" type="ChartOptions">
         Configures the appearance and behavior of all aspects of the chart.
     </tr>
-    <tr uxdApiProperty name="colors" type="object[]">
+    <tr uxd-api-property name="colors" type="object[]">
         Configure the color values to be used within the chart.
     </tr>
-    <tr uxdApiProperty name="legend" type="boolean">
+    <tr uxd-api-property name="legend" type="boolean">
         Determines whether or not the legend should be displayed.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxdApiProperty name="chartClick">
+    <tr uxd-api-property name="chartClick">
         Fires when click on a chart has occurred, returns information regarding active points and labels.
     </tr>
-    <tr uxdApiProperty name="chartHover">
+    <tr uxd-api-property name="chartHover">
         Fires when mousemove (hover) on a chart has occurred, returns information regarding active points and labels.
     </tr>
 </uxd-api-properties>

@@ -30,16 +30,16 @@
 <p>Here are some more attribute options you can specify for the datepicker:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="min-date" type="date" binding="literal">
+    <tr uxd-api-property name="min-date" type="date" binding="literal">
         The minimum date that can be chosen. By default there is no limitations.
     </tr>
-    <tr uxdApiProperty name="max-date" type="date" binding="literal">
+    <tr uxd-api-property name="max-date" type="date" binding="literal">
         The maximum date that can be chosen. By default there is no limitations.
     </tr>
-    <tr uxdApiProperty name="datepicker-mode" type="string" binding="literal" defaultValue="day">
+    <tr uxd-api-property name="datepicker-mode" type="string" binding="literal" defaultValue="day">
         The current mode of the date picker (day|month|year).
     </tr>
-    <tr uxdApiProperty name="datepicker-disabled" type="function" binding="variable" >
+    <tr uxd-api-property name="datepicker-disabled" type="function" binding="variable" >
         A function thats returns a boolean as to whether a date is disabled or not. Function is passed in the date then
         the mode e.g. <code>date-disabled="isDateDisabled(date,mode)"</code>.
     </tr>

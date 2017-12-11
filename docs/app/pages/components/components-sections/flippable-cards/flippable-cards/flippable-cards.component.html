@@ -237,26 +237,26 @@
 <p>You can customize the appearance and behavior of Flippable Cards by using the following attributes:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxdApiProperty name="flipped" type="boolean">
+    <tr uxd-api-property name="flipped" type="boolean">
       Determines whether or not the card is flipped.
     </tr>
-    <tr uxdApiProperty name="direction" type="string" defaultValue="horizontal">
+    <tr uxd-api-property name="direction" type="string" defaultValue="horizontal">
       Determines whether the card should flip horizontally or vertically. 
     </tr>
-    <tr uxdApiProperty name="trigger" type="string" defaultValue="hover">
+    <tr uxd-api-property name="trigger" type="string" defaultValue="hover">
       Determines when the card should flip. Possible options are <code>click</code>, <code>hover</code> and <code>manual</code>.
         The <code>manual</code> option should be used if you want complete control over when the card should flip.
     </tr>
-    <tr uxdApiProperty name="width" type="number" defaultValue="280">
+    <tr uxd-api-property name="width" type="number" defaultValue="280">
       Sets the width (in pixels) of the card.
     </tr>
-    <tr uxdApiProperty name="height" type="number" defaultValue="200">
+    <tr uxd-api-property name="height" type="number" defaultValue="200">
       Sets the height (in pixels) of the card.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxdApiProperty name="flippedChange" type="boolean">
+    <tr uxd-api-property name="flippedChange" type="boolean">
       If two way binding is used this value will be updated when the state of the card changes.
     </tr>
 </uxd-api-properties>

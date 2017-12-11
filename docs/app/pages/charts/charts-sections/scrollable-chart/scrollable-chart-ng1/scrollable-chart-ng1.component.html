@@ -13,7 +13,7 @@
 <hr>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="scrollable" type="array">
+    <tr uxd-api-property name="scrollable" type="array">
       Helps configure the scrolling behavior.
     </tr>
 </uxd-api-properties>
@@ -23,22 +23,22 @@
 <p>The following attributes should be defined within <code>scrollable</code></p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="enabled" type="boolean">
+    <tr uxd-api-property name="enabled" type="boolean">
       Set to true if scrolling will be enabled.
     </tr>
-    <tr uxdApiProperty name="range" type="number">
+    <tr uxd-api-property name="range" type="number">
       Represents the size of each page in relation to the points on the x-axis. For example, in the chart above a value of 4 will initially show any points between 0.5 and 4.5. When the next button is clicked it will show points between 4.5 and 8.5
     </tr>
-    <tr uxdApiProperty name="lowerBound" type="number">
+    <tr uxd-api-property name="lowerBound" type="number">
       Represents the minimum point on the x-axis that can be scrolled to. Once the chart is at this position the scroll left button will be hidden.
     </tr>
-    <tr uxdApiProperty name="upperBound" type="number">
+    <tr uxd-api-property name="upperBound" type="number">
       Represents the maximum point on the x-axis that can be scrolled to. Once the chart is at this point the scroll right button will be hidden.
     </tr>
-    <tr uxdApiProperty name="color" type="color">
+    <tr uxd-api-property name="color" type="color">
       Sets the color of the scroll buttons.
     </tr>
-    <tr uxdApiProperty name="callback" type="function">
+    <tr uxd-api-property name="callback" type="function">
       Will be called when the chart is scrolled. It should take in one parameter that will contain two properties.
     </tr>
 </uxd-api-properties>
@@ -48,10 +48,10 @@
 <p>The following attributes should be defined within <code>callback</code></p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="start" type="number">
+    <tr uxd-api-property name="start" type="number">
       Contains the minimum value on the x-axis that is currently visible.
     </tr>
-    <tr uxdApiProperty name="end" type="number">
+    <tr uxd-api-property name="end" type="number">
       Contains the maximum value on the x-axis that is currently visible.
     </tr>
 </uxd-api-properties>

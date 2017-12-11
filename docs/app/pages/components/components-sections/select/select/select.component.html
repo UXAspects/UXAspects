@@ -83,19 +83,19 @@
 <p>Paged loading of options can also be enabled using the "Enable Option Paging" checkbox. This can be observed in action by scrolling or using the down key to reach the end of the current result set in the select dropdown.</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxdApiProperty name="value" type="any">
+    <tr uxd-api-property name="value" type="any">
         The selected option (for single select) or array of options (for multiple select).
     </tr>
-    <tr uxdApiProperty name="input" type="string">
+    <tr uxd-api-property name="input" type="string">
         The text in the input area. This is used to filter the options dropdown.
     </tr>
-    <tr uxdApiProperty name="dropdownOpen" type="boolean">
+    <tr uxd-api-property name="dropdownOpen" type="boolean">
         The status of the typeahead dropdown.
     </tr>
-    <tr uxdApiProperty name="multiple" type="boolean" defaultValue="false">
+    <tr uxd-api-property name="multiple" type="boolean" defaultValue="false">
         	Controls whether the user can select more than one option in the select control. If set to true, selected options will appear as tags in the input area. If set to false, the selected value will appear as editable text in the input area.
     </tr>
-    <tr uxdApiProperty name="options" type="any[] | InfiniteScrollLoadFunction">
+    <tr uxd-api-property name="options" type="any[] | InfiniteScrollLoadFunction">
         <span>If an array is provided, this is the list of options which can be chosen from. It can be an array of strings or custom objects. If custom objects are required, the <code>display</code> property must also be set.</span>
         <span>If a function is provided, this is used as a callback to dynamically retrieve data in pages. The parameters are:</span>
         <ul>
@@ -105,53 +105,53 @@
         </ul>
         <span>The return value should be either a promise which resolves to an array, or a plain array in case the data can be loaded synchronously. An empty array or an array with fewer than <code>pageSize</code> items can be returned, which indicates that the end of the data set has been reached.</span>
     </tr>
-    <tr uxdApiProperty name="display" type="(option: any) => string | string">
+    <tr uxd-api-property name="display" type="(option: any) => string | string">
         Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate display value. If the name of a property is provided as a string, that property is used as the display value.
     </tr>
-    <tr uxdApiProperty name="key" type="(option: any) => string | string">
+    <tr uxd-api-property name="key" type="(option: any) => string | string">
         Determines the display value of the <code>options</code>, if they are custom objects. This may be a function or a string. If a function is provided, it receives the option object as an argument, and should return the appropriate display value. If the name of a property is provided as a string, that property is used as the display value.
     </tr>
-    <tr uxdApiProperty name="allowNull" type="boolean">
+    <tr uxd-api-property name="allowNull" type="boolean">
         Controls whether the value of the single select control can be cleared by deleting the selected value in the input field. This does not affect the initial state of the control, so specify a value for <code>value</code> if null should never be allowed.
     </tr>
-    <tr uxdApiProperty name="disabled" type="boolean" defaultValue="false">
+    <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
         Controls the disabled state of the tag input.
     </tr>
-    <tr uxdApiProperty name="dropDirection" type="'up' | 'down'" defaultValue="'down'">
+    <tr uxd-api-property name="dropDirection" type="'up' | 'down'" defaultValue="'down'">
         The positioning of the typeahead dropdown in relation to its parent.
     </tr>
-    <tr uxdApiProperty name="maxHeight" type="string" defaultValue="250px">
+    <tr uxd-api-property name="maxHeight" type="string" defaultValue="250px">
         The maximum height of the typeahead dropdown, as a CSS value.
     </tr>
-    <tr uxdApiProperty name="loadingTemplate" type="TemplateRef">
+    <tr uxd-api-property name="loadingTemplate" type="TemplateRef">
         A template which will be rendered in the dropdown while options are being loaded.
     </tr>
-    <tr uxdApiProperty name="optionTemplate" type="TemplateRef">
+    <tr uxd-api-property name="optionTemplate" type="TemplateRef">
         <span>A template which will be rendered in the dropdown for each option. The following context properties are available in the template:</span>
         <ul>
             <li><code>option: any</code> - the string or custom object representing the option.</li>
             <li><code>api: TypeaheadOptionApi</code> - provides the functions <code>getKey</code>, <code>getDisplay</code> and <code>getDisplayHtml</code>. See the <a routerLink="/components/input-controls" fragment="tags">typeahead</a> documentation for details.</li>
         </ul>
     </tr>
-    <tr uxdApiProperty name="noOptionsTemplate" type="TemplateRef">
+    <tr uxd-api-property name="noOptionsTemplate" type="TemplateRef">
         A template which will be rendered in the dropdown if no options match the current filter value.
     </tr>
-    <tr uxdApiProperty name="pageSize" type="number" defaultValue="20">
+    <tr uxd-api-property name="pageSize" type="number" defaultValue="20">
         The number of options to request in a page. This should ideally be more than twice the number of items which fit into the height of the dropdown, but this is not required. 
     </tr>
-    <tr uxdApiProperty name="placeholder" type="string">
+    <tr uxd-api-property name="placeholder" type="string">
         The placeholder text which appears in the text input area when it is empty.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxdApiProperty name="valueChange" type="any">
+    <tr uxd-api-property name="valueChange" type="any">
         Emits when value changes.
     </tr>
-    <tr uxdApiProperty name="inputChange" type="string">
+    <tr uxd-api-property name="inputChange" type="string">
         Emits when input changes.
     </tr>
-    <tr uxdApiProperty name="dropdownOpenChange" type="boolean">
+    <tr uxd-api-property name="dropdownOpenChange" type="boolean">
         emits when dropdownOpen changes.
     </tr>
 </uxd-api-properties>

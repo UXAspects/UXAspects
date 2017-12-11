@@ -40,25 +40,25 @@
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxdApiProperty name="value" type="any">
+    <tr uxd-api-property name="value" type="any">
         This should be a two way binding and will store the currently selected option. Each radio button in the same
         group should have the same <code>value</code> variable.
     </tr>
-    <tr uxdApiProperty name="option" type="any">
+    <tr uxd-api-property name="option" type="any">
         This should contain the value that this radio button represents. This will be stored in the <code>value</code> 
         variable when the radio button is selected. No two radio buttons should have the same <code>option</code> 
         value within the same group of radio buttons.
     </tr>
-    <tr uxdApiProperty name="simplified" type="boolean" defaultValue="false">
+    <tr uxd-api-property name="simplified" type="boolean" defaultValue="false">
         If set to <code>true</code> the checkbox will be displayed without a border and background.
     </tr>
-    <tr uxdApiProperty name="clickable" type="boolean" defaultValue="false">
+    <tr uxd-api-property name="clickable" type="boolean" defaultValue="false">
         If set to <code>true</code> the checkbox will not toggle state when clicked.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxdApiProperty name="valueChange" type="any" defaultValue="">
+    <tr uxd-api-property name="valueChange" type="any" defaultValue="">
         Emits when the value has been changed.
     </tr>
 </uxd-api-properties>

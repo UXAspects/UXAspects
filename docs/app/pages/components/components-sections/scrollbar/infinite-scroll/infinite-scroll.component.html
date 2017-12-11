@@ -84,7 +84,7 @@
     <code>uxInfiniteScroll</code> directive has the following configuration properties:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxdApiProperty name="uxInfiniteScroll" type="InfiniteScrollLoadFunction">
+    <tr uxd-api-property name="uxInfiniteScroll" type="InfiniteScrollLoadFunction">
         <span>The callback function which returns a page of data.</span>
         <ul>
             <li>
@@ -99,38 +99,38 @@
             data can be loaded synchronously. An empty array or an array with fewer than
             <code>pageSize</code> items can be returned, which indicates that the end of the data set has been reached.</span>
     </tr>
-    <tr uxdApiProperty name="collection" type="any[]">
+    <tr uxd-api-property name="collection" type="any[]">
         The collection of items to display in the list. This will be populated by the directive, using the loading function provided,
         so it should be used in a read-only manner. It is ideally used as the source of a repeater such as
         <code>ngFor</code>.
     </tr>
-    <tr uxdApiProperty name="filter" type="any">
+    <tr uxd-api-property name="filter" type="any">
         The filter which is passed into the loading function. It is up to the loading function to interpret this and return data which matches the filter according to the application specification.
     </tr>
-    <tr uxdApiProperty name="pageSize" type="number" defaultValue="20">
+    <tr uxd-api-property name="pageSize" type="number" defaultValue="20">
         The number of items to request in a page. This should ideally be more than twice the number of items which fit into the height of the scrolling view, but this is not required.
     </tr>
-    <tr uxdApiProperty name="loadOnScroll" type="boolean" defaultValue="true">
+    <tr uxd-api-property name="loadOnScroll" type="boolean" defaultValue="true">
         Controls whether additional data is loaded based on the scroll position. If set to true the the list will have the "infinite scroll" effect. 
     </tr>
-    <tr uxdApiProperty name="scrollElement" type="ElementRef">
+    <tr uxd-api-property name="scrollElement" type="ElementRef">
         The scrollable element which contains the data, if this is different from the element where the
         <code>uxInfiniteScroll</code> directive is defined.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
-    <tr uxdApiProperty name="collectionChange" type="any[]">
+    <tr uxd-api-property name="collectionChange" type="any[]">
         Emits when collection has changed.
     </tr>
-    <tr uxdApiProperty name="loading" type="EventEmitter&lt;InfiniteScrollLoadingEvent&gt;">
+    <tr uxd-api-property name="loading" type="EventEmitter&lt;InfiniteScrollLoadingEvent&gt;">
         Raised when a page of data is about to be requested from the loading function. Call
         <code>preventDefault()</code> on the event to cancel the load.
     </tr>
-    <tr uxdApiProperty name="loaded" type="EventEmitter&lt;InfiniteScrollLoadedEvent&gt;">
+    <tr uxd-api-property name="loaded" type="EventEmitter&lt;InfiniteScrollLoadedEvent&gt;">
         Raised when a page of data has been received and resolved from the loading function.
     </tr>
-    <tr uxdApiProperty name="loadError" type="EventEmitter&lt;InfiniteScrollLoadErrorEvent&gt;">
+    <tr uxd-api-property name="loadError" type="EventEmitter&lt;InfiniteScrollLoadErrorEvent&gt;">
         Raised when a promise from the loading function results in an error.
     </tr>
 </uxd-api-properties>
@@ -138,10 +138,10 @@
 <p>Additionally, the following functions can be called on the directive for custom behavior.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="loadNextPage" type="function">
+    <tr uxd-api-property name="loadNextPage" type="function">
         Loads the next page of data.
     </tr>
-    <tr uxdApiProperty name="reset" type="function">
+    <tr uxd-api-property name="reset" type="function">
         Clear the collection. Future requests will load from page 0.
     </tr>
 </uxd-api-properties>

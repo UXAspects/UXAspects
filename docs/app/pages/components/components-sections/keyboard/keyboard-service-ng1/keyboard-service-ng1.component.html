@@ -8,7 +8,7 @@
   against which the key event is registered by the browser. The full API for this service is as follows:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="keydown">
+    <tr uxd-api-property name="keydown">
       Arguments:
       <ul>
         <li><code>element</code> - (DOM element), specifies the element you wish to attach the keydown event listener to.</li>
@@ -24,7 +24,7 @@
       <span>This function allows the user to attach a keydown event listener to an element. The user can then supply a callback
         they wish to be executed when the correct key is pressed.</span>
     </tr>
-    <tr uxdApiProperty name="getCharCode">
+    <tr uxd-api-property name="getCharCode">
       Arguments:
       <ul>
         <li><code>character</code> - string</li>
@@ -32,7 +32,7 @@
       <span>Returns the integer keycode for a single character on the keyboard - also accepts the following special strings
         for non-printing characters: <em>backspace, tab, clear, enter, return, escape, space, left, right, up, down, delete, home, end, pageup, pagedown</em>.</span>
     </tr>
-    <tr uxdApiProperty name="bindKey">
+    <tr uxd-api-property name="bindKey">
       Arguments:
       <ul>
         <li><code>key</code> - integer or keycode object (see below)</li>
@@ -41,7 +41,7 @@
       <span>Removes a previously bound <code>key</code> hotkey from a <code>target</code>. If no target is provided, the binding
         will be removed from the <code>document</code>.</span>
     </tr>
-    <tr uxdApiProperty name="unbindKey">
+    <tr uxd-api-property name="unbindKey">
       Arguments:
       <ul>
         <li><code>key</code> - integer or keycode object (see below)</li>
@@ -50,7 +50,7 @@
       <span>Removes a previously bound <code>key</code> hotkey from a <code>target</code>. If no target is provided, the binding
         will be removed from the <code>document</code>.</span>
     </tr>
-    <tr uxdApiProperty name="createHotkeyHint">
+    <tr uxd-api-property name="createHotkeyHint">
       Arguments:
       <ul>
         <li><code>element</code> - DOMElement</li>
@@ -66,16 +66,16 @@
   one or more modifiers.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="code" type="numeric" required="true">
+    <tr uxd-api-property name="code" type="numeric" required="true">
       The keycode to bind the event to. The <code>getCharCode</code> API function may be used to convert many characters into keycodes.
     </tr>
-    <tr uxdApiProperty name="shiftKey" type="boolean" defaultValue="false">
+    <tr uxd-api-property name="shiftKey" type="boolean" defaultValue="false">
       Specifies whether the shift key must be pressed in combination with the hotkey.
     </tr>
-    <tr uxdApiProperty name="ctrlKey" type="boolean" defaultValue="false">
+    <tr uxd-api-property name="ctrlKey" type="boolean" defaultValue="false">
       Specifies whether the control key must be pressed in combination with the hotkey.
     </tr>
-    <tr uxdApiProperty name="altKey" type="boolean" defaultValue="false">
+    <tr uxd-api-property name="altKey" type="boolean" defaultValue="false">
       Specifies whether the alt key must be pressed in combination with the hotkey.
     </tr>
 </uxd-api-properties>

@@ -9,7 +9,7 @@
 </p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="open">
+    <tr uxd-api-property name="open">
         <span>Opens the display panel with the specified options, or updates the contents if it is already open. It
         takes the following arguments:</span>
         <ul>
@@ -25,24 +25,24 @@
                 if navigation buttons are used within the display panel.</li>
         </ul>
     </tr>
-    <tr uxdApiProperty name="close">
+    <tr uxd-api-property name="close">
         <span>Closes the display panel if it is open. It takes the following argument:</span>
         <ul>
             <li><code>itemDisplayPanelOptions</code> - the options for the display panel, as documented in the
                 <a routerLink="/components/panels" fragment="item-display-panel-ng1">Item Display Panel</a> section.</li>
         </ul>
     </tr>
-    <tr uxdApiProperty name="panelOpen">
+    <tr uxd-api-property name="panelOpen">
         Returns true if the panel is open.
     </tr>
-    <tr uxdApiProperty name="panelHidden">
+    <tr uxd-api-property name="panelHidden">
         Returns true if the panel is hidden. If the <code>animate</code> setting is used then the panel will be hidden
         instead of closed.
     </tr>
-    <tr uxdApiProperty name="getCurrentPanel">
+    <tr uxd-api-property name="getCurrentPanel">
         Returns the <code>element</code> with which the <code>open</code> function was called.
     </tr>
-    <tr uxdApiProperty name="movePrev">
+    <tr uxd-api-property name="movePrev">
         <p>Puts the browser focus on the previous sibling of the <code>element</code> which was passed to the <code>open</code>
         function, if there is one. Note that this function will not directly update the display panel contents.
         It takes one optional argument:</p>
@@ -50,7 +50,7 @@
             <li><code>selector</code> - a jQuery selector expression to match elements against.</li>
         </ul>
     </tr>
-    <tr uxdApiProperty name="moveNext">
+    <tr uxd-api-property name="moveNext">
         <span>Puts the browser focus on the next sibling of the <code>element</code> which was passed to the <code>open</code>
         function, if there is one. Note that this function will not directly update the display panel contents.
         It takes one optional argument:</span>

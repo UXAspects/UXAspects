@@ -12,16 +12,16 @@
 <p>The following attributes can be specified to configure the behavior of the <code>modal-inset-panel</code>.</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="show-panel" binding="variable" type="boolean" required="true">
+    <tr uxd-api-property name="show-panel" binding="variable" type="boolean" required="true">
       This value should be changed to show or hide the panel.
     </tr>
-    <tr uxdApiProperty name="panel-side" binding="variable" type="string" required="true">
+    <tr uxd-api-property name="panel-side" binding="variable" type="string" required="true">
       Sets which side of the modal the panel should appear on. The available options are <code>right</code> or <code>left</code>.
     </tr>
-    <tr uxdApiProperty name="panel-width" binding="variable" type="number" required="true">
+    <tr uxd-api-property name="panel-width" binding="variable" type="number" required="true">
       Sets the desired width of the panel in pixels.
     </tr>
-    <tr uxdApiProperty name="on-dismiss" binding="literal" type="variable">
+    <tr uxd-api-property name="on-dismiss" binding="literal" type="variable">
       If specified, this will be called when the panel has been dismissed.
     </tr>
 </uxd-api-properties>
@@ -36,7 +36,7 @@
   The header behavior can be configured using the following attribute:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="allow-dismiss" binding="literal" type="boolean" defaultValue="true">
+    <tr uxd-api-property name="allow-dismiss" binding="literal" type="boolean" defaultValue="true">
       If set to false the close button will be hidden and the visibility of the panel must be handled manually.
     </tr>
 </uxd-api-properties>
@@ -47,7 +47,7 @@
   attribute:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="panel-template" binding="literal" type="string">
+    <tr uxd-api-property name="panel-template" binding="literal" type="string">
       If specified will load the template file and add the contents of the template to the panel.  
     </tr>
 </uxd-api-properties>

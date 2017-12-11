@@ -43,33 +43,33 @@
     not specified the default value will be used.</p>
 
 <uxd-api-properties tableTitle="">
-    <tr uxdApiProperty name="type" defaultValue="value">
+    <tr uxd-api-property name="type" defaultValue="value">
         Defines whether the slider should allow selection of a single value or a range of values. The two valid values
         are <code>value</code> and <code>range</code>.
     </tr>
-    <tr uxdApiProperty name="handles">
+    <tr uxd-api-property name="handles">
         This should be an object that contains properties configuring the appearance and behavior of the draggable handles
         on the slider. If not specified the default options will be used.
     </tr>
-    <tr uxdApiProperty name="track">
+    <tr uxd-api-property name="track">
         This should be an object that contains properties configuring the appearance and behavior of the track on the
         slider. If not specified the default options will be used.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Handle Options">
-    <tr uxdApiProperty name="style" defaultValue="button">
+    <tr uxd-api-property name="style" defaultValue="button">
         his allows you to choose the appearance of the drag handles. The two available options are 
         <code>button</code> and <code>line</code>.
     </tr>
-    <tr uxdApiProperty name="callout">
+    <tr uxd-api-property name="callout">
         This should be an object that configures the appearance and behavior of the drag handle callout. If not specified
         no callout will be shown.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Callout Options">
-    <tr uxdApiProperty name="trigger">
+    <tr uxd-api-property name="trigger">
         This option will specify when the callout should appear. The available options are:
         <br>
         <ul>
@@ -80,13 +80,13 @@
             <li><code>persistent</code> - The callout will always be visible.</li>
         </ul>
     </tr>
-    <tr uxdApiProperty name="background" defaultValue="#464646">
+    <tr uxd-api-property name="background" defaultValue="#464646">
         Specified the background color of the callout.
     </tr>
-    <tr uxdApiProperty name="color" defaultValue="#fff">
+    <tr uxd-api-property name="color" defaultValue="#fff">
         Specified the text color of the callout.
     </tr>
-    <tr uxdApiProperty name="formatter">
+    <tr uxd-api-property name="formatter">
         This allows you to specify a function that will format the value in the callout. The function 
         should accept the value as a parameter and return the modified value. By default the value will 
         not be modified.
@@ -94,20 +94,20 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Track Options">
-    <tr uxdApiProperty name="height" defaultValue="wide">
+    <tr uxd-api-property name="height" defaultValue="wide">
         This specifies the height of the track. There are two available values, <code>wide</code> and <code>narrow</code>.
     </tr>
-    <tr uxdApiProperty name="min" defaultValue="0">
+    <tr uxd-api-property name="min" defaultValue="0">
         Specifies the minimum value shown on the slider.
     </tr>
-    <tr uxdApiProperty name="max" defaultValue="100">
+    <tr uxd-api-property name="max" defaultValue="100">
         Specifies the maximum value shown on the slider.
     </tr>
-    <tr uxdApiProperty name="ticks">
+    <tr uxd-api-property name="ticks">
         Should be an object containing properties to customize the ticks shown beneath the chart. By default major ticks
         are shown on every 10th value with labels, minor ticks are shown every 5 values with no labels.
     </tr>
-    <tr uxdApiProperty name="colors">
+    <tr uxd-api-property name="colors">
         Specifies the colors that should be used on different parts of the track. This should be an 
         object that can containthe following properties:
         <br>
@@ -124,7 +124,7 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Tick Options">
-    <tr uxdApiProperty name="snap">
+    <tr uxd-api-property name="snap">
         Specifies if the slider should snap to the ticks. There are several available options:
         <br>
         <ul>
@@ -134,32 +134,32 @@
             <li><code>all</code> - Will snap to both the major and minor ticks.</li>
         </ul>
     </tr>
-    <tr uxdApiProperty name="major">
+    <tr uxd-api-property name="major">
         Should be an object containing properties that configure the major ticks. Major ticks will be 
         more prominent that minor ticks and tend to be less frequent.
     </tr>
-    <tr uxdApiProperty name="minor">
+    <tr uxd-api-property name="minor">
         Should be an object containing properties that configure the minor ticks. Minor ticks will be 
         less prominent that major ticks and tend to be more frequent.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Major & Minor Tick Options">
-    <tr uxdApiProperty name="show">
+    <tr uxd-api-property name="show">
         Specifies whether this variety of ticks should be shown. The available options are 
         <code>true</code> or <code>false</code>. By default both major and minor ticks will be shown.
     </tr>
-    <tr uxdApiProperty name="steps">
+    <tr uxd-api-property name="steps">
         Specifies at what interval this variety of tick should appear. Default for major ticks is 
         <code>10</code>, the default for minor ticks is <code>5</code>. Additionally this can be an array 
         containing precise values of when ticks should appear. This can be useful when ticks should not 
         appear at regular intervals.
     </tr>
-    <tr uxdApiProperty name="labels">
+    <tr uxd-api-property name="labels">
         Specifies whether or not this variety of ticks should display labels. The available options are 
         <code>true</code> or <code>false</code>. By default major ticks will show labels, minor ticks will not.
     </tr>
-    <tr uxdApiProperty name="formatter">
+    <tr uxd-api-property name="formatter">
         This allows you to specify a function that will format the value in the tick label. This should 
         accept a value as a parameter and return a modified value. By default the value will not be modified.
     </tr>

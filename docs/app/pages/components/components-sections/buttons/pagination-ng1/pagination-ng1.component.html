@@ -18,16 +18,16 @@
 </tabset>
 
 <uxd-api-properties tableTitle="Attributes">
-    <tr uxdApiProperty name="total-items" type="number" binding="variable" required="true">
+    <tr uxd-api-property name="total-items" type="number" binding="variable" required="true">
       The total number of items in all pages.
     </tr>
-    <tr uxdApiProperty name="items-per-page" type="number" binding="variable" defaultValue="10">
+    <tr uxd-api-property name="items-per-page" type="number" binding="variable" defaultValue="10">
       Maximum number of items per page. A value less than one indicates all items on one page.
     </tr>
-    <tr uxdApiProperty name="current-page" type="number" binding="variable" required="true">
+    <tr uxd-api-property name="current-page" type="number" binding="variable" required="true">
       The currently selected page.
     </tr>
-    <tr uxdApiProperty name="num-pages" type="number" binding="variable">
+    <tr uxd-api-property name="num-pages" type="number" binding="variable">
       The total number of pages, this is a read only property which can be used for displaying the total number of pages.
     </tr>
 </uxd-api-properties>

@@ -7,23 +7,23 @@
     below:</p>
 
 <uxd-api-properties>
-    <tr uxdApiProperty name="values" type="array" binding="variable" required="true">
+    <tr uxd-api-property name="values" type="array" binding="variable" required="true">
         Array of strings or Array of objects, this attribute should be passed with the values to be shown in the select table.
     </tr>
-    <tr uxdApiProperty name="select-key" type="string" binding="variable">
+    <tr uxd-api-property name="select-key" type="string" binding="variable">
         When the options are passed as an array of objects, this attribute should be set to the name of the key, whose value from the object will be displayed. Note that this should only be set when the options are passed as an array of objects, and not required when the options are passed as an array of strings.
     </tr>
-    <tr uxdApiProperty name="selected" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="selected" type="string" binding="variable" required="true">
         The selected option will be set to the variable passed to the <code>selected</code> attribute.
     </tr>
-    <tr uxdApiProperty name="search-text" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="search-text" type="string" binding="variable" required="true">
         The component can be associated with a search text which can filter the options. The <code>search-text</code> attribute can be set to the text with which options will be filtered.
     </tr>
-    <tr uxdApiProperty name="table-height" type="string" binding="variable" required="true">
+    <tr uxd-api-property name="table-height" type="string" binding="variable" required="true">
         The height of the table can be changed by providing a string to the <code>table-height</code> attribute (e.g.
         "50%"). This can be set to px, % etc.
     </tr>
-    <tr uxdApiProperty name="select-hidden-items" type="string" binding="variable">
+    <tr uxd-api-property name="select-hidden-items" type="string" binding="variable">
         Controls the behaviour when selected items are filtered from view. By default filtered items remain selected.
         Set to the string <code>'clear'</code> to clear the selected item when the search-text filter has removed
         it from the list of visible items. Alternatively, set to <code>'reselect'</code> to both clear the selected
