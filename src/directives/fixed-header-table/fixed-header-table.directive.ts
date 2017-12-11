@@ -1,8 +1,7 @@
 import { Directive, ElementRef, OnInit, Renderer2, Input, Output, EventEmitter } from '@angular/core';
 
 @Directive({
-  selector: '[uxFixedHeaderTable]',
-  exportAs: 'ux-fixed-header-table'
+  selector: '[uxFixedHeaderTable]'
 })
 export class FixedHeaderTableDirective implements OnInit {
 
