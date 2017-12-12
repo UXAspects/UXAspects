@@ -90,11 +90,11 @@ export default function $colorService() {
         return;
     }
 
-    value = value.replace(/\s+/g, '-').toLowerCase();
+    const colorName = value.replace(/\s+/g, '-').toLowerCase();
 
     for (let color in colors) {
-        if (value === color.toLowerCase()) {
-            return $colorService.getColor(value).toRgba();
+        if (colorName === color.toLowerCase()) {
+            return $colorService.getColor(colorName).toRgba();
         }
     }
 

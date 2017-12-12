@@ -98,11 +98,11 @@ export class ColorService {
             return;
         }
         
-        value = value.replace(/\s+/g, '-').toLowerCase();
+        const colorName = value.replace(/\s+/g, '-').toLowerCase();
         
         for (let color in this._colors) {
-            if (value === color.toLowerCase()) {
-                return this.getColor(value).toRgba();
+            if (colorName === color.toLowerCase()) {
+                return this.getColor(colorName).toRgba();
             }
         }
 

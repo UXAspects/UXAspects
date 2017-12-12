@@ -39,31 +39,13 @@
 .timeline {
 
   &.hp-timeline-down-arrow {
-    &:after {
-      -webkit-transform: rotate(180deg);
-      -moz-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-      transform: rotate(180deg);
-      font-family: "HPEIcons";
-      display: inline-block;
-      vertical-align: middle;
-      line-height: 1;
-      font-weight: normal;
-      font-style: normal;
-      speak: none;
-      text-decoration: inherit;
-      text-transform: none;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      color: @timeline-color;
-      content: "\f136";
-      display: block;
+    
+    &:after:extend(.hpe-down:before) {
+      font-family: 'hpe-icons';
       position: absolute;
-      bottom: -7px;
-      width: 0;
-      height: 0;
-      margin-left: 72px;
+      color: @timeline-color;
+      left: 56px;
+      bottom: -9px;
     }
   }
 }
