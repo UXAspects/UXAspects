@@ -63,7 +63,7 @@ export class FixedHeaderTableController {
 
         // add padding to the header to account for this
         this._tableHead.style.paddingRight = scrollbar + 'px';
-        this._tableBody.style.height = this.tableHeight + 'px';
+        this._tableBody.style.height = typeof this.tableHeight === 'number' ? `${this.tableHeight}px` : this.tableHeight;
     }
 
 }

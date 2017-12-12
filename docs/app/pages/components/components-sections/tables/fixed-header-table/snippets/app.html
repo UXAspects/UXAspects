@@ -1,22 +1,22 @@
 <table class="table" uxFixedHeaderTable (tablePaging)="loadPage()" [tableHeight]="500">
     <thead>
         <tr>
-            <th>Id</th>
+            <th class="table-col-id">Id</th>
             <th>Name</th>
             <th>Address</th>
             <th>Phone</th>
-            <th>Country</th>
+            <th>Active</th>
         </tr>
     </thead>
 
     <tbody>
         <tr *ngFor="let person of people">
-            <td>{{ person.id }}</td>
+            <td class="table-col-id">{{ person.id }}</td>
             <td>{{ person.name }}</td>
             <td>{{ person.address }}</td>
             <td>{{ person.phone }}</td>
             <td>
-                <i class="hpe-icon hpe-checkmark"></i>
+                <i class="hpe-icon hpe-checkmark" *ngIf="person.active"></i>
             </td>
         </tr>
 

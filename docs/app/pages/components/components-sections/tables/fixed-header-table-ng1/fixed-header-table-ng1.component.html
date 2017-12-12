@@ -8,11 +8,18 @@
     content is scrolled.
 </p>
 
+<p>
+    To give a column a fixed width you should apply a class to both the <code>th</code> and associated <code>td</code> elements.
+    This class should set the <code>width</code> property and also set <code>flex: none</code>.
+</p>
+
 <p>The attributes of this directive are:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="tableHeight" required="true" type="number" binding="variable">
+    <tr uxd-api-property name="tableHeight" required="true" type="number | string" binding="variable">
         This defines the maximum height of the table.
+        When a number is provided the unit will default to pixels. 
+        If a string is provided then the unit will need to be specifed as part of the string.
     </tr>
     <tr uxd-api-property name="tablePaging" type="void" binding="expression">
         This event will be triggered when the user scrolls to the bottom of the table. This can be used to implement paging functionality.

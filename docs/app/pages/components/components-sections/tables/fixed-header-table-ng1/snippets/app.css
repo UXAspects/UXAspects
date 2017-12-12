@@ -11,3 +11,9 @@
     font-style: italic;
     margin: 0;
 }
+
+.fixed-header-table-col-id {
+    width: 50px;
+    min-width: 50px;
+    flex: none !important;
+}

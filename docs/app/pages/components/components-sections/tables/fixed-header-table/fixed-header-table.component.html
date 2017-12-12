@@ -1,22 +1,22 @@
 <table class="table" uxFixedHeaderTable (tablePaging)="loadPage()" [tableHeight]="500">
     <thead>
         <tr>
-            <th>Id</th>
+            <th class="table-col-id">Id</th>
             <th>Name</th>
             <th>Address</th>
             <th>Phone</th>
-            <th>Country</th>
+            <th>Active</th>
         </tr>
     </thead>
 
     <tbody>
         <tr *ngFor="let person of people">
-            <td>{{ person.id }}</td>
+            <td class="table-col-id">{{ person.id }}</td>
             <td>{{ person.name }}</td>
             <td>{{ person.address }}</td>
             <td>{{ person.phone }}</td>
             <td>
-                <i class="hpe-icon hpe-checkmark"></i>
+                <i class="hpe-icon hpe-checkmark" *ngIf="person.active"></i>
             </td>
         </tr>
 
@@ -38,11 +38,18 @@
     This allows the table header to remain fixed in place and visible while the table content is scrolled.
 </p>
 
+<p>
+    To give a column a fixed width you should apply a class to both the <code>th</code> and associated <code>td</code> elements.
+    This class should set the <code>width</code> property and also set <code>flex: none</code>.
+</p>
+
 <p>The properties of this directive are:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="tableHeight" required="true" type="number">
-        This defines the maximum height of the table.
+    <tr uxd-api-property name="tableHeight" required="true" type="number | string">
+        This defines the maximum height of the table. 
+        When a number is provided the unit will default to pixels. 
+        If a string is provided then the unit will need to be specifed as part of the string.
     </tr>
 </uxd-api-properties>
 

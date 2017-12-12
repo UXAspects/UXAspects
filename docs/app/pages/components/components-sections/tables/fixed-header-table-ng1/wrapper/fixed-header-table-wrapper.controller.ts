@@ -48,7 +48,7 @@ export class FixedHeaderTableWrapperController {
                 name: chance.name(),
                 address: chance.address(),
                 phone: chance.phone(),
-                country: chance.country()
+                active: chance.bool()
             });
         }
 
@@ -61,5 +61,5 @@ interface Person {
     name: string;
     address: string;
     phone: string;
-    country: string;
+    active: boolean;
 }

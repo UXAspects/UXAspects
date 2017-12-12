@@ -44,7 +44,7 @@ function FixedHeaderTableController($timeout) {
                 name: chance.name(),
                 address: chance.address(),
                 phone: chance.phone(),
-                country: chance.country()
+                active: chance.bool()
             });
         }
 

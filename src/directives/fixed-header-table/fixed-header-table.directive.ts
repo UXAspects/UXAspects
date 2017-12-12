@@ -5,7 +5,7 @@ import { Directive, ElementRef, OnInit, Renderer2, Input, Output, EventEmitter }
 })
 export class FixedHeaderTableDirective implements OnInit {
 
-  @Input() tableHeight: number;
+  @Input() tableHeight: number | string;
   @Output() tablePaging: EventEmitter<number> = new EventEmitter<number>();
 
   private _tableHead: HTMLElement;
@@ -33,6 +33,14 @@ export class FixedHeaderTableDirective implements OnInit {
   }
 
   /**
+   * Get the table element
+   * Primarily used by column width directive
+   */
+  getTable(): HTMLTableElement {
+    return this._elementRef.nativeElement;
+  }
+
+  /**
    * Handle scroll events
    */
   private onScroll(event: MouseEvent): void {
@@ -56,7 +64,7 @@ export class FixedHeaderTableDirective implements OnInit {
     this._renderer.setStyle(this._tableHead, 'padding-right', scrollbar + 'px');
 
     // set the desired height of the table body
-    this._renderer.setStyle(this._tableBody, 'height', this.tableHeight + 'px');
+    this._renderer.setStyle(this._tableBody, 'height', typeof this.tableHeight === 'number' ? `${this.tableHeight}px` : this.tableHeight);
   }
 
 }

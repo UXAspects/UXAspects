@@ -1,21 +1,23 @@
 <table class="table" fixed-header-table table-height="500" table-paging="vm.loadPage()">
 
     <thead>
-        <th>Id</th>
+        <th class="fixed-header-table-col-id">Id</th>
         <th>Name</th>
         <th>Address</th>
         <th>Phone</th>
-        <th>Country</th>
+        <th>Active</th>
     </thead>
 
     <tbody>
 
         <tr ng-repeat="person in vm.people">
-            <td ng-bind="::person.id"></td>
+            <td class="fixed-header-table-col-id" ng-bind="::person.id"></td>
             <td ng-bind="::person.name"></td>
             <td ng-bind="::person.address"></td>
             <td ng-bind="::person.phone"></td>
-            <td ng-bind="::person.country"></td>
+            <td>
+                <i class="hpe-icon hpe-checkmark" ng-if="person.active"></i>
+            </td>
         </tr>
 
         <tr ng-if="vm.loading">
