@@ -37,7 +37,7 @@ export class AppComponent {
             theme: 'chart3',
             value: 30,
             barHeight: 5,
-            inlineLabel: `<span class="spark-label hidden-spark"><span class="x-large">30%</span></span>`,
+            inlineLabel: `<div class="spark-label hidden-spark"><span class="x-large">30%</span></div>`,
             topLeftLabel: `<span class="spark-label hidden-xxs"><span class="small">
                             STORAGE ON HOLD</span></span>`
         },
