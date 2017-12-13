@@ -699,6 +699,11 @@ table {
         .box {
           padding: 0 8px;
           padding-right: 11px;    /*  order icon width*/
+          height: 100%;
+
+          > .row {
+            height: 100%;
+          }
         }
       }
       .th-inner {
@@ -1155,7 +1160,7 @@ table {
         }
       }
       .filter {
-        display: inline;
+        display: inline-flex;
         i {
           display: inline-block;
           vertical-align: baseline;

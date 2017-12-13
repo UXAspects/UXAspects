@@ -6,9 +6,7 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./page-header.component.less']
 })
 export class PageHeaderComponent {
-
+    
     @Input() header: string;
     @Input() description: string;
-
-    constructor() {}
 }
