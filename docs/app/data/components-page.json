@@ -992,6 +992,15 @@
                     "version": "AngularJS"
                 },
                 {
+                    "title": "Custom Filters Component",
+                    "component": "ComponentsCustomFiltersComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Module name",
+                        "content": "FilterModule"
+                    }]
+                },
+                {
                     "title": "Filters",
                     "component": "ComponentsFiltersComponent",
                     "version": "Angular",
@@ -1004,17 +1013,26 @@
                     }]
                 },
                 {
-                    "title": "Custom Filters Component",
-                    "component": "ComponentsCustomFiltersComponent",
+                    "title": "Filters",
+                    "component": "ComponentsFiltersNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Fixed Header Table",
+                    "component": "ComponentsFixedHeaderTableComponent",
                     "version": "Angular",
                     "usage": [{
+                        "title": "Selector",
+                        "content": "uxFixedHeaderTable"
+                    }, {
                         "title": "Module name",
-                        "content": "FilterModule"
+                        "content": "FixedHeaderTableModule"
                     }]
                 },
                 {
-                    "title": "Filters",
-                    "component": "ComponentsFiltersNg1Component",
+                    "title": "Fixed Header Table",
+                    "component": "ComponentsFixedHeaderTableNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
                 },
@@ -1053,11 +1071,6 @@
                     "component": "ComponentsLayoutSwitchingNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
-                },
-                {
-                    "title": "Fixed Header Table",
-                    "component": "ComponentsFixedHeaderTableNg1Component",
-                    "version": "AngularJS"
                 },
                 {
                     "title": "List Hover Actions",
@@ -1115,6 +1128,12 @@
                     "title": "Multiple Selection by Row",
                     "component": "ComponentsMultipleSelectionRowNg1Component",
                     "version": "AngularJS"
+                },
+                {
+                    "title": "Scrollable Table",
+                    "component": "ComponentsScrollableTableNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Sorting",

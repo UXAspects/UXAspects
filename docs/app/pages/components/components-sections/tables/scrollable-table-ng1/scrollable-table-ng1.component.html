@@ -1,0 +1,45 @@
+<blockquote>
+    <p><b>Note:</b> This component has been deprecated. Please use the <a routerLink="/components/tables" fragment="fixed-header-table-ng1">Fixed Header Table</a> directive instead.</p>
+</blockquote>
+
+<uxd-scrollable-table-wrapper></uxd-scrollable-table-wrapper>
+
+<hr>
+
+<p>
+    A fixed header table is provided by the <code>scrollable-table</code> directive. The table header stays in place while
+    the table content is scrolled independently.
+</p>
+
+<p>The attributes of this directive are:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="watch" type="object" binding="variable" required="true">
+        Defines the values of the rows.
+    </tr>
+    <tr uxd-api-property name="container-height" type="number" binding="literal" required="true">
+        Defines the height of the scrollable container.
+    </tr>
+    <tr uxd-api-property name="header-height" type="number" binding="literal" required="true">
+        Defines the height of the fixed header.
+    </tr>
+    <tr uxd-api-property name="watchHeaders" type="object" binding="variable">
+        Defines the values of the headers, required if using dynamically changing headers.
+    </tr>
+</uxd-api-properties>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet language="html" [content]="htmlCode"></uxd-snippet>
+    </tab>
+
+    <tab heading="Javascript">
+        <uxd-snippet language="javascript" [content]="jsCode"></uxd-snippet>
+    </tab>
+</tabset>
+
+<br>
+
+<blockquote>
+    <p>Refer to the <a routerLink="/components/tables" fragment="sorting-ng1">Sorting</a> page for information about sorting the table headers.</p>
+</blockquote>

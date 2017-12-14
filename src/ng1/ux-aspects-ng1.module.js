@@ -42,6 +42,7 @@ import './directives/expandSearch/expandSearch.module.js';
 import './directives/extendedCheckboxHit/extendedCheckboxHit.module.js';
 import './directives/facets/facets.module.js';
 import './directives/filters/filters.module.js';
+import './directives/fixedHeaderTable/fixed-header-table.module';
 import './directives/flippableCard/flippableCard.module.js';
 import './directives/floatingActionButton/floatingActionButton.module.js';
 import './directives/floatLabel/floatLabel.module.js';
@@ -166,6 +167,7 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.extendedCheckboxHit',
     'ux-aspects.facets',
     'ux-aspects.filters',
+    'ux-aspects.fixed-header-table',
     'ux-aspects.flippableCard',
     'ux-aspects.floatingActionButton',
     'ux-aspects.floatLabel',
@@ -227,7 +229,7 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.treeview',
     'ux-aspects.wizard',
 
-    //services
+    // services
     'ux-aspects.colorService',
     'ux-aspects.debounceService',
     'ux-aspects.flotDataService',

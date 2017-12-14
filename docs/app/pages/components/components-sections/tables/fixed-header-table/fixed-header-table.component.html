@@ -1,0 +1,75 @@
+<table class="table" uxFixedHeaderTable (tablePaging)="loadPage()" [tableHeight]="500">
+    <thead>
+        <tr>
+            <th class="table-col-id">Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Active</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let person of people">
+            <td class="table-col-id">{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.address }}</td>
+            <td>{{ person.phone }}</td>
+            <td>
+                <i class="hpe-icon hpe-checkmark" *ngIf="person.active"></i>
+            </td>
+        </tr>
+
+        <!-- Loading Indicator -->
+        <tr *ngIf="loading">
+            <td class="loading-indicator">
+                <div class="spinner spinner-accent spinner-bounce-middle"></div>
+                <p class="loading-indicator-label">Loading...</p>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<hr>
+
+<p>
+    A fixed header table can be created by using the <code>uxFixedHeaderTable</code> directive. 
+    This allows the table header to remain fixed in place and visible while the table content is scrolled.
+</p>
+
+<p>
+    To give a column a fixed width you should apply a class to both the <code>th</code> and associated <code>td</code> elements.
+    This class should set the <code>width</code> property and also set <code>flex: none</code>.
+</p>
+
+<p>The properties of this directive are:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="tableHeight" required="true" type="number | string">
+        This defines the maximum height of the table. 
+        When a number is provided the unit will default to pixels. 
+        If a string is provided then the CSS unit will need to be specifed as part of the string, e.g. <code>'50%'</code>.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="tablePaging" type="void">
+        This event will be triggered when the user scrolls to the bottom of the table. This can be used to implement paging functionality.
+        This event will also be triggered when the table initially loads to allow loading of the first page.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example shown above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

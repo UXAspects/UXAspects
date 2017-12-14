@@ -1,0 +1,32 @@
+<table class="table" uxFixedHeaderTable (tablePaging)="loadPage()" [tableHeight]="500">
+    <thead>
+        <tr>
+            <th class="table-col-id">Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Active</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let person of people">
+            <td class="table-col-id">{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.address }}</td>
+            <td>{{ person.phone }}</td>
+            <td>
+                <i class="hpe-icon hpe-checkmark" *ngIf="person.active"></i>
+            </td>
+        </tr>
+
+        <!-- Loading Indicator -->
+        <tr *ngIf="loading">
+            <td class="loading-indicator">
+                <div class="spinner spinner-accent spinner-bounce-middle"></div>
+                <p class="loading-indicator-label">Loading...</p>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
