@@ -14,12 +14,12 @@
                     "component": "CssLinkButtonsComponent"
                 },
                 {
-                    "title": "Size Variations",
-                    "component": "CssButtonsSizeVariationsComponent"
+                    "title": "Icon Buttons",
+                    "component": "IconButtonsDocumentationComponent"
                 },
                 {
-                    "title": "Circular Icon Buttons",
-                    "component": "CssCircularIconButtonsComponent"  
+                    "title": "Size Variations",
+                    "component": "CssButtonsSizeVariationsComponent"
                 },
                 {
                     "title": "Hyperlinks",
