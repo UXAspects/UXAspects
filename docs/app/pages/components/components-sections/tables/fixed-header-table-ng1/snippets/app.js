@@ -21,7 +21,7 @@ function FixedHeaderTableController($timeout) {
         vm.loading = true;
 
         // simulate server call
-        $timeout(() => {
+        $timeout(function() {
 
             // update the list of people and increment the current page
             vm.people = vm.people.concat(vm.getPeople(vm.page++, 50));

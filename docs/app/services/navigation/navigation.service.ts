@@ -100,7 +100,7 @@ export class NavigationService {
                 });
             }
         } else {
-            this.document.body.scrollTop = 0;
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         }
         this.activeFragment = null;
     }
