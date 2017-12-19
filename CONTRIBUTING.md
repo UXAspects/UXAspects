@@ -1,11 +1,11 @@
 # Contributing to UX Aspects
 
 Found a bug or thought of a new feature that would benefit others? Well you can help make UX Aspects even better by contributing to the project.
-Contributing is easy, and all fixes no matter how small are welcome.
+Contributing is easy, and all fixes are welcome, no matter how small.
 
 ### Before you get started
 
-Before you get started it is good to be aware of some of the practices we adhere to. We have a Developer Standard document that outlines some of the coding best practices we adhere to. We have several linting tasks that help us enforce these standards, and they should be run before creating a Pull Request.
+Before you get started it is good to be aware of some of the practices we adhere to. We have a [Developer Standard](https://github.com/UXAspects/UXAspects/blob/develop/guides/developer-standard.md) document that outlines some of the coding best practices we follow. We have several linting tasks that help enforce these standards and they should be run before creating a Pull Request.
 
 ### How to contribute
 
