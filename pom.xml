@@ -171,7 +171,7 @@
                                     <http>
                                         <url>http://${docker.host.address}:${webServerPort}/docs-site.tar.gz</url>
                                     </http>
-                                    <time>600000</time>
+                                    <time>3600000</time>
                                 </wait>
                             </run>
                         </image>
