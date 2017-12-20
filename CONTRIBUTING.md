@@ -9,11 +9,12 @@ Before you get started it is good to be aware of some of the practices we adhere
 
 ### How to contribute
 
-1. Fork the UX Aspects repository
-2. Clone your forked repository
-3. Make your fix/changes
+1. Fork the UX Aspects repository - This can be done on GitHub by clicking the "Fork" button on the UX Aspects repository page.
+2. Clone your forked repository.
+3. Make your fix/changes.
 4. Run our linting tasks using `grunt lint`.
-5. Commit and Push your changes
-6. Create a Pull Request
+5. Run our tests using `grunt e2e`.
+6. Commit and Push your changes.
+7. Create a Pull Request - This can be done on GitHub by clicking the "New Pull Request" button on the UX Aspects repository page.
 
 Once a Pull Request has been made it will be reviewed by one of our team members. If the Pull Request is approved it will be merged into UX Aspects allowing everyone else to benefit from your work.
