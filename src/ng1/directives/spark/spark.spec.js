@@ -3,6 +3,7 @@ describe('spark charts', function () {
   var vm = {};
   var element, element2;
 
+  beforeEach(module('ux-aspects.colorService'));
   beforeEach(module("ux-aspects.spark"));
 
   beforeEach(inject(function (_$compile_, _$rootScope_, _$sce_) {
