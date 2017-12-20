@@ -1,6 +1,6 @@
-# Optimizing Angular 4+ Applications
+# Optimizing Angular Applications
 
-One thing you may notice when developing an Angular 4+ application is that there are often many dependencies which can result in rather large output files or slow loading times.
+One thing you may notice when developing an Angular application is that there are often many dependencies which can result in rather large output files or slow loading times.
 
 Below are a few different optimization techniques to improve page load times and reduce build output size.
 

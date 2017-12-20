@@ -27,13 +27,15 @@ components
 -- spark
 ---- spark.component.ts
 ---- spark.component.html
----- spark.component.scss
+---- spark.component.less
 ---- spark.module.ts
+---- index.ts
 -- flippable-card
 ---- flippable-card.component.ts
 ---- flippable-card.component.html
----- flippable-card.component.scss
+---- flippable-card.component.less
 ---- flippable-card.module.ts
+---- index.ts
 ```
 
 ### Component Decorator 
@@ -41,7 +43,7 @@ components
 - The selector should always be prefixed with `ux-` (any documentation specific components should be prefixed with `uxd-`), this will help avoid any potential conflicts with selectors in other libraries of a user's application.
 - Exclude `moduleId` property. The Angular component interface has a field for `moduleId` which is used to support relative paths, primarily for SystemJS module loader to load templates and stylesheets. As part of our build process we inline templates to allow us to support the most common bundlers and module loaders so this property is not required.
 - Template urls should begin with a `./` to ensure they are relative paths.
-- Use the tag element instead of wrapping in a container element. The tag element can be styled and have events and bindings using the `host` property in the decorator (or using a HostListener).
+- Use the tag element instead of wrapping in a container element. The tag element can be styled and have events and bindings using the `:host` property in the decorator (or using a HostListener).
 - Define inputs and outputs in class rather than in component metadata.
 
 ### Component Module
@@ -89,7 +91,7 @@ export * from './components/toggleswitch/index';
 export * from './services/color/index';
 ```
 
-This allows consumers to import from `ux-aspects` rather than having to specify the full path of the class.
+This allows consumers to import from `@ux-aspects/ux-aspects` rather than having to specify the full path of the class.
 
 ### Component Class
 
@@ -97,10 +99,11 @@ This allows consumers to import from `ux-aspects` rather than having to specify 
 - Any `@Input` and `@Output` variables should be defined in the class rather than in component metadata.
 - All instance variables that are used within the view should be public.
 - Mark any other instance variables or functions as private that you do not wish to expose outside of the component.
+- All private instance variables should be prefixed with an underscore.
 - Any component that may be used in a form e.g. checkboxes or radiobuttons, should support **both** `ngModel` and an alternative two way binding property to get/set the value.
 - Use attributes on the template to manipulate the DOM where possible rather than using TypeScript to manipulate the DOM. In the rare occasion where it is not possible, inject `Renderer2` and use it rather than directly touching the DOM. 
 - When using key events in the View specify the key in the attribute rather than performing a condition check on the event `keyCode` e.g. (keydown.uparrow)="upKeyPress()".
-- When binding directly to a style property in the view, place the measurement in the attribute rather than using string interpolation eg. `<div [style.top.px]="topValue"></div>` rather than `<div [style.top]="topValue + 'px'"></div>`.
+- When binding directly to a style property in the view, place the unit in the attribute rather than using string interpolation eg. `<div [style.top.px]="topValue"></div>` rather than `<div [style.top]="topValue + 'px'"></div>`.
 - TSLint is included in our project and your code should conform to the rules it tests for.
 - Where possible components should support a disabled state.
 - Components should provide keyboard support for accessibility purposes.
@@ -288,7 +291,7 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
 @Component({
-    selector: 'uxd-components-sorting',
+    selector: 'uxd-components-sorting-ng1',
     templateUrl: './sorting-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsSortingNg1Component')
@@ -298,9 +301,8 @@ export class ComponentsSortingNg1Component {
 
 ### Code Snippets
 
-Any code snippets should be placed in a snippets folder in the appropriate section directory. These can be imported by the section and displayed in a `uxd-snippet` component.
+Any code snippets should be placed in a snippets folder in the appropriate section directory. These can be imported by the section and displayed in a `uxd-snippet` component using the content attribute. All snippets are available in a `snippets` object on the class.
 
-Each snippet should identify the language attribute as either `html`, `css` or `javascript` (the `javascript` language highlights TypeScript code also).
 
 ### CodePen & Plunker Support
 
