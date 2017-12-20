@@ -25,7 +25,6 @@ export class InfiniteScrollController {
         this.complete = false;
         this.$element = $element;
         this.$interval = safeInterval.create($scope);
-        this.buttonOptions = { show: false, text: 'Load More', class: '' };
 
         // private variables
         this._query = null;
@@ -35,7 +34,7 @@ export class InfiniteScrollController {
         this.pagePosition = this.pagePosition || 85;
         this.windowScroll = this.windowScroll || false;
         this.showLoading = this.showLoading !== false;
-        this.buttonOptions = angular.extend(this.buttonOptions, this.loadMoreButton);
+        this.buttonOptions = angular.extend({ show: false, text: 'Load More' }, this.loadMoreButton);
 
         // determine the type of scrolling to use
         this.scrollbar = angular.isUndefined($attrs.scrollPane) ? ScrollType.Standard : ScrollType.JScrollPane;
@@ -70,7 +69,7 @@ export class InfiniteScrollController {
         this.$interval.interval(() => {
 
             // if we are currently loading or have loaded all pages then do nothing
-            if (this.loading || this.complete) {
+            if (this.loading || this.complete || document.hidden) {
                 return;
             }
 

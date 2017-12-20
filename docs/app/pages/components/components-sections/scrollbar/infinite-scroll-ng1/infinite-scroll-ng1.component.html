@@ -59,9 +59,19 @@
     </tr>
 </uxd-api-properties>
 
-<p>Additionally, the <code>infiniteScroll.reset</code> event can be broadcast on the controller. This will clear the list and load the first page again, which may be useful in case the external data source changes.</p>
+<p>Additionally, there are several events which can be broadcast to allow further interaction with the directive.</p>
 
-<uxd-snippet [content]="snippets.compiled.resetJs" language="javascript"></uxd-snippet>
+<uxd-api-properties>
+  <tr uxd-api-property name="infiniteScroll.reset" type="void">
+    This will reset the infinite scroll directive. It will clear all items and start loading the first page.
+  </tr>
+  <tr uxd-api-property name="infiniteScroll.reload" type="void">
+    This will call the paging function for each loaded page and update any changed data. The current page and scroll position will be retained.
+  </tr>
+  <tr uxd-api-property name="infiniteScroll.reloadPage" type="number">
+    This will call the paging function for the specified page. It will then update the data for that page while retaining scroll position.
+  </tr>
+</uxd-api-properties>
 
 <p>The following code was used to create the example above:</p>
 
