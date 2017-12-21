@@ -1,5 +1,7 @@
 #!/bin/bash
 
+testsPassed=0
+
 cd $WORKSPACE/ux-aspects
 source $PWD/buildscripts/functions.sh
 
@@ -66,7 +68,13 @@ chmod a+rw .
 # ls -alR | grep root
 date -u > $WORKSPACE/ux-aspects/BeforeUnitTestsStarted
 ls -al BeforeUnitTestsStarted
-docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/executeUnitTestsDocker.sh"; echo
+docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/executeUnitTestsDocker.sh"
+failureStatus=$?
+if [ $failureStatus -ne 0 ] ; then
+    echo Tests returned failure status $failureStatus
+    testsPassed=1
+fi
+echo
 
 # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
 # ignore unwanted strings.
@@ -102,9 +110,10 @@ cp UXAspectsTestsResults.html reports/index.html
 # Test for success i.e. zero failures. If there were failures, exit with status 1.
 if grep -q  ">> 0 failures" UnitTestResults.txt;
 then
-    echo Unit tests passed
-    exit 0
+    echo No unit test failures recorded
 else
-    echo "Unit test(s) failed"
-    exit 1
+    echo "Unit test failure(s) recorded"
+    testsPassed=1
 fi
+
+exit $testsPassed

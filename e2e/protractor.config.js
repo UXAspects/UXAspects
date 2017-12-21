@@ -19,11 +19,16 @@ var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 var istanbulPlugin = require('protractor-istanbul-plugin');
 
 exports.config = {
-  directConnect: false,
+  directConnect: true,  // Set to false if using Selenium Grid
+  
+  chromeDriver: '../node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver.exe',
 
   // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {
     'browserName': 'chrome',
+    chromeOptions: {
+      args: [ "--headless", "--disable-gpu", "--no-sandbox", "--window-size=800x600" ]
+    }
     // 'browserName': 'internet explorer',
     // 'browserName': 'firefox',
   },
@@ -44,7 +49,7 @@ exports.config = {
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['dist/**/*e2e-spec.js'],
+  specs: ['dist/**/facet-check-list*e2e-spec.js', 'dist/**/facet-typeahead-list*e2e-spec.js', 'dist/**/side-inset-panel-splitter*e2e-spec.js', 'dist/**/sliders*e2e-spec.js', 'dist/**/tree-grid*e2e-spec.js'],
 
   // protractor_istanbul_plugin package
   plugins: [{
