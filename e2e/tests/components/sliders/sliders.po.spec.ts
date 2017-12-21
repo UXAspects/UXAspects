@@ -70,9 +70,9 @@ export class SlidersPage {
     
     dragAndDropHandle(slider: ElementFinder, handle: string, offset: { x: number, y: number }) {
         if (handle === 'lower') {
-            browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.lower'), offset).perform();
+            return browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.lower'), offset).perform();
         } else {
-            browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.upper'), offset).perform();
+            return browser.actions().dragAndDrop(slider.$('div.track').$('div.thumb.upper'), offset).perform();
         }
     }
     
@@ -100,12 +100,24 @@ export class SlidersPage {
         }
     }
     
+    getSliderLocation(slider: ElementFinder, handle: string) {
+        if (handle === 'lower') {
+            return slider.$('div.track').$('div.thumb.lower').getLocation();
+        } else {
+            return slider.$('div.track').$('div.thumb.upper').getLocation();
+        }
+    }
+    
     getSliderRangeAttribute(slider: ElementFinder, attribute: string) {
         return slider.$('div.track').$('div.track-range').getAttribute(attribute);
     }
     
     getTickAttribute(slider: ElementFinder, attribute: string, tick: number) {
         return slider.$('div.tick-container').$$('div.tick').get(tick).getAttribute(attribute);
+    }
+    
+    getTickLocation(slider: ElementFinder, tick: number) {
+        return slider.$('div.tick-container').$$('div.tick').get(tick).getLocation();
     }
     
     getTickLabel(slider: ElementFinder, tick: number) {

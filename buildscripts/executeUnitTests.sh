@@ -92,15 +92,15 @@ while read line ; do
         echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
     fi
 done < UnitTestResults.txt
-echo "</body></html>" >> UXAspectsTestsResults.html
+# !!!!!!!!!!!!!!!!!!! echo "</body></html>" >> UXAspectsTestsResults.html
 
-cd $WORKSPACE/ux-aspects
-cp UXAspectsTestsResults.html index.html
-cp index.html index-${BUILD_NUMBER}.html
-mkdir -p $WORKSPACE/reports
-cp index.html $WORKSPACE/reports/index.html
-mkdir -p $WORKSPACE/ux-aspects/reports
-cp UXAspectsTestsResults.html reports/index.html
+# !!!!!!!!!!!!!!!!!!! cd $WORKSPACE/ux-aspects
+# !!!!!!!!!!!!!!!!!!! cp UXAspectsTestsResults.html index.html
+# !!!!!!!!!!!!!!!!!!! cp index.html index-${BUILD_NUMBER}.html
+# !!!!!!!!!!!!!!!!!!! mkdir -p $WORKSPACE/reports
+# !!!!!!!!!!!!!!!!!!! cp index.html $WORKSPACE/reports/index.html
+# !!!!!!!!!!!!!!!!!!! mkdir -p $WORKSPACE/ux-aspects/reports
+# !!!!!!!!!!!!!!!!!!! cp UXAspectsTestsResults.html reports/index.html
 
 # echo Listing WORKSPACE
 # ls -alR $WORKSPACE

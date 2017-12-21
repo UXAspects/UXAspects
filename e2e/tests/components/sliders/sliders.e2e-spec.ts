@@ -345,19 +345,29 @@ describe('SlidersPage Tests', () => {
     // Move handles and confirm the associated inputs are updated with the correct values.
     page.moveMouseToHandle(page.slider7, 'lower');
     expect<any>(page.getTooltipValue(page.slider7, 'lower')).toEqual('25');
-    page.dragAndDropHandle(page.slider7, 'lower', {x: -100, y: 0});
-    page.mouseDownOnHandle(page.slider7, 'lower');
-    expect<any>(page.getTooltipValue(page.slider7, 'lower')).toEqual('20');
-    page.mouseUpFromHandle(page.slider7, 'lower');
+    page.getSliderLocation(page.slider7, 'lower').then((currentLocation: object) => {
+      page.getTickLocation(page.slider7, 2).then((intendedLocation: object) => {
+        var offsetX = Math.floor(Number(intendedLocation['x']) - Number(currentLocation['x']));
+        page.dragAndDropHandle(page.slider7, 'lower', {x: offsetX, y: 0});
+        page.mouseDownOnHandle(page.slider7, 'lower');
+        expect<any>(page.getTooltipValue(page.slider7, 'lower')).toEqual('10');
+        page.mouseUpFromHandle(page.slider7, 'lower');
+      });
+    });
     
     page.moveMouseToHandle(page.slider7, 'upper');
     expect<any>(page.getTooltipValue(page.slider7, 'upper')).toEqual('75');
-    page.dragAndDropHandle(page.slider7, 'upper', {x: 100, y: 0});
-    page.mouseDownOnHandle(page.slider7, 'upper');
-    expect<any>(page.getTooltipValue(page.slider7, 'upper')).toEqual('80');
-    page.mouseUpFromHandle(page.slider7, 'upper');
-    
-    expect<any>(page.getInputValue(page.input1)).toEqual('20');
+    page.getSliderLocation(page.slider7, 'upper').then((currentLocation: object) => {
+      page.getTickLocation(page.slider7, 16).then((intendedLocation: object) => {
+        var offsetX = Math.floor(Number(intendedLocation['x']) - Number(currentLocation['x']));
+        page.dragAndDropHandle(page.slider7, 'upper', {x: offsetX, y: 0});
+        page.mouseDownOnHandle(page.slider7, 'upper');
+        expect<any>(page.getTooltipValue(page.slider7, 'upper')).toEqual('80');
+        page.mouseUpFromHandle(page.slider7, 'upper');
+      });
+    });
+
+    expect<any>(page.getInputValue(page.input1)).toEqual('10');
     expect<any>(page.getInputValue(page.input2)).toEqual('80');
     
     // Enter numbers into the inputs and confirm that the handles' positions are changed accordingly.

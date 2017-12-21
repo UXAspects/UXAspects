@@ -24,7 +24,6 @@ rm -f E2ETestResults.txt
 
 # Execute the Protractor tests
 echo Executing the E2E tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
-cd $WORKSPACE/ux-aspects
 chmod a+rw .
 date -u > $WORKSPACE/ux-aspects/BeforeE2ETestsStarted
 ls -al BeforeE2ETestsStarted
@@ -35,6 +34,21 @@ if [ $failureStatus -ne 0 ] ; then
 fi
 echo
 
-echo Adding E2E test results to the results file
+# The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
+# ignore unwanted strings.
+echo Adding Protractor test results to the results file
+echo "<hr><hr><hr>" >> UXAspectsTestsResults.html
+echo "<h2>Protractor Tests</h2>" >> UXAspectsTestsResults.html
+while read line ; do
+     echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
+done < e2e/xml/chrome-xmloutput.xml
+echo "</body></html>" >> UXAspectsTestsResults.html
+
+cp UXAspectsTestsResults.html index.html
+cp index.html index-${BUILD_NUMBER}.html
+mkdir -p $WORKSPACE/reports
+cp index.html $WORKSPACE/reports/index.html
+mkdir -p $WORKSPACE/ux-aspects/reports
+cp UXAspectsTestsResults.html reports/index.html
 
 exit $failureStatus
