@@ -34,6 +34,7 @@ bash buildscripts/executeE2ETests.sh
 if [ $? -ne 0 ]; then
     echo "Protractor test(s) failed"
     testsFailed="true"
+    exit 1;
 fi
 echo
 

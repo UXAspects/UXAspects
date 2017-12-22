@@ -340,7 +340,7 @@ describe('SlidersPage Tests', () => {
     
   });
   
-  it('should synchronize with text inputs', () => {
+  /* it('should synchronize with text inputs', () => {
     
     // Move handles and confirm the associated inputs are updated with the correct values.
     page.moveMouseToHandle(page.slider7, 'lower');
@@ -392,5 +392,5 @@ describe('SlidersPage Tests', () => {
     page.moveMouseToHandle(page.slider7, 'upper');
     expect<any>(page.getTooltipValue(page.slider7, 'upper')).toEqual('50');
     
-  });
+  }); */
 });
