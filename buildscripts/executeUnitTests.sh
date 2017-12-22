@@ -92,20 +92,11 @@ while read line ; do
         echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
     fi
 done < UnitTestResults.txt
-# !!!!!!!!!!!!!!!!!!! echo "</body></html>" >> UXAspectsTestsResults.html
 
-# !!!!!!!!!!!!!!!!!!! cd $WORKSPACE/ux-aspects
-# !!!!!!!!!!!!!!!!!!! cp UXAspectsTestsResults.html index.html
-# !!!!!!!!!!!!!!!!!!! cp index.html index-${BUILD_NUMBER}.html
-# !!!!!!!!!!!!!!!!!!! mkdir -p $WORKSPACE/reports
-# !!!!!!!!!!!!!!!!!!! cp index.html $WORKSPACE/reports/index.html
-# !!!!!!!!!!!!!!!!!!! mkdir -p $WORKSPACE/ux-aspects/reports
-# !!!!!!!!!!!!!!!!!!! cp UXAspectsTestsResults.html reports/index.html
-
-# echo Listing WORKSPACE
-# ls -alR $WORKSPACE
-# echo Listing /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
-# ls -alR /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
+echo Listing WORKSPACE
+ls -alR $WORKSPACE
+echo Listing /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
+ls -alR /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
 
 # Test for success i.e. zero failures. If there were failures, exit with status 1.
 if grep -q  ">> 0 failures" UnitTestResults.txt;
