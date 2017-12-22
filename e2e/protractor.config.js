@@ -49,7 +49,7 @@ exports.config = {
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['dist/**/facet-check-list*e2e-spec.js', 'dist/**/facet-typeahead-list*e2e-spec.js', 'dist/**/side-inset-panel-splitter*e2e-spec.js', 'dist/**/sliders*e2e-spec.js', 'dist/**/tree-grid*e2e-spec.js'],
+  specs: ['dist/**/*e2e-spec.js'],
 
   // protractor_istanbul_plugin package
   plugins: [{
