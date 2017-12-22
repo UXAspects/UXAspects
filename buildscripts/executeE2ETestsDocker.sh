@@ -30,7 +30,10 @@ echo Running grunt task
 grunt e2e
 echo
 
-echo Running xsltproc to extract number of test filures
+echo Running xsltproc to convert XML results file to HTML
+xsltproc buildscripts/transformXML.xsl e2e/xml/chrome-xmloutput.xml > e2e_output.html
+
+echo Running xsltproc to extract number of test failures
 testStatus=`xsltproc buildscripts/countFailures.xsl e2e/xml/chrome-xmloutput.xml`
 
 echo Number of failures is $testStatus

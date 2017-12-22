@@ -37,11 +37,11 @@ echo
 # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
 # ignore unwanted strings.
 echo Adding Protractor test results to the results file
-echo "<hr><hr><hr>" >> UXAspectsTestsResults.html
+echo "</p></p></p>" >> UXAspectsTestsResults.html
 echo "<h2>Protractor Tests</h2>" >> UXAspectsTestsResults.html
 while read line ; do
-     echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
-done < e2e/xml/chrome-xmloutput.xml
+     echo "$line" >> UXAspectsTestsResults.html
+done < e2e_output.html
 echo "</body></html>" >> UXAspectsTestsResults.html
 
 cp UXAspectsTestsResults.html index.html
