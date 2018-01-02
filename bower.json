@@ -1,6 +1,6 @@
 {
   "name": "ux-aspects",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Responsive UI Framework for Big Data Applications - CSS & Angular modules.",
   "keywords": [
     "js",
@@ -23,7 +23,7 @@
   "moduleType": "globals",
   "dependencies": {
     "jquery": "~2.1.0",
-    "jquery-ui": "~1.10.0",
+    "jquery-ui": "~1.12.1",
     "bootstrap": "~3.3.4",
     "angular": "~1.3.16"
   },
