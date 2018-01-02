@@ -1,6 +1,6 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.1 
-* © Copyright 2017 EntIT Software LLC, a Micro Focus company
+* @ux-aspects/ux-aspects-docs - v1.5.2-rc.1 
+* © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
   padding-left: 0;
@@ -655,7 +655,8 @@ body > div#ux-codepen-container {
 .hpe-domain:before {
   content: "\f179";
 }
-.hpe-down:before {
+.hpe-down:before,
+.timeline.hp-timeline-down-arrow:after {
   content: "\f17a";
 }
 .hpe-download:before {
@@ -868,7 +869,8 @@ body > div#ux-codepen-container {
 .hpe-new:before {
   content: "\f1c0";
 }
-.hpe-next:before {
+.hpe-next:before,
+.breadcrumb > li:after {
   content: "\f1c1";
 }
 .hpe-notes:before {
@@ -6536,6 +6538,10 @@ table.dataTable {
   padding: 0 8px;
   padding-right: 11px;
   /*  order icon width*/
+  height: 100%;
+}
+.scrollArea table th .box > .row {
+  height: 100%;
 }
 .scrollArea table .th-inner {
   overflow: hidden;
@@ -6901,7 +6907,7 @@ table.dataTable {
   vertical-align: baseline;
 }
 .scrollArea table .detail-row-header .filter {
-  display: inline;
+  display: inline-flex;
 }
 .scrollArea table .detail-row-header .filter i {
   display: inline-block;
@@ -6924,6 +6930,35 @@ th:hover .detail-row-header.sort .sort .number {
 */
 .integrated-table tbody tr:focus {
   background-color: #f5f5f5;
+}
+/*
+ * Fixed Header Table Styling
+ */
+.ux-fixed-header-table {
+  display: flex;
+  flex-direction: column;
+}
+.ux-fixed-header-table thead,
+.ux-fixed-header-table tbody {
+  display: block;
+}
+.ux-fixed-header-table thead tr,
+.ux-fixed-header-table tbody tr {
+  display: flex;
+}
+.ux-fixed-header-table thead tr th,
+.ux-fixed-header-table tbody tr th,
+.ux-fixed-header-table thead tr td,
+.ux-fixed-header-table tbody tr td {
+  display: block;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ux-fixed-header-table tbody {
+  overflow-y: scroll;
+  min-height: 1px;
+  margin-top: -1px;
 }
 .timeline {
   padding: 0;
@@ -6955,30 +6990,11 @@ th:hover .detail-row-header.sort .sort .number {
   background-color: #444;
 }
 .timeline.hp-timeline-down-arrow:after {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-  font-family: "HPEIcons";
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
-  font-weight: normal;
-  font-style: normal;
-  speak: none;
-  text-decoration: inherit;
-  text-transform: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #e5e5e5;
-  content: "\f136";
-  display: block;
+  font-family: 'hpe-icons';
   position: absolute;
-  bottom: -7px;
-  width: 0;
-  height: 0;
-  margin-left: 72px;
+  color: #e5e5e5;
+  left: 56px;
+  bottom: -9px;
 }
 .body-dark .timeline.hp-timeline-down-arrow:after {
   color: #444;
@@ -10342,6 +10358,7 @@ button.dim:active:before {
 .dropdown-toggle .hp-icon,
 .dropdown-toggle .hpe-icon {
   margin-left: 3px;
+  line-height: 1;
 }
 .dropdown-toggle .hp-icon:first-child,
 .dropdown-toggle .hpe-icon:first-child {
@@ -11139,6 +11156,8 @@ p.no-margin {
 }
 .spark-label .x-large {
   font-size: 24px;
+  max-height: 24px;
+  display: inline-block;
 }
 .spark-label .large {
   font-size: 16px;
@@ -15754,6 +15773,7 @@ tags-input .tags .input:-ms-input-placeholder {
 }
 .angular-tree-component tree-node-expander .toggle-children-wrapper {
   display: block;
+  padding: 0px 3px 5px 1px;
 }
 .angular-tree-component tree-node-expander .toggle-children-wrapper .toggle-children {
   background-image: none;
@@ -15764,7 +15784,7 @@ tags-input .tags .input:-ms-input-placeholder {
   height: 17px;
 }
 .angular-tree-component tree-node-expander .toggle-children-wrapper .toggle-children:before {
-  content: "\F12F";
+  content: "\f12f";
 }
 .organization-chart-container {
   display: flex;
@@ -16114,7 +16134,6 @@ tags-input .tags .input:-ms-input-placeholder {
   display: none;
 }
 .breadcrumb > li:after {
-  content: "\F1BD";
   font-family: "hpe-icons";
   display: inline-block;
   padding: 0 2px 0 0;

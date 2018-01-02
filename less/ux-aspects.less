@@ -10894,6 +10894,11 @@ table {
         .box {
           padding: 0 8px;
           padding-right: 11px;    /*  order icon width*/
+          height: 100%;
+
+          > .row {
+            height: 100%;
+          }
         }
       }
       .th-inner {
@@ -11350,7 +11355,7 @@ table {
         }
       }
       .filter {
-        display: inline;
+        display: inline-flex;
         i {
           display: inline-block;
           vertical-align: baseline;
@@ -11400,6 +11405,36 @@ th {
   }
 
 }
+
+/*
+ * Fixed Header Table Styling
+ */
+
+.ux-fixed-header-table {
+  display: flex;
+  flex-direction: column;
+
+  thead, tbody {
+      display: block;
+
+      tr {
+          display: flex;
+
+          th, td {
+              display: block;
+              flex: 1;
+              overflow: hidden;
+              text-overflow: ellipsis;
+          }
+      }
+  }
+
+  tbody {
+      overflow-y: scroll;
+      min-height: 1px;
+      margin-top: -1px;
+  }
+}
 .timeline {
   padding: 0;
   list-style: none;
@@ -11441,31 +11476,13 @@ th {
 .timeline {
 
   &.hp-timeline-down-arrow {
-    &:after {
-      -webkit-transform: rotate(180deg);
-      -moz-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-      transform: rotate(180deg);
-      font-family: "HPEIcons";
-      display: inline-block;
-      vertical-align: middle;
-      line-height: 1;
-      font-weight: normal;
-      font-style: normal;
-      speak: none;
-      text-decoration: inherit;
-      text-transform: none;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      color: @timeline-color;
-      content: "\f136";
-      display: block;
+    
+    &:after:extend(.hpe-down:before) {
+      font-family: 'hpe-icons';
       position: absolute;
-      bottom: -7px;
-      width: 0;
-      height: 0;
-      margin-left: 72px;
+      color: @timeline-color;
+      left: 56px;
+      bottom: -9px;
     }
   }
 }
@@ -15086,6 +15103,7 @@ button {
   .hp-icon,
   .hpe-icon {
     margin-left: 3px;
+    line-height: 1;
     &:first-child {
       margin-left: 0px;
     }
@@ -16004,6 +16022,8 @@ p.no-margin
 
 .spark-label .x-large {
   font-size: 24px; 
+  max-height: 24px;
+  display: inline-block;
 }
 
 .spark-label .large {
@@ -21451,6 +21471,7 @@ tags-input .tags .input:-ms-input-placeholder {
     tree-node-expander {
         .toggle-children-wrapper {
             display: block;
+            padding: 0px 3px 5px 1px;
             
             .toggle-children {
                 background-image: none;
@@ -21459,10 +21480,7 @@ tags-input .tags .input:-ms-input-placeholder {
                 font-size: 12px;
                 width: 11px;
                 height: 17px;
-
-                &:before {
-                    content: "\F12F";
-                }
+                .hpe-icon-chevron-right();
             }
         }
     }
@@ -21901,8 +21919,7 @@ tags-input .tags .input:-ms-input-placeholder {
     display: none;
 }
 
-.breadcrumb > li:after {
-    content: "\F1BD";
+.breadcrumb > li:after:extend(.hpe-next:before) {
     font-family: "hpe-icons";
     display: inline-block;
     padding: 0 2px 0 0;
