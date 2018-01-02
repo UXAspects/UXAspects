@@ -44,6 +44,9 @@ export class InfiniteScrollController {
         $scope.$on('infiniteScroll.reload', () => this.reload());        
         $scope.$on('infiniteScroll.reloadPage', (event, page) => this.getPage(page));
 
+        // cleanup after ourselves
+        $scope.$on('$destroy', () => this.scrollbarAdapter.destroy());
+
         // get the appropriate scrollbar adapter
         this.scrollbarAdapter = this.getScrollbarAdapter();
 
