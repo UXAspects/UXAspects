@@ -1,9 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 
 @Component({
     selector: 'ux-progress-bar',
-    templateUrl: './progress-bar.component.html'
+    templateUrl: './progress-bar.component.html',
+    styleUrls: ['./progress-bar.component.less'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class ProgressBarComponent implements OnChanges {
 

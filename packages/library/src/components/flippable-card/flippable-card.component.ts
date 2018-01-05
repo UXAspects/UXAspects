@@ -1,8 +1,10 @@
-import { Component, Input, Directive, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Directive, HostListener, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'ux-flippable-card',
     templateUrl: './flippable-card.component.html',
+    styleUrls: ['./flippable-card.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         '[class.horizontal]': 'direction === "horizontal"',
         '[class.vertical]': 'direction === "vertical"'

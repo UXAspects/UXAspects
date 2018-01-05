@@ -1,4 +1,4 @@
-import { Component, Directive, Input, SimpleChange, Output, EventEmitter, ContentChild } from '@angular/core';
+import { Component, Directive, Input, SimpleChange, Output, EventEmitter, ContentChild, ViewEncapsulation } from '@angular/core';
 
 @Directive({
     selector: '[uxItemDisplayPanelContent]'
@@ -13,6 +13,8 @@ export class ItemDisplayPanelFooterDirective { }
 @Component({
     selector: 'ux-item-display-panel',
     templateUrl: './item-display-panel.component.html',
+    styleUrls: ['./item-display-panel.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         '(document:click)': 'clickOff($event)',
         '(document:keyup.escape)': 'visible = false',

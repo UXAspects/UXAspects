@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, Input, forwardRef, HostListener, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const RADIOBUTTON_VALUE_ACCESSOR: any = {
@@ -10,6 +10,8 @@ export const RADIOBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'ux-radio-button',
     templateUrl: './radiobutton.component.html',
+    styleUrls: ['./radiobutton.component.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [RADIOBUTTON_VALUE_ACCESSOR]
 })
 export class RadioButtonComponent implements ControlValueAccessor {

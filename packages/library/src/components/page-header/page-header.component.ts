@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ContentChildren, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
@@ -7,6 +7,8 @@ import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directi
     selector: 'ux-page-header',
     exportAs: 'ux-page-header',
     templateUrl: 'page-header.component.html',
+    styleUrls: ['./page-header.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         '[class.page-header-condensed]': 'condensed'
     }

@@ -1,11 +1,13 @@
-import { Component, Input, ViewChild, ViewChildren, QueryList, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ViewChildren, QueryList, OnInit, Output, EventEmitter, ElementRef, ViewEncapsulation } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { PageHeaderNavigationDropdownItemComponent } from '../navigation-dropdown-item/navigation-dropdown-item.component';
 import { PageHeaderNavigationItem, PageHeaderNavigationDropdownItem } from '../navigation.component';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-item',
-    templateUrl: './navigation-item.component.html'
+    templateUrl: './navigation-item.component.html',
+    styleUrls: ['./navigation-item.component.less'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class PageHeaderNavigationItemComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, forwardRef, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
@@ -10,6 +10,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'ux-checkbox',
     templateUrl: './checkbox.component.html',
+    styleUrls: ['./checkbox.component.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [CHECKBOX_VALUE_ACCESSOR],
     host: {
         '(click)': 'toggleChecked()'

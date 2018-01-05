@@ -54,6 +54,7 @@ fs.writeFileSync(
  * Shim the Angular 1 components
  */
 
+ /*
 let ng1Path = path.join(distPath, 'ng1');
 
 if (!fs.existsSync(ng1Path)) {
@@ -76,6 +77,7 @@ fs.writeFileSync(
     path.join(ng1Path, 'ux-aspects-ng1.min.js'), 
     ng1MinFileContents
 );
+*/
 
 /**
  * Shim the Angular components

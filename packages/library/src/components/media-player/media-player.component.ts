@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/frame-extraction.service';
 import { MediaPlayerService } from './media-player.service';
 import { Subject } from 'rxjs/Subject';
@@ -13,6 +13,8 @@ import 'rxjs/add/operator/switchMap';
 @Component({
     selector: 'ux-media-player',
     templateUrl: './media-player.component.html',
+    styleUrls: ['./media-player.component.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [ MediaPlayerService ],
     host: {
         'tabindex': '0',

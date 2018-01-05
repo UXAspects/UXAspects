@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, Renderer2, AfterContentInit, ContentChild, TemplateRef, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, Renderer2, AfterContentInit, ContentChild, TemplateRef, OnDestroy, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ResizeService } from '../../directives/resize/index';
 import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loading.directive';
 import { VirtualScrollLoadButtonDirective } from './directives/virtual-scroll-load-button.directive';
@@ -9,7 +9,9 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'ux-virtual-scroll',
-    templateUrl: './virtual-scroll.component.html'
+    templateUrl: './virtual-scroll.component.html',
+    styleUrls: ['./virtual-scroll.component.less'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class VirtualScrollComponent implements OnInit, AfterContentInit, OnDestroy {
 

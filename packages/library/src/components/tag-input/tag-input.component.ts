@@ -1,24 +1,7 @@
 import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
 import { TagInputEvent } from './tag-input-event';
-import {
-    AfterContentInit,
-    Component,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    HostListener,
-    Inject,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    QueryList,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild
-} from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 
@@ -37,6 +20,8 @@ const TAGINPUT_VALIDATOR = {
 @Component({
     selector: 'ux-tag-input',
     templateUrl: 'tag-input.component.html',
+    styleUrls: ['./tag-input.component.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [TAGINPUT_VALUE_ACCESSOR, TAGINPUT_VALIDATOR],
     host: {
         '[class.disabled]': 'disabled',

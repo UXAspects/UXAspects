@@ -1,10 +1,12 @@
-import { Component, Input, ViewChildren, QueryList, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChildren, QueryList, ElementRef, Renderer2, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
 import { ResizeService } from '../../../directives/resize/index';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation',
-    templateUrl: './navigation.component.html'
+    templateUrl: './navigation.component.html',
+    styleUrls: ['./navigation.component.less'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class PageHeaderNavigationComponent implements AfterViewInit {
     

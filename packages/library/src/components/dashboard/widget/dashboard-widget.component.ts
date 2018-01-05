@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, QueryList, ViewChildren, Directive, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, ElementRef, QueryList, ViewChildren, Directive, AfterViewInit, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { DashboardService, ActionDirection } from '../dashboard.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -7,6 +7,8 @@ import 'rxjs/add/operator/takeUntil';
 @Component({
     selector: 'ux-dashboard-widget',
     templateUrl: './dashboard-widget.component.html',
+    styleUrls: ['./dashboard-widget.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         '[style.left.px]': 'actualX',
         '[style.top.px]': 'actualY',

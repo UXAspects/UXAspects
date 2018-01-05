@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { dateRange, gridify, compareDays, months, weekdaysShort } from '../date-time-picker.utils';
 import { DateTimePickerService } from '../date-time-picker.service';
 import { DatePickerMode } from '../date-time-picker.component';
@@ -9,7 +9,9 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ux-date-time-picker-day-view',
-  templateUrl: './day-view.component.html'
+  templateUrl: './day-view.component.html',
+  styleUrls: ['./day-view.component.less'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DateTimePickerDayViewComponent implements OnInit, OnDestroy {
 

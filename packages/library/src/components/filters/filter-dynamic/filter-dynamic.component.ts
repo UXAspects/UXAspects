@@ -1,5 +1,5 @@
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FilterBaseComponent } from '../filter-base/filter-base.component';
 import { Filter, FilterContainerComponent, FilterRemoveAllEvent } from '../filter-container.component';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
@@ -7,6 +7,8 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 @Component({
     selector: 'ux-filter-dynamic',
     templateUrl: './filter-dynamic.component.html',
+    styleUrls: ['./filter-dynamic.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         '(document:click)': 'clickOff($event)',
     }

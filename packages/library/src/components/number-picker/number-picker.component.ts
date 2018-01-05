@@ -10,6 +10,8 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'ux-number-picker',
     templateUrl: './number-picker.component.html',
+    styleUrls: ['./number-picker.component.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [NUMBER_PICKER_VALUE_ACCESSOR],
     host: {
         '[class.has-error]': '!isValid()'

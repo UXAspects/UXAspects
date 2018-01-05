@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Host, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Input, Host, Pipe, PipeTransform, ViewEncapsulation } from '@angular/core';
 import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
 import { Observable } from 'rxjs/Observable';
 import { Facet } from '../models/facet';
@@ -10,7 +10,9 @@ import { Observer } from 'rxjs/Observer';
 
 @Component({
     selector: 'ux-facet-typeahead-list',
-    templateUrl: './facet-typeahead-list.component.html'
+    templateUrl: './facet-typeahead-list.component.html',
+    styleUrls: ['./facet-typeahead-list.component.less'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class FacetTypeaheadListComponent extends FacetBaseComponent implements OnInit {
 

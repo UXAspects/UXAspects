@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
@@ -6,6 +6,8 @@ import 'rxjs/add/observable/timer';
 @Component({
     selector: 'ux-media-player-controls',
     templateUrl: './controls.component.html',
+    styleUrls: ['./controls.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         '[class.quiet]': 'quietMode || fullscreen'
     }

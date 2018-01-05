@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-view/time-view.component';
 import { weekdaysShort } from './date-time-picker.utils';
 import { DateTimePickerConfig } from './date-time-picker.config';
@@ -7,6 +7,8 @@ import { DateTimePickerService } from './date-time-picker.service';
 @Component({
   selector: 'ux-date-time-picker',
   templateUrl: './date-time-picker.component.html',
+  styleUrls: ['./date-time-picker.component.less'],
+  encapsulation: ViewEncapsulation.None,
   providers: [DateTimePickerService]
 })
 export class DateTimePickerComponent {

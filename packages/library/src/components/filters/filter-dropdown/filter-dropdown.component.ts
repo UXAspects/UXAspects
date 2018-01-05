@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { FilterBaseComponent } from '../filter-base/filter-base.component';
 import { Filter, FilterContainerComponent, FilterRemoveAllEvent } from '../filter-container.component';
 
 @Component({
     selector: 'ux-filter-dropdown',
     templateUrl: './filter-dropdown.component.html',
+    styleUrls: ['./filter-dropdown.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 export class FilterDropdownComponent extends FilterBaseComponent {
 

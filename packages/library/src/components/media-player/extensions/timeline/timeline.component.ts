@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
     selector: 'ux-media-player-timeline',
     templateUrl: './timeline.component.html',
+    styleUrls: ['./timeline.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         '(document:mouseup)': 'mouseDown = false',
         '[class.quiet]': 'quietMode || fullscreen'

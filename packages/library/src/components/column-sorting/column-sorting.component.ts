@@ -1,9 +1,11 @@
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { ColumnSortingDirective, ColumnSortingOrder } from './column-sorting.directive';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'ux-column-sorting',
     templateUrl: './column-sorting.component.html',
+    styleUrls: ['./column-sorting.component.less'],
+    encapsulation: ViewEncapsulation.None,
     exportAs: 'ux-column-sorting'
 })
 export class ColumnSortingComponent {

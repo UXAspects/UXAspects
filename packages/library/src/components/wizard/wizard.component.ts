@@ -1,9 +1,11 @@
-import { Component, Input, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { WizardStepComponent } from './wizard-step.component';
 
 @Component({
     selector: 'ux-wizard',
     templateUrl: './wizard.component.html',
+    styleUrls: ['./wizard.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': 'orientation'
     }

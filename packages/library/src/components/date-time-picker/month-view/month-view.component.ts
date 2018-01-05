@@ -1,11 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { gridify, range, monthsShort } from '../date-time-picker.utils';
 import { DateTimePickerService } from '../date-time-picker.service';
 import { DatePickerMode } from '../date-time-picker.component';
 
 @Component({
   selector: 'ux-date-time-picker-month-view',
-  templateUrl: './month-view.component.html'
+  templateUrl: './month-view.component.html',
+  styleUrls: ['./month-view.component.less'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DateTimePickerMonthViewComponent {
 

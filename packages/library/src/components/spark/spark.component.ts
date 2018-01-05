@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 import { ColorIdentifier } from '../../index';
 
 @Component({
     selector: 'ux-spark',
-    templateUrl: './spark.component.html'
+    templateUrl: './spark.component.html',
+    styleUrls: ['./spark.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 export class SparkComponent {
 

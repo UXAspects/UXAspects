@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { SearchBuilderService } from './search-builder.service';
 import { SearchBuilderQuery } from './interfaces/query.interface';
@@ -12,6 +12,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 @Component({
   selector: 'ux-search-builder',
   templateUrl: './search-builder.component.html',
+  styleUrls: ['./search-builder.component.less'],
+  encapsulation: ViewEncapsulation.None,
   providers: [SearchBuilderService]
 })
 export class SearchBuilderComponent implements OnDestroy {

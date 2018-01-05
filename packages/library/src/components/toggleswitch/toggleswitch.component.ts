@@ -1,4 +1,4 @@
-import { Component, Input, Output, forwardRef, EventEmitter } from '@angular/core';
+import { Component, Input, Output, forwardRef, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
@@ -10,6 +10,8 @@ const TOGGLESWITCH_VALUE_ACCESSOR = {
 @Component({
     selector: 'ux-toggleswitch',
     templateUrl: './toggleswitch.component.html',
+    styleUrls: ['./toggleswitch.component.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [TOGGLESWITCH_VALUE_ACCESSOR],
     host: {
         '(click)': 'toggleChecked()'

@@ -1,8 +1,10 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'ux-facet-header',
     templateUrl: './facet-header.component.html',
+    styleUrls: ['./facet-header.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         'tabindex': '0',
         '(click)': 'toggleExpand()',

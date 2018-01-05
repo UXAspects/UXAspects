@@ -1,10 +1,12 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from './facet-events';
 import { Facet } from './models/facet';
 
 @Component({
     selector: 'ux-facet-container',
-    templateUrl: './facet-container.component.html'
+    templateUrl: './facet-container.component.html',
+    styleUrls: ['./facet-container.component.less'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class FacetContainerComponent {
 

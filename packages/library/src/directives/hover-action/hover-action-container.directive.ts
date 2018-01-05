@@ -1,10 +1,14 @@
-import { Directive, ContentChildren, QueryList, HostListener, ElementRef, OnDestroy, Input } from '@angular/core';
+import { Component, ContentChildren, QueryList, HostListener, ElementRef, OnDestroy, Input, ViewEncapsulation } from '@angular/core';
 import { HoverActionDirective } from './hover-action.directive';
 import { HoverActionService } from './hover-action.service';
 import { Subscription } from 'rxjs/Subscription';
 
-@Directive({
+// Behind the scenes this is a component simply to provide the stylesheet
+@Component({
     selector: '[uxHoverActionContainer]',
+    template: '<ng-content></ng-content>',
+    styleUrls: ['./hover-action.directive.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [HoverActionService],
     host: {
         '[class.hover-action-container-active]': 'active',

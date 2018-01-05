@@ -1,25 +1,14 @@
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    AfterViewInit,
-    ChangeDetectorRef
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'ux-typeahead',
     templateUrl: 'typeahead.component.html',
+    styleUrls: ['./typeahead.component.less'],
+    encapsulation: ViewEncapsulation.None,
     host: {
         '[class.open]': 'open',
         '[class.drop-up]': 'dropDirection === "up"',

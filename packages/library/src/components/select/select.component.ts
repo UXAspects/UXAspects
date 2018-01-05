@@ -1,6 +1,6 @@
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
-import { Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -15,6 +15,8 @@ export const SELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'ux-select',
     templateUrl: 'select.component.html',
+    styleUrls: ['./select.component.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [SELECT_VALUE_ACCESSOR]
 })
 export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor {

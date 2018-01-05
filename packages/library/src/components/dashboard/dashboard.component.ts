@@ -1,10 +1,12 @@
-import { Component, Input, OnInit, DoCheck, ElementRef, AfterViewInit, NgZone, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, DoCheck, ElementRef, AfterViewInit, NgZone, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { DashboardService, DashboardLayoutData, DashboardPlaceholder } from './dashboard.service';
 import { ResizeDimensions } from '../../directives/resize/resize.service';
 
 @Component({
     selector: 'ux-dashboard',
     templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [DashboardService],
     host: {
         '[style.height.px]': 'height'

@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'ux-filter-container',
-    templateUrl: './filter-container.component.html'
+    templateUrl: './filter-container.component.html',
+    styleUrls: ['./filter-container.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 export class FilterContainerComponent {
 

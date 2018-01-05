@@ -1,8 +1,10 @@
-import { Component, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output, AfterViewInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'ux-date-time-picker-time-view',
-    templateUrl: './time-view.component.html'
+    templateUrl: './time-view.component.html',
+    styleUrls: ['./time-view.component.less'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class DateTimePickerTimeViewComponent implements AfterViewInit {
 
@@ -11,7 +13,6 @@ export class DateTimePickerTimeViewComponent implements AfterViewInit {
     @Input() showSpinners: boolean = true;
     @Input() showTimezone: boolean = true;
     @Input() showMeridian: boolean = true;
-
     @Input() timezones: DateTimePickerTimezone[];
 
     @Output() dateChange: EventEmitter<Date> = new EventEmitter<Date>();

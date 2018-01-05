@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SearchBuilderGroupService } from './search-builder-group.service';
 import { SearchBuilderService } from '../search-builder.service';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
@@ -6,6 +6,8 @@ import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
 @Component({
   selector: 'ux-search-builder-group',
   templateUrl: './search-builder-group.component.html',
+  styleUrls: ['./search-builder-group.component.less'],
+  encapsulation: ViewEncapsulation.None,
   providers: [SearchBuilderGroupService]
 })
 export class SearchBuilderGroupComponent implements OnInit {
