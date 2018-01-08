@@ -24,16 +24,14 @@ module.exports = function (grunt) {
     grunt.registerTask('cleanup', ['clean:library', 'clean:styles', 'clean:fonts', 'clean:images', 'clean:less', 'clean:licenses']);
     grunt.registerTask('lint', ['tslint:library', 'stylelint:components', /* 'tslint:e2e' */]);
     grunt.registerTask('library', ['clean:library', 'run:build_library']);
-    grunt.registerTask('styles', ['clean:styles', 'execute:less']);
-    grunt.registerTask('minify', ['cssmin:styles']);
     grunt.registerTask('licenses', ['execute:licenses']);
     grunt.registerTask('e2e', ['clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e', 'makeReport']);
 
     // Tasks with larger chains of events
     grunt.registerTask('dev', ['cleanup', 'lint', 'watch']);
-    grunt.registerTask('build', ['cleanup', 'lint', 'library', 'styles', 'minify', 'licenses', 'execute:shim', /* 'test' */]);
+    grunt.registerTask('build', ['cleanup', 'lint', 'library', 'licenses', 'execute:shim', /* 'test' */]);
     grunt.registerTask('releasebuild', ['build', 'compress:bower']);
 
-    grunt.registerTask('default', ['dev']);
+    grunt.registerTask('default', ['build']);
     
 };

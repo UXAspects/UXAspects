@@ -19,7 +19,7 @@ import * as angular from 'angular';
 /*
   Import Angular 1 Components and their dependencies
 */
-import '../../dist/ng1/ux-aspects-ng1';
+import '@ux-aspects/ux-aspects-ng1';
 
 // create the AngularJS module
 angular.module('app', ['ux-aspects']);

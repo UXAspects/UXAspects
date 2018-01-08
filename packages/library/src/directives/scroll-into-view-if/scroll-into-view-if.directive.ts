@@ -1,19 +1,19 @@
 import { ScrollIntoViewService } from './scroll-into-view.service';
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 
-@Directive({ selector: '[uxScrollIntoViewIf]' })
-export class ScrollIntoViewIfDirective implements OnChanges {
+@Directive({ 
+    selector: '[uxScrollIntoViewIf]' 
+})
+export class ScrollIntoViewIfDirective {
 
-    @Input('uxScrollIntoViewIf') condition = false;
     @Input() scrollParent: HTMLElement;
-
-    constructor(private element: ElementRef, private scrollIntoViewService: ScrollIntoViewService) {}
     
-    ngOnChanges(changes: SimpleChanges) {
-        if (this.condition) {
-            setTimeout(() => {
-                this.scrollIntoViewService.scrollIntoView(this.element.nativeElement, this.scrollParent);
-            });
+    @Input() 
+    set uxScrollIntoViewIf(condition: boolean) {
+        if (condition) {
+            setTimeout(() => this._scrollIntoViewService.scrollIntoView(this._element.nativeElement, this.scrollParent));            
         }
     }
+
+    constructor(private _element: ElementRef, private _scrollIntoViewService: ScrollIntoViewService) {}
 }

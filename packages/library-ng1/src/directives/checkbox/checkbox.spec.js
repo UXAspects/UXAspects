@@ -145,7 +145,7 @@ describe('checkboxes', function () {
         }, props);
 
         // perform initial digest
-        $scope.$digest();
+        $scope.$apply();
 
         return ctrl;
     }

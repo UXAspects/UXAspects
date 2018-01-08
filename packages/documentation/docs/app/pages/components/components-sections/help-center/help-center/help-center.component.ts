@@ -54,7 +54,7 @@ export class ComponentsHelpCenterComponent extends BaseDocumentationSection impl
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
 
         // update the menu items when new ones are added
-        this._helpCenter$ = this._helpCenterService.items.subscribe(items => this.menus[0].dropdown = items);
+        this._helpCenter$ = this._helpCenterService.items.subscribe((items: HelpCenterItem[]) => this.menus[0].dropdown = items) as any;
 
         // load table data
         this.loadData();

@@ -1,3 +1,7 @@
+const { join } = require('path');
+const { getModulePath } = require('module-search');
+const NpmImportPlugin = require("less-plugin-npm-import");
+
 module.exports = function (grunt) {
 
     grunt.initConfig({
@@ -28,6 +32,11 @@ module.exports = function (grunt) {
 
         less: {
             theme: {
+                options: {
+                    plugins: [
+                        new NpmImportPlugin({prefix: '~'})
+                    ]
+                },
                 files: {
                     './dist/css/ux-aspects.css': './src/styles/ux-aspects.less'
                 }
@@ -84,14 +93,19 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-webfont');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadTasks(getGruntTasks('grunt-contrib-clean'));
+    grunt.loadTasks(getGruntTasks('grunt-webfont'));
+    grunt.loadTasks(getGruntTasks('grunt-contrib-less'));
+    grunt.loadTasks(getGruntTasks('grunt-contrib-cssmin'));
+    grunt.loadTasks(getGruntTasks('grunt-contrib-copy'));
+    grunt.loadTasks(getGruntTasks('grunt-contrib-watch'));
 
     grunt.registerTask('styles', ['less', 'cssmin']);
     grunt.registerTask('default', ['clean', 'webfont', 'styles', 'copy']);
 
 };
+
+// support lerna's hoisting
+function getGruntTasks(taskId) {
+    return join(getModulePath(taskId), 'tasks');
+}
