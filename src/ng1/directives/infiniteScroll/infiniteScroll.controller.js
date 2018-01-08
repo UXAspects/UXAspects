@@ -1,7 +1,8 @@
 import { ScrollPaneAdapter } from "./adapters/scroll-pane.adapter";
 import { WindowScrollAdapter } from "./adapters/window-scroll.adapter";
 import { ElementScrollAdapter } from "./adapters/element-scroll.adapter";
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { from } from 'rxjs/observable/from';
 
 export class InfiniteScrollController {
 
@@ -113,7 +114,7 @@ export class InfiniteScrollController {
         let results = this.pageFn(page, this.pageSize, this.searchQuery);
         
         // convert to an observable
-        const observable = angular.isArray(results) ? Observable.of(results) : Observable.from(results);
+        const observable = angular.isArray(results) ? of(results) : from(results);
 
         // store the subscription - now it is cancellable unlike a promise
         this._subscription = observable.subscribe(items => this.setPageItems(page, items));
