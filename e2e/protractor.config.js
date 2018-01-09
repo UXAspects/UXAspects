@@ -21,7 +21,7 @@ var istanbulPlugin = require('protractor-istanbul-plugin');
 exports.config = {
   directConnect: true,  // Set to false if using Selenium Grid
   
-  chromeDriver: '../node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver.exe',
+  chromeDriver: './chromedriver.exe',
 
   // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {
