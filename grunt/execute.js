@@ -12,5 +12,8 @@ module.exports = {
     },
     shim: {
         src: [ path.join(process.cwd(), 'scripts', 'shim.js') ]
+    },
+    config_update: {
+        src: [ path.join(process.cwd(), 'scripts', 'protractor-config-update.js') ]
     }
 };
