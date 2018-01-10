@@ -18,7 +18,18 @@ export class ScrollPaneAdapter extends ScrollAdapter {
     }
 
     getScrollbarVisible() {
-        return !this.initialised ? false : this.element.data('jsp').getIsScrollableV();
+
+        if (!this.initialised) {
+            return false;
+        }
+
+        const scrollpane = this.element.data('jsp');
+
+        // force reinitialise to ensure we get the correct value
+        scrollpane.reinitialise();
+
+        // return the scrollable state
+        return scrollpane.getIsScrollableV();
     }
 
     scroll() {
