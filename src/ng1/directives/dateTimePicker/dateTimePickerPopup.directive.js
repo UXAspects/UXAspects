@@ -58,7 +58,7 @@ export default function dateTimePickerPopup($compile, $document, $parse) {
                 template: '<div class="popover date-picker-popover" role="tooltip"><div class="date-picker-popover-arrow arrow"></div><div class="popover-content"></div></div>',
                 content: compiledTemplate,
                 trigger: 'manual',
-                placement: attrs.placement ? $parse(attrs.placement)(scope) : 'bottom',
+                placement: function() { return attrs.placement ? $parse(attrs.placement)(scope) : 'bottom'; },
                 html: true
             });
             //attributes to watch
