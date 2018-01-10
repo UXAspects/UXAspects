@@ -64,7 +64,9 @@ export default function $colorService() {
   }
 
   $colorService.getColor = function(color) {
-    return colors[color.toLowerCase()];
+    const themeColor = colors[color.toLowerCase()];
+
+    return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
   };
 
   $colorService.setColorSet = function(customColorSet) {

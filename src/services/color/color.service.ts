@@ -16,15 +16,15 @@ export class ColorService {
 
     constructor( @Inject(DOCUMENT) document: any) {
         if (this._colorSet.colorClassSet) {
-            this._setColors();
+            this.setColors();
         } else {
             for (let key in this._colorSet.colorValueSet) {
-                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
         }
     }
 
-    private _setColors() {
+    private setColors() {
 
         this._html = '';
 
@@ -47,7 +47,7 @@ export class ColorService {
         this._element.parentNode.removeChild(this._element);
     }
 
-    private _getColorValueByHex(color: string): ThemeColor {
+    private getColorValueByHex(color: string): ThemeColor {
         let hex = color.replace('#', '');
 
         let r = parseInt(hex.substring(0, 2), 16).toString();
@@ -73,7 +73,8 @@ export class ColorService {
     }
 
     getColor(color: ColorIdentifier): ThemeColor {
-        return this._colors[color.toLowerCase()];
+        const themeColor = this._colors[color.toLowerCase()];
+        return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
     }
 
     getColorSet() {
@@ -85,10 +86,10 @@ export class ColorService {
         this._colors = {};
 
         if (this._colorSet.colorClassSet) {
-            this._setColors();
+            this.setColors();
         } else {
             for (let key in this._colorSet.colorValueSet) {
-                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
         }
     }
