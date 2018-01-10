@@ -3,6 +3,7 @@ import { WindowScrollAdapter } from "./adapters/window-scroll.adapter";
 import { ElementScrollAdapter } from "./adapters/element-scroll.adapter";
 import { of } from 'rxjs/observable/of';
 import { from } from 'rxjs/observable/from';
+import 'rxjs/add/operator/first';
 
 export class InfiniteScrollController {
 
@@ -29,7 +30,7 @@ export class InfiniteScrollController {
 
         // private variables
         this._query = null;
-        this._subscription = null;
+        this._subscriptions = [];
 
         // set some default values if required
         this.pagePosition = this.pagePosition || 85;
@@ -117,7 +118,22 @@ export class InfiniteScrollController {
         const observable = angular.isArray(results) ? of(results) : from(results);
 
         // store the subscription - now it is cancellable unlike a promise
-        this._subscription = observable.subscribe(items => this.setPageItems(page, items));
+        const subscription = observable.first().subscribe(items => {
+
+            // remove this request from the list
+            this._subscriptions = this._subscriptions.filter(request => request !== subscription);
+
+            // update the data for the current page
+            this.setPageItems(page, items);
+
+            // check if we have finished loading all requests
+            if (this._subscriptions.length === 0) {
+                this.loading = false;
+            }
+        });
+
+        // add the subscription to the list of requests
+        this._subscriptions.push(subscription);
     }
 
     /**
@@ -152,13 +168,13 @@ export class InfiniteScrollController {
         this.page = 0;
         this.items = [];
         this.pages = [];
-
+        
         // reset the loading state and cancel any pending requests
         this.loading = false;
 
-        if (this._subscription) {
-            this._subscription.unsubscribe();
-        }
+        // cancel any pending requests
+        this._subscriptions.forEach(request => request.unsubscribe());
+        this._subscriptions = [];
 
         // reset back to page one
         this.getPage(0);
