@@ -18,7 +18,7 @@ module.exports = function (grunt) {
     });
     
     // Register Tasks
-    grunt.registerTask('lint', ['tslint:documentation', 'stylelint:components']);
+    grunt.registerTask('lint', ['tslint:documentation']);
     grunt.registerTask('webpack-cert', ['run:webpack-cert']);
 
     grunt.registerTask('dev', ['webpack-dev-server:documentation']);
