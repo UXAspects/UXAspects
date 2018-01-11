@@ -32,6 +32,10 @@ export class WindowScrollAdapter extends ScrollAdapter {
         this.notify('scroll', percentage);
     }
 
+    scrollTop() {
+        this.window.scrollTop = 0;
+    }
+
     /**
      * Clean up after ourselves
      */
