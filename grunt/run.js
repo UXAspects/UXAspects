@@ -8,13 +8,6 @@ module.exports = {
         cmd: 'certutil',
         args: ['-f', '-importpfx', certificateFile]
     },
-    webdriver_manager_update: {
-        options: {
-            cwd: webdriverManager
-        },
-        cmd: './bin/webdriver-manager',
-        args: ['update']
-    },
     e2e: {
         exec: 'npm run e2e',
     },

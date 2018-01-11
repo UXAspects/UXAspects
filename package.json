@@ -74,6 +74,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "canonical-path": "0.0.2",
+    "chromedriver": "2.34",
     "concurrently": "^3.5.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.7",

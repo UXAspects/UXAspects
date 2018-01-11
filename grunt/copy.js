@@ -29,8 +29,8 @@ module.exports = {
         options: {
             mode: true,
         },
-        cwd: path.join(process.cwd(), 'node_modules', 'protractor', 'node_modules', 'webdriver-manager', 'selenium'),
-        src: 'chromedriver_!(*.zip)',
+        cwd: path.join(process.cwd(), 'node_modules', 'chromedriver', 'lib', 'chromedriver'),
+        src: 'chromedriver!(*.zip)',
         dest: path.join(process.cwd(), 'e2e'),
         expand: true
     }

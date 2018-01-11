@@ -9,6 +9,5 @@ module.exports = {
     licenses: 'dist/Licenses',
     e2e: ['e2e/dist', 'e2e/_test-output', 'e2e/coverage', 'e2e/html', 'e2e/xml', 'e2e/chromedriver.exe'],
     shim: 'dist/dist',
-    bower: 'target/bower',
-    webdriver: 'node_modules/protractor/node_modules/webdriver-manager/selenium'
+    bower: 'target/bower'
 };
