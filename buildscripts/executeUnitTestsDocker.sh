@@ -28,6 +28,9 @@ echo Running npm install
 npm install
 
 echo Running grunt test
-grunt test --force > /workspace/UnitTestResults.txt
+grunt test --force --no-color > /workspace/UnitTestResults.txt
+testStatus=$?
+echo
 
-exit 0
+echo testStatus is $testStatus
+exit $testStatus

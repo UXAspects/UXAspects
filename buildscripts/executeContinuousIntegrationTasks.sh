@@ -17,15 +17,26 @@ echo Displaying id
 id
 
 cd $WORKSPACE/ux-aspects
-
-# Ensure files match those in origin/develop. First remove untracked files (except those in .gitignore)
-git clean -f
-# Then reset any changed, tracked files
-git fetch --all
-git reset --hard origin/develop
+testsFailed="false"
 
 # Run the unit tests
+echo "Running unit tests"
 bash buildscripts/executeUnitTests.sh
+if [ $? -ne 0 ]; then
+    echo "Unit test(s) failed"
+    testsFailed="true"
+fi
+echo
+
+# Run the Protractor tests
+echo "Running Protractor tests"
+bash buildscripts/executeE2ETests.sh
+if [ $? -ne 0 ]; then
+    echo "Protractor test(s) failed"
+    testsFailed="true"
+    exit 1;
+fi
+echo
 
 # Clear up previous builds
 rm -rf $WORKSPACE/ux-aspects/KeppelThemeFiles
@@ -57,11 +68,10 @@ cp -p -r ux-aspects-hpe-master/styles ../src
 # Build using the HPE theme
 echo Build using the HPE theme
 cd $WORKSPACE/ux-aspects
-buildFailed="false"
 bash buildscripts/buildTheme.sh "HPE"
 if [ $? -ne 0 ]; then
     echo Building of HPE theme failed with error $?
-    buildFailed="true"
+    exit 1;
 fi
 
 # Remove the HPE theme files
@@ -75,8 +85,8 @@ rm -rf $WORKSPACE/ux-aspects/src/styles
 echo
 echo Restoring the Keppel theme files
 cp -p -r $WORKSPACE/ux-aspects/KeppelThemeFiles/* $WORKSPACE/ux-aspects/src
-if [ "$buildFailed" == "true" ]; then
-    echo HPE-themed build failed
+if [ $? -ne 0 ]; then
+    echo Restoration of Keppel theme files failed with error $?
     exit 1;
 fi
 
@@ -86,7 +96,7 @@ echo Build using the Keppel theme
 cd $WORKSPACE/ux-aspects
 bash buildscripts/buildTheme.sh "Keppel"
 if [ $? -ne 0 ]; then
-    echo Keppel-themed build failed
+    echo Keppel-themed build failed with error $?
     exit 1;
 fi
 
@@ -96,7 +106,7 @@ echo Update the HPE theme respository
 cd $WORKSPACE/ux-aspects
 bash buildscripts/updateSEPGRepository.sh "HPE"
 if [ $? -ne 0 ]; then
-    echo Update of HPE-themed repository failed
+    echo Update of HPE-themed repository failed with error $?
     exit 1;
 fi
 
@@ -106,7 +116,12 @@ echo Update the Keppel theme respository
 cd $WORKSPACE/ux-aspects
 bash buildscripts/updateSEPGRepository.sh "Keppel"
 if [ $? -ne 0 ]; then
-    echo Update of Keppel-themed repository failed
+    echo Update of Keppel-themed repository failed with error $?
+    exit 1;
+fi
+
+if [ "$testsFailed" == "true" ]; then
+    echo Tests failed, exiting with status 1
     exit 1;
 fi
 

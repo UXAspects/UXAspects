@@ -1,6 +1,7 @@
 var path = require('path');
 
 var certificateFile = path.join('configs', 'webpack.docs.dev.pfx');
+var webdriverManager = path.join('node_modules', 'protractor', 'node_modules', 'webdriver-manager');
 
 module.exports = {
     webpack_import_cert: {

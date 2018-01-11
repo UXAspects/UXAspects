@@ -1,7 +1,7 @@
 #!/bin/bash
 
 UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
-UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.10.0
+UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.11.0
 
 # Define a function to build a specified Docker image.
 docker_image_build()
