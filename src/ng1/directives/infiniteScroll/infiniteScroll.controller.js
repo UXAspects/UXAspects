@@ -176,6 +176,9 @@ export class InfiniteScrollController {
         this._subscriptions.forEach(request => request.unsubscribe());
         this._subscriptions = [];
 
+        // ensure we scroll back to the top of the element
+        this.scrollbarAdapter.scrollTop();
+
         // reset back to page one
         this.getPage(0);
     }

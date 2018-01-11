@@ -25,6 +25,10 @@ export class ElementScrollAdapter extends ScrollAdapter {
         this.notify('scroll', percentage);
     }
 
+    scrollTop() {
+        this.element.scrollTop = 0;
+    }
+
     destroy() {
         this.element.off('scroll', this.scroll);
         super.destroy();

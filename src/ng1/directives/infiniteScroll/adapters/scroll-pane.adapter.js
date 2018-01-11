@@ -42,6 +42,11 @@ export class ScrollPaneAdapter extends ScrollAdapter {
         this.notify('scroll', percentage);
     }
 
+    scrollTop() {
+        this.element.scrollTop = 0;
+        this.element.data('jsp').scrollToY(0, false);
+    }
+
     destroy() {
         this.element.off('jsp-scroll-y', this.scroll);
         super.destroy();
