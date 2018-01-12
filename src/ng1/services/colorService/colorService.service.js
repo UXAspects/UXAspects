@@ -166,6 +166,22 @@ class ThemeColor {
     this.a = alpha;
     return this;
   }
+
+  getRed() {
+    return this.r;
+  }
+
+  getGreen() {
+    return this.g;
+  }
+
+  getBlue() {
+    return this.b;
+  }
+
+  getAlpha() {
+    return this.a;
+  }
 }
 
 export const colorSets = {
