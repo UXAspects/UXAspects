@@ -1,7 +1,5 @@
 #!/bin/bash
 
-testsPassed=0
-
 cd $WORKSPACE/ux-aspects
 source $PWD/buildscripts/functions.sh
 
@@ -68,13 +66,7 @@ chmod a+rw .
 # ls -alR | grep root
 date -u > $WORKSPACE/ux-aspects/BeforeUnitTestsStarted
 ls -al BeforeUnitTestsStarted
-docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/executeUnitTestsDocker.sh"
-failureStatus=$?
-if [ $failureStatus -ne 0 ] ; then
-    echo Tests returned failure status $failureStatus
-    testsPassed=1
-fi
-echo
+docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/executeUnitTestsDocker.sh"; echo
 
 # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
 # ignore unwanted strings.
@@ -92,19 +84,27 @@ while read line ; do
         echo "<p><span class=rvts6>$line</span></p>" >> UXAspectsTestsResults.html
     fi
 done < UnitTestResults.txt
+echo "</body></html>" >> UXAspectsTestsResults.html
 
-echo Listing WORKSPACE
-ls -alR $WORKSPACE
-echo Listing /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
-ls -alR /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
+cd $WORKSPACE/ux-aspects
+cp UXAspectsTestsResults.html index.html
+cp index.html index-${BUILD_NUMBER}.html
+mkdir -p $WORKSPACE/reports
+cp index.html $WORKSPACE/reports/index.html
+mkdir -p $WORKSPACE/ux-aspects/reports
+cp UXAspectsTestsResults.html reports/index.html
+
+# echo Listing WORKSPACE
+# ls -alR $WORKSPACE
+# echo Listing /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
+# ls -alR /home/jenkins/jobs/HPElements/jobs/ux-aspects-unit-tests
 
 # Test for success i.e. zero failures. If there were failures, exit with status 1.
 if grep -q  ">> 0 failures" UnitTestResults.txt;
 then
-    echo No unit test failures recorded
+    echo Unit tests passed
+    exit 0
 else
-    echo "Unit test failure(s) recorded"
-    testsPassed=1
+    echo "Unit test(s) failed"
+    exit 1
 fi
-
-exit $testsPassed
