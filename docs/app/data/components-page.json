@@ -920,7 +920,21 @@
             "link": "side-navigation",
             "sections": [{
                     "title": "Navigation",
-                    "component": "ComponentsNavigationComponent"
+                    "component": "ComponentsNavigationComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-side-navigation"
+                    }, {
+                        "title": "Module name",
+                        "content": "SideNavigationModule"
+                    }]
+                },
+                {
+                    "title": "Navigation",
+                    "component": "ComponentsNavigationNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "App Navigator",
