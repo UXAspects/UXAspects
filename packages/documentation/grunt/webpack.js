@@ -1,3 +1,3 @@
 module.exports = {
-    documentation: require('../configs/webpack.docs.prod.config.js')
+    documentation: require('../configs/webpack.prod.config.js')
 };

@@ -25,17 +25,17 @@ angular.module('app').directive('uxdInfiniteScrollLoadMoreWrapper', () => {
                 show: true
             };
 
-            vm.pageFunction = function (pageNumber, pageSize) {
+            vm.pageFunction = function (pageNumber: number, pageSize: number) {
 
-                //create a deferred object
+                // create a deferred object
                 var defer = $q.defer();
 
-                //use a timeout to simulate server request
+                // use a timeout to simulate server request
                 safeTimeoutInstance.timeout(function () {
-                    //create an array contain user name, department and email address
+                    // create an array contain user name, department and email address
                     var users = [];
 
-                    //generate user information
+                    // generate user information
                     for (var i = 0; i < pageSize; i++) {
                         var name = chance.name();
 
@@ -53,7 +53,7 @@ angular.module('app').directive('uxdInfiniteScrollLoadMoreWrapper', () => {
                 return defer.promise;
             };
 
-            function nameToEmail(name) {
+            function nameToEmail(name: string) {
                 return name.toLowerCase().replace(' ', '.') + '@business.com';
             }
 

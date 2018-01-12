@@ -2,7 +2,7 @@ angular.module('app').directive('uxdCustomScrollbarWrapper', () => {
     return {
         restrict: 'E',
         template: require('./custom-scrollbar-wrapper.directive.html'),
-        controller: ['$scope', '$templateCache', function ($scope, $templateCache) {
+        controller: ['$scope', '$templateCache', function ($scope) {
             var vm = this;
 
             vm.scrollBarConfig = {

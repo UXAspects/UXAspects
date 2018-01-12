@@ -9,9 +9,9 @@ angular.module('app').directive('uxdNotificationListWrapper', () => {
             var vm = this;
 
             vm.notificationModalOptions = {
-                title: "Alerts",
-                main: "notification-list-ng1/modalLayout.html",
-                modalColumns: "notification-modal",
+                title: 'Alerts',
+                main: 'notification-list-ng1/modalLayout.html',
+                modalColumns: 'notification-modal',
                 affixHeader: true
             };
 
@@ -26,28 +26,28 @@ angular.module('app').directive('uxdNotificationListWrapper', () => {
 
 angular.module('app').controller('NotificationListDemoModalCtrl', NotificationListDemoModalCtrl);
 
-NotificationListDemoModalCtrl.$inject = ['$q', '$scope', 'safeTimeout', 'timeAgoService']
+NotificationListDemoModalCtrl.$inject = ['$q', '$scope', 'safeTimeout', 'timeAgoService'];
 
-function NotificationListDemoModalCtrl($q, $scope, safeTimeout, timeAgoService) {
+function NotificationListDemoModalCtrl($q: ng.IQService, $scope: ng.IScope, safeTimeout: any, timeAgoService: any) {
     var vm = this;
 
     var chance = require('chance').Chance();
 
-    //create safe timeout instance
+    // create safe timeout instance
     var safeTimeoutInstance = safeTimeout.create($scope);
 
     vm.itemTemplateUrl = 'notification-list-ng1/notification.html';
 
-    vm.getPage = function (pageNumber, pageSize) {
-        //return promise to simulate loading from a server
+    vm.getPage = function (pageNumber: number, pageSize: number) {
+        // return promise to simulate loading from a server
         var defer = $q.defer();
 
         safeTimeoutInstance.timeout(function () {
 
-            //generate some fake notifications here
+            // generate some fake notifications here
             var notifications = [];
 
-            //show a maximimum of 10 pages
+            // show a maximimum of 10 pages
             if (pageNumber >= 10) {
                 defer.resolve([]);
                 return;
@@ -63,7 +63,7 @@ function NotificationListDemoModalCtrl($q, $scope, safeTimeout, timeAgoService) 
         return defer.promise;
     };
 
-    function generateNotification(pageNumber, index) {
+    function generateNotification(pageNumber: number, index: number) {
 
         var type = Math.floor(Math.random() * 5);
 
@@ -92,7 +92,7 @@ function NotificationListDemoModalCtrl($q, $scope, safeTimeout, timeAgoService) 
                 break;
         }
 
-        //units that represent time periods in milliseconds
+        // units that represent time periods in milliseconds
         var timeUnits = {
             second: 1000,
             minute: 60000,
@@ -103,20 +103,28 @@ function NotificationListDemoModalCtrl($q, $scope, safeTimeout, timeAgoService) 
             year: 31536000000
         };
 
-        //get the current time in milliseconds
+        // get the current time in milliseconds
         var now = new Date().getTime();
         var pastTime, idx = index + 1;
 
-        //emulate a point in time in the past based on the pageNumber and index
-        if (pageNumber === 0) pastTime = new Date(now - (timeUnits.second * idx));
-        else if (pageNumber === 1) pastTime = new Date(now - (timeUnits.minute * idx));
-        else if (pageNumber === 2) pastTime = new Date(now - (timeUnits.hour * idx));
-        else if (pageNumber === 3) pastTime = new Date(now - (timeUnits.day * Math.ceil(idx / 3)));
-        else if (pageNumber === 4) pastTime = new Date(now - (timeUnits.week * Math.ceil(idx / 5)));
-        else if (pageNumber === 5) pastTime = new Date(now - (timeUnits.month * Math.ceil(idx / 1.7)));
-        else pastTime = new Date(now - timeUnits.year);
+        // emulate a point in time in the past based on the pageNumber and index
+        if (pageNumber === 0) { 
+            pastTime = new Date(now - (timeUnits.second * idx)); 
+        } else if (pageNumber === 1) { 
+            pastTime = new Date(now - (timeUnits.minute * idx)); 
+        } else if (pageNumber === 2) { 
+            pastTime = new Date(now - (timeUnits.hour * idx)); 
+        } else if (pageNumber === 3) { 
+            pastTime = new Date(now - (timeUnits.day * Math.ceil(idx / 3))); 
+        } else if (pageNumber === 4) { 
+            pastTime = new Date(now - (timeUnits.week * Math.ceil(idx / 5))); 
+        } else if (pageNumber === 5) { 
+            pastTime = new Date(now - (timeUnits.month * Math.ceil(idx / 1.7))); 
+        } else { 
+            pastTime = new Date(now - timeUnits.year); 
+        }
 
-        //generate string based on how long ago it was
+        // generate string based on how long ago it was
         var date = timeAgoService.timeSinceNow(pastTime);
 
         return {

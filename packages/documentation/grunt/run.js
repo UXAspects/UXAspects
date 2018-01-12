@@ -1,6 +1,6 @@
 var path = require('path');
 
-var certificateFile = path.join('configs', 'webpack.docs.dev.pfx');
+var certificateFile = path.join('configs', 'webpack.dev.pfx');
 
 module.exports = {
     'webpack-cert': {

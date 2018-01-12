@@ -17,7 +17,7 @@ angular.module('app').directive('uxdSquareModalWrapper', () => {
                     windowClass: 'square-modal-window'
                 });
                 modalInstance.result.then(function () {
-                    //result passed into closed function;
+                    // result passed into closed function;
                 });
             };
         }],

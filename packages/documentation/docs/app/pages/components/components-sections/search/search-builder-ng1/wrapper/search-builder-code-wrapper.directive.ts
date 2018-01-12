@@ -16,7 +16,7 @@ angular.module('app').controller('SearchBuilderCodeWrapperController', SearchBui
 
 SearchBuilderCodeWrapperController.$inject = ['$scope', '$templateCache', '$modal'];
 
-function SearchBuilderCodeWrapperController($scope, $templateCache, $modal) {
+function SearchBuilderCodeWrapperController($scope: ng.IScope, $templateCache: ng.ITemplateCacheService, $modal: any) {
     $templateCache.put('codeModal.html', require('../templates/codeModal.html'));
     $templateCache.put('launchingModal.html', require('../templates/launchingModal.html'));
     $templateCache.put('searchBuilder.html', require('../templates/searchBuilder.html'));
@@ -51,7 +51,7 @@ angular.module('app').controller('SearchBuilderCodeCtrl', SearchBuilderCodeCtrl)
 
 SearchBuilderCodeCtrl.$inject = ['$modalInstance', '$scope', 'snippets'];
 
-function SearchBuilderCodeCtrl($modalInstance, $scope, snippets) {
+function SearchBuilderCodeCtrl($modalInstance: any, $scope: ng.IScope, snippets: any) {
     var vm = this;
 
     $scope.snippets = snippets;

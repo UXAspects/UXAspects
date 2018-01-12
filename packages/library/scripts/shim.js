@@ -2,36 +2,54 @@
  * This script is for adding references to files if they change location
  * if the build output to prevent breaking references in existing projects
  */
-const fs = require('fs');
-const path = require('path');
+const { cwd } = require('process');
+const { existsSync, mkdirSync, writeFileSync } = require('fs');
+const { copySync, copyFileSync } = require('fs-extra');
+const { resolve } = require('path');
+const { getModulePath } = require('module-search');
 
-const buildPath = path.join(process.cwd(), 'dist');
-const distPath = path.join(buildPath, 'dist');
+const buildPath = resolve(cwd(), 'dist');
+const distPath = resolve(buildPath, 'dist');
 
+const theme = getModulePath('@ux-aspects/theme');
+const angularjs = getModulePath('@ux-aspects/ux-aspects-ng1');
+
+/*
+    Copy in Theme and AngularJS components
+*/
+
+// create all required directories
+createDirectory(resolve(buildPath, 'fonts'));
+createDirectory(resolve(buildPath, 'img'));
+createDirectory(resolve(buildPath, 'less'));
+createDirectory(resolve(buildPath, 'ng1'));
+createDirectory(resolve(buildPath, 'styles'));
+
+// copy AngularJS components
+copySync(resolve(angularjs, './dist'), resolve(buildPath, './ng1'));
+copySync(resolve(theme, './dist/css'), resolve(buildPath, './styles'));
+copySync(resolve(theme, './dist/fonts'), resolve(buildPath, './fonts'));
+copySync(resolve(theme, './dist/img'), resolve(buildPath, './img'));
+copySync(resolve(theme, './dist/styles'), resolve(buildPath, './less'));
 
 /**
  * Create the dist directory
  */
-if (!fs.existsSync(distPath)) {
-    fs.mkdirSync(distPath);
-}
-
+createDirectory(distPath);
 /**
  * Shim the Stylesheet
  */
-let cssPath = path.join(distPath, 'styles');
+const cssPath = resolve(distPath, 'styles');
 
-if (!fs.existsSync(cssPath)) {
-    fs.mkdirSync(cssPath);
-}
+createDirectory(cssPath);
 
-fs.writeFileSync(
-    path.join(cssPath, 'ux-aspects.css'), 
+writeFileSync(
+    resolve(cssPath, 'ux-aspects.css'), 
     `@import url("../../styles/ux-aspects.css");`
 );
 
-fs.writeFileSync(
-   path.join(cssPath, 'ux-aspects.min.css'), 
+writeFileSync(
+    resolve(cssPath, 'ux-aspects.min.css'), 
    `@import url("../../styles/ux-aspects.min.css");`
 );
 
@@ -39,14 +57,12 @@ fs.writeFileSync(
 /**
  * Shim the Less Files
  */
-let lessPath = path.join(distPath, 'less');
+const lessPath = resolve(distPath, 'less');
 
-if (!fs.existsSync(lessPath)) {
-    fs.mkdirSync(lessPath);
-}
+createDirectory(lessPath);
 
-fs.writeFileSync(
-    path.join(lessPath, 'ux-aspects.less'), 
+writeFileSync(
+    resolve(lessPath, 'ux-aspects.less'), 
     `@import "../../less/ux-aspects.less";`
 );
 
@@ -54,41 +70,28 @@ fs.writeFileSync(
  * Shim the Angular 1 components
  */
 
- /*
-let ng1Path = path.join(distPath, 'ng1');
+const ng1Path = resolve(distPath, 'ng1');
 
-if (!fs.existsSync(ng1Path)) {
-    fs.mkdirSync(ng1Path);
-}
+createDirectory(ng1Path);
 
-//  Duplicating this file as they may not be using a module loader if using ng1 only
-let ng1FileContents = fs.readFileSync(path.join(buildPath, 'ng1', 'ux-aspects-ng1.js'), 'utf8');
-
-fs.writeFileSync(
-    path.join(ng1Path, 'ux-aspects-ng1.js'), 
-    ng1FileContents
-);
-
-
-//  Duplicating this file as they may not be using a module loader if using ng1 only
-let ng1MinFileContents = fs.readFileSync(path.join(buildPath, 'ng1', 'ux-aspects-ng1.min.js'), 'utf8');
-
-fs.writeFileSync(
-    path.join(ng1Path, 'ux-aspects-ng1.min.js'), 
-    ng1MinFileContents
-);
-*/
+copyFileSync(resolve(buildPath, './ng1/ux-aspects-ng1.js'), resolve(ng1Path, 'ux-aspects-ng1.js'));
+copyFileSync(resolve(buildPath, './ng1/ux-aspects-ng1.min.js'), resolve(ng1Path, 'ux-aspects-ng1.min.js'));
 
 /**
  * Shim the Angular components
  */
-let libPath = path.join(distPath, 'lib');
+const libPath = resolve(distPath, 'lib');
 
-if (!fs.existsSync(libPath)) {
-    fs.mkdirSync(libPath);
-}
+createDirectory(libPath);
 
-fs.writeFileSync(
-    path.join(libPath, 'index.js'), 
+writeFileSync(
+    resolve(libPath, 'index.js'), 
     `export * from '../../bundles/ux-aspects.umd';`
 );
+
+
+function createDirectory(path) {
+    if (!existsSync(path)) {
+        mkdirSync(path);
+    }
+}

@@ -20,7 +20,7 @@ angular.module('app').directive('uxdMarqueeModalWrapper', () => {
                 });
 
                 modalInstance.result.then(function () {
-                    //result passed into closed function;
+                    // result passed into closed function;
                 });
             };
 
@@ -40,7 +40,7 @@ angular.module('app').controller('MarqueeModalDemoModalCtrl', ['$modalInstance',
     vm.date = new Date();
     vm.opened = false;
 
-    vm.open = function ($event) {
+    vm.open = function ($event: MouseEvent) {
         $event.preventDefault();
         $event.stopPropagation();
         vm.opened = true;
@@ -48,10 +48,10 @@ angular.module('app').controller('MarqueeModalDemoModalCtrl', ['$modalInstance',
 
     // modal properties
     vm.ok = function () {
-        $modalInstance.close("true");
+        $modalInstance.close('true');
     };
 
     vm.cancel = function () {
-        $modalInstance.dismiss("cancel");
+        $modalInstance.dismiss('cancel');
     };
 }]);

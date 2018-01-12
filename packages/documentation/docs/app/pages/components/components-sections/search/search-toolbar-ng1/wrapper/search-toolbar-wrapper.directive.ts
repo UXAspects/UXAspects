@@ -12,7 +12,7 @@ angular.module('app').directive('uxdSearchToolbarWrapper', () => {
                 vm.list.push(chance.name());
             }
 
-            vm.search = function(text) {
+            vm.search = function(text: string) {
                 // Search logic goes here
             };
 

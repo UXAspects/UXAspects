@@ -19,7 +19,7 @@ angular.module('app').directive('uxdModalInsetPanelWrapper', () => {
                 });
 
                 modalInstance.result.then(function () {
-                    //result passed into closed function;
+                    // result passed into closed function;
                 });
             };
 
@@ -36,7 +36,7 @@ angular.module('app').controller('ModalInsetPanelDemoModalCtrl', ModalInsetPanel
 
 ModalInsetPanelDemoModalCtrl.$inject = ['$modalInstance'];
 
-function ModalInsetPanelDemoModalCtrl($modalInstance) {
+function ModalInsetPanelDemoModalCtrl($modalInstance: any) {
     var vm = this;
 
     var chance = require('chance').Chance();
@@ -66,11 +66,11 @@ function ModalInsetPanelDemoModalCtrl($modalInstance) {
     }
 
     vm.ok = function () {
-        $modalInstance.close("true");
+        $modalInstance.close('true');
     };
 
     vm.cancel = function () {
-        $modalInstance.dismiss("cancel");
+        $modalInstance.dismiss('cancel');
     };
 
     vm.showInsetLeft = function () {

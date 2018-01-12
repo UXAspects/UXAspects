@@ -24,7 +24,7 @@ angular.module('app').directive('uxdCollapsiblePanelsWrapper', () => {
                 $(".panel-heading[data-toggle='collapse']").each(function (index, element) {
                     $(element).keypress(function (e) {
                         if (e.which === 13 || e.which === 32) {
-                            $(element).trigger("click");
+                            $(element).trigger('click');
                         }
                     });
                 });

@@ -48,8 +48,8 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
                 }, {
                     icon: 'hpe-search',
                     text: '"hr links" AND ("hr connect" OR "hr@company.com")',
-                    any: "HR, Human Resources, HR Connect",
-                    all: "12/09/2016 - 22/10/2016",
+                    any: 'HR, Human Resources, HR Connect',
+                    all: '12/09/2016 - 22/10/2016',
                     exclude: '"Mail"'
                 }, {
                     icon: 'hpe-user-manager',
@@ -57,9 +57,9 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
                 }, {
                     icon: 'hpe-mail',
                     text: '"weekly rota"',
-                    any: "Joshua Smith, Michael Tucker",
-                    all: "10/11/2016",
-                    exclude: "Donny Piper"
+                    any: 'Joshua Smith, Michael Tucker',
+                    all: '10/11/2016',
+                    exclude: 'Donny Piper'
                 }
             ];
 
@@ -80,8 +80,10 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
                     windowClass: 'square-modal-window'
                 });
 
-                modalInstance.result.then(function (result) {
-                    if (result === "cancel") return;
+                modalInstance.result.then(function (result: any) {
+                    if (result === 'cancel') {
+                        return;
+                    }
 
                     vm.searches = JSON.parse($persistentDataService.getItem('mySearches'));
                     vm.searches.unshift(result);
@@ -91,7 +93,7 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
                 });
             };
 
-            vm.search = function (search) {
+            vm.search = function (search: any) {
                 vm.searches.unshift(search);
                 vm.searches.pop();
                 storeSearches();
@@ -110,11 +112,11 @@ angular.module('app').directive('uxdSearchHistoryWrapper', () => {
     };
 });
 
-angular.module("app").controller('SearchHistoryDemoModalCtrl', SearchHistoryDemoModalCtrl);
+angular.module('app').controller('SearchHistoryDemoModalCtrl', SearchHistoryDemoModalCtrl);
 
 SearchHistoryDemoModalCtrl.$inject = ['$modalInstance'];
 
-function SearchHistoryDemoModalCtrl($modalInstance) {
+function SearchHistoryDemoModalCtrl($modalInstance: any) {
     var vm = this;
 
     vm.selectOptions = {
@@ -122,13 +124,13 @@ function SearchHistoryDemoModalCtrl($modalInstance) {
         scroll: false
     };
 
-    vm.types = ["String", "User", "File", "Mail"];
+    vm.types = ['String', 'User', 'File', 'Mail'];
 
-    vm.selectedType = "";
-    vm.text = "";
-    vm.any = "";
-    vm.all = "";
-    vm.exclude = "";
+    vm.selectedType = '';
+    vm.text = '';
+    vm.any = '';
+    vm.all = '';
+    vm.exclude = '';
 
     var typeIcon = {
         string: 'hpe-search',
@@ -149,6 +151,6 @@ function SearchHistoryDemoModalCtrl($modalInstance) {
     };
 
     vm.cancel = function () {
-        $modalInstance.dismiss("cancel");
+        $modalInstance.dismiss('cancel');
     };
 }

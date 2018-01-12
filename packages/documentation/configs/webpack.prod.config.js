@@ -1,19 +1,22 @@
-const { readFileSync } = require('fs');
-const { join, resolve } = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
-const { NamedModulesPlugin, NoEmitOnErrorsPlugin } = webpack;
-const { CommonsChunkPlugin } = webpack.optimize;
+const gracefulFs = require('graceful-fs');
+const { join, resolve } = require('path');
+const { NoEmitOnErrorsPlugin } = webpack;
+const { CommonsChunkPlugin, UglifyJsPlugin } = webpack.optimize;
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { getPackageMain, getModulePath } = require('module-search');
+
+// Node has a limit to the number of files that can be open - prevent the error
+gracefulFs.gracefulify(fs);
 
 const project_dir = process.cwd();
 
-/*
-    Define Compilation Options
-*/
 module.exports = {
 
     entry: {
@@ -23,12 +26,10 @@ module.exports = {
     },
 
     output: {
-        path: resolve(project_dir, 'dist'),
+        path: resolve(project_dir, './dist'),
         filename: '[name].js',
         chunkFilename: 'modules/[id].chunk.js'
     },
-
-    devtool: 'none',
 
     resolve: {
         extensions: ['.ts', '.js']
@@ -41,8 +42,7 @@ module.exports = {
     },
 
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.html$/,
                 use: 'html-loader',
                 exclude: /(directives|templates|snippets)/
@@ -63,27 +63,25 @@ module.exports = {
                 use: ['html-loader', 'markdown-code-highlight-loader']
             },
             {
-                test: /\.ts$/,
-                exclude: /(snippets|wrapper)/,
-                use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader']
-            },
-            {
-                test: /\.ts$/,
-                include: /wrapper/,
-                use: ['awesome-typescript-loader']
+                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                exclude: /snippets/,
+                use: [{
+                        loader: '@angular-devkit/build-optimizer/webpack-loader',
+                        options: {
+                            sourceMap: false
+                        }
+                    },
+                    '@ngtools/webpack'
+                ]
             },
             {
                 test: /\.less$/,
-                include: [resolve(project_dir, './docs/app')],
+                include: [join(project_dir, 'docs', 'app'), join(project_dir, 'src', 'components')],
                 use: ['to-string-loader', 'css-loader', 'less-loader']
             },
             {
                 test: /\.less$/,
-                exclude: [
-                    resolve(project_dir, './docs/app'),
-                    resolve(project_dir, './src/components'),
-                    resolve(project_dir, './src/services')
-                ],
+                exclude: [join(project_dir, 'docs', 'app'), join(project_dir, 'src', 'components')],
                 use: ExtractTextPlugin.extract({
                     use: ['css-loader', 'less-loader']
                 })
@@ -123,7 +121,11 @@ module.exports = {
             hash: false,
             inject: true,
             compile: true,
-            minify: false,
+            minify: {
+                caseSensitive: true,
+                collapseWhitespace: true,
+                keepClosingSlash: true
+            },
             cache: true,
             showErrors: true,
             chunks: 'all',
@@ -132,6 +134,16 @@ module.exports = {
         }),
 
         new ExtractTextPlugin('styles.css'),
+
+        new OptimizeCssAssetsPlugin({
+            cssProcessor: require('cssnano'),
+            cssProcessorOptions: {
+                discardComments: {
+                    removeAll: true
+                }
+            },
+            canPrint: true
+        }),
 
         // Copy Assets for CodePen & Plunker
         new CopyWebpackPlugin([{
@@ -162,40 +174,36 @@ module.exports = {
             name: ['main', 'vendor', 'polyfills']
         }),
 
-        new NamedModulesPlugin({}),
-
-        new webpack.ContextReplacementPlugin(
-            /(.+)?angular(\\|\/)core(.+)?/,
-            join(project_dir, 'docs')
-        ),
-
         new ProgressPlugin(),
 
         new NoEmitOnErrorsPlugin(),
 
+        new UglifyJsPlugin({
+            extractComments: false,
+            sourceMap: false,
+            cache: false,
+            parallel: true,
+            uglifyOptions: {
+                output: {
+                    ascii_only: true,
+                    comments: true
+                },
+                ecma: 5,
+                warnings: false,
+                ie8: false,
+                compress: true
+            }
+        }),
+
+        new AngularCompilerPlugin({
+            entryModule: './docs/app/app.module#AppModule',
+            tsConfigPath: resolve(project_dir, 'tsconfig.json'),
+            sourceMap: false
+        }),
+        
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(require('../package.json').version),
-            PRODUCTION: false
+            PRODUCTION: true
         }),
-    ],
-
-    stats: {
-        colors: true,
-        reasons: true
-    },    
-
-    devServer: {
-        https: {
-            pfx: readFileSync(resolve(project_dir, './configs/webpack.dev.pfx'))
-        },
-        historyApiFallback: true,
-        stats: {
-            colors: true,
-            reasons: true
-        },
-        overlay: true,
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        }
-    }
+    ]
 };
