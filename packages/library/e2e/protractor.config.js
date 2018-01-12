@@ -10,13 +10,14 @@
 //
 //   To do all steps, try:  `npm run e2e`
 
-var fs = require('fs');
-var path = require('canonical-path');
-var _ = require('lodash');
+const fs = require('fs');
+const path = require('canonical-path');
+const _ = require('lodash');
+const { getModulePath } = require('module-search');
 
-var JasmineReporters = require('jasmine-reporters');
-var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
-var istanbulPlugin = require('protractor-istanbul-plugin');
+const JasmineReporters = require('jasmine-reporters');
+const Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
+const istanbulPlugin = require('protractor-istanbul-plugin');
 
 exports.config = {
   directConnect: false,
@@ -48,7 +49,7 @@ exports.config = {
 
   // protractor_istanbul_plugin package
   plugins: [{
-    path: '../node_modules/protractor-istanbul-plugin',
+    path: getModulePath('protractor-istanbul-plugin'),
     outputPath: './e2e/coverage'
   }],
  

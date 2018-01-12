@@ -1,4 +1,4 @@
-const { join } = require('path');
+const { resolve } = require('path');
 const webpack = require('webpack');
 const { NoEmitOnErrorsPlugin } = webpack;
 const { CommonsChunkPlugin } = webpack.optimize;
@@ -7,19 +7,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
-const project_dir = process.cwd();
+const { cwd } = require('process');
 
 module.exports = {
 
     entry: {
-        main: join(project_dir, 'e2e', 'pages', 'main.ts'),
-        vendor: join(project_dir, 'e2e', 'pages', 'vendor.ts'),
-        polyfills: join(project_dir, 'e2e', 'pages', 'polyfills.ts')
+        main: resolve(cwd(), './e2e/pages/main.ts'),
+        vendor: resolve(cwd(), './e2e/pages/vendor.ts'),
+        polyfills: resolve(cwd(), './e2e/pages/polyfills.ts')
     },
 
     output: {
-        path: join(project_dir, 'e2e', 'dist'),
+        path: resolve(cwd(), './e2e/dist'),
         filename: '[name].js'
     },
 
@@ -52,13 +51,13 @@ module.exports = {
 
             {
                 test: /\.less$/,
-                include: join(project_dir, 'e2e', 'pages', 'app'),
+                include: resolve(cwd(), './e2e/pages/app'),
                 use: ['raw-loader', 'less-loader']
             },
 
             {
                 test: /\.css$/,
-                exclude: join(project_dir, 'e2e', 'pages', 'app'),
+                exclude: resolve(cwd(), './e2e/pages/app'),
                 use: ExtractTextPlugin.extract({
                     use: 'css-loader'
                 })
@@ -66,7 +65,7 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                include: join(project_dir, 'e2e', 'pages', 'app'),
+                include: resolve(cwd(), './e2e/pages/app'),
                 use: 'raw-loader'
             },
             
@@ -95,8 +94,8 @@ module.exports = {
         }),
 
         new AngularCompilerPlugin({
-            mainPath: join(project_dir, 'e2e', 'pages', 'main.ts'),
-            tsConfigPath: join(project_dir, 'e2e', 'tsconfig-app.json'),
+            mainPath: resolve(cwd(), './e2e/pages/main.ts'),
+            tsConfigPath: resolve(cwd(), './e2e/tsconfig-app.json'),
             sourceMap: false,
             skipCodeGeneration: true
         }),

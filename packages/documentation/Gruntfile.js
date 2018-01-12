@@ -21,12 +21,11 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['tslint:documentation']);
     grunt.registerTask('webpack-cert', ['run:webpack-cert']);
 
-    grunt.registerTask('dev', ['webpack-dev-server:documentation']);
+    grunt.registerTask('develop', ['webpack-dev-server:documentation']);
     grunt.registerTask('build', ['clean:documentation', 'webpack:documentation']);
     grunt.registerTask('releasebuild', ['build', 'compress:gh-pages']);
     grunt.registerTask('publish', ['build', 'gh-pages']);
 
-    // default task will run dev environment
-    grunt.registerTask('default', ['dev']);
+    grunt.registerTask('default', ['build']);
     
 };

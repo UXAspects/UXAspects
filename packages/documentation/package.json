@@ -26,7 +26,8 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
-    "start": "webpack-dev-server --config configs/webpack.dev.config.js"
+    "start": "webpack-dev-server --config configs/webpack.dev.config.js",
+    "build": "grunt build"
   },
   "dependencies": {
     "@angular-devkit/build-optimizer": "0.0.32",

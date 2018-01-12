@@ -28,7 +28,7 @@ module.exports = function (grunt) {
     grunt.registerTask('e2e', ['clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e', 'makeReport']);
 
     // Tasks with larger chains of events
-    grunt.registerTask('dev', ['cleanup', 'lint', 'watch']);
+    grunt.registerTask('develop', ['cleanup', 'lint', 'watch']);
     grunt.registerTask('build', ['cleanup', 'lint', 'library', 'licenses', 'execute:shim']);
     grunt.registerTask('releasebuild', ['build', 'compress:bower']);
 

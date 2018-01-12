@@ -1,5 +1,6 @@
 const { readFileSync } = require('fs');
-const { join, resolve } = require('path');
+const { cwd } = require('process');
+const { resolve } = require('path');
 const webpack = require('webpack');
 const { NamedModulesPlugin, NoEmitOnErrorsPlugin } = webpack;
 const { CommonsChunkPlugin } = webpack.optimize;
@@ -9,21 +10,19 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { getPackageMain, getModulePath } = require('module-search');
 
-const project_dir = process.cwd();
-
 /*
     Define Compilation Options
 */
 module.exports = {
 
     entry: {
-        main: resolve(project_dir, './docs/main.ts'),
-        vendor: resolve(project_dir, './docs/vendor.ts'),
-        polyfills: resolve(project_dir, './docs/polyfills.ts')
+        main: resolve(cwd(), './docs/main.ts'),
+        vendor: resolve(cwd(), './docs/vendor.ts'),
+        polyfills: resolve(cwd(), './docs/polyfills.ts')
     },
 
     output: {
-        path: resolve(project_dir, 'dist'),
+        path: resolve(cwd(), 'dist'),
         filename: '[name].js',
         chunkFilename: 'modules/[id].chunk.js'
     },
@@ -36,7 +35,7 @@ module.exports = {
 
     resolveLoader: {
         alias: {
-            'code-snippet-loader': resolve(project_dir, './configs/loaders/code-snippet-loader.js')
+            'code-snippet-loader': resolve(cwd(), './configs/loaders/code-snippet-loader.js')
         }
     },
 
@@ -74,15 +73,15 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                include: [resolve(project_dir, './docs/app')],
+                include: [resolve(cwd(), './docs/app')],
                 use: ['to-string-loader', 'css-loader', 'less-loader']
             },
             {
                 test: /\.less$/,
                 exclude: [
-                    resolve(project_dir, './docs/app'),
-                    resolve(project_dir, './src/components'),
-                    resolve(project_dir, './src/services')
+                    resolve(cwd(), './docs/app'),
+                    resolve(cwd(), './src/components'),
+                    resolve(cwd(), './src/services')
                 ],
                 use: ExtractTextPlugin.extract({
                     use: ['css-loader', 'less-loader']
@@ -135,28 +134,36 @@ module.exports = {
 
         // Copy Assets for CodePen & Plunker
         new CopyWebpackPlugin([{
-            from: resolve(project_dir, './docs/app/assets'),
-            to: resolve(project_dir, './dist/assets')
+            from: resolve(cwd(), './docs/app/assets'),
+            to: resolve(cwd(), './dist/assets')
         }, {
             from: getPackageMain('@ux-aspects/ux-aspects-ng1'),
-            to: resolve(project_dir, './dist/assets/ng1/ux-aspects-ng1.js')
+            to: resolve(cwd(), './dist/assets/ng1/ux-aspects-ng1.js')
         }, {
             from: getPackageMain('@ux-aspects/ux-aspects'),
-            to: resolve(project_dir, './dist/assets/lib/index.js')
+            to: resolve(cwd(), './dist/assets/lib/index.js')
         }, {
             from: resolve(getModulePath('@ux-aspects/theme'), 'dist'),
-            to: resolve(project_dir, './dist/assets')
-        }]),
+            to: resolve(cwd(), './dist/assets')
+        }, {
+            from: resolve(getModulePath('@ux-aspects/theme'), 'dist/fonts/**'),
+            to: resolve(cwd(), './dist/assets'),
+            flatten: true
+        }], {
+            copyUnmodified: true
+        }),
 
         // Copy Assets for Showcases
         new CopyWebpackPlugin([{
-            from: resolve(project_dir, './docs/app/showcase/list_view'),
-            to: join(project_dir, './dist/showcase/list_view')
+            from: resolve(cwd(), './docs/app/showcase/list_view'),
+            to: resolve(cwd(), './dist/showcase/list_view')
         },
         {
-            from: resolve(project_dir, './docs/app/showcase/charts'),
-            to: join(project_dir, './dist/showcase/charts')
-        }]),
+            from: resolve(cwd(), './docs/app/showcase/charts'),
+            to: resolve(cwd(), './dist/showcase/charts')
+        }], {
+            copyUnmodified: true
+        }),
 
         new CommonsChunkPlugin({
             name: ['main', 'vendor', 'polyfills']
@@ -166,7 +173,7 @@ module.exports = {
 
         new webpack.ContextReplacementPlugin(
             /(.+)?angular(\\|\/)core(.+)?/,
-            join(project_dir, 'docs')
+            resolve(cwd(), 'docs')
         ),
 
         new ProgressPlugin(),
@@ -186,7 +193,7 @@ module.exports = {
 
     devServer: {
         https: {
-            pfx: readFileSync(resolve(project_dir, './configs/webpack.dev.pfx'))
+            pfx: readFileSync(resolve(cwd(), './configs/webpack.dev.pfx'))
         },
         historyApiFallback: true,
         stats: {

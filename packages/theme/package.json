@@ -3,8 +3,8 @@
   "version": "1.5.2",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "scripts": {
-    "start": "grunt watch",
-    "build": "grunt"
+    "start": "grunt develop",
+    "build": "grunt build"
   },
   "main": "dist/css/ux-aspects.css",
   "files": [
@@ -49,8 +49,10 @@
     "grunt-contrib-less": "1.4.1",
     "grunt-contrib-watch": "1.0.0",
     "grunt-webfont": "0.4.8",
+    "jit-grunt": "0.10.0",
     "less": "2.7.3",
     "less-plugin-npm-import": "^2.1.0",
+    "load-grunt-config": "0.19.2",
     "module-search": "0.2.4"
   }
 }

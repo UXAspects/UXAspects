@@ -1,7 +1,8 @@
 const fs = require('fs');
+const { cwd } = require('process');
 const webpack = require('webpack');
 const gracefulFs = require('graceful-fs');
-const { join, resolve } = require('path');
+const { resolve } = require('path');
 const { NoEmitOnErrorsPlugin } = webpack;
 const { CommonsChunkPlugin, UglifyJsPlugin } = webpack.optimize;
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
@@ -15,18 +16,16 @@ const { getPackageMain, getModulePath } = require('module-search');
 // Node has a limit to the number of files that can be open - prevent the error
 gracefulFs.gracefulify(fs);
 
-const project_dir = process.cwd();
-
 module.exports = {
 
     entry: {
-        main: resolve(project_dir, './docs/main.ts'),
-        vendor: resolve(project_dir, './docs/vendor.ts'),
-        polyfills: resolve(project_dir, './docs/polyfills.ts')
+        main: resolve(cwd(), './docs/main.ts'),
+        vendor: resolve(cwd(), './docs/vendor.ts'),
+        polyfills: resolve(cwd(), './docs/polyfills.ts')
     },
 
     output: {
-        path: resolve(project_dir, './dist'),
+        path: resolve(cwd(), './dist'),
         filename: '[name].js',
         chunkFilename: 'modules/[id].chunk.js'
     },
@@ -37,7 +36,7 @@ module.exports = {
 
     resolveLoader: {
         alias: {
-            'code-snippet-loader': resolve(project_dir, './configs/loaders/code-snippet-loader.js')
+            'code-snippet-loader': resolve(cwd(), './configs/loaders/code-snippet-loader.js')
         }
     },
 
@@ -76,12 +75,12 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                include: [join(project_dir, 'docs', 'app'), join(project_dir, 'src', 'components')],
+                include: [resolve(cwd(), './docs/app'), resolve(cwd(), './src/components')],
                 use: ['to-string-loader', 'css-loader', 'less-loader']
             },
             {
                 test: /\.less$/,
-                exclude: [join(project_dir, 'docs', 'app'), join(project_dir, 'src', 'components')],
+                exclude: [resolve(cwd(), './docs/app'), resolve(cwd(), './src/components')],
                 use: ExtractTextPlugin.extract({
                     use: ['css-loader', 'less-loader']
                 })
@@ -147,28 +146,32 @@ module.exports = {
 
         // Copy Assets for CodePen & Plunker
         new CopyWebpackPlugin([{
-            from: resolve(project_dir, './docs/app/assets'),
-            to: resolve(project_dir, './dist/assets')
+            from: resolve(cwd(), './docs/app/assets'),
+            to: resolve(cwd(), './dist/assets')
         }, {
             from: getPackageMain('@ux-aspects/ux-aspects-ng1'),
-            to: resolve(project_dir, './dist/assets/ng1/ux-aspects-ng1.js')
+            to: resolve(cwd(), './dist/assets/ng1/ux-aspects-ng1.js')
         }, {
             from: getPackageMain('@ux-aspects/ux-aspects'),
-            to: resolve(project_dir, './dist/assets/lib/index.js')
+            to: resolve(cwd(), './dist/assets/lib/index.js')
         }, {
             from: resolve(getModulePath('@ux-aspects/theme'), 'dist'),
-            to: resolve(project_dir, './dist/assets')
-        }]),
+            to: resolve(cwd(), './dist/assets')
+        }], {
+            copyUnmodified: true
+        }),
 
         // Copy Assets for Showcases
         new CopyWebpackPlugin([{
-            from: resolve(project_dir, './docs/app/showcase/list_view'),
-            to: join(project_dir, './dist/showcase/list_view')
+            from: resolve(cwd(), './docs/app/showcase/list_view'),
+            to: resolve(cwd(), './dist/showcase/list_view')
         },
         {
-            from: resolve(project_dir, './docs/app/showcase/charts'),
-            to: join(project_dir, './dist/showcase/charts')
-        }]),
+            from: resolve(cwd(), './docs/app/showcase/charts'),
+            to: resolve(cwd(), './dist/showcase/charts')
+        }], {
+            copyUnmodified: true
+        }),
 
         new CommonsChunkPlugin({
             name: ['main', 'vendor', 'polyfills']
@@ -197,7 +200,7 @@ module.exports = {
 
         new AngularCompilerPlugin({
             entryModule: './docs/app/app.module#AppModule',
-            tsConfigPath: resolve(project_dir, 'tsconfig.json'),
+            tsConfigPath: resolve(cwd(), 'tsconfig.json'),
             sourceMap: false
         }),
         

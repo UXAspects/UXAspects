@@ -14,6 +14,7 @@ e2e/_test-output/
 e2e/dist/
 e2e/html/
 e2e/xml/
+e2e/coverage/
 .ng_build/
 .ng_pkg_build/
 target/
