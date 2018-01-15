@@ -18,3 +18,4 @@ e2e/coverage/
 .ng_build/
 .ng_pkg_build/
 target/
+temp/

@@ -136,6 +136,7 @@
     "uglify-loader": "2.0.0",
     "url-loader": "0.6.2",
     "webpack": "3.10.0",
-    "webpack-dev-server": "2.9.3"
+    "webpack-dev-server": "2.9.3",
+    "webpack-jarvis": "0.1.1"
   }
 }

@@ -1,9 +1,9 @@
 module.exports = {
     options: {
-        atBegin: true
+        atBegin: true,
     },
     library: {
-        files: ['src/**', '!node_modules/**'],
-        tasks: ['run:build_library']
+        files: ['./src/**/*.ts', './src/**/*.less', './src/**/*.html', '!node_modules/**'],
+        tasks: ['develop:library']
     }
 };

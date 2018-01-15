@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { getPackageMain, getModulePath } = require('module-search');
+const Jarvis = require('webpack-jarvis');
 
 /*
     Define Compilation Options
@@ -184,6 +185,10 @@ module.exports = {
             VERSION: JSON.stringify(require('../package.json').version),
             PRODUCTION: false
         }),
+
+        new Jarvis({
+            port: 1337
+        })
     ],
 
     stats: {

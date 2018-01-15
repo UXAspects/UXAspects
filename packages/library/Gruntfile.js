@@ -24,11 +24,14 @@ module.exports = function (grunt) {
     grunt.registerTask('cleanup', ['clean:all']);
     grunt.registerTask('lint', ['tslint:library', 'stylelint:components']);
     grunt.registerTask('library', ['clean:library', 'run:build_library']);
+
+    grunt.registerTask('develop:library', ['clean:library', 'run:build_library', 'copy:develop']);
+
     grunt.registerTask('licenses', ['execute:licenses']);
     grunt.registerTask('e2e', ['clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e', 'makeReport']);
 
     // Tasks with larger chains of events
-    grunt.registerTask('develop', ['cleanup', 'lint', 'watch']);
+    grunt.registerTask('develop', ['watch']);
     grunt.registerTask('build', ['cleanup', 'lint', 'library', 'licenses', 'execute:shim']);
     grunt.registerTask('releasebuild', ['build', 'compress:bower']);
 
