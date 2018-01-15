@@ -11,7 +11,7 @@
     "build:library": "ng-packagr -p ng-package.json",
     "build": "grunt build"
   },
-  "main": "./temp/ux-aspects.umd.js",
+  "main": "./dist/bundles/ux-aspects.umd.js",
   "files": [
     "dist/"
   ],
@@ -142,8 +142,8 @@
     "webpack": "3.10.0",
     "zone.js": "0.8.18"
   },
-  "module": "./temp/ux-aspects.es5.js",
-  "es2015": "./temp/ux-aspects.js",
-  "metadata": "./temp/ux-aspects.metadata.json",
-  "typings": "./temp/ux-aspects.d.ts"
+  "module": "./dist/@ux-aspects/ux-aspects.es5.js",
+  "es2015": "./dist/@ux-aspects/ux-aspects.js",
+  "metadata": "./dist/ux-aspects.metadata.json",
+  "typings": "./dist/ux-aspects.d.ts"
 }

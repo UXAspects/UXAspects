@@ -25,8 +25,6 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['tslint:library', 'stylelint:components']);
     grunt.registerTask('library', ['clean:library', 'run:build_library']);
 
-    grunt.registerTask('develop:library', ['clean:library', 'run:build_library', 'copy:develop']);
-
     grunt.registerTask('licenses', ['execute:licenses']);
     grunt.registerTask('e2e', ['clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e', 'makeReport']);
 
