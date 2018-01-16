@@ -1,7 +1,8 @@
 {
 	"scripts": {
 		"bootstrap": "lerna bootstrap --hoist",
-		"start": "lerna run --parallel start"
+		"start": "lerna run --parallel start",
+		"build": "lerna run --parallel build"
 	},
 	"devDependencies": {
 		"lerna": "^2.5.1"
