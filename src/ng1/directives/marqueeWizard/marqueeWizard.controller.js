@@ -3,6 +3,8 @@ MarqueeWizardCtrl.$inject = ['$scope'];
 export default function MarqueeWizardCtrl($scope) {
   var vm = this;
 
+  vm.icon = $scope.wizardIcon;
+
   //get all the steps available
   vm.steps = $scope.wizardSteps;
 
