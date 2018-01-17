@@ -9561,18 +9561,18 @@ class ColorService {
     constructor(document) {
         this._colorSet = colorSets.keppel;
         if (this._colorSet.colorClassSet) {
-            this._setColors();
+            this.setColors();
         }
         else {
             for (let key in this._colorSet.colorValueSet) {
-                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
         }
     }
     /**
      * @return {?}
      */
-    _setColors() {
+    setColors() {
         this._html = '';
         for (let /** @type {?} */ key in this._colorSet.colorClassSet) {
             this._html += '<div class="' + this._colorSet.colorClassSet[key] + '-color"></div>';
@@ -9591,7 +9591,7 @@ class ColorService {
      * @param {?} color
      * @return {?}
      */
-    _getColorValueByHex(color) {
+    getColorValueByHex(color) {
         let /** @type {?} */ hex = color.replace('#', '');
         let /** @type {?} */ r = parseInt(hex.substring(0, 2), 16).toString();
         let /** @type {?} */ g = parseInt(hex.substring(2, 4), 16).toString();
@@ -9616,7 +9616,8 @@ class ColorService {
      * @return {?}
      */
     getColor(color) {
-        return this._colors[color.toLowerCase()];
+        const /** @type {?} */ themeColor = this._colors[color.toLowerCase()];
+        return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
     }
     /**
      * @return {?}
@@ -9632,11 +9633,11 @@ class ColorService {
         this._colorSet = colorSet;
         this._colors = {};
         if (this._colorSet.colorClassSet) {
-            this._setColors();
+            this.setColors();
         }
         else {
             for (let /** @type {?} */ key in this._colorSet.colorValueSet) {
-                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
         }
     }
