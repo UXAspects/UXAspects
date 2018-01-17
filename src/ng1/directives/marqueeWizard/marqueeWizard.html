@@ -5,7 +5,8 @@
 
   <div class="side-panel">
     <div class="marquee-logo">
-      <div class="marquee-wizard-user"></div>
+      <div ng-if="!mc.icon" class="marquee-wizard-user"></div>
+      <img ng-if="mc.icon" ng-src="{{mc.icon}}" alt="Marquee wizard icon"/>
     </div>
 
     <div class="marquee-wizard-info-panel" ng-if="mc.sidePanelInfo">
