@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "dist/bundles/ux-aspects.umd.js",
   "repository": {
@@ -16,7 +16,13 @@
     "angularjs",
     "bootstrap"
   ],
-  "contributors": ["Ashley Hunter", "Alastair McKee", "Pearse McMurray", "Donna Marijne Worby", "Chris Brennan"],
+  "contributors": [
+    "Ashley Hunter",
+    "Alastair McKee",
+    "Pearse McMurray",
+    "Donna Marijne Worby",
+    "Chris Brennan"
+  ],
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/UXAspects/UXAspects/issues"
