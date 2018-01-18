@@ -53,5 +53,5 @@ export function versionFromString(value: string) {
             return Version.Angular;
     }
 
-    return null;
+    return Version.Angular;
 }

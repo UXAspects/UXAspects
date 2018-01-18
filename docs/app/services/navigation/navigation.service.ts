@@ -81,9 +81,15 @@ export class NavigationService {
     configureForRoute(route: ActivatedRoute) {
         const category = <ICategory>route.snapshot.data['category'];
         if (category && route.snapshot.fragment) {
+
+            // find the section matching the current route
             const section = category.sections.find((s) => s.id === route.snapshot.fragment);
-            const version = versionFromString(section.version);
-            if (!this.versionService.isSectionVersionMatch(section) && version !== null) {
+
+            // if for some reason there is no section for the current route then
+            const version = versionFromString(section ? section.version : 'Angular');
+
+            // if no matching section was found or the version has not previously been set or has changed then update it
+            if (!section || !this.versionService.isSectionVersionMatch(section) && version !== null) {
                 this.versionService.setVersion(version);
             }
         }
