@@ -9224,18 +9224,18 @@ var ColorService = (function () {
     function ColorService(document) {
         this._colorSet = colorSets.keppel;
         if (this._colorSet.colorClassSet) {
-            this._setColors();
+            this.setColors();
         }
         else {
             for (var key in this._colorSet.colorValueSet) {
-                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
         }
     }
     /**
      * @return {?}
      */
-    ColorService.prototype._setColors = function () {
+    ColorService.prototype.setColors = function () {
         this._html = '';
         for (var /** @type {?} */ key in this._colorSet.colorClassSet) {
             this._html += '<div class="' + this._colorSet.colorClassSet[key] + '-color"></div>';
@@ -9254,7 +9254,7 @@ var ColorService = (function () {
      * @param {?} color
      * @return {?}
      */
-    ColorService.prototype._getColorValueByHex = function (color) {
+    ColorService.prototype.getColorValueByHex = function (color) {
         var /** @type {?} */ hex = color.replace('#', '');
         var /** @type {?} */ r = parseInt(hex.substring(0, 2), 16).toString();
         var /** @type {?} */ g = parseInt(hex.substring(2, 4), 16).toString();
@@ -9279,7 +9279,8 @@ var ColorService = (function () {
      * @return {?}
      */
     ColorService.prototype.getColor = function (color) {
-        return this._colors[color.toLowerCase()];
+        var /** @type {?} */ themeColor = this._colors[color.toLowerCase()];
+        return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
     };
     /**
      * @return {?}
@@ -9295,11 +9296,11 @@ var ColorService = (function () {
         this._colorSet = colorSet;
         this._colors = {};
         if (this._colorSet.colorClassSet) {
-            this._setColors();
+            this.setColors();
         }
         else {
             for (var /** @type {?} */ key in this._colorSet.colorValueSet) {
-                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
         }
     };
