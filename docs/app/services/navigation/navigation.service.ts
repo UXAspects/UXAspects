@@ -85,7 +85,7 @@ export class NavigationService {
             // find the section matching the current route
             const section = category.sections.find((s) => s.id === route.snapshot.fragment);
 
-            // if for some reason there is no section for the current route then
+            // if for some reason there is no section for the current route then fallback to default
             const version = versionFromString(section ? section.version : 'Angular');
 
             // if no matching section was found or the version has not previously been set or has changed then update it
