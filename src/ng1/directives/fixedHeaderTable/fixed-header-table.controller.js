@@ -1,5 +1,3 @@
-import * as angular from "angular";
-
 export class FixedHeaderTableController {
 
     constructor($element, $scope) {
