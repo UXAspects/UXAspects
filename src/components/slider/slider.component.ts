@@ -558,17 +558,17 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     private updateTicks() {
 
         // get tick options
-        let majorOptions = this.options.track.ticks.major;
-        let minorOptions = this.options.track.ticks.minor;
+        const majorOptions = this.options.track.ticks.major;
+        const minorOptions = this.options.track.ticks.minor;
 
         // check if we should show ticks
         if (majorOptions.show === false && minorOptions.show === false) {
             this.ticks = [];
         }
 
-        // create ticks for both major and minor
-        let majorTicks = this.getTicks(majorOptions, SliderTickType.Major);
-        let minorTicks = this.getTicks(minorOptions, SliderTickType.Minor);
+        // create ticks for both major and minor - only get the ones to be shown
+        const majorTicks = this.getTicks(majorOptions, SliderTickType.Major).filter(tick => tick.showTicks);
+        const minorTicks = this.getTicks(minorOptions, SliderTickType.Minor).filter(tick => tick.showTicks);
 
         // remove any minor ticks that are on a major interval
         this.ticks = this.unionTicks(majorTicks, minorTicks);
@@ -577,9 +577,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     private updateTrackColors() {
 
         // get colors for each part of the track
-        let lower = this.options.track.colors.lower;
-        let range = this.options.track.colors.range;
-        let higher = this.options.track.colors.higher;
+        const lower = this.options.track.colors.lower;
+        const range = this.options.track.colors.range;
+        const higher = this.options.track.colors.higher;
 
         // update the controller value
         this.tracks.lower.color = typeof lower === 'string' ? lower : `linear-gradient(to right, ${lower.join(', ')})`;
