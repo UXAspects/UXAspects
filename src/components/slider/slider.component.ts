@@ -401,7 +401,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     private snapToTick(value: number, thumb: SliderThumb): number {
 
         // get the snap target
-        let snapTarget: SliderSnap = this.options.track.ticks.snap;
+        const snapTarget: SliderSnap = this.options.track.ticks.snap;
 
         // if snap target is none then return original value
         if (snapTarget === SliderSnap.None) {
@@ -438,14 +438,21 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         }
 
         // Find the closest tick to the current position
-        let closest = ticks.filter(tick => tick.value >= lowerLimit && tick.value <= upperLimit)
-            .reduceRight((previous, current) => {
+        const range = ticks.filter(tick => tick.value >= lowerLimit && tick.value <= upperLimit);
 
-                let previousDistance = Math.max(previous.value, value) - Math.min(previous.value, value);
-                let currentDistance = Math.max(current.value, value) - Math.min(current.value, value);
+        // If there are no close ticks in the valid range then dont snap
+        if (range.length === 0) {
+            return value;
+        }
 
-                return previousDistance < currentDistance ? previous : current;
-            });
+        // Find the closest tick
+        const closest = range.reduceRight((previous, current) => {
+
+            const previousDistance = Math.max(previous.value, value) - Math.min(previous.value, value);
+            const currentDistance = Math.max(current.value, value) - Math.min(current.value, value);
+
+            return previousDistance < currentDistance ? previous : current;
+        });
 
         return closest.value;
     }
