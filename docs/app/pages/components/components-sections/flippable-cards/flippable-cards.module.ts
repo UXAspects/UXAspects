@@ -9,6 +9,7 @@ import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ComponentsFlippableCardsComponent } from './flippable-cards/flippable-cards.component';
 import { FlippableCardModule, ColorServiceModule, SparkModule } from '../../../../../../src/index';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ComponentsFlippableCardsNg1Component,
@@ -28,6 +29,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
+        HybridModule,
         TabsModule,
         SparkModule,
         FlippableCardModule,

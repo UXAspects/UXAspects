@@ -1,5 +1,3 @@
-import '../../pages/charts/charts-sections/partition-map/partition-map-ng1/popover/popover.controller';
-
 import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 

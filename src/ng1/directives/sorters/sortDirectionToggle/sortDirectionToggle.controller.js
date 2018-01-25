@@ -1,74 +1,53 @@
-SortDirectionToggleCtrl.$inject = ["$scope", "$element"];
+export default class SortDirectionToggleCtrl {
 
-export default function SortDirectionToggleCtrl($scope, $element) {
-    var sdt = this;
-    sdt.sorters = $scope.sorters;
-    sdt.descend = $scope.descend || false;
-    sdt.icon = $element.find('.sort-icon')[0];
+    constructor($scope, $element, $timeout) {
+        this.descend = this.descend ? this.descend : false;
+        this.activeSorter = null;
+        this.icon = $element.find('.sort-icon').first();
 
-    sdt.activeSorter = null;
+        // once we have all required values then initialise
+        $timeout(this.initialise.bind(this));
+    }
 
-    //set the default sort details
-    for (var i = 0; i < sdt.sorters.length; i++) {
-        if (sdt.sorters[i].defaultSorter) {
-            sdt.name = sdt.sorters[i].name;
-            sdt.sort = sdt.sorters[i].sort;
-            sdt.activeSorter = sdt.sorters[i];
-            break;
+    initialise() {
+
+        // find the default sorter
+        this.activeSorter = this.sorters.find(sorter => sorter.defaultSorter);
+
+        // if no default was provided then use the first sorter
+        if (!this.activeSorter) {
+            this.activeSorter = this.sorters[0];
         }
+
+        // select the initial sorter
+        this.activeSorter.select(this.activeSorter.sort, this.descend);
     }
 
-    // if no sorter has been selected by default select the first sorter
-    if (sdt.activeSorter === null) {
-        sdt.name = sdt.sorters[0].name;
-        sdt.sort = sdt.sorters[0].sort;
-        sdt.activeSorter = sdt.sorters[0];
+    select(sorter) {
+        // get the index
+        this.activeSorter = sorter;
+
+        //sort table
+        sorter.select(this.activeSorter.sort, this.descend);
     }
 
-    //call the function which sorts the table
-    sdt.activeSorter.select(sdt.sort, sdt.descend);
+    toggle() {
+        // remove focus on click
+        this.icon.blur();
 
+        // toggle the direction
+        this.descend = !this.descend;
 
-    //called when an item is selected from the dropdown
-    sdt.select = function(sorter) {
-        //get the index
-        sdt.activeSorter = sorter;
-        sdt.sort = sorter.sort;
-        sdt.name = sorter.name;
-        //sort table
-        sorter.select(sdt.sort, sdt.descend);
-    };
+        // perform the sort
+        this.activeSorter.select(this.activeSorter.sort, this.descend);
+    }
 
-    //called when the ascending/descending icon is clicked
-    sdt.toggle = function() {
-        //remove focus on click
-        sdt.icon.blur();
-
-        if (sdt.descend)
-            sdt.descend = false;
-        else
-            sdt.descend = true;
-
-        //sort table
-        sdt.activeSorter.select(sdt.sort, sdt.descend);
-    };
-
-
-    //called when the ascending/descending icon is clicked
-    sdt.toggleKeypress = function($event) {
+    toggleKeypress($event) {
         if ($event.keyCode === 13) {
-
-            //remove focus on click
-            sdt.icon.blur();
-
-            if (sdt.descend)
-                sdt.descend = false;
-            else
-                sdt.descend = true;
-
-            //sort table
-            sdt.activeSorter.select(sdt.sort, sdt.descend);
+            this.toggle();
         }
-    };
+    }
 
 }
+
+SortDirectionToggleCtrl.$inject = ['$scope', '$element', '$timeout'];

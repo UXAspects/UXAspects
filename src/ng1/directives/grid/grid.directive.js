@@ -8,7 +8,6 @@ export default function grid() {
             events: '=?',
             plugins: '=?'
         },
-        replace: true,
         controller: 'GridCtrl as vm',
         bindToController: true,
         template: require('./grid.html')

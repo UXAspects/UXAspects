@@ -10,6 +10,7 @@ import { ChartsNestedDonutChartNg1Component } from './nested-donut-chart-ng1/nes
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ChartsDonutChartComponent } from './donut-chart/donut-chart.component';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ChartsDonutChartNg1Component,
@@ -32,6 +33,7 @@ const ROUTES = [
         DocumentationComponentsModule,
         TabsModule,
         WrappersModule,
+        HybridModule,
         ChartsModule,
         RouterModule.forChild(ROUTES)
     ],

@@ -3,7 +3,6 @@ export default function floatingActionButton() {
     restrict: 'E',
     template: require('./floatingActionButton.html'),
     controller: 'FloatingActionButton as fab',
-    replace: true,
     scope: {
       items: "=",
       direction: "=",
