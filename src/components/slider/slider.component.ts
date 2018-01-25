@@ -401,7 +401,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     private snapToTick(value: number, thumb: SliderThumb): number {
 
         // get the snap target
-        let snapTarget: SliderSnap = this.options.track.ticks.snap;
+        const snapTarget: SliderSnap = this.options.track.ticks.snap;
 
         // if snap target is none then return original value
         if (snapTarget === SliderSnap.None) {
@@ -438,14 +438,21 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
         }
 
         // Find the closest tick to the current position
-        let closest = ticks.filter(tick => tick.value >= lowerLimit && tick.value <= upperLimit)
-            .reduceRight((previous, current) => {
+        const range = ticks.filter(tick => tick.value >= lowerLimit && tick.value <= upperLimit);
 
-                let previousDistance = Math.max(previous.value, value) - Math.min(previous.value, value);
-                let currentDistance = Math.max(current.value, value) - Math.min(current.value, value);
+        // If there are no close ticks in the valid range then dont snap
+        if (range.length === 0) {
+            return value;
+        }
 
-                return previousDistance < currentDistance ? previous : current;
-            });
+        // Find the closest tick
+        const closest = range.reduceRight((previous, current) => {
+
+            const previousDistance = Math.max(previous.value, value) - Math.min(previous.value, value);
+            const currentDistance = Math.max(current.value, value) - Math.min(current.value, value);
+
+            return previousDistance < currentDistance ? previous : current;
+        });
 
         return closest.value;
     }
@@ -558,17 +565,17 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     private updateTicks() {
 
         // get tick options
-        let majorOptions = this.options.track.ticks.major;
-        let minorOptions = this.options.track.ticks.minor;
+        const majorOptions = this.options.track.ticks.major;
+        const minorOptions = this.options.track.ticks.minor;
 
         // check if we should show ticks
         if (majorOptions.show === false && minorOptions.show === false) {
             this.ticks = [];
         }
 
-        // create ticks for both major and minor
-        let majorTicks = this.getTicks(majorOptions, SliderTickType.Major);
-        let minorTicks = this.getTicks(minorOptions, SliderTickType.Minor);
+        // create ticks for both major and minor - only get the ones to be shown
+        const majorTicks = this.getTicks(majorOptions, SliderTickType.Major).filter(tick => tick.showTicks);
+        const minorTicks = this.getTicks(minorOptions, SliderTickType.Minor).filter(tick => tick.showTicks);
 
         // remove any minor ticks that are on a major interval
         this.ticks = this.unionTicks(majorTicks, minorTicks);
@@ -577,9 +584,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestro
     private updateTrackColors() {
 
         // get colors for each part of the track
-        let lower = this.options.track.colors.lower;
-        let range = this.options.track.colors.range;
-        let higher = this.options.track.colors.higher;
+        const lower = this.options.track.colors.lower;
+        const range = this.options.track.colors.range;
+        const higher = this.options.track.colors.higher;
 
         // update the controller value
         this.tracks.lower.color = typeof lower === 'string' ? lower : `linear-gradient(to right, ${lower.join(', ')})`;
