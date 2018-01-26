@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, Input, EventEmitter } from '@angular/c
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-hierarchy-bar-ng1'
+    selector: 'hierarchy-bar'
 })
 export class HierarchyBarComponent extends UpgradeComponent {
 

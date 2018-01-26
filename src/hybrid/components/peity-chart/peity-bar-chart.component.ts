@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-peity-bar-chart-ng1'
+    selector: 'bar-chart'
 })
 export class PeityBarChartComponent extends UpgradeComponent {
 

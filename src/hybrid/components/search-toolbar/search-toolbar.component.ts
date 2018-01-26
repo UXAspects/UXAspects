@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-search-toolbar-ng1'
+    selector: 'search-toolbar'
 })
 export class SearchToolbarComponent extends UpgradeComponent {
 

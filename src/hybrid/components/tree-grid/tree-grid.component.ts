@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, SimpleChanges, Input, Output, EventEmi
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-tree-grid-ng1'
+    selector: 'treegrid'
 })
 export class TreeGridComponent extends UpgradeComponent {
 

@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-partition-map-ng1'
+    selector: 'partition-map'
 })
 export class PartitionMapComponent extends UpgradeComponent {
 

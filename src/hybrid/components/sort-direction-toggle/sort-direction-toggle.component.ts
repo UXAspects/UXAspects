@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@a
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-sort-direction-toggle-ng1'
+    selector: 'sort-direction-toggle'
 })
 export class SortDirectionToggleComponent extends UpgradeComponent {
 

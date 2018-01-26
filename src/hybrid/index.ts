@@ -4,6 +4,7 @@ export * from './components/floating-action-button/floating-action-button.compon
 export * from './components/flot/flot.component';
 export * from './components/grid/grid.component';
 export * from './components/hierarchy-bar/hierarchy-bar.component';
+export * from './components/marquee-wizard/marquee-wizard.component';
 export * from './components/nested-donut/nested-donut.component';
 export * from './components/organization-chart/organization-chart.component';
 export * from './components/partition-map/partition-map.component';

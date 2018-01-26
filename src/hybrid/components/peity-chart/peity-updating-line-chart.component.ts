@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-peity-updating-line-chart-ng1'
+    selector: 'updating-line-chart'
 })
 export class PeityUpdatingLineChartComponent extends UpgradeComponent {
 

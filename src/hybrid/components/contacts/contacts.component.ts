@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@a
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-contact-group-ng1'
+    selector: 'contact-group'
 })
 export class ContactsComponent extends UpgradeComponent {
 

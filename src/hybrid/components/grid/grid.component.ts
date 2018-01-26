@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, Input, EventEmitter } from '@angular/c
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-grid-ng1'
+    selector: 'grid'
 })
 export class GridComponent extends UpgradeComponent {
 

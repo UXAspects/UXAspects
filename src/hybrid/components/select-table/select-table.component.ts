@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, SimpleChanges, Input, Output, EventEmi
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-select-table-ng1'
+    selector: 'select-table'
 })
 export class SelectTableComponent extends UpgradeComponent {
 

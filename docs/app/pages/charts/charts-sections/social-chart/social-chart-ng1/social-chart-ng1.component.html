@@ -1,10 +1,10 @@
 <div class="social-chart-container">
-  <ux-social-chart-ng1 [data]="data" width="100%" height="550px" [(api)]="api" [communities]="communities" [detailStyle]="detailStyle"
+  <social-chart [data]="data" width="100%" height="550px" [(api)]="api" [communities]="communities" [detailStyle]="detailStyle"
     nodeDetail="{{ templates.nodeDetail }}" edgeDetail="{{ templates.edgeDetail }}" nodePopover="{{ templates.nodePopover }}"
     edgePopover="{{ templates.edgePopover }}" [forceAtlasDuration]="forceAtlasDuration" nodeSizeAttribute="'volume'" [startMaximized]="startMaximized"
     [showMaximizeControl]="showMaximizeControl" socialChartContainer="social-chart-container" [options]="options" [chartTitle]="chartTitle"
     [edgeWeightInfluence]="edgeWeightInfluence" [minLabels]="minLabels">
-  </ux-social-chart-ng1>
+  </social-chart>
 </div>
 
 <div class="m-t m-b-sm">

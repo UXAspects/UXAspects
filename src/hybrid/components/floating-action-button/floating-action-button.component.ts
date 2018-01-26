@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, Input, EventEmitter } from '@angular/c
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-floating-action-button-ng1'
+    selector: 'floating-action-button'
 })
 export class FloatingActionButtonComponent extends UpgradeComponent {
 

@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@a
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-flot-ng1'
+    selector: 'flot'
 })
 export class FlotComponent extends UpgradeComponent {
 

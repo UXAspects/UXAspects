@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@a
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-expand-input-ng1'
+    selector: 'expand-input'
 })
 export class ExpandInputComponent extends UpgradeComponent {
 

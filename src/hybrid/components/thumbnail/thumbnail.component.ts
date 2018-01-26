@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, Input, EventEmitter } from '@angular/c
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-thumbnail-ng1'
+    selector: 'thumbnail'
 })
 export class ThumbnailComponent extends UpgradeComponent {
 

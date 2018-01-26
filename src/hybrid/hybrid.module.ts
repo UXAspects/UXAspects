@@ -24,6 +24,7 @@ import { SortDirectionToggleComponent } from './components/sort-direction-toggle
 import { SearchToolbarComponent } from './components/search-toolbar/search-toolbar.component';
 import { TreeGridComponent } from './components/tree-grid/tree-grid.component';
 import { SelectTableComponent } from './components/select-table/select-table.component';
+import { MarqueeWizardComponent } from './components/marquee-wizard/marquee-wizard.component';
 
 const declarations = [
     ContactsComponent,
@@ -32,6 +33,7 @@ const declarations = [
     FlotComponent,
     GridComponent,
     HierarchyBarComponent,
+    MarqueeWizardComponent,
     NestedDonutComponent,
     OrganizationChartComponent,
     PartitionMapComponent,
@@ -45,7 +47,7 @@ const declarations = [
     SocialChartComponent,
     SortDirectionToggleComponent,
     TreeGridComponent,
-    ThumbnailComponent
+    ThumbnailComponent,
 ];
 
 @NgModule({

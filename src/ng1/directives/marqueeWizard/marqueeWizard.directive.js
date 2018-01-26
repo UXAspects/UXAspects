@@ -2,7 +2,6 @@ export default function marqueeWizard() {
     return {
         restrict: 'E',
         template: require('./marqueeWizard.html'),
-        replace: true,
         controller: 'MarqueeWizardCtrl',
         controllerAs: 'mc',
         scope: {
