@@ -3,6 +3,9 @@
     "src": "./src",
     "dest": "./dist",
     "lib": {
-      "entryFile": "./index.ts"
+      "entryFile": "./index.ts",
+      "externals": {
+        "@angular/upgrade/static": "./node_modules/@angular/upgrade/bundles/upgrade-static.umd.js"
+      }
     }
   }

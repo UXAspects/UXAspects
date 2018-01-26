@@ -24,3 +24,5 @@ export * from './services/navigation-menu/navigation-menu.service';
 export * from './services/notification/notification.service';
 export * from './services/pdf/pdf.service';
 export * from './services/time-ago/time-ago.service';
+
+export * from './hybrid.module';
