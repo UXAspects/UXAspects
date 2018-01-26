@@ -1,0 +1,31 @@
+<hr>
+
+<p>
+    The Timeline component will display a vertical list of events. It will be defined by a <code>timeline</code> tag. Each event will be defined by a <code>timeline-event</code> tag.
+</p>
+
+<p>
+    For each event a badge and panel will be displayed. Information to be displayed in the badge and panel will be supplied as inputs to the Timeline event component.
+</p>
+
+<p>The following attributes can be used to customise each event:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="badgeColor" type="string">
+        The color of the badge from the <a routerLink="/css/color-palette" fragment="color-palette">Color Palette</a>.
+    </tr>
+    <tr uxd-api-property name="badgeTitle" required="true" type="string">
+        The badge’s text.
+        If the width of the badge's text is greater than the width of its container, the text will be truncated to end with an ellipsis and a tooltip containing the text will be displayed upon hover.
+    </tr>
+    <tr uxd-api-property name="title" type="string">
+        The event title. Displayed in the event panel.
+    </tr>
+    <tr uxd-api-property name="timestamp" type="string">
+        When the event occurred. Displayed in the event panel.
+    </tr>
+    <tr uxd-api-property name="content" type="HTML">
+        Details of the event in HTML format. Displayed in the event panel.
+    </tr>
+</uxd-api-properties>
+
