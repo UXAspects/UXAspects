@@ -1,4 +1,4 @@
-import '../../../pages/components/components-sections/side-navigation/navigation/wrapper/boldify.directive';
+import '../../../pages/components/components-sections/side-navigation/navigation-ng1/wrapper/boldify.directive';
 import '../../../pages/components/components-sections/side-navigation/app-navigator/wrapper/app-navigator-wrapper.directive';
 import { Directive, ElementRef, Injector } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';

@@ -47,6 +47,7 @@ System.config({
         'ngx-bootstrap/typeahead': 'npm:ngx-bootstrap@1.9.3/bundles/ngx-bootstrap.umd.js',
 
         '@ux-aspects/ux-aspects': window.uxdAssetsUrl + '/lib/index.js',
+        '@micro-focus/ux-aspects': window.uxdAssetsUrl + '/lib/ux-aspects.js',
         ${mappings}
     },
     //packages defines our app package
