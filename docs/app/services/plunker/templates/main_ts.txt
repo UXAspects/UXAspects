@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 ${imports}
+
+const routes: Routes = ${routes};
 
 @NgModule({
     imports: [${modules}],
