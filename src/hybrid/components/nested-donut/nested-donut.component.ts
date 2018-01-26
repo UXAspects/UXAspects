@@ -1,8 +1,8 @@
-import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/core';
+import { Directive, ElementRef, Injector, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-nested-donut-ng1'
+    selector: 'nested-donut'
 })
 export class NestedDonutComponent extends UpgradeComponent {
 

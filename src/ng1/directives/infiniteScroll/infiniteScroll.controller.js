@@ -22,6 +22,7 @@ export class InfiniteScrollController {
         this.page = 0;
         this.items = [];
         this.pages = [];
+        this.initialised = true;
         this.template = null;
         this.loading = false;
         this.complete = false;
@@ -164,6 +165,11 @@ export class InfiniteScrollController {
     }
 
     reset() {
+
+        if (!this.initialised) {
+            return;
+        }
+
         // remove all current data
         this.page = 0;
         this.items = [];

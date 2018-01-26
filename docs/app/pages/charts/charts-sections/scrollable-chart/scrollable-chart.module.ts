@@ -10,6 +10,7 @@ import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ChartsScrollableChartComponent } from './scrollable-chart/scrollable-chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ChartsScrollableChartNg1Component,
@@ -29,6 +30,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
+        HybridModule,
         ChartsModule,
         CommonModule,
         TabsModule,

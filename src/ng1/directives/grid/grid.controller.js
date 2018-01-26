@@ -1,6 +1,6 @@
-GridCtrl.$inject = ['$scope', 'gridPlugins'];
+GridCtrl.$inject = ['$scope', 'gridPlugins', '$timeout'];
 
-export default function GridCtrl($scope, gridPlugins) {
+export default function GridCtrl($scope, gridPlugins, $timeout) {
     var vm = this;
 
     vm.data = [];
@@ -9,9 +9,11 @@ export default function GridCtrl($scope, gridPlugins) {
     vm.triggerEvent = triggerEvent;
     vm.bindEvent = bindEvent;
 
-    // first intialise all plugins
-    setupEvents();
-    initialisePlugins();
+    // first intialise all plugins - delay to ensure data is set
+    $timeout(() => {
+        setupEvents();
+        initialisePlugins();
+    });
 
     $scope.$watchCollection('vm.source', function(newValue, oldValue) {
         if(newValue !== oldValue) {
@@ -157,7 +159,7 @@ export default function GridCtrl($scope, gridPlugins) {
         if(typeof vm.source === 'function') {
             // call the source function with the request object
             data = vm.source.call(null, request);
-        } else {
+        } else if (Array.isArray(vm.source)) {
             data = vm.source.slice(0);
         }
 

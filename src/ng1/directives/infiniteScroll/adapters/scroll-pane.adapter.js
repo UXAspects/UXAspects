@@ -19,7 +19,7 @@ export class ScrollPaneAdapter extends ScrollAdapter {
 
     getScrollbarVisible() {
 
-        if (!this.initialised) {
+        if (!this.initialised || !this.element) {
             return false;
         }
 

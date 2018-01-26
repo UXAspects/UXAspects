@@ -1,10 +1,8 @@
-import '../../pages/charts/charts-sections/partition-map/partition-map-ng1/popover/popover.controller';
-
 import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-partition-map-ng1'
+    selector: 'partition-map'
 })
 export class PartitionMapComponent extends UpgradeComponent {
 

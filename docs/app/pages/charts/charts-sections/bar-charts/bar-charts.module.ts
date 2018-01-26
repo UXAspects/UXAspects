@@ -14,6 +14,7 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 import { ChartsBarChartComponent } from './bar-chart/bar-chart.component';
 import { ChartsHorizontalBarChartComponent } from './horizontal-bar-chart/horizontal-bar-chart.component';
 import { ChartsStackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ChartsBarChartComponent,
@@ -39,6 +40,7 @@ const ROUTES = [
         DocumentationComponentsModule,
         TabsModule,
         WrappersModule,
+        HybridModule,
         ChartsModule,
         RouterModule.forChild(ROUTES)
     ],

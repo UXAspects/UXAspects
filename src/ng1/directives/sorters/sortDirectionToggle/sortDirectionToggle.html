@@ -1,15 +1,20 @@
 <div class="btn-group filter sort-direction-toggle">
-	<p ng-bind="label"></p>
-	<button data-toggle="dropdown" ng-class="class" class="filter-dropdown btn dropdown-toggle" aria-expanded="false" id="sortdropdown">{{sdt.name}}
-        <span class="hp-icon hp-chevron-down"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="sortdropdown">
-    	<li ng-repeat="sorter in sorters" name="sorter.name">
-    		<a href="" target="_blank" ng-click="sdt.select(sorter)">
-    			<i ng-class="{invisible: sdt.name!==sorter.name}" class="hpe-icon hpe-checkmark"></i>
-		        <span ng-bind="sorter.name"></span>
-		    </a>
-    	</li>
-    </ul>
-	<i class="sort-icon hpe-icon text-muted" ng-class="{'hpe-ascend': !sdt.descend, 'hpe-descend': sdt.descend}" ng-click="sdt.toggle()" ng-keypress="sdt.toggleKeypress($event)" tabindex="0"></i>
+	<p ng-bind="sdt.label"></p>
+
+	<button data-toggle="dropdown" ng-class="class" class="filter-dropdown btn dropdown-toggle" aria-expanded="false">
+		{{sdt.activeSorter.name}}
+		<span class="hp-icon hp-chevron-down"></span>
+	</button>
+
+	<ul class="dropdown-menu" role="menu">
+		<li ng-repeat="sorter in sdt.sorters" name="sorter.name">
+			<a href="" target="_blank" ng-click="sdt.select(sorter)">
+				<i ng-class="{ invisible: sdt.activeSorter.name !== sorter.name }" class="hpe-icon hpe-checkmark"></i>
+				<span ng-bind="sorter.name"></span>
+			</a>
+		</li>
+	</ul>
+
+	<i class="sort-icon hpe-icon text-muted" ng-class="{'hpe-ascend': !sdt.descend, 'hpe-descend': sdt.descend}" ng-click="sdt.toggle()"
+	    ng-keypress="sdt.toggleKeypress($event)" tabindex="0"></i>
 </div>

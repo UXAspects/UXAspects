@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, SimpleChanges, Input, Output, EventEmi
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-organization-chart-ng1'
+    selector: 'organization-chart'
 })
 export class OrganizationChartComponent extends UpgradeComponent {
 

@@ -13,6 +13,7 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { ChartsLineChartComponent } from './line-chart/line-chart.component';
 import { ChartsStackedLineChartComponent } from './stacked-line-chart/stacked-line-chart.component';
 import { ChartsMultipleAxisLineChartComponent } from './multiple-axis-line-chart/multiple-axis-line-chart.component';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ChartsLineChartNg1Component,
@@ -37,6 +38,7 @@ const ROUTES = [
     imports: [
         TabsModule,
         WrappersModule,
+        HybridModule,
         DocumentationComponentsModule,
         ChartsModule,
         RouterModule.forChild(ROUTES)

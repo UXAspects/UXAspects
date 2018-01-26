@@ -7,6 +7,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ChartsPartitionMapNg1Component
@@ -26,6 +27,7 @@ const ROUTES = [
     imports: [
         TabsModule,
         WrappersModule,
+        HybridModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

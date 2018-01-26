@@ -2,7 +2,7 @@ import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-sankey-ng1'
+    selector: 'sankey'
 })
 export class SankeyComponent extends UpgradeComponent {
 

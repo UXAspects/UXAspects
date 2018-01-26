@@ -1,6 +1,6 @@
-TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider"];
+TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
 
-export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
+export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
   var vm = this;
   
   var treegridId = multipleSelectProvider.getNextComponentId();
@@ -159,7 +159,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   };
 
   // Initial load of top-level items
-  updateView();
+  $timeout(updateView.bind(vm));
 
   function updateView() {
     vm.loading = true;

@@ -1,56 +1,54 @@
-<div>
-  <div class="dismiss">
-    <button class="btn btn-icon button-dark btn-circular btn-close" ng-click="mc.cancel()"><i class="hpe-icon hpe-close"></i></button>
+<div class="dismiss">
+  <button class="btn btn-icon button-dark btn-circular btn-close" ng-click="mc.cancel()"><i class="hpe-icon hpe-close"></i></button>
+</div>
+
+<div class="side-panel">
+  <div class="marquee-logo">
+    <div ng-if="!mc.icon" class="marquee-wizard-user"></div>
+    <img ng-if="mc.icon" ng-src="{{mc.icon}}" alt="Marquee wizard icon"/>
   </div>
 
-  <div class="side-panel">
-    <div class="marquee-logo">
-      <div ng-if="!mc.icon" class="marquee-wizard-user"></div>
-      <img ng-if="mc.icon" ng-src="{{mc.icon}}" alt="Marquee wizard icon"/>
+  <div class="marquee-wizard-info-panel" ng-if="mc.sidePanelInfo">
+    <h3 class="title" ng-if="mc.sidePanelTitle" ng-bind="mc.sidePanelTitle" single-line-overflow-tooltip></h3>
+    <div class="description" ng-if="mc.sidePanelDescription" >
+      <p ng-bind="mc.sidePanelDescription" overflow-tooltip></p>
     </div>
+  </div>
 
-    <div class="marquee-wizard-info-panel" ng-if="mc.sidePanelInfo">
-      <h3 class="title" ng-if="mc.sidePanelTitle" ng-bind="mc.sidePanelTitle" single-line-overflow-tooltip></h3>
-      <div class="description" ng-if="mc.sidePanelDescription" >
-        <p ng-bind="mc.sidePanelDescription" overflow-tooltip></p>
-      </div>
-    </div>
-
-    <ul class="marquee-wizard-steps">
-      <li class="marquee-wizard-step" ng-repeat="step in wizardSteps"
-                                      ng-class="{ 'active': mc.currentStep.title === step.title, 'visited': step.visited, 'error': step.error }"
-                                      ng-click="mc.goToStep($index)"
-                                      ng-if="!step.hidden">
-        <div class="step-label">
-          <div class="step-title">
-            <div ng-if="step.html" class="m-nil" ng-bind-html="step.html"></div> 
-            <p ng-if="!step.html" class="title m-nil" ng-bind="step.title"></p>
-          </div>
-          <div class="step-complete">
-            <span class="hpe-icon hpe-checkmark" ng-class="{ 'invisible': !step.completed }"></span>
-          </div>
+  <ul class="marquee-wizard-steps">
+    <li class="marquee-wizard-step" ng-repeat="step in wizardSteps"
+                                    ng-class="{ 'active': mc.currentStep.title === step.title, 'visited': step.visited, 'error': step.error }"
+                                    ng-click="mc.goToStep($index)"
+                                    ng-if="!step.hidden">
+      <div class="step-label">
+        <div class="step-title">
+          <div ng-if="step.html" class="m-nil" ng-bind-html="step.html"></div> 
+          <p ng-if="!step.html" class="title m-nil" ng-bind="step.title"></p>
         </div>
-      </li>
-    </ul>
-  </div>
-
-  <div class="main-panel">
-
-    <div class="marquee-header">
-      <h1 class="marquee-title" ng-bind="mc.currentStep.header"></h1>
-    </div>
-
-    <div class="marquee-body marquee-wizard-modal">
-      <div ng-repeat="step in mc.steps" ng-if="$index === mc.stepIndex">
-        <marquee-wizard-step template="step.templateUrl"></marquee-wizard-step>
+        <div class="step-complete">
+          <span class="hpe-icon hpe-checkmark" ng-class="{ 'invisible': !step.completed }"></span>
+        </div>
       </div>
-    </div>
+    </li>
+  </ul>
+</div>
 
-    <div class="marquee-footer">
-      <button type="button" class="btn button-secondary m-r-xs marquee-previous-btn" ng-disabled="!mc.buttonOptions.previousEnabled" ng-show="mc.showPrevious" ng-click="mc.goPrevious()" ng-bind="mc.buttonOptions.previousText"></button>
-      <button type="button" class="btn button-primary marquee-next-btn" ng-disabled="!mc.buttonOptions.nextEnabled" ng-show="mc.showNext" ng-click="mc.goNext()" ng-bind="mc.buttonOptions.nextText"></button>
-      <button type="button" class="btn button-primary marquee-finish-btn" ng-disabled="!mc.buttonOptions.finishEnabled" ng-show="mc.showFinish" ng-click="mc.finish()" ng-bind="mc.buttonOptions.finishText"></button>
-    </div>
+<div class="main-panel">
 
+  <div class="marquee-header">
+    <h1 class="marquee-title" ng-bind="mc.currentStep.header"></h1>
   </div>
+
+  <div class="marquee-body marquee-wizard-modal">
+    <div ng-repeat="step in mc.steps" ng-if="$index === mc.stepIndex">
+      <marquee-wizard-step template="step.templateUrl"></marquee-wizard-step>
+    </div>
+  </div>
+
+  <div class="marquee-footer">
+    <button type="button" class="btn button-secondary m-r-xs marquee-previous-btn" ng-disabled="!mc.buttonOptions.previousEnabled" ng-show="mc.showPrevious" ng-click="mc.goPrevious()" ng-bind="mc.buttonOptions.previousText"></button>
+    <button type="button" class="btn button-primary marquee-next-btn" ng-disabled="!mc.buttonOptions.nextEnabled" ng-show="mc.showNext" ng-click="mc.goNext()" ng-bind="mc.buttonOptions.nextText"></button>
+    <button type="button" class="btn button-primary marquee-finish-btn" ng-disabled="!mc.buttonOptions.finishEnabled" ng-show="mc.showFinish" ng-click="mc.finish()" ng-bind="mc.buttonOptions.finishText"></button>
+  </div>
+
 </div>

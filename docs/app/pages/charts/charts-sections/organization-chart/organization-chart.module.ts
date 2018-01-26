@@ -9,6 +9,7 @@ import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { RadioButtonModule } from '../../../../../../src/index';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ChartsOrganizationChartNg1Component
@@ -30,6 +31,7 @@ const ROUTES = [
         FormsModule,
         RadioButtonModule,
         WrappersModule,
+        HybridModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

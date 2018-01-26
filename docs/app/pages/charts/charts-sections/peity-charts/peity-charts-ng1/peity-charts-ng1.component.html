@@ -9,7 +9,7 @@
         <tbody>
             <tr>
                 <td>
-                    <ux-peity-line-chart-ng1 [data]="lineChart.data_1" [options]="lineChart.options"></ux-peity-line-chart-ng1>
+                    <line-chart [data]="lineChart.data_1" [options]="lineChart.options"></line-chart>
                 </td>
                 <td>
                     <code>&lt;line-chart data=&quot;pc.LineChart.data_1&quot; options=&quot;pc.LineChart.options&quot;&gt;&lt;/line-chart&gt;</code>
@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <td>
-                    <ux-peity-line-chart-ng1 [data]="lineChart.data_2" [options]="lineChart.options"></ux-peity-line-chart-ng1>
+                    <line-chart [data]="lineChart.data_2" [options]="lineChart.options"></line-chart>
                 </td>
                 <td>
                     <code>&lt;line-chart data=&quot;pc.LineChart.data_2&quot; options=&quot;pc.LineChart.options&quot;&gt;&lt;/line-chart&gt;</code>
@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <td>
-                    <ux-peity-line-chart-ng1 [data]="lineChart.data_3" [options]="lineChart.options"></ux-peity-line-chart-ng1>
+                    <line-chart [data]="lineChart.data_3" [options]="lineChart.options"></line-chart>
                 </td>
                 <td>
                     <code>&lt;line-chart data=&quot;pc.LineChart.data_3&quot; options=&quot;pc.LineChart.options&quot;&gt;&lt;/line-chart&gt;</code>
@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td>
-                    <ux-peity-bar-chart-ng1 [data]="barChart.data_1" [options]="barChart.options"></ux-peity-bar-chart-ng1>
+                    <bar-chart [data]="barChart.data_1" [options]="barChart.options"></bar-chart>
                 </td>
                 <td>
                     <code>&lt;bar-chart data=&quot;pc.BarChart.data_1&quot; options=&quot;pc.BarChart.options&quot;&gt;&lt;/bar-chart&gt;</code>
@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <td>
-                    <ux-peity-bar-chart-ng1 [data]="barChart.data_2" [options]="barChart.options"></ux-peity-bar-chart-ng1>
+                    <bar-chart [data]="barChart.data_2" [options]="barChart.options"></bar-chart>
                 </td>
                 <td>
                     <code>&lt;bar-chart data=&quot;pc.BarChart.data_2&quot; options=&quot;pc.BarChart.options&quot;&gt;&lt;/bar-chart&gt;</code>
@@ -49,7 +49,7 @@
             </tr>
             <tr>
                 <td>
-                    <ux-peity-updating-line-chart-ng1 [data]="updatingLineChart.data" [method]="updatingLineChart.method" [options]="updatingLineChart.options" [updateinterval]="updatingLineChart.updateinterval"></ux-peity-updating-line-chart-ng1>
+                    <updating-line-chart [data]="updatingLineChart.data" [method]="updatingLineChart.method" [options]="updatingLineChart.options" [updateinterval]="updatingLineChart.updateinterval"></updating-line-chart>
                 </td>
                 <td>
                     <code>&lt;updating-linechart data=&quot;pc.UpdatingLineChart.data&quot; method=&quot;pc.UpdatingLineChart.method&quot; options=&quot;pc.UpdatingLineChart.options&quot; updateinterval=&quot;pc.UpdatingLineChart.updateinterval&quot;&gt;&lt;/updating-linechart&gt;</code>
@@ -105,9 +105,5 @@ to define the interval.</p>
 For updating charts and line charts, the most appropriate information to provide will depend on the purpose of the chart.</p>
 
 <blockquote>
-    <p><strong>Note</strong>: To upgrade these components to use in an Angular application use:<br /> 
-    <code>upgradeAdapter.upgradeNg1Component('uxPeityLineChartNg1')</code><br />
-    <code>upgradeAdapter.upgradeNg1Component('uxPeityBarChartNg1')</code><br />
-    <code>upgradeAdapter.upgradeNg1Component('uxPeityPieChartNg1')</code><br />
-    <code>upgradeAdapter.upgradeNg1Component('uxPeityUpdatingLineChartNg1')</code></p>
+    <p><strong>Note</strong>: These components can be used in an Angular application by importing the HybridModule.</p>
 </blockquote>

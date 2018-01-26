@@ -9,6 +9,7 @@ import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { ChartsSparkChartsComponent } from './spark-charts/spark-charts.component';
 import { SparkModule, ColorServiceModule } from '../../../../../../src/index';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ChartsSparkChartNg1Component,
@@ -29,6 +30,7 @@ const ROUTES = [
     imports: [
         TabsModule,
         WrappersModule,
+        HybridModule,
         SparkModule,
         ColorServiceModule,
         DocumentationComponentsModule,

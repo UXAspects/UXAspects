@@ -2,16 +2,14 @@ import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'ux-peity-updating-line-chart-ng1'
+    selector: 'pie-chart'
 })
-export class PeityUpdatingLineChartComponent extends UpgradeComponent {
+export class PeityPieChartComponent extends UpgradeComponent {
 
     @Input() data: any;
     @Input() options: any;
-    @Input() method: any;
-    @Input() updateinterval: any;
 
     constructor(elementRef: ElementRef, injector: Injector) {
-        super('uxPeityUpdatingLineChartNg1', elementRef, injector);
+        super('uxPeityPieChartNg1', elementRef, injector);
     }
 }
