@@ -17,7 +17,6 @@ export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';
 export * from './components/search-builder/index';
 export * from './components/select/index';
-export * from './components/side-navigation/index';
 export * from './components/slider/index';
 export * from './components/spark/index';
 export * from './components/tag-input/index';
@@ -53,3 +52,4 @@ export * from './services/audio/index';
 export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/persistent-data/index';
+

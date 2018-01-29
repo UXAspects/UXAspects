@@ -1,55 +1,30 @@
-<ux-side-navigation style="width: 750px">
-
-    <ux-side-navigation-item [expanded]="true" header="Menu Levels" icon="hpe-cluster">
-
-        <ux-side-navigation-item header="Second Level">
-        
-            <ux-side-navigation-item header="Third Level Item"></ux-side-navigation-item>
-            <ux-side-navigation-item header="Third Level Item"></ux-side-navigation-item>
-            
-            <ux-side-navigation-item header="Third Level">
-            
-                <ux-side-navigation-item header="Fourth Level Item"></ux-side-navigation-item>
-                <ux-side-navigation-item header="Fourth Level Item"></ux-side-navigation-item>
-                
-                <ux-side-navigation-item header="Fourth Level">
-                
-                    <ux-side-navigation-item header="Fifth Level Item"></ux-side-navigation-item>
-                    <ux-side-navigation-item header="Fifth Level Item"></ux-side-navigation-item>
-                    <ux-side-navigation-item header="Fifth Level Item"></ux-side-navigation-item>
-                
-                </ux-side-navigation-item>
-                
-            </ux-side-navigation-item>
-            
-        </ux-side-navigation-item>
-
-        <ux-side-navigation-item header="Second Level Item"></ux-side-navigation-item>
-        <ux-side-navigation-item header="Second Level Item"></ux-side-navigation-item>
-        <ux-side-navigation-item header="Second Level Item"></ux-side-navigation-item>
-
-    </ux-side-navigation-item>
-
-</ux-side-navigation>
+<uxd-navigation-wrapper></uxd-navigation-wrapper>
 
 <hr>
 
-<p>The ux-side-navigation-item class can contain a collapsible hierarchy of navigation links.</p>
-    
-<p>A ux-side-navigation-item item should have the .active class applied when it has been selected or if one of its descendants has been selected.</p>
-    
-<p>The width of the navigation menu is set and can be modified in the ux-side-navigation class.</p>
+<p>Add <code>side-navigation</code> directive to initalize the navigation menu.</p>
 
-<p>The following code can be used to create the example above:</p>
+<p>Navigation menu is contained in the <code>navbar-static-side-container</code> class and can be styled by adding
+    <code>navbar-static-side-dark</code> and <code>navbar-static-side-light</code> class to the root element for
+    dark and light themes respectively.</p>
+
+<p>The width of the navigation menu is set and can be modified in the <code>navbar-static-side-container</code> class.</p>
+
+<p>If a parent navigation node does not have any content itself, the <code>cascade</code> class may be set on its
+    child <code>ul</code> element. This will cause the click to activate the link associated with the first child
+    item.</p>
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.sampleHtml"></uxd-snippet>
     </tab>
-    <tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    <tab heading="JavaScript">
+        <uxd-snippet language="javascript" [content]="snippets.compiled.sampleJs"></uxd-snippet>
     </tab>
 </tabset>
+
+<blockquote>
+    <p><strong>Note</strong>: In order to bold the text for each selected level, we use <code>ng-class</code> in our
+        HTML to set the <code>active</code> class based on the page state. e.g.
+        <code>{{ noteCode }}</code></p>
+</blockquote>

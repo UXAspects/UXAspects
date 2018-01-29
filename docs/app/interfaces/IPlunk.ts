@@ -14,11 +14,6 @@ export interface IPlunk {
         alias: string;
         source: string;
     }[];
-    routes?: {
-        path: string;
-        pathMatch?: string;
-        component: string
-    }[];
 }
 
 export const MAPPINGS = {

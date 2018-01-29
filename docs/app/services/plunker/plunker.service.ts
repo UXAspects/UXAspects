@@ -3,20 +3,19 @@ import { DOCUMENT } from '@angular/common';
 
 import { AppConfiguration } from '../app-configuration/app-configuration.service';
 import { IPlunk } from '../../interfaces/IPlunk';
-import { Routes } from '@angular/router';
 
 const ASSETS_URL_PLACEHOLDER_REGEX = /\$\{assetsUrl\}/g;
 const MODULES_PLACEHOLDER = /\$\{modules\}/g;
 const DECLARATIONS_PLACEHOLDER = /\$\{declarations\}/g;
 const IMPORTS_PLACEHOLDER = /\$\{imports\}/g;
 const MAPPINGS_PLACEHOLDER = /\$\{mappings\}/g;
-const ROUTES_PLACEHOLDER = /\$\{routes\}/g;
 
 @Injectable()
 export class PlunkerService {
 
     indexTemplate: string;
     mainTs: string;
+    configJs: string;
     private assetsUrl = this.appConfig.get('assetsUrl');
     private plunkerPostUrl = this.appConfig.get('plunker');
 
@@ -35,12 +34,10 @@ export class PlunkerService {
 
     private initForm(title: string, plunk: IPlunk): HTMLFormElement {
 
-        let modules = ['BrowserModule', 'FormsModule', 'ReactiveFormsModule', 'RouterModule.forRoot(routes)'];
+        let modules = ['BrowserModule', 'FormsModule', 'ReactiveFormsModule'];
         let declarations = ['AppComponent'];
         let imports: string[] = [];
         let mappings: string[] = [];
-        let routes: string = '[]';
-
 
         if (plunk.modules) {
             // create list of declarations
@@ -97,12 +94,6 @@ export class PlunkerService {
                 .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
         }
 
-        if (plunk.routes) {
-            routes = '[' + plunk.routes.map(route =>  `{ path: '${route.path}',
-            pathMatch: '${route.pathMatch || 'prefix'}',
-            component: ${route.component} }`).join(', \n') + ']';
-        }
-
         if (!this.mainTs) {
             this.mainTs = require('./templates/main_ts.txt');
         }
@@ -110,17 +101,18 @@ export class PlunkerService {
         let mainTs = this.mainTs.replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
             .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
             .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
-            .replace(ROUTES_PLACEHOLDER, (routes))
             .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
 
-        let configJs = require('./templates/config_js.txt')
+        if (!this.configJs) {
+            this.configJs = require('./templates/config_js.txt')
             .replace(MAPPINGS_PLACEHOLDER, mappings.join(',\n\t\t\t\t'));
+        }
 
         const postData = {
             'description': title,
             'private': true,
             'files[index.html]': this.indexTemplate,
-            'files[config.js]': configJs,
+            'files[config.js]': this.configJs,
             'files[src/main.ts]': mainTs
         };
 

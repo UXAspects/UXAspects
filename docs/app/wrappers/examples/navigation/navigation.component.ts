@@ -1,4 +1,4 @@
-import '../../../pages/components/components-sections/side-navigation/navigation-ng1/wrapper/navigation-wrapper.directive';
+import '../../../pages/components/components-sections/side-navigation/navigation/wrapper/navigation-wrapper.directive';
 import { Directive, ElementRef, Injector } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
     
