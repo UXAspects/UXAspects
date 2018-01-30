@@ -15,6 +15,7 @@ export class PlunkerService {
 
     indexTemplate: string;
     mainTs: string;
+    configJs: string;
     private assetsUrl = this.appConfig.get('assetsUrl');
     private plunkerPostUrl = this.appConfig.get('plunker');
 
@@ -102,14 +103,16 @@ export class PlunkerService {
             .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
             .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
 
-        let configJs = require('./templates/config_js.txt')
+        if (!this.configJs) {
+            this.configJs = require('./templates/config_js.txt')
             .replace(MAPPINGS_PLACEHOLDER, mappings.join(',\n\t\t\t\t'));
+        }
 
         const postData = {
             'description': title,
             'private': true,
             'files[index.html]': this.indexTemplate,
-            'files[config.js]': configJs,
+            'files[config.js]': this.configJs,
             'files[src/main.ts]': mainTs
         };
 
