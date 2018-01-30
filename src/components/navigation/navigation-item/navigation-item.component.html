@@ -1,7 +1,7 @@
-<a *ngIf="link" (click)="toggle(); $event.stopPropagation()" [class.has-arrow]="this.children.length > 0" [class.no-arrow]="this.indentWithoutArrow()" [routerLink]="link">
-  <span>{{header}}</span>
+<a *ngIf="link" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow()" [routerLink]="link">
+    <span>{{header}}</span>
 </a>
-<a *ngIf="!link" (click)="toggle(); $event.stopPropagation()" [class.has-arrow]="this.children.length > 0" [class.no-arrow]="this.indentWithoutArrow()">
-  <span>{{header}}</span>
+<a *ngIf="!link" (click)="toggle(); $event.stopPropagation()" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow()">
+    <span>{{header}}</span>
 </a>
 <ng-content class="nav"></ng-content>

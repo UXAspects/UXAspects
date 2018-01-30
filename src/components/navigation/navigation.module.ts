@@ -5,17 +5,17 @@ import { NavigationComponent } from './navigation.component';
 import { NavigationItemComponent } from './navigation-item/navigation-item.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
-  exports: [
-    NavigationComponent,
-    NavigationItemComponent
-  ],
-  declarations: [
-    NavigationComponent,
-    NavigationItemComponent
-  ]
+    imports: [
+        CommonModule,
+        RouterModule
+    ],
+    exports: [
+        NavigationComponent,
+        NavigationItemComponent
+    ],
+    declarations: [
+        NavigationComponent,
+        NavigationItemComponent
+    ]
 })
 export class NavigationModule { }
