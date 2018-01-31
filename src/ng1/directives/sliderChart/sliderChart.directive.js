@@ -8,6 +8,7 @@ export default function sliderChart() {
             chartOptions: '=',
             chartData: '='
         },
+        require: 'ngModel',
         controller: 'SliderChartCtrl as vm',
         bindToController: true
     };
