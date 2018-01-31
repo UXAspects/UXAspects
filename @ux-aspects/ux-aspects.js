@@ -1,4 +1,4 @@
-import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, HostListener, Inject, Injectable, Injector, Input, NgModule, NgZone, Output, Pipe, QueryList, ReflectiveInjector, Renderer2, TemplateRef, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, HostListener, Inject, Injectable, Injector, Input, NgModule, NgZone, Optional, Output, Pipe, QueryList, ReflectiveInjector, Renderer2, TemplateRef, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
@@ -14,6 +14,7 @@ import { observeOn as observeOn$1 } from 'rxjs/operator/observeOn';
 import { scan as scan$1 } from 'rxjs/operator/scan';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/merge';
+import 'rxjs/add/observable/timer';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
@@ -27,7 +28,7 @@ import 'rxjs/add/operator/partition';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/concat';
 import { Http, HttpModule, ResponseContentType } from '@angular/http';
-import 'rxjs/add/observable/timer';
+import { UpgradeComponent } from '@angular/upgrade/static';
 
 class BreadcrumbsComponent {
     /**
@@ -2181,6 +2182,7 @@ function padNumber(value) {
     return "0" + _value;
 }
 function isInputValid(hours, minutes, seconds, isPM) {
+    if (minutes === void 0) { minutes = '0'; }
     if (seconds === void 0) { seconds = '0'; }
     return !(isNaN(parseHours(hours, isPM))
         || isNaN(parseMinutes(minutes))
@@ -2322,6 +2324,8 @@ var TimepickerConfig = (function () {
         this.showSpinners = true;
         /** show seconds in timepicker */
         this.showSeconds = false;
+        /** show minutes in timepicker */
+        this.showMinutes = true;
     }
     TimepickerConfig.decorators = [
         { type: Injectable },
@@ -3326,7 +3330,8 @@ var TimepickerComponent = (function () {
     };
     TimepickerComponent.prototype._updateTime = function () {
         var _seconds = this.showSeconds ? this.seconds : void 0;
-        if (!isInputValid(this.hours, this.minutes, _seconds, this.isPM())) {
+        var _minutes = this.showMinutes ? this.minutes : void 0;
+        if (!isInputValid(this.hours, _minutes, _seconds, this.isPM())) {
             this.isValid.emit(false);
             this.onChange(null);
             return;
@@ -3408,7 +3413,7 @@ var TimepickerComponent = (function () {
                     selector: 'timepicker',
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, TimepickerStore],
-                    template: "<table> <tbody> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td>&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" [class.has-error]=\"invalidMinutes\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"readonlyInput\" [class.disabled]=\"readonlyInput\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
+                    template: "<table> <tbody> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" *ngIf=\"showMinutes\"[class.has-error]=\"invalidMinutes\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"readonlyInput\" [class.disabled]=\"readonlyInput\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
                     styles: ["\n    .bs-chevron{\n      border-style: solid;\n      display: block;\n      width: 9px;\n      height: 9px;\n      position: relative;\n      border-width: 3px 0px 0 3px;\n    }\n    .bs-chevron-up{\n      -webkit-transform: rotate(45deg);\n      transform: rotate(45deg);\n      top: 2px;\n    }\n    .bs-chevron-down{\n      -webkit-transform: rotate(-135deg);\n      transform: rotate(-135deg);\n      top: -2px;\n    }\n    .bs-timepicker-field{\n      width: 50px;\n    }\n  "],
                     encapsulation: ViewEncapsulation.None
                 },] },
@@ -3429,6 +3434,7 @@ var TimepickerComponent = (function () {
         'arrowkeys': [{ type: Input },],
         'showSpinners': [{ type: Input },],
         'showMeridian': [{ type: Input },],
+        'showMinutes': [{ type: Input },],
         'showSeconds': [{ type: Input },],
         'meridians': [{ type: Input },],
         'min': [{ type: Input },],
@@ -3547,6 +3553,57 @@ var ButtonCheckboxDirective = (function () {
 // tslint:disable:no-use-before-declare
 var RADIO_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(function () { return ButtonRadioGroupDirective; }),
+    multi: true
+};
+/**
+ * A group of radio buttons.
+ * A value of a selected button is bound to a variable specified via ngModel.
+ */
+var ButtonRadioGroupDirective = (function () {
+    function ButtonRadioGroupDirective(el, cdr) {
+        this.el = el;
+        this.cdr = cdr;
+        this.onChange = Function.prototype;
+        this.onTouched = Function.prototype;
+    }
+    Object.defineProperty(ButtonRadioGroupDirective.prototype, "value", {
+        get: function () {
+            return this._value;
+        },
+        set: function (value) {
+            this._value = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ButtonRadioGroupDirective.prototype.writeValue = function (value) {
+        this._value = value;
+        this.cdr.markForCheck();
+    };
+    ButtonRadioGroupDirective.prototype.registerOnChange = function (fn) {
+        this.onChange = fn;
+    };
+    ButtonRadioGroupDirective.prototype.registerOnTouched = function (fn) {
+        this.onTouched = fn;
+    };
+    ButtonRadioGroupDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[btnRadioGroup]',
+                    providers: [RADIO_CONTROL_VALUE_ACCESSOR]
+                },] },
+    ];
+    /** @nocollapse */
+    ButtonRadioGroupDirective.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: ChangeDetectorRef, },
+    ]; };
+    return ButtonRadioGroupDirective;
+}());
+
+// tslint:disable:no-use-before-declare
+var RADIO_CONTROL_VALUE_ACCESSOR$1 = {
+    provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return ButtonRadioDirective; }),
     multi: true
 };
@@ -3555,12 +3612,41 @@ var RADIO_CONTROL_VALUE_ACCESSOR = {
  * A value of a selected button is bound to a variable specified via ngModel.
  */
 var ButtonRadioDirective = (function () {
-    function ButtonRadioDirective(el, cdr) {
+    function ButtonRadioDirective(el, cdr, group, renderer) {
         this.el = el;
         this.cdr = cdr;
+        this.group = group;
+        this.renderer = renderer;
         this.onChange = Function.prototype;
         this.onTouched = Function.prototype;
     }
+    Object.defineProperty(ButtonRadioDirective.prototype, "value", {
+        /** Current value of radio component or group */
+        get: function () {
+            return this.group ? this.group.value : this._value;
+        },
+        set: function (value) {
+            if (this.group) {
+                this.group.value = value;
+                return;
+            }
+            this._value = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ButtonRadioDirective.prototype, "disabled", {
+        /** If `true` — radio button is disabled */
+        get: function () {
+            return this._disabled;
+        },
+        set: function (disabled) {
+            this._disabled = disabled;
+            this.setDisabledState(disabled);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ButtonRadioDirective.prototype, "isActive", {
         get: function () {
             return this.btnRadio === this.value;
@@ -3569,26 +3655,26 @@ var ButtonRadioDirective = (function () {
         configurable: true
     });
     ButtonRadioDirective.prototype.onClick = function () {
-        if (this.el.nativeElement.attributes.disabled) {
+        if (this.el.nativeElement.attributes.disabled || !this.uncheckable && this.btnRadio === this.value) {
             return;
         }
-        if (this.uncheckable && this.btnRadio === this.value) {
-            this.value = undefined;
-            this.onTouched();
-            this.onChange(this.value);
-            return;
-        }
-        if (this.btnRadio !== this.value) {
-            this.value = this.btnRadio;
-            this.onTouched();
-            this.onChange(this.value);
-        }
+        this.value = this.uncheckable && this.btnRadio === this.value ? undefined : this.btnRadio;
+        this._onChange(this.value);
     };
     ButtonRadioDirective.prototype.ngOnInit = function () {
         this.uncheckable = typeof this.uncheckable !== 'undefined';
     };
     ButtonRadioDirective.prototype.onBlur = function () {
         this.onTouched();
+    };
+    ButtonRadioDirective.prototype._onChange = function (value) {
+        if (this.group) {
+            this.group.onTouched();
+            this.group.onChange(value);
+            return;
+        }
+        this.onTouched();
+        this.onChange(value);
     };
     // ControlValueAccessor
     // model -> view
@@ -3602,21 +3688,31 @@ var ButtonRadioDirective = (function () {
     ButtonRadioDirective.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
+    ButtonRadioDirective.prototype.setDisabledState = function (disabled) {
+        if (disabled) {
+            this.renderer.setAttribute(this.el.nativeElement, 'disabled', 'disabled');
+            return;
+        }
+        this.renderer.removeAttribute(this.el.nativeElement, 'disabled');
+    };
     ButtonRadioDirective.decorators = [
         { type: Directive, args: [{
                     selector: '[btnRadio]',
-                    providers: [RADIO_CONTROL_VALUE_ACCESSOR]
+                    providers: [RADIO_CONTROL_VALUE_ACCESSOR$1]
                 },] },
     ];
     /** @nocollapse */
     ButtonRadioDirective.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: ChangeDetectorRef, },
+        { type: ButtonRadioGroupDirective, decorators: [{ type: Optional },] },
+        { type: Renderer2, },
     ]; };
     ButtonRadioDirective.propDecorators = {
         'btnRadio': [{ type: Input },],
         'uncheckable': [{ type: Input },],
         'value': [{ type: Input },],
+        'disabled': [{ type: Input },],
         'isActive': [{ type: HostBinding, args: ['class.active',] },],
         'onClick': [{ type: HostListener, args: ['click',] },],
     };
@@ -3631,8 +3727,8 @@ var ButtonsModule = (function () {
     };
     ButtonsModule.decorators = [
         { type: NgModule, args: [{
-                    declarations: [ButtonCheckboxDirective, ButtonRadioDirective],
-                    exports: [ButtonCheckboxDirective, ButtonRadioDirective]
+                    declarations: [ButtonCheckboxDirective, ButtonRadioDirective, ButtonRadioGroupDirective],
+                    exports: [ButtonCheckboxDirective, ButtonRadioDirective, ButtonRadioGroupDirective]
                 },] },
     ];
     /** @nocollapse */
@@ -4735,7 +4831,7 @@ var TooltipContainerComponent = (function () {
                         role: 'tooltip'
                     },
                     styles: [
-                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: calc(50% - 2.5px);\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: calc(50% - 2.5px);\n    }\n  "
+                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: 50%;\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: 50%;\n    }\n  "
                     ],
                     template: "\n    <div class=\"tooltip-arrow arrow\"></div>\n    <div class=\"tooltip-inner\"><ng-content></ng-content></div>\n    "
                 },] },
@@ -4917,7 +5013,7 @@ var ComponentLoader = (function () {
         this._innerComponent = null;
         if (!this._componentRef) {
             this.onBeforeShow.emit();
-            this._contentRef = this._getContentRef(opts.content, opts.context);
+            this._contentRef = this._getContentRef(opts.content, opts.context, opts.initialState);
             var injector = ReflectiveInjector.resolveAndCreate(this._providers, this._injector);
             this._componentRef = this._componentFactory.create(injector, this._contentRef.nodes);
             this._applicationRef.attachView(this._componentRef.hostView);
@@ -5076,7 +5172,7 @@ var ComponentLoader = (function () {
         this._zoneSubscription.unsubscribe();
         this._zoneSubscription = null;
     };
-    ComponentLoader.prototype._getContentRef = function (content, context) {
+    ComponentLoader.prototype._getContentRef = function (content, context, initialState) {
         if (!content) {
             return new ContentRef([]);
         }
@@ -5095,6 +5191,7 @@ var ComponentLoader = (function () {
             var contentCmptFactory = this._componentFactoryResolver.resolveComponentFactory(content);
             var modalContentInjector = ReflectiveInjector.resolveAndCreate(this._providers.slice(), this._injector);
             var componentRef = contentCmptFactory.create(modalContentInjector);
+            Object.assign(componentRef.instance, initialState);
             this._applicationRef.attachView(componentRef.hostView);
             return new ContentRef([[componentRef.location.nativeElement]], componentRef.hostView, componentRef);
         }
@@ -5412,6 +5509,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // tslint:disable:deprecation
 var TooltipDirective = (function () {
     function TooltipDirective(_viewContainerRef, _renderer, _elementRef, cis, config) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
         /** Fired when tooltip content changes */
         this.tooltipChange = new EventEmitter();
         /**
@@ -5421,13 +5520,11 @@ var TooltipDirective = (function () {
         /** @deprecated - removed, will be added to configuration */
         this._animation = true;
         /** @deprecated */
-        this._delay = 0;
-        /** @deprecated */
         this._fadeDuration = 150;
         /** @deprecated */
         this.tooltipStateChanged = new EventEmitter();
         this._tooltip = cis
-            .createLoader(_elementRef, _viewContainerRef, _renderer)
+            .createLoader(this._elementRef, _viewContainerRef, this._renderer)
             .provide({ provide: TooltipConfig, useValue: config });
         Object.assign(this, config);
         this.onShown = this._tooltip.onShown;
@@ -5524,6 +5621,15 @@ var TooltipDirective = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TooltipDirective.prototype, "_tooltipPopupDelay", {
+        /** @deprecated */
+        set: function (value) {
+            warnOnce('tooltipPopupDelay is deprecated, use `delay` instead');
+            this.delay = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(TooltipDirective.prototype, "_tooltipTrigger", {
         /** @deprecated -  please use `triggers` instead */
         get: function () {
@@ -5585,10 +5691,23 @@ var TooltipDirective = (function () {
                 containerClass: _this.containerClass
             });
         };
-        if (this._delay) {
-            this._delayTimeoutId = setTimeout(function () {
+        var cancelDelayedTooltipShowing = function () {
+            if (_this._tooltipCancelShowFn) {
+                _this._tooltipCancelShowFn();
+            }
+        };
+        if (this.delay) {
+            var timer_1 = Observable$1.timer(this.delay).subscribe(function () {
                 showTooltip();
-            }, this._delay);
+                cancelDelayedTooltipShowing();
+            });
+            if (this.triggers) {
+                var triggers = parseTriggers(this.triggers);
+                this._tooltipCancelShowFn = this._renderer.listen(this._elementRef.nativeElement, triggers[0].close, function () {
+                    timer_1.unsubscribe();
+                    cancelDelayedTooltipShowing();
+                });
+            }
         }
         else {
             showTooltip();
@@ -5638,6 +5757,7 @@ var TooltipDirective = (function () {
         'isOpen': [{ type: Input },],
         'isDisabled': [{ type: Input },],
         'containerClass': [{ type: Input },],
+        'delay': [{ type: Input },],
         'onShown': [{ type: Output },],
         'onHidden': [{ type: Output },],
         'htmlContent': [{ type: Input, args: ['tooltipHtml',] },],
@@ -5648,7 +5768,7 @@ var TooltipDirective = (function () {
         '_animation': [{ type: Input, args: ['tooltipAnimation',] },],
         '_popupClass': [{ type: Input, args: ['tooltipClass',] },],
         '_tooltipContext': [{ type: Input, args: ['tooltipContext',] },],
-        '_delay': [{ type: Input, args: ['tooltipPopupDelay',] },],
+        '_tooltipPopupDelay': [{ type: Input, args: ['tooltipPopupDelay',] },],
         '_fadeDuration': [{ type: Input, args: ['tooltipFadeDuration',] },],
         '_tooltipTrigger': [{ type: Input, args: ['tooltipTrigger',] },],
         'tooltipStateChanged': [{ type: Output },],
@@ -6954,7 +7074,7 @@ var TypeaheadDirective = (function () {
                 return;
             }
             // enter, tab
-            if (e.keyCode === 13 || e.keyCode === 9) {
+            if (e.keyCode === 13) {
                 this._container.selectActiveMatch();
                 return;
             }
@@ -6963,7 +7083,7 @@ var TypeaheadDirective = (function () {
     TypeaheadDirective.prototype.onFocus = function () {
         if (this.typeaheadMinLength === 0) {
             this.typeaheadLoading.emit(true);
-            this.keyUpEventEmitter.emit('');
+            this.keyUpEventEmitter.emit(this.element.nativeElement.value || '');
         }
     };
     TypeaheadDirective.prototype.onBlur = function () {
@@ -6984,6 +7104,7 @@ var TypeaheadDirective = (function () {
         // if an item is visible - don't change focus
         if (e.keyCode === 9) {
             e.preventDefault();
+            this._container.selectActiveMatch();
             return;
         }
     };
@@ -7013,7 +7134,10 @@ var TypeaheadDirective = (function () {
             animation: false,
             dropup: this.dropup
         });
-        this._outsideClickListener = this.renderer.listen('document', 'click', function () {
+        this._outsideClickListener = this.renderer.listen('document', 'click', function (e) {
+            if (_this.typeaheadMinLength === 0 && _this.element.nativeElement.contains(e.target)) {
+                return;
+            }
             _this.onOutsideClick();
         });
         this._container = this._typeahead.instance;
@@ -7839,7 +7963,7 @@ var BsDropdownContainerComponent = (function () {
         this._subscription = _state.isOpenChange.subscribe(function (value) {
             _this.isOpen = value;
             var dropdown = _element.nativeElement.querySelector('.dropdown-menu');
-            if (dropdown) {
+            if (dropdown && !isBs3()) {
                 _this._renderer.addClass(dropdown, 'show');
                 if (dropdown.classList.contains('dropdown-menu-right')) {
                     _this._renderer.setStyle(dropdown, 'left', 'auto');
@@ -10970,7 +11094,7 @@ var PopoverContainerComponent = (function () {
                         style: 'display:block;'
                     },
                     styles: [
-                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: calc(50% - 5px);\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: calc(50% - 2.5px);\n    }\n  "
+                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: 50%;\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: 50%;\n    }\n  "
                     ],
                     template: "<div class=\"popover-arrow arrow\"></div> <h3 class=\"popover-title popover-header\" *ngIf=\"title\">{{ title }}</h3> <div class=\"popover-content popover-body\"> <ng-content></ng-content> </div> "
                 },] },
@@ -12516,7 +12640,7 @@ SelectComponent.decorators = [
  */
 SelectComponent.ctorParameters = () => [
     { type: ElementRef, },
-    { type: HTMLDocument, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: Document, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: TypeaheadKeyService, },
 ];
 SelectComponent.propDecorators = {
@@ -13768,7 +13892,7 @@ class SliderComponent {
      */
     snapToTick(value, thumb) {
         // get the snap target
-        let /** @type {?} */ snapTarget = this.options.track.ticks.snap;
+        const /** @type {?} */ snapTarget = this.options.track.ticks.snap;
         // if snap target is none then return original value
         if (snapTarget === SliderSnap.None) {
             return value;
@@ -13795,10 +13919,15 @@ class SliderComponent {
             lowerLimit = this.thumbs.lower.value;
         }
         // Find the closest tick to the current position
-        let /** @type {?} */ closest = ticks.filter(tick => tick.value >= lowerLimit && tick.value <= upperLimit)
-            .reduceRight((previous, current) => {
-            let /** @type {?} */ previousDistance = Math.max(previous.value, value) - Math.min(previous.value, value);
-            let /** @type {?} */ currentDistance = Math.max(current.value, value) - Math.min(current.value, value);
+        const /** @type {?} */ range = ticks.filter(tick => tick.value >= lowerLimit && tick.value <= upperLimit);
+        // If there are no close ticks in the valid range then dont snap
+        if (range.length === 0) {
+            return value;
+        }
+        // Find the closest tick
+        const /** @type {?} */ closest = range.reduceRight((previous, current) => {
+            const /** @type {?} */ previousDistance = Math.max(previous.value, value) - Math.min(previous.value, value);
+            const /** @type {?} */ currentDistance = Math.max(current.value, value) - Math.min(current.value, value);
             return previousDistance < currentDistance ? previous : current;
         });
         return closest.value;
@@ -13905,15 +14034,15 @@ class SliderComponent {
      */
     updateTicks() {
         // get tick options
-        let /** @type {?} */ majorOptions = this.options.track.ticks.major;
-        let /** @type {?} */ minorOptions = this.options.track.ticks.minor;
+        const /** @type {?} */ majorOptions = this.options.track.ticks.major;
+        const /** @type {?} */ minorOptions = this.options.track.ticks.minor;
         // check if we should show ticks
         if (majorOptions.show === false && minorOptions.show === false) {
             this.ticks = [];
         }
-        // create ticks for both major and minor
-        let /** @type {?} */ majorTicks = this.getTicks(majorOptions, SliderTickType.Major);
-        let /** @type {?} */ minorTicks = this.getTicks(minorOptions, SliderTickType.Minor);
+        // create ticks for both major and minor - only get the ones to be shown
+        const /** @type {?} */ majorTicks = this.getTicks(majorOptions, SliderTickType.Major).filter(tick => tick.showTicks);
+        const /** @type {?} */ minorTicks = this.getTicks(minorOptions, SliderTickType.Minor).filter(tick => tick.showTicks);
         // remove any minor ticks that are on a major interval
         this.ticks = this.unionTicks(majorTicks, minorTicks);
     }
@@ -13922,9 +14051,9 @@ class SliderComponent {
      */
     updateTrackColors() {
         // get colors for each part of the track
-        let /** @type {?} */ lower = this.options.track.colors.lower;
-        let /** @type {?} */ range = this.options.track.colors.range;
-        let /** @type {?} */ higher = this.options.track.colors.higher;
+        const /** @type {?} */ lower = this.options.track.colors.lower;
+        const /** @type {?} */ range = this.options.track.colors.range;
+        const /** @type {?} */ higher = this.options.track.colors.higher;
         // update the controller value
         this.tracks.lower.color = typeof lower === 'string' ? lower : `linear-gradient(to right, ${lower.join(', ')})`;
         this.tracks.middle.color = typeof range === 'string' ? range : `linear-gradient(to right, ${range.join(', ')})`;
@@ -17375,6 +17504,888 @@ class StorageAdapter {
     getSupported() { }
 }
 
+class ContactsComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('contactGroup', elementRef, injector);
+        this.overflowClick = new EventEmitter();
+    }
+}
+ContactsComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'contact-group'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ContactsComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+ContactsComponent.propDecorators = {
+    'contacts': [{ type: Input },],
+    'organization': [{ type: Input },],
+    'size': [{ type: Input },],
+    'colors': [{ type: Input },],
+    'maxContacts': [{ type: Input },],
+    'overflowClick': [{ type: Output },],
+};
+
+class ExpandInputComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('expandInput', elementRef, injector);
+        this.focus = new EventEmitter();
+    }
+}
+ExpandInputComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'expand-input'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ExpandInputComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+ExpandInputComponent.propDecorators = {
+    'elname': [{ type: Input },],
+    'placeHolder': [{ type: Input },],
+    'className': [{ type: Input },],
+    'clearTextIcon': [{ type: Input },],
+    'closeSearch': [{ type: Input },],
+    'expandAlways': [{ type: Input },],
+    'onEnter': [{ type: Input },],
+    'focus': [{ type: Output },],
+};
+
+class FloatingActionButtonComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('floatingActionButton', elementRef, injector);
+        this.items = [];
+    }
+}
+FloatingActionButtonComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'floating-action-button'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+FloatingActionButtonComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+FloatingActionButtonComponent.propDecorators = {
+    'items': [{ type: Input },],
+    'primary': [{ type: Input },],
+    'direction': [{ type: Input },],
+};
+
+class FlotComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxFlotNg1', elementRef, injector);
+        this.onPlotClick = new EventEmitter();
+        this.onPlotHover = new EventEmitter();
+    }
+}
+FlotComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'flot'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+FlotComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+FlotComponent.propDecorators = {
+    'dataset': [{ type: Input },],
+    'options': [{ type: Input },],
+    'callback': [{ type: Input },],
+    'donutLabels': [{ type: Input },],
+    'onPlotClick': [{ type: Output },],
+    'onPlotHover': [{ type: Output },],
+};
+
+class GridComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('grid', elementRef, injector);
+        this.source = [];
+        this.columns = [];
+    }
+}
+GridComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'grid'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+GridComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+GridComponent.propDecorators = {
+    'source': [{ type: Input },],
+    'columns': [{ type: Input },],
+    'options': [{ type: Input },],
+    'events': [{ type: Input },],
+    'plugins': [{ type: Input },],
+};
+
+class HierarchyBarComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('hierarchyBar', elementRef, injector);
+    }
+}
+HierarchyBarComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'hierarchy-bar'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+HierarchyBarComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+HierarchyBarComponent.propDecorators = {
+    'data': [{ type: Input },],
+    'options': [{ type: Input },],
+    'selectNode': [{ type: Input },],
+    'containerClass': [{ type: Input },],
+};
+
+class MarqueeWizardComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('marquee-wizard', elementRef, injector);
+        this.wizardStepsChange = new EventEmitter();
+    }
+}
+MarqueeWizardComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'marquee-wizard'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MarqueeWizardComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+MarqueeWizardComponent.propDecorators = {
+    'wizardIcon': [{ type: Input },],
+    'wizardSteps': [{ type: Input },],
+    'buttonOptions': [{ type: Input },],
+    'onChanging': [{ type: Input },],
+    'onFinished': [{ type: Input },],
+    'onFinishing': [{ type: Input },],
+    'onCanceled': [{ type: Input },],
+    'isVisited': [{ type: Input },],
+    'sideInfo': [{ type: Input },],
+    'wizardStepsChange': [{ type: Output },],
+};
+
+class NestedDonutComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxNestedDonutNg1', elementRef, injector);
+    }
+}
+NestedDonutComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'nested-donut'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+NestedDonutComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+NestedDonutComponent.propDecorators = {
+    'dataset': [{ type: Input },],
+    'options': [{ type: Input },],
+};
+
+class OrganizationChartComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxOrganizationChartNg1', elementRef, injector);
+        this.dataChange = new EventEmitter();
+        this.optionsChange = new EventEmitter();
+    }
+}
+OrganizationChartComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'organization-chart'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+OrganizationChartComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+OrganizationChartComponent.propDecorators = {
+    'data': [{ type: Input },],
+    'options': [{ type: Input },],
+    'dataChange': [{ type: Output },],
+    'optionsChange': [{ type: Output },],
+};
+
+class PartitionMapComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxPartitionMapNg1', elementRef, injector);
+    }
+}
+PartitionMapComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'partition-map'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PartitionMapComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+PartitionMapComponent.propDecorators = {
+    'chartData': [{ type: Input },],
+    'chartOptions': [{ type: Input },],
+    'chartLoading': [{ type: Input },],
+};
+
+class PeityBarChartComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxPeityBarChartNg1', elementRef, injector);
+    }
+}
+PeityBarChartComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'bar-chart'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PeityBarChartComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+PeityBarChartComponent.propDecorators = {
+    'data': [{ type: Input },],
+    'options': [{ type: Input },],
+};
+
+class PeityLineChartComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxPeityLineChartNg1', elementRef, injector);
+    }
+}
+PeityLineChartComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'line-chart'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PeityLineChartComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+PeityLineChartComponent.propDecorators = {
+    'data': [{ type: Input },],
+    'options': [{ type: Input },],
+};
+
+class PeityPieChartComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxPeityPieChartNg1', elementRef, injector);
+    }
+}
+PeityPieChartComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'pie-chart'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PeityPieChartComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+PeityPieChartComponent.propDecorators = {
+    'data': [{ type: Input },],
+    'options': [{ type: Input },],
+};
+
+class PeityUpdatingLineChartComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxPeityUpdatingLineChartNg1', elementRef, injector);
+    }
+}
+PeityUpdatingLineChartComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'updating-line-chart'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PeityUpdatingLineChartComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+PeityUpdatingLineChartComponent.propDecorators = {
+    'data': [{ type: Input },],
+    'options': [{ type: Input },],
+    'method': [{ type: Input },],
+    'updateinterval': [{ type: Input },],
+};
+
+class SankeyComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxSankeyNg1', elementRef, injector);
+    }
+}
+SankeyComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'sankey'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SankeyComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+SankeyComponent.propDecorators = {
+    'chartSize': [{ type: Input },],
+    'chartData': [{ type: Input },],
+    'options': [{ type: Input },],
+    'click': [{ type: Input },],
+};
+
+class SearchToolbarComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('searchToolbar', elementRef, injector);
+    }
+}
+SearchToolbarComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'search-toolbar'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SearchToolbarComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+SearchToolbarComponent.propDecorators = {
+    'searchTypeahead': [{ type: Input },],
+    'placeHolder': [{ type: Input },],
+    'closeSearch': [{ type: Input },],
+    'onSearch': [{ type: Input },],
+    'onFocus': [{ type: Input },],
+};
+
+class SelectTableComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('selectTable', elementRef, injector);
+        this.selectedChange = new EventEmitter();
+    }
+}
+SelectTableComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'select-table'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SelectTableComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+SelectTableComponent.propDecorators = {
+    'values': [{ type: Input },],
+    'multipleSelect': [{ type: Input },],
+    'selectKey': [{ type: Input },],
+    'selected': [{ type: Input },],
+    'searchText': [{ type: Input },],
+    'tableHeight': [{ type: Input },],
+    'selectHiddenItems': [{ type: Input },],
+    'selectedChange': [{ type: Output },],
+};
+
+class SocialChartComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('uxSocialChartNg1', elementRef, injector);
+    }
+}
+SocialChartComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'social-chart'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SocialChartComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+SocialChartComponent.propDecorators = {
+    'data': [{ type: Input },],
+    'options': [{ type: Input },],
+    'width': [{ type: Input },],
+    'height': [{ type: Input },],
+    'api': [{ type: Input },],
+    'communities': [{ type: Input },],
+    'detailStyle': [{ type: Input },],
+    'popoverStyle': [{ type: Input },],
+    'nodeDetail': [{ type: Input },],
+    'edgeDetail': [{ type: Input },],
+    'nodePopover': [{ type: Input },],
+    'edgePopover': [{ type: Input },],
+    'forceAtlasDuration': [{ type: Input },],
+    'nodeSizeAttribute': [{ type: Input },],
+    'startMaximized': [{ type: Input },],
+    'startMaximised': [{ type: Input },],
+    'showMaximizeControl': [{ type: Input },],
+    'showMaximiseControl': [{ type: Input },],
+    'socialChartContainer': [{ type: Input },],
+    'fullscreenButtonPosition': [{ type: Input },],
+    'localStrings': [{ type: Input },],
+    'chartTitle': [{ type: Input },],
+    'titleDisplayTime': [{ type: Input },],
+    'edgeWeightInfluence': [{ type: Input },],
+    'minLabels': [{ type: Input },],
+};
+
+class SortDirectionToggleComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('sortDirectionToggle', elementRef, injector);
+    }
+}
+SortDirectionToggleComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'sort-direction-toggle'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SortDirectionToggleComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+SortDirectionToggleComponent.propDecorators = {
+    'label': [{ type: Input },],
+    'sorters': [{ type: Input },],
+    'descend': [{ type: Input },],
+};
+
+class TreeGridComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('treegrid', elementRef, injector);
+        this.optionsChange = new EventEmitter();
+        this.selectedChange = new EventEmitter();
+        this.currentRowChange = new EventEmitter();
+        this.treeDataChange = new EventEmitter();
+    }
+}
+TreeGridComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'treegrid'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TreeGridComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+TreeGridComponent.propDecorators = {
+    'data': [{ type: Input },],
+    'columns': [{ type: Input },],
+    'treeData': [{ type: Input },],
+    'selected': [{ type: Input },],
+    'currentRow': [{ type: Input },],
+    'options': [{ type: Input },],
+    'optionsChange': [{ type: Output },],
+    'selectedChange': [{ type: Output },],
+    'currentRowChange': [{ type: Output },],
+    'treeDataChange': [{ type: Output },],
+};
+
+class ThumbnailComponent extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('thumbnail', elementRef, injector);
+    }
+}
+ThumbnailComponent.decorators = [
+    { type: Directive, args: [{
+                selector: 'thumbnail'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ThumbnailComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+ThumbnailComponent.propDecorators = {
+    'url': [{ type: Input },],
+    'show': [{ type: Input },],
+    'width': [{ type: Input },],
+    'height': [{ type: Input },],
+};
+
+class NavigationMenuService {
+    /**
+     * @param {?} _navigationMenuService
+     */
+    constructor(_navigationMenuService) {
+        this._navigationMenuService = _navigationMenuService;
+    }
+    /**
+     * @return {?}
+     */
+    show() {
+        this._navigationMenuService.show();
+    }
+    /**
+     * @return {?}
+     */
+    hide() {
+        this._navigationMenuService.hide();
+    }
+    /**
+     * @return {?}
+     */
+    visible() {
+        return this._navigationMenuService.visible();
+    }
+    /**
+     * @return {?}
+     */
+    collapseAtWidth() {
+        return this._navigationMenuService.collapseAtWidth();
+    }
+    /**
+     * @param {?} width
+     * @return {?}
+     */
+    setCollapseAtWidth(width) {
+        this._navigationMenuService.setCollapseAtWidth(width);
+    }
+    /**
+     * @return {?}
+     */
+    setDefaultCollapseAtWidth() {
+        this._navigationMenuService.setDefaultCollapseAtWidth();
+    }
+}
+NavigationMenuService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+NavigationMenuService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: ['$navigationMenu',] },] },
+];
+
+class NotificationService {
+    /**
+     * @param {?} _notificationService
+     */
+    constructor(_notificationService) {
+        this._notificationService = _notificationService;
+    }
+    /**
+     * @param {?} options
+     * @return {?}
+     */
+    showNotification(options) {
+        return this._notificationService.showNotification(options);
+    }
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    dismissNotification(element) {
+        this._notificationService.dismissNotification(element);
+    }
+    /**
+     * @return {?}
+     */
+    dismissAllNotifications() {
+        this._notificationService.dismissAllNotifications();
+    }
+    /**
+     * @return {?}
+     */
+    getNotifications() {
+        return this._notificationService.getNotifications();
+    }
+    /**
+     * @param {?} visible
+     * @return {?}
+     */
+    setNotificationVisibility(visible) {
+        this._notificationService.setNotificationVisibility(visible);
+    }
+    /**
+     * @param {?} direction
+     * @return {?}
+     */
+    setDirection(direction) {
+        this._notificationService.setDirection(direction);
+    }
+}
+NotificationService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+NotificationService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: ['notificationService',] },] },
+];
+
+class PdfService {
+    /**
+     * @param {?} _pdfService
+     */
+    constructor(_pdfService) {
+        this._pdfService = _pdfService;
+    }
+    /**
+     * @param {?} columns
+     * @param {?} rows
+     * @param {?=} options
+     * @return {?}
+     */
+    createTable(columns, rows, options = {}) {
+        return this._pdfService.createTable(columns, rows, options);
+    }
+}
+PdfService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+PdfService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: ['$pdf',] },] },
+];
+
+class TimeAgoService {
+    /**
+     * @param {?} _timeAgoService
+     */
+    constructor(_timeAgoService) {
+        this._timeAgoService = _timeAgoService;
+    }
+    /**
+     * @param {?} strings
+     * @return {?}
+     */
+    setStrings(strings) {
+        this._timeAgoService.setStrings(strings);
+    }
+    /**
+     * @param {?} past
+     * @param {?} present
+     * @return {?}
+     */
+    timeSince(past, present) {
+        return this._timeAgoService.timeSince(past, present);
+    }
+    /**
+     * @param {?} moment
+     * @return {?}
+     */
+    timeSinceNow(moment) {
+        return this._timeAgoService.timeSinceNow(moment);
+    }
+}
+TimeAgoService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+TimeAgoService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: ['timeAgoService',] },] },
+];
+
+const declarations = [
+    ContactsComponent,
+    ExpandInputComponent,
+    FloatingActionButtonComponent,
+    FlotComponent,
+    GridComponent,
+    HierarchyBarComponent,
+    MarqueeWizardComponent,
+    NestedDonutComponent,
+    OrganizationChartComponent,
+    PartitionMapComponent,
+    PeityBarChartComponent,
+    PeityLineChartComponent,
+    PeityPieChartComponent,
+    PeityUpdatingLineChartComponent,
+    SankeyComponent,
+    SearchToolbarComponent,
+    SelectTableComponent,
+    SocialChartComponent,
+    SortDirectionToggleComponent,
+    TreeGridComponent,
+    ThumbnailComponent,
+];
+class HybridModule {
+}
+HybridModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [],
+                exports: declarations,
+                declarations: declarations,
+                providers: [
+                    {
+                        provide: 'notificationService',
+                        useFactory: (injector) => injector.get('notificationService'),
+                        deps: ['$injector']
+                    },
+                    {
+                        provide: '$navigationMenu',
+                        useFactory: (injector) => injector.get('$navigationMenu'),
+                        deps: ['$injector']
+                    },
+                    {
+                        provide: '$pdf',
+                        useFactory: (injector) => injector.get('$pdf'),
+                        deps: ['$injector']
+                    },
+                    {
+                        provide: 'timeAgoService',
+                        useFactory: (injector) => injector.get('timeAgoService'),
+                        deps: ['$injector']
+                    },
+                    TimeAgoService,
+                    PdfService,
+                    NavigationMenuService,
+                    NotificationService
+                ],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+HybridModule.ctorParameters = () => [];
+
 /*
   Export Components
 */
@@ -17383,5 +18394,5 @@ class StorageAdapter {
  * Generated bundle index. Do not edit.
  */
 
-export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, DateTimePickerService as ɵa, MediaPlayerService as ɵd, PageHeaderNavigationDropdownItemComponent as ɵc, PageHeaderNavigationItemComponent as ɵb, HoverActionService as ɵe };
+export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsComponent, ExpandInputComponent, FloatingActionButtonComponent, FlotComponent, GridComponent, HierarchyBarComponent, MarqueeWizardComponent, NestedDonutComponent, OrganizationChartComponent, PartitionMapComponent, PeityBarChartComponent, PeityLineChartComponent, PeityPieChartComponent, PeityUpdatingLineChartComponent, SankeyComponent, SearchToolbarComponent, SelectTableComponent, SocialChartComponent, SortDirectionToggleComponent, TreeGridComponent, ThumbnailComponent, NavigationMenuService, NotificationService, PdfService, TimeAgoService, HybridModule, DateTimePickerService as ɵa, MediaPlayerService as ɵd, PageHeaderNavigationDropdownItemComponent as ɵc, PageHeaderNavigationItemComponent as ɵb, HoverActionService as ɵe };
 //# sourceMappingURL=ux-aspects.js.map
