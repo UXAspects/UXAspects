@@ -46,7 +46,7 @@ export class ResizeService {
 
 
         this.waitUntilReady(iframe, () => {
-            let iframeDoc = iframe.contentDocument || iframe.contentWindow.document as HTMLDocument;
+            let iframeDoc = iframe.contentDocument || iframe.contentWindow.document as Document;
 
             let attachListener = function () {
                 Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) => {

@@ -4,7 +4,7 @@
 
     <ux-flippable-card-front>
       <i class="hpe-icon hpe-link-down pull-right clickable-icon" aria-hidden="true" (click)="flippableCard.toggleFlipped()"></i>
-      <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
+      <img class="card-logo" [src]="icon">
       <div class="flip-card-content">
         <p class="front-title">NYC vs Volkswagen</p>
         <div class="m-t-md">
@@ -80,7 +80,7 @@
   <ux-flippable-card class="m-sm" trigger="hover" direction="horizontal" height="220" width="260">
 
     <ux-flippable-card-front>
-      <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
+      <img class="card-logo" [src]="icon">
       <div class="flip-card-content">
         <p class="front-title">The Dorling Case</p>
         <div class="m-t-md">
@@ -156,7 +156,7 @@
 
   <ux-flippable-card class="m-sm" trigger="click" direction="horizontal" height="220" width="260">
     <ux-flippable-card-front>
-      <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
+      <img class="card-logo" [src]="icon">
       <div class="flip-card-content">
         <p class="front-title">The Salisbury Case</p>
         <div class="m-t-md">
