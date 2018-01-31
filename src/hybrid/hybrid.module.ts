@@ -25,7 +25,6 @@ import { SearchToolbarComponent } from './components/search-toolbar/search-toolb
 import { TreeGridComponent } from './components/tree-grid/tree-grid.component';
 import { SelectTableComponent } from './components/select-table/select-table.component';
 import { MarqueeWizardComponent } from './components/marquee-wizard/marquee-wizard.component';
-import { SliderChartComponent } from './components/slider-chart/slider-chart.directive';
 
 const declarations = [
     ContactsComponent,
@@ -45,7 +44,6 @@ const declarations = [
     SankeyComponent,
     SearchToolbarComponent,
     SelectTableComponent,
-    SliderChartComponent,
     SocialChartComponent,
     SortDirectionToggleComponent,
     TreeGridComponent,
