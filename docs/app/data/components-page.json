@@ -1424,7 +1424,23 @@
                 {
                     "title": "Marquee Wizard",
                     "component": "ComponentsMarqueeWizardNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Marquee Wizard",
+                    "component": "ComponentsMarqueeWizardComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-marquee-wizard"   
+                        },
+                        {
+                            "title": "Module",
+                            "content": "MarqueeWizardModule"
+                        }
+                    ]
                 }
             ]
         }
