@@ -1,31 +1,29 @@
+<div class="row">
+    <div class="col-md-10">
+        <button class="btn button-primary" (click)="addEvent()">Add New Event</button>
+        <br/><br/><br/>
+        <ux-timeline side="right" [events]="events"></ux-timeline>
+    </div>
+</div>
+
 <hr>
 
-<p>
-    The Timeline component will display a vertical list of events. It will be defined by a <code>timeline</code> tag. Each event will be defined by a <code>timeline-event</code> tag.
-</p>
+<p>The <code>ux-timeline</code> component is a responsive, data-driven vertical component to tell a story, show history or describe a sequence of events. Events are created with the <code>ux-timeline-event</code> component, which includes a customizable badge and informational panel.</p>
 
-<p>
-    For each event a badge and panel will be displayed. Information to be displayed in the badge and panel will be supplied as inputs to the Timeline event component.
-</p>
-
-<p>The following attributes can be used to customise each event:</p>
+<p>The following attributes can be used to configure the <code>ux-timeline-event</code> components:</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="badgeColor" type="string">
         The color of the badge from the <a routerLink="/css/color-palette" fragment="color-palette">Color Palette</a>.
     </tr>
     <tr uxd-api-property name="badgeTitle" required="true" type="string">
-        The badge’s text.
-        If the width of the badge's text is greater than the width of its container, the text will be truncated to end with an ellipsis and a tooltip containing the text will be displayed upon hover.
+        A short piece of text to show in the badge; typically the short-form date of the event.
     </tr>
     <tr uxd-api-property name="title" type="string">
         The event title. Displayed in the event panel.
     </tr>
-    <tr uxd-api-property name="timestamp" type="string">
+    <tr uxd-api-property name="timestamp" type="Date">
         When the event occurred. Displayed in the event panel.
-    </tr>
-    <tr uxd-api-property name="content" type="HTML">
-        Details of the event in HTML format. Displayed in the event panel.
     </tr>
 </uxd-api-properties>
 

@@ -6,6 +6,7 @@ import { DocumentationCategoryComponent } from '../../../../components/documenta
 
 import { ComponentsTimelineNg1Component } from './timeline-ng1/timeline-ng1.component';
 import { ComponentsTimelineComponent } from './timeline/timeline.component';
+import { TimelineModule } from './../../../../../../src/components/timeline/timeline.module';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
@@ -28,6 +29,7 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        TimelineModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

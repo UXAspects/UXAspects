@@ -1,0 +1,7 @@
+<li class="timeline-inverted">
+    <timeline-badge [class]="event.badgeColor" [badgeTitle]="event.badgeTitle"></timeline-badge>
+    <timeline-panel [content]="event.content" [title]="event.title" [timestamp]="event.timestamp">
+        <div [innerHTML]="event.content"></div>
+    </timeline-panel>
+</li>
+
