@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ContentChildren, QueryList, Tem
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
+import { ColorService } from '../../services/color/index';
 
 @Component({
     selector: 'ux-page-header',
@@ -21,10 +22,33 @@ export class PageHeaderComponent {
     @Input() condensed: boolean = false;
     @Input() iconMenus: PageHeaderIconMenu[];
     @Input() backVisible: boolean = true;
+
+    @Input()
+    set familyBackground(color: string) {
+        this._familyBackground = this._colorService.resolve(color);
+    }
+
+    get familyBackground(): string {
+        return this._familyBackground;
+    }
+
+    @Input()
+    set familyForeground(color: string) {
+        this._familyForeground = this._colorService.resolve(color);
+    }
+
+    get familyForeground(): string {
+        return this._familyForeground;
+    }
     
     @Output() backClick = new EventEmitter();
 
     @ContentChildren(PageHeaderCustomMenuDirective, { read: TemplateRef }) customMenus: QueryList<TemplateRef<any>>;
+
+    private _familyBackground: string;
+    private _familyForeground: string;
+
+    constructor(private _colorService: ColorService) {}
 
     goBack() {
         this.backClick.emit();
