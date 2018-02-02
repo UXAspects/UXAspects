@@ -10,11 +10,13 @@ import { PageHeaderNavigationItemComponent } from './navigation/navigation-item/
 import { PageHeaderNavigationDropdownItemComponent } from './navigation/navigation-dropdown-item/navigation-dropdown-item.component';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
 import { ResizeModule } from '../../directives/resize/index';
+import { ColorServiceModule } from '../../services/color/index';
 
 @NgModule({
     imports: [
         CommonModule,
         BreadcrumbsModule,
+        ColorServiceModule,
         ResizeModule,
         BsDropdownModule.forRoot()
     ],
