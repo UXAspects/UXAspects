@@ -42,6 +42,7 @@ export class WizardComponent implements AfterViewInit {
     @Output() onPrevious = new EventEmitter<number>();
     @Output() onCancel = new EventEmitter<void>();
     @Output() onFinish = new EventEmitter<void>();
+    @Output() stepChanging = new EventEmitter<StepChangingEvent>();
     @Output() stepChange = new EventEmitter<number>();
 
     invalidIndicator: boolean = false;
@@ -81,6 +82,8 @@ export class WizardComponent implements AfterViewInit {
      */
     next(): void {
 
+        this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
+
         // check if current step is invalid
         if (!this.getCurrentStep().valid) {
             this.invalidIndicator = true;
@@ -100,6 +103,8 @@ export class WizardComponent implements AfterViewInit {
      * Navigate to the previous step
      */
     previous(): void {
+
+        this.stepChanging.next(new StepChangingEvent(this.step, this.step - 1));
         
         // check if we are currently on the last step
         if (this.step > 0) {
@@ -137,7 +142,12 @@ export class WizardComponent implements AfterViewInit {
      */
     gotoStep(step: WizardStepComponent): void {
         if (step.visited) {
-            this.step = this.steps.toArray().findIndex(stp => stp === step);
+
+            const stepIndex = this.steps.toArray().findIndex(stp => stp === step);
+
+            this.stepChanging.next(new StepChangingEvent(this.step, stepIndex));
+            
+            this.step = stepIndex;
         }
     }
 
@@ -173,4 +183,8 @@ export class WizardComponent implements AfterViewInit {
     getStepAtIndex(index: number): WizardStepComponent {
         return this.steps.toArray()[index];
     }
+}
+
+export class StepChangingEvent {
+    constructor(public from: number, public to: number) {}
 }
