@@ -1,10 +1,10 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, Injector } from '@angular/core';
 import { INavigationMenuService } from './navigation-menu.interface';
 
 @Injectable()
 export class NavigationMenuService implements INavigationMenuService {
-    
-    constructor(@Inject('$navigationMenu') private _navigationMenuService: INavigationMenuService) { }
+
+    constructor( @Inject('$navigationMenu') private _navigationMenuService: INavigationMenuService) { }
 
     show(): void {
         this._navigationMenuService.show();
@@ -31,3 +31,13 @@ export class NavigationMenuService implements INavigationMenuService {
     }
 
 }
+
+export function navigationMenuServiceFactory(injector: Injector) {
+    return injector.get('$navigationMenu');
+}
+
+export const navigationMenuServiceProvider = {
+    provide: '$navigationMenu',
+    useFactory: navigationMenuServiceFactory,
+    deps: ['$injector']
+};

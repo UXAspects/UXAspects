@@ -11,10 +11,10 @@ import { PeityPieChartComponent } from './components/peity-chart/peity-pie-chart
 import { PeityUpdatingLineChartComponent } from './components/peity-chart/peity-updating-line-chart.component';
 import { SankeyComponent } from './components/sankey-chart/sankey.component';
 import { SocialChartComponent } from './components/social-chart/social-chart.component';
-import { TimeAgoService } from './services/time-ago/time-ago.service';
-import { PdfService } from './services/pdf/pdf.service';
-import { NavigationMenuService } from './services/navigation-menu/navigation-menu.service';
-import { NotificationService } from './services/notification/notification.service';
+import { TimeAgoService, timeAgoServiceProvider } from './services/time-ago/time-ago.service';
+import { PdfService, pdfServiceProvider } from './services/pdf/pdf.service';
+import { NavigationMenuService, navigationMenuServiceProvider } from './services/navigation-menu/navigation-menu.service';
+import { NotificationService, notificationServiceProvider } from './services/notification/notification.service';
 import { GridComponent } from './components/grid/grid.component';
 import { ThumbnailComponent } from './components/thumbnail/thumbnail.component';
 import { HierarchyBarComponent } from './components/hierarchy-bar/hierarchy-bar.component';
@@ -57,26 +57,10 @@ const declarations = [
     exports: declarations,
     declarations: declarations,
     providers: [
-        {
-            provide: 'notificationService',
-            useFactory: (injector: Injector) => injector.get('notificationService'),
-            deps: ['$injector']
-        },
-        {
-            provide: '$navigationMenu',
-            useFactory: (injector: Injector) => injector.get('$navigationMenu'),
-            deps: ['$injector']
-        },
-        {
-            provide: '$pdf',
-            useFactory: (injector: Injector) => injector.get('$pdf'),
-            deps: ['$injector']
-        },
-        {
-            provide: 'timeAgoService',
-            useFactory: (injector: Injector) => injector.get('timeAgoService'),
-            deps: ['$injector']
-        },
+        navigationMenuServiceProvider,
+        notificationServiceProvider,
+        pdfServiceProvider,
+        timeAgoServiceProvider,
         TimeAgoService,
         PdfService,
         NavigationMenuService,

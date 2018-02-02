@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, Injector } from '@angular/core';
 import { INotificationService, NotificationOptions } from './notification.interface';
 
 @Injectable()
@@ -30,3 +30,13 @@ export class NotificationService implements INotificationService {
         this._notificationService.setDirection(direction);
     }
 }
+
+export function notificationServiceFactory(injector: Injector) {
+    return injector.get('notificationService');
+}
+
+export const notificationServiceProvider = {
+    provide: 'notificationService',
+    useFactory: notificationServiceFactory,
+    deps: ['$injector']
+};
