@@ -5,11 +5,14 @@ import { ResolverService, DocumentationPage } from '../../../../services/resolve
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
 import { ComponentsTimelineNg1Component } from './timeline-ng1/timeline-ng1.component';
+import { ComponentsTimelineComponent } from './timeline/timeline.component';
+import { TimelineModule } from './../../../../../../src/components/timeline/timeline.module';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 const SECTIONS = [
-    ComponentsTimelineNg1Component
+    ComponentsTimelineNg1Component,
+    ComponentsTimelineComponent
 ];
 
 const ROUTES = [
@@ -26,6 +29,7 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        TimelineModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

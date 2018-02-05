@@ -1198,10 +1198,25 @@
             "title": "Timeline",
             "link": "timeline",
             "sections": [{
-                "title": "Timeline",
-                "component": "ComponentsTimelineNg1Component",
-                "version": "AngularJS"
-            }]
+                    "title": "Timeline",
+                    "component": "ComponentsTimelineComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-timeline"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "TimelineModule"
+                    }]
+                },
+                {
+                    "title": "Timeline",
+                    "component": "ComponentsTimelineNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                }
+            ]
         },
         {
             "title": "Tooltips",
@@ -1414,14 +1429,12 @@
                 {
                     "title": "Wizard with Validation",
                     "component": "ComponentsWizardValidationNg1Component",
-                    "version": "AngularJS",
-                    "deprecated": true
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Vertical Wizard",
                     "component": "ComponentsVerticalWizardNg1Component",
-                    "version": "AngularJS",
-                    "deprecated": true
+                    "version": "AngularJS"
                 },
                 {
                     "title": "Marquee Wizard",
