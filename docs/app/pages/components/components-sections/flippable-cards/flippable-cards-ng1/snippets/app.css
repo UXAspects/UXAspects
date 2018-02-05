@@ -16,6 +16,8 @@
     font-size: 21px;
     font-weight: 600;
     color: #333;
+    margin-top: 9px;
+    margin-bottom: 0;
 }
 
 .flip-card-content.card-back {
@@ -82,15 +84,17 @@
 }
 
 .flip-card-nested-donut {
-    float: right;
-    right: 10px;
-    bottom: 15px;
     position: absolute;
+    right: 10px;
+    bottom: 16px;
+    width: 70px;
+    height: 70px;
 }
 
 .card-text {
     font-size: 18px;
     font-weight: 600;
+    margin-bottom: 3px;
 }
 
 .card-text.documents {
