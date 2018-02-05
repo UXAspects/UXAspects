@@ -294,6 +294,20 @@
 }
 
 @media only screen and (min-width: 768px) {
+  ux-timeline[side="right"] ul.timeline:before {
+    left: 64px;
+  }
+  ux-timeline[side="alternate"] ul.timeline:before {
+    left: ~'calc(50% + 25px)';
+  }
+  ul.timeline li timeline-panel {
+    width: ~'calc(100% - 135px)';
+    width: ~'-moz-calc(100% - 135px)';
+    width: ~'-webkit-calc(100% - 135px)';
+  }
+}
+
+@media only screen and (min-width: 768px) {
   ul.timeline timeline-event[side="right"] li timeline-badge {
     left: 15px;
     margin-left: 0;
@@ -315,6 +329,36 @@
     top: 40px;
   }
   ul.timeline timeline-event[side="right"] li timeline-panel:after {
+    border-left-width: 0;
+    border-right-width: 8px;
+    right: auto;
+    left: -7px;
+    top: 41px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  ul.timeline ux-timeline-event[side="right"] li timeline-badge {
+    left: 15px;
+    margin-left: 0;
+    top: 36px;
+  }
+  ul.timeline ux-timeline-event[side="right"] li timeline-panel {
+    width: ~'calc(100% - 135px)';
+    width: ~'-moz-calc(100% - 135px)';
+    width: ~'-webkit-calc(100% - 135px)';
+  }
+  ul.timeline ux-timeline-event[side="right"] li timeline-panel {
+    float: right;
+  }
+  ul.timeline ux-timeline-event[side="right"] li timeline-panel:before {
+    border-left-width: 0;
+    border-right-width: 8px;
+    left: -8px;
+    right: auto;
+    top: 40px;
+  }
+  ul.timeline ux-timeline-event[side="right"] li timeline-panel:after {
     border-left-width: 0;
     border-right-width: 8px;
     right: auto;
