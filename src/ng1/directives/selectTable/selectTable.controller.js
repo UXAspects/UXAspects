@@ -150,8 +150,6 @@ export default function selectTableCtrl($timeout, $scope, $filter) {
                 vm.selected.push(value);
             }
         }
-
-        $scope.$digest();
     };
 
     vm.keydown = function(e) {

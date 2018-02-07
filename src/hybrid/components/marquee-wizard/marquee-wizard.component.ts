@@ -19,7 +19,7 @@ export class MarqueeWizardComponent extends UpgradeComponent {
     @Output() wizardStepsChange: EventEmitter<MarqueeWizardStep[]> = new EventEmitter<MarqueeWizardStep[]>();
 
     constructor(elementRef: ElementRef, injector: Injector) {
-        super('marquee-wizard', elementRef, injector);
+        super('marqueeWizard', elementRef, injector);
     }
 }
 

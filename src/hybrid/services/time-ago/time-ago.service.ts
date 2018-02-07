@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, Injector } from '@angular/core';
 import { ITimeAgoService, TimeAgoLocalizedTimes } from './time-ago.interface';
 
 @Injectable()
@@ -19,3 +19,13 @@ export class TimeAgoService implements ITimeAgoService {
     }
 
 }
+
+export function timeAgoServiceFactory(injector: Injector) {
+    return injector.get('timeAgoService');
+}
+
+export const timeAgoServiceProvider = {
+    provide: 'timeAgoService',
+    useFactory: timeAgoServiceFactory,
+    deps: ['$injector']
+};

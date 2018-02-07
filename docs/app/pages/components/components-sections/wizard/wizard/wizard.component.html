@@ -112,20 +112,23 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="stepChanging" type="StepChangingEvent">
+        Emits before the current step changes. The event contains the current step index in the <code>from</code> property, and the requested step index in the <code>to</code> property.
+    </tr>
     <tr uxd-api-property name="stepChange" type="number">
-        Emits when step changes.
+        Emits when the current step has changed.
     </tr>
     <tr uxd-api-property name="onNext" type="number">
-        This event will be fired when the 'Next' button is pressed. It will receive the current step index as a parameter.
+        Emits when the wizard has moved to the next step. It will receive the current step index as a parameter.
     </tr>
     <tr uxd-api-property name="onPrevious" type="number">
-        This event will be fired when the 'Previous' button is pressed. It will receive the current step index as a parameter.
+        Emits when the wizard has moved to the previous step. It will receive the current step index as a parameter.
     </tr>
     <tr uxd-api-property name="onCancel" type="void">
-        This event will be fired when the 'Cancel' button is pressed.
+        Emits when the 'Cancel' button has been pressed.
     </tr>
     <tr uxd-api-property name="onFinish" type="void">
-        This event will be fired when the 'Finish' button is pressed.
+        Emits when the 'Finish' button has been pressed.
     </tr>
 </uxd-api-properties>
 

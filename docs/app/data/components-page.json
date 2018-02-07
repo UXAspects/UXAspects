@@ -1414,12 +1414,14 @@
                 {
                     "title": "Wizard with Validation",
                     "component": "ComponentsWizardValidationNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Vertical Wizard",
                     "component": "ComponentsVerticalWizardNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Marquee Wizard",
