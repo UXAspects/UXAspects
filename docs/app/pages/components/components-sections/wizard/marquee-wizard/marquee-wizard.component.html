@@ -107,11 +107,17 @@
     <tr uxd-api-property name="visited" type="boolean">
         Defines whether or not this step has previously been visited. A visited step can be clicked on and jumped to at any time. By default, steps will become 'visited' when the user navigates to a step for the first time.
     </tr>
+    <tr uxd-api-property name="completed" type="boolean">
+        Defines whether or not this step has previously been completed. A visited step can be clicked on and jumped to at any time. By default, steps will become 'visited' when the user navigates to a step for the first time.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
     <tr uxd-api-property name="visitedChange" type="boolean">
         Emits when visited changes.
+    </tr>
+    <tr uxd-api-property name="completedChange" type="boolean">
+        Emits when completed changes.
     </tr>
 </uxd-api-properties>
 
