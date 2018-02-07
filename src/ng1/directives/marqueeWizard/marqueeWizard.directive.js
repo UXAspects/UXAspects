@@ -4,6 +4,7 @@ export default function marqueeWizard() {
         template: require('./marqueeWizard.html'),
         controller: 'MarqueeWizardCtrl',
         controllerAs: 'mc',
+        bindToController: true,
         scope: {
             wizardIcon: '=',
             wizardSteps: '=',
@@ -15,15 +16,15 @@ export default function marqueeWizard() {
             isVisited: '=?',
             sideInfo: '=?'
         },
-        link: function (scope, element) {
+        link: function (scope, element, attrs, ctrl) {
 
             //get button elements
-            var previousBtn = element.find('.marquee-previous-btn');
-            var nextBtn = element.find('.marquee-next-btn');
-            var finishBtn = element.find('.marquee-finish-btn');
+            const previousBtn = element.find('.marquee-previous-btn');
+            const nextBtn = element.find('.marquee-next-btn');
+            const finishBtn = element.find('.marquee-finish-btn');
 
             //when buttonOptions changes then update tooltips accordingly
-            scope.$watch('buttonOptions', function (nv, ov) {
+            scope.$watch('buttonOptions', (nv, ov) => {
                 if (angular.equals(nv, ov)) updateTooltips();
             }, true);
 
@@ -37,25 +38,25 @@ export default function marqueeWizard() {
                 finishBtn.tooltip('destroy');
 
                 //add new tootlips if required to previous btn
-                if (scope.buttonOptions.previousTooltip !== null) {
+                if (ctrl.buttonOptions.previousTooltip !== null) {
                     previousBtn.tooltip({
-                        title: scope.buttonOptions.previousTooltip
+                        title: ctrl.buttonOptions.previousTooltip
                     });
                 }
 
 
                 //add new tootlips if required to next btn
-                if (scope.buttonOptions.nextTooltip !== null) {
+                if (ctrl.buttonOptions.nextTooltip !== null) {
                     nextBtn.tooltip({
-                        title: scope.buttonOptions.nextTooltip
+                        title: ctrl.buttonOptions.nextTooltip
                     });
                 }
 
 
                 //add new tootlips if required to finish btn
-                if (scope.buttonOptions.finishTooltip !== null) {
+                if (ctrl.buttonOptions.finishTooltip !== null) {
                     finishBtn.tooltip({
-                        title: scope.buttonOptions.finishTooltip
+                        title: ctrl.buttonOptions.finishTooltip
                     });
                 }
             }
