@@ -1,7 +1,7 @@
-<a *ngIf="link" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow()" [routerLink]="link">
+<a *ngIf="link" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow" [routerLink]="link">
     <span>{{header}}</span>
 </a>
-<a *ngIf="!link" (click)="toggle(); $event.stopPropagation()" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow()">
+<a *ngIf="!link" (click)="expanded = !expanded" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow">
     <span>{{header}}</span>
 </a>
-<ng-content class="nav"></ng-content>
+<ng-content></ng-content>

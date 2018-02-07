@@ -1,20 +1,19 @@
 import {
     Component,
     Input,
-    ViewEncapsulation,
     ContentChildren,
     QueryList,
     Renderer2,
     ElementRef,
     Optional,
     SkipSelf,
-    ContentChild,
     Output,
     AfterViewInit,
-  HostListener
+    AfterContentInit,
+    OnDestroy
 } from '@angular/core';
-import { Router, RouterLinkActive, NavigationEnd, RouterState, ActivatedRoute, UrlTree } from '@angular/router';
-import 'rxjs/add/operator/filter';
+import { Router, NavigationEnd, UrlTree } from '@angular/router';
+import { filter } from 'rxjs/operators/filter';
 
 @Component({
     selector: '[ux-navigation-item]',
@@ -22,29 +21,23 @@ import 'rxjs/add/operator/filter';
     host: {
         '[class.active]': 'active',
         '[class.selected]': 'expanded',
-    },
-    encapsulation: ViewEncapsulation.None
+    }
 })
-export class NavigationItemComponent implements AfterViewInit {
+export class NavigationItemComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     @Input() header: string;
     @Input() icon: string;
     @Input() expanded: boolean = false;
     @Input() link: string;
 
-    @Output()
-    get level(): number {
-        return this._level;
-    }
-
-    @Output()
     get active() {
         if (this.link) {
             return this._router.isActive(this.link, true);
         }
     }
 
-    private _level: number = 1;
-    private _active: boolean = false;
+    level: number = 1;
+    private _navigationEnd: any;
+    indentWithoutArrow: boolean = true;
 
     @ContentChildren(NavigationItemComponent, { descendants: true })
     private _children: QueryList<NavigationItemComponent>;
@@ -61,9 +54,9 @@ export class NavigationItemComponent implements AfterViewInit {
         private _parent: NavigationItemComponent,
         @Optional() private _router: Router
     ) {
-        this._level = _parent ? _parent.level + 1 : 1;
+        this.level = _parent ? _parent.level + 1 : 1;
 
-        _router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {              
+        this._navigationEnd = _router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {              
             if (this.link && this._router.isActive(this.link, true)) {
                 this.select();
             }
@@ -73,20 +66,25 @@ export class NavigationItemComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        // Add class to parent for styling
+        // Add classes to parent for styling
         const parentListElement = this._elementRef.nativeElement.parentElement;
         if (parentListElement) {
             let levelClass: string = this.getLevelClass();
             if (levelClass.length > 0) {
+                this._renderer.addClass(parentListElement, 'nav');
                 this._renderer.addClass(parentListElement, levelClass);
             }
         }
     }
 
-    toggle(): void {
-        this.expanded = !this.expanded;
+    ngAfterContentInit(): void {
+        this.setIndentWithoutArrow();
     }
-    
+
+    ngOnDestroy () {
+        this._navigationEnd.unsubscribe();
+    }
+
     select(): void {
         this.expanded = true;
 
@@ -107,7 +105,7 @@ export class NavigationItemComponent implements AfterViewInit {
     }
 
     private getLevelClass(): string {
-        switch (this._level) {
+        switch (this.level) {
             case 2:
                 return 'nav-second-level';
             case 3:
@@ -121,18 +119,16 @@ export class NavigationItemComponent implements AfterViewInit {
         return '';
     }
 
-    indentWithoutArrow(): boolean {
-        // If this element has children it will be indented and will have an arrow
+    private setIndentWithoutArrow(): void {
         if (this.children.length > 0) {
-            return false;
+            // If this element has children it will be indented and will have an arrow
+            this.indentWithoutArrow = false;
+        } else if (this._parent) {
+            // If this element has a parent, indent it if any of its siblings have children
+            this.indentWithoutArrow = !this._parent.children.every((item) => item.children.length === 0);
+        } else {
+            // Top-level elements should be indented
+            this.indentWithoutArrow = true;
         }
-
-        // If this element has a parent, indent it if any of its siblings have children
-        if (this._parent) {
-            return !this._parent.children.every((item) => item.children.length === 0);
-        }
-
-        // Top-level elements should be indented
-        return true;
     }
 }
