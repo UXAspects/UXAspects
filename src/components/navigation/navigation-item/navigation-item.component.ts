@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { Router, NavigationEnd, UrlTree } from '@angular/router';
 import { filter } from 'rxjs/operators/filter';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: '[ux-navigation-item]',
@@ -36,8 +37,10 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
     }
 
     level: number = 1;
-    private _navigationEnd: any;
     indentWithoutArrow: boolean = true;
+
+    private _navigationEnd: Subscription;
+    private _childrenChanges: Subscription;
 
     @ContentChildren(NavigationItemComponent, { descendants: true })
     private _children: QueryList<NavigationItemComponent>;
@@ -78,11 +81,16 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
     }
 
     ngAfterContentInit(): void {
+        // Set 'indentWithoutArrow'
         this.setIndentWithoutArrow();
+
+        // Update 'indentWithoutArrow' in response to changes to children
+        this._childrenChanges = this._children.changes.subscribe(() => this.setIndentWithoutArrow());
     }
 
     ngOnDestroy () {
         this._navigationEnd.unsubscribe();
+        this._childrenChanges.unsubscribe();
     }
 
     select(): void {
