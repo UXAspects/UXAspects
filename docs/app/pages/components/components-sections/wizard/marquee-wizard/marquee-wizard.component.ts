@@ -7,10 +7,6 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     templateUrl: './marquee-wizard.component.html'
 })
 @DocumentationSectionComponent('ComponentsMarqueeWizardComponent')
-export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection {
+export class ComponentsMarqueeWizardComponent {
 
-    constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
-    
 }
