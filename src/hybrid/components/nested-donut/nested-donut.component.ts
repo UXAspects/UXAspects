@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'nested-donut'
 })
-export class NestedDonutComponent extends UpgradeComponent {
+export class NestedDonutNg1Component extends UpgradeComponent {
 
     @Input() dataset: any;
     @Input() options: any;

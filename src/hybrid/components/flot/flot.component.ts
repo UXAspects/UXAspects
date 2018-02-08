@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'flot'
 })
-export class FlotComponent extends UpgradeComponent {
+export class FlotNg1Component extends UpgradeComponent {
 
     @Input() dataset: any;
     @Input() options: any;

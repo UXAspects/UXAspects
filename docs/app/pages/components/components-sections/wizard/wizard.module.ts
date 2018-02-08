@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
@@ -15,8 +17,7 @@ import { ComponentsMarqueeWizardNg1Component } from './marquee-wizard-ng1/marque
 import { ComponentsMarqueeWizardComponent } from './marquee-wizard/marquee-wizard.component';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ComponentsWizardComponent } from './wizard/wizard.component';
-import { WizardModule, RadioButtonModule } from '../../../../../../src/index';
-
+import { WizardModule, RadioButtonModule, MarqueeWizardModule, CheckboxModule } from '../../../../../../src/index';
 
 const SECTIONS = [
     ComponentsWizardComponent,
@@ -46,6 +47,10 @@ const ROUTES = [
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
         RadioButtonModule,
+        CheckboxModule,
+        MarqueeWizardModule,
+        ReactiveFormsModule,
+        ModalModule.forRoot(),
         WizardModule
     ],
     exports: SECTIONS,

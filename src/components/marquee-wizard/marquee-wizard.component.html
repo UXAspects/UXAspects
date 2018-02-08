@@ -1,0 +1,43 @@
+<div class="marquee-wizard-side-panel">
+
+    <div class="marquee-wizard-description-container" *ngIf="description">
+        <!-- If a template was provided display it -->
+        <ng-container *ngIf="isTemplate" [ngTemplateOutlet]="description"></ng-container>
+
+        <!-- Otherwise wimply display the string -->
+        <ng-container *ngIf="!isTemplate">
+            <p>{{ description }}</p>
+        </ng-container>
+    </div>
+
+    <ul class="marquee-wizard-steps">
+
+        <li class="marquee-wizard-step" *ngFor="let step of steps" (click)="gotoStep(step)" [class.active]="step.active" [class.visited]="step.visited" [class.invalid]="!step.valid">
+            <i class="marquee-wizard-step-icon" [ngClass]="step.icon"></i>
+            <span class="marquee-wizard-step-title">{{ step.header }}</span>
+            <span class="marquee-wizard-step-status hpe-icon hpe-checkmark" *ngIf="step.completed"></span>
+        </li>
+
+    </ul>
+</div>
+
+<div class="marquee-wizard-content-panel">
+    <div class="marquee-wizard-content">
+        <ng-content></ng-content>
+    </div>
+
+    <div class="marquee-wizard-footer">
+
+        <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body"
+            [disabled]="previousDisabled || step === 0" (click)="previous(); tip.hide()">{{ previousText }}</button>
+
+        <button #tip="bs-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [tooltip]="nextTooltip" container="body"
+            [disabled]="nextDisabled" (click)="next(); tip.hide()">{{ nextText }}</button>
+
+        <button #tip="bs-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [tooltip]="finishTooltip"
+            container="body" [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
+
+        <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [tooltip]="cancelTooltip"
+            container="body" [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
+    </div>
+</div>

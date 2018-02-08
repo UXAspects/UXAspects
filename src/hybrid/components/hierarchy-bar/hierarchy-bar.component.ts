@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'hierarchy-bar'
 })
-export class HierarchyBarComponent extends UpgradeComponent {
+export class HierarchyBarNg1Component extends UpgradeComponent {
 
     @Input() data: any[];
     @Input() options: HierarchyBarOptions;

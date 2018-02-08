@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'sankey'
 })
-export class SankeyComponent extends UpgradeComponent {
+export class SankeyNg1Component extends UpgradeComponent {
 
     @Input() chartSize: any;
     @Input() chartData: any;

@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'line-chart'
 })
-export class PeityLineChartComponent extends UpgradeComponent {
+export class PeityLineChartNg1Component extends UpgradeComponent {
 
     @Input() data: any;
     @Input() options: any;

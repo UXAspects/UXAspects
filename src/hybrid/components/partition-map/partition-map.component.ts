@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'partition-map'
 })
-export class PartitionMapComponent extends UpgradeComponent {
+export class PartitionMapNg1Component extends UpgradeComponent {
 
     @Input() chartData: any;
     @Input() chartOptions: any;

@@ -1,0 +1,112 @@
+import { Component, Input, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { filter } from 'rxjs/operators/filter';
+
+import { WizardComponent } from '../wizard/index';
+import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
+import { MarqueeWizardService, MarqueeWizardValidEvent } from './marquee-wizard.service';
+
+@Component({
+    selector: 'ux-marquee-wizard',
+    templateUrl: './marquee-wizard.component.html',
+    providers: [ MarqueeWizardService ]
+})
+export class MarqueeWizardComponent extends WizardComponent {
+
+    @Input() description: string | TemplateRef<any>;
+    @ContentChildren(MarqueeWizardStepComponent) steps = new QueryList<MarqueeWizardStepComponent>();
+
+    get isTemplate(): boolean {
+        return this.description && this.description instanceof TemplateRef;
+    }
+
+    constructor(marqueeWizardService: MarqueeWizardService) {
+        super();
+
+        marqueeWizardService.valid$.pipe(
+            filter((event: MarqueeWizardValidEvent) => !event.valid)
+        ).subscribe(this.validChange.bind(this));
+    }
+
+    /**
+     * If the current step is valid, mark it as
+     * complete and go to the next step
+     */
+    next(): void {
+
+        // get the current step
+        const step = this.getCurrentStep() as MarqueeWizardStepComponent;
+
+        if (step.valid) {
+            super.next();
+
+            // mark this step as completed
+            step.setCompleted(true);
+        }
+    }
+
+    /**
+     * Only go to the previous step if
+     * the current step is valid
+     */
+    previous(): void {
+        if (this.getCurrentStep().valid) {
+            super.previous();
+        }
+    }
+
+    /**
+     * Emit the onFinishing event and if valid the onFinish event.
+     * Also mark the final step as completed if it is valid
+     */
+    async finish(): Promise<void> {
+
+        // get the current step
+        const step = this.getCurrentStep() as MarqueeWizardStepComponent;
+
+        // call the original finish function
+        await super.finish();
+
+        // if the step is valid indicate that it is now complete
+        if (step.valid) {
+            step.setCompleted(true);
+        }
+    }
+
+    /**
+     * If the current step is valid, allow navigation to another step
+     * @param target The step to navigate to
+     */
+    gotoStep(target: MarqueeWizardStepComponent): void {
+
+        // get the current step
+        const step = this.getCurrentStep() as MarqueeWizardStepComponent;
+
+        // only allow navigating if the current step is valid
+        if (step.valid) {
+            super.gotoStep(target);
+        }
+    }
+
+    /**
+     * If a step in the wizard becomes invalid, all steps sequentially after
+     * it, should become unvisited and incomplete
+     */
+    validChange(state: MarqueeWizardValidEvent): void {
+        
+        const steps = this.steps.toArray();
+        const current = steps.findIndex(step => step === state.step);
+        const affected = steps.slice(current);
+
+        affected.forEach(step => {
+
+            // the step should no longer be completed
+            step.completed = false;
+
+            // if the step is not the current step then also mark it as unvisited
+            if (step !== state.step) {
+                step.visited = false;
+            }
+        });
+
+    }
+}

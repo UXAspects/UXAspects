@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'contact-group'
 })
-export class ContactsComponent extends UpgradeComponent {
+export class ContactsNg1Component extends UpgradeComponent {
 
     @Input() contacts: Contact[];
     @Input() organization: string;
