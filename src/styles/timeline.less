@@ -1,3 +1,9 @@
+ux-timeline {
+  .timeline {
+    margin-top: 50px;
+  }
+}
+
 .timeline {
   padding: 0;
   list-style: none;
@@ -36,6 +42,7 @@
     }
   }
 }
+
 .timeline {
 
   &.hp-timeline-down-arrow {
@@ -59,9 +66,11 @@
     }
   }
 }
+
 .timeline {
   li {
-    timeline-badge {
+    timeline-badge,
+    .timeline-badge {
       &.critical {
         background-color: @timeline-badge-critical !important;
       }
@@ -111,9 +120,23 @@
   }
 }
 
+ux-timeline-event {
+  li {
+    .timeline-badge {
+      span {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        overflow: hidden;
+      }
+    }
+  }
+}
+  
 .timeline {
   li {
-    timeline-panel> * {
+    timeline-panel> *,
+    > .timeline-panel> * {
       margin: 0;
     }
   }
@@ -121,7 +144,8 @@
 
 .timeline {
   li {
-    timeline-panel {
+    timeline-panel,
+    > .timeline-panel {
       background-color: @timeline-panel-bg;
       float: left;
       border: 1px solid @timeline-panel-border;
@@ -137,7 +161,8 @@
 .body-dark {
   .timeline {
     li {
-      timeline-panel {
+      timeline-panel,
+      > .timeline-panel {
         background-color: @timeline-panel-bg-dark;
         border: 1px solid @timeline-panel-border-dark !important;
         -webkit-box-shadow: 0 1px 6px @timeline-panel-shadow-dark !important;
@@ -149,7 +174,8 @@
 
 .timeline {
   li {
-    timeline-panel {
+    timeline-panel,
+    > .timeline-panel {
       &:before {
         position: absolute;
         top: 40px;
@@ -168,7 +194,8 @@
 .body-dark {
   .timeline {
     li {
-      timeline-panel {
+      timeline-panel,
+      > .timeline-panel {
         &:before {
           border-left: 8px solid @timeline-panel-border-dark;
           border-right: 0 solid @timeline-panel-border-dark;
@@ -180,7 +207,8 @@
 
 .timeline {
   li {
-    timeline-panel {
+    timeline-panel,
+    > .timeline-panel {
       &:after {
         position: absolute;
         top: 41px;
@@ -199,7 +227,8 @@
 .body-dark {
   .timeline {
     li {
-      timeline-panel {
+      timeline-panel,
+      > .timeline-panel {
         &:after {
           border-left: 7px solid @timeline-panel-bg-dark;
           border-right: 0 solid @timeline-panel-bg-dark;
@@ -211,7 +240,8 @@
 
 .timeline {
   li {
-    timeline-badge {
+    timeline-badge,
+    > .timeline-badge {
       color: @timeline-badge-color;
       width: 100px;
       max-width: 100px;
@@ -234,7 +264,8 @@
 .timeline {
   li {
     &.timeline-inverted {
-      timeline-panel {
+      timeline-panel,
+      > .timeline-panel {
         float: right;
         &:before {
           border-left-width: 0;
@@ -261,6 +292,16 @@
   }
 }
 
+ux-timeline-event {
+  li {
+    .timeline-panel {
+      .timeline-heading {
+        margin-bottom: 11px;
+      }
+    }
+  }
+}
+
 .timeline {
   li {
     &:before,
@@ -280,122 +321,91 @@
 }
 
 @media only screen and (min-width: 768px) {
-  timeline[side="right"] ul.timeline:before {
-    left: 64px;
+    timeline[side="right"] ul.timeline:before,
+    ux-timeline[side="right"] > ul.timeline:before {
+      left: 64px;
+    }
+    timeline[side="alternate"] ul.timeline:before,
+    ux-timeline[side="alternate"] > ul.timeline:before {
+      left: ~'calc(50% + 25px)';
+    }
+    ul.timeline li timeline-panel,
+    ul.timeline li > .timeline-panel {
+      width: ~'calc(100% - 135px)';
+      width: ~'-moz-calc(100% - 135px)';
+      width: ~'-webkit-calc(100% - 135px)';
+    }
   }
-  timeline[side="alternate"] ul.timeline:before {
-    left: ~'calc(50% + 25px)';
+  
+  @media only screen and (min-width: 768px) {
+    ul.timeline timeline-event[side="right"] li timeline-badge,
+    ul.timeline ux-timeline-event[side="right"] li > .timeline-badge {
+      left: 15px;
+      margin-left: 0;
+      top: 36px;
+    }
+    ul.timeline timeline-event[side="right"] li timeline-panel,
+    ul.timeline ux-timeline-event[side="right"] li > .timeline-panel {
+      width: ~'calc(100% - 135px)';
+      width: ~'-moz-calc(100% - 135px)';
+      width: ~'-webkit-calc(100% - 135px)';
+    }
+    ul.timeline timeline-event[side="right"] li timeline-panel,
+    ul.timeline ux-timeline-event[side="right"] li > .timeline-panel {
+      float: right;
+    }
+    ul.timeline timeline-event[side="right"] li timeline-panel:before,
+    ul.timeline ux-timeline-event[side="right"] li > .timeline-panel:before {
+      border-left-width: 0;
+      border-right-width: 8px;
+      left: -8px;
+      right: auto;
+      top: 40px;
+    }
+    ul.timeline timeline-event[side="right"] li timeline-panel:after,
+    ul.timeline ux-timeline-event[side="right"] li > .timeline-panel:after {
+      border-left-width: 0;
+      border-right-width: 8px;
+      right: auto;
+      left: -7px;
+      top: 41px;
+    }
   }
-  ul.timeline li timeline-panel {
-    width: ~'calc(100% - 135px)';
-    width: ~'-moz-calc(100% - 135px)';
-    width: ~'-webkit-calc(100% - 135px)';
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  ux-timeline[side="right"] ul.timeline:before {
-    left: 64px;
-  }
-  ux-timeline[side="alternate"] ul.timeline:before {
-    left: ~'calc(50% + 25px)';
-  }
-  ul.timeline li timeline-panel {
-    width: ~'calc(100% - 135px)';
-    width: ~'-moz-calc(100% - 135px)';
-    width: ~'-webkit-calc(100% - 135px)';
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  ul.timeline timeline-event[side="right"] li timeline-badge {
-    left: 15px;
-    margin-left: 0;
-    top: 36px;
-  }
-  ul.timeline timeline-event[side="right"] li timeline-panel {
-    width: ~'calc(100% - 135px)';
-    width: ~'-moz-calc(100% - 135px)';
-    width: ~'-webkit-calc(100% - 135px)';
-  }
-  ul.timeline timeline-event[side="right"] li timeline-panel {
-    float: right;
-  }
-  ul.timeline timeline-event[side="right"] li timeline-panel:before {
-    border-left-width: 0;
-    border-right-width: 8px;
-    left: -8px;
-    right: auto;
-    top: 40px;
-  }
-  ul.timeline timeline-event[side="right"] li timeline-panel:after {
-    border-left-width: 0;
-    border-right-width: 8px;
-    right: auto;
-    left: -7px;
-    top: 41px;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  ul.timeline ux-timeline-event[side="right"] li timeline-badge {
-    left: 15px;
-    margin-left: 0;
-    top: 36px;
-  }
-  ul.timeline ux-timeline-event[side="right"] li timeline-panel {
-    width: ~'calc(100% - 135px)';
-    width: ~'-moz-calc(100% - 135px)';
-    width: ~'-webkit-calc(100% - 135px)';
-  }
-  ul.timeline ux-timeline-event[side="right"] li timeline-panel {
-    float: right;
-  }
-  ul.timeline ux-timeline-event[side="right"] li timeline-panel:before {
-    border-left-width: 0;
-    border-right-width: 8px;
-    left: -8px;
-    right: auto;
-    top: 40px;
-  }
-  ul.timeline ux-timeline-event[side="right"] li timeline-panel:after {
-    border-left-width: 0;
-    border-right-width: 8px;
-    right: auto;
-    left: -7px;
-    top: 41px;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  ul.timeline:before {
-    left: 64px;
-  }
-  ul.timeline li timeline-panel {
-    width: ~'calc(100% - 135px) !important';
-    width: ~'-moz-calc(100% - 135px) !important';
-    width: ~'-webkit-calc(100% - 135px) !important';
-  }
-  ul.timeline li timeline-badge {
-    left: 15px;
-    margin-left: 0;
-    top: 36px;
-  }
-  ul.timeline li timeline-panel {
-    float: right;
-  }
-  ul.timeline li timeline-panel:before {
-    border-left-width: 0;
-    border-right-width: 8px;
-    left: -8px;
-    right: auto;
-    top: 40px;
-  }
-  ul.timeline li timeline-panel:after {
-    border-left-width: 0;
-    border-right-width: 8px;
-    right: auto;
-    left: -7px;
-    top: 41px;
-  }
+  
+  @media only screen and (max-width: 767px) {
+    ul.timeline:before {
+      left: 64px;
+    }
+    ul.timeline li timeline-panel,
+    ul.timeline li > .timeline-panel {
+      width: ~'calc(100% - 135px) !important';
+      width: ~'-moz-calc(100% - 135px) !important';
+      width: ~'-webkit-calc(100% - 135px) !important';
+    }
+    ul.timeline li timeline-badge,
+    ul.timeline li > .timeline-badge {
+      left: 15px;
+      margin-left: 0;
+      top: 36px;
+    }
+    ul.timeline li timeline-panel,
+    ul.timeline li > .timeline-panel {
+      float: right;
+    }
+    ul.timeline li timeline-panel:before,
+    ul.timeline li > .timeline-panel:before {
+      border-left-width: 0;
+      border-right-width: 8px;
+      left: -8px;
+      right: auto;
+      top: 40px;
+    }
+    ul.timeline li timeline-panel:after,
+    ul.timeline li > .timeline-panel:after {
+      border-left-width: 0;
+      border-right-width: 8px;
+      right: auto;
+      left: -7px;
+      top: 41px;
+    }
 }

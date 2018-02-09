@@ -1,24 +1,17 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
     selector: 'ux-timeline',
-    templateUrl: './timeline.component.html',
-    encapsulation: ViewEncapsulation.None
+    templateUrl: './timeline.component.html'
 })
-export class TimelineComponent {
+export class TimelineComponent implements AfterViewInit {
 
-    constructor () {}
+    constructor (
+        private _elementRef: ElementRef,
+        private _renderer: Renderer2,
+    ) {}
 
-    private _events: any[] = [];
-  
-    @Input('events')
-    get events() {
-        if (!this._events) {
-            this._events = [];
-        }
-        return this._events;
-    }
-    set events(value: any[]) {
-        this._events = value;
+    ngAfterViewInit(): void {
+        this._renderer.setAttribute(this._elementRef.nativeElement, 'side', 'right');
     }
 }

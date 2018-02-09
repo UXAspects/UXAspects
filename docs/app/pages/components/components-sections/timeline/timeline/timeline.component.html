@@ -1,8 +1,24 @@
 <div class="row">
     <div class="col-md-10">
         <button class="btn button-primary" (click)="addEvent()">Add New Event</button>
-        <br/><br/><br/>
-        <ux-timeline side="right" [events]="events"></ux-timeline>
+        <ux-timeline>
+            <ux-timeline-event badgeColor="warning" badgeTitle="Mon 29th" title="Testing failed"
+                [timestamp]="convertToDate(2018, 0, 29, 11, 10)"> 
+                <a class="hyperlink" href="#/">Incident details</a><br/><a class="hyperlink" href="#/">Assigned to Dora Lawrence</a>
+            </ux-timeline-event>
+            <ux-timeline-event badgeColor="alternate3" badgeTitle="Fri 26th" title="Incident assigned for testing"
+                [timestamp]="convertToDate(2018, 0, 26, 14, 0)"> 
+                <a class="hyperlink" href="#/">Incident details</a><br/><a class="hyperlink" href="#/">Tested by David Casey</a>
+            </ux-timeline-event>
+            <ux-timeline-event badgeColor="alternate1" badgeTitle="Wed 24th" title="Incident assigned to developer"
+                [timestamp]="convertToDate(2018, 0, 24, 9, 20)"> 
+                <a class="hyperlink" href="#/">Incident details</a><br/><a class="hyperlink" href="#/">Assigned to Jonathan Jacobs</a>
+            </ux-timeline-event>
+            <ux-timeline-event badgeColor="accent" badgeTitle="Mon 22nd" title="Incident recorded"
+                [timestamp]="convertToDate(2018, 0, 22, 13, 45)"> 
+                <a class="hyperlink" href="#/">Incident details</a>
+            </ux-timeline-event>
+        </ux-timeline>
     </div>
 </div>
 
@@ -10,7 +26,7 @@
 
 <p>The <code>ux-timeline</code> component is a responsive, data-driven vertical component to tell a story, show history or describe a sequence of events. Events are created with the <code>ux-timeline-event</code> component, which includes a customizable badge and informational panel.</p>
 
-<p>The following attributes can be used to configure the <code>ux-timeline-event</code> components:</p>
+<p>The following attributes can be used to configure the <code>ux-timeline-event</code> component:</p>
 
 <uxd-api-properties tableTitle="Inputs">
     <tr uxd-api-property name="badgeColor" type="string">
