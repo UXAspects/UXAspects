@@ -30,7 +30,7 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
     @Input() expanded: boolean = false;
     @Input() link: string;
 
-    get active() {
+    get active(): boolean {
         if (this.link) {
             return this._router.isActive(this.link, true);
         }
@@ -55,16 +55,20 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         @Optional()
         @SkipSelf()
         private _parent: NavigationItemComponent,
-        @Optional() private _router: Router
+        private _router: Router
     ) {
         this.level = _parent ? _parent.level + 1 : 1;
 
         this._navigationEnd = _router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {              
-            if (this.link && this._router.isActive(this.link, true)) {
-                this.select();
-            }
-
             this.expanded = this.hasActiveLink(this.link);
+            if (this.expanded) {
+                // Expand ancestors
+                let item = this._parent;
+                while (item) {
+                    item.expanded = true;
+                    item = item._parent;
+                }
+            }   
         });
     }
 
@@ -91,17 +95,6 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
     ngOnDestroy () {
         this._navigationEnd.unsubscribe();
         this._childrenChanges.unsubscribe();
-    }
-
-    select(): void {
-        this.expanded = true;
-
-        // Expand ancestors
-        let item = this._parent;
-        while (item) {
-            item.expanded = true;
-            item = item._parent;
-        }
     }
 
     private hasActiveLink(link: string | UrlTree): boolean {
