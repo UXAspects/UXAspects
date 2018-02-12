@@ -127,8 +127,11 @@
     <tr uxd-api-property name="onCancel" type="void">
         Emits when the 'Cancel' button has been pressed.
     </tr>
+    <tr uxd-api-property name="onFinishing" type="void">
+        Emits when the 'Finish' button is clicked, but before the finish event fires. This fires regardless of the validity of the final step.
+    </tr>
     <tr uxd-api-property name="onFinish" type="void">
-        Emits when the 'Finish' button has been pressed.
+        Emits when the 'Finish' button has been pressed and the final step is valid.
     </tr>
 </uxd-api-properties>
 

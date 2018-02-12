@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const SLIDER_CHART_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => SliderChartComponent),
+    useExisting: forwardRef(() => SliderChartNg1Component),
     multi: true
 };
 
@@ -12,7 +12,7 @@ export const SLIDER_CHART_VALUE_ACCESSOR: any = {
     selector: 'slider-chart',
     providers: [SLIDER_CHART_VALUE_ACCESSOR]
 })
-export class SliderChartComponent extends UpgradeComponent implements ControlValueAccessor {
+export class SliderChartNg1Component extends UpgradeComponent implements ControlValueAccessor {
 
     @Input() sliderOptions: any;
     @Input() ngModel: any;

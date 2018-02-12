@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'expand-input'
 })
-export class ExpandInputComponent extends UpgradeComponent {
+export class ExpandInputNg1Component extends UpgradeComponent {
 
     @Input() elname: string;
     @Input() placeHolder: string;

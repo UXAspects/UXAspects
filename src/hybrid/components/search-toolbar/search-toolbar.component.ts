@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'search-toolbar'
 })
-export class SearchToolbarComponent extends UpgradeComponent {
+export class SearchToolbarNg1Component extends UpgradeComponent {
 
     @Input() searchTypeahead: any[];
     @Input() placeHolder: string;

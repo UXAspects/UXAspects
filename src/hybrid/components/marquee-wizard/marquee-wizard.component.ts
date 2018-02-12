@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'marquee-wizard'
 })
-export class MarqueeWizardComponent extends UpgradeComponent {
+export class MarqueeWizardNg1Component extends UpgradeComponent {
 
     @Input() wizardIcon: string;
     @Input() wizardSteps: MarqueeWizardStep[];

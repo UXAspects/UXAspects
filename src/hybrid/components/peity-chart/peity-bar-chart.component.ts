@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'bar-chart'
 })
-export class PeityBarChartComponent extends UpgradeComponent {
+export class PeityBarChartNg1Component extends UpgradeComponent {
 
     @Input() data: any;
     @Input() options: any;
