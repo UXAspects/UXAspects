@@ -18,6 +18,7 @@ export class ComponentSectionComponent implements OnInit {
     @Input() title: string;
     @Input() componentName: string;
     @Input() version: string;
+    @Input() hybrid: boolean = false;
     @Input() deprecated: boolean = false;
     @Input() externalUrl: string;
     @Input() usage: Usage[];
@@ -26,6 +27,8 @@ export class ComponentSectionComponent implements OnInit {
     
     codepen: ICodePen;
     plunk: IPlunk;
+
+    hybridModuleTs: string = require('!!raw-loader!./snippets/hybrid-module.ts');
     
     constructor(private resolverService: ResolverService) { }
 
