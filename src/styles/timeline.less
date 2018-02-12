@@ -44,25 +44,19 @@ ux-timeline {
 }
 
 .timeline {
-
-  &.hp-timeline-down-arrow {
-    
-    &:after:extend(.hpe-down:before) {
-      font-family: 'hpe-icons';
-      position: absolute;
-      color: @timeline-color;
-      left: 56px;
-      bottom: -9px;
-    }
+  &:after:extend(.hpe-chevron-down:before) {
+    font-family: 'hpe-icons';
+    position: absolute;
+    color: @timeline-color;
+    left: 56px;
+    bottom: -9px;
   }
 }
 
 .body-dark {
   .timeline {
-    &.hp-timeline-down-arrow {
-      &:after {
-        color: @timeline-arrow-color-dark;
-      }
+    &:after {
+      color: @timeline-arrow-color-dark;
     }
   }
 }
@@ -325,16 +319,6 @@ ux-timeline-event {
     ux-timeline[side="right"] > ul.timeline:before {
       left: 64px;
     }
-    timeline[side="alternate"] ul.timeline:before,
-    ux-timeline[side="alternate"] > ul.timeline:before {
-      left: ~'calc(50% + 25px)';
-    }
-    ul.timeline li timeline-panel,
-    ul.timeline li > .timeline-panel {
-      width: ~'calc(100% - 135px)';
-      width: ~'-moz-calc(100% - 135px)';
-      width: ~'-webkit-calc(100% - 135px)';
-    }
   }
   
   @media only screen and (min-width: 768px) {
@@ -347,8 +331,6 @@ ux-timeline-event {
     ul.timeline timeline-event[side="right"] li timeline-panel,
     ul.timeline ux-timeline-event[side="right"] li > .timeline-panel {
       width: ~'calc(100% - 135px)';
-      width: ~'-moz-calc(100% - 135px)';
-      width: ~'-webkit-calc(100% - 135px)';
     }
     ul.timeline timeline-event[side="right"] li timeline-panel,
     ul.timeline ux-timeline-event[side="right"] li > .timeline-panel {
@@ -375,12 +357,6 @@ ux-timeline-event {
   @media only screen and (max-width: 767px) {
     ul.timeline:before {
       left: 64px;
-    }
-    ul.timeline li timeline-panel,
-    ul.timeline li > .timeline-panel {
-      width: ~'calc(100% - 135px) !important';
-      width: ~'-moz-calc(100% - 135px) !important';
-      width: ~'-webkit-calc(100% - 135px) !important';
     }
     ul.timeline li timeline-badge,
     ul.timeline li > .timeline-badge {
