@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class NumberPickerPage {
         
     getPage(): void {
-        browser.get('/number-picker');
+        browser.get('#/number-picker');
     }
     
     root = element(by.id('root'));

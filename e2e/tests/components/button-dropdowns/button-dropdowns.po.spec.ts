@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class ButtonDropdownsPage {
         
     getPage(): void {
-        browser.get('/button-dropdowns');
+        browser.get('#/button-dropdowns');
     }
     
     buttonGroup = element(by.id('buttonGroup'));

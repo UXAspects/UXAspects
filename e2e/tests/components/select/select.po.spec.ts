@@ -8,7 +8,7 @@ export namespace SelectPage {
     export class Page {
             
         getPage(): void {
-            browser.get('select');
+            browser.get('#/select');
         }
         
         dropdown = element(by.id('dropdown'));

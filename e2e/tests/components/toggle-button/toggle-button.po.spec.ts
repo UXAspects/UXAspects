@@ -3,7 +3,7 @@ import { browser, element, by , ElementFinder} from 'protractor';
 export class ToggleButtonPage {
         
     getPage(): void {
-        browser.get('toggle-button');
+        browser.get('#/toggle-button');
     }
     
     button1 = element(by.id('toggle1'));

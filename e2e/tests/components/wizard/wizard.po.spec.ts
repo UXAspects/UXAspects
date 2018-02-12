@@ -9,7 +9,7 @@ export class WizardPage {
     buttons = $$('button');
 
     getPage(): void {
-        browser.get('wizard');
+        browser.get('#/wizard');
     }
 
     async getButtonByText(text: string): Promise<ElementFinder> {
