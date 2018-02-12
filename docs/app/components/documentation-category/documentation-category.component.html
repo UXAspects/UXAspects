@@ -1,5 +1,5 @@
 <div *ngFor="let section of category.sections">
     <uxd-component-section [id]="section.id" [title]="section.title" [componentName]="section.component"
-        [version]="section.version" [deprecated]="section.deprecated" [externalUrl]="section.externalUrl" [usage]="section.usage"
+        [version]="section.version" [hybrid]="section.hybrid" [deprecated]="section.deprecated" [externalUrl]="section.externalUrl" [usage]="section.usage"
         *ngIf="versionService.isSectionVersionMatch(section)"></uxd-component-section>
 </div>

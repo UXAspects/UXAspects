@@ -25,6 +25,7 @@ import { ComponentsFloatingActionButtonNg1Component } from './floating-action-bu
 import { ComponentsToggleButtonsNg1Component } from './toggle-buttons-ng1/toggle-buttons-ng1.component';
 import { ComponentsGroupedButtonsNg1Component } from './grouped-buttons-ng1/grouped-buttons-ng1.component';
 
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
@@ -57,6 +58,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         CommonModule,
+        HybridModule,
         WrappersModule,
         TabsModule,
         DocumentationComponentsModule,
