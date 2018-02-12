@@ -4,7 +4,7 @@ export interface ISection {
     component: string;
     codepen: boolean;
     version: 'AngularJS' | 'Angular';
-    hybrid: boolean;
+    hybrid?: boolean;
     deprecated?: boolean;
     externalUrl?: string;
     usage: [{
