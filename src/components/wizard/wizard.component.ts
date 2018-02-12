@@ -118,7 +118,7 @@ export class WizardComponent implements AfterViewInit {
     /**
      * Perform actions when the finish button is clicked
      */
-    async finish(): Promise<void> {
+    finish(): Promise<void> {
 
         // fires when the finish button is clicked always
         this.onFinishing.next();

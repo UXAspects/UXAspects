@@ -58,18 +58,18 @@ export class MarqueeWizardComponent extends WizardComponent {
      * Emit the onFinishing event and if valid the onFinish event.
      * Also mark the final step as completed if it is valid
      */
-    async finish(): Promise<void> {
+    finish(): Promise<void> {
 
         // get the current step
         const step = this.getCurrentStep() as MarqueeWizardStepComponent;
 
         // call the original finish function
-        await super.finish();
-
-        // if the step is valid indicate that it is now complete
-        if (step.valid) {
-            step.setCompleted(true);
-        }
+        return super.finish().then(() => {
+            // if the step is valid indicate that it is now complete
+            if (step.valid) {
+                step.setCompleted(true);
+            }
+        });
     }
 
     /**
