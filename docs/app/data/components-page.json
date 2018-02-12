@@ -1427,6 +1427,7 @@
                     "title": "Marquee Wizard",
                     "component": "ComponentsMarqueeWizardNg1Component",
                     "version": "AngularJS",
+                    "hybrid": true,
                     "deprecated": true
                 },
                 {
