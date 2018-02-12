@@ -179,11 +179,16 @@ export class InfiniteScrollController {
         this.loading = false;
 
         // cancel any pending requests
-        this._subscriptions.forEach(request => request.unsubscribe());
+        if (this._subscriptions) {
+            this._subscriptions.forEach(request => request.unsubscribe());
+        }
+
         this._subscriptions = [];
 
         // ensure we scroll back to the top of the element
-        this.scrollbarAdapter.scrollTop();
+        if (this.scrollbarAdapter) {
+            this.scrollbarAdapter.scrollTop();
+        }
 
         // reset back to page one
         this.getPage(0);

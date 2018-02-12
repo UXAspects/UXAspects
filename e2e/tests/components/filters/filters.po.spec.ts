@@ -3,7 +3,7 @@ import { browser, element, by , ElementFinder} from 'protractor';
 export class FiltersPage {
         
     getPage(): void {
-        browser.get('filters');
+        browser.get('#/filters');
     }
 
     container = element(by.id('container'));

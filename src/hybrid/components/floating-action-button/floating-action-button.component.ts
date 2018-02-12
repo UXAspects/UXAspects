@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'floating-action-button'
 })
-export class FloatingActionButtonComponent extends UpgradeComponent {
+export class FloatingActionButtonNg1Component extends UpgradeComponent {
 
     @Input() items: FloatingActionButtonItem[] = [];
     @Input() primary: string;

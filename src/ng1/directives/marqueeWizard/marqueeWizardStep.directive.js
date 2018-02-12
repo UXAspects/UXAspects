@@ -7,12 +7,12 @@ export default function marqueeWizardStep($templateRequest, $compile, $rootScope
         replace: true,
         scope: false,
         link: function (scope, element, attr, formCtrl) {
+            
+            const template = $parse(attr.template)(scope);
 
-            var template = $parse(attr.template)(scope);
+            $templateRequest(template).then(result => {
 
-            $templateRequest(template).then(function (result) {
-
-                var target_scope = $rootScope.$new(false, scope);
+                const target_scope = $rootScope.$new(false, scope);
 
                 // make form accesible to the new scope
                 target_scope.form = formCtrl;

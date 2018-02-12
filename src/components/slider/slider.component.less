@@ -121,7 +121,7 @@ ux-slider {
 
     .tick-container {
         position: relative;
-        width: 100%;
+        width: ~'calc(100% - 1px)';
         min-height: 8px;
         margin-top: 3px;
         -moz-user-select: none;
@@ -151,7 +151,6 @@ ux-slider {
 
             .tick-indicator {
                 width: 1px;
-                margin-left: -0.5px;
                 background-color: #999;
                 top: 0;
             }

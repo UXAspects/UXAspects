@@ -13,14 +13,15 @@ System.config({
 
         'app': './src',
 
-        '@angular/core': 'npm:@angular/core@4.4.6/bundles/core.umd.js',
-        '@angular/common': 'npm:@angular/common@4.4.6/bundles/common.umd.js',
-        '@angular/compiler': 'npm:@angular/compiler@4.4.6/bundles/compiler.umd.js',
-        '@angular/platform-browser': 'npm:@angular/platform-browser@4.4.6/bundles/platform-browser.umd.js',
-        '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic@4.4.6/bundles/platform-browser-dynamic.umd.js',
-        '@angular/http': 'npm:@angular/http@4.4.6/bundles/http.umd.js',
-        '@angular/router': 'npm:@angular/router@4.4.6/bundles/router.umd.js',
-        '@angular/forms': 'npm:@angular/forms@4.4.6/bundles/forms.umd.js',
+        '@angular/core': 'npm:@angular/core@5.2.2/bundles/core.umd.js',
+        '@angular/common': 'npm:@angular/common@5.2.2/bundles/common.umd.js',
+        '@angular/compiler': 'npm:@angular/compiler@5.2.2/bundles/compiler.umd.js',
+        '@angular/platform-browser': 'npm:@angular/platform-browser@5.2.2/bundles/platform-browser.umd.js',
+        '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic@5.2.2/bundles/platform-browser-dynamic.umd.js',
+        '@angular/http': 'npm:@angular/http@5.2.2/bundles/http.umd.js',
+        '@angular/router': 'npm:@angular/router@5.2.2/bundles/router.umd.js',
+        '@angular/forms': 'npm:@angular/forms@5.2.2/bundles/forms.umd.js',
+        '@angular/upgrade/static': 'npm:@angular/upgrade@5.2.2/bundles/upgrade-static.umd.js',
 
         'chance': 'npm:chance',
         'rxjs': 'npm:rxjs',

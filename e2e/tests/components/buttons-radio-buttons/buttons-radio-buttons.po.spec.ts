@@ -3,7 +3,7 @@ import { browser, element, by } from 'protractor';
 export class ButtonsRadioButtonsPage {
         
     getPage(): void {
-        browser.get('/buttons-radio-buttons');
+        browser.get('#/buttons-radio-buttons');
     }
     
     buttonPrimaryLeft = element(by.id('buttonPrimaryLeft'));

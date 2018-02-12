@@ -31,7 +31,6 @@ import { FacetLineChartComponent } from './examples/facets/facet-line-chart.comp
 import { FileUploadComponent } from './examples/file-upload/file-upload.component';
 import { FixedHeaderTableComponent } from './examples/tables/fixed-header-table.component';
 import { FlippableCardsComponent } from './examples/flippable-cards/flippable-cards.component';
-import { FloatingActionButtonComponent } from './examples/buttons/floating-action-button.component';
 import { FloatLabelsComponent } from './examples/forms/float-labels.component';
 import { FormValidationFieldByFieldComponent } from './examples/forms/form-validation-by-field.component';
 import { FormValidationOnSubmitComponent } from './examples/forms/form-validation-on-submit.component';
@@ -144,7 +143,6 @@ const WRAPPERS: any[] = [
     FixedHeaderTableComponent,
     FlippableCardsComponent,
     FloatLabelsComponent,
-    FloatingActionButtonComponent,
     FormValidationFieldByFieldComponent,
     FormValidationOnSubmitComponent,
     GridComponent,

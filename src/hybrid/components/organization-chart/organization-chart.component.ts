@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Injector, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
     selector: 'organization-chart'
 })
-export class OrganizationChartComponent extends UpgradeComponent {
+export class OrganizationChartNg1Component extends UpgradeComponent {
 
     @Input() data: any;
     @Input() options: any;

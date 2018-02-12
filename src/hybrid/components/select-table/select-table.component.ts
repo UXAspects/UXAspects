@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Injector, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
     selector: 'select-table'
 })
-export class SelectTableComponent extends UpgradeComponent {
+export class SelectTableNg1Component extends UpgradeComponent {
 
     @Input() values: any[];
     @Input() multipleSelect: boolean;

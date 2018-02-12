@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'sort-direction-toggle'
 })
-export class SortDirectionToggleComponent extends UpgradeComponent {
+export class SortDirectionToggleNg1Component extends UpgradeComponent {
 
     @Input() label: string;
     @Input() sorters: SortDirectionToggleSorter[];

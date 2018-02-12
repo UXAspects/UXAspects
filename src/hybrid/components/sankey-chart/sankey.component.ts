@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/core';
+import { Directive, ElementRef, Injector, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
     selector: 'sankey'
 })
-export class SankeyComponent extends UpgradeComponent {
+export class SankeyNg1Component extends UpgradeComponent {
 
     @Input() chartSize: any;
     @Input() chartData: any;

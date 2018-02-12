@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Injector, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Injector, Input, Output, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
     selector: 'treegrid'
 })
-export class TreeGridComponent extends UpgradeComponent {
+export class TreeGridNg1Component extends UpgradeComponent {
 
     @Input() data: TreeGridData[] | Function;
     @Input() columns: TreeGridColumn[];

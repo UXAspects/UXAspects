@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
   "contributors": [
@@ -61,7 +61,6 @@
     "@types/chart.js": "^2.4.6",
     "@types/jasmine": "^2.5.53",
     "@types/jquery": "^2.0.41",
-    "@types/jquery.validation": "^1.13.33",
     "@types/moment-timezone": "^0.2.34",
     "@types/node": "^7.0.15",
     "@types/prismjs": "^1.6.2",

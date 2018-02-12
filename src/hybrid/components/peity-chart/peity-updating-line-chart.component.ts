@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Injector, SimpleChanges, Input } from '@angular/core';
+import { Directive, ElementRef, Injector, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
     selector: 'updating-line-chart'
 })
-export class PeityUpdatingLineChartComponent extends UpgradeComponent {
+export class PeityUpdatingLineChartNg1Component extends UpgradeComponent {
 
     @Input() data: any;
     @Input() options: any;

@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class StackedTabsTestPageComponent {
         
     getPage(): void {
-        browser.get('/stacked-tabs');
+        browser.get('#/stacked-tabs');
     }
     
     // Icon only (tabs - left)

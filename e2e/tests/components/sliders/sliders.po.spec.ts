@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class SlidersPage {
         
     getPage(): void {
-        browser.get('/sliders');
+        browser.get('#/sliders');
     }
     
     slider1 = element(by.id('slider1'));

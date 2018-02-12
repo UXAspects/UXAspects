@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder, protractor } from 'protractor';
 export class PageHeaderPage {
         
     getPage(): void {
-        browser.get('/page-header');
+        browser.get('#/page-header');
     }
     
     pageHeader = element(by.id('pageHeader1'));

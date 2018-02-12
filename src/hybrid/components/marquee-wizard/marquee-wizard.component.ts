@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'marquee-wizard'
 })
-export class MarqueeWizardComponent extends UpgradeComponent {
+export class MarqueeWizardNg1Component extends UpgradeComponent {
 
     @Input() wizardIcon: string;
     @Input() wizardSteps: MarqueeWizardStep[];
@@ -19,7 +19,7 @@ export class MarqueeWizardComponent extends UpgradeComponent {
     @Output() wizardStepsChange: EventEmitter<MarqueeWizardStep[]> = new EventEmitter<MarqueeWizardStep[]>();
 
     constructor(elementRef: ElementRef, injector: Injector) {
-        super('marquee-wizard', elementRef, injector);
+        super('marqueeWizard', elementRef, injector);
     }
 }
 

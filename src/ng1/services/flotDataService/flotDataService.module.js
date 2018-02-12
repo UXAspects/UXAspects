@@ -1,7 +1,6 @@
 import FlotDataService from './flotData.service.js';
 
 // // load all additional plugins
-import '../../plugins/flot/excanvas.min.js';
 import '../../plugins/flot/jquery.flot.js';
 import '../../plugins/flot/jquery.flot.labelspacing.js';
 import '../../plugins/flot/jquery.flot.pie.js';

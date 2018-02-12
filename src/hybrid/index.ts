@@ -15,6 +15,7 @@ export * from './components/peity-chart/peity-updating-line-chart.component';
 export * from './components/sankey-chart/sankey.component';
 export * from './components/search-toolbar/search-toolbar.component';
 export * from './components/select-table/select-table.component';
+export * from './components/slider-chart/slider-chart.directive';
 export * from './components/social-chart/social-chart.component';
 export * from './components/sort-direction-toggle/sort-direction-toggle.component';
 export * from './components/tree-grid/tree-grid.component';
@@ -24,3 +25,5 @@ export * from './services/navigation-menu/navigation-menu.service';
 export * from './services/notification/notification.service';
 export * from './services/pdf/pdf.service';
 export * from './services/time-ago/time-ago.service';
+
+export * from './hybrid.module';
