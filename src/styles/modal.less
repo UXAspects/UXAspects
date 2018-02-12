@@ -283,31 +283,6 @@
   Marquee Modal
 */
 
-.body-dark {
-  .marquee-modal-window {
-    .modal-dialog {
-      .modal-content {
-        .side-panel {
-
-        }
-        .main-panel {
-          background-color: @marquee-modal-main-panel-bg-dark;
-
-          .marquee-header {
-            .marquee-title {
-              color: @marquee-modal-title-color-dark;
-            }
-          }
-
-          .marquee-footer {
-            background-color: @marquee-modal-footer-bg-dark;
-          }
-        }
-      }
-    }
-  }
-}
-
 .marquee-modal-window {
 
   .modal-dialog {
@@ -435,6 +410,30 @@
           padding: 15px;
         }
       }
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    border: none;
+    border-radius: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 1.125rem;
+    color: #999;
+    outline: none;
+
+    i {
+      position: relative;
+    }
+
+    &:hover {
+      background-color: #222;
     }
   }
 }

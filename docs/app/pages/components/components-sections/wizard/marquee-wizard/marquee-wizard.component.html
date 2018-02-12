@@ -8,7 +8,7 @@
 
             <!-- Add Dismiss Button to Modal -->
             <div class="dismiss">
-                <button class="btn btn-icon button-dark btn-circular btn-close" (click)="close()" type="button">
+                <button class="modal-close" (click)="close()" type="button">
                     <i class="hpe-icon hpe-close"></i>
                 </button>
             </div>
@@ -22,7 +22,7 @@
                 <ux-marquee-wizard-step icon="hpe-icon hpe-soa" header="First step">
                     <h1 class="m-t-nil">Marquee wizard</h1>
             
-                    <div class="row ng-scope">
+                    <div class="row">
                         <div class="col-xs-7">
                             <div class="form-group">
                                 <label class="form-label">Name</label>
@@ -253,11 +253,14 @@
     The following code can be used create the example above:
 </p>
 
-<!-- <tabset>
+<tabset>
     <tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
     </tab>
     <tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
     </tab>
-</tabset> -->
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

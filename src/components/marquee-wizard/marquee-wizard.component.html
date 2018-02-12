@@ -26,7 +26,7 @@
         <ng-content></ng-content>
     </div>
 
-    <div class="marquee-wizard-footer">
+    <div class="modal-footer">
 
         <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body"
             [disabled]="previousDisabled || step === 0" (click)="previous(); tip.hide()">{{ previousText }}</button>

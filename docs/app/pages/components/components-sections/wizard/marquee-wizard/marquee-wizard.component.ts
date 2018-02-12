@@ -1,7 +1,9 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { Validators, FormControl } from '@angular/forms';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-components-marquee-wizard',
@@ -9,7 +11,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
     styleUrls: ['./marquee-wizard.component.less']
 })
 @DocumentationSectionComponent('ComponentsMarqueeWizardComponent')
-export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection {
+export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     error: boolean = false;
     skip: boolean = false;
@@ -17,6 +19,25 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection {
     modalOpen: boolean = false;
     requiredText = new FormControl('', Validators.required);
     
+    plunk: IPlunk = {
+        files: {
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.css': this.snippets.raw.appCss
+        },
+        modules: [
+            {
+                imports: ['ModalModule'],
+                forRoot: true,
+                library: 'ngx-bootstrap/modal'
+            },
+            {
+                imports: ['MarqueeWizardModule', 'CheckboxModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
+    };
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
