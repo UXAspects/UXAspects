@@ -2,21 +2,14 @@
     <div class="col-md-10">
         <button class="btn button-primary" (click)="addEvent()">Add New Event</button>
         <ux-timeline>
-            <ux-timeline-event badgeColor="warning" badgeTitle="Mon 29th" title="Testing failed"
-                [timestamp]="convertToDate(2018, 0, 29, 11, 10)"> 
-                <a class="hyperlink" href="#/">Incident details</a><br/><a class="hyperlink" href="#/">Assigned to Dora Lawrence</a>
-            </ux-timeline-event>
-            <ux-timeline-event badgeColor="alternate3" badgeTitle="Fri 26th" title="Incident assigned for testing"
-                [timestamp]="convertToDate(2018, 0, 26, 14, 0)"> 
-                <a class="hyperlink" href="#/">Incident details</a><br/><a class="hyperlink" href="#/">Tested by David Casey</a>
-            </ux-timeline-event>
-            <ux-timeline-event badgeColor="alternate1" badgeTitle="Wed 24th" title="Incident assigned to developer"
-                [timestamp]="convertToDate(2018, 0, 24, 9, 20)"> 
-                <a class="hyperlink" href="#/">Incident details</a><br/><a class="hyperlink" href="#/">Assigned to Jonathan Jacobs</a>
-            </ux-timeline-event>
-            <ux-timeline-event badgeColor="accent" badgeTitle="Mon 22nd" title="Incident recorded"
-                [timestamp]="convertToDate(2018, 0, 22, 13, 45)"> 
-                <a class="hyperlink" href="#/">Incident details</a>
+            <ux-timeline-event *ngFor="let ticket of tickets" [badgeColor]="ticket.color" [badgeTitle]="ticket.shortDate"
+                [title]="ticket.title" [timestamp]="ticket.date">
+        
+                <p>Ticket
+                    <a [href]="ticket.url">{{ticket.id}}</a>
+                    was {{ticket.status}} {{ticket.assignee}}.
+                </p>
+        
             </ux-timeline-event>
         </ux-timeline>
     </div>
