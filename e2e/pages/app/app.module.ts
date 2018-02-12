@@ -5,157 +5,106 @@ let app = angular.module('app');
 import { NgModule, forwardRef, Component, Injector } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import 'chart.js';
-import { ChartsModule } from 'ng2-charts';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { PopoverModule } from 'ngx-bootstrap/popover';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { UpgradeComponent, UpgradeModule, downgradeComponent } from '@angular/upgrade/static';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { TreeModule } from 'angular-tree-component';
+import { UpgradeModule, downgradeComponent } from '@angular/upgrade/static';
 
 import { AppComponent } from './app.component';
-import { ButtonDropdownsTestPageComponent } from './button-dropdowns/button-dropdowns.testpage.component';
-import { ButtonsRadioButtonsTestPageComponent } from './buttons-radio-buttons/buttons-radio-buttons.testpage.component';
-import { ButtonSizeVariationsTestPageComponent } from './button-size-variations/button-size-variations.testpage.component';
-import { CheckboxTestPageComponent } from './checkbox/checkbox.testpage.component';
-import { CircularIconButtonsTestPageComponent } from './circular-icon-buttons/circular-icon-buttons.testpage.component';
-import { ColoredButtonsTestPageComponent } from './colored-buttons/colored-buttons.testpage.component';
-import { CustomFacetTestPageComponent } from './custom-facet/custom-facet.testpage.component';
-import { DashboardTestPageComponent } from './dashboard/dashboard.testpage.component';
-import { DropdownsTestPageComponent } from './dropdowns/dropdowns.testpage.component';
-import { FacetCheckListTestPageComponent } from './facet-check-list/facet-check-list.testpage.component';
-import { FacetContainerTestPageComponent } from './facet-container/facet-container.testpage.component';
-import { FacetTypeaheadListPageComponent } from './facet-typeahead-list/facet-typeahead-list.testpage.component';
-import { FiltersTestPageComponent } from './filters/filters.testpage.component';
-import { FlippableCardsTestPageComponent } from './flippable-cards/flippable-cards.testpage.component';
-import { FloatingActionButtonsNg1TestPageComponent } from './floating-action-buttons-ng1/floating-action-buttons-ng1.testpage.component';
-import { HyperlinksTestPageComponent } from './hyperlinks/hyperlinks.testpage.component';
-import { InfiniteScrollTestPageComponent } from './infinite-scroll/infinite-scroll.testpage.component';
-import { ItemDisplayPanelTestPageComponent } from './item-display-panel/item-display-panel.testpage.component';
-import { LinkButtonsTestPageComponent } from './link-buttons/link-buttons.testpage.component';
-import { NumberPickerTestPageComponent } from './number-picker/number-picker.testpage.component';
-import { PageHeaderTestPageComponent } from './page-header/page-header.testpage.component';
-import { PaginationTestPageComponent } from './pagination/pagination.testpage.component';
-import { RadioButtonsTestPageComponent } from './radiobuttons/radiobuttons.testpage.component';
-import { SampleCustomFacetComponent } from './custom-facet/facet-component.testpage.component';
-import { SelectTestPageComponent } from './select/select.testpage.component';
-import { SideInsetPanelSplitterNg1TestPageComponent } from './side-inset-panel-splitter-ng1/side-inset-panel-splitter-ng1.testpage.component';
-import { SlidersTestPageComponent } from './sliders/sliders.testpage.component';
-import { SplitButtonDropdownsTestPageComponent } from './split-button-dropdowns/split-button-dropdowns.testpage.component';
-import { StackedTabsNg1TestPageComponent } from './stacked-tabs-ng1/stacked-tabs-ng1.testpage.component';
-import { TabsNg1TestPageComponent } from './tabs-ng1/tabs-ng1.testpage.component';
-import { TagsTestPageComponent } from './tags/tags.testpage.component';
-import { ToggleButtonTestPageComponent } from './toggle-button/toggle-button.testpage.component';
-import { ToggleSwitchesTestPageComponent } from './toggleswitches/toggleswitches.testpage.component';
-import { TreeGridNg1TestPageComponent } from './tree-grid-ng1/tree-grid-ng1.testpage.component';
-import { VirtualScrollTestPageComponent } from './virtual-scroll/virtual-scroll.testpage.component';
-import { WizardTestPageComponent } from './wizard/wizard.testpage.component';
-import {
-  CheckboxModule, ColorServiceModule, DashboardModule, FacetsModule, FilterModule, FlippableCardModule,
-  InfiniteScrollModule, ItemDisplayPanelModule, NumberPickerModule, PageHeaderModule, RadioButtonModule, SelectModule,
-  SliderModule, SparkModule, StringFilterModule, TagInputModule, ToggleSwitchModule, TypeaheadModule,
-  VirtualScrollModule, WizardModule, SearchBuilderModule
-}
-  from '../../../dist';
-  import { FloatingActionButtonComponent } from './floating-action-buttons-ng1/wrapper/floating-action-button-wrapper.directive';
-import { SideInsetPanelSplitterComponent } from './side-inset-panel-splitter-ng1/wrapper/side-inset-panel-splitter-wrapper.directive';
-import { StackedTabsComponent } from './stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
 import { TabsComponent } from './tabs-ng1/wrapper/tabs-wrapper.directive';
-import { TreeGridComponent } from './tree-grid-ng1/wrapper/tree-grid-wrapper.directive';
-import { SearchBuilderTestPageComponent } from './search-builder/search-builder.testpage.component';
-
-// import scripts that require upgrade
-
+import { TabsNg1TestPageComponent } from './tabs-ng1/tabs-ng1.testpage.component';
+import { StackedTabsNg1TestPageComponent } from './stacked-tabs-ng1/stacked-tabs-ng1.testpage.component';
+import { StackedTabsComponent } from './stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
+import { SideInsetPanelSplitterNg1TestPageComponent } from './side-inset-panel-splitter-ng1/side-inset-panel-splitter-ng1.testpage.component';
+import { SideInsetPanelSplitterComponent } from './side-inset-panel-splitter-ng1/wrapper/side-inset-panel-splitter-wrapper.directive';
+import { FloatingActionButtonsNg1TestPageComponent } from './floating-action-buttons-ng1/floating-action-buttons-ng1.testpage.component';
+import { FloatingActionButtonComponent } from './floating-action-buttons-ng1/wrapper/floating-action-button-wrapper.directive';
 
 const ROUTES: Routes = [
   {
     path: 'button-dropdowns',
-    component: ButtonDropdownsTestPageComponent
+    loadChildren: './button-dropdowns/button-dropdowns.module#ButtonDropdownsTestPageModule'
   }, {
     path: 'button-size-variations',
-    component: ButtonSizeVariationsTestPageComponent
+    loadChildren: './button-size-variations/button-size-variation.module#ButtonSizeVariationsTestPageModule'
   }, {
     path: 'buttons-radio-buttons',
-    component: ButtonsRadioButtonsTestPageComponent
+    loadChildren: './buttons-radio-buttons/buttons-radio-buttons.module#ButtonsRadioButtonsTestPageModule'
   }, {
     path: 'checkboxes',
-    component: CheckboxTestPageComponent
+    loadChildren: './checkbox/checkbox.module#CheckboxTestPageModule'
   }, {
     path: 'circular-icon-buttons',
-    component: CircularIconButtonsTestPageComponent
+    loadChildren: './circular-icon-buttons/circular-icon-buttons.module#CircularIconButtonsTestPageModule'
   }, {
     path: 'custom-facet',
-    component: CustomFacetTestPageComponent
+    loadChildren: './custom-facet/custom-facet.module#CustomFacetTestPageModule'
   }, {
     path: 'colored-buttons',
-    component: ColoredButtonsTestPageComponent
+    loadChildren: './colored-buttons/colored-buttons.module#ColoredButtonsTestPageModule'
   }, {
     path: 'dashboard',
-    component: DashboardTestPageComponent
+    loadChildren: './dashboard/dashboard.module#DashboardTestPageModule'
   }, {
     path: 'dropdowns',
-    component: DropdownsTestPageComponent
+    loadChildren: './dropdowns/dropdowns.module#DropdownsTestPageModule'
   }, {
     path: 'facet-check-list',
-    component: FacetCheckListTestPageComponent
+    loadChildren: './facet-check-list/facet-check-list.module#FacetCheckListTestPageModule'
   }, {
     path: 'facet-container',
-    component: FacetContainerTestPageComponent
+    loadChildren: './facet-container/facet-container.module#FacetContainerTestPageModule'
   }, {
     path: 'facet-typeahead-list',
-    component: FacetTypeaheadListPageComponent
+    loadChildren: './facet-typeahead-list/facet-typeahead-list.module#FacetTypeaheadListPageModule'
   }, {
     path: 'filters',
-    component: FiltersTestPageComponent
+    loadChildren: './filters/filters.module#FiltersTestPageModule'
   }, {
     path: 'flippable-cards',
-    component: FlippableCardsTestPageComponent
+    loadChildren: './flippable-cards/flippable-cards.module#FlippableCardsTestPageModule'
   }, {
     path: 'floating-action-buttons',
     component: FloatingActionButtonsNg1TestPageComponent
   }, {
     path: 'hyperlinks',
-    component: HyperlinksTestPageComponent
+    loadChildren: './hyperlinks/hyperlinks.module#HyperlinksTestPageModule'
   }, {
     path: 'infinite-scroll',
-    component: InfiniteScrollTestPageComponent
+    loadChildren: './infinite-scroll/infinite-scroll.module#InfiniteScrollTestPageModule'
   }, {
     path: 'item-display-panel',
-    component: ItemDisplayPanelTestPageComponent
+    loadChildren: './item-display-panel/item-display-panel.module#ItemDisplayPanelTestPageModule'
   }, {
     path: 'link-buttons',
-    component: LinkButtonsTestPageComponent
+    loadChildren: './link-buttons/link-buttons.module#LinkButtonsTestPageModule'
+  }, {
+    path: 'marquee-wizard',
+    loadChildren: './marquee-wizard/marquee-wizard.module#MarqueeWizardTestPageModule'
   }, {
     path: 'number-picker',
-    component: NumberPickerTestPageComponent
+    loadChildren: './number-picker/number-picker.module#NumberPickerTestPageModule'
   }, {
     path: 'page-header',
-    component: PageHeaderTestPageComponent
+    loadChildren: './page-header/page-header.module#PageHeaderTestPageModule'
   }, {
     path: 'pagination',
-    component: PaginationTestPageComponent
+    loadChildren: './pagination/pagination.module#PaginationTestPageModule'
   }, {
     path: 'radiobuttons',
-    component: RadioButtonsTestPageComponent
+    loadChildren: './radiobuttons/radiobuttons.module#RadioButtonsTestPageModule'
   }, {
     path: 'search-builder',
-    component: SearchBuilderTestPageComponent
+    loadChildren: './search-builder/search-builder.module#SearchBuilderTestPageModule'
   }, {
     path: 'select',
-    component: SelectTestPageComponent
+    loadChildren: './select/select.module#SelectTestPageModule'
   }, {
     path: 'side-inset-panel-splitter',
     component: SideInsetPanelSplitterNg1TestPageComponent
   }, {
     path: 'sliders',
-    component: SlidersTestPageComponent
+    loadChildren: './sliders/sliders.module#SlidersTestPageModule'
   }, {
     path: 'split-button-dropdowns',
-    component: SplitButtonDropdownsTestPageComponent
+    loadChildren: './split-button-dropdowns/split-button-dropdowns.module#SplitButtonDropdownsTestPageModule'
   }, {
     path: 'stacked-tabs',
     component: StackedTabsNg1TestPageComponent
@@ -164,106 +113,41 @@ const ROUTES: Routes = [
     component: TabsNg1TestPageComponent
   }, {
     path: 'tags',
-    component: TagsTestPageComponent
+    loadChildren: './tags/tags.module#TagsTestPageModule'
   }, {
     path: 'toggle-button',
-    component: ToggleButtonTestPageComponent
+    loadChildren: './toggle-button/toggle-button.module#ToggleButtonTestPageModule'
   }, {
     path: 'toggleswitches',
-    component: ToggleSwitchesTestPageComponent
+    loadChildren: './toggleswitches/toggleswitches.module#ToggleSwitchesTestPageModule'
   }, {
     path: 'tree-grid',
-    component: TreeGridNg1TestPageComponent
+    loadChildren: './tree-grid-ng1/tree-grid-ng1.module#TreeGridNg1TestPageModule'
   }, {
     path: 'virtual-scroll',
-    component: VirtualScrollTestPageComponent
+    loadChildren: './virtual-scroll/virtual-scroll.module#VirtualScrollTestPageModule'
   }, {
     path: 'wizard',
-    component: WizardTestPageComponent
+    loadChildren: './wizard/wizard.module#WizardTestPageModule'
   }
 ];
 
 @NgModule({
   imports: [
-    AccordionModule.forRoot(),
     BrowserModule,
-    BsDropdownModule.forRoot(),
-    ButtonsModule.forRoot(),
-    FormsModule,
-    ChartsModule,
-    CheckboxModule,
-    ColorServiceModule,
-    DashboardModule,
-    FacetsModule,
-    FilterModule,
-    FlippableCardModule,
-    InfiniteScrollModule,
-    ItemDisplayPanelModule,
-    NumberPickerModule,
-    PageHeaderModule,
-    PaginationModule.forRoot(),
-    PopoverModule.forRoot(),
-    RadioButtonModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(ROUTES, { initialNavigation: false }),
-    SearchBuilderModule,
-    SelectModule,
-    SliderModule,
-    SparkModule,
-    StringFilterModule,
-    TabsModule.forRoot(),
-    TagInputModule,
-    ToggleSwitchModule,
-    TypeaheadModule,
-    UpgradeModule,
-    VirtualScrollModule,
-    WizardModule
+    RouterModule.forRoot(ROUTES, { initialNavigation: false, useHash: true }),
+    UpgradeModule
   ],
   declarations: [
     AppComponent,
-    ButtonDropdownsTestPageComponent,
-    ButtonsRadioButtonsTestPageComponent,
-    ButtonSizeVariationsTestPageComponent,
-    CheckboxTestPageComponent,
-    CircularIconButtonsTestPageComponent,
-    ColoredButtonsTestPageComponent,
-    CustomFacetTestPageComponent,
-    DashboardTestPageComponent,
-    DropdownsTestPageComponent,
-    FacetCheckListTestPageComponent,
-    FacetContainerTestPageComponent,
-    FacetTypeaheadListPageComponent,
-    FiltersTestPageComponent,
-    FlippableCardsTestPageComponent,
-    FloatingActionButtonsNg1TestPageComponent,
-    HyperlinksTestPageComponent,
-    InfiniteScrollTestPageComponent,
-    ItemDisplayPanelTestPageComponent,
-    LinkButtonsTestPageComponent,
-    NumberPickerTestPageComponent,
-    PageHeaderTestPageComponent,
-    PaginationTestPageComponent,
-    RadioButtonsTestPageComponent,
-    SampleCustomFacetComponent,
-    SearchBuilderTestPageComponent,
-    SelectTestPageComponent,
-    SideInsetPanelSplitterNg1TestPageComponent,
-    SlidersTestPageComponent,
-    SplitButtonDropdownsTestPageComponent,
+    TabsComponent,
     TabsNg1TestPageComponent,
     StackedTabsNg1TestPageComponent,
-    TagsTestPageComponent,
-    ToggleButtonTestPageComponent,
-    ToggleSwitchesTestPageComponent,
-    TreeGridNg1TestPageComponent,
-    VirtualScrollTestPageComponent,
-    WizardTestPageComponent,
-
-    FloatingActionButtonComponent,
-    SideInsetPanelSplitterComponent,
     StackedTabsComponent,
-    TabsComponent,
-    TreeGridComponent
+    SideInsetPanelSplitterNg1TestPageComponent,
+    SideInsetPanelSplitterComponent,
+    FloatingActionButtonsNg1TestPageComponent,
+    FloatingActionButtonComponent
   ],
   providers: [
     {

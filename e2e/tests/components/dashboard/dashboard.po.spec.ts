@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class DashboardPage {
         
     getPage(): void {
-        browser.get('/dashboard');
+        browser.get('#/dashboard');
     }
     
     container = element(by.id('dashboardWidgetContainer'));
