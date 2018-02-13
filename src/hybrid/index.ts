@@ -26,4 +26,11 @@ export * from './services/notification/notification.service';
 export * from './services/pdf/pdf.service';
 export * from './services/time-ago/time-ago.service';
 
+/**
+ * Export Interfaces
+ */
+export { NotificationOptions } from './services/notification/notification.interface';
+export { PdfOptions, PdfColumns, PdfDocument } from './services/pdf/pdf.interface';
+export { TimeAgoLocalizedTimes } from './services/time-ago/time-ago.interface';
+
 export * from './hybrid.module';
