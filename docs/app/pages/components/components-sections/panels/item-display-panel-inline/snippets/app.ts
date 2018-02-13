@@ -3,8 +3,8 @@ import { ItemDisplayPanelComponent } from '@ux-aspects/ux-aspects';
 import 'chance';
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html',
-    styleUrls: ['./src/app.component.css'],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
     host: {
         '(window:keydown.arrowup)': 'upArrow($event)',
         '(window:keydown.arrowdown)': 'downArrow($event)'
