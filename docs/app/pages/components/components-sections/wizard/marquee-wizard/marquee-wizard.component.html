@@ -108,18 +108,39 @@
 
 <hr>
 
-<p>The Marquee Wizard is designed for cases where a more complex wizard is needed, such as for infrequent configuration of detailed system settings which may take some time and focus by the user. It provides a modal wizard which allows for greater screen space for the form content in each step, and a larger number of steps. Steps in the marquee wizard can be displayed, hidden, or disabled conditionally dependent on settings on previous steps. The left hand panel can include an optional text string for user help (such as an introduction or description of pre-requisites). Icons can also be displayed next to each step title if required, and a wizard title and icon can also be added.</p>
+<p>
+    The Marquee Wizard is designed for cases where a more complex wizard is needed, such as for infrequent configuration of detailed
+    system settings which may take some time and focus by the user. It provides a modal wizard which allows for greater screen
+    space for the form content in each step, and a larger number of steps. Steps in the marquee wizard can be displayed,
+    hidden, or disabled conditionally dependent on settings on previous steps. The left hand panel can include an optional
+    text string for user help (such as an introduction or description of pre-requisites). Icons can also be displayed next
+    to each step title if required, and a wizard title and icon can also be added.
+</p>
 
 <p>Some good practices for the use of wizards include:</p>
 
 <ul>
-<li>Steps should be ordered logically to aid understanding, especially for less experienced users, with higher level or general settings appearing earlier in the sequence.</li>
-<li>Steps should be as self-sufficient as possible, containing related and connected items.</li>
-<li>The step title (which can be more descriptive) and label (typically 1-3 words) can be used to help summarize the purpose of each step, to help the user understand their progress.</li>
-<li>Where possible, allow the user to exit a wizard part way through and retain their settings, to resume or edit existing progress at a later date.</li>
+    <li>
+        Steps should be ordered logically to aid understanding, especially for less experienced users, with higher level or general
+        settings appearing earlier in the sequence.
+    </li>
+    <li>
+        Steps should be as self-sufficient as possible, containing related and connected items.
+    </li>
+    <li>
+        The step title (which can be more descriptive) and label (typically 1-3 words) can be used to help summarize the purpose
+        of each step, to help the user understand their progress.
+    </li>
+    <li>
+        Where possible, allow the user to exit a wizard part way through and retain their settings, to resume or edit existing
+        progress at a later date.
+    </li>
 </ul>
 
-<p>The example on this page shows how to launch the Marquee Wizard inside a modal. The following code shows a component which launches a Marquee Wizard modal; note that the <code>marquee-modal-window</code> class is applied to the modal to ensure appropriate styling.</p>
+<p>
+    The example on this page shows how to launch the Marquee Wizard inside a modal. The following code shows a component which
+    launches a Marquee Wizard modal; note that the <code>marquee-modal-window</code> class is applied to the modal to ensure appropriate styling.
+</p>
 
 <p>The following attributes can be used to customize the <code>ux-marquee-wizard</code> component:</p>
 
