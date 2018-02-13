@@ -45,16 +45,6 @@ export class MarqueeWizardComponent extends WizardComponent {
     }
 
     /**
-     * Only go to the previous step if
-     * the current step is valid
-     */
-    previous(): void {
-        if (this.getCurrentStep().valid) {
-            super.previous();
-        }
-    }
-
-    /**
      * Emit the onFinishing event and if valid the onFinish event.
      * Also mark the final step as completed if it is valid
      */
