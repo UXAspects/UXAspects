@@ -63,21 +63,6 @@ export class MarqueeWizardComponent extends WizardComponent {
     }
 
     /**
-     * If the current step is valid, allow navigation to another step
-     * @param target The step to navigate to
-     */
-    gotoStep(target: MarqueeWizardStepComponent): void {
-
-        // get the current step
-        const step = this.getCurrentStep() as MarqueeWizardStepComponent;
-
-        // only allow navigating if the current step is valid
-        if (step.valid) {
-            super.gotoStep(target);
-        }
-    }
-
-    /**
      * If a step in the wizard becomes invalid, all steps sequentially after
      * it, should become unvisited and incomplete
      */
