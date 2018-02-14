@@ -60,15 +60,8 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         this.level = _parent ? _parent.level + 1 : 1;
 
         this._navigationEnd = _router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {              
-            this.expanded = this.hasActiveLink(this.link);
-            if (this.expanded) {
-                // Expand ancestors
-                let item = this._parent;
-                while (item) {
-                    item.expanded = true;
-                    item = item._parent;
-                }
-            }   
+            // Set 'expanded' if link is active. If expanded, will set 'expanded' on ancestors.
+            this.hasActiveLink(this.link);
         });
     }
 
@@ -97,12 +90,17 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         this._childrenChanges.unsubscribe();
     }
 
-    private hasActiveLink(link: string | UrlTree): boolean {
+    private hasActiveLink(link: string | UrlTree): void {
         if (link) {
-            return this._router.isActive(link, true) || (this._parent && this._parent.hasActiveLink(link));
+            this.expanded = this._router.isActive(link, true);            
+            if (this.expanded && this._parent) {
+                this._parent.hasActiveLink(link);
+            }
+
+            return;
         }
 
-        return false;
+        this.expanded = false;
     }
 
     private getLevelClass(): string {
