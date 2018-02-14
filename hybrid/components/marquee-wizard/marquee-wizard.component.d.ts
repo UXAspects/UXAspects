@@ -1,6 +1,6 @@
 import { ElementRef, Injector, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class MarqueeWizardComponent extends UpgradeComponent {
+export declare class MarqueeWizardNg1Component extends UpgradeComponent {
     wizardIcon: string;
     wizardSteps: MarqueeWizardStep[];
     buttonOptions: MarqueeWizardOptions;
