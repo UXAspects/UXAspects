@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'grid'
 })
-export class GridComponent extends UpgradeComponent {
+export class GridNg1Component extends UpgradeComponent {
 
     @Input() source: any[] = [];
     @Input() columns: GridColumn[] = [];

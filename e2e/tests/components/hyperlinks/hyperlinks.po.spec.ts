@@ -3,7 +3,7 @@ import { browser, element, by } from 'protractor';
 export class HyperlinksPage {
         
     getPage(): void {
-        browser.get('/hyperlinks');
+        browser.get('#/hyperlinks');
     }
     
     textLink = element(by.id('textLink'));

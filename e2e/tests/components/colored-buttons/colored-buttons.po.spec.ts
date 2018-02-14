@@ -3,7 +3,7 @@ import { browser, element, by } from 'protractor';
 export class ColoredButtonsPage {
         
     getPage(): void {
-        browser.get('/colored-buttons');
+        browser.get('#/colored-buttons');
     }
     
     buttonPrimary = element(by.id('buttonPrimary'));

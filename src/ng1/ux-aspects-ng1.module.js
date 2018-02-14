@@ -16,8 +16,6 @@ import './external/ng-tags-input/ng-tags-input.js';
 import './external/sigma/_module.js';
 import './external/sigma/sigma.directive.js';
 import './external/ui-bootstrap/ui-bootstrap-tpls.js';
-import './plugins/bootstrap-datepicker/bootstrap-datepicker.js';
-import './plugins/jquery-validation/jquery-validation.js';
 
 // import UX Aspects directives
 import './directives/affixElement/affixElement.module.js';
@@ -33,7 +31,6 @@ import './directives/dateTimePicker/dateTimePicker.module.js';
 import './directives/displayPanels/displayPanels.module.js';
 import './directives/draggableCards/draggableCards.module.js';
 import './directives/draggablePanels/draggablePanels.module.js';
-import './directives/dropzone/dropzone.module.js';
 import './directives/dynamicSelect/dynamicSelect.module.js';
 import './directives/elementReady/elementReady.module.js';
 import './directives/expandingTextarea/expandingTextarea.module.js';
@@ -158,7 +155,6 @@ let aspects = angular.module('ux-aspects', [
     'ux-aspects.displayPanels',
     'ux-aspects.draggableCards',
     'ux-aspects.draggablePanels',
-    'ux-aspects.dropZone',
     'ux-aspects.dynamicSelect',
     'ux-aspects.elementReady',
     'ux-aspects.expandingTextarea',

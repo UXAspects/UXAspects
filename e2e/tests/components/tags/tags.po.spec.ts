@@ -3,7 +3,7 @@ import { browser, element, by, Key, ElementFinder, protractor } from 'protractor
 export class TagsPage {
     
     getPage(): void {
-        browser.get('/tags');
+        browser.get('#/tags');
     }
     
     tagsInput = element(by.id('tagsInput'));

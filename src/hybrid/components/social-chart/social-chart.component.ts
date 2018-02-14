@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'social-chart'
 })
-export class SocialChartComponent extends UpgradeComponent {
+export class SocialChartNg1Component extends UpgradeComponent {
 
     @Input() data: any;
     @Input() options: any;

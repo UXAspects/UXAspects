@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'thumbnail'
 })
-export class ThumbnailComponent extends UpgradeComponent {
+export class ThumbnailNg1Component extends UpgradeComponent {
 
     @Input() url: string;
     @Input() show: boolean;

@@ -12,8 +12,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class CssFormValidationOnSubmitComponent extends BaseDocumentationSection implements ICodePenProvider {
 
     codepen: ICodePen = {
-        html: this.snippets.raw.sampleHtml,
-        js: [this.snippets.raw.sampleJs]
+        html: this.snippets.raw.sampleHtml
     };
 
     constructor() {

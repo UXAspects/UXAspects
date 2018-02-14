@@ -12,14 +12,28 @@
             <uxd-usage-link *ngIf="usage" [usage]="usage"></uxd-usage-link>
 
             <!-- Show the Angular Version -->
-            <span class="label label-primary uxd-component-section-labels" *ngIf="version === 'AngularJS'">AngularJS</span>
-            <span class="label label-accent uxd-component-section-labels" *ngIf="version === 'Angular'">Angular</span>
+            <span *ngIf="version === 'AngularJS'" class="label label-primary uxd-component-section-labels">AngularJS</span>
+            <span *ngIf="version === 'Angular'" class="label label-accent uxd-component-section-labels">Angular</span>
+
+            <a *ngIf="hybrid" href="javascript:void(0)" class="label label-accent uxd-component-section-labels"
+                [popover]="hybridHelpContent" container="body" placement="bottom" [outsideClick]="true"
+                containerClass="uxd-component-section-help-popover">
+                Angular Compatible
+            </a>
 
             <!-- Identify as External plugin -->
-            <a class="label label-warning uxd-component-section-labels" tooltip="This component is from a third party library and not included in the UX Aspects component library." container="body" *ngIf="externalUrl" [href]="externalUrl" target="_blank">External</a>
+            <a *ngIf="externalUrl" role="button" class="label label-warning uxd-component-section-labels"
+                tooltip="This component is from a third party library and not included in the UX Aspects component library."
+                container="body" placement="bottom" [href]="externalUrl" target="_blank">
+                External
+            </a>
 
             <!-- Show Deprecated label if required -->
-            <span class="label label-critical uxd-component-section-labels" tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects." container="body" *ngIf="deprecated">Deprecated</span>
+            <span *ngIf="deprecated" class="label label-critical uxd-component-section-labels"
+                tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+                container="body" placement="bottom">
+                Deprecated
+            </span>
         </div>
 
     </ux-ebox-header>
@@ -28,3 +42,28 @@
         <div #container></div>
     </ux-ebox-content>
 </ux-ebox>
+
+<ng-template #hybridHelpContent>
+    <p>
+        To use this AngularJS component in an Angular application, import <code>HybridModule</code> into the module
+        where it will be used.
+    </p>
+
+    <uxd-snippet [code]="hybridModuleTs" language="javascript"></uxd-snippet>
+
+    <p>
+        The component name remains the same; however, the following should be considered when using this component
+        in an Angular template:
+    </p>
+
+    <ul>
+        <li>
+            Property names use camel case, so a property named <code>on-next</code> becomes <code>onNext</code>.
+        </li>
+        <li>
+            Angular binding syntax must be used, so a property with variable or function binding named <code>valid</code>
+            would be written as <code>[valid]</code> for one-way binding, or <code>[(valid)]</code> for two-way binding
+            (if supported).
+        </li>
+    </ul>
+</ng-template>

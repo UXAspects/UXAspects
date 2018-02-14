@@ -30,14 +30,7 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.ts$/,
-                use: [{
-                        loader: '@angular-devkit/build-optimizer/webpack-loader',
-                        options: {
-                            sourceMap: false
-                        }
-                    },
-                    '@ngtools/webpack'
-                ]
+                use: '@ngtools/webpack'
             },
 
             {
@@ -123,7 +116,6 @@ module.exports = {
                 warnings: false,
                 ie8: false,
                 compress: true,
-
             }
         }),
 

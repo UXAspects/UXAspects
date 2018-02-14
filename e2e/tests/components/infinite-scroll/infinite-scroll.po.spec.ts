@@ -3,7 +3,7 @@ import { browser, element, by , ElementFinder} from 'protractor';
 export class InfiniteScrollPage {
         
     getPage(): void {
-        browser.get('infinite-scroll');
+        browser.get('#/infinite-scroll');
     }
 
     filter = element(by.id('filter'));

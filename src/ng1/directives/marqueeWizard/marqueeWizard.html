@@ -1,5 +1,5 @@
 <div class="dismiss">
-  <button class="btn btn-icon button-dark btn-circular btn-close" ng-click="mc.cancel()"><i class="hpe-icon hpe-close"></i></button>
+  <button class="btn btn-icon button-dark btn-circular btn-close" ng-click="mc.cancel()" type="button"><i class="hpe-icon hpe-close"></i></button>
 </div>
 
 <div class="side-panel">
@@ -8,7 +8,7 @@
     <img ng-if="mc.icon" ng-src="{{mc.icon}}" alt="Marquee wizard icon"/>
   </div>
 
-  <div class="marquee-wizard-info-panel" ng-if="mc.sidePanelInfo">
+  <div class="marquee-wizard-info-panel" ng-if="mc.sideInfo">
     <h3 class="title" ng-if="mc.sidePanelTitle" ng-bind="mc.sidePanelTitle" single-line-overflow-tooltip></h3>
     <div class="description" ng-if="mc.sidePanelDescription" >
       <p ng-bind="mc.sidePanelDescription" overflow-tooltip></p>
@@ -16,7 +16,7 @@
   </div>
 
   <ul class="marquee-wizard-steps">
-    <li class="marquee-wizard-step" ng-repeat="step in wizardSteps"
+    <li class="marquee-wizard-step" ng-repeat="step in mc.wizardSteps"
                                     ng-class="{ 'active': mc.currentStep.title === step.title, 'visited': step.visited, 'error': step.error }"
                                     ng-click="mc.goToStep($index)"
                                     ng-if="!step.hidden">
@@ -40,7 +40,7 @@
   </div>
 
   <div class="marquee-body marquee-wizard-modal">
-    <div ng-repeat="step in mc.steps" ng-if="$index === mc.stepIndex">
+    <div ng-repeat="step in mc.wizardSteps" ng-if="$index === mc.stepIndex">
       <marquee-wizard-step template="step.templateUrl"></marquee-wizard-step>
     </div>
   </div>

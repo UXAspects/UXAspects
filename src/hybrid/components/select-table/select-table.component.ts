@@ -4,7 +4,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 @Directive({
     selector: 'select-table'
 })
-export class SelectTableComponent extends UpgradeComponent {
+export class SelectTableNg1Component extends UpgradeComponent {
 
     @Input() values: any[];
     @Input() multipleSelect: boolean;

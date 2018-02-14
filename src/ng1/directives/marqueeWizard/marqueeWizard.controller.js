@@ -1,109 +1,100 @@
-MarqueeWizardCtrl.$inject = ['$scope'];
+export default class MarqueeWizardCtrl {
 
-export default function MarqueeWizardCtrl($scope) {
-  var vm = this;
+  constructor($scope, $timeout) {
 
-  vm.icon = $scope.wizardIcon;
+    //watch for changes to the button options
+    $scope.$watch('buttonOptions', (nv, ov) => {
+      if (!angular.equals(nv, ov)) {
+        this.updateButtonOptions();
+      }
+    }, true);
 
-  //get all the steps available
-  vm.steps = $scope.wizardSteps;
-
-  //initially set the completed state to false for each step
-  processSteps();
-
-  //select the first step initially
-  vm.stepIndex = 0;
-  vm.currentStep = vm.steps[vm.stepIndex];
-  vm.currentStep.visited = true;
-  vm.currentStep.error = false;
-
-  //side info
-  vm.sidePanelInfo = $scope.sideInfo || null;
-
-  if (vm.sidePanelInfo !== null) {
-    vm.sidePanelTitle = vm.sidePanelInfo.title || null;
-    vm.sidePanelDescription = vm.sidePanelInfo.description || null;
+    // Delay initial setup until we have all the required values
+    $timeout(() => this.initialise());
   }
 
-  //process the button options
-  updateButtonOptions();
+  initialise() {
+    //initially set the completed state to false for each step
+    this.processSteps();
 
-  //determine which buttons to show
-  updateButtonVisibility();
+    //select the first step initially
+    this.stepIndex = 0;
+    this.currentStep = this.wizardSteps[this.stepIndex];
+    this.currentStep.visited = true;
+    this.currentStep.error = false;
 
-  //watch for changes to the button options
-  $scope.$watch('buttonOptions', function (nv, ov) {
-    if (!angular.equals(nv, ov)) {
-      updateButtonOptions();
-    }
-  }, true);
+    //side info
+    this.sidePanelTitle = this.sideInfo ? this.sideInfo.title : null;
+    this.sidePanelDescription = this.sideInfo ? this.sideInfo.description : null;
 
-  /*
-    Public Functions
-  */
+    //process the button options
+    this.updateButtonOptions();
+
+    //determine which buttons to show
+    this.updateButtonVisibility();
+  }
 
   //allow the user to go to the next step
-  vm.goNext = function () {
-    
-    //check if we are on the last page
-    if (vm.stepIndex === vm.steps.length - 1) return;
-    
-    //if on change function specified call it and await its response
-    if (typeof $scope.onChanging === 'function') {
+  goNext() {
 
-      var response = $scope.onChanging(vm.stepIndex, vm.stepIndex + 1);
+    //check if we are on the last page
+    if (this.stepIndex === this.wizardSteps.length - 1) return;
+
+    //if on change function specified call it and await its response
+    if (typeof this.onChanging === 'function') {
+
+      const response = this.onChanging(this.stepIndex, this.stepIndex + 1);
 
       //dont go to the next page if the response is false
       if (response === false) {
-        vm.currentStep.error = true;
+        this.currentStep.error = true;
         return;
       }
 
       //check if the next step is visible
-      while (vm.stepIndex !== vm.steps.length -1) {
-        if (vm.steps[vm.stepIndex + 1].hidden === true) {
-          vm.stepIndex += 1;
+      while (this.stepIndex !== this.wizardSteps.length - 1) {
+        if (this.wizardSteps[this.stepIndex + 1].hidden === true) {
+          this.stepIndex += 1;
         } else {
           break;
         }
       }
 
-      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length && !vm.steps[response].hidden) {
-        vm.stepIndex = response;
+      if (angular.isNumber(response) && response >= 0 && response < this.wizardSteps.length && !this.wizardSteps[response].hidden) {
+        this.stepIndex = response;
+      } else {
+        this.stepIndex++;
       }
-      else {
-        vm.stepIndex++;
-      }
-      vm.currentStep.error = false;
+      this.currentStep.error = false;
     }
 
     //mark page as completed and visited
-    vm.currentStep.completed = true;
+    this.currentStep.completed = true;
 
     //move to the next page
-    vm.currentStep = vm.steps[vm.stepIndex];
+    this.currentStep = this.wizardSteps[this.stepIndex];
 
     //mark the new step as visited
-    vm.currentStep.visited = true;
+    this.currentStep.visited = true;
 
     //determine which buttons to show
-    updateButtonVisibility();
-  };
+    this.updateButtonVisibility();
+  }
 
   //allow the user to go to the previous step
-  vm.goPrevious = function () {
+  goPrevious() {
 
     //check if we are on the first page
-    if (vm.stepIndex === 0) return;
+    if (this.stepIndex === 0) return;
 
     //if on change function specified call it and await its response
-    if (typeof $scope.onChanging === 'function') {
-      var response = $scope.onChanging(vm.stepIndex, vm.stepIndex - 1);
+    if (typeof this.onChanging === 'function') {
+      const response = this.onChanging(this.stepIndex, this.stepIndex - 1);
 
       //check if the next step is visible
-      while (vm.stepIndex !== 0) {
-        if (vm.steps[vm.stepIndex - 1].hidden === true) {
-          vm.stepIndex -= 1;
+      while (this.stepIndex !== 0) {
+        if (this.wizardSteps[this.stepIndex - 1].hidden === true) {
+          this.stepIndex -= 1;
         } else {
           break;
         }
@@ -113,63 +104,62 @@ export default function MarqueeWizardCtrl($scope) {
       if (response === false) {
         return;
       }
-      if (angular.isNumber(response) && response >= 0 && response < vm.steps.length && !vm.steps[response].hidden) {
-        vm.stepIndex = response;
-      }
-      else {
-        vm.stepIndex--;
+      if (angular.isNumber(response) && response >= 0 && response < this.wizardSteps.length && !this.wizardSteps[response].hidden) {
+        this.stepIndex = response;
+      } else {
+        this.stepIndex--;
       }
     }
 
-    vm.currentStep.error = false;
+    this.currentStep.error = false;
 
     //move to the next page
-    vm.currentStep = vm.steps[vm.stepIndex];
+    this.currentStep = this.wizardSteps[this.stepIndex];
 
     //determine which buttons to show
-    updateButtonVisibility();
-  };
+    this.updateButtonVisibility();
+  }
 
   //allow the user to finish
-  vm.finish = function () {
+  finish() {
 
     //if on finishing function specified call it and await its response
-    if (typeof $scope.onFinishing === 'function') {
-      var response = $scope.onFinishing();
+    if (typeof this.onFinishing === 'function') {
+      const response = this.onFinishing();
 
       if (typeof response === 'number') {
-        vm.goToStep(response);
+        this.goToStep(response);
         return;
       }
 
       //dont go to the next page if the response is false
       if (response === false) {
-        vm.currentStep.error = true;
+        this.currentStep.error = true;
         return;
       }
-      vm.currentStep.error = false;
+      this.currentStep.error = false;
     }
 
     //mark the final step as complete
-    vm.currentStep.completed = true;
+    this.currentStep.completed = true;
 
     //if a function was specified to be called when the finish button is clicked call it
-    if (typeof $scope.onFinished === 'function') $scope.onFinished();
-  };
+    if (typeof this.onFinished === 'function') this.onFinished();
+  }
 
   //if modal is dimissed using the close button
-  vm.cancel = function () {
+  cancel() {
     //if a function was specified to be called when the modal is canceled then call it
-    if (typeof $scope.onCanceled === 'function') $scope.onCanceled();
-  };
+    if (typeof this.onCanceled === 'function') this.onCanceled();
+  }
 
-  vm.goToStep = function (stepIdx) {
-    var targetStep = vm.steps[stepIdx];
+  goToStep(stepIdx) {
+    const targetStep = this.wizardSteps[stepIdx];
 
     if (targetStep.visited === true) {
 
-      if (typeof $scope.onChanging === 'function') {
-        var response = $scope.onChanging(vm.stepIndex, stepIdx);
+      if (typeof this.onChanging === 'function') {
+        const response = this.onChanging(this.stepIndex, stepIdx);
 
         //dont go to the selected step if the response is false
         if (response === false) {
@@ -177,48 +167,47 @@ export default function MarqueeWizardCtrl($scope) {
         }
       }
 
-      vm.currentStep.error = false;
-      vm.stepIndex = stepIdx;
-      vm.currentStep = vm.steps[vm.stepIndex];
+      this.currentStep.error = false;
+      this.stepIndex = stepIdx;
+      this.currentStep = this.wizardSteps[this.stepIndex];
 
       //determine which buttons to show
-      updateButtonVisibility();
+      this.updateButtonVisibility();
     }
-  };
+  }
 
   /*
     Private Functions
   */
-  function processSteps() {
+  processSteps() {
     //add an additional property on the steps to store its completed and visited state
-    vm.steps.forEach(function (step) {
+    this.wizardSteps.forEach(step => {
       step.completed = false;
-      step.visited = $scope.isVisited !== null || $scope.isVisited !== undefined ? $scope.isVisited : false;
+      step.visited = this.isVisited !== null || this.isVisited !== undefined ? this.isVisited : false;
     });
   }
 
-  function updateButtonVisibility() {
+  updateButtonVisibility() {
 
     //set initially hide all the buttons
-    vm.showPrevious = false;
-    vm.showNext = false;
-    vm.showFinish = false;
+    this.showPrevious = false;
+    this.showNext = false;
+    this.showFinish = false;
 
     //show buttons accordingly
-    if (vm.stepIndex > 0 && vm.buttonOptions.showPrevious === true) vm.showPrevious = true;
-    if (vm.stepIndex === vm.steps.length - 1 && vm.buttonOptions.showFinish === true) vm.showFinish = true;
-    else if (vm.buttonOptions.showNext) vm.showNext = true;
+    if (this.stepIndex > 0 && this.buttonOptions.showPrevious === true) this.showPrevious = true;
+    if (this.stepIndex === this.wizardSteps.length - 1 && this.buttonOptions.showFinish === true) this.showFinish = true;
+    else if (this.buttonOptions.showNext) this.showNext = true;
 
-    if (!vm.showFinish && vm.buttonOptions.showFinish === true && vm.stepIndex !== vm.steps.length) {
-      vm.showFinish = vm.steps.slice(vm.stepIndex + 1).filter(step => step.hidden !== true).length === 0;
-      vm.showNext = !vm.showFinish;
+    if (!this.showFinish && this.buttonOptions.showFinish === true && this.stepIndex !== this.wizardSteps.length) {
+      this.showFinish = this.wizardSteps.slice(this.stepIndex + 1).filter(step => step.hidden !== true).length === 0;
+      this.showNext = !this.showFinish;
     }
   }
 
-  function updateButtonOptions() {
-    var options = $scope.buttonOptions;
+  updateButtonOptions() {
 
-    var defaultOptions = {
+    const defaultOptions = {
       previousText: 'Previous',
       nextText: 'Next',
       finishText: 'Finish',
@@ -234,7 +223,9 @@ export default function MarqueeWizardCtrl($scope) {
     };
 
     //store the button options
-    vm.buttonOptions = angular.extend(defaultOptions, options);
+    this.buttonOptions = angular.extend(defaultOptions, this.buttonOptions);
   }
 
 }
+
+MarqueeWizardCtrl.$inject = ['$scope', '$timeout'];
