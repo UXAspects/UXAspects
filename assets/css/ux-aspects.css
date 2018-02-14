@@ -8733,6 +8733,15 @@ strong {
 /*
   Marquee Modal
 */
+.body-dark .marquee-modal-window .modal-dialog .modal-content .main-panel {
+  background-color: #2a2a2a;
+}
+.body-dark .marquee-modal-window .modal-dialog .modal-content .main-panel .marquee-header .marquee-title {
+  color: #fff;
+}
+.body-dark .marquee-modal-window .modal-dialog .modal-content .main-panel .marquee-footer {
+  background-color: #333;
+}
 .marquee-modal-window .modal-dialog {
   text-rendering: optimizeLegibility;
   width: 900px;
@@ -8838,27 +8847,6 @@ strong {
   background-color: #f2f2f2;
   text-align: right;
   padding: 15px;
-}
-.marquee-modal-window .modal-close {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  background-color: #333;
-  border: none;
-  border-radius: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  font-size: 1.125rem;
-  color: #999;
-  outline: none;
-}
-.marquee-modal-window .modal-close i {
-  position: relative;
-}
-.marquee-modal-window .modal-close:hover {
-  background-color: #222;
 }
 @media (max-width: 1140px) {
   .marquee-modal-window .modal-dialog.modal-lg {
@@ -13180,7 +13168,7 @@ p.no-margin {
   position: absolute;
   top: 0;
   left: 0;
-  box-shadow: 0px 2px 10px #999;
+  box-shadow: 0px 2px 10px gray;
 }
 /* front pane, placed above back */
 .front {
@@ -17125,69 +17113,6 @@ ux-item-display-panel .ux-item-display-panel .item-display-panel-shadow:before {
   top: 50%;
   bottom: 0;
 }
-ux-marquee-wizard {
-  display: flex;
-  height: 100%;
-  min-height: 500px;
-}
-ux-marquee-wizard .marquee-wizard-side-panel {
-  display: flex;
-  flex-direction: column;
-  flex: none;
-  width: 240px;
-  background-color: #7b63a3;
-}
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-description-container {
-  padding: 20px;
-  color: #fff;
-}
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  list-style-type: none;
-  padding: 0;
-  margin-top: 0;
-}
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step {
-  display: flex;
-  color: #fff;
-  padding: 8px 20px;
-  cursor: default;
-  transition: background-color 0.3s linear;
-  align-items: center;
-}
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step.active {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step.active,
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step.visited {
-  cursor: pointer;
-}
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step.invalid {
-  background-color: #ff454f;
-}
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step .marquee-wizard-step-icon {
-  margin-right: 10px;
-  flex: none;
-}
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step .marquee-wizard-step-title {
-  flex: 1;
-  pointer-events: none;
-}
-ux-marquee-wizard .marquee-wizard-side-panel .marquee-wizard-steps .marquee-wizard-step .marquee-wizard-step-status {
-  flex: none;
-}
-ux-marquee-wizard .marquee-wizard-content-panel {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  background-color: #fff;
-}
-ux-marquee-wizard .marquee-wizard-content-panel .marquee-wizard-content {
-  flex: 1;
-  padding: 35px;
-}
 ux-number-picker {
   display: flex;
   flex-direction: row;
@@ -17355,6 +17280,19 @@ ux-page-header.page-header-condensed .page-header-condensed-content .page-header
   flex: 1;
   justify-content: center;
 }
+ux-page-header-horizontal-navigation {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  height: 57px;
+}
+ux-page-header-horizontal-navigation .selected-indicator {
+  height: 3px;
+  background-color: #00a7a2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 ux-page-header-horizontal-navigation-item .horizontal-navigation-button {
   position: relative;
   display: block;
@@ -17473,19 +17411,6 @@ ux-page-header-icon-menu .dropdown-menu .dropdown-header {
   margin: 4px;
   font-size: 1rem;
   cursor: default;
-}
-ux-page-header-horizontal-navigation {
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  height: 57px;
-}
-ux-page-header-horizontal-navigation .selected-indicator {
-  height: 3px;
-  background-color: #00a7a2;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 ux-progress-bar {
   display: block;

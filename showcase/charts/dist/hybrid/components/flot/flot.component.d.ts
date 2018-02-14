@@ -1,6 +1,6 @@
 import { ElementRef, Injector, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class FlotNg1Component extends UpgradeComponent {
+export declare class FlotComponent extends UpgradeComponent {
     dataset: any;
     options: any;
     callback: any;

@@ -1,6 +1,6 @@
 import { ElementRef, Injector, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class ExpandInputNg1Component extends UpgradeComponent {
+export declare class ExpandInputComponent extends UpgradeComponent {
     elname: string;
     placeHolder: string;
     className: string;

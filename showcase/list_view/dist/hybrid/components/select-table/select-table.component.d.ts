@@ -1,6 +1,6 @@
 import { ElementRef, Injector, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class SelectTableNg1Component extends UpgradeComponent {
+export declare class SelectTableComponent extends UpgradeComponent {
     values: any[];
     multipleSelect: boolean;
     selectKey: string;

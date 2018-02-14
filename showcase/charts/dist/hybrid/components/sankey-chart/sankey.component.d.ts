@@ -1,6 +1,6 @@
 import { ElementRef, Injector } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class SankeyNg1Component extends UpgradeComponent {
+export declare class SankeyComponent extends UpgradeComponent {
     chartSize: any;
     chartData: any;
     options: any;
