@@ -1,6 +1,6 @@
 import { ElementRef, Injector } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class SearchToolbarComponent extends UpgradeComponent {
+export declare class SearchToolbarNg1Component extends UpgradeComponent {
     searchTypeahead: any[];
     placeHolder: string;
     closeSearch: string;
