@@ -1,6 +1,6 @@
 import { ElementRef, Injector } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class PeityUpdatingLineChartNg1Component extends UpgradeComponent {
+export declare class PeityUpdatingLineChartComponent extends UpgradeComponent {
     data: any;
     options: any;
     method: any;

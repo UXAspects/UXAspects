@@ -1,4 +1,3 @@
-import { Injector } from '@angular/core';
 import { INotificationService, NotificationOptions } from './notification.interface';
 export declare class NotificationService implements INotificationService {
     private _notificationService;
@@ -10,9 +9,3 @@ export declare class NotificationService implements INotificationService {
     setNotificationVisibility(visible: boolean): void;
     setDirection(direction: 'append' | 'prepend'): void;
 }
-export declare function notificationServiceFactory(injector: Injector): any;
-export declare const notificationServiceProvider: {
-    provide: string;
-    useFactory: (injector: Injector) => any;
-    deps: string[];
-};

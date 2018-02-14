@@ -1,4 +1,4 @@
-import { AfterViewInit, EventEmitter, QueryList } from '@angular/core';
+import { QueryList, AfterViewInit, EventEmitter } from '@angular/core';
 import { WizardStepComponent } from './wizard-step.component';
 export declare class WizardComponent implements AfterViewInit {
     private _step;
@@ -25,9 +25,7 @@ export declare class WizardComponent implements AfterViewInit {
     onNext: EventEmitter<number>;
     onPrevious: EventEmitter<number>;
     onCancel: EventEmitter<void>;
-    onFinishing: EventEmitter<void>;
     onFinish: EventEmitter<void>;
-    stepChanging: EventEmitter<StepChangingEvent>;
     stepChange: EventEmitter<number>;
     invalidIndicator: boolean;
     step: number;
@@ -43,7 +41,7 @@ export declare class WizardComponent implements AfterViewInit {
     /**
      * Perform actions when the finish button is clicked
      */
-    finish(): Promise<void>;
+    finish(): void;
     /**
      * Perform actions when the cancel button is clicked
      */
@@ -72,9 +70,4 @@ export declare class WizardComponent implements AfterViewInit {
      * Return a step at a specific index
      */
     getStepAtIndex(index: number): WizardStepComponent;
-}
-export declare class StepChangingEvent {
-    from: number;
-    to: number;
-    constructor(from: number, to: number);
 }

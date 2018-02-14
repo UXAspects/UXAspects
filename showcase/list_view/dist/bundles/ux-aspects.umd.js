@@ -2446,9 +2446,6 @@ var MiniStore = (function (_super) {
     return MiniStore;
 }(Observable.Observable));
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-function createCommonjsModule(fn, module) {
-    return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
 // CommonJS / Node have global context exposed as "global" variable.
 // We don't want to include the whole node.d.ts this this compilation unit so we'll just fake
 // the global "global" var for now.
@@ -8796,903 +8793,6 @@ ItemDisplayPanelModule.decorators = [
  * @nocollapse
  */
 ItemDisplayPanelModule.ctorParameters = function () { return []; };
-var WizardStepComponent = (function () {
-    function WizardStepComponent() {
-        this.valid = true;
-        this.visitedChange = new core.EventEmitter();
-        this._active = false;
-        this._visited = false;
-    }
-    Object.defineProperty(WizardStepComponent.prototype, "visited", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._visited;
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._visited = value;
-            this.visitedChange.next(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WizardStepComponent.prototype, "active", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._active;
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            // store the active state of the step
-            this._active = value;
-            // if the value is true then the step should also be marked as visited
-            if (value === true) {
-                this.visited = true;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return WizardStepComponent;
-}());
-WizardStepComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-wizard-step',
-                template: "\n      <ng-container *ngIf=\"active\">\n          <ng-content></ng-content>\n      </ng-container>\n    "
-            },] },
-];
-/**
- * @nocollapse
- */
-WizardStepComponent.ctorParameters = function () { return []; };
-WizardStepComponent.propDecorators = {
-    'header': [{ type: core.Input },],
-    'valid': [{ type: core.Input },],
-    'visitedChange': [{ type: core.Input },],
-    'visited': [{ type: core.Input },],
-};
-var WizardComponent = (function () {
-    function WizardComponent() {
-        this._step = 0;
-        this.steps = new core.QueryList();
-        this.orientation = 'horizontal';
-        this.nextText = 'Next';
-        this.previousText = 'Previous';
-        this.cancelText = 'Cancel';
-        this.finishText = 'Finish';
-        this.nextTooltip = 'Go to the next step';
-        this.previousTooltip = 'Go to the previous step';
-        this.cancelTooltip = 'Cancel the wizard';
-        this.finishTooltip = 'Finish the wizard';
-        this.nextDisabled = false;
-        this.previousDisabled = false;
-        this.cancelDisabled = false;
-        this.finishDisabled = false;
-        this.nextVisible = true;
-        this.previousVisible = true;
-        this.cancelVisible = true;
-        this.finishVisible = true;
-        this.cancelAlwaysVisible = false;
-        this.finishAlwaysVisible = false;
-        this.onNext = new core.EventEmitter();
-        this.onPrevious = new core.EventEmitter();
-        this.onCancel = new core.EventEmitter();
-        this.onFinishing = new core.EventEmitter();
-        this.onFinish = new core.EventEmitter();
-        this.stepChanging = new core.EventEmitter();
-        this.stepChange = new core.EventEmitter();
-        this.invalidIndicator = false;
-    }
-    Object.defineProperty(WizardComponent.prototype, "step", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._step;
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            // only accept numbers as valid options
-            if (typeof value === 'number') {
-                // store the active step
-                this._step = value;
-                // update which steps should be active
-                this.update();
-                // emit the change event
-                this.stepChange.next(this.step);
-                // reset the invalid state
-                this.invalidIndicator = false;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    WizardComponent.prototype.ngAfterViewInit = function () {
-        // initially set the correct visibility of the steps
-        setTimeout(this.update.bind(this));
-    };
-    /**
-     * Navigate to the next step
-     * @return {?}
-     */
-    WizardComponent.prototype.next = function () {
-        this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
-        // check if current step is invalid
-        if (!this.getCurrentStep().valid) {
-            this.invalidIndicator = true;
-            return;
-        }
-        // check if we are currently on the last step
-        if ((this.step + 1) < this.steps.length) {
-            this.step++;
-            // emit the current step
-            this.onNext.next(this.step);
-        }
-    };
-    /**
-     * Navigate to the previous step
-     * @return {?}
-     */
-    WizardComponent.prototype.previous = function () {
-        this.stepChanging.next(new StepChangingEvent(this.step, this.step - 1));
-        // check if we are currently on the last step
-        if (this.step > 0) {
-            this.step--;
-            // emit the current step
-            this.onPrevious.next(this.step);
-        }
-    };
-    /**
-     * Perform actions when the finish button is clicked
-     * @return {?}
-     */
-    WizardComponent.prototype.finish = function () {
-        var _this = this;
-        // fires when the finish button is clicked always
-        this.onFinishing.next();
-        /**
-         * This is required because we need to ensure change detection has run
-         * to determine whether or not we have the latest value for the 'valid' input
-         * on the current step. Unfortunately we can't use ChangeDetectorRef as we are looking to run
-         * on content children, and we cant use ApplicationRef.tick() as this does not work in a hybrid app, eg. our docs
-         */
-        return new Promise(function (resolve) {
-            setTimeout(function () {
-                // only fires when the finish button is clicked and the step is valid
-                if (_this.getCurrentStep().valid) {
-                    _this.onFinish.next();
-                }
-                resolve();
-            });
-        });
-    };
-    /**
-     * Perform actions when the cancel button is clicked
-     * @return {?}
-     */
-    WizardComponent.prototype.cancel = function () {
-        this.onCancel.next();
-    };
-    /**
-     * Update the active state of each step
-     * @return {?}
-     */
-    WizardComponent.prototype.update = function () {
-        var _this = this;
-        // update which steps should be active
-        this.steps.forEach(function (step, idx) { return step.active = idx === _this.step; });
-    };
-    /**
-     * Jump to a specific step only if the step has previously been visited
-     * @param {?} step
-     * @return {?}
-     */
-    WizardComponent.prototype.gotoStep = function (step) {
-        if (step.visited) {
-            var /** @type {?} */ stepIndex = this.steps.toArray().findIndex(function (stp) { return stp === step; });
-            this.stepChanging.next(new StepChangingEvent(this.step, stepIndex));
-            this.step = stepIndex;
-        }
-    };
-    /**
-     * Determine if the current step is the last step
-     * @return {?}
-     */
-    WizardComponent.prototype.isLastStep = function () {
-        return this.step === (this.steps.length - 1);
-    };
-    /**
-     * Reset the wizard - goes to first step and resets visited state
-     * @return {?}
-     */
-    WizardComponent.prototype.reset = function () {
-        // mark all steps as not visited
-        this.steps.forEach(function (step) { return step.visited = false; });
-        // go to the first step
-        this.step = 0;
-    };
-    /**
-     * Get the step at the current index
-     * @return {?}
-     */
-    WizardComponent.prototype.getCurrentStep = function () {
-        return this.getStepAtIndex(this.step);
-    };
-    /**
-     * Return a step at a specific index
-     * @param {?} index
-     * @return {?}
-     */
-    WizardComponent.prototype.getStepAtIndex = function (index) {
-        return this.steps.toArray()[index];
-    };
-    return WizardComponent;
-}());
-WizardComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-wizard',
-                template: "\n      <div class=\"wizard-body\">\n\n          <div class=\"wizard-steps\">\n    \n              <div class=\"wizard-step\" [class.active]=\"stp.active\" [class.visited]=\"stp.visited\" [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\" (click)=\"gotoStep(stp)\" *ngFor=\"let stp of steps\">\n                  {{ stp.header }}\n              </div>\n    \n          </div>\n    \n          <div class=\"wizard-content\">\n              <ng-content></ng-content>\n          </div>\n    \n      </div>\n\n      <div class=\"wizard-footer\">\n          <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"previousVisible\" [tooltip]=\"previousTooltip\" container=\"body\" [disabled]=\"previousDisabled || step === 0\"\n              (click)=\"previous(); tip.hide()\">{{ previousText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"nextVisible && !isLastStep()\" [tooltip]=\"nextTooltip\" container=\"body\" [disabled]=\"nextDisabled\"\n              (click)=\"next(); tip.hide()\">{{ nextText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\" [tooltip]=\"finishTooltip\"\n              container=\"body\" [disabled]=\"finishDisabled\" (click)=\"finish(); tip.hide()\">{{ finishText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\" [tooltip]=\"cancelTooltip\"\n              container=\"body\" [disabled]=\"cancelDisabled\" (click)=\"cancel(); tip.hide()\">{{ cancelText }}</button>\n      </div>\n    ",
-                host: {
-                    '[class]': 'orientation'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-WizardComponent.ctorParameters = function () { return []; };
-WizardComponent.propDecorators = {
-    'steps': [{ type: core.ContentChildren, args: [WizardStepComponent,] },],
-    'orientation': [{ type: core.Input },],
-    'nextText': [{ type: core.Input },],
-    'previousText': [{ type: core.Input },],
-    'cancelText': [{ type: core.Input },],
-    'finishText': [{ type: core.Input },],
-    'nextTooltip': [{ type: core.Input },],
-    'previousTooltip': [{ type: core.Input },],
-    'cancelTooltip': [{ type: core.Input },],
-    'finishTooltip': [{ type: core.Input },],
-    'nextDisabled': [{ type: core.Input },],
-    'previousDisabled': [{ type: core.Input },],
-    'cancelDisabled': [{ type: core.Input },],
-    'finishDisabled': [{ type: core.Input },],
-    'nextVisible': [{ type: core.Input },],
-    'previousVisible': [{ type: core.Input },],
-    'cancelVisible': [{ type: core.Input },],
-    'finishVisible': [{ type: core.Input },],
-    'cancelAlwaysVisible': [{ type: core.Input },],
-    'finishAlwaysVisible': [{ type: core.Input },],
-    'onNext': [{ type: core.Output },],
-    'onPrevious': [{ type: core.Output },],
-    'onCancel': [{ type: core.Output },],
-    'onFinishing': [{ type: core.Output },],
-    'onFinish': [{ type: core.Output },],
-    'stepChanging': [{ type: core.Output },],
-    'stepChange': [{ type: core.Output },],
-    'step': [{ type: core.Input },],
-};
-var StepChangingEvent = (function () {
-    /**
-     * @param {?} from
-     * @param {?} to
-     */
-    function StepChangingEvent(from$$1, to) {
-        this.from = from$$1;
-        this.to = to;
-    }
-    return StepChangingEvent;
-}());
-var DECLARATIONS$5 = [
-    WizardComponent,
-    WizardStepComponent
-];
-var WizardModule = (function () {
-    function WizardModule() {
-    }
-    return WizardModule;
-}());
-WizardModule.decorators = [
-    { type: core.NgModule, args: [{
-                imports: [
-                    common.CommonModule,
-                    TooltipModule.forRoot()
-                ],
-                exports: DECLARATIONS$5,
-                declarations: DECLARATIONS$5
-            },] },
-];
-/**
- * @nocollapse
- */
-WizardModule.ctorParameters = function () { return []; };
-var empty = {
-    closed: true,
-    next: function (value) { },
-    error: function (err) { throw err; },
-    complete: function () { }
-};
-var Observer = {
-    empty: empty
-};
-var rxSubscriber = createCommonjsModule(function (module, exports) {
-    var Symbol = root.root.Symbol;
-    exports.rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
-        Symbol.for('rxSubscriber') : '@@rxSubscriber';
-    /**
-     * @deprecated use rxSubscriber instead
-     */
-    exports.$$rxSubscriber = exports.rxSubscriber;
-});
-var rxSubscriber_1 = rxSubscriber.rxSubscriber;
-var rxSubscriber_2 = rxSubscriber.$$rxSubscriber;
-var __extends$10 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
-    for (var p in b)
-        if (b.hasOwnProperty(p))
-            d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/**
- * Implements the {@link Observer} interface and extends the
- * {@link Subscription} class. While the {@link Observer} is the public API for
- * consuming the values of an {@link Observable}, all Observers get converted to
- * a Subscriber, in order to provide Subscription-like capabilities such as
- * `unsubscribe`. Subscriber is a common type in RxJS, and crucial for
- * implementing operators, but it is rarely used as a public API.
- *
- * @class Subscriber<T>
- */
-var Subscriber = (function (_super) {
-    __extends$10(Subscriber, _super);
-    /**
-     * @param {Observer|function(value: T): void} [destinationOrNext] A partially
-     * defined Observer or a `next` callback function.
-     * @param {function(e: ?any): void} [error] The `error` callback of an
-     * Observer.
-     * @param {function(): void} [complete] The `complete` callback of an
-     * Observer.
-     */
-    function Subscriber(destinationOrNext, error, complete) {
-        _super.call(this);
-        this.syncErrorValue = null;
-        this.syncErrorThrown = false;
-        this.syncErrorThrowable = false;
-        this.isStopped = false;
-        switch (arguments.length) {
-            case 0:
-                this.destination = Observer.empty;
-                break;
-            case 1:
-                if (!destinationOrNext) {
-                    this.destination = Observer.empty;
-                    break;
-                }
-                if (typeof destinationOrNext === 'object') {
-                    if (destinationOrNext instanceof Subscriber) {
-                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
-                        this.destination = destinationOrNext;
-                        this.destination.add(this);
-                    }
-                    else {
-                        this.syncErrorThrowable = true;
-                        this.destination = new SafeSubscriber(this, destinationOrNext);
-                    }
-                    break;
-                }
-            default:
-                this.syncErrorThrowable = true;
-                this.destination = new SafeSubscriber(this, destinationOrNext, error, complete);
-                break;
-        }
-    }
-    Subscriber.prototype[rxSubscriber.rxSubscriber] = function () { return this; };
-    /**
-     * A static factory for a Subscriber, given a (potentially partial) definition
-     * of an Observer.
-     * @param {function(x: ?T): void} [next] The `next` callback of an Observer.
-     * @param {function(e: ?any): void} [error] The `error` callback of an
-     * Observer.
-     * @param {function(): void} [complete] The `complete` callback of an
-     * Observer.
-     * @return {Subscriber<T>} A Subscriber wrapping the (partially defined)
-     * Observer represented by the given arguments.
-     */
-    Subscriber.create = function (next, error, complete) {
-        var subscriber = new Subscriber(next, error, complete);
-        subscriber.syncErrorThrowable = false;
-        return subscriber;
-    };
-    /**
-     * The {@link Observer} callback to receive notifications of type `next` from
-     * the Observable, with a value. The Observable may call this method 0 or more
-     * times.
-     * @param {T} [value] The `next` value.
-     * @return {void}
-     */
-    Subscriber.prototype.next = function (value) {
-        if (!this.isStopped) {
-            this._next(value);
-        }
-    };
-    /**
-     * The {@link Observer} callback to receive notifications of type `error` from
-     * the Observable, with an attached {@link Error}. Notifies the Observer that
-     * the Observable has experienced an error condition.
-     * @param {any} [err] The `error` exception.
-     * @return {void}
-     */
-    Subscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            this.isStopped = true;
-            this._error(err);
-        }
-    };
-    /**
-     * The {@link Observer} callback to receive a valueless notification of type
-     * `complete` from the Observable. Notifies the Observer that the Observable
-     * has finished sending push-based notifications.
-     * @return {void}
-     */
-    Subscriber.prototype.complete = function () {
-        if (!this.isStopped) {
-            this.isStopped = true;
-            this._complete();
-        }
-    };
-    Subscriber.prototype.unsubscribe = function () {
-        if (this.closed) {
-            return;
-        }
-        this.isStopped = true;
-        _super.prototype.unsubscribe.call(this);
-    };
-    Subscriber.prototype._next = function (value) {
-        this.destination.next(value);
-    };
-    Subscriber.prototype._error = function (err) {
-        this.destination.error(err);
-        this.unsubscribe();
-    };
-    Subscriber.prototype._complete = function () {
-        this.destination.complete();
-        this.unsubscribe();
-    };
-    Subscriber.prototype._unsubscribeAndRecycle = function () {
-        var _a = this, _parent = _a._parent, _parents = _a._parents;
-        this._parent = null;
-        this._parents = null;
-        this.unsubscribe();
-        this.closed = false;
-        this.isStopped = false;
-        this._parent = _parent;
-        this._parents = _parents;
-        return this;
-    };
-    return Subscriber;
-}(Subscription_1.Subscription));
-var Subscriber_2 = Subscriber;
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var SafeSubscriber = (function (_super) {
-    __extends$10(SafeSubscriber, _super);
-    function SafeSubscriber(_parentSubscriber, observerOrNext, error, complete) {
-        _super.call(this);
-        this._parentSubscriber = _parentSubscriber;
-        var next;
-        var context = this;
-        if (isFunction_1.isFunction(observerOrNext)) {
-            next = observerOrNext;
-        }
-        else if (observerOrNext) {
-            next = observerOrNext.next;
-            error = observerOrNext.error;
-            complete = observerOrNext.complete;
-            if (observerOrNext !== Observer.empty) {
-                context = Object.create(observerOrNext);
-                if (isFunction_1.isFunction(context.unsubscribe)) {
-                    this.add(context.unsubscribe.bind(context));
-                }
-                context.unsubscribe = this.unsubscribe.bind(this);
-            }
-        }
-        this._context = context;
-        this._next = next;
-        this._error = error;
-        this._complete = complete;
-    }
-    SafeSubscriber.prototype.next = function (value) {
-        if (!this.isStopped && this._next) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (!_parentSubscriber.syncErrorThrowable) {
-                this.__tryOrUnsub(this._next, value);
-            }
-            else if (this.__tryOrSetError(_parentSubscriber, this._next, value)) {
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (this._error) {
-                if (!_parentSubscriber.syncErrorThrowable) {
-                    this.__tryOrUnsub(this._error, err);
-                    this.unsubscribe();
-                }
-                else {
-                    this.__tryOrSetError(_parentSubscriber, this._error, err);
-                    this.unsubscribe();
-                }
-            }
-            else if (!_parentSubscriber.syncErrorThrowable) {
-                this.unsubscribe();
-                throw err;
-            }
-            else {
-                _parentSubscriber.syncErrorValue = err;
-                _parentSubscriber.syncErrorThrown = true;
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.complete = function () {
-        var _this = this;
-        if (!this.isStopped) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (this._complete) {
-                var wrappedComplete = function () { return _this._complete.call(_this._context); };
-                if (!_parentSubscriber.syncErrorThrowable) {
-                    this.__tryOrUnsub(wrappedComplete);
-                    this.unsubscribe();
-                }
-                else {
-                    this.__tryOrSetError(_parentSubscriber, wrappedComplete);
-                    this.unsubscribe();
-                }
-            }
-            else {
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.__tryOrUnsub = function (fn, value) {
-        try {
-            fn.call(this._context, value);
-        }
-        catch (err) {
-            this.unsubscribe();
-            throw err;
-        }
-    };
-    SafeSubscriber.prototype.__tryOrSetError = function (parent, fn, value) {
-        try {
-            fn.call(this._context, value);
-        }
-        catch (err) {
-            parent.syncErrorValue = err;
-            parent.syncErrorThrown = true;
-            return true;
-        }
-        return false;
-    };
-    SafeSubscriber.prototype._unsubscribe = function () {
-        var _parentSubscriber = this._parentSubscriber;
-        this._context = null;
-        this._parentSubscriber = null;
-        _parentSubscriber.unsubscribe();
-    };
-    return SafeSubscriber;
-}(Subscriber));
-var Subscriber_1 = {
-    Subscriber: Subscriber_2
-};
-var __extends$9 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
-    for (var p in b)
-        if (b.hasOwnProperty(p))
-            d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-/* tslint:enable:max-line-length */
-/**
- * Filter items emitted by the source Observable by only emitting those that
- * satisfy a specified predicate.
- *
- * <span class="informal">Like
- * [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter),
- * it only emits a value from the source if it passes a criterion function.</span>
- *
- * <img src="./img/filter.png" width="100%">
- *
- * Similar to the well-known `Array.prototype.filter` method, this operator
- * takes values from the source Observable, passes them through a `predicate`
- * function and only emits those values that yielded `true`.
- *
- * @example <caption>Emit only click events whose target was a DIV element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === 'DIV');
- * clicksOnDivs.subscribe(x => console.log(x));
- *
- * @see {@link distinct}
- * @see {@link distinctUntilChanged}
- * @see {@link distinctUntilKeyChanged}
- * @see {@link ignoreElements}
- * @see {@link partition}
- * @see {@link skip}
- *
- * @param {function(value: T, index: number): boolean} predicate A function that
- * evaluates each value emitted by the source Observable. If it returns `true`,
- * the value is emitted, if `false` the value is not passed to the output
- * Observable. The `index` parameter is the number `i` for the i-th source
- * emission that has happened since the subscription, starting from the number
- * `0`.
- * @param {any} [thisArg] An optional argument to determine the value of `this`
- * in the `predicate` function.
- * @return {Observable} An Observable of values from the source that were
- * allowed by the `predicate` function.
- * @method filter
- * @owner Observable
- */
-function filter$1(predicate, thisArg) {
-    return function filterOperatorFunction(source) {
-        return source.lift(new FilterOperator(predicate, thisArg));
-    };
-}
-var filter_2 = filter$1;
-var FilterOperator = (function () {
-    function FilterOperator(predicate, thisArg) {
-        this.predicate = predicate;
-        this.thisArg = thisArg;
-    }
-    FilterOperator.prototype.call = function (subscriber, source) {
-        return source.subscribe(new FilterSubscriber(subscriber, this.predicate, this.thisArg));
-    };
-    return FilterOperator;
-}());
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var FilterSubscriber = (function (_super) {
-    __extends$9(FilterSubscriber, _super);
-    function FilterSubscriber(destination, predicate, thisArg) {
-        _super.call(this, destination);
-        this.predicate = predicate;
-        this.thisArg = thisArg;
-        this.count = 0;
-    }
-    // the try catch block below is left specifically for
-    // optimization and perf reasons. a tryCatcher is not necessary here.
-    FilterSubscriber.prototype._next = function (value) {
-        var result;
-        try {
-            result = this.predicate.call(this.thisArg, value, this.count++);
-        }
-        catch (err) {
-            this.destination.error(err);
-            return;
-        }
-        if (result) {
-            this.destination.next(value);
-        }
-    };
-    return FilterSubscriber;
-}(Subscriber_1.Subscriber));
-/**
- * This service is required to provide a form of communication
- * between the marquee wizard steps and the containing marquee wizard.
- * We cannot inject the Host due to the steps being content children
- * rather than view children.
- */
-var MarqueeWizardService = (function () {
-    function MarqueeWizardService() {
-        this.valid$ = new Subject.Subject();
-    }
-    return MarqueeWizardService;
-}());
-MarqueeWizardService.decorators = [
-    { type: core.Injectable },
-];
-/**
- * @nocollapse
- */
-MarqueeWizardService.ctorParameters = function () { return []; };
-var MarqueeWizardStepComponent = (function (_super) {
-    __extends(MarqueeWizardStepComponent, _super);
-    /**
-     * @param {?} _marqueeWizardService
-     */
-    function MarqueeWizardStepComponent(_marqueeWizardService) {
-        var _this = _super.call(this) || this;
-        _this._marqueeWizardService = _marqueeWizardService;
-        _this.completed = false;
-        _this.completedChange = new core.EventEmitter();
-        _this._valid = true;
-        return _this;
-    }
-    Object.defineProperty(MarqueeWizardStepComponent.prototype, "valid", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._valid;
-        },
-        /**
-         * @param {?} valid
-         * @return {?}
-         */
-        set: function (valid) {
-            this._valid = valid;
-            if (this._marqueeWizardService) {
-                this._marqueeWizardService.valid$.next({ step: this, valid: valid });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Update the completed state and emit the latest value
-     * @param {?} completed whether or not the step is completed
-     * @return {?}
-     */
-    MarqueeWizardStepComponent.prototype.setCompleted = function (completed) {
-        this.completed = completed;
-        this.completedChange.emit(completed);
-    };
-    return MarqueeWizardStepComponent;
-}(WizardStepComponent));
-MarqueeWizardStepComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-marquee-wizard-step',
-                template: "\n      <ng-container *ngIf=\"active\">\n          <ng-content></ng-content>\n      </ng-container>\n    "
-            },] },
-];
-/**
- * @nocollapse
- */
-MarqueeWizardStepComponent.ctorParameters = function () { return [
-    { type: MarqueeWizardService, },
-]; };
-MarqueeWizardStepComponent.propDecorators = {
-    'icon': [{ type: core.Input },],
-    'completed': [{ type: core.Input },],
-    'completedChange': [{ type: core.Output },],
-};
-var MarqueeWizardComponent = (function (_super) {
-    __extends(MarqueeWizardComponent, _super);
-    /**
-     * @param {?} marqueeWizardService
-     */
-    function MarqueeWizardComponent(marqueeWizardService) {
-        var _this = _super.call(this) || this;
-        _this.steps = new core.QueryList();
-        marqueeWizardService.valid$.pipe(filter_2(function (event) { return !event.valid; })).subscribe(_this.validChange.bind(_this));
-        return _this;
-    }
-    Object.defineProperty(MarqueeWizardComponent.prototype, "isTemplate", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.description && this.description instanceof core.TemplateRef;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * If the current step is valid, mark it as
-     * complete and go to the next step
-     * @return {?}
-     */
-    MarqueeWizardComponent.prototype.next = function () {
-        // get the current step
-        var /** @type {?} */ step = (this.getCurrentStep());
-        if (step.valid) {
-            _super.prototype.next.call(this);
-            // mark this step as completed
-            step.setCompleted(true);
-        }
-    };
-    /**
-     * Emit the onFinishing event and if valid the onFinish event.
-     * Also mark the final step as completed if it is valid
-     * @return {?}
-     */
-    MarqueeWizardComponent.prototype.finish = function () {
-        // get the current step
-        var /** @type {?} */ step = (this.getCurrentStep());
-        // call the original finish function
-        return _super.prototype.finish.call(this).then(function () {
-            // if the step is valid indicate that it is now complete
-            if (step.valid) {
-                step.setCompleted(true);
-            }
-        });
-    };
-    /**
-     * If a step in the wizard becomes invalid, all steps sequentially after
-     * it, should become unvisited and incomplete
-     * @param {?} state
-     * @return {?}
-     */
-    MarqueeWizardComponent.prototype.validChange = function (state) {
-        var /** @type {?} */ steps = this.steps.toArray();
-        var /** @type {?} */ current = steps.findIndex(function (step) { return step === state.step; });
-        var /** @type {?} */ affected = steps.slice(current);
-        affected.forEach(function (step) {
-            // the step should no longer be completed
-            step.completed = false;
-            // if the step is not the current step then also mark it as unvisited
-            if (step !== state.step) {
-                step.visited = false;
-            }
-        });
-    };
-    return MarqueeWizardComponent;
-}(WizardComponent));
-MarqueeWizardComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-marquee-wizard',
-                template: "\n      <div class=\"marquee-wizard-side-panel\">\n\n          <div class=\"marquee-wizard-description-container\" *ngIf=\"description\">\n              <!-- If a template was provided display it -->\n              <ng-container *ngIf=\"isTemplate\" [ngTemplateOutlet]=\"description\"></ng-container>\n\n              <!-- Otherwise wimply display the string -->\n              <ng-container *ngIf=\"!isTemplate\">\n                  <p>{{ description }}</p>\n              </ng-container>\n          </div>\n\n          <ul class=\"marquee-wizard-steps\">\n\n              <li class=\"marquee-wizard-step\" *ngFor=\"let step of steps\" (click)=\"gotoStep(step)\" [class.active]=\"step.active\" [class.visited]=\"step.visited\" [class.invalid]=\"!step.valid\">\n                  <i class=\"marquee-wizard-step-icon\" [ngClass]=\"step.icon\"></i>\n                  <span class=\"marquee-wizard-step-title\">{{ step.header }}</span>\n                  <span class=\"marquee-wizard-step-status hpe-icon hpe-checkmark\" *ngIf=\"step.completed\"></span>\n              </li>\n\n          </ul>\n      </div>\n\n      <div class=\"marquee-wizard-content-panel\">\n          <div class=\"marquee-wizard-content\">\n              <ng-content></ng-content>\n          </div>\n\n          <div class=\"modal-footer\">\n\n              <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"previousVisible\" [tooltip]=\"previousTooltip\" container=\"body\"\n                  [disabled]=\"previousDisabled || step === 0\" (click)=\"previous(); tip.hide()\">{{ previousText }}</button>\n\n              <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"nextVisible && !isLastStep()\" [tooltip]=\"nextTooltip\" container=\"body\"\n                  [disabled]=\"nextDisabled\" (click)=\"next(); tip.hide()\">{{ nextText }}</button>\n\n              <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\" [tooltip]=\"finishTooltip\"\n                  container=\"body\" [disabled]=\"finishDisabled\" (click)=\"finish(); tip.hide()\">{{ finishText }}</button>\n\n              <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\" [tooltip]=\"cancelTooltip\"\n                  container=\"body\" [disabled]=\"cancelDisabled\" (click)=\"cancel(); tip.hide()\">{{ cancelText }}</button>\n          </div>\n      </div>\n    ",
-                providers: [MarqueeWizardService]
-            },] },
-];
-/**
- * @nocollapse
- */
-MarqueeWizardComponent.ctorParameters = function () { return [
-    { type: MarqueeWizardService, },
-]; };
-MarqueeWizardComponent.propDecorators = {
-    'description': [{ type: core.Input },],
-    'steps': [{ type: core.ContentChildren, args: [MarqueeWizardStepComponent,] },],
-};
-var MarqueeWizardModule = (function () {
-    function MarqueeWizardModule() {
-    }
-    return MarqueeWizardModule;
-}());
-MarqueeWizardModule.decorators = [
-    { type: core.NgModule, args: [{
-                imports: [
-                    common.CommonModule,
-                    WizardModule,
-                    TooltipModule.forRoot()
-                ],
-                exports: [
-                    MarqueeWizardComponent,
-                    MarqueeWizardStepComponent
-                ],
-                declarations: [
-                    MarqueeWizardComponent,
-                    MarqueeWizardStepComponent
-                ]
-            },] },
-];
-/**
- * @nocollapse
- */
-MarqueeWizardModule.ctorParameters = function () { return []; };
 var NUMBER_PICKER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return NumberPickerComponent; }),
@@ -9924,6 +9024,325 @@ PageHeaderCustomMenuDirective.decorators = [
  * @nocollapse
  */
 PageHeaderCustomMenuDirective.ctorParameters = function () { return []; };
+var PageHeaderComponent = (function () {
+    function PageHeaderComponent() {
+        this.alignment = 'center';
+        this.condensed = false;
+        this.backVisible = true;
+        this.backClick = new core.EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    PageHeaderComponent.prototype.goBack = function () {
+        this.backClick.emit();
+    };
+    /**
+     * @return {?}
+     */
+    PageHeaderComponent.prototype.getCondensedBreadcrumbs = function () {
+        if (this.crumbs) {
+            var /** @type {?} */ crumbs = this.crumbs.slice();
+            crumbs.push({ title: this.header });
+            return crumbs;
+        }
+        return [{ title: this.header }];
+    };
+    return PageHeaderComponent;
+}());
+PageHeaderComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-page-header',
+                exportAs: 'ux-page-header',
+                template: "\n      <!-- Display Upper Section when not condensed -->\n      <div class=\"page-header-actions\" *ngIf=\"!condensed\">\n\n          <div class=\"page-header-logo-container\" [hidden]=\"!logo\">\n              <img [attr.src]=\"logo\" class=\"page-header-logo\">\n          </div>\n\n          <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\n\n              <!-- The Top Navigation Options -->\n              <ux-page-header-horizontal-navigation [items]=\"items\"></ux-page-header-horizontal-navigation>\n          </div>\n\n          <div class=\"page-header-icon-menus\">\n              <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n\n              <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n          </div>\n      </div>\n\n      <!-- Display Lower Section When Not Condensed -->\n      <div class=\"page-header-details\" *ngIf=\"!condensed\">\n\n          <div class=\"page-header-state-container\">\n\n              <div *ngIf=\"backVisible == true\" class=\"page-header-back-button\" (click)=\"goBack()\">\n                  <span class=\"hpe-icon hpe-previous text-primary\"></span>\n              </div>\n\n              <div class=\"page-header-title-container\">\n\n                  <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                  <h1 class=\"page-header-title\">{{ header }}</h1>\n              </div>\n\n          </div>\n\n      </div>\n\n      <!-- Display This Section Optimized for Condensed Mode -->\n      <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n          <div class=\"page-header-breadcrumbs\">\n              <ux-breadcrumbs [crumbs]=\"getCondensedBreadcrumbs()\"></ux-breadcrumbs>\n          </div>\n\n          <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\n\n              <!-- The Top Navigation Options -->\n              <ux-page-header-horizontal-navigation [items]=\"items\"></ux-page-header-horizontal-navigation>\n          </div>\n\n          <div class=\"page-header-icon-menus\">\n              <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n              <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n          </div>\n\n      </div>\n    ",
+                host: {
+                    '[class.page-header-condensed]': 'condensed'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PageHeaderComponent.ctorParameters = function () { return []; };
+PageHeaderComponent.propDecorators = {
+    'logo': [{ type: core.Input },],
+    'items': [{ type: core.Input },],
+    'crumbs': [{ type: core.Input },],
+    'header': [{ type: core.Input },],
+    'alignment': [{ type: core.Input },],
+    'condensed': [{ type: core.Input },],
+    'iconMenus': [{ type: core.Input },],
+    'backVisible': [{ type: core.Input },],
+    'backClick': [{ type: core.Output },],
+    'customMenus': [{ type: core.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: core.TemplateRef },] },],
+};
+var PageHeaderIconMenuComponent = (function () {
+    function PageHeaderIconMenuComponent() {
+    }
+    /**
+     * @param {?} item
+     * @return {?}
+     */
+    PageHeaderIconMenuComponent.prototype.select = function (item) {
+        if (item.select) {
+            item.select.call(item, item);
+        }
+    };
+    return PageHeaderIconMenuComponent;
+}());
+PageHeaderIconMenuComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-page-header-icon-menu',
+                template: "\n      <div class=\"page-header-icon-menu\" dropdown dropdownToggle placement=\"bottom right\">\n\n          <a class=\"page-header-icon-menu-button\" (click)=\"select(menu)\">\n              <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\n              <span class=\"label label-primary\" *ngIf=\"menu?.badge\">{{ menu.badge }}</span>\n          </a>\n\n          <ul *dropdownMenu class=\"dropdown-menu\" role=\"menu\">\n\n              <li role=\"menuitem\" *ngFor=\"let dropdown of menu?.dropdown\" [class.dropdown-header]=\"dropdown.header\" [class.dropdown-divider]=\"dropdown.divider\">\n\n                  <span class=\"font-bold\" *ngIf=\"dropdown.header\">{{ dropdown.title }}</span>\n\n                  <a class=\"dropdown-item\" *ngIf=\"!dropdown.header\" (click)=\"select(dropdown)\">\n                      <i class=\"hpe-icon hp-fw text-muted\" [ngClass]=\"dropdown.icon\"></i>\n                      {{ dropdown.title }}\n                      <span class=\"pull-right text-muted small\" *ngIf=\"dropdown.subtitle\">{{ dropdown.subtitle }}</span>\n                  </a>\n              </li>\n\n          </ul>\n      </div>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PageHeaderIconMenuComponent.ctorParameters = function () { return []; };
+PageHeaderIconMenuComponent.propDecorators = {
+    'menu': [{ type: core.Input },],
+};
+var PageHeaderNavigationDropdownItemComponent = (function () {
+    function PageHeaderNavigationDropdownItemComponent() {
+        var _this = this;
+        this.onSelect = new core.EventEmitter();
+        this.dropdownOpen = false;
+        this._dropdownEvents = new Subject.Subject();
+        // subscribe to stream with a debounce (a small debounce is all that is required)
+        this._dropdownEvents.debounceTime(1).subscribe(function (visible) { return _this.dropdownOpen = visible; });
+    }
+    /**
+     * @param {?} item
+     * @param {?=} parentItem
+     * @return {?}
+     */
+    PageHeaderNavigationDropdownItemComponent.prototype.selectItem = function (item, parentItem) {
+        // clicking on an item with children then return
+        if (item.children) {
+            return;
+        }
+        // emit the selected item in an event
+        this.onSelect.emit(item);
+        // select the current item
+        item.selected = true;
+        // now also select the parent menu
+        if (parentItem) {
+            parentItem.selected = true;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    PageHeaderNavigationDropdownItemComponent.prototype.hoverStart = function () {
+        this._dropdownEvents.next(true);
+    };
+    /**
+     * @return {?}
+     */
+    PageHeaderNavigationDropdownItemComponent.prototype.hoverLeave = function () {
+        this._dropdownEvents.next(false);
+    };
+    /**
+     * @return {?}
+     */
+    PageHeaderNavigationDropdownItemComponent.prototype.close = function () {
+        this.dropdownOpen = false;
+    };
+    return PageHeaderNavigationDropdownItemComponent;
+}());
+PageHeaderNavigationDropdownItemComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-page-header-horizontal-navigation-dropdown-item',
+                template: "\n      <div role=\"menu-item\" dropdown [isOpen]=\"dropdownOpen\" container=\"body\" placement=\"right\" [isDisabled]=\"!item.children\" (mouseenter)=\"hoverStart()\"\n          (mouseleave)=\"hoverLeave()\" #subMenu=\"bs-dropdown\">\n\n          <!-- Show the menu item and the arrow if there are children -->\n          <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"item.selected\" (keyup.enter)=\"selectItem(item); subMenu.toggle()\" (click)=\"selectItem(item)\">\n              <span class=\"dropdown-item-title\">{{ item.title }}</span>\n              <span class=\"dropdown-item-icon hpe-icon hpe-next\" *ngIf=\"item.children\"></span>\n          </a>\n\n          <!-- Allow another level of menu items -->\n          <ul *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-submenu\" role=\"menu\" (mouseenter)=\"hoverStart()\" (mouseleave)=\"hoverLeave()\">\n\n              <li role=\"menuitem\" *ngFor=\"let subItem of item.children\" (click)=\"selectItem(subItem, item)\" (keyup.enter)=\"selectItem(subItem, item)\">\n                  <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"subItem.selected\">\n                      <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\n                  </a>\n              </li>\n          </ul>\n      </div>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PageHeaderNavigationDropdownItemComponent.ctorParameters = function () { return []; };
+PageHeaderNavigationDropdownItemComponent.propDecorators = {
+    'item': [{ type: core.Input },],
+    'onSelect': [{ type: core.Output },],
+};
+var PageHeaderNavigationItemComponent = (function () {
+    /**
+     * @param {?} elementRef
+     */
+    function PageHeaderNavigationItemComponent(elementRef) {
+        this.elementRef = elementRef;
+        this.onSelect = new core.EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    PageHeaderNavigationItemComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.menu.onHidden.subscribe(function () { return _this.dropdownComponents.forEach(function (dropdown) { return dropdown.close(); }); });
+    };
+    /**
+     * @return {?}
+     */
+    PageHeaderNavigationItemComponent.prototype.selectItem = function () {
+        // if the item has children then do nothing at this stage 
+        if (this.item.children) {
+            return;
+        }
+        // otherwise select the current item
+        this.onItemSelect(this.item);
+    };
+    /**
+     * @param {?} item
+     * @return {?}
+     */
+    PageHeaderNavigationItemComponent.prototype.onItemSelect = function (item) {
+        this.onSelect.emit(item);
+        // select the current item
+        this.item.selected = true;
+    };
+    return PageHeaderNavigationItemComponent;
+}());
+PageHeaderNavigationItemComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-page-header-horizontal-navigation-item',
+                template: "\n      <div class=\"horizontal-navigation-button\" dropdown dropdownToggle placement=\"bottom left\" [isDisabled]=\"!item?.children\" tabindex=\"0\" container=\"body\"\n          #menu=\"bs-dropdown\" (keyup.enter)=\"menu.toggle()\" [class.selected]=\"item?.selected\" (click)=\"selectItem()\">\n\n          <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n          <span class=\"navigation-item-label\">{{ item?.title }}</span>\n          <span class=\"hpe-icon hpe-down\" *ngIf=\"item?.children\"></span>\n\n          <div *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-menu\" role=\"menu\">\n              <ux-page-header-horizontal-navigation-dropdown-item *ngFor=\"let item of item?.children\" [item]=\"item\" (onSelect)=\"onItemSelect($event)\"></ux-page-header-horizontal-navigation-dropdown-item>\n          </div>\n\n      </div>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PageHeaderNavigationItemComponent.ctorParameters = function () { return [
+    { type: core.ElementRef, },
+]; };
+PageHeaderNavigationItemComponent.propDecorators = {
+    'menu': [{ type: core.ViewChild, args: ['menu',] },],
+    'dropdownComponents': [{ type: core.ViewChildren, args: [PageHeaderNavigationDropdownItemComponent,] },],
+    'item': [{ type: core.Input },],
+    'onSelect': [{ type: core.Output },],
+};
+var PageHeaderNavigationComponent = (function () {
+    /**
+     * @param {?} elementRef
+     * @param {?} resizeService
+     * @param {?} renderer
+     */
+    function PageHeaderNavigationComponent(elementRef, resizeService, renderer) {
+        this.items = [];
+        this.indicatorVisible = false;
+        this.indicatorX = 0;
+        this.indicatorWidth = 0;
+        resizeService.addResizeListener(elementRef.nativeElement, renderer).subscribe(this.updateSelectedIndicator.bind(this));
+    }
+    /**
+     * @return {?}
+     */
+    PageHeaderNavigationComponent.prototype.ngAfterViewInit = function () {
+        this.updateSelectedIndicator();
+    };
+    /**
+     * @param {?} item
+     * @return {?}
+     */
+    PageHeaderNavigationComponent.prototype.onSelect = function (item) {
+        if (item.select) {
+            item.select.call(item, item);
+        }
+        // deselect all items in all menus
+        this.deselectAll();
+        // update the selected indicator
+        this.updateSelectedIndicator();
+    };
+    /**
+     * @return {?}
+     */
+    PageHeaderNavigationComponent.prototype.deselectAll = function () {
+        var _this = this;
+        this.items.forEach(function (item) { return _this.deselect(item); });
+    };
+    /**
+     * @param {?} navItem
+     * @return {?}
+     */
+    PageHeaderNavigationComponent.prototype.deselect = function (navItem) {
+        var _this = this;
+        // deselect the current item
+        navItem.selected = false;
+        // iterate any children and deselect them
+        if (navItem.children) {
+            navItem.children.forEach(function (item) { return _this.deselect(item); });
+        }
+        // update the selected indicator
+        this.updateSelectedIndicator();
+    };
+    /**
+     * @return {?}
+     */
+    PageHeaderNavigationComponent.prototype.updateSelectedIndicator = function () {
+        var _this = this;
+        setTimeout(function () {
+            // find the selected item
+            var /** @type {?} */ selectedItem = _this.menuItems.find(function (item) { return item.item.selected; });
+            // determine whether or not to show the indicator
+            _this.indicatorVisible = !!selectedItem;
+            // set the width of the indicator to match the width of the navigation item
+            if (selectedItem) {
+                var /** @type {?} */ styles = getComputedStyle(selectedItem.elementRef.nativeElement);
+                _this.indicatorX = selectedItem.elementRef.nativeElement.offsetLeft;
+                _this.indicatorWidth = parseInt(styles.getPropertyValue('width'));
+            }
+        });
+    };
+    return PageHeaderNavigationComponent;
+}());
+PageHeaderNavigationComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-page-header-horizontal-navigation',
+                template: "\n      <ux-page-header-horizontal-navigation-item *ngFor=\"let item of items\" [item]=\"item\" (onSelect)=\"onSelect($event)\"></ux-page-header-horizontal-navigation-item>\n      <div class=\"selected-indicator\" [style.opacity]=\"indicatorVisible ? 1 : 0\" [style.margin-left.px]=\"indicatorX\" [style.width.px]=\"indicatorWidth\"></div>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PageHeaderNavigationComponent.ctorParameters = function () { return [
+    { type: core.ElementRef, },
+    { type: ResizeService, },
+    { type: core.Renderer2, },
+]; };
+PageHeaderNavigationComponent.propDecorators = {
+    'menuItems': [{ type: core.ViewChildren, args: [PageHeaderNavigationItemComponent,] },],
+    'items': [{ type: core.Input },],
+};
+var PageHeaderModule = (function () {
+    function PageHeaderModule() {
+    }
+    return PageHeaderModule;
+}());
+PageHeaderModule.decorators = [
+    { type: core.NgModule, args: [{
+                imports: [
+                    common.CommonModule,
+                    BreadcrumbsModule,
+                    ResizeModule,
+                    BsDropdownModule.forRoot()
+                ],
+                exports: [
+                    PageHeaderComponent,
+                    PageHeaderCustomMenuDirective
+                ],
+                declarations: [
+                    PageHeaderComponent,
+                    PageHeaderIconMenuComponent,
+                    PageHeaderCustomMenuDirective,
+                    PageHeaderNavigationComponent,
+                    PageHeaderNavigationItemComponent,
+                    PageHeaderNavigationDropdownItemComponent
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PageHeaderModule.ctorParameters = function () { return []; };
 var ColorService = (function () {
     /**
      * @param {?} document
@@ -10019,7 +9438,7 @@ var ColorService = (function () {
         if (!value) {
             return;
         }
-        var /** @type {?} */ colorName = this.resolveColorName(value);
+        var /** @type {?} */ colorName = value.replace(/\s+/g, '-').toLowerCase();
         for (var /** @type {?} */ color in this._colors) {
             if (colorName === color.toLowerCase()) {
                 return this.getColor(colorName).toRgba();
@@ -10040,7 +9459,7 @@ var ColorService = (function () {
  * @nocollapse
  */
 ColorService.ctorParameters = function () { return [
-    { type: Document, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] },] },
 ]; };
 var ThemeColor = (function () {
     /**
@@ -10313,368 +9732,6 @@ ColorServiceModule.decorators = [
  * @nocollapse
  */
 ColorServiceModule.ctorParameters = function () { return []; };
-var PageHeaderComponent = (function () {
-    /**
-     * @param {?} _colorService
-     */
-    function PageHeaderComponent(_colorService) {
-        this._colorService = _colorService;
-        this.alignment = 'center';
-        this.condensed = false;
-        this.backVisible = true;
-        this.backClick = new core.EventEmitter();
-    }
-    Object.defineProperty(PageHeaderComponent.prototype, "familyBackground", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._familyBackground;
-        },
-        /**
-         * @param {?} color
-         * @return {?}
-         */
-        set: function (color) {
-            this._familyBackground = this._colorService.resolve(color);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(PageHeaderComponent.prototype, "familyForeground", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._familyForeground;
-        },
-        /**
-         * @param {?} color
-         * @return {?}
-         */
-        set: function (color) {
-            this._familyForeground = this._colorService.resolve(color);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    PageHeaderComponent.prototype.goBack = function () {
-        this.backClick.emit();
-    };
-    /**
-     * @return {?}
-     */
-    PageHeaderComponent.prototype.getCondensedBreadcrumbs = function () {
-        if (this.crumbs) {
-            var /** @type {?} */ crumbs = this.crumbs.slice();
-            crumbs.push({ title: this.header });
-            return crumbs;
-        }
-        return [{ title: this.header }];
-    };
-    return PageHeaderComponent;
-}());
-PageHeaderComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-page-header',
-                exportAs: 'ux-page-header',
-                template: "\n      <!-- Display Upper Section when not condensed -->\n      <div class=\"page-header-actions\" *ngIf=\"!condensed\">\n\n          <div class=\"page-header-logo-container\" [hidden]=\"!logo\">\n              <img [attr.src]=\"logo\" class=\"page-header-logo\">\n          </div>\n\n          <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\n\n              <!-- The Top Navigation Options -->\n              <ux-page-header-horizontal-navigation [items]=\"items\"></ux-page-header-horizontal-navigation>\n          </div>\n\n          <div class=\"page-header-icon-menus\">\n              <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n\n              <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n          </div>\n      </div>\n\n      <!-- Display Lower Section When Not Condensed -->\n      <div class=\"page-header-details\" *ngIf=\"!condensed\">\n\n          <div class=\"page-header-state-container\">\n\n              <div *ngIf=\"backVisible == true\" class=\"page-header-back-button\" (click)=\"goBack()\">\n                  <span class=\"hpe-icon hpe-previous text-primary\"></span>\n              </div>\n\n              <div class=\"page-header-title-container\">\n\n                  <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                  <h1 class=\"page-header-title\" [style.backgroundColor]=\"familyBackground\" [style.color]=\"familyForeground\">{{ header }}</h1>\n              </div>\n\n          </div>\n\n      </div>\n\n      <!-- Display This Section Optimized for Condensed Mode -->\n      <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n          <div class=\"page-header-breadcrumbs\">\n              <ux-breadcrumbs [crumbs]=\"getCondensedBreadcrumbs()\"></ux-breadcrumbs>\n          </div>\n\n          <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\n\n              <!-- The Top Navigation Options -->\n              <ux-page-header-horizontal-navigation [items]=\"items\"></ux-page-header-horizontal-navigation>\n          </div>\n\n          <div class=\"page-header-icon-menus\">\n              <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n              <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n          </div>\n\n      </div>\n    ",
-                host: {
-                    '[class.page-header-condensed]': 'condensed'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-PageHeaderComponent.ctorParameters = function () { return [
-    { type: ColorService, },
-]; };
-PageHeaderComponent.propDecorators = {
-    'logo': [{ type: core.Input },],
-    'items': [{ type: core.Input },],
-    'crumbs': [{ type: core.Input },],
-    'header': [{ type: core.Input },],
-    'alignment': [{ type: core.Input },],
-    'condensed': [{ type: core.Input },],
-    'iconMenus': [{ type: core.Input },],
-    'backVisible': [{ type: core.Input },],
-    'familyBackground': [{ type: core.Input },],
-    'familyForeground': [{ type: core.Input },],
-    'backClick': [{ type: core.Output },],
-    'customMenus': [{ type: core.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: core.TemplateRef },] },],
-};
-var PageHeaderIconMenuComponent = (function () {
-    function PageHeaderIconMenuComponent() {
-    }
-    /**
-     * @param {?} item
-     * @return {?}
-     */
-    PageHeaderIconMenuComponent.prototype.select = function (item) {
-        if (item.select) {
-            item.select.call(item, item);
-        }
-    };
-    return PageHeaderIconMenuComponent;
-}());
-PageHeaderIconMenuComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-page-header-icon-menu',
-                template: "\n      <div class=\"page-header-icon-menu\" dropdown dropdownToggle placement=\"bottom right\">\n\n          <a class=\"page-header-icon-menu-button\" (click)=\"select(menu)\">\n              <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\n              <span class=\"label label-primary\" *ngIf=\"menu?.badge\">{{ menu.badge }}</span>\n          </a>\n\n          <ul *dropdownMenu class=\"dropdown-menu\" role=\"menu\">\n\n              <li role=\"menuitem\" *ngFor=\"let dropdown of menu?.dropdown\" [class.dropdown-header]=\"dropdown.header\" [class.dropdown-divider]=\"dropdown.divider\">\n\n                  <span class=\"font-bold\" *ngIf=\"dropdown.header\">{{ dropdown.title }}</span>\n\n                  <a class=\"dropdown-item\" *ngIf=\"!dropdown.header\" (click)=\"select(dropdown)\">\n                      <i class=\"hpe-icon hp-fw text-muted\" [ngClass]=\"dropdown.icon\"></i>\n                      {{ dropdown.title }}\n                      <span class=\"pull-right text-muted small\" *ngIf=\"dropdown.subtitle\">{{ dropdown.subtitle }}</span>\n                  </a>\n              </li>\n\n          </ul>\n      </div>\n    "
-            },] },
-];
-/**
- * @nocollapse
- */
-PageHeaderIconMenuComponent.ctorParameters = function () { return []; };
-PageHeaderIconMenuComponent.propDecorators = {
-    'menu': [{ type: core.Input },],
-};
-var PageHeaderNavigationDropdownItemComponent = (function () {
-    function PageHeaderNavigationDropdownItemComponent() {
-        var _this = this;
-        this.onSelect = new core.EventEmitter();
-        this.dropdownOpen = false;
-        this._dropdownEvents = new Subject.Subject();
-        // subscribe to stream with a debounce (a small debounce is all that is required)
-        this._dropdownEvents.debounceTime(1).subscribe(function (visible) { return _this.dropdownOpen = visible; });
-    }
-    /**
-     * @param {?} item
-     * @param {?=} parentItem
-     * @return {?}
-     */
-    PageHeaderNavigationDropdownItemComponent.prototype.selectItem = function (item, parentItem) {
-        // clicking on an item with children then return
-        if (item.children) {
-            return;
-        }
-        // emit the selected item in an event
-        this.onSelect.emit(item);
-        // select the current item
-        item.selected = true;
-        // now also select the parent menu
-        if (parentItem) {
-            parentItem.selected = true;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    PageHeaderNavigationDropdownItemComponent.prototype.hoverStart = function () {
-        this._dropdownEvents.next(true);
-    };
-    /**
-     * @return {?}
-     */
-    PageHeaderNavigationDropdownItemComponent.prototype.hoverLeave = function () {
-        this._dropdownEvents.next(false);
-    };
-    /**
-     * @return {?}
-     */
-    PageHeaderNavigationDropdownItemComponent.prototype.close = function () {
-        this.dropdownOpen = false;
-    };
-    return PageHeaderNavigationDropdownItemComponent;
-}());
-PageHeaderNavigationDropdownItemComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-page-header-horizontal-navigation-dropdown-item',
-                template: "\n      <div role=\"menu-item\" dropdown [isOpen]=\"dropdownOpen\" container=\"body\" placement=\"right\" [isDisabled]=\"!item.children\" (mouseenter)=\"hoverStart()\"\n          (mouseleave)=\"hoverLeave()\" #subMenu=\"bs-dropdown\">\n\n          <!-- Show the menu item and the arrow if there are children -->\n          <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"item.selected\" (keyup.enter)=\"selectItem(item); subMenu.toggle()\" (click)=\"selectItem(item)\">\n              <span class=\"dropdown-item-title\">{{ item.title }}</span>\n              <span class=\"dropdown-item-icon hpe-icon hpe-next\" *ngIf=\"item.children\"></span>\n          </a>\n\n          <!-- Allow another level of menu items -->\n          <ul *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-submenu\" role=\"menu\" (mouseenter)=\"hoverStart()\" (mouseleave)=\"hoverLeave()\">\n\n              <li role=\"menuitem\" *ngFor=\"let subItem of item.children\" (click)=\"selectItem(subItem, item)\" (keyup.enter)=\"selectItem(subItem, item)\">\n                  <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"subItem.selected\">\n                      <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\n                  </a>\n              </li>\n          </ul>\n      </div>\n    "
-            },] },
-];
-/**
- * @nocollapse
- */
-PageHeaderNavigationDropdownItemComponent.ctorParameters = function () { return []; };
-PageHeaderNavigationDropdownItemComponent.propDecorators = {
-    'item': [{ type: core.Input },],
-    'onSelect': [{ type: core.Output },],
-};
-var PageHeaderNavigationItemComponent = (function () {
-    /**
-     * @param {?} elementRef
-     */
-    function PageHeaderNavigationItemComponent(elementRef) {
-        this.elementRef = elementRef;
-        this.onSelect = new core.EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    PageHeaderNavigationItemComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.menu.onHidden.subscribe(function () { return _this.dropdownComponents.forEach(function (dropdown) { return dropdown.close(); }); });
-    };
-    /**
-     * @return {?}
-     */
-    PageHeaderNavigationItemComponent.prototype.selectItem = function () {
-        // if the item has children then do nothing at this stage 
-        if (this.item.children) {
-            return;
-        }
-        // otherwise select the current item
-        this.onItemSelect(this.item);
-    };
-    /**
-     * @param {?} item
-     * @return {?}
-     */
-    PageHeaderNavigationItemComponent.prototype.onItemSelect = function (item) {
-        this.onSelect.emit(item);
-        // select the current item
-        this.item.selected = true;
-    };
-    return PageHeaderNavigationItemComponent;
-}());
-PageHeaderNavigationItemComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-page-header-horizontal-navigation-item',
-                template: "\n      <div class=\"horizontal-navigation-button\" dropdown dropdownToggle placement=\"bottom left\" [isDisabled]=\"!item?.children\" tabindex=\"0\" container=\"body\"\n          #menu=\"bs-dropdown\" (keyup.enter)=\"menu.toggle()\" [class.selected]=\"item?.selected\" (click)=\"selectItem()\">\n\n          <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n          <span class=\"navigation-item-label\">{{ item?.title }}</span>\n          <span class=\"hpe-icon hpe-down\" *ngIf=\"item?.children\"></span>\n\n          <div *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-menu\" role=\"menu\">\n              <ux-page-header-horizontal-navigation-dropdown-item *ngFor=\"let item of item?.children\" [item]=\"item\" (onSelect)=\"onItemSelect($event)\"></ux-page-header-horizontal-navigation-dropdown-item>\n          </div>\n\n      </div>\n    "
-            },] },
-];
-/**
- * @nocollapse
- */
-PageHeaderNavigationItemComponent.ctorParameters = function () { return [
-    { type: core.ElementRef, },
-]; };
-PageHeaderNavigationItemComponent.propDecorators = {
-    'menu': [{ type: core.ViewChild, args: ['menu',] },],
-    'dropdownComponents': [{ type: core.ViewChildren, args: [PageHeaderNavigationDropdownItemComponent,] },],
-    'item': [{ type: core.Input },],
-    'onSelect': [{ type: core.Output },],
-};
-var PageHeaderNavigationComponent = (function () {
-    /**
-     * @param {?} elementRef
-     * @param {?} resizeService
-     * @param {?} renderer
-     */
-    function PageHeaderNavigationComponent(elementRef, resizeService, renderer) {
-        this.items = [];
-        this.indicatorVisible = false;
-        this.indicatorX = 0;
-        this.indicatorWidth = 0;
-        resizeService.addResizeListener(elementRef.nativeElement, renderer).subscribe(this.updateSelectedIndicator.bind(this));
-    }
-    /**
-     * @return {?}
-     */
-    PageHeaderNavigationComponent.prototype.ngAfterViewInit = function () {
-        this.updateSelectedIndicator();
-    };
-    /**
-     * @param {?} item
-     * @return {?}
-     */
-    PageHeaderNavigationComponent.prototype.onSelect = function (item) {
-        if (item.select) {
-            item.select.call(item, item);
-        }
-        // deselect all items in all menus
-        this.deselectAll();
-        // update the selected indicator
-        this.updateSelectedIndicator();
-    };
-    /**
-     * @return {?}
-     */
-    PageHeaderNavigationComponent.prototype.deselectAll = function () {
-        var _this = this;
-        this.items.forEach(function (item) { return _this.deselect(item); });
-    };
-    /**
-     * @param {?} navItem
-     * @return {?}
-     */
-    PageHeaderNavigationComponent.prototype.deselect = function (navItem) {
-        var _this = this;
-        // deselect the current item
-        navItem.selected = false;
-        // iterate any children and deselect them
-        if (navItem.children) {
-            navItem.children.forEach(function (item) { return _this.deselect(item); });
-        }
-        // update the selected indicator
-        this.updateSelectedIndicator();
-    };
-    /**
-     * @return {?}
-     */
-    PageHeaderNavigationComponent.prototype.updateSelectedIndicator = function () {
-        var _this = this;
-        setTimeout(function () {
-            // find the selected item
-            var /** @type {?} */ selectedItem = _this.menuItems.find(function (item) { return item.item.selected; });
-            // determine whether or not to show the indicator
-            _this.indicatorVisible = !!selectedItem;
-            // set the width of the indicator to match the width of the navigation item
-            if (selectedItem) {
-                var /** @type {?} */ styles = getComputedStyle(selectedItem.elementRef.nativeElement);
-                _this.indicatorX = selectedItem.elementRef.nativeElement.offsetLeft;
-                _this.indicatorWidth = parseInt(styles.getPropertyValue('width'));
-            }
-        });
-    };
-    return PageHeaderNavigationComponent;
-}());
-PageHeaderNavigationComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-page-header-horizontal-navigation',
-                template: "\n      <ux-page-header-horizontal-navigation-item *ngFor=\"let item of items\" [item]=\"item\" (onSelect)=\"onSelect($event)\"></ux-page-header-horizontal-navigation-item>\n      <div class=\"selected-indicator\" [style.opacity]=\"indicatorVisible ? 1 : 0\" [style.margin-left.px]=\"indicatorX\" [style.width.px]=\"indicatorWidth\"></div>\n    "
-            },] },
-];
-/**
- * @nocollapse
- */
-PageHeaderNavigationComponent.ctorParameters = function () { return [
-    { type: core.ElementRef, },
-    { type: ResizeService, },
-    { type: core.Renderer2, },
-]; };
-PageHeaderNavigationComponent.propDecorators = {
-    'menuItems': [{ type: core.ViewChildren, args: [PageHeaderNavigationItemComponent,] },],
-    'items': [{ type: core.Input },],
-};
-var PageHeaderModule = (function () {
-    function PageHeaderModule() {
-    }
-    return PageHeaderModule;
-}());
-PageHeaderModule.decorators = [
-    { type: core.NgModule, args: [{
-                imports: [
-                    common.CommonModule,
-                    BreadcrumbsModule,
-                    ColorServiceModule,
-                    ResizeModule,
-                    BsDropdownModule.forRoot()
-                ],
-                exports: [
-                    PageHeaderComponent,
-                    PageHeaderCustomMenuDirective
-                ],
-                declarations: [
-                    PageHeaderComponent,
-                    PageHeaderIconMenuComponent,
-                    PageHeaderCustomMenuDirective,
-                    PageHeaderNavigationComponent,
-                    PageHeaderNavigationItemComponent,
-                    PageHeaderNavigationDropdownItemComponent
-                ]
-            },] },
-];
-/**
- * @nocollapse
- */
-PageHeaderModule.ctorParameters = function () { return []; };
 var ProgressBarComponent = (function () {
     /**
      * @param {?} colorService
@@ -16421,7 +15478,7 @@ FileSizePipeModule.decorators = [
  * @nocollapse
  */
 FileSizePipeModule.ctorParameters = function () { return []; };
-var DECLARATIONS$6 = [
+var DECLARATIONS$5 = [
     MediaPlayerComponent,
     MediaPlayerTimelineExtensionComponent,
     MediaPlayerBaseExtensionDirective,
@@ -16442,8 +15499,8 @@ MediaPlayerModule.decorators = [
                     DurationPipeModule,
                     FileSizePipeModule
                 ],
-                exports: DECLARATIONS$6,
-                declarations: DECLARATIONS$6,
+                exports: DECLARATIONS$5,
+                declarations: DECLARATIONS$5,
                 providers: [MediaPlayerService]
             },] },
 ];
@@ -16654,7 +15711,7 @@ VirtualScrollComponent.propDecorators = {
     'loadButtonTemplate': [{ type: core.ContentChild, args: [VirtualScrollLoadButtonDirective, { read: core.TemplateRef },] },],
     'renderCells': [{ type: core.HostListener, args: ['scroll',] },],
 };
-var DECLARATIONS$7 = [
+var DECLARATIONS$6 = [
     VirtualScrollComponent,
     VirtualScrollLoadingDirective,
     VirtualScrollLoadButtonDirective,
@@ -16671,6 +15728,295 @@ VirtualScrollModule.decorators = [
                     common.CommonModule,
                     ResizeModule
                 ],
+                exports: DECLARATIONS$6,
+                declarations: DECLARATIONS$6
+            },] },
+];
+/**
+ * @nocollapse
+ */
+VirtualScrollModule.ctorParameters = function () { return []; };
+var WizardStepComponent = (function () {
+    function WizardStepComponent() {
+        this.valid = true;
+        this.visitedChange = new core.EventEmitter();
+        this._active = false;
+        this._visited = false;
+    }
+    Object.defineProperty(WizardStepComponent.prototype, "visited", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._visited;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._visited = value;
+            this.visitedChange.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WizardStepComponent.prototype, "active", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._active;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            // store the active state of the step
+            this._active = value;
+            // if the value is true then the step should also be marked as visited
+            if (value === true) {
+                this.visited = true;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return WizardStepComponent;
+}());
+WizardStepComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-wizard-step',
+                template: "\n      <ng-container *ngIf=\"active\">\n          <ng-content></ng-content>\n      </ng-container>\n    "
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardStepComponent.ctorParameters = function () { return []; };
+WizardStepComponent.propDecorators = {
+    'header': [{ type: core.Input },],
+    'valid': [{ type: core.Input },],
+    'visitedChange': [{ type: core.Input },],
+    'visited': [{ type: core.Input },],
+};
+var WizardComponent = (function () {
+    function WizardComponent() {
+        this._step = 0;
+        this.steps = new core.QueryList();
+        this.orientation = 'horizontal';
+        this.nextText = 'Next';
+        this.previousText = 'Previous';
+        this.cancelText = 'Cancel';
+        this.finishText = 'Finish';
+        this.nextTooltip = 'Go to the next step';
+        this.previousTooltip = 'Go to the previous step';
+        this.cancelTooltip = 'Cancel the wizard';
+        this.finishTooltip = 'Finish the wizard';
+        this.nextDisabled = false;
+        this.previousDisabled = false;
+        this.cancelDisabled = false;
+        this.finishDisabled = false;
+        this.nextVisible = true;
+        this.previousVisible = true;
+        this.cancelVisible = true;
+        this.finishVisible = true;
+        this.cancelAlwaysVisible = false;
+        this.finishAlwaysVisible = false;
+        this.onNext = new core.EventEmitter();
+        this.onPrevious = new core.EventEmitter();
+        this.onCancel = new core.EventEmitter();
+        this.onFinish = new core.EventEmitter();
+        this.stepChange = new core.EventEmitter();
+        this.invalidIndicator = false;
+    }
+    Object.defineProperty(WizardComponent.prototype, "step", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._step;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            // only accept numbers as valid options
+            if (typeof value === 'number') {
+                // store the active step
+                this._step = value;
+                // update which steps should be active
+                this.update();
+                // emit the change event
+                this.stepChange.next(this.step);
+                // reset the invalid state
+                this.invalidIndicator = false;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    WizardComponent.prototype.ngAfterViewInit = function () {
+        // initially set the correct visibility of the steps
+        setTimeout(this.update.bind(this));
+    };
+    /**
+     * Navigate to the next step
+     * @return {?}
+     */
+    WizardComponent.prototype.next = function () {
+        // check if current step is invalid
+        if (!this.getCurrentStep().valid) {
+            this.invalidIndicator = true;
+            return;
+        }
+        // check if we are currently on the last step
+        if ((this.step + 1) < this.steps.length) {
+            this.step++;
+            // emit the current step
+            this.onNext.next(this.step);
+        }
+    };
+    /**
+     * Navigate to the previous step
+     * @return {?}
+     */
+    WizardComponent.prototype.previous = function () {
+        // check if we are currently on the last step
+        if (this.step > 0) {
+            this.step--;
+            // emit the current step
+            this.onPrevious.next(this.step);
+        }
+    };
+    /**
+     * Perform actions when the finish button is clicked
+     * @return {?}
+     */
+    WizardComponent.prototype.finish = function () {
+        this.onFinish.next();
+    };
+    /**
+     * Perform actions when the cancel button is clicked
+     * @return {?}
+     */
+    WizardComponent.prototype.cancel = function () {
+        this.onCancel.next();
+    };
+    /**
+     * Update the active state of each step
+     * @return {?}
+     */
+    WizardComponent.prototype.update = function () {
+        var _this = this;
+        // update which steps should be active
+        this.steps.forEach(function (step, idx) { return step.active = idx === _this.step; });
+    };
+    /**
+     * Jump to a specific step only if the step has previously been visited
+     * @param {?} step
+     * @return {?}
+     */
+    WizardComponent.prototype.gotoStep = function (step) {
+        if (step.visited) {
+            this.step = this.steps.toArray().findIndex(function (stp) { return stp === step; });
+        }
+    };
+    /**
+     * Determine if the current step is the last step
+     * @return {?}
+     */
+    WizardComponent.prototype.isLastStep = function () {
+        return this.step === (this.steps.length - 1);
+    };
+    /**
+     * Reset the wizard - goes to first step and resets visited state
+     * @return {?}
+     */
+    WizardComponent.prototype.reset = function () {
+        // mark all steps as not visited
+        this.steps.forEach(function (step) { return step.visited = false; });
+        // go to the first step
+        this.step = 0;
+    };
+    /**
+     * Get the step at the current index
+     * @return {?}
+     */
+    WizardComponent.prototype.getCurrentStep = function () {
+        return this.getStepAtIndex(this.step);
+    };
+    /**
+     * Return a step at a specific index
+     * @param {?} index
+     * @return {?}
+     */
+    WizardComponent.prototype.getStepAtIndex = function (index) {
+        return this.steps.toArray()[index];
+    };
+    return WizardComponent;
+}());
+WizardComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-wizard',
+                template: "\n      <div class=\"wizard-body\">\n\n          <div class=\"wizard-steps\">\n    \n              <div class=\"wizard-step\" [class.active]=\"stp.active\" [class.visited]=\"stp.visited\" [class.invalid]=\"stp.active && !stp.valid && invalidIndicator\" (click)=\"gotoStep(stp)\" *ngFor=\"let stp of steps\">\n                  {{ stp.header }}\n              </div>\n    \n          </div>\n    \n          <div class=\"wizard-content\">\n              <ng-content></ng-content>\n          </div>\n    \n      </div>\n\n      <div class=\"wizard-footer\">\n          <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"previousVisible\" [tooltip]=\"previousTooltip\" container=\"body\" [disabled]=\"previousDisabled || step === 0\"\n              (click)=\"previous(); tip.hide()\">{{ previousText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"nextVisible && !isLastStep()\" [tooltip]=\"nextTooltip\" container=\"body\" [disabled]=\"nextDisabled\"\n              (click)=\"next(); tip.hide()\">{{ nextText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-primary\" *ngIf=\"finishVisible && isLastStep() || finishAlwaysVisible\" [tooltip]=\"finishTooltip\"\n              container=\"body\" [disabled]=\"finishDisabled\" (click)=\"finish(); tip.hide()\">{{ finishText }}</button>\n\n          <button #tip=\"bs-tooltip\" class=\"btn button-secondary\" *ngIf=\"cancelVisible && !isLastStep() || cancelAlwaysVisible\" [tooltip]=\"cancelTooltip\"\n              container=\"body\" [disabled]=\"cancelDisabled\" (click)=\"cancel(); tip.hide()\">{{ cancelText }}</button>\n      </div>\n    ",
+                host: {
+                    '[class]': 'orientation'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardComponent.ctorParameters = function () { return []; };
+WizardComponent.propDecorators = {
+    'steps': [{ type: core.ContentChildren, args: [WizardStepComponent,] },],
+    'orientation': [{ type: core.Input },],
+    'nextText': [{ type: core.Input },],
+    'previousText': [{ type: core.Input },],
+    'cancelText': [{ type: core.Input },],
+    'finishText': [{ type: core.Input },],
+    'nextTooltip': [{ type: core.Input },],
+    'previousTooltip': [{ type: core.Input },],
+    'cancelTooltip': [{ type: core.Input },],
+    'finishTooltip': [{ type: core.Input },],
+    'nextDisabled': [{ type: core.Input },],
+    'previousDisabled': [{ type: core.Input },],
+    'cancelDisabled': [{ type: core.Input },],
+    'finishDisabled': [{ type: core.Input },],
+    'nextVisible': [{ type: core.Input },],
+    'previousVisible': [{ type: core.Input },],
+    'cancelVisible': [{ type: core.Input },],
+    'finishVisible': [{ type: core.Input },],
+    'cancelAlwaysVisible': [{ type: core.Input },],
+    'finishAlwaysVisible': [{ type: core.Input },],
+    'onNext': [{ type: core.Output },],
+    'onPrevious': [{ type: core.Output },],
+    'onCancel': [{ type: core.Output },],
+    'onFinish': [{ type: core.Output },],
+    'stepChange': [{ type: core.Output },],
+    'step': [{ type: core.Input },],
+};
+var DECLARATIONS$7 = [
+    WizardComponent,
+    WizardStepComponent
+];
+var WizardModule = (function () {
+    function WizardModule() {
+    }
+    return WizardModule;
+}());
+WizardModule.decorators = [
+    { type: core.NgModule, args: [{
+                imports: [
+                    common.CommonModule,
+                    TooltipModule.forRoot()
+                ],
                 exports: DECLARATIONS$7,
                 declarations: DECLARATIONS$7
             },] },
@@ -16678,7 +16024,7 @@ VirtualScrollModule.decorators = [
 /**
  * @nocollapse
  */
-VirtualScrollModule.ctorParameters = function () { return []; };
+WizardModule.ctorParameters = function () { return []; };
 var FixedHeaderTableDirective = (function () {
     /**
      * @param {?} _elementRef
@@ -17672,20 +17018,20 @@ var StorageAdapter = (function () {
     StorageAdapter.prototype.getSupported = function () { };
     return StorageAdapter;
 }());
-var ContactsNg1Component = (function (_super) {
-    __extends(ContactsNg1Component, _super);
+var ContactsComponent = (function (_super) {
+    __extends(ContactsComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function ContactsNg1Component(elementRef, injector) {
+    function ContactsComponent(elementRef, injector) {
         var _this = _super.call(this, 'contactGroup', elementRef, injector) || this;
         _this.overflowClick = new core.EventEmitter();
         return _this;
     }
-    return ContactsNg1Component;
+    return ContactsComponent;
 }(_static.UpgradeComponent));
-ContactsNg1Component.decorators = [
+ContactsComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'contact-group'
             },] },
@@ -17693,11 +17039,11 @@ ContactsNg1Component.decorators = [
 /**
  * @nocollapse
  */
-ContactsNg1Component.ctorParameters = function () { return [
+ContactsComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-ContactsNg1Component.propDecorators = {
+ContactsComponent.propDecorators = {
     'contacts': [{ type: core.Input },],
     'organization': [{ type: core.Input },],
     'size': [{ type: core.Input },],
@@ -17705,20 +17051,20 @@ ContactsNg1Component.propDecorators = {
     'maxContacts': [{ type: core.Input },],
     'overflowClick': [{ type: core.Output },],
 };
-var ExpandInputNg1Component = (function (_super) {
-    __extends(ExpandInputNg1Component, _super);
+var ExpandInputComponent = (function (_super) {
+    __extends(ExpandInputComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function ExpandInputNg1Component(elementRef, injector) {
+    function ExpandInputComponent(elementRef, injector) {
         var _this = _super.call(this, 'expandInput', elementRef, injector) || this;
         _this.focus = new core.EventEmitter();
         return _this;
     }
-    return ExpandInputNg1Component;
+    return ExpandInputComponent;
 }(_static.UpgradeComponent));
-ExpandInputNg1Component.decorators = [
+ExpandInputComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'expand-input'
             },] },
@@ -17726,11 +17072,11 @@ ExpandInputNg1Component.decorators = [
 /**
  * @nocollapse
  */
-ExpandInputNg1Component.ctorParameters = function () { return [
+ExpandInputComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-ExpandInputNg1Component.propDecorators = {
+ExpandInputComponent.propDecorators = {
     'elname': [{ type: core.Input },],
     'placeHolder': [{ type: core.Input },],
     'className': [{ type: core.Input },],
@@ -17740,20 +17086,20 @@ ExpandInputNg1Component.propDecorators = {
     'onEnter': [{ type: core.Input },],
     'focus': [{ type: core.Output },],
 };
-var FloatingActionButtonNg1Component = (function (_super) {
-    __extends(FloatingActionButtonNg1Component, _super);
+var FloatingActionButtonComponent = (function (_super) {
+    __extends(FloatingActionButtonComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function FloatingActionButtonNg1Component(elementRef, injector) {
+    function FloatingActionButtonComponent(elementRef, injector) {
         var _this = _super.call(this, 'floatingActionButton', elementRef, injector) || this;
         _this.items = [];
         return _this;
     }
-    return FloatingActionButtonNg1Component;
+    return FloatingActionButtonComponent;
 }(_static.UpgradeComponent));
-FloatingActionButtonNg1Component.decorators = [
+FloatingActionButtonComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'floating-action-button'
             },] },
@@ -17761,30 +17107,30 @@ FloatingActionButtonNg1Component.decorators = [
 /**
  * @nocollapse
  */
-FloatingActionButtonNg1Component.ctorParameters = function () { return [
+FloatingActionButtonComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-FloatingActionButtonNg1Component.propDecorators = {
+FloatingActionButtonComponent.propDecorators = {
     'items': [{ type: core.Input },],
     'primary': [{ type: core.Input },],
     'direction': [{ type: core.Input },],
 };
-var FlotNg1Component = (function (_super) {
-    __extends(FlotNg1Component, _super);
+var FlotComponent = (function (_super) {
+    __extends(FlotComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function FlotNg1Component(elementRef, injector) {
+    function FlotComponent(elementRef, injector) {
         var _this = _super.call(this, 'uxFlotNg1', elementRef, injector) || this;
         _this.onPlotClick = new core.EventEmitter();
         _this.onPlotHover = new core.EventEmitter();
         return _this;
     }
-    return FlotNg1Component;
+    return FlotComponent;
 }(_static.UpgradeComponent));
-FlotNg1Component.decorators = [
+FlotComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'flot'
             },] },
@@ -17792,11 +17138,11 @@ FlotNg1Component.decorators = [
 /**
  * @nocollapse
  */
-FlotNg1Component.ctorParameters = function () { return [
+FlotComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-FlotNg1Component.propDecorators = {
+FlotComponent.propDecorators = {
     'dataset': [{ type: core.Input },],
     'options': [{ type: core.Input },],
     'callback': [{ type: core.Input },],
@@ -17804,21 +17150,21 @@ FlotNg1Component.propDecorators = {
     'onPlotClick': [{ type: core.Output },],
     'onPlotHover': [{ type: core.Output },],
 };
-var GridNg1Component = (function (_super) {
-    __extends(GridNg1Component, _super);
+var GridComponent = (function (_super) {
+    __extends(GridComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function GridNg1Component(elementRef, injector) {
+    function GridComponent(elementRef, injector) {
         var _this = _super.call(this, 'grid', elementRef, injector) || this;
         _this.source = [];
         _this.columns = [];
         return _this;
     }
-    return GridNg1Component;
+    return GridComponent;
 }(_static.UpgradeComponent));
-GridNg1Component.decorators = [
+GridComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'grid'
             },] },
@@ -17826,29 +17172,29 @@ GridNg1Component.decorators = [
 /**
  * @nocollapse
  */
-GridNg1Component.ctorParameters = function () { return [
+GridComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-GridNg1Component.propDecorators = {
+GridComponent.propDecorators = {
     'source': [{ type: core.Input },],
     'columns': [{ type: core.Input },],
     'options': [{ type: core.Input },],
     'events': [{ type: core.Input },],
     'plugins': [{ type: core.Input },],
 };
-var HierarchyBarNg1Component = (function (_super) {
-    __extends(HierarchyBarNg1Component, _super);
+var HierarchyBarComponent = (function (_super) {
+    __extends(HierarchyBarComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function HierarchyBarNg1Component(elementRef, injector) {
+    function HierarchyBarComponent(elementRef, injector) {
         return _super.call(this, 'hierarchyBar', elementRef, injector) || this;
     }
-    return HierarchyBarNg1Component;
+    return HierarchyBarComponent;
 }(_static.UpgradeComponent));
-HierarchyBarNg1Component.decorators = [
+HierarchyBarComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'hierarchy-bar'
             },] },
@@ -17856,30 +17202,30 @@ HierarchyBarNg1Component.decorators = [
 /**
  * @nocollapse
  */
-HierarchyBarNg1Component.ctorParameters = function () { return [
+HierarchyBarComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-HierarchyBarNg1Component.propDecorators = {
+HierarchyBarComponent.propDecorators = {
     'data': [{ type: core.Input },],
     'options': [{ type: core.Input },],
     'selectNode': [{ type: core.Input },],
     'containerClass': [{ type: core.Input },],
 };
-var MarqueeWizardNg1Component = (function (_super) {
-    __extends(MarqueeWizardNg1Component, _super);
+var MarqueeWizardComponent = (function (_super) {
+    __extends(MarqueeWizardComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function MarqueeWizardNg1Component(elementRef, injector) {
-        var _this = _super.call(this, 'marqueeWizard', elementRef, injector) || this;
+    function MarqueeWizardComponent(elementRef, injector) {
+        var _this = _super.call(this, 'marquee-wizard', elementRef, injector) || this;
         _this.wizardStepsChange = new core.EventEmitter();
         return _this;
     }
-    return MarqueeWizardNg1Component;
+    return MarqueeWizardComponent;
 }(_static.UpgradeComponent));
-MarqueeWizardNg1Component.decorators = [
+MarqueeWizardComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'marquee-wizard'
             },] },
@@ -17887,11 +17233,11 @@ MarqueeWizardNg1Component.decorators = [
 /**
  * @nocollapse
  */
-MarqueeWizardNg1Component.ctorParameters = function () { return [
+MarqueeWizardComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-MarqueeWizardNg1Component.propDecorators = {
+MarqueeWizardComponent.propDecorators = {
     'wizardIcon': [{ type: core.Input },],
     'wizardSteps': [{ type: core.Input },],
     'buttonOptions': [{ type: core.Input },],
@@ -17903,18 +17249,18 @@ MarqueeWizardNg1Component.propDecorators = {
     'sideInfo': [{ type: core.Input },],
     'wizardStepsChange': [{ type: core.Output },],
 };
-var NestedDonutNg1Component = (function (_super) {
-    __extends(NestedDonutNg1Component, _super);
+var NestedDonutComponent = (function (_super) {
+    __extends(NestedDonutComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function NestedDonutNg1Component(elementRef, injector) {
+    function NestedDonutComponent(elementRef, injector) {
         return _super.call(this, 'uxNestedDonutNg1', elementRef, injector) || this;
     }
-    return NestedDonutNg1Component;
+    return NestedDonutComponent;
 }(_static.UpgradeComponent));
-NestedDonutNg1Component.decorators = [
+NestedDonutComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'nested-donut'
             },] },
@@ -17922,29 +17268,29 @@ NestedDonutNg1Component.decorators = [
 /**
  * @nocollapse
  */
-NestedDonutNg1Component.ctorParameters = function () { return [
+NestedDonutComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-NestedDonutNg1Component.propDecorators = {
+NestedDonutComponent.propDecorators = {
     'dataset': [{ type: core.Input },],
     'options': [{ type: core.Input },],
 };
-var OrganizationChartNg1Component = (function (_super) {
-    __extends(OrganizationChartNg1Component, _super);
+var OrganizationChartComponent = (function (_super) {
+    __extends(OrganizationChartComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function OrganizationChartNg1Component(elementRef, injector) {
+    function OrganizationChartComponent(elementRef, injector) {
         var _this = _super.call(this, 'uxOrganizationChartNg1', elementRef, injector) || this;
         _this.dataChange = new core.EventEmitter();
         _this.optionsChange = new core.EventEmitter();
         return _this;
     }
-    return OrganizationChartNg1Component;
+    return OrganizationChartComponent;
 }(_static.UpgradeComponent));
-OrganizationChartNg1Component.decorators = [
+OrganizationChartComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'organization-chart'
             },] },
@@ -17952,28 +17298,28 @@ OrganizationChartNg1Component.decorators = [
 /**
  * @nocollapse
  */
-OrganizationChartNg1Component.ctorParameters = function () { return [
+OrganizationChartComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-OrganizationChartNg1Component.propDecorators = {
+OrganizationChartComponent.propDecorators = {
     'data': [{ type: core.Input },],
     'options': [{ type: core.Input },],
     'dataChange': [{ type: core.Output },],
     'optionsChange': [{ type: core.Output },],
 };
-var PartitionMapNg1Component = (function (_super) {
-    __extends(PartitionMapNg1Component, _super);
+var PartitionMapComponent = (function (_super) {
+    __extends(PartitionMapComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function PartitionMapNg1Component(elementRef, injector) {
+    function PartitionMapComponent(elementRef, injector) {
         return _super.call(this, 'uxPartitionMapNg1', elementRef, injector) || this;
     }
-    return PartitionMapNg1Component;
+    return PartitionMapComponent;
 }(_static.UpgradeComponent));
-PartitionMapNg1Component.decorators = [
+PartitionMapComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'partition-map'
             },] },
@@ -17981,27 +17327,27 @@ PartitionMapNg1Component.decorators = [
 /**
  * @nocollapse
  */
-PartitionMapNg1Component.ctorParameters = function () { return [
+PartitionMapComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-PartitionMapNg1Component.propDecorators = {
+PartitionMapComponent.propDecorators = {
     'chartData': [{ type: core.Input },],
     'chartOptions': [{ type: core.Input },],
     'chartLoading': [{ type: core.Input },],
 };
-var PeityBarChartNg1Component = (function (_super) {
-    __extends(PeityBarChartNg1Component, _super);
+var PeityBarChartComponent = (function (_super) {
+    __extends(PeityBarChartComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function PeityBarChartNg1Component(elementRef, injector) {
+    function PeityBarChartComponent(elementRef, injector) {
         return _super.call(this, 'uxPeityBarChartNg1', elementRef, injector) || this;
     }
-    return PeityBarChartNg1Component;
+    return PeityBarChartComponent;
 }(_static.UpgradeComponent));
-PeityBarChartNg1Component.decorators = [
+PeityBarChartComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'bar-chart'
             },] },
@@ -18009,26 +17355,26 @@ PeityBarChartNg1Component.decorators = [
 /**
  * @nocollapse
  */
-PeityBarChartNg1Component.ctorParameters = function () { return [
+PeityBarChartComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-PeityBarChartNg1Component.propDecorators = {
+PeityBarChartComponent.propDecorators = {
     'data': [{ type: core.Input },],
     'options': [{ type: core.Input },],
 };
-var PeityLineChartNg1Component = (function (_super) {
-    __extends(PeityLineChartNg1Component, _super);
+var PeityLineChartComponent = (function (_super) {
+    __extends(PeityLineChartComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function PeityLineChartNg1Component(elementRef, injector) {
+    function PeityLineChartComponent(elementRef, injector) {
         return _super.call(this, 'uxPeityLineChartNg1', elementRef, injector) || this;
     }
-    return PeityLineChartNg1Component;
+    return PeityLineChartComponent;
 }(_static.UpgradeComponent));
-PeityLineChartNg1Component.decorators = [
+PeityLineChartComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'line-chart'
             },] },
@@ -18036,26 +17382,26 @@ PeityLineChartNg1Component.decorators = [
 /**
  * @nocollapse
  */
-PeityLineChartNg1Component.ctorParameters = function () { return [
+PeityLineChartComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-PeityLineChartNg1Component.propDecorators = {
+PeityLineChartComponent.propDecorators = {
     'data': [{ type: core.Input },],
     'options': [{ type: core.Input },],
 };
-var PeityPieChartNg1Component = (function (_super) {
-    __extends(PeityPieChartNg1Component, _super);
+var PeityPieChartComponent = (function (_super) {
+    __extends(PeityPieChartComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function PeityPieChartNg1Component(elementRef, injector) {
+    function PeityPieChartComponent(elementRef, injector) {
         return _super.call(this, 'uxPeityPieChartNg1', elementRef, injector) || this;
     }
-    return PeityPieChartNg1Component;
+    return PeityPieChartComponent;
 }(_static.UpgradeComponent));
-PeityPieChartNg1Component.decorators = [
+PeityPieChartComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'pie-chart'
             },] },
@@ -18063,26 +17409,26 @@ PeityPieChartNg1Component.decorators = [
 /**
  * @nocollapse
  */
-PeityPieChartNg1Component.ctorParameters = function () { return [
+PeityPieChartComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-PeityPieChartNg1Component.propDecorators = {
+PeityPieChartComponent.propDecorators = {
     'data': [{ type: core.Input },],
     'options': [{ type: core.Input },],
 };
-var PeityUpdatingLineChartNg1Component = (function (_super) {
-    __extends(PeityUpdatingLineChartNg1Component, _super);
+var PeityUpdatingLineChartComponent = (function (_super) {
+    __extends(PeityUpdatingLineChartComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function PeityUpdatingLineChartNg1Component(elementRef, injector) {
+    function PeityUpdatingLineChartComponent(elementRef, injector) {
         return _super.call(this, 'uxPeityUpdatingLineChartNg1', elementRef, injector) || this;
     }
-    return PeityUpdatingLineChartNg1Component;
+    return PeityUpdatingLineChartComponent;
 }(_static.UpgradeComponent));
-PeityUpdatingLineChartNg1Component.decorators = [
+PeityUpdatingLineChartComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'updating-line-chart'
             },] },
@@ -18090,28 +17436,28 @@ PeityUpdatingLineChartNg1Component.decorators = [
 /**
  * @nocollapse
  */
-PeityUpdatingLineChartNg1Component.ctorParameters = function () { return [
+PeityUpdatingLineChartComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-PeityUpdatingLineChartNg1Component.propDecorators = {
+PeityUpdatingLineChartComponent.propDecorators = {
     'data': [{ type: core.Input },],
     'options': [{ type: core.Input },],
     'method': [{ type: core.Input },],
     'updateinterval': [{ type: core.Input },],
 };
-var SankeyNg1Component = (function (_super) {
-    __extends(SankeyNg1Component, _super);
+var SankeyComponent = (function (_super) {
+    __extends(SankeyComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function SankeyNg1Component(elementRef, injector) {
+    function SankeyComponent(elementRef, injector) {
         return _super.call(this, 'uxSankeyNg1', elementRef, injector) || this;
     }
-    return SankeyNg1Component;
+    return SankeyComponent;
 }(_static.UpgradeComponent));
-SankeyNg1Component.decorators = [
+SankeyComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'sankey'
             },] },
@@ -18119,28 +17465,28 @@ SankeyNg1Component.decorators = [
 /**
  * @nocollapse
  */
-SankeyNg1Component.ctorParameters = function () { return [
+SankeyComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-SankeyNg1Component.propDecorators = {
+SankeyComponent.propDecorators = {
     'chartSize': [{ type: core.Input },],
     'chartData': [{ type: core.Input },],
     'options': [{ type: core.Input },],
     'click': [{ type: core.Input },],
 };
-var SearchToolbarNg1Component = (function (_super) {
-    __extends(SearchToolbarNg1Component, _super);
+var SearchToolbarComponent = (function (_super) {
+    __extends(SearchToolbarComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function SearchToolbarNg1Component(elementRef, injector) {
+    function SearchToolbarComponent(elementRef, injector) {
         return _super.call(this, 'searchToolbar', elementRef, injector) || this;
     }
-    return SearchToolbarNg1Component;
+    return SearchToolbarComponent;
 }(_static.UpgradeComponent));
-SearchToolbarNg1Component.decorators = [
+SearchToolbarComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'search-toolbar'
             },] },
@@ -18148,31 +17494,31 @@ SearchToolbarNg1Component.decorators = [
 /**
  * @nocollapse
  */
-SearchToolbarNg1Component.ctorParameters = function () { return [
+SearchToolbarComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-SearchToolbarNg1Component.propDecorators = {
+SearchToolbarComponent.propDecorators = {
     'searchTypeahead': [{ type: core.Input },],
     'placeHolder': [{ type: core.Input },],
     'closeSearch': [{ type: core.Input },],
     'onSearch': [{ type: core.Input },],
     'onFocus': [{ type: core.Input },],
 };
-var SelectTableNg1Component = (function (_super) {
-    __extends(SelectTableNg1Component, _super);
+var SelectTableComponent = (function (_super) {
+    __extends(SelectTableComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function SelectTableNg1Component(elementRef, injector) {
+    function SelectTableComponent(elementRef, injector) {
         var _this = _super.call(this, 'selectTable', elementRef, injector) || this;
         _this.selectedChange = new core.EventEmitter();
         return _this;
     }
-    return SelectTableNg1Component;
+    return SelectTableComponent;
 }(_static.UpgradeComponent));
-SelectTableNg1Component.decorators = [
+SelectTableComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'select-table'
             },] },
@@ -18180,11 +17526,11 @@ SelectTableNg1Component.decorators = [
 /**
  * @nocollapse
  */
-SelectTableNg1Component.ctorParameters = function () { return [
+SelectTableComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-SelectTableNg1Component.propDecorators = {
+SelectTableComponent.propDecorators = {
     'values': [{ type: core.Input },],
     'multipleSelect': [{ type: core.Input },],
     'selectKey': [{ type: core.Input },],
@@ -18194,71 +17540,18 @@ SelectTableNg1Component.propDecorators = {
     'selectHiddenItems': [{ type: core.Input },],
     'selectedChange': [{ type: core.Output },],
 };
-var SLIDER_CHART_VALUE_ACCESSOR = {
-    provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return SliderChartNg1Component; }),
-    multi: true
-};
-var SliderChartNg1Component = (function (_super) {
-    __extends(SliderChartNg1Component, _super);
+var SocialChartComponent = (function (_super) {
+    __extends(SocialChartComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function SliderChartNg1Component(elementRef, injector) {
-        var _this = _super.call(this, 'sliderChart', elementRef, injector) || this;
-        _this.ngModelChange = new core.EventEmitter();
-        return _this;
-    }
-    /**
-     * @param {?} obj
-     * @return {?}
-     */
-    SliderChartNg1Component.prototype.writeValue = function (obj) { };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    SliderChartNg1Component.prototype.registerOnChange = function (fn) { };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    SliderChartNg1Component.prototype.registerOnTouched = function (fn) { };
-    return SliderChartNg1Component;
-}(_static.UpgradeComponent));
-SliderChartNg1Component.decorators = [
-    { type: core.Directive, args: [{
-                selector: 'slider-chart',
-                providers: [SLIDER_CHART_VALUE_ACCESSOR]
-            },] },
-];
-/**
- * @nocollapse
- */
-SliderChartNg1Component.ctorParameters = function () { return [
-    { type: core.ElementRef, },
-    { type: core.Injector, },
-]; };
-SliderChartNg1Component.propDecorators = {
-    'sliderOptions': [{ type: core.Input },],
-    'ngModel': [{ type: core.Input },],
-    'chartOptions': [{ type: core.Input },],
-    'chartData': [{ type: core.Input },],
-    'ngModelChange': [{ type: core.Output },],
-};
-var SocialChartNg1Component = (function (_super) {
-    __extends(SocialChartNg1Component, _super);
-    /**
-     * @param {?} elementRef
-     * @param {?} injector
-     */
-    function SocialChartNg1Component(elementRef, injector) {
+    function SocialChartComponent(elementRef, injector) {
         return _super.call(this, 'uxSocialChartNg1', elementRef, injector) || this;
     }
-    return SocialChartNg1Component;
+    return SocialChartComponent;
 }(_static.UpgradeComponent));
-SocialChartNg1Component.decorators = [
+SocialChartComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'social-chart'
             },] },
@@ -18266,11 +17559,11 @@ SocialChartNg1Component.decorators = [
 /**
  * @nocollapse
  */
-SocialChartNg1Component.ctorParameters = function () { return [
+SocialChartComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-SocialChartNg1Component.propDecorators = {
+SocialChartComponent.propDecorators = {
     'data': [{ type: core.Input },],
     'options': [{ type: core.Input },],
     'width': [{ type: core.Input },],
@@ -18297,18 +17590,18 @@ SocialChartNg1Component.propDecorators = {
     'edgeWeightInfluence': [{ type: core.Input },],
     'minLabels': [{ type: core.Input },],
 };
-var SortDirectionToggleNg1Component = (function (_super) {
-    __extends(SortDirectionToggleNg1Component, _super);
+var SortDirectionToggleComponent = (function (_super) {
+    __extends(SortDirectionToggleComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function SortDirectionToggleNg1Component(elementRef, injector) {
+    function SortDirectionToggleComponent(elementRef, injector) {
         return _super.call(this, 'sortDirectionToggle', elementRef, injector) || this;
     }
-    return SortDirectionToggleNg1Component;
+    return SortDirectionToggleComponent;
 }(_static.UpgradeComponent));
-SortDirectionToggleNg1Component.decorators = [
+SortDirectionToggleComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'sort-direction-toggle'
             },] },
@@ -18316,22 +17609,22 @@ SortDirectionToggleNg1Component.decorators = [
 /**
  * @nocollapse
  */
-SortDirectionToggleNg1Component.ctorParameters = function () { return [
+SortDirectionToggleComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-SortDirectionToggleNg1Component.propDecorators = {
+SortDirectionToggleComponent.propDecorators = {
     'label': [{ type: core.Input },],
     'sorters': [{ type: core.Input },],
     'descend': [{ type: core.Input },],
 };
-var TreeGridNg1Component = (function (_super) {
-    __extends(TreeGridNg1Component, _super);
+var TreeGridComponent = (function (_super) {
+    __extends(TreeGridComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function TreeGridNg1Component(elementRef, injector) {
+    function TreeGridComponent(elementRef, injector) {
         var _this = _super.call(this, 'treegrid', elementRef, injector) || this;
         _this.optionsChange = new core.EventEmitter();
         _this.selectedChange = new core.EventEmitter();
@@ -18339,9 +17632,9 @@ var TreeGridNg1Component = (function (_super) {
         _this.treeDataChange = new core.EventEmitter();
         return _this;
     }
-    return TreeGridNg1Component;
+    return TreeGridComponent;
 }(_static.UpgradeComponent));
-TreeGridNg1Component.decorators = [
+TreeGridComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'treegrid'
             },] },
@@ -18349,11 +17642,11 @@ TreeGridNg1Component.decorators = [
 /**
  * @nocollapse
  */
-TreeGridNg1Component.ctorParameters = function () { return [
+TreeGridComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-TreeGridNg1Component.propDecorators = {
+TreeGridComponent.propDecorators = {
     'data': [{ type: core.Input },],
     'columns': [{ type: core.Input },],
     'treeData': [{ type: core.Input },],
@@ -18365,18 +17658,18 @@ TreeGridNg1Component.propDecorators = {
     'currentRowChange': [{ type: core.Output },],
     'treeDataChange': [{ type: core.Output },],
 };
-var ThumbnailNg1Component = (function (_super) {
-    __extends(ThumbnailNg1Component, _super);
+var ThumbnailComponent = (function (_super) {
+    __extends(ThumbnailComponent, _super);
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
-    function ThumbnailNg1Component(elementRef, injector) {
+    function ThumbnailComponent(elementRef, injector) {
         return _super.call(this, 'thumbnail', elementRef, injector) || this;
     }
-    return ThumbnailNg1Component;
+    return ThumbnailComponent;
 }(_static.UpgradeComponent));
-ThumbnailNg1Component.decorators = [
+ThumbnailComponent.decorators = [
     { type: core.Directive, args: [{
                 selector: 'thumbnail'
             },] },
@@ -18384,11 +17677,11 @@ ThumbnailNg1Component.decorators = [
 /**
  * @nocollapse
  */
-ThumbnailNg1Component.ctorParameters = function () { return [
+ThumbnailComponent.ctorParameters = function () { return [
     { type: core.ElementRef, },
     { type: core.Injector, },
 ]; };
-ThumbnailNg1Component.propDecorators = {
+ThumbnailComponent.propDecorators = {
     'url': [{ type: core.Input },],
     'show': [{ type: core.Input },],
     'width': [{ type: core.Input },],
@@ -18449,18 +17742,6 @@ NavigationMenuService.decorators = [
 NavigationMenuService.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: core.Inject, args: ['$navigationMenu',] },] },
 ]; };
-/**
- * @param {?} injector
- * @return {?}
- */
-function navigationMenuServiceFactory(injector) {
-    return injector.get('$navigationMenu');
-}
-var navigationMenuServiceProvider = {
-    provide: '$navigationMenu',
-    useFactory: navigationMenuServiceFactory,
-    deps: ['$injector']
-};
 var NotificationService = (function () {
     /**
      * @param {?} _notificationService
@@ -18519,18 +17800,6 @@ NotificationService.decorators = [
 NotificationService.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: core.Inject, args: ['notificationService',] },] },
 ]; };
-/**
- * @param {?} injector
- * @return {?}
- */
-function notificationServiceFactory(injector) {
-    return injector.get('notificationService');
-}
-var notificationServiceProvider = {
-    provide: 'notificationService',
-    useFactory: notificationServiceFactory,
-    deps: ['$injector']
-};
 var PdfService = (function () {
     /**
      * @param {?} _pdfService
@@ -18559,18 +17828,6 @@ PdfService.decorators = [
 PdfService.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: core.Inject, args: ['$pdf',] },] },
 ]; };
-/**
- * @param {?} injector
- * @return {?}
- */
-function pdfServiceFactory(injector) {
-    return injector.get('$pdf');
-}
-var pdfServiceProvider = {
-    provide: '$pdf',
-    useFactory: pdfServiceFactory,
-    deps: ['$injector']
-};
 var TimeAgoService = (function () {
     /**
      * @param {?} _timeAgoService
@@ -18611,41 +17868,28 @@ TimeAgoService.decorators = [
 TimeAgoService.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: core.Inject, args: ['timeAgoService',] },] },
 ]; };
-/**
- * @param {?} injector
- * @return {?}
- */
-function timeAgoServiceFactory(injector) {
-    return injector.get('timeAgoService');
-}
-var timeAgoServiceProvider = {
-    provide: 'timeAgoService',
-    useFactory: timeAgoServiceFactory,
-    deps: ['$injector']
-};
 var declarations = [
-    ContactsNg1Component,
-    ExpandInputNg1Component,
-    FloatingActionButtonNg1Component,
-    FlotNg1Component,
-    GridNg1Component,
-    HierarchyBarNg1Component,
-    MarqueeWizardNg1Component,
-    NestedDonutNg1Component,
-    OrganizationChartNg1Component,
-    PartitionMapNg1Component,
-    PeityBarChartNg1Component,
-    PeityLineChartNg1Component,
-    PeityPieChartNg1Component,
-    PeityUpdatingLineChartNg1Component,
-    SankeyNg1Component,
-    SearchToolbarNg1Component,
-    SelectTableNg1Component,
-    SliderChartNg1Component,
-    SocialChartNg1Component,
-    SortDirectionToggleNg1Component,
-    TreeGridNg1Component,
-    ThumbnailNg1Component,
+    ContactsComponent,
+    ExpandInputComponent,
+    FloatingActionButtonComponent,
+    FlotComponent,
+    GridComponent,
+    HierarchyBarComponent,
+    MarqueeWizardComponent,
+    NestedDonutComponent,
+    OrganizationChartComponent,
+    PartitionMapComponent,
+    PeityBarChartComponent,
+    PeityLineChartComponent,
+    PeityPieChartComponent,
+    PeityUpdatingLineChartComponent,
+    SankeyComponent,
+    SearchToolbarComponent,
+    SelectTableComponent,
+    SocialChartComponent,
+    SortDirectionToggleComponent,
+    TreeGridComponent,
+    ThumbnailComponent,
 ];
 var HybridModule = (function () {
     function HybridModule() {
@@ -18658,10 +17902,26 @@ HybridModule.decorators = [
                 exports: declarations,
                 declarations: declarations,
                 providers: [
-                    navigationMenuServiceProvider,
-                    notificationServiceProvider,
-                    pdfServiceProvider,
-                    timeAgoServiceProvider,
+                    {
+                        provide: 'notificationService',
+                        useFactory: function (injector) { return injector.get('notificationService'); },
+                        deps: ['$injector']
+                    },
+                    {
+                        provide: '$navigationMenu',
+                        useFactory: function (injector) { return injector.get('$navigationMenu'); },
+                        deps: ['$injector']
+                    },
+                    {
+                        provide: '$pdf',
+                        useFactory: function (injector) { return injector.get('$pdf'); },
+                        deps: ['$injector']
+                    },
+                    {
+                        provide: 'timeAgoService',
+                        useFactory: function (injector) { return injector.get('timeAgoService'); },
+                        deps: ['$injector']
+                    },
                     TimeAgoService,
                     PdfService,
                     NavigationMenuService,
@@ -18731,8 +17991,6 @@ exports.ItemDisplayPanelModule = ItemDisplayPanelModule;
 exports.ItemDisplayPanelContentDirective = ItemDisplayPanelContentDirective;
 exports.ItemDisplayPanelFooterDirective = ItemDisplayPanelFooterDirective;
 exports.ItemDisplayPanelComponent = ItemDisplayPanelComponent;
-exports.MarqueeWizardModule = MarqueeWizardModule;
-exports.MarqueeWizardComponent = MarqueeWizardComponent;
 exports.NumberPickerModule = NumberPickerModule;
 exports.NUMBER_PICKER_VALUE_ACCESSOR = NUMBER_PICKER_VALUE_ACCESSOR;
 exports.NumberPickerComponent = NumberPickerComponent;
@@ -18793,7 +18051,6 @@ exports.VirtualScrollLoadButtonDirective = VirtualScrollLoadButtonDirective;
 exports.VirtualScrollCellDirective = VirtualScrollCellDirective;
 exports.WizardModule = WizardModule;
 exports.WizardComponent = WizardComponent;
-exports.StepChangingEvent = StepChangingEvent;
 exports.WizardStepComponent = WizardStepComponent;
 exports.FixedHeaderTableModule = FixedHeaderTableModule;
 exports.FixedHeaderTableDirective = FixedHeaderTableDirective;
@@ -18842,49 +18099,37 @@ exports.StorageAdapter = StorageAdapter;
 exports.CookieAdapter = CookieAdapter;
 exports.LocalStorageAdapter = LocalStorageAdapter;
 exports.SessionStorageAdapter = SessionStorageAdapter;
-exports.ContactsNg1Component = ContactsNg1Component;
-exports.ExpandInputNg1Component = ExpandInputNg1Component;
-exports.FloatingActionButtonNg1Component = FloatingActionButtonNg1Component;
-exports.FlotNg1Component = FlotNg1Component;
-exports.GridNg1Component = GridNg1Component;
-exports.HierarchyBarNg1Component = HierarchyBarNg1Component;
-exports.MarqueeWizardNg1Component = MarqueeWizardNg1Component;
-exports.NestedDonutNg1Component = NestedDonutNg1Component;
-exports.OrganizationChartNg1Component = OrganizationChartNg1Component;
-exports.PartitionMapNg1Component = PartitionMapNg1Component;
-exports.PeityBarChartNg1Component = PeityBarChartNg1Component;
-exports.PeityLineChartNg1Component = PeityLineChartNg1Component;
-exports.PeityPieChartNg1Component = PeityPieChartNg1Component;
-exports.PeityUpdatingLineChartNg1Component = PeityUpdatingLineChartNg1Component;
-exports.SankeyNg1Component = SankeyNg1Component;
-exports.SearchToolbarNg1Component = SearchToolbarNg1Component;
-exports.SelectTableNg1Component = SelectTableNg1Component;
-exports.SLIDER_CHART_VALUE_ACCESSOR = SLIDER_CHART_VALUE_ACCESSOR;
-exports.SliderChartNg1Component = SliderChartNg1Component;
-exports.SocialChartNg1Component = SocialChartNg1Component;
-exports.SortDirectionToggleNg1Component = SortDirectionToggleNg1Component;
-exports.TreeGridNg1Component = TreeGridNg1Component;
-exports.ThumbnailNg1Component = ThumbnailNg1Component;
+exports.ContactsComponent = ContactsComponent;
+exports.ExpandInputComponent = ExpandInputComponent;
+exports.FloatingActionButtonComponent = FloatingActionButtonComponent;
+exports.FlotComponent = FlotComponent;
+exports.GridComponent = GridComponent;
+exports.HierarchyBarComponent = HierarchyBarComponent;
+exports.MarqueeWizardComponent = MarqueeWizardComponent;
+exports.NestedDonutComponent = NestedDonutComponent;
+exports.OrganizationChartComponent = OrganizationChartComponent;
+exports.PartitionMapComponent = PartitionMapComponent;
+exports.PeityBarChartComponent = PeityBarChartComponent;
+exports.PeityLineChartComponent = PeityLineChartComponent;
+exports.PeityPieChartComponent = PeityPieChartComponent;
+exports.PeityUpdatingLineChartComponent = PeityUpdatingLineChartComponent;
+exports.SankeyComponent = SankeyComponent;
+exports.SearchToolbarComponent = SearchToolbarComponent;
+exports.SelectTableComponent = SelectTableComponent;
+exports.SocialChartComponent = SocialChartComponent;
+exports.SortDirectionToggleComponent = SortDirectionToggleComponent;
+exports.TreeGridComponent = TreeGridComponent;
+exports.ThumbnailComponent = ThumbnailComponent;
 exports.NavigationMenuService = NavigationMenuService;
-exports.navigationMenuServiceFactory = navigationMenuServiceFactory;
-exports.navigationMenuServiceProvider = navigationMenuServiceProvider;
 exports.NotificationService = NotificationService;
-exports.notificationServiceFactory = notificationServiceFactory;
-exports.notificationServiceProvider = notificationServiceProvider;
 exports.PdfService = PdfService;
-exports.pdfServiceFactory = pdfServiceFactory;
-exports.pdfServiceProvider = pdfServiceProvider;
 exports.TimeAgoService = TimeAgoService;
-exports.timeAgoServiceFactory = timeAgoServiceFactory;
-exports.timeAgoServiceProvider = timeAgoServiceProvider;
 exports.HybridModule = HybridModule;
-exports.ɵd = DateTimePickerService;
-exports.ɵf = MarqueeWizardStepComponent;
-exports.ɵe = MarqueeWizardService;
-exports.ɵi = MediaPlayerService;
-exports.ɵh = PageHeaderNavigationDropdownItemComponent;
-exports.ɵg = PageHeaderNavigationItemComponent;
-exports.ɵj = HoverActionService;
+exports.ɵa = DateTimePickerService;
+exports.ɵd = MediaPlayerService;
+exports.ɵc = PageHeaderNavigationDropdownItemComponent;
+exports.ɵb = PageHeaderNavigationItemComponent;
+exports.ɵe = HoverActionService;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

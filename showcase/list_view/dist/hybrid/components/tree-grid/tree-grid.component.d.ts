@@ -1,6 +1,6 @@
 import { ElementRef, Injector, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class TreeGridNg1Component extends UpgradeComponent {
+export declare class TreeGridComponent extends UpgradeComponent {
     data: TreeGridData[] | Function;
     columns: TreeGridColumn[];
     treeData: TreeGridData[];
