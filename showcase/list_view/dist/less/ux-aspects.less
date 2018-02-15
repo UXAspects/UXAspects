@@ -13497,31 +13497,6 @@ strong{
   Marquee Modal
 */
 
-.body-dark {
-  .marquee-modal-window {
-    .modal-dialog {
-      .modal-content {
-        .side-panel {
-
-        }
-        .main-panel {
-          background-color: @marquee-modal-main-panel-bg-dark;
-
-          .marquee-header {
-            .marquee-title {
-              color: @marquee-modal-title-color-dark;
-            }
-          }
-
-          .marquee-footer {
-            background-color: @marquee-modal-footer-bg-dark;
-          }
-        }
-      }
-    }
-  }
-}
-
 .marquee-modal-window {
 
   .modal-dialog {
@@ -13649,6 +13624,30 @@ strong{
           padding: 15px;
         }
       }
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    border: none;
+    border-radius: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 1.125rem;
+    color: #999;
+    outline: none;
+
+    i {
+      position: relative;
+    }
+
+    &:hover {
+      background-color: #222;
     }
   }
 }
@@ -18487,7 +18486,7 @@ p.no-margin
   position: absolute;
   top: 0;
   left: 0;
-  box-shadow: 0px 2px 10px gray;
+  box-shadow: 0px 2px 10px #999;
 }
 
 /* front pane, placed above back */
@@ -23112,6 +23111,81 @@ ux-item-display-panel {
     }
 }
 
+ux-marquee-wizard {
+    display: flex;
+    height: 100%;
+    min-height: 500px;
+
+    .marquee-wizard-side-panel {
+        display: flex;
+        flex-direction: column;
+        flex: none;
+        width: 240px;
+        background-color: @marquee-modal-side-panel-bg;
+
+        .marquee-wizard-description-container {
+            padding: 20px;
+            color: @marquee-wizard-step-color;
+        }
+
+        .marquee-wizard-steps {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            list-style-type: none;
+            padding: 0;
+            margin-top: 0;
+
+            .marquee-wizard-step {
+                display: flex;
+                color: @marquee-wizard-step-color;
+                padding: 8px 20px;
+                cursor: default;
+                transition: background-color 0.3s linear;
+                align-items: center;
+
+                &.active {
+                    background-color: rgba(0, 0, 0, 0.2);
+                }
+
+                &.active,
+                &.visited {
+                    cursor: pointer;
+                }
+
+                &.invalid {
+                    background-color: @marquee-wizard-step-error-bg;
+                }
+
+                .marquee-wizard-step-icon {
+                    margin-right: 10px;
+                    flex: none;
+                }
+
+                .marquee-wizard-step-title {
+                    flex: 1;
+                    pointer-events: none;
+                }
+
+                .marquee-wizard-step-status {
+                    flex: none;
+                }
+            }
+        }
+    }
+
+    .marquee-wizard-content-panel {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        background-color: @marquee-modal-bg;
+
+        .marquee-wizard-content {
+            flex: 1;
+            padding: 35px;
+        }
+    }
+}
 ux-number-picker {
     display: flex;
     flex-direction: row;
@@ -23311,21 +23385,6 @@ ux-page-header {
         }
     }
 }
-ux-page-header-horizontal-navigation {
-    position: relative;
-    display: inline-flex;
-    justify-content: center;
-    height: 57px;
-
-    .selected-indicator {
-        height: 3px;
-        background-color: @page-header-nav-selected-shadow;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-}
-
 ux-page-header-horizontal-navigation-item {
     .horizontal-navigation-button {
         position: relative;
@@ -23467,6 +23526,21 @@ ux-page-header-icon-menu {
         }
     }
 }
+ux-page-header-horizontal-navigation {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    height: 57px;
+
+    .selected-indicator {
+        height: 3px;
+        background-color: @page-header-nav-selected-shadow;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
 ux-progress-bar {
     display: block;
     height: 22px;

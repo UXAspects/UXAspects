@@ -2453,6 +2453,14 @@ var MiniStore = (function (_super) {
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
+
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
 // CommonJS / Node have global context exposed as "global" variable.
 // We don't want to include the whole node.d.ts this this compilation unit so we'll just fake
 // the global "global" var for now.
@@ -9027,6 +9035,965 @@ ItemDisplayPanelModule.decorators = [
  */
 ItemDisplayPanelModule.ctorParameters = () => [];
 
+class WizardStepComponent {
+    constructor() {
+        this.valid = true;
+        this.visitedChange = new EventEmitter();
+        this._active = false;
+        this._visited = false;
+    }
+    /**
+     * @return {?}
+     */
+    get visited() {
+        return this._visited;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set visited(value) {
+        this._visited = value;
+        this.visitedChange.next(value);
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set active(value) {
+        // store the active state of the step
+        this._active = value;
+        // if the value is true then the step should also be marked as visited
+        if (value === true) {
+            this.visited = true;
+        }
+    }
+    /**
+     * @return {?}
+     */
+    get active() {
+        return this._active;
+    }
+}
+WizardStepComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-wizard-step',
+                template: `
+      <ng-container *ngIf="active">
+          <ng-content></ng-content>
+      </ng-container>
+    `
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardStepComponent.ctorParameters = () => [];
+WizardStepComponent.propDecorators = {
+    'header': [{ type: Input },],
+    'valid': [{ type: Input },],
+    'visitedChange': [{ type: Input },],
+    'visited': [{ type: Input },],
+};
+
+class WizardComponent {
+    constructor() {
+        this._step = 0;
+        this.steps = new QueryList();
+        this.orientation = 'horizontal';
+        this.nextText = 'Next';
+        this.previousText = 'Previous';
+        this.cancelText = 'Cancel';
+        this.finishText = 'Finish';
+        this.nextTooltip = 'Go to the next step';
+        this.previousTooltip = 'Go to the previous step';
+        this.cancelTooltip = 'Cancel the wizard';
+        this.finishTooltip = 'Finish the wizard';
+        this.nextDisabled = false;
+        this.previousDisabled = false;
+        this.cancelDisabled = false;
+        this.finishDisabled = false;
+        this.nextVisible = true;
+        this.previousVisible = true;
+        this.cancelVisible = true;
+        this.finishVisible = true;
+        this.cancelAlwaysVisible = false;
+        this.finishAlwaysVisible = false;
+        this.onNext = new EventEmitter();
+        this.onPrevious = new EventEmitter();
+        this.onCancel = new EventEmitter();
+        this.onFinishing = new EventEmitter();
+        this.onFinish = new EventEmitter();
+        this.stepChanging = new EventEmitter();
+        this.stepChange = new EventEmitter();
+        this.invalidIndicator = false;
+    }
+    /**
+     * @return {?}
+     */
+    get step() {
+        return this._step;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set step(value) {
+        // only accept numbers as valid options
+        if (typeof value === 'number') {
+            // store the active step
+            this._step = value;
+            // update which steps should be active
+            this.update();
+            // emit the change event
+            this.stepChange.next(this.step);
+            // reset the invalid state
+            this.invalidIndicator = false;
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        // initially set the correct visibility of the steps
+        setTimeout(this.update.bind(this));
+    }
+    /**
+     * Navigate to the next step
+     * @return {?}
+     */
+    next() {
+        this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
+        // check if current step is invalid
+        if (!this.getCurrentStep().valid) {
+            this.invalidIndicator = true;
+            return;
+        }
+        // check if we are currently on the last step
+        if ((this.step + 1) < this.steps.length) {
+            this.step++;
+            // emit the current step
+            this.onNext.next(this.step);
+        }
+    }
+    /**
+     * Navigate to the previous step
+     * @return {?}
+     */
+    previous() {
+        this.stepChanging.next(new StepChangingEvent(this.step, this.step - 1));
+        // check if we are currently on the last step
+        if (this.step > 0) {
+            this.step--;
+            // emit the current step
+            this.onPrevious.next(this.step);
+        }
+    }
+    /**
+     * Perform actions when the finish button is clicked
+     * @return {?}
+     */
+    finish() {
+        // fires when the finish button is clicked always
+        this.onFinishing.next();
+        /**
+         * This is required because we need to ensure change detection has run
+         * to determine whether or not we have the latest value for the 'valid' input
+         * on the current step. Unfortunately we can't use ChangeDetectorRef as we are looking to run
+         * on content children, and we cant use ApplicationRef.tick() as this does not work in a hybrid app, eg. our docs
+         */
+        return new Promise(resolve => {
+            setTimeout(() => {
+                // only fires when the finish button is clicked and the step is valid
+                if (this.getCurrentStep().valid) {
+                    this.onFinish.next();
+                }
+                resolve();
+            });
+        });
+    }
+    /**
+     * Perform actions when the cancel button is clicked
+     * @return {?}
+     */
+    cancel() {
+        this.onCancel.next();
+    }
+    /**
+     * Update the active state of each step
+     * @return {?}
+     */
+    update() {
+        // update which steps should be active
+        this.steps.forEach((step, idx) => step.active = idx === this.step);
+    }
+    /**
+     * Jump to a specific step only if the step has previously been visited
+     * @param {?} step
+     * @return {?}
+     */
+    gotoStep(step) {
+        if (step.visited) {
+            const /** @type {?} */ stepIndex = this.steps.toArray().findIndex(stp => stp === step);
+            this.stepChanging.next(new StepChangingEvent(this.step, stepIndex));
+            this.step = stepIndex;
+        }
+    }
+    /**
+     * Determine if the current step is the last step
+     * @return {?}
+     */
+    isLastStep() {
+        return this.step === (this.steps.length - 1);
+    }
+    /**
+     * Reset the wizard - goes to first step and resets visited state
+     * @return {?}
+     */
+    reset() {
+        // mark all steps as not visited
+        this.steps.forEach(step => step.visited = false);
+        // go to the first step
+        this.step = 0;
+    }
+    /**
+     * Get the step at the current index
+     * @return {?}
+     */
+    getCurrentStep() {
+        return this.getStepAtIndex(this.step);
+    }
+    /**
+     * Return a step at a specific index
+     * @param {?} index
+     * @return {?}
+     */
+    getStepAtIndex(index) {
+        return this.steps.toArray()[index];
+    }
+}
+WizardComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-wizard',
+                template: `
+      <div class="wizard-body">
+
+          <div class="wizard-steps">
+    
+              <div class="wizard-step" [class.active]="stp.active" [class.visited]="stp.visited" [class.invalid]="stp.active && !stp.valid && invalidIndicator" (click)="gotoStep(stp)" *ngFor="let stp of steps">
+                  {{ stp.header }}
+              </div>
+    
+          </div>
+    
+          <div class="wizard-content">
+              <ng-content></ng-content>
+          </div>
+    
+      </div>
+
+      <div class="wizard-footer">
+          <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body" [disabled]="previousDisabled || step === 0"
+              (click)="previous(); tip.hide()">{{ previousText }}</button>
+
+          <button #tip="bs-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [tooltip]="nextTooltip" container="body" [disabled]="nextDisabled"
+              (click)="next(); tip.hide()">{{ nextText }}</button>
+
+          <button #tip="bs-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [tooltip]="finishTooltip"
+              container="body" [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
+
+          <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [tooltip]="cancelTooltip"
+              container="body" [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
+      </div>
+    `,
+                host: {
+                    '[class]': 'orientation'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardComponent.ctorParameters = () => [];
+WizardComponent.propDecorators = {
+    'steps': [{ type: ContentChildren, args: [WizardStepComponent,] },],
+    'orientation': [{ type: Input },],
+    'nextText': [{ type: Input },],
+    'previousText': [{ type: Input },],
+    'cancelText': [{ type: Input },],
+    'finishText': [{ type: Input },],
+    'nextTooltip': [{ type: Input },],
+    'previousTooltip': [{ type: Input },],
+    'cancelTooltip': [{ type: Input },],
+    'finishTooltip': [{ type: Input },],
+    'nextDisabled': [{ type: Input },],
+    'previousDisabled': [{ type: Input },],
+    'cancelDisabled': [{ type: Input },],
+    'finishDisabled': [{ type: Input },],
+    'nextVisible': [{ type: Input },],
+    'previousVisible': [{ type: Input },],
+    'cancelVisible': [{ type: Input },],
+    'finishVisible': [{ type: Input },],
+    'cancelAlwaysVisible': [{ type: Input },],
+    'finishAlwaysVisible': [{ type: Input },],
+    'onNext': [{ type: Output },],
+    'onPrevious': [{ type: Output },],
+    'onCancel': [{ type: Output },],
+    'onFinishing': [{ type: Output },],
+    'onFinish': [{ type: Output },],
+    'stepChanging': [{ type: Output },],
+    'stepChange': [{ type: Output },],
+    'step': [{ type: Input },],
+};
+class StepChangingEvent {
+    /**
+     * @param {?} from
+     * @param {?} to
+     */
+    constructor(from$$1, to) {
+        this.from = from$$1;
+        this.to = to;
+    }
+}
+
+const DECLARATIONS$5 = [
+    WizardComponent,
+    WizardStepComponent
+];
+class WizardModule {
+}
+WizardModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    TooltipModule.forRoot()
+                ],
+                exports: DECLARATIONS$5,
+                declarations: DECLARATIONS$5
+            },] },
+];
+/**
+ * @nocollapse
+ */
+WizardModule.ctorParameters = () => [];
+
+var empty = {
+    closed: true,
+    next: function (value) { },
+    error: function (err) { throw err; },
+    complete: function () { }
+};
+
+
+var Observer = {
+	empty: empty
+};
+
+var rxSubscriber = createCommonjsModule(function (module, exports) {
+var Symbol = root.root.Symbol;
+exports.rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
+    Symbol.for('rxSubscriber') : '@@rxSubscriber';
+/**
+ * @deprecated use rxSubscriber instead
+ */
+exports.$$rxSubscriber = exports.rxSubscriber;
+
+});
+
+var rxSubscriber_1 = rxSubscriber.rxSubscriber;
+var rxSubscriber_2 = rxSubscriber.$$rxSubscriber;
+
+var __extends$10 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+
+/**
+ * Implements the {@link Observer} interface and extends the
+ * {@link Subscription} class. While the {@link Observer} is the public API for
+ * consuming the values of an {@link Observable}, all Observers get converted to
+ * a Subscriber, in order to provide Subscription-like capabilities such as
+ * `unsubscribe`. Subscriber is a common type in RxJS, and crucial for
+ * implementing operators, but it is rarely used as a public API.
+ *
+ * @class Subscriber<T>
+ */
+var Subscriber = (function (_super) {
+    __extends$10(Subscriber, _super);
+    /**
+     * @param {Observer|function(value: T): void} [destinationOrNext] A partially
+     * defined Observer or a `next` callback function.
+     * @param {function(e: ?any): void} [error] The `error` callback of an
+     * Observer.
+     * @param {function(): void} [complete] The `complete` callback of an
+     * Observer.
+     */
+    function Subscriber(destinationOrNext, error, complete) {
+        _super.call(this);
+        this.syncErrorValue = null;
+        this.syncErrorThrown = false;
+        this.syncErrorThrowable = false;
+        this.isStopped = false;
+        switch (arguments.length) {
+            case 0:
+                this.destination = Observer.empty;
+                break;
+            case 1:
+                if (!destinationOrNext) {
+                    this.destination = Observer.empty;
+                    break;
+                }
+                if (typeof destinationOrNext === 'object') {
+                    if (destinationOrNext instanceof Subscriber) {
+                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
+                        this.destination = destinationOrNext;
+                        this.destination.add(this);
+                    }
+                    else {
+                        this.syncErrorThrowable = true;
+                        this.destination = new SafeSubscriber(this, destinationOrNext);
+                    }
+                    break;
+                }
+            default:
+                this.syncErrorThrowable = true;
+                this.destination = new SafeSubscriber(this, destinationOrNext, error, complete);
+                break;
+        }
+    }
+    Subscriber.prototype[rxSubscriber.rxSubscriber] = function () { return this; };
+    /**
+     * A static factory for a Subscriber, given a (potentially partial) definition
+     * of an Observer.
+     * @param {function(x: ?T): void} [next] The `next` callback of an Observer.
+     * @param {function(e: ?any): void} [error] The `error` callback of an
+     * Observer.
+     * @param {function(): void} [complete] The `complete` callback of an
+     * Observer.
+     * @return {Subscriber<T>} A Subscriber wrapping the (partially defined)
+     * Observer represented by the given arguments.
+     */
+    Subscriber.create = function (next, error, complete) {
+        var subscriber = new Subscriber(next, error, complete);
+        subscriber.syncErrorThrowable = false;
+        return subscriber;
+    };
+    /**
+     * The {@link Observer} callback to receive notifications of type `next` from
+     * the Observable, with a value. The Observable may call this method 0 or more
+     * times.
+     * @param {T} [value] The `next` value.
+     * @return {void}
+     */
+    Subscriber.prototype.next = function (value) {
+        if (!this.isStopped) {
+            this._next(value);
+        }
+    };
+    /**
+     * The {@link Observer} callback to receive notifications of type `error` from
+     * the Observable, with an attached {@link Error}. Notifies the Observer that
+     * the Observable has experienced an error condition.
+     * @param {any} [err] The `error` exception.
+     * @return {void}
+     */
+    Subscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            this.isStopped = true;
+            this._error(err);
+        }
+    };
+    /**
+     * The {@link Observer} callback to receive a valueless notification of type
+     * `complete` from the Observable. Notifies the Observer that the Observable
+     * has finished sending push-based notifications.
+     * @return {void}
+     */
+    Subscriber.prototype.complete = function () {
+        if (!this.isStopped) {
+            this.isStopped = true;
+            this._complete();
+        }
+    };
+    Subscriber.prototype.unsubscribe = function () {
+        if (this.closed) {
+            return;
+        }
+        this.isStopped = true;
+        _super.prototype.unsubscribe.call(this);
+    };
+    Subscriber.prototype._next = function (value) {
+        this.destination.next(value);
+    };
+    Subscriber.prototype._error = function (err) {
+        this.destination.error(err);
+        this.unsubscribe();
+    };
+    Subscriber.prototype._complete = function () {
+        this.destination.complete();
+        this.unsubscribe();
+    };
+    Subscriber.prototype._unsubscribeAndRecycle = function () {
+        var _a = this, _parent = _a._parent, _parents = _a._parents;
+        this._parent = null;
+        this._parents = null;
+        this.unsubscribe();
+        this.closed = false;
+        this.isStopped = false;
+        this._parent = _parent;
+        this._parents = _parents;
+        return this;
+    };
+    return Subscriber;
+}(Subscription_1.Subscription));
+var Subscriber_2 = Subscriber;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var SafeSubscriber = (function (_super) {
+    __extends$10(SafeSubscriber, _super);
+    function SafeSubscriber(_parentSubscriber, observerOrNext, error, complete) {
+        _super.call(this);
+        this._parentSubscriber = _parentSubscriber;
+        var next;
+        var context = this;
+        if (isFunction_1.isFunction(observerOrNext)) {
+            next = observerOrNext;
+        }
+        else if (observerOrNext) {
+            next = observerOrNext.next;
+            error = observerOrNext.error;
+            complete = observerOrNext.complete;
+            if (observerOrNext !== Observer.empty) {
+                context = Object.create(observerOrNext);
+                if (isFunction_1.isFunction(context.unsubscribe)) {
+                    this.add(context.unsubscribe.bind(context));
+                }
+                context.unsubscribe = this.unsubscribe.bind(this);
+            }
+        }
+        this._context = context;
+        this._next = next;
+        this._error = error;
+        this._complete = complete;
+    }
+    SafeSubscriber.prototype.next = function (value) {
+        if (!this.isStopped && this._next) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (!_parentSubscriber.syncErrorThrowable) {
+                this.__tryOrUnsub(this._next, value);
+            }
+            else if (this.__tryOrSetError(_parentSubscriber, this._next, value)) {
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (this._error) {
+                if (!_parentSubscriber.syncErrorThrowable) {
+                    this.__tryOrUnsub(this._error, err);
+                    this.unsubscribe();
+                }
+                else {
+                    this.__tryOrSetError(_parentSubscriber, this._error, err);
+                    this.unsubscribe();
+                }
+            }
+            else if (!_parentSubscriber.syncErrorThrowable) {
+                this.unsubscribe();
+                throw err;
+            }
+            else {
+                _parentSubscriber.syncErrorValue = err;
+                _parentSubscriber.syncErrorThrown = true;
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.complete = function () {
+        var _this = this;
+        if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (this._complete) {
+                var wrappedComplete = function () { return _this._complete.call(_this._context); };
+                if (!_parentSubscriber.syncErrorThrowable) {
+                    this.__tryOrUnsub(wrappedComplete);
+                    this.unsubscribe();
+                }
+                else {
+                    this.__tryOrSetError(_parentSubscriber, wrappedComplete);
+                    this.unsubscribe();
+                }
+            }
+            else {
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.__tryOrUnsub = function (fn, value) {
+        try {
+            fn.call(this._context, value);
+        }
+        catch (err) {
+            this.unsubscribe();
+            throw err;
+        }
+    };
+    SafeSubscriber.prototype.__tryOrSetError = function (parent, fn, value) {
+        try {
+            fn.call(this._context, value);
+        }
+        catch (err) {
+            parent.syncErrorValue = err;
+            parent.syncErrorThrown = true;
+            return true;
+        }
+        return false;
+    };
+    SafeSubscriber.prototype._unsubscribe = function () {
+        var _parentSubscriber = this._parentSubscriber;
+        this._context = null;
+        this._parentSubscriber = null;
+        _parentSubscriber.unsubscribe();
+    };
+    return SafeSubscriber;
+}(Subscriber));
+
+
+var Subscriber_1 = {
+	Subscriber: Subscriber_2
+};
+
+var __extends$9 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/* tslint:enable:max-line-length */
+/**
+ * Filter items emitted by the source Observable by only emitting those that
+ * satisfy a specified predicate.
+ *
+ * <span class="informal">Like
+ * [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter),
+ * it only emits a value from the source if it passes a criterion function.</span>
+ *
+ * <img src="./img/filter.png" width="100%">
+ *
+ * Similar to the well-known `Array.prototype.filter` method, this operator
+ * takes values from the source Observable, passes them through a `predicate`
+ * function and only emits those values that yielded `true`.
+ *
+ * @example <caption>Emit only click events whose target was a DIV element</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === 'DIV');
+ * clicksOnDivs.subscribe(x => console.log(x));
+ *
+ * @see {@link distinct}
+ * @see {@link distinctUntilChanged}
+ * @see {@link distinctUntilKeyChanged}
+ * @see {@link ignoreElements}
+ * @see {@link partition}
+ * @see {@link skip}
+ *
+ * @param {function(value: T, index: number): boolean} predicate A function that
+ * evaluates each value emitted by the source Observable. If it returns `true`,
+ * the value is emitted, if `false` the value is not passed to the output
+ * Observable. The `index` parameter is the number `i` for the i-th source
+ * emission that has happened since the subscription, starting from the number
+ * `0`.
+ * @param {any} [thisArg] An optional argument to determine the value of `this`
+ * in the `predicate` function.
+ * @return {Observable} An Observable of values from the source that were
+ * allowed by the `predicate` function.
+ * @method filter
+ * @owner Observable
+ */
+function filter$1(predicate, thisArg) {
+    return function filterOperatorFunction(source) {
+        return source.lift(new FilterOperator(predicate, thisArg));
+    };
+}
+var filter_2 = filter$1;
+var FilterOperator = (function () {
+    function FilterOperator(predicate, thisArg) {
+        this.predicate = predicate;
+        this.thisArg = thisArg;
+    }
+    FilterOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new FilterSubscriber(subscriber, this.predicate, this.thisArg));
+    };
+    return FilterOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var FilterSubscriber = (function (_super) {
+    __extends$9(FilterSubscriber, _super);
+    function FilterSubscriber(destination, predicate, thisArg) {
+        _super.call(this, destination);
+        this.predicate = predicate;
+        this.thisArg = thisArg;
+        this.count = 0;
+    }
+    // the try catch block below is left specifically for
+    // optimization and perf reasons. a tryCatcher is not necessary here.
+    FilterSubscriber.prototype._next = function (value) {
+        var result;
+        try {
+            result = this.predicate.call(this.thisArg, value, this.count++);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        if (result) {
+            this.destination.next(value);
+        }
+    };
+    return FilterSubscriber;
+}(Subscriber_1.Subscriber));
+
+/**
+ * This service is required to provide a form of communication
+ * between the marquee wizard steps and the containing marquee wizard.
+ * We cannot inject the Host due to the steps being content children
+ * rather than view children.
+ */
+class MarqueeWizardService {
+    constructor() {
+        this.valid$ = new Subject$1();
+    }
+}
+MarqueeWizardService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+MarqueeWizardService.ctorParameters = () => [];
+
+class MarqueeWizardStepComponent extends WizardStepComponent {
+    /**
+     * @param {?} _marqueeWizardService
+     */
+    constructor(_marqueeWizardService) {
+        super();
+        this._marqueeWizardService = _marqueeWizardService;
+        this.completed = false;
+        this.completedChange = new EventEmitter();
+        this._valid = true;
+    }
+    /**
+     * @return {?}
+     */
+    get valid() {
+        return this._valid;
+    }
+    /**
+     * @param {?} valid
+     * @return {?}
+     */
+    set valid(valid) {
+        this._valid = valid;
+        if (this._marqueeWizardService) {
+            this._marqueeWizardService.valid$.next({ step: this, valid: valid });
+        }
+    }
+    /**
+     * Update the completed state and emit the latest value
+     * @param {?} completed whether or not the step is completed
+     * @return {?}
+     */
+    setCompleted(completed) {
+        this.completed = completed;
+        this.completedChange.emit(completed);
+    }
+}
+MarqueeWizardStepComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-marquee-wizard-step',
+                template: `
+      <ng-container *ngIf="active">
+          <ng-content></ng-content>
+      </ng-container>
+    `
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MarqueeWizardStepComponent.ctorParameters = () => [
+    { type: MarqueeWizardService, },
+];
+MarqueeWizardStepComponent.propDecorators = {
+    'icon': [{ type: Input },],
+    'completed': [{ type: Input },],
+    'completedChange': [{ type: Output },],
+};
+
+class MarqueeWizardComponent extends WizardComponent {
+    /**
+     * @param {?} marqueeWizardService
+     */
+    constructor(marqueeWizardService) {
+        super();
+        this.steps = new QueryList();
+        marqueeWizardService.valid$.pipe(filter_2((event) => !event.valid)).subscribe(this.validChange.bind(this));
+    }
+    /**
+     * @return {?}
+     */
+    get isTemplate() {
+        return this.description && this.description instanceof TemplateRef;
+    }
+    /**
+     * If the current step is valid, mark it as
+     * complete and go to the next step
+     * @return {?}
+     */
+    next() {
+        // get the current step
+        const /** @type {?} */ step = (this.getCurrentStep());
+        if (step.valid) {
+            super.next();
+            // mark this step as completed
+            step.setCompleted(true);
+        }
+    }
+    /**
+     * Emit the onFinishing event and if valid the onFinish event.
+     * Also mark the final step as completed if it is valid
+     * @return {?}
+     */
+    finish() {
+        // get the current step
+        const /** @type {?} */ step = (this.getCurrentStep());
+        // call the original finish function
+        return super.finish().then(() => {
+            // if the step is valid indicate that it is now complete
+            if (step.valid) {
+                step.setCompleted(true);
+            }
+        });
+    }
+    /**
+     * If a step in the wizard becomes invalid, all steps sequentially after
+     * it, should become unvisited and incomplete
+     * @param {?} state
+     * @return {?}
+     */
+    validChange(state) {
+        const /** @type {?} */ steps = this.steps.toArray();
+        const /** @type {?} */ current = steps.findIndex(step => step === state.step);
+        const /** @type {?} */ affected = steps.slice(current);
+        affected.forEach(step => {
+            // the step should no longer be completed
+            step.completed = false;
+            // if the step is not the current step then also mark it as unvisited
+            if (step !== state.step) {
+                step.visited = false;
+            }
+        });
+    }
+}
+MarqueeWizardComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-marquee-wizard',
+                template: `
+      <div class="marquee-wizard-side-panel">
+
+          <div class="marquee-wizard-description-container" *ngIf="description">
+              <!-- If a template was provided display it -->
+              <ng-container *ngIf="isTemplate" [ngTemplateOutlet]="description"></ng-container>
+
+              <!-- Otherwise wimply display the string -->
+              <ng-container *ngIf="!isTemplate">
+                  <p>{{ description }}</p>
+              </ng-container>
+          </div>
+
+          <ul class="marquee-wizard-steps">
+
+              <li class="marquee-wizard-step" *ngFor="let step of steps" (click)="gotoStep(step)" [class.active]="step.active" [class.visited]="step.visited" [class.invalid]="!step.valid">
+                  <i class="marquee-wizard-step-icon" [ngClass]="step.icon"></i>
+                  <span class="marquee-wizard-step-title">{{ step.header }}</span>
+                  <span class="marquee-wizard-step-status hpe-icon hpe-checkmark" *ngIf="step.completed"></span>
+              </li>
+
+          </ul>
+      </div>
+
+      <div class="marquee-wizard-content-panel">
+          <div class="marquee-wizard-content">
+              <ng-content></ng-content>
+          </div>
+
+          <div class="modal-footer">
+
+              <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body"
+                  [disabled]="previousDisabled || step === 0" (click)="previous(); tip.hide()">{{ previousText }}</button>
+
+              <button #tip="bs-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [tooltip]="nextTooltip" container="body"
+                  [disabled]="nextDisabled" (click)="next(); tip.hide()">{{ nextText }}</button>
+
+              <button #tip="bs-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [tooltip]="finishTooltip"
+                  container="body" [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
+
+              <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [tooltip]="cancelTooltip"
+                  container="body" [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
+          </div>
+      </div>
+    `,
+                providers: [MarqueeWizardService]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MarqueeWizardComponent.ctorParameters = () => [
+    { type: MarqueeWizardService, },
+];
+MarqueeWizardComponent.propDecorators = {
+    'description': [{ type: Input },],
+    'steps': [{ type: ContentChildren, args: [MarqueeWizardStepComponent,] },],
+};
+
+class MarqueeWizardModule {
+}
+MarqueeWizardModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    WizardModule,
+                    TooltipModule.forRoot()
+                ],
+                exports: [
+                    MarqueeWizardComponent,
+                    MarqueeWizardStepComponent
+                ],
+                declarations: [
+                    MarqueeWizardComponent,
+                    MarqueeWizardStepComponent
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MarqueeWizardModule.ctorParameters = () => [];
+
 const NUMBER_PICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => NumberPickerComponent),
@@ -9249,12 +10216,428 @@ PageHeaderCustomMenuDirective.decorators = [
  */
 PageHeaderCustomMenuDirective.ctorParameters = () => [];
 
+class ColorService {
+    /**
+     * @param {?} document
+     */
+    constructor(document) {
+        this._colorSet = colorSets.keppel;
+        if (this._colorSet.colorClassSet) {
+            this.setColors();
+        }
+        else {
+            for (let key in this._colorSet.colorValueSet) {
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
+    }
+    /**
+     * @return {?}
+     */
+    setColors() {
+        this._html = '';
+        for (let /** @type {?} */ key in this._colorSet.colorClassSet) {
+            this._html += '<div class="' + this._colorSet.colorClassSet[key] + '-color"></div>';
+        }
+        this._element = document.createElement('div');
+        this._element.className = 'color-chart';
+        this._element.innerHTML = this._html;
+        document.body.appendChild(this._element);
+        this._colors = {};
+        for (let /** @type {?} */ key in this._colorSet.colorClassSet) {
+            this._colors[key] = this.getColorValue(this._colorSet.colorClassSet[key]);
+        }
+        this._element.parentNode.removeChild(this._element);
+    }
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    getColorValueByHex(color) {
+        const /** @type {?} */ hex = color.replace('#', '');
+        const /** @type {?} */ r = parseInt(hex.substring(0, 2), 16).toString();
+        const /** @type {?} */ g = parseInt(hex.substring(2, 4), 16).toString();
+        const /** @type {?} */ b = parseInt(hex.substring(4, 6), 16).toString();
+        return new ThemeColor(r, g, b, '1');
+    }
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    getColorValue(color) {
+        const /** @type {?} */ target = this._element.querySelector('.' + this._colorSet.colorClassSet[color] + '-color');
+        if (!target) {
+            throw new Error('Invalid color');
+        }
+        const /** @type {?} */ colorValue = window.getComputedStyle(target).backgroundColor;
+        const /** @type {?} */ rgba = colorValue.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+        return new ThemeColor(rgba[1], rgba[2], rgba[3], rgba[4]);
+    }
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    getColor(color) {
+        const /** @type {?} */ themeColor = this._colors[color.toLowerCase()];
+        return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
+    }
+    /**
+     * @return {?}
+     */
+    getColorSet() {
+        return this._colorSet;
+    }
+    /**
+     * @param {?} colorSet
+     * @return {?}
+     */
+    setColorSet(colorSet) {
+        this._colorSet = colorSet;
+        this._colors = {};
+        if (this._colorSet.colorClassSet) {
+            this.setColors();
+        }
+        else {
+            for (let /** @type {?} */ key in this._colorSet.colorValueSet) {
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
+            }
+        }
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    resolve(value) {
+        if (!value) {
+            return;
+        }
+        const /** @type {?} */ colorName = this.resolveColorName(value);
+        for (let /** @type {?} */ color in this._colors) {
+            if (colorName === color.toLowerCase()) {
+                return this.getColor(colorName).toRgba();
+            }
+        }
+        return value;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    resolveColorName(value) {
+        return value.replace(/\s+/g, '-').toLowerCase();
+    }
+}
+/**
+ * @nocollapse
+ */
+ColorService.ctorParameters = () => [
+    { type: Document, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+];
+class ThemeColor {
+    /**
+     * @param {?} r
+     * @param {?} g
+     * @param {?} b
+     * @param {?} a
+     */
+    constructor(r, g, b, a) {
+        this._r = r;
+        this._g = g;
+        this._b = b;
+        this._a = a === undefined ? '1' : a;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    static parse(value) {
+        let /** @type {?} */ r, /** @type {?} */ g, /** @type {?} */ b, /** @type {?} */ a = '1';
+        const /** @type {?} */ rgbaPattern = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/;
+        const /** @type {?} */ shortHexPattern = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        const /** @type {?} */ longHexPattern = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/;
+        const /** @type {?} */ rgbaMatch = value.match(rgbaPattern);
+        const /** @type {?} */ shortHexMatch = value.match(shortHexPattern);
+        const /** @type {?} */ longHexMatch = value.match(longHexPattern);
+        if (rgbaMatch) {
+            r = rgbaMatch[1];
+            g = rgbaMatch[2];
+            b = rgbaMatch[3];
+            a = rgbaMatch[4] ? rgbaMatch[4] : '1';
+        }
+        else if (longHexMatch) {
+            r = parseInt(longHexMatch[1], 16).toString();
+            g = parseInt(longHexMatch[2], 16).toString();
+            b = parseInt(longHexMatch[3], 16).toString();
+        }
+        else if (shortHexMatch) {
+            r = parseInt(shortHexMatch[1] + shortHexMatch[1], 16).toString();
+            g = parseInt(shortHexMatch[2] + shortHexMatch[2], 16).toString();
+            b = parseInt(shortHexMatch[3] + shortHexMatch[3], 16).toString();
+        }
+        else {
+            throw new Error(`Cannot parse color - ${value} is not a valid color.`);
+        }
+        return new ThemeColor(r, g, b, a);
+    }
+    /**
+     * @return {?}
+     */
+    toHex() {
+        let /** @type {?} */ red = parseInt(this._r).toString(16);
+        let /** @type {?} */ green = parseInt(this._g).toString(16);
+        let /** @type {?} */ blue = parseInt(this._b).toString(16);
+        if (red.length < 2) {
+            red = '0' + red;
+        }
+        if (green.length < 2) {
+            green = '0' + green;
+        }
+        if (blue.length < 2) {
+            blue = '0' + blue;
+        }
+        return '#' + red + green + blue;
+    }
+    /**
+     * @return {?}
+     */
+    toRgb() {
+        return 'rgb(' + this._r + ', ' + this._g + ', ' + this._b + ')';
+    }
+    /**
+     * @return {?}
+     */
+    toRgba() {
+        return 'rgba(' + this._r + ', ' + this._g + ', ' + this._b + ', ' + this._a + ')';
+    }
+    /**
+     * @return {?}
+     */
+    getRed() {
+        return this._r;
+    }
+    /**
+     * @return {?}
+     */
+    getGreen() {
+        return this._g;
+    }
+    /**
+     * @return {?}
+     */
+    getBlue() {
+        return this._b;
+    }
+    /**
+     * @return {?}
+     */
+    getAlpha() {
+        return this._a;
+    }
+    /**
+     * @param {?} red
+     * @return {?}
+     */
+    setRed(red) {
+        this._r = red;
+        return this;
+    }
+    /**
+     * @param {?} green
+     * @return {?}
+     */
+    setGreen(green) {
+        this._g = green;
+        return this;
+    }
+    /**
+     * @param {?} blue
+     * @return {?}
+     */
+    setBlue(blue) {
+        this._b = blue;
+        return this;
+    }
+    /**
+     * @param {?} alpha
+     * @return {?}
+     */
+    setAlpha(alpha) {
+        this._a = alpha.toString();
+        return this;
+    }
+}
+const colorSets = {
+    keppel: {
+        colorClassSet: {
+            'primary': 'primary',
+            'accent': 'accent',
+            'secondary': 'secondary',
+            'alternate1': 'alternate1',
+            'alternate2': 'alternate2',
+            'alternate3': 'alternate3',
+            'vibrant1': 'vibrant1',
+            'vibrant2': 'vibrant2',
+            'grey1': 'grey1',
+            'grey2': 'grey2',
+            'grey3': 'grey3',
+            'grey4': 'grey4',
+            'grey5': 'grey5',
+            'grey6': 'grey6',
+            'grey7': 'grey7',
+            'grey8': 'grey8',
+            'chart1': 'chart1',
+            'chart2': 'chart2',
+            'chart3': 'chart3',
+            'chart4': 'chart4',
+            'chart5': 'chart5',
+            'chart6': 'chart6',
+            'ok': 'ok',
+            'warning': 'warning',
+            'critical': 'critical',
+            'partition1': 'partition1',
+            'partition9': 'partition9',
+            'partition10': 'partition10',
+            'partition11': 'partition11',
+            'partition12': 'partition12',
+            'partition13': 'partition13',
+            'partition14': 'partition14',
+            'social-chart-node': 'social-chart-node',
+            'social-chart-edge': 'social-chart-edge'
+        }
+    },
+    microFocus: {
+        'colorValueSet': {
+            'cerulean': '#1668c1',
+            'aqua': '#29ceff',
+            'aquamarine': '#2fd6c3',
+            'fuchsia': '#c6179d',
+            'indigo': '#7425ad',
+            'dark-blue': '#231ca5',
+            'white': '#ffffff',
+            'slightly-gray': '#f5f7f8',
+            'bright-gray': '#f1f2f3',
+            'gray': '#dcdedf',
+            'silver': '#bdbec0',
+            'dim-gray': '#656668',
+            'dark-gray': '#323435',
+            'black': '#000000',
+            'crimson-negative': '#e5004c',
+            'apricot': '#f48b34',
+            'yellow': '#fcdb1f',
+            'green-positive': '#1aac60',
+            'ultramarine': '#3939c6',
+            'skyblue': '#00abf3',
+            'pale-aqua': '#43e4ff',
+            'pale-green': '#1ffbba',
+            'lime': '#75da4d',
+            'orange': '#ffce00',
+            'magenta': '#eb23c2',
+            'pale-purple': '#ba47e2',
+            'dark-ultramarine': '#271782',
+            'steelblue': '#014272',
+            'arctic-blue': '#0b8eac',
+            'emerald': '#00a989',
+            'olive': '#5bba36',
+            'goldenrod': '#ffb000',
+            'purple': '#9b1e83',
+            'pale-eggplant': '#5216ac',
+            'red': '#ff454f',
+            'pale-amber': '#ffb24d',
+            'pale-lemon': '#fde159',
+            'pale-emerald': '#33c180',
+            'plum': '#b21646',
+            'copper': '#e57828',
+            'amber': '#ffc002',
+            'leaf-green': '#118c4f',
+            'primary': '#0073e7',
+            'accent': '#7425ad',
+            'secondary': '#ffffff',
+            'alternate1': '#29ceff',
+            'alternate2': '#2fd6c3',
+            'alternate3': '#c6179d',
+            'vibrant1': '#43e4ff',
+            'vibrant2': '#ffce00',
+            'grey1': '#000000',
+            'grey2': '#323435',
+            'grey3': '#656668',
+            'grey4': '#bdbec0',
+            'grey5': '#dcdedf',
+            'grey6': '#f1f2f3',
+            'grey7': '#f5f7f8',
+            'grey8': '#ffffff',
+            'chart1': '#3939c6',
+            'chart2': '#00abf3',
+            'chart3': '#75da4d',
+            'chart4': '#ffce00',
+            'chart5': '#eb23c2',
+            'chart6': '#ba47e2',
+            'ok': '#1aac60',
+            'warning': '#f48b34',
+            'critical': 'e5004c',
+            'partition1': '#7425ad',
+            'partition9': '#5216ac',
+            'partition10': '#5bba36',
+            'partition11': '#014272',
+            'partition12': '#ffb000',
+            'partition13': '#bdbec0',
+            'partition14': '#271782',
+            'social-chart-node': '#ff00ff',
+            'social-chart-edge': '#ff00ff'
+        }
+    }
+};
+
+class ColorServiceModule {
+}
+ColorServiceModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [],
+                exports: [],
+                declarations: [],
+                providers: [ColorService],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ColorServiceModule.ctorParameters = () => [];
+
 class PageHeaderComponent {
-    constructor() {
+    /**
+     * @param {?} _colorService
+     */
+    constructor(_colorService) {
+        this._colorService = _colorService;
         this.alignment = 'center';
         this.condensed = false;
         this.backVisible = true;
         this.backClick = new EventEmitter();
+    }
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    set familyBackground(color) {
+        this._familyBackground = this._colorService.resolve(color);
+    }
+    /**
+     * @return {?}
+     */
+    get familyBackground() {
+        return this._familyBackground;
+    }
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    set familyForeground(color) {
+        this._familyForeground = this._colorService.resolve(color);
+    }
+    /**
+     * @return {?}
+     */
+    get familyForeground() {
+        return this._familyForeground;
     }
     /**
      * @return {?}
@@ -9312,7 +10695,7 @@ PageHeaderComponent.decorators = [
 
                   <ux-breadcrumbs [crumbs]="crumbs"></ux-breadcrumbs>
 
-                  <h1 class="page-header-title">{{ header }}</h1>
+                  <h1 class="page-header-title" [style.backgroundColor]="familyBackground" [style.color]="familyForeground">{{ header }}</h1>
               </div>
 
           </div>
@@ -9347,7 +10730,9 @@ PageHeaderComponent.decorators = [
 /**
  * @nocollapse
  */
-PageHeaderComponent.ctorParameters = () => [];
+PageHeaderComponent.ctorParameters = () => [
+    { type: ColorService, },
+];
 PageHeaderComponent.propDecorators = {
     'logo': [{ type: Input },],
     'items': [{ type: Input },],
@@ -9357,6 +10742,8 @@ PageHeaderComponent.propDecorators = {
     'condensed': [{ type: Input },],
     'iconMenus': [{ type: Input },],
     'backVisible': [{ type: Input },],
+    'familyBackground': [{ type: Input },],
+    'familyForeground': [{ type: Input },],
     'backClick': [{ type: Output },],
     'customMenus': [{ type: ContentChildren, args: [PageHeaderCustomMenuDirective, { read: TemplateRef },] },],
 };
@@ -9656,6 +11043,7 @@ PageHeaderModule.decorators = [
                 imports: [
                     CommonModule,
                     BreadcrumbsModule,
+                    ColorServiceModule,
                     ResizeModule,
                     BsDropdownModule.forRoot()
                 ],
@@ -9677,392 +11065,6 @@ PageHeaderModule.decorators = [
  * @nocollapse
  */
 PageHeaderModule.ctorParameters = () => [];
-
-class ColorService {
-    /**
-     * @param {?} document
-     */
-    constructor(document) {
-        this._colorSet = colorSets.keppel;
-        if (this._colorSet.colorClassSet) {
-            this.setColors();
-        }
-        else {
-            for (let key in this._colorSet.colorValueSet) {
-                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
-            }
-        }
-    }
-    /**
-     * @return {?}
-     */
-    setColors() {
-        this._html = '';
-        for (let /** @type {?} */ key in this._colorSet.colorClassSet) {
-            this._html += '<div class="' + this._colorSet.colorClassSet[key] + '-color"></div>';
-        }
-        this._element = document.createElement('div');
-        this._element.className = 'color-chart';
-        this._element.innerHTML = this._html;
-        document.body.appendChild(this._element);
-        this._colors = {};
-        for (let /** @type {?} */ key in this._colorSet.colorClassSet) {
-            this._colors[key] = this.getColorValue(this._colorSet.colorClassSet[key]);
-        }
-        this._element.parentNode.removeChild(this._element);
-    }
-    /**
-     * @param {?} color
-     * @return {?}
-     */
-    getColorValueByHex(color) {
-        let /** @type {?} */ hex = color.replace('#', '');
-        let /** @type {?} */ r = parseInt(hex.substring(0, 2), 16).toString();
-        let /** @type {?} */ g = parseInt(hex.substring(2, 4), 16).toString();
-        let /** @type {?} */ b = parseInt(hex.substring(4, 6), 16).toString();
-        return new ThemeColor(r, g, b, '1');
-    }
-    /**
-     * @param {?} color
-     * @return {?}
-     */
-    getColorValue(color) {
-        let /** @type {?} */ target = this._element.querySelector('.' + this._colorSet.colorClassSet[color] + '-color');
-        if (!target) {
-            throw new Error('Invalid color');
-        }
-        let /** @type {?} */ colorValue = window.getComputedStyle(target).backgroundColor;
-        let /** @type {?} */ rgba = colorValue.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
-        return new ThemeColor(rgba[1], rgba[2], rgba[3], rgba[4]);
-    }
-    /**
-     * @param {?} color
-     * @return {?}
-     */
-    getColor(color) {
-        const /** @type {?} */ themeColor = this._colors[color.toLowerCase()];
-        return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
-    }
-    /**
-     * @return {?}
-     */
-    getColorSet() {
-        return this._colorSet;
-    }
-    /**
-     * @param {?} colorSet
-     * @return {?}
-     */
-    setColorSet(colorSet) {
-        this._colorSet = colorSet;
-        this._colors = {};
-        if (this._colorSet.colorClassSet) {
-            this.setColors();
-        }
-        else {
-            for (let /** @type {?} */ key in this._colorSet.colorValueSet) {
-                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
-            }
-        }
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    resolve(value) {
-        if (!value) {
-            return;
-        }
-        const /** @type {?} */ colorName = value.replace(/\s+/g, '-').toLowerCase();
-        for (let /** @type {?} */ color in this._colors) {
-            if (colorName === color.toLowerCase()) {
-                return this.getColor(colorName).toRgba();
-            }
-        }
-        return value;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    resolveColorName(value) {
-        return value.replace(/\s+/g, '-').toLowerCase();
-    }
-}
-/**
- * @nocollapse
- */
-ColorService.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-];
-class ThemeColor {
-    /**
-     * @param {?} r
-     * @param {?} g
-     * @param {?} b
-     * @param {?} a
-     */
-    constructor(r, g, b, a) {
-        this._r = r;
-        this._g = g;
-        this._b = b;
-        this._a = a === undefined ? '1' : a;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    static parse(value) {
-        let /** @type {?} */ r, /** @type {?} */ g, /** @type {?} */ b, /** @type {?} */ a = '1';
-        var /** @type {?} */ rgbaPattern = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/;
-        var /** @type {?} */ shortHexPattern = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        var /** @type {?} */ longHexPattern = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/;
-        let /** @type {?} */ rgbaMatch = value.match(rgbaPattern);
-        let /** @type {?} */ shortHexMatch = value.match(shortHexPattern);
-        let /** @type {?} */ longHexMatch = value.match(longHexPattern);
-        if (rgbaMatch) {
-            r = rgbaMatch[1];
-            g = rgbaMatch[2];
-            b = rgbaMatch[3];
-            a = rgbaMatch[4] ? rgbaMatch[4] : '1';
-        }
-        else if (longHexMatch) {
-            r = parseInt(longHexMatch[1], 16).toString();
-            g = parseInt(longHexMatch[2], 16).toString();
-            b = parseInt(longHexMatch[3], 16).toString();
-        }
-        else if (shortHexMatch) {
-            r = parseInt(shortHexMatch[1] + shortHexMatch[1], 16).toString();
-            g = parseInt(shortHexMatch[2] + shortHexMatch[2], 16).toString();
-            b = parseInt(shortHexMatch[3] + shortHexMatch[3], 16).toString();
-        }
-        else {
-            throw new Error(`Cannot parse color - ${value} is not a valid color.`);
-        }
-        return new ThemeColor(r, g, b, a);
-    }
-    /**
-     * @return {?}
-     */
-    toHex() {
-        var /** @type {?} */ red = parseInt(this._r).toString(16);
-        var /** @type {?} */ green = parseInt(this._g).toString(16);
-        var /** @type {?} */ blue = parseInt(this._b).toString(16);
-        if (red.length < 2) {
-            red = '0' + red;
-        }
-        if (green.length < 2) {
-            green = '0' + green;
-        }
-        if (blue.length < 2) {
-            blue = '0' + blue;
-        }
-        return '#' + red + green + blue;
-    }
-    /**
-     * @return {?}
-     */
-    toRgb() {
-        return 'rgb(' + this._r + ', ' + this._g + ', ' + this._b + ')';
-    }
-    /**
-     * @return {?}
-     */
-    toRgba() {
-        return 'rgba(' + this._r + ', ' + this._g + ', ' + this._b + ', ' + this._a + ')';
-    }
-    /**
-     * @return {?}
-     */
-    getRed() {
-        return this._r;
-    }
-    /**
-     * @return {?}
-     */
-    getGreen() {
-        return this._g;
-    }
-    /**
-     * @return {?}
-     */
-    getBlue() {
-        return this._b;
-    }
-    /**
-     * @return {?}
-     */
-    getAlpha() {
-        return this._a;
-    }
-    /**
-     * @param {?} red
-     * @return {?}
-     */
-    setRed(red) {
-        this._r = red;
-        return this;
-    }
-    /**
-     * @param {?} green
-     * @return {?}
-     */
-    setGreen(green) {
-        this._g = green;
-        return this;
-    }
-    /**
-     * @param {?} blue
-     * @return {?}
-     */
-    setBlue(blue) {
-        this._b = blue;
-        return this;
-    }
-    /**
-     * @param {?} alpha
-     * @return {?}
-     */
-    setAlpha(alpha) {
-        this._a = alpha.toString();
-        return this;
-    }
-}
-const colorSets = {
-    keppel: {
-        colorClassSet: {
-            'primary': 'primary',
-            'accent': 'accent',
-            'secondary': 'secondary',
-            'alternate1': 'alternate1',
-            'alternate2': 'alternate2',
-            'alternate3': 'alternate3',
-            'vibrant1': 'vibrant1',
-            'vibrant2': 'vibrant2',
-            'grey1': 'grey1',
-            'grey2': 'grey2',
-            'grey3': 'grey3',
-            'grey4': 'grey4',
-            'grey5': 'grey5',
-            'grey6': 'grey6',
-            'grey7': 'grey7',
-            'grey8': 'grey8',
-            'chart1': 'chart1',
-            'chart2': 'chart2',
-            'chart3': 'chart3',
-            'chart4': 'chart4',
-            'chart5': 'chart5',
-            'chart6': 'chart6',
-            'ok': 'ok',
-            'warning': 'warning',
-            'critical': 'critical',
-            'partition1': 'partition1',
-            'partition9': 'partition9',
-            'partition10': 'partition10',
-            'partition11': 'partition11',
-            'partition12': 'partition12',
-            'partition13': 'partition13',
-            'partition14': 'partition14',
-            'social-chart-node': 'social-chart-node',
-            'social-chart-edge': 'social-chart-edge'
-        }
-    },
-    microFocus: {
-        'colorValueSet': {
-            'cerulean': '#1668c1',
-            'aqua': '#29ceff',
-            'aquamarine': '#2fd6c3',
-            'fuchsia': '#c6179d',
-            'indigo': '#7425ad',
-            'dark-blue': '#231ca5',
-            'white': '#ffffff',
-            'slightly-gray': '#f5f7f8',
-            'bright-gray': '#f1f2f3',
-            'gray': '#dcdedf',
-            'silver': '#bdbec0',
-            'dim-gray': '#656668',
-            'dark-gray': '#323435',
-            'black': '#000000',
-            'crimson-negative': '#e5004c',
-            'apricot': '#f48b34',
-            'yellow': '#fcdb1f',
-            'green-positive': '#1aac60',
-            'ultramarine': '#3939c6',
-            'skyblue': '#00abf3',
-            'pale-aqua': '#43e4ff',
-            'pale-green': '#1ffbba',
-            'lime': '#75da4d',
-            'orange': '#ffce00',
-            'magenta': '#eb23c2',
-            'pale-purple': '#ba47e2',
-            'dark-ultramarine': '#271782',
-            'steelblue': '#014272',
-            'arctic-blue': '#0b8eac',
-            'emerald': '#00a989',
-            'olive': '#5bba36',
-            'goldenrod': '#ffb000',
-            'purple': '#9b1e83',
-            'pale-eggplant': '#5216ac',
-            'red': '#ff454f',
-            'pale-amber': '#ffb24d',
-            'pale-lemon': '#fde159',
-            'pale-emerald': '#33c180',
-            'plum': '#b21646',
-            'copper': '#e57828',
-            'amber': '#ffc002',
-            'leaf-green': '#118c4f',
-            'primary': '#0073e7',
-            'accent': '#7425ad',
-            'secondary': '#ffffff',
-            'alternate1': '#29ceff',
-            'alternate2': '#2fd6c3',
-            'alternate3': '#c6179d',
-            'vibrant1': '#43e4ff',
-            'vibrant2': '#ffce00',
-            'grey1': '#000000',
-            'grey2': '#323435',
-            'grey3': '#656668',
-            'grey4': '#bdbec0',
-            'grey5': '#dcdedf',
-            'grey6': '#f1f2f3',
-            'grey7': '#f5f7f8',
-            'grey8': '#ffffff',
-            'chart1': '#3939c6',
-            'chart2': '#00abf3',
-            'chart3': '#75da4d',
-            'chart4': '#ffce00',
-            'chart5': '#eb23c2',
-            'chart6': '#ba47e2',
-            'ok': '#1aac60',
-            'warning': '#f48b34',
-            'critical': 'e5004c',
-            'partition1': '#7425ad',
-            'partition9': '#5216ac',
-            'partition10': '#5bba36',
-            'partition11': '#014272',
-            'partition12': '#ffb000',
-            'partition13': '#bdbec0',
-            'partition14': '#271782',
-            'social-chart-node': '#ff00ff',
-            'social-chart-edge': '#ff00ff'
-        }
-    }
-};
-
-class ColorServiceModule {
-}
-ColorServiceModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [],
-                exports: [],
-                declarations: [],
-                providers: [ColorService],
-            },] },
-];
-/**
- * @nocollapse
- */
-ColorServiceModule.ctorParameters = () => [];
 
 class ProgressBarComponent {
     /**
@@ -15974,7 +16976,7 @@ FileSizePipeModule.decorators = [
  */
 FileSizePipeModule.ctorParameters = () => [];
 
-const DECLARATIONS$5 = [
+const DECLARATIONS$6 = [
     MediaPlayerComponent,
     MediaPlayerTimelineExtensionComponent,
     MediaPlayerBaseExtensionDirective,
@@ -15992,8 +16994,8 @@ MediaPlayerModule.decorators = [
                     DurationPipeModule,
                     FileSizePipeModule
                 ],
-                exports: DECLARATIONS$5,
-                declarations: DECLARATIONS$5,
+                exports: DECLARATIONS$6,
+                declarations: DECLARATIONS$6,
                 providers: [MediaPlayerService]
             },] },
 ];
@@ -16214,7 +17216,7 @@ VirtualScrollComponent.propDecorators = {
     'renderCells': [{ type: HostListener, args: ['scroll',] },],
 };
 
-const DECLARATIONS$6 = [
+const DECLARATIONS$7 = [
     VirtualScrollComponent,
     VirtualScrollLoadingDirective,
     VirtualScrollLoadButtonDirective,
@@ -16228,314 +17230,6 @@ VirtualScrollModule.decorators = [
                     CommonModule,
                     ResizeModule
                 ],
-                exports: DECLARATIONS$6,
-                declarations: DECLARATIONS$6
-            },] },
-];
-/**
- * @nocollapse
- */
-VirtualScrollModule.ctorParameters = () => [];
-
-class WizardStepComponent {
-    constructor() {
-        this.valid = true;
-        this.visitedChange = new EventEmitter();
-        this._active = false;
-        this._visited = false;
-    }
-    /**
-     * @return {?}
-     */
-    get visited() {
-        return this._visited;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set visited(value) {
-        this._visited = value;
-        this.visitedChange.next(value);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set active(value) {
-        // store the active state of the step
-        this._active = value;
-        // if the value is true then the step should also be marked as visited
-        if (value === true) {
-            this.visited = true;
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get active() {
-        return this._active;
-    }
-}
-WizardStepComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'ux-wizard-step',
-                template: `
-      <ng-container *ngIf="active">
-          <ng-content></ng-content>
-      </ng-container>
-    `
-            },] },
-];
-/**
- * @nocollapse
- */
-WizardStepComponent.ctorParameters = () => [];
-WizardStepComponent.propDecorators = {
-    'header': [{ type: Input },],
-    'valid': [{ type: Input },],
-    'visitedChange': [{ type: Input },],
-    'visited': [{ type: Input },],
-};
-
-class WizardComponent {
-    constructor() {
-        this._step = 0;
-        this.steps = new QueryList();
-        this.orientation = 'horizontal';
-        this.nextText = 'Next';
-        this.previousText = 'Previous';
-        this.cancelText = 'Cancel';
-        this.finishText = 'Finish';
-        this.nextTooltip = 'Go to the next step';
-        this.previousTooltip = 'Go to the previous step';
-        this.cancelTooltip = 'Cancel the wizard';
-        this.finishTooltip = 'Finish the wizard';
-        this.nextDisabled = false;
-        this.previousDisabled = false;
-        this.cancelDisabled = false;
-        this.finishDisabled = false;
-        this.nextVisible = true;
-        this.previousVisible = true;
-        this.cancelVisible = true;
-        this.finishVisible = true;
-        this.cancelAlwaysVisible = false;
-        this.finishAlwaysVisible = false;
-        this.onNext = new EventEmitter();
-        this.onPrevious = new EventEmitter();
-        this.onCancel = new EventEmitter();
-        this.onFinish = new EventEmitter();
-        this.stepChange = new EventEmitter();
-        this.invalidIndicator = false;
-    }
-    /**
-     * @return {?}
-     */
-    get step() {
-        return this._step;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set step(value) {
-        // only accept numbers as valid options
-        if (typeof value === 'number') {
-            // store the active step
-            this._step = value;
-            // update which steps should be active
-            this.update();
-            // emit the change event
-            this.stepChange.next(this.step);
-            // reset the invalid state
-            this.invalidIndicator = false;
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        // initially set the correct visibility of the steps
-        setTimeout(this.update.bind(this));
-    }
-    /**
-     * Navigate to the next step
-     * @return {?}
-     */
-    next() {
-        // check if current step is invalid
-        if (!this.getCurrentStep().valid) {
-            this.invalidIndicator = true;
-            return;
-        }
-        // check if we are currently on the last step
-        if ((this.step + 1) < this.steps.length) {
-            this.step++;
-            // emit the current step
-            this.onNext.next(this.step);
-        }
-    }
-    /**
-     * Navigate to the previous step
-     * @return {?}
-     */
-    previous() {
-        // check if we are currently on the last step
-        if (this.step > 0) {
-            this.step--;
-            // emit the current step
-            this.onPrevious.next(this.step);
-        }
-    }
-    /**
-     * Perform actions when the finish button is clicked
-     * @return {?}
-     */
-    finish() {
-        this.onFinish.next();
-    }
-    /**
-     * Perform actions when the cancel button is clicked
-     * @return {?}
-     */
-    cancel() {
-        this.onCancel.next();
-    }
-    /**
-     * Update the active state of each step
-     * @return {?}
-     */
-    update() {
-        // update which steps should be active
-        this.steps.forEach((step, idx) => step.active = idx === this.step);
-    }
-    /**
-     * Jump to a specific step only if the step has previously been visited
-     * @param {?} step
-     * @return {?}
-     */
-    gotoStep(step) {
-        if (step.visited) {
-            this.step = this.steps.toArray().findIndex(stp => stp === step);
-        }
-    }
-    /**
-     * Determine if the current step is the last step
-     * @return {?}
-     */
-    isLastStep() {
-        return this.step === (this.steps.length - 1);
-    }
-    /**
-     * Reset the wizard - goes to first step and resets visited state
-     * @return {?}
-     */
-    reset() {
-        // mark all steps as not visited
-        this.steps.forEach(step => step.visited = false);
-        // go to the first step
-        this.step = 0;
-    }
-    /**
-     * Get the step at the current index
-     * @return {?}
-     */
-    getCurrentStep() {
-        return this.getStepAtIndex(this.step);
-    }
-    /**
-     * Return a step at a specific index
-     * @param {?} index
-     * @return {?}
-     */
-    getStepAtIndex(index) {
-        return this.steps.toArray()[index];
-    }
-}
-WizardComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'ux-wizard',
-                template: `
-      <div class="wizard-body">
-
-          <div class="wizard-steps">
-    
-              <div class="wizard-step" [class.active]="stp.active" [class.visited]="stp.visited" [class.invalid]="stp.active && !stp.valid && invalidIndicator" (click)="gotoStep(stp)" *ngFor="let stp of steps">
-                  {{ stp.header }}
-              </div>
-    
-          </div>
-    
-          <div class="wizard-content">
-              <ng-content></ng-content>
-          </div>
-    
-      </div>
-
-      <div class="wizard-footer">
-          <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body" [disabled]="previousDisabled || step === 0"
-              (click)="previous(); tip.hide()">{{ previousText }}</button>
-
-          <button #tip="bs-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [tooltip]="nextTooltip" container="body" [disabled]="nextDisabled"
-              (click)="next(); tip.hide()">{{ nextText }}</button>
-
-          <button #tip="bs-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [tooltip]="finishTooltip"
-              container="body" [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
-
-          <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [tooltip]="cancelTooltip"
-              container="body" [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
-      </div>
-    `,
-                host: {
-                    '[class]': 'orientation'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-WizardComponent.ctorParameters = () => [];
-WizardComponent.propDecorators = {
-    'steps': [{ type: ContentChildren, args: [WizardStepComponent,] },],
-    'orientation': [{ type: Input },],
-    'nextText': [{ type: Input },],
-    'previousText': [{ type: Input },],
-    'cancelText': [{ type: Input },],
-    'finishText': [{ type: Input },],
-    'nextTooltip': [{ type: Input },],
-    'previousTooltip': [{ type: Input },],
-    'cancelTooltip': [{ type: Input },],
-    'finishTooltip': [{ type: Input },],
-    'nextDisabled': [{ type: Input },],
-    'previousDisabled': [{ type: Input },],
-    'cancelDisabled': [{ type: Input },],
-    'finishDisabled': [{ type: Input },],
-    'nextVisible': [{ type: Input },],
-    'previousVisible': [{ type: Input },],
-    'cancelVisible': [{ type: Input },],
-    'finishVisible': [{ type: Input },],
-    'cancelAlwaysVisible': [{ type: Input },],
-    'finishAlwaysVisible': [{ type: Input },],
-    'onNext': [{ type: Output },],
-    'onPrevious': [{ type: Output },],
-    'onCancel': [{ type: Output },],
-    'onFinish': [{ type: Output },],
-    'stepChange': [{ type: Output },],
-    'step': [{ type: Input },],
-};
-
-const DECLARATIONS$7 = [
-    WizardComponent,
-    WizardStepComponent
-];
-class WizardModule {
-}
-WizardModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    TooltipModule.forRoot()
-                ],
                 exports: DECLARATIONS$7,
                 declarations: DECLARATIONS$7
             },] },
@@ -16543,7 +17237,7 @@ WizardModule.decorators = [
 /**
  * @nocollapse
  */
-WizardModule.ctorParameters = () => [];
+VirtualScrollModule.ctorParameters = () => [];
 
 class FixedHeaderTableDirective {
     /**
@@ -17504,7 +18198,7 @@ class StorageAdapter {
     getSupported() { }
 }
 
-class ContactsComponent extends UpgradeComponent {
+class ContactsNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17514,7 +18208,7 @@ class ContactsComponent extends UpgradeComponent {
         this.overflowClick = new EventEmitter();
     }
 }
-ContactsComponent.decorators = [
+ContactsNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'contact-group'
             },] },
@@ -17522,11 +18216,11 @@ ContactsComponent.decorators = [
 /**
  * @nocollapse
  */
-ContactsComponent.ctorParameters = () => [
+ContactsNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-ContactsComponent.propDecorators = {
+ContactsNg1Component.propDecorators = {
     'contacts': [{ type: Input },],
     'organization': [{ type: Input },],
     'size': [{ type: Input },],
@@ -17535,7 +18229,7 @@ ContactsComponent.propDecorators = {
     'overflowClick': [{ type: Output },],
 };
 
-class ExpandInputComponent extends UpgradeComponent {
+class ExpandInputNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17545,7 +18239,7 @@ class ExpandInputComponent extends UpgradeComponent {
         this.focus = new EventEmitter();
     }
 }
-ExpandInputComponent.decorators = [
+ExpandInputNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'expand-input'
             },] },
@@ -17553,11 +18247,11 @@ ExpandInputComponent.decorators = [
 /**
  * @nocollapse
  */
-ExpandInputComponent.ctorParameters = () => [
+ExpandInputNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-ExpandInputComponent.propDecorators = {
+ExpandInputNg1Component.propDecorators = {
     'elname': [{ type: Input },],
     'placeHolder': [{ type: Input },],
     'className': [{ type: Input },],
@@ -17568,7 +18262,7 @@ ExpandInputComponent.propDecorators = {
     'focus': [{ type: Output },],
 };
 
-class FloatingActionButtonComponent extends UpgradeComponent {
+class FloatingActionButtonNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17578,7 +18272,7 @@ class FloatingActionButtonComponent extends UpgradeComponent {
         this.items = [];
     }
 }
-FloatingActionButtonComponent.decorators = [
+FloatingActionButtonNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'floating-action-button'
             },] },
@@ -17586,17 +18280,17 @@ FloatingActionButtonComponent.decorators = [
 /**
  * @nocollapse
  */
-FloatingActionButtonComponent.ctorParameters = () => [
+FloatingActionButtonNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-FloatingActionButtonComponent.propDecorators = {
+FloatingActionButtonNg1Component.propDecorators = {
     'items': [{ type: Input },],
     'primary': [{ type: Input },],
     'direction': [{ type: Input },],
 };
 
-class FlotComponent extends UpgradeComponent {
+class FlotNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17607,7 +18301,7 @@ class FlotComponent extends UpgradeComponent {
         this.onPlotHover = new EventEmitter();
     }
 }
-FlotComponent.decorators = [
+FlotNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'flot'
             },] },
@@ -17615,11 +18309,11 @@ FlotComponent.decorators = [
 /**
  * @nocollapse
  */
-FlotComponent.ctorParameters = () => [
+FlotNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-FlotComponent.propDecorators = {
+FlotNg1Component.propDecorators = {
     'dataset': [{ type: Input },],
     'options': [{ type: Input },],
     'callback': [{ type: Input },],
@@ -17628,7 +18322,7 @@ FlotComponent.propDecorators = {
     'onPlotHover': [{ type: Output },],
 };
 
-class GridComponent extends UpgradeComponent {
+class GridNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17639,7 +18333,7 @@ class GridComponent extends UpgradeComponent {
         this.columns = [];
     }
 }
-GridComponent.decorators = [
+GridNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'grid'
             },] },
@@ -17647,11 +18341,11 @@ GridComponent.decorators = [
 /**
  * @nocollapse
  */
-GridComponent.ctorParameters = () => [
+GridNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-GridComponent.propDecorators = {
+GridNg1Component.propDecorators = {
     'source': [{ type: Input },],
     'columns': [{ type: Input },],
     'options': [{ type: Input },],
@@ -17659,7 +18353,7 @@ GridComponent.propDecorators = {
     'plugins': [{ type: Input },],
 };
 
-class HierarchyBarComponent extends UpgradeComponent {
+class HierarchyBarNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17668,7 +18362,7 @@ class HierarchyBarComponent extends UpgradeComponent {
         super('hierarchyBar', elementRef, injector);
     }
 }
-HierarchyBarComponent.decorators = [
+HierarchyBarNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'hierarchy-bar'
             },] },
@@ -17676,28 +18370,28 @@ HierarchyBarComponent.decorators = [
 /**
  * @nocollapse
  */
-HierarchyBarComponent.ctorParameters = () => [
+HierarchyBarNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-HierarchyBarComponent.propDecorators = {
+HierarchyBarNg1Component.propDecorators = {
     'data': [{ type: Input },],
     'options': [{ type: Input },],
     'selectNode': [{ type: Input },],
     'containerClass': [{ type: Input },],
 };
 
-class MarqueeWizardComponent extends UpgradeComponent {
+class MarqueeWizardNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
      */
     constructor(elementRef, injector) {
-        super('marquee-wizard', elementRef, injector);
+        super('marqueeWizard', elementRef, injector);
         this.wizardStepsChange = new EventEmitter();
     }
 }
-MarqueeWizardComponent.decorators = [
+MarqueeWizardNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'marquee-wizard'
             },] },
@@ -17705,11 +18399,11 @@ MarqueeWizardComponent.decorators = [
 /**
  * @nocollapse
  */
-MarqueeWizardComponent.ctorParameters = () => [
+MarqueeWizardNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-MarqueeWizardComponent.propDecorators = {
+MarqueeWizardNg1Component.propDecorators = {
     'wizardIcon': [{ type: Input },],
     'wizardSteps': [{ type: Input },],
     'buttonOptions': [{ type: Input },],
@@ -17722,7 +18416,7 @@ MarqueeWizardComponent.propDecorators = {
     'wizardStepsChange': [{ type: Output },],
 };
 
-class NestedDonutComponent extends UpgradeComponent {
+class NestedDonutNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17731,7 +18425,7 @@ class NestedDonutComponent extends UpgradeComponent {
         super('uxNestedDonutNg1', elementRef, injector);
     }
 }
-NestedDonutComponent.decorators = [
+NestedDonutNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'nested-donut'
             },] },
@@ -17739,16 +18433,16 @@ NestedDonutComponent.decorators = [
 /**
  * @nocollapse
  */
-NestedDonutComponent.ctorParameters = () => [
+NestedDonutNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-NestedDonutComponent.propDecorators = {
+NestedDonutNg1Component.propDecorators = {
     'dataset': [{ type: Input },],
     'options': [{ type: Input },],
 };
 
-class OrganizationChartComponent extends UpgradeComponent {
+class OrganizationChartNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17759,7 +18453,7 @@ class OrganizationChartComponent extends UpgradeComponent {
         this.optionsChange = new EventEmitter();
     }
 }
-OrganizationChartComponent.decorators = [
+OrganizationChartNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'organization-chart'
             },] },
@@ -17767,18 +18461,18 @@ OrganizationChartComponent.decorators = [
 /**
  * @nocollapse
  */
-OrganizationChartComponent.ctorParameters = () => [
+OrganizationChartNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-OrganizationChartComponent.propDecorators = {
+OrganizationChartNg1Component.propDecorators = {
     'data': [{ type: Input },],
     'options': [{ type: Input },],
     'dataChange': [{ type: Output },],
     'optionsChange': [{ type: Output },],
 };
 
-class PartitionMapComponent extends UpgradeComponent {
+class PartitionMapNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17787,7 +18481,7 @@ class PartitionMapComponent extends UpgradeComponent {
         super('uxPartitionMapNg1', elementRef, injector);
     }
 }
-PartitionMapComponent.decorators = [
+PartitionMapNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'partition-map'
             },] },
@@ -17795,17 +18489,17 @@ PartitionMapComponent.decorators = [
 /**
  * @nocollapse
  */
-PartitionMapComponent.ctorParameters = () => [
+PartitionMapNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-PartitionMapComponent.propDecorators = {
+PartitionMapNg1Component.propDecorators = {
     'chartData': [{ type: Input },],
     'chartOptions': [{ type: Input },],
     'chartLoading': [{ type: Input },],
 };
 
-class PeityBarChartComponent extends UpgradeComponent {
+class PeityBarChartNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17814,7 +18508,7 @@ class PeityBarChartComponent extends UpgradeComponent {
         super('uxPeityBarChartNg1', elementRef, injector);
     }
 }
-PeityBarChartComponent.decorators = [
+PeityBarChartNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'bar-chart'
             },] },
@@ -17822,16 +18516,16 @@ PeityBarChartComponent.decorators = [
 /**
  * @nocollapse
  */
-PeityBarChartComponent.ctorParameters = () => [
+PeityBarChartNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-PeityBarChartComponent.propDecorators = {
+PeityBarChartNg1Component.propDecorators = {
     'data': [{ type: Input },],
     'options': [{ type: Input },],
 };
 
-class PeityLineChartComponent extends UpgradeComponent {
+class PeityLineChartNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17840,7 +18534,7 @@ class PeityLineChartComponent extends UpgradeComponent {
         super('uxPeityLineChartNg1', elementRef, injector);
     }
 }
-PeityLineChartComponent.decorators = [
+PeityLineChartNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'line-chart'
             },] },
@@ -17848,16 +18542,16 @@ PeityLineChartComponent.decorators = [
 /**
  * @nocollapse
  */
-PeityLineChartComponent.ctorParameters = () => [
+PeityLineChartNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-PeityLineChartComponent.propDecorators = {
+PeityLineChartNg1Component.propDecorators = {
     'data': [{ type: Input },],
     'options': [{ type: Input },],
 };
 
-class PeityPieChartComponent extends UpgradeComponent {
+class PeityPieChartNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17866,7 +18560,7 @@ class PeityPieChartComponent extends UpgradeComponent {
         super('uxPeityPieChartNg1', elementRef, injector);
     }
 }
-PeityPieChartComponent.decorators = [
+PeityPieChartNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'pie-chart'
             },] },
@@ -17874,16 +18568,16 @@ PeityPieChartComponent.decorators = [
 /**
  * @nocollapse
  */
-PeityPieChartComponent.ctorParameters = () => [
+PeityPieChartNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-PeityPieChartComponent.propDecorators = {
+PeityPieChartNg1Component.propDecorators = {
     'data': [{ type: Input },],
     'options': [{ type: Input },],
 };
 
-class PeityUpdatingLineChartComponent extends UpgradeComponent {
+class PeityUpdatingLineChartNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17892,7 +18586,7 @@ class PeityUpdatingLineChartComponent extends UpgradeComponent {
         super('uxPeityUpdatingLineChartNg1', elementRef, injector);
     }
 }
-PeityUpdatingLineChartComponent.decorators = [
+PeityUpdatingLineChartNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'updating-line-chart'
             },] },
@@ -17900,18 +18594,18 @@ PeityUpdatingLineChartComponent.decorators = [
 /**
  * @nocollapse
  */
-PeityUpdatingLineChartComponent.ctorParameters = () => [
+PeityUpdatingLineChartNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-PeityUpdatingLineChartComponent.propDecorators = {
+PeityUpdatingLineChartNg1Component.propDecorators = {
     'data': [{ type: Input },],
     'options': [{ type: Input },],
     'method': [{ type: Input },],
     'updateinterval': [{ type: Input },],
 };
 
-class SankeyComponent extends UpgradeComponent {
+class SankeyNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17920,7 +18614,7 @@ class SankeyComponent extends UpgradeComponent {
         super('uxSankeyNg1', elementRef, injector);
     }
 }
-SankeyComponent.decorators = [
+SankeyNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'sankey'
             },] },
@@ -17928,18 +18622,18 @@ SankeyComponent.decorators = [
 /**
  * @nocollapse
  */
-SankeyComponent.ctorParameters = () => [
+SankeyNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-SankeyComponent.propDecorators = {
+SankeyNg1Component.propDecorators = {
     'chartSize': [{ type: Input },],
     'chartData': [{ type: Input },],
     'options': [{ type: Input },],
     'click': [{ type: Input },],
 };
 
-class SearchToolbarComponent extends UpgradeComponent {
+class SearchToolbarNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17948,7 +18642,7 @@ class SearchToolbarComponent extends UpgradeComponent {
         super('searchToolbar', elementRef, injector);
     }
 }
-SearchToolbarComponent.decorators = [
+SearchToolbarNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'search-toolbar'
             },] },
@@ -17956,11 +18650,11 @@ SearchToolbarComponent.decorators = [
 /**
  * @nocollapse
  */
-SearchToolbarComponent.ctorParameters = () => [
+SearchToolbarNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-SearchToolbarComponent.propDecorators = {
+SearchToolbarNg1Component.propDecorators = {
     'searchTypeahead': [{ type: Input },],
     'placeHolder': [{ type: Input },],
     'closeSearch': [{ type: Input },],
@@ -17968,7 +18662,7 @@ SearchToolbarComponent.propDecorators = {
     'onFocus': [{ type: Input },],
 };
 
-class SelectTableComponent extends UpgradeComponent {
+class SelectTableNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -17978,7 +18672,7 @@ class SelectTableComponent extends UpgradeComponent {
         this.selectedChange = new EventEmitter();
     }
 }
-SelectTableComponent.decorators = [
+SelectTableNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'select-table'
             },] },
@@ -17986,11 +18680,11 @@ SelectTableComponent.decorators = [
 /**
  * @nocollapse
  */
-SelectTableComponent.ctorParameters = () => [
+SelectTableNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-SelectTableComponent.propDecorators = {
+SelectTableNg1Component.propDecorators = {
     'values': [{ type: Input },],
     'multipleSelect': [{ type: Input },],
     'selectKey': [{ type: Input },],
@@ -18001,7 +18695,58 @@ SelectTableComponent.propDecorators = {
     'selectedChange': [{ type: Output },],
 };
 
-class SocialChartComponent extends UpgradeComponent {
+const SLIDER_CHART_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => SliderChartNg1Component),
+    multi: true
+};
+class SliderChartNg1Component extends UpgradeComponent {
+    /**
+     * @param {?} elementRef
+     * @param {?} injector
+     */
+    constructor(elementRef, injector) {
+        super('sliderChart', elementRef, injector);
+        this.ngModelChange = new EventEmitter();
+    }
+    /**
+     * @param {?} obj
+     * @return {?}
+     */
+    writeValue(obj) { }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    registerOnChange(fn) { }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    registerOnTouched(fn) { }
+}
+SliderChartNg1Component.decorators = [
+    { type: Directive, args: [{
+                selector: 'slider-chart',
+                providers: [SLIDER_CHART_VALUE_ACCESSOR]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SliderChartNg1Component.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Injector, },
+];
+SliderChartNg1Component.propDecorators = {
+    'sliderOptions': [{ type: Input },],
+    'ngModel': [{ type: Input },],
+    'chartOptions': [{ type: Input },],
+    'chartData': [{ type: Input },],
+    'ngModelChange': [{ type: Output },],
+};
+
+class SocialChartNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -18010,7 +18755,7 @@ class SocialChartComponent extends UpgradeComponent {
         super('uxSocialChartNg1', elementRef, injector);
     }
 }
-SocialChartComponent.decorators = [
+SocialChartNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'social-chart'
             },] },
@@ -18018,11 +18763,11 @@ SocialChartComponent.decorators = [
 /**
  * @nocollapse
  */
-SocialChartComponent.ctorParameters = () => [
+SocialChartNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-SocialChartComponent.propDecorators = {
+SocialChartNg1Component.propDecorators = {
     'data': [{ type: Input },],
     'options': [{ type: Input },],
     'width': [{ type: Input },],
@@ -18050,7 +18795,7 @@ SocialChartComponent.propDecorators = {
     'minLabels': [{ type: Input },],
 };
 
-class SortDirectionToggleComponent extends UpgradeComponent {
+class SortDirectionToggleNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -18059,7 +18804,7 @@ class SortDirectionToggleComponent extends UpgradeComponent {
         super('sortDirectionToggle', elementRef, injector);
     }
 }
-SortDirectionToggleComponent.decorators = [
+SortDirectionToggleNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'sort-direction-toggle'
             },] },
@@ -18067,17 +18812,17 @@ SortDirectionToggleComponent.decorators = [
 /**
  * @nocollapse
  */
-SortDirectionToggleComponent.ctorParameters = () => [
+SortDirectionToggleNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-SortDirectionToggleComponent.propDecorators = {
+SortDirectionToggleNg1Component.propDecorators = {
     'label': [{ type: Input },],
     'sorters': [{ type: Input },],
     'descend': [{ type: Input },],
 };
 
-class TreeGridComponent extends UpgradeComponent {
+class TreeGridNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -18090,7 +18835,7 @@ class TreeGridComponent extends UpgradeComponent {
         this.treeDataChange = new EventEmitter();
     }
 }
-TreeGridComponent.decorators = [
+TreeGridNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'treegrid'
             },] },
@@ -18098,11 +18843,11 @@ TreeGridComponent.decorators = [
 /**
  * @nocollapse
  */
-TreeGridComponent.ctorParameters = () => [
+TreeGridNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-TreeGridComponent.propDecorators = {
+TreeGridNg1Component.propDecorators = {
     'data': [{ type: Input },],
     'columns': [{ type: Input },],
     'treeData': [{ type: Input },],
@@ -18115,7 +18860,7 @@ TreeGridComponent.propDecorators = {
     'treeDataChange': [{ type: Output },],
 };
 
-class ThumbnailComponent extends UpgradeComponent {
+class ThumbnailNg1Component extends UpgradeComponent {
     /**
      * @param {?} elementRef
      * @param {?} injector
@@ -18124,7 +18869,7 @@ class ThumbnailComponent extends UpgradeComponent {
         super('thumbnail', elementRef, injector);
     }
 }
-ThumbnailComponent.decorators = [
+ThumbnailNg1Component.decorators = [
     { type: Directive, args: [{
                 selector: 'thumbnail'
             },] },
@@ -18132,11 +18877,11 @@ ThumbnailComponent.decorators = [
 /**
  * @nocollapse
  */
-ThumbnailComponent.ctorParameters = () => [
+ThumbnailNg1Component.ctorParameters = () => [
     { type: ElementRef, },
     { type: Injector, },
 ];
-ThumbnailComponent.propDecorators = {
+ThumbnailNg1Component.propDecorators = {
     'url': [{ type: Input },],
     'show': [{ type: Input },],
     'width': [{ type: Input },],
@@ -18197,6 +18942,18 @@ NavigationMenuService.decorators = [
 NavigationMenuService.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: ['$navigationMenu',] },] },
 ];
+/**
+ * @param {?} injector
+ * @return {?}
+ */
+function navigationMenuServiceFactory(injector) {
+    return injector.get('$navigationMenu');
+}
+const navigationMenuServiceProvider = {
+    provide: '$navigationMenu',
+    useFactory: navigationMenuServiceFactory,
+    deps: ['$injector']
+};
 
 class NotificationService {
     /**
@@ -18255,6 +19012,18 @@ NotificationService.decorators = [
 NotificationService.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: ['notificationService',] },] },
 ];
+/**
+ * @param {?} injector
+ * @return {?}
+ */
+function notificationServiceFactory(injector) {
+    return injector.get('notificationService');
+}
+const notificationServiceProvider = {
+    provide: 'notificationService',
+    useFactory: notificationServiceFactory,
+    deps: ['$injector']
+};
 
 class PdfService {
     /**
@@ -18282,6 +19051,18 @@ PdfService.decorators = [
 PdfService.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: ['$pdf',] },] },
 ];
+/**
+ * @param {?} injector
+ * @return {?}
+ */
+function pdfServiceFactory(injector) {
+    return injector.get('$pdf');
+}
+const pdfServiceProvider = {
+    provide: '$pdf',
+    useFactory: pdfServiceFactory,
+    deps: ['$injector']
+};
 
 class TimeAgoService {
     /**
@@ -18322,29 +19103,42 @@ TimeAgoService.decorators = [
 TimeAgoService.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: ['timeAgoService',] },] },
 ];
+/**
+ * @param {?} injector
+ * @return {?}
+ */
+function timeAgoServiceFactory(injector) {
+    return injector.get('timeAgoService');
+}
+const timeAgoServiceProvider = {
+    provide: 'timeAgoService',
+    useFactory: timeAgoServiceFactory,
+    deps: ['$injector']
+};
 
 const declarations = [
-    ContactsComponent,
-    ExpandInputComponent,
-    FloatingActionButtonComponent,
-    FlotComponent,
-    GridComponent,
-    HierarchyBarComponent,
-    MarqueeWizardComponent,
-    NestedDonutComponent,
-    OrganizationChartComponent,
-    PartitionMapComponent,
-    PeityBarChartComponent,
-    PeityLineChartComponent,
-    PeityPieChartComponent,
-    PeityUpdatingLineChartComponent,
-    SankeyComponent,
-    SearchToolbarComponent,
-    SelectTableComponent,
-    SocialChartComponent,
-    SortDirectionToggleComponent,
-    TreeGridComponent,
-    ThumbnailComponent,
+    ContactsNg1Component,
+    ExpandInputNg1Component,
+    FloatingActionButtonNg1Component,
+    FlotNg1Component,
+    GridNg1Component,
+    HierarchyBarNg1Component,
+    MarqueeWizardNg1Component,
+    NestedDonutNg1Component,
+    OrganizationChartNg1Component,
+    PartitionMapNg1Component,
+    PeityBarChartNg1Component,
+    PeityLineChartNg1Component,
+    PeityPieChartNg1Component,
+    PeityUpdatingLineChartNg1Component,
+    SankeyNg1Component,
+    SearchToolbarNg1Component,
+    SelectTableNg1Component,
+    SliderChartNg1Component,
+    SocialChartNg1Component,
+    SortDirectionToggleNg1Component,
+    TreeGridNg1Component,
+    ThumbnailNg1Component,
 ];
 class HybridModule {
 }
@@ -18354,26 +19148,10 @@ HybridModule.decorators = [
                 exports: declarations,
                 declarations: declarations,
                 providers: [
-                    {
-                        provide: 'notificationService',
-                        useFactory: (injector) => injector.get('notificationService'),
-                        deps: ['$injector']
-                    },
-                    {
-                        provide: '$navigationMenu',
-                        useFactory: (injector) => injector.get('$navigationMenu'),
-                        deps: ['$injector']
-                    },
-                    {
-                        provide: '$pdf',
-                        useFactory: (injector) => injector.get('$pdf'),
-                        deps: ['$injector']
-                    },
-                    {
-                        provide: 'timeAgoService',
-                        useFactory: (injector) => injector.get('timeAgoService'),
-                        deps: ['$injector']
-                    },
+                    navigationMenuServiceProvider,
+                    notificationServiceProvider,
+                    pdfServiceProvider,
+                    timeAgoServiceProvider,
                     TimeAgoService,
                     PdfService,
                     NavigationMenuService,
@@ -18394,5 +19172,5 @@ HybridModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, WizardStepComponent, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsComponent, ExpandInputComponent, FloatingActionButtonComponent, FlotComponent, GridComponent, HierarchyBarComponent, MarqueeWizardComponent, NestedDonutComponent, OrganizationChartComponent, PartitionMapComponent, PeityBarChartComponent, PeityLineChartComponent, PeityPieChartComponent, PeityUpdatingLineChartComponent, SankeyComponent, SearchToolbarComponent, SelectTableComponent, SocialChartComponent, SortDirectionToggleComponent, TreeGridComponent, ThumbnailComponent, NavigationMenuService, NotificationService, PdfService, TimeAgoService, HybridModule, DateTimePickerService as ɵa, MediaPlayerService as ɵd, PageHeaderNavigationDropdownItemComponent as ɵc, PageHeaderNavigationItemComponent as ɵb, HoverActionService as ɵe };
+export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, NotificationService, notificationServiceFactory, notificationServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DateTimePickerService as ɵd, MarqueeWizardStepComponent as ɵf, MarqueeWizardService as ɵe, MediaPlayerService as ɵi, PageHeaderNavigationDropdownItemComponent as ɵh, PageHeaderNavigationItemComponent as ɵg, HoverActionService as ɵj };
 //# sourceMappingURL=ux-aspects.js.map

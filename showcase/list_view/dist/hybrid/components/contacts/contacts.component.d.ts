@@ -1,6 +1,6 @@
 import { ElementRef, Injector, EventEmitter } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class ContactsComponent extends UpgradeComponent {
+export declare class ContactsNg1Component extends UpgradeComponent {
     contacts: Contact[];
     organization: string;
     size: 'medium' | 'small';

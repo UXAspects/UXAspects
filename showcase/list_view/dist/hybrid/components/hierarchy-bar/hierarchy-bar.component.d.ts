@@ -1,6 +1,6 @@
 import { ElementRef, Injector } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-export declare class HierarchyBarComponent extends UpgradeComponent {
+export declare class HierarchyBarNg1Component extends UpgradeComponent {
     data: any[];
     options: HierarchyBarOptions;
     selectNode: any;

@@ -4,7 +4,7 @@ export declare class ColorService {
     private _element;
     private _colors;
     private _colorSet;
-    constructor(document: any);
+    constructor(document: Document);
     private setColors();
     private getColorValueByHex(color);
     private getColorValue(color);
