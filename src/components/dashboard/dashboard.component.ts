@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef, AfterViewInit, EventEmitter, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ElementRef, AfterViewInit, EventEmitter, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DashboardService, DashboardLayoutData, DashboardPlaceholder, defaultOptions } from './dashboard.service';
 import { ResizeDimensions } from '../../directives/resize/resize.service';
 
@@ -19,6 +19,7 @@ export class DashboardComponent implements AfterViewInit {
     }
     
     @Output() layoutChange = new EventEmitter<DashboardLayoutData[]>();
+
     @ViewChild('dashboard') dashboardElement: ElementRef;
 
     constructor(public dashboardService: DashboardService) {

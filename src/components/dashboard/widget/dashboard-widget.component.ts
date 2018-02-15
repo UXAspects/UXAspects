@@ -1,14 +1,11 @@
-import { Component, Input, ElementRef, QueryList, ViewChildren, Directive, OnInit, OnDestroy, HostBinding } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, HostBinding, AfterViewInit } from '@angular/core';
 import { DashboardService, ActionDirection } from '../dashboard.service';
-import { Subscription } from 'rxjs/Subscription';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { takeUntil } from 'rxjs/operators/takeUntil';
 
 @Component({
     selector: 'ux-dashboard-widget',
     templateUrl: './dashboard-widget.component.html'
 })
-export class DashboardWidgetComponent implements OnInit, OnDestroy {
+export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() id: string;
     @Input() col: number;
@@ -28,17 +25,10 @@ export class DashboardWidgetComponent implements OnInit, OnDestroy {
     private _row: StackableValue = { regular: undefined, stacked: undefined };
     private _columnSpan: StackableValue = { regular: 1, stacked: 1 };
     private _rowSpan: StackableValue = { regular: 1, stacked: 1 };
-    private _handles: ResizeHandle[] = [];
 
     ActionDirection = ActionDirection;
 
     constructor(public dashboardService: DashboardService) {
-
-        // add the widget to the dashboard
-        dashboardService.addWidget(this);
-
-        // apply the current options
-        this.update();
 
         // watch for changes to the options
         dashboardService.options$.subscribe(() => this.update());
@@ -57,6 +47,14 @@ export class DashboardWidgetComponent implements OnInit, OnDestroy {
         }
     }
 
+    ngAfterViewInit(): void {
+        // add the widget to the dashboard
+        this.dashboardService.addWidget(this);
+
+        // apply the current options
+        this.update();
+    }
+
     /**
      * If component is removed, then unregister it from the service
      */
@@ -70,7 +68,7 @@ export class DashboardWidgetComponent implements OnInit, OnDestroy {
     update(): void {
 
         // get the current options at the time 
-        const { padding, columns } = this.dashboardService.options$.getValue();
+        const { padding, columns } = this.dashboardService.options;
 
         this.padding = padding;
         this._columnSpan.stacked = columns;
@@ -168,7 +166,7 @@ export class DashboardWidgetComponent implements OnInit, OnDestroy {
      */
     private setStackableValue(property: StackableValue, value: number): void {
 
-        if (this.dashboardService.stacked$.getValue()) {
+        if (this.dashboardService.stacked) {
             property.stacked = value;
         } else {
             property.regular = value;
@@ -180,14 +178,8 @@ export class DashboardWidgetComponent implements OnInit, OnDestroy {
      * @param property The Stackable value object
      */
     private getStackableValue(property: StackableValue): number {
-        return this.dashboardService.stacked$.getValue() ? property.stacked : property.regular;
+        return this.dashboardService.stacked ? property.stacked : property.regular;
     }
-}
-
-export interface ResizeHandle {
-    element: Element;
-    direction: ActionDirection;
-    listener?: Subscription;
 }
 
 export interface StackableValue {

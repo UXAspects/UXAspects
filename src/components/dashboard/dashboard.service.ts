@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 import { DashboardOptions } from './dashboard.component';
 import { Subject } from 'rxjs/Subject';
@@ -9,8 +9,6 @@ import { filter } from 'rxjs/operators/filter';
 export class DashboardService {
 
     private _dashboard: HTMLElement;
-    private _widgets: DashboardWidgetComponent[] = [];
-    private _options$: Subject<DashboardOptions> = new Subject<DashboardOptions>();
     private _widgetOrigin: { column?: number, row?: number, columnSpan?: number, rowSpan?: number };
     private _dimensions: DashboardDimensions = {};
     private _actionWidget: DashboardAction;
@@ -19,25 +17,29 @@ export class DashboardService {
     private _cache: DashboardCache[];
     private _mouseEvent: MouseEvent;
 
+    widgets$ = new BehaviorSubject<DashboardWidgetComponent[]>([]);
     options$ = new BehaviorSubject<DashboardOptions>(defaultOptions);
     height$ = new BehaviorSubject<number>(0);
     placeholder$ = new BehaviorSubject<DashboardPlaceholder>({ visible: false, x: 0, y: 0, width: 0, height: 0 });
     layout$ = new Subject<DashboardLayoutData[]>();
     stacked$ = new BehaviorSubject<boolean>(false);
 
-    constructor() {
-        this.layout$.subscribe(this.setLayoutData.bind(this));
-        this.stacked$.pipe(filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this))
+    get options() {
+        return this.options$.getValue();
     }
 
-    /**
-     * Allow uniform spacing around each widget
-     * @param padding The number of pixels around each widget
-     */
-    setPadding(padding: number) {
-        const options = this.options$.getValue();
-        options.padding = padding;
-        this.options$.next(options);
+    get widgets() {
+        return this.widgets$.getValue();
+    }
+
+    get stacked() {
+        return this.stacked$.getValue();
+    }
+
+    constructor() {
+        this.layout$.subscribe(this.setLayoutData.bind(this));
+        this.stacked$.pipe(filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
+        this.widgets$.subscribe(() => this.renderDashboard());
     }
 
     /**
@@ -53,10 +55,7 @@ export class DashboardService {
      * @param widget The widget component to add to the dashboard
      */
     addWidget(widget: DashboardWidgetComponent): void {
-        this._widgets.push(widget);
-
-        // re-render the dashboard
-        this.renderDashboard();
+        this.widgets$.next([...this.widgets$.getValue(), widget]);
     }
 
     /**
@@ -64,12 +63,7 @@ export class DashboardService {
      * @param widget The widget to remove
      */
     removeWidget(widget: DashboardWidgetComponent): void {
-
-        // remove a widget from the dashboard
-        this._widgets = this._widgets.filter(wgt => wgt !== widget);
-
-        // re-render the dashboard
-        this.renderDashboard();
+        this.widgets$.next(this.widgets$.getValue().filter(_widget => _widget !== widget));
     }
 
     /**
@@ -90,7 +84,7 @@ export class DashboardService {
      * This can be useful for exporting/saving a layout
      */
     getLayoutData(): DashboardLayoutData[] {
-        return this._widgets.map(widget => {
+        return this.widgets.map(widget => {
             return { id: widget.id, col: widget.getColumn(), row: widget.getRow(), colSpan: widget.getColumnSpan(), rowSpan: widget.getRowSpan() };
         });
     }
@@ -104,7 +98,7 @@ export class DashboardService {
         widgets.forEach(widget => {
 
             // find the matching widget
-            const target = this._widgets.find(_widget => _widget.id === widget.id);
+            const target = this.widgets.find(_widget => _widget.id === widget.id);
 
             if (target) {
                 target.setColumn(widget.col);
@@ -120,24 +114,22 @@ export class DashboardService {
      */
     renderDashboard(): void {
 
-        const options = this.options$.getValue();
-
         // get the dimensions of the dashboard
-        this._columnWidth = this._dimensions.width / options.columns;
-        this._rowHeight = options.rowHeight || this._columnWidth;
+        this._columnWidth = this._dimensions.width / this.options.columns;
+        this._rowHeight = this.options.rowHeight || this._columnWidth;
 
         // ensure the column width is not below the min widths
-        this.stacked$.next(this._columnWidth < options.minWidth);
+        this.stacked$.next(this._columnWidth < this.options.minWidth);
 
         // ensure the row height is not below the min widths
-        if (this._rowHeight < options.minWidth) {
-            this._rowHeight = options.minWidth;
+        if (this._rowHeight < this.options.minWidth) {
+            this._rowHeight = this.options.minWidth;
         }
 
         this.setDashboardLayout();
 
         // iterate through each widget and set the size - except the one being resized
-        this._widgets.filter(widget => !this._actionWidget || widget !== this._actionWidget.widget)
+        this.widgets.filter(widget => !this._actionWidget || widget !== this._actionWidget.widget)
             .forEach(widget => widget.render());
     }
 
@@ -147,7 +139,7 @@ export class DashboardService {
     setDashboardLayout(): void {
 
         // find any widgets that do not currently have a position set
-        this._widgets.filter(widget => widget.getColumn() === undefined || widget.getRow() === undefined)
+        this.widgets.filter(widget => widget.getColumn() === undefined || widget.getRow() === undefined)
             .forEach(widget => this.setWidgetPosition(widget));
 
         this.setDashboardHeight();
@@ -164,7 +156,7 @@ export class DashboardService {
     }
 
     getWidgetsByOrder(): DashboardWidgetComponent[] {
-        return this._widgets.sort((w1, w2) => {
+        return this.widgets.sort((w1, w2) => {
 
             const w1Position = w1.getColumn() * w1.getRow();
             const w2Position = w2.getColumn() * w2.getRow();
@@ -187,8 +179,6 @@ export class DashboardService {
      */
     setWidgetPosition(widget: DashboardWidgetComponent): void {
 
-        const options = this.options$.getValue();
-
         // find a position for the widget
         let position = 0;
         let success = false;
@@ -197,8 +187,8 @@ export class DashboardService {
         while (!success) {
 
             // get a position to try
-            const column = position % options.columns;
-            const row = Math.floor(position / options.columns);
+            const column = position % this.options.columns;
+            const row = Math.floor(position / this.options.columns);
 
             // check the current position
             if (this.getPositionAvailable(column, row, widget.getColumnSpan(), widget.getRowSpan())) {
@@ -218,11 +208,10 @@ export class DashboardService {
     getPositionAvailable(column: number, row: number, columnSpan: number, rowSpan: number, ignoreWidget?: DashboardWidgetComponent): boolean {
 
         // get a list of grid spaces that are populated
-        const options = this.options$.getValue();
         const spaces = this.getOccupiedSpaces();
 
         // check if the block would still be in bounds
-        if (column + columnSpan > options.columns) {
+        if (column + columnSpan > this.options.columns) {
             return false;
         }
 
@@ -241,7 +230,7 @@ export class DashboardService {
     getOccupiedSpaces(): DashboardSpace[] {
 
         // find all spaces that are currently occupied
-        return this._widgets.filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
+        return this.widgets.filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
             .reduce((value, widget) => {
 
                 this.forEachBlock(widget, (column, row) => value.push({ widget: widget, column: column, row: row }));
@@ -273,8 +262,6 @@ export class DashboardService {
 
         // update the stored mouse event
         this._mouseEvent = action.event;
-
-        const options = this.options$.getValue();
 
         // get handle for direction
         const { handle } = action;
@@ -309,8 +296,8 @@ export class DashboardService {
                 dimensions.x += mouseX;
                 dimensions.width -= mouseX;
 
-                if (dimensions.width < options.minWidth) {
-                    const difference = options.minWidth - dimensions.width;
+                if (dimensions.width < this.options.minWidth) {
+                    const difference = this.options.minWidth - dimensions.width;
                     dimensions.x -= difference;
                     dimensions.width += difference;
                 }
@@ -325,8 +312,8 @@ export class DashboardService {
                 dimensions.y += mouseY;
                 dimensions.height -= mouseY;
 
-                if (dimensions.height < options.minHeight) {
-                    const difference = options.minHeight - dimensions.height;
+                if (dimensions.height < this.options.minHeight) {
+                    const difference = this.options.minHeight - dimensions.height;
                     dimensions.y -= difference;
                     dimensions.height += difference;
                 }
@@ -338,8 +325,8 @@ export class DashboardService {
                 dimensions.x += mouseX;
                 dimensions.width -= mouseX;
 
-                if (dimensions.width < options.minWidth) {
-                    const difference = options.minWidth - dimensions.width;
+                if (dimensions.width < this.options.minWidth) {
+                    const difference = this.options.minWidth - dimensions.width;
                     dimensions.x -= difference;
                     dimensions.width += difference;
                 }
@@ -347,8 +334,8 @@ export class DashboardService {
                 dimensions.y += mouseY;
                 dimensions.height -= mouseY;
 
-                if (dimensions.height < options.minHeight) {
-                    const difference = options.minHeight - dimensions.height;
+                if (dimensions.height < this.options.minHeight) {
+                    const difference = this.options.minHeight - dimensions.height;
                     dimensions.y -= difference;
                     dimensions.height += difference;
                 }
@@ -359,8 +346,8 @@ export class DashboardService {
                 dimensions.y += mouseY;
                 dimensions.height -= mouseY;
 
-                if (dimensions.height < options.minHeight) {
-                    const difference = options.minHeight - dimensions.height;
+                if (dimensions.height < this.options.minHeight) {
+                    const difference = this.options.minHeight - dimensions.height;
                     dimensions.y -= difference;
                     dimensions.height += difference;
                 }
@@ -371,8 +358,8 @@ export class DashboardService {
                 dimensions.x += mouseX;
                 dimensions.width -= mouseX;
 
-                if (dimensions.width < options.minWidth) {
-                    const difference = options.minWidth - dimensions.width;
+                if (dimensions.width < this.options.minWidth) {
+                    const difference = this.options.minWidth - dimensions.width;
                     dimensions.x -= difference;
                     dimensions.width += difference;
                 }
@@ -407,15 +394,15 @@ export class DashboardService {
         }
 
         // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
-        if (dimensions.width < options.minWidth) {
+        if (dimensions.width < this.options.minWidth) {
             dimensions.x = action.widget.x;
-            dimensions.width = options.minWidth;
+            dimensions.width = this.options.minWidth;
         }
 
         // if the proposed height is smaller than allowed then reset height to minimum and ignore y changes
-        if (dimensions.height < options.minHeight) {
+        if (dimensions.height < this.options.minHeight) {
             dimensions.y = action.widget.y;
-            dimensions.height = options.minHeight;
+            dimensions.height = this.options.minHeight;
         }
 
         // update the widget actual values
@@ -505,18 +492,13 @@ export class DashboardService {
     }
 
     cacheWidgets(): void {
-        this._cache = this._widgets.map(widget => {
-            return {
-                id: widget.id,
-                column: widget.getColumn(),
-                row: widget.getRow()
-            };
-        });
+        this._cache = this.widgets.map(widget => ({ id: widget.id, column: widget.getColumn(), row: widget.getRow() }));
     }
 
     restoreWidgets(ignoreActionWidget: boolean = false): void {
         this._cache.filter(widget => !ignoreActionWidget || widget.id !== this._actionWidget.widget.id).forEach(widget => {
-            let match = this._widgets.find(wgt => wgt.id === widget.id);
+
+            const match = this.widgets.find(wgt => wgt.id === widget.id);
 
             if (match) {
                 match.setColumn(widget.column);
@@ -670,10 +652,8 @@ export class DashboardService {
      */
     canWidgetMoveRight(widget: DashboardWidgetComponent, performMove: boolean = false): boolean {
 
-        const options = this.options$.getValue();
-
         // check if the widget is the dragging widget or the widget occupies the final column
-        if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === options.columns) {
+        if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this.options.columns) {
             return false;
         }
 
@@ -771,7 +751,6 @@ export class DashboardService {
     setPlaceholderBounds(visible: boolean, x: number, y: number, width: number, height: number): void {
 
         const placeholder = this.placeholder$.getValue();
-        const options = this.options$.getValue();
 
         const rounding = this._actionWidget.direction === ActionDirection.Left ||
             this._actionWidget.direction === ActionDirection.Top ? Rounding.RoundDownBelowHalf : Rounding.RoundUpOverHalf;
@@ -784,16 +763,16 @@ export class DashboardService {
         placeholder.rowSpan = this.getPlaceholderRowSpan(height);
 
         // calculate the maximum number of rows
-        const rowCount = this._widgets.filter(widget => widget !== this._actionWidget.widget)
+        const rowCount = this.widgets.filter(widget => widget !== this._actionWidget.widget)
             .reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
 
         // constrain maximum placeholder row
         placeholder.row = Math.min(placeholder.row, rowCount);
 
-        placeholder.x = (placeholder.column * this.getColumnWidth()) + options.padding;
-        placeholder.y = (placeholder.row * this.getRowHeight()) + options.padding;
-        placeholder.width = (placeholder.columnSpan * this.getColumnWidth()) - (options.padding * 2);
-        placeholder.height = (placeholder.rowSpan * this.getRowHeight()) - (options.padding * 2);
+        placeholder.x = (placeholder.column * this.getColumnWidth()) + this.options.padding;
+        placeholder.y = (placeholder.row * this.getRowHeight()) + this.options.padding;
+        placeholder.width = (placeholder.columnSpan * this.getColumnWidth()) - (this.options.padding * 2);
+        placeholder.height = (placeholder.rowSpan * this.getRowHeight()) - (this.options.padding * 2);
 
         // set the values of the widget to match the values of the placeholder - however do not render the changes
         this._actionWidget.widget.setColumn(placeholder.column, false);
@@ -986,7 +965,7 @@ export class DashboardService {
      * Calculate the number of rows populated with widgets
      */
     getRowCount(): number {
-        return this._widgets.reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
+        return this.widgets.reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
     }
 
     /**
@@ -994,13 +973,11 @@ export class DashboardService {
      */
     setDashboardHeight(): void {
 
-        const options = this.options$.getValue();
-
         // size the dashboard container to ensure all rows fit
         let rowCount = this.getRowCount();
 
         // if we should show an empty row increment the row count by 1
-        if (options.emptyRow) {
+        if (this.options.emptyRow) {
             rowCount++;
         }
 
@@ -1013,8 +990,7 @@ export class DashboardService {
      * @param widget The widget that should be brought to the front
      */
     bringToFront(widget: DashboardWidgetComponent): void {
-        this._widgets.forEach(wgt => wgt.sendToBack());
-        widget.bringToFront();
+        this.widgets.forEach(_widget => _widget === widget ? _widget.bringToFront() : _widget.sendToBack());
     }
 
     /**
@@ -1042,7 +1018,7 @@ export class DashboardService {
         let stable = true;
 
         // iterate each widget and 
-        this._widgets.forEach(widget => {
+        this.widgets.forEach(widget => {
 
             // if widget is already on the top row then do nothing
             if (widget.getRow() === 0) {
@@ -1083,10 +1059,7 @@ export class DashboardService {
      * Returns the number of columns available
      */
     getColumnCount(): number {
-        const stacked = this.stacked$.getValue();
-        const options = this.options$.getValue();
-
-        return stacked ? 1 : options.columns;
+        return this.stacked ? 1 : this.options.columns;
     }
 }
 
