@@ -1,22 +1,14 @@
-import { Component, Input, ElementRef, QueryList, ViewChildren, Directive, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, ElementRef, QueryList, ViewChildren, Directive, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { DashboardService, ActionDirection } from '../dashboard.service';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/takeUntil';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 
 @Component({
     selector: 'ux-dashboard-widget',
-    templateUrl: './dashboard-widget.component.html',
-    host: {
-        '[style.left.px]': 'actualX',
-        '[style.top.px]': 'actualY',
-        '[style.width.px]': 'actualWidth',
-        '[style.height.px]': 'actualHeight',
-        '[style.padding.px]': 'padding',
-        '[style.zIndex]': 'zIndex'
-    }
+    templateUrl: './dashboard-widget.component.html'
 })
-export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DashboardWidgetComponent implements OnInit, OnDestroy {
 
     @Input() id: string;
     @Input() col: number;
@@ -25,54 +17,34 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     @Input() rowSpan: number = 1;
     @Input() resizable: boolean = false;
 
-    actualX: number = 0;
-    actualY: number = 0;
-    actualWidth: number = 100;
-    actualHeight: number = 100;
-    padding: number = 0;
-    zIndex: number = 0;
-    stacked: boolean = false;
+    @HostBinding('style.left.px') x: number = 0;
+    @HostBinding('style.top.px') y: number = 0;
+    @HostBinding('style.width.px') width: number = 100;
+    @HostBinding('style.height.px') height: number = 100;
+    @HostBinding('style.padding.px') padding: number = 0;
+    @HostBinding('style.z-index') zIndex: number = 0;
 
     private _column: StackableValue = { regular: undefined, stacked: undefined };
     private _row: StackableValue = { regular: undefined, stacked: undefined };
     private _columnSpan: StackableValue = { regular: 1, stacked: 1 };
     private _rowSpan: StackableValue = { regular: 1, stacked: 1 };
-    private _nativeElement: HTMLElement;
-    private _handles: ResizeHandle[];
-    private _dragMove: Observable<MouseEvent> = Observable.fromEvent(document, 'mousemove');
-    private _dragEnd: Observable<MouseEvent> = Observable.fromEvent(document, 'mouseup');
+    private _handles: ResizeHandle[] = [];
 
-    constructor(private _dashboardService: DashboardService, private _elementRef: ElementRef) {
-        this._nativeElement = _elementRef.nativeElement;
+    ActionDirection = ActionDirection;
+
+    constructor(public dashboardService: DashboardService) {
 
         // add the widget to the dashboard
-        _dashboardService.addWidget(this);
+        dashboardService.addWidget(this);
 
         // apply the current options
-        this.applyOptions();
+        this.update();
 
         // watch for changes to the options
-        _dashboardService.options().subscribe(opts => this.applyOptions());
+        dashboardService.options$.subscribe(() => this.update());
     }
 
     ngOnInit(): void {
-
-        // check to ensure values are numbers and not strings
-        if (typeof this.col === 'string') {
-            this.col = parseFloat(this.col);
-        }
-
-        if (typeof this.row === 'string') {
-            this.row = parseFloat(this.row);
-        }
-
-        if (typeof this.colSpan === 'string') {
-            this.colSpan = parseFloat(this.colSpan);
-        }
-
-        if (typeof this.rowSpan === 'string') {
-            this.rowSpan = parseFloat(this.rowSpan);
-        }
 
         this._columnSpan.regular = this.colSpan;
         this._rowSpan.regular = this.rowSpan;
@@ -86,65 +58,32 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     /**
-     * Once component is initialised link the resize handle elements with their direction
-     */
-    ngAfterViewInit(): void {
-        this.initialiseHandles();
-    }
-
-    /**
      * If component is removed, then unregister it from the service
      */
     ngOnDestroy(): void {
-        this._dashboardService.removeWidget(this);
-    }
-
-    /**
-     * Return the ID of the widget
-     */
-    getId(): string {
-        return this.id;
+        this.dashboardService.removeWidget(this);
     }
 
     /**
      * Apply the current dashboard options
      */
-    applyOptions(): void {
+    update(): void {
 
         // get the current options at the time 
-        let options = this._dashboardService.getOptions();
+        const { padding, columns } = this.dashboardService.options$.getValue();
 
-        // only update the values if options have been defined
-        if (options) {
-            // apply the initial options
-            this.padding = options.padding;
-            this._columnSpan.stacked = options.columns;
-        }
+        this.padding = padding;
+        this._columnSpan.stacked = columns;
     }
 
     /**
      * Set the actual position and size values
      */
     render(): void {
-        this.actualX = this.getColumn() * this._dashboardService.getColumnWidth();
-        this.actualY = this.getRow() * this._dashboardService.getRowHeight();
-        this.actualWidth = this.getColumnSpan() * this._dashboardService.getColumnWidth();
-        this.actualHeight = this.getRowSpan() * this._dashboardService.getRowHeight();
-    }
-
-    /**
-     * Returns all the resize handles and their associated directions
-     */
-    getHandles(): ResizeHandle[] {
-        return this._handles;
-    }
-
-    /**
-     * Indicates whether or not the widget should be displayed in stacked mode
-     * @param stacked indicates the stacked mode
-     */
-    setStacked(stacked: boolean): void {
-        this.stacked = stacked;
+        this.x = this.getColumn() * this.dashboardService.getColumnWidth();
+        this.y = this.getRow() * this.dashboardService.getRowHeight();
+        this.width = this.getColumnSpan() * this.dashboardService.getColumnWidth();
+        this.height = this.getRowSpan() * this.dashboardService.getRowHeight();
     }
 
     getColumn(): number {
@@ -204,10 +143,22 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     setBounds(x: number, y: number, width: number, height: number): void {
-        this.actualX = x;
-        this.actualY = y;
-        this.actualWidth = width;
-        this.actualHeight = height;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    dragstart(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
+        this.dashboardService.onResizeStart({ widget: this, direction: direction, event: event, handle: handle });
+    }
+
+    drag(handle: HTMLElement, event: MouseEvent, direction: ActionDirection): void {
+        this.dashboardService.onResizeDrag({ widget: this, direction: direction, event: event, handle: handle });
+    }
+
+    dragend(): void {
+        this.dashboardService.onResizeEnd();
     }
 
     /**
@@ -216,7 +167,8 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      * @param value The value to set in the appropriate field
      */
     private setStackableValue(property: StackableValue, value: number): void {
-        if (this.stacked) {
+
+        if (this.dashboardService.stacked$.getValue()) {
             property.stacked = value;
         } else {
             property.regular = value;
@@ -228,76 +180,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      * @param property The Stackable value object
      */
     private getStackableValue(property: StackableValue): number {
-        return this.stacked ? property.stacked : property.regular;
-    }
-
-    /**
-     * Create data representations of the resize handle elements and the direction they will resize in
-     */
-    private initialiseHandles() {
-
-        this._handles = [
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-top'),
-                direction: ActionDirection.Top
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-top-right'),
-                direction: ActionDirection.TopRight
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-right'),
-                direction: ActionDirection.Right
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-bottom-right'),
-                direction: ActionDirection.BottomRight
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-bottom'),
-                direction: ActionDirection.Bottom
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-bottom-left'),
-                direction: ActionDirection.BottomLeft
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-left'),
-                direction: ActionDirection.Left
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-top-left'),
-                direction: ActionDirection.TopLeft
-            }
-        ];
-
-        // bind resize events to each handle
-        this._handles.forEach(handle => this.bindResize(handle));
-    }
-
-    /**
-     * This will apply event listeners to each resize handle
-     * @param handle The element and direction to subscribe to
-     */
-    private bindResize(handle: ResizeHandle): void {
-
-        // bind to resize events
-        handle.listener = Observable.fromEvent(handle.element, 'mousedown').subscribe((downEvent: MouseEvent) => {
-
-            downEvent.preventDefault();
-
-            // inform service that we are beginning to drag
-            this._dashboardService.onResizeStart({ widget: this, direction: handle.direction, event: downEvent });
-
-            let move$ = this._dragMove.takeUntil(this._dragEnd).subscribe((moveEvent: MouseEvent) => {
-                moveEvent.preventDefault();
-                this._dashboardService.onResizeDrag({ widget: this, direction: handle.direction, event: moveEvent });
-            }, null, () => {
-                move$.unsubscribe();
-                this._dashboardService.onResizeEnd();
-            });
-
-        });
+        return this.dashboardService.stacked$.getValue() ? property.stacked : property.regular;
     }
 }
 
