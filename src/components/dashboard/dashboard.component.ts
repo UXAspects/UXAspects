@@ -11,7 +11,9 @@ import { ResizeDimensions } from '../../directives/resize/resize.service';
 export class DashboardComponent implements AfterViewInit {
 
     @Input() set layout(layout: DashboardLayoutData[]) {
-        this.dashboardService.layout$.next(layout);
+        if (layout) {
+            this.dashboardService.layout$.next(layout);
+        }
     }
     
     @Input() set options(options: DashboardOptions) {
