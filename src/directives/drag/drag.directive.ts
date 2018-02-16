@@ -25,11 +25,11 @@ export class DragDirective implements OnDestroy {
             // emit the drag start event 
             ngZone.run(() => this.dragstart.emit(event));
 
-            mousemove$.pipe(takeUntil<MouseEvent>(mouseup$)).subscribe(event => {
-                event.preventDefault();
+            mousemove$.pipe(takeUntil<MouseEvent>(mouseup$)).subscribe(moveevent => {
+                moveevent.preventDefault();
 
                 // emit the drag start event 
-                ngZone.run(() => this.drag.emit(event));
+                ngZone.run(() => this.drag.emit(moveevent));
             }, null, 
             () => ngZone.run(() => this.dragend.emit()));
         });

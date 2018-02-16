@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, HostBinding, AfterViewInit } from '@angular/core';
 import { DashboardService, ActionDirection } from '../dashboard.service';
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'ux-dashboard-widget',

@@ -788,7 +788,7 @@ export class DashboardService {
         this._actionWidget.widget.setColumnSpan(placeholder.columnSpan, false);
         this._actionWidget.widget.setRowSpan(placeholder.rowSpan, false);
 
-        //update the placeholder
+        // update the placeholder
         this.placeholder$.next(placeholder);
     }
 
