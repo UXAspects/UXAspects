@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import 'chance';
@@ -14,41 +15,37 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    tickets: TimelineEvent[] = [{
-        color: 'critical',
+    events: TimelineEvent[] = [{
+        color: 'alternate3',
         shortDate: 'Mon 29th',
-        title: 'Addition of Timeline component',
         date: new Date(2018, 0, 29, 11, 10),
         url: '#',
         id: '1234',
-        status: 'failed by',
+        action: 'tested',
         assignee: chance.name()
     }, {
-        color: 'alternate3',
+        color: 'alternate2',
         shortDate: 'Fri 26th',
-        title: 'Addition of Timeline component',
         date: new Date(2018, 0, 26, 14, 0),
         url: '#',
         id: '1234',
-        status: 'reviewed by',
+        action: 'reviewed',
         assignee: chance.name()
     }, {
         color: 'alternate1',
         shortDate: 'Wed 24th',
-        title: 'Addition of Timeline component',
         date: new Date(2018, 0, 24, 9, 20),
         url: '#',
         id: '1234',
-        status: 'assigned for development to',
+        action: 'developed',
         assignee: chance.name()
     }, {
-        color: 'accent',
+        color: 'primary',
         shortDate: 'Mon 22nd',
-        title: 'Addition of Timeline component',
         date: new Date(2018, 0, 22, 13, 45),
         url: '#',
         id: '1234',
-        status: 'recorded by',
+        action: 'recorded',
         assignee: chance.name()
     }];
 
@@ -67,14 +64,13 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection {
         const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const month = months[now.getMonth()];
 
-        this.tickets.unshift({
-            color: 'alternate2',
+        this.events.unshift({
+            color: 'alternate1',
             shortDate: month + ' ' + day + suffix,
-            title: 'Addition of Timeline component',
             date: now,
             url: '#',
             id: '1234',
-            status: 'updated by',
+            action: 'updated',
             assignee: chance.name()
         });
     }
@@ -83,10 +79,9 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection {
 interface TimelineEvent {
     color?: string;
     shortDate: string;
-    title?: string;
     date?: Date;
     url?: string;
     id?: string;
-    status?: string;
+    action?: 'recorded' | 'developed' | 'updated' | 'reviewed' | 'tested' | 'closed';
     assignee?: string;
 }

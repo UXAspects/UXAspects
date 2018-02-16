@@ -8,8 +8,6 @@ export class TimelineEventComponent {
 
     @Input() badgeColor: string;
     @Input() badgeTitle: string;
-    @Input() title: string;
-    @Input() timestamp: Date;
     
     constructor () {}
 }

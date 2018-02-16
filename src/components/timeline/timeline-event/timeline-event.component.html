@@ -1,15 +1,8 @@
 <li class="timeline-inverted">
-    <div [ngClass]="['timeline-badge', badgeColor]">
-        <span>{{ badgeTitle }}</span>
+    <div class="timeline-badge" [ngClass]="badgeColor">
+        <span>{{badgeTitle}}</span>
     </div>
     <div class="timeline-panel">
-        <div class="timeline-heading">
-            <h4>{{ title }}</h4>
-            <span *ngIf="timestamp" class="timeline-heading-timestamp">
-                <i class="hpe-icon hpe-document-time"></i>
-                <span>{{ timestamp.toLocaleString() }}</span>            
-            </span>
-        </div>
         <ng-content></ng-content>
     </div>
 </li>
