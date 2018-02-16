@@ -13,9 +13,7 @@ export class DashboardService {
 
     private _dashboard: HTMLElement;
     private _widgetOrigin: { column?: number, row?: number, columnSpan?: number, rowSpan?: number };
-    // private _dimensions: DashboardDimensions = {};
     private _actionWidget: DashboardAction;
-    // private _columnWidth: number = 0;
     private _rowHeight: number = 0;
     private _cache: DashboardCache[];
     private _mouseEvent: MouseEvent;

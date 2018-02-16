@@ -29,8 +29,6 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     ActionDirection = ActionDirection;
 
     constructor(public dashboardService: DashboardService) {
-
-        // watch for changes to the options
         dashboardService.options$.subscribe(() => this.update());
     }
 
