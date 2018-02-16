@@ -397,10 +397,6 @@ export class DashboardService {
             dimensions.width = this.dimensions.width - dimensions.x;
         }
 
-        if ((dimensions.y + dimensions.height) > this.dimensions.height) {
-            dimensions.height = currentHeight;
-        }
-
         // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
         if (dimensions.width < this.options.minWidth) {
             dimensions.x = action.widget.x;
@@ -1121,15 +1117,15 @@ export interface DashboardLayoutData {
 }
 
 export enum ActionDirection {
-    Top,
-    TopRight,
-    Right,
-    BottomRight,
-    Bottom,
-    BottomLeft,
-    Left,
-    TopLeft,
-    Move
+    Top = 0,
+    TopRight = 1,
+    Right = 2,
+    BottomRight = 3,
+    Bottom = 4,
+    BottomLeft = 5,
+    Left = 6,
+    TopLeft = 7,
+    Move = 8
 }
 
 export enum Rounding {

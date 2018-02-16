@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, HostBinding, AfterViewInit } from '@angular/core';
 import { DashboardService, ActionDirection } from '../dashboard.service';
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
     selector: 'ux-dashboard-widget',
@@ -25,11 +26,10 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
     private _row: StackableValue = { regular: undefined, stacked: undefined };
     private _columnSpan: StackableValue = { regular: 1, stacked: 1 };
     private _rowSpan: StackableValue = { regular: 1, stacked: 1 };
-
-    ActionDirection = ActionDirection;
+    private _subscription: Subscription;
 
     constructor(public dashboardService: DashboardService) {
-        dashboardService.options$.subscribe(() => this.update());
+        this._subscription = dashboardService.options$.subscribe(() => this.update());
     }
 
     ngOnInit(): void {
@@ -57,6 +57,7 @@ export class DashboardWidgetComponent implements OnInit, AfterViewInit, OnDestro
      * If component is removed, then unregister it from the service
      */
     ngOnDestroy(): void {
+        this._subscription.unsubscribe();
         this.dashboardService.removeWidget(this);
     }
 

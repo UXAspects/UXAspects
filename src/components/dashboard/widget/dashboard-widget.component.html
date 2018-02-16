@@ -3,16 +3,16 @@
 </div>
 
 <div uxDrag #handleTop class="resizer-handle handle-top" 
-    (dragstart)="dragstart(handleTop, $event, ActionDirection.Top)"
-    (drag)="drag(handleTop, $event, ActionDirection.Top)"
+    (dragstart)="dragstart(handleTop, $event, 0)"
+    (drag)="drag(handleTop, $event, 0)"
     (dragend)="dragend()"
     [style.top.px]="padding" 
     [hidden]="!resizable">
 </div>
 
 <div uxDrag #handleTopRight class="resizer-handle handle-top-right" 
-    (dragstart)="dragstart(handleTopRight, $event, ActionDirection.TopRight)"
-    (drag)="drag(handleTopRight, $event, ActionDirection.TopRight)"
+    (dragstart)="dragstart(handleTopRight, $event, 1)"
+    (drag)="drag(handleTopRight, $event, 1)"
     (dragend)="dragend()"
     [style.top.px]="padding" 
     [style.right.px]="padding" 
@@ -20,16 +20,16 @@
 </div>
 
 <div uxDrag #handleRight class="resizer-handle handle-right" 
-    (dragstart)="dragstart(handleRight, $event, ActionDirection.Right)"
-    (drag)="drag(handleRight, $event, ActionDirection.Right)"
+    (dragstart)="dragstart(handleRight, $event, 2)"
+    (drag)="drag(handleRight, $event, 2)"
     (dragend)="dragend()"
     [style.right.px]="padding" 
     [hidden]="!resizable || (dashboardService.stacked$ | async)">
 </div>
 
 <div uxDrag #handleBottomRight class="resizer-handle handle-bottom-right" 
-    (dragstart)="dragstart(handleBottomRight, $event, ActionDirection.BottomRight)"
-    (drag)="drag(handleBottomRight, $event, ActionDirection.BottomRight)"
+    (dragstart)="dragstart(handleBottomRight, $event, 3)"
+    (drag)="drag(handleBottomRight, $event, 3)"
     (dragend)="dragend()"
     [style.bottom.px]="padding" 
     [style.right.px]="padding" 
@@ -37,16 +37,16 @@
 </div>
 
 <div uxDrag #handleBottom class="resizer-handle handle-bottom" 
-    (dragstart)="dragstart(handleBottom, $event, ActionDirection.Bottom)"
-    (drag)="drag(handleBottom, $event, ActionDirection.Bottom)"
+    (dragstart)="dragstart(handleBottom, $event, 4)"
+    (drag)="drag(handleBottom, $event, 4)"
     (dragend)="dragend()"
     [style.bottom.px]="padding" 
     [hidden]="!resizable">
 </div>
 
 <div uxDrag #handleBottomLeft class="resizer-handle handle-bottom-left" 
-    (dragstart)="dragstart(handleBottomLeft, $event, ActionDirection.BottomLeft)"
-    (drag)="drag(handleBottomLeft, $event, ActionDirection.BottomLeft)"
+    (dragstart)="dragstart(handleBottomLeft, $event, 5)"
+    (drag)="drag(handleBottomLeft, $event, 5)"
     (dragend)="dragend()"
     [style.bottom.px]="padding" 
     [style.left.px]="padding" 
@@ -54,16 +54,16 @@
 </div>
 
 <div uxDrag #handleLeft class="resizer-handle handle-left" 
-    (dragstart)="dragstart(handleLeft, $event, ActionDirection.Left)"
-    (drag)="drag(handleLeft, $event, ActionDirection.Left)"
+    (dragstart)="dragstart(handleLeft, $event, 6)"
+    (drag)="drag(handleLeft, $event, 6)"
     (dragend)="dragend()"
     [style.left.px]="padding" 
     [hidden]="!resizable || (dashboardService.stacked$ | async)">
 </div>
 
 <div uxDrag #handleTopLeft class="resizer-handle handle-top-left" 
-    (dragstart)="dragstart(handleTopLeft, $event, ActionDirection.TopLeft)"
-    (drag)="drag(handleTopLeft, $event, ActionDirection.TopLeft)"
+    (dragstart)="dragstart(handleTopLeft, $event, 7)"
+    (drag)="drag(handleTopLeft, $event, 7)"
     (dragend)="dragend()"
     [style.top.px]="padding" 
     [style.left.px]="padding" 
