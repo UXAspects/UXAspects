@@ -385,7 +385,24 @@
                 {
                     "title": "File Upload",
                     "component": "ComponentsFileUploadNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "File Upload",
+                    "component": "ComponentsFileUploadComponent",
+                    "version": "Angular",
+                    "externalUrl": "https://valor-software.com/ng2-file-upload",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[ng2FileDrop], [ng2FileSelect]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "FileUploadModule"
+                        }
+                    ]
                 }
             ]
         },
