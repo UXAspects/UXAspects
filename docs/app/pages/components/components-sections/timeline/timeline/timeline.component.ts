@@ -14,9 +14,7 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
-    _developer = chance.name();
-
-    tickets = [{
+    tickets: TimelineEvent[] = [{
         color: 'critical',
         shortDate: 'Mon 29th',
         title: 'Addition of Timeline component',
@@ -42,7 +40,7 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection {
         url: '#',
         id: '1234',
         status: 'assigned for development to',
-        assignee: this._developer
+        assignee: chance.name()
     }, {
         color: 'accent',
         shortDate: 'Mon 22nd',
@@ -54,7 +52,7 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection {
         assignee: chance.name()
     }];
 
-    addEvent = function () {
+    addEvent(): void {
         const now = new Date();
         const day = now.getDate();
         let suffix = 'th';
@@ -77,8 +75,18 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection {
             url: '#',
             id: '1234',
             status: 'updated by',
-            assignee: this._developer
+            assignee: chance.name()
         });
-    };
+    }
 }
 
+interface TimelineEvent {
+    color?: string;
+    shortDate: string;
+    title?: string;
+    date?: Date;
+    url?: string;
+    id?: string;
+    status?: string;
+    assignee?: string;
+}

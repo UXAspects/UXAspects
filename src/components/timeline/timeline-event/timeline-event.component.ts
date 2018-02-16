@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, Renderer2 } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'ux-timeline-event',
@@ -11,14 +11,5 @@ export class TimelineEventComponent {
     @Input() title: string;
     @Input() timestamp: Date;
     
-    constructor (
-        private _elementRef: ElementRef,
-        private _renderer: Renderer2,
-    ) {}
-
-    ngAfterViewInit(): void {
-        this._renderer.setAttribute(this._elementRef.nativeElement, 'side', 'right');
-    }
-
-    
+    constructor () {}
 }
