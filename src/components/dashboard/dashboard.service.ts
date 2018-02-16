@@ -7,6 +7,7 @@ import { filter } from 'rxjs/operators/filter';
 import { delay } from 'rxjs/operators/delay';
 import { map } from 'rxjs/operators/map';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DashboardService {
@@ -21,7 +22,7 @@ export class DashboardService {
     widgets$ = new BehaviorSubject<DashboardWidgetComponent[]>([]);
     options$ = new BehaviorSubject<DashboardOptions>(defaultOptions);
     dimensions$ = new BehaviorSubject<DashboardDimensions>({});
-    height$ = this.dimensions$.pipe(delay(0), map((dimensions: DashboardDimensions) => dimensions.height), distinctUntilChanged());
+    height$: Observable<number> = this.dimensions$.pipe(delay(0), map((dimensions: DashboardDimensions) => dimensions.height), distinctUntilChanged());
     placeholder$ = new BehaviorSubject<DashboardPlaceholder>({ visible: false, x: 0, y: 0, width: 0, height: 0 });
     layout$ = new Subject<DashboardLayoutData[]>();
     stacked$ = new BehaviorSubject<boolean>(false);
@@ -788,7 +789,7 @@ export class DashboardService {
         this._actionWidget.widget.setColumnSpan(placeholder.columnSpan, false);
         this._actionWidget.widget.setRowSpan(placeholder.rowSpan, false);
 
-        //update the placeholder
+        // update the placeholder
         this.placeholder$.next(placeholder);
     }
 

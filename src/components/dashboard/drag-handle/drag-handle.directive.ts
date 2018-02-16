@@ -12,7 +12,7 @@ export class DashboardDragHandleDirective extends DragDirective {
     constructor(widget: DashboardWidgetComponent, dashboardService: DashboardService, elementRef: ElementRef, ngZone: NgZone) {
         super(elementRef, ngZone);
 
-        this.dragstart.subscribe((event: MouseEvent) => dashboardService.onDragStart({ widget: widget, direction: ActionDirection.Move, event: event }))
+        this.dragstart.subscribe((event: MouseEvent) => dashboardService.onDragStart({ widget: widget, direction: ActionDirection.Move, event: event }));
         this.drag.subscribe((event: MouseEvent) => dashboardService.onDrag({ widget: widget, direction: ActionDirection.Move, event: event }));
         this.dragend.subscribe(() => dashboardService.onDragEnd());
     }
