@@ -169,64 +169,68 @@ ux-timeline {
     }
 
     @media only screen and (min-width: 768px) {
-        .timeline:before {
-            left: 64px;
-        }
-        
         .timeline {
-            ux-timeline-event li > .timeline-badge {
-                left: 15px;
-                margin-left: 0;
-                top: 36px;
+            &:before {
+                left: 64px;
             }
-            ux-timeline-event li > .timeline-panel {
-                width: ~'calc(100% - 135px)';
-                float: right;
-            }
-            ux-timeline-event li > .timeline-panel:before {
-                border-left-width: 0;
-                border-right-width: 8px;
-                left: -8px;
-                right: auto;
-                top: 40px;
-            }
-            ux-timeline-event li > .timeline-panel:after {
-                border-left-width: 0;
-                border-right-width: 8px;
-                right: auto;
-                left: -7px;
-                top: 41px;
-            }
+            ux-timeline-event {
+                li {
+                    .timeline-badge {
+                        left: 15px;
+                        margin-left: 0;
+                        top: 36px;
+                    }
+                    > .timeline-panel {
+                        width: ~'calc(100% - 135px)';
+                        float: right;
+                        &:before {
+                            border-left-width: 0;
+                            border-right-width: 8px;
+                            left: -8px;
+                            right: auto;
+                            top: 40px;
+                        }
+                        &:after {
+                            border-left-width: 0;
+                            border-right-width: 8px;
+                            right: auto;
+                            left: -7px;
+                            top: 41px;
+                        }
+                    }
+                }
+            }            
         }
     }
 
     @media only screen and (max-width: 767px) {
-        .timeline:before {
-            left: 64px;
-        }
-
         .timeline {
-            li > .timeline-badge {
-                left: 15px;
-                margin-left: 0;
-                top: 36px;
+            &:before {
+                left: 64px;
             }
-            li > .timeline-panel {
-                float: right;
-            }
-            li > .timeline-panel:before {
-                border-left-width: 0;
-                border-right-width: 8px;
-                left: -8px;
-                right: auto;
-                top: 40px;
-            }
-            li > .timeline-panel:after {
-                border-left-width: 0;
-                border-right-width: 8px;
-                right: auto;
-                left: -7px;
-                top: 41px;
+            li {
+                > .timeline-badge {
+                    left: 15px;
+                    margin-left: 0;
+                    top: 36px;
+                }
+                > .timeline-panel {
+                    float: right;
+                    &:before {
+                        border-left-width: 0;
+                        border-right-width: 8px;
+                        left: -8px;
+                        right: auto;
+                        top: 40px;
+                    }
+                    &:after {
+                        border-left-width: 0;
+                        border-right-width: 8px;
+                        right: auto;
+                        left: -7px;
+                        top: 41px;
+                    }
+                }
             }
         }
     }
