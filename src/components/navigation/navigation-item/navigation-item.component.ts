@@ -92,20 +92,12 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
 
     private hasActiveLink(link: string | UrlTree): boolean {
         // If this component has a link, check if it is active.
-        if (link) {
-            let isActive = this._router.isActive(link, true);
-            if (isActive) {
-                return true;
-            }
+        if (link && this._router.isActive(link, true)) {
+            return true;
         }
 
         // If this component has children, check if any of them, or their descendants, are active.
-        let hasActiveChildren = false;
-        if (this.children.length > 0) {
-            hasActiveChildren = this.children.some((item) => item.hasActiveLink(item.link));
-        }
-
-        return hasActiveChildren;            
+        return this.children.some((item) => item.hasActiveLink(item.link));
     }
 
     private getLevelClass(): string {
