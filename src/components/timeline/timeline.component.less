@@ -42,45 +42,59 @@ ux-timeline {
                 &.critical {
                     background-color: @timeline-badge-critical !important;
                 }
+
                 &.success {
                     background-color: @timeline-badge-success !important;
                 }
+
                 &.warning {
                     background-color: @timeline-badge-warning !important;
                 }
+
                 &.info, &.accent {
                     background-color: @timeline-badge-accent !important;
                 }
+
                 &.primary {
                     background-color: @timeline-badge-primary !important;
                 }
+
                 &.alternate1 {
                     background-color: @timeline-badge-alternate1 !important;
                 }
+
                 &.alternate2 {
                     background-color: @timeline-badge-alternate2 !important;
                 }
+
                 &.alternate3 {
                     background-color: @timeline-badge-alternate3 !important;
                 }
+
                 &.vibrant1 {
                     background-color: @timeline-badge-vibrant1 !important;
                 }
+
                 &.vibrant2 {
                     background-color: @timeline-badge-vibrant2 !important;
                 }
+
                 &.grey1 {
                     background-color: @timeline-badge-grey1 !important;
                 }
+
                 &.grey2 {
                     background-color: @timeline-badge-grey2 !important;
                 }
+
                 &.grey3 {
                     background-color: @timeline-badge-grey3 !important;
                 }
+
                 &.grey4 {
                     background-color: @timeline-badge-grey4 !important;
                 }
+
                 &.grey5 {
                     background-color: @timeline-badge-grey5 !important;
                 }
@@ -137,7 +151,7 @@ ux-timeline {
                 top: 26px;
                 left: 50%;
                 margin-left: -25px;
-                padding: 0 15px 0 15px;
+                padding: 0 15px;
                 background-color: @timeline-bg;
                 z-index: 100;
                 border-radius: 1.25em;
@@ -173,6 +187,7 @@ ux-timeline {
             &:before {
                 left: 64px;
             }
+
             ux-timeline-event {
                 li {
                     .timeline-badge {
@@ -180,9 +195,11 @@ ux-timeline {
                         margin-left: 0;
                         top: 36px;
                     }
+
                     > .timeline-panel {
                         width: ~'calc(100% - 135px)';
                         float: right;
+
                         &:before {
                             border-left-width: 0;
                             border-right-width: 8px;
@@ -190,6 +207,7 @@ ux-timeline {
                             right: auto;
                             top: 40px;
                         }
+
                         &:after {
                             border-left-width: 0;
                             border-right-width: 8px;
@@ -199,7 +217,7 @@ ux-timeline {
                         }
                     }
                 }
-            }            
+            }
         }
     }
 
@@ -208,14 +226,17 @@ ux-timeline {
             &:before {
                 left: 64px;
             }
+
             li {
                 > .timeline-badge {
                     left: 15px;
                     margin-left: 0;
                     top: 36px;
                 }
+
                 > .timeline-panel {
                     float: right;
+
                     &:before {
                         border-left-width: 0;
                         border-right-width: 8px;
@@ -223,6 +244,7 @@ ux-timeline {
                         right: auto;
                         top: 40px;
                     }
+
                     &:after {
                         border-left-width: 0;
                         border-right-width: 8px;
