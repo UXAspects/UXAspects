@@ -1,7 +1,6 @@
 import { browser, Key } from 'protractor';
 import { TimelinePage } from './timeline.po.spec';
 import { Constants, Functions } from '../common/common.spec';
-import * as moment from 'moment-timezone';
 
 describe('TimelinePage Tests', () => {
 
@@ -56,7 +55,17 @@ describe('TimelinePage Tests', () => {
     // Add another event and check it.
     page.addEvent.click();
 
-    const badgeTitle = moment().format('ddd MMM D');
+    const now = new Date();
+    
+    const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const dayOfWeek = weekdays[now.getDay()];
+    
+    const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const month = months[now.getMonth()];
+
+    const day = now.getDate();
+    const badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
+    
     expect<any>(page.getEventBadgeTitle(0)).toEqual(badgeTitle);
     expect<any>(page.getEventBadge(0).getAttribute('class')).toContain('alternate1');
 
