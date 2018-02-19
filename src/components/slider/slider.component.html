@@ -19,9 +19,16 @@
         (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)">
 
         <!-- Lower Thumb Callout -->
-        <div class="tooltip top tooltip-lower" #lowerTooltip [style.opacity]="tooltips.lower.visible ? 1 : 0" [style.left.px]="tooltips.lower.position">
+        <div class="tooltip top tooltip-lower" #lowerTooltip 
+            [class.tooltip-dynamic]="options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false"
+            [style.opacity]="tooltips.lower.visible ? 1 : 0" 
+            [style.left.px]="tooltips.lower.position">
+
             <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
-            <div class="tooltip-inner" [style.background-color]="options.handles.callout.background" [style.color]="options.handles.callout.color">
+
+            <div class="tooltip-inner" 
+                [style.background-color]="options.handles.callout.background" 
+                [style.color]="options.handles.callout.color">
                 {{ tooltips.lower.label }}
             </div>
         </div>
@@ -49,9 +56,16 @@
         (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)">
 
         <!-- Upper Thumb Callout -->
-        <div class="tooltip top tooltip-upper" #upperTooltip [style.opacity]="tooltips.upper.visible ? 1 : 0" [style.left.px]="tooltips.upper.position">
+        <div class="tooltip top tooltip-upper" #upperTooltip 
+            [class.tooltip-dynamic]="options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false"
+            [style.opacity]="tooltips.upper.visible ? 1 : 0" 
+            [style.left.px]="tooltips.upper.position">
+
             <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
-            <div class="tooltip-inner" *ngIf="options.type === sliderType.Range" [style.background-color]="options.handles.callout.background"
+
+            <div class="tooltip-inner" 
+                *ngIf="options.type === sliderType.Range" 
+                [style.background-color]="options.handles.callout.background"
                 [style.color]="options.handles.callout.color">
                 {{ tooltips.upper.label }}
             </div>
@@ -64,7 +78,9 @@
 </div>
 
 <!-- Chart Ticks and Tick Labels -->
-<div class="tick-container" *ngIf="options.track.ticks.major.show || options.track.ticks.minor.show" [class.show-labels]="options.track.ticks.major.labels || options.track.ticks.minor.labels">
+<div class="tick-container" 
+    *ngIf="(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic" 
+    [class.show-labels]="options.track.ticks.major.labels || options.track.ticks.minor.labels">
 
     <div class="tick" *ngFor="let tick of ticks" [class.major]="tick.type === sliderTickType.Major" [class.minor]="tick.type === sliderTickType.Minor"
         [style.left.%]="tick.position" [hidden]="!tick.showTicks">

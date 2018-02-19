@@ -26,6 +26,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     sliderThumb = SliderThumb;
     sliderTickType = SliderTickType;
     sliderThumbEvent = SliderThumbEvent;
+    sliderCalloutTrigger = SliderCalloutTrigger;
 
     tracks = {
         lower: {
@@ -223,6 +224,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
             case SliderCalloutTrigger.Hover:
                 visible = state.hover || state.drag;
                 break;
+
+            case SliderCalloutTrigger.Dynamic:
+                visible = true;
+                break;
         }
 
         // update the state for the corresponding thumb
@@ -255,7 +260,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
     private updateTooltipPosition(thumb: SliderThumb): void {
 
-        let tooltip = this.getTooltip(thumb);
+        const tooltip = this.getTooltip(thumb);
 
         // if tooltip is not visible then stop here
         if (tooltip.visible === false) {
@@ -280,6 +285,31 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // update tooltip position
         tooltip.position = -tooltipPosition;
+
+        if (this.options.type === SliderType.Range && this.options.handles.callout.trigger === SliderCalloutTrigger.Dynamic) {
+            this.preventTooltipOverlap(tooltip);
+        }
+    }
+
+    private preventTooltipOverlap(tooltip: any): void {
+        const trackWidth = this.track.nativeElement.offsetWidth;
+
+        const lower = (trackWidth / 100) * this.thumbs.lower.position;
+        const upper = (trackWidth / 100) * this.thumbs.upper.position;
+
+        const lowerWidth = this.lowerTooltip.nativeElement.offsetWidth / 2;
+        const upperWidth = this.upperTooltip.nativeElement.offsetWidth / 2;
+
+        const diff = (lower + lowerWidth) - (upper - upperWidth);
+
+        // if the tooltips are closer than 16px then adjust so the dont move any close
+        if (diff > 0) {
+            if (tooltip === this.tooltips.lower && this.thumbs.lower.drag === false) {
+                tooltip.position -= (diff / 2);
+            } else if (tooltip === this.tooltips.upper && this.thumbs.upper.drag === false) {
+                tooltip.position += (diff / 2);
+            }
+        }
     }
 
     private clamp(value: number, min: number, max: number): number {
@@ -325,7 +355,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // update tooltip text & position
         this.updateTooltipText(thumb);
-        this.updateTooltipPosition(thumb);
+
+        // update the position of all visible tooltips
+        this.updateTooltipPosition(SliderThumb.Lower);
+        this.updateTooltipPosition(SliderThumb.Upper);
 
         // mark as dirty for change detection
         this._changeDetectorRef.markForCheck();
@@ -617,11 +650,11 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // compare two slider values
         if (this.isSliderValue(value1) && this.isSliderValue(value2)) {
-            
+
             // references to the objects in the correct types
             const obj1 = value1 as SliderValue;
             const obj2 = value2 as SliderValue;
-            
+
             return obj1.low !== obj2.low || obj1.high !== obj2.high;
         }
 
@@ -653,7 +686,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         }
 
         // create a new object from the existing one
-        const instance =  { ...value };
+        const instance = { ...value };
 
         // delete remove the value from the old object
         value = undefined;
@@ -682,7 +715,8 @@ export enum SliderCalloutTrigger {
     None,
     Hover,
     Drag,
-    Persistent
+    Persistent,
+    Dynamic
 }
 
 export interface SliderValue {
