@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
     templateUrl: './timeline.component.html'
 })
 export class TimelineComponent {
-    
-    constructor () {}
 }

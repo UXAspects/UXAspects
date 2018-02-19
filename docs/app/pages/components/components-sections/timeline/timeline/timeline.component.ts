@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import 'chance';
@@ -10,10 +9,6 @@ import 'chance';
 })
 @DocumentationSectionComponent('ComponentsTimelineComponent')
 export class ComponentsTimelineComponent extends BaseDocumentationSection {
-
-    constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
 
     events: TimelineEvent[] = [{
         color: 'alternate3',
@@ -45,6 +40,10 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection {
         assignee: chance.name()
     }];
 
+    constructor() {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
     addEvent(): void {
         this.events.unshift({
             color: 'alternate1',
@@ -58,10 +57,10 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection {
 }
 
 interface TimelineEvent {
-    color?: string;
-    date?: Date;
-    url?: string;
-    id?: string;
-    action?: 'recorded' | 'developed' | 'updated' | 'reviewed' | 'tested' | 'closed';
-    assignee?: string;
+    color: string;
+    date: Date;
+    url: string;
+    id: string;
+    action: 'recorded' | 'developed' | 'updated' | 'reviewed' | 'tested' | 'closed';
+    assignee: string;
 }
