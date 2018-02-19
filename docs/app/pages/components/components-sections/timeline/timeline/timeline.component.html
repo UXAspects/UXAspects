@@ -5,7 +5,7 @@
             <ux-timeline-event *ngFor="let event of events" [badgeColor]="event.color" [badgeTitle]="event.shortDate">
 
                 <div class="m-b-sm">
-                    <span *ngIf="event.date">
+                    <span>
                         <i class="hpe-icon hpe-document-time"></i>
                         <span>{{event.date | date:'EEEE, MMMM d, y, h:mm:ss a'}}</span>        
                     </span>
