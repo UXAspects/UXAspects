@@ -30,7 +30,6 @@ export class TimelinePage {
     }
 
     getEventTimestamp(index: number) {
-        // return this.getEventPanel(index).$('div').$('span').$('span').getText();
         return this.getEventPanel(index).$('div').$('span > span').getText();
     }
 
