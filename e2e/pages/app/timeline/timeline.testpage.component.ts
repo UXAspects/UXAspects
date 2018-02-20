@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
 import 'chance';
 
 @Component({
-    selector: 'uxd-components-timeline',
-    templateUrl: './timeline.component.html'
+    selector: 'timeline-app',
+    templateUrl: './timeline.testpage.component.html'
 })
-@DocumentationSectionComponent('ComponentsTimelineComponent')
-export class ComponentsTimelineComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class TimelineTestPageComponent {
 
     events: TimelineEvent[] = [{
         color: 'alternate3',
@@ -41,21 +36,6 @@ export class ComponentsTimelineComponent extends BaseDocumentationSection implem
         action: 'recorded',
         assignee: chance.name()
     }];
-
-    plunk: IPlunk = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-        },
-        modules: [{
-            imports: ['TimelineModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
-    };
-
-    constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
 
     addEvent(): void {
         this.events.unshift({

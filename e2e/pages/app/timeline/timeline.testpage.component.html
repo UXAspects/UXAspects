@@ -1,9 +1,8 @@
 <div class="row">
     <div class="col-md-10">
-        <button class="btn button-primary" (click)="addEvent()">Add New Event</button>
-        <ux-timeline>
-            <ux-timeline-event *ngFor="let event of events" [badgeColor]="event.color"
-                [badgeTitle]="event.date | date:'EEE LLL d'">
+        <button id="button" class="btn button-primary" (click)="addEvent()">Add New Event</button>
+        <ux-timeline id="timeline">
+            <ux-timeline-event *ngFor="let event of events" [badgeColor]="event.color" [badgeTitle]="event.date | date:'EEE LLL d'">
 
                 <div class="m-b-sm">
                     <span>
