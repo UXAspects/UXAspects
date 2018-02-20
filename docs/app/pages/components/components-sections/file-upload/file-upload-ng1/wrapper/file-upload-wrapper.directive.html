@@ -3,10 +3,12 @@
       Click here or Drag and Drop to upload files
     </label>
     <input type="file" id="file-upload-demo" class="sr-only" nv-file-select uploader="uploader" multiple>
-    <p class="progress-static-text" ng-bind="uploader.progress+'%'"></p>
-    <progressbar value="uploader.progress" type="secondary" max="100">
-    </progressbar>
-    <ul ng-if="uploader.queue.length" class="dropzone-queue clearfix">
+    
+    <progressbar class="m-b-nil" value="uploader.progress" type="secondary" max="100"></progressbar>
+    
+    <p class="file-upload-progress-indicator" ng-bind="uploader.progress + '%'"></p>
+
+    <ul ng-if="uploader.queue.length" class="file-upload-queue">
         <li ng-repeat="item in uploader.queue">
             <a href="" ng-click="item.remove()">
                 <span class="facet-selected-name" ng-bind="item.file.name"></span>&nbsp;
@@ -14,13 +16,16 @@
             </a>
         </li>
     </ul>
-    <button type="button" class="btn button-primary" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length"
+
+    <button type="button" class="btn button-primary m-r-xs" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length"
         disabled="disabled">
       Upload All
-    </button> &nbsp;
-    <button type="button" class="btn button-secondary" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading" disabled="disabled">
+    </button>
+
+    <button type="button" class="btn button-secondary m-r-xs" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading" disabled="disabled">
       Cancel All
-    </button> &nbsp;
+    </button>
+
     <button type="button" class="btn button-secondary" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
       Clear All
     </button>

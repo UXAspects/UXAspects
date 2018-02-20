@@ -4,11 +4,11 @@
 
 <input type="file" id="file-upload-demo" class="sr-only" ng2FileSelect [uploader]="uploader" multiple>
 
-<p class="progress-static-text">{{ uploader.progress ? uploader.progress : 0 }}%</p>
+<ux-progress-bar [value]="uploader.progress ? uploader.progress : 0"></ux-progress-bar>
 
-<ux-progress-bar class="m-b-md" [value]="uploader.progress ? uploader.progress : 0"></ux-progress-bar>
+<p class="file-upload-progress-indicator">{{ uploader.progress ? uploader.progress : 0 }}%</p>
 
-<ul *ngIf="uploader.queue.length" class="dropzone-queue clearfix">
+<ul *ngIf="uploader.queue.length" class="file-upload-queue">
     <li *ngFor="let item of uploader.queue">
         <a (click)="item.remove()">
             <span class="facet-selected-name">{{ item.file.name }}</span>
