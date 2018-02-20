@@ -1,4 +1,4 @@
-import { Component, Input, ViewChildren, QueryList, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
 import { ResizeService } from '../../../directives/resize/index';
 
@@ -16,8 +16,8 @@ export class PageHeaderNavigationComponent implements AfterViewInit {
     indicatorX: number = 0;
     indicatorWidth: number = 0;
 
-    constructor(elementRef: ElementRef, resizeService: ResizeService, renderer: Renderer2) {
-        resizeService.addResizeListener(elementRef.nativeElement, renderer).subscribe(this.updateSelectedIndicator.bind(this));
+    constructor(elementRef: ElementRef, resizeService: ResizeService) {
+        resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this));
     }
 
     ngAfterViewInit(): void {

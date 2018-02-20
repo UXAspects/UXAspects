@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-10">
+        <button id="button" class="btn button-primary" (click)="addEvent()">Add New Event</button>
+        <ux-timeline id="timeline">
+            <ux-timeline-event *ngFor="let event of events" [badgeColor]="event.color" [badgeTitle]="event.date | date:'EEE LLL d'">
+
+                <div class="m-b-sm">
+                    <span>
+                        <i class="hpe-icon hpe-document-time"></i>
+                        <span>{{event.date | date:'EEEE, MMMM d, y, h:mm:ss a'}}</span>        
+                    </span>
+                </div>
+                <p class="m-b-nil">Ticket
+                    <a [href]="event.url">{{event.id}}</a>
+                    was {{event.action}} by {{event.assignee}}.
+                </p>
+
+            </ux-timeline-event>
+        </ux-timeline>
+    </div>
+</div>

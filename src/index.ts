@@ -12,6 +12,7 @@ export * from './components/filters/index';
 export * from './components/flippable-card/index';
 export * from './components/item-display-panel/index';
 export * from './components/marquee-wizard/index';
+export * from './components/navigation/index';
 export * from './components/number-picker/index';
 export * from './components/page-header/index';
 export * from './components/progress-bar/index';
@@ -21,6 +22,7 @@ export * from './components/select/index';
 export * from './components/slider/index';
 export * from './components/spark/index';
 export * from './components/tag-input/index';
+export * from './components/timeline/index';
 export * from './components/toggleswitch/index';
 export * from './components/typeahead/index';
 export * from './components/media-player/index';
@@ -30,6 +32,7 @@ export * from './components/wizard/index';
 /*
   Export Directives
 */
+export * from './directives/drag/index';
 export * from './directives/fixed-header-table/index';
 export * from './directives/focus-if/index';
 export * from './directives/help-center/index';
