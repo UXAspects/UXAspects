@@ -114,6 +114,9 @@ const ROUTES: Routes = [
   }, {
     path: 'tags',
     loadChildren: './tags/tags.module#TagsTestPageModule'
+}, {
+    path: 'timeline',
+    loadChildren: './timeline/timeline.module#TimelineTestPageModule'
   }, {
     path: 'toggle-button',
     loadChildren: './toggle-button/toggle-button.module#ToggleButtonTestPageModule'
