@@ -19,7 +19,7 @@ export class ComponentsFileUploadComponent extends BaseDocumentationSection impl
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs
         }
-    }
+    };
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
