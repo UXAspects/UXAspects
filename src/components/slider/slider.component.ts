@@ -316,7 +316,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         return Math.min(Math.max(value, min), max);
     }
 
-    private updateThumbPosition(event: MouseEvent | TouchEvent, thumb: SliderThumb): void {
+    updateThumbPosition(event: MouseEvent | TouchEvent, thumb: SliderThumb): void {
 
         // get event position - either mouse or touch
         let eventPosition = event instanceof MouseEvent ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
