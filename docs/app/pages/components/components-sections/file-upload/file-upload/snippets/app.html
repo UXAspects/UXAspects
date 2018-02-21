@@ -1,8 +1,10 @@
-<label for="file-upload-demo" ng2FileDrop [uploader]="uploader" class="file-upload-dropzone">
+<label for="file-upload-demo" ng2FileDrop [class.file-upload-dropping]="fileOver" 
+    (fileOver)="fileOver = $event" [uploader]="uploader" class="file-upload-dropzone">
     Click here or Drag and Drop to upload files
 </label>
 
-<input type="file" id="file-upload-demo" class="sr-only" ng2FileSelect [uploader]="uploader" multiple>
+<input type="file" id="file-upload-demo" class="sr-only" ng2FileSelect 
+    [uploader]="uploader" multiple>
 
 <ux-progress-bar [value]="uploader.progress ? uploader.progress : 0"></ux-progress-bar>
 
@@ -11,8 +13,8 @@
 <ul *ngIf="uploader.queue.length" class="file-upload-queue">
     <li *ngFor="let item of uploader.queue">
         <a (click)="item.remove()">
-            <span class="facet-selected-name">{{ item.file.name }}</span>
-            <span class="hpe-icon hpe-close"></span>
+            <span>{{ item.file.name }}</span>
+            <span class="file-upload-queue-remove hpe-icon hpe-close"></span>
         </a>
     </li>
 </ul>

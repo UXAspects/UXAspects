@@ -12,6 +12,7 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
 @DocumentationSectionComponent('ComponentsFileUploadComponent')
 export class ComponentsFileUploadComponent extends BaseDocumentationSection implements IPlunkProvider {
     
+    fileOver: boolean = false;
     uploader: FileUploader = new FileUploader({});
     
     plunk: IPlunk = {

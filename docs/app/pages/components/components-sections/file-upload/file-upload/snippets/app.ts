@@ -6,5 +6,6 @@ import { FileUploader } from 'ng2-file-upload';
     templateUrl: './app.component.html'
 })
 export class AppComponent {
+    fileOver: boolean = false;
     uploader: FileUploader = new FileUploader({});
 }

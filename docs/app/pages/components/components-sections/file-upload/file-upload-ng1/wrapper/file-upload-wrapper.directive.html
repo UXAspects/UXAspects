@@ -11,8 +11,8 @@
     <ul ng-if="uploader.queue.length" class="file-upload-queue">
         <li ng-repeat="item in uploader.queue">
             <a href="" ng-click="item.remove()">
-                <span class="facet-selected-name" ng-bind="item.file.name"></span>&nbsp;
-                <span class="hpe-icon hpe-close"></span>
+                <span ng-bind="item.file.name"></span>
+                <span class="file-upload-queue-remove hpe-icon hpe-close"></span>
             </a>
         </li>
     </ul>
