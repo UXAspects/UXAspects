@@ -4,8 +4,8 @@ import { TreeViewService } from './service.ts';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.html',
-    styleUrls: ['./src/app.css']
+    templateUrl: './app.html',
+    styleUrls: ['./app.css']
 })
 export class AppComponent {
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
 
 @Component({
@@ -31,10 +31,7 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
             imports: ['AccordionModule'],
             forRoot: true,
             library: 'ngx-bootstrap/accordion'
-        }],
-        mappings: [
-            MAPPINGS.NgxBootstrap
-        ]
+        }]
     };
 
     constructor() {

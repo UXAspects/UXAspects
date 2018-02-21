@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
 @Component({
@@ -24,8 +24,7 @@ export class ComponentsRadioButtonsComponent extends BaseDocumentationSection im
             library: 'ngx-bootstrap/buttons',
             imports: ['ButtonsModule'],
             providers: ['ButtonsModule.forRoot()']
-        }],
-        mappings: [MAPPINGS.NgxBootstrap]
+        }]
     };
 
     constructor() {

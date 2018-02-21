@@ -7,8 +7,8 @@ import 'rxjs/add/operator/debounceTime';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html',
-    styleUrls: ['./src/app.component.css'],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
     encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit, OnDestroy {

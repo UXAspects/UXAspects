@@ -3,8 +3,8 @@ import { FilterBaseComponent, Filter, FilterContainerComponent, FilterRemoveAllE
 
 @Component({
     selector: 'ux-filter-custom',
-    templateUrl: './src/sample-filter.component.html',
-    styleUrls: ['./src/sample-filter.component.css']
+    templateUrl: './sample-filter.component.html',
+    styleUrls: ['./sample-filter.component.css']
 })
 export class SampleFilterCustomComponent extends FilterBaseComponent {
 

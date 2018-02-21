@@ -8,7 +8,6 @@ const ASSETS_URL_PLACEHOLDER_REGEX = /\$\{assetsUrl\}/g;
 const MODULES_PLACEHOLDER = /\$\{modules\}/g;
 const DECLARATIONS_PLACEHOLDER = /\$\{declarations\}/g;
 const IMPORTS_PLACEHOLDER = /\$\{imports\}/g;
-const MAPPINGS_PLACEHOLDER = /\$\{mappings\}/g;
 
 @Injectable()
 export class PlunkerService {
@@ -36,15 +35,14 @@ export class PlunkerService {
         let modules = ['BrowserModule', 'FormsModule', 'ReactiveFormsModule'];
         let declarations = ['AppComponent'];
         let imports: string[] = [];
-        let mappings: string[] = [];
 
         if (plunk.modules) {
             // create list of declarations
-            plunk.modules.filter(mapping => mapping.declaration).forEach(mapping => {
-                if (mapping.imports instanceof Array) {
-                    declarations = declarations.concat(mapping.imports);
+            plunk.modules.filter(dependency => dependency.declaration).forEach(dependency => {
+                if (dependency.imports instanceof Array) {
+                    declarations = declarations.concat(dependency.imports);
                 } else {
-                    declarations.push(mapping.imports);
+                    declarations.push(dependency.imports);
                 }
             });
 
@@ -66,26 +64,21 @@ export class PlunkerService {
             });
 
             // generate the import statements
-            plunk.modules.forEach(mapping => {
+            plunk.modules.forEach(dependency => {
 
-                if (mapping.library) {
+                if (dependency.library) {
 
-                    if (!mapping.imports) {
-                        imports.push(`import '${mapping.library}';`);
-                    } else if (mapping.imports instanceof Array) {
-                        imports.push(`import { ${mapping.imports} } from '${mapping.library}';`);
-                    } else if (mapping.importAs) {
-                        imports.push(`import * as ${mapping.imports} from '${mapping.library}';`);
+                    if (!dependency.imports) {
+                        imports.push(`import '${dependency.library}';`);
+                    } else if (dependency.imports instanceof Array) {
+                        imports.push(`import { ${dependency.imports.join(', ')} } from '${dependency.library}';`);
+                    } else if (dependency.importAs) {
+                        imports.push(`import * as ${dependency.imports} from '${dependency.library}';`);
                     } else {
-                        imports.push(`import ${mapping.imports} from '${mapping.library}';`);
+                        imports.push(`import ${dependency.imports} from '${dependency.library}';`);
                     }
                 }
             });
-        }
-
-        // create the list of mappings for systemjs
-        if (plunk.mappings) {
-            mappings = plunk.mappings.map(mapping => `'${mapping.alias}': '${mapping.source}'`);
         }
 
         if (!this.indexTemplate) {
@@ -97,24 +90,24 @@ export class PlunkerService {
             this.mainTs = require('./templates/main_ts.txt');
         }
 
-        let mainTs = this.mainTs.replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
-            .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).toString()))
-            .replace(DECLARATIONS_PLACEHOLDER, (declarations.toString()))
+        const mainTs = this.mainTs
+            .replace(MODULES_PLACEHOLDER, modules.filter(module => module !== undefined).join(`, \n${' '.repeat(8)}`))
+            .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).join(`, \n${' '.repeat(8)}`)))
+            .replace(DECLARATIONS_PLACEHOLDER, (declarations.join(`, \n${' '.repeat(8)}`)))
             .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
 
-        let configJs = require('./templates/config_js.txt')
-            .replace(MAPPINGS_PLACEHOLDER, mappings.join(',\n\t\t\t\t'));
+        const configJs = require('./templates/config_js.txt');
 
         const postData = {
             'description': title,
             'private': true,
             'files[index.html]': this.indexTemplate,
-            'files[config.js]': configJs,
-            'files[src/main.ts]': mainTs
+            'files[systemjs.config.js]': configJs,
+            'files[main.ts]': mainTs
         };
 
         for (let key in plunk.files) {
-            postData[`files[src/${key}]`] = plunk.files[key];
+            postData[`files[${key}]`] = plunk.files[key];
         }
 
         const form = this.document.createElement('form');

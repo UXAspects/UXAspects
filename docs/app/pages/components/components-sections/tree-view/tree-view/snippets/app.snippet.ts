@@ -3,7 +3,7 @@ import { TreeModel, TreeNode, TreeComponent } from 'angular-tree-component';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html'
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
 
