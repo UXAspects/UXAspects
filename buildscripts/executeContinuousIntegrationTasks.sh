@@ -19,13 +19,42 @@ id
 cd $WORKSPACE/ux-aspects
 
 # Ensure files match those in origin/develop. First remove untracked files (except those in .gitignore)
+echo git clean -f
 git clean -f
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== git clean failed, returned $exitCode"
+    exit 1
+fi
+echo
+
 # Then reset any changed, tracked files
+echo git fetch --all
 git fetch --all
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== git fetch failed, returned $exitCode"
+    exit 1
+fi
+echo
+
+echo git reset --hard origin/develop
 git reset --hard origin/develop
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== git reset failed, returned $exitCode"
+    exit 1
+fi
+echo
 
 # Run the unit tests
+echo Executing unit tests
 bash buildscripts/executeUnitTests.sh
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== executeUnitTests.sh failed returning $exitCode"
+    # Handling of unit test failure to be addressed in a later JIRA
+fi
 
 # Clear up previous builds
 rm -rf $WORKSPACE/ux-aspects/KeppelThemeFiles
@@ -59,8 +88,9 @@ echo Build using the HPE theme
 cd $WORKSPACE/ux-aspects
 buildFailed="false"
 bash buildscripts/buildTheme.sh "HPE"
-if [ $? -ne 0 ]; then
-    echo Building of HPE theme failed with error $?
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo Building of HPE theme failed with error $exitCode
     buildFailed="true"
 fi
 
@@ -71,13 +101,20 @@ rm -rf $WORKSPACE/ux-aspects/src/fonts
 rm -rf $WORKSPACE/ux-aspects/src/img
 rm -rf $WORKSPACE/ux-aspects/src/styles
 
+# Remove the HPE theme build artifacts
+echo
+echo === Deleting the HPE build artifacts
+rm -rf $WORKSPACE/ux-aspects/HPEThemeFiles
+rm -rf $WORKSPACE/ux-aspects/docs-gh-pages-HPE
+
 # Copy back the Keppel theme files
 echo
 echo Restoring the Keppel theme files
 cp -p -r $WORKSPACE/ux-aspects/KeppelThemeFiles/* $WORKSPACE/ux-aspects/src
+rm -rf $WORKSPACE/ux-aspects/KeppelThemeFiles
 if [ "$buildFailed" == "true" ]; then
-    echo HPE-themed build failed
-    exit 1;
+    echo Exiting as HPE-themed build failed
+    exit 1
 fi
 
 # Build using the Keppel theme
@@ -85,9 +122,10 @@ echo
 echo Build using the Keppel theme
 cd $WORKSPACE/ux-aspects
 bash buildscripts/buildTheme.sh "Keppel"
-if [ $? -ne 0 ]; then
-    echo Keppel-themed build failed
-    exit 1;
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo Building of Keppel theme failed with error $exitCode
+    exit 1
 fi
 
 # Update the HPE theme respository
@@ -95,9 +133,10 @@ echo
 echo Update the HPE theme respository
 cd $WORKSPACE/ux-aspects
 bash buildscripts/updateSEPGRepository.sh "HPE"
-if [ $? -ne 0 ]; then
-    echo Update of HPE-themed repository failed
-    exit 1;
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo Update of HPE-themed repository failed with error $exitCode
+    exit 1
 fi
 
 # Update the Keppel theme respository
@@ -105,9 +144,10 @@ echo
 echo Update the Keppel theme respository
 cd $WORKSPACE/ux-aspects
 bash buildscripts/updateSEPGRepository.sh "Keppel"
-if [ $? -ne 0 ]; then
-    echo Update of Keppel-themed repository failed
-    exit 1;
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo Update of Keppel-themed repository failed with error $exitCode
+    exit 1
 fi
 
 exit 0

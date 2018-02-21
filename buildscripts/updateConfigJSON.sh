@@ -12,5 +12,10 @@ newURL="https://pages.github.houston.softwaregrp.net/sepg-docs-qa/UXAspects_"$th
 echo newURL is $newURL
 jq --arg newURL "$newURL" '.assetsUrl |= $newURL' docs/app/data/config.json > "$tmp" \
     && mv "$tmp" docs/app/data/config.json
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== jq failed, returned $exitCode"
+    exit 1
+fi
 
 exit 0

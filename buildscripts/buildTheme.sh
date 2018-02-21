@@ -28,19 +28,51 @@ echo
 
 # Create the latest ux-aspects-build image if it does not exist
 docker_image_build "$WORKSPACE/ux-aspects/docker"; echo
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== docker_image_build failed, returned $exitCode"
+    exit 1
+fi
+echo
 
 # Update assetsUrl in config.json
 echo Updating assetsUrl in config.json
 docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/updateConfigJSON.sh $theme"
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== updateConfigJSON.sh failed, returned $exitCode"
+    exit 1
+fi
+echo
 
 # Build the documentation
 cd $WORKSPACE/ux-aspects
 echo Run npm install
 docker_image_run "$WORKSPACE/ux-aspects" "npm install"
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== npm install failed, returned $exitCode"
+    exit 1
+fi
+echo
+
 echo Building the documentation
-docker_image_run "$WORKSPACE/ux-aspects" "grunt clean"
+docker_image_run "$WORKSPACE/ux-aspects" "grunt cleanup"
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== grunt cleanup failed, returned $exitCode"
+    exit 1
+fi
 rm -rf dist
-docker_image_run "$WORKSPACE/ux-aspects" "grunt build --force"
+echo
+
+docker_image_run "$WORKSPACE/ux-aspects" "grunt build"
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== grunt build failed, returned $exitCode"
+    exit 1
+fi
+echo
 
 # Clean up previous build
 rm -f $WORKSPACE/ux-aspects/docs-gh-pages-$theme.tar.gz
@@ -57,4 +89,4 @@ tarDocs=`tar -czvf ../docs-gh-pages-$theme.tar.gz *`
 cd $WORKSPACE/ux-aspects
 rm -rf $docsTargetFolder
 
-exit 0;
+exit 0
