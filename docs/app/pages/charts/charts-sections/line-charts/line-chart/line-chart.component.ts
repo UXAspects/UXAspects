@@ -27,17 +27,7 @@ export class ChartsLineChartComponent extends BaseDocumentationSection implement
         }, {
             imports: ['ColorServiceModule'],
             library: '@ux-aspects/ux-aspects'
-        }],
-        mappings: [
-            {
-                alias: 'chart.js',
-                source: 'https://unpkg.com/chart.js@2.5.0/dist/Chart.min.js'
-            },
-            {
-                alias: 'ng2-charts',
-                source: 'https://unpkg.com/ng2-charts@1.5.0/bundles/ng2-charts.umd.min.js'
-            }
-        ]
+        }]
     };
 
     // configure the directive data

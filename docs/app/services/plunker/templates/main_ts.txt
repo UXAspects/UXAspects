@@ -6,8 +6,12 @@ import { AppComponent } from './app.component';
 ${imports}
 
 @NgModule({
-    imports: [${modules}],
-    declarations: [${declarations}],
+    imports: [
+        ${modules}
+    ],
+    declarations: [
+        ${declarations}
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

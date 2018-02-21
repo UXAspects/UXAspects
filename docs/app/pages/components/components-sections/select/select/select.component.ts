@@ -2,7 +2,7 @@ import {
     BaseDocumentationSection
 } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -61,8 +61,7 @@ export class ComponentsSelectComponent extends BaseDocumentationSection implemen
             library: 'ngx-bootstrap/accordion',
             imports: ['AccordionModule'],
             providers: ['AccordionModule.forRoot()']
-        }],
-        mappings: [MAPPINGS.NgxBootstrap]
+        }]
     };
 
     constructor() {

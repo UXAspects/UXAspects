@@ -4,7 +4,7 @@ import 'chance';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html',
+    templateUrl: './app.component.html',
     host: {
         '(window:keydown.arrowup)': 'upArrow($event)',
         '(window:keydown.arrowdown)': 'downArrow($event)'
