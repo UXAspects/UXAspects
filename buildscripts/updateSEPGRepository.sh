@@ -41,21 +41,51 @@ cd $docsTargetFolder/gh-pages
 echo
 echo git clone -b gh-pages $clonePagesURL ./
 git clone -b gh-pages $clonePagesURL ./
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== git clone failed, returned $exitCode"
+    exit 1
+fi
+
 echo
 echo git rm -rf .
 git rm -rf .
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== git rm failed, returned $exitCode"
+    exit 1
+fi
+
 echo
 echo tar zxvf $WORKSPACE/ux-aspects/$tarBall -C .
 tar zxvf $WORKSPACE/ux-aspects/$tarBall -C .
+
 echo
 echo git add .
 git add .
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== git add failed, returned $exitCode"
+    exit 1
+fi
+
 echo
 echo git commit --allow-empty -m "$ghPagesCommitMessage"
 git commit --allow-empty -m "$ghPagesCommitMessage"
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== git commit failed, returned $exitCode"
+    exit 1
+fi
+
 echo
 echo git push origin
 git push origin
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== git push failed, returned $exitCode"
+    exit 1
+fi
 
 echo Update complete
 exit 0

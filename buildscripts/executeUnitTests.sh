@@ -53,6 +53,11 @@ echo "</h2></br>" >> UXAspectsTestsResults.html
 
 # Create the latest elements-build image if it does not exist
 docker_image_build "$WORKSPACE/ux-aspects/docker"; echo
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== docker_image_build failed, returned $exitCode"
+    exit 1
+fi
 
 echo Executing the unit tests in the $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST container
 cd $WORKSPACE/ux-aspects
@@ -67,6 +72,11 @@ chmod a+rw .
 date -u > $WORKSPACE/ux-aspects/BeforeUnitTestsStarted
 ls -al BeforeUnitTestsStarted
 docker_image_run "$WORKSPACE/ux-aspects" "bash buildscripts/executeUnitTestsDocker.sh"; echo
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== executeUnitTestsDocker.sh failed, returned $exitCode"
+    # Don't exit yet. Copy the results to the HTML file.
+fi
 
 # The unit tests results file, UnitTestResults.txt, should have been created in this folder. Copy it to our results file and
 # ignore unwanted strings.
