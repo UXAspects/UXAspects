@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { ColorServiceModule } from '../../services/color/index';
 
 import { SliderComponent } from './slider.component';
+import { DragModule } from '../../directives/drag/index';
 
 @NgModule({
     imports: [
         CommonModule,
-        ColorServiceModule
+        ColorServiceModule,
+        DragModule
     ],
     exports: [SliderComponent],
     declarations: [SliderComponent]

@@ -15,10 +15,22 @@ ux-slider {
 
         &.wide {
             height: 12px;
+
+            .tooltip {
+                &.tooltip-dynamic {
+                    top: 18px;
+                }
+            }
         }
 
         &.narrow {
             height: 4px;
+
+            .tooltip {
+                &.tooltip-dynamic {
+                    top: 10px;
+                }
+            }
         }
 
         .track-section {
@@ -50,6 +62,18 @@ ux-slider {
                 user-select: none;
                 pointer-events: none;
                 cursor: default;
+
+                &.tooltip-dynamic {
+                    .tooltip-arrow {
+                        display: none;
+                    }
+
+                    .tooltip-inner {
+                        background-color: transparent !important;
+                        color: #666 !important;
+                        box-shadow: none;
+                    }
+                }
             }
 
             &.button {
