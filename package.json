@@ -15,7 +15,8 @@
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
     "serve:e2e": "lite-server -c=e2e/bs-config.e2e.json",
     "e2e": "concurrently \"npm run serve:e2e\" \"grunt protractor:e2e\" --kill-others --success first",
-    "build:library": "ng-packagr -p ng-package.json"
+    "build:library": "ng-packagr -p ng-package.json",
+    "e2e:develop": "concurrently \"webpack --watch --progress --colors --config configs/webpack.e2e.config.js\" \"tsc -w --project .\\e2e\\tsconfig.json\" \"npm run serve:e2e\""
   },
   "dependencies": {
     "@angular/animations": "^5.0.1",
