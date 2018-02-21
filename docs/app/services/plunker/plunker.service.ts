@@ -90,13 +90,13 @@ export class PlunkerService {
             this.mainTs = require('./templates/main_ts.txt');
         }
 
-        let mainTs = this.mainTs
-            .replace(MODULES_PLACEHOLDER, modules.filter(module => module !== undefined).join(`, \n${'\t'.repeat(4)}`))
-            .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).join(`, \n${'\t'.repeat(4)}`)))
-            .replace(DECLARATIONS_PLACEHOLDER, (declarations.join(`, \n${'\t'.repeat(4)}`)))
+        const mainTs = this.mainTs
+            .replace(MODULES_PLACEHOLDER, modules.filter(module => module !== undefined).join(`, \n${' '.repeat(8)}`))
+            .replace(MODULES_PLACEHOLDER, (modules.filter(module => module !== undefined).join(`, \n${' '.repeat(8)}`)))
+            .replace(DECLARATIONS_PLACEHOLDER, (declarations.join(`, \n${' '.repeat(8)}`)))
             .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
 
-        let configJs = require('./templates/config_js.txt');
+        const configJs = require('./templates/config_js.txt');
 
         const postData = {
             'description': title,
