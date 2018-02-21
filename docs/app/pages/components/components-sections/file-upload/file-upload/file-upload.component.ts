@@ -19,7 +19,17 @@ export class ComponentsFileUploadComponent extends BaseDocumentationSection impl
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs
-        }
+        },
+        modules: [
+            {
+                imports: ['FileUploadModule'],
+                library: 'ng2-file-upload'
+            },
+            {
+                imports: ['ProgressBarModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
     };
 
     constructor() {

@@ -36,6 +36,7 @@ System.config({
     'chance': 'https://unpkg.com/chance',
     'chart.js': 'https://unpkg.com/chart.js/dist/Chart.min.js',
     'ng2-charts': 'https://unpkg.com/ng2-charts/bundles/ng2-charts.umd.min.js',
+    'ng2-file-upload': 'https://unpkg.com/ng2-file-upload/bundles/ng2-file-upload.umd.js',
 
     // ngx-bootstrap aliases
     'ngx-bootstrap/accordion': 'https://unpkg.com/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js',
