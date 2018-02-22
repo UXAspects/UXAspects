@@ -3,7 +3,7 @@ import 'chance';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html'
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
 
