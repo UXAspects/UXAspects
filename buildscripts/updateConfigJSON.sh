@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 theme=$1
 echo ${FUNCNAME[0]} - theme is $theme
 echo ${FUNCNAME[0]} - PWD is $PWD

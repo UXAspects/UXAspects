@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 cd $WORKSPACE/ux-aspects
 source $PWD/buildscripts/functions.sh
 

@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 echo === Moving to workspace
 cd $WORKSPACE

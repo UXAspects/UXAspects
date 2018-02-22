@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 theme=$1
 
 echo Workspace is $WORKSPACE
