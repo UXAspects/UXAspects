@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-10">
+        <button class="btn button-primary" (click)="addEvent()">Add New Event</button>
+        <ux-timeline>
+            <ux-timeline-event *ngFor="let event of events" [badgeColor]="event.color" [badgeTitle]="event.date | date:'EEE LLL d'">
+
+                <div class="m-b-sm">
+                    <span>
+                        <i class="hpe-icon hpe-document-time"></i>
+                        <span>{{event.date | date:'EEEE, MMMM d, y, h:mm:ss a'}}</span>        
+                    </span>
+                </div>
+                <p class="m-b-nil">Ticket
+                    <a [href]="event.url">{{event.id}}</a>
+                    was {{event.action}} by {{event.assignee}}.
+                </p>
+
+            </ux-timeline-event>
+        </ux-timeline>
+    </div>
+</div>
+
+<hr>
+
+<p>The <code>ux-timeline</code> component is a responsive, data-driven vertical component to tell a story, show history or describe a sequence of events. Events are created with the <code>ux-timeline-event</code> component, which includes a customizable badge and informational panel.</p>
+
+<p>The main content of the event will be displayed in the informational panel and should be specified inside the <code>ux-timeline-event</code> element.</p>
+
+<p>The following attributes can be used to configure the <code>ux-timeline-event</code> component:</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="badgeColor" type="string">
+        The color of the badge from the <a routerLink="/css/color-palette" fragment="color-palette">Color Palette</a>.
+    </tr>
+    <tr uxd-api-property name="badgeTitle" required="true" type="string">
+        A short piece of text to show in the badge; typically the short-form date of the event.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </tab>
+  <tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+  </tab>
+</tabset>

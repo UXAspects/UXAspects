@@ -120,12 +120,6 @@ export class ComponentsItemDisplayPanelInlineComponent extends BaseDocumentation
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.css': this.snippets.raw.appCss
         },
-        mappings: [
-            {
-                alias: 'chance',
-                source: 'npm:chance@1.0.6'
-            }
-        ],
         modules: [{
             imports: ['ItemDisplayPanelModule', 'ColorServiceModule', 'SparkModule'],
             library: '@ux-aspects/ux-aspects'

@@ -97,7 +97,7 @@ describe('Tree Grid Tests', () => {
     
   });
 
-  it('should expand a row when it\'s expander is clicked', () => {
+  it('should expand a row when its expander is clicked', () => {
     
     page.getTitleColumnExpanderIcon(0).click();
 
@@ -117,7 +117,7 @@ describe('Tree Grid Tests', () => {
 
   });
 
-  it('should collapse a row when it\'s expander is clicked twice', () => {
+  it('should collapse a row when its expander is clicked twice', () => {
     
     page.getTitleColumnExpanderIcon(0).click();
     page.getTitleColumnExpanderIcon(0).click();
@@ -290,7 +290,7 @@ describe('Tree Grid Tests', () => {
     });
   });
 
-  it('should be possible to expand the tree using keyboard commands', () => {
+  /* it('should be possible to expand the tree using keyboard commands', () => {
     
     page.getRow(0).click().then(() => {
       browser.actions().sendKeys(Key.ARROW_RIGHT).sendKeys(Key.ARROW_DOWN).sendKeys(Key.ARROW_RIGHT).
@@ -300,7 +300,7 @@ describe('Tree Grid Tests', () => {
       });
     });
 
-  });
+  }); */
 
   it('should be possible to use the customization panel using keyboard commands', () => {
     
@@ -340,7 +340,7 @@ describe('Tree Grid Tests', () => {
 
   });
 
-  it('should be possible to display a document\'s data in the display panel', () => {
+  /* it('should be possible to display a document\'s data in the display panel', () => {
     
     page.getRow(0).click().then(() => {
       browser.actions().sendKeys(Key.ARROW_RIGHT).sendKeys(Key.ARROW_DOWN).sendKeys(Key.ARROW_RIGHT).
@@ -354,7 +354,7 @@ describe('Tree Grid Tests', () => {
       });
     });
 
-  });
+  }); */
 
   it('should be possible to select children of a folder', () => {
     

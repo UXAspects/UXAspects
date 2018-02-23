@@ -1,4 +1,3 @@
-import { MAPPINGS } from './../../../../../interfaces/IPlunk';
 import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { Filter } from '@ux-aspects/ux-aspects';
@@ -36,9 +35,6 @@ export class ComponentsCustomFiltersComponent extends BaseDocumentationSection i
             'sample-filter.component.css': this.snippets.raw.sampleCss,
             'sample-filter.component.ts': this.snippets.raw.sampleTs
         },
-        mappings: [
-            MAPPINGS.NgxBootstrap
-        ],
         modules: [{
             imports: ['FilterModule', 'RadioButtonModule'],
             library: '@ux-aspects/ux-aspects'

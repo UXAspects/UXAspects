@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class RadioButtonsPage {
         
     getPage(): void {
-        browser.get('/radiobuttons');
+        browser.get('#/radiobuttons');
     }
     
     radiobutton1 = element(by.css('ux-radio-button#radiobutton1'));

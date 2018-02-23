@@ -3,7 +3,7 @@ import { browser, element, by , ElementFinder } from 'protractor';
 export class VirtualScrollPage {
         
     getPage(): void {
-        browser.get('virtual-scroll');
+        browser.get('#/virtual-scroll');
     }
 
     container = element(by.id('container'));

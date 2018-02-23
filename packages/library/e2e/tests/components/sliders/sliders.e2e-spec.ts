@@ -41,28 +41,25 @@ describe('SlidersPage Tests', () => {
     expect(page.getHandleAttribute(page.slider7, 'lower', 'hidden')).toBeNull();
     expect(page.getHandleAttribute(page.slider7, 'upper', 'hidden')).toBeNull();
     
+    expect(page.getHandleAttribute(page.slider8, 'lower', 'hidden')).toBeNull();
+    expect(page.getHandleAttribute(page.slider8, 'upper', 'hidden')).toBeNull();
+    
   });
   
   it('should display the expected ticks', () => {
     
     // Button Handle - Custom Labels.
     expect(page.getTickAttribute(page.slider1, 'hidden', 0)).toBeNull();
-    expect(page.getTickAttribute(page.slider1, 'hidden', 3)).not.toBeNull();
-    expect(page.getTickAttribute(page.slider1, 'hidden', 10)).toBeNull();
-    expect(page.getTickAttribute(page.slider1, 'hidden', 15)).not.toBeNull();
-    expect(page.getTickAttribute(page.slider1, 'hidden', 20)).toBeNull();
+    expect(page.getTickAttribute(page.slider1, 'hidden', 1)).toBeNull();
+    expect(page.getTickAttribute(page.slider1, 'hidden', 2)).toBeNull();
     
     expect<any>(page.getTickLabel(page.slider1, 0)).toEqual('Minimum');
-    expect<any>(page.getTickLabel(page.slider1, 3)).toEqual('');
-    expect<any>(page.getTickLabel(page.slider1, 10)).toEqual('Default');
-    expect<any>(page.getTickLabel(page.slider1, 15)).toEqual('');
-    expect<any>(page.getTickLabel(page.slider1, 20)).toEqual('Maximum');
+    expect<any>(page.getTickLabel(page.slider1, 1)).toEqual('Default');
+    expect<any>(page.getTickLabel(page.slider1, 2)).toEqual('Maximum');
     
     expect(page.getTickAttribute(page.slider1, 'class', 0)).toContain('major');
-    expect(page.getTickAttribute(page.slider1, 'class', 3)).toContain('minor');
-    expect(page.getTickAttribute(page.slider1, 'class', 10)).toContain('major');
-    expect(page.getTickAttribute(page.slider1, 'class', 15)).toContain('minor');
-    expect(page.getTickAttribute(page.slider1, 'class', 20)).toContain('major');
+    expect(page.getTickAttribute(page.slider1, 'class', 1)).toContain('major');
+    expect(page.getTickAttribute(page.slider1, 'class', 2)).toContain('major');
     
     // Line Handle - Callout on Drag.
     expect(page.getTickAttribute(page.slider2, 'hidden', 0)).toBeNull();
@@ -107,7 +104,8 @@ describe('SlidersPage Tests', () => {
     expect(page.getTickAttribute(page.slider4, 'class', 10)).toContain('major');
     
     // Range Track - Persistent Callout.
-    expect(page.confirmTicksExist(page.slider5)).toBeFalsy();
+    expect<any>(page.confirmTicksExist(page.slider5)).toBe(false);
+    expect<any>(page.confirmTicksExist(page.slider8)).toBe(false);
     
     // Range Track Style - Custom Callout Styles.
     expect(page.getTickAttribute(page.slider6, 'hidden', 0)).toBeNull();
@@ -162,6 +160,9 @@ describe('SlidersPage Tests', () => {
     page.dragAndDropHandle(page.slider5, 'upper', {x: -2000, y: 0});
     expect(page.confirmTooltipExists(page.slider5, 'lower')).toBeTruthy();
     expect(page.confirmTooltipExists(page.slider5, 'upper')).toBeTruthy();
+
+    expect(page.confirmTooltipExists(page.slider8, 'lower')).toBeTruthy();
+    expect(page.confirmTooltipExists(page.slider8, 'upper')).toBeTruthy();
     
   });
   
@@ -174,6 +175,10 @@ describe('SlidersPage Tests', () => {
     expect<any>(page.getTooltipValue(page.slider6, 'lower')).toEqual('22');
     page.moveMouseToHandle(page.slider6, 'upper');
     expect<any>(page.getTooltipValue(page.slider6, 'upper')).toEqual('76');
+
+    // should have dynamic tooltips
+    expect(page.getTooltipClass(page.slider8, 'lower')).toContain('tooltip-dynamic');
+    expect(page.getTooltipClass(page.slider8, 'upper')).toContain('tooltip-dynamic');
     
   });
   
@@ -207,6 +212,11 @@ describe('SlidersPage Tests', () => {
     
     expect<any>(page.getInputValue(page.input1)).toEqual('25');
     expect<any>(page.getInputValue(page.input2)).toEqual('75');
+    
+    page.moveMouseToHandle(page.slider8, 'lower');
+    expect<any>(page.getTooltipValue(page.slider8, 'lower')).toEqual('1234');
+    page.moveMouseToHandle(page.slider8, 'upper');
+    expect<any>(page.getTooltipValue(page.slider8, 'upper')).toEqual('9876');
     
   });
   
@@ -255,6 +265,11 @@ describe('SlidersPage Tests', () => {
     page.dragAndDropHandle(page.slider7, 'upper', {x: 2000, y: 0});
     page.moveMouseToHandle(page.slider7, 'upper');
     expect<any>(page.getTooltipValue(page.slider7, 'upper')).toEqual('100');
+    
+    page.dragAndDropHandle(page.slider8, 'lower', {x: -2000, y: 0});
+    expect<any>(page.getTooltipValue(page.slider8, 'lower')).toEqual('1000');
+    page.dragAndDropHandle(page.slider8, 'upper', {x: 2000, y: 0});
+    expect<any>(page.getTooltipValue(page.slider8, 'upper')).toEqual('10000');
     
   });
   
@@ -340,7 +355,7 @@ describe('SlidersPage Tests', () => {
     
   });
   
-  it('should synchronize with text inputs', () => {
+  /* it('should synchronize with text inputs', () => {
     
     // Move handles and confirm the associated inputs are updated with the correct values.
     page.moveMouseToHandle(page.slider7, 'lower');
@@ -382,5 +397,5 @@ describe('SlidersPage Tests', () => {
     page.moveMouseToHandle(page.slider7, 'upper');
     expect<any>(page.getTooltipValue(page.slider7, 'upper')).toEqual('50');
     
-  });
+  }); */
 });

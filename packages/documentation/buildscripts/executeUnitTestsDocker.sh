@@ -26,8 +26,17 @@ date -u > /workspace/ExecutingUnitTests
 # Install NPM packages and run the tests, redirecting test output to a text file.
 echo Running npm install
 npm install
+exitCode=$?
+if [ "$exitCode" -ne 0 ]; then
+    echo "=== npm install failed returning $exitCode"
+    exit 1
+fi
+echo
 
 echo Running grunt test
-grunt test --force > /workspace/UnitTestResults.txt
+grunt test > /workspace/UnitTestResults.txt
+exitCode=$?        
+echo exitCode is $exitCode
+echo
 
-exit 0
+exit $exitCode

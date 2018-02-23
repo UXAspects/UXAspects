@@ -91,6 +91,7 @@ export default function draggableCards(safeTimeout, safeEventListener) {
       }
 
       function cardsHaveChanged() {
+
         var childNodes = draggableContainer[0].getElementsByClassName('card-container');
 
         if (childNodes.length !== cardCount) {
@@ -108,6 +109,8 @@ export default function draggableCards(safeTimeout, safeEventListener) {
             prepareCards();
           }
         }
+
+        api.reinitialise();
       }
 
       function selectDefault() {

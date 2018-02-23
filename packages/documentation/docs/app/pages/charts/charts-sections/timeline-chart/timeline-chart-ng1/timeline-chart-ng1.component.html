@@ -1,9 +1,9 @@
 <div class="flot-chart-timeline">
-  <ux-flot-ng1 [dataset]="timelineData" [options]="timelineOptions"></ux-flot-ng1>
+  <flot [dataset]="timelineData" [options]="timelineOptions"></flot>
 </div>
 
 <div class="flot-chart">
-  <ux-flot-ng1 [dataset]="detailedData" [options]="detailedOptions"></ux-flot-ng1>
+  <flot [dataset]="detailedData" [options]="detailedOptions"></flot>
 </div>
 
 <hr>
@@ -213,5 +213,5 @@
 </blockquote>
 
 <blockquote>
-    <p><strong>Note</strong>: To upgrade this component to use in an Angular application use: <code>upgradeAdapter.upgradeNg1Component('uxFlotNg1')</code></p>
+    <p><strong>Note</strong>: This component can be used in an Angular application by importing the HybridModule.</p>
 </blockquote>

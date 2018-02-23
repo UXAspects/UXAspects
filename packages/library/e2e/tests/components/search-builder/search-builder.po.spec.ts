@@ -5,7 +5,7 @@ export namespace SearchBuilderPage {
     export class Page {
             
         getPage(): void {
-            browser.get('search-builder');
+            browser.get('#/search-builder');
         }
         
         query = $('pre');

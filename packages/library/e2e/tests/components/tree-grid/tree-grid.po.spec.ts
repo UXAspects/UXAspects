@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class TreeGridTestPageComponent {
         
     getPage(): void {
-        browser.get('/tree-grid');
+        browser.get('#/tree-grid');
     }
     
     treegrid = element(by.id('treegrid'));

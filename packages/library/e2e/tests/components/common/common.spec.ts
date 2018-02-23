@@ -29,6 +29,7 @@ export class Constants {
     DISABLED_BORDER_COLOR = '';
     DISABLED_COLOR = '#a8a8a8';
 
+    ALTERNATE1_BACKGROUND_COLOR = '#3baa43';
 }
 
 export class Functions {

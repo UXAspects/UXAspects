@@ -25,12 +25,6 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.html': this.snippets.raw.appHtml
         },
-        mappings: [
-            {
-                alias: 'chance',
-                source: 'npm:chance@1.0.6'
-            }
-        ],
         modules: [{
             imports: ['FacetsModule'],
             library: '@ux-aspects/ux-aspects'

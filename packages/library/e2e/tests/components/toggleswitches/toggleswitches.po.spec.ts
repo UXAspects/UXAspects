@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class ToggleSwitchesPage {
         
     getPage(): void {
-        browser.get('/toggleswitches');
+        browser.get('#/toggleswitches');
     }
     
     toggleswitch1 = element(by.id('switch1'));

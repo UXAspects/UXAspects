@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class SideInsetPanelSplitterPage {
         
     getPage(): void {
-        browser.get('/side-inset-panel-splitter');
+        browser.get('#/side-inset-panel-splitter');
     }
     
     splitterHoriz = element(by.id('splitter-horiz'));

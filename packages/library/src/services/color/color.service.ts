@@ -1,11 +1,6 @@
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 import { ColorValueSet, ColorClassSet } from './color.service';
-import {
-    DOCUMENT
-} from '@angular/platform-browser';
-import {
-    Injectable,
-    Inject
-} from '@angular/core';
 
 export class ColorService {
 
@@ -14,17 +9,17 @@ export class ColorService {
     private _colors: ThemeColors;
     private _colorSet: any = colorSets.keppel;
 
-    constructor( @Inject(DOCUMENT) document: any) {
+    constructor(@Inject(DOCUMENT) document: Document) {
         if (this._colorSet.colorClassSet) {
-            this._setColors();
+            this.setColors();
         } else {
             for (let key in this._colorSet.colorValueSet) {
-                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
         }
     }
 
-    private _setColors() {
+    private setColors() {
 
         this._html = '';
 
@@ -47,33 +42,34 @@ export class ColorService {
         this._element.parentNode.removeChild(this._element);
     }
 
-    private _getColorValueByHex(color: string): ThemeColor {
-        let hex = color.replace('#', '');
+    private getColorValueByHex(color: string): ThemeColor {
+        const hex = color.replace('#', '');
 
-        let r = parseInt(hex.substring(0, 2), 16).toString();
-        let g = parseInt(hex.substring(2, 4), 16).toString();
-        let b = parseInt(hex.substring(4, 6), 16).toString();
+        const r = parseInt(hex.substring(0, 2), 16).toString();
+        const g = parseInt(hex.substring(2, 4), 16).toString();
+        const b = parseInt(hex.substring(4, 6), 16).toString();
 
         return new ThemeColor(r, g, b, '1');
     }
 
     private getColorValue(color: ColorIdentifier): ThemeColor {
 
-        let target = this._element.querySelector('.' + this._colorSet.colorClassSet[color] + '-color');
+        const target = this._element.querySelector('.' + this._colorSet.colorClassSet[color] + '-color');
 
         if (!target) {
             throw new Error('Invalid color');
         }
 
-        let colorValue = window.getComputedStyle(target).backgroundColor;
+        const colorValue = window.getComputedStyle(target).backgroundColor;
 
-        let rgba = colorValue.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+        const rgba = colorValue.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
 
         return new ThemeColor(rgba[1], rgba[2], rgba[3], rgba[4]);
     }
 
     getColor(color: ColorIdentifier): ThemeColor {
-        return this._colors[color.toLowerCase()];
+        const themeColor = this._colors[color.toLowerCase()];
+        return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
     }
 
     getColorSet() {
@@ -85,10 +81,10 @@ export class ColorService {
         this._colors = {};
 
         if (this._colorSet.colorClassSet) {
-            this._setColors();
+            this.setColors();
         } else {
             for (let key in this._colorSet.colorValueSet) {
-                this._colors[key] = this._getColorValueByHex(this._colorSet.colorValueSet[key]);
+                this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
         }
     }
@@ -98,7 +94,7 @@ export class ColorService {
             return;
         }
         
-        const colorName = value.replace(/\s+/g, '-').toLowerCase();
+        const colorName = this.resolveColorName(value);
         
         for (let color in this._colors) {
             if (colorName === color.toLowerCase()) {
@@ -131,13 +127,13 @@ export class ThemeColor {
     static parse(value: string): ThemeColor {
         let r, g, b, a = '1';
 
-        var rgbaPattern = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/;
-        var shortHexPattern = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        var longHexPattern = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/;
+        const rgbaPattern = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/;
+        const shortHexPattern = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        const longHexPattern = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/;
 
-        let rgbaMatch = value.match(rgbaPattern);
-        let shortHexMatch = value.match(shortHexPattern);
-        let longHexMatch = value.match(longHexPattern);
+        const rgbaMatch = value.match(rgbaPattern);
+        const shortHexMatch = value.match(shortHexPattern);
+        const longHexMatch = value.match(longHexPattern);
 
         if (rgbaMatch) {
             r = rgbaMatch[1];
@@ -159,9 +155,9 @@ export class ThemeColor {
     }
 
     toHex() {
-        var red = parseInt(this._r).toString(16);
-        var green = parseInt(this._g).toString(16);
-        var blue = parseInt(this._b).toString(16);
+        let red = parseInt(this._r).toString(16);
+        let green = parseInt(this._g).toString(16);
+        let blue = parseInt(this._b).toString(16);
 
         if (red.length < 2) {
             red = '0' + red;

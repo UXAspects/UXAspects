@@ -1,7 +1,7 @@
 <div class="flex-container">
 
   <ux-flippable-card #flippableCard="ux-flippable-card" class="m-sm" 
-    trigger="manual" direction="vertical" width="260" height="220">
+    trigger="manual" direction="vertical" [width]="260" [height]="180">
 
     <ux-flippable-card-front>
       <i class="hpe-icon hpe-link-down pull-right clickable-icon" aria-hidden="true" 
@@ -9,13 +9,13 @@
       <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
       <div class="flip-card-content">
         <p class="front-title">NYC vs Volkswagen</p>
-        <div class="m-t-md">
+        <div class="m-t-sm">
           <p class="card-text documents">23,456<span class="text-muted"> documents</span></p>
           <p class="card-text reviewed">19,976<span class="text-muted"> reviewed</span></p>
           <p class="card-text produced">11,123<span class="text-muted"> produced</span></p>
         </div>
-        <ux-nested-donut-ng1 class="flip-card-nested-donut" 
-            [dataset]="donut1" [options]="options"></ux-nested-donut-ng1>
+        <nested-donut class="flip-card-nested-donut" 
+            [dataset]="donut1" [options]="options"></nested-donut>
       </div>
     </ux-flippable-card-front>
 
@@ -55,46 +55,25 @@
           </div>
 
         </div>
-        <hr/>
-        <div class="row">
-          <div class="col-xs-5">
-            <p>
-              <span class="produced">11,123</span>
-              <span class="muted"> produced</span>
-            </p>
-          </div>
-          <div class="col-xs-7">
-            <p class="m-b-xxs">
-              <span class="muted right-align">productions</span>
-              <span class="produced left-align">22</span>
-            </p>
-            <p class="m-b-xxs">
-              <span class="muted right-align">active</span>
-              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()" 
-                [trackColor]="colorService.getColor('vibrant2').setAlpha(0.2).toRgba()"
-                value="60" barHeight="5" class="spark-left-align"></ux-spark>
-            </p>
-          </div>
-        </div>
       </div>
     </ux-flippable-card-back>
 
   </ux-flippable-card>
 
 
-  <ux-flippable-card class="m-sm" trigger="hover" direction="horizontal" height="220" width="260">
+  <ux-flippable-card class="m-sm" trigger="hover" direction="horizontal" [height]="180" [width]="260">
 
     <ux-flippable-card-front>
       <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
       <div class="flip-card-content">
         <p class="front-title">The Dorling Case</p>
-        <div class="m-t-md">
+        <div class="m-t-sm">
           <p class="card-text documents">15,678<span class="text-muted"> documents</span></p>
           <p class="card-text reviewed">10,123<span class="text-muted"> reviewed</span></p>
           <p class="card-text produced">3,123<span class="text-muted"> produced</span></p>
         </div>
-        <ux-nested-donut-ng1 class="flip-card-nested-donut" 
-            [dataset]="donut2" [options]="options"></ux-nested-donut-ng1>
+        <nested-donut class="flip-card-nested-donut" 
+            [dataset]="donut2" [options]="options"></nested-donut>
       </div>
     </ux-flippable-card-front>
 
@@ -135,44 +114,23 @@
           </div>
 
         </div>
-        <hr/>
-        <div class="row">
-          <div class="col-xs-5">
-            <p>
-              <span class="produced">3,123</span>
-              <span class="muted"> produced</span>
-            </p>
-          </div>
-          <div class="col-xs-7">
-            <p class="m-b-xxs">
-              <span class="muted right-align">productions</span>
-              <span class="produced left-align">22</span>
-            </p>
-            <p class="m-b-xxs">
-              <span class="muted right-align">active</span>
-              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()" 
-                [trackColor]="colorService.getColor('vibrant2').setAlpha(0.2).toRgba()"
-                value="65" barHeight="5" class="spark-left-align"></ux-spark>
-            </p>
-          </div>
-        </div>
       </div>
     </ux-flippable-card-back>
   </ux-flippable-card>
 
 
-  <ux-flippable-card class="m-sm" trigger="click" direction="horizontal" height="220" width="260">
+  <ux-flippable-card class="m-sm" trigger="click" direction="horizontal" [height]="180" [width]="260">
     <ux-flippable-card-front>
       <img class="card-logo" src="../../../../../assets/img/IconCaseColorized36x36.png">
       <div class="flip-card-content">
         <p class="front-title">The Salisbury Case</p>
-        <div class="m-t-md">
+        <div class="m-t-sm">
           <p class="card-text documents">256,987<span class="text-muted"> documents</span></p>
           <p class="card-text reviewed">143,567<span class="text-muted"> reviewed</span></p>
           <p class="card-text produced">45,678<span class="text-muted"> produced</span></p>
         </div>
-        <ux-nested-donut-ng1 class="flip-card-nested-donut" 
-            [dataset]="donut3" [options]="options"></ux-nested-donut-ng1>
+        <nested-donut class="flip-card-nested-donut" 
+            [dataset]="donut3" [options]="options"></nested-donut>
       </div>
     </ux-flippable-card-front>
 
@@ -209,27 +167,6 @@
             </p>
           </div>
 
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-xs-5">
-            <p>
-              <span class="produced">45,678</span>
-              <span class="muted"> produced</span>
-            </p>
-          </div>
-          <div class="col-xs-7">
-            <p class="m-b-xxs">
-              <span class="muted right-align">productions</span>
-              <span class="produced left-align">22</span>
-            </p>
-            <p class="m-b-xxs">
-              <span class="muted right-align">active</span>
-              <ux-spark [barColor]="colorService.getColor('vibrant2').toHex()" 
-                [trackColor]="colorService.getColor('vibrant2').setAlpha(0.2).toRgba()"
-                value="65" barHeight="5" class="spark-left-align"></ux-spark>
-            </p>
-          </div>
         </div>
       </div>
     </ux-flippable-card-back>

@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class FloatingActionButtonsPage {
         
     getPage(): void {
-        browser.get('/floating-action-buttons');
+        browser.get('#/floating-action-buttons');
     }
     
     actionButtonVerticalBottom = element(by.id('actionButtonVerticalBottom'));

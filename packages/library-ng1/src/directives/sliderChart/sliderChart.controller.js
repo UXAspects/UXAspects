@@ -1,51 +1,51 @@
-SliderChartCtrl.$inject = ['$scope'];
+export default class SliderChartCtrl {
 
-export default function SliderChartCtrl($scope) {
+    constructor($scope, $timeout) {
 
-    var vm = this;
+        // ensure we have all the values we need
+        $timeout(() => {
+            this.min = this.sliderOptions.track.min;
+            this.max = this.sliderOptions.track.max;
+            this.range = this.max - this.min;
+        
+            // use timeout to apply on next digest cycle
+            this.updateLeftOverlay();
+            this.updateRightOverlay();
+        
+            // watch for any changes to low
+            $scope.$watch('vm.ngModel.low', (newValue, oldValue) => {
+                if (newValue !== oldValue) {
+                    this.updateLeftOverlay();
+                }
+            });
+        
+            // watch for any changes to high+
+            $scope.$watch('vm.ngModel.high', (newValue, oldValue) => {
+                if (newValue !== oldValue) {
+                    this.updateRightOverlay();
+                }
+            });
+        });
 
-    var min = vm.sliderOptions.track.min;
-    var max = vm.sliderOptions.track.max;
-    var range = max - min;
+    }
 
-    var updateLeftOverlay = function() {
-        vm.left = (vm.ngModel.low - min) / range * 100;
-        if (vm.right !== undefined) {
-            vm.middle = 100 - vm.left - vm.right;
+    updateLeftOverlay() {
+        this.left = (this.ngModel.low - this.min) / this.range * 100;
+
+        if (this.right !== undefined) {
+            this.middle = 100 - this.left - this.right;
         }
-        if (vm.left === 0) {
-            vm.hideLeftBorder = true;
-        } else {
-            vm.hideLeftBorder = false;
-        }
-    };
 
-    var updateRightOverlay = function() {
-        vm.right = (max - vm.ngModel.high) / range * 100;
-        vm.middle = 100 - vm.left - vm.right;
-        if (vm.right === 0) {
-            vm.hideRightBorder = true;
-        } else {
-            vm.hideRightBorder = false;
-        }
-    };
+        this.hideLeftBorder = this.left === 0;
+    }
 
-    // use timeout to apply on next digest cycle
-    updateLeftOverlay();
-    updateRightOverlay();
+    updateRightOverlay() {
+        this.right = (this.max - this.ngModel.high) / this.range * 100;
+        this.middle = 100 - this.left - this.right;
 
-    // watch for any changes to low
-    $scope.$watch('vm.ngModel.low', function(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            updateLeftOverlay();
-        }
-    });
-
-    // watch for any changes to high+
-    $scope.$watch('vm.ngModel.high', function(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            updateRightOverlay();
-        }
-    });
+        this.hideRightBorder = this.right === 0;
+    }
 
 }
+
+SliderChartCtrl.$inject = ['$scope', '$timeout'];

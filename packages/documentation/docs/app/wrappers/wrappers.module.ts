@@ -1,5 +1,6 @@
 import { Injector, NgModule } from '@angular/core';
 
+import '../pages/charts/charts-sections/partition-map/partition-map-ng1/popover/popover.controller';
 import { AlertStylesComponent } from './examples/alerts/alert.component';
 import { AppNavigatorComponent } from './examples/popover/app-navigator.component';
 import { CardTabsComponent } from './examples/tabs/card-tabs.component';
@@ -30,9 +31,7 @@ import { FacetLineChartComponent } from './examples/facets/facet-line-chart.comp
 import { FileUploadComponent } from './examples/file-upload/file-upload.component';
 import { FixedHeaderTableComponent } from './examples/tables/fixed-header-table.component';
 import { FlippableCardsComponent } from './examples/flippable-cards/flippable-cards.component';
-import { FloatingActionButtonComponent } from './examples/buttons/floating-action-button.component';
 import { FloatLabelsComponent } from './examples/forms/float-labels.component';
-import { FlotComponent } from './components/flot.component';
 import { FormValidationFieldByFieldComponent } from './examples/forms/form-validation-by-field.component';
 import { FormValidationOnSubmitComponent } from './examples/forms/form-validation-on-submit.component';
 import { GridComponent } from './examples/tables/grid.component';
@@ -57,28 +56,20 @@ import { ModalInsetPanelComponent } from './examples/panels/modal-inset-panel.co
 import { MultiColumnSortingComponent } from './examples/tables/multi-column-sorting.component';
 import { MultipleSelectTableComponent } from './examples/select/multiple-select.component';
 import { NavigationComponent } from './examples/navigation/navigation.component';
-import { NestedDonutComponent } from './components/nested-donut.component';
 import { NestedSplitterComponent } from './examples/splitter/nested-splitter.component';
 import { NotificationDropdownComponent } from './examples/notifications/notifications-dropdown.component';
 import { NotificationListComponent } from './examples/notifications/notifications-list.component';
 import { NotificationsComponent } from './examples/notifications/notifications.component';
 import { NumberPickerComponent } from './examples/inputs/number-picker.component';
-import { OrganizationChartComponent } from './components/organization-chart.component';
 import { OverflowTooltipComponent } from './examples/tooltips/overflow-tooltips.component';
 import { PaginationComponent } from './examples/buttons/pagination.component';
-import { PartitionMapComponent } from './components/partition-map.component';
 import { PdfServiceComponent } from './examples/utils/pdf-service.component';
-import { PeityBarChartComponent } from './components/peity-bar-chart.component';
-import { PeityLineChartComponent } from './components/peity-line-chart.component';
-import { PeityPieChartComponent } from './components/peity-pie-chart.component';
-import { PeityUpdatingLineChartComponent } from './components/peity-updating-line-chart.component';
 import { PopoverComponent } from './examples/popover/popover.component';
 import { PreviewPaneWindowComponent } from './examples/tables/preview-pane-window.component';
 import { ProgressBarComponent } from './examples/progress-bar/progress-bar.component';
 import { RadioButtonComponent } from './examples/inputs/radio-buttons.component';
 import { RadioButtonsComponent } from './examples/buttons/radio-buttons.component';
 import { ReorderableTableComponent } from './examples/tables/reorderable-table.component';
-import { SankeyComponent } from './components/sankey.component';
 import { ScrollableTableComponent } from './examples/tables/scrollable-table.component';
 import { SearchBuilderCodeComponent } from './examples/search-builder/search-builder-code.component';
 import { SearchBuilderComponent } from './examples/search-builder/search-builder.component';
@@ -93,7 +84,6 @@ import { SingleSelectTableComponent } from './examples/select/single-select.comp
 import { SingleToggleButtonComponent } from './examples/buttons/single-toggle-button.component';
 import { SliderChartsComponent } from './examples/sliders/slider-charts.component';
 import { SlidersComponent } from './examples/sliders/sliders.component';
-import { SocialChartComponent } from './components/social-chart.component';
 import { SortToggleComponent } from './examples/tables/sort-toggle.component';
 import { SparkChartComponent } from './components/spark-chart.component';
 import { SplitterComponent } from './examples/splitter/splitter.component';
@@ -121,21 +111,7 @@ import { WizardValidationComponent } from './examples/wizard/wizard-validation.c
 
 
 const WRAPPERS: any[] = [
-
-    // Components
-    FlotComponent,
-    NestedDonutComponent,
-    OrganizationChartComponent,
-    PartitionMapComponent,
-    PeityBarChartComponent,
-    PeityLineChartComponent,
-    PeityPieChartComponent,
-    PeityUpdatingLineChartComponent,
-    SankeyComponent,
-    SocialChartComponent,
     SparkChartComponent,
-    
-    // Examples
     AlertStylesComponent,
     AppNavigatorComponent,
     CardTabsComponent,
@@ -167,7 +143,6 @@ const WRAPPERS: any[] = [
     FixedHeaderTableComponent,
     FlippableCardsComponent,
     FloatLabelsComponent,
-    FloatingActionButtonComponent,
     FormValidationFieldByFieldComponent,
     FormValidationOnSubmitComponent,
     GridComponent,

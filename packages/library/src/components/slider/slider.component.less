@@ -17,10 +17,22 @@ ux-slider {
 
         &.wide {
             height: 12px;
+
+            .tooltip {
+                &.tooltip-dynamic {
+                    top: 18px;
+                }
+            }
         }
 
         &.narrow {
             height: 4px;
+
+            .tooltip {
+                &.tooltip-dynamic {
+                    top: 10px;
+                }
+            }
         }
 
         .track-section {
@@ -52,6 +64,18 @@ ux-slider {
                 user-select: none;
                 pointer-events: none;
                 cursor: default;
+
+                &.tooltip-dynamic {
+                    .tooltip-arrow {
+                        display: none;
+                    }
+
+                    .tooltip-inner {
+                        background-color: transparent !important;
+                        color: #666 !important;
+                        box-shadow: none;
+                    }
+                }
             }
 
             &.button {
@@ -123,7 +147,7 @@ ux-slider {
 
     .tick-container {
         position: relative;
-        width: 100%;
+        width: ~'calc(100% - 1px)';
         min-height: 8px;
         margin-top: 3px;
         -moz-user-select: none;
@@ -153,7 +177,6 @@ ux-slider {
 
             .tick-indicator {
                 width: 1px;
-                margin-left: -0.5px;
                 background-color: #999;
                 top: 0;
             }

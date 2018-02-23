@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, Renderer2, AfterContentInit, ContentChild, TemplateRef, OnDestroy, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, AfterContentInit, ContentChild, TemplateRef, OnDestroy, SimpleChanges } from '@angular/core';
 import { ResizeService } from '../../directives/resize/index';
 import { VirtualScrollLoadingDirective } from './directives/virtual-scroll-loading.directive';
 import { VirtualScrollLoadButtonDirective } from './directives/virtual-scroll-load-button.directive';
@@ -35,10 +35,10 @@ export class VirtualScrollComponent implements OnInit, AfterContentInit, OnDestr
     private _subscription: Subscription;
     private _height: number;
 
-    constructor(private _elementRef: ElementRef, resizeService: ResizeService, renderer: Renderer2) {
+    constructor(private _elementRef: ElementRef, resizeService: ResizeService) {
 
         // watch for any future changes to size
-        resizeService.addResizeListener(_elementRef.nativeElement, renderer).subscribe(event => this._height = event.height);
+        resizeService.addResizeListener(_elementRef.nativeElement).subscribe(event => this._height = event.height);
     }
 
     ngOnInit() {

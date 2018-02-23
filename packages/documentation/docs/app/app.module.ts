@@ -32,6 +32,7 @@ import { LicensesPageComponent } from './pages/licenses/licenses.component';
 import { ChangeLogPageComponent } from './pages/changelog/changelog.component';
 
 import { WrappersModule } from './wrappers/wrappers.module';
+import { HybridModule } from '../../src/hybrid/hybrid.module';
 
 /*
   Configure Application Routes
@@ -70,6 +71,7 @@ const appRoutes: Routes = [
     SparkModule,
     ToggleSwitchModule,
     WrappersModule,
+    HybridModule,
     UpgradeModule,
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
   ],

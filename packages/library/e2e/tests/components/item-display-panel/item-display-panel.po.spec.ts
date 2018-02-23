@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder, protractor } from 'protractor';
 export class ItemDisplayPanelPage {
     
     getPage(): void {
-        browser.get('/item-display-panel');
+        browser.get('#/item-display-panel');
     }
     
     table1 = element(by.id('table1'));

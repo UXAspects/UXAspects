@@ -5,7 +5,7 @@ import { LayoutSwitcherItem } from '@ux-aspects/ux-aspects';
 import 'chance';
 import { SliderOptions, SliderType } from '@ux-aspects/ux-aspects';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-components-layout-switching',
@@ -71,10 +71,6 @@ export class ComponentsLayoutSwitchingComponent extends BaseDocumentationSection
                 forRoot: true,
                 library: 'ngx-bootstrap/accordion'
             }
-        ],
-        mappings: [
-            MAPPINGS.Chance,
-            MAPPINGS.NgxBootstrap
         ]
     };
 

@@ -26,7 +26,7 @@ module.exports = function (grunt) {
     grunt.registerTask('library', ['clean:library', 'run:build_library']);
 
     grunt.registerTask('licenses', ['execute:licenses']);
-    grunt.registerTask('e2e', ['clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e', 'makeReport']);
+    grunt.registerTask('e2e', ['clean:e2e', 'webpack:e2e', 'ts:e2e', 'copy:webdriver', 'rename:webdriver', 'run:e2e', 'makeReport']);
 
     // Tasks with larger chains of events
     grunt.registerTask('develop', ['watch']);

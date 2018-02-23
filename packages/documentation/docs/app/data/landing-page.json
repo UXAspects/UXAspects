@@ -14,7 +14,7 @@
     },
     "overview": {
         "title": "About UX Aspects",
-        "description": "UX Aspects provides all of the essentials required for your big data project, allowing you to swiftly create dashboards and reports that provide users with the insights they crave from their big data applications. UX Aspects is based on best-of-breed, open source technologies, including Angular, Bootstrap and D3. It is easy to include in your web applications with the Bower web package manager.",
+        "description": "UX Aspects provides all of the essentials required for your big data project, allowing you to swiftly create dashboards and reports that provide users with the insights they crave from their big data applications. UX Aspects is based on best-of-breed, open source technologies, including Angular, Bootstrap and D3. It is easy to include in your web applications with a package manager.",
         "features": [{
             "image": "assets/img/angular-icon.png",
             "title": "Angular",

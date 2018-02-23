@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 NextVersion=$1
 echo ${FUNCNAME[0]} - NextVersion is $NextVersion

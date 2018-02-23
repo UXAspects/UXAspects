@@ -1,0 +1,75 @@
+ux-marquee-wizard {
+    display: flex;
+    height: 100%;
+    min-height: 500px;
+
+    .marquee-wizard-side-panel {
+        display: flex;
+        flex-direction: column;
+        flex: none;
+        width: 240px;
+        background-color: @marquee-modal-side-panel-bg;
+
+        .marquee-wizard-description-container {
+            padding: 20px;
+            color: @marquee-wizard-step-color;
+        }
+
+        .marquee-wizard-steps {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            list-style-type: none;
+            padding: 0;
+            margin-top: 0;
+
+            .marquee-wizard-step {
+                display: flex;
+                color: @marquee-wizard-step-color;
+                padding: 8px 20px;
+                cursor: default;
+                transition: background-color 0.3s linear;
+                align-items: center;
+
+                &.active {
+                    background-color: rgba(0, 0, 0, 0.2);
+                }
+
+                &.active,
+                &.visited {
+                    cursor: pointer;
+                }
+
+                &.invalid {
+                    background-color: @marquee-wizard-step-error-bg;
+                }
+
+                .marquee-wizard-step-icon {
+                    margin-right: 10px;
+                    flex: none;
+                }
+
+                .marquee-wizard-step-title {
+                    flex: 1;
+                    pointer-events: none;
+                }
+
+                .marquee-wizard-step-status {
+                    flex: none;
+                }
+            }
+        }
+    }
+
+    .marquee-wizard-content-panel {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        background-color: @marquee-modal-bg;
+
+        .marquee-wizard-content {
+            flex: 1;
+            padding: 35px;
+        }
+    }
+}

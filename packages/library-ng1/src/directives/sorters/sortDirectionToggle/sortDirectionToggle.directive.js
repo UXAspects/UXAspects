@@ -6,8 +6,8 @@ export default function sortDirectionToggle() {
         scope: {
             label: '=',
             sorters: '=',
-            descend: '='
+            descend: '=?'
         },
-        replace: true
+        bindToController: true
     };
 }

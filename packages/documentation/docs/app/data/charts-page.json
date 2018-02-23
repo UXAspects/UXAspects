@@ -22,6 +22,7 @@
                     "title": "Bar Chart",
                     "component": "ChartsBarChartNg1Component",
                     "version": "AngularJS",
+                    "hybrid": true,
                     "deprecated": true
                 },
                 {
@@ -41,6 +42,7 @@
                     "title": "Horizontal Bar Chart",
                     "component": "ChartsHorizontalBarChartNg1Component",
                     "version": "AngularJS",
+                    "hybrid": true,
                     "deprecated": true
                 },
                 {
@@ -60,6 +62,7 @@
                     "title": "Stacked Bar Chart",
                     "component": "ChartsStackedBarChartNg1Component",
                     "version": "AngularJS",
+                    "hybrid": true,
                     "deprecated": true
                 }
             ]
@@ -71,7 +74,8 @@
                 {
                     "title": "Peity Charts",
                     "component": "ChartsPeityChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "hybrid": true
                 }
             ]
         },
@@ -96,6 +100,7 @@
                     "title": "Donut Chart",
                     "component": "ChartsDonutChartNg1Component",
                     "version": "AngularJS",
+                    "hybrid": true,
                     "deprecated": true
                 },
                 {
@@ -112,7 +117,9 @@
                 {
                     "title": "Flot Options",
                     "component": "ChartsFlotOptionsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "hybrid": true,
+                    "deprecated": true
                 }
             ]
         },
@@ -137,6 +144,7 @@
                     "title": "Line Chart",
                     "component": "ChartsLineChartNg1Component",
                     "version": "AngularJS",
+                    "hybrid": true,
                     "deprecated": true
                 },
                 {
@@ -156,6 +164,7 @@
                     "title": "Stacked Line Chart",
                     "component": "ChartsStackedLineChartNg1Component",
                     "version": "AngularJS",
+                    "hybrid": true,
                     "deprecated": true
                 },
                 {
@@ -175,6 +184,7 @@
                     "title": "Multiple Axis Line Chart",
                     "component": "ChartsMultipleAxisLineChartNg1Component",
                     "version": "AngularJS",
+                    "hybrid": true,
                     "deprecated": true
                 }
             ]
@@ -200,6 +210,7 @@
                     "title": "Live Chart",
                     "component": "ChartsLiveChartNg1Component",
                     "version": "AngularJS",
+                    "hybrid": true,
                     "deprecated": true
                 }
             ]
@@ -211,7 +222,8 @@
                 {
                     "title": "Organization Chart",
                     "component": "ChartsOrganizationChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "hybrid": true
                 }
             ]
         },
@@ -233,7 +245,8 @@
                 {
                     "title": "Sankey Chart",
                     "component": "ChartsSankeyChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "hybrid": true
                 }
             ]
         },
@@ -272,7 +285,8 @@
                 {
                     "title": "Social Chart",
                     "component": "ChartsSocialChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "hybrid": true
                 }
             ]
         },
@@ -307,7 +321,8 @@
                 {
                     "title": "Timeline Charts",
                     "component": "ChartsTimelineChartNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "hybrid": true
                 }
             ]
         }

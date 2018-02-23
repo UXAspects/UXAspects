@@ -27,9 +27,13 @@ docker_image_build()
             --build-arg no_proxy="localhost, 127.0.0.1" \
             --no-cache .
         DOCKER_IMAGE_ID=`docker images | grep $UX_ASPECTS_BUILD_IMAGE_NAME | grep $UX_ASPECTS_BUILD_IMAGE_TAG_LATEST | awk '{print $3}'`
+        exitCode=$?
+        echo exitCode from docker_image_build is $exitCode        
         echo ID for new $UX_ASPECTS_BUILD_IMAGE_NAME:$UX_ASPECTS_BUILD_IMAGE_TAG_LATEST image is $DOCKER_IMAGE_ID
         popd
     fi
+    
+    return $exitCode
 }
 
 # Define a function to run a specified Docker image. The job's workspace will be mapped to /workspace in the container.
@@ -65,8 +69,12 @@ docker_image_run_detached()
         
         echo dockerCommand is $dockerCommand
         eval $dockerCommand
+        exitCode=$?        
+        echo exitCode from docker_image_run_detached is $exitCode        
         popd
     fi
+    
+    return $exitCode
 }
 
 # Define a function to run a specified Docker image. The job's workspace will be mapped to /workspace in the container.
@@ -94,8 +102,12 @@ docker_image_run()
         
         echo dockerCommand is $dockerCommand
         eval $dockerCommand
+        exitCode=$?        
+        echo exitCode from docker_image_run is $exitCode        
         popd
     fi
+    
+    return $exitCode
 }
 
 # Define a function which loops while waiting for the Selenium Grid hub process to start or finish

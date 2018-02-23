@@ -2,11 +2,70 @@
     <ng-content></ng-content>
 </div>
 
-<div class="resizer-handle handle-top" [style.top.px]="padding" [hidden]="!resizable"></div>
-<div class="resizer-handle handle-top-right" [style.top.px]="padding" [style.right.px]="padding" [hidden]="!resizable && !stacked"></div>
-<div class="resizer-handle handle-right" [style.right.px]="padding" [hidden]="!resizable || stacked"></div>
-<div class="resizer-handle handle-bottom-right" [style.bottom.px]="padding" [style.right.px]="padding" [hidden]="!resizable && !stacked"></div>
-<div class="resizer-handle handle-bottom" [style.bottom.px]="padding" [hidden]="!resizable"></div>
-<div class="resizer-handle handle-bottom-left" [style.bottom.px]="padding" [style.left.px]="padding" [hidden]="!resizable && !stacked"></div>
-<div class="resizer-handle handle-left" [style.left.px]="padding" [hidden]="!resizable || stacked"></div>
-<div class="resizer-handle handle-top-left" [style.top.px]="padding" [style.left.px]="padding" [hidden]="!resizable && !stacked"></div>
+<div uxDrag #handleTop class="resizer-handle handle-top" 
+    (dragstart)="dragstart(handleTop, $event, 0)"
+    (drag)="drag(handleTop, $event, 0)"
+    (dragend)="dragend()"
+    [style.top.px]="padding" 
+    [hidden]="!resizable">
+</div>
+
+<div uxDrag #handleTopRight class="resizer-handle handle-top-right" 
+    (dragstart)="dragstart(handleTopRight, $event, 1)"
+    (drag)="drag(handleTopRight, $event, 1)"
+    (dragend)="dragend()"
+    [style.top.px]="padding" 
+    [style.right.px]="padding" 
+    [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+</div>
+
+<div uxDrag #handleRight class="resizer-handle handle-right" 
+    (dragstart)="dragstart(handleRight, $event, 2)"
+    (drag)="drag(handleRight, $event, 2)"
+    (dragend)="dragend()"
+    [style.right.px]="padding" 
+    [hidden]="!resizable || (dashboardService.stacked$ | async)">
+</div>
+
+<div uxDrag #handleBottomRight class="resizer-handle handle-bottom-right" 
+    (dragstart)="dragstart(handleBottomRight, $event, 3)"
+    (drag)="drag(handleBottomRight, $event, 3)"
+    (dragend)="dragend()"
+    [style.bottom.px]="padding" 
+    [style.right.px]="padding" 
+    [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+</div>
+
+<div uxDrag #handleBottom class="resizer-handle handle-bottom" 
+    (dragstart)="dragstart(handleBottom, $event, 4)"
+    (drag)="drag(handleBottom, $event, 4)"
+    (dragend)="dragend()"
+    [style.bottom.px]="padding" 
+    [hidden]="!resizable">
+</div>
+
+<div uxDrag #handleBottomLeft class="resizer-handle handle-bottom-left" 
+    (dragstart)="dragstart(handleBottomLeft, $event, 5)"
+    (drag)="drag(handleBottomLeft, $event, 5)"
+    (dragend)="dragend()"
+    [style.bottom.px]="padding" 
+    [style.left.px]="padding" 
+    [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+</div>
+
+<div uxDrag #handleLeft class="resizer-handle handle-left" 
+    (dragstart)="dragstart(handleLeft, $event, 6)"
+    (drag)="drag(handleLeft, $event, 6)"
+    (dragend)="dragend()"
+    [style.left.px]="padding" 
+    [hidden]="!resizable || (dashboardService.stacked$ | async)">
+</div>
+
+<div uxDrag #handleTopLeft class="resizer-handle handle-top-left" 
+    (dragstart)="dragstart(handleTopLeft, $event, 7)"
+    (drag)="drag(handleTopLeft, $event, 7)"
+    (dragend)="dragend()"
+    [style.top.px]="padding" 
+    [style.left.px]="padding" 
+    [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+</div>

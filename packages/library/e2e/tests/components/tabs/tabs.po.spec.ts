@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class TabsTestPageComponent {
         
     getPage(): void {
-        browser.get('/tabs');
+        browser.get('#/tabs');
     }
     
     // Icon only

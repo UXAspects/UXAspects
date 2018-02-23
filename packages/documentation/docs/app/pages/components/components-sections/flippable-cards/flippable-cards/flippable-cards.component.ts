@@ -10,6 +10,8 @@ import { ColorService } from '@ux-aspects/ux-aspects';
 @DocumentationSectionComponent('ComponentsFlippableCardsComponent')
 export class ComponentsFlippableCardsComponent extends BaseDocumentationSection {
 
+    icon: string = require('../../../../../assets/img/IconCaseColorized36x36.png');
+
     donut1 = [{
         label: 'documents',
         color: this.colorService.getColor('grey6').toHex(),

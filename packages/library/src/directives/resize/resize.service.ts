@@ -1,4 +1,4 @@
-import { Injectable, Renderer2 } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -7,48 +7,53 @@ import 'rxjs/add/observable/fromEvent';
 @Injectable()
 export class ResizeService {
 
-    addResizeListener(nativeElement: HTMLElement, renderer: Renderer2): Subject<ResizeDimensions> {
+    private _renderer: Renderer2;
+
+    constructor(rendererFactory: RendererFactory2) {
+        this._renderer = rendererFactory.createRenderer(null, null);
+    }
+
+    addResizeListener(nativeElement: HTMLElement): Subject<ResizeDimensions> {
 
         // create subject
-        let subject = new Subject<ResizeDimensions>();
+        const subject = new Subject<ResizeDimensions>();
 
         // determine the style of the element
-        let displayMode = window.getComputedStyle(nativeElement).getPropertyValue('display');
+        const displayMode = window.getComputedStyle(nativeElement).getPropertyValue('display');
 
         // create the iframe element
-        let iframe: HTMLIFrameElement = renderer.createElement('iframe');
+        const iframe: HTMLIFrameElement = this._renderer.createElement('iframe');
 
         // style the iframe to be invisible but fill containing element
-        renderer.setStyle(iframe, 'position', 'absolute');
-        renderer.setStyle(iframe, 'width', '100%');
-        renderer.setStyle(iframe, 'height', '100%');
-        renderer.setStyle(iframe, 'top', '0');
-        renderer.setStyle(iframe, 'right', '0');
-        renderer.setStyle(iframe, 'bottom', '0');
-        renderer.setStyle(iframe, 'left', '0');
-        renderer.setStyle(iframe, 'z-index', '-1');
-        renderer.setStyle(iframe, 'opacity', '0');
-        renderer.setStyle(iframe, 'border', 'none');
-        renderer.setStyle(iframe, 'margin', '0');
-        renderer.setStyle(iframe, 'pointer-events', 'none');
-        renderer.setStyle(iframe, 'overflow', 'hidden');
+        this._renderer.setStyle(iframe, 'position', 'absolute');
+        this._renderer.setStyle(iframe, 'width', '100%');
+        this._renderer.setStyle(iframe, 'height', '100%');
+        this._renderer.setStyle(iframe, 'top', '0');
+        this._renderer.setStyle(iframe, 'right', '0');
+        this._renderer.setStyle(iframe, 'bottom', '0');
+        this._renderer.setStyle(iframe, 'left', '0');
+        this._renderer.setStyle(iframe, 'z-index', '-1');
+        this._renderer.setStyle(iframe, 'opacity', '0');
+        this._renderer.setStyle(iframe, 'border', 'none');
+        this._renderer.setStyle(iframe, 'margin', '0');
+        this._renderer.setStyle(iframe, 'pointer-events', 'none');
+        this._renderer.setStyle(iframe, 'overflow', 'hidden');
 
         // ensure the iframe ignores any tabbing
-        renderer.setAttribute(iframe, 'tabindex', '-1');
+        this._renderer.setAttribute(iframe, 'tabindex', '-1');
 
         // statically positioned elements need changed to relative for this method to work
         if (displayMode !== 'relative' && displayMode !== 'absolute' && displayMode !== 'fixed') {
-            renderer.setStyle(nativeElement, 'position', 'relative');
+            this._renderer.setStyle(nativeElement, 'position', 'relative');
         }
 
         // add the iframe to the container element
-        renderer.appendChild(nativeElement, iframe);
-
+        this._renderer.appendChild(nativeElement, iframe);
 
         this.waitUntilReady(iframe, () => {
-            let iframeDoc = iframe.contentDocument || iframe.contentWindow.document as HTMLDocument;
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document as Document;
 
-            let attachListener = function () {
+            const attachListener = function () {
                 Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) => {
 
                     subject.next({

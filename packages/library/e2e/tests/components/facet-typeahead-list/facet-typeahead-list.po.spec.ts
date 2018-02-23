@@ -3,7 +3,7 @@ import { browser, element, by } from 'protractor';
 export class FacetTypeaheadListPage {
         
     getPage(): void {
-        browser.get('/facet-typeahead-list');
+        browser.get('#/facet-typeahead-list');
     }
     
     container = element(by.id('container1'));

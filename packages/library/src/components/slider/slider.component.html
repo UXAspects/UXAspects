@@ -4,15 +4,31 @@
     <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="tracks.lower.color"></div>
 
     <!-- Lower Thumb Button / Line -->
-    <div class="thumb lower" #lowerThumb [style.left.%]="thumbs.lower.position" [class.active]="thumbs.lower.drag" [style.z-index]="thumbs.lower.order" [class.button]="options.handles.style === sliderStyle.Button"
-        [class.line]="options.handles.style === sliderStyle.Line" [class.narrow]="options.track.height === sliderSize.Narrow"
-        [class.wide]="options.track.height === sliderSize.Wide" (mouseenter)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
-        (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)" (mousedown)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)">
+    <div class="thumb lower" uxDrag
+        [style.left.%]="thumbs.lower.position" 
+        [class.active]="thumbs.lower.drag" 
+        [style.z-index]="thumbs.lower.order" 
+        [class.button]="options.handles.style === sliderStyle.Button"
+        [class.line]="options.handles.style === sliderStyle.Line" 
+        [class.narrow]="options.track.height === sliderSize.Narrow"
+        [class.wide]="options.track.height === sliderSize.Wide" 
+        (dragstart)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)"
+        (drag)="updateThumbPosition($event, sliderThumb.Lower)"
+        (dragend)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)"
+        (mouseenter)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
+        (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)">
 
         <!-- Lower Thumb Callout -->
-        <div class="tooltip top tooltip-lower" #lowerTooltip [style.opacity]="tooltips.lower.visible ? 1 : 0" [style.left.px]="tooltips.lower.position">
+        <div class="tooltip top tooltip-lower" #lowerTooltip 
+            [class.tooltip-dynamic]="options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false"
+            [style.opacity]="tooltips.lower.visible ? 1 : 0" 
+            [style.left.px]="tooltips.lower.position">
+
             <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
-            <div class="tooltip-inner" [style.background-color]="options.handles.callout.background" [style.color]="options.handles.callout.color">
+
+            <div class="tooltip-inner" 
+                [style.background-color]="options.handles.callout.background" 
+                [style.color]="options.handles.callout.color">
                 {{ tooltips.lower.label }}
             </div>
         </div>
@@ -24,15 +40,32 @@
     </div>
 
     <!-- Upper Thumb Button / Line -->
-    <div class="thumb upper" #upperThumb [hidden]="options.type !== sliderType.Range" [class.active]="thumbs.upper.drag" [style.left.%]="thumbs.upper.position" [style.z-index]="thumbs.upper.order"
-        [class.button]="options.handles.style === sliderStyle.Button" [class.line]="options.handles.style === sliderStyle.Line"
-        [class.narrow]="options.track.height === sliderSize.Narrow" [class.wide]="options.track.height === sliderSize.Wide" (mouseenter)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
-        (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)" (mousedown)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)">
+    <div class="thumb upper" uxDrag
+        [hidden]="options.type !== sliderType.Range" 
+        [class.active]="thumbs.upper.drag" 
+        [style.left.%]="thumbs.upper.position" 
+        [style.z-index]="thumbs.upper.order"
+        [class.button]="options.handles.style === sliderStyle.Button" 
+        [class.line]="options.handles.style === sliderStyle.Line"
+        [class.narrow]="options.track.height === sliderSize.Narrow" 
+        [class.wide]="options.track.height === sliderSize.Wide" 
+        (dragstart)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)"
+        (drag)="updateThumbPosition($event, sliderThumb.Upper)"
+        (dragend)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)"
+        (mouseenter)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
+        (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)">
 
         <!-- Upper Thumb Callout -->
-        <div class="tooltip top tooltip-upper" #upperTooltip [style.opacity]="tooltips.upper.visible ? 1 : 0" [style.left.px]="tooltips.upper.position">
+        <div class="tooltip top tooltip-upper" #upperTooltip 
+            [class.tooltip-dynamic]="options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false"
+            [style.opacity]="tooltips.upper.visible ? 1 : 0" 
+            [style.left.px]="tooltips.upper.position">
+
             <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
-            <div class="tooltip-inner" *ngIf="options.type === sliderType.Range" [style.background-color]="options.handles.callout.background"
+
+            <div class="tooltip-inner" 
+                *ngIf="options.type === sliderType.Range" 
+                [style.background-color]="options.handles.callout.background"
                 [style.color]="options.handles.callout.color">
                 {{ tooltips.upper.label }}
             </div>
@@ -45,7 +78,9 @@
 </div>
 
 <!-- Chart Ticks and Tick Labels -->
-<div class="tick-container" *ngIf="options.track.ticks.major.show || options.track.ticks.minor.show" [class.show-labels]="options.track.ticks.major.labels || options.track.ticks.minor.labels">
+<div class="tick-container" 
+    *ngIf="(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic" 
+    [class.show-labels]="options.track.ticks.major.labels || options.track.ticks.minor.labels">
 
     <div class="tick" *ngFor="let tick of ticks" [class.major]="tick.type === sliderTickType.Major" [class.minor]="tick.type === sliderTickType.Minor"
         [style.left.%]="tick.position" [hidden]="!tick.showTicks">

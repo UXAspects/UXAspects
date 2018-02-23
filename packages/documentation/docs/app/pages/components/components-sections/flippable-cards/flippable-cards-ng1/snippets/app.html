@@ -2,15 +2,15 @@
     <div class="row">
         <div class="col-md-12 m-t-md">
             <div class="flex-container">
-                <flippable-card class="m-sm" flip-on="click" flip-style="vertical" card-height="240" card-width="260">
+                <flippable-card class="m-sm" flip-on="click" flip-style="vertical" card-height="180" card-width="260">
                     <card-front>
                         <i class="hpe-icon hpe-link-down pull-right clickable-icon" aria-hidden="true" flip-on-click=""></i>
                         <img class="card-logo" ng-src="https://uxaspects.github.io/UXAspects/assets/img/IconCaseColorized36x36.png">
                         <div class="flip-card-content">
                             <p class="front-title">NYC vs Volkswagen</p>
-                            <div class="m-t-md">
+                            <div class="m-t-sm">
                                 <p class="card-text documents"><span ng-bind="::vm.card1.documents"></span><span class="text-muted"> documents</span></p>
-                                <p class="card-text" ng-style="{color: vm.colors.reviewed}"><span ng-bind="::vm.card1.reviewed"></span><span class="text-muted"> reviewed</span></p>
+                                <p class="card-text reviewed" ng-style="{color: vm.colors.reviewed}"><span ng-bind="::vm.card1.reviewed"></span><span class="text-muted"> reviewed</span></p>
                                 <p class="card-text produced" ng-style="{color: vm.colors.produced}"><span ng-bind="::vm.card1.produced"></span><span class="text-muted"> produced</span></p>
                             </div>
                             <nested-donut class="flip-card-nested-donut" dataset="vm.nestedDonutData1" options="vm.nestedDonutOptions"></nested-donut>
@@ -54,38 +54,19 @@
                                 </div>
 
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <p>
-                                        <span ng-style="{color: vm.colors.produced}" ng-bind="::vm.card1.produced"></span>
-                                        <span class="muted"> produced</span>
-                                    </p>
-                                </div>
-                                <div class="col-xs-7">
-                                    <p>
-                                        <span class="muted right-align">productions</span>
-                                        <span class="produced left-align">22</span>
-                                    </p>
-                                    <p>
-                                        <span class="muted right-align">active</span>
-                                        <spark type="vm.spark.type" value="'60'" fillheight="5" class="spark-left-align"></spark>
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                     </card-back>
                 </flippable-card>
 
 
-                <flippable-card class="m-sm" flip-on="hover" flip-style="horizontal" card-height="240" card-width="260">
+                <flippable-card class="m-sm" flip-on="hover" flip-style="horizontal" card-height="180" card-width="260">
                     <card-front>
                         <img class="card-logo" ng-src="https://uxaspects.github.io/UXAspects/assets/img/IconCaseColorized36x36.png">
                         <div class="flip-card-content">
                             <p class="front-title">The Dorling Case</p>
-                            <div class="m-t-md">
+                            <div class="m-t-sm">
                                 <p class="card-text documents"><span ng-bind="::vm.card2.documents"></span><span class="text-muted"> documents</span></p>
-                                <p class="card-text" ng-style="{color: vm.colors.reviewed}"><span ng-bind="::vm.card2.reviewed"></span><span class="text-muted"> reviewed</span></p>
+                                <p class="card-text reviewed" ng-style="{color: vm.colors.reviewed}"><span ng-bind="::vm.card2.reviewed"></span><span class="text-muted"> reviewed</span></p>
                                 <p class="card-text produced" ng-style="{color: vm.colors.produced}"><span ng-bind="::vm.card2.produced"></span><span class="text-muted"> produced</span></p>
                             </div>
                             <nested-donut class="flip-card-nested-donut" dataset="vm.nestedDonutData2" options="vm.nestedDonutOptions"></nested-donut>
@@ -128,38 +109,19 @@
                                 </div>
 
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <p>
-                                        <span ng-style="{color: vm.colors.produced}" ng-bind="::vm.card2.produced"></span>
-                                        <span class="muted"> produced</span>
-                                    </p>
-                                </div>
-                                <div class="col-xs-7">
-                                    <p>
-                                        <span class="muted right-align">productions</span>
-                                        <span class="produced left-align">22</span>
-                                    </p>
-                                    <p>
-                                        <span class="muted right-align">active</span>
-                                        <spark type="vm.spark.type" value="'60'" fillheight="5" class="spark-left-align"></spark>
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                     </card-back>
                 </flippable-card>
 
 
-                <flippable-card class="m-sm" flip-on="click" flip-style="horizontal" card-height="240" card-width="260">
+                <flippable-card class="m-sm" flip-on="click" flip-style="horizontal" card-height="180" card-width="260">
                     <card-front>
                         <img class="card-logo" ng-src="https://uxaspects.github.io/UXAspects/assets/img/IconCaseColorized36x36.png">
                         <div class="flip-card-content">
                             <p class="front-title">The Salisbury Case</p>
-                            <div class="m-t-md">
+                            <div class="m-t-sm">
                                 <p class="card-text documents"><span ng-bind="::vm.card3.documents"></span><span class="text-muted"> documents</span></p>
-                                <p class="card-text" ng-style="{color: vm.colors.reviewed}"><span ng-bind="::vm.card3.reviewed"></span><span class="text-muted"> reviewed</span></p>
+                                <p class="card-text reviewed" ng-style="{color: vm.colors.reviewed}"><span ng-bind="::vm.card3.reviewed"></span><span class="text-muted"> reviewed</span></p>
                                 <p class="card-text produced" ng-style="{color: vm.colors.produced}"><span ng-bind="::vm.card3.produced"></span><span class="text-muted"> produced</span></p>
                             </div>
                             <nested-donut class="flip-card-nested-donut" dataset="vm.nestedDonutData1" options="vm.nestedDonutOptions"></nested-donut>
@@ -201,25 +163,6 @@
                                     </p>
                                 </div>
 
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <p>
-                                        <span ng-style="{color: vm.colors.produced}" ng-bind="::vm.card3.produced"></span>
-                                        <span class="muted"> produced</span>
-                                    </p>
-                                </div>
-                                <div class="col-xs-7">
-                                    <p>
-                                        <span class="muted right-align">productions</span>
-                                        <span class="produced left-align">22</span>
-                                    </p>
-                                    <p>
-                                        <span class="muted right-align">active</span>
-                                        <spark type="vm.spark.type" value="'60'" fillheight="5" class="spark-left-align"></spark>
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </card-back>

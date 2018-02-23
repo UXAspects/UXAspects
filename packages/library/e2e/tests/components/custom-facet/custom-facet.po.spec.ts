@@ -3,7 +3,7 @@ import { browser, element, by } from 'protractor';
 export class CustomFacetPage {
         
     getPage(): void {
-        browser.get('/custom-facet');
+        browser.get('#/custom-facet');
     }
     
     container = element(by.id('customFacetContainer'));

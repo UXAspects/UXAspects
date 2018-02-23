@@ -6,8 +6,8 @@ import { FlotData } from './flot-data';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html',
-    styleUrls: ['./src/app.component.css'],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
     encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit {

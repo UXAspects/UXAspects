@@ -72,6 +72,15 @@ uxd-page-footer {
     }
 }
 
+.uxd-component-section-help-popover {
+    max-width: 500px;
+    margin-left: -180px;
+
+    &.popover.bottom > .arrow {
+        margin-left: 169px;
+    }
+}
+
 .uxd-component-section-content > * > h4 {
     margin-top: 30px;
 }
@@ -620,7 +629,7 @@ tr.dragging .reorderable-controls .reorder-drag {
 */
 
 .flip-card-content {
-    padding: 35px 10px 15px 35px;
+    padding: 35px 10px 15px 20px;
 }
 
 .flip-card-content.cursor-pointer {
@@ -631,6 +640,8 @@ tr.dragging .reorderable-controls .reorder-drag {
     font-size: 21px;
     font-weight: 600;
     color: #333;
+    margin-top: 9px;
+    margin-bottom: 0;
 }
 
 .flip-card-content.card-back {
@@ -704,15 +715,17 @@ tr.dragging .reorderable-controls .reorder-drag {
 }
 
 .flip-card-nested-donut {
-    float: right;
-    right: 10px;
-    bottom: 15px;
     position: absolute;
+    right: 10px;
+    bottom: 16px;
+    width: 70px;
+    height: 70px;
 }
 
 .card-text {
     font-size: 18px;
     font-weight: 600;
+    margin-bottom: 3px;
 }
 
 .card-text.documents {

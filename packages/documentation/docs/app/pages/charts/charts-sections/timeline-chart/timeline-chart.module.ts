@@ -7,6 +7,7 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ChartsTimelineChartNg1Component
@@ -26,6 +27,7 @@ const ROUTES = [
     imports: [
         TabsModule,
         WrappersModule,
+        HybridModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

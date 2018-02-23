@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class FlippableCardsPage {
         
     getPage(): void {
-        browser.get('/flippable-cards');
+        browser.get('#/flippable-cards');
     }
     
     flippableCard1 = element(by.id('flippableCard1'));

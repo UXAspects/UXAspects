@@ -3,22 +3,30 @@ selectTableCtrl.$inject = ["$timeout", "$scope", "$filter"];
 export default function selectTableCtrl($timeout, $scope, $filter) {
     var vm = this;
 
-    vm.tableHeight = vm.tableHeight || "300px";
-    vm.displayVals = vm.values;
+    // initial delay to ensue we have all the values we need
+    $timeout(initialise.bind(vm));
 
-    if (vm.multipleSelect) {
-        vm.selected = vm.selected || [];
+    function initialise() {
+
+        vm.tableHeight = vm.tableHeight || "300px";
+        vm.displayVals = vm.values;
+    
+        if (vm.multipleSelect) {
+            vm.selected = vm.selected || [];
+        }
+    
+        vm.reselectFilteredItems = vm.selectHiddenItems === "reselect";
+        vm.selectFilteredItems = !(vm.selectHiddenItems === "clear" || vm.selectHiddenItems === "reselect");
+    
+        vm.previouslySelected = null;
+    
+        $scope.$watch('vm.values', updateValues, true);
+        $scope.$watch('vm.searchText', updateValues);
     }
 
-    vm.reselectFilteredItems = vm.selectHiddenItems === "reselect";
-    vm.selectFilteredItems = !(vm.selectHiddenItems === "clear" || vm.selectHiddenItems === "reselect");
-
-    vm.previouslySelected = null;
-
-    vm.isArrayOfObjects = angular.isDefined(vm.selectKey);
 
     vm.displayFn = function(value) {
-        return vm.isArrayOfObjects ? value[vm.selectKey] : value;
+        return vm.selectKey ? value[vm.selectKey] : value;
     };
 
     vm.isselected = function(item) {
@@ -40,9 +48,6 @@ export default function selectTableCtrl($timeout, $scope, $filter) {
             return found;
         }
     };
-
-    $scope.$watch('vm.values', updateValues, true);
-    $scope.$watch('vm.searchText', updateValues);
 
     function updateScrollbar() {
 
@@ -145,7 +150,6 @@ export default function selectTableCtrl($timeout, $scope, $filter) {
                 vm.selected.push(value);
             }
         }
-
     };
 
     vm.keydown = function(e) {

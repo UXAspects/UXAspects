@@ -3,7 +3,7 @@ import { Filter } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html'
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
 

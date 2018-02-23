@@ -14,6 +14,7 @@ export class SlidersTestPageComponent {
     slider5: SliderExample;
     slider6: SliderExample;
     slider7: SliderExample;
+    slider8: SliderExample;
 
     lowerValue: number = 25;
     upperValue: number = 75;
@@ -222,9 +223,41 @@ export class SlidersTestPageComponent {
                 }
             }
         };
+
+        this.slider8 = {
+            value: {
+                low: 1234,
+                high: 9876
+            },
+            options: {
+                type: SliderType.Range,
+                handles: {
+                    callout: {
+                        trigger: SliderCalloutTrigger.Dynamic,
+                        formatter: value => value ? value.toFixed(0) : value
+                    }
+                },
+                track: {
+                    height: SliderSize.Narrow,
+                    min: 1000,
+                    max: 10000,
+                    ticks: {
+                        major: {
+                            show: false
+                        },
+                        minor: {
+                            show: false
+                        }
+                    },
+                    colors: {
+                        range: colorService.getColor('accent').toHex()
+                    }
+                }
+            }
+        };
     }
 
-    updateValues() {
+    updateValues(): void {
         this.slider7.value = this.slider7.value as SliderValue;
 
         if (!isNaN(Number(this.lowerValue))) {
@@ -236,7 +269,7 @@ export class SlidersTestPageComponent {
         }
     }
 
-    valueHasChanged(value: SliderValue) {
+    valueHasChanged(value: SliderValue): void {
         this.slider7.value = value;
 
         this.lowerValue = value.low;

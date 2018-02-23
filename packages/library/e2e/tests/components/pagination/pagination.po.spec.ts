@@ -3,7 +3,7 @@ import { browser, element, by , ElementFinder} from 'protractor';
 export class PaginationPage {
         
     getPage(): void {
-        browser.get('pagination');
+        browser.get('#/pagination');
     }
 
     pagination = element(by.id('pagination'));

@@ -338,10 +338,6 @@ export interface IPlunk {
         library?: string;
         importAs?: boolean;
     }[];
-    mappings?: {
-        alias: string;
-        source: string;
-    }[];
 }
 ```
 

@@ -1,4 +1,4 @@
-import { Component, Input, ContentChildren, QueryList, AfterViewInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, Output, QueryList } from '@angular/core';
 import { WizardStepComponent } from './wizard-step.component';
 
 @Component({
@@ -43,17 +43,19 @@ export class WizardComponent implements AfterViewInit {
     @Output() onNext = new EventEmitter<number>();
     @Output() onPrevious = new EventEmitter<number>();
     @Output() onCancel = new EventEmitter<void>();
+    @Output() onFinishing = new EventEmitter<void>();
     @Output() onFinish = new EventEmitter<void>();
+    @Output() stepChanging = new EventEmitter<StepChangingEvent>();
     @Output() stepChange = new EventEmitter<number>();
 
     invalidIndicator: boolean = false;
 
-    @Input() 
+    @Input()
     get step() {
         return this._step;
     }
     set step(value: number) {
-        
+
         // only accept numbers as valid options
         if (typeof value === 'number') {
 
@@ -77,11 +79,12 @@ export class WizardComponent implements AfterViewInit {
         setTimeout(this.update.bind(this));
     }
 
-
     /**
      * Navigate to the next step
      */
     next(): void {
+
+        this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
 
         // check if current step is invalid
         if (!this.getCurrentStep().valid) {
@@ -102,21 +105,43 @@ export class WizardComponent implements AfterViewInit {
      * Navigate to the previous step
      */
     previous(): void {
-        
+
+        this.stepChanging.next(new StepChangingEvent(this.step, this.step - 1));
+
         // check if we are currently on the last step
         if (this.step > 0) {
             this.step--;
 
             // emit the current step
-            this.onPrevious.next(this.step);            
+            this.onPrevious.next(this.step);
         }
     }
 
     /**
      * Perform actions when the finish button is clicked
      */
-    finish(): void {
-        this.onFinish.next();        
+    finish(): Promise<void> {
+
+        // fires when the finish button is clicked always
+        this.onFinishing.next();
+
+        /**
+         * This is required because we need to ensure change detection has run
+         * to determine whether or not we have the latest value for the 'valid' input
+         * on the current step. Unfortunately we can't use ChangeDetectorRef as we are looking to run
+         * on content children, and we cant use ApplicationRef.tick() as this does not work in a hybrid app, eg. our docs
+         */
+        return new Promise<void>(resolve => {
+            setTimeout(() => {
+
+                // only fires when the finish button is clicked and the step is valid
+                if (this.getCurrentStep().valid) {
+                    this.onFinish.next();        
+                }
+
+                resolve();
+            });
+        });
     }
 
     /**
@@ -139,7 +164,12 @@ export class WizardComponent implements AfterViewInit {
      */
     gotoStep(step: WizardStepComponent): void {
         if (step.visited) {
-            this.step = this.steps.toArray().findIndex(stp => stp === step);
+
+            const stepIndex = this.steps.toArray().findIndex(stp => stp === step);
+
+            this.stepChanging.next(new StepChangingEvent(this.step, stepIndex));
+
+            this.step = stepIndex;
         }
     }
 
@@ -175,4 +205,8 @@ export class WizardComponent implements AfterViewInit {
     getStepAtIndex(index: number): WizardStepComponent {
         return this.steps.toArray()[index];
     }
+}
+
+export class StepChangingEvent {
+    constructor(public from: number, public to: number) { }
 }

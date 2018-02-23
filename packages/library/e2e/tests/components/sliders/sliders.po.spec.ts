@@ -2,10 +2,6 @@ import { browser, element, by, ElementFinder } from 'protractor';
 
 export class SlidersPage {
         
-    getPage(): void {
-        browser.get('/sliders');
-    }
-    
     slider1 = element(by.id('slider1'));
     slider2 = element(by.id('slider2'));
     slider3 = element(by.id('slider3'));
@@ -13,8 +9,13 @@ export class SlidersPage {
     slider5 = element(by.id('slider5'));
     slider6 = element(by.id('slider6'));
     slider7 = element(by.id('slider7'));
+    slider8 = element(by.id('slider8'));
     input1 = element(by.id('input1'));
     input2 = element(by.id('input2'));
+
+    getPage(): void {
+        browser.get('#/sliders');
+    }
     
     getHandleAttribute(slider: ElementFinder, handle: string, attribute: string) {
         if (handle === 'lower') {
@@ -91,6 +92,14 @@ export class SlidersPage {
             return slider.$('div.track').$('div.thumb.upper').$('div.tooltip-upper').$('div.tooltip-inner').getAttribute(attribute);
         }
     }
+
+    getTooltipClass(slider: ElementFinder, handle: string) {
+        if (handle === 'lower') {
+            return slider.$('div.track').$('div.thumb.lower').$('div.tooltip-lower').getAttribute('class');
+        } else {
+            return slider.$('div.track').$('div.thumb.upper').$('div.tooltip-upper').getAttribute('class');
+        }
+    }
     
     confirmTooltipExists(slider: ElementFinder, handle: string) {
         if (handle === 'lower') {
@@ -113,7 +122,7 @@ export class SlidersPage {
     }
     
     confirmTicksExist(slider: ElementFinder) {
-        return slider.$('div.tick-container').isPresent();
+        return slider.$('.tick-container').isPresent();
     }
     
     getInputValue(input: ElementFinder) {

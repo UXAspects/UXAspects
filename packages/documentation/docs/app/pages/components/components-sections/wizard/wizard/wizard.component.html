@@ -74,7 +74,7 @@
     <tr uxd-api-property name="cancelTooltip" type="string">
         Defines the text displayed in the tooltip when the 'Cancel' button is hovered.
     </tr>
-    <tr uxd-api-property name="finishTooltip" type="striung">
+    <tr uxd-api-property name="finishTooltip" type="string">
         Defines the text displayed in the tooltip when the 'Finish' button is hovered.
     </tr>
     <tr uxd-api-property name="nextDisabled" type="boolean">
@@ -112,20 +112,26 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="stepChanging" type="StepChangingEvent">
+        Emits before the current step changes. The event contains the current step index in the <code>from</code> property, and the requested step index in the <code>to</code> property.
+    </tr>
     <tr uxd-api-property name="stepChange" type="number">
-        Emits when step changes.
+        Emits when the current step has changed.
     </tr>
     <tr uxd-api-property name="onNext" type="number">
-        This event will be fired when the 'Next' button is pressed. It will receive the current step index as a parameter.
+        Emits when the wizard has moved to the next step. It will receive the current step index as a parameter.
     </tr>
     <tr uxd-api-property name="onPrevious" type="number">
-        This event will be fired when the 'Previous' button is pressed. It will receive the current step index as a parameter.
+        Emits when the wizard has moved to the previous step. It will receive the current step index as a parameter.
     </tr>
     <tr uxd-api-property name="onCancel" type="void">
-        This event will be fired when the 'Cancel' button is pressed.
+        Emits when the 'Cancel' button has been pressed.
+    </tr>
+    <tr uxd-api-property name="onFinishing" type="void">
+        Emits when the 'Finish' button is clicked, but before the finish event fires. This fires regardless of the validity of the final step.
     </tr>
     <tr uxd-api-property name="onFinish" type="void">
-        This event will be fired when the 'Finish' button is pressed.
+        Emits when the 'Finish' button has been pressed and the final step is valid.
     </tr>
 </uxd-api-properties>
 
@@ -137,7 +143,7 @@
     <tr uxd-api-property name="header" type="string">
         The text to be displayed in the wizard step tab.
     </tr>
-    <tr uxd-api-property name="vaid" type="boolean">
+    <tr uxd-api-property name="valid" type="boolean">
         Allows you to define whether or not a step is valid. The user will not be able to proceed to the next step if this property has a value of false.
     </tr>
     <tr uxd-api-property name="visited" type="boolean">

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-components-buttons-dropdowns',
@@ -41,8 +41,7 @@ export class ComponentsDropdownsComponent extends BaseDocumentationSection imple
         }, {
             imports: ['StringFilterModule'],
             library: '@ux-aspects/ux-aspects'
-        }],
-        mappings: [MAPPINGS.NgxBootstrap]
+        }]
     };
 
     constructor() {

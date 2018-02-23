@@ -3,8 +3,8 @@ import { FacetBaseComponent, Facet, FacetDeselect, FacetDeselectAll } from '@ux-
 
 @Component({
     selector: 'my-custom-facet-component',
-    templateUrl: './src/facet-component.component.html',
-    styleUrls: ['./src/facet-component.component.css']
+    templateUrl: './facet-component.component.html',
+    styleUrls: ['./facet-component.component.css']
 })
 export class SampleCustomFacetComponent extends FacetBaseComponent implements OnInit {
 

@@ -86,7 +86,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
 
     constructor(
         private _element: ElementRef,
-        @Inject(DOCUMENT) private _document: HTMLDocument,
+        @Inject(DOCUMENT) private _document: Document,
         private _typeaheadKeyService: TypeaheadKeyService) { }
 
     ngOnInit() {

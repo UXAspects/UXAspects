@@ -8,7 +8,7 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { ChartsSparkChartsComponent } from './spark-charts/spark-charts.component';
-import { SparkModule, ColorServiceModule } from '@ux-aspects/ux-aspects';
+import { HybridModule, SparkModule, ColorServiceModule } from '@ux-aspects/ux-aspects';
 
 const SECTIONS = [
     ChartsSparkChartNg1Component,
@@ -29,6 +29,7 @@ const ROUTES = [
     imports: [
         TabsModule,
         WrappersModule,
+        HybridModule,
         SparkModule,
         ColorServiceModule,
         DocumentationComponentsModule,

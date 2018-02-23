@@ -3,7 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { Breadcrumb } from '@ux-aspects/ux-aspects';
 import { PageHeaderNavigationItem, PageHeaderIconMenu } from '@ux-aspects/ux-aspects';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
@@ -26,8 +26,7 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
             library: 'ngx-bootstrap/dropdown',
             imports: ['BsDropdownModule'],
             providers: ['BsDropdownModule.forRoot()']
-        }],
-        mappings: [MAPPINGS.NgxBootstrap]
+        }]
     };
 
 

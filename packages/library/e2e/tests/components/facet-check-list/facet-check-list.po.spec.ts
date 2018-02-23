@@ -3,7 +3,7 @@ import { browser, element, by } from 'protractor';
 export class FacetCheckListPage {
         
     getPage(): void {
-        browser.get('/facet-check-list');
+        browser.get('#/facet-check-list');
     }
     
     container = element(by.id('container1'));

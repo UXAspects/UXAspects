@@ -3,7 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { ColorService, DashboardOptions } from '@ux-aspects/ux-aspects';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 import 'chance';
 
 @Component({
@@ -84,11 +84,6 @@ export class ComponentsDashboardComponent extends BaseDocumentationSection imple
             'app.component.ts': this.snippets.raw.appTs,
             'app.component.css': this.snippets.raw.appCss
         },
-        mappings: [
-            MAPPINGS.Chance,
-            MAPPINGS.ChartJs,
-            MAPPINGS.Ng2Charts
-        ],
         modules: [{
             imports: ['DashboardModule', 'ColorServiceModule', 'SparkModule'],
             library: '@ux-aspects/ux-aspects'

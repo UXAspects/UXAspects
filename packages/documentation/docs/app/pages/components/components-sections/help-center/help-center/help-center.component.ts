@@ -4,7 +4,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 import { Breadcrumb, PageHeaderIconMenu, PageHeaderIconMenuDropdownItem, HelpCenterService, HelpCenterItem } from '@ux-aspects/ux-aspects';
 import { Subscription } from 'rxjs/Subscription';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk, MAPPINGS } from '../../../../../interfaces/IPlunk';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
 import 'chance';
 
 @Component({
@@ -42,9 +42,6 @@ export class ComponentsHelpCenterComponent extends BaseDocumentationSection impl
                 imports: ['HelpCenterModule', 'PageHeaderModule'],
                 library: '@ux-aspects/ux-aspects'
             }
-        ],
-        mappings: [
-            MAPPINGS.Chance
         ]
     };
 

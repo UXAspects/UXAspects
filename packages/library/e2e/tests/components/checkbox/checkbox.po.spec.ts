@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class CheckBoxesPage {
         
     getPage(): void {
-        browser.get('/checkboxes');
+        browser.get('#/checkboxes');
     }
     
     checkbox1 = element(by.id('checkbox1'));

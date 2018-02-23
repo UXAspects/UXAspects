@@ -2,8 +2,8 @@ import { Component, Inject, ElementRef } from '@angular/core';
 
 @Component({
     selector: 'app',
-    templateUrl: './src/app.component.html',
-    styleUrls: ['./src/app.component.css'],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
     host: {
         '(window:keydown.q)': 'focusNextQ()',
         '(window:keydown.w)': 'focusNextW()'

@@ -3,7 +3,7 @@ import { browser, element, by, ElementFinder } from 'protractor';
 export class LinkButtonsPage {
         
     getPage(): void {
-        browser.get('/link-buttons');
+        browser.get('#/link-buttons');
     }
     
     buttonSecondary = element(by.id('buttonSecondary'));
