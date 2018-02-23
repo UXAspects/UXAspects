@@ -1,0 +1,45 @@
+.file-upload-dropzone {
+    border: 2px dashed @file-upload-dropzone-border;
+    background: @file-upload-dropzone-bg;
+    font-size: 18px;
+    font-weight: 300;
+    width: 100%;
+    padding-top: 60px;
+    text-align: center;
+    min-height: 150px;
+    color: @file-upload-dropzone-color;
+    cursor: pointer;
+    margin-bottom: 24px;
+}
+
+.file-upload-progress-indicator {
+    margin-top: 8px;
+    line-height: 12px;
+    margin-bottom: 24px;
+}
+
+.file-upload-queue {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+
+    > li {
+        max-width: 100%;
+        flex: none;
+
+        > a {
+            padding: 5px;
+            display: block;
+            border: 1px solid @file-upload-queue-border;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            color: @file-upload-queue-color;
+
+            &:hover {
+                background-color: @file-upload-queue-hover-bg;
+            }
+        }
+    }
+}
