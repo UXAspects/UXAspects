@@ -401,6 +401,10 @@
                         {
                             "title": "Module",
                             "content": "FileUploadModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ng2-file-upload"
                         }
                     ]
                 }

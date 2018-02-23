@@ -19,17 +19,21 @@
     </li>
 </ul>
 
-<button type="button" class="btn button-primary m-r-xs" (click)="uploader.uploadAll()" 
-    [disabled]="!uploader.getNotUploadedItems().length">
-    Upload All
-</button>
+<div class="btn-container">
 
-<button type="button" class="btn button-secondary m-r-xs" (click)="uploader.cancelAll()" 
-    [disabled]="!uploader.isUploading">
-    Cancel All
-</button>
+    <button type="button" class="btn button-primary" (click)="uploader.uploadAll()" 
+        [disabled]="!uploader.getNotUploadedItems().length">
+        Upload All
+    </button>
+    
+    <button type="button" class="btn button-secondary" (click)="uploader.cancelAll()" 
+        [disabled]="!uploader.isUploading">
+        Cancel All
+    </button>
+    
+    <button type="button" class="btn button-secondary" (click)="uploader.clearQueue()" 
+        [disabled]="!uploader.queue.length">
+        Clear All
+    </button>
 
-<button type="button" class="btn button-secondary" (click)="uploader.clearQueue()" 
-    [disabled]="!uploader.queue.length">
-    Clear All
-</button>
+</div>

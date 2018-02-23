@@ -23,20 +23,23 @@
                     </li>
                 </ul>
 
-                <button type="button" class="btn button-primary m-r-xs" ng-click="uploader.uploadAll()" 
-                        ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
-                    Upload All
-                </button>
+                <div class="btn-container">
+                    <button type="button" class="btn button-primary m-r-xs" ng-click="uploader.uploadAll()" 
+                            ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
+                        Upload All
+                    </button>
+    
+                    <button type="button" class="btn button-secondary m-r-xs" ng-click="uploader.cancelAll()" 
+                            ng-disabled="!uploader.isUploading" disabled="disabled">
+                        Cancel All
+                    </button>
+    
+                    <button type="button" class="btn button-secondary" ng-click="uploader.clearQueue()" 
+                            ng-disabled="!uploader.queue.length">
+                        Clear All
+                    </button>
+                </div>
 
-                <button type="button" class="btn button-secondary m-r-xs" ng-click="uploader.cancelAll()" 
-                        ng-disabled="!uploader.isUploading" disabled="disabled">
-                    Cancel All
-                </button>
-
-                <button type="button" class="btn button-secondary" ng-click="uploader.clearQueue()" 
-                        ng-disabled="!uploader.queue.length">
-                    Clear All
-                </button>
             </div>
         </div>
     </div>
