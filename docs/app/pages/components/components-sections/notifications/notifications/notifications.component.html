@@ -1,0 +1,61 @@
+<ux-notification-list></ux-notification-list>
+
+<button (click)="notificationService.showNotification(myNotification, {})">Show Notification</button>
+<button (click)="notificationService.dismissAllNotifications()">Dismiss Notifications</button>
+
+<hr>
+
+<p>Notifications can be used to inform the user of occurring events or to alert the user of something that may require their
+    attention. Notifications will appear in the top right corner of the browser window and can be dismissed by the user by
+    clicking the close button.</p>
+
+<p>Notifications are controlled by the <code>notificationService</code> which can be injected into any controller in the application.</p>
+
+<p>The content of the notification should be specified inside an <code>ng-template</code> element.</p>
+
+<p>The <code>notificationService</code> has several functions available to control notifications.</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="showNotification">
+        This function should be called to show a notification.
+        It should be given an <code>ng-template</code> element containing the elements to be displayed and an object containing properties
+        to configure the notification.
+        It will return a <code>NotificationRef</code> object which will contain the information passed to the <code>showNotification</code> function
+        along with a <code>date</code> property which will contain the time at which the notification was shown.
+    </tr>
+    <tr uxd-api-property name="getNotifications">
+        This function will return an array of <code>NotificationRef</code> objects.
+      </tr>
+    <tr uxd-api-property name="dismissNotification">
+        This function can be called to dismiss a notification. It should be passed the <code>NotificationRef</code> object to dismiss.
+    </tr>
+    <tr uxd-api-property name="dismissAllNotifications">
+        This function will dismiss any currently visible notifications.
+    </tr>
+</uxd-api-properties>
+
+<p>The following options can be used to configure the location and behavior of the list of notifications:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="position" type="string" defaultValue="topRight">
+        Sets the position of the list of notifications within the browser window.
+        The possible options are <code>topRight</code> and <code>topLeft</code>.
+    </tr>
+    <tr uxd-api-property name="direction" type="string" defaultValue="append">
+        Sets the order in which notifications are displayed. The possible options are <code>append</code> and <code>prepend</code>.
+        When set to <code>append</code> newer notifications will appear below older ones.
+        When set to <code>prepend</code> newer notifications will appear above older ones
+    </tr>
+</uxd-api-properties>
+
+<p>The following options can be used to configure the notification:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="duration" type="number" defaultValue="4000">
+        Sets the duration (in milliseconds) the notification should appear before automatically dismissing. A value of <code>0</code> will show the notification until manually dismissed.
+    </tr>
+    <tr uxd-api-property name="visible" type="boolean" defaultValue="true">
+        Indicates whether the notification should be displayed.
+    </tr>
+</uxd-api-properties>
+

@@ -10,6 +10,7 @@ import { UpgradeModule, downgradeComponent, downgradeInjectable } from '@angular
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 // Import UX Aspects
+// import { CheckboxModule, ColorServiceModule, EboxModule, FlippableCardModule, NotificationServiceModule, ProgressBarModule, RadioButtonModule, SparkModule, ToggleSwitchModule } from '../../src/index';
 import { CheckboxModule, ColorServiceModule, EboxModule, FlippableCardModule, ProgressBarModule, RadioButtonModule, SparkModule, ToggleSwitchModule } from '../../src/index';
 
 // Import Child Modules
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
     ColorServiceModule,
     EboxModule,
     FlippableCardModule,
+    // NotificationServiceModule,
     ProgressBarModule,
     RadioButtonModule,
     SparkModule,

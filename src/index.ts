@@ -13,6 +13,7 @@ export * from './components/flippable-card/index';
 export * from './components/item-display-panel/index';
 export * from './components/marquee-wizard/index';
 export * from './components/navigation/index';
+export * from './components/notification-list/index';
 export * from './components/number-picker/index';
 export * from './components/page-header/index';
 export * from './components/progress-bar/index';
@@ -55,6 +56,7 @@ export * from './pipes/string-filter/index';
 export * from './services/audio/index';
 export * from './services/color/index';
 export * from './services/frame-extraction/index';
+export * from './services/notification/index';
 export * from './services/persistent-data/index';
 
 /*
