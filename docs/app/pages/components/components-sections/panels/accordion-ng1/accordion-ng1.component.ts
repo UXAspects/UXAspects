@@ -5,16 +5,16 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 
 @Component({
-    selector: 'uxd-collapsible-panels-ng1',
-    templateUrl: './collapsible-panels-ng1.component.html',
+    selector: 'uxd-accordion-ng1',
+    templateUrl: './accordion-ng1.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-@DocumentationSectionComponent('ComponentsCollapsiblePanelsNg1Component')
-export class ComponentsCollapsiblePanelsNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+@DocumentationSectionComponent('ComponentsAccordionNg1Component')
+export class ComponentsAccordionNg1Component extends BaseDocumentationSection implements ICodePenProvider {
     codepen: ICodePen = {
         html: this.snippets.raw.layoutHtml,
         htmlAttributes: {
-            'ng-controller': 'CollapsiblePanelsDemoCtrl as vm'
+            'ng-controller': 'AccordionDemoCtrl as vm'
         },
         js: [this.snippets.raw.controllerJs]
     };

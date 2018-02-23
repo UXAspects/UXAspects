@@ -1,0 +1,37 @@
+<accordion [closeOthers]="true">
+
+    <accordion-group *ngFor="let group of groups" [(isOpen)]="group.open">
+
+        <ng-container accordion-heading>
+            <i class="hpe-icon pull-right" [class.hpe-chevron-left]="!group.open" [class.hpe-chevron-down]="group.open"></i>
+            <h4 class="m-nil">{{ group.heading }}</h4>
+        </ng-container>
+
+        <span>{{ group.content }}</span>
+
+    </accordion-group>
+
+</accordion>
+
+<hr>
+
+<p>
+    To create collapsible panels use the <code>accordion</code> tag. This contains the <code>closeOthers</code> property, 
+    which if set to <code>true</code> will close the other panels, and if set to <code>false</code> will close only the individual panel.
+</p>
+
+<p>
+    Add the required number of panels underneath by adding <code>accordion-group</code> elements. These have a <code>heading</code> property to 
+    provide the heading for that panel. An <code>accordion-group</code> element can also have an <code>isOpen</code> property, which if set to 
+    <code>true</code> will show open the panel initially. The panel content should be placed within the <code>accordion-group</code> element.
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>

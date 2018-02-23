@@ -1,0 +1,18 @@
+<accordion [closeOthers]="true">
+
+    <accordion-group *ngFor="let group of groups" [(isOpen)]="group.open">
+
+        <ng-container accordion-heading>
+            <i class="hpe-icon pull-right" 
+                [class.hpe-chevron-left]="!group.open" 
+                [class.hpe-chevron-down]="group.open">
+            </i>
+
+            <h4 class="m-nil">{{ group.heading }}</h4>
+        </ng-container>
+
+        <span>{{ group.content }}</span>
+        
+    </accordion-group>
+
+</accordion>
