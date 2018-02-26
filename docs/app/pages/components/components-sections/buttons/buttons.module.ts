@@ -28,6 +28,7 @@ import { ComponentsGroupedButtonsNg1Component } from './grouped-buttons-ng1/grou
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { FloatingActionButtonsModule } from '../../../../../../src/index';
 
 const SECTIONS = [
     ComponentsToggleButtonsComponent,
@@ -67,7 +68,8 @@ const ROUTES = [
         ButtonsModule.forRoot(),
         PaginationModule.forRoot(),
         BsDropdownModule.forRoot(),
-        StringFilterModule
+        StringFilterModule,
+        FloatingActionButtonsModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
