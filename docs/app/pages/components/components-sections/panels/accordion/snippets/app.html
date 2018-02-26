@@ -1,6 +1,7 @@
 <accordion [closeOthers]="true">
 
-    <accordion-group class="accordion-chevron" *ngFor="let group of groups" [heading]="group.heading" [(isOpen)]="group.open">
+    <accordion-group class="accordion-chevron" *ngFor="let group of groups" 
+                     [heading]="group.heading" [(isOpen)]="group.open">
         <span>{{ group.content }}</span>
     </accordion-group>
 
