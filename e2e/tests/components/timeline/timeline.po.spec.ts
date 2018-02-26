@@ -10,11 +10,11 @@ export class TimelinePage {
     timeline = element(by.id('timeline'));
     
     getNumberOfEvents() {
-        return this.timeline.$('ul.timeline').$$('li').count();
+        return this.timeline.$('div.timeline').$$('ux-timeline-event').count();
     }
     
     getEvent(index: number) {
-        return this.timeline.$('ul.timeline').$$('li').get(index).$('ux-timeline-event');
+        return this.timeline.$('div.timeline').$$('ux-timeline-event').get(index);
     }    
 
     getEventBadge(index: number) {
