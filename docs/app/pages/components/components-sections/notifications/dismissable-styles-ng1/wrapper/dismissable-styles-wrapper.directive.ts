@@ -5,7 +5,7 @@ angular.module('app').directive('uxdDismissableStylesWrapper', () => {
         controller: ['$scope', function ($scope) {
             var vm = this;
 
-            vm.addDismissAlert = function (type) {
+            vm.addDismissAlert = function (type: any) {
                 vm.dismissAlerts.push({
                     type: type,
                     msg: 'This is an example of a dismissible ' + type + ' alert.',
@@ -17,7 +17,7 @@ angular.module('app').directive('uxdDismissableStylesWrapper', () => {
             vm.addDismissAlert('info');
             vm.addDismissAlert('error');
 
-            vm.close = function (item) {
+            vm.close = function (item: any) {
                 vm.dismissAlerts.splice(vm.dismissAlerts.indexOf(item), 1);
             };
 

@@ -22,10 +22,10 @@ angular.module('app').directive('uxdSearchBuilderWrapper', () => {
 
             // store a stringified version of the search query object
             vm.searchQuery = JSON.stringify({
-                "keywords": {
-                    "keyword-0": {
-                        "component": "keyword",
-                        "value": null
+                'keywords': {
+                    'keyword-0': {
+                        'component': 'keyword',
+                        'value': null
                     }
                 }
             }, null, 4);
@@ -33,9 +33,11 @@ angular.module('app').directive('uxdSearchBuilderWrapper', () => {
 
             vm.openModal = function () {
 
-                var modalInstance = $modal.open({
+                // workaround for @ngtools - prevent it trying to load resource
+                var key = 'templateUrl';
+
+                var config = {
                     animation: false,
-                    templateUrl: 'search-builder-ng1/modalLayout.html',
                     controller: 'SearchBuilderDemoModalCtrl',
                     controllerAs: 'vm',
                     keyboard: 'true',
@@ -43,16 +45,22 @@ angular.module('app').directive('uxdSearchBuilderWrapper', () => {
                     windowClass: 'search-builder-modal-window',
                     resolve: {
                         searchQuery: function () {
-                            //provide the modal with the existing search query if there is one
+                            // provide the modal with the existing search query if there is one
                             return JSON.parse(vm.searchQuery);
                         }
                     }
-                });
+                };
 
-                modalInstance.result.then(function (result) {
-                    if (result === "cancel") return;
+                config[key] = 'search-builder-ng1/modalLayout.html';
 
-                    //store the search query as a stringified version of the object
+                var modalInstance = $modal.open(config);
+
+                modalInstance.result.then(function (result: any) {
+                    if (result === 'cancel') {
+                        return;
+                    }
+
+                    // store the search query as a stringified version of the object
                     vm.searchQuery = JSON.stringify(result, null, 4);
                 });
             };
@@ -66,14 +74,15 @@ angular.module('app').directive('uxdSearchBuilderWrapper', () => {
     };
 });
 
-angular.module("app").controller("SearchBuilderDemoModalCtrl", SearchBuilderDemoModalCtrl);
+angular.module('app').controller('SearchBuilderDemoModalCtrl', SearchBuilderDemoModalCtrl);
 
 SearchBuilderDemoModalCtrl.$inject = ['$modalInstance', '$scope', 'searchBuilderPanel', 'searchBuilderId', 'searchQuery'];
 
-function SearchBuilderDemoModalCtrl($modalInstance, $scope, searchBuilderPanel, searchBuilderId, searchQuery) {
+// tslint:disable-next-line:no-shadowed-variable
+function SearchBuilderDemoModalCtrl($modalInstance: any, $scope: ng.IScope, searchBuilderPanel: any, searchBuilderId: any, searchQuery: any) {
     var vm = this;
 
-    //show previous search query where possible
+    // show previous search query where possible
     vm.searchQuery = searchQuery ? searchQuery : {};
 
     // scrollbar conguration
@@ -83,7 +92,7 @@ function SearchBuilderDemoModalCtrl($modalInstance, $scope, searchBuilderPanel, 
         contentUpdateSensor: true
     };
 
-    //use a service to store these values - make them more accessible by all modal contents
+    // use a service to store these values - make them more accessible by all modal contents
     vm.panelService = searchBuilderPanel;
 
     // modal data
@@ -92,35 +101,38 @@ function SearchBuilderDemoModalCtrl($modalInstance, $scope, searchBuilderPanel, 
     vm.searchEstimateLabel = "<span class='spark-label hidden-xxxs'><span class='medium light'>MATCHING ITEMS</span></span>";
     updateApproxLabel('Unavailable');
 
-    //must provide information on all possible components
+    // must provide information on all possible components
     vm.components = [{
         name: 'author',
-        templateUrl: 'authorComponent.html'
+        url: 'authorComponent.html'
     }, {
         name: 'custodian',
-        templateUrl: 'custodianComponent.html'
+        url: 'custodianComponent.html'
     }, {
         name: 'daterange',
-        templateUrl: 'dateRangeComponent.html'
+        url: 'dateRangeComponent.html'
     }, {
         name: 'keyword',
-        templateUrl: 'keywordComponent.html'
+        url: 'keywordComponent.html'
     }, {
         name: 'filename',
-        templateUrl: 'fileNameComponent.html'
+        url: 'fileNameComponent.html'
     }, {
         name: 'filetypes',
-        templateUrl: 'fileTypesComponent.html'
+        url: 'fileTypesComponent.html'
     }, {
         name: 'repository',
-        templateUrl: 'repositoryComponent.html'
+        url: 'repositoryComponent.html'
     }, {
         name: 'text',
-        templateUrl: 'textComponent.html'
+        url: 'textComponent.html'
     }, {
         name: 'custodians',
-        templateUrl: 'custodianComponent.html'
+        url: 'custodianComponent.html'
     }];
+
+    // workaround to prevent @ngtools from inlining resources
+    vm.components.forEach((component: any) => component.templateUrl = component.url);
 
     // modal properties
     vm.ok = function () {
@@ -128,15 +140,15 @@ function SearchBuilderDemoModalCtrl($modalInstance, $scope, searchBuilderPanel, 
     };
 
     vm.cancel = function () {
-        $modalInstance.dismiss("cancel");
+        $modalInstance.dismiss('cancel');
     };
 
-    //ensure we dismiss any open panel if the modal is closing
+    // ensure we dismiss any open panel if the modal is closing
     $scope.$on('modal.closing', function () {
         searchBuilderPanel.closePanel();
     });
 
-    //adding a simple field that will be the same component everytime
+    // adding a simple field that will be the same component everytime
     vm.addKeywordField = function () {
         return {
             id: searchBuilderId.generateComponentId('keyword', vm.searchQuery),
@@ -144,18 +156,18 @@ function SearchBuilderDemoModalCtrl($modalInstance, $scope, searchBuilderPanel, 
         };
     };
 
-    //adding a field that may be a different component everytime
+    // adding a field that may be a different component everytime
     vm.addCustomField = function () {
 
-        //set the appropriate panel content
+        // set the appropriate panel content
         vm.panelService.setPanelHeader('Add Field');
         vm.panelService.setPanelTemplate('addFieldPanel.html');
 
-        //the open panel function returns a deferred object which will be resolved or rejected accordingly
+        // the open panel function returns a deferred object which will be resolved or rejected accordingly
         return vm.panelService.openPanel();
     };
 
-    //this emulates the number of search results - and fakes approximate number of matching documents
+    // this emulates the number of search results - and fakes approximate number of matching documents
     $scope.$watch('vm.searchQuery', function (nv, ov) {
         if (!angular.equals(nv, ov)) {
             var complexity = vm.calculateComplexity(vm.searchQuery);
@@ -168,35 +180,34 @@ function SearchBuilderDemoModalCtrl($modalInstance, $scope, searchBuilderPanel, 
 
             vm.searchPercentage = Math.max(100 - (complexity * 10), 0);
 
-            //set the color of the spark chart based on the search percentage
-            if (vm.searchPercentage > 70) vm.type = 'spark-critical';
-            else if (vm.searchPercentage > 50) vm.type = 'spark-warning';
-            else vm.type = 'spark-ok';
+            // set the color of the spark chart based on the search percentage
+            if (vm.searchPercentage > 70) { vm.type = 'spark-critical'; } else if (vm.searchPercentage > 50) { vm.type = 'spark-warning'; } else { vm.type = 'spark-ok'; }
 
-            //update the label to the correct number of items
+            // update the label to the correct number of items
             updateApproxLabel('Approx ' + vm.searchPercentage + 'k items');
         }
     }, true);
 
     // this function returns dummy data for the number of search results based on search complexity
-    vm.calculateComplexity = function (node) {
+    vm.calculateComplexity = function (node: any) {
         var count = 0;
 
         for (var key in node) {
             if (key === 'value') {
-                if (!node[key] || (typeof node[key] === 'string' && node[key].trim().length === 0) || (Array.isArray(node[key]) && node[key].length === 0)) return 0;
+                if (!node[key] || (typeof node[key] === 'string' && node[key].trim().length === 0) || (Array.isArray(node[key]) && node[key].length === 0)) { return 0; }
                 return 1;
             }
 
-            if (typeof node[key] === 'object')
+            if (typeof node[key] === 'object') {
                 count += vm.calculateComplexity(node[key]);
+            }
         }
 
         return count;
     };
 
-    function updateApproxLabel(value) {
-        vm.approxItemLabel = "<span class='spark-label hidden-xxxs'><span class='medium light'>" + value + "</span></span>";
+    function updateApproxLabel(value: any) {
+        vm.approxItemLabel = "<span class='spark-label hidden-xxxs'><span class='medium light'>" + value + '</span></span>';
     }
 }
 
@@ -204,10 +215,11 @@ angular.module('app').controller('CustodianComponentCtrl', CustodianComponentCtr
 
 CustodianComponentCtrl.$inject = ['$scope', 'searchBuilderPanel'];
 
-function CustodianComponentCtrl($scope, searchBuilderPanel) {
+// tslint:disable-next-line:no-shadowed-variable
+function CustodianComponentCtrl($scope: ng.IScope, searchBuilderPanel: any) {
     var vm = this;
 
-    //use this to allow the side panel to select options
+    // use this to allow the side panel to select options
     vm.deferred = null;
 
     vm.selectOptions = {
@@ -236,14 +248,14 @@ function CustodianComponentCtrl($scope, searchBuilderPanel) {
         searchBuilderPanel.setPanelHeader('Select Custodians');
         searchBuilderPanel.setPanelTemplate('custodianPanel.html');
 
-        //pass in all custodians and the currently selected custodians
+        // pass in all custodians and the currently selected custodians
         vm.deferred = searchBuilderPanel.openPanel({
             custodians: vm.custodians,
             selected: $scope.model
         });
 
-        //wait for an update on selected repositories
-        vm.deferred.then(function (selectedCustodians) {
+        // wait for an update on selected repositories
+        vm.deferred.then(function (selectedCustodians: any) {
             $scope.model = selectedCustodians;
         });
     };
@@ -263,12 +275,12 @@ function DateRangeComponentCtrl() {
     vm.fromOpened = false;
     vm.toOpened = false;
 
-    vm.fromOpen = function (event) {
+    vm.fromOpen = function (event: Event) {
         vm.fromOpened = true;
         event.stopPropagation();
     };
 
-    vm.toOpen = function (event) {
+    vm.toOpen = function (event: Event) {
         vm.toOpened = true;
         event.stopPropagation();
     };
@@ -278,31 +290,32 @@ angular.module('app').controller('FileTypesComponentCtrl', FileTypesComponentCtr
 
 FileTypesComponentCtrl.$inject = ['$scope', 'searchBuilderPanel'];
 
-function FileTypesComponentCtrl($scope, searchBuilderPanel) {
+// tslint:disable-next-line:no-shadowed-variable
+function FileTypesComponentCtrl($scope: ng.IScope, searchBuilderPanel: any) {
 
     var vm = this;
 
-    //use this to allow the side panel to select options
+    // use this to allow the side panel to select options
     vm.deferred = null;
 
     vm.selectOptions = {
         placeholder: 'Select File Types'
     };
 
-    vm.fileTypes = ["AVI", "BMP", "CSV", "DOC", "EXE", "GIF", "JPG", "MOV", "PDF", "PNG", "PPT", "RTF", "TXT", "XLS", "ZIP"];
+    vm.fileTypes = ['AVI', 'BMP', 'CSV', 'DOC', 'EXE', 'GIF', 'JPG', 'MOV', 'PDF', 'PNG', 'PPT', 'RTF', 'TXT', 'XLS', 'ZIP'];
 
     vm.showPanel = function () {
         searchBuilderPanel.setPanelHeader('Select File Types');
         searchBuilderPanel.setPanelTemplate('fileTypesPanel.html');
 
-        //pass in any currently selected file types
+        // pass in any currently selected file types
         vm.deferred = searchBuilderPanel.openPanel({
             fileTypes: vm.fileTypes,
             selected: $scope.model
         });
 
-        //wait for an update on selected repositories
-        vm.deferred.then(function (selectedFileTypes) {
+        // wait for an update on selected repositories
+        vm.deferred.then(function (selectedFileTypes: any) {
             $scope.model = selectedFileTypes;
         });
     };
@@ -312,11 +325,12 @@ angular.module('app').controller('RepositoryComponentCtrl', RepositoryComponentC
 
 RepositoryComponentCtrl.$inject = ['$scope', 'searchBuilderPanel'];
 
-function RepositoryComponentCtrl($scope, searchBuilderPanel) {
+// tslint:disable-next-line:no-shadowed-variable
+function RepositoryComponentCtrl($scope: ng.IScope, searchBuilderPanel: any) {
 
     var vm = this;
 
-    //use this to allow the side panel to select options
+    // use this to allow the side panel to select options
     vm.deferred = null;
 
     vm.selectOptions = {
@@ -324,27 +338,27 @@ function RepositoryComponentCtrl($scope, searchBuilderPanel) {
     };
 
     vm.repositories = [
-        "Filesystem",
-        "Records Manager",
-        "Email",
-        "Legacy Email",
-        "Archives",
-        "Legacy Archives",
-        "Miscellaneous"
+        'Filesystem',
+        'Records Manager',
+        'Email',
+        'Legacy Email',
+        'Archives',
+        'Legacy Archives',
+        'Miscellaneous'
     ];
 
     vm.showPanel = function () {
         searchBuilderPanel.setPanelHeader('Select Repositories');
         searchBuilderPanel.setPanelTemplate('repositoryPanel.html');
 
-        //pass in any currently selected repositories
+        // pass in any currently selected repositories
         vm.deferred = searchBuilderPanel.openPanel({
             repositories: vm.repositories,
             selected: $scope.model
         });
 
-        //wait for an update on selected repositories
-        vm.deferred.then(function (selectedRepositories) {
+        // wait for an update on selected repositories
+        vm.deferred.then(function (selectedRepositories: any) {
             $scope.model = selectedRepositories;
         });
     };
@@ -354,15 +368,16 @@ angular.module('app').controller('AddFieldPanelCtrl', AddFieldPanelCtrl);
 
 AddFieldPanelCtrl.$inject = ['$scope', 'searchBuilderPanel', 'searchBuilderId'];
 
-function AddFieldPanelCtrl($scope, searchBuilderPanel, searchBuilderId) {
+// tslint:disable-next-line:no-shadowed-variable
+function AddFieldPanelCtrl($scope: ng.IScope, searchBuilderPanel: any, searchBuilderId: any) {
     var vm = this;
 
     vm.searchQuery = $scope.$parent.vm.searchQuery || {};
 
-    //store the filter text
+    // store the filter text
     vm.filterText = '';
 
-    //store all the possible fields
+    // store all the possible fields
     vm.fields = [{
         name: 'Author',
         component: 'author'
@@ -386,8 +401,8 @@ function AddFieldPanelCtrl($scope, searchBuilderPanel, searchBuilderId) {
         component: 'text'
     }];
 
-    vm.selectField = function (field) {
-        //resolve the deferred object
+    vm.selectField = function (field: any) {
+        // resolve the deferred object
         searchBuilderPanel.closePanel({
             id: searchBuilderId.generateComponentId(field.component, vm.searchQuery),
             component: field.component
@@ -399,36 +414,37 @@ angular.module('app').controller('CustodianPanelCtrl', CustodianPanelCtrl);
 
 CustodianPanelCtrl.$inject = ['$scope', 'searchBuilderPanel'];
 
-function CustodianPanelCtrl($scope, searchBuilderPanel) {
+// tslint:disable-next-line:no-shadowed-variable
+function CustodianPanelCtrl($scope: ng.IScope, searchBuilderPanel: any) {
     var vm = this;
 
-    //store the filter text
+    // store the filter text
     vm.filterText = '';
 
-    //store all the possible fields
+    // store all the possible fields
     vm.custodians = [];
 
-    vm.selectCustodian = function (custodian) {
+    vm.selectCustodian = function (custodian: any) {
         custodian.checked = !custodian.checked;
     };
 
-    //when the panel is dismissed resolve the deferred object
-    searchBuilderPanel.onDismiss(function (deferred) {
-        var selectedCustodians = vm.custodians.filter(function (custodian) {
+    // when the panel is dismissed resolve the deferred object
+    searchBuilderPanel.onDismiss(function (deferred: any) {
+        var selectedCustodians = vm.custodians.filter(function (custodian: any) {
             return custodian.checked;
         });
 
-        //we only want to return custodians names
-        var custodians = [];
+        // we only want to return custodians names
+        var custodians: any = [];
 
-        selectedCustodians.forEach(function (custodian) {
+        selectedCustodians.forEach(function (custodian: any) {
             custodians.push(custodian.name);
         });
 
-        if (deferred) deferred.resolve(custodians);
+        if (deferred) { deferred.resolve(custodians); }
     });
 
-    //check any items already selected in the search component
+    // check any items already selected in the search component
     prepareItems();
 
     function prepareItems() {
@@ -436,20 +452,20 @@ function CustodianPanelCtrl($scope, searchBuilderPanel) {
 
         var custodians = data.custodians;
 
-        custodians.forEach(function (custodian) {
+        custodians.forEach(function (custodian: any) {
             vm.custodians.push({
                 name: custodian,
                 checked: false
             });
         });
 
-        //if there are no selected custodians then stop here
-        if (!data.selected) return;
+        // if there are no selected custodians then stop here
+        if (!data.selected) { return; }
 
-        data.selected.forEach(function (selected) {
-            vm.custodians.forEach(function (custodian) {
-                //if it is a match set the checked value to true
-                if (custodian.name === selected) custodian.checked = true;
+        data.selected.forEach(function (selected: any) {
+            vm.custodians.forEach(function (custodian: any) {
+                // if it is a match set the checked value to true
+                if (custodian.name === selected) { custodian.checked = true; }
             });
         });
     }
@@ -459,36 +475,37 @@ angular.module('app').controller('FileTypesPanelCtrl', FileTypesPanelCtrl);
 
 FileTypesPanelCtrl.$inject = ['$scope', 'searchBuilderPanel'];
 
-function FileTypesPanelCtrl($scope, searchBuilderPanel) {
+// tslint:disable-next-line:no-shadowed-variable
+function FileTypesPanelCtrl($scope: ng.IScope, searchBuilderPanel: any) {
     var vm = this;
 
-    //store the filter text
+    // store the filter text
     vm.filterText = '';
 
-    //store all the possible fields
+    // store all the possible fields
     vm.fileTypes = [];
 
-    vm.selectFileType = function (fileType) {
+    vm.selectFileType = function (fileType: any) {
         fileType.checked = !fileType.checked;
     };
 
-    //when the panel is dismissed resolve the deferred object
-    searchBuilderPanel.onDismiss(function (deferred) {
-        var selectedFileTypes = vm.fileTypes.filter(function (fileType) {
+    // when the panel is dismissed resolve the deferred object
+    searchBuilderPanel.onDismiss(function (deferred: any) {
+        var selectedFileTypes = vm.fileTypes.filter(function (fileType: any) {
             return fileType.checked;
         });
 
-        //we only want to return file types names
-        var fileTypes = [];
+        // we only want to return file types names
+        var fileTypes: any = [];
 
-        selectedFileTypes.forEach(function (fileType) {
+        selectedFileTypes.forEach(function (fileType: any) {
             fileTypes.push(fileType.name);
         });
 
-        if (deferred) deferred.resolve(fileTypes);
+        if (deferred) { deferred.resolve(fileTypes); }
     });
 
-    //check any items already selected in the search component
+    // check any items already selected in the search component
     prepareItems();
 
     function prepareItems() {
@@ -496,20 +513,20 @@ function FileTypesPanelCtrl($scope, searchBuilderPanel) {
 
         var fileTypes = data.fileTypes;
 
-        fileTypes.forEach(function (fileType) {
+        fileTypes.forEach(function (fileType: any) {
             vm.fileTypes.push({
                 name: fileType,
                 checked: false
             });
         });
 
-        //if there are no selected file types then stop here
-        if (!data.selected) return;
+        // if there are no selected file types then stop here
+        if (!data.selected) { return; }
 
-        data.selected.forEach(function (selected) {
-            vm.fileTypes.forEach(function (fileType) {
-                //if it is a match set the checked value to true
-                if (fileType.name === selected) fileType.checked = true;
+        data.selected.forEach(function (selected: any) {
+            vm.fileTypes.forEach(function (fileType: any) {
+                // if it is a match set the checked value to true
+                if (fileType.name === selected) { fileType.checked = true; }
             });
         });
     }
@@ -519,36 +536,37 @@ angular.module('app').controller('RepositoryPanelCtrl', RepositoryPanelCtrl);
 
 RepositoryPanelCtrl.$inject = ['$scope', 'searchBuilderPanel'];
 
-function RepositoryPanelCtrl($scope, searchBuilderPanel) {
+// tslint:disable-next-line:no-shadowed-variable
+function RepositoryPanelCtrl($scope: ng.IScope, searchBuilderPanel: any) {
     var vm = this;
 
-    //store the filter text
+    // store the filter text
     vm.filterText = '';
 
-    //store all the possible fields
+    // store all the possible fields
     vm.repositories = [];
 
-    vm.selectRepository = function (repository) {
+    vm.selectRepository = function (repository: any) {
         repository.checked = !repository.checked;
     };
 
-    //when the panel is dismissed resolve the deferred object
-    searchBuilderPanel.onDismiss(function (deferred) {
-        var selectedRepositories = vm.repositories.filter(function (repo) {
+    // when the panel is dismissed resolve the deferred object
+    searchBuilderPanel.onDismiss(function (deferred: any) {
+        var selectedRepositories = vm.repositories.filter(function (repo: any) {
             return repo.checked;
         });
 
-        //we only want to return repository names
-        var repositoryNames = [];
+        // we only want to return repository names
+        var repositoryNames: any = [];
 
-        selectedRepositories.forEach(function (repo) {
+        selectedRepositories.forEach(function (repo: any) {
             repositoryNames.push(repo.name);
         });
 
-        if (deferred) deferred.resolve(repositoryNames);
+        if (deferred) { deferred.resolve(repositoryNames); }
     });
 
-    //check any items already selected in the search component
+    // check any items already selected in the search component
     prepareItems();
 
     function prepareItems() {
@@ -556,20 +574,20 @@ function RepositoryPanelCtrl($scope, searchBuilderPanel) {
 
         var repositories = data.repositories;
 
-        repositories.forEach(function (repository) {
+        repositories.forEach(function (repository: any) {
             vm.repositories.push({
                 name: repository,
                 checked: false
             });
         });
 
-        //if there are no selected repositories then stop here
-        if (!data.selected) return;
+        // if there are no selected repositories then stop here
+        if (!data.selected) { return; }
 
-        data.selected.forEach(function (selected) {
-            vm.repositories.forEach(function (repository) {
-                //if it is a match set the checked value to true
-                if (repository.name === selected) repository.checked = true;
+        data.selected.forEach(function (selected: any) {
+            vm.repositories.forEach(function (repository: any) {
+                // if it is a match set the checked value to true
+                if (repository.name === selected) { repository.checked = true; }
             });
         });
     }
@@ -579,104 +597,103 @@ angular.module('app').service('searchBuilderPanel', searchBuilderPanel);
 
 searchBuilderPanel.$inject = ['$q'];
 
-function searchBuilderPanel($q) {
+function searchBuilderPanel($q: ng.IQService) {
     var vm = this;
 
-    //store basic panel properties
+    // store basic panel properties
     vm.panelOpen = false;
     vm.panelWidth = 400;
     vm.panelSide = 'right';
 
-    //store content properties
+    // store content properties
     vm.panelHeader = '';
     vm.panelTemplate = '';
 
-    //store a deferred object to allow returning of values
+    // store a deferred object to allow returning of values
     vm.deferred = null;
 
-    //allow the storing of some data while the panel is open
+    // allow the storing of some data while the panel is open
     vm.data = null;
 
     // allow custom on dismiss event
     vm.dismissEventHandlers = [];
 
-    //action functions
-    vm.openPanel = function (data) {
+    // action functions
+    vm.openPanel = function (data: any) {
         vm.deferred = $q.defer();
 
-        //store any new data - replace any exisiting data
+        // store any new data - replace any exisiting data
         vm.data = data;
 
-        //reset dismiss event handlers
+        // reset dismiss event handlers
         vm.dismissEventHandlers = [];
 
-        //show panel
+        // show panel
         vm.panelOpen = true;
 
         return vm.deferred.promise;
     };
 
-    vm.closePanel = function (result) {
-        //if deferred is not null then either resolve or reject deferred
+    vm.closePanel = function (result: any) {
+        // if deferred is not null then either resolve or reject deferred
         if (vm.deferred !== null) {
-            if (result) vm.deferred.resolve(result);
-            else vm.deferred.reject();
+            if (result) { vm.deferred.resolve(result); } else { vm.deferred.reject(); }
         }
 
-        //we no longer need the deferred object - it has been resolved or rejected
+        // we no longer need the deferred object - it has been resolved or rejected
         vm.deferred = null;
 
-        //hide the panel
+        // hide the panel
         vm.panelOpen = false;
 
-        //remove any template so everything is reinstantiated correctly
+        // remove any template so everything is reinstantiated correctly
         vm.setPanelHeader('');
         vm.setPanelTemplate('');
     };
 
-    vm.onDismiss = function (eventHandler) {
+    vm.onDismiss = function (eventHandler: any) {
 
-        //if an argument was passed then we can assume that this is subscribing to the dismiss event
+        // if an argument was passed then we can assume that this is subscribing to the dismiss event
         if (eventHandler) {
             vm.dismissEventHandlers.push(eventHandler);
             return;
         }
 
-        //allow a handler to resolve deferred
+        // allow a handler to resolve deferred
         var resolved = false;
 
-        //otherwise call all event handlers and pass them the deferred object in case they want to resolve it
+        // otherwise call all event handlers and pass them the deferred object in case they want to resolve it
         for (var i = 0; i < vm.dismissEventHandlers.length; i++) {
             var handler = vm.dismissEventHandlers[i];
 
-            //call function with deferred
+            // call function with deferredd
             var didResolved = handler(vm.deferred);
 
-            if (didResolved === true) resolved = true;
+            if (didResolved === true) { resolved = true; }
         }
 
-        //if deferred has not yet been resolved then reject
-        if (resolved === false && vm.deferred) vm.deferred.reject();
+        // if deferred has not yet been resolved then rejectt
+        if (resolved === false && vm.deferred) { vm.deferred.reject(); }
 
-        //remove any template so everything is reinstantiated correctly
+        // remove any template so everything is reinstantiated correctlyy
         vm.setPanelHeader('');
         vm.setPanelTemplate('');
     };
 
-    //setters
-    vm.setPanelHeader = function (header) {
+    // setterss
+    vm.setPanelHeader = function (header: any) {
         vm.panelHeader = header;
     };
 
-    vm.setPanelTemplate = function (template) {
+    vm.setPanelTemplate = function (template: any) {
         vm.panelTemplate = template;
     };
 
-    vm.setData = function (data) {
+    vm.setData = function (data: any) {
         vm.data = data;
     };
 
-    //getters
+    // getterss
     vm.getPanelWidth = function () {
         return vm.panelWidth;
     };
@@ -705,25 +722,25 @@ angular.module('app').service('searchBuilderId', searchBuilderId);
 function searchBuilderId() {
     var vm = this;
 
-    vm.generateComponentId = function (componentName, searchQuery) {
-        //initialise or increments
+    vm.generateComponentId = function (componentName: any, searchQuery: any) {
+        // initialise or incrementss
 
         vm.existingIds = [];
 
-        //Get all IDs which have currently been assigned for each component
+        // Get all IDs which have currently been assigned for each componentt
         for (var groupName in searchQuery) {
             var group = searchQuery[groupName];
 
-            //build up list of all component ids
-            for (var component in group) vm.existingIds.push(component);
+            // build up list of all component idss
+            for (var component in group) { vm.existingIds.push(component); }
         }
 
         var index = 0;
         var componentId;
 
-        //setting upper limit to avoid an infinte loop
+        // setting upper limit to avoid an infinte loopp
         while (index < 1000) {
-            var desiredId = componentName + "-" + index;
+            var desiredId = componentName + '-' + index;
 
             if (vm.existingIds.indexOf(desiredId) === -1) {
                 componentId = desiredId;

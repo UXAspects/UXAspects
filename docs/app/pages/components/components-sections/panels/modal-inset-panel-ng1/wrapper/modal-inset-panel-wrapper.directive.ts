@@ -9,17 +9,23 @@ angular.module('app').directive('uxdModalInsetPanelWrapper', () => {
 
             vm.openModal = function () {
 
-                var modalInstance = $modal.open({
+                // workaround for @ngtools - prevent it trying to load resource
+                var key = 'templateUrl';
+    
+                var config = {
                     animation: false,
-                    templateUrl: 'modal-inset-panel-ng1/modalLayout.html',
                     controller: 'ModalInsetPanelDemoModalCtrl',
                     controllerAs: 'vm',
                     size: 'md',
                     keyboard: 'true'
-                });
+                };
+    
+                config[key] = 'modal-inset-panel-ng1/modalLayout.html';
+
+                var modalInstance = $modal.open(config);
 
                 modalInstance.result.then(function () {
-                    //result passed into closed function;
+                    // result passed into closed function;
                 });
             };
 
@@ -36,7 +42,7 @@ angular.module('app').controller('ModalInsetPanelDemoModalCtrl', ModalInsetPanel
 
 ModalInsetPanelDemoModalCtrl.$inject = ['$modalInstance'];
 
-function ModalInsetPanelDemoModalCtrl($modalInstance) {
+function ModalInsetPanelDemoModalCtrl($modalInstance: any) {
     var vm = this;
 
     var chance = require('chance').Chance();
@@ -66,11 +72,11 @@ function ModalInsetPanelDemoModalCtrl($modalInstance) {
     }
 
     vm.ok = function () {
-        $modalInstance.close("true");
+        $modalInstance.close('true');
     };
 
     vm.cancel = function () {
-        $modalInstance.dismiss("cancel");
+        $modalInstance.dismiss('cancel');
     };
 
     vm.showInsetLeft = function () {

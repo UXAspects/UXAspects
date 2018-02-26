@@ -7,17 +7,26 @@ angular.module('app').directive('uxdSquareModalWrapper', () => {
 
             var vm = this;
 
+            
             vm.openModal2 = function () {
-                var modalInstance = $modal.open({
-                    templateUrl: 'square-modal-ng1/modalLayout.html',
+
+                // workaround for @ngtools - prevent it trying to load resource
+                var key = 'templateUrl';
+    
+                var config = {
                     controller: 'SquareModalDemoModalCtrl',
                     controllerAs: 'vm',
                     animation: false,
                     keyboard: 'true',
                     windowClass: 'square-modal-window'
-                });
+                };
+    
+                config[key] = 'square-modal-ng1/modalLayout.html';
+
+                var modalInstance = $modal.open(config);
+
                 modalInstance.result.then(function () {
-                    //result passed into closed function;
+                    // result passed into closed function;
                 });
             };
         }],

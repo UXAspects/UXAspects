@@ -9,9 +9,9 @@ angular.module('app').directive('uxdSideModalWrapper', () => {
             var vm = this;
 
             vm.sideModalOptions = {
-                title: "Site Detail - UX Aspects",
-                main: "side-modal-ng1/modalContent.html",
-                footer: "side-modal-ng1/modalFooter.html",
+                title: 'Site Detail - UX Aspects',
+                main: 'side-modal-ng1/modalContent.html',
+                footer: 'side-modal-ng1/modalFooter.html',
                 modalColumns: 'col-lg-6 col-md-7 col-sm-9 col-xs-10',
                 affixHeader: true,
                 animate: true
@@ -33,7 +33,7 @@ angular.module('app').controller('SideModalDemoModalCtrl', ['$modalInstance', fu
     vm.date = new Date();
     vm.opened = false;
 
-    vm.open = function ($event) {
+    vm.open = function ($event: MouseEvent) {
         $event.preventDefault();
         $event.stopPropagation();
         vm.opened = true;
@@ -41,10 +41,10 @@ angular.module('app').controller('SideModalDemoModalCtrl', ['$modalInstance', fu
 
     // modal properties
     vm.ok = function () {
-        $modalInstance.close("true");
+        $modalInstance.close('true');
     };
 
     vm.cancel = function () {
-        $modalInstance.dismiss("cancel");
+        $modalInstance.dismiss('cancel');
     };
 }]);

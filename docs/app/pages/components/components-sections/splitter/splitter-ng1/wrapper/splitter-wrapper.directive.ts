@@ -6,15 +6,15 @@ angular.module('app').directive('uxdSplitterWrapper', () => {
             var vm = this;
 
             vm.dragStart = function () {
-                //this will be called when the user begins to drag
+                // this will be called when the user begins to drag
             };
 
             vm.drag = function () {
-                //this will be called when the moves the divider
+                // this will be called when the moves the divider
             };
 
             vm.dragEnd = function () {
-                //this will be called when the user has finished dragging
+                // this will be called when the user has finished dragging
             };
 
             // Clean up scope

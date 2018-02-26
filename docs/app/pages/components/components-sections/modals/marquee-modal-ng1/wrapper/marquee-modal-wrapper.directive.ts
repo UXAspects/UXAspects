@@ -9,18 +9,24 @@ angular.module('app').directive('uxdMarqueeModalWrapper', () => {
 
             vm.openModal = function () {
 
-                var modalInstance = $modal.open({
+                // workaround for @ngtools - prevent it trying to load resource
+                var key = 'templateUrl';
+
+                var config = {
                     animation: false,
-                    templateUrl: 'marquee-modal-ng1/modalLayout.html',
                     controller: 'MarqueeModalDemoModalCtrl',
                     controllerAs: 'vm',
                     keyboard: 'true',
                     size: 'lg',
                     windowClass: 'marquee-modal-window'
-                });
+                };
+
+                config[key] = 'marquee-modal-ng1/modalLayout.html';
+
+                var modalInstance = $modal.open(config);
 
                 modalInstance.result.then(function () {
-                    //result passed into closed function;
+                    // result passed into closed function;
                 });
             };
 
@@ -40,7 +46,7 @@ angular.module('app').controller('MarqueeModalDemoModalCtrl', ['$modalInstance',
     vm.date = new Date();
     vm.opened = false;
 
-    vm.open = function ($event) {
+    vm.open = function ($event: MouseEvent) {
         $event.preventDefault();
         $event.stopPropagation();
         vm.opened = true;
@@ -48,10 +54,10 @@ angular.module('app').controller('MarqueeModalDemoModalCtrl', ['$modalInstance',
 
     // modal properties
     vm.ok = function () {
-        $modalInstance.close("true");
+        $modalInstance.close('true');
     };
 
     vm.cancel = function () {
-        $modalInstance.dismiss("cancel");
+        $modalInstance.dismiss('cancel');
     };
 }]);
