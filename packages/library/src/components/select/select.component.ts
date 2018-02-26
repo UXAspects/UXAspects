@@ -1,6 +1,24 @@
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
-import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
-import { Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    TypeaheadComponent,
+    TypeaheadKeyService,
+    TypeaheadOptionEvent
+} from '../typeahead/index';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -20,7 +38,6 @@ export const SELECT_VALUE_ACCESSOR: any = {
     providers: [SELECT_VALUE_ACCESSOR]
 })
 export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor {
-
     private _value: any;
 
     @Input()
@@ -82,17 +99,21 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
 
     filter: Observable<string>;
 
-    propagateChange = (_: any) => { };
+    propagateChange = (_: any) => {};
+
+    private _document: Document;
 
     constructor(
         private _element: ElementRef,
-        @Inject(DOCUMENT) private _document: Document,
-        private _typeaheadKeyService: TypeaheadKeyService) { }
+        @Inject(DOCUMENT) document: any,
+        private _typeaheadKeyService: TypeaheadKeyService
+    ) {
+        this._document = <Document>document;
+    }
 
     ngOnInit() {
-
         // Changes to the input field
-        this._input.subscribe((next) => {
+        this._input.subscribe(next => {
             if (!this.multiple && next !== this.getDisplay(this.value)) {
                 if (this.allowNull) {
                     this.value = null;
@@ -102,7 +123,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
 
         // Set up filter from input
         this.filter = this._input
-            .map((input) => {
+            .map(input => {
                 if (!this.multiple && input === this.getDisplay(this.value)) {
                     return '';
                 }
@@ -111,8 +132,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
             .debounceTime(200);
 
         // Changes to filter value
-        this.filter.subscribe((next) => {
-
+        this.filter.subscribe(next => {
             // Open the dropdown when filter is nonempty.
             if (next && next.length > 0) {
                 this.dropdownOpen = true;
@@ -126,7 +146,11 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
                 this.input = this.getDisplay(changes.value.currentValue);
             }
         }
-        if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
+        if (
+            changes.multiple &&
+            !changes.multiple.firstChange &&
+            changes.multiple.currentValue !== changes.multiple.previousValue
+        ) {
             this.input = '';
         }
     }
@@ -141,7 +165,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
         this.propagateChange = fn;
     }
 
-    registerOnTouched(fn: any): void { }
+    registerOnTouched(fn: any): void {}
 
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
@@ -155,7 +179,11 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     inputBlurHandler(event: Event) {
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
-            if (!this._element.nativeElement.contains(this._document.activeElement)) {
+            if (
+                !this._element.nativeElement.contains(
+                    this._document.activeElement
+                )
+            ) {
                 this.dropdownOpen = false;
                 if (!this.multiple) {
                     this.input = this.getDisplay(this.value);
@@ -168,7 +196,6 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
      * Key handler for single select only. Multiple select key handling is in TagInputComponent.
      */
     inputKeyHandler(event: KeyboardEvent) {
-
         // Standard keys for typeahead (up/down/esc)
         this._typeaheadKeyService.handleKey(event, this.singleTypeahead);
 
@@ -204,7 +231,10 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
         if (typeof this.display === 'function') {
             return this.display(option);
         }
-        if (typeof this.display === 'string' && option.hasOwnProperty(this.display)) {
+        if (
+            typeof this.display === 'string' &&
+            option.hasOwnProperty(this.display)
+        ) {
             return option[<string>this.display];
         }
         return option;

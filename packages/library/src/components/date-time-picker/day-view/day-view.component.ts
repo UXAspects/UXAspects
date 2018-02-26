@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { dateRange, gridify, compareDays, months, weekdaysShort } from '../date-time-picker.utils';
 import { DateTimePickerService } from '../date-time-picker.service';
-import { DatePickerMode } from '../date-time-picker.component';
+import { DatePickerMode } from '../date-picker-mode';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/merge';
 import { Subscription } from 'rxjs/Subscription';

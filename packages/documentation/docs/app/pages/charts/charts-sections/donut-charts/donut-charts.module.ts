@@ -1,16 +1,17 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { HybridModule } from '@ux-aspects/ux-aspects';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 
-import { ChartsDonutChartNg1Component } from './donut-chart-ng1/donut-chart-ng1.component';
-import { ChartsNestedDonutChartNg1Component } from './nested-donut-chart-ng1/nested-donut-chart-ng1.component';
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
+
+import { ChartsDonutChartNg1Component } from './donut-chart-ng1/donut-chart-ng1.component';
+import { ChartsNestedDonutChartNg1Component } from './nested-donut-chart-ng1/nested-donut-chart-ng1.component';
 import { ChartsDonutChartComponent } from './donut-chart/donut-chart.component';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 
 const SECTIONS = [
     ChartsDonutChartNg1Component,

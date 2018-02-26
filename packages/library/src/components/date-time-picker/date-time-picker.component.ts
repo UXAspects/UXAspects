@@ -3,6 +3,7 @@ import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-
 import { weekdaysShort } from './date-time-picker.utils';
 import { DateTimePickerConfig } from './date-time-picker.config';
 import { DateTimePickerService } from './date-time-picker.service';
+import { DatePickerMode } from './date-picker-mode';
 
 @Component({
   selector: 'ux-date-time-picker',
@@ -85,10 +86,4 @@ export class DateTimePickerComponent {
     // emit the changes
     this.commit();
   }
-}
-
-export enum DatePickerMode {
-  Day,
-  Month,
-  Year
 }

@@ -3,7 +3,7 @@ import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { FloatingActionButtonItem } from '../../../../../../../src/index';
+import { FloatingActionButtonItem } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'uxd-floating-action-button-ng1',

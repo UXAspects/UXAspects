@@ -1,3 +1,4 @@
+export * from './date-picker-mode';
 export * from './date-time-picker.module';
 export * from './date-time-picker.component';
 export * from './day-view/day-view.component';

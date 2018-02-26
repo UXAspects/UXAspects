@@ -30,13 +30,17 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
 
     Version = Version;
 
-    private routeSubscription: Subscription;
+    private _document: Document;
+    private _routeSubscription: Subscription;
 
-    constructor(@Inject(DOCUMENT) private _document: Document,
+    constructor(
+        @Inject(DOCUMENT) document: any,
         private _router: Router,
         private _activatedRoute: ActivatedRoute,
         private _navigationService: NavigationService,
-        public versionService: VersionService) {
+        public versionService: VersionService
+    ) {
+        this._document = <Document>document;
 
         // Subscribe to version changes in order to re-filter the sections.
         this.versionService.version.subscribe((value: Version) => this.versionChanged(value));
@@ -53,7 +57,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
         this.versionChanged(this.versionService.version.getValue());
 
         // Fix nav position on navigate
-        this.routeSubscription = this._router.events.subscribe((event) => {
+        this._routeSubscription = this._router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 setTimeout(this.updatePosition.bind(this), 100);
             }
@@ -66,7 +70,7 @@ export class SideNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     ngOnDestroy() {
-        this.routeSubscription.unsubscribe();
+        this._routeSubscription.unsubscribe();
     }
 
     isActive(section: string) {

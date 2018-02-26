@@ -104,10 +104,15 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     private onChangeHandler: (_: any) => void = () => { };
     private onTouchedHandler: () => void = () => { };
 
+    private _document: Document;
+
     constructor(
         private _element: ElementRef,
-        @Inject(DOCUMENT) private _document: Document,
-        private _typeaheadKeyService: TypeaheadKeyService) { }
+        @Inject(DOCUMENT) document: any,
+        private _typeaheadKeyService: TypeaheadKeyService
+    ) {
+        this._document = <Document>document;
+    }
 
     ngOnInit() {
         if (!this.tagTemplate) {

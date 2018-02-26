@@ -1,4 +1,12 @@
-import { Component, Input, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    Input,
+    ViewChildren,
+    QueryList,
+    ElementRef,
+    AfterViewInit,
+    ViewEncapsulation
+} from '@angular/core';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
 import { ResizeService } from '../../../directives/resize/index';
 
@@ -6,12 +14,12 @@ import { ResizeService } from '../../../directives/resize/index';
     selector: 'ux-page-header-horizontal-navigation',
     templateUrl: './navigation.component.html',
     styleUrls: ['./navigation.component.less'],
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class PageHeaderNavigationComponent implements AfterViewInit {
-    
-    @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;
-     
+    @ViewChildren(PageHeaderNavigationItemComponent)
+    menuItems: QueryList<PageHeaderNavigationItemComponent>;
+
     @Input() items: PageHeaderNavigationItem[] = [];
 
     indicatorVisible: boolean = false;
@@ -19,7 +27,9 @@ export class PageHeaderNavigationComponent implements AfterViewInit {
     indicatorWidth: number = 0;
 
     constructor(elementRef: ElementRef, resizeService: ResizeService) {
-        resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this));
+        resizeService
+            .addResizeListener(elementRef.nativeElement)
+            .subscribe(this.updateSelectedIndicator.bind(this));
     }
 
     ngAfterViewInit(): void {
@@ -27,7 +37,6 @@ export class PageHeaderNavigationComponent implements AfterViewInit {
     }
 
     onSelect(item: PageHeaderNavigationItem): void {
-        
         if (item.select) {
             item.select.call(item, item);
         }
@@ -43,8 +52,9 @@ export class PageHeaderNavigationComponent implements AfterViewInit {
         this.items.forEach(item => this.deselect(item));
     }
 
-    deselect(navItem: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem): void {
-        
+    deselect(
+        navItem: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem
+    ): void {
         // deselect the current item
         navItem.selected = false;
 
@@ -58,9 +68,7 @@ export class PageHeaderNavigationComponent implements AfterViewInit {
     }
 
     updateSelectedIndicator(): void {
-
         setTimeout(() => {
-
             // find the selected item
             let selectedItem = this.menuItems.find(item => item.item.selected);
 
@@ -69,14 +77,18 @@ export class PageHeaderNavigationComponent implements AfterViewInit {
 
             // set the width of the indicator to match the width of the navigation item
             if (selectedItem) {
-                let styles = getComputedStyle(selectedItem.elementRef.nativeElement);
+                let styles = getComputedStyle(
+                    selectedItem.elementRef.nativeElement
+                );
 
-                this.indicatorX = selectedItem.elementRef.nativeElement.offsetLeft;
-                this.indicatorWidth = parseInt(styles.getPropertyValue('width'));
+                this.indicatorX =
+                    selectedItem.elementRef.nativeElement.offsetLeft;
+                this.indicatorWidth = parseInt(
+                    styles.getPropertyValue('width')
+                );
             }
         });
     }
-
 }
 
 export interface PageHeaderNavigationItem {
@@ -89,7 +101,7 @@ export interface PageHeaderNavigationItem {
 
 export interface PageHeaderNavigationDropdownItem {
     title: string;
-    selected?: boolean;    
+    selected?: boolean;
     select?: (item: PageHeaderNavigationDropdownItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
 }

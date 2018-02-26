@@ -1,17 +1,15 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HybridModule, FlippableCardModule, ColorServiceModule, SparkModule } from '@ux-aspects/ux-aspects';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
 
 import { ComponentsFlippableCardsNg1Component } from './flippable-cards-ng1/flippable-cards-ng1.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ComponentsFlippableCardsComponent } from './flippable-cards/flippable-cards.component';
-import { FlippableCardModule, ColorServiceModule, SparkModule } from '../../../../../../src/index';
-import { FlippableCardModule, ColorServiceModule, SparkModule } from '../../../../../../src/index';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
-import { HybridModule, FlippableCardModule, ColorServiceModule, SparkModule } from '@ux-aspects/ux-aspects';
 
 const SECTIONS = [
     ComponentsFlippableCardsNg1Component,

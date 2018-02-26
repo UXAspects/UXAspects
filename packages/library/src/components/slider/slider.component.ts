@@ -1,4 +1,17 @@
-import { Component, Input, EventEmitter, Output, OnInit, ElementRef, ViewChild, AfterViewInit, DoCheck, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+    Component,
+    Input,
+    EventEmitter,
+    Output,
+    OnInit,
+    ElementRef,
+    ViewChild,
+    AfterViewInit,
+    DoCheck,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { ColorService } from '../../services/color/index';
 
 @Component({
@@ -9,10 +22,12 @@ import { ColorService } from '../../services/color/index';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
-
     @Input() value: SliderValue | number = 0;
     @Input() options: SliderOptions;
-    @Output() valueChange: EventEmitter<SliderValue | number> = new EventEmitter<SliderValue | number>();
+    @Output()
+    valueChange: EventEmitter<SliderValue | number> = new EventEmitter<
+        SliderValue | number
+    >();
 
     @ViewChild('lowerTooltip') lowerTooltip: ElementRef;
     @ViewChild('upperTooltip') upperTooltip: ElementRef;
@@ -79,8 +94,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     ticks: SliderTick[] = [];
     defaultOptions: SliderOptions;
 
-    constructor(colorService: ColorService, private _changeDetectorRef: ChangeDetectorRef) {
-
+    constructor(
+        colorService: ColorService,
+        private _changeDetectorRef: ChangeDetectorRef
+    ) {
         // setup default options
         this.defaultOptions = {
             type: SliderType.Value,
@@ -114,7 +131,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
                 },
                 colors: {
                     lower: colorService.getColor('grey6').toHex(),
-                    range: colorService.getColor('accent').setAlpha(0.75).toRgba(),
+                    range: colorService
+                        .getColor('accent')
+                        .setAlpha(0.75)
+                        .toRgba(),
                     higher: colorService.getColor('grey6').toHex()
                 }
             }
@@ -122,7 +142,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     ngOnInit(): void {
-
         this.updateOptions();
         this.updateValues();
 
@@ -134,7 +153,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     ngDoCheck(): void {
-
         if (this.detectValueChange(this.value, this._value)) {
             this.updateValues();
             this._value = this.clone(this.value);
@@ -153,15 +171,18 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     getFormattedValue(thumb: SliderThumb): string | number {
-        return this.options.handles.callout.formatter(this.getThumbState(thumb).value);
+        return this.options.handles.callout.formatter(
+            this.getThumbState(thumb).value
+        );
     }
 
     private getThumbState(thumb: SliderThumb) {
-        return thumb === SliderThumb.Lower ? this.thumbs.lower : this.thumbs.upper;
+        return thumb === SliderThumb.Lower
+            ? this.thumbs.lower
+            : this.thumbs.upper;
     }
 
     private setThumbState(thumb: SliderThumb, hover: boolean, drag: boolean) {
-
         if (thumb === SliderThumb.Lower) {
             this.thumbs.lower.hover = hover;
             this.thumbs.lower.drag = drag;
@@ -175,13 +196,11 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     thumbEvent(thumb: SliderThumb, event: SliderThumbEvent): void {
-
         // get the current thumb state
         let state = this.getThumbState(thumb);
 
         // update based upon event
         switch (event) {
-
             case SliderThumbEvent.DragStart:
                 state.drag = true;
                 break;
@@ -209,12 +228,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private updateTooltips(thumb: SliderThumb): void {
-
         let visible = false;
         let state = this.getThumbState(thumb);
 
         switch (this.options.handles.callout.trigger) {
-
             case SliderCalloutTrigger.Persistent:
                 visible = true;
                 break;
@@ -243,7 +260,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private updateTooltipText(thumb: SliderThumb) {
-
         // get the thumb value
         let state = this.getThumbState(thumb);
         let tooltip = this.getTooltip(thumb);
@@ -253,15 +269,18 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private getTooltipElement(thumb: SliderThumb): ElementRef {
-        return thumb === SliderThumb.Lower ? this.lowerTooltip : this.upperTooltip;
+        return thumb === SliderThumb.Lower
+            ? this.lowerTooltip
+            : this.upperTooltip;
     }
 
     private getTooltip(thumb: SliderThumb) {
-        return thumb === SliderThumb.Lower ? this.tooltips.lower : this.tooltips.upper;
+        return thumb === SliderThumb.Lower
+            ? this.tooltips.lower
+            : this.tooltips.upper;
     }
 
     private updateTooltipPosition(thumb: SliderThumb): void {
-
         const tooltip = this.getTooltip(thumb);
 
         // if tooltip is not visible then stop here
@@ -275,7 +294,8 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         let thumbWidth: number;
 
         if (this.options.handles.style === SliderStyle.Button) {
-            thumbWidth = this.options.track.height === SliderSize.Narrow ? 16 : 24;
+            thumbWidth =
+                this.options.track.height === SliderSize.Narrow ? 16 : 24;
         } else {
             thumbWidth = 2;
         }
@@ -288,7 +308,11 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // update tooltip position
         tooltip.position = -tooltipPosition;
 
-        if (this.options.type === SliderType.Range && this.options.handles.callout.trigger === SliderCalloutTrigger.Dynamic) {
+        if (
+            this.options.type === SliderType.Range &&
+            this.options.handles.callout.trigger ===
+                SliderCalloutTrigger.Dynamic
+        ) {
             this.preventTooltipOverlap(tooltip);
         }
     }
@@ -296,20 +320,26 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private preventTooltipOverlap(tooltip: any): void {
         const trackWidth = this.track.nativeElement.offsetWidth;
 
-        const lower = (trackWidth / 100) * this.thumbs.lower.position;
-        const upper = (trackWidth / 100) * this.thumbs.upper.position;
+        const lower = trackWidth / 100 * this.thumbs.lower.position;
+        const upper = trackWidth / 100 * this.thumbs.upper.position;
 
         const lowerWidth = this.lowerTooltip.nativeElement.offsetWidth / 2;
         const upperWidth = this.upperTooltip.nativeElement.offsetWidth / 2;
 
-        const diff = (lower + lowerWidth) - (upper - upperWidth);
+        const diff = lower + lowerWidth - (upper - upperWidth);
 
         // if the tooltips are closer than 16px then adjust so the dont move any close
         if (diff > 0) {
-            if (tooltip === this.tooltips.lower && this.thumbs.lower.drag === false) {
-                tooltip.position -= (diff / 2);
-            } else if (tooltip === this.tooltips.upper && this.thumbs.upper.drag === false) {
-                tooltip.position += (diff / 2);
+            if (
+                tooltip === this.tooltips.lower &&
+                this.thumbs.lower.drag === false
+            ) {
+                tooltip.position -= diff / 2;
+            } else if (
+                tooltip === this.tooltips.upper &&
+                this.thumbs.upper.drag === false
+            ) {
+                tooltip.position += diff / 2;
             }
         }
     }
@@ -318,10 +348,17 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         return Math.min(Math.max(value, min), max);
     }
 
-    updateThumbPosition(event: MouseEvent | TouchEvent, thumb: SliderThumb): void {
-
+    updateThumbPosition(
+        event: MouseEvent | TouchEvent,
+        thumb: SliderThumb
+    ): void {
         // get event position - either mouse or touch
-        let eventPosition = event instanceof MouseEvent ? event.clientX : event.touches && event.touches.length > 0 ? event.touches[0].clientX : null;
+        let eventPosition =
+            event instanceof MouseEvent
+                ? event.clientX
+                : event.touches && event.touches.length > 0
+                  ? event.touches[0].clientX
+                  : null;
 
         // if event position is null do nothing
         if (eventPosition === null) {
@@ -335,13 +372,19 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         let trackBounds = this.track.nativeElement.getBoundingClientRect();
 
         // restrict the value within the range size
-        let position = this.clamp(mouseX - trackBounds.left, 0, trackBounds.width);
+        let position = this.clamp(
+            mouseX - trackBounds.left,
+            0,
+            trackBounds.width
+        );
 
         // get fraction representation of location within the track
-        let fraction = (position / trackBounds.width);
+        let fraction = position / trackBounds.width;
 
         // convert to value within the range
-        let value = ((this.options.track.max - this.options.track.min) * fraction) + this.options.track.min;
+        let value =
+            (this.options.track.max - this.options.track.min) * fraction +
+            this.options.track.min;
 
         // ensure value is valid
         value = this.validateValue(thumb, value);
@@ -367,7 +410,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private updateOrder(thumb: SliderThumb): void {
-
         let lower = thumb === SliderThumb.Lower ? 101 : 100;
         let upper = thumb === SliderThumb.Lower ? 100 : 101;
 
@@ -377,7 +419,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private snapToTick(value: number, thumb: SliderThumb): number {
-
         // get the snap target
         const snapTarget: SliderSnap = this.options.track.ticks.snap;
 
@@ -390,13 +431,16 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         let ticks: SliderTick[];
 
         switch (snapTarget) {
-
             case SliderSnap.Minor:
-                ticks = this.ticks.filter(tick => tick.type === SliderTickType.Minor);
+                ticks = this.ticks.filter(
+                    tick => tick.type === SliderTickType.Minor
+                );
                 break;
 
             case SliderSnap.Major:
-                ticks = this.ticks.filter(tick => tick.type === SliderTickType.Major);
+                ticks = this.ticks.filter(
+                    tick => tick.type === SliderTickType.Major
+                );
                 break;
 
             default:
@@ -407,16 +451,24 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         let lowerLimit = this.options.track.min;
         let upperLimit = this.options.track.max;
 
-        if (this.options.type === SliderType.Range && thumb === SliderThumb.Lower) {
+        if (
+            this.options.type === SliderType.Range &&
+            thumb === SliderThumb.Lower
+        ) {
             upperLimit = this.thumbs.upper.value;
         }
 
-        if (this.options.type === SliderType.Range && thumb === SliderThumb.Upper) {
+        if (
+            this.options.type === SliderType.Range &&
+            thumb === SliderThumb.Upper
+        ) {
             lowerLimit = this.thumbs.lower.value;
         }
 
         // Find the closest tick to the current position
-        const range = ticks.filter(tick => tick.value >= lowerLimit && tick.value <= upperLimit);
+        const range = ticks.filter(
+            tick => tick.value >= lowerLimit && tick.value <= upperLimit
+        );
 
         // If there are no close ticks in the valid range then dont snap
         if (range.length === 0) {
@@ -425,9 +477,11 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // Find the closest tick
         const closest = range.reduceRight((previous, current) => {
-
-            const previousDistance = Math.max(previous.value, value) - Math.min(previous.value, value);
-            const currentDistance = Math.max(current.value, value) - Math.min(current.value, value);
+            const previousDistance =
+                Math.max(previous.value, value) -
+                Math.min(previous.value, value);
+            const currentDistance =
+                Math.max(current.value, value) - Math.min(current.value, value);
 
             return previousDistance < currentDistance ? previous : current;
         });
@@ -436,43 +490,50 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private validateValue(thumb: SliderThumb, value: number): number {
-
         // if slider is not a range value is always valid providing it is within the chart min and max values
         if (this.options.type === SliderType.Value) {
-            return Math.max(Math.min(value, this.options.track.max), this.options.track.min);
+            return Math.max(
+                Math.min(value, this.options.track.max),
+                this.options.track.min
+            );
         }
 
         // check if value is with chart ranges
         if (value > this.options.track.max) {
-            return thumb === SliderThumb.Lower ? Math.min(this.options.track.max, this.thumbs.upper.value) : this.options.track.max;
+            return thumb === SliderThumb.Lower
+                ? Math.min(this.options.track.max, this.thumbs.upper.value)
+                : this.options.track.max;
         }
 
         if (value < this.options.track.min) {
-            return thumb === SliderThumb.Upper ? Math.max(this.options.track.min, this.thumbs.lower.value) : this.options.track.min;
+            return thumb === SliderThumb.Upper
+                ? Math.max(this.options.track.min, this.thumbs.lower.value)
+                : this.options.track.min;
         }
 
         // otherwise we need to check to make sure lower thumb cannot go above higher and vice versa
         if (thumb === SliderThumb.Lower) {
-
             if (this.thumbs.upper.value === null) {
                 return value;
             }
 
-            return value <= this.thumbs.upper.value ? value : this.thumbs.upper.value;
+            return value <= this.thumbs.upper.value
+                ? value
+                : this.thumbs.upper.value;
         }
 
         if (thumb === SliderThumb.Upper) {
-
             if (this.thumbs.lower.value === null) {
                 return value;
             }
 
-            return value >= this.thumbs.lower.value ? value : this.thumbs.lower.value;
+            return value >= this.thumbs.lower.value
+                ? value
+                : this.thumbs.lower.value;
         }
     }
 
     private updateOptions(): void {
-
         // add in the default options that user hasn't specified
         this.options = this.deepMerge(this.options || {}, this.defaultOptions);
 
@@ -482,21 +543,34 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private updateValues(): void {
-
         if (this.value === undefined || this.value === null) {
             this.value = 0;
         }
 
-        let lowerValue = typeof this.value === 'number' ? this.value : this.value.low;
-        let upperValue = typeof this.value === 'number' ? this.value : this.value.high;
+        let lowerValue =
+            typeof this.value === 'number' ? this.value : this.value.low;
+        let upperValue =
+            typeof this.value === 'number' ? this.value : this.value.high;
 
         // validate values
-        lowerValue = this.validateValue(SliderThumb.Lower, Number(lowerValue.toFixed(4)));
-        upperValue = this.validateValue(SliderThumb.Upper, Number(upperValue.toFixed(4)));
+        lowerValue = this.validateValue(
+            SliderThumb.Lower,
+            Number(lowerValue.toFixed(4))
+        );
+        upperValue = this.validateValue(
+            SliderThumb.Upper,
+            Number(upperValue.toFixed(4))
+        );
 
         // calculate the positions as percentages
-        let lowerPosition = (((lowerValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
-        let upperPosition = (((upperValue - this.options.track.min) / (this.options.track.max - this.options.track.min)) * 100);
+        let lowerPosition =
+            (lowerValue - this.options.track.min) /
+            (this.options.track.max - this.options.track.min) *
+            100;
+        let upperPosition =
+            (upperValue - this.options.track.min) /
+            (this.options.track.max - this.options.track.min) *
+            100;
 
         // update thumb positions
         this.thumbs.lower.position = lowerPosition;
@@ -505,20 +579,25 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // calculate the track sizes
         this.tracks.lower.size = lowerPosition;
         this.tracks.middle.size = upperPosition - lowerPosition;
-        this.tracks.upper.size = this.options.type === SliderType.Value ? 100 - lowerPosition : 100 - upperPosition;
+        this.tracks.upper.size =
+            this.options.type === SliderType.Value
+                ? 100 - lowerPosition
+                : 100 - upperPosition;
 
         // update the value input
         this.setValue(lowerValue, upperValue);
     }
 
     private setValue(low: number, high?: number): void {
-
         this.thumbs.lower.value = low;
         this.thumbs.upper.value = high;
 
         let previousValue = this.clone(this._value);
 
-        this.value = this.options.type === SliderType.Value ? low : { low: low, high: high };
+        this.value =
+            this.options.type === SliderType.Value
+                ? low
+                : { low: low, high: high };
 
         // call the event emitter if changes occured
         if (this.detectValueChange(this.value, previousValue)) {
@@ -532,7 +611,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private setThumbValue(thumb: SliderThumb, value: number): void {
-
         // update the thumb value
         this.getThumbState(thumb).value = value;
 
@@ -541,7 +619,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private updateTicks(): void {
-
         // get tick options
         const majorOptions = this.options.track.ticks.major;
         const minorOptions = this.options.track.ticks.minor;
@@ -552,28 +629,41 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         }
 
         // create ticks for both major and minor - only get the ones to be shown
-        const majorTicks = this.getTicks(majorOptions, SliderTickType.Major).filter(tick => tick.showTicks);
-        const minorTicks = this.getTicks(minorOptions, SliderTickType.Minor).filter(tick => tick.showTicks);
+        const majorTicks = this.getTicks(
+            majorOptions,
+            SliderTickType.Major
+        ).filter(tick => tick.showTicks);
+        const minorTicks = this.getTicks(
+            minorOptions,
+            SliderTickType.Minor
+        ).filter(tick => tick.showTicks);
 
         // remove any minor ticks that are on a major interval
         this.ticks = this.unionTicks(majorTicks, minorTicks);
     }
 
     private updateTrackColors(): void {
-
         // get colors for each part of the track
         const lower = this.options.track.colors.lower;
         const range = this.options.track.colors.range;
         const higher = this.options.track.colors.higher;
 
         // update the controller value
-        this.tracks.lower.color = typeof lower === 'string' ? lower : `linear-gradient(to right, ${lower.join(', ')})`;
-        this.tracks.middle.color = typeof range === 'string' ? range : `linear-gradient(to right, ${range.join(', ')})`;
-        this.tracks.upper.color = typeof higher === 'string' ? higher : `linear-gradient(to right, ${higher.join(', ')})`;
+        this.tracks.lower.color =
+            typeof lower === 'string'
+                ? lower
+                : `linear-gradient(to right, ${lower.join(', ')})`;
+        this.tracks.middle.color =
+            typeof range === 'string'
+                ? range
+                : `linear-gradient(to right, ${range.join(', ')})`;
+        this.tracks.upper.color =
+            typeof higher === 'string'
+                ? higher
+                : `linear-gradient(to right, ${higher.join(', ')})`;
     }
 
     private getSteps(steps: number | number[]): number[] {
-
         // if they are already an array just return it
         if (steps instanceof Array) {
             return steps;
@@ -582,15 +672,21 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         let output: number[] = [];
 
         // otherwise calculate the steps
-        for (let idx = this.options.track.min; idx <= this.options.track.max; idx += steps) {
+        for (
+            let idx = this.options.track.min;
+            idx <= this.options.track.max;
+            idx += steps
+        ) {
             output.push(idx);
         }
 
         return output;
     }
 
-    private getTicks(options: SliderTickOptions, type: SliderTickType): SliderTick[] {
-
+    private getTicks(
+        options: SliderTickOptions,
+        type: SliderTickType
+    ): SliderTick[] {
         // create an array to store the ticks and step points
         let steps = this.getSteps(options.steps);
 
@@ -599,31 +695,42 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         let max = this.options.track.max;
 
         // convert each step to a slider tick and remove invalid ticks
-        return steps.map(step => {
-            return {
-                showTicks: options.show,
-                showLabels: options.labels,
-                type: type,
-                position: ((step - min) / (max - min)) * 100,
-                value: step,
-                label: options.formatter(step)
-            };
-        }).filter(tick => tick.position >= 0 && tick.position <= 100);
+        return steps
+            .map(step => {
+                return {
+                    showTicks: options.show,
+                    showLabels: options.labels,
+                    type: type,
+                    position: (step - min) / (max - min) * 100,
+                    value: step,
+                    label: options.formatter(step)
+                };
+            })
+            .filter(tick => tick.position >= 0 && tick.position <= 100);
     }
 
-    private unionTicks(majorTicks: SliderTick[], minorTicks: SliderTick[]): SliderTick[] {
-
+    private unionTicks(
+        majorTicks: SliderTick[],
+        minorTicks: SliderTick[]
+    ): SliderTick[] {
         // get all ticks combined removing any minor ticks with the same value as major ticks
-        return majorTicks.concat(minorTicks)
-            .filter((tick, index, array) => tick.type === SliderTickType.Major || !array.find(tk => tk.type === SliderTickType.Major && tk.position === tick.position))
+        return majorTicks
+            .concat(minorTicks)
+            .filter(
+                (tick, index, array) =>
+                    tick.type === SliderTickType.Major ||
+                    !array.find(
+                        tk =>
+                            tk.type === SliderTickType.Major &&
+                            tk.position === tick.position
+                    )
+            )
             .sort((t1, t2) => t1.value - t2.value);
     }
 
     private deepMerge<T>(destination: T, source: T): T {
-
         // loop though all of the properties in the source object
         for (let prop in source) {
-
             // check if the destination object has the property
             if (!destination.hasOwnProperty(prop)) {
                 // copy the property across
@@ -648,11 +755,12 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         return destination;
     }
 
-    private detectValueChange(value1: number | SliderValue, value2: number | SliderValue): boolean {
-
+    private detectValueChange(
+        value1: number | SliderValue,
+        value2: number | SliderValue
+    ): boolean {
         // compare two slider values
         if (this.isSliderValue(value1) && this.isSliderValue(value2)) {
-
             // references to the objects in the correct types
             const obj1 = value1 as SliderValue;
             const obj2 = value2 as SliderValue;
@@ -670,7 +778,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
      * @param value - The object to check - this must be type any
      */
     private isSliderValue(value: any): boolean {
-
         // check if is an object
         if (typeof value !== 'object') {
             return false;
@@ -681,7 +788,6 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     private clone(value: number | SliderValue): number | SliderValue {
-
         // if it is not an object simply return the value
         if (typeof value !== 'object') {
             return value;

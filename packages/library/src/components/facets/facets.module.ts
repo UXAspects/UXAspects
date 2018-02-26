@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { CommonModule } from '@angular/common';
+
+import { CheckboxModule } from '../checkbox/checkbox.module';
+
 import { FacetContainerComponent } from './facet-container.component';
 import { FacetBaseComponent } from './base/facet-base/facet-base.component';
 import { FacetHeaderComponent } from './base/facet-header/facet-header.component';
 import { FacetCheckListComponent } from './facet-check-list/facet-check-list.component';
 import { FacetTypeaheadListComponent, FacetTypeaheadHighlight } from './facet-typeahead-list/facet-typeahead-list.component';
-import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from '../../index';
 
 const DECLARATIONS = [
     FacetContainerComponent,

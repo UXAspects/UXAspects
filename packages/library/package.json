@@ -8,10 +8,10 @@
     "start": "grunt develop",
     "e2e:serve": "lite-server -c=e2e/bs-config.e2e.json",
     "e2e": "concurrently \"lite-server -c=e2e/bs-config.e2e.json\" \"grunt protractor:e2e\" --kill-others --success first",
-    "build:library": "ng-packagr -p ng-package.json",
+    "build:library": "ng-packagr -p ng-package.json && rm -f dist/package.json",
     "build": "grunt build"
   },
-  "main": "./dist/bundles/ux-aspects.umd.js",
+  "main": "./dist/bundles/ux-aspects-ux-aspects.umd.js",
   "files": [
     "dist/"
   ],
@@ -54,7 +54,7 @@
     "angular-tree-component": "^7.0.1",
     "chart.js": "~2.6.0",
     "ng2-charts": "1.6.0",
-    "ngx-bootstrap": "2.0.0-rc.0",
+    "ngx-bootstrap": "~2.0.0",
     "@ux-aspects/theme": "^1.5.2",
     "@ux-aspects/ux-aspects-ng1": "^1.5.2"
   },
@@ -71,7 +71,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@angular/upgrade": "^5.2.0",
-    "@ngtools/webpack": "^1.8.0",
+    "@ngtools/webpack": "1.8.0",
     "@types/chance": "0.7.35",
     "@types/chart.js": "2.6.11",
     "@types/jasmine": "2.6.2",
@@ -85,7 +85,7 @@
     "canonical-path": "0.0.2",
     "chance": "1.0.12",
     "concurrently": "^3.5.0",
-    "core-js": "^2.4.1",
+    "core-js": "2.5.3",
     "css-loader": "0.28.7",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
@@ -120,7 +120,7 @@
     "module-search": "0.2.4",
     "moment": "2.19.1",
     "moment-timezone": "0.5.0",
-    "ng-packagr": "^1.6.0",
+    "ng-packagr": "2.1.0",
     "optimize-css-assets-webpack-plugin": "3.2.0",
     "prismjs": "1.8.3",
     "prismjs-loader": "0.0.4",
@@ -142,8 +142,8 @@
     "webpack": "3.10.0",
     "zone.js": "0.8.18"
   },
-  "module": "./dist/@ux-aspects/ux-aspects.es5.js",
-  "es2015": "./dist/@ux-aspects/ux-aspects.js",
-  "metadata": "./dist/ux-aspects.metadata.json",
-  "typings": "./dist/ux-aspects.d.ts"
+  "module": "dist/esm5/ux-aspects-ux-aspects.js",
+  "es2015": "dist/esm2015/ux-aspects-ux-aspects.js",
+  "metadata": "dist/ux-aspects-ux-aspects.metadata.json",
+  "typings": "dist/ux-aspects-ux-aspects.d.ts"
 }

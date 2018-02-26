@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ContentChildren, EventEmitter, Input, Output, QueryList } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    Input,
+    Output,
+    QueryList,
+    ViewEncapsulation
+} from '@angular/core';
 import { WizardStepComponent } from './wizard-step.component';
 
 @Component({
@@ -11,10 +20,10 @@ import { WizardStepComponent } from './wizard-step.component';
     }
 })
 export class WizardComponent implements AfterViewInit {
-
     private _step: number = 0;
 
-    @ContentChildren(WizardStepComponent) steps = new QueryList<WizardStepComponent>();
+    @ContentChildren(WizardStepComponent)
+    steps = new QueryList<WizardStepComponent>();
 
     @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
 
@@ -55,10 +64,8 @@ export class WizardComponent implements AfterViewInit {
         return this._step;
     }
     set step(value: number) {
-
         // only accept numbers as valid options
         if (typeof value === 'number') {
-
             // store the active step
             this._step = value;
 
@@ -74,7 +81,6 @@ export class WizardComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-
         // initially set the correct visibility of the steps
         setTimeout(this.update.bind(this));
     }
@@ -83,7 +89,6 @@ export class WizardComponent implements AfterViewInit {
      * Navigate to the next step
      */
     next(): void {
-
         this.stepChanging.next(new StepChangingEvent(this.step, this.step + 1));
 
         // check if current step is invalid
@@ -93,7 +98,7 @@ export class WizardComponent implements AfterViewInit {
         }
 
         // check if we are currently on the last step
-        if ((this.step + 1) < this.steps.length) {
+        if (this.step + 1 < this.steps.length) {
             this.step++;
 
             // emit the current step
@@ -105,7 +110,6 @@ export class WizardComponent implements AfterViewInit {
      * Navigate to the previous step
      */
     previous(): void {
-
         this.stepChanging.next(new StepChangingEvent(this.step, this.step - 1));
 
         // check if we are currently on the last step
@@ -121,7 +125,6 @@ export class WizardComponent implements AfterViewInit {
      * Perform actions when the finish button is clicked
      */
     finish(): Promise<void> {
-
         // fires when the finish button is clicked always
         this.onFinishing.next();
 
@@ -133,10 +136,9 @@ export class WizardComponent implements AfterViewInit {
          */
         return new Promise<void>(resolve => {
             setTimeout(() => {
-
                 // only fires when the finish button is clicked and the step is valid
                 if (this.getCurrentStep().valid) {
-                    this.onFinish.next();        
+                    this.onFinish.next();
                 }
 
                 resolve();
@@ -156,7 +158,7 @@ export class WizardComponent implements AfterViewInit {
      */
     update(): void {
         // update which steps should be active
-        this.steps.forEach((step, idx) => step.active = idx === this.step);
+        this.steps.forEach((step, idx) => (step.active = idx === this.step));
     }
 
     /**
@@ -164,8 +166,9 @@ export class WizardComponent implements AfterViewInit {
      */
     gotoStep(step: WizardStepComponent): void {
         if (step.visited) {
-
-            const stepIndex = this.steps.toArray().findIndex(stp => stp === step);
+            const stepIndex = this.steps
+                .toArray()
+                .findIndex(stp => stp === step);
 
             this.stepChanging.next(new StepChangingEvent(this.step, stepIndex));
 
@@ -177,16 +180,15 @@ export class WizardComponent implements AfterViewInit {
      * Determine if the current step is the last step
      */
     isLastStep(): boolean {
-        return this.step === (this.steps.length - 1);
+        return this.step === this.steps.length - 1;
     }
 
     /**
      * Reset the wizard - goes to first step and resets visited state
      */
     reset(): void {
-
         // mark all steps as not visited
-        this.steps.forEach(step => step.visited = false);
+        this.steps.forEach(step => (step.visited = false));
 
         // go to the first step
         this.step = 0;
@@ -208,5 +210,5 @@ export class WizardComponent implements AfterViewInit {
 }
 
 export class StepChangingEvent {
-    constructor(public from: number, public to: number) { }
+    constructor(public from: number, public to: number) {}
 }

@@ -32,11 +32,11 @@
   "homepage": "https://github.com/UXAspects/UXAspects#readme",
   "devDependencies": {
     "@types/jasmine": "2.6.2",
-    "angular": "1.3.20",
-    "angular-mocks": "1.3.2",
+    "angular-mocks": "~1.3.2",
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
+    "core-js": "2.5.3",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.1.0",
     "grunt-contrib-jasmine": "1.1.0",
@@ -48,6 +48,8 @@
     "jshint": "2.9.5",
     "load-grunt-config": "0.19.2",
     "module-search": "0.2.4",
+    "moment": "2.19.1",
+    "moment-timezone": "0.5.0",
     "ng-cache-loader": "0.0.26",
     "raw-loader": "0.5.1",
     "script-loader": "0.7.2",
@@ -57,6 +59,10 @@
     "webpack": "3.10.0"
   },
   "dependencies": {
-    "moment-timezone": "0.5.0"
+    "angular": "1.3.20",
+    "bootstrap": "3.3.7",
+    "jquery-ui": "1.12.1",
+    "jquery": "3.2.1",
+    "rxjs": "^5.5.2"
   }
 }

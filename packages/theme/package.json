@@ -53,6 +53,7 @@
     "less": "2.7.3",
     "less-plugin-npm-import": "^2.1.0",
     "load-grunt-config": "0.19.2",
-    "module-search": "0.2.4"
+    "module-search": "0.2.4",
+    "time-grunt": "1.4.0"
   }
 }

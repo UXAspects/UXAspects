@@ -1,13 +1,14 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
-
-import { ChartsTimelineChartNg1Component } from './timeline-chart-ng1/timeline-chart-ng1.component';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { RouterModule } from '@angular/router';
+import { HybridModule } from '@ux-aspects/ux-aspects';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
+import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+
+import { ChartsTimelineChartNg1Component } from './timeline-chart-ng1/timeline-chart-ng1.component';
 
 const SECTIONS = [
     ChartsTimelineChartNg1Component

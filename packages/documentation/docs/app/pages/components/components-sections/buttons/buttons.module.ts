@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HybridModule, StringFilterModule } from '@ux-aspects/ux-aspects';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { StringFilterModule } from '@ux-aspects/ux-aspects';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -25,9 +27,7 @@ import { ComponentsFloatingActionButtonNg1Component } from './floating-action-bu
 import { ComponentsToggleButtonsNg1Component } from './toggle-buttons-ng1/toggle-buttons-ng1.component';
 import { ComponentsGroupedButtonsNg1Component } from './grouped-buttons-ng1/grouped-buttons-ng1.component';
 
-import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 
 const SECTIONS = [
     ComponentsToggleButtonsComponent,
