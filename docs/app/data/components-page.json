@@ -803,8 +803,12 @@
                             "content": "accordion"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "AccordionModule"
+                        },
+                        {
+                            "title": "Import As",
+                            "content": "AccordionModule.forRoot()"
                         },
                         {
                             "title": "Library",

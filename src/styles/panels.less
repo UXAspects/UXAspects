@@ -1,557 +1,498 @@
 .panel-title {
-  font-size: inherit;
+    font-size: inherit;
 }
 
 //collapsible panel angular
-.accordion-toggle
-{
-  display: block;
-  width: 100%;
+.accordion-toggle {
+    display: block;
+    width: 100%;
 }
+
+.accordion-chevron {
+    .panel-heading {
+        .hpe-icon-chevron-left();
+
+        &:before {
+            font-family: 'hpe-icons';
+            float: right;
+        }
+    }
+
+    &.panel-open {
+        .panel-heading {
+            .hpe-icon-chevron-down();
+        }
+    }
+}
+
 a {
-  &.accordion-toggle {
-    &:focus {
-      outline: 1px auto @accordion-outline;
+    &.accordion-toggle {
+        &:focus {
+            outline: 1px auto @accordion-outline;
+        }
     }
-  }
 }
 
-.panel-heading.accordion-toggle, .panel-heading{
-  &:focus, a:focus{
-    .aspects-outline;
-  }
-}
-
-// Deprecated
-.body-dark {
-  .panel-default>.panel-heading {
-    background-color: @panel-heading-bg-dark;
-    color: @panel-heading-color-dark;
-    border-bottom: none;
-  }
-  .panel-default {
-    border: 1px solid @panel-border-dark;
-    .panel-body {
-      background-color: @panel-body-bg-dark;
-      color: @panel-body-color-dark;
-      border-top: 1px solid @panel-body-border-dark !important;
+.panel-heading.accordion-toggle,
+.panel-heading {
+    &:focus,
+    a:focus {
+        .aspects-outline;
     }
-  }
 }
 
-[data-toggle="collapse"]{
-  cursor: pointer;
+[data-toggle="collapse"] {
+    cursor: pointer;
 }
 
-.hpebox, .ebox {
-  clear: both;
-  margin-bottom: 25px;
-  margin-top: 0;
-  padding: 0;
+.hpebox,
+.ebox {
+    clear: both;
+    margin-bottom: 25px;
+    margin-top: 0;
+    padding: 0;
 }
 
-.hpebox, .ebox {
-  &:before, &:after {
-    display: table;
-  }
+.hpebox,
+.ebox {
+    &:before,
+    &:after {
+        display: table;
+    }
 }
 
-.hpebox-title, .ebox-title {
-  -moz-border-bottom-colors: none;
-  -moz-border-left-colors: none;
-  -moz-border-right-colors: none;
-  -moz-border-top-colors: none;
-  background-color: @ebox-title-bg;
-  color: inherit;
-  margin-bottom: 0;
-  overflow: hidden;
-  padding: 14px 15px 7px;
-  position:relative;
-  &.p-l-nil {
-    padding-left: 0;
-  }
+.hpebox-title,
+.ebox-title {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: @ebox-title-bg;
+    color: inherit;
+    margin-bottom: 0;
+    overflow: hidden;
+    padding: 14px 15px 7px;
+    position: relative;
+
+    &.p-l-nil {
+        padding-left: 0;
+    }
 }
-.hpebox-draghandle, .ebox-draghandle {
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  width:15px;
-  &:hover{
-    background-color: darken(@ebox-title-bg,5%);
-  }
-  &:before, &:after{
-    content: "";
-    left: 5px;
-    width: 3px;
-    height: 8px;
-    border-top:3px solid;
-    border-bottom:3px solid;
-    border-color:darken(@ebox-title-bg,20%);
+
+.hpebox-draghandle,
+.ebox-draghandle {
     position: absolute;
-  }
-  &:before{
-    top: 18px;
-  }
-  &:after{
-    top: 28px;
-  }
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 15px;
 
-}
-
-// Deprecated
-.body-dark {
-  .hpebox-draghandle, .ebox-draghandle {
-    &:hover{
-      background-color: @ebox-draghandle-hover-bg-dark;
+    &:hover {
+        background-color: darken(@ebox-title-bg, 5%);
     }
-  }
+
+    &:before,
+    &:after {
+        content: "";
+        left: 5px;
+        width: 3px;
+        height: 8px;
+        border-top: 3px solid;
+        border-bottom: 3px solid;
+        border-color: darken(@ebox-title-bg, 20%);
+        position: absolute;
+    }
+
+    &:before {
+        top: 18px;
+    }
+
+    &:after {
+        top: 28px;
+    }
 }
 
-.hpebox-content, .ebox-content {
-  background-color: @ebox-content-bg;
-  color: inherit;
-  padding: 15px 20px 20px 20px;
+.hpebox-content,
+.ebox-content {
+    background-color: @ebox-content-bg;
+    color: inherit;
+    padding: 15px 20px 20px;
+    border-color: @ebox-border;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0;
 
-  border-color: @ebox-border;
-  border-image: none;
-  border-style: solid solid none;
-  border-width: 1px 0px;
-  &.p-l-nil {
-    padding-left: 0;
-  }
-  &.p-r-nil {
-    padding-right: 0;
-  }
+    &.p-l-nil {
+        padding-left: 0;
+    }
+
+    &.p-r-nil {
+        padding-right: 0;
+    }
 }
 
-.hpebox-content, .ebox-content {
-  clear: both;
+.hpebox-content,
+.ebox-content {
+    clear: both;
 }
 
-.hpebox-heading, .ebox-heading {
-  background-color: @ebox-heading-bg;
-  border-bottom: none;
+.hpebox-heading,
+.ebox-heading {
+    background-color: @ebox-heading-bg;
+    border-bottom: none;
 }
 
-.hpebox-heading h3, .ebox-heading h3 {
-  font-weight: 200;
-  font-size: 1.5rem;
+.hpebox-heading h3,
+.ebox-heading h3 {
+    font-weight: 200;
+    font-size: 1.5rem;
 }
-
 
 // Content Box Tools
-
-.hpebox-content, .hpebox-title, .ebox-content, .ebox-title {
-  h1, h2, h3, h4, h5 {
-    margin-top: 0px;
-  }
+.hpebox-content,
+.hpebox-title,
+.ebox-content,
+.ebox-title {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        margin-top: 0;
+    }
 }
 
-.hpebox-content, .ebox-content {
-  &.text-box {
-    padding-bottom: 0px;
-    padding-top: 15px;
-  }
+.hpebox-content,
+.ebox-content {
+    &.text-box {
+        padding-bottom: 0;
+        padding-top: 15px;
+    }
 }
 
 //=================
 //Draggable panels
 //=================
-.ui-sortable{
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  min-height:50px;
+.ui-sortable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-height: 50px;
 
-  .drag-handle{
-    cursor:move;
-  }
-
+    .drag-handle {
+        cursor: move;
+    }
 }
+
 .sortable-placeholder {
-  border: 1px dashed @draggable-panel-placeholder-border;
-  background: @draggable-panel-placeholder-bg;
-  margin: 0px 0px 23px;
-}
-
-// Deprecated
-.body-dark {
-  .sortable-placeholder {
-    border: 1px dashed @sortable-placeholder-border-dark;
-    background: @sortable-placeholder-bg-dark;
-  }
+    border: 1px dashed @draggable-panel-placeholder-border;
+    background: @draggable-panel-placeholder-bg;
+    margin: 0 0 23px;
 }
 
 //=================
 //Input Expand
 //=================
 .expand-input {
-  input::-ms-clear {
-    display:none;
-  }
-  .input-group-addon {
-     background-color: inherit;
-     border: 0;
-     padding-left: 10px;
+    input::-ms-clear {
+        display: none;
+    }
 
-     a {
-       color: @grey2;
-     }
-  }
-  input:focus {
-   border-right:0;
-  }
+    .input-group-addon {
+        background-color: inherit;
+        border: 0;
+        padding-left: 10px;
+
+        a {
+            color: @grey2;
+        }
+    }
+
+    input:focus {
+        border-right: 0;
+    }
 }
 
 .navbar-form-search {
-  .expand-input {
-    .input-group-btn {
-      .btn {
-        border: 0;
-        background: transparent;
-        opacity:0.7;
-      }
-    }
-    .input-group-addon {
-      a {
-        border: 0;
-        background: inherit;
-      }
-    }
-  }
+    .expand-input {
+        .input-group-btn {
+            .btn {
+                border: 0;
+                background: transparent;
+                opacity: 0.7;
+            }
+        }
 
-  .expanded {
-    input {
-      transition: none !important;
-      width: 100% !important;
-      padding-bottom: 1px !important;
+        .input-group-addon {
+            a {
+                border: 0;
+                background: inherit;
+            }
+        }
     }
-    .input-group-btn {
-      .btn {
-        border-radius: 0;
-      }
+
+    .expanded {
+        input {
+            transition: none !important;
+            width: 100% !important;
+            padding-bottom: 1px !important;
+        }
+
+        .input-group-btn {
+            .btn {
+                border-radius: 0;
+            }
+        }
     }
-  }
 }
 
 .input-group-btn-append {
-  button{
-    background: @form-control-bg;
-    border: 1px solid @form-control-focus-border;
-    border-left:0px ;
-    border-radius:0px !important;
-    box-shadow: none !important;
+    button {
+        background: @form-control-bg;
+        border: 1px solid @form-control-focus-border;
+        border-left: 0;
+        border-radius: 0 !important;
+        box-shadow: none !important;
 
-    &:hover {
-      border: 1px solid @form-control-focus-border;
-      border-radius:0px !important;
-      border-left:0px;
+        &:hover {
+            border: 1px solid @form-control-focus-border;
+            border-radius: 0 !important;
+            border-left: 0;
+        }
     }
-  }
-}
-
-.body-dark {
-  .input-group-btn-append {
-    button{
-      background: @input-group-button-bg-dark;
-      border: 1px solid @input-group-button-border-dark;
-      color: @input-group-button-color-dark;
-    }
-  }
 }
 
 /*
   Splitter
 */
+
 .splitter {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 
-  .gutter {
-    overflow: visible;
-    background-color: @splitter-gutter;
-
-    &.gutter-horizontal {
-      height: 100%;
-      float: left;
-      cursor: ew-resize;
-
-      .drag-handle {
-        position: relative;
-        top: 50%;
-        width: 4px;
-        height: 16px;
-        margin: 0 auto;
-        background-image: url('../img/draghandle-dark.png');
-        background-size: 8px;
-        transform: translateY(-50%);
-        opacity: 0.7;
-      }
-    }
-
-    &.gutter-vertical {
-      cursor: ns-resize;
-
-      .drag-handle {
-        position: relative;
-        top: 50%;
-        width: 16px;
-        height: 4px;
-        margin: 0 auto;
-        background-image: url('../img/draghandle-dark-horizontal.png');
-        background-size: 12px;
-        transform: translateY(-50%);
-        opacity: 0.7;
-      }
-    }
-  }
-
-  .splitter-panel {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow-y: auto;
-    overflow-x: hidden;
-    & > .scroll-pane {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  &.horizontal {
-    .splitter-panel {
-      height: 100%;
-      float: left;
-    }
-  }
-
-  &.vertical {
-    .splitter-panel {
-      width: 100%;
-      float: none;
-    }
-  }
-}
-
-.body-dark {
-  .splitter {
     .gutter {
-      background-color: @splitter-gutter-dark;
-      &.gutter-horizontal {
-        .drag-handle {
-          background-image: url('../img/draghandle-light.png');
-        }
-      }
+        overflow: visible;
+        background-color: @splitter-gutter;
 
-      &.gutter-vertical {
-        .drag-handle {
-          background-image: url('../img/draghandle-light-horizontal.png');
+        &.gutter-horizontal {
+            height: 100%;
+            float: left;
+            cursor: ew-resize;
+
+            .drag-handle {
+                position: relative;
+                top: 50%;
+                width: 4px;
+                height: 16px;
+                margin: 0 auto;
+                background-image: url('../img/draghandle-dark.png');
+                background-size: 8px;
+                transform: translateY(-50%);
+                opacity: 0.7;
+            }
         }
-      }
+
+        &.gutter-vertical {
+            cursor: ns-resize;
+
+            .drag-handle {
+                position: relative;
+                top: 50%;
+                width: 16px;
+                height: 4px;
+                margin: 0 auto;
+                background-image: url('../img/draghandle-dark-horizontal.png');
+                background-size: 12px;
+                transform: translateY(-50%);
+                opacity: 0.7;
+            }
+        }
     }
-  }
+
+    .splitter-panel {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        & > .scroll-pane {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &.horizontal {
+        .splitter-panel {
+            height: 100%;
+            float: left;
+        }
+    }
+
+    &.vertical {
+        .splitter-panel {
+            width: 100%;
+            float: none;
+        }
+    }
 }
 
 .side-inset {
-  background: @side-inset-panel-bg;
-}
-
-.body-dark {
-  .side-inset {
-    background: @side-inset-panel-bg-dark;
-    .hpebox-title {
-      color: @side-inset-panel-title-color-dark !important;
-    }
-    .hpebox-content {
-      color: @side-inset-panel-content-color-dark !important;
-    }
-  }
+    background: @side-inset-panel-bg;
 }
 
 //dragable panel styles
 .draggable-panel-card-container {
-  .draggable-panel-card {
-    border: 1px solid @draggable-panel-border;
-    height: 120px;
-    width: 220px;
-    margin: 10px;
-    box-shadow: 1px 1px 3px @draggable-panel-border;
-    background-color: @draggable-panel-background;
+    .draggable-panel-card {
+        border: 1px solid @draggable-panel-border;
+        height: 120px;
+        width: 220px;
+        margin: 10px;
+        box-shadow: 1px 1px 3px @draggable-panel-border;
+        background-color: @draggable-panel-background;
 
-    &:hover{
-      border: 1px solid @draggable-panel-hover-border;
-      .gutter {
-        visibility: visible;
-      }
-    }
-    .gutter{
-      &:hover {
-        background-color: @draggable-panel-list-gutter-bg;
-      }
-      cursor:move;
-      float: left;
-      height: 100%;
-      width: 15px;
-      overflow: hidden;
-      visibility: hidden;
-      .drag-handle {
-        margin-left: 5px;
-        position: relative;
-        top: 50%;
-        width: 4px;
-        height: 21px;
-        background-image: url('../img/draghandle-dark.png');
-        background-size: 10px;
-        transform: translateY(-50%);
-        opacity: 0.3;
-        float: left;
-      }
-    }
-    .content {
-      margin-left: 10px;
-      padding-left: 10px;
-      h4 {
-        font-size: 1.25rem;
-      }
-      p {
-        color: @grey2;
-        &.lighten {
-          opacity: 0.5;
+        &:hover {
+            border: 1px solid @draggable-panel-hover-border;
+
+            .gutter {
+                visibility: visible;
+            }
         }
-      }
+
+        .gutter {
+            cursor: move;
+            float: left;
+            height: 100%;
+            width: 15px;
+            overflow: hidden;
+            visibility: hidden;
+
+            &:hover {
+                background-color: @draggable-panel-list-gutter-bg;
+            }
+
+            .drag-handle {
+                margin-left: 5px;
+                position: relative;
+                top: 50%;
+                width: 4px;
+                height: 21px;
+                background-image: url('../img/draghandle-dark.png');
+                background-size: 10px;
+                transform: translateY(-50%);
+                opacity: 0.3;
+                float: left;
+            }
+        }
+
+        .content {
+            margin-left: 10px;
+            padding-left: 10px;
+
+            h4 {
+                font-size: 1.25rem;
+            }
+
+            p {
+                color: @grey2;
+
+                &.lighten {
+                    opacity: 0.5;
+                }
+            }
+        }
     }
-  }
-  .sortable-placeholder {
-    height: 120px;
-    width: 220px;
-    margin: 10px;
-  }
+
+    .sortable-placeholder {
+        height: 120px;
+        width: 220px;
+        margin: 10px;
+    }
 }
 
 .draggable-panel-list-container {
-  border: 1px solid transparent;
-  .draggable-panel {
-    width: 100% ;
-  }
-  .draggable-panel-list {
-    background: @draggable-panel-list-bg;
-    width: 100%;
-    border-bottom: 1px solid @draggable-panel-list-border;
+    border: 1px solid transparent;
 
-    &:hover{
-      background: @draggable-panel-list-hover-bg;
-      .gutter {
-        visibility: visible;
-      }
+    .draggable-panel {
+        width: 100%;
     }
-    .gutter{
-      cursor:move;
-      float: left;
-      width: 15px;
-      height: 100%;
-      overflow: hidden;
-      background-color: @draggable-panel-list-gutter-bg;
-      visibility: hidden;
-      .drag-handle {
-        position: relative;
-        margin-left: 5px;
-        top: 50%;
-        width: 4px;
-        height: 21px;
-        background-image: url('../img/draghandle-dark.png');
-        background-size: 10px;
-        transform: translateY(-50%);
-        opacity: 0.3;
-        float: left;
-      }
+
+    .draggable-panel-list {
+        background: @draggable-panel-list-bg;
+        width: 100%;
+        border-bottom: 1px solid @draggable-panel-list-border;
+
+        &:hover {
+            background: @draggable-panel-list-hover-bg;
+
+            .gutter {
+                visibility: visible;
+            }
+        }
+
+        .gutter {
+            cursor: move;
+            float: left;
+            width: 15px;
+            height: 100%;
+            overflow: hidden;
+            background-color: @draggable-panel-list-gutter-bg;
+            visibility: hidden;
+
+            .drag-handle {
+                position: relative;
+                margin-left: 5px;
+                top: 50%;
+                width: 4px;
+                height: 21px;
+                background-image: url('../img/draghandle-dark.png');
+                background-size: 10px;
+                transform: translateY(-50%);
+                opacity: 0.3;
+                float: left;
+            }
+        }
+
+        .title {
+            float: left;
+            display: inline;
+            width: 30%;
+            height: 100%;
+            background: inherit;
+            padding: 10px;
+
+            p {
+                font-size: 1.125rem;
+                color: @grey2;
+                opacity: 0.5;
+            }
+        }
+
+        .content {
+            width: 60%;
+            height: 100%;
+            background: inherit;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 10px;
+            display: inline;
+            float: left;
+        }
     }
-    .title {
-      float: left;
-      display: inline;
-      width: 30%;
-      height: 100%;
-      background: inherit;
-      padding: 10px;
-      p {
-        font-size: 1.125rem;
-        color: @grey2;
-        opacity: 0.5;
-      }
+
+    .sortable-placeholder {
+        margin: 0;
+        width: 100%;
+        height: 60px;
+        background: @sortable-placeholder-bg;
     }
-    .content {
-      width: 60%;
-      height: 100%;
-      background: inherit;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      padding-right: 10px;
-      display: inline;
-      float: left;
-    }
-  }
-  .sortable-placeholder {
-    margin: 0;
-    width: 100%;
-    height: 60px;
-    background: @sortable-placeholder-bg;
-  }
 }
 
 .draggable-panel-highlight {
-  border: 1px dashed @draggable-panel-highlight;
+    border: 1px dashed @draggable-panel-highlight;
 }
 
 .panel-dragging {
     background: @draggable-panel-dragging-bg;
-}
-
-.body-dark {
-  .draggable-panel-card-container {
-    .draggable-panel-card {
-      border: 1px solid @draggable-panel-card-border-dark;
-      background: @draggable-panel-card-bg-dark;
-      box-shadow: 1px 1px 3px @draggable-panel-card-shadow-dark;
-      &:hover{
-        border: 1px solid @draggable-panel-card-hover-border-dark;
-      }
-      .gutter {
-        .drag-handle {
-          background-image: url('../img/draghandle-light.png');
-        }
-      }
-      .content {
-        p {
-          color: @draggable-panel-card-content-color-dark;
-        }
-      }
-    }
-  }
-  .draggable-panel-list-container {
-    .draggable-panel-list {
-      background: @draggable-panel-list-bg-dark;
-      border-bottom: 1px solid @draggable-panel-list-border-dark;
-      &:hover{
-        background: @draggable-panel-list-hover-bg-dark;
-      }
-      .gutter {
-        background: @draggable-panel-list-gutter-bg-dark;
-        .drag-handle {
-          background-image: url('../img/draghandle-light.png');
-        }
-      }
-      .title {
-        p {
-          color: @draggable-panel-list-title-color-dark;
-        }
-      }
-    }
-  }
-  .panel-dragging {
-      background: @draggable-panel-dragging-bg-dark;
-  }
-  .sortable-placeholder {
-    background: @sortable-placeholder-bg-dark;
-  }
 }
