@@ -10,27 +10,23 @@ export class TimelinePage {
     timeline = element(by.id('timeline'));
     
     getNumberOfEvents() {
-        return this.timeline.$('ul.timeline').$$('ux-timeline-event').count();
+        return this.timeline.$('div.timeline').$$('ux-timeline-event').count();
     }
     
     getEvent(index: number) {
-        return this.timeline.$('ul.timeline').$$('ux-timeline-event').get(index);
+        return this.timeline.$('div.timeline').$$('ux-timeline-event').get(index);
     }    
 
     getEventBadge(index: number) {
-        return this.getEvent(index).$('li').$('.timeline-badge');
+        return this.getEvent(index).$('.timeline-badge');
     }
 
     getEventPanel(index: number) {
-        return this.getEvent(index).$('li').$('.timeline-panel');
+        return this.getEvent(index).$('.timeline-panel');
     }
 
     getEventBadgeTitle(index: number) {
         return this.getEventBadge(index).getText();
-    }
-
-    getEventTimestamp(index: number) {
-        return this.getEventPanel(index).$('div').$('span > span').getText();
     }
 
     getEventPanelText(index: number) {
