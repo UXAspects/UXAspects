@@ -8,13 +8,21 @@ angular.module('app').directive('uxdModalWrapper', () => {
             var vm = this;
 
             vm.openModal1 = function () {
-                var modalInstance = $modal.open({
-                    templateUrl: 'modal-ng1/modalLayout.html',
+
+                // workaround for @ngtools - prevent it trying to load resource
+                var key = 'templateUrl';
+
+                var config = {
                     controller: 'ModalDemoModalCtrl',
                     controllerAs: 'vm',
                     animation: false,
                     keyboard: 'true'
-                });
+                };
+
+                config[key] = 'modal-ng1/modalLayout.html';
+
+                var modalInstance = $modal.open(config);
+                
                 modalInstance.result.then(function () {
                     // result passed into closed function;
                 });

@@ -2,7 +2,7 @@ angular.module('app').directive('uxdProgressBarWrapper', () => {
     return {
         restrict: 'E',
         template: require('./progress-bar-wrapper.directive.html'),
-        controller: ['$scope', '$templateCache', function ($scope, $templateCache) {
+        controller: ['$scope', function ($scope) {
             var vm = this;
 
             vm.percentComplete = 15;

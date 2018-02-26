@@ -16,7 +16,7 @@ angular.module('app').controller('SearchBuilderCodeWrapperController', SearchBui
 
 SearchBuilderCodeWrapperController.$inject = ['$scope', '$templateCache', '$modal'];
 
-function SearchBuilderCodeWrapperController($scope, $templateCache, $modal) {
+function SearchBuilderCodeWrapperController($scope: ng.IScope, $templateCache: ng.ITemplateCacheService, $modal: any) {
     $templateCache.put('codeModal.html', require('../templates/codeModal.html'));
     $templateCache.put('launchingModal.html', require('../templates/launchingModal.html'));
     $templateCache.put('searchBuilder.html', require('../templates/searchBuilder.html'));
@@ -27,18 +27,25 @@ function SearchBuilderCodeWrapperController($scope, $templateCache, $modal) {
     var vm = this;
 
     vm.openCodeModal = function () {
-        $modal.open({
+
+        // workaround for @ngtools - prevent it trying to load resource
+        var key = 'templateUrl';
+    
+        var config = {
             animation: false,
-            templateUrl: 'codeModal.html',
             controller: 'SearchBuilderCodeCtrl',
             controllerAs: 'vm',
             resolve: {
-                'snippets': function () { return $scope.snippets; }
+                snippets: function () { return $scope.snippets; }
             },
             keyboard: 'true',
             size: 'lg',
             windowClass: 'marquee-modal-window'
-        });
+        };
+
+        config[key] = 'codeModal.html';
+
+        $modal.open(config);
     };
 
     // Clean up scope
@@ -51,7 +58,7 @@ angular.module('app').controller('SearchBuilderCodeCtrl', SearchBuilderCodeCtrl)
 
 SearchBuilderCodeCtrl.$inject = ['$modalInstance', '$scope', 'snippets'];
 
-function SearchBuilderCodeCtrl($modalInstance, $scope, snippets) {
+function SearchBuilderCodeCtrl($modalInstance: any, $scope: ng.IScope, snippets: any) {
     var vm = this;
 
     $scope.snippets = snippets;
@@ -67,20 +74,23 @@ function SearchBuilderCodeCtrl($modalInstance, $scope, snippets) {
 
     vm.sections = [{
         title: 'Launching Modal',
-        templateUrl: 'launchingModal.html'
+        url: 'launchingModal.html'
     }, {
         title: 'Search Builder',
-        templateUrl: 'searchBuilder.html'
+        url: 'searchBuilder.html'
     }, {
         title: 'Services',
-        templateUrl: 'services.html'
+        url: 'services.html'
     }, {
         title: 'Search Components',
-        templateUrl: 'searchComponents.html'
+        url: 'searchComponents.html'
     }, {
         title: 'Inset Panels',
-        templateUrl: 'insetPanels.html'
+        url: 'insetPanels.html'
     }];
+
+    // workaround - @ngtools tries to inline these
+    vm.sections.forEach((section: any) => section.templateUrl = section.url);
 
     $scope.$watch('vm.selectedSection', function (nv, ov) {
         if (nv !== ov) {

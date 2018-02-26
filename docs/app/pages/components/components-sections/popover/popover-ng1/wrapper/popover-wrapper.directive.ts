@@ -9,20 +9,20 @@ angular.module('app').directive('uxdPopoverWrapper', () => {
             var vm = this;
 
             vm.senders = [{
-                name: "Simona Terrace",
-                title: "Equity Trader",
-                email: "simona.terrace@enron.com",
+                name: 'Simona Terrace',
+                title: 'Equity Trader',
+                email: 'simona.terrace@enron.com',
                 radioModel: 4
             }];
 
             vm.recipients = [
                 {
-                    name: "Luke French",
-                    email: "luke.french@pxc.com",
+                    name: 'Luke French',
+                    email: 'luke.french@pxc.com',
                     radioModel: 4
                 }, {
-                    name: "Irene Beck",
-                    email: "irene.beck@pxc.com",
+                    name: 'Irene Beck',
+                    email: 'irene.beck@pxc.com',
                     radioModel: 4
                 }
             ];
