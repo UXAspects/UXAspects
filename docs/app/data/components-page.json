@@ -787,9 +787,34 @@
             "link": "panels",
             "sections": [
                 {
-                    "title": "Collapsible Panels",
-                    "component": "ComponentsCollapsiblePanelsNg1Component",
-                    "version": "AngularJS"
+                    "title": "Accordion",
+                    "component": "ComponentsAccordionNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Accordion",                    
+                    "component": "ComponentsAccordionComponent",
+                    "externalUrl": "https://valor-software.com/ngx-bootstrap/#/accordion",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "accordion"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "AccordionModule"
+                        },
+                        {
+                            "title": "Import As",
+                            "content": "AccordionModule.forRoot()"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
                 },
                 {
                     "title": "EBox Panel",

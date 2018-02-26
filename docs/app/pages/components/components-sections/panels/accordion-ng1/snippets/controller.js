@@ -1,21 +1,21 @@
-angular.module('app').controller('CollapsiblePanelsDemoCtrl', CollapsiblePanelsDemoCtrl);
+angular.module('app').controller('AccordionDemoCtrl', AccordionDemoCtrl);
 
-CollapsiblePanelsDemoCtrl.$inject = ['$timeout'];
+AccordionDemoCtrl.$inject = ['$timeout'];
 
-function CollapsiblePanelsDemoCtrl($timeout) {
+function AccordionDemoCtrl($timeout) {
     var vm = this;
 
     vm.groups = [{
-        title: 'Collapsible Panel 1',
+        title: 'Accordion 1',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.',
         isOpen: 'true'
 
     }, {
-        title: 'Collapsible Panel 2',
+        title: 'Accordion 2',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.',
         isOpen: 'false'
     }, {
-        title: 'Collapsible Panel 3',
+        title: 'Accordion 3',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.',
         isOpen: 'false'
     }];

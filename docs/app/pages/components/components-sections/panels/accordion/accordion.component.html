@@ -1,0 +1,28 @@
+<accordion [closeOthers]="true">
+
+    <accordion-group class="accordion-chevron" *ngFor="let group of groups" [heading]="group.heading" [(isOpen)]="group.open">
+        <span>{{ group.content }}</span>
+    </accordion-group>
+
+</accordion>
+
+<hr>
+
+<p>
+    The Bootstrap <code>accordion</code> components can be used to create collapsible panels. To display chevrons in the accordion header 
+    add the <code>accordion-chevron</code> class to the <code>accordion-group</code> element.
+</p>
+
+<p>
+    Refer to <a href="https://valor-software.com/ngx-bootstrap/#/accordion">ngx-bootstrap</a> for complete documentation on this component.
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>

@@ -1,21 +1,21 @@
-angular.module('app').directive('uxdCollapsiblePanelsWrapper', () => {
+angular.module('app').directive('uxdAccordionWrapper', () => {
     return {
         restrict: 'E',
-        template: require('./collapsible-panels-wrapper.directive.html'),
+        template: require('./accordion-wrapper.directive.html'),
         controller: ['$scope', '$timeout', function ($scope, $timeout) {
             var vm = this;
 
             vm.groups = [{
-                title: 'Collapsible Panel 1',
+                title: 'Accordion 1',
                 content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.',
                 isOpen: 'true'
 
             }, {
-                title: 'Collapsible Panel 2',
+                title: 'Accordion 2',
                 content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.',
                 isOpen: 'false'
             }, {
-                title: 'Collapsible Panel 3',
+                title: 'Accordion 3',
                 content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.',
                 isOpen: 'false'
             }];
