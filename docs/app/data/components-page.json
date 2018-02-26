@@ -795,6 +795,7 @@
                 {
                     "title": "Accordion",                    
                     "component": "ComponentsAccordionComponent",
+                    "externalUrl": "https://valor-software.com/ngx-bootstrap/#/accordion",
                     "version": "Angular",
                     "usage": [
                         {
