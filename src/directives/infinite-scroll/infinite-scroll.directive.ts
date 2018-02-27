@@ -18,8 +18,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { of } from 'rxjs/observable/of';
+import { from } from 'rxjs/observable/from';
 import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/partition';
 
 @Directive({
@@ -47,13 +50,23 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
     @Input() scrollElement: ElementRef;
 
     @Output() collectionChange = new EventEmitter<any[]>();
-    @Output('loading') loadingEvent = new EventEmitter<InfiniteScrollLoadingEvent>();
-    @Output('loaded') loadedEvent = new EventEmitter<InfiniteScrollLoadedEvent>();
-    @Output('loadError') loadErrorEvent = new EventEmitter<InfiniteScrollLoadErrorEvent>();
 
-    @ContentChildren(InfiniteScrollLoadButtonDirective) private _loadButtonQuery: QueryList<InfiniteScrollLoadButtonDirective>;
-    @ContentChildren(InfiniteScrollLoadingDirective) private _loadingIndicatorQuery: QueryList<InfiniteScrollLoadingDirective>;
+    @Output('loading')
+    loadingEvent = new EventEmitter<InfiniteScrollLoadingEvent>();
 
+    @Output('loaded')
+    loadedEvent = new EventEmitter<InfiniteScrollLoadedEvent>();
+
+    @Output('loadError')
+    loadErrorEvent = new EventEmitter<InfiniteScrollLoadErrorEvent>();
+
+    @ContentChildren(InfiniteScrollLoadButtonDirective)
+    private _loadButtonQuery: QueryList<InfiniteScrollLoadButtonDirective>;
+
+    @ContentChildren(InfiniteScrollLoadingDirective)
+    private _loadingIndicatorQuery: QueryList<InfiniteScrollLoadingDirective>;
+
+    private _pages: any[][];
     private _nextPageNum = 0;
     private _domObserver: MutationObserver;
     private _scrollEventSub: Subscription;
@@ -64,17 +77,20 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
     private _loadButtonEnabled = new BehaviorSubject<boolean>(false);
     private _canLoadManually: Observable<boolean>;
 
+    private _subscriptions: Subscription[] = [];
     private _loadButtonSubscriptions: Subscription[] = [];
 
     constructor(private _element: ElementRef) {
-
-        this._canLoadManually = this._isLoading.combineLatest(this._isExhausted, this._loadButtonEnabled, (isLoading, isExhausted, loadButtonEnabled) => {
-            return !isLoading && !isExhausted && loadButtonEnabled;
-        });
+        this._canLoadManually = this._isLoading.combineLatest(
+            this._isExhausted,
+            this._loadButtonEnabled,
+            (isLoading, isExhausted, loadButtonEnabled) => {
+                return !isLoading && !isExhausted && loadButtonEnabled;
+            }
+        );
     }
 
     ngOnInit() {
-
         if (!this.scrollElement) {
             this.scrollElement = this._element;
         }
@@ -88,33 +104,32 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         // Check requests are throttled and will only cause an update if more data is required
         // to fill the scrolling view, and it isn't already loading some.
         // Load requests are not throttled and always request a page of data.
-        const requests = this._updateRequests.partition((r) => r.check);
+        const requests = this._updateRequests.partition(r => r.check);
         requests[0].auditTime(200).subscribe(this.doRequest.bind(this));
         requests[1].subscribe(this.doRequest.bind(this));
 
         if (this.enabled) {
-
             // Subscribe to scroll events and DOM changes.
             this.attachEventHandlers();
         }
 
         // Connect the Load More button visible state.
-        this._canLoadManually.subscribe((canLoad) => {
-            this._loadButtonQuery.forEach((loadButton) => {
+        this._canLoadManually.subscribe(canLoad => {
+            this._loadButtonQuery.forEach(loadButton => {
                 loadButton.visible = canLoad;
             });
         });
 
         // Connect the loading indicator visible state.
-        this._isLoading.subscribe((isLoading) => {
-            this._loadingIndicatorQuery.forEach((loading) => {
+        this._isLoading.subscribe(isLoading => {
+            this._loadingIndicatorQuery.forEach(loading => {
                 loading.visible = isLoading;
             });
         });
 
         // Link the Load More button click event to trigger an update.
         this.attachLoadButtonEvents();
-        this._loadButtonQuery.changes.subscribe((query) => {
+        this._loadButtonQuery.changes.subscribe(query => {
             this.attachLoadButtonEvents();
         });
 
@@ -125,7 +140,6 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
     }
 
     ngOnChanges(changes: SimpleChanges) {
-
         let check = true;
 
         if (changes.enabled && changes.enabled.currentValue !== changes.enabled.previousValue) {
@@ -139,14 +153,15 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         }
 
         if (this.enabled) {
-
             if (changes.filter && changes.filter.currentValue !== changes.filter.previousValue) {
                 this.reset();
                 check = false;
             }
 
             if (changes.loadOnScroll) {
-                this._loadButtonEnabled.next(!changes.loadOnScroll.currentValue);
+                this._loadButtonEnabled.next(
+                    !changes.loadOnScroll.currentValue
+                );
             }
 
             if (changes.pageSize && changes.pageSize.currentValue !== changes.pageSize.previousValue) {
@@ -171,7 +186,6 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      * Request an additional page of data.
      */
     loadNextPage() {
-
         if (!this.enabled) {
             return;
         }
@@ -188,7 +202,6 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      * Request a check for whether an additional page of data is required. This is throttled.
      */
     check() {
-
         if (!this.enabled) {
             return;
         }
@@ -205,13 +218,14 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      * Clear the collection. Future requests will load from page 0.
      */
     reset() {
-
         if (!this.enabled) {
             return;
         }
 
         // Reset the page counter.
         this._nextPageNum = 0;
+
+        this._pages = [];
 
         // Clear the collection (without changing the reference).
         if (this.collection) {
@@ -220,6 +234,36 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
 
         // Reset the exhausted flag, allowing the Load More button to appear.
         this._isExhausted.next(false);
+
+        // Cancel any pending requests
+        if (this._subscriptions) {
+            this._subscriptions.forEach(request => request.unsubscribe());
+        }
+    }
+
+    /**
+     * Reload the data without clearing the view.
+     */
+    reload() {
+        this._pages.forEach((page, i) => this.reloadPage(i));
+    }
+
+    /**
+     * Reload the data in a specific page without clearing the view.
+     * @param pageNum Page number
+     */
+    reloadPage(pageNum: number) {
+        if (!this.enabled) {
+            return;
+        }
+
+        this._updateRequests.next({
+            check: false,
+            pageNumber: pageNum,
+            pageSize: this.pageSize,
+            filter: this.filter,
+            reload: true
+        });
     }
 
     private onScroll(event: Event) {
@@ -234,10 +278,11 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      * Attach scroll event handler and DOM observer.
      */
     private attachEventHandlers() {
-
         // Subscribe to the scroll event on the target element.
-        this._scrollEventSub = Observable.fromEvent(this.scrollElement.nativeElement, 'scroll')
-            .subscribe(this.onScroll.bind(this));
+        this._scrollEventSub = Observable.fromEvent(
+            this.scrollElement.nativeElement,
+            'scroll'
+        ).subscribe(this.onScroll.bind(this));
 
         // Subscribe to child DOM changes. The main effect of this is to check whether even more data is
         // required after the initial load.
@@ -268,10 +313,12 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      * for any in the query.
      */
     private attachLoadButtonEvents() {
-        this._loadButtonSubscriptions.forEach((s) => s.unsubscribe());
-        this._loadButtonSubscriptions = this._loadButtonQuery.map((loadButton) => {
-            return loadButton.load.subscribe(this.loadNextPage.bind(this));
-        });
+        this._loadButtonSubscriptions.forEach(s => s.unsubscribe());
+        this._loadButtonSubscriptions = this._loadButtonQuery.map(
+            loadButton => {
+                return loadButton.load.subscribe(this.loadNextPage.bind(this));
+            }
+        );
     }
 
     /**
@@ -279,32 +326,42 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      */
     private doRequest(request: InfiniteScrollRequest) {
 
-        // Load a new page if the scroll position is beyond the threshhold and if the client code did not 
+        // Load a new page if the scroll position is beyond the threshhold and if the client code did not
         // cancel.
         if (this.needsData(request) && this.beginLoading(request)) {
 
             // Invoke the callback load function, which returns a promose or plain data.
             const loadResult = this.load(request.pageNumber, request.pageSize, request.filter);
 
-            Promise.resolve(loadResult)
-                .then((newData) => {
+            const observable = Array.isArray(loadResult)
+                ? of(loadResult)
+                : from<any[]>(loadResult);
 
+            const subscription = observable.first().subscribe(
+                items => {
                     // Make sure that the parameters have not changed since the load started;
                     // otherwise discard the results.
                     if (request.filter === this.filter && request.pageSize === this.pageSize) {
-
-                        if (newData && newData.length) {
-                            Array.prototype.push.apply(this.collection, newData);
+                        if (items && items.length) {
+                            this.setPageItems(request.pageNumber, items);
                         }
 
                         // Emit the loaded event
-                        this.endLoading(request, newData);
+                        this.endLoading(request, items);
                     }
-                })
-                .catch((reason) => {
+                },
+                reason => {
                     // Emit the loadError event
                     this.endLoadingWithError(request, reason);
-                });
+                },
+                () => {
+                    // remove this request from the list
+                    this._subscriptions = this._subscriptions.filter(s => s !== subscription);
+                }
+            );
+
+            // add the subscription to the list of requests
+            this._subscriptions.push(subscription);
         }
     }
 
@@ -312,7 +369,6 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      * Returns true if the request should be fulfilled.
      */
     private needsData(request: InfiniteScrollRequest): boolean {
-
         if (!this.enabled) {
             return false;
         }
@@ -330,7 +386,9 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         // Load if the remaining scroll area is <= the element height.
         if (this.scrollElement && this.loadOnScroll) {
             const element = <HTMLElement>this.scrollElement.nativeElement;
-            const remainingScroll = element.scrollHeight - (element.scrollTop + element.clientHeight);
+            const remainingScroll =
+                element.scrollHeight -
+                (element.scrollTop + element.clientHeight);
             return remainingScroll <= element.clientHeight;
         }
 
@@ -342,7 +400,11 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
      */
     private beginLoading(request: InfiniteScrollRequest): boolean {
 
-        const event = new InfiniteScrollLoadingEvent(request.pageNumber, request.pageSize, request.filter);
+        const event = new InfiniteScrollLoadingEvent(
+            request.pageNumber,
+            request.pageSize,
+            request.filter
+        );
         this.loadingEvent.emit(event);
 
         this._isLoading.next(!event.defaultPrevented());
@@ -350,29 +412,49 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         return !event.defaultPrevented();
     }
 
+    private setPageItems(pageNum: number, items: any[]) {
+        this._pages[pageNum] = items;
+        this.collection = this._pages.reduce((previous, current) => previous.concat(current), []);
+    }
+
     /**
      * Updates state from a successful load. Raises the `loaded` event.
      */
     private endLoading(request: InfiniteScrollRequest, data?: any) {
-
         this._isLoading.next(false);
 
         const isExhausted = !!(data && data.length < this.pageSize);
         this._isExhausted.next(isExhausted);
 
-        this.loadedEvent.emit(new InfiniteScrollLoadedEvent(request.pageNumber, request.pageSize, request.filter, data, isExhausted));
+        this.loadedEvent.emit(
+            new InfiniteScrollLoadedEvent(
+                request.pageNumber,
+                request.pageSize,
+                request.filter,
+                data,
+                isExhausted
+            )
+        );
 
-        this._nextPageNum += 1;
+        if (!request.reload) {
+            this._nextPageNum += 1;
+        }
     }
 
     /**
      * Updates state from a failed load. Raises the `loadError` event.
      */
     private endLoadingWithError(request: InfiniteScrollRequest, error: any) {
-
         this._isLoading.next(false);
 
-        this.loadErrorEvent.emit(new InfiniteScrollLoadErrorEvent(request.pageNumber, request.pageSize, request.filter, error));
+        this.loadErrorEvent.emit(
+            new InfiniteScrollLoadErrorEvent(
+                request.pageNumber,
+                request.pageSize,
+                request.filter,
+                error
+            )
+        );
     }
 }
 
@@ -384,15 +466,19 @@ class InfiniteScrollRequest {
     pageNumber: number;
     pageSize: number;
     filter: any;
+    reload?: boolean;
 }
 
-export type InfiniteScrollLoadFunction = (pageNum: number, pageSize: number, filter: any) => any | Promise<any>;
+export type InfiniteScrollLoadFunction = (
+    pageNum: number,
+    pageSize: number,
+    filter: any
+) => any | Promise<any>;
 
 /**
  * Event raised before the `loading` function is called.
  */
 export class InfiniteScrollLoadingEvent {
-
     private _defaultPrevented = false;
 
     constructor(
@@ -407,7 +493,8 @@ export class InfiniteScrollLoadingEvent {
         /**
          * The filter details as provided via the `filter` binding.
          */
-        public filter: any) { }
+        public filter: any
+    ) {}
 
     /**
      * Prevents the default behaviour of the `loading` event (loading function will not be called).
@@ -445,7 +532,8 @@ export class InfiniteScrollLoadedEvent {
         /**
          * True if the data is considered exhausted (number of items returned less than `pageSize`).
          */
-        public exhausted: boolean) { }
+        public exhausted: boolean
+    ) {}
 }
 
 /**
@@ -468,5 +556,6 @@ export class InfiniteScrollLoadErrorEvent {
         /**
          * The object provided when rejecting the promise.
          */
-        public error: any) { }
+        public error: any
+    ) {}
 }
