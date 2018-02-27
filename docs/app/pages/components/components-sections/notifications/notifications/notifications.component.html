@@ -41,7 +41,7 @@
 
 <p>The following attributes can be used to customize the <code>ux-notification-list</code> component:</p>
 
-<uxd-api-properties>
+<uxd-api-properties tableTitle="Notification List">
     <tr uxd-api-property name="position" type="string" defaultValue="top-right">
         Sets the position of the list of notifications within the browser window.
         The possible options are: <code>top-right</code>, <code>top-left</code>, <code>bottom-left</code> and <code>bottom-right</code>.
@@ -58,7 +58,7 @@
 <p>Notifications are controlled by the <code>notificationService</code>. It is recommended that the service is injected into the <code>AppComponent</code>.
     The following functions can be called on the service:</p>
 
-<uxd-api-properties>
+<uxd-api-properties tableTitle="Notification Service">
     <tr uxd-api-property name="show">
         This function should be called to show a notification.
         It should be given a <code>TemplateRef</code> containing the content to be displayed and optionally an object containing properties
@@ -82,7 +82,7 @@
 
 <p>A second object may optionally be passed to the <code>showNotification</code> function. The following options can be passed in this object to configure the notification:</p>
 
-<uxd-api-properties>
+<uxd-api-properties tableTitle="Notification Configuration">
     <tr uxd-api-property name="duration" type="number" defaultValue="4000">
         Sets the duration (in milliseconds) the notification should appear before automatically dismissing.
         A value of <code>0</code> will show the notification until manually dismissed.

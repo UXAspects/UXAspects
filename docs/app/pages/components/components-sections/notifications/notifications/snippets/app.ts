@@ -16,3 +16,9 @@ interface NotificationRef {
     height?: number;
     spacing?: number;
 }
+
+interface NotificationOptions {
+    duration?: number;
+    height?: number;
+    spacing?: number;
+}
