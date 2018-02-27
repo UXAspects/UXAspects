@@ -261,7 +261,8 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
             check: false,
             pageNumber: pageNum,
             pageSize: this.pageSize,
-            filter: this.filter
+            filter: this.filter,
+            reload: true
         });
     }
 
@@ -435,7 +436,9 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
             )
         );
 
-        this._nextPageNum += 1;
+        if (!request.reload) {
+            this._nextPageNum += 1;
+        }
     }
 
     /**
@@ -463,6 +466,7 @@ class InfiniteScrollRequest {
     pageNumber: number;
     pageSize: number;
     filter: any;
+    reload?: boolean;
 }
 
 export type InfiniteScrollLoadFunction = (
