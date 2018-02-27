@@ -1,61 +1,104 @@
-<ux-notification-list></ux-notification-list>
+<ux-notification-list direction="above" position="top-right"></ux-notification-list>
 
-<button (click)="notificationService.showNotification(myNotification, {})">Show Notification</button>
-<button (click)="notificationService.dismissAllNotifications()">Dismiss Notifications</button>
+<button (click)="notificationService.show(notification)">Show Notification</button>
+<button (click)="notificationService.dismissAll()">Dismiss Notifications</button>
+
+<ng-template #notification let-notificationRef>
+    <div class="dismiss">
+        <div class="hpe-icon hpe-close" (click)="notificationService.dismiss(notificationRef)"></div>
+    </div>
+    <div class="notification-content">
+        <div class="notification-icon">
+            <span class="hpe-icon hpe-chat"></span>
+        </div>
+        <div class="notification-text">
+            <p class="notification-title">Messages Received</p>
+            <p class="notification-label">You have 16 messages</p>
+            <small class="notification-subtitle">{{notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a'}}</small>
+        </div>
+    </div>
+</ng-template>
 
 <hr>
 
-<p>Notifications can be used to inform the user of occurring events or to alert the user of something that may require their
-    attention. Notifications will appear in the top right corner of the browser window and can be dismissed by the user by
-    clicking the close button.</p>
+<!-- <div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                        <div class="col-md-4 col-sm-12">
+                            <label for="duration">Duration</label>
+                            <ux-number-picker [(value)]="notificationDuration" min="0" max="3600000"></ux-number-picker>
+                        </div>
+                    </div>
+                </accordion-group>
+        </accordion>
+    </div>
+</div> -->
 
-<p>Notifications are controlled by the <code>notificationService</code> which can be injected into any controller in the application.</p>
+<p>Notifications can be used to inform the user of occurring events or to alert the user of something that may require their attention.
+    The <code>ux-notification-list</code> component can be used to display a list of notifications.</p>
 
-<p>The content of the notification should be specified inside an <code>ng-template</code> element.</p>
-
-<p>The <code>notificationService</code> has several functions available to control notifications.</p>
+<p>The following attributes can be used to customize the <code>ux-notification-list</code> component:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="showNotification">
+    <tr uxd-api-property name="position" type="string" defaultValue="top-right">
+        Sets the position of the list of notifications within the browser window.
+        The possible options are: <code>top-right</code>, <code>top-left</code>, <code>bottom-left</code> and <code>bottom-right</code>.
+    </tr>
+    <tr uxd-api-property name="direction" type="string" defaultValue="above">
+        Sets the order in which notifications are displayed:
+      <ul>
+        <li><code>above</code> - newer notifications will appear above older ones.</li>
+        <li><code>below</code> - newer notifications will appear below older ones.</li>
+      </ul>
+    </tr>
+</uxd-api-properties>
+
+<p>Notifications are controlled by the <code>notificationService</code>. It is recommended that the service is injected into the <code>AppComponent</code>.
+    The following functions can be called on the service:</p>
+
+<uxd-api-properties>
+    <tr uxd-api-property name="show">
         This function should be called to show a notification.
-        It should be given an <code>ng-template</code> element containing the elements to be displayed and an object containing properties
+        It should be given a <code>TemplateRef</code> containing the content to be displayed and optionally an object containing properties
         to configure the notification.
         It will return a <code>NotificationRef</code> object which will contain the information passed to the <code>showNotification</code> function
         along with a <code>date</code> property which will contain the time at which the notification was shown.
     </tr>
-    <tr uxd-api-property name="getNotifications">
+    <tr uxd-api-property name="getHistory">
         This function will return an array of <code>NotificationRef</code> objects.
       </tr>
-    <tr uxd-api-property name="dismissNotification">
+    <tr uxd-api-property name="dismiss">
         This function can be called to dismiss a notification. It should be passed the <code>NotificationRef</code> object to dismiss.
     </tr>
-    <tr uxd-api-property name="dismissAllNotifications">
+    <tr uxd-api-property name="dismissAll">
         This function will dismiss any currently visible notifications.
     </tr>
 </uxd-api-properties>
 
-<p>The following options can be used to configure the location and behavior of the list of notifications:</p>
+<p>The content of the notification should be specified inside an <code>ng-template</code> element. The <code>ng-template</code> property
+    <code>let-notificationRef</code> can be used to access the <code>NotificationRef</code> object returned from the service.</p>
 
-<uxd-api-properties>
-    <tr uxd-api-property name="position" type="string" defaultValue="topRight">
-        Sets the position of the list of notifications within the browser window.
-        The possible options are <code>topRight</code> and <code>topLeft</code>.
-    </tr>
-    <tr uxd-api-property name="direction" type="string" defaultValue="append">
-        Sets the order in which notifications are displayed. The possible options are <code>append</code> and <code>prepend</code>.
-        When set to <code>append</code> newer notifications will appear below older ones.
-        When set to <code>prepend</code> newer notifications will appear above older ones
-    </tr>
-</uxd-api-properties>
-
-<p>The following options can be used to configure the notification:</p>
+<p>A second object may optionally be passed to the <code>showNotification</code> function. The following options can be passed in this object to configure the notification:</p>
 
 <uxd-api-properties>
     <tr uxd-api-property name="duration" type="number" defaultValue="4000">
-        Sets the duration (in milliseconds) the notification should appear before automatically dismissing. A value of <code>0</code> will show the notification until manually dismissed.
+        Sets the duration (in milliseconds) the notification should appear before automatically dismissing.
+        A value of <code>0</code> will show the notification until manually dismissed.
     </tr>
-    <tr uxd-api-property name="visible" type="boolean" defaultValue="true">
-        Indicates whether the notification should be displayed.
+    <tr uxd-api-property name="spacing" type="number" defaultValue="4">
+        Sets the size of the gap (in pixels) between notifications.
     </tr>
 </uxd-api-properties>
 
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </tab>
+  <tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+  </tab>
+</tabset>

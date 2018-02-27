@@ -14,7 +14,6 @@ import { SocialChartNg1Component } from './components/social-chart/social-chart.
 import { TimeAgoService, timeAgoServiceProvider } from './services/time-ago/time-ago.service';
 import { PdfService, pdfServiceProvider } from './services/pdf/pdf.service';
 import { NavigationMenuService, navigationMenuServiceProvider } from './services/navigation-menu/navigation-menu.service';
-import { NotificationService, notificationServiceProvider } from './services/notification/notification.service';
 import { GridNg1Component } from './components/grid/grid.component';
 import { ThumbnailNg1Component } from './components/thumbnail/thumbnail.component';
 import { HierarchyBarNg1Component } from './components/hierarchy-bar/hierarchy-bar.component';
@@ -58,13 +57,11 @@ const declarations = [
     declarations: declarations,
     providers: [
         navigationMenuServiceProvider,
-        notificationServiceProvider,
         pdfServiceProvider,
         timeAgoServiceProvider,
         TimeAgoService,
         PdfService,
         NavigationMenuService,
-        NotificationService
     ],
 })
 export class HybridModule { }

@@ -1,0 +1,21 @@
+<ux-notification-list direction="above" position="top-right"></ux-notification-list>
+
+<button (click)="notificationService.show(notification)">Show Notification</button>
+<button (click)="notificationService.dismissAll()">Dismiss Notifications</button>
+
+<ng-template #notification let-notificationRef>
+    <div class="dismiss">
+        <div class="hpe-icon hpe-close" (click)="notificationService.dismiss(notificationRef)"></div>
+    </div>
+    <div class="notification-content">
+        <div class="notification-icon">
+            <span class="hpe-icon hpe-chat"></span>
+        </div>
+        <div class="notification-text">
+            <p class="notification-title">Messages Received</p>
+            <p class="notification-label">You have 16 messages</p>
+            <small class="notification-subtitle">{{notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a'}}
+            </small>
+        </div>
+    </div>
+</ng-template>
