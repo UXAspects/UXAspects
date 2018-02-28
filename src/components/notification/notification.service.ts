@@ -4,19 +4,20 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class NotificationService {
 
-    private _defaultOptions: NotificationOptions = {
+    // provide default options
+    options: NotificationOptions = {
         duration: 4000,
         height: 100,
-        spacing: 4
+        spacing: 10
     };
 
     direction: NotificationListDirection = 'above';
 
     notifications$: BehaviorSubject<NotificationRef[]> = new BehaviorSubject<NotificationRef[]>([]);    
 
-    show(templateRef: TemplateRef<any>, options: NotificationOptions = this._defaultOptions): NotificationRef {
+    show(templateRef: TemplateRef<any>, options: NotificationOptions = this.options): NotificationRef {
 
-        options = { ...this._defaultOptions, ...options };
+        options = { ...this.options, ...options };
 
         const notificationRef: NotificationRef = {
             templateRef: templateRef,

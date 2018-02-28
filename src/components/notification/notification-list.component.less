@@ -26,7 +26,6 @@ ux-notification-list {
     .notification {
         position: absolute;
         width: 300px;
-        height: 100px;
         background-color: #7b63a3;
         color: #fff;
         border-radius: 3px;
@@ -45,53 +44,6 @@ ux-notification-list {
 
             &:hover {
                 opacity: 0.8;
-            }
-        }
-
-        .notification-content {
-            display: table;
-            width: 100%;
-            min-height: 67px;
-
-            .notification-icon {
-                display: table-cell;
-                width: 50px;
-                color: @notification-color;
-                vertical-align: middle;
-                text-align: center;
-                font-size: 1.438rem;
-            }
-
-            .notification-title {
-                color: @notification-color;
-                font-size: @font-size-lg;
-                font-family: @font-family;
-                font-weight: 600;
-                margin-bottom: 3px;
-                word-break: break-word;
-            }
-
-            .notification-text {
-                display: table-cell;
-                vertical-align: middle;
-                padding: 15px 15px 15px 0;
-
-                .notification-label {
-                    color: @white;
-                    margin: 0;
-                    font-size: @font-size-lg;
-                    line-height: 20px;
-                    word-break: break-word;
-                }
-
-                .notification-subtitle {
-                    display: block;
-                    color: @notification-color;
-                    margin-top: 3px;
-                    font-size: 0.8125rem;
-                    opacity: 0.8;
-                    word-break: break-word;
-                }
             }
         }
     }

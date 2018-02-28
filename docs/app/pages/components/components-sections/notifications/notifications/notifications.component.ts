@@ -18,6 +18,7 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [{
             imports: ['NotificationModule'],
