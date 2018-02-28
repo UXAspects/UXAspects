@@ -8,7 +8,8 @@ export class NotificationService {
     options: NotificationOptions = {
         duration: 4000,
         height: 100,
-        spacing: 10
+        spacing: 10,
+        backgroundColor: '#7b63a3'
     };
 
     direction: NotificationListDirection = 'above';
@@ -25,7 +26,8 @@ export class NotificationService {
             date: new Date(),
             visible: true,
             height: options.height,
-            spacing: options.spacing
+            spacing: options.spacing,
+            backgroundColor: options.backgroundColor
         };
 
         const notifications = this.notifications$.getValue();
@@ -68,12 +70,14 @@ export interface NotificationRef {
     visible?: boolean;
     height?: number;
     spacing?: number;
+    backgroundColor: string;
 }
 
 export interface NotificationOptions {
     duration?: number;
     height?: number;
     spacing?: number;
+    backgroundColor: string;
 }
 
 export type NotificationListDirection = 'above' | 'below';

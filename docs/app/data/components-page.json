@@ -721,6 +721,10 @@
                         {
                             "title": "Module",
                             "content": "NotificationListModule"
+                        },
+                        {
+                            "title": "Dependencies",
+                            "content": "BrowserAnimationsModule"
                         }
                     ]
                 },

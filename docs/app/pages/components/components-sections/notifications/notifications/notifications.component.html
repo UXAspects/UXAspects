@@ -1,8 +1,9 @@
 <ux-notification-list direction="above" position="top-right"></ux-notification-list>
 
 <div class="btn-container">
-    <button class="btn button-primary" (click)="notificationService.show(notification)">Show Notification</button>
-    <button class="btn button-secondary" (click)="notificationService.dismissAll()">Dismiss Notifications</button>
+    <button class="btn button-primary m-r-sm" (click)="notificationService.show(notification,
+        { duration: duration, backgroundColor: backgroundColor })">Show Notification</button>
+    <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">Dismiss Notifications</button>
 </div>
 
 <ng-template #notification let-notificationRef>
@@ -29,20 +30,37 @@
 
 <hr>
 
-<!-- <div class="row uxd-customize-example">
+<div class="row uxd-customize-example">
     <div class="col-md-12">
         <accordion>
             <accordion-group heading="Customize Example...">
                 <div class="row uxd-customize-row">
-                        <div class="col-md-4 col-sm-12">
-                            <label for="duration">Duration</label>
-                            <ux-number-picker [(value)]="notificationDuration" min="0" max="3600000"></ux-number-picker>
-                        </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label for="duration">Duration</label>
+                        <ux-number-picker [(value)]="duration" min="0" max="3600000"></ux-number-picker>
                     </div>
-                </accordion-group>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Background Color</label>
+                    <div class="input-group m-b-sm">
+                        <input type="text" placeholder="Enter color" class="form-control" [(value)]="backgroundColor" text-string-color>
+                        <span class="input-group-addon color-display" [ngStyle]="{ 'background-color': backgroundColor }">&nbsp;</span>
+                    </div>
+                    <small class="text-muted">Recommended Colors</small>
+                    <div class="color-palette">
+                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.primary }" (click)="setColor('primary')"></div>
+                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.accent }" (click)="setColor('accent')"></div>
+                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.chart4 }" (click)="setColor('chart4')"></div>
+                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.chart5 }" (click)="setColor('chart5')"></div>
+                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.ok }" (click)="setColor('ok')"></div>
+                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.warning }" (click)="setColor('warning')"></div>
+                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.critical }" (click)="setColor('critical')"></div>
+                    </div>
+                </div>
+            </accordion-group>
         </accordion>
     </div>
-</div> -->
+</div>
 
 <p>Notifications can be used to inform the user of occurring events or to alert the user of something that may require their attention.
     The <code>ux-notification-list</code> component can be used to display a list of notifications.</p>
@@ -67,18 +85,18 @@
     The following functions can be called on the service:</p>
 
 <uxd-api-properties tableTitle="Notification Service">
-    <tr uxd-api-property name="show">
+    <tr uxd-api-property name="show" args="TemplateRef" returns="NotificationRef">
         This function should be called to show a notification.
         It should be given a <code>TemplateRef</code> containing the content to be displayed and optionally an object containing properties
         to configure the notification.
         It will return a <code>NotificationRef</code> object which will contain the information passed to the <code>showNotification</code> function
         along with a <code>date</code> property which will contain the time at which the notification was shown.
     </tr>
-    <tr uxd-api-property name="getHistory">
-        This function will return an array of <code>NotificationRef</code> objects.
+    <tr uxd-api-property name="getHistory" returns="NotificationRef[]">
+        This function will return a list of all the notifications that have been shown.
       </tr>
-    <tr uxd-api-property name="dismiss">
-        This function can be called to dismiss a notification. It should be passed the <code>NotificationRef</code> object to dismiss.
+    <tr uxd-api-property name="dismiss" args="NotificationRef">
+        This function can be called to dismiss a notification. It should be passed the object to dismiss.
     </tr>
     <tr uxd-api-property name="dismissAll">
         This function will dismiss any currently visible notifications.
@@ -95,8 +113,8 @@
         Sets the duration (in milliseconds) the notification should appear before automatically dismissing.
         A value of <code>0</code> will show the notification until manually dismissed.
     </tr>
-    <tr uxd-api-property name="spacing" type="number" defaultValue="4">
-        Sets the size of the gap (in pixels) between notifications.
+    <tr uxd-api-property name="backgroundColor" type="string" defaultValue="#7b63a3">
+        Sets the background color of the notification.
     </tr>
 </uxd-api-properties>
 
@@ -113,3 +131,12 @@
     <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
   </tab>
 </tabset>
+
+<blockquote>
+    <p><strong>Note</strong>: The <code>BrowserAnimationsModule</code> must be imported from <code>'@angular/platform-browser/animations'</code>.</p>
+</blockquote>
+
+<blockquote>
+    <p><strong>Note</strong>: To display web animations in IE 11 the <code>web-animations-js</code> package must be imported.</p>
+    <p>Run the command <code>npm install --save web-animations-js</code> and import <code>web-animations-js</code>.</p>
+</blockquote>

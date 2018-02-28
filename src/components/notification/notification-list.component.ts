@@ -2,6 +2,7 @@ import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular
 import { NotificationService, NotificationRef, NotificationListDirection } from './notification.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { map } from 'rxjs/operators/map';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'ux-notification-list',
@@ -29,7 +30,7 @@ export class NotificationListComponent {
 
     @Input() @HostBinding('class') position: NotificationListPostion = 'top-right';
 
-    notifications$ = this._notificationService.notifications$.pipe(
+    notifications$: Observable<NotificationRef[]> = this._notificationService.notifications$.pipe(
         map((notificationRefs: NotificationRef[]) => notificationRefs.filter(notificationRef => notificationRef.visible),
     ));
 
