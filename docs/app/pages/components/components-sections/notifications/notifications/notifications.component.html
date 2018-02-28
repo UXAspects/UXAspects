@@ -34,27 +34,23 @@
     <div class="col-md-12">
         <accordion>
             <accordion-group heading="Customize Example...">
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <label for="duration">Duration</label>
-                        <ux-number-picker [(value)]="duration" min="0" max="3600000"></ux-number-picker>
-                    </div>
+                <div class="col-md-6 col-sm-12">
+                    <label for="duration">Duration (in milliseconds)</label>
+                    <ux-number-picker [(value)]="duration" min="0" max="3600000"></ux-number-picker>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Background Color</label>
+
+                <div class="col-md-6 col-sm-12">
+                    <label for="backgroundColor">Background Color</label>
                     <div class="input-group m-b-sm">
-                        <input type="text" placeholder="Enter color" class="form-control" [(value)]="backgroundColor" text-string-color>
-                        <span class="input-group-addon color-display" [ngStyle]="{ 'background-color': backgroundColor }">&nbsp;</span>
+                        <input type="text" placeholder="Enter color" class="form-control" [(ngModel)]="backgroundColor">
+                        <span class="input-group-addon color-display" [style.background-color]="backgroundColor"></span>
                     </div>
-                    <small class="text-muted">Recommended Colors</small>
+
+                    <p>
+                        <small>Recommended Colors</small>
+                    </p>
                     <div class="color-palette">
-                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.primary }" (click)="setColor('primary')"></div>
-                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.accent }" (click)="setColor('accent')"></div>
-                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.chart4 }" (click)="setColor('chart4')"></div>
-                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.chart5 }" (click)="setColor('chart5')"></div>
-                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.ok }" (click)="setColor('ok')"></div>
-                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.warning }" (click)="setColor('warning')"></div>
-                        <div class="color-box" [ngStyle]="{ backgroundColor: notificationColors.critical }" (click)="setColor('critical')"></div>
+                        <div class="color-box" *ngFor="let color of colors" [style.background-color]="color" (click)="backgroundColor = color"></div>
                     </div>
                 </div>
             </accordion-group>
@@ -137,6 +133,6 @@
 </blockquote>
 
 <blockquote>
-    <p><strong>Note</strong>: To display web animations in IE 11 the <code>web-animations-js</code> package must be imported.</p>
+    <p><strong>Note</strong>: To display web animations in IE 11 and Edge the <code>web-animations-js</code> package must be imported.</p>
     <p>Run the command <code>npm install --save web-animations-js</code> and import <code>web-animations-js</code>.</p>
 </blockquote>

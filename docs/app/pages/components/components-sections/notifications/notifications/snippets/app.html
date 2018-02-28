@@ -25,7 +25,9 @@
         <div class="notification-content">
             <h4 class="notification-title">Messages Received</h4>
             <p class="notification-description">You have 16 messages</p>
-            <p class="notification-timestamp">{{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}</p>
+            <p class="notification-timestamp">
+                {{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}
+            </p>
         </div>
 
     </div>
@@ -38,51 +40,26 @@
     <div class="col-md-12">
         <accordion>
             <accordion-group heading="Customize Example...">
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <label for="duration">Duration</label>
-                        <ux-number-picker [(value)]="duration" min="0" max="3600000"></ux-number-picker>
-                    </div>
+                <div class="col-md-6 col-sm-12">
+                    <label for="duration">Duration (in milliseconds)</label>
+                    <ux-number-picker [(value)]="duration" min="0" max="3600000"></ux-number-picker>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Background Color</label>
+
+                <div class="col-md-6 col-sm-12">
+                    <label for="backgroundColor">Background Color</label>
                     <div class="input-group m-b-sm">
                         <input type="text" placeholder="Enter color" class="form-control"
-                            [(value)]="backgroundColor" text-string-color>
+                            [(ngModel)]="backgroundColor">
                         <span class="input-group-addon color-display"
-                            [ngStyle]="{ 'background-color': backgroundColor }">&nbsp;
-                        </span>
+                            [style.background-color]="backgroundColor"></span>
                     </div>
-                    <small class="text-muted">Recommended Colors</small>
+
+                    <p>
+                        <small>Recommended Colors</small>
+                    </p>
                     <div class="color-palette">
-                        <div class="color-box"
-                            [ngStyle]="{ backgroundColor: notificationColors.primary }"
-                            (click)="setColor('primary')">
-                        </div>
-                        <div class="color-box"
-                            [ngStyle]="{ backgroundColor: notificationColors.accent }"
-                            (click)="setColor('accent')">
-                        </div>
-                        <div class="color-box"
-                            [ngStyle]="{ backgroundColor: notificationColors.chart4 }"
-                            (click)="setColor('chart4')">
-                        </div>
-                        <div class="color-box"
-                            [ngStyle]="{ backgroundColor: notificationColors.chart5 }"
-                            (click)="setColor('chart5')">
-                        </div>
-                        <div class="color-box"
-                            [ngStyle]="{ backgroundColor: notificationColors.ok }"
-                            (click)="setColor('ok')">
-                        </div>
-                        <div class="color-box"
-                            [ngStyle]="{ backgroundColor: notificationColors.warning }"
-                            (click)="setColor('warning')">
-                        </div>
-                        <div class="color-box"
-                            [ngStyle]="{ backgroundColor: notificationColors.critical }"
-                            (click)="setColor('critical')">
-                        </div>
+                        <div class="color-box" *ngFor="let color of colors"
+                            [style.background-color]="color" (click)="backgroundColor = color"></div>
                     </div>
                 </div>
             </accordion-group>

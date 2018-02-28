@@ -17,18 +17,18 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
     duration: number = 4000;    
     backgroundColor: string = this.colorService.getColor('accent').toHex();
 
-    notificationColors = {
-        primary: this.colorService.getColor('primary').toHex(),
-        accent: this.colorService.getColor('accent').toHex(),
-        chart4: this.colorService.getColor('chart4').toHex(),
-        chart5: this.colorService.getColor('chart5').toHex(),
-        ok: this.colorService.getColor('ok').toHex(),
-        warning: this.colorService.getColor('warning').toHex(),
-        critical: this.colorService.getColor('critical').toHex()
-    };
+    colors = [
+        this.colorService.getColor('primary').toHex(),
+        this.colorService.getColor('accent').toHex(),
+        this.colorService.getColor('chart4').toHex(),
+        this.colorService.getColor('chart5').toHex(),
+        this.colorService.getColor('ok').toHex(),
+        this.colorService.getColor('warning').toHex(),
+        this.colorService.getColor('critical').toHex()
+    ];
     
     setColor (color: string): void {
-        this.backgroundColor = this.notificationColors[color];
+        this.backgroundColor = this.colors[color];
     }
 
     plunk: IPlunk = {
@@ -38,8 +38,12 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
             'app.component.css': this.snippets.raw.appCss,
         },
         modules: [{
-            imports: ['NotificationModule'],
+            imports: ['NotificationModule', 'NumberPickerModule', 'ColorServiceModule'],
             library: '@ux-aspects/ux-aspects'
+        }, {
+            library: 'ngx-bootstrap/accordion',
+            imports: ['AccordionModule'],
+            providers: ['AccordionModule.forRoot()']
         }]
     };
 
