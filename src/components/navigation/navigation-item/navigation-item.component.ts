@@ -1,7 +1,6 @@
 import { ActivatedRoute, NavigationEnd, Router, RouterState, UrlTree } from '@angular/router';
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Input, OnDestroy, Optional, QueryList, Renderer2, SkipSelf, HostBinding } from '@angular/core';
 import { filter } from 'rxjs/operators/filter';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -68,7 +67,7 @@ export class NavigationItemComponent implements AfterViewInit, AfterContentInit,
         this._childrenChanges = this._children.changes.subscribe(() => this.setIndentWithoutArrow());
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this._navigationEnd.unsubscribe();
         this._childrenChanges.unsubscribe();
     }
