@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { FloatingActionButtonComponent } from './floating-action-button.component';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
@@ -6,9 +6,22 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
     selector: 'ux-floating-action-buttons',
     templateUrl: './floating-action-buttons.component.html',
     providers: [FloatingActionButtonsService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    preserveWhitespaces: false
 })
 export class FloatingActionButtonsComponent {
 
-    constructor(public fab: FloatingActionButtonsService) { }
+    @Input() icon: string;    
+    @Input() direction: FloatingActionButtonDirection = 'top';
+
+    constructor(public fab: FloatingActionButtonsService) {}
+
+    /*
+     * Detect any clicks to trigger close of the menu
+     */
+    @HostListener('document:mouseup') close(): void {
+        this.fab.close();
+    }
 }
+
+export type FloatingActionButtonDirection = 'top' | 'right' | 'bottom' | 'left';

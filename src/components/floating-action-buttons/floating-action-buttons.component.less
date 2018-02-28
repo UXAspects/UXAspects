@@ -1,3 +1,49 @@
+@fab-button__size: 30px;
+@fab-button__margin: 10px;
+
 ux-floating-action-buttons {
+    position: relative;
+    display: inline-block;
     opacity: 1;
+
+    .floating-action-button-list {
+        position: absolute;
+        display: flex;
+
+        &.top {
+            flex-direction: column-reverse;
+            bottom: @fab-button__size + @fab-button__margin;
+        }
+
+        &.right {
+            flex-direction: row;
+            top: 0;
+            left: @fab-button__size + @fab-button__margin;
+        }
+
+        &.bottom {
+            flex-direction: column;
+            top: @fab-button__size + @fab-button__margin;
+        }
+
+        &.left {
+            flex-direction: row-reverse;
+            top: 0;
+            right: @fab-button__size + @fab-button__margin;
+        }
+
+        &.top, &.bottom {
+            ux-floating-action-button {
+                display: block;
+                margin: @fab-button__margin 0;
+            }
+        }
+
+        &.left, &.right {
+            ux-floating-action-button {
+                display: block;
+                margin: 0 @fab-button__margin;
+            }
+        }
+    }
 }

@@ -1,22 +1,15 @@
-import { Component, Input, Attribute, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
 @Component({
     selector: 'ux-floating-action-button',
     templateUrl: './floating-action-button.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    preserveWhitespaces: false
 })
 export class FloatingActionButtonComponent {
+
+    @Input() icon: string;
     
-    primary: boolean = false;
-
-    constructor(@Attribute('fab-primary') primary: string, private _fabService: FloatingActionButtonsService) {
-        this.primary = primary !== null;
-    }
-
-    expand(): void {
-        if (this.primary) {
-            this._fabService.open();
-        }
-    }
+    constructor(public fab: FloatingActionButtonsService) { }
 }
