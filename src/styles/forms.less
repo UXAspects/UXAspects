@@ -1,38 +1,45 @@
 form {
-	.form-group-validate {
-		margin-bottom: 30px;
-		input {
-			&.ng-invalid {
-				&.ng-dirty, &.ng-touched {
-					border: 1px solid @form-control-invalid-border;
-				}
-			}
-		}
-		.form-control-feedback {
-			color: @form-control-invalid-color;
-		}
-	}
-	.form-group-validate-on-submit {
-		margin-bottom: 30px;
-		input {
-			&.ng-invalid {
-				&.on-submit {
-					border: 1px solid @form-control-invalid-border;
-				}
-			}
-		}
-		.form-control-feedback {
-			color: @form-control-invalid-color;
-		}
-	}
-	.validation-error-text {
-		color: @form-control-invalid-color;
-		float: left;
-		opacity: 0.9;
-	}
-	.button-primary {
-		&.disabled {
-			box-shadow: none;
-		}
-	}
+    .form-group-validate {
+        margin-bottom: 30px;
+
+        input {
+            &.ng-invalid {
+                &.ng-dirty, &.ng-touched {
+                    border: 1px solid @form-control-invalid-border;
+                }
+            }
+        }
+
+        .form-control-feedback {
+            color: @form-control-invalid-color;
+        }
+    }
+
+    .form-group-validate-on-submit {
+        margin-bottom: 30px;
+
+        input {
+            &.ng-invalid {
+                &.on-submit {
+                    border: 1px solid @form-control-invalid-border;
+                }
+            }
+        }
+
+        .form-control-feedback {
+            color: @form-control-invalid-color;
+        }
+    }
+
+    .validation-error-text {
+        color: @form-control-invalid-color;
+        float: left;
+        opacity: 0.9;
+    }
+
+    .button-primary {
+        &.disabled {
+            box-shadow: none;
+        }
+    }
 }
