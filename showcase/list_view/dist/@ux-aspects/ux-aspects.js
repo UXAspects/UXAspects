@@ -1,13 +1,12 @@
-import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, HostListener, Inject, Injectable, Injector, Input, NgModule, NgZone, Optional, Output, Pipe, QueryList, ReflectiveInjector, Renderer2, TemplateRef, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, HostListener, Inject, Injectable, Injector, Input, NgModule, NgZone, Optional, Output, Pipe, QueryList, ReflectiveInjector, Renderer2, RendererFactory2, SkipSelf, TemplateRef, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Subject as Subject$1 } from 'rxjs/Subject';
 import { BehaviorSubject as BehaviorSubject$1 } from 'rxjs/BehaviorSubject';
+import { fromEvent as fromEvent$1 } from 'rxjs/observable/fromEvent';
 import { Observable as Observable$1 } from 'rxjs/Observable';
-import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/debounceTime';
 import { distinctUntilChanged as distinctUntilChanged$1 } from 'rxjs/operator/distinctUntilChanged';
 import { map as map$1 } from 'rxjs/operator/map';
 import { observeOn as observeOn$1 } from 'rxjs/operator/observeOn';
@@ -16,18 +15,24 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/observable/of';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT } from '@angular/platform-browser';
+import { of as of$2 } from 'rxjs/observable/of';
+import { from as from$2 } from 'rxjs/observable/from';
 import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/partition';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/concat';
 import { Http, HttpModule, ResponseContentType } from '@angular/http';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/takeUntil';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 class BreadcrumbsComponent {
@@ -322,13 +327,13 @@ class ColumnSortingDirective {
      * @param {?} state
      * @return {?}
      */
-    toggleColumn(key, state) {
+    toggleColumn(key, state$$1) {
         if (this.singleSort) {
-            if (state === ColumnSortingState.NoSort) {
+            if (state$$1 === ColumnSortingState.NoSort) {
                 this.order = [];
             }
             else {
-                this.order = [{ key: key, state: state }];
+                this.order = [{ key: key, state: state$$1 }];
             }
         }
         else {
@@ -336,11 +341,11 @@ class ColumnSortingDirective {
             let /** @type {?} */ idx = this.order.findIndex(column => column.key === key);
             // if wasnt previously selected add to list
             if (idx === -1) {
-                this.order.push({ key: key, state: state });
+                this.order.push({ key: key, state: state$$1 });
             }
-            else if (state === ColumnSortingState.Ascending || state === ColumnSortingState.Descending) {
+            else if (state$$1 === ColumnSortingState.Ascending || state$$1 === ColumnSortingState.Descending) {
                 this.order.splice(idx, 1);
-                this.order.push({ key: key, state: state });
+                this.order.push({ key: key, state: state$$1 });
             }
             else {
                 this.order.splice(idx, 1);
@@ -378,2079 +383,6 @@ ColumnSortingModule.decorators = [
  */
 ColumnSortingModule.ctorParameters = () => [];
 
-class DashboardService {
-    constructor() {
-        this._widgets = [];
-        this._options$ = new Subject$1();
-        this._placeholder = { visible: false, x: 0, y: 0, width: 0, height: 0 };
-        this._dimensions = {};
-        this._columnWidth = 0;
-        this._rowHeight = 0;
-        this._stacked = false;
-        this._defaultOptions = {
-            columns: 5,
-            padding: 5,
-            minWidth: 100,
-            minHeight: 100,
-            emptyRow: true
-        };
-        this.height = new BehaviorSubject$1(0);
-        this.layout = new Subject$1();
-    }
-    /**
-     * Return all the options currently being used as a subject
-     * @return {?}
-     */
-    options() {
-        return this._options$;
-    }
-    /**
-     * Return all the options currently being used
-     * @return {?}
-     */
-    getOptions() {
-        return this._options;
-    }
-    /**
-     * Get all the default dashboard options
-     * @return {?}
-     */
-    getDefaultOptions() {
-        return this._defaultOptions;
-    }
-    /**
-     * Set the options - automatically set default values where not specified
-     * @param {?} options The DashboardOptions that will configure the dashboard
-     * @return {?}
-     */
-    setOptions(options) {
-        this._options = Object.assign({}, this._defaultOptions, options);
-        // update the observable
-        this._options$.next(this._options);
-    }
-    /**
-     * Allow uniform spacing around each widget
-     * @param {?} padding The number of pixels around each widget
-     * @return {?}
-     */
-    setPadding(padding) {
-        this._options.padding = padding;
-        this.options().next(this._options);
-    }
-    /**
-     * Set the dashboard container element
-     * @param {?} dashboard The HTMLElement that is the dashboard container
-     * @return {?}
-     */
-    setDashboard(dashboard) {
-        this._dashboard = dashboard;
-    }
-    /**
-     * Add a widget to the dashboard
-     * @param {?} widget The widget component to add to the dashboard
-     * @return {?}
-     */
-    addWidget(widget) {
-        this._widgets.push(widget);
-        // re-render the dashboard
-        this.renderDashboard();
-    }
-    /**
-     * Remove a widget from the dashboard
-     * @param {?} widget The widget to remove
-     * @return {?}
-     */
-    removeWidget(widget) {
-        // remove a widget from the dashboard
-        this._widgets = this._widgets.filter(wgt => wgt !== widget);
-        // re-render the dashboard
-        this.renderDashboard();
-    }
-    /**
-     * Indicate that the dashboard element has been resized
-     * @param {?} width The width of the dashboard element in px
-     * @param {?} height The height of the dashboard element in px
-     * @return {?}
-     */
-    setDimensions(width, height) {
-        this._dimensions.width = width;
-        this._dimensions.height = height;
-        // trigger re-render
-        this.renderDashboard();
-    }
-    /**
-     * Produce an object containing all the required layout data.
-     * This can be useful for exporting/saving a layout
-     * @return {?}
-     */
-    getLayoutData() {
-        return this._widgets.map(widget => {
-            return { id: widget.getId(), col: widget.getColumn(), row: widget.getRow(), colSpan: widget.getColumnSpan(), rowSpan: widget.getRowSpan() };
-        });
-    }
-    /**
-     * Position widgets programatically
-     * @param {?} layout
-     * @return {?}
-     */
-    setLayoutData(layout) {
-        // iterate through each widget data and find a match
-        layout.forEach(widget => {
-            // find the matching widget
-            let /** @type {?} */ target = this._widgets.find(wgt => wgt.getId() === widget.id);
-            if (target) {
-                target.setColumn(widget.col);
-                target.setRow(widget.row);
-                target.setColumnSpan(widget.colSpan);
-                target.setRowSpan(widget.rowSpan);
-            }
-        });
-    }
-    /**
-     * Update the positions and sizes of the widgets
-     * @return {?}
-     */
-    renderDashboard() {
-        // do nothing if chart options haven't yet been initialised
-        if (!this._options) {
-            return;
-        }
-        // get the dimensions of the dashboard
-        this._columnWidth = this._dimensions.width / this._options.columns;
-        this._rowHeight = this._options.rowHeight || this._columnWidth;
-        // ensure the column width is not below the min widths
-        if (this._columnWidth < this._options.minWidth) {
-            this.setStacked(true);
-        }
-        else {
-            this.setStacked(false);
-        }
-        // ensure the row height is not below the min widths
-        if (this._rowHeight < this._options.minWidth) {
-            this._rowHeight = this._options.minWidth;
-        }
-        this.setDashboardLayout();
-        // iterate through each widget and set the size - except the one being resized
-        this._widgets.filter(widget => !this._actionWidget || widget !== this._actionWidget.widget)
-            .forEach(widget => widget.render());
-    }
-    /**
-     * Determine where widgets should be positioned based on their positions, width and the size of the container
-     * @return {?}
-     */
-    setDashboardLayout() {
-        // find any widgets that do not currently have a position set
-        this._widgets.filter(widget => widget.getColumn() === undefined || widget.getRow() === undefined)
-            .forEach(widget => this.setWidgetPosition(widget));
-        this.setDashboardHeight();
-    }
-    /**
-     * @param {?} stacked
-     * @return {?}
-     */
-    setStacked(stacked) {
-        // only do the following if the stacked state has changed
-        if (stacked === this._stacked) {
-            return;
-        }
-        // store the stacked state
-        this._stacked = stacked;
-        // update the stacked state for all widgets
-        this._widgets.forEach(widget => widget.setStacked(this._stacked));
-        // if stacked is true we need to do some reordering etc..
-        if (stacked === true) {
-            // iterate through each widget set it's stacked state and
-            this.getWidgetsByOrder().forEach((widget, idx) => {
-                widget.setStacked(true);
-                widget.setColumn(0);
-                widget.setRow(idx);
-            });
-        }
-    }
-    /**
-     * @return {?}
-     */
-    getWidgetsByOrder() {
-        return this._widgets.sort((w1, w2) => {
-            let /** @type {?} */ w1Position = w1.getColumn() * w1.getRow();
-            let /** @type {?} */ w2Position = w2.getColumn() * w2.getRow();
-            if (w1Position < w2Position) {
-                return -1;
-            }
-            if (w1Position > w2Position) {
-                return 1;
-            }
-            return 0;
-        });
-    }
-    /**
-     * Find a position that a widget can fit in the dashboard
-     * @param {?} widget The widget to try and position
-     * @return {?}
-     */
-    setWidgetPosition(widget) {
-        // find a position for the widget
-        let /** @type {?} */ position = 0;
-        let /** @type {?} */ success = false;
-        // repeat until a space is found
-        while (!success) {
-            // get a position to try
-            let /** @type {?} */ column = position % this._options.columns;
-            let /** @type {?} */ row = Math.floor(position / this._options.columns);
-            // check the current position
-            if (this.getPositionAvailable(column, row, widget.getColumnSpan(), widget.getRowSpan())) {
-                success = true;
-                widget.setColumn(column);
-                widget.setRow(row);
-                return;
-            }
-            position++;
-        }
-    }
-    /**
-     * Check if a position in the dashboard is vacant or not
-     * @param {?} column
-     * @param {?} row
-     * @param {?} columnSpan
-     * @param {?} rowSpan
-     * @param {?=} ignoreWidget
-     * @return {?}
-     */
-    getPositionAvailable(column, row, columnSpan, rowSpan, ignoreWidget) {
-        // get a list of grid spaces that are populated
-        let /** @type {?} */ spaces = this.getOccupiedSpaces();
-        // check if the block would still be in bounds
-        if (column + columnSpan > this._options.columns) {
-            return false;
-        }
-        // check each required position
-        for (let /** @type {?} */ x = column; x < column + columnSpan; x++) {
-            for (let /** @type {?} */ y = row; y < row + rowSpan; y++) {
-                if (spaces.find(block => block.column === x && block.row === y && block.widget !== ignoreWidget)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    /**
-     * @return {?}
-     */
-    getOccupiedSpaces() {
-        // find all spaces that are currently occupied
-        return this._widgets.filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
-            .reduce((value, widget) => {
-            this.forEachBlock(widget, (column, row) => value.push({ widget: widget, column: column, row: row }));
-            return value;
-        }, []);
-    }
-    /**
-     * Begin resizing a widget
-     * @param {?} action The the widget to resize
-     * @return {?}
-     */
-    onResizeStart(action) {
-        // store the mouse event
-        this._mouseEvent = action.event;
-        this._actionWidget = action;
-        // bring the widget to the font
-        this.bringToFront(action.widget);
-    }
-    /**
-     * @param {?} action
-     * @return {?}
-     */
-    onResizeDrag(action) {
-        // if there was no movement then do nothing
-        if (action.event.x === this._mouseEvent.x && action.event.y === this._mouseEvent.y) {
-            return;
-        }
-        // update the stored mouse event
-        this._mouseEvent = action.event;
-        // get handle for direction
-        let /** @type {?} */ handle = action.widget.getHandles().find(hnd => hnd.direction === action.direction);
-        // get the bounds of the handle
-        let /** @type {?} */ bounds = handle.element.getBoundingClientRect();
-        // get the center of the handle
-        let /** @type {?} */ centerX = bounds.left + (bounds.width / 2);
-        let /** @type {?} */ centerY = bounds.top + (bounds.height / 2);
-        // get the current mouse position
-        let /** @type {?} */ mouseX = action.event.x - centerX;
-        let /** @type {?} */ mouseY = action.event.y - centerY;
-        // store the new proposed dimensions for the widget
-        let /** @type {?} */ dimensions = {
-            x: action.widget.actualX,
-            y: action.widget.actualY,
-            width: action.widget.actualWidth,
-            height: action.widget.actualHeight
-        };
-        // update widget based on the handle being dragged
-        switch (action.direction) {
-            case ActionDirection.Right:
-                dimensions.width += mouseX;
-                break;
-            case ActionDirection.Left:
-                dimensions.x += mouseX;
-                dimensions.width -= mouseX;
-                if (dimensions.width < this._options.minWidth) {
-                    let /** @type {?} */ difference = this._options.minWidth - dimensions.width;
-                    dimensions.x -= difference;
-                    dimensions.width += difference;
-                }
-                break;
-            case ActionDirection.Bottom:
-                dimensions.height += mouseY;
-                break;
-            case ActionDirection.Top:
-                dimensions.y += mouseY;
-                dimensions.height -= mouseY;
-                if (dimensions.height < this._options.minHeight) {
-                    let /** @type {?} */ difference = this._options.minHeight - dimensions.height;
-                    dimensions.y -= difference;
-                    dimensions.height += difference;
-                }
-                break;
-            // Support resizing on multiple axis simultaneously
-            case ActionDirection.TopLeft:
-                dimensions.x += mouseX;
-                dimensions.width -= mouseX;
-                if (dimensions.width < this._options.minWidth) {
-                    let /** @type {?} */ difference = this._options.minWidth - dimensions.width;
-                    dimensions.x -= difference;
-                    dimensions.width += difference;
-                }
-                dimensions.y += mouseY;
-                dimensions.height -= mouseY;
-                if (dimensions.height < this._options.minHeight) {
-                    let /** @type {?} */ difference = this._options.minHeight - dimensions.height;
-                    dimensions.y -= difference;
-                    dimensions.height += difference;
-                }
-                break;
-            case ActionDirection.TopRight:
-                dimensions.width += mouseX;
-                dimensions.y += mouseY;
-                dimensions.height -= mouseY;
-                if (dimensions.height < this._options.minHeight) {
-                    let /** @type {?} */ difference = this._options.minHeight - dimensions.height;
-                    dimensions.y -= difference;
-                    dimensions.height += difference;
-                }
-                break;
-            case ActionDirection.BottomLeft:
-                dimensions.height += mouseY;
-                dimensions.x += mouseX;
-                dimensions.width -= mouseX;
-                if (dimensions.width < this._options.minWidth) {
-                    let /** @type {?} */ difference = this._options.minWidth - dimensions.width;
-                    dimensions.x -= difference;
-                    dimensions.width += difference;
-                }
-                break;
-            case ActionDirection.BottomRight:
-                dimensions.height += mouseY;
-                dimensions.width += mouseX;
-                break;
-        }
-        let /** @type {?} */ currentWidth = action.widget.actualX + action.widget.actualWidth;
-        let /** @type {?} */ currentHeight = action.widget.actualY + action.widget.actualHeight;
-        // ensure values are within the dashboard bounds
-        if (dimensions.x < 0) {
-            dimensions.x = 0;
-            dimensions.width = currentWidth;
-        }
-        if (dimensions.y < 0) {
-            dimensions.y = 0;
-            dimensions.height = currentHeight;
-        }
-        if ((dimensions.x + dimensions.width) > this._dimensions.width) {
-            dimensions.width = this._dimensions.width - dimensions.x;
-        }
-        if ((dimensions.y + dimensions.height) > this._dimensions.height) {
-            dimensions.height = currentHeight;
-        }
-        // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
-        if (dimensions.width < this._options.minWidth) {
-            dimensions.x = action.widget.actualX;
-            dimensions.width = this._options.minWidth;
-        }
-        // if the proposed height is smaller than allowed then reset height to minimum and ignore y changes
-        if (dimensions.height < this._options.minHeight) {
-            dimensions.y = action.widget.actualY;
-            dimensions.height = this._options.minHeight;
-        }
-        // update the widget actual values
-        action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-        // update placeholder position and value
-        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-        // show the widget positions if the current positions and sizes were to persist
-        this.updateWidgetPositions(action.widget);
-    }
-    /**
-     * @return {?}
-     */
-    onResizeEnd() {
-        // commit resize changes
-        this.commitWidgetChanges();
-        // hide placeholder
-        this.getPlaceholder().visible = false;
-        this._actionWidget = null;
-        this._mouseEvent = null;
-        // ensure any vacant upper spaces are filled where required
-        this.shiftWidgetsUp();
-        // update dashboard height
-        this.setDashboardHeight();
-        // emit information about the layout
-        this.layout.next(this.getLayoutData());
-    }
-    /**
-     * @param {?} action
-     * @return {?}
-     */
-    onDragStart(action) {
-        this.onResizeStart(action);
-        // store the starting placeholder position
-        this.setWidgetOrigin();
-        this.cacheWidgets();
-    }
-    /**
-     * @return {?}
-     */
-    onDragEnd() {
-        this.onResizeEnd();
-        this._widgetOrigin = {};
-    }
-    /**
-     * @param {?} action
-     * @return {?}
-     */
-    onDrag(action) {
-        // if there was no movement then do nothing
-        if (action.event.pageX === this._mouseEvent.pageX && action.event.pageY === this._mouseEvent.pageY) {
-            return;
-        }
-        // get the current mouse position
-        let /** @type {?} */ mouseX = action.event.pageX - this._mouseEvent.pageX;
-        let /** @type {?} */ mouseY = action.event.pageY - this._mouseEvent.pageY;
-        // store the latest event
-        this._mouseEvent = action.event;
-        let /** @type {?} */ dimensions = {
-            x: action.widget.actualX + mouseX,
-            y: action.widget.actualY + mouseY,
-            width: action.widget.actualWidth,
-            height: action.widget.actualHeight
-        };
-        this.restoreWidgets(true);
-        // update widget position
-        action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-        // update placeholder position and value
-        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-        // show the widget positions if the current positions and sizes were to persist
-        this.shiftWidgets();
-        this.setDashboardHeight();
-    }
-    /**
-     * @return {?}
-     */
-    cacheWidgets() {
-        this._cache = this._widgets.map(widget => {
-            return {
-                id: widget.getId(),
-                column: widget.getColumn(),
-                row: widget.getRow()
-            };
-        });
-    }
-    /**
-     * @param {?=} ignoreActionWidget
-     * @return {?}
-     */
-    restoreWidgets(ignoreActionWidget = false) {
-        this._cache.filter(widget => !ignoreActionWidget || widget.id !== this._actionWidget.widget.getId()).forEach(widget => {
-            let /** @type {?} */ match = this._widgets.find(wgt => wgt.getId() === widget.id);
-            if (match) {
-                match.setColumn(widget.column);
-                match.setRow(widget.row);
-            }
-        });
-    }
-    /**
-     * When dragging any widgets that need to be moved should be moved to an appropriate position
-     * @return {?}
-     */
-    shiftWidgets() {
-        let /** @type {?} */ widgetsToMove = [];
-        // check if there are any widgets under the placeholder
-        for (let /** @type {?} */ row = this.getPlaceholder().row; row < this.getPlaceholder().row + this.getPlaceholder().rowSpan; row++) {
-            for (let /** @type {?} */ column = this.getPlaceholder().column; column < this.getPlaceholder().column + this.getPlaceholder().columnSpan; column++) {
-                // store reference to any widgets that need moved
-                this.getOccupiedSpaces()
-                    .filter(space => space.column === column && space.row === row && space.widget !== this._actionWidget.widget)
-                    .forEach(space => widgetsToMove.push(space.widget));
-            }
-        }
-        // remove any duplicates
-        widgetsToMove = widgetsToMove.filter((widget, idx, array) => array.indexOf(widget) === idx);
-        // if no widgets need moved then we can stop here
-        if (widgetsToMove.length === 0) {
-            return;
-        }
-        // create a duplicate we can use to keep track of which have been moved
-        let /** @type {?} */ unmovedWidgets = widgetsToMove.slice();
-        // attempt to move any widgets to the previous widget position
-        widgetsToMove.forEach(widget => {
-            // get a grid off all occupied spaces - taking into account the placeholder and ignoring widgets that need moved
-            let /** @type {?} */ grid = this.getOccupiedSpaces().filter(space => !unmovedWidgets.find(wgt => wgt === space.widget));
-            // iterate each free block
-            for (let /** @type {?} */ row = this._widgetOrigin.row; row < this._widgetOrigin.row + this._widgetOrigin.rowSpan; row++) {
-                for (let /** @type {?} */ column = this._widgetOrigin.column; column < this._widgetOrigin.column + this._widgetOrigin.columnSpan; column++) {
-                    // determine if the block can fit in this space
-                    let /** @type {?} */ requiredSpaces = this.getRequiredSpacesFromPoint(widget, column, row);
-                    // check if widget would fit in space
-                    let /** @type {?} */ available = requiredSpaces.every(space => {
-                        return !grid.find(gridSpace => gridSpace.column === space.column && gridSpace.row === space.row) && space.column < this.getColumnCount();
-                    });
-                    if (available) {
-                        widget.setColumn(column);
-                        widget.setRow(row);
-                        unmovedWidgets.splice(unmovedWidgets.findIndex(wgt => wgt === widget), 1);
-                        return;
-                    }
-                }
-            }
-            // if we get to here then we can't simply swap the positions - next try moving right
-            if (this.canWidgetMoveRight(widget, true)) {
-                // after the shift check if placeholder position is still valid
-                this.validatePlaceholderPosition(ActionDirection.Right);
-                return;
-            }
-            // next try moving left
-            if (this.canWidgetMoveLeft(widget, true)) {
-                // after the shift check if placeholder position is still valid
-                this.validatePlaceholderPosition(ActionDirection.Left);
-                return;
-            }
-            // determine the distance that the widget needs to be moved down
-            let /** @type {?} */ distance = (this._actionWidget.widget.getRow() - widget.getRow()) + this._actionWidget.widget.getRowSpan();
-            // as a last resort move the widget downwards
-            this.moveWidgetDown(widget, distance);
-        });
-    }
-    /**
-     * After shifts have taken place we should verify the place holder position is still valid
-     * @param {?} shiftDirection - the position widgets were shifted
-     * @return {?}
-     */
-    validatePlaceholderPosition(shiftDirection) {
-        // check if the placeholder is over a widget
-        if (this.getWidgetsAtPosition(this.getPlaceholder().column, this.getPlaceholder().row, true).length > 0) {
-            // move the placeholder the opposite direction
-            switch (shiftDirection) {
-                case ActionDirection.Left:
-                    this.setPlaceholderBounds(this.getPlaceholder().visible, this.getPlaceholder().x + this.getColumnWidth(), this.getPlaceholder().y, this.getPlaceholder().width, this.getPlaceholder().height);
-                    break;
-                case ActionDirection.Right:
-                    this.setPlaceholderBounds(this.getPlaceholder().visible, this.getPlaceholder().x - this.getColumnWidth(), this.getPlaceholder().y, this.getPlaceholder().width, this.getPlaceholder().height);
-                    break;
-            }
-            // validate this new position again
-            this.validatePlaceholderPosition(shiftDirection);
-        }
-    }
-    /**
-     * Determine if a widget can be moved left - or if it can move the widgets to the right to make space for the widget
-     * @param {?} widget
-     * @param {?=} performMove
-     * @return {?}
-     */
-    canWidgetMoveLeft(widget, performMove = false) {
-        // check if the widget is the action widget or occupies the first column
-        if (widget === this._actionWidget.widget || widget.getColumn() === 0) {
-            return false;
-        }
-        // find the positions required
-        let /** @type {?} */ targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column - widget.getColumnSpan(), row: space.row, widget: space.widget };
-        });
-        // check if there are widget in the required positions and if so, can they move right?
-        let /** @type {?} */ moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt)));
-        if (performMove && moveable) {
-            // move all widgets to the right
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true)));
-            // move current widget to the right
-            widget.setColumn(widget.getColumn() - 1);
-        }
-        return moveable;
-    }
-    /**
-     * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
-     * @param {?} widget
-     * @param {?=} performMove
-     * @return {?}
-     */
-    canWidgetMoveRight(widget, performMove = false) {
-        // check if the widget is the dragging widget or the widget occupies the final column
-        if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this._options.columns) {
-            return false;
-        }
-        // find the positions required
-        let /** @type {?} */ targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
-            return { column: space.column + widget.getColumnSpan(), row: space.row, widget: space.widget };
-        });
-        // check if there are widget in the required positions and if so, can they move right?
-        let /** @type {?} */ moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveRight(wgt)));
-        if (performMove && moveable) {
-            // move all widgets to the right
-            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
-            // move current widget to the right
-            widget.setColumn(widget.getColumn() + 1);
-        }
-        return moveable;
-    }
-    /**
-     * Store the initial position of the widget being dragged
-     * @return {?}
-     */
-    setWidgetOrigin() {
-        this._widgetOrigin = {
-            column: this._actionWidget.widget.getColumn(),
-            row: this._actionWidget.widget.getRow(),
-            columnSpan: this._actionWidget.widget.getColumnSpan(),
-            rowSpan: this._actionWidget.widget.getRowSpan()
-        };
-    }
-    /**
-     * Calculate all the required positions is a widget was to be positioned at a particular point
-     * @param {?} widget
-     * @param {?} column
-     * @param {?} row
-     * @return {?}
-     */
-    getRequiredSpacesFromPoint(widget, column, row) {
-        let /** @type {?} */ spaces = [];
-        for (let /** @type {?} */ y = row; y < row + widget.getRowSpan(); y++) {
-            for (let /** @type {?} */ x = column; x < column + widget.getColumnSpan(); x++) {
-                spaces.push({ column: x, row: y, widget: widget });
-            }
-        }
-        return spaces;
-    }
-    /**
-     * Position widgets based on the position of the placeholder - this is temporary until confirmed
-     * @param {?} widget
-     * @return {?}
-     */
-    updateWidgetPositions(widget) {
-        // check all spaces the placeholder will occupy and move any widget currently in them down
-        for (let /** @type {?} */ column = this._placeholder.column; column < this._placeholder.column + this._placeholder.columnSpan; column++) {
-            for (let /** @type {?} */ row = this._placeholder.row; row < this._placeholder.row + this._placeholder.rowSpan; row++) {
-                this.getWidgetsAtPosition(column, row, true)
-                    .filter(wgt => wgt !== widget)
-                    .forEach(wgt => this.moveWidgetDown(wgt));
-            }
-        }
-        // update the height of the dashboard
-        this.setDashboardHeight();
-        // if we arent dragging the top handle then fill spaces
-        if (this._actionWidget.direction !== ActionDirection.Top &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.TopRight) {
-            this.shiftWidgetsUp();
-        }
-    }
-    /**
-     * Determine if a widget is occupying a specific row and column
-     * @param {?} column The columns to check if occupied
-     * @param {?} row The row to check if occupied
-     * @param {?=} ignoreResizing Whether or not to ignore the widget currently being resized
-     * @return {?}
-     */
-    getWidgetsAtPosition(column, row, ignoreResizing = false) {
-        return this.getOccupiedSpaces()
-            .filter(space => space.column === column && space.row === row)
-            .filter(space => space.widget !== this._actionWidget.widget || !ignoreResizing)
-            .map(space => space.widget);
-    }
-    /**
-     * Update the placeholder visibility, position and size
-     * @param {?} visible
-     * @param {?} x
-     * @param {?} y
-     * @param {?} width
-     * @param {?} height
-     * @return {?}
-     */
-    setPlaceholderBounds(visible, x, y, width, height) {
-        let /** @type {?} */ rounding = this._actionWidget.direction === ActionDirection.Left ||
-            this._actionWidget.direction === ActionDirection.Top ? Rounding.RoundDownBelowHalf : Rounding.RoundUpOverHalf;
-        this._placeholder.visible = visible;
-        this._placeholder.column = this.getPlaceholderColumn(x, width);
-        this._placeholder.row = this.getPlaceholderRow(y, height);
-        this._placeholder.columnSpan = this.getPlaceholderColumnSpan(width);
-        this._placeholder.rowSpan = this.getPlaceholderRowSpan(height);
-        // calculate the maximum number of rows
-        let /** @type {?} */ rowCount = this._widgets.filter(widget => widget !== this._actionWidget.widget)
-            .reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
-        // constrain maximum placeholder row
-        this._placeholder.row = Math.min(this._placeholder.row, rowCount);
-        this._placeholder.x = (this._placeholder.column * this.getColumnWidth()) + this._options.padding;
-        this._placeholder.y = (this._placeholder.row * this.getRowHeight()) + this._options.padding;
-        this._placeholder.width = (this._placeholder.columnSpan * this.getColumnWidth()) - (this._options.padding * 2);
-        this._placeholder.height = (this._placeholder.rowSpan * this.getRowHeight()) - (this._options.padding * 2);
-        // set the values of the widget to match the values of the placeholder - however do not render the changes
-        this._actionWidget.widget.setColumn(this._placeholder.column, false);
-        this._actionWidget.widget.setRow(this._placeholder.row, false);
-        this._actionWidget.widget.setColumnSpan(this._placeholder.columnSpan, false);
-        this._actionWidget.widget.setRowSpan(this._placeholder.rowSpan, false);
-    }
-    /**
-     * Get the placeholder column position
-     * @param {?} x
-     * @param {?} width
-     * @return {?}
-     */
-    getPlaceholderColumn(x, width) {
-        let /** @type {?} */ column = this.getColumnFromPx(x, this._actionWidget.direction === ActionDirection.Move ? Rounding.RoundUpOverHalf : Rounding.RoundDown);
-        let /** @type {?} */ columnSpan = Math.floor(width / this.getColumnWidth());
-        let /** @type {?} */ upperLimit = this.getColumnCount() - columnSpan;
-        // if we arent dragging left then just return the column
-        if (this._actionWidget.direction !== ActionDirection.Left &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.BottomLeft) {
-            return Math.max(Math.min(column, upperLimit), 0);
-        }
-        // get any overflow
-        let /** @type {?} */ overflow = width % this.getColumnWidth();
-        return (x <= 0 || overflow === 0 || columnSpan === 0 || overflow > (this.getColumnWidth() / 2)) ?
-            Math.max(Math.min(column, upperLimit), 0) :
-            Math.max(Math.min(column + 1, upperLimit), 0);
-    }
-    /**
-     * Get the column span of the placeholder
-     * @param {?} width
-     * @return {?}
-     */
-    getPlaceholderColumnSpan(width) {
-        let /** @type {?} */ columnSpan = this.getColumnFromPx(width);
-        // if we arent dragging right or left then just return the column span
-        if (this._actionWidget.direction !== ActionDirection.Right &&
-            this._actionWidget.direction !== ActionDirection.TopRight &&
-            this._actionWidget.direction !== ActionDirection.BottomRight &&
-            this._actionWidget.direction !== ActionDirection.Left &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.BottomLeft) {
-            return Math.max(columnSpan, 1);
-        }
-        // get the current column span and any overflow
-        let /** @type {?} */ overflow = width % this.getColumnWidth();
-        return (columnSpan > 0 && overflow > (this.getColumnWidth() / 2)) ? Math.max(columnSpan + 1, 1) : Math.max(columnSpan, 1);
-    }
-    /**
-     * Get the row position of the placeholder
-     * @param {?} y
-     * @param {?} height
-     * @return {?}
-     */
-    getPlaceholderRow(y, height) {
-        let /** @type {?} */ row = this.getRowFromPx(y, this._actionWidget.direction === ActionDirection.Move ? Rounding.RoundUpOverHalf : Rounding.RoundDown);
-        let /** @type {?} */ rowSpan = Math.ceil(height / this.getRowHeight());
-        // if we arent dragging up then just return the row
-        if (this._actionWidget.direction !== ActionDirection.Top &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.TopRight) {
-            return Math.max(row, 0);
-        }
-        // get any overflow
-        let /** @type {?} */ overflow = height < this.getRowHeight() ? 0 : height % this.getRowHeight();
-        return (y <= 0 || rowSpan === 0 || overflow === 0 || overflow > (this.getRowHeight() / 2)) ? Math.max(row, 0) : Math.max(row + 1, 0);
-    }
-    /**
-     * Get the row span of the placeholder
-     * @param {?} height
-     * @return {?}
-     */
-    getPlaceholderRowSpan(height) {
-        let /** @type {?} */ rowSpan = this.getRowFromPx(height);
-        // if we arent dragging up or down then just return the column span
-        if (this._actionWidget.direction !== ActionDirection.Top &&
-            this._actionWidget.direction !== ActionDirection.TopLeft &&
-            this._actionWidget.direction !== ActionDirection.TopRight &&
-            this._actionWidget.direction !== ActionDirection.Bottom &&
-            this._actionWidget.direction !== ActionDirection.BottomLeft &&
-            this._actionWidget.direction !== ActionDirection.BottomRight) {
-            return Math.max(rowSpan, 1);
-        }
-        // get the current column span and any overflow
-        let /** @type {?} */ overflow = height % this.getRowHeight();
-        return (overflow > (this.getRowHeight() / 2)) ? Math.max(rowSpan + 1, 1) : Math.max(rowSpan, 1);
-    }
-    /**
-     * @param {?} x
-     * @param {?=} rounding
-     * @return {?}
-     */
-    getColumnFromPx(x, rounding = Rounding.RoundDown) {
-        let /** @type {?} */ column = Math.floor(x / Math.floor(this.getColumnWidth()));
-        let /** @type {?} */ overflow = (x % Math.floor(this.getColumnWidth()));
-        let /** @type {?} */ half = this.getColumnWidth() / 2;
-        switch (rounding) {
-            case Rounding.RoundDown:
-                return column;
-            case Rounding.RoundDownBelowHalf:
-                return overflow < half ? column : column + 1;
-            case Rounding.RoundUpOverHalf:
-                return overflow > half ? column + 1 : column;
-            case Rounding.RoundUp:
-                return overflow > 0 ? column + 1 : column;
-        }
-    }
-    /**
-     * @param {?} y
-     * @param {?=} rounding
-     * @return {?}
-     */
-    getRowFromPx(y, rounding = Rounding.RoundDown) {
-        let /** @type {?} */ row = Math.floor(y / Math.floor(this.getRowHeight()));
-        let /** @type {?} */ overflow = (y % Math.floor(this.getRowHeight()));
-        let /** @type {?} */ half = this.getRowHeight() / 2;
-        switch (rounding) {
-            case Rounding.RoundDown:
-                return row;
-            case Rounding.RoundDownBelowHalf:
-                return overflow < half ? row : row + 1;
-            case Rounding.RoundUpOverHalf:
-                return overflow > half ? row + 1 : row;
-            case Rounding.RoundUp:
-                return overflow > 0 ? row + 1 : row;
-        }
-    }
-    /**
-     * @return {?}
-     */
-    commitWidgetChanges() {
-        // check that we have all the values we need
-        if (this._placeholder.column === undefined || this._placeholder.row === undefined ||
-            this._placeholder.columnSpan === undefined || this._placeholder.rowSpan === undefined) {
-            return;
-        }
-        if (this._actionWidget) {
-            this._actionWidget.widget.setColumn(this._placeholder.column);
-            this._actionWidget.widget.setRow(this._placeholder.row);
-            this._actionWidget.widget.setColumnSpan(this._placeholder.columnSpan);
-            this._actionWidget.widget.setRowSpan(this._placeholder.rowSpan);
-        }
-        // reset all placeholder values
-        this._placeholder.column = undefined;
-        this._placeholder.row = undefined;
-        this._placeholder.columnSpan = undefined;
-        this._placeholder.rowSpan = undefined;
-    }
-    /**
-     * @return {?}
-     */
-    getPlaceholder() {
-        return this._placeholder;
-    }
-    /**
-     * Get the current column width
-     * @return {?}
-     */
-    getColumnWidth() {
-        return Math.floor(this._columnWidth);
-    }
-    /**
-     * Get the current column height
-     * @return {?}
-     */
-    getRowHeight() {
-        return this._rowHeight;
-    }
-    /**
-     * Calculate the number of rows populated with widgets
-     * @return {?}
-     */
-    getRowCount() {
-        return this._widgets.reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
-    }
-    /**
-     * Set the height of the dashboard container element
-     * @return {?}
-     */
-    setDashboardHeight() {
-        // size the dashboard container to ensure all rows fit
-        let /** @type {?} */ rowCount = this.getRowCount();
-        // if we should show an empty row increment the row count by 1
-        if (this._options.emptyRow) {
-            rowCount++;
-        }
-        this._dimensions.height = rowCount * this.getRowHeight();
-        this.height.next(this._dimensions.height);
-    }
-    /**
-     * Orders the z-index of all widgets to move the active one to the front
-     * @param {?} widget The widget that should be brought to the front
-     * @return {?}
-     */
-    bringToFront(widget) {
-        this._widgets.forEach(wgt => wgt.sendToBack());
-        widget.bringToFront();
-    }
-    /**
-     * Move a widget down - if widgets are in the position below, then move them down further
-     * @param {?} widget The widget to move downwards
-     * @param {?=} distance
-     * @return {?}
-     */
-    moveWidgetDown(widget, distance = 1) {
-        // move the widget down one position
-        widget.setRow(widget.getRow() + distance);
-        // check every space the widget occupies for collisions
-        this.forEachBlock(widget, (column, row) => this.getWidgetsAtPosition(column, row, true)
-            .filter(wgt => wgt !== widget)
-            .forEach(wgt => this.moveWidgetDown(wgt, distance)));
-    }
-    /**
-     * Widgets should not be allowed to have a vacant space above them - if there is one they should move upwards to fill it
-     * @return {?}
-     */
-    shiftWidgetsUp() {
-        // check whether or not changes have been made - if so we need to repeat until stable
-        let /** @type {?} */ stable = true;
-        // iterate each widget and 
-        this._widgets.forEach(widget => {
-            // if widget is already on the top row then do nothing
-            if (widget.getRow() === 0) {
-                return;
-            }
-            // if we are currently dragging and this is the dragging widget then skip
-            if (this._actionWidget && this._actionWidget.widget === widget) {
-                return;
-            }
-            if (this.getPositionAvailable(widget.getColumn(), widget.getRow() - 1, widget.getColumnSpan(), 1)) {
-                widget.setRow(widget.getRow() - 1);
-                stable = false;
-            }
-        });
-        // if changes occurred then we should repeat the process
-        if (!stable) {
-            this.shiftWidgetsUp();
-        }
-    }
-    /**
-     * Iterate over each space a widget occupied
-     * @param {?} widget The widget to determine spaces
-     * @param {?} callback The function to be called for each space, should expect a column and row argument witht he context being the widget
-     * @return {?}
-     */
-    forEachBlock(widget, callback) {
-        for (let /** @type {?} */ row = widget.getRow(); row < widget.getRow() + widget.getRowSpan(); row++) {
-            for (let /** @type {?} */ column = widget.getColumn(); column < widget.getColumn() + widget.getColumnSpan(); column++) {
-                callback.call(widget, column, row);
-            }
-        }
-    }
-    /**
-     * Returns the number of columns available
-     * @return {?}
-     */
-    getColumnCount() {
-        return this._stacked ? 1 : this._options.columns;
-    }
-}
-DashboardService.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-DashboardService.ctorParameters = () => [];
-let ActionDirection = {};
-ActionDirection.Top = 0;
-ActionDirection.TopRight = 1;
-ActionDirection.Right = 2;
-ActionDirection.BottomRight = 3;
-ActionDirection.Bottom = 4;
-ActionDirection.BottomLeft = 5;
-ActionDirection.Left = 6;
-ActionDirection.TopLeft = 7;
-ActionDirection.Move = 8;
-ActionDirection[ActionDirection.Top] = "Top";
-ActionDirection[ActionDirection.TopRight] = "TopRight";
-ActionDirection[ActionDirection.Right] = "Right";
-ActionDirection[ActionDirection.BottomRight] = "BottomRight";
-ActionDirection[ActionDirection.Bottom] = "Bottom";
-ActionDirection[ActionDirection.BottomLeft] = "BottomLeft";
-ActionDirection[ActionDirection.Left] = "Left";
-ActionDirection[ActionDirection.TopLeft] = "TopLeft";
-ActionDirection[ActionDirection.Move] = "Move";
-let Rounding = {};
-Rounding.RoundDown = 0;
-Rounding.RoundDownBelowHalf = 1;
-Rounding.RoundUp = 2;
-Rounding.RoundUpOverHalf = 3;
-Rounding[Rounding.RoundDown] = "RoundDown";
-Rounding[Rounding.RoundDownBelowHalf] = "RoundDownBelowHalf";
-Rounding[Rounding.RoundUp] = "RoundUp";
-Rounding[Rounding.RoundUpOverHalf] = "RoundUpOverHalf";
-
-class DashboardComponent {
-    /**
-     * @param {?} _dashboardService
-     * @param {?} _elementRef
-     * @param {?} _ngZone
-     */
-    constructor(_dashboardService, _elementRef, _ngZone) {
-        this._dashboardService = _dashboardService;
-        this._elementRef = _elementRef;
-        this._ngZone = _ngZone;
-        this.options = {};
-        this.layoutChange = new EventEmitter();
-        this.height = 0;
-        this.placeholder = this._dashboardService.getPlaceholder();
-        this._nativeElement = _elementRef.nativeElement;
-        this._dashboardService.setDashboard(this._nativeElement);
-        // watch for changes to component height
-        this._dashboardService.height.subscribe(height => this.height = height);
-        // subscribe to layout changes
-        this._dashboardService.layout.subscribe(layout => {
-            this.layout = layout;
-            this.layoutChange.emit(layout);
-        });
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this.setOptions(this.options);
-    }
-    /**
-     * @return {?}
-     */
-    ngDoCheck() {
-        // get the current set of options
-        let /** @type {?} */ options = Object.assign({}, this._dashboardService.getDefaultOptions(), this.options);
-        // if anything has changed then update them
-        if (JSON.stringify(this._dashboardService.getOptions()) !== JSON.stringify(options)) {
-            this.setOptions(options);
-        }
-        // check if the layout has changed
-        if (JSON.stringify(this.layout) !== JSON.stringify(this._layout)) {
-            this._layout = this.layout.slice();
-            this._dashboardService.setLayoutData(this.layout);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        // initially set dimensions
-        this._dashboardService.setDimensions(this._nativeElement.offsetWidth, this._nativeElement.offsetHeight);
-    }
-    /**
-     * @param {?} options
-     * @return {?}
-     */
-    setOptions(options) {
-        this._dashboardService.setOptions(options);
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    onResize(event) {
-        // ensure this gets run inside Angular
-        this._ngZone.run(() => this._dashboardService.setDimensions(event.width, event.height));
-    }
-}
-DashboardComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'ux-dashboard',
-                template: `
-      <div (uxResize)="onResize($event)" throttle="16" class="dashboard-container">
-          <ng-content></ng-content>
-      </div>
-
-      <div class="position-indicator" *ngIf="placeholder.visible" [style.left.px]="placeholder.x" [style.top.px]="placeholder.y" [style.width.px]="placeholder.width"
-          [style.height.px]="placeholder.height"></div>
-    `,
-                providers: [DashboardService],
-                host: {
-                    '[style.height.px]': 'height'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-DashboardComponent.ctorParameters = () => [
-    { type: DashboardService, },
-    { type: ElementRef, },
-    { type: NgZone, },
-];
-DashboardComponent.propDecorators = {
-    'options': [{ type: Input },],
-    'layout': [{ type: Input },],
-    'layoutChange': [{ type: Output },],
-};
-
-class DashboardWidgetComponent {
-    /**
-     * @param {?} _dashboardService
-     * @param {?} _elementRef
-     */
-    constructor(_dashboardService, _elementRef) {
-        this._dashboardService = _dashboardService;
-        this._elementRef = _elementRef;
-        this.colSpan = 1;
-        this.rowSpan = 1;
-        this.resizable = false;
-        this.actualX = 0;
-        this.actualY = 0;
-        this.actualWidth = 100;
-        this.actualHeight = 100;
-        this.padding = 0;
-        this.zIndex = 0;
-        this.stacked = false;
-        this._column = { regular: undefined, stacked: undefined };
-        this._row = { regular: undefined, stacked: undefined };
-        this._columnSpan = { regular: 1, stacked: 1 };
-        this._rowSpan = { regular: 1, stacked: 1 };
-        this._dragMove = Observable$1.fromEvent(document, 'mousemove');
-        this._dragEnd = Observable$1.fromEvent(document, 'mouseup');
-        this._nativeElement = _elementRef.nativeElement;
-        // add the widget to the dashboard
-        _dashboardService.addWidget(this);
-        // apply the current options
-        this.applyOptions();
-        // watch for changes to the options
-        _dashboardService.options().subscribe(opts => this.applyOptions());
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        // check to ensure values are numbers and not strings
-        if (typeof this.col === 'string') {
-            this.col = parseFloat(this.col);
-        }
-        if (typeof this.row === 'string') {
-            this.row = parseFloat(this.row);
-        }
-        if (typeof this.colSpan === 'string') {
-            this.colSpan = parseFloat(this.colSpan);
-        }
-        if (typeof this.rowSpan === 'string') {
-            this.rowSpan = parseFloat(this.rowSpan);
-        }
-        this._columnSpan.regular = this.colSpan;
-        this._rowSpan.regular = this.rowSpan;
-        if (!this.id) {
-            console.warn('Dashboard Widget is missing an ID.');
-            // set random id - keeps things working but prevents exporting of positions
-            this.id = Math.floor(Math.random() * 100000).toString();
-        }
-    }
-    /**
-     * Once component is initialised link the resize handle elements with their direction
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        this.initialiseHandles();
-    }
-    /**
-     * If component is removed, then unregister it from the service
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._dashboardService.removeWidget(this);
-    }
-    /**
-     * Return the ID of the widget
-     * @return {?}
-     */
-    getId() {
-        return this.id;
-    }
-    /**
-     * Apply the current dashboard options
-     * @return {?}
-     */
-    applyOptions() {
-        // get the current options at the time 
-        let /** @type {?} */ options = this._dashboardService.getOptions();
-        // only update the values if options have been defined
-        if (options) {
-            // apply the initial options
-            this.padding = options.padding;
-            this._columnSpan.stacked = options.columns;
-        }
-    }
-    /**
-     * Set the actual position and size values
-     * @return {?}
-     */
-    render() {
-        this.actualX = this.getColumn() * this._dashboardService.getColumnWidth();
-        this.actualY = this.getRow() * this._dashboardService.getRowHeight();
-        this.actualWidth = this.getColumnSpan() * this._dashboardService.getColumnWidth();
-        this.actualHeight = this.getRowSpan() * this._dashboardService.getRowHeight();
-    }
-    /**
-     * Returns all the resize handles and their associated directions
-     * @return {?}
-     */
-    getHandles() {
-        return this._handles;
-    }
-    /**
-     * Indicates whether or not the widget should be displayed in stacked mode
-     * @param {?} stacked indicates the stacked mode
-     * @return {?}
-     */
-    setStacked(stacked) {
-        this.stacked = stacked;
-    }
-    /**
-     * @return {?}
-     */
-    getColumn() {
-        return this.getStackableValue(this._column);
-    }
-    /**
-     * @return {?}
-     */
-    getRow() {
-        return this.getStackableValue(this._row);
-    }
-    /**
-     * @param {?} column
-     * @param {?=} render
-     * @return {?}
-     */
-    setColumn(column, render = true) {
-        this.setStackableValue(this._column, column);
-        if (render) {
-            this.render();
-        }
-    }
-    /**
-     * @param {?} row
-     * @param {?=} render
-     * @return {?}
-     */
-    setRow(row, render = true) {
-        this.setStackableValue(this._row, row);
-        if (render) {
-            this.render();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    getColumnSpan() {
-        return this.getStackableValue(this._columnSpan);
-    }
-    /**
-     * @return {?}
-     */
-    getRowSpan() {
-        return this.getStackableValue(this._rowSpan);
-    }
-    /**
-     * @param {?} columnSpan
-     * @param {?=} render
-     * @return {?}
-     */
-    setColumnSpan(columnSpan, render = true) {
-        this.setStackableValue(this._columnSpan, columnSpan);
-        if (render) {
-            this.render();
-        }
-    }
-    /**
-     * @param {?} rowSpan
-     * @param {?=} render
-     * @return {?}
-     */
-    setRowSpan(rowSpan, render = true) {
-        this.setStackableValue(this._rowSpan, rowSpan);
-        if (render) {
-            this.render();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    bringToFront() {
-        this.zIndex = 1;
-    }
-    /**
-     * @return {?}
-     */
-    sendToBack() {
-        this.zIndex = 0;
-    }
-    /**
-     * @param {?} x
-     * @param {?} y
-     * @param {?} width
-     * @param {?} height
-     * @return {?}
-     */
-    setBounds(x, y, width, height) {
-        this.actualX = x;
-        this.actualY = y;
-        this.actualWidth = width;
-        this.actualHeight = height;
-    }
-    /**
-     * Allows automatic setting of stackable value
-     * @param {?} property The current StackableValue object
-     * @param {?} value The value to set in the appropriate field
-     * @return {?}
-     */
-    setStackableValue(property, value) {
-        if (this.stacked) {
-            property.stacked = value;
-        }
-        else {
-            property.regular = value;
-        }
-    }
-    /**
-     * Return the appropriate value from a stackable value
-     * @param {?} property The Stackable value object
-     * @return {?}
-     */
-    getStackableValue(property) {
-        return this.stacked ? property.stacked : property.regular;
-    }
-    /**
-     * Create data representations of the resize handle elements and the direction they will resize in
-     * @return {?}
-     */
-    initialiseHandles() {
-        this._handles = [
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-top'),
-                direction: ActionDirection.Top
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-top-right'),
-                direction: ActionDirection.TopRight
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-right'),
-                direction: ActionDirection.Right
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-bottom-right'),
-                direction: ActionDirection.BottomRight
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-bottom'),
-                direction: ActionDirection.Bottom
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-bottom-left'),
-                direction: ActionDirection.BottomLeft
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-left'),
-                direction: ActionDirection.Left
-            },
-            {
-                element: this._nativeElement.querySelector('.resizer-handle.handle-top-left'),
-                direction: ActionDirection.TopLeft
-            }
-        ];
-        // bind resize events to each handle
-        this._handles.forEach(handle => this.bindResize(handle));
-    }
-    /**
-     * This will apply event listeners to each resize handle
-     * @param {?} handle The element and direction to subscribe to
-     * @return {?}
-     */
-    bindResize(handle) {
-        // bind to resize events
-        handle.listener = Observable$1.fromEvent(handle.element, 'mousedown').subscribe((downEvent) => {
-            downEvent.preventDefault();
-            // inform service that we are beginning to drag
-            this._dashboardService.onResizeStart({ widget: this, direction: handle.direction, event: downEvent });
-            let /** @type {?} */ move$ = this._dragMove.takeUntil(this._dragEnd).subscribe((moveEvent) => {
-                moveEvent.preventDefault();
-                this._dashboardService.onResizeDrag({ widget: this, direction: handle.direction, event: moveEvent });
-            }, null, () => {
-                move$.unsubscribe();
-                this._dashboardService.onResizeEnd();
-            });
-        });
-    }
-}
-DashboardWidgetComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'ux-dashboard-widget',
-                template: `
-      <div class="widget-content widget-col-span-{{ getColumnSpan() }} widget-row-span-{{ getRowSpan() }}">
-          <ng-content></ng-content>
-      </div>
-
-      <div class="resizer-handle handle-top" [style.top.px]="padding" [hidden]="!resizable"></div>
-      <div class="resizer-handle handle-top-right" [style.top.px]="padding" [style.right.px]="padding" [hidden]="!resizable && !stacked"></div>
-      <div class="resizer-handle handle-right" [style.right.px]="padding" [hidden]="!resizable || stacked"></div>
-      <div class="resizer-handle handle-bottom-right" [style.bottom.px]="padding" [style.right.px]="padding" [hidden]="!resizable && !stacked"></div>
-      <div class="resizer-handle handle-bottom" [style.bottom.px]="padding" [hidden]="!resizable"></div>
-      <div class="resizer-handle handle-bottom-left" [style.bottom.px]="padding" [style.left.px]="padding" [hidden]="!resizable && !stacked"></div>
-      <div class="resizer-handle handle-left" [style.left.px]="padding" [hidden]="!resizable || stacked"></div>
-      <div class="resizer-handle handle-top-left" [style.top.px]="padding" [style.left.px]="padding" [hidden]="!resizable && !stacked"></div>
-    `,
-                host: {
-                    '[style.left.px]': 'actualX',
-                    '[style.top.px]': 'actualY',
-                    '[style.width.px]': 'actualWidth',
-                    '[style.height.px]': 'actualHeight',
-                    '[style.padding.px]': 'padding',
-                    '[style.zIndex]': 'zIndex'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-DashboardWidgetComponent.ctorParameters = () => [
-    { type: DashboardService, },
-    { type: ElementRef, },
-];
-DashboardWidgetComponent.propDecorators = {
-    'id': [{ type: Input },],
-    'col': [{ type: Input },],
-    'row': [{ type: Input },],
-    'colSpan': [{ type: Input },],
-    'rowSpan': [{ type: Input },],
-    'resizable': [{ type: Input },],
-};
-
-class DashboardDragHandleDirective {
-    /**
-     * @param {?} widget
-     * @param {?} elementRef
-     * @param {?} dashboardService
-     */
-    constructor(widget, elementRef, dashboardService) {
-        this._dragMove = Observable$1.fromEvent(document, 'mousemove');
-        this._dragEnd = Observable$1.fromEvent(document, 'mouseup');
-        Observable$1.fromEvent(elementRef.nativeElement, 'mousedown').subscribe((downEvent) => {
-            downEvent.preventDefault();
-            // inform service that we are beginning to drag
-            dashboardService.onDragStart({ widget: widget, direction: ActionDirection.Move, event: downEvent });
-            let move$ = this._dragMove.takeUntil(this._dragEnd).subscribe((moveEvent) => {
-                moveEvent.preventDefault();
-                dashboardService.onDrag({ widget: widget, direction: ActionDirection.Move, event: moveEvent });
-            }, null, () => {
-                move$.unsubscribe();
-                dashboardService.onDragEnd();
-            });
-        });
-    }
-}
-DashboardDragHandleDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[uxDashboardWidgetDragHandle], [ux-dashboard-widget-drag-handle]'
-            },] },
-];
-/**
- * @nocollapse
- */
-DashboardDragHandleDirective.ctorParameters = () => [
-    { type: DashboardWidgetComponent, decorators: [{ type: Host },] },
-    { type: ElementRef, },
-    { type: DashboardService, },
-];
-
-class ResizeService {
-    /**
-     * @param {?} nativeElement
-     * @param {?} renderer
-     * @return {?}
-     */
-    addResizeListener(nativeElement, renderer) {
-        // create subject
-        let /** @type {?} */ subject = new Subject$1();
-        // determine the style of the element
-        let /** @type {?} */ displayMode = window.getComputedStyle(nativeElement).getPropertyValue('display');
-        // create the iframe element
-        let /** @type {?} */ iframe = renderer.createElement('iframe');
-        // style the iframe to be invisible but fill containing element
-        renderer.setStyle(iframe, 'position', 'absolute');
-        renderer.setStyle(iframe, 'width', '100%');
-        renderer.setStyle(iframe, 'height', '100%');
-        renderer.setStyle(iframe, 'top', '0');
-        renderer.setStyle(iframe, 'right', '0');
-        renderer.setStyle(iframe, 'bottom', '0');
-        renderer.setStyle(iframe, 'left', '0');
-        renderer.setStyle(iframe, 'z-index', '-1');
-        renderer.setStyle(iframe, 'opacity', '0');
-        renderer.setStyle(iframe, 'border', 'none');
-        renderer.setStyle(iframe, 'margin', '0');
-        renderer.setStyle(iframe, 'pointer-events', 'none');
-        renderer.setStyle(iframe, 'overflow', 'hidden');
-        // ensure the iframe ignores any tabbing
-        renderer.setAttribute(iframe, 'tabindex', '-1');
-        // statically positioned elements need changed to relative for this method to work
-        if (displayMode !== 'relative' && displayMode !== 'absolute' && displayMode !== 'fixed') {
-            renderer.setStyle(nativeElement, 'position', 'relative');
-        }
-        // add the iframe to the container element
-        renderer.appendChild(nativeElement, iframe);
-        this.waitUntilReady(iframe, () => {
-            let /** @type {?} */ iframeDoc = iframe.contentDocument || (iframe.contentWindow.document);
-            let /** @type {?} */ attachListener = function () {
-                Observable$1.fromEvent(iframe.contentWindow, 'resize').subscribe((event) => {
-                    subject.next({
-                        width: nativeElement.offsetWidth,
-                        height: nativeElement.offsetHeight
-                    });
-                });
-            };
-            if (iframeDoc.readyState === 'complete') {
-                attachListener();
-            }
-            else {
-                // wait for iframe to load
-                iframe.addEventListener('load', () => attachListener());
-            }
-        });
-        return subject;
-    }
-    /**
-     * @param {?} iframe
-     * @param {?} callback
-     * @return {?}
-     */
-    waitUntilReady(iframe, callback) {
-        if (iframe.contentDocument || iframe.contentWindow) {
-            callback.call(this);
-        }
-        else {
-            setTimeout(() => this.waitUntilReady(iframe, callback));
-        }
-    }
-}
-ResizeService.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-ResizeService.ctorParameters = () => [];
-
-class ResizeDirective {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _resizeService
-     * @param {?} _renderer
-     */
-    constructor(_elementRef, _resizeService, _renderer) {
-        this._elementRef = _elementRef;
-        this._resizeService = _resizeService;
-        this._renderer = _renderer;
-        this.throttle = 0;
-        this.resize = new EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._resizeService.addResizeListener(this._elementRef.nativeElement, this._renderer)
-            .debounceTime(this.throttle)
-            .subscribe(event => this.resize.emit(event));
-    }
-}
-ResizeDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[uxResize]'
-            },] },
-];
-/**
- * @nocollapse
- */
-ResizeDirective.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ResizeService, },
-    { type: Renderer2, },
-];
-ResizeDirective.propDecorators = {
-    'throttle': [{ type: Input },],
-    'resize': [{ type: Output, args: ['uxResize',] },],
-};
-
-class ResizeModule {
-}
-ResizeModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [ResizeDirective],
-                declarations: [ResizeDirective],
-                providers: [ResizeService]
-            },] },
-];
-/**
- * @nocollapse
- */
-ResizeModule.ctorParameters = () => [];
-
-const DECLARATIONS = [
-    DashboardComponent,
-    DashboardWidgetComponent,
-    DashboardDragHandleDirective
-];
-class DashboardModule {
-}
-DashboardModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    ResizeModule
-                ],
-                exports: DECLARATIONS,
-                declarations: DECLARATIONS,
-                providers: [DashboardService],
-            },] },
-];
-/**
- * @nocollapse
- */
-DashboardModule.ctorParameters = () => [];
-
-var TimepickerActions = (function () {
-    function TimepickerActions() {
-    }
-    TimepickerActions.prototype.writeValue = function (value) {
-        return {
-            type: TimepickerActions.WRITE_VALUE,
-            payload: value
-        };
-    };
-    TimepickerActions.prototype.changeHours = function (event) {
-        return {
-            type: TimepickerActions.CHANGE_HOURS,
-            payload: event
-        };
-    };
-    TimepickerActions.prototype.changeMinutes = function (event) {
-        return {
-            type: TimepickerActions.CHANGE_MINUTES,
-            payload: event
-        };
-    };
-    TimepickerActions.prototype.changeSeconds = function (event) {
-        return {
-            type: TimepickerActions.CHANGE_SECONDS,
-            payload: event
-        };
-    };
-    TimepickerActions.prototype.setTime = function (value) {
-        return {
-            type: TimepickerActions.SET_TIME_UNIT,
-            payload: value
-        };
-    };
-    TimepickerActions.prototype.updateControls = function (value) {
-        return {
-            type: TimepickerActions.UPDATE_CONTROLS,
-            payload: value
-        };
-    };
-    TimepickerActions.WRITE_VALUE = '[timepicker] write value from ng model';
-    TimepickerActions.CHANGE_HOURS = '[timepicker] change hours';
-    TimepickerActions.CHANGE_MINUTES = '[timepicker] change minutes';
-    TimepickerActions.CHANGE_SECONDS = '[timepicker] change seconds';
-    TimepickerActions.SET_TIME_UNIT = '[timepicker] set time unit';
-    TimepickerActions.UPDATE_CONTROLS = '[timepicker] update controls';
-    TimepickerActions.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    TimepickerActions.ctorParameters = function () { return []; };
-    return TimepickerActions;
-}());
-
-var dex = 10;
-var hoursPerDay = 24;
-var hoursPerDayHalf = 12;
-var minutesPerHour = 60;
-var secondsPerMinute = 60;
-function isValidDate(value) {
-    if (!value) {
-        return false;
-    }
-    if (value instanceof Date && isNaN(value.getHours())) {
-        return false;
-    }
-    if (typeof value === 'string') {
-        return isValidDate(new Date(value));
-    }
-    return true;
-}
-function toNumber(value) {
-    if (typeof value === 'number') {
-        return value;
-    }
-    return parseInt(value, dex);
-}
-
-function parseHours(value, isPM) {
-    if (isPM === void 0) { isPM = false; }
-    var hour = toNumber(value);
-    if (isNaN(hour) ||
-        hour < 0 ||
-        hour > (isPM ? hoursPerDayHalf : hoursPerDay)) {
-        return NaN;
-    }
-    return hour;
-}
-function parseMinutes(value) {
-    var minute = toNumber(value);
-    if (isNaN(minute) || minute < 0 || minute > minutesPerHour) {
-        return NaN;
-    }
-    return minute;
-}
-function parseSeconds(value) {
-    var seconds = toNumber(value);
-    if (isNaN(seconds) || seconds < 0 || seconds > secondsPerMinute) {
-        return NaN;
-    }
-    return seconds;
-}
-function parseTime(value) {
-    if (typeof value === 'string') {
-        return new Date(value);
-    }
-    return value;
-}
-function changeTime(value, diff) {
-    if (!value) {
-        return changeTime(createDate(new Date(), 0, 0, 0), diff);
-    }
-    var hour = value.getHours();
-    var minutes = value.getMinutes();
-    var seconds = value.getSeconds();
-    if (diff.hour) {
-        hour = (hour + toNumber(diff.hour)) % hoursPerDay;
-        if (hour < 0) {
-            hour += hoursPerDay;
-        }
-    }
-    if (diff.minute) {
-        minutes = minutes + toNumber(diff.minute);
-    }
-    if (diff.seconds) {
-        seconds = seconds + toNumber(diff.seconds);
-    }
-    return createDate(value, hour, minutes, seconds);
-}
-function setTime(value, opts) {
-    var hour = parseHours(opts.hour);
-    var minute = parseMinutes(opts.minute);
-    var seconds = parseSeconds(opts.seconds) || 0;
-    if (opts.isPM) {
-        hour += hoursPerDayHalf;
-    }
-    // fixme: unreachable code, value is mandatory
-    if (!value) {
-        if (!isNaN(hour) && !isNaN(minute)) {
-            return createDate(new Date(), hour, minute, seconds);
-        }
-        return value;
-    }
-    if (isNaN(hour) || isNaN(minute)) {
-        return value;
-    }
-    return createDate(value, hour, minute, seconds);
-}
-function createDate(value, hours, minutes, seconds) {
-    // fixme: unreachable code, value is mandatory
-    var _value = value || new Date();
-    return new Date(_value.getFullYear(), _value.getMonth(), _value.getDate(), hours, minutes, seconds, _value.getMilliseconds());
-}
-function padNumber(value) {
-    var _value = value.toString();
-    if (_value.length > 1) {
-        return _value;
-    }
-    return "0" + _value;
-}
-function isInputValid(hours, minutes, seconds, isPM) {
-    if (minutes === void 0) { minutes = '0'; }
-    if (seconds === void 0) { seconds = '0'; }
-    return !(isNaN(parseHours(hours, isPM))
-        || isNaN(parseMinutes(minutes))
-        || isNaN(parseSeconds(seconds)));
-}
-
-function canChangeValue(state, event) {
-    if (state.readonlyInput) {
-        return false;
-    }
-    if (event) {
-        if (event.source === 'wheel' && !state.mousewheel) {
-            return false;
-        }
-        if (event.source === 'key' && !state.arrowkeys) {
-            return false;
-        }
-    }
-    return true;
-}
-function canChangeHours(event, controls) {
-    if (!event.step) {
-        return false;
-    }
-    if (event.step > 0 && !controls.canIncrementHours) {
-        return false;
-    }
-    if (event.step < 0 && !controls.canDecrementHours) {
-        return false;
-    }
-    return true;
-}
-function canChangeMinutes(event, controls) {
-    if (!event.step) {
-        return false;
-    }
-    if (event.step > 0 && !controls.canIncrementMinutes) {
-        return false;
-    }
-    if (event.step < 0 && !controls.canDecrementMinutes) {
-        return false;
-    }
-    return true;
-}
-function canChangeSeconds(event, controls) {
-    if (!event.step) {
-        return false;
-    }
-    if (event.step > 0 && !controls.canIncrementSeconds) {
-        return false;
-    }
-    if (event.step < 0 && !controls.canDecrementSeconds) {
-        return false;
-    }
-    return true;
-}
-function getControlsValue(state) {
-    var hourStep = state.hourStep, minuteStep = state.minuteStep, secondsStep = state.secondsStep, readonlyInput = state.readonlyInput, mousewheel = state.mousewheel, arrowkeys = state.arrowkeys, showSpinners = state.showSpinners, showMeridian = state.showMeridian, showSeconds = state.showSeconds, meridians = state.meridians, min = state.min, max = state.max;
-    return {
-        hourStep: hourStep,
-        minuteStep: minuteStep,
-        secondsStep: secondsStep,
-        readonlyInput: readonlyInput,
-        mousewheel: mousewheel,
-        arrowkeys: arrowkeys,
-        showSpinners: showSpinners,
-        showMeridian: showMeridian,
-        showSeconds: showSeconds,
-        meridians: meridians,
-        min: min,
-        max: max
-    };
-}
-function timepickerControls(value, state) {
-    var min = state.min, max = state.max, hourStep = state.hourStep, minuteStep = state.minuteStep, secondsStep = state.secondsStep, showSeconds = state.showSeconds;
-    var res = {
-        canIncrementHours: true,
-        canIncrementMinutes: true,
-        canIncrementSeconds: true,
-        canDecrementHours: true,
-        canDecrementMinutes: true,
-        canDecrementSeconds: true
-    };
-    if (!value) {
-        return res;
-    }
-    // compare dates
-    if (max) {
-        var _newHour = changeTime(value, { hour: hourStep });
-        res.canIncrementHours = max > _newHour;
-        if (!res.canIncrementHours) {
-            var _newMinutes = changeTime(value, { minute: minuteStep });
-            res.canIncrementMinutes = showSeconds
-                ? max > _newMinutes
-                : max >= _newMinutes;
-        }
-        if (!res.canIncrementMinutes) {
-            var _newSeconds = changeTime(value, { seconds: secondsStep });
-            res.canIncrementSeconds = max >= _newSeconds;
-        }
-    }
-    if (min) {
-        var _newHour = changeTime(value, { hour: -hourStep });
-        res.canDecrementHours = min < _newHour;
-        if (!res.canDecrementHours) {
-            var _newMinutes = changeTime(value, { minute: -minuteStep });
-            res.canDecrementMinutes = showSeconds
-                ? min < _newMinutes
-                : min <= _newMinutes;
-        }
-        if (!res.canDecrementMinutes) {
-            var _newSeconds = changeTime(value, { seconds: -secondsStep });
-            res.canDecrementSeconds = min <= _newSeconds;
-        }
-    }
-    return res;
-}
-
-/** Provides default configuration values for timepicker */
-var TimepickerConfig = (function () {
-    function TimepickerConfig() {
-        /** hours change step */
-        this.hourStep = 1;
-        /** hours change step */
-        this.minuteStep = 5;
-        /** seconds changes step */
-        this.secondsStep = 10;
-        /** if true works in 12H mode and displays AM/PM. If false works in 24H mode and hides AM/PM */
-        this.showMeridian = true;
-        /** meridian labels based on locale */
-        this.meridians = ['AM', 'PM'];
-        /** if true hours and minutes fields will be readonly */
-        this.readonlyInput = false;
-        /** if true scroll inside hours and minutes inputs will change time */
-        this.mousewheel = true;
-        /** if true up/down arrowkeys inside hours and minutes inputs will change time */
-        this.arrowkeys = true;
-        /** if true spinner arrows above and below the inputs will be shown */
-        this.showSpinners = true;
-        /** show seconds in timepicker */
-        this.showSeconds = false;
-        /** show minutes in timepicker */
-        this.showMinutes = true;
-    }
-    TimepickerConfig.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    TimepickerConfig.ctorParameters = function () { return []; };
-    return TimepickerConfig;
-}());
-
-var initialState = {
-    value: null,
-    config: new TimepickerConfig(),
-    controls: {
-        canIncrementHours: true,
-        canIncrementMinutes: true,
-        canIncrementSeconds: true,
-        canDecrementHours: true,
-        canDecrementMinutes: true,
-        canDecrementSeconds: true
-    }
-};
-function timepickerReducer(state, action) {
-    if (state === void 0) { state = initialState; }
-    switch (action.type) {
-        case TimepickerActions.WRITE_VALUE: {
-            return Object.assign({}, state, { value: action.payload });
-        }
-        case TimepickerActions.CHANGE_HOURS: {
-            if (!canChangeValue(state.config, action.payload) ||
-                !canChangeHours(action.payload, state.controls)) {
-                return state;
-            }
-            var _newTime = changeTime(state.value, { hour: action.payload.step });
-            return Object.assign({}, state, { value: _newTime });
-        }
-        case TimepickerActions.CHANGE_MINUTES: {
-            if (!canChangeValue(state.config, action.payload) ||
-                !canChangeMinutes(action.payload, state.controls)) {
-                return state;
-            }
-            var _newTime = changeTime(state.value, { minute: action.payload.step });
-            return Object.assign({}, state, { value: _newTime });
-        }
-        case TimepickerActions.CHANGE_SECONDS: {
-            if (!canChangeValue(state.config, action.payload) ||
-                !canChangeSeconds(action.payload, state.controls)) {
-                return state;
-            }
-            var _newTime = changeTime(state.value, {
-                seconds: action.payload.step
-            });
-            return Object.assign({}, state, { value: _newTime });
-        }
-        case TimepickerActions.SET_TIME_UNIT: {
-            if (!canChangeValue(state.config)) {
-                return state;
-            }
-            var _newTime = setTime(state.value, action.payload);
-            return Object.assign({}, state, { value: _newTime });
-        }
-        case TimepickerActions.UPDATE_CONTROLS: {
-            var _newControlsState = timepickerControls(state.value, action.payload);
-            var _newState = {
-                value: state.value,
-                config: action.payload,
-                controls: _newControlsState
-            };
-            if (state.config.showMeridian !== _newState.config.showMeridian) {
-                if (state.value) {
-                    _newState.value = new Date(state.value);
-                }
-            }
-            return Object.assign({}, state, _newState);
-        }
-        default:
-            return state;
-    }
-}
-
-var __extends$1 = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @copyright ngrx
- */
-var MiniStore = (function (_super) {
-    __extends$1(MiniStore, _super);
-    function MiniStore(_dispatcher, _reducer, state$) {
-        var _this = _super.call(this) || this;
-        _this._dispatcher = _dispatcher;
-        _this._reducer = _reducer;
-        _this.source = state$;
-        return _this;
-    }
-    MiniStore.prototype.select = function (pathOrMapFn) {
-        var mapped$ = map$1.call(this, pathOrMapFn);
-        return distinctUntilChanged$1.call(mapped$);
-    };
-    MiniStore.prototype.lift = function (operator) {
-        var store = new MiniStore(this._dispatcher, this._reducer, this);
-        store.operator = operator;
-        return store;
-    };
-    MiniStore.prototype.dispatch = function (action) {
-        this._dispatcher.next(action);
-    };
-    MiniStore.prototype.next = function (action) {
-        this._dispatcher.next(action);
-    };
-    MiniStore.prototype.error = function (err) {
-        this._dispatcher.error(err);
-    };
-    MiniStore.prototype.complete = function () {
-        /*noop*/
-    };
-    return MiniStore;
-}(Observable$1));
-
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 
@@ -2461,27 +393,14 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-// CommonJS / Node have global context exposed as "global" variable.
-// We don't want to include the whole node.d.ts this this compilation unit so we'll just fake
-// the global "global" var for now.
-var __window = typeof window !== 'undefined' && window;
-var __self = typeof self !== 'undefined' && typeof WorkerGlobalScope !== 'undefined' &&
-    self instanceof WorkerGlobalScope && self;
-var __global = typeof commonjsGlobal !== 'undefined' && commonjsGlobal;
-var _root = __window || __global || __self;
-var root_1 = _root;
-// Workaround Closure Compiler restriction: The body of a goog.module cannot use throw.
-// This is needed when used with angular/tsickle which inserts a goog.module statement.
-// Wrap in IIFE
-(function () {
-    if (!_root) {
-        throw new Error('RxJS could not find any global context (window, self, global)');
-    }
-})();
+function isFunction(x) {
+    return typeof x === 'function';
+}
+var isFunction_2 = isFunction;
 
 
-var root = {
-	root: root_1
+var isFunction_1 = {
+	isFunction: isFunction_2
 };
 
 var isArray_1 = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
@@ -2499,16 +418,6 @@ var isObject_2 = isObject;
 
 var isObject_1 = {
 	isObject: isObject_2
-};
-
-function isFunction(x) {
-    return typeof x === 'function';
-}
-var isFunction_2 = isFunction;
-
-
-var isFunction_1 = {
-	isFunction: isFunction_2
 };
 
 // typeof any so that it we don't have to cast when comparing a result to the error object
@@ -2541,7 +450,7 @@ var tryCatch_1 = {
 	tryCatch: tryCatch_2
 };
 
-var __extends$6 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$2 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -2551,7 +460,7 @@ var __extends$6 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b
  * `unsubscribe` of a {@link Subscription}.
  */
 var UnsubscriptionError = (function (_super) {
-    __extends$6(UnsubscriptionError, _super);
+    __extends$2(UnsubscriptionError, _super);
     function UnsubscriptionError(errors) {
         _super.call(this);
         this.errors = errors;
@@ -2761,6 +670,417 @@ var Subscription_1 = {
 	Subscription: Subscription_2
 };
 
+var empty = {
+    closed: true,
+    next: function (value) { },
+    error: function (err) { throw err; },
+    complete: function () { }
+};
+
+
+var Observer = {
+	empty: empty
+};
+
+// CommonJS / Node have global context exposed as "global" variable.
+// We don't want to include the whole node.d.ts this this compilation unit so we'll just fake
+// the global "global" var for now.
+var __window = typeof window !== 'undefined' && window;
+var __self = typeof self !== 'undefined' && typeof WorkerGlobalScope !== 'undefined' &&
+    self instanceof WorkerGlobalScope && self;
+var __global = typeof commonjsGlobal !== 'undefined' && commonjsGlobal;
+var _root = __window || __global || __self;
+var root_1 = _root;
+// Workaround Closure Compiler restriction: The body of a goog.module cannot use throw.
+// This is needed when used with angular/tsickle which inserts a goog.module statement.
+// Wrap in IIFE
+(function () {
+    if (!_root) {
+        throw new Error('RxJS could not find any global context (window, self, global)');
+    }
+})();
+
+
+var root = {
+	root: root_1
+};
+
+var rxSubscriber = createCommonjsModule(function (module, exports) {
+var Symbol = root.root.Symbol;
+exports.rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
+    Symbol.for('rxSubscriber') : '@@rxSubscriber';
+/**
+ * @deprecated use rxSubscriber instead
+ */
+exports.$$rxSubscriber = exports.rxSubscriber;
+
+});
+
+var rxSubscriber_1 = rxSubscriber.rxSubscriber;
+var rxSubscriber_2 = rxSubscriber.$$rxSubscriber;
+
+var __extends$1 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+
+/**
+ * Implements the {@link Observer} interface and extends the
+ * {@link Subscription} class. While the {@link Observer} is the public API for
+ * consuming the values of an {@link Observable}, all Observers get converted to
+ * a Subscriber, in order to provide Subscription-like capabilities such as
+ * `unsubscribe`. Subscriber is a common type in RxJS, and crucial for
+ * implementing operators, but it is rarely used as a public API.
+ *
+ * @class Subscriber<T>
+ */
+var Subscriber = (function (_super) {
+    __extends$1(Subscriber, _super);
+    /**
+     * @param {Observer|function(value: T): void} [destinationOrNext] A partially
+     * defined Observer or a `next` callback function.
+     * @param {function(e: ?any): void} [error] The `error` callback of an
+     * Observer.
+     * @param {function(): void} [complete] The `complete` callback of an
+     * Observer.
+     */
+    function Subscriber(destinationOrNext, error, complete) {
+        _super.call(this);
+        this.syncErrorValue = null;
+        this.syncErrorThrown = false;
+        this.syncErrorThrowable = false;
+        this.isStopped = false;
+        switch (arguments.length) {
+            case 0:
+                this.destination = Observer.empty;
+                break;
+            case 1:
+                if (!destinationOrNext) {
+                    this.destination = Observer.empty;
+                    break;
+                }
+                if (typeof destinationOrNext === 'object') {
+                    if (destinationOrNext instanceof Subscriber) {
+                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
+                        this.destination = destinationOrNext;
+                        this.destination.add(this);
+                    }
+                    else {
+                        this.syncErrorThrowable = true;
+                        this.destination = new SafeSubscriber(this, destinationOrNext);
+                    }
+                    break;
+                }
+            default:
+                this.syncErrorThrowable = true;
+                this.destination = new SafeSubscriber(this, destinationOrNext, error, complete);
+                break;
+        }
+    }
+    Subscriber.prototype[rxSubscriber.rxSubscriber] = function () { return this; };
+    /**
+     * A static factory for a Subscriber, given a (potentially partial) definition
+     * of an Observer.
+     * @param {function(x: ?T): void} [next] The `next` callback of an Observer.
+     * @param {function(e: ?any): void} [error] The `error` callback of an
+     * Observer.
+     * @param {function(): void} [complete] The `complete` callback of an
+     * Observer.
+     * @return {Subscriber<T>} A Subscriber wrapping the (partially defined)
+     * Observer represented by the given arguments.
+     */
+    Subscriber.create = function (next, error, complete) {
+        var subscriber = new Subscriber(next, error, complete);
+        subscriber.syncErrorThrowable = false;
+        return subscriber;
+    };
+    /**
+     * The {@link Observer} callback to receive notifications of type `next` from
+     * the Observable, with a value. The Observable may call this method 0 or more
+     * times.
+     * @param {T} [value] The `next` value.
+     * @return {void}
+     */
+    Subscriber.prototype.next = function (value) {
+        if (!this.isStopped) {
+            this._next(value);
+        }
+    };
+    /**
+     * The {@link Observer} callback to receive notifications of type `error` from
+     * the Observable, with an attached {@link Error}. Notifies the Observer that
+     * the Observable has experienced an error condition.
+     * @param {any} [err] The `error` exception.
+     * @return {void}
+     */
+    Subscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            this.isStopped = true;
+            this._error(err);
+        }
+    };
+    /**
+     * The {@link Observer} callback to receive a valueless notification of type
+     * `complete` from the Observable. Notifies the Observer that the Observable
+     * has finished sending push-based notifications.
+     * @return {void}
+     */
+    Subscriber.prototype.complete = function () {
+        if (!this.isStopped) {
+            this.isStopped = true;
+            this._complete();
+        }
+    };
+    Subscriber.prototype.unsubscribe = function () {
+        if (this.closed) {
+            return;
+        }
+        this.isStopped = true;
+        _super.prototype.unsubscribe.call(this);
+    };
+    Subscriber.prototype._next = function (value) {
+        this.destination.next(value);
+    };
+    Subscriber.prototype._error = function (err) {
+        this.destination.error(err);
+        this.unsubscribe();
+    };
+    Subscriber.prototype._complete = function () {
+        this.destination.complete();
+        this.unsubscribe();
+    };
+    Subscriber.prototype._unsubscribeAndRecycle = function () {
+        var _a = this, _parent = _a._parent, _parents = _a._parents;
+        this._parent = null;
+        this._parents = null;
+        this.unsubscribe();
+        this.closed = false;
+        this.isStopped = false;
+        this._parent = _parent;
+        this._parents = _parents;
+        return this;
+    };
+    return Subscriber;
+}(Subscription_1.Subscription));
+var Subscriber_2 = Subscriber;
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var SafeSubscriber = (function (_super) {
+    __extends$1(SafeSubscriber, _super);
+    function SafeSubscriber(_parentSubscriber, observerOrNext, error, complete) {
+        _super.call(this);
+        this._parentSubscriber = _parentSubscriber;
+        var next;
+        var context = this;
+        if (isFunction_1.isFunction(observerOrNext)) {
+            next = observerOrNext;
+        }
+        else if (observerOrNext) {
+            next = observerOrNext.next;
+            error = observerOrNext.error;
+            complete = observerOrNext.complete;
+            if (observerOrNext !== Observer.empty) {
+                context = Object.create(observerOrNext);
+                if (isFunction_1.isFunction(context.unsubscribe)) {
+                    this.add(context.unsubscribe.bind(context));
+                }
+                context.unsubscribe = this.unsubscribe.bind(this);
+            }
+        }
+        this._context = context;
+        this._next = next;
+        this._error = error;
+        this._complete = complete;
+    }
+    SafeSubscriber.prototype.next = function (value) {
+        if (!this.isStopped && this._next) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (!_parentSubscriber.syncErrorThrowable) {
+                this.__tryOrUnsub(this._next, value);
+            }
+            else if (this.__tryOrSetError(_parentSubscriber, this._next, value)) {
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (this._error) {
+                if (!_parentSubscriber.syncErrorThrowable) {
+                    this.__tryOrUnsub(this._error, err);
+                    this.unsubscribe();
+                }
+                else {
+                    this.__tryOrSetError(_parentSubscriber, this._error, err);
+                    this.unsubscribe();
+                }
+            }
+            else if (!_parentSubscriber.syncErrorThrowable) {
+                this.unsubscribe();
+                throw err;
+            }
+            else {
+                _parentSubscriber.syncErrorValue = err;
+                _parentSubscriber.syncErrorThrown = true;
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.complete = function () {
+        var _this = this;
+        if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (this._complete) {
+                var wrappedComplete = function () { return _this._complete.call(_this._context); };
+                if (!_parentSubscriber.syncErrorThrowable) {
+                    this.__tryOrUnsub(wrappedComplete);
+                    this.unsubscribe();
+                }
+                else {
+                    this.__tryOrSetError(_parentSubscriber, wrappedComplete);
+                    this.unsubscribe();
+                }
+            }
+            else {
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.__tryOrUnsub = function (fn, value) {
+        try {
+            fn.call(this._context, value);
+        }
+        catch (err) {
+            this.unsubscribe();
+            throw err;
+        }
+    };
+    SafeSubscriber.prototype.__tryOrSetError = function (parent, fn, value) {
+        try {
+            fn.call(this._context, value);
+        }
+        catch (err) {
+            parent.syncErrorValue = err;
+            parent.syncErrorThrown = true;
+            return true;
+        }
+        return false;
+    };
+    SafeSubscriber.prototype._unsubscribe = function () {
+        var _parentSubscriber = this._parentSubscriber;
+        this._context = null;
+        this._parentSubscriber = null;
+        _parentSubscriber.unsubscribe();
+    };
+    return SafeSubscriber;
+}(Subscriber));
+
+
+var Subscriber_1 = {
+	Subscriber: Subscriber_2
+};
+
+var __extends = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/* tslint:enable:max-line-length */
+/**
+ * Filter items emitted by the source Observable by only emitting those that
+ * satisfy a specified predicate.
+ *
+ * <span class="informal">Like
+ * [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter),
+ * it only emits a value from the source if it passes a criterion function.</span>
+ *
+ * <img src="./img/filter.png" width="100%">
+ *
+ * Similar to the well-known `Array.prototype.filter` method, this operator
+ * takes values from the source Observable, passes them through a `predicate`
+ * function and only emits those values that yielded `true`.
+ *
+ * @example <caption>Emit only click events whose target was a DIV element</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === 'DIV');
+ * clicksOnDivs.subscribe(x => console.log(x));
+ *
+ * @see {@link distinct}
+ * @see {@link distinctUntilChanged}
+ * @see {@link distinctUntilKeyChanged}
+ * @see {@link ignoreElements}
+ * @see {@link partition}
+ * @see {@link skip}
+ *
+ * @param {function(value: T, index: number): boolean} predicate A function that
+ * evaluates each value emitted by the source Observable. If it returns `true`,
+ * the value is emitted, if `false` the value is not passed to the output
+ * Observable. The `index` parameter is the number `i` for the i-th source
+ * emission that has happened since the subscription, starting from the number
+ * `0`.
+ * @param {any} [thisArg] An optional argument to determine the value of `this`
+ * in the `predicate` function.
+ * @return {Observable} An Observable of values from the source that were
+ * allowed by the `predicate` function.
+ * @method filter
+ * @owner Observable
+ */
+function filter$1(predicate, thisArg) {
+    return function filterOperatorFunction(source) {
+        return source.lift(new FilterOperator(predicate, thisArg));
+    };
+}
+var filter_2 = filter$1;
+var FilterOperator = (function () {
+    function FilterOperator(predicate, thisArg) {
+        this.predicate = predicate;
+        this.thisArg = thisArg;
+    }
+    FilterOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new FilterSubscriber(subscriber, this.predicate, this.thisArg));
+    };
+    return FilterOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var FilterSubscriber = (function (_super) {
+    __extends(FilterSubscriber, _super);
+    function FilterSubscriber(destination, predicate, thisArg) {
+        _super.call(this, destination);
+        this.predicate = predicate;
+        this.thisArg = thisArg;
+        this.count = 0;
+    }
+    // the try catch block below is left specifically for
+    // optimization and perf reasons. a tryCatcher is not necessary here.
+    FilterSubscriber.prototype._next = function (value) {
+        var result;
+        try {
+            result = this.predicate.call(this.thisArg, value, this.count++);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        if (result) {
+            this.destination.next(value);
+        }
+    };
+    return FilterSubscriber;
+}(Subscriber_1.Subscriber));
+
 var __extends$5 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -2796,7 +1116,7 @@ var Action = (function (_super) {
      * time unit is implicit and defined by the Scheduler.
      * @return {void}
      */
-    Action.prototype.schedule = function (state, delay) {
+    Action.prototype.schedule = function (state$$1, delay) {
         if (delay === void 0) { delay = 0; }
         return this;
     };
@@ -2829,13 +1149,13 @@ var AsyncAction = (function (_super) {
         this.work = work;
         this.pending = false;
     }
-    AsyncAction.prototype.schedule = function (state, delay) {
+    AsyncAction.prototype.schedule = function (state$$1, delay) {
         if (delay === void 0) { delay = 0; }
         if (this.closed) {
             return this;
         }
         // Always replace the current state with the new state.
-        this.state = state;
+        this.state = state$$1;
         // Set the pending flag indicating that this action has been scheduled, or
         // has recursively rescheduled itself.
         this.pending = true;
@@ -2888,12 +1208,12 @@ var AsyncAction = (function (_super) {
      * Immediately executes this action and the `work` it contains.
      * @return {any}
      */
-    AsyncAction.prototype.execute = function (state, delay) {
+    AsyncAction.prototype.execute = function (state$$1, delay) {
         if (this.closed) {
             return new Error('executing a cancelled action');
         }
         this.pending = false;
-        var error = this._execute(state, delay);
+        var error = this._execute(state$$1, delay);
         if (error) {
             return error;
         }
@@ -2914,11 +1234,11 @@ var AsyncAction = (function (_super) {
             this.id = this.recycleAsyncId(this.scheduler, this.id, null);
         }
     };
-    AsyncAction.prototype._execute = function (state, delay) {
+    AsyncAction.prototype._execute = function (state$$1, delay) {
         var errored = false;
         var errorValue = undefined;
         try {
-            this.work(state);
+            this.work(state$$1);
         }
         catch (e) {
             errored = true;
@@ -2953,59 +1273,6 @@ var AsyncAction_2 = AsyncAction;
 
 var AsyncAction_1 = {
 	AsyncAction: AsyncAction_2
-};
-
-var __extends$3 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var QueueAction = (function (_super) {
-    __extends$3(QueueAction, _super);
-    function QueueAction(scheduler, work) {
-        _super.call(this, scheduler, work);
-        this.scheduler = scheduler;
-        this.work = work;
-    }
-    QueueAction.prototype.schedule = function (state, delay) {
-        if (delay === void 0) { delay = 0; }
-        if (delay > 0) {
-            return _super.prototype.schedule.call(this, state, delay);
-        }
-        this.delay = delay;
-        this.state = state;
-        this.scheduler.flush(this);
-        return this;
-    };
-    QueueAction.prototype.execute = function (state, delay) {
-        return (delay > 0 || this.closed) ?
-            _super.prototype.execute.call(this, state, delay) :
-            this._execute(state, delay);
-    };
-    QueueAction.prototype.requestAsyncId = function (scheduler, id, delay) {
-        if (delay === void 0) { delay = 0; }
-        // If delay exists and is greater than 0, or if the delay is null (the
-        // action wasn't rescheduled) but was originally scheduled as an async
-        // action, then recycle as an async action.
-        if ((delay !== null && delay > 0) || (delay === null && this.delay > 0)) {
-            return _super.prototype.requestAsyncId.call(this, scheduler, id, delay);
-        }
-        // Otherwise flush the scheduler starting with this action.
-        return scheduler.flush(this);
-    };
-    return QueueAction;
-}(AsyncAction_1.AsyncAction));
-var QueueAction_2 = QueueAction;
-
-
-var QueueAction_1 = {
-	QueueAction: QueueAction_2
 };
 
 /**
@@ -3047,9 +1314,9 @@ var Scheduler = (function () {
      * @return {Subscription} A subscription in order to be able to unsubscribe
      * the scheduled work.
      */
-    Scheduler.prototype.schedule = function (work, delay, state) {
+    Scheduler.prototype.schedule = function (work, delay, state$$1) {
         if (delay === void 0) { delay = 0; }
-        return new this.SchedulerAction(this, work).schedule(state, delay);
+        return new this.SchedulerAction(this, work).schedule(state$$1, delay);
     };
     Scheduler.now = Date.now ? Date.now : function () { return +new Date(); };
     return Scheduler;
@@ -3061,14 +1328,14 @@ var Scheduler_1 = {
 	Scheduler: Scheduler_2
 };
 
-var __extends$8 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+var __extends$6 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 
 var AsyncScheduler = (function (_super) {
-    __extends$8(AsyncScheduler, _super);
+    __extends$6(AsyncScheduler, _super);
     function AsyncScheduler() {
         _super.apply(this, arguments);
         this.actions = [];
@@ -3116,14 +1383,3408 @@ var AsyncScheduler_1 = {
 	AsyncScheduler: AsyncScheduler_2
 };
 
+/**
+ *
+ * Async Scheduler
+ *
+ * <span class="informal">Schedule task as if you used setTimeout(task, duration)</span>
+ *
+ * `async` scheduler schedules tasks asynchronously, by putting them on the JavaScript
+ * event loop queue. It is best used to delay tasks in time or to schedule tasks repeating
+ * in intervals.
+ *
+ * If you just want to "defer" task, that is to perform it right after currently
+ * executing synchronous code ends (commonly achieved by `setTimeout(deferredTask, 0)`),
+ * better choice will be the {@link asap} scheduler.
+ *
+ * @example <caption>Use async scheduler to delay task</caption>
+ * const task = () => console.log('it works!');
+ *
+ * Rx.Scheduler.async.schedule(task, 2000);
+ *
+ * // After 2 seconds logs:
+ * // "it works!"
+ *
+ *
+ * @example <caption>Use async scheduler to repeat task in intervals</caption>
+ * function task(state) {
+ *   console.log(state);
+ *   this.schedule(state + 1, 1000); // `this` references currently executing Action,
+ *                                   // which we reschedule with new state and delay
+ * }
+ *
+ * Rx.Scheduler.async.schedule(task, 3000, 0);
+ *
+ * // Logs:
+ * // 0 after 3s
+ * // 1 after 4s
+ * // 2 after 5s
+ * // 3 after 6s
+ *
+ * @static true
+ * @name async
+ * @owner Scheduler
+ */
+var async_1 = new AsyncScheduler_1.AsyncScheduler(AsyncAction_1.AsyncAction);
+
+
+var async = {
+	async: async_1
+};
+
+function isDate(value) {
+    return value instanceof Date && !isNaN(+value);
+}
+var isDate_2 = isDate;
+
+
+var isDate_1 = {
+	isDate: isDate_2
+};
+
+function toSubscriber(nextOrObserver, error, complete) {
+    if (nextOrObserver) {
+        if (nextOrObserver instanceof Subscriber_1.Subscriber) {
+            return nextOrObserver;
+        }
+        if (nextOrObserver[rxSubscriber.rxSubscriber]) {
+            return nextOrObserver[rxSubscriber.rxSubscriber]();
+        }
+    }
+    if (!nextOrObserver && !error && !complete) {
+        return new Subscriber_1.Subscriber(Observer.empty);
+    }
+    return new Subscriber_1.Subscriber(nextOrObserver, error, complete);
+}
+var toSubscriber_2 = toSubscriber;
+
+
+var toSubscriber_1 = {
+	toSubscriber: toSubscriber_2
+};
+
+var observable = createCommonjsModule(function (module, exports) {
+function getSymbolObservable(context) {
+    var $$observable;
+    var Symbol = context.Symbol;
+    if (typeof Symbol === 'function') {
+        if (Symbol.observable) {
+            $$observable = Symbol.observable;
+        }
+        else {
+            $$observable = Symbol('observable');
+            Symbol.observable = $$observable;
+        }
+    }
+    else {
+        $$observable = '@@observable';
+    }
+    return $$observable;
+}
+exports.getSymbolObservable = getSymbolObservable;
+exports.observable = getSymbolObservable(root.root);
+/**
+ * @deprecated use observable instead
+ */
+exports.$$observable = exports.observable;
+
+});
+
+var observable_1 = observable.getSymbolObservable;
+var observable_2 = observable.observable;
+var observable_3 = observable.$$observable;
+
+/* tslint:disable:no-empty */
+function noop() { }
+var noop_2 = noop;
+
+
+var noop_1 = {
+	noop: noop_2
+};
+
+/* tslint:enable:max-line-length */
+function pipe() {
+    var fns = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        fns[_i - 0] = arguments[_i];
+    }
+    return pipeFromArray(fns);
+}
+var pipe_2 = pipe;
+/* @internal */
+function pipeFromArray(fns) {
+    if (!fns) {
+        return noop_1.noop;
+    }
+    if (fns.length === 1) {
+        return fns[0];
+    }
+    return function piped(input) {
+        return fns.reduce(function (prev, fn) { return fn(prev); }, input);
+    };
+}
+var pipeFromArray_1 = pipeFromArray;
+
+
+var pipe_1 = {
+	pipe: pipe_2,
+	pipeFromArray: pipeFromArray_1
+};
+
+/**
+ * A representation of any set of values over any amount of time. This is the most basic building block
+ * of RxJS.
+ *
+ * @class Observable<T>
+ */
+var Observable$2 = (function () {
+    /**
+     * @constructor
+     * @param {Function} subscribe the function that is called when the Observable is
+     * initially subscribed to. This function is given a Subscriber, to which new values
+     * can be `next`ed, or an `error` method can be called to raise an error, or
+     * `complete` can be called to notify of a successful completion.
+     */
+    function Observable$$1(subscribe) {
+        this._isScalar = false;
+        if (subscribe) {
+            this._subscribe = subscribe;
+        }
+    }
+    /**
+     * Creates a new Observable, with this Observable as the source, and the passed
+     * operator defined as the new observable's operator.
+     * @method lift
+     * @param {Operator} operator the operator defining the operation to take on the observable
+     * @return {Observable} a new observable with the Operator applied
+     */
+    Observable$$1.prototype.lift = function (operator) {
+        var observable$$1 = new Observable$$1();
+        observable$$1.source = this;
+        observable$$1.operator = operator;
+        return observable$$1;
+    };
+    /**
+     * Invokes an execution of an Observable and registers Observer handlers for notifications it will emit.
+     *
+     * <span class="informal">Use it when you have all these Observables, but still nothing is happening.</span>
+     *
+     * `subscribe` is not a regular operator, but a method that calls Observable's internal `subscribe` function. It
+     * might be for example a function that you passed to a {@link create} static factory, but most of the time it is
+     * a library implementation, which defines what and when will be emitted by an Observable. This means that calling
+     * `subscribe` is actually the moment when Observable starts its work, not when it is created, as it is often
+     * thought.
+     *
+     * Apart from starting the execution of an Observable, this method allows you to listen for values
+     * that an Observable emits, as well as for when it completes or errors. You can achieve this in two
+     * following ways.
+     *
+     * The first way is creating an object that implements {@link Observer} interface. It should have methods
+     * defined by that interface, but note that it should be just a regular JavaScript object, which you can create
+     * yourself in any way you want (ES6 class, classic function constructor, object literal etc.). In particular do
+     * not attempt to use any RxJS implementation details to create Observers - you don't need them. Remember also
+     * that your object does not have to implement all methods. If you find yourself creating a method that doesn't
+     * do anything, you can simply omit it. Note however, that if `error` method is not provided, all errors will
+     * be left uncaught.
+     *
+     * The second way is to give up on Observer object altogether and simply provide callback functions in place of its methods.
+     * This means you can provide three functions as arguments to `subscribe`, where first function is equivalent
+     * of a `next` method, second of an `error` method and third of a `complete` method. Just as in case of Observer,
+     * if you do not need to listen for something, you can omit a function, preferably by passing `undefined` or `null`,
+     * since `subscribe` recognizes these functions by where they were placed in function call. When it comes
+     * to `error` function, just as before, if not provided, errors emitted by an Observable will be thrown.
+     *
+     * Whatever style of calling `subscribe` you use, in both cases it returns a Subscription object.
+     * This object allows you to call `unsubscribe` on it, which in turn will stop work that an Observable does and will clean
+     * up all resources that an Observable used. Note that cancelling a subscription will not call `complete` callback
+     * provided to `subscribe` function, which is reserved for a regular completion signal that comes from an Observable.
+     *
+     * Remember that callbacks provided to `subscribe` are not guaranteed to be called asynchronously.
+     * It is an Observable itself that decides when these functions will be called. For example {@link of}
+     * by default emits all its values synchronously. Always check documentation for how given Observable
+     * will behave when subscribed and if its default behavior can be modified with a {@link Scheduler}.
+     *
+     * @example <caption>Subscribe with an Observer</caption>
+     * const sumObserver = {
+     *   sum: 0,
+     *   next(value) {
+     *     console.log('Adding: ' + value);
+     *     this.sum = this.sum + value;
+     *   },
+     *   error() { // We actually could just remove this method,
+     *   },        // since we do not really care about errors right now.
+     *   complete() {
+     *     console.log('Sum equals: ' + this.sum);
+     *   }
+     * };
+     *
+     * Rx.Observable.of(1, 2, 3) // Synchronously emits 1, 2, 3 and then completes.
+     * .subscribe(sumObserver);
+     *
+     * // Logs:
+     * // "Adding: 1"
+     * // "Adding: 2"
+     * // "Adding: 3"
+     * // "Sum equals: 6"
+     *
+     *
+     * @example <caption>Subscribe with functions</caption>
+     * let sum = 0;
+     *
+     * Rx.Observable.of(1, 2, 3)
+     * .subscribe(
+     *   function(value) {
+     *     console.log('Adding: ' + value);
+     *     sum = sum + value;
+     *   },
+     *   undefined,
+     *   function() {
+     *     console.log('Sum equals: ' + sum);
+     *   }
+     * );
+     *
+     * // Logs:
+     * // "Adding: 1"
+     * // "Adding: 2"
+     * // "Adding: 3"
+     * // "Sum equals: 6"
+     *
+     *
+     * @example <caption>Cancel a subscription</caption>
+     * const subscription = Rx.Observable.interval(1000).subscribe(
+     *   num => console.log(num),
+     *   undefined,
+     *   () => console.log('completed!') // Will not be called, even
+     * );                                // when cancelling subscription
+     *
+     *
+     * setTimeout(() => {
+     *   subscription.unsubscribe();
+     *   console.log('unsubscribed!');
+     * }, 2500);
+     *
+     * // Logs:
+     * // 0 after 1s
+     * // 1 after 2s
+     * // "unsubscribed!" after 2.5s
+     *
+     *
+     * @param {Observer|Function} observerOrNext (optional) Either an observer with methods to be called,
+     *  or the first of three possible handlers, which is the handler for each value emitted from the subscribed
+     *  Observable.
+     * @param {Function} error (optional) A handler for a terminal event resulting from an error. If no error handler is provided,
+     *  the error will be thrown as unhandled.
+     * @param {Function} complete (optional) A handler for a terminal event resulting from successful completion.
+     * @return {ISubscription} a subscription reference to the registered handlers
+     * @method subscribe
+     */
+    Observable$$1.prototype.subscribe = function (observerOrNext, error, complete) {
+        var operator = this.operator;
+        var sink = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
+        if (operator) {
+            operator.call(sink, this.source);
+        }
+        else {
+            sink.add(this.source || !sink.syncErrorThrowable ? this._subscribe(sink) : this._trySubscribe(sink));
+        }
+        if (sink.syncErrorThrowable) {
+            sink.syncErrorThrowable = false;
+            if (sink.syncErrorThrown) {
+                throw sink.syncErrorValue;
+            }
+        }
+        return sink;
+    };
+    Observable$$1.prototype._trySubscribe = function (sink) {
+        try {
+            return this._subscribe(sink);
+        }
+        catch (err) {
+            sink.syncErrorThrown = true;
+            sink.syncErrorValue = err;
+            sink.error(err);
+        }
+    };
+    /**
+     * @method forEach
+     * @param {Function} next a handler for each value emitted by the observable
+     * @param {PromiseConstructor} [PromiseCtor] a constructor function used to instantiate the Promise
+     * @return {Promise} a promise that either resolves on observable completion or
+     *  rejects with the handled error
+     */
+    Observable$$1.prototype.forEach = function (next, PromiseCtor) {
+        var _this = this;
+        if (!PromiseCtor) {
+            if (root.root.Rx && root.root.Rx.config && root.root.Rx.config.Promise) {
+                PromiseCtor = root.root.Rx.config.Promise;
+            }
+            else if (root.root.Promise) {
+                PromiseCtor = root.root.Promise;
+            }
+        }
+        if (!PromiseCtor) {
+            throw new Error('no Promise impl found');
+        }
+        return new PromiseCtor(function (resolve, reject) {
+            // Must be declared in a separate statement to avoid a RefernceError when
+            // accessing subscription below in the closure due to Temporal Dead Zone.
+            var subscription;
+            subscription = _this.subscribe(function (value) {
+                if (subscription) {
+                    // if there is a subscription, then we can surmise
+                    // the next handling is asynchronous. Any errors thrown
+                    // need to be rejected explicitly and unsubscribe must be
+                    // called manually
+                    try {
+                        next(value);
+                    }
+                    catch (err) {
+                        reject(err);
+                        subscription.unsubscribe();
+                    }
+                }
+                else {
+                    // if there is NO subscription, then we're getting a nexted
+                    // value synchronously during subscription. We can just call it.
+                    // If it errors, Observable's `subscribe` will ensure the
+                    // unsubscription logic is called, then synchronously rethrow the error.
+                    // After that, Promise will trap the error and send it
+                    // down the rejection path.
+                    next(value);
+                }
+            }, reject, resolve);
+        });
+    };
+    Observable$$1.prototype._subscribe = function (subscriber) {
+        return this.source.subscribe(subscriber);
+    };
+    /**
+     * An interop point defined by the es7-observable spec https://github.com/zenparsing/es-observable
+     * @method Symbol.observable
+     * @return {Observable} this instance of the observable
+     */
+    Observable$$1.prototype[observable.observable] = function () {
+        return this;
+    };
+    /* tslint:enable:max-line-length */
+    /**
+     * Used to stitch together functional operators into a chain.
+     * @method pipe
+     * @return {Observable} the Observable result of all of the operators having
+     * been called in the order they were passed in.
+     *
+     * @example
+     *
+     * import { map, filter, scan } from 'rxjs/operators';
+     *
+     * Rx.Observable.interval(1000)
+     *   .pipe(
+     *     filter(x => x % 2 === 0),
+     *     map(x => x + x),
+     *     scan((acc, x) => acc + x)
+     *   )
+     *   .subscribe(x => console.log(x))
+     */
+    Observable$$1.prototype.pipe = function () {
+        var operations = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            operations[_i - 0] = arguments[_i];
+        }
+        if (operations.length === 0) {
+            return this;
+        }
+        return pipe_1.pipeFromArray(operations)(this);
+    };
+    /* tslint:enable:max-line-length */
+    Observable$$1.prototype.toPromise = function (PromiseCtor) {
+        var _this = this;
+        if (!PromiseCtor) {
+            if (root.root.Rx && root.root.Rx.config && root.root.Rx.config.Promise) {
+                PromiseCtor = root.root.Rx.config.Promise;
+            }
+            else if (root.root.Promise) {
+                PromiseCtor = root.root.Promise;
+            }
+        }
+        if (!PromiseCtor) {
+            throw new Error('no Promise impl found');
+        }
+        return new PromiseCtor(function (resolve, reject) {
+            var value;
+            _this.subscribe(function (x) { return value = x; }, function (err) { return reject(err); }, function () { return resolve(value); });
+        });
+    };
+    // HACK: Since TypeScript inherits static properties too, we have to
+    // fight against TypeScript here so Subject can have a different static create signature
+    /**
+     * Creates a new cold Observable by calling the Observable constructor
+     * @static true
+     * @owner Observable
+     * @method create
+     * @param {Function} subscribe? the subscriber function to be passed to the Observable constructor
+     * @return {Observable} a new cold observable
+     */
+    Observable$$1.create = function (subscribe) {
+        return new Observable$$1(subscribe);
+    };
+    return Observable$$1;
+}());
+var Observable_2 = Observable$2;
+
+
+var Observable_1 = {
+	Observable: Observable_2
+};
+
+/**
+ * Represents a push-based event or value that an {@link Observable} can emit.
+ * This class is particularly useful for operators that manage notifications,
+ * like {@link materialize}, {@link dematerialize}, {@link observeOn}, and
+ * others. Besides wrapping the actual delivered value, it also annotates it
+ * with metadata of, for instance, what type of push message it is (`next`,
+ * `error`, or `complete`).
+ *
+ * @see {@link materialize}
+ * @see {@link dematerialize}
+ * @see {@link observeOn}
+ *
+ * @class Notification<T>
+ */
+var Notification = (function () {
+    function Notification(kind, value, error) {
+        this.kind = kind;
+        this.value = value;
+        this.error = error;
+        this.hasValue = kind === 'N';
+    }
+    /**
+     * Delivers to the given `observer` the value wrapped by this Notification.
+     * @param {Observer} observer
+     * @return
+     */
+    Notification.prototype.observe = function (observer) {
+        switch (this.kind) {
+            case 'N':
+                return observer.next && observer.next(this.value);
+            case 'E':
+                return observer.error && observer.error(this.error);
+            case 'C':
+                return observer.complete && observer.complete();
+        }
+    };
+    /**
+     * Given some {@link Observer} callbacks, deliver the value represented by the
+     * current Notification to the correctly corresponding callback.
+     * @param {function(value: T): void} next An Observer `next` callback.
+     * @param {function(err: any): void} [error] An Observer `error` callback.
+     * @param {function(): void} [complete] An Observer `complete` callback.
+     * @return {any}
+     */
+    Notification.prototype.do = function (next, error, complete) {
+        var kind = this.kind;
+        switch (kind) {
+            case 'N':
+                return next && next(this.value);
+            case 'E':
+                return error && error(this.error);
+            case 'C':
+                return complete && complete();
+        }
+    };
+    /**
+     * Takes an Observer or its individual callback functions, and calls `observe`
+     * or `do` methods accordingly.
+     * @param {Observer|function(value: T): void} nextOrObserver An Observer or
+     * the `next` callback.
+     * @param {function(err: any): void} [error] An Observer `error` callback.
+     * @param {function(): void} [complete] An Observer `complete` callback.
+     * @return {any}
+     */
+    Notification.prototype.accept = function (nextOrObserver, error, complete) {
+        if (nextOrObserver && typeof nextOrObserver.next === 'function') {
+            return this.observe(nextOrObserver);
+        }
+        else {
+            return this.do(nextOrObserver, error, complete);
+        }
+    };
+    /**
+     * Returns a simple Observable that just delivers the notification represented
+     * by this Notification instance.
+     * @return {any}
+     */
+    Notification.prototype.toObservable = function () {
+        var kind = this.kind;
+        switch (kind) {
+            case 'N':
+                return Observable_1.Observable.of(this.value);
+            case 'E':
+                return Observable_1.Observable.throw(this.error);
+            case 'C':
+                return Observable_1.Observable.empty();
+        }
+        throw new Error('unexpected notification kind value');
+    };
+    /**
+     * A shortcut to create a Notification instance of the type `next` from a
+     * given value.
+     * @param {T} value The `next` value.
+     * @return {Notification<T>} The "next" Notification representing the
+     * argument.
+     */
+    Notification.createNext = function (value) {
+        if (typeof value !== 'undefined') {
+            return new Notification('N', value);
+        }
+        return Notification.undefinedValueNotification;
+    };
+    /**
+     * A shortcut to create a Notification instance of the type `error` from a
+     * given error.
+     * @param {any} [err] The `error` error.
+     * @return {Notification<T>} The "error" Notification representing the
+     * argument.
+     */
+    Notification.createError = function (err) {
+        return new Notification('E', undefined, err);
+    };
+    /**
+     * A shortcut to create a Notification instance of the type `complete`.
+     * @return {Notification<any>} The valueless "complete" Notification.
+     */
+    Notification.createComplete = function () {
+        return Notification.completeNotification;
+    };
+    Notification.completeNotification = new Notification('C');
+    Notification.undefinedValueNotification = new Notification('N', undefined);
+    return Notification;
+}());
+var Notification_2 = Notification;
+
+
+var Notification_1 = {
+	Notification: Notification_2
+};
+
+var __extends$3 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+
+/**
+ * Delays the emission of items from the source Observable by a given timeout or
+ * until a given Date.
+ *
+ * <span class="informal">Time shifts each item by some specified amount of
+ * milliseconds.</span>
+ *
+ * <img src="./img/delay.png" width="100%">
+ *
+ * If the delay argument is a Number, this operator time shifts the source
+ * Observable by that amount of time expressed in milliseconds. The relative
+ * time intervals between the values are preserved.
+ *
+ * If the delay argument is a Date, this operator time shifts the start of the
+ * Observable execution until the given date occurs.
+ *
+ * @example <caption>Delay each click by one second</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var delayedClicks = clicks.delay(1000); // each click emitted after 1 second
+ * delayedClicks.subscribe(x => console.log(x));
+ *
+ * @example <caption>Delay all clicks until a future date happens</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var date = new Date('March 15, 2050 12:00:00'); // in the future
+ * var delayedClicks = clicks.delay(date); // click emitted only after that date
+ * delayedClicks.subscribe(x => console.log(x));
+ *
+ * @see {@link debounceTime}
+ * @see {@link delayWhen}
+ *
+ * @param {number|Date} delay The delay duration in milliseconds (a `number`) or
+ * a `Date` until which the emission of the source items is delayed.
+ * @param {Scheduler} [scheduler=async] The IScheduler to use for
+ * managing the timers that handle the time-shift for each item.
+ * @return {Observable} An Observable that delays the emissions of the source
+ * Observable by the specified timeout or Date.
+ * @method delay
+ * @owner Observable
+ */
+function delay(delay, scheduler) {
+    if (scheduler === void 0) { scheduler = async.async; }
+    var absoluteDelay = isDate_1.isDate(delay);
+    var delayFor = absoluteDelay ? (+delay - scheduler.now()) : Math.abs(delay);
+    return function (source) { return source.lift(new DelayOperator(delayFor, scheduler)); };
+}
+var delay_2 = delay;
+var DelayOperator = (function () {
+    function DelayOperator(delay, scheduler) {
+        this.delay = delay;
+        this.scheduler = scheduler;
+    }
+    DelayOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new DelaySubscriber(subscriber, this.delay, this.scheduler));
+    };
+    return DelayOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var DelaySubscriber = (function (_super) {
+    __extends$3(DelaySubscriber, _super);
+    function DelaySubscriber(destination, delay, scheduler) {
+        _super.call(this, destination);
+        this.delay = delay;
+        this.scheduler = scheduler;
+        this.queue = [];
+        this.active = false;
+        this.errored = false;
+    }
+    DelaySubscriber.dispatch = function (state$$1) {
+        var source = state$$1.source;
+        var queue = source.queue;
+        var scheduler = state$$1.scheduler;
+        var destination = state$$1.destination;
+        while (queue.length > 0 && (queue[0].time - scheduler.now()) <= 0) {
+            queue.shift().notification.observe(destination);
+        }
+        if (queue.length > 0) {
+            var delay_1 = Math.max(0, queue[0].time - scheduler.now());
+            this.schedule(state$$1, delay_1);
+        }
+        else {
+            source.active = false;
+        }
+    };
+    DelaySubscriber.prototype._schedule = function (scheduler) {
+        this.active = true;
+        this.add(scheduler.schedule(DelaySubscriber.dispatch, this.delay, {
+            source: this, destination: this.destination, scheduler: scheduler
+        }));
+    };
+    DelaySubscriber.prototype.scheduleNotification = function (notification) {
+        if (this.errored === true) {
+            return;
+        }
+        var scheduler = this.scheduler;
+        var message = new DelayMessage(scheduler.now() + this.delay, notification);
+        this.queue.push(message);
+        if (this.active === false) {
+            this._schedule(scheduler);
+        }
+    };
+    DelaySubscriber.prototype._next = function (value) {
+        this.scheduleNotification(Notification_1.Notification.createNext(value));
+    };
+    DelaySubscriber.prototype._error = function (err) {
+        this.errored = true;
+        this.queue = [];
+        this.destination.error(err);
+    };
+    DelaySubscriber.prototype._complete = function () {
+        this.scheduleNotification(Notification_1.Notification.createComplete());
+    };
+    return DelaySubscriber;
+}(Subscriber_1.Subscriber));
+var DelayMessage = (function () {
+    function DelayMessage(time, notification) {
+        this.time = time;
+        this.notification = notification;
+    }
+    return DelayMessage;
+}());
+
 var __extends$7 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 
+/**
+ * Applies a given `project` function to each value emitted by the source
+ * Observable, and emits the resulting values as an Observable.
+ *
+ * <span class="informal">Like [Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map),
+ * it passes each source value through a transformation function to get
+ * corresponding output values.</span>
+ *
+ * <img src="./img/map.png" width="100%">
+ *
+ * Similar to the well known `Array.prototype.map` function, this operator
+ * applies a projection to each value and emits that projection in the output
+ * Observable.
+ *
+ * @example <caption>Map every click to the clientX position of that click</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var positions = clicks.map(ev => ev.clientX);
+ * positions.subscribe(x => console.log(x));
+ *
+ * @see {@link mapTo}
+ * @see {@link pluck}
+ *
+ * @param {function(value: T, index: number): R} project The function to apply
+ * to each `value` emitted by the source Observable. The `index` parameter is
+ * the number `i` for the i-th emission that has happened since the
+ * subscription, starting from the number `0`.
+ * @param {any} [thisArg] An optional argument to define what `this` is in the
+ * `project` function.
+ * @return {Observable<R>} An Observable that emits the values from the source
+ * Observable transformed by the given `project` function.
+ * @method map
+ * @owner Observable
+ */
+function map$3(project, thisArg) {
+    return function mapOperation(source) {
+        if (typeof project !== 'function') {
+            throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
+        }
+        return source.lift(new MapOperator(project, thisArg));
+    };
+}
+var map_2 = map$3;
+var MapOperator = (function () {
+    function MapOperator(project, thisArg) {
+        this.project = project;
+        this.thisArg = thisArg;
+    }
+    MapOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new MapSubscriber(subscriber, this.project, this.thisArg));
+    };
+    return MapOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var MapSubscriber = (function (_super) {
+    __extends$7(MapSubscriber, _super);
+    function MapSubscriber(destination, project, thisArg) {
+        _super.call(this, destination);
+        this.project = project;
+        this.count = 0;
+        this.thisArg = thisArg || this;
+    }
+    // NOTE: This looks unoptimized, but it's actually purposefully NOT
+    // using try/catch optimizations.
+    MapSubscriber.prototype._next = function (value) {
+        var result;
+        try {
+            result = this.project.call(this.thisArg, value, this.count++);
+        }
+        catch (err) {
+            this.destination.error(err);
+            return;
+        }
+        this.destination.next(result);
+    };
+    return MapSubscriber;
+}(Subscriber_1.Subscriber));
+
+var __extends$8 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+/* tslint:enable:max-line-length */
+/**
+ * Returns an Observable that emits all items emitted by the source Observable that are distinct by comparison from the previous item.
+ *
+ * If a comparator function is provided, then it will be called for each item to test for whether or not that value should be emitted.
+ *
+ * If a comparator function is not provided, an equality check is used by default.
+ *
+ * @example <caption>A simple example with numbers</caption>
+ * Observable.of(1, 1, 2, 2, 2, 1, 1, 2, 3, 3, 4)
+ *   .distinctUntilChanged()
+ *   .subscribe(x => console.log(x)); // 1, 2, 1, 2, 3, 4
+ *
+ * @example <caption>An example using a compare function</caption>
+ * interface Person {
+ *    age: number,
+ *    name: string
+ * }
+ *
+ * Observable.of<Person>(
+ *     { age: 4, name: 'Foo'},
+ *     { age: 7, name: 'Bar'},
+ *     { age: 5, name: 'Foo'})
+ *     { age: 6, name: 'Foo'})
+ *     .distinctUntilChanged((p: Person, q: Person) => p.name === q.name)
+ *     .subscribe(x => console.log(x));
+ *
+ * // displays:
+ * // { age: 4, name: 'Foo' }
+ * // { age: 7, name: 'Bar' }
+ * // { age: 5, name: 'Foo' }
+ *
+ * @see {@link distinct}
+ * @see {@link distinctUntilKeyChanged}
+ *
+ * @param {function} [compare] Optional comparison function called to test if an item is distinct from the previous item in the source.
+ * @return {Observable} An Observable that emits items from the source Observable with distinct values.
+ * @method distinctUntilChanged
+ * @owner Observable
+ */
+function distinctUntilChanged$3(compare, keySelector) {
+    return function (source) { return source.lift(new DistinctUntilChangedOperator(compare, keySelector)); };
+}
+var distinctUntilChanged_2 = distinctUntilChanged$3;
+var DistinctUntilChangedOperator = (function () {
+    function DistinctUntilChangedOperator(compare, keySelector) {
+        this.compare = compare;
+        this.keySelector = keySelector;
+    }
+    DistinctUntilChangedOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new DistinctUntilChangedSubscriber(subscriber, this.compare, this.keySelector));
+    };
+    return DistinctUntilChangedOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var DistinctUntilChangedSubscriber = (function (_super) {
+    __extends$8(DistinctUntilChangedSubscriber, _super);
+    function DistinctUntilChangedSubscriber(destination, compare, keySelector) {
+        _super.call(this, destination);
+        this.keySelector = keySelector;
+        this.hasKey = false;
+        if (typeof compare === 'function') {
+            this.compare = compare;
+        }
+    }
+    DistinctUntilChangedSubscriber.prototype.compare = function (x, y) {
+        return x === y;
+    };
+    DistinctUntilChangedSubscriber.prototype._next = function (value) {
+        var keySelector = this.keySelector;
+        var key = value;
+        if (keySelector) {
+            key = tryCatch_1.tryCatch(this.keySelector)(value);
+            if (key === errorObject.errorObject) {
+                return this.destination.error(errorObject.errorObject.e);
+            }
+        }
+        var result = false;
+        if (this.hasKey) {
+            result = tryCatch_1.tryCatch(this.compare)(this.key, key);
+            if (result === errorObject.errorObject) {
+                return this.destination.error(errorObject.errorObject.e);
+            }
+        }
+        else {
+            this.hasKey = true;
+        }
+        if (Boolean(result) === false) {
+            this.key = key;
+            this.destination.next(value);
+        }
+    };
+    return DistinctUntilChangedSubscriber;
+}(Subscriber_1.Subscriber));
+
+class DashboardService {
+    constructor() {
+        this._rowHeight = 0;
+        this.widgets$ = new BehaviorSubject$1([]);
+        this.options$ = new BehaviorSubject$1(defaultOptions);
+        this.dimensions$ = new BehaviorSubject$1({});
+        this.height$ = this.dimensions$.pipe(delay_2(0), map_2((dimensions) => dimensions.height), distinctUntilChanged_2());
+        this.placeholder$ = new BehaviorSubject$1({ visible: false, x: 0, y: 0, width: 0, height: 0 });
+        this.layout$ = new Subject$1();
+        this.stacked$ = new BehaviorSubject$1(false);
+        this.layout$.subscribe(this.setLayoutData.bind(this));
+        this.stacked$.pipe(filter_2(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
+        this.widgets$.pipe(delay_2(0)).subscribe(() => this.renderDashboard());
+        this.dimensions$.pipe(delay_2(0)).subscribe(() => this.renderDashboard());
+    }
+    /**
+     * @return {?}
+     */
+    get options() {
+        return this.options$.getValue();
+    }
+    /**
+     * @return {?}
+     */
+    get widgets() {
+        return this.widgets$.getValue();
+    }
+    /**
+     * @return {?}
+     */
+    get stacked() {
+        return this.stacked$.getValue();
+    }
+    /**
+     * @return {?}
+     */
+    get dimensions() {
+        return this.dimensions$.getValue();
+    }
+    /**
+     * @return {?}
+     */
+    get columnWidth() {
+        return this.dimensions.width / this.options.columns;
+    }
+    /**
+     * Set the dashboard container element
+     * @param {?} dashboard The HTMLElement that is the dashboard container
+     * @return {?}
+     */
+    setDashboard(dashboard) {
+        this._dashboard = dashboard;
+    }
+    /**
+     * Add a widget to the dashboard
+     * @param {?} widget The widget component to add to the dashboard
+     * @return {?}
+     */
+    addWidget(widget) {
+        this.widgets$.next([...this.widgets$.getValue(), widget]);
+    }
+    /**
+     * Remove a widget from the dashboard
+     * @param {?} widget The widget to remove
+     * @return {?}
+     */
+    removeWidget(widget) {
+        this.widgets$.next(this.widgets$.getValue().filter(_widget => _widget !== widget));
+    }
+    /**
+     * Indicate that the dashboard element has been resized
+     * @param {?=} width The width of the dashboard element in px
+     * @param {?=} height The height of the dashboard element in px
+     * @return {?}
+     */
+    setDimensions(width = this.dimensions.width, height = this.dimensions.height) {
+        if (this.dimensions.width !== width || this.dimensions.height !== height) {
+            this.dimensions$.next({ width: width, height: height });
+        }
+    }
+    /**
+     * Produce an object containing all the required layout data.
+     * This can be useful for exporting/saving a layout
+     * @return {?}
+     */
+    getLayoutData() {
+        return this.widgets.map(widget => {
+            return { id: widget.id, col: widget.getColumn(), row: widget.getRow(), colSpan: widget.getColumnSpan(), rowSpan: widget.getRowSpan() };
+        });
+    }
+    /**
+     * Position widgets programatically
+     * @param {?} widgets
+     * @return {?}
+     */
+    setLayoutData(widgets) {
+        // iterate through each widget data and find a match
+        widgets.forEach(widget => {
+            // find the matching widget
+            const /** @type {?} */ target = this.widgets.find(_widget => _widget.id === widget.id);
+            if (target) {
+                target.setColumn(widget.col);
+                target.setRow(widget.row);
+                target.setColumnSpan(widget.colSpan);
+                target.setRowSpan(widget.rowSpan);
+            }
+        });
+    }
+    /**
+     * Update the positions and sizes of the widgets
+     * @return {?}
+     */
+    renderDashboard() {
+        // get the dimensions of the dashboard
+        this._rowHeight = this.options.rowHeight || this.columnWidth;
+        // ensure the column width is not below the min widths
+        this.stacked$.next(this.columnWidth < this.options.minWidth);
+        // ensure the row height is not below the min widths
+        if (this._rowHeight < this.options.minWidth) {
+            this._rowHeight = this.options.minWidth;
+        }
+        this.setDashboardLayout();
+        // iterate through each widget and set the size - except the one being resized
+        this.widgets.filter(widget => !this._actionWidget || widget !== this._actionWidget.widget)
+            .forEach(widget => widget.render());
+    }
+    /**
+     * Determine where widgets should be positioned based on their positions, width and the size of the container
+     * @return {?}
+     */
+    setDashboardLayout() {
+        // find any widgets that do not currently have a position set
+        this.widgets.filter(widget => widget.getColumn() === undefined || widget.getRow() === undefined)
+            .forEach(widget => this.setWidgetPosition(widget));
+        this.setDashboardHeight();
+    }
+    /**
+     * @return {?}
+     */
+    updateWhenStacked() {
+        // iterate through each widget set it's stacked state and
+        this.getWidgetsByOrder().forEach((widget, idx) => {
+            widget.setColumn(0);
+            widget.setRow(idx);
+        });
+    }
+    /**
+     * @return {?}
+     */
+    getWidgetsByOrder() {
+        return this.widgets.sort((w1, w2) => {
+            const /** @type {?} */ w1Position = w1.getColumn() * w1.getRow();
+            const /** @type {?} */ w2Position = w2.getColumn() * w2.getRow();
+            if (w1Position < w2Position) {
+                return -1;
+            }
+            if (w1Position > w2Position) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+    /**
+     * Find a position that a widget can fit in the dashboard
+     * @param {?} widget The widget to try and position
+     * @return {?}
+     */
+    setWidgetPosition(widget) {
+        // find a position for the widget
+        let /** @type {?} */ position = 0;
+        let /** @type {?} */ success = false;
+        // repeat until a space is found
+        while (!success) {
+            // get a position to try
+            const /** @type {?} */ column = position % this.options.columns;
+            const /** @type {?} */ row = Math.floor(position / this.options.columns);
+            // check the current position
+            if (this.getPositionAvailable(column, row, widget.getColumnSpan(), widget.getRowSpan())) {
+                success = true;
+                widget.setColumn(column);
+                widget.setRow(row);
+                return;
+            }
+            position++;
+        }
+    }
+    /**
+     * Check if a position in the dashboard is vacant or not
+     * @param {?} column
+     * @param {?} row
+     * @param {?} columnSpan
+     * @param {?} rowSpan
+     * @param {?=} ignoreWidget
+     * @return {?}
+     */
+    getPositionAvailable(column, row, columnSpan, rowSpan, ignoreWidget) {
+        // get a list of grid spaces that are populated
+        const /** @type {?} */ spaces = this.getOccupiedSpaces();
+        // check if the block would still be in bounds
+        if (column + columnSpan > this.options.columns) {
+            return false;
+        }
+        // check each required position
+        for (let /** @type {?} */ x = column; x < column + columnSpan; x++) {
+            for (let /** @type {?} */ y = row; y < row + rowSpan; y++) {
+                if (spaces.find(block => block.column === x && block.row === y && block.widget !== ignoreWidget)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    /**
+     * @return {?}
+     */
+    getOccupiedSpaces() {
+        // find all spaces that are currently occupied
+        return this.widgets.filter(widget => widget.getColumn() !== undefined && widget.getRow() !== undefined)
+            .reduce((value, widget) => {
+            this.forEachBlock(widget, (column, row) => value.push({ widget: widget, column: column, row: row }));
+            return value;
+        }, []);
+    }
+    /**
+     * Begin resizing a widget
+     * @param {?} action The the widget to resize
+     * @return {?}
+     */
+    onResizeStart(action) {
+        // store the mouse event
+        this._mouseEvent = action.event;
+        this._actionWidget = action;
+        // bring the widget to the font
+        this.bringToFront(action.widget);
+    }
+    /**
+     * @param {?} action
+     * @return {?}
+     */
+    onResizeDrag(action) {
+        // if there was no movement then do nothing
+        if (action.event.x === this._mouseEvent.x && action.event.y === this._mouseEvent.y) {
+            return;
+        }
+        // update the stored mouse event
+        this._mouseEvent = action.event;
+        // get handle for direction
+        const { handle } = action;
+        // get the bounds of the handle
+        const /** @type {?} */ bounds = handle.getBoundingClientRect();
+        // get the center of the handle
+        const /** @type {?} */ centerX = bounds.left + (bounds.width / 2);
+        const /** @type {?} */ centerY = bounds.top + (bounds.height / 2);
+        // get the current mouse position
+        const /** @type {?} */ mouseX = action.event.x - centerX;
+        const /** @type {?} */ mouseY = action.event.y - centerY;
+        // store the new proposed dimensions for the widget
+        const /** @type {?} */ dimensions = {
+            x: action.widget.x,
+            y: action.widget.y,
+            width: action.widget.width,
+            height: action.widget.height
+        };
+        // update widget based on the handle being dragged
+        switch (action.direction) {
+            case ActionDirection.Right:
+                dimensions.width += mouseX;
+                break;
+            case ActionDirection.Left:
+                dimensions.x += mouseX;
+                dimensions.width -= mouseX;
+                if (dimensions.width < this.options.minWidth) {
+                    const /** @type {?} */ difference = this.options.minWidth - dimensions.width;
+                    dimensions.x -= difference;
+                    dimensions.width += difference;
+                }
+                break;
+            case ActionDirection.Bottom:
+                dimensions.height += mouseY;
+                break;
+            case ActionDirection.Top:
+                dimensions.y += mouseY;
+                dimensions.height -= mouseY;
+                if (dimensions.height < this.options.minHeight) {
+                    const /** @type {?} */ difference = this.options.minHeight - dimensions.height;
+                    dimensions.y -= difference;
+                    dimensions.height += difference;
+                }
+                break;
+            // Support resizing on multiple axis simultaneously
+            case ActionDirection.TopLeft:
+                dimensions.x += mouseX;
+                dimensions.width -= mouseX;
+                if (dimensions.width < this.options.minWidth) {
+                    const /** @type {?} */ difference = this.options.minWidth - dimensions.width;
+                    dimensions.x -= difference;
+                    dimensions.width += difference;
+                }
+                dimensions.y += mouseY;
+                dimensions.height -= mouseY;
+                if (dimensions.height < this.options.minHeight) {
+                    const /** @type {?} */ difference = this.options.minHeight - dimensions.height;
+                    dimensions.y -= difference;
+                    dimensions.height += difference;
+                }
+                break;
+            case ActionDirection.TopRight:
+                dimensions.width += mouseX;
+                dimensions.y += mouseY;
+                dimensions.height -= mouseY;
+                if (dimensions.height < this.options.minHeight) {
+                    const /** @type {?} */ difference = this.options.minHeight - dimensions.height;
+                    dimensions.y -= difference;
+                    dimensions.height += difference;
+                }
+                break;
+            case ActionDirection.BottomLeft:
+                dimensions.height += mouseY;
+                dimensions.x += mouseX;
+                dimensions.width -= mouseX;
+                if (dimensions.width < this.options.minWidth) {
+                    const /** @type {?} */ difference = this.options.minWidth - dimensions.width;
+                    dimensions.x -= difference;
+                    dimensions.width += difference;
+                }
+                break;
+            case ActionDirection.BottomRight:
+                dimensions.height += mouseY;
+                dimensions.width += mouseX;
+                break;
+        }
+        const /** @type {?} */ currentWidth = action.widget.x + action.widget.width;
+        const /** @type {?} */ currentHeight = action.widget.y + action.widget.height;
+        // ensure values are within the dashboard bounds
+        if (dimensions.x < 0) {
+            dimensions.x = 0;
+            dimensions.width = currentWidth;
+        }
+        if (dimensions.y < 0) {
+            dimensions.y = 0;
+            dimensions.height = currentHeight;
+        }
+        if ((dimensions.x + dimensions.width) > this.dimensions.width) {
+            dimensions.width = this.dimensions.width - dimensions.x;
+        }
+        // if the proposed width is smaller than allowed then reset width to minimum and ignore x changes
+        if (dimensions.width < this.options.minWidth) {
+            dimensions.x = action.widget.x;
+            dimensions.width = this.options.minWidth;
+        }
+        // if the proposed height is smaller than allowed then reset height to minimum and ignore y changes
+        if (dimensions.height < this.options.minHeight) {
+            dimensions.y = action.widget.y;
+            dimensions.height = this.options.minHeight;
+        }
+        // update the widget actual values
+        action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+        // update placeholder position and value
+        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+        // show the widget positions if the current positions and sizes were to persist
+        this.updateWidgetPositions(action.widget);
+    }
+    /**
+     * @return {?}
+     */
+    onResizeEnd() {
+        const /** @type {?} */ placeholder = this.placeholder$.getValue();
+        // commit resize changes
+        this.commitWidgetChanges();
+        // hide placeholder
+        placeholder.visible = false;
+        // update the placeholder
+        this.placeholder$.next(placeholder);
+        this._actionWidget = null;
+        this._mouseEvent = null;
+        // ensure any vacant upper spaces are filled where required
+        this.shiftWidgetsUp();
+        // update dashboard height
+        this.setDashboardHeight();
+        // emit information about the layout
+        this.layout$.next(this.getLayoutData());
+    }
+    /**
+     * @param {?} action
+     * @return {?}
+     */
+    onDragStart(action) {
+        this.onResizeStart(action);
+        // store the starting placeholder position
+        this.setWidgetOrigin();
+        this.cacheWidgets();
+    }
+    /**
+     * @return {?}
+     */
+    onDragEnd() {
+        this.onResizeEnd();
+        this._widgetOrigin = {};
+    }
+    /**
+     * @param {?} action
+     * @return {?}
+     */
+    onDrag(action) {
+        // if there was no movement then do nothing
+        if (action.event.pageX === this._mouseEvent.pageX && action.event.pageY === this._mouseEvent.pageY) {
+            return;
+        }
+        // get the current mouse position
+        const /** @type {?} */ mouseX = action.event.pageX - this._mouseEvent.pageX;
+        const /** @type {?} */ mouseY = action.event.pageY - this._mouseEvent.pageY;
+        // store the latest event
+        this._mouseEvent = action.event;
+        const /** @type {?} */ dimensions = {
+            x: action.widget.x + mouseX,
+            y: action.widget.y + mouseY,
+            width: action.widget.width,
+            height: action.widget.height
+        };
+        this.restoreWidgets(true);
+        // update widget position
+        action.widget.setBounds(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+        // update placeholder position and value
+        this.setPlaceholderBounds(true, dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+        // show the widget positions if the current positions and sizes were to persist
+        this.shiftWidgets();
+        this.setDashboardHeight();
+    }
+    /**
+     * @return {?}
+     */
+    getRowHeight() {
+        return this._rowHeight;
+    }
+    /**
+     * @return {?}
+     */
+    cacheWidgets() {
+        this._cache = this.widgets.map(widget => ({ id: widget.id, column: widget.getColumn(), row: widget.getRow() }));
+    }
+    /**
+     * @param {?=} ignoreActionWidget
+     * @return {?}
+     */
+    restoreWidgets(ignoreActionWidget = false) {
+        this._cache.filter(widget => !ignoreActionWidget || widget.id !== this._actionWidget.widget.id).forEach(widget => {
+            const /** @type {?} */ match = this.widgets.find(wgt => wgt.id === widget.id);
+            if (match) {
+                match.setColumn(widget.column);
+                match.setRow(widget.row);
+            }
+        });
+    }
+    /**
+     * When dragging any widgets that need to be moved should be moved to an appropriate position
+     * @return {?}
+     */
+    shiftWidgets() {
+        let /** @type {?} */ widgetsToMove = [];
+        const /** @type {?} */ placeholder = this.placeholder$.getValue();
+        // check if there are any widgets under the placeholder
+        for (let /** @type {?} */ row = placeholder.row; row < placeholder.row + placeholder.rowSpan; row++) {
+            for (let /** @type {?} */ column = placeholder.column; column < placeholder.column + placeholder.columnSpan; column++) {
+                // store reference to any widgets that need moved
+                this.getOccupiedSpaces()
+                    .filter(space => space.column === column && space.row === row && space.widget !== this._actionWidget.widget)
+                    .forEach(space => widgetsToMove.push(space.widget));
+            }
+        }
+        // remove any duplicates
+        widgetsToMove = widgetsToMove.filter((widget, idx, array) => array.indexOf(widget) === idx);
+        // if no widgets need moved then we can stop here
+        if (widgetsToMove.length === 0) {
+            return;
+        }
+        // create a duplicate we can use to keep track of which have been moved
+        const /** @type {?} */ unmovedWidgets = widgetsToMove.slice();
+        // attempt to move any widgets to the previous widget position
+        widgetsToMove.forEach(widget => {
+            // get a grid off all occupied spaces - taking into account the placeholder and ignoring widgets that need moved
+            const /** @type {?} */ grid = this.getOccupiedSpaces().filter(space => !unmovedWidgets.find(wgt => wgt === space.widget));
+            // iterate each free block
+            for (let /** @type {?} */ row = this._widgetOrigin.row; row < this._widgetOrigin.row + this._widgetOrigin.rowSpan; row++) {
+                for (let /** @type {?} */ column = this._widgetOrigin.column; column < this._widgetOrigin.column + this._widgetOrigin.columnSpan; column++) {
+                    // determine if the block can fit in this space
+                    let /** @type {?} */ requiredSpaces = this.getRequiredSpacesFromPoint(widget, column, row);
+                    // check if widget would fit in space
+                    let /** @type {?} */ available = requiredSpaces.every(space => {
+                        return !grid.find(gridSpace => gridSpace.column === space.column && gridSpace.row === space.row) && space.column < this.getColumnCount();
+                    });
+                    if (available) {
+                        widget.setColumn(column);
+                        widget.setRow(row);
+                        unmovedWidgets.splice(unmovedWidgets.findIndex(wgt => wgt === widget), 1);
+                        return;
+                    }
+                }
+            }
+            // if we get to here then we can't simply swap the positions - next try moving right
+            if (this.canWidgetMoveRight(widget, true)) {
+                // after the shift check if placeholder position is still valid
+                this.validatePlaceholderPosition(ActionDirection.Right);
+                return;
+            }
+            // next try moving left
+            if (this.canWidgetMoveLeft(widget, true)) {
+                // after the shift check if placeholder position is still valid
+                this.validatePlaceholderPosition(ActionDirection.Left);
+                return;
+            }
+            // determine the distance that the widget needs to be moved down
+            let /** @type {?} */ distance = (this._actionWidget.widget.getRow() - widget.getRow()) + this._actionWidget.widget.getRowSpan();
+            // as a last resort move the widget downwards
+            this.moveWidgetDown(widget, distance);
+        });
+    }
+    /**
+     * After shifts have taken place we should verify the place holder position is still valid
+     * @param {?} shiftDirection - the position widgets were shifted
+     * @return {?}
+     */
+    validatePlaceholderPosition(shiftDirection) {
+        const /** @type {?} */ placeholder = this.placeholder$.getValue();
+        // check if the placeholder is over a widget
+        if (this.getWidgetsAtPosition(placeholder.column, placeholder.row, true).length > 0) {
+            // move the placeholder the opposite direction
+            switch (shiftDirection) {
+                case ActionDirection.Left:
+                    this.setPlaceholderBounds(placeholder.visible, placeholder.x + this.getColumnWidth(), placeholder.y, placeholder.width, placeholder.height);
+                    break;
+                case ActionDirection.Right:
+                    this.setPlaceholderBounds(placeholder.visible, placeholder.x - this.getColumnWidth(), placeholder.y, placeholder.width, placeholder.height);
+                    break;
+            }
+            // validate this new position again
+            this.validatePlaceholderPosition(shiftDirection);
+        }
+    }
+    /**
+     * Determine if a widget can be moved left - or if it can move the widgets to the right to make space for the widget
+     * @param {?} widget
+     * @param {?=} performMove
+     * @return {?}
+     */
+    canWidgetMoveLeft(widget, performMove = false) {
+        // check if the widget is the action widget or occupies the first column
+        if (widget === this._actionWidget.widget || widget.getColumn() === 0) {
+            return false;
+        }
+        // find the positions required
+        const /** @type {?} */ targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
+            return { column: space.column - widget.getColumnSpan(), row: space.row, widget: space.widget };
+        });
+        // check if there are widget in the required positions and if so, can they move right?
+        const /** @type {?} */ moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveLeft(wgt)));
+        if (performMove && moveable) {
+            // move all widgets to the right
+            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveLeft(wgt, true)));
+            // move current widget to the right
+            widget.setColumn(widget.getColumn() - 1);
+        }
+        return moveable;
+    }
+    /**
+     * Determine if a widget can be moved right - or if it can move the widgets to the right to make space for the widget
+     * @param {?} widget
+     * @param {?=} performMove
+     * @return {?}
+     */
+    canWidgetMoveRight(widget, performMove = false) {
+        // check if the widget is the dragging widget or the widget occupies the final column
+        if (widget === this._actionWidget.widget || widget.getColumn() + widget.getColumnSpan() === this.options.columns) {
+            return false;
+        }
+        // find the positions required
+        const /** @type {?} */ targetSpaces = this.getOccupiedSpaces().filter(space => space.widget === widget).map(space => {
+            return { column: space.column + widget.getColumnSpan(), row: space.row, widget: space.widget };
+        });
+        // check if there are widget in the required positions and if so, can they move right?
+        const /** @type {?} */ moveable = targetSpaces.every(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).every(wgt => this.canWidgetMoveRight(wgt)));
+        if (performMove && moveable) {
+            // move all widgets to the right
+            targetSpaces.forEach(space => this.getWidgetsAtPosition(space.column, space.row).filter(wgt => wgt !== space.widget).forEach(wgt => this.canWidgetMoveRight(wgt, true)));
+            // move current widget to the right
+            widget.setColumn(widget.getColumn() + 1);
+        }
+        return moveable;
+    }
+    /**
+     * Store the initial position of the widget being dragged
+     * @return {?}
+     */
+    setWidgetOrigin() {
+        this._widgetOrigin = {
+            column: this._actionWidget.widget.getColumn(),
+            row: this._actionWidget.widget.getRow(),
+            columnSpan: this._actionWidget.widget.getColumnSpan(),
+            rowSpan: this._actionWidget.widget.getRowSpan()
+        };
+    }
+    /**
+     * Calculate all the required positions is a widget was to be positioned at a particular point
+     * @param {?} widget
+     * @param {?} column
+     * @param {?} row
+     * @return {?}
+     */
+    getRequiredSpacesFromPoint(widget, column, row) {
+        const /** @type {?} */ spaces = [];
+        for (let /** @type {?} */ y = row; y < row + widget.getRowSpan(); y++) {
+            for (let /** @type {?} */ x = column; x < column + widget.getColumnSpan(); x++) {
+                spaces.push({ column: x, row: y, widget: widget });
+            }
+        }
+        return spaces;
+    }
+    /**
+     * Position widgets based on the position of the placeholder - this is temporary until confirmed
+     * @param {?} widget
+     * @return {?}
+     */
+    updateWidgetPositions(widget) {
+        const /** @type {?} */ placeholder = this.placeholder$.getValue();
+        // check all spaces the placeholder will occupy and move any widget currently in them down
+        for (let /** @type {?} */ column = placeholder.column; column < placeholder.column + placeholder.columnSpan; column++) {
+            for (let /** @type {?} */ row = placeholder.row; row < placeholder.row + placeholder.rowSpan; row++) {
+                this.getWidgetsAtPosition(column, row, true)
+                    .filter(wgt => wgt !== widget)
+                    .forEach(wgt => this.moveWidgetDown(wgt));
+            }
+        }
+        // update the height of the dashboard
+        this.setDashboardHeight();
+        // if we arent dragging the top handle then fill spaces
+        if (this._actionWidget.direction !== ActionDirection.Top &&
+            this._actionWidget.direction !== ActionDirection.TopLeft &&
+            this._actionWidget.direction !== ActionDirection.TopRight) {
+            this.shiftWidgetsUp();
+        }
+    }
+    /**
+     * Determine if a widget is occupying a specific row and column
+     * @param {?} column The columns to check if occupied
+     * @param {?} row The row to check if occupied
+     * @param {?=} ignoreResizing Whether or not to ignore the widget currently being resized
+     * @return {?}
+     */
+    getWidgetsAtPosition(column, row, ignoreResizing = false) {
+        return this.getOccupiedSpaces()
+            .filter(space => space.column === column && space.row === row)
+            .filter(space => space.widget !== this._actionWidget.widget || !ignoreResizing)
+            .map(space => space.widget);
+    }
+    /**
+     * Update the placeholder visibility, position and size
+     * @param {?} visible
+     * @param {?} x
+     * @param {?} y
+     * @param {?} width
+     * @param {?} height
+     * @return {?}
+     */
+    setPlaceholderBounds(visible, x, y, width, height) {
+        const /** @type {?} */ placeholder = this.placeholder$.getValue();
+        const /** @type {?} */ rounding = this._actionWidget.direction === ActionDirection.Left ||
+            this._actionWidget.direction === ActionDirection.Top ? Rounding.RoundDownBelowHalf : Rounding.RoundUpOverHalf;
+        placeholder.visible = visible;
+        placeholder.column = this.getPlaceholderColumn(x, width);
+        placeholder.row = this.getPlaceholderRow(y, height);
+        placeholder.columnSpan = this.getPlaceholderColumnSpan(width);
+        placeholder.rowSpan = this.getPlaceholderRowSpan(height);
+        // calculate the maximum number of rows
+        const /** @type {?} */ rowCount = this.widgets.filter(widget => widget !== this._actionWidget.widget)
+            .reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
+        // constrain maximum placeholder row
+        placeholder.row = Math.min(placeholder.row, rowCount);
+        placeholder.x = (placeholder.column * this.getColumnWidth()) + this.options.padding;
+        placeholder.y = (placeholder.row * this._rowHeight) + this.options.padding;
+        placeholder.width = (placeholder.columnSpan * this.getColumnWidth()) - (this.options.padding * 2);
+        placeholder.height = (placeholder.rowSpan * this._rowHeight) - (this.options.padding * 2);
+        // set the values of the widget to match the values of the placeholder - however do not render the changes
+        this._actionWidget.widget.setColumn(placeholder.column, false);
+        this._actionWidget.widget.setRow(placeholder.row, false);
+        this._actionWidget.widget.setColumnSpan(placeholder.columnSpan, false);
+        this._actionWidget.widget.setRowSpan(placeholder.rowSpan, false);
+        // update the placeholder
+        this.placeholder$.next(placeholder);
+    }
+    /**
+     * Get the placeholder column position
+     * @param {?} x
+     * @param {?} width
+     * @return {?}
+     */
+    getPlaceholderColumn(x, width) {
+        const /** @type {?} */ column = this.getColumnFromPx(x, this._actionWidget.direction === ActionDirection.Move ? Rounding.RoundUpOverHalf : Rounding.RoundDown);
+        const /** @type {?} */ columnSpan = Math.floor(width / this.getColumnWidth());
+        const /** @type {?} */ upperLimit = this.getColumnCount() - columnSpan;
+        // if we arent dragging left then just return the column
+        if (this._actionWidget.direction !== ActionDirection.Left &&
+            this._actionWidget.direction !== ActionDirection.TopLeft &&
+            this._actionWidget.direction !== ActionDirection.BottomLeft) {
+            return Math.max(Math.min(column, upperLimit), 0);
+        }
+        // get any overflow
+        const /** @type {?} */ overflow = width % this.getColumnWidth();
+        return (x <= 0 || overflow === 0 || columnSpan === 0 || overflow > (this.getColumnWidth() / 2)) ?
+            Math.max(Math.min(column, upperLimit), 0) :
+            Math.max(Math.min(column + 1, upperLimit), 0);
+    }
+    /**
+     * Get the column span of the placeholder
+     * @param {?} width
+     * @return {?}
+     */
+    getPlaceholderColumnSpan(width) {
+        const /** @type {?} */ columnSpan = this.getColumnFromPx(width);
+        // if we arent dragging right or left then just return the column span
+        if (this._actionWidget.direction !== ActionDirection.Right &&
+            this._actionWidget.direction !== ActionDirection.TopRight &&
+            this._actionWidget.direction !== ActionDirection.BottomRight &&
+            this._actionWidget.direction !== ActionDirection.Left &&
+            this._actionWidget.direction !== ActionDirection.TopLeft &&
+            this._actionWidget.direction !== ActionDirection.BottomLeft) {
+            return Math.max(columnSpan, 1);
+        }
+        // get the current column span and any overflow
+        const /** @type {?} */ overflow = width % this.getColumnWidth();
+        return (columnSpan > 0 && overflow > (this.getColumnWidth() / 2)) ? Math.max(columnSpan + 1, 1) : Math.max(columnSpan, 1);
+    }
+    /**
+     * Get the row position of the placeholder
+     * @param {?} y
+     * @param {?} height
+     * @return {?}
+     */
+    getPlaceholderRow(y, height) {
+        const /** @type {?} */ row = this.getRowFromPx(y, this._actionWidget.direction === ActionDirection.Move ? Rounding.RoundUpOverHalf : Rounding.RoundDown);
+        const /** @type {?} */ rowSpan = Math.ceil(height / this._rowHeight);
+        // if we arent dragging up then just return the row
+        if (this._actionWidget.direction !== ActionDirection.Top &&
+            this._actionWidget.direction !== ActionDirection.TopLeft &&
+            this._actionWidget.direction !== ActionDirection.TopRight) {
+            return Math.max(row, 0);
+        }
+        // get any overflow
+        let /** @type {?} */ overflow = height < this._rowHeight ? 0 : height % this._rowHeight;
+        return (y <= 0 || rowSpan === 0 || overflow === 0 || overflow > (this._rowHeight / 2)) ? Math.max(row, 0) : Math.max(row + 1, 0);
+    }
+    /**
+     * Get the row span of the placeholder
+     * @param {?} height
+     * @return {?}
+     */
+    getPlaceholderRowSpan(height) {
+        const /** @type {?} */ rowSpan = this.getRowFromPx(height);
+        // if we arent dragging up or down then just return the column span
+        if (this._actionWidget.direction !== ActionDirection.Top &&
+            this._actionWidget.direction !== ActionDirection.TopLeft &&
+            this._actionWidget.direction !== ActionDirection.TopRight &&
+            this._actionWidget.direction !== ActionDirection.Bottom &&
+            this._actionWidget.direction !== ActionDirection.BottomLeft &&
+            this._actionWidget.direction !== ActionDirection.BottomRight) {
+            return Math.max(rowSpan, 1);
+        }
+        // get the current column span and any overflow
+        const /** @type {?} */ overflow = height % this._rowHeight;
+        return (overflow > (this._rowHeight / 2)) ? Math.max(rowSpan + 1, 1) : Math.max(rowSpan, 1);
+    }
+    /**
+     * @param {?} x
+     * @param {?=} rounding
+     * @return {?}
+     */
+    getColumnFromPx(x, rounding = Rounding.RoundDown) {
+        const /** @type {?} */ column = Math.floor(x / Math.floor(this.getColumnWidth()));
+        const /** @type {?} */ overflow = (x % Math.floor(this.getColumnWidth()));
+        const /** @type {?} */ half = this.getColumnWidth() / 2;
+        switch (rounding) {
+            case Rounding.RoundDown:
+                return column;
+            case Rounding.RoundDownBelowHalf:
+                return overflow < half ? column : column + 1;
+            case Rounding.RoundUpOverHalf:
+                return overflow > half ? column + 1 : column;
+            case Rounding.RoundUp:
+                return overflow > 0 ? column + 1 : column;
+        }
+    }
+    /**
+     * @param {?} y
+     * @param {?=} rounding
+     * @return {?}
+     */
+    getRowFromPx(y, rounding = Rounding.RoundDown) {
+        const /** @type {?} */ row = Math.floor(y / Math.floor(this._rowHeight));
+        const /** @type {?} */ overflow = (y % Math.floor(this._rowHeight));
+        const /** @type {?} */ half = this._rowHeight / 2;
+        switch (rounding) {
+            case Rounding.RoundDown:
+                return row;
+            case Rounding.RoundDownBelowHalf:
+                return overflow < half ? row : row + 1;
+            case Rounding.RoundUpOverHalf:
+                return overflow > half ? row + 1 : row;
+            case Rounding.RoundUp:
+                return overflow > 0 ? row + 1 : row;
+        }
+    }
+    /**
+     * @return {?}
+     */
+    commitWidgetChanges() {
+        const /** @type {?} */ placeholder = this.placeholder$.getValue();
+        // check that we have all the values we need
+        if (placeholder.column === undefined || placeholder.row === undefined ||
+            placeholder.columnSpan === undefined || placeholder.rowSpan === undefined) {
+            return;
+        }
+        if (this._actionWidget) {
+            this._actionWidget.widget.setColumn(placeholder.column);
+            this._actionWidget.widget.setRow(placeholder.row);
+            this._actionWidget.widget.setColumnSpan(placeholder.columnSpan);
+            this._actionWidget.widget.setRowSpan(placeholder.rowSpan);
+        }
+        // reset all placeholder values
+        placeholder.column = undefined;
+        placeholder.row = undefined;
+        placeholder.columnSpan = undefined;
+        placeholder.rowSpan = undefined;
+        // emit the new placeholder values
+        this.placeholder$.next(placeholder);
+    }
+    /**
+     * Get the current column width
+     * @return {?}
+     */
+    getColumnWidth() {
+        return Math.floor(this.columnWidth);
+    }
+    /**
+     * Calculate the number of rows populated with widgets
+     * @return {?}
+     */
+    getRowCount() {
+        return this.widgets.reduce((previous, widget) => Math.max(widget.getRow() + widget.getRowSpan(), previous), 0);
+    }
+    /**
+     * Set the height of the dashboard container element
+     * @return {?}
+     */
+    setDashboardHeight() {
+        // size the dashboard container to ensure all rows fit
+        let /** @type {?} */ rowCount = this.getRowCount();
+        // if we should show an empty row increment the row count by 1
+        if (this.options.emptyRow) {
+            rowCount++;
+        }
+        this.setDimensions(undefined, rowCount * this._rowHeight);
+    }
+    /**
+     * Orders the z-index of all widgets to move the active one to the front
+     * @param {?} widget The widget that should be brought to the front
+     * @return {?}
+     */
+    bringToFront(widget) {
+        this.widgets.forEach(_widget => _widget === widget ? _widget.bringToFront() : _widget.sendToBack());
+    }
+    /**
+     * Move a widget down - if widgets are in the position below, then move them down further
+     * @param {?} widget The widget to move downwards
+     * @param {?=} distance
+     * @return {?}
+     */
+    moveWidgetDown(widget, distance = 1) {
+        // move the widget down one position
+        widget.setRow(widget.getRow() + distance);
+        // check every space the widget occupies for collisions
+        this.forEachBlock(widget, (column, row) => this.getWidgetsAtPosition(column, row, true)
+            .filter(wgt => wgt !== widget)
+            .forEach(wgt => this.moveWidgetDown(wgt, distance)));
+    }
+    /**
+     * Widgets should not be allowed to have a vacant space above them - if there is one they should move upwards to fill it
+     * @return {?}
+     */
+    shiftWidgetsUp() {
+        // check whether or not changes have been made - if so we need to repeat until stable
+        let /** @type {?} */ stable = true;
+        // iterate each widget and 
+        this.widgets.forEach(widget => {
+            // if widget is already on the top row then do nothing
+            if (widget.getRow() === 0) {
+                return;
+            }
+            // if we are currently dragging and this is the dragging widget then skip
+            if (this._actionWidget && this._actionWidget.widget === widget) {
+                return;
+            }
+            if (this.getPositionAvailable(widget.getColumn(), widget.getRow() - 1, widget.getColumnSpan(), 1)) {
+                widget.setRow(widget.getRow() - 1);
+                stable = false;
+            }
+        });
+        // if changes occurred then we should repeat the process
+        if (!stable) {
+            this.shiftWidgetsUp();
+        }
+    }
+    /**
+     * Iterate over each space a widget occupied
+     * @param {?} widget The widget to determine spaces
+     * @param {?} callback The function to be called for each space, should expect a column and row argument witht he context being the widget
+     * @return {?}
+     */
+    forEachBlock(widget, callback) {
+        for (let /** @type {?} */ row = widget.getRow(); row < widget.getRow() + widget.getRowSpan(); row++) {
+            for (let /** @type {?} */ column = widget.getColumn(); column < widget.getColumn() + widget.getColumnSpan(); column++) {
+                callback.call(widget, column, row);
+            }
+        }
+    }
+    /**
+     * Returns the number of columns available
+     * @return {?}
+     */
+    getColumnCount() {
+        return this.stacked ? 1 : this.options.columns;
+    }
+}
+DashboardService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+DashboardService.ctorParameters = () => [];
+const defaultOptions = { columns: 5, padding: 5, minWidth: 100, minHeight: 100, emptyRow: true };
+let ActionDirection = {};
+ActionDirection.Top = 0;
+ActionDirection.TopRight = 1;
+ActionDirection.Right = 2;
+ActionDirection.BottomRight = 3;
+ActionDirection.Bottom = 4;
+ActionDirection.BottomLeft = 5;
+ActionDirection.Left = 6;
+ActionDirection.TopLeft = 7;
+ActionDirection.Move = 8;
+ActionDirection[ActionDirection.Top] = "Top";
+ActionDirection[ActionDirection.TopRight] = "TopRight";
+ActionDirection[ActionDirection.Right] = "Right";
+ActionDirection[ActionDirection.BottomRight] = "BottomRight";
+ActionDirection[ActionDirection.Bottom] = "Bottom";
+ActionDirection[ActionDirection.BottomLeft] = "BottomLeft";
+ActionDirection[ActionDirection.Left] = "Left";
+ActionDirection[ActionDirection.TopLeft] = "TopLeft";
+ActionDirection[ActionDirection.Move] = "Move";
+let Rounding = {};
+Rounding.RoundDown = 0;
+Rounding.RoundDownBelowHalf = 1;
+Rounding.RoundUp = 2;
+Rounding.RoundUpOverHalf = 3;
+Rounding[Rounding.RoundDown] = "RoundDown";
+Rounding[Rounding.RoundDownBelowHalf] = "RoundDownBelowHalf";
+Rounding[Rounding.RoundUp] = "RoundUp";
+Rounding[Rounding.RoundUpOverHalf] = "RoundUpOverHalf";
+
+class DashboardComponent {
+    /**
+     * @param {?} dashboardService
+     */
+    constructor(dashboardService) {
+        this.dashboardService = dashboardService;
+        this.layoutChange = new EventEmitter();
+        dashboardService.layout$.subscribe(layout => this.layoutChange.emit(layout));
+    }
+    /**
+     * @param {?} layout
+     * @return {?}
+     */
+    set layout(layout) {
+        if (layout) {
+            this.dashboardService.layout$.next(layout);
+        }
+    }
+    /**
+     * @param {?} options
+     * @return {?}
+     */
+    set options(options) {
+        this.dashboardService.options$.next(Object.assign({}, defaultOptions, options));
+    }
+    /**
+     * Set the initial dimensions
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        this.dashboardService.setDashboard(this.dashboardElement.nativeElement);
+        this.dashboardService.setDimensions(this.dashboardElement.nativeElement.offsetWidth, this.dashboardElement.nativeElement.offsetHeight);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    onResize(event) {
+        this.dashboardService.setDimensions(event.width, event.height);
+    }
+}
+DashboardComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-dashboard',
+                template: `
+      <div #dashboard class="dashboard-container" [style.height.px]="dashboardService.height$ | async">
+          <div (uxResize)="onResize($event)" [throttle]="16" class="dashboard">
+              <ng-content></ng-content>
+          </div>
+    
+          <div class="position-indicator" *ngIf="(dashboardService.placeholder$ | async).visible" 
+              [style.left.px]="(dashboardService.placeholder$ | async).x" 
+              [style.top.px]="(dashboardService.placeholder$ | async).y" 
+              [style.width.px]="(dashboardService.placeholder$ | async).width"
+              [style.height.px]="(dashboardService.placeholder$ | async).height"></div>
+      </div>
+    `,
+                providers: [DashboardService],
+                changeDetection: ChangeDetectionStrategy.OnPush
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DashboardComponent.ctorParameters = () => [
+    { type: DashboardService, },
+];
+DashboardComponent.propDecorators = {
+    'layout': [{ type: Input },],
+    'options': [{ type: Input },],
+    'layoutChange': [{ type: Output },],
+    'dashboardElement': [{ type: ViewChild, args: ['dashboard',] },],
+};
+
+class DashboardWidgetComponent {
+    /**
+     * @param {?} dashboardService
+     */
+    constructor(dashboardService) {
+        this.dashboardService = dashboardService;
+        this.colSpan = 1;
+        this.rowSpan = 1;
+        this.resizable = false;
+        this.x = 0;
+        this.y = 0;
+        this.width = 100;
+        this.height = 100;
+        this.padding = 0;
+        this.zIndex = 0;
+        this._column = { regular: undefined, stacked: undefined };
+        this._row = { regular: undefined, stacked: undefined };
+        this._columnSpan = { regular: 1, stacked: 1 };
+        this._rowSpan = { regular: 1, stacked: 1 };
+        this._subscription = dashboardService.options$.subscribe(() => this.update());
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this._columnSpan.regular = this.colSpan;
+        this._rowSpan.regular = this.rowSpan;
+        if (!this.id) {
+            console.warn('Dashboard Widget is missing an ID.');
+            // set random id - keeps things working but prevents exporting of positions
+            this.id = Math.floor(Math.random() * 100000).toString();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        // add the widget to the dashboard
+        this.dashboardService.addWidget(this);
+        // apply the current options
+        this.update();
+    }
+    /**
+     * If component is removed, then unregister it from the service
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._subscription.unsubscribe();
+        this.dashboardService.removeWidget(this);
+    }
+    /**
+     * Apply the current dashboard options
+     * @return {?}
+     */
+    update() {
+        // get the current options at the time 
+        const { padding, columns } = this.dashboardService.options;
+        this.padding = padding;
+        this._columnSpan.stacked = columns;
+    }
+    /**
+     * Set the actual position and size values
+     * @return {?}
+     */
+    render() {
+        this.x = this.getColumn() * this.dashboardService.getColumnWidth();
+        this.y = this.getRow() * this.dashboardService.getRowHeight();
+        this.width = this.getColumnSpan() * this.dashboardService.getColumnWidth();
+        this.height = this.getRowSpan() * this.dashboardService.getRowHeight();
+    }
+    /**
+     * @return {?}
+     */
+    getColumn() {
+        return this.getStackableValue(this._column);
+    }
+    /**
+     * @return {?}
+     */
+    getRow() {
+        return this.getStackableValue(this._row);
+    }
+    /**
+     * @param {?} column
+     * @param {?=} render
+     * @return {?}
+     */
+    setColumn(column, render = true) {
+        this.setStackableValue(this._column, column);
+        if (render) {
+            this.render();
+        }
+    }
+    /**
+     * @param {?} row
+     * @param {?=} render
+     * @return {?}
+     */
+    setRow(row, render = true) {
+        this.setStackableValue(this._row, row);
+        if (render) {
+            this.render();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    getColumnSpan() {
+        return this.getStackableValue(this._columnSpan);
+    }
+    /**
+     * @return {?}
+     */
+    getRowSpan() {
+        return this.getStackableValue(this._rowSpan);
+    }
+    /**
+     * @param {?} columnSpan
+     * @param {?=} render
+     * @return {?}
+     */
+    setColumnSpan(columnSpan, render = true) {
+        this.setStackableValue(this._columnSpan, columnSpan);
+        if (render) {
+            this.render();
+        }
+    }
+    /**
+     * @param {?} rowSpan
+     * @param {?=} render
+     * @return {?}
+     */
+    setRowSpan(rowSpan, render = true) {
+        this.setStackableValue(this._rowSpan, rowSpan);
+        if (render) {
+            this.render();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    bringToFront() {
+        this.zIndex = 1;
+    }
+    /**
+     * @return {?}
+     */
+    sendToBack() {
+        this.zIndex = 0;
+    }
+    /**
+     * @param {?} x
+     * @param {?} y
+     * @param {?} width
+     * @param {?} height
+     * @return {?}
+     */
+    setBounds(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+    /**
+     * @param {?} handle
+     * @param {?} event
+     * @param {?} direction
+     * @return {?}
+     */
+    dragstart(handle, event, direction) {
+        this.dashboardService.onResizeStart({ widget: this, direction: direction, event: event, handle: handle });
+    }
+    /**
+     * @param {?} handle
+     * @param {?} event
+     * @param {?} direction
+     * @return {?}
+     */
+    drag(handle, event, direction) {
+        this.dashboardService.onResizeDrag({ widget: this, direction: direction, event: event, handle: handle });
+    }
+    /**
+     * @return {?}
+     */
+    dragend() {
+        this.dashboardService.onResizeEnd();
+    }
+    /**
+     * Allows automatic setting of stackable value
+     * @param {?} property The current StackableValue object
+     * @param {?} value The value to set in the appropriate field
+     * @return {?}
+     */
+    setStackableValue(property, value) {
+        if (this.dashboardService.stacked) {
+            property.stacked = value;
+        }
+        else {
+            property.regular = value;
+        }
+    }
+    /**
+     * Return the appropriate value from a stackable value
+     * @param {?} property The Stackable value object
+     * @return {?}
+     */
+    getStackableValue(property) {
+        return this.dashboardService.stacked ? property.stacked : property.regular;
+    }
+}
+DashboardWidgetComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-dashboard-widget',
+                template: `
+      <div class="widget-content widget-col-span-{{ getColumnSpan() }} widget-row-span-{{ getRowSpan() }}">
+          <ng-content></ng-content>
+      </div>
+
+      <div uxDrag #handleTop class="resizer-handle handle-top" 
+          (dragstart)="dragstart(handleTop, $event, 0)"
+          (drag)="drag(handleTop, $event, 0)"
+          (dragend)="dragend()"
+          [style.top.px]="padding" 
+          [hidden]="!resizable">
+      </div>
+
+      <div uxDrag #handleTopRight class="resizer-handle handle-top-right" 
+          (dragstart)="dragstart(handleTopRight, $event, 1)"
+          (drag)="drag(handleTopRight, $event, 1)"
+          (dragend)="dragend()"
+          [style.top.px]="padding" 
+          [style.right.px]="padding" 
+          [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+      </div>
+
+      <div uxDrag #handleRight class="resizer-handle handle-right" 
+          (dragstart)="dragstart(handleRight, $event, 2)"
+          (drag)="drag(handleRight, $event, 2)"
+          (dragend)="dragend()"
+          [style.right.px]="padding" 
+          [hidden]="!resizable || (dashboardService.stacked$ | async)">
+      </div>
+
+      <div uxDrag #handleBottomRight class="resizer-handle handle-bottom-right" 
+          (dragstart)="dragstart(handleBottomRight, $event, 3)"
+          (drag)="drag(handleBottomRight, $event, 3)"
+          (dragend)="dragend()"
+          [style.bottom.px]="padding" 
+          [style.right.px]="padding" 
+          [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+      </div>
+
+      <div uxDrag #handleBottom class="resizer-handle handle-bottom" 
+          (dragstart)="dragstart(handleBottom, $event, 4)"
+          (drag)="drag(handleBottom, $event, 4)"
+          (dragend)="dragend()"
+          [style.bottom.px]="padding" 
+          [hidden]="!resizable">
+      </div>
+
+      <div uxDrag #handleBottomLeft class="resizer-handle handle-bottom-left" 
+          (dragstart)="dragstart(handleBottomLeft, $event, 5)"
+          (drag)="drag(handleBottomLeft, $event, 5)"
+          (dragend)="dragend()"
+          [style.bottom.px]="padding" 
+          [style.left.px]="padding" 
+          [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+      </div>
+
+      <div uxDrag #handleLeft class="resizer-handle handle-left" 
+          (dragstart)="dragstart(handleLeft, $event, 6)"
+          (drag)="drag(handleLeft, $event, 6)"
+          (dragend)="dragend()"
+          [style.left.px]="padding" 
+          [hidden]="!resizable || (dashboardService.stacked$ | async)">
+      </div>
+
+      <div uxDrag #handleTopLeft class="resizer-handle handle-top-left" 
+          (dragstart)="dragstart(handleTopLeft, $event, 7)"
+          (drag)="drag(handleTopLeft, $event, 7)"
+          (dragend)="dragend()"
+          [style.top.px]="padding" 
+          [style.left.px]="padding" 
+          [hidden]="!resizable && !(dashboardService.stacked$ | async)">
+      </div>
+    `
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DashboardWidgetComponent.ctorParameters = () => [
+    { type: DashboardService, },
+];
+DashboardWidgetComponent.propDecorators = {
+    'id': [{ type: Input },],
+    'col': [{ type: Input },],
+    'row': [{ type: Input },],
+    'colSpan': [{ type: Input },],
+    'rowSpan': [{ type: Input },],
+    'resizable': [{ type: Input },],
+    'x': [{ type: HostBinding, args: ['style.left.px',] },],
+    'y': [{ type: HostBinding, args: ['style.top.px',] },],
+    'width': [{ type: HostBinding, args: ['style.width.px',] },],
+    'height': [{ type: HostBinding, args: ['style.height.px',] },],
+    'padding': [{ type: HostBinding, args: ['style.padding.px',] },],
+    'zIndex': [{ type: HostBinding, args: ['style.z-index',] },],
+};
+
+var __extends$10 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var OuterSubscriber = (function (_super) {
+    __extends$10(OuterSubscriber, _super);
+    function OuterSubscriber() {
+        _super.apply(this, arguments);
+    }
+    OuterSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        this.destination.next(innerValue);
+    };
+    OuterSubscriber.prototype.notifyError = function (error, innerSub) {
+        this.destination.error(error);
+    };
+    OuterSubscriber.prototype.notifyComplete = function (innerSub) {
+        this.destination.complete();
+    };
+    return OuterSubscriber;
+}(Subscriber_1.Subscriber));
+var OuterSubscriber_2 = OuterSubscriber;
+
+
+var OuterSubscriber_1 = {
+	OuterSubscriber: OuterSubscriber_2
+};
+
+var isArrayLike_1 = (function (x) { return x && typeof x.length === 'number'; });
+
+
+var isArrayLike = {
+	isArrayLike: isArrayLike_1
+};
+
+function isPromise(value) {
+    return value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
+}
+var isPromise_2 = isPromise;
+
+
+var isPromise_1 = {
+	isPromise: isPromise_2
+};
+
+var iterator = createCommonjsModule(function (module, exports) {
+function symbolIteratorPonyfill(root$$2) {
+    var Symbol = root$$2.Symbol;
+    if (typeof Symbol === 'function') {
+        if (!Symbol.iterator) {
+            Symbol.iterator = Symbol('iterator polyfill');
+        }
+        return Symbol.iterator;
+    }
+    else {
+        // [for Mozilla Gecko 27-35:](https://mzl.la/2ewE1zC)
+        var Set_1 = root$$2.Set;
+        if (Set_1 && typeof new Set_1()['@@iterator'] === 'function') {
+            return '@@iterator';
+        }
+        var Map_1 = root$$2.Map;
+        // required for compatability with es6-shim
+        if (Map_1) {
+            var keys = Object.getOwnPropertyNames(Map_1.prototype);
+            for (var i = 0; i < keys.length; ++i) {
+                var key = keys[i];
+                // according to spec, Map.prototype[@@iterator] and Map.orototype.entries must be equal.
+                if (key !== 'entries' && key !== 'size' && Map_1.prototype[key] === Map_1.prototype['entries']) {
+                    return key;
+                }
+            }
+        }
+        return '@@iterator';
+    }
+}
+exports.symbolIteratorPonyfill = symbolIteratorPonyfill;
+exports.iterator = symbolIteratorPonyfill(root.root);
+/**
+ * @deprecated use iterator instead
+ */
+exports.$$iterator = exports.iterator;
+
+});
+
+var iterator_1 = iterator.symbolIteratorPonyfill;
+var iterator_2 = iterator.iterator;
+var iterator_3 = iterator.$$iterator;
+
+var __extends$11 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var InnerSubscriber = (function (_super) {
+    __extends$11(InnerSubscriber, _super);
+    function InnerSubscriber(parent, outerValue, outerIndex) {
+        _super.call(this);
+        this.parent = parent;
+        this.outerValue = outerValue;
+        this.outerIndex = outerIndex;
+        this.index = 0;
+    }
+    InnerSubscriber.prototype._next = function (value) {
+        this.parent.notifyNext(this.outerValue, value, this.outerIndex, this.index++, this);
+    };
+    InnerSubscriber.prototype._error = function (error) {
+        this.parent.notifyError(error, this);
+        this.unsubscribe();
+    };
+    InnerSubscriber.prototype._complete = function () {
+        this.parent.notifyComplete(this);
+        this.unsubscribe();
+    };
+    return InnerSubscriber;
+}(Subscriber_1.Subscriber));
+var InnerSubscriber_2 = InnerSubscriber;
+
+
+var InnerSubscriber_1 = {
+	InnerSubscriber: InnerSubscriber_2
+};
+
+function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
+    var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
+    if (destination.closed) {
+        return null;
+    }
+    if (result instanceof Observable_1.Observable) {
+        if (result._isScalar) {
+            destination.next(result.value);
+            destination.complete();
+            return null;
+        }
+        else {
+            destination.syncErrorThrowable = true;
+            return result.subscribe(destination);
+        }
+    }
+    else if (isArrayLike.isArrayLike(result)) {
+        for (var i = 0, len = result.length; i < len && !destination.closed; i++) {
+            destination.next(result[i]);
+        }
+        if (!destination.closed) {
+            destination.complete();
+        }
+    }
+    else if (isPromise_1.isPromise(result)) {
+        result.then(function (value) {
+            if (!destination.closed) {
+                destination.next(value);
+                destination.complete();
+            }
+        }, function (err) { return destination.error(err); })
+            .then(null, function (err) {
+            // Escaping the Promise trap: globally throw unhandled errors
+            root.root.setTimeout(function () { throw err; });
+        });
+        return destination;
+    }
+    else if (result && typeof result[iterator.iterator] === 'function') {
+        var iterator$$1 = result[iterator.iterator]();
+        do {
+            var item = iterator$$1.next();
+            if (item.done) {
+                destination.complete();
+                break;
+            }
+            destination.next(item.value);
+            if (destination.closed) {
+                break;
+            }
+        } while (true);
+    }
+    else if (result && typeof result[observable.observable] === 'function') {
+        var obs = result[observable.observable]();
+        if (typeof obs.subscribe !== 'function') {
+            destination.error(new TypeError('Provided object does not correctly implement Symbol.observable'));
+        }
+        else {
+            return obs.subscribe(new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
+        }
+    }
+    else {
+        var value = isObject_1.isObject(result) ? 'an invalid object' : "'" + result + "'";
+        var msg = ("You provided " + value + " where a stream was expected.")
+            + ' You can provide an Observable, Promise, Array, or Iterable.';
+        destination.error(new TypeError(msg));
+    }
+    return null;
+}
+var subscribeToResult_2 = subscribeToResult;
+
+
+var subscribeToResult_1 = {
+	subscribeToResult: subscribeToResult_2
+};
+
+var __extends$9 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+/**
+ * Emits the values emitted by the source Observable until a `notifier`
+ * Observable emits a value.
+ *
+ * <span class="informal">Lets values pass until a second Observable,
+ * `notifier`, emits something. Then, it completes.</span>
+ *
+ * <img src="./img/takeUntil.png" width="100%">
+ *
+ * `takeUntil` subscribes and begins mirroring the source Observable. It also
+ * monitors a second Observable, `notifier` that you provide. If the `notifier`
+ * emits a value or a complete notification, the output Observable stops
+ * mirroring the source Observable and completes.
+ *
+ * @example <caption>Tick every second until the first click happens</caption>
+ * var interval = Rx.Observable.interval(1000);
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = interval.takeUntil(clicks);
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link take}
+ * @see {@link takeLast}
+ * @see {@link takeWhile}
+ * @see {@link skip}
+ *
+ * @param {Observable} notifier The Observable whose first emitted value will
+ * cause the output Observable of `takeUntil` to stop emitting values from the
+ * source Observable.
+ * @return {Observable<T>} An Observable that emits the values from the source
+ * Observable until such time as `notifier` emits its first value.
+ * @method takeUntil
+ * @owner Observable
+ */
+function takeUntil$1(notifier) {
+    return function (source) { return source.lift(new TakeUntilOperator(notifier)); };
+}
+var takeUntil_2 = takeUntil$1;
+var TakeUntilOperator = (function () {
+    function TakeUntilOperator(notifier) {
+        this.notifier = notifier;
+    }
+    TakeUntilOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new TakeUntilSubscriber(subscriber, this.notifier));
+    };
+    return TakeUntilOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var TakeUntilSubscriber = (function (_super) {
+    __extends$9(TakeUntilSubscriber, _super);
+    function TakeUntilSubscriber(destination, notifier) {
+        _super.call(this, destination);
+        this.notifier = notifier;
+        this.add(subscribeToResult_1.subscribeToResult(this, notifier));
+    }
+    TakeUntilSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+        this.complete();
+    };
+    TakeUntilSubscriber.prototype.notifyComplete = function () {
+        // noop
+    };
+    return TakeUntilSubscriber;
+}(OuterSubscriber_1.OuterSubscriber));
+
+class DragDirective {
+    /**
+     * @param {?} elementRef
+     * @param {?} ngZone
+     */
+    constructor(elementRef, ngZone) {
+        this.dragstart = new EventEmitter();
+        this.drag = new EventEmitter();
+        this.dragend = new EventEmitter();
+        const mousedown$ = fromEvent$1(elementRef.nativeElement, 'mousedown');
+        const mousemove$ = fromEvent$1(document, 'mousemove');
+        const mouseup$ = fromEvent$1(document, 'mouseup');
+        this._subscription = mousedown$.subscribe(event => {
+            event.preventDefault();
+            // emit the drag start event 
+            ngZone.run(() => this.dragstart.emit(event));
+            mousemove$.pipe(takeUntil_2(mouseup$)).subscribe(moveevent => {
+                moveevent.preventDefault();
+                // emit the drag start event 
+                ngZone.run(() => this.drag.emit(moveevent));
+            }, null, () => ngZone.run(() => this.dragend.emit()));
+        });
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._subscription.unsubscribe();
+    }
+}
+DragDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxDrag]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DragDirective.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: NgZone, },
+];
+DragDirective.propDecorators = {
+    'dragstart': [{ type: Output },],
+    'drag': [{ type: Output },],
+    'dragend': [{ type: Output },],
+};
+
+class DashboardDragHandleDirective extends DragDirective {
+    /**
+     * @param {?} widget
+     * @param {?} dashboardService
+     * @param {?} elementRef
+     * @param {?} ngZone
+     */
+    constructor(widget, dashboardService, elementRef, ngZone) {
+        super(elementRef, ngZone);
+        this.dragstart.subscribe((event) => dashboardService.onDragStart({ widget: widget, direction: ActionDirection.Move, event: event }));
+        this.drag.subscribe((event) => dashboardService.onDrag({ widget: widget, direction: ActionDirection.Move, event: event }));
+        this.dragend.subscribe(() => dashboardService.onDragEnd());
+    }
+}
+DashboardDragHandleDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxDashboardWidgetDragHandle], [ux-dashboard-widget-drag-handle]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DashboardDragHandleDirective.ctorParameters = () => [
+    { type: DashboardWidgetComponent, },
+    { type: DashboardService, },
+    { type: ElementRef, },
+    { type: NgZone, },
+];
+
+class ResizeService {
+    /**
+     * @param {?} rendererFactory
+     */
+    constructor(rendererFactory) {
+        this._renderer = rendererFactory.createRenderer(null, null);
+    }
+    /**
+     * @param {?} nativeElement
+     * @return {?}
+     */
+    addResizeListener(nativeElement) {
+        // create subject
+        const /** @type {?} */ subject = new Subject$1();
+        // determine the style of the element
+        const /** @type {?} */ displayMode = window.getComputedStyle(nativeElement).getPropertyValue('display');
+        // create the iframe element
+        const /** @type {?} */ iframe = this._renderer.createElement('iframe');
+        // style the iframe to be invisible but fill containing element
+        this._renderer.setStyle(iframe, 'position', 'absolute');
+        this._renderer.setStyle(iframe, 'width', '100%');
+        this._renderer.setStyle(iframe, 'height', '100%');
+        this._renderer.setStyle(iframe, 'top', '0');
+        this._renderer.setStyle(iframe, 'right', '0');
+        this._renderer.setStyle(iframe, 'bottom', '0');
+        this._renderer.setStyle(iframe, 'left', '0');
+        this._renderer.setStyle(iframe, 'z-index', '-1');
+        this._renderer.setStyle(iframe, 'opacity', '0');
+        this._renderer.setStyle(iframe, 'border', 'none');
+        this._renderer.setStyle(iframe, 'margin', '0');
+        this._renderer.setStyle(iframe, 'pointer-events', 'none');
+        this._renderer.setStyle(iframe, 'overflow', 'hidden');
+        // ensure the iframe ignores any tabbing
+        this._renderer.setAttribute(iframe, 'tabindex', '-1');
+        // statically positioned elements need changed to relative for this method to work
+        if (displayMode !== 'relative' && displayMode !== 'absolute' && displayMode !== 'fixed') {
+            this._renderer.setStyle(nativeElement, 'position', 'relative');
+        }
+        // add the iframe to the container element
+        this._renderer.appendChild(nativeElement, iframe);
+        this.waitUntilReady(iframe, () => {
+            const /** @type {?} */ iframeDoc = iframe.contentDocument || (iframe.contentWindow.document);
+            const /** @type {?} */ attachListener = function () {
+                Observable$1.fromEvent(iframe.contentWindow, 'resize').subscribe((event) => {
+                    subject.next({
+                        width: nativeElement.offsetWidth,
+                        height: nativeElement.offsetHeight
+                    });
+                });
+            };
+            if (iframeDoc.readyState === 'complete') {
+                attachListener();
+            }
+            else {
+                // wait for iframe to load
+                iframe.addEventListener('load', () => attachListener());
+            }
+        });
+        return subject;
+    }
+    /**
+     * @param {?} iframe
+     * @param {?} callback
+     * @return {?}
+     */
+    waitUntilReady(iframe, callback) {
+        if (iframe.contentDocument || iframe.contentWindow) {
+            callback.call(this);
+        }
+        else {
+            setTimeout(() => this.waitUntilReady(iframe, callback));
+        }
+    }
+}
+ResizeService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+ResizeService.ctorParameters = () => [
+    { type: RendererFactory2, },
+];
+
+var __extends$12 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+/**
+ * Emits a value from the source Observable only after a particular time span
+ * has passed without another source emission.
+ *
+ * <span class="informal">It's like {@link delay}, but passes only the most
+ * recent value from each burst of emissions.</span>
+ *
+ * <img src="./img/debounceTime.png" width="100%">
+ *
+ * `debounceTime` delays values emitted by the source Observable, but drops
+ * previous pending delayed emissions if a new value arrives on the source
+ * Observable. This operator keeps track of the most recent value from the
+ * source Observable, and emits that only when `dueTime` enough time has passed
+ * without any other value appearing on the source Observable. If a new value
+ * appears before `dueTime` silence occurs, the previous value will be dropped
+ * and will not be emitted on the output Observable.
+ *
+ * This is a rate-limiting operator, because it is impossible for more than one
+ * value to be emitted in any time window of duration `dueTime`, but it is also
+ * a delay-like operator since output emissions do not occur at the same time as
+ * they did on the source Observable. Optionally takes a {@link IScheduler} for
+ * managing timers.
+ *
+ * @example <caption>Emit the most recent click after a burst of clicks</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.debounceTime(1000);
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link auditTime}
+ * @see {@link debounce}
+ * @see {@link delay}
+ * @see {@link sampleTime}
+ * @see {@link throttleTime}
+ *
+ * @param {number} dueTime The timeout duration in milliseconds (or the time
+ * unit determined internally by the optional `scheduler`) for the window of
+ * time required to wait for emission silence before emitting the most recent
+ * source value.
+ * @param {Scheduler} [scheduler=async] The {@link IScheduler} to use for
+ * managing the timers that handle the timeout for each value.
+ * @return {Observable} An Observable that delays the emissions of the source
+ * Observable by the specified `dueTime`, and may drop some values if they occur
+ * too frequently.
+ * @method debounceTime
+ * @owner Observable
+ */
+function debounceTime$1(dueTime, scheduler) {
+    if (scheduler === void 0) { scheduler = async.async; }
+    return function (source) { return source.lift(new DebounceTimeOperator(dueTime, scheduler)); };
+}
+var debounceTime_2 = debounceTime$1;
+var DebounceTimeOperator = (function () {
+    function DebounceTimeOperator(dueTime, scheduler) {
+        this.dueTime = dueTime;
+        this.scheduler = scheduler;
+    }
+    DebounceTimeOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new DebounceTimeSubscriber(subscriber, this.dueTime, this.scheduler));
+    };
+    return DebounceTimeOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var DebounceTimeSubscriber = (function (_super) {
+    __extends$12(DebounceTimeSubscriber, _super);
+    function DebounceTimeSubscriber(destination, dueTime, scheduler) {
+        _super.call(this, destination);
+        this.dueTime = dueTime;
+        this.scheduler = scheduler;
+        this.debouncedSubscription = null;
+        this.lastValue = null;
+        this.hasValue = false;
+    }
+    DebounceTimeSubscriber.prototype._next = function (value) {
+        this.clearDebounce();
+        this.lastValue = value;
+        this.hasValue = true;
+        this.add(this.debouncedSubscription = this.scheduler.schedule(dispatchNext, this.dueTime, this));
+    };
+    DebounceTimeSubscriber.prototype._complete = function () {
+        this.debouncedNext();
+        this.destination.complete();
+    };
+    DebounceTimeSubscriber.prototype.debouncedNext = function () {
+        this.clearDebounce();
+        if (this.hasValue) {
+            this.destination.next(this.lastValue);
+            this.lastValue = null;
+            this.hasValue = false;
+        }
+    };
+    DebounceTimeSubscriber.prototype.clearDebounce = function () {
+        var debouncedSubscription = this.debouncedSubscription;
+        if (debouncedSubscription !== null) {
+            this.remove(debouncedSubscription);
+            debouncedSubscription.unsubscribe();
+            this.debouncedSubscription = null;
+        }
+    };
+    return DebounceTimeSubscriber;
+}(Subscriber_1.Subscriber));
+function dispatchNext(subscriber) {
+    subscriber.debouncedNext();
+}
+
+class ResizeDirective {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _resizeService
+     * @param {?} _ngZone
+     */
+    constructor(_elementRef, _resizeService, _ngZone) {
+        this._elementRef = _elementRef;
+        this._resizeService = _resizeService;
+        this._ngZone = _ngZone;
+        this.throttle = 0;
+        this.uxResize = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this._resizeService.addResizeListener(this._elementRef.nativeElement)
+            .pipe(debounceTime_2(this.throttle))
+            .subscribe((event) => this._ngZone.run(() => this.uxResize.emit(event)));
+    }
+}
+ResizeDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxResize]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ResizeDirective.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: ResizeService, },
+    { type: NgZone, },
+];
+ResizeDirective.propDecorators = {
+    'throttle': [{ type: Input },],
+    'uxResize': [{ type: Output },],
+};
+
+class ResizeModule {
+}
+ResizeModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [ResizeDirective],
+                declarations: [ResizeDirective],
+                providers: [ResizeService]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ResizeModule.ctorParameters = () => [];
+
+class DragModule {
+}
+DragModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [DragDirective],
+                declarations: [DragDirective]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DragModule.ctorParameters = () => [];
+
+const DECLARATIONS = [
+    DashboardComponent,
+    DashboardWidgetComponent,
+    DashboardDragHandleDirective
+];
+class DashboardModule {
+}
+DashboardModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    ResizeModule,
+                    DragModule
+                ],
+                exports: DECLARATIONS,
+                declarations: DECLARATIONS,
+                providers: [DashboardService],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+DashboardModule.ctorParameters = () => [];
+
+var TimepickerActions = (function () {
+    function TimepickerActions() {
+    }
+    TimepickerActions.prototype.writeValue = function (value) {
+        return {
+            type: TimepickerActions.WRITE_VALUE,
+            payload: value
+        };
+    };
+    TimepickerActions.prototype.changeHours = function (event) {
+        return {
+            type: TimepickerActions.CHANGE_HOURS,
+            payload: event
+        };
+    };
+    TimepickerActions.prototype.changeMinutes = function (event) {
+        return {
+            type: TimepickerActions.CHANGE_MINUTES,
+            payload: event
+        };
+    };
+    TimepickerActions.prototype.changeSeconds = function (event) {
+        return {
+            type: TimepickerActions.CHANGE_SECONDS,
+            payload: event
+        };
+    };
+    TimepickerActions.prototype.setTime = function (value) {
+        return {
+            type: TimepickerActions.SET_TIME_UNIT,
+            payload: value
+        };
+    };
+    TimepickerActions.prototype.updateControls = function (value) {
+        return {
+            type: TimepickerActions.UPDATE_CONTROLS,
+            payload: value
+        };
+    };
+    TimepickerActions.WRITE_VALUE = '[timepicker] write value from ng model';
+    TimepickerActions.CHANGE_HOURS = '[timepicker] change hours';
+    TimepickerActions.CHANGE_MINUTES = '[timepicker] change minutes';
+    TimepickerActions.CHANGE_SECONDS = '[timepicker] change seconds';
+    TimepickerActions.SET_TIME_UNIT = '[timepicker] set time unit';
+    TimepickerActions.UPDATE_CONTROLS = '[timepicker] update controls';
+    TimepickerActions.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    TimepickerActions.ctorParameters = function () { return []; };
+    return TimepickerActions;
+}());
+
+var dex = 10;
+var hoursPerDay = 24;
+var hoursPerDayHalf = 12;
+var minutesPerHour = 60;
+var secondsPerMinute = 60;
+function isValidDate(value) {
+    if (!value) {
+        return false;
+    }
+    if (value instanceof Date && isNaN(value.getHours())) {
+        return false;
+    }
+    if (typeof value === 'string') {
+        return isValidDate(new Date(value));
+    }
+    return true;
+}
+function toNumber(value) {
+    if (typeof value === 'number') {
+        return value;
+    }
+    return parseInt(value, dex);
+}
+
+function parseHours(value, isPM) {
+    if (isPM === void 0) { isPM = false; }
+    var hour = toNumber(value);
+    if (isNaN(hour) ||
+        hour < 0 ||
+        hour > (isPM ? hoursPerDayHalf : hoursPerDay)) {
+        return NaN;
+    }
+    return hour;
+}
+function parseMinutes(value) {
+    var minute = toNumber(value);
+    if (isNaN(minute) || minute < 0 || minute > minutesPerHour) {
+        return NaN;
+    }
+    return minute;
+}
+function parseSeconds(value) {
+    var seconds = toNumber(value);
+    if (isNaN(seconds) || seconds < 0 || seconds > secondsPerMinute) {
+        return NaN;
+    }
+    return seconds;
+}
+function parseTime(value) {
+    if (typeof value === 'string') {
+        return new Date(value);
+    }
+    return value;
+}
+function changeTime(value, diff) {
+    if (!value) {
+        return changeTime(createDate(new Date(), 0, 0, 0), diff);
+    }
+    var hour = value.getHours();
+    var minutes = value.getMinutes();
+    var seconds = value.getSeconds();
+    if (diff.hour) {
+        hour = (hour + toNumber(diff.hour)) % hoursPerDay;
+        if (hour < 0) {
+            hour += hoursPerDay;
+        }
+    }
+    if (diff.minute) {
+        minutes = minutes + toNumber(diff.minute);
+    }
+    if (diff.seconds) {
+        seconds = seconds + toNumber(diff.seconds);
+    }
+    return createDate(value, hour, minutes, seconds);
+}
+function setTime(value, opts) {
+    var hour = parseHours(opts.hour);
+    var minute = parseMinutes(opts.minute);
+    var seconds = parseSeconds(opts.seconds) || 0;
+    if (opts.isPM) {
+        hour += hoursPerDayHalf;
+    }
+    // fixme: unreachable code, value is mandatory
+    if (!value) {
+        if (!isNaN(hour) && !isNaN(minute)) {
+            return createDate(new Date(), hour, minute, seconds);
+        }
+        return value;
+    }
+    if (isNaN(hour) || isNaN(minute)) {
+        return value;
+    }
+    return createDate(value, hour, minute, seconds);
+}
+function createDate(value, hours, minutes, seconds) {
+    // fixme: unreachable code, value is mandatory
+    var _value = value || new Date();
+    return new Date(_value.getFullYear(), _value.getMonth(), _value.getDate(), hours, minutes, seconds, _value.getMilliseconds());
+}
+function padNumber(value) {
+    var _value = value.toString();
+    if (_value.length > 1) {
+        return _value;
+    }
+    return "0" + _value;
+}
+function isInputValid(hours, minutes, seconds, isPM) {
+    if (minutes === void 0) { minutes = '0'; }
+    if (seconds === void 0) { seconds = '0'; }
+    return !(isNaN(parseHours(hours, isPM))
+        || isNaN(parseMinutes(minutes))
+        || isNaN(parseSeconds(seconds)));
+}
+
+function canChangeValue(state$$1, event) {
+    if (state$$1.readonlyInput) {
+        return false;
+    }
+    if (event) {
+        if (event.source === 'wheel' && !state$$1.mousewheel) {
+            return false;
+        }
+        if (event.source === 'key' && !state$$1.arrowkeys) {
+            return false;
+        }
+    }
+    return true;
+}
+function canChangeHours(event, controls) {
+    if (!event.step) {
+        return false;
+    }
+    if (event.step > 0 && !controls.canIncrementHours) {
+        return false;
+    }
+    if (event.step < 0 && !controls.canDecrementHours) {
+        return false;
+    }
+    return true;
+}
+function canChangeMinutes(event, controls) {
+    if (!event.step) {
+        return false;
+    }
+    if (event.step > 0 && !controls.canIncrementMinutes) {
+        return false;
+    }
+    if (event.step < 0 && !controls.canDecrementMinutes) {
+        return false;
+    }
+    return true;
+}
+function canChangeSeconds(event, controls) {
+    if (!event.step) {
+        return false;
+    }
+    if (event.step > 0 && !controls.canIncrementSeconds) {
+        return false;
+    }
+    if (event.step < 0 && !controls.canDecrementSeconds) {
+        return false;
+    }
+    return true;
+}
+function getControlsValue(state$$1) {
+    var hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, readonlyInput = state$$1.readonlyInput, mousewheel = state$$1.mousewheel, arrowkeys = state$$1.arrowkeys, showSpinners = state$$1.showSpinners, showMeridian = state$$1.showMeridian, showSeconds = state$$1.showSeconds, meridians = state$$1.meridians, min = state$$1.min, max = state$$1.max;
+    return {
+        hourStep: hourStep,
+        minuteStep: minuteStep,
+        secondsStep: secondsStep,
+        readonlyInput: readonlyInput,
+        mousewheel: mousewheel,
+        arrowkeys: arrowkeys,
+        showSpinners: showSpinners,
+        showMeridian: showMeridian,
+        showSeconds: showSeconds,
+        meridians: meridians,
+        min: min,
+        max: max
+    };
+}
+function timepickerControls(value, state$$1) {
+    var min = state$$1.min, max = state$$1.max, hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, showSeconds = state$$1.showSeconds;
+    var res = {
+        canIncrementHours: true,
+        canIncrementMinutes: true,
+        canIncrementSeconds: true,
+        canDecrementHours: true,
+        canDecrementMinutes: true,
+        canDecrementSeconds: true
+    };
+    if (!value) {
+        return res;
+    }
+    // compare dates
+    if (max) {
+        var _newHour = changeTime(value, { hour: hourStep });
+        res.canIncrementHours = max > _newHour;
+        if (!res.canIncrementHours) {
+            var _newMinutes = changeTime(value, { minute: minuteStep });
+            res.canIncrementMinutes = showSeconds
+                ? max > _newMinutes
+                : max >= _newMinutes;
+        }
+        if (!res.canIncrementMinutes) {
+            var _newSeconds = changeTime(value, { seconds: secondsStep });
+            res.canIncrementSeconds = max >= _newSeconds;
+        }
+    }
+    if (min) {
+        var _newHour = changeTime(value, { hour: -hourStep });
+        res.canDecrementHours = min < _newHour;
+        if (!res.canDecrementHours) {
+            var _newMinutes = changeTime(value, { minute: -minuteStep });
+            res.canDecrementMinutes = showSeconds
+                ? min < _newMinutes
+                : min <= _newMinutes;
+        }
+        if (!res.canDecrementMinutes) {
+            var _newSeconds = changeTime(value, { seconds: -secondsStep });
+            res.canDecrementSeconds = min <= _newSeconds;
+        }
+    }
+    return res;
+}
+
+/** Provides default configuration values for timepicker */
+var TimepickerConfig = (function () {
+    function TimepickerConfig() {
+        /** hours change step */
+        this.hourStep = 1;
+        /** hours change step */
+        this.minuteStep = 5;
+        /** seconds changes step */
+        this.secondsStep = 10;
+        /** if true works in 12H mode and displays AM/PM. If false works in 24H mode and hides AM/PM */
+        this.showMeridian = true;
+        /** meridian labels based on locale */
+        this.meridians = ['AM', 'PM'];
+        /** if true hours and minutes fields will be readonly */
+        this.readonlyInput = false;
+        /** if true scroll inside hours and minutes inputs will change time */
+        this.mousewheel = true;
+        /** if true up/down arrowkeys inside hours and minutes inputs will change time */
+        this.arrowkeys = true;
+        /** if true spinner arrows above and below the inputs will be shown */
+        this.showSpinners = true;
+        /** show seconds in timepicker */
+        this.showSeconds = false;
+        /** show minutes in timepicker */
+        this.showMinutes = true;
+    }
+    TimepickerConfig.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    TimepickerConfig.ctorParameters = function () { return []; };
+    return TimepickerConfig;
+}());
+
+var initialState = {
+    value: null,
+    config: new TimepickerConfig(),
+    controls: {
+        canIncrementHours: true,
+        canIncrementMinutes: true,
+        canIncrementSeconds: true,
+        canDecrementHours: true,
+        canDecrementMinutes: true,
+        canDecrementSeconds: true
+    }
+};
+function timepickerReducer(state$$1, action) {
+    if (state$$1 === void 0) { state$$1 = initialState; }
+    switch (action.type) {
+        case TimepickerActions.WRITE_VALUE: {
+            return Object.assign({}, state$$1, { value: action.payload });
+        }
+        case TimepickerActions.CHANGE_HOURS: {
+            if (!canChangeValue(state$$1.config, action.payload) ||
+                !canChangeHours(action.payload, state$$1.controls)) {
+                return state$$1;
+            }
+            var _newTime = changeTime(state$$1.value, { hour: action.payload.step });
+            return Object.assign({}, state$$1, { value: _newTime });
+        }
+        case TimepickerActions.CHANGE_MINUTES: {
+            if (!canChangeValue(state$$1.config, action.payload) ||
+                !canChangeMinutes(action.payload, state$$1.controls)) {
+                return state$$1;
+            }
+            var _newTime = changeTime(state$$1.value, { minute: action.payload.step });
+            return Object.assign({}, state$$1, { value: _newTime });
+        }
+        case TimepickerActions.CHANGE_SECONDS: {
+            if (!canChangeValue(state$$1.config, action.payload) ||
+                !canChangeSeconds(action.payload, state$$1.controls)) {
+                return state$$1;
+            }
+            var _newTime = changeTime(state$$1.value, {
+                seconds: action.payload.step
+            });
+            return Object.assign({}, state$$1, { value: _newTime });
+        }
+        case TimepickerActions.SET_TIME_UNIT: {
+            if (!canChangeValue(state$$1.config)) {
+                return state$$1;
+            }
+            var _newTime = setTime(state$$1.value, action.payload);
+            return Object.assign({}, state$$1, { value: _newTime });
+        }
+        case TimepickerActions.UPDATE_CONTROLS: {
+            var _newControlsState = timepickerControls(state$$1.value, action.payload);
+            var _newState = {
+                value: state$$1.value,
+                config: action.payload,
+                controls: _newControlsState
+            };
+            if (state$$1.config.showMeridian !== _newState.config.showMeridian) {
+                if (state$$1.value) {
+                    _newState.value = new Date(state$$1.value);
+                }
+            }
+            return Object.assign({}, state$$1, _newState);
+        }
+        default:
+            return state$$1;
+    }
+}
+
+var __extends$14 = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @copyright ngrx
+ */
+var MiniStore = (function (_super) {
+    __extends$14(MiniStore, _super);
+    function MiniStore(_dispatcher, _reducer, state$) {
+        var _this = _super.call(this) || this;
+        _this._dispatcher = _dispatcher;
+        _this._reducer = _reducer;
+        _this.source = state$;
+        return _this;
+    }
+    MiniStore.prototype.select = function (pathOrMapFn) {
+        var mapped$ = map$1.call(this, pathOrMapFn);
+        return distinctUntilChanged$1.call(mapped$);
+    };
+    MiniStore.prototype.lift = function (operator) {
+        var store = new MiniStore(this._dispatcher, this._reducer, this);
+        store.operator = operator;
+        return store;
+    };
+    MiniStore.prototype.dispatch = function (action) {
+        this._dispatcher.next(action);
+    };
+    MiniStore.prototype.next = function (action) {
+        this._dispatcher.next(action);
+    };
+    MiniStore.prototype.error = function (err) {
+        this._dispatcher.error(err);
+    };
+    MiniStore.prototype.complete = function () {
+        /*noop*/
+    };
+    return MiniStore;
+}(Observable$1));
+
+var __extends$16 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var QueueAction = (function (_super) {
+    __extends$16(QueueAction, _super);
+    function QueueAction(scheduler, work) {
+        _super.call(this, scheduler, work);
+        this.scheduler = scheduler;
+        this.work = work;
+    }
+    QueueAction.prototype.schedule = function (state$$1, delay) {
+        if (delay === void 0) { delay = 0; }
+        if (delay > 0) {
+            return _super.prototype.schedule.call(this, state$$1, delay);
+        }
+        this.delay = delay;
+        this.state = state$$1;
+        this.scheduler.flush(this);
+        return this;
+    };
+    QueueAction.prototype.execute = function (state$$1, delay) {
+        return (delay > 0 || this.closed) ?
+            _super.prototype.execute.call(this, state$$1, delay) :
+            this._execute(state$$1, delay);
+    };
+    QueueAction.prototype.requestAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) { delay = 0; }
+        // If delay exists and is greater than 0, or if the delay is null (the
+        // action wasn't rescheduled) but was originally scheduled as an async
+        // action, then recycle as an async action.
+        if ((delay !== null && delay > 0) || (delay === null && this.delay > 0)) {
+            return _super.prototype.requestAsyncId.call(this, scheduler, id, delay);
+        }
+        // Otherwise flush the scheduler starting with this action.
+        return scheduler.flush(this);
+    };
+    return QueueAction;
+}(AsyncAction_1.AsyncAction));
+var QueueAction_2 = QueueAction;
+
+
+var QueueAction_1 = {
+	QueueAction: QueueAction_2
+};
+
+var __extends$17 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
 var QueueScheduler = (function (_super) {
-    __extends$7(QueueScheduler, _super);
+    __extends$17(QueueScheduler, _super);
     function QueueScheduler() {
         _super.apply(this, arguments);
     }
@@ -3199,7 +4860,7 @@ var QueueScheduler_1 = {
  */
 var queue_1 = new QueueScheduler_1.QueueScheduler(QueueAction_1.QueueAction);
 
-var __extends$2 = (this && this.__extends) || (function () {
+var __extends$15 = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
         function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
@@ -3213,15 +4874,15 @@ var __extends$2 = (this && this.__extends) || (function () {
  * @copyright ngrx
  */
 var MiniState = (function (_super) {
-    __extends$2(MiniState, _super);
+    __extends$15(MiniState, _super);
     function MiniState(_initialState, actionsDispatcher$, reducer) {
         var _this = _super.call(this, _initialState) || this;
         var actionInQueue$ = observeOn$1.call(actionsDispatcher$, queue_1);
-        var state$ = scan$1.call(actionInQueue$, function (state, action) {
+        var state$ = scan$1.call(actionInQueue$, function (state$$1, action) {
             if (!action) {
-                return state;
+                return state$$1;
             }
-            return reducer(state, action);
+            return reducer(state$$1, action);
         }, _initialState);
         state$.subscribe(function (value) { return _this.next(value); });
         return _this;
@@ -3229,7 +4890,7 @@ var MiniState = (function (_super) {
     return MiniState;
 }(BehaviorSubject$1));
 
-var __extends = (this && this.__extends) || (function () {
+var __extends$13 = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
         function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
@@ -3240,14 +4901,14 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var TimepickerStore = (function (_super) {
-    __extends(TimepickerStore, _super);
+    __extends$13(TimepickerStore, _super);
     function TimepickerStore() {
         var _this = this;
         var _dispatcher = new BehaviorSubject$1({
             type: '[mini-ngrx] dispatcher init'
         });
-        var state = new MiniState(initialState, _dispatcher, timepickerReducer);
-        _this = _super.call(this, _dispatcher, timepickerReducer, state) || this;
+        var state$$1 = new MiniState(initialState, _dispatcher, timepickerReducer);
+        _this = _super.call(this, _dispatcher, timepickerReducer, state$$1) || this;
         return _this;
     }
     TimepickerStore.decorators = [
@@ -3281,13 +4942,13 @@ var TimepickerComponent = (function () {
         this.onTouched = Function.prototype;
         Object.assign(this, _config);
         // todo: add unsubscribe
-        _store.select(function (state) { return state.value; }).subscribe(function (value) {
+        _store.select(function (state$$1) { return state$$1.value; }).subscribe(function (value) {
             // update UI values if date changed
             _this._renderTime(value);
             _this.onChange(value);
             _this._store.dispatch(_this._timepickerActions.updateControls(getControlsValue(_this)));
         });
-        _store.select(function (state) { return state.controls; }).subscribe(function (controlsState) {
+        _store.select(function (state$$1) { return state$$1.controls; }).subscribe(function (controlsState) {
             _this.isValid.emit(isInputValid(_this.hours, _this.minutes, _this.seconds, _this.isPM()));
             Object.assign(_this, controlsState);
             _cd.markForCheck();
@@ -3522,8 +5183,8 @@ var ButtonCheckboxDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    ButtonCheckboxDirective.prototype.toggle = function (state) {
-        this.state = state;
+    ButtonCheckboxDirective.prototype.toggle = function (state$$1) {
+        this.state = state$$1;
         this.value = this.state ? this.trueValue : this.falseValue;
     };
     // ControlValueAccessor
@@ -4878,7 +6539,7 @@ function parseTriggers(triggers, aliases) {
     }
     var parsedTriggers = trimmedTriggers
         .split(/\s+/)
-        .map(function (trigger) { return trigger.split(':'); })
+        .map(function (trigger$$1) { return trigger$$1.split(':'); })
         .map(function (triggerPair) {
         var alias = aliases[triggerPair[0]] || triggerPair;
         return new Trigger(alias[0], alias[1]);
@@ -4913,15 +6574,15 @@ function listenToTriggersV2(renderer, options) {
         _registerHide.length = 0;
     };
     // register open\close\toggle listeners
-    parsedTriggers.forEach(function (trigger) {
-        var useToggle = trigger.open === trigger.close;
+    parsedTriggers.forEach(function (trigger$$1) {
+        var useToggle = trigger$$1.open === trigger$$1.close;
         var showFn = useToggle ? options.toggle : options.show;
         if (!useToggle) {
             _registerHide.push(function () {
-                return renderer.listen(target, trigger.close, options.hide);
+                return renderer.listen(target, trigger$$1.close, options.hide);
             });
         }
-        listeners.push(renderer.listen(target, trigger.open, function () { return showFn(registerHide); }));
+        listeners.push(renderer.listen(target, trigger$$1.open, function () { return showFn(registerHide); }));
     });
     return function () {
         listeners.forEach(function (unsubscribeFn) { return unsubscribeFn(); });
@@ -8753,8 +10414,8 @@ class FlippableCardComponent {
      * @param {?} state
      * @return {?}
      */
-    setFlipped(state) {
-        this.flipped = state;
+    setFlipped(state$$1) {
+        this.flipped = state$$1;
         this.flippedChange.emit(this.flipped);
     }
     /**
@@ -9377,394 +11038,6 @@ WizardModule.decorators = [
  */
 WizardModule.ctorParameters = () => [];
 
-var empty = {
-    closed: true,
-    next: function (value) { },
-    error: function (err) { throw err; },
-    complete: function () { }
-};
-
-
-var Observer = {
-	empty: empty
-};
-
-var rxSubscriber = createCommonjsModule(function (module, exports) {
-var Symbol = root.root.Symbol;
-exports.rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
-    Symbol.for('rxSubscriber') : '@@rxSubscriber';
-/**
- * @deprecated use rxSubscriber instead
- */
-exports.$$rxSubscriber = exports.rxSubscriber;
-
-});
-
-var rxSubscriber_1 = rxSubscriber.rxSubscriber;
-var rxSubscriber_2 = rxSubscriber.$$rxSubscriber;
-
-var __extends$10 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-
-
-
-/**
- * Implements the {@link Observer} interface and extends the
- * {@link Subscription} class. While the {@link Observer} is the public API for
- * consuming the values of an {@link Observable}, all Observers get converted to
- * a Subscriber, in order to provide Subscription-like capabilities such as
- * `unsubscribe`. Subscriber is a common type in RxJS, and crucial for
- * implementing operators, but it is rarely used as a public API.
- *
- * @class Subscriber<T>
- */
-var Subscriber = (function (_super) {
-    __extends$10(Subscriber, _super);
-    /**
-     * @param {Observer|function(value: T): void} [destinationOrNext] A partially
-     * defined Observer or a `next` callback function.
-     * @param {function(e: ?any): void} [error] The `error` callback of an
-     * Observer.
-     * @param {function(): void} [complete] The `complete` callback of an
-     * Observer.
-     */
-    function Subscriber(destinationOrNext, error, complete) {
-        _super.call(this);
-        this.syncErrorValue = null;
-        this.syncErrorThrown = false;
-        this.syncErrorThrowable = false;
-        this.isStopped = false;
-        switch (arguments.length) {
-            case 0:
-                this.destination = Observer.empty;
-                break;
-            case 1:
-                if (!destinationOrNext) {
-                    this.destination = Observer.empty;
-                    break;
-                }
-                if (typeof destinationOrNext === 'object') {
-                    if (destinationOrNext instanceof Subscriber) {
-                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
-                        this.destination = destinationOrNext;
-                        this.destination.add(this);
-                    }
-                    else {
-                        this.syncErrorThrowable = true;
-                        this.destination = new SafeSubscriber(this, destinationOrNext);
-                    }
-                    break;
-                }
-            default:
-                this.syncErrorThrowable = true;
-                this.destination = new SafeSubscriber(this, destinationOrNext, error, complete);
-                break;
-        }
-    }
-    Subscriber.prototype[rxSubscriber.rxSubscriber] = function () { return this; };
-    /**
-     * A static factory for a Subscriber, given a (potentially partial) definition
-     * of an Observer.
-     * @param {function(x: ?T): void} [next] The `next` callback of an Observer.
-     * @param {function(e: ?any): void} [error] The `error` callback of an
-     * Observer.
-     * @param {function(): void} [complete] The `complete` callback of an
-     * Observer.
-     * @return {Subscriber<T>} A Subscriber wrapping the (partially defined)
-     * Observer represented by the given arguments.
-     */
-    Subscriber.create = function (next, error, complete) {
-        var subscriber = new Subscriber(next, error, complete);
-        subscriber.syncErrorThrowable = false;
-        return subscriber;
-    };
-    /**
-     * The {@link Observer} callback to receive notifications of type `next` from
-     * the Observable, with a value. The Observable may call this method 0 or more
-     * times.
-     * @param {T} [value] The `next` value.
-     * @return {void}
-     */
-    Subscriber.prototype.next = function (value) {
-        if (!this.isStopped) {
-            this._next(value);
-        }
-    };
-    /**
-     * The {@link Observer} callback to receive notifications of type `error` from
-     * the Observable, with an attached {@link Error}. Notifies the Observer that
-     * the Observable has experienced an error condition.
-     * @param {any} [err] The `error` exception.
-     * @return {void}
-     */
-    Subscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            this.isStopped = true;
-            this._error(err);
-        }
-    };
-    /**
-     * The {@link Observer} callback to receive a valueless notification of type
-     * `complete` from the Observable. Notifies the Observer that the Observable
-     * has finished sending push-based notifications.
-     * @return {void}
-     */
-    Subscriber.prototype.complete = function () {
-        if (!this.isStopped) {
-            this.isStopped = true;
-            this._complete();
-        }
-    };
-    Subscriber.prototype.unsubscribe = function () {
-        if (this.closed) {
-            return;
-        }
-        this.isStopped = true;
-        _super.prototype.unsubscribe.call(this);
-    };
-    Subscriber.prototype._next = function (value) {
-        this.destination.next(value);
-    };
-    Subscriber.prototype._error = function (err) {
-        this.destination.error(err);
-        this.unsubscribe();
-    };
-    Subscriber.prototype._complete = function () {
-        this.destination.complete();
-        this.unsubscribe();
-    };
-    Subscriber.prototype._unsubscribeAndRecycle = function () {
-        var _a = this, _parent = _a._parent, _parents = _a._parents;
-        this._parent = null;
-        this._parents = null;
-        this.unsubscribe();
-        this.closed = false;
-        this.isStopped = false;
-        this._parent = _parent;
-        this._parents = _parents;
-        return this;
-    };
-    return Subscriber;
-}(Subscription_1.Subscription));
-var Subscriber_2 = Subscriber;
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var SafeSubscriber = (function (_super) {
-    __extends$10(SafeSubscriber, _super);
-    function SafeSubscriber(_parentSubscriber, observerOrNext, error, complete) {
-        _super.call(this);
-        this._parentSubscriber = _parentSubscriber;
-        var next;
-        var context = this;
-        if (isFunction_1.isFunction(observerOrNext)) {
-            next = observerOrNext;
-        }
-        else if (observerOrNext) {
-            next = observerOrNext.next;
-            error = observerOrNext.error;
-            complete = observerOrNext.complete;
-            if (observerOrNext !== Observer.empty) {
-                context = Object.create(observerOrNext);
-                if (isFunction_1.isFunction(context.unsubscribe)) {
-                    this.add(context.unsubscribe.bind(context));
-                }
-                context.unsubscribe = this.unsubscribe.bind(this);
-            }
-        }
-        this._context = context;
-        this._next = next;
-        this._error = error;
-        this._complete = complete;
-    }
-    SafeSubscriber.prototype.next = function (value) {
-        if (!this.isStopped && this._next) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (!_parentSubscriber.syncErrorThrowable) {
-                this.__tryOrUnsub(this._next, value);
-            }
-            else if (this.__tryOrSetError(_parentSubscriber, this._next, value)) {
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (this._error) {
-                if (!_parentSubscriber.syncErrorThrowable) {
-                    this.__tryOrUnsub(this._error, err);
-                    this.unsubscribe();
-                }
-                else {
-                    this.__tryOrSetError(_parentSubscriber, this._error, err);
-                    this.unsubscribe();
-                }
-            }
-            else if (!_parentSubscriber.syncErrorThrowable) {
-                this.unsubscribe();
-                throw err;
-            }
-            else {
-                _parentSubscriber.syncErrorValue = err;
-                _parentSubscriber.syncErrorThrown = true;
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.complete = function () {
-        var _this = this;
-        if (!this.isStopped) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (this._complete) {
-                var wrappedComplete = function () { return _this._complete.call(_this._context); };
-                if (!_parentSubscriber.syncErrorThrowable) {
-                    this.__tryOrUnsub(wrappedComplete);
-                    this.unsubscribe();
-                }
-                else {
-                    this.__tryOrSetError(_parentSubscriber, wrappedComplete);
-                    this.unsubscribe();
-                }
-            }
-            else {
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.__tryOrUnsub = function (fn, value) {
-        try {
-            fn.call(this._context, value);
-        }
-        catch (err) {
-            this.unsubscribe();
-            throw err;
-        }
-    };
-    SafeSubscriber.prototype.__tryOrSetError = function (parent, fn, value) {
-        try {
-            fn.call(this._context, value);
-        }
-        catch (err) {
-            parent.syncErrorValue = err;
-            parent.syncErrorThrown = true;
-            return true;
-        }
-        return false;
-    };
-    SafeSubscriber.prototype._unsubscribe = function () {
-        var _parentSubscriber = this._parentSubscriber;
-        this._context = null;
-        this._parentSubscriber = null;
-        _parentSubscriber.unsubscribe();
-    };
-    return SafeSubscriber;
-}(Subscriber));
-
-
-var Subscriber_1 = {
-	Subscriber: Subscriber_2
-};
-
-var __extends$9 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-
-/* tslint:enable:max-line-length */
-/**
- * Filter items emitted by the source Observable by only emitting those that
- * satisfy a specified predicate.
- *
- * <span class="informal">Like
- * [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter),
- * it only emits a value from the source if it passes a criterion function.</span>
- *
- * <img src="./img/filter.png" width="100%">
- *
- * Similar to the well-known `Array.prototype.filter` method, this operator
- * takes values from the source Observable, passes them through a `predicate`
- * function and only emits those values that yielded `true`.
- *
- * @example <caption>Emit only click events whose target was a DIV element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === 'DIV');
- * clicksOnDivs.subscribe(x => console.log(x));
- *
- * @see {@link distinct}
- * @see {@link distinctUntilChanged}
- * @see {@link distinctUntilKeyChanged}
- * @see {@link ignoreElements}
- * @see {@link partition}
- * @see {@link skip}
- *
- * @param {function(value: T, index: number): boolean} predicate A function that
- * evaluates each value emitted by the source Observable. If it returns `true`,
- * the value is emitted, if `false` the value is not passed to the output
- * Observable. The `index` parameter is the number `i` for the i-th source
- * emission that has happened since the subscription, starting from the number
- * `0`.
- * @param {any} [thisArg] An optional argument to determine the value of `this`
- * in the `predicate` function.
- * @return {Observable} An Observable of values from the source that were
- * allowed by the `predicate` function.
- * @method filter
- * @owner Observable
- */
-function filter$1(predicate, thisArg) {
-    return function filterOperatorFunction(source) {
-        return source.lift(new FilterOperator(predicate, thisArg));
-    };
-}
-var filter_2 = filter$1;
-var FilterOperator = (function () {
-    function FilterOperator(predicate, thisArg) {
-        this.predicate = predicate;
-        this.thisArg = thisArg;
-    }
-    FilterOperator.prototype.call = function (subscriber, source) {
-        return source.subscribe(new FilterSubscriber(subscriber, this.predicate, this.thisArg));
-    };
-    return FilterOperator;
-}());
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @ignore
- * @extends {Ignored}
- */
-var FilterSubscriber = (function (_super) {
-    __extends$9(FilterSubscriber, _super);
-    function FilterSubscriber(destination, predicate, thisArg) {
-        _super.call(this, destination);
-        this.predicate = predicate;
-        this.thisArg = thisArg;
-        this.count = 0;
-    }
-    // the try catch block below is left specifically for
-    // optimization and perf reasons. a tryCatcher is not necessary here.
-    FilterSubscriber.prototype._next = function (value) {
-        var result;
-        try {
-            result = this.predicate.call(this.thisArg, value, this.count++);
-        }
-        catch (err) {
-            this.destination.error(err);
-            return;
-        }
-        if (result) {
-            this.destination.next(value);
-        }
-    };
-    return FilterSubscriber;
-}(Subscriber_1.Subscriber));
-
 /**
  * This service is required to provide a form of communication
  * between the marquee wizard steps and the containing marquee wizard.
@@ -9894,15 +11167,15 @@ class MarqueeWizardComponent extends WizardComponent {
      * @param {?} state
      * @return {?}
      */
-    validChange(state) {
+    validChange(state$$1) {
         const /** @type {?} */ steps = this.steps.toArray();
-        const /** @type {?} */ current = steps.findIndex(step => step === state.step);
+        const /** @type {?} */ current = steps.findIndex(step => step === state$$1.step);
         const /** @type {?} */ affected = steps.slice(current);
         affected.forEach(step => {
             // the step should no longer be completed
             step.completed = false;
             // if the step is not the current step then also mark it as unvisited
-            if (step !== state.step) {
+            if (step !== state$$1.step) {
                 step.visited = false;
             }
         });
@@ -9993,6 +11266,346 @@ MarqueeWizardModule.decorators = [
  * @nocollapse
  */
 MarqueeWizardModule.ctorParameters = () => [];
+
+class NavigationComponent {
+}
+NavigationComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-navigation',
+                template: `
+      <nav class="tree" role="navigation">
+          <ol class="nav">
+              <ng-content></ng-content>
+          </ol>
+      </nav>
+    `
+            },] },
+];
+/**
+ * @nocollapse
+ */
+NavigationComponent.ctorParameters = () => [];
+
+class NavigationItemComponent {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _renderer
+     * @param {?} _parent
+     * @param {?} _router
+     * @param {?} _activatedRoute
+     */
+    constructor(_elementRef, _renderer, _parent, _router, _activatedRoute) {
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
+        this._parent = _parent;
+        this._router = _router;
+        this._activatedRoute = _activatedRoute;
+        this.expanded = false;
+        this.level = 1;
+        this.indentWithoutArrow = true;
+        this.level = _parent ? _parent.level + 1 : 1;
+        this._navigationEnd = _router.events.pipe(filter_2(event => event instanceof NavigationEnd))
+            .subscribe(() => this.expanded = this.hasActiveLink(this.link));
+    }
+    /**
+     * @return {?}
+     */
+    get active() {
+        if (this.link) {
+            return this._router.isActive(this.link, true);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    get children() {
+        return this._children.filter(item => item !== this);
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        // Add classes to parent for styling
+        const /** @type {?} */ parentListElement = this._elementRef.nativeElement.parentElement;
+        if (parentListElement) {
+            const /** @type {?} */ levelClass = this.getLevelClass();
+            if (levelClass.length > 0) {
+                this._renderer.addClass(parentListElement, 'nav');
+                this._renderer.addClass(parentListElement, levelClass);
+            }
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterContentInit() {
+        // Set 'indentWithoutArrow'
+        this.setIndentWithoutArrow();
+        // Update 'indentWithoutArrow' in response to changes to children
+        this._childrenChanges = this._children.changes.subscribe(() => this.setIndentWithoutArrow());
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._navigationEnd.unsubscribe();
+        this._childrenChanges.unsubscribe();
+    }
+    /**
+     * @param {?} link
+     * @return {?}
+     */
+    hasActiveLink(link) {
+        const /** @type {?} */ tree = this._router.createUrlTree([link], {
+            relativeTo: this._activatedRoute,
+            queryParams: this._activatedRoute.snapshot.queryParams,
+            fragment: this._activatedRoute.snapshot.fragment
+        });
+        if (link && this._router.isActive(tree, true)) {
+            return true;
+        }
+        // If this component has children, check if any of them, or their descendants, are active.
+        return this.children.some((item) => item.hasActiveLink(item.link));
+    }
+    /**
+     * @return {?}
+     */
+    getLevelClass() {
+        switch (this.level) {
+            case 2:
+                return 'nav-second-level';
+            case 3:
+                return 'nav-third-level';
+            case 4:
+                return 'nav-fourth-level';
+            case 5:
+                return 'nav-fifth-level';
+        }
+        return '';
+    }
+    /**
+     * @return {?}
+     */
+    setIndentWithoutArrow() {
+        if (this.children.length > 0) {
+            // If this element has children it will be indented and will have an arrow
+            this.indentWithoutArrow = false;
+        }
+        else if (this._parent) {
+            // If this element has a parent, indent it if any of its siblings have children
+            this.indentWithoutArrow = !this._parent.children.every((item) => item.children.length === 0);
+        }
+        else {
+            // Top-level elements should be indented
+            this.indentWithoutArrow = true;
+        }
+    }
+}
+NavigationItemComponent.decorators = [
+    { type: Component, args: [{
+                selector: '[ux-navigation-item]',
+                template: `
+      <a *ngIf="link" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow" [routerLink]="link">
+          <span>{{header}}</span>
+      </a>
+      <a *ngIf="!link" (click)="expanded = !expanded" [class.has-arrow]="children.length > 0" [class.no-arrow]="indentWithoutArrow">
+          <span>{{header}}</span>
+      </a>
+      <ng-content></ng-content>
+    `,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+NavigationItemComponent.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Renderer2, },
+    { type: NavigationItemComponent, decorators: [{ type: Optional }, { type: SkipSelf },] },
+    { type: Router, },
+    { type: ActivatedRoute, },
+];
+NavigationItemComponent.propDecorators = {
+    'header': [{ type: Input },],
+    'icon': [{ type: Input },],
+    'link': [{ type: Input },],
+    'expanded': [{ type: Input }, { type: HostBinding, args: ['class.selected',] },],
+    'active': [{ type: HostBinding, args: ['class.active',] },],
+    '_children': [{ type: ContentChildren, args: [NavigationItemComponent, { descendants: true },] },],
+};
+
+class NavigationModule {
+}
+NavigationModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    RouterModule
+                ],
+                exports: [
+                    NavigationComponent,
+                    NavigationItemComponent
+                ],
+                declarations: [
+                    NavigationComponent,
+                    NavigationItemComponent
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+NavigationModule.ctorParameters = () => [];
+
+class NotificationService {
+    constructor() {
+        // provide default options
+        this.options = {
+            duration: 4,
+            height: 100,
+            spacing: 10,
+            backgroundColor: '#7b63a3'
+        };
+        this.direction = 'above';
+        this.notifications$ = new BehaviorSubject$1([]);
+    }
+    /**
+     * @param {?} templateRef
+     * @param {?=} options
+     * @return {?}
+     */
+    show(templateRef, options = this.options) {
+        options = Object.assign({}, this.options, options);
+        const /** @type {?} */ notificationRef = {
+            templateRef: templateRef,
+            duration: options.duration,
+            date: new Date(),
+            visible: true,
+            height: options.height,
+            spacing: options.spacing,
+            backgroundColor: options.backgroundColor
+        };
+        const /** @type {?} */ notifications = this.notifications$.getValue();
+        if (this.direction === 'above') {
+            notifications.unshift(notificationRef);
+        }
+        else {
+            notifications.push(notificationRef);
+        }
+        this.notifications$.next(notifications);
+        // remove notification after delay
+        if (options.duration !== 0) {
+            setTimeout(() => this.dismiss(notificationRef), options.duration * 1000);
+        }
+        return notificationRef;
+    }
+    /**
+     * @return {?}
+     */
+    getHistory() {
+        return this.notifications$.getValue();
+    }
+    /**
+     * @param {?} notificationRef
+     * @return {?}
+     */
+    dismiss(notificationRef) {
+        notificationRef.visible = false;
+        this.notifications$.next(this.notifications$.getValue());
+    }
+    /**
+     * @return {?}
+     */
+    dismissAll() {
+        this.notifications$.getValue().forEach(notificationRef => notificationRef.visible = false);
+        this.notifications$.next(this.notifications$.getValue());
+    }
+}
+NotificationService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+NotificationService.ctorParameters = () => [];
+
+class NotificationListComponent {
+    /**
+     * @param {?} _notificationService
+     */
+    constructor(_notificationService) {
+        this._notificationService = _notificationService;
+        this.position = 'top-right';
+        this.notifications$ = this._notificationService.notifications$.pipe(map_2((notificationRefs) => notificationRefs.filter(notificationRef => notificationRef.visible)));
+    }
+    /**
+     * @param {?} direction
+     * @return {?}
+     */
+    set direction(direction) {
+        this._notificationService.direction = direction;
+    }
+}
+NotificationListComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-notification-list',
+                template: `
+      <div class="notification" *ngFor="let notificationRef of notifications$ | async; let idx = index" 
+          [style.top.px]="(notificationRef.height + notificationRef.spacing) * idx"
+          [style.height.px]="notificationRef.height"
+          [style.background-color]="notificationRef.backgroundColor"
+          [@notificationState]>
+          <ng-container *ngTemplateOutlet="notificationRef.templateRef; context: { $implicit: notificationRef }"></ng-container>
+      </div>
+    `,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                animations: [
+                    trigger('notificationState', [
+                        state('in', style({ transform: 'translateY(0)', opacity: 0.9 })),
+                        transition(':enter', [
+                            style({ transform: 'translateY(-50px)', opacity: 0 }),
+                            animate(500)
+                        ]),
+                        transition(':leave', [
+                            animate(500, style({ transform: 'translateY(50px)', opacity: 0 }))
+                        ])
+                    ])
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+NotificationListComponent.ctorParameters = () => [
+    { type: NotificationService, },
+];
+NotificationListComponent.propDecorators = {
+    'direction': [{ type: Input },],
+    'position': [{ type: Input }, { type: HostBinding, args: ['class',] },],
+};
+
+class NotificationModule {
+}
+NotificationModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule
+                ],
+                exports: [
+                    NotificationListComponent
+                ],
+                declarations: [
+                    NotificationListComponent
+                ],
+                providers: [
+                    NotificationService
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+NotificationModule.ctorParameters = () => [];
 
 const NUMBER_PICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -10948,14 +12561,13 @@ class PageHeaderNavigationComponent {
     /**
      * @param {?} elementRef
      * @param {?} resizeService
-     * @param {?} renderer
      */
-    constructor(elementRef, resizeService, renderer) {
+    constructor(elementRef, resizeService) {
         this.items = [];
         this.indicatorVisible = false;
         this.indicatorX = 0;
         this.indicatorWidth = 0;
-        resizeService.addResizeListener(elementRef.nativeElement, renderer).subscribe(this.updateSelectedIndicator.bind(this));
+        resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this));
     }
     /**
      * @return {?}
@@ -11029,7 +12641,6 @@ PageHeaderNavigationComponent.decorators = [
 PageHeaderNavigationComponent.ctorParameters = () => [
     { type: ElementRef, },
     { type: ResizeService, },
-    { type: Renderer2, },
 ];
 PageHeaderNavigationComponent.propDecorators = {
     'menuItems': [{ type: ViewChildren, args: [PageHeaderNavigationItemComponent,] },],
@@ -11067,41 +12678,26 @@ PageHeaderModule.decorators = [
 PageHeaderModule.ctorParameters = () => [];
 
 class ProgressBarComponent {
-    /**
-     * @param {?} colorService
-     */
-    constructor(colorService) {
-        this.colorService = colorService;
+    constructor() {
         this.value = 0;
         this.max = 100;
-        this.trackColor = this.colorService.getColor('grey7').toHex();
-        this.barColor = this.colorService.getColor('accent').toHex();
-        this.percentage = 0;
-    }
-    /**
-     * @param {?} changes
-     * @return {?}
-     */
-    ngOnChanges(changes) {
-        this.percentage = (this.value / this.max) * 100;
     }
 }
 ProgressBarComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-progress-bar',
                 template: `
-      <div class="progressbar-track" [style.width.%]="percentage" [style.backgroundColor]="barColor">
+      <div class="progressbar-track" [style.width.%]="(value / max) * 100" [style.backgroundColor]="barColor">
           <ng-content></ng-content>
       </div>
-    `
+    `,
+                changeDetection: ChangeDetectionStrategy.OnPush
             },] },
 ];
 /**
  * @nocollapse
  */
-ProgressBarComponent.ctorParameters = () => [
-    { type: ColorService, },
-];
+ProgressBarComponent.ctorParameters = () => [];
 ProgressBarComponent.propDecorators = {
     'value': [{ type: Input },],
     'max': [{ type: Input },],
@@ -11113,7 +12709,6 @@ class ProgressBarModule {
 }
 ProgressBarModule.decorators = [
     { type: NgModule, args: [{
-                imports: [ColorServiceModule],
                 exports: [ProgressBarComponent],
                 declarations: [ProgressBarComponent]
             },] },
@@ -12837,6 +14432,7 @@ class InfiniteScrollDirective {
         this._isLoading = new BehaviorSubject$1(false);
         this._isExhausted = new BehaviorSubject$1(false);
         this._loadButtonEnabled = new BehaviorSubject$1(false);
+        this._subscriptions = [];
         this._loadButtonSubscriptions = [];
         this._canLoadManually = this._isLoading.combineLatest(this._isExhausted, this._loadButtonEnabled, (isLoading, isExhausted, loadButtonEnabled) => {
             return !isLoading && !isExhausted && loadButtonEnabled;
@@ -12873,7 +14469,7 @@ class InfiniteScrollDirective {
         // Check requests are throttled and will only cause an update if more data is required
         // to fill the scrolling view, and it isn't already loading some.
         // Load requests are not throttled and always request a page of data.
-        const /** @type {?} */ requests = this._updateRequests.partition((r) => r.check);
+        const /** @type {?} */ requests = this._updateRequests.partition(r => r.check);
         requests[0].auditTime(200).subscribe(this.doRequest.bind(this));
         requests[1].subscribe(this.doRequest.bind(this));
         if (this.enabled) {
@@ -12881,20 +14477,20 @@ class InfiniteScrollDirective {
             this.attachEventHandlers();
         }
         // Connect the Load More button visible state.
-        this._canLoadManually.subscribe((canLoad) => {
-            this._loadButtonQuery.forEach((loadButton) => {
+        this._canLoadManually.subscribe(canLoad => {
+            this._loadButtonQuery.forEach(loadButton => {
                 loadButton.visible = canLoad;
             });
         });
         // Connect the loading indicator visible state.
-        this._isLoading.subscribe((isLoading) => {
-            this._loadingIndicatorQuery.forEach((loading) => {
+        this._isLoading.subscribe(isLoading => {
+            this._loadingIndicatorQuery.forEach(loading => {
                 loading.visible = isLoading;
             });
         });
         // Link the Load More button click event to trigger an update.
         this.attachLoadButtonEvents();
-        this._loadButtonQuery.changes.subscribe((query) => {
+        this._loadButtonQuery.changes.subscribe(query => {
             this.attachLoadButtonEvents();
         });
         // Initial update.
@@ -12984,12 +14580,41 @@ class InfiniteScrollDirective {
         }
         // Reset the page counter.
         this._nextPageNum = 0;
+        this._pages = [];
         // Clear the collection (without changing the reference).
         if (this.collection) {
             this.collection.length = 0;
         }
         // Reset the exhausted flag, allowing the Load More button to appear.
         this._isExhausted.next(false);
+        // Cancel any pending requests
+        if (this._subscriptions) {
+            this._subscriptions.forEach(request => request.unsubscribe());
+        }
+    }
+    /**
+     * Reload the data without clearing the view.
+     * @return {?}
+     */
+    reload() {
+        this._pages.forEach((page, i) => this.reloadPage(i));
+    }
+    /**
+     * Reload the data in a specific page without clearing the view.
+     * @param {?} pageNum Page number
+     * @return {?}
+     */
+    reloadPage(pageNum) {
+        if (!this.enabled) {
+            return;
+        }
+        this._updateRequests.next({
+            check: false,
+            pageNumber: pageNum,
+            pageSize: this.pageSize,
+            filter: this.filter,
+            reload: true
+        });
     }
     /**
      * @param {?} event
@@ -13010,8 +14635,7 @@ class InfiniteScrollDirective {
      */
     attachEventHandlers() {
         // Subscribe to the scroll event on the target element.
-        this._scrollEventSub = Observable$1.fromEvent(this.scrollElement.nativeElement, 'scroll')
-            .subscribe(this.onScroll.bind(this));
+        this._scrollEventSub = Observable$1.fromEvent(this.scrollElement.nativeElement, 'scroll').subscribe(this.onScroll.bind(this));
         // Subscribe to child DOM changes. The main effect of this is to check whether even more data is
         // required after the initial load.
         this._domObserver = new MutationObserver(this.onDomChange.bind(this));
@@ -13040,8 +14664,8 @@ class InfiniteScrollDirective {
      * @return {?}
      */
     attachLoadButtonEvents() {
-        this._loadButtonSubscriptions.forEach((s) => s.unsubscribe());
-        this._loadButtonSubscriptions = this._loadButtonQuery.map((loadButton) => {
+        this._loadButtonSubscriptions.forEach(s => s.unsubscribe());
+        this._loadButtonSubscriptions = this._loadButtonQuery.map(loadButton => {
             return loadButton.load.subscribe(this.loadNextPage.bind(this));
         });
     }
@@ -13051,27 +14675,33 @@ class InfiniteScrollDirective {
      * @return {?}
      */
     doRequest(request) {
-        // Load a new page if the scroll position is beyond the threshhold and if the client code did not 
+        // Load a new page if the scroll position is beyond the threshhold and if the client code did not
         // cancel.
         if (this.needsData(request) && this.beginLoading(request)) {
             // Invoke the callback load function, which returns a promose or plain data.
             const /** @type {?} */ loadResult = this.load(request.pageNumber, request.pageSize, request.filter);
-            Promise.resolve(loadResult)
-                .then((newData) => {
+            const /** @type {?} */ observable = Array.isArray(loadResult)
+                ? of$2(loadResult)
+                : from$2(loadResult);
+            const /** @type {?} */ subscription = observable.first().subscribe(items => {
                 // Make sure that the parameters have not changed since the load started;
                 // otherwise discard the results.
                 if (request.filter === this.filter && request.pageSize === this.pageSize) {
-                    if (newData && newData.length) {
-                        Array.prototype.push.apply(this.collection, newData);
+                    if (items && items.length) {
+                        this.setPageItems(request.pageNumber, items);
                     }
                     // Emit the loaded event
-                    this.endLoading(request, newData);
+                    this.endLoading(request, items);
                 }
-            })
-                .catch((reason) => {
+            }, reason => {
                 // Emit the loadError event
                 this.endLoadingWithError(request, reason);
+            }, () => {
+                // remove this request from the list
+                this._subscriptions = this._subscriptions.filter(s => s !== subscription);
             });
+            // add the subscription to the list of requests
+            this._subscriptions.push(subscription);
         }
     }
     /**
@@ -13094,7 +14724,8 @@ class InfiniteScrollDirective {
         // Load if the remaining scroll area is <= the element height.
         if (this.scrollElement && this.loadOnScroll) {
             const /** @type {?} */ element = (this.scrollElement.nativeElement);
-            const /** @type {?} */ remainingScroll = element.scrollHeight - (element.scrollTop + element.clientHeight);
+            const /** @type {?} */ remainingScroll = element.scrollHeight -
+                (element.scrollTop + element.clientHeight);
             return remainingScroll <= element.clientHeight;
         }
         return false;
@@ -13111,6 +14742,15 @@ class InfiniteScrollDirective {
         return !event.defaultPrevented();
     }
     /**
+     * @param {?} pageNum
+     * @param {?} items
+     * @return {?}
+     */
+    setPageItems(pageNum, items) {
+        this._pages[pageNum] = items;
+        this.collection = this._pages.reduce((previous, current) => previous.concat(current), []);
+    }
+    /**
      * Updates state from a successful load. Raises the `loaded` event.
      * @param {?} request
      * @param {?=} data
@@ -13121,7 +14761,9 @@ class InfiniteScrollDirective {
         const /** @type {?} */ isExhausted = !!(data && data.length < this.pageSize);
         this._isExhausted.next(isExhausted);
         this.loadedEvent.emit(new InfiniteScrollLoadedEvent(request.pageNumber, request.pageSize, request.filter, data, isExhausted));
-        this._nextPageNum += 1;
+        if (!request.reload) {
+            this._nextPageNum += 1;
+        }
     }
     /**
      * Updates state from a failed load. Raises the `loadError` event.
@@ -14530,6 +16172,7 @@ class SliderComponent {
         this.sliderThumb = SliderThumb;
         this.sliderTickType = SliderTickType;
         this.sliderThumbEvent = SliderThumbEvent;
+        this.sliderCalloutTrigger = SliderCalloutTrigger;
         this.tracks = {
             lower: {
                 size: 0,
@@ -14574,8 +16217,6 @@ class SliderComponent {
         };
         // store all the ticks to display
         this.ticks = [];
-        this._mouseMove = Observable$1.fromEvent(document, 'mousemove');
-        this._mouseUp = Observable$1.fromEvent(document, 'mouseup');
         // setup default options
         this.defaultOptions = {
             type: SliderType.Value,
@@ -14619,8 +16260,6 @@ class SliderComponent {
      * @return {?}
      */
     ngOnInit() {
-        // set up event observables
-        this.initObservables();
         this.updateOptions();
         this.updateValues();
         this.setThumbState(SliderThumb.Lower, false, false);
@@ -14650,41 +16289,11 @@ class SliderComponent {
         });
     }
     /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._lowerDrag.unsubscribe();
-        this._upperDrag.unsubscribe();
-    }
-    /**
      * @param {?} thumb
      * @return {?}
      */
     getFormattedValue(thumb) {
         return this.options.handles.callout.formatter(this.getThumbState(thumb).value);
-    }
-    /**
-     * @return {?}
-     */
-    initObservables() {
-        // when a user begins to drag lower thumb - subscribe to mouse move events until the mouse is lifted
-        this._lowerThumbDown = Observable$1.fromEvent(this.lowerThumb.nativeElement, 'mousedown');
-        this._lowerDrag = this._lowerThumbDown.switchMap(event => {
-            event.preventDefault();
-            return this._mouseMove.takeUntil(this._mouseUp);
-        }).subscribe(event => {
-            event.preventDefault();
-            this.updateThumbPosition(event, SliderThumb.Lower);
-        });
-        // when a user begins to drag upper thumb - subscribe to mouse move events until the mouse is lifted
-        this._upperThumbDown = Observable$1.fromEvent(this.upperThumb.nativeElement, 'mousedown');
-        this._upperDrag = this._upperThumbDown.switchMap(event => {
-            event.preventDefault();
-            return this._mouseMove.takeUntil(this._mouseUp);
-        }).subscribe(event => {
-            event.preventDefault();
-            this.updateThumbPosition(event, SliderThumb.Upper);
-        });
     }
     /**
      * @param {?} thumb
@@ -14712,42 +16321,34 @@ class SliderComponent {
         this.updateTooltips(thumb);
     }
     /**
-     * @return {?}
-     */
-    onDragEnd() {
-        // update thumb state here as we are not dragging any more
-        this.thumbEvent(SliderThumb.Lower, SliderThumbEvent.DragEnd);
-        this.thumbEvent(SliderThumb.Upper, SliderThumbEvent.DragEnd);
-    }
-    /**
      * @param {?} thumb
      * @param {?} event
      * @return {?}
      */
     thumbEvent(thumb, event) {
         // get the current thumb state
-        let /** @type {?} */ state = this.getThumbState(thumb);
+        let /** @type {?} */ state$$1 = this.getThumbState(thumb);
         // update based upon event
         switch (event) {
             case SliderThumbEvent.DragStart:
-                state.drag = true;
+                state$$1.drag = true;
                 break;
             case SliderThumbEvent.DragEnd:
-                state.drag = false;
+                state$$1.drag = false;
                 break;
             case SliderThumbEvent.MouseOver:
-                state.hover = true;
+                state$$1.hover = true;
                 break;
             case SliderThumbEvent.MouseLeave:
-                state.hover = false;
+                state$$1.hover = false;
                 break;
             case SliderThumbEvent.None:
-                state.drag = false;
-                state.hover = false;
+                state$$1.drag = false;
+                state$$1.hover = false;
                 break;
         }
         // update the thumb state
-        this.setThumbState(thumb, state.hover, state.drag);
+        this.setThumbState(thumb, state$$1.hover, state$$1.drag);
     }
     /**
      * @param {?} thumb
@@ -14755,16 +16356,19 @@ class SliderComponent {
      */
     updateTooltips(thumb) {
         let /** @type {?} */ visible = false;
-        let /** @type {?} */ state = this.getThumbState(thumb);
+        let /** @type {?} */ state$$1 = this.getThumbState(thumb);
         switch (this.options.handles.callout.trigger) {
             case SliderCalloutTrigger.Persistent:
                 visible = true;
                 break;
             case SliderCalloutTrigger.Drag:
-                visible = state.drag;
+                visible = state$$1.drag;
                 break;
             case SliderCalloutTrigger.Hover:
-                visible = state.hover || state.drag;
+                visible = state$$1.hover || state$$1.drag;
+                break;
+            case SliderCalloutTrigger.Dynamic:
+                visible = true;
                 break;
         }
         // update the state for the corresponding thumb
@@ -14780,17 +16384,10 @@ class SliderComponent {
      */
     updateTooltipText(thumb) {
         // get the thumb value
-        let /** @type {?} */ state = this.getThumbState(thumb);
+        let /** @type {?} */ state$$1 = this.getThumbState(thumb);
         let /** @type {?} */ tooltip = this.getTooltip(thumb);
         // store the formatted label
         tooltip.label = this.getFormattedValue(thumb).toString();
-    }
-    /**
-     * @param {?} thumb
-     * @return {?}
-     */
-    getThumbElement(thumb) {
-        return thumb === SliderThumb.Lower ? this.lowerThumb : this.upperThumb;
     }
     /**
      * @param {?} thumb
@@ -14811,7 +16408,7 @@ class SliderComponent {
      * @return {?}
      */
     updateTooltipPosition(thumb) {
-        let /** @type {?} */ tooltip = this.getTooltip(thumb);
+        const /** @type {?} */ tooltip = this.getTooltip(thumb);
         // if tooltip is not visible then stop here
         if (tooltip.visible === false) {
             return;
@@ -14830,6 +16427,30 @@ class SliderComponent {
         let /** @type {?} */ tooltipPosition = Math.ceil((tooltipWidth - thumbWidth) / 2);
         // update tooltip position
         tooltip.position = -tooltipPosition;
+        if (this.options.type === SliderType.Range && this.options.handles.callout.trigger === SliderCalloutTrigger.Dynamic) {
+            this.preventTooltipOverlap(tooltip);
+        }
+    }
+    /**
+     * @param {?} tooltip
+     * @return {?}
+     */
+    preventTooltipOverlap(tooltip) {
+        const /** @type {?} */ trackWidth = this.track.nativeElement.offsetWidth;
+        const /** @type {?} */ lower = (trackWidth / 100) * this.thumbs.lower.position;
+        const /** @type {?} */ upper = (trackWidth / 100) * this.thumbs.upper.position;
+        const /** @type {?} */ lowerWidth = this.lowerTooltip.nativeElement.offsetWidth / 2;
+        const /** @type {?} */ upperWidth = this.upperTooltip.nativeElement.offsetWidth / 2;
+        const /** @type {?} */ diff = (lower + lowerWidth) - (upper - upperWidth);
+        // if the tooltips are closer than 16px then adjust so the dont move any close
+        if (diff > 0) {
+            if (tooltip === this.tooltips.lower && this.thumbs.lower.drag === false) {
+                tooltip.position -= (diff / 2);
+            }
+            else if (tooltip === this.tooltips.upper && this.thumbs.upper.drag === false) {
+                tooltip.position += (diff / 2);
+            }
+        }
     }
     /**
      * @param {?} value
@@ -14872,7 +16493,9 @@ class SliderComponent {
         this.updateValues();
         // update tooltip text & position
         this.updateTooltipText(thumb);
-        this.updateTooltipPosition(thumb);
+        // update the position of all visible tooltips
+        this.updateTooltipPosition(SliderThumb.Lower);
+        this.updateTooltipPosition(SliderThumb.Upper);
         // mark as dirty for change detection
         this._changeDetectorRef.markForCheck();
     }
@@ -15112,6 +16735,7 @@ class SliderComponent {
             .sort((t1, t2) => t1.value - t2.value);
     }
     /**
+     * @template T
      * @param {?} destination
      * @param {?} source
      * @return {?}
@@ -15195,15 +16819,31 @@ SliderComponent.decorators = [
           <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="tracks.lower.color"></div>
 
           <!-- Lower Thumb Button / Line -->
-          <div class="thumb lower" #lowerThumb [style.left.%]="thumbs.lower.position" [class.active]="thumbs.lower.drag" [style.z-index]="thumbs.lower.order" [class.button]="options.handles.style === sliderStyle.Button"
-              [class.line]="options.handles.style === sliderStyle.Line" [class.narrow]="options.track.height === sliderSize.Narrow"
-              [class.wide]="options.track.height === sliderSize.Wide" (mouseenter)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
-              (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)" (mousedown)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)">
+          <div class="thumb lower" uxDrag
+              [style.left.%]="thumbs.lower.position" 
+              [class.active]="thumbs.lower.drag" 
+              [style.z-index]="thumbs.lower.order" 
+              [class.button]="options.handles.style === sliderStyle.Button"
+              [class.line]="options.handles.style === sliderStyle.Line" 
+              [class.narrow]="options.track.height === sliderSize.Narrow"
+              [class.wide]="options.track.height === sliderSize.Wide" 
+              (dragstart)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)"
+              (drag)="updateThumbPosition($event, sliderThumb.Lower)"
+              (dragend)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)"
+              (mouseenter)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
+              (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)">
 
               <!-- Lower Thumb Callout -->
-              <div class="tooltip top tooltip-lower" #lowerTooltip [style.opacity]="tooltips.lower.visible ? 1 : 0" [style.left.px]="tooltips.lower.position">
+              <div class="tooltip top tooltip-lower" #lowerTooltip 
+                  [class.tooltip-dynamic]="options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false"
+                  [style.opacity]="tooltips.lower.visible ? 1 : 0" 
+                  [style.left.px]="tooltips.lower.position">
+
                   <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
-                  <div class="tooltip-inner" [style.background-color]="options.handles.callout.background" [style.color]="options.handles.callout.color">
+
+                  <div class="tooltip-inner" 
+                      [style.background-color]="options.handles.callout.background" 
+                      [style.color]="options.handles.callout.color">
                       {{ tooltips.lower.label }}
                   </div>
               </div>
@@ -15215,15 +16855,32 @@ SliderComponent.decorators = [
           </div>
 
           <!-- Upper Thumb Button / Line -->
-          <div class="thumb upper" #upperThumb [hidden]="options.type !== sliderType.Range" [class.active]="thumbs.upper.drag" [style.left.%]="thumbs.upper.position" [style.z-index]="thumbs.upper.order"
-              [class.button]="options.handles.style === sliderStyle.Button" [class.line]="options.handles.style === sliderStyle.Line"
-              [class.narrow]="options.track.height === sliderSize.Narrow" [class.wide]="options.track.height === sliderSize.Wide" (mouseenter)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
-              (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)" (mousedown)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)">
+          <div class="thumb upper" uxDrag
+              [hidden]="options.type !== sliderType.Range" 
+              [class.active]="thumbs.upper.drag" 
+              [style.left.%]="thumbs.upper.position" 
+              [style.z-index]="thumbs.upper.order"
+              [class.button]="options.handles.style === sliderStyle.Button" 
+              [class.line]="options.handles.style === sliderStyle.Line"
+              [class.narrow]="options.track.height === sliderSize.Narrow" 
+              [class.wide]="options.track.height === sliderSize.Wide" 
+              (dragstart)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)"
+              (drag)="updateThumbPosition($event, sliderThumb.Upper)"
+              (dragend)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)"
+              (mouseenter)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
+              (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)">
 
               <!-- Upper Thumb Callout -->
-              <div class="tooltip top tooltip-upper" #upperTooltip [style.opacity]="tooltips.upper.visible ? 1 : 0" [style.left.px]="tooltips.upper.position">
+              <div class="tooltip top tooltip-upper" #upperTooltip 
+                  [class.tooltip-dynamic]="options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false"
+                  [style.opacity]="tooltips.upper.visible ? 1 : 0" 
+                  [style.left.px]="tooltips.upper.position">
+
                   <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
-                  <div class="tooltip-inner" *ngIf="options.type === sliderType.Range" [style.background-color]="options.handles.callout.background"
+
+                  <div class="tooltip-inner" 
+                      *ngIf="options.type === sliderType.Range" 
+                      [style.background-color]="options.handles.callout.background"
                       [style.color]="options.handles.callout.color">
                       {{ tooltips.upper.label }}
                   </div>
@@ -15236,7 +16893,9 @@ SliderComponent.decorators = [
       </div>
 
       <!-- Chart Ticks and Tick Labels -->
-      <div class="tick-container" *ngIf="options.track.ticks.major.show || options.track.ticks.minor.show" [class.show-labels]="options.track.ticks.major.labels || options.track.ticks.minor.labels">
+      <div class="tick-container" 
+          *ngIf="(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic" 
+          [class.show-labels]="options.track.ticks.major.labels || options.track.ticks.minor.labels">
 
           <div class="tick" *ngFor="let tick of ticks" [class.major]="tick.type === sliderTickType.Major" [class.minor]="tick.type === sliderTickType.Minor"
               [style.left.%]="tick.position" [hidden]="!tick.showTicks">
@@ -15259,12 +16918,9 @@ SliderComponent.propDecorators = {
     'value': [{ type: Input },],
     'options': [{ type: Input },],
     'valueChange': [{ type: Output },],
-    'lowerThumb': [{ type: ViewChild, args: ['lowerThumb',] },],
     'lowerTooltip': [{ type: ViewChild, args: ['lowerTooltip',] },],
-    'upperThumb': [{ type: ViewChild, args: ['upperThumb',] },],
     'upperTooltip': [{ type: ViewChild, args: ['upperTooltip',] },],
     'track': [{ type: ViewChild, args: ['track',] },],
-    'onDragEnd': [{ type: HostListener, args: ['document:mouseup', [],] },],
 };
 let SliderType = {};
 SliderType.Value = 0;
@@ -15286,10 +16942,12 @@ SliderCalloutTrigger.None = 0;
 SliderCalloutTrigger.Hover = 1;
 SliderCalloutTrigger.Drag = 2;
 SliderCalloutTrigger.Persistent = 3;
+SliderCalloutTrigger.Dynamic = 4;
 SliderCalloutTrigger[SliderCalloutTrigger.None] = "None";
 SliderCalloutTrigger[SliderCalloutTrigger.Hover] = "Hover";
 SliderCalloutTrigger[SliderCalloutTrigger.Drag] = "Drag";
 SliderCalloutTrigger[SliderCalloutTrigger.Persistent] = "Persistent";
+SliderCalloutTrigger[SliderCalloutTrigger.Dynamic] = "Dynamic";
 let SliderSnap = {};
 SliderSnap.None = 0;
 SliderSnap.Minor = 1;
@@ -15327,7 +16985,8 @@ SliderModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     CommonModule,
-                    ColorServiceModule
+                    ColorServiceModule,
+                    DragModule
                 ],
                 exports: [SliderComponent],
                 declarations: [SliderComponent]
@@ -15503,6 +17162,69 @@ SparkModule.decorators = [
  * @nocollapse
  */
 SparkModule.ctorParameters = () => [];
+
+class TimelineComponent {
+}
+TimelineComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-timeline',
+                template: `
+      <div class="timeline">
+          <ng-content></ng-content>
+      </div>
+    `
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TimelineComponent.ctorParameters = () => [];
+
+class TimelineEventComponent {
+}
+TimelineEventComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-timeline-event',
+                template: `
+      <div class="timeline-badge" [ngClass]="badgeColor">
+          <span>{{badgeTitle}}</span>
+      </div>
+      <div class="timeline-panel">
+          <ng-content></ng-content>
+      </div>
+    `
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TimelineEventComponent.ctorParameters = () => [];
+TimelineEventComponent.propDecorators = {
+    'badgeColor': [{ type: Input },],
+    'badgeTitle': [{ type: Input },],
+};
+
+class TimelineModule {
+}
+TimelineModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule
+                ],
+                exports: [
+                    TimelineComponent,
+                    TimelineEventComponent
+                ],
+                declarations: [
+                    TimelineComponent,
+                    TimelineEventComponent
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TimelineModule.ctorParameters = () => [];
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -17044,9 +18766,8 @@ class VirtualScrollComponent {
     /**
      * @param {?} _elementRef
      * @param {?} resizeService
-     * @param {?} renderer
      */
-    constructor(_elementRef, resizeService, renderer) {
+    constructor(_elementRef, resizeService) {
         this._elementRef = _elementRef;
         this.collection = Observable$1.create();
         this.loadOnScroll = true;
@@ -17058,7 +18779,7 @@ class VirtualScrollComponent {
         this.data = [];
         this.loadingComplete = false;
         // watch for any future changes to size
-        resizeService.addResizeListener(_elementRef.nativeElement, renderer).subscribe(event => this._height = event.height);
+        resizeService.addResizeListener(_elementRef.nativeElement).subscribe(event => this._height = event.height);
     }
     /**
      * @return {?}
@@ -17203,7 +18924,6 @@ VirtualScrollComponent.decorators = [
 VirtualScrollComponent.ctorParameters = () => [
     { type: ElementRef, },
     { type: ResizeService, },
-    { type: Renderer2, },
 ];
 VirtualScrollComponent.propDecorators = {
     'collection': [{ type: Input },],
@@ -17782,14 +19502,13 @@ class LayoutSwitcherDirective {
     /**
      * @param {?} _elementRef
      * @param {?} resizeService
-     * @param {?} renderer
      * @param {?} _viewContainerRef
      */
-    constructor(_elementRef, resizeService, renderer, _viewContainerRef) {
+    constructor(_elementRef, resizeService, _viewContainerRef) {
         this._elementRef = _elementRef;
         this._viewContainerRef = _viewContainerRef;
         // watch for changes to the container size
-        resizeService.addResizeListener(_elementRef.nativeElement, renderer).subscribe(event => {
+        resizeService.addResizeListener(_elementRef.nativeElement).subscribe(event => {
             this._width = event.width;
             // render the appropriate layout
             this.updateActiveLayout();
@@ -17862,7 +19581,6 @@ LayoutSwitcherDirective.decorators = [
 LayoutSwitcherDirective.ctorParameters = () => [
     { type: ElementRef, },
     { type: ResizeService, },
-    { type: Renderer2, },
     { type: ViewContainerRef, },
 ];
 LayoutSwitcherDirective.propDecorators = {
@@ -18955,76 +20673,6 @@ const navigationMenuServiceProvider = {
     deps: ['$injector']
 };
 
-class NotificationService {
-    /**
-     * @param {?} _notificationService
-     */
-    constructor(_notificationService) {
-        this._notificationService = _notificationService;
-    }
-    /**
-     * @param {?} options
-     * @return {?}
-     */
-    showNotification(options) {
-        return this._notificationService.showNotification(options);
-    }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    dismissNotification(element) {
-        this._notificationService.dismissNotification(element);
-    }
-    /**
-     * @return {?}
-     */
-    dismissAllNotifications() {
-        this._notificationService.dismissAllNotifications();
-    }
-    /**
-     * @return {?}
-     */
-    getNotifications() {
-        return this._notificationService.getNotifications();
-    }
-    /**
-     * @param {?} visible
-     * @return {?}
-     */
-    setNotificationVisibility(visible) {
-        this._notificationService.setNotificationVisibility(visible);
-    }
-    /**
-     * @param {?} direction
-     * @return {?}
-     */
-    setDirection(direction) {
-        this._notificationService.setDirection(direction);
-    }
-}
-NotificationService.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-NotificationService.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: ['notificationService',] },] },
-];
-/**
- * @param {?} injector
- * @return {?}
- */
-function notificationServiceFactory(injector) {
-    return injector.get('notificationService');
-}
-const notificationServiceProvider = {
-    provide: 'notificationService',
-    useFactory: notificationServiceFactory,
-    deps: ['$injector']
-};
-
 class PdfService {
     /**
      * @param {?} _pdfService
@@ -19149,13 +20797,11 @@ HybridModule.decorators = [
                 declarations: declarations,
                 providers: [
                     navigationMenuServiceProvider,
-                    notificationServiceProvider,
                     pdfServiceProvider,
                     timeAgoServiceProvider,
                     TimeAgoService,
                     PdfService,
                     NavigationMenuService,
-                    NotificationService
                 ],
             },] },
 ];
@@ -19172,5 +20818,5 @@ HybridModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, NotificationService, notificationServiceFactory, notificationServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DateTimePickerService as ɵd, MarqueeWizardStepComponent as ɵf, MarqueeWizardService as ɵe, MediaPlayerService as ɵi, PageHeaderNavigationDropdownItemComponent as ɵh, PageHeaderNavigationItemComponent as ɵg, HoverActionService as ɵj };
+export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, defaultOptions, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NavigationModule, NavigationComponent, NavigationItemComponent, NotificationModule, NotificationService, NotificationListComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, TimelineModule, TimelineComponent, TimelineEventComponent, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, DragModule, DragDirective, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DateTimePickerService as ɵc, MarqueeWizardStepComponent as ɵe, MarqueeWizardService as ɵd, MediaPlayerService as ɵh, PageHeaderNavigationDropdownItemComponent as ɵg, PageHeaderNavigationItemComponent as ɵf, HoverActionService as ɵi };
 //# sourceMappingURL=ux-aspects.js.map

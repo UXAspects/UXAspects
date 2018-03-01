@@ -1,0 +1,148 @@
+<div class="affix-container toolbar showcase-toolbar">
+    <div class="affix-toolbar" affix-element>
+        <multiple-select-actions on-select="vm.select(item);" on-deselect="vm.deselect(item)"
+                                 key-fn="vm.keyFn(item)" total="vm.totalItems">
+            <div class="row">
+                <div class="toolbar-left col-lg-7 col-md-12 p-r-nil">
+                    <button type="button" class="btn button-primary list-view-button-spacing" ng-click="vm.downloadPdf()" tooltip="Download data to PDF file">
+                        <i class="hpe-icon hpe-download" aria-hidden="true"></i>
+                        <span class="hidden-sm hidden-xs">Download</span>
+                    </button>
+                    <multiple-select-action name="Print" action="vm.multiplePrimary();" type="secondary" class="list-view-button-spacing">
+                        <i class="hpe-icon hpe-print" aria-hidden="true"></i>
+                        <span class="hidden-sm hidden-xs">Print</span>
+                    </multiple-select-action>
+                    <div class="btn-group">
+                        <button data-toggle="dropdown" class="btn button-secondary dropdown-toggle list-view-button-spacing"
+                                aria-expanded="false" id="btnDropDown" static-tooltip content="vm.additionalActionsTooltip.content" direction="vm.additionalActionsTooltip.direction" position="vm.additionalActionsTooltip.position" offset-x="vm.additionalActionsTooltip.offsetX" offset-y="vm.additionalActionsTooltip.offsetY" tooltip-class="vm.additionalActionsTooltip.tooltipClass" tooltip-hidden="vm.additionalActionsTooltip.hidden" tooltip-id="vm.additionalActionsTooltip.tooltipId" ng-click="vm.hideAttitionalActionsTooltip()">
+                            ...
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnDropDown">
+                            <li><a href="">Add Tags...</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="">Archive</a>
+                            <li><a href="">Share...</a>
+                            </li>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="v-separator v-separator-button-spacing"></span>
+                    <div class="btn-group">
+                        <filter-container clear-tooltip="Clear All" static-tooltip content="vm.controlsTooltip.content" direction="vm.controlsTooltip.direction" position="vm.controlsTooltip.position" offset-x="vm.controlsTooltip.offsetX" offset-y="vm.controlsTooltip.offsetY" tooltip-class="vm.controlsTooltip.tooltipClass" tooltip-hidden="vm.controlsTooltip.hidden" tooltip-id="vm.controlsTooltip.tooltipId" ng-click="vm.hideControlsTooltip()">
+                            <filter name="vm.dropdownFilters[0].title" filter-options="vm.dropdownFilters[0]" display-configuration="vm.filterLongListConfig" update-callback="vm.longListCallback" class="list-view-filter-dropdown"></filter>
+                            <filter ng-repeat="filter in vm.dropdownFilters" ng-if="!$first" name="filter.title">
+                                <filter-option ng-repeat="option in filter.options" name="option.name"
+                                                select="option.select()"
+                                                default="option.default"></filter-option>
+                            </filter>
+                        </filter-container>
+                    </div>
+                </div>
+                <div class="toolbar-right col-lg-5 col-md-12 p-l-nil">
+                    <div class="toolbar-right-filter inner-addon-button" ng-class="{'right-addon': vm.searchTermInput.length > 0}">
+                        <i ng-show="vm.searchTermInput.length > 0" class="hpe-icon hpe-close" ng-click="vm.textFilter('')"></i>
+                        <input type="text" ng-model="vm.searchTermInput" ng-keypress="vm.searchBoxKeyPress($event)" ng-blur="vm.searchBoxBlur()" name="searchBox" placeholder="Filter..." class="input-sm form-control filter-text">
+                    </div>
+                    <div class="toolbar-right-buttons">
+                        <span class="v-separator v-separator-filter-spacing"></span>
+                        <a class="column-choose-icon" ng-click="vm.chooseColumns()" tooltip="Add/Remove Columns" tooltip-placement="{{ vm.tooltipPosition }}" static-tooltip content="vm.columnsTooltip.content" direction="vm.columnsTooltip.direction" position="vm.columnsTooltip.position" offset-x="vm.columnsTooltip.offsetX" offset-y="vm.columnsTooltip.offsetY" tooltip-class="vm.columnsTooltip.tooltipClass" tooltip-hidden="vm.columnsTooltip.hidden"><span class="hpe-icon hpe-select-left"></span></a>
+                        <span class="v-separator v-separator-cols-spacing"></span>
+                        <div class="btn-group">
+                            <button type="button" class="btn button-secondary" ng-model="vm.rootScope.layout" btn-radio="'grid'" tooltip="Table View" tooltip-placement="{{ vm.tooltipPosition }}"><span class="hpe-icon hpe-sort"></span></button>
+                            <button type="button" class="btn button-secondary" ng-model="vm.rootScope.layout" btn-radio="'card'" tooltip="Card View" tooltip-placement="{{ vm.tooltipPosition }}"><span class="hpe-icon hpe-app"></span></button>
+                        </div>
+                        <span class="v-separator v-separator-view-spacing"></span>
+                        <preview-pane-toggle tooltip="Preview" tooltip-placement="{{ vm.tooltipPosition }}" aria-label="Preview" set-preview="vm.previewSet" static-tooltip content="vm.previewTooltip.content" direction="vm.previewTooltip.direction" position="vm.previewTooltip.position" offset-x="vm.previewTooltip.offsetX" offset-y="vm.previewTooltip.offsetY" tooltip-class="vm.previewTooltip.tooltipClass"  tooltip-hidden="vm.previewTooltip.hidden" tooltip-id="vm.previewTooltip.tooltipId" ng-click="vm.hidePreviewTooltip()"></preview-pane-toggle>
+                    </div>
+                </div>
+            </div>
+        </multiple-select-actions>
+    </div>
+</div>
+<div class="wrapper-content">
+    <div class="row" >
+        <div ng-class="{'col-lg-3 col-md-3 col-xs-4 p-r-nil': vm.previewSet==true, 'col-md-9': vm.previewSet==false}">
+            <div ng-class="{'preview-pane-listview': vm.previewSet==true}">
+            <div class="text-center m-t-xl p-t-xl" ng-if="vm.items.length===0">
+                <img src="img/bgNoFiles.png" alt="No items found">
+
+                <p class="font-bold">There are no matching items</p>
+            </div>
+            <layout-switcher-container selected="vm.selectedLayout" active="vm.activeLayout" ng-if="vm.items.length>0">
+              <layout-switcher-item name="grid" collapse-layout="stack" collapse-size="693">
+                <div class="table-responsive" ng-if="vm.activeLayout === 'grid' && vm.items.length>0">
+                      <table class="table table-hover fixed-layout">
+                        <thead>
+                          <tr class="table-header-dark sorter-header-sm" sortable-header headers="vm.visibleColumns" default-sorter="vm.activeSorter" default-order="vm.orderDesc"></tr>
+                        </thead>
+                        <tbody display-panel-container>
+                          <tr class="clickable" multiple-select-item="item" ng-repeat="item in vm.items track by item.id" display-panel-item="item.panel" tabIndex="{{$index === 0 ? 1 : -1}}" ng-focus="vm.apply(item)" ng-click="vm.apply(item)">
+
+                            <td class="multiple-select-checkbox-table" ng-repeat="column in vm.visibleColumns track by column.name" ng-class="::column.classes">                                
+                                <checkbox class="multiple-select-checkbox" ng-if="::column.name === 'Icon'" ng-model="multipleSelectChecked" clickable="false">
+                                    <div class="listview-page-icon"></div>
+                                </checkbox>
+                                <div ng-if="::column.name === 'Name'" ng-bind="::item.document"></div>
+                                <div ng-if="::column.name === 'Author'" ng-bind="::item.name"></div>
+                                <div ng-if="::column.name === 'Date Modified'" ng-bind="::item.dateString"></div>
+                                <div ng-if="::column.name === 'Time Modified'" ng-bind="::item.timeModified"></div>
+                                <div ng-if="::column.name === 'Document ID'" ng-bind="::item.id"></div>
+                                <div ng-if="::column.name === 'Location'" ng-bind="::item.location"></div>
+
+                                <div ng-if="::column.name === 'Work Completed (%)'">
+                                    <spark type="::'spark-accent'" value="::item.storage" fillheight="3" inline-label="::item.storage" top="13"></spark>
+                                </div>
+
+                                <div ng-if="::column.name === 'Status'">
+                                    <div class="hpe-icon" ng-class="::{'text-secondary': item.active, 'hpe-checkmark':item.active}"></div>
+                                    <list-hover-actions>
+                                        <list-hover-action click="vm.goToDetails($index)" icon="hpe-view" name="View Details"></list-hover-action>
+                                        <list-hover-action click="vm.primaryHoverAction(item)" icon="hpe-share" name="Share"></list-hover-action>
+                                        <list-hover-action click="vm.primaryHoverAction(item)" icon="hpe-trash" name="Delete"></list-hover-action>
+                                    </list-hover-actions>
+                                </div>
+                            </td>
+
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+              </layout-switcher-item>
+              <layout-switcher-item name="card" layout="app/views/listViews/templates/cardView.html"></layout-switcher-item>
+              <layout-switcher-item name="cardStack" layout="app/views/listViews/templates/cardStackView.html"></layout-switcher-item>
+              <layout-switcher-item name="stack" layout="app/views/listViews/templates/stackView.html"></layout-switcher-item>
+            </layout-switcher-container>
+                
+          </div>
+          <div class="preview-pagination">
+                    <pagination total-items="vm.totalItems" ng-model="vm.currentPage"
+                                ng-change="vm.loadNewPage();" num-pages="vm.numOfPages"
+                                items-per-page="vm.pageSize"
+                                ng-if="vm.items.length>0 && vm.totalItems>=vm.pageSize" tab-index="51"></pagination>
+                    <div ng-if="vm.previewSet==false && vm.items.length>0" class="pagination-details pull-right">
+                        Showing items <span ng-bind="(vm.currentPage*vm.pageSize) - vm.pageSize + 1"></span> -
+                        <span ng-bind="(vm.currentPage*vm.pageSize)| min:vm.totalItems"></span> of <span
+                            ng-bind="vm.totalItems"></span>
+                    </div>
+                </div>
+        </div>
+        <div ng-if="vm.previewSet==true" class="col-lg-6 col-md-6 col-xs-8 p-l-nil">
+            <preview-pane child-scope="vm.childScope" preview-file="vm.previewFile" preview-title="vm.previewTitle" preview-empty-text="vm.previewEmptyText" preview-subtitle="vm.previewSubtitle" shadow="true"></preview-pane>
+        </div>
+        <div class="col-md-3 col-xs-12">
+            <facet-container select-title="Selected:" clear-text="Clear All" api="vm.facetContainerObject">
+                <facet ng-repeat=" facet in [vm.facets[0],vm.facets[1]]" name="facet.title">
+                    <facet-option ng-repeat="option in facet.options" name="option.name" select="option.select()" selected-aria-label="Selected" count="option.count" deselect="option.deselect()"></facet-option>
+                </facet>
+                <facet-dynamic name="vm.facets[2].title" facet-options="vm.facets[2]" display-configuration="vm.facetLongListConfig" placeholder=" 'Find Author' "
+                update-callback="vm.longListCallback" max-length="100" max-lines="3" disable-return="'false'"></facet-dynamic>
+            </facet-container>
+
+        </div>
+
+    </div>
+</div>

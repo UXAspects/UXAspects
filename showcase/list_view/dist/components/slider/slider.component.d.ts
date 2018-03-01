@@ -1,16 +1,11 @@
-import { EventEmitter, OnInit, ElementRef, AfterViewInit, OnDestroy, DoCheck, ChangeDetectorRef } from '@angular/core';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/takeUntil';
+import { EventEmitter, OnInit, ElementRef, AfterViewInit, DoCheck, ChangeDetectorRef } from '@angular/core';
 import { ColorService } from '../../services/color/index';
-export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck, OnDestroy {
+export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private _changeDetectorRef;
     value: SliderValue | number;
     options: SliderOptions;
     valueChange: EventEmitter<SliderValue | number>;
-    lowerThumb: ElementRef;
     lowerTooltip: ElementRef;
-    upperThumb: ElementRef;
     upperTooltip: ElementRef;
     track: ElementRef;
     private _value;
@@ -20,6 +15,7 @@ export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck, 
     sliderThumb: typeof SliderThumb;
     sliderTickType: typeof SliderTickType;
     sliderThumbEvent: typeof SliderThumbEvent;
+    sliderCalloutTrigger: typeof SliderCalloutTrigger;
     tracks: {
         lower: {
             size: number;
@@ -64,31 +60,22 @@ export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck, 
     };
     ticks: SliderTick[];
     defaultOptions: SliderOptions;
-    private _lowerThumbDown;
-    private _upperThumbDown;
-    private _mouseMove;
-    private _mouseUp;
-    private _lowerDrag;
-    private _upperDrag;
     constructor(colorService: ColorService, _changeDetectorRef: ChangeDetectorRef);
     ngOnInit(): void;
     ngDoCheck(): void;
     ngAfterViewInit(): void;
-    ngOnDestroy(): void;
     getFormattedValue(thumb: SliderThumb): string | number;
-    private initObservables();
     private getThumbState(thumb);
     private setThumbState(thumb, hover, drag);
-    private onDragEnd();
     thumbEvent(thumb: SliderThumb, event: SliderThumbEvent): void;
     private updateTooltips(thumb);
     private updateTooltipText(thumb);
-    private getThumbElement(thumb);
     private getTooltipElement(thumb);
     private getTooltip(thumb);
     private updateTooltipPosition(thumb);
+    private preventTooltipOverlap(tooltip);
     private clamp(value, min, max);
-    private updateThumbPosition(event, thumb);
+    updateThumbPosition(event: MouseEvent | TouchEvent, thumb: SliderThumb): void;
     private updateOrder(thumb);
     private snapToTick(value, thumb);
     private validateValue(thumb, value);
@@ -101,7 +88,7 @@ export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck, 
     private getSteps(steps);
     private getTicks(options, type);
     private unionTicks(majorTicks, minorTicks);
-    private deepMerge(destination, source);
+    private deepMerge<T>(destination, source);
     private detectValueChange(value1, value2);
     /**
      * Determines whether or not an object conforms to the
@@ -128,6 +115,7 @@ export declare enum SliderCalloutTrigger {
     Hover = 1,
     Drag = 2,
     Persistent = 3,
+    Dynamic = 4,
 }
 export interface SliderValue {
     low: number;

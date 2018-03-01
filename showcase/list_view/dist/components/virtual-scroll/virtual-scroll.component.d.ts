@@ -1,4 +1,4 @@
-import { OnInit, EventEmitter, ElementRef, Renderer2, AfterContentInit, TemplateRef, OnDestroy, SimpleChanges } from '@angular/core';
+import { OnInit, EventEmitter, ElementRef, AfterContentInit, TemplateRef, OnDestroy, SimpleChanges } from '@angular/core';
 import { ResizeService } from '../../directives/resize/index';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,7 @@ export declare class VirtualScrollComponent implements OnInit, AfterContentInit,
     loadingComplete: boolean;
     private _subscription;
     private _height;
-    constructor(_elementRef: ElementRef, resizeService: ResizeService, renderer: Renderer2);
+    constructor(_elementRef: ElementRef, resizeService: ResizeService);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
