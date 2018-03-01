@@ -10,3 +10,9 @@ if (!environment.production) {
   Error['stackTraceLimit'] = Infinity;
   require('zone.js/dist/long-stack-trace-zone');
 }
+
+/**
+ * Required to support Web Animations `@angular/platform-browser/animations`.
+ * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
+ **/
+import 'web-animations-js';
