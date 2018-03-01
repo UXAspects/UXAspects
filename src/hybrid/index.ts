@@ -22,14 +22,12 @@ export * from './components/tree-grid/tree-grid.component';
 export * from './components/thumbnail/thumbnail.component';
 
 export * from './services/navigation-menu/navigation-menu.service';
-export * from './services/notification/notification.service';
 export * from './services/pdf/pdf.service';
 export * from './services/time-ago/time-ago.service';
 
 /**
  * Export Interfaces
  */
-export { NotificationOptions } from './services/notification/notification.interface';
 export { PdfOptions, PdfColumns, PdfDocument } from './services/pdf/pdf.interface';
 export { TimeAgoLocalizedTimes } from './services/time-ago/time-ago.interface';
 

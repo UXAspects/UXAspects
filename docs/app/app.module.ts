@@ -3,6 +3,7 @@ import * as angular from 'angular';
 let app = angular.module('app');
 
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, forwardRef, Injector } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
     ColorServiceModule,
     EboxModule,
     FlippableCardModule,
+    BrowserAnimationsModule,
     ProgressBarModule,
     RadioButtonModule,
     SparkModule,
