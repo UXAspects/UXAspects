@@ -8,7 +8,7 @@ import { ColorService, NotificationService, NumberPickerModule,
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    duration: number = 4000;    
+    duration: number = 4;    
     backgroundColor: string = this.colorService.getColor('accent').toHex();
 
     colors = [

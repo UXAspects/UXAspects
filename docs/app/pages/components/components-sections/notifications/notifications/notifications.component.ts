@@ -14,7 +14,7 @@ import { ColorService, NotificationService } from '../../../../../../../src/inde
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
 export class ComponentsNotificationsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    duration: number = 4000;    
+    duration: number = 4;    
     backgroundColor: string = this.colorService.getColor('accent').toHex();
 
     colors = [
@@ -27,10 +27,6 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
         this.colorService.getColor('critical').toHex()
     ];
     
-    setColor (color: string): void {
-        this.backgroundColor = this.colors[color];
-    }
-
     plunk: IPlunk = {
         files: {
             'app.component.html': this.snippets.raw.appHtml,
@@ -44,6 +40,9 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
             library: 'ngx-bootstrap/accordion',
             imports: ['AccordionModule'],
             providers: ['AccordionModule.forRoot()']
+        }, {
+            imports: ['BrowserAnimationsModule'],
+            library: '@angular/platform-browser/animations'
         }]
     };
 

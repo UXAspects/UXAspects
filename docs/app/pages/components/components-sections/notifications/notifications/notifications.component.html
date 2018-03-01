@@ -35,8 +35,8 @@
         <accordion>
             <accordion-group heading="Customize Example...">
                 <div class="col-md-6 col-sm-12">
-                    <label for="duration">Duration (in milliseconds)</label>
-                    <ux-number-picker [(value)]="duration" min="0" max="3600000"></ux-number-picker>
+                    <label for="duration">Duration (in seconds)</label>
+                    <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
                 </div>
 
                 <div class="col-md-6 col-sm-12">
@@ -105,8 +105,8 @@
 <p>A second object may optionally be passed to the <code>showNotification</code> function. The following options can be passed in this object to configure the notification:</p>
 
 <uxd-api-properties tableTitle="Notification Configuration">
-    <tr uxd-api-property name="duration" type="number" defaultValue="4000">
-        Sets the duration (in milliseconds) the notification should appear before automatically dismissing.
+    <tr uxd-api-property name="duration" type="number" defaultValue="4">
+        Sets the duration (in seconds) the notification should appear before automatically dismissing.
         A value of <code>0</code> will show the notification until manually dismissed.
     </tr>
     <tr uxd-api-property name="backgroundColor" type="string" defaultValue="#7b63a3">

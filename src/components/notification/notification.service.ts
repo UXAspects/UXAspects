@@ -6,7 +6,7 @@ export class NotificationService {
 
     // provide default options
     options: NotificationOptions = {
-        duration: 4000,
+        duration: 4,
         height: 100,
         spacing: 10,
         backgroundColor: '#7b63a3'
@@ -42,7 +42,7 @@ export class NotificationService {
 
         // remove notification after delay
         if (options.duration !== 0) {
-            setTimeout(() => this.dismiss(notificationRef), options.duration);
+            setTimeout(() => this.dismiss(notificationRef), options.duration * 1000);
         }
 
         return notificationRef;
