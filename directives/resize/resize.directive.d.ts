@@ -1,12 +1,11 @@
-import { EventEmitter, ElementRef, Renderer2 } from '@angular/core';
+import { EventEmitter, ElementRef, NgZone, OnInit } from '@angular/core';
 import { ResizeService, ResizeDimensions } from './resize.service';
-import 'rxjs/add/operator/debounceTime';
-export declare class ResizeDirective {
+export declare class ResizeDirective implements OnInit {
     private _elementRef;
     private _resizeService;
-    private _renderer;
+    private _ngZone;
     throttle: number;
-    resize: EventEmitter<ResizeDimensions>;
-    constructor(_elementRef: ElementRef, _resizeService: ResizeService, _renderer: Renderer2);
+    uxResize: EventEmitter<ResizeDimensions>;
+    constructor(_elementRef: ElementRef, _resizeService: ResizeService, _ngZone: NgZone);
     ngOnInit(): void;
 }

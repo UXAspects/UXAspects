@@ -2,45 +2,27 @@ import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 import { DashboardOptions } from './dashboard.component';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 export declare class DashboardService {
     private _dashboard;
-    private _widgets;
-    private _options;
-    private _options$;
-    private _placeholder;
     private _widgetOrigin;
-    private _dimensions;
     private _actionWidget;
-    private _columnWidth;
     private _rowHeight;
-    private _stacked;
     private _cache;
     private _mouseEvent;
-    private _defaultOptions;
-    height: BehaviorSubject<number>;
-    layout: Subject<DashboardLayoutData[]>;
-    /**
-     * Return all the options currently being used as a subject
-     */
-    options(): Subject<DashboardOptions>;
-    /**
-     * Return all the options currently being used
-     */
-    getOptions(): DashboardOptions;
-    /**
-     * Get all the default dashboard options
-     */
-    getDefaultOptions(): DashboardOptions;
-    /**
-     * Set the options - automatically set default values where not specified
-     * @param options The DashboardOptions that will configure the dashboard
-     */
-    setOptions(options: DashboardOptions): void;
-    /**
-     * Allow uniform spacing around each widget
-     * @param padding The number of pixels around each widget
-     */
-    setPadding(padding: number): void;
+    widgets$: BehaviorSubject<DashboardWidgetComponent[]>;
+    options$: BehaviorSubject<DashboardOptions>;
+    dimensions$: BehaviorSubject<DashboardDimensions>;
+    height$: Observable<number>;
+    placeholder$: BehaviorSubject<DashboardPlaceholder>;
+    layout$: Subject<DashboardLayoutData[]>;
+    stacked$: BehaviorSubject<boolean>;
+    readonly options: DashboardOptions;
+    readonly widgets: DashboardWidgetComponent[];
+    readonly stacked: boolean;
+    readonly dimensions: DashboardDimensions;
+    readonly columnWidth: number;
+    constructor();
     /**
      * Set the dashboard container element
      * @param dashboard The HTMLElement that is the dashboard container
@@ -61,7 +43,7 @@ export declare class DashboardService {
      * @param width The width of the dashboard element in px
      * @param height The height of the dashboard element in px
      */
-    setDimensions(width: number, height: number): void;
+    setDimensions(width?: number, height?: number): void;
     /**
      * Produce an object containing all the required layout data.
      * This can be useful for exporting/saving a layout
@@ -70,7 +52,7 @@ export declare class DashboardService {
     /**
      * Position widgets programatically
      */
-    setLayoutData(layout: DashboardLayoutData[]): void;
+    setLayoutData(widgets: DashboardLayoutData[]): void;
     /**
      * Update the positions and sizes of the widgets
      */
@@ -79,7 +61,7 @@ export declare class DashboardService {
      * Determine where widgets should be positioned based on their positions, width and the size of the container
      */
     setDashboardLayout(): void;
-    setStacked(stacked: boolean): void;
+    updateWhenStacked(): void;
     getWidgetsByOrder(): DashboardWidgetComponent[];
     /**
      * Find a position that a widget can fit in the dashboard
@@ -101,6 +83,7 @@ export declare class DashboardService {
     onDragStart(action: DashboardAction): void;
     onDragEnd(): void;
     onDrag(action: DashboardAction): void;
+    getRowHeight(): number;
     cacheWidgets(): void;
     restoreWidgets(ignoreActionWidget?: boolean): void;
     /**
@@ -162,15 +145,10 @@ export declare class DashboardService {
     getColumnFromPx(x: number, rounding?: Rounding): number;
     getRowFromPx(y: number, rounding?: Rounding): number;
     commitWidgetChanges(): void;
-    getPlaceholder(): DashboardPlaceholder;
     /**
      * Get the current column width
      */
     getColumnWidth(): number;
-    /**
-     * Get the current column height
-     */
-    getRowHeight(): number;
     /**
      * Calculate the number of rows populated with widgets
      */
@@ -204,6 +182,7 @@ export declare class DashboardService {
      */
     getColumnCount(): number;
 }
+export declare const defaultOptions: DashboardOptions;
 export interface DashboardDimensions {
     width?: number;
     height?: number;
@@ -218,6 +197,7 @@ export interface DashboardAction {
     widget: DashboardWidgetComponent;
     direction: ActionDirection;
     event: MouseEvent;
+    handle?: HTMLElement;
 }
 export interface DashboardSpace {
     widget: DashboardWidgetComponent;

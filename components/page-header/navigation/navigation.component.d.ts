@@ -1,4 +1,4 @@
-import { QueryList, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
+import { QueryList, ElementRef, AfterViewInit } from '@angular/core';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
 import { ResizeService } from '../../../directives/resize/index';
 export declare class PageHeaderNavigationComponent implements AfterViewInit {
@@ -7,7 +7,7 @@ export declare class PageHeaderNavigationComponent implements AfterViewInit {
     indicatorVisible: boolean;
     indicatorX: number;
     indicatorWidth: number;
-    constructor(elementRef: ElementRef, resizeService: ResizeService, renderer: Renderer2);
+    constructor(elementRef: ElementRef, resizeService: ResizeService);
     ngAfterViewInit(): void;
     onSelect(item: PageHeaderNavigationItem): void;
     deselectAll(): void;

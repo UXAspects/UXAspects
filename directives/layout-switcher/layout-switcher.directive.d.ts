@@ -1,4 +1,4 @@
-import { ElementRef, Renderer2, AfterContentInit, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
+import { ElementRef, AfterContentInit, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
 import { ResizeService } from '../resize/index';
 import { LayoutSwitcherItemDirective } from './layout-switcher-item.directive';
 export declare class LayoutSwitcherDirective implements AfterContentInit, OnChanges {
@@ -8,7 +8,7 @@ export declare class LayoutSwitcherDirective implements AfterContentInit, OnChan
     private _layouts;
     private _width;
     private _activeLayout;
-    constructor(_elementRef: ElementRef, resizeService: ResizeService, renderer: Renderer2, _viewContainerRef: ViewContainerRef);
+    constructor(_elementRef: ElementRef, resizeService: ResizeService, _viewContainerRef: ViewContainerRef);
     ngOnChanges(changes: SimpleChanges): void;
     getActiveLayout(): LayoutSwitcherItemDirective | null;
     updateActiveLayout(): void;
