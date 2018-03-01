@@ -1,6 +1,7 @@
 import { AfterContentInit, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/operator/combineLatest';
+import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/partition';
 export declare class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     private _element;
@@ -19,6 +20,7 @@ export declare class InfiniteScrollDirective implements OnInit, AfterContentInit
     loadErrorEvent: EventEmitter<InfiniteScrollLoadErrorEvent>;
     private _loadButtonQuery;
     private _loadingIndicatorQuery;
+    private _pages;
     private _nextPageNum;
     private _domObserver;
     private _scrollEventSub;
@@ -27,6 +29,7 @@ export declare class InfiniteScrollDirective implements OnInit, AfterContentInit
     private _isExhausted;
     private _loadButtonEnabled;
     private _canLoadManually;
+    private _subscriptions;
     private _loadButtonSubscriptions;
     constructor(_element: ElementRef);
     ngOnInit(): void;
@@ -45,6 +48,15 @@ export declare class InfiniteScrollDirective implements OnInit, AfterContentInit
      * Clear the collection. Future requests will load from page 0.
      */
     reset(): void;
+    /**
+     * Reload the data without clearing the view.
+     */
+    reload(): void;
+    /**
+     * Reload the data in a specific page without clearing the view.
+     * @param pageNum Page number
+     */
+    reloadPage(pageNum: number): void;
     private onScroll(event);
     private onDomChange();
     /**
@@ -72,6 +84,7 @@ export declare class InfiniteScrollDirective implements OnInit, AfterContentInit
      * Updates state for the beginning of a load. Returns false if the `loading` event was cancelled.
      */
     private beginLoading(request);
+    private setPageItems(pageNum, items);
     /**
      * Updates state from a successful load. Raises the `loaded` event.
      */
