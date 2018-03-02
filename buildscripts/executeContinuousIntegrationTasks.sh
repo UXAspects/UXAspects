@@ -20,9 +20,9 @@ cd $WORKSPACE/ux-aspects
 
 echo === Checking files at start
 
-bash ListFiles.sh
-bash RemoveUntrackedFiles.sh
-bash DiffChanges.sh
+bash buildscripts/ListFiles.sh
+bash buildscripts/RemoveUntrackedFiles.sh
+bash buildscripts/DiffChanges.sh
 
 # Ensure files match those in origin/develop. First remove untracked files (except those in .gitignore)
 echo git clean -f
@@ -55,9 +55,9 @@ echo
 
 echo === Checking files before exit
 
-bash ListFiles.sh
-bash RemoveUntrackedFiles.sh
-bash DiffChanges.sh
+bash buildscripts/ListFiles.sh
+bash buildscripts/RemoveUntrackedFiles.sh
+bash buildscripts/DiffChanges.sh
 
 echo === Exiting
 exit 0
