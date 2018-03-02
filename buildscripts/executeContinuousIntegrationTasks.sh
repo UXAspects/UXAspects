@@ -18,12 +18,6 @@ id
 
 cd $WORKSPACE/ux-aspects
 
-echo === Checking files at start
-
-bash buildscripts/ListFiles.sh
-bash buildscripts/RemoveUntrackedFiles.sh
-bash buildscripts/DiffChanges.sh
-
 # Ensure files match those in origin/develop. First remove untracked files (except those in .gitignore)
 echo git clean -f
 git clean -f
@@ -52,19 +46,6 @@ if [ "$exitCode" -ne 0 ]; then
     exit 1
 fi
 echo
-
-echo === Checking files before exit
-
-bash buildscripts/ListFiles.sh
-bash buildscripts/RemoveUntrackedFiles.sh
-bash buildscripts/DiffChanges.sh
-
-echo === Exiting
-exit 0
-
-
-
-
 
 # Run the unit tests
 echo Executing unit tests
