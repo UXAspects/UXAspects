@@ -1,5 +1,4 @@
 .slider {
-
     .track {
         display: flex;
         flex-direction: row;
@@ -30,7 +29,7 @@
                 border-top-right-radius: 2px;
                 border-bottom-right-radius: 2px;
             }
-        } 
+        }
 
         .thumb {
             flex: none;
@@ -74,7 +73,7 @@
 
                     &:before {
                         width: 30px;
-                        transform: translateX(-27%);                        
+                        transform: translateX(-27%);
                     }
                 }
             }
@@ -109,9 +108,7 @@
                     }
                 }
             }
-
         }
-
     }
 
     .tick-container {
@@ -132,20 +129,16 @@
             position: absolute;
 
             &.major {
-                
                 .tick-indicator {
                     height: 8px;
                 }
-
             }
 
             &.minor {
-                
                 .tick-indicator {
                     height: 4px;
                     margin-bottom: 4px;
                 }
-
             }
 
             .tick-indicator {
@@ -163,15 +156,12 @@
             }
         }
     }
-
-    
 }
 
 .slider-chart {
-
     .slider {
         padding-left: 7px;
-        padding-right: 7px; 
+        padding-right: 7px;
         margin-top: -8px;
     }
 
@@ -187,45 +177,45 @@
             display: flex;
             flex-direction: row;
         }
-
     }
 
     .left-overlay {
         position: relative;
-        flex: 1; 
-        top: 0; 
-        left: 0; 
+        flex: 1;
+        top: 0;
+        left: 0;
         height: 100%;
         background: #f9f9f9;
         margin-left: 7px;
         border-right: 1px dotted #909090;
         opacity: 0.8;
+
         &.hide-left-border {
             opacity: 0;
         }
     }
 
     .right-overlay {
-        position: relative; 
+        position: relative;
         flex: 1;
-        top: 0; 
-        right: 0; 
-        height: 100%; 
-        background: #f9f9f9; 
+        top: 0;
+        right: 0;
+        height: 100%;
+        background: #f9f9f9;
         margin-right: 7px;
         border-left: 1px dotted #909090;
         opacity: 0.8;
+
         &.hide-right-border {
             opacity: 0;
         }
     }
 
     .middle-overlay {
-        position: relative; 
+        position: relative;
         flex: 1;
         top: 0;
         height: 100%;
         opacity: 0;
     }
-
 }

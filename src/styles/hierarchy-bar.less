@@ -1,125 +1,125 @@
 .hierarchy-bar-container {
-        display: flex;
-        position: relative;
-        width: 100%;
-        height: 50px;
-        border-bottom: 1px solid @organization-chart-hierarchy-bar-border;
-        box-shadow: 0px 0px 5px @organization-chart-hierarchy-bar-border;
-        align-items: center;
-        padding: 0 25px;
-        overflow: hidden;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid @organization-chart-hierarchy-bar-border;
+    box-shadow: 0 0 5px @organization-chart-hierarchy-bar-border;
+    align-items: center;
+    padding: 0 25px;
+    overflow: hidden;
 
-        &.overflow {       
-            .hierarchy-bar-list {
-                position: absolute;
-                right: 25px;
-                top: 14px;
-            }
-        }
-
-        .overflow-ellipsis {
+    &.overflow {
+        .hierarchy-bar-list {
             position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 47px;
-            z-index: 1;
-            padding: 16px 0 16px 16px;
-            text-align: left;
-            background-color: @white;
-            box-shadow: 0px 0 25px 0px @btn-secondary-active-hover-shadow;
+            right: 25px;
+            top: 14px;
+        }
+    }
+
+    .overflow-ellipsis {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 47px;
+        z-index: 1;
+        padding: 16px 0 16px 16px;
+        text-align: left;
+        background-color: @white;
+        box-shadow: 0 0 25px 0 @btn-secondary-active-hover-shadow;
+        cursor: pointer;
+
+        .ellipsis {
+            display: block;
+            line-height: 18px;
+            height: 15px;
+            margin: 0;
+            color: @organization-chart-hierarchy-bar-color;
+        }
+    }
+
+    .hierarchy-bar-action {
+        display: inline-flex;
+        border: 1px solid @organization-chart-hierarchy-bar-border;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        justify-content: center;
+        align-items: center;
+        color: @accent;
+        font-size: 1.2rem;
+        margin-right: 20px;
+        min-width: 32px;
+    }
+
+    .hierarchy-bar-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+
+        .hierarchy-bar-list-item {
+            display: inline-block;
+            color: @organization-chart-hierarchy-bar-color;
+            margin-left: 5px;
             cursor: pointer;
 
-            .ellipsis {
-                display: block;
-                line-height: 18px;
-                height: 15px;
-                margin: 0;
-                color: @organization-chart-hierarchy-bar-color;
-            }
-        }
-
-        .hierarchy-bar-action {
-            display: inline-flex;
-            border: 1px solid @organization-chart-hierarchy-bar-border;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px; 
-            justify-content: center;
-            align-items: center; 
-            color: @accent;
-            font-size: 1.2rem; 
-            margin-right: 20px;
-            min-width: 32px;
-        }
-
-        .hierarchy-bar-list {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            white-space: nowrap;
-
-            .hierarchy-bar-list-item {
+            .hierarchy-bar-image {
                 display: inline-block;
-                color: @organization-chart-hierarchy-bar-color;
-                margin-left: 5px;
-                cursor: pointer;
+                max-width: 20px;
+                max-height: 18px;
+                vertical-align: text-top;
+            }
 
-                .hierarchy-bar-image {
-                    display: inline-block;
-                    max-width: 20px;
-                    max-height: 18px;
-                    vertical-align: text-top;
+            .hpe-next {
+                color: @organization-chart-hierarchy-bar-arrow;
+                transform: translateY(1px);
+
+                &.active {
+                    color: @primary;
                 }
 
-                .hpe-next {
-                    color: @organization-chart-hierarchy-bar-arrow;
-                    transform: translateY(1px);
-
-                    &.active {
+                &.visible {
+                    &:hover {
                         color: @primary;
                     }
+                }
+            }
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+
+            &:last-of-type {
+                color: @organization-chart-hierarchy-bar-active-color;
+                font-weight: 600;
+                padding-right: 10px;
+
+                .hpe-next {
+                    display: none;
 
                     &.visible {
-                        &:hover {
-                            color: @primary; 
-                        }
-                    }
-
-                }
-
-                &:first-of-type {
-                    margin-left: 0;
-                }
-
-                &:last-of-type {
-                    color: @organization-chart-hierarchy-bar-active-color;
-                    font-weight: 600;
-                    padding-right: 10px;
-
-                    .hpe-next {
-                        display: none;
-
-                        &.visible {
-                            display: inline-block;
-                        }
-                    
+                        display: inline-block;
                     }
                 }
+            }
 
-                .load-more {
-                    font-family:@font-family;
-                    color: @hyperlink-color;
-                    border-bottom: 2px dotted @primary;
-                    &:hover, &:focus{
-                        color: @grey2;
-                        border-bottom: 2px solid @primary;
-                        outline-color: @accent;
-                    }
+            .load-more {
+                font-family: @font-family;
+                color: @hyperlink-color;
+                border-bottom: 2px dotted @primary;
+
+                &:hover,
+                &:focus {
+                    color: @grey2;
+                    border-bottom: 2px solid @primary;
+                    outline-color: @accent;
                 }
             }
         }
     }
+}
 
 .hierarchy-bar-popover {
     border-radius: 0;
@@ -127,11 +127,11 @@
     .popover-content {
         padding: 0;
 
-        .hierarchy-bar-popover-list { 
+        .hierarchy-bar-popover-list {
             margin: 0;
             padding: 0;
             list-style-type: none;
-            
+
             .hierarchy-bar-popover-list-item {
                 padding: 6px 20px;
                 font-size: 1rem;
@@ -148,7 +148,7 @@
 
                 &:hover {
                     background-color: @organization-chart-hierarchy-bar-popover-hover;
-                } 
+                }
 
                 .hierarchy-bar-popover-list-item-image {
                     display: inline-block;
@@ -160,6 +160,4 @@
             }
         }
     }
-
-
 }

@@ -1,54 +1,45 @@
 .alert-info {
-  color: @alert-info-color;
-  background-color: @alert-info-bg;
-  border: 1px solid @alert-info-border;
+    color: @alert-info-color;
+    background-color: @alert-info-bg;
+    border: 1px solid @alert-info-border;
 }
 
 .alert-info {
-  .alert-link {
-    color: @alert-info-color;
-  }
+    .alert-link {
+        color: @alert-info-color;
+    }
 }
 
 .alert-error {
-  color: @alert-error-color;
-  background-color: @alert-error-bg;
-  border: 1px solid @alert-error-border;
-}
-
-.alert-error {
-  .alert-link {
     color: @alert-error-color;
-  }
+    background-color: @alert-error-bg;
+    border: 1px solid @alert-error-border;
 }
 
-.alert{
-  .close {
-    font-size: 0.875rem;
-    opacity: 0.5;
-    top: 4px;
-    &:focus{
-  	 .aspects-outline;
-  	}
-  }
+.alert-error {
+    .alert-link {
+        color: @alert-error-color;
+    }
 }
 
-.body-dark {
-  .alert {
+.alert {
     .close {
-      text-shadow: 0 1px 0 @notification-alert-shadow;
-      &:focus, &:hover {
-        color: @notification-alert-hover-color-dark;
-      }
-    } 
-  }
+        font-size: 0.875rem;
+        opacity: 0.5;
+        top: 4px;
+
+        &:focus {
+            .aspects-outline;
+        }
+    }
 }
 
-.alert-link{
-  .font-semibold;
-  &:focus{
-	 .aspects-outline;
-  }
+.alert-link {
+    .font-semibold;
+
+    &:focus {
+        .aspects-outline;
+    }
 }
 
 /*
@@ -56,153 +47,152 @@
 */
 
 @-webkit-keyframes fadeInNotification {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 30%, 0);
-    transform: translate3d(0, 30%, 0);
-  }
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 30%, 0);
+        transform: translate3d(0, 30%, 0);
+    }
 
-  to {
-    opacity: 0.9;
-    -webkit-transform: none;
-    transform: none;
-  }
+    to {
+        opacity: 0.9;
+        -webkit-transform: none;
+        transform: none;
+    }
 }
 
 @keyframes fadeInNotification {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 30%, 0);
-    transform: translate3d(0, 30%, 0);
-  }
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 30%, 0);
+        transform: translate3d(0, 30%, 0);
+    }
 
-  to {
-    opacity: 0.9;
-    -webkit-transform: none;
-    transform: none;
-  }
+    to {
+        opacity: 0.9;
+        -webkit-transform: none;
+        transform: none;
+    }
 }
 
 @-webkit-keyframes fadeOutNotification {
-  from {
-    opacity: 0.9;
-  }
+    from {
+        opacity: 0.9;
+    }
 
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(.97, .97, .97);
-    transform: scale3d(.97, .97, .97);
-  }
+    to {
+        opacity: 0;
+        -webkit-transform: scale3d(0.97, 0.97, 0.97);
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
 }
 
 @keyframes fadeOutNotification {
-  from {
-    opacity: 0.9;
-  }
+    from {
+        opacity: 0.9;
+    }
 
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(.97, .97, .97);
-    transform: scale3d(.97, .97, .97);
-  }
+    to {
+        opacity: 0;
+        -webkit-transform: scale3d(0.97, 0.97, 0.97);
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
 }
 
 .fadeOutNotification {
-  -webkit-animation-duration: 0.7s;
-  animation-duration: 0.7s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-name: fadeOutNotification;
-  animation-name: fadeOutNotification;
+    -webkit-animation-duration: 0.7s;
+    animation-duration: 0.7s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeOutNotification;
+    animation-name: fadeOutNotification;
 }
 
 .fadeInNotification {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-name: fadeInNotification;
-  animation-name: fadeInNotification;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeInNotification;
+    animation-name: fadeInNotification;
 }
 
 .notification-container {
-  position: fixed;
-  z-index: 9999999;
-  top: 12px;
-  right: 12px;
-  width: 300px;
-
-  .notification {
-    position: relative;
+    position: fixed;
+    z-index: 9999999;
+    top: 12px;
+    right: 12px;
     width: 300px;
-    min-height: 67px;
-    background-color: @notification-bg;
-    border-radius: @notification-border-radius;
-    opacity: 0;
-    margin-bottom: 4px;
-    transition: top 500ms ease-in-out;
 
-    .dismiss {
-      position: absolute;
-      color: @notification-color;
-      opacity: 1;
-      font-size: 0.8125rem;
-      right: 5px;
-      top: 3px;
-      cursor: pointer;
-      transition: opacity 0.3s linear;
+    .notification {
+        position: relative;
+        width: 300px;
+        min-height: 67px;
+        background-color: @notification-bg;
+        border-radius: @notification-border-radius;
+        opacity: 0;
+        margin-bottom: 4px;
+        transition: top 500ms ease-in-out;
 
-      &:hover {
-        opacity: 0.8;
-      }
-    }
+        .dismiss {
+            position: absolute;
+            color: @notification-color;
+            opacity: 1;
+            font-size: 0.8125rem;
+            right: 5px;
+            top: 3px;
+            cursor: pointer;
+            transition: opacity 0.3s linear;
 
-    .notification-content {
-      display: table;
-      width: 100%;
-      min-height: 67px;
-
-      .notification-icon {
-        display: table-cell;
-        width: 50px;
-        color: @notification-color;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 1.438rem;
-      }
-
-      .notification-title {
-        color: @notification-color;
-        font-size: @font-size-lg;
-        font-family: @font-family;
-        font-weight: 600;
-        margin-bottom: 3px;
-        word-break: break-word;
-      }
-
-      .notification-text {
-        display: table-cell;
-        vertical-align: middle;
-        padding: 15px 15px 15px 0;
-
-        .notification-label {
-          color: @white;
-          margin: 0;
-          font-size: @font-size-lg;
-          line-height: 20px;
-          word-break: break-word;
+            &:hover {
+                opacity: 0.8;
+            }
         }
 
-        .notification-subtitle {
-          display: block;
-          color: @notification-color;
-          margin-top: 3px;
-          font-size: 0.8125rem;
-          opacity: 0.8;
-          word-break: break-word;
-        }
-      }
-    }
-  }
+        .notification-content {
+            display: table;
+            width: 100%;
+            min-height: 67px;
 
+            .notification-icon {
+                display: table-cell;
+                width: 50px;
+                color: @notification-color;
+                vertical-align: middle;
+                text-align: center;
+                font-size: 1.438rem;
+            }
+
+            .notification-title {
+                color: @notification-color;
+                font-size: @font-size-lg;
+                font-family: @font-family;
+                font-weight: 600;
+                margin-bottom: 3px;
+                word-break: break-word;
+            }
+
+            .notification-text {
+                display: table-cell;
+                vertical-align: middle;
+                padding: 15px 15px 15px 0;
+
+                .notification-label {
+                    color: @white;
+                    margin: 0;
+                    font-size: @font-size-lg;
+                    line-height: 20px;
+                    word-break: break-word;
+                }
+
+                .notification-subtitle {
+                    display: block;
+                    color: @notification-color;
+                    margin-top: 3px;
+                    font-size: 0.8125rem;
+                    opacity: 0.8;
+                    word-break: break-word;
+                }
+            }
+        }
+    }
 }
