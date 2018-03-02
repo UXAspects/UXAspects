@@ -21,7 +21,7 @@ module.exports = function (grunt) {
     
     // Register Tasks
     grunt.registerTask('cleanup', ['clean:library', 'clean:documentation', 'clean:ng1', 'clean:styles', 'clean:fonts', 'clean:images', 'clean:less', 'clean:licenses']);
-    grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'jshint:ng1', 'stylelint:components']);
+    grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'jshint:ng1', 'stylelint']);
     grunt.registerTask('library', ['clean:library', 'run:build_library', 'webpack:ng1']);
     grunt.registerTask('styles', ['clean:styles', 'execute:less']);
     grunt.registerTask('scripts', ['execute:iconset']);
