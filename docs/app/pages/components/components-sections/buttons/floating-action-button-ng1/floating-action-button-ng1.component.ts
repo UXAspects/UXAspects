@@ -10,8 +10,8 @@ import { FloatingActionButtonItem } from '../../../../../../../src/index';
     templateUrl: 'floating-action-button-ng1.component.html'
 })
 @DocumentationSectionComponent('ComponentsFloatingActionButtonNg1Component')
-export class ComponentsFloatingActionButtonNg1Component extends BaseDocumentationSection
-    implements ICodePenProvider {
+export class ComponentsFloatingActionButtonNg1Component extends BaseDocumentationSection implements ICodePenProvider {
+
     codepen: ICodePen = {
         html: this.snippets.raw.floatingActionButtonHtml,
         htmlAttributes: {
@@ -23,15 +23,15 @@ export class ComponentsFloatingActionButtonNg1Component extends BaseDocumentatio
     items: FloatingActionButtonItem[] = [
         {
             icon: 'hpe-add',
-            event: function() {}
+            event: () => {}
         },
         {
             icon: 'hpe-analytics',
-            event: function() {}
+            event: () => {}
         },
         {
             icon: 'hpe-app',
-            event: function() {}
+            event: () => {}
         }
     ];
 

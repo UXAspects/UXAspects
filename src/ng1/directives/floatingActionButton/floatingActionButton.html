@@ -2,41 +2,79 @@
     <!-- Additional buttons to the top -->
     <ul class="unstyled p-l-nil child-btn-set-top top m-b-nil" ng-if="direction == 'top'">
         <li ng-repeat="key in items">
-            <button type="button" class="btn btn-icon btn-circular button-secondary m-b-md" aria-label="{{key.icon}}" ng-click="selectedCollapse(key.event)">
-                <span class="{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}" ng-class="key.icon" aria-hidden="true"></span>
+
+            <button type="button" 
+                    class="btn btn-icon btn-circular button-secondary m-b-md" 
+                    aria-label="{{ key.icon }}" ng-click="selectedCollapse(key.event)"
+                    tooltip="{{ key.tooltip }}" 
+                    tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
+
+                <span class="hpe-icon" ng-class="key.icon" aria-hidden="true"></span>
             </button>
         </li>
     </ul>
 
-    <button type="button" class="btn btn-icon btn-circular button-primary parent-btn" ng-class="{'dir-top': direction=='top',
-     'dir-left': direction=='left', 'dir-right': direction=='right' , 'dir-bottom': direction=='bottom'}" aria-label="{{primary}}"
-            ng-click="expand($event)">
-        <span class="{{ primary.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}" ng-class="primary" aria-hidden="true"></span>
+    <button type="button" 
+            class="btn btn-icon btn-circular button-primary parent-btn" 
+            ng-class="{ 'dir-top': direction=='top', 'dir-left': direction=='left', 'dir-right': direction=='right', 'dir-bottom': direction=='bottom' }" 
+            aria-label="{{ primary }}"
+            ng-click="expand($event)"
+            tooltip="{{ tooltip }}"
+            tooltip-placement="{{ tooltipPlacement || 'top' }}">
+
+        <span class="hpe-icon" ng-class="primary" aria-hidden="true"></span>
     </button>
 
 
     <!-- Additional buttons to the left -->
     <ul class="unstyled p-l-nil  child-btn-set-horizontal left inline-block" ng-if="direction == 'left'">
         <li class="inline-block" ng-repeat="key in items">
-            <button type="button" class="btn btn-icon btn-circular button-secondary m-r-md" aria-label="{{key.icon}}" ng-click="selectedCollapse(key.event)">
-                <span class="{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}" ng-class="key.icon" aria-hidden="true"></span>
+
+            <button type="button" 
+                    class="btn btn-icon btn-circular button-secondary m-r-md" 
+                    aria-label="{{ key.icon }}" 
+                    ng-click="selectedCollapse(key.event)"
+                    tooltip="{{ key.tooltip }}"
+                    tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
+
+                <span class="hpe-icon" ng-class="key.icon" aria-hidden="true"></span>
             </button>
+
         </li>
     </ul>
 
     <!-- Additional buttons to the right -->
     <span class="child-btn-set-horizontal right inline-block" ng-if="direction == 'right'">
-        <button ng-repeat="key in items" type="button" class="btn btn-icon btn-circular button-secondary m-r-md" ng-class="{'m-l-md':$first}" aria-label="{{key.icon}}" ng-click="selectedCollapse(key.event)">
-            <span class="{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}" ng-class="key.icon" aria-hidden="true"></span>
+
+        <button ng-repeat="key in items" 
+                type="button" 
+                class="btn btn-icon btn-circular button-secondary m-r-md" 
+                ng-class="{ 'm-l-md': $first }"
+                aria-label="{{ key.icon }}" 
+                ng-click="selectedCollapse(key.event)" 
+                tooltip="{{ key.tooltip }}"
+                tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
+
+            <span class="hpe-icon" ng-class="key.icon" aria-hidden="true"></span>
         </button>
+
     </span>
 
     <!-- Additional buttons to the bottom -->
     <ul class="unstyled p-l-nil child-btn-set bottom" ng-if="direction == 'bottom'">
         <li ng-repeat="key in items">
-            <button type="button" class="btn btn-icon btn-circular button-secondary" ng-class="{'m-b-md': !$last, 'm-t-md': $first}" aria-label="{{key.icon}}" ng-click="selectedCollapse(key.event)">
-                <span class="{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}" ng-class="key.icon" aria-hidden="true"></span>
+
+            <button type="button" 
+                    class="btn btn-icon btn-circular button-secondary" 
+                    ng-class="{ 'm-b-md': !$last, 'm-t-md': $first }"
+                    aria-label="{{ key.icon }}" 
+                    ng-click="selectedCollapse(key.event)"
+                    tooltip="{{ key.tooltip }}"
+                    tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
+
+                <span class="hpe-icon" ng-class="key.icon" aria-hidden="true"></span>
             </button>
+
         </li>
     </ul>
 </span>

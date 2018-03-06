@@ -9,6 +9,8 @@ export class FloatingActionButtonNg1Component extends UpgradeComponent {
     @Input() items: FloatingActionButtonItem[] = [];
     @Input() primary: string;
     @Input() direction: 'top' | 'right' | 'bottom' | 'left';
+    @Input() tooltip: string;
+    @Input() tooltipPlacement: 'top' | 'right' | 'bottom' | 'left';
 
     constructor(elementRef: ElementRef, injector: Injector) {
         super('floatingActionButton', elementRef, injector);
@@ -18,4 +20,6 @@ export class FloatingActionButtonNg1Component extends UpgradeComponent {
 export interface FloatingActionButtonItem {
     icon: string;
     event: Function;
+    tooltip?: string;
+    tooltipPlacement?: string;
 }
