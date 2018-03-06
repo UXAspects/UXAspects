@@ -5,7 +5,7 @@
 
             <button type="button" 
                     class="btn btn-icon btn-circular button-secondary m-b-md" 
-                    aria-label="{{ key.icon }}" ng-click="selectedCollapse(key.event)"
+                    aria-label="{{ key.tooltip || key.icon }}" ng-click="selectedCollapse(key.event)"
                     tooltip="{{ key.tooltip }}" 
                     tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
 
@@ -17,7 +17,7 @@
     <button type="button" 
             class="btn btn-icon btn-circular button-primary parent-btn" 
             ng-class="{ 'dir-top': direction=='top', 'dir-left': direction=='left', 'dir-right': direction=='right', 'dir-bottom': direction=='bottom' }" 
-            aria-label="{{ primary }}"
+            aria-label="{{ tooltip || primary }}"
             ng-click="expand($event)"
             tooltip="{{ tooltip }}"
             tooltip-placement="{{ tooltipPlacement || 'top' }}">
@@ -32,7 +32,7 @@
 
             <button type="button" 
                     class="btn btn-icon btn-circular button-secondary m-r-md" 
-                    aria-label="{{ key.icon }}" 
+                    aria-label="{{ key.tooltip || key.icon }}" 
                     ng-click="selectedCollapse(key.event)"
                     tooltip="{{ key.tooltip }}"
                     tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
@@ -50,7 +50,7 @@
                 type="button" 
                 class="btn btn-icon btn-circular button-secondary m-r-md" 
                 ng-class="{ 'm-l-md': $first }"
-                aria-label="{{ key.icon }}" 
+                aria-label="{{ key.tooltip || key.icon }}" 
                 ng-click="selectedCollapse(key.event)" 
                 tooltip="{{ key.tooltip }}"
                 tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
@@ -67,7 +67,7 @@
             <button type="button" 
                     class="btn btn-icon btn-circular button-secondary" 
                     ng-class="{ 'm-b-md': !$last, 'm-t-md': $first }"
-                    aria-label="{{ key.icon }}" 
+                    aria-label="{{ key.tooltip || key.icon }}" 
                     ng-click="selectedCollapse(key.event)"
                     tooltip="{{ key.tooltip }}"
                     tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
