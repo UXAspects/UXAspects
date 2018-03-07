@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: '[uxd-api-property]',
     templateUrl: './api-property.component.html',
-    styleUrls: ['./api-property.component.less']
+    styleUrls: ['./api-property.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApiPropertyComponent {
     @Input() name: string;
