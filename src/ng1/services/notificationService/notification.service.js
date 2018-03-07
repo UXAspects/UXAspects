@@ -151,6 +151,9 @@ export default function NotificationService() {
         //add icon to icon container
         var iconElement = document.createElement('span');
         iconElement.className = 'hpe-icon ' + options.icon;
+        if (options.iconColor && options.iconColor !== '') {
+            iconElement.style.color = options.iconColor;
+        }
         iconContainer.appendChild(iconElement);
 
         //create text container
@@ -171,11 +174,6 @@ export default function NotificationService() {
         textElement.innerHTML = options.text;
         textContainer.appendChild(textElement);
 
-        // create band - invisible by default
-        var band = document.createElement('div');
-        band.className = 'notification-band';
-        band.style.display = 'none';
-
         //if a date string was specified then show it
         if (options.subtitle && options.subtitle !== '') {
             var subtitleElement = document.createElement('small');
@@ -190,7 +188,6 @@ export default function NotificationService() {
 
         contentContainer.appendChild(textContainer);
         notification.appendChild(contentContainer);
-        notification.appendChild(band);
 
         //find or create the container
         var container = getContainer();
@@ -207,7 +204,6 @@ export default function NotificationService() {
 
         //set the background color of the notification
         notification.style.backgroundColor = options.backgroundColor;
-        band.style.backgroundColor = options.backgroundColor;
 
         //if a duration was set then automatically dismiss after that time
         if (options.duration && options.duration > 0) {

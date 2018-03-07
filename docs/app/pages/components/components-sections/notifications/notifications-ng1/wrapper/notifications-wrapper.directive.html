@@ -29,7 +29,7 @@
             <input type="number" placeholder="Enter duration (milliseconds)" class="form-control" ng-model="vm.duration">
         </div>
         <div class="form-group">
-            <label class="form-label">Background Color</label>
+            <label class="form-label" ng-bind="vm.colorFieldName ? vm.colorFieldName : 'Background Color'"></label>
             <div class="input-group m-b-sm">
                 <input type="text" placeholder="Enter color" class="form-control" ng-model="vm.backgroundColor" text-string-color>
                 <span class="input-group-addon color-display" ng-style="{ 'background-color': vm.backgroundColor }">&nbsp;</span>
