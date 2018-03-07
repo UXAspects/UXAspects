@@ -42,22 +42,16 @@
 
 <uxd-api-properties>
     <tr uxd-api-property name="items" type="array" binding="variable" [required]="true">
-      <p>
-        Array of icons and events, that defines the child buttons shown when the primary button is expanded.
-        Each element of the array should contain an <code>icon</code> property which should be the name of an icon from the icon set.
-        There should also be an <code>event</code> property which should reference a function that will be called when a button is clicked.
-      </p>
-      <p>
-          Additionally, each item can have a <code>tooltip</code> property which, if defined, will display a tooltip when the button is hovered. 
-          The tooltip position can also be specified by adding a <code>tooltipPlacement</code> property with a value of:
-      </p>
 
-      <ul>
-          <li>top</li>
-          <li>right</li>
-          <li>bottom</li>
-          <li>left</li>
-      </ul>
+        An array of objects with the following properties:
+
+        <ul>
+            <li><b>icon</b> - The icon to display in the button. This should be an icon from the icon set.</li>
+            <li><b>event</b> - A function that will be called when the button is clicked.</li>
+            <li><b>tooltip</b> - If defined, a tooltip will display when the button is hovered.</li>
+            <li><b>tooltipPlacement</b> - If defined, the tooltip will be displayed in the specified position. Possible values are <code>top</code>,
+            <code>right</code>, <code>bottom</code> or <code>left</code>.</li>
+        </ul>
     </tr>
     <tr uxd-api-property name="direction" type="string" binding="variable" [required]="true">Defines the direction in which
         the child button should expand (top, bottom, left, right).
@@ -66,14 +60,8 @@
         If defined, a tooltip will be displayed when the user hovers over the floating action button.
     </tr>
     <tr uxd-api-property name="tooltip-placement" type="string" binding="literal" [required]="false">
-        <p>If defined, the tooltip will be displayed in the specified position. Valid options are:</p>
-
-        <ul>
-            <li>top</li>
-            <li>right</li>
-            <li>bottom</li>
-            <li>left</li>
-        </ul>
+        If defined, the tooltip will be displayed in the specified position. Possible values are <code>top</code>, <code>right</code>, 
+        <code>bottom</code> or <code>left</code>.
     </tr>
 </uxd-api-properties>
 
