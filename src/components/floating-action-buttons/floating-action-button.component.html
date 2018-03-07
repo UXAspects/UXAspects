@@ -1,4 +1,2 @@
-<button class="btn button-secondary btn-icon btn-circular">
-    <span *ngIf="icon" class="hpe-icon" [ngClass]="icon"></span>
-    <ng-content *ngIf="!icon"></ng-content>
-</button>
+<span class="floating-action-button-icon" *ngIf="icon" [ngClass]="icon"></span>
+<ng-content *ngIf="!icon"></ng-content>

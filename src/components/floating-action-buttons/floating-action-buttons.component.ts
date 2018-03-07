@@ -19,8 +19,10 @@ export class FloatingActionButtonsComponent {
     /*
      * Detect any clicks to trigger close of the menu
      */
-    @HostListener('document:mouseup') close(): void {
-        this.fab.close();
+    @HostListener('document:mouseup', ['$event.button']) close(button: number): void {
+        if (button === 0) {
+            this.fab.close();
+        }
     }
 }
 

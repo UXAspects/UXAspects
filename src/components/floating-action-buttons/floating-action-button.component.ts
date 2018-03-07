@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostBinding, HostListener } from '@angular/core';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
 @Component({
@@ -10,6 +10,11 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
 export class FloatingActionButtonComponent {
 
     @Input() icon: string;
+    @HostBinding() tabindex = 1;
     
     constructor(public fab: FloatingActionButtonsService) { }
+
+    @HostListener('keydown.enter') select(): void {
+        this.fab.close();
+    }
 }
