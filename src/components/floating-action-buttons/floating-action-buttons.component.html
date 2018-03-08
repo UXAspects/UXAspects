@@ -1,8 +1,5 @@
-<button class="btn button-primary btn-icon btn-circular" tabindex="1" (click)="fab.open()">
-    <span *ngIf="icon" class="hpe-icon" [ngClass]="icon"></span>
-    <ng-content *ngIf="!icon" select="fab-launcher"></ng-content>    
-</button>
+<ng-content select="[fab-primary]"></ng-content>
 
-<div class="floating-action-button-list" [ngClass]="direction" *ngIf="fab.open$ | async">
+<div class="floating-action-button-list" [@fabAnimation]="(fab.open$ | async) ? 'active' : 'inactive'" [ngClass]="direction" *ngIf="fab.open$ | async">
     <ng-content></ng-content>
 </div>

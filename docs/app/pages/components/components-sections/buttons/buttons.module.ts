@@ -6,6 +6,9 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 import { StringFilterModule } from './../../../../../../src/pipes/string-filter/string-filter.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
@@ -29,7 +32,6 @@ import { ComponentsGroupedButtonsNg1Component } from './grouped-buttons-ng1/grou
 
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FloatingActionButtonsModule, RadioButtonModule } from '../../../../../../src/index';
 
 const SECTIONS = [
@@ -74,7 +76,8 @@ const ROUTES = [
         PaginationModule.forRoot(),
         BsDropdownModule.forRoot(),
         StringFilterModule,
-        FloatingActionButtonsModule
+        FloatingActionButtonsModule,
+        TooltipModule.forRoot()
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
