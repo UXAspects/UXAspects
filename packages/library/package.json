@@ -6,7 +6,7 @@
     "start": "grunt develop",
     "e2e:serve": "lite-server -c=e2e/bs-config.e2e.json",
     "e2e": "concurrently \"lite-server -c=e2e/bs-config.e2e.json\" \"grunt protractor:e2e\" --kill-others --success first",
-    "postversion": "./node_modules/bower/bin/bower version $npm_package_version",
+    "postversion": "../../scripts/bower-set-version.js",
     "build:library": "ng-packagr -p ng-package.json",
     "build": "grunt build",
     "prepack": "grunt clean:package",

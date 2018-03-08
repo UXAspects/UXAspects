@@ -8,7 +8,7 @@
     "dist/*"
   ],
   "scripts": {
-    "postversion": "./node_modules/bower/bin/bower version $npm_package_version",
+    "postversion": "../../scripts/bower-set-version.js",
     "build:hpe": "grunt",
     "prepack": "grunt clean:package",
     "postpack": "grunt bower"
