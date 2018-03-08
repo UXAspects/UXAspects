@@ -105,7 +105,7 @@ export class ColorService {
         return value;
     }
 
-    resolveColorName(value: string): string {
+    resolveColorName(value: string = ''): string {
         return value.replace(/\s+/g, '-').toLowerCase();
     }
 }

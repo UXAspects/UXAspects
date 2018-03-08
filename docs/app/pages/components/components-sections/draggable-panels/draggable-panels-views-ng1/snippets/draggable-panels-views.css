@@ -1,24 +1,16 @@
 .draggable-panel-list-demo {
-	background-color: #f7f7f7;
-	height: 400px;
-}
-
-.body-dark .draggable-panel-list-demo {
-	background-color: #404040;
-}
-
-.body-dark .draggable-panel-list-demo div {
-	background-color: #444444;
+    background-color: #f7f7f7;
+    height: 400px;
 }
 
 .draggable-panel-list-demo div {
-	background-color: #ffffff;
+    background-color: #fff;
 }
 
 .list-item-large-demo {
-	height: 130px;
+    height: 130px;
 }
 
 .list-item-small-demo {
-	height: 50px;
+    height: 50px;
 }

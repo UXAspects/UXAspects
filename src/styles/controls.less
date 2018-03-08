@@ -1,310 +1,343 @@
 .form-control {
-  background-color: @form-control-bg;
-  background-image: none;
-  border: 1px solid @form-control-border;
-  border-radius: @form-control-border-radius;
-  display: block;
-  font-size: @font-size-lg;
-  padding: 4px 12px;
-  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-  width: 100%;
-  color: @form-control-color;
-  box-shadow: none;
+    background-color: @form-control-bg;
+    background-image: none;
+    border: 1px solid @form-control-border;
+    border-radius: @form-control-border-radius;
+    display: block;
+    font-size: @font-size-lg;
+    padding: 4px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+    color: @form-control-color;
+    box-shadow: none;
 }
 
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
-  cursor:default;
-  color: @form-control-disabled-color;
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    cursor: default;
+    color: @form-control-disabled-color;
 }
 
 .form-control::-moz-placeholder {
-  color: @form-control-placeholder-color;
+    color: @form-control-placeholder-color;
 }
 
 .form-control::-webkit-input-placeholder {
-  color: @form-control-placeholder-color;
+    color: @form-control-placeholder-color;
 }
 
-:-ms-input-placeholder.form-control
-{
-  color: @form-control-placeholder-color;
+:-ms-input-placeholder.form-control {
+    color: @form-control-placeholder-color;
 }
-input::-ms-clear, input::-ms-reveal {
-	display: none;
+
+input::-ms-clear,
+input::-ms-reveal {
+    display: none;
 }
 
 .input-lg {
- font-size: @font-size-lg;
+    font-size: @font-size-lg;
 }
 
 .input-sm {
-  font-size: @font-size-sm;
+    font-size: @font-size-sm;
 }
 
-textarea{
-  resize:none;
+textarea {
+    resize: none;
 }
-label{
-  font-weight:normal;
+
+label {
+    font-weight: normal;
 }
 
 .form-label {
-  .opacity(0.7);
+    .opacity(0.7);
 }
-.form-information{
-  .opacity(0.7);
-  float:right;
+
+.form-information {
+    .opacity(0.7);
+
+    float: right;
 }
+
 .form-control {
-  &:focus {
-    border-color: @form-control-focus-border;
-    outline: 0;
-    box-shadow:none;
-  }
-}
-.form-control-feedback {
-  display:none;
-  &.hp-icon, &.hpe-icon{
-    line-height: 34px;
-  }
-}
-.form-control-validation{
-  color: @form-control-validation;
-}
-
-.has-error {
-  .form-control-validation{
-    color: @form-control-invalid-color;
-  }
-}
-.has-error ~ .form-group-validation {
-  .form-control-validation{
-    color: @form-control-invalid-color;
-  }
-}
-.has-feedback{
-  position:relative;
-  .form-control-feedback{
-    display:block;
-  }
-}
-.has-success,.has-secondary,.has-error{
-  .form-control:focus{
-    box-shadow: none;
-  }
-}
-.has-success {
-  .form-control {
-    border-color: @form-control-success-color;
-  }
-}
-
-.has-secondary {
-  .form-control {
-    border-color: @form-control-focus-border; // not documented / supported
-  }
-}
-
-.has-error {
-  .form-control {
-    border-color: @form-control-invalid-border;
-
     &:focus {
-      border-color: @form-control-invalid-border;
+        border-color: @form-control-focus-border;
+        outline: 0;
+        box-shadow: none;
     }
-  }
+}
 
-  .input-group-addon {
-    background-color: @form-control-bg;
-    border-color: @form-control-border;
-    color: @text-color;
-  }
+.form-control-feedback {
+    display: none;
+
+    &.hp-icon,
+    &.hpe-icon {
+        line-height: 34px;
+    }
+}
+
+.form-control-validation {
+    color: @form-control-validation;
+}
+
+.has-error {
+    .form-control-validation {
+        color: @form-control-invalid-color;
+    }
+}
+
+.has-error ~ .form-group-validation {
+    .form-control-validation {
+        color: @form-control-invalid-color;
+    }
+}
+
+.has-feedback {
+    position: relative;
+
+    .form-control-feedback {
+        display: block;
+    }
+}
+
+.has-success,
+.has-secondary,
+.has-error {
+    .form-control:focus {
+        box-shadow: none;
+    }
 }
 
 .has-success {
-  .control-label {
-    color: @form-control-success-color;
-  }
+    .form-control {
+        border-color: @form-control-success-color;
+    }
 }
 
 .has-secondary {
-  .control-label {
-    color: @accent; // not documented / supported
-  }
+    .form-control {
+        border-color: @form-control-focus-border; // not documented / supported
+    }
 }
 
-.has-error{
-  .control-label, .help-block,.error-text,.form-control-feedback {
-    color: @form-control-invalid-color;
-  }
+.has-error {
+    .form-control {
+        border-color: @form-control-invalid-border;
+
+        &:focus {
+            border-color: @form-control-invalid-border;
+        }
+    }
+
+    .input-group-addon {
+        background-color: @form-control-bg;
+        border-color: @form-control-border;
+        color: @text-color;
+    }
+}
+
+.has-success {
+    .control-label {
+        color: @form-control-success-color;
+    }
+}
+
+.has-secondary {
+    .control-label {
+        color: @accent; // not documented / supported
+    }
+}
+
+.has-error {
+    .control-label,
+    .help-block,
+    .error-text,
+    .form-control-feedback {
+        color: @form-control-invalid-color;
+    }
 }
 
 .help-block {
-  color: #737373;
+    color: #737373;
 }
 
 .input-group-addon {
-  background-color: @form-control-bg;
-  border: 1px solid @form-control-border;
-  border-radius: 1px;
-  color: inherit;
-  font-size: @font-size;
-  font-weight: 400;
-  line-height: 1;
-  padding: 5px 12px;
-  text-align: center;
+    background-color: @form-control-bg;
+    border: 1px solid @form-control-border;
+    border-radius: 1px;
+    color: inherit;
+    font-size: @font-size;
+    font-weight: 400;
+    line-height: 1;
+    padding: 5px 12px;
+    text-align: center;
 }
 
 .inner-addon {
-	position: relative;
+    position: relative;
 }
 
 /* style icon */
+
 .inner-addon .hpe-icon {
-	position: absolute;
-	padding: 10px;
-	pointer-events: none;
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
 }
 
 .inner-addon-button {
-  position: relative;
-  .hpe-icon {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    height: 16px;
-    margin: auto 10px;
-    cursor: pointer;
-    z-index: @inner-addon-button-z-index;
-  }
+    position: relative;
+
+    .hpe-icon {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 16px;
+        margin: auto 10px;
+        cursor: pointer;
+        z-index: @inner-addon-button-z-index;
+    }
 }
 
 /* align icon */
-.left-addon .hpe-icon  {
-	left:  0px;
+
+.left-addon .hpe-icon {
+    left: 0;
 }
+
 .right-addon .hpe-icon {
-	right: 0px;
+    right: 0;
 }
 
 /* add padding  */
-.left-addon input  {
-	padding-left:  30px;
+
+.left-addon input {
+    padding-left: 30px;
 }
+
 .right-addon input {
-	padding-right: 30px;
+    padding-right: 30px;
 }
 
 //removing the curve from addons
-.input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group>.btn, .input-group-btn:last-child>.dropdown-toggle, .input-group-btn:first-child>.btn:not(:first-child), .input-group-btn:first-child>.btn-group:not(:first-child)>.btn{
-  border-top-right-radius: @form-control-border-radius;
-  border-bottom-right-radius: @form-control-border-radius;
+.input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group > .btn, .input-group-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child),.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+    border-top-right-radius: @form-control-border-radius;
+    border-bottom-right-radius: @form-control-border-radius;
 }
-.input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child>.btn, .input-group-btn:first-child>.btn-group>.btn, .input-group-btn:first-child>.dropdown-toggle, .input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle), .input-group-btn:last-child>.btn-group:not(:last-child)>.btn {
-  border-top-left-radius: @form-control-border-radius;
-  border-bottom-left-radius: @form-control-border-radius;
+
+.input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child > .btn, .input-group-btn:first-child > .btn-group > .btn, .input-group-btn:first-child > .dropdown-toggle, .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle), .input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+    border-top-left-radius: @form-control-border-radius;
+    border-bottom-left-radius: @form-control-border-radius;
 }
 
 .input-group {
-  .form-control {
-	  height: 34px;
-	}
-  .input-group-btn {
-    button {
-      height: 34px;
+    .form-control {
+        height: 34px;
     }
-  }
+
+    .input-group-btn {
+        button {
+            height: 34px;
+        }
+    }
 }
 
 // Need to remove these light and dark styles
-
 //login page form control
 .login-form-control {
-  background-color: @login-form-bg;
-  background-image: none;
-  border: none;
-  border-bottom: 1px solid @login-form-border;
-  border-radius: 1px;
-  display: block;
-  font-size: 1.125rem;
-  padding: 4px 12px;
-  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-  width: 100%;
-  height: 45px;
-  box-shadow: none;
-}
-
-.login-form-control-dark{
-  color: @login-form-dark-color;
-  .login-form-control;
-}
-
-.login-form-control-light{
-  color: @login-form-light-color;
-  .login-form-control;
-}
-.login-form-control {
-  &:focus {
+    background-color: @login-form-bg;
+    background-image: none;
     border: none;
-    border-bottom:  1px solid @login-form-border;
-    outline: 0;
+    border-bottom: 1px solid @login-form-border;
+    border-radius: 1px;
+    display: block;
+    font-size: 1.125rem;
+    padding: 4px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+    height: 45px;
     box-shadow: none;
-  }
 }
+
+.login-form-control-dark {
+    color: @login-form-dark-color;
+    .login-form-control;
+}
+
+.login-form-control-light {
+    color: @login-form-light-color;
+    .login-form-control;
+}
+
+.login-form-control {
+    &:focus {
+        border: none;
+        border-bottom: 1px solid @login-form-border;
+        outline: 0;
+        box-shadow: none;
+    }
+}
+
 .login-form-control:-ms-input-placeholder {
-  color: @login-form-color;
+    color: @login-form-color;
 }
+
 .login-form-control::-webkit-input-placeholder {
-   color: @login-form-color;
+    color: @login-form-color;
 }
+
 select {
-  &.form-control {
-    font-size:@font-size-lg;
-  }
+    &.form-control {
+        font-size: @font-size-lg;
+    }
 }
 
 //===============================
 // multi-select-checkbox styling
 //===============================
-
-.multi-select-checkbox{
-  display: inline-block;
-  *display: inline;
-  vertical-align: middle;
-  margin: 0;
-  padding: 0;
-  width: 22px;
-  height: 22px;
-  background: url(../img/blue_checkboxes.png) no-repeat;
-  border: none;
-  cursor: pointer;
-  margin-right: 1px;
+.multi-select-checkbox {
+    display: inline-block;
+    *display: inline;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    width: 22px;
+    height: 22px;
+    background: url(../img/blue_checkboxes.png) no-repeat;
+    border: none;
+    cursor: pointer;
+    margin-right: 1px;
 }
 
 .donot-disp {
-  display: none;
-}
-.multi-select-checkbox {
-  background-position: 0 0;
-}
-.multi-select-checkbox {
-  &:hover, &:focus {
-    .aspects-outline;
-  }
-}
-.multi-select-checkbox {
-  &.multi-select-checkbox-checked {
-    background-position: -48px 0;
-  }
+    display: none;
 }
 
-.single-select-selected-bg
-{
-  background-color: @single-select-selected-bg;
+.multi-select-checkbox {
+    background-position: 0 0;
+}
+
+.multi-select-checkbox {
+    &:hover,
+    &:focus {
+        .aspects-outline;
+    }
+}
+
+.multi-select-checkbox {
+    &.multi-select-checkbox-checked {
+        background-position: -48px 0;
+    }
+}
+
+.single-select-selected-bg {
+    background-color: @single-select-selected-bg;
 }
 
 //Date picker
 //====================
+
 /*!
 * Datepicker for Bootstrap
 *
@@ -314,191 +347,217 @@ select {
 * http://www.apache.org/licenses/LICENSE-2.0
 *
 */
+
 .datepicker {
-  padding: 4px;
-  border-radius: 4px;
-  direction: ltr;
-  /*.dow {
+    padding: 4px;
+    border-radius: 4px;
+    direction: ltr;
+
+    /*.dow {
   border-top: 1px solid #ddd !important;
 }*/
 }
+
 .datepicker-inline {
-  width: 220px;
+    width: 220px;
 }
-.datepicker {
-  &.datepicker-rtl {
-    direction: rtl;
 
-    table {
-      tr {
-        td {
-          span {
-            float: right;
-          }
+.datepicker {
+    &.datepicker-rtl {
+        direction: rtl;
+
+        table {
+            tr {
+                td {
+                    span {
+                        float: right;
+                    }
+                }
+            }
         }
-      }
     }
-  }
-}
-.datepicker-dropdown {
-  top: 0;
-  left: 0;
-}
-.datepicker-dropdown {
-  &:before {
-    content: '';
-    display: inline-block;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-bottom: 7px solid @grey5;
-    border-top: 0;
-    border-bottom-color: rgba(0, 0, 0, 0.2);
-    position: absolute;
-  }
-  &:after {
-    content: '';
-    display: inline-block;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid @white;
-    border-top: 0;
-    position: absolute;
-  }
 }
 
 .datepicker-dropdown {
-  &.datepicker-orient-left{
+    top: 0;
+    left: 0;
+}
+
+.datepicker-dropdown {
     &:before {
-      left: 6px;
+        content: '';
+        display: inline-block;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 7px solid @grey5;
+        border-top: 0;
+        border-bottom-color: rgba(0, 0, 0, 0.2);
+        position: absolute;
     }
-  }
-}
-.datepicker-dropdown {
-  &.datepicker-orient-left:after {
-    left: 7px;
-  }
-}
-.datepicker-dropdown {
-  &.datepicker-orient-right:before {
-    right: 6px;
-  }
-}
-.datepicker-dropdown {
-  &.datepicker-orient-right:after {
-    right: 7px;
-  }
-}
-.datepicker-dropdown {
-  &.datepicker-orient-top:before {
-    top: -7px;
-  }
-}
-.datepicker-dropdown {
-  &.datepicker-orient-top:after {
-    top: -6px;
-  }
-}
-.datepicker-dropdown {
-  &.datepicker-orient-bottom {
-    &:before {
-      bottom: -7px;
-      border-bottom: 0;
-      border-top: 7px solid @date-picker-color-dark;
-    }
-  }
-}
-.datepicker-dropdown {
-  &.datepicker-orient-bottom {
+
     &:after {
-      bottom: -6px;
-      border-bottom: 0;
-      border-top: 6px solid @white;
+        content: '';
+        display: inline-block;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid @white;
+        border-top: 0;
+        position: absolute;
     }
-  }
 }
+
+.datepicker-dropdown {
+    &.datepicker-orient-left {
+        &:before {
+            left: 6px;
+        }
+    }
+}
+
+.datepicker-dropdown {
+    &.datepicker-orient-left:after {
+        left: 7px;
+    }
+}
+
+.datepicker-dropdown {
+    &.datepicker-orient-right:before {
+        right: 6px;
+    }
+}
+
+.datepicker-dropdown {
+    &.datepicker-orient-right:after {
+        right: 7px;
+    }
+}
+
+.datepicker-dropdown {
+    &.datepicker-orient-top:before {
+        top: -7px;
+    }
+}
+
+.datepicker-dropdown {
+    &.datepicker-orient-top:after {
+        top: -6px;
+    }
+}
+
+.datepicker-dropdown {
+    &.datepicker-orient-bottom {
+        &:before {
+            bottom: -7px;
+            border-bottom: 0;
+            border-top: 7px solid @date-picker-color-dark;
+        }
+    }
+}
+
+.datepicker-dropdown {
+    &.datepicker-orient-bottom {
+        &:after {
+            bottom: -6px;
+            border-bottom: 0;
+            border-top: 6px solid @white;
+        }
+    }
+}
+
 .datepicker > div {
-  display: none;
+    display: none;
 }
+
 .datepicker {
-  &.days {
-    div {
-      &.datepicker-days {
-        display: block;
-      }
+    &.days {
+        div {
+            &.datepicker-days {
+                display: block;
+            }
+        }
     }
-  }
 }
+
 .datepicker {
-  &.months {
-    div {
-      &.datepicker-months {
-        display: block;
-      }
+    &.months {
+        div {
+            &.datepicker-months {
+                display: block;
+            }
+        }
     }
-  }
 }
+
 .datepicker {
-  &.years {
-    div {
-      &.datepicker-years {
-        display: block;
-      }
+    &.years {
+        div {
+            &.datepicker-years {
+                display: block;
+            }
+        }
     }
-  }
 }
+
 .datepicker {
-  table {
-    margin: 0;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    font-size: 0.875rem;
-  }
-}
-.datepicker {
-  table {
-    tr {
-      th, td {
-        text-align: center;
-        width: 30px;
-        height: 30px;
-        border-radius: 4px;
-        border: none;
-      }
+    table {
+        margin: 0;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        font-size: 0.875rem;
     }
-  }
 }
+
+.datepicker {
+    table {
+        tr {
+            th,
+            td {
+                text-align: center;
+                width: 30px;
+                height: 30px;
+                border-radius: 4px;
+                border: none;
+            }
+        }
+    }
+}
+
 .table-striped .datepicker table tr td,
 .table-striped .datepicker table tr th {
-  background-color: transparent;
+    background-color: transparent;
 }
+
 .datepicker table tr td.day:hover,
 .datepicker table tr td.day.focused {
-  background: @date-picker-hover-bg;
-  cursor: pointer;
+    background: @date-picker-hover-bg;
+    cursor: pointer;
 }
 
 .datepicker table tr td.old,
 .datepicker table tr td.new {
-  color: @date-picker-disabled-hover-bg;
+    color: @date-picker-disabled-hover-bg;
 }
+
 .datepicker table tr td.disabled,
 .datepicker table tr td.disabled:hover {
-  background: none;
-  color: @date-picker-disabled-hover-bg;
-  cursor: default;
+    background: none;
+    color: @date-picker-disabled-hover-bg;
+    cursor: default;
 }
+
 .datepicker table tr td.today,
 .datepicker table tr td.today:hover,
 .datepicker table tr td.today.disabled,
 .datepicker table tr td.today.disabled:hover {
-  color: @date-picker-today-color;
-  background-color: @date-picker-today-bg;
-  border-color: @date-picker-today-border;
+    color: @date-picker-today-color;
+    background-color: @date-picker-today-bg;
+    border-color: @date-picker-today-border;
 }
+
 .datepicker table tr td.today:hover,
 .datepicker table tr td.today:hover:hover,
 .datepicker table tr td.today.disabled:hover,
@@ -519,10 +578,11 @@ select {
 .open .dropdown-toggle.datepicker table tr td.today:hover,
 .open .dropdown-toggle.datepicker table tr td.today.disabled,
 .open .dropdown-toggle.datepicker table tr td.today.disabled:hover {
-  color: @date-picker-today-color;
-  background-color: @date-picker-today-disabled-bg;
-  border-color: @date-picker-today-disabled-border;
+    color: @date-picker-today-color;
+    background-color: @date-picker-today-disabled-bg;
+    border-color: @date-picker-today-disabled-border;
 }
+
 .datepicker table tr td.today:active,
 .datepicker table tr td.today:hover:active,
 .datepicker table tr td.today.disabled:active,
@@ -535,8 +595,9 @@ select {
 .open .dropdown-toggle.datepicker table tr td.today:hover,
 .open .dropdown-toggle.datepicker table tr td.today.disabled,
 .open .dropdown-toggle.datepicker table tr td.today.disabled:hover {
-  background-image: none;
+    background-image: none;
 }
+
 .datepicker table tr td.today.disabled,
 .datepicker table tr td.today:hover.disabled,
 .datepicker table tr td.today.disabled.disabled,
@@ -597,31 +658,36 @@ fieldset[disabled] .datepicker table tr td.today.active,
 fieldset[disabled] .datepicker table tr td.today:hover.active,
 fieldset[disabled] .datepicker table tr td.today.disabled.active,
 fieldset[disabled] .datepicker table tr td.today.disabled:hover.active {
-  background-color: @date-picker-today-bg;
-  border-color: @date-picker-today-border;
+    background-color: @date-picker-today-bg;
+    border-color: @date-picker-today-border;
 }
+
 .datepicker table tr td.today:hover:hover {
-  color: @date-picker-today-color;
+    color: @date-picker-today-color;
 }
+
 .datepicker table tr td.today.active:hover {
-  color: @white;
+    color: @white;
 }
+
 .datepicker table tr td.range,
 .datepicker table tr td.range:hover,
 .datepicker table tr td.range.disabled,
 .datepicker table tr td.range.disabled:hover {
-  background: @date-picker-today-btn-hover-bg;
-  border-radius: 0;
+    background: @date-picker-today-btn-hover-bg;
+    border-radius: 0;
 }
+
 .datepicker table tr td.range.today,
 .datepicker table tr td.range.today:hover,
 .datepicker table tr td.range.today.disabled,
 .datepicker table tr td.range.today.disabled:hover {
-  color: @date-picker-today-color;
-  background-color: @date-picker-range-today-bg;
-  border-color: @date-picker-range-today-border;
-  border-radius: 0;
+    color: @date-picker-today-color;
+    background-color: @date-picker-range-today-bg;
+    border-color: @date-picker-range-today-border;
+    border-radius: 0;
 }
+
 .datepicker table tr td.range.today:hover,
 .datepicker table tr td.range.today:hover:hover,
 .datepicker table tr td.range.today.disabled:hover,
@@ -642,10 +708,11 @@ fieldset[disabled] .datepicker table tr td.today.disabled:hover.active {
 .open .dropdown-toggle.datepicker table tr td.range.today:hover,
 .open .dropdown-toggle.datepicker table tr td.range.today.disabled,
 .open .dropdown-toggle.datepicker table tr td.range.today.disabled:hover {
-  color: @date-picker-today-color;
-  background-color: @date-picker-range-today-hover-bg;
-  border-color: @date-picker-range-today-hover-border;
+    color: @date-picker-today-color;
+    background-color: @date-picker-range-today-hover-bg;
+    border-color: @date-picker-range-today-hover-border;
 }
+
 .datepicker table tr td.range.today:active,
 .datepicker table tr td.range.today:hover:active,
 .datepicker table tr td.range.today.disabled:active,
@@ -658,8 +725,9 @@ fieldset[disabled] .datepicker table tr td.today.disabled:hover.active {
 .open .dropdown-toggle.datepicker table tr td.range.today:hover,
 .open .dropdown-toggle.datepicker table tr td.range.today.disabled,
 .open .dropdown-toggle.datepicker table tr td.range.today.disabled:hover {
-  background-image: none;
+    background-image: none;
 }
+
 .datepicker table tr td.range.today.disabled,
 .datepicker table tr td.range.today:hover.disabled,
 .datepicker table tr td.range.today.disabled.disabled,
@@ -720,18 +788,20 @@ fieldset[disabled] .datepicker table tr td.range.today.active,
 fieldset[disabled] .datepicker table tr td.range.today:hover.active,
 fieldset[disabled] .datepicker table tr td.range.today.disabled.active,
 fieldset[disabled] .datepicker table tr td.range.today.disabled:hover.active {
-  background-color: @date-picker-range-today-bg;
-  border-color: @date-picker-range-today-border;
+    background-color: @date-picker-range-today-bg;
+    border-color: @date-picker-range-today-border;
 }
+
 .datepicker table tr td.selected,
 .datepicker table tr td.selected:hover,
 .datepicker table tr td.selected.disabled,
 .datepicker table tr td.selected.disabled:hover {
-  color: @white;
-  background-color: @date-picker-selected-bg;
-  border-color: @date-picker-selected-border;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    color: @white;
+    background-color: @date-picker-selected-bg;
+    border-color: @date-picker-selected-border;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
+
 .datepicker table tr td.selected:hover,
 .datepicker table tr td.selected:hover:hover,
 .datepicker table tr td.selected.disabled:hover,
@@ -752,10 +822,11 @@ fieldset[disabled] .datepicker table tr td.range.today.disabled:hover.active {
 .open .dropdown-toggle.datepicker table tr td.selected:hover,
 .open .dropdown-toggle.datepicker table tr td.selected.disabled,
 .open .dropdown-toggle.datepicker table tr td.selected.disabled:hover {
-  color: @white;
-  background-color: @date-picker-selected-hover-bg;
-  border-color: @date-picker-selected-hover-border;
+    color: @white;
+    background-color: @date-picker-selected-hover-bg;
+    border-color: @date-picker-selected-hover-border;
 }
+
 .datepicker table tr td.selected:active,
 .datepicker table tr td.selected:hover:active,
 .datepicker table tr td.selected.disabled:active,
@@ -768,8 +839,9 @@ fieldset[disabled] .datepicker table tr td.range.today.disabled:hover.active {
 .open .dropdown-toggle.datepicker table tr td.selected:hover,
 .open .dropdown-toggle.datepicker table tr td.selected.disabled,
 .open .dropdown-toggle.datepicker table tr td.selected.disabled:hover {
-  background-image: none;
+    background-image: none;
 }
+
 .datepicker table tr td.selected.disabled,
 .datepicker table tr td.selected:hover.disabled,
 .datepicker table tr td.selected.disabled.disabled,
@@ -830,18 +902,20 @@ fieldset[disabled] .datepicker table tr td.selected.active,
 fieldset[disabled] .datepicker table tr td.selected:hover.active,
 fieldset[disabled] .datepicker table tr td.selected.disabled.active,
 fieldset[disabled] .datepicker table tr td.selected.disabled:hover.active {
-  background-color: @date-picker-selected-bg;
-  border-color: @date-picker-selected-border;
+    background-color: @date-picker-selected-bg;
+    border-color: @date-picker-selected-border;
 }
+
 .datepicker table tr td.active,
 .datepicker table tr td.active:hover,
 .datepicker table tr td.active.disabled,
 .datepicker table tr td.active.disabled:hover {
-  color: @white;
-  background-color: @date-picker-active-disabled-bg;
-  border-color: @date-picker-active-disabled-border;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    color: @white;
+    background-color: @date-picker-active-disabled-bg;
+    border-color: @date-picker-active-disabled-border;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
+
 .datepicker table tr td.active:hover,
 .datepicker table tr td.active:hover:hover,
 .datepicker table tr td.active.disabled:hover,
@@ -862,10 +936,11 @@ fieldset[disabled] .datepicker table tr td.selected.disabled:hover.active {
 .open .dropdown-toggle.datepicker table tr td.active:hover,
 .open .dropdown-toggle.datepicker table tr td.active.disabled,
 .open .dropdown-toggle.datepicker table tr td.active.disabled:hover {
-  color: @white;
-  background-color: @accent;
-  border-color: @date-picker-active-disabled-hover-border;
+    color: @white;
+    background-color: @accent;
+    border-color: @date-picker-active-disabled-hover-border;
 }
+
 .datepicker table tr td.active:active,
 .datepicker table tr td.active:hover:active,
 .datepicker table tr td.active.disabled:active,
@@ -878,8 +953,9 @@ fieldset[disabled] .datepicker table tr td.selected.disabled:hover.active {
 .open .dropdown-toggle.datepicker table tr td.active:hover,
 .open .dropdown-toggle.datepicker table tr td.active.disabled,
 .open .dropdown-toggle.datepicker table tr td.active.disabled:hover {
-  background-image: none;
+    background-image: none;
 }
+
 .datepicker table tr td.active.disabled,
 .datepicker table tr td.active:hover.disabled,
 .datepicker table tr td.active.disabled.disabled,
@@ -940,37 +1016,42 @@ fieldset[disabled] .datepicker table tr td.active.active,
 fieldset[disabled] .datepicker table tr td.active:hover.active,
 fieldset[disabled] .datepicker table tr td.active.disabled.active,
 fieldset[disabled] .datepicker table tr td.active.disabled:hover.active {
-  background-color: @date-picker-active-disabled-bg;
-  border-color: @date-picker-active-disabled-border;
+    background-color: @date-picker-active-disabled-bg;
+    border-color: @date-picker-active-disabled-border;
 }
+
 .datepicker table tr td span {
-  display: block;
-  width: 23%;
-  height: 54px;
-  line-height: 54px;
-  float: left;
-  margin: 1%;
-  cursor: pointer;
-  border-radius: 4px;
+    display: block;
+    width: 23%;
+    height: 54px;
+    line-height: 54px;
+    float: left;
+    margin: 1%;
+    cursor: pointer;
+    border-radius: 4px;
 }
+
 .datepicker table tr td span:hover {
-  background: @date-picker-today-btn-hover-bg;
+    background: @date-picker-today-btn-hover-bg;
 }
+
 .datepicker table tr td span.disabled,
 .datepicker table tr td span.disabled:hover {
-  background: none;
-  color: @date-picker-disabled-hover-bg;
-  cursor: default;
+    background: none;
+    color: @date-picker-disabled-hover-bg;
+    cursor: default;
 }
+
 .datepicker table tr td span.active,
 .datepicker table tr td span.active:hover,
 .datepicker table tr td span.active.disabled,
 .datepicker table tr td span.active.disabled:hover {
-  color: @white;
-  background-color: @date-picker-active-disabled-bg;
-  border-color: @date-picker-active-disabled-border;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    color: @white;
+    background-color: @date-picker-active-disabled-bg;
+    border-color: @date-picker-active-disabled-border;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
+
 .datepicker table tr td span.active:hover,
 .datepicker table tr td span.active:hover:hover,
 .datepicker table tr td span.active.disabled:hover,
@@ -991,10 +1072,11 @@ fieldset[disabled] .datepicker table tr td.active.disabled:hover.active {
 .open .dropdown-toggle.datepicker table tr td span.active:hover,
 .open .dropdown-toggle.datepicker table tr td span.active.disabled,
 .open .dropdown-toggle.datepicker table tr td span.active.disabled:hover {
-  color: @date-picker-active-color;
-  background-color: @date-picker-active-bg;
-  border-color: @date-picker-active-disabled-hover-border;
+    color: @date-picker-active-color;
+    background-color: @date-picker-active-bg;
+    border-color: @date-picker-active-disabled-hover-border;
 }
+
 .datepicker table tr td span.active:active,
 .datepicker table tr td span.active:hover:active,
 .datepicker table tr td span.active.disabled:active,
@@ -1007,8 +1089,9 @@ fieldset[disabled] .datepicker table tr td.active.disabled:hover.active {
 .open .dropdown-toggle.datepicker table tr td span.active:hover,
 .open .dropdown-toggle.datepicker table tr td span.active.disabled,
 .open .dropdown-toggle.datepicker table tr td span.active.disabled:hover {
-  background-image: none;
+    background-image: none;
 }
+
 .datepicker table tr td span.active.disabled,
 .datepicker table tr td span.active:hover.disabled,
 .datepicker table tr td span.active.disabled.disabled,
@@ -1069,572 +1152,612 @@ fieldset[disabled] .datepicker table tr td span.active.active,
 fieldset[disabled] .datepicker table tr td span.active:hover.active,
 fieldset[disabled] .datepicker table tr td span.active.disabled.active,
 fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
-  background-color: @date-picker-active-disabled-bg;
-  border-color: @date-picker-active-disabled-border;
+    background-color: @date-picker-active-disabled-bg;
+    border-color: @date-picker-active-disabled-border;
 }
+
 .datepicker {
-  table {
-    tr {
-      td {
-        span {
-          &.old, &.new {
-            color: @date-picker-disabled-hover-bg;
-          }
+    table {
+        tr {
+            td {
+                span {
+                    &.old,
+                    &.new {
+                        color: @date-picker-disabled-hover-bg;
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
+
 .datepicker {
-  th {
-    &.datepicker-switch {
-      width: 145px;
+    th {
+        &.datepicker-switch {
+            width: 145px;
+        }
     }
-  }
 }
+
 .datepicker thead tr:first-child th,
 .datepicker tfoot tr th {
-  cursor: pointer;
+    cursor: pointer;
 }
+
 .datepicker thead tr:first-child th:hover,
 .datepicker tfoot tr th:hover {
-  background: @date-picker-today-btn-hover-bg;
+    background: @date-picker-today-btn-hover-bg;
 }
+
 .datepicker {
-  .cw {
-    font-size: 0.625rem;
-    width: 12px;
-    padding: 0 2px 0 5px;
-    vertical-align: middle;
-  }
+    .cw {
+        font-size: 0.625rem;
+        width: 12px;
+        padding: 0 2px 0 5px;
+        vertical-align: middle;
+    }
 }
+
 .datepicker {
-  thead {
-    tr {
-      &:first-child {
-        th {
-          &.cw {
-            cursor: default;
-            background-color: transparent;
-          }
+    thead {
+        tr {
+            &:first-child {
+                th {
+                    &.cw {
+                        cursor: default;
+                        background-color: transparent;
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 
 .date {
-  .input-group-addon{
-    line-height: 1.428571429;
-    text-align: center;
-    vertical-align: middle;
-  }
+    .input-group-addon {
+        line-height: 1.428571429;
+        text-align: center;
+        vertical-align: middle;
+    }
 }
+
 .date {
-  .input-group-addon {
-    i {
-      cursor: pointer;
-      width: 16px;
-      height: 16px;
+    .input-group-addon {
+        i {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
     }
-  }
 }
+
 .input-daterange {
-  &.input-group{
-    display:block;
-    .clearfix();
-  }
+    &.input-group {
+        display: block;
+        .clearfix();
+    }
 }
+
 .input-daterange {
-  input {
-    text-align: center;
-  }
+    input {
+        text-align: center;
+    }
 }
+
 .input-daterange {
-  .date {
-    display:table;
-    float: left;
-    width: 50%;
-    padding-left:15px;
-    &:first-child{
-      padding-right:15px;
-      padding-left:0;
+    .date {
+        display: table;
+        float: left;
+        width: 50%;
+        padding-left: 15px;
+
+        &:first-child {
+            padding-right: 15px;
+            padding-left: 0;
+        }
     }
-  }
 }
+
 .input-daterange {
-  input {
-    &:first-child {
-      border-radius: 3px 0 0 3px;
+    input {
+        &:first-child {
+            border-radius: 3px 0 0 3px;
+        }
+
+        &:last-child {
+            border-radius: 0 3px 3px 0;
+        }
     }
-    &:last-child {
-      border-radius: 0 3px 3px 0;
-    }
-  }
 }
+
 .input-daterange {
-  .input-group-addon {
-    min-width: 16px;
-    font-weight: normal;
-    line-height: 1.428571429;
-    text-align: center;
-    vertical-align: middle;
-    border-right-width:0;
-    &.input-group-join{
-      padding: 4px 5px;
-      width:30px;
-      height:34px;
-      background-color: @date-picker-today-btn-hover-bg;
-      float:left;
-      line-height: 1.5em;
-      margin-left:-15px;
-      margin-right:-15px;
+    .input-group-addon {
+        min-width: 16px;
+        font-weight: normal;
+        line-height: 1.428571429;
+        text-align: center;
+        vertical-align: middle;
+        border-right-width: 0;
+
+        &.input-group-join {
+            padding: 4px 5px;
+            width: 30px;
+            height: 34px;
+            background-color: @date-picker-today-btn-hover-bg;
+            float: left;
+            line-height: 1.5em;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
     }
-  }
-}
-.datepicker {
-  &.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    float: left;
-    display: none;
-    min-width: 160px;
-    list-style: none;
-    background-color: @date-picker-dropdown-bg;
-    border: 1px solid @date-picker-dropdown-border;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 5px 10px @date-picker-dropdown-shadow;
-    -moz-box-shadow: 0 5px 10px @date-picker-dropdown-shadow;
-    box-shadow: 0 5px 10px @date-picker-dropdown-shadow;
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding;
-    background-clip: padding-box;
-    *border-right-width: 2px;
-    *border-bottom-width: 2px;
-    color: @grey2;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 0.8125rem;
-    line-height: 1.428571429;
-  }
-}
-.datepicker {
-  &.dropdown-menu {
-    th, td {
-      padding: 4px 5px;
-    }
-  }
 }
 
 .datepicker {
-  table {
-    outline: none;
-  }
+    &.dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        float: left;
+        display: none;
+        min-width: 160px;
+        list-style: none;
+        background-color: @date-picker-dropdown-bg;
+        border: 1px solid @date-picker-dropdown-border;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 5px 10px @date-picker-dropdown-shadow;
+        -moz-box-shadow: 0 5px 10px @date-picker-dropdown-shadow;
+        box-shadow: 0 5px 10px @date-picker-dropdown-shadow;
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        *border-right-width: 2px;
+        *border-bottom-width: 2px;
+        color: @grey2;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 0.8125rem;
+        line-height: 1.428571429;
+    }
+}
 
-  th, td, span {
-    outline-color: @date-picker-dropdown-outline;
-  }
+.datepicker {
+    &.dropdown-menu {
+        th,
+        td {
+            padding: 4px 5px;
+        }
+    }
+}
+
+.datepicker {
+    table {
+        outline: none;
+    }
+
+    th,
+    td,
+    span {
+        outline-color: @date-picker-dropdown-outline;
+    }
 }
 
 //Bootstrap timepicker styling
-
 .timepicker-arrow {
-  color: @timepicker-arrow-color;
+    color: @timepicker-arrow-color;
 }
+
 .timepicker-arrow:hover,
 .timepicker-arrow:focus {
-   color: @timepicker-arrow-hover-color;
+    color: @timepicker-arrow-hover-color;
 }
 
- //Integrated date-time picker styling
+//Integrated date-time picker styling
 .timezone-dropdown {
-  padding: 4px 5px 4px 5px !important;
+    padding: 4px 5px !important;
 }
+
 .timezone-dropdown > span {
-  border: none !important;
+    border: none !important;
 }
 
 .date-picker {
-	border-radius: 0px;
+    border-radius: 0;
 
-	.today-btn {
-    border: none !important;
-    box-shadow: none !important;
-    width: 100% !important;
-    font-size: 1rem;
-    color: @date-picker-today-btn-color;
-    background-color: @date-picker-today-btn-bg !important;
-    text-transform: none;
+    .today-btn {
+        border: none !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        font-size: 1rem;
+        color: @date-picker-today-btn-color;
+        background-color: @date-picker-today-btn-bg !important;
+        text-transform: none;
 
-    &:hover {
-      border: none !important;
-      box-shadow: none !important;
-      background-color: @date-picker-today-btn-hover-bg !important;
+        &:hover {
+            border: none !important;
+            box-shadow: none !important;
+            background-color: @date-picker-today-btn-hover-bg !important;
+        }
     }
-  }
-  table {
-	  thead {
-		 color: @date-picker-dropdown-color;
-		 font-family: @font-family;
-     font-weight: @font-weight-semibold;
-	   }
-	   tr th, tr td, tr td span {
-		border-radius: 0px;
-	   }
- }
+
+    table {
+        thead {
+            color: @date-picker-dropdown-color;
+            font-family: @font-family;
+            font-weight: @font-weight-semibold;
+        }
+
+        tr th,
+        tr td,
+        tr td span {
+            border-radius: 0;
+        }
+    }
 }
 
 .timepicker-light {
- 	padding: 12px;
+    padding: 12px;
 }
 
 .popover {
-  &.date-picker-popover {
-
-    .popover-content {
-      padding: 0;
-    }
-
-    .date-picker-popover-arrow {
-      border-width: 8px;
-
-      &:after {
-        border-width: 7px;
-      }
-    }
-
-    &.bottom {
-      left: 40px;
-      margin-top: 7px;
-
-      .date-picker-popover-arrow {
-        left: 7% !important; // required to override inline style added by bootstrap.js
-        top: -16px;
-        margin-left: -8px;
-
-        &:after {
-          left: 10%;
-          margin-left: -7px;
-          top: -6px;
+    &.date-picker-popover {
+        .popover-content {
+            padding: 0;
         }
-      }
-    }
 
-    &.top {
-      left: 40px;
+        .date-picker-popover-arrow {
+            border-width: 8px;
 
-      .date-picker-popover-arrow {
-        left: 7% !important; // required to override inline style added by bootstrap.js
-        bottom: -16px;
-        margin-left: -8px;
-
-        &:after {
-          left: 10%;
-          margin-left: -7px;
-          bottom: -6px;
+            &:after {
+                border-width: 7px;
+            }
         }
-      }
+
+        &.bottom {
+            left: 40px;
+            margin-top: 7px;
+
+            .date-picker-popover-arrow {
+                left: 7% !important; // required to override inline style added by bootstrap.js
+                top: -16px;
+                margin-left: -8px;
+
+                &:after {
+                    left: 10%;
+                    margin-left: -7px;
+                    top: -6px;
+                }
+            }
+        }
+
+        &.top {
+            left: 40px;
+
+            .date-picker-popover-arrow {
+                left: 7% !important; // required to override inline style added by bootstrap.js
+                bottom: -16px;
+                margin-left: -8px;
+
+                &:after {
+                    left: 10%;
+                    margin-left: -7px;
+                    bottom: -6px;
+                }
+            }
+        }
     }
-  }
 }
-
 
 .date-picker {
-  font-family: @font-family !important;
-  .datepicker table {
-	width: 100%;
-  }
-}
-.timepicker {
-  width: 100%;
-  table-layout: fixed;
+    font-family: @font-family !important;
 
-  button.meridian-btn {
-	  padding: 4px 11px !important;
-	}
-	input {
-    font-size: 0.875rem;
-	}
+    .datepicker table {
+        width: 100%;
+    }
+}
+
+.timepicker {
+    width: 100%;
+    table-layout: fixed;
+
+    button.meridian-btn {
+        padding: 4px 11px !important;
+    }
+
+    input {
+        font-size: 0.875rem;
+    }
 }
 
 .timepicker-dark {
-  background-color: @grey8;
-  padding: 12px;
-  margin-top: 6px;
-  border-top: 1px solid @grey5;
+    background-color: @grey8;
+    padding: 12px;
+    margin-top: 6px;
+    border-top: 1px solid @grey5;
 }
 
 /* Modal */
+
 .modal {
-  z-index: @modal-z-index !important;
+    z-index: @modal-z-index !important;
 }
 
 .modal-open {
-  .datepicker {
-    &.dropdown-menu {
-      z-index: @modal-z-index + 1 !important;
+    .datepicker {
+        &.dropdown-menu {
+            z-index: @modal-z-index + 1 !important;
+        }
     }
-  }
 }
 
 .modal-open {
-  .affix-container {
-    .affix {
-      z-index: @modal-open-z-index;
+    .affix-container {
+        .affix {
+            z-index: @modal-open-z-index;
+        }
     }
-  }
 }
+
 .modal-open {
-  .navbar-static-side-container {
-    z-index: @modal-open-z-index;
-  }
+    .navbar-static-side-container {
+        z-index: @modal-open-z-index;
+    }
 }
+
 /* Modal End */
 
 /* TOOLTIPS */
 
 .tooltip {
-  word-wrap: break-word;
-  font-size: 0.875rem;
-  font-family: @font-family;
-  z-index: @tooltip-z-index;
+    word-wrap: break-word;
+    font-size: 0.875rem;
+    font-family: @font-family;
+    z-index: @tooltip-z-index;
 }
+
 .tooltip {
-  &.in {
-    .opacity(100);
-  }
+    &.in {
+        .opacity(100);
+    }
 }
 
 .tooltip-inner {
-  background-color: @tooltip-bg;
-  box-shadow: 1px 1px 2px @tooltip-shadow;
-  border-radius: 0;
-  text-align: left;
-  max-width: 400px;
+    background-color: @tooltip-bg;
+    box-shadow: 1px 1px 2px @tooltip-shadow;
+    border-radius: 0;
+    text-align: left;
+    max-width: 400px;
 }
 
 .tooltip {
-  &.top {
-    .tooltip-arrow {
-      border-top-color: @tooltip-bg;
+    &.top {
+        .tooltip-arrow {
+            border-top-color: @tooltip-bg;
+        }
     }
-  }
 }
 
 .tooltip {
-  &.right {
-    .tooltip-arrow {
-      border-right-color: @tooltip-bg;
+    &.right {
+        .tooltip-arrow {
+            border-right-color: @tooltip-bg;
+        }
     }
-  }
 }
 
 .tooltip {
-  &.bottom {
-    .tooltip-arrow {
-      border-bottom-color: @tooltip-bg;
+    &.bottom {
+        .tooltip-arrow {
+            border-bottom-color: @tooltip-bg;
+        }
     }
-  }
 }
 
 .tooltip {
-  &.left {
-    .tooltip-arrow {
-      border-left-color: @tooltip-bg;
+    &.left {
+        .tooltip-arrow {
+            border-left-color: @tooltip-bg;
+        }
     }
-  }
 }
 
 // Should probably be removed?
-.black-tooltip{
-  &+.tooltip{
+.black-tooltip {
+    & + .tooltip {
+        width: 350px;
 
-    width:350px;
+        > .tooltip-inner {
+            background-color: @tooltip-black-bg-border;
+            font-family: @font-family;
+            font-size: 0.875rem;
+            display: inline-block;
+        }
 
-    >.tooltip-inner{
-      background-color: @tooltip-black-bg-border;
-      font-family: @font-family;
-      font-size: 0.875rem;
-      display:inline-block;
+        &.right {
+            > .tooltip-arrow {
+                border-right-color: @tooltip-black-bg-border;
+            }
+        }
+
+        &.left {
+            > .tooltip-arrow {
+                border-left-color: @tooltip-black-bg-border;
+            }
+        }
+
+        &.top {
+            > .tooltip-arrow {
+                border-top-color: @tooltip-black-bg-border;
+            }
+        }
+
+        &.bottom {
+            > .tooltip-arrow {
+                border-bottom-color: @tooltip-black-bg-border;
+            }
+        }
     }
-    &.right{
-      >.tooltip-arrow{
-      border-right-color: @tooltip-black-bg-border;
-      }
-    }
-    &.left{
-      >.tooltip-arrow{
-      border-left-color: @tooltip-black-bg-border;
-      }
-    }
-    &.top{
-      >.tooltip-arrow{
-      border-top-color: @tooltip-black-bg-border;
-      }
-    }
-    &.bottom{
-      >.tooltip-arrow{
-      border-bottom-color: @tooltip-black-bg-border;
-      }
-    }
-  }
 }
+
 .linkTooltip {
-  pointer-events: none;
-}
-//JQuery knob input
-.dial{
-  &:focus{
-  .aspects-outline;
-  }
+    pointer-events: none;
 }
 
+//JQuery knob input
+.dial {
+    &:focus {
+        .aspects-outline;
+    }
+}
 
 //Float label
-
-.float-label{
-  position: relative;
-  input{
+.float-label {
     position: relative;
-    height: 45px;
-  	padding-top: 16px;
-  	border: none;
-    border-bottom: 1px solid @float-label-border;
 
-    // Needs checked - are login class names changing?
-    &.login-form-control-light{
-      border-bottom: 1px solid @float-label-border;
-      &:focus {
-        border-bottom: 1px solid @login-form-border;
-      }
+    input {
+        position: relative;
+        height: 45px;
+        padding-top: 16px;
+        border: none;
+        border-bottom: 1px solid @float-label-border; // Needs checked - are login class names changing?
+        &.login-form-control-light {
+            border-bottom: 1px solid @float-label-border;
+
+            &:focus {
+                border-bottom: 1px solid @login-form-border;
+            }
+        }
+
+        &.login-form-control-dark {
+            border-bottom: 1px solid @login-form-border;
+
+            &:focus {
+                border-bottom: 1px solid @float-label-border;
+            }
+        }
+
+        &.input-lg {
+            height: 50px;
+        }
+    } //IE10+ browsers
+
+    @media all and (-ms-high-contrast: none),
+        (-ms-high-contrast: active) {
+        input:focus + label {
+            font-size: @font-size-sm;
+            .opacity(1);
+
+            z-index: @float-label-z-index;
+            top: -1px;
+            color: @accent;
+            transition: 0.4s;
+        }
     }
 
-    &.login-form-control-dark {
-      border-bottom: 1px solid @login-form-border;
-      &:focus {
-        border-bottom: 1px solid @float-label-border;
-      }
+    label,
+    input [data-toggle="floatLabel"][data-value=""] + label {
+        position: absolute;
+        top: 15px;
+        .opacity(0);
+
+        width: 100%;
+        text-indent: 1.1em;
+        font-size: @font-size-sm;
+        color: lighten(@grey2, 60%);
+        pointer-events: none;
+        text-transform: capitalize;
     }
 
+    input[data-toggle="floatLabel"]:not([data-value=""]) + label {
+        font-size: @font-size-sm;
+        .opacity(1);
 
-    &.input-sm{
+        z-index: @float-label-z-index;
+        top: -1px;
+        color: lighten(@text-color, 30%);
+        transition: all 0.5s ease-in-out;
+    }
 
+    input.input-lg:focus + label,
+    input.input-lg:valid + label {
+        font-size: @font-size-md;
+        z-index: @float-label-z-index;
+        .opacity(1);
+
+        top: 0%;
+        color: @accent;
+        text-indent: 1em;
+        transition: 0.2s top linear;
     }
-    &.input-lg{
-      height: 50px;
+
+    .input-group-addon ~ label,
+    &.input-group label,
+    .input-group label {
+        display: none;
     }
-  }
-//IE10+ browsers
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
- input:focus + label {
-    font-size: @font-size-sm;
-    .opacity(1);
-    z-index: @float-label-z-index;
-    top:-1px;
-    color: @accent;
-    transition: 0.4s;
-  }
 }
-
-  label, input [data-toggle="floatLabel"][data-value=""] + label {
-    position: absolute;
-    top: 15px;
-    .opacity(0);
-    width: 100%;
-    text-indent: 1.1em;
-    font-size: @font-size-sm;
-    color: lighten(@grey2, 60%);
-    pointer-events: none;
-    text-transform: capitalize;
-  }
-
-  input[data-toggle="floatLabel"]:not([data-value=""]) + label{
-    font-size: @font-size-sm;
-    .opacity(1);
-    z-index: @float-label-z-index;
-    top:-1px;
-    color: lighten(@text-color, 30%);
-    transition: all 0.5s ease-in-out;
-  }
-
-  input.input-lg:focus + label, input.input-lg:valid+label{
-    font-size: @font-size-md;
-    z-index: @float-label-z-index;
-    .opacity(1);
-    top:0%;
-    color: @accent;
-    text-indent: 1em;
-    transition: 0.2s top linear;
-  }
-  .input-group-addon ~ label, &.input-group label, .input-group label{
-    display: none;
-  }
-}
-//IE 9
-:root .float-label input:focus + label {
-    font-size: @font-size-sm e(" \0/IE9");
-    opacity: 1 e(" \0/IE9");
-    -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=(100))" e(" \0/IE9");
-    z-index:  @float-label-z-index e("\0/IE9");
-    top:-1px e("\0/IE9");
-    color: @accent e("\0/IE9");
-    transition: 0.4s e("\0/IE9");
-  }
 
 //ui-tree
-.angular-ui-tree{
-  > ol {
-    padding-left: 10px;
-  }
-  ol{
-    list-style: none;
-    position: relative;
-    padding-left: 18px;
-  }
-  &.showTreeOutline, &.show-tree-outline {
-      li {
-      position: relative;
-      &::before, &::after{
-        content: "";
-        position: absolute;
-        left: -12px;
-      }
-      &::before{
-        border-top: 1px dashed @treeview-outline;
-        top: 12px;
-        width: 10px;
-        height: 0;
-      }
-      &::after{
-        border-left: 1px dashed @treeview-outline;
-        height: 100%;
-        width: 0px;
-        top: 2px;
-      }
+.angular-ui-tree {
+    > ol {
+        padding-left: 10px;
     }
-    ol > li {
-      &:last-child::after{
-        height: 10px;
-      }
-    }
-  }
 
-  .ng-hide-add,
-  .ng-hide-remove {
-  .opacity(0);
-  }
+    ol {
+        list-style: none;
+        position: relative;
+        padding-left: 18px;
+    }
+
+    &.showTreeOutline,
+    &.show-tree-outline {
+        li {
+            position: relative;
+
+            &:before,
+            &:after {
+                content: "";
+                position: absolute;
+                left: -12px;
+            }
+
+            &:before {
+                border-top: 1px dashed @treeview-outline;
+                top: 12px;
+                width: 10px;
+                height: 0;
+            }
+
+            &:after {
+                border-left: 1px dashed @treeview-outline;
+                height: 100%;
+                width: 0;
+                top: 2px;
+            }
+        }
+
+        ol > li {
+            &:last-child:after {
+                height: 10px;
+            }
+        }
+    }
+
+    .ng-hide-add,
+    .ng-hide-remove {
+        .opacity(0);
+    }
 }
 
-tree-view > div:first-child > ol:nth-of-type(1){
-    border:none;
-    > li::before, > li::after{
-      border:none !important;
+tree-view > div:first-child > ol:nth-of-type(1) {
+    border: none;
+
+    > li:before,
+    > li:after {
+        border: none !important;
     }
 }
 
 .angular-ui-tree-handle {
     color: @text-color;
-
 }
 
 .angular-ui-tree-placeholder {
@@ -1650,66 +1773,86 @@ tree-view > div:first-child > ol:nth-of-type(1){
     color: @white !important;
 }
 
-
 /* --- Tree --- */
+
 .tree-node {
     color: @treeview-color;
-    padding: 1px 1px;
-    &.highlight{
-      background-color: @shift-select-selected-light;
-      .title-readonly{
-        cursor: text;
-      }
-      > input{ 
-        line-height: 1em !important;
-        border:none !important;
-        margin-left: -5px;
-        .aspects-outline;
-        padding-left: 5px;
-      }
-      .title-readonly:focus{
-        background-color: transparent!important;
-      }
+    padding: 1px;
+
+    &.highlight {
+        background-color: @shift-select-selected-light;
+
+        .title-readonly {
+            cursor: text;
+        }
+
+        > input {
+            line-height: 1em !important;
+            border: none !important;
+            margin-left: -5px;
+            .aspects-outline;
+
+            padding-left: 5px;
+        }
+
+        .title-readonly:focus {
+            background-color: transparent !important;
+        }
     }
+
     &:hover {
-      background-color: @treeview-hover-bg;
+        background-color: @treeview-hover-bg;
     }
-    &:active, &:active:focus, &:focus{
-      outline: 0;
+
+    &:active,
+    &:active:focus,
+    &:focus {
+        outline: 0;
     }
-    a.btn{
-      vertical-align: text-top;
-      padding-bottom: 0px;
+
+    a.btn {
+        vertical-align: text-top;
+        padding-bottom: 0;
     }
-    .chevron{
-      width: 13px !important;
-      span {
-        color: @text-color;
-        opacity: 0.5;
-        &:hover {
-          opacity: 1;
+
+    .chevron {
+        width: 13px !important;
+
+        span {
+            color: @text-color;
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+            }
         }
-      }
     }
-    .tree-action-button{
-      font-size: 0.625rem !important;
-      padding: 4px !important;
+
+    .tree-action-button {
+        font-size: 0.625rem !important;
+        padding: 4px !important;
     }
-    .icon{
-      margin-right: 3px;
+
+    .icon {
+        margin-right: 3px;
     }
-    a:focus, span:focus{
-      .aspects-outline;
+
+    a:focus,
+    span:focus {
+        .aspects-outline;
     }
-    a:active, a:active:focus{
-      .aspects-outline;
+
+    a:active,
+    a:active:focus {
+        .aspects-outline;
     }
-    .toggle{
-      &.empty{
-        > span {
-          color: lighten(@text-color, 50%);
+
+    .toggle {
+        &.empty {
+            > span {
+                color: lighten(@text-color, 50%);
+            }
         }
-      }
     }
 }
 
@@ -1725,6 +1868,7 @@ tree-view > div:first-child > ol:nth-of-type(1){
     user-select: none;
     cursor: pointer;
 }
+
 .tree-handle {
     padding: 2px;
 }
@@ -1734,485 +1878,502 @@ tree-view > div:first-child > ol:nth-of-type(1){
 */
 
 .static-tooltip {
-  position: fixed;
-  width: 250px;
-  background-color: @static-tooltip-bg;
-  border: 1px solid @static-tooltip-border;
-  box-shadow: 2px 2px 2px @static-tooltip-shadow;
-  z-index: @static-tooltip-z-index;
-  padding: 5px 10px;
-  transition: border-color 0.3s linear;
-
-  .callout {
-    position: absolute;
-    display: inline-block;
-    width: 9px;
-    height: 9px;
+    position: fixed;
+    width: 250px;
     background-color: @static-tooltip-bg;
+    border: 1px solid @static-tooltip-border;
+    box-shadow: 2px 2px 2px @static-tooltip-shadow;
+    z-index: @static-tooltip-z-index;
+    padding: 5px 10px;
     transition: border-color 0.3s linear;
-  }
-
-  &.right {
-    .callout {
-      right: -5px;
-      transform: translateY(-50%) rotate(45deg);
-      border-right: 1px solid @static-tooltip-border;
-      border-top: 1px solid @static-tooltip-border;
-    }
-  }
-
-  &.left {
-    .callout {
-      left: -5px;
-      transform: translateY(-50%) rotate(45deg);
-      border-left: 1px solid @static-tooltip-border;
-      border-bottom: 1px solid @static-tooltip-border;
-    }
-  }
-
-  &.up {
-    .callout {
-      transform: translateX(-50%) rotate(45deg);
-      top: -5px;
-      border-left: 1px solid @static-tooltip-border;
-      border-top: 1px solid @static-tooltip-border;
-    }
-  }
-
-  &.down {
-    .callout {
-      transform: translateX(-50%) rotate(45deg);
-      bottom: -5px;
-      border-right: 1px solid @static-tooltip-border;
-      border-bottom: 1px solid @static-tooltip-border;
-    }
-  }
-
-  &.up, &.down {
-    &.start {
-      .callout {
-        left: 19px;
-      }
-    }
-    &.middle {
-      .callout {
-        left: 50%;
-      }
-    }
-    &.end {
-      .callout {
-        right: 9px;
-      }
-    }
-  }
-
-  &.left, &.right {
-    &.start {
-      .callout {
-        top: 19px;
-      }
-    }
-    &.middle {
-      .callout {
-        top: 50%;
-      }
-    }
-    &.end {
-      .callout {
-        bottom: 9px;
-      }
-    }
-  }
-
-  .content {
-    color: @static-tooltip-color;
-    font-family: @font-family;
-    font-weight: @font-weight-semibold;
-    text-rendering: optimizeLegibility;
-    margin: 0;
-  }
-
-  .footer {
-    display: block;
-    text-align: right;
-    opacity: 0;
-    transition: opacity 0.3s linear;
-
-    .hide-tips {
-      color: @static-tooltip-hide-tips;
-      font-size: 0.875rem;
-    }
-  }
-
-  &:hover {
-    border-color: @static-tooltip-hover-border;
 
     .callout {
-      border-color: @static-tooltip-hover-border;
+        position: absolute;
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        background-color: @static-tooltip-bg;
+        transition: border-color 0.3s linear;
+    }
+
+    &.right {
+        .callout {
+            right: -5px;
+            transform: translateY(-50%) rotate(45deg);
+            border-right: 1px solid @static-tooltip-border;
+            border-top: 1px solid @static-tooltip-border;
+        }
+    }
+
+    &.left {
+        .callout {
+            left: -5px;
+            transform: translateY(-50%) rotate(45deg);
+            border-left: 1px solid @static-tooltip-border;
+            border-bottom: 1px solid @static-tooltip-border;
+        }
+    }
+
+    &.up {
+        .callout {
+            transform: translateX(-50%) rotate(45deg);
+            top: -5px;
+            border-left: 1px solid @static-tooltip-border;
+            border-top: 1px solid @static-tooltip-border;
+        }
+    }
+
+    &.down {
+        .callout {
+            transform: translateX(-50%) rotate(45deg);
+            bottom: -5px;
+            border-right: 1px solid @static-tooltip-border;
+            border-bottom: 1px solid @static-tooltip-border;
+        }
+    }
+
+    &.up,
+    &.down {
+        &.start {
+            .callout {
+                left: 19px;
+            }
+        }
+
+        &.middle {
+            .callout {
+                left: 50%;
+            }
+        }
+
+        &.end {
+            .callout {
+                right: 9px;
+            }
+        }
+    }
+
+    &.left,
+    &.right {
+        &.start {
+            .callout {
+                top: 19px;
+            }
+        }
+
+        &.middle {
+            .callout {
+                top: 50%;
+            }
+        }
+
+        &.end {
+            .callout {
+                bottom: 9px;
+            }
+        }
+    }
+
+    .content {
+        color: @static-tooltip-color;
+        font-family: @font-family;
+        font-weight: @font-weight-semibold;
+        text-rendering: optimizeLegibility;
+        margin: 0;
     }
 
     .footer {
-      opacity: 1;
+        display: block;
+        text-align: right;
+        opacity: 0;
+        transition: opacity 0.3s linear;
+
+        .hide-tips {
+            color: @static-tooltip-hide-tips;
+            font-size: 0.875rem;
+        }
     }
-  }
+
+    &:hover {
+        border-color: @static-tooltip-hover-border;
+
+        .callout {
+            border-color: @static-tooltip-hover-border;
+        }
+
+        .footer {
+            opacity: 1;
+        }
+    }
 }
 
 /*
   Search Builder Control
 */
+
 search-builder {
-  width: 100%;
-  height: 100%;
-
-  .search-group {
     width: 100%;
+    height: 100%;
 
-    .search-group-title {
-      color: @search-builder-group-title-color;
-      font-size: 1.188rem;
-    }
+    .search-group {
+        width: 100%;
 
-    .search-group-content {
-      display: table;
-      width: 100%;
-      min-height: 44px;
-      padding-left: 20px;
+        .search-group-title {
+            color: @search-builder-group-title-color;
+            font-size: 1.188rem;
+        }
 
-      .operator-label {
-          display: table-cell;
-          width: 100px;
-          border-left: 0 solid @search-builder-operator-border;
-          padding-left: 5px;
-          vertical-align: middle;
-          text-transform: uppercase;
-          color: @search-builder-operator-border;
-          opacity: 0;
-          transition: opacity 0.3s linear;
+        .search-group-content {
+            display: table;
+            width: 100%;
+            min-height: 44px;
+            padding-left: 20px;
 
-          &.search-builder-show {
-            opacity: 1;
-            border-left-width: 4px;
-          }
-
-          &.or {
-            border-left-color: @search-builder-operator-or-border;
-          }
-
-          &.and {
-            border-left-color: @search-builder-operator-and-border;
-          }
-
-          &.not {
-            border-left-color: @search-builder-operator-not-border;
-          }
-      }
-
-      .field-list {
-        display: table-cell;
-
-        .field-collection {
-          list-style-type: none;
-          padding-left: 0;
-          margin: 0;
-          opacity: 0;
-          transition: opacity 0.3s linear;
-
-          &.search-builder-show {
-            opacity: 1;
-          }
-
-          .field {
-            margin-right: 10px;
-            transition: background-color 0.3s linear;
-
-            &:hover {
-              background-color: @search-builder-field-hover;
-
-              .search-component {
-                .component-remove {
-                  opacity: 1;
-                }
-              }
-            }
-
-            .placeholder-field {
-              .form-control();
-              height: 34px;
-              border: 1px dashed @search-builder-placeholder-border;
-            }
-
-            .search-component {
-              display: table;
-              width: 100%;
-              padding: 5px;
-
-              .component-container {
+            .operator-label {
                 display: table-cell;
-                width: ~'calc(100% - 35px)';
-
-                .input-group {
-                  line-height: 0;
-                }
-              }
-
-              .component-remove {
-                display: table-cell;
-                text-align: center;
-                width: 30px;
-                height: 100%;
+                width: 100px;
+                border-left: 0 solid @search-builder-operator-border;
+                padding-left: 5px;
                 vertical-align: middle;
+                text-transform: uppercase;
+                color: @search-builder-operator-border;
                 opacity: 0;
                 transition: opacity 0.3s linear;
 
-                .hpe-close {
-                  color: @search-builder-remove-color;
-                  cursor: pointer;
-                  margin: 9px;
+                &.search-builder-show {
+                    opacity: 1;
+                    border-left-width: 4px;
                 }
-              }
+
+                &.or {
+                    border-left-color: @search-builder-operator-or-border;
+                }
+
+                &.and {
+                    border-left-color: @search-builder-operator-and-border;
+                }
+
+                &.not {
+                    border-left-color: @search-builder-operator-not-border;
+                }
             }
-          }
+
+            .field-list {
+                display: table-cell;
+
+                .field-collection {
+                    list-style-type: none;
+                    padding-left: 0;
+                    margin: 0;
+                    opacity: 0;
+                    transition: opacity 0.3s linear;
+
+                    &.search-builder-show {
+                        opacity: 1;
+                    }
+
+                    .field {
+                        margin-right: 10px;
+                        transition: background-color 0.3s linear;
+
+                        &:hover {
+                            background-color: @search-builder-field-hover;
+
+                            .search-component {
+                                .component-remove {
+                                    opacity: 1;
+                                }
+                            }
+                        }
+
+                        .placeholder-field {
+                            .form-control();
+
+                            height: 34px;
+                            border: 1px dashed @search-builder-placeholder-border;
+                        }
+
+                        .search-component {
+                            display: table;
+                            width: 100%;
+                            padding: 5px;
+
+                            .component-container {
+                                display: table-cell;
+                                width: ~'calc(100% - 35px)';
+
+                                .input-group {
+                                    line-height: 0;
+                                }
+                            }
+
+                            .component-remove {
+                                display: table-cell;
+                                text-align: center;
+                                width: 30px;
+                                height: 100%;
+                                vertical-align: middle;
+                                opacity: 0;
+                                transition: opacity 0.3s linear;
+
+                                .hpe-close {
+                                    color: @search-builder-remove-color;
+                                    cursor: pointer;
+                                    margin: 9px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .placeholder-field {
+                padding: 5px 40px 5px 5px;
+
+                .form-control {
+                    height: 34px;
+                    border: 1px dashed @search-builder-placeholder-border;
+                }
+            }
+
+            .add-field {
+                display: table-cell;
+                width: 160px;
+                vertical-align: bottom;
+                padding-bottom: 5px;
+
+                &.limit-reached {
+                    .button-container {
+                        cursor: default;
+
+                        .add-button {
+                            background-color: @search-builder-add-disabled-bg;
+                            cursor: default;
+
+                            .hpe-icon.hpe-add {
+                                cursor: default;
+                            }
+                        }
+
+                        &:hover {
+                            .add-button {
+                                cursor: default;
+                                background-color: @search-builder-add-disabled-bg;
+                            }
+                        }
+                    }
+                }
+
+                .button-container {
+                    cursor: pointer;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+
+                    &:hover {
+                        .add-button {
+                            background-color: @search-builder-add-hover-bg;
+                        }
+                    }
+
+                    .add-button {
+                        display: inline-block;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background-color: @search-builder-add-bg;
+                        transition: background-color 0.3s linear;
+
+                        .hpe-icon.hpe-add {
+                            display: block;
+                            color: @search-builder-add-icon-color;
+                            font-weight: 700;
+                            text-align: center;
+                            height: 30px;
+                            line-height: 30px;
+                            cursor: pointer;
+                        }
+                    }
+
+                    .add-text {
+                        display: inline-block;
+                        color: @search-builder-add-color;
+                        font-size: 0.9375rem;
+                        padding-left: 8px;
+                        max-width: 120px;
+                        vertical-align: sub;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+            }
         }
-      }
 
-      .placeholder-field {
-        padding: 5px 40px 5px 5px;
-
-        .form-control {
-          height: 34px;
-          border: 1px dashed @search-builder-placeholder-border;
-        }
-      }
-
-      .add-field {
-        display: table-cell;
-        width: 160px;
-        vertical-align: bottom;
-        padding-bottom: 5px;
-
-        &.limit-reached {
-          .button-container {
-            cursor: default;
-
-            .add-button {
-              background-color: @search-builder-add-disabled-bg;
-              cursor: default;
-
-              .hpe-icon.hpe-add {
-                cursor: default;
-              }
-            }
-
-            &:hover {
-              .add-button {
-                cursor: default;
-                background-color: @search-builder-add-disabled-bg;
-              }
-            }
-          }
-        }
-
-        .button-container {
-          cursor: pointer;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-
-          &:hover {
-            .add-button {
-              background-color: @search-builder-add-hover-bg;
-            }
-          }
-
-          .add-button {
-              display: inline-block;
-              width: 30px;
-              height: 30px;
-              border-radius: 50%;
-              background-color: @search-builder-add-bg;
-              transition: background-color 0.3s linear;
-
-              .hpe-icon.hpe-add {
-                display: block;
-                color: @search-builder-add-icon-color;
-                font-weight: 700;
-                text-align: center;
-                height: 30px;
-                line-height: 30px;
-                cursor: pointer;
-              }
-            }
-
-            .add-text {
-              display: inline-block;
-              color: @search-builder-add-color;
-              font-size: 0.9375rem;
-              padding-left: 8px;
-              max-width: 120px;
-              vertical-align: sub;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
+        .group-divider {
+            border-top-color: @search-builder-divider;
+            margin-top: 29px;
+            margin-bottom: 19px;
         }
     }
-
-    .group-divider {
-      border-top-color: @search-builder-divider;
-      margin-top: 29px;
-      margin-bottom: 19px;
-    }
-  }
 }
 
 /*
   Hover Actions
 */
+
 .hover-actions {
-
-  .hover-action {
-    display: inline-block;
-    padding: 6px;
-    color: @text-color;
-    opacity: 0;
-    transition: opacity 0.15s linear;
-  }
-
-  &.hovered, &.focused, &.action-hovered {
     .hover-action {
-      opacity: 0.5;
-
-      &:hover, &:focus {
-        opacity: 1;
-      }
+        display: inline-block;
+        padding: 6px;
+        color: @text-color;
+        opacity: 0;
+        transition: opacity 0.15s linear;
     }
-  }
-}
-//select-table styling
 
+    &.hovered,
+    &.focused,
+    &.action-hovered {
+        .hover-action {
+            opacity: 0.5;
+
+            &:hover,
+            &:focus {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+//select-table styling
 .select-table-container {
-  border: 2px solid @table-hover-bg;
-  padding-top: 5px;
-  .scroll-pane {
-    margin-right: 5px;
-  }
+    border: 2px solid @table-hover-bg;
+    padding-top: 5px;
+
+    .scroll-pane {
+        margin-right: 5px;
+    }
 }
 
 table.select-table {
-  margin-bottom: 1px;
-  
-  tr:focus{
-    background-color: @table-hover-bg;
-  }
-  td.highlight{
-    background-color: @table-hover-bg;
-    font-family: @font-family;
-    font-weight: @font-weight-semibold;
-  }
+    margin-bottom: 1px;
+
+    tr:focus {
+        background-color: @table-hover-bg;
+    }
+
+    td.highlight {
+        background-color: @table-hover-bg;
+        font-family: @font-family;
+        font-weight: @font-weight-semibold;
+    }
 }
+
 table.select-table tr {
-	cursor: pointer;
+    cursor: pointer;
 }
-table.select-table tr > td{
- padding: 3px 10px;
- line-height: 25px;
+
+table.select-table tr > td {
+    padding: 3px 10px;
+    line-height: 25px;
 }
 
 table.select-table tr:focus {
-	outline: none;
+    outline: none;
 }
 
 table.select-table > tbody > tr.highlight {
-  td {
-    background-color: @select-table-highlight-bg;
-    font-family: @font-family;
-    font-weight: @font-weight-semibold;
-  }
+    td {
+        background-color: @select-table-highlight-bg;
+        font-family: @font-family;
+        font-weight: @font-weight-semibold;
+    }
 }
 
-table.select-table tr > td{
-  border: none;
+table.select-table tr > td {
+    border: none;
 }
 
 .popover {
-  z-index: @popover-z-index;
-  font-family: @font-family;
+    z-index: @popover-z-index;
+    font-family: @font-family;
 }
 
-/* 
+/*
   Number Picker
 */
+
 .number-picker {
-  display: inline-flex;
-  input {
-    &.form-control {
-      -webkit-appearance: none;
-      text-align: right;
-      border-right-width: 0;
-      padding-left: 10px;
-      padding-right: 10px;
-      width: ~"calc(100% - 27px)";
-      &:focus {
-        border-right-width: 1px;
-      }
-    }
-  }
-  &.invalid-entry {
+    display: inline-flex;
+
     input {
-      border: 1px solid @number-picker-invalid-entry-border;
+        &.form-control {
+            -webkit-appearance: none;
+            text-align: right;
+            border-right-width: 0;
+            padding-left: 10px;
+            padding-right: 10px;
+            width: ~"calc(100% - 27px)";
+
+            &:focus {
+                border-right-width: 1px;
+            }
+        }
     }
-    i {
-      border-left-width: 0;
-    }
-  }
 
-  .number-picker-icons {
-    display: flex;
-    flex-direction: column;
-    height: 34px;
-    text-align: center;
-
-    i {
-      cursor: pointer;
-      font-size: 0.875rem;
-      color: @number-picker-icon-color;
-      padding: 1px 5px 1px 5px;
-      border: 1px solid @number-picker-icon-border;
-      border-bottom-width: 0;
-      width: 27px;
-
-      &:last-child {
-        border-bottom-width: 1px;
-        padding-top: 0;
-      }
-
-      &:hover {
-        color: darken(@number-picker-icon-color, 40%);
-        background-color: lighten(@number-picker-icon-color, 15%);
-      }
-
-      &:active {
-        border: 1px solid darken(@number-picker-icon-color, 30%);
-
-        + i {
-          border-top-width: 0;
+    &.invalid-entry {
+        input {
+            border: 1px solid @number-picker-invalid-entry-border;
         }
 
-        &.disabled {
-          border: 1px solid @number-picker-icon-border;
+        i {
+            border-left-width: 0;
         }
-      }
-      
-      &.disabled {
-        background-color: lighten(@number-picker-icon-color, 15%);
-        cursor: default;
-        color: @number-picker-icon-color;
-      }
-
-
     }
-  }
 
+    .number-picker-icons {
+        display: flex;
+        flex-direction: column;
+        height: 34px;
+        text-align: center;
+
+        i {
+            cursor: pointer;
+            font-size: 0.875rem;
+            color: @number-picker-icon-color;
+            padding: 1px 5px;
+            border: 1px solid @number-picker-icon-border;
+            border-bottom-width: 0;
+            width: 27px;
+
+            &:last-child {
+                border-bottom-width: 1px;
+                padding-top: 0;
+            }
+
+            &:hover {
+                color: darken(@number-picker-icon-color, 40%);
+                background-color: lighten(@number-picker-icon-color, 15%);
+            }
+
+            &:active {
+                border: 1px solid darken(@number-picker-icon-color, 30%);
+
+                + i {
+                    border-top-width: 0;
+                }
+
+                &.disabled {
+                    border: 1px solid @number-picker-icon-border;
+                }
+            }
+
+            &.disabled {
+                background-color: lighten(@number-picker-icon-color, 15%);
+                cursor: default;
+                color: @number-picker-icon-color;
+            }
+        }
+    }
 }

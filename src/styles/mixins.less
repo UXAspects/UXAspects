@@ -1,58 +1,61 @@
 // Placeholder text
 .placeholder(@color: @white) {
-  &::-moz-placeholder           { color: @color;   // Firefox
-    opacity: 1; } // See https://github.com/twbs/bootstrap/pull/11526
-  &:-ms-input-placeholder       { color: @color; } // Internet Explorer 10+
-  &::-webkit-input-placeholder  { color: @color; } // Safari and Chrome
+    &::-moz-placeholder {
+        color: @color; // Firefox
+        opacity: 1;
+    } // See https://github.com/twbs/bootstrap/pull/11526
+    &:-ms-input-placeholder {
+        color: @color;
+    } // Internet Explorer 10+
+    &::-webkit-input-placeholder {
+        color: @color;
+    } // Safari and Chrome
 }
 
-.rotate(@deg){
-  -webkit-transform:rotate(@deg);
-  -moz-transform:rotate(@deg);
-  -ms-transform:rotate(@deg);
-  transform:rotate(@deg);
+.rotate(@deg) {
+    transform: rotate(@deg);
 }
 
 .opacity (@opacity) {
-  -webkit-opacity: 	@opacity;
-  -moz-opacity: 		@opacity;
-  opacity: 		@opacity;
-  @opacityPercentage: @opacity * 100;
-  -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=(@{opacityPercentage}))"; 
-  filter: ~"alpha(opacity = (@{opacityPercentage}))";
+    opacity: @opacity;
+    @opacityPercentage: @opacity * 100;
+
+    filter: ~"alpha(opacity = (@{opacityPercentage}))";
 }
 
+.clearfix {
+    zoom: 1;
 
-.clearfix{
-  zoom:1;
-  &:before, &:after{
-    content:""; 
-    display:table;
-  }
-  &:after{ 
-    clear: both;
-  }
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
 }
 
-.aspects-outline{
-  outline: 1px dotted;
-  outline: auto -webkit-focus-ring-color;
-  outline-color: @aspects-outline;
-  outline-offset: 0px;
+.aspects-outline {
+    outline: 1px dotted;
+    outline: auto -webkit-focus-ring-color;
+    outline-color: @aspects-outline;
+    outline-offset: 0;
 }
 
-.elements-force-outline{
-  outline-style: solid;
-  outline-width: 1px;
-  .aspects-outline;
+.elements-force-outline {
+    outline-style: solid;
+    outline-width: 1px;
+    .aspects-outline;
 }
 
 .btn-hover-active-color(light, @color, @percent) {
-  background-color: darken(@color, @percent);
-  border-color: darken(@color, @percent);
+    background-color: darken(@color, @percent);
+    border-color: darken(@color, @percent);
 }
 
 .btn-hover-active-color(dark, @color, @percent) {
-  background-color: lighten(@color, @percent);
-  border-color: lighten(@color, @percent);
+    background-color: lighten(@color, @percent);
+    border-color: lighten(@color, @percent);
 }

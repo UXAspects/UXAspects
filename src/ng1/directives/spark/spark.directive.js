@@ -4,7 +4,7 @@ export default function SparkDirective() {
         template: require("./spark.html"),
         controller: "SparkCtrl as sc",
         scope: {
-            type: "=",
+            type: "=?",
             value: "=",
             fillheight: "=",
             label: "=inlineLabel",

@@ -14,6 +14,7 @@ export * from './components/floating-action-buttons/index';
 export * from './components/item-display-panel/index';
 export * from './components/marquee-wizard/index';
 export * from './components/navigation/index';
+export * from './components/notification/index';
 export * from './components/number-picker/index';
 export * from './components/page-header/index';
 export * from './components/progress-bar/index';
