@@ -19,8 +19,8 @@
             ng-class="{ 'dir-top': direction=='top', 'dir-left': direction=='left', 'dir-right': direction=='right', 'dir-bottom': direction=='bottom' }" 
             aria-label="{{ tooltip || primary }}"
             ng-click="expand($event)"
-            tooltip="{{ tooltip }}"
-            tooltip-placement="{{ tooltipPlacement || 'top' }}">
+            tooltip="{{ fabTooltip }}"
+            tooltip-placement="{{ fabTooltipPlacement || 'top' }}">
 
         <span class="hpe-icon" ng-class="primary" aria-hidden="true"></span>
     </button>
