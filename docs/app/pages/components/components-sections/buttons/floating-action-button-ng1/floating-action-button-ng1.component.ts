@@ -20,18 +20,42 @@ export class ComponentsFloatingActionButtonNg1Component extends BaseDocumentatio
         js: [this.snippets.raw.floatingActionButtonJs]
     };
 
-    items: FloatingActionButtonItem[] = [
+    itemsOne: FloatingActionButtonItem[] = [
         {
             icon: 'hpe-add',
-            event: () => {}
+            event: () => {},
+            tooltip: 'Add New Item'
         },
         {
             icon: 'hpe-analytics',
-            event: () => {}
+            event: () => {},
+            tooltip: 'Show Analytics'
         },
         {
             icon: 'hpe-app',
-            event: () => {}
+            event: () => {},
+            tooltip: 'Show Overview'
+        }
+    ];
+
+    itemsTwo: FloatingActionButtonItem[] = [
+        {
+            icon: 'hpe-add',
+            event: () => {},
+            tooltip: 'Add New Item',
+            tooltipPlacement: 'right'
+        },
+        {
+            icon: 'hpe-analytics',
+            event: () => {},
+            tooltip: 'Show Analytics',
+            tooltipPlacement: 'right'
+        },
+        {
+            icon: 'hpe-app',
+            event: () => {},
+            tooltip: 'Show Overview',
+            tooltipPlacement: 'right'
         }
     ];
 

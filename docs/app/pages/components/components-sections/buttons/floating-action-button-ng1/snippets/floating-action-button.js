@@ -5,14 +5,34 @@ function FloatingActionButtonCtrl() {
 
     vm.selectFloatingActionButton = function () {};
 
-    vm.items = [{
-        icon: "hpe-add",
-        event: this.selectFloatingActionButton
+    vm.itemsOne = [{
+        icon: 'hpe-add',
+        event: this.selectFloatingActionButton,
+        tooltip: 'Add New Item'
     }, {
-        icon: "hpe-analytics",
-        event: this.selectFloatingActionButton
+        icon: 'hpe-analytics',
+        event: this.selectFloatingActionButton,
+        tooltip: 'Show Analytics'
     }, {
-        icon: "hpe-app",
-        event: this.selectFloatingActionButton
+        icon: 'hpe-app',
+        event: this.selectFloatingActionButton,
+        tooltip: 'Show Overview'
+    }];
+
+    vm.itemsTwo = [{
+        icon: 'hpe-add',
+        event: this.selectFloatingActionButton,
+        tooltip: 'Add New Item',
+        tooltipPlacement: 'right'
+    }, {
+        icon: 'hpe-analytics',
+        event: this.selectFloatingActionButton,
+        tooltip: 'Show Analytics',
+        tooltipPlacement: 'right'
+    }, {
+        icon: 'hpe-app',
+        event: this.selectFloatingActionButton,
+        tooltip: 'Show Overview',
+        tooltipPlacement: 'right'
     }];
 }
