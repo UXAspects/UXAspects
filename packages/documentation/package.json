@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "Documentation for UX Aspects",
   "main": "docs/app/app.module.ts",
   "files": [
@@ -27,7 +27,9 @@
   "license": "Apache-2.0",
   "scripts": {
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
-    "build": "grunt build"
+    "build": "grunt build",
+    "build:hpe": "grunt build:hpe",
+    "prepack": "grunt clean:package"
   },
   "dependencies": {
     "@angular-devkit/build-optimizer": "0.0.32",
@@ -42,9 +44,10 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@angular/upgrade": "^5.2.0",
-    "@ux-aspects/ux-aspects": "^1.5.2",
-    "@ux-aspects/theme": "^1.5.2",
-    "@ux-aspects/ux-aspects-ng1": "^1.5.2",
+    "@ux-aspects/theme": "^1.5.7",
+    "@ux-aspects/theme-hpe": "^1.5.7",
+    "@ux-aspects/ux-aspects": "^1.5.7",
+    "@ux-aspects/ux-aspects-ng1": "^1.5.7",
     "angular": "1.3.20",
     "angular-tree-component": "^7.0.1",
     "bootstrap": "3.3.7",

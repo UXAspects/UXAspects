@@ -1,0 +1,13 @@
+{
+    "name": "ux-aspects-hpe",
+    "description": "HPE theming support for UX Aspects, formerly Elements.",
+    "version": "1.5.7",
+    "keywords": [
+        "ux-aspects",
+        "hpe",
+        "css",
+        "web"
+    ],
+    "homepage": "https://github.houston.softwaregrp.net/caf/ux-aspects-hpe",
+    "main": []
+}

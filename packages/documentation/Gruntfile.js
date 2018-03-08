@@ -22,8 +22,8 @@ module.exports = function (grunt) {
     grunt.registerTask('webpack-cert', ['run:webpack-cert']);
 
     grunt.registerTask('develop', ['webpack-dev-server:documentation']);
-    grunt.registerTask('build', ['clean:documentation', 'webpack:documentation']);
-    grunt.registerTask('releasebuild', ['build', 'compress:gh-pages']);
+    grunt.registerTask('build', ['clean:documentation', 'webpack:documentation', 'compress:documentation']);
+    grunt.registerTask('build:hpe', ['clean:documentation-hpe', 'webpack:documentation-hpe', 'compress:documentation-hpe']);
     grunt.registerTask('publish', ['build', 'gh-pages']);
 
     grunt.registerTask('default', ['build']);

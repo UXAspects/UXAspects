@@ -1,23 +1,21 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "scripts": {
-    "prepublishOnly": "grunt build",
-    "prepack": "grunt build",
     "start": "grunt develop",
     "e2e:serve": "lite-server -c=e2e/bs-config.e2e.json",
     "e2e": "concurrently \"lite-server -c=e2e/bs-config.e2e.json\" \"grunt protractor:e2e\" --kill-others --success first",
-    "build:library": "ng-packagr -p ng-package.json && rm -f dist/package.json",
-    "build": "grunt build"
+    "postversion": "./node_modules/bower/bin/bower version $npm_package_version",
+    "build:library": "ng-packagr -p ng-package.json",
+    "build": "grunt build",
+    "prepack": "grunt clean:package",
+    "postpack": "grunt pack"
   },
   "main": "./dist/bundles/ux-aspects-ux-aspects.umd.js",
   "files": [
     "dist/"
   ],
-  "directories": {
-    "lib": "dist"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UXAspects/UXAspects.git"
@@ -51,12 +49,12 @@
     "rxjs": ">=5.4.1"
   },
   "dependencies": {
+    "@ux-aspects/theme": "^1.5.7",
+    "@ux-aspects/ux-aspects-ng1": "^1.5.7",
     "angular-tree-component": "^7.0.1",
     "chart.js": "~2.6.0",
     "ng2-charts": "1.6.0",
-    "ngx-bootstrap": "~2.0.0",
-    "@ux-aspects/theme": "^1.5.2",
-    "@ux-aspects/ux-aspects-ng1": "^1.5.2"
+    "ngx-bootstrap": "~2.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-optimizer": "0.0.32",
@@ -82,6 +80,7 @@
     "angular-router-loader": "0.6.0",
     "angular2-template-loader": "0.6.2",
     "awesome-typescript-loader": "3.3.0",
+    "bower": "^1.8.2",
     "canonical-path": "0.0.2",
     "chance": "1.0.12",
     "concurrently": "^3.5.0",

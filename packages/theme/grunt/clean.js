@@ -1,3 +1,4 @@
 module.exports = {
-    theme: ['./dist']
+    theme: ['./dist'],
+    package: ['ux-aspects-theme-*.tgz']
 };

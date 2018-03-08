@@ -1,5 +1,5 @@
 module.exports = {
-    all: 'dist',
+    dist: 'dist',
     library: ['dist/@ux-aspects', 'dist/bundles', 'dist/components', 'dist/directives', 'dist/pipes', 'dist/services', 'dist/index.d.ts', 'dist/package.json', 'dist/ux-aspects.d.ts', 'dist/ux-aspects.metadata.json'],
     styles: 'dist/styles',
     fonts: 'dist/fonts',
@@ -8,5 +8,7 @@ module.exports = {
     licenses: 'dist/Licenses',
     e2e: ['e2e/dist', 'e2e/_test-output', 'e2e/coverage', 'e2e/html', 'e2e/xml', 'e2e/chromedriver.exe'],
     shim: 'dist/dist',
-    bower: 'target/bower'
+    bower: 'target/bower',
+    package: 'ux-aspects-ux-aspects-*.tgz',
+    'dist-package': 'dist/ux-aspects-ux-aspects-*.tgz'
 };

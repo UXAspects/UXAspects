@@ -1,10 +1,12 @@
 {
   "name": "@ux-aspects/theme",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
+  "private": true,
   "scripts": {
     "start": "grunt develop",
-    "build": "grunt build"
+    "build": "grunt build",
+    "prepack": "grunt clean:package"
   },
   "main": "dist/css/ux-aspects.css",
   "files": [
