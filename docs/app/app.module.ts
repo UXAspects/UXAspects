@@ -70,7 +70,6 @@ const appRoutes: Routes = [
     ColorServiceModule,
     EboxModule,
     FlippableCardModule,
-    BrowserAnimationsModule,
     ProgressBarModule,
     RadioButtonModule,
     SparkModule,
