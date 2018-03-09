@@ -1,19 +1,19 @@
 <div class="floating-action-buttons">
 
-    <button type="button" 
+            <button type="button" 
             class="btn btn-icon btn-circular button-primary" 
             tabindex="1" 
-            aria-label="{{ fab.tooltip || fab.primary }}"
+            aria-label="{{ fab.fabTooltip || fab.primary }}"
             ng-click="fab.expand($event)"
-            tooltip="{{ fab.tooltip }}"
-            tooltip-placement="{{ fab.tooltipPlacement || 'top' }}">
+            tooltip="{{ fab.fabTooltip }}"
+            tooltip-placement="{{ fab.fabTooltipPlacement || 'top' }}">
 
         <span class="hpe-icon" ng-class="fab.primary" aria-hidden="true"></span>
-    </button>
+            </button>
 
     <div class="floating-action-button-list" ng-class="[fab.direction, fab.expanded ? 'expanded' : 'collapsed' ]">
 
-        <button type="button" 
+            <button type="button" 
             class="btn btn-icon btn-circular button-secondary floating-action-button" 
             tabindex="1"             
             ng-repeat="item in fab.items"
@@ -23,7 +23,7 @@
             tooltip-placement="{{ item.tooltipPlacement || 'top' }}">
 
         <span class="hpe-icon" ng-class="item.icon" aria-hidden="true"></span>
-    </button>
+            </button>
 
     </div>
 

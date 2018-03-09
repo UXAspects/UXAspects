@@ -5,7 +5,7 @@
 <h4>Floating Action Button - Vertical (Bottom)</h4>
 
 <div style="margin-bottom: 175px">
-    <floating-action-button primary="hpe-contract" [items]="items" direction="bottom"></floating-action-button>
+    <floating-action-button fabTooltip="Show Actions" fabTooltipPlacement="right" primary="hpe-contract" [items]="itemsTwo" direction="bottom"></floating-action-button>
 </div>
 
 <hr>
@@ -13,7 +13,7 @@
 <h4>Floating Action Button - Horizontal (Right)</h4>
 
 <div class="m-b">
-    <floating-action-button primary="hpe-contract" [items]="items" direction="right"></floating-action-button>
+    <floating-action-button fabTooltip="Show Actions" primary="hpe-contract" [items]="itemsOne" direction="right"></floating-action-button>
 </div>
 
 <hr>
@@ -21,7 +21,7 @@
 <h4>Floating Action Button - Vertical (Up)</h4>
 
 <div class="m-b">
-    <floating-action-button primary="hpe-contract" [items]="items" direction="top"></floating-action-button>
+    <floating-action-button fabTooltip="Show Actions" fabTooltipPlacement="right" primary="hpe-contract" [items]="itemsTwo" direction="top"></floating-action-button>
 </div>
 
 <hr>
@@ -29,7 +29,7 @@
 <h4>Floating Action Button - Horizontal (Left)</h4>
 
 <div class="m-b" style="margin-left: 175px;">
-    <floating-action-button primary="hpe-contract" [items]="items" direction="left"></floating-action-button>
+    <floating-action-button fabTooltip="Show Actions" primary="hpe-contract" [items]="itemsOne" direction="left"></floating-action-button>
 </div>
 
 <hr>
@@ -56,10 +56,10 @@
     <tr uxd-api-property name="direction" type="string" binding="variable" [required]="true">Defines the direction in which
         the child button should expand (top, bottom, left, right).
     </tr>
-    <tr uxd-api-property name="tooltip" type="string" binding="literal" [required]="false">
+    <tr uxd-api-property name="fab-tooltip" type="string" binding="literal" [required]="false">
         If defined, a tooltip will be displayed when the user hovers over the floating action button.
     </tr>
-    <tr uxd-api-property name="tooltip-placement" type="string" binding="literal" [required]="false">
+    <tr uxd-api-property name="fab-tooltip-placement" type="string" binding="literal" [required]="false">
         If defined, the tooltip will be displayed in the specified position. Possible values are <code>top</code>, <code>right</code>, 
         <code>bottom</code> or <code>left</code>.
     </tr>

@@ -7,8 +7,8 @@ export default function floatingActionButton() {
       items: "=",
       direction: "=",
       primary: "=",
-      tooltip: "@?",
-      tooltipPlacement: "@?"
+      fabTooltip: "@?",
+      fabTooltipPlacement: "@?"
     },
     bindToController: true
   };

@@ -1,6 +1,9 @@
 angular.module('app').directive('uxdNotificationsWrapper', function() {
     return {
         restrict: 'E',
+        scope: {
+            colorFieldName: '@'
+        },
         template: require('./notifications-wrapper.directive.html'),
         controller: ['$scope', '$templateCache', '$colorService', 'notificationService', function ($scope, $templateCache, $colorService, notificationService) {
             var vm = this;
@@ -27,7 +30,8 @@ angular.module('app').directive('uxdNotificationsWrapper', function() {
                     text: vm.text,
                     subtitle: vm.subtitle,
                     duration: vm.duration,
-                    backgroundColor: vm.backgroundColor
+                    backgroundColor: vm.backgroundColor,
+                    iconColor: ($scope.colorFieldName !== '') ? vm.backgroundColor : ''
                 };
 
                 // ensure notifications are visible - next example allows hiding them
@@ -60,6 +64,7 @@ angular.module('app').directive('uxdNotificationsWrapper', function() {
                 $scope.$destroy();
             };
         }],
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        bindToController: true
     };
 });
