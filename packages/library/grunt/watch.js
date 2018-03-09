@@ -4,6 +4,6 @@ module.exports = {
     },
     library: {
         files: ['./src/**/*.ts', './src/**/*.less', './src/**/*.html'],
-        tasks: ['run:build_library']
+        tasks: ['run:build_library', 'clean:dist-package-json']
     }
 };
