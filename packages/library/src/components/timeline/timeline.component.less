@@ -25,9 +25,10 @@ ux-timeline {
             transform: translateX(-0.5px);
         }
 
-        li {
+        ux-timeline-event {
             margin-bottom: 20px;
             position: relative;
+            display: block;
 
             .timeline-footer {
                 margin-top: 10px;
@@ -169,14 +170,12 @@ ux-timeline {
     }
 
     ux-timeline-event {
-        li {
-            .timeline-badge {
-                span {
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    display: block;
-                    overflow: hidden;
-                }
+        .timeline-badge {
+            span {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: block;
+                overflow: hidden;
             }
         }
     }
@@ -188,32 +187,30 @@ ux-timeline {
             }
 
             ux-timeline-event {
-                li {
-                    .timeline-badge {
-                        left: 15px;
-                        margin-left: 0;
-                        top: 36px;
+                .timeline-badge {
+                    left: 15px;
+                    margin-left: 0;
+                    top: 30px;
+                }
+
+                > .timeline-panel {
+                    width: ~'calc(100% - 135px)';
+                    float: right;
+
+                    &:before {
+                        border-left-width: 0;
+                        border-right-width: 8px;
+                        left: -8px;
+                        right: auto;
+                        top: 34px;
                     }
 
-                    > .timeline-panel {
-                        width: ~'calc(100% - 135px)';
-                        float: right;
-
-                        &:before {
-                            border-left-width: 0;
-                            border-right-width: 8px;
-                            left: -8px;
-                            right: auto;
-                            top: 40px;
-                        }
-
-                        &:after {
-                            border-left-width: 0;
-                            border-right-width: 8px;
-                            right: auto;
-                            left: -7px;
-                            top: 41px;
-                        }
+                    &:after {
+                        border-left-width: 0;
+                        border-right-width: 8px;
+                        right: auto;
+                        left: -7px;
+                        top: 35px;
                     }
                 }
             }
@@ -226,11 +223,11 @@ ux-timeline {
                 left: 64px;
             }
 
-            li {
+            ux-timeline-event {
                 > .timeline-badge {
                     left: 15px;
                     margin-left: 0;
-                    top: 36px;
+                    top: 30px;
                 }
 
                 > .timeline-panel {
@@ -241,7 +238,7 @@ ux-timeline {
                         border-right-width: 8px;
                         left: -8px;
                         right: auto;
-                        top: 40px;
+                        top: 34px;
                     }
 
                     &:after {
@@ -249,7 +246,7 @@ ux-timeline {
                         border-right-width: 8px;
                         right: auto;
                         left: -7px;
-                        top: 41px;
+                        top: 35px;
                     }
                 }
             }

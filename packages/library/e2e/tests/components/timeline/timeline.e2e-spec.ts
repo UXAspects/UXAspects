@@ -39,38 +39,42 @@ describe('TimelinePage Tests', () => {
     
   });
 
-  it('should display the correct information for events', () => {
-    
+  it('should display the correct information for events', () => {    
+
     // Check elements of various events.
-    expect<any>(page.getEventBadgeTitle(1)).toEqual('Fri Jan 26');
+
+    const now = Date.now();
+
+    const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dayInMilliSeconds = 24 * 60 * 60 * 1000;
+    
+    // Third event.
+    let thirdEvent = new Date(now + (dayInMilliSeconds * 2));
+    let dayOfWeek = weekdays[thirdEvent.getDay()];
+    let month = months[thirdEvent.getMonth()];
+    let day = thirdEvent.getDate();
+    let badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
+    expect<any>(page.getEventBadgeTitle(1)).toEqual(badgeTitle);
+
     expect<any>(page.getEventBadge(1).getAttribute('class')).toContain('alternate2');
 
-    expect<any>(page.getEventTimestamp(2)).toEqual('Wednesday, January 24, 2018, 9:20:00 AM');
-    
-    expect<any>(functions.getElementColourHex(page.getEventBadge(3), 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
-    expect<any>(functions.getElementColourHex(page.getEventBadge(3), 'color')).toBe(constants.WHITE);
+    // First event.
+    expect<any>(page.getEventBadge(3).getAttribute('class')).toContain('primary');
 
     expect<any>(page.getEventPanelText(3)).toContain('was recorded by');
 
-    // Add another event and check it.
+    // Add a fifth event and check it.
     page.addEvent.click();
 
-    const now = new Date();
-    
-    const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const dayOfWeek = weekdays[now.getDay()];
-    
-    const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const month = months[now.getMonth()];
-
-    const day = now.getDate();
-    const badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
-    
+    let newEvent = new Date(now + (dayInMilliSeconds * 4));    
+    dayOfWeek = weekdays[newEvent.getDay()];
+    month = months[newEvent.getMonth()];
+    day = newEvent.getDate();
+    badgeTitle = dayOfWeek + ' ' + month + ' ' + day;
     expect<any>(page.getEventBadgeTitle(0)).toEqual(badgeTitle);
-    expect<any>(page.getEventBadge(0).getAttribute('class')).toContain('alternate1');
 
-    expect<any>(functions.getElementColourHex(page.getEventBadge(0), 'background-color')).toBe(constants.ALTERNATE1_BACKGROUND_COLOR);
-    expect<any>(functions.getElementColourHex(page.getEventBadge(0), 'color')).toBe(constants.WHITE);
+    expect<any>(page.getEventBadge(0).getAttribute('class')).toContain('grey4');
 
     expect<any>(page.getEventPanelText(0)).toContain('was updated by');
   });

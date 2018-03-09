@@ -13,8 +13,7 @@ export class ComponentsFileUploadNg1Component extends BaseDocumentationSection i
 
     codepen: ICodePen = {
         html: this.snippets.raw.appHtml,
-        js: [this.snippets.raw.appJs],
-        css: [this.snippets.raw.appCss]
+        js: [this.snippets.raw.appJs]
     };
 
     constructor() {

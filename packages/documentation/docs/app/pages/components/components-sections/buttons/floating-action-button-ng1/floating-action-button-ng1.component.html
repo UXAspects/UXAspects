@@ -5,7 +5,7 @@
 <h4>Floating Action Button - Vertical (Bottom)</h4>
 
 <div style="margin-bottom: 150px">
-    <floating-action-button primary="hpe-contract" [items]="items" direction="bottom"></floating-action-button>
+    <floating-action-button fabTooltip="Show Actions" fabTooltipPlacement="right" primary="hpe-contract" [items]="itemsTwo" direction="bottom"></floating-action-button>
 </div>
 
 <hr>
@@ -13,7 +13,7 @@
 <h4>Floating Action Button - Horizontal (Right)</h4>
 
 <div class="m-b">
-    <floating-action-button primary="hpe-contract" [items]="items" direction="right"></floating-action-button>
+    <floating-action-button fabTooltip="Show Actions" primary="hpe-contract" [items]="itemsOne" direction="right"></floating-action-button>
 </div>
 
 <hr>
@@ -21,7 +21,7 @@
 <h4>Floating Action Button - Vertical (Up)</h4>
 
 <div class="m-b">
-    <floating-action-button primary="hpe-contract" [items]="items" direction="top"></floating-action-button>
+    <floating-action-button fabTooltip="Show Actions" fabTooltipPlacement="right" primary="hpe-contract" [items]="itemsTwo" direction="top"></floating-action-button>
 </div>
 
 <hr>
@@ -29,7 +29,7 @@
 <h4>Floating Action Button - Horizontal (Left)</h4>
 
 <div class="m-b" style="margin-left: 150px;">
-    <floating-action-button primary="hpe-contract" [items]="items" direction="left"></floating-action-button>
+    <floating-action-button fabTooltip="Show Actions" primary="hpe-contract" [items]="itemsOne" direction="left"></floating-action-button>
 </div>
 
 <hr>
@@ -41,13 +41,27 @@
 <p>The attributes defining this directive are:</p>
 
 <uxd-api-properties>
-    <tr uxd-api-property name="items" type="array" binding="variable" required="true">
-      Array of icons and events, that defines the child buttons shown when the primary button is expanded.
-      Each element of the array should contain an <code>icon</code> property which should be the name of an icon from the icon set.
-      There should also be an <code>event</code> property which should reference a function that will be called when a button is clicked.
+    <tr uxd-api-property name="items" type="array" binding="variable" [required]="true">
+
+        An array of objects with the following properties:
+
+        <ul>
+            <li><b>icon</b> - The icon to display in the button. This should be an icon from the icon set.</li>
+            <li><b>event</b> - A function that will be called when the button is clicked.</li>
+            <li><b>tooltip</b> - If defined, a tooltip will display when the button is hovered.</li>
+            <li><b>tooltipPlacement</b> - If defined, the tooltip will be displayed in the specified position. Possible values are <code>top</code>,
+            <code>right</code>, <code>bottom</code> or <code>left</code>.</li>
+        </ul>
     </tr>
-    <tr uxd-api-property name="direction" type="string" binding="variable" required="true">Defines the direction in which
-       the child button should expand (top, bottom, left, right).
+    <tr uxd-api-property name="direction" type="string" binding="variable" [required]="true">Defines the direction in which
+        the child button should expand (top, bottom, left, right).
+    </tr>
+    <tr uxd-api-property name="fab-tooltip" type="string" binding="literal" [required]="false">
+        If defined, a tooltip will be displayed when the user hovers over the floating action button.
+    </tr>
+    <tr uxd-api-property name="fab-tooltip-placement" type="string" binding="literal" [required]="false">
+        If defined, the tooltip will be displayed in the specified position. Possible values are <code>top</code>, <code>right</code>, 
+        <code>bottom</code> or <code>left</code>.
     </tr>
 </uxd-api-properties>
 

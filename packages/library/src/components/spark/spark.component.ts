@@ -1,12 +1,11 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 import { ColorIdentifier } from '../../index';
 
 @Component({
     selector: 'ux-spark',
     templateUrl: './spark.component.html',
-    styleUrls: ['./spark.component.less'],
-    encapsulation: ViewEncapsulation.None
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SparkComponent {
 
@@ -23,7 +22,6 @@ export class SparkComponent {
     private _trackColor: string;
     private _theme: ColorIdentifier = 'primary';    
     private _barColor: string | string[] = [];
-
     
     @Input() 
     set theme(value: string) {
@@ -64,7 +62,7 @@ export class SparkComponent {
         const values = Array.isArray(value) ? value : [value];
 
         // get the total value of all lines
-        let total = Math.max(values.reduce((previous, current) => previous + current, 0), 100);
+        const total = Math.max(values.reduce((previous, current) => previous + current, 0), 100);
 
         // figure out the percentages for each spark line
         this.values = values.map(val => (val / total) * 100);

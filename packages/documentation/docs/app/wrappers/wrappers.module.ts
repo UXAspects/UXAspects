@@ -6,7 +6,7 @@ import { AppNavigatorComponent } from './examples/popover/app-navigator.componen
 import { CardTabsComponent } from './examples/tabs/card-tabs.component';
 import { CheckboxButtonsComponent } from './examples/buttons/checkbox-buttons.component';
 import { CheckboxComponent } from './examples/checkbox/checkbox.component';
-import { CollapsiblePanelsComponent } from './examples/panels/collapsible-panels.component';
+import { AccordionNg1Component } from './examples/panels/accordion.component';
 import { ComponentListComponent } from './examples/component-list/component-list.component';
 import { ContactsComponent } from './examples/contacts/contacts.component';
 import { ContactsOverflowComponent } from './examples/contacts/contacts-overflow.component';
@@ -117,7 +117,7 @@ const WRAPPERS: any[] = [
     CardTabsComponent,
     CheckboxButtonsComponent,
     CheckboxComponent,
-    CollapsiblePanelsComponent,
+    AccordionNg1Component,
     ComponentListComponent,
     ContactsComponent,
     ContactsOverflowComponent,

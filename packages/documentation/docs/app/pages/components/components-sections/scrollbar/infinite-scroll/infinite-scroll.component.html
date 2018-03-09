@@ -144,6 +144,14 @@
     <tr uxd-api-property name="reset" type="function">
         Clear the collection. Future requests will load from page 0.
     </tr>
+    <tr uxd-api-property name="reload" type="function">
+        Call the paging function for each loaded page and update any changed data. The current page and scroll
+        position will be retained.
+    </tr>
+    <tr uxd-api-property name="reloadPage" type="function">
+        Call the paging function for the specified page index, and update any changed data. The current page and scroll
+        position will be retained.
+    </tr>
 </uxd-api-properties>
 
 <h4>Infinite Scroll Loading Indicator</h4>

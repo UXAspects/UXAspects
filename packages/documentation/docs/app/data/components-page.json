@@ -385,7 +385,28 @@
                 {
                     "title": "File Upload",
                     "component": "ComponentsFileUploadNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "File Upload",
+                    "component": "ComponentsFileUploadComponent",
+                    "version": "Angular",
+                    "externalUrl": "https://valor-software.com/ng2-file-upload",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[ng2FileDrop], [ng2FileSelect]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "FileUploadModule"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ng2-file-upload"
+                        }
+                    ]
                 }
             ]
         },
@@ -711,8 +732,28 @@
             "sections": [
                 {
                     "title": "Notifications",
+                    "component": "ComponentsNotificationsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-notifications-list"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "NotificationListModule"
+                        },
+                        {
+                            "title": "Dependencies",
+                            "content": "BrowserAnimationsModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Notifications",
                     "component": "ComponentsNotificationsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Notification List",
@@ -766,9 +807,34 @@
             "link": "panels",
             "sections": [
                 {
-                    "title": "Collapsible Panels",
-                    "component": "ComponentsCollapsiblePanelsNg1Component",
-                    "version": "AngularJS"
+                    "title": "Accordion",
+                    "component": "ComponentsAccordionNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Accordion",                    
+                    "component": "ComponentsAccordionComponent",
+                    "externalUrl": "https://valor-software.com/ngx-bootstrap/#/accordion",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "accordion"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "AccordionModule"
+                        },
+                        {
+                            "title": "Import As",
+                            "content": "AccordionModule.forRoot()"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-bootstrap"
+                        }
+                    ]
                 },
                 {
                     "title": "EBox Panel",
@@ -1046,24 +1112,46 @@
             "sections": [
                 {
                     "title": "Splitter",
+                    "component": "ComponentsSplitterComponent",
+                    "version": "Angular",
+                    "externalUrl": "https://bertrandg.github.io/angular-split/#/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "split"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "AngularSplitModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "angular-split"
+                    }]
+                },
+                {
+                    "title": "Splitter",
                     "component": "ComponentsSplitterNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Nested Splitter",
                     "component": "ComponentsNestedSplitterNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Layout Switching Splitter",
                     "component":
                         "ComponentsLayoutSwitchingSplitterNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Side Inset Panel Splitter",
                     "component": "ComponentsSideInsetPanelSplitterNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

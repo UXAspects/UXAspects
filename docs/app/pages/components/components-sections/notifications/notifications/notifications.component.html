@@ -1,0 +1,142 @@
+<ux-notification-list direction="above" position="top-right"></ux-notification-list>
+
+<div class="btn-container">
+    <button class="btn button-primary m-r-sm" (click)="notificationService.show(notification,
+        { duration: duration, backgroundColor: backgroundColor })">Show Notification</button>
+    <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">Dismiss Notifications</button>
+</div>
+
+<ng-template #notification let-notificationRef>
+
+    <div class="dismiss">
+        <div class="hpe-icon hpe-close" (click)="notificationService.dismiss(notificationRef)"></div>
+    </div>
+    
+    <div class="notification-wrapper">
+
+        <div class="notification-icon">
+            <span class="hpe-icon hpe-chat"></span>
+        </div>
+    
+        <div class="notification-content">
+            <h4 class="notification-title">Messages Received</h4>
+            <p class="notification-description">You have 16 messages</p>
+            <p class="notification-timestamp">{{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}</p>
+        </div>
+
+    </div>
+    
+</ng-template>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="backgroundColor">backgroundColor</label>
+                        <div class="input-group m-b-sm">
+                            <input type="text" placeholder="Enter color" class="form-control" [(ngModel)]="backgroundColor">
+                            <span class="input-group-addon color-display" [style.background-color]="backgroundColor"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="duration">duration</label>
+                        <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-offset-6 col-md-4 col-sm-12">
+                        <p>
+                            <small>Recommended Colors</small>
+                        </p>
+                        <div class="color-palette">
+                            <div class="color-box" *ngFor="let color of colors" [style.background-color]="color" (click)="backgroundColor = color"></div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
+
+<p>Notifications can be used to inform the user of occurring events or to alert the user of something that may require their attention.
+    The <code>ux-notification-list</code> component can be used to display a list of notifications.</p>
+
+<p>The following attributes can be used to customize the <code>ux-notification-list</code> component:</p>
+
+<uxd-api-properties tableTitle="Notification List">
+    <tr uxd-api-property name="position" type="string" defaultValue="top-right">
+        Sets the position of the list of notifications within the browser window.
+        The possible options are: <code>top-right</code>, <code>top-left</code>, <code>bottom-left</code> and <code>bottom-right</code>.
+    </tr>
+    <tr uxd-api-property name="direction" type="string" defaultValue="above">
+        Sets the order in which notifications are displayed:
+      <ul>
+        <li><code>above</code> - newer notifications will appear above older ones.</li>
+        <li><code>below</code> - newer notifications will appear below older ones.</li>
+      </ul>
+    </tr>
+</uxd-api-properties>
+
+<p>Notifications are controlled by the <code>notificationService</code>. It is recommended that the service is injected into the <code>AppComponent</code>.
+    The following functions can be called on the service:</p>
+
+<uxd-api-properties tableTitle="Notification Service">
+    <tr uxd-api-property name="show" args="TemplateRef" returns="NotificationRef">
+        This function should be called to show a notification.
+        It should be given a <code>TemplateRef</code> containing the content to be displayed and optionally an object containing properties
+        to configure the notification.
+        It will return a <code>NotificationRef</code> object which will contain the information passed to the <code>showNotification</code> function
+        along with a <code>date</code> property which will contain the time at which the notification was shown.
+    </tr>
+    <tr uxd-api-property name="getHistory" returns="NotificationRef[]">
+        This function will return a list of all the notifications that have been shown.
+      </tr>
+    <tr uxd-api-property name="dismiss" args="NotificationRef">
+        This function can be called to dismiss a notification. It should be passed the object to dismiss.
+    </tr>
+    <tr uxd-api-property name="dismissAll">
+        This function will dismiss any currently visible notifications.
+    </tr>
+</uxd-api-properties>
+
+<p>The content of the notification should be specified inside an <code>ng-template</code> element. The <code>ng-template</code> property
+    <code>let-notificationRef</code> can be used to access the <code>NotificationRef</code> object returned from the service.</p>
+
+<p>A second object may optionally be passed to the <code>showNotification</code> function. The following options can be passed in this object to configure the notification:</p>
+
+<uxd-api-properties tableTitle="Notification Configuration">
+    <tr uxd-api-property name="duration" type="number" defaultValue="4">
+        Sets the duration (in seconds) the notification should appear before automatically dismissing.
+        A value of <code>0</code> will show the notification until manually dismissed.
+    </tr>
+    <tr uxd-api-property name="backgroundColor" type="string" defaultValue="#7b63a3">
+        Sets the background color of the notification.
+    </tr>
+</uxd-api-properties>
+
+<p>The following code can be used to create the example above:</p>
+
+<tabset>
+  <tab heading="HTML">
+    <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+  </tab>
+  <tab heading="TypeScript">
+    <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+  </tab>
+  <tab heading="CSS">
+    <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+  </tab>
+</tabset>
+
+<blockquote>
+    <p><strong>Note</strong>: The <code>BrowserAnimationsModule</code> must be imported from <code>'@angular/platform-browser/animations'</code>.</p>
+</blockquote>
+
+<blockquote>
+    <p><strong>Note</strong>: To display web animations in IE 11 and Edge the <code>web-animations-js</code> package must be imported.</p>
+    <p>Run the command <code>npm install --save web-animations-js</code> and import <code>web-animations-js</code>.</p>
+</blockquote>

@@ -6,7 +6,9 @@ export default function floatingActionButton() {
     scope: {
       items: "=",
       direction: "=",
-      primary: "="
+      primary: "=",
+      fabTooltip: "@?",
+      fabTooltipPlacement: "@?"
     },
     link: function(scope) {
       if (!scope.direction) {

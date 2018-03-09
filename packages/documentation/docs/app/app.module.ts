@@ -3,6 +3,7 @@ import * as angular from 'angular';
 let app = angular.module('app');
 
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, forwardRef, Injector } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
@@ -76,55 +77,55 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        FormsModule,
-        DocumentationComponentsModule,
-        DocumentationDirectivesModule,
-        DocumentationProvidersModule,
-        TabsModule.forRoot(),
-        CheckboxModule,
-        ColorServiceModule,
-        EboxModule,
-        FlippableCardModule,
-        ProgressBarModule,
-        RadioButtonModule,
-        SparkModule,
-        ToggleSwitchModule,
-        WrappersModule,
-        HybridModule,
-        UpgradeModule,
-        RouterModule.forRoot(appRoutes, {
-            useHash: true,
-            initialNavigation: false
-        })
-    ],
-    providers: [
-        PersistentDataService,
-        {
-            provide: '$rootScope',
-            useFactory: (injector: Injector) => injector.get('$rootScope'),
-            deps: ['$injector']
-        },
-        {
-            provide: '$state',
-            useFactory: (injector: Injector) => injector.get('$state'),
-            deps: ['$injector']
-        }
-    ],
-    declarations: [
-        AppComponent,
-        LandingPageComponent,
-        OverviewPageComponent,
-        FeaturesPageComponent,
-        GettingStartedPageComponent,
-        ShowcasePageComponent,
-        TeamPageComponent,
-        BlogPageComponent,
-        LicensesPageComponent,
-        ChangeLogPageComponent
-    ],
-    entryComponents: [AppComponent]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    DocumentationComponentsModule,
+    DocumentationDirectivesModule,
+    DocumentationProvidersModule,
+    TabsModule.forRoot(),
+    CheckboxModule,
+    ColorServiceModule,
+    EboxModule,
+    FlippableCardModule,
+    BrowserAnimationsModule,
+    ProgressBarModule,
+    RadioButtonModule,
+    SparkModule,
+    ToggleSwitchModule,
+    WrappersModule,
+    HybridModule,
+    UpgradeModule,
+    RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
+  ],
+  providers: [
+    PersistentDataService,
+    {
+      provide: '$rootScope',
+      useFactory: (injector: Injector) => injector.get('$rootScope'),
+      deps: ['$injector']
+    },
+    {
+      provide: '$state',
+      useFactory: (injector: Injector) => injector.get('$state'),
+      deps: ['$injector']
+    }
+  ],
+  declarations: [
+    AppComponent,
+    LandingPageComponent,
+    OverviewPageComponent,
+    FeaturesPageComponent,
+    GettingStartedPageComponent,
+    ShowcasePageComponent,
+    TeamPageComponent,
+    BlogPageComponent,
+    LicensesPageComponent,
+    ChangeLogPageComponent
+  ],
+  entryComponents: [
+    AppComponent
+  ]
 })
 export class AppModule {
     constructor(private _upgrade: UpgradeModule) {}
