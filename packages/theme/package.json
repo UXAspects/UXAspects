@@ -1,0 +1,61 @@
+{
+  "name": "@ux-aspects/theme",
+  "version": "1.5.7",
+  "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
+  "private": true,
+  "scripts": {
+    "start": "grunt develop",
+    "build": "grunt build",
+    "prepack": "grunt clean:package"
+  },
+  "main": "dist/css/ux-aspects.css",
+  "files": [
+    "dist/"
+  ],
+  "directories": {
+    "lib": "dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UXAspects/UXAspects.git"
+  },
+  "keywords": [
+    "ux",
+    "aspects",
+    "ui",
+    "framework",
+    "angular",
+    "angularjs",
+    "bootstrap"
+  ],
+  "contributors": [
+    "Ashley Hunter",
+    "Alastair McKee",
+    "Pearse McMurray",
+    "Donna Marijne Worby",
+    "Chris Brennan"
+  ],
+  "bugs": {
+    "url": "https://github.com/UXAspects/UXAspects/issues"
+  },
+  "homepage": "https://uxaspects.github.io/UXAspects",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "angular-tree-component": "^7.0.1"
+  },
+  "devDependencies": {
+    "grunt": "1.0.1",
+    "grunt-contrib-clean": "1.1.0",
+    "grunt-contrib-copy": "1.0.0",
+    "grunt-contrib-cssmin": "2.2.1",
+    "grunt-contrib-less": "1.4.1",
+    "grunt-contrib-watch": "1.0.0",
+    "grunt-webfont": "0.4.8",
+    "jit-grunt": "0.10.0",
+    "less": "2.7.3",
+    "less-plugin-npm-import": "^2.1.0",
+    "load-grunt-config": "0.19.2",
+    "module-search": "0.2.4",
+    "time-grunt": "1.4.0"
+  }
+}

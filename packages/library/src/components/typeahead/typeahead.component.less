@@ -1,0 +1,75 @@
+@import '../../../node_modules/@ux-aspects/theme/dist/styles/variables.less';
+@import '../../../node_modules/@ux-aspects/theme/dist/styles/zindex.less';
+
+ux-typeahead {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    overflow-y: auto;
+    z-index: @select-drop-z-index;
+    padding: 5px 0;
+    border: none;
+    border-radius: 2px;
+    margin: 5px 0;
+    background-color: @dropdown-bg;
+    box-shadow: 0 0 3px @dropdown-shadow;
+
+    &.open {
+        display: block;
+    }
+
+    &.drop-up {
+        top: auto;
+        bottom: 100%;
+    }
+
+    .ux-typeahead-options {
+        & > ol {
+            margin-bottom: 0;
+            padding: 0;
+
+            & > li {
+                display: list-item;
+                list-style: none;
+                margin: 0;
+                padding: 0 10px;
+                line-height: 24px;
+                cursor: pointer;
+
+                &.highlighted {
+                    background-color: @dropdown-highlight-bg;
+                }
+
+                &.disabled {
+                    cursor: default;
+                    color: @grey5;
+                }
+
+                .ux-filter-match {
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .ux-typeahead-loading {
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        line-height: 24px;
+        font-style: italic;
+
+        & > .spinner {
+            margin: 0 1em 0 0.5em;
+        }
+    }
+
+    .ux-typeahead-no-options {
+        padding: 0 10px;
+        line-height: 24px;
+        font-style: italic;
+    }
+}

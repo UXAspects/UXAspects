@@ -1,0 +1,72 @@
+@import '../../../../node_modules/@ux-aspects/theme/dist/styles/variables.less';
+
+ux-facet-typeahead-list {
+    .facet-typeahead-list-container {
+        .facet-typeahead-list-control {
+            position: relative;
+            padding: 10px 0;
+            border-top: 1px solid @grey7;
+
+            typeahead-container {
+                width: ~'calc(100% - 20px)';
+
+                .dropdown-menu {
+                    width: 100%;
+                    max-height: 200px;
+                    overflow-y: auto;
+
+                    li {
+                        a {
+                            .facet-typeahead-list-option {
+                                margin-bottom: 0;
+
+                                .facet-typeahead-highlighted {
+                                    color: @grey1;
+                                }
+
+                                .facet-typeahead-list-option-count {
+                                    color: @grey4;
+                                }
+                            }
+                        }
+
+                        &.active {
+                            a {
+                                background-color: @grey7;
+                                color: inherit;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .facet-typeahead-list-selected-container {
+            margin-top: 5px;
+
+            .facet-typeahead-list-selected-option {
+                display: flex;
+                flex: none;
+                height: 32px;
+                align-items: center;
+                outline: none;
+                cursor: pointer;
+                max-width: 100%;
+
+                .facet-typeahead-list-selected-option-title {
+                    margin-right: 5px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-all;
+                    white-space: nowrap;
+                    cursor: pointer;
+                }
+
+                .facet-typeahead-list-selected-option-count {
+                    color: @grey4;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

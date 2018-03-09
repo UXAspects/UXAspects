@@ -1,0 +1,50 @@
+@import '../../../../node_modules/@ux-aspects/theme/dist/styles/variables.less';
+
+ux-date-time-picker-year-view {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    .calendar {
+        width: 100%;
+        padding: 4px 5px;
+
+        .calendar-row {
+            display: flex;
+
+            .calendar-item {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                min-width: 45px;
+                width: 24%;
+                height: 54px;
+                line-height: 54px;
+                margin: 2px;
+                cursor: pointer;
+                font-size: 14px;
+
+                &:first-of-type {
+                    margin-left: 0;
+                }
+
+                &:last-of-type {
+                    margin-right: 0;
+                }
+
+                &:hover {
+                    background-color: @date-picker-today-btn-hover-bg;
+                }
+
+                &.active {
+                    background-color: @date-picker-active-bg;
+                    color: @date-picker-active-color;
+                }
+            }
+        }
+    }
+}

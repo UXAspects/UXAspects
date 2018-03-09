@@ -1,0 +1,65 @@
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { ColumnSortingDirective, ColumnSortingOrder } from './column-sorting.directive';
+
+@Component({
+    selector: 'ux-column-sorting',
+    templateUrl: './column-sorting.component.html',
+    styleUrls: ['./column-sorting.component.less'],
+    encapsulation: ViewEncapsulation.None,
+    exportAs: 'ux-column-sorting'
+})
+export class ColumnSortingComponent {
+
+    @Input() state: ColumnSortingState;
+    @Input() key: string;
+    @Input() orderNumber: number;
+    @Output() stateChange: EventEmitter<ColumnSortingState> = new EventEmitter<ColumnSortingState>();
+
+    private _parent: ColumnSortingDirective;
+    columnSortingState = ColumnSortingState;
+
+    initParent(parent: ColumnSortingDirective) {
+        this._parent = parent;
+
+        // watch for any events
+        this._parent.events.subscribe(event => {
+
+            let idx = event.findIndex(column => column.key === this.key);
+
+            if (idx == -1) {
+                this.state = ColumnSortingState.NoSort;
+            }
+
+            // only store the number if we have 2 or more columns being sorted
+            if (event.length > 1) {
+                this.orderNumber = idx === -1 ? null : idx + 1;
+            } else {
+                this.orderNumber = null;
+            }
+
+            this.stateChange.emit(this.state);
+
+        });
+    }
+
+    changeState(): ColumnSortingOrder[] {
+
+        if (this.state === ColumnSortingState.Ascending) {
+            this.state = ColumnSortingState.Descending;
+        } else if (this.state === ColumnSortingState.Descending) {
+            this.state = ColumnSortingState.NoSort;
+        } else {
+            this.state = ColumnSortingState.Ascending;
+        }
+
+        // inform parent
+        return this._parent.toggleColumn(this.key, this.state);
+
+    }
+}
+
+export enum ColumnSortingState {
+    Ascending,
+    Descending,
+    NoSort
+}

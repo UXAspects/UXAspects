@@ -1,0 +1,193 @@
+@import '../../../node_modules/@ux-aspects/theme/dist/styles/variables.less';
+
+ux-slider {
+    display: block;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+
+    .track {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        width: 100%;
+        background-color: #f2f2f2;
+        border-radius: 2px;
+
+        &.wide {
+            height: 12px;
+
+            .tooltip {
+                &.tooltip-dynamic {
+                    top: 18px;
+                }
+            }
+        }
+
+        &.narrow {
+            height: 4px;
+
+            .tooltip {
+                &.tooltip-dynamic {
+                    top: 10px;
+                }
+            }
+        }
+
+        .track-section {
+            position: relative;
+            flex: 1;
+            overflow: hidden;
+
+            &.track-lower {
+                border-top-left-radius: 2px;
+                border-bottom-left-radius: 2px;
+            }
+
+            &.track-higher {
+                border-top-right-radius: 2px;
+                border-bottom-right-radius: 2px;
+            }
+        }
+
+        .thumb {
+            flex: none;
+            position: absolute;
+            cursor: pointer;
+
+            .tooltip {
+                top: -37px;
+                -ms-user-select: none;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+                pointer-events: none;
+                cursor: default;
+
+                &.tooltip-dynamic {
+                    .tooltip-arrow {
+                        display: none;
+                    }
+
+                    .tooltip-inner {
+                        background-color: transparent !important;
+                        color: #666 !important;
+                        box-shadow: none;
+                    }
+                }
+            }
+
+            &.button {
+                background-color: #fff;
+                border: 1px solid #999;
+                border-radius: 50%;
+                margin-top: -6px;
+                transform: translateX(-50%);
+
+                &:before {
+                    content: ' ';
+                    position: absolute;
+                    height: 100%;
+                }
+
+                &.wide {
+                    width: 24px;
+                    height: 24px;
+
+                    &:before {
+                        width: 30px;
+                        transform: translateX(-14%);
+                    }
+                }
+
+                &.narrow {
+                    width: 16px;
+                    height: 16px;
+
+                    &:before {
+                        width: 30px;
+                        transform: translateX(-27%);
+                    }
+                }
+            }
+
+            &.line {
+                width: 2px;
+                background-color: #333;
+                transform: translateX(-50%);
+
+                &:before {
+                    content: ' ';
+                    position: absolute;
+                    height: 100%;
+                    transform: translateX(-50%);
+                }
+
+                &.wide {
+                    height: 18px;
+                    margin-top: -3px;
+
+                    &:before {
+                        width: 20px;
+                    }
+                }
+
+                &.narrow {
+                    height: 12px;
+                    margin-top: -4px;
+
+                    &:before {
+                        width: 30px;
+                    }
+                }
+            }
+        }
+    }
+
+    .tick-container {
+        position: relative;
+        width: ~'calc(100% - 1px)';
+        min-height: 8px;
+        margin-top: 3px;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+
+        &.show-labels {
+            height: 25px;
+        }
+
+        .tick {
+            position: absolute;
+
+            &.major {
+                .tick-indicator {
+                    height: 8px;
+                }
+            }
+
+            &.minor {
+                .tick-indicator {
+                    height: 4px;
+                    margin-bottom: 4px;
+                }
+            }
+
+            .tick-indicator {
+                width: 1px;
+                background-color: #999;
+                top: 0;
+            }
+
+            .tick-label {
+                cursor: default;
+                color: #666;
+                text-align: center;
+                transform: translateX(-50%);
+                font-size: 0.875rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+_SpecRunner.html
+.grunt
+dist
+jshint.log
+node_modules
+reports

@@ -1,0 +1,74 @@
+{
+  "name": "@ux-aspects/ux-aspects-ng1",
+  "version": "1.5.7",
+  "description": "An AngularJS component library for UX Aspects",
+  "private": true,
+  "main": "dist/ux-aspects-ng1.js",
+  "scripts": {
+    "start": "grunt develop",
+    "test": "grunt test",
+    "build": "grunt build",
+    "prepack": "grunt clean:package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UXAspects/UXAspects.git"
+  },
+  "keywords": [
+    "ux",
+    "aspects",
+    "angularjs",
+    "components",
+    "library"
+  ],
+  "contributors": [
+    "Ashley Hunter",
+    "Alastair McKee",
+    "Pearse McMurray",
+    "Donna Marijne Worby",
+    "Chris Brennan"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/UXAspects/UXAspects/issues"
+  },
+  "homepage": "https://github.com/UXAspects/UXAspects#readme",
+  "devDependencies": {
+    "@types/jasmine": "2.6.2",
+    "angular-mocks": "~1.3.2",
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "1.6.1",
+    "core-js": "2.5.3",
+    "jasmine-xml2html-converter": "0.0.2",
+    "grunt": "1.0.1",
+    "grunt-contrib-clean": "1.1.0",
+    "grunt-contrib-jasmine": "1.1.0",
+    "grunt-contrib-jshint": "1.1.0",
+    "grunt-contrib-uglify": "3.3.0",
+    "grunt-execute": "0.2.2",
+    "grunt-force-task": "2.0.0",
+    "grunt-usebanner": "0.3.1",
+    "grunt-webpack": "3.0.2",
+    "jit-grunt": "0.10.0",
+    "jshint": "2.9.5",
+    "load-grunt-config": "0.19.2",
+    "module-search": "0.2.4",
+    "moment": "2.19.1",
+    "moment-timezone": "0.5.0",
+    "ng-cache-loader": "0.0.26",
+    "raw-loader": "0.5.1",
+    "script-loader": "0.7.2",
+    "time-grunt": "1.4.0",
+    "uglify-js": "2.8.29",
+    "uglify-loader": "2.0.0",
+    "webpack": "3.10.0"
+  },
+  "dependencies": {
+    "angular": "1.3.20",
+    "bootstrap": "3.3.7",
+    "jquery": "3.2.1",
+    "jquery-ui": "1.12.1",
+    "rxjs": "^5.5.2"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+!docs/app/showcase/charts/dist/
+!docs/app/showcase/list_view/dist/
+.grunt/
+jshint.log
+.awcache/
+dist/
+.tscache/
+.ng_build/
+target/

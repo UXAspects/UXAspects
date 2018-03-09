@@ -1,0 +1,113 @@
+@import '../../../node_modules/@ux-aspects/theme/dist/styles/variables.less';
+
+ux-spark {
+    display: block;
+
+    .ux-spark {
+        background-color: fade(@primary, 20%);
+        overflow: hidden;
+
+        .ux-spark-theme(primary, @primary);
+        .ux-spark-theme(accent, @accent);
+        .ux-spark-theme(secondary, @secondary);
+        .ux-spark-theme(alternate1, @alternate1);
+        .ux-spark-theme(alternate2, @alternate2);
+        .ux-spark-theme(alternate3, @alternate3);
+        .ux-spark-theme(vibrant1, @vibrant1);
+        .ux-spark-theme(vibrant2, @vibrant2);
+        .ux-spark-theme(grey1, @grey1);
+        .ux-spark-theme(grey2, @grey2);
+        .ux-spark-theme(grey3, @grey3);
+        .ux-spark-theme(grey4, @grey4);
+        .ux-spark-theme(grey5, @grey5);
+        .ux-spark-theme(grey6, @grey6);
+        .ux-spark-theme(grey7, @grey7);
+        .ux-spark-theme(grey8, @grey8);
+        .ux-spark-theme(white, @white);
+        .ux-spark-theme(chart1, @chart1);
+        .ux-spark-theme(chart2, @chart2);
+        .ux-spark-theme(chart3, @chart3);
+        .ux-spark-theme(chart4, @chart4);
+        .ux-spark-theme(chart5, @chart5);
+        .ux-spark-theme(chart6, @chart6);
+        .ux-spark-theme(ok, @ok);
+        .ux-spark-theme(warning, @warning);
+        .ux-spark-theme(critical, @critical);
+    }
+
+    .ux-spark .ux-spark-bar {
+        background-color: @primary;
+        height: 100%;
+    }
+
+    .ux-spark .ux-fill {
+        transition: none;
+    }
+
+    .ux-spark.ux-inline {
+        margin-bottom: 0;
+        display: inline-block;
+        width: 100%;
+        float: left;
+    }
+
+    .ux-spark-line {
+        flex: 1;
+    }
+
+    .ux-spark-inline-label-container {
+        display: flex;
+        align-items: center;
+
+        .ux-spark-top-container {
+            min-height: auto;
+        }
+    }
+
+    .ux-spark-inline-label-left {
+        flex: none;
+        text-align: right;
+        margin-right: 5px;
+    }
+
+    .ux-spark-top-container {
+        min-height: 24px;
+    }
+
+    .ux-spark-bottom-container {
+        min-height: 24px;
+        line-height: 22px;
+    }
+
+    .ux-spark-label-top-left,
+    .ux-spark-label-top-right,
+    .ux-spark-label-bottom-left,
+    .ux-spark-label-bottom-right {
+        display: inline-block;
+    }
+
+    .ux-spark-label-top-left,
+    .ux-spark-label-bottom-left {
+        float: left;
+    }
+
+    .ux-spark-label-top-right,
+    .ux-spark-label-bottom-right {
+        float: right;
+        text-align: right;
+    }
+
+    .ux-spark-multi-value {
+        display: flex;
+    }
+}
+
+.ux-spark-theme(@themeName, @color) {
+    &.ux-spark-theme-@{themeName} {
+        background-color: fade(@color, 20%);
+
+        .ux-spark-bar {
+            background-color: @color;
+        }
+    }
+}

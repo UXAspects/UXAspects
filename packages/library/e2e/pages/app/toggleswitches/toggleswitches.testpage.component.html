@@ -1,0 +1,35 @@
+<div>
+    <ux-toggleswitch id="switch1" [(value)]="toggleSwitches.option1" [disabled]="toggleSwitchDisable">
+        Toggle 1
+    </ux-toggleswitch>
+</div>
+<div>
+    <ux-toggleswitch id="switch2" [(value)]="toggleSwitches.option2">
+        Toggle 2
+    </ux-toggleswitch>
+</div>
+<div>
+    <ux-toggleswitch id="switch3" [(value)]="toggleSwitches.option3">
+        Toggle 3
+    </ux-toggleswitch>
+</div>
+<div>
+    <ux-toggleswitch id="switch4" class="toggleswitch-lg" [(value)]="toggleSwitches.option4">
+        Large Toggle
+    </ux-toggleswitch>
+</div>
+
+<br>
+
+<p class="m-t-md">
+    <code>toggleSwitches.option1</code> is <em id="text1">{{toggleSwitches.option1}}</em>.
+    <code>toggleSwitches.option2</code> is <em id="text2">{{toggleSwitches.option2}}</em>.
+    <code>toggleSwitches.option3</code> is <em id="text3">{{toggleSwitches.option3}}</em>.
+    <code>toggleSwitches.option4</code> is <em id="text4">{{toggleSwitches.option4}}</em>.
+</p>
+
+<br>
+
+<button id="button1" class="btn button-primary" (click)="toggleSwitchDisable = !toggleSwitchDisable">
+  {{toggleSwitchDisable ? 'Click to enable Toggle 1' : 'Click to disable Toggle 1'}}
+</button>

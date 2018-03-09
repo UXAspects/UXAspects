@@ -1,0 +1,41 @@
+{
+  "name": "@ux-aspects/theme-hpe",
+  "version": "1.5.7",
+  "description": "HPE theme for UX Aspects",
+  "private": true,
+  "main": "dist/css/ux-aspects.css",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "postversion": "../../scripts/bower-set-version.js",
+    "build:hpe": "grunt build",
+    "prepack": "grunt clean:package",
+    "postpack": "grunt bower"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UXAspects/UXAspects.git"
+  },
+  "keywords": [
+    "ux-aspects",
+    "darwin"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@ux-aspects/theme": "^1.5.7",
+    "grunt": "1.0.1",
+    "grunt-contrib-clean": "1.1.0",
+    "grunt-contrib-compress": "1.4.3",
+    "grunt-contrib-copy": "1.0.0",
+    "grunt-contrib-less": "1.4.1",
+    "jit-grunt": "0.10.0",
+    "less": "2.7.3",
+    "less-plugin-npm-import": "^2.1.0",
+    "load-grunt-config": "0.19.2",
+    "module-search": "0.2.4",
+    "time-grunt": "1.4.0",
+    "ux-aspects-hpe": "git://github.houston.softwaregrp.net/caf/ux-aspects-hpe"
+  }
+}
