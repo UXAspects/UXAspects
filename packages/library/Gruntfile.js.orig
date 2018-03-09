@@ -1,0 +1,54 @@
+const { join } = require('path');
+const process = require('process');
+const configLoader = require('load-grunt-config');
+
+module.exports = function (grunt) {
+
+    // measures the time each task takes
+    require('time-grunt')(grunt);
+
+    // Initiailize Grunt with Configuration
+    configLoader(grunt, {
+        configPath: join(process.cwd(), 'grunt'),
+        jitGrunt: {
+            staticMappings: {
+                'webpack-dev-server': 'grunt-webpack',
+                'usebanner': 'grunt-banner',
+                'protractor': 'grunt-protractor-runner',
+                'makeReport': 'grunt-istanbul'
+            }
+        }
+    });
+    
+    // Register Tasks
+<<<<<<< HEAD:packages/library/Gruntfile.js
+    grunt.registerTask('lint', ['tslint:library', 'stylelint:components']);
+    grunt.registerTask('library', ['clean:library', 'run:build_library', 'execute:patch-dist-package', 'copy:readme']);
+    grunt.registerTask('shim', ['clean:shim', 'execute:shim']);
+    grunt.registerTask('licenses', ['clean:licenses', 'execute:licenses']);
+    grunt.registerTask('e2e', ['clean:e2e', 'webpack:e2e', 'ts:e2e', 'copy:webdriver', 'rename:webdriver', 'run:e2e', 'makeReport']);
+=======
+    grunt.registerTask('cleanup', ['clean:library', 'clean:documentation', 'clean:ng1', 'clean:styles', 'clean:fonts', 'clean:images', 'clean:less', 'clean:licenses']);
+    grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'jshint:ng1', 'stylelint']);
+    grunt.registerTask('library', ['clean:library', 'run:build_library', 'webpack:ng1']);
+    grunt.registerTask('styles', ['clean:styles', 'execute:less']);
+    grunt.registerTask('scripts', ['execute:iconset']);
+    grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:ng1', 'copy:styles']);
+    grunt.registerTask('iconset', ['webfont:iconset']);
+    grunt.registerTask('minify', ['uglify:ng1', 'cssmin:styles']);
+    grunt.registerTask('licenses', ['execute:licenses', 'usebanner:ng1']);
+    grunt.registerTask('test', ['build', 'jasmine:ng1']);
+    grunt.registerTask('server', ['documentation:build', 'connect:documentation']);
+    grunt.registerTask('selenium', ['documentation:build', 'connect:selenium']);
+    grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
+>>>>>>> origin/develop:Gruntfile.js
+
+    // Tasks with larger chains of events
+    grunt.registerTask('develop', ['watch']);
+    grunt.registerTask('build', ['clean:dist', 'clean:package', 'lint', 'library', 'licenses', 'shim']);
+    grunt.registerTask('pack', ['run:npm-pack-dist', 'copy:dist-package', 'clean:dist-package']);
+    grunt.registerTask('releasebuild', ['build', 'compress:bower']);
+
+    grunt.registerTask('default', ['build']);
+    
+};

@@ -1,0 +1,58 @@
+import { browser, element, by } from 'protractor';
+
+export class TimelinePage {
+
+    getPage(): void {
+        browser.get('#/timeline');
+    }
+
+    addEvent = element(by.id('button'));
+    timeline = element(by.id('timeline'));
+    
+    getNumberOfEvents() {
+<<<<<<< HEAD:packages/library/e2e/tests/components/timeline/timeline.po.spec.ts
+        return this.timeline.$('ul.timeline').$$('ux-timeline-event').count();
+    }
+    
+    getEvent(index: number) {
+        return this.timeline.$('ul.timeline').$$('ux-timeline-event').get(index);
+    }    
+
+    getEventBadge(index: number) {
+        return this.getEvent(index).$('li').$('.timeline-badge');
+    }
+
+    getEventPanel(index: number) {
+        return this.getEvent(index).$('li').$('.timeline-panel');
+=======
+        return this.timeline.$('div.timeline').$$('ux-timeline-event').count();
+    }
+    
+    getEvent(index: number) {
+        return this.timeline.$('div.timeline').$$('ux-timeline-event').get(index);
+    }    
+
+    getEventBadge(index: number) {
+        return this.getEvent(index).$('.timeline-badge');
+    }
+
+    getEventPanel(index: number) {
+        return this.getEvent(index).$('.timeline-panel');
+>>>>>>> origin/develop:e2e/tests/components/timeline/timeline.po.spec.ts
+    }
+
+    getEventBadgeTitle(index: number) {
+        return this.getEventBadge(index).getText();
+    }
+
+<<<<<<< HEAD:packages/library/e2e/tests/components/timeline/timeline.po.spec.ts
+    getEventTimestamp(index: number) {
+        return this.getEventPanel(index).$('div').$('span > span').getText();
+    }
+
+=======
+>>>>>>> origin/develop:e2e/tests/components/timeline/timeline.po.spec.ts
+    getEventPanelText(index: number) {
+        return this.getEventPanel(index).$('p').getText();
+    }
+}

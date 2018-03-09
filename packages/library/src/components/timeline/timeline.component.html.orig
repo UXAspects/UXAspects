@@ -1,0 +1,9 @@
+<<<<<<< HEAD:packages/library/src/components/timeline/timeline.component.html
+<ul class="timeline">
+    <ng-content></ng-content>
+</ul>
+=======
+<div class="timeline">
+    <ng-content></ng-content>
+</div>
+>>>>>>> origin/develop:src/components/timeline/timeline.component.html

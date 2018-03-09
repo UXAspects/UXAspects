@@ -1,0 +1,72 @@
+<ux-notification-list direction="above" position="top-right"></ux-notification-list>
+
+<div class="btn-container">
+    <button class="btn button-primary m-r-sm" (click)="notificationService.show(notification,
+        { duration: duration, backgroundColor: backgroundColor })">
+        Show Notification
+    </button>
+    <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">
+        Dismiss Notifications
+    </button>
+</div>
+
+<ng-template #notification let-notificationRef>
+
+    <div class="dismiss">
+        <div class="hpe-icon hpe-close" (click)="notificationService.dismiss(notificationRef)"></div>
+    </div>
+    
+    <div class="notification-wrapper">
+
+        <div class="notification-icon">
+            <span class="hpe-icon hpe-chat"></span>
+        </div>
+    
+        <div class="notification-content">
+            <h4 class="notification-title">Messages Received</h4>
+            <p class="notification-description">You have 16 messages</p>
+            <p class="notification-timestamp">
+                {{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}
+            </p>
+        </div>
+
+    </div>
+    
+</ng-template>
+
+<hr>
+
+<div class="row uxd-customize-example">
+        <div class="col-md-12">
+            <accordion>
+                <accordion-group heading="Customize Example...">
+                    <div class="row uxd-customize-row">
+                        <div class="col-md-6 col-sm-12">
+                            <label for="backgroundColor">backgroundColor</label>
+                            <div class="input-group m-b-sm">
+                                <input type="text" placeholder="Enter color" class="form-control"
+                                    [(ngModel)]="backgroundColor">
+                                <span class="input-group-addon color-display"
+                                    [style.background-color]="backgroundColor"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label for="duration">duration</label>
+                            <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
+                        </div>
+                    </div>
+                    <div class="row uxd-customize-row">
+                        <div class="col-md-4 col-sm-12">
+                            <p>
+                                <small>Recommended Colors</small>
+                            </p>
+                            <div class="color-palette">
+                                <div class="color-box" *ngFor="let color of colors"
+                                [style.background-color]="color" (click)="backgroundColor = color"></div>
+                            </div>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>

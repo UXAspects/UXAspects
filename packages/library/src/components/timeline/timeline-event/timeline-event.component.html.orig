@@ -1,0 +1,17 @@
+<<<<<<< HEAD:packages/library/src/components/timeline/timeline-event/timeline-event.component.html
+<li class="timeline-inverted">
+    <div class="timeline-badge" [ngClass]="badgeColor">
+        <span>{{badgeTitle}}</span>
+    </div>
+    <div class="timeline-panel">
+        <ng-content></ng-content>
+    </div>
+</li>
+=======
+<div class="timeline-badge" [ngClass]="badgeColor">
+    <span>{{badgeTitle}}</span>
+</div>
+<div class="timeline-panel">
+    <ng-content></ng-content>
+</div>
+>>>>>>> origin/develop:src/components/timeline/timeline-event/timeline-event.component.html
