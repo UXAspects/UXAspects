@@ -1,7 +1,7 @@
 @fab-button__size: 30px;
-@fab-button__margin: 10px;
+@fab-button__margin: 12px;
 
-ux-floating-action-buttons {
+ux-floating-action-buttons, .floating-action-buttons {
     position: relative;
     display: inline-block;
 
@@ -32,15 +32,33 @@ ux-floating-action-buttons {
         }
 
         &.top, &.bottom {
-            ux-floating-action-button {
+            .floating-action-button {
                 margin: @fab-button__margin 0;
             }
         }
 
         &.left, &.right {
-            ux-floating-action-button {
+            .floating-action-button {
                 margin: 0 @fab-button__margin;
             }
+        }
+    }
+}
+
+/*
+    AngularJS specific styling
+*/
+.floating-action-buttons {
+    .floating-action-button-list {
+        transition: opacity 250ms ease-in-out;
+
+        &.collapsed {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        &.expanded {
+            opacity: 1;
         }
     }
 }

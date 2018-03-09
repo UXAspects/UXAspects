@@ -1,2 +1,9 @@
-<span class="floating-action-button-icon" *ngIf="icon" [ngClass]="icon"></span>
-<ng-content *ngIf="!icon"></ng-content>
+<button class="btn floating-action-button" 
+        [class.button-primary]="primary" 
+        [class.button-secondary]="!primary" 
+        (click)="primary ? fab.open() : fab.close()">
+
+    <span class="hpe-icon floating-action-button-icon" *ngIf="icon" [ngClass]="icon"></span>
+    <ng-content *ngIf="!icon"></ng-content>
+
+</button>

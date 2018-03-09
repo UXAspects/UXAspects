@@ -1,9 +1,9 @@
 <ux-floating-action-buttons [ngClass]="direction" [direction]="direction">
 
-    <ux-floating-action-button fab-primary icon="hpe-icon hpe-contract"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-icon hpe-add"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-icon hpe-analytics"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-icon hpe-app"></ux-floating-action-button>
+    <ux-floating-action-button fab-primary icon="hpe-contract" tooltip="Show Actions" container="body"></ux-floating-action-button>
+    <ux-floating-action-button icon="hpe-add" tooltip="Add New Item" container="body"></ux-floating-action-button>
+    <ux-floating-action-button icon="hpe-analytics" tooltip="Show Analytics" container="body"></ux-floating-action-button>
+    <ux-floating-action-button icon="hpe-app" tooltip="Show Overview" container="body"></ux-floating-action-button>
 
 </ux-floating-action-buttons>
 
@@ -32,28 +32,29 @@
     </div>
 </div>
 
-<p>Floating Action Button is contained in <code>floating-action-button</code> directive.</p>
+<p>
+    Floating Action Buttons are contained in a <code>ux-floating-action-buttons</code> component. 
+    Each action button should be added as child using the <code>ux-floating-action-button</code> component.
+</p>
 
-<!-- <uxd-snippet [content]="snippets.compiled.floatingActionButtonHtml" language="html"></uxd-snippet> -->
+<p>
+    The <code>fab-primary</code> attribute should be added to the floating action button that will permanently be visible and will be used
+    to display the additional buttons when clicked.
+</p>
 
-<p>The attributes defining this directive are:</p>
+<p>The following input can be used to customize the behavior of the <code>ux-floating-action-buttons</code> component:</p>
 
-<uxd-api-properties>
-    <tr uxd-api-property name="items" type="array" binding="variable" required="true">
-        Array of icons and events, that defines the child buttons shown when the primary button is expanded. Each element of the
-        array should contain an
-        <code>icon</code> property which should be the name of an icon from the icon set. There should also be an
-        <code>event</code> property which should reference a function that will be called when a button is clicked.
-    </tr>
-    <tr uxd-api-property name="direction" type="string" binding="variable" required="true">Defines the direction in which the child button should expand (top, bottom, left, right).
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="direction" type="string" defaultValue="top">
+        Defines direction items should be displayed. Possible values are <code>top</code>, <code>right</code>, <code>bottom</code> or <code>left</code>.
     </tr>
 </uxd-api-properties>
 
-<p>The controller logic for the floating action buttons is as follows:</p>
+<p>The following input can be used to customize the appearance of the <code>ux-floating-action-button</code> component:</p>
 
-<uxd-snippet [content]="this.snippets.compiled.floatingActionButtonJs" language="javascript"></uxd-snippet>
-
-<blockquote>
-    <p>
-        <strong>Note</strong>: This component can be used in an Angular application by importing the HybridModule.</p>
-</blockquote>
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="icon" type="string">
+        If specified, defines which icon from the icon set to display in the button. If you wish to display custom content 
+        you can simply add children to the component and they will be displayed within the button.
+    </tr>
+</uxd-api-properties>

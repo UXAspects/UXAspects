@@ -17,19 +17,4 @@ export class FloatingActionButtonComponent {
     constructor(@Attribute('fab-primary') primary: string, public fab: FloatingActionButtonsService) {
         this.primary = primary !== null;
     }
-
-    @HostListener('mouseup', ['$event']) click(event: MouseEvent): void {
-        if (this.primary) {
-            this.fab.open();
-            event.stopPropagation();
-        }
-    }
-
-    @HostListener('keydown.enter') select(): void {
-        if (this.primary) {
-            this.fab.toggle();
-        } else {
-            this.fab.close();
-        }
-    }
 }

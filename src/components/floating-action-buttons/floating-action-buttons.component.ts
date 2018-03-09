@@ -1,7 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostListener, ElementRef } from '@angular/core';
+import { trigger, state, style, transition, animate, query, stagger } from '@angular/animations';
+
 import { FloatingActionButtonComponent } from './floating-action-button.component';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
-import { trigger, state, style, transition, animate, query, stagger } from '@angular/animations';
 
 @Component({
     selector: 'ux-floating-action-buttons',
@@ -13,27 +14,26 @@ import { trigger, state, style, transition, animate, query, stagger } from '@ang
         trigger('fabAnimation', [
             transition('void => true', [
                 query('ux-floating-action-button', style({ opacity: 0 })),
-                query('ux-floating-action-button', stagger(100, animate(300, style({ opacity: 1 }))))
+                query('ux-floating-action-button', stagger(50, animate(250, style({ opacity: 1 }))))
             ]),
             transition('true => void', [
-                query('ux-floating-action-button', stagger(-100, animate(300, style({ opacity: 0 }))))
-            ]) 
+                query('ux-floating-action-button', stagger(-50, animate(250, style({ opacity: 0 }))))
+            ])
         ])
     ]
 })
 export class FloatingActionButtonsComponent {
 
-    @Input() icon: string;    
     @Input() direction: FloatingActionButtonDirection = 'top';
 
-    constructor(public fab: FloatingActionButtonsService) {}
+    constructor(public fab: FloatingActionButtonsService, private _elementRef: ElementRef) { }
 
     /*
      * Detect any clicks to trigger close of the menu
      */
-    @HostListener('document:mouseup', ['$event.button']) close(button: number): void {
-        if (button === 0) {
-            this.fab.close();           
+    @HostListener('document:click', ['$event.target']) close(target: HTMLElement): void {
+        if (!this._elementRef.nativeElement.contains(target)) {
+            this.fab.close();
         }
     }
 }
