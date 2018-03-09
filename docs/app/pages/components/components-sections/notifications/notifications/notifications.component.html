@@ -34,23 +34,27 @@
     <div class="col-md-12">
         <accordion>
             <accordion-group heading="Customize Example...">
-                <div class="col-md-6 col-sm-12">
-                    <label for="duration">Duration (in seconds)</label>
-                    <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
-                </div>
-
-                <div class="col-md-6 col-sm-12">
-                    <label for="backgroundColor">Background Color</label>
-                    <div class="input-group m-b-sm">
-                        <input type="text" placeholder="Enter color" class="form-control" [(ngModel)]="backgroundColor">
-                        <span class="input-group-addon color-display" [style.background-color]="backgroundColor"></span>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="backgroundColor">backgroundColor</label>
+                        <div class="input-group m-b-sm">
+                            <input type="text" placeholder="Enter color" class="form-control" [(ngModel)]="backgroundColor">
+                            <span class="input-group-addon color-display" [style.background-color]="backgroundColor"></span>
+                        </div>
                     </div>
-
-                    <p>
-                        <small>Recommended Colors</small>
-                    </p>
-                    <div class="color-palette">
-                        <div class="color-box" *ngFor="let color of colors" [style.background-color]="color" (click)="backgroundColor = color"></div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="duration">duration</label>
+                        <ux-number-picker [(value)]="duration" min="0" max="3600"></ux-number-picker>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-offset-6 col-md-4 col-sm-12">
+                        <p>
+                            <small>Recommended Colors</small>
+                        </p>
+                        <div class="color-palette">
+                            <div class="color-box" *ngFor="let color of colors" [style.background-color]="color" (click)="backgroundColor = color"></div>
+                        </div>
                     </div>
                 </div>
             </accordion-group>
