@@ -15,8 +15,7 @@ const Jarvis = require('webpack-jarvis');
     Define Compilation Options
 */
 module.exports = {
-
-    stats: 'minimal',  
+    stats: 'minimal',
 
     entry: {
         main: resolve(cwd(), './docs/main.ts'),
@@ -67,7 +66,11 @@ module.exports = {
             {
                 test: /\.ts$/,
                 exclude: /(snippets|wrapper)/,
-                use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader']
+                use: [
+                    'awesome-typescript-loader',
+                    'angular-router-loader',
+                    'angular2-template-loader'
+                ]
             },
             {
                 test: /\.ts$/,
@@ -118,7 +121,6 @@ module.exports = {
     },
 
     plugins: [
-
         new HtmlWebpackPlugin({
             template: './docs/index.ejs',
             favicon: './docs/favicon.ico',
@@ -136,37 +138,51 @@ module.exports = {
         new ExtractTextPlugin('styles.css'),
 
         // Copy Assets for CodePen & Plunker
-        new CopyWebpackPlugin([{
-            from: resolve(cwd(), './docs/app/assets'),
-            to: resolve(cwd(), './dist/assets')
-        }, {
-            from: getPackageMain('@ux-aspects/ux-aspects-ng1'),
-            to: resolve(cwd(), './dist/assets/ng1/ux-aspects-ng1.js')
-        }, {
-            from: getPackageMain('@ux-aspects/ux-aspects'),
-            to: resolve(cwd(), './dist/assets/lib/index.js')
-        }, {
-            from: resolve(getModulePath('@ux-aspects/theme'), 'dist'),
-            to: resolve(cwd(), './dist/assets')
-        }, {
-            from: resolve(getModulePath('@ux-aspects/theme'), 'dist/fonts/**'),
-            to: resolve(cwd(), './dist/assets'),
-            flatten: true
-        }], {
-            copyUnmodified: true
-        }),
+        new CopyWebpackPlugin(
+            [
+                {
+                    from: resolve(cwd(), './docs/app/assets'),
+                    to: resolve(cwd(), './dist/assets')
+                },
+                {
+                    from: getPackageMain('@ux-aspects/ux-aspects-ng1'),
+                    to: resolve(cwd(), './dist/assets/ng1/ux-aspects-ng1.js')
+                },
+                {
+                    from: getPackageMain('@ux-aspects/ux-aspects'),
+                    to: resolve(cwd(), './dist/assets/lib/index.js')
+                },
+                {
+                    from: resolve(getModulePath('@ux-aspects/theme'), 'dist'),
+                    to: resolve(cwd(), './dist/assets')
+                },
+                {
+                    from: resolve(getModulePath('@ux-aspects/theme'), 'dist/fonts/**'),
+                    to: resolve(cwd(), './dist/assets'),
+                    flatten: true
+                }
+            ],
+            {
+                copyUnmodified: true
+            }
+        ),
 
         // Copy Assets for Showcases
-        new CopyWebpackPlugin([{
-            from: resolve(cwd(), './docs/app/showcase/list_view'),
-            to: resolve(cwd(), './dist/showcase/list_view')
-        },
-        {
-            from: resolve(cwd(), './docs/app/showcase/charts'),
-            to: resolve(cwd(), './dist/showcase/charts')
-        }], {
-            copyUnmodified: true
-        }),
+        new CopyWebpackPlugin(
+            [
+                {
+                    from: resolve(cwd(), './docs/app/showcase/list_view'),
+                    to: resolve(cwd(), './dist/showcase/list_view')
+                },
+                {
+                    from: resolve(cwd(), './docs/app/showcase/charts'),
+                    to: resolve(cwd(), './dist/showcase/charts')
+                }
+            ],
+            {
+                copyUnmodified: true
+            }
+        ),
 
         new CommonsChunkPlugin({
             name: ['main', 'vendor', 'polyfills']
@@ -179,8 +195,6 @@ module.exports = {
             resolve(cwd(), 'docs')
         ),
 
-        new ProgressPlugin(),
-
         new NoEmitOnErrorsPlugin(),
 
         new webpack.DefinePlugin({
@@ -191,7 +205,7 @@ module.exports = {
         new Jarvis({
             port: 1337
         })
-    ],  
+    ],
 
     devServer: {
         https: {
