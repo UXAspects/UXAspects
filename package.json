@@ -1,6 +1,7 @@
 {
 	"scripts": {
-		"bootstrap": "lerna bootstrap --hoist",
+		"bootstrap": "lerna bootstrap --hoist --ignore @ux-aspects/theme-hpe",
+		"bootstrap:all": "lerna bootstrap --hoist",
 		"start": "lerna run --parallel start",
 		"e2e": "lerna run e2e",
 		"test": "lerna run test",

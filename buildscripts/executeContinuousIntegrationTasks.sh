@@ -39,7 +39,7 @@ git reset --hard origin/develop
 docker_image_build "$WORKSPACE/ux-aspects/docker"
 
 echo Bootstrapping the repository
-docker_image_run "$WORKSPACE" "npm install && npm run bootstrap"
+docker_image_run "$WORKSPACE" "npm install && npm run bootstrap:all"
 
 echo Running the unit tests
 docker_image_run "$WORKSPACE/ux-aspects" "npm run test"

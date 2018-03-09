@@ -41,7 +41,7 @@ echo === latestDevelopCommitID is $latestDevelopCommitID
 docker_image_build "$WORKSPACE/docker"; echo
 
 echo Bootstrapping the repository
-docker_image_run "$WORKSPACE" "npm install && npm run bootstrap"
+docker_image_run "$WORKSPACE" "npm install && npm run bootstrap:all"
 
 echo Running the unit tests
 docker_image_run "$WORKSPACE" "npm run test"
