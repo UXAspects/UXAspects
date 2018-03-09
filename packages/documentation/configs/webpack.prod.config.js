@@ -24,6 +24,8 @@ module.exports = env => {
 
     return {
 
+        stats: 'minimal',
+
         entry: {
             main: resolve(cwd(), './docs/main.ts'),
             vendor: resolve(cwd(), './docs/vendor.ts'),
@@ -227,8 +229,6 @@ module.exports = env => {
             new CommonsChunkPlugin({
                 name: ['main', 'vendor', 'polyfills']
             }),
-
-            new ProgressPlugin(),
 
             new NoEmitOnErrorsPlugin(),
 

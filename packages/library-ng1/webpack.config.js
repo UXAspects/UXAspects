@@ -3,6 +3,8 @@ const { IgnorePlugin } = require('webpack');
 
 module.exports = {
 
+    stats: 'minimal',
+
     entry: './src/ux-aspects-ng1.module.js',
 
     output: {
@@ -51,5 +53,4 @@ module.exports = {
     plugins: [
         new IgnorePlugin(/^\.\/locale$/, /moment$/)
     ]
-
 };

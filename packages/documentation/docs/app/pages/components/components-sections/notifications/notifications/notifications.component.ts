@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ColorService, NotificationService } from '@ux-aspects/ux-aspects';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { ColorService, NotificationService } from '../../../../../../../src/index';
 
 @Component({
     selector: 'uxd-notifications',

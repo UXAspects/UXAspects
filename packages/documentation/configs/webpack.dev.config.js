@@ -16,6 +16,8 @@ const Jarvis = require('webpack-jarvis');
 */
 module.exports = {
 
+    stats: 'minimal',  
+
     entry: {
         main: resolve(cwd(), './docs/main.ts'),
         vendor: resolve(cwd(), './docs/vendor.ts'),
@@ -189,22 +191,14 @@ module.exports = {
         new Jarvis({
             port: 1337
         })
-    ],
-
-    stats: {
-        colors: true,
-        reasons: true
-    },    
+    ],  
 
     devServer: {
         https: {
             pfx: readFileSync(resolve(cwd(), './configs/webpack.dev.pfx'))
         },
         historyApiFallback: true,
-        stats: {
-            colors: true,
-            reasons: true
-        },
+        stats: 'minimal',
         overlay: true,
         headers: {
             'Access-Control-Allow-Origin': '*'
