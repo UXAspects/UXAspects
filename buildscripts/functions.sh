@@ -1,7 +1,25 @@
 #!/bin/bash
 
+set -o pipefail  # trace ERR through pipes
+set -o errtrace  # trace ERR through 'time command' and other functions
+set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+
+error() {
+    local parent_lineno="$1"
+    local message="$2"
+    local code="${3:-1}"
+    if [[ -n "$message" ]] ; then
+        echo "Error on or near line ${parent_lineno}: ${message}; exiting with status ${code}"
+    else
+        echo "Error on or near line ${parent_lineno}; exiting with status ${code}"
+    fi
+    exit "${code}"
+}
+trap 'error ${LINENO}' ERR
+
+
 UX_ASPECTS_BUILD_IMAGE_NAME=ux-aspects-build
-UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.10.0
+UX_ASPECTS_BUILD_IMAGE_TAG_LATEST=0.11.0
 
 # Define a function to build a specified Docker image.
 docker_image_build()
@@ -193,4 +211,3 @@ wait_for_grunt_connect_process_status_to_change()
         sleep $processCheckDelay
     done
 }
-
