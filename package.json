@@ -3,17 +3,19 @@
 		"bootstrap": "lerna bootstrap --hoist",
 		"start": "lerna run --parallel start",
 		"e2e": "lerna run e2e",
+		"test": "lerna run test",
 		"version:patch": "lerna publish --skip-git --skip-npm --force-publish * --yes --cd-version patch",
 		"version:minor": "lerna publish --skip-git --skip-npm --force-publish * --yes --cd-version minor",
 		"version:major": "lerna publish --skip-git --skip-npm --force-publish * --yes --cd-version major",
 		"build": "lerna run build",
 		"build:hpe": "lerna run build:hpe",
 		"package": "lerna exec -- npm pack",
-		"gather": "echo TODO copy npm packages and target dirs to base",
+		"gather": "node ./scripts/gather.js",
 		"ci": "npm run build && npm run build:hpe && npm run gather",
 		"rc": "npm run build && npm run build:hpe && npm run package && npm run gather"
 	},
 	"devDependencies": {
+		"fs-extra": "5.0.0",
 		"lerna": "^2.9.0"
 	}
 }

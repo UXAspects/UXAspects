@@ -17,6 +17,10 @@ module.exports = {
                 resolve(getModulePath('angular'), 'angular.js'),
                 resolve(getModulePath('angular-mocks'), 'angular-mocks.js')
             ],
+            junit: {
+                path: 'target/reports/xml',
+                consolidate: true
+            },
             keepRunner: true,
             display: 'none',
             summary: true

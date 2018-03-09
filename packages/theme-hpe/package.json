@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "postversion": "../../scripts/bower-set-version.js",
-    "build:hpe": "grunt",
+    "build:hpe": "grunt build",
     "prepack": "grunt clean:package",
     "postpack": "grunt bower"
   },
@@ -25,21 +25,17 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "@ux-aspects/theme": "^1.5.7",
-    "bower": "^1.8.2",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.1.0",
     "grunt-contrib-compress": "1.4.3",
     "grunt-contrib-copy": "1.0.0",
     "grunt-contrib-less": "1.4.1",
+    "jit-grunt": "0.10.0",
+    "less": "2.7.3",
+    "less-plugin-npm-import": "^2.1.0",
     "load-grunt-config": "0.19.2",
     "module-search": "0.2.4",
-    "rxjs": "^5.5.2",
-    "zone.js": "0.8.18"
-  },
-  "dependencies": {
-    "less-plugin-npm-import": "^2.1.0"
-  },
-  "optionalDependencies": {
+    "time-grunt": "1.4.0",
     "ux-aspects-hpe": "git://github.houston.softwaregrp.net/caf/ux-aspects-hpe"
   }
 }

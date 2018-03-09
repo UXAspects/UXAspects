@@ -34,7 +34,8 @@ RUN apt-get install -y \
     vim \
     libfontconfig && \
     npm install -g grunt-cli && \
-    npm install -g bower
+    npm install -g bower && \
+    npm install -g lerna
 
 RUN mkdir /.npm
 RUN chmod a+rw /.npm

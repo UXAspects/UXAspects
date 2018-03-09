@@ -12,14 +12,16 @@ module.exports = function(grunt) {
         configPath: resolve(cwd(), 'grunt'),
         jitGrunt: {
             staticMappings: {
-                'usebanner': 'grunt-banner'
+                'usebanner': 'grunt-banner',
+                'force': 'grunt-force-task'
             }
         }
     });
 
     grunt.registerTask('develop', ['webpack:develop']);
     grunt.registerTask('build', ['clean', 'jshint', 'webpack:build', 'uglify', 'usebanner']);
-    grunt.registerTask('test', ['default', 'jasmine']);
+    grunt.registerTask('test', ['build', 'force:jasmine', 'execute:jasmine-report']);
+
     grunt.registerTask('default', ['build']);
 
 };

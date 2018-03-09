@@ -2,12 +2,12 @@
 /**
  * Sets the version in bower.json equal to the package.json version.
  */
+const fs = require('fs-extra');
+const { resolve } = require('path');
 const { cwd } = require('process');
-const fs = require('fs');
-const path = require('path');
 
-const packageJsonPath = path.resolve(cwd(), 'package.json');
-const bowerJsonPath = path.resolve(cwd(), 'bower.json');
+const packageJsonPath = resolve(cwd(), 'package.json');
+const bowerJsonPath = resolve(cwd(), 'bower.json');
 
 // Read JSON from package.json
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
