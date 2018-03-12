@@ -1,9 +1,9 @@
 <ux-floating-action-buttons [ngClass]="direction" [direction]="direction">
 
-    <ux-floating-action-button fab-primary icon="hpe-contract" tooltip="Show Actions" container="body"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-add" tooltip="Add New Item" container="body"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-analytics" tooltip="Show Analytics" container="body"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-app" tooltip="Show Overview" container="body"></ux-floating-action-button>
+    <ux-floating-action-button fab-primary icon="hpe-contract" tooltip="Show Actions" container="body" [placement]="placement"></ux-floating-action-button>
+    <ux-floating-action-button icon="hpe-add" tooltip="Add New Item" container="body" [placement]="placement"></ux-floating-action-button>
+    <ux-floating-action-button icon="hpe-analytics" tooltip="Show Analytics" container="body" [placement]="placement"></ux-floating-action-button>
+    <ux-floating-action-button icon="hpe-app" tooltip="Show Overview" container="body" [placement]="placement"></ux-floating-action-button>
 
 </ux-floating-action-buttons>
 
@@ -58,3 +58,28 @@
         you can simply add children to the component and they will be displayed within the button.
     </tr>
 </uxd-api-properties>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+    <p><strong>Note</strong>: The root module must import <code>BrowserAnimationsModule</code> from <code>'@angular/platform-browser/animations'</code>.</p>
+</blockquote>
+
+<blockquote>
+    <p><strong>Note</strong>: To display web animations in IE 11 and Edge the <code>web-animations-js</code> polyfill must be imported.</p>
+    <p>Run <code>npm install web-animations-js --save</code> to install the polyfill.</p>
+</blockquote>

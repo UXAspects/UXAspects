@@ -1,18 +1,15 @@
-angular.module("app").controller("FloatingActionButtonCtrl", FloatingActionButtonCtrl);
+import { Component } from '@angular/core';
 
-function FloatingActionButtonCtrl() {
-    var vm = this;
+@Component({
+    selector: 'app',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
+})
+export class AppComponent {
 
-    vm.selectFloatingActionButton = function () {};
+    direction: string = 'right';
 
-    vm.items = [{
-        icon: "hpe-add",
-        event: this.selectFloatingActionButton
-    }, {
-        icon: "hpe-analytics",
-        event: this.selectFloatingActionButton
-    }, {
-        icon: "hpe-app",
-        event: this.selectFloatingActionButton
-    }];
+    get placement(): string {
+        return this.direction === 'top' || this.direction === 'bottom' ? 'right' : 'top';
+    }
 }

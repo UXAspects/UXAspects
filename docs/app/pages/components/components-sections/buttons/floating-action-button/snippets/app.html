@@ -1,11 +1,28 @@
-<ux-floating-action-buttons [ngClass]="direction" [direction]="direction">
-
-    <ux-floating-action-button fab-primary icon="hpe-contract"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-add"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-analytics"></ux-floating-action-button>
-    <ux-floating-action-button icon="hpe-app"></ux-floating-action-button>
-
-</ux-floating-action-buttons>
+<div class="p-md">
+    <ux-floating-action-buttons [ngClass]="direction" [direction]="direction">
+    
+        <ux-floating-action-button fab-primary 
+                icon="hpe-contract" tooltip="Show Actions" 
+                container="body" [placement]="placement">
+        </ux-floating-action-button>
+    
+        <ux-floating-action-button icon="hpe-add" 
+                tooltip="Add New Item" container="body" 
+                [placement]="placement">
+        </ux-floating-action-button>
+    
+        <ux-floating-action-button icon="hpe-analytics" 
+                tooltip="Show Analytics" container="body" 
+                [placement]="placement">
+        </ux-floating-action-button>
+    
+        <ux-floating-action-button icon="hpe-app" 
+                tooltip="Show Overview" container="body" 
+                [placement]="placement">
+        </ux-floating-action-button>
+    
+    </ux-floating-action-buttons>
+</div>
 
 <hr>
 

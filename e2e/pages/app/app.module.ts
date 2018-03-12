@@ -6,6 +6,7 @@ import { NgModule, forwardRef, Component, Injector } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule, downgradeComponent } from '@angular/upgrade/static';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { TabsComponent } from './tabs-ng1/wrapper/tabs-wrapper.directive';
@@ -62,6 +63,9 @@ const ROUTES: Routes = [
     loadChildren: './flippable-cards/flippable-cards.module#FlippableCardsTestPageModule'
   }, {
     path: 'floating-action-buttons',
+    loadChildren: './floating-action-buttons/floating-action-buttons.module#FloatingActionButtonsTestPageModule'
+  }, {
+    path: 'floating-action-buttons-ng1',
     component: FloatingActionButtonsNg1TestPageComponent
   }, {
     path: 'hyperlinks',
@@ -139,7 +143,8 @@ const ROUTES: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES, { initialNavigation: false, useHash: true }),
-    UpgradeModule
+    UpgradeModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     AppComponent,

@@ -25,7 +25,7 @@ exports.config = {
 
   // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {
-    'browserName': 'chrome',
+    browserName: 'chrome',
     chromeOptions: {
       args: [ "--headless", "--disable-gpu", "--no-sandbox", "--window-size=800x600" ]
     }
@@ -49,7 +49,7 @@ exports.config = {
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['dist/**/*e2e-spec.js'],
+  specs: ['dist/**/floating**/*e2e-spec.js'],
 
   // protractor_istanbul_plugin package
   plugins: [{
@@ -175,6 +175,9 @@ function Reporter(options) {
 
     _currentSuite.specs.push(currentSpec);
     log(spec.status + ' - ' + spec.description);
+
+    // log reasons for failure
+    spec.failedExpectations.forEach(failure => log(failure.message, 4));
   };
 
   this.jasmineDone = function() {

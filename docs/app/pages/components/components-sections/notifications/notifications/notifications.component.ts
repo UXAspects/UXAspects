@@ -40,9 +40,6 @@ export class ComponentsNotificationsComponent extends BaseDocumentationSection i
             library: 'ngx-bootstrap/accordion',
             imports: ['AccordionModule'],
             providers: ['AccordionModule.forRoot()']
-        }, {
-            imports: ['BrowserAnimationsModule'],
-            library: '@angular/platform-browser/animations'
         }]
     };
 

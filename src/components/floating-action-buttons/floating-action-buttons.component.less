@@ -16,7 +16,6 @@ ux-floating-action-buttons, .floating-action-buttons {
 
         &.right {
             flex-direction: row;
-            top: 0;
             left: @fab-button__size + @fab-button__margin;
         }
 
@@ -27,18 +26,19 @@ ux-floating-action-buttons, .floating-action-buttons {
 
         &.left {
             flex-direction: row-reverse;
-            top: 0;
             right: @fab-button__size + @fab-button__margin;
         }
 
         &.top, &.bottom {
-            .floating-action-button {
+            > * {
                 margin: @fab-button__margin 0;
             }
         }
 
         &.left, &.right {
-            .floating-action-button {
+            top: 0;
+
+            > * {
                 margin: 0 @fab-button__margin;
             }
         }

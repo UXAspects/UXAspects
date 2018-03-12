@@ -6,15 +6,13 @@ describe('Floating Action Button Tests', () => {
 
   let page: FloatingActionButtonsPage;
   let browserName: string;
-  let constants: Constants;
-  let functions: Functions;
+  let constants = new Constants();
+  let functions = new Functions();
 
   beforeEach(() => {
+
     page = new FloatingActionButtonsPage();
     page.getPage();
-    
-    constants = new Constants();
-    functions = new Functions();
     
     browser.getCapabilities().then(function(caps) {
         browserName = caps.get('browserName');
@@ -24,79 +22,79 @@ describe('Floating Action Button Tests', () => {
   it('should have correct initial states', () => {
 
     // Vertical (bottom) button
-    expect<any>(functions.getElementColourHex(page.buttonVerticalBottomButton, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
-    expect<any>(functions.getElementColourHex(page.buttonVerticalBottomButton, 'color')).toBe(constants.PRIMARY_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabBottomTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabBottomTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
 
-    expect(page.actionButtonVerticalBottom.getAttribute('class')).not.toContain('floating-expand');
+    expect(page.fabButtomButtons.getAttribute('class')).not.toContain('expanded');
 
-    expect(page.buttonVerticalBottomAction0.isDisplayed()).toBeFalsy();
-    expect(page.buttonVerticalBottomAction1.isDisplayed()).toBeFalsy();
-    expect(page.buttonVerticalBottomAction2.isDisplayed()).toBeFalsy();
+    expect(page.fabBottomBtn1.isDisplayed()).toBeFalsy();
+    expect(page.fabBottomBtn2.isDisplayed()).toBeFalsy();
+    expect(page.fabBottomBtn3.isDisplayed()).toBeFalsy();
     
     // Horizontal (right) button
-    expect<any>(functions.getElementColourHex(page.actionButtonHorizontalRight.$('button.dir-right'), 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
-    expect<any>(functions.getElementColourHex(page.actionButtonHorizontalRight.$('button.dir-right'), 'color')).toBe(constants.PRIMARY_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabRightTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabRightTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
 
-    expect(page.actionButtonHorizontalRight.getAttribute('class')).not.toContain('floating-expand');
+    expect(page.fabRightButtons.getAttribute('class')).not.toContain('expanded');
 
-    expect(page.actionButtonHorizontalRight.$('span.child-btn-set-horizontal.right').$$('button.btn-circular').get(0).isDisplayed()).toBeFalsy();
-    expect(page.actionButtonHorizontalRight.$('span.child-btn-set-horizontal.right').$$('button.btn-circular').get(1).isDisplayed()).toBeFalsy();
-    expect(page.actionButtonHorizontalRight.$('span.child-btn-set-horizontal.right').$$('button.btn-circular').get(2).isDisplayed()).toBeFalsy();
+    expect(page.fabRightBtn1.isDisplayed()).toBeFalsy();
+    expect(page.fabRightBtn2.isDisplayed()).toBeFalsy();
+    expect(page.fabRightBtn3.isDisplayed()).toBeFalsy();
     
     // Vertical (up) button
-    expect<any>(functions.getElementColourHex(page.buttonVerticalUpButton, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
-    expect<any>(functions.getElementColourHex(page.buttonVerticalUpButton, 'color')).toBe(constants.PRIMARY_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabUpTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabUpTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
 
-    expect(page.actionButtonVerticalUp.getAttribute('class')).not.toContain('floating-expand');
+    expect(page.fabUpButtons.getAttribute('class')).not.toContain('expanded');
 
-    expect(page.buttonVerticalUpAction0.isDisplayed()).toBeFalsy();
-    expect(page.buttonVerticalUpAction1.isDisplayed()).toBeFalsy();
-    expect(page.buttonVerticalUpAction2.isDisplayed()).toBeFalsy();
+    expect(page.fabUpBtn1.isDisplayed()).toBeFalsy();
+    expect(page.fabUpBtn2.isDisplayed()).toBeFalsy();
+    expect(page.fabUpBtn3.isDisplayed()).toBeFalsy();
     
     // Horizontal (left) button
-    expect<any>(functions.getElementColourHex(page.buttonHorizontalLeftButton, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
-    expect<any>(functions.getElementColourHex(page.buttonHorizontalLeftButton, 'color')).toBe(constants.PRIMARY_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabLeftTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabLeftTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
 
-    expect(page.actionButtonHorizontalLeft.getAttribute('class')).not.toContain('floating-expand');
+    expect(page.fabLeftButtons.getAttribute('class')).not.toContain('expanded');
 
-    expect(page.buttonHorizontalLeftAction0.isDisplayed()).toBeFalsy();
-    expect(page.buttonHorizontalLeftAction1.isDisplayed()).toBeFalsy();
-    expect(page.buttonHorizontalLeftAction2.isDisplayed()).toBeFalsy();
+    expect(page.fabLeftBtn1.isDisplayed()).toBeFalsy();
+    expect(page.fabLeftBtn2.isDisplayed()).toBeFalsy();
+    expect(page.fabLeftBtn3.isDisplayed()).toBeFalsy();
     
   });
 
   it('should change the vertical (bottom) button\'s colour upon hover', () => {
 
-    functions.moveToElement(page.buttonVerticalBottomButtonIcon);
+    functions.moveToElement(page.fabBottomTriggerIcon);
 
-    expect<any>(functions.getElementColourHex(page.buttonVerticalBottomButton, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
-    expect<any>(functions.getElementColourHex(page.buttonVerticalBottomButton, 'color')).toBe(constants.PRIMARY_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabBottomTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabBottomTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
 
   });
 
   it('should display action buttons when the vertical (bottom) button is clicked', () => {
     
-    page.actionButtonVerticalBottom.click();
+    page.fabBottom.click();
     
-    expect(page.actionButtonVerticalBottom.getAttribute('class')).toContain('floating-expand');
+    expect(page.fabButtomButtons.getAttribute('class')).toContain('expanded');
 
-    expect(page.buttonVerticalBottomAction0.isDisplayed()).toBeTruthy();
-    expect(page.buttonVerticalBottomAction1.isDisplayed()).toBeTruthy();
-    expect(page.buttonVerticalBottomAction2.isDisplayed()).toBeTruthy();
+    expect(page.fabBottomBtn1.isDisplayed()).toBeTruthy();
+    expect(page.fabBottomBtn2.isDisplayed()).toBeTruthy();
+    expect(page.fabBottomBtn3.isDisplayed()).toBeTruthy();
 
-    expect(page.buttonVerticalBottomAction0Icon.getAttribute('class')).toContain('hpe-add');
-    expect(page.buttonVerticalBottomAction1Icon.getAttribute('class')).toContain('hpe-analytics');
-    expect(page.buttonVerticalBottomAction2Icon.getAttribute('class')).toContain('hpe-app');
+    expect(page.fabBottomBtn1Icon.getAttribute('class')).toContain('hpe-add');
+    expect(page.fabBottomBtn2Icon.getAttribute('class')).toContain('hpe-analytics');
+    expect(page.fabBottomBtn3Icon.getAttribute('class')).toContain('hpe-app');
     
   });
 
   it('should display action buttons in the correct position when the vertical (bottom) button is clicked', () => {
     
-    page.actionButtonVerticalBottom.click();
+    page.fabBottom.click();
     
-    page.buttonVerticalBottomAction0.getLocation().then((location0: object) => {
-      page.buttonVerticalBottomAction1.getLocation().then((location1: object) => {
-        page.buttonVerticalBottomAction2.getLocation().then((location2: object) => {
+    page.fabBottomBtn1.getLocation().then((location0: object) => {
+      page.fabBottomBtn2.getLocation().then((location1: object) => {
+        page.fabBottomBtn3.getLocation().then((location2: object) => {
           expect(Number(location0['x'])).toBe(Number(location1['x']));
           expect(Number(location1['x'])).toBe(Number(location2['x']));
 
@@ -110,36 +108,36 @@ describe('Floating Action Button Tests', () => {
 
   it('should change the horizontal (right) button\'s colour upon hover', () => {
 
-    functions.moveToElement(page.buttonHorizontalRightButtonIcon);
+    functions.moveToElement(page.fabRightTriggerIcon);
 
-    expect<any>(functions.getElementColourHex(page.buttonHorizontalRightButton, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
-    expect<any>(functions.getElementColourHex(page.buttonHorizontalRightButton, 'color')).toBe(constants.PRIMARY_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabRightTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabRightTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
 
   });
 
   it('should display action buttons when the horizontal (right) button is clicked', () => {
     
-    page.actionButtonHorizontalRight.click();
+    page.fabRight.click();
     
-    expect(page.actionButtonHorizontalRight.getAttribute('class')).toContain('floating-expand');
+    expect(page.fabRightButtons.getAttribute('class')).toContain('expanded');
 
-    expect(page.buttonHorizontalRightAction0.isDisplayed()).toBeTruthy();
-    expect(page.buttonHorizontalRightAction1.isDisplayed()).toBeTruthy();
-    expect(page.buttonHorizontalRightAction2.isDisplayed()).toBeTruthy();
+    expect(page.fabRightBtn1.isDisplayed()).toBeTruthy();
+    expect(page.fabRightBtn2.isDisplayed()).toBeTruthy();
+    expect(page.fabRightBtn3.isDisplayed()).toBeTruthy();
 
-    expect(page.buttonHorizontalRightAction0Icon.getAttribute('class')).toContain('hpe-add');
-    expect(page.buttonHorizontalRightAction1Icon.getAttribute('class')).toContain('hpe-analytics');
-    expect(page.buttonHorizontalRightAction2Icon.getAttribute('class')).toContain('hpe-app');
+    expect(page.fabRightBtn1Icon.getAttribute('class')).toContain('hpe-add');
+    expect(page.fabRightBtn2Icon.getAttribute('class')).toContain('hpe-analytics');
+    expect(page.fabRightBtn3Icon.getAttribute('class')).toContain('hpe-app');
     
   });
 
   it('should display action buttons in the correct position when the horizontal (right) button is clicked', () => {
     
-    page.actionButtonHorizontalRight.click();
+    page.fabRight.click();
     
-    page.buttonHorizontalRightAction0.getLocation().then((location0: object) => {
-      page.buttonHorizontalRightAction1.getLocation().then((location1: object) => {
-        page.buttonHorizontalRightAction2.getLocation().then((location2: object) => {
+    page.fabRightBtn1.getLocation().then((location0: object) => {
+      page.fabRightBtn2.getLocation().then((location1: object) => {
+        page.fabRightBtn3.getLocation().then((location2: object) => {
           expect(Number(location0['x'])).toBeLessThan(Number(location1['x']));
           expect(Number(location1['x'])).toBeLessThan(Number(location2['x']));
 
@@ -153,41 +151,41 @@ describe('Floating Action Button Tests', () => {
 
   it('should change the vertical (up) button\'s colour upon hover', () => {
 
-    functions.moveToElement(page.buttonVerticalUpButtonIcon);
+    functions.moveToElement(page.fabUpTriggerIcon);
 
-    expect<any>(functions.getElementColourHex(page.buttonVerticalUpButton, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
-    expect<any>(functions.getElementColourHex(page.buttonVerticalUpButton, 'color')).toBe(constants.PRIMARY_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabUpTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabUpTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
 
   });
 
   it('should display action buttons when the vertical (up) button is clicked', () => {
     
-    page.actionButtonVerticalUp.click();
+    page.fabUp.click();
     
-    expect(page.actionButtonVerticalUp.getAttribute('class')).toContain('floating-expand');
+    expect(page.fabUpButtons.getAttribute('class')).toContain('expanded');
 
-    expect(page.buttonVerticalUpAction0.isDisplayed()).toBeTruthy();
-    expect(page.buttonVerticalUpAction1.isDisplayed()).toBeTruthy();
-    expect(page.buttonVerticalUpAction2.isDisplayed()).toBeTruthy();
+    expect(page.fabUpBtn1.isDisplayed()).toBeTruthy();
+    expect(page.fabUpBtn2.isDisplayed()).toBeTruthy();
+    expect(page.fabUpBtn3.isDisplayed()).toBeTruthy();
 
-    expect(page.buttonVerticalUpAction0Icon.getAttribute('class')).toContain('hpe-add');
-    expect(page.buttonVerticalUpAction1Icon.getAttribute('class')).toContain('hpe-analytics');
-    expect(page.buttonVerticalUpAction2Icon.getAttribute('class')).toContain('hpe-app');
+    expect(page.fabUpBtn1Icon.getAttribute('class')).toContain('hpe-add');
+    expect(page.fabUpBtn2Icon.getAttribute('class')).toContain('hpe-analytics');
+    expect(page.fabUpBtn3Icon.getAttribute('class')).toContain('hpe-app');
     
   });
 
   it('should display action buttons in the correct position when the vertical (up) button is clicked', () => {
     
-    page.actionButtonVerticalUp.click();
+    page.fabUp.click();
     
-    page.buttonVerticalUpAction0.getLocation().then((location0: object) => {
-      page.buttonVerticalUpAction1.getLocation().then((location1: object) => {
-        page.buttonVerticalUpAction2.getLocation().then((location2: object) => {
+    page.fabUpBtn1.getLocation().then((location0: object) => {
+      page.fabUpBtn2.getLocation().then((location1: object) => {
+        page.fabUpBtn3.getLocation().then((location2: object) => {
           expect(Number(location0['x'])).toBe(Number(location1['x']));
           expect(Number(location1['x'])).toBe(Number(location2['x']));
 
-          expect(Number(location0['y'])).toBeLessThan(Number(location1['y']));
-          expect(Number(location1['y'])).toBeLessThan(Number(location2['y']));
+          expect(Number(location1['y'])).toBeLessThan(Number(location0['y']));
+          expect(Number(location2['y'])).toBeLessThan(Number(location1['y']));
         });
       });
     });
@@ -196,38 +194,38 @@ describe('Floating Action Button Tests', () => {
 
   it('should change the horizontal (left) button\'s colour upon hover', () => {
 
-    functions.moveToElement(page.buttonHorizontalLeftButtonIcon);
+    functions.moveToElement(page.fabLeftTriggerIcon);
 
-    expect<any>(functions.getElementColourHex(page.buttonHorizontalLeftButton, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
-    expect<any>(functions.getElementColourHex(page.buttonHorizontalLeftButton, 'color')).toBe(constants.PRIMARY_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabLeftTrigger, 'background-color')).toBe(constants.PRIMARY_BACKGROUND_HOVER_COLOR);
+    expect<any>(functions.getElementColourHex(page.fabLeftTrigger, 'color')).toBe(constants.PRIMARY_COLOR);
 
   });
 
   it('should display action buttons when the horizontal (left) button is clicked', () => {
     
-    page.actionButtonHorizontalLeft.click();
+    page.fabLeft.click();
     
-    expect(page.actionButtonHorizontalLeft.getAttribute('class')).toContain('floating-expand');
+    expect(page.fabLeftButtons.getAttribute('class')).toContain('expanded');
 
-    expect(page.buttonHorizontalLeftAction0.isDisplayed()).toBeTruthy();
-    expect(page.buttonHorizontalLeftAction1.isDisplayed()).toBeTruthy();
-    expect(page.buttonHorizontalLeftAction2.isDisplayed()).toBeTruthy();
+    expect(page.fabLeftBtn1.isDisplayed()).toBeTruthy();
+    expect(page.fabLeftBtn2.isDisplayed()).toBeTruthy();
+    expect(page.fabLeftBtn3.isDisplayed()).toBeTruthy();
 
-    expect(page.buttonHorizontalLeftAction0Icon.getAttribute('class')).toContain('hpe-add');
-    expect(page.buttonHorizontalLeftAction1Icon.getAttribute('class')).toContain('hpe-analytics');
-    expect(page.buttonHorizontalLeftAction2Icon.getAttribute('class')).toContain('hpe-app');
+    expect(page.fabLeftBtn1Icon.getAttribute('class')).toContain('hpe-add');
+    expect(page.fabLeftBtn2Icon.getAttribute('class')).toContain('hpe-analytics');
+    expect(page.fabLeftBtn3Icon.getAttribute('class')).toContain('hpe-app');
     
   });
 
   it('should display action buttons in the correct position when the horizontal (left) button is clicked', () => {
     
-    page.actionButtonHorizontalLeft.click();
+    page.fabLeft.click();
     
-    page.buttonHorizontalLeftAction0.getLocation().then((location0: object) => {
-      page.buttonHorizontalLeftAction1.getLocation().then((location1: object) => {
-        page.buttonHorizontalLeftAction2.getLocation().then((location2: object) => {
-          expect(Number(location0['x'])).toBeLessThan(Number(location1['x']));
-          expect(Number(location1['x'])).toBeLessThan(Number(location2['x']));
+    page.fabLeftBtn1.getLocation().then((location0: object) => {
+      page.fabLeftBtn2.getLocation().then((location1: object) => {
+        page.fabLeftBtn3.getLocation().then((location2: object) => {
+          expect(Number(location1['x'])).toBeLessThan(Number(location0['x']));
+          expect(Number(location2['x'])).toBeLessThan(Number(location1['x']));
 
           expect(Number(location0['y'])).toBe(Number(location1['y']));
           expect(Number(location1['y'])).toBe(Number(location2['y']));

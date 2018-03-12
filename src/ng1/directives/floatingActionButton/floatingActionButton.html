@@ -4,7 +4,7 @@
             class="btn btn-icon btn-circular button-primary" 
             tabindex="1" 
             aria-label="{{ fab.fabTooltip || fab.primary }}"
-            ng-click="fab.expand($event)"
+            ng-click="fab.expand()"
             tooltip="{{ fab.fabTooltip }}"
             tooltip-placement="{{ fab.fabTooltipPlacement || 'top' }}">
 
@@ -18,7 +18,7 @@
             tabindex="1"             
             ng-repeat="item in fab.items"
             aria-label="{{ item.tooltip || item.icon }}" 
-            ng-click="item.event(); collapse()"
+            ng-click="fab.select(item)"
             tooltip="{{ item.tooltip }}"
             tooltip-placement="{{ item.tooltipPlacement || 'top' }}">
 
