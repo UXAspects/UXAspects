@@ -16,7 +16,6 @@ var _ = require('lodash');
 
 var JasmineReporters = require('jasmine-reporters');
 var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
-var istanbulPlugin = require('protractor-istanbul-plugin');
 
 exports.config = {
   directConnect: true,  // Set to false if using Selenium Grid
@@ -49,7 +48,7 @@ exports.config = {
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['dist/**/floating**/*e2e-spec.js'],
+  specs: ['dist/**/*e2e-spec.js'],
 
   // protractor_istanbul_plugin package
   plugins: [{
