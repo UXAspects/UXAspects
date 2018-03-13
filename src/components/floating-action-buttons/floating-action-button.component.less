@@ -8,6 +8,15 @@
     border-radius: 50%;
     flex: none;
 
+    &.button-secondary {
+        box-shadow: @floating-action-child-btn-shadow;
+
+        &:hover {
+            box-shadow: @floating-action-child-btn-hover-shadow;
+        }
+    }
+
+
     .floating-action-button-icon {
         line-height: 1;
         transform: translateX(0.5px) translateY(-0.5px);
