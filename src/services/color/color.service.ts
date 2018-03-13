@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
-import { Subscription } from 'rxjs/Subscription';
 import { ColorValueSet, ColorClassSet } from './color.service';
 
 @Injectable()
