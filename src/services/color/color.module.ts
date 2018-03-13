@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '../theme/theme.module';
 import { ColorService } from './color.service';
-debugger;
+
 @NgModule({
     imports: [ThemeModule],
     providers: [ColorService],
