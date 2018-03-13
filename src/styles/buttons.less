@@ -236,62 +236,6 @@
     }
 }
 
-.floating-action-button {
-    .child-btn-set {
-        opacity: 0;
-        overflow: hidden;
-        max-height: 0;
-    }
-
-    .child-btn-set-visible {
-        opacity: 1;
-        transition: opacity 0.3s linear;
-        overflow: visible;
-    }
-
-    .child-btn-set-top {
-        opacity: 0;
-        max-height: 0;
-        overflow: hidden;
-    }
-
-    .child-btn-set-top-visible {
-        opacity: 1;
-        transition: opacity 0.3s linear;
-        position: relative;
-        bottom: 150px;
-        overflow: visible;
-    }
-
-    .child-btn-set-horizontal {
-        visibility: hidden;
-        opacity: 0;
-
-        &.right {
-            position: absolute;
-        }
-
-        &.left {
-            position: relative;
-            left: -180px;
-        }
-    }
-
-    .child-btn-set-visible-horizontal {
-        visibility: visible;
-        opacity: 1;
-        transition: opacity 0.5s, visibility 0.5s;
-    }
-
-    .btn-circular.button-secondary {
-        box-shadow: @floating-action-child-btn-shadow;
-
-        &:hover {
-            box-shadow: @floating-action-child-btn-hover-shadow;
-        }
-    }
-}
-
 .button-primary,
 .btn-primary {
     &.disabled, &[disabled] {

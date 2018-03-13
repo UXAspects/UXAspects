@@ -32,7 +32,7 @@ export class PlunkerService {
 
     private initForm(title: string, plunk: IPlunk): HTMLFormElement {
 
-        let modules = ['BrowserModule', 'FormsModule', 'ReactiveFormsModule'];
+        let modules = ['BrowserModule', 'FormsModule', 'ReactiveFormsModule', 'BrowserAnimationsModule'];
         let declarations = ['AppComponent'];
         let imports: string[] = [];
 

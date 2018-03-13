@@ -5,6 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 import { StringFilterModule } from './../../../../../../src/pipes/string-filter/string-filter.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
@@ -21,13 +25,14 @@ import { ComponentsRadioButtonsNg1Component } from './radio-buttons-ng1/radio-bu
 import { ComponentsCheckboxButtonsNg1Component } from './checkbox-buttons-ng1/checkbox-buttons-ng1.component';
 import { ComponentsSingleToggleButtonNg1Component } from './single-toggle-button-ng1/single-toggle-button-ng1.component';
 import { ComponentsPaginationNg1Component } from './pagination-ng1/pagination-ng1.component';
+import { ComponentsFloatingActionButtonComponent } from './floating-action-button/floating-action-button.component';
 import { ComponentsFloatingActionButtonNg1Component } from './floating-action-button-ng1/floating-action-button-ng1.component';
 import { ComponentsToggleButtonsNg1Component } from './toggle-buttons-ng1/toggle-buttons-ng1.component';
 import { ComponentsGroupedButtonsNg1Component } from './grouped-buttons-ng1/grouped-buttons-ng1.component';
 
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { FloatingActionButtonsModule, RadioButtonModule } from '../../../../../../src/index';
 
 const SECTIONS = [
     ComponentsToggleButtonsComponent,
@@ -36,6 +41,7 @@ const SECTIONS = [
     ComponentsDropdownsComponent,
     ComponentsGroupedButtonsNg1Component,
     ComponentsToggleButtonsNg1Component,
+    ComponentsFloatingActionButtonComponent,
     ComponentsFloatingActionButtonNg1Component,
     ComponentsPaginationNg1Component,
     ComponentsSingleToggleButtonNg1Component,
@@ -61,13 +67,17 @@ const ROUTES = [
         HybridModule,
         WrappersModule,
         TabsModule,
+        AccordionModule.forRoot()  ,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
+        RadioButtonModule,
         FormsModule,
         ButtonsModule.forRoot(),
         PaginationModule.forRoot(),
         BsDropdownModule.forRoot(),
-        StringFilterModule
+        StringFilterModule,
+        FloatingActionButtonsModule,
+        TooltipModule.forRoot()
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

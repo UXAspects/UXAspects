@@ -16,7 +16,6 @@ var _ = require('lodash');
 
 var JasmineReporters = require('jasmine-reporters');
 var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
-var istanbulPlugin = require('protractor-istanbul-plugin');
 
 exports.config = {
   directConnect: true,  // Set to false if using Selenium Grid
@@ -25,7 +24,7 @@ exports.config = {
 
   // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {
-    'browserName': 'chrome',
+    browserName: 'chrome',
     chromeOptions: {
       args: [ "--headless", "--disable-gpu", "--no-sandbox", "--window-size=800x600" ]
     }
@@ -175,6 +174,9 @@ function Reporter(options) {
 
     _currentSuite.specs.push(currentSpec);
     log(spec.status + ' - ' + spec.description);
+
+    // log reasons for failure
+    spec.failedExpectations.forEach(failure => log(failure.message, 4));
   };
 
   this.jasmineDone = function() {

@@ -1,0 +1,16 @@
+ux-floating-action-buttons {
+    margin: 0;
+    transition: margin 250ms ease-in-out;
+}
+
+.top {
+    margin-top: 175px;
+}
+
+.left {
+    margin-left: 175px;
+}
+
+.bottom {
+    margin-bottom: 175px;
+}

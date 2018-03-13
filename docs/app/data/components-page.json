@@ -121,7 +121,22 @@
                     "title": "Floating Action Button",
                     "component": "ComponentsFloatingActionButtonNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "deprecated": true
+                },
+                {
+                    "title": "Floating Action Button",
+                    "component": "ComponentsFloatingActionButtonComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-floating-action-buttons"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "FloatingActionButtonsModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Pagination",

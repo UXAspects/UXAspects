@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ColorValueSet, ColorClassSet } from './color.service';
 
+@Injectable()
 export class ColorService {
 
     private _html: string;

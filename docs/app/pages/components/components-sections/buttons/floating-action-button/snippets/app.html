@@ -1,0 +1,50 @@
+<div class="p-md">
+    <ux-floating-action-buttons [ngClass]="direction" [direction]="direction">
+    
+        <ux-floating-action-button fab-primary 
+                icon="hpe-contract" tooltip="Show Actions" 
+                container="body" [placement]="placement">
+        </ux-floating-action-button>
+    
+        <ux-floating-action-button icon="hpe-add" 
+                tooltip="Add New Item" container="body" 
+                [placement]="placement">
+        </ux-floating-action-button>
+    
+        <ux-floating-action-button icon="hpe-analytics" 
+                tooltip="Show Analytics" container="body" 
+                [placement]="placement">
+        </ux-floating-action-button>
+    
+        <ux-floating-action-button icon="hpe-app" 
+                tooltip="Show Overview" container="body" 
+                [placement]="placement">
+        </ux-floating-action-button>
+    
+    </ux-floating-action-buttons>
+</div>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-panel heading="Customize Example...">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ux-radio-button [(ngModel)]="direction" option="top">Top</ux-radio-button>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-radio-button [(ngModel)]="direction" option="right">Right</ux-radio-button>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-radio-button [(ngModel)]="direction" option="bottom">Bottom</ux-radio-button>
+                    </div>
+                    <div class="col-md-3">
+                        <ux-radio-button [(ngModel)]="direction" option="left">Left</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-panel>
+        </accordion>
+    </div>
+</div>

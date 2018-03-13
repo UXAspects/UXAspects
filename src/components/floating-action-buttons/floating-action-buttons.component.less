@@ -1,0 +1,64 @@
+@fab-button__size: 30px;
+@fab-button__margin: 12px;
+
+ux-floating-action-buttons, .floating-action-buttons {
+    position: relative;
+    display: inline-block;
+
+    .floating-action-button-list {
+        position: absolute;
+        display: flex;
+
+        &.top {
+            flex-direction: column-reverse;
+            bottom: @fab-button__size + @fab-button__margin;
+        }
+
+        &.right {
+            flex-direction: row;
+            left: @fab-button__size + @fab-button__margin;
+        }
+
+        &.bottom {
+            flex-direction: column;
+            top: @fab-button__size + @fab-button__margin;
+        }
+
+        &.left {
+            flex-direction: row-reverse;
+            right: @fab-button__size + @fab-button__margin;
+        }
+
+        &.top, &.bottom {
+            > * {
+                margin: @fab-button__margin 0;
+            }
+        }
+
+        &.left, &.right {
+            top: 0;
+
+            > * {
+                margin: 0 @fab-button__margin;
+            }
+        }
+    }
+}
+
+/*
+    AngularJS specific styling
+*/
+.floating-action-buttons {
+    .floating-action-button-list {
+        transition: opacity 250ms ease-in-out;
+
+        &.collapsed {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        &.expanded {
+            opacity: 1;
+        }
+    }
+}

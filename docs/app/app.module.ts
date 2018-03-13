@@ -60,6 +60,7 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     DocumentationComponentsModule,
     DocumentationDirectivesModule,
@@ -69,7 +70,6 @@ const appRoutes: Routes = [
     ColorServiceModule,
     EboxModule,
     FlippableCardModule,
-    BrowserAnimationsModule,
     ProgressBarModule,
     RadioButtonModule,
     SparkModule,

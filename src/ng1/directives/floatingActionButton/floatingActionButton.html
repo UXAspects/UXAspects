@@ -1,80 +1,30 @@
-<span class="floating-action-button" ng-mouseleave="collapse($event)">
-    <!-- Additional buttons to the top -->
-    <ul class="unstyled p-l-nil child-btn-set-top top m-b-nil" ng-if="direction == 'top'">
-        <li ng-repeat="key in items">
-
-            <button type="button" 
-                    class="btn btn-icon btn-circular button-secondary m-b-md" 
-                    aria-label="{{ key.tooltip || key.icon }}" ng-click="selectedCollapse(key.event)"
-                    tooltip="{{ key.tooltip }}" 
-                    tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
-
-                <span class="hpe-icon" ng-class="key.icon" aria-hidden="true"></span>
-            </button>
-        </li>
-    </ul>
+<div class="floating-action-buttons">
 
     <button type="button" 
-            class="btn btn-icon btn-circular button-primary parent-btn" 
-            ng-class="{ 'dir-top': direction=='top', 'dir-left': direction=='left', 'dir-right': direction=='right', 'dir-bottom': direction=='bottom' }" 
-            aria-label="{{ tooltip || primary }}"
-            ng-click="expand($event)"
-            tooltip="{{ fabTooltip }}"
-            tooltip-placement="{{ fabTooltipPlacement || 'top' }}">
+            class="btn btn-icon btn-circular button-primary" 
+            tabindex="1" 
+            aria-label="{{ fab.fabTooltip || fab.primary }}"
+            ng-click="fab.expand()"
+            tooltip="{{ fab.fabTooltip }}"
+            tooltip-placement="{{ fab.fabTooltipPlacement || 'top' }}">
 
-        <span class="hpe-icon" ng-class="primary" aria-hidden="true"></span>
+        <span class="hpe-icon" ng-class="fab.primary" aria-hidden="true"></span>
     </button>
 
+    <div class="floating-action-button-list" ng-class="[fab.direction, fab.expanded ? 'expanded' : 'collapsed' ]">
 
-    <!-- Additional buttons to the left -->
-    <ul class="unstyled p-l-nil  child-btn-set-horizontal left inline-block" ng-if="direction == 'left'">
-        <li class="inline-block" ng-repeat="key in items">
+        <button type="button" 
+            class="btn btn-icon btn-circular button-secondary floating-action-button" 
+            tabindex="1"             
+            ng-repeat="item in fab.items"
+            aria-label="{{ item.tooltip || item.icon }}" 
+            ng-click="fab.select(item)"
+            tooltip="{{ item.tooltip }}"
+            tooltip-placement="{{ item.tooltipPlacement || 'top' }}">
 
-            <button type="button" 
-                    class="btn btn-icon btn-circular button-secondary m-r-md" 
-                    aria-label="{{ key.tooltip || key.icon }}" 
-                    ng-click="selectedCollapse(key.event)"
-                    tooltip="{{ key.tooltip }}"
-                    tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
-
-                <span class="hpe-icon" ng-class="key.icon" aria-hidden="true"></span>
-            </button>
-
-        </li>
-    </ul>
-
-    <!-- Additional buttons to the right -->
-    <span class="child-btn-set-horizontal right inline-block" ng-if="direction == 'right'">
-
-        <button ng-repeat="key in items" 
-                type="button" 
-                class="btn btn-icon btn-circular button-secondary m-r-md" 
-                ng-class="{ 'm-l-md': $first }"
-                aria-label="{{ key.tooltip || key.icon }}" 
-                ng-click="selectedCollapse(key.event)" 
-                tooltip="{{ key.tooltip }}"
-                tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
-
-            <span class="hpe-icon" ng-class="key.icon" aria-hidden="true"></span>
+            <span class="hpe-icon floating-action-button-icon" ng-class="item.icon" aria-hidden="true"></span>
         </button>
 
-    </span>
+    </div>
 
-    <!-- Additional buttons to the bottom -->
-    <ul class="unstyled p-l-nil child-btn-set bottom" ng-if="direction == 'bottom'">
-        <li ng-repeat="key in items">
-
-            <button type="button" 
-                    class="btn btn-icon btn-circular button-secondary" 
-                    ng-class="{ 'm-b-md': !$last, 'm-t-md': $first }"
-                    aria-label="{{ key.tooltip || key.icon }}" 
-                    ng-click="selectedCollapse(key.event)"
-                    tooltip="{{ key.tooltip }}"
-                    tooltip-placement="{{ key.tooltipPlacement || 'top' }}">
-
-                <span class="hpe-icon" ng-class="key.icon" aria-hidden="true"></span>
-            </button>
-
-        </li>
-    </ul>
-</span>
+</div>
