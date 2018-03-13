@@ -13,18 +13,13 @@
     <div class="col-md-12">
         <accordion>
             <accordion-panel heading="Customize Example...">
-                <div class="row">
-                    <div class="col-md-3">
-                        <ux-radio-button [(ngModel)]="direction" option="top">Top</ux-radio-button>
-                    </div>
-                    <div class="col-md-3">
-                        <ux-radio-button [(ngModel)]="direction" option="right">Right</ux-radio-button>
-                    </div>
-                    <div class="col-md-3">
-                        <ux-radio-button [(ngModel)]="direction" option="bottom">Bottom</ux-radio-button>
-                    </div>
-                    <div class="col-md-3">
-                        <ux-radio-button [(ngModel)]="direction" option="left">Left</ux-radio-button>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-12">
+                        <label>direction</label>
+                        <ux-radio-button [(ngModel)]="direction" option="top">top</ux-radio-button>
+                        <ux-radio-button [(ngModel)]="direction" option="right">right</ux-radio-button>
+                        <ux-radio-button [(ngModel)]="direction" option="bottom">bottom</ux-radio-button>
+                        <ux-radio-button [(ngModel)]="direction" option="left">left</ux-radio-button>
                     </div>
                 </div>
             </accordion-panel>
@@ -40,6 +35,10 @@
 <p>
     The <code>fab-primary</code> attribute should be added to the floating action button that will permanently be visible and will be used
     to display the additional buttons when clicked.
+</p>
+
+<p>
+    To trigger an event when a button is pressed simply add the <code>(click)</code> event to the <code>ux-floating-action-button</code> element.
 </p>
 
 <p>The following input can be used to customize the behavior of the <code>ux-floating-action-buttons</code> component:</p>

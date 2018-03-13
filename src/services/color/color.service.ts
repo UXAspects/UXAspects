@@ -1,15 +1,19 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, OnDestroy } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
+import { Subscription } from 'rxjs/Subscription';
 import { ColorValueSet, ColorClassSet } from './color.service';
+import { ThemeService, Theme } from '../theme/theme.service';
 
-export class ColorService {
+@Injectable()
+export class ColorService implements OnDestroy {
 
     private _html: string;
     private _element: HTMLElement;
     private _colors: ThemeColors;
     private _colorSet: any = colorSets.keppel;
+    private _subscription: Subscription;
 
-    constructor(@Inject(DOCUMENT) document: Document) {
+    constructor(private _themeService: ThemeService, @Inject(DOCUMENT) document: Document) {
         if (this._colorSet.colorClassSet) {
             this.setColors();
         } else {
@@ -17,6 +21,25 @@ export class ColorService {
                 this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
         }
+
+        // update the color palette on theme change
+        this._subscription = _themeService.theme$.subscribe(theme => {
+
+            switch (theme) {
+                
+                case Theme.Keppel:
+                    this.setColorSet(colorSets.keppel);
+                    break;
+                
+                case Theme.MicroFocus:
+                    this.setColorSet(colorSets.microFocus);
+                    break;
+            }
+        });
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
     }
 
     private setColors() {
@@ -86,6 +109,18 @@ export class ColorService {
             for (let key in this._colorSet.colorValueSet) {
                 this._colors[key] = this.getColorValueByHex(this._colorSet.colorValueSet[key]);
             }
+        }
+
+        // for those users still setting the theme via color service - propagate changes to the theme service
+        switch (colorSet) {
+
+            case colorSets.keppel:
+                this._themeService.setTheme(Theme.Keppel);
+                break;
+
+            case colorSets.microFocus:
+                this._themeService.setTheme(Theme.MicroFocus);
+                break;
         }
     }
 
