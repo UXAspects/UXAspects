@@ -1,5 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, HostListener, ElementRef } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, HostListener, ElementRef, ContentChildren, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
 import { trigger, state, style, transition, animate, query, stagger } from '@angular/animations';
+import { TooltipDirective } from 'ngx-bootstrap/tooltip';
+import { Subscription } from 'rxjs/Subscription';
+import { filter } from 'rxjs/operators/filter';
 
 import { FloatingActionButtonComponent } from './floating-action-button.component';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
@@ -22,11 +25,23 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
         ])
     ]
 })
-export class FloatingActionButtonsComponent {
+export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy {
 
     @Input() direction: FloatingActionButtonDirection = 'top';
+    @ContentChildren(TooltipDirective) tooltips: QueryList<TooltipDirective>;
+
+    private _subscription: Subscription;
 
     constructor(public fab: FloatingActionButtonsService, private _elementRef: ElementRef) { }
+
+    ngAfterViewInit(): void {
+        this._subscription = this.fab.open$.pipe(filter(open => open === false))
+            .subscribe(() => this.tooltips.forEach(tooltip => tooltip.hide()));
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
+    }
 
     /*
      * Detect any clicks to trigger close of the menu
