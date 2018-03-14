@@ -207,6 +207,10 @@ export class DashboardService {
                 return;
             }
 
+            if (column === 0 && widget.colSpan > this.options.columns) {
+                throw new Error('Dashboard widgets have a colSpan greater than the max number of dashboard columns!');
+            }
+
             position++;
         }
     }
