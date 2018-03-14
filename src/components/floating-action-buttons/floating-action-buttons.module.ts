@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { FloatingActionButtonsComponent } from './floating-action-buttons.component';
 import { FloatingActionButtonComponent } from './floating-action-button.component';
 
 @NgModule({
     imports: [
-        CommonModule,
-        TooltipModule.forRoot()
+        CommonModule
     ],
     exports: [
         FloatingActionButtonsComponent,
