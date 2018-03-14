@@ -30,18 +30,13 @@
     <div class="col-md-12">
         <accordion>
             <accordion-panel heading="Customize Example...">
-                <div class="row">
-                    <div class="col-md-3">
-                        <ux-radio-button [(ngModel)]="direction" option="top">Top</ux-radio-button>
-                    </div>
-                    <div class="col-md-3">
-                        <ux-radio-button [(ngModel)]="direction" option="right">Right</ux-radio-button>
-                    </div>
-                    <div class="col-md-3">
-                        <ux-radio-button [(ngModel)]="direction" option="bottom">Bottom</ux-radio-button>
-                    </div>
-                    <div class="col-md-3">
-                        <ux-radio-button [(ngModel)]="direction" option="left">Left</ux-radio-button>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-12">
+                        <label>direction</label>
+                        <ux-radio-button [(ngModel)]="direction" option="top">top</ux-radio-button>
+                        <ux-radio-button [(ngModel)]="direction" option="right">right</ux-radio-button>
+                        <ux-radio-button [(ngModel)]="direction" option="bottom">bottom</ux-radio-button>
+                        <ux-radio-button [(ngModel)]="direction" option="left">left</ux-radio-button>
                     </div>
                 </div>
             </accordion-panel>
