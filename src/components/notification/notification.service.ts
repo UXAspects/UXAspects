@@ -9,7 +9,8 @@ export class NotificationService {
         duration: 4,
         height: 100,
         spacing: 10,
-        backgroundColor: '#7b63a3'
+        backgroundColor: '#7b63a3',
+        iconColor: '#7b63a3'
     };
 
     direction: NotificationListDirection = 'above';
@@ -27,7 +28,8 @@ export class NotificationService {
             visible: true,
             height: options.height,
             spacing: options.spacing,
-            backgroundColor: options.backgroundColor
+            backgroundColor: options.backgroundColor,
+            iconColor: options.iconColor
         };
 
         const notifications = this.notifications$.getValue();
@@ -70,14 +72,16 @@ export interface NotificationRef {
     visible?: boolean;
     height?: number;
     spacing?: number;
-    backgroundColor: string;
+    backgroundColor?: string;
+    iconColor?: string;
 }
 
 export interface NotificationOptions {
     duration?: number;
     height?: number;
     spacing?: number;
-    backgroundColor: string;
+    backgroundColor?: string;
+    iconColor?: string;
 }
 
 export type NotificationListDirection = 'above' | 'below';
