@@ -1,5 +1,6 @@
 import { Injectable, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ColorService } from '../../services/color/index';
 
 @Injectable()
 export class NotificationService {
@@ -9,8 +10,8 @@ export class NotificationService {
         duration: 4,
         height: 100,
         spacing: 10,
-        backgroundColor: '#7b63a3',
-        iconColor: '#7b63a3'
+        backgroundColor: this._colorService.getColor('accent').toHex(),
+        iconColor: this._colorService.getColor('accent').toHex()
     };
 
     direction: NotificationListDirection = 'above';
@@ -62,6 +63,9 @@ export class NotificationService {
     dismissAll(): void {
         this.notifications$.getValue().forEach(notificationRef => notificationRef.visible = false);
         this.notifications$.next(this.notifications$.getValue());        
+    }
+
+    constructor(private _colorService: ColorService) {
     }
 }
 
