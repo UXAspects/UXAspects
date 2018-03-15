@@ -12,7 +12,7 @@ export declare class ColorService {
     getColorSet(): any;
     setColorSet(colorSet: ColorSet): void;
     resolve(value: string): string;
-    resolveColorName(value: string): string;
+    resolveColorName(value?: string): string;
 }
 export declare class ThemeColor {
     private _r;
