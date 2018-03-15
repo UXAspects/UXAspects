@@ -5,9 +5,9 @@
     <span class="pull-right hpe-icon" ng-class="{'hpe-down':fac.expanded,'hpe-previous':!fac.expanded}"></span>
   </a>
 
-   <div>
+  <div>
     <ul ng-if="fac.showFacetOptions" class="facet-options m-b-nil" ng-show="fac.expanded">
-   		<dynamic-facet-option ng-repeat="option in fac.visibleFacetOptions" name="option.name" select="option.select()" count="option.count" deselect="option.deselect()" show-zero="fac.showZero" disabled="option.disabled"></dynamic-facet-option>
+      <dynamic-facet-option ng-repeat="option in fac.visibleFacetOptions" data="option" select="option.select()" deselect="option.deselect()" show-zero="fac.showZero" disabled="option.disabled" option-template="facetOptionTemplate"></dynamic-facet-option>
    	</ul>
   	<ul ng-if="fac.useTypeaheadControl" class="facet-options facet-options-dynamic" ng-show="fac.expanded">
   		<li ng-repeat="facet in fac.selectedDynamicFacets" class="facet-option">
@@ -27,7 +27,7 @@
   			class="form-control"
         expanding-textarea
         disable-return="{{ disableReturn }}"
-        max-visible-lines="{{ maxLines }}" 
+        max-visible-lines="{{ maxLines }}"
         tabindex="1"></textarea>
   		</li>
   	</ul>

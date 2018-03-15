@@ -3,19 +3,21 @@ export default function dynamicFacetOption() {
     restrict: "E",
     require: ["^facetDynamic", "^^facetContainer"],
     controller: "FacetOptionCtrl as fo",
-    template: require('./facetOption.html'),
+    template: require('./dynamicFacetOption.html'),
     transclude: true,
     replace: true,
     scope: {
-      name: "=",
-      count: "=?",
+      data: "=",
       select: "&",
       deselect: "&",
       disabled: "=?",
       selectedAriaLabel: "@",
-      showZero: '=?'
+      showZero: '=?',
+      optionTemplate: "=?"
     },
     link: function(scope, element, attrs, controllers) {
+      scope.name = scope.data.name;
+
       scope.fo.facetContainer = controllers[1];
       scope.fo.facet = controllers[0];
 
