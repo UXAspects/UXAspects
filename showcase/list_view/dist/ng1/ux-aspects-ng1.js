@@ -4501,10 +4501,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
-//! version : 2.20.1
-//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
-//! license : MIT
-//! momentjs.com
 
 ;(function (global, factory) {
      true ? module.exports = factory() :
@@ -5162,7 +5158,6 @@ var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
 // any word (or two) characters or numbers including two/three word month in arabic.
 // includes scottish gaelic two word and hyphenated months
 var matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i;
-
 
 var regexes = {};
 
@@ -6276,10 +6271,6 @@ function localeMeridiem (hours, minutes, isLower) {
 // this rule.
 var getSetHour = makeGetSet('Hours', true);
 
-// months
-// week
-// weekdays
-// meridiem
 var baseConfig = {
     calendar: defaultCalendar,
     longDateFormat: defaultLongDateFormat,
@@ -6333,7 +6324,7 @@ function chooseLocale(names) {
         }
         i++;
     }
-    return null;
+    return globalLocale;
 }
 
 function loadLocale(name) {
@@ -6368,6 +6359,12 @@ function getSetGlobalLocale (key, values) {
             // moment.duration._locale = moment._locale = data;
             globalLocale = data;
         }
+        else {
+            if ((typeof console !==  'undefined') && console.warn) {
+                //warn user if arguments are passed but the locale could not be set
+                console.warn('Locale ' + key +  ' not found. Did you forget to load it?');
+            }
+        }
     }
 
     return globalLocale._abbr;
@@ -6375,7 +6372,7 @@ function getSetGlobalLocale (key, values) {
 
 function defineLocale (name, config) {
     if (config !== null) {
-        var parentConfig = baseConfig;
+        var locale, parentConfig = baseConfig;
         config.abbr = name;
         if (locales[name] != null) {
             deprecateSimple('defineLocaleOverride',
@@ -6388,14 +6385,19 @@ function defineLocale (name, config) {
             if (locales[config.parentLocale] != null) {
                 parentConfig = locales[config.parentLocale]._config;
             } else {
-                if (!localeFamilies[config.parentLocale]) {
-                    localeFamilies[config.parentLocale] = [];
+                locale = loadLocale(config.parentLocale);
+                if (locale != null) {
+                    parentConfig = locale._config;
+                } else {
+                    if (!localeFamilies[config.parentLocale]) {
+                        localeFamilies[config.parentLocale] = [];
+                    }
+                    localeFamilies[config.parentLocale].push({
+                        name: name,
+                        config: config
+                    });
+                    return null;
                 }
-                localeFamilies[config.parentLocale].push({
-                    name: name,
-                    config: config
-                });
-                return null;
             }
         }
         locales[name] = new Locale(mergeConfigs(parentConfig, config));
@@ -7743,7 +7745,7 @@ function isSameOrBefore (input, units) {
 function diff (input, units, asFloat) {
     var that,
         zoneDelta,
-        delta, output;
+        output;
 
     if (!this.isValid()) {
         return NaN;
@@ -7816,7 +7818,7 @@ function toISOString(keepOffset) {
         if (utc) {
             return this.toDate().toISOString();
         } else {
-            return new Date(this._d.valueOf()).toISOString().replace('Z', formatMoment(m, 'Z'));
+            return new Date(this.valueOf() + this.utcOffset() * 60 * 1000).toISOString().replace('Z', formatMoment(m, 'Z'));
         }
     }
     return formatMoment(m, utc ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
@@ -8370,48 +8372,26 @@ proto.toString          = toString;
 proto.unix              = unix;
 proto.valueOf           = valueOf;
 proto.creationData      = creationData;
-
-// Year
 proto.year       = getSetYear;
 proto.isLeapYear = getIsLeapYear;
-
-// Week Year
 proto.weekYear    = getSetWeekYear;
 proto.isoWeekYear = getSetISOWeekYear;
-
-// Quarter
 proto.quarter = proto.quarters = getSetQuarter;
-
-// Month
 proto.month       = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
-
-// Week
 proto.week           = proto.weeks        = getSetWeek;
 proto.isoWeek        = proto.isoWeeks     = getSetISOWeek;
 proto.weeksInYear    = getWeeksInYear;
 proto.isoWeeksInYear = getISOWeeksInYear;
-
-// Day
 proto.date       = getSetDayOfMonth;
 proto.day        = proto.days             = getSetDayOfWeek;
 proto.weekday    = getSetLocaleDayOfWeek;
 proto.isoWeekday = getSetISODayOfWeek;
 proto.dayOfYear  = getSetDayOfYear;
-
-// Hour
 proto.hour = proto.hours = getSetHour;
-
-// Minute
 proto.minute = proto.minutes = getSetMinute;
-
-// Second
 proto.second = proto.seconds = getSetSecond;
-
-// Millisecond
 proto.millisecond = proto.milliseconds = getSetMillisecond;
-
-// Offset
 proto.utcOffset            = getSetOffset;
 proto.utc                  = setOffsetToUTC;
 proto.local                = setOffsetToLocal;
@@ -8422,12 +8402,8 @@ proto.isLocal              = isLocal;
 proto.isUtcOffset          = isUtcOffset;
 proto.isUtc                = isUtc;
 proto.isUTC                = isUtc;
-
-// Timezone
 proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
-
-// Deprecations
 proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
 proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
 proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
@@ -8458,19 +8434,15 @@ proto$1.relativeTime    = relativeTime;
 proto$1.pastFuture      = pastFuture;
 proto$1.set             = set;
 
-// Month
 proto$1.months            =        localeMonths;
 proto$1.monthsShort       =        localeMonthsShort;
 proto$1.monthsParse       =        localeMonthsParse;
 proto$1.monthsRegex       = monthsRegex;
 proto$1.monthsShortRegex  = monthsShortRegex;
-
-// Week
 proto$1.week = localeWeek;
 proto$1.firstDayOfYear = localeFirstDayOfYear;
 proto$1.firstDayOfWeek = localeFirstDayOfWeek;
 
-// Day of Week
 proto$1.weekdays       =        localeWeekdays;
 proto$1.weekdaysMin    =        localeWeekdaysMin;
 proto$1.weekdaysShort  =        localeWeekdaysShort;
@@ -8480,7 +8452,6 @@ proto$1.weekdaysRegex       =        weekdaysRegex;
 proto$1.weekdaysShortRegex  =        weekdaysShortRegex;
 proto$1.weekdaysMinRegex    =        weekdaysMinRegex;
 
-// Hours
 proto$1.isPM = localeIsPM;
 proto$1.meridiem = localeMeridiem;
 
@@ -8587,6 +8558,7 @@ getSetGlobalLocale('en', {
 });
 
 // Side effect imports
+
 hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
 hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
 
@@ -8962,7 +8934,6 @@ proto$2.toJSON         = toISOString$1;
 proto$2.locale         = locale;
 proto$2.localeData     = localeData;
 
-// Deprecations
 proto$2.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString$1);
 proto$2.lang = lang;
 
@@ -8987,7 +8958,7 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 
-hooks.version = '2.20.1';
+hooks.version = '2.21.0';
 
 setHookCallback(createLocal);
 
@@ -13691,48 +13662,11 @@ function floatingActionButton() {
     scope: {
       items: "=",
       direction: "=",
-      primary: "="
+      primary: "=",
+      fabTooltip: "@?",
+      fabTooltipPlacement: "@?"
     },
-    link: function link(scope) {
-      if (!scope.direction) {
-        scope.direction = "bottom";
-      }
-
-      scope.focus = false;
-      if (scope.direction === "top") {
-        scope.className = "child-btn-set-top-visible";
-        scope.parentClass = ".child-btn-set-top.top";
-      } else if (scope.direction === "bottom") {
-        scope.className = "child-btn-set-visible";
-        scope.parentClass = ".child-btn-set.bottom";
-      } else if (scope.direction === "left") {
-        scope.className = "child-btn-set-visible-horizontal";
-        scope.parentClass = ".child-btn-set-horizontal.left";
-      } else {
-        scope.className = "child-btn-set-visible-horizontal";
-        scope.parentClass = ".child-btn-set-horizontal.right";
-      }
-
-      scope.expand = function (e) {
-        scope.parent = angular.element(e.currentTarget.parentNode);
-        scope.parent.addClass('floating-expand');
-        var el = ".floating-expand " + scope.parentClass;
-        angular.element(el).addClass(scope.className);
-      };
-
-      scope.collapse = function () {
-        var el = ".floating-expand " + scope.parentClass;
-        angular.element(el).removeClass(scope.className);
-        if (scope.parent) scope.parent.removeClass('floating-expand');
-      };
-
-      scope.selectedCollapse = function (event) {
-        scope.fab.onSelect(event);
-        var el = ".floating-expand " + scope.parentClass;
-        angular.element(el).removeClass(scope.className);
-        scope.parent.removeClass('floating-expand');
-      };
-    }
+    bindToController: true
   };
 }
 
@@ -13743,7 +13677,7 @@ function floatingActionButton() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<span class=\"floating-action-button\" ng-mouseleave=\"collapse($event)\">\n<ul class=\"unstyled p-l-nil child-btn-set-top top m-b-nil\" ng-if=\"direction == 'top'\">\n<li ng-repeat=\"key in items\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary m-b-md\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</li>\n</ul>\n<button type=\"button\" class=\"btn btn-icon btn-circular button-primary parent-btn\" ng-class=\"{'dir-top': direction=='top',\n     'dir-left': direction=='left', 'dir-right': direction=='right' , 'dir-bottom': direction=='bottom'}\" aria-label=\"{{primary}}\" ng-click=\"expand($event)\">\n<span class=\"{{ primary.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"primary\" aria-hidden=\"true\"></span>\n</button>\n<ul class=\"unstyled p-l-nil child-btn-set-horizontal left inline-block\" ng-if=\"direction == 'left'\">\n<li class=\"inline-block\" ng-repeat=\"key in items\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary m-r-md\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</li>\n</ul>\n<span class=\"child-btn-set-horizontal right inline-block\" ng-if=\"direction == 'right'\">\n<button ng-repeat=\"key in items\" type=\"button\" class=\"btn btn-icon btn-circular button-secondary m-r-md\" ng-class=\"{'m-l-md':$first}\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</span>\n<ul class=\"unstyled p-l-nil child-btn-set bottom\" ng-if=\"direction == 'bottom'\">\n<li ng-repeat=\"key in items\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary\" ng-class=\"{'m-b-md': !$last, 'm-t-md': $first}\" aria-label=\"{{key.icon}}\" ng-click=\"selectedCollapse(key.event)\">\n<span class=\"{{ key.icon.indexOf('hp-') === -1 ? 'hpe-icon' : 'hp-icon' }}\" ng-class=\"key.icon\" aria-hidden=\"true\"></span>\n</button>\n</li>\n</ul>\n</span>\n";
+var v1="<div class=\"floating-action-buttons\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-primary\" tabindex=\"1\" aria-label=\"{{ fab.fabTooltip || fab.primary }}\" ng-click=\"fab.expand()\" tooltip=\"{{ fab.fabTooltip }}\" tooltip-placement=\"{{ fab.fabTooltipPlacement || 'top' }}\">\n<span class=\"hpe-icon\" ng-class=\"fab.primary\" aria-hidden=\"true\"></span>\n</button>\n<div class=\"floating-action-button-list\" ng-class=\"[fab.direction, fab.expanded ? 'expanded' : 'collapsed' ]\">\n<button type=\"button\" class=\"btn btn-icon btn-circular button-secondary floating-action-button\" tabindex=\"1\" ng-repeat=\"item in fab.items\" aria-label=\"{{ item.tooltip || item.icon }}\" ng-click=\"fab.select(item)\" tooltip=\"{{ item.tooltip }}\" tooltip-placement=\"{{ item.tooltipPlacement || 'top' }}\">\n<span class=\"hpe-icon floating-action-button-icon\" ng-class=\"item.icon\" aria-hidden=\"true\"></span>\n</button>\n</div>\n</div>";
 var id1="directives/floatingActionButton/floatingActionButton.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -13755,16 +13689,79 @@ module.exports=v1;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = FloatingActionButton;
-FloatingActionButton.$inject = ["$scope"];
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function FloatingActionButton() {
-	var vm = this;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	vm.onSelect = function (select) {
-		select();
-	};
-}
+var FloatingActionButton = function () {
+  function FloatingActionButton($scope, $document, $element) {
+    var _this = this;
+
+    _classCallCheck(this, FloatingActionButton);
+
+    // by default the FAB should be collapsed
+    this.$scope = $scope;
+    this.$element = $element.get(0);
+    this.expanded = false;
+
+    // when anywhere in the document is clicked collapse the menu
+    $document.on('click', this.collapse.bind(this));
+
+    // Clean up when component is destroyed
+    $scope.$on('$destroy', function () {
+      return $document.off('click', _this.collapse.bind(_this));
+    });
+  }
+
+  /*
+   * When an item is selected call the associated event and collapse items
+   */
+
+
+  _createClass(FloatingActionButton, [{
+    key: 'select',
+    value: function select(item) {
+      if (item.event) {
+        item.event.call(item);
+      }
+
+      this.expanded = false;
+    }
+
+    /*
+     * Show the floating action buttons
+     */
+
+  }, {
+    key: 'expand',
+    value: function expand() {
+      this.expanded = true;
+    }
+
+    /*
+     * Collapse the floating action buttons
+     */
+
+  }, {
+    key: 'collapse',
+    value: function collapse(event) {
+      var _this2 = this;
+
+      if (this.expanded && !this.$element.contains(event.target)) {
+        this.$scope.$evalAsync(function () {
+          return _this2.expanded = false;
+        });
+      }
+    }
+  }]);
+
+  return FloatingActionButton;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (FloatingActionButton);
+
+
+FloatingActionButton.$inject = ['$scope', '$document', '$element'];
 
 /***/ }),
 /* 201 */
@@ -32977,7 +32974,7 @@ function SparkDirective() {
         template: __webpack_require__(477),
         controller: "SparkCtrl as sc",
         scope: {
-            type: "=",
+            type: "=?",
             value: "=",
             fillheight: "=",
             label: "=inlineLabel",
@@ -33001,7 +32998,7 @@ function SparkDirective() {
 var angular=window.angular,ngModule;
 try {ngModule=angular.module(["ng"])}
 catch(e){ngModule=angular.module("ng",[])}
-var v1="<div>\n<div ng-if=\"sc.inline === true\" class=\"spark-container-inline\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc.type ]\" ng-style=\"sc.styles\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc.inline === false\" class=\"spark-container\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc.type\" ng-style=\"{height: sc.fillheight + 'px', backgroundColor: sc.trackColor}\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.top-left-label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
+var v1="<div>\n<div ng-if=\"sc.inline === true\" class=\"spark-container-inline\">\n<div class=\"spark-label-left\">\n<div ng-bind-html=\"sc.label\"></div>\n</div>\n<div class=\"inline-block spark-line\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"[ 'inline', sc.type ]\" ng-style=\"sc.styles\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values track by $index\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{ width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>\n<div ng-if=\"sc.inline === false\" class=\"spark-container\">\n<div class=\"spark-top-container\">\n<div class=\"inline-block\" ng-if=\"sc.topLeftLabel\" ng-bind-html=\"sc.topLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.topRightLabel\" ng-bind-html=\"sc.topRightLabel\" class=\"text-right\"></div>\n</div>\n<div class=\"spark\" ng-class=\"sc.type\" ng-style=\"{height: sc.fillheight + 'px', backgroundColor: sc.trackColor}\" tooltip=\"{{sc.sparkTooltip}}\">\n<div class=\"progress-bar fill\" ng-repeat=\"bar in sc.values track by $index\" aria-valuenow=\"{{sc.value}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-style=\"{width: (bar < 100 ? bar : 100) + '%', backgroundColor: sc.barColor[$index]}\" aria-valuetext=\"sc.top-left-label\"></div>\n</div>\n<div class=\"spark-bottom-container\">\n<div class=\"inline-block\" ng-if=\"sc.bottomLeftLabel\" ng-bind-html=\"sc.bottomLeftLabel\"></div>\n<div class=\"align-right inline-block\" ng-if=\"sc.bottomRightLabel\" ng-bind-html=\"sc.bottomRightLabel\" class=\"text-right\"></div>\n</div>\n</div>\n</div>";
 var id1="directives/spark/spark.html";
 var inj=angular.element(window.document).injector();
 if(inj){inj.get("$templateCache").put(id1,v1);}
@@ -36897,6 +36894,9 @@ function NotificationService() {
         //add icon to icon container
         var iconElement = document.createElement('span');
         iconElement.className = 'hpe-icon ' + options.icon;
+        if (options.iconColor && options.iconColor !== '') {
+            iconElement.style.color = options.iconColor;
+        }
         iconContainer.appendChild(iconElement);
 
         //create text container
@@ -36917,11 +36917,6 @@ function NotificationService() {
         textElement.innerHTML = options.text;
         textContainer.appendChild(textElement);
 
-        // create band - invisible by default
-        var band = document.createElement('div');
-        band.className = 'notification-band';
-        band.style.display = 'none';
-
         //if a date string was specified then show it
         if (options.subtitle && options.subtitle !== '') {
             var subtitleElement = document.createElement('small');
@@ -36935,7 +36930,6 @@ function NotificationService() {
 
         contentContainer.appendChild(textContainer);
         notification.appendChild(contentContainer);
-        notification.appendChild(band);
 
         //find or create the container
         var container = getContainer();
@@ -36952,7 +36946,6 @@ function NotificationService() {
 
         //set the background color of the notification
         notification.style.backgroundColor = options.backgroundColor;
-        band.style.backgroundColor = options.backgroundColor;
 
         //if a duration was set then automatically dismiss after that time
         if (options.duration && options.duration > 0) {

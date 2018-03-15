@@ -1,6 +1,8 @@
 import { TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ColorService } from '../../services/color/index';
 export declare class NotificationService {
+    private _colorService;
     options: NotificationOptions;
     direction: NotificationListDirection;
     notifications$: BehaviorSubject<NotificationRef[]>;
@@ -8,6 +10,7 @@ export declare class NotificationService {
     getHistory(): NotificationRef[];
     dismiss(notificationRef: NotificationRef): void;
     dismissAll(): void;
+    constructor(_colorService: ColorService);
 }
 export interface NotificationRef {
     templateRef: TemplateRef<any>;
@@ -16,12 +19,14 @@ export interface NotificationRef {
     visible?: boolean;
     height?: number;
     spacing?: number;
-    backgroundColor: string;
+    backgroundColor?: string;
+    iconColor?: string;
 }
 export interface NotificationOptions {
     duration?: number;
     height?: number;
     spacing?: number;
-    backgroundColor: string;
+    backgroundColor?: string;
+    iconColor?: string;
 }
 export declare type NotificationListDirection = 'above' | 'below';

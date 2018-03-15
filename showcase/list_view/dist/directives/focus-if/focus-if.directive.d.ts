@@ -1,7 +1,6 @@
-import { OnChanges, SimpleChanges, ElementRef } from '@angular/core';
-export declare class FocusIfDirective implements OnChanges {
-    private elementRef;
+import { ElementRef } from '@angular/core';
+export declare class FocusIfDirective {
+    private _elementRef;
     focusIf: boolean;
-    constructor(elementRef: ElementRef);
-    ngOnChanges(changes: SimpleChanges): void;
+    constructor(_elementRef: ElementRef);
 }
