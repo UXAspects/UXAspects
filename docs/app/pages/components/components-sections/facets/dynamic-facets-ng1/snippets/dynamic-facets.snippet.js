@@ -20,6 +20,7 @@ function TestCtrl(exampleDataService) {
             //Logic to filter the matching names
             return {
                 name: user,
+                count: parseInt(Math.random() * 30),
                 filter: function (data) {
                     return data.name === user;
                 }
