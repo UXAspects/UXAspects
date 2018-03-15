@@ -8,6 +8,15 @@
     To use the Dynamic Facet, use the <code>facet-dynamic</code> directive instead of the <code>facet</code> directive. Set
     the
     <code>facet-options</code> attribute with an object containing a <code>title</code> attribute, and an <code>options</code>    property containing collection of objects that follow the interface for the <code>facet-option</code> defined above.
+</p>
+
+<blockquote>
+    <p><strong>Note</strong>: For this type of facet, however, each one of these objects is
+    accessible via the <code>data</code> attribute. Since both <code>name</code> and <code>count</code> are properties within that object,
+    they should be accessed as <code>data.name</code> and <code>data.count</code>, respectively.</p>
+</blockquote>
+
+<p>
     The Dynamic Facet can be used in the same <code>facet-container</code> as the standard <code>facet</code> directive.
 </p>
 
@@ -24,7 +33,7 @@
         How many entries to show in the typeahead dropdown.
     </tr>
     <tr uxd-api-property name="minIndividualItems" defaultValue="0">
-        How many Facet Options should be displayed regardless of whether a typeahead is visible. 
+        How many Facet Options should be displayed regardless of whether a typeahead is visible.
         Items shown as Facet Options will not be listed in the typeahead dropdown.
     </tr>
     <tr uxd-api-property name="maxIndividualItems" defaultValue="0">
@@ -59,6 +68,11 @@
 
 <p>Set the <code>placeholder</code> attribute to a string property to set the placeholder text that will be shown in the text
     search input control.</p>
+
+<h4>Customizing the Dynamic Facet Option Template</h4>
+
+<p>If desired, the user has the ability to specify a different template for all dynamic facet options by setting the <code>facet-option-template</code>
+    attribute to a template. </p>
 
 <p>Below is an example for the use of this directive:</p>
 
