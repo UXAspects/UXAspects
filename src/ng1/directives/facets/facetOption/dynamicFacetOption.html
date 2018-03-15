@@ -1,0 +1,6 @@
+<li ng-show="data.count!==0 || showZero" class="facet-option" ng-class="{ 'disabled': disabled }">
+  <a ng-click="fo.toggle()" tabindex="1">
+    <ng-include ng-if="(optionTemplate !== null && optionTemplate !== undefined)" src="optionTemplate"></ng-include>
+    <ng-include ng-if="(optionTemplate === null || optionTemplate === undefined)" src="'facets/facetOption/facetOptionDefault.html'"></ng-include>
+  </a>
+</li>
