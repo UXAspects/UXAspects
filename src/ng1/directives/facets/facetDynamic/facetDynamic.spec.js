@@ -354,8 +354,8 @@ describe("facet dynamic directive", function() {
             });
 
             it("should properly apply the values to the template bindings", function() {
-                expect(customOptions[0].innerText).toBe(facetOptions.options[1].count + "");
-                expect(customOptions[1].innerText).toBe(facetOptions.options[2].count + "");
+                expect(customOptions[0].innerText).toBe(facetOptions.options[1].count.toString());
+                expect(customOptions[1].innerText).toBe(facetOptions.options[2].count.toString());
             });
 
             it("should not load the default template", function() {
