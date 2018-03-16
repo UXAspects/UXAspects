@@ -184,6 +184,15 @@ describe("facet dynamic directive", function() {
             "  </facet-dynamic>\n" +
             "</facet-container>";
 
+        var htmlTemplateWithOptionTemplate =
+            "<facet-container select-title=\"Filters\" clear-text=\"Clear All\" no-items-text=\"None selected\">\n" +
+            "  <facet-dynamic name=\"name\" facet-options=\"facetOptions\" display-configuration=\"displayConfiguration\" placeholder=\"placeholder\" update-callback=\"updateCallback\" facet-option-template=\"\'optionTemplate\'\">\n" +
+            "  </facet-dynamic>\n" +
+            "</facet-container>\n" +
+            "<script type=\"text\/ng-template\" id=\"optionTemplate\">\n" +
+            "  <span class=\"custom-count\" ng-bind=\"data.count\"></span>\n" +
+            "</script>";
+
         it("should display element correctly", function() {
             //create new scope and decorate it
             $scope = $rootScope.$new();
@@ -318,6 +327,41 @@ describe("facet dynamic directive", function() {
             $scope.$digest();
 
             expect(angular.element(tickIcon[0]).hasClass('checked')).toBe(true);
+        });
+
+        describe("when the facet option template is informed", function () {
+            var element,
+                customOptions;
+
+            beforeEach(function () {
+                //create new scope and decorate it
+                $scope = $rootScope.$new();
+                $scope.name = facetOptions.name;
+                $scope.facetOptions = facetOptions;
+                $scope.displayConfiguration = {
+                    minIndividualItems: 5
+                };
+                $scope.placeholder = 'Sample Placeholder';
+                $scope.updateCallback = updateCallback;
+
+                element = $compile(htmlTemplateWithOptionTemplate)($scope);
+                $scope.$digest();
+            });
+
+            it("should apply the template", function() {
+                customOptions = element[0].getElementsByClassName("custom-count");
+                expect(customOptions.length).toBe(2);
+            });
+
+            it("should properly apply the values to the template bindings", function() {
+                expect(customOptions[0].innerText).toBe(facetOptions.options[1].count + "");
+                expect(customOptions[1].innerText).toBe(facetOptions.options[2].count + "");
+            });
+
+            it("should not load the default template", function() {
+                var defaultFacetOptionNames = element[0].getElementsByClassName("facet-option-name");
+                expect(defaultFacetOptionNames.length).toBe(0);
+            });
         });
 
     });
