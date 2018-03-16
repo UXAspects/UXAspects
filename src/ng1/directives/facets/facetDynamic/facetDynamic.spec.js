@@ -318,6 +318,10 @@ describe("facet dynamic directive", function() {
             $scope.$digest();
 
             expect(angular.element(tickIcon[0]).hasClass('checked')).toBe(true);
+
+            var selectedFacets = element[0].getElementsByClassName('facet-selected-name');
+            expect(selectedFacets.length).toBe(1);
+            expect(selectedFacets[0].innerText).toBe(facetOptions.options[1].name);
         });
 
         describe("when the facet option template is set", function () {
@@ -349,7 +353,7 @@ describe("facet dynamic directive", function() {
             });
 
             it("should apply the template", function() {
-                customOptions = element[0].getElementsByClassName("custom-count");
+                customOptions = element[0].getElementsByClassName('custom-count');
                 expect(customOptions.length).toBe(2);
             });
 
@@ -359,7 +363,7 @@ describe("facet dynamic directive", function() {
             });
 
             it("should not load the default template", function() {
-                var defaultFacetOptionNames = element[0].getElementsByClassName("facet-option-name");
+                var defaultFacetOptionNames = element[0].getElementsByClassName('facet-option-name');
                 expect(defaultFacetOptionNames.length).toBe(0);
             });
         });
@@ -390,12 +394,12 @@ describe("facet dynamic directive", function() {
             });
 
             it("should not apply the template", function() {
-                customOptions = element[0].getElementsByClassName("custom-count");
+                customOptions = element[0].getElementsByClassName('custom-count');
                 expect(customOptions.length).toBe(0);
             });
 
             it("should load the default template", function() {
-                var defaultFacetOptionNames = element[0].getElementsByClassName("facet-option-name");
+                var defaultFacetOptionNames = element[0].getElementsByClassName('facet-option-name');
                 expect(defaultFacetOptionNames.length).toBe(2);
             });
         });
