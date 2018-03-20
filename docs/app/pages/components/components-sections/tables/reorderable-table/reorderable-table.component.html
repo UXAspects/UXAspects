@@ -1,0 +1,97 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="drag-handle-column"></th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Date Modified</th>
+            <th>Work Completed</th>
+            <th class="text-center">Status</th>
+        </tr>
+    </thead>
+    <tbody uxSortable [(sortableModel)]="data">
+        <tr *ngFor="let item of data; let idx = index" [uxSortableModel]="item" tabindex="0" (keydown.arrowdown)="movedown(item, idx, $event)"
+            (keydown.arrowup)="moveup(item, idx, $event)">
+
+            <td class="drag-handle-column">
+                <span uxSortableHandle class="hpe-icon hpe-more hpe-rotate-90"></span>
+            </td>
+            <td>{{ item.document }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date | date }}</td>
+            <td>
+                <ux-spark theme="chart2" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed + '%'"></ux-spark>
+            </td>
+            <td class="text-center">
+                <div class="hpe-icon" [class.hpe-checkmark]="item.active"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<p>
+    Table rows can be reordered by using the <code>uxSortable</code> directive. The above example demonstrates how a table can be reordered 
+    by adding a handle to each row.
+    The <code>uxSortable</code> directive can be used in conjuction with <code>ngModel</code> so additional forms of reordering can be implemented, 
+    for example, using the keyboard.
+</p>
+
+<p>
+    The <code>uxSortable</code> directive is not restricted to use on tables, it can be used with any list of elements.
+</p>
+
+<p>
+    By default each immediate child of <code>uxSortable</code> will become draggable, however you can specify an element within the item 
+    to be the drag handle which the user will have to drag to move the item. A handle can be specified by adding the <code>uxSortableHandle</code> to
+    the element that should be dragged to move the object.
+</p>
+
+<p>
+    The following input can be to provide the dataset:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="sortableModel" type="any[]">
+        This can be used to bind a dataset to the list of items that can be reordered. This can be used along with <code>ngFor</code> to keep the 
+        model in sync. If specifed each reorderable item must have a <code>uxSortableModel</code> attribute with the value that item represents.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+
+    <tr uxd-api-property name="sortableModelChange" type="any[]">
+        This event will be triggered when the order changes and will contain an updated dataset containing the items in their current
+        order. This can also be used to ensure <code>ngFor</code> remains in sync.
+    </tr>
+
+    <tr uxd-api-property name="sortStart" type="Element">
+        This event is triggered when a user begins dragging an item. The event will contain the element being moved.
+    </tr>
+
+    <tr uxd-api-property name="sortCancel" type="Element">
+        This event is triggered when the item being dragged is returned to the same location as it began. The event will contain the element that was being moved.        
+    </tr>
+
+    <tr uxd-api-property name="sortEnd" type="Element">
+        This event is triggered when a user has relocated an item. The event will contain the element that was moved.    
+    </tr>
+
+</uxd-api-properties>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="Typescript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

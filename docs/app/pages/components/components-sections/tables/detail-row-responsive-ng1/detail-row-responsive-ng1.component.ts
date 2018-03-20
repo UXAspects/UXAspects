@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
@@ -6,7 +6,8 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 
 @Component({
     selector: 'uxd-components-detail-row-responsive',
-    templateUrl: './detail-row-responsive-ng1.component.html'
+    templateUrl: './detail-row-responsive-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsDetailRowResponsiveNg1Component')
 export class ComponentsDetailRowResponsiveNg1Component extends BaseDocumentationSection implements ICodePenProvider {

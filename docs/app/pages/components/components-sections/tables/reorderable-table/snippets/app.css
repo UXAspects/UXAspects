@@ -1,0 +1,15 @@
+.table tr:hover .drag-handle-column {
+    color: #dcdedf;
+}
+
+.drag-handle-column {
+    width: 48px;
+    text-align: center;
+    color: #dcdedf;
+    transition: color 250ms ease-in-out;
+    cursor: move;
+}
+
+.table tr:hover .drag-handle-column:hover {
+    color: #bdbec0;
+}

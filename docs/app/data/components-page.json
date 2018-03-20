@@ -315,7 +315,7 @@
                             "content": "ux-facet-container"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FacetsModule"
                         }
                     ]
@@ -330,7 +330,7 @@
                             "content": "ux-facet-check-list"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FacetsModule"
                         }
                     ]
@@ -345,7 +345,7 @@
                             "content": "ux-facet-typeahead-list"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FacetsModule"
                         }
                     ]
@@ -356,7 +356,7 @@
                     "version": "Angular",
                     "usage": [
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FacetsModule"
                         }
                     ]
@@ -517,7 +517,7 @@
                             "content": "ux-checkbox"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "CheckboxModule"
                         }
                     ]
@@ -548,7 +548,7 @@
                             "content": "ux-toggleswitch"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "ToggleSwitchModule"
                         }
                     ]
@@ -569,7 +569,7 @@
                             "content": "ux-number-picker"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "NumberPickerModule"
                         }
                     ]
@@ -627,7 +627,7 @@
                             "content": "ux-slider"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "SliderModule"
                         }
                     ]
@@ -704,7 +704,7 @@
                             "content": "ux-media-player"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "MediaPlayerModule"
                         },
                         {
@@ -806,7 +806,7 @@
                             "content": "ux-page-header"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "PageHeaderModule"
                         },
                         {
@@ -1184,7 +1184,7 @@
                             "content": "ux-column-sorting"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "ColumnSortingModule"
                         },
                         {
@@ -1209,7 +1209,7 @@
                     "version": "Angular",
                     "usage": [
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FilterModule"
                         }
                     ]
@@ -1224,7 +1224,7 @@
                             "content": "ux-filter-container"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FilterModule"
                         }
                     ]
@@ -1245,7 +1245,7 @@
                             "content": "uxFixedHeaderTable"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FixedHeaderTableModule"
                         }
                     ]
@@ -1283,7 +1283,7 @@
                                 "[uxLayoutSwitcher], [uxLayoutSwitcherItem]"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "LayoutSwitcherModule"
                         }
                     ]
@@ -1317,7 +1317,7 @@
                                 "[uxHoverActionContainer], [uxHoverAction]"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "HoverActionModule"
                         }
                     ]
@@ -1336,7 +1336,24 @@
                 {
                     "title": "Reorderable Table",
                     "component": "ComponentsReorderableTableNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Reorderable Table",
+                    "component": "ComponentsReorderableTableComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selectors",
+                            "content":
+                                "[uxSortableContainer]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SortableModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Multiple Selection Actions",

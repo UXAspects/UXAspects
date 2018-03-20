@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule, HoverActionModule, ItemDisplayPanelModule, FixedHeaderTableModule } from '../../../../../../src/index';
+import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule, HoverActionModule, ItemDisplayPanelModule, FixedHeaderTableModule, SortableModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
@@ -44,6 +44,7 @@ import { ComponentsHoverActionsComponent } from './hover-actions/hover-actions.c
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ComponentsFixedHeaderTableComponent } from './fixed-header-table/fixed-header-table.component';
 import { ComponentsFixedHeaderTableNg1Component } from './fixed-header-table-ng1/fixed-header-table-ng1.component';
+import { ComponentsReorderableTableComponent } from './reorderable-table/reorderable-table.component';
 
 const SECTIONS = [
     ComponentsColumnSortingComponent,
@@ -62,6 +63,7 @@ const SECTIONS = [
     ComponentsPreviewPaneNg1Component,
     ComponentsPreviewPaneWindowNg1Component,
     ComponentsReorderableTableNg1Component,
+    ComponentsReorderableTableComponent,
     ComponentsMultipleSelectActionsNg1Component,
     ComponentsTraditionalMultipleSelectActionsNg1Component,
     ComponentsMultipleSelectionRowNg1Component,
@@ -105,6 +107,7 @@ const ROUTES = [
         ButtonsModule.forRoot(),
         AccordionModule.forRoot(),
         SliderModule,
+        SortableModule,
         HoverActionModule,
         FixedHeaderTableModule,
         TooltipModule.forRoot(),
