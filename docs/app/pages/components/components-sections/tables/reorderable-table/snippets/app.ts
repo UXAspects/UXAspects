@@ -35,7 +35,7 @@ export class AppComponent {
         this.data[index] = this.data[target];
         this.data[target] = data;
         event.preventDefault();
-        
+
         // ngFor blurs the element when shifting up - we want to retain focus
         setTimeout(() => (<HTMLTableRowElement>event.target).focus());
     }

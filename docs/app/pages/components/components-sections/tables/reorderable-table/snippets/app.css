@@ -1,3 +1,7 @@
+.reorderable-row {
+    background-color: #fff;
+}
+
 .table tr:hover .drag-handle-column {
     color: #dcdedf;
 }

@@ -20,16 +20,16 @@
     background-color: @table-grid-bg;
 }
 
-.table tr.ux-sortable-moving td {
+.table tr.ux-reorderable-moving td {
     position: relative;
-    color: transparent;    
+    color: transparent;
 }
 
-.table tr.ux-sortable-moving td > * {
+.table tr.ux-reorderable-moving td > * {
     visibility: hidden;
 }
 
-.table tr.ux-sortable-moving td:after {
+.table tr.ux-reorderable-moving td:after {
     content: '';
     position: absolute;
     top: 0;
@@ -41,10 +41,10 @@
     border-bottom: 1px dashed @primary;
 }
 
-.table tr.ux-sortable-moving td:first-of-type:after {
+.table tr.ux-reorderable-moving td:first-of-type:after {
     border-left: 1px dashed @primary;
 }
 
-.table tr.ux-sortable-moving td:last-of-type:after {
+.table tr.ux-reorderable-moving td:last-of-type:after {
     border-right: 1px dashed @primary;
 }

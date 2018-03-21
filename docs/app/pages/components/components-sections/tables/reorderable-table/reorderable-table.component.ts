@@ -23,7 +23,7 @@ export class ComponentsReorderableTableComponent extends BaseDocumentationSectio
         },
         modules: [
             {
-                imports: ['SortableModule', 'SparkModule'],
+                imports: ['ReorderableModule', 'SparkModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

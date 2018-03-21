@@ -9,19 +9,20 @@
             <th class="text-center">Status</th>
         </tr>
     </thead>
-    <tbody uxSortable [(sortableModel)]="data">
-        <tr *ngFor="let item of data; let idx = index" [uxSortableModel]="item" 
+    <tbody uxReorderable [(reorderableModel)]="data">
+        <tr class="reorderable-row"
+            *ngFor="let item of data; let idx = index" [uxReorderableModel]="item"
             tabindex="0" (keydown.arrowdown)="movedown(item, idx, $event)"
             (keydown.arrowup)="moveup(item, idx, $event)">
 
             <td class="drag-handle-column">
-                <span uxSortableHandle class="hpe-icon hpe-more hpe-rotate-90"></span>
+                <span uxReorderableHandle class="hpe-icon hpe-more hpe-rotate-90"></span>
             </td>
             <td>{{ item.document }}</td>
             <td>{{ item.author }}</td>
             <td>{{ item.date | date }}</td>
             <td>
-                <ux-spark theme="chart2" [value]="item.completed" barHeight="3" 
+                <ux-spark theme="chart2" [value]="item.completed" barHeight="3"
                     [inlineLabel]="item.completed + '%'"></ux-spark>
             </td>
             <td class="text-center">

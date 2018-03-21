@@ -1345,13 +1345,16 @@
                     "version": "Angular",
                     "usage": [
                         {
-                            "title": "Selectors",
-                            "content":
-                                "[uxSortableContainer]"
+                            "title": "Selector",
+                            "content": "[uxReorderable]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxReorderableHandle]"
                         },
                         {
                             "title": "Module",
-                            "content": "SortableModule"
+                            "content": "ReorderableModule"
                         }
                     ]
                 },
