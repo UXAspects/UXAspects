@@ -1,0 +1,28 @@
+<div [class.demo-dark]="dark">
+    <ux-toolbar-search [direction]="direction" [class.toolbar-search-inverse]="dark">
+        <button uxToolbarSearchToggle type="button" class="btn btn-link button-secondary"
+            aria-label="Toggle Search">
+            <span class="hpe-icon hpe-search"></span>
+        </button>
+        <input uxToolbarSearchField type="text" aria-label="Search" [(ngModel)]="searchText">
+    </ux-toolbar-search>
+</div>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 col-sm-12">
+                        <ux-toggleswitch [(value)]="dark">Dark Background</ux-toggleswitch>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="direction">direction</label>
+                        <ux-radio-button [(value)]="direction" option="left">left</ux-radio-button>
+                        <ux-radio-button [(value)]="direction" option="right">right</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
