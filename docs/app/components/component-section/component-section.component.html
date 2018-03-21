@@ -29,11 +29,19 @@
             </a>
 
             <!-- Show Deprecated label if required -->
-            <span *ngIf="deprecated" class="label label-critical uxd-component-section-labels"
+            <span *ngIf="deprecated && !deprecatedLink" class="label label-critical uxd-component-section-labels"
                 tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
                 container="body" placement="bottom">
                 Deprecated
             </span>
+
+            <!-- Deprecated label with link to another section -->
+            <a *ngIf="deprecatedLink" class="label label-critical uxd-component-section-labels"
+                [routerLink]="deprecatedLink.link" [fragment]="deprecatedLink.fragment"
+                tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+                container="body" placement="bottom">
+                Deprecated
+            </a>
         </div>
 
     </ux-ebox-header>
