@@ -1065,7 +1065,7 @@
                     "usage": [
                         {
                             "title": "Selector",
-                            "content": "uxd-toolbar-search"
+                            "content": "ux-toolbar-search"
                         },
                         {
                             "title": "Module",
