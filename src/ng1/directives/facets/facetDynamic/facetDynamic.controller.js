@@ -18,6 +18,10 @@ export default function FacetDynamicCtrl($scope) {
     text: ""
   };
 
+  if (!$scope.facetOptionTypeahead) {
+    $scope.facetOptionTypeahead = "option.name +' (' + option.count + ')'";
+  }
+
   vm.expanded = true;
 
   vm.toggleExpand = function ($event) {

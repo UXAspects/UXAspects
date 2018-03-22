@@ -18,8 +18,8 @@
 			</a>
   		</li>
   		<li class="input-container">
-  			<textarea rows="1" ng-attr-placeholder="{{fac.placeholder}}..." type="text" ng-model="fac.dynamicTypeaheadSelected.text"
-  			typeahead="option as (option.name +' (' + option.count + ')') for option in fac.facetOptions.options | facetDynamicSelectedFilter: fac.selectedDynamicFacets | facetDynamicVisibleFilter: fac.visibleFacetOptions | filter: $viewValue | limitTo: fac.maxDisplayableItems"
+        <textarea rows="1" ng-attr-placeholder="{{fac.placeholder}}..." type="text" ng-model="fac.dynamicTypeaheadSelected.text"
+  			typeahead="option as ({{facetOptionTypeahead}}) for option in fac.facetOptions.options | facetDynamicSelectedFilter: fac.selectedDynamicFacets | facetDynamicVisibleFilter: fac.visibleFacetOptions | filter: $viewValue | limitTo: fac.maxDisplayableItems"
         ng-change="fac.dynamicTypeaheadOnChange()"
         regex="regex" apply-class="fontClass"
   			typeahead-min-length="fac.minCharsForTypeahead"
