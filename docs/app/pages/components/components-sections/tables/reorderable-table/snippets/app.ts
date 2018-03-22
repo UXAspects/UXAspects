@@ -23,14 +23,14 @@ export class AppComponent {
         }
     }
 
-    movedown(data: ReorderableTableData, index: number, event: MouseEvent): void {
+    movedown(data: ReorderableTableData, index: number, event: KeyboardEvent): void {
         const target = Math.min(index + 1, this.data.length - 1);
         this.data[index] = this.data[target];
         this.data[target] = data;
         event.preventDefault();
     }
 
-    moveup(data: ReorderableTableData, index: number, event: MouseEvent): void {
+    moveup(data: ReorderableTableData, index: number, event: KeyboardEvent): void {
         const target = Math.max(index - 1, 0);
         this.data[index] = this.data[target];
         this.data[target] = data;
