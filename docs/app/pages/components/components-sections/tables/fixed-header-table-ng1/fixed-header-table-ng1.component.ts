@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
@@ -6,7 +6,8 @@ import { ICodePen } from '../../../../../interfaces/ICodePen';
 
 @Component({
     selector: 'uxd-components-fixed-header-table-ng1',
-    templateUrl: './fixed-header-table-ng1.component.html'
+    templateUrl: './fixed-header-table-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsFixedHeaderTableNg1Component')
 export class ComponentsFixedHeaderTableNg1Component extends BaseDocumentationSection implements ICodePenProvider {

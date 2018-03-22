@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
@@ -6,7 +6,8 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 
 @Component({
     selector: 'uxd-components-single-column-sorting',
-    templateUrl: './single-column-sorting-ng1.component.html'
+    templateUrl: './single-column-sorting-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsSingleColumnSortingNg1Component')
 export class ComponentsSingleColumnSortingNg1Component extends BaseDocumentationSection implements ICodePenProvider {
