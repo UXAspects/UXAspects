@@ -95,6 +95,9 @@ const ROUTES: Routes = [
     path: 'radiobuttons',
     loadChildren: './radiobuttons/radiobuttons.module#RadioButtonsTestPageModule'
   }, {
+    path: 'reorderable-table',
+    loadChildren: './reorderable-table/reorderable-table.module#ReorderableTableTestPageModule'
+  }, {
     path: 'search-builder',
     loadChildren: './search-builder/search-builder.module#SearchBuilderTestPageModule'
   }, {
