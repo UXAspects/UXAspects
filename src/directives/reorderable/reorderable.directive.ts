@@ -110,45 +110,6 @@ export class ReorderableDirective implements OnInit, OnDestroy {
         return this.handles.length === 0 ? true : !!this.handles.find(_handle => _handle.nativeElement === handle);
     }
 
-    /**
-     * This function will get all computed styles on the source element
-     * and apply them inline to the target element and this will repeat for all 
-     * all of its children. This ensures the element will be identical regardless
-     * of the location in the DOM tree
-     * @param source the element to get all the computed styles from
-     * @param target the element to apply all the inline styles to - this should be a clone of the source element
-     */
-    // private setStyles(source: Element, target: Element): void {
-
-    //     // get all the computed styles on the source element
-    //     const computed = getComputedStyle(source);
-
-    //     // store evaluated styles to reduce reflow
-    //     const styles = new Map<string, string>();
-
-    //     // iterate each style
-    //     for (let idx = 0; idx < computed.length; idx++) {
-
-    //         // get the key and associated value
-    //         const key = computed.item(idx);
-
-    //         // store the value in an object that we can later loook them up without reflow
-    //         styles.set(key, computed[key]);
-    //     }
-
-    //     // style children first - allows all style measuring to be done before style setting to minimise reflow
-    //     for (let idx = 0; idx < source.childElementCount; idx++) {
-    //         this.setStyles(source.children.item(idx), target.children.item(idx));
-    //     }
-
-    //     // apply styles here - after all measurements
-    //     styles.forEach((value, key) => this._renderer.setStyle(target, key, value));
-
-    //     // enforce the size to remain fixed - IE can resize if part of element is off screen
-    //     this._renderer.setStyle(target, 'min-width', styles.get('width'));
-    //     this._renderer.setStyle(target, 'min-height', styles.get('height'));
-    // }
-
     private setTableCellWidths(source: Element, target: Element): void {
 
         // if it is not a table row then skip this
