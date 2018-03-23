@@ -2,9 +2,7 @@ import { Directive, Input, ElementRef, OnInit, ContentChildren, QueryList, OnDes
 import { Drake } from 'dragula';
 import { ReorderableHandleDirective } from './reorderable-handle.directive';
 import { ReorderableModelDirective } from './reorderable-model.directive';
-
-// WORKAROUND: ng-packagr issue: https://github.com/dherges/ng-packagr/issues/163
-const dragula = require('dragula');
+import { dragula } from './dragula';
 
 @Directive({
     selector: '[uxReorderable]'
