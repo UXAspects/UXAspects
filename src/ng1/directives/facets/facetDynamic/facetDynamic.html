@@ -11,11 +11,10 @@
    	</ul>
   	<ul ng-if="fac.useTypeaheadControl" class="facet-options facet-options-dynamic" ng-show="fac.expanded">
   		<li ng-repeat="facet in fac.selectedDynamicFacets" class="facet-option">
-  			<a href="" ng-click="fac.remove(facet,$index)">
-    			<span class="facet-option-check hpe-icon hpe-checkmark" aria-label="Selected"></span>
-    			<span class="facet-option-name" ng-bind="facet.option.name"></span>&nbsp;
-    			<span class="facet-option-count">(<span ng-bind="facet.option.count"></span>)</span>
-			</a>
+        <a href="" ng-click="fac.remove(facet,$index)">
+          <ng-include ng-if="!!(facetOptionSelectedTemplate)" src="facetOptionSelectedTemplate"></ng-include>
+          <ng-include ng-if="!(!!(facetOptionSelectedTemplate))" src="'facets/facetOption/facetOptionSelectedDefault.html'"></ng-include>
+        </a>
   		</li>
   		<li class="input-container">
         <textarea rows="1" ng-attr-placeholder="{{fac.placeholder}}..." type="text" ng-model="fac.dynamicTypeaheadSelected.text"
