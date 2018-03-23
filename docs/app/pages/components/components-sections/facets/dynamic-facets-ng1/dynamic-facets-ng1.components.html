@@ -10,12 +10,6 @@
     <code>facet-options</code> attribute with an object containing a <code>title</code> attribute, and an <code>options</code>    property containing collection of objects that follow the interface for the <code>facet-option</code> defined above.
 </p>
 
-<blockquote>
-    <p><strong>Note</strong>: For this type of facet, however, each one of these objects is
-    accessible via the <code>data</code> attribute. Since both <code>name</code> and <code>count</code> are properties within that object,
-    they should be accessed as <code>data.name</code> and <code>data.count</code>, respectively.</p>
-</blockquote>
-
 <p>
     The Dynamic Facet can be used in the same <code>facet-container</code> as the standard <code>facet</code> directive.
 </p>
@@ -69,8 +63,16 @@
 <p>Set the <code>placeholder</code> attribute to a string property to set the placeholder text that will be shown in the text
     search input control.</p>
 
-<p>If desired, the user has the ability to specify a different template for all dynamic facet options by setting the <code>facet-option-template</code>
-    attribute to a template. </p>
+<p>The Dynamic Facet also supports customization of the markup used for facet options (selected and unselected) and the content shown in the typeahead.
+   To customize the unselected facet option, the user should set the <code>facet-option-template</code> property to a template. Any data available inside
+   each object within the <code>options</code> array can be accessed using "data" as prefix (e.g. <code>data.name</code>, <code>data.count</code>).
+
+<p>To customize the typeahed content, the user should set the <code>facet-option-typeahead</code> attribute. Any data available inside each object within
+    the <code>options</code> array can be accessed using "option" as prefix (e.g. <code>option.name</code>, <code>option.count</code>).</p>
+
+<p>When an entry in the typeahead is selected, it will be added to the list of facet values. To control the markup used to display those selected options,
+   the user must set the <code>facet-option-selected-template</code> property to a template. Any data available inside each object within the <code>options</code>
+   array can be accessed using "facet.option" as prefix (e.g. <code>facet.option.name</code>, <code>facet.option.count</code>).</p>
 
 <p>Below is an example for the use of this directive:</p>
 
@@ -83,5 +85,8 @@
     </tab>
     <tab heading="Facet Option Template">
         <uxd-snippet language="html" [content]="snippets.compiled.facetOptionTemplateSnippetHtml"></uxd-snippet>
+    </tab>
+    <tab heading="Facet Option Selected Template">
+        <uxd-snippet language="html" [content]="snippets.compiled.facetOptionSelectedTemplateSnippetHtml"></uxd-snippet>
     </tab>
 </tabset>

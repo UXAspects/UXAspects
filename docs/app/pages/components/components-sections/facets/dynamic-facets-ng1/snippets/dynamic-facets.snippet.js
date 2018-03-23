@@ -40,6 +40,8 @@ function TestCtrl(exampleDataService) {
         };
     });
 
+    vm.facetOptionTypeahead = "option.name + ' - ' + option.count + ' books'";
+
     vm.longListCallback = function (textInput, optionList) {
         return optionList;
     };
