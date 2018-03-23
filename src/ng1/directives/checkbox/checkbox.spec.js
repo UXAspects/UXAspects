@@ -133,16 +133,19 @@ describe('checkboxes', function () {
         // create a new scope
         $scope = $rootScope.$new();
 
-        $scope.vm = {};
+        // add variables to controller as property
+        $scope.vm = props;
 
-        // iterate each prop and add to scope
+        // prepare the controller
+        var ctrlFn = $controller('CheckboxCtrl', { $scope: $scope }, true);
+
+        // add all props to instance (as this component has bindToController: true)
         for (var prop in props) {
-            $scope.vm[prop] = props[prop];
+            ctrlFn.instance[prop] = props[prop];
         }
 
-        var ctrl = $controller('CheckboxCtrl', {
-            $scope: $scope
-        }, props);
+        // create the controller
+        var ctrl = ctrlFn();
 
         // perform initial digest
         $scope.$digest();

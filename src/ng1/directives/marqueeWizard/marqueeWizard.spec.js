@@ -1,13 +1,14 @@
 describe('marquee wizard', function () {
-    var $compile, $rootScope, element, $scope, $templateCache;
+    var $compile, $rootScope, element, $scope, $templateCache, $timeout;
     var vm = {};
 
     beforeEach(module("ux-aspects.marqueeWizard"));
     
-    beforeEach(inject(function (_$compile_, _$rootScope_, _$templateCache_) {
+    beforeEach(inject(function (_$compile_, _$rootScope_, _$templateCache_, _$timeout_) {
         $compile = _$compile_;
         $rootScope = _$rootScope_;
         $templateCache = _$templateCache_;
+        $timeout = _$timeout_;
         $scope = $rootScope.$new();
     }));
 
@@ -67,6 +68,7 @@ describe('marquee wizard', function () {
                 '</form>';
 
             element = $compile(html)($scope);
+            $timeout.flush();
             $scope.$digest();
         });
 
