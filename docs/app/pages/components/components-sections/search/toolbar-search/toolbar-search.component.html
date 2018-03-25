@@ -1,3 +1,36 @@
+<div class="demo-toolbar">
+    <div class="demo-toolbar-left">
+        <ux-toolbar-search direction="right" (search)="onSearch($event)">
+            <button uxToolbarSearchButton type="button" aria-label="Toggle Search">
+                <span class="hpe-icon hpe-search"></span>
+            </button>
+            <input uxToolbarSearchField type="text" placeholder="Search" aria-label="Search">
+        </ux-toolbar-search>
+        <button type="button" class="btn btn-link btn-icon button-secondary">
+            <span class="hpe-icon hpe-add"></span>
+        </button>
+        <button type="button" class="btn btn-link btn-icon button-secondary">
+            <span class="hpe-icon hpe-edit"></span>
+        </button>
+    </div>
+    <div class="demo-toolbar-right">
+        <button type="button" class="btn btn-link btn-icon button-secondary">
+            <span class="hpe-icon hpe-grid"></span>
+        </button>
+        <button type="button" class="btn btn-link btn-icon button-secondary">
+            <span class="hpe-icon hpe-list"></span>
+        </button>
+        <ux-toolbar-search direction="left" (search)="onSearch($event)">
+            <button uxToolbarSearchButton type="button" aria-label="Toggle Search">
+                <span class="hpe-icon hpe-search"></span>
+            </button>
+            <input uxToolbarSearchField type="text" placeholder="Search" aria-label="Search">
+        </ux-toolbar-search>
+    </div>
+</div>
+
+<p>Searched for: <strong>{{currentSearchText}}</strong></p>
+
 <hr>
 
 <p>

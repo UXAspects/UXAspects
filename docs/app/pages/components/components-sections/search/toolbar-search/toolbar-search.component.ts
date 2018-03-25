@@ -6,13 +6,21 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-toolbar-search',
-    templateUrl: 'toolbar-search.component.html'
+    templateUrl: 'toolbar-search.component.html',
+    styleUrls: ['toolbar-search.component.less']
 })
 @DocumentationSectionComponent('ComponentsToolbarSearchComponent')
 export class ComponentsToolbarSearchComponent extends BaseDocumentationSection implements IPlunkProvider {
+
     plunk: IPlunk;
+
+    currentSearchText: string = '';
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    onSearch(searchText: string) {
+        this.currentSearchText = searchText;
     }
 }

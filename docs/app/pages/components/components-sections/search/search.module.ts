@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { SearchBuilderModule, ItemDisplayPanelModule } from '../../../../../../src/index';
+import { SearchBuilderModule, ItemDisplayPanelModule, ToolbarSearchModule, ToggleSwitchModule, RadioButtonModule } from '../../../../../../src/index';
 
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
@@ -16,6 +16,7 @@ import { ComponentsSearchHistoryNg1Component } from './search-history-ng1/search
 import { ComponentsSearchToolbarNg1Component } from './search-toolbar-ng1/search-toolbar-ng1.component';
 import { ComponentsToolbarSearchComponent } from './toolbar-search/toolbar-search.component';
 import { ComponentsSearchBuilderComponent } from './search-builder/search-builder.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 const SECTIONS = [
     ComponentsSearchBuilderNg1Component,
@@ -37,15 +38,19 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsModule,
-        ModalModule.forRoot(),
-        DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES),
-        SearchBuilderModule,
-        ItemDisplayPanelModule,
         FormsModule,
-        CommonModule
+        RouterModule.forChild(ROUTES),
+        CommonModule,
+        AccordionModule.forRoot(),
+        ModalModule.forRoot(),
+        TabsModule,
+        DocumentationComponentsModule,
+        ItemDisplayPanelModule,
+        RadioButtonModule,
+        SearchBuilderModule,
+        ToggleSwitchModule,
+        ToolbarSearchModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
