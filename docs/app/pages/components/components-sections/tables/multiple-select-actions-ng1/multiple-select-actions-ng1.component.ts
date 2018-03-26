@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-multiple-select-actions',
-    templateUrl: './multiple-select-actions-ng1.component.html'
+    templateUrl: './multiple-select-actions-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsMultipleSelectActionsNg1Component')
 export class ComponentsMultipleSelectActionsNg1Component extends BaseDocumentationSection {

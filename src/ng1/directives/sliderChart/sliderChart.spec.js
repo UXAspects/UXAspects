@@ -1,12 +1,13 @@
 describe('Slider Chart Control', function () {
-    var $compile, $rootScope, $scope, $controller;
+    var $compile, $rootScope, $scope, $controller, $timeout;
 
     beforeEach(module("ux-aspects.sliderChart"));
 
-    beforeEach(inject(function (_$compile_, _$rootScope_, _$controller_) {
+    beforeEach(inject(function (_$compile_, _$rootScope_, _$controller_, _$timeout_) {
         $compile = _$compile_;
         $rootScope = _$rootScope_;
         $controller = _$controller_;
+        $timeout = _$timeout_;
         $scope = $rootScope.$new();
     }));
 
@@ -76,21 +77,29 @@ describe('Slider Chart Control', function () {
 
         // create a new scope
         $scope = $rootScope.$new();
-
-        $scope.vm = {};
-
-        // iterate each prop and add to scope
+    
+        // add variables to controller as property
+        $scope.vm = props;
+    
+        // prepare the controller
+        var ctrlFn = $controller('SliderChartCtrl', {
+          $scope: $scope
+        }, true);
+    
+        // add all props to instance (as this component has bindToController: true)
         for (var prop in props) {
-            $scope.vm[prop] = props[prop];
+          ctrlFn.instance[prop] = props[prop];
         }
-
-        var ctrl = $controller('SliderChartCtrl', {
-            $scope: $scope
-        }, props);
+    
+        // create the controller
+        var ctrl = ctrlFn();
+    
+        // ensure we flush timeouts as this control is instantiated after a timeout is fired
+        $timeout.flush();
 
         // perform initial digest
         $scope.$digest();
-
+    
         return ctrl;
     }
 

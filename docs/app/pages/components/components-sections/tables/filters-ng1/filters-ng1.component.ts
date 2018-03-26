@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-filters',
-    templateUrl: './filters-ng1.component.html'
+    templateUrl: './filters-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsFiltersNg1Component')
 export class ComponentsFiltersNg1Component extends BaseDocumentationSection {

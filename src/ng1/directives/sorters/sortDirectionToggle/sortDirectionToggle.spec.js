@@ -1,12 +1,13 @@
 describe('sort direction toggle directive', function () {
-  var $compile, $rootScope, $scope;
+  var $compile, $rootScope, $scope, $timeout;
   var suite = {};
 
   beforeEach(module("ux-aspects.sorters"));
 
-  beforeEach(inject(function (_$compile_, _$rootScope_) {
+  beforeEach(inject(function (_$compile_, _$rootScope_, _$timeout_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
+    $timeout = _$timeout_;
     $scope = $rootScope.$new();
 
     $scope.sortDirectionToggle = {
@@ -38,6 +39,7 @@ describe('sort direction toggle directive', function () {
     if (!suite.element) {
       suite.element = $compile(html)($scope);
       suite.elementDescend = $compile(htmlDescend)($scope);
+      $timeout.flush();
       $scope.$digest();
     }
   }));
@@ -49,7 +51,7 @@ describe('sort direction toggle directive', function () {
   });
 
   it('should display the default value', function () {
-    expect(suite.element.find('button').first().text().slice(0, 4)).toBe('Name');
+    expect(suite.element.find('button').first().text().trim()).toBe('Name');
   });
 
   it('should show the icon ascending by default', function () {

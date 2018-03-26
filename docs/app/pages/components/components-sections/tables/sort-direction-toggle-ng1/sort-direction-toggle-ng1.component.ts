@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { ICodePenProvider } from '../../../../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../../../../interfaces/ICodePen';
@@ -6,7 +6,8 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 
 @Component({
     selector: 'uxd-components-sort-direction-toggle',
-    templateUrl: './sort-direction-toggle-ng1.component.html'
+    templateUrl: './sort-direction-toggle-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsSortDirectionToggleNg1Component')
 export class ComponentsSortDirectionToggleNg1Component extends BaseDocumentationSection implements ICodePenProvider {
