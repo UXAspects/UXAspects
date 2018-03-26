@@ -30,7 +30,7 @@ import { ToolbarSearchButtonDirective } from './toolbar-search-button.directive'
     animations: [
         trigger('expanded', [
             state(
-                'false',
+                'collapsed',
                 style({
                     width: '{{initialWidth}}'
                 }),
@@ -39,18 +39,19 @@ import { ToolbarSearchButtonDirective } from './toolbar-search-button.directive'
                 }
             ),
             state(
-                'true',
+                'expanded',
                 style({
                     width: '100%'
                 })
             ),
-            transition('false <=> true', [animate('0.3s ease-out')])
+            transition('collapsed <=> expanded', [animate('0.3s ease-out')])
         ])
     ]
 })
 export class ToolbarSearchComponent implements AfterContentInit {
 
     @HostBinding('class.expanded')
+    @Input()
     get expanded(): boolean {
         return this._expanded;
     }
@@ -58,12 +59,17 @@ export class ToolbarSearchComponent implements AfterContentInit {
     set expanded(value: boolean) {
         this._expanded = value;
 
+        this.expandedChange.emit(value);
+
         if (value) {
             // Set focus on the input when expanded
             this._field.focus();
         } else {
             // Clear text when contracted
-            this._field.text = '';
+            this._field.clear();
+
+            // Remove focus (works around an IE issue where the caret remains visible)
+            this._field.blur();
         }
     }
 
@@ -75,16 +81,20 @@ export class ToolbarSearchComponent implements AfterContentInit {
     @HostBinding('class.inverse')
     inverse = false;
 
-    @Output() search = new EventEmitter<string>();
+    @Output()
+    expandedChange = new EventEmitter<boolean>();
+
+    @Output()
+    search = new EventEmitter<string>();
 
     private _expanded: boolean = false;
 
     @HostBinding('@expanded')
     private get _expandedAnimation(): any {
         return {
-            value: this.expanded,
+            value: this.expanded ? 'expanded' : 'collapsed',
             params: {
-                initialWidth: this._button.width
+                initialWidth: this._button.width + 'px'
             }
         };
     }
@@ -109,9 +119,8 @@ export class ToolbarSearchComponent implements AfterContentInit {
     }
 
     ngAfterContentInit() {
-
         // Subscribe to the submit event on the input field, triggering the search event
-        this._field.submit.subscribe(text => this.search.emit(text));
+        this._field.submit.subscribe((text: string) => this.search.emit(text));
 
         // Subscribe to cancel events coming from the input field
         this._field.cancel.subscribe(() => (this.expanded = false));
@@ -131,7 +140,7 @@ export class ToolbarSearchComponent implements AfterContentInit {
 
     @HostListener('@expanded.start', ['$event'])
     animationStart(event: AnimationEvent) {
-        if (event.toState.toString() === 'true') {
+        if (event.toState === 'expanded') {
             this._position = 'absolute';
             this.enablePlaceholder(true);
         }
@@ -139,21 +148,20 @@ export class ToolbarSearchComponent implements AfterContentInit {
 
     @HostListener('@expanded.done', ['$event'])
     animationDone(event: AnimationEvent) {
-        if (event.toState.toString() === 'false') {
+        if (event.toState === 'collapsed') {
             this._position = 'relative';
             this.enablePlaceholder(false);
         }
     }
 
     private createPlaceholder() {
-
         // Get width and height of the component
         const styles = getComputedStyle(this._elementRef.nativeElement);
 
         // Create invisible div with the same dimensions
         this._placeholder = this._document.createElement('div');
         this._placeholder.style.display = 'none';
-        this._placeholder.style.width = this._button.width;
+        this._placeholder.style.width = this._button.width + 'px';
         this._placeholder.style.height = styles.height;
         this._placeholder.style.visibility = 'hidden';
 

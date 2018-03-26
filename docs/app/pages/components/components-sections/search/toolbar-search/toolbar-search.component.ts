@@ -12,15 +12,47 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
 @DocumentationSectionComponent('ComponentsToolbarSearchComponent')
 export class ComponentsToolbarSearchComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    plunk: IPlunk;
+    plunk: IPlunk = {
+        files: {
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.css': this.snippets.raw.appCss
+        },
+        modules: [
+            {
+                imports: ['TooltipModule'],
+                library: 'ngx-bootstrap/tooltip',
+                forRoot: true
+            },
+            {
+                imports: ['ToolbarSearchModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
+    };
 
-    currentSearchText: string = '';
+    expanded: boolean;
+    expandedRight: boolean;
+    searchText: string;
+    searchedFor: string = '';
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
     onSearch(searchText: string) {
-        this.currentSearchText = searchText;
+        // Execute search here
+        this.searchedFor = searchText;
+
+        // Close the search field if needed
+        this.expanded = false;
+    }
+
+    onSearchRight(searchText: string) {
+        // Execute search here
+        this.searchedFor = searchText;
+
+        // Close the search field if needed
+        this.expandedRight = false;
     }
 }

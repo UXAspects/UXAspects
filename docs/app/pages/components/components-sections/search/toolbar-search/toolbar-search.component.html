@@ -1,35 +1,44 @@
 <div class="demo-toolbar">
+
     <div class="demo-toolbar-left">
-        <ux-toolbar-search direction="right" (search)="onSearch($event)">
-            <button uxToolbarSearchButton type="button" aria-label="Toggle Search">
+        <ux-toolbar-search [(expanded)]="expanded" direction="right" (search)="onSearch($event)">
+            <input uxToolbarSearchField #searchField type="text" placeholder="Search" aria-label="Search"
+                [(ngModel)]="searchText">
+            <button uxToolbarSearchButton type="button" aria-label="Toggle Search" tooltip="Search">
                 <span class="hpe-icon hpe-search"></span>
             </button>
-            <input uxToolbarSearchField type="text" placeholder="Search" aria-label="Search">
+            <button *ngIf="searchText" type="button" class="ux-toolbar-search-clear"
+                (click)="searchText = ''; searchField.focus()">
+                <span class="hpe-icon hpe-close"></span>
+            </button>
         </ux-toolbar-search>
-        <button type="button" class="btn btn-link btn-icon button-secondary">
+        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="Add">
             <span class="hpe-icon hpe-add"></span>
         </button>
-        <button type="button" class="btn btn-link btn-icon button-secondary">
+        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="Edit">
             <span class="hpe-icon hpe-edit"></span>
         </button>
     </div>
+
     <div class="demo-toolbar-right">
-        <button type="button" class="btn btn-link btn-icon button-secondary">
+        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="Grid View">
             <span class="hpe-icon hpe-grid"></span>
         </button>
-        <button type="button" class="btn btn-link btn-icon button-secondary">
+        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="List View">
             <span class="hpe-icon hpe-list"></span>
         </button>
-        <ux-toolbar-search direction="left" (search)="onSearch($event)">
-            <button uxToolbarSearchButton type="button" aria-label="Toggle Search">
+        <ux-toolbar-search [(expanded)]="expandedRight" direction="left" (search)="onSearchRight($event)">
+            <button uxToolbarSearchButton type="button" aria-label="Toggle Search"
+                tooltip="Search (Right)" container="body">
                 <span class="hpe-icon hpe-search"></span>
             </button>
             <input uxToolbarSearchField type="text" placeholder="Search" aria-label="Search">
         </ux-toolbar-search>
     </div>
+    
 </div>
 
-<p>Searched for: <strong>{{currentSearchText}}</strong></p>
+<p class="m-t-md">Searched for: <strong>{{searchedFor}}</strong></p>
 
 <hr>
 
@@ -37,27 +46,56 @@
     The <code>ux-toolbar-search</code> component can be used to toggle the visibility of a search input box in the
     context of a toolbar. Within this component, create an input field with the attribute
     <code>uxToolbarSearchField</code>, which will act as the search input box, and a
-    button with the attribute <code>uxToolbarSearchToggle</code>, which will toggle the visibility of the input field. A
-    <a href="https://valor-software.com/ngx-bootstrap/#/typeahead#async-data">typeahead</a> dropdown can be added to the
-    input field if required; alternatively, a search results page could be loaded by hooking into the
-    <code>(keyup.enter)</code> event.
+    button with the attribute <code>uxToolbarSearchButton</code>, which will toggle the visibility of the input field,
+    and submit the search text when input has been provided. Then, use the <code>(search)</code> event to trigger the
+    application's search routine.
 </p>
 
 <p>
-    For use in the masthead or against any kind of dark background, apply the <code>toolbar-search-inverse</code> class
-    for an inverted color scheme.
+    The search input field will expand to fill the dimensions of its parent, overlaying any other controls present. To
+    support this, ensure that the parent container has <code>position: relative</code> specified.
+</p>
+
+<p>
+    By default, the escape key is used to collapse the search field. Other keys or events can be used by binding to the
+    <code>expanded</code> input property. For example, to collapse when focus is lost, attach a <code>(blur)</code>
+    handler to the input field and set the expanded state to false.
+</p>
+
+<p>
+    Other components can be added as required. The toolbar search component on the left above shows how to include an
+    optional "clear" button to the input field using the built-in <code>ux-toolbar-search-clear</code> class. Another
+    common use-case is to include a <a href="https://valor-software.com/ngx-bootstrap/#/typeahead">typeahead</a> list to
+    hint results as the user is typing.
 </p>
 
 <p>The following properties are available to configure <code>ux-toolbar-search</code>:</p>
 
 <uxd-api-properties tableTitle="Inputs">
-    <tr uxd-api-property name="direction" type="'left' | 'right'">
-        The direction in which the search box will expand.
+    <tr uxd-api-property name="expanded" type="boolean">
+        Whether the input field is visible. Use this to collapse or expand the control in response to other events.
+    </tr>
+    <tr uxd-api-property name="direction" type="'left' | 'right'" defaultValue="right">
+        The direction in which the search box will expand. If the search button is aligned to the right edge of the
+        container, specify <code>left</code>.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Output">
+    <tr uxd-api-property name="search" type="string">
+        Emitted when a search query has been submitted, either by pressing enter when the search field has focus, or by
+        clicking the search button when the search field contains text. The event contains the search text.
     </tr>
 </uxd-api-properties>
 
 <tabset>
     <tab heading="HTML">
         <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
     </tab>
 </tabset>

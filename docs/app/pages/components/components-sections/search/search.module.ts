@@ -2,6 +2,8 @@ import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SearchBuilderModule, ItemDisplayPanelModule, ToolbarSearchModule, ToggleSwitchModule, RadioButtonModule } from '../../../../../../src/index';
@@ -16,7 +18,6 @@ import { ComponentsSearchHistoryNg1Component } from './search-history-ng1/search
 import { ComponentsSearchToolbarNg1Component } from './search-toolbar-ng1/search-toolbar-ng1.component';
 import { ComponentsToolbarSearchComponent } from './toolbar-search/toolbar-search.component';
 import { ComponentsSearchBuilderComponent } from './search-builder/search-builder.component';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 const SECTIONS = [
     ComponentsSearchBuilderNg1Component,
@@ -44,6 +45,7 @@ const ROUTES = [
         AccordionModule.forRoot(),
         ModalModule.forRoot(),
         TabsModule,
+        TooltipModule.forRoot(),
         DocumentationComponentsModule,
         ItemDisplayPanelModule,
         RadioButtonModule,

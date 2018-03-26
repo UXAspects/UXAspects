@@ -11,9 +11,8 @@ export class ToolbarSearchButtonDirective {
     @Output()
     clicked = new EventEmitter<void>();
 
-    get width(): string {
-        const styles = getComputedStyle(this._elementRef.nativeElement);
-        return styles.width;
+    get width(): number {
+        return this._elementRef.nativeElement.offsetWidth;
     }
 
     constructor(private _elementRef: ElementRef) { }
