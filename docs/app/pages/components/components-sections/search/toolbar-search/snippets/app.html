@@ -1,28 +1,41 @@
-<div [class.demo-dark]="dark">
-    <ux-toolbar-search [direction]="direction" [class.toolbar-search-inverse]="dark">
-        <button uxToolbarSearchToggle type="button" class="btn btn-link button-secondary"
-            aria-label="Toggle Search">
-            <span class="hpe-icon hpe-search"></span>
+<div class="demo-toolbar">
+
+    <div class="demo-toolbar-left">
+        <ux-toolbar-search [(expanded)]="expanded" direction="right" (search)="onSearch($event)">
+            <input uxToolbarSearchField #searchField type="text" placeholder="Search" aria-label="Search"
+                [(ngModel)]="searchText">
+            <button uxToolbarSearchButton type="button" aria-label="Toggle Search" tooltip="Search">
+                <span class="hpe-icon hpe-search"></span>
+            </button>
+            <button *ngIf="searchText" type="button" class="ux-toolbar-search-clear"
+                (click)="searchText = ''; searchField.focus()">
+                <span class="hpe-icon hpe-close"></span>
+            </button>
+        </ux-toolbar-search>
+        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="Add">
+            <span class="hpe-icon hpe-add"></span>
         </button>
-        <input uxToolbarSearchField type="text" aria-label="Search" [(ngModel)]="searchText">
-    </ux-toolbar-search>
+        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="Edit">
+            <span class="hpe-icon hpe-edit"></span>
+        </button>
+    </div>
+
+    <div class="demo-toolbar-right">
+        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="Grid View">
+            <span class="hpe-icon hpe-grid"></span>
+        </button>
+        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="List View">
+            <span class="hpe-icon hpe-list"></span>
+        </button>
+        <ux-toolbar-search [(expanded)]="expandedRight" direction="left" (search)="onSearchRight($event)">
+            <button uxToolbarSearchButton type="button" aria-label="Toggle Search"
+                tooltip="Search (Right)" container="body">
+                <span class="hpe-icon hpe-search"></span>
+            </button>
+            <input uxToolbarSearchField type="text" placeholder="Search" aria-label="Search">
+        </ux-toolbar-search>
+    </div>
+    
 </div>
 
-<div class="row uxd-customize-example">
-    <div class="col-md-12">
-        <accordion>
-            <accordion-group class="accordion-chevron" heading="Customize Example...">
-                <div class="row uxd-customize-row">
-                    <div class="col-md-6 col-sm-12">
-                        <ux-toggleswitch [(value)]="dark">Dark Background</ux-toggleswitch>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label for="direction">direction</label>
-                        <ux-radio-button [(value)]="direction" option="left">left</ux-radio-button>
-                        <ux-radio-button [(value)]="direction" option="right">right</ux-radio-button>
-                    </div>
-                </div>
-            </accordion-group>
-        </accordion>
-    </div>
-</div>
+<p class="m-t-md">Searched for: <strong>{{searchedFor}}</strong></p>
