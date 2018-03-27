@@ -2,12 +2,14 @@
 
     <div class="demo-toolbar-left">
         <ux-toolbar-search [(expanded)]="expanded" direction="right" (search)="onSearch($event)">
-            <input uxToolbarSearchField #searchField type="text" placeholder="Search" aria-label="Search"
-                [(ngModel)]="searchText">
-            <button uxToolbarSearchButton type="button" aria-label="Toggle Search" tooltip="Search">
+            <input uxToolbarSearchField #searchField type="text" class="form-control" placeholder="Search"
+                aria-label="Search" [(ngModel)]="searchText">
+            <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary"
+                aria-label="Toggle Search" tooltip="Search">
                 <span class="hpe-icon hpe-search"></span>
             </button>
-            <button *ngIf="searchText" type="button" class="ux-toolbar-search-clear"
+            <button *ngIf="searchText" type="button"
+                class="btn btn-link btn-icon button-secondary ux-toolbar-search-clear"
                 (click)="searchText = ''; searchField.focus()">
                 <span class="hpe-icon hpe-close"></span>
             </button>
@@ -28,12 +30,12 @@
             <span class="hpe-icon hpe-list"></span>
         </button>
         <ux-toolbar-search direction="left" (search)="onSearchRight($event)">
-            <button uxToolbarSearchButton type="button" aria-label="Toggle Search"
-                tooltip="Search" container="body">
+            <input uxToolbarSearchField #searchFieldRight type="text" class="form-control"
+                placeholder="Search" aria-label="Search">
+            <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary"
+                aria-label="Toggle Search"tooltip="Search" container="body">
                 <span class="hpe-icon hpe-search"></span>
             </button>
-            <input uxToolbarSearchField #searchFieldRight type="text" placeholder="Search"
-                aria-label="Search">
         </ux-toolbar-search>
     </div>
     
