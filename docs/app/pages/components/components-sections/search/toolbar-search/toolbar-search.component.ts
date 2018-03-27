@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
@@ -32,9 +32,11 @@ export class ComponentsToolbarSearchComponent extends BaseDocumentationSection i
     };
 
     expanded: boolean;
-    expandedRight: boolean;
     searchText: string;
     searchedFor: string = '';
+
+    @ViewChild('searchFieldRight')
+    searchFieldRight: ElementRef;
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
@@ -51,8 +53,6 @@ export class ComponentsToolbarSearchComponent extends BaseDocumentationSection i
     onSearchRight(searchText: string) {
         // Execute search here
         this.searchedFor = searchText;
-
-        // Close the search field if needed
-        this.expandedRight = false;
+        this.searchFieldRight.nativeElement.blur();
     }
 }

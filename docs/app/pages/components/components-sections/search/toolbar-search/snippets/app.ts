@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
     selector: 'app',
@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent {
 
     expanded: boolean;
-    expandedRight: boolean;
     searchText: string;
     searchedFor: string = '';
+
+    @ViewChild('searchFieldRight')
+    searchFieldRight: ElementRef;
 
     onSearch(searchText: string) {
         // Execute search here
@@ -23,8 +25,6 @@ export class AppComponent {
     onSearchRight(searchText: string) {
         // Execute search here
         this.searchedFor = searchText;
-
-        // Close the search field if needed
-        this.expandedRight = false;
+        this.searchFieldRight.nativeElement.blur();
     }
 }

@@ -14,7 +14,6 @@ ux-toolbar-search {
         top: 4px;
         right: 0;
         z-index: 1;
-        transition: right 0.3s;
     }
 
     &.right {
@@ -26,6 +25,10 @@ ux-toolbar-search {
     }
 
     &.expanded {
+        &.left {
+            right: -4px;
+        }
+
         [uxToolbarSearchField] {
             visibility: visible;
             transition: visibility 0s;
