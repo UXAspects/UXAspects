@@ -27,12 +27,13 @@
         <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="List View">
             <span class="hpe-icon hpe-list"></span>
         </button>
-        <ux-toolbar-search [(expanded)]="expandedRight" direction="left" (search)="onSearchRight($event)">
+        <ux-toolbar-search direction="left" (search)="onSearchRight($event)">
             <button uxToolbarSearchButton type="button" aria-label="Toggle Search"
-                tooltip="Search (Right)" container="body">
+                tooltip="Search" container="body">
                 <span class="hpe-icon hpe-search"></span>
             </button>
-            <input uxToolbarSearchField type="text" placeholder="Search" aria-label="Search">
+            <input uxToolbarSearchField #searchFieldRight type="text" placeholder="Search"
+                aria-label="Search">
         </ux-toolbar-search>
     </div>
     
