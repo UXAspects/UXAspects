@@ -1,10 +1,7 @@
 import { Directive, HostListener, Output, EventEmitter, ElementRef } from '@angular/core';
 
 @Directive({
-    selector: '[uxToolbarSearchButton]',
-    host: {
-        'class': 'btn btn-link btn-icon button-secondary'
-    }
+    selector: '[uxToolbarSearchButton]'
 })
 export class ToolbarSearchButtonDirective {
 

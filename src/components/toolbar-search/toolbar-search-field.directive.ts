@@ -7,10 +7,7 @@ const KEYS = {
 };
 
 @Directive({
-    selector: '[uxToolbarSearchField]',
-    host: {
-        'class': 'form-control'
-    }
+    selector: '[uxToolbarSearchField]'
 })
 export class ToolbarSearchFieldDirective {
 

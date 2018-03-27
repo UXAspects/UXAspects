@@ -23,6 +23,7 @@ import { DOCUMENT } from '@angular/common';
 
 import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
 import { ToolbarSearchButtonDirective } from './toolbar-search-button.directive';
+import { ColorService } from '../../services/color/color.service';
 
 @Component({
     selector: 'ux-toolbar-search',
@@ -81,6 +82,11 @@ export class ToolbarSearchComponent implements AfterContentInit {
     @HostBinding('class.inverse')
     inverse = false;
 
+    @Input()
+    set background(value: string) {
+        this._backgroundColor = this._colorService.resolve(value) || 'transparent';
+    }
+
     @Output()
     expandedChange = new EventEmitter<boolean>();
 
@@ -102,6 +108,9 @@ export class ToolbarSearchComponent implements AfterContentInit {
     @HostBinding('style.position')
     private _position = 'relative';
 
+    @HostBinding('style.background-color')
+    private _backgroundColor = 'transparent';
+
     @ContentChild(ToolbarSearchFieldDirective)
     private _field: ToolbarSearchFieldDirective;
 
@@ -114,6 +123,7 @@ export class ToolbarSearchComponent implements AfterContentInit {
 
     constructor(
         private _elementRef: ElementRef,
+        private _colorService: ColorService,
         @Inject(DOCUMENT) document: any) {
         this._document = <Document>document;
     }
