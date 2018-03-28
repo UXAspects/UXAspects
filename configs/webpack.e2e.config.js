@@ -101,33 +101,6 @@ module.exports = {
         }),
 
         new ExtractTextPlugin('styles.css'),
-
-        new UglifyJsPlugin({
-            extractComments: false,
-            sourceMap: false,
-            cache: false,
-            parallel: true,
-            uglifyOptions: {
-                output: {
-                    ascii_only: true,
-                    comments: false
-                },
-                ecma: 5,
-                warnings: false,
-                ie8: false,
-                compress: true,
-            }
-        }),
-
-        new OptimizeCssAssetsPlugin({
-            cssProcessor: require('cssnano'),
-            cssProcessorOptions: {
-                discardComments: {
-                    removeAll: true
-                }
-            },
-            canPrint: true
-        }),
     ],
 
     devServer: {

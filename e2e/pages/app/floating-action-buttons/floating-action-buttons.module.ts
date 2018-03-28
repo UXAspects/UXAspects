@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { FloatingActionButtonsModule } from '../../../../dist';
 
 import { FloatingActionButtonsTestPageComponent } from './floating-action-buttons.testpage.component';
-debugger;
 @NgModule({
     imports: [
         CommonModule,
