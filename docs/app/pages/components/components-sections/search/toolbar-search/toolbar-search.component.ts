@@ -25,7 +25,7 @@ export class ComponentsToolbarSearchComponent extends BaseDocumentationSection i
                 forRoot: true
             },
             {
-                imports: ['ToolbarSearchModule'],
+                imports: ['ToolbarSearchModule', 'ColorServiceModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]
