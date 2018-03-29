@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.7 
+* @ux-aspects/ux-aspects-docs - v1.5.8 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -6164,7 +6164,7 @@ table.dataTable {
   display: inline;
 }
 .detail-row-header .filter {
-  display: inline;
+  display: inline-flex;
   width: 18px;
 }
 .detail-row-header .filter i {
@@ -17164,6 +17164,43 @@ ux-timeline ux-timeline-event .timeline-badge span {
     top: 35px;
   }
 }
+ux-toolbar-search {
+  display: inline-block;
+  top: 0;
+}
+ux-toolbar-search [uxToolbarSearchField] {
+  width: 100%;
+  height: 36px;
+  visibility: hidden;
+  transition: visibility 0s 0.3s;
+}
+ux-toolbar-search [uxToolbarSearchButton] {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  z-index: 1;
+}
+ux-toolbar-search.right {
+  left: 0;
+}
+ux-toolbar-search.left {
+  right: 0;
+}
+ux-toolbar-search.expanded.left {
+  right: -4px;
+}
+ux-toolbar-search.expanded [uxToolbarSearchField] {
+  visibility: visible;
+  transition: visibility 0s;
+}
+ux-toolbar-search.expanded [uxToolbarSearchButton] {
+  right: 4px;
+}
+ux-toolbar-search .ux-toolbar-search-clear {
+  position: absolute;
+  top: 4px;
+  right: 36px;
+}
 ux-toggleswitch {
   margin-bottom: 5px;
   white-space: nowrap;
@@ -17700,4 +17737,46 @@ ux-virtual-scroll .virtual-scroll-content {
 [uxHoverActionContainer] [uxHoverAction]:hover,
 [uxHoverActionContainer] [uxHoverAction]:focus {
   opacity: 1;
+}
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.table tr.gu-transit,
+.table tr.gu-transit:hover {
+  background-color: #eee;
+}
+.table tr.ux-reorderable-moving td {
+  position: relative;
+  color: transparent;
+}
+.table tr.ux-reorderable-moving td > * {
+  visibility: hidden;
+}
+.table tr.ux-reorderable-moving td:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 167, 162, 0.05);
+  border-top: 1px dashed #00a7a2;
+  border-bottom: 1px dashed #00a7a2;
+}
+.table tr.ux-reorderable-moving td:first-of-type:after {
+  border-left: 1px dashed #00a7a2;
+}
+.table tr.ux-reorderable-moving td:last-of-type:after {
+  border-right: 1px dashed #00a7a2;
 }
