@@ -9,9 +9,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, HostListener, Inject, Injectable, Injector, Input, NgModule, NgZone, Optional, Output, Pipe, QueryList, ReflectiveInjector, Renderer2, RendererFactory2, SkipSelf, TemplateRef, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
-import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgModel } from '@angular/forms';
 import { Subject as Subject$1 } from 'rxjs/Subject';
 import { BehaviorSubject as BehaviorSubject$1 } from 'rxjs/BehaviorSubject';
 import { fromEvent as fromEvent$1 } from 'rxjs/observable/fromEvent';
@@ -33,7 +33,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/observable/of';
 import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/platform-browser';
 import { of as of$2 } from 'rxjs/observable/of';
 import { from as from$2 } from 'rxjs/observable/from';
 import 'rxjs/add/operator/auditTime';
@@ -43,6 +43,8 @@ import 'rxjs/add/operator/partition';
 import 'rxjs/add/observable/concat';
 import { Http, HttpModule, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/takeUntil';
+import * as dragulaNamespace from 'dragula';
+import dragulaNamespace__default from 'dragula';
 import { UpgradeComponent } from '@angular/upgrade/static';
 var BreadcrumbsComponent = (function () {
     function BreadcrumbsComponent() {
@@ -707,10 +709,13 @@ var Subscriber = (function (_super) {
                     break;
                 }
                 if (typeof destinationOrNext === 'object') {
-                    if (destinationOrNext instanceof Subscriber) {
-                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
-                        this.destination = destinationOrNext;
-                        this.destination.add(this);
+                    // HACK(benlesh): To resolve an issue where Node users may have multiple
+                    // copies of rxjs in their node_modules directory.
+                    if (isTrustedSubscriber(destinationOrNext)) {
+                        var trustedSubscriber = destinationOrNext[rxSubscriber.rxSubscriber]();
+                        this.syncErrorThrowable = trustedSubscriber.syncErrorThrowable;
+                        this.destination = trustedSubscriber;
+                        trustedSubscriber.add(this);
                     }
                     else {
                         this.syncErrorThrowable = true;
@@ -925,6 +930,9 @@ var SafeSubscriber = (function (_super) {
     };
     return SafeSubscriber;
 }(Subscriber));
+function isTrustedSubscriber(obj) {
+    return obj instanceof Subscriber || ('syncErrorThrowable' in obj && obj[rxSubscriber.rxSubscriber]);
+}
 var Subscriber_1 = {
     Subscriber: Subscriber_2
 };
@@ -11484,7 +11492,7 @@ ColorService.decorators = [
  * @nocollapse
  */
 ColorService.ctorParameters = function () { return [
-    { type: Document, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: Document, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
 ]; };
 var ThemeColor = (function () {
     /**
@@ -15013,7 +15021,7 @@ SelectComponent.decorators = [
  */
 SelectComponent.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Document, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: Document, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
     { type: TypeaheadKeyService, },
 ]; };
 SelectComponent.propDecorators = {
@@ -15704,7 +15712,7 @@ TagInputComponent.decorators = [
  */
 TagInputComponent.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Document, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: Document, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
     { type: TypeaheadKeyService, },
 ]; };
 TagInputComponent.propDecorators = {
@@ -16940,6 +16948,344 @@ ToggleSwitchModule.decorators = [
  * @nocollapse
  */
 ToggleSwitchModule.ctorParameters = function () { return []; };
+var KEYS = {
+    ENTER: 13,
+    ESCAPE: 27
+};
+var ToolbarSearchFieldDirective = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _ngModel
+     */
+    function ToolbarSearchFieldDirective(_elementRef, _ngModel) {
+        this._elementRef = _elementRef;
+        this._ngModel = _ngModel;
+        this.cancel = new EventEmitter();
+        this.submit = new EventEmitter();
+    }
+    Object.defineProperty(ToolbarSearchFieldDirective.prototype, "text", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            // Use ngModel if specified on the host; otherwise read the DOM
+            if (this._ngModel) {
+                return this._ngModel.value;
+            }
+            return this._elementRef.nativeElement.value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    ToolbarSearchFieldDirective.prototype.focus = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this._elementRef.nativeElement.focus();
+        });
+    };
+    /**
+     * @return {?}
+     */
+    ToolbarSearchFieldDirective.prototype.blur = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this._elementRef.nativeElement.blur();
+        });
+    };
+    /**
+     * @return {?}
+     */
+    ToolbarSearchFieldDirective.prototype.clear = function () {
+        // Use ngModel if specified on the host; otherwise use the DOM
+        if (this._ngModel) {
+            this._ngModel.reset();
+        }
+        else {
+            this._elementRef.nativeElement.value = '';
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    ToolbarSearchFieldDirective.prototype.keydownHandler = function (event) {
+        var _this = this;
+        setTimeout(function () {
+            if (event.keyCode === KEYS.ENTER) {
+                _this.submit.emit(_this.text);
+            }
+            else if (event.keyCode === KEYS.ESCAPE) {
+                _this._elementRef.nativeElement.blur();
+                _this.cancel.emit();
+            }
+        });
+    };
+    return ToolbarSearchFieldDirective;
+}());
+ToolbarSearchFieldDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxToolbarSearchField]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ToolbarSearchFieldDirective.ctorParameters = function () { return [
+    { type: ElementRef, },
+    { type: NgModel, decorators: [{ type: Optional },] },
+]; };
+ToolbarSearchFieldDirective.propDecorators = {
+    'cancel': [{ type: Output },],
+    'submit': [{ type: Output },],
+    'keydownHandler': [{ type: HostListener, args: ['keydown', ['$event'],] },],
+};
+var ToolbarSearchButtonDirective = (function () {
+    /**
+     * @param {?} _elementRef
+     */
+    function ToolbarSearchButtonDirective(_elementRef) {
+        this._elementRef = _elementRef;
+        this.clicked = new EventEmitter();
+    }
+    Object.defineProperty(ToolbarSearchButtonDirective.prototype, "width", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._elementRef.nativeElement.offsetWidth;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    ToolbarSearchButtonDirective.prototype.clickHandler = function () {
+        this.clicked.emit();
+    };
+    return ToolbarSearchButtonDirective;
+}());
+ToolbarSearchButtonDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxToolbarSearchButton]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ToolbarSearchButtonDirective.ctorParameters = function () { return [
+    { type: ElementRef, },
+]; };
+ToolbarSearchButtonDirective.propDecorators = {
+    'clicked': [{ type: Output },],
+    'clickHandler': [{ type: HostListener, args: ['click',] },],
+};
+var ToolbarSearchComponent = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _colorService
+     * @param {?} document
+     */
+    function ToolbarSearchComponent(_elementRef, _colorService, document) {
+        this._elementRef = _elementRef;
+        this._colorService = _colorService;
+        this.direction = 'right';
+        this.inverse = false;
+        this.expandedChange = new EventEmitter();
+        this.search = new EventEmitter();
+        this._expanded = false;
+        this._position = 'relative';
+        this._backgroundColor = 'transparent';
+        this._document = document;
+    }
+    Object.defineProperty(ToolbarSearchComponent.prototype, "expanded", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._expanded;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._expanded = value;
+            this.expandedChange.emit(value);
+            if (value) {
+                // Set focus on the input when expanded
+                this._field.focus();
+            }
+            else {
+                // Clear text when contracted
+                this._field.clear();
+                // Remove focus (works around an IE issue where the caret remains visible)
+                this._field.blur();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ToolbarSearchComponent.prototype, "background", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._backgroundColor = this._colorService.resolve(value) || 'transparent';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ToolbarSearchComponent.prototype, "_expandedAnimation", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return {
+                value: this.expanded ? 'expanded' : 'collapsed',
+                params: {
+                    initialWidth: this._button.width + 'px'
+                }
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    ToolbarSearchComponent.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        // Subscribe to the submit event on the input field, triggering the search event
+        this._field.submit.subscribe(function (text) { return _this.search.emit(text); });
+        // Subscribe to cancel events coming from the input field
+        this._field.cancel.subscribe(function () { return (_this.expanded = false); });
+        // Subscribe to the button click event
+        this._button.clicked.subscribe(function () {
+            if (_this.expanded && _this._field.text) {
+                _this.search.emit(_this._field.text);
+            }
+            else {
+                _this.expanded = !_this.expanded;
+            }
+        });
+        // Create placeholder element to avoid changing layout when switching to position: absolute
+        this.createPlaceholder();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    ToolbarSearchComponent.prototype.animationStart = function (event) {
+        if (event.toState === 'expanded') {
+            this._position = 'absolute';
+            this.enablePlaceholder(true);
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    ToolbarSearchComponent.prototype.animationDone = function (event) {
+        if (event.toState === 'collapsed') {
+            this._position = 'relative';
+            this.enablePlaceholder(false);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    ToolbarSearchComponent.prototype.createPlaceholder = function () {
+        // Get width and height of the component
+        var /** @type {?} */ styles = getComputedStyle(this._elementRef.nativeElement);
+        // Create invisible div with the same dimensions
+        this._placeholder = this._document.createElement('div');
+        this._placeholder.style.display = 'none';
+        this._placeholder.style.width = this._button.width + 'px';
+        this._placeholder.style.height = styles.height;
+        this._placeholder.style.visibility = 'hidden';
+        // Add as a sibling
+        this._elementRef.nativeElement.parentNode.insertBefore(this._placeholder, this._elementRef.nativeElement);
+    };
+    /**
+     * @param {?} enabled
+     * @return {?}
+     */
+    ToolbarSearchComponent.prototype.enablePlaceholder = function (enabled) {
+        this._placeholder.style.display = (enabled ? 'inline-block' : 'none');
+    };
+    return ToolbarSearchComponent;
+}());
+ToolbarSearchComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-toolbar-search',
+                template: "<ng-content></ng-content>",
+                animations: [
+                    trigger('expanded', [
+                        state('collapsed', style({
+                            width: '{{initialWidth}}'
+                        }), {
+                            params: { initialWidth: '30px' }
+                        }),
+                        state('expanded', style({
+                            width: '100%'
+                        })),
+                        transition('collapsed <=> expanded', [animate('0.3s ease-out')])
+                    ])
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ToolbarSearchComponent.ctorParameters = function () { return [
+    { type: ElementRef, },
+    { type: ColorService, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+]; };
+ToolbarSearchComponent.propDecorators = {
+    'expanded': [{ type: HostBinding, args: ['class.expanded',] }, { type: Input },],
+    'direction': [{ type: Input }, { type: HostBinding, args: ['class',] },],
+    'inverse': [{ type: Input }, { type: HostBinding, args: ['class.inverse',] },],
+    'background': [{ type: Input },],
+    'expandedChange': [{ type: Output },],
+    'search': [{ type: Output },],
+    '_expandedAnimation': [{ type: HostBinding, args: ['@expanded',] },],
+    '_position': [{ type: HostBinding, args: ['style.position',] },],
+    '_backgroundColor': [{ type: HostBinding, args: ['style.background-color',] },],
+    '_field': [{ type: ContentChild, args: [ToolbarSearchFieldDirective,] },],
+    '_button': [{ type: ContentChild, args: [ToolbarSearchButtonDirective,] },],
+    'animationStart': [{ type: HostListener, args: ['@expanded.start', ['$event'],] },],
+    'animationDone': [{ type: HostListener, args: ['@expanded.done', ['$event'],] },],
+};
+var DECLARATIONS$6 = [
+    ToolbarSearchComponent,
+    ToolbarSearchFieldDirective,
+    ToolbarSearchButtonDirective
+];
+var ToolbarSearchModule = (function () {
+    function ToolbarSearchModule() {
+    }
+    return ToolbarSearchModule;
+}());
+ToolbarSearchModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule
+                ],
+                exports: DECLARATIONS$6,
+                declarations: DECLARATIONS$6,
+                providers: [],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ToolbarSearchModule.ctorParameters = function () { return []; };
 var FrameExtractionService = (function () {
     function FrameExtractionService() {
     }
@@ -18327,7 +18673,7 @@ FileSizePipeModule.decorators = [
  * @nocollapse
  */
 FileSizePipeModule.ctorParameters = function () { return []; };
-var DECLARATIONS$6 = [
+var DECLARATIONS$7 = [
     MediaPlayerComponent,
     MediaPlayerTimelineExtensionComponent,
     MediaPlayerBaseExtensionDirective,
@@ -18348,8 +18694,8 @@ MediaPlayerModule.decorators = [
                     DurationPipeModule,
                     FileSizePipeModule
                 ],
-                exports: DECLARATIONS$6,
-                declarations: DECLARATIONS$6,
+                exports: DECLARATIONS$7,
+                declarations: DECLARATIONS$7,
                 providers: [MediaPlayerService]
             },] },
 ];
@@ -18558,7 +18904,7 @@ VirtualScrollComponent.propDecorators = {
     'loadButtonTemplate': [{ type: ContentChild, args: [VirtualScrollLoadButtonDirective, { read: TemplateRef },] },],
     'renderCells': [{ type: HostListener, args: ['scroll',] },],
 };
-var DECLARATIONS$7 = [
+var DECLARATIONS$8 = [
     VirtualScrollComponent,
     VirtualScrollLoadingDirective,
     VirtualScrollLoadButtonDirective,
@@ -18575,8 +18921,8 @@ VirtualScrollModule.decorators = [
                     CommonModule,
                     ResizeModule
                 ],
-                exports: DECLARATIONS$7,
-                declarations: DECLARATIONS$7
+                exports: DECLARATIONS$8,
+                declarations: DECLARATIONS$8
             },] },
 ];
 /**
@@ -19060,7 +19406,7 @@ HoverActionDirective.propDecorators = {
     'previous': [{ type: HostListener, args: ['keydown.arrowleft', ['$event'],] },],
     'next': [{ type: HostListener, args: ['keydown.arrowright', ['$event'],] },],
 };
-var DECLARATIONS$8 = [
+var DECLARATIONS$9 = [
     HoverActionDirective,
     HoverActionContainerDirective
 ];
@@ -19071,8 +19417,8 @@ var HoverActionModule = (function () {
 }());
 HoverActionModule.decorators = [
     { type: NgModule, args: [{
-                exports: DECLARATIONS$8,
-                declarations: DECLARATIONS$8
+                exports: DECLARATIONS$9,
+                declarations: DECLARATIONS$9
             },] },
 ];
 /**
@@ -19223,7 +19569,7 @@ LayoutSwitcherDirective.propDecorators = {
     'group': [{ type: Input },],
     '_layouts': [{ type: ContentChildren, args: [LayoutSwitcherItemDirective,] },],
 };
-var DECLARATIONS$9 = [
+var DECLARATIONS$10 = [
     LayoutSwitcherDirective,
     LayoutSwitcherItemDirective
 ];
@@ -19237,8 +19583,8 @@ LayoutSwitcherModule.decorators = [
                 imports: [
                     ResizeModule
                 ],
-                exports: DECLARATIONS$9,
-                declarations: DECLARATIONS$9,
+                exports: DECLARATIONS$10,
+                declarations: DECLARATIONS$10,
                 providers: [],
             },] },
 ];
@@ -19246,6 +19592,219 @@ LayoutSwitcherModule.decorators = [
  * @nocollapse
  */
 LayoutSwitcherModule.ctorParameters = function () { return []; };
+var ReorderableHandleDirective = (function () {
+    function ReorderableHandleDirective() {
+    }
+    return ReorderableHandleDirective;
+}());
+ReorderableHandleDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxReorderableHandle]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ReorderableHandleDirective.ctorParameters = function () { return []; };
+var ReorderableModelDirective = (function () {
+    /**
+     * @param {?} elementRef
+     */
+    function ReorderableModelDirective(elementRef) {
+        this.elementRef = elementRef;
+    }
+    return ReorderableModelDirective;
+}());
+ReorderableModelDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxReorderableModel]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ReorderableModelDirective.ctorParameters = function () { return [
+    { type: ElementRef, },
+]; };
+ReorderableModelDirective.propDecorators = {
+    'uxReorderableModel': [{ type: Input },],
+};
+// WORKAROUND: ng-packagr issue - https://github.com/dherges/ng-packagr/issues/163
+var dragula = dragulaNamespace__default || dragulaNamespace;
+var ReorderableDirective = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _renderer
+     * @param {?} _ngZone
+     */
+    function ReorderableDirective(_elementRef, _renderer, _ngZone) {
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
+        this._ngZone = _ngZone;
+        this.reorderableModelChange = new EventEmitter();
+        this.reorderStart = new EventEmitter();
+        this.reorderCancel = new EventEmitter();
+        this.reorderEnd = new EventEmitter();
+    }
+    /**
+     * Initialise dragula and bind to all the required events
+     * @return {?}
+     */
+    ReorderableDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        // for performance gains lets run this outside ng zone
+        this._ngZone.runOutsideAngular(function () {
+            _this._instance = dragula([_this._elementRef.nativeElement], { moves: _this.canMove.bind(_this), mirrorContainer: _this._elementRef.nativeElement });
+            _this._instance.on('drag', function (element) { return _this._ngZone.run(function () { return _this.reorderStart.emit({ element: element, model: _this.getModelFromElement(element) }); }); });
+            _this._instance.on('cancel', function (element) { return _this._ngZone.run(function () { return _this.reorderCancel.emit({ element: element, model: _this.getModelFromElement(element) }); }); });
+            _this._instance.on('dragend', function (element) { return _this._ngZone.run(function () { return _this.reorderEnd.emit({ element: element, model: _this.getModelFromElement(element) }); }); });
+            _this._instance.on('dragend', _this.onDragEnd.bind(_this));
+            _this._instance.on('drop', _this.onDrop.bind(_this));
+            _this._instance.on('cloned', _this.onClone.bind(_this));
+        });
+    };
+    /**
+     * We need to destroy the dragula instance on component destroy
+     * @return {?}
+     */
+    ReorderableDirective.prototype.ngOnDestroy = function () {
+        this._instance.destroy();
+    };
+    /**
+     * This is fired when items get reordered - we need to emit the new order of the models
+     * @param {?} element
+     * @param {?} target
+     * @param {?} source
+     * @param {?} sibling
+     * @return {?}
+     */
+    ReorderableDirective.prototype.onDrop = function (element, target, source, sibling) {
+        var _this = this;
+        // if there is no provided module we can skip this
+        if (!this.reorderableModel) {
+            return;
+        }
+        // get the model of the element being moved
+        var /** @type {?} */ model = this.getModelFromElement(element);
+        // remove this model from the list of models
+        this.reorderableModel = this.reorderableModel.filter(function (_model) { return _model !== model; });
+        // get the position of sibling element
+        var /** @type {?} */ index = sibling && !sibling.classList.contains('gu-mirror') ? this.reorderableModel.indexOf(this.getModelFromElement(sibling)) : this.reorderableModel.length;
+        // re-insert the model at its new location
+        this.reorderableModel.splice(index, 0, model);
+        // emit the model changes (inside zone)
+        this._ngZone.run(function () { return _this.reorderableModelChange.emit(_this.reorderableModel); });
+    };
+    /**
+     * Return the model assciated with a particular element in the list.
+     * This should ensure that the items have the draggable model directive applied
+     * @param {?} element
+     * @return {?}
+     */
+    ReorderableDirective.prototype.getModelFromElement = function (element) {
+        var /** @type {?} */ model = this.models.find(function (_model) { return _model.elementRef.nativeElement === element; });
+        if (!model) {
+            return null;
+        }
+        return model.uxReorderableModel;
+    };
+    /**
+     * When we finish dragging remove the utillity class from the element being moved
+     * @param {?} element
+     * @return {?}
+     */
+    ReorderableDirective.prototype.onDragEnd = function (element) {
+        this._renderer.removeClass(element, 'ux-reorderable-moving');
+    };
+    /**
+     * We want to ensure that the cloned element is identical
+     * to the original, regardless of it's location in the DOM tree
+     * @param {?} clone
+     * @param {?} element
+     * @param {?} type
+     * @return {?}
+     */
+    ReorderableDirective.prototype.onClone = function (clone, element, type) {
+        this.setTableCellWidths(element, clone);
+        this._renderer.addClass(element, 'ux-reorderable-moving');
+    };
+    /**
+     * If elements contain handles then only drag when the handle is dragged
+     * otherwise drag whenever an immediate child is specified
+     * @param {?} element
+     * @param {?} container
+     * @param {?} handle
+     * @return {?}
+     */
+    ReorderableDirective.prototype.canMove = function (element, container, handle) {
+        return this.handles.length === 0 ? true : !!this.handles.find(function (_handle) { return _handle.nativeElement === handle; });
+    };
+    /**
+     * @param {?} source
+     * @param {?} target
+     * @return {?}
+     */
+    ReorderableDirective.prototype.setTableCellWidths = function (source, target) {
+        // if it is not a table row then skip this
+        if (source.tagName !== 'TR') {
+            return;
+        }
+        // find any immediate td children and fix their width
+        var /** @type {?} */ sourceCells = (Array.from(source.children));
+        var /** @type {?} */ targetCells = (Array.from(target.children));
+        // fix the width of these cells
+        sourceCells.forEach(function (cell, idx) { return targetCells[idx].style.minWidth = getComputedStyle(cell).getPropertyValue('width'); });
+    };
+    return ReorderableDirective;
+}());
+ReorderableDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxReorderable]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ReorderableDirective.ctorParameters = function () { return [
+    { type: ElementRef, },
+    { type: Renderer2, },
+    { type: NgZone, },
+]; };
+ReorderableDirective.propDecorators = {
+    'reorderableModel': [{ type: Input },],
+    'reorderableModelChange': [{ type: Output },],
+    'reorderStart': [{ type: Output },],
+    'reorderCancel': [{ type: Output },],
+    'reorderEnd': [{ type: Output },],
+    'handles': [{ type: ContentChildren, args: [ReorderableHandleDirective, { read: ElementRef, descendants: true },] },],
+    'models': [{ type: ContentChildren, args: [ReorderableModelDirective,] },],
+};
+var ReorderableModule = (function () {
+    function ReorderableModule() {
+    }
+    return ReorderableModule;
+}());
+ReorderableModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule
+                ],
+                declarations: [
+                    ReorderableDirective,
+                    ReorderableHandleDirective,
+                    ReorderableModelDirective
+                ],
+                exports: [
+                    ReorderableDirective,
+                    ReorderableHandleDirective,
+                    ReorderableModelDirective
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ReorderableModule.ctorParameters = function () { return []; };
 var StringFilterPipe = (function () {
     function StringFilterPipe() {
     }
@@ -20511,5 +21070,5 @@ HybridModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, defaultOptions, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, FloatingActionButtonsModule, FloatingActionButtonsComponent, FloatingActionButtonComponent, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NavigationModule, NavigationComponent, NavigationItemComponent, NotificationModule, NotificationService, NotificationListComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, TimelineModule, TimelineComponent, TimelineEventComponent, ToggleSwitchModule, ToggleSwitchComponent, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, DragModule, DragDirective, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DateTimePickerService as ɵc, FloatingActionButtonsService as ɵd, MarqueeWizardStepComponent as ɵf, MarqueeWizardService as ɵe, MediaPlayerService as ɵi, PageHeaderNavigationDropdownItemComponent as ɵh, PageHeaderNavigationItemComponent as ɵg, HoverActionService as ɵj };
+export { BreadcrumbsComponent, BreadcrumbsModule, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, defaultOptions, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, FloatingActionButtonsModule, FloatingActionButtonsComponent, FloatingActionButtonComponent, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NavigationModule, NavigationComponent, NavigationItemComponent, NotificationModule, NotificationService, NotificationListComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, TimelineModule, TimelineComponent, TimelineEventComponent, ToggleSwitchModule, ToggleSwitchComponent, ToolbarSearchModule, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchButtonDirective, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, DragModule, DragDirective, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, ReorderableModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DateTimePickerService as ɵc, FloatingActionButtonsService as ɵd, MarqueeWizardStepComponent as ɵf, MarqueeWizardService as ɵe, MediaPlayerService as ɵi, PageHeaderNavigationDropdownItemComponent as ɵh, PageHeaderNavigationItemComponent as ɵg, HoverActionService as ɵj };
 //# sourceMappingURL=ux-aspects.es5.js.map
