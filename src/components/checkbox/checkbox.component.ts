@@ -44,8 +44,6 @@ export class CheckboxComponent implements ControlValueAccessor {
     onTouchedCallback: () => void = () => { };
     onChangeCallback: (_: any) => void = () => { };
 
-    constructor() { }
-
     toggleChecked() {
 
         if (this.disabled === true || this.clickable === false) {
