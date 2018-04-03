@@ -301,6 +301,7 @@ export const colorSets = {
             'copper': '#e57828',
             'amber': '#ffc002',
             'leaf-green': '#118c4f',
+            'forest-green': '#00645a',
             'primary': '#0073e7',
             'accent': '#7425ad',
             'secondary': '#ffffff',
