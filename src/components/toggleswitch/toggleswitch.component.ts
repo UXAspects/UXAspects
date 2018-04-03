@@ -16,16 +16,18 @@ const TOGGLESWITCH_VALUE_ACCESSOR = {
     }
 })
 export class ToggleSwitchComponent implements ControlValueAccessor {
+
     @Input() name: string = '';
     @Input() disabled: boolean = false;
     @Input() clickable: boolean = true;
 
-    @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input()
     get value() {
         return this._value;
     }
+    
     set value(value: boolean) {
         this._value = value;
 
@@ -47,7 +49,7 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
         }
     }
 
-    keydown(event: any) {
+    keydown(event: KeyboardEvent) {
         // if spacebar is pressed toggle state
         if (event.keyCode === 32) {
             this.toggleChecked();
@@ -66,5 +68,9 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
 
     registerOnTouched(fn: any) {
         this.onTouchedCallback = fn;
+    }
+
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
     }
 }
