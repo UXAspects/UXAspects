@@ -167,6 +167,10 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
         this.onTouchedHandler = fn;
     }
 
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
+
     /**
      * Validate the value of the control (tags property).
      */
