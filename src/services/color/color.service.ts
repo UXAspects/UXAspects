@@ -69,7 +69,11 @@ export class ColorService {
     }
 
     getColor(color: ColorIdentifier): ThemeColor {
-        const themeColor = this._colors[color.toLowerCase()];
+        const themeColor = this._colors[this.resolveColorName(color)];
+        if (!themeColor) {
+            throw new Error('Color not found: ' + color);
+        }
+        
         return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
     }
 

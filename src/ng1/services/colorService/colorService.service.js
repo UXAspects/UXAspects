@@ -64,7 +64,10 @@ export default function $colorService() {
   }
 
   $colorService.getColor = function(color) {
-    const themeColor = colors[color.toLowerCase()];
+    const themeColor = colors[$colorService.resolveColorName(color)];
+    if (!themeColor) {
+      throw new Error('Color not found: ' + color);
+    }
 
     return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
   };
