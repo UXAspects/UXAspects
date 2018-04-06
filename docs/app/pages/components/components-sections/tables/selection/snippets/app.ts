@@ -10,9 +10,10 @@ export class AppComponent {
 
     data: TableData[] = [];
     selection: TableData[] = [];
+    mode: string = 'simple';
 
     constructor() {
-        for (let idx = 0; idx < 20; idx++) {
+        for (let idx = 0; idx < 8; idx++) {
             this.data.push({
                 name: `Document ${idx + 1}`,
                 author: chance.name(),

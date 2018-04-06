@@ -1,51 +1,52 @@
-import { ComponentsFiltersComponent } from './filters/filters.component';
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CheckboxModule, RadioButtonModule, ColumnSortingModule, SparkModule, FilterModule, SliderModule, HoverActionModule, ItemDisplayPanelModule, FixedHeaderTableModule, ReorderableModule } from '../../../../../../src/index';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
+import { CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ComponentsColumnSortingComponent } from './column-sorting/column-sorting.component';
-import { ComponentsDetailRowResponsiveNg1Component } from './detail-row-responsive-ng1/detail-row-responsive-ng1.component';
+import { ComponentsColumnVisibilityNg1Component } from './column-visibility-ng1/column-visibility-ng1.component';
+import { ComponentsCustomFiltersComponent } from './custom-filters-component/custom-filters.component';
+import { SampleFilterCustomComponent } from './custom-filters-component/sample/sample-filter.component';
+import { ComponentsCustomResponsiveTableNg1Component } from './custom-responsive-table-ng1/custom-responsive-table-ng1.component';
 import { ComponentsDetailRowHeaderNg1Component } from './detail-row-header-ng1/detail-row-header-ng1.component';
-import { ComponentsFiltersNg1Component } from './filters-ng1/filters-ng1.component';
+import { ComponentsDetailRowResponsiveNg1Component } from './detail-row-responsive-ng1/detail-row-responsive-ng1.component';
 import { ComponentsDynamicFiltersNg1Component } from './dynamic-filters-ng1/dynamic-filters-ng1.component';
-import { ComponentsIndicesNg1Component } from './indices-ng1/indices-ng1.component';
+import { ComponentsFiltersNg1Component } from './filters-ng1/filters-ng1.component';
+import { ComponentsFiltersComponent } from './filters/filters.component';
+import { ComponentsFixedHeaderTableNg1Component } from './fixed-header-table-ng1/fixed-header-table-ng1.component';
+import { ComponentsFixedHeaderTableComponent } from './fixed-header-table/fixed-header-table.component';
 import { ComponentsGroupingNg1Component } from './grouping-ng1/grouping-ng1.component';
-import { ComponentsLayoutSwitchingNg1Component } from './layout-switching-ng1/layout-switching-ng1.component';
-import { ComponentsScrollableTableNg1Component } from './scrollable-table-ng1/scrollable-table-ng1.component';
-import { ComponentsListHoverActionsNg1Component } from './list-hover-actions-ng1/list-hover-actions-ng1.component';
 import { ComponentsHoverActionsNg1Component } from './hover-actions-ng1/hover-actions-ng1.component';
+import { ComponentsHoverActionsComponent } from './hover-actions/hover-actions.component';
+import { ComponentsIndicesNg1Component } from './indices-ng1/indices-ng1.component';
+import { ComponentsLayoutSwitchingNg1Component } from './layout-switching-ng1/layout-switching-ng1.component';
+import { ComponentsLayoutSwitchingComponent } from './layout-switching/layout-switching.component';
+import { ComponentsListHoverActionsNg1Component } from './list-hover-actions-ng1/list-hover-actions-ng1.component';
+import { ComponentsMultipleColumnSortingNg1Component } from './multiple-column-sorting-ng1/multiple-column-sorting-ng1.component';
+import { ComponentsMultipleSelectActionsNg1Component } from './multiple-select-actions-ng1/multiple-select-actions-ng1.component';
+import { ComponentsMultipleSelectionRowNg1Component } from './multiple-selection-row-ng1/multiple-selection-row-ng1.component';
 import { ComponentsPreviewPaneNg1Component } from './preview-pane-ng1/preview-pane-ng1.component';
 import { ComponentsPreviewPaneWindowNg1Component } from './preview-pane-window-ng1/preview-pane-window-ng1.component';
 import { ComponentsReorderableTableNg1Component } from './reorderable-table-ng1/reorderable-table-ng1.component';
-import { ComponentsMultipleSelectActionsNg1Component } from './multiple-select-actions-ng1/multiple-select-actions-ng1.component';
-import { ComponentsTraditionalMultipleSelectActionsNg1Component } from './traditional-multiple-select-actions-ng1/traditional-multiple-select-actions-ng1.component';
-import { ComponentsMultipleSelectionRowNg1Component } from './multiple-selection-row-ng1/multiple-selection-row-ng1.component';
-import { ComponentsSortingNg1Component } from './sorting-ng1/sorting-ng1.component';
-import { ComponentsSortDirectionToggleNg1Component } from './sort-direction-toggle-ng1/sort-direction-toggle-ng1.component';
-import { ComponentsSingleColumnSortingNg1Component } from './single-column-sorting-ng1/single-column-sorting-ng1.component';
-import { ComponentsMultipleColumnSortingNg1Component } from './multiple-column-sorting-ng1/multiple-column-sorting-ng1.component';
-import { ComponentsColumnVisibilityNg1Component } from './column-visibility-ng1/column-visibility-ng1.component';
-import { ComponentsCustomResponsiveTableNg1Component } from './custom-responsive-table-ng1/custom-responsive-table-ng1.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ComponentsCustomFiltersComponent } from './custom-filters-component/custom-filters.component';
-import { SampleFilterCustomComponent } from './custom-filters-component/sample/sample-filter.component';
-import { ComponentsLayoutSwitchingComponent } from './layout-switching/layout-switching.component';
-import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { ComponentsHoverActionsComponent } from './hover-actions/hover-actions.component';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ComponentsFixedHeaderTableComponent } from './fixed-header-table/fixed-header-table.component';
-import { ComponentsFixedHeaderTableNg1Component } from './fixed-header-table-ng1/fixed-header-table-ng1.component';
 import { ComponentsReorderableTableComponent } from './reorderable-table/reorderable-table.component';
+import { ComponentsScrollableTableNg1Component } from './scrollable-table-ng1/scrollable-table-ng1.component';
 import { ComponentsSelectionComponent } from './selection/selection.component';
+import { ComponentsSingleColumnSortingNg1Component } from './single-column-sorting-ng1/single-column-sorting-ng1.component';
+import { ComponentsSortDirectionToggleNg1Component } from './sort-direction-toggle-ng1/sort-direction-toggle-ng1.component';
+import { ComponentsSortingNg1Component } from './sorting-ng1/sorting-ng1.component';
+import { ComponentsTraditionalMultipleSelectActionsNg1Component } from './traditional-multiple-select-actions-ng1/traditional-multiple-select-actions-ng1.component';
+
+
 
 const SECTIONS = [
     ComponentsColumnSortingComponent,
@@ -103,6 +104,7 @@ const ROUTES = [
         ColumnSortingModule,
         SparkModule,
         FilterModule,
+        SelectionModule,
         LayoutSwitcherModule,
         DocumentationComponentsModule,
         BsDropdownModule.forRoot(),

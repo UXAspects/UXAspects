@@ -1,4 +1,4 @@
-<!-- <table class="table">
+<table class="table">
     <thead>
         <tr>
             <th></th>
@@ -7,8 +7,13 @@
             <th>Created Date</th>
         </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="let item of data" class="clickable" tabindex="0">
+    <tbody #select="ux-selection" [(uxSelection)]="selection" [mode]="mode" [disabled]="false">
+
+        <tr *ngFor="let item of data"
+            class="clickable"
+            [uxSelectionItem]="item"
+            [(selected)]="item.selected">
+
             <td>
                 <ux-checkbox class="m-b-nil" [clickable]="false" [value]="item.selected"></ux-checkbox>
             </td>
@@ -17,12 +22,12 @@
             <td>{{ item.date | date }}</td>
         </tr>
     </tbody>
-</table> -->
+</table>
 
-<!-- <button class="btn btn-primary">Select All</button>
-<button class="btn btn-primary">Deselect All</button> -->
+<button class="btn btn-primary" (click)="select.selectAll()">Select All</button>
+<button class="btn btn-primary" (click)="select.deselectAll()">Deselect All</button>
 
-<!-- <hr>
+<hr>
 
 <div class="row uxd-customize-example">
     <div class="col-md-12">
@@ -38,7 +43,7 @@
             </accordion-panel>
         </accordion>
     </div>
-</div> -->
+</div>
 
 <p>
     The <code>uxSelection</code> directive can be used to allow items to easily be selected and deselected. This is particularly useful
