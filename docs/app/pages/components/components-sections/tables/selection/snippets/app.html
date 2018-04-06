@@ -7,7 +7,7 @@
             <th>Created Date</th>
         </tr>
     </thead>
-    <tbody #select="ux-selection" [(uxSelection)]="selection" mode="row" [disabled]="false">
+    <tbody #select="ux-selection" [(uxSelection)]="selection" [mode]="mode" [disabled]="false">
 
         <tr *ngFor="let item of data"
             class="clickable"

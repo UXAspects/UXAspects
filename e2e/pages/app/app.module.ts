@@ -152,6 +152,10 @@ const ROUTES: Routes = [
         loadChildren: './select/select.module#SelectTestPageModule'
     },
     {
+        path: 'selection',
+        loadChildren: './selection/selection.module#SelectionTestPageModule'
+    },
+    {
         path: 'side-inset-panel-splitter',
         component: SideInsetPanelSplitterNg1TestPageComponent
     },
