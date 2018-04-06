@@ -1205,7 +1205,7 @@
                             "content": "ColumnSortingModule"
                         },
                         {
-                            "title": "Export as",
+                            "title": "Exported As",
                             "content": "ux-column-sorting"
                         }
                     ]
@@ -1376,20 +1376,52 @@
                     ]
                 },
                 {
+                    "title": "Selection",
+                    "component": "ComponentsSelectionComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxSelection]"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "ux-selection"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxSelectionItem]"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "ux-selection-item"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SelectionModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Multiple Selection Actions",
                     "component": "ComponentsMultipleSelectActionsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSelectionComponent"
                 },
                 {
                     "title": "Traditional Multiple Selection Actions",
-                    "component":
-                        "ComponentsTraditionalMultipleSelectActionsNg1Component",
-                    "version": "AngularJS"
+                    "component": "ComponentsTraditionalMultipleSelectActionsNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSelectionComponent"
                 },
                 {
                     "title": "Multiple Selection by Row",
                     "component": "ComponentsMultipleSelectionRowNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSelectionComponent"
                 },
                 {
                     "title": "Scrollable Table",

@@ -1,0 +1,46 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Document</th>
+            <th>Author</th>
+            <th>Created Date</th>
+        </tr>
+    </thead>
+    <tbody #select="ux-selection" [(uxSelection)]="selection" mode="row" [disabled]="false">
+
+        <tr *ngFor="let item of data"
+            class="clickable"
+            [uxSelectionItem]="item"
+            [(selected)]="item.selected">
+
+            <td>
+                <ux-checkbox class="m-b-nil" [clickable]="false" [value]="item.selected"></ux-checkbox>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date | date }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-primary" (click)="select.selectAll()">Select All</button>
+<button class="btn btn-primary" (click)="select.deselectAll()">Deselect All</button>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-panel heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-12">
+                        <label>mode</label>
+                        <ux-radio-button [(ngModel)]="mode" option="simple">simple</ux-radio-button>
+                        <ux-radio-button [(ngModel)]="mode" option="row">row</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-panel>
+        </accordion>
+    </div>
+</div>

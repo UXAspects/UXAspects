@@ -45,6 +45,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ComponentsFixedHeaderTableComponent } from './fixed-header-table/fixed-header-table.component';
 import { ComponentsFixedHeaderTableNg1Component } from './fixed-header-table-ng1/fixed-header-table-ng1.component';
 import { ComponentsReorderableTableComponent } from './reorderable-table/reorderable-table.component';
+import { ComponentsSelectionComponent } from './selection/selection.component';
 
 const SECTIONS = [
     ComponentsColumnSortingComponent,
@@ -77,7 +78,8 @@ const SECTIONS = [
     ComponentsLayoutSwitchingComponent,
     ComponentsHoverActionsComponent,
     ComponentsFixedHeaderTableComponent,
-    ComponentsFixedHeaderTableNg1Component
+    ComponentsFixedHeaderTableNg1Component,
+    ComponentsSelectionComponent
 ];
 
 const ROUTES = [
