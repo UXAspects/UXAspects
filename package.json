@@ -124,7 +124,7 @@
     "markdown-code-highlight-loader": "^1.0.1",
     "marked": "^0.3.6",
     "ng-cache-loader": "0.0.26",
-    "ng-packagr": "^1.5.1",
+    "ng-packagr": "~1.6.0",
     "null-loader": "^0.1.1",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "prismjs-loader": "0.0.4",
