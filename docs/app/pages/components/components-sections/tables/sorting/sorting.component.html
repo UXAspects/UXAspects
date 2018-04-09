@@ -1,0 +1,51 @@
+<div class="sorter-container">
+    <span class="sorter-title">Sort by</span>
+
+    <div class="btn-group filter sort-direction-toggle" dropdown>
+
+        <!-- Dropdown Button -->
+        <button dropdownToggle class="btn dropdown-toggle filter-dropdown">
+            {{ selected }} <span class="hpe-icon hpe-down"></span>
+        </button>
+
+        <!-- Dropdown List -->
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem" *ngFor="let option of options">
+                <a (click)="sort(option)">
+                    <i class="hpe-icon hpe-checkmark sorter-icon"
+                        [class.invisible]="option !== selected">
+                    </i>
+                    <span class="sorter-text">{{ option }}</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Sort Direction Toggle -->
+        <span class="sort-icon hpe-icon text-muted"
+            [class.hpe-descend]="descending"
+            [class.hpe-ascend]="!descending"
+            (click)="descending = !descending">
+        </span>
+    </div>
+</div>
+
+<hr>
+
+<p>
+    A sort dropdown is commonly used to allow the user to choose how they would like a dataset to be ordered.
+    Additionally a direction toggle may also be used to indicate whether or not the data should in ascending or
+    descending order.
+</p>
+
+<p>
+    Use the following code to create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>
