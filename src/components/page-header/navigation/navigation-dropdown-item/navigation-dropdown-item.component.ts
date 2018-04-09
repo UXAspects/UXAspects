@@ -1,26 +1,31 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/debounceTime';
+import { Subscription } from 'rxjs/Subscription';
+import { debounceTime } from 'rxjs/operators';
 import { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-dropdown-item',
     templateUrl: './navigation-dropdown-item.component.html'
 })
-export class PageHeaderNavigationDropdownItemComponent {
+export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
 
     @Input() item: PageHeaderNavigationDropdownItem;
     @Output() onSelect: EventEmitter<PageHeaderNavigationDropdownItem> = new EventEmitter<PageHeaderNavigationDropdownItem>();
-
+    
     dropdownOpen: boolean = false;
-
-    private _dropdownEvents: Subject<boolean> = new Subject<boolean>();
+    
+    private _subscription: Subscription;
+    private _hover$: Subject<boolean> = new Subject<boolean>();
 
     constructor() {
 
         // subscribe to stream with a debounce (a small debounce is all that is required)
-        this._dropdownEvents.debounceTime(1).subscribe(visible => this.dropdownOpen = visible);
+        this._subscription = this._hover$.pipe(debounceTime(1)).subscribe(visible => this.dropdownOpen = visible);
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
     }
 
     selectItem(item: PageHeaderNavigationDropdownItem, parentItem?: PageHeaderNavigationDropdownItem) {
@@ -43,11 +48,11 @@ export class PageHeaderNavigationDropdownItemComponent {
     }
 
     hoverStart() {
-        this._dropdownEvents.next(true);
+        this._hover$.next(true);
     }
 
     hoverLeave() {
-        this._dropdownEvents.next(false);
+        this._hover$.next(false);
     }
 
     close() {

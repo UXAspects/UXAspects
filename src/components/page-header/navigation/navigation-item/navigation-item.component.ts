@@ -1,30 +1,38 @@
-import { Component, Input, ViewChild, ViewChildren, QueryList, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
+import { Subscription } from 'rxjs/Subscription';
 import { PageHeaderNavigationDropdownItemComponent } from '../navigation-dropdown-item/navigation-dropdown-item.component';
-import { PageHeaderNavigationItem, PageHeaderNavigationDropdownItem } from '../navigation.component';
+import { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from '../navigation.component';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-item',
     templateUrl: './navigation-item.component.html'
 })
-export class PageHeaderNavigationItemComponent implements OnInit {
+export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
     @ViewChild('menu') menu: BsDropdownDirective;
-    @ViewChildren(PageHeaderNavigationDropdownItemComponent) dropdownComponents: QueryList<PageHeaderNavigationDropdownItemComponent>;
-
+    @ViewChildren(PageHeaderNavigationDropdownItemComponent) dropdowns: QueryList<PageHeaderNavigationDropdownItemComponent>;
+    
     @Input() item: PageHeaderNavigationItem;
+    @Input() secondaryNavigation: boolean = false;    
     @Output() onSelect: EventEmitter<PageHeaderNavigationDropdownItem> = new EventEmitter<PageHeaderNavigationDropdownItem>();
+    
+    private _subscription: Subscription;
 
-    constructor(public elementRef: ElementRef) {}
+    constructor(public elementRef: ElementRef) { }
 
     ngOnInit() {
-        this.menu.onHidden.subscribe(() => this.dropdownComponents.forEach(dropdown => dropdown.close()));
+        this._subscription = this.menu.onHidden.subscribe(() => this.dropdowns.forEach(dropdown => dropdown.close()));
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
     }
 
     selectItem() {
 
         // if the item has children then do nothing at this stage 
-        if (this.item.children) {
+        if (this.item.children && this.secondaryNavigation === false) {
             return;
         }
 

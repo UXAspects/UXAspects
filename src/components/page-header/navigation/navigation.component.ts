@@ -1,27 +1,36 @@
-import { Component, Input, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
-import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
+import { AfterViewInit, Component, ElementRef, Input, QueryList, ViewChildren, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { ResizeService } from '../../../directives/resize/index';
+import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation',
     templateUrl: './navigation.component.html'
 })
-export class PageHeaderNavigationComponent implements AfterViewInit {
+export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
     
     @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;
-     
+    
     @Input() items: PageHeaderNavigationItem[] = [];
-
+    @Input() secondaryNavigation: boolean = false;
+    @Output() selected = new EventEmitter<PageHeaderNavigationItem>();
+    
     indicatorVisible: boolean = false;
     indicatorX: number = 0;
     indicatorWidth: number = 0;
+    
+    private _subscription: Subscription;
 
     constructor(elementRef: ElementRef, resizeService: ResizeService) {
-        resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this));
+        this._subscription = resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this));
     }
 
     ngAfterViewInit(): void {
         this.updateSelectedIndicator();
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
     }
 
     onSelect(item: PageHeaderNavigationItem): void {
@@ -29,6 +38,9 @@ export class PageHeaderNavigationComponent implements AfterViewInit {
         if (item.select) {
             item.select.call(item, item);
         }
+
+        // emit the selected item
+        this.selected.emit(item);
 
         // deselect all items in all menus
         this.deselectAll();
@@ -60,14 +72,14 @@ export class PageHeaderNavigationComponent implements AfterViewInit {
         setTimeout(() => {
 
             // find the selected item
-            let selectedItem = this.menuItems.find(item => item.item.selected);
+            const selectedItem = this.menuItems.find(item => item.item.selected);
 
             // determine whether or not to show the indicator
             this.indicatorVisible = !!selectedItem;
 
             // set the width of the indicator to match the width of the navigation item
             if (selectedItem) {
-                let styles = getComputedStyle(selectedItem.elementRef.nativeElement);
+                const styles = getComputedStyle(selectedItem.elementRef.nativeElement);
 
                 this.indicatorX = selectedItem.elementRef.nativeElement.offsetLeft;
                 this.indicatorWidth = parseInt(styles.getPropertyValue('width'));

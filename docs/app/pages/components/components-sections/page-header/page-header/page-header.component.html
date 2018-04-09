@@ -1,8 +1,9 @@
-<ux-page-header header="My Page" [crumbs]="crumbs" [items]="items" [condensed]="condensed" [iconMenus]="iconMenus"></ux-page-header>
+<ux-page-header header="My Page" [secondaryNavigation]="secondary" [crumbs]="crumbs" [items]="items" [condensed]="condensed" [iconMenus]="iconMenus"></ux-page-header>
 
 <br>
 
 <button class="btn button-primary" (click)="condensed = !condensed">Toggle Condensed</button>
+<button class="btn button-primary" (click)="secondary = !secondary">Toggle Secondary</button>
 
 <hr>
 
