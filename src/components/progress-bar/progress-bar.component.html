@@ -1,3 +1,6 @@
-<div class="progressbar-track" [style.width.%]="(value / max) * 100" [style.backgroundColor]="barColor">
+<div *ngIf="!indeterminate" class="progressbar-track" [style.width.%]="(value / max) * 100" [style.backgroundColor]="barColor">
+    <ng-content></ng-content>
+</div>
+<div *ngIf="indeterminate" class="progressbar-track indeterminate" [style.backgroundColor]="barColor">
     <ng-content></ng-content>
 </div>
