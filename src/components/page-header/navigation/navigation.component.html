@@ -1,8 +1,6 @@
 <ux-page-header-horizontal-navigation-item
-    *ngFor="let item of items"
-    [secondaryNavigation]="secondaryNavigation"
-    [item]="item"
-    (onSelect)="onSelect($event)">
+    *ngFor="let item of items$ | async"
+    [item]="item">
 </ux-page-header-horizontal-navigation-item>
 
 <div class="selected-indicator"

@@ -10,7 +10,7 @@
         <div class="page-header-navigation" [ngClass]="alignment">
 
             <!-- The Top Navigation Options -->
-            <ux-page-header-horizontal-navigation [items]="items" [secondaryNavigation]="secondaryNavigation" (selected)="selected = $event"></ux-page-header-horizontal-navigation>
+            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
         </div>
 
         <div class="page-header-icon-menus">
@@ -50,7 +50,7 @@
         <div class="page-header-navigation" [ngClass]="alignment">
 
             <!-- The Top Navigation Options -->
-            <ux-page-header-horizontal-navigation [items]="items" (selected)="selected = $event" [secondaryNavigation]="secondaryNavigation"></ux-page-header-horizontal-navigation>
+            <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
         </div>
 
         <div class="page-header-icon-menus">
@@ -62,10 +62,10 @@
 
 </div>
 
-<div class="ux-page-header-secondary" [class.invisible]="!secondaryNavigation || !selected">
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" *ngFor="let child of selected?.children">
-            <a role="tab" (click)="child.select ? child.select(child) : null">{{ child.title }}</a>
+<div class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" *ngIf="secondaryNavigation && (selectedRoot$ | async)">
+    <ul class="nav nav-tabs" role="tablist" *ngIf="(selectedRoot$ | async)?.children; let children">
+        <li role="presentation" *ngFor="let child of children" [class.active]="child === (selected$ | async)">
+            <a role="tab" (click)="select(child)">{{ child.title }}</a>
         </li>
     </ul>
 </div>

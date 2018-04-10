@@ -1,6 +1,9 @@
-import { AfterViewInit, Component, ElementRef, Input, QueryList, ViewChildren, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { ResizeService } from '../../../directives/resize/index';
+import { PageHeaderNavigation, PageHeaderService } from '../page-header.service';
 import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
 
 @Component({
@@ -11,18 +14,17 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
     
     @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;
     
-    @Input() items: PageHeaderNavigationItem[] = [];
-    @Input() secondaryNavigation: boolean = false;
-    @Output() selected = new EventEmitter<PageHeaderNavigationItem>();
-    
+    items$: BehaviorSubject<PageHeaderNavigationItem[]> = this._pageHeaderService.items$;
     indicatorVisible: boolean = false;
     indicatorX: number = 0;
     indicatorWidth: number = 0;
     
-    private _subscription: Subscription;
+    private _subscription = new Subscription();
 
-    constructor(elementRef: ElementRef, resizeService: ResizeService) {
-        this._subscription = resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this));
+    constructor(elementRef: ElementRef, resizeService: ResizeService, private _pageHeaderService: PageHeaderService) {
+        this._subscription.add(resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this)));
+        this._subscription.add(_pageHeaderService.selected$.pipe(distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this)));
+        this._subscription.add(_pageHeaderService.secondary$.pipe(distinctUntilChanged()).subscribe(this.updateSelectedIndicator.bind(this)));
     }
 
     ngAfterViewInit(): void {
@@ -33,55 +35,19 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
         this._subscription.unsubscribe();
     }
 
-    onSelect(item: PageHeaderNavigationItem): void {
-        
-        if (item.select) {
-            item.select.call(item, item);
-        }
-
-        // emit the selected item
-        this.selected.emit(item);
-
-        // deselect all items in all menus
-        this.deselectAll();
-
-        // update the selected indicator
-        this.updateSelectedIndicator();
-    }
-
-    deselectAll(): void {
-        this.items.forEach(item => this.deselect(item));
-    }
-
-    deselect(navItem: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem): void {
-        
-        // deselect the current item
-        navItem.selected = false;
-
-        // iterate any children and deselect them
-        if (navItem.children) {
-            navItem.children.forEach(item => this.deselect(item));
-        }
-
-        // update the selected indicator
-        this.updateSelectedIndicator();
-    }
-
     updateSelectedIndicator(): void {
-
         setTimeout(() => {
-
             // find the selected item
-            const selectedItem = this.menuItems.find(item => item.item.selected);
-
+            const selected = this.menuItems.find(item => item.item.selected);
+    
             // determine whether or not to show the indicator
-            this.indicatorVisible = !!selectedItem;
-
+            this.indicatorVisible = !!selected;
+    
             // set the width of the indicator to match the width of the navigation item
-            if (selectedItem) {
-                const styles = getComputedStyle(selectedItem.elementRef.nativeElement);
-
-                this.indicatorX = selectedItem.elementRef.nativeElement.offsetLeft;
+            if (selected) {
+                const styles = getComputedStyle(selected.elementRef.nativeElement);
+    
+                this.indicatorX = selected.elementRef.nativeElement.offsetLeft;
                 this.indicatorWidth = parseInt(styles.getPropertyValue('width'));
             }
         });
@@ -95,6 +61,7 @@ export interface PageHeaderNavigationItem {
     selected?: boolean;
     select?: (item: PageHeaderNavigationItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
+    parent?: PageHeaderNavigation;
 }
 
 export interface PageHeaderNavigationDropdownItem {
@@ -102,4 +69,8 @@ export interface PageHeaderNavigationDropdownItem {
     selected?: boolean;    
     select?: (item: PageHeaderNavigationDropdownItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
+    parent?: PageHeaderNavigation;
 }
+
+// This is an alias for MF use as "DropdownItem" doesn't make sense in context with how it is used
+export interface PageHeaderSecondaryNavigationItem extends PageHeaderNavigationDropdownItem { }

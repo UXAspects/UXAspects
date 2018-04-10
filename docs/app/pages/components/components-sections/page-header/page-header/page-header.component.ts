@@ -31,7 +31,6 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
 
 
     condensed: boolean = false;
-    secondary: boolean = true;
 
     crumbs: Breadcrumb[] = [{
         title: 'Archive'

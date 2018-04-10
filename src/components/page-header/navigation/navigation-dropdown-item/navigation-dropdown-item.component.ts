@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { debounceTime } from 'rxjs/operators';
 import { PageHeaderNavigationDropdownItem } from '../navigation.component';
+import { PageHeaderService } from '../../page-header.service';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-dropdown-item',
@@ -11,14 +12,13 @@ import { PageHeaderNavigationDropdownItem } from '../navigation.component';
 export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
 
     @Input() item: PageHeaderNavigationDropdownItem;
-    @Output() onSelect: EventEmitter<PageHeaderNavigationDropdownItem> = new EventEmitter<PageHeaderNavigationDropdownItem>();
     
     dropdownOpen: boolean = false;
     
     private _subscription: Subscription;
     private _hover$: Subject<boolean> = new Subject<boolean>();
 
-    constructor() {
+    constructor(private _pageHeaderService: PageHeaderService) {
 
         // subscribe to stream with a debounce (a small debounce is all that is required)
         this._subscription = this._hover$.pipe(debounceTime(1)).subscribe(visible => this.dropdownOpen = visible);
@@ -28,7 +28,7 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
         this._subscription.unsubscribe();
     }
 
-    selectItem(item: PageHeaderNavigationDropdownItem, parentItem?: PageHeaderNavigationDropdownItem) {
+    select(item: PageHeaderNavigationDropdownItem) {
 
         // clicking on an item with children then return
         if (item.children) {
@@ -36,15 +36,7 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
         }
 
         // emit the selected item in an event
-        this.onSelect.emit(item);
-
-        // select the current item
-        item.selected = true;
-
-        // now also select the parent menu
-        if (parentItem) {
-            parentItem.selected = true;
-        }
+        this._pageHeaderService.select(item);
     }
 
     hoverStart() {
