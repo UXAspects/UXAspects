@@ -19,7 +19,7 @@ export class AppComponent {
      * Perform any sorting here 
      */
     sort(option: string): void {
-        // store the selected option to displayed in the UI
+        // store the selected option to be displayed in the UI
         this.selected = option;
     }
 }
