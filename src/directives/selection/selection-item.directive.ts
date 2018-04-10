@@ -15,6 +15,10 @@ export class SelectionItemDirective implements OnInit, OnDestroy {
   set selected(selected: boolean) {
     selected ? this.select() : this.deselect();
   }
+
+  get selected(): boolean {
+    return this._selected;
+  }
   
   @Input() @HostBinding('tabindex') tabindex: number = 0;
   @Output() selectedChange = new EventEmitter<boolean>();
