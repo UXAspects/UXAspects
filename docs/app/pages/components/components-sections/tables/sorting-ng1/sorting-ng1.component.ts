@@ -3,7 +3,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
-    selector: 'uxd-components-sorting',
+    selector: 'uxd-components-sorting-ng1',
     templateUrl: './sorting-ng1.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })

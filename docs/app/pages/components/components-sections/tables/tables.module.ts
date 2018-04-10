@@ -44,6 +44,7 @@ import { ComponentsSelectionComponent } from './selection/selection.component';
 import { ComponentsSingleColumnSortingNg1Component } from './single-column-sorting-ng1/single-column-sorting-ng1.component';
 import { ComponentsSortDirectionToggleNg1Component } from './sort-direction-toggle-ng1/sort-direction-toggle-ng1.component';
 import { ComponentsSortingNg1Component } from './sorting-ng1/sorting-ng1.component';
+import { ComponentsSortingComponent } from './sorting/sorting.component';
 import { ComponentsTraditionalMultipleSelectActionsNg1Component } from './traditional-multiple-select-actions-ng1/traditional-multiple-select-actions-ng1.component';
 
 
@@ -80,7 +81,8 @@ const SECTIONS = [
     ComponentsHoverActionsComponent,
     ComponentsFixedHeaderTableComponent,
     ComponentsFixedHeaderTableNg1Component,
-    ComponentsSelectionComponent
+    ComponentsSelectionComponent,
+    ComponentsSortingComponent
 ];
 
 const ROUTES = [
