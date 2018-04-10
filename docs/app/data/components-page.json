@@ -1430,7 +1430,7 @@
                     "deprecated": true
                 },
                 {
-                    "title": "Sorting",
+                    "title": "Toolbar Sorting",
                     "component": "ComponentsSortingComponent",
                     "version": "Angular",
                     "usage": [
@@ -1456,14 +1456,16 @@
                     "title": "Sorting",
                     "component": "ComponentsSortingNg1Component",
                     "version": "AngularJS",
-                    "deprecated": true
+                    "deprecated": true,                    
+                    "deprecatedFor": "ComponentsSortingComponent"
                 },
                 {
                     "title": "Sort Direction Toggle",
                     "component": "ComponentsSortDirectionToggleNg1Component",
                     "version": "AngularJS",
                     "hybrid": true,
-                    "deprecated": true
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSortingComponent"
                 },
                 {
                     "title": "Single Column Sorting",
