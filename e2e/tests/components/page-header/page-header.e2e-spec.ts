@@ -226,4 +226,30 @@ describe('Page Header Tests', () => {
     // check the selected text
     expect(await page.selected.getText()).toBe('Daily View');
   });
+
+  it('should not deselect child items when the parent item is clicked again', async () => {
+
+    // enable autoselect
+    await page.autoselectButton.click();
+
+    // click the second menu item
+    await page.pageHeader2.$$('.horizontal-navigation-button').get(1).click();
+
+    // get the required elements
+    const secondaryNavigation: ElementFinder = await page.getSecondaryNavigation();
+    const tabset = await secondaryNavigation.$('.nav-tabs');
+    const tabs: ElementArrayFinder = await tabset.$$('li');
+
+    // click the second item
+    await tabs[1].click();
+
+    // check the selected text
+    expect(await page.selected.getText()).toBe('Weekly View');
+
+    // click the second menu item again
+    await page.pageHeader2.$$('.horizontal-navigation-button').get(1).click();
+
+    // check the selected text has not changed
+    expect(await page.selected.getText()).toBe('Weekly View');
+  });
 });
