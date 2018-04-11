@@ -29,6 +29,11 @@ export class PageHeaderService implements OnDestroy {
             return;
         }
 
+        // if we are in secondary navigation mode and we click a parent - dont deselect the child
+        if (this.secondary$.getValue() === true && this.isParentOf(this.selected$.getValue(), item)) {
+            return;
+        }
+
         // deselect all current items
         this.deselectAll();
 
@@ -95,6 +100,22 @@ export class PageHeaderService implements OnDestroy {
             // check if it has any parents
             this.selectParents(item.parent);
         }
+    }
+
+    private isParentOf(node: PageHeaderNavigation, parent: PageHeaderNavigation): boolean {
+        
+        // if there are no parents return false
+        if (!node || !node.parent) {
+            return false;
+        }
+
+        // if the parent is the match we are looking for return true
+        if (node.parent === parent) {
+            return true;
+        }
+
+        // if there are potentially grandparents then check them too
+        return this.isParentOf(node.parent, parent);
     }
 }
 
