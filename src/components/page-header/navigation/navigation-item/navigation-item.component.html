@@ -1,12 +1,24 @@
-<div class="horizontal-navigation-button" dropdown dropdownToggle placement="bottom left" [isDisabled]="!item?.children" tabindex="0" container="body"
-    #menu="bs-dropdown" (keyup.enter)="menu.toggle()" [class.selected]="item?.selected" (click)="selectItem()">
+<div class="horizontal-navigation-button"
+    dropdown
+    dropdownToggle
+    placement="bottom left"
+    [isDisabled]="!item?.children || (secondary$ | async)"
+    tabindex="0"
+    container="body"
+    #menu="bs-dropdown"
+    (keyup.enter)="menu.toggle()"
+    [class.selected]="item?.selected"
+    (click)="select()">
 
     <span class="hpe-icon navigation-item-icon" *ngIf="item.icon" [ngClass]="item?.icon"></span>
     <span class="navigation-item-label">{{ item?.title }}</span>
-    <span class="hpe-icon hpe-down" *ngIf="item?.children"></span>
+    <span class="hpe-icon hpe-down" *ngIf="item?.children && !(secondary$ | async)"></span>
 
     <div *dropdownMenu class="dropdown-menu horizontal-navigation-dropdown-menu" role="menu">
-        <ux-page-header-horizontal-navigation-dropdown-item *ngFor="let item of item?.children" [item]="item" (onSelect)="onItemSelect($event)"></ux-page-header-horizontal-navigation-dropdown-item>
+        <ux-page-header-horizontal-navigation-dropdown-item
+            *ngFor="let item of item?.children"
+            [item]="item">
+        </ux-page-header-horizontal-navigation-dropdown-item>
     </div>
 
 </div>
