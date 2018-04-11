@@ -8,6 +8,9 @@ import { Breadcrumb, PageHeaderNavigationItem, PageHeaderIconMenu } from '../../
 export class PageHeaderTestPageComponent {
 
     condensed: boolean = false;
+    autoselect: boolean = false;
+    alignment: string = 'center';
+    selected: string;
 
     crumbs: Breadcrumb[] = [{
         title: 'Archive'
@@ -38,6 +41,31 @@ export class PageHeaderTestPageComponent {
                             title: 'Monthly View'
                         }
                     ]
+                }
+            ]
+        }
+    ];
+
+    items2: PageHeaderNavigationItem[] = [
+        {
+            icon: 'hpe-home',
+            title: 'Home'
+        },
+        {
+            icon: 'hpe-analytics',
+            title: 'Analytics',
+            children: [
+                {
+                    title: 'Daily View',
+                    select: () => this.selected = 'Daily View'
+                },
+                {
+                    title: 'Weekly View',
+                    select: () => this.selected = 'Weekly View'
+                },
+                {
+                    title: 'Monthly View',
+                    select: () => this.selected = 'Monthly View'
                 }
             ]
         }
