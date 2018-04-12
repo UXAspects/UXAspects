@@ -18,4 +18,5 @@ export declare class RadioButtonComponent implements ControlValueAccessor {
     writeValue(value: boolean): void;
     registerOnChange(fn: any): void;
     registerOnTouched(fn: any): void;
+    setDisabledState(isDisabled: boolean): void;
 }
