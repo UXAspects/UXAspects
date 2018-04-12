@@ -36,7 +36,8 @@ module.exports = {
 
     resolveLoader: {
         alias: {
-            'code-snippet-loader': join(project_dir, 'configs', 'loaders', 'code-snippet-loader.js')
+            'code-snippet-loader': join(project_dir, 'configs', 'loaders', 'code-snippet-loader.js'),
+            'uglifyjs-loader': join(project_dir, 'configs', 'loaders', 'uglifyjs-loader.js')            
         }
     },
 
@@ -134,17 +135,7 @@ module.exports = {
                     join(project_dir, 'src', 'ng1', 'plugins'),
                     join(project_dir, 'src', 'ng1', 'external')
                 ],
-                use: [{
-                    loader: 'script-loader'
-                }, {
-                    loader: 'uglify-loader',
-                    options: {
-                        compress: {
-                            warnings: false,
-                        },
-                        comments: false
-                    }
-                }]
+                use: ['script-loader', 'uglifyjs-loader']
             },
             {
                 test: /\.html$/,
