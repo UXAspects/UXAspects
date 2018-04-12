@@ -2,7 +2,7 @@ UX Aspects 1.5.9 is available! Check out the documentation at [https://uxaspects
 
 New Features:
 * New components for Angular applications:
-    * Selection (Angular)
+    * [Selection (Angular)](https://uxaspects.github.io/UXAspects/#/components/tables#selection)
 
 Bug Fixes:
 * (EL-3089) Fixed disabled state functionality in form components.
