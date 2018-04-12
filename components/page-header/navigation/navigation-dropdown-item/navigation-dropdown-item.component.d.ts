@@ -1,13 +1,15 @@
-import { EventEmitter } from '@angular/core';
-import 'rxjs/add/operator/debounceTime';
+import { OnDestroy } from '@angular/core';
 import { PageHeaderNavigationDropdownItem } from '../navigation.component';
-export declare class PageHeaderNavigationDropdownItemComponent {
+import { PageHeaderService } from '../../page-header.service';
+export declare class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
+    private _pageHeaderService;
     item: PageHeaderNavigationDropdownItem;
-    onSelect: EventEmitter<PageHeaderNavigationDropdownItem>;
     dropdownOpen: boolean;
-    private _dropdownEvents;
-    constructor();
-    selectItem(item: PageHeaderNavigationDropdownItem, parentItem?: PageHeaderNavigationDropdownItem): void;
+    private _subscription;
+    private _hover$;
+    constructor(_pageHeaderService: PageHeaderService);
+    ngOnDestroy(): void;
+    select(item: PageHeaderNavigationDropdownItem): void;
     hoverStart(): void;
     hoverLeave(): void;
     close(): void;

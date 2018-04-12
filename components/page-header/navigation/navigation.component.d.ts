@@ -1,17 +1,19 @@
-import { QueryList, ElementRef, AfterViewInit } from '@angular/core';
-import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
+import { AfterViewInit, ElementRef, OnDestroy, QueryList } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ResizeService } from '../../../directives/resize/index';
-export declare class PageHeaderNavigationComponent implements AfterViewInit {
+import { PageHeaderNavigation, PageHeaderService } from '../page-header.service';
+import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-item.component';
+export declare class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
+    private _pageHeaderService;
     menuItems: QueryList<PageHeaderNavigationItemComponent>;
-    items: PageHeaderNavigationItem[];
+    items$: BehaviorSubject<PageHeaderNavigationItem[]>;
     indicatorVisible: boolean;
     indicatorX: number;
     indicatorWidth: number;
-    constructor(elementRef: ElementRef, resizeService: ResizeService);
+    private _subscription;
+    constructor(elementRef: ElementRef, resizeService: ResizeService, _pageHeaderService: PageHeaderService);
     ngAfterViewInit(): void;
-    onSelect(item: PageHeaderNavigationItem): void;
-    deselectAll(): void;
-    deselect(navItem: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem): void;
+    ngOnDestroy(): void;
     updateSelectedIndicator(): void;
 }
 export interface PageHeaderNavigationItem {
@@ -20,10 +22,14 @@ export interface PageHeaderNavigationItem {
     selected?: boolean;
     select?: (item: PageHeaderNavigationItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
+    parent?: PageHeaderNavigation;
 }
 export interface PageHeaderNavigationDropdownItem {
     title: string;
     selected?: boolean;
     select?: (item: PageHeaderNavigationDropdownItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
+    parent?: PageHeaderNavigation;
+}
+export interface PageHeaderSecondaryNavigationItem extends PageHeaderNavigationDropdownItem {
 }

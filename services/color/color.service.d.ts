@@ -116,6 +116,7 @@ export declare const colorSets: {
             'copper': string;
             'amber': string;
             'leaf-green': string;
+            'forest-green': string;
             'primary': string;
             'accent': string;
             'secondary': string;

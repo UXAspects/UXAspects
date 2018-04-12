@@ -1,15 +1,19 @@
-import { QueryList, OnInit, EventEmitter, ElementRef } from '@angular/core';
+import { ElementRef, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationDropdownItemComponent } from '../navigation-dropdown-item/navigation-dropdown-item.component';
-import { PageHeaderNavigationItem, PageHeaderNavigationDropdownItem } from '../navigation.component';
-export declare class PageHeaderNavigationItemComponent implements OnInit {
+import { PageHeaderNavigationItem } from '../navigation.component';
+export declare class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
     elementRef: ElementRef;
+    private _pageHeaderService;
     menu: BsDropdownDirective;
-    dropdownComponents: QueryList<PageHeaderNavigationDropdownItemComponent>;
+    dropdowns: QueryList<PageHeaderNavigationDropdownItemComponent>;
     item: PageHeaderNavigationItem;
-    onSelect: EventEmitter<PageHeaderNavigationDropdownItem>;
-    constructor(elementRef: ElementRef);
+    secondary$: BehaviorSubject<boolean>;
+    private _subscription;
+    constructor(elementRef: ElementRef, _pageHeaderService: PageHeaderService);
     ngOnInit(): void;
-    selectItem(): void;
-    onItemSelect(item: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem): void;
+    ngOnDestroy(): void;
+    select(): void;
 }

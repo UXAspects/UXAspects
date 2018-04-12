@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.8 
+* @ux-aspects/ux-aspects-docs - v1.5.9 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -612,13 +612,10 @@ var Subscriber = (function (_super) {
                     break;
                 }
                 if (typeof destinationOrNext === 'object') {
-                    // HACK(benlesh): To resolve an issue where Node users may have multiple
-                    // copies of rxjs in their node_modules directory.
-                    if (isTrustedSubscriber(destinationOrNext)) {
-                        var trustedSubscriber = destinationOrNext[rxSubscriber_1.rxSubscriber]();
-                        this.syncErrorThrowable = trustedSubscriber.syncErrorThrowable;
-                        this.destination = trustedSubscriber;
-                        trustedSubscriber.add(this);
+                    if (destinationOrNext instanceof Subscriber) {
+                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
+                        this.destination = destinationOrNext;
+                        this.destination.add(this);
                     }
                     else {
                         this.syncErrorThrowable = true;
@@ -833,9 +830,6 @@ var SafeSubscriber = (function (_super) {
     };
     return SafeSubscriber;
 }(Subscriber));
-function isTrustedSubscriber(obj) {
-    return obj instanceof Subscriber || ('syncErrorThrowable' in obj && obj[rxSubscriber_1.rxSubscriber]);
-}
 //# sourceMappingURL=Subscriber.js.map
 
 /***/ }),
@@ -4511,6 +4505,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
+//! version : 2.19.1
+//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
+//! license : MIT
+//! momentjs.com
 
 ;(function (global, factory) {
      true ? module.exports = factory() :
@@ -5167,7 +5165,8 @@ var matchTimestamp = /[+-]?\d+(\.\d{1,3})?/; // 123456789 123456789.123
 
 // any word (or two) characters or numbers including two/three word month in arabic.
 // includes scottish gaelic two word and hyphenated months
-var matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i;
+var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
+
 
 var regexes = {};
 
@@ -5321,7 +5320,7 @@ function get (mom, unit) {
 
 function set$1 (mom, unit, value) {
     if (mom.isValid() && !isNaN(value)) {
-        if (unit === 'FullYear' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
+        if (unit === 'FullYear' && isLeapYear(mom.year())) {
             mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
         }
         else {
@@ -6281,6 +6280,10 @@ function localeMeridiem (hours, minutes, isLower) {
 // this rule.
 var getSetHour = makeGetSet('Hours', true);
 
+// months
+// week
+// weekdays
+// meridiem
 var baseConfig = {
     calendar: defaultCalendar,
     longDateFormat: defaultLongDateFormat,
@@ -6334,7 +6337,7 @@ function chooseLocale(names) {
         }
         i++;
     }
-    return globalLocale;
+    return null;
 }
 
 function loadLocale(name) {
@@ -6369,12 +6372,6 @@ function getSetGlobalLocale (key, values) {
             // moment.duration._locale = moment._locale = data;
             globalLocale = data;
         }
-        else {
-            if ((typeof console !==  'undefined') && console.warn) {
-                //warn user if arguments are passed but the locale could not be set
-                console.warn('Locale ' + key +  ' not found. Did you forget to load it?');
-            }
-        }
     }
 
     return globalLocale._abbr;
@@ -6382,7 +6379,7 @@ function getSetGlobalLocale (key, values) {
 
 function defineLocale (name, config) {
     if (config !== null) {
-        var locale, parentConfig = baseConfig;
+        var parentConfig = baseConfig;
         config.abbr = name;
         if (locales[name] != null) {
             deprecateSimple('defineLocaleOverride',
@@ -6395,19 +6392,14 @@ function defineLocale (name, config) {
             if (locales[config.parentLocale] != null) {
                 parentConfig = locales[config.parentLocale]._config;
             } else {
-                locale = loadLocale(config.parentLocale);
-                if (locale != null) {
-                    parentConfig = locale._config;
-                } else {
-                    if (!localeFamilies[config.parentLocale]) {
-                        localeFamilies[config.parentLocale] = [];
-                    }
-                    localeFamilies[config.parentLocale].push({
-                        name: name,
-                        config: config
-                    });
-                    return null;
+                if (!localeFamilies[config.parentLocale]) {
+                    localeFamilies[config.parentLocale] = [];
                 }
+                localeFamilies[config.parentLocale].push({
+                    name: name,
+                    config: config
+                });
+                return null;
             }
         }
         locales[name] = new Locale(mergeConfigs(parentConfig, config));
@@ -6434,11 +6426,10 @@ function defineLocale (name, config) {
 
 function updateLocale(name, config) {
     if (config != null) {
-        var locale, tmpLocale, parentConfig = baseConfig;
+        var locale, parentConfig = baseConfig;
         // MERGE
-        tmpLocale = loadLocale(name);
-        if (tmpLocale != null) {
-            parentConfig = tmpLocale._config;
+        if (locales[name] != null) {
+            parentConfig = locales[name]._config;
         }
         config = mergeConfigs(parentConfig, config);
         locale = new Locale(config);
@@ -6543,7 +6534,7 @@ function currentDateArray(config) {
 // note: all values past the year are optional and will default to the lowest possible value.
 // [year, month, day , hour, minute, second, millisecond]
 function configFromArray (config) {
-    var i, date, input = [], currentDate, expectedWeekday, yearToUse;
+    var i, date, input = [], currentDate, yearToUse;
 
     if (config._d) {
         return;
@@ -6593,8 +6584,6 @@ function configFromArray (config) {
     }
 
     config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
-    expectedWeekday = config._useUTC ? config._d.getUTCDay() : config._d.getDay();
-
     // Apply timezone offset from input. The actual utcOffset can be changed
     // with parseZone.
     if (config._tzm != null) {
@@ -6606,7 +6595,7 @@ function configFromArray (config) {
     }
 
     // check for mismatching day of week
-    if (config._w && typeof config._w.d !== 'undefined' && config._w.d !== expectedWeekday) {
+    if (config._w && typeof config._w.d !== 'undefined' && config._w.d !== config._d.getDay()) {
         getParsingFlags(config).weekdayMismatch = true;
     }
 }
@@ -7755,7 +7744,7 @@ function isSameOrBefore (input, units) {
 function diff (input, units, asFloat) {
     var that,
         zoneDelta,
-        output;
+        delta, output;
 
     if (!this.isValid()) {
         return NaN;
@@ -7814,24 +7803,19 @@ function toString () {
     return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
 }
 
-function toISOString(keepOffset) {
+function toISOString() {
     if (!this.isValid()) {
         return null;
     }
-    var utc = keepOffset !== true;
-    var m = utc ? this.clone().utc() : this;
+    var m = this.clone().utc();
     if (m.year() < 0 || m.year() > 9999) {
-        return formatMoment(m, utc ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ');
+        return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
     }
     if (isFunction(Date.prototype.toISOString)) {
         // native implementation is ~50x faster, use it when we can
-        if (utc) {
-            return this.toDate().toISOString();
-        } else {
-            return new Date(this.valueOf() + this.utcOffset() * 60 * 1000).toISOString().replace('Z', formatMoment(m, 'Z'));
-        }
+        return this.toDate().toISOString();
     }
-    return formatMoment(m, utc ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
+    return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
 }
 
 /**
@@ -8187,7 +8171,7 @@ addRegexToken('Do', function (isStrict, locale) {
 
 addParseToken(['D', 'DD'], DATE);
 addParseToken('Do', function (input, array) {
-    array[DATE] = toInt(input.match(match1to2)[0]);
+    array[DATE] = toInt(input.match(match1to2)[0], 10);
 });
 
 // MOMENTS
@@ -8382,26 +8366,48 @@ proto.toString          = toString;
 proto.unix              = unix;
 proto.valueOf           = valueOf;
 proto.creationData      = creationData;
+
+// Year
 proto.year       = getSetYear;
 proto.isLeapYear = getIsLeapYear;
+
+// Week Year
 proto.weekYear    = getSetWeekYear;
 proto.isoWeekYear = getSetISOWeekYear;
+
+// Quarter
 proto.quarter = proto.quarters = getSetQuarter;
+
+// Month
 proto.month       = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
+
+// Week
 proto.week           = proto.weeks        = getSetWeek;
 proto.isoWeek        = proto.isoWeeks     = getSetISOWeek;
 proto.weeksInYear    = getWeeksInYear;
 proto.isoWeeksInYear = getISOWeeksInYear;
+
+// Day
 proto.date       = getSetDayOfMonth;
 proto.day        = proto.days             = getSetDayOfWeek;
 proto.weekday    = getSetLocaleDayOfWeek;
 proto.isoWeekday = getSetISODayOfWeek;
 proto.dayOfYear  = getSetDayOfYear;
+
+// Hour
 proto.hour = proto.hours = getSetHour;
+
+// Minute
 proto.minute = proto.minutes = getSetMinute;
+
+// Second
 proto.second = proto.seconds = getSetSecond;
+
+// Millisecond
 proto.millisecond = proto.milliseconds = getSetMillisecond;
+
+// Offset
 proto.utcOffset            = getSetOffset;
 proto.utc                  = setOffsetToUTC;
 proto.local                = setOffsetToLocal;
@@ -8412,8 +8418,12 @@ proto.isLocal              = isLocal;
 proto.isUtcOffset          = isUtcOffset;
 proto.isUtc                = isUtc;
 proto.isUTC                = isUtc;
+
+// Timezone
 proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
+
+// Deprecations
 proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
 proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
 proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
@@ -8444,15 +8454,19 @@ proto$1.relativeTime    = relativeTime;
 proto$1.pastFuture      = pastFuture;
 proto$1.set             = set;
 
+// Month
 proto$1.months            =        localeMonths;
 proto$1.monthsShort       =        localeMonthsShort;
 proto$1.monthsParse       =        localeMonthsParse;
 proto$1.monthsRegex       = monthsRegex;
 proto$1.monthsShortRegex  = monthsShortRegex;
+
+// Week
 proto$1.week = localeWeek;
 proto$1.firstDayOfYear = localeFirstDayOfYear;
 proto$1.firstDayOfWeek = localeFirstDayOfWeek;
 
+// Day of Week
 proto$1.weekdays       =        localeWeekdays;
 proto$1.weekdaysMin    =        localeWeekdaysMin;
 proto$1.weekdaysShort  =        localeWeekdaysShort;
@@ -8462,6 +8476,7 @@ proto$1.weekdaysRegex       =        weekdaysRegex;
 proto$1.weekdaysShortRegex  =        weekdaysShortRegex;
 proto$1.weekdaysMinRegex    =        weekdaysMinRegex;
 
+// Hours
 proto$1.isPM = localeIsPM;
 proto$1.meridiem = localeMeridiem;
 
@@ -8568,7 +8583,6 @@ getSetGlobalLocale('en', {
 });
 
 // Side effect imports
-
 hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
 hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
 
@@ -8944,6 +8958,7 @@ proto$2.toJSON         = toISOString$1;
 proto$2.locale         = locale;
 proto$2.localeData     = localeData;
 
+// Deprecations
 proto$2.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString$1);
 proto$2.lang = lang;
 
@@ -8968,7 +8983,7 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 
-hooks.version = '2.21.0';
+hooks.version = '2.19.1';
 
 setHookCallback(createLocal);
 
@@ -8999,19 +9014,6 @@ hooks.relativeTimeRounding  = getSetRelativeTimeRounding;
 hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
 hooks.calendarFormat        = getCalendarFormat;
 hooks.prototype             = proto;
-
-// currently HTML5 input type only supports 24-hour formats
-hooks.HTML5_FMT = {
-    DATETIME_LOCAL: 'YYYY-MM-DDTHH:mm',             // <input type="datetime-local" />
-    DATETIME_LOCAL_SECONDS: 'YYYY-MM-DDTHH:mm:ss',  // <input type="datetime-local" step="1" />
-    DATETIME_LOCAL_MS: 'YYYY-MM-DDTHH:mm:ss.SSS',   // <input type="datetime-local" step="0.001" />
-    DATE: 'YYYY-MM-DD',                             // <input type="date" />
-    TIME: 'HH:mm',                                  // <input type="time" />
-    TIME_SECONDS: 'HH:mm:ss',                       // <input type="time" step="1" />
-    TIME_MS: 'HH:mm:ss.SSS',                        // <input type="time" step="0.001" />
-    WEEK: 'YYYY-[W]WW',                             // <input type="week" />
-    MONTH: 'YYYY-MM'                                // <input type="month" />
-};
 
 return hooks;
 
@@ -36208,7 +36210,10 @@ function $colorService() {
   }
 
   $colorService.getColor = function (color) {
-    var themeColor = colors[color.toLowerCase()];
+    var themeColor = colors[$colorService.resolveColorName(color)];
+    if (!themeColor) {
+      throw new Error('Color not found: ' + color);
+    }
 
     return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
   };
@@ -36355,7 +36360,7 @@ module.exports = {"colorClassSet":{"primary":"primary","accent":"accent","second
 /* 531 */
 /***/ (function(module, exports) {
 
-module.exports = {"colorValueSet":{"cerulean":"#1668c1","aqua":"#29ceff","aquamarine":"#2fd6c3","fuchsia":"#c6179d","indigo":"#7425ad","dark-blue":"#231ca5","white":"#ffffff","slightly-gray":"#f5f7f8","bright-gray":"#f1f2f3","gray":"#dcdedf","silver":"#bdbec0","dim-gray":"#656668","dark-gray":"#323435","black":"#000000","crimson-negative":"#e5004c","apricot":"#f48b34","yellow":"#fcdb1f","green-positive":"#1aac60","ultramarine":"#3939c6","skyblue":"#00abf3","pale-aqua":"#43e4ff","pale-green":"#1ffbba","lime":"#75da4d","orange":"#ffce00","magenta":"#eb23c2","pale-purple":"#ba47e2","dark-ultramarine":"#271782","steelblue":"#014272","arctic-blue":"#0b8eac","emerald":"#00a989","olive":"#5bba36","goldenrod":"#ffb000","purple":"#9b1e83","pale-eggplant":"#5216ac","red":"#ff454f","pale-amber":"#ffb24d","pale-lemon":"#fde159","pale-emerald":"#33c180","plum":"#b21646","copper":"#e57828","amber":"#ffc002","leaf-green":"#118c4f","primary":"#0073e7","accent":"#7425ad","secondary":"#ffffff","alternate1":"#29ceff","alternate2":"#2fd6c3","alternate3":"#c6179d","vibrant1":"#43e4ff","vibrant2":"#ffce00","grey1":"#000000","grey2":"#323435","grey3":"#656668","grey4":"#bdbec0","grey5":"#dcdedf","grey6":"#f1f2f3","grey7":"#f5f7f8","grey8":"#ffffff","chart1":"#3939c6","chart2":"#00abf3","chart3":"#75da4d","chart4":"#ffce00","chart5":"#eb23c2","chart6":"#ba47e2","ok":"#1aac60","warning":"#f48b34","critical":"#e5004c","partition1":"#7425ad","partition9":"#5216ac","partition10":"#5bba36","partition11":"#014272","partition12":"#ffb000","partition13":"#bdbec0","partition14":"#271782","social-chart-node":"#ff00ff","social-chart-edge":"#ff00ff"}}
+module.exports = {"colorValueSet":{"cerulean":"#1668c1","aqua":"#29ceff","aquamarine":"#2fd6c3","fuchsia":"#c6179d","indigo":"#7425ad","dark-blue":"#231ca5","white":"#ffffff","slightly-gray":"#f5f7f8","bright-gray":"#f1f2f3","gray":"#dcdedf","silver":"#bdbec0","dim-gray":"#656668","dark-gray":"#323435","black":"#000000","crimson-negative":"#e5004c","apricot":"#f48b34","yellow":"#fcdb1f","green-positive":"#1aac60","ultramarine":"#3939c6","skyblue":"#00abf3","pale-aqua":"#43e4ff","pale-green":"#1ffbba","lime":"#75da4d","orange":"#ffce00","magenta":"#eb23c2","pale-purple":"#ba47e2","dark-ultramarine":"#271782","steelblue":"#014272","arctic-blue":"#0b8eac","emerald":"#00a989","olive":"#5bba36","goldenrod":"#ffb000","purple":"#9b1e83","pale-eggplant":"#5216ac","red":"#ff454f","pale-amber":"#ffb24d","pale-lemon":"#fde159","pale-emerald":"#33c180","plum":"#b21646","copper":"#e57828","amber":"#ffc002","leaf-green":"#118c4f","forest-green":"#00645a","primary":"#0073e7","accent":"#7425ad","secondary":"#ffffff","alternate1":"#29ceff","alternate2":"#2fd6c3","alternate3":"#c6179d","vibrant1":"#43e4ff","vibrant2":"#ffce00","grey1":"#000000","grey2":"#323435","grey3":"#656668","grey4":"#bdbec0","grey5":"#dcdedf","grey6":"#f1f2f3","grey7":"#f5f7f8","grey8":"#ffffff","chart1":"#3939c6","chart2":"#00abf3","chart3":"#75da4d","chart4":"#ffce00","chart5":"#eb23c2","chart6":"#ba47e2","ok":"#1aac60","warning":"#f48b34","critical":"#e5004c","partition1":"#7425ad","partition9":"#5216ac","partition10":"#5bba36","partition11":"#014272","partition12":"#ffb000","partition13":"#bdbec0","partition14":"#271782","social-chart-node":"#ff00ff","social-chart-edge":"#ff00ff"}}
 
 /***/ }),
 /* 532 */

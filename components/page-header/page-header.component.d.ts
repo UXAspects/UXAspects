@@ -1,26 +1,38 @@
-import { EventEmitter, QueryList, TemplateRef } from '@angular/core';
+import { EventEmitter, OnDestroy, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
-import { ColorService } from '../../services/color/index';
-export declare class PageHeaderComponent {
+import { PageHeaderNavigation, PageHeaderService } from './page-header.service';
+export declare class PageHeaderComponent implements OnInit, OnDestroy {
     private _colorService;
+    private _pageHeaderService;
     logo: string;
-    items: PageHeaderNavigationItem[];
-    crumbs: Breadcrumb[];
     header: string;
     alignment: 'left' | 'right' | 'center';
     condensed: boolean;
     iconMenus: PageHeaderIconMenu[];
     backVisible: boolean;
+    secondaryNavigationAlignment: string;
+    secondaryNavigationAutoselect: boolean;
+    items: PageHeaderNavigationItem[];
+    secondaryNavigation: boolean;
+    crumbs: Breadcrumb[];
     familyBackground: string;
     familyForeground: string;
     backClick: EventEmitter<{}>;
     customMenus: QueryList<TemplateRef<any>>;
+    selected$: BehaviorSubject<PageHeaderNavigationItem>;
+    selectedRoot$: BehaviorSubject<PageHeaderNavigationItem>;
+    private _crumbs;
     private _familyBackground;
     private _familyForeground;
-    constructor(_colorService: ColorService);
+    private _subscription;
+    constructor(_colorService: ColorService, _pageHeaderService: PageHeaderService);
+    ngOnInit(): void;
+    ngOnDestroy(): void;
     goBack(): void;
-    getCondensedBreadcrumbs(): Breadcrumb[];
+    select(item: PageHeaderNavigation): void;
 }
 export interface PageHeaderIconMenu {
     icon: string;
