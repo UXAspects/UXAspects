@@ -139,7 +139,7 @@
     "to-string-loader": "1.1.5",
     "tslint": "5.8.0",
     "typescript": "2.4.2",
-    "uglify-loader": "2.0.0",
+    "uglify-js": "3.3.15",
     "uglifyjs-webpack-plugin": "1.1.6",
     "url-loader": "0.6.2",
     "webpack": "3.10.0",
