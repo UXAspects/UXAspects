@@ -737,7 +737,9 @@
                 {
                     "title": "Side Modal",
                     "component": "ComponentsSideModalNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSidePanelComponent"
                 }
             ]
         },
@@ -867,6 +869,29 @@
                     ]
                 },
                 {
+                    "title": "Side Panel",
+                    "component": "ComponentsSidePanelComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-side-panel"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "ux-side-panel"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxSidePanelClose]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SidePanelModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Item Display Panel",
                     "component": "ComponentsItemDisplayPanelComponent",
                     "version": "Angular",
@@ -912,12 +937,16 @@
                 {
                     "title": "Modal Inset Panel",
                     "component": "ComponentsModalInsetPanelNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSidePanelComponent"
                 },
                 {
                     "title": "Side Inset Panel",
                     "component": "ComponentsSideInsetPanelNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSidePanelComponent"
                 }
             ]
         },
