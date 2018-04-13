@@ -35,6 +35,7 @@ export * from './components/wizard/index';
 /*
   Export Directives
 */
+export * from './directives/auto-grow/index';
 export * from './directives/drag/index';
 export * from './directives/fixed-header-table/index';
 export * from './directives/focus-if/index';
