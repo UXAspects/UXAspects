@@ -1,0 +1,50 @@
+<form class="component-list-container" [formGroup]="form">
+
+    <div class="component-list">
+
+        <div class="component-list-component"
+            [class.hoverable]="items.length > 1"
+            formArrayName="items"
+            *ngFor="let item of items.controls; let idx = index">
+
+            <div class="component-content">
+                <input class="form-control" [formControlName]="idx" placeholder="Enter text">
+            </div>
+
+            <div class="component-remove" (click)="remove(idx)">
+                <i class="hpe-icon hpe-close"></i>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="component-actions" [class.disabled]="form.invalid" (click)="add()">
+        <div class="component-add-btn">
+            <span class="hpe-icon hpe-add"></span>
+        </div>
+        <p class="component-add-text">Add a field</p>
+    </div>
+
+</form>
+
+<hr>
+
+<p>
+    A component list can be used to dynamically add and remove components.
+    It uses Angular's <code>FormGroup</code> and <code>FormArray</code> to store the fields
+    and apply validation rules which can be used to determine whether or not we should be
+    allowed to add additional fields.
+</p>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>
