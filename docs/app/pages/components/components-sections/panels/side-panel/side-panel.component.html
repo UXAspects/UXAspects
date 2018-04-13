@@ -1,0 +1,113 @@
+<!--
+<div style="position: relative">
+
+    <p>Some other content.</p>
+
+    <ux-side-panel #sidePanel="ux-side-panel"
+        [(open)]="open"
+        [inline]="inline"
+        [attachTo]="attachTo"
+        [top]="top"
+        [modal]="modal"
+        [animate]="animate"
+        [closeOnExternalClick]="closeOnExternalClick">
+    
+        <button uxSidePanelClose type="button" class="btn btn-link btn-icon button-secondary">
+            <span class="hpe-icon hpe-close"></span>
+        </button>
+    
+        <div class="ux-side-panel-header">
+            <h3>Side Panel</h3>
+        </div>
+    
+        <div class="ux-side-panel-content">
+            <p>Side panel content.</p>
+        </div>
+    
+        <div class="ux-side-panel-footer btn-container">
+            <button type="button" class="btn button-secondary" (click)="sidePanel.close()">Cancel</button>
+            <button type="button" class="btn button-primary" (click)="sidePanel.close()">Save</button>
+        </div>
+    
+    </ux-side-panel>
+
+</div>
+-->
+
+<hr>
+
+<p>
+    The <code>ux-side-panel</code> component can be used to create a panel which can be displayed or hidden as needed.
+    It can be attached to the browser window, or any other container such as a modal.
+</p>
+
+<p>
+    Add the <code>uxSidePanelClose</code> directive to a <code>button</code> to attach a close button in the top right
+    corner of the side panel.
+</p>
+
+<p>
+    Content can be added freely within <code>ux-side-panel</code>; however, if a header and/or footer are required,
+    the following classes can be used to structure the content of the side panel:
+</p>
+
+<ul>
+    <li><code>ux-side-panel-header</code></li>
+    <li><code>ux-side-panel-content</code></li>
+    <li><code>ux-side-panel-footer</code></li>
+</ul>
+
+<p>
+    The following properties can be used to configure the <code>ux-side-panel</code> component:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="open" type="boolean">
+        Whether the side panel is open (visible).
+    </tr>
+    <tr uxd-api-property name="inline" type="boolean" defaultValue="false">
+        Whether the panel displays inline with other content in the same container. This ensures that no content is
+        hidden by the panel. If this is set, the panel's position will be defined by its parent container, and opening
+        the panel will change the layout of the other content to make space for the panel.
+    </tr>
+    <tr uxd-api-property name="attachTo" type="'window' | 'container'" defaultValue="window">
+        Which parent to visually attach the panel to. Has no effect if <code>inline</code> is true.
+        <ul>
+            <li><code>window</code>: the panel will appear relative to the browser window.</li>
+            <li>
+                <code>container</code>: the panel will appear relative to the nearest positioned parent (i.e.
+                <code>position</code> is <code>relative</code>, <code>absolute</code>, or <code>fixed</code>). Use
+                this option to place a side panel inside a <a routerLink="/components/modals">modal</a>.
+            </li>
+        </ul>
+    </tr>
+    <tr uxd-api-property name="top" type="number" defaultValue="0">
+        The number of pixels to offset the top of the panel. This can be used to display the panel below a page header.
+        Has no effect if <code>inline</code> is true.
+    </tr>
+    <tr uxd-api-property name="modal" type="boolean" defaultValue="false">
+        Whether to display the side panel as a modal. As a modal, user input is restricted to the contents of the side
+        panel. Has no effect if <code>inline</code> is true.
+    </tr>
+    <tr uxd-api-property name="animate" type="boolean" defaultValue="true">
+        Whether to animate the panel opening and closing.
+    </tr>
+    <tr uxd-api-property name="closeOnExternalClick" type="boolean" defaultValue="false">
+        Whether the panel should close when the user clicks outside the panel.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="openChange" type="boolean">
+        Emitted when the side panel opens or closes.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Functions">
+    <tr uxd-api-property name="open">
+        Opens the side panel.
+    </tr>
+    <tr uxd-api-property name="close">
+        Closes the side panel.
+    </tr>
+</uxd-api-properties>
