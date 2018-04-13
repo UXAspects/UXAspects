@@ -182,8 +182,14 @@
             "sections": [
                 {
                     "title": "Component List",
+                    "component": "ComponentsComponentListComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Component List",
                     "component": "ComponentsComponentListNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
