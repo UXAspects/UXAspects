@@ -7,7 +7,7 @@ import { DocumentationComponentsModule } from '../../../../components/components
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 
-import { CheckboxModule, ToggleSwitchModule, RadioButtonModule, ColorServiceModule, SliderModule, TagInputModule, TypeaheadModule, NumberPickerModule } from '../../../../../../src/index';
+import { CheckboxModule, ToggleSwitchModule, RadioButtonModule, ColorServiceModule, SliderModule, TagInputModule, TypeaheadModule, NumberPickerModule, AutoGrowModule } from '../../../../../../src/index';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 
@@ -29,6 +29,7 @@ import { ComponentsTagsNg1Component } from './tags-ng1/tags-ng1.component';
 import { ComponentsToggleSwitchComponent } from './toggleswitch/toggleswitch.component';
 import { ComponentsToggleSwitchNg1Component } from './toggle-switch-ng1/toggle-switch-ng1.component';
 import { ComponentsNumberPickerComponent } from './number-picker/number-picker.component';
+import { ComponentsExpandingTextAreaComponent } from './expanding-text-area/expanding-text-area.component';
 
 const SECTIONS = [
     ComponentsCheckboxComponent,
@@ -49,6 +50,7 @@ const SECTIONS = [
     ComponentsToggleSwitchComponent,
     ComponentsToggleSwitchNg1Component,
     ComponentsNumberPickerComponent,
+    ComponentsExpandingTextAreaComponent
 ];
 
 const ROUTES = [
@@ -77,6 +79,7 @@ const ROUTES = [
         FormsModule,
         NumberPickerModule,
         ColorServiceModule,
+        AutoGrowModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),
         ReactiveFormsModule,

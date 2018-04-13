@@ -535,8 +535,24 @@
                 },
                 {
                     "title": "Expanding Text Area",
+                    "component": "ComponentsExpandingTextAreaComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxAutoGrow]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "AutoGrowModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Expanding Text Area",
                     "component": "ComponentsExpandingTextAreaNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Toggle Switch",

@@ -62,6 +62,10 @@ const ROUTES: Routes = [
         loadChildren: './dropdowns/dropdowns.module#DropdownsTestPageModule'
     },
     {
+        path: 'expanding-text-area',
+        loadChildren: './expanding-text-area/expanding-text-area.module#ExpandingTextAreaModule'
+    },
+    {
         path: 'facet-check-list',
         loadChildren:
             './facet-check-list/facet-check-list.module#FacetCheckListTestPageModule'
