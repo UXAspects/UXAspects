@@ -35,14 +35,18 @@
             }
 
             .component-remove {
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 flex: none;
                 opacity: 0;
                 transition: opacity 0.3s linear;
                 width: 32px;
+                border: none;
+                background: none;
 
                 .hpe-icon {
                     color: @component-list-remove-color;
-                    margin: 9px;
                 }
             }
         }
@@ -67,6 +71,7 @@
             justify-content: center;
             transition: background-color 0.3s linear;
             width: 30px;
+            border: none;
         }
 
         &:hover {
