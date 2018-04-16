@@ -1,0 +1,48 @@
+<div class="input-group">
+    <input type="text" class="form-control" mask="999-99-999-9999-9" placeholder="ISBN 1" aria-label="ISBN 1 13 digits only">
+    <span class="help-block">999-99-999-9999-9</span>
+</div>
+
+<div class="input-group">
+    <input type="text" class="form-control" mask="(999) 999-9999" placeholder="Telephone Number" aria-label="Telephone number 10 digits only">
+    <span class="help-block">(999) 999-9999</span>
+</div>
+
+<div class="input-group">
+    <input type="text" class="form-control" mask="09/09/9999" placeholder="Date" aria-label="Date">
+    <span class="help-block">09/09/9999</span>
+</div>
+
+<div class="input-group">
+    <input type="text" class="form-control" mask="099.099.099.099" placeholder="IP Address" aria-label="IP address">
+    <span class="help-block">099.099.099.099</span>
+</div>
+
+<hr>
+
+
+<p>An input mask can be useful when you want to restrict the format of the string a user can input. To create an input mask
+    add a <code>mask</code> attribute with a valid format string.</p>
+
+<p>The format string can take the following values:</p>
+
+<ul>
+    <li>0 - digits (numbers)</li>
+    <li>9 - digits (numbers), but optional</li>
+    <li>A - letters (uppercase or lowercase) and digits</li>
+    <li>S - only letters (uppercase or lowercase)</li>
+</ul>
+
+<hr>
+
+<p>The code below can be used to create the example above:</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+</tabset>
+
+<blockquote>
+    <p>Refer to <a href="https://github.com/JsDaddy/ngx-mask">ngx-mask</a> for complete documentation.</p>
+</blockquote>

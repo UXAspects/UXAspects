@@ -615,8 +615,33 @@
                 },
                 {
                     "title": "Input Mask",
+                    "component": "ComponentsInputMaskComponent",
+                    "externalUrl": "https://jsdaddy.github.io/ngx-mask/",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[mask]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "NgxMaskModule"
+                        },
+                        {
+                            "title": "Import As",
+                            "content": "NgxMaskModule.forRoot()"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-mask"
+                        }
+                    ]
+                },
+                {
+                    "title": "Input Mask",
                     "component": "ComponentsInputMaskNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Radio Button",
