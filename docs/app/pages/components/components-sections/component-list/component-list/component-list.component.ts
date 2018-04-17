@@ -16,7 +16,13 @@ export class ComponentsComponentListComponent extends BaseDocumentationSection i
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
-        }
+        },
+        modules: [
+            {
+                imports: ['FocusIfModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
     };
 
     form = new FormGroup({
