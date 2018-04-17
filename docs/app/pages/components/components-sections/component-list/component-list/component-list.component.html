@@ -8,7 +8,7 @@
             *ngFor="let item of items.controls; let idx = index">
 
             <div class="component-content">
-                <input class="form-control" [formControlName]="idx" placeholder="Enter text">
+                <input class="form-control" [focusIf]="true" [formControlName]="idx" placeholder="Enter text">
             </div>
 
             <button class="component-remove" aria-label="Remove" (click)="remove(idx)">

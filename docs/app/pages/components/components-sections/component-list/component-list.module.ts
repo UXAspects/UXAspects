@@ -10,6 +10,7 @@ import { DocumentationPage, ResolverService } from '../../../../services/resolve
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ComponentsComponentListNg1Component } from './component-list-ng1/component-list-ng1.component';
 import { ComponentsComponentListComponent } from './component-list/component-list.component';
+import { FocusIfModule } from '../../../../../../src';
 
 const SECTIONS = [
     ComponentsComponentListNg1Component,
@@ -31,7 +32,8 @@ const ROUTES = [
         CommonModule,
         WrappersModule,
         TabsModule,
-        FormsModule, 
+        FormsModule,
+        FocusIfModule,
         ReactiveFormsModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
