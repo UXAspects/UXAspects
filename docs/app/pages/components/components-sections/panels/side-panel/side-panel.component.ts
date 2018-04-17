@@ -9,6 +9,16 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 })
 @DocumentationSectionComponent('ComponentsSidePanelComponent')
 export class ComponentsSidePanelComponent extends BaseDocumentationSection {
+    
+    open = false;
+    inline = false;
+    attachTo = 'window';
+    width = '50%';
+    top = '50px';
+    modal = false;
+    animate = true;
+    closeOnExternalClick = false;
+    
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }

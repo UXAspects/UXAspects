@@ -21,6 +21,7 @@ export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';
 export * from './components/search-builder/index';
 export * from './components/select/index';
+export * from './components/side-panel/index';
 export * from './components/slider/index';
 export * from './components/spark/index';
 export * from './components/tag-input/index';
