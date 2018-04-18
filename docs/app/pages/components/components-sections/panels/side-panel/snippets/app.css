@@ -1,0 +1,10 @@
+.demo-side-panel-container {
+    position: relative;
+    height: 300px;
+    border: 1px solid #AFAFAF;
+}
+
+.demo-side-panel-container .demo-content {
+    padding: 8px;
+    overflow-y: auto;
+}

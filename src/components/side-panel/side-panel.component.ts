@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostBinding, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostBinding, HostListener, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { SidePanelService } from './side-panel.service';
 
@@ -30,7 +30,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     width = '50%';
 
     @Input()
-    @HostBinding('style.top')
     top = '0';
 
     @Input()
@@ -47,8 +46,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     @Output()
     openChange = new EventEmitter<boolean>();
 
-    @HostBinding('style.position')
-    get stylePosition() {
+    get position() {
         if (this.inline) {
             return 'static';
         }
@@ -59,17 +57,22 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     }
 
     @HostBinding('style.width')
-    get styleWidth(): string {
+    get componentWidth(): string {
         if (this.inline) {
             return this.open ? this.width : '0';
         }
-        return this.width;
+        return null;
+    }
+
+    get hostWidth() {
+        return this.inline ? '100%' : this.width;
     }
 
     private _subscription: Subscription;
 
     constructor(
-        private _service: SidePanelService
+        private _service: SidePanelService,
+        private _renderer: Renderer2
     ) { }
 
     ngOnInit() {
