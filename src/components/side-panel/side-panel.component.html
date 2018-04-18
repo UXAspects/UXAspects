@@ -1,0 +1,11 @@
+<div *ngIf="modal && open" class="modal-backdrop"
+    [style.position]="position"
+    [style.top]="top"></div>
+
+<div class="ux-side-panel-host"
+    [class.modal-panel]="modal"
+    [style.position]="position"
+    [style.width]="hostWidth"
+    [style.top]="top">
+    <ng-content></ng-content>
+</div>

@@ -1,38 +1,119 @@
-<!--
-<div style="position: relative">
+<div class="ux-side-panel-inline-container demo-side-panel-container">
 
-    <p>Some other content.</p>
+    <div class="demo-content">
+        <button type="button" class="btn button-primary"
+            (click)="open = !open; $event.stopPropagation()">
+            Toggle Side Panel
+        </button>
+        <p class="m-t-md">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla, nunc sit amet
+            faucibus dapibus, est purus luctus magna, ut tempus orci quam vitae diam. Proin dapibus elit
+            et rhoncus interdum. Pellentesque ornare nibh ac nulla sodales commodo. Sed vestibulum
+            hendrerit ultrices.
+        </p>
+    </div>
 
     <ux-side-panel #sidePanel="ux-side-panel"
         [(open)]="open"
         [inline]="inline"
         [attachTo]="attachTo"
         [top]="top"
+        [width]="width"
         [modal]="modal"
         [animate]="animate"
         [closeOnExternalClick]="closeOnExternalClick">
     
-        <button uxSidePanelClose type="button" class="btn btn-link btn-icon button-secondary">
-            <span class="hpe-icon hpe-close"></span>
-        </button>
-    
         <div class="ux-side-panel-header">
             <h3>Side Panel</h3>
+            <button uxSidePanelClose type="button" class="btn btn-lg btn-link btn-icon button-secondary">
+                <span class="hpe-icon hpe-close"></span>
+            </button>
         </div>
     
         <div class="ux-side-panel-content">
-            <p>Side panel content.</p>
+            <p> Lorem ipsum dolor sit amet, utinam ornatus ea pro. Vim ad diam velit apeirian, ei has
+                perpetua dissentias. Tale tacimates eu usu, nec sale omnes ad. Mea ne quas omittantur, vel
+                ne mollis persecuti deseruisse. No partem vocibus per, in ius eius option omittam. </p>
+            <p> Ea quo ipsum concludaturque. Te nam sint doctus facilisi, evertitur prodesset eu sea. Te
+                quot debitis recusabo per, facilisi interesset te vel. Duo cu nibh accusata dissentiet,
+                ferri impedit mea no, viderer prodesset usu an. </p>
+            <p> Est nonumes necessitatibus cu, viris sadipscing liberavisse ei mel, eos te tota elaboraret.
+                Erant oportere id vel. Amet enim possit ei his, usu in impetus laboramus. Qui in sonet
+                possit utamur, solet consetetur mea ut. Dicam tation singulis ad est. </p>
+            <p> Ex munere ornatus euripidis vis, cu est ignota molestie explicari, te per iriure rationibus.
+                No nec causae fabulas, aeque ponderum moderatius vel ut. Virtute singulis abhorreant pro id.
+                Case mutat audiam quo in. Eirmod copiosae dissentiunt vel ex, nusquam suavitate maiestatis
+                ea cum. Cu ignota sanctus assueverit sed, cu diam alienum expetendis per. </p>
+            <p> Per eu etiam mollis legimus, ut percipit invenire oportere mei. Sit ne magna iracundia,
+                congue molestiae disputationi mei ei. Doctus aliquip et mea. An admodum delectus sententiae
+                est, vocent electram suscipiantur eam in. Te mentitum electram ius, his ei molestiae
+                sententiae. </p>
+            <p> Pri suas forensibus id, per id voluptua convenire torquatos. Pro mutat aliquip vocibus ea.
+                No vis erat tempor aliquam. Elit comprehensam in pro, an congue sensibus expetendis quo.
+                Minim detraxit praesent vel et, quo consul delicata scribentur te. Liber incorrupte no duo,
+                ponderum petentium et mei. </p>
+            <p> In mei case nihil dictas. Hinc atqui complectitur no mei, quod summo no nec, cum cu esse
+                fugit vituperatoribus. Stet persius pri ne, in vocibus molestie liberavisse per, mollis
+                perfecto qui id. Oblique appetere per ei. Duo tantas lobortis assentior ne. Delectus
+                inimicus necessitatibus ex cum, paulo quando probatus quo at, ex usu sumo sententiae. </p>
+            <p> Has ut lorem altera laoreet, putent viderer ei has. Vim diam probo ex, stet iisque appareat
+                qui cu. Per ei facer paulo diceret, ius dicunt appetere legendos cu. Vis te stet dicam
+                aliquam, eum alii ludus constituto at. Eu clita prompta virtute usu, pri et mucius
+                iracundia. </p>
         </div>
     
         <div class="ux-side-panel-footer btn-container">
-            <button type="button" class="btn button-secondary" (click)="sidePanel.close()">Cancel</button>
-            <button type="button" class="btn button-primary" (click)="sidePanel.close()">Save</button>
+            <button type="button" class="btn button-secondary" (click)="sidePanel.closePanel()">
+                Cancel
+            </button>
+            <button type="button" class="btn button-primary" (click)="sidePanel.closePanel()">
+                Save
+            </button>
         </div>
     
     </ux-side-panel>
 
 </div>
--->
+
+<div class="row uxd-customize-example">
+        <div class="col-md-12">
+            <accordion>
+                <accordion-group class="accordion-chevron" heading="Customize Example...">
+                    <div class="row uxd-customize-row">
+                        <div class="col-md-4 col-sm-12">
+                            <ux-checkbox [(value)]="inline">inline</ux-checkbox>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <label>attachTo</label>
+                            <ux-radio-button [(value)]="attachTo" option="window" [disabled]="inline">window</ux-radio-button>
+                            <ux-radio-button [(value)]="attachTo" option="container" [disabled]="inline">container</ux-radio-button>
+                        </div>
+                    </div>
+                    <div class="row uxd-customize-row">
+                        <div class="col-md-4 col-sm-12">
+                            <label for="width">width</label>
+                            <input type="text" id="width" class="form-control" [(ngModel)]="width">
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <label for="top">top</label>
+                            <input type="text" id="top" class="form-control" [(ngModel)]="top" [disabled]="inline">
+                        </div>
+                    </div>
+                    <div class="row uxd-customize-row">
+                        <div class="col-md-4 col-sm-12">
+                            <ux-checkbox [(value)]="modal" [disabled]="inline">modal</ux-checkbox>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <ux-checkbox [(value)]="animate">animate</ux-checkbox>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <ux-checkbox [(value)]="closeOnExternalClick">closeOnExternalClick</ux-checkbox>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
 
 <hr>
 
@@ -42,8 +123,8 @@
 </p>
 
 <p>
-    Add the <code>uxSidePanelClose</code> directive to a <code>button</code> to attach a close button in the top right
-    corner of the side panel.
+    Add the <code>uxSidePanelClose</code> directive to a <code>button</code> within the side panel to configure it to
+    close the panel when clicked.
 </p>
 
 <p>
@@ -81,9 +162,12 @@
             </li>
         </ul>
     </tr>
-    <tr uxd-api-property name="top" type="number" defaultValue="0">
-        The number of pixels to offset the top of the panel. This can be used to display the panel below a page header.
-        Has no effect if <code>inline</code> is true.
+    <tr uxd-api-property name="width" type="string" defaultValue="50%">
+        The width of the side panel when open, as a CSS value. E.g. <code>50%</code> or <code>450px</code>.
+    </tr>
+    <tr uxd-api-property name="top" type="string" defaultValue="0">
+        The top offset of the side panel, as a CSS value. This can be used to display the panel below a page header.
+        E.g. <code>50px</code>. Has no effect if <code>inline</code> is true.
     </tr>
     <tr uxd-api-property name="modal" type="boolean" defaultValue="false">
         Whether to display the side panel as a modal. As a modal, user input is restricted to the contents of the side
@@ -93,7 +177,8 @@
         Whether to animate the panel opening and closing.
     </tr>
     <tr uxd-api-property name="closeOnExternalClick" type="boolean" defaultValue="false">
-        Whether the panel should close when the user clicks outside the panel.
+        Whether the panel should close when the user clicks outside the panel. <strong>Note:</strong> if using this
+        option, be sure to call <code>$event.stopPropagation()</code> in the click handler used to open the side panel.
     </tr>
 </uxd-api-properties>
 
@@ -104,10 +189,22 @@
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="Functions">
-    <tr uxd-api-property name="open">
+    <tr uxd-api-property name="openPanel">
         Opens the side panel.
     </tr>
-    <tr uxd-api-property name="close">
+    <tr uxd-api-property name="closePanel">
         Closes the side panel.
     </tr>
 </uxd-api-properties>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>
