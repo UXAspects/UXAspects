@@ -1,0 +1,15 @@
+<div class="card-container">
+    <ux-card-tabset [position]="position">
+
+        <ux-card-tab class="card" *ngFor="let tab of tabs">
+            <h3 class="card-title">{{ tab.title }}</h3>
+
+            <ng-template uxCardTabContent>
+                <p>{{ tab.content }}</p>
+            </ng-template>
+        </ux-card-tab>
+
+    </ux-card-tabset>
+</div>
+
+<button class="btn button-primary" (click)="position = 'bottom'">Set Position Bottom</button>
