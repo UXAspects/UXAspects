@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostBinding, HostListener, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostBinding, HostListener, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { SidePanelService } from './side-panel.service';
 
 @Component({
     selector: 'ux-side-panel',
     exportAs: 'ux-side-panel',
-    templateUrl: 'side-panel.component.html'
+    templateUrl: 'side-panel.component.html',
+    providers: [SidePanelService]
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
 
@@ -72,7 +73,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
     constructor(
         private _service: SidePanelService,
-        private _renderer: Renderer2
+        private _elementRef: ElementRef
     ) { }
 
     ngOnInit() {
@@ -89,6 +90,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         this._service.open();
     }
 
+    @HostListener('document:keyup.escape')
     closePanel() {
         this._service.close();
     }
@@ -99,33 +101,11 @@ export class SidePanelComponent implements OnInit, OnDestroy {
             return;
         }
 
-        console.log('document:click');
+        const target = event.target as HTMLElement;
 
-        let target = event.target as HTMLElement;
-
-        // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
-        if (target.nodeName === 'HTML') {
-            return;
-        }
-
-        let hidePanel = true;
-
-        while (target && target.nodeName !== 'BODY') {
-            if (target.nodeName === 'ux-side-panel') {
-                hidePanel = false;
-                break;
-            } else {
-                target = target.parentElement;
-            }
-        }
-
-        if (hidePanel) {
+        if (!this._elementRef.nativeElement.contains(target) ||
+            (target && target.classList.contains('modal-backdrop'))) {
             this.closePanel();
         }
-    }
-
-    @HostListener('document:keyup.escape')
-    escHandler() {
-        this.closePanel();
     }
 }

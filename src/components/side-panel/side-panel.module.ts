@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { SidePanelComponent } from './side-panel.component';
 import { SidePanelCloseDirective } from './side-panel-close.directive';
-import { SidePanelService } from './side-panel.service';
 
 const EXPORTS = [
     SidePanelComponent,
@@ -15,7 +14,6 @@ const EXPORTS = [
         CommonModule
     ],
     exports: EXPORTS,
-    declarations: EXPORTS,
-    providers: [SidePanelService]
+    declarations: EXPORTS
 })
 export class SidePanelModule { }
