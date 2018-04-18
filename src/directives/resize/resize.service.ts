@@ -8,16 +8,14 @@ import { fromEvent } from 'rxjs/observable/fromEvent';
 export class ResizeService implements OnDestroy {
 
     private _renderer: Renderer2;
-    private _subscription: Subscription;
+    private _subscription = new Subscription();
 
     constructor(rendererFactory: RendererFactory2) {
         this._renderer = rendererFactory.createRenderer(null, null);
     }
 
     ngOnDestroy(): void {
-        if (this._subscription) {
-            this._subscription.unsubscribe();
-        }
+        this._subscription.unsubscribe();
     }
 
     addResizeListener(nativeElement: HTMLElement): BehaviorSubject<ResizeDimensions> {
@@ -63,8 +61,8 @@ export class ResizeService implements OnDestroy {
             const attachListener = () => {
 
                 // watch for any future resizes
-                this._subscription = fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) => 
-                    subject.next({ width: nativeElement.offsetWidth, height: nativeElement.offsetHeight }));
+                this._subscription.add(fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) => 
+                    subject.next({ width: nativeElement.offsetWidth, height: nativeElement.offsetHeight })));
             };
 
             if (iframeDoc.readyState === 'complete') {
