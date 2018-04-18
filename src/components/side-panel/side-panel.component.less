@@ -1,4 +1,4 @@
-ux-side-panel {
+.ux-side-panel {
     &.open {
         > .ux-side-panel-host {
             box-shadow: 1px 0 20px 0 @display-panel-shadow;
@@ -19,7 +19,7 @@ ux-side-panel {
             overflow-x: hidden;
         }
     }
-    
+
     &:not(.inline) {
         > .ux-side-panel-host {
             transform: translateX(100%);
@@ -63,8 +63,8 @@ ux-side-panel {
             width: 100%;
             padding: 0 20px;
             background-color: @display-panel-bg;
-    
-            &::before {
+
+            &:before {
                 content: "";
                 position: absolute;
                 left: 10%;
@@ -75,29 +75,29 @@ ux-side-panel {
                 box-shadow: 0 0 20px @display-panel-header-shadow;
                 z-index: -1;
             }
-    
+
             > * {
                 flex: 1;
             }
-    
-            > [uxSidePanelClose] {
+
+            > button {
                 flex: none;
             }
         }
-    
+
         .ux-side-panel-content {
             flex: 1 1 auto;
             width: 100%;
             padding: 20px;
             overflow-y: auto;
         }
-    
+
         .ux-side-panel-footer {
             flex: none;
             width: 100%;
             border-top: 1px solid rgba(51, 51, 51, 0.1);
             padding: 20px;
-    
+
             &.btn-container {
                 justify-content: flex-end;
             }

@@ -1,5 +1,7 @@
-import { Component, Directive, Input, SimpleChange, Output, EventEmitter, ContentChild } from '@angular/core';
-import { SidePanelComponent } from '../..';
+import { Component, Directive, Input, Output, EventEmitter, ContentChild, ElementRef } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { SidePanelComponent } from '../side-panel/side-panel.component';
+import { SidePanelService } from '../side-panel/side-panel.service';
 
 @Directive({
     selector: '[uxItemDisplayPanelContent]'
@@ -14,22 +16,29 @@ export class ItemDisplayPanelFooterDirective { }
 @Component({
     selector: 'ux-item-display-panel',
     templateUrl: './item-display-panel.component.html',
+    providers: [SidePanelService],
     host: {
-        '(document:click)': 'clickOff($event)',
-        '(document:keyup.escape)': 'visible = false',
-        '[class.inline-host]': 'inline',
-        '[class.visible-host]': 'visible'
+        'class': 'ux-side-panel ux-item-display-panel'
     }
 })
 export class ItemDisplayPanelComponent extends SidePanelComponent {
 
     @Input() header: string;
-    @Input() top: number;
+
     @Input() boxShadow: boolean = true;
+
     @Input() closeVisible: boolean = true;
-    @Input() preventClose: boolean = false;
+
+    get preventClose(): boolean {
+        return !this.closeOnExternalClick;
+    }
+
+    @Input()
+    set preventClose(value: boolean) {
+        this.closeOnExternalClick = !value;
+    }
+
     @Input() shadow: boolean = false;
-    @Input() width: number;
 
     @ContentChild(ItemDisplayPanelFooterDirective) footer: ItemDisplayPanelFooterDirective;
 
@@ -52,53 +61,29 @@ export class ItemDisplayPanelComponent extends SidePanelComponent {
 
     @Input()
     set visible(visible: boolean) {
-
-        this._visible = visible;
-
-        // invoke change event
-        this.visibleChange.emit(this._visible);
-
+        this.open = visible;
     }
-    
+
     get visible() {
-        return this._visible;
+        return this.open;
     }
 
-    private _visible: boolean = false;
+    private _itemDisplayPanelSubscription: Subscription;
 
-    clickOff(event: MouseEvent) {
+    constructor(service: SidePanelService, elementRef: ElementRef) {
+        super(service, elementRef);
 
-        // dont close
-        if (this.preventClose) {
-            return;
-        }
-
-        // dont do anything if the panel is hidden
-        if (this._visible) {
-
-            let target = event.target as HTMLElement;
-
-            // if the target node is the HTML tag, then this was triggered by scrolling and we should not close the panel
-            if (target.nodeName === 'HTML') {
-                return;
-            }
-
-            let hidePanel = true;
-
-            while (target && target.nodeName !== 'BODY') {
-                if (target.classList.contains('ux-item-display-panel')) {
-                    hidePanel = false;
-                    break;
-                } else {
-                    target = target.parentElement;
-                }
-            }
-
-            if (hidePanel) {
-                this._visible = false;
-                this.visibleChange.emit(this._visible);
-            }
-        }
+        this.animate = false;
+        this.closeOnExternalClick = true;
     }
 
+    ngOnInit() {
+        this._itemDisplayPanelSubscription = this.service.open$.subscribe((next) => {
+            this.visibleChange.emit(next);
+        });
+    }
+
+    ngOnDestroy() {
+        this._itemDisplayPanelSubscription.unsubscribe();
+    }
 }
