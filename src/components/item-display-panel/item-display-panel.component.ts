@@ -1,4 +1,5 @@
 import { Component, Directive, Input, SimpleChange, Output, EventEmitter, ContentChild } from '@angular/core';
+import { SidePanelComponent } from '../..';
 
 @Directive({
     selector: '[uxItemDisplayPanelContent]'
@@ -20,15 +21,13 @@ export class ItemDisplayPanelFooterDirective { }
         '[class.visible-host]': 'visible'
     }
 })
-export class ItemDisplayPanelComponent {
+export class ItemDisplayPanelComponent extends SidePanelComponent {
 
     @Input() header: string;
     @Input() top: number;
     @Input() boxShadow: boolean = true;
     @Input() closeVisible: boolean = true;
     @Input() preventClose: boolean = false;
-    @Input() inline: boolean = false;
-    @Input() animate: boolean = false;
     @Input() shadow: boolean = false;
     @Input() width: number;
 
