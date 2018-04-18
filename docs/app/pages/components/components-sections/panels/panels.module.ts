@@ -1,13 +1,13 @@
 import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { EboxModule } from '../../../../../../src/index';
+import { EboxModule, SidePanelModule, CheckboxModule, RadioButtonModule } from '../../../../../../src/index';
 import { ItemDisplayPanelModule } from '../../../../../../src/components/item-display-panel/index';
 
-import { ComponentsItemDisplayPanelInlineComponent } from './item-display-panel-inline/item-display-panel-inline.component';
 import { SparkModule } from './../../../../../../src/components/spark/spark.module';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
@@ -20,6 +20,7 @@ import { ComponentsItemDisplayPanelServiceNg1Component } from './item-display-pa
 import { ComponentsModalInsetPanelNg1Component } from './modal-inset-panel-ng1/item-display-panel-ng1.component';
 import { ComponentsSideInsetPanelNg1Component } from './side-inset-panel-ng1/side-inset-panel-ng1.component';
 import { ComponentsItemDisplayPanelComponent } from './item-display-panel/item-display-panel.component';
+import { ComponentsItemDisplayPanelInlineComponent } from './item-display-panel-inline/item-display-panel-inline.component';
 import { ComponentsEboxComponent } from './ebox/ebox.component';
 import { ComponentsAccordionComponent } from './accordion/accordion.component';
 import { ComponentsSidePanelComponent } from './side-panel/side-panel.component';
@@ -49,16 +50,20 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
-        TabsModule,
-        EboxModule,
-        DocumentationComponentsModule,
         CommonModule,
-        ItemDisplayPanelModule,
-        ModalModule.forRoot(),
+        FormsModule,
         RouterModule.forChild(ROUTES),
+        AccordionModule.forRoot(),
+        ModalModule.forRoot(),
+        DocumentationComponentsModule,
+        CheckboxModule,
+        EboxModule,
+        ItemDisplayPanelModule,
+        RadioButtonModule,
+        SidePanelModule,
         SparkModule,
-        AccordionModule.forRoot()
+        TabsModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

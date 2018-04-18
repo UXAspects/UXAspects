@@ -1,0 +1,117 @@
+ux-side-panel {
+    &.open {
+        > .ux-side-panel-host {
+            box-shadow: 1px 0 20px 0 @display-panel-shadow;
+            border-left: 1px solid @display-panel-border;
+            transform: translateX(0);
+        }
+    }
+
+    &.inline {
+        flex: none;
+
+        &.animate {
+            transition: width 0.4s;
+        }
+
+        > .ux-side-panel-host {
+            height: 100%;
+            overflow-x: hidden;
+        }
+    }
+    
+    &:not(.inline) {
+        > .ux-side-panel-host {
+            transform: translateX(100%);
+        }
+
+        &.open {
+            > .ux-side-panel-host {
+                transform: translateX(0);
+            }
+        }
+
+        &.animate {
+            > .ux-side-panel-host {
+                transition: transform 0.4s;
+            }
+        }
+    }
+
+    > .ux-side-panel-host {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        color: @display-panel-color;
+        background: @display-panel-bg;
+        z-index: @display-panel-z-index;
+
+        &.modal-panel {
+            z-index: @modal-z-index;
+        }
+
+        .ux-side-panel-header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex: 0 0 auto;
+            min-height: 60px;
+            width: 100%;
+            padding: 0 20px;
+            background-color: @display-panel-bg;
+    
+            &::before {
+                content: "";
+                position: absolute;
+                left: 10%;
+                right: 10%;
+                top: 50%;
+                bottom: 0;
+                border-radius: 50%;
+                box-shadow: 0 0 20px @display-panel-header-shadow;
+                z-index: -1;
+            }
+    
+            > * {
+                flex: 1;
+            }
+    
+            > [uxSidePanelClose] {
+                flex: none;
+            }
+        }
+    
+        .ux-side-panel-content {
+            flex: 1 1 auto;
+            width: 100%;
+            padding: 20px;
+            overflow-y: auto;
+        }
+    
+        .ux-side-panel-footer {
+            flex: none;
+            width: 100%;
+            border-top: 1px solid rgba(51, 51, 51, 0.1);
+            padding: 20px;
+    
+            &.btn-container {
+                justify-content: flex-end;
+            }
+        }
+    }
+}
+
+.ux-side-panel-inline-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    overflow-x: hidden;
+
+    > :not(ux-side-panel) {
+        flex: 1;
+    }
+}
