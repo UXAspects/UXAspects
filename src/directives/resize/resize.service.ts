@@ -1,22 +1,29 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
+import { Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subscription } from 'rxjs/Subscription';
+import { fromEvent } from 'rxjs/observable/fromEvent';
 
 
 @Injectable()
-export class ResizeService {
+export class ResizeService implements OnDestroy {
 
     private _renderer: Renderer2;
+    private _subscription: Subscription;
 
     constructor(rendererFactory: RendererFactory2) {
         this._renderer = rendererFactory.createRenderer(null, null);
     }
 
-    addResizeListener(nativeElement: HTMLElement): Subject<ResizeDimensions> {
+    ngOnDestroy(): void {
+        if (this._subscription) {
+            this._subscription.unsubscribe();
+        }
+    }
 
-        // create subject
-        const subject = new Subject<ResizeDimensions>();
+    addResizeListener(nativeElement: HTMLElement): BehaviorSubject<ResizeDimensions> {
+
+        // create a behavior subject subject
+        const subject = new BehaviorSubject<ResizeDimensions>({ width: nativeElement.offsetWidth, height: nativeElement.offsetHeight });
 
         // determine the style of the element
         const displayMode = window.getComputedStyle(nativeElement).getPropertyValue('display');
@@ -53,14 +60,11 @@ export class ResizeService {
         this.waitUntilReady(iframe, () => {
             const iframeDoc = iframe.contentDocument || iframe.contentWindow.document as Document;
 
-            const attachListener = function () {
-                Observable.fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) => {
+            const attachListener = () => {
 
-                    subject.next({
-                        width: nativeElement.offsetWidth,
-                        height: nativeElement.offsetHeight
-                    });
-                });
+                // watch for any future resizes
+                this._subscription = fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) => 
+                    subject.next({ width: nativeElement.offsetWidth, height: nativeElement.offsetHeight }));
             };
 
             if (iframeDoc.readyState === 'complete') {

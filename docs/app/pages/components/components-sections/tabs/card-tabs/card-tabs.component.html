@@ -1,0 +1,71 @@
+<ux-card-tabset [position]="position">
+
+    <ux-card-tab class="card" *ngFor="let tab of tabs">
+        <h3 class="card-title">{{ tab.title }}</h3>
+        
+        <div class="card-image" [ngClass]="tab.image"></div>
+        
+        <h3 class="card-value">{{ tab.value }}<small>{{ tab.unit }}</small></h3>
+        <h4 class="card-subtitle">{{ tab.subtitle }}</h4>
+
+        <ng-template uxCardTabContent>
+            <h4>{{ tab.title }}</h4>
+            <p>{{ tab.content }}</p>
+        </ng-template>
+    </ux-card-tab>
+
+</ux-card-tabset>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label>Position</label>
+                        <ux-radio-button [(value)]="position" option="top">top</ux-radio-button>
+                        <ux-radio-button [(value)]="position" option="bottom">bottom</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
+
+<p>
+    Card tabs are defined inside a <code>ux-card-tabset</code> component using a <code>ux-card-tab</code> component.
+    Inside the <code>ux-card-tab</code> component insert any content you want to display in the card.
+</p>
+<p>
+    Also inside the <code>ux-card-tab</code> component an element with a <code>uxCardTabContent</code> directive should be defined which will contain
+    the content that will be shown when that card is selected.
+</p>
+
+<p>
+    If the <code>ux-card-tabset</code> has more cards than can be displayed in the space available arrow buttons will appear
+    to allow the user to scroll through all the cards.
+</p>
+
+<p>
+    The following can be used to configure the appearance of the card tabs:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="position" type="string" defaultValue="top">
+        Defines whether the tab content should appear above or below the cards. The possible values are <code>top</code> and <code>bottom</code>.
+    </tr>
+</uxd-api-properties>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

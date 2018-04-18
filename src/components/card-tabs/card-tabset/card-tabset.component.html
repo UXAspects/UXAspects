@@ -1,0 +1,18 @@
+<div class="card-tab-content" *ngIf="(tab$ | async); let tab">
+    <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+</div>
+
+<div class="card-tabs">
+
+    <button class="card-tabs-paging-btn card-tabs-paging-btn-previous" (click)="previous()" *ngIf="offset < bounds.lower">
+        <i class="hpe-icon hpe-previous"></i>
+    </button>
+
+    <div class="card-tabs-list" #list (uxResize)="resize($event)" [style.transform]="'translateX(' + offset + 'px)'">
+        <ng-content></ng-content>
+    </div>
+
+    <button class="card-tabs-paging-btn card-tabs-paging-btn-next" (click)="next()" *ngIf="offset > bounds.upper">
+        <i class="hpe-icon hpe-next"></i>
+    </button>
+</div>

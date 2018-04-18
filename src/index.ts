@@ -2,6 +2,7 @@
   Export Components
 */
 export * from './components/breadcrumbs/index';
+export * from './components/card-tabs/index';
 export * from './components/checkbox/index';
 export * from './components/column-sorting/index';
 export * from './components/dashboard/index';

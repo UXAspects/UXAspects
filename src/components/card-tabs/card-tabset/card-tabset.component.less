@@ -1,0 +1,51 @@
+ux-card-tabset {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &.bottom {
+        flex-direction: column-reverse;
+    }
+
+    .card-tabs {
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 4px 0;
+    }
+
+    .card-tabs-list {
+        position: relative;
+        transition: transform 250ms ease-in-out;
+    }
+
+    .card-tabs-paging-btn {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: @card-tab-pagination-color;
+        cursor: pointer;
+        background-color: @card-tab-pagination-bg;
+        border-radius: 50%;
+        transition: background-color 250ms linear;
+        border: none;
+        z-index: 2;
+
+        &:hover {
+            background-color: @card-tab-pagination-hover-bg;
+        }
+    }
+
+    .card-tabs-paging-btn-previous {
+        left: 10px;
+    }
+
+    .card-tabs-paging-btn-next {
+        right: 10px;
+    }
+}

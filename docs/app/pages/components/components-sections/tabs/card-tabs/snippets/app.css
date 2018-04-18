@@ -1,0 +1,51 @@
+.card-title {
+    color: #333;
+    font-size: 17px;
+    margin: 3px 0 14px;
+    font-weight: 400;
+}
+
+.card-value {
+    text-align: center;
+    font-size: 26px;
+    color: #686868;
+    margin: 0;
+    padding: 5px 0;
+    font-weight: 400;
+}
+
+.card-subtitle {
+    text-align: center;
+    color: #b8b8b8;
+    margin: 0;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.card-image {
+    width: 100%;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.card-image.card-image-1 {
+    background-image: url("https://uxaspects.github.io/UXAspects/assets/img/card-img1.png");
+}
+
+.card-image.card-image-2 {
+    background-image: url("https://uxaspects.github.io/UXAspects/assets/img/card-img2.png");
+}
+
+.card-image.card-image-3 {
+    background-image: url("https://uxaspects.github.io/UXAspects/assets/img/card-img3.png");
+}
+
+.card-image.card-image-4 {
+    background-image: url("https://uxaspects.github.io/UXAspects/assets/img/card-img4.png");
+}
+
+.card-image.card-image-5 {
+    background-image: url("https://uxaspects.github.io/UXAspects/assets/img/card-img5.png");
+}
