@@ -1260,6 +1260,24 @@
                     "component": "ComponentsSideInsetPanelSplitterNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
+                },
+                {
+                    "title": "Side Inset Panel Splitter",
+                    "component": "ComponentsSideInsetPanelSplitterComponent",
+                    "version": "Angular",
+                    "externalUrl": "https://bertrandg.github.io/angular-split/#/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "split"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "AngularSplitModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "angular-split"
+                    }]
                 }
             ]
         },
