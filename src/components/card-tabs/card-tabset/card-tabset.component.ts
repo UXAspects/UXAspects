@@ -1,7 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnDestroy, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { distinctUntilChanged, filter } from 'rxjs/operators';
+import { Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { ResizeDimensions } from '../../../directives/resize';
 import { CardTabComponent } from '../card-tab/card-tab.component';
 import { CardTabsService } from '../card-tabs.service';
@@ -11,68 +8,63 @@ import { CardTabsService } from '../card-tabs.service';
   templateUrl: './card-tabset.component.html',
   providers: [CardTabsService]
 })
-export class CardTabsetComponent implements OnDestroy {
+export class CardTabsetComponent {
 
   @HostBinding('class')
   @Input() set position(direction: string) {
-    this._tabService.setPosition(direction);
+    this.tabService.setPosition(direction);
   }
 
   get position(): string {
-    return this._tabService.position.getValue();
+    return this.tabService.position$.getValue();
   }
 
-  @ViewChild('list') list: ElementRef;
+  @ViewChild('tablist') tablist: ElementRef;
 
   offset: number = 0;
-  tab$: Observable<CardTabComponent> = this._tabService.tab$;
-
-  width: number;
-  innerWidth: number;
   bounds: CardTabsBounds = { lower: 0, upper: 0 };
 
-  private _subscription: Subscription;
+  private _width: number;
+  private _innerWidth: number;
 
-  constructor(private _tabService: CardTabsService) {
-    this._subscription = _tabService.tab$.pipe(filter(tab => tab !== null), distinctUntilChanged())
-      .subscribe(this.moveIntoView.bind(this));
-  }
+  constructor(public tabService: CardTabsService) {}
 
-  ngOnDestroy(): void {
-    this._subscription.unsubscribe();
+  select(tab: CardTabComponent, element: HTMLElement): void {
+    // select the tab
+    this.tabService.select(tab);
+
+    // ensure the tab is moved into view if required
+    this.moveIntoView(element);
   }
 
   resize(dimensions: ResizeDimensions): void {
-    this.width = dimensions.width;
-    this.innerWidth = this.list.nativeElement.scrollWidth;
+    this._width = dimensions.width;
+    this._innerWidth = this.tablist.nativeElement.scrollWidth;
 
     this.bounds.lower = 0;
-    this.bounds.upper = -(this.innerWidth - this.width);
+    this.bounds.upper = -(this._innerWidth - this._width);
   }
 
   previous(): void {
-    this.offset += this.width;
+    this.offset += this._width;
 
     // ensure it remains within the allowed bounds
     this.offset = Math.min(this.offset, this.bounds.lower);
   }
 
   next(): void {
-    this.offset -= this.width;
+    this.offset -= this._width;
 
     // ensure it remains within the allowed bounds
     this.offset = Math.max(this.offset, this.bounds.upper);
   }
 
-  private moveIntoView(tab: CardTabComponent): void {
+  private moveIntoView(element: HTMLElement): void {
 
     // if we dont have the dimensions we cant check
-    if (!this.width || !this.innerWidth) {
+    if (!this._width || !this._innerWidth) {
       return;
     }
-
-    // get the element from the component
-    const element = tab.elementRef.nativeElement as HTMLElement;
 
     // get the current element bounds
     const { offsetLeft, offsetWidth } = element;
@@ -80,7 +72,7 @@ export class CardTabsetComponent implements OnDestroy {
 
     // calculate the visible area
     const viewportStart = Math.abs(this.offset);
-    const viewportEnd = viewportStart + this.width;
+    const viewportEnd = viewportStart + this._width;
     const cardWidth = parseFloat(marginLeft) + offsetWidth + parseFloat(marginRight);
 
     // if we need to move to the left - figure out how much

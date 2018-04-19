@@ -3,7 +3,7 @@ import { browser, $, $$, ElementFinder, ElementArrayFinder } from 'protractor';
 export class CardTabsPage {
 
     tabset = $('ux-card-tabset');
-    tabs = $$('ux-card-tab');
+    tabs = $$('.card-tab');
     content = $('.card-tab-content');
     cardlist = $('.card-tabs-list');
 

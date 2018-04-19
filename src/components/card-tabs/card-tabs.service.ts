@@ -1,21 +1,42 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subscription } from 'rxjs/Subscription';
+import { filter } from 'rxjs/operators';
 import { CardTabComponent } from './card-tab/card-tab.component';
 
 @Injectable()
-export class CardTabsService {
+export class CardTabsService implements OnDestroy {
 
   tab$ = new BehaviorSubject<CardTabComponent>(null);
-  position = new BehaviorSubject<string>('top');
+  tabs$ = new BehaviorSubject<CardTabComponent[]>([]);
+  position$ = new BehaviorSubject<string>('top');
+
+  private _subscription: Subscription;
+
+  constructor() {
+
+    // when a tab is added or removed ensure we always select one if any are available
+    this._subscription = this.tabs$.pipe(
+      filter(tabs => !this.tab$.value || !tabs.find(tab => tab === this.tab$.value)),
+    ).subscribe(tabs => this.tab$.next(tabs.length > 0 ? tabs[0] : null));
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
+  }
 
   /**
-   * Each tab will call this when it is initialised.
-   * This allows us to initially select the first tab
+   * Add a tab to the list of tabs
    */
-  initialise(tab: CardTabComponent): void {
-    if (!this.tab$.getValue()) {
-      this.select(tab);
-    }
+  addTab(tab: CardTabComponent): void {
+    this.tabs$.next([...this.tabs$.value, tab]);
+  }
+
+  /**
+   * Remove a tab from the list
+   */
+  removeTab(tab: CardTabComponent): void {
+    this.tabs$.next(this.tabs$.value.filter(_tab => _tab !== tab));
   }
 
   /**
@@ -29,6 +50,6 @@ export class CardTabsService {
    * Set the position of the tab content
    */
   setPosition(position: string): void {
-    this.position.next(position);
+    this.position$.next(position);
   }
 }

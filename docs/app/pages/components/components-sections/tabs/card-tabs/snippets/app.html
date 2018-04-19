@@ -1,35 +1,17 @@
 <ux-card-tabset [position]="position">
 
     <ux-card-tab class="card" *ngFor="let tab of tabs">
-        <h3 class="card-title">{{ tab.title }}</h3>
-        
-        <div class="card-image" [ngClass]="tab.image"></div>
-        
-        <h3 class="card-value">{{ tab.value }}<small>{{ tab.unit }}</small></h3>
-        <h4 class="card-subtitle">{{ tab.subtitle }}</h4>
+        <h4>{{ tab.title }}</h4>
+        <p>{{ tab.content }}</p>
 
         <ng-template uxCardTabContent>
-            <h4>{{ tab.title }}</h4>
-            <p>{{ tab.content }}</p>
+            <h3 class="card-title">{{ tab.title }}</h3>
+
+            <div class="card-image" [ngClass]="tab.image"></div>
+
+            <h3 class="card-value">{{ tab.value }}<small>{{ tab.unit }}</small></h3>
+            <h4 class="card-subtitle">{{ tab.subtitle }}</h4>
         </ng-template>
     </ux-card-tab>
 
 </ux-card-tabset>
-
-<hr>
-
-<div class="row uxd-customize-example">
-    <div class="col-md-12">
-        <accordion>
-            <accordion-group class="accordion-chevron" heading="Customize Example...">
-                <div class="row uxd-customize-row">
-                    <div class="col-md-4 col-sm-12">
-                        <label>Position</label>
-                        <ux-radio-button [(value)]="position" option="top">top</ux-radio-button>
-                        <ux-radio-button [(value)]="position" option="bottom">bottom</ux-radio-button>
-                    </div>
-                </div>
-            </accordion-group>
-        </accordion>
-    </div>
-</div>

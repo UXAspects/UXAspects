@@ -2,10 +2,10 @@
     <ux-card-tabset [position]="position">
 
         <ux-card-tab class="card" *ngFor="let tab of tabs">
-            <h3 class="card-title">{{ tab.title }}</h3>
+            <p>{{ tab.content }}</p>
 
             <ng-template uxCardTabContent>
-                <p>{{ tab.content }}</p>
+                <h3 class="card-title">{{ tab.title }}</h3>
             </ng-template>
         </ux-card-tab>
 
