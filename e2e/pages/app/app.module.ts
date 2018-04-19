@@ -164,6 +164,10 @@ const ROUTES: Routes = [
         component: SideInsetPanelSplitterNg1TestPageComponent
     },
     {
+        path: 'side-panel',
+        loadChildren: './side-panel/side-panel.module#SidePanelTestPageModule'
+    },
+    {
         path: 'sliders',
         loadChildren: './sliders/sliders.module#SlidersTestPageModule'
     },

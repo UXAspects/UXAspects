@@ -22,14 +22,14 @@
         [modal]="modal"
         [animate]="animate"
         [closeOnExternalClick]="closeOnExternalClick">
-    
+
         <div class="ux-side-panel-header">
             <h3>Side Panel</h3>
             <button uxSidePanelClose type="button" class="btn btn-lg btn-link btn-icon button-secondary">
                 <span class="hpe-icon hpe-close"></span>
             </button>
         </div>
-    
+
         <div class="ux-side-panel-content">
             <p> Lorem ipsum dolor sit amet, utinam ornatus ea pro. Vim ad diam velit apeirian, ei has
                 perpetua dissentias. Tale tacimates eu usu, nec sale omnes ad. Mea ne quas omittantur, vel
@@ -61,7 +61,7 @@
                 aliquam, eum alii ludus constituto at. Eu clita prompta virtute usu, pri et mucius
                 iracundia. </p>
         </div>
-    
+
         <div class="ux-side-panel-footer btn-container">
             <button type="button" class="btn button-secondary" (click)="sidePanel.closePanel()">
                 Cancel
@@ -70,50 +70,50 @@
                 Save
             </button>
         </div>
-    
+
     </ux-side-panel>
 
 </div>
 
 <div class="row uxd-customize-example">
-        <div class="col-md-12">
-            <accordion>
-                <accordion-group class="accordion-chevron" heading="Customize Example...">
-                    <div class="row uxd-customize-row">
-                        <div class="col-md-4 col-sm-12">
-                            <ux-checkbox [(value)]="inline">inline</ux-checkbox>
-                        </div>
-                        <div class="col-md-8 col-sm-12">
-                            <label>attachTo</label>
-                            <ux-radio-button [(value)]="attachTo" option="window" [disabled]="inline">window</ux-radio-button>
-                            <ux-radio-button [(value)]="attachTo" option="container" [disabled]="inline">container</ux-radio-button>
-                        </div>
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group class="accordion-chevron" heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="inline">inline</ux-checkbox>
                     </div>
-                    <div class="row uxd-customize-row">
-                        <div class="col-md-4 col-sm-12">
-                            <label for="width">width</label>
-                            <input type="text" id="width" class="form-control" [(ngModel)]="width">
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="top">top</label>
-                            <input type="text" id="top" class="form-control" [(ngModel)]="top" [disabled]="inline">
-                        </div>
+                    <div class="col-md-8 col-sm-12">
+                        <label>attachTo</label>
+                        <ux-radio-button [(value)]="attachTo" option="window" [disabled]="inline">window</ux-radio-button>
+                        <ux-radio-button [(value)]="attachTo" option="container" [disabled]="inline">container</ux-radio-button>
                     </div>
-                    <div class="row uxd-customize-row">
-                        <div class="col-md-4 col-sm-12">
-                            <ux-checkbox [(value)]="modal" [disabled]="inline">modal</ux-checkbox>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <ux-checkbox [(value)]="animate">animate</ux-checkbox>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <ux-checkbox [(value)]="closeOnExternalClick">closeOnExternalClick</ux-checkbox>
-                        </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="width">width</label>
+                        <input type="text" id="width" class="form-control" [(ngModel)]="width">
                     </div>
-                </accordion-group>
-            </accordion>
-        </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label for="top">top</label>
+                        <input type="text" id="top" class="form-control" [(ngModel)]="top" [disabled]="inline">
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="modal" [disabled]="inline">modal</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="animate">animate</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(value)]="closeOnExternalClick">closeOnExternalClick</ux-checkbox>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
     </div>
+</div>
 
 <hr>
 
