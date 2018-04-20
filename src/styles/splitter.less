@@ -69,3 +69,44 @@
         }
     }
 }
+
+.ux-splitter-toggle-btn {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.right,
+    &.left {
+        top: 0;
+        width: 32px;
+        height: 30px;
+    }
+
+    &.top,
+    &.bottom {
+        right: 0;
+        width: 30px;
+        height: 32px;
+    }
+
+    &.top {
+        top: 0;
+        border-radius: 0 0 20px 20px;
+    }
+
+    &.right {
+        right: 0;
+        border-radius: 20px 0 0 20px;
+    }
+
+    &.bottom {
+        bottom: 0;
+        border-radius: 20px 20px 0 0;
+    }
+
+    &.left {
+        left: 0;
+        border-radius: 0 20px 20px 0;
+    }
+}
