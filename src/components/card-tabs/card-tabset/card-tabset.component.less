@@ -110,6 +110,10 @@ ux-card-tabset {
         border: none;
         z-index: 2;
 
+        &:focus {
+            outline: 1px dotted @card-tab-active-border;
+        }
+
         &:hover {
             background-color: @card-tab-pagination-hover-bg;
         }

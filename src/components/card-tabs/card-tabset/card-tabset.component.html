@@ -2,7 +2,7 @@
     <ng-content></ng-content>
 </div>
 
-<div class="card-tabs">
+<div class="card-tabs" #tabs>
 
     <button class="card-tabs-paging-btn card-tabs-paging-btn-previous" aria-label="Previous Tabs" (click)="previous()" *ngIf="offset < bounds.lower">
         <i class="hpe-icon hpe-previous"></i>
@@ -18,6 +18,7 @@
             [class.active]="tab.active$ | async"
             [attr.aria-selected]="tab.active$ | async"
             (click)="select(tab, card)"
+            (focus)="tabs.scrollLeft = 0"
             (keydown.enter)="select(tab, card)">
 
             <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
