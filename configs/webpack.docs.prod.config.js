@@ -55,10 +55,6 @@ module.exports = {
                 })
             },
             {
-                test: /\.json$/,
-                use: 'json-loader'
-            },
-            {
                 test: /\.md$/,
                 use: ['html-loader', 'markdown-code-highlight-loader']
             },

@@ -35,6 +35,10 @@ const ROUTES: Routes = [
             './buttons-radio-buttons/buttons-radio-buttons.module#ButtonsRadioButtonsTestPageModule'
     },
     {
+        path: 'card-tabs',
+        loadChildren: './card-tabs/card-tabs.module#CardTabsTestPageModule'
+    },
+    {
         path: 'checkboxes',
         loadChildren: './checkbox/checkbox.module#CheckboxTestPageModule'
     },
