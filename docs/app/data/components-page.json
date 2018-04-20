@@ -1690,6 +1690,10 @@
                     {
                         "title": "Module",
                         "content": "PopoverModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ngx-bootstrap"
                     }]
                 },
                 {
