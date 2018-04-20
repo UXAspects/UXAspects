@@ -1,0 +1,161 @@
+/*
+    Static tooltip styling (AngularJS)
+*/
+
+.static-tooltip {
+    position: fixed;
+    width: 250px;
+    background-color: @static-tooltip-bg;
+    border: 1px solid @static-tooltip-border;
+    box-shadow: 2px 2px 2px @static-tooltip-shadow;
+    z-index: @static-tooltip-z-index;
+    padding: 5px 10px;
+    transition: border-color 0.3s linear;
+
+    .callout {
+        position: absolute;
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        background-color: @static-tooltip-bg;
+        transition: border-color 0.3s linear;
+    }
+
+    &.right {
+        .callout {
+            right: -5px;
+            transform: translateY(-50%) rotate(45deg);
+            border-right: 1px solid @static-tooltip-border;
+            border-top: 1px solid @static-tooltip-border;
+        }
+    }
+
+    &.left {
+        .callout {
+            left: -5px;
+            transform: translateY(-50%) rotate(45deg);
+            border-left: 1px solid @static-tooltip-border;
+            border-bottom: 1px solid @static-tooltip-border;
+        }
+    }
+
+    &.up {
+        .callout {
+            transform: translateX(-50%) rotate(45deg);
+            top: -5px;
+            border-left: 1px solid @static-tooltip-border;
+            border-top: 1px solid @static-tooltip-border;
+        }
+    }
+
+    &.down {
+        .callout {
+            transform: translateX(-50%) rotate(45deg);
+            bottom: -5px;
+            border-right: 1px solid @static-tooltip-border;
+            border-bottom: 1px solid @static-tooltip-border;
+        }
+    }
+
+    &.up,
+    &.down {
+        &.start {
+            .callout {
+                left: 19px;
+            }
+        }
+
+        &.middle {
+            .callout {
+                left: 50%;
+            }
+        }
+
+        &.end {
+            .callout {
+                right: 9px;
+            }
+        }
+    }
+
+    &.left,
+    &.right {
+        &.start {
+            .callout {
+                top: 19px;
+            }
+        }
+
+        &.middle {
+            .callout {
+                top: 50%;
+            }
+        }
+
+        &.end {
+            .callout {
+                bottom: 9px;
+            }
+        }
+    }
+
+    .content {
+        color: @static-tooltip-color;
+        font-family: @font-family;
+        font-weight: @font-weight-semibold;
+        text-rendering: optimizeLegibility;
+        margin: 0;
+    }
+
+    .footer {
+        display: block;
+        text-align: right;
+        opacity: 0;
+        transition: opacity 0.3s linear;
+
+        .hide-tips {
+            color: @static-tooltip-hide-tips;
+            font-size: 0.875rem;
+        }
+    }
+
+    &:hover {
+        border-color: @static-tooltip-hover-border;
+
+        .callout {
+            border-color: @static-tooltip-hover-border;
+        }
+
+        .footer {
+            opacity: 1;
+        }
+    }
+}
+
+/*
+    Static tooltip styling (Angular)
+*/
+
+.ux-static-tooltip {
+    background-color: @static-tooltip-bg;
+    border: 1px solid @static-tooltip-border;
+    box-shadow: 2px 2px 2px @static-tooltip-shadow;
+    transition: border-color 0.3s linear;
+    border-radius: 0;
+
+    .popover-arrow {
+        transition: border-bottom-color 0.3s linear;
+    }
+
+    .popover-content {
+        padding: 5px 10px;
+    }
+
+    &:hover {
+        border-color: @static-tooltip-hover-border;
+
+        .popover-arrow {
+            border-bottom-color: @static-tooltip-hover-border;
+        }
+    }
+}
