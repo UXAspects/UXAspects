@@ -113,7 +113,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     }
 
     @HostListener('document:click', ['$event'])
-    clickHandler() {
+    clickHandler(event: MouseEvent) {
         if (!this.open || !this.closeOnExternalClick) {
             return;
         }
