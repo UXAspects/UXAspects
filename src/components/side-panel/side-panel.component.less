@@ -1,4 +1,4 @@
-ux-side-panel {
+.ux-side-panel {
     &.open {
         > .ux-side-panel-host {
             box-shadow: 1px 0 20px 0 @display-panel-shadow;
@@ -16,6 +16,7 @@ ux-side-panel {
 
         > .ux-side-panel-host {
             height: 100%;
+            box-shadow: none;
             overflow-x: hidden;
         }
     }
@@ -80,7 +81,7 @@ ux-side-panel {
                 flex: 1;
             }
 
-            > [uxSidePanelClose] {
+            > button {
                 flex: none;
             }
         }

@@ -24,14 +24,5 @@ module.exports = {
         src: '**',
         dest: path.join(process.cwd(), 'dist', 'docs', 'assets', 'ng1'),
         expand: true
-    },
-    webdriver: {
-        options: {
-            mode: true,
-        },
-        cwd: path.join(process.cwd(), 'node_modules', 'chromedriver', 'lib', 'chromedriver'),
-        src: 'chromedriver!(*.zip)',
-        dest: path.join(process.cwd(), 'e2e'),
-        expand: true
     }
 };

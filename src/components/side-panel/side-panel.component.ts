@@ -6,18 +6,21 @@ import { SidePanelService } from './side-panel.service';
     selector: 'ux-side-panel',
     exportAs: 'ux-side-panel',
     templateUrl: 'side-panel.component.html',
-    providers: [SidePanelService]
+    providers: [SidePanelService],
+    host: {
+        'class': 'ux-side-panel'
+    }
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
 
     @Input()
     @HostBinding('class.open')
     get open(): boolean {
-        return this._service.open$.value;
+        return this.service.open$.value;
     }
 
     set open(value: boolean) {
-        this._service.open$.next(value);
+        this.service.open$.next(value);
     }
 
     @Input()
@@ -28,10 +31,10 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     attachTo: 'window' | 'container' = 'window';
 
     @Input()
-    width = '50%';
+    width: string | number = '50%';
 
     @Input()
-    top = '0';
+    top: string | number = '0';
 
     @Input()
     @HostBinding('attr.aria-modal')
@@ -57,27 +60,41 @@ export class SidePanelComponent implements OnInit, OnDestroy {
         return 'fixed';
     }
 
+    get cssWidth(): string {
+        if (typeof this.width === 'number') {
+            return this.width === 0 ? '0' : this.width + 'px';
+        }
+        return this.width;
+    }
+
+    get cssTop(): string {
+        if (typeof this.top === 'number') {
+            return this.top === 0 ? '0' : this.top + 'px';
+        }
+        return this.top;
+    }
+
     @HostBinding('style.width')
     get componentWidth(): string {
         if (this.inline) {
-            return this.open ? this.width : '0';
+            return this.open ? this.cssWidth : '0';
         }
         return null;
     }
 
     get hostWidth() {
-        return this.inline ? '100%' : this.width;
+        return this.inline ? '100%' : this.cssWidth;
     }
 
     private _subscription: Subscription;
 
     constructor(
-        private _service: SidePanelService,
+        protected service: SidePanelService,
         private _elementRef: ElementRef
     ) { }
 
     ngOnInit() {
-        this._subscription = this._service.open$.subscribe((next) => {
+        this._subscription = this.service.open$.subscribe((next) => {
             this.openChange.emit(next);
         });
     }
@@ -87,12 +104,12 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     }
 
     openPanel() {
-        this._service.open();
+        this.service.open();
     }
 
     @HostListener('document:keyup.escape')
     closePanel() {
-        this._service.close();
+        this.service.close();
     }
 
     @HostListener('document:click', ['$event'])

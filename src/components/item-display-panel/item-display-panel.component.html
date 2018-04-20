@@ -1,19 +1,21 @@
-<div class="ux-item-display-panel" [class.box-shadow]="boxShadow" [class.inline]="inline" [class.animate]="animate" [class.item-display-panel-hide]="!visible" [style.width]="width" [style.top.px]="top" [style.height]='"calc(100% - " + top + "px)"'>
+<div class="ux-side-panel-host ux-item-display-panel"
+    [class.box-shadow]="boxShadow"
+    [style.position]="position"
+    [style.width]="hostWidth"
+    [style.top]="cssTop">
 
-    <div class="item-display-panel-header" [class.item-display-panel-shadow]="shadow">
-        <div class="heading-flex-box">
-            <h3>{{ header }}</h3>
-            <span *ngIf="closeVisible" class="heading-close-button" tabindex="0" (click)="visible = false" (keydown.enter)="visible = false">
-                <i class="hpe-icon hpe-close"></i>
-            </span>
-        </div>
+    <div class="ux-side-panel-header" [class.item-display-panel-shadow]="shadow">
+        <h3>{{ header }}</h3>
+        <button *ngIf="closeVisible" type="button" class="btn btn-lg btn-link btn-icon button-secondary" (click)="visible = false">
+            <i class="hpe-icon hpe-close"></i>
+        </button>
     </div>
 
-    <div class="item-display-panel-content">
+    <div class="ux-side-panel-content">
         <ng-content select="[uxItemDisplayPanelContent]"></ng-content>
     </div>
 
-    <div class="item-display-panel-footer" *ngIf="footer">
+    <div class="ux-side-panel-footer" *ngIf="footer">
         <ng-content select="[uxItemDisplayPanelFooter]"></ng-content>
     </div>
 
