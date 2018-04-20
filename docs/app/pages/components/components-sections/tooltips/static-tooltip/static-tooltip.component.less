@@ -1,0 +1,31 @@
+.static-tooltip-demo {
+    height: 220px;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.static-tooltip-content {
+    &:hover {
+        .hide-tips {
+            opacity: 1;
+        }
+    }
+}
+
+.static-tooltip-text {
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+}
+
+.static-tooltip-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .hide-tips {
+        color: #999;
+        font-size: 0.875rem;
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
+    }
+}

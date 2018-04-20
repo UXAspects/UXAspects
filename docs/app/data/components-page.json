@@ -1662,8 +1662,23 @@
                 },
                 {
                     "title": "Static Tooltips",
+                    "component": "ComponentsStaticTooltipComponent",
+                    "version": "Angular",
+                    "externalUrl": "https://valor-software.com/ngx-bootstrap/#/popover",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[popover]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "PopoverModule"
+                    }]
+                },
+                {
+                    "title": "Static Tooltips",
                     "component": "ComponentsStaticTooltipNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
