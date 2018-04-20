@@ -281,13 +281,20 @@
             "sections": [
                 {
                     "title": "Draggable Cards",
+                    "component": "ComponentsDraggableCardsComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Draggable Cards",
                     "component": "ComponentsDraggableCardsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Draggable Cards - List View Example",
                     "component": "ComponentsDraggableCardsListViewNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

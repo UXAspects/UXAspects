@@ -1,0 +1,84 @@
+<div class="draggable-card-demo">
+	<div class="ux-draggable-card-container">
+
+    <!-- Fixed Cards -->
+		<div class="ux-draggable-card right"
+        *ngFor="let card of fixedCards"
+        [class.active]="active === card"
+        (click)="active = card">
+
+      <p class="draggable-card-title">
+        {{ card.title }} <span class="text-muted">({{ card.count }})</span>
+      </p>
+    </div>
+
+    <!-- Draggable Cards -->
+    <div uxReorderable [(reorderableModel)]="draggableCards">
+      <div class="ux-draggable-card right"
+          *ngFor="let card of draggableCards"
+          [uxReorderableModel]="card"
+          [class.active]="active === card"
+          (click)="active = card">
+
+          <div class="draggable-card-header">
+
+            <p class="draggable-card-title">
+              {{ card.title }} <span class="text-muted">({{ card.count }})</span>
+
+              <button class="draggable-card-action">
+                <i class="hpe-icon hpe-edit"></i>
+              </button>
+            </p>
+
+
+            <button class="draggable-card-action" (click)="remove(card)">
+              <i class="hpe-icon hpe-close"></i>
+            </button>
+          </div>
+
+
+          <div class="draggable-card-content">
+
+            <div class="draggable-card-controls">
+              <button class="draggable-card-control draggable-card-control-up" (click)="moveUp(card)"></button>
+              <div class="draggable-card-drag-handle" uxReorderableHandle ></div>
+              <button class="draggable-card-control draggable-card-control-down" (click)="moveDown(card)"></button>
+            </div>
+
+            <div class="draggable-card-chart">
+                <canvas baseChart
+                  [colors]="colors"
+                  [options]="options"
+                  [data]="card.chart.segments"
+                  [legend]="false"
+                  chartType="doughnut"></canvas>
+            </div>
+
+            <div class="draggable-card-details">
+              <p class="draggable-card-subtitle">{{ card.subtitle }}</p>
+              <p class="draggable-card-description">{{ card.description }}</p>
+            </div>
+          </div>
+      </div>
+    </div>
+
+	</div>
+</div>
+
+<hr>
+
+<p>The Draggable Cards control is created using the <code>draggable-cards</code> directive.
+It allows a series of panels to be displayed in a vertical list. 
+Panels can be selected or reordered, with the ability to add edit or remove functionality.</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.draggableCardsHtml" language="html"></uxd-snippet>
+    </tab>
+    <tab heading="JavaScript">
+        <uxd-snippet [content]="snippets.compiled.draggableCardsJs" language="javascript"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.draggableCardsCss" language="css"></uxd-snippet>
+    </tab>
+</tabset>
