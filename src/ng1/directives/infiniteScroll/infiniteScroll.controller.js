@@ -30,7 +30,7 @@ export class InfiniteScrollController {
         this.$interval = safeInterval.create($scope);
 
         // private variables
-        this._query = null;
+        this._query = this._query || null;
         this._subscriptions = [];
 
         // set some default values if required

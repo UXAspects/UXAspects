@@ -1,0 +1,34 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="drag-handle-column"></th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Date Modified</th>
+            <th>Work Completed</th>
+            <th class="text-center">Status</th>
+        </tr>
+    </thead>
+    <tbody uxReorderable [(reorderableModel)]="data">
+        <tr class="reorderable-row"
+            *ngFor="let item of data; let idx = index"
+            id="row-{{ idx }}"
+            [uxReorderableModel]="item">
+
+            <td class="drag-handle-column">
+                <span uxReorderableHandle id="handle-{{ idx }}" class="hpe-icon hpe-more hpe-rotate-90"></span>
+            </td>
+            <td>{{ item.document }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date | date }}</td>
+            <td>
+                <ux-spark theme="chart2" [value]="item.completed" barHeight="3" [inlineLabel]="item.completed + '%'"></ux-spark>
+            </td>
+            <td class="text-center">
+                <div class="hpe-icon" [class.hpe-checkmark]="item.active"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="data-model">{{ data | map | json }}</p>

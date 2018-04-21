@@ -41,6 +41,8 @@ System.config({
     'ng2-charts': 'https://unpkg.com/ng2-charts/bundles/ng2-charts.umd.min.js',
     'ng2-file-upload': 'https://unpkg.com/ng2-file-upload/bundles/ng2-file-upload.umd.js',
     'angular-split': 'https://unpkg.com/angular-split/bundles/angular-split.umd.js',
+    'dragula': 'https://unpkg.com/dragula/dist/dragula.js',
+    'ngx-mask': 'https://unpkg.com/ngx-mask/bundles/ngx-mask.umd.js',
 
     // ngx-bootstrap aliases
     'ngx-bootstrap/accordion': 'https://unpkg.com/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js',

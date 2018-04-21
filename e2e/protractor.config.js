@@ -20,7 +20,7 @@ var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 exports.config = {
   directConnect: true,  // Set to false if using Selenium Grid
   
-  chromeDriver: './chromedriver.exe',
+  chromeDriver: require('chromedriver').path,
 
   // Capabilities to be passed to the webdriver instance. Only one browser may be uncommented at a time.
   capabilities: {

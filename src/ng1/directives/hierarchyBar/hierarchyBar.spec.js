@@ -64,23 +64,28 @@ describe('hierarchyBar', function() {
 
         // create a new scope
         $scope = $rootScope.$new();
-
-        $scope.vm = {};
-
-        // iterate each prop and add to scope
+    
+        // add variables to controller as property
+        $scope.vm = props;
+    
+        // prepare the controller
+        var ctrlFn = $controller('HierarchyBarCtrl', {
+          $scope: $scope
+        }, true);
+    
+        // add all props to instance (as this component has bindToController: true)
         for (var prop in props) {
-            $scope.vm[prop] = props[prop];
+          ctrlFn.instance[prop] = props[prop];
         }
-
-        var ctrl = $controller('HierarchyBarCtrl', {
-            $scope: $scope
-        }, props);
-
+    
+        // create the controller
+        var ctrl = ctrlFn();
+    
         // perform initial digest
         $scope.$digest();
-
+    
         return ctrl;
-    }
+      }
 
     function getData() {
         var elem = [{

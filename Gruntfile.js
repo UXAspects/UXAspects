@@ -18,7 +18,7 @@ module.exports = function (grunt) {
             }
         }
     });
-    
+
     // Register Tasks
     grunt.registerTask('cleanup', ['clean:library', 'clean:documentation', 'clean:ng1', 'clean:styles', 'clean:fonts', 'clean:images', 'clean:less', 'clean:licenses']);
     grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'jshint:ng1', 'stylelint']);
@@ -36,14 +36,14 @@ module.exports = function (grunt) {
 
     grunt.registerTask('documentation:serve', ['library', 'iconset', 'styles', 'webpack-dev-server:documentation']);
     grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'webpack:documentation']);
-    
-    grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'webpack:e2e', 'ts:e2e', 'copy:webdriver', 'rename:webdriver', 'run:e2e', 'makeReport']);
-    
+
+    grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e', 'makeReport']);
+
     // Tasks with larger chains of events
     grunt.registerTask('build', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim']);
     grunt.registerTask('releasebuild', ['build', 'compress:bower']);
 
     // default task will run dev environment
     grunt.registerTask('default', ['documentation:serve']);
-    
+
 };

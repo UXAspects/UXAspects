@@ -1,4 +1,6 @@
-const { readFileSync } = require('fs');
+const fs = require('fs');
+const gracefulFs = require('graceful-fs');
+const { readFileSync } = fs;
 const { join } = require('path');
 const webpack = require('webpack');
 const { NamedModulesPlugin, NoEmitOnErrorsPlugin } = webpack;
@@ -7,8 +9,12 @@ const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 const project_dir = process.cwd();
+
+// Node has a limit to the number of files that can be open - prevent the error
+gracefulFs.gracefulify(fs);
 
 /*
     Define Compilation Options
@@ -54,21 +60,19 @@ module.exports = {
                 })
             },
             {
-                test: /\.json$/,
-                use: 'json-loader'
-            },
-            {
                 test: /\.md$/,
                 use: ['html-loader', 'markdown-code-highlight-loader']
             },
             {
                 test: /\.ts$/,
                 exclude: /snippets/,
-                use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader']
+                use: '@ngtools/webpack'
             },
             {
                 test: /\.less$/,
-                include: [join(project_dir, 'docs', 'app')],
+                include: [
+                    join(project_dir, 'docs', 'app')
+                ],
                 use: ['to-string-loader', 'css-loader', 'less-loader']
             },
             {
@@ -207,10 +211,12 @@ module.exports = {
 
         new NamedModulesPlugin({}),
 
-        new webpack.ContextReplacementPlugin(
-            /(.+)?angular(\\|\/)core(.+)?/,
-            join(project_dir, 'docs')
-        ),
+        new AngularCompilerPlugin({
+            entryModule: join(project_dir, './docs/app/app.module#AppModule'),
+            tsConfigPath: join(project_dir, 'tsconfig.json'),
+            sourceMap: false,
+            skipCodeGeneration: true
+        }),
 
         new ProgressPlugin(),
 

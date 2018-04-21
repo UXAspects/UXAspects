@@ -1,0 +1,163 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Document</th>
+            <th>Author</th>
+            <th>Created Date</th>
+        </tr>
+    </thead>
+    <tbody #select="ux-selection" [(uxSelection)]="selection" [mode]="mode" [disabled]="false">
+
+        <tr *ngFor="let item of data"
+            class="clickable"
+            [uxSelectionItem]="item"
+            [(selected)]="item.selected">
+
+            <td>
+                <ux-checkbox class="m-b-nil" [clickable]="false" [value]="item.selected"></ux-checkbox>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.date | date }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-primary" (click)="select.selectAll()">Select All</button>
+<button class="btn btn-primary" (click)="select.deselectAll()">Deselect All</button>
+
+<hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-panel heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-12">
+                        <label>mode</label>
+                        <ux-radio-button [(ngModel)]="mode" option="simple">simple</ux-radio-button>
+                        <ux-radio-button [(ngModel)]="mode" option="row">row</ux-radio-button>
+                    </div>
+                </div>
+            </accordion-panel>
+        </accordion>
+    </div>
+</div>
+
+<p>
+    The <code>uxSelection</code> directive can be used to allow items to easily be selected and deselected. This is particularly useful
+    in tables where rows can be selected to perform actions on specific items. The <code>uxSelection</code> directive should be added to
+    the container element, for example a <code>table</code>.
+</p>
+
+<p>
+    Each selectable item should be a child element with the <code>uxSelectionItem</code> directive applied to it.
+</p>
+
+<p>
+    Each selectable item will get a <code>ux-selection-focused</code> class applied when the item receives focus and a
+    <code>ux-selection-selected</code> class when the item becomes selected. These can be used to customize the appearance
+    of the items in their various states.
+</p>
+
+<p>
+    The following can be used to interact with and customize the behavior of the <code>uxSelection</code> directive.
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="uxSelection" type="any[]">
+        Defines the items that should be selected.
+    </tr>
+
+    <tr uxd-api-property name="mode" type="'simple' | 'row'" defaultValue="'simple'">
+        Defines the selection behavior. The following modes can be used:
+
+        <ul>
+            <li>
+                <code>simple</code> - This allows clicking on an item to toggle its selected state. It also provides keyboard
+                navigation using the arrow keys and toggling using the spacebar key.
+            </li>
+
+            <li>
+                <code>row</code> - This allows more complex selection behavior. Clicking on an item will select only that item and deselect all others.
+                Multiple items can be selected by <code>ctrl</code> clicking on items, and groups of items can be selected by <code>shift</code> clicking.
+                Keyboard navigation is also provided using the arrow keys and spacebar to toggle selection and <code>ctrl</code> and <code>shift</code> support
+                is also available for multiple selection.
+            </li>
+        </ul>
+    </tr>
+
+    <tr uxd-api-property name="disabled" type="boolean">
+        Can be used to enabled/disable selection behavior.
+    </tr>
+
+    <tr uxd-api-property name="clickSelection" type="boolean" defaultValue="true">
+        Can be used to enable/disable click selection on items. This can be used to manually control the selection of an item, for example,
+        binding the selection state to a checkbox.
+    </tr>
+
+    <tr uxd-api-property name="keyboardSelection" type="boolean" defaultValue="true">
+        Can be used to enable/disable keyboard navigation on items. Use this if you wish to provide custom keyboard controls for selection.
+    </tr>
+
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="uxSelectionChange" type="any[]">
+        This event will be triggered when there is a change to the selected items. It will contain an array of the currently selected items.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Functions">
+    <tr uxd-api-property name="selectAll">
+        This function can be called to select all <code>uxSelectionItem</code> elements within the directive.
+    </tr>
+    <tr uxd-api-property name="deselectAll">
+        This function can be called to deselect all <code>uxSelectionItem</code> elements within the directive.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The following can be used to interact with and customize the behavior of the <code>uxSelectionItem</code> directive.
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="uxSelectionItem" type="any" [required]="true">
+        Defines the data associated with this item.
+    </tr>
+    <tr uxd-api-property name="selected" type="boolean">
+        Defines whether or not this item is currently selected.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="selectedChange" type="boolean">
+        This event will be triggered when this item becomes selected. The event will contain the boolean value representing its selected state.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Functions">
+    <tr uxd-api-property name="select">
+        This function can be called to select this item.
+    </tr>
+    <tr uxd-api-property name="deselect">
+        This function can be called to deselect this item.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </tab>
+</tabset>

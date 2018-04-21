@@ -6,6 +6,8 @@ import { ICodePen } from '../../interfaces/ICodePen';
 import { IPlunkProvider, isIPlunkProvider } from '../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../interfaces/IPlunk';
 import { ResolverService } from '../../services/resolver/resolver.service';
+import { ILink } from '../../interfaces/ILink';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 @Component({
     selector: 'uxd-component-section',
@@ -20,6 +22,7 @@ export class ComponentSectionComponent implements OnInit {
     @Input() version: string;
     @Input() hybrid: boolean = false;
     @Input() deprecated: boolean = false;
+    @Input() deprecatedFor: string;
     @Input() externalUrl: string;
     @Input() usage: Usage[];
 
@@ -27,16 +30,18 @@ export class ComponentSectionComponent implements OnInit {
     
     codepen: ICodePen;
     plunk: IPlunk;
+    deprecatedLink: ILink;
 
     hybridModuleTs: string = require('!!raw-loader!./snippets/hybrid-module.ts');
     
-    constructor(private resolverService: ResolverService) { }
+    constructor(private _resolverService: ResolverService,
+        private _navigationService: NavigationService) { }
 
     ngOnInit() {
         const component = documentationSectionNames[this.componentName];
 
         if (component) {
-            let factory = this.resolverService.resolveComponentFactory(component);
+            let factory = this._resolverService.resolveComponentFactory(component);
             
             const componentRef = this.viewContainer.createComponent(factory);
 
@@ -47,6 +52,10 @@ export class ComponentSectionComponent implements OnInit {
             }
         } else {
             console.warn(`ComponentSectionComponent: ${this.componentName} cannot be resolved - decorate component with @DocumentationSectionComponent.`);
+        }
+
+        if (this.deprecatedFor) {
+            this.deprecatedLink = this._navigationService.getComponentLink(this.deprecatedFor);
         }
     }
 }

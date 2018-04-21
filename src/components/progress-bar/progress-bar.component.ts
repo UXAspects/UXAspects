@@ -8,6 +8,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 export class ProgressBarComponent {
     @Input() value: number = 0;
     @Input() max: number = 100;
+    @Input() indeterminate: boolean = false;
     @Input() trackColor: string;
     @Input() barColor: string;
 }

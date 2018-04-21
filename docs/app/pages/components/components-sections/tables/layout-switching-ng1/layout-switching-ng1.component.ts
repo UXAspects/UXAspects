@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 
 @Component({
     selector: 'uxd-components-layout-switching-ng1',
-    templateUrl: './layout-switching-ng1.component.html'
+    templateUrl: './layout-switching-ng1.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsLayoutSwitchingNg1Component')
 export class ComponentsLayoutSwitchingNg1Component extends BaseDocumentationSection {

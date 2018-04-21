@@ -1,14 +1,14 @@
-<div class="component-list">
-    <div class="component-stack">
-        <div class="component-container" 
+<div class="component-list-container">
+    <div class="component-list">
+        <div class="component-container"
                 ng-repeat="component in vm.components track by $index"
                 ng-transclude>
         </div>
     </div>
 
-    <div class="component-options" 
-            tabindex="0" 
-            ng-click="vm.addField()" 
+    <div class="component-actions"
+            tabindex="0"
+            ng-click="vm.addField()"
             ng-keydown="$event.keyCode === 13 ? vm.addField() : null"
             ng-disabled="vm.addingDisabled">
 

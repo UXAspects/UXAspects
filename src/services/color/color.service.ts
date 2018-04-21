@@ -69,7 +69,11 @@ export class ColorService {
     }
 
     getColor(color: ColorIdentifier): ThemeColor {
-        const themeColor = this._colors[color.toLowerCase()];
+        const themeColor = this._colors[this.resolveColorName(color)];
+        if (!themeColor) {
+            throw new Error('Color not found: ' + color);
+        }
+        
         return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
     }
 
@@ -301,6 +305,7 @@ export const colorSets = {
             'copper': '#e57828',
             'amber': '#ffc002',
             'leaf-green': '#118c4f',
+            'forest-green': '#00645a',
             'primary': '#0073e7',
             'accent': '#7425ad',
             'secondary': '#ffffff',

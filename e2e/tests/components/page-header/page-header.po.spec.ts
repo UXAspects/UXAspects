@@ -6,8 +6,15 @@ export class PageHeaderPage {
         browser.get('#/page-header');
     }
     
-    pageHeader = element(by.id('pageHeader1'));
+    pageHeader1 = element(by.id('pageHeader1'));
+    pageHeader2 = element(by.id('pageHeader2'));
+    selected = element(by.id('selected'));
     toggleButton = element(by.id('button1'));
+
+    alignLeftButton = element(by.id('align-left'));
+    alignCenterButton = element(by.id('align-center'));
+    alignRightButton = element(by.id('align-right'));
+    autoselectButton = element(by.id('autoselect'));
     
     condensed = false;
     
@@ -23,7 +30,7 @@ export class PageHeaderPage {
     }
     
     confirmPageHeaderIsCondensed() {
-        return this.confirmClassExists(this.pageHeader, 'page-header-condensed');
+        return this.confirmClassExists(this.pageHeader1, 'page-header-condensed');
     }
     
     toggleTheHeader() {
@@ -46,12 +53,12 @@ export class PageHeaderPage {
     }
 
     getABreadcrumb(index: number) {
-        return this.pageHeader.$('div.page-header-details').$('div.page-header-state-container').$('div.page-header-title-container').
+        return this.pageHeader1.$('div.page-header-details').$('div.page-header-state-container').$('div.page-header-title-container').
                $('ux-breadcrumbs').$('ol.breadcrumb').$$('li').get(index).getText();
     }
     
     getABreadcrumbWhenCondensed(index: number) {
-        return this.pageHeader.$('div.page-header-condensed-content').$('div.page-header-breadcrumbs').
+        return this.pageHeader1.$('div.page-header-condensed-content').$('div.page-header-breadcrumbs').
                $('ux-breadcrumbs').$('ol.breadcrumb').$$('li').get(index).getText();
     }
     
@@ -148,6 +155,14 @@ export class PageHeaderPage {
             return elem.$('div.page-header-icon-menus').$$('ux-page-header-icon-menu').get(1).
                    $('div.page-header-icon-menu').$('ul.dropdown-menu').$$('li').count();
         });
-    }    
+    }
+    
+    async getSecondaryNavigation(): Promise<ElementFinder> {
+        return await this.pageHeader2.$('.page-header-secondary');
+    }
+
+    async getClasses(target: ElementFinder): Promise<string[]> {
+        return (await target.getAttribute('class') || '').split(' ');
+    }
 }
 

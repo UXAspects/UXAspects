@@ -3,8 +3,11 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ICategory } from '../../interfaces/ICategory';
+import { ILink } from '../../interfaces/ILink';
 import { ISection } from '../../interfaces/ISection';
+import { AppConfiguration } from '../app-configuration/app-configuration.service';
 import { VersionService, versionFromString } from '../version/version.service';
+import { IDocumentationPage } from '../../interfaces/IDocumentationPage';
 
 const NAVIGATION_TOP_OFFSET = 50;
 
@@ -20,10 +23,11 @@ export class NavigationService {
     // Reference counter for components that are rendering asynchronously
     private renderingCount: number = 0;
 
-    constructor( @Inject(DOCUMENT) private document: Document,
-        private activeRoute: ActivatedRoute,
-        private router: Router,
-        private versionService: VersionService) { }
+    constructor( @Inject(DOCUMENT) private _document: Document,
+        private _activeRoute: ActivatedRoute,
+        private _router: Router,
+        private _appConfig: AppConfiguration,
+        private _versionService: VersionService) { }
 
     getScrollTop(): number {
         // support all browsers
@@ -35,7 +39,7 @@ export class NavigationService {
     }
 
     isScrolledToBottom() {
-        return (this.getScrollTop() + window.innerHeight) >= this.document.body.offsetHeight;
+        return (this.getScrollTop() + window.innerHeight) >= this._document.body.offsetHeight;
     }
 
     isFragmentActive(id: string) {
@@ -58,7 +62,7 @@ export class NavigationService {
             // If replaceOnly is specified then only navigate if URL already has a fragment
             if (!replaceOnly || this.urlHasFragment()) {
                 // Trigger navigation without updating history
-                this.router.navigate([], { fragment: id, replaceUrl: true });
+                this._router.navigate([], { fragment: id, replaceUrl: true });
             }
         } else {
             // URL was not updated so store the ID of the active fragment internally
@@ -89,17 +93,17 @@ export class NavigationService {
             const version = versionFromString(section ? section.version : 'Angular');
 
             // if no matching section was found or the version has not previously been set or has changed then update it
-            if (!section || !this.versionService.isSectionVersionMatch(section) && version !== null) {
-                this.versionService.setVersion(version);
+            if (!section || !this._versionService.isSectionVersionMatch(section) && version !== null) {
+                this._versionService.setVersion(version);
             }
         }
     }
 
     scrollOnNavigationChange(url: string) {
-        const parsed = this.router.parseUrl(url);
+        const parsed = this._router.parseUrl(url);
         if (parsed.fragment) {
             // Check if the navigated section is already in view
-            if (!this.isFragmentActive(parsed.fragment) || parsed.fragment !== this.activeRoute.snapshot.fragment) {
+            if (!this.isFragmentActive(parsed.fragment) || parsed.fragment !== this._activeRoute.snapshot.fragment) {
                 // Otherwise, scroll to the top of that section
                 setTimeout(() => {
                     this.scrollToFragment(parsed.fragment);
@@ -123,7 +127,24 @@ export class NavigationService {
         }
     }
 
+    getComponentLink(component: string): ILink {
+        for (let pageName of this._appConfig.documentationPages) {
+            const page = <IDocumentationPage>this._appConfig.getConfigurationData(pageName);
+            const pageLink = page.id || page.title.toLowerCase();
+            for (let category of page.categories) {
+                const section = category.sections.find(s => s.component === component);
+                if (section) {
+                    return {
+                        title: section.title,
+                        link: `/${pageLink}/${category.link}`,
+                        fragment: section.id
+                    };
+                }
+            }
+        }
+    }
+
     private urlHasFragment() {
-        return this.activeRoute.snapshot.fragment && this.activeRoute.snapshot.fragment.length;
+        return this._activeRoute.snapshot.fragment && this._activeRoute.snapshot.fragment.length;
     }
 }

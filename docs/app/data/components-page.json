@@ -182,8 +182,14 @@
             "sections": [
                 {
                     "title": "Component List",
+                    "component": "ComponentsComponentListComponent",
+                    "version": "Angular"
+                },
+                {
+                    "title": "Component List",
                     "component": "ComponentsComponentListNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -315,7 +321,7 @@
                             "content": "ux-facet-container"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FacetsModule"
                         }
                     ]
@@ -330,7 +336,7 @@
                             "content": "ux-facet-check-list"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FacetsModule"
                         }
                     ]
@@ -345,7 +351,7 @@
                             "content": "ux-facet-typeahead-list"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FacetsModule"
                         }
                     ]
@@ -356,7 +362,7 @@
                     "version": "Angular",
                     "usage": [
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FacetsModule"
                         }
                     ]
@@ -517,7 +523,7 @@
                             "content": "ux-checkbox"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "CheckboxModule"
                         }
                     ]
@@ -535,8 +541,24 @@
                 },
                 {
                     "title": "Expanding Text Area",
+                    "component": "ComponentsExpandingTextAreaComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxAutoGrow]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "AutoGrowModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Expanding Text Area",
                     "component": "ComponentsExpandingTextAreaNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Toggle Switch",
@@ -548,7 +570,7 @@
                             "content": "ux-toggleswitch"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "ToggleSwitchModule"
                         }
                     ]
@@ -569,7 +591,7 @@
                             "content": "ux-number-picker"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "NumberPickerModule"
                         }
                     ]
@@ -593,8 +615,33 @@
                 },
                 {
                     "title": "Input Mask",
+                    "component": "ComponentsInputMaskComponent",
+                    "externalUrl": "https://jsdaddy.github.io/ngx-mask/",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[mask]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "NgxMaskModule"
+                        },
+                        {
+                            "title": "Import As",
+                            "content": "NgxMaskModule.forRoot()"
+                        },
+                        {
+                            "title": "Library",
+                            "content": "ngx-mask"
+                        }
+                    ]
+                },
+                {
+                    "title": "Input Mask",
                     "component": "ComponentsInputMaskNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Radio Button",
@@ -627,7 +674,7 @@
                             "content": "ux-slider"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "SliderModule"
                         }
                     ]
@@ -704,7 +751,7 @@
                             "content": "ux-media-player"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "MediaPlayerModule"
                         },
                         {
@@ -737,7 +784,9 @@
                 {
                     "title": "Side Modal",
                     "component": "ComponentsSideModalNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSidePanelComponent"
                 }
             ]
         },
@@ -806,7 +855,7 @@
                             "content": "ux-page-header"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "PageHeaderModule"
                         },
                         {
@@ -867,6 +916,29 @@
                     ]
                 },
                 {
+                    "title": "Side Panel",
+                    "component": "ComponentsSidePanelComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-side-panel"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "ux-side-panel"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxSidePanelClose]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SidePanelModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Item Display Panel",
                     "component": "ComponentsItemDisplayPanelComponent",
                     "version": "Angular",
@@ -912,12 +984,16 @@
                 {
                     "title": "Modal Inset Panel",
                     "component": "ComponentsModalInsetPanelNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSidePanelComponent"
                 },
                 {
                     "title": "Side Inset Panel",
                     "component": "ComponentsSideInsetPanelNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSidePanelComponent"
                 }
             ]
         },
@@ -1054,7 +1130,24 @@
                     "title": "Search Toolbar",
                     "component": "ComponentsSearchToolbarNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsToolbarSearchComponent"
+                },
+                {
+                    "title": "Toolbar Search",
+                    "component": "ComponentsToolbarSearchComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-toolbar-search"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ToolbarSearchModule"
+                        }
+                    ]
                 }
             ]
         },
@@ -1167,6 +1260,24 @@
                     "component": "ComponentsSideInsetPanelSplitterNg1Component",
                     "version": "AngularJS",
                     "deprecated": true
+                },
+                {
+                    "title": "Side Inset Panel Splitter",
+                    "component": "ComponentsSideInsetPanelSplitterComponent",
+                    "version": "Angular",
+                    "externalUrl": "https://bertrandg.github.io/angular-split/#/",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "split"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "AngularSplitModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "angular-split"
+                    }]
                 }
             ]
         },
@@ -1184,11 +1295,11 @@
                             "content": "ux-column-sorting"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "ColumnSortingModule"
                         },
                         {
-                            "title": "Export as",
+                            "title": "Exported As",
                             "content": "ux-column-sorting"
                         }
                     ]
@@ -1209,7 +1320,7 @@
                     "version": "Angular",
                     "usage": [
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FilterModule"
                         }
                     ]
@@ -1224,7 +1335,7 @@
                             "content": "ux-filter-container"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FilterModule"
                         }
                     ]
@@ -1245,7 +1356,7 @@
                             "content": "uxFixedHeaderTable"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "FixedHeaderTableModule"
                         }
                     ]
@@ -1283,7 +1394,7 @@
                                 "[uxLayoutSwitcher], [uxLayoutSwitcherItem]"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "LayoutSwitcherModule"
                         }
                     ]
@@ -1317,7 +1428,7 @@
                                 "[uxHoverActionContainer], [uxHoverAction]"
                         },
                         {
-                            "title": "Module name",
+                            "title": "Module",
                             "content": "HoverActionModule"
                         }
                     ]
@@ -1336,23 +1447,75 @@
                 {
                     "title": "Reorderable Table",
                     "component": "ComponentsReorderableTableNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Reorderable Table",
+                    "component": "ComponentsReorderableTableComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxReorderable]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxReorderableHandle]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ReorderableModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Selection",
+                    "component": "ComponentsSelectionComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxSelection]"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "ux-selection"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxSelectionItem]"
+                        },
+                        {
+                            "title": "Exported As",
+                            "content": "ux-selection-item"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SelectionModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Multiple Selection Actions",
                     "component": "ComponentsMultipleSelectActionsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSelectionComponent"
                 },
                 {
                     "title": "Traditional Multiple Selection Actions",
-                    "component":
-                        "ComponentsTraditionalMultipleSelectActionsNg1Component",
-                    "version": "AngularJS"
+                    "component": "ComponentsTraditionalMultipleSelectActionsNg1Component",
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSelectionComponent"
                 },
                 {
                     "title": "Multiple Selection by Row",
                     "component": "ComponentsMultipleSelectionRowNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSelectionComponent"
                 },
                 {
                     "title": "Scrollable Table",
@@ -1361,15 +1524,42 @@
                     "deprecated": true
                 },
                 {
+                    "title": "Toolbar Sorting",
+                    "component": "ComponentsSortingComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[dropdown]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[dropdownMenu]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[dropdownToggle]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "BsDropdownModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Sorting",
                     "component": "ComponentsSortingNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,                    
+                    "deprecatedFor": "ComponentsSortingComponent"
                 },
                 {
                     "title": "Sort Direction Toggle",
                     "component": "ComponentsSortDirectionToggleNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsSortingComponent"
                 },
                 {
                     "title": "Single Column Sorting",
@@ -1416,8 +1606,30 @@
                 },
                 {
                     "title": "Card Tabs",
+                    "component": "ComponentsCardTabsComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "ux-card-tabset"
+                    },
+                    {
+                        "title": "Selector",
+                        "content": "ux-card-tab"
+                    },
+                    {
+                        "title": "Selector",
+                        "content": "[uxCardTabContent]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "CardTabsModule"
+                    }]
+                },
+                {
+                    "title": "Card Tabs",
                     "component": "ComponentsCardTabsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -1468,8 +1680,27 @@
                 },
                 {
                     "title": "Static Tooltips",
+                    "component": "ComponentsStaticTooltipComponent",
+                    "version": "Angular",
+                    "externalUrl": "https://valor-software.com/ngx-bootstrap/#/popover",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[popover]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "PopoverModule"
+                    },
+                    {
+                        "title": "Library",
+                        "content": "ngx-bootstrap"
+                    }]
+                },
+                {
+                    "title": "Static Tooltips",
                     "component": "ComponentsStaticTooltipNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },

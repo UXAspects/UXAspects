@@ -14,6 +14,12 @@ module.exports = {
         libraryTarget: 'umd'
     },
 
+    resolveLoader: {
+        alias: {
+            'uglifyjs-loader': join(project_dir, 'configs', 'loaders', 'uglifyjs-loader.js')
+        }
+    },
+
     devtool: 'none',
 
     module: {
@@ -50,17 +56,7 @@ module.exports = {
         }, {
             test: /(plugins|external)/,
             exclude: /(node_modules|bower_components)/,
-            use: [{
-                loader: 'script-loader'
-            }, {
-                loader: 'uglify-loader',
-                options: {
-                    compress: {
-                        warnings: false,
-                    },
-                    comments: false
-                }
-            }]
+            use: ['script-loader', 'uglifyjs-loader']
         }]
     },
 
