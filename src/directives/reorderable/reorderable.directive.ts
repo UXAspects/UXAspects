@@ -98,6 +98,7 @@ export class ReorderableDirective implements OnInit, OnDestroy {
      */
     onClone(clone: Element, element: Element, type: string): void {
         this.setTableCellWidths(element, clone);
+        this.captureCanvases(element, clone);
 
         this._renderer.addClass(element, 'ux-reorderable-moving');
     }
@@ -123,6 +124,18 @@ export class ReorderableDirective implements OnInit, OnDestroy {
 
         // fix the width of these cells
         sourceCells.forEach((cell, idx) => targetCells[idx].style.minWidth = getComputedStyle(cell).getPropertyValue('width'));
+    }
+
+    private captureCanvases(source: Element, target: Element): void {
+
+        // find all child canvas elements
+        const sourceCanvases = Array.from(source.querySelectorAll('canvas'));
+        const targetCanvases = Array.from(target.querySelectorAll('canvas'));
+
+        // replicate the canvas content
+        targetCanvases.map(canvas => canvas.getContext('2d'))
+            .forEach((context, idx) => context.drawImage(sourceCanvases[idx], 0, 0));
+
     }
 
 }

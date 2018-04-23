@@ -985,3 +985,81 @@
 .back {
     transform: rotateY(-180deg);
 }
+
+/*
+  Draggable Cards (Angular)
+*/
+.ux-draggable-card-container {
+    height: 100%;
+    padding: 5px 20px;
+    background-color: #f2f2f2;
+    border: 1px solid #e5e5e5;
+    overflow-y: auto;
+}
+
+.ux-draggable-card {
+    position: relative;
+    width: 100%;
+    min-height: 30px;
+    background-color: #fff;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 3px #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: border-color 0.5s;
+
+    &.active {
+        border-color: #00a7a2;
+
+        &:before,
+        &:after {
+            content: " ";
+            border: solid transparent;
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &:before {
+            border-width: 10px;
+        }
+
+        &:after {
+            border-width: 9px;
+        }
+
+        &.right {
+            &:before,
+            &:after {
+                left: 100%;
+            }
+
+            &:before {
+                border-left-color: #00a7a2;
+            }
+
+            &:after {
+                border-left-color: #fff;
+            }
+        }
+
+        &.left {
+            &:before,
+            &:after {
+                right: 100%;
+            }
+
+            &:before {
+                border-right-color: #00a7a2;
+            }
+
+            &:after {
+                border-right-color: #fff;
+            }
+        }
+    }
+}
