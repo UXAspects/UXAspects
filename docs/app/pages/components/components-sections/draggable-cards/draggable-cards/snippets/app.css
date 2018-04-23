@@ -59,15 +59,15 @@
 }
 
 .draggable-card-control-up {
-    background-image: url('../../../../../assets/img/uparrow-dark.png');
+    background-image: url('https://uxaspects.github.io/UXAspects/assets/uparrow-dark.png');
 }
 
 .draggable-card-control-down {
-    background-image: url('../../../../../assets/img/downarrow-dark.png');
+    background-image: url('https://uxaspects.github.io/UXAspects/assets/downarrow-dark.png');
 }
 
 .draggable-card-drag-handle {
-    background-image: url('../../../../../assets/img/draghandle-dark.png');
+    background-image: url('https://uxaspects.github.io/UXAspects/assets/draghandle-dark.png');
     width: 13px;
     height: 19px;
     background-repeat: no-repeat;

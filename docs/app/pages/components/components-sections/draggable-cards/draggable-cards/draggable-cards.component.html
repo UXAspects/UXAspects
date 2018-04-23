@@ -46,7 +46,10 @@
             </div>
 
             <div class="draggable-card-chart">
+                <span class="draggable-card-chart-label">{{ card.chart.count }}M</span>
                 <canvas baseChart
+                  width="60"
+                  height="60"
                   [colors]="colors"
                   [options]="options"
                   [data]="card.chart.segments"
@@ -67,18 +70,30 @@
 
 <hr>
 
-<p>The Draggable Cards control is created using the <code>draggable-cards</code> directive.
-It allows a series of panels to be displayed in a vertical list. 
-Panels can be selected or reordered, with the ability to add edit or remove functionality.</p>
+<p>
+  Draggable Cards can be used to create a series of panels to be displayed in a vertical list.
+  Card can be selected, reordered or removed.
+</p>
+
+<p>
+  To create the card container use the <code>.ux-draggable-card-container</code> class and for each card
+  within the list use the <code>.ux-draggable-card</code> class. The <code>.active</code> class should be
+  added to any card when it is selected. To add a callout when a card is selected add either a <code>.left</code>
+  or a <code>.right</code> class to indicate the direction the callout should point.
+</p>
+
+<p>
+  To add reorderable functionality use the <a routerLink="/components/tables" fragment="reorderable-table">reorderable</a> directive.
+</p>
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.draggableCardsHtml" language="html"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
     </tab>
-    <tab heading="JavaScript">
-        <uxd-snippet [content]="snippets.compiled.draggableCardsJs" language="javascript"></uxd-snippet>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
     </tab>
     <tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.draggableCardsCss" language="css"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
     </tab>
 </tabset>

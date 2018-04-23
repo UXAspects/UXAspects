@@ -1,18 +1,13 @@
 import { Component } from '@angular/core';
 import { ChartOptions } from 'chart.js';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { ColorService } from '@ux-aspects/ux-aspects';
 
 @Component({
-    selector: 'uxd-draggable-cards',
-    templateUrl: './draggable-cards.component.html',
-    styleUrls: ['./draggable-cards.component.less']
+    selector: 'app',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
-@DocumentationSectionComponent('ComponentsDraggableCardsComponent')
-export class ComponentsDraggableCardsComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class AppComponent {
 
     colors = [
         {
@@ -103,27 +98,7 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
 
     active: FixedCard | DraggableCard = this.draggableCards[0];
 
-    plunk: IPlunk = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['ReorderableModule', 'ColorServiceModule'],
-                library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['ChartsModule'],
-                library: 'ng2-charts'
-            }
-        ]
-    };
-
-    constructor(private _colorService: ColorService) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
+    constructor(private _colorService: ColorService) { }
 
     remove(card: DraggableCard): void {
         this.draggableCards = this.draggableCards.filter(_card => _card !== card);

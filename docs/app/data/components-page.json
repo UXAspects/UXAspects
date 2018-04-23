@@ -282,7 +282,21 @@
                 {
                     "title": "Draggable Cards",
                     "component": "ComponentsDraggableCardsComponent",
-                    "version": "Angular"
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxReorderable]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxReorderableHandle]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ReorderableModule"
+                        }
+                    ]
                 },
                 {
                     "title": "Draggable Cards",
