@@ -64,14 +64,14 @@
     search input control.</p>
 
 <p>The Dynamic Facet also supports customization of the markup used for facet options (selected and unselected) and the content shown in the typeahead.
-   To customize the unselected facet option, the user should set the <code>facet-option-template</code> property to a template. Any data available inside
+   To customize the unselected facet option, set the <code>facet-option-template</code> property to a template. Any data available inside
    each object within the <code>options</code> array can be accessed using "data" as prefix (e.g. <code>data.name</code>, <code>data.count</code>).
 
-<p>To customize the typeahed content, the user should set the <code>facet-option-typeahead</code> attribute. Any data available inside each object within
+<p>To customize the typeahead content, set the <code>facet-option-typeahead</code> attribute. Any data available inside each object within
     the <code>options</code> array can be accessed using "option" as prefix (e.g. <code>option.name</code>, <code>option.count</code>).</p>
 
 <p>When an entry in the typeahead is selected, it will be added to the list of facet values. To control the markup used to display those selected options,
-   the user must set the <code>facet-option-selected-template</code> property to a template. Any data available inside each object within the <code>options</code>
+   set the <code>facet-option-selected-template</code> property to a template. Any data available inside each object within the <code>options</code>
    array can be accessed using "facet.option" as prefix (e.g. <code>facet.option.name</code>, <code>facet.option.count</code>).</p>
 
 <p>Below is an example for the use of this directive:</p>
