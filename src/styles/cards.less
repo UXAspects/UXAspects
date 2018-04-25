@@ -992,8 +992,8 @@
 .ux-draggable-card-container {
     height: 100%;
     padding: 5px 20px;
-    background-color: #f2f2f2;
-    border: 1px solid #e5e5e5;
+    background-color: @draggable-card-container-bg;
+    border: 1px solid @draggable-card-container-border;
     overflow-y: auto;
 }
 
@@ -1001,16 +1001,17 @@
     position: relative;
     width: 100%;
     min-height: 30px;
-    background-color: #fff;
+    background-color: @draggable-card-bg;
     margin: 10px 0;
-    border: 1px solid #ccc;
-    box-shadow: 1px 1px 3px #ccc;
+    border: 1px solid @draggable-card-border;
+    box-shadow: 1px 1px 3px @draggable-card-border;
     padding: 5px 10px;
     cursor: pointer;
     transition: border-color 0.5s;
 
     &.active {
-        border-color: #00a7a2;
+        box-shadow: 1px 1px 3px @draggable-card-active-shadow;
+        border-color: @draggable-card-active-border;
 
         &:before,
         &:after {
@@ -1039,12 +1040,12 @@
             }
 
             &:before {
-                border-left-color: #00a7a2;
-                filter: drop-shadow(3px 0 2px #ccc);
+                border-left-color: @draggable-card-active-border;
+                filter: drop-shadow(3px 0 2px @draggable-card-active-shadow);
             }
 
             &:after {
-                border-left-color: #fff;
+                border-left-color: @draggable-card-bg;
             }
         }
 
@@ -1055,11 +1056,11 @@
             }
 
             &:before {
-                border-right-color: #00a7a2;
+                border-right-color: @draggable-card-active-border;
             }
 
             &:after {
-                border-right-color: #fff;
+                border-right-color: @draggable-card-bg;
             }
         }
     }
