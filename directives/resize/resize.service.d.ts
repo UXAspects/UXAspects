@@ -1,10 +1,11 @@
-import { RendererFactory2 } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/observable/fromEvent';
-export declare class ResizeService {
+import { OnDestroy, RendererFactory2 } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+export declare class ResizeService implements OnDestroy {
     private _renderer;
+    private _subscription;
     constructor(rendererFactory: RendererFactory2);
-    addResizeListener(nativeElement: HTMLElement): Subject<ResizeDimensions>;
+    ngOnDestroy(): void;
+    addResizeListener(nativeElement: HTMLElement): BehaviorSubject<ResizeDimensions>;
     private waitUntilReady(iframe, callback);
 }
 export interface ResizeDimensions {
