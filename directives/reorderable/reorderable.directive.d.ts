@@ -45,6 +45,7 @@ export declare class ReorderableDirective implements OnInit, OnDestroy {
      */
     canMove(element: Element, container: Element, handle: Element): boolean;
     private setTableCellWidths(source, target);
+    private captureCanvases(source, target);
 }
 export interface ReorderEvent {
     element: Element;

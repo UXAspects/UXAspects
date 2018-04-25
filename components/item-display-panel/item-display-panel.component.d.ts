@@ -1,18 +1,16 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, ElementRef } from '@angular/core';
+import { SidePanelComponent } from '../side-panel/side-panel.component';
+import { SidePanelService } from '../side-panel/side-panel.service';
 export declare class ItemDisplayPanelContentDirective {
 }
 export declare class ItemDisplayPanelFooterDirective {
 }
-export declare class ItemDisplayPanelComponent {
+export declare class ItemDisplayPanelComponent extends SidePanelComponent {
     header: string;
-    top: number;
     boxShadow: boolean;
     closeVisible: boolean;
     preventClose: boolean;
-    inline: boolean;
-    animate: boolean;
     shadow: boolean;
-    width: number;
     footer: ItemDisplayPanelFooterDirective;
     visibleChange: EventEmitter<boolean>;
     /**
@@ -23,6 +21,8 @@ export declare class ItemDisplayPanelComponent {
      */
     title: string;
     visible: boolean;
-    private _visible;
-    clickOff(event: MouseEvent): void;
+    private _itemDisplayPanelSubscription;
+    constructor(service: SidePanelService, elementRef: ElementRef);
+    ngOnInit(): void;
+    ngOnDestroy(): void;
 }
