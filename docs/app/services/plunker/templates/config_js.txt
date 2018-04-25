@@ -34,7 +34,7 @@ System.config({
 
     // Third party libraries
     'tslib': 'https://unpkg.com/tslib@1.7.1',
-    'rxjs': 'https://unpkg.com/rxjs',
+    'rxjs': 'https://unpkg.com/rxjs@5.5.6',
     'ngx-bootstrap': 'https://unpkg.com/ngx-bootstrap/bundles/ngx-bootstrap.umd.min.js',
     'chance': 'https://unpkg.com/chance',
     'chart.js': 'https://unpkg.com/chart.js/dist/Chart.min.js',
