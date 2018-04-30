@@ -10,8 +10,4 @@ New Features:
 * [Component List (Angular)](https://uxaspects.github.io/UXAspects/#/components/component-list#component-list)
 * [Draggable Cards (Angular)](https://uxaspects.github.io/UXAspects/#/components/draggable-cards#draggable-cards)
 
-**Note:** The next version of UX Aspects will provide support for Angular v6. As a result we can no longer ensure support Angular v4. If your
-application is still running Angular v4 use the [Angular Update Guide](https://angular-update-guide.firebaseapp.com) to see how to update to
-a more recent version.
-
 Any questions or feedback? Get in touch on Twitter [@UXAspects](https://twitter.com/UXAspects), open an issue on [GitHub](https://github.com/UXAspects/UXAspects/issues), or check our [blog](https://uxaspects.github.io/UXAspects/#/blog) for more information!
