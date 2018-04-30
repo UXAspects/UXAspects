@@ -319,7 +319,9 @@
                 {
                     "title": "Draggable Panels",
                     "component": "ComponentsDraggablePanelsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsDashboardComponent"
                 },
                 {
                     "title": "Draggable Panels with Different Views",
@@ -898,7 +900,7 @@
                     "deprecated": true
                 },
                 {
-                    "title": "Accordion",                    
+                    "title": "Accordion",
                     "component": "ComponentsAccordionComponent",
                     "externalUrl": "https://valor-software.com/ngx-bootstrap/#/accordion",
                     "version": "Angular",
@@ -1571,7 +1573,7 @@
                     "title": "Sorting",
                     "component": "ComponentsSortingNg1Component",
                     "version": "AngularJS",
-                    "deprecated": true,                    
+                    "deprecated": true,
                     "deprecatedFor": "ComponentsSortingComponent"
                 },
                 {
