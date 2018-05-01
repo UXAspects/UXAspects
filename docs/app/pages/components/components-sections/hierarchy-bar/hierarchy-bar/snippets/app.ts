@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { HierarchyBarNode } from '@ux-aspects/ux-aspects';
-import { Chance } from 'chance';
+import 'chance';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-
-const chance = new Chance();
 
 @Component({
   selector: 'app',
@@ -26,15 +24,15 @@ export class AppComponent {
 
             observer.next([
               {
-                icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
+                icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
                 title: chance.name(),
                 children: [
                   {
-                    icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
+                    icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
                     title: chance.name(),
                     children: [
                       {
-                        icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
+                        icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
                         title: chance.name(),
                       }
                     ]

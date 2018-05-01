@@ -1,0 +1,110 @@
+ux-hierarchy-bar {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #e2e2e2;
+    box-shadow: 0 0 5px #e2e2e2;
+    align-items: center;
+    padding: 0 25px;
+    overflow: hidden;
+
+    .hierarchy-bar-addons {
+        display: inline-flex;
+        flex: none;
+    }
+
+    .hierarchy-bar-nodes {
+        position: relative;
+        display: flex;
+        flex: 1;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .hierarchy-bar-overflow-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 47px;
+        z-index: 1;
+        padding: 16px 0 16px 16px;
+        text-align: left;
+        background-color: #fff;
+        box-shadow: 0 0 25px 0 #ddd;
+        cursor: pointer;
+    }
+
+    .hierarchy-bar-node {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+    .hierarchy-bar-node-content {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .hierarchy-bar-node-icon {
+        flex: none;
+        max-width: 20px;
+        max-height: 18px;
+        margin-right: 5px;
+    }
+
+    .hierarchy-bar-node-title {
+        color: #666;
+    }
+
+    .hierarchy-bar-node-arrow {
+        color: #cfcfcf;
+        margin-left: 5px;
+        transition: color 250ms ease-in-out;
+
+        &:hover {
+            color: #00a7a2;
+        }
+    }
+}
+
+.hierarchy-bar-popover {
+    border-radius: 0;
+
+    .hierarchy-bar-node-list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .hierarchy-bar-node-list-item {
+        display: flex;
+        align-items: center;
+        padding: 6px 20px;
+        font-size: 1rem;
+        color: #666;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f2f2f2;
+        }
+
+        .hierarchy-bar-node-icon {
+            flex: none;
+            max-width: 20px;
+            max-height: 18px;
+            margin-right: 5px;
+            min-width: 16px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hierarchy-bar-node-title {
+            color: #666;
+        }
+    }
+}
