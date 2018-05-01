@@ -1,14 +1,16 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsHierarchyBarNg1Component } from './hierarchy-bar-ng1/hierarchy-bar-ng1.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ComponentsHierarchyBarNg1Component } from './hierarchy-bar-ng1/hierarchy-bar-ng1.component';
+import { ComponentsHierarchyBarComponent } from './hierarchy-bar/hierarchy-bar.component';
+
 
 const SECTIONS = [
+    ComponentsHierarchyBarComponent,
     ComponentsHierarchyBarNg1Component
 ];
 
