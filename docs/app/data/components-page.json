@@ -526,7 +526,22 @@
                     "title": "Hierarchy Bar",
                     "component": "ComponentsHierarchyBarNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "deprecated": true
+                },
+                {
+                    "title": "Hierarchy Bar",
+                    "component": "ComponentsHierarchyBarComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-hierarchy-bar"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "HierarchyBarModule"
+                        }
+                    ]
                 }
             ]
         },
