@@ -276,12 +276,31 @@
             ]
         },
         {
-            "title": "Draggable Cards",
-            "link": "draggable-cards",
+            "title": "Drag & Drop",
+            "link": "drag-and-drop",
             "sections": [
                 {
-                    "title": "Draggable Cards",
+                    "title": "Draggable Card Tabs",
                     "component": "ComponentsDraggableCardsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxReorderable]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxReorderableHandle]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ReorderableModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Drag & Drop Cards",
+                    "component": "ComponentsDragAndDropCardsComponent",
                     "version": "Angular",
                     "usage": [
                         {
@@ -302,20 +321,16 @@
                     "title": "Draggable Cards",
                     "component": "ComponentsDraggableCardsNg1Component",
                     "version": "AngularJS",
-                    "deprecated": true
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsDraggableCardsComponent"
                 },
                 {
                     "title": "Draggable Cards - List View Example",
                     "component": "ComponentsDraggableCardsListViewNg1Component",
                     "version": "AngularJS",
-                    "deprecated": true
-                }
-            ]
-        },
-        {
-            "title": "Draggable Panels",
-            "link": "draggable-panels",
-            "sections": [
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsDraggableCardsComponent"
+                },
                 {
                     "title": "Draggable Panels",
                     "component": "ComponentsDraggablePanelsNg1Component",
@@ -326,7 +341,9 @@
                 {
                     "title": "Draggable Panels with Different Views",
                     "component": "ComponentsDraggablePanelsViewsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsDragAndDropCardsComponent"
                 }
             ]
         },
