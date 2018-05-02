@@ -110,7 +110,7 @@ export class HierarchyBarService {
         }
 
         // store the parent property
-        node.children.forEach(child => child.parent = node)
+        node.children.forEach(child => child.parent = node);
 
         // get all descendants of this node
         const descendants = node.children.reduce<HierarchyBarNode[]>((nodes, current) => [...nodes, ...this.getNodeList(current)], []);
