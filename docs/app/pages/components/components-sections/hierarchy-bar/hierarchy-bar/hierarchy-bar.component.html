@@ -1,9 +1,14 @@
-
+<ux-hierarchy-bar [root]="node" [(selected)]="selected">
+    <button class="hierarchy-bar-search" uxHierarchyBarRightAddon>
+        <i class="hpe-icon hpe-search"></i>
+    </button>
+</ux-hierarchy-bar>
 
 <hr>
 
 <p>
-    The <code>ux-hierarchy-bar</code> can be used to display a hierarchy of items.
+    The <code>ux-hierarchy-bar</code> can be used to display a hierarchy of items, with the rightmost node
+    indicating the selected item and each item to its left being an ancestor.
     A popover is also present on any items that have children to allow them to be selected.
 </p>
 
@@ -70,5 +75,9 @@
 
     <tab heading="TypeScript">
         <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+
+    <tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
     </tab>
 </tabset>
