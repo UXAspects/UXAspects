@@ -9,7 +9,8 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
 
 @Component({
     selector: 'uxd-components-hierarchy-bar',
-    templateUrl: './hierarchy-bar.component.html'
+    templateUrl: './hierarchy-bar.component.html',
+    styleUrls: ['./hierarchy-bar.component.less']
 })
 @DocumentationSectionComponent('ComponentsHierarchyBarComponent')
 export class ComponentsHierarchyBarComponent extends BaseDocumentationSection implements IPlunkProvider {
@@ -38,16 +39,50 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
                                             {
                                                 icon: require('../../../../../assets/img/IconUser.png'),
                                                 title: chance.name(),
+                                            },
+                                            {
+                                                title: chance.name(),
+                                                icon: require('../../../../../assets/img/IconUser.png'),
+                                            },
+                                            {
+                                                title: chance.name(),
+                                                icon: require('../../../../../assets/img/IconUser.png'),
                                             }
                                         ]
+                                    },
+                                    {
+                                        title: chance.name(),
+                                        icon: require('../../../../../assets/img/IconUser.png'),
+                                    },
+                                    {
+                                        title: chance.name(),
+                                        icon: require('../../../../../assets/img/IconUser.png'),
                                     }
                                 ]
+                            },
+                            {
+                                title: chance.name(),
+                                icon: require('../../../../../assets/img/IconUser.png'),
                             }
                         ]);
 
                         observer.complete();
                     }, 2000);
                 })
+            },
+            {
+                title: chance.name(),
+                icon: require('../../../../../assets/img/IconManagerColorized.png'),
+                children: [
+                    {
+                        title: chance.name(),
+                        icon: require('../../../../../assets/img/IconUser.png'),
+                    },
+                    {
+                        title: chance.name(),
+                        icon: require('../../../../../assets/img/IconUser.png'),
+                    }
+                ]
             }
         ]
     };
@@ -58,6 +93,7 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
         files: {
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.ts': this.snippets.raw.appTs,
+            'app.component.css': this.snippets.raw.appCss,
         },
         modules: [
             {

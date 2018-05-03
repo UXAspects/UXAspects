@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { HierarchyBarNode } from '@ux-aspects/ux-aspects';
-import 'chance';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import 'chance';
 
 @Component({
   selector: 'app',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
 
@@ -34,16 +35,50 @@ export class AppComponent {
                       {
                         icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
                         title: chance.name(),
+                      },
+                      {
+                        title: chance.name(),
+                        icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
+                      },
+                      {
+                        title: chance.name(),
+                        icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
                       }
                     ]
+                  },
+                  {
+                    title: chance.name(),
+                    icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
+                  },
+                  {
+                    title: chance.name(),
+                    icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
                   }
                 ]
+              },
+              {
+                title: chance.name(),
+                icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
               }
             ]);
 
             observer.complete();
           }, 2000);
         })
+      },
+      {
+        title: chance.name(),
+        icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
+        children: [
+          {
+            title: chance.name(),
+            icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
+          },
+          {
+            title: chance.name(),
+            icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
+          }
+        ]
       }
     ]
   };
