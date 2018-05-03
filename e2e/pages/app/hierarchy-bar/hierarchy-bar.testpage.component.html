@@ -1,0 +1,9 @@
+<ux-hierarchy-bar [root]="node" [(selected)]="selected"></ux-hierarchy-bar>
+
+<br>
+
+<p>The selected node is <span id="selected">{{ selected?.title }}</span></p>
+
+<br>
+
+<button id="set-selected-btn" class="btn btn-primary" (click)="setSelected()">Set Selected</button>
