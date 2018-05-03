@@ -14,7 +14,8 @@ import { ColorService, NotificationService } from '../../../../../../../src/inde
 @DocumentationSectionComponent('ComponentsNotificationsComponent')
 export class ComponentsNotificationsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
-    duration: number = 4;    
+    duration: number = 4;
+    description: string = 'You have 16 messages';
     backgroundColor: string = this.colorService.getColor('accent').toHex();
 
     colors = [
