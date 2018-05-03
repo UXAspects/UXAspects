@@ -15,13 +15,16 @@ import { IPlunk } from '../../../../../interfaces/IPlunk';
 @DocumentationSectionComponent('ComponentsHierarchyBarComponent')
 export class ComponentsHierarchyBarComponent extends BaseDocumentationSection implements IPlunkProvider {
 
+    managerIcon = require('../../../../../assets/img/IconManagerColorized.png');
+    userIcon = require('../../../../../assets/img/IconUser.png');
+    
     node: HierarchyBarNode = {
         title: chance.name(),
-        icon: require('../../../../../assets/img/IconManagerColorized.png'),
+        icon: this.managerIcon,
         children: [
             {
                 title: chance.name(),
-                icon: require('../../../../../assets/img/IconManagerColorized.png'),
+                icon: this.managerIcon,
                 children: Observable.create((observer: Observer<HierarchyBarNode[]>) => {
 
                     // simulate server loading
@@ -29,40 +32,40 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
 
                         observer.next([
                             {
-                                icon: require('../../../../../assets/img/IconUser.png'),
+                                icon: this.userIcon,
                                 title: chance.name(),
                                 children: [
                                     {
-                                        icon: require('../../../../../assets/img/IconUser.png'),
+                                        icon: this.userIcon,
                                         title: chance.name(),
                                         children: [
                                             {
-                                                icon: require('../../../../../assets/img/IconUser.png'),
+                                                icon: this.userIcon,
                                                 title: chance.name(),
                                             },
                                             {
                                                 title: chance.name(),
-                                                icon: require('../../../../../assets/img/IconUser.png'),
+                                                icon: this.userIcon,
                                             },
                                             {
                                                 title: chance.name(),
-                                                icon: require('../../../../../assets/img/IconUser.png'),
+                                                icon: this.userIcon,
                                             }
                                         ]
                                     },
                                     {
                                         title: chance.name(),
-                                        icon: require('../../../../../assets/img/IconUser.png'),
+                                        icon: this.userIcon,
                                     },
                                     {
                                         title: chance.name(),
-                                        icon: require('../../../../../assets/img/IconUser.png'),
+                                        icon: this.userIcon,
                                     }
                                 ]
                             },
                             {
                                 title: chance.name(),
-                                icon: require('../../../../../assets/img/IconUser.png'),
+                                icon: this.userIcon,
                             }
                         ]);
 
@@ -72,15 +75,15 @@ export class ComponentsHierarchyBarComponent extends BaseDocumentationSection im
             },
             {
                 title: chance.name(),
-                icon: require('../../../../../assets/img/IconManagerColorized.png'),
+                icon: this.managerIcon,
                 children: [
                     {
                         title: chance.name(),
-                        icon: require('../../../../../assets/img/IconUser.png'),
+                        icon: this.userIcon,
                     },
                     {
                         title: chance.name(),
-                        icon: require('../../../../../assets/img/IconUser.png'),
+                        icon: this.userIcon,
                     }
                 ]
             }

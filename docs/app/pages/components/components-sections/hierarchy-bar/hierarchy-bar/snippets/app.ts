@@ -5,84 +5,87 @@ import { Observer } from 'rxjs/Observer';
 import 'chance';
 
 @Component({
-  selector: 'app',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
 
-  node: HierarchyBarNode = {
-    title: chance.name(),
-    icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
-    children: [
-      {
+    managerIcon = 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png';
+    userIcon = 'https://uxaspects.github.io/UXAspects/assets/IconUser.png';
+
+    node: HierarchyBarNode = {
         title: chance.name(),
-        icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
-        children: Observable.create((observer: Observer<HierarchyBarNode[]>) => {
-
-          // simulate server loading
-          setTimeout(() => {
-
-            observer.next([
-              {
-                icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-                title: chance.name(),
-                children: [
-                  {
-                    icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-                    title: chance.name(),
-                    children: [
-                      {
-                        icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-                        title: chance.name(),
-                      },
-                      {
-                        title: chance.name(),
-                        icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-                      },
-                      {
-                        title: chance.name(),
-                        icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-                      }
-                    ]
-                  },
-                  {
-                    title: chance.name(),
-                    icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-                  },
-                  {
-                    title: chance.name(),
-                    icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-                  }
-                ]
-              },
-              {
-                title: chance.name(),
-                icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-              }
-            ]);
-
-            observer.complete();
-          }, 2000);
-        })
-      },
-      {
-        title: chance.name(),
-        icon: 'https://uxaspects.github.io/UXAspects/assets/IconManagerColorized.png',
+        icon: this.managerIcon,
         children: [
-          {
-            title: chance.name(),
-            icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-          },
-          {
-            title: chance.name(),
-            icon: 'https://uxaspects.github.io/UXAspects/assets/IconUser.png',
-          }
-        ]
-      }
-    ]
-  };
+            {
+                title: chance.name(),
+                icon: this.managerIcon,
+                children: Observable.create((observer: Observer<HierarchyBarNode[]>) => {
 
-  selected: HierarchyBarNode = this.node.children[0];
+                    // simulate server loading
+                    setTimeout(() => {
+
+                        observer.next([
+                            {
+                                icon: this.userIcon,
+                                title: chance.name(),
+                                children: [
+                                    {
+                                        icon: this.userIcon,
+                                        title: chance.name(),
+                                        children: [
+                                            {
+                                                icon: this.userIcon,
+                                                title: chance.name(),
+                                            },
+                                            {
+                                                title: chance.name(),
+                                                icon: this.userIcon,
+                                            },
+                                            {
+                                                title: chance.name(),
+                                                icon: this.userIcon,
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        title: chance.name(),
+                                        icon: this.userIcon,
+                                    },
+                                    {
+                                        title: chance.name(),
+                                        icon: this.userIcon,
+                                    }
+                                ]
+                            },
+                            {
+                                title: chance.name(),
+                                icon: this.userIcon,
+                            }
+                        ]);
+
+                        observer.complete();
+                    }, 2000);
+                })
+            },
+            {
+                title: chance.name(),
+                icon: this.managerIcon,
+                children: [
+                    {
+                        title: chance.name(),
+                        icon: this.userIcon,
+                    },
+                    {
+                        title: chance.name(),
+                        icon: this.userIcon,
+                    }
+                ]
+            }
+        ]
+    };
+
+    selected: HierarchyBarNode = this.node.children[0];
 
 }
