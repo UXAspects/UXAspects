@@ -103,6 +103,10 @@ const ROUTES: Routes = [
         component: FloatingActionButtonsNg1TestPageComponent
     },
     {
+        path: 'hierarchy-bar',
+        loadChildren: './hierarchy-bar/hierarchy-bar.module#HierarchyBarTestPageModule'
+    },
+    {
         path: 'hyperlinks',
         loadChildren: './hyperlinks/hyperlinks.module#HyperlinksTestPageModule'
     },
