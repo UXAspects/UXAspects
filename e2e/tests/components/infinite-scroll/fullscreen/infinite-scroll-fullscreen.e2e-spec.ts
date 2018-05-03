@@ -156,39 +156,6 @@ describe('Infinite Scroll (Fullscreen) Tests', () => {
         expect<any>(page.getNumberOfEmployees()).toEqual(78);
     });
 
-    it('should have min and max page size values', () => {
-
-        page.clickOnCustomizeExamplePanel();
-        page.clickOnLoadOnScroll();
-
-        // min - clearing box
-        page.getPageSize().clear(); // 1
-        expect<any>(page.getNumberOfEmployees()).toEqual(1);
-
-        // min - using arrows
-        page.clickOnIncrementPageSize();
-        page.clickOnDecrementPageSize(); // 1
-        expect<any>(page.getNumberOfEmployees()).toEqual(1);
-
-        // min - entering a value
-        page.clickOnPageSize();
-        page.getPageSize().sendKeys('1');
-        page.getPageSize().sendKeys(Key.DELETE); // 1
-        expect<any>(page.getNumberOfEmployees()).toEqual(1);
-
-        // max - entering a value
-        page.clickOnPageSize();
-        page.getPageSize().sendKeys(Key.ARROW_RIGHT);
-        page.getPageSize().sendKeys('000'); // 1000
-        expect<any>(page.getNumberOfEmployees()).toEqual(111);
-
-        // max - using arrows
-        page.clickOnDecrementPageSize();
-        page.clickOnIncrementPageSize(); // 1000
-        expect<any>(page.getNumberOfEmployees()).toEqual(111);
-
-    });
-
     it('should be possible to filter employees using entered text', () => {
 
         // no match
