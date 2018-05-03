@@ -113,9 +113,10 @@
     <tr uxd-api-property name="loadOnScroll" type="boolean" defaultValue="true">
         Controls whether additional data is loaded based on the scroll position. If set to true the the list will have the "infinite scroll" effect. 
     </tr>
-    <tr uxd-api-property name="scrollElement" type="ElementRef">
+    <tr uxd-api-property name="scrollElement" type="ElementRef | Element">
         The scrollable element which contains the data, if this is different from the element where the
-        <code>uxInfiniteScroll</code> directive is defined.
+        <code>uxInfiniteScroll</code> directive is defined. To bind to the window scroll the <code>scrollElement</code>
+        should be set to <code>document.documentElement</code>.
     </tr>
 </uxd-api-properties>
 
