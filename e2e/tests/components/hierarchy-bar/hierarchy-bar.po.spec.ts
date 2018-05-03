@@ -1,5 +1,4 @@
-import { browser, by, element, $, $$, ElementFinder, ElementArrayFinder } from 'protractor';
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
+import { $, $$, ElementFinder, browser } from 'protractor';
 
 export class HierarchyBarPage {
     

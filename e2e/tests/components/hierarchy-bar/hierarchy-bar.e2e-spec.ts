@@ -1,5 +1,5 @@
-import { HierarchyBarPage } from './hierarchy-bar.po.spec';
 import { browser } from 'protractor';
+import { HierarchyBarPage } from './hierarchy-bar.po.spec';
 
 describe('Hierarchy Bar Tests', () => {
 
