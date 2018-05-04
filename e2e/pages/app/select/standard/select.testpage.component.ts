@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app',
+    selector: 'app-select',
     templateUrl: './select.testpage.component.html'
 })
 export class SelectTestPageComponent implements OnInit {
@@ -85,13 +85,11 @@ export class SelectTestPageComponent implements OnInit {
     loadOptions(pageNum: number, pageSize: number, filter: any): Promise<any[]> {
         // Return a promise using setTimeout to simulate an HTTP request.
         let promise = new Promise<any[]>((resolve, reject) => {
-            setTimeout(() => {
-                const pageStart = pageNum * pageSize;
-                const newItems = this.selectedDataSet()
-                    .filter((option) => this.isFilterMatch(option, filter))
-                    .slice(pageStart, pageStart + pageSize);
-                resolve(newItems);
-            }, 2000);
+            const pageStart = pageNum * pageSize;
+            const newItems = this.selectedDataSet()
+                .filter((option) => this.isFilterMatch(option, filter))
+                .slice(pageStart, pageStart + pageSize);
+            resolve(newItems);
         });
 
         return promise;

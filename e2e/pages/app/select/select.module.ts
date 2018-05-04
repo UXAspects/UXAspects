@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { SelectModule, NumberPickerModule, CheckboxModule, RadioButtonModule } from '../../../../dist';
-
-import { SelectTestPageComponent } from './select.testpage.component';
+import { SelectTestPageComponent } from './standard/select.testpage.component';
+import { SelectFormsTestPageComponent } from './forms/select-forms.testpage.component';
 
 @NgModule({
     imports: [
@@ -20,9 +20,16 @@ import { SelectTestPageComponent } from './select.testpage.component';
             {
                 path: '',
                 component: SelectTestPageComponent
+            },
+            {
+                path: 'forms',
+                component: SelectFormsTestPageComponent
             }
         ])
     ],
-    declarations: [SelectTestPageComponent]
+    declarations: [
+        SelectTestPageComponent, 
+        SelectFormsTestPageComponent
+    ]
 })
 export class SelectTestPageModule { }
