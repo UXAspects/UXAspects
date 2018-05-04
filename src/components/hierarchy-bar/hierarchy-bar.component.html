@@ -18,10 +18,12 @@
         . . .
     </div>
 
-    <button #nodeElement class="hierarchy-bar-node"
-            *ngFor="let node of hierarchyBar.nodes$ | async"
-            [attr.aria-label]="node.title"
-            (keydown.enter)="hierarchyBar.selectNode(node)">
+    <div #nodeElement class="hierarchy-bar-node"
+         tabindex="0"
+         role="button"
+         *ngFor="let node of hierarchyBar.nodes$ | async"
+         [attr.aria-label]="node.title"
+         (keydown.enter)="hierarchyBar.selectNode(node)">
 
         <div class="hierarchy-bar-node-content" (click)="hierarchyBar.selectNode(node)">
 
@@ -49,7 +51,7 @@
               (keydown.enter)="popover.show(); $event.stopPropagation()">
         </span>
 
-    </button>
+    </div>
 
 </main>
 
