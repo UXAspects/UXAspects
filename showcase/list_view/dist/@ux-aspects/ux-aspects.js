@@ -6,11 +6,11 @@ import { Subscription as Subscription$1 } from 'rxjs/Subscription';
 import { fromEvent as fromEvent$1 } from 'rxjs/observable/fromEvent';
 import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgModel } from '@angular/forms';
 import { Subject as Subject$1 } from 'rxjs/Subject';
-import { observeOn as observeOn$1 } from 'rxjs/operator/observeOn';
-import { scan as scan$1 } from 'rxjs/operator/scan';
 import { Observable as Observable$1 } from 'rxjs/Observable';
 import { distinctUntilChanged as distinctUntilChanged$1 } from 'rxjs/operator/distinctUntilChanged';
 import { map as map$1 } from 'rxjs/operator/map';
+import { observeOn as observeOn$1 } from 'rxjs/operator/observeOn';
+import { scan as scan$1 } from 'rxjs/operator/scan';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/timer';
@@ -18,7 +18,6 @@ import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/observable/of';
@@ -32,6 +31,7 @@ import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/partition';
 import 'rxjs/add/observable/concat';
 import { Http, HttpModule, ResponseContentType } from '@angular/http';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/fromEvent';
 import * as dragulaNamespace from 'dragula';
@@ -566,13 +566,10 @@ var Subscriber = (function (_super) {
                     break;
                 }
                 if (typeof destinationOrNext === 'object') {
-                    // HACK(benlesh): To resolve an issue where Node users may have multiple
-                    // copies of rxjs in their node_modules directory.
-                    if (isTrustedSubscriber(destinationOrNext)) {
-                        var trustedSubscriber = destinationOrNext[rxSubscriber.rxSubscriber]();
-                        this.syncErrorThrowable = trustedSubscriber.syncErrorThrowable;
-                        this.destination = trustedSubscriber;
-                        trustedSubscriber.add(this);
+                    if (destinationOrNext instanceof Subscriber) {
+                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
+                        this.destination = destinationOrNext;
+                        this.destination.add(this);
                     }
                     else {
                         this.syncErrorThrowable = true;
@@ -658,7 +655,7 @@ var Subscriber = (function (_super) {
         this.destination.complete();
         this.unsubscribe();
     };
-    /** @deprecated internal use only */ Subscriber.prototype._unsubscribeAndRecycle = function () {
+    Subscriber.prototype._unsubscribeAndRecycle = function () {
         var _a = this, _parent = _a._parent, _parents = _a._parents;
         this._parent = null;
         this._parents = null;
@@ -779,7 +776,7 @@ var SafeSubscriber = (function (_super) {
         }
         return false;
     };
-    /** @deprecated internal use only */ SafeSubscriber.prototype._unsubscribe = function () {
+    SafeSubscriber.prototype._unsubscribe = function () {
         var _parentSubscriber = this._parentSubscriber;
         this._context = null;
         this._parentSubscriber = null;
@@ -787,9 +784,6 @@ var SafeSubscriber = (function (_super) {
     };
     return SafeSubscriber;
 }(Subscriber));
-function isTrustedSubscriber(obj) {
-    return obj instanceof Subscriber || ('syncErrorThrowable' in obj && obj[rxSubscriber.rxSubscriber]);
-}
 
 
 var Subscriber_1 = {
@@ -964,7 +958,7 @@ var AsyncAction = (function (_super) {
             return errorValue;
         }
     };
-    /** @deprecated internal use only */ AsyncAction.prototype._unsubscribe = function () {
+    AsyncAction.prototype._unsubscribe = function () {
         var id = this.id;
         var scheduler = this.scheduler;
         var actions = scheduler.actions;
@@ -1705,7 +1699,7 @@ var Observable$2 = (function () {
             }, reject, resolve);
         });
     };
-    /** @deprecated internal use only */ Observable$$1.prototype._subscribe = function (subscriber) {
+    Observable$$1.prototype._subscribe = function (subscriber) {
         return this.source.subscribe(subscriber);
     };
     /**
@@ -2136,7 +2130,7 @@ var TimerObservable = (function (_super) {
         state$$1.index = index + 1;
         action.schedule(state$$1, period);
     };
-    /** @deprecated internal use only */ TimerObservable.prototype._subscribe = function (subscriber) {
+    TimerObservable.prototype._subscribe = function (subscriber) {
         var index = 0;
         var _a = this, period = _a.period, dueTime = _a.dueTime, scheduler = _a.scheduler;
         return scheduler.schedule(TimerObservable.dispatch, dueTime, {
@@ -2322,7 +2316,7 @@ var BufferTimeSubscriber = (function (_super) {
         }
         _super.prototype._complete.call(this);
     };
-    /** @deprecated internal use only */ BufferTimeSubscriber.prototype._unsubscribe = function () {
+    BufferTimeSubscriber.prototype._unsubscribe = function () {
         this.contexts = null;
     };
     BufferTimeSubscriber.prototype.onBufferFull = function (context) {
@@ -2509,7 +2503,7 @@ var BufferWhenSubscriber = (function (_super) {
         }
         _super.prototype._complete.call(this);
     };
-    /** @deprecated internal use only */ BufferWhenSubscriber.prototype._unsubscribe = function () {
+    BufferWhenSubscriber.prototype._unsubscribe = function () {
         this.buffer = null;
         this.subscribing = false;
     };
@@ -2630,7 +2624,7 @@ var ScalarObservable = (function (_super) {
         state$$1.done = true;
         this.schedule(state$$1);
     };
-    /** @deprecated internal use only */ ScalarObservable.prototype._subscribe = function (subscriber) {
+    ScalarObservable.prototype._subscribe = function (subscriber) {
         var value = this.value;
         var scheduler = this.scheduler;
         if (scheduler) {
@@ -2721,7 +2715,7 @@ var EmptyObservable = (function (_super) {
         var subscriber = arg.subscriber;
         subscriber.complete();
     };
-    /** @deprecated internal use only */ EmptyObservable.prototype._subscribe = function (subscriber) {
+    EmptyObservable.prototype._subscribe = function (subscriber) {
         var scheduler = this.scheduler;
         if (scheduler) {
             return scheduler.schedule(EmptyObservable.dispatch, 0, { subscriber: subscriber });
@@ -2839,7 +2833,7 @@ var ArrayObservable = (function (_super) {
         state$$1.index = index + 1;
         this.schedule(state$$1);
     };
-    /** @deprecated internal use only */ ArrayObservable.prototype._subscribe = function (subscriber) {
+    ArrayObservable.prototype._subscribe = function (subscriber) {
         var index = 0;
         var array = this.array;
         var count = array.length;
@@ -2991,7 +2985,7 @@ var PromiseObservable = (function (_super) {
     PromiseObservable.create = function (promise, scheduler) {
         return new PromiseObservable(promise, scheduler);
     };
-    /** @deprecated internal use only */ PromiseObservable.prototype._subscribe = function (subscriber) {
+    PromiseObservable.prototype._subscribe = function (subscriber) {
         var _this = this;
         var promise = this.promise;
         var scheduler = this.scheduler;
@@ -3115,7 +3109,7 @@ var IteratorObservable = (function (_super) {
         }
         this.schedule(state$$1);
     };
-    /** @deprecated internal use only */ IteratorObservable.prototype._subscribe = function (subscriber) {
+    IteratorObservable.prototype._subscribe = function (subscriber) {
         var index = 0;
         var _a = this, iterator$$2 = _a.iterator, scheduler = _a.scheduler;
         if (scheduler) {
@@ -3284,7 +3278,7 @@ var ArrayLikeObservable = (function (_super) {
         state$$1.index = index + 1;
         this.schedule(state$$1);
     };
-    /** @deprecated internal use only */ ArrayLikeObservable.prototype._subscribe = function (subscriber) {
+    ArrayLikeObservable.prototype._subscribe = function (subscriber) {
         var index = 0;
         var _a = this, arrayLike = _a.arrayLike, scheduler = _a.scheduler;
         var length = arrayLike.length;
@@ -3668,7 +3662,7 @@ var FromObservable = (function (_super) {
         }
         throw new TypeError((ish !== null && typeof ish || ish) + ' is not observable');
     };
-    /** @deprecated internal use only */ FromObservable.prototype._subscribe = function (subscriber) {
+    FromObservable.prototype._subscribe = function (subscriber) {
         var ish = this.ish;
         var scheduler = this.scheduler;
         if (scheduler == null) {
@@ -4139,12 +4133,12 @@ var DelayWhenSubscriber = (function (_super) {
  */
 var SubscriptionDelayObservable = (function (_super) {
     __extends$30(SubscriptionDelayObservable, _super);
-    function SubscriptionDelayObservable(/** @deprecated internal use only */ source, subscriptionDelay) {
+    function SubscriptionDelayObservable(source, subscriptionDelay) {
         _super.call(this);
         this.source = source;
         this.subscriptionDelay = subscriptionDelay;
     }
-    /** @deprecated internal use only */ SubscriptionDelayObservable.prototype._subscribe = function (subscriber) {
+    SubscriptionDelayObservable.prototype._subscribe = function (subscriber) {
         this.subscriptionDelay.subscribe(new SubscriptionDelaySubscriber(subscriber, this.source));
     };
     return SubscriptionDelayObservable;
@@ -5185,7 +5179,7 @@ var Subject$2 = (function (_super) {
             return _super.prototype._trySubscribe.call(this, subscriber);
         }
     };
-    /** @deprecated internal use only */ Subject$$1.prototype._subscribe = function (subscriber) {
+    Subject$$1.prototype._subscribe = function (subscriber) {
         if (this.closed) {
             throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
         }
@@ -5241,7 +5235,7 @@ var AnonymousSubject = (function (_super) {
             this.destination.complete();
         }
     };
-    /** @deprecated internal use only */ AnonymousSubject.prototype._subscribe = function (subscriber) {
+    AnonymousSubject.prototype._subscribe = function (subscriber) {
         var source = this.source;
         if (source) {
             return this.source.subscribe(subscriber);
@@ -5481,7 +5475,7 @@ var GroupDurationSubscriber = (function (_super) {
     GroupDurationSubscriber.prototype._next = function (value) {
         this.complete();
     };
-    /** @deprecated internal use only */ GroupDurationSubscriber.prototype._unsubscribe = function () {
+    GroupDurationSubscriber.prototype._unsubscribe = function () {
         var _a = this, parent = _a.parent, key = _a.key;
         this.key = this.parent = null;
         if (parent) {
@@ -5506,7 +5500,7 @@ var GroupedObservable = (function (_super) {
         this.groupSubject = groupSubject;
         this.refCountSubscription = refCountSubscription;
     }
-    /** @deprecated internal use only */ GroupedObservable.prototype._subscribe = function (subscriber) {
+    GroupedObservable.prototype._subscribe = function (subscriber) {
         var subscription = new Subscription_1.Subscription();
         var _a = this, refCountSubscription = _a.refCountSubscription, groupSubject = _a.groupSubject;
         if (refCountSubscription && !refCountSubscription.closed) {
@@ -6131,7 +6125,7 @@ var RefCountSubscriber$1 = (function (_super) {
         _super.call(this, destination);
         this.connectable = connectable;
     }
-    /** @deprecated internal use only */ RefCountSubscriber.prototype._unsubscribe = function () {
+    RefCountSubscriber.prototype._unsubscribe = function () {
         var connectable = this.connectable;
         if (!connectable) {
             this.connection = null;
@@ -6201,18 +6195,17 @@ var __extends$59 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, 
  */
 var ConnectableObservable = (function (_super) {
     __extends$59(ConnectableObservable, _super);
-    function ConnectableObservable(/** @deprecated internal use only */ source, 
-        /** @deprecated internal use only */ subjectFactory) {
+    function ConnectableObservable(source, subjectFactory) {
         _super.call(this);
         this.source = source;
         this.subjectFactory = subjectFactory;
-        /** @deprecated internal use only */ this._refCount = 0;
+        this._refCount = 0;
         this._isComplete = false;
     }
-    /** @deprecated internal use only */ ConnectableObservable.prototype._subscribe = function (subscriber) {
+    ConnectableObservable.prototype._subscribe = function (subscriber) {
         return this.getSubject().subscribe(subscriber);
     };
-    /** @deprecated internal use only */ ConnectableObservable.prototype.getSubject = function () {
+    ConnectableObservable.prototype.getSubject = function () {
         var subject = this._subject;
         if (!subject || subject.isStopped) {
             this._subject = this.subjectFactory();
@@ -6256,7 +6249,7 @@ var ConnectableSubscriber = (function (_super) {
         this._unsubscribe();
         _super.prototype._complete.call(this);
     };
-    /** @deprecated internal use only */ ConnectableSubscriber.prototype._unsubscribe = function () {
+    ConnectableSubscriber.prototype._unsubscribe = function () {
         var connectable = this.connectable;
         if (connectable) {
             this.connectable = null;
@@ -6277,7 +6270,7 @@ var RefCountSubscriber = (function (_super) {
         _super.call(this, destination);
         this.connectable = connectable;
     }
-    /** @deprecated internal use only */ RefCountSubscriber.prototype._unsubscribe = function () {
+    RefCountSubscriber.prototype._unsubscribe = function () {
         var connectable = this.connectable;
         if (!connectable) {
             this.connection = null;
@@ -6419,7 +6412,7 @@ var BehaviorSubject$2 = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /** @deprecated internal use only */ BehaviorSubject$$1.prototype._subscribe = function (subscriber) {
+    BehaviorSubject$$1.prototype._subscribe = function (subscriber) {
         var subscription = _super.prototype._subscribe.call(this, subscriber);
         if (subscription && !subscription.closed) {
             subscriber.next(this._value);
@@ -6461,7 +6454,7 @@ var AsyncSubject = (function (_super) {
         this.hasNext = false;
         this.hasCompleted = false;
     }
-    /** @deprecated internal use only */ AsyncSubject.prototype._subscribe = function (subscriber) {
+    AsyncSubject.prototype._subscribe = function (subscriber) {
         if (this.hasError) {
             subscriber.error(this.thrownError);
             return Subscription_1.Subscription.EMPTY;
@@ -6666,7 +6659,7 @@ var ReplaySubject = (function (_super) {
         this._trimBufferThenGetEvents();
         _super.prototype.next.call(this, value);
     };
-    /** @deprecated internal use only */ ReplaySubject.prototype._subscribe = function (subscriber) {
+    ReplaySubject.prototype._subscribe = function (subscriber) {
         var _events = this._trimBufferThenGetEvents();
         var scheduler = this.scheduler;
         var subscription;
@@ -6867,14 +6860,14 @@ var RepeatWhenSubscriber = (function (_super) {
             if (!this.retries) {
                 this.subscribeToRetries();
             }
-            if (!this.retriesSubscription || this.retriesSubscription.closed) {
+            else if (this.retriesSubscription.closed) {
                 return _super.prototype.complete.call(this);
             }
             this._unsubscribeAndRecycle();
             this.notifications.next();
         }
     };
-    /** @deprecated internal use only */ RepeatWhenSubscriber.prototype._unsubscribe = function () {
+    RepeatWhenSubscriber.prototype._unsubscribe = function () {
         var _a = this, notifications = _a.notifications, retriesSubscription = _a.retriesSubscription;
         if (notifications) {
             notifications.unsubscribe();
@@ -6886,7 +6879,7 @@ var RepeatWhenSubscriber = (function (_super) {
         }
         this.retries = null;
     };
-    /** @deprecated internal use only */ RepeatWhenSubscriber.prototype._unsubscribeAndRecycle = function () {
+    RepeatWhenSubscriber.prototype._unsubscribeAndRecycle = function () {
         var _a = this, notifications = _a.notifications, retries = _a.retries, retriesSubscription = _a.retriesSubscription;
         this.notifications = null;
         this.retries = null;
@@ -6988,7 +6981,7 @@ var RetryWhenSubscriber = (function (_super) {
             errors.next(err);
         }
     };
-    /** @deprecated internal use only */ RetryWhenSubscriber.prototype._unsubscribe = function () {
+    RetryWhenSubscriber.prototype._unsubscribe = function () {
         var _a = this, errors = _a.errors, retriesSubscription = _a.retriesSubscription;
         if (errors) {
             errors.unsubscribe();
@@ -7440,7 +7433,7 @@ var SwitchMapSubscriber = (function (_super) {
             _super.prototype._complete.call(this);
         }
     };
-    /** @deprecated internal use only */ SwitchMapSubscriber.prototype._unsubscribe = function () {
+    SwitchMapSubscriber.prototype._unsubscribe = function () {
         this.innerSubscription = null;
     };
     SwitchMapSubscriber.prototype.notifyComplete = function (innerSub) {
@@ -7505,7 +7498,7 @@ var SwitchMapToSubscriber = (function (_super) {
             _super.prototype._complete.call(this);
         }
     };
-    /** @deprecated internal use only */ SwitchMapToSubscriber.prototype._unsubscribe = function () {
+    SwitchMapToSubscriber.prototype._unsubscribe = function () {
         this.innerSubscription = null;
     };
     SwitchMapToSubscriber.prototype.notifyComplete = function (innerSub) {
@@ -7855,7 +7848,7 @@ var ThrottleSubscriber = (function (_super) {
             return null;
         }
     };
-    /** @deprecated internal use only */ ThrottleSubscriber.prototype._unsubscribe = function () {
+    ThrottleSubscriber.prototype._unsubscribe = function () {
         var _a = this, throttled = _a.throttled, _trailingValue = _a._trailingValue, _hasTrailingValue = _a._hasTrailingValue, _trailing = _a._trailing;
         this._trailingValue = null;
         this._hasTrailingValue = false;
@@ -8055,7 +8048,7 @@ var TimeoutSubscriber = (function (_super) {
         }
         _super.prototype._next.call(this, value);
     };
-    /** @deprecated internal use only */ TimeoutSubscriber.prototype._unsubscribe = function () {
+    TimeoutSubscriber.prototype._unsubscribe = function () {
         this.action = null;
         this.scheduler = null;
         this.errorInstance = null;
@@ -8113,7 +8106,7 @@ var TimeoutWithSubscriber = (function (_super) {
         }
         _super.prototype._next.call(this, value);
     };
-    /** @deprecated internal use only */ TimeoutWithSubscriber.prototype._unsubscribe = function () {
+    TimeoutWithSubscriber.prototype._unsubscribe = function () {
         this.action = null;
         this.scheduler = null;
         this.withObservable = null;
@@ -8161,7 +8154,7 @@ var WindowSubscriber = (function (_super) {
         this.window.complete();
         this.destination.complete();
     };
-    /** @deprecated internal use only */ WindowSubscriber.prototype._unsubscribe = function () {
+    WindowSubscriber.prototype._unsubscribe = function () {
         this.window = null;
     };
     WindowSubscriber.prototype.openWindow = function () {
@@ -8236,7 +8229,7 @@ var WindowCountSubscriber = (function (_super) {
         }
         this.destination.complete();
     };
-    /** @deprecated internal use only */ WindowCountSubscriber.prototype._unsubscribe = function () {
+    WindowCountSubscriber.prototype._unsubscribe = function () {
         this.count = 0;
         this.windows = null;
     };
@@ -8431,7 +8424,7 @@ var WindowToggleSubscriber = (function (_super) {
         }
         _super.prototype._complete.call(this);
     };
-    /** @deprecated internal use only */ WindowToggleSubscriber.prototype._unsubscribe = function () {
+    WindowToggleSubscriber.prototype._unsubscribe = function () {
         var contexts = this.contexts;
         this.contexts = null;
         if (contexts) {
@@ -10928,15 +10921,6 @@ function isValidDate(value) {
     }
     return true;
 }
-function isValidLimit(controls, newDate) {
-    if (controls.min && newDate < controls.min) {
-        return false;
-    }
-    if (controls.max && newDate > controls.max) {
-        return false;
-    }
-    return true;
-}
 function toNumber(value) {
     if (typeof value === 'number') {
         return value;
@@ -11002,6 +10986,7 @@ function setTime(value, opts) {
     if (opts.isPM) {
         hour += hoursPerDayHalf;
     }
+    // fixme: unreachable code, value is mandatory
     if (!value) {
         if (!isNaN(hour) && !isNaN(minute)) {
             return createDate(new Date(), hour, minute, seconds);
@@ -11014,7 +10999,9 @@ function setTime(value, opts) {
     return createDate(value, hour, minute, seconds);
 }
 function createDate(value, hours, minutes, seconds) {
-    return new Date(value.getFullYear(), value.getMonth(), value.getDate(), hours, minutes, seconds, value.getMilliseconds());
+    // fixme: unreachable code, value is mandatory
+    var _value = value || new Date();
+    return new Date(_value.getFullYear(), _value.getMonth(), _value.getDate(), hours, minutes, seconds, _value.getMilliseconds());
 }
 function padNumber(value) {
     var _value = value.toString();
@@ -11023,35 +11010,16 @@ function padNumber(value) {
     }
     return "0" + _value;
 }
-function isHourInputValid(hours, isPM) {
-    return !isNaN(parseHours(hours, isPM));
-}
-function isMinuteInputValid(minutes) {
-    return !isNaN(parseMinutes(minutes));
-}
-function isSecondInputValid(seconds) {
-    return !isNaN(parseSeconds(seconds));
-}
-function isInputLimitValid(diff, max, min) {
-    var newDate = changeTime(new Date(), diff);
-    if (max && newDate > max) {
-        return false;
-    }
-    if (min && newDate < min) {
-        return false;
-    }
-    return true;
-}
 function isInputValid(hours, minutes, seconds, isPM) {
     if (minutes === void 0) { minutes = '0'; }
     if (seconds === void 0) { seconds = '0'; }
-    return isHourInputValid(hours, isPM)
-        && isMinuteInputValid(minutes)
-        && isSecondInputValid(seconds);
+    return !(isNaN(parseHours(hours, isPM))
+        || isNaN(parseMinutes(minutes))
+        || isNaN(parseSeconds(seconds)));
 }
 
 function canChangeValue(state$$1, event) {
-    if (state$$1.readonlyInput || state$$1.disabled) {
+    if (state$$1.readonlyInput) {
         return false;
     }
     if (event) {
@@ -11101,13 +11069,12 @@ function canChangeSeconds(event, controls) {
     return true;
 }
 function getControlsValue(state$$1) {
-    var hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, readonlyInput = state$$1.readonlyInput, disabled = state$$1.disabled, mousewheel = state$$1.mousewheel, arrowkeys = state$$1.arrowkeys, showSpinners = state$$1.showSpinners, showMeridian = state$$1.showMeridian, showSeconds = state$$1.showSeconds, meridians = state$$1.meridians, min = state$$1.min, max = state$$1.max;
+    var hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, readonlyInput = state$$1.readonlyInput, mousewheel = state$$1.mousewheel, arrowkeys = state$$1.arrowkeys, showSpinners = state$$1.showSpinners, showMeridian = state$$1.showMeridian, showSeconds = state$$1.showSeconds, meridians = state$$1.meridians, min = state$$1.min, max = state$$1.max;
     return {
         hourStep: hourStep,
         minuteStep: minuteStep,
         secondsStep: secondsStep,
         readonlyInput: readonlyInput,
-        disabled: disabled,
         mousewheel: mousewheel,
         arrowkeys: arrowkeys,
         showSpinners: showSpinners,
@@ -11119,7 +11086,6 @@ function getControlsValue(state$$1) {
     };
 }
 function timepickerControls(value, state$$1) {
-    var hoursPerDayHalf = 12;
     var min = state$$1.min, max = state$$1.max, hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, showSeconds = state$$1.showSeconds;
     var res = {
         canIncrementHours: true,
@@ -11127,8 +11093,7 @@ function timepickerControls(value, state$$1) {
         canIncrementSeconds: true,
         canDecrementHours: true,
         canDecrementMinutes: true,
-        canDecrementSeconds: true,
-        canToggleMeridian: true
+        canDecrementSeconds: true
     };
     if (!value) {
         return res;
@@ -11147,9 +11112,6 @@ function timepickerControls(value, state$$1) {
             var _newSeconds = changeTime(value, { seconds: secondsStep });
             res.canIncrementSeconds = max >= _newSeconds;
         }
-        if (value.getHours() < hoursPerDayHalf) {
-            res.canToggleMeridian = changeTime(value, { hour: hoursPerDayHalf }) < max;
-        }
     }
     if (min) {
         var _newHour = changeTime(value, { hour: -hourStep });
@@ -11163,9 +11125,6 @@ function timepickerControls(value, state$$1) {
         if (!res.canDecrementMinutes) {
             var _newSeconds = changeTime(value, { seconds: -secondsStep });
             res.canDecrementSeconds = min <= _newSeconds;
-        }
-        if (value.getHours() >= hoursPerDayHalf) {
-            res.canToggleMeridian = changeTime(value, { hour: -hoursPerDayHalf }) > min;
         }
     }
     return res;
@@ -11186,8 +11145,6 @@ var TimepickerConfig = (function () {
         this.meridians = ['AM', 'PM'];
         /** if true hours and minutes fields will be readonly */
         this.readonlyInput = false;
-        /** if true hours and minutes fields will be disabled */
-        this.disabled = false;
         /** if true scroll inside hours and minutes inputs will change time */
         this.mousewheel = true;
         /** if true up/down arrowkeys inside hours and minutes inputs will change time */
@@ -11216,8 +11173,7 @@ var initialState = {
         canIncrementSeconds: true,
         canDecrementHours: true,
         canDecrementMinutes: true,
-        canDecrementSeconds: true,
-        canToggleMeridian: true
+        canDecrementSeconds: true
     }
 };
 function timepickerReducer(state$$1, action) {
@@ -11232,9 +11188,6 @@ function timepickerReducer(state$$1, action) {
                 return state$$1;
             }
             var _newTime = changeTime(state$$1.value, { hour: action.payload.step });
-            if ((state$$1.config.max || state$$1.config.min) && !isValidLimit(state$$1.config, _newTime)) {
-                return state$$1;
-            }
             return Object.assign({}, state$$1, { value: _newTime });
         }
         case TimepickerActions.CHANGE_MINUTES: {
@@ -11243,9 +11196,6 @@ function timepickerReducer(state$$1, action) {
                 return state$$1;
             }
             var _newTime = changeTime(state$$1.value, { minute: action.payload.step });
-            if ((state$$1.config.max || state$$1.config.min) && !isValidLimit(state$$1.config, _newTime)) {
-                return state$$1;
-            }
             return Object.assign({}, state$$1, { value: _newTime });
         }
         case TimepickerActions.CHANGE_SECONDS: {
@@ -11256,9 +11206,6 @@ function timepickerReducer(state$$1, action) {
             var _newTime = changeTime(state$$1.value, {
                 seconds: action.payload.step
             });
-            if ((state$$1.config.max || state$$1.config.min) && !isValidLimit(state$$1.config, _newTime)) {
-                return state$$1;
-            }
             return Object.assign({}, state$$1, { value: _newTime });
         }
         case TimepickerActions.SET_TIME_UNIT: {
@@ -11300,38 +11247,8 @@ var __extends$100 = (this && this.__extends) || (function () {
 /**
  * @copyright ngrx
  */
-var MiniState = (function (_super) {
-    __extends$100(MiniState, _super);
-    function MiniState(_initialState, actionsDispatcher$, reducer) {
-        var _this = _super.call(this, _initialState) || this;
-        var actionInQueue$ = observeOn$1.call(actionsDispatcher$, queue_1);
-        var state$ = scan$1.call(actionInQueue$, function (state$$1, action) {
-            if (!action) {
-                return state$$1;
-            }
-            return reducer(state$$1, action);
-        }, _initialState);
-        state$.subscribe(function (value) { return _this.next(value); });
-        return _this;
-    }
-    return MiniState;
-}(BehaviorSubject$1));
-
-var __extends$101 = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @copyright ngrx
- */
 var MiniStore = (function (_super) {
-    __extends$101(MiniStore, _super);
+    __extends$100(MiniStore, _super);
     function MiniStore(_dispatcher, _reducer, state$) {
         var _this = _super.call(this) || this;
         _this._dispatcher = _dispatcher;
@@ -11362,6 +11279,36 @@ var MiniStore = (function (_super) {
     };
     return MiniStore;
 }(Observable$1));
+
+var __extends$101 = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @copyright ngrx
+ */
+var MiniState = (function (_super) {
+    __extends$101(MiniState, _super);
+    function MiniState(_initialState, actionsDispatcher$, reducer) {
+        var _this = _super.call(this, _initialState) || this;
+        var actionInQueue$ = observeOn$1.call(actionsDispatcher$, queue_1);
+        var state$ = scan$1.call(actionInQueue$, function (state$$1, action) {
+            if (!action) {
+                return state$$1;
+            }
+            return reducer(state$$1, action);
+        }, _initialState);
+        state$.subscribe(function (value) { return _this.next(value); });
+        return _this;
+    }
+    return MiniState;
+}(BehaviorSubject$1));
 
 var __extends$99 = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -11414,7 +11361,8 @@ var TimepickerComponent = (function () {
         this.onChange = Function.prototype;
         this.onTouched = Function.prototype;
         Object.assign(this, _config);
-        this.timepickerSub = _store.select(function (state$$1) { return state$$1.value; }).subscribe(function (value) {
+        // todo: add unsubscribe
+        _store.select(function (state$$1) { return state$$1.value; }).subscribe(function (value) {
             // update UI values if date changed
             _this._renderTime(value);
             _this.onChange(value);
@@ -11427,25 +11375,12 @@ var TimepickerComponent = (function () {
         });
     }
     Object.defineProperty(TimepickerComponent.prototype, "isSpinnersVisible", {
-        /** @deprecated - please use `isEditable` instead */
         get: function () {
             return this.showSpinners && !this.readonlyInput;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TimepickerComponent.prototype, "isEditable", {
-        get: function () {
-            return !(this.readonlyInput || this.disabled);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TimepickerComponent.prototype.resetValidation = function () {
-        this.invalidHours = false;
-        this.invalidMinutes = false;
-        this.invalidSeconds = false;
-    };
     TimepickerComponent.prototype.isPM = function () {
         return this.showMeridian && this.meridian === this.meridians[1];
     };
@@ -11460,62 +11395,27 @@ var TimepickerComponent = (function () {
     };
     TimepickerComponent.prototype.changeHours = function (step, source) {
         if (source === void 0) { source = ''; }
-        this.resetValidation();
         this._store.dispatch(this._timepickerActions.changeHours({ step: step, source: source }));
     };
     TimepickerComponent.prototype.changeMinutes = function (step, source) {
         if (source === void 0) { source = ''; }
-        this.resetValidation();
         this._store.dispatch(this._timepickerActions.changeMinutes({ step: step, source: source }));
     };
     TimepickerComponent.prototype.changeSeconds = function (step, source) {
         if (source === void 0) { source = ''; }
-        this.resetValidation();
         this._store.dispatch(this._timepickerActions.changeSeconds({ step: step, source: source }));
     };
     TimepickerComponent.prototype.updateHours = function (hours) {
-        this.resetValidation();
         this.hours = hours;
-        var isValid = isHourInputValid(this.hours, this.isPM()) && this.isValidLimit();
-        if (!isValid) {
-            this.invalidHours = true;
-            this.isValid.emit(false);
-            this.onChange(null);
-            return;
-        }
         this._updateTime();
     };
     TimepickerComponent.prototype.updateMinutes = function (minutes) {
-        this.resetValidation();
         this.minutes = minutes;
-        var isValid = isMinuteInputValid(this.minutes) && this.isValidLimit();
-        if (!isValid) {
-            this.invalidMinutes = true;
-            this.isValid.emit(false);
-            this.onChange(null);
-            return;
-        }
         this._updateTime();
     };
     TimepickerComponent.prototype.updateSeconds = function (seconds) {
-        this.resetValidation();
         this.seconds = seconds;
-        var isValid = isSecondInputValid(this.seconds) && this.isValidLimit();
-        if (!isValid) {
-            this.invalidSeconds = true;
-            this.isValid.emit(false);
-            this.onChange(null);
-            return;
-        }
         this._updateTime();
-    };
-    TimepickerComponent.prototype.isValidLimit = function () {
-        return isInputLimitValid({
-            hour: this.hours,
-            minute: this.minutes,
-            seconds: this.seconds,
-            isPM: this.isPM()
-        }, this.max, this.min);
     };
     TimepickerComponent.prototype._updateTime = function () {
         var _seconds = this.showSeconds ? this.seconds : void 0;
@@ -11533,7 +11433,7 @@ var TimepickerComponent = (function () {
         }));
     };
     TimepickerComponent.prototype.toggleMeridian = function () {
-        if (!this.showMeridian || !this.isEditable) {
+        if (!this.showMeridian || this.readonlyInput) {
             return;
         }
         var _hoursPerDayHalf = 12;
@@ -11566,16 +11466,13 @@ var TimepickerComponent = (function () {
         this.onTouched = fn;
     };
     /**
-     * This function is called when the control status changes to or from "disabled".
+     * This function is called when the control status changes to or from "DISABLED".
      * Depending on the value, it will enable or disable the appropriate DOM element.
      *
      * @param isDisabled
      */
     TimepickerComponent.prototype.setDisabledState = function (isDisabled) {
-        this.disabled = isDisabled;
-    };
-    TimepickerComponent.prototype.ngOnDestroy = function () {
-        this.timepickerSub.unsubscribe();
+        this.readonlyInput = isDisabled;
     };
     TimepickerComponent.prototype._renderTime = function (value) {
         if (!isValidDate(value)) {
@@ -11605,7 +11502,7 @@ var TimepickerComponent = (function () {
                     selector: 'timepicker',
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, TimepickerStore],
-                    template: "<table> <tbody> <tr class=\"text-center\" [class.hidden]=\"!showSpinners\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours || !isEditable\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes || !isEditable\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds || !isEditable\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" [class.is-invalid]=\"invalidHours\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" *ngIf=\"showMinutes\" [class.has-error]=\"invalidMinutes\"> <input type=\"text\" [class.is-invalid]=\"invalidMinutes\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" [class.is-invalid]=\"invalidSeconds\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"!isEditable || !canToggleMeridian\" [class.disabled]=\"!isEditable || !canToggleMeridian\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [class.hidden]=\"!showSpinners\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours || !isEditable\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes || !isEditable\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds || !isEditable\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
+                    template: "<table> <tbody> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" *ngIf=\"showMinutes\"[class.has-error]=\"invalidMinutes\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"readonlyInput\" [class.disabled]=\"readonlyInput\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
                     styles: ["\n    .bs-chevron{\n      border-style: solid;\n      display: block;\n      width: 9px;\n      height: 9px;\n      position: relative;\n      border-width: 3px 0px 0 3px;\n    }\n    .bs-chevron-up{\n      -webkit-transform: rotate(45deg);\n      transform: rotate(45deg);\n      top: 2px;\n    }\n    .bs-chevron-down{\n      -webkit-transform: rotate(-135deg);\n      transform: rotate(-135deg);\n      top: -2px;\n    }\n    .bs-timepicker-field{\n      width: 50px;\n    }\n  "],
                     encapsulation: ViewEncapsulation.None
                 },] },
@@ -11622,7 +11519,6 @@ var TimepickerComponent = (function () {
         'minuteStep': [{ type: Input },],
         'secondsStep': [{ type: Input },],
         'readonlyInput': [{ type: Input },],
-        'disabled': [{ type: Input },],
         'mousewheel': [{ type: Input },],
         'arrowkeys': [{ type: Input },],
         'showSpinners': [{ type: Input },],
@@ -13024,7 +12920,7 @@ var TooltipContainerComponent = (function () {
                         role: 'tooltip'
                     },
                     styles: [
-                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: 50%;\n      margin-left: -6px;\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: 50%;\n      margin-top: -6px;\n    }\n  "
+                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: 50%;\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: 50%;\n    }\n  "
                     ],
                     template: "\n    <div class=\"tooltip-arrow arrow\"></div>\n    <div class=\"tooltip-inner\"><ng-content></ng-content></div>\n    "
                 },] },
@@ -15084,7 +14980,7 @@ var TypeaheadContainerComponent = (function () {
             var ulPaddingTop = parseFloat((ulStyles['padding-top'] ? ulStyles['padding-top'] : '0').replace('px', ''));
             var optionHeight = parseFloat((liStyles['height'] ? liStyles['height'] : '0').replace('px', ''));
             var height = this.typeaheadOptionsInScrollableView * optionHeight;
-            this.guiHeight = height + ulPaddingTop + ulPaddingBottom + "px";
+            this.guiHeight = (height + ulPaddingTop + ulPaddingBottom) + 'px';
         }
         this.renderer.setStyle(this.element.nativeElement, 'visibility', 'visible');
     };
@@ -15171,8 +15067,9 @@ var TypeaheadDirective = (function () {
          * If true the word súper would match super and vice versa.
          */
         this.typeaheadLatinize = true;
-        /** Can be use to search words by inserting a single white space between each characters
-         *  for example 'C a l i f o r n i a' will match 'California'.
+        /** break words with spaces. If true the text "exact phrase"
+         * here match would match with match exact phrase here
+         * but not with phrase here exact match (kind of "google style").
          */
         this.typeaheadSingleWords = true;
         /** should be used only in case typeaheadSingleWords attribute is true.
@@ -15370,7 +15267,7 @@ var TypeaheadDirective = (function () {
         var _this = this;
         this._subscriptions.push(this.keyUpEventEmitter
             .debounceTime(this.typeaheadWaitMs)
-            .switchMap(function () { return _this.typeahead; })
+            .mergeMap(function () { return _this.typeahead; })
             .subscribe(function (matches) {
             _this.finalizeAsyncCall(matches);
         }));
@@ -16365,7 +16262,6 @@ var BsDropdownDirective = (function () {
         }
         if (this._showInline) {
             this.removeShowClass();
-            this.removeDropupStyles();
             this._isInlineOpen = false;
             this.onHidden.emit(true);
         }
@@ -16396,7 +16292,7 @@ var BsDropdownDirective = (function () {
         if (!isBs3()) {
             this.addShowClass();
             this.checkRightAlignment();
-            this.addDropupStyles();
+            this.checkDropup();
         }
     };
     BsDropdownDirective.prototype.addShowClass = function () {
@@ -16416,17 +16312,11 @@ var BsDropdownDirective = (function () {
             this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'right', isRightAligned ? '0' : 'auto');
         }
     };
-    BsDropdownDirective.prototype.addDropupStyles = function () {
+    BsDropdownDirective.prototype.checkDropup = function () {
         if (this._inlinedMenu && this._inlinedMenu.rootNodes[0]) {
             // a little hack to not break support of bootstrap 4 beta
             this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'top', this.dropup ? 'auto' : '100%');
             this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'transform', this.dropup ? 'translateY(-101%)' : 'translateY(0)');
-        }
-    };
-    BsDropdownDirective.prototype.removeDropupStyles = function () {
-        if (this._inlinedMenu && this._inlinedMenu.rootNodes[0]) {
-            this._renderer.removeStyle(this._inlinedMenu.rootNodes[0], 'top');
-            this._renderer.removeStyle(this._inlinedMenu.rootNodes[0], 'transform');
         }
     };
     BsDropdownDirective.decorators = [
@@ -20791,7 +20681,7 @@ var PopoverContainerComponent = (function () {
                         style: 'display:block;'
                     },
                     styles: [
-                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: 50%;\n      margin-left: -8px;\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: 50%;\n      margin-top: -8px;\n    }\n  "
+                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: 50%;\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: 50%;\n    }\n  "
                     ],
                     template: "<div class=\"popover-arrow arrow\"></div> <h3 class=\"popover-title popover-header\" *ngIf=\"title\">{{ title }}</h3> <div class=\"popover-content popover-body\"> <ng-content></ng-content> </div> "
                 },] },
