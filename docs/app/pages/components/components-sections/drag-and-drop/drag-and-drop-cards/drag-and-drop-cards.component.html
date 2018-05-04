@@ -1,3 +1,39 @@
+<div class="dnd-cards-demo">
+
+    <div class="dnd-cards-container card-view"
+        uxReorderable [(reorderableModel)]="cards" reorderableGroup="cards-demo">
+
+        <div *ngFor="let component of cards" class="card" [uxReorderableModel]="component">
+
+            <div class="content">
+                <span class="hpe-icon" [ngClass]="component.icon"></span>
+                <div class="name">{{component.name}}</div>
+                <div class="type">{{component.type}}</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="dnd-list-container"
+        uxReorderable [(reorderableModel)]="list" reorderableGroup="cards-demo">
+
+        <div *ngFor="let component of list" class="list-item" [uxReorderableModel]="component">
+            <div class="title">{{component.name}}</div>
+            <div class="content">
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+    <pre class="col-md-6">{{cards | json}}</pre>
+    <pre class="col-md-6">{{list | json}}</pre>
+</div>
+
 <hr>
 
 <p>

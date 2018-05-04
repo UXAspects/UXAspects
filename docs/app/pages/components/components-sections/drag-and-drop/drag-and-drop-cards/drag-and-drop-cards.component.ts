@@ -9,7 +9,34 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 })
 @DocumentationSectionComponent('ComponentsDragAndDropCardsComponent')
 export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSection {
+
+    cards: DragAndDropComponent[] = [
+        {
+            name: 'Actions',
+            type: 'Dropdown',
+            icon: 'hpe-down'
+        },
+        {
+            name: 'Comments',
+            type: 'Text',
+            icon: 'hpe-document'
+        },
+        {
+            name: 'Direction',
+            type: 'Buttons',
+            icon: 'hpe-divide'
+        }
+    ];
+
+    list: DragAndDropComponent[] = [];
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
+}
+
+class DragAndDropComponent {
+    name: string;
+    type: string;
+    icon: string;
 }
