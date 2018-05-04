@@ -45,7 +45,7 @@ describe('Hierarchy Bar Tests', () => {
         expect(JSON.stringify(titles)).toBe(JSON.stringify(['Leroy Rose', 'Lilly Shaw']));
     });
 
-    it('should display children in popover', async () => {
+    it('should have selected the correct node on popover click', async () => {
         await page.selectPopoverNode(0, 0);
 
         expect(await page.getSelectedNodeTitle()).toBe('Leroy Rose');
@@ -102,7 +102,7 @@ describe('Hierarchy Bar Tests', () => {
         const titles = await page.getOverflowNodeTitles();
         
         // expect there to be nodes in the overflow popover
-        expect(JSON.stringify(titles)).toBe(JSON.stringify(['Theresa Chandler', 'Lilly Shaw']));
+        expect(JSON.stringify(titles)).toBe(JSON.stringify(['Theresa Chandler']));
 
         // increase browser size
         await browser.driver.manage().window().setSize(1000, 700);

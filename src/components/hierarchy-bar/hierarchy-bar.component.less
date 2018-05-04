@@ -44,12 +44,6 @@ ux-hierarchy-bar {
         margin-top: 5px;
         margin-bottom: 5px;
         cursor: pointer;
-        border: none;
-        background: transparent;
-
-        &:focus {
-            .aspects-outline;
-        }
 
         &:last-of-type {
             .hierarchy-bar-node-title {
@@ -62,6 +56,13 @@ ux-hierarchy-bar {
     .hierarchy-bar-node-content {
         display: inline-flex;
         align-items: center;
+        border: none;
+        background: transparent;
+        padding: 0;
+
+        &:focus {
+            .aspects-outline;
+        }
     }
 
     .hierarchy-bar-node-icon {
@@ -79,6 +80,9 @@ ux-hierarchy-bar {
         color: @organization-chart-hierarchy-bar-arrow;
         margin-left: 5px;
         transition: color 250ms ease-in-out;
+        border: none;
+        background: transparent;
+        padding: 0;
 
         &:hover {
             color: @primary;

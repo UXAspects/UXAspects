@@ -24,8 +24,9 @@ export class HierarchyBarPage {
 
     async clickNode(index: number): Promise<void> {
         const node: ElementFinder = await this.getNode(index);
+        const content: ElementFinder = await node.$('.hierarchy-bar-node-content');
 
-        await node.click();
+        await content.click();
     }
 
     async nodeHasChildren(index: number): Promise<boolean> {

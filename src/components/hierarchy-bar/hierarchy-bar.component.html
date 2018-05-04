@@ -18,12 +18,12 @@
         . . .
     </div>
 
-    <button #nodeElement class="hierarchy-bar-node"
-            *ngFor="let node of hierarchyBar.nodes$ | async"
-            [attr.aria-label]="node.title"
-            (keydown.enter)="hierarchyBar.selectNode(node)">
+    <div #nodeElement class="hierarchy-bar-node"
+         *ngFor="let node of hierarchyBar.nodes$ | async">
 
-        <div class="hierarchy-bar-node-content" (click)="hierarchyBar.selectNode(node)">
+        <button class="hierarchy-bar-node-content"
+                [attr.aria-label]="node.title"
+                (click)="hierarchyBar.selectNode(node)">
 
             <!-- Show an icon if specifed -->
             <img class="hierarchy-bar-node-icon" *ngIf="node.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
@@ -31,10 +31,10 @@
             <!-- Show the name of the current node -->
             <span class="hierarchy-bar-node-title">{{ node.title }}</span>
 
-        </div>
+        </button>
 
         <!-- Show a dropdown arrow if there are children -->
-        <span *ngIf="node.children"
+        <button *ngIf="node.children"
               #popover="bs-popover"
               aria-label="Show children"
               role="button"
@@ -45,11 +45,10 @@
               container="body"
               [outsideClick]="true"
               containerClass="hierarchy-bar-popover"
-              tabindex="0"
-              (keydown.enter)="popover.show(); $event.stopPropagation()">
-        </span>
+              tabindex="0">
+        </button>
 
-    </button>
+    </div>
 
 </main>
 
