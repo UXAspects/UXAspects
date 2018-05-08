@@ -123,8 +123,8 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     }
 
     writeValue(obj: any): void {
-        if (obj !== undefined) {
-            this._value = obj;
+        if (obj !== undefined && obj !== this._value) {
+            this.value = obj;
         }
     }
 
