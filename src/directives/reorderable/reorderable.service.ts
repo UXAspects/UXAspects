@@ -1,4 +1,4 @@
-import { Injectable, NgZone, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Drake, DragulaOptions } from 'dragula';
 import { dragula } from './dragula';
 
@@ -7,8 +7,6 @@ export class ReorderableService {
 
     private _groups: { [k: string]: ReorderableGroup } = {};
     private _uniqueGroupId = 0;
-
-    constructor(private _ngZone: NgZone) { }
 
     /**
      * Returns a unique string which can be used as a group name if one was not configured.
@@ -23,7 +21,7 @@ export class ReorderableService {
     register(groupName: string, container: ReorderableContainer): ReorderableGroup {
 
         if (!this._groups[groupName]) {
-            this._groups[groupName] = new ReorderableGroup(this._ngZone);
+            this._groups[groupName] = new ReorderableGroup();
         }
 
         this._groups[groupName].register(container);
@@ -125,8 +123,6 @@ export class ReorderableGroup {
     private _instance: Drake;
     private _containers: ReorderableContainer[] = [];
 
-    constructor(private _ngZone: NgZone) { }
-
     /**
      * Returns true if there are no containers registered with the group.
      */
@@ -153,8 +149,13 @@ export class ReorderableGroup {
      */
     register(container: ReorderableContainer): void {
         this._containers.push(container);
+
         if (this._instance) {
             this._instance.containers = this._containers.map((c) => c.element);
+        }
+
+        if (!this.config.mirrorContainer) {
+            this.config.mirrorContainer = container.element;
         }
     }
 
@@ -186,7 +187,6 @@ export class ReorderableGroup {
         this._instance = dragula(this._containers.map((c) => c.element), this.config);
 
         this._instance.on('drag', (element: Element, source: Element) => {
-            console.log(`dragula:drag`);
             this.drag.emit({
                 model: this.getModelForElement(element),
                 element: element,
@@ -194,14 +194,12 @@ export class ReorderableGroup {
             });
         });
         this._instance.on('dragend', (element: Element) => {
-            console.log(`dragula:dragend`);
             this.dragEnd.emit({
                 model: this.getModelForElement(element),
                 element: element
             });
         });
         this._instance.on('drop', (element: Element, target: Element, source: Element, sibling: Element) => {
-            console.log(`dragula:drop`);
             this.drop.emit({
                 model: this.getModelForElement(element),
                 element: element,
@@ -211,14 +209,12 @@ export class ReorderableGroup {
             });
         });
         this._instance.on('cancel', (element: Element) => {
-            console.log(`dragula:cancel`);
             this.cancel.emit({
                 model: this.getModelForElement(element),
                 element: element
             });
         });
         this._instance.on('cloned', (clone: Element, element: Element, type: string) => {
-            console.log(`dragula:cloned`);
             this.cloned.emit({
                 clone: clone,
                 element: element,

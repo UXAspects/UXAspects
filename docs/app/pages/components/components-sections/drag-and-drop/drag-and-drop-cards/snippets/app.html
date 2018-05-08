@@ -77,32 +77,3 @@
         </button>
     </div>
 </ng-template>
-
-<hr>
-
-<p>
-    This example shows how to use
-    <a routerLink="/components/tables" fragment="reorderable-table"><code>uxReorderable</code></a> with a second
-    container. Apply the <code>uxReorderable</code> directive to the required containers, and set the
-    <code>reorderableGroup</code> property on each of them to a common string identifier. Items with the
-    <code>uxReorderableModel</code> directive can be dragged within or between each container in the group, and the
-    respective array on each container will be updated. In this example, a different template is used in each container,
-    allowing the data model to be presented differently depending on the container that it is dragged into.
-</p>
-
-<p>
-    See the <a routerLink="/components/tables" fragment="reorderable-table">Reorderable Table</a> documentation for full
-    details of using the <code>uxReorderable</code> directive.
-</p>
-
-<tabset>
-    <tab heading="HTML">
-        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
-    </tab>
-    <tab heading="TypeScript">
-        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
-    </tab>
-    <tab heading="CSS">
-        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
-    </tab>
-</tabset>

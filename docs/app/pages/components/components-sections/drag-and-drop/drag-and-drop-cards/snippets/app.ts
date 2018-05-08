@@ -1,38 +1,10 @@
-import { Component, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { Component, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
-    selector: 'uxd-drag-and-drop-cards',
-    templateUrl: './drag-and-drop-cards.component.html',
-    styleUrls: ['./drag-and-drop-cards.component.less']
+    selector: 'app',
+    templateUrl: 'app.component.html'
 })
-@DocumentationSectionComponent('ComponentsDragAndDropCardsComponent')
-export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSection implements AfterViewInit, IPlunkProvider {
-
-    plunk: IPlunk = {
-        files: {
-            'app.component.html': this.snippets.raw.appHtml,
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.css': this.snippets.raw.appCss,
-        },
-        modules: [
-            {
-                imports: ['FocusIfModule', 'ReorderableModule'],
-                library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['BsDropdownModule'],
-                library: 'ngx-bootstrap/dropdown'
-            },
-            {
-                imports: ['ButtonsModule'],
-                library: 'ngx-bootstrap/buttons'
-            },
-        ]
-    };
+export class AppComponent implements AfterViewInit {
 
     cards: DragAndDropComponent[];
 
@@ -48,10 +20,6 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
 
     @ViewChild('buttons')
     buttonsTemplate: TemplateRef<any>;
-
-    constructor() {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
 
     ngAfterViewInit(): void {
         this.cards = [

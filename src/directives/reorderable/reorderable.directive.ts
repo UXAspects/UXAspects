@@ -1,4 +1,5 @@
-import { Directive, Input, ElementRef, OnInit, ContentChildren, QueryList, OnDestroy, Output, EventEmitter, Renderer2, NgZone, AfterViewInit } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, ContentChildren, QueryList, OnDestroy, Output, EventEmitter, Renderer2, NgZone, AfterViewInit, HostBinding } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { Drake } from 'dragula';
 import { ReorderableHandleDirective } from './reorderable-handle.directive';
 import { ReorderableModelDirective } from './reorderable-model.directive';
@@ -22,6 +23,11 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
 
     private _instance: Drake;
     private _container: ReorderableContainer;
+
+    @HostBinding('class.ux-reorderable-container-moving')
+    private _dragging = false;
+
+    private _subscriptions = new Subscription();
 
     constructor(
         private _elementRef: ElementRef,
@@ -48,11 +54,11 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
 
         // Register for drag events on this element
         const group = this._service.register(this.reorderableGroup, this._container);
-        group.drag.subscribe((event: ReorderableDragEvent) => this.reorderStart.emit({ element: event.element, model: event.model }));
-        group.dragEnd.subscribe(this.onDragEnd.bind(this));
-        group.drop.subscribe(this.onDrop.bind(this));
-        group.cancel.subscribe((event: ReorderableCancelEvent) => this.reorderCancel.emit({ element: event.element, model: event.model }));
-        group.cloned.subscribe(this.onClone.bind(this));
+        this._subscriptions.add(group.drag.subscribe(this.onDrag.bind(this)));
+        this._subscriptions.add(group.dragEnd.subscribe(this.onDragEnd.bind(this)));
+        this._subscriptions.add(group.drop.subscribe(this.onDrop.bind(this)));
+        this._subscriptions.add(group.cancel.subscribe((event: ReorderableCancelEvent) => this.reorderCancel.emit({ element: event.element, model: event.model })));
+        this._subscriptions.add(group.cloned.subscribe(this.onClone.bind(this)));
     }
 
     ngAfterViewInit(): void {
@@ -64,6 +70,14 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
      */
     ngOnDestroy(): void {
         this._service.unregister(this.reorderableGroup, this._container);
+        this._subscriptions.unsubscribe();
+    }
+
+    onDrag(event: ReorderableDragEvent): void {
+
+        this._dragging = true;
+
+        this.reorderStart.emit({ element: event.element, model: event.model });
     }
 
     /**
@@ -125,6 +139,8 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
      * When we finish dragging remove the utillity class from the element being moved
      */
     onDragEnd(event: ReorderableDragEndEvent): void {
+
+        this._dragging = false;
 
         if (this._elementRef.nativeElement.contains(event.element)) {
 
