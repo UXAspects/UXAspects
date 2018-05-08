@@ -25,11 +25,13 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
             },
             {
                 imports: ['BsDropdownModule'],
-                library: 'ngx-bootstrap/dropdown'
+                library: 'ngx-bootstrap/dropdown',
+                forRoot: true
             },
             {
                 imports: ['ButtonsModule'],
-                library: 'ngx-bootstrap/buttons'
+                library: 'ngx-bootstrap/buttons',
+                forRoot: true
             },
         ]
     };
