@@ -1,0 +1,123 @@
+.draggable-card-demo {
+    width: 400px;
+    height: 500px;
+}
+
+.draggable-card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.draggable-card-title {
+    font-size: 1.125rem;
+    margin: 0;
+}
+
+.draggable-card-action {
+    font-size: 1.125rem;
+    border: none;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 0.3s linear;
+}
+
+.draggable-card-action:focus {
+    opacity: 1;
+}
+
+.ux-draggable-card:hover .draggable-card-action {
+    opacity: 1;
+}
+
+.ux-draggable-card:hover .draggable-card-controls .draggable-card-control,
+.ux-draggable-card:hover .draggable-card-controls .draggable-card-drag-handle {
+    opacity: 0.8;
+}
+
+.draggable-card-controls {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.draggable-card-control {
+    border: none;
+    background-color: transparent;
+    width: 13px;
+    height: 8px;
+    background-repeat: no-repeat;
+    background-size: 13px;
+    margin: 4px 3px;
+    opacity: 0;
+    transition: opacity 0.3s linear;
+}
+
+.draggable-card-control:focus {
+    opacity: 0.8;
+}
+
+.draggable-card-control-up {
+    background-image: url('../../../../../assets/img/uparrow-dark.png');
+}
+
+.draggable-card-control-down {
+    background-image: url('../../../../../assets/img/downarrow-dark.png');
+}
+
+.draggable-card-drag-handle {
+    background-image: url('../../../../../assets/img/draghandle-dark.png');
+    width: 13px;
+    height: 19px;
+    background-repeat: no-repeat;
+    background-size: 13px;
+    background-position: center;
+    margin: 4px 3px;
+    cursor: ns-resize;
+    border: none;
+    background-color: transparent;
+    opacity: 0;
+    transition: opacity 0.3s linear;
+}
+
+.draggable-card-drag-handle:focus {
+    opacity: 0.8;
+}
+
+.draggable-card-content {
+    display: flex;
+    align-items: center;
+}
+
+.draggable-card-subtitle {
+    color: #4b4d4e;
+    margin: 0;
+}
+
+.draggable-card-description {
+    font-size: 14px;
+    color: #888;
+}
+
+.draggable-card-chart {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 0 10px;
+    pointer-events: none;
+    flex: none;
+}
+
+.draggable-card-chart-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 0.9375rem;
+    color: #333;
+}
+
+.ux-draggable-card.ux-reorderable-moving {
+    visibility: hidden;
+}

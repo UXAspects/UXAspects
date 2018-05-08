@@ -2,11 +2,11 @@
 
 <div class="btn-container">
     <button class="btn button-primary m-r-sm" (click)="notificationService.show(notification,
-        { duration: duration, backgroundColor: backgroundColor })">Show Notification</button>
+        { duration: duration, backgroundColor: backgroundColor }, { description: description })">Show Notification</button>
     <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">Dismiss Notifications</button>
 </div>
 
-<ng-template #notification let-notificationRef>
+<ng-template #notification let-notificationRef let-data="data">
 
     <div class="dismiss">
         <div class="hpe-icon hpe-close" (click)="notificationService.dismiss(notificationRef)"></div>
@@ -20,7 +20,7 @@
     
         <div class="notification-content">
             <h4 class="notification-title">Messages Received</h4>
-            <p class="notification-description">You have 16 messages</p>
+            <p class="notification-description">{{ data.description }}</p>
             <p class="notification-timestamp">{{ notificationRef.date | date:'EEEE, MMMM d, y, h:mm:ss a' }}</p>
         </div>
 
@@ -48,12 +48,19 @@
                     </div>
                 </div>
                 <div class="row uxd-customize-row">
-                    <div class="col-md-offset-6 col-md-4 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         <p>
                             <small>Recommended Colors</small>
                         </p>
                         <div class="color-palette">
                             <div class="color-box" *ngFor="let color of colors" [style.background-color]="color" (click)="backgroundColor = color"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <label for="backgroundColor">description</label>
+                        <div class="input-group m-b-sm">
+                            <input type="text" placeholder="Enter description" class="form-control" [(ngModel)]="description">
                         </div>
                     </div>
                 </div>
@@ -85,12 +92,25 @@
     The following functions can be called on the service:</p>
 
 <uxd-api-properties tableTitle="Notification Service">
-    <tr uxd-api-property name="show" args="TemplateRef" returns="NotificationRef">
-        This function should be called to show a notification.
-        It should be given a <code>TemplateRef</code> containing the content to be displayed and optionally an object containing properties
-        to configure the notification.
-        It will return a <code>NotificationRef</code> object which will contain the information passed to the <code>showNotification</code> function
-        along with a <code>date</code> property which will contain the time at which the notification was shown.
+    <tr uxd-api-property name="show" args="TemplateRef, NotificationOptions?, object?" returns="NotificationRef">
+        <p>
+            This function should be called to show a notification.
+        </p>
+
+        <p>
+            It should be given a <code>TemplateRef</code> containing the content to be displayed. Optionally it can be passed a second argument,
+            a <code>NotificationOptions</code> object containing properties to configure the notification.
+        </p>
+
+        <p>
+            An optional third argument can be given. This is an object containing any additional information you want to provide
+            to the template. This can be accessed by adding a <code>let-data="data"</code> attribute to the <code>ng-template</code> element.
+        </p>
+
+        <p>
+            It will return a <code>NotificationRef</code> object which will contain the information passed to the <code>showNotification</code> function
+            along with a <code>date</code> property which will contain the time at which the notification was shown.
+        </p>
     </tr>
     <tr uxd-api-property name="getHistory" returns="NotificationRef[]">
         This function will return a list of all the notifications that have been shown.
@@ -108,7 +128,7 @@
 
 <p>A second object may optionally be passed to the <code>showNotification</code> function. The following options can be passed in this object to configure the notification:</p>
 
-<uxd-api-properties tableTitle="Notification Configuration">
+<uxd-api-properties tableTitle="NotificationOptions Interface">
     <tr uxd-api-property name="duration" type="number" defaultValue="4">
         Sets the duration (in seconds) the notification should appear before automatically dismissing.
         A value of <code>0</code> will show the notification until manually dismissed.

@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { InfiniteScrollModule, CheckboxModule, NumberPickerModule } from '../../../../dist';
 
-import { InfiniteScrollTestPageComponent } from './infinite-scroll.testpage.component';
+import { InfiniteScrollTestPageComponent } from './standard/infinite-scroll.testpage.component';
+import { InfiniteScrollFullscreenTestPageComponent } from './fullscreen/infinite-scroll-fullscreen.testpage.component';
 
 @NgModule({
     imports: [
@@ -19,9 +20,16 @@ import { InfiniteScrollTestPageComponent } from './infinite-scroll.testpage.comp
             {
                 path: '',
                 component: InfiniteScrollTestPageComponent
+            },
+            {
+                path: 'fullscreen',
+                component: InfiniteScrollFullscreenTestPageComponent
             }
         ])
     ],
-    declarations: [InfiniteScrollTestPageComponent]
+    declarations: [
+        InfiniteScrollTestPageComponent, 
+        InfiniteScrollFullscreenTestPageComponent
+    ]
 })
 export class InfiniteScrollTestPageModule { }

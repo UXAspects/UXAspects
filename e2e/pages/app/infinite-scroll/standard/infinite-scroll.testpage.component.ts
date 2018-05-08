@@ -1,6 +1,7 @@
 import 'chance';
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { debounceTime } from 'rxjs/operators';
 
 const chance = new Chance();
 
@@ -14,7 +15,7 @@ const DEPARTMENTS = ['Finance', 'Operations', 'Investor Relations', 'Technical',
 export class InfiniteScrollTestPageComponent {
 
     filterText = new BehaviorSubject<string>('');
-    debouncedFilterText = this.filterText.debounceTime(500);
+    debouncedFilterText = this.filterText.pipe(debounceTime(500));
 
     allEmployees: any[] = [];
     loadedEmployees: any[] = [];
