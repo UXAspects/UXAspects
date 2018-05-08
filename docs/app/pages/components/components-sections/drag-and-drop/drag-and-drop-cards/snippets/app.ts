@@ -2,7 +2,8 @@ import { Component, AfterViewInit, TemplateRef, ViewChild } from '@angular/core'
 
 @Component({
     selector: 'app',
-    templateUrl: 'app.component.html'
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.css']
 })
 export class AppComponent implements AfterViewInit {
 
@@ -21,29 +22,32 @@ export class AppComponent implements AfterViewInit {
     @ViewChild('buttons')
     buttonsTemplate: TemplateRef<any>;
 
-    ngAfterViewInit(): void {
+    constructor() {
         this.cards = [
             {
                 name: 'Actions',
                 type: 'Dropdown',
                 icon: 'hpe-down',
-                content: this.dropdownTemplate
             },
             {
                 name: 'Comments',
                 type: 'Text',
                 icon: 'hpe-document',
-                content: this.textTemplate
             },
             {
                 name: 'Direction',
                 type: 'Buttons',
                 icon: 'hpe-divide',
-                content: this.buttonsTemplate
             }
         ];
 
         this.list = [];
+    }
+
+    ngAfterViewInit(): void {
+        this.cards[0].content = this.dropdownTemplate;
+        this.cards[1].content = this.textTemplate;
+        this.cards[2].content = this.buttonsTemplate;
     }
 
     moveUp(collection: DragAndDropComponent[], index: number, event: KeyboardEvent): void {

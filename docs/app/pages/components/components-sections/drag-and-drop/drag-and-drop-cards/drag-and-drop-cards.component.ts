@@ -51,31 +51,32 @@ export class ComponentsDragAndDropCardsComponent extends BaseDocumentationSectio
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
 
-    ngAfterViewInit(): void {
         this.cards = [
             {
                 name: 'Actions',
                 type: 'Dropdown',
                 icon: 'hpe-down',
-                content: this.dropdownTemplate
             },
             {
                 name: 'Comments',
                 type: 'Text',
                 icon: 'hpe-document',
-                content: this.textTemplate
             },
             {
                 name: 'Direction',
                 type: 'Buttons',
                 icon: 'hpe-divide',
-                content: this.buttonsTemplate
             }
         ];
 
         this.list = [];
+    }
+
+    ngAfterViewInit(): void {
+        this.cards[0].content = this.dropdownTemplate;
+        this.cards[1].content = this.textTemplate;
+        this.cards[2].content = this.buttonsTemplate;
     }
 
     moveUp(collection: DragAndDropComponent[], index: number, event: KeyboardEvent): void {
@@ -120,5 +121,5 @@ class DragAndDropComponent {
     name: string;
     type: string;
     icon: string;
-    content: TemplateRef<any>;
+    content?: TemplateRef<any>;
 }
