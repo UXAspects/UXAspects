@@ -10,7 +10,7 @@
 
     <ux-typeahead #multipleTypeahead
         [options]="options"
-        [filter]="filter | async"
+        [filter]="filter$ | async"
         [(open)]="dropdownOpen"
         [display]="display"
         [key]="key"
@@ -42,7 +42,7 @@
 
     <ux-typeahead #singleTypeahead
         [options]="options"
-        [filter]="filter | async"
+        [filter]="filter$ | async"
         [(open)]="dropdownOpen"
         [display]="display"
         [key]="key"

@@ -1,12 +1,14 @@
-import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
-import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
-import { Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { debounceTime, filter, map } from 'rxjs/operators';
+import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
+import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 
-export const SELECT_VALUE_ACCESSOR: any = {
+export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => SelectComponent),
     multi: true
@@ -17,9 +19,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
     templateUrl: 'select.component.html',
     providers: [SELECT_VALUE_ACCESSOR]
 })
-export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor {
-
-    private _value: any;
+export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
 
     @Input()
     get value() {
@@ -29,24 +29,21 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
         this._value = value;
         this.valueChange.emit(value);
         this.propagateChange(value);
+
+        // if we are not allow multiple selection update the input value (supporting ngModel)
+        if (!this.multiple && value !== null) {
+            this.input = this.getDisplay(value);
+        }
     }
-
-    @Output() valueChange = new EventEmitter<any>();
-
-    private _input = new BehaviorSubject<string>('');
 
     @Input()
     get input() {
-        return this._input.getValue();
+        return this._input$.value;
     }
     set input(value: string) {
-        this._input.next(value);
+        this._input$.next(value);
         this.inputChange.emit(value);
     }
-
-    @Output() inputChange = new EventEmitter<string>();
-
-    private _dropdownOpen: boolean = false;
 
     @Input()
     get dropdownOpen() {
@@ -56,8 +53,6 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
         this._dropdownOpen = value;
         this.dropdownOpenChange.emit(value);
     }
-
-    @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     @Input() options: any[] | InfiniteScrollLoadFunction;
     @Input() display: (option: any) => string | string;
@@ -74,13 +69,21 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     @Input() noOptionsTemplate: TemplateRef<any>;
     @Input() optionTemplate: TemplateRef<any>;
 
+    @Output() valueChange = new EventEmitter<any>();
+    @Output() inputChange = new EventEmitter<string>();    
+    @Output() dropdownOpenChange = new EventEmitter<boolean>();    
+
     @ViewChild('singleInput') singleInput: ElementRef;
     @ViewChild('multipleTypeahead') multipleTypeahead: TypeaheadComponent;
     @ViewChild('singleTypeahead') singleTypeahead: TypeaheadComponent;
 
-    filter: Observable<string>;
-
+    filter$: Observable<string>;
     propagateChange = (_: any) => { };
+
+    private _value: any;
+    private _input$ = new BehaviorSubject<string>('');
+    private _dropdownOpen: boolean = false;
+    private _subscription = new Subscription();
 
     constructor(
         private _element: ElementRef,
@@ -90,48 +93,38 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
     ngOnInit() {
 
         // Changes to the input field
-        this._input.subscribe((next) => {
-            if (!this.multiple && next !== this.getDisplay(this.value)) {
-                if (this.allowNull) {
-                    this.value = null;
-                }
-            }
-        });
+        const onInput = this._input$.pipe(
+            filter(value => this.allowNull),
+            filter(value => !this.multiple && value !== this.getDisplay(this.value))
+        ).subscribe(value => this.value = null);
 
         // Set up filter from input
-        this.filter = this._input
-            .map((input) => {
-                if (!this.multiple && input === this.getDisplay(this.value)) {
-                    return '';
-                }
-                return input;
-            })
-            .debounceTime(200);
+        this.filter$ = this._input$.pipe(
+            map(input => !this.multiple && input === this.getDisplay(this.value) ? '' : input),
+            debounceTime(200)
+        );
 
-        // Changes to filter value
-        this.filter.subscribe((next) => {
+        // Open the dropdown when filter is nonempty.
+        const onFilter = this.filter$.pipe(filter(value => value && value.length > 0)).subscribe(() => this.dropdownOpen = true);
 
-            // Open the dropdown when filter is nonempty.
-            if (next && next.length > 0) {
-                this.dropdownOpen = true;
-            }
-        });
+        // store the subscriptions
+        this._subscription.add(onInput);
+        this._subscription.add(onFilter);
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.value) {
-            if (!this.multiple && changes.value.currentValue !== null) {
-                this.input = this.getDisplay(changes.value.currentValue);
-            }
-        }
         if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input = '';
         }
     }
 
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
+    }
+
     writeValue(obj: any): void {
-        if (obj !== undefined) {
-            this._value = obj;
+        if (obj !== undefined && obj !== this._value) {
+            this.value = obj;
         }
     }
 
@@ -172,7 +165,7 @@ export class SelectComponent implements OnInit, OnChanges, ControlValueAccessor 
 
         switch (event.key) {
             case 'Enter':
-                if (this.dropdownOpen) {
+                if (this._dropdownOpen) {
                     // Set the highlighted option as the value and close
                     this.value = this.singleTypeahead.highlighted;
                     this.dropdownOpen = false;
