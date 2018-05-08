@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects-docs",
-  "version": "1.5.11",
+  "version": "1.5.12",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "docs/app/app.module.ts",
   "contributors": [
@@ -16,6 +16,7 @@
     "serve:e2e": "lite-server -c=e2e/bs-config.e2e.json",
     "e2e": "concurrently \"npm run serve:e2e\" \"grunt protractor:e2e\" --kill-others --success first",
     "build:library": "ng-packagr -p ng-package.json",
+    "lint": "grunt lint",
     "e2e:develop": "concurrently \"webpack --watch --progress --colors --config configs/webpack.e2e.config.js\" \"tsc -w --project .\\e2e\\tsconfig.json\" \"npm run serve:e2e\""
   },
   "dependencies": {
@@ -112,6 +113,7 @@
     "grunt-webpack": "3.0.2",
     "html-loader": "0.5.1",
     "html-webpack-plugin": "2.30.1",
+    "husky": "^1.0.0-rc.2",
     "jasmine": "2.8.0",
     "jasmine-reporters": "2.2.1",
     "jit-grunt": "0.10.0",
@@ -163,5 +165,10 @@
     "src",
     "LICENSE.md",
     "README.md"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
+  }
 }

@@ -63,15 +63,6 @@ describe('Infinite Scroll Tests', () => {
     
   });
  
-  it('should expand/hide panel on click', () => {
-    
-    page.clickOnCustomizeExamplePanel();
-    expect(page.confirmCustomizeExamplePanelIsExpanded()).toBeTruthy();
-    page.clickOnCustomizeExamplePanel();
-    expect(page.confirmCustomizeExamplePanelIsExpanded()).toBeFalsy();
-    
-  });
- 
   it('should react to clicking on the loadOnScroll checkbox', () => {
     
     // unchecking
@@ -170,94 +161,6 @@ describe('Infinite Scroll Tests', () => {
     expect<any>(page.getNumberOfEmployees()).toEqual(78);
     page.hoverOverLastEmployee();
     expect<any>(page.getNumberOfEmployees()).toEqual(111);
-    
-  });
- 
-  it('should have min and max page size values', () => {
-    
-    page.clickOnCustomizeExamplePanel();
-    page.clickOnLoadOnScroll();
-
-    // min - clearing box
-    page.getPageSize().clear(); // 1
-    expect<any>(page.getNumberOfEmployees()).toEqual(1);
-
-    // min - using arrows
-    page.clickOnIncrementPageSize();
-    page.clickOnDecrementPageSize(); // 1
-    expect<any>(page.getNumberOfEmployees()).toEqual(1);
-
-    // min - entering a value
-    page.clickOnPageSize();
-    page.getPageSize().sendKeys('1');
-    page.getPageSize().sendKeys(Key.DELETE); // 1
-    expect<any>(page.getNumberOfEmployees()).toEqual(1);    
-
-    // max - entering a value
-    page.clickOnPageSize();
-    page.getPageSize().sendKeys(Key.ARROW_RIGHT);
-    page.getPageSize().sendKeys('000'); // 1000
-    expect<any>(page.getNumberOfEmployees()).toEqual(111);
-
-    // max - using arrows
-    page.clickOnDecrementPageSize();
-    page.clickOnIncrementPageSize(); // 1000
-    expect<any>(page.getNumberOfEmployees()).toEqual(111);
-    
-  });
- 
-  it('should disable arrow buttons when appropriate', () => {
-    
-    page.clickOnCustomizeExamplePanel();
-    page.clickOnPageSize();
-
-    // disable arrow up
-    page.getPageSize().sendKeys('100');
-    page.getPageSize().sendKeys(Key.DELETE); // 1000
-    expect(page.confirmPageSizeButtonIsDisabled('up')).toBeTruthy();
-    expect(page.confirmPageSizeButtonIsDisabled('down')).toBeFalsy();
-
-    // disable arrow down
-    page.getPageSize().clear(); // 1
-    expect(page.confirmPageSizeButtonIsDisabled('up')).toBeFalsy();
-    expect(page.confirmPageSizeButtonIsDisabled('down')).toBeTruthy();
-
-    // enable both
-    page.clickOnIncrementPageSize(); // 1
-    expect(page.confirmPageSizeButtonIsDisabled('up')).toBeFalsy();
-    expect(page.confirmPageSizeButtonIsDisabled('down')).toBeFalsy();
-    
-  });
- 
-  it('should warn the user when the page size value is outside of boundaries', () => {
-    
-    page.clickOnCustomizeExamplePanel();
-
-    // deceed minimum
-    page.clickOnPageSize();
-    page.getPageSize().clear();
-    page.getPageSize().sendKeys(Key.ARROW_LEFT);
-    page.getPageSize().sendKeys('0');
-    page.getPageSize().sendKeys(Key.DELETE); // 0
-    expect(page.confirmValueIsInvalid()).toBeTruthy();
-
-    // reset value
-    page.clickOnIncrementPageSize(); // 1
-    expect(page.confirmValueIsInvalid()).toBeFalsy();
-    
-    // exceed maximum
-    page.clickOnPageSize();
-    page.getPageSize().sendKeys(100); // 1001
-    expect(page.confirmValueIsInvalid()).toBeTruthy();
-
-    // reset value
-    page.clickOnDecrementPageSize(); // 1000
-    expect(page.confirmValueIsInvalid()).toBeFalsy();
-
-    // null
-    page.getPageSize().clear();
-    page.getPageSize().sendKeys(Key.BACK_SPACE); // 0
-    expect(page.confirmValueIsInvalid()).toBeTruthy();
     
   });
  

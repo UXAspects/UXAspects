@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ColorService, NotificationService, NumberPickerModule,
-         AccordionModule } from '@ux-aspects/ux-aspects';
+import { ColorService, NotificationService } from '@ux-aspects/ux-aspects';
 
 @Component({
     selector: 'app',
@@ -8,7 +7,9 @@ import { ColorService, NotificationService, NumberPickerModule,
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    duration: number = 4;    
+    
+    duration: number = 4;
+    description: string = 'You have 16 messages';    
     backgroundColor: string = this.colorService.getColor('accent').toHex();
 
     colors = [

@@ -18,7 +18,7 @@ export class NotificationService {
 
     notifications$: BehaviorSubject<NotificationRef[]> = new BehaviorSubject<NotificationRef[]>([]);    
 
-    show(templateRef: TemplateRef<any>, options: NotificationOptions = this.options): NotificationRef {
+    show(templateRef: TemplateRef<any>, options: NotificationOptions = this.options, data: { [key: string]: any } = {}): NotificationRef {
 
         options = { ...this.options, ...options };
 
@@ -30,7 +30,8 @@ export class NotificationService {
             height: options.height,
             spacing: options.spacing,
             backgroundColor: options.backgroundColor,
-            iconColor: options.iconColor
+            iconColor: options.iconColor,
+            data: data
         };
 
         const notifications = this.notifications$.getValue();
@@ -78,6 +79,7 @@ export interface NotificationRef {
     spacing?: number;
     backgroundColor?: string;
     iconColor?: string;
+    data: { [key: string]: any };
 }
 
 export interface NotificationOptions {

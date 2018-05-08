@@ -1,29 +1,17 @@
-import { InfiniteScrollLoadButtonDirective } from './infinite-scroll-load-button.directive';
-import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.directive';
-import {
-    AfterContentInit,
-    ContentChildren,
-    Directive,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    QueryList,
-    SimpleChanges
-} from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { of } from 'rxjs/observable/of';
-import { from } from 'rxjs/observable/from';
 import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/partition';
+import { from } from 'rxjs/observable/from';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { of } from 'rxjs/observable/of';
+import { InfiniteScrollLoadButtonDirective } from './infinite-scroll-load-button.directive';
+import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.directive';
 
 @Directive({
     selector: '[uxInfiniteScroll]',
@@ -42,12 +30,16 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         this._collection = value;
     }
 
+
+    @Input() set scrollElement(element: ElementRef | HTMLElement) {
+        this._scrollElement = element instanceof ElementRef ? element : new ElementRef(element);
+    }
+
     @Input() enabled: boolean = true;
     @Input() filter: any;
     @Input() loadOnInit: boolean = true;
     @Input() loadOnScroll: boolean = true;
     @Input() pageSize: number = 20;
-    @Input() scrollElement: ElementRef;
 
     @Output() collectionChange = new EventEmitter<any[]>();
 
@@ -77,6 +69,7 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
     private _loadButtonEnabled = new BehaviorSubject<boolean>(false);
     private _canLoadManually: Observable<boolean>;
 
+    private _scrollElement: ElementRef;
     private _subscriptions: Subscription[] = [];
     private _loadButtonSubscriptions: Subscription[] = [];
 
@@ -91,8 +84,8 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
     }
 
     ngOnInit() {
-        if (!this.scrollElement) {
-            this.scrollElement = this._element;
+        if (!this._scrollElement) {
+            this._scrollElement = this._element;
         }
 
         this._loadButtonEnabled.next(!this.loadOnScroll);
@@ -266,28 +259,21 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         });
     }
 
-    private onScroll(event: Event) {
-        this.check();
-    }
-
-    private onDomChange() {
-        this.check();
-    }
-
     /**
      * Attach scroll event handler and DOM observer.
      */
     private attachEventHandlers() {
+
+        // if the scrollElement is documentElement we must watch for a scroll event on the document
+        const target = this._scrollElement.nativeElement instanceof HTMLHtmlElement ? document : this._scrollElement.nativeElement;
+
         // Subscribe to the scroll event on the target element.
-        this._scrollEventSub = Observable.fromEvent(
-            this.scrollElement.nativeElement,
-            'scroll'
-        ).subscribe(this.onScroll.bind(this));
+        this._scrollEventSub = fromEvent(target, 'scroll').subscribe(this.check.bind(this));
 
         // Subscribe to child DOM changes. The main effect of this is to check whether even more data is
         // required after the initial load.
-        this._domObserver = new MutationObserver(this.onDomChange.bind(this));
-        this._domObserver.observe(this.scrollElement.nativeElement, {
+        this._domObserver = new MutationObserver(this.check.bind(this));
+        this._domObserver.observe(this._scrollElement.nativeElement, {
             childList: true,
             subtree: true
         });
@@ -315,9 +301,7 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
     private attachLoadButtonEvents() {
         this._loadButtonSubscriptions.forEach(s => s.unsubscribe());
         this._loadButtonSubscriptions = this._loadButtonQuery.map(
-            loadButton => {
-                return loadButton.load.subscribe(this.loadNextPage.bind(this));
-            }
+            loadButton => loadButton.load.subscribe(this.loadNextPage.bind(this))
         );
     }
 
@@ -384,11 +368,13 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         }
 
         // Load if the remaining scroll area is <= the element height.
-        if (this.scrollElement && this.loadOnScroll) {
-            const element = <HTMLElement>this.scrollElement.nativeElement;
+        if (this._scrollElement && this.loadOnScroll) {
+
+            const element = <HTMLElement>this._scrollElement.nativeElement;
             const remainingScroll =
                 element.scrollHeight -
                 (element.scrollTop + element.clientHeight);
+
             return remainingScroll <= element.clientHeight;
         }
 
@@ -494,7 +480,7 @@ export class InfiniteScrollLoadingEvent {
          * The filter details as provided via the `filter` binding.
          */
         public filter: any
-    ) {}
+    ) { }
 
     /**
      * Prevents the default behaviour of the `loading` event (loading function will not be called).
@@ -533,7 +519,7 @@ export class InfiniteScrollLoadedEvent {
          * True if the data is considered exhausted (number of items returned less than `pageSize`).
          */
         public exhausted: boolean
-    ) {}
+    ) { }
 }
 
 /**
@@ -557,5 +543,5 @@ export class InfiniteScrollLoadErrorEvent {
          * The object provided when rejecting the promise.
          */
         public error: any
-    ) {}
+    ) { }
 }

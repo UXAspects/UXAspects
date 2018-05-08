@@ -8,7 +8,7 @@ export class FocusIfDirective {
     @Input() 
     set focusIf(focus: boolean) {
         if (focus) {
-            this._elementRef.nativeElement.focus();
+            setTimeout(() => this._elementRef.nativeElement.focus());
         }
     }
 
