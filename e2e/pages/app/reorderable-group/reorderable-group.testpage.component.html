@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+
+            <div id="container1 "class="list" uxReorderable [(reorderableModel)]="data1" reorderableGroup="test-group">
+
+                <div *ngFor="let item of data1; let idx = index" id="item1-{{idx}}" class="list-item" [uxReorderableModel]="item">
+                    <span>{{item.document}}</span>
+                </div>
+
+            </div>
+
+            <div id="selected1">{{data1 | json}}</div>
+
+        </div>
+        <div class="col-sm-6">
+
+            <div id="container2 "class="list" uxReorderable [(reorderableModel)]="data2" reorderableGroup="test-group">
+
+                <div *ngFor="let item of data2; let idx = index" id="item2-{{idx}}" class="list-item" [uxReorderableModel]="item">
+                    <span>{{item.document}}</span>
+                </div>
+
+            </div>
+
+            <div id="selected1">{{data2 | json}}</div>
+
+        </div>
+    </div>
+</div>
