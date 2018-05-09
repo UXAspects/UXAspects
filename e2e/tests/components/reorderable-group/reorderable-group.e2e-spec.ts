@@ -1,4 +1,4 @@
-import { browser, $, $$, element, by } from 'protractor';
+import { browser, element, by } from 'protractor';
 import { ReorderableGroupPage } from './reorderable-group.po.spec';
 
 describe('Reorderable Group', () => {
