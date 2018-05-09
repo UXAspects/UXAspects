@@ -11,9 +11,9 @@
     </thead>
     <tbody uxReorderable [(reorderableModel)]="data">
         <tr class="reorderable-row"
-            *ngFor="let item of data; let idx = index" 
-            [uxReorderableModel]="item" 
-            tabindex="0" 
+            *ngFor="let item of data; let idx = index"
+            [uxReorderableModel]="item"
+            tabindex="0"
             (keydown.arrowdown)="movedown(item, idx, $event)"
             (keydown.arrowup)="moveup(item, idx, $event)">
 
@@ -53,7 +53,7 @@
 </p>
 
 <p>
-    The following property can be used on the <code>uxReorderable</code> directive:
+    The following properties can be used on the <code>uxReorderable</code> directive:
 </p>
 
 <uxd-api-properties tableTitle="Inputs">
@@ -69,6 +69,11 @@
         <p>
             If there is no dataset representing the items then this property is not required.
         </p>
+    </tr>
+    <tr uxd-api-property name="reorderableGroup" type="string">
+        The name of the reorderable group which this container belongs to. <code>uxReorderable</code> elements which
+        belong to the same group can have items dragged between them. Only required if multiple drop containers are
+        being created.
     </tr>
 </uxd-api-properties>
 
@@ -107,6 +112,15 @@
         The data associated with the element being dragged. This will be null if no <code>uxReorderableModel</code> was specified on the element.
     </tr>
 </uxd-api-properties>
+
+<p>
+    This directive dynamically applies the following classes to assist with styling:
+</p>
+
+<ul>
+    <li><code>ux-reorderable-moving</code> - this is set on a draggable item while it is being dragged.</li>
+    <li><code>ux-reorderable-container-moving</code> - this is set on the container(s) while an item is being dragged.</li>
+</ul>
 
 <p>
     The following code can be used to create the example above:
