@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, OnInit, ContentChildren, QueryList, OnDestroy, Output, EventEmitter, Renderer2, NgZone, AfterViewInit, HostBinding } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, ContentChildren, QueryList, OnDestroy, Output, EventEmitter, Renderer2, AfterViewInit, HostBinding } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Drake } from 'dragula';
 import { ReorderableHandleDirective } from './reorderable-handle.directive';
@@ -32,7 +32,6 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
     constructor(
         private _elementRef: ElementRef,
         private _renderer: Renderer2,
-        private _ngZone: NgZone,
         private _service: ReorderableService
     ) { }
 

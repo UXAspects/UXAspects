@@ -181,9 +181,6 @@ export class ReorderableGroup {
             return;
         }
 
-        // for performance gains lets run this outside ng zone
-        // this._ngZone.runOutsideAngular(this.initDragula);
-
         this._instance = dragula(this._containers.map((c) => c.element), this.config);
 
         this._instance.on('drag', (element: Element, source: Element) => {
