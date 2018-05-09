@@ -1,0 +1,79 @@
+<div class="dnd-cards-demo">
+
+    <div class="dnd-cards-container card-view"
+        uxReorderable [(reorderableModel)]="cards" reorderableGroup="cards-demo">
+
+        <div *ngFor="let component of cards; let idx = index" class="card"
+            [uxReorderableModel]="component"
+            tabindex="0"
+            [focusIf]="component === focus"
+            (keydown.arrowup)="moveUp(cards, idx, $event)"
+            (keydown.arrowdown)="moveDown(cards, idx, $event)"
+            (keydown.arrowright)="toList(cards, idx, $event)">
+
+            <div class="content">
+                <div uxReorderableHandle class="handle">
+                    <span class="hpe-icon hpe-drag"></span>
+                </div>
+                <span class="hpe-icon" [ngClass]="component.icon"></span>
+                <div class="name">{{component.name}}</div>
+                <div class="type">{{component.type}}</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="dnd-list-container"
+        uxReorderable [(reorderableModel)]="list" reorderableGroup="cards-demo">
+
+        <div *ngFor="let component of list; let idx = index" class="demo-list-item"
+            [uxReorderableModel]="component"
+            tabindex="0"
+            [focusIf]="component === focus"
+            (keydown.arrowup)="moveUp(list, idx, $event)"
+            (keydown.arrowdown)="moveDown(list, idx, $event)"
+            (keydown.arrowleft)="toCard(list, idx, $event)">
+
+            <div uxReorderableHandle class="handle">
+                <span class="hpe-icon hpe-drag"></span>
+            </div>
+            <div class="title">{{component.name}}</div>
+            <div class="component">
+                <ng-container *ngTemplateOutlet="component.content"></ng-container>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template #dropdown>
+    <div class="btn-group" dropdown>
+        <button type="button" class="btn button-secondary">Action</button>
+        <button class="btn button-secondary dropdown-toggle" dropdownToggle
+            aria-label="Toggle Dropdown" aria-expanded="false">
+            <span class="hpe-icon hpe-down"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" *dropdownMenu>
+            <li><a>Action</a></li>
+            <li><a>Another action</a></li>
+        </ul>
+    </div>
+</ng-template>
+
+<ng-template #text>
+    <textarea class="form-control" placeholder="Enter text" rows="4"></textarea>
+</ng-template>
+
+<ng-template #buttons>
+    <div class="btn-group">
+        <button type="button" class="btn button-toggle-primary" [(ngModel)]="direction" btnRadio="left">
+            Left
+        </button>
+        <button type="button" class="btn button-toggle-primary" [(ngModel)]="direction" btnRadio="right">
+            Right
+        </button>
+    </div>
+</ng-template>
