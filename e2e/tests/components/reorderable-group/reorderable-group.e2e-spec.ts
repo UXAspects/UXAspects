@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { browser, $, $$, element, by } from 'protractor';
 import { ReorderableGroupPage } from './reorderable-group.po.spec';
 
 describe('Reorderable Group', () => {
@@ -11,39 +11,71 @@ describe('Reorderable Group', () => {
     });
 
     it('should have correct initial states', async () => {
+        expect(await page.container1Rows.count()).toBe(3);
+        expect(await page.container2Rows.count()).toBe(0);
 
-        expect(await page.row1.isDisplayed()).toBeTruthy();
-        expect(await page.row2.isDisplayed()).toBeTruthy();
-        expect(await page.row3.isDisplayed()).toBeTruthy();
+        const objects1 = await page.getObjects1();
+        expect(objects1.length).toBe(3);
+        expect(objects1[0].document).toBe('Document 0');
+        expect(objects1[1].document).toBe('Document 1');
+        expect(objects1[2].document).toBe('Document 2');
 
-        expect(await page.handle1.isDisplayed()).toBeTruthy();
-        expect(await page.handle2.isDisplayed()).toBeTruthy();
-        expect(await page.handle3.isDisplayed()).toBeTruthy();
-
+        const objects2 = await page.getObjects2();
+        expect(objects2.length).toBe(0);
     });
 
-    it('should be able to drag an item down', async () => {
+    it('should be able to reorder within a container', async () => {
+        const row0 = element(by.id('item1-0'));
 
         // get the height of a table row
-        const { height } = await page.row1.getSize();
+        const { height } = await row0.getSize();
 
         // perform drag and drop
-        browser.driver.actions().mouseDown(page.handle1).mouseMove({ x: 0, y: Math.round(height * 1.5) }).mouseUp().perform();
+        await browser.driver.actions().mouseDown(row0).mouseMove({ x: 0, y: Math.round(height * 1.5) }).mouseUp().perform();
 
-        // check the order of the items
-        expect(await page.data.getText()).toBe('[ "Document 1", "Document 0", "Document 2" ]');
+        expect(await page.container1Rows.count()).toBe(3);
+        expect(await page.container2Rows.count()).toBe(0);
+
+        const objects1 = await page.getObjects1();
+        expect(objects1.length).toBe(3);
+        expect(objects1[0].document).toBe('Document 1');
+        expect(objects1[1].document).toBe('Document 0');
+        expect(objects1[2].document).toBe('Document 2');
+
+        const objects2 = await page.getObjects2();
+        expect(objects2.length).toBe(0);
     });
 
-    it('should be able to drag an item up', async () => {
+    it('should be able to drag between containers', async () => {
+        const row0 = element(by.id('item1-0'));
 
-        // get the height of a table row
-        const { height } = await page.row1.getSize();
+        await browser.actions().dragAndDrop(row0, page.container2).perform();
 
-        // perform drag and drop
-        browser.driver.actions().mouseDown(page.handle2).mouseMove({ x: 0, y: -height }).mouseUp().perform();
+        expect(await page.container1Rows.count()).toBe(2);
+        expect(await page.container2Rows.count()).toBe(1);
 
-        // check the order of the items
-        expect(await page.data.getText()).toBe('[ "Document 1", "Document 0", "Document 2" ]');
+        let objects1 = await page.getObjects1();
+        expect(objects1.length).toBe(2);
+        expect(objects1[0].document).toBe('Document 1');
+        expect(objects1[1].document).toBe('Document 2');
+
+        let objects2 = await page.getObjects2();
+        expect(objects2.length).toBe(1);
+        expect(objects2[0].document).toBe('Document 0');
+
+        await browser.actions().dragAndDrop(row0, page.container2).perform();
+
+        expect(await page.container1Rows.count()).toBe(1);
+        expect(await page.container2Rows.count()).toBe(2);
+
+        objects1 = await page.getObjects1();
+        expect(objects1.length).toBe(1);
+        expect(objects1[0].document).toBe('Document 2');
+
+        objects2 = await page.getObjects2();
+        expect(objects2.length).toBe(2);
+        expect(objects2[0].document).toBe('Document 0');
+        expect(objects2[1].document).toBe('Document 1');
     });
 
 });
