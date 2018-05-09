@@ -155,6 +155,11 @@ const ROUTES: Routes = [
             './reorderable-table/reorderable-table.module#ReorderableTableTestPageModule'
     },
     {
+        path: 'reorderable-group',
+        loadChildren:
+            './reorderable-group/reorderable-group.module#ReorderableGroupTestPageModule'
+    },
+    {
         path: 'search-builder',
         loadChildren:
             './search-builder/search-builder.module#SearchBuilderTestPageModule'
