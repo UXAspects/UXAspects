@@ -19,7 +19,7 @@ export default function FacetDynamicCtrl($scope) {
   };
 
   if (!$scope.facetOptionTypeahead) {
-    $scope.facetOptionTypeahead = "option.name +' (' + option.count + ')'";
+    $scope.facetOptionTypeahead = "option.name + ' (' + option.count + ')'";
   }
 
   vm.expanded = true;
@@ -98,6 +98,7 @@ FacetDynamicCtrl.prototype.select = function ($item) {
   filterOption.deselect = function () {
     vm.remove(this.option, vm.selectedDynamicFacets.indexOf(this));
   };
+
   //trigger select
   filterOption.select();
   //clear the input text

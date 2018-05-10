@@ -124,7 +124,6 @@ import './services/windowCommunicationService/windowCommunication.module.js';
 import './templates/angular-breadcrumb/angular-breadcrumb.html';
 import './templates/ui-bootstrap/pagination/pagination.html';
 import './directives/facets/facetOption/facetOptionDefault.html';
-import './directives/facets/facetOption/facetOptionSelectedDefault.html';
 
 // Import Wrappers
 import './wrappers/wrappers.module';

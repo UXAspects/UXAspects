@@ -18,7 +18,6 @@ export default function facetDynamic($controller, previewPaneProvider) {
       maxLines: "=?",
       disableReturn: "=?",
       facetOptionTemplate: "=?",
-      facetOptionSelectedTemplate: "=?",
       facetOptionTypeahead: "=?"
     },
     link: function (scope, element, attrs, controllers) {
