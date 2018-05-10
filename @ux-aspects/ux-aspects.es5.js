@@ -33,13 +33,13 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/observable/of';
 import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
-import { DOCUMENT as DOCUMENT$1 } from '@angular/platform-browser';
 import { of as of$2 } from 'rxjs/observable/of';
-import { from as from$2 } from 'rxjs/observable/from';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/platform-browser';
 import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/partition';
+import { from as from$2 } from 'rxjs/observable/from';
 import 'rxjs/add/observable/concat';
 import { Http, HttpModule, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/takeUntil';
@@ -4792,6 +4792,71 @@ var __extends$43 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, 
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
+ * Emits only the first value (or the first value that meets some condition)
+ * emitted by the source Observable.
+ *
+ * <span class="informal">Emits only the first value. Or emits only the first
+ * value that passes some test.</span>
+ *
+ * <img src="./img/first.png" width="100%">
+ *
+ * If called with no arguments, `first` emits the first value of the source
+ * Observable, then completes. If called with a `predicate` function, `first`
+ * emits the first value of the source that matches the specified condition. It
+ * may also take a `resultSelector` function to produce the output value from
+ * the input value, and a `defaultValue` to emit in case the source completes
+ * before it is able to emit a valid value. Throws an error if `defaultValue`
+ * was not provided and a matching element is not found.
+ *
+ * @example <caption>Emit only the first click that happens on the DOM</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.first();
+ * result.subscribe(x => console.log(x));
+ *
+ * @example <caption>Emits the first click that happens on a DIV</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.first(ev => ev.target.tagName === 'DIV');
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link filter}
+ * @see {@link find}
+ * @see {@link take}
+ *
+ * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
+ * callback if the Observable completes before any `next` notification was sent.
+ *
+ * @param {function(value: T, index: number, source: Observable<T>): boolean} [predicate]
+ * An optional function called with each item to test for condition matching.
+ * @param {function(value: T, index: number): R} [resultSelector] A function to
+ * produce the value on the output Observable based on the values
+ * and the indices of the source Observable. The arguments passed to this
+ * function are:
+ * - `value`: the value that was emitted on the source.
+ * - `index`: the "index" of the value from the source.
+ * @param {R} [defaultValue] The default value emitted in case no valid value
+ * was found on the source.
+ * @return {Observable<T|R>} An Observable of the first item that matches the
+ * condition.
+ * @method first
+ * @owner Observable
+ */
+function first$2(predicate, resultSelector, defaultValue) {
+    return function (source) { return source.lift(new FirstOperator(predicate, resultSelector, defaultValue, source)); };
+}
+var first_2 = first$2;
+var FirstOperator = (function () {
+    function FirstOperator(predicate, resultSelector, defaultValue, source) {
+        this.predicate = predicate;
+        this.resultSelector = resultSelector;
+        this.defaultValue = defaultValue;
+        this.source = source;
+    }
+    FirstOperator.prototype.call = function (observer, source) {
+        return source.subscribe(new FirstSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source));
+    };
+    return FirstOperator;
+}());
+/**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
  * @extends {Ignored}
@@ -4869,6 +4934,9 @@ var FirstSubscriber = (function (_super) {
     };
     return FirstSubscriber;
 }(Subscriber_1.Subscriber));
+var first_1 = {
+    first: first_2
+};
 var __extends$47 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b)
         if (b.hasOwnProperty(p))
@@ -8603,6 +8671,7 @@ var ZipBufferIterator = (function (_super) {
 var debounceTime$2 = debounceTime_1.debounceTime;
 var distinctUntilChanged$3 = distinctUntilChanged_1.distinctUntilChanged;
 var filter$1 = filter_1.filter;
+var first$1 = first_1.first;
 var map$3 = map_1.map;
 var throttle = throttle_1.throttle;
 var CardTabsService = (function () {
@@ -11322,7 +11391,7 @@ var TimepickerComponent = (function () {
                     selector: 'timepicker',
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, TimepickerStore],
-                    template: "<table> <tbody> <tr class=\"text-center\" [class.hidden]=\"!showSpinners\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours || !isEditable\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes || !isEditable\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds || !isEditable\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" [class.is-invalid]=\"invalidHours\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" *ngIf=\"showMinutes\" [class.has-error]=\"invalidMinutes\"> <input type=\"text\" [class.is-invalid]=\"invalidMinutes\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" [class.is-invalid]=\"invalidSeconds\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"!isEditable || !canToggleMeridian\" [class.disabled]=\"!isEditable || !canToggleMeridian\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [class.hidden]=\"!showSpinners\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours || !isEditable\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes || !isEditable\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds || !isEditable\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
+                    template: "<table> <tbody> <tr class=\"text-center\" [hidden]=\"!showSpinners\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours || !isEditable\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes || !isEditable\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds || !isEditable\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" [class.is-invalid]=\"invalidHours\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" *ngIf=\"showMinutes\" [class.has-error]=\"invalidMinutes\"> <input type=\"text\" [class.is-invalid]=\"invalidMinutes\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" [class.is-invalid]=\"invalidSeconds\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"!isEditable || !canToggleMeridian\" [class.disabled]=\"!isEditable || !canToggleMeridian\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [hidden]=\"!showSpinners\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours || !isEditable\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes || !isEditable\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds || !isEditable\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
                     styles: ["\n    .bs-chevron{\n      border-style: solid;\n      display: block;\n      width: 9px;\n      height: 9px;\n      position: relative;\n      border-width: 3px 0px 0 3px;\n    }\n    .bs-chevron-up{\n      -webkit-transform: rotate(45deg);\n      transform: rotate(45deg);\n      top: 2px;\n    }\n    .bs-chevron-down{\n      -webkit-transform: rotate(-135deg);\n      transform: rotate(-135deg);\n      top: -2px;\n    }\n    .bs-timepicker-field{\n      width: 50px;\n    }\n  "],
                     encapsulation: ViewEncapsulation.None
                 },] },
@@ -11454,7 +11523,7 @@ var ButtonCheckboxDirective = (function () {
     ButtonCheckboxDirective.propDecorators = {
         'btnCheckboxTrue': [{ type: Input },],
         'btnCheckboxFalse': [{ type: Input },],
-        'state': [{ type: HostBinding, args: ['class.active',] },],
+        'state': [{ type: HostBinding, args: ['class.active',] }, { type: HostBinding, args: ['attr.aria-pressed',] },],
         'onClick': [{ type: HostListener, args: ['click',] },],
     };
     return ButtonCheckboxDirective;
@@ -11625,7 +11694,7 @@ var ButtonRadioDirective = (function () {
         'uncheckable': [{ type: Input },],
         'value': [{ type: Input },],
         'disabled': [{ type: Input },],
-        'isActive': [{ type: HostBinding, args: ['class.active',] },],
+        'isActive': [{ type: HostBinding, args: ['class.active',] }, { type: HostBinding, args: ['attr.aria-pressed',] },],
         'onClick': [{ type: HostListener, args: ['click',] },],
     };
     return ButtonRadioDirective;
@@ -15943,7 +16012,8 @@ var BsDropdownDirective = (function () {
     };
     /**
      * Toggles an element’s popover. This is considered a “manual” triggering of
-     * the popover.
+     * the popover. With parameter <code>true</code> allows toggling, with parameter <code>false</code>
+     * only hides opened dropdown. Parameter usage will be removed in ngx-bootstrap v3
      */
     BsDropdownDirective.prototype.toggle = function (value) {
         if (this.isOpen || !value) {
@@ -16717,6 +16787,523 @@ FloatingActionButtonsModule.decorators = [
  * @nocollapse
  */
 FloatingActionButtonsModule.ctorParameters = function () { return []; };
+/**
+ * Configuration service for the Popover directive.
+ * You can inject this service, typically in your root component, and customize
+ * the values of its properties in order to provide default values for all the
+ * popovers used in the application.
+ */
+var PopoverConfig = (function () {
+    function PopoverConfig() {
+        /**
+         * Placement of a popover. Accepts: "top", "bottom", "left", "right", "auto"
+         */
+        this.placement = 'top';
+        /**
+         * Specifies events that should trigger. Supports a space separated list of
+         * event names.
+         */
+        this.triggers = 'click';
+        this.outsideClick = false;
+    }
+    PopoverConfig.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    PopoverConfig.ctorParameters = function () { return []; };
+    return PopoverConfig;
+}());
+var PopoverContainerComponent = (function () {
+    function PopoverContainerComponent(config) {
+        Object.assign(this, config);
+    }
+    Object.defineProperty(PopoverContainerComponent.prototype, "isBs3", {
+        get: function () {
+            return isBs3();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    PopoverContainerComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'popover-container',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    // tslint:disable-next-line
+                    host: {
+                        '[class]': '"popover in popover-" + placement + " " + "bs-popover-" + placement + " " + placement + " " + containerClass',
+                        '[class.show]': '!isBs3',
+                        role: 'tooltip',
+                        style: 'display:block;'
+                    },
+                    styles: [
+                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: 50%;\n      margin-left: -8px;\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: 50%;\n      margin-top: -8px;\n    }\n  "
+                    ],
+                    template: "<div class=\"popover-arrow arrow\"></div> <h3 class=\"popover-title popover-header\" *ngIf=\"title\">{{ title }}</h3> <div class=\"popover-content popover-body\"> <ng-content></ng-content> </div> "
+                },] },
+    ];
+    /** @nocollapse */
+    PopoverContainerComponent.ctorParameters = function () {
+        return [
+            { type: PopoverConfig, },
+        ];
+    };
+    PopoverContainerComponent.propDecorators = {
+        'placement': [{ type: Input },],
+        'title': [{ type: Input },],
+    };
+    return PopoverContainerComponent;
+}());
+/**
+ * A lightweight, extensible directive for fancy popover creation.
+ */
+var PopoverDirective = (function () {
+    function PopoverDirective(_elementRef, _renderer, _viewContainerRef, _config, cis) {
+        /**
+         * Close popover on outside click
+         */
+        this.outsideClick = false;
+        /**
+         * Css class for popover container
+         */
+        this.containerClass = '';
+        this._isInited = false;
+        this._popover = cis
+            .createLoader(_elementRef, _viewContainerRef, _renderer)
+            .provide({ provide: PopoverConfig, useValue: _config });
+        Object.assign(this, _config);
+        this.onShown = this._popover.onShown;
+        this.onHidden = this._popover.onHidden;
+        // fix: no focus on button on Mac OS #1795
+        if (typeof window !== 'undefined') {
+            _elementRef.nativeElement.addEventListener('click', function () {
+                try {
+                    _elementRef.nativeElement.focus();
+                }
+                catch (err) {
+                    return;
+                }
+            });
+        }
+    }
+    Object.defineProperty(PopoverDirective.prototype, "isOpen", {
+        /**
+         * Returns whether or not the popover is currently being shown
+         */
+        get: function () {
+            return this._popover.isShown;
+        },
+        set: function (value) {
+            if (value) {
+                this.show();
+            }
+            else {
+                this.hide();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Opens an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.show = function () {
+        if (this._popover.isShown || !this.popover) {
+            return;
+        }
+        this._popover
+            .attach(PopoverContainerComponent)
+            .to(this.container)
+            .position({ attachment: this.placement })
+            .show({
+            content: this.popover,
+            context: this.popoverContext,
+            placement: this.placement,
+            title: this.popoverTitle,
+            containerClass: this.containerClass
+        });
+        this.isOpen = true;
+    };
+    /**
+     * Closes an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.hide = function () {
+        if (this.isOpen) {
+            this._popover.hide();
+            this.isOpen = false;
+        }
+    };
+    /**
+     * Toggles an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.toggle = function () {
+        if (this.isOpen) {
+            return this.hide();
+        }
+        this.show();
+    };
+    PopoverDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        // fix: seems there are an issue with `routerLinkActive`
+        // which result in duplicated call ngOnInit without call to ngOnDestroy
+        // read more: https://github.com/valor-software/ngx-bootstrap/issues/1885
+        if (this._isInited) {
+            return;
+        }
+        this._isInited = true;
+        this._popover.listen({
+            triggers: this.triggers,
+            outsideClick: this.outsideClick,
+            show: function () { return _this.show(); }
+        });
+    };
+    PopoverDirective.prototype.ngOnDestroy = function () {
+        this._popover.dispose();
+    };
+    PopoverDirective.decorators = [
+        { type: Directive, args: [{ selector: '[popover]', exportAs: 'bs-popover' },] },
+    ];
+    /** @nocollapse */
+    PopoverDirective.ctorParameters = function () {
+        return [
+            { type: ElementRef, },
+            { type: Renderer2, },
+            { type: ViewContainerRef, },
+            { type: PopoverConfig, },
+            { type: ComponentLoaderFactory, },
+        ];
+    };
+    PopoverDirective.propDecorators = {
+        'popover': [{ type: Input },],
+        'popoverContext': [{ type: Input },],
+        'popoverTitle': [{ type: Input },],
+        'placement': [{ type: Input },],
+        'outsideClick': [{ type: Input },],
+        'triggers': [{ type: Input },],
+        'container': [{ type: Input },],
+        'containerClass': [{ type: Input },],
+        'isOpen': [{ type: Input },],
+        'onShown': [{ type: Output },],
+        'onHidden': [{ type: Output },],
+    };
+    return PopoverDirective;
+}());
+var PopoverModule = (function () {
+    function PopoverModule() {
+    }
+    PopoverModule.forRoot = function () {
+        return {
+            ngModule: PopoverModule,
+            providers: [PopoverConfig, ComponentLoaderFactory, PositioningService]
+        };
+    };
+    PopoverModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CommonModule],
+                    declarations: [PopoverDirective, PopoverContainerComponent],
+                    exports: [PopoverDirective],
+                    entryComponents: [PopoverContainerComponent]
+                },] },
+    ];
+    /** @nocollapse */
+    PopoverModule.ctorParameters = function () { return []; };
+    return PopoverModule;
+}());
+var FocusIfDirective = (function () {
+    /**
+     * @param {?} _elementRef
+     */
+    function FocusIfDirective(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+    Object.defineProperty(FocusIfDirective.prototype, "focusIf", {
+        /**
+         * @param {?} focus
+         * @return {?}
+         */
+        set: function (focus) {
+            var _this = this;
+            if (focus) {
+                setTimeout(function () { return _this._elementRef.nativeElement.focus(); });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return FocusIfDirective;
+}());
+FocusIfDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[focusIf]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+FocusIfDirective.ctorParameters = function () { return [
+    { type: ElementRef, },
+]; };
+FocusIfDirective.propDecorators = {
+    'focusIf': [{ type: Input },],
+};
+var FocusIfModule = (function () {
+    function FocusIfModule() {
+    }
+    return FocusIfModule;
+}());
+FocusIfModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [FocusIfDirective],
+                declarations: [FocusIfDirective]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+FocusIfModule.ctorParameters = function () { return []; };
+var HierarchyBarService = (function () {
+    function HierarchyBarService() {
+        this.nodes$ = new BehaviorSubject$1([]);
+        this._nodes = [];
+    }
+    /**
+     * Store the root node of the hierarchy tree
+     * @param {?} root
+     * @return {?}
+     */
+    HierarchyBarService.prototype.setRootNode = function (root) {
+        // store the root node
+        this._root = root;
+        // create a flat structure of nodes
+        this._nodes = this.getNodeList(root);
+        // flatten the array - based on the selected node
+        this.nodes$.next(this.getSelectedChildren(root));
+    };
+    /**
+     * Select a node. This causes all nodes to be
+     * deselected and the path to the selected node
+     * to be selected
+     * @param {?} node
+     * @return {?}
+     */
+    HierarchyBarService.prototype.selectNode = function (node) {
+        // deselect all nodes
+        this.deselectAll();
+        // ensure the current node is selected and its parents
+        this.select(node);
+        // emit a new node list to trigger change detection
+        this.nodes$.next(this.getSelectedChildren(this._root));
+    };
+    /**
+     * Handles getting children with support for both arrays and observables
+     * @param {?} node
+     * @return {?}
+     */
+    HierarchyBarService.prototype.getChildren = function (node) {
+        var _this = this;
+        if (Array.isArray(node.children)) {
+            return of$2({ loading: false, children: node.children });
+        }
+        var /** @type {?} */ children$ = node.children;
+        // if it is an observable then handle loading
+        return Observable$1.create(function (observer) {
+            // emit initial value
+            observer.next({ loading: true, children: [] });
+            // now wait until the children observable completes
+            children$.pipe(first$1()).subscribe(function (children) {
+                // replace the observable with an array for future loading
+                node.children = children;
+                // rebuild the node tree
+                _this.setRootNode(_this._root);
+                // emit the latest value
+                observer.next({ loading: false, children: children });
+                // close the observable stream
+                observer.complete();
+            });
+        });
+    };
+    /**
+     * Traverses all the parents to ensure they are selected
+     * @param {?} node
+     * @return {?}
+     */
+    HierarchyBarService.prototype.select = function (node) {
+        node.selected = true;
+        if (node.parent) {
+            this.select(node.parent);
+        }
+    };
+    /**
+     * Deselects all nodes
+     * @return {?}
+     */
+    HierarchyBarService.prototype.deselectAll = function () {
+        this._nodes.forEach(function (node) { return node.selected = false; });
+    };
+    /**
+     * Gets all the nodes in the tree as a flat array.
+     * It also stores the parent node in a parent property
+     * on the node for easy traversal in both directions
+     * @param {?} node
+     * @return {?}
+     */
+    HierarchyBarService.prototype.getNodeList = function (node) {
+        var _this = this;
+        // if there are no children then return only itself
+        if (!node.children || node.children instanceof Observable$1 || node.children.length === 0) {
+            return [node];
+        }
+        // store the parent property
+        node.children.forEach(function (child) { return child.parent = node; });
+        // get all descendants of this node
+        var /** @type {?} */ descendants = node.children.reduce(function (nodes, current) { return nodes.concat(_this.getNodeList(current)); }, []);
+        return [node].concat(descendants);
+    };
+    /**
+     * Gets all selected nodes from the parent node.
+     * @param {?} node
+     * @return {?}
+     */
+    HierarchyBarService.prototype.getSelectedChildren = function (node) {
+        if (node.children instanceof Observable$1) {
+            return [node];
+        }
+        // get the children - and account for when there is none
+        var /** @type {?} */ children = node.children || [];
+        // check if any child is selected
+        var /** @type {?} */ child = children.find(function (_child) { return _child.selected; });
+        // return the remaining chain of selected items
+        return child ? [node].concat(this.getSelectedChildren(child)) : [node];
+    };
+    return HierarchyBarService;
+}());
+HierarchyBarService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+HierarchyBarService.ctorParameters = function () { return []; };
+var HierarchyBarComponent = (function () {
+    /**
+     * @param {?} hierarchyBar
+     */
+    function HierarchyBarComponent(hierarchyBar) {
+        var _this = this;
+        this.hierarchyBar = hierarchyBar;
+        this.selectedChange = new EventEmitter();
+        this.overflow$ = new BehaviorSubject$1(false);
+        this.overflowNodes$ = new BehaviorSubject$1([]);
+        this._subscription = new Subscription$1();
+        // subscribe to changes in the selected node
+        var selected = hierarchyBar.nodes$.subscribe(function (nodes) { return _this.selectedChange.emit(nodes.length === 0 ? null : nodes[nodes.length - 1]); });
+        var changed = hierarchyBar.nodes$.pipe(debounceTime$2(0)).subscribe(function () { return _this.scrollIntoView(); });
+        // store subscriptions
+        this._subscription.add(selected);
+        this._subscription.add(changed);
+    }
+    Object.defineProperty(HierarchyBarComponent.prototype, "root", {
+        /**
+         * @param {?} node
+         * @return {?}
+         */
+        set: function (node) {
+            this.hierarchyBar.setRootNode(node);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(HierarchyBarComponent.prototype, "selected", {
+        /**
+         * @param {?} node
+         * @return {?}
+         */
+        set: function (node) {
+            this.hierarchyBar.selectNode(node);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    HierarchyBarComponent.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
+    };
+    /**
+     * When there is overflow ensure that the rightmost
+     * node remains in view at all times. The nodes no longer
+     * visible be be displayed in a popover available on the
+     * overflow indicator
+     * @return {?}
+     */
+    HierarchyBarComponent.prototype.scrollIntoView = function () {
+        var _this = this;
+        if (!this.nodelist) {
+            return;
+        }
+        // get the native element
+        var nativeElement = this.nodelist.nativeElement;
+        // emit whether or not there is overflow
+        this.overflow$.next(nativeElement.scrollWidth > nativeElement.offsetWidth);
+        // if the hierarchy bar contents do not overflow then do nothing
+        if (nativeElement.scrollWidth > nativeElement.offsetWidth) {
+            // determine the amount of overflow
+            var /** @type {?} */ overflowAmount_1 = nativeElement.scrollWidth - nativeElement.offsetWidth;
+            // determine which nodes are not fully visible
+            this.overflowNodes$.next(this.nodes.filter(function (node) { return node.nativeElement.offsetLeft < overflowAmount_1; })
+                .map(function (node, index) { return _this.hierarchyBar.nodes$.value[index]; }));
+            // move the scroll position to always show the last itme
+            this.nodelist.nativeElement.scrollLeft = overflowAmount_1;
+        }
+    };
+    return HierarchyBarComponent;
+}());
+HierarchyBarComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-hierarchy-bar',
+                template: "\n      <!-- Allow content to be placed on the left of the items -->\n      <aside class=\"hierarchy-bar-addons\">\n          <ng-content select=\"[uxHierarchyBarLeftAddon]\"></ng-content>\n      </aside>\n\n      <main #nodelist class=\"hierarchy-bar-nodes\" (uxResize)=\"scrollIntoView()\">\n\n          <div *ngIf=\"overflow$ | async\"\n               #popover=\"bs-popover\"\n               class=\"hierarchy-bar-overflow-indicator\"\n               [style.left.px]=\"nodelist.scrollLeft\"\n               [popover]=\"overflow\"\n               [popoverContext]=\"{ popover: popover }\"\n               placement=\"bottom\"\n               container=\"body\"\n               [outsideClick]=\"true\"\n               containerClass=\"hierarchy-bar-popover\">\n              . . .\n          </div>\n\n          <div #nodeElement class=\"hierarchy-bar-node\"\n               *ngFor=\"let node of hierarchyBar.nodes$ | async\">\n\n              <button class=\"hierarchy-bar-node-content\"\n                      [attr.aria-label]=\"node.title\"\n                      (click)=\"hierarchyBar.selectNode(node)\">\n\n                  <!-- Show an icon if specifed -->\n                  <img class=\"hierarchy-bar-node-icon\" *ngIf=\"node.icon\" [src]=\"node.icon\" alt=\"Hierarchy Bar Icon\">\n\n                  <!-- Show the name of the current node -->\n                  <span class=\"hierarchy-bar-node-title\">{{ node.title }}</span>\n\n              </button>\n\n              <!-- Show a dropdown arrow if there are children -->\n              <button *ngIf=\"node.children\"\n                    #popover=\"bs-popover\"\n                    aria-label=\"Show children\"\n                    role=\"button\"\n                    class=\"hierarchy-bar-node-arrow hpe-icon hpe-next\"\n                    [popover]=\"content\"\n                    [popoverContext]=\"{ node: node, popover: popover }\"\n                    placement=\"bottom\"\n                    container=\"body\"\n                    [outsideClick]=\"true\"\n                    containerClass=\"hierarchy-bar-popover\"\n                    tabindex=\"0\">\n              </button>\n\n          </div>\n\n      </main>\n\n      <!-- Allow content to be placed on the right of the items -->\n      <aside class=\"hierarchy-bar-addons\">\n          <ng-content select=\"[uxHierarchyBarRightAddon]\"></ng-content>\n      </aside>\n\n      <!-- Template for the popover list -->\n      <ng-template #content let-node=\"node\" let-popover=\"popover\">\n\n          <!-- Loading Indicator -->\n          <ul class=\"hierarchy-bar-node-list\" *ngIf=\"(hierarchyBar.getChildren(node) | async).loading\">\n\n              <li class=\"hierarchy-bar-node-list-item\">\n                  <ng-container [ngTemplateOutlet]=\"loadingIndicator || defaultLoadingIndicator\"></ng-container>\n              </li>\n          </ul>\n\n          <!-- List of children -->\n          <ul class=\"hierarchy-bar-node-list\" *ngIf=\"!(hierarchyBar.getChildren(node) | async).loading\">\n\n              <li *ngFor=\"let child of (hierarchyBar.getChildren(node) | async).children; let first = first\"\n                  class=\"hierarchy-bar-node-list-item\"\n                  [focusIf]=\"first\"\n                  tabindex=\"0\"\n                  (keydown.enter)=\"hierarchyBar.selectNode(child); popover.hide()\"\n                  (click)=\"hierarchyBar.selectNode(child); popover.hide()\">\n\n                  <!-- Show an icon if specifed -->\n                  <img class=\"hierarchy-bar-node-icon\" *ngIf=\"child.icon\" [src]=\"child.icon\" alt=\"Hierarchy Bar Icon\">\n\n                  <!-- Show the name of the current node -->\n                  <span class=\"hierarchy-bar-node-title\">{{ child.title }}</span>\n\n              </li>\n\n          </ul>\n      </ng-template>\n\n      <!-- Template for the overflow popover list -->\n      <ng-template #overflow let-popover=\"popover\">\n\n          <ul class=\"hierarchy-bar-node-list\">\n\n              <li *ngFor=\"let child of overflowNodes$ | async; let first = first\"\n                  class=\"hierarchy-bar-node-list-item\"\n                  tabindex=\"0\"\n                  [focusIf]=\"first\"\n                  (click)=\"hierarchyBar.selectNode(child); popover.hide()\"\n                  (keydown.enter)=\"hierarchyBar.selectNode(child); popover.hide()\">\n\n                  <!-- Show an icon if specifed -->\n                  <img class=\"hierarchy-bar-node-icon\" *ngIf=\"child.icon\" [src]=\"child.icon\" alt=\"Hierarchy Bar Icon\">\n\n                  <!-- Show the name of the current node -->\n                  <span class=\"hierarchy-bar-node-title\">{{ child.title }}</span>\n\n              </li>\n\n          </ul>\n      </ng-template>\n\n      <!-- Loading Indicator Template -->\n      <ng-template #defaultLoadingIndicator>\n          <div class=\"hierarchy-bar-node-icon\" alt=\"Hierarchy Bar Loading Indicator\">\n              <div class=\"spinner spinner-accent spinner-bounce-middle\"></div>\n          </div>\n\n          <!-- Show the name of the current node -->\n          <span class=\"hierarchy-bar-node-title\">Loading...</span>\n      </ng-template>\n    ",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                viewProviders: [HierarchyBarService]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+HierarchyBarComponent.ctorParameters = function () { return [
+    { type: HierarchyBarService, },
+]; };
+HierarchyBarComponent.propDecorators = {
+    'root': [{ type: Input },],
+    'selected': [{ type: Input },],
+    'loadingIndicator': [{ type: Input },],
+    'selectedChange': [{ type: Output },],
+    'nodelist': [{ type: ViewChild, args: ['nodelist',] },],
+    'nodes': [{ type: ViewChildren, args: ['nodeElement',] },],
+};
+var HierarchyBarModule = (function () {
+    function HierarchyBarModule() {
+    }
+    return HierarchyBarModule;
+}());
+HierarchyBarModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    ResizeModule,
+                    FocusIfModule,
+                    PopoverModule.forRoot()
+                ],
+                exports: [HierarchyBarComponent],
+                declarations: [HierarchyBarComponent],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+HierarchyBarModule.ctorParameters = function () { return []; };
 var SidePanelService = (function () {
     function SidePanelService() {
         this.open$ = new BehaviorSubject$1(false);
@@ -18208,11 +18795,13 @@ var NotificationService = (function () {
     /**
      * @param {?} templateRef
      * @param {?=} options
+     * @param {?=} data
      * @return {?}
      */
-    NotificationService.prototype.show = function (templateRef, options) {
+    NotificationService.prototype.show = function (templateRef, options, data) {
         var _this = this;
         if (options === void 0) { options = this.options; }
+        if (data === void 0) { data = {}; }
         options = Object.assign({}, this.options, options);
         var /** @type {?} */ notificationRef = {
             templateRef: templateRef,
@@ -18222,7 +18811,8 @@ var NotificationService = (function () {
             height: options.height,
             spacing: options.spacing,
             backgroundColor: options.backgroundColor,
-            iconColor: options.iconColor
+            iconColor: options.iconColor,
+            data: data
         };
         var /** @type {?} */ notifications = this.notifications$.getValue();
         if (this.direction === 'above') {
@@ -18295,7 +18885,7 @@ var NotificationListComponent = (function () {
 NotificationListComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-notification-list',
-                template: "\n      <div class=\"notification\" *ngFor=\"let notificationRef of notifications$ | async; let idx = index\" \n          [style.top.px]=\"(notificationRef.height + notificationRef.spacing) * idx\"\n          [style.height.px]=\"notificationRef.height\"\n          [style.background-color]=\"notificationRef.backgroundColor\"\n          [@notificationState]>\n          <ng-container *ngTemplateOutlet=\"notificationRef.templateRef; context: { $implicit: notificationRef }\"></ng-container>\n      </div>\n    ",
+                template: "\n      <div class=\"notification\" *ngFor=\"let notificationRef of notifications$ | async; let idx = index\"\n          [style.top.px]=\"(notificationRef.height + notificationRef.spacing) * idx\"\n          [style.height.px]=\"notificationRef.height\"\n          [style.background-color]=\"notificationRef.backgroundColor\"\n          [@notificationState]>\n          <ng-container *ngTemplateOutlet=\"notificationRef.templateRef; context: { $implicit: notificationRef, data: notificationRef.data }\"></ng-container>\n      </div>\n    ",
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 animations: [
                     trigger('notificationState', [
@@ -20054,230 +20644,6 @@ SearchBuilderComponent.propDecorators = {
     'queryChange': [{ type: Output },],
     'valid': [{ type: Output },],
 };
-/**
- * Configuration service for the Popover directive.
- * You can inject this service, typically in your root component, and customize
- * the values of its properties in order to provide default values for all the
- * popovers used in the application.
- */
-var PopoverConfig = (function () {
-    function PopoverConfig() {
-        /**
-         * Placement of a popover. Accepts: "top", "bottom", "left", "right", "auto"
-         */
-        this.placement = 'top';
-        /**
-         * Specifies events that should trigger. Supports a space separated list of
-         * event names.
-         */
-        this.triggers = 'click';
-        this.outsideClick = false;
-    }
-    PopoverConfig.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    PopoverConfig.ctorParameters = function () { return []; };
-    return PopoverConfig;
-}());
-var PopoverContainerComponent = (function () {
-    function PopoverContainerComponent(config) {
-        Object.assign(this, config);
-    }
-    Object.defineProperty(PopoverContainerComponent.prototype, "isBs3", {
-        get: function () {
-            return isBs3();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    PopoverContainerComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'popover-container',
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    // tslint:disable-next-line
-                    host: {
-                        '[class]': '"popover in popover-" + placement + " " + "bs-popover-" + placement + " " + placement + " " + containerClass',
-                        '[class.show]': '!isBs3',
-                        role: 'tooltip',
-                        style: 'display:block;'
-                    },
-                    styles: [
-                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: 50%;\n      margin-left: -8px;\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: 50%;\n      margin-top: -8px;\n    }\n  "
-                    ],
-                    template: "<div class=\"popover-arrow arrow\"></div> <h3 class=\"popover-title popover-header\" *ngIf=\"title\">{{ title }}</h3> <div class=\"popover-content popover-body\"> <ng-content></ng-content> </div> "
-                },] },
-    ];
-    /** @nocollapse */
-    PopoverContainerComponent.ctorParameters = function () {
-        return [
-            { type: PopoverConfig, },
-        ];
-    };
-    PopoverContainerComponent.propDecorators = {
-        'placement': [{ type: Input },],
-        'title': [{ type: Input },],
-    };
-    return PopoverContainerComponent;
-}());
-/**
- * A lightweight, extensible directive for fancy popover creation.
- */
-var PopoverDirective = (function () {
-    function PopoverDirective(_elementRef, _renderer, _viewContainerRef, _config, cis) {
-        /**
-         * Close popover on outside click
-         */
-        this.outsideClick = false;
-        /**
-         * Css class for popover container
-         */
-        this.containerClass = '';
-        this._isInited = false;
-        this._popover = cis
-            .createLoader(_elementRef, _viewContainerRef, _renderer)
-            .provide({ provide: PopoverConfig, useValue: _config });
-        Object.assign(this, _config);
-        this.onShown = this._popover.onShown;
-        this.onHidden = this._popover.onHidden;
-        // fix: no focus on button on Mac OS #1795
-        if (typeof window !== 'undefined') {
-            _elementRef.nativeElement.addEventListener('click', function () {
-                try {
-                    _elementRef.nativeElement.focus();
-                }
-                catch (err) {
-                    return;
-                }
-            });
-        }
-    }
-    Object.defineProperty(PopoverDirective.prototype, "isOpen", {
-        /**
-         * Returns whether or not the popover is currently being shown
-         */
-        get: function () {
-            return this._popover.isShown;
-        },
-        set: function (value) {
-            if (value) {
-                this.show();
-            }
-            else {
-                this.hide();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Opens an element’s popover. This is considered a “manual” triggering of
-     * the popover.
-     */
-    PopoverDirective.prototype.show = function () {
-        if (this._popover.isShown || !this.popover) {
-            return;
-        }
-        this._popover
-            .attach(PopoverContainerComponent)
-            .to(this.container)
-            .position({ attachment: this.placement })
-            .show({
-            content: this.popover,
-            context: this.popoverContext,
-            placement: this.placement,
-            title: this.popoverTitle,
-            containerClass: this.containerClass
-        });
-        this.isOpen = true;
-    };
-    /**
-     * Closes an element’s popover. This is considered a “manual” triggering of
-     * the popover.
-     */
-    PopoverDirective.prototype.hide = function () {
-        if (this.isOpen) {
-            this._popover.hide();
-            this.isOpen = false;
-        }
-    };
-    /**
-     * Toggles an element’s popover. This is considered a “manual” triggering of
-     * the popover.
-     */
-    PopoverDirective.prototype.toggle = function () {
-        if (this.isOpen) {
-            return this.hide();
-        }
-        this.show();
-    };
-    PopoverDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        // fix: seems there are an issue with `routerLinkActive`
-        // which result in duplicated call ngOnInit without call to ngOnDestroy
-        // read more: https://github.com/valor-software/ngx-bootstrap/issues/1885
-        if (this._isInited) {
-            return;
-        }
-        this._isInited = true;
-        this._popover.listen({
-            triggers: this.triggers,
-            outsideClick: this.outsideClick,
-            show: function () { return _this.show(); }
-        });
-    };
-    PopoverDirective.prototype.ngOnDestroy = function () {
-        this._popover.dispose();
-    };
-    PopoverDirective.decorators = [
-        { type: Directive, args: [{ selector: '[popover]', exportAs: 'bs-popover' },] },
-    ];
-    /** @nocollapse */
-    PopoverDirective.ctorParameters = function () {
-        return [
-            { type: ElementRef, },
-            { type: Renderer2, },
-            { type: ViewContainerRef, },
-            { type: PopoverConfig, },
-            { type: ComponentLoaderFactory, },
-        ];
-    };
-    PopoverDirective.propDecorators = {
-        'popover': [{ type: Input },],
-        'popoverContext': [{ type: Input },],
-        'popoverTitle': [{ type: Input },],
-        'placement': [{ type: Input },],
-        'outsideClick': [{ type: Input },],
-        'triggers': [{ type: Input },],
-        'container': [{ type: Input },],
-        'containerClass': [{ type: Input },],
-        'isOpen': [{ type: Input },],
-        'onShown': [{ type: Output },],
-        'onHidden': [{ type: Output },],
-    };
-    return PopoverDirective;
-}());
-var PopoverModule = (function () {
-    function PopoverModule() {
-    }
-    PopoverModule.forRoot = function () {
-        return {
-            ngModule: PopoverModule,
-            providers: [PopoverConfig, ComponentLoaderFactory, PositioningService]
-        };
-    };
-    PopoverModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [CommonModule],
-                    declarations: [PopoverDirective, PopoverContainerComponent],
-                    exports: [PopoverDirective],
-                    entryComponents: [PopoverContainerComponent]
-                },] },
-    ];
-    /** @nocollapse */
-    PopoverModule.ctorParameters = function () { return []; };
-    return PopoverModule;
-}());
 var TypeaheadOptionEvent = (function () {
     /**
      * @param {?} option
@@ -20836,12 +21202,23 @@ var InfiniteScrollDirective = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(InfiniteScrollDirective.prototype, "scrollElement", {
+        /**
+         * @param {?} element
+         * @return {?}
+         */
+        set: function (element) {
+            this._scrollElement = element instanceof ElementRef ? element : new ElementRef(element);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
     InfiniteScrollDirective.prototype.ngOnInit = function () {
-        if (!this.scrollElement) {
-            this.scrollElement = this._element;
+        if (!this._scrollElement) {
+            this._scrollElement = this._element;
         }
         this._loadButtonEnabled.next(!this.loadOnScroll);
     };
@@ -21003,29 +21380,18 @@ var InfiniteScrollDirective = (function () {
         });
     };
     /**
-     * @param {?} event
-     * @return {?}
-     */
-    InfiniteScrollDirective.prototype.onScroll = function (event) {
-        this.check();
-    };
-    /**
-     * @return {?}
-     */
-    InfiniteScrollDirective.prototype.onDomChange = function () {
-        this.check();
-    };
-    /**
      * Attach scroll event handler and DOM observer.
      * @return {?}
      */
     InfiniteScrollDirective.prototype.attachEventHandlers = function () {
+        // if the scrollElement is documentElement we must watch for a scroll event on the document
+        var /** @type {?} */ target = this._scrollElement.nativeElement instanceof HTMLHtmlElement ? document : this._scrollElement.nativeElement;
         // Subscribe to the scroll event on the target element.
-        this._scrollEventSub = Observable$1.fromEvent(this.scrollElement.nativeElement, 'scroll').subscribe(this.onScroll.bind(this));
+        this._scrollEventSub = fromEvent$1(target, 'scroll').subscribe(this.check.bind(this));
         // Subscribe to child DOM changes. The main effect of this is to check whether even more data is
         // required after the initial load.
-        this._domObserver = new MutationObserver(this.onDomChange.bind(this));
-        this._domObserver.observe(this.scrollElement.nativeElement, {
+        this._domObserver = new MutationObserver(this.check.bind(this));
+        this._domObserver.observe(this._scrollElement.nativeElement, {
             childList: true,
             subtree: true
         });
@@ -21052,9 +21418,7 @@ var InfiniteScrollDirective = (function () {
     InfiniteScrollDirective.prototype.attachLoadButtonEvents = function () {
         var _this = this;
         this._loadButtonSubscriptions.forEach(function (s) { return s.unsubscribe(); });
-        this._loadButtonSubscriptions = this._loadButtonQuery.map(function (loadButton) {
-            return loadButton.load.subscribe(_this.loadNextPage.bind(_this));
-        });
+        this._loadButtonSubscriptions = this._loadButtonQuery.map(function (loadButton) { return loadButton.load.subscribe(_this.loadNextPage.bind(_this)); });
     };
     /**
      * Conditionally loads a page into the collection based on directive state and request parameters.
@@ -21110,8 +21474,8 @@ var InfiniteScrollDirective = (function () {
             return false;
         }
         // Load if the remaining scroll area is <= the element height.
-        if (this.scrollElement && this.loadOnScroll) {
-            var /** @type {?} */ element = (this.scrollElement.nativeElement);
+        if (this._scrollElement && this.loadOnScroll) {
+            var /** @type {?} */ element = (this._scrollElement.nativeElement);
             var /** @type {?} */ remainingScroll = element.scrollHeight -
                 (element.scrollTop + element.clientHeight);
             return remainingScroll <= element.clientHeight;
@@ -21180,12 +21544,12 @@ InfiniteScrollDirective.ctorParameters = function () { return [
 InfiniteScrollDirective.propDecorators = {
     'load': [{ type: Input, args: ['uxInfiniteScroll',] },],
     '_collection': [{ type: Input, args: ['collection',] },],
+    'scrollElement': [{ type: Input },],
     'enabled': [{ type: Input },],
     'filter': [{ type: Input },],
     'loadOnInit': [{ type: Input },],
     'loadOnScroll': [{ type: Input },],
     'pageSize': [{ type: Input },],
-    'scrollElement': [{ type: Input },],
     'collectionChange': [{ type: Output },],
     'loadingEvent': [{ type: Output, args: ['loading',] },],
     'loadedEvent': [{ type: Output, args: ['loaded',] },],
@@ -21406,18 +21770,19 @@ var SelectComponent = (function () {
         this._element = _element;
         this._document = _document;
         this._typeaheadKeyService = _typeaheadKeyService;
-        this.valueChange = new EventEmitter();
-        this._input = new BehaviorSubject$1('');
-        this.inputChange = new EventEmitter();
-        this._dropdownOpen = false;
-        this.dropdownOpenChange = new EventEmitter();
         this.allowNull = false;
         this.disabled = false;
         this.dropDirection = 'down';
         this.maxHeight = '250px';
         this.multiple = false;
         this.pageSize = 20;
+        this.valueChange = new EventEmitter();
+        this.inputChange = new EventEmitter();
+        this.dropdownOpenChange = new EventEmitter();
         this.propagateChange = function (_) { };
+        this._input$ = new BehaviorSubject$1('');
+        this._dropdownOpen = false;
+        this._subscription = new Subscription$1();
     }
     Object.defineProperty(SelectComponent.prototype, "value", {
         /**
@@ -21434,6 +21799,10 @@ var SelectComponent = (function () {
             this._value = value;
             this.valueChange.emit(value);
             this.propagateChange(value);
+            // if we are not allow multiple selection update the input value (supporting ngModel)
+            if (!this.multiple && value !== null) {
+                this.input = this.getDisplay(value);
+            }
         },
         enumerable: true,
         configurable: true
@@ -21443,14 +21812,14 @@ var SelectComponent = (function () {
          * @return {?}
          */
         get: function () {
-            return this._input.getValue();
+            return this._input$.value;
         },
         /**
          * @param {?} value
          * @return {?}
          */
         set: function (value) {
-            this._input.next(value);
+            this._input$.next(value);
             this.inputChange.emit(value);
         },
         enumerable: true,
@@ -21480,51 +21849,37 @@ var SelectComponent = (function () {
     SelectComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Changes to the input field
-        this._input.subscribe(function (next) {
-            if (!_this.multiple && next !== _this.getDisplay(_this.value)) {
-                if (_this.allowNull) {
-                    _this.value = null;
-                }
-            }
-        });
+        var /** @type {?} */ onInput = this._input$.pipe(filter$1(function (value) { return _this.allowNull; }), filter$1(function (value) { return !_this.multiple && value !== _this.getDisplay(_this.value); })).subscribe(function (value) { return _this.value = null; });
         // Set up filter from input
-        this.filter = this._input
-            .map(function (input) {
-            if (!_this.multiple && input === _this.getDisplay(_this.value)) {
-                return '';
-            }
-            return input;
-        })
-            .debounceTime(200);
-        // Changes to filter value
-        this.filter.subscribe(function (next) {
-            // Open the dropdown when filter is nonempty.
-            if (next && next.length > 0) {
-                _this.dropdownOpen = true;
-            }
-        });
+        this.filter$ = this._input$.pipe(map$3(function (input) { return !_this.multiple && input === _this.getDisplay(_this.value) ? '' : input; }), debounceTime$2(200));
+        // Open the dropdown when filter is nonempty.
+        var /** @type {?} */ onFilter = this.filter$.pipe(filter$1(function (value) { return value && value.length > 0; })).subscribe(function () { return _this.dropdownOpen = true; });
+        // store the subscriptions
+        this._subscription.add(onInput);
+        this._subscription.add(onFilter);
     };
     /**
      * @param {?} changes
      * @return {?}
      */
     SelectComponent.prototype.ngOnChanges = function (changes) {
-        if (changes.value) {
-            if (!this.multiple && changes.value.currentValue !== null) {
-                this.input = this.getDisplay(changes.value.currentValue);
-            }
-        }
         if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input = '';
         }
+    };
+    /**
+     * @return {?}
+     */
+    SelectComponent.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
     };
     /**
      * @param {?} obj
      * @return {?}
      */
     SelectComponent.prototype.writeValue = function (obj) {
-        if (obj !== undefined) {
-            this._value = obj;
+        if (obj !== undefined && obj !== this._value) {
+            this.value = obj;
         }
     };
     /**
@@ -21580,7 +21935,7 @@ var SelectComponent = (function () {
         this._typeaheadKeyService.handleKey(event, this.singleTypeahead);
         switch (event.key) {
             case 'Enter':
-                if (this.dropdownOpen) {
+                if (this._dropdownOpen) {
                     // Set the highlighted option as the value and close
                     this.value = this.singleTypeahead.highlighted;
                     this.dropdownOpen = false;
@@ -21629,7 +21984,7 @@ var SelectComponent = (function () {
 SelectComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-select',
-                template: "\n      <ux-tag-input *ngIf=\"multiple\"\n          [(tags)]=\"value\"\n          [(input)]=\"input\"\n          [addOnPaste]=\"false\"\n          [disabled]=\"disabled\"\n          [display]=\"display\"\n          [freeInput]=\"false\"\n          [placeholder]=\"placeholder\"\n          [showTypeaheadOnClick]=\"true\">\n\n          <ux-typeahead #multipleTypeahead\n              [options]=\"options\"\n              [filter]=\"filter | async\"\n              [(open)]=\"dropdownOpen\"\n              [display]=\"display\"\n              [key]=\"key\"\n              [disabledOptions]=\"value\"\n              [dropDirection]=\"dropDirection\"\n              [maxHeight]=\"maxHeight\"\n              [pageSize]=\"pageSize\"\n              [selectFirst]=\"true\"\n              [loadingTemplate]=\"loadingTemplate\"\n              [optionTemplate]=\"optionTemplate\"\n              [noOptionsTemplate]=\"noOptionsTemplate\">\n          </ux-typeahead>\n\n      </ux-tag-input>\n\n      <div *ngIf=\"!multiple\" class=\"inner-addon right-addon\" [class.disabled]=\"disabled\">\n\n          <i class=\"hpe-icon\"\n              [class.hpe-down]=\"dropDirection === 'down'\"\n              [class.hpe-up]=\"dropDirection === 'up'\"></i>\n\n          <input #singleInput type=\"text\" class=\"form-control\"\n              [(ngModel)]=\"input\"\n              [placeholder]=\"placeholder\"\n              [disabled]=\"disabled\"\n              (click)=\"inputClickHandler($event)\"\n              (blur)=\"inputBlurHandler($event)\"\n              (keydown)=\"inputKeyHandler($event)\">\n\n          <ux-typeahead #singleTypeahead\n              [options]=\"options\"\n              [filter]=\"filter | async\"\n              [(open)]=\"dropdownOpen\"\n              [display]=\"display\"\n              [key]=\"key\"\n              [dropDirection]=\"dropDirection\"\n              [maxHeight]=\"maxHeight\"\n              [openOnFilterChange]=\"false\"\n              [pageSize]=\"pageSize\"\n              [selectFirst]=\"true\"\n              [loadingTemplate]=\"loadingTemplate\"\n              [optionTemplate]=\"optionTemplate\"\n              [noOptionsTemplate]=\"noOptionsTemplate\"\n              (optionSelected)=\"singleOptionSelected($event)\" >\n          </ux-typeahead>\n\n      </div>\n    ",
+                template: "\n      <ux-tag-input *ngIf=\"multiple\"\n          [(tags)]=\"value\"\n          [(input)]=\"input\"\n          [addOnPaste]=\"false\"\n          [disabled]=\"disabled\"\n          [display]=\"display\"\n          [freeInput]=\"false\"\n          [placeholder]=\"placeholder\"\n          [showTypeaheadOnClick]=\"true\">\n\n          <ux-typeahead #multipleTypeahead\n              [options]=\"options\"\n              [filter]=\"filter$ | async\"\n              [(open)]=\"dropdownOpen\"\n              [display]=\"display\"\n              [key]=\"key\"\n              [disabledOptions]=\"value\"\n              [dropDirection]=\"dropDirection\"\n              [maxHeight]=\"maxHeight\"\n              [pageSize]=\"pageSize\"\n              [selectFirst]=\"true\"\n              [loadingTemplate]=\"loadingTemplate\"\n              [optionTemplate]=\"optionTemplate\"\n              [noOptionsTemplate]=\"noOptionsTemplate\">\n          </ux-typeahead>\n\n      </ux-tag-input>\n\n      <div *ngIf=\"!multiple\" class=\"inner-addon right-addon\" [class.disabled]=\"disabled\">\n\n          <i class=\"hpe-icon\"\n              [class.hpe-down]=\"dropDirection === 'down'\"\n              [class.hpe-up]=\"dropDirection === 'up'\"></i>\n\n          <input #singleInput type=\"text\" class=\"form-control\"\n              [(ngModel)]=\"input\"\n              [placeholder]=\"placeholder\"\n              [disabled]=\"disabled\"\n              (click)=\"inputClickHandler($event)\"\n              (blur)=\"inputBlurHandler($event)\"\n              (keydown)=\"inputKeyHandler($event)\">\n\n          <ux-typeahead #singleTypeahead\n              [options]=\"options\"\n              [filter]=\"filter$ | async\"\n              [(open)]=\"dropdownOpen\"\n              [display]=\"display\"\n              [key]=\"key\"\n              [dropDirection]=\"dropDirection\"\n              [maxHeight]=\"maxHeight\"\n              [openOnFilterChange]=\"false\"\n              [pageSize]=\"pageSize\"\n              [selectFirst]=\"true\"\n              [loadingTemplate]=\"loadingTemplate\"\n              [optionTemplate]=\"optionTemplate\"\n              [noOptionsTemplate]=\"noOptionsTemplate\"\n              (optionSelected)=\"singleOptionSelected($event)\" >\n          </ux-typeahead>\n\n      </div>\n    ",
                 providers: [SELECT_VALUE_ACCESSOR]
             },] },
 ];
@@ -21643,11 +21998,8 @@ SelectComponent.ctorParameters = function () { return [
 ]; };
 SelectComponent.propDecorators = {
     'value': [{ type: Input },],
-    'valueChange': [{ type: Output },],
     'input': [{ type: Input },],
-    'inputChange': [{ type: Output },],
     'dropdownOpen': [{ type: Input },],
-    'dropdownOpenChange': [{ type: Output },],
     'options': [{ type: Input },],
     'display': [{ type: Input },],
     'key': [{ type: Input },],
@@ -21661,6 +22013,9 @@ SelectComponent.propDecorators = {
     'loadingTemplate': [{ type: Input },],
     'noOptionsTemplate': [{ type: Input },],
     'optionTemplate': [{ type: Input },],
+    'valueChange': [{ type: Output },],
+    'inputChange': [{ type: Output },],
+    'dropdownOpenChange': [{ type: Output },],
     'singleInput': [{ type: ViewChild, args: ['singleInput',] },],
     'multipleTypeahead': [{ type: ViewChild, args: ['multipleTypeahead',] },],
     'singleTypeahead': [{ type: ViewChild, args: ['singleTypeahead',] },],
@@ -22371,57 +22726,6 @@ TagInputComponent.propDecorators = {
     'keyHandler': [{ type: HostListener, args: ['keydown', ['$event'],] },],
     'focusOutHandler': [{ type: HostListener, args: ['focusout', ['$event'],] },],
 };
-var FocusIfDirective = (function () {
-    /**
-     * @param {?} _elementRef
-     */
-    function FocusIfDirective(_elementRef) {
-        this._elementRef = _elementRef;
-    }
-    Object.defineProperty(FocusIfDirective.prototype, "focusIf", {
-        /**
-         * @param {?} focus
-         * @return {?}
-         */
-        set: function (focus) {
-            if (focus) {
-                this._elementRef.nativeElement.focus();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return FocusIfDirective;
-}());
-FocusIfDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[focusIf]'
-            },] },
-];
-/**
- * @nocollapse
- */
-FocusIfDirective.ctorParameters = function () { return [
-    { type: ElementRef, },
-]; };
-FocusIfDirective.propDecorators = {
-    'focusIf': [{ type: Input },],
-};
-var FocusIfModule = (function () {
-    function FocusIfModule() {
-    }
-    return FocusIfModule;
-}());
-FocusIfModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [FocusIfDirective],
-                declarations: [FocusIfDirective]
-            },] },
-];
-/**
- * @nocollapse
- */
-FocusIfModule.ctorParameters = function () { return []; };
 var TagInputModule = (function () {
     function TagInputModule() {
     }
@@ -27190,20 +27494,230 @@ ReorderableModelDirective.propDecorators = {
 };
 // WORKAROUND: ng-packagr issue - https://github.com/dherges/ng-packagr/issues/163
 var dragula = dragulaNamespace__default || dragulaNamespace;
+var ReorderableService = (function () {
+    function ReorderableService() {
+        this._groups = {};
+        this._uniqueGroupId = 0;
+    }
+    /**
+     * Returns a unique string which can be used as a group name if one was not configured.
+     * @return {?}
+     */
+    ReorderableService.prototype.getUniqueGroupName = function () {
+        return '_uxReorderable_' + this._uniqueGroupId++;
+    };
+    /**
+     * Adds the container to the named group.
+     * @param {?} groupName
+     * @param {?} container
+     * @return {?}
+     */
+    ReorderableService.prototype.register = function (groupName, container) {
+        if (!this._groups[groupName]) {
+            this._groups[groupName] = new ReorderableGroup();
+        }
+        this._groups[groupName].register(container);
+        return this._groups[groupName];
+    };
+    /**
+     * Removes the container from the named group. If it was the last container in the group, destroys the group.
+     * @param {?} groupName
+     * @param {?} container
+     * @return {?}
+     */
+    ReorderableService.prototype.unregister = function (groupName, container) {
+        var /** @type {?} */ group = this._groups[groupName];
+        if (group) {
+            group.unregister(container);
+            if (group.isEmpty()) {
+                group.destroy();
+                delete this._groups[groupName];
+            }
+        }
+    };
+    /**
+     * Creates the dragula instance with the current config and attaches the events, if not already created.
+     * @param {?} groupName
+     * @return {?}
+     */
+    ReorderableService.prototype.initialize = function (groupName) {
+        var /** @type {?} */ group = this._groups[groupName];
+        if (group) {
+            group.initialize();
+        }
+        return group;
+    };
+    /**
+     * Returns the group object for the given name.
+     * @param {?} group
+     * @return {?}
+     */
+    ReorderableService.prototype.getGroup = function (group) {
+        return this._groups[group];
+    };
+    return ReorderableService;
+}());
+ReorderableService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+ReorderableService.ctorParameters = function () { return []; };
+/**
+ * Represents a collection of drag-and-drop containers (uxReorderable) that items can be dragged between.
+ */
+var ReorderableGroup = (function () {
+    function ReorderableGroup() {
+        this.drag = new EventEmitter();
+        this.dragEnd = new EventEmitter();
+        this.drop = new EventEmitter();
+        this.cancel = new EventEmitter();
+        this.cloned = new EventEmitter();
+        this._containers = [];
+        this._config = {
+            moves: this.canMove.bind(this)
+        };
+    }
+    /**
+     * Returns true if there are no containers registered with the group.
+     * @return {?}
+     */
+    ReorderableGroup.prototype.isEmpty = function () {
+        return this._containers.length === 0;
+    };
+    /**
+     * Returns the model object (uxReorderableModel) for an elements in one of the containers in the group.
+     * @param {?} element
+     * @return {?}
+     */
+    ReorderableGroup.prototype.getModelForElement = function (element) {
+        for (var _d = 0, _e = this._containers; _d < _e.length; _d++) {
+            var container = _e[_d];
+            var /** @type {?} */ model = container.getModelFromElement(element);
+            if (model) {
+                return model;
+            }
+        }
+        return null;
+    };
+    /**
+     * Adds the container to the group.
+     * @param {?} container
+     * @return {?}
+     */
+    ReorderableGroup.prototype.register = function (container) {
+        this._containers.push(container);
+        if (this._instance) {
+            this._instance.containers = this._containers.map(function (c) { return c.element; });
+        }
+        if (!this._config.mirrorContainer) {
+            this._config.mirrorContainer = container.element;
+        }
+    };
+    /**
+     * Removes the container from the group.
+     * @param {?} container
+     * @return {?}
+     */
+    ReorderableGroup.prototype.unregister = function (container) {
+        var /** @type {?} */ index = this._containers.indexOf(container);
+        if (index >= 0) {
+            this._containers.splice(index, 1);
+            if (this._instance) {
+                this._instance.containers = this._containers.map(function (c) { return c.element; });
+            }
+        }
+    };
+    /**
+     * Creates the dragula instance with the current config and attaches the events, if not already created.
+     * @return {?}
+     */
+    ReorderableGroup.prototype.initialize = function () {
+        var _this = this;
+        if (this._instance) {
+            return;
+        }
+        this._instance = dragula(this._containers.map(function (c) { return c.element; }), this._config);
+        this._instance.on('drag', function (element, source) {
+            _this.drag.emit({
+                model: _this.getModelForElement(element),
+                element: element,
+                source: source
+            });
+        });
+        this._instance.on('dragend', function (element) {
+            _this.dragEnd.emit({
+                model: _this.getModelForElement(element),
+                element: element
+            });
+        });
+        this._instance.on('drop', function (element, target, source, sibling) {
+            _this.drop.emit({
+                model: _this.getModelForElement(element),
+                element: element,
+                target: target,
+                source: source,
+                sibling: sibling
+            });
+        });
+        this._instance.on('cancel', function (element) {
+            _this.cancel.emit({
+                model: _this.getModelForElement(element),
+                element: element
+            });
+        });
+        this._instance.on('cloned', function (clone, element, type) {
+            _this.cloned.emit({
+                clone: clone,
+                element: element,
+                type: type
+            });
+        });
+    };
+    /**
+     * Destroys the dragula instance.
+     * @return {?}
+     */
+    ReorderableGroup.prototype.destroy = function () {
+        if (this._instance) {
+            this._instance.destroy();
+            this._instance = null;
+        }
+    };
+    /**
+     * Finds the container for the containerElement and returns the results of canMove.
+     * @param {?} element
+     * @param {?} containerElement
+     * @param {?} handle
+     * @return {?}
+     */
+    ReorderableGroup.prototype.canMove = function (element, containerElement, handle) {
+        for (var _d = 0, _e = this._containers; _d < _e.length; _d++) {
+            var container = _e[_d];
+            if (container.element.isSameNode(containerElement)) {
+                return container.canMove(element, containerElement, handle);
+            }
+        }
+    };
+    return ReorderableGroup;
+}());
 var ReorderableDirective = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
-     * @param {?} _ngZone
+     * @param {?} _service
      */
-    function ReorderableDirective(_elementRef, _renderer, _ngZone) {
+    function ReorderableDirective(_elementRef, _renderer, _service) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
-        this._ngZone = _ngZone;
+        this._service = _service;
         this.reorderableModelChange = new EventEmitter();
         this.reorderStart = new EventEmitter();
         this.reorderCancel = new EventEmitter();
         this.reorderEnd = new EventEmitter();
+        this._dragging = false;
+        this._subscriptions = new Subscription$1();
     }
     /**
      * Initialise dragula and bind to all the required events
@@ -27211,48 +27725,77 @@ var ReorderableDirective = (function () {
      */
     ReorderableDirective.prototype.ngOnInit = function () {
         var _this = this;
-        // for performance gains lets run this outside ng zone
-        this._ngZone.runOutsideAngular(function () {
-            _this._instance = dragula([_this._elementRef.nativeElement], { moves: _this.canMove.bind(_this), mirrorContainer: _this._elementRef.nativeElement });
-            _this._instance.on('drag', function (element) { return _this._ngZone.run(function () { return _this.reorderStart.emit({ element: element, model: _this.getModelFromElement(element) }); }); });
-            _this._instance.on('cancel', function (element) { return _this._ngZone.run(function () { return _this.reorderCancel.emit({ element: element, model: _this.getModelFromElement(element) }); }); });
-            _this._instance.on('dragend', function (element) { return _this._ngZone.run(function () { return _this.reorderEnd.emit({ element: element, model: _this.getModelFromElement(element) }); }); });
-            _this._instance.on('dragend', _this.onDragEnd.bind(_this));
-            _this._instance.on('drop', _this.onDrop.bind(_this));
-            _this._instance.on('cloned', _this.onClone.bind(_this));
-        });
+        // If no group name then generate a unique one for this instance only
+        if (!this.reorderableGroup) {
+            this.reorderableGroup = this._service.getUniqueGroupName();
+        }
+        this._container = {
+            element: this._elementRef.nativeElement,
+            getModelFromElement: this.getModelFromElement.bind(this),
+            canMove: this.canMove.bind(this)
+        };
+        // Register for drag events on this element
+        var /** @type {?} */ group = this._service.register(this.reorderableGroup, this._container);
+        this._subscriptions.add(group.drag.subscribe(this.onDrag.bind(this)));
+        this._subscriptions.add(group.dragEnd.subscribe(this.onDragEnd.bind(this)));
+        this._subscriptions.add(group.drop.subscribe(this.onDrop.bind(this)));
+        this._subscriptions.add(group.cancel.subscribe(function (event) { return _this.reorderCancel.emit({ element: event.element, model: event.model }); }));
+        this._subscriptions.add(group.cloned.subscribe(this.onClone.bind(this)));
+    };
+    /**
+     * @return {?}
+     */
+    ReorderableDirective.prototype.ngAfterViewInit = function () {
+        this._service.initialize(this.reorderableGroup);
     };
     /**
      * We need to destroy the dragula instance on component destroy
      * @return {?}
      */
     ReorderableDirective.prototype.ngOnDestroy = function () {
-        this._instance.destroy();
+        this._service.unregister(this.reorderableGroup, this._container);
+        this._subscriptions.unsubscribe();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    ReorderableDirective.prototype.onDrag = function (event) {
+        this._dragging = true;
+        this.reorderStart.emit({ element: event.element, model: event.model });
     };
     /**
      * This is fired when items get reordered - we need to emit the new order of the models
-     * @param {?} element
-     * @param {?} target
-     * @param {?} source
-     * @param {?} sibling
+     * @param {?} event
      * @return {?}
      */
-    ReorderableDirective.prototype.onDrop = function (element, target, source, sibling) {
-        var _this = this;
+    ReorderableDirective.prototype.onDrop = function (event) {
         // if there is no provided module we can skip this
         if (!this.reorderableModel) {
             return;
         }
-        // get the model of the element being moved
-        var /** @type {?} */ model = this.getModelFromElement(element);
-        // remove this model from the list of models
-        this.reorderableModel = this.reorderableModel.filter(function (_model) { return _model !== model; });
-        // get the position of sibling element
-        var /** @type {?} */ index = sibling && !sibling.classList.contains('gu-mirror') ? this.reorderableModel.indexOf(this.getModelFromElement(sibling)) : this.reorderableModel.length;
-        // re-insert the model at its new location
-        this.reorderableModel.splice(index, 0, model);
-        // emit the model changes (inside zone)
-        this._ngZone.run(function () { return _this.reorderableModelChange.emit(_this.reorderableModel); });
+        var /** @type {?} */ changed = false;
+        if (event.source.isSameNode(this._elementRef.nativeElement)) {
+            // remove this model from the list of models
+            var /** @type {?} */ index = this.reorderableModel.indexOf(event.model);
+            if (index >= 0) {
+                this.reorderableModel.splice(index, 1);
+                changed = true;
+            }
+        }
+        if (event.target.isSameNode(this._elementRef.nativeElement)) {
+            // get the position of sibling element
+            var /** @type {?} */ index = event.sibling && !event.sibling.classList.contains('gu-mirror') ?
+                this.reorderableModel.indexOf(this.getModelFromElement(event.sibling)) :
+                this.reorderableModel.length;
+            // insert the model at its new location
+            this.reorderableModel.splice(index, 0, event.model);
+            changed = true;
+        }
+        // Emit event if any changes were made
+        if (changed) {
+            this.reorderableModelChange.emit(this.reorderableModel);
+        }
     };
     /**
      * Return the model assciated with a particular element in the list.
@@ -27269,24 +27812,31 @@ var ReorderableDirective = (function () {
     };
     /**
      * When we finish dragging remove the utillity class from the element being moved
-     * @param {?} element
+     * @param {?} event
      * @return {?}
      */
-    ReorderableDirective.prototype.onDragEnd = function (element) {
-        this._renderer.removeClass(element, 'ux-reorderable-moving');
+    ReorderableDirective.prototype.onDragEnd = function (event) {
+        this._dragging = false;
+        if (this._elementRef.nativeElement.contains(event.element)) {
+            this._renderer.removeClass(event.element, 'ux-reorderable-moving');
+            this.reorderEnd.emit({
+                element: event.element,
+                model: event.model
+            });
+        }
     };
     /**
      * We want to ensure that the cloned element is identical
      * to the original, regardless of it's location in the DOM tree
-     * @param {?} clone
-     * @param {?} element
-     * @param {?} type
+     * @param {?} event
      * @return {?}
      */
-    ReorderableDirective.prototype.onClone = function (clone, element, type) {
-        this.setTableCellWidths(element, clone);
-        this.captureCanvases(element, clone);
-        this._renderer.addClass(element, 'ux-reorderable-moving');
+    ReorderableDirective.prototype.onClone = function (event) {
+        if (this._elementRef.nativeElement.contains(event.element)) {
+            this.setTableCellWidths(event.element, event.clone);
+            this.captureCanvases(event.element, event.clone);
+            this._renderer.addClass(event.element, 'ux-reorderable-moving');
+        }
     };
     /**
      * If elements contain handles then only drag when the handle is dragged
@@ -27341,16 +27891,18 @@ ReorderableDirective.decorators = [
 ReorderableDirective.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: Renderer2, },
-    { type: NgZone, },
+    { type: ReorderableService, },
 ]; };
 ReorderableDirective.propDecorators = {
     'reorderableModel': [{ type: Input },],
+    'reorderableGroup': [{ type: Input },],
     'reorderableModelChange': [{ type: Output },],
     'reorderStart': [{ type: Output },],
     'reorderCancel': [{ type: Output },],
     'reorderEnd': [{ type: Output },],
     'handles': [{ type: ContentChildren, args: [ReorderableHandleDirective, { read: ElementRef, descendants: true },] },],
     'models': [{ type: ContentChildren, args: [ReorderableModelDirective,] },],
+    '_dragging': [{ type: HostBinding, args: ['class.ux-reorderable-container-moving',] },],
 };
 var ReorderableModule = (function () {
     function ReorderableModule() {
@@ -27371,6 +27923,9 @@ ReorderableModule.decorators = [
                     ReorderableDirective,
                     ReorderableHandleDirective,
                     ReorderableModelDirective
+                ],
+                providers: [
+                    ReorderableService
                 ]
             },] },
 ];
@@ -28643,5 +29198,5 @@ HybridModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { BreadcrumbsComponent, BreadcrumbsModule, CardTabsModule, CardTabsService, CardTabsetComponent, CardTabComponent, CardTabContentDirective, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, defaultOptions, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, FloatingActionButtonsModule, FloatingActionButtonsComponent, FloatingActionButtonComponent, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NavigationModule, NavigationComponent, NavigationItemComponent, NotificationModule, NotificationService, NotificationListComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SidePanelComponent, SidePanelCloseDirective, SidePanelModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, TimelineModule, TimelineComponent, TimelineEventComponent, ToggleSwitchModule, ToggleSwitchComponent, ToolbarSearchModule, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchButtonDirective, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, AutoGrowModule, AutoGrowDirective, DragModule, DragDirective, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, SelectionModule, ReorderableModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DateTimePickerService as ɵc, FloatingActionButtonsService as ɵd, MarqueeWizardStepComponent as ɵg, MarqueeWizardService as ɵf, MediaPlayerService as ɵk, PageHeaderNavigationDropdownItemComponent as ɵj, PageHeaderNavigationItemComponent as ɵi, PageHeaderService as ɵh, SidePanelService as ɵe, HoverActionService as ɵl, SelectionItemDirective as ɵo, SelectionDirective as ɵm, SelectionService as ɵn };
+export { BreadcrumbsComponent, BreadcrumbsModule, CardTabsModule, CardTabsService, CardTabsetComponent, CardTabComponent, CardTabContentDirective, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, defaultOptions, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, FloatingActionButtonsModule, FloatingActionButtonsComponent, FloatingActionButtonComponent, HierarchyBarModule, HierarchyBarService, HierarchyBarComponent, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NavigationModule, NavigationComponent, NavigationItemComponent, NotificationModule, NotificationService, NotificationListComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SidePanelComponent, SidePanelCloseDirective, SidePanelModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, TimelineModule, TimelineComponent, TimelineEventComponent, ToggleSwitchModule, ToggleSwitchComponent, ToolbarSearchModule, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchButtonDirective, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, AutoGrowModule, AutoGrowDirective, DragModule, DragDirective, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, SelectionModule, ReorderableModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, ReorderableService, ReorderableGroup, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DateTimePickerService as ɵc, FloatingActionButtonsService as ɵd, MarqueeWizardStepComponent as ɵg, MarqueeWizardService as ɵf, MediaPlayerService as ɵk, PageHeaderNavigationDropdownItemComponent as ɵj, PageHeaderNavigationItemComponent as ɵi, PageHeaderService as ɵh, SidePanelService as ɵe, HoverActionService as ɵl, SelectionItemDirective as ɵo, SelectionDirective as ɵm, SelectionService as ɵn };
 //# sourceMappingURL=ux-aspects.es5.js.map

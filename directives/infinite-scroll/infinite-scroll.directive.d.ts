@@ -8,12 +8,12 @@ export declare class InfiniteScrollDirective implements OnInit, AfterContentInit
     load: InfiniteScrollLoadFunction;
     _collection: any[];
     collection: any[];
+    scrollElement: ElementRef | HTMLElement;
     enabled: boolean;
     filter: any;
     loadOnInit: boolean;
     loadOnScroll: boolean;
     pageSize: number;
-    scrollElement: ElementRef;
     collectionChange: EventEmitter<any[]>;
     loadingEvent: EventEmitter<InfiniteScrollLoadingEvent>;
     loadedEvent: EventEmitter<InfiniteScrollLoadedEvent>;
@@ -29,6 +29,7 @@ export declare class InfiniteScrollDirective implements OnInit, AfterContentInit
     private _isExhausted;
     private _loadButtonEnabled;
     private _canLoadManually;
+    private _scrollElement;
     private _subscriptions;
     private _loadButtonSubscriptions;
     constructor(_element: ElementRef);
@@ -57,8 +58,6 @@ export declare class InfiniteScrollDirective implements OnInit, AfterContentInit
      * @param pageNum Page number
      */
     reloadPage(pageNum: number): void;
-    private onScroll(event);
-    private onDomChange();
     /**
      * Attach scroll event handler and DOM observer.
      */
