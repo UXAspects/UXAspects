@@ -6,7 +6,9 @@ export declare class NotificationService {
     options: NotificationOptions;
     direction: NotificationListDirection;
     notifications$: BehaviorSubject<NotificationRef[]>;
-    show(templateRef: TemplateRef<any>, options?: NotificationOptions): NotificationRef;
+    show(templateRef: TemplateRef<any>, options?: NotificationOptions, data?: {
+        [key: string]: any;
+    }): NotificationRef;
     getHistory(): NotificationRef[];
     dismiss(notificationRef: NotificationRef): void;
     dismissAll(): void;
@@ -21,6 +23,9 @@ export interface NotificationRef {
     spacing?: number;
     backgroundColor?: string;
     iconColor?: string;
+    data: {
+        [key: string]: any;
+    };
 }
 export interface NotificationOptions {
     duration?: number;

@@ -15950,6 +15950,133 @@ ux-floating-action-buttons .floating-action-button-list.right > *,
 .floating-action-buttons .floating-action-button-list.expanded {
   opacity: 1;
 }
+ux-hierarchy-bar {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid #e2e2e2;
+  box-shadow: 0 0 5px #e2e2e2;
+  align-items: center;
+  padding: 0 25px;
+  overflow: hidden;
+}
+ux-hierarchy-bar .hierarchy-bar-addons {
+  display: inline-flex;
+  flex: none;
+}
+ux-hierarchy-bar .hierarchy-bar-nodes {
+  position: relative;
+  display: flex;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+ux-hierarchy-bar .hierarchy-bar-overflow-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 47px;
+  z-index: 1;
+  padding: 16px 0 16px 16px;
+  text-align: left;
+  background-color: #fff;
+  box-shadow: 0 0 25px 0 #ddd;
+  cursor: pointer;
+}
+ux-hierarchy-bar .hierarchy-bar-node {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+ux-hierarchy-bar .hierarchy-bar-node:last-of-type .hierarchy-bar-node-title {
+  color: #333;
+  font-weight: 600;
+}
+ux-hierarchy-bar .hierarchy-bar-node-content {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+ux-hierarchy-bar .hierarchy-bar-node-content:focus {
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-hierarchy-bar .hierarchy-bar-node-icon {
+  flex: none;
+  max-width: 20px;
+  max-height: 18px;
+  margin-right: 5px;
+}
+ux-hierarchy-bar .hierarchy-bar-node-title {
+  color: #666;
+}
+ux-hierarchy-bar .hierarchy-bar-node-arrow {
+  color: #cfcfcf;
+  margin-left: 5px;
+  transition: color 250ms ease-in-out;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+ux-hierarchy-bar .hierarchy-bar-node-arrow:hover {
+  color: #00a7a2;
+}
+ux-hierarchy-bar .hierarchy-bar-node-arrow:focus {
+  color: #00a7a2;
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+.hierarchy-bar-popover {
+  border-radius: 0;
+}
+.hierarchy-bar-popover .hierarchy-bar-node-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.hierarchy-bar-popover .hierarchy-bar-node-list-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 20px;
+  font-size: 1rem;
+  color: #666;
+  cursor: pointer;
+}
+.hierarchy-bar-popover .hierarchy-bar-node-list-item:hover {
+  background-color: #f2f2f2;
+}
+.hierarchy-bar-popover .hierarchy-bar-node-list-item:focus {
+  background-color: #f2f2f2;
+  outline: 1px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+.hierarchy-bar-popover .hierarchy-bar-node-list-item .hierarchy-bar-node-icon {
+  flex: none;
+  max-width: 20px;
+  max-height: 18px;
+  margin-right: 5px;
+  min-width: 16px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.hierarchy-bar-popover .hierarchy-bar-node-list-item .hierarchy-bar-node-title {
+  color: #666;
+}
 .ux-side-panel.ux-item-display-panel.open > .ux-side-panel-host:not(.box-shadow) {
   border-left: none;
   box-shadow: none;

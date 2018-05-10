@@ -6,11 +6,11 @@ import { Subscription as Subscription$1 } from 'rxjs/Subscription';
 import { fromEvent as fromEvent$1 } from 'rxjs/observable/fromEvent';
 import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgModel } from '@angular/forms';
 import { Subject as Subject$1 } from 'rxjs/Subject';
+import { observeOn as observeOn$1 } from 'rxjs/operator/observeOn';
+import { scan as scan$1 } from 'rxjs/operator/scan';
 import { Observable as Observable$1 } from 'rxjs/Observable';
 import { distinctUntilChanged as distinctUntilChanged$1 } from 'rxjs/operator/distinctUntilChanged';
 import { map as map$1 } from 'rxjs/operator/map';
-import { observeOn as observeOn$1 } from 'rxjs/operator/observeOn';
-import { scan as scan$1 } from 'rxjs/operator/scan';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/timer';
@@ -18,20 +18,20 @@ import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/observable/of';
 import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
-import { DOCUMENT as DOCUMENT$1 } from '@angular/platform-browser';
 import { of as of$2 } from 'rxjs/observable/of';
-import { from as from$2 } from 'rxjs/observable/from';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/platform-browser';
 import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/partition';
+import { from as from$2 } from 'rxjs/observable/from';
 import 'rxjs/add/observable/concat';
 import { Http, HttpModule, ResponseContentType } from '@angular/http';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/fromEvent';
 import * as dragulaNamespace from 'dragula';
@@ -566,10 +566,13 @@ var Subscriber = (function (_super) {
                     break;
                 }
                 if (typeof destinationOrNext === 'object') {
-                    if (destinationOrNext instanceof Subscriber) {
-                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
-                        this.destination = destinationOrNext;
-                        this.destination.add(this);
+                    // HACK(benlesh): To resolve an issue where Node users may have multiple
+                    // copies of rxjs in their node_modules directory.
+                    if (isTrustedSubscriber(destinationOrNext)) {
+                        var trustedSubscriber = destinationOrNext[rxSubscriber.rxSubscriber]();
+                        this.syncErrorThrowable = trustedSubscriber.syncErrorThrowable;
+                        this.destination = trustedSubscriber;
+                        trustedSubscriber.add(this);
                     }
                     else {
                         this.syncErrorThrowable = true;
@@ -655,7 +658,7 @@ var Subscriber = (function (_super) {
         this.destination.complete();
         this.unsubscribe();
     };
-    Subscriber.prototype._unsubscribeAndRecycle = function () {
+    /** @deprecated internal use only */ Subscriber.prototype._unsubscribeAndRecycle = function () {
         var _a = this, _parent = _a._parent, _parents = _a._parents;
         this._parent = null;
         this._parents = null;
@@ -776,7 +779,7 @@ var SafeSubscriber = (function (_super) {
         }
         return false;
     };
-    SafeSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ SafeSubscriber.prototype._unsubscribe = function () {
         var _parentSubscriber = this._parentSubscriber;
         this._context = null;
         this._parentSubscriber = null;
@@ -784,6 +787,9 @@ var SafeSubscriber = (function (_super) {
     };
     return SafeSubscriber;
 }(Subscriber));
+function isTrustedSubscriber(obj) {
+    return obj instanceof Subscriber || ('syncErrorThrowable' in obj && obj[rxSubscriber.rxSubscriber]);
+}
 
 
 var Subscriber_1 = {
@@ -958,7 +964,7 @@ var AsyncAction = (function (_super) {
             return errorValue;
         }
     };
-    AsyncAction.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ AsyncAction.prototype._unsubscribe = function () {
         var id = this.id;
         var scheduler = this.scheduler;
         var actions = scheduler.actions;
@@ -1699,7 +1705,7 @@ var Observable$2 = (function () {
             }, reject, resolve);
         });
     };
-    Observable$$1.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ Observable$$1.prototype._subscribe = function (subscriber) {
         return this.source.subscribe(subscriber);
     };
     /**
@@ -2130,7 +2136,7 @@ var TimerObservable = (function (_super) {
         state$$1.index = index + 1;
         action.schedule(state$$1, period);
     };
-    TimerObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ TimerObservable.prototype._subscribe = function (subscriber) {
         var index = 0;
         var _a = this, period = _a.period, dueTime = _a.dueTime, scheduler = _a.scheduler;
         return scheduler.schedule(TimerObservable.dispatch, dueTime, {
@@ -2316,7 +2322,7 @@ var BufferTimeSubscriber = (function (_super) {
         }
         _super.prototype._complete.call(this);
     };
-    BufferTimeSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ BufferTimeSubscriber.prototype._unsubscribe = function () {
         this.contexts = null;
     };
     BufferTimeSubscriber.prototype.onBufferFull = function (context) {
@@ -2503,7 +2509,7 @@ var BufferWhenSubscriber = (function (_super) {
         }
         _super.prototype._complete.call(this);
     };
-    BufferWhenSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ BufferWhenSubscriber.prototype._unsubscribe = function () {
         this.buffer = null;
         this.subscribing = false;
     };
@@ -2624,7 +2630,7 @@ var ScalarObservable = (function (_super) {
         state$$1.done = true;
         this.schedule(state$$1);
     };
-    ScalarObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ ScalarObservable.prototype._subscribe = function (subscriber) {
         var value = this.value;
         var scheduler = this.scheduler;
         if (scheduler) {
@@ -2715,7 +2721,7 @@ var EmptyObservable = (function (_super) {
         var subscriber = arg.subscriber;
         subscriber.complete();
     };
-    EmptyObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ EmptyObservable.prototype._subscribe = function (subscriber) {
         var scheduler = this.scheduler;
         if (scheduler) {
             return scheduler.schedule(EmptyObservable.dispatch, 0, { subscriber: subscriber });
@@ -2833,7 +2839,7 @@ var ArrayObservable = (function (_super) {
         state$$1.index = index + 1;
         this.schedule(state$$1);
     };
-    ArrayObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ ArrayObservable.prototype._subscribe = function (subscriber) {
         var index = 0;
         var array = this.array;
         var count = array.length;
@@ -2985,7 +2991,7 @@ var PromiseObservable = (function (_super) {
     PromiseObservable.create = function (promise, scheduler) {
         return new PromiseObservable(promise, scheduler);
     };
-    PromiseObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ PromiseObservable.prototype._subscribe = function (subscriber) {
         var _this = this;
         var promise = this.promise;
         var scheduler = this.scheduler;
@@ -3109,7 +3115,7 @@ var IteratorObservable = (function (_super) {
         }
         this.schedule(state$$1);
     };
-    IteratorObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ IteratorObservable.prototype._subscribe = function (subscriber) {
         var index = 0;
         var _a = this, iterator$$2 = _a.iterator, scheduler = _a.scheduler;
         if (scheduler) {
@@ -3278,7 +3284,7 @@ var ArrayLikeObservable = (function (_super) {
         state$$1.index = index + 1;
         this.schedule(state$$1);
     };
-    ArrayLikeObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ ArrayLikeObservable.prototype._subscribe = function (subscriber) {
         var index = 0;
         var _a = this, arrayLike = _a.arrayLike, scheduler = _a.scheduler;
         var length = arrayLike.length;
@@ -3662,7 +3668,7 @@ var FromObservable = (function (_super) {
         }
         throw new TypeError((ish !== null && typeof ish || ish) + ' is not observable');
     };
-    FromObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ FromObservable.prototype._subscribe = function (subscriber) {
         var ish = this.ish;
         var scheduler = this.scheduler;
         if (scheduler == null) {
@@ -4133,12 +4139,12 @@ var DelayWhenSubscriber = (function (_super) {
  */
 var SubscriptionDelayObservable = (function (_super) {
     __extends$30(SubscriptionDelayObservable, _super);
-    function SubscriptionDelayObservable(source, subscriptionDelay) {
+    function SubscriptionDelayObservable(/** @deprecated internal use only */ source, subscriptionDelay) {
         _super.call(this);
         this.source = source;
         this.subscriptionDelay = subscriptionDelay;
     }
-    SubscriptionDelayObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ SubscriptionDelayObservable.prototype._subscribe = function (subscriber) {
         this.subscriptionDelay.subscribe(new SubscriptionDelaySubscriber(subscriber, this.source));
     };
     return SubscriptionDelayObservable;
@@ -4928,6 +4934,71 @@ var __extends$43 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, 
 
 
 /**
+ * Emits only the first value (or the first value that meets some condition)
+ * emitted by the source Observable.
+ *
+ * <span class="informal">Emits only the first value. Or emits only the first
+ * value that passes some test.</span>
+ *
+ * <img src="./img/first.png" width="100%">
+ *
+ * If called with no arguments, `first` emits the first value of the source
+ * Observable, then completes. If called with a `predicate` function, `first`
+ * emits the first value of the source that matches the specified condition. It
+ * may also take a `resultSelector` function to produce the output value from
+ * the input value, and a `defaultValue` to emit in case the source completes
+ * before it is able to emit a valid value. Throws an error if `defaultValue`
+ * was not provided and a matching element is not found.
+ *
+ * @example <caption>Emit only the first click that happens on the DOM</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.first();
+ * result.subscribe(x => console.log(x));
+ *
+ * @example <caption>Emits the first click that happens on a DIV</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var result = clicks.first(ev => ev.target.tagName === 'DIV');
+ * result.subscribe(x => console.log(x));
+ *
+ * @see {@link filter}
+ * @see {@link find}
+ * @see {@link take}
+ *
+ * @throws {EmptyError} Delivers an EmptyError to the Observer's `error`
+ * callback if the Observable completes before any `next` notification was sent.
+ *
+ * @param {function(value: T, index: number, source: Observable<T>): boolean} [predicate]
+ * An optional function called with each item to test for condition matching.
+ * @param {function(value: T, index: number): R} [resultSelector] A function to
+ * produce the value on the output Observable based on the values
+ * and the indices of the source Observable. The arguments passed to this
+ * function are:
+ * - `value`: the value that was emitted on the source.
+ * - `index`: the "index" of the value from the source.
+ * @param {R} [defaultValue] The default value emitted in case no valid value
+ * was found on the source.
+ * @return {Observable<T|R>} An Observable of the first item that matches the
+ * condition.
+ * @method first
+ * @owner Observable
+ */
+function first$2(predicate, resultSelector, defaultValue) {
+    return function (source) { return source.lift(new FirstOperator(predicate, resultSelector, defaultValue, source)); };
+}
+var first_2 = first$2;
+var FirstOperator = (function () {
+    function FirstOperator(predicate, resultSelector, defaultValue, source) {
+        this.predicate = predicate;
+        this.resultSelector = resultSelector;
+        this.defaultValue = defaultValue;
+        this.source = source;
+    }
+    FirstOperator.prototype.call = function (observer, source) {
+        return source.subscribe(new FirstSubscriber(observer, this.predicate, this.resultSelector, this.defaultValue, this.source));
+    };
+    return FirstOperator;
+}());
+/**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
  * @extends {Ignored}
@@ -5005,6 +5076,11 @@ var FirstSubscriber = (function (_super) {
     };
     return FirstSubscriber;
 }(Subscriber_1.Subscriber));
+
+
+var first_1 = {
+	first: first_2
+};
 
 var __extends$47 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -5179,7 +5255,7 @@ var Subject$2 = (function (_super) {
             return _super.prototype._trySubscribe.call(this, subscriber);
         }
     };
-    Subject$$1.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ Subject$$1.prototype._subscribe = function (subscriber) {
         if (this.closed) {
             throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
         }
@@ -5235,7 +5311,7 @@ var AnonymousSubject = (function (_super) {
             this.destination.complete();
         }
     };
-    AnonymousSubject.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ AnonymousSubject.prototype._subscribe = function (subscriber) {
         var source = this.source;
         if (source) {
             return this.source.subscribe(subscriber);
@@ -5475,7 +5551,7 @@ var GroupDurationSubscriber = (function (_super) {
     GroupDurationSubscriber.prototype._next = function (value) {
         this.complete();
     };
-    GroupDurationSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ GroupDurationSubscriber.prototype._unsubscribe = function () {
         var _a = this, parent = _a.parent, key = _a.key;
         this.key = this.parent = null;
         if (parent) {
@@ -5500,7 +5576,7 @@ var GroupedObservable = (function (_super) {
         this.groupSubject = groupSubject;
         this.refCountSubscription = refCountSubscription;
     }
-    GroupedObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ GroupedObservable.prototype._subscribe = function (subscriber) {
         var subscription = new Subscription_1.Subscription();
         var _a = this, refCountSubscription = _a.refCountSubscription, groupSubject = _a.groupSubject;
         if (refCountSubscription && !refCountSubscription.closed) {
@@ -6125,7 +6201,7 @@ var RefCountSubscriber$1 = (function (_super) {
         _super.call(this, destination);
         this.connectable = connectable;
     }
-    RefCountSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ RefCountSubscriber.prototype._unsubscribe = function () {
         var connectable = this.connectable;
         if (!connectable) {
             this.connection = null;
@@ -6195,17 +6271,18 @@ var __extends$59 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, 
  */
 var ConnectableObservable = (function (_super) {
     __extends$59(ConnectableObservable, _super);
-    function ConnectableObservable(source, subjectFactory) {
+    function ConnectableObservable(/** @deprecated internal use only */ source, 
+        /** @deprecated internal use only */ subjectFactory) {
         _super.call(this);
         this.source = source;
         this.subjectFactory = subjectFactory;
-        this._refCount = 0;
+        /** @deprecated internal use only */ this._refCount = 0;
         this._isComplete = false;
     }
-    ConnectableObservable.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ ConnectableObservable.prototype._subscribe = function (subscriber) {
         return this.getSubject().subscribe(subscriber);
     };
-    ConnectableObservable.prototype.getSubject = function () {
+    /** @deprecated internal use only */ ConnectableObservable.prototype.getSubject = function () {
         var subject = this._subject;
         if (!subject || subject.isStopped) {
             this._subject = this.subjectFactory();
@@ -6249,7 +6326,7 @@ var ConnectableSubscriber = (function (_super) {
         this._unsubscribe();
         _super.prototype._complete.call(this);
     };
-    ConnectableSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ ConnectableSubscriber.prototype._unsubscribe = function () {
         var connectable = this.connectable;
         if (connectable) {
             this.connectable = null;
@@ -6270,7 +6347,7 @@ var RefCountSubscriber = (function (_super) {
         _super.call(this, destination);
         this.connectable = connectable;
     }
-    RefCountSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ RefCountSubscriber.prototype._unsubscribe = function () {
         var connectable = this.connectable;
         if (!connectable) {
             this.connection = null;
@@ -6412,7 +6489,7 @@ var BehaviorSubject$2 = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    BehaviorSubject$$1.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ BehaviorSubject$$1.prototype._subscribe = function (subscriber) {
         var subscription = _super.prototype._subscribe.call(this, subscriber);
         if (subscription && !subscription.closed) {
             subscriber.next(this._value);
@@ -6454,7 +6531,7 @@ var AsyncSubject = (function (_super) {
         this.hasNext = false;
         this.hasCompleted = false;
     }
-    AsyncSubject.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ AsyncSubject.prototype._subscribe = function (subscriber) {
         if (this.hasError) {
             subscriber.error(this.thrownError);
             return Subscription_1.Subscription.EMPTY;
@@ -6659,7 +6736,7 @@ var ReplaySubject = (function (_super) {
         this._trimBufferThenGetEvents();
         _super.prototype.next.call(this, value);
     };
-    ReplaySubject.prototype._subscribe = function (subscriber) {
+    /** @deprecated internal use only */ ReplaySubject.prototype._subscribe = function (subscriber) {
         var _events = this._trimBufferThenGetEvents();
         var scheduler = this.scheduler;
         var subscription;
@@ -6860,14 +6937,14 @@ var RepeatWhenSubscriber = (function (_super) {
             if (!this.retries) {
                 this.subscribeToRetries();
             }
-            else if (this.retriesSubscription.closed) {
+            if (!this.retriesSubscription || this.retriesSubscription.closed) {
                 return _super.prototype.complete.call(this);
             }
             this._unsubscribeAndRecycle();
             this.notifications.next();
         }
     };
-    RepeatWhenSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ RepeatWhenSubscriber.prototype._unsubscribe = function () {
         var _a = this, notifications = _a.notifications, retriesSubscription = _a.retriesSubscription;
         if (notifications) {
             notifications.unsubscribe();
@@ -6879,7 +6956,7 @@ var RepeatWhenSubscriber = (function (_super) {
         }
         this.retries = null;
     };
-    RepeatWhenSubscriber.prototype._unsubscribeAndRecycle = function () {
+    /** @deprecated internal use only */ RepeatWhenSubscriber.prototype._unsubscribeAndRecycle = function () {
         var _a = this, notifications = _a.notifications, retries = _a.retries, retriesSubscription = _a.retriesSubscription;
         this.notifications = null;
         this.retries = null;
@@ -6981,7 +7058,7 @@ var RetryWhenSubscriber = (function (_super) {
             errors.next(err);
         }
     };
-    RetryWhenSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ RetryWhenSubscriber.prototype._unsubscribe = function () {
         var _a = this, errors = _a.errors, retriesSubscription = _a.retriesSubscription;
         if (errors) {
             errors.unsubscribe();
@@ -7433,7 +7510,7 @@ var SwitchMapSubscriber = (function (_super) {
             _super.prototype._complete.call(this);
         }
     };
-    SwitchMapSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ SwitchMapSubscriber.prototype._unsubscribe = function () {
         this.innerSubscription = null;
     };
     SwitchMapSubscriber.prototype.notifyComplete = function (innerSub) {
@@ -7498,7 +7575,7 @@ var SwitchMapToSubscriber = (function (_super) {
             _super.prototype._complete.call(this);
         }
     };
-    SwitchMapToSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ SwitchMapToSubscriber.prototype._unsubscribe = function () {
         this.innerSubscription = null;
     };
     SwitchMapToSubscriber.prototype.notifyComplete = function (innerSub) {
@@ -7848,7 +7925,7 @@ var ThrottleSubscriber = (function (_super) {
             return null;
         }
     };
-    ThrottleSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ ThrottleSubscriber.prototype._unsubscribe = function () {
         var _a = this, throttled = _a.throttled, _trailingValue = _a._trailingValue, _hasTrailingValue = _a._hasTrailingValue, _trailing = _a._trailing;
         this._trailingValue = null;
         this._hasTrailingValue = false;
@@ -8048,7 +8125,7 @@ var TimeoutSubscriber = (function (_super) {
         }
         _super.prototype._next.call(this, value);
     };
-    TimeoutSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ TimeoutSubscriber.prototype._unsubscribe = function () {
         this.action = null;
         this.scheduler = null;
         this.errorInstance = null;
@@ -8106,7 +8183,7 @@ var TimeoutWithSubscriber = (function (_super) {
         }
         _super.prototype._next.call(this, value);
     };
-    TimeoutWithSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ TimeoutWithSubscriber.prototype._unsubscribe = function () {
         this.action = null;
         this.scheduler = null;
         this.withObservable = null;
@@ -8154,7 +8231,7 @@ var WindowSubscriber = (function (_super) {
         this.window.complete();
         this.destination.complete();
     };
-    WindowSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ WindowSubscriber.prototype._unsubscribe = function () {
         this.window = null;
     };
     WindowSubscriber.prototype.openWindow = function () {
@@ -8229,7 +8306,7 @@ var WindowCountSubscriber = (function (_super) {
         }
         this.destination.complete();
     };
-    WindowCountSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ WindowCountSubscriber.prototype._unsubscribe = function () {
         this.count = 0;
         this.windows = null;
     };
@@ -8424,7 +8501,7 @@ var WindowToggleSubscriber = (function (_super) {
         }
         _super.prototype._complete.call(this);
     };
-    WindowToggleSubscriber.prototype._unsubscribe = function () {
+    /** @deprecated internal use only */ WindowToggleSubscriber.prototype._unsubscribe = function () {
         var contexts = this.contexts;
         this.contexts = null;
         if (contexts) {
@@ -8841,6 +8918,8 @@ var debounceTime$2 = debounceTime_1.debounceTime;
 var distinctUntilChanged$3 = distinctUntilChanged_1.distinctUntilChanged;
 
 var filter$1 = filter_1.filter;
+
+var first$1 = first_1.first;
 
 var map$3 = map_1.map;
 
@@ -10921,6 +11000,15 @@ function isValidDate(value) {
     }
     return true;
 }
+function isValidLimit(controls, newDate) {
+    if (controls.min && newDate < controls.min) {
+        return false;
+    }
+    if (controls.max && newDate > controls.max) {
+        return false;
+    }
+    return true;
+}
 function toNumber(value) {
     if (typeof value === 'number') {
         return value;
@@ -10986,7 +11074,6 @@ function setTime(value, opts) {
     if (opts.isPM) {
         hour += hoursPerDayHalf;
     }
-    // fixme: unreachable code, value is mandatory
     if (!value) {
         if (!isNaN(hour) && !isNaN(minute)) {
             return createDate(new Date(), hour, minute, seconds);
@@ -10999,9 +11086,7 @@ function setTime(value, opts) {
     return createDate(value, hour, minute, seconds);
 }
 function createDate(value, hours, minutes, seconds) {
-    // fixme: unreachable code, value is mandatory
-    var _value = value || new Date();
-    return new Date(_value.getFullYear(), _value.getMonth(), _value.getDate(), hours, minutes, seconds, _value.getMilliseconds());
+    return new Date(value.getFullYear(), value.getMonth(), value.getDate(), hours, minutes, seconds, value.getMilliseconds());
 }
 function padNumber(value) {
     var _value = value.toString();
@@ -11010,16 +11095,35 @@ function padNumber(value) {
     }
     return "0" + _value;
 }
+function isHourInputValid(hours, isPM) {
+    return !isNaN(parseHours(hours, isPM));
+}
+function isMinuteInputValid(minutes) {
+    return !isNaN(parseMinutes(minutes));
+}
+function isSecondInputValid(seconds) {
+    return !isNaN(parseSeconds(seconds));
+}
+function isInputLimitValid(diff, max, min) {
+    var newDate = changeTime(new Date(), diff);
+    if (max && newDate > max) {
+        return false;
+    }
+    if (min && newDate < min) {
+        return false;
+    }
+    return true;
+}
 function isInputValid(hours, minutes, seconds, isPM) {
     if (minutes === void 0) { minutes = '0'; }
     if (seconds === void 0) { seconds = '0'; }
-    return !(isNaN(parseHours(hours, isPM))
-        || isNaN(parseMinutes(minutes))
-        || isNaN(parseSeconds(seconds)));
+    return isHourInputValid(hours, isPM)
+        && isMinuteInputValid(minutes)
+        && isSecondInputValid(seconds);
 }
 
 function canChangeValue(state$$1, event) {
-    if (state$$1.readonlyInput) {
+    if (state$$1.readonlyInput || state$$1.disabled) {
         return false;
     }
     if (event) {
@@ -11069,12 +11173,13 @@ function canChangeSeconds(event, controls) {
     return true;
 }
 function getControlsValue(state$$1) {
-    var hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, readonlyInput = state$$1.readonlyInput, mousewheel = state$$1.mousewheel, arrowkeys = state$$1.arrowkeys, showSpinners = state$$1.showSpinners, showMeridian = state$$1.showMeridian, showSeconds = state$$1.showSeconds, meridians = state$$1.meridians, min = state$$1.min, max = state$$1.max;
+    var hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, readonlyInput = state$$1.readonlyInput, disabled = state$$1.disabled, mousewheel = state$$1.mousewheel, arrowkeys = state$$1.arrowkeys, showSpinners = state$$1.showSpinners, showMeridian = state$$1.showMeridian, showSeconds = state$$1.showSeconds, meridians = state$$1.meridians, min = state$$1.min, max = state$$1.max;
     return {
         hourStep: hourStep,
         minuteStep: minuteStep,
         secondsStep: secondsStep,
         readonlyInput: readonlyInput,
+        disabled: disabled,
         mousewheel: mousewheel,
         arrowkeys: arrowkeys,
         showSpinners: showSpinners,
@@ -11086,6 +11191,7 @@ function getControlsValue(state$$1) {
     };
 }
 function timepickerControls(value, state$$1) {
+    var hoursPerDayHalf = 12;
     var min = state$$1.min, max = state$$1.max, hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, showSeconds = state$$1.showSeconds;
     var res = {
         canIncrementHours: true,
@@ -11093,7 +11199,8 @@ function timepickerControls(value, state$$1) {
         canIncrementSeconds: true,
         canDecrementHours: true,
         canDecrementMinutes: true,
-        canDecrementSeconds: true
+        canDecrementSeconds: true,
+        canToggleMeridian: true
     };
     if (!value) {
         return res;
@@ -11112,6 +11219,9 @@ function timepickerControls(value, state$$1) {
             var _newSeconds = changeTime(value, { seconds: secondsStep });
             res.canIncrementSeconds = max >= _newSeconds;
         }
+        if (value.getHours() < hoursPerDayHalf) {
+            res.canToggleMeridian = changeTime(value, { hour: hoursPerDayHalf }) < max;
+        }
     }
     if (min) {
         var _newHour = changeTime(value, { hour: -hourStep });
@@ -11125,6 +11235,9 @@ function timepickerControls(value, state$$1) {
         if (!res.canDecrementMinutes) {
             var _newSeconds = changeTime(value, { seconds: -secondsStep });
             res.canDecrementSeconds = min <= _newSeconds;
+        }
+        if (value.getHours() >= hoursPerDayHalf) {
+            res.canToggleMeridian = changeTime(value, { hour: -hoursPerDayHalf }) > min;
         }
     }
     return res;
@@ -11145,6 +11258,8 @@ var TimepickerConfig = (function () {
         this.meridians = ['AM', 'PM'];
         /** if true hours and minutes fields will be readonly */
         this.readonlyInput = false;
+        /** if true hours and minutes fields will be disabled */
+        this.disabled = false;
         /** if true scroll inside hours and minutes inputs will change time */
         this.mousewheel = true;
         /** if true up/down arrowkeys inside hours and minutes inputs will change time */
@@ -11173,7 +11288,8 @@ var initialState = {
         canIncrementSeconds: true,
         canDecrementHours: true,
         canDecrementMinutes: true,
-        canDecrementSeconds: true
+        canDecrementSeconds: true,
+        canToggleMeridian: true
     }
 };
 function timepickerReducer(state$$1, action) {
@@ -11188,6 +11304,9 @@ function timepickerReducer(state$$1, action) {
                 return state$$1;
             }
             var _newTime = changeTime(state$$1.value, { hour: action.payload.step });
+            if ((state$$1.config.max || state$$1.config.min) && !isValidLimit(state$$1.config, _newTime)) {
+                return state$$1;
+            }
             return Object.assign({}, state$$1, { value: _newTime });
         }
         case TimepickerActions.CHANGE_MINUTES: {
@@ -11196,6 +11315,9 @@ function timepickerReducer(state$$1, action) {
                 return state$$1;
             }
             var _newTime = changeTime(state$$1.value, { minute: action.payload.step });
+            if ((state$$1.config.max || state$$1.config.min) && !isValidLimit(state$$1.config, _newTime)) {
+                return state$$1;
+            }
             return Object.assign({}, state$$1, { value: _newTime });
         }
         case TimepickerActions.CHANGE_SECONDS: {
@@ -11206,6 +11328,9 @@ function timepickerReducer(state$$1, action) {
             var _newTime = changeTime(state$$1.value, {
                 seconds: action.payload.step
             });
+            if ((state$$1.config.max || state$$1.config.min) && !isValidLimit(state$$1.config, _newTime)) {
+                return state$$1;
+            }
             return Object.assign({}, state$$1, { value: _newTime });
         }
         case TimepickerActions.SET_TIME_UNIT: {
@@ -11247,8 +11372,38 @@ var __extends$100 = (this && this.__extends) || (function () {
 /**
  * @copyright ngrx
  */
+var MiniState = (function (_super) {
+    __extends$100(MiniState, _super);
+    function MiniState(_initialState, actionsDispatcher$, reducer) {
+        var _this = _super.call(this, _initialState) || this;
+        var actionInQueue$ = observeOn$1.call(actionsDispatcher$, queue_1);
+        var state$ = scan$1.call(actionInQueue$, function (state$$1, action) {
+            if (!action) {
+                return state$$1;
+            }
+            return reducer(state$$1, action);
+        }, _initialState);
+        state$.subscribe(function (value) { return _this.next(value); });
+        return _this;
+    }
+    return MiniState;
+}(BehaviorSubject$1));
+
+var __extends$101 = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * @copyright ngrx
+ */
 var MiniStore = (function (_super) {
-    __extends$100(MiniStore, _super);
+    __extends$101(MiniStore, _super);
     function MiniStore(_dispatcher, _reducer, state$) {
         var _this = _super.call(this) || this;
         _this._dispatcher = _dispatcher;
@@ -11279,36 +11434,6 @@ var MiniStore = (function (_super) {
     };
     return MiniStore;
 }(Observable$1));
-
-var __extends$101 = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @copyright ngrx
- */
-var MiniState = (function (_super) {
-    __extends$101(MiniState, _super);
-    function MiniState(_initialState, actionsDispatcher$, reducer) {
-        var _this = _super.call(this, _initialState) || this;
-        var actionInQueue$ = observeOn$1.call(actionsDispatcher$, queue_1);
-        var state$ = scan$1.call(actionInQueue$, function (state$$1, action) {
-            if (!action) {
-                return state$$1;
-            }
-            return reducer(state$$1, action);
-        }, _initialState);
-        state$.subscribe(function (value) { return _this.next(value); });
-        return _this;
-    }
-    return MiniState;
-}(BehaviorSubject$1));
 
 var __extends$99 = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -11361,8 +11486,7 @@ var TimepickerComponent = (function () {
         this.onChange = Function.prototype;
         this.onTouched = Function.prototype;
         Object.assign(this, _config);
-        // todo: add unsubscribe
-        _store.select(function (state$$1) { return state$$1.value; }).subscribe(function (value) {
+        this.timepickerSub = _store.select(function (state$$1) { return state$$1.value; }).subscribe(function (value) {
             // update UI values if date changed
             _this._renderTime(value);
             _this.onChange(value);
@@ -11375,12 +11499,25 @@ var TimepickerComponent = (function () {
         });
     }
     Object.defineProperty(TimepickerComponent.prototype, "isSpinnersVisible", {
+        /** @deprecated - please use `isEditable` instead */
         get: function () {
             return this.showSpinners && !this.readonlyInput;
         },
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TimepickerComponent.prototype, "isEditable", {
+        get: function () {
+            return !(this.readonlyInput || this.disabled);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TimepickerComponent.prototype.resetValidation = function () {
+        this.invalidHours = false;
+        this.invalidMinutes = false;
+        this.invalidSeconds = false;
+    };
     TimepickerComponent.prototype.isPM = function () {
         return this.showMeridian && this.meridian === this.meridians[1];
     };
@@ -11395,27 +11532,62 @@ var TimepickerComponent = (function () {
     };
     TimepickerComponent.prototype.changeHours = function (step, source) {
         if (source === void 0) { source = ''; }
+        this.resetValidation();
         this._store.dispatch(this._timepickerActions.changeHours({ step: step, source: source }));
     };
     TimepickerComponent.prototype.changeMinutes = function (step, source) {
         if (source === void 0) { source = ''; }
+        this.resetValidation();
         this._store.dispatch(this._timepickerActions.changeMinutes({ step: step, source: source }));
     };
     TimepickerComponent.prototype.changeSeconds = function (step, source) {
         if (source === void 0) { source = ''; }
+        this.resetValidation();
         this._store.dispatch(this._timepickerActions.changeSeconds({ step: step, source: source }));
     };
     TimepickerComponent.prototype.updateHours = function (hours) {
+        this.resetValidation();
         this.hours = hours;
+        var isValid = isHourInputValid(this.hours, this.isPM()) && this.isValidLimit();
+        if (!isValid) {
+            this.invalidHours = true;
+            this.isValid.emit(false);
+            this.onChange(null);
+            return;
+        }
         this._updateTime();
     };
     TimepickerComponent.prototype.updateMinutes = function (minutes) {
+        this.resetValidation();
         this.minutes = minutes;
+        var isValid = isMinuteInputValid(this.minutes) && this.isValidLimit();
+        if (!isValid) {
+            this.invalidMinutes = true;
+            this.isValid.emit(false);
+            this.onChange(null);
+            return;
+        }
         this._updateTime();
     };
     TimepickerComponent.prototype.updateSeconds = function (seconds) {
+        this.resetValidation();
         this.seconds = seconds;
+        var isValid = isSecondInputValid(this.seconds) && this.isValidLimit();
+        if (!isValid) {
+            this.invalidSeconds = true;
+            this.isValid.emit(false);
+            this.onChange(null);
+            return;
+        }
         this._updateTime();
+    };
+    TimepickerComponent.prototype.isValidLimit = function () {
+        return isInputLimitValid({
+            hour: this.hours,
+            minute: this.minutes,
+            seconds: this.seconds,
+            isPM: this.isPM()
+        }, this.max, this.min);
     };
     TimepickerComponent.prototype._updateTime = function () {
         var _seconds = this.showSeconds ? this.seconds : void 0;
@@ -11433,7 +11605,7 @@ var TimepickerComponent = (function () {
         }));
     };
     TimepickerComponent.prototype.toggleMeridian = function () {
-        if (!this.showMeridian || this.readonlyInput) {
+        if (!this.showMeridian || !this.isEditable) {
             return;
         }
         var _hoursPerDayHalf = 12;
@@ -11466,13 +11638,16 @@ var TimepickerComponent = (function () {
         this.onTouched = fn;
     };
     /**
-     * This function is called when the control status changes to or from "DISABLED".
+     * This function is called when the control status changes to or from "disabled".
      * Depending on the value, it will enable or disable the appropriate DOM element.
      *
      * @param isDisabled
      */
     TimepickerComponent.prototype.setDisabledState = function (isDisabled) {
-        this.readonlyInput = isDisabled;
+        this.disabled = isDisabled;
+    };
+    TimepickerComponent.prototype.ngOnDestroy = function () {
+        this.timepickerSub.unsubscribe();
     };
     TimepickerComponent.prototype._renderTime = function (value) {
         if (!isValidDate(value)) {
@@ -11502,7 +11677,7 @@ var TimepickerComponent = (function () {
                     selector: 'timepicker',
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, TimepickerStore],
-                    template: "<table> <tbody> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" *ngIf=\"showMinutes\"[class.has-error]=\"invalidMinutes\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"readonlyInput\" [class.disabled]=\"readonlyInput\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [class.hidden]=\"!isSpinnersVisible\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td>&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
+                    template: "<table> <tbody> <tr class=\"text-center\" [hidden]=\"!showSpinners\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours || !isEditable\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes || !isEditable\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds || !isEditable\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" [class.is-invalid]=\"invalidHours\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" *ngIf=\"showMinutes\" [class.has-error]=\"invalidMinutes\"> <input type=\"text\" [class.is-invalid]=\"invalidMinutes\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" [class.is-invalid]=\"invalidSeconds\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"!isEditable || !canToggleMeridian\" [class.disabled]=\"!isEditable || !canToggleMeridian\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [hidden]=\"!showSpinners\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours || !isEditable\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes || !isEditable\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds || !isEditable\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
                     styles: ["\n    .bs-chevron{\n      border-style: solid;\n      display: block;\n      width: 9px;\n      height: 9px;\n      position: relative;\n      border-width: 3px 0px 0 3px;\n    }\n    .bs-chevron-up{\n      -webkit-transform: rotate(45deg);\n      transform: rotate(45deg);\n      top: 2px;\n    }\n    .bs-chevron-down{\n      -webkit-transform: rotate(-135deg);\n      transform: rotate(-135deg);\n      top: -2px;\n    }\n    .bs-timepicker-field{\n      width: 50px;\n    }\n  "],
                     encapsulation: ViewEncapsulation.None
                 },] },
@@ -11519,6 +11694,7 @@ var TimepickerComponent = (function () {
         'minuteStep': [{ type: Input },],
         'secondsStep': [{ type: Input },],
         'readonlyInput': [{ type: Input },],
+        'disabled': [{ type: Input },],
         'mousewheel': [{ type: Input },],
         'arrowkeys': [{ type: Input },],
         'showSpinners': [{ type: Input },],
@@ -11633,7 +11809,7 @@ var ButtonCheckboxDirective = (function () {
     ButtonCheckboxDirective.propDecorators = {
         'btnCheckboxTrue': [{ type: Input },],
         'btnCheckboxFalse': [{ type: Input },],
-        'state': [{ type: HostBinding, args: ['class.active',] },],
+        'state': [{ type: HostBinding, args: ['class.active',] }, { type: HostBinding, args: ['attr.aria-pressed',] },],
         'onClick': [{ type: HostListener, args: ['click',] },],
     };
     return ButtonCheckboxDirective;
@@ -11802,7 +11978,7 @@ var ButtonRadioDirective = (function () {
         'uncheckable': [{ type: Input },],
         'value': [{ type: Input },],
         'disabled': [{ type: Input },],
-        'isActive': [{ type: HostBinding, args: ['class.active',] },],
+        'isActive': [{ type: HostBinding, args: ['class.active',] }, { type: HostBinding, args: ['attr.aria-pressed',] },],
         'onClick': [{ type: HostListener, args: ['click',] },],
     };
     return ButtonRadioDirective;
@@ -12920,7 +13096,7 @@ var TooltipContainerComponent = (function () {
                         role: 'tooltip'
                     },
                     styles: [
-                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: 50%;\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: 50%;\n    }\n  "
+                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: 50%;\n      margin-left: -6px;\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: 50%;\n      margin-top: -6px;\n    }\n  "
                     ],
                     template: "\n    <div class=\"tooltip-arrow arrow\"></div>\n    <div class=\"tooltip-inner\"><ng-content></ng-content></div>\n    "
                 },] },
@@ -14980,7 +15156,7 @@ var TypeaheadContainerComponent = (function () {
             var ulPaddingTop = parseFloat((ulStyles['padding-top'] ? ulStyles['padding-top'] : '0').replace('px', ''));
             var optionHeight = parseFloat((liStyles['height'] ? liStyles['height'] : '0').replace('px', ''));
             var height = this.typeaheadOptionsInScrollableView * optionHeight;
-            this.guiHeight = (height + ulPaddingTop + ulPaddingBottom) + 'px';
+            this.guiHeight = height + ulPaddingTop + ulPaddingBottom + "px";
         }
         this.renderer.setStyle(this.element.nativeElement, 'visibility', 'visible');
     };
@@ -15067,9 +15243,8 @@ var TypeaheadDirective = (function () {
          * If true the word súper would match super and vice versa.
          */
         this.typeaheadLatinize = true;
-        /** break words with spaces. If true the text "exact phrase"
-         * here match would match with match exact phrase here
-         * but not with phrase here exact match (kind of "google style").
+        /** Can be use to search words by inserting a single white space between each characters
+         *  for example 'C a l i f o r n i a' will match 'California'.
          */
         this.typeaheadSingleWords = true;
         /** should be used only in case typeaheadSingleWords attribute is true.
@@ -15267,7 +15442,7 @@ var TypeaheadDirective = (function () {
         var _this = this;
         this._subscriptions.push(this.keyUpEventEmitter
             .debounceTime(this.typeaheadWaitMs)
-            .mergeMap(function () { return _this.typeahead; })
+            .switchMap(function () { return _this.typeahead; })
             .subscribe(function (matches) {
             _this.finalizeAsyncCall(matches);
         }));
@@ -16262,6 +16437,7 @@ var BsDropdownDirective = (function () {
         }
         if (this._showInline) {
             this.removeShowClass();
+            this.removeDropupStyles();
             this._isInlineOpen = false;
             this.onHidden.emit(true);
         }
@@ -16272,7 +16448,8 @@ var BsDropdownDirective = (function () {
     };
     /**
      * Toggles an element’s popover. This is considered a “manual” triggering of
-     * the popover.
+     * the popover. With parameter <code>true</code> allows toggling, with parameter <code>false</code>
+     * only hides opened dropdown. Parameter usage will be removed in ngx-bootstrap v3
      */
     BsDropdownDirective.prototype.toggle = function (value) {
         if (this.isOpen || !value) {
@@ -16292,7 +16469,7 @@ var BsDropdownDirective = (function () {
         if (!isBs3()) {
             this.addShowClass();
             this.checkRightAlignment();
-            this.checkDropup();
+            this.addDropupStyles();
         }
     };
     BsDropdownDirective.prototype.addShowClass = function () {
@@ -16312,11 +16489,17 @@ var BsDropdownDirective = (function () {
             this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'right', isRightAligned ? '0' : 'auto');
         }
     };
-    BsDropdownDirective.prototype.checkDropup = function () {
+    BsDropdownDirective.prototype.addDropupStyles = function () {
         if (this._inlinedMenu && this._inlinedMenu.rootNodes[0]) {
             // a little hack to not break support of bootstrap 4 beta
             this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'top', this.dropup ? 'auto' : '100%');
             this._renderer.setStyle(this._inlinedMenu.rootNodes[0], 'transform', this.dropup ? 'translateY(-101%)' : 'translateY(0)');
+        }
+    };
+    BsDropdownDirective.prototype.removeDropupStyles = function () {
+        if (this._inlinedMenu && this._inlinedMenu.rootNodes[0]) {
+            this._renderer.removeStyle(this._inlinedMenu.rootNodes[0], 'top');
+            this._renderer.removeStyle(this._inlinedMenu.rootNodes[0], 'transform');
         }
     };
     BsDropdownDirective.decorators = [
@@ -17110,6 +17293,626 @@ FloatingActionButtonsModule.decorators = [
  * @nocollapse
  */
 FloatingActionButtonsModule.ctorParameters = () => [];
+
+/**
+ * Configuration service for the Popover directive.
+ * You can inject this service, typically in your root component, and customize
+ * the values of its properties in order to provide default values for all the
+ * popovers used in the application.
+ */
+var PopoverConfig = (function () {
+    function PopoverConfig() {
+        /**
+         * Placement of a popover. Accepts: "top", "bottom", "left", "right", "auto"
+         */
+        this.placement = 'top';
+        /**
+         * Specifies events that should trigger. Supports a space separated list of
+         * event names.
+         */
+        this.triggers = 'click';
+        this.outsideClick = false;
+    }
+    PopoverConfig.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    PopoverConfig.ctorParameters = function () { return []; };
+    return PopoverConfig;
+}());
+
+var PopoverContainerComponent = (function () {
+    function PopoverContainerComponent(config) {
+        Object.assign(this, config);
+    }
+    Object.defineProperty(PopoverContainerComponent.prototype, "isBs3", {
+        get: function () {
+            return isBs3();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    PopoverContainerComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'popover-container',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    // tslint:disable-next-line
+                    host: {
+                        '[class]': '"popover in popover-" + placement + " " + "bs-popover-" + placement + " " + placement + " " + containerClass',
+                        '[class.show]': '!isBs3',
+                        role: 'tooltip',
+                        style: 'display:block;'
+                    },
+                    styles: [
+                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: 50%;\n      margin-left: -8px;\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: 50%;\n      margin-top: -8px;\n    }\n  "
+                    ],
+                    template: "<div class=\"popover-arrow arrow\"></div> <h3 class=\"popover-title popover-header\" *ngIf=\"title\">{{ title }}</h3> <div class=\"popover-content popover-body\"> <ng-content></ng-content> </div> "
+                },] },
+    ];
+    /** @nocollapse */
+    PopoverContainerComponent.ctorParameters = function () { return [
+        { type: PopoverConfig, },
+    ]; };
+    PopoverContainerComponent.propDecorators = {
+        'placement': [{ type: Input },],
+        'title': [{ type: Input },],
+    };
+    return PopoverContainerComponent;
+}());
+
+/**
+ * A lightweight, extensible directive for fancy popover creation.
+ */
+var PopoverDirective = (function () {
+    function PopoverDirective(_elementRef, _renderer, _viewContainerRef, _config, cis) {
+        /**
+         * Close popover on outside click
+         */
+        this.outsideClick = false;
+        /**
+         * Css class for popover container
+         */
+        this.containerClass = '';
+        this._isInited = false;
+        this._popover = cis
+            .createLoader(_elementRef, _viewContainerRef, _renderer)
+            .provide({ provide: PopoverConfig, useValue: _config });
+        Object.assign(this, _config);
+        this.onShown = this._popover.onShown;
+        this.onHidden = this._popover.onHidden;
+        // fix: no focus on button on Mac OS #1795
+        if (typeof window !== 'undefined') {
+            _elementRef.nativeElement.addEventListener('click', function () {
+                try {
+                    _elementRef.nativeElement.focus();
+                }
+                catch (err) {
+                    return;
+                }
+            });
+        }
+    }
+    Object.defineProperty(PopoverDirective.prototype, "isOpen", {
+        /**
+         * Returns whether or not the popover is currently being shown
+         */
+        get: function () {
+            return this._popover.isShown;
+        },
+        set: function (value) {
+            if (value) {
+                this.show();
+            }
+            else {
+                this.hide();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Opens an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.show = function () {
+        if (this._popover.isShown || !this.popover) {
+            return;
+        }
+        this._popover
+            .attach(PopoverContainerComponent)
+            .to(this.container)
+            .position({ attachment: this.placement })
+            .show({
+            content: this.popover,
+            context: this.popoverContext,
+            placement: this.placement,
+            title: this.popoverTitle,
+            containerClass: this.containerClass
+        });
+        this.isOpen = true;
+    };
+    /**
+     * Closes an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.hide = function () {
+        if (this.isOpen) {
+            this._popover.hide();
+            this.isOpen = false;
+        }
+    };
+    /**
+     * Toggles an element’s popover. This is considered a “manual” triggering of
+     * the popover.
+     */
+    PopoverDirective.prototype.toggle = function () {
+        if (this.isOpen) {
+            return this.hide();
+        }
+        this.show();
+    };
+    PopoverDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        // fix: seems there are an issue with `routerLinkActive`
+        // which result in duplicated call ngOnInit without call to ngOnDestroy
+        // read more: https://github.com/valor-software/ngx-bootstrap/issues/1885
+        if (this._isInited) {
+            return;
+        }
+        this._isInited = true;
+        this._popover.listen({
+            triggers: this.triggers,
+            outsideClick: this.outsideClick,
+            show: function () { return _this.show(); }
+        });
+    };
+    PopoverDirective.prototype.ngOnDestroy = function () {
+        this._popover.dispose();
+    };
+    PopoverDirective.decorators = [
+        { type: Directive, args: [{ selector: '[popover]', exportAs: 'bs-popover' },] },
+    ];
+    /** @nocollapse */
+    PopoverDirective.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: Renderer2, },
+        { type: ViewContainerRef, },
+        { type: PopoverConfig, },
+        { type: ComponentLoaderFactory, },
+    ]; };
+    PopoverDirective.propDecorators = {
+        'popover': [{ type: Input },],
+        'popoverContext': [{ type: Input },],
+        'popoverTitle': [{ type: Input },],
+        'placement': [{ type: Input },],
+        'outsideClick': [{ type: Input },],
+        'triggers': [{ type: Input },],
+        'container': [{ type: Input },],
+        'containerClass': [{ type: Input },],
+        'isOpen': [{ type: Input },],
+        'onShown': [{ type: Output },],
+        'onHidden': [{ type: Output },],
+    };
+    return PopoverDirective;
+}());
+
+var PopoverModule = (function () {
+    function PopoverModule() {
+    }
+    PopoverModule.forRoot = function () {
+        return {
+            ngModule: PopoverModule,
+            providers: [PopoverConfig, ComponentLoaderFactory, PositioningService]
+        };
+    };
+    PopoverModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CommonModule],
+                    declarations: [PopoverDirective, PopoverContainerComponent],
+                    exports: [PopoverDirective],
+                    entryComponents: [PopoverContainerComponent]
+                },] },
+    ];
+    /** @nocollapse */
+    PopoverModule.ctorParameters = function () { return []; };
+    return PopoverModule;
+}());
+
+class FocusIfDirective {
+    /**
+     * @param {?} _elementRef
+     */
+    constructor(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+    /**
+     * @param {?} focus
+     * @return {?}
+     */
+    set focusIf(focus) {
+        if (focus) {
+            setTimeout(() => this._elementRef.nativeElement.focus());
+        }
+    }
+}
+FocusIfDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[focusIf]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+FocusIfDirective.ctorParameters = () => [
+    { type: ElementRef, },
+];
+FocusIfDirective.propDecorators = {
+    'focusIf': [{ type: Input },],
+};
+
+class FocusIfModule {
+}
+FocusIfModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [FocusIfDirective],
+                declarations: [FocusIfDirective]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+FocusIfModule.ctorParameters = () => [];
+
+class HierarchyBarService {
+    constructor() {
+        this.nodes$ = new BehaviorSubject$1([]);
+        this._nodes = [];
+    }
+    /**
+     * Store the root node of the hierarchy tree
+     * @param {?} root
+     * @return {?}
+     */
+    setRootNode(root) {
+        // store the root node
+        this._root = root;
+        // create a flat structure of nodes
+        this._nodes = this.getNodeList(root);
+        // flatten the array - based on the selected node
+        this.nodes$.next(this.getSelectedChildren(root));
+    }
+    /**
+     * Select a node. This causes all nodes to be
+     * deselected and the path to the selected node
+     * to be selected
+     * @param {?} node
+     * @return {?}
+     */
+    selectNode(node) {
+        // deselect all nodes
+        this.deselectAll();
+        // ensure the current node is selected and its parents
+        this.select(node);
+        // emit a new node list to trigger change detection
+        this.nodes$.next(this.getSelectedChildren(this._root));
+    }
+    /**
+     * Handles getting children with support for both arrays and observables
+     * @param {?} node
+     * @return {?}
+     */
+    getChildren(node) {
+        if (Array.isArray(node.children)) {
+            return of$2({ loading: false, children: node.children });
+        }
+        const /** @type {?} */ children$ = node.children;
+        // if it is an observable then handle loading
+        return Observable$1.create((observer) => {
+            // emit initial value
+            observer.next({ loading: true, children: [] });
+            // now wait until the children observable completes
+            children$.pipe(first$1()).subscribe(children => {
+                // replace the observable with an array for future loading
+                node.children = children;
+                // rebuild the node tree
+                this.setRootNode(this._root);
+                // emit the latest value
+                observer.next({ loading: false, children: children });
+                // close the observable stream
+                observer.complete();
+            });
+        });
+    }
+    /**
+     * Traverses all the parents to ensure they are selected
+     * @param {?} node
+     * @return {?}
+     */
+    select(node) {
+        node.selected = true;
+        if (node.parent) {
+            this.select(node.parent);
+        }
+    }
+    /**
+     * Deselects all nodes
+     * @return {?}
+     */
+    deselectAll() {
+        this._nodes.forEach(node => node.selected = false);
+    }
+    /**
+     * Gets all the nodes in the tree as a flat array.
+     * It also stores the parent node in a parent property
+     * on the node for easy traversal in both directions
+     * @param {?} node
+     * @return {?}
+     */
+    getNodeList(node) {
+        // if there are no children then return only itself
+        if (!node.children || node.children instanceof Observable$1 || node.children.length === 0) {
+            return [node];
+        }
+        // store the parent property
+        node.children.forEach(child => child.parent = node);
+        // get all descendants of this node
+        const /** @type {?} */ descendants = node.children.reduce((nodes, current) => [...nodes, ...this.getNodeList(current)], []);
+        return [node, ...descendants];
+    }
+    /**
+     * Gets all selected nodes from the parent node.
+     * @param {?} node
+     * @return {?}
+     */
+    getSelectedChildren(node) {
+        if (node.children instanceof Observable$1) {
+            return [node];
+        }
+        // get the children - and account for when there is none
+        const /** @type {?} */ children = node.children || [];
+        // check if any child is selected
+        const /** @type {?} */ child = children.find(_child => _child.selected);
+        // return the remaining chain of selected items
+        return child ? [node, ...this.getSelectedChildren(child)] : [node];
+    }
+}
+HierarchyBarService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+HierarchyBarService.ctorParameters = () => [];
+
+class HierarchyBarComponent {
+    /**
+     * @param {?} hierarchyBar
+     */
+    constructor(hierarchyBar) {
+        this.hierarchyBar = hierarchyBar;
+        this.selectedChange = new EventEmitter();
+        this.overflow$ = new BehaviorSubject$1(false);
+        this.overflowNodes$ = new BehaviorSubject$1([]);
+        this._subscription = new Subscription$1();
+        // subscribe to changes in the selected node
+        const selected = hierarchyBar.nodes$.subscribe(nodes => this.selectedChange.emit(nodes.length === 0 ? null : nodes[nodes.length - 1]));
+        const changed = hierarchyBar.nodes$.pipe(debounceTime$2(0)).subscribe(() => this.scrollIntoView());
+        // store subscriptions
+        this._subscription.add(selected);
+        this._subscription.add(changed);
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    set root(node) {
+        this.hierarchyBar.setRootNode(node);
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    set selected(node) {
+        this.hierarchyBar.selectNode(node);
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._subscription.unsubscribe();
+    }
+    /**
+     * When there is overflow ensure that the rightmost
+     * node remains in view at all times. The nodes no longer
+     * visible be be displayed in a popover available on the
+     * overflow indicator
+     * @return {?}
+     */
+    scrollIntoView() {
+        if (!this.nodelist) {
+            return;
+        }
+        // get the native element
+        const { nativeElement } = this.nodelist;
+        // emit whether or not there is overflow
+        this.overflow$.next(nativeElement.scrollWidth > nativeElement.offsetWidth);
+        // if the hierarchy bar contents do not overflow then do nothing
+        if (nativeElement.scrollWidth > nativeElement.offsetWidth) {
+            // determine the amount of overflow
+            const /** @type {?} */ overflowAmount = nativeElement.scrollWidth - nativeElement.offsetWidth;
+            // determine which nodes are not fully visible
+            this.overflowNodes$.next(this.nodes.filter(node => node.nativeElement.offsetLeft < overflowAmount)
+                .map((node, index) => this.hierarchyBar.nodes$.value[index]));
+            // move the scroll position to always show the last itme
+            this.nodelist.nativeElement.scrollLeft = overflowAmount;
+        }
+    }
+}
+HierarchyBarComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-hierarchy-bar',
+                template: `
+      <!-- Allow content to be placed on the left of the items -->
+      <aside class="hierarchy-bar-addons">
+          <ng-content select="[uxHierarchyBarLeftAddon]"></ng-content>
+      </aside>
+
+      <main #nodelist class="hierarchy-bar-nodes" (uxResize)="scrollIntoView()">
+
+          <div *ngIf="overflow$ | async"
+               #popover="bs-popover"
+               class="hierarchy-bar-overflow-indicator"
+               [style.left.px]="nodelist.scrollLeft"
+               [popover]="overflow"
+               [popoverContext]="{ popover: popover }"
+               placement="bottom"
+               container="body"
+               [outsideClick]="true"
+               containerClass="hierarchy-bar-popover">
+              . . .
+          </div>
+
+          <div #nodeElement class="hierarchy-bar-node"
+               *ngFor="let node of hierarchyBar.nodes$ | async">
+
+              <button class="hierarchy-bar-node-content"
+                      [attr.aria-label]="node.title"
+                      (click)="hierarchyBar.selectNode(node)">
+
+                  <!-- Show an icon if specifed -->
+                  <img class="hierarchy-bar-node-icon" *ngIf="node.icon" [src]="node.icon" alt="Hierarchy Bar Icon">
+
+                  <!-- Show the name of the current node -->
+                  <span class="hierarchy-bar-node-title">{{ node.title }}</span>
+
+              </button>
+
+              <!-- Show a dropdown arrow if there are children -->
+              <button *ngIf="node.children"
+                    #popover="bs-popover"
+                    aria-label="Show children"
+                    role="button"
+                    class="hierarchy-bar-node-arrow hpe-icon hpe-next"
+                    [popover]="content"
+                    [popoverContext]="{ node: node, popover: popover }"
+                    placement="bottom"
+                    container="body"
+                    [outsideClick]="true"
+                    containerClass="hierarchy-bar-popover"
+                    tabindex="0">
+              </button>
+
+          </div>
+
+      </main>
+
+      <!-- Allow content to be placed on the right of the items -->
+      <aside class="hierarchy-bar-addons">
+          <ng-content select="[uxHierarchyBarRightAddon]"></ng-content>
+      </aside>
+
+      <!-- Template for the popover list -->
+      <ng-template #content let-node="node" let-popover="popover">
+
+          <!-- Loading Indicator -->
+          <ul class="hierarchy-bar-node-list" *ngIf="(hierarchyBar.getChildren(node) | async).loading">
+
+              <li class="hierarchy-bar-node-list-item">
+                  <ng-container [ngTemplateOutlet]="loadingIndicator || defaultLoadingIndicator"></ng-container>
+              </li>
+          </ul>
+
+          <!-- List of children -->
+          <ul class="hierarchy-bar-node-list" *ngIf="!(hierarchyBar.getChildren(node) | async).loading">
+
+              <li *ngFor="let child of (hierarchyBar.getChildren(node) | async).children; let first = first"
+                  class="hierarchy-bar-node-list-item"
+                  [focusIf]="first"
+                  tabindex="0"
+                  (keydown.enter)="hierarchyBar.selectNode(child); popover.hide()"
+                  (click)="hierarchyBar.selectNode(child); popover.hide()">
+
+                  <!-- Show an icon if specifed -->
+                  <img class="hierarchy-bar-node-icon" *ngIf="child.icon" [src]="child.icon" alt="Hierarchy Bar Icon">
+
+                  <!-- Show the name of the current node -->
+                  <span class="hierarchy-bar-node-title">{{ child.title }}</span>
+
+              </li>
+
+          </ul>
+      </ng-template>
+
+      <!-- Template for the overflow popover list -->
+      <ng-template #overflow let-popover="popover">
+
+          <ul class="hierarchy-bar-node-list">
+
+              <li *ngFor="let child of overflowNodes$ | async; let first = first"
+                  class="hierarchy-bar-node-list-item"
+                  tabindex="0"
+                  [focusIf]="first"
+                  (click)="hierarchyBar.selectNode(child); popover.hide()"
+                  (keydown.enter)="hierarchyBar.selectNode(child); popover.hide()">
+
+                  <!-- Show an icon if specifed -->
+                  <img class="hierarchy-bar-node-icon" *ngIf="child.icon" [src]="child.icon" alt="Hierarchy Bar Icon">
+
+                  <!-- Show the name of the current node -->
+                  <span class="hierarchy-bar-node-title">{{ child.title }}</span>
+
+              </li>
+
+          </ul>
+      </ng-template>
+
+      <!-- Loading Indicator Template -->
+      <ng-template #defaultLoadingIndicator>
+          <div class="hierarchy-bar-node-icon" alt="Hierarchy Bar Loading Indicator">
+              <div class="spinner spinner-accent spinner-bounce-middle"></div>
+          </div>
+
+          <!-- Show the name of the current node -->
+          <span class="hierarchy-bar-node-title">Loading...</span>
+      </ng-template>
+    `,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                viewProviders: [HierarchyBarService]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+HierarchyBarComponent.ctorParameters = () => [
+    { type: HierarchyBarService, },
+];
+HierarchyBarComponent.propDecorators = {
+    'root': [{ type: Input },],
+    'selected': [{ type: Input },],
+    'loadingIndicator': [{ type: Input },],
+    'selectedChange': [{ type: Output },],
+    'nodelist': [{ type: ViewChild, args: ['nodelist',] },],
+    'nodes': [{ type: ViewChildren, args: ['nodeElement',] },],
+};
+
+class HierarchyBarModule {
+}
+HierarchyBarModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    ResizeModule,
+                    FocusIfModule,
+                    PopoverModule.forRoot()
+                ],
+                exports: [HierarchyBarComponent],
+                declarations: [HierarchyBarComponent],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+HierarchyBarModule.ctorParameters = () => [];
 
 class SidePanelService {
     constructor() {
@@ -18635,9 +19438,10 @@ class NotificationService {
     /**
      * @param {?} templateRef
      * @param {?=} options
+     * @param {?=} data
      * @return {?}
      */
-    show(templateRef, options = this.options) {
+    show(templateRef, options = this.options, data = {}) {
         options = Object.assign({}, this.options, options);
         const /** @type {?} */ notificationRef = {
             templateRef: templateRef,
@@ -18647,7 +19451,8 @@ class NotificationService {
             height: options.height,
             spacing: options.spacing,
             backgroundColor: options.backgroundColor,
-            iconColor: options.iconColor
+            iconColor: options.iconColor,
+            data: data
         };
         const /** @type {?} */ notifications = this.notifications$.getValue();
         if (this.direction === 'above') {
@@ -18716,12 +19521,12 @@ NotificationListComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ux-notification-list',
                 template: `
-      <div class="notification" *ngFor="let notificationRef of notifications$ | async; let idx = index" 
+      <div class="notification" *ngFor="let notificationRef of notifications$ | async; let idx = index"
           [style.top.px]="(notificationRef.height + notificationRef.spacing) * idx"
           [style.height.px]="notificationRef.height"
           [style.background-color]="notificationRef.backgroundColor"
           [@notificationState]>
-          <ng-container *ngTemplateOutlet="notificationRef.templateRef; context: { $implicit: notificationRef }"></ng-container>
+          <ng-container *ngTemplateOutlet="notificationRef.templateRef; context: { $implicit: notificationRef, data: notificationRef.data }"></ng-container>
       </div>
     `,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20631,230 +21436,6 @@ SearchBuilderComponent.propDecorators = {
     'valid': [{ type: Output },],
 };
 
-/**
- * Configuration service for the Popover directive.
- * You can inject this service, typically in your root component, and customize
- * the values of its properties in order to provide default values for all the
- * popovers used in the application.
- */
-var PopoverConfig = (function () {
-    function PopoverConfig() {
-        /**
-         * Placement of a popover. Accepts: "top", "bottom", "left", "right", "auto"
-         */
-        this.placement = 'top';
-        /**
-         * Specifies events that should trigger. Supports a space separated list of
-         * event names.
-         */
-        this.triggers = 'click';
-        this.outsideClick = false;
-    }
-    PopoverConfig.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    PopoverConfig.ctorParameters = function () { return []; };
-    return PopoverConfig;
-}());
-
-var PopoverContainerComponent = (function () {
-    function PopoverContainerComponent(config) {
-        Object.assign(this, config);
-    }
-    Object.defineProperty(PopoverContainerComponent.prototype, "isBs3", {
-        get: function () {
-            return isBs3();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    PopoverContainerComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'popover-container',
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    // tslint:disable-next-line
-                    host: {
-                        '[class]': '"popover in popover-" + placement + " " + "bs-popover-" + placement + " " + placement + " " + containerClass',
-                        '[class.show]': '!isBs3',
-                        role: 'tooltip',
-                        style: 'display:block;'
-                    },
-                    styles: [
-                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: 50%;\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: 50%;\n    }\n  "
-                    ],
-                    template: "<div class=\"popover-arrow arrow\"></div> <h3 class=\"popover-title popover-header\" *ngIf=\"title\">{{ title }}</h3> <div class=\"popover-content popover-body\"> <ng-content></ng-content> </div> "
-                },] },
-    ];
-    /** @nocollapse */
-    PopoverContainerComponent.ctorParameters = function () { return [
-        { type: PopoverConfig, },
-    ]; };
-    PopoverContainerComponent.propDecorators = {
-        'placement': [{ type: Input },],
-        'title': [{ type: Input },],
-    };
-    return PopoverContainerComponent;
-}());
-
-/**
- * A lightweight, extensible directive for fancy popover creation.
- */
-var PopoverDirective = (function () {
-    function PopoverDirective(_elementRef, _renderer, _viewContainerRef, _config, cis) {
-        /**
-         * Close popover on outside click
-         */
-        this.outsideClick = false;
-        /**
-         * Css class for popover container
-         */
-        this.containerClass = '';
-        this._isInited = false;
-        this._popover = cis
-            .createLoader(_elementRef, _viewContainerRef, _renderer)
-            .provide({ provide: PopoverConfig, useValue: _config });
-        Object.assign(this, _config);
-        this.onShown = this._popover.onShown;
-        this.onHidden = this._popover.onHidden;
-        // fix: no focus on button on Mac OS #1795
-        if (typeof window !== 'undefined') {
-            _elementRef.nativeElement.addEventListener('click', function () {
-                try {
-                    _elementRef.nativeElement.focus();
-                }
-                catch (err) {
-                    return;
-                }
-            });
-        }
-    }
-    Object.defineProperty(PopoverDirective.prototype, "isOpen", {
-        /**
-         * Returns whether or not the popover is currently being shown
-         */
-        get: function () {
-            return this._popover.isShown;
-        },
-        set: function (value) {
-            if (value) {
-                this.show();
-            }
-            else {
-                this.hide();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Opens an element’s popover. This is considered a “manual” triggering of
-     * the popover.
-     */
-    PopoverDirective.prototype.show = function () {
-        if (this._popover.isShown || !this.popover) {
-            return;
-        }
-        this._popover
-            .attach(PopoverContainerComponent)
-            .to(this.container)
-            .position({ attachment: this.placement })
-            .show({
-            content: this.popover,
-            context: this.popoverContext,
-            placement: this.placement,
-            title: this.popoverTitle,
-            containerClass: this.containerClass
-        });
-        this.isOpen = true;
-    };
-    /**
-     * Closes an element’s popover. This is considered a “manual” triggering of
-     * the popover.
-     */
-    PopoverDirective.prototype.hide = function () {
-        if (this.isOpen) {
-            this._popover.hide();
-            this.isOpen = false;
-        }
-    };
-    /**
-     * Toggles an element’s popover. This is considered a “manual” triggering of
-     * the popover.
-     */
-    PopoverDirective.prototype.toggle = function () {
-        if (this.isOpen) {
-            return this.hide();
-        }
-        this.show();
-    };
-    PopoverDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        // fix: seems there are an issue with `routerLinkActive`
-        // which result in duplicated call ngOnInit without call to ngOnDestroy
-        // read more: https://github.com/valor-software/ngx-bootstrap/issues/1885
-        if (this._isInited) {
-            return;
-        }
-        this._isInited = true;
-        this._popover.listen({
-            triggers: this.triggers,
-            outsideClick: this.outsideClick,
-            show: function () { return _this.show(); }
-        });
-    };
-    PopoverDirective.prototype.ngOnDestroy = function () {
-        this._popover.dispose();
-    };
-    PopoverDirective.decorators = [
-        { type: Directive, args: [{ selector: '[popover]', exportAs: 'bs-popover' },] },
-    ];
-    /** @nocollapse */
-    PopoverDirective.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Renderer2, },
-        { type: ViewContainerRef, },
-        { type: PopoverConfig, },
-        { type: ComponentLoaderFactory, },
-    ]; };
-    PopoverDirective.propDecorators = {
-        'popover': [{ type: Input },],
-        'popoverContext': [{ type: Input },],
-        'popoverTitle': [{ type: Input },],
-        'placement': [{ type: Input },],
-        'outsideClick': [{ type: Input },],
-        'triggers': [{ type: Input },],
-        'container': [{ type: Input },],
-        'containerClass': [{ type: Input },],
-        'isOpen': [{ type: Input },],
-        'onShown': [{ type: Output },],
-        'onHidden': [{ type: Output },],
-    };
-    return PopoverDirective;
-}());
-
-var PopoverModule = (function () {
-    function PopoverModule() {
-    }
-    PopoverModule.forRoot = function () {
-        return {
-            ngModule: PopoverModule,
-            providers: [PopoverConfig, ComponentLoaderFactory, PositioningService]
-        };
-    };
-    PopoverModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [CommonModule],
-                    declarations: [PopoverDirective, PopoverContainerComponent],
-                    exports: [PopoverDirective],
-                    entryComponents: [PopoverContainerComponent]
-                },] },
-    ];
-    /** @nocollapse */
-    PopoverModule.ctorParameters = function () { return []; };
-    return PopoverModule;
-}());
-
 class TypeaheadOptionEvent {
     /**
      * @param {?} option
@@ -21443,11 +22024,18 @@ class InfiniteScrollDirective {
         this._collection = value;
     }
     /**
+     * @param {?} element
+     * @return {?}
+     */
+    set scrollElement(element) {
+        this._scrollElement = element instanceof ElementRef ? element : new ElementRef(element);
+    }
+    /**
      * @return {?}
      */
     ngOnInit() {
-        if (!this.scrollElement) {
-            this.scrollElement = this._element;
+        if (!this._scrollElement) {
+            this._scrollElement = this._element;
         }
         this._loadButtonEnabled.next(!this.loadOnScroll);
     }
@@ -21607,29 +22195,18 @@ class InfiniteScrollDirective {
         });
     }
     /**
-     * @param {?} event
-     * @return {?}
-     */
-    onScroll(event) {
-        this.check();
-    }
-    /**
-     * @return {?}
-     */
-    onDomChange() {
-        this.check();
-    }
-    /**
      * Attach scroll event handler and DOM observer.
      * @return {?}
      */
     attachEventHandlers() {
+        // if the scrollElement is documentElement we must watch for a scroll event on the document
+        const /** @type {?} */ target = this._scrollElement.nativeElement instanceof HTMLHtmlElement ? document : this._scrollElement.nativeElement;
         // Subscribe to the scroll event on the target element.
-        this._scrollEventSub = Observable$1.fromEvent(this.scrollElement.nativeElement, 'scroll').subscribe(this.onScroll.bind(this));
+        this._scrollEventSub = fromEvent$1(target, 'scroll').subscribe(this.check.bind(this));
         // Subscribe to child DOM changes. The main effect of this is to check whether even more data is
         // required after the initial load.
-        this._domObserver = new MutationObserver(this.onDomChange.bind(this));
-        this._domObserver.observe(this.scrollElement.nativeElement, {
+        this._domObserver = new MutationObserver(this.check.bind(this));
+        this._domObserver.observe(this._scrollElement.nativeElement, {
             childList: true,
             subtree: true
         });
@@ -21655,9 +22232,7 @@ class InfiniteScrollDirective {
      */
     attachLoadButtonEvents() {
         this._loadButtonSubscriptions.forEach(s => s.unsubscribe());
-        this._loadButtonSubscriptions = this._loadButtonQuery.map(loadButton => {
-            return loadButton.load.subscribe(this.loadNextPage.bind(this));
-        });
+        this._loadButtonSubscriptions = this._loadButtonQuery.map(loadButton => loadButton.load.subscribe(this.loadNextPage.bind(this)));
     }
     /**
      * Conditionally loads a page into the collection based on directive state and request parameters.
@@ -21712,8 +22287,8 @@ class InfiniteScrollDirective {
             return false;
         }
         // Load if the remaining scroll area is <= the element height.
-        if (this.scrollElement && this.loadOnScroll) {
-            const /** @type {?} */ element = (this.scrollElement.nativeElement);
+        if (this._scrollElement && this.loadOnScroll) {
+            const /** @type {?} */ element = (this._scrollElement.nativeElement);
             const /** @type {?} */ remainingScroll = element.scrollHeight -
                 (element.scrollTop + element.clientHeight);
             return remainingScroll <= element.clientHeight;
@@ -21781,12 +22356,12 @@ InfiniteScrollDirective.ctorParameters = () => [
 InfiniteScrollDirective.propDecorators = {
     'load': [{ type: Input, args: ['uxInfiniteScroll',] },],
     '_collection': [{ type: Input, args: ['collection',] },],
+    'scrollElement': [{ type: Input },],
     'enabled': [{ type: Input },],
     'filter': [{ type: Input },],
     'loadOnInit': [{ type: Input },],
     'loadOnScroll': [{ type: Input },],
     'pageSize': [{ type: Input },],
-    'scrollElement': [{ type: Input },],
     'collectionChange': [{ type: Output },],
     'loadingEvent': [{ type: Output, args: ['loading',] },],
     'loadedEvent': [{ type: Output, args: ['loaded',] },],
@@ -21996,18 +22571,19 @@ class SelectComponent {
         this._element = _element;
         this._document = _document;
         this._typeaheadKeyService = _typeaheadKeyService;
-        this.valueChange = new EventEmitter();
-        this._input = new BehaviorSubject$1('');
-        this.inputChange = new EventEmitter();
-        this._dropdownOpen = false;
-        this.dropdownOpenChange = new EventEmitter();
         this.allowNull = false;
         this.disabled = false;
         this.dropDirection = 'down';
         this.maxHeight = '250px';
         this.multiple = false;
         this.pageSize = 20;
+        this.valueChange = new EventEmitter();
+        this.inputChange = new EventEmitter();
+        this.dropdownOpenChange = new EventEmitter();
         this.propagateChange = (_) => { };
+        this._input$ = new BehaviorSubject$1('');
+        this._dropdownOpen = false;
+        this._subscription = new Subscription$1();
     }
     /**
      * @return {?}
@@ -22023,19 +22599,23 @@ class SelectComponent {
         this._value = value;
         this.valueChange.emit(value);
         this.propagateChange(value);
+        // if we are not allow multiple selection update the input value (supporting ngModel)
+        if (!this.multiple && value !== null) {
+            this.input = this.getDisplay(value);
+        }
     }
     /**
      * @return {?}
      */
     get input() {
-        return this._input.getValue();
+        return this._input$.value;
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set input(value) {
-        this._input.next(value);
+        this._input$.next(value);
         this.inputChange.emit(value);
     }
     /**
@@ -22057,51 +22637,37 @@ class SelectComponent {
      */
     ngOnInit() {
         // Changes to the input field
-        this._input.subscribe((next) => {
-            if (!this.multiple && next !== this.getDisplay(this.value)) {
-                if (this.allowNull) {
-                    this.value = null;
-                }
-            }
-        });
+        const /** @type {?} */ onInput = this._input$.pipe(filter$1(value => this.allowNull), filter$1(value => !this.multiple && value !== this.getDisplay(this.value))).subscribe(value => this.value = null);
         // Set up filter from input
-        this.filter = this._input
-            .map((input) => {
-            if (!this.multiple && input === this.getDisplay(this.value)) {
-                return '';
-            }
-            return input;
-        })
-            .debounceTime(200);
-        // Changes to filter value
-        this.filter.subscribe((next) => {
-            // Open the dropdown when filter is nonempty.
-            if (next && next.length > 0) {
-                this.dropdownOpen = true;
-            }
-        });
+        this.filter$ = this._input$.pipe(map$3(input => !this.multiple && input === this.getDisplay(this.value) ? '' : input), debounceTime$2(200));
+        // Open the dropdown when filter is nonempty.
+        const /** @type {?} */ onFilter = this.filter$.pipe(filter$1(value => value && value.length > 0)).subscribe(() => this.dropdownOpen = true);
+        // store the subscriptions
+        this._subscription.add(onInput);
+        this._subscription.add(onFilter);
     }
     /**
      * @param {?} changes
      * @return {?}
      */
     ngOnChanges(changes) {
-        if (changes.value) {
-            if (!this.multiple && changes.value.currentValue !== null) {
-                this.input = this.getDisplay(changes.value.currentValue);
-            }
-        }
         if (changes.multiple && !changes.multiple.firstChange && changes.multiple.currentValue !== changes.multiple.previousValue) {
             this.input = '';
         }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._subscription.unsubscribe();
     }
     /**
      * @param {?} obj
      * @return {?}
      */
     writeValue(obj) {
-        if (obj !== undefined) {
-            this._value = obj;
+        if (obj !== undefined && obj !== this._value) {
+            this.value = obj;
         }
     }
     /**
@@ -22156,7 +22722,7 @@ class SelectComponent {
         this._typeaheadKeyService.handleKey(event, this.singleTypeahead);
         switch (event.key) {
             case 'Enter':
-                if (this.dropdownOpen) {
+                if (this._dropdownOpen) {
                     // Set the highlighted option as the value and close
                     this.value = this.singleTypeahead.highlighted;
                     this.dropdownOpen = false;
@@ -22217,7 +22783,7 @@ SelectComponent.decorators = [
 
           <ux-typeahead #multipleTypeahead
               [options]="options"
-              [filter]="filter | async"
+              [filter]="filter$ | async"
               [(open)]="dropdownOpen"
               [display]="display"
               [key]="key"
@@ -22249,7 +22815,7 @@ SelectComponent.decorators = [
 
           <ux-typeahead #singleTypeahead
               [options]="options"
-              [filter]="filter | async"
+              [filter]="filter$ | async"
               [(open)]="dropdownOpen"
               [display]="display"
               [key]="key"
@@ -22279,11 +22845,8 @@ SelectComponent.ctorParameters = () => [
 ];
 SelectComponent.propDecorators = {
     'value': [{ type: Input },],
-    'valueChange': [{ type: Output },],
     'input': [{ type: Input },],
-    'inputChange': [{ type: Output },],
     'dropdownOpen': [{ type: Input },],
-    'dropdownOpenChange': [{ type: Output },],
     'options': [{ type: Input },],
     'display': [{ type: Input },],
     'key': [{ type: Input },],
@@ -22297,6 +22860,9 @@ SelectComponent.propDecorators = {
     'loadingTemplate': [{ type: Input },],
     'noOptionsTemplate': [{ type: Input },],
     'optionTemplate': [{ type: Input },],
+    'valueChange': [{ type: Output },],
+    'inputChange': [{ type: Output },],
+    'dropdownOpenChange': [{ type: Output },],
     'singleInput': [{ type: ViewChild, args: ['singleInput',] },],
     'multipleTypeahead': [{ type: ViewChild, args: ['multipleTypeahead',] },],
     'singleTypeahead': [{ type: ViewChild, args: ['singleTypeahead',] },],
@@ -23029,51 +23595,6 @@ TagInputComponent.propDecorators = {
     'keyHandler': [{ type: HostListener, args: ['keydown', ['$event'],] },],
     'focusOutHandler': [{ type: HostListener, args: ['focusout', ['$event'],] },],
 };
-
-class FocusIfDirective {
-    /**
-     * @param {?} _elementRef
-     */
-    constructor(_elementRef) {
-        this._elementRef = _elementRef;
-    }
-    /**
-     * @param {?} focus
-     * @return {?}
-     */
-    set focusIf(focus) {
-        if (focus) {
-            this._elementRef.nativeElement.focus();
-        }
-    }
-}
-FocusIfDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[focusIf]'
-            },] },
-];
-/**
- * @nocollapse
- */
-FocusIfDirective.ctorParameters = () => [
-    { type: ElementRef, },
-];
-FocusIfDirective.propDecorators = {
-    'focusIf': [{ type: Input },],
-};
-
-class FocusIfModule {
-}
-FocusIfModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [FocusIfDirective],
-                declarations: [FocusIfDirective]
-            },] },
-];
-/**
- * @nocollapse
- */
-FocusIfModule.ctorParameters = () => [];
 
 class TagInputModule {
 }
@@ -27819,67 +28340,303 @@ ReorderableModelDirective.propDecorators = {
 // WORKAROUND: ng-packagr issue - https://github.com/dherges/ng-packagr/issues/163
 const dragula = dragulaNamespace__default || dragulaNamespace;
 
+class ReorderableService {
+    constructor() {
+        this._groups = {};
+        this._uniqueGroupId = 0;
+    }
+    /**
+     * Returns a unique string which can be used as a group name if one was not configured.
+     * @return {?}
+     */
+    getUniqueGroupName() {
+        return '_uxReorderable_' + this._uniqueGroupId++;
+    }
+    /**
+     * Adds the container to the named group.
+     * @param {?} groupName
+     * @param {?} container
+     * @return {?}
+     */
+    register(groupName, container) {
+        if (!this._groups[groupName]) {
+            this._groups[groupName] = new ReorderableGroup();
+        }
+        this._groups[groupName].register(container);
+        return this._groups[groupName];
+    }
+    /**
+     * Removes the container from the named group. If it was the last container in the group, destroys the group.
+     * @param {?} groupName
+     * @param {?} container
+     * @return {?}
+     */
+    unregister(groupName, container) {
+        const /** @type {?} */ group = this._groups[groupName];
+        if (group) {
+            group.unregister(container);
+            if (group.isEmpty()) {
+                group.destroy();
+                delete this._groups[groupName];
+            }
+        }
+    }
+    /**
+     * Creates the dragula instance with the current config and attaches the events, if not already created.
+     * @param {?} groupName
+     * @return {?}
+     */
+    initialize(groupName) {
+        const /** @type {?} */ group = this._groups[groupName];
+        if (group) {
+            group.initialize();
+        }
+        return group;
+    }
+    /**
+     * Returns the group object for the given name.
+     * @param {?} group
+     * @return {?}
+     */
+    getGroup(group) {
+        return this._groups[group];
+    }
+}
+ReorderableService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+ReorderableService.ctorParameters = () => [];
+/**
+ * Represents a collection of drag-and-drop containers (uxReorderable) that items can be dragged between.
+ */
+class ReorderableGroup {
+    constructor() {
+        this.drag = new EventEmitter();
+        this.dragEnd = new EventEmitter();
+        this.drop = new EventEmitter();
+        this.cancel = new EventEmitter();
+        this.cloned = new EventEmitter();
+        this._containers = [];
+        this._config = {
+            moves: this.canMove.bind(this)
+        };
+    }
+    /**
+     * Returns true if there are no containers registered with the group.
+     * @return {?}
+     */
+    isEmpty() {
+        return this._containers.length === 0;
+    }
+    /**
+     * Returns the model object (uxReorderableModel) for an elements in one of the containers in the group.
+     * @param {?} element
+     * @return {?}
+     */
+    getModelForElement(element) {
+        for (const /** @type {?} */ container of this._containers) {
+            const /** @type {?} */ model = container.getModelFromElement(element);
+            if (model) {
+                return model;
+            }
+        }
+        return null;
+    }
+    /**
+     * Adds the container to the group.
+     * @param {?} container
+     * @return {?}
+     */
+    register(container) {
+        this._containers.push(container);
+        if (this._instance) {
+            this._instance.containers = this._containers.map((c) => c.element);
+        }
+        if (!this._config.mirrorContainer) {
+            this._config.mirrorContainer = container.element;
+        }
+    }
+    /**
+     * Removes the container from the group.
+     * @param {?} container
+     * @return {?}
+     */
+    unregister(container) {
+        const /** @type {?} */ index = this._containers.indexOf(container);
+        if (index >= 0) {
+            this._containers.splice(index, 1);
+            if (this._instance) {
+                this._instance.containers = this._containers.map((c) => c.element);
+            }
+        }
+    }
+    /**
+     * Creates the dragula instance with the current config and attaches the events, if not already created.
+     * @return {?}
+     */
+    initialize() {
+        if (this._instance) {
+            return;
+        }
+        this._instance = dragula(this._containers.map((c) => c.element), this._config);
+        this._instance.on('drag', (element, source) => {
+            this.drag.emit({
+                model: this.getModelForElement(element),
+                element: element,
+                source: source
+            });
+        });
+        this._instance.on('dragend', (element) => {
+            this.dragEnd.emit({
+                model: this.getModelForElement(element),
+                element: element
+            });
+        });
+        this._instance.on('drop', (element, target, source, sibling) => {
+            this.drop.emit({
+                model: this.getModelForElement(element),
+                element: element,
+                target: target,
+                source: source,
+                sibling: sibling
+            });
+        });
+        this._instance.on('cancel', (element) => {
+            this.cancel.emit({
+                model: this.getModelForElement(element),
+                element: element
+            });
+        });
+        this._instance.on('cloned', (clone, element, type) => {
+            this.cloned.emit({
+                clone: clone,
+                element: element,
+                type: type
+            });
+        });
+    }
+    /**
+     * Destroys the dragula instance.
+     * @return {?}
+     */
+    destroy() {
+        if (this._instance) {
+            this._instance.destroy();
+            this._instance = null;
+        }
+    }
+    /**
+     * Finds the container for the containerElement and returns the results of canMove.
+     * @param {?} element
+     * @param {?} containerElement
+     * @param {?} handle
+     * @return {?}
+     */
+    canMove(element, containerElement, handle) {
+        for (let /** @type {?} */ container of this._containers) {
+            if (container.element.isSameNode(containerElement)) {
+                return container.canMove(element, containerElement, handle);
+            }
+        }
+    }
+}
+
 class ReorderableDirective {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
-     * @param {?} _ngZone
+     * @param {?} _service
      */
-    constructor(_elementRef, _renderer, _ngZone) {
+    constructor(_elementRef, _renderer, _service) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
-        this._ngZone = _ngZone;
+        this._service = _service;
         this.reorderableModelChange = new EventEmitter();
         this.reorderStart = new EventEmitter();
         this.reorderCancel = new EventEmitter();
         this.reorderEnd = new EventEmitter();
+        this._dragging = false;
+        this._subscriptions = new Subscription$1();
     }
     /**
      * Initialise dragula and bind to all the required events
      * @return {?}
      */
     ngOnInit() {
-        // for performance gains lets run this outside ng zone
-        this._ngZone.runOutsideAngular(() => {
-            this._instance = dragula([this._elementRef.nativeElement], { moves: this.canMove.bind(this), mirrorContainer: this._elementRef.nativeElement });
-            this._instance.on('drag', (element) => this._ngZone.run(() => this.reorderStart.emit({ element: element, model: this.getModelFromElement(element) })));
-            this._instance.on('cancel', (element) => this._ngZone.run(() => this.reorderCancel.emit({ element: element, model: this.getModelFromElement(element) })));
-            this._instance.on('dragend', (element) => this._ngZone.run(() => this.reorderEnd.emit({ element: element, model: this.getModelFromElement(element) })));
-            this._instance.on('dragend', this.onDragEnd.bind(this));
-            this._instance.on('drop', this.onDrop.bind(this));
-            this._instance.on('cloned', this.onClone.bind(this));
-        });
+        // If no group name then generate a unique one for this instance only
+        if (!this.reorderableGroup) {
+            this.reorderableGroup = this._service.getUniqueGroupName();
+        }
+        this._container = {
+            element: this._elementRef.nativeElement,
+            getModelFromElement: this.getModelFromElement.bind(this),
+            canMove: this.canMove.bind(this)
+        };
+        // Register for drag events on this element
+        const /** @type {?} */ group = this._service.register(this.reorderableGroup, this._container);
+        this._subscriptions.add(group.drag.subscribe(this.onDrag.bind(this)));
+        this._subscriptions.add(group.dragEnd.subscribe(this.onDragEnd.bind(this)));
+        this._subscriptions.add(group.drop.subscribe(this.onDrop.bind(this)));
+        this._subscriptions.add(group.cancel.subscribe((event) => this.reorderCancel.emit({ element: event.element, model: event.model })));
+        this._subscriptions.add(group.cloned.subscribe(this.onClone.bind(this)));
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        this._service.initialize(this.reorderableGroup);
     }
     /**
      * We need to destroy the dragula instance on component destroy
      * @return {?}
      */
     ngOnDestroy() {
-        this._instance.destroy();
+        this._service.unregister(this.reorderableGroup, this._container);
+        this._subscriptions.unsubscribe();
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    onDrag(event) {
+        this._dragging = true;
+        this.reorderStart.emit({ element: event.element, model: event.model });
     }
     /**
      * This is fired when items get reordered - we need to emit the new order of the models
-     * @param {?} element
-     * @param {?} target
-     * @param {?} source
-     * @param {?} sibling
+     * @param {?} event
      * @return {?}
      */
-    onDrop(element, target, source, sibling) {
+    onDrop(event) {
         // if there is no provided module we can skip this
         if (!this.reorderableModel) {
             return;
         }
-        // get the model of the element being moved
-        const /** @type {?} */ model = this.getModelFromElement(element);
-        // remove this model from the list of models
-        this.reorderableModel = this.reorderableModel.filter(_model => _model !== model);
-        // get the position of sibling element
-        const /** @type {?} */ index = sibling && !sibling.classList.contains('gu-mirror') ? this.reorderableModel.indexOf(this.getModelFromElement(sibling)) : this.reorderableModel.length;
-        // re-insert the model at its new location
-        this.reorderableModel.splice(index, 0, model);
-        // emit the model changes (inside zone)
-        this._ngZone.run(() => this.reorderableModelChange.emit(this.reorderableModel));
+        let /** @type {?} */ changed = false;
+        if (event.source.isSameNode(this._elementRef.nativeElement)) {
+            // remove this model from the list of models
+            const /** @type {?} */ index = this.reorderableModel.indexOf(event.model);
+            if (index >= 0) {
+                this.reorderableModel.splice(index, 1);
+                changed = true;
+            }
+        }
+        if (event.target.isSameNode(this._elementRef.nativeElement)) {
+            // get the position of sibling element
+            const /** @type {?} */ index = event.sibling && !event.sibling.classList.contains('gu-mirror') ?
+                this.reorderableModel.indexOf(this.getModelFromElement(event.sibling)) :
+                this.reorderableModel.length;
+            // insert the model at its new location
+            this.reorderableModel.splice(index, 0, event.model);
+            changed = true;
+        }
+        // Emit event if any changes were made
+        if (changed) {
+            this.reorderableModelChange.emit(this.reorderableModel);
+        }
     }
     /**
      * Return the model assciated with a particular element in the list.
@@ -27896,24 +28653,31 @@ class ReorderableDirective {
     }
     /**
      * When we finish dragging remove the utillity class from the element being moved
-     * @param {?} element
+     * @param {?} event
      * @return {?}
      */
-    onDragEnd(element) {
-        this._renderer.removeClass(element, 'ux-reorderable-moving');
+    onDragEnd(event) {
+        this._dragging = false;
+        if (this._elementRef.nativeElement.contains(event.element)) {
+            this._renderer.removeClass(event.element, 'ux-reorderable-moving');
+            this.reorderEnd.emit({
+                element: event.element,
+                model: event.model
+            });
+        }
     }
     /**
      * We want to ensure that the cloned element is identical
      * to the original, regardless of it's location in the DOM tree
-     * @param {?} clone
-     * @param {?} element
-     * @param {?} type
+     * @param {?} event
      * @return {?}
      */
-    onClone(clone, element, type) {
-        this.setTableCellWidths(element, clone);
-        this.captureCanvases(element, clone);
-        this._renderer.addClass(element, 'ux-reorderable-moving');
+    onClone(event) {
+        if (this._elementRef.nativeElement.contains(event.element)) {
+            this.setTableCellWidths(event.element, event.clone);
+            this.captureCanvases(event.element, event.clone);
+            this._renderer.addClass(event.element, 'ux-reorderable-moving');
+        }
     }
     /**
      * If elements contain handles then only drag when the handle is dragged
@@ -27967,16 +28731,18 @@ ReorderableDirective.decorators = [
 ReorderableDirective.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
-    { type: NgZone, },
+    { type: ReorderableService, },
 ];
 ReorderableDirective.propDecorators = {
     'reorderableModel': [{ type: Input },],
+    'reorderableGroup': [{ type: Input },],
     'reorderableModelChange': [{ type: Output },],
     'reorderStart': [{ type: Output },],
     'reorderCancel': [{ type: Output },],
     'reorderEnd': [{ type: Output },],
     'handles': [{ type: ContentChildren, args: [ReorderableHandleDirective, { read: ElementRef, descendants: true },] },],
     'models': [{ type: ContentChildren, args: [ReorderableModelDirective,] },],
+    '_dragging': [{ type: HostBinding, args: ['class.ux-reorderable-container-moving',] },],
 };
 
 class ReorderableModule {
@@ -27995,6 +28761,9 @@ ReorderableModule.decorators = [
                     ReorderableDirective,
                     ReorderableHandleDirective,
                     ReorderableModelDirective
+                ],
+                providers: [
+                    ReorderableService
                 ]
             },] },
 ];
@@ -29214,5 +29983,5 @@ HybridModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { BreadcrumbsComponent, BreadcrumbsModule, CardTabsModule, CardTabsService, CardTabsetComponent, CardTabComponent, CardTabContentDirective, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, defaultOptions, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, FloatingActionButtonsModule, FloatingActionButtonsComponent, FloatingActionButtonComponent, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NavigationModule, NavigationComponent, NavigationItemComponent, NotificationModule, NotificationService, NotificationListComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SidePanelComponent, SidePanelCloseDirective, SidePanelModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, TimelineModule, TimelineComponent, TimelineEventComponent, ToggleSwitchModule, ToggleSwitchComponent, ToolbarSearchModule, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchButtonDirective, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, AutoGrowModule, AutoGrowDirective, DragModule, DragDirective, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, SelectionModule, ReorderableModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DateTimePickerService as ɵc, FloatingActionButtonsService as ɵd, MarqueeWizardStepComponent as ɵg, MarqueeWizardService as ɵf, MediaPlayerService as ɵk, PageHeaderNavigationDropdownItemComponent as ɵj, PageHeaderNavigationItemComponent as ɵi, PageHeaderService as ɵh, SidePanelService as ɵe, HoverActionService as ɵl, SelectionItemDirective as ɵo, SelectionDirective as ɵm, SelectionService as ɵn };
+export { BreadcrumbsComponent, BreadcrumbsModule, CardTabsModule, CardTabsService, CardTabsetComponent, CardTabComponent, CardTabContentDirective, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, defaultOptions, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DatePickerMode, DateTimePickerDayViewComponent, DateTimePickerMonthViewComponent, DateTimePickerYearViewComponent, DateTimePickerTimeViewComponent, DatePickerMeridian, DateTimePickerHeaderComponent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, FloatingActionButtonsModule, FloatingActionButtonsComponent, FloatingActionButtonComponent, HierarchyBarModule, HierarchyBarService, HierarchyBarComponent, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NavigationModule, NavigationComponent, NavigationItemComponent, NotificationModule, NotificationService, NotificationListComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SidePanelComponent, SidePanelCloseDirective, SidePanelModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, TagInputEvent, TagInputComponent, TagInputModule, TimelineModule, TimelineComponent, TimelineEventComponent, ToggleSwitchModule, ToggleSwitchComponent, ToolbarSearchModule, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchButtonDirective, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, AutoGrowModule, AutoGrowDirective, DragModule, DragDirective, FixedHeaderTableModule, FixedHeaderTableDirective, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, SelectionModule, ReorderableModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, ReorderableService, ReorderableGroup, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DateTimePickerService as ɵc, FloatingActionButtonsService as ɵd, MarqueeWizardStepComponent as ɵg, MarqueeWizardService as ɵf, MediaPlayerService as ɵk, PageHeaderNavigationDropdownItemComponent as ɵj, PageHeaderNavigationItemComponent as ɵi, PageHeaderService as ɵh, SidePanelService as ɵe, HoverActionService as ɵl, SelectionItemDirective as ɵo, SelectionDirective as ɵm, SelectionService as ɵn };
 //# sourceMappingURL=ux-aspects.js.map
