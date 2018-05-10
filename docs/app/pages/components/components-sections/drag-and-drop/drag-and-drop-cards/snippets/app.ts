@@ -92,5 +92,5 @@ class DragAndDropComponent {
     name: string;
     type: string;
     icon: string;
-    content: TemplateRef<any>;
+    content?: TemplateRef<any>;
 }
