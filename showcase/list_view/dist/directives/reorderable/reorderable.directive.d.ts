@@ -1,10 +1,12 @@
-import { ElementRef, OnInit, QueryList, OnDestroy, EventEmitter, Renderer2, NgZone } from '@angular/core';
+import { ElementRef, OnInit, QueryList, OnDestroy, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
 import { ReorderableModelDirective } from './reorderable-model.directive';
-export declare class ReorderableDirective implements OnInit, OnDestroy {
+import { ReorderableService, ReorderableDragEvent, ReorderableDragEndEvent, ReorderableDropEvent, ReorderableClonedEvent } from './reorderable.service';
+export declare class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
     private _elementRef;
     private _renderer;
-    private _ngZone;
+    private _service;
     reorderableModel: Array<any>;
+    reorderableGroup: string;
     reorderableModelChange: EventEmitter<any[]>;
     reorderStart: EventEmitter<ReorderEvent>;
     reorderCancel: EventEmitter<ReorderEvent>;
@@ -12,19 +14,24 @@ export declare class ReorderableDirective implements OnInit, OnDestroy {
     handles: QueryList<ElementRef>;
     models: QueryList<ReorderableModelDirective>;
     private _instance;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _ngZone: NgZone);
+    private _container;
+    private _dragging;
+    private _subscriptions;
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _service: ReorderableService);
     /**
      * Initialise dragula and bind to all the required events
      */
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     /**
      * We need to destroy the dragula instance on component destroy
      */
     ngOnDestroy(): void;
+    onDrag(event: ReorderableDragEvent): void;
     /**
      * This is fired when items get reordered - we need to emit the new order of the models
      */
-    onDrop(element: Element, target: Element, source: Element, sibling: HTMLElement): void;
+    onDrop(event: ReorderableDropEvent): void;
     /**
      * Return the model assciated with a particular element in the list.
      * This should ensure that the items have the draggable model directive applied
@@ -33,12 +40,12 @@ export declare class ReorderableDirective implements OnInit, OnDestroy {
     /**
      * When we finish dragging remove the utillity class from the element being moved
      */
-    onDragEnd(element: Element): void;
+    onDragEnd(event: ReorderableDragEndEvent): void;
     /**
      * We want to ensure that the cloned element is identical
      * to the original, regardless of it's location in the DOM tree
      */
-    onClone(clone: Element, element: Element, type: string): void;
+    onClone(event: ReorderableClonedEvent): void;
     /**
      * If elements contain handles then only drag when the handle is dragged
      * otherwise drag whenever an immediate child is specified
