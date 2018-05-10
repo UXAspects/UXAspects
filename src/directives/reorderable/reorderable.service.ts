@@ -110,10 +110,6 @@ export interface ReorderableClonedEvent {
  */
 export class ReorderableGroup {
 
-    config: DragulaOptions = {
-        moves: this.canMove.bind(this)
-    };
-
     drag = new EventEmitter<ReorderableDragEvent>();
     dragEnd = new EventEmitter<ReorderableDragEndEvent>();
     drop = new EventEmitter<ReorderableDropEvent>();
@@ -122,6 +118,10 @@ export class ReorderableGroup {
 
     private _instance: Drake;
     private _containers: ReorderableContainer[] = [];
+
+    private _config: DragulaOptions = {
+        moves: this.canMove.bind(this)
+    };
 
     /**
      * Returns true if there are no containers registered with the group.
@@ -154,8 +154,8 @@ export class ReorderableGroup {
             this._instance.containers = this._containers.map((c) => c.element);
         }
 
-        if (!this.config.mirrorContainer) {
-            this.config.mirrorContainer = container.element;
+        if (!this._config.mirrorContainer) {
+            this._config.mirrorContainer = container.element;
         }
     }
 
@@ -181,7 +181,7 @@ export class ReorderableGroup {
             return;
         }
 
-        this._instance = dragula(this._containers.map((c) => c.element), this.config);
+        this._instance = dragula(this._containers.map((c) => c.element), this._config);
 
         this._instance.on('drag', (element: Element, source: Element) => {
             this.drag.emit({
