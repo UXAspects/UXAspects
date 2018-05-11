@@ -41,6 +41,7 @@ export * from './components/wizard/index';
 export * from './directives/auto-grow/index';
 export * from './directives/drag/index';
 export * from './directives/fixed-header-table/index';
+export * from './directives/float-label/index';
 export * from './directives/focus-if/index';
 export * from './directives/help-center/index';
 export * from './directives/hover-action/index';

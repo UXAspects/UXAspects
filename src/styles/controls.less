@@ -1695,6 +1695,29 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
     }
 }
 
+// Float label (Angular)
+.ux-float-label {
+    margin-left: 12px;
+    font-size: @font-size-sm;
+    color: lighten(@text-color, 30%);
+
+    &:not(.ux-float-label-raised) {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    &.ux-float-label-raised {
+        opacity: 1;
+        transition: 0.5s ease-in-out;
+    }
+}
+
+.ux-float-label ~ input,
+.ux-float-input {
+    border: none;
+    border-bottom: 1px solid @float-label-border;
+}
+
 //ui-tree
 .angular-ui-tree {
     > ol {
