@@ -268,8 +268,11 @@ export class DashboardService {
 
     onResizeDrag(action: DashboardAction): void {
 
+        const mousePosX = this._mouseEvent.pageX - pageXOffset;
+        const mousePosY = this._mouseEvent.pageY - pageYOffset;
+
         // if there was no movement then do nothing
-        if (action.event.x === this._mouseEvent.x && action.event.y === this._mouseEvent.y) {
+        if (action.event.x === mousePosX && action.event.y === mousePosY) {
             return;
         }
 
@@ -287,8 +290,8 @@ export class DashboardService {
         const centerY = bounds.top + (bounds.height / 2);
 
         // get the current mouse position
-        const mouseX = action.event.x - centerX;
-        const mouseY = action.event.y - centerY;
+        const mouseX = mousePosX - centerX;
+        const mouseY = mousePosY - centerY;
 
         // store the new proposed dimensions for the widget
         const dimensions: DashboardWidgetDimensions = {
