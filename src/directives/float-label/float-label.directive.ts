@@ -33,7 +33,13 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
             this._renderer.listen(this.input, 'input', this.inputChange.bind(this))
         );
 
+        // Check initial input value
         this.raised = !!this.input.value;
+
+        // Ensure that the `for` attribute is set
+        if (!this._elementRef.nativeElement.getAttribute('for') && this.input.getAttribute('id')) {
+            this._renderer.setAttribute(this._elementRef.nativeElement, 'for', this.input.getAttribute('id'));
+        }
     }
 
     ngOnChanges(): void {

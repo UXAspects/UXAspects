@@ -1,27 +1,43 @@
-<form novalidate>
+<form [formGroup]="demoForm" novalidate>
+
     <div class="form-group row">
         <div class="col-sm-4">
             <label [uxFloatLabel]="username" mode="input">User Name</label>
-            <input type="text" #username id="username" class="form-control" placeholder="User Name">
+            <input type="text" #username id="username" class="form-control" placeholder="User Name"
+                formControlName="username">
         </div>
     </div>
+
     <div class="form-group row">
         <div class="col-sm-4">
-            <label [uxFloatLabel]="location" mode="input">Location</label>
-            <input type="text" #location id="location" class="form-control" placeholder="Location">
+            <label [uxFloatLabel]="location" [raised]="locationValue" mode="input">Location</label>
+            <div class="input-group">
+                <input type="text" #location id="location" class="form-control ux-float-input"
+                    placeholder="Location" formControlName="location">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-icon button-primary"
+                        (click)="locationValue = 'Here'">
+                        <span class="hpe-icon hpe-location" aria-label="Current Location"></span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
+
 </form>
 
 <hr>
 
 <p>
-    Float Labels allow for placeholders that will move to remain visible when the user is typing in the input field. This pattern is useful for forms where having separate labels for inputs is undesirable, and allows the user to keep the context of an input field even after they have entered a value.
+    Float Labels allow for placeholders that will move to remain visible when the user is typing in the input field.
+    This pattern is useful for forms where having separate labels for inputs is undesirable, and allows the user to keep
+    the context of an input field even after they have entered a value.
 </p>
 
 <p>
     Add the <code>uxFloatLabel</code> directive to the <code>label</code> element, and bind it to the associated
-    <code>input</code> element.
+    <code>input</code> element. The <code>ux-float-input</code> class can be used to style the <code>input</code> if it
+    is part of an input group.
 </p>
 
 <p>
@@ -33,7 +49,7 @@
         The <code>input</code> element associated with the label.
     </tr>
     <tr uxd-api-property name="raised" type="boolean">
-        Whether the label is visible above the input field. This can be used to ensure that the label is positioned
+        Whether the label appears above the input field. This can be used to ensure that the label is positioned
         correctly when an input field is modified programmatically.
     </tr>
     <tr uxd-api-property name="mode" type="'focus' | 'input'" defaultValue="focus">
@@ -47,3 +63,16 @@
         </ul>
     </tr>
 </uxd-api-properties>
+
+<p>
+    The following code is used to create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>

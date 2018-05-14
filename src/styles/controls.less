@@ -1697,9 +1697,12 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 
 // Float label (Angular)
 .ux-float-label {
+    position: relative;
     margin-left: 12px;
+    margin-bottom: 0;
     font-size: @font-size-sm;
     color: lighten(@text-color, 30%);
+    z-index: @float-label-z-index;
 
     &:not(.ux-float-label-raised) {
         opacity: 0;

@@ -23,15 +23,15 @@
                 },
                 {
                     "title": "Hyperlinks",
-                    "component": "CssHyperlinksComponent"  
+                    "component": "CssHyperlinksComponent"
                 },
                 {
                     "title": "Button Dropdowns",
-                    "component": "CssButtonDropdownsComponent"  
+                    "component": "CssButtonDropdownsComponent"
                 },
                 {
                     "title": "Split Button Dropdowns",
-                    "component": "CssSplitButtonDropdownsComponent"  
+                    "component": "CssSplitButtonDropdownsComponent"
                 }
             ]
         },
@@ -51,15 +51,15 @@
             "sections": [
                 {
                     "title": "HTML Head",
-                    "component": "CssHtmlHeadComponent"  
+                    "component": "CssHtmlHeadComponent"
                 },
                 {
                     "title": "HTML Body",
-                    "component": "CssHtmlBodyComponent"  
+                    "component": "CssHtmlBodyComponent"
                 },
                 {
                     "title": "Scroll To Top Button",
-                    "component": "CssScrollToTopButtonComponent"  
+                    "component": "CssScrollToTopButtonComponent"
                 }
             ]
         },
@@ -69,35 +69,35 @@
             "sections": [
                 {
                     "title": "Responsive Design",
-                    "component": "CssResponsiveDesignComponent"  
+                    "component": "CssResponsiveDesignComponent"
                 },
                 {
                     "title": "Stacked To Horizontal",
-                    "component": "CssStackedToHorizontalComponent"  
+                    "component": "CssStackedToHorizontalComponent"
                 },
                 {
                     "title": "Mobile and Desktop",
-                    "component": "CssMobileDesktopComponent"  
+                    "component": "CssMobileDesktopComponent"
                 },
                 {
                     "title": "Mobile, Tablet and Desktop",
-                    "component": "CssMobileTabletDesktopComponent"  
+                    "component": "CssMobileTabletDesktopComponent"
                 },
                 {
                     "title": "Responsive Column Resets",
-                    "component": "CssResponsiveColumnResetsComponent"  
+                    "component": "CssResponsiveColumnResetsComponent"
                 },
                 {
                     "title": "Offsetting Columns",
-                    "component": "CssOffsettingColumnsComponent"  
+                    "component": "CssOffsettingColumnsComponent"
                 },
                 {
                     "title": "Nesting Columns",
-                    "component": "CssNestingColumnsComponent"  
+                    "component": "CssNestingColumnsComponent"
                 },
                 {
                     "title": "Column Ordering",
-                    "component": "CssColumnOrderingComponent"  
+                    "component": "CssColumnOrderingComponent"
                 }
             ]
         },
@@ -107,7 +107,7 @@
             "sections": [
                 {
                     "title": "Page Title",
-                    "component": "CssPageTitleComponent"  
+                    "component": "CssPageTitleComponent"
                 }
             ]
         },
@@ -117,19 +117,19 @@
             "sections": [
                 {
                     "title": "Navigation Header",
-                    "component": "CssNavigationHeaderComponent"  
+                    "component": "CssNavigationHeaderComponent"
                 },
                 {
                     "title": "Breadcrumb",
-                    "component": "CssBreadcrumbComponent"  
+                    "component": "CssBreadcrumbComponent"
                 },
                 {
                     "title": "Breadcrumb from States",
-                    "component": "CssBreadcrumbFromStatesComponent"  
+                    "component": "CssBreadcrumbFromStatesComponent"
                 },
                 {
                     "title": "Breadcrumb with Tab State",
-                    "component": "CssBreadcrumbWithTabStateComponent"  
+                    "component": "CssBreadcrumbWithTabStateComponent"
                 },
                 {
                     "title": "Condensed Header",
@@ -141,11 +141,11 @@
                 },
                 {
                     "title": "Standard Header",
-                    "component": "CssStandardHeaderComponent"  
+                    "component": "CssStandardHeaderComponent"
                 },
                 {
                     "title": "Product Name and Logo",
-                    "component": "CssProductNameLogoComponent"  
+                    "component": "CssProductNameLogoComponent"
                 },
                 {
                     "title": "Header Content Panel",
@@ -153,23 +153,23 @@
                 },
                 {
                     "title": "Back Button",
-                    "component": "CssBackButtonComponent"  
+                    "component": "CssBackButtonComponent"
                 },
                 {
                     "title": "Dynamic Name Callout",
-                    "component": "CssDynamicNameCalloutComponent"  
+                    "component": "CssDynamicNameCalloutComponent"
                 },
                 {
                     "title": "Standard Header & Toolbar",
-                    "component": "CssStandardHeaderToolbarComponent"  
+                    "component": "CssStandardHeaderToolbarComponent"
                 },
                 {
                     "title": "Header with Navigation Tab & Toolbar",
-                    "component": "CssHeaderNavTabToolbarComponent"  
+                    "component": "CssHeaderNavTabToolbarComponent"
                 },
                 {
                     "title": "Page Header Example",
-                    "component": "CssPageHeaderExampleComponent"  
+                    "component": "CssPageHeaderExampleComponent"
                 }
             ]
         },
@@ -179,39 +179,39 @@
             "sections": [
                 {
                     "title": "Headings",
-                    "component": "CssHeadingsComponent"  
+                    "component": "CssHeadingsComponent"
                 },
                 {
                     "title": "Paragraph Text",
-                    "component": "CssParagraphTextComponent"  
+                    "component": "CssParagraphTextComponent"
                 },
                 {
                     "title": "Unstyled List",
-                    "component": "CssUnstyledListComponent"  
+                    "component": "CssUnstyledListComponent"
                 },
                 {
                     "title": "Unordered List",
-                    "component": "CssUnorderedListComponent"  
+                    "component": "CssUnorderedListComponent"
                 },
                 {
                     "title": "Ordered List",
-                    "component": "CssOrderedListComponent"  
+                    "component": "CssOrderedListComponent"
                 },
                 {
                     "title": "Emphasis Classes",
-                    "component": "CssEmphasisClassesComponent"  
+                    "component": "CssEmphasisClassesComponent"
                 },
                 {
                     "title": "Blockquotes",
-                    "component": "CssBlockquotesComponent"  
+                    "component": "CssBlockquotesComponent"
                 },
                 {
                     "title": "Wells",
-                    "component": "CssWellsComponent"  
+                    "component": "CssWellsComponent"
                 },
                 {
                     "title": "Case Usage Guidelines",
-                    "component": "CssCaseUsageGuidelinesComponent"  
+                    "component": "CssCaseUsageGuidelinesComponent"
                 }
             ]
         },
@@ -221,23 +221,23 @@
             "sections": [
                 {
                     "title": "Basic Form",
-                    "component": "CssBasicFormComponent"  
+                    "component": "CssBasicFormComponent"
                 },
                 {
                     "title": "Horizontal Form",
-                    "component": "CssHorizontalFormComponent"  
+                    "component": "CssHorizontalFormComponent"
                 },
                 {
                     "title": "Inline Form",
-                    "component": "CssInlineFormComponent"  
+                    "component": "CssInlineFormComponent"
                 },
                 {
                     "title": "Form with Validation - field-by-field",
-                    "component": "CssFormValidationFieldByFieldComponent"  
+                    "component": "CssFormValidationFieldByFieldComponent"
                 },
                 {
                     "title": "Form with Validation - on-submit",
-                    "component": "CssFormValidationOnSubmitComponent"  
+                    "component": "CssFormValidationOnSubmitComponent"
                 }
             ]
         },
@@ -247,31 +247,31 @@
             "sections": [
                 {
                     "title": "UX Aspects Icons",
-                    "component": "CssUxIconsComponent"  
+                    "component": "CssUxIconsComponent"
                 },
                 {
                     "title": "Basic Usage",
-                    "component": "CssBasicUsageComponent"  
+                    "component": "CssBasicUsageComponent"
                 },
                 {
                     "title": "Icon Size",
-                    "component": "CssIconSizeComponent"  
+                    "component": "CssIconSizeComponent"
                 },
                 {
                     "title": "Fixed Width",
-                    "component": "CssFixedWidthComponent"  
+                    "component": "CssFixedWidthComponent"
                 },
                 {
                     "title": "Rotate & Flip Icons",
-                    "component": "CssRotateFlipIconsComponent"  
+                    "component": "CssRotateFlipIconsComponent"
                 },
                 {
                     "title": "Icon Buttons",
-                    "component": "CssIconButtonsComponent"  
+                    "component": "CssIconButtonsComponent"
                 },
                 {
                     "title": "Icon Colors",
-                    "component": "CssIconColorsComponent"  
+                    "component": "CssIconColorsComponent"
                 }
             ]
         },
@@ -281,11 +281,11 @@
             "sections": [
                 {
                     "title": "Labels",
-                    "component": "CssLabelsComponent"  
+                    "component": "CssLabelsComponent"
                 },
                 {
                     "title": "Static Text",
-                    "component": "CssStaticTextComponent"  
+                    "component": "CssStaticTextComponent"
                 }
             ]
         },
@@ -295,55 +295,58 @@
             "sections": [
                 {
                     "title": "Text Inputs",
-                    "component": "CssTextInputsComponent"  
+                    "component": "CssTextInputsComponent"
                 },
                 {
                     "title": "Text Area",
-                    "component": "CssTextAreaComponent"  
+                    "component": "CssTextAreaComponent"
                 },
                 {
                     "title": "Disabled Inputs",
-                    "component": "CssDisabledAreaComponent"  
+                    "component": "CssDisabledAreaComponent"
                 },
                 {
                     "title": "Input with Error",
-                    "component": "CssInputErrorComponent"  
+                    "component": "CssInputErrorComponent"
                 },
                 {
                     "title": "Input Required",
-                    "component": "CssInputRequiredComponent"  
+                    "component": "CssInputRequiredComponent"
                 },
                 {
                     "title": "Input Height",
-                    "component": "CssInputHeightComponent"  
+                    "component": "CssInputHeightComponent"
                 },
                 {
                     "title": "Input Width",
-                    "component": "CssInputWidthComponent"  
+                    "component": "CssInputWidthComponent"
                 },
                 {
                     "title": "Input Groups",
-                    "component": "CssInputGroupsComponent"  
+                    "component": "CssInputGroupsComponent"
                 },
                 {
                     "title": "Float Labels",
-                    "component": "CssFloatLabelsComponent"  
+                    "component": "CssFloatLabelsComponent",
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsFloatLabelComponent"
                 },
                 {
                     "title": "Button Addons",
-                    "component": "CssButtonAddonsComponent"  
+                    "component": "CssButtonAddonsComponent"
                 },
                 {
                     "title": "Inputs with Help Text",
-                    "component": "CssInputsHelpTextComponent"  
+                    "component": "CssInputsHelpTextComponent"
                 },
                 {
                     "title": "Dropdown Addons",
-                    "component": "CssDropdownAddonsComponent"  
+                    "component": "CssDropdownAddonsComponent"
                 },
                 {
                     "title": "Segmented Addons",
-                    "component": "CssSegmentedAddonsComponent"  
+                    "component": "CssSegmentedAddonsComponent"
                 }
             ]
         },
@@ -353,11 +356,11 @@
             "sections": [
                 {
                     "title": "Basic Panel",
-                    "component": "CssBasicPanelComponent"  
+                    "component": "CssBasicPanelComponent"
                 },
                 {
                     "title": "EBox Panel",
-                    "component": "CssEboxPanelComponent"  
+                    "component": "CssEboxPanelComponent"
                 }
             ]
         },
@@ -367,15 +370,15 @@
             "sections": [
                 {
                     "title": "Activity Indicator",
-                    "component": "CssActivityIndicatorComponent"  
+                    "component": "CssActivityIndicatorComponent"
                 },
                 {
                     "title": "Activity Indicator Alternative",
-                    "component": "CssActivityIndicatorAlternativeComponent"  
+                    "component": "CssActivityIndicatorAlternativeComponent"
                 },
                 {
                     "title": "Mini Activity Indicator",
-                    "component": "CssMiniActivityIndicatorComponent"  
+                    "component": "CssMiniActivityIndicatorComponent"
                 }
             ]
         },
@@ -385,11 +388,11 @@
             "sections": [
                 {
                     "title": "Tables",
-                    "component": "CssTablesComponent"  
+                    "component": "CssTablesComponent"
                 },
                 {
                     "title": "Cards",
-                    "component": "CssCardsComponent"  
+                    "component": "CssCardsComponent"
                 }
             ]
         }
