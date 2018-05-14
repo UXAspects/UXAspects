@@ -616,6 +616,21 @@
                     "deprecated": true
                 },
                 {
+                    "title": "Float Label",
+                    "component": "ComponentsFloatLabelComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxFloatLabel]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "FloatLabelModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Toggle Switch",
                     "component": "ComponentsToggleSwitchComponent",
                     "version": "Angular",
