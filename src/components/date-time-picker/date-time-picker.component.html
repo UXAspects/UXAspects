@@ -4,13 +4,13 @@
 
     <!-- Display days in the current month -->
     <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day" [weekdays]="weekdays" (dateChange)="commit()"></ux-date-time-picker-day-view>
-  
+
     <!-- Display the months in the current year -->
     <ux-date-time-picker-month-view *ngSwitchCase="DatePickerMode.Month"></ux-date-time-picker-month-view>
-  
+
     <!-- Display a decade -->
     <ux-date-time-picker-year-view *ngSwitchCase="DatePickerMode.Year"></ux-date-time-picker-year-view>
-  
+
   </ng-container>
 
   <!-- Display a Time Picker -->
@@ -29,4 +29,4 @@
 
 </div>
 
-<button class="now-button" aria-label="Set date to now" (click)="setToNow()">{{ nowBtnText }}</button>
+<button class="now-button" tabindex="0" aria-label="Set date to now" (click)="setToNow()" (keydown.enter)="setToNow()">{{ nowBtnText }}</button>

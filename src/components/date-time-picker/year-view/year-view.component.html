@@ -7,7 +7,7 @@
          role="gridcell"
          class="calendar-item"
          [attr.aria-label]="item"
-         [class.current]="item === currentYear" 
+         [class.current]="item === currentYear"
          [class.active]="item === year"
          (mousedown)="select(item)"
          (keyup.enter)="select(item)"
