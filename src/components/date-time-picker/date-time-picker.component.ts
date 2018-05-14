@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { DateTimePickerConfig } from './date-time-picker.config';
-import { DateTimePickerService } from './date-time-picker.service';
+import { DateTimePickerService, DatePickerMode } from './date-time-picker.service';
 import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-view/time-view.component';
 
 @Component({
@@ -82,10 +82,4 @@ export class DateTimePickerComponent {
     // emit the changes
     this.commit();
   }
-}
-
-export enum DatePickerMode {
-  Day,
-  Month,
-  Year
 }

@@ -3,8 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { DatePickerMode } from '../date-time-picker.component';
-import { DateTimePickerService } from '../date-time-picker.service';
+import { DateTimePickerService, DatePickerMode } from '../date-time-picker.service';
 import { compareDays, dateRange, gridify, months, weekdaysShort } from '../date-time-picker.utils';
 
 @Component({

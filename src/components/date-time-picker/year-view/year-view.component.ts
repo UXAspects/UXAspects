@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePickerMode } from '../date-time-picker.component';
-import { DateTimePickerService } from '../date-time-picker.service';
+import { DateTimePickerService, DatePickerMode } from '../date-time-picker.service';
 import { gridify, range } from '../date-time-picker.utils';
 
 @Component({

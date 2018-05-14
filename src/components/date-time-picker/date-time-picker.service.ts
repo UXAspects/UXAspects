@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { DatePickerMode } from './date-time-picker.component';
 
 @Injectable()
 export class DateTimePickerService {
@@ -23,3 +22,9 @@ export class DateTimePickerService {
         });
     }
 }
+
+export enum DatePickerMode {
+    Day,
+    Month,
+    Year
+  }
