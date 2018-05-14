@@ -95,11 +95,11 @@
 
 <p>For single value selection, an example value might be:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample1Ts" language="javascript"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.sample1Ts"></uxd-snippet>
 
 <p>For range selection, an example value might be:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample2Ts" language="javascript"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.sample2Ts"></uxd-snippet>
 
 <p>The variable containing the value can be updated with the correct value, or values, when the slider is dragged if two way
     binding is used.</p>
@@ -111,7 +111,7 @@
 
 <p>The default options for each chart are as follows:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample3Ts" language="javascript"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.sample3Ts"></uxd-snippet>
 
 <p>Full details on each property and the possible values for each can be found below. All properties are optional, if they are
     not specified the default value will be used.</p>
@@ -122,11 +122,11 @@
         are <code>SliderType.Value</code> and <code>SliderType.Range</code>.
     </tr>
     <tr uxd-api-property name="handles" type="SliderHandleOptions">
-        This should be an object that contains properties configuring the appearance and behavior of the 
+        This should be an object that contains properties configuring the appearance and behavior of the
         draggable handles on the slider. If not specified the default options will be used.
     </tr>
     <tr uxd-api-property name="track" type="SliderTrackOptions">
-        This should be an object that contains properties configuring the appearance and behavior of the 
+        This should be an object that contains properties configuring the appearance and behavior of the
         track on the slider. If not specified the default options will be used.
     </tr>
 </uxd-api-properties>
@@ -227,21 +227,25 @@
         where ticks should appear. This can be useful when ticks should not appear at regular intervals.
     </tr>
     <tr uxd-api-property name="labels" type="boolean">
-        Specifies whether or not this variety of ticks should display labels. The available options are 
+        Specifies whether or not this variety of ticks should display labels. The available options are
         <code>true</code> or <code>false</code>. By default major ticks will show labels, minor ticks will not.
     </tr>
     <tr uxd-api-property name="formatter" type="(value: number) => string | number">
-        This allows you to specify a function that will format the value in the tick label. 
+        This allows you to specify a function that will format the value in the tick label.
         This should accept a value as a parameter and return a modified value. By default the value will not be modified.
     </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="SliderKeyboardOptions">
-    <tr uxd-api-property name="step" type="SliderSnap | number">
-        Specifies how the focused thumb should move when arrow keys are pressed. By default it will snap to the closest tick in the
-        desired direction. You can specify which type of tick to snap to by setting the value to <code>SliderSnap.All</code>(default),
-        <code>SliderSnap.Major</code> or <code>SliderSnap.Minor</code>. If instead you wish to move the thumb by an arbitrary amount each
-        time a number can be specified.
+    <tr uxd-api-property name="major" type="boolean" defaultValue="true">
+        If true, the thumb will snap to major ticks when arrow keys are pressed.
+    </tr>
+    <tr uxd-api-property name="minor" type="boolean" defaultValue="true">
+        If true, the thumb will snap to minor ticks when arrow keys are pressed.
+    </tr>
+    <tr uxd-api-property name="step" type="number" defaultValue="1">
+        By default the thumb will snap to the closest major or minor tick if they are present. However if there are no ticks or
+        <code>major</code> and <code>minor</code> are both set to <code>false</code>, then the thumb will be moved by this amount.
     </tr>
 </uxd-api-properties>
 
@@ -253,9 +257,9 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.sample4Html"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.sample4Html"></uxd-snippet>
     </tab>
     <tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.sample4Ts"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.sample4Ts"></uxd-snippet>
     </tab>
 </tabset>

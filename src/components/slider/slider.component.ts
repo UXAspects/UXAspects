@@ -91,7 +91,9 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
                     formatter: (value: number): string | number => value
                 },
                 keyboard: {
-                    step: SliderSnap.All
+                    step: 1,
+                    major: true,
+                    minor: true
                 }
             },
             track: {
@@ -158,37 +160,30 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         // get the value for the thumb
         const { value } = this.getThumbState(thumb);
 
-        let delta = 1;
+        let snapTarget;
 
-        if (typeof this.options.handles.keyboard.step !== 'number') {
-
-            // get the appropriate snap target
-            let snapTarget;
-
-            if (this.options.track.ticks.major.show && this.options.track.ticks.minor.show) {
-                snapTarget = SliderSnap.All;
-            } else if (this.options.track.ticks.major.show) {
-                snapTarget = SliderSnap.Major;
-            } else if (this.options.track.ticks.minor.show) {
-                snapTarget = SliderSnap.Minor;
-            } else {
-                snapTarget = SliderSnap.None;
-            }
-
-            // get the closest ticks - remove any tick if we are currently on it
-            const closest = this.getTickDistances(value, thumb, snapTarget)
-                .filter(tick => tick.value !== value)
-                .find(tick => forwards ? tick.value > value : tick.value < value);
-    
-            // If we have no ticks then move by a predefined amount
-            if (closest) {
-                return this.setThumbValue(thumb, this.validateValue(thumb, closest.value));
-            }
+        if (this.options.handles.keyboard.major && this.options.handles.keyboard.minor && this.options.track.ticks.major.show && this.options.track.ticks.minor.show) {
+            snapTarget = SliderSnap.All;
+        } else if (this.options.handles.keyboard.major && this.options.track.ticks.major.show) {
+            snapTarget = SliderSnap.Major;
+        } else if (this.options.handles.keyboard.minor && this.options.track.ticks.minor.show) {
+            snapTarget = SliderSnap.Minor;
         } else {
-            delta = this.options.handles.keyboard.step;
+            snapTarget = SliderSnap.None;
         }
-     
-        this.setThumbValue(thumb, this.validateValue(thumb, value + (forwards ? delta : -delta)));
+
+        // get the closest ticks - remove any tick if we are currently on it
+        const closest = this.getTickDistances(value, thumb, snapTarget)
+            .filter(tick => tick.value !== value)
+            .find(tick => forwards ? tick.value > value : tick.value < value);
+
+        // If we have no ticks then move by a predefined amount
+        if (closest) {
+            return this.setThumbValue(thumb, this.validateValue(thumb, closest.value));
+        }
+
+        this.setThumbValue(thumb, this.validateValue(thumb, value + (forwards ? this.options.handles.keyboard.step : -this.options.handles.keyboard.step)));
+
     }
 
     snapToEnd(thumb: SliderThumb, forwards: boolean): void {
@@ -779,10 +774,10 @@ export interface SliderValue {
 }
 
 export enum SliderSnap {
-    None = 'none',
-    Minor = 'minor',
-    Major = 'major',
-    All = 'all'
+    None,
+    Minor,
+    Major,
+    All
 }
 
 export enum SliderTickType {
@@ -803,7 +798,9 @@ export interface SliderHandleOptions {
 }
 
 export interface SliderKeyboardOptions {
-    step: SliderSnap | number;
+    step?: number;
+    major?: boolean;
+    minor?: boolean;
 }
 
 export interface SliderTrackOptions {
