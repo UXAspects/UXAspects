@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { dateRange, gridify, compareDays, months, weekdaysShort } from '../date-time-picker.utils';
-import { DateTimePickerService } from '../date-time-picker.service';
-import { DatePickerMode } from '../date-time-picker.component';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/merge';
-import { Subscription } from 'rxjs/Subscription';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/distinctUntilChanged';
+import { DatePickerMode } from '../date-time-picker.component';
+import { DateTimePickerService } from '../date-time-picker.service';
+import { compareDays, dateRange, gridify, months, weekdaysShort } from '../date-time-picker.utils';
 
 @Component({
   selector: 'ux-date-time-picker-day-view',

@@ -1,8 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-view/time-view.component';
-import { weekdaysShort } from './date-time-picker.utils';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { DateTimePickerConfig } from './date-time-picker.config';
 import { DateTimePickerService } from './date-time-picker.service';
+import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-view/time-view.component';
 
 @Component({
   selector: 'ux-date-time-picker',

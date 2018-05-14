@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { gridify, range, monthsShort } from '../date-time-picker.utils';
-import { DateTimePickerService } from '../date-time-picker.service';
+import { Component } from '@angular/core';
 import { DatePickerMode } from '../date-time-picker.component';
+import { DateTimePickerService } from '../date-time-picker.service';
+import { gridify, monthsShort, range } from '../date-time-picker.utils';
 
 @Component({
   selector: 'ux-date-time-picker-month-view',

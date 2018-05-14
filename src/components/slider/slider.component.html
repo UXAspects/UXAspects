@@ -4,30 +4,41 @@
     <div class="track-section track-lower" [style.flex-grow]="tracks.lower.size" [style.background]="tracks.lower.color"></div>
 
     <!-- Lower Thumb Button / Line -->
-    <div class="thumb lower" uxDrag
-        [style.left.%]="thumbs.lower.position" 
-        [class.active]="thumbs.lower.drag" 
-        [style.z-index]="thumbs.lower.order" 
+    <div class="thumb lower"
+        uxDrag
+        role="slider"
+        tabindex="0"
+        #lowerthumb
+        [attr.aria-valuemin]="options?.track?.min"
+        [attr.aria-valuemax]="options?.track?.max"
+        [attr.aria-valuenow]="getThumbValue(sliderThumb.Lower)"
+        [style.left.%]="thumbs.lower.position"
+        [class.active]="thumbs.lower.drag"
+        [style.z-index]="thumbs.lower.order"
         [class.button]="options.handles.style === sliderStyle.Button"
-        [class.line]="options.handles.style === sliderStyle.Line" 
+        [class.line]="options.handles.style === sliderStyle.Line"
         [class.narrow]="options.track.height === sliderSize.Narrow"
-        [class.wide]="options.track.height === sliderSize.Wide" 
-        (dragstart)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)"
+        [class.wide]="options.track.height === sliderSize.Wide"
+        (dragstart)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart); lowerthumb.focus()"
         (drag)="updateThumbPosition($event, sliderThumb.Lower)"
         (dragend)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)"
         (mouseenter)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)"
-        (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)">
+        (mouseleave)="thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)"
+        (keydown.ArrowLeft)="snapToNearestTick(sliderThumb.Lower, false)"
+        (keydown.ArrowRight)="snapToNearestTick(sliderThumb.Lower, true)"
+        (keydown.PageDown)="snapToEnd(sliderThumb.Lower, false); $event.preventDefault()"
+        (keydown.PageUp)="snapToEnd(sliderThumb.Lower, true); $event.preventDefault()">
 
         <!-- Lower Thumb Callout -->
-        <div class="tooltip top tooltip-lower" #lowerTooltip 
+        <div class="tooltip top tooltip-lower" #lowerTooltip
             [class.tooltip-dynamic]="options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false"
-            [style.opacity]="tooltips.lower.visible ? 1 : 0" 
+            [style.opacity]="tooltips.lower.visible ? 1 : 0"
             [style.left.px]="tooltips.lower.position">
 
             <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
 
-            <div class="tooltip-inner" 
-                [style.background-color]="options.handles.callout.background" 
+            <div class="tooltip-inner"
+                [style.background-color]="options.handles.callout.background"
                 [style.color]="options.handles.callout.color">
                 {{ tooltips.lower.label }}
             </div>
@@ -40,31 +51,42 @@
     </div>
 
     <!-- Upper Thumb Button / Line -->
-    <div class="thumb upper" uxDrag
-        [hidden]="options.type !== sliderType.Range" 
-        [class.active]="thumbs.upper.drag" 
-        [style.left.%]="thumbs.upper.position" 
+    <div class="thumb upper"
+        uxDrag
+        role="slider"
+        tabindex="0"
+        #upperthumb
+        [attr.aria-valuemin]="options?.track?.min"
+        [attr.aria-valuemax]="options?.track?.max"
+        [attr.aria-valuenow]="getThumbValue(sliderThumb.Upper)"
+        [hidden]="options.type !== sliderType.Range"
+        [class.active]="thumbs.upper.drag"
+        [style.left.%]="thumbs.upper.position"
         [style.z-index]="thumbs.upper.order"
-        [class.button]="options.handles.style === sliderStyle.Button" 
+        [class.button]="options.handles.style === sliderStyle.Button"
         [class.line]="options.handles.style === sliderStyle.Line"
-        [class.narrow]="options.track.height === sliderSize.Narrow" 
-        [class.wide]="options.track.height === sliderSize.Wide" 
-        (dragstart)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)"
+        [class.narrow]="options.track.height === sliderSize.Narrow"
+        [class.wide]="options.track.height === sliderSize.Wide"
+        (dragstart)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart); upperthumb.focus()"
         (drag)="updateThumbPosition($event, sliderThumb.Upper)"
         (dragend)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)"
         (mouseenter)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)"
-        (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)">
+        (mouseleave)="thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)"
+        (keydown.ArrowLeft)="snapToNearestTick(sliderThumb.Upper, false)"
+        (keydown.ArrowRight)="snapToNearestTick(sliderThumb.Upper, true)"
+        (keydown.PageDown)="snapToEnd(sliderThumb.Upper, false); $event.preventDefault()"
+        (keydown.PageUp)="snapToEnd(sliderThumb.Upper, true); $event.preventDefault()">
 
         <!-- Upper Thumb Callout -->
-        <div class="tooltip top tooltip-upper" #upperTooltip 
+        <div class="tooltip top tooltip-upper" #upperTooltip
             [class.tooltip-dynamic]="options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false"
-            [style.opacity]="tooltips.upper.visible ? 1 : 0" 
+            [style.opacity]="tooltips.upper.visible ? 1 : 0"
             [style.left.px]="tooltips.upper.position">
 
             <div class="tooltip-arrow" [style.border-top-color]="options.handles.callout.background"></div>
 
-            <div class="tooltip-inner" 
-                *ngIf="options.type === sliderType.Range" 
+            <div class="tooltip-inner"
+                *ngIf="options.type === sliderType.Range"
                 [style.background-color]="options.handles.callout.background"
                 [style.color]="options.handles.callout.color">
                 {{ tooltips.upper.label }}
@@ -78,8 +100,8 @@
 </div>
 
 <!-- Chart Ticks and Tick Labels -->
-<div class="tick-container" 
-    *ngIf="(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic" 
+<div class="tick-container"
+    *ngIf="(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic"
     [class.show-labels]="options.track.ticks.major.labels || options.track.ticks.minor.labels">
 
     <div class="tick" *ngFor="let tick of ticks" [class.major]="tick.type === sliderTickType.Major" [class.minor]="tick.type === sliderTickType.Minor"

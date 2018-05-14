@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -12,16 +12,18 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     templateUrl: './checkbox.component.html',
     providers: [CHECKBOX_VALUE_ACCESSOR],
     host: {
-        '(click)': 'toggleChecked()'
+        'role': 'checkbox',
+        '[attr.aria-checked]': 'value === true'
     }
 })
 export class CheckboxComponent implements ControlValueAccessor {
 
     @Input() name: string = '';
     @Input() clickable: boolean = true;
-    @Input() disabled: boolean = false;
     @Input() simplified: boolean = false;
     @Input() indeterminateValue: any = -1;
+    @Input() @HostBinding('attr.aria-disabled') disabled: boolean = false;
+
     @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
     @Input()
@@ -44,6 +46,7 @@ export class CheckboxComponent implements ControlValueAccessor {
     onTouchedCallback: () => void = () => { };
     onChangeCallback: (_: any) => void = () => { };
 
+    @HostListener('click')
     toggleChecked() {
 
         if (this.disabled === true || this.clickable === false) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { DatePickerMode } from './date-time-picker.component';
 import 'rxjs/add/operator/distinctUntilChanged';
+import { DatePickerMode } from './date-time-picker.component';
 
 @Injectable()
 export class DateTimePickerService {

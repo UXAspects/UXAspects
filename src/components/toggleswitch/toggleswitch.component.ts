@@ -1,5 +1,5 @@
-import { Component, Input, Output, forwardRef, EventEmitter } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, EventEmitter, HostListener, Input, Output, forwardRef, HostBinding } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -12,14 +12,15 @@ const TOGGLESWITCH_VALUE_ACCESSOR = {
     templateUrl: './toggleswitch.component.html',
     providers: [TOGGLESWITCH_VALUE_ACCESSOR],
     host: {
-        '(click)': 'toggleChecked()'
+        'role': 'switch',
+        '[attr.aria-checked]': 'value === ture'
     }
 })
 export class ToggleSwitchComponent implements ControlValueAccessor {
 
     @Input() name: string = '';
-    @Input() disabled: boolean = false;
     @Input() clickable: boolean = true;
+    @Input() @HostBinding('attr.aria-disabled') disabled: boolean = false;
 
     @Output() valueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -43,6 +44,7 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
     onTouchedCallback: () => void = () => { };
     onChangeCallback: (_: any) => void = () => { };
 
+    @HostListener('click')
     toggleChecked() {
         if (!this.disabled && this.clickable) {
             this.value = !this.value;

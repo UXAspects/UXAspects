@@ -1,7 +1,7 @@
-import { Component, Input, EventEmitter, Output, SimpleChanges, OnInit } from '@angular/core';
-import { gridify, range } from '../date-time-picker.utils';
-import { DateTimePickerService } from '../date-time-picker.service';
+import { Component, OnInit } from '@angular/core';
 import { DatePickerMode } from '../date-time-picker.component';
+import { DateTimePickerService } from '../date-time-picker.service';
+import { gridify, range } from '../date-time-picker.utils';
 
 @Component({
   selector: 'ux-date-time-picker-year-view',

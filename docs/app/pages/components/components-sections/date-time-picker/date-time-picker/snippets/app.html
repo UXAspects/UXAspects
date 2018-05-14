@@ -4,7 +4,8 @@
             <span class="input-group-addon" tabindex="1" (click)="popover.show()">
                 <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
             </span>
-            <input type="text" #input #popover="bs-popover" 
+            <input type="text" #input #popover="bs-popover"
+                placeholder="Enter a date"
                 [ngModel]="date | date:'dd MMMM yyyy HH:mm'" 
                 [popover]="popoverTemplate" placement="bottom" 
                 [outsideClick]="true" 
