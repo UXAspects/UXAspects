@@ -1,6 +1,6 @@
-TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
+TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout", "$element"];
 
-export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
+export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout, $element) {
   var vm = this;
   
   var treegridId = multipleSelectProvider.getNextComponentId();
@@ -156,6 +156,11 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
       return ["hpe-icon", className];
     }
     return className;
+  };
+
+  vm.focusFirstRow = function() {
+    // find the first element in the table
+    $element.find('tbody').find('tr').first().focus();
   };
 
   // Initial load of top-level items

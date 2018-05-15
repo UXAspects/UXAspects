@@ -1,10 +1,20 @@
 <div class="tree-view-example-container">
-    <tree-root [nodes]="nodes">
+    <tree-root [nodes]="nodes" role="tree">
         <ng-template #treeNodeTemplate let-node let-index="index">
-            <span class="hpe-icon m-r-xxs" [class.hpe-folder]="node.hasChildren && !node.isExpanded" 
-                [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
-                [class.hpe-document]="!node.hasChildren"></span>
-            <span>{{ node.data.name }}</span>
+            <div class="tree-view-node"
+                    [attr.role]="node.hasChildren ? 'group' : 'treeitem'"
+                    [attr.aria-label]="node.data.name"
+                    [attr.aria-expanded]="node.isExpanded"
+                    tabindex="0"
+                    (focus)="focus(node)">
+
+                <span class="hpe-icon m-r-xxs"
+                        [class.hpe-folder]="node.hasChildren && !node.isExpanded"
+                        [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
+                        [class.hpe-document]="!node.hasChildren">
+                </span>
+                <span>{{ node.data.name }}</span>
+            </div>
         </ng-template>
     </tree-root>
 </div>

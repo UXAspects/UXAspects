@@ -95,6 +95,14 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
         this.setChildrenState(node);
     }
 
+    /**
+     * If tree view is tabbed to, focus the node
+     */
+    focus(node: TreeNode): void {
+        node.focus();
+        node.treeModel.setFocus(true);
+    }
+
 }
 
 export interface TreeViewExampleNode {
