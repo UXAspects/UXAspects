@@ -94,6 +94,10 @@ const ROUTES: Routes = [
             './flippable-cards/flippable-cards.module#FlippableCardsTestPageModule'
     },
     {
+        path: 'float-label',
+        loadChildren: './float-label/float-label.module#FloatLabelTestPageModule'
+    },
+    {
         path: 'floating-action-buttons',
         loadChildren:
             './floating-action-buttons/floating-action-buttons.module#FloatingActionButtonsTestPageModule'

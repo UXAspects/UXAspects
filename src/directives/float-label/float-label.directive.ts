@@ -24,12 +24,8 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit(): void {
         this._eventHandles.push(
-            this._renderer.listen(this.input, 'focus', this.inputFocus.bind(this))
-        );
-        this._eventHandles.push(
-            this._renderer.listen(this.input, 'blur', this.inputBlur.bind(this))
-        );
-        this._eventHandles.push(
+            this._renderer.listen(this.input, 'focus', this.inputFocus.bind(this)),
+            this._renderer.listen(this.input, 'blur', this.inputBlur.bind(this)),
             this._renderer.listen(this.input, 'input', this.inputChange.bind(this))
         );
 
