@@ -20,6 +20,8 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
     @HostBinding('class.ux-float-label-raised')
     raised: boolean = false;
 
+
+    private _focused = false;
     private _eventHandles: any[] = [];
 
     constructor(private _elementRef: ElementRef, private _renderer: Renderer2) { }
@@ -41,7 +43,9 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(): void {
-        this.raised = !!this.input.value;
+        if (!(this.mode === 'focus' && this._focused)) {
+            this.raised = this.hasText();
+        }
     }
 
     ngOnDestroy(): void {
@@ -58,12 +62,14 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
 
     private inputFocus(event: Event): void {
         if (this.mode === 'focus') {
+            this._focused = true;
             this.raised = true;
         }
     }
 
     private inputBlur(event: Event): void {
         if (this.mode === 'focus') {
+            this._focused = false;
             this.raised = this.hasText();
         }
     }
