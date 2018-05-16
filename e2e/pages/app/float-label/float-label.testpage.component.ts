@@ -19,11 +19,16 @@ export class FloatLabelTestPageComponent {
         this.demoForm.get('location').setValue(value);
     }
 
+    get initialValue(): string {
+        return this.demoForm.get('initial').value;
+    }
+
     constructor(formBuilder: FormBuilder) {
 
         this.demoForm = formBuilder.group({
             'username': [''],
-            'location': ['']
+            'location': [''],
+            'initial': ['A']
         });
     }
 }

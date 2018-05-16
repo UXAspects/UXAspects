@@ -11,12 +11,14 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
     @Input('uxFloatLabel')
     input: HTMLInputElement;
 
-    @HostBinding('class.ux-float-label-raised')
     @Input()
-    raised: boolean = false;
+    value: any;
 
     @Input()
     mode: 'focus' | 'input' = 'focus';
+
+    @HostBinding('class.ux-float-label-raised')
+    raised: boolean = false;
 
     private _eventHandles: any[] = [];
 
@@ -30,7 +32,7 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
         );
 
         // Check initial input value
-        this.raised = !!this.input.value;
+        this.raised = this.hasText();
 
         // Ensure that the `for` attribute is set
         if (!this._elementRef.nativeElement.getAttribute('for') && this.input.getAttribute('id')) {
@@ -47,6 +49,13 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
         this._eventHandles.forEach((eventHandle) => eventHandle());
     }
 
+    private hasText(): boolean {
+        if (this.value === undefined) {
+            return !!this.input.value;
+        }
+        return !!this.value;
+    }
+
     private inputFocus(event: Event): void {
         if (this.mode === 'focus') {
             this.raised = true;
@@ -55,13 +64,13 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
 
     private inputBlur(event: Event): void {
         if (this.mode === 'focus') {
-            this.raised = !!this.input.value;
+            this.raised = this.hasText();
         }
     }
 
     private inputChange(event: Event): void {
         if (this.mode === 'input') {
-            this.raised = !!this.input.value;
+            this.raised = this.hasText();
         }
     }
 }

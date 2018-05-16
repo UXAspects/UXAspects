@@ -7,6 +7,8 @@ export class FloatLabelPage {
     locationInput = element(by.id('location'));
     locationLabel = element(by.id('location-label'));
     locationButton = element(by.id('location-button'));
+    initialInput = element(by.id('initial'));
+    initialLabel = element(by.id('initial-label'));
     modeFocusButton = $('ux-radio-button#mode-focus');
 
     getPage(): void {
