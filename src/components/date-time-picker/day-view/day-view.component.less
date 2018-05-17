@@ -33,6 +33,10 @@ ux-date-time-picker-day-view {
                 background-color: @date-picker-hover-bg;
             }
 
+            &:focus {
+                .aspects-outline();
+            }
+
             &.current,
             &.current.preview {
                 color: @date-picker-today-color;

@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef, HostListener, Output, EventEmitter } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const RADIOBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -10,16 +10,20 @@ export const RADIOBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'ux-radio-button',
     templateUrl: './radiobutton.component.html',
-    providers: [RADIOBUTTON_VALUE_ACCESSOR]
+    providers: [RADIOBUTTON_VALUE_ACCESSOR],
+    host: {
+        'role': 'radio',
+        '[attr.aria-checked]': 'value === option'
+    }
 })
 export class RadioButtonComponent implements ControlValueAccessor {
 
     @Input() id: string;
     @Input() simplified: boolean = false;
-    @Input() disabled: boolean = false;
     @Input() name: string = '';
     @Input() clickable: boolean = true;
     @Input() option: any;
+    @Input() @HostBinding('attr.aria-disabled') disabled: boolean = false;
     @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
     @Input()

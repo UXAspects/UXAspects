@@ -11,11 +11,18 @@
     <tbody>
       <tr>
         <td class="text-center">
-          <a class="btn btn-link" (click)="nextTimezone()">
+          <a class="btn btn-link"
+             tabindex="0"
+             role="button"
+             aria-label="Next Timezone"
+             (click)="nextTimezone()"
+             (keydown.enter)="nextTimezone()">
+
             <span class="hpe-icon hpe-up"></span>
           </a>
         </td>
       </tr>
+
       <tr>
         <td class="form-group">
           <div class="form-control time-zone-picker">
@@ -23,9 +30,16 @@
           </div>
         </td>
       </tr>
+
       <tr>
         <td class="text-center">
-          <a class="btn btn-link" (click)="previousTimezone()">
+          <a class="btn btn-link"
+             tabindex="0"
+             role="button"
+             aria-label="Previous Timezone"
+             (click)="previousTimezone()"
+             (keydown.enter)="previousTimezone()">
+
             <span class="hpe-icon hpe-down"></span>
           </a>
         </td>

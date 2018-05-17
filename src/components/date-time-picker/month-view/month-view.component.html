@@ -1,8 +1,18 @@
 <ux-date-time-picker-header [header]="year" (previous)="previous()" (next)="next()" (ascend)="showYearPicker()"></ux-date-time-picker-header>
 
-<div class="calendar">
-  <div class="calendar-row" *ngFor="let row of months">
-    <div class="calendar-item" *ngFor="let item of row" [class.active]="item === date.getMonth() && year === date.getFullYear()"
-      [class.current]="item === currentDate.getMonth() && year === currentDate.getFullYear()" (mousedown)="select(item)" (keyup.enter)="select(item)" tabindex="0">{{ getMonthName(item) }}</div>
+<div class="calendar" role="grid">
+  <div class="calendar-row" *ngFor="let row of months" role="row">
+
+    <div role="gridcell"
+         class="calendar-item"
+         *ngFor="let item of row"
+         [attr.aria-label]="getMonthName(item)"
+         [class.active]="item === date.getMonth() && year === date.getFullYear()"
+         [class.current]="item === currentDate.getMonth() && year === currentDate.getFullYear()"
+         (mousedown)="select(item)"
+         (keyup.enter)="select(item)"
+         tabindex="0">
+         {{ getMonthName(item) }}
+    </div>
   </div>
 </div>

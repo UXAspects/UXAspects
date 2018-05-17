@@ -155,6 +155,9 @@ export class ComponentsSlidersComponent extends BaseDocumentationSection impleme
                     callout: {
                         trigger: SliderCalloutTrigger.Persistent,
                         formatter: value => value ? value.toFixed(0) : value
+                    },
+                    keyboard: {
+                        step: 50
                     }
                 },
                 track: {

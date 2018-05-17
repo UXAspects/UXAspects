@@ -1,4 +1,5 @@
-import { Component, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { DateTimePickerService } from '../date-time-picker.service';
 
 @Component({
     selector: 'ux-date-time-picker-time-view',
@@ -6,7 +7,6 @@ import { Component, Input, EventEmitter, Output, AfterViewInit } from '@angular/
 })
 export class DateTimePickerTimeViewComponent implements AfterViewInit {
 
-    @Input() date: Date = new Date();
     @Input() showSeconds: boolean = false;
     @Input() showSpinners: boolean = true;
     @Input() showTimezone: boolean = true;
@@ -19,7 +19,7 @@ export class DateTimePickerTimeViewComponent implements AfterViewInit {
 
     meridian: DatePickerMeridian = DatePickerMeridian.AM;
 
-    @Input() 
+    @Input()
     set timezone(value: DateTimePickerTimezone) {
         if (value !== this._timezone) {
             this._timezone = value;
@@ -31,10 +31,20 @@ export class DateTimePickerTimeViewComponent implements AfterViewInit {
         return this._timezone;
     }
 
+    set date(value: Date) {
+        this._dateTimePickerService.activeDate.next(value);
+    }
+
+    get date() {
+        return this._dateTimePickerService.activeDate.getValue();
+    }
+
     // Expose enum to view
     DatePickerMeridian = DatePickerMeridian;
 
     private _timezone: DateTimePickerTimezone;
+
+    constructor(private _dateTimePickerService: DateTimePickerService) { }
 
     ngAfterViewInit(): void {
 
@@ -66,7 +76,7 @@ export class DateTimePickerTimeViewComponent implements AfterViewInit {
 
         // update the meridian
         this.meridian = date.getHours() < 12 ? DatePickerMeridian.AM : DatePickerMeridian.PM;
-        
+
         // if the date has not changed then don't emit
         if (date.getTime() !== this.date.getTime()) {
             this.date = date;

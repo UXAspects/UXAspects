@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, EventEmitter, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
@@ -12,22 +12,23 @@ export const NUMBER_PICKER_VALUE_ACCESSOR: any = {
     templateUrl: './number-picker.component.html',
     providers: [NUMBER_PICKER_VALUE_ACCESSOR],
     host: {
+        'role': 'input',
         '[class.has-error]': '!isValid()'
     }
 })
 export class NumberPickerComponent implements ControlValueAccessor {
 
-    private _min: number = -Infinity;
-    private _max: number = Infinity;
-    private _step: number = 1;
-    private _disabled: boolean = false;
+    @Input() valid: boolean = true;
+    @Input() min: number = -Infinity;
+    @Input() max: number = Infinity;
+    @Input() step: number = 1;
+    @Input() @HostBinding('attr.aria-disabled') disabled: boolean = false;
+    @Output() valueChange = new EventEmitter<number>();
+
     private _value: number = 0;
     private _propagateChange = (_: any) => { };
 
-    @Input() valid: boolean = true;
-    @Output() valueChange = new EventEmitter<number>();
-
-    @Input('value')
+    @Input()
     get value(): number {
         return this._value;
     }
@@ -35,38 +36,6 @@ export class NumberPickerComponent implements ControlValueAccessor {
         this._value = value;
         this.valueChange.emit(value);
         this._propagateChange(value);
-    }
-
-    @Input()
-    get min(): number {
-        return this._min;
-    }
-    set min(value) {
-        this._min = typeof value === 'string' ? parseFloat(value) : value;
-    }
-
-    @Input()
-    get max(): number {
-        return this._max;
-    }
-    set max(value) {
-        this._max = typeof value === 'string' ? parseFloat(value) : value;
-    }
-
-    @Input()
-    get step(): number {
-        return this._step;
-    }
-    set step(value) {
-        this._step = typeof value === 'string' ? parseFloat(value) : value;
-    }
-
-    @Input()
-    get disabled(): boolean {
-        return this._disabled;
-    }
-    set disabled(value) {
-        this._disabled = typeof value === 'string' && (value === '' || value === 'true' || value === 'disabled') || value === true;
     }
 
     increment(event: MouseEvent | KeyboardEvent): void {
@@ -95,7 +64,7 @@ export class NumberPickerComponent implements ControlValueAccessor {
 
     onScroll(event: WheelEvent): void {
 
-        let scrollValue = event.deltaY || event.wheelDelta;
+        const scrollValue = event.deltaY || event.wheelDelta;
 
         if (scrollValue < 0) {
             this.increment(event);
