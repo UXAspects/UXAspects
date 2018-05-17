@@ -11,13 +11,17 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
     @Input('uxFloatLabel')
     input: HTMLInputElement;
 
-    @HostBinding('class.ux-float-label-raised')
     @Input()
-    raised: boolean = false;
+    value: any;
 
     @Input()
     mode: 'focus' | 'input' = 'focus';
 
+    @HostBinding('class.ux-float-label-raised')
+    raised: boolean = false;
+
+
+    private _focused = false;
     private _eventHandles: any[] = [];
 
     constructor(private _elementRef: ElementRef, private _renderer: Renderer2) { }
@@ -30,7 +34,7 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
         );
 
         // Check initial input value
-        this.raised = !!this.input.value;
+        this.raised = this.hasText();
 
         // Ensure that the `for` attribute is set
         if (!this._elementRef.nativeElement.getAttribute('for') && this.input.getAttribute('id')) {
@@ -39,7 +43,9 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(): void {
-        this.raised = !!this.input.value;
+        if (!(this.mode === 'focus' && this._focused)) {
+            this.raised = this.hasText();
+        }
     }
 
     ngOnDestroy(): void {
@@ -47,21 +53,30 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
         this._eventHandles.forEach((eventHandle) => eventHandle());
     }
 
+    private hasText(): boolean {
+        if (this.value === undefined) {
+            return !!this.input.value;
+        }
+        return !!this.value;
+    }
+
     private inputFocus(event: Event): void {
         if (this.mode === 'focus') {
+            this._focused = true;
             this.raised = true;
         }
     }
 
     private inputBlur(event: Event): void {
         if (this.mode === 'focus') {
-            this.raised = !!this.input.value;
+            this._focused = false;
+            this.raised = this.hasText();
         }
     }
 
     private inputChange(event: Event): void {
         if (this.mode === 'input') {
-            this.raised = !!this.input.value;
+            this.raised = this.hasText();
         }
     }
 }

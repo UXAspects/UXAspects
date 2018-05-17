@@ -41,6 +41,15 @@ describe('Float Label', () => {
             await page.locationButton.click();
             expect(page.locationLabel.getAttribute('class')).toContain('ux-float-label-raised');
         });
+
+        it('should be visible for an input with initial value', async () => {
+            expect(await page.initialInput.getAttribute('value')).toBe('A');
+            expect(page.initialLabel.getAttribute('class')).toContain('ux-float-label-raised');
+            // Remove text
+            await page.initialInput.click();
+            await page.initialInput.sendKeys(Key.BACK_SPACE);
+            expect(page.initialLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
+        });
     });
 
     describe('with mode = focus', () => {
@@ -80,6 +89,15 @@ describe('Float Label', () => {
             expect(page.locationLabel.getAttribute('class')).not.toContain('ux-float-label-raised');
             await page.locationButton.click();
             expect(page.locationLabel.getAttribute('class')).toContain('ux-float-label-raised');
+        });
+
+        it('should be visible for an input with initial value', async () => {
+            expect(await page.initialInput.getAttribute('value')).toBe('A');
+            expect(page.initialLabel.getAttribute('class')).toContain('ux-float-label-raised');
+            // Remove text
+            await page.initialInput.click();
+            await page.initialInput.sendKeys(Key.BACK_SPACE);
+            expect(page.initialLabel.getAttribute('class')).toContain('ux-float-label-raised');
         });
     });
 
