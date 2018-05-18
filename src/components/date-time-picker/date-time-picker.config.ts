@@ -6,7 +6,7 @@
 
 import { Injectable } from '@angular/core';
 import { weekdaysShort } from './date-time-picker.utils';
-import { DateTimePickerTimezone } from './time-view/time-view.component';
+import { DateTimePickerTimezone } from './date-time-picker.service';
 
 @Injectable()
 export class DateTimePickerConfig {

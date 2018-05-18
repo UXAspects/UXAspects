@@ -1,12 +1,28 @@
 <header class="header">
 
-  <div class="header-navigation" (click)="previous.emit(); $event.stopPropagation()" (keyup.enter)="previous.emit()" tabindex="0">
+  <div class="header-navigation"
+       (click)="previous(); $event.stopPropagation()"
+       (keyup.enter)="previous()"
+       aria-label="Previous"
+       tabindex="0">
+
     <i class="hpe-icon hpe-previous"></i>
   </div>
 
-  <div class="header-title" [class.active]="canAscend" (click)="ascend.emit(); $event.stopPropagation()" (keyup.enter)="ascend.emit()" tabindex="0">{{ header }}</div>
+  <div class="header-title"
+       [class.active]="canAscend$ | async"
+       (click)="ascend(); $event.stopPropagation()"
+       (keyup.enter)="ascend()"
+       tabindex="0">
+       {{ datePicker.header$ | async }}
+  </div>
 
-  <div class="header-navigation" (click)="next.emit(); $event.stopPropagation()" (keyup.enter)="next.emit()" tabindex="0">
+  <div class="header-navigation"
+       (click)="next(); $event.stopPropagation()"
+       (keyup.enter)="next()"
+       aria-label="Next"
+       tabindex="0">
+
     <i class="hpe-icon hpe-next"></i>
   </div>
 </header>

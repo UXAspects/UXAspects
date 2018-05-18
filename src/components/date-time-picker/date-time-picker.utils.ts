@@ -63,6 +63,13 @@ export function compareDays(day1: Date, day2: Date): boolean {
 }
 
 /**
+ * Date comparison for use primarily with distinctUntilChanged
+ */
+export function dateComparator(dateOne: Date, dateTwo: Date): boolean {
+    return dateOne.getTime() === dateTwo.getTime();
+}
+
+/**
  * Export an array of all the available months
  */
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

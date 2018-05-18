@@ -28,6 +28,7 @@ export * from './components/slider/index';
 export * from './components/spark/index';
 export * from './components/tag-input/index';
 export * from './components/timeline/index';
+export * from './components/time-picker/index';
 export * from './components/toggleswitch/index';
 export * from './components/toolbar-search/index';
 export * from './components/typeahead/index';

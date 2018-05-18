@@ -1,0 +1,80 @@
+ux-time-picker {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .time-picker {
+        display: inline-flex;
+    }
+
+    .time-picker-column {
+        display: inline-flex;
+        flex-direction: column;
+        flex: none;
+    }
+
+    .time-picker-spinner {
+        height: 22px;
+        text-align: center;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+
+        &:focus {
+            .aspects-outline();
+        }
+
+        .hpe-icon {
+            cursor: pointer;
+            color: #666;
+            font-weight: 900;
+            font-size: 14px;
+        }
+
+        &.disabled .hpe-icon {
+            opacity: 0.5;
+            cursor: default;
+        }
+    }
+
+    .time-picker-separator {
+        display: inline-flex;
+        flex: none;
+        width: 14px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .time-picker-meridian {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 14px;
+
+        .btn-group {
+            .btn {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+        }
+    }
+
+    .form-control {
+        -moz-appearance: textfield;
+        width: 33px !important;
+        padding: 0;
+        text-align: center;
+        font-size: 14px;
+        margin: 0 auto;
+
+        &:read-only {
+            background-color: #fff;
+            color: #676a6c;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    }
+}

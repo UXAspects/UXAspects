@@ -1,8 +1,16 @@
-<ux-date-time-picker-header [header]="header" [canAscend]="false" (previous)="previous()" (next)="next()"></ux-date-time-picker-header>
+<div class="calendar" role="grid">
+  <div class="calendar-row" role="row" *ngFor="let row of yearService.grid$ | async">
 
-<div class="calendar">
-  <div class="calendar-row" *ngFor="let row of years">
-    <div *ngFor="let item of row" class="calendar-item" [class.current]="item === currentYear" [class.active]="item === year"
-    (mousedown)="select(item)" (keyup.enter)="select(item)" tabindex="0">{{ item }}</div>
+    <div *ngFor="let item of row"
+         role="gridcell"
+         class="calendar-item"
+         [attr.aria-label]="item.year"
+         [class.current]="item.isCurrentYear"
+         [class.active]="item.isActiveYear"
+         (mousedown)="select(item.year)"
+         (keyup.enter)="select(item.year)"
+         tabindex="0">
+         {{ item.year }}
+    </div>
   </div>
 </div>

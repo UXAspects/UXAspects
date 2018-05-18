@@ -1,15 +1,27 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { DatePickerMode, DateTimePickerService } from '../date-time-picker.service';
 
 @Component({
     selector: 'ux-date-time-picker-header',
     templateUrl: './header.component.html'
 })
-export class DateTimePickerHeaderComponent {
+export class HeaderComponent {
 
-    @Input() header: string;
-    @Input() canAscend: boolean = true;
+    canAscend$: Observable<boolean> = this.datePicker.mode$.pipe(map(mode => mode !== DatePickerMode.Year));
+    
+    constructor(public datePicker: DateTimePickerService) { }
 
-    @Output() next: EventEmitter<void> = new EventEmitter<void>();
-    @Output() previous: EventEmitter<void> = new EventEmitter<void>();
-    @Output() ascend: EventEmitter<void> = new EventEmitter<void>();
+    previous(): void {
+        this.datePicker.goToPrevious();
+    }
+
+    ascend(): void {
+        this.datePicker.goToParentMode();
+    }
+
+    next(): void {
+        this.datePicker.goToNext();
+    }
 }

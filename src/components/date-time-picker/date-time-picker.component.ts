@@ -1,49 +1,71 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-view/time-view.component';
-import { weekdaysShort } from './date-time-picker.utils';
-import { DateTimePickerConfig } from './date-time-picker.config';
-import { DateTimePickerService } from './date-time-picker.service';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { DatePickerMode, DateTimePickerService, DateTimePickerTimezone } from './date-time-picker.service';
+import { dateComparator } from './date-time-picker.utils';
+// import { DateTimePickerTimeViewComponent, DateTimePickerTimezone } from './time-view/time-view.component';
 
 @Component({
   selector: 'ux-date-time-picker',
   templateUrl: './date-time-picker.component.html',
   providers: [DateTimePickerService]
 })
-export class DateTimePickerComponent {
+export class DateTimePickerComponent implements OnDestroy {
 
-  @ViewChild('timePicker') timePickerComponent: DateTimePickerTimeViewComponent;
+  // @ViewChild('timePicker') timePickerComponent: DateTimePickerTimeViewComponent;
 
   private _timezone: DateTimePickerTimezone;
 
-  @Input() showDate: boolean = this._config.showDate;
-  @Input() showTime: boolean = this._config.showTime;
-  @Input() showTimezone: boolean = this._config.showTimezone;
-  @Input() showSeconds: boolean = this._config.showSeconds;
-  @Input() showMeridian: boolean = this._config.showMeridian;
-  @Input() showSpinners: boolean = this._config.showSpinners;
-  @Input() weekdays: string[] = this._config.weekdays;
-  @Input() nowBtnText: string = this._config.nowBtnText;
-  @Input() timezones: DateTimePickerTimezone[] = this._config.timezones;
+  @Input() set showDate(value: boolean) {
+    this.datePicker.showDate$.next(value);
+  }
+
+  @Input() set showTime(value: boolean) {
+    this.datePicker.showTime$.next(value);
+  }
+
+  @Input() set showTimezone(value: boolean) {
+    this.datePicker.showTimezone$.next(value);
+  }
+
+  @Input() set showSeconds(value: boolean) {
+    this.datePicker.showSeconds$.next(value);
+  }
+
+  @Input() set showMeridian(value: boolean) {
+    this.datePicker.showMeridian$.next(value);
+  }
+
+  @Input() set showSpinners(value: boolean) {
+    this.datePicker.showSpinners$.next(value);
+  }
+
+  @Input() set weekdays(value: string[]) {
+    this.datePicker.weekdays$.next(value);
+  }
+
+  @Input() set nowBtnText(value: string) {
+    this.datePicker.nowBtnText$.next(value);
+  }
+
+  @Input() set timezones(value: DateTimePickerTimezone[]) {
+    this.datePicker.timezones$.next(value);
+  }
+
 
   @Output() dateChange: EventEmitter<Date> = new EventEmitter<Date>();
   @Output() timezoneChange: EventEmitter<DateTimePickerTimezone> = new EventEmitter<DateTimePickerTimezone>();
 
   @Input()
   set date(value: Date) {
-
-    this.dateTimePickerService.date.next(new Date(value));
-
-    // set the active date to the new date
-    this.dateTimePickerService.activeDate.next(new Date(value));
-  }
-
-  get date(): Date {
-    return this.dateTimePickerService.date.getValue();
+    if (!dateComparator(value, this.datePicker.selected$.value)) {
+      this.datePicker.selected$.next(new Date(value));
+    }
   }
 
   @Input()
   set timezone(value: DateTimePickerTimezone) {
-    const timezone = this.timezones.find(zone => zone.offset === value.offset);
+    const timezone = this.datePicker.timezones$.value.find(zone => zone.offset === value.offset);
 
     // only update if the timezone is valid
     if (timezone) {
@@ -58,13 +80,15 @@ export class DateTimePickerComponent {
   // expose enum to view
   DatePickerMode = DatePickerMode;
 
-  constructor(private _config: DateTimePickerConfig, public dateTimePickerService: DateTimePickerService) { }
+  private _subscription: Subscription;
 
-  /**
-   * This will emit the newly selected date
-   */
-  commit(): void {
-    this.dateChange.emit(this.dateTimePickerService.activeDate.getValue());
+  constructor(public datePicker: DateTimePickerService) {
+    this._subscription = this.datePicker.selected$.pipe(distinctUntilChanged(dateComparator))
+      .subscribe(date => this.dateChange.emit(date));
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
   /**
@@ -73,20 +97,11 @@ export class DateTimePickerComponent {
   setToNow(): void {
 
     // set the date to the current moment
-    this.date = new Date();
+    this.datePicker.setDateToNow();
 
     // reset the timezone to the default
-    if (this.timePickerComponent) {
-      this.timePickerComponent.setDefaultTimezone();
-    }
-
-    // emit the changes
-    this.commit();
+    // if (this.timePickerComponent) {
+      // this.timePickerComponent.setDefaultTimezone();
+    // }
   }
-}
-
-export enum DatePickerMode {
-  Day,
-  Month,
-  Year
 }
