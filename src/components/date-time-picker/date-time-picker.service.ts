@@ -10,6 +10,7 @@ export class DateTimePickerService {
 
     mode$: BehaviorSubject<DatePickerMode> = new BehaviorSubject<DatePickerMode>(DatePickerMode.Day);
     date$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
+    timezone$ = new BehaviorSubject<DateTimePickerTimezone>(this.getCurrentTimezone());
     selected$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
 
     // the month and year to display in the viewport
@@ -99,6 +100,15 @@ export class DateTimePickerService {
 
     setHeader(header: string): void {
         this.header$.next(header);
+    }
+
+    getCurrentTimezone(): DateTimePickerTimezone {
+        const offset = new Date().getTimezoneOffset();
+        return this._config.timezones.find(timezone => timezone.offset === offset);
+    }
+
+    setTimezone(timezone: DateTimePickerTimezone): void {
+        this.timezone$.next(timezone);
     }
 }
 

@@ -2,7 +2,7 @@
 
   <ux-date-time-picker-header></ux-date-time-picker-header>
 
-  <ng-container *ngIf="datePicker.showDate$ | async" [ngSwitch]="datePicker.mode$ | async">
+  <ng-container *ngIf="datepicker.showDate$ | async" [ngSwitch]="datepicker.mode$ | async">
 
       <!-- Display days in the current month -->
       <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day"></ux-date-time-picker-day-view>
@@ -16,8 +16,8 @@
   </ng-container>
 
   <!-- Display a Time Picker -->
-  <ux-date-time-picker-time-view #timePicker></ux-date-time-picker-time-view>
+  <ux-date-time-picker-time-view *ngIf="datepicker.showTime$ | async" #timePicker></ux-date-time-picker-time-view>
 
 </div>
 
-<button class="now-button" aria-label="Set date to now" (click)="setToNow()">{{ datePicker.nowBtnText$ | async }}</button>
+<button class="now-button" aria-label="Set date to now" (click)="setToNow()">{{ datepicker.nowBtnText$ | async }}</button>

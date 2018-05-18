@@ -4,6 +4,22 @@
     [showSeconds]="datepicker.showSeconds$ | async"
     [showMeridian]="datepicker.showMeridian$ | async"
     [showSpinners]="datepicker.showSpinners$ | async"
-    [readonlyInput]="true">
+    [readonlyInput]="datepicker.showSpinners$ | async">
 </ux-time-picker>
 
+<div class="time-zone-picker">
+
+    <button class="time-zone-spinner" (click)="incrementTimezone()">
+        <span class="hpe-icon hpe-up"></span>
+    </button>
+
+    <input class="form-control"
+           type="text"
+           [readOnly]="true"
+           tabindex="-1"
+           [ngModel]="(datepicker.timezone$ | async).name">
+
+    <button class="time-zone-spinner" (click)="decrementTimezone()">
+        <span class="hpe-icon hpe-down"></span>
+    </button>
+</div>

@@ -1,27 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { DatePickerMode, DateTimePickerService } from '../date-time-picker.service';
 
 @Component({
     selector: 'ux-date-time-picker-header',
-    templateUrl: './header.component.html'
+    templateUrl: './header.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
 
-    canAscend$: Observable<boolean> = this.datePicker.mode$.pipe(map(mode => mode !== DatePickerMode.Year));
+    canAscend$: Observable<boolean> = this.datepicker.mode$.pipe(map(mode => mode !== DatePickerMode.Year));
     
-    constructor(public datePicker: DateTimePickerService) { }
+    mode$: Observable<string> = this.datepicker.mode$.pipe(map(mode => {
+        switch (mode) {
+            case DatePickerMode.Day:
+                return 'Day';
+            case DatePickerMode.Month:
+                return 'Month';
+            case DatePickerMode.Year:
+                return 'Year';
+        }
+    }));
+
+    constructor(public datepicker: DateTimePickerService) { }
 
     previous(): void {
-        this.datePicker.goToPrevious();
+        this.datepicker.goToPrevious();
     }
 
     ascend(): void {
-        this.datePicker.goToParentMode();
+        this.datepicker.goToParentMode();
     }
 
     next(): void {
-        this.datePicker.goToNext();
+        this.datepicker.goToNext();
     }
 }

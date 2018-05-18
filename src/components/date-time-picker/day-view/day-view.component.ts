@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
 import { DayViewService } from './day-view.service';
@@ -6,7 +6,8 @@ import { DayViewService } from './day-view.service';
 @Component({
   selector: 'ux-date-time-picker-day-view',
   templateUrl: './day-view.component.html',
-  providers: [DayViewService]
+  providers: [DayViewService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DayViewComponent implements OnDestroy {
 

@@ -1,0 +1,58 @@
+ux-date-time-picker-time-view {
+    display: flex;
+    padding: 12px 4px;
+    margin-top: 6px;
+    border-top: 1px solid @date-picker-dropdown-border;
+    border-bottom: 1px solid @date-picker-dropdown-border;
+    align-items: center;
+    justify-content: center;
+
+    ux-time-picker {
+        .time-picker-meridian {
+            margin-left: 22px;
+            margin-right: 22px;
+        }
+    }
+
+    .time-zone-picker {
+        display: inline-flex;
+        flex-direction: column;
+        flex: none;
+
+        .time-zone-spinner {
+            height: 22px;
+            text-align: center;
+            padding: 0;
+            border: none;
+            background-color: transparent;
+
+            &:focus {
+                .aspects-outline();
+            }
+
+            .hpe-icon {
+                cursor: pointer;
+                color: #666;
+                font-weight: 900;
+                font-size: 14px;
+            }
+        }
+
+        .form-control {
+            width: 60px;
+            font-size: 14px;
+            padding: 0;
+            text-align: center;
+            cursor: default;
+
+            &:read-only {
+                background-color: #fff;
+                color: #676a6c;
+
+                &:focus {
+                    border-color: #e5e6e7;
+                }
+            }
+        }
+    }
+}

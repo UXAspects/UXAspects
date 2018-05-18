@@ -1,3 +1,6 @@
+import { DateTimePickerTimezone } from './date-time-picker.service';
+
+
 /**
  * Convert a single dimension array to a double dimension array
  * @param items the single dimension array to convert
@@ -67,6 +70,13 @@ export function compareDays(day1: Date, day2: Date): boolean {
  */
 export function dateComparator(dateOne: Date, dateTwo: Date): boolean {
     return dateOne.getTime() === dateTwo.getTime();
+}
+
+/**
+ * Timezone comparison for use primarily with distinctUntilChanged
+ */
+export function timezoneComparator(zoneOne: DateTimePickerTimezone, zoneTwo: DateTimePickerTimezone): boolean {
+    return zoneOne.name === zoneTwo.name && zoneOne.offset === zoneTwo.offset;
 }
 
 /**

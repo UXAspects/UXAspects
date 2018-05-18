@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { DatePickerHeaderEvent, DatePickerMode, DateTimePickerService } from '../date-time-picker.service';
 import { MonthViewService } from './month-view.service';
@@ -6,7 +6,8 @@ import { MonthViewService } from './month-view.service';
 @Component({
   selector: 'ux-date-time-picker-month-view',
   templateUrl: './month-view.component.html',
-  providers: [MonthViewService]
+  providers: [MonthViewService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MonthViewComponent implements OnDestroy {
 
