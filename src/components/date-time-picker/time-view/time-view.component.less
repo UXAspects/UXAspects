@@ -8,9 +8,12 @@ ux-date-time-picker-time-view {
     justify-content: center;
 
     ux-time-picker {
+        &:last-child {
+            margin-right: 0;
+        }
+
         .time-picker-meridian {
             margin-left: 22px;
-            margin-right: 22px;
         }
     }
 
@@ -18,6 +21,7 @@ ux-date-time-picker-time-view {
         display: inline-flex;
         flex-direction: column;
         flex: none;
+        margin-left: 22px;
 
         .time-zone-spinner {
             height: 22px;
@@ -51,6 +55,14 @@ ux-date-time-picker-time-view {
 
                 &:focus {
                     border-color: #e5e6e7;
+                }
+            }
+
+            &.time-zone-select {
+                width: 72px;
+
+                &:focus {
+                    .aspects-outline();
                 }
             }
         }

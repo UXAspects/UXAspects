@@ -7,19 +7,39 @@
     [readonlyInput]="datepicker.showSpinners$ | async">
 </ux-time-picker>
 
-<div class="time-zone-picker">
+<ng-container *ngIf="datepicker.showTimezone$ | async">
 
-    <button class="time-zone-spinner" (click)="incrementTimezone()">
-        <span class="hpe-icon hpe-up"></span>
-    </button>
+    <div class="time-zone-picker" *ngIf="datepicker.showSpinners$ | async">
 
-    <input class="form-control"
-           type="text"
-           [readOnly]="true"
-           tabindex="-1"
-           [ngModel]="(datepicker.timezone$ | async).name">
+        <button class="time-zone-spinner" (click)="incrementTimezone()">
+            <span class="hpe-icon hpe-up"></span>
+        </button>
 
-    <button class="time-zone-spinner" (click)="decrementTimezone()">
-        <span class="hpe-icon hpe-down"></span>
-    </button>
-</div>
+        <input class="form-control"
+               type="text"
+               [readOnly]="true"
+               tabindex="-1"
+               [ngModel]="(datepicker.timezone$ | async).name">
+
+        <button class="time-zone-spinner" (click)="decrementTimezone()">
+            <span class="hpe-icon hpe-down"></span>
+        </button>
+    </div>
+
+    <div class="time-zone-picker" *ngIf="!(datepicker.showSpinners$ | async)">
+
+        <select class="form-control time-zone-select"
+                tabindex="0"
+                [ngModel]="(datepicker.timezone$ | async).name"
+                (ngModelChange)="selectTimezone($event)">
+
+            <option *ngFor="let zone of datepicker.timezones$ | async"
+                    [selected]="zone.name === (datepicker.timezone$ | async).name"
+                    [value]="zone.name">
+                {{ zone?.name }}
+            </option>
+
+        </select>
+    </div>
+
+</ng-container>
