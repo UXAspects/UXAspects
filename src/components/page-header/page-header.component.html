@@ -1,13 +1,13 @@
-<div class="ux-page-header" [class.page-header-condensed]="condensed">
+<div class="ux-page-header" [class.page-header-condensed]="condensed" role="banner">
 
     <!-- Display Upper Section when not condensed -->
     <div class="page-header-actions" *ngIf="!condensed">
 
-        <div class="page-header-logo-container" [hidden]="!logo">
+        <div class="page-header-logo-container" role="presentation" [hidden]="!logo">
             <img [attr.src]="logo" class="page-header-logo">
         </div>
 
-        <div class="page-header-navigation" [ngClass]="alignment">
+        <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
 
             <!-- The Top Navigation Options -->
             <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
@@ -23,9 +23,9 @@
     <!-- Display Lower Section When Not Condensed -->
     <div class="page-header-details" *ngIf="!condensed">
 
-        <div class="page-header-state-container">
+        <div class="page-header-state-container" role="navigation">
 
-            <div *ngIf="backVisible == true" class="page-header-back-button" (click)="goBack()">
+            <div *ngIf="backVisible == true" class="page-header-back-button" (click)="goBack()" aria-label="Go Back">
                 <span class="hpe-icon hpe-previous text-primary"></span>
             </div>
 
@@ -43,11 +43,11 @@
     <!-- Display This Section Optimized for Condensed Mode -->
     <div class="page-header-condensed-content" *ngIf="condensed">
 
-        <div class="page-header-breadcrumbs">
+        <div class="page-header-breadcrumbs" role="navigation">
             <ux-breadcrumbs [crumbs]="crumbs"></ux-breadcrumbs>
         </div>
 
-        <div class="page-header-navigation" [ngClass]="alignment">
+        <div class="page-header-navigation" [ngClass]="alignment" role="navigation" aria-label="Primary Navigation">
 
             <!-- The Top Navigation Options -->
             <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
@@ -62,10 +62,10 @@
 
 </div>
 
-<div class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" *ngIf="secondaryNavigation && (selectedRoot$ | async)">
-    <ul class="nav nav-tabs" role="tablist" *ngIf="(selectedRoot$ | async)?.children; let children">
-        <li role="presentation" *ngFor="let child of children" [class.active]="child === (selected$ | async)">
-            <a role="tab" (click)="select(child)">{{ child.title }}</a>
+<div class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" role="navigation" *ngIf="secondaryNavigation && (selectedRoot$ | async)">
+    <ul class="nav nav-tabs" role="tablist" aria-label="Secondary Navigation" *ngIf="(selectedRoot$ | async)?.children; let children">
+        <li *ngFor="let child of children" [class.active]="child === (selected$ | async)" role="none">
+            <a role="tab" [attr.aria-selected]="child === (selected$ | async)" (click)="select(child)">{{ child.title }}</a>
         </li>
     </ul>
 </div>

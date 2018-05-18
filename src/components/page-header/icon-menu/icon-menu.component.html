@@ -1,6 +1,6 @@
 <div class="page-header-icon-menu" dropdown dropdownToggle placement="bottom right">
 
-    <a class="page-header-icon-menu-button" (click)="select(menu)">
+    <a role="button" class="page-header-icon-menu-button" (click)="select(menu)">
         <i class="hpe-icon" [ngClass]="menu.icon"></i>
         <span class="label label-primary" *ngIf="menu?.badge">{{ menu.badge }}</span>
     </a>
