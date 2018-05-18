@@ -12,8 +12,6 @@ import { dateComparator, timezoneComparator } from './date-time-picker.utils';
 })
 export class DateTimePickerComponent implements OnDestroy {
 
-  // @ViewChild('timePicker') timePickerComponent: DateTimePickerTimeViewComponent;
-
   private _timezone: DateTimePickerTimezone;
 
   @Input() set showDate(value: boolean) {
@@ -92,10 +90,5 @@ export class DateTimePickerComponent implements OnDestroy {
 
     // set the date to the current moment
     this.datepicker.setDateToNow();
-
-    // reset the timezone to the default
-    // if (this.timePickerComponent) {
-      // this.timePickerComponent.setDefaultTimezone();
-    // }
   }
 }

@@ -9,6 +9,7 @@
   </button>
 
   <button class="header-title"
+          [attr.aria-label]="headerAria$ | async"
           [class.active]="canAscend$ | async"
           (click)="ascend(); $event.stopPropagation()"
           [tabindex]="(canAscend$ | async) ? 0 : -1">

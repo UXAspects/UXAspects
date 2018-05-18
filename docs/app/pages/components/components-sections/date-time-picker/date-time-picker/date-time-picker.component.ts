@@ -1,13 +1,12 @@
-import { Component, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { DateTimePickerTimezone } from '../../../../../../../src/index';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { Observable } from 'rxjs/Observable';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/debounceTime';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { debounceTime } from 'rxjs/operators';
+import { DateTimePickerTimezone } from '../../../../../../../src/index';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-date-time-picker',
@@ -58,8 +57,8 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
     }
 
     ngAfterViewInit(): void {
-        this.subscription = Observable.fromEvent(this.dateInput.nativeElement, 'input')
-            .debounceTime(500)
+        this.subscription = fromEvent(this.dateInput.nativeElement, 'input')
+            .pipe(debounceTime(500))
             .subscribe(event => this.parse(this.dateInput.nativeElement.value));
     }
 

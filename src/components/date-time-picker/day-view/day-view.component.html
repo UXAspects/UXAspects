@@ -11,6 +11,8 @@
           class="date-cell"
           role="gridcell"
           [attr.aria-label]="day.date | date"
+          [attr.aria-selected]="day.isActive"
+          [attr.aria-hidden]="!day.isCurrentMonth"
           [class.current]="day.isToday"
           [class.active]="day.isActive"
           [class.preview]="!day.isCurrentMonth"

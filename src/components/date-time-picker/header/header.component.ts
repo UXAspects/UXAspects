@@ -23,6 +23,17 @@ export class HeaderComponent {
         }
     }));
 
+    headerAria$: Observable<string> = this.datepicker.mode$.pipe(map(mode => {
+        switch (mode) {
+            case DatePickerMode.Day:
+                return 'Switch to show months in the year';
+            case DatePickerMode.Month:
+                return 'Switch to show years in the decade';
+            case DatePickerMode.Year:
+                return '';
+        }
+    }));
+
     constructor(public datepicker: DateTimePickerService) { }
 
     previous(): void {

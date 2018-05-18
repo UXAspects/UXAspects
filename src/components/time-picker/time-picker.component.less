@@ -13,30 +13,6 @@ ux-time-picker {
         flex: none;
     }
 
-    .time-picker-spinner {
-        height: 22px;
-        text-align: center;
-        padding: 0;
-        border: none;
-        background-color: transparent;
-
-        &:focus {
-            .aspects-outline();
-        }
-
-        .hpe-icon {
-            cursor: pointer;
-            color: #666;
-            font-weight: 900;
-            font-size: 14px;
-        }
-
-        &.disabled .hpe-icon {
-            opacity: 0.5;
-            cursor: default;
-        }
-    }
-
     .time-picker-separator {
         display: inline-flex;
         flex: none;
@@ -59,26 +35,7 @@ ux-time-picker {
         }
     }
 
-    .form-control {
-        -moz-appearance: textfield;
+    .time-spinner {
         width: 33px !important;
-        padding: 0;
-        text-align: center;
-        font-size: 14px;
-        margin: 0 auto;
-
-        &:read-only {
-            background-color: #fff;
-            color: #676a6c;
-
-            &:focus {
-                border-color: #e5e6e7;
-            }
-        }
-
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-        }
     }
 }

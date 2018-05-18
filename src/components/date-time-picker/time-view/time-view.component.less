@@ -24,46 +24,17 @@ ux-date-time-picker-time-view {
         margin-left: 22px;
 
         .time-zone-spinner {
-            height: 22px;
-            text-align: center;
-            padding: 0;
-            border: none;
-            background-color: transparent;
-
-            &:focus {
-                .aspects-outline();
-            }
-
-            .hpe-icon {
-                cursor: pointer;
-                color: #666;
-                font-weight: 900;
-                font-size: 14px;
-            }
+            width: 60px;
         }
 
-        .form-control {
-            width: 60px;
+        .time-zone-select {
+            width: 72px;
             font-size: 14px;
             padding: 0;
             text-align: center;
-            cursor: default;
 
-            &:read-only {
-                background-color: #fff;
-                color: #676a6c;
-
-                &:focus {
-                    border-color: #e5e6e7;
-                }
-            }
-
-            &.time-zone-select {
-                width: 72px;
-
-                &:focus {
-                    .aspects-outline();
-                }
+            &:focus {
+                .aspects-outline();
             }
         }
     }

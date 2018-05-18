@@ -2,43 +2,20 @@
 
     <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showHours">
 
-        <button *ngIf="showSpinners"
-                class="time-picker-spinner"
-                [class.disabled]="disabled"
-                (click)="incrementHour()">
-
-            <span class="hpe-icon hpe-up"></span>
-
-        </button>
-
-        <input class="form-control"
-               type="number"
-               placeholder="HH"
-               [ngModel]="hour$ | async | timeFormat"
-               (ngModelChange)="setHour($event)"
-               (mousewheel)="scrollHour($event)"
-               (keydown.arrowup)="incrementHour(true); $event.preventDefault()"
-               (keydown.arrowdown)="decrementHour(true); $event.preventDefault()"
-               min="0"
-               [max]="showMeridian ? 12 : 23"
-               role="spinbutton"
-               aria-label="hour"
-               [attr.aria-valuenow]="hour$ | async"
-               aria-valuemin="0"
-               [attr.aria-valuemax]="showMeridian ? 12 : 23"
-               [readOnly]="readonlyInput"
-               [disabled]="disabled"
-               [tabindex]="readonlyInput ? -1 : 0"
-               [attr.aria-disabled]="disabled">
-
-        <button *ngIf="showSpinners"
-                class="time-picker-spinner"
-                [class.disabled]="disabled"
-                (click)="decrementHour()">
-
-            <span class="hpe-icon hpe-down"></span>
-
-        </button>
+        <ux-spin-button
+            class="time-spinner"
+            type="number"
+            placeholder="HH"
+            [min]="0"
+            [max]="showMeridian ? 12 : 23"
+            [value]="hour$ | async | timeFormat"
+            [spinners]="showSpinners"
+            [disabled]="disabled"
+            [readOnly]="readOnly"
+            inputAriaLabel="hour"
+            (increment)="incrementHour()"
+            (decrement)="decrementHour()">
+        </ux-spin-button>
 
     </div>
 
@@ -46,43 +23,20 @@
 
     <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showMinutes">
 
-        <button *ngIf="showSpinners"
-                class="time-picker-spinner"
-                [class.disabled]="disabled"
-                (click)="incrementMinute()">
-
-            <span class="hpe-icon hpe-up"></span>
-
-        </button>
-
-        <input class="form-control"
-               type="number"
-               placeholder="MM"
-               [ngModel]="minute$ | async | timeFormat"
-               (ngModelChange)="setMinute($event)"
-               (mousewheel)="scrollMinute($event)"
-               (keydown.arrowup)="incrementMinute(true); $event.preventDefault()"
-               (keydown.arrowdown)="decrementMinute(true); $event.preventDefault()"
-               min="0"
-               max="59"
-               role="spinbutton"
-               aria-label="minute"
-               [attr.aria-valuenow]="minute$ | async"
-               aria-valuemin="0"
-               aria-valuemax="59"
-               [readOnly]="readonlyInput"
-               [disabled]="disabled"
-               [tabindex]="readonlyInput ? -1 : 0"
-               [attr.aria-disabled]="disabled">
-
-        <button *ngIf="showSpinners"
-                class="time-picker-spinner"
-                [class.disabled]="disabled"
-                (click)="decrementMinute()">
-
-            <span class="hpe-icon hpe-down"></span>
-
-        </button>
+        <ux-spin-button
+            class="time-spinner"
+            type="number"
+            placeholder="MM"
+            [min]="0"
+            [max]="59"
+            [value]="minute$ | async | timeFormat"
+            [spinners]="showSpinners"
+            [disabled]="disabled"
+            [readOnly]="readOnly"
+            inputAriaLabel="minute"
+            (increment)="incrementMinute()"
+            (decrement)="decrementMinute()">
+        </ux-spin-button>
 
     </div>
 
@@ -90,41 +44,20 @@
 
     <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showSeconds">
 
-        <button *ngIf="showSpinners"
-                class="time-picker-spinner"
-                [class.disabled]="disabled"
-                (click)="incrementSecond()">
-
-            <span class="hpe-icon hpe-up"></span>
-        </button>
-
-        <input class="form-control"
-               type="number"
-               placeholder="SS"
-               [ngModel]="second$ | async | timeFormat"
-               (ngModelChange)="setSeconds($event)"
-               (mousewheel)="scrollSecond($event)"
-               (keydown.arrowup)="incrementSecond(true); $event.preventDefault()"
-               (keydown.arrowdown)="decrementSecond(true); $event.preventDefault()"
-               min="0"
-               max="59"
-               role="spinbutton"
-               aria-label="second"
-               [attr.aria-valuenow]="second$ | async"
-               aria-valuemin="0"
-               aria-valuemax="59"
-               [readOnly]="readonlyInput"
-               [disabled]="disabled"
-               [tabindex]="readonlyInput ? -1 : 0"
-               [attr.aria-disabled]="disabled">
-
-        <button *ngIf="showSpinners"
-                class="time-picker-spinner"
-                [class.disabled]="disabled"
-                (click)="decrementSecond()">
-
-            <span class="hpe-icon hpe-down"></span>
-        </button>
+        <ux-spin-button
+            class="time-spinner"
+            type="number"
+            placeholder="SS"
+            [min]="0"
+            [max]="59"
+            [value]="second$ | async | timeFormat"
+            [spinners]="showSpinners"
+            [disabled]="disabled"
+            [readOnly]="readOnly"
+            inputAriaLabel="seconds"
+            (increment)="incrementSecond()"
+            (decrement)="decrementSecond()">
+        </ux-spin-button>
 
     </div>
 </div>

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SpinButtonModule } from '../spin-button/index';
 import { TimePickerModule } from '../time-picker/index';
 import { DateTimePickerComponent } from './date-time-picker.component';
 import { DateTimePickerConfig } from './date-time-picker.config';
@@ -14,7 +15,8 @@ import { YearViewComponent } from './year-view/year-view.component';
     imports: [
         CommonModule,
         FormsModule,
-        TimePickerModule
+        TimePickerModule,
+        SpinButtonModule
     ],
     exports: [DateTimePickerComponent],
     declarations: [DateTimePickerComponent, HeaderComponent, DayViewComponent, MonthViewComponent, YearViewComponent, TimeViewComponent],

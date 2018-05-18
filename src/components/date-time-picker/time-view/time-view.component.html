@@ -1,29 +1,26 @@
 <ux-time-picker *ngIf="datepicker.showTime$ | async"
-    [ngModel]="datepicker.selected$ | async"
-    (ngModelChange)="datepicker.selected$.next($event)"
+    [value]="datepicker.selected$ | async"
+    (valueChange)="datepicker.selected$.next($event)"
     [showSeconds]="datepicker.showSeconds$ | async"
     [showMeridian]="datepicker.showMeridian$ | async"
     [showSpinners]="datepicker.showSpinners$ | async"
-    [readonlyInput]="datepicker.showSpinners$ | async">
+    [readOnly]="datepicker.showSpinners$ | async">
 </ux-time-picker>
 
 <ng-container *ngIf="datepicker.showTimezone$ | async">
 
     <div class="time-zone-picker" *ngIf="datepicker.showSpinners$ | async">
 
-        <button class="time-zone-spinner" (click)="incrementTimezone()">
-            <span class="hpe-icon hpe-up"></span>
-        </button>
-
-        <input class="form-control"
-               type="text"
-               [readOnly]="true"
-               tabindex="-1"
-               [ngModel]="(datepicker.timezone$ | async).name">
-
-        <button class="time-zone-spinner" (click)="decrementTimezone()">
-            <span class="hpe-icon hpe-down"></span>
-        </button>
+        <ux-spin-button
+            class="time-zone-spinner"
+            [value]="(datepicker.timezone$ | async).name"
+            [readOnly]="true"
+            (increment)="incrementTimezone()"
+            (decrement)="decrementTimezone()"
+            inputAriaLabel="Time Zone"
+            incrementAriaLabel="Switch to the next time zone"
+            decrementAriaLabel="Switch to the previous time zone">
+        </ux-spin-button>
     </div>
 
     <div class="time-zone-picker" *ngIf="!(datepicker.showSpinners$ | async)">
@@ -31,7 +28,9 @@
         <select class="form-control time-zone-select"
                 tabindex="0"
                 [ngModel]="(datepicker.timezone$ | async).name"
-                (ngModelChange)="selectTimezone($event)">
+                (ngModelChange)="selectTimezone($event)"
+                aria-label="Timezone"
+                [attr.aria-valuenow]="(datepicker.timezone$ | async).name">
 
             <option *ngFor="let zone of datepicker.timezones$ | async"
                     [selected]="zone.name === (datepicker.timezone$ | async).name"

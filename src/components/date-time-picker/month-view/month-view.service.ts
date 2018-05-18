@@ -40,6 +40,7 @@ export class MonthViewService implements OnDestroy {
             return {
                 name: monthsShort[month],
                 month: month,
+                year: year,
                 isCurrentMonth: year === currentYear && month === currentMonth,
                 isActiveMonth: year === activeYear && month === activeMonth
             };
@@ -53,6 +54,7 @@ export class MonthViewService implements OnDestroy {
 export interface MonthViewItem {
     name: string;
     month: number;
+    year: number;
     isCurrentMonth: boolean;
     isActiveMonth: boolean;
 }

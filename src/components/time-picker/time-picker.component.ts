@@ -16,14 +16,17 @@ export const TIME_PICKER_VALUE_ACCESSOR: any = {
     templateUrl: './time-picker.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TIME_PICKER_VALUE_ACCESSOR]
+    providers: [TIME_PICKER_VALUE_ACCESSOR],
+    host: {
+        'aria-label': 'Time Picker'
+    }
 })
 export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
 
     @Input() arrowkeys: boolean = true;
     @Input() mousewheel: boolean = true;
     @Input() disabled: boolean = false;
-    @Input() readonlyInput: boolean = false;
+    @Input() readOnly: boolean = false;
 
     @Input() showMeridian: boolean = false;
     @Input() showHours: boolean = true;
@@ -133,14 +136,6 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
         this.setHour(this.value.getHours() - this.hourStep);
     }
 
-    scrollHour(event: MouseWheelEvent): void {
-        if (this.mousewheel) {
-            event.wheelDelta > 0 ? this.incrementHour() : this.decrementHour();
-        }
-
-        event.preventDefault();
-    }
-
     incrementMinute(arrowkey: boolean = false): void {
         if (this.disabled || arrowkey && !this.arrowkeys) {
             return;
@@ -157,14 +152,6 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
         this.setMinute(this.value.getMinutes() - this.minuteStep);
     }
 
-    scrollMinute(event: MouseWheelEvent): void {
-        if (this.mousewheel) {
-            event.wheelDelta > 0 ? this.incrementMinute() : this.decrementMinute();
-        }
-
-        event.preventDefault();
-    }
-
     incrementSecond(arrowkey: boolean = false): void {
         if (this.disabled || arrowkey && !this.arrowkeys) {
             return;
@@ -179,14 +166,6 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
         }
 
         this.setSeconds(this.value.getSeconds() - this.secondStep);
-    }
-
-    scrollSecond(event: MouseWheelEvent): void {
-        if (this.mousewheel) {
-            event.wheelDelta > 0 ? this.incrementSecond() : this.decrementSecond();
-        }
-
-        event.preventDefault();
     }
 
     selectMeridian(meridian: string): void {

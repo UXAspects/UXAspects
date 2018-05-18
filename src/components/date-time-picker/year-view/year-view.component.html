@@ -5,6 +5,7 @@
          role="gridcell"
          class="calendar-item"
          [attr.aria-label]="item.year"
+         [attr.aria-selected]="item.isActiveYear"
          [class.current]="item.isCurrentYear"
          [class.active]="item.isActiveYear"
          (mousedown)="select(item.year)"
