@@ -1,17 +1,22 @@
-import { Directive, ContentChildren, QueryList, AfterContentInit, HostListener, ElementRef, Inject, Output, EventEmitter, Input } from '@angular/core';
+import { Directive, ContentChildren, QueryList, AfterContentInit, HostListener, ElementRef, Inject, Output, EventEmitter, Input, OnDestroy, Renderer2, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
+import { Subscription } from 'rxjs/Subscription';
 import { MenuNavigationItemDirective } from './menu-navigation-item.directive';
 import { MenuNavigationService } from './menu-navigation.service';
+import { MenuNavigationToggleDirective } from './menu-navigation-toggle.directive';
 
 @Directive({
     selector: '[uxMenuNavigation]',
     exportAs: 'uxMenuNavigation',
     providers: [MenuNavigationService]
 })
-export class MenuNavigationDirective implements AfterContentInit {
+export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDestroy {
 
     @Input()
-    menuOrigin: 'top' | 'right' | 'bottom' | 'left' = 'top';
+    toggleButton: MenuNavigationToggleDirective;
+
+    @Input()
+    toggleButtonPosition: 'top' | 'right' | 'bottom' | 'left' = 'top';
 
     @Output()
     navigatedOut = new EventEmitter<KeyboardEvent>();
@@ -24,22 +29,41 @@ export class MenuNavigationDirective implements AfterContentInit {
     }
 
     private _itemsOrdered: MenuNavigationItemDirective[];
+
     private _document: Document;
+
+    private _subscription = new Subscription();
 
     constructor(
         private _service: MenuNavigationService,
         private _elementRef: ElementRef,
+        private _renderer: Renderer2,
         @Inject(DOCUMENT) document: any
     ) {
         this._document = document;
     }
 
+    ngOnInit(): void {
+        if (this.toggleButton) {
+            this._subscription.add(
+                this.toggleButton.keyEnter.subscribe(this.focusFirst.bind(this))
+            );
+        }
+    }
+
     ngAfterContentInit(): void {
-        this.items.changes.subscribe(() => {
-            this._itemsOrdered = this.items.toArray();
-        });
+
+        this._subscription.add(
+            this.items.changes.subscribe(() => {
+                this._itemsOrdered = this.items.toArray();
+            })
+        );
 
         this._itemsOrdered = this.items.toArray();
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
     }
 
     focusFirst(): void {
@@ -49,7 +73,7 @@ export class MenuNavigationDirective implements AfterContentInit {
     @HostListener('document:keydown', ['$event'])
     private keydownHandler(event: KeyboardEvent): void {
 
-        // Only handle events when focus in within the host element
+        // Only handle events when focus in within the list of menu items
         if (!this._elementRef.nativeElement.contains(this._document.activeElement)) {
             return;
         }
@@ -69,15 +93,15 @@ export class MenuNavigationDirective implements AfterContentInit {
                 break;
 
             case 'ArrowLeft':
-                if (this.menuOrigin === 'left') {
-                    this.navigatedOut.emit(event);
+                if (this.toggleButtonPosition === 'left') {
+                    this.moveToToggleButton(event);
                     handled = true;
                 }
                 break;
 
             case 'ArrowRight':
-                if (this.menuOrigin === 'right') {
-                    this.navigatedOut.emit(event);
+                if (this.toggleButtonPosition === 'right') {
+                    this.moveToToggleButton(event);
                     handled = true;
                 }
                 break;
@@ -121,8 +145,8 @@ export class MenuNavigationDirective implements AfterContentInit {
         } else {
 
             // Check if focus went out of bounds in the direction of the origin toggle button
-            if (this.menuOrigin === 'bottom') {
-                this.navigatedOut.emit(event);
+            if (this.toggleButtonPosition === 'bottom') {
+                this.moveToToggleButton(event);
             }
         }
     }
@@ -144,8 +168,8 @@ export class MenuNavigationDirective implements AfterContentInit {
         } else {
 
             // Check if focus went out of bounds in the direction of the origin toggle button
-            if (this.menuOrigin === 'top') {
-                this.navigatedOut.emit(event);
+            if (this.toggleButtonPosition === 'top') {
+                this.moveToToggleButton(event);
             }
         }
     }
@@ -160,5 +184,14 @@ export class MenuNavigationDirective implements AfterContentInit {
         if (this._itemsOrdered.length > 0) {
             this._service.active$.next(this._itemsOrdered[this._itemsOrdered.length - 1]);
         }
+    }
+
+    private moveToToggleButton(event: KeyboardEvent): void {
+        if (this.toggleButton) {
+            this.toggleButton.focus();
+            this.toggleButton.menuOpen = false;
+        }
+
+        this.navigatedOut.emit(event);
     }
 }

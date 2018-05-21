@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { PageHeaderService } from '../../page-header.service';
 import { PageHeaderNavigationDropdownItemComponent } from '../navigation-dropdown-item/navigation-dropdown-item.component';
 import { PageHeaderNavigationItem } from '../navigation.component';
-import { MenuNavigationDirective } from '../../../../directives/menu-navigation/index';
+import { MenuNavigationToggleDirective } from '../../../../directives/menu-navigation/menu-navigation-toggle.directive';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-item',
@@ -14,9 +14,8 @@ import { MenuNavigationDirective } from '../../../../directives/menu-navigation/
 })
 export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
-    @ViewChild('button') button: ElementRef;
+    @ViewChild('button') button: MenuNavigationToggleDirective;
     @ViewChild('menu') menu: BsDropdownDirective;
-    @ViewChild('menuNavigation') menuNavigation: MenuNavigationDirective;
     @ViewChildren(PageHeaderNavigationDropdownItemComponent) dropdowns: QueryList<PageHeaderNavigationDropdownItemComponent>;
 
     @Input() item: PageHeaderNavigationItem;
@@ -35,12 +34,12 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
     ngOnInit() {
 
         // Close submenus when selected item changes
-        this._subscription = this._pageHeaderService.selected$.subscribe(() => {
-            if (this.isOpen) {
+        this._subscription = this._pageHeaderService.selected$.subscribe((next) => {
+            if (next && this.isOpen) {
                 this.isOpen = false;
 
                 // If menu was closed, keep focus on the toggle button
-                this.button.nativeElement.focus();
+                this.button.focus();
             }
         });
 
@@ -64,26 +63,5 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
         // otherwise select the current item
         this._pageHeaderService.select(this.item);
-    }
-
-    keyupHandler(event: KeyboardEvent): void {
-
-        let handled = false;
-
-        switch (event.key) {
-            case 'Enter':
-            case 'ArrowDown':
-                this.isOpen = true;
-                setTimeout(() => {
-                    this.menuNavigation.focusFirst();
-                });
-                handled = true;
-                break;
-        }
-
-        if (handled) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
     }
 }

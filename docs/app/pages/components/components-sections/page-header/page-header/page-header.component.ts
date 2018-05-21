@@ -69,6 +69,7 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
     iconMenus: PageHeaderIconMenu[] = [
         {
             icon: 'hpe-notification',
+            label: 'Notifications. 3 new items.',
             badge: 3,
             dropdown: [
                 {
@@ -92,6 +93,7 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
         },
         {
             icon: 'hpe-actions',
+            label: 'Actions',
             dropdown: [
                 {
                     header: true,

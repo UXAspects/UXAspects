@@ -6,16 +6,16 @@
     placement="bottom left">
 
     <button role="menuitem"
-        #button
         class="horizontal-navigation-button"
         [class.selected]="item.selected"
         [class.open]="isOpen"
-        dropdownToggle
         aria-haspopup="true"
         [attr.aria-expanded]="isOpen"
         [attr.aria-selected]="item.selected"
-        (click)="select()"
-        (keyup)="keyupHandler($event)">
+        dropdownToggle
+        uxMenuNavigationToggle
+        #button="uxMenuNavigationToggle"
+        [(menuOpen)]="isOpen">
 
         <span class="hpe-icon navigation-item-icon" *ngIf="item.icon" [ngClass]="item?.icon"></span>
         <span class="navigation-item-label">{{ item?.title }}</span>
@@ -27,9 +27,8 @@
         role="menu"
         class="dropdown-menu horizontal-navigation-dropdown-menu"
         uxMenuNavigation
-        #menuNavigation="uxMenuNavigation"
-        menuOrigin="top"
-        (navigatedOut)="isOpen = false; button.focus();">
+        [toggleButton]="button"
+        toggleButtonPosition="top">
 
         <div *ngFor="let item of item?.children" uxMenuNavigationItem (activated)="dropdownItem.focus()">
             <ux-page-header-horizontal-navigation-dropdown-item

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { debounceTime } from 'rxjs/operators';
 import { PageHeaderNavigationDropdownItem } from '../navigation.component';
 import { PageHeaderService } from '../../page-header.service';
-import { MenuNavigationDirective } from '../../../../directives/menu-navigation/index';
+import { MenuNavigationToggleDirective } from '../../../../directives/menu-navigation/menu-navigation-toggle.directive';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-dropdown-item',
@@ -17,9 +17,6 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
 
     @ViewChild('button')
     button: ElementRef;
-
-    @ViewChild('menuNavigation')
-    menuNavigation: MenuNavigationDirective;
 
     dropdownOpen: boolean = false;
 
@@ -70,7 +67,7 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
         this.dropdownOpen = false;
     }
 
-    keyupHandler(event: KeyboardEvent, item: PageHeaderNavigationDropdownItem): void {
+    keydownHandler(event: KeyboardEvent, item: PageHeaderNavigationDropdownItem): void {
 
         let handled = false;
 
@@ -78,28 +75,6 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
             case 'Enter':
             case ' ':
                 this.select(item);
-                handled = true;
-                break;
-        }
-
-        if (handled) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    }
-
-    submenuKeyupHandler(event: KeyboardEvent): void {
-
-        let handled = false;
-
-        switch (event.key) {
-            case 'Enter':
-            case ' ':
-            case 'ArrowRight':
-                this.dropdownOpen = true;
-                setTimeout(() => {
-                    this.menuNavigation.focusFirst();
-                });
                 handled = true;
                 break;
         }

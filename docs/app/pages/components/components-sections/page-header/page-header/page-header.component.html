@@ -103,6 +103,9 @@
 <uxd-api-properties tableTitle="PageHeaderIconMenu">
     <tr uxd-api-property name="icon" type="string" required="true">
     </tr>
+    <tr uxd-api-property name="label" type="string">
+        Description of the purpose of the icon menu, including its badge, for assistive technologies.
+    </tr>
     <tr uxd-api-property name="badge" type="string | number">
     </tr>
     <tr uxd-api-property name="select" type="(menu: PageHeaderIconMenu) => void" required="true">
@@ -137,8 +140,8 @@
 <hr>
 
 <p>
-    Additionally you can add custom menu items to the top right of the page header by using the <code>uxPageHeaderCustomMenu</code> 
-    structural directive as content of the <code>ux-page-header</code> component. This is used to define templates for menu items and 
+    Additionally you can add custom menu items to the top right of the page header by using the <code>uxPageHeaderCustomMenu</code>
+    structural directive as content of the <code>ux-page-header</code> component. This is used to define templates for menu items and
     you can add custom click behavior.
 </p>
 
@@ -151,7 +154,7 @@
     <tab heading="HTML">
         <uxd-snippet language="html" [content]="snippets.compiled.appHtml"></uxd-snippet>
     </tab>
-    
+
     <tab heading="TypeScript">
         <uxd-snippet language="javascript" [content]="snippets.compiled.appTs"></uxd-snippet>
     </tab>

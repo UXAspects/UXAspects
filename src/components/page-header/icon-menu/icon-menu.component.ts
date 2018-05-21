@@ -9,6 +9,8 @@ export class PageHeaderIconMenuComponent {
 
     @Input() menu: PageHeaderIconMenu;
 
+    isOpen: boolean;
+
     select(item: PageHeaderIconMenu | PageHeaderIconMenuDropdownItem) {
         if (item.select) {
             item.select.call(item, item);

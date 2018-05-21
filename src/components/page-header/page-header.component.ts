@@ -25,7 +25,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     @Input() backVisible: boolean = true;
     @Input() secondaryNavigationAlignment: string = 'center';
     @Input() secondaryNavigationAutoselect: boolean = false;
-    
+
     @Input() set items(items: PageHeaderNavigationItem[]) {
         this._pageHeaderService.setItems(items);
     }
@@ -81,7 +81,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._subscription = this.selectedRoot$.pipe(
             distinctUntilChanged(),
-            filter(() => this.secondaryNavigation && this.secondaryNavigationAutoselect), 
+            filter(() => this.secondaryNavigation && this.secondaryNavigationAutoselect),
             filter((item: PageHeaderNavigation) => item && item.children && item.children.length > 0),
             map(item => item.children[0])
         ).subscribe(item => this.select(item));
@@ -102,6 +102,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
 
 export interface PageHeaderIconMenu {
     icon: string;
+    label?: string;
     badge?: number | string;
     select?: (menu: PageHeaderIconMenu) => void;
     dropdown?: PageHeaderIconMenuDropdownItem[];

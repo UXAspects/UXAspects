@@ -13,7 +13,7 @@
             <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
         </div>
 
-        <div class="page-header-icon-menus">
+        <div class="page-header-icon-menus" role="toolbar">
             <ng-container *ngFor="let menu of customMenus" [ngTemplateOutlet]="menu"></ng-container>
 
             <ux-page-header-icon-menu *ngFor="let menu of iconMenus" [menu]="menu"></ux-page-header-icon-menu>
@@ -25,9 +25,9 @@
 
         <div class="page-header-state-container" role="navigation">
 
-            <div *ngIf="backVisible == true" class="page-header-back-button" (click)="goBack()" aria-label="Go Back">
+            <button *ngIf="backVisible === true" class="page-header-back-button" (click)="goBack()" aria-label="Go Back">
                 <span class="hpe-icon hpe-previous text-primary"></span>
-            </div>
+            </button>
 
             <div class="page-header-title-container">
 
@@ -53,7 +53,7 @@
             <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>
         </div>
 
-        <div class="page-header-icon-menus">
+        <div class="page-header-icon-menus" role="toolbar">
             <ng-container *ngFor="let menu of customMenus" [ngTemplateOutlet]="menu"></ng-container>
             <ux-page-header-icon-menu *ngFor="let menu of iconMenus" [menu]="menu"></ux-page-header-icon-menu>
         </div>
