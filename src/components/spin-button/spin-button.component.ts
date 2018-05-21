@@ -52,16 +52,16 @@ export class SpinButtonComponent implements ControlValueAccessor {
 
     private _value: any;
 
-    scroll(event: MouseWheelEvent): void {
+    scroll(event: WheelEvent): void {
 
         if (!this.scrolling) {
             return;
         }
-
-        if (event.wheelDelta > 0) {
-            this.triggerIncrement();
-        } else {
+        
+        if (event.deltaY > 0) {
             this.triggerDecrement();
+        } else {
+            this.triggerIncrement();
         }
 
         event.preventDefault();

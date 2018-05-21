@@ -43,6 +43,9 @@ export class DayViewComponent implements OnDestroy {
   select(date: Date, element: HTMLElement): void {
     // update the current date object
     this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());
+
+    // focus the newly selected date
+    this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
   }
 
   trackWeekByFn(index: number): number {

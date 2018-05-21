@@ -12,7 +12,6 @@
 
                 <button class="date-button"
                         [focusIf]="(dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year"
-                        (focus)="dayService.setFocus(item.day, item.month, item.year)"
                         [attr.aria-label]="item.date | date"
                         [attr.aria-selected]="item.isActive"
                         [attr.aria-hidden]="!item.isCurrentMonth"

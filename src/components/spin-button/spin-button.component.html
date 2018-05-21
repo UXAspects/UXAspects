@@ -13,7 +13,7 @@
        [min]="min"
        [max]="max"
        [tabindex]="readOnly ? -1 : 0"
-       class="form-control spin-button-input"
+       class="form-control"
        [placeholder]="placeholder"
        [readOnly]="readOnly"
        [disabled]="disabled"
@@ -24,7 +24,7 @@
        [attr.aria-valuemax]="max"
        [attr.aria-readonly]="readOnly"
        [(ngModel)]="value"
-       (mousewheel)="scroll($event)"
+       (wheel)="scroll($event)"
        (keydown.arrowup)="arrowkeys ? triggerIncrement() : null; $event.preventDefault()"
        (keydown.arrowdown)="arrowkeys ? triggerDecrement() : null; $event.preventDefault()">
 

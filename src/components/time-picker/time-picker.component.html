@@ -1,10 +1,9 @@
-<div class="time-picker">
+<div class="time-picker" aria-label="Time picker">
 
     <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showHours">
 
         <ux-spin-button
             class="time-spinner"
-            type="number"
             placeholder="HH"
             [min]="0"
             [max]="showMeridian ? 12 : 23"
@@ -25,7 +24,6 @@
 
         <ux-spin-button
             class="time-spinner"
-            type="number"
             placeholder="MM"
             [min]="0"
             [max]="59"
