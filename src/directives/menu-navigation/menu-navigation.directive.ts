@@ -83,16 +83,19 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
         switch (event.key) {
 
             case 'ArrowUp':
+            case 'Up':
                 this.movePrevious(event);
                 handled = true;
                 break;
 
             case 'ArrowDown':
+            case 'Down':
                 this.moveNext(event);
                 handled = true;
                 break;
 
             case 'ArrowLeft':
+            case 'Left':
                 if (this.toggleButtonPosition === 'left') {
                     this.moveToToggleButton(event);
                     handled = true;
@@ -100,6 +103,7 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
                 break;
 
             case 'ArrowRight':
+            case 'Right':
                 if (this.toggleButtonPosition === 'right') {
                     this.moveToToggleButton(event);
                     handled = true;

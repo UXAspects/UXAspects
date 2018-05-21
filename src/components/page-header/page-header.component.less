@@ -71,8 +71,13 @@ ux-page-header {
                     cursor: pointer;
                     transition: background-color 0.3s ease-in-out;
 
-                    &:hover {
+                    &:hover,
+                    &:focus {
                         background-color: @page-header-back-button-hover-bg;
+                    }
+
+                    &:focus {
+                        .aspects-outline;
                     }
 
                     & > * {

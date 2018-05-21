@@ -37,6 +37,7 @@
                 class="dropdown-item"
                 tabindex="-1"
                 (click)="select(dropdown)"
+                (keydown)="keydownHandler(dropdown, $event)"
                 uxMenuNavigationItem>
 
                 <i class="hpe-icon hp-fw text-muted" [ngClass]="dropdown.icon"></i>

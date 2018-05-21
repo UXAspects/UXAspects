@@ -17,7 +17,7 @@ export class MenuNavigationToggleDirective {
     }
 
     @Input()
-    keys = ['Enter', 'ArrowDown'];
+    menuPosition: 'top' | 'right' | 'bottom' | 'left' = 'bottom';
 
     @Output()
     menuOpenChange = new EventEmitter<boolean>();
@@ -35,7 +35,7 @@ export class MenuNavigationToggleDirective {
     @HostListener('keydown', ['$event'])
     keydownHandler(event: KeyboardEvent): void {
 
-        if (this.keys.find((k) => k === event.key)) {
+        if (this.isKeyMatch(event.key)) {
 
             // Open the menu
             this.menuOpen = true;
@@ -48,5 +48,31 @@ export class MenuNavigationToggleDirective {
             event.preventDefault();
             event.stopPropagation();
         }
+    }
+
+    private isKeyMatch(key: string): boolean {
+        switch (key) {
+            case 'Enter':
+            case ' ':
+                return true;
+
+            case 'ArrowUp':
+            case 'Up':
+                return this.menuPosition === 'top';
+
+            case 'ArrowDown':
+            case 'Down':
+                return this.menuPosition === 'bottom';
+
+            case 'ArrowLeft':
+            case 'Left':
+                return this.menuPosition === 'left';
+
+            case 'ArrowRight':
+            case 'Right':
+                return this.menuPosition === 'right';
+        }
+
+        return false;
     }
 }

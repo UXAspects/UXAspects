@@ -4,7 +4,6 @@ ux-page-header-horizontal-navigation-item {
         display: block;
         padding: 17px;
         border: none;
-        outline: none;
         color: @page-header-nav-color;
         background-color: @page-header-bg;
         cursor: pointer;
@@ -28,6 +27,10 @@ ux-page-header-horizontal-navigation-item {
         &:focus {
             color: @page-header-nav-active-color;
             background-color: @page-header-nav-active-bg;
+        }
+
+        &:focus {
+            .aspects-outline;
         }
 
         &.active,
@@ -56,12 +59,15 @@ ux-page-header-horizontal-navigation-item {
         color: @page-header-nav-dropdown-color;
         padding: 8px 10px 8px 20px;
         min-width: 200px;
-        outline: none;
 
         &:hover,
         &:focus {
             background-color: @page-header-nav-dropdown-hover-bg;
             color: @page-header-nav-dropdown-hover-color;
+        }
+
+        &:focus {
+            .aspects-outline;
         }
 
         .dropdown-item-title {

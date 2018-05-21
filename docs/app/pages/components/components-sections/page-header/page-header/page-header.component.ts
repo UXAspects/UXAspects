@@ -32,9 +32,16 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
 
     condensed: boolean = false;
 
-    crumbs: Breadcrumb[] = [{
-        title: 'Archive'
-    }];
+    crumbs: Breadcrumb[] = [
+        {
+            title: 'Archive',
+            onClick: () => {}
+        },
+        {
+            title: '2017',
+            onClick: () => {}
+        }
+    ];
 
     items: PageHeaderNavigationItem[] = [
         {

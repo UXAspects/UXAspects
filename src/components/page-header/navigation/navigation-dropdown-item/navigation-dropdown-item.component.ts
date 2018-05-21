@@ -69,19 +69,13 @@ export class PageHeaderNavigationDropdownItemComponent implements OnDestroy {
 
     keydownHandler(event: KeyboardEvent, item: PageHeaderNavigationDropdownItem): void {
 
-        let handled = false;
-
         switch (event.key) {
             case 'Enter':
             case ' ':
                 this.select(item);
-                handled = true;
+                event.preventDefault();
+                event.stopPropagation();
                 break;
-        }
-
-        if (handled) {
-            event.preventDefault();
-            event.stopPropagation();
         }
     }
 }
