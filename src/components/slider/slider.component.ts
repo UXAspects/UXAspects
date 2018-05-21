@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnInit, ElementRef, ViewChild, AfterViewInit, DoCheck, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 
 @Component({
@@ -23,6 +23,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     sliderType = SliderType;
     sliderStyle = SliderStyle;
     sliderSize = SliderSize;
+    sliderSnap = SliderSnap;
     sliderThumb = SliderThumb;
     sliderTickType = SliderTickType;
     sliderThumbEvent = SliderThumbEvent;
@@ -89,6 +90,10 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
                     background: colorService.getColor('grey2').toHex(),
                     color: '#fff',
                     formatter: (value: number): string | number => value
+                },
+                keyboard: {
+                    major: 5,
+                    minor: 1
                 }
             },
             track: {
@@ -150,6 +155,35 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         });
     }
 
+    snapToNearestTick(thumb: SliderThumb, snapTarget: SliderSnap, forwards: boolean): void {
+
+        // get the value for the thumb
+        const { value } = this.getThumbState(thumb);
+
+        // get the closest ticks - remove any tick if we are currently on it
+        const closest = this.getTickDistances(value, thumb, snapTarget)
+            .filter(tick => tick.value !== value)
+            .find(tick => forwards ? tick.value > value : tick.value < value);
+
+        // If we have no ticks then move by a predefined amount
+        if (closest) {
+            return this.setThumbValue(thumb, this.validateValue(thumb, closest.value));
+        }
+
+        const step = snapTarget === SliderSnap.Major ? this.options.handles.keyboard.major : this.options.handles.keyboard.minor;
+
+        this.setThumbValue(thumb, this.validateValue(thumb, value + (forwards ? step : -step)));
+
+    }
+
+    snapToEnd(thumb: SliderThumb, forwards: boolean): void {
+        this.setThumbValue(thumb, this.validateValue(thumb, forwards ? this.options.track.max : this.options.track.min));
+    }
+
+    getThumbValue(thumb: SliderThumb): number {
+        return this.getThumbState(thumb).value;
+    }
+
     getFormattedValue(thumb: SliderThumb): string | number {
         return this.options.handles.callout.formatter(this.getThumbState(thumb).value);
     }
@@ -175,7 +209,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     thumbEvent(thumb: SliderThumb, event: SliderThumbEvent): void {
 
         // get the current thumb state
-        let state = this.getThumbState(thumb);
+        const state = this.getThumbState(thumb);
 
         // update based upon event
         switch (event) {
@@ -209,7 +243,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private updateTooltips(thumb: SliderThumb): void {
 
         let visible = false;
-        let state = this.getThumbState(thumb);
+        const state = this.getThumbState(thumb);
 
         switch (this.options.handles.callout.trigger) {
 
@@ -374,14 +408,11 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         this.thumbs.upper.order = upper;
     }
 
-    private snapToTick(value: number, thumb: SliderThumb): number {
-
-        // get the snap target
-        const snapTarget: SliderSnap = this.options.track.ticks.snap;
+    private getTickDistances(value: number, thumb: SliderThumb, snapTarget: SliderSnap): SliderTick[] {
 
         // if snap target is none then return original value
         if (snapTarget === SliderSnap.None) {
-            return value;
+            return [];
         }
 
         // get filtered ticks
@@ -418,19 +449,29 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
 
         // If there are no close ticks in the valid range then dont snap
         if (range.length === 0) {
+            return [];
+        }
+
+        return range.sort((tickOne, tickTwo) => {
+
+            const tickOneDelta = Math.max(tickOne.value, value) - Math.min(tickOne.value, value);
+            const tickTwoDelta = Math.max(tickTwo.value, value) - Math.min(tickTwo.value, value);
+            
+            return tickOneDelta - tickTwoDelta;
+        });
+    }
+
+    private snapToTick(value: number, thumb: SliderThumb): number {
+
+        const tickDistances = this.getTickDistances(value, thumb, this.options.track.ticks.snap);
+
+        // if there are no ticks return the current value
+        if (tickDistances.length === 0) {
             return value;
         }
 
-        // Find the closest tick
-        const closest = range.reduceRight((previous, current) => {
-
-            const previousDistance = Math.max(previous.value, value) - Math.min(previous.value, value);
-            const currentDistance = Math.max(current.value, value) - Math.min(current.value, value);
-
-            return previousDistance < currentDistance ? previous : current;
-        });
-
-        return closest.value;
+        // get the closest tick
+        return tickDistances[0].value;
     }
 
     private validateValue(thumb: SliderThumb, value: number): number {
@@ -560,9 +601,7 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private updateTrackColors(): void {
 
         // get colors for each part of the track
-        const lower = this.options.track.colors.lower;
-        const range = this.options.track.colors.range;
-        const higher = this.options.track.colors.higher;
+        const { lower, range, higher } = this.options.track.colors;
 
         // update the controller value
         this.tracks.lower.color = typeof lower === 'string' ? lower : `linear-gradient(to right, ${lower.join(', ')})`;
@@ -745,6 +784,12 @@ export interface SliderOptions {
 export interface SliderHandleOptions {
     style?: SliderStyle;
     callout?: SliderCallout;
+    keyboard?: SliderKeyboardOptions;
+}
+
+export interface SliderKeyboardOptions {
+    major?: number;
+    minor?: number;
 }
 
 export interface SliderTrackOptions {

@@ -1,13 +1,31 @@
-<input type="number" class="form-control number-picker-input" [(ngModel)]="value" [min]="min" [max]="max" (keydown.ArrowDown)="decrement($event)"
-    (keydown.ArrowUp)="increment($event)" (wheel)="onScroll($event)" step="any" [disabled]="disabled">
+<input type="number"
+       role="spinbutton"
+       class="form-control number-picker-input"
+       [(ngModel)]="value"
+       [min]="min"
+       [max]="max"
+       (keydown.ArrowDown)="decrement($event)"
+       (keydown.ArrowUp)="increment($event)"
+       (wheel)="onScroll($event)"
+       step="any"
+       [disabled]="disabled"
+       [attr.aria-valuemin]="min"
+       [attr.aria-valuenow]="value"
+       [attr.aria-valuemax]="max">
 
 <div class="number-picker-controls">
 
-    <div class="number-picker-control-up" (click)="increment($event)" [class.disabled]="disabled || value >= max">
+    <div class="number-picker-control-up"
+         (click)="increment($event)"
+         [class.disabled]="disabled || value >= max">
+
         <span class="hpe-icon hpe-up"></span>
     </div>
 
-    <div class="number-picker-control-down" (click)="decrement($event)" [class.disabled]="disabled || value <= min">
+    <div class="number-picker-control-down"
+         (click)="decrement($event)"
+         [class.disabled]="disabled || value <= min">
+
         <span class="hpe-icon hpe-down"></span>
     </div>
 
