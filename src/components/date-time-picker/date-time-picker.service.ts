@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { DateTimePickerConfig } from './date-time-picker.config';
 import { dateComparator } from './date-time-picker.utils';
@@ -29,11 +30,14 @@ export class DateTimePickerService {
 
     header$ = new BehaviorSubject<string>(null);
     headerEvent$ = new Subject<DatePickerHeaderEvent>();
+    modeDirection: ModeDirection = ModeDirection.None;
+
+    private _subscription: Subscription;
 
     constructor(private _config: DateTimePickerConfig) {
 
         // when the active date changes set the currently selected date
-        this.selected$.pipe(distinctUntilChanged(dateComparator)).subscribe(date => {
+        this._subscription = this.selected$.pipe(distinctUntilChanged(dateComparator)).subscribe(date => {
 
             // the month and year displayed in the viewport should reflect the newly selected items
             this.setViewportMonth(date.getMonth());
@@ -42,6 +46,10 @@ export class DateTimePickerService {
             // emit the new date to the component host
             this.date$.next(date);
         });
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
     }
 
     setViewportMonth(month: number): void {
@@ -78,15 +86,29 @@ export class DateTimePickerService {
         this.mode$.next(mode);
     }
 
+    goToChildMode(): void {
+        this.modeDirection = ModeDirection.Descend;
+
+        switch (this.mode$.value) {
+
+            case DatePickerMode.Year:
+                return this.setViewportMode(DatePickerMode.Month);
+
+            case DatePickerMode.Month:
+                return this.setViewportMode(DatePickerMode.Day);
+        }
+    }
+
     goToParentMode(): void {
+        this.modeDirection = ModeDirection.Ascend;
 
         switch (this.mode$.value) {
 
             case DatePickerMode.Day:
-                return this.mode$.next(DatePickerMode.Month);
+                return this.setViewportMode(DatePickerMode.Month);
 
             case DatePickerMode.Month:
-                return this.mode$.next(DatePickerMode.Year);
+                return this.setViewportMode(DatePickerMode.Year);
         }
     }
 
@@ -116,6 +138,12 @@ export enum DatePickerMode {
     Day,
     Month,
     Year
+}
+
+export enum ModeDirection {
+    None,
+    Ascend,
+    Descend
 }
 
 export enum DatePickerHeaderEvent {

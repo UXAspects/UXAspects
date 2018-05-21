@@ -1,15 +1,21 @@
 <div class="calendar" role="grid">
-  <div class="calendar-row" *ngFor="let row of monthService.grid$ | async" role="row">
+  <div class="calendar-row" *ngFor="let row of monthService.grid$ | async; trackBy: trackRowByFn" role="row">
 
     <div role="gridcell"
          class="calendar-item"
-         *ngFor="let item of row"
+         *ngFor="let item of row; trackBy: trackMonthByFn"
+         [focusIf]="(monthService.focused$ | async)?.month === item.month && (monthService.focused$ | async)?.year === item.year"
+         (focus)="monthService.setFocus(item.month, item.year)"
          [attr.aria-label]="item.name + ' ' + item.year"
          [attr.aria-selected]="item.isActiveMonth"
          [class.active]="item.isActiveMonth"
          [class.current]="item.isCurrentMonth"
          (mousedown)="select(item.month)"
          (keyup.enter)="select(item.month)"
+         (keydown.ArrowLeft)="focusMonth(item, -1); $event.preventDefault()"
+         (keydown.ArrowRight)="focusMonth(item, 1); $event.preventDefault()"
+         (keydown.ArrowUp)="focusMonth(item, -4); $event.preventDefault()"
+         (keydown.ArrowDown)="focusMonth(item, 4); $event.preventDefault()"
          tabindex="0">
          {{ item.name }}
     </div>

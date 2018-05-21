@@ -17,7 +17,6 @@ export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
 export class SpinButtonComponent implements ControlValueAccessor {
 
     @Input() set value(value: any) {
-        console.log(value);
         this._value = value;
         this.valueChange.next(value);
 

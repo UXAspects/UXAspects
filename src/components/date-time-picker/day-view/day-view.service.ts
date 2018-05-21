@@ -2,18 +2,19 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { combineLatest } from 'rxjs/observable/combineLatest';
-import { DateTimePickerService } from '../date-time-picker.service';
+import { DateTimePickerService, ModeDirection } from '../date-time-picker.service';
 import { compareDays, dateRange, gridify, months } from '../date-time-picker.utils';
 
 @Injectable()
 export class DayViewService implements OnDestroy {
 
     grid$ = new BehaviorSubject<DayViewItem[][]>([[]]);
+    focused$ = new BehaviorSubject<FocusedDayItem>(null);
 
     private _subscription: Subscription;
 
-    constructor(private _datePicker: DateTimePickerService) {
-        this._subscription = combineLatest(_datePicker.month$, _datePicker.year$)
+    constructor(private _datepicker: DateTimePickerService) {
+        this._subscription = combineLatest(_datepicker.month$, _datepicker.year$)
             .subscribe(([month, year]) => this.createDayGrid(month, year));
     }
 
@@ -21,10 +22,18 @@ export class DayViewService implements OnDestroy {
         this._subscription.unsubscribe();
     }
 
+    setFocus(day: number, month: number, year: number): void {
+        this.focused$.next({ day: day, month: month, year: year });
+
+        // update the date picker to show the required month and year
+        this._datepicker.setViewportMonth(month);
+        this._datepicker.setViewportYear(year);
+    }
+
     private createDayGrid(month: number, year: number): void {
 
         // update the header
-        this._datePicker.setHeader(months[month] + ' ' + year);
+        this._datepicker.setHeader(months[month] + ' ' + year);
 
         // find the lower and upper boundaries
         const start = new Date(year, month, 1);
@@ -41,7 +50,7 @@ export class DayViewService implements OnDestroy {
 
         // turn the dates into a grid
         const items: DayViewItem[][] = gridify(dates, 7).map(week => week.map(date => ({
-            day: date.getDay(),
+            day: date.getDate(),
             month: date.getMonth(),
             year: date.getFullYear(),
             date: date,
@@ -51,6 +60,16 @@ export class DayViewService implements OnDestroy {
         })));
 
         this.grid$.next(items);
+
+        // if no item has yet been focused then focus the first day of the month
+        if ((this._datepicker.modeDirection === ModeDirection.None || this._datepicker.modeDirection === ModeDirection.Descend) && this.focused$.value === null) {
+
+            // find the first day of the month
+            const first = items[0].find(date => date.day === 1);
+
+            // focus the date
+            this.setFocus(first.day, first.month, first.year);
+        }
     }
 
     /**
@@ -66,7 +85,7 @@ export class DayViewService implements OnDestroy {
      * @param date the date to check
      */
     private isActive(date: Date): boolean {
-        return compareDays(this._datePicker.selected$.value, date);
+        return compareDays(this._datepicker.selected$.value, date);
     }
 }
 
@@ -78,4 +97,10 @@ export interface DayViewItem {
     isToday: boolean;
     isActive: boolean;
     isCurrentMonth: boolean;
+}
+
+export interface FocusedDayItem {
+    day: number;
+    month: number;
+    year: number;
 }

@@ -8,16 +8,16 @@ import { gridify, range } from '../date-time-picker.utils';
 export class YearViewService implements OnDestroy {
 
     grid$ = new BehaviorSubject<YearViewItem[][]>([[]]);
+    focused$ = new BehaviorSubject<number>(null);
 
-    private _page: number = 0;
     private _year: number = new Date().getFullYear();
 
     private _subscription = new Subscription();
 
-    constructor(private _datePicker: DateTimePickerService) {
-        const year = _datePicker.year$.subscribe(_year => this.createYearGrid(_year));
+    constructor(private _datepicker: DateTimePickerService) {
+        const year = _datepicker.year$.subscribe(_year => this.createYearGrid(_year));
 
-        const event = _datePicker.headerEvent$
+        const event = _datepicker.headerEvent$
             .subscribe(_event => _event === DatePickerHeaderEvent.Next ? this.goToNextDecade() : this.goToPreviousDecade());
 
         this._subscription.add(year);
@@ -28,19 +28,21 @@ export class YearViewService implements OnDestroy {
         this._subscription.unsubscribe();
     }
 
+    setFocus(year: number): void {
+        this.focused$.next(year);
+        this.createYearGrid(year);
+    }
+
     goToPreviousDecade(): void {
-        this._page--;
-        this.createYearGrid();
+        this.createYearGrid(this._year - 10);
     }
 
     goToNextDecade(): void {
-        this._page++;
-        this.createYearGrid();
+        this.createYearGrid(this._year + 10);
     }
 
     private createYearGrid(year: number = this._year): void {
 
-        // store the year for future use
         this._year = year;
 
         // get the years to display
@@ -53,12 +55,12 @@ export class YearViewService implements OnDestroy {
             return {
                 year: _year,
                 isCurrentYear: _year === currentYear,
-                isActiveYear: _year === year
+                isActiveYear: _year === this._datepicker.year$.value
             };
         });
 
         // update the header text
-        this._datePicker.setHeader(decade.start + ' - ' + decade.end);
+        this._datepicker.setHeader(decade.start + ' - ' + decade.end);
 
         // create the grid
         this.grid$.next(gridify(items, 4));
@@ -69,12 +71,9 @@ export class YearViewService implements OnDestroy {
      */
     private getDecade(year: number): YearRange {
 
-        // the number of years to display
-        const yearCount = 10;
-
         // figure the start and end points
-        const start = (year - (year % yearCount)) + (this._page * yearCount);
-        const end = start + yearCount - 1;
+        const start = (year - (year % 10));
+        const end = start + 9;
 
         // create an array containing all the numbers between the start and end points
         return { start: start, end: end, range: range(start, end) };

@@ -8,6 +8,9 @@ import { DateTimePickerTimezone } from './date-time-picker.service';
  */
 export function gridify<T>(items: T[], columns: number): T[][] {
 
+    // create a copy of array so not to effect the original
+    items = items.slice(0);
+
     const grid: T[][] = [];
 
     while (items.length) {
