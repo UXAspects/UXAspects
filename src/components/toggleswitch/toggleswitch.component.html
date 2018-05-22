@@ -20,8 +20,10 @@
            (change)="toggle()"
            (click)="$event.stopPropagation()">
 
-    <div class="ux-toggleswitch-bg"></div>
-    <div class="ux-toggleswitch-nub"></div>
+    <div class="ux-toggleswitch-container">
+        <div class="ux-toggleswitch-bg"></div>
+        <div class="ux-toggleswitch-nub"></div>
+    </div>
 
     <span class="ux-toggleswitch-label">
         <ng-content></ng-content>
