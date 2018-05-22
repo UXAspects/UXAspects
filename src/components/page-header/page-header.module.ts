@@ -11,6 +11,7 @@ import { PageHeaderNavigationDropdownItemComponent } from './navigation/navigati
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
 import { ResizeModule } from '../../directives/resize/index';
 import { ColorServiceModule } from '../../services/color/index';
+import { MenuNavigationModule } from '../../directives/menu-navigation/index';
 
 @NgModule({
     imports: [
@@ -18,13 +19,14 @@ import { ColorServiceModule } from '../../services/color/index';
         BreadcrumbsModule,
         ColorServiceModule,
         ResizeModule,
+        MenuNavigationModule,
         BsDropdownModule.forRoot()
     ],
-    exports: [ 
+    exports: [
         PageHeaderComponent,
-        PageHeaderCustomMenuDirective 
+        PageHeaderCustomMenuDirective
     ],
-    declarations: [ 
+    declarations: [
         PageHeaderComponent,
         PageHeaderIconMenuComponent,
         PageHeaderCustomMenuDirective,

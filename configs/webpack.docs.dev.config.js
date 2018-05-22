@@ -231,7 +231,7 @@ module.exports = {
     stats: {
         colors: true,
         reasons: true
-    },    
+    },
 
     devServer: {
         https: {

@@ -32,9 +32,16 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
 
     condensed: boolean = false;
 
-    crumbs: Breadcrumb[] = [{
-        title: 'Archive'
-    }];
+    crumbs: Breadcrumb[] = [
+        {
+            title: 'Archive',
+            onClick: () => {}
+        },
+        {
+            title: '2017',
+            onClick: () => {}
+        }
+    ];
 
     items: PageHeaderNavigationItem[] = [
         {
@@ -69,6 +76,7 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
     iconMenus: PageHeaderIconMenu[] = [
         {
             icon: 'hpe-notification',
+            label: 'Notifications. 3 new items.',
             badge: 3,
             dropdown: [
                 {
@@ -92,6 +100,7 @@ export class ComponentsPageHeaderComponent extends BaseDocumentationSection impl
         },
         {
             icon: 'hpe-actions',
+            label: 'Actions',
             dropdown: [
                 {
                     header: true,
