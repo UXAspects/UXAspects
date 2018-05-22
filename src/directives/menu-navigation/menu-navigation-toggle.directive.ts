@@ -1,4 +1,4 @@
-import { Directive, Input, HostListener, EventEmitter, Output, ElementRef } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 @Directive({
     selector: '[uxMenuNavigationToggle]',

@@ -1,9 +1,9 @@
-import { Directive, ContentChildren, QueryList, AfterContentInit, HostListener, ElementRef, Inject, Output, EventEmitter, Input, OnDestroy, Renderer2, OnInit } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, QueryList, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuNavigationItemDirective } from './menu-navigation-item.directive';
-import { MenuNavigationService } from './menu-navigation.service';
 import { MenuNavigationToggleDirective } from './menu-navigation-toggle.directive';
+import { MenuNavigationService } from './menu-navigation.service';
 
 @Directive({
     selector: '[uxMenuNavigation]',

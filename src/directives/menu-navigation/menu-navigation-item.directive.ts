@@ -1,6 +1,6 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output, OnDestroy } from '@angular/core';
-import { MenuNavigationService } from './menu-navigation.service';
+import { Directive, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { MenuNavigationService } from './menu-navigation.service';
 
 @Directive({
     selector: '[uxMenuNavigationItem]'

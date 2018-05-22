@@ -1,8 +1,7 @@
 import { Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { filter, map, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';

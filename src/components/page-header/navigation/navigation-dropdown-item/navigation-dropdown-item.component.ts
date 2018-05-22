@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { debounceTime } from 'rxjs/operators';
-import { PageHeaderNavigationDropdownItem } from '../navigation.component';
 import { PageHeaderService } from '../../page-header.service';
-import { MenuNavigationToggleDirective } from '../../../../directives/menu-navigation/menu-navigation-toggle.directive';
+import { PageHeaderNavigationDropdownItem } from '../navigation.component';
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation-dropdown-item',

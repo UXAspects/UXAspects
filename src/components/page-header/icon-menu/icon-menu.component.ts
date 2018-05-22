@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { PageHeaderIconMenu, PageHeaderIconMenuDropdownItem } from '../page-header.component';
 import { MenuNavigationToggleDirective } from '../../../directives/menu-navigation/menu-navigation-toggle.directive';
+import { PageHeaderIconMenu, PageHeaderIconMenuDropdownItem } from '../page-header.component';
 
 @Component({
     selector: 'ux-page-header-icon-menu',
