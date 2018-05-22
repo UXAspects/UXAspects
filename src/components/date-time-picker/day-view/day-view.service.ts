@@ -46,10 +46,7 @@ export class DayViewService implements OnDestroy {
         end.setDate(end.getDate() + (6 - end.getDay()));
 
         // create an array of all the days to display
-        const dates = dateRange(start, end);
-
-        // turn the dates into a grid
-        const items: DayViewItem[][] = gridify(dates, 7).map(week => week.map(date => ({
+        const dates: DayViewItem[] = dateRange(start, end).map(date => ({
             day: date.getDate(),
             month: date.getMonth(),
             year: date.getFullYear(),
@@ -57,18 +54,30 @@ export class DayViewService implements OnDestroy {
             isToday: this.isToday(date),
             isActive: this.isActive(date),
             isCurrentMonth: date.getMonth() === month
-        })));
+        }));
+
+        // turn the dates into a grid
+        const items: DayViewItem[][] = gridify(dates, 7);
 
         this.grid$.next(items);
 
         // if no item has yet been focused then focus the first day of the month
         if ((this._datepicker.modeDirection === ModeDirection.None || this._datepicker.modeDirection === ModeDirection.Descend) && this.focused$.value === null) {
 
-            // find the first day of the month
-            const first = items[0].find(date => date.day === 1);
+            // check if the selected item is visible
+            const selectedDay = dates.find(day => day.isCurrentMonth && day.isActive);
 
-            // focus the date
-            this.setFocus(first.day, first.month, first.year);
+            if (selectedDay) {
+                this.setFocus(selectedDay.day, selectedDay.month, selectedDay.year);
+            } else {
+
+                // find the first day of the month
+                const first = dates.find(date => date.day === 1);
+    
+                // focus the date
+                this.setFocus(first.day, first.month, first.year);
+            }
+
         }
     }
 

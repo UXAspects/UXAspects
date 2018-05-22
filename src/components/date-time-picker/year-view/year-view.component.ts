@@ -31,4 +31,30 @@ export class YearViewComponent {
     return item.year;
   }
 
+  getTabbable(item: YearViewItem): boolean {
+    const focused = this.yearService.focused$.value;
+    const grid = this.yearService.grid$.value;
+
+    // if there is a focused year check if this is it
+    if (focused) {
+
+        // check if the focused year is visible
+        const isFocusedYearVisible = !!grid.find(row => !!row.find(_item => _item.year === focused));
+        
+        if (isFocusedYearVisible) {
+            return focused === item.year;
+        }
+    }
+
+    // if there is no focusable year then check if there is a selected year
+    const isSelectedYearVisible = !!grid.find(row => !!row.find(year => year.isActiveYear));
+
+    if (isSelectedYearVisible) {
+        return item.isActiveYear;
+    }
+
+    // otherwise make the first month tabbable
+    return grid[0][0].year === item.year;
+}
+
 }

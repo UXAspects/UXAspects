@@ -2,7 +2,7 @@
 
   <button class="header-navigation"
           (click)="previous(); $event.stopPropagation()"
-          [attr.aria-label]="'Previous ' + (mode$ | async)"
+          [attr.aria-label]="previousAria$ | async"
           tabindex="0">
 
     <i class="hpe-icon hpe-previous"></i>
@@ -18,7 +18,7 @@
 
   <button class="header-navigation"
           (click)="next(); $event.stopPropagation()"
-          [attr.aria-label]="'Next ' + (mode$ | async)"
+          [attr.aria-label]="nextAria$ | async"
           tabindex="0">
 
     <i class="hpe-icon hpe-next"></i>

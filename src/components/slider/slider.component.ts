@@ -94,6 +94,11 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
                 keyboard: {
                     major: 5,
                     minor: 1
+                },
+                aria: {
+                    thumb: 'Slider value',
+                    lowerThumb: 'Slider lower value',
+                    upperThumb: 'Slider upper value'
                 }
             },
             track: {
@@ -785,6 +790,13 @@ export interface SliderHandleOptions {
     style?: SliderStyle;
     callout?: SliderCallout;
     keyboard?: SliderKeyboardOptions;
+    aria?: SliderAriaOptions;
+}
+
+export interface SliderAriaOptions {
+    thumb: string;
+    lowerThumb: string;
+    upperThumb: string;
 }
 
 export interface SliderKeyboardOptions {

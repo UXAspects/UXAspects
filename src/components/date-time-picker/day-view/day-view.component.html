@@ -18,7 +18,7 @@
                         [class.current]="item.isToday"
                         [class.active]="item.isActive"
                         [class.preview]="!item.isCurrentMonth"
-                        [tabindex]="item.isCurrentMonth ? 0 : -1"
+                        [tabindex]="getTabbable(item) ? 0 : -1"
                         (click)="select(item.date); $event.stopPropagation()"
                         (keydown.ArrowLeft)="focusDate(item, -1); $event.preventDefault()"
                         (keydown.ArrowRight)="focusDate(item, 1); $event.preventDefault()"

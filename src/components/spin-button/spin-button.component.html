@@ -1,5 +1,6 @@
 <button class="spin-button"
         *ngIf="spinners"
+        tabindex="-1"
         [disabled]="disabled"
         [attr.aria-label]="incrementAriaLabel"
         [attr.aria-disabled]="disabled"
@@ -12,7 +13,7 @@
        role="spinbutton"
        [min]="min"
        [max]="max"
-       [tabindex]="readOnly ? -1 : 0"
+       [tabindex]="0"
        class="form-control"
        [placeholder]="placeholder"
        [readOnly]="readOnly"
@@ -30,6 +31,7 @@
 
 <button class="spin-button"
         *ngIf="spinners"
+        tabindex="-1"
         [disabled]="disabled"
         [attr.aria-label]="decrementAriaLabel"
         [attr.aria-disabled]="disabled"

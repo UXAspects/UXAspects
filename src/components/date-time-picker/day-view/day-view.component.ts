@@ -65,4 +65,30 @@ export class DayViewComponent implements OnDestroy {
     this.dayService.setFocus(target.getDate(), target.getMonth(), target.getFullYear());
   }
 
+  getTabbable(item: DayViewItem): boolean {
+    const focused = this.dayService.focused$.value;
+    const grid = this.dayService.grid$.value;
+
+    // if there is a focused month check if this is it
+    if (focused) {
+
+      // check if the focused day is visible
+      const isFocusedDayVisible = !!grid.find(row => !!row.find(_item => _item.day === focused.day && _item.month === focused.month && _item.year === focused.year));
+      
+      if (isFocusedDayVisible) {
+        return focused.day === item.day && focused.month === item.month && focused.year === item.year;
+      }
+    }
+
+    // if there is no focusable day then check if there is a selected day
+    const isSelectedDayVisible = !!grid.find(row => !!row.find(day => day.isActive));
+
+    if (isSelectedDayVisible) {
+        return item.isActive;
+    }
+
+    // otherwise make the first day tabbable
+    return item.day === 1;
+  }
+
 }

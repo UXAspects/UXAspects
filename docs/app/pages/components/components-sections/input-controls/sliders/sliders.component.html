@@ -142,6 +142,9 @@
     <tr uxd-api-property name="keyboard" type="SliderKeyboardOptions">
         This should be an object that configures keyboard interaction with the slider.
     </tr>
+    <tr uxd-api-property name="aria" type="SliderAriaOptions">
+        This should be an object that configures aria labels for the slider.
+    </tr>
 </uxd-api-properties>
 
 <uxd-api-properties tableTitle="SliderCallout">
@@ -242,6 +245,18 @@
     </tr>
     <tr uxd-api-property name="minor" type="number" defaultValue="1">
         If there are no minor ticks specified, the slider thumb will move by this amount whenever the Arrow keys are pressed.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SliderAriaOptions">
+    <tr uxd-api-property name="thumb" type="string" defaultValue="'Slider value'">
+        The thumb aria label when a value slider is used.
+    </tr>
+    <tr uxd-api-property name="lowerThumb" type="string" defaultValue="'Slider lower value'">
+        The lower thumb aria label when a range slider is used.
+    </tr>
+    <tr uxd-api-property name="upperThumb" type="string" defaultValue="'Slider upper value'">
+        The upper thumb aria label when a range slider is used.
     </tr>
 </uxd-api-properties>
 

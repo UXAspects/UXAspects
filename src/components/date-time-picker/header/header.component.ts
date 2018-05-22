@@ -34,6 +34,28 @@ export class HeaderComponent {
         }
     }));
 
+    previousAria$: Observable<string> = this.datepicker.mode$.pipe(map(mode => {
+        switch (mode) {
+            case DatePickerMode.Day:
+                return 'Previous month';
+            case DatePickerMode.Month:
+                return 'Previous year';
+            case DatePickerMode.Year:
+                return 'Previous decade';
+        }
+    }));
+
+    nextAria$: Observable<string> = this.datepicker.mode$.pipe(map(mode => {
+        switch (mode) {
+            case DatePickerMode.Day:
+                return 'Next month';
+            case DatePickerMode.Month:
+                return 'Next year';
+            case DatePickerMode.Year:
+                return 'Next decade';
+        }
+    }));
+
     constructor(public datepicker: DateTimePickerService) { }
 
     previous(): void {

@@ -32,9 +32,6 @@ export class MonthViewService implements OnDestroy {
         // update the header
         this._datepicker.setHeader(year.toString());
 
-        // create a 4x3 grid of month numbers
-        const months: number[][] = gridify(range(0, 11), 4);
-
         // get the current year and month
         const currentMonth = new Date().getMonth();
         const currentYear = new Date().getFullYear();
@@ -43,8 +40,8 @@ export class MonthViewService implements OnDestroy {
         const activeMonth = this._datepicker.selected$.value.getMonth();
         const activeYear = this._datepicker.selected$.value.getFullYear();
 
-        // map these to the appropriate format
-        const items: MonthViewItem[][] = months.map(row => row.map(month => {
+        // create a 4x3 grid of month numbers
+        const months: MonthViewItem[] = range(0, 11).map(month => {
             return {
                 name: monthsShort[month],
                 month: month,
@@ -52,14 +49,21 @@ export class MonthViewService implements OnDestroy {
                 isCurrentMonth: year === currentYear && month === currentMonth,
                 isActiveMonth: year === activeYear && month === activeMonth
             };
-        }));
+        });
+
+        // map these to the appropriate format
+        const items: MonthViewItem[][] = gridify(months, 4);
 
         // update the grid
         this.grid$.next(items);
 
         // if there is no focused month select the first one
         if (this._datepicker.modeDirection === ModeDirection.Descend && this.focused$.value === null) {
-            this.setFocus(0, year);
+            
+            // check if the selected month is in view
+            const selectedMonth = months.find(month => month.isActiveMonth);
+
+            this.setFocus(selectedMonth ? selectedMonth.month : 0, year);
         }
     }
 }

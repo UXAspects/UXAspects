@@ -24,9 +24,14 @@
 </div>
 
 <ng-template #popoverTemplate>
-    <ux-date-time-picker [(date)]="date" [(timezone)]="timezone"
-        [showTime]="showTime" [showMeridian]="showMeridians"
-        [showSpinners]="showSpinners" [showTimezone]="showTimezones">
+    <ux-date-time-picker 
+        [(date)]="date"
+        [(timezone)]="timezone"
+        [showTime]="showTime"
+        [showMeridian]="showMeridians"
+        [showSpinners]="showSpinners"
+        [showTimezone]="showTimezones"
+        (keydown.escape)="popover.hide(); input.focus()">
     </ux-date-time-picker>
 </ng-template>
 

@@ -28,7 +28,8 @@
         [showTime]="showTime"
         [showMeridian]="showMeridians"
         [showSpinners]="showSpinners"
-        [showTimezone]="showTimezones">
+        [showTimezone]="showTimezones"
+        (keydown.escape)="popover.hide(); input.focus()">
     </ux-date-time-picker>
 </ng-template>
 

@@ -1,7 +1,7 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { DatePickerHeaderEvent, DatePickerMode, DateTimePickerService } from '../date-time-picker.service';
-import { MonthViewService, MonthViewItem } from './month-view.service';
+import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
+import { MonthViewItem, MonthViewService } from './month-view.service';
 
 @Component({
     selector: 'ux-date-time-picker-month-view',
@@ -70,5 +70,31 @@ export class MonthViewComponent implements OnDestroy {
 
     trackMonthByFn(index: number, item: MonthViewItem): string {
         return `${item.month} ${item.year}`;
+    }
+
+    getTabbable(item: MonthViewItem): boolean {
+        const focused = this.monthService.focused$.value;
+        const grid = this.monthService.grid$.value;
+
+        // if there is a focused month check if this is it
+        if (focused) {
+
+            // check if the focused month is visible
+            const isFocusedMonthVisible = !!grid.find(row => !!row.find(_item => _item.month === focused.month && _item.year === focused.year));
+            
+            if (isFocusedMonthVisible) {
+                return focused.month === item.month && focused.year === item.year;
+            }
+        }
+
+        // if there is no focusable month then check if there is a selected month
+        const isSelectedMonthVisible = !!grid.find(row => !!row.find(month => month.isActiveMonth));
+
+        if (isSelectedMonthVisible) {
+            return item.isActiveMonth;
+        }
+
+        // otherwise make the first month tabbable
+        return item.month === 0;
     }
 }

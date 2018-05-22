@@ -5,6 +5,7 @@
          class="calendar-item"
          *ngFor="let item of row; trackBy: trackMonthByFn"
          [focusIf]="(monthService.focused$ | async)?.month === item.month && (monthService.focused$ | async)?.year === item.year"
+         [tabindex]="getTabbable(item) ? 0 : -1"
          [attr.aria-label]="item.name + ' ' + item.year"
          [attr.aria-selected]="item.isActiveMonth"
          [class.active]="item.isActiveMonth"
@@ -13,8 +14,7 @@
          (keydown.ArrowLeft)="focusMonth(item, -1); $event.preventDefault()"
          (keydown.ArrowRight)="focusMonth(item, 1); $event.preventDefault()"
          (keydown.ArrowUp)="focusMonth(item, -4); $event.preventDefault()"
-         (keydown.ArrowDown)="focusMonth(item, 4); $event.preventDefault()"
-         tabindex="0">
+         (keydown.ArrowDown)="focusMonth(item, 4); $event.preventDefault()">
          {{ item.name }}
     </button>
   </div>
