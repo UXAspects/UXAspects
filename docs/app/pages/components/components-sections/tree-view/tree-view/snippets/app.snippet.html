@@ -1,19 +1,29 @@
 <div class="tree-view-example-container">
-    <tree-root [nodes]="nodes" role="tree">
-        <ng-template #treeNodeTemplate let-node let-index="index">
+    <tree-root [nodes]="nodes" (focus)="focused = $event.node" role="tree">
+        <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
             <div class="tree-view-node"
-                    [attr.role]="node.hasChildren ? 'group' : 'treeitem'"
-                    [attr.aria-label]="node.data.name"
-                    [attr.aria-expanded]="node.isExpanded"
-                    tabindex="0"
-                    (focus)="focus(node)">
+                role="treeitem"
+                [attr.aria-level]="node.level"
+                [attr.aria-expanded]="node.isExpanded"
+                [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
+                (focus)="focus(node)"
+                [focusIf]="node === focused">
 
-                <span class="hpe-icon m-r-xxs"
+                <div class="node-content-wrapper" 
+                    [class.node-content-wrapper-active]="node.isActive"
+                    [class.node-content-wrapper-focused]="node.isFocused">
+
+                    <tree-node-expander class="m-r-xs" [node]="node"></tree-node-expander>
+                    
+                    <span class="hpe-icon m-r-xxs"
                         [class.hpe-folder]="node.hasChildren && !node.isExpanded"
                         [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
                         [class.hpe-document]="!node.hasChildren">
-                </span>
-                <span>{{ node.data.name }}</span>
+                    </span>
+                    <span>{{ node.data.name }}</span>
+                </div>
+
+                <tree-node-children role="group" [node]="node" [templates]="templates"></tree-node-children>
             </div>
         </ng-template>
     </tree-root>

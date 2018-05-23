@@ -6,6 +6,13 @@
     outline: none;
 }
 
+.node-content-wrapper:focus {
+    outline: 1px dotted;
+    outline: auto -webkit-focus-ring-color;
+    outline-color: #00a7a2;
+    outline-offset: 0;
+}
+
 .node-content-wrapper-focused {
     background-color: #e7f1f9;
 }

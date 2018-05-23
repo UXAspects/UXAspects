@@ -4,6 +4,13 @@
 
 .node-content-wrapper {
     outline: none;
+
+    &:focus {
+        outline: 1px dotted;
+        outline: auto -webkit-focus-ring-color;
+        outline-color: #00a7a2;
+        outline-offset: 0;
+    }
 }
 
 .node-content-wrapper-focused {

@@ -70,6 +70,8 @@ export class ComponentsTreeViewComponent extends BaseDocumentationSection {
         ]
     }];
 
+    focused: TreeNode;
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
@@ -77,7 +79,7 @@ export class ComponentsTreeViewComponent extends BaseDocumentationSection {
     /**
      * If tree view is tabbed to, focus the node
      */
-    focus(node: TreeNode): void {
+    focus(node: TreeNode, element: HTMLElement): void {
         node.focus();
         node.treeModel.setFocus(true);
     }

@@ -66,6 +66,8 @@ export class AppComponent {
         ]
     }];
 
+    focused: TreeNode;    
+
     /**
      * If tree view is tabbed to, focus the node
      */

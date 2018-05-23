@@ -5,6 +5,7 @@
             [nodes]="nodes"
             [options]="options"
             (focus)="focused = $event.node"
+            (stateChange)="updatedFocusedItem($event, tree)"
             (loadNodeChildren)="onChildrenLoaded($event.node)">
 
         <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
@@ -14,7 +15,8 @@
                 <div class="node-wrapper">
 
                     <ux-checkbox 
-                        [tabindex]="-1"
+                        aria-label="Toggle selection of {{ node.data.name }}"
+                        [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
                         [value]="node.data.checked"
                         (valueChange)="setChecked(node, $event)"
                         [indeterminateValue]="-1">
@@ -23,19 +25,20 @@
                     <tree-node-expander [node]="node"></tree-node-expander>
 
                     <div class="node-content-wrapper"
-                         [class.node-content-wrapper-active]="node.data.checked"
-                         [class.node-content-wrapper-focused]="node.data.checked || node.isFocused"
-                         role="treeitem"
-                         [attr.aria-checked]="node.data.checked"
-                         [attr.aria-expanded]="node.isExpanded"
-                         [tabindex]="node === focused || !focused && node.isRoot ? 0 : -1"
-                         (focus)="focus(node)"
-                         (click)="setChecked(node, !node.data.checked)">
+                        [class.node-content-wrapper-active]="node.data.checked"
+                        [class.node-content-wrapper-focused]="node.data.checked || node.isFocused"
+                        role="treeitem"
+                        [attr.aria-expanded]="node.isExpanded"
+                        [attr.aria-level]="node.level"
+                        [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
+                        (focus)="focus(node)"
+                        [focusIf]="node === focused"
+                        (click)="setChecked(node, !node.data.checked)">
 
                         <span class="hpe-icon"
-                              [class.hpe-folder]="node.hasChildren && !node.isExpanded"
-                              [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
-                              [class.hpe-document]="!node.hasChildren">
+                            [class.hpe-folder]="node.hasChildren && !node.isExpanded"
+                            [class.hpe-folder-open]="node.hasChildren && node.isExpanded"
+                            [class.hpe-document]="!node.hasChildren">
                         </span>
 
                         <span [class.title]="true">{{ node.data.name }}</span>

@@ -104,6 +104,28 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
         node.focus();
         node.treeModel.setFocus(true);
     }
+
+    /**
+     * Ensure that the focused node is visible, otherwise reset it
+     */
+    updatedFocusedItem(): void {
+        // check if the focused node is still visible
+        if (!this.isNodeVisible(this.focused)) {
+            this.focused = null;
+        }
+    }
+
+    isNodeVisible(node: TreeNode): boolean {
+        if (node.isRoot) {
+            return true;
+        }
+
+        if (node.parent.isCollapsed) {
+            return false;
+        }
+
+        return this.isNodeVisible(node.parent);
+    }
 }
 
 export interface TreeViewExampleNode {

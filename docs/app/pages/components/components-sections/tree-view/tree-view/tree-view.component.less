@@ -4,4 +4,16 @@
 
 .tree-view-node {
     outline: none;
+
+    &:focus > .node-content-wrapper {
+        outline: 1px dotted;
+        outline: auto -webkit-focus-ring-color;
+        outline-color: #00a7a2;
+        outline-offset: 0;
+    }
+}
+
+.node-content-wrapper {
+    display: flex;
+    align-items: center;
 }
