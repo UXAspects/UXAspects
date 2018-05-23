@@ -4,6 +4,7 @@
             role="tree"
             [nodes]="nodes"
             [options]="options"
+            (focus)="focused = $event.node"
             (loadNodeChildren)="onChildrenLoaded($event.node)">
 
         <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
@@ -12,7 +13,9 @@
 
                 <div class="node-wrapper">
 
-                    <ux-checkbox [value]="node.data.checked"
+                    <ux-checkbox 
+                        [tabindex]="-1"
+                        [value]="node.data.checked"
                         (valueChange)="setChecked(node, $event)"
                         [indeterminateValue]="-1">
                     </ux-checkbox>
@@ -22,10 +25,10 @@
                     <div class="node-content-wrapper"
                          [class.node-content-wrapper-active]="node.data.checked"
                          [class.node-content-wrapper-focused]="node.data.checked || node.isFocused"
-                         [attr.role]="node.hasChildren ? 'group' : 'treeitem'"
-                         [attr.aria-label]="node.data.name"
+                         role="treeitem"
+                         [attr.aria-checked]="node.data.checked"
                          [attr.aria-expanded]="node.isExpanded"
-                         tabindex="0"
+                         [tabindex]="node === focused || !focused && node.isRoot ? 0 : -1"
                          (focus)="focus(node)"
                          (click)="setChecked(node, !node.data.checked)">
 
@@ -41,7 +44,7 @@
 
                 </div>
 
-                <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+                <tree-node-children role="group" [node]="node" [templates]="templates"></tree-node-children>
             </div>
 
         </ng-template>

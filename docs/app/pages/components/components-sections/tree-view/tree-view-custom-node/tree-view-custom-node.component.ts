@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { TreeNode } from 'angular-tree-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { TreeModel, TreeNode, TreeComponent } from 'angular-tree-component';
 import { TreeViewService } from './tree-view-custom-node.service';
 
 @Component({
@@ -28,6 +28,8 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
     options = {
         getChildren: (node: TreeNode) => node.data.source ? node.data.source() : [],
     };
+
+    focused: TreeNode;
 
     constructor(private _treeViewService: TreeViewService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
@@ -102,7 +104,6 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
         node.focus();
         node.treeModel.setFocus(true);
     }
-
 }
 
 export interface TreeViewExampleNode {

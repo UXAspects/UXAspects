@@ -26,7 +26,7 @@
 
         </thead>
 
-        <tbody ng-if="!vm.loading" role="tree">
+        <tbody ng-if="!vm.loading" role="treegrid">
 
             <tr ng-repeat="row in vm.getGridRows()"
                 class="clickable hover-actions"
@@ -37,12 +37,13 @@
                 treegrid-expand="vm.expand(row)"
                 treegrid-contract="vm.contract(row)"
                 ng-focus="vm.rowFocus(row, $event)"
-                aria-expanded="{{ row.expanding }}"
+                aria-expanded="{{ row.expanded }}"
                 aria-checked="{{ row.selected }}"
+                aria-level="{{ ::row.level }}"
                 role="{{ row.canExpand ? 'group' : 'treeitem' }}"
                 tabindex="-1">
 
-                <td ng-repeat="col in vm.columns" ng-class="col.cellClass">
+                <td ng-repeat="col in vm.columns" aria-label="{{ ::col.name }}" ng-class="col.cellClass">
 
                     <span ng-if="$first" class="treegrid-indent" ng-class="row.levelClass"></span>
 

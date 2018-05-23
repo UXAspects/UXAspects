@@ -26,6 +26,8 @@ export class AppComponent {
         getChildren: (node: TreeNode) => node.data.source ? node.data.source() : [],
     };
 
+    focused: TreeNode;
+
     constructor(private _treeViewService: TreeViewService) { }
 
     /**
