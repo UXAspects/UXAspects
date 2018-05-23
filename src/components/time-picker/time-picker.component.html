@@ -3,11 +3,13 @@
     <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showHours">
 
         <ux-spin-button
+            type="number"
             class="time-spinner"
             placeholder="HH"
             [min]="0"
             [max]="showMeridian ? 12 : 23"
             [value]="hour$ | async | timeFormat"
+            (valueChange)="hourChange($event)"
             [spinners]="showSpinners"
             [disabled]="disabled"
             [readOnly]="readOnly"
@@ -25,11 +27,13 @@
     <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showMinutes">
 
         <ux-spin-button
+            type="number"
             class="time-spinner"
             placeholder="MM"
             [min]="0"
             [max]="59"
             [value]="minute$ | async | timeFormat"
+            (valueChange)="minuteChange($event)"
             [spinners]="showSpinners"
             [disabled]="disabled"
             [readOnly]="readOnly"
@@ -47,12 +51,14 @@
     <div class="time-picker-column" [class.has-error]="!(valid$ | async)" *ngIf="showSeconds">
 
         <ux-spin-button
+            type="number"
             class="time-spinner"
             type="number"
             placeholder="SS"
             [min]="0"
             [max]="59"
             [value]="second$ | async | timeFormat"
+            (valueChange)="secondChange($event)"
             [spinners]="showSpinners"
             [disabled]="disabled"
             [readOnly]="readOnly"

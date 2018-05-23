@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { distinctUntilChanged, map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 
 export const TIME_PICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -69,6 +69,7 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
     meridian$: Observable<string> = this.value$.pipe(map(date => date.getHours() < 12 ? this.meridians[0] : this.meridians[1]));
     valid$: Observable<boolean> = this.value$.pipe(map(date => this.checkValidity(date)));
 
+    private _meridian: string = this.meridians[0];
     private _subscription: Subscription;
 
     constructor() {
@@ -169,6 +170,8 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
     }
 
     selectMeridian(meridian: string): void {
+        this._meridian = meridian;
+
         // get the current time
         const hour = this.value.getHours();
 
@@ -199,5 +202,93 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
         }
 
         return valid;
+    }
+
+    hourChange(value: string): void {
+        // convert the string to a number
+        let hour = parseInt(value);
+        let currentHour = this.value.getHours();
+
+        // if the value hasn't changed, do nothing
+        if (hour === currentHour) {
+            return;
+        }
+
+        // ensure the hours is valid
+        if (!isNaN(hour)) {
+            if (hour < 0) {
+                hour = 0;
+            }
+
+            if (hour > (this.showMeridian ? 12 : 23)) {
+                hour = this.showMeridian ? 12 : 23;
+            }
+        }
+
+        hour = isNaN(hour) ? currentHour : hour;
+
+        // if the number is invalid then restore it to the previous value
+        if (this._meridian === this.meridians[0]) {
+            if (hour >= 12) {
+                this.setHour(hour - 12);
+            }
+        }
+
+        // if we have selected PM
+        if (this._meridian === this.meridians[1]) {
+            if (hour < 12) {
+                this.setHour(hour + 12);
+            }
+        }
+    }
+
+    minuteChange(value: string): void {
+        // convert the string to a number
+        let minute = parseInt(value);
+        let currentMinute = this.value.getMinutes();
+
+        // if the value hasn't changed, do nothing
+        if (minute === currentMinute) {
+            return;
+        }
+
+        // ensure the hours is valid
+        if (!isNaN(minute)) {
+            if (minute < 0) {
+                minute = 0;
+            }
+
+            if (minute > 59) {
+                minute = 59;
+            }
+        }
+
+        // if the number is invalid then restore it to the previous value
+        this.setMinute(isNaN(minute) ? currentMinute : minute);
+    }
+
+    secondChange(value: string): void {
+        // convert the string to a number
+        let second = parseInt(value);
+        let currentSecond = this.value.getSeconds();
+
+        // if the value hasn't changed, do nothing
+        if (second === currentSecond) {
+            return;
+        }
+
+        // ensure the hours is valid
+        if (!isNaN(second)) {
+            if (second < 0) {
+                second = 0;
+            }
+
+            if (second > 59) {
+                second = 59;
+            }
+        }
+
+        // if the number is invalid then restore it to the previous value
+        this.setSeconds(isNaN(second) ? currentSecond : second);
     }
 }

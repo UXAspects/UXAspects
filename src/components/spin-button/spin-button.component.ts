@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
@@ -18,10 +18,10 @@ export class SpinButtonComponent implements ControlValueAccessor {
 
     @Input() set value(value: any) {
         this._value = value;
-        this.valueChange.next(value);
+        this.valueChange.next(this._value);
 
         this.onTouchedCallback();
-        this.onChangeCallback(value);
+        this.onChangeCallback(this._value);
     }
 
     get value(): any {
@@ -29,8 +29,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
     }
 
     @Input() type: string = 'text';
-    @Input() min: string;
-    @Input() max: string;
+    @Input() min: number;
+    @Input() max: number;
     @Input() placeholder: string = '';
     @Input() disabled: boolean = false;
     @Input() spinners: boolean = true;
