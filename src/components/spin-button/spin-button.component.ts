@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const SPIN_BUTTON_VALUE_ACCESSOR: any = {
@@ -18,10 +18,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
 
     @Input() set value(value: any) {
         this._value = value;
-        this.valueChange.next(this._value);
-
+        this.onChangeCallback(value);
         this.onTouchedCallback();
-        this.onChangeCallback(this._value);
     }
 
     get value(): any {
@@ -48,7 +46,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
     @Output() decrement = new EventEmitter<void>();
 
     onTouchedCallback: () => void = () => { };
-    onChangeCallback: (_: Date) => void = () => { };
+    onChangeCallback: (_: any) => void = () => { };
 
     private _value: any;
 
@@ -57,7 +55,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
         if (!this.scrolling) {
             return;
         }
-        
+
         if (event.deltaY > 0) {
             this.triggerDecrement();
         } else {

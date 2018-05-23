@@ -205,6 +205,7 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
     }
 
     hourChange(value: string): void {
+
         // convert the string to a number
         let hour = parseInt(value);
         let currentHour = this.value.getHours();
@@ -230,19 +231,22 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
         // if the number is invalid then restore it to the previous value
         if (this._meridian === this.meridians[0]) {
             if (hour >= 12) {
-                this.setHour(hour - 12);
+                hour -= 12;
             }
         }
 
         // if we have selected PM
         if (this._meridian === this.meridians[1]) {
             if (hour < 12) {
-                this.setHour(hour + 12);
+                hour += 12;
             }
         }
+
+        this.setHour(hour);
     }
 
     minuteChange(value: string): void {
+
         // convert the string to a number
         let minute = parseInt(value);
         let currentMinute = this.value.getMinutes();
@@ -255,11 +259,11 @@ export class TimePickerComponent implements ControlValueAccessor, OnDestroy {
         // ensure the hours is valid
         if (!isNaN(minute)) {
             if (minute < 0) {
-                minute = 0;
+                minute = 59;
             }
 
             if (minute > 59) {
-                minute = 59;
+                minute = 0;
             }
         }
 
