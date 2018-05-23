@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder } from 'protractor';
+import { ElementFinder, browser, by, element } from 'protractor';
 
 export class CheckBoxesPage {
         
@@ -19,23 +19,23 @@ export class CheckBoxesPage {
     changeToSimplified = element(by.id('button3'));
     
     confirmIsChecked(checkbox: ElementFinder) {    
-        return checkbox.$('div.ux-checked').isPresent();
+        return checkbox.$('.ux-checkbox-checked').isPresent();
     }
     
     confirmIsDisabled(checkbox: ElementFinder) {
-        return checkbox.$('div.ux-disabled').isPresent();
+        return checkbox.$('.ux-checkbox-disabled').isPresent();
     }
     
     confirmIsIndeterminate(checkbox: ElementFinder) {
-        return checkbox.$('div.ux-indeterminate').isPresent();
+        return checkbox.$('.ux-checkbox-indeterminate').isPresent();
     }
     
     confirmIsSimplified(checkbox: ElementFinder) {
-        return checkbox.$('div.ux-simplified').isPresent();
+        return checkbox.$('.ux-checkbox-simplified').isPresent();
     }
     
     toggleByKey(checkbox: ElementFinder, key: string) {
-        checkbox.$('div.ux-checkbox').sendKeys(key);
+        checkbox.$('.ux-checkbox').sendKeys(key);
     }
 }
 

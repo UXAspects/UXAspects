@@ -1,11 +1,10 @@
-import { browser, Key, protractor } from 'protractor';
-import { ButtonDropdownsPage } from './button-dropdowns.po.spec';
+import { Key, browser, protractor } from 'protractor';
 import { Constants, Functions } from '../common/common.spec';
+import { ButtonDropdownsPage } from './button-dropdowns.po.spec';
 
 describe('Button Dropdowns Tests', () => {
 
   let page: ButtonDropdownsPage;
-  let browserName: string;
   let constants: Constants;
   let functions: Functions;
 
@@ -16,11 +15,6 @@ describe('Button Dropdowns Tests', () => {
     
     constants = new Constants();
     functions = new Functions();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
-
   });
   
   it('should have correct initial states', () => {
@@ -100,7 +94,7 @@ describe('Button Dropdowns Tests', () => {
     functions.moveToElementAndClick(page.link1).then();
 
     const EC = protractor.ExpectedConditions;
-    browser.wait(EC.urlIs('http://localhost:8080/'), 5000);
+    browser.wait(EC.urlIs('http://localhost:8080/#/'), 5000);
     
   });
     

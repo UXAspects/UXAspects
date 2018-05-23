@@ -1,4 +1,4 @@
-import { browser, element, by , ElementFinder} from 'protractor';
+import { ElementFinder, browser, by, element } from 'protractor';
 
 export class InfiniteScrollPage {
         
@@ -31,7 +31,7 @@ export class InfiniteScrollPage {
     }
     
     confirmLoadOnScrollIsChecked() {
-        return this.confirmClassExists(this.getCheckbox(), 'ux-checked');
+        return this.confirmClassExists(this.getCheckbox(), 'ux-checkbox-checked');
     }
 
     confirmPageSizeButtonIsDisabled(direction: string) {
@@ -63,7 +63,7 @@ export class InfiniteScrollPage {
     }
     
     getCheckbox() {
-        return this.loadOnScrollCheckbox.$('div.ux-checkbox');
+        return this.loadOnScrollCheckbox.$('.ux-checkbox');
     }
 
     getPageSize() {

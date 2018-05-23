@@ -1,18 +1,12 @@
-import { browser, Key } from 'protractor';
 import { FacetTypeaheadListPage } from './facet-typeahead-list.po.spec';
 
 describe('FacetTypeaheadListPage Tests', () => {
 
   let page: FacetTypeaheadListPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new FacetTypeaheadListPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should start with no facets', () => {

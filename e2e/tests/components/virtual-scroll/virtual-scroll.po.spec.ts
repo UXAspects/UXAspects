@@ -1,4 +1,4 @@
-import { browser, element, by , ElementFinder } from 'protractor';
+import { ElementFinder, browser, by, element } from 'protractor';
 
 export class VirtualScrollPage {
         
@@ -29,7 +29,7 @@ export class VirtualScrollPage {
     }
     
     confirmLoadOnScrollIsChecked() {
-        return this.confirmClassExists(this.getCheckbox(), 'ux-checked');
+        return this.confirmClassExists(this.getCheckbox(), 'ux-checkbox-checked');
     }
     
     confirmLoadMoreIsVisible() {
@@ -51,7 +51,7 @@ export class VirtualScrollPage {
     }
     
     getCheckbox() {
-        return this.loadOnScrollCheckbox.$('div.ux-checkbox');
+        return this.loadOnScrollCheckbox.$('.ux-checkbox');
     }
     
     

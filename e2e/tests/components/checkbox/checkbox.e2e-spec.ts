@@ -1,25 +1,16 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
 import { CheckBoxesPage } from './checkbox.po.spec';
 
 describe('Checkbox Tests', () => {
 
   let page: CheckBoxesPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new CheckBoxesPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should have correct initial states', () => {
-    if (browserName === 'internet explorer') {
-        console.log('Skipping test in ' + browserName);
-        return;
-    }   
     
     // Initial values.
     expect(page.confirmIsChecked(page.checkbox1)).toBeTruthy();
@@ -119,11 +110,7 @@ describe('Checkbox Tests', () => {
     expect(page.confirmIsSimplified(page.checkbox4)).toBeTruthy();
   });
 
-  it('should toggle the checkbox when pressing space', () => {
-    if ((browserName === 'internet explorer') || (browserName === 'firefox')) {
-        console.log('Skipping test in ' + browserName);
-        return;
-    }    
+  it('should toggle the checkbox when pressing space', () => { 
     
     page.toggleByKey(page.checkbox1, Key.SPACE);
     page.toggleByKey(page.checkbox2, Key.SPACE);
