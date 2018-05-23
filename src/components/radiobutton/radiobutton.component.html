@@ -10,7 +10,7 @@
             [id]="inputId"
             [checked]="value === option"
             [disabled]="disabled"
-            [tabindex]="tabindex"
+            [tabindex]="tabindex || value === option ? 0 : -1"
             [attr.name]="name"
             [required]="required"
             [attr.aria-label]="ariaLabel"
