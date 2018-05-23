@@ -65,7 +65,11 @@
 <div class="page-header-secondary" [ngClass]="secondaryNavigationAlignment" role="navigation" *ngIf="secondaryNavigation && (selectedRoot$ | async)">
     <ul class="nav nav-tabs" role="tablist" aria-label="Secondary Navigation" *ngIf="(selectedRoot$ | async)?.children; let children">
         <li *ngFor="let child of children" [class.active]="child === (selected$ | async)" role="none">
-            <a role="tab" [attr.aria-selected]="child === (selected$ | async)" (click)="select(child)">{{ child.title }}</a>
+            <a role="tab"
+                [attr.aria-selected]="child === (selected$ | async)"
+                tabindex="0"
+                (click)="select(child)"
+                (keydown.enter)="select(child)">{{ child.title }}</a>
         </li>
     </ul>
 </div>

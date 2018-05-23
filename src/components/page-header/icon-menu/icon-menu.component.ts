@@ -19,8 +19,6 @@ export class PageHeaderIconMenuComponent {
         if (item.select) {
             item.select.call(item, item);
         }
-
-        this.isOpen = false;
     }
 
     keydownHandler(item: PageHeaderIconMenu | PageHeaderIconMenuDropdownItem, event: KeyboardEvent): void {
@@ -29,6 +27,7 @@ export class PageHeaderIconMenuComponent {
             case 'Enter':
             case ' ':
                 this.select(item);
+                this.isOpen = false;
                 this.menuNavigationToggle.focus();
                 event.preventDefault();
                 event.stopPropagation();
