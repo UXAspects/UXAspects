@@ -15,25 +15,25 @@
                 <div class="node-wrapper">
 
                     <ux-checkbox 
-                        aria-label="Toggle selection of {{ node.data.name }}"
-                        [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
-                        [value]="node.data.checked"
-                        (valueChange)="setChecked(node, $event)"
-                        [indeterminateValue]="-1">
+                      aria-label="Toggle selection of {{ node.data.name }}"
+                      [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
+                      [value]="node.data.checked"
+                      (valueChange)="setChecked(node, $event)"
+                      [indeterminateValue]="-1">
                     </ux-checkbox>
 
                     <tree-node-expander [node]="node"></tree-node-expander>
 
                     <div class="node-content-wrapper"
-                        [class.node-content-wrapper-active]="node.data.checked"
-                        [class.node-content-wrapper-focused]="node.data.checked || node.isFocused"
-                        role="treeitem"
-                        [attr.aria-expanded]="node.isExpanded"
-                        [attr.aria-level]="node.level"
-                        [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
-                        (focus)="focus(node)"
-                        [focusIf]="node === focused"
-                        (click)="setChecked(node, !node.data.checked)">
+                      [class.node-content-wrapper-active]="node.data.checked"
+                      [class.node-content-wrapper-focused]="node.data.checked || node.isFocused"
+                      role="treeitem"
+                      [attr.aria-expanded]="node.isExpanded"
+                      [attr.aria-level]="node.level"
+                      [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
+                      (focus)="focus(node)"
+                      [focusIf]="node === focused"
+                      (click)="setChecked(node, !node.data.checked)">
 
                         <span class="hpe-icon"
                             [class.hpe-folder]="node.hasChildren && !node.isExpanded"
