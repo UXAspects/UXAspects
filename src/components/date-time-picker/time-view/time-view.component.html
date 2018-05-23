@@ -3,8 +3,7 @@
     (valueChange)="datepicker.selected$.next($event)"
     [showSeconds]="datepicker.showSeconds$ | async"
     [showMeridian]="datepicker.showMeridian$ | async"
-    [showSpinners]="datepicker.showSpinners$ | async"
-    [readOnly]="datepicker.showSpinners$ | async">
+    [showSpinners]="datepicker.showSpinners$ | async">
 </ux-time-picker>
 
 <ng-container *ngIf="datepicker.showTimezone$ | async">
