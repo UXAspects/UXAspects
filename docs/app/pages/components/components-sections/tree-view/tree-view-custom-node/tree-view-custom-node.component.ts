@@ -110,7 +110,7 @@ export class ComponentsTreeViewCustomNodeComponent extends BaseDocumentationSect
      */
     updatedFocusedItem(): void {
         // check if the focused node is still visible
-        if (!this.isNodeVisible(this.focused)) {
+        if (this.focused && !this.isNodeVisible(this.focused)) {
             this.focused = null;
         }
     }

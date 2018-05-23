@@ -4,7 +4,7 @@
             <div class="tree-view-node"
                  role="treeitem"
                  [attr.aria-level]="node.level"
-                 [attr.aria-expanded]="node.isExpanded"
+                 [attr.aria-expanded]="node.hasChildren ? node.isExpanded || false : null"
                  [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
                  (focus)="focus(node)"
                  [focusIf]="node === focused">

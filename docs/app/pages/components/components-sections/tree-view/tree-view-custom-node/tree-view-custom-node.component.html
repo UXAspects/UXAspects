@@ -30,10 +30,12 @@
                          role="treeitem"
                          [attr.aria-expanded]="node.isExpanded"
                          [attr.aria-level]="node.level"
+                         [attr.aria-selected]="node.data.checked"
                          [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
                          (focus)="focus(node)"
                          [focusIf]="node === focused"
-                         (click)="setChecked(node, !node.data.checked)">
+                         (click)="setChecked(node, !node.data.checked)"
+                         (keydown.space)="setChecked(node, !node.data.checked); $event.preventDefault()">
 
                         <span class="hpe-icon"
                               [class.hpe-folder]="node.hasChildren && !node.isExpanded"
