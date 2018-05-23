@@ -8,7 +8,6 @@ describe('Side Inset Panel Splitter Tests', () => {
   const RESIZE_DELAY_MS = 2000;
   
   let page: SideInsetPanelSplitterPage;
-  let browserName: string;
   let constants: Constants;
   let functions: Functions;
 
@@ -18,10 +17,6 @@ describe('Side Inset Panel Splitter Tests', () => {
     
     constants = new Constants();
     functions = new Functions();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
   
   it('should have correct initial states', () => {
@@ -213,10 +208,6 @@ describe('Side Inset Panel Splitter Tests', () => {
     page.getPanelDimension(page.splitterVertMain, 'height').then((mainHeight: string) => {
       page.getPanelDimension(page.splitterVertSide, 'height').then((sideHeight: string) => {
         var ratio = Number(sideHeight) / Number(mainHeight);
-
-        console.log('sideHeight = ' + sideHeight);
-        console.log('mainHeight = ' + mainHeight);
-        console.log('ratio = ' + ratio);
 
         // With the side and main panel height set to 67% and 33% respectively, the ratio of the
         // calculated heights should be in the 1.5 - 2.5 range.

@@ -1,42 +1,43 @@
-<div class="time-input-container">
-  <timepicker [ngModel]="date" (ngModelChange)="update($event)" [minuteStep]="1" [hourStep]="1" [secondsStep]="1" [showSeconds]="showSeconds"
-    [showSpinners]="showSpinners" [showMeridian]="showMeridian"></timepicker>
+<ux-time-picker *ngIf="datepicker.showTime$ | async"
+    [value]="datepicker.selected$ | async"
+    (valueChange)="datepicker.selected$.next($event)"
+    [showSeconds]="datepicker.showSeconds$ | async"
+    [showMeridian]="datepicker.showMeridian$ | async"
+    [showSpinners]="datepicker.showSpinners$ | async">
+</ux-time-picker>
 
-  <div class="btn-group meridian-picker" *ngIf="showMeridian">
-    <button type="button" class="btn button-toggle-accent" [(ngModel)]="meridian" (ngModelChange)="setMeridian($event)" [btnRadio]="DatePickerMeridian.AM">AM</button>
-    <button type="button" class="btn button-toggle-accent" [(ngModel)]="meridian" (ngModelChange)="setMeridian($event)" [btnRadio]="DatePickerMeridian.PM">PM</button>
-  </div>
+<ng-container *ngIf="datepicker.showTimezone$ | async">
 
-  <table class="time-zone-picker-container" *ngIf="showTimezone && showSpinners">
-    <tbody>
-      <tr>
-        <td class="text-center">
-          <a class="btn btn-link" (click)="nextTimezone()">
-            <span class="hpe-icon hpe-up"></span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td class="form-group">
-          <div class="form-control time-zone-picker">
-            <span class="time-zone">{{ timezone?.name }}</span>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="text-center">
-          <a class="btn btn-link" (click)="previousTimezone()">
-            <span class="hpe-icon hpe-down"></span>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="time-zone-picker" *ngIf="datepicker.showSpinners$ | async">
 
-  <div *ngIf="showTimezone && !showSpinners">
-    <select class="form-control time-zone-picker-select" [(ngModel)]="timezone">
-      <option *ngFor="let zone of timezones" [ngValue]="zone">{{ zone?.name }}</option>
-    </select>
-  </div>
+        <ux-spin-button
+            class="time-zone-spinner"
+            [value]="(datepicker.timezone$ | async).name"
+            [readOnly]="true"
+            (increment)="incrementTimezone()"
+            (decrement)="decrementTimezone()"
+            inputAriaLabel="Time Zone"
+            incrementAriaLabel="Switch to the next time zone"
+            decrementAriaLabel="Switch to the previous time zone">
+        </ux-spin-button>
+    </div>
 
-</div>
+    <div class="time-zone-picker" *ngIf="!(datepicker.showSpinners$ | async)">
+
+        <select class="form-control time-zone-select"
+                tabindex="0"
+                [ngModel]="(datepicker.timezone$ | async).name"
+                (ngModelChange)="selectTimezone($event)"
+                aria-label="Timezone"
+                [attr.aria-valuenow]="(datepicker.timezone$ | async).name">
+
+            <option *ngFor="let zone of datepicker.timezones$ | async"
+                    [selected]="zone.name === (datepicker.timezone$ | async).name"
+                    [value]="zone.name">
+                {{ zone?.name }}
+            </option>
+
+        </select>
+    </div>
+
+</ng-container>

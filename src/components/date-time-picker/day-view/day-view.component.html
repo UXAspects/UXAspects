@@ -1,18 +1,34 @@
-<ux-date-time-picker-header [header]="header" (previous)="previous()" (next)="next()" (ascend)="showMonthPicker()"></ux-date-time-picker-header>
-
 <table class="calendar">
-  <thead>
-    <tr>
-      <th *ngFor="let day of weekdays" class="weekday">{{ day }}</th>
-    </tr>
-  </thead>
+    <thead>
+        <tr>
+            <th *ngFor="let day of datePicker.weekdays$ | async" class="weekday" [attr.aria-label]="day">{{ day }}</th>
+        </tr>
+    </thead>
 
-  <tbody>
-    <tr *ngFor="let row of days">
-      <td *ngFor="let day of row" class="date-cell" [class.current]="day.today" 
-        [class.active]="day.active" [class.preview]="!day.currentMonth" 
-        (mousedown)="select(day.date)" (keyup.enter)="select(day.date)" 
-        tabindex="0">{{ day.date.getDate() }}</td>
-    </tr>
-  </tbody>
+    <tbody role="grid">
+        <tr role="row" *ngFor="let row of dayService.grid$ | async; trackBy: trackWeekByFn">
+
+            <td *ngFor="let item of row; trackBy: trackDayByFn" class="date-cell" role="gridcell">
+
+                <button class="date-button"
+                        [focusIf]="(dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year"
+                        [attr.aria-label]="item.date | date"
+                        [attr.aria-selected]="item.isActive"
+                        [attr.aria-hidden]="!item.isCurrentMonth"
+                        [class.current]="item.isToday"
+                        [class.active]="item.isActive"
+                        [class.preview]="!item.isCurrentMonth"
+                        [tabindex]="getTabbable(item) ? 0 : -1"
+                        (click)="select(item.date); $event.stopPropagation()"
+                        (keydown.ArrowLeft)="focusDate(item, -1); $event.preventDefault()"
+                        (keydown.ArrowRight)="focusDate(item, 1); $event.preventDefault()"
+                        (keydown.ArrowUp)="focusDate(item, -7); $event.preventDefault()"
+                        (keydown.ArrowDown)="focusDate(item, 7); $event.preventDefault()">
+
+                    {{ item.date.getDate() }}
+                </button>
+
+            </td>
+        </tr>
+    </tbody>
 </table>

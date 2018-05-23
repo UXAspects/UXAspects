@@ -1,9 +1,15 @@
+import { DateTimePickerTimezone } from './date-time-picker.service';
+
+
 /**
  * Convert a single dimension array to a double dimension array
  * @param items the single dimension array to convert
  * @param columns the number of items each array should have
  */
 export function gridify<T>(items: T[], columns: number): T[][] {
+
+    // create a copy of array so not to effect the original
+    items = items.slice(0);
 
     const grid: T[][] = [];
 
@@ -60,6 +66,20 @@ export function compareDays(day1: Date, day2: Date): boolean {
     return day1.getDate() === day2.getDate() &&
         day1.getMonth() === day2.getMonth() &&
         day1.getFullYear() === day2.getFullYear();
+}
+
+/**
+ * Date comparison for use primarily with distinctUntilChanged
+ */
+export function dateComparator(dateOne: Date, dateTwo: Date): boolean {
+    return dateOne.getTime() === dateTwo.getTime();
+}
+
+/**
+ * Timezone comparison for use primarily with distinctUntilChanged
+ */
+export function timezoneComparator(zoneOne: DateTimePickerTimezone, zoneTwo: DateTimePickerTimezone): boolean {
+    return zoneOne.name === zoneTwo.name && zoneOne.offset === zoneTwo.offset;
 }
 
 /**

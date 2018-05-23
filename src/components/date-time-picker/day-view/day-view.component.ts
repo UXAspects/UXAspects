@@ -1,66 +1,24 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { dateRange, gridify, compareDays, months, weekdaysShort } from '../date-time-picker.utils';
-import { DateTimePickerService } from '../date-time-picker.service';
-import { DatePickerMode } from '../date-time-picker.component';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/merge';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { DatePickerHeaderEvent, DateTimePickerService } from '../date-time-picker.service';
+import { DayViewItem, DayViewService } from './day-view.service';
 
 @Component({
   selector: 'ux-date-time-picker-day-view',
-  templateUrl: './day-view.component.html'
+  templateUrl: './day-view.component.html',
+  providers: [DayViewService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateTimePickerDayViewComponent implements OnInit, OnDestroy {
-
-  header: string;
-  days: DatePickerDay[][] = [];
-
-  @Input() weekdays: string[] = weekdaysShort;
-  @Output() dateChange: EventEmitter<void> = new EventEmitter<void>();
-
-  set date(value: Date) {
-    this.dateTimePickerService.activeDate.next(value);
-  }
-
-  get date() {
-    return this.dateTimePickerService.activeDate.getValue();
-  }
-
-  set month(value: number) {
-    this.dateTimePickerService.month.next(value);
-  }
-
-  get month(): number {
-    return this.dateTimePickerService.month.getValue();
-  }
-
-  set year(value: number) {
-    this.dateTimePickerService.year.next(value);
-  }
-
-  get year(): number {
-    return this.dateTimePickerService.year.getValue();
-  }
+export class DayViewComponent implements OnDestroy {
 
   private _subscription: Subscription;
 
-  constructor(public dateTimePickerService: DateTimePickerService) {}
-
-  ngOnInit(): void {
-
-    // update the grid only when the value of the active date, month or year has changed
-    this._subscription = Observable.merge(
-      this.dateTimePickerService.activeDate.distinctUntilChanged(),
-      this.dateTimePickerService.month.distinctUntilChanged(),
-      this.dateTimePickerService.year.distinctUntilChanged()
-    )
-    .subscribe(() => this.update());
-
+  constructor(public datePicker: DateTimePickerService, public dayService: DayViewService) {
+    this._subscription = datePicker.headerEvent$
+      .subscribe(event => event === DatePickerHeaderEvent.Next ? this.next() : this.previous());
   }
 
   ngOnDestroy(): void {
-    // remove all subscriptions
     this._subscription.unsubscribe();
   }
 
@@ -68,116 +26,69 @@ export class DateTimePickerDayViewComponent implements OnInit, OnDestroy {
    * Navigate to the previous page of dates
    */
   previous(): void {
-
-    // update the month
-    this.month--;
-
-    // if the month is now the previous year take that into account
-    if (this.month < 0) {
-      this.month = 11;
-      this.year--;
-    }
-
-    // update the grid
-    this.update();
+    this.datePicker.setViewportMonth(this.datePicker.month$.value - 1);
   }
 
   /**
    * Navigate to the next page of dates
    */
   next(): void {
-
-    // update the month
-    this.month++;
-
-    // if the month is now the previous year take that into account
-    if (this.month > 11) {
-      this.month = 0;
-      this.year++;
-    }
-
-    // update the grid
-    this.update();
-  }
-
-  /**
-   * Updates the grid of all the days in the month
-   */
-  update(): void {
-
-    // find the lower and upper boundaries
-    const start = new Date(this.year, this.month, 1);
-    const end = new Date(this.year, this.month + 1, 0);
-
-    // we always want to show from the sunday - this may include showing some dates from the previous month
-    start.setDate(start.getDate() - start.getDay());
-
-    // we also want to make sure that the range ends on a saturday
-    end.setDate(end.getDate() + (6 - end.getDay()));
-
-    // create an array of all the days to display
-    const dates = dateRange(start, end);
-
-    // update the page header
-    this.header = `${months[this.month]} ${this.year}`;
-
-    // turn the dates into a grid
-    this.days = gridify(dates, 7).map(week => week.map(date => ({
-      date: date,
-      today: this.isToday(date),
-      active: this.isActive(date),
-      currentMonth: this.isCurrentMonth(date)
-    })));
+    this.datePicker.setViewportMonth(this.datePicker.month$.value + 1);
   }
 
   /**
    * Select a particular date
    * @param date the date to select
    */
-  select(date: Date): void {
+  select(date: Date, element: HTMLElement): void {
     // update the current date object
-    this.date = new Date(date);
+    this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());
 
-    // emit the new date
-    this.dateChange.emit();
+    // focus the newly selected date
+    this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
   }
 
-  /**
-   * Determine whether or not a specific date is today
-   * @param date The date to check
-   */
-  isToday(date: Date): boolean {
-    return compareDays(new Date(), date);
+  trackWeekByFn(index: number): number {
+    return index;
   }
 
-  /**
-   * Determines whether or not a specific date is the selected one
-   * @param date the date to check
-   */
-  isActive(date: Date): boolean {
-    return compareDays(this.date, date);
+  trackDayByFn(index: number, item: DayViewItem): string {
+    return `${ item.day } ${ item.month } ${ item.year }`;
   }
 
-  /**
-   * Determine whether or not a date is within the current month
-   * or is it part of another month being show to fill the grid
-   * @param date The date in question
-   */
-  isCurrentMonth(date: Date): boolean {
-    return date.getMonth() === this.month;
+  focusDate(item: DayViewItem, dayOffset: number): void {
+
+    // determine the date of the day
+    const target = new Date(item.date.setDate(item.date.getDate() + dayOffset));
+
+    // identify which date should be focused
+    this.dayService.setFocus(target.getDate(), target.getMonth(), target.getFullYear());
   }
 
-  /**
-   * Update the date picker view to show the month picker
-   */
-  showMonthPicker(): void {
-    this.dateTimePickerService.mode.next(DatePickerMode.Month);
-  }
-}
+  getTabbable(item: DayViewItem): boolean {
+    const focused = this.dayService.focused$.value;
+    const grid = this.dayService.grid$.value;
 
-export interface DatePickerDay {
-  date: Date;
-  today: boolean;
-  active: boolean;
-  currentMonth: boolean;
+    // if there is a focused month check if this is it
+    if (focused) {
+
+      // check if the focused day is visible
+      const isFocusedDayVisible = !!grid.find(row => !!row.find(_item => _item.day === focused.day && _item.month === focused.month && _item.year === focused.year));
+      
+      if (isFocusedDayVisible) {
+        return focused.day === item.day && focused.month === item.month && focused.year === item.year;
+      }
+    }
+
+    // if there is no focusable day then check if there is a selected day
+    const isSelectedDayVisible = !!grid.find(row => !!row.find(day => day.isActive));
+
+    if (isSelectedDayVisible) {
+        return item.isActive;
+    }
+
+    // otherwise make the first day tabbable
+    return item.day === 1;
+  }
+
 }

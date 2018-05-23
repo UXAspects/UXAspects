@@ -1,4 +1,4 @@
-import { browser, element, by } from 'protractor';
+import { browser, by, element } from 'protractor';
 
 export class FacetTypeaheadListPage {
         
@@ -45,16 +45,16 @@ export class FacetTypeaheadListPage {
     getFacetNameFromSuggestedList(index: number) {
         return this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
             $('div.facet-typeahead-list-selected-container').$$('div.facet-typeahead-list-selected-option').get(index).
-            $('ux-checkbox').$('div.ux-checkbox-content').$('span.facet-typeahead-list-selected-option-title').getText();
+            $('ux-checkbox').$('.ux-checkbox-label').$('span.facet-typeahead-list-selected-option-title').getText();
     }
     
     confirmSuggestedListFacetIsTicked(index: number) {
         return this.container.$('div.facets-region').$('ux-facet-typeahead-list').$('div.facet-typeahead-list-container').
             $('div.facet-typeahead-list-selected-container').$$('div.facet-typeahead-list-selected-option').get(index).
-            $('ux-checkbox').$('div.ux-checkbox').
+            $('ux-checkbox').$('.ux-checkbox').
             getAttribute('class').then(function(classes: string) {
                 var allClasses = classes.split(' ');
-                if (allClasses.indexOf('ux-checked') > -1) {
+                if (allClasses.indexOf('ux-checkbox-checked') > -1) {
                     return true;
                 } else {
                     return false;

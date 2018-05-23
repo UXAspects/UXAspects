@@ -63,10 +63,10 @@
 
     <div class="row m-t-sm p-t-xs">
         <div class="col-sm-2">
-            <input type="text" class="form-control m-b" [(ngModel)]="lowerValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
+            <input type="text" class="form-control m-b" aria-label="Slider lower range value" [(ngModel)]="lowerValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
         </div>
         <div class="col-sm-offset-8 col-sm-2">
-            <input type="text" class="form-control m-b" [(ngModel)]="upperValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
+            <input type="text" class="form-control m-b" aria-label="Slider upper range value" [(ngModel)]="upperValue" (blur)="updateValues()" (keyup.enter)="updateValues()">
         </div>
     </div>
 
@@ -95,11 +95,11 @@
 
 <p>For single value selection, an example value might be:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample1Ts" language="javascript"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.sample1Ts"></uxd-snippet>
 
 <p>For range selection, an example value might be:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample2Ts" language="javascript"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.sample2Ts"></uxd-snippet>
 
 <p>The variable containing the value can be updated with the correct value, or values, when the slider is dragged if two way
     binding is used.</p>
@@ -111,7 +111,7 @@
 
 <p>The default options for each chart are as follows:</p>
 
-<uxd-snippet [content]="snippets.compiled.sample3Ts" language="javascript"></uxd-snippet>
+<uxd-snippet [content]="snippets.compiled.sample3Ts"></uxd-snippet>
 
 <p>Full details on each property and the possible values for each can be found below. All properties are optional, if they are
     not specified the default value will be used.</p>
@@ -122,11 +122,11 @@
         are <code>SliderType.Value</code> and <code>SliderType.Range</code>.
     </tr>
     <tr uxd-api-property name="handles" type="SliderHandleOptions">
-        This should be an object that contains properties configuring the appearance and behavior of the 
+        This should be an object that contains properties configuring the appearance and behavior of the
         draggable handles on the slider. If not specified the default options will be used.
     </tr>
     <tr uxd-api-property name="track" type="SliderTrackOptions">
-        This should be an object that contains properties configuring the appearance and behavior of the 
+        This should be an object that contains properties configuring the appearance and behavior of the
         track on the slider. If not specified the default options will be used.
     </tr>
 </uxd-api-properties>
@@ -138,6 +138,12 @@
     </tr>
     <tr uxd-api-property name="callout" type="SliderCallout" defaultValue="No Callout Shown">
         This should be an object that configures the appearance and behavior of the drag handle callout.
+    </tr>
+    <tr uxd-api-property name="keyboard" type="SliderKeyboardOptions">
+        This should be an object that configures keyboard interaction with the slider.
+    </tr>
+    <tr uxd-api-property name="aria" type="SliderAriaOptions">
+        This should be an object that configures aria labels for the slider.
     </tr>
 </uxd-api-properties>
 
@@ -224,12 +230,33 @@
         where ticks should appear. This can be useful when ticks should not appear at regular intervals.
     </tr>
     <tr uxd-api-property name="labels" type="boolean">
-        Specifies whether or not this variety of ticks should display labels. The available options are 
+        Specifies whether or not this variety of ticks should display labels. The available options are
         <code>true</code> or <code>false</code>. By default major ticks will show labels, minor ticks will not.
     </tr>
     <tr uxd-api-property name="formatter" type="(value: number) => string | number">
-        This allows you to specify a function that will format the value in the tick label. 
+        This allows you to specify a function that will format the value in the tick label.
         This should accept a value as a parameter and return a modified value. By default the value will not be modified.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SliderKeyboardOptions">
+    <tr uxd-api-property name="major" type="number" defaultValue="5">
+        If there are no major ticks specified, the slider thumb will move by this amount whenever the Page Up/Page Down keys are pressed.
+    </tr>
+    <tr uxd-api-property name="minor" type="number" defaultValue="1">
+        If there are no minor ticks specified, the slider thumb will move by this amount whenever the Arrow keys are pressed.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="SliderAriaOptions">
+    <tr uxd-api-property name="thumb" type="string" defaultValue="'Slider value'">
+        The thumb aria label when a value slider is used.
+    </tr>
+    <tr uxd-api-property name="lowerThumb" type="string" defaultValue="'Slider lower value'">
+        The lower thumb aria label when a range slider is used.
+    </tr>
+    <tr uxd-api-property name="upperThumb" type="string" defaultValue="'Slider upper value'">
+        The upper thumb aria label when a range slider is used.
     </tr>
 </uxd-api-properties>
 
@@ -241,9 +268,9 @@
 
 <tabset>
     <tab heading="HTML">
-        <uxd-snippet language="html" [content]="snippets.compiled.sample4Html"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.sample4Html"></uxd-snippet>
     </tab>
     <tab heading="TypeScript">
-        <uxd-snippet language="javascript" [content]="snippets.compiled.sample4Ts"></uxd-snippet>
+        <uxd-snippet [content]="snippets.compiled.sample4Ts"></uxd-snippet>
     </tab>
 </tabset>

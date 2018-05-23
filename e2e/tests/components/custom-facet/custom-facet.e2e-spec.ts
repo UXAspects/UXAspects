@@ -1,18 +1,12 @@
-import { browser, Key } from 'protractor';
 import { CustomFacetPage } from './custom-facet.po.spec';
 
 describe('Custom Facet Tests', () => {
 
   let page: CustomFacetPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new CustomFacetPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should start with no facets', () => {
