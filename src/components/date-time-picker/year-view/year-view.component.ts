@@ -1,90 +1,60 @@
-import { Component, Input, EventEmitter, Output, SimpleChanges, OnInit } from '@angular/core';
-import { gridify, range } from '../date-time-picker.utils';
-import { DateTimePickerService } from '../date-time-picker.service';
-import { DatePickerMode } from '../date-time-picker.component';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DatePickerMode, DateTimePickerService } from '../date-time-picker.service';
+import { YearViewService, YearViewItem } from './year-view.service';
 
 @Component({
   selector: 'ux-date-time-picker-year-view',
-  templateUrl: './year-view.component.html'
+  templateUrl: './year-view.component.html',
+  providers: [YearViewService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateTimePickerYearViewComponent implements OnInit {
+export class YearViewComponent {
 
-  private _page: number = 0;
-
-  header: string;
-  years: number[][] = [];
-  currentYear: number = new Date().getFullYear();
-
-  ngOnInit(): void {
-    this.update();
-  }
-
-  set year(value: number) {
-    this._dateTimePickerService.year.next(value);
-  }
-
-  get year(): number {
-    return this._dateTimePickerService.year.getValue();
-  }
-
-  constructor(private _dateTimePickerService: DateTimePickerService) {}
+  constructor(private _datePicker: DateTimePickerService, public yearService: YearViewService) {}
 
   select(year: number): void {
-    this.year = year;
+    this._datePicker.setViewportYear(year);
 
     // show the month picker
-    this.showMonthPicker();
+    this._datePicker.goToChildMode();
   }
 
-  previous(): void {
-    this._page--;
-    this.update();
+  focusYear(item: YearViewItem, yearOffset: number): void {
+    this.yearService.setFocus(item.year + yearOffset);
   }
 
-  next(): void {
-    this._page++;
-    this.update();
+  trackRowByFn(index: number): number {
+    return index;
   }
 
-  update(): void {
-
-    // get the years to display
-    const decade = this.getDecade();
-
-    // update the header
-    this.header = `${decade.start} - ${decade.end}`;
-
-    // create the grid
-    this.years = gridify(decade.range, 4);
+  trackYearByFn(index: number, item: YearViewItem): number {
+    return item.year;
   }
 
-  /**
-   * Get the years in the current decade to display
-   */
-  getDecade(): DatePickerYearRange {
+  getTabbable(item: YearViewItem): boolean {
+    const focused = this.yearService.focused$.value;
+    const grid = this.yearService.grid$.value;
 
-    // the number of years to display
-    const yearCount = 10;
+    // if there is a focused year check if this is it
+    if (focused) {
 
-    // figure the start and end points
-    const start = (this.year - (this.year % yearCount)) + (this._page * yearCount);
-    const end = start + yearCount - 1;
+        // check if the focused year is visible
+        const isFocusedYearVisible = !!grid.find(row => !!row.find(_item => _item.year === focused));
+        
+        if (isFocusedYearVisible) {
+            return focused === item.year;
+        }
+    }
 
-    // create an array containing all the numbers between the start and end points
-    return { start: start, end: end, range: range(start, end) };
-  }
+    // if there is no focusable year then check if there is a selected year
+    const isSelectedYearVisible = !!grid.find(row => !!row.find(year => year.isActiveYear));
 
-  /**
-   * Show the month picker view
-   */
-  showMonthPicker(): void {
-    this._dateTimePickerService.mode.next(DatePickerMode.Month);
-  }
+    if (isSelectedYearVisible) {
+        return item.isActiveYear;
+    }
 
+    // otherwise make the first month tabbable
+    return grid[0][0].year === item.year;
 }
 
-export interface DatePickerYearRange {
-  start: number;
-  end: number;
-  range: number[];
 }

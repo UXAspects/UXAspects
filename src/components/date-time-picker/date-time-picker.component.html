@@ -1,21 +1,23 @@
 <div class="calendar-container">
 
-  <ng-container *ngIf="showDate" [ngSwitch]="dateTimePickerService.mode | async">
+  <ux-date-time-picker-header></ux-date-time-picker-header>
 
-    <!-- Display days in the current month -->
-    <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day" [weekdays]="weekdays" (dateChange)="commit()"></ux-date-time-picker-day-view>
-  
-    <!-- Display the months in the current year -->
-    <ux-date-time-picker-month-view *ngSwitchCase="DatePickerMode.Month"></ux-date-time-picker-month-view>
-  
-    <!-- Display a decade -->
-    <ux-date-time-picker-year-view *ngSwitchCase="DatePickerMode.Year"></ux-date-time-picker-year-view>
-  
+  <ng-container *ngIf="datepicker.showDate$ | async" [ngSwitch]="datepicker.mode$ | async">
+
+      <!-- Display days in the current month -->
+      <ux-date-time-picker-day-view *ngSwitchCase="DatePickerMode.Day"></ux-date-time-picker-day-view>
+
+      <!-- Display the months in the current year -->
+      <ux-date-time-picker-month-view *ngSwitchCase="DatePickerMode.Month"></ux-date-time-picker-month-view>
+
+      <!-- Display a decade -->
+      <ux-date-time-picker-year-view *ngSwitchCase="DatePickerMode.Year"></ux-date-time-picker-year-view>
+
   </ng-container>
 
   <!-- Display a Time Picker -->
-  <ux-date-time-picker-time-view *ngIf="showTime" #timePicker (dateChange)="commit()" [showSpinners]="showSpinners" [showTimezone]="showTimezone" [showSeconds]="showSeconds" [showMeridian]="showMeridian" (dateChange)="commit()" [timezone]="timezone" (timezoneChange)="timezoneChange.emit($event)" [timezones]="timezones"></ux-date-time-picker-time-view>
+  <ux-date-time-picker-time-view *ngIf="datepicker.showTime$ | async"></ux-date-time-picker-time-view>
 
 </div>
 
-<button class="now-button" (click)="setToNow()">{{ nowBtnText }}</button>
+<button class="now-button" aria-label="Set date to now" (click)="setToNow()">{{ datepicker.nowBtnText$ | async }}</button>

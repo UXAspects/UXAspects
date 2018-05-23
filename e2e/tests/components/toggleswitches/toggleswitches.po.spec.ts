@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder } from 'protractor';
+import { ElementFinder, browser, by, element } from 'protractor';
 
 export class ToggleSwitchesPage {
         
@@ -17,14 +17,14 @@ export class ToggleSwitchesPage {
     disableButton = element(by.id('button1'));
     
     confirmIsChecked(toggleswitch: ElementFinder) {
-        return toggleswitch.$('div.checked').isPresent();
+        return toggleswitch.$('.ux-toggleswitch-checked').isPresent();
     }
     
     confirmIsDisabled(toggleswitch: ElementFinder) {
-        return toggleswitch.$('div.disabled').isPresent();
+        return toggleswitch.$('.ux-toggleswitch-disabled').isPresent();
     }
     
     toggleByKey(toggleswitch: ElementFinder, key: string) {
-        toggleswitch.$('div.ux-toggleswitch').sendKeys(key);
+        toggleswitch.$('.ux-toggleswitch').sendKeys(key);
     }
 }

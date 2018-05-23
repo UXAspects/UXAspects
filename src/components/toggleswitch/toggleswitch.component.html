@@ -1,21 +1,31 @@
-<div class="ux-toggleswitch" 
-  tabindex="0"
-  (keydown)="keydown($event)"
-  [class.checked]="value === true"
-  [class.disabled]="disabled === true">
+<label [attr.for]="inputId"
+       class="ux-toggleswitch"
+       [class.ux-toggleswitch-checked]="value"
+       [class.ux-toggleswitch-disabled]="disabled"
+       [class.ux-toggleswitch-focused]="focused">
 
-  <span class="ux-toggleswitch-bg"></span>
-  
-  <span class="ux-toggleswitch-nub"></span>
+    <input class="ux-toggleswitch-input"
+           type="checkbox"
+           role="switch"
+           [id]="inputId"
+           [checked]="value"
+           [disabled]="disabled"
+           [attr.name]="name"
+           [tabindex]="tabindex"
+           [attr.aria-label]="ariaLabel"
+           [attr.aria-labelledby]="ariaLabelledby"
+           [attr.aria-checked]="value"
+           (focus)="focused = true"
+           (blur)="focused = false"
+           (change)="toggle()"
+           (click)="$event.stopPropagation()">
 
-  <input type="checkbox" 
-    role="checkbox"
-    [name]="name" 
-    [checked]="value === true"
-    [disabled]="disabled === true"
-    tabindex="-1" />
-</div>
+    <div class="ux-toggleswitch-container">
+        <div class="ux-toggleswitch-bg"></div>
+        <div class="ux-toggleswitch-nub"></div>
+    </div>
 
-<div class="ux-toggleswitch-content">
-  <ng-content></ng-content>
-</div>
+    <span class="ux-toggleswitch-label">
+        <ng-content></ng-content>
+    </span>
+</label>

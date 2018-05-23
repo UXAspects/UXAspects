@@ -3,19 +3,28 @@ ux-page-header-icon-menu {
     cursor: pointer;
 
     .page-header-icon-menu {
-        position: relative;
         display: inline-flex;
-        justify-content: center;
-        align-items: center;
+        position: relative;
         width: 40px;
-        transition: background-color 0.3s ease-in-out;
-
-        &:hover {
-            background-color: rgba(247, 247, 247, 0.1);
-        }
 
         .page-header-icon-menu-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
             color: #fff;
+            transition: background-color 0.3s ease-in-out;
+
+            &:hover,
+            &:focus {
+                background-color: rgba(247, 247, 247, 0.1);
+            }
+
+            &:focus {
+                .aspects-outline;
+            }
         }
     }
 
@@ -41,6 +50,10 @@ ux-page-header-icon-menu {
                 padding: 6px 20px;
                 min-height: 0;
                 font-size: 1rem;
+
+                &:focus {
+                    .aspects-outline;
+                }
             }
         }
 

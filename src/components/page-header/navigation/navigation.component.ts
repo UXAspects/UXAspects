@@ -8,17 +8,20 @@ import { PageHeaderNavigationItemComponent } from './navigation-item/navigation-
 
 @Component({
     selector: 'ux-page-header-horizontal-navigation',
-    templateUrl: './navigation.component.html'
+    templateUrl: './navigation.component.html',
+    host: {
+        'role': 'menubar'
+    }
 })
 export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
-    
+
     @ViewChildren(PageHeaderNavigationItemComponent) menuItems: QueryList<PageHeaderNavigationItemComponent>;
-    
+
     items$: BehaviorSubject<PageHeaderNavigationItem[]> = this._pageHeaderService.items$;
     indicatorVisible: boolean = false;
     indicatorX: number = 0;
     indicatorWidth: number = 0;
-    
+
     private _subscription = new Subscription();
 
     constructor(elementRef: ElementRef, resizeService: ResizeService, private _pageHeaderService: PageHeaderService) {
@@ -39,14 +42,14 @@ export class PageHeaderNavigationComponent implements AfterViewInit, OnDestroy {
         setTimeout(() => {
             // find the selected item
             const selected = this.menuItems.find(item => item.item.selected);
-    
+
             // determine whether or not to show the indicator
             this.indicatorVisible = !!selected;
-    
+
             // set the width of the indicator to match the width of the navigation item
             if (selected) {
                 const styles = getComputedStyle(selected.elementRef.nativeElement);
-    
+
                 this.indicatorX = selected.elementRef.nativeElement.offsetLeft;
                 this.indicatorWidth = parseInt(styles.getPropertyValue('width'));
             }
@@ -66,7 +69,7 @@ export interface PageHeaderNavigationItem {
 
 export interface PageHeaderNavigationDropdownItem {
     title: string;
-    selected?: boolean;    
+    selected?: boolean;
     select?: (item: PageHeaderNavigationDropdownItem) => void;
     children?: PageHeaderNavigationDropdownItem[];
     parent?: PageHeaderNavigation;

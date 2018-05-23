@@ -1,16 +1,19 @@
-<ol class="breadcrumb">
-    <li *ngFor="let crumb of crumbs">
+<nav aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+        <li *ngFor="let crumb of crumbs">
 
-        <!-- If there is a router link then use a tag -->
-        <a *ngIf="crumb.routerLink"
-           [routerLink]="crumb.routerLink" 
-           [fragment]="crumb.fragment" 
-           [queryParams]="crumb.queryParams" 
-           (click)="clickCrumb($event, crumb)">
+            <!-- If there is a router link then use a tag -->
+            <a *ngIf="crumb.routerLink || crumb.onClick"
+                tabindex="0"
+                [routerLink]="crumb.routerLink"
+                [fragment]="crumb.fragment"
+                [queryParams]="crumb.queryParams"
+                (click)="clickCrumb($event, crumb)">
                 {{ crumb.title }}
-        </a>
+            </a>
 
-        <!-- If there is not router link then display text in a span -->
-        <span *ngIf="!crumb.routerLink">{{ crumb.title }}</span>
-    </li>
-</ol>
+            <!-- If there is not router link then display text in a span -->
+            <span *ngIf="!crumb.routerLink && !crumb.onClick">{{ crumb.title }}</span>
+        </li>
+    </ol>
+</nav>

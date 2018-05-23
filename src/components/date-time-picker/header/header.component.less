@@ -16,6 +16,12 @@ ux-date-time-picker-header {
             align-items: center;
             cursor: pointer;
             color: @date-picker-today-btn-color;
+            border: none;
+            background-color: transparent;
+
+            &:focus {
+                .aspects-outline();
+            }
 
             &:hover {
                 background-color: @date-picker-today-btn-hover-bg;
@@ -32,6 +38,12 @@ ux-date-time-picker-header {
             height: 30px;
             justify-content: center;
             align-items: center;
+            border: none;
+            background-color: transparent;
+
+            &:focus {
+                .aspects-outline();
+            }
 
             &.active {
                 cursor: pointer;

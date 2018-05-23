@@ -1,0 +1,41 @@
+<button class="spin-button"
+        *ngIf="spinners"
+        tabindex="-1"
+        [disabled]="disabled"
+        [attr.aria-label]="incrementAriaLabel"
+        [attr.aria-disabled]="disabled"
+        (click)="triggerIncrement()">
+
+  <span class="hpe-icon hpe-up"></span>
+</button>
+
+<input [type]="type"
+       role="spinbutton"
+       [min]="min"
+       [max]="max"
+       [tabindex]="0"
+       class="form-control"
+       [placeholder]="placeholder"
+       [readOnly]="readOnly"
+       [disabled]="disabled"
+       [attr.aria-label]="inputAriaLabel"
+       [attr.aria-disabled]="disabled"
+       [attr.aria-valuemin]="min"
+       [attr.aria-valuenow]="value"
+       [attr.aria-valuemax]="max"
+       [attr.aria-readonly]="readOnly"
+       [(ngModel)]="value"
+       (wheel)="scroll($event)"
+       (keydown.arrowup)="arrowkeys ? triggerIncrement() : null; $event.preventDefault()"
+       (keydown.arrowdown)="arrowkeys ? triggerDecrement() : null; $event.preventDefault()">
+
+<button class="spin-button"
+        *ngIf="spinners"
+        tabindex="-1"
+        [disabled]="disabled"
+        [attr.aria-label]="decrementAriaLabel"
+        [attr.aria-disabled]="disabled"
+        (click)="triggerDecrement()">
+
+  <span class="hpe-icon hpe-down"></span>
+</button>

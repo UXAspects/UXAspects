@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder } from 'protractor';
+import { ElementFinder, browser, by, element } from 'protractor';
 
 export class RadioButtonsPage {
         
@@ -15,18 +15,18 @@ export class RadioButtonsPage {
     changeToSimplified = element(by.id('button2'));
     
     confirmIsChecked(radiobutton: ElementFinder) {
-        return radiobutton.$('div.ux-checked').isPresent();
+        return radiobutton.$('.ux-radio-button-checked').isPresent();
     }
     
     confirmIsDisabled(radiobutton: ElementFinder) {
-        return radiobutton.$('div.ux-disabled').isPresent();
+        return radiobutton.$('.ux-radio-button-disabled').isPresent();
     }
     
     confirmIsSimplified(radiobutton: ElementFinder) {
-        return radiobutton.$('div.ux-simplified').isPresent();
+        return radiobutton.$('.ux-radio-button-simplified').isPresent();
     }
     
     toggleByKey(radiobutton: ElementFinder, key: string) {
-        radiobutton.$('div.ux-radio-button').sendKeys(key);
+        radiobutton.$('.ux-radio-button').sendKeys(key);
     }
 }

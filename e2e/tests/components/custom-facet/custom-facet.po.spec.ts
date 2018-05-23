@@ -1,4 +1,4 @@
-import { browser, element, by } from 'protractor';
+import { browser, by, element } from 'protractor';
 
 export class CustomFacetPage {
         
@@ -34,10 +34,10 @@ export class CustomFacetPage {
     }
     
     getCheckbox(index: number) {
-        return this.checkboxContainer.$$('ux-checkbox').get(index).$('div.ux-checkbox');
+        return this.checkboxContainer.$$('ux-checkbox').get(index).$('.ux-checkbox');
     }
     
     confirmIsChecked(index: number) {    
-        return this.checkboxContainer.$$('ux-checkbox').get(index).$('div.ux-checked').isPresent();
+        return this.checkboxContainer.$$('ux-checkbox').get(index).$('.ux-checkbox-checked').isPresent();
     }    
 }

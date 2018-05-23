@@ -1,11 +1,10 @@
-import { browser, Key, protractor } from 'protractor';
-import { SplitButtonDropdownsPage } from './split-button-dropdowns.po.spec';
+import { Key, browser, protractor } from 'protractor';
 import { Constants, Functions } from '../common/common.spec';
+import { SplitButtonDropdownsPage } from './split-button-dropdowns.po.spec';
 
 describe('Split Button Dropdowns Tests', () => {
 
   let page: SplitButtonDropdownsPage;
-  let browserName: string;
   let constants: Constants;
   let functions: Functions;
 
@@ -16,10 +15,6 @@ describe('Split Button Dropdowns Tests', () => {
     
     constants = new Constants();
     functions = new Functions();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
 
   });
   
@@ -133,7 +128,7 @@ describe('Split Button Dropdowns Tests', () => {
     functions.moveToElementAndClick(page.link1);
 
     const EC = protractor.ExpectedConditions;
-    browser.wait(EC.urlIs('http://localhost:8080/'), 5000);
+    browser.wait(EC.urlIs('http://localhost:8080/#/'), 5000);
     
   });
     

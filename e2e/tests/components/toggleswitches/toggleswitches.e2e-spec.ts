@@ -1,18 +1,13 @@
-import { browser, Key } from 'protractor';
+import { Key } from 'protractor';
 import { ToggleSwitchesPage } from './toggleswitches.po.spec';
 
 describe('ToggleSwitchesPage Tests', () => {
 
   let page: ToggleSwitchesPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new ToggleSwitchesPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should have correct initial states', () => {

@@ -1,17 +1,32 @@
-<div class="ux-checkbox" tabindex="0"
-    [class.ux-checked]="value == true"
-    [class.ux-indeterminate]="value == indeterminateValue"
-    [class.ux-simplified]="simplified == true"
-    [class.ux-disabled]="disabled == true"
-    (keydown.space)="keyDown($event)">
+<label [attr.for]="inputId"
+       class="ux-checkbox"
+       [class.ux-checkbox-checked]="value === true"
+       [class.ux-checkbox-indeterminate]="indeterminate"
+       [class.ux-checkbox-simplified]="simplified"
+       [class.ux-checkbox-disabled]="disabled"
+       [class.ux-checkbox-focused]="focused">
 
-    <input type="checkbox" role="checkbox" tabindex="-1"
-        [name]="name" 
-        [checked]="value" 
-        [disabled]="disabled" />
-        
-</div>
+    <div class="ux-checkbox-container">
+        <input type="checkbox"
+               class="ux-checkbox-input"
+               [id]="inputId"
+               [required]="required"
+               [checked]="value"
+               [attr.value]="value"
+               [disabled]="disabled"
+               [attr.name]="name"
+               [tabindex]="tabindex"
+               [indeterminate]="indeterminate"
+               [attr.aria-label]="ariaLabel"
+               [attr.aria-labelledby]="ariaLabelledby"
+               [attr.aria-checked]="ariaChecked"
+               (focus)="focused = true"
+               (blur)="focused = false"
+               (change)="$event.stopPropagation()"
+               (click)="toggle()">
+    </div>
 
-<div class="ux-checkbox-content">
-    <ng-content></ng-content>
-</div>
+    <span class="ux-checkbox-label">
+        <ng-content></ng-content>
+    </span>
+</label>

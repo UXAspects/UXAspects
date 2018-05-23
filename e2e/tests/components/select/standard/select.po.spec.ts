@@ -1,4 +1,4 @@
-import { browser, element, by, ElementFinder, protractor } from 'protractor';
+import { ElementFinder, browser, by, element, protractor } from 'protractor';
 
 export const numberOfCountries: number = 249;
 export const scrollingTimeout: number = 5000;
@@ -44,16 +44,16 @@ export class SelectPage {
 
     // use Truthy for "strings" button and Falsy for "objects" button
     checkSelectedOptionsButton() {
-        return this.radioOptions.$('ux-radio-button[option="strings"]').$('div.ux-checked').isPresent();
+        return this.radioOptions.$('ux-radio-button[option="strings"]').$('.ux-radio-button-checked').isPresent();
     }
 
     // use Truthy for "down" button and Falsy for "up" button
     checkSelectedDirectionButton() {
-        return this.radioDirection.$('ux-radio-button[option="down"]').$('div.ux-checked').isPresent();
+        return this.radioDirection.$('ux-radio-button[option="down"]').$('.ux-radio-button-checked').isPresent();
     }
 
     confirmIsChecked(checkbox: ElementFinder) {
-        return checkbox.$$('.ux-checked').isPresent();
+        return checkbox.$$('.ux-checkbox-checked').isPresent();
     }
 
     confirmCountryIsHighlighted(allowMultiple: boolean, index: number) {
@@ -65,7 +65,7 @@ export class SelectPage {
     }
 
     confirmAllowNullIsDisabled() {
-        return this.checkboxAllowNull.$('div.ux-disabled').isPresent();
+        return this.checkboxAllowNull.$('.ux-checkbox-disabled').isPresent();
     }
 
     confirmPageSizeIsDisabled() {
@@ -155,23 +155,23 @@ export class SelectPage {
     }
 
     clickOnStrings() {
-        this.radioOptions.$('ux-radio-button[option="strings"]').$('div.ux-radio-button').click();
+        this.radioOptions.$('ux-radio-button[option="strings"]').$('.ux-radio-button').click();
     }
 
     clickOnObjects() {
-        this.radioOptions.$('ux-radio-button[option="objects"]').$('div.ux-radio-button').click();
+        this.radioOptions.$('ux-radio-button[option="objects"]').$('.ux-radio-button').click();
     }
 
     clickOnCheckbox(checkbox: ElementFinder) {
-        checkbox.$('div.ux-checkbox').click();
+        checkbox.$('.ux-checkbox').click();
     }
 
     clickOnDropDirectionDown() {
-        this.radioDirection.$('ux-radio-button[option="down"]').$('div.ux-radio-button').click();
+        this.radioDirection.$('ux-radio-button[option="down"]').$('.ux-radio-button').click();
     }
 
     clickOnDropDirectionUp() {
-        this.radioDirection.$('ux-radio-button[option="up"]').$('div.ux-radio-button').click();
+        this.radioDirection.$('ux-radio-button[option="up"]').$('.ux-radio-button').click();
     }
 
     clickOnPlaceholder() {

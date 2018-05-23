@@ -7,107 +7,34 @@ ux-date-time-picker-time-view {
     align-items: center;
     justify-content: center;
 
-    &:first-child {
-        border-top: none;
+    ux-time-picker {
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .time-picker-meridian {
+            margin-left: 22px;
+        }
     }
 
-    .time-input-container {
-        display: flex;
-        align-items: center;
+    .time-zone-picker {
+        display: inline-flex;
+        flex-direction: column;
+        flex: none;
+        margin-left: 22px;
 
-        > * {
-            margin-right: 22px;
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-
-        .meridian-picker {
-            .button-toggle-accent {
-                padding-left: 8px;
-                padding-right: 8px;
-            }
-        }
-
-        .btn {
-            &.btn-link {
-                padding: 2px 10px;
-
-                .hpe-icon {
-                    &.hpe-up,
-                    &.hpe-down {
-                        color: @date-picker-border-dark;
-                        font-weight: 900;
-                        font-size: 14px;
-                    }
-                }
-            }
-        }
-
-        .time-zone-picker {
-            display: flex;
+        .time-zone-spinner {
             width: 60px;
-            font-size: 14px;
-            padding: 0;
-            justify-content: center;
-            align-items: center;
-            cursor: default;
         }
 
-        .time-zone-picker-select {
+        .time-zone-select {
+            width: 72px;
             font-size: 14px;
             padding: 0;
             text-align: center;
-        }
 
-        timepicker {
-            .form-control {
-                font-size: 14px;
-                width: 33px !important;
-                padding: 0;
-            }
-
-            .btn-link {
-                .bs-chevron {
-                    .hpe-icon();
-
-                    border: none;
-                    transform: none;
-                    width: auto;
-                    height: auto;
-                    color: @date-picker-border-dark;
-                    font-weight: 900;
-                    font-size: 14px;
-
-                    &.bs-chevron-up {
-                        .hpe-icon-up();
-                    }
-
-                    &.bs-chevron-down {
-                        .hpe-icon-down();
-                    }
-                }
-            }
-
-            .btn-default {
-                display: none;
-            }
-
-            tr {
-                td:nth-child(2) {
-                    max-width: 12px;
-                }
-
-                td:nth-child(4) {
-                    display: none;
-                }
-
-                td {
-                    .btn {
-                        padding: 2px 10px;
-                    }
-                }
+            &:focus {
+                .aspects-outline();
             }
         }
     }
