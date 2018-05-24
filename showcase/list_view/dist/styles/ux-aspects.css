@@ -128,7 +128,7 @@ tree-root .angular-tree-component-rtl .tree-children {
   clear: both;
 }
 .aspects-outline {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -136,7 +136,7 @@ tree-root .angular-tree-component-rtl .tree-children {
 .elements-force-outline {
   outline-style: solid;
   outline-width: 1px;
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -244,7 +244,7 @@ ol.unstyled {
   margin-top: -8px;
 }
 .aspects-focus-outline:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -3269,7 +3269,7 @@ select.form-control {
 }
 .multi-select-checkbox:hover,
 .multi-select-checkbox:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -4277,7 +4277,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   pointer-events: none;
 }
 .dial:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -4355,6 +4355,27 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .float-label.input-group label,
 .float-label .input-group label {
   display: none;
+}
+.ux-float-label {
+  position: relative;
+  margin-left: 12px;
+  margin-bottom: 0;
+  font-size: 0.75rem;
+  color: #b4b6b8;
+  z-index: 3;
+}
+.ux-float-label:not(.ux-float-label-raised) {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.ux-float-label.ux-float-label-raised {
+  opacity: 1;
+  transition: 0.5s ease-in-out;
+}
+.ux-float-label ~ input,
+.ux-float-input {
+  border: none;
+  border-bottom: 1px solid #e5e6e7;
 }
 .angular-ui-tree > ol {
   padding-left: 10px;
@@ -4435,7 +4456,7 @@ tree-view > div:first-child > ol:nth-of-type(1) > li:after {
   line-height: 1em !important;
   border: none !important;
   margin-left: -5px;
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -4475,14 +4496,14 @@ tree-view > div:first-child > ol:nth-of-type(1) > li:after {
 }
 .tree-node a:focus,
 .tree-node span:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
 }
 .tree-node a:active,
 .tree-node a:active:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -5021,14 +5042,14 @@ tags-input[disabled] .tags .input {
 .pagination > li.page-item > a.active:focus,
 .pagination > li.page-item > a:active.focus,
 .pagination > li.page-item > a.active.focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
 }
 .pagination > li.page-item > a:focus,
 .pagination > li.page-item > a.focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -5075,7 +5096,7 @@ tags-input[disabled] .tags .input {
   background: url(../img/filter_clear_light.png) no-repeat;
 }
 .pagination > li.page-item > a.listview-clear:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -6561,7 +6582,7 @@ a.accordion-toggle:focus {
 .panel-heading:focus,
 .panel-heading.accordion-toggle a:focus,
 .panel-heading a:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -8132,14 +8153,14 @@ layout-switcher-container {
 .btn.active:focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
 }
 .btn:focus,
 .btn.focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -9022,7 +9043,7 @@ button.dim:active:before {
   top: 4px;
 }
 .btn-back:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -9084,7 +9105,7 @@ button.dim:active:before {
   min-width: 45px;
 }
 .btn-group .dropdown-toggle:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -12037,7 +12058,7 @@ p.no-margin {
   top: 4px;
 }
 .alert .close:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -12047,7 +12068,7 @@ p.no-margin {
   font-weight: 600;
 }
 .alert-link:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -12363,7 +12384,7 @@ p.no-margin {
   background: url(../img/filter_clear_light.png) no-repeat;
 }
 .btn.listview-clear:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -13160,7 +13181,7 @@ p.no-margin {
   margin: 0 -3px 0 0;
 }
 .scroll-container {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -14203,6 +14224,9 @@ tags-input .tags .input:-ms-input-placeholder {
   background-color: #7b63a3;
   opacity: 0.5;
 }
+.treegrid {
+  outline: none;
+}
 .treegrid .treegrid-expand-header {
   margin-left: 58px;
 }
@@ -14637,6 +14661,13 @@ tags-input .tags .input:-ms-input-placeholder {
 .breadcrumb li span {
   color: rgba(103, 106, 108, 0.7);
 }
+.breadcrumb li a:focus,
+.breadcrumb li span:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 .breadcrumb > li a:hover {
   color: #00a7a2;
 }
@@ -14812,102 +14843,109 @@ tags-input .tags .input:-ms-input-placeholder {
 .ux-static-tooltip:hover .popover-arrow {
   border-bottom-color: #7b63a3;
 }
-ux-checkbox {
-  display: inline-block;
-  margin-bottom: 5px;
-  white-space: nowrap;
-  line-height: 0;
-}
 ux-checkbox .ux-checkbox {
   display: inline-flex;
+  align-items: baseline;
+  margin: 0;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+ux-checkbox .ux-checkbox .ux-checkbox-container {
+  display: inline-flex;
+  flex: none;
   color: transparent;
   font-family: 'hpe-icons';
   width: 24px;
   height: 24px;
-  background-color: transparent;
-  cursor: pointer;
   border: 1px solid #ccc;
-  margin-top: 1px;
   font-size: 16px;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   box-sizing: border-box;
 }
-ux-checkbox:hover .ux-checkbox {
-  border: 2px solid #7b63a3;
-}
-ux-checkbox:hover .ux-checkbox.ux-disabled {
-  border: 1px solid #eee;
-}
-ux-checkbox:hover .ux-checkbox.ux-simplified {
-  color: #ccc;
-  border-color: transparent;
-  border-width: 1px;
-}
-ux-checkbox:hover .ux-checkbox.ux-simplified.ux-disabled {
-  color: transparent;
-}
-ux-checkbox:hover .ux-checkbox.ux-simplified.ux-checked,
-ux-checkbox:hover .ux-checkbox.ux-simplified.ux-indeterminate {
-  color: #7b63a3;
-}
-ux-checkbox:hover .ux-checkbox.ux-simplified.ux-checked.ux-disabled,
-ux-checkbox:hover .ux-checkbox.ux-simplified.ux-indeterminate.ux-disabled {
-  color: #ccc;
-}
-ux-checkbox .ux-checkbox:before {
+ux-checkbox .ux-checkbox .ux-checkbox-container:before {
   content: "\f12c";
 }
-ux-checkbox .ux-checkbox:focus {
-  outline: 1px dotted #2a2a2a;
+ux-checkbox .ux-checkbox .ux-checkbox-container .ux-checkbox-input {
+  position: absolute;
+  height: 0;
+  width: 0;
+  outline: none;
+  overflow: hidden;
+  border: none;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
-ux-checkbox input[type="checkbox"] {
-  display: none;
-}
-ux-checkbox .ux-checkbox.ux-indeterminate:before {
-  content: "\f20f";
-}
-ux-checkbox .ux-checkbox.ux-checked,
-ux-checkbox .ux-checkbox.ux-indeterminate {
+ux-checkbox .ux-checkbox.ux-checkbox-checked .ux-checkbox-container,
+ux-checkbox .ux-checkbox.ux-checkbox-indeterminate .ux-checkbox-container {
   background-color: #7b63a3;
   color: #fff;
   border-color: transparent;
 }
-ux-checkbox .ux-checkbox.ux-disabled {
+ux-checkbox .ux-checkbox.ux-checkbox-checked.ux-checkbox-disabled .ux-checkbox-container,
+ux-checkbox .ux-checkbox.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-checkbox-container {
+  background-color: #eee;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-indeterminate .ux-checkbox-container:before {
+  content: "\f20f";
+}
+ux-checkbox .ux-checkbox .ux-checkbox-label {
+  margin-left: 7px;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-disabled .ux-checkbox-container {
   border-color: #eee;
   cursor: default;
 }
-ux-checkbox .ux-checkbox.ux-disabled:focus {
-  outline: none;
-}
-ux-checkbox .ux-checkbox.ux-disabled.ux-checked,
-ux-checkbox .ux-checkbox.ux-disabled.ux-indeterminate {
-  background-color: #eee;
-}
-ux-checkbox .ux-checkbox.ux-simplified {
-  font-size: 20px;
+ux-checkbox .ux-checkbox.ux-checkbox-simplified .ux-checkbox-container {
   border-color: transparent;
   background-color: transparent;
 }
-ux-checkbox .ux-checkbox.ux-simplified.ux-checked,
-ux-checkbox .ux-checkbox.ux-simplified.ux-indeterminate {
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-checked .ux-checkbox-container,
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-indeterminate .ux-checkbox-container {
   color: #7b63a3;
   background-color: transparent;
   border-color: transparent;
 }
-ux-checkbox .ux-checkbox.ux-simplified.ux-disabled.ux-checked,
-ux-checkbox .ux-checkbox.ux-simplified.ux-disabled.ux-indeterminate {
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-checked.ux-checkbox-disabled .ux-checkbox-container,
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-checkbox-container {
   color: #ccc;
 }
-ux-checkbox .ux-checkbox-content {
-  display: inline-block;
-  margin-left: 7px;
-  margin-top: 1px;
-  white-space: normal;
-  vertical-align: top;
+ux-checkbox .ux-checkbox.ux-checkbox-simplified.ux-checkbox-disabled .ux-checkbox-container {
+  color: transparent;
+}
+ux-checkbox .ux-checkbox:hover .ux-checkbox-container {
+  border: 2px solid #7b63a3;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-disabled {
   cursor: default;
-  line-height: 22px;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-disabled .ux-checkbox-container {
+  border: 1px solid #eee;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-disabled.ux-checkbox-simplified .ux-checkbox-container {
+  color: transparent;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified .ux-checkbox-container {
+  color: #ccc;
+  border-color: transparent;
+  border-width: 1px;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-checked .ux-checkbox-container,
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-indeterminate .ux-checkbox-container {
+  color: #7b63a3;
+}
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-checked.ux-checkbox-disabled .ux-checkbox-container,
+ux-checkbox .ux-checkbox:hover.ux-checkbox-simplified.ux-checkbox-indeterminate.ux-checkbox-disabled .ux-checkbox-container {
+  color: #ccc;
+}
+ux-checkbox .ux-checkbox.ux-checkbox-focused .ux-checkbox-container {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-card-tabset {
   display: flex;
@@ -15005,7 +15043,7 @@ ux-card-tabset .card-tabs-paging-btn {
   z-index: 2;
 }
 ux-card-tabset .card-tabs-paging-btn:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -15161,6 +15199,12 @@ ux-date-time-picker {
 .now-button:hover {
   background-color: #eee;
 }
+.now-button:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
 ux-date-time-picker-day-view {
   display: flex;
   flex-direction: column;
@@ -15183,39 +15227,50 @@ ux-date-time-picker-day-view .calendar .weekday {
   font-size: 14px;
 }
 ux-date-time-picker-day-view .calendar .date-cell {
-  text-align: center;
   min-width: 30px;
   height: 30px;
+}
+ux-date-time-picker-day-view .calendar .date-button {
+  text-align: center;
+  width: 100%;
+  height: 100%;
   border: none;
   padding: 4px 5px;
   cursor: pointer;
   font-size: 14px;
+  background-color: transparent;
 }
-ux-date-time-picker-day-view .calendar .date-cell:hover {
+ux-date-time-picker-day-view .calendar .date-button:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-date-time-picker-day-view .calendar .date-button:hover {
   background-color: #eee;
 }
-ux-date-time-picker-day-view .calendar .date-cell.current,
-ux-date-time-picker-day-view .calendar .date-cell.current.preview {
+ux-date-time-picker-day-view .calendar .date-button.current,
+ux-date-time-picker-day-view .calendar .date-button.current.preview {
   color: #000;
   background-color: #ffdb99;
 }
-ux-date-time-picker-day-view .calendar .date-cell.current:hover,
-ux-date-time-picker-day-view .calendar .date-cell.current.preview:hover {
+ux-date-time-picker-day-view .calendar .date-button.current:hover,
+ux-date-time-picker-day-view .calendar .date-button.current.preview:hover {
   background-color: #f4bb51;
 }
-ux-date-time-picker-day-view .calendar .date-cell.active,
-ux-date-time-picker-day-view .calendar .date-cell.active.current,
-ux-date-time-picker-day-view .calendar .date-cell.active.preview {
+ux-date-time-picker-day-view .calendar .date-button.active,
+ux-date-time-picker-day-view .calendar .date-button.active.current,
+ux-date-time-picker-day-view .calendar .date-button.active.preview {
   background-color: #7b63a3;
   color: #fff;
 }
-ux-date-time-picker-day-view .calendar .date-cell.active:hover,
-ux-date-time-picker-day-view .calendar .date-cell.active.current:hover,
-ux-date-time-picker-day-view .calendar .date-cell.active.preview:hover {
+ux-date-time-picker-day-view .calendar .date-button.active:hover,
+ux-date-time-picker-day-view .calendar .date-button.active.current:hover,
+ux-date-time-picker-day-view .calendar .date-button.active.preview:hover {
   background-color: #7b63a3;
   color: #fff;
 }
-ux-date-time-picker-day-view .calendar .date-cell.preview {
+ux-date-time-picker-day-view .calendar .date-button.preview {
   color: #999;
 }
 ux-date-time-picker-header .header {
@@ -15235,6 +15290,14 @@ ux-date-time-picker-header .header .header-navigation {
   align-items: center;
   cursor: pointer;
   color: #333;
+  border: none;
+  background-color: transparent;
+}
+ux-date-time-picker-header .header .header-navigation:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-date-time-picker-header .header .header-navigation:hover {
   background-color: #eee;
@@ -15249,6 +15312,14 @@ ux-date-time-picker-header .header .header-title {
   height: 30px;
   justify-content: center;
   align-items: center;
+  border: none;
+  background-color: transparent;
+}
+ux-date-time-picker-header .header .header-title:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-date-time-picker-header .header .header-title.active {
   cursor: pointer;
@@ -15283,12 +15354,21 @@ ux-date-time-picker-month-view .calendar .calendar-row .calendar-item {
   margin: 2px;
   cursor: pointer;
   font-size: 14px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
 }
 ux-date-time-picker-month-view .calendar .calendar-row .calendar-item:first-of-type {
   margin-left: 0;
 }
 ux-date-time-picker-month-view .calendar .calendar-row .calendar-item:last-of-type {
   margin-right: 0;
+}
+ux-date-time-picker-month-view .calendar .calendar-row .calendar-item:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-date-time-picker-month-view .calendar .calendar-row .calendar-item:hover {
   background-color: #eee;
@@ -15306,90 +15386,32 @@ ux-date-time-picker-time-view {
   align-items: center;
   justify-content: center;
 }
-ux-date-time-picker-time-view:first-child {
-  border-top: none;
-}
-ux-date-time-picker-time-view .time-input-container {
-  display: flex;
-  align-items: center;
-}
-ux-date-time-picker-time-view .time-input-container > * {
-  margin-right: 22px;
-}
-ux-date-time-picker-time-view .time-input-container > *:last-child {
+ux-date-time-picker-time-view ux-time-picker:last-child {
   margin-right: 0;
 }
-ux-date-time-picker-time-view .time-input-container .meridian-picker .button-toggle-accent {
-  padding-left: 8px;
-  padding-right: 8px;
+ux-date-time-picker-time-view ux-time-picker .time-picker-meridian {
+  margin-left: 22px;
 }
-ux-date-time-picker-time-view .time-input-container .btn.btn-link {
-  padding: 2px 10px;
+ux-date-time-picker-time-view .time-zone-picker {
+  display: inline-flex;
+  flex-direction: column;
+  flex: none;
+  margin-left: 22px;
 }
-ux-date-time-picker-time-view .time-input-container .btn.btn-link .hpe-icon.hpe-up,
-ux-date-time-picker-time-view .time-input-container .btn.btn-link .hpe-icon.hpe-down {
-  color: #666;
-  font-weight: 900;
-  font-size: 14px;
-}
-ux-date-time-picker-time-view .time-input-container .time-zone-picker {
-  display: flex;
+ux-date-time-picker-time-view .time-zone-picker .time-zone-spinner {
   width: 60px;
-  font-size: 14px;
-  padding: 0;
-  justify-content: center;
-  align-items: center;
-  cursor: default;
 }
-ux-date-time-picker-time-view .time-input-container .time-zone-picker-select {
+ux-date-time-picker-time-view .time-zone-picker .time-zone-select {
+  width: 72px;
   font-size: 14px;
   padding: 0;
   text-align: center;
 }
-ux-date-time-picker-time-view .time-input-container timepicker .form-control {
-  font-size: 14px;
-  width: 33px !important;
-  padding: 0;
-}
-ux-date-time-picker-time-view .time-input-container timepicker .btn-link .bs-chevron {
-  font-family: "hpe-icons";
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
-  font-weight: normal;
-  font-style: normal;
-  speak: none;
-  text-decoration: inherit;
-  text-transform: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  vertical-align: baseline;
-  border: none;
-  transform: none;
-  width: auto;
-  height: auto;
-  color: #666;
-  font-weight: 900;
-  font-size: 14px;
-}
-ux-date-time-picker-time-view .time-input-container timepicker .btn-link .bs-chevron.bs-chevron-up:before {
-  content: "\f22a";
-}
-ux-date-time-picker-time-view .time-input-container timepicker .btn-link .bs-chevron.bs-chevron-down:before {
-  content: "\f17a";
-}
-ux-date-time-picker-time-view .time-input-container timepicker .btn-default {
-  display: none;
-}
-ux-date-time-picker-time-view .time-input-container timepicker tr td:nth-child(2) {
-  max-width: 12px;
-}
-ux-date-time-picker-time-view .time-input-container timepicker tr td:nth-child(4) {
-  display: none;
-}
-ux-date-time-picker-time-view .time-input-container timepicker tr td .btn {
-  padding: 2px 10px;
+ux-date-time-picker-time-view .time-zone-picker .time-zone-select:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-date-time-picker-year-view {
   display: flex;
@@ -15418,6 +15440,15 @@ ux-date-time-picker-year-view .calendar .calendar-row .calendar-item {
   margin: 2px;
   cursor: pointer;
   font-size: 14px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+ux-date-time-picker-year-view .calendar .calendar-row .calendar-item:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-date-time-picker-year-view .calendar .calendar-row .calendar-item:first-of-type {
   margin-left: 0;
@@ -16006,7 +16037,7 @@ ux-hierarchy-bar .hierarchy-bar-node-content {
   padding: 0;
 }
 ux-hierarchy-bar .hierarchy-bar-node-content:focus {
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -16033,7 +16064,7 @@ ux-hierarchy-bar .hierarchy-bar-node-arrow:hover {
 }
 ux-hierarchy-bar .hierarchy-bar-node-arrow:focus {
   color: #00a7a2;
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -16059,7 +16090,7 @@ ux-hierarchy-bar .hierarchy-bar-node-arrow:focus {
 }
 .hierarchy-bar-popover .hierarchy-bar-node-list-item:focus {
   background-color: #f2f2f2;
-  outline: 1px dotted;
+  outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;
   outline-offset: 0;
@@ -16536,18 +16567,29 @@ ux-page-header-icon-menu {
   cursor: pointer;
 }
 ux-page-header-icon-menu .page-header-icon-menu {
+  display: inline-flex;
   position: relative;
+  width: 40px;
+}
+ux-page-header-icon-menu .page-header-icon-menu .page-header-icon-menu-button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: #fff;
   transition: background-color 0.3s ease-in-out;
 }
-ux-page-header-icon-menu .page-header-icon-menu:hover {
+ux-page-header-icon-menu .page-header-icon-menu .page-header-icon-menu-button:hover,
+ux-page-header-icon-menu .page-header-icon-menu .page-header-icon-menu-button:focus {
   background-color: rgba(247, 247, 247, 0.1);
 }
-ux-page-header-icon-menu .page-header-icon-menu .page-header-icon-menu-button {
-  color: #fff;
+ux-page-header-icon-menu .page-header-icon-menu .page-header-icon-menu-button:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-page-header-icon-menu .label {
   line-height: 12px;
@@ -16565,9 +16607,24 @@ ux-page-header-icon-menu .dropdown-menu li.dropdown-divider {
   border-bottom: 1px solid #e5e5e5;
 }
 ux-page-header-icon-menu .dropdown-menu li a {
+  display: flex;
+  justify-content: space-between;
   padding: 6px 20px;
   min-height: 0;
   font-size: 1rem;
+}
+ux-page-header-icon-menu .dropdown-menu li a:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-page-header-icon-menu .dropdown-menu li a .hpe-icon {
+  color: #888;
+}
+ux-page-header-icon-menu .dropdown-menu li a .dropdown-item-subtitle {
+  font-size: 87%;
+  color: #888;
 }
 ux-page-header-icon-menu .dropdown-menu .dropdown-header {
   padding: 3px 20px 8px;
@@ -16579,10 +16636,10 @@ ux-page-header-horizontal-navigation-item .horizontal-navigation-button {
   position: relative;
   display: block;
   padding: 17px;
+  border: none;
   color: #ccc;
   background-color: #0c4751;
   cursor: pointer;
-  outline: none;
   white-space: nowrap;
 }
 ux-page-header-horizontal-navigation-item .horizontal-navigation-button .navigation-item-icon {
@@ -16600,6 +16657,12 @@ ux-page-header-horizontal-navigation-item .horizontal-navigation-button:hover,
 ux-page-header-horizontal-navigation-item .horizontal-navigation-button:focus {
   color: #fff;
   background-color: #0f5a67;
+}
+ux-page-header-horizontal-navigation-item .horizontal-navigation-button:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-page-header-horizontal-navigation-item .horizontal-navigation-button.active,
 ux-page-header-horizontal-navigation-item .horizontal-navigation-button.open {
@@ -16623,7 +16686,6 @@ ux-page-header-horizontal-navigation-item .horizontal-navigation-button.selected
   color: #ccc;
   padding: 8px 10px 8px 20px;
   min-width: 200px;
-  outline: none;
 }
 .horizontal-navigation-dropdown-menu .dropdown-item:hover,
 .horizontal-navigation-dropdown-submenu .dropdown-item:hover,
@@ -16631,6 +16693,13 @@ ux-page-header-horizontal-navigation-item .horizontal-navigation-button.selected
 .horizontal-navigation-dropdown-submenu .dropdown-item:focus {
   background-color: #0f5a67;
   color: #eee;
+}
+.horizontal-navigation-dropdown-menu .dropdown-item:focus,
+.horizontal-navigation-dropdown-submenu .dropdown-item:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 .horizontal-navigation-dropdown-menu .dropdown-item .dropdown-item-title,
 .horizontal-navigation-dropdown-submenu .dropdown-item .dropdown-item-title {
@@ -16722,13 +16791,22 @@ ux-page-header .ux-page-header .page-header-details .page-header-state-container
   width: 28px;
   margin-top: 16px;
   margin-right: 2px;
+  border: none;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
-ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button:hover {
+ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button:hover,
+ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button:focus {
   background-color: rgba(0, 0, 0, 0.1);
+}
+ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-page-header .ux-page-header .page-header-details .page-header-state-container .page-header-back-button > * {
   color: #00a7a2;
@@ -16794,94 +16872,101 @@ ux-progress-bar .progressbar-track {
   font-size: 14px;
   transition: width 0.6s ease;
 }
-ux-radio-button {
-  display: inline-block;
-  margin-bottom: 5px;
-  white-space: nowrap;
-  line-height: 0;
-}
 ux-radio-button .ux-radio-button {
   display: inline-flex;
+  align-items: baseline;
+  margin: 0;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+ux-radio-button .ux-radio-button .ux-radio-button-container {
+  display: inline-flex;
+  flex: none;
   color: transparent;
   font-family: 'hpe-icons';
   width: 24px;
   height: 24px;
-  background-color: transparent;
-  cursor: pointer;
   border: 1px solid #ccc;
-  margin-top: 1px;
   font-size: 16px;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   box-sizing: border-box;
   border-radius: 50%;
 }
-ux-radio-button .ux-radio-button:before {
+ux-radio-button .ux-radio-button .ux-radio-button-container:before {
   content: "\f12c";
 }
-ux-radio-button .ux-radio-button:focus {
-  outline: 1px dotted #2a2a2a;
+ux-radio-button .ux-radio-button .ux-radio-button-container .ux-radio-button-input {
+  position: absolute;
+  height: 0;
+  width: 0;
+  outline: none;
+  overflow: hidden;
+  border: none;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
-ux-radio-button:hover .ux-radio-button {
-  border: 2px solid #7b63a3;
-}
-ux-radio-button:hover .ux-radio-button.ux-disabled {
-  border: 1px solid #eee;
-}
-ux-radio-button:hover .ux-radio-button.ux-simplified {
-  color: #ccc;
-  border-color: transparent;
-  border-width: 1px;
-}
-ux-radio-button:hover .ux-radio-button.ux-simplified.ux-disabled {
-  color: transparent;
-}
-ux-radio-button:hover .ux-radio-button.ux-simplified.ux-checked {
-  color: #7b63a3;
-}
-ux-radio-button:hover .ux-radio-button.ux-simplified.ux-checked.ux-disabled {
-  color: #ccc;
-}
-ux-radio-button input[type="radio"] {
-  display: none;
-}
-ux-radio-button .ux-radio-button.ux-checked {
+ux-radio-button .ux-radio-button.ux-radio-button-checked .ux-radio-button-container {
   background-color: #7b63a3;
   color: #fff;
   border-color: transparent;
 }
-ux-radio-button .ux-radio-button.ux-disabled {
+ux-radio-button .ux-radio-button.ux-radio-button-checked.ux-radio-button-disabled .ux-radio-button-container {
+  background-color: #eee;
+}
+ux-radio-button .ux-radio-button .ux-radio-button-label {
+  margin-left: 7px;
+}
+ux-radio-button .ux-radio-button.ux-radio-button-disabled .ux-radio-button-container {
   border-color: #eee;
   cursor: default;
 }
-ux-radio-button .ux-radio-button.disabled:focus {
-  outline: none;
-}
-ux-radio-button .ux-radio-button.ux-disabled.ux-checked {
-  background-color: #eee;
-}
-ux-radio-button .ux-radio-button.ux-simplified {
-  font-size: 20px;
+ux-radio-button .ux-radio-button.ux-radio-button-simplified .ux-radio-button-container {
   border-color: transparent;
   background-color: transparent;
 }
-ux-radio-button .ux-radio-button.ux-simplified.ux-checked {
+ux-radio-button .ux-radio-button.ux-radio-button-simplified.ux-radio-button-checked .ux-radio-button-container {
   color: #7b63a3;
   background-color: transparent;
   border-color: transparent;
 }
-ux-radio-button .ux-radio-button.ux-simplified.ux-disabled.ux-checked {
+ux-radio-button .ux-radio-button.ux-radio-button-simplified.ux-radio-button-checked.ux-radio-button-disabled .ux-radio-button-container {
   color: #ccc;
 }
-ux-radio-button .ux-radio-button-content {
-  display: inline-block;
-  margin-left: 7px;
-  margin-top: 1px;
-  white-space: normal;
-  vertical-align: top;
+ux-radio-button .ux-radio-button.ux-radio-button-simplified.ux-radio-button-disabled .ux-radio-button-container {
+  color: transparent;
+}
+ux-radio-button .ux-radio-button:hover .ux-radio-button-container {
+  border: 2px solid #7b63a3;
+}
+ux-radio-button .ux-radio-button:hover.ux-radio-button-disabled {
   cursor: default;
-  line-height: 22px;
+}
+ux-radio-button .ux-radio-button:hover.ux-radio-button-disabled .ux-radio-button-container {
+  border: 1px solid #eee;
+}
+ux-radio-button .ux-radio-button:hover.ux-radio-button-disabled.ux-radio-button-simplified .ux-radio-button-container {
+  color: transparent;
+}
+ux-radio-button .ux-radio-button:hover.ux-radio-button-simplified .ux-radio-button-container {
+  color: #ccc;
+  border-color: transparent;
+  border-width: 1px;
+}
+ux-radio-button .ux-radio-button:hover.ux-radio-button-simplified.ux-radio-button-checked .ux-radio-button-container {
+  color: #7b63a3;
+}
+ux-radio-button .ux-radio-button:hover.ux-radio-button-simplified.ux-radio-button-checked.ux-radio-button-disabled .ux-radio-button-container {
+  color: #ccc;
+}
+ux-radio-button .ux-radio-button.ux-radio-button-focused .ux-radio-button-container {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-search-builder-group .search-group-title {
   color: #333;
@@ -17184,6 +17269,10 @@ ux-slider .track .thumb {
   flex: none;
   position: absolute;
   cursor: pointer;
+}
+ux-slider .track .thumb:focus {
+  outline: none;
+  box-shadow: 0 0 1px 2px #00a7a2;
 }
 ux-slider .track .thumb .tooltip {
   top: -37px;
@@ -17506,6 +17595,49 @@ ux-spark .ux-spark-label-bottom-right {
 ux-spark .ux-spark-multi-value {
   display: flex;
 }
+ux-spin-button {
+  display: flex;
+  flex-direction: column;
+}
+ux-spin-button .spin-button {
+  height: 22px;
+  text-align: center;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+ux-spin-button .spin-button:disabled {
+  opacity: 0.5;
+}
+ux-spin-button .spin-button:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-spin-button .spin-button .hpe-icon {
+  color: #666;
+  font-weight: 900;
+  font-size: 14px;
+}
+ux-spin-button .form-control {
+  text-align: center;
+  padding: 0;
+  font-size: 14px;
+  -moz-appearance: textfield;
+}
+ux-spin-button .form-control[readonly] {
+  background-color: #fff;
+  border-color: #e5e6e7;
+  color: #555;
+}
+ux-spin-button .form-control:disabled {
+  color: #b3b3b3;
+}
+ux-spin-button .form-control::-webkit-outer-spin-button,
+ux-spin-button .form-control::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 ux-tag-input {
   display: inline-block;
   position: relative;
@@ -17796,51 +17928,71 @@ ux-timeline ux-timeline-event .timeline-badge span {
     top: 35px;
   }
 }
-ux-toggleswitch {
+ux-time-picker {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+ux-time-picker .time-picker {
+  display: inline-flex;
+}
+ux-time-picker .time-picker-column {
+  display: inline-flex;
+  flex-direction: column;
+  flex: none;
+}
+ux-time-picker .time-picker-separator {
+  display: inline-flex;
+  flex: none;
+  width: 14px;
+  justify-content: center;
+  align-items: center;
+}
+ux-time-picker .time-picker-meridian {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 14px;
+}
+ux-time-picker .time-picker-meridian .btn-group .btn {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+ux-time-picker .time-spinner {
+  width: 33px !important;
+}
+ux-toggleswitch .ux-toggleswitch {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
   margin-bottom: 5px;
   white-space: nowrap;
 }
-ux-toggleswitch .ux-toggleswitch {
-  display: inline-flex;
-  cursor: pointer;
-  color: transparent;
-}
-ux-toggleswitch .ux-toggleswitch.disabled {
-  cursor: default;
-}
-ux-toggleswitch .ux-toggleswitch.disabled:focus {
+ux-toggleswitch .ux-toggleswitch .ux-toggleswitch-input {
+  position: absolute;
+  height: 0;
+  width: 0;
   outline: none;
+  overflow: hidden;
+  border: none;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
-ux-toggleswitch .ux-toggleswitch:focus {
-  outline: 1px dotted #2a2a2a;
-}
-ux-toggleswitch .ux-toggleswitch input[type="checkbox"] {
-  display: none;
-}
-ux-toggleswitch .ux-toggleswitch {
-  width: 44px;
-  height: 22px;
+ux-toggleswitch .ux-toggleswitch .ux-toggleswitch-container {
   position: relative;
-  vertical-align: middle;
-  color: #00a7a2;
 }
 ux-toggleswitch .ux-toggleswitch .ux-toggleswitch-bg {
-  width: 100%;
-  height: 100%;
+  flex: none;
+  width: 44px;
+  height: 22px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 999px;
-  box-shadow: inset 0 0 0 0;
+  box-shadow: inset 0 0 0 0 #00a7a2;
   transition: border 0.3s, box-shadow 0.3s, background-color 0s;
-}
-ux-toggleswitch .ux-toggleswitch.checked .ux-toggleswitch-bg {
-  background-color: currentColor;
-  border-color: currentColor;
-  box-shadow: inset 0 0 0 12px;
-  transition: border 0.3s, box-shadow 0.3s, background-color 0s 0.3s;
-}
-ux-toggleswitch .ux-toggleswitch.disabled {
-  opacity: 0.5;
 }
 ux-toggleswitch .ux-toggleswitch .ux-toggleswitch-nub {
   background-color: #fff;
@@ -17849,36 +18001,49 @@ ux-toggleswitch .ux-toggleswitch .ux-toggleswitch-nub {
   height: 22px;
   width: 22px;
   position: absolute;
+  top: 0;
   left: 0;
   transition: left 0.15s;
 }
-ux-toggleswitch .ux-toggleswitch.checked .ux-toggleswitch-nub {
-  left: 22px;
-  border-color: currentColor;
-}
-ux-toggleswitch .ux-toggleswitch-content {
-  display: inline-block;
+ux-toggleswitch .ux-toggleswitch .ux-toggleswitch-label {
+  display: inline-flex;
+  align-items: center;
   margin-left: 7px;
-  margin-top: 1px;
-  white-space: normal;
-  vertical-align: top;
+  white-space: nowrap;
 }
-ux-toggleswitch.toggleswitch-lg .ux-toggleswitch {
+ux-toggleswitch .ux-toggleswitch.ux-toggleswitch-disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+ux-toggleswitch .ux-toggleswitch.ux-toggleswitch-checked .ux-toggleswitch-bg {
+  background-color: #00a7a2;
+  border-color: #00a7a2;
+  box-shadow: inset 0 0 0 12px #00a7a2;
+  transition: border 0.3s, box-shadow 0.3s, background-color 0s 0.3s;
+}
+ux-toggleswitch .ux-toggleswitch.ux-toggleswitch-checked .ux-toggleswitch-nub {
+  left: 22px;
+  border-color: #00a7a2;
+}
+ux-toggleswitch .ux-toggleswitch.ux-toggleswitch-focused .ux-toggleswitch-bg {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-toggleswitch.toggleswitch-lg .ux-toggleswitch .ux-toggleswitch-bg {
   width: 60px;
   height: 30px;
 }
-ux-toggleswitch.toggleswitch-lg .ux-toggleswitch.checked .ux-toggleswitch-bg {
-  box-shadow: inset 0 0 0 16px;
+ux-toggleswitch.toggleswitch-lg .ux-toggleswitch.ux-toggleswitch-checked .ux-toggleswitch-bg {
+  box-shadow: inset 0 0 0 16px #00a7a2;
 }
 ux-toggleswitch.toggleswitch-lg .ux-toggleswitch .ux-toggleswitch-nub {
   height: 30px;
   width: 30px;
 }
-ux-toggleswitch.toggleswitch-lg .ux-toggleswitch.checked .ux-toggleswitch-nub {
+ux-toggleswitch.toggleswitch-lg .ux-toggleswitch.ux-toggleswitch-checked .ux-toggleswitch-nub {
   left: 30px;
-}
-ux-toggleswitch.toggleswitch-lg .ux-toggleswitch-content {
-  margin-top: 5px;
 }
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   ux-toggleswitch {
