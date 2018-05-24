@@ -5,7 +5,7 @@
             [nodes]="nodes"
             [options]="options"
             (focus)="focused = $event.node"
-            (stateChange)="updatedFocusedItem($event, tree)"
+            (stateChange)="updatedFocusedItem()"
             (loadNodeChildren)="onChildrenLoaded($event.node)">
 
         <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
