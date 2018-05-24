@@ -40,9 +40,12 @@
                 (keydown)="keydownHandler(dropdown, $event)"
                 uxMenuNavigationItem>
 
-                <i class="hpe-icon hp-fw text-muted" [ngClass]="dropdown.icon"></i>
-                {{ dropdown.title }}
-                <span class="pull-right text-muted small" *ngIf="dropdown.subtitle">{{ dropdown.subtitle }}</span>
+
+                <span class="dropdown-item-title">
+                    <i class="hpe-icon hpe-fw" [ngClass]="dropdown.icon"></i>
+                    {{ dropdown.title }}
+                </span>
+                <span *ngIf="dropdown.subtitle" class="dropdown-item-subtitle">{{ dropdown.subtitle }}</span>
 
             </a>
         </li>

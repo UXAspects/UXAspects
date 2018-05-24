@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MenuNavigationToggleDirective } from '../../../directives/menu-navigation/menu-navigation-toggle.directive';
-import { PageHeaderIconMenu, PageHeaderIconMenuDropdownItem } from '../page-header.component';
+import { PageHeaderIconMenu, PageHeaderIconMenuDropdownItem } from '../interfaces';
+import { PageHeaderService } from '../page-header.service';
 
 @Component({
     selector: 'ux-page-header-icon-menu',
@@ -10,10 +11,30 @@ export class PageHeaderIconMenuComponent {
 
     @Input() menu: PageHeaderIconMenu;
 
-    isOpen: boolean;
+    get isOpen(): boolean {
+        return this._isOpen;
+    }
+
+    set isOpen(value: boolean) {
+        this._isOpen = value;
+        if (value) {
+            this._service.activeIconMenu$.next(this.menu);
+        }
+    }
 
     @ViewChild('menuNavigationToggle')
     menuNavigationToggle: MenuNavigationToggleDirective;
+
+    private _isOpen: boolean;
+
+    constructor(private _service: PageHeaderService) {
+        _service.activeIconMenu$.subscribe((next) => {
+            // Close all but the most recently opened menu
+            if (next !== this.menu) {
+                this._isOpen = false;
+            }
+        });
+    }
 
     select(item: PageHeaderIconMenu | PageHeaderIconMenuDropdownItem) {
         if (item.select) {

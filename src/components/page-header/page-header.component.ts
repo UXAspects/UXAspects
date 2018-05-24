@@ -5,6 +5,7 @@ import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
+import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
 import { PageHeaderNavigation, PageHeaderService } from './page-header.service';
 
@@ -97,21 +98,4 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     select(item: PageHeaderNavigation): void {
         this._pageHeaderService.select(item);
     }
-}
-
-export interface PageHeaderIconMenu {
-    icon: string;
-    label?: string;
-    badge?: number | string;
-    select?: (menu: PageHeaderIconMenu) => void;
-    dropdown?: PageHeaderIconMenuDropdownItem[];
-}
-
-export interface PageHeaderIconMenuDropdownItem {
-    icon?: string;
-    title: string;
-    subtitle?: string;
-    header?: boolean;
-    divider?: boolean;
-    select?: () => void;
 }

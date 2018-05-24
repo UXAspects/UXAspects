@@ -1,7 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from './navigation/navigation.component';
 
 @Injectable()
@@ -11,6 +12,7 @@ export class PageHeaderService implements OnDestroy {
     selected$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
     selectedRoot$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
     secondary$ = new BehaviorSubject<boolean>(false);
+    activeIconMenu$ = new BehaviorSubject<PageHeaderIconMenu>(null);
 
     private _subscription: Subscription;
 
@@ -103,7 +105,7 @@ export class PageHeaderService implements OnDestroy {
     }
 
     private isParentOf(node: PageHeaderNavigation, parent: PageHeaderNavigation): boolean {
-        
+
         // if there are no parents return false
         if (!node || !node.parent) {
             return false;
