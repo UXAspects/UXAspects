@@ -245,6 +245,21 @@ export class SliderComponent implements OnInit, AfterViewInit, DoCheck {
         this.setThumbState(thumb, state.hover, state.drag);
     }
 
+    getAriaValueText(thumb: SliderThumb): string | number {
+        // get the current thumb value
+        const value = this.getThumbValue(thumb);
+
+        // get all the ticks
+        const tick = this.ticks.find(_tick => _tick.value === value);
+
+        if (tick && tick.label) {
+            return tick.label;
+        }
+
+        // otherwise simply display the formatted value
+        return this.getFormattedValue(thumb);
+    }
+
     private updateTooltips(thumb: SliderThumb): void {
 
         let visible = false;

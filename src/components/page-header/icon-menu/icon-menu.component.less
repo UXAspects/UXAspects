@@ -47,12 +47,23 @@ ux-page-header-icon-menu {
             }
 
             a {
+                display: flex;
+                justify-content: space-between;
                 padding: 6px 20px;
                 min-height: 0;
                 font-size: 1rem;
 
                 &:focus {
                     .aspects-outline;
+                }
+
+                .hpe-icon {
+                    color: #888;
+                }
+
+                .dropdown-item-subtitle {
+                    font-size: 87%;
+                    color: #888;
                 }
             }
         }

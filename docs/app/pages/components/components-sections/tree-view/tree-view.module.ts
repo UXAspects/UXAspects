@@ -14,7 +14,7 @@ import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ComponentsTreeViewComponent } from './tree-view/tree-view.component';
 
 import { TreeModule } from 'angular-tree-component';
-import { CheckboxModule } from '../../../../../../src/index';
+import { CheckboxModule, FocusIfModule } from '../../../../../../src/index';
 import { TreeViewService } from './tree-view-custom-node/tree-view-custom-node.service';
 import { ComponentsTreeViewCustomNodeComponent } from './tree-view-custom-node/tree-view-custom-node.component';
 
@@ -44,6 +44,7 @@ const ROUTES = [
         TabsModule,
         TreeModule,
         CheckboxModule,
+        FocusIfModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

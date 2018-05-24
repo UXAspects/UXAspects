@@ -18,10 +18,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
 
     @Input() set value(value: any) {
         this._value = value;
-        this.valueChange.next(value);
-
-        this.onTouchedCallback();
         this.onChangeCallback(value);
+        this.onTouchedCallback();
     }
 
     get value(): any {
@@ -29,8 +27,8 @@ export class SpinButtonComponent implements ControlValueAccessor {
     }
 
     @Input() type: string = 'text';
-    @Input() min: string;
-    @Input() max: string;
+    @Input() min: number;
+    @Input() max: number;
     @Input() placeholder: string = '';
     @Input() disabled: boolean = false;
     @Input() spinners: boolean = true;
@@ -48,7 +46,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
     @Output() decrement = new EventEmitter<void>();
 
     onTouchedCallback: () => void = () => { };
-    onChangeCallback: (_: Date) => void = () => { };
+    onChangeCallback: (_: any) => void = () => { };
 
     private _value: any;
 
@@ -57,7 +55,7 @@ export class SpinButtonComponent implements ControlValueAccessor {
         if (!this.scrolling) {
             return;
         }
-        
+
         if (event.deltaY > 0) {
             this.triggerDecrement();
         } else {
