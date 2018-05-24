@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IChangeLog } from '../../interfaces/IChangeLog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { IChangeLog } from '../../interfaces/IChangeLog';
 
 @Component({
     selector: 'uxd-changelog-page',
@@ -16,7 +16,7 @@ export class ChangeLogPageComponent {
         this.logs = [
             {
                 version: '1.5.13',
-                date: 'May 24th 2018',
+                date: 'May 25th 2018',
                 content: require('./logs/release-v1.5.13.md')
             },
             {
