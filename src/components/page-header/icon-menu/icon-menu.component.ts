@@ -1,4 +1,5 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { MenuNavigationToggleDirective } from '../../../directives/menu-navigation/menu-navigation-toggle.directive';
 import { PageHeaderIconMenu, PageHeaderIconMenuDropdownItem } from '../interfaces';
 import { PageHeaderService } from '../page-header.service';
@@ -7,7 +8,7 @@ import { PageHeaderService } from '../page-header.service';
     selector: 'ux-page-header-icon-menu',
     templateUrl: './icon-menu.component.html'
 })
-export class PageHeaderIconMenuComponent {
+export class PageHeaderIconMenuComponent implements OnDestroy {
 
     @Input() menu: PageHeaderIconMenu;
 
@@ -27,13 +28,19 @@ export class PageHeaderIconMenuComponent {
 
     private _isOpen: boolean;
 
+    private _subscription: Subscription;
+
     constructor(private _service: PageHeaderService) {
-        _service.activeIconMenu$.subscribe((next) => {
+        this._subscription = _service.activeIconMenu$.subscribe((next) => {
             // Close all but the most recently opened menu
             if (next !== this.menu) {
                 this._isOpen = false;
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
     }
 
     select(item: PageHeaderIconMenu | PageHeaderIconMenuDropdownItem) {
