@@ -35,7 +35,7 @@
                          (focus)="focus(node)"
                          [focusIf]="node === focused"
                          (click)="setChecked(node, !node.data.checked)"
-                         (keydown.space)="setChecked(node, !node.data.checked); $event.preventDefault()">
+                         (keydown)="setChecked(node, !node.data.checked, $event)">
 
                         <span class="hpe-icon"
                               [class.hpe-folder]="node.hasChildren && !node.isExpanded"

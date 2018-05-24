@@ -33,7 +33,8 @@
                       [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
                       (focus)="focus(node)"
                       [focusIf]="node === focused"
-                      (click)="setChecked(node, !node.data.checked)">
+                      (click)="setChecked(node, !node.data.checked)"
+                      (keydown)="setChecked(node, !node.data.checked, $event)">
 
                         <span class="hpe-icon"
                             [class.hpe-folder]="node.hasChildren && !node.isExpanded"
