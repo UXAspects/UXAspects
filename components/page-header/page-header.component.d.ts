@@ -2,6 +2,7 @@ import { EventEmitter, OnDestroy, OnInit, QueryList, TemplateRef } from '@angula
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
+import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
 import { PageHeaderNavigation, PageHeaderService } from './page-header.service';
 export declare class PageHeaderComponent implements OnInit, OnDestroy {
@@ -33,18 +34,4 @@ export declare class PageHeaderComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void;
     goBack(): void;
     select(item: PageHeaderNavigation): void;
-}
-export interface PageHeaderIconMenu {
-    icon: string;
-    badge?: number | string;
-    select?: (menu: PageHeaderIconMenu) => void;
-    dropdown?: PageHeaderIconMenuDropdownItem[];
-}
-export interface PageHeaderIconMenuDropdownItem {
-    icon?: string;
-    title: string;
-    subtitle?: string;
-    header?: boolean;
-    divider?: boolean;
-    select?: () => void;
 }

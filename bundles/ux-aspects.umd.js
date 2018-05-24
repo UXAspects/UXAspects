@@ -1,8 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/router'), require('rxjs/BehaviorSubject'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('@angular/forms'), require('rxjs/Subject'), require('rxjs/operator/observeOn'), require('rxjs/operator/scan'), require('rxjs/Observable'), require('rxjs/operator/distinctUntilChanged'), require('rxjs/operator/map'), require('rxjs/add/operator/distinctUntilChanged'), require('rxjs/add/observable/merge'), require('rxjs/add/observable/timer'), require('rxjs/add/observable/from'), require('rxjs/add/operator/debounceTime'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/map'), require('rxjs/add/operator/switchMap'), require('rxjs/add/operator/mergeMap'), require('rxjs/add/operator/toArray'), require('rxjs/add/observable/of'), require('@angular/animations'), require('rxjs/observable/of'), require('@angular/platform-browser'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/combineLatest'), require('rxjs/add/operator/first'), require('rxjs/add/operator/partition'), require('rxjs/observable/from'), require('rxjs/add/observable/concat'), require('@angular/http'), require('rxjs/add/operator/takeUntil'), require('rxjs/add/observable/fromEvent'), require('dragula'), require('@angular/upgrade/static')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/router', 'rxjs/BehaviorSubject', 'rxjs/Subscription', 'rxjs/observable/fromEvent', '@angular/forms', 'rxjs/Subject', 'rxjs/operator/observeOn', 'rxjs/operator/scan', 'rxjs/Observable', 'rxjs/operator/distinctUntilChanged', 'rxjs/operator/map', 'rxjs/add/operator/distinctUntilChanged', 'rxjs/add/observable/merge', 'rxjs/add/observable/timer', 'rxjs/add/observable/from', 'rxjs/add/operator/debounceTime', 'rxjs/add/operator/filter', 'rxjs/add/operator/map', 'rxjs/add/operator/switchMap', 'rxjs/add/operator/mergeMap', 'rxjs/add/operator/toArray', 'rxjs/add/observable/of', '@angular/animations', 'rxjs/observable/of', '@angular/platform-browser', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/combineLatest', 'rxjs/add/operator/first', 'rxjs/add/operator/partition', 'rxjs/observable/from', 'rxjs/add/observable/concat', '@angular/http', 'rxjs/add/operator/takeUntil', 'rxjs/add/observable/fromEvent', 'dragula', '@angular/upgrade/static'], factory) :
-	(factory((global['ux-aspects'] = {}),global.ng.core,global.ng.common,global.ng.router,global.Rx,global.Rx,global.Rx.Observable,global.ng.forms,global.Rx,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.animations,global.Rx.Observable,global.ng.platformBrowser,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable,global.ng.http,global.Rx.Observable.prototype,global.Rx.Observable,global.dragula,global['']['/node_modules/@angular/upgrade/bundles/upgrade-static'].umd.js));
-}(this, (function (exports,core,common,router,BehaviorSubject,Subscription,fromEvent,forms,Subject,observeOn,scan,Observable,distinctUntilChanged,map,distinctUntilChanged$2,merge,timer,from,debounceTime,filter,map$2,switchMap,mergeMap,toArray,of,animations,of$1,platformBrowser,auditTime,combineLatest,first,partition,from$1,concat,http,takeUntil,fromEvent$2,dragulaNamespace__default,_static) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/router'), require('rxjs/BehaviorSubject'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('@angular/forms'), require('rxjs/Subject'), require('rxjs/observable/combineLatest'), require('rxjs/Observable'), require('rxjs/add/observable/timer'), require('rxjs/add/observable/from'), require('rxjs/add/operator/debounceTime'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/map'), require('rxjs/add/operator/switchMap'), require('rxjs/add/operator/mergeMap'), require('rxjs/add/operator/toArray'), require('rxjs/add/observable/of'), require('@angular/animations'), require('rxjs/observable/of'), require('@angular/platform-browser'), require('rxjs/add/operator/distinctUntilChanged'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/combineLatest'), require('rxjs/add/operator/first'), require('rxjs/add/operator/partition'), require('rxjs/observable/from'), require('rxjs/add/observable/concat'), require('@angular/http'), require('rxjs/add/operator/takeUntil'), require('rxjs/add/observable/fromEvent'), require('dragula'), require('@angular/upgrade/static')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/router', 'rxjs/BehaviorSubject', 'rxjs/Subscription', 'rxjs/observable/fromEvent', '@angular/forms', 'rxjs/Subject', 'rxjs/observable/combineLatest', 'rxjs/Observable', 'rxjs/add/observable/timer', 'rxjs/add/observable/from', 'rxjs/add/operator/debounceTime', 'rxjs/add/operator/filter', 'rxjs/add/operator/map', 'rxjs/add/operator/switchMap', 'rxjs/add/operator/mergeMap', 'rxjs/add/operator/toArray', 'rxjs/add/observable/of', '@angular/animations', 'rxjs/observable/of', '@angular/platform-browser', 'rxjs/add/operator/distinctUntilChanged', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/combineLatest', 'rxjs/add/operator/first', 'rxjs/add/operator/partition', 'rxjs/observable/from', 'rxjs/add/observable/concat', '@angular/http', 'rxjs/add/operator/takeUntil', 'rxjs/add/observable/fromEvent', 'dragula', '@angular/upgrade/static'], factory) :
+	(factory((global['ux-aspects'] = {}),global.ng.core,global.ng.common,global.ng.router,global.Rx,global.Rx,global.Rx.Observable,global.ng.forms,global.Rx,global.Rx.Observable,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.animations,global.Rx.Observable,global.ng.platformBrowser,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable,global.ng.http,global.Rx.Observable.prototype,global.Rx.Observable,global.dragula,global['']['/node_modules/@angular/upgrade/bundles/upgrade-static'].umd.js));
+}(this, (function (exports,core,common,router,BehaviorSubject,Subscription,fromEvent,forms,Subject,combineLatest,Observable,timer,from,debounceTime,filter,map,switchMap,mergeMap,toArray,of,animations,of$1,platformBrowser,distinctUntilChanged,auditTime,combineLatest$2,first,partition,from$1,concat,http,takeUntil,fromEvent$2,dragulaNamespace__default,_static) { 'use strict';
 
 var dragulaNamespace__default__default = dragulaNamespace__default['default'];
 
@@ -34,7 +34,7 @@ var BreadcrumbsComponent = (function () {
 BreadcrumbsComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-breadcrumbs',
-                template: "\n      <ol class=\"breadcrumb\">\n          <li *ngFor=\"let crumb of crumbs\">\n\n              <!-- If there is a router link then use a tag -->\n              <a *ngIf=\"crumb.routerLink\"\n                 [routerLink]=\"crumb.routerLink\" \n                 [fragment]=\"crumb.fragment\" \n                 [queryParams]=\"crumb.queryParams\" \n                 (click)=\"clickCrumb($event, crumb)\">\n                      {{ crumb.title }}\n              </a>\n\n              <!-- If there is not router link then display text in a span -->\n              <span *ngIf=\"!crumb.routerLink\">{{ crumb.title }}</span>\n          </li>\n      </ol>\n    "
+                template: "\n      <nav aria-label=\"Breadcrumb\">\n          <ol class=\"breadcrumb\">\n              <li *ngFor=\"let crumb of crumbs\">\n\n                  <!-- If there is a router link then use a tag -->\n                  <a *ngIf=\"crumb.routerLink || crumb.onClick\"\n                      tabindex=\"0\"\n                      [routerLink]=\"crumb.routerLink\"\n                      [fragment]=\"crumb.fragment\"\n                      [queryParams]=\"crumb.queryParams\"\n                      (click)=\"clickCrumb($event, crumb)\">\n                      {{ crumb.title }}\n                  </a>\n\n                  <!-- If there is not router link then display text in a span -->\n                  <span *ngIf=\"!crumb.routerLink && !crumb.onClick\">{{ crumb.title }}</span>\n              </li>\n          </ol>\n      </nav>\n    "
             },] },
 ];
 /**
@@ -3350,7 +3350,7 @@ var __extends$24 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, 
  * @method observeOn
  * @owner Observable
  */
-function observeOn$3(scheduler, delay) {
+function observeOn$1(scheduler, delay) {
     if (delay === void 0) {
         delay = 0;
     }
@@ -3358,7 +3358,7 @@ function observeOn$3(scheduler, delay) {
         return source.lift(new ObserveOnOperator(scheduler, delay));
     };
 }
-var observeOn_2 = observeOn$3;
+var observeOn_2 = observeOn$1;
 var ObserveOnOperator = (function () {
     function ObserveOnOperator(scheduler, delay) {
         if (delay === void 0) {
@@ -3863,6 +3863,7 @@ var DelaySubscriber = (function (_super) {
             this.schedule(state$$1, delay_1);
         }
         else {
+            this.unsubscribe();
             source.active = false;
         }
     };
@@ -4189,10 +4190,10 @@ var __extends$33 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, 
  * @method distinctUntilChanged
  * @owner Observable
  */
-function distinctUntilChanged$4(compare, keySelector) {
+function distinctUntilChanged$2(compare, keySelector) {
     return function (source) { return source.lift(new DistinctUntilChangedOperator(compare, keySelector)); };
 }
-var distinctUntilChanged_2 = distinctUntilChanged$4;
+var distinctUntilChanged_2 = distinctUntilChanged$2;
 var DistinctUntilChangedOperator = (function () {
     function DistinctUntilChangedOperator(compare, keySelector) {
         this.compare = compare;
@@ -5587,7 +5588,7 @@ var __extends$52 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, 
  * @method map
  * @owner Observable
  */
-function map$4(project, thisArg) {
+function map$2(project, thisArg) {
     return function mapOperation(source) {
         if (typeof project !== 'function') {
             throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
@@ -5595,7 +5596,7 @@ function map$4(project, thisArg) {
         return source.lift(new MapOperator(project, thisArg));
     };
 }
-var map_2 = map$4;
+var map_2 = map$2;
 var MapOperator = (function () {
     function MapOperator(project, thisArg) {
         this.project = project;
@@ -8638,10 +8639,10 @@ var ZipBufferIterator = (function (_super) {
     return ZipBufferIterator;
 }(OuterSubscriber_1.OuterSubscriber));
 var debounceTime$2 = debounceTime_1.debounceTime;
-var distinctUntilChanged$3 = distinctUntilChanged_1.distinctUntilChanged;
+var distinctUntilChanged$1 = distinctUntilChanged_1.distinctUntilChanged;
 var filter$1 = filter_1.filter;
 var first$1 = first_1.first;
-var map$3 = map_1.map;
+var map$1 = map_1.map;
 var throttle = throttle_1.throttle;
 var CardTabsService = (function () {
     function CardTabsService() {
@@ -8706,7 +8707,7 @@ var CardTabComponent = (function () {
     function CardTabComponent(_tabService) {
         var _this = this;
         this._tabService = _tabService;
-        this.active$ = this._tabService.tab$.pipe(map$3(function (tab) { return tab === _this; }));
+        this.active$ = this._tabService.tab$.pipe(map$1(function (tab) { return tab === _this; }));
         this._tabService.addTab(this);
     }
     /**
@@ -8864,15 +8865,22 @@ var CHECKBOX_VALUE_ACCESSOR = {
     useExisting: core.forwardRef(function () { return CheckboxComponent; }),
     multi: true
 };
+var uniqueCheckboxId = 0;
 var CheckboxComponent = (function () {
     function CheckboxComponent() {
-        this.name = '';
+        this._checkboxId = "ux-checkbox-" + ++uniqueCheckboxId;
+        this.id = this._checkboxId;
+        this.tabindex = 0;
         this.clickable = true;
-        this.disabled = false;
         this.simplified = false;
         this.indeterminateValue = -1;
+        this.disabled = false;
+        this.ariaLabel = '';
+        this.ariaLabelledby = null;
         this.valueChange = new core.EventEmitter();
         this._value = false;
+        this.indeterminate = false;
+        this.focused = false;
         this.onTouchedCallback = function () { };
         this.onChangeCallback = function () { };
     }
@@ -8889,10 +8897,25 @@ var CheckboxComponent = (function () {
          */
         set: function (value) {
             this._value = value;
+            // determine if it is in the indeterminate state
+            this.indeterminate = this._value === this.indeterminateValue;
+            // determine the checked state
+            this.ariaChecked = this.indeterminate ? 'mixed' : this._value;
             // invoke change event
             this.valueChange.emit(this._value);
             // call callback
             this.onChangeCallback(this._value);
+            this.onTouchedCallback();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CheckboxComponent.prototype, "inputId", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return (this.id || this._checkboxId) + "-input";
         },
         enumerable: true,
         configurable: true
@@ -8900,8 +8923,8 @@ var CheckboxComponent = (function () {
     /**
      * @return {?}
      */
-    CheckboxComponent.prototype.toggleChecked = function () {
-        if (this.disabled === true || this.clickable === false) {
+    CheckboxComponent.prototype.toggle = function () {
+        if (this.disabled || !this.clickable) {
             return;
         }
         if (this.value === this.indeterminateValue) {
@@ -8910,17 +8933,6 @@ var CheckboxComponent = (function () {
         }
         // toggle the checked state
         this.value = !this.value;
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    CheckboxComponent.prototype.keyDown = function (event) {
-        // then toggle the checkbox
-        this.toggleChecked();
-        // prevent default browser behavior
-        event.stopPropagation();
-        event.preventDefault();
     };
     /**
      * @param {?} value
@@ -8957,11 +8969,8 @@ var CheckboxComponent = (function () {
 CheckboxComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-checkbox',
-                template: "\n      <div class=\"ux-checkbox\" tabindex=\"0\"\n          [class.ux-checked]=\"value == true\"\n          [class.ux-indeterminate]=\"value == indeterminateValue\"\n          [class.ux-simplified]=\"simplified == true\"\n          [class.ux-disabled]=\"disabled == true\"\n          (keydown.space)=\"keyDown($event)\">\n\n          <input type=\"checkbox\" role=\"checkbox\" tabindex=\"-1\"\n              [name]=\"name\" \n              [checked]=\"value\" \n              [disabled]=\"disabled\" />\n        \n      </div>\n\n      <div class=\"ux-checkbox-content\">\n          <ng-content></ng-content>\n      </div>\n    ",
-                providers: [CHECKBOX_VALUE_ACCESSOR],
-                host: {
-                    '(click)': 'toggleChecked()'
-                }
+                template: "\n      <label [attr.for]=\"inputId\"\n             class=\"ux-checkbox\"\n             [class.ux-checkbox-checked]=\"value === true\"\n             [class.ux-checkbox-indeterminate]=\"indeterminate\"\n             [class.ux-checkbox-simplified]=\"simplified\"\n             [class.ux-checkbox-disabled]=\"disabled\"\n             [class.ux-checkbox-focused]=\"focused\">\n\n          <div class=\"ux-checkbox-container\">\n              <input type=\"checkbox\"\n                     class=\"ux-checkbox-input\"\n                     [id]=\"inputId\"\n                     [required]=\"required\"\n                     [checked]=\"value\"\n                     [attr.value]=\"value\"\n                     [disabled]=\"disabled\"\n                     [attr.name]=\"name\"\n                     [tabindex]=\"tabindex\"\n                     [indeterminate]=\"indeterminate\"\n                     [attr.aria-label]=\"ariaLabel\"\n                     [attr.aria-labelledby]=\"ariaLabelledby\"\n                     [attr.aria-checked]=\"ariaChecked\"\n                     (focus)=\"focused = true\"\n                     (blur)=\"focused = false\"\n                     (change)=\"$event.stopPropagation()\"\n                     (click)=\"toggle()\">\n          </div>\n\n          <span class=\"ux-checkbox-label\">\n              <ng-content></ng-content>\n          </span>\n      </label>\n    ",
+                providers: [CHECKBOX_VALUE_ACCESSOR]
             },] },
 ];
 /**
@@ -8969,11 +8978,16 @@ CheckboxComponent.decorators = [
  */
 CheckboxComponent.ctorParameters = function () { return []; };
 CheckboxComponent.propDecorators = {
+    'id': [{ type: core.Input },],
     'name': [{ type: core.Input },],
+    'required': [{ type: core.Input },],
+    'tabindex': [{ type: core.Input },],
     'clickable': [{ type: core.Input },],
-    'disabled': [{ type: core.Input },],
     'simplified': [{ type: core.Input },],
     'indeterminateValue': [{ type: core.Input },],
+    'disabled': [{ type: core.Input },],
+    'ariaLabel': [{ type: core.Input, args: ['aria-label',] },],
+    'ariaLabelledby': [{ type: core.Input, args: ['aria-labelledby',] },],
     'valueChange': [{ type: core.Output },],
     'value': [{ type: core.Input },],
 };
@@ -9418,8 +9432,10 @@ var DashboardService = (function () {
      * @return {?}
      */
     DashboardService.prototype.onResizeDrag = function (action) {
+        var /** @type {?} */ mousePosX = this._mouseEvent.pageX - pageXOffset;
+        var /** @type {?} */ mousePosY = this._mouseEvent.pageY - pageYOffset;
         // if there was no movement then do nothing
-        if (action.event.x === this._mouseEvent.x && action.event.y === this._mouseEvent.y) {
+        if (action.event.x === mousePosX && action.event.y === mousePosY) {
             return;
         }
         // update the stored mouse event
@@ -9432,8 +9448,8 @@ var DashboardService = (function () {
         var /** @type {?} */ centerX = bounds.left + (bounds.width / 2);
         var /** @type {?} */ centerY = bounds.top + (bounds.height / 2);
         // get the current mouse position
-        var /** @type {?} */ mouseX = action.event.x - centerX;
-        var /** @type {?} */ mouseY = action.event.y - centerY;
+        var /** @type {?} */ mouseX = mousePosX - centerX;
+        var /** @type {?} */ mouseY = mousePosY - centerY;
         // store the new proposed dimensions for the widget
         var /** @type {?} */ dimensions = {
             x: action.widget.x,
@@ -10602,1088 +10618,544 @@ DashboardModule.decorators = [
  * @nocollapse
  */
 DashboardModule.ctorParameters = function () { return []; };
-var TimepickerActions = (function () {
-    function TimepickerActions() {
-    }
-    TimepickerActions.prototype.writeValue = function (value) {
-        return {
-            type: TimepickerActions.WRITE_VALUE,
-            payload: value
-        };
-    };
-    TimepickerActions.prototype.changeHours = function (event) {
-        return {
-            type: TimepickerActions.CHANGE_HOURS,
-            payload: event
-        };
-    };
-    TimepickerActions.prototype.changeMinutes = function (event) {
-        return {
-            type: TimepickerActions.CHANGE_MINUTES,
-            payload: event
-        };
-    };
-    TimepickerActions.prototype.changeSeconds = function (event) {
-        return {
-            type: TimepickerActions.CHANGE_SECONDS,
-            payload: event
-        };
-    };
-    TimepickerActions.prototype.setTime = function (value) {
-        return {
-            type: TimepickerActions.SET_TIME_UNIT,
-            payload: value
-        };
-    };
-    TimepickerActions.prototype.updateControls = function (value) {
-        return {
-            type: TimepickerActions.UPDATE_CONTROLS,
-            payload: value
-        };
-    };
-    TimepickerActions.WRITE_VALUE = '[timepicker] write value from ng model';
-    TimepickerActions.CHANGE_HOURS = '[timepicker] change hours';
-    TimepickerActions.CHANGE_MINUTES = '[timepicker] change minutes';
-    TimepickerActions.CHANGE_SECONDS = '[timepicker] change seconds';
-    TimepickerActions.SET_TIME_UNIT = '[timepicker] set time unit';
-    TimepickerActions.UPDATE_CONTROLS = '[timepicker] update controls';
-    TimepickerActions.decorators = [
-        { type: core.Injectable },
-    ];
-    /** @nocollapse */
-    TimepickerActions.ctorParameters = function () { return []; };
-    return TimepickerActions;
-}());
-var dex = 10;
-var hoursPerDay = 24;
-var hoursPerDayHalf = 12;
-var minutesPerHour = 60;
-var secondsPerMinute = 60;
-function isValidDate(value) {
-    if (!value) {
-        return false;
-    }
-    if (value instanceof Date && isNaN(value.getHours())) {
-        return false;
-    }
-    if (typeof value === 'string') {
-        return isValidDate(new Date(value));
-    }
-    return true;
-}
-function isValidLimit(controls, newDate) {
-    if (controls.min && newDate < controls.min) {
-        return false;
-    }
-    if (controls.max && newDate > controls.max) {
-        return false;
-    }
-    return true;
-}
-function toNumber(value) {
-    if (typeof value === 'number') {
-        return value;
-    }
-    return parseInt(value, dex);
-}
-function parseHours(value, isPM) {
-    if (isPM === void 0) {
-        isPM = false;
-    }
-    var hour = toNumber(value);
-    if (isNaN(hour) ||
-        hour < 0 ||
-        hour > (isPM ? hoursPerDayHalf : hoursPerDay)) {
-        return NaN;
-    }
-    return hour;
-}
-function parseMinutes(value) {
-    var minute = toNumber(value);
-    if (isNaN(minute) || minute < 0 || minute > minutesPerHour) {
-        return NaN;
-    }
-    return minute;
-}
-function parseSeconds(value) {
-    var seconds = toNumber(value);
-    if (isNaN(seconds) || seconds < 0 || seconds > secondsPerMinute) {
-        return NaN;
-    }
-    return seconds;
-}
-function parseTime(value) {
-    if (typeof value === 'string') {
-        return new Date(value);
-    }
-    return value;
-}
-function changeTime(value, diff) {
-    if (!value) {
-        return changeTime(createDate(new Date(), 0, 0, 0), diff);
-    }
-    var hour = value.getHours();
-    var minutes = value.getMinutes();
-    var seconds = value.getSeconds();
-    if (diff.hour) {
-        hour = (hour + toNumber(diff.hour)) % hoursPerDay;
-        if (hour < 0) {
-            hour += hoursPerDay;
-        }
-    }
-    if (diff.minute) {
-        minutes = minutes + toNumber(diff.minute);
-    }
-    if (diff.seconds) {
-        seconds = seconds + toNumber(diff.seconds);
-    }
-    return createDate(value, hour, minutes, seconds);
-}
-function setTime(value, opts) {
-    var hour = parseHours(opts.hour);
-    var minute = parseMinutes(opts.minute);
-    var seconds = parseSeconds(opts.seconds) || 0;
-    if (opts.isPM) {
-        hour += hoursPerDayHalf;
-    }
-    if (!value) {
-        if (!isNaN(hour) && !isNaN(minute)) {
-            return createDate(new Date(), hour, minute, seconds);
-        }
-        return value;
-    }
-    if (isNaN(hour) || isNaN(minute)) {
-        return value;
-    }
-    return createDate(value, hour, minute, seconds);
-}
-function createDate(value, hours, minutes, seconds) {
-    return new Date(value.getFullYear(), value.getMonth(), value.getDate(), hours, minutes, seconds, value.getMilliseconds());
-}
-function padNumber(value) {
-    var _value = value.toString();
-    if (_value.length > 1) {
-        return _value;
-    }
-    return "0" + _value;
-}
-function isHourInputValid(hours, isPM) {
-    return !isNaN(parseHours(hours, isPM));
-}
-function isMinuteInputValid(minutes) {
-    return !isNaN(parseMinutes(minutes));
-}
-function isSecondInputValid(seconds) {
-    return !isNaN(parseSeconds(seconds));
-}
-function isInputLimitValid(diff, max, min) {
-    var newDate = changeTime(new Date(), diff);
-    if (max && newDate > max) {
-        return false;
-    }
-    if (min && newDate < min) {
-        return false;
-    }
-    return true;
-}
-function isInputValid(hours, minutes, seconds, isPM) {
-    if (minutes === void 0) {
-        minutes = '0';
-    }
-    if (seconds === void 0) {
-        seconds = '0';
-    }
-    return isHourInputValid(hours, isPM)
-        && isMinuteInputValid(minutes)
-        && isSecondInputValid(seconds);
-}
-function canChangeValue(state$$1, event) {
-    if (state$$1.readonlyInput || state$$1.disabled) {
-        return false;
-    }
-    if (event) {
-        if (event.source === 'wheel' && !state$$1.mousewheel) {
-            return false;
-        }
-        if (event.source === 'key' && !state$$1.arrowkeys) {
-            return false;
-        }
-    }
-    return true;
-}
-function canChangeHours(event, controls) {
-    if (!event.step) {
-        return false;
-    }
-    if (event.step > 0 && !controls.canIncrementHours) {
-        return false;
-    }
-    if (event.step < 0 && !controls.canDecrementHours) {
-        return false;
-    }
-    return true;
-}
-function canChangeMinutes(event, controls) {
-    if (!event.step) {
-        return false;
-    }
-    if (event.step > 0 && !controls.canIncrementMinutes) {
-        return false;
-    }
-    if (event.step < 0 && !controls.canDecrementMinutes) {
-        return false;
-    }
-    return true;
-}
-function canChangeSeconds(event, controls) {
-    if (!event.step) {
-        return false;
-    }
-    if (event.step > 0 && !controls.canIncrementSeconds) {
-        return false;
-    }
-    if (event.step < 0 && !controls.canDecrementSeconds) {
-        return false;
-    }
-    return true;
-}
-function getControlsValue(state$$1) {
-    var hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, readonlyInput = state$$1.readonlyInput, disabled = state$$1.disabled, mousewheel = state$$1.mousewheel, arrowkeys = state$$1.arrowkeys, showSpinners = state$$1.showSpinners, showMeridian = state$$1.showMeridian, showSeconds = state$$1.showSeconds, meridians = state$$1.meridians, min = state$$1.min, max = state$$1.max;
-    return {
-        hourStep: hourStep,
-        minuteStep: minuteStep,
-        secondsStep: secondsStep,
-        readonlyInput: readonlyInput,
-        disabled: disabled,
-        mousewheel: mousewheel,
-        arrowkeys: arrowkeys,
-        showSpinners: showSpinners,
-        showMeridian: showMeridian,
-        showSeconds: showSeconds,
-        meridians: meridians,
-        min: min,
-        max: max
-    };
-}
-function timepickerControls(value, state$$1) {
-    var hoursPerDayHalf = 12;
-    var min = state$$1.min, max = state$$1.max, hourStep = state$$1.hourStep, minuteStep = state$$1.minuteStep, secondsStep = state$$1.secondsStep, showSeconds = state$$1.showSeconds;
-    var res = {
-        canIncrementHours: true,
-        canIncrementMinutes: true,
-        canIncrementSeconds: true,
-        canDecrementHours: true,
-        canDecrementMinutes: true,
-        canDecrementSeconds: true,
-        canToggleMeridian: true
-    };
-    if (!value) {
-        return res;
-    }
-    // compare dates
-    if (max) {
-        var _newHour = changeTime(value, { hour: hourStep });
-        res.canIncrementHours = max > _newHour;
-        if (!res.canIncrementHours) {
-            var _newMinutes = changeTime(value, { minute: minuteStep });
-            res.canIncrementMinutes = showSeconds
-                ? max > _newMinutes
-                : max >= _newMinutes;
-        }
-        if (!res.canIncrementMinutes) {
-            var _newSeconds = changeTime(value, { seconds: secondsStep });
-            res.canIncrementSeconds = max >= _newSeconds;
-        }
-        if (value.getHours() < hoursPerDayHalf) {
-            res.canToggleMeridian = changeTime(value, { hour: hoursPerDayHalf }) < max;
-        }
-    }
-    if (min) {
-        var _newHour = changeTime(value, { hour: -hourStep });
-        res.canDecrementHours = min < _newHour;
-        if (!res.canDecrementHours) {
-            var _newMinutes = changeTime(value, { minute: -minuteStep });
-            res.canDecrementMinutes = showSeconds
-                ? min < _newMinutes
-                : min <= _newMinutes;
-        }
-        if (!res.canDecrementMinutes) {
-            var _newSeconds = changeTime(value, { seconds: -secondsStep });
-            res.canDecrementSeconds = min <= _newSeconds;
-        }
-        if (value.getHours() >= hoursPerDayHalf) {
-            res.canToggleMeridian = changeTime(value, { hour: -hoursPerDayHalf }) > min;
-        }
-    }
-    return res;
-}
-/** Provides default configuration values for timepicker */
-var TimepickerConfig = (function () {
-    function TimepickerConfig() {
-        /** hours change step */
-        this.hourStep = 1;
-        /** hours change step */
-        this.minuteStep = 5;
-        /** seconds changes step */
-        this.secondsStep = 10;
-        /** if true works in 12H mode and displays AM/PM. If false works in 24H mode and hides AM/PM */
-        this.showMeridian = true;
-        /** meridian labels based on locale */
-        this.meridians = ['AM', 'PM'];
-        /** if true hours and minutes fields will be readonly */
-        this.readonlyInput = false;
-        /** if true hours and minutes fields will be disabled */
+var SPIN_BUTTON_VALUE_ACCESSOR = {
+    provide: forms.NG_VALUE_ACCESSOR,
+    useExisting: core.forwardRef(function () { return SpinButtonComponent; }),
+    multi: true
+};
+var SpinButtonComponent = (function () {
+    function SpinButtonComponent() {
+        this.type = 'text';
+        this.placeholder = '';
         this.disabled = false;
-        /** if true scroll inside hours and minutes inputs will change time */
-        this.mousewheel = true;
-        /** if true up/down arrowkeys inside hours and minutes inputs will change time */
+        this.spinners = true;
+        this.readOnly = true;
+        this.scrolling = true;
         this.arrowkeys = true;
-        /** if true spinner arrows above and below the inputs will be shown */
-        this.showSpinners = true;
-        /** show seconds in timepicker */
-        this.showSeconds = false;
-        /** show minutes in timepicker */
-        this.showMinutes = true;
+        this.valueChange = new core.EventEmitter();
+        this.increment = new core.EventEmitter();
+        this.decrement = new core.EventEmitter();
+        this.onTouchedCallback = function () { };
+        this.onChangeCallback = function () { };
     }
-    TimepickerConfig.decorators = [
-        { type: core.Injectable },
-    ];
-    /** @nocollapse */
-    TimepickerConfig.ctorParameters = function () { return []; };
-    return TimepickerConfig;
-}());
-var initialState = {
-    value: null,
-    config: new TimepickerConfig(),
-    controls: {
-        canIncrementHours: true,
-        canIncrementMinutes: true,
-        canIncrementSeconds: true,
-        canDecrementHours: true,
-        canDecrementMinutes: true,
-        canDecrementSeconds: true,
-        canToggleMeridian: true
-    }
-};
-function timepickerReducer(state$$1, action) {
-    if (state$$1 === void 0) {
-        state$$1 = initialState;
-    }
-    switch (action.type) {
-        case TimepickerActions.WRITE_VALUE: {
-            return Object.assign({}, state$$1, { value: action.payload });
-        }
-        case TimepickerActions.CHANGE_HOURS: {
-            if (!canChangeValue(state$$1.config, action.payload) ||
-                !canChangeHours(action.payload, state$$1.controls)) {
-                return state$$1;
-            }
-            var _newTime = changeTime(state$$1.value, { hour: action.payload.step });
-            if ((state$$1.config.max || state$$1.config.min) && !isValidLimit(state$$1.config, _newTime)) {
-                return state$$1;
-            }
-            return Object.assign({}, state$$1, { value: _newTime });
-        }
-        case TimepickerActions.CHANGE_MINUTES: {
-            if (!canChangeValue(state$$1.config, action.payload) ||
-                !canChangeMinutes(action.payload, state$$1.controls)) {
-                return state$$1;
-            }
-            var _newTime = changeTime(state$$1.value, { minute: action.payload.step });
-            if ((state$$1.config.max || state$$1.config.min) && !isValidLimit(state$$1.config, _newTime)) {
-                return state$$1;
-            }
-            return Object.assign({}, state$$1, { value: _newTime });
-        }
-        case TimepickerActions.CHANGE_SECONDS: {
-            if (!canChangeValue(state$$1.config, action.payload) ||
-                !canChangeSeconds(action.payload, state$$1.controls)) {
-                return state$$1;
-            }
-            var _newTime = changeTime(state$$1.value, {
-                seconds: action.payload.step
-            });
-            if ((state$$1.config.max || state$$1.config.min) && !isValidLimit(state$$1.config, _newTime)) {
-                return state$$1;
-            }
-            return Object.assign({}, state$$1, { value: _newTime });
-        }
-        case TimepickerActions.SET_TIME_UNIT: {
-            if (!canChangeValue(state$$1.config)) {
-                return state$$1;
-            }
-            var _newTime = setTime(state$$1.value, action.payload);
-            return Object.assign({}, state$$1, { value: _newTime });
-        }
-        case TimepickerActions.UPDATE_CONTROLS: {
-            var _newControlsState = timepickerControls(state$$1.value, action.payload);
-            var _newState = {
-                value: state$$1.value,
-                config: action.payload,
-                controls: _newControlsState
-            };
-            if (state$$1.config.showMeridian !== _newState.config.showMeridian) {
-                if (state$$1.value) {
-                    _newState.value = new Date(state$$1.value);
-                }
-            }
-            return Object.assign({}, state$$1, _newState);
-        }
-        default:
-            return state$$1;
-    }
-}
-var __extends$100 = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b)
-            if (b.hasOwnProperty(p))
-                d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @copyright ngrx
- */
-var MiniState = (function (_super) {
-    __extends$100(MiniState, _super);
-    function MiniState(_initialState, actionsDispatcher$, reducer) {
-        var _this = _super.call(this, _initialState) || this;
-        var actionInQueue$ = observeOn.observeOn.call(actionsDispatcher$, queue_1);
-        var state$ = scan.scan.call(actionInQueue$, function (state$$1, action) {
-            if (!action) {
-                return state$$1;
-            }
-            return reducer(state$$1, action);
-        }, _initialState);
-        state$.subscribe(function (value) { return _this.next(value); });
-        return _this;
-    }
-    return MiniState;
-}(BehaviorSubject.BehaviorSubject));
-var __extends$101 = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b)
-            if (b.hasOwnProperty(p))
-                d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-/**
- * @copyright ngrx
- */
-var MiniStore = (function (_super) {
-    __extends$101(MiniStore, _super);
-    function MiniStore(_dispatcher, _reducer, state$) {
-        var _this = _super.call(this) || this;
-        _this._dispatcher = _dispatcher;
-        _this._reducer = _reducer;
-        _this.source = state$;
-        return _this;
-    }
-    MiniStore.prototype.select = function (pathOrMapFn) {
-        var mapped$ = map.map.call(this, pathOrMapFn);
-        return distinctUntilChanged.distinctUntilChanged.call(mapped$);
-    };
-    MiniStore.prototype.lift = function (operator) {
-        var store = new MiniStore(this._dispatcher, this._reducer, this);
-        store.operator = operator;
-        return store;
-    };
-    MiniStore.prototype.dispatch = function (action) {
-        this._dispatcher.next(action);
-    };
-    MiniStore.prototype.next = function (action) {
-        this._dispatcher.next(action);
-    };
-    MiniStore.prototype.error = function (err) {
-        this._dispatcher.error(err);
-    };
-    MiniStore.prototype.complete = function () {
-        /*noop*/
-    };
-    return MiniStore;
-}(Observable.Observable));
-var __extends$99 = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b)
-            if (b.hasOwnProperty(p))
-                d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var TimepickerStore = (function (_super) {
-    __extends$99(TimepickerStore, _super);
-    function TimepickerStore() {
-        var _this = this;
-        var _dispatcher = new BehaviorSubject.BehaviorSubject({
-            type: '[mini-ngrx] dispatcher init'
-        });
-        var state$$1 = new MiniState(initialState, _dispatcher, timepickerReducer);
-        _this = _super.call(this, _dispatcher, timepickerReducer, state$$1) || this;
-        return _this;
-    }
-    TimepickerStore.decorators = [
-        { type: core.Injectable },
-    ];
-    /** @nocollapse */
-    TimepickerStore.ctorParameters = function () { return []; };
-    return TimepickerStore;
-}(MiniStore));
-/* tslint:disable:no-forward-ref max-file-line-count */
-var TIMEPICKER_CONTROL_VALUE_ACCESSOR = {
-    provide: forms.NG_VALUE_ACCESSOR,
-    // tslint:disable-next-line
-    useExisting: core.forwardRef(function () { return TimepickerComponent; }),
-    multi: true
-};
-var TimepickerComponent = (function () {
-    function TimepickerComponent(_config, _cd, _store, _timepickerActions) {
-        var _this = this;
-        this._store = _store;
-        this._timepickerActions = _timepickerActions;
-        /** emits true if value is a valid date */
-        this.isValid = new core.EventEmitter();
-        // min\max validation for input fields
-        this.invalidHours = false;
-        this.invalidMinutes = false;
-        this.invalidSeconds = false;
-        // control value accessor methods
-        this.onChange = Function.prototype;
-        this.onTouched = Function.prototype;
-        Object.assign(this, _config);
-        this.timepickerSub = _store.select(function (state$$1) { return state$$1.value; }).subscribe(function (value) {
-            // update UI values if date changed
-            _this._renderTime(value);
-            _this.onChange(value);
-            _this._store.dispatch(_this._timepickerActions.updateControls(getControlsValue(_this)));
-        });
-        _store.select(function (state$$1) { return state$$1.controls; }).subscribe(function (controlsState) {
-            _this.isValid.emit(isInputValid(_this.hours, _this.minutes, _this.seconds, _this.isPM()));
-            Object.assign(_this, controlsState);
-            _cd.markForCheck();
-        });
-    }
-    Object.defineProperty(TimepickerComponent.prototype, "isSpinnersVisible", {
-        /** @deprecated - please use `isEditable` instead */
-        get: function () {
-            return this.showSpinners && !this.readonlyInput;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TimepickerComponent.prototype, "isEditable", {
-        get: function () {
-            return !(this.readonlyInput || this.disabled);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TimepickerComponent.prototype.resetValidation = function () {
-        this.invalidHours = false;
-        this.invalidMinutes = false;
-        this.invalidSeconds = false;
-    };
-    TimepickerComponent.prototype.isPM = function () {
-        return this.showMeridian && this.meridian === this.meridians[1];
-    };
-    TimepickerComponent.prototype.prevDef = function ($event) {
-        $event.preventDefault();
-    };
-    TimepickerComponent.prototype.wheelSign = function ($event) {
-        return Math.sign($event.deltaY) * -1;
-    };
-    TimepickerComponent.prototype.ngOnChanges = function (changes) {
-        this._store.dispatch(this._timepickerActions.updateControls(getControlsValue(this)));
-    };
-    TimepickerComponent.prototype.changeHours = function (step, source) {
-        if (source === void 0) {
-            source = '';
-        }
-        this.resetValidation();
-        this._store.dispatch(this._timepickerActions.changeHours({ step: step, source: source }));
-    };
-    TimepickerComponent.prototype.changeMinutes = function (step, source) {
-        if (source === void 0) {
-            source = '';
-        }
-        this.resetValidation();
-        this._store.dispatch(this._timepickerActions.changeMinutes({ step: step, source: source }));
-    };
-    TimepickerComponent.prototype.changeSeconds = function (step, source) {
-        if (source === void 0) {
-            source = '';
-        }
-        this.resetValidation();
-        this._store.dispatch(this._timepickerActions.changeSeconds({ step: step, source: source }));
-    };
-    TimepickerComponent.prototype.updateHours = function (hours) {
-        this.resetValidation();
-        this.hours = hours;
-        var isValid = isHourInputValid(this.hours, this.isPM()) && this.isValidLimit();
-        if (!isValid) {
-            this.invalidHours = true;
-            this.isValid.emit(false);
-            this.onChange(null);
-            return;
-        }
-        this._updateTime();
-    };
-    TimepickerComponent.prototype.updateMinutes = function (minutes) {
-        this.resetValidation();
-        this.minutes = minutes;
-        var isValid = isMinuteInputValid(this.minutes) && this.isValidLimit();
-        if (!isValid) {
-            this.invalidMinutes = true;
-            this.isValid.emit(false);
-            this.onChange(null);
-            return;
-        }
-        this._updateTime();
-    };
-    TimepickerComponent.prototype.updateSeconds = function (seconds) {
-        this.resetValidation();
-        this.seconds = seconds;
-        var isValid = isSecondInputValid(this.seconds) && this.isValidLimit();
-        if (!isValid) {
-            this.invalidSeconds = true;
-            this.isValid.emit(false);
-            this.onChange(null);
-            return;
-        }
-        this._updateTime();
-    };
-    TimepickerComponent.prototype.isValidLimit = function () {
-        return isInputLimitValid({
-            hour: this.hours,
-            minute: this.minutes,
-            seconds: this.seconds,
-            isPM: this.isPM()
-        }, this.max, this.min);
-    };
-    TimepickerComponent.prototype._updateTime = function () {
-        var _seconds = this.showSeconds ? this.seconds : void 0;
-        var _minutes = this.showMinutes ? this.minutes : void 0;
-        if (!isInputValid(this.hours, _minutes, _seconds, this.isPM())) {
-            this.isValid.emit(false);
-            this.onChange(null);
-            return;
-        }
-        this._store.dispatch(this._timepickerActions.setTime({
-            hour: this.hours,
-            minute: this.minutes,
-            seconds: this.seconds,
-            isPM: this.isPM()
-        }));
-    };
-    TimepickerComponent.prototype.toggleMeridian = function () {
-        if (!this.showMeridian || !this.isEditable) {
-            return;
-        }
-        var _hoursPerDayHalf = 12;
-        this._store.dispatch(this._timepickerActions.changeHours({
-            step: _hoursPerDayHalf,
-            source: ''
-        }));
-    };
-    /**
-     * Write a new value to the element.
-     */
-    TimepickerComponent.prototype.writeValue = function (obj) {
-        if (isValidDate(obj)) {
-            this._store.dispatch(this._timepickerActions.writeValue(parseTime(obj)));
-        }
-        else if (obj == null) {
-            this._store.dispatch(this._timepickerActions.writeValue(null));
-        }
-    };
-    /**
-     * Set the function to be called when the control receives a change event.
-     */
-    TimepickerComponent.prototype.registerOnChange = function (fn) {
-        this.onChange = fn;
-    };
-    /**
-     * Set the function to be called when the control receives a touch event.
-     */
-    TimepickerComponent.prototype.registerOnTouched = function (fn) {
-        this.onTouched = fn;
-    };
-    /**
-     * This function is called when the control status changes to or from "disabled".
-     * Depending on the value, it will enable or disable the appropriate DOM element.
-     *
-     * @param isDisabled
-     */
-    TimepickerComponent.prototype.setDisabledState = function (isDisabled) {
-        this.disabled = isDisabled;
-    };
-    TimepickerComponent.prototype.ngOnDestroy = function () {
-        this.timepickerSub.unsubscribe();
-    };
-    TimepickerComponent.prototype._renderTime = function (value) {
-        if (!isValidDate(value)) {
-            this.hours = '';
-            this.minutes = '';
-            this.seconds = '';
-            this.meridian = this.meridians[0];
-            return;
-        }
-        var _value = parseTime(value);
-        var _hoursPerDayHalf = 12;
-        var _hours = _value.getHours();
-        if (this.showMeridian) {
-            this.meridian = this.meridians[_hours >= _hoursPerDayHalf ? 1 : 0];
-            _hours = _hours % _hoursPerDayHalf;
-            // should be 12 PM, not 00 PM
-            if (_hours === 0) {
-                _hours = _hoursPerDayHalf;
-            }
-        }
-        this.hours = padNumber(_hours);
-        this.minutes = padNumber(_value.getMinutes());
-        this.seconds = padNumber(_value.getUTCSeconds());
-    };
-    TimepickerComponent.decorators = [
-        { type: core.Component, args: [{
-                    selector: 'timepicker',
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
-                    providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, TimepickerStore],
-                    template: "<table> <tbody> <tr class=\"text-center\" [hidden]=\"!showSpinners\"> <!-- increment hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementHours || !isEditable\" (click)=\"changeHours(hourStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- increment minutes button --> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementMinutes || !isEditable\" (click)=\"changeMinutes(minuteStep)\" ><span class=\"bs-chevron bs-chevron-up\"></span></a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- increment seconds button --> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canIncrementSeconds || !isEditable\" (click)=\"changeSeconds(secondsStep)\"> <span class=\"bs-chevron bs-chevron-up\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> <tr> <!-- hours --> <td class=\"form-group\" [class.has-error]=\"invalidHours\"> <input type=\"text\" [class.is-invalid]=\"invalidHours\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"HH\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"hours\" (wheel)=\"prevDef($event);changeHours(hourStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeHours(hourStep, 'key')\" (keydown.ArrowDown)=\"changeHours(-hourStep, 'key')\" (change)=\"updateHours($event.target.value)\"></td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;:&nbsp;</td> <!-- minutes --> <td class=\"form-group\" *ngIf=\"showMinutes\" [class.has-error]=\"invalidMinutes\"> <input type=\"text\" [class.is-invalid]=\"invalidMinutes\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"MM\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"minutes\" (wheel)=\"prevDef($event);changeMinutes(minuteStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeMinutes(minuteStep, 'key')\" (keydown.ArrowDown)=\"changeMinutes(-minuteStep, 'key')\" (change)=\"updateMinutes($event.target.value)\"> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;:&nbsp;</td> <!-- seconds --> <td class=\"form-group\" *ngIf=\"showSeconds\" [class.has-error]=\"invalidSeconds\"> <input type=\"text\" [class.is-invalid]=\"invalidSeconds\" class=\"form-control text-center bs-timepicker-field\" placeholder=\"SS\" maxlength=\"2\" [readonly]=\"readonlyInput\" [disabled]=\"disabled\" [value]=\"seconds\" (wheel)=\"prevDef($event);changeSeconds(secondsStep * wheelSign($event), 'wheel')\" (keydown.ArrowUp)=\"changeSeconds(secondsStep, 'key')\" (keydown.ArrowDown)=\"changeSeconds(-secondsStep, 'key')\" (change)=\"updateSeconds($event.target.value)\"> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian --> <td *ngIf=\"showMeridian\"> <button type=\"button\" class=\"btn btn-default text-center\" [disabled]=\"!isEditable || !canToggleMeridian\" [class.disabled]=\"!isEditable || !canToggleMeridian\" (click)=\"toggleMeridian()\" >{{ meridian }} </button> </td> </tr> <tr class=\"text-center\" [hidden]=\"!showSpinners\"> <!-- decrement hours button--> <td> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementHours || !isEditable\" (click)=\"changeHours(-hourStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showMinutes\">&nbsp;&nbsp;&nbsp;</td> <!-- decrement minutes button--> <td *ngIf=\"showMinutes\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementMinutes || !isEditable\" (click)=\"changeMinutes(-minuteStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- divider --> <td *ngIf=\"showSeconds\">&nbsp;</td> <!-- decrement seconds button--> <td *ngIf=\"showSeconds\"> <a class=\"btn btn-link\" [class.disabled]=\"!canDecrementSeconds || !isEditable\" (click)=\"changeSeconds(-secondsStep)\"> <span class=\"bs-chevron bs-chevron-down\"></span> </a> </td> <!-- space between --> <td *ngIf=\"showMeridian\">&nbsp;&nbsp;&nbsp;</td> <!-- meridian placeholder--> <td *ngIf=\"showMeridian\"></td> </tr> </tbody> </table> ",
-                    styles: ["\n    .bs-chevron{\n      border-style: solid;\n      display: block;\n      width: 9px;\n      height: 9px;\n      position: relative;\n      border-width: 3px 0px 0 3px;\n    }\n    .bs-chevron-up{\n      -webkit-transform: rotate(45deg);\n      transform: rotate(45deg);\n      top: 2px;\n    }\n    .bs-chevron-down{\n      -webkit-transform: rotate(-135deg);\n      transform: rotate(-135deg);\n      top: -2px;\n    }\n    .bs-timepicker-field{\n      width: 50px;\n    }\n  "],
-                    encapsulation: core.ViewEncapsulation.None
-                },] },
-    ];
-    /** @nocollapse */
-    TimepickerComponent.ctorParameters = function () {
-        return [
-            { type: TimepickerConfig, },
-            { type: core.ChangeDetectorRef, },
-            { type: TimepickerStore, },
-            { type: TimepickerActions, },
-        ];
-    };
-    TimepickerComponent.propDecorators = {
-        'hourStep': [{ type: core.Input },],
-        'minuteStep': [{ type: core.Input },],
-        'secondsStep': [{ type: core.Input },],
-        'readonlyInput': [{ type: core.Input },],
-        'disabled': [{ type: core.Input },],
-        'mousewheel': [{ type: core.Input },],
-        'arrowkeys': [{ type: core.Input },],
-        'showSpinners': [{ type: core.Input },],
-        'showMeridian': [{ type: core.Input },],
-        'showMinutes': [{ type: core.Input },],
-        'showSeconds': [{ type: core.Input },],
-        'meridians': [{ type: core.Input },],
-        'min': [{ type: core.Input },],
-        'max': [{ type: core.Input },],
-        'isValid': [{ type: core.Output },],
-    };
-    return TimepickerComponent;
-}());
-var TimepickerModule = (function () {
-    function TimepickerModule() {
-    }
-    TimepickerModule.forRoot = function () {
-        return {
-            ngModule: TimepickerModule,
-            providers: [TimepickerConfig, TimepickerActions, TimepickerStore]
-        };
-    };
-    TimepickerModule.decorators = [
-        { type: core.NgModule, args: [{
-                    imports: [common.CommonModule],
-                    declarations: [TimepickerComponent],
-                    exports: [TimepickerComponent]
-                },] },
-    ];
-    /** @nocollapse */
-    TimepickerModule.ctorParameters = function () { return []; };
-    return TimepickerModule;
-}());
-// tslint:disable:no-use-before-declare
-// TODO: config: activeClass - Class to apply to the checked buttons
-var CHECKBOX_CONTROL_VALUE_ACCESSOR = {
-    provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return ButtonCheckboxDirective; }),
-    multi: true
-};
-/**
- * Add checkbox functionality to any element
- */
-var ButtonCheckboxDirective = (function () {
-    function ButtonCheckboxDirective() {
-        /** Truthy value, will be set to ngModel */
-        this.btnCheckboxTrue = true;
-        /** Falsy value, will be set to ngModel */
-        this.btnCheckboxFalse = false;
-        this.state = false;
-        this.onChange = Function.prototype;
-        this.onTouched = Function.prototype;
-    }
-    // view -> model
-    ButtonCheckboxDirective.prototype.onClick = function () {
-        if (this.isDisabled) {
-            return;
-        }
-        this.toggle(!this.state);
-        this.onChange(this.value);
-    };
-    ButtonCheckboxDirective.prototype.ngOnInit = function () {
-        this.toggle(this.trueValue === this.value);
-    };
-    Object.defineProperty(ButtonCheckboxDirective.prototype, "trueValue", {
-        get: function () {
-            return typeof this.btnCheckboxTrue !== 'undefined'
-                ? this.btnCheckboxTrue
-                : true;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ButtonCheckboxDirective.prototype, "falseValue", {
-        get: function () {
-            return typeof this.btnCheckboxFalse !== 'undefined'
-                ? this.btnCheckboxFalse
-                : false;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ButtonCheckboxDirective.prototype.toggle = function (state$$1) {
-        this.state = state$$1;
-        this.value = this.state ? this.trueValue : this.falseValue;
-    };
-    // ControlValueAccessor
-    // model -> view
-    ButtonCheckboxDirective.prototype.writeValue = function (value) {
-        this.state = this.trueValue === value;
-        this.value = value ? this.trueValue : this.falseValue;
-    };
-    ButtonCheckboxDirective.prototype.setDisabledState = function (isDisabled) {
-        this.isDisabled = isDisabled;
-    };
-    ButtonCheckboxDirective.prototype.registerOnChange = function (fn) {
-        this.onChange = fn;
-    };
-    ButtonCheckboxDirective.prototype.registerOnTouched = function (fn) {
-        this.onTouched = fn;
-    };
-    ButtonCheckboxDirective.decorators = [
-        { type: core.Directive, args: [{
-                    selector: '[btnCheckbox]',
-                    providers: [CHECKBOX_CONTROL_VALUE_ACCESSOR]
-                },] },
-    ];
-    /** @nocollapse */
-    ButtonCheckboxDirective.ctorParameters = function () { return []; };
-    ButtonCheckboxDirective.propDecorators = {
-        'btnCheckboxTrue': [{ type: core.Input },],
-        'btnCheckboxFalse': [{ type: core.Input },],
-        'state': [{ type: core.HostBinding, args: ['class.active',] }, { type: core.HostBinding, args: ['attr.aria-pressed',] },],
-        'onClick': [{ type: core.HostListener, args: ['click',] },],
-    };
-    return ButtonCheckboxDirective;
-}());
-// tslint:disable:no-use-before-declare
-var RADIO_CONTROL_VALUE_ACCESSOR = {
-    provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return ButtonRadioGroupDirective; }),
-    multi: true
-};
-/**
- * A group of radio buttons.
- * A value of a selected button is bound to a variable specified via ngModel.
- */
-var ButtonRadioGroupDirective = (function () {
-    function ButtonRadioGroupDirective(el, cdr) {
-        this.el = el;
-        this.cdr = cdr;
-        this.onChange = Function.prototype;
-        this.onTouched = Function.prototype;
-    }
-    Object.defineProperty(ButtonRadioGroupDirective.prototype, "value", {
+    Object.defineProperty(SpinButtonComponent.prototype, "value", {
+        /**
+         * @return {?}
+         */
         get: function () {
             return this._value;
         },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
         set: function (value) {
             this._value = value;
+            this.onChangeCallback(value);
+            this.onTouchedCallback();
         },
         enumerable: true,
         configurable: true
     });
-    ButtonRadioGroupDirective.prototype.writeValue = function (value) {
-        this._value = value;
-        this.cdr.markForCheck();
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    SpinButtonComponent.prototype.scroll = function (event) {
+        if (!this.scrolling) {
+            return;
+        }
+        if (event.deltaY > 0) {
+            this.triggerDecrement();
+        }
+        else {
+            this.triggerIncrement();
+        }
+        event.preventDefault();
     };
-    ButtonRadioGroupDirective.prototype.registerOnChange = function (fn) {
-        this.onChange = fn;
+    /**
+     * @return {?}
+     */
+    SpinButtonComponent.prototype.triggerIncrement = function () {
+        if (!this.disabled) {
+            this.increment.emit();
+        }
     };
-    ButtonRadioGroupDirective.prototype.registerOnTouched = function (fn) {
-        this.onTouched = fn;
+    /**
+     * @return {?}
+     */
+    SpinButtonComponent.prototype.triggerDecrement = function () {
+        if (!this.disabled) {
+            this.decrement.emit();
+        }
     };
-    ButtonRadioGroupDirective.decorators = [
-        { type: core.Directive, args: [{
-                    selector: '[btnRadioGroup]',
-                    providers: [RADIO_CONTROL_VALUE_ACCESSOR]
-                },] },
-    ];
-    /** @nocollapse */
-    ButtonRadioGroupDirective.ctorParameters = function () {
-        return [
-            { type: core.ElementRef, },
-            { type: core.ChangeDetectorRef, },
-        ];
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    SpinButtonComponent.prototype.writeValue = function (value) {
+        this.value = value;
     };
-    return ButtonRadioGroupDirective;
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    SpinButtonComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    SpinButtonComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
+    };
+    /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    SpinButtonComponent.prototype.setDisabledState = function (isDisabled) {
+        this.disabled = isDisabled;
+    };
+    return SpinButtonComponent;
 }());
-// tslint:disable:no-use-before-declare
-var RADIO_CONTROL_VALUE_ACCESSOR$1 = {
+SpinButtonComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-spin-button',
+                template: "\n      <button class=\"spin-button\"\n              *ngIf=\"spinners\"\n              tabindex=\"-1\"\n              [disabled]=\"disabled\"\n              [attr.aria-label]=\"incrementAriaLabel\"\n              [attr.aria-disabled]=\"disabled\"\n              (click)=\"triggerIncrement()\">\n\n        <span class=\"hpe-icon hpe-up\"></span>\n      </button>\n\n      <input [type]=\"type\"\n             role=\"spinbutton\"\n             [min]=\"min\"\n             [max]=\"max\"\n             [tabindex]=\"0\"\n             class=\"form-control\"\n             [placeholder]=\"placeholder\"\n             [readOnly]=\"readOnly\"\n             [disabled]=\"disabled\"\n             [attr.aria-label]=\"inputAriaLabel\"\n             [attr.aria-disabled]=\"disabled\"\n             [attr.aria-valuemin]=\"min\"\n             [attr.aria-valuenow]=\"value\"\n             [attr.aria-valuemax]=\"max\"\n             [attr.aria-readonly]=\"readOnly\"\n             [ngModel]=\"value\"\n             (ngModelChange)=\"valueChange.emit($event)\"\n             (wheel)=\"scroll($event)\"\n             (keydown.arrowup)=\"arrowkeys ? triggerIncrement() : null; $event.preventDefault()\"\n             (keydown.arrowdown)=\"arrowkeys ? triggerDecrement() : null; $event.preventDefault()\">\n\n      <button class=\"spin-button\"\n              *ngIf=\"spinners\"\n              tabindex=\"-1\"\n              [disabled]=\"disabled\"\n              [attr.aria-label]=\"decrementAriaLabel\"\n              [attr.aria-disabled]=\"disabled\"\n              (click)=\"triggerDecrement()\">\n\n        <span class=\"hpe-icon hpe-down\"></span>\n      </button>\n    ",
+                encapsulation: core.ViewEncapsulation.None,
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
+                providers: [SPIN_BUTTON_VALUE_ACCESSOR]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SpinButtonComponent.ctorParameters = function () { return []; };
+SpinButtonComponent.propDecorators = {
+    'value': [{ type: core.Input },],
+    'type': [{ type: core.Input },],
+    'min': [{ type: core.Input },],
+    'max': [{ type: core.Input },],
+    'placeholder': [{ type: core.Input },],
+    'disabled': [{ type: core.Input },],
+    'spinners': [{ type: core.Input },],
+    'readOnly': [{ type: core.Input },],
+    'scrolling': [{ type: core.Input },],
+    'arrowkeys': [{ type: core.Input },],
+    'incrementAriaLabel': [{ type: core.Input },],
+    'inputAriaLabel': [{ type: core.Input },],
+    'decrementAriaLabel': [{ type: core.Input },],
+    'valueChange': [{ type: core.Output },],
+    'increment': [{ type: core.Output },],
+    'decrement': [{ type: core.Output },],
+};
+var SpinButtonModule = (function () {
+    function SpinButtonModule() {
+    }
+    return SpinButtonModule;
+}());
+SpinButtonModule.decorators = [
+    { type: core.NgModule, args: [{
+                imports: [
+                    common.CommonModule,
+                    forms.FormsModule
+                ],
+                exports: [SpinButtonComponent],
+                declarations: [SpinButtonComponent]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SpinButtonModule.ctorParameters = function () { return []; };
+var TimeFormatPipe = (function () {
+    function TimeFormatPipe() {
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    TimeFormatPipe.prototype.transform = function (value) {
+        return value < 10 ? '0' + value : value;
+    };
+    return TimeFormatPipe;
+}());
+TimeFormatPipe.decorators = [
+    { type: core.Pipe, args: [{
+                name: 'timeFormat'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TimeFormatPipe.ctorParameters = function () { return []; };
+var TIME_PICKER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return ButtonRadioDirective; }),
+    useExisting: core.forwardRef(function () { return TimePickerComponent; }),
     multi: true
 };
-/**
- * Create radio buttons or groups of buttons.
- * A value of a selected button is bound to a variable specified via ngModel.
- */
-var ButtonRadioDirective = (function () {
-    function ButtonRadioDirective(el, cdr, group, renderer) {
-        this.el = el;
-        this.cdr = cdr;
-        this.group = group;
-        this.renderer = renderer;
-        this.onChange = Function.prototype;
-        this.onTouched = Function.prototype;
+var TimePickerComponent = (function () {
+    function TimePickerComponent() {
+        var _this = this;
+        this.arrowkeys = true;
+        this.mousewheel = true;
+        this.disabled = false;
+        this.readOnly = false;
+        this.showMeridian = false;
+        this.showHours = true;
+        this.showMinutes = true;
+        this.showSeconds = false;
+        this.showSpinners = true;
+        this.hourStep = 1;
+        this.minuteStep = 1;
+        this.secondStep = 1;
+        this.meridians = ['AM', 'PM'];
+        this.valueChange = new core.EventEmitter();
+        this.isValid = new core.EventEmitter();
+        this.onTouchedCallback = function () { };
+        this.onChangeCallback = function () { };
+        this.value$ = new BehaviorSubject.BehaviorSubject(new Date());
+        // create observables that are derived from the latest value
+        this.hour$ = this.value$.pipe(map$1(function (date) { return date.getHours(); }), map$1(function (hour) { return _this.showMeridian ? _this.getMeridianTime(hour) : hour; }));
+        this.minute$ = this.value$.pipe(map$1(function (date) { return date.getMinutes(); }));
+        this.second$ = this.value$.pipe(map$1(function (date) { return date.getSeconds(); }));
+        this.meridian$ = this.value$.pipe(map$1(function (date) { return date.getHours() < 12 ? _this.meridians[0] : _this.meridians[1]; }));
+        this.valid$ = this.value$.pipe(map$1(function (date) { return _this.checkValidity(date); }));
+        this._meridian = this.meridians[0];
+        this._subscription = this.valid$.pipe(distinctUntilChanged$1()).subscribe(function (valid) { return _this.isValid.emit(valid); });
     }
-    Object.defineProperty(ButtonRadioDirective.prototype, "value", {
-        /** Current value of radio component or group */
+    Object.defineProperty(TimePickerComponent.prototype, "value", {
+        /**
+         * @return {?}
+         */
         get: function () {
-            return this.group ? this.group.value : this._value;
+            return new Date(this.value$.value);
         },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
         set: function (value) {
-            if (this.group) {
-                this.group.value = value;
-                return;
-            }
-            this._value = value;
+            this.value$.next(new Date(value));
+            this.valueChange.emit(this.value$.value);
+            this.onChangeCallback(this.value$.value);
+            this.onTouchedCallback();
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ButtonRadioDirective.prototype, "disabled", {
-        /** If `true` — radio button is disabled */
-        get: function () {
-            return this._disabled;
-        },
-        set: function (disabled) {
-            this._disabled = disabled;
-            this.setDisabledState(disabled);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ButtonRadioDirective.prototype, "isActive", {
-        get: function () {
-            return this.btnRadio === this.value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ButtonRadioDirective.prototype.onClick = function () {
-        if (this.el.nativeElement.attributes.disabled || !this.uncheckable && this.btnRadio === this.value) {
-            return;
-        }
-        this.value = this.uncheckable && this.btnRadio === this.value ? undefined : this.btnRadio;
-        this._onChange(this.value);
+    /**
+     * @return {?}
+     */
+    TimePickerComponent.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
     };
-    ButtonRadioDirective.prototype.ngOnInit = function () {
-        this.uncheckable = typeof this.uncheckable !== 'undefined';
-    };
-    ButtonRadioDirective.prototype.onBlur = function () {
-        this.onTouched();
-    };
-    ButtonRadioDirective.prototype._onChange = function (value) {
-        if (this.group) {
-            this.group.onTouched();
-            this.group.onChange(value);
-            return;
-        }
-        this.onTouched();
-        this.onChange(value);
-    };
-    // ControlValueAccessor
-    // model -> view
-    ButtonRadioDirective.prototype.writeValue = function (value) {
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    TimePickerComponent.prototype.writeValue = function (value) {
         this.value = value;
-        this.cdr.markForCheck();
     };
-    ButtonRadioDirective.prototype.registerOnChange = function (fn) {
-        this.onChange = fn;
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    TimePickerComponent.prototype.registerOnChange = function (fn) {
+        this.onChangeCallback = fn;
     };
-    ButtonRadioDirective.prototype.registerOnTouched = function (fn) {
-        this.onTouched = fn;
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    TimePickerComponent.prototype.registerOnTouched = function (fn) {
+        this.onTouchedCallback = fn;
     };
-    ButtonRadioDirective.prototype.setDisabledState = function (disabled) {
-        if (disabled) {
-            this.renderer.setAttribute(this.el.nativeElement, 'disabled', 'disabled');
+    /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    TimePickerComponent.prototype.setDisabledState = function (isDisabled) {
+        this.disabled = isDisabled;
+    };
+    /**
+     * @param {?} hour
+     * @return {?}
+     */
+    TimePickerComponent.prototype.getMeridianTime = function (hour) {
+        return hour > 12 ? hour - 12 : hour;
+    };
+    /**
+     * @param {?} hour
+     * @return {?}
+     */
+    TimePickerComponent.prototype.setHour = function (hour) {
+        var /** @type {?} */ date = this.value;
+        date.setHours(hour ? hour : 0);
+        this.value = date;
+    };
+    /**
+     * @param {?} minute
+     * @return {?}
+     */
+    TimePickerComponent.prototype.setMinute = function (minute) {
+        var /** @type {?} */ date = this.value;
+        date.setMinutes(minute ? minute : 0);
+        this.value = date;
+    };
+    /**
+     * @param {?} seconds
+     * @return {?}
+     */
+    TimePickerComponent.prototype.setSeconds = function (seconds) {
+        var /** @type {?} */ date = this.value;
+        date.setSeconds(seconds ? seconds : 0);
+        this.value = date;
+    };
+    /**
+     * @param {?=} arrowkey
+     * @return {?}
+     */
+    TimePickerComponent.prototype.incrementHour = function (arrowkey) {
+        if (arrowkey === void 0) { arrowkey = false; }
+        if (this.disabled || arrowkey && !this.arrowkeys) {
             return;
         }
-        this.renderer.removeAttribute(this.el.nativeElement, 'disabled');
+        this.setHour(this.value.getHours() + this.hourStep);
     };
-    ButtonRadioDirective.decorators = [
-        { type: core.Directive, args: [{
-                    selector: '[btnRadio]',
-                    providers: [RADIO_CONTROL_VALUE_ACCESSOR$1]
-                },] },
-    ];
-    /** @nocollapse */
-    ButtonRadioDirective.ctorParameters = function () {
-        return [
-            { type: core.ElementRef, },
-            { type: core.ChangeDetectorRef, },
-            { type: ButtonRadioGroupDirective, decorators: [{ type: core.Optional },] },
-            { type: core.Renderer2, },
-        ];
+    /**
+     * @param {?=} arrowkey
+     * @return {?}
+     */
+    TimePickerComponent.prototype.decrementHour = function (arrowkey) {
+        if (arrowkey === void 0) { arrowkey = false; }
+        if (this.disabled || arrowkey && !this.arrowkeys) {
+            return;
+        }
+        this.setHour(this.value.getHours() - this.hourStep);
     };
-    ButtonRadioDirective.propDecorators = {
-        'btnRadio': [{ type: core.Input },],
-        'uncheckable': [{ type: core.Input },],
-        'value': [{ type: core.Input },],
-        'disabled': [{ type: core.Input },],
-        'isActive': [{ type: core.HostBinding, args: ['class.active',] }, { type: core.HostBinding, args: ['attr.aria-pressed',] },],
-        'onClick': [{ type: core.HostListener, args: ['click',] },],
+    /**
+     * @param {?=} arrowkey
+     * @return {?}
+     */
+    TimePickerComponent.prototype.incrementMinute = function (arrowkey) {
+        if (arrowkey === void 0) { arrowkey = false; }
+        if (this.disabled || arrowkey && !this.arrowkeys) {
+            return;
+        }
+        this.setMinute(this.value.getMinutes() + this.minuteStep);
     };
-    return ButtonRadioDirective;
+    /**
+     * @param {?=} arrowkey
+     * @return {?}
+     */
+    TimePickerComponent.prototype.decrementMinute = function (arrowkey) {
+        if (arrowkey === void 0) { arrowkey = false; }
+        if (this.disabled || arrowkey && !this.arrowkeys) {
+            return;
+        }
+        this.setMinute(this.value.getMinutes() - this.minuteStep);
+    };
+    /**
+     * @param {?=} arrowkey
+     * @return {?}
+     */
+    TimePickerComponent.prototype.incrementSecond = function (arrowkey) {
+        if (arrowkey === void 0) { arrowkey = false; }
+        if (this.disabled || arrowkey && !this.arrowkeys) {
+            return;
+        }
+        this.setSeconds(this.value.getSeconds() + this.secondStep);
+    };
+    /**
+     * @param {?=} arrowkey
+     * @return {?}
+     */
+    TimePickerComponent.prototype.decrementSecond = function (arrowkey) {
+        if (arrowkey === void 0) { arrowkey = false; }
+        if (this.disabled || arrowkey && !this.arrowkeys) {
+            return;
+        }
+        this.setSeconds(this.value.getSeconds() - this.secondStep);
+    };
+    /**
+     * @param {?} meridian
+     * @return {?}
+     */
+    TimePickerComponent.prototype.selectMeridian = function (meridian) {
+        this._meridian = meridian;
+        // get the current time
+        var /** @type {?} */ hour = this.value.getHours();
+        // if we have selected AM
+        if (meridian === this.meridians[0]) {
+            if (hour >= 12) {
+                this.setHour(hour - 12);
+            }
+        }
+        // if we have selected PM
+        if (meridian === this.meridians[1]) {
+            if (hour < 12) {
+                this.setHour(hour + 12);
+            }
+        }
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    TimePickerComponent.prototype.checkValidity = function (date) {
+        var /** @type {?} */ valid = true;
+        if (this.min && date.getTime() <= this.min.getTime()) {
+            valid = false;
+        }
+        if (this.max && date.getTime() >= this.max.getTime()) {
+            valid = false;
+        }
+        return valid;
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    TimePickerComponent.prototype.hourChange = function (value) {
+        // convert the string to a number
+        var /** @type {?} */ hour = parseInt(value);
+        var /** @type {?} */ currentHour = this.value.getHours();
+        // if the value hasn't changed, do nothing
+        if (hour === currentHour) {
+            return;
+        }
+        // ensure the hours is valid
+        if (!isNaN(hour)) {
+            if (hour < 0) {
+                hour = 0;
+            }
+            if (hour > (this.showMeridian ? 12 : 23)) {
+                hour = this.showMeridian ? 12 : 23;
+            }
+        }
+        hour = isNaN(hour) ? currentHour : hour;
+        // if the number is invalid then restore it to the previous value
+        if (this._meridian === this.meridians[0]) {
+            if (hour >= 12) {
+                hour -= 12;
+            }
+        }
+        // if we have selected PM
+        if (this._meridian === this.meridians[1]) {
+            if (hour < 12) {
+                hour += 12;
+            }
+        }
+        this.setHour(hour);
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    TimePickerComponent.prototype.minuteChange = function (value) {
+        // convert the string to a number
+        var /** @type {?} */ minute = parseInt(value);
+        var /** @type {?} */ currentMinute = this.value.getMinutes();
+        // if the value hasn't changed, do nothing
+        if (minute === currentMinute) {
+            return;
+        }
+        // ensure the hours is valid
+        if (!isNaN(minute)) {
+            if (minute < 0) {
+                minute = 59;
+            }
+            if (minute > 59) {
+                minute = 0;
+            }
+        }
+        // if the number is invalid then restore it to the previous value
+        this.setMinute(isNaN(minute) ? currentMinute : minute);
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    TimePickerComponent.prototype.secondChange = function (value) {
+        // convert the string to a number
+        var /** @type {?} */ second = parseInt(value);
+        var /** @type {?} */ currentSecond = this.value.getSeconds();
+        // if the value hasn't changed, do nothing
+        if (second === currentSecond) {
+            return;
+        }
+        // ensure the hours is valid
+        if (!isNaN(second)) {
+            if (second < 0) {
+                second = 0;
+            }
+            if (second > 59) {
+                second = 59;
+            }
+        }
+        // if the number is invalid then restore it to the previous value
+        this.setSeconds(isNaN(second) ? currentSecond : second);
+    };
+    return TimePickerComponent;
 }());
-var ButtonsModule = (function () {
-    function ButtonsModule() {
+TimePickerComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-time-picker',
+                template: "\n      <div class=\"time-picker\" aria-label=\"Time picker\">\n\n          <div class=\"time-picker-column\" [class.has-error]=\"!(valid$ | async)\" *ngIf=\"showHours\">\n\n              <ux-spin-button\n                  type=\"number\"\n                  class=\"time-spinner\"\n                  placeholder=\"HH\"\n                  [min]=\"0\"\n                  [max]=\"showMeridian ? 12 : 23\"\n                  [value]=\"hour$ | async | timeFormat\"\n                  (valueChange)=\"hourChange($event)\"\n                  [spinners]=\"showSpinners\"\n                  [disabled]=\"disabled\"\n                  [readOnly]=\"readOnly\"\n                  inputAriaLabel=\"hour\"\n                  incrementAriaLabel=\"Increment the hour\"\n                  decrementAriaLabel=\"Decrement the hour\"\n                  (increment)=\"incrementHour()\"\n                  (decrement)=\"decrementHour()\">\n              </ux-spin-button>\n\n          </div>\n\n          <div class=\"time-picker-separator\" *ngIf=\"showMinutes\">:</div>\n\n          <div class=\"time-picker-column\" [class.has-error]=\"!(valid$ | async)\" *ngIf=\"showMinutes\">\n\n              <ux-spin-button\n                  type=\"number\"\n                  class=\"time-spinner\"\n                  placeholder=\"MM\"\n                  [min]=\"0\"\n                  [max]=\"59\"\n                  [value]=\"minute$ | async | timeFormat\"\n                  (valueChange)=\"minuteChange($event)\"\n                  [spinners]=\"showSpinners\"\n                  [disabled]=\"disabled\"\n                  [readOnly]=\"readOnly\"\n                  inputAriaLabel=\"minute\"\n                  incrementAriaLabel=\"Increment the minute\"\n                  decrementAriaLabel=\"Decrement the minute\"\n                  (increment)=\"incrementMinute()\"\n                  (decrement)=\"decrementMinute()\">\n              </ux-spin-button>\n\n          </div>\n\n          <div class=\"time-picker-separator\" *ngIf=\"showSeconds\">:</div>\n\n          <div class=\"time-picker-column\" [class.has-error]=\"!(valid$ | async)\" *ngIf=\"showSeconds\">\n\n              <ux-spin-button\n                  type=\"number\"\n                  class=\"time-spinner\"\n                  type=\"number\"\n                  placeholder=\"SS\"\n                  [min]=\"0\"\n                  [max]=\"59\"\n                  [value]=\"second$ | async | timeFormat\"\n                  (valueChange)=\"secondChange($event)\"\n                  [spinners]=\"showSpinners\"\n                  [disabled]=\"disabled\"\n                  [readOnly]=\"readOnly\"\n                  inputAriaLabel=\"seconds\"\n                  incrementAriaLabel=\"Increment the second\"\n                  decrementAriaLabel=\"Decrement the second\"\n                  (increment)=\"incrementSecond()\"\n                  (decrement)=\"decrementSecond()\">\n              </ux-spin-button>\n\n          </div>\n      </div>\n\n      <div class=\"time-picker-meridian\" *ngIf=\"showMeridian\">\n\n          <div class=\"btn-group\" role=\"radiogroup\">\n\n              <button class=\"btn button-toggle-accent\"\n                      *ngFor=\"let meridian of meridians\"\n                      role=\"radio\"\n                      tabindex=\"0\"\n                      [disabled]=\"disabled\"\n                      (click)=\"selectMeridian(meridian)\"\n                      [class.active]=\"meridian === (meridian$ | async)\"\n                      [attr.aria-label]=\"meridian\"\n                      [attr.aria-checked]=\"meridian === (meridian$ | async)\"\n                      [attr.aria-disabled]=\"disabled\">\n                      {{ meridian }}\n              </button>\n\n          </div>\n      </div>\n    ",
+                encapsulation: core.ViewEncapsulation.None,
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
+                providers: [TIME_PICKER_VALUE_ACCESSOR],
+                host: {
+                    'aria-label': 'Time Picker'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TimePickerComponent.ctorParameters = function () { return []; };
+TimePickerComponent.propDecorators = {
+    'arrowkeys': [{ type: core.Input },],
+    'mousewheel': [{ type: core.Input },],
+    'disabled': [{ type: core.Input },],
+    'readOnly': [{ type: core.Input },],
+    'showMeridian': [{ type: core.Input },],
+    'showHours': [{ type: core.Input },],
+    'showMinutes': [{ type: core.Input },],
+    'showSeconds': [{ type: core.Input },],
+    'showSpinners': [{ type: core.Input },],
+    'hourStep': [{ type: core.Input },],
+    'minuteStep': [{ type: core.Input },],
+    'secondStep': [{ type: core.Input },],
+    'min': [{ type: core.Input },],
+    'max': [{ type: core.Input },],
+    'meridians': [{ type: core.Input },],
+    'value': [{ type: core.Input },],
+    'valueChange': [{ type: core.Output },],
+    'isValid': [{ type: core.Output },],
+};
+var TimePickerModule = (function () {
+    function TimePickerModule() {
     }
-    ButtonsModule.forRoot = function () {
-        return { ngModule: ButtonsModule, providers: [] };
-    };
-    ButtonsModule.decorators = [
-        { type: core.NgModule, args: [{
-                    declarations: [ButtonCheckboxDirective, ButtonRadioDirective, ButtonRadioGroupDirective],
-                    exports: [ButtonCheckboxDirective, ButtonRadioDirective, ButtonRadioGroupDirective]
-                },] },
-    ];
-    /** @nocollapse */
-    ButtonsModule.ctorParameters = function () { return []; };
-    return ButtonsModule;
+    return TimePickerModule;
 }());
+TimePickerModule.decorators = [
+    { type: core.NgModule, args: [{
+                imports: [
+                    common.CommonModule,
+                    forms.FormsModule,
+                    SpinButtonModule
+                ],
+                exports: [TimePickerComponent],
+                declarations: [TimePickerComponent, TimeFormatPipe],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TimePickerModule.ctorParameters = function () { return []; };
 /**
  * Convert a single dimension array to a double dimension array
  * @template T
@@ -11692,6 +11164,8 @@ var ButtonsModule = (function () {
  * @return {?}
  */
 function gridify(items, columns) {
+    // create a copy of array so not to effect the original
+    items = items.slice(0);
     var /** @type {?} */ grid = [];
     while (items.length) {
         grid.push(items.splice(0, columns));
@@ -11740,6 +11214,24 @@ function compareDays(day1, day2) {
         day1.getFullYear() === day2.getFullYear();
 }
 /**
+ * Date comparison for use primarily with distinctUntilChanged
+ * @param {?} dateOne
+ * @param {?} dateTwo
+ * @return {?}
+ */
+function dateComparator(dateOne, dateTwo) {
+    return dateOne.getTime() === dateTwo.getTime();
+}
+/**
+ * Timezone comparison for use primarily with distinctUntilChanged
+ * @param {?} zoneOne
+ * @param {?} zoneTwo
+ * @return {?}
+ */
+function timezoneComparator(zoneOne, zoneTwo) {
+    return zoneOne.name === zoneTwo.name && zoneOne.offset === zoneTwo.offset;
+}
+/**
  * Export an array of all the available months
  */
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -11765,30 +11257,30 @@ var DateTimePickerConfig = (function () {
         this.weekdays = weekdaysShort;
         this.nowBtnText = 'Today';
         this.timezones = [
-            { name: 'GMT-11', offset: -660 },
-            { name: 'GMT-10', offset: -600 },
-            { name: 'GMT-9', offset: -540 },
-            { name: 'GMT-8', offset: -480 },
-            { name: 'GMT-7', offset: -420 },
-            { name: 'GMT-6', offset: -360 },
-            { name: 'GMT-5', offset: -300 },
-            { name: 'GMT-4', offset: -240 },
-            { name: 'GMT-3', offset: -180 },
-            { name: 'GMT-2', offset: -12 },
-            { name: 'GMT-1', offset: -60 },
+            { name: 'GMT-11', offset: 660 },
+            { name: 'GMT-10', offset: 600 },
+            { name: 'GMT-9', offset: 540 },
+            { name: 'GMT-8', offset: 480 },
+            { name: 'GMT-7', offset: 420 },
+            { name: 'GMT-6', offset: 360 },
+            { name: 'GMT-5', offset: 300 },
+            { name: 'GMT-4', offset: 240 },
+            { name: 'GMT-3', offset: 180 },
+            { name: 'GMT-2', offset: 120 },
+            { name: 'GMT-1', offset: 60 },
             { name: 'GMT', offset: 0 },
-            { name: 'GMT+1', offset: 60 },
-            { name: 'GMT+2', offset: 120 },
-            { name: 'GMT+3', offset: 180 },
-            { name: 'GMT+4', offset: 240 },
-            { name: 'GMT+5', offset: 300 },
-            { name: 'GMT+6', offset: 360 },
-            { name: 'GMT+7', offset: 420 },
-            { name: 'GMT+8', offset: 480 },
-            { name: 'GMT+9', offset: 540 },
-            { name: 'GMT+10', offset: 600 },
-            { name: 'GMT+11', offset: 660 },
-            { name: 'GMT+12', offset: 720 }
+            { name: 'GMT+1', offset: -60 },
+            { name: 'GMT+2', offset: -120 },
+            { name: 'GMT+3', offset: -180 },
+            { name: 'GMT+4', offset: -240 },
+            { name: 'GMT+5', offset: -300 },
+            { name: 'GMT+6', offset: -360 },
+            { name: 'GMT+7', offset: -420 },
+            { name: 'GMT+8', offset: -480 },
+            { name: 'GMT+9', offset: -540 },
+            { name: 'GMT+10', offset: -600 },
+            { name: 'GMT+11', offset: -660 },
+            { name: 'GMT+12', offset: -720 }
         ];
     }
     return DateTimePickerConfig;
@@ -11801,19 +11293,153 @@ DateTimePickerConfig.decorators = [
  */
 DateTimePickerConfig.ctorParameters = function () { return []; };
 var DateTimePickerService = (function () {
-    function DateTimePickerService() {
+    /**
+     * @param {?} _config
+     */
+    function DateTimePickerService(_config) {
         var _this = this;
-        this.date = new BehaviorSubject.BehaviorSubject(new Date());
-        this.activeDate = new BehaviorSubject.BehaviorSubject(new Date());
-        this.mode = new BehaviorSubject.BehaviorSubject(DatePickerMode.Day);
-        this.month = new BehaviorSubject.BehaviorSubject(new Date().getMonth());
-        this.year = new BehaviorSubject.BehaviorSubject(new Date().getFullYear());
-        // when the date changes update the current month and year
-        this.date.distinctUntilChanged(function (previous, current) { return previous.getTime() === current.getTime(); }).subscribe(function (date) {
-            _this.month.next(date.getMonth());
-            _this.year.next(date.getFullYear());
+        this._config = _config;
+        this.mode$ = new BehaviorSubject.BehaviorSubject(DatePickerMode.Day);
+        this.date$ = new BehaviorSubject.BehaviorSubject(new Date());
+        this.timezone$ = new BehaviorSubject.BehaviorSubject(this.getCurrentTimezone());
+        this.selected$ = new BehaviorSubject.BehaviorSubject(new Date());
+        // the month and year to display in the viewport
+        this.month$ = new BehaviorSubject.BehaviorSubject(new Date().getMonth());
+        this.year$ = new BehaviorSubject.BehaviorSubject(new Date().getFullYear());
+        this.showDate$ = new BehaviorSubject.BehaviorSubject(this._config.showDate);
+        this.showTime$ = new BehaviorSubject.BehaviorSubject(this._config.showTime);
+        this.showTimezone$ = new BehaviorSubject.BehaviorSubject(this._config.showTimezone);
+        this.showSeconds$ = new BehaviorSubject.BehaviorSubject(this._config.showSeconds);
+        this.showMeridian$ = new BehaviorSubject.BehaviorSubject(this._config.showMeridian);
+        this.showSpinners$ = new BehaviorSubject.BehaviorSubject(this._config.showSpinners);
+        this.weekdays$ = new BehaviorSubject.BehaviorSubject(this._config.weekdays);
+        this.nowBtnText$ = new BehaviorSubject.BehaviorSubject(this._config.nowBtnText);
+        this.timezones$ = new BehaviorSubject.BehaviorSubject(this._config.timezones);
+        this.header$ = new BehaviorSubject.BehaviorSubject(null);
+        this.headerEvent$ = new Subject.Subject();
+        this.modeDirection = ModeDirection.None;
+        // when the active date changes set the currently selected date
+        this._subscription = this.selected$.pipe(distinctUntilChanged$1(dateComparator)).subscribe(function (date) {
+            // the month and year displayed in the viewport should reflect the newly selected items
+            _this.setViewportMonth(date.getMonth());
+            _this.setViewportYear(date.getFullYear());
+            // emit the new date to the component host
+            _this.date$.next(date);
         });
     }
+    /**
+     * @return {?}
+     */
+    DateTimePickerService.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
+    };
+    /**
+     * @param {?} month
+     * @return {?}
+     */
+    DateTimePickerService.prototype.setViewportMonth = function (month) {
+        if (month < 0) {
+            this.month$.next(11);
+            this.year$.next(this.year$.value - 1);
+        }
+        else if (month > 11) {
+            this.month$.next(0);
+            this.year$.next(this.year$.value + 1);
+        }
+        else {
+            this.month$.next(month);
+        }
+    };
+    /**
+     * @param {?} year
+     * @return {?}
+     */
+    DateTimePickerService.prototype.setViewportYear = function (year) {
+        this.year$.next(year);
+    };
+    /**
+     * @param {?} day
+     * @param {?} month
+     * @param {?} year
+     * @return {?}
+     */
+    DateTimePickerService.prototype.setDate = function (day, month, year) {
+        var /** @type {?} */ date = new Date(this.selected$.value);
+        date.setDate(day);
+        date.setMonth(month);
+        date.setFullYear(year);
+        this.selected$.next(date);
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerService.prototype.setDateToNow = function () {
+        this.selected$.next(new Date());
+    };
+    /**
+     * @param {?} mode
+     * @return {?}
+     */
+    DateTimePickerService.prototype.setViewportMode = function (mode) {
+        this.mode$.next(mode);
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerService.prototype.goToChildMode = function () {
+        this.modeDirection = ModeDirection.Descend;
+        switch (this.mode$.value) {
+            case DatePickerMode.Year:
+                return this.setViewportMode(DatePickerMode.Month);
+            case DatePickerMode.Month:
+                return this.setViewportMode(DatePickerMode.Day);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerService.prototype.goToParentMode = function () {
+        this.modeDirection = ModeDirection.Ascend;
+        switch (this.mode$.value) {
+            case DatePickerMode.Day:
+                return this.setViewportMode(DatePickerMode.Month);
+            case DatePickerMode.Month:
+                return this.setViewportMode(DatePickerMode.Year);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerService.prototype.goToNext = function () {
+        this.headerEvent$.next(DatePickerHeaderEvent.Next);
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerService.prototype.goToPrevious = function () {
+        this.headerEvent$.next(DatePickerHeaderEvent.Previous);
+    };
+    /**
+     * @param {?} header
+     * @return {?}
+     */
+    DateTimePickerService.prototype.setHeader = function (header) {
+        this.header$.next(header);
+    };
+    /**
+     * @return {?}
+     */
+    DateTimePickerService.prototype.getCurrentTimezone = function () {
+        var /** @type {?} */ offset = new Date().getTimezoneOffset();
+        return this._config.timezones.find(function (timezone) { return timezone.offset === offset; });
+    };
+    /**
+     * @param {?} timezone
+     * @return {?}
+     */
+    DateTimePickerService.prototype.setTimezone = function (timezone) {
+        this.timezone$.next(timezone);
+    };
     return DateTimePickerService;
 }());
 DateTimePickerService.decorators = [
@@ -11822,75 +11448,173 @@ DateTimePickerService.decorators = [
 /**
  * @nocollapse
  */
-DateTimePickerService.ctorParameters = function () { return []; };
+DateTimePickerService.ctorParameters = function () { return [
+    { type: DateTimePickerConfig, },
+]; };
+var DatePickerMode = {};
+DatePickerMode.Day = 0;
+DatePickerMode.Month = 1;
+DatePickerMode.Year = 2;
+DatePickerMode[DatePickerMode.Day] = "Day";
+DatePickerMode[DatePickerMode.Month] = "Month";
+DatePickerMode[DatePickerMode.Year] = "Year";
+var ModeDirection = {};
+ModeDirection.None = 0;
+ModeDirection.Ascend = 1;
+ModeDirection.Descend = 2;
+ModeDirection[ModeDirection.None] = "None";
+ModeDirection[ModeDirection.Ascend] = "Ascend";
+ModeDirection[ModeDirection.Descend] = "Descend";
+var DatePickerHeaderEvent = {};
+DatePickerHeaderEvent.Previous = 0;
+DatePickerHeaderEvent.Next = 1;
+DatePickerHeaderEvent[DatePickerHeaderEvent.Previous] = "Previous";
+DatePickerHeaderEvent[DatePickerHeaderEvent.Next] = "Next";
 var DateTimePickerComponent = (function () {
     /**
-     * @param {?} _config
-     * @param {?} dateTimePickerService
+     * @param {?} datepicker
      */
-    function DateTimePickerComponent(_config, dateTimePickerService) {
-        this._config = _config;
-        this.dateTimePickerService = dateTimePickerService;
-        this.showDate = this._config.showDate;
-        this.showTime = this._config.showTime;
-        this.showTimezone = this._config.showTimezone;
-        this.showSeconds = this._config.showSeconds;
-        this.showMeridian = this._config.showMeridian;
-        this.showSpinners = this._config.showSpinners;
-        this.weekdays = this._config.weekdays;
-        this.nowBtnText = this._config.nowBtnText;
-        this.timezones = this._config.timezones;
+    function DateTimePickerComponent(datepicker) {
+        var _this = this;
+        this.datepicker = datepicker;
         this.dateChange = new core.EventEmitter();
         this.timezoneChange = new core.EventEmitter();
         // expose enum to view
         this.DatePickerMode = DatePickerMode;
+        this._subscription = new Subscription.Subscription();
+        var valueChange = datepicker.selected$.pipe(distinctUntilChanged$1(dateComparator))
+            .subscribe(function (date) { return _this.dateChange.emit(date); });
+        var timezoneChange = datepicker.timezone$.pipe(distinctUntilChanged$1(timezoneComparator))
+            .subscribe(function (timezone) { return _this.timezoneChange.emit(timezone); });
     }
-    Object.defineProperty(DateTimePickerComponent.prototype, "date", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.dateTimePickerService.date.getValue();
-        },
+    Object.defineProperty(DateTimePickerComponent.prototype, "showDate", {
         /**
          * @param {?} value
          * @return {?}
          */
         set: function (value) {
-            this.dateTimePickerService.date.next(new Date(value));
-            // set the active date to the new date
-            this.dateTimePickerService.activeDate.next(new Date(value));
+            this.datepicker.showDate$.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "showTime", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.datepicker.showTime$.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "showTimezone", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.datepicker.showTimezone$.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "showSeconds", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.datepicker.showSeconds$.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "showMeridian", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.datepicker.showMeridian$.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "showSpinners", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.datepicker.showSpinners$.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "weekdays", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.datepicker.weekdays$.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "nowBtnText", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.datepicker.nowBtnText$.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "timezones", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this.datepicker.timezones$.next(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DateTimePickerComponent.prototype, "date", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            if (!dateComparator(value, this.datepicker.selected$.value)) {
+                this.datepicker.selected$.next(new Date(value));
+            }
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(DateTimePickerComponent.prototype, "timezone", {
         /**
-         * @return {?}
-         */
-        get: function () {
-            return this._timezone;
-        },
-        /**
          * @param {?} value
          * @return {?}
          */
         set: function (value) {
-            var /** @type {?} */ timezone = this.timezones.find(function (zone) { return zone.offset === value.offset; });
-            // only update if the timezone is valid
-            if (timezone) {
-                this._timezone = timezone;
-            }
+            this.datepicker.timezone$.next(value);
         },
         enumerable: true,
         configurable: true
     });
     /**
-     * This will emit the newly selected date
      * @return {?}
      */
-    DateTimePickerComponent.prototype.commit = function () {
-        this.dateChange.emit(this.dateTimePickerService.activeDate.getValue());
+    DateTimePickerComponent.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
     };
     /**
      * Change the date to the current date and time
@@ -11898,32 +11622,25 @@ var DateTimePickerComponent = (function () {
      */
     DateTimePickerComponent.prototype.setToNow = function () {
         // set the date to the current moment
-        this.date = new Date();
-        // reset the timezone to the default
-        if (this.timePickerComponent) {
-            this.timePickerComponent.setDefaultTimezone();
-        }
-        // emit the changes
-        this.commit();
+        this.datepicker.setDateToNow();
     };
     return DateTimePickerComponent;
 }());
 DateTimePickerComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-date-time-picker',
-                template: "\n    <div class=\"calendar-container\">\n\n      <ng-container *ngIf=\"showDate\" [ngSwitch]=\"dateTimePickerService.mode | async\">\n\n        <!-- Display days in the current month -->\n        <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\" [weekdays]=\"weekdays\" (dateChange)=\"commit()\"></ux-date-time-picker-day-view>\n  \n        <!-- Display the months in the current year -->\n        <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n  \n        <!-- Display a decade -->\n        <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n  \n      </ng-container>\n\n      <!-- Display a Time Picker -->\n      <ux-date-time-picker-time-view *ngIf=\"showTime\" #timePicker (dateChange)=\"commit()\" [showSpinners]=\"showSpinners\" [showTimezone]=\"showTimezone\" [showSeconds]=\"showSeconds\" [showMeridian]=\"showMeridian\" (dateChange)=\"commit()\" [timezone]=\"timezone\" (timezoneChange)=\"timezoneChange.emit($event)\" [timezones]=\"timezones\"></ux-date-time-picker-time-view>\n\n    </div>\n\n    <button class=\"now-button\" (click)=\"setToNow()\">{{ nowBtnText }}</button>\n  ",
-                providers: [DateTimePickerService]
+                template: "\n    <div class=\"calendar-container\">\n\n      <ux-date-time-picker-header></ux-date-time-picker-header>\n\n      <ng-container *ngIf=\"datepicker.showDate$ | async\" [ngSwitch]=\"datepicker.mode$ | async\">\n\n          <!-- Display days in the current month -->\n          <ux-date-time-picker-day-view *ngSwitchCase=\"DatePickerMode.Day\"></ux-date-time-picker-day-view>\n\n          <!-- Display the months in the current year -->\n          <ux-date-time-picker-month-view *ngSwitchCase=\"DatePickerMode.Month\"></ux-date-time-picker-month-view>\n\n          <!-- Display a decade -->\n          <ux-date-time-picker-year-view *ngSwitchCase=\"DatePickerMode.Year\"></ux-date-time-picker-year-view>\n\n      </ng-container>\n\n      <!-- Display a Time Picker -->\n      <ux-date-time-picker-time-view *ngIf=\"datepicker.showTime$ | async\"></ux-date-time-picker-time-view>\n\n    </div>\n\n    <button class=\"now-button\" aria-label=\"Set date to now\" (click)=\"setToNow()\">{{ datepicker.nowBtnText$ | async }}</button>\n  ",
+                providers: [DateTimePickerService],
+                changeDetection: core.ChangeDetectionStrategy.OnPush
             },] },
 ];
 /**
  * @nocollapse
  */
 DateTimePickerComponent.ctorParameters = function () { return [
-    { type: DateTimePickerConfig, },
     { type: DateTimePickerService, },
 ]; };
 DateTimePickerComponent.propDecorators = {
-    'timePickerComponent': [{ type: core.ViewChild, args: ['timePicker',] },],
     'showDate': [{ type: core.Input },],
     'showTime': [{ type: core.Input },],
     'showTimezone': [{ type: core.Input },],
@@ -11938,162 +11655,89 @@ DateTimePickerComponent.propDecorators = {
     'date': [{ type: core.Input },],
     'timezone': [{ type: core.Input },],
 };
-var DatePickerMode = {};
-DatePickerMode.Day = 0;
-DatePickerMode.Month = 1;
-DatePickerMode.Year = 2;
-DatePickerMode[DatePickerMode.Day] = "Day";
-DatePickerMode[DatePickerMode.Month] = "Month";
-DatePickerMode[DatePickerMode.Year] = "Year";
-var DateTimePickerDayViewComponent = (function () {
+var DayViewService = (function () {
     /**
-     * @param {?} dateTimePickerService
+     * @param {?} _datepicker
      */
-    function DateTimePickerDayViewComponent(dateTimePickerService) {
-        this.dateTimePickerService = dateTimePickerService;
-        this.days = [];
-        this.weekdays = weekdaysShort;
-        this.dateChange = new core.EventEmitter();
-    }
-    Object.defineProperty(DateTimePickerDayViewComponent.prototype, "date", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.dateTimePickerService.activeDate.getValue();
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this.dateTimePickerService.activeDate.next(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(DateTimePickerDayViewComponent.prototype, "month", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.dateTimePickerService.month.getValue();
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this.dateTimePickerService.month.next(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(DateTimePickerDayViewComponent.prototype, "year", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.dateTimePickerService.year.getValue();
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this.dateTimePickerService.year.next(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    DateTimePickerDayViewComponent.prototype.ngOnInit = function () {
+    function DayViewService(_datepicker) {
         var _this = this;
-        // update the grid only when the value of the active date, month or year has changed
-        this._subscription = Observable.Observable.merge(this.dateTimePickerService.activeDate.distinctUntilChanged(), this.dateTimePickerService.month.distinctUntilChanged(), this.dateTimePickerService.year.distinctUntilChanged())
-            .subscribe(function () { return _this.update(); });
-    };
+        this._datepicker = _datepicker;
+        this.grid$ = new BehaviorSubject.BehaviorSubject([[]]);
+        this.focused$ = new BehaviorSubject.BehaviorSubject(null);
+        this._subscription = combineLatest.combineLatest(_datepicker.month$, _datepicker.year$)
+            .subscribe(function (_d) {
+            var month = _d[0], year = _d[1];
+            return _this.createDayGrid(month, year);
+        });
+    }
     /**
      * @return {?}
      */
-    DateTimePickerDayViewComponent.prototype.ngOnDestroy = function () {
-        // remove all subscriptions
+    DayViewService.prototype.ngOnDestroy = function () {
         this._subscription.unsubscribe();
     };
     /**
-     * Navigate to the previous page of dates
+     * @param {?} day
+     * @param {?} month
+     * @param {?} year
      * @return {?}
      */
-    DateTimePickerDayViewComponent.prototype.previous = function () {
-        // update the month
-        this.month--;
-        // if the month is now the previous year take that into account
-        if (this.month < 0) {
-            this.month = 11;
-            this.year--;
-        }
-        // update the grid
-        this.update();
+    DayViewService.prototype.setFocus = function (day, month, year) {
+        this.focused$.next({ day: day, month: month, year: year });
+        // update the date picker to show the required month and year
+        this._datepicker.setViewportMonth(month);
+        this._datepicker.setViewportYear(year);
     };
     /**
-     * Navigate to the next page of dates
+     * @param {?} month
+     * @param {?} year
      * @return {?}
      */
-    DateTimePickerDayViewComponent.prototype.next = function () {
-        // update the month
-        this.month++;
-        // if the month is now the previous year take that into account
-        if (this.month > 11) {
-            this.month = 0;
-            this.year++;
-        }
-        // update the grid
-        this.update();
-    };
-    /**
-     * Updates the grid of all the days in the month
-     * @return {?}
-     */
-    DateTimePickerDayViewComponent.prototype.update = function () {
+    DayViewService.prototype.createDayGrid = function (month, year) {
         var _this = this;
+        // update the header
+        this._datepicker.setHeader(months[month] + ' ' + year);
         // find the lower and upper boundaries
-        var /** @type {?} */ start = new Date(this.year, this.month, 1);
-        var /** @type {?} */ end = new Date(this.year, this.month + 1, 0);
+        var /** @type {?} */ start = new Date(year, month, 1);
+        var /** @type {?} */ end = new Date(year, month + 1, 0);
         // we always want to show from the sunday - this may include showing some dates from the previous month
         start.setDate(start.getDate() - start.getDay());
         // we also want to make sure that the range ends on a saturday
         end.setDate(end.getDate() + (6 - end.getDay()));
         // create an array of all the days to display
-        var /** @type {?} */ dates = dateRange(start, end);
-        // update the page header
-        this.header = months[this.month] + " " + this.year;
-        // turn the dates into a grid
-        this.days = gridify(dates, 7).map(function (week) { return week.map(function (date) { return ({
+        var /** @type {?} */ dates = dateRange(start, end).map(function (date) { return ({
+            day: date.getDate(),
+            month: date.getMonth(),
+            year: date.getFullYear(),
             date: date,
-            today: _this.isToday(date),
-            active: _this.isActive(date),
-            currentMonth: _this.isCurrentMonth(date)
-        }); }); });
-    };
-    /**
-     * Select a particular date
-     * @param {?} date the date to select
-     * @return {?}
-     */
-    DateTimePickerDayViewComponent.prototype.select = function (date) {
-        // update the current date object
-        this.date = new Date(date);
-        // emit the new date
-        this.dateChange.emit();
+            isToday: _this.isToday(date),
+            isActive: _this.isActive(date),
+            isCurrentMonth: date.getMonth() === month
+        }); });
+        // turn the dates into a grid
+        var /** @type {?} */ items = gridify(dates, 7);
+        this.grid$.next(items);
+        // if no item has yet been focused then focus the first day of the month
+        if ((this._datepicker.modeDirection === ModeDirection.None || this._datepicker.modeDirection === ModeDirection.Descend) && this.focused$.value === null) {
+            // check if the selected item is visible
+            var /** @type {?} */ selectedDay = dates.find(function (day) { return day.isCurrentMonth && day.isActive; });
+            if (selectedDay) {
+                this.setFocus(selectedDay.day, selectedDay.month, selectedDay.year);
+            }
+            else {
+                // find the first day of the month
+                var /** @type {?} */ first$$1 = dates.find(function (date) { return date.day === 1; });
+                // focus the date
+                this.setFocus(first$$1.day, first$$1.month, first$$1.year);
+            }
+        }
     };
     /**
      * Determine whether or not a specific date is today
      * @param {?} date The date to check
      * @return {?}
      */
-    DateTimePickerDayViewComponent.prototype.isToday = function (date) {
+    DayViewService.prototype.isToday = function (date) {
         return compareDays(new Date(), date);
     };
     /**
@@ -12101,430 +11745,683 @@ var DateTimePickerDayViewComponent = (function () {
      * @param {?} date the date to check
      * @return {?}
      */
-    DateTimePickerDayViewComponent.prototype.isActive = function (date) {
-        return compareDays(this.date, date);
+    DayViewService.prototype.isActive = function (date) {
+        return compareDays(this._datepicker.selected$.value, date);
     };
-    /**
-     * Determine whether or not a date is within the current month
-     * or is it part of another month being show to fill the grid
-     * @param {?} date The date in question
-     * @return {?}
-     */
-    DateTimePickerDayViewComponent.prototype.isCurrentMonth = function (date) {
-        return date.getMonth() === this.month;
-    };
-    /**
-     * Update the date picker view to show the month picker
-     * @return {?}
-     */
-    DateTimePickerDayViewComponent.prototype.showMonthPicker = function () {
-        this.dateTimePickerService.mode.next(DatePickerMode.Month);
-    };
-    return DateTimePickerDayViewComponent;
+    return DayViewService;
 }());
-DateTimePickerDayViewComponent.decorators = [
+DayViewService.decorators = [
+    { type: core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+DayViewService.ctorParameters = function () { return [
+    { type: DateTimePickerService, },
+]; };
+var DayViewComponent = (function () {
+    /**
+     * @param {?} datePicker
+     * @param {?} dayService
+     */
+    function DayViewComponent(datePicker, dayService) {
+        var _this = this;
+        this.datePicker = datePicker;
+        this.dayService = dayService;
+        this._subscription = datePicker.headerEvent$
+            .subscribe(function (event) { return event === DatePickerHeaderEvent.Next ? _this.next() : _this.previous(); });
+    }
+    /**
+     * @return {?}
+     */
+    DayViewComponent.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
+    };
+    /**
+     * Navigate to the previous page of dates
+     * @return {?}
+     */
+    DayViewComponent.prototype.previous = function () {
+        this.datePicker.setViewportMonth(this.datePicker.month$.value - 1);
+    };
+    /**
+     * Navigate to the next page of dates
+     * @return {?}
+     */
+    DayViewComponent.prototype.next = function () {
+        this.datePicker.setViewportMonth(this.datePicker.month$.value + 1);
+    };
+    /**
+     * Select a particular date
+     * @param {?} date the date to select
+     * @param {?} element
+     * @return {?}
+     */
+    DayViewComponent.prototype.select = function (date, element) {
+        // update the current date object
+        this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());
+        // focus the newly selected date
+        this.dayService.setFocus(date.getDate(), date.getMonth(), date.getFullYear());
+    };
+    /**
+     * @param {?} index
+     * @return {?}
+     */
+    DayViewComponent.prototype.trackWeekByFn = function (index) {
+        return index;
+    };
+    /**
+     * @param {?} index
+     * @param {?} item
+     * @return {?}
+     */
+    DayViewComponent.prototype.trackDayByFn = function (index, item) {
+        return item.day + " " + item.month + " " + item.year;
+    };
+    /**
+     * @param {?} item
+     * @param {?} dayOffset
+     * @return {?}
+     */
+    DayViewComponent.prototype.focusDate = function (item, dayOffset) {
+        // determine the date of the day
+        var /** @type {?} */ target = new Date(item.date.setDate(item.date.getDate() + dayOffset));
+        // identify which date should be focused
+        this.dayService.setFocus(target.getDate(), target.getMonth(), target.getFullYear());
+    };
+    /**
+     * @param {?} item
+     * @return {?}
+     */
+    DayViewComponent.prototype.getTabbable = function (item) {
+        var /** @type {?} */ focused = this.dayService.focused$.value;
+        var /** @type {?} */ grid = this.dayService.grid$.value;
+        // if there is a focused month check if this is it
+        if (focused) {
+            // check if the focused day is visible
+            var /** @type {?} */ isFocusedDayVisible = !!grid.find(function (row) { return !!row.find(function (_item) { return _item.day === focused.day && _item.month === focused.month && _item.year === focused.year; }); });
+            if (isFocusedDayVisible) {
+                return focused.day === item.day && focused.month === item.month && focused.year === item.year;
+            }
+        }
+        // if there is no focusable day then check if there is a selected day
+        var /** @type {?} */ isSelectedDayVisible = !!grid.find(function (row) { return !!row.find(function (day) { return day.isActive; }); });
+        if (isSelectedDayVisible) {
+            return item.isActive;
+        }
+        // otherwise make the first day tabbable
+        return item.day === 1;
+    };
+    return DayViewComponent;
+}());
+DayViewComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-date-time-picker-day-view',
-                template: "\n    <ux-date-time-picker-header [header]=\"header\" (previous)=\"previous()\" (next)=\"next()\" (ascend)=\"showMonthPicker()\"></ux-date-time-picker-header>\n\n    <table class=\"calendar\">\n      <thead>\n        <tr>\n          <th *ngFor=\"let day of weekdays\" class=\"weekday\">{{ day }}</th>\n        </tr>\n      </thead>\n\n      <tbody>\n        <tr *ngFor=\"let row of days\">\n          <td *ngFor=\"let day of row\" class=\"date-cell\" [class.current]=\"day.today\" \n            [class.active]=\"day.active\" [class.preview]=\"!day.currentMonth\" \n            (mousedown)=\"select(day.date)\" (keyup.enter)=\"select(day.date)\" \n            tabindex=\"0\">{{ day.date.getDate() }}</td>\n        </tr>\n      </tbody>\n    </table>\n  "
+                template: "\n    <table class=\"calendar\">\n        <thead>\n            <tr>\n                <th *ngFor=\"let day of datePicker.weekdays$ | async\" class=\"weekday\" [attr.aria-label]=\"day\">{{ day }}</th>\n            </tr>\n        </thead>\n\n        <tbody role=\"grid\">\n            <tr role=\"row\" *ngFor=\"let row of dayService.grid$ | async; trackBy: trackWeekByFn\">\n\n                <td *ngFor=\"let item of row; trackBy: trackDayByFn\" class=\"date-cell\" role=\"gridcell\">\n\n                    <button class=\"date-button\"\n                            [focusIf]=\"(dayService.focused$ | async)?.day === item.day && (dayService.focused$ | async)?.month === item.month && (dayService.focused$ | async)?.year === item.year\"\n                            [attr.aria-label]=\"item.date | date\"\n                            [attr.aria-selected]=\"item.isActive\"\n                            [attr.aria-hidden]=\"!item.isCurrentMonth\"\n                            [class.current]=\"item.isToday\"\n                            [class.active]=\"item.isActive\"\n                            [class.preview]=\"!item.isCurrentMonth\"\n                            [tabindex]=\"getTabbable(item) ? 0 : -1\"\n                            (click)=\"select(item.date); $event.stopPropagation()\"\n                            (keydown.ArrowLeft)=\"focusDate(item, -1); $event.preventDefault()\"\n                            (keydown.ArrowRight)=\"focusDate(item, 1); $event.preventDefault()\"\n                            (keydown.ArrowUp)=\"focusDate(item, -7); $event.preventDefault()\"\n                            (keydown.ArrowDown)=\"focusDate(item, 7); $event.preventDefault()\">\n\n                        {{ item.date.getDate() }}\n                    </button>\n\n                </td>\n            </tr>\n        </tbody>\n    </table>\n  ",
+                providers: [DayViewService],
+                changeDetection: core.ChangeDetectionStrategy.OnPush
             },] },
 ];
 /**
  * @nocollapse
  */
-DateTimePickerDayViewComponent.ctorParameters = function () { return [
+DayViewComponent.ctorParameters = function () { return [
     { type: DateTimePickerService, },
+    { type: DayViewService, },
 ]; };
-DateTimePickerDayViewComponent.propDecorators = {
-    'weekdays': [{ type: core.Input },],
-    'dateChange': [{ type: core.Output },],
-};
-var DateTimePickerMonthViewComponent = (function () {
+var HeaderComponent = (function () {
     /**
-     * @param {?} _dateTimePickerService
+     * @param {?} datepicker
      */
-    function DateTimePickerMonthViewComponent(_dateTimePickerService) {
-        this._dateTimePickerService = _dateTimePickerService;
-        this.months = gridify(range(0, 11), 4);
-        this.currentDate = new Date();
+    function HeaderComponent(datepicker) {
+        this.datepicker = datepicker;
+        this.canAscend$ = this.datepicker.mode$.pipe(map$1(function (mode) { return mode !== DatePickerMode.Year; }));
+        this.mode$ = this.datepicker.mode$.pipe(map$1(function (mode) {
+            switch (mode) {
+                case DatePickerMode.Day:
+                    return 'Day';
+                case DatePickerMode.Month:
+                    return 'Month';
+                case DatePickerMode.Year:
+                    return 'Year';
+            }
+        }));
+        this.headerAria$ = this.datepicker.mode$.pipe(map$1(function (mode) {
+            switch (mode) {
+                case DatePickerMode.Day:
+                    return 'Switch to show months in the year';
+                case DatePickerMode.Month:
+                    return 'Switch to show years in the decade';
+                case DatePickerMode.Year:
+                    return '';
+            }
+        }));
+        this.previousAria$ = this.datepicker.mode$.pipe(map$1(function (mode) {
+            switch (mode) {
+                case DatePickerMode.Day:
+                    return 'Previous month';
+                case DatePickerMode.Month:
+                    return 'Previous year';
+                case DatePickerMode.Year:
+                    return 'Previous decade';
+            }
+        }));
+        this.nextAria$ = this.datepicker.mode$.pipe(map$1(function (mode) {
+            switch (mode) {
+                case DatePickerMode.Day:
+                    return 'Next month';
+                case DatePickerMode.Month:
+                    return 'Next year';
+                case DatePickerMode.Year:
+                    return 'Next decade';
+            }
+        }));
     }
-    Object.defineProperty(DateTimePickerMonthViewComponent.prototype, "date", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._dateTimePickerService.activeDate.getValue();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(DateTimePickerMonthViewComponent.prototype, "month", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._dateTimePickerService.month.getValue();
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._dateTimePickerService.month.next(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(DateTimePickerMonthViewComponent.prototype, "year", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._dateTimePickerService.year.getValue();
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._dateTimePickerService.year.next(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
-     * Go to the previous year and emit the change
      * @return {?}
      */
-    DateTimePickerMonthViewComponent.prototype.previous = function () {
-        this.year--;
+    HeaderComponent.prototype.previous = function () {
+        this.datepicker.goToPrevious();
     };
     /**
-     * Go to the next year and emit the change
      * @return {?}
      */
-    DateTimePickerMonthViewComponent.prototype.next = function () {
-        this.year++;
+    HeaderComponent.prototype.ascend = function () {
+        this.datepicker.goToParentMode();
+    };
+    /**
+     * @return {?}
+     */
+    HeaderComponent.prototype.next = function () {
+        this.datepicker.goToNext();
+    };
+    return HeaderComponent;
+}());
+HeaderComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-date-time-picker-header',
+                template: "\n      <header class=\"header\">\n\n        <button class=\"header-navigation\"\n                (click)=\"previous(); $event.stopPropagation()\"\n                [attr.aria-label]=\"previousAria$ | async\"\n                tabindex=\"0\">\n\n          <i class=\"hpe-icon hpe-previous\"></i>\n        </button>\n\n        <button class=\"header-title\"\n                [attr.aria-label]=\"headerAria$ | async\"\n                [class.active]=\"canAscend$ | async\"\n                (click)=\"ascend(); $event.stopPropagation()\"\n                [tabindex]=\"(canAscend$ | async) ? 0 : -1\">\n             {{ datepicker.header$ | async }}\n        </button>\n\n        <button class=\"header-navigation\"\n                (click)=\"next(); $event.stopPropagation()\"\n                [attr.aria-label]=\"nextAria$ | async\"\n                tabindex=\"0\">\n\n          <i class=\"hpe-icon hpe-next\"></i>\n        </button>\n      </header>\n    ",
+                changeDetection: core.ChangeDetectionStrategy.OnPush
+            },] },
+];
+/**
+ * @nocollapse
+ */
+HeaderComponent.ctorParameters = function () { return [
+    { type: DateTimePickerService, },
+]; };
+var MonthViewService = (function () {
+    /**
+     * @param {?} _datepicker
+     */
+    function MonthViewService(_datepicker) {
+        var _this = this;
+        this._datepicker = _datepicker;
+        this.grid$ = new BehaviorSubject.BehaviorSubject([[]]);
+        this.focused$ = new BehaviorSubject.BehaviorSubject(null);
+        this._subscription = _datepicker.year$.subscribe(function (year) { return _this.createMonthGrid(year); });
+    }
+    /**
+     * @return {?}
+     */
+    MonthViewService.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
+    };
+    /**
+     * @param {?} month
+     * @param {?} year
+     * @return {?}
+     */
+    MonthViewService.prototype.setFocus = function (month, year) {
+        this.focused$.next({ month: month, year: year });
+        // update the viewport to ensure focused month is visible
+        this._datepicker.setViewportYear(year);
+    };
+    /**
+     * @param {?} year
+     * @return {?}
+     */
+    MonthViewService.prototype.createMonthGrid = function (year) {
+        // update the header
+        this._datepicker.setHeader(year.toString());
+        // get the current year and month
+        var /** @type {?} */ currentMonth = new Date().getMonth();
+        var /** @type {?} */ currentYear = new Date().getFullYear();
+        // get the currently selected month
+        var /** @type {?} */ activeMonth = this._datepicker.selected$.value.getMonth();
+        var /** @type {?} */ activeYear = this._datepicker.selected$.value.getFullYear();
+        // create a 4x3 grid of month numbers
+        var /** @type {?} */ months$$1 = range(0, 11).map(function (month) {
+            return {
+                name: monthsShort[month],
+                month: month,
+                year: year,
+                isCurrentMonth: year === currentYear && month === currentMonth,
+                isActiveMonth: year === activeYear && month === activeMonth
+            };
+        });
+        // map these to the appropriate format
+        var /** @type {?} */ items = gridify(months$$1, 4);
+        // update the grid
+        this.grid$.next(items);
+        // if there is no focused month select the first one
+        if (this._datepicker.modeDirection === ModeDirection.Descend && this.focused$.value === null) {
+            // check if the selected month is in view
+            var /** @type {?} */ selectedMonth = months$$1.find(function (month) { return month.isActiveMonth; });
+            this.setFocus(selectedMonth ? selectedMonth.month : 0, year);
+        }
+    };
+    return MonthViewService;
+}());
+MonthViewService.decorators = [
+    { type: core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+MonthViewService.ctorParameters = function () { return [
+    { type: DateTimePickerService, },
+]; };
+var MonthViewComponent = (function () {
+    /**
+     * @param {?} _datePicker
+     * @param {?} monthService
+     */
+    function MonthViewComponent(_datePicker, monthService) {
+        var _this = this;
+        this._datePicker = _datePicker;
+        this.monthService = monthService;
+        this._subscription = _datePicker.headerEvent$
+            .subscribe(function (event) { return event === DatePickerHeaderEvent.Next ? _this.next() : _this.previous(); });
+    }
+    /**
+     * @return {?}
+     */
+    MonthViewComponent.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
+    };
+    /**
+     * Go to the previous year
+     * @return {?}
+     */
+    MonthViewComponent.prototype.previous = function () {
+        this._datePicker.setViewportYear(this._datePicker.year$.value - 1);
+    };
+    /**
+     * Go to the next year
+     * @return {?}
+     */
+    MonthViewComponent.prototype.next = function () {
+        this._datePicker.setViewportYear(this._datePicker.year$.value + 1);
     };
     /**
      * Select a month in the calendar
      * @param {?} month the index of the month to select
      * @return {?}
      */
-    DateTimePickerMonthViewComponent.prototype.select = function (month) {
-        this.month = month;
+    MonthViewComponent.prototype.select = function (month) {
+        this._datePicker.setViewportMonth(month);
         // show the day picker
-        this.showDayPicker();
+        this._datePicker.goToChildMode();
     };
     /**
-     * Get the name of a month
-     * @param {?} month the month in question
+     * @param {?} item
+     * @param {?} monthOffset
      * @return {?}
      */
-    DateTimePickerMonthViewComponent.prototype.getMonthName = function (month) {
-        return monthsShort[month];
+    MonthViewComponent.prototype.focusMonth = function (item, monthOffset) {
+        var /** @type {?} */ targetMonth = item.month + monthOffset;
+        var /** @type {?} */ targetYear = item.year;
+        if (targetMonth < 0) {
+            targetMonth += 12;
+            targetYear -= 1;
+        }
+        if (targetMonth >= 12) {
+            targetMonth -= 12;
+            targetYear += 1;
+        }
+        this.monthService.setFocus(targetMonth, targetYear);
     };
     /**
-     * Show the daye picker view
+     * @param {?} index
      * @return {?}
      */
-    DateTimePickerMonthViewComponent.prototype.showDayPicker = function () {
-        this._dateTimePickerService.mode.next(DatePickerMode.Day);
+    MonthViewComponent.prototype.trackRowByFn = function (index) {
+        return index;
     };
     /**
-     * Show the year picker view
+     * @param {?} index
+     * @param {?} item
      * @return {?}
      */
-    DateTimePickerMonthViewComponent.prototype.showYearPicker = function () {
-        this._dateTimePickerService.mode.next(DatePickerMode.Year);
+    MonthViewComponent.prototype.trackMonthByFn = function (index, item) {
+        return item.month + " " + item.year;
     };
-    return DateTimePickerMonthViewComponent;
+    /**
+     * @param {?} item
+     * @return {?}
+     */
+    MonthViewComponent.prototype.getTabbable = function (item) {
+        var /** @type {?} */ focused = this.monthService.focused$.value;
+        var /** @type {?} */ grid = this.monthService.grid$.value;
+        // if there is a focused month check if this is it
+        if (focused) {
+            // check if the focused month is visible
+            var /** @type {?} */ isFocusedMonthVisible = !!grid.find(function (row) { return !!row.find(function (_item) { return _item.month === focused.month && _item.year === focused.year; }); });
+            if (isFocusedMonthVisible) {
+                return focused.month === item.month && focused.year === item.year;
+            }
+        }
+        // if there is no focusable month then check if there is a selected month
+        var /** @type {?} */ isSelectedMonthVisible = !!grid.find(function (row) { return !!row.find(function (month) { return month.isActiveMonth; }); });
+        if (isSelectedMonthVisible) {
+            return item.isActiveMonth;
+        }
+        // otherwise make the first month tabbable
+        return item.month === 0;
+    };
+    return MonthViewComponent;
 }());
-DateTimePickerMonthViewComponent.decorators = [
+MonthViewComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-date-time-picker-month-view',
-                template: "\n    <ux-date-time-picker-header [header]=\"year\" (previous)=\"previous()\" (next)=\"next()\" (ascend)=\"showYearPicker()\"></ux-date-time-picker-header>\n\n    <div class=\"calendar\">\n      <div class=\"calendar-row\" *ngFor=\"let row of months\">\n        <div class=\"calendar-item\" *ngFor=\"let item of row\" [class.active]=\"item === date.getMonth() && year === date.getFullYear()\"\n          [class.current]=\"item === currentDate.getMonth() && year === currentDate.getFullYear()\" (mousedown)=\"select(item)\" (keyup.enter)=\"select(item)\" tabindex=\"0\">{{ getMonthName(item) }}</div>\n      </div>\n    </div>\n  "
+                template: "\n      <div class=\"calendar\" role=\"grid\">\n        <div class=\"calendar-row\" *ngFor=\"let row of monthService.grid$ | async; trackBy: trackRowByFn\" role=\"row\">\n\n          <button role=\"gridcell\"\n               class=\"calendar-item\"\n               *ngFor=\"let item of row; trackBy: trackMonthByFn\"\n               [focusIf]=\"(monthService.focused$ | async)?.month === item.month && (monthService.focused$ | async)?.year === item.year\"\n               [tabindex]=\"getTabbable(item) ? 0 : -1\"\n               [attr.aria-label]=\"item.name + ' ' + item.year\"\n               [attr.aria-selected]=\"item.isActiveMonth\"\n               [class.active]=\"item.isActiveMonth\"\n               [class.current]=\"item.isCurrentMonth\"\n               (click)=\"select(item.month); $event.stopPropagation()\"\n               (keydown.ArrowLeft)=\"focusMonth(item, -1); $event.preventDefault()\"\n               (keydown.ArrowRight)=\"focusMonth(item, 1); $event.preventDefault()\"\n               (keydown.ArrowUp)=\"focusMonth(item, -4); $event.preventDefault()\"\n               (keydown.ArrowDown)=\"focusMonth(item, 4); $event.preventDefault()\">\n               {{ item.name }}\n          </button>\n        </div>\n      </div>\n    ",
+                providers: [MonthViewService],
+                changeDetection: core.ChangeDetectionStrategy.OnPush
             },] },
 ];
 /**
  * @nocollapse
  */
-DateTimePickerMonthViewComponent.ctorParameters = function () { return [
+MonthViewComponent.ctorParameters = function () { return [
+    { type: DateTimePickerService, },
+    { type: MonthViewService, },
+]; };
+var TimeViewComponent = (function () {
+    /**
+     * @param {?} datepicker
+     */
+    function TimeViewComponent(datepicker) {
+        this.datepicker = datepicker;
+    }
+    /**
+     * @param {?} name
+     * @return {?}
+     */
+    TimeViewComponent.prototype.selectTimezone = function (name) {
+        var /** @type {?} */ timezones = this.datepicker.timezones$.value;
+        // find matching timezone
+        var /** @type {?} */ timezone = timezones.find(function (_timezone) { return _timezone.name === name; });
+        if (timezone) {
+            this.datepicker.setTimezone(timezone);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    TimeViewComponent.prototype.incrementTimezone = function () {
+        var /** @type {?} */ timezone = this.datepicker.timezone$.value;
+        var /** @type {?} */ timezones = this.datepicker.timezones$.value;
+        var /** @type {?} */ currentZone = timezones.findIndex(function (zone) { return zone.name === timezone.name && zone.offset === timezone.offset; });
+        // try to get the previous zone
+        this.datepicker.setTimezone(timezones[currentZone + 1] ? timezones[currentZone + 1] : timezones[currentZone]);
+    };
+    /**
+     * @return {?}
+     */
+    TimeViewComponent.prototype.decrementTimezone = function () {
+        var /** @type {?} */ timezone = this.datepicker.timezone$.value;
+        var /** @type {?} */ timezones = this.datepicker.timezones$.value;
+        var /** @type {?} */ currentZone = timezones.findIndex(function (zone) { return zone.name === timezone.name && zone.offset === timezone.offset; });
+        // try to get the previous zone
+        this.datepicker.setTimezone(timezones[currentZone - 1] ? timezones[currentZone - 1] : timezones[currentZone]);
+    };
+    return TimeViewComponent;
+}());
+TimeViewComponent.decorators = [
+    { type: core.Component, args: [{
+                selector: 'ux-date-time-picker-time-view',
+                template: "\n      <ux-time-picker *ngIf=\"datepicker.showTime$ | async\"\n          [value]=\"datepicker.selected$ | async\"\n          (valueChange)=\"datepicker.selected$.next($event)\"\n          [showSeconds]=\"datepicker.showSeconds$ | async\"\n          [showMeridian]=\"datepicker.showMeridian$ | async\"\n          [showSpinners]=\"datepicker.showSpinners$ | async\">\n      </ux-time-picker>\n\n      <ng-container *ngIf=\"datepicker.showTimezone$ | async\">\n\n          <div class=\"time-zone-picker\" *ngIf=\"datepicker.showSpinners$ | async\">\n\n              <ux-spin-button\n                  class=\"time-zone-spinner\"\n                  [value]=\"(datepicker.timezone$ | async).name\"\n                  [readOnly]=\"true\"\n                  (increment)=\"incrementTimezone()\"\n                  (decrement)=\"decrementTimezone()\"\n                  inputAriaLabel=\"Time Zone\"\n                  incrementAriaLabel=\"Switch to the next time zone\"\n                  decrementAriaLabel=\"Switch to the previous time zone\">\n              </ux-spin-button>\n          </div>\n\n          <div class=\"time-zone-picker\" *ngIf=\"!(datepicker.showSpinners$ | async)\">\n\n              <select class=\"form-control time-zone-select\"\n                      tabindex=\"0\"\n                      [ngModel]=\"(datepicker.timezone$ | async).name\"\n                      (ngModelChange)=\"selectTimezone($event)\"\n                      aria-label=\"Timezone\"\n                      [attr.aria-valuenow]=\"(datepicker.timezone$ | async).name\">\n\n                  <option *ngFor=\"let zone of datepicker.timezones$ | async\"\n                          [selected]=\"zone.name === (datepicker.timezone$ | async).name\"\n                          [value]=\"zone.name\">\n                      {{ zone?.name }}\n                  </option>\n\n              </select>\n          </div>\n\n      </ng-container>\n    ",
+                changeDetection: core.ChangeDetectionStrategy.OnPush
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TimeViewComponent.ctorParameters = function () { return [
     { type: DateTimePickerService, },
 ]; };
-var DateTimePickerYearViewComponent = (function () {
+var YearViewService = (function () {
     /**
-     * @param {?} _dateTimePickerService
+     * @param {?} _datepicker
      */
-    function DateTimePickerYearViewComponent(_dateTimePickerService) {
-        this._dateTimePickerService = _dateTimePickerService;
-        this._page = 0;
-        this.years = [];
-        this.currentYear = new Date().getFullYear();
+    function YearViewService(_datepicker) {
+        var _this = this;
+        this._datepicker = _datepicker;
+        this.grid$ = new BehaviorSubject.BehaviorSubject([[]]);
+        this.focused$ = new BehaviorSubject.BehaviorSubject(null);
+        this._year = new Date().getFullYear();
+        this._subscription = new Subscription.Subscription();
+        var year = _datepicker.year$.subscribe(function (_year) { return _this.createYearGrid(_year); });
+        var event = _datepicker.headerEvent$
+            .subscribe(function (_event) { return _event === DatePickerHeaderEvent.Next ? _this.goToNextDecade() : _this.goToPreviousDecade(); });
+        this._subscription.add(year);
+        this._subscription.add(event);
     }
     /**
      * @return {?}
      */
-    DateTimePickerYearViewComponent.prototype.ngOnInit = function () {
-        this.update();
+    YearViewService.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
     };
-    Object.defineProperty(DateTimePickerYearViewComponent.prototype, "year", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._dateTimePickerService.year.getValue();
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._dateTimePickerService.year.next(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} year
      * @return {?}
      */
-    DateTimePickerYearViewComponent.prototype.select = function (year) {
-        this.year = year;
-        // show the month picker
-        this.showMonthPicker();
+    YearViewService.prototype.setFocus = function (year) {
+        this.focused$.next(year);
+        this.createYearGrid(year);
     };
     /**
      * @return {?}
      */
-    DateTimePickerYearViewComponent.prototype.previous = function () {
-        this._page--;
-        this.update();
+    YearViewService.prototype.goToPreviousDecade = function () {
+        this.createYearGrid(this._year - 10);
     };
     /**
      * @return {?}
      */
-    DateTimePickerYearViewComponent.prototype.next = function () {
-        this._page++;
-        this.update();
+    YearViewService.prototype.goToNextDecade = function () {
+        this.createYearGrid(this._year + 10);
     };
     /**
+     * @param {?=} year
      * @return {?}
      */
-    DateTimePickerYearViewComponent.prototype.update = function () {
+    YearViewService.prototype.createYearGrid = function (year) {
+        var _this = this;
+        if (year === void 0) { year = this._year; }
+        this._year = year;
         // get the years to display
-        var /** @type {?} */ decade = this.getDecade();
-        // update the header
-        this.header = decade.start + " - " + decade.end;
+        var /** @type {?} */ decade = this.getDecade(year);
+        var /** @type {?} */ currentYear = new Date().getFullYear();
+        // produce items in the correct format
+        var /** @type {?} */ items = decade.range.map(function (_year) {
+            return {
+                year: _year,
+                isCurrentYear: _year === currentYear,
+                isActiveYear: _year === _this._datepicker.year$.value
+            };
+        });
+        // update the header text
+        this._datepicker.setHeader(decade.start + ' - ' + decade.end);
         // create the grid
-        this.years = gridify(decade.range, 4);
+        this.grid$.next(gridify(items, 4));
     };
     /**
      * Get the years in the current decade to display
+     * @param {?} year
      * @return {?}
      */
-    DateTimePickerYearViewComponent.prototype.getDecade = function () {
-        // the number of years to display
-        var /** @type {?} */ yearCount = 10;
+    YearViewService.prototype.getDecade = function (year) {
         // figure the start and end points
-        var /** @type {?} */ start = (this.year - (this.year % yearCount)) + (this._page * yearCount);
-        var /** @type {?} */ end = start + yearCount - 1;
+        var /** @type {?} */ start = (year - (year % 10));
+        var /** @type {?} */ end = start + 9;
         // create an array containing all the numbers between the start and end points
         return { start: start, end: end, range: range(start, end) };
     };
-    /**
-     * Show the month picker view
-     * @return {?}
-     */
-    DateTimePickerYearViewComponent.prototype.showMonthPicker = function () {
-        this._dateTimePickerService.mode.next(DatePickerMode.Month);
-    };
-    return DateTimePickerYearViewComponent;
+    return YearViewService;
 }());
-DateTimePickerYearViewComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-date-time-picker-year-view',
-                template: "\n    <ux-date-time-picker-header [header]=\"header\" [canAscend]=\"false\" (previous)=\"previous()\" (next)=\"next()\"></ux-date-time-picker-header>\n\n    <div class=\"calendar\">\n      <div class=\"calendar-row\" *ngFor=\"let row of years\">\n        <div *ngFor=\"let item of row\" class=\"calendar-item\" [class.current]=\"item === currentYear\" [class.active]=\"item === year\"\n        (mousedown)=\"select(item)\" (keyup.enter)=\"select(item)\" tabindex=\"0\">{{ item }}</div>\n      </div>\n    </div>\n  "
-            },] },
+YearViewService.decorators = [
+    { type: core.Injectable },
 ];
 /**
  * @nocollapse
  */
-DateTimePickerYearViewComponent.ctorParameters = function () { return [
+YearViewService.ctorParameters = function () { return [
     { type: DateTimePickerService, },
 ]; };
-var DateTimePickerHeaderComponent = (function () {
-    function DateTimePickerHeaderComponent() {
-        this.canAscend = true;
-        this.next = new core.EventEmitter();
-        this.previous = new core.EventEmitter();
-        this.ascend = new core.EventEmitter();
+var YearViewComponent = (function () {
+    /**
+     * @param {?} _datePicker
+     * @param {?} yearService
+     */
+    function YearViewComponent(_datePicker, yearService) {
+        this._datePicker = _datePicker;
+        this.yearService = yearService;
     }
-    return DateTimePickerHeaderComponent;
+    /**
+     * @param {?} year
+     * @return {?}
+     */
+    YearViewComponent.prototype.select = function (year) {
+        this._datePicker.setViewportYear(year);
+        // show the month picker
+        this._datePicker.goToChildMode();
+    };
+    /**
+     * @param {?} item
+     * @param {?} yearOffset
+     * @return {?}
+     */
+    YearViewComponent.prototype.focusYear = function (item, yearOffset) {
+        this.yearService.setFocus(item.year + yearOffset);
+    };
+    /**
+     * @param {?} index
+     * @return {?}
+     */
+    YearViewComponent.prototype.trackRowByFn = function (index) {
+        return index;
+    };
+    /**
+     * @param {?} index
+     * @param {?} item
+     * @return {?}
+     */
+    YearViewComponent.prototype.trackYearByFn = function (index, item) {
+        return item.year;
+    };
+    /**
+     * @param {?} item
+     * @return {?}
+     */
+    YearViewComponent.prototype.getTabbable = function (item) {
+        var /** @type {?} */ focused = this.yearService.focused$.value;
+        var /** @type {?} */ grid = this.yearService.grid$.value;
+        // if there is a focused year check if this is it
+        if (focused) {
+            // check if the focused year is visible
+            var /** @type {?} */ isFocusedYearVisible = !!grid.find(function (row) { return !!row.find(function (_item) { return _item.year === focused; }); });
+            if (isFocusedYearVisible) {
+                return focused === item.year;
+            }
+        }
+        // if there is no focusable year then check if there is a selected year
+        var /** @type {?} */ isSelectedYearVisible = !!grid.find(function (row) { return !!row.find(function (year) { return year.isActiveYear; }); });
+        if (isSelectedYearVisible) {
+            return item.isActiveYear;
+        }
+        // otherwise make the first month tabbable
+        return grid[0][0].year === item.year;
+    };
+    return YearViewComponent;
 }());
-DateTimePickerHeaderComponent.decorators = [
+YearViewComponent.decorators = [
     { type: core.Component, args: [{
-                selector: 'ux-date-time-picker-header',
-                template: "\n      <header class=\"header\">\n\n        <div class=\"header-navigation\" (click)=\"previous.emit(); $event.stopPropagation()\" (keyup.enter)=\"previous.emit()\" tabindex=\"0\">\n          <i class=\"hpe-icon hpe-previous\"></i>\n        </div>\n\n        <div class=\"header-title\" [class.active]=\"canAscend\" (click)=\"ascend.emit(); $event.stopPropagation()\" (keyup.enter)=\"ascend.emit()\" tabindex=\"0\">{{ header }}</div>\n\n        <div class=\"header-navigation\" (click)=\"next.emit(); $event.stopPropagation()\" (keyup.enter)=\"next.emit()\" tabindex=\"0\">\n          <i class=\"hpe-icon hpe-next\"></i>\n        </div>\n      </header>\n    "
+                selector: 'ux-date-time-picker-year-view',
+                template: "\n    <div class=\"calendar\" role=\"grid\">\n      <div class=\"calendar-row\" role=\"row\" *ngFor=\"let row of yearService.grid$ | async; trackBy: trackRowByFn\">\n\n        <button *ngFor=\"let item of row; trackBy: trackYearByFn\"\n             role=\"gridcell\"\n             class=\"calendar-item\"\n             [focusIf]=\"(yearService.focused$ | async) === item.year\"\n             [attr.aria-label]=\"item.year\"\n             [attr.aria-selected]=\"item.isActiveYear\"\n             [class.current]=\"item.isCurrentYear\"\n             [class.active]=\"item.isActiveYear\"\n             (click)=\"select(item.year); $event.stopPropagation()\"\n             (keydown.ArrowLeft)=\"focusYear(item, -1); $event.preventDefault()\"\n             (keydown.ArrowRight)=\"focusYear(item, 1); $event.preventDefault()\"\n             (keydown.ArrowUp)=\"focusYear(item, -4); $event.preventDefault()\"\n             (keydown.ArrowDown)=\"focusYear(item, 4); $event.preventDefault()\"\n             [tabindex]=\"getTabbable(item) ? 0 : -1\">\n             {{ item.year }}\n        </button>\n      </div>\n    </div>\n  ",
+                providers: [YearViewService],
+                changeDetection: core.ChangeDetectionStrategy.OnPush
             },] },
 ];
 /**
  * @nocollapse
  */
-DateTimePickerHeaderComponent.ctorParameters = function () { return []; };
-DateTimePickerHeaderComponent.propDecorators = {
-    'header': [{ type: core.Input },],
-    'canAscend': [{ type: core.Input },],
-    'next': [{ type: core.Output },],
-    'previous': [{ type: core.Output },],
-    'ascend': [{ type: core.Output },],
-};
-var DateTimePickerTimeViewComponent = (function () {
-    function DateTimePickerTimeViewComponent() {
-        this.date = new Date();
-        this.showSeconds = false;
-        this.showSpinners = true;
-        this.showTimezone = true;
-        this.showMeridian = true;
-        this.dateChange = new core.EventEmitter();
-        this.timezoneChange = new core.EventEmitter();
-        this.meridian = DatePickerMeridian.AM;
-        // Expose enum to view
-        this.DatePickerMeridian = DatePickerMeridian;
+YearViewComponent.ctorParameters = function () { return [
+    { type: DateTimePickerService, },
+    { type: YearViewService, },
+]; };
+var FocusIfDirective = (function () {
+    /**
+     * @param {?} _elementRef
+     */
+    function FocusIfDirective(_elementRef) {
+        this._elementRef = _elementRef;
+        this._timeout = null;
     }
-    Object.defineProperty(DateTimePickerTimeViewComponent.prototype, "timezone", {
+    Object.defineProperty(FocusIfDirective.prototype, "focusIf", {
         /**
+         * @param {?} focus
          * @return {?}
          */
-        get: function () {
-            return this._timezone;
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (value !== this._timezone) {
-                this._timezone = value;
-                this.timezoneChange.emit(this._timezone);
+        set: function (focus) {
+            var _this = this;
+            // if a timeout is pending then cancel it
+            if (this._timeout !== null) {
+                clearTimeout(this._timeout);
+            }
+            if (focus) {
+                this._timeout = setTimeout(function () {
+                    _this._elementRef.nativeElement.focus();
+                    _this._timeout = null;
+                });
             }
         },
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
-    DateTimePickerTimeViewComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        // if the user did not specify a timezone - choose a default one
-        if (!this.timezone) {
-            setTimeout(function () { return _this.setDefaultTimezone(); });
-        }
-    };
-    /**
-     * @return {?}
-     */
-    DateTimePickerTimeViewComponent.prototype.setDefaultTimezone = function () {
-        // determine the user default timezone
-        var /** @type {?} */ offset = new Date().getTimezoneOffset();
-        // find the closest timezone
-        this.timezone = this.timezones.find(function (zone) { return zone.offset === offset; });
-        // if not match was found then set to GMT
-        if (!this.timezone) {
-            this.timezone = this.timezones.find(function (zone) { return zone.offset === 0; });
-        }
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    DateTimePickerTimeViewComponent.prototype.update = function (date) {
-        // if the date is invalid then stop here
-        if (!date) {
-            return;
-        }
-        // update the meridian
-        this.meridian = date.getHours() < 12 ? DatePickerMeridian.AM : DatePickerMeridian.PM;
-        // if the date has not changed then don't emit
-        if (date.getTime() !== this.date.getTime()) {
-            this.date = date;
-            this.dateChange.emit(date);
-        }
-    };
-    /**
-     * @param {?} meridian
-     * @return {?}
-     */
-    DateTimePickerTimeViewComponent.prototype.setMeridian = function (meridian) {
-        // get the current hours
-        var /** @type {?} */ hours = this.date.getHours();
-        // if we are transitioning to AM and time is currently PM
-        if (meridian === DatePickerMeridian.AM && hours >= 12) {
-            this.date.setHours(hours - 12);
-            this.dateChange.emit(this.date);
-        }
-        // if we are transitioning to PM and time is currently AM
-        if (meridian === DatePickerMeridian.PM && hours < 12) {
-            this.date.setHours(hours + 12);
-            this.dateChange.emit(this.date);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    DateTimePickerTimeViewComponent.prototype.previousTimezone = function () {
-        var _this = this;
-        // get the current zone
-        var /** @type {?} */ currentZone = this.timezones.findIndex(function (zone) { return zone.name === _this.timezone.name && zone.offset === _this.timezone.offset; });
-        // try to get the previous zone
-        this.timezone = this.timezones[currentZone - 1] ? this.timezones[currentZone - 1] : this.timezones[currentZone];
-    };
-    /**
-     * @return {?}
-     */
-    DateTimePickerTimeViewComponent.prototype.nextTimezone = function () {
-        var _this = this;
-        // get the current zone
-        var /** @type {?} */ currentZone = this.timezones.findIndex(function (zone) { return zone.name === _this.timezone.name && zone.offset === _this.timezone.offset; });
-        // try to get the next zone
-        this.timezone = this.timezones[currentZone + 1] ? this.timezones[currentZone + 1] : this.timezones[currentZone];
-    };
-    return DateTimePickerTimeViewComponent;
+    return FocusIfDirective;
 }());
-DateTimePickerTimeViewComponent.decorators = [
-    { type: core.Component, args: [{
-                selector: 'ux-date-time-picker-time-view',
-                template: "\n      <div class=\"time-input-container\">\n        <timepicker [ngModel]=\"date\" (ngModelChange)=\"update($event)\" [minuteStep]=\"1\" [hourStep]=\"1\" [secondsStep]=\"1\" [showSeconds]=\"showSeconds\"\n          [showSpinners]=\"showSpinners\" [showMeridian]=\"showMeridian\"></timepicker>\n\n        <div class=\"btn-group meridian-picker\" *ngIf=\"showMeridian\">\n          <button type=\"button\" class=\"btn button-toggle-accent\" [(ngModel)]=\"meridian\" (ngModelChange)=\"setMeridian($event)\" [btnRadio]=\"DatePickerMeridian.AM\">AM</button>\n          <button type=\"button\" class=\"btn button-toggle-accent\" [(ngModel)]=\"meridian\" (ngModelChange)=\"setMeridian($event)\" [btnRadio]=\"DatePickerMeridian.PM\">PM</button>\n        </div>\n\n        <table class=\"time-zone-picker-container\" *ngIf=\"showTimezone && showSpinners\">\n          <tbody>\n            <tr>\n              <td class=\"text-center\">\n                <a class=\"btn btn-link\" (click)=\"nextTimezone()\">\n                  <span class=\"hpe-icon hpe-up\"></span>\n                </a>\n              </td>\n            </tr>\n            <tr>\n              <td class=\"form-group\">\n                <div class=\"form-control time-zone-picker\">\n                  <span class=\"time-zone\">{{ timezone?.name }}</span>\n                </div>\n              </td>\n            </tr>\n            <tr>\n              <td class=\"text-center\">\n                <a class=\"btn btn-link\" (click)=\"previousTimezone()\">\n                  <span class=\"hpe-icon hpe-down\"></span>\n                </a>\n              </td>\n            </tr>\n          </tbody>\n        </table>\n\n        <div *ngIf=\"showTimezone && !showSpinners\">\n          <select class=\"form-control time-zone-picker-select\" [(ngModel)]=\"timezone\">\n            <option *ngFor=\"let zone of timezones\" [ngValue]=\"zone\">{{ zone?.name }}</option>\n          </select>\n        </div>\n\n      </div>\n    "
+FocusIfDirective.decorators = [
+    { type: core.Directive, args: [{
+                selector: '[focusIf]'
             },] },
 ];
 /**
  * @nocollapse
  */
-DateTimePickerTimeViewComponent.ctorParameters = function () { return []; };
-DateTimePickerTimeViewComponent.propDecorators = {
-    'date': [{ type: core.Input },],
-    'showSeconds': [{ type: core.Input },],
-    'showSpinners': [{ type: core.Input },],
-    'showTimezone': [{ type: core.Input },],
-    'showMeridian': [{ type: core.Input },],
-    'timezones': [{ type: core.Input },],
-    'dateChange': [{ type: core.Output },],
-    'timezoneChange': [{ type: core.Output },],
-    'timezone': [{ type: core.Input },],
+FocusIfDirective.ctorParameters = function () { return [
+    { type: core.ElementRef, },
+]; };
+FocusIfDirective.propDecorators = {
+    'focusIf': [{ type: core.Input },],
 };
-var DatePickerMeridian = {};
-DatePickerMeridian.AM = 0;
-DatePickerMeridian.PM = 1;
-DatePickerMeridian[DatePickerMeridian.AM] = "AM";
-DatePickerMeridian[DatePickerMeridian.PM] = "PM";
-var DECLARATIONS$1 = [
-    DateTimePickerComponent,
-    DateTimePickerDayViewComponent,
-    DateTimePickerMonthViewComponent,
-    DateTimePickerYearViewComponent,
-    DateTimePickerTimeViewComponent,
-    DateTimePickerHeaderComponent
+var FocusIfModule = (function () {
+    function FocusIfModule() {
+    }
+    return FocusIfModule;
+}());
+FocusIfModule.decorators = [
+    { type: core.NgModule, args: [{
+                exports: [FocusIfDirective],
+                declarations: [FocusIfDirective]
+            },] },
 ];
+/**
+ * @nocollapse
+ */
+FocusIfModule.ctorParameters = function () { return []; };
 var DateTimePickerModule = (function () {
     function DateTimePickerModule() {
     }
@@ -12535,11 +12432,12 @@ DateTimePickerModule.decorators = [
                 imports: [
                     common.CommonModule,
                     forms.FormsModule,
-                    TimepickerModule.forRoot(),
-                    ButtonsModule.forRoot()
+                    TimePickerModule,
+                    SpinButtonModule,
+                    FocusIfModule
                 ],
-                exports: DECLARATIONS$1,
-                declarations: DECLARATIONS$1,
+                exports: [DateTimePickerComponent],
+                declarations: [DateTimePickerComponent, HeaderComponent, DayViewComponent, MonthViewComponent, YearViewComponent, TimeViewComponent],
                 providers: [
                     DateTimePickerConfig
                 ]
@@ -15669,7 +15567,7 @@ FacetTypeaheadHighlight.decorators = [
  * @nocollapse
  */
 FacetTypeaheadHighlight.ctorParameters = function () { return []; };
-var DECLARATIONS$2 = [
+var DECLARATIONS$1 = [
     FacetContainerComponent,
     FacetHeaderComponent,
     FacetBaseComponent,
@@ -15691,8 +15589,8 @@ FacetsModule.decorators = [
                     TooltipModule.forRoot(),
                     TypeaheadModule.forRoot()
                 ],
-                exports: DECLARATIONS$2,
-                declarations: DECLARATIONS$2
+                exports: DECLARATIONS$1,
+                declarations: DECLARATIONS$1
             },] },
 ];
 /**
@@ -16454,7 +16352,7 @@ FilterDropdownComponent.ctorParameters = function () { return []; };
 FilterDropdownComponent.propDecorators = {
     'initial': [{ type: core.Input },],
 };
-var DECLARATIONS$3 = [
+var DECLARATIONS$2 = [
     FilterBaseComponent,
     FilterContainerComponent,
     FilterDropdownComponent,
@@ -16474,8 +16372,8 @@ FilterModule.decorators = [
                     forms.FormsModule,
                     common.CommonModule
                 ],
-                exports: DECLARATIONS$3,
-                declarations: DECLARATIONS$3
+                exports: DECLARATIONS$2,
+                declarations: DECLARATIONS$2
             },] },
 ];
 /**
@@ -16980,58 +16878,6 @@ var PopoverModule = (function () {
     PopoverModule.ctorParameters = function () { return []; };
     return PopoverModule;
 }());
-var FocusIfDirective = (function () {
-    /**
-     * @param {?} _elementRef
-     */
-    function FocusIfDirective(_elementRef) {
-        this._elementRef = _elementRef;
-    }
-    Object.defineProperty(FocusIfDirective.prototype, "focusIf", {
-        /**
-         * @param {?} focus
-         * @return {?}
-         */
-        set: function (focus) {
-            var _this = this;
-            if (focus) {
-                setTimeout(function () { return _this._elementRef.nativeElement.focus(); });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return FocusIfDirective;
-}());
-FocusIfDirective.decorators = [
-    { type: core.Directive, args: [{
-                selector: '[focusIf]'
-            },] },
-];
-/**
- * @nocollapse
- */
-FocusIfDirective.ctorParameters = function () { return [
-    { type: core.ElementRef, },
-]; };
-FocusIfDirective.propDecorators = {
-    'focusIf': [{ type: core.Input },],
-};
-var FocusIfModule = (function () {
-    function FocusIfModule() {
-    }
-    return FocusIfModule;
-}());
-FocusIfModule.decorators = [
-    { type: core.NgModule, args: [{
-                exports: [FocusIfDirective],
-                declarations: [FocusIfDirective]
-            },] },
-];
-/**
- * @nocollapse
- */
-FocusIfModule.ctorParameters = function () { return []; };
 var HierarchyBarService = (function () {
     function HierarchyBarService() {
         this.nodes$ = new BehaviorSubject.BehaviorSubject([]);
@@ -17616,7 +17462,7 @@ ItemDisplayPanelComponent.propDecorators = {
     'title': [{ type: core.Input },],
     'visible': [{ type: core.Input },],
 };
-var DECLARATIONS$4 = [
+var DECLARATIONS$3 = [
     ItemDisplayPanelComponent,
     ItemDisplayPanelContentDirective,
     ItemDisplayPanelFooterDirective
@@ -17631,8 +17477,8 @@ ItemDisplayPanelModule.decorators = [
                 imports: [
                     common.CommonModule
                 ],
-                exports: DECLARATIONS$4,
-                declarations: DECLARATIONS$4
+                exports: DECLARATIONS$3,
+                declarations: DECLARATIONS$3
             },] },
 ];
 /**
@@ -17941,7 +17787,7 @@ var StepChangingEvent = (function () {
     }
     return StepChangingEvent;
 }());
-var DECLARATIONS$5 = [
+var DECLARATIONS$4 = [
     WizardComponent,
     WizardStepComponent
 ];
@@ -17956,8 +17802,8 @@ WizardModule.decorators = [
                     common.CommonModule,
                     TooltipModule.forRoot()
                 ],
-                exports: DECLARATIONS$5,
-                declarations: DECLARATIONS$5
+                exports: DECLARATIONS$4,
+                declarations: DECLARATIONS$4
             },] },
 ];
 /**
@@ -19084,7 +18930,7 @@ var NumberPickerComponent = (function () {
 NumberPickerComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-number-picker',
-                template: "\n      <input type=\"number\" class=\"form-control number-picker-input\" [(ngModel)]=\"value\" [min]=\"min\" [max]=\"max\" (keydown.ArrowDown)=\"decrement($event)\"\n          (keydown.ArrowUp)=\"increment($event)\" (wheel)=\"onScroll($event)\" step=\"any\" [disabled]=\"disabled\">\n\n      <div class=\"number-picker-controls\">\n\n          <div class=\"number-picker-control-up\" (click)=\"increment($event)\" [class.disabled]=\"disabled || value >= max\">\n              <span class=\"hpe-icon hpe-up\"></span>\n          </div>\n\n          <div class=\"number-picker-control-down\" (click)=\"decrement($event)\" [class.disabled]=\"disabled || value <= min\">\n              <span class=\"hpe-icon hpe-down\"></span>\n          </div>\n\n      </div>\n    ",
+                template: "\n      <input type=\"number\"\n             role=\"spinbutton\"\n             class=\"form-control number-picker-input\"\n             [(ngModel)]=\"value\"\n             [min]=\"min\"\n             [max]=\"max\"\n             (keydown.ArrowDown)=\"decrement($event)\"\n             (keydown.ArrowUp)=\"increment($event)\"\n             (wheel)=\"onScroll($event)\"\n             step=\"any\"\n             [disabled]=\"disabled\"\n             [attr.aria-valuemin]=\"min\"\n             [attr.aria-valuenow]=\"value\"\n             [attr.aria-valuemax]=\"max\">\n\n      <div class=\"number-picker-controls\">\n\n          <div class=\"number-picker-control-up\"\n               (click)=\"increment($event)\"\n               [class.disabled]=\"disabled || value >= max\">\n\n              <span class=\"hpe-icon hpe-up\"></span>\n          </div>\n\n          <div class=\"number-picker-control-down\"\n               (click)=\"decrement($event)\"\n               [class.disabled]=\"disabled || value <= min\">\n\n              <span class=\"hpe-icon hpe-down\"></span>\n          </div>\n\n      </div>\n    ",
                 providers: [NUMBER_PICKER_VALUE_ACCESSOR],
                 host: {
                     '[class.has-error]': '!isValid()'
@@ -19144,7 +18990,8 @@ var PageHeaderService = (function () {
         this.selected$ = new BehaviorSubject.BehaviorSubject(null);
         this.selectedRoot$ = new BehaviorSubject.BehaviorSubject(null);
         this.secondary$ = new BehaviorSubject.BehaviorSubject(false);
-        this._subscription = this.selected$.pipe(map$3(function (selected) { return _this.getRoot(selected); })).subscribe(function (root) { return _this.selectedRoot$.next(root); });
+        this.activeIconMenu$ = new BehaviorSubject.BehaviorSubject(null);
+        this._subscription = this.selected$.pipe(map$1(function (selected) { return _this.getRoot(selected); })).subscribe(function (root) { return _this.selectedRoot$.next(root); });
     }
     /**
      * @return {?}
@@ -19377,7 +19224,7 @@ var PageHeaderComponent = (function () {
      */
     PageHeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._subscription = this.selectedRoot$.pipe(distinctUntilChanged$3(), filter$1(function () { return _this.secondaryNavigation && _this.secondaryNavigationAutoselect; }), filter$1(function (item) { return item && item.children && item.children.length > 0; }), map$3(function (item) { return item.children[0]; })).subscribe(function (item) { return _this.select(item); });
+        this._subscription = this.selectedRoot$.pipe(distinctUntilChanged$1(), filter$1(function () { return _this.secondaryNavigation && _this.secondaryNavigationAutoselect; }), filter$1(function (item) { return item && item.children && item.children.length > 0; }), map$1(function (item) { return item.children[0]; })).subscribe(function (item) { return _this.select(item); });
     };
     /**
      * @return {?}
@@ -19404,7 +19251,7 @@ PageHeaderComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-page-header',
                 exportAs: 'ux-page-header',
-                template: "\n      <div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\">\n\n          <!-- Display Upper Section when not condensed -->\n          <div class=\"page-header-actions\" *ngIf=\"!condensed\">\n\n              <div class=\"page-header-logo-container\" [hidden]=\"!logo\">\n                  <img [attr.src]=\"logo\" class=\"page-header-logo\">\n              </div>\n\n              <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\n\n                  <!-- The Top Navigation Options -->\n                  <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n              </div>\n\n              <div class=\"page-header-icon-menus\">\n                  <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n\n                  <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n              </div>\n          </div>\n\n          <!-- Display Lower Section When Not Condensed -->\n          <div class=\"page-header-details\" *ngIf=\"!condensed\">\n\n              <div class=\"page-header-state-container\">\n\n                  <div *ngIf=\"backVisible == true\" class=\"page-header-back-button\" (click)=\"goBack()\">\n                      <span class=\"hpe-icon hpe-previous text-primary\"></span>\n                  </div>\n\n                  <div class=\"page-header-title-container\">\n\n                      <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                      <h1 class=\"page-header-title\" [style.backgroundColor]=\"familyBackground\" [style.color]=\"familyForeground\">{{ header }}</h1>\n                  </div>\n\n              </div>\n\n          </div>\n\n          <!-- Display This Section Optimized for Condensed Mode -->\n          <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n              <div class=\"page-header-breadcrumbs\">\n                  <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n              </div>\n\n              <div class=\"page-header-navigation\" [ngClass]=\"alignment\">\n\n                  <!-- The Top Navigation Options -->\n                  <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n              </div>\n\n              <div class=\"page-header-icon-menus\">\n                  <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n                  <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n              </div>\n\n          </div>\n\n      </div>\n\n      <div class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" *ngIf=\"secondaryNavigation && (selectedRoot$ | async)\">\n          <ul class=\"nav nav-tabs\" role=\"tablist\" *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n              <li role=\"presentation\" *ngFor=\"let child of children\" [class.active]=\"child === (selected$ | async)\">\n                  <a role=\"tab\" (click)=\"select(child)\">{{ child.title }}</a>\n              </li>\n          </ul>\n      </div>\n    ",
+                template: "\n      <div class=\"ux-page-header\" [class.page-header-condensed]=\"condensed\" role=\"banner\">\n\n          <!-- Display Upper Section when not condensed -->\n          <div class=\"page-header-actions\" *ngIf=\"!condensed\">\n\n              <div class=\"page-header-logo-container\" role=\"presentation\" [hidden]=\"!logo\">\n                  <img [attr.src]=\"logo\" class=\"page-header-logo\">\n              </div>\n\n              <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n                  <!-- The Top Navigation Options -->\n                  <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n              </div>\n\n              <div class=\"page-header-icon-menus\" role=\"toolbar\">\n                  <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n\n                  <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n              </div>\n          </div>\n\n          <!-- Display Lower Section When Not Condensed -->\n          <div class=\"page-header-details\" *ngIf=\"!condensed\">\n\n              <div class=\"page-header-state-container\" role=\"navigation\">\n\n                  <button *ngIf=\"backVisible === true\" class=\"page-header-back-button\" (click)=\"goBack()\" aria-label=\"Go Back\">\n                      <span class=\"hpe-icon hpe-previous text-primary\"></span>\n                  </button>\n\n                  <div class=\"page-header-title-container\">\n\n                      <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n\n                      <h1 class=\"page-header-title\" [style.backgroundColor]=\"familyBackground\" [style.color]=\"familyForeground\">{{ header }}</h1>\n                  </div>\n\n              </div>\n\n          </div>\n\n          <!-- Display This Section Optimized for Condensed Mode -->\n          <div class=\"page-header-condensed-content\" *ngIf=\"condensed\">\n\n              <div class=\"page-header-breadcrumbs\" role=\"navigation\">\n                  <ux-breadcrumbs [crumbs]=\"crumbs\"></ux-breadcrumbs>\n              </div>\n\n              <div class=\"page-header-navigation\" [ngClass]=\"alignment\" role=\"navigation\" aria-label=\"Primary Navigation\">\n\n                  <!-- The Top Navigation Options -->\n                  <ux-page-header-horizontal-navigation></ux-page-header-horizontal-navigation>\n              </div>\n\n              <div class=\"page-header-icon-menus\" role=\"toolbar\">\n                  <ng-container *ngFor=\"let menu of customMenus\" [ngTemplateOutlet]=\"menu\"></ng-container>\n                  <ux-page-header-icon-menu *ngFor=\"let menu of iconMenus\" [menu]=\"menu\"></ux-page-header-icon-menu>\n              </div>\n\n          </div>\n\n      </div>\n\n      <div class=\"page-header-secondary\" [ngClass]=\"secondaryNavigationAlignment\" role=\"navigation\" *ngIf=\"secondaryNavigation && (selectedRoot$ | async)\">\n          <ul class=\"nav nav-tabs\" role=\"tablist\" aria-label=\"Secondary Navigation\" *ngIf=\"(selectedRoot$ | async)?.children; let children\">\n              <li *ngFor=\"let child of children\" [class.active]=\"child === (selected$ | async)\" role=\"none\">\n                  <a role=\"tab\"\n                      [attr.aria-selected]=\"child === (selected$ | async)\"\n                      tabindex=\"0\"\n                      (click)=\"select(child)\"\n                      (keydown.enter)=\"select(child)\">{{ child.title }}</a>\n              </li>\n          </ul>\n      </div>\n    ",
                 providers: [PageHeaderService]
             },] },
 ];
@@ -19433,8 +19280,45 @@ PageHeaderComponent.propDecorators = {
     'customMenus': [{ type: core.ContentChildren, args: [PageHeaderCustomMenuDirective, { read: core.TemplateRef },] },],
 };
 var PageHeaderIconMenuComponent = (function () {
-    function PageHeaderIconMenuComponent() {
+    /**
+     * @param {?} _service
+     */
+    function PageHeaderIconMenuComponent(_service) {
+        var _this = this;
+        this._service = _service;
+        this._subscription = _service.activeIconMenu$.subscribe(function (next) {
+            // Close all but the most recently opened menu
+            if (next !== _this.menu) {
+                _this._isOpen = false;
+            }
+        });
     }
+    Object.defineProperty(PageHeaderIconMenuComponent.prototype, "isOpen", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._isOpen;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._isOpen = value;
+            if (value) {
+                this._service.activeIconMenu$.next(this.menu);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    PageHeaderIconMenuComponent.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
+    };
     /**
      * @param {?} item
      * @return {?}
@@ -19444,20 +19328,40 @@ var PageHeaderIconMenuComponent = (function () {
             item.select.call(item, item);
         }
     };
+    /**
+     * @param {?} item
+     * @param {?} event
+     * @return {?}
+     */
+    PageHeaderIconMenuComponent.prototype.keydownHandler = function (item, event) {
+        switch (event.key) {
+            case 'Enter':
+            case ' ':
+                this.select(item);
+                this.isOpen = false;
+                this.menuNavigationToggle.focus();
+                event.preventDefault();
+                event.stopPropagation();
+                break;
+        }
+    };
     return PageHeaderIconMenuComponent;
 }());
 PageHeaderIconMenuComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-page-header-icon-menu',
-                template: "\n      <div class=\"page-header-icon-menu\" dropdown dropdownToggle placement=\"bottom right\">\n\n          <a class=\"page-header-icon-menu-button\" (click)=\"select(menu)\">\n              <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\n              <span class=\"label label-primary\" *ngIf=\"menu?.badge\">{{ menu.badge }}</span>\n          </a>\n\n          <ul *dropdownMenu class=\"dropdown-menu\" role=\"menu\">\n\n              <li role=\"menuitem\" *ngFor=\"let dropdown of menu?.dropdown\" [class.dropdown-header]=\"dropdown.header\" [class.dropdown-divider]=\"dropdown.divider\">\n\n                  <span class=\"font-bold\" *ngIf=\"dropdown.header\">{{ dropdown.title }}</span>\n\n                  <a class=\"dropdown-item\" *ngIf=\"!dropdown.header\" (click)=\"select(dropdown)\">\n                      <i class=\"hpe-icon hp-fw text-muted\" [ngClass]=\"dropdown.icon\"></i>\n                      {{ dropdown.title }}\n                      <span class=\"pull-right text-muted small\" *ngIf=\"dropdown.subtitle\">{{ dropdown.subtitle }}</span>\n                  </a>\n              </li>\n\n          </ul>\n      </div>\n    "
+                template: "\n      <div class=\"page-header-icon-menu\"\n          dropdown\n          placement=\"bottom right\"\n          [(isOpen)]=\"isOpen\">\n\n          <a role=\"button\"\n              class=\"page-header-icon-menu-button\"\n              [attr.aria-label]=\"menu.label\"\n              aria-haspopup=\"true\"\n              tabindex=\"0\"\n              (click)=\"select(menu)\"\n              dropdownToggle\n              uxMenuNavigationToggle\n              #menuNavigationToggle=\"uxMenuNavigationToggle\"\n              [(menuOpen)]=\"isOpen\">\n\n              <i class=\"hpe-icon\" [ngClass]=\"menu.icon\"></i>\n              <span class=\"label label-primary\" *ngIf=\"menu?.badge\" aria-hidden=\"true\">{{ menu.badge }}</span>\n\n          </a>\n\n          <ul *dropdownMenu\n              class=\"dropdown-menu\"\n              role=\"menu\"\n              uxMenuNavigation\n              [toggleButton]=\"menuNavigationToggle\">\n\n              <li *ngFor=\"let dropdown of menu?.dropdown\"\n                  role=\"none\"\n                  [class.dropdown-header]=\"dropdown.header\"\n                  [class.dropdown-divider]=\"dropdown.divider\">\n\n                  <span class=\"font-bold\" *ngIf=\"dropdown.header\">{{ dropdown.title }}</span>\n\n                  <a *ngIf=\"!dropdown.header\"\n                      role=\"menuitem\"\n                      class=\"dropdown-item\"\n                      tabindex=\"-1\"\n                      (click)=\"select(dropdown)\"\n                      (keydown)=\"keydownHandler(dropdown, $event)\"\n                      uxMenuNavigationItem>\n\n\n                      <span class=\"dropdown-item-title\">\n                          <i class=\"hpe-icon hpe-fw\" [ngClass]=\"dropdown.icon\"></i>\n                          {{ dropdown.title }}\n                      </span>\n                      <span *ngIf=\"dropdown.subtitle\" class=\"dropdown-item-subtitle\">{{ dropdown.subtitle }}</span>\n\n                  </a>\n              </li>\n\n          </ul>\n      </div>\n    "
             },] },
 ];
 /**
  * @nocollapse
  */
-PageHeaderIconMenuComponent.ctorParameters = function () { return []; };
+PageHeaderIconMenuComponent.ctorParameters = function () { return [
+    { type: PageHeaderService, },
+]; };
 PageHeaderIconMenuComponent.propDecorators = {
     'menu': [{ type: core.Input },],
+    'menuNavigationToggle': [{ type: core.ViewChild, args: ['menuNavigationToggle',] },],
 };
 var PageHeaderNavigationDropdownItemComponent = (function () {
     /**
@@ -19470,6 +19374,10 @@ var PageHeaderNavigationDropdownItemComponent = (function () {
         this._hover$ = new Subject.Subject();
         // subscribe to stream with a debounce (a small debounce is all that is required)
         this._subscription = this._hover$.pipe(debounceTime$2(1)).subscribe(function (visible) { return _this.dropdownOpen = visible; });
+        // Close submenus when selected item changes
+        this._subscription.add(_pageHeaderService.selected$.subscribe(function () {
+            _this.dropdownOpen = false;
+        }));
     }
     /**
      * @return {?}
@@ -19492,6 +19400,12 @@ var PageHeaderNavigationDropdownItemComponent = (function () {
     /**
      * @return {?}
      */
+    PageHeaderNavigationDropdownItemComponent.prototype.focus = function () {
+        this.button.nativeElement.focus();
+    };
+    /**
+     * @return {?}
+     */
     PageHeaderNavigationDropdownItemComponent.prototype.hoverStart = function () {
         this._hover$.next(true);
     };
@@ -19507,12 +19421,28 @@ var PageHeaderNavigationDropdownItemComponent = (function () {
     PageHeaderNavigationDropdownItemComponent.prototype.close = function () {
         this.dropdownOpen = false;
     };
+    /**
+     * @param {?} event
+     * @param {?} item
+     * @return {?}
+     */
+    PageHeaderNavigationDropdownItemComponent.prototype.keydownHandler = function (event, item) {
+        switch (event.key) {
+            case 'Enter':
+            case ' ':
+                this.select(item);
+                event.preventDefault();
+                event.stopPropagation();
+                break;
+        }
+    };
     return PageHeaderNavigationDropdownItemComponent;
 }());
 PageHeaderNavigationDropdownItemComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-page-header-horizontal-navigation-dropdown-item',
-                template: "\n      <div role=\"menu-item\" dropdown [isOpen]=\"dropdownOpen\" container=\"body\" placement=\"right\" [isDisabled]=\"!item.children\" (mouseenter)=\"hoverStart()\"\n          (mouseleave)=\"hoverLeave()\" #subMenu=\"bs-dropdown\">\n\n          <!-- Show the menu item and the arrow if there are children -->\n          <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"item.selected\" (keyup.enter)=\"select(item); subMenu.toggle()\" (click)=\"select(item)\">\n              <span class=\"dropdown-item-title\">{{ item.title }}</span>\n              <span class=\"dropdown-item-icon hpe-icon hpe-next\" *ngIf=\"item.children\"></span>\n          </a>\n\n          <!-- Allow another level of menu items -->\n          <ul *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-submenu\" role=\"menu\" (mouseenter)=\"hoverStart()\" (mouseleave)=\"hoverLeave()\">\n\n              <li role=\"menuitem\" *ngFor=\"let subItem of item.children\" (click)=\"select(subItem, item)\" (keyup.enter)=\"select(subItem)\">\n                  <a class=\"dropdown-item\" tabindex=\"0\" [class.selected]=\"subItem.selected\">\n                      <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\n                  </a>\n              </li>\n          </ul>\n      </div>\n    "
+                exportAs: 'ux-page-header-horizontal-navigation-dropdown-item',
+                template: "\n      <div *ngIf=\"item.children && item.children.length > 0\"\n          dropdown\n          #subMenu=\"bs-dropdown\"\n          [isOpen]=\"dropdownOpen\"\n          container=\"body\"\n          placement=\"right\"\n          (mouseenter)=\"hoverStart()\"\n          (mouseleave)=\"hoverLeave()\">\n\n          <a role=\"menuitem\"\n              class=\"dropdown-item\"\n              [class.selected]=\"item.selected\"\n              aria-haspopup=\"true\"\n              [attr.aria-expanded]=\"dropdownOpen\"\n              [attr.aria-selected]=\"item.selected\"\n              tabindex=\"-1\"\n              #button\n              dropdownToggle\n              uxMenuNavigationToggle\n              #menuNavigationToggle=\"uxMenuNavigationToggle\"\n              [(menuOpen)]=\"dropdownOpen\"\n              menuPosition=\"right\">\n\n              <span class=\"dropdown-item-title\">{{ item.title }}</span>\n              <span class=\"dropdown-item-icon hpe-icon hpe-next\"></span>\n\n          </a>\n\n          <ul *dropdownMenu\n              role=\"menu\"\n              class=\"dropdown-menu horizontal-navigation-dropdown-submenu\"\n              (mouseenter)=\"hoverStart()\"\n              (mouseleave)=\"hoverLeave()\"\n              uxMenuNavigation\n              #menuNavigation=\"uxMenuNavigation\"\n              [toggleButton]=\"menuNavigationToggle\"\n              toggleButtonPosition=\"left\">\n\n              <li *ngFor=\"let subItem of item.children\" role=\"none\">\n\n                  <a role=\"menuitem\"\n                      class=\"dropdown-item\"\n                      [class.selected]=\"subItem.selected\"\n                      [attr.aria-selected]=\"subItem.selected\"\n                      tabindex=\"-1\"\n                      (click)=\"select(subItem, item)\"\n                      (keydown)=\"keydownHandler($event, subItem)\"\n                      uxMenuNavigationItem>\n\n                      <span class=\"dropdown-item-title\">{{ subItem.title }}</span>\n\n                  </a>\n\n              </li>\n          </ul>\n\n      </div>\n\n      <div *ngIf=\"!item.children || item.children.length === 0\"\n          (mouseenter)=\"hoverStart()\"\n          (mouseleave)=\"hoverLeave()\">\n\n          <a role=\"menuitem\"\n              #button\n              class=\"dropdown-item\"\n              [class.selected]=\"item.selected\"\n              [attr.aria-selected]=\"item.selected\"\n              tabindex=\"-1\"\n              (click)=\"select(item)\"\n              (keydown)=\"keydownHandler($event, item)\">\n\n              <span class=\"dropdown-item-title\">{{ item.title }}</span>\n\n          </a>\n\n      </div>\n    "
             },] },
 ];
 /**
@@ -19523,6 +19453,7 @@ PageHeaderNavigationDropdownItemComponent.ctorParameters = function () { return 
 ]; };
 PageHeaderNavigationDropdownItemComponent.propDecorators = {
     'item': [{ type: core.Input },],
+    'button': [{ type: core.ViewChild, args: ['button',] },],
 };
 var PageHeaderNavigationItemComponent = (function () {
     /**
@@ -19539,7 +19470,17 @@ var PageHeaderNavigationItemComponent = (function () {
      */
     PageHeaderNavigationItemComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._subscription = this.menu.onHidden.subscribe(function () { return _this.dropdowns.forEach(function (dropdown) { return dropdown.close(); }); });
+        // Close submenus when selected item changes
+        this._subscription = this._pageHeaderService.selected$.subscribe(function (next) {
+            if (next && _this.isOpen) {
+                _this.isOpen = false;
+                // If menu was closed, keep focus on the toggle button
+                _this.button.focus();
+            }
+        });
+        if (this.menu) {
+            this._subscription.add(this.menu.onHidden.subscribe(function () { return _this.dropdowns.forEach(function (dropdown) { return dropdown.close(); }); }));
+        }
     };
     /**
      * @return {?}
@@ -19551,7 +19492,7 @@ var PageHeaderNavigationItemComponent = (function () {
      * @return {?}
      */
     PageHeaderNavigationItemComponent.prototype.select = function () {
-        // if the item has children then do nothing at this stage 
+        // if the item has children then do nothing at this stage
         if (this.item.children && this._pageHeaderService.secondary$.getValue() === false) {
             return;
         }
@@ -19563,7 +19504,7 @@ var PageHeaderNavigationItemComponent = (function () {
 PageHeaderNavigationItemComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-page-header-horizontal-navigation-item',
-                template: "\n      <div class=\"horizontal-navigation-button\"\n          dropdown\n          dropdownToggle\n          placement=\"bottom left\"\n          [isDisabled]=\"!item?.children || (secondary$ | async)\"\n          tabindex=\"0\"\n          container=\"body\"\n          #menu=\"bs-dropdown\"\n          (keyup.enter)=\"menu.toggle()\"\n          [class.selected]=\"item?.selected\"\n          (click)=\"select()\">\n\n          <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n          <span class=\"navigation-item-label\">{{ item?.title }}</span>\n          <span class=\"hpe-icon hpe-down\" *ngIf=\"item?.children && !(secondary$ | async)\"></span>\n\n          <div *dropdownMenu class=\"dropdown-menu horizontal-navigation-dropdown-menu\" role=\"menu\">\n              <ux-page-header-horizontal-navigation-dropdown-item\n                  *ngFor=\"let item of item?.children\"\n                  [item]=\"item\">\n              </ux-page-header-horizontal-navigation-dropdown-item>\n          </div>\n\n      </div>\n    "
+                template: "\n      <div *ngIf=\"item.children && item.children.length > 0 && !(secondary$ | async)\"\n          dropdown\n          #menu=\"bs-dropdown\"\n          [(isOpen)]=\"isOpen\"\n          container=\"body\"\n          placement=\"bottom left\">\n\n          <button role=\"menuitem\"\n              class=\"horizontal-navigation-button\"\n              [class.selected]=\"item.selected\"\n              [class.open]=\"isOpen\"\n              aria-haspopup=\"true\"\n              [attr.aria-expanded]=\"isOpen\"\n              [attr.aria-selected]=\"item.selected\"\n              dropdownToggle\n              uxMenuNavigationToggle\n              #button=\"uxMenuNavigationToggle\"\n              [(menuOpen)]=\"isOpen\">\n\n              <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n              <span class=\"navigation-item-label\">{{ item?.title }}</span>\n              <span class=\"hpe-icon hpe-down\"></span>\n\n          </button>\n\n          <div *dropdownMenu\n              role=\"menu\"\n              class=\"dropdown-menu horizontal-navigation-dropdown-menu\"\n              uxMenuNavigation\n              [toggleButton]=\"button\"\n              toggleButtonPosition=\"top\">\n\n              <div *ngFor=\"let item of item?.children\" uxMenuNavigationItem (activated)=\"dropdownItem.focus()\">\n                  <ux-page-header-horizontal-navigation-dropdown-item\n                      #dropdownItem=\"ux-page-header-horizontal-navigation-dropdown-item\"\n                      [item]=\"item\">\n                  </ux-page-header-horizontal-navigation-dropdown-item>\n              </div>\n\n          </div>\n\n      </div>\n\n      <button *ngIf=\"!item.children || item.children.length === 0 || (secondary$ | async)\"\n          role=\"menuitem\"\n          class=\"horizontal-navigation-button\"\n          [class.selected]=\"item.selected\"\n          [attr.aria-selected]=\"item.selected\"\n          (click)=\"select()\">\n\n          <span class=\"hpe-icon navigation-item-icon\" *ngIf=\"item.icon\" [ngClass]=\"item?.icon\"></span>\n          <span class=\"navigation-item-label\">{{ item?.title }}</span>\n\n      </button>\n    "
             },] },
 ];
 /**
@@ -19574,6 +19515,7 @@ PageHeaderNavigationItemComponent.ctorParameters = function () { return [
     { type: PageHeaderService, },
 ]; };
 PageHeaderNavigationItemComponent.propDecorators = {
+    'button': [{ type: core.ViewChild, args: ['button',] },],
     'menu': [{ type: core.ViewChild, args: ['menu',] },],
     'dropdowns': [{ type: core.ViewChildren, args: [PageHeaderNavigationDropdownItemComponent,] },],
     'item': [{ type: core.Input },],
@@ -19592,8 +19534,8 @@ var PageHeaderNavigationComponent = (function () {
         this.indicatorWidth = 0;
         this._subscription = new Subscription.Subscription();
         this._subscription.add(resizeService.addResizeListener(elementRef.nativeElement).subscribe(this.updateSelectedIndicator.bind(this)));
-        this._subscription.add(_pageHeaderService.selected$.pipe(distinctUntilChanged$3()).subscribe(this.updateSelectedIndicator.bind(this)));
-        this._subscription.add(_pageHeaderService.secondary$.pipe(distinctUntilChanged$3()).subscribe(this.updateSelectedIndicator.bind(this)));
+        this._subscription.add(_pageHeaderService.selected$.pipe(distinctUntilChanged$1()).subscribe(this.updateSelectedIndicator.bind(this)));
+        this._subscription.add(_pageHeaderService.secondary$.pipe(distinctUntilChanged$1()).subscribe(this.updateSelectedIndicator.bind(this)));
     }
     /**
      * @return {?}
@@ -19630,7 +19572,10 @@ var PageHeaderNavigationComponent = (function () {
 PageHeaderNavigationComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-page-header-horizontal-navigation',
-                template: "\n      <ux-page-header-horizontal-navigation-item\n          *ngFor=\"let item of items$ | async\"\n          [item]=\"item\">\n      </ux-page-header-horizontal-navigation-item>\n\n      <div class=\"selected-indicator\"\n          [style.opacity]=\"indicatorVisible ? 1 : 0\"\n          [style.margin-left.px]=\"indicatorX\"\n          [style.width.px]=\"indicatorWidth\">\n      </div>\n    "
+                template: "\n      <ux-page-header-horizontal-navigation-item\n          *ngFor=\"let item of items$ | async\"\n          [item]=\"item\">\n      </ux-page-header-horizontal-navigation-item>\n\n      <div class=\"selected-indicator\"\n          [style.opacity]=\"indicatorVisible ? 1 : 0\"\n          [style.margin-left.px]=\"indicatorX\"\n          [style.width.px]=\"indicatorWidth\">\n      </div>\n    ",
+                host: {
+                    'role': 'menubar'
+                }
             },] },
 ];
 /**
@@ -19644,6 +19589,386 @@ PageHeaderNavigationComponent.ctorParameters = function () { return [
 PageHeaderNavigationComponent.propDecorators = {
     'menuItems': [{ type: core.ViewChildren, args: [PageHeaderNavigationItemComponent,] },],
 };
+var MenuNavigationService = (function () {
+    function MenuNavigationService() {
+        this.active$ = new BehaviorSubject.BehaviorSubject(null);
+    }
+    return MenuNavigationService;
+}());
+MenuNavigationService.decorators = [
+    { type: core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+MenuNavigationService.ctorParameters = function () { return []; };
+var MenuNavigationItemDirective = (function () {
+    /**
+     * @param {?} _service
+     * @param {?} _elementRef
+     */
+    function MenuNavigationItemDirective(_service, _elementRef) {
+        var _this = this;
+        this._service = _service;
+        this._elementRef = _elementRef;
+        this.activated = new core.EventEmitter();
+        this._subscription = _service.active$.subscribe(function (next) {
+            if (next === _this) {
+                _this.setActive();
+            }
+        });
+    }
+    /**
+     * @return {?}
+     */
+    MenuNavigationItemDirective.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
+    };
+    /**
+     * @return {?}
+     */
+    MenuNavigationItemDirective.prototype.setActive = function () {
+        this._elementRef.nativeElement.focus();
+        this.activated.emit();
+    };
+    return MenuNavigationItemDirective;
+}());
+MenuNavigationItemDirective.decorators = [
+    { type: core.Directive, args: [{
+                selector: '[uxMenuNavigationItem]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MenuNavigationItemDirective.ctorParameters = function () { return [
+    { type: MenuNavigationService, },
+    { type: core.ElementRef, },
+]; };
+MenuNavigationItemDirective.propDecorators = {
+    'activated': [{ type: core.Output },],
+};
+var MenuNavigationDirective = (function () {
+    /**
+     * @param {?} _service
+     * @param {?} _elementRef
+     * @param {?} _renderer
+     * @param {?} document
+     */
+    function MenuNavigationDirective(_service, _elementRef, _renderer, document) {
+        this._service = _service;
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
+        this.toggleButtonPosition = 'top';
+        this.navigatedOut = new core.EventEmitter();
+        this._subscription = new Subscription.Subscription();
+        this._document = document;
+    }
+    Object.defineProperty(MenuNavigationDirective.prototype, "activeIndex", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._itemsOrdered.indexOf(this._service.active$.value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.ngOnInit = function () {
+        if (this.toggleButton) {
+            this._subscription.add(this.toggleButton.keyEnter.subscribe(this.focusFirst.bind(this)));
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this._subscription.add(this.items.changes.subscribe(function () {
+            _this._itemsOrdered = _this.items.toArray();
+        }));
+        this._itemsOrdered = this.items.toArray();
+    };
+    /**
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.ngOnDestroy = function () {
+        this._subscription.unsubscribe();
+    };
+    /**
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.focusFirst = function () {
+        this.moveFirst();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.keydownHandler = function (event) {
+        // Only handle events when focus in within the list of menu items
+        if (!this._elementRef.nativeElement.contains(this._document.activeElement)) {
+            return;
+        }
+        var /** @type {?} */ handled = false;
+        switch (event.key) {
+            case 'ArrowUp':
+            case 'Up':
+                this.movePrevious(event);
+                handled = true;
+                break;
+            case 'ArrowDown':
+            case 'Down':
+                this.moveNext(event);
+                handled = true;
+                break;
+            case 'ArrowLeft':
+            case 'Left':
+                if (this.toggleButtonPosition === 'left') {
+                    this.moveToToggleButton(event);
+                    handled = true;
+                }
+                break;
+            case 'ArrowRight':
+            case 'Right':
+                if (this.toggleButtonPosition === 'right') {
+                    this.moveToToggleButton(event);
+                    handled = true;
+                }
+                break;
+            case 'Home':
+                this.moveFirst();
+                handled = true;
+                break;
+            case 'End':
+                this.moveLast();
+                handled = true;
+                break;
+            case 'Escape':
+                this.navigatedOut.emit(event);
+                handled = true;
+                break;
+        }
+        if (handled) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.moveNext = function (event) {
+        // Do nothing if there's no active menu item registered
+        if (this.activeIndex < 0) {
+            return;
+        }
+        var /** @type {?} */ nextIndex = this.activeIndex + 1;
+        if (nextIndex < this._itemsOrdered.length) {
+            // Activate the next menu item
+            // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
+            this._service.active$.next(this._itemsOrdered[nextIndex]);
+        }
+        else {
+            // Check if focus went out of bounds in the direction of the origin toggle button
+            if (this.toggleButtonPosition === 'bottom') {
+                this.moveToToggleButton(event);
+            }
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.movePrevious = function (event) {
+        // Do nothing if there's no active menu item registered
+        if (this.activeIndex < 0) {
+            return;
+        }
+        var /** @type {?} */ nextIndex = this.activeIndex - 1;
+        if (nextIndex >= 0) {
+            // Activate the previous menu item
+            // (uxMenuNavigationItem subscribes to this and applies focus if it matches)
+            this._service.active$.next(this._itemsOrdered[nextIndex]);
+        }
+        else {
+            // Check if focus went out of bounds in the direction of the origin toggle button
+            if (this.toggleButtonPosition === 'top') {
+                this.moveToToggleButton(event);
+            }
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.moveFirst = function () {
+        if (this._itemsOrdered.length > 0) {
+            this._service.active$.next(this._itemsOrdered[0]);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.moveLast = function () {
+        if (this._itemsOrdered.length > 0) {
+            this._service.active$.next(this._itemsOrdered[this._itemsOrdered.length - 1]);
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MenuNavigationDirective.prototype.moveToToggleButton = function (event) {
+        if (this.toggleButton) {
+            this.toggleButton.focus();
+            this.toggleButton.menuOpen = false;
+        }
+        this.navigatedOut.emit(event);
+    };
+    return MenuNavigationDirective;
+}());
+MenuNavigationDirective.decorators = [
+    { type: core.Directive, args: [{
+                selector: '[uxMenuNavigation]',
+                exportAs: 'uxMenuNavigation',
+                providers: [MenuNavigationService]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MenuNavigationDirective.ctorParameters = function () { return [
+    { type: MenuNavigationService, },
+    { type: core.ElementRef, },
+    { type: core.Renderer2, },
+    { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] },] },
+]; };
+MenuNavigationDirective.propDecorators = {
+    'toggleButton': [{ type: core.Input },],
+    'toggleButtonPosition': [{ type: core.Input },],
+    'navigatedOut': [{ type: core.Output },],
+    'items': [{ type: core.ContentChildren, args: [MenuNavigationItemDirective, { descendants: true },] },],
+    'keydownHandler': [{ type: core.HostListener, args: ['document:keydown', ['$event'],] },],
+};
+var MenuNavigationToggleDirective = (function () {
+    /**
+     * @param {?} _elementRef
+     */
+    function MenuNavigationToggleDirective(_elementRef) {
+        this._elementRef = _elementRef;
+        this.menuPosition = 'bottom';
+        this.menuOpenChange = new core.EventEmitter();
+        this.keyEnter = new core.EventEmitter();
+    }
+    Object.defineProperty(MenuNavigationToggleDirective.prototype, "menuOpen", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._menuOpen;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._menuOpen = value;
+            this.menuOpenChange.emit(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MenuNavigationToggleDirective.prototype.focus = function () {
+        this._elementRef.nativeElement.focus();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MenuNavigationToggleDirective.prototype.keydownHandler = function (event) {
+        var _this = this;
+        if (this.isKeyMatch(event.key)) {
+            // Open the menu
+            this.menuOpen = true;
+            // Allow the menu to init, then send the event to give it focus
+            setTimeout(function () {
+                _this.keyEnter.emit();
+            });
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    };
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    MenuNavigationToggleDirective.prototype.isKeyMatch = function (key) {
+        switch (key) {
+            case 'Enter':
+            case ' ':
+                return true;
+            case 'ArrowUp':
+            case 'Up':
+                return this.menuPosition === 'top';
+            case 'ArrowDown':
+            case 'Down':
+                return this.menuPosition === 'bottom';
+            case 'ArrowLeft':
+            case 'Left':
+                return this.menuPosition === 'left';
+            case 'ArrowRight':
+            case 'Right':
+                return this.menuPosition === 'right';
+        }
+        return false;
+    };
+    return MenuNavigationToggleDirective;
+}());
+MenuNavigationToggleDirective.decorators = [
+    { type: core.Directive, args: [{
+                selector: '[uxMenuNavigationToggle]',
+                exportAs: 'uxMenuNavigationToggle'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MenuNavigationToggleDirective.ctorParameters = function () { return [
+    { type: core.ElementRef, },
+]; };
+MenuNavigationToggleDirective.propDecorators = {
+    'menuOpen': [{ type: core.Input },],
+    'menuPosition': [{ type: core.Input },],
+    'menuOpenChange': [{ type: core.Output },],
+    'keydownHandler': [{ type: core.HostListener, args: ['keydown', ['$event'],] },],
+};
+var EXPORTS = [
+    MenuNavigationDirective,
+    MenuNavigationItemDirective,
+    MenuNavigationToggleDirective
+];
+var MenuNavigationModule = (function () {
+    function MenuNavigationModule() {
+    }
+    return MenuNavigationModule;
+}());
+MenuNavigationModule.decorators = [
+    { type: core.NgModule, args: [{
+                imports: [],
+                exports: EXPORTS,
+                declarations: EXPORTS,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MenuNavigationModule.ctorParameters = function () { return []; };
 var PageHeaderModule = (function () {
     function PageHeaderModule() {
     }
@@ -19656,6 +19981,7 @@ PageHeaderModule.decorators = [
                     BreadcrumbsModule,
                     ColorServiceModule,
                     ResizeModule,
+                    MenuNavigationModule,
                     BsDropdownModule.forRoot()
                 ],
                 exports: [
@@ -19725,14 +20051,21 @@ var RADIOBUTTON_VALUE_ACCESSOR = {
     useExisting: core.forwardRef(function () { return RadioButtonComponent; }),
     multi: true
 };
+var uniqueRadioId = 0;
 var RadioButtonComponent = (function () {
     function RadioButtonComponent() {
-        this.simplified = false;
-        this.disabled = false;
-        this.name = '';
+        this._radioButtonId = "ux-radio-button-" + ++uniqueRadioId;
+        this.id = this._radioButtonId;
+        this.tabindex = 0;
         this.clickable = true;
+        this.disabled = false;
+        this.simplified = false;
+        this.ariaLabel = '';
+        this.ariaLabelledby = null;
+        this.ariaDescribedby = null;
         this.valueChange = new core.EventEmitter();
         this._value = false;
+        this.focused = false;
         this.onTouchedCallback = function () { };
         this.onChangeCallback = function () { };
     }
@@ -19753,6 +20086,17 @@ var RadioButtonComponent = (function () {
             this.valueChange.emit(this._value);
             // call callback
             this.onChangeCallback(this._value);
+            this.onTouchedCallback();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RadioButtonComponent.prototype, "inputId", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return (this.id || this._radioButtonId) + "-input";
         },
         enumerable: true,
         configurable: true
@@ -19760,25 +20104,14 @@ var RadioButtonComponent = (function () {
     /**
      * @return {?}
      */
-    RadioButtonComponent.prototype.checkItem = function () {
-        if (this.disabled === true || this.clickable === false) {
+    RadioButtonComponent.prototype.toggle = function () {
+        if (this.disabled || !this.clickable) {
             return;
         }
         // toggle the checked state
         this.value = this.option;
         // call callback
         this.onChangeCallback(this.value);
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    RadioButtonComponent.prototype.keyDown = function (event) {
-        // then toggle the checkbox
-        this.checkItem();
-        // prevent default browser behavior
-        event.stopPropagation();
-        event.preventDefault();
     };
     /**
      * @param {?} value
@@ -19815,7 +20148,7 @@ var RadioButtonComponent = (function () {
 RadioButtonComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-radio-button',
-                template: "\n      <div class=\"ux-radio-button\" tabindex=\"0\"\n          [class.ux-checked]=\"value === option\"\n          [class.ux-simplified]=\"simplified === true\"\n          [class.ux-disabled]=\"disabled === true\"\n          (keydown.space)=\"keyDown($event)\">\n\n          <input type=\"radio\" role=\"radio\" tabindex=\"-1\"\n              [name]=\"name\" \n              [checked]=\"value === option\" \n              [disabled]=\"disabled\"\n              [value]=\"option\"\n              [id]=\"id\" />\n        \n      </div>\n\n      <div class=\"ux-radio-button-content\">\n          <ng-content></ng-content>\n      </div>\n    ",
+                template: "\n      <label [attr.for]=\"inputId\" class=\"ux-radio-button\"\n             [class.ux-radio-button-checked]=\"value === option\"\n             [class.ux-radio-button-simplified]=\"simplified\"\n             [class.ux-radio-button-disabled]=\"disabled\"\n             [class.ux-radio-button-focused]=\"focused\">\n\n          <div class=\"ux-radio-button-container\">\n              <input class=\"ux-radio-button-input\"\n                  type=\"radio\"\n                  [id]=\"inputId\"\n                  [checked]=\"value === option\"\n                  [disabled]=\"disabled\"\n                  [tabindex]=\"tabindex || value === option ? 0 : -1\"\n                  [attr.name]=\"name\"\n                  [required]=\"required\"\n                  [attr.aria-label]=\"ariaLabel\"\n                  [attr.aria-labelledby]=\"ariaLabelledby\"\n                  [attr.aria-describedby]=\"ariaDescribedby\"\n                  [attr.aria-checked]=\"value === option\"\n                  (focus)=\"focused = true\"\n                  (blur)=\"focused = false\"\n                  (change)=\"toggle()\"\n                  (click)=\"$event.stopPropagation()\">\n          </div>\n\n          <span class=\"ux-radio-button-label\">\n              <ng-content></ng-content>\n          </span>\n\n      </label>\n    ",
                 providers: [RADIOBUTTON_VALUE_ACCESSOR]
             },] },
 ];
@@ -19825,14 +20158,18 @@ RadioButtonComponent.decorators = [
 RadioButtonComponent.ctorParameters = function () { return []; };
 RadioButtonComponent.propDecorators = {
     'id': [{ type: core.Input },],
-    'simplified': [{ type: core.Input },],
-    'disabled': [{ type: core.Input },],
     'name': [{ type: core.Input },],
+    'required': [{ type: core.Input },],
+    'tabindex': [{ type: core.Input },],
     'clickable': [{ type: core.Input },],
+    'disabled': [{ type: core.Input },],
+    'simplified': [{ type: core.Input },],
     'option': [{ type: core.Input },],
+    'ariaLabel': [{ type: core.Input, args: ['aria-label',] },],
+    'ariaLabelledby': [{ type: core.Input, args: ['aria-labelledby',] },],
+    'ariaDescribedby': [{ type: core.Input, args: ['aria-describedby',] },],
     'valueChange': [{ type: core.Output },],
     'value': [{ type: core.Input },],
-    'checkItem': [{ type: core.HostListener, args: ['click',] },],
 };
 var RadioButtonModule = (function () {
     function RadioButtonModule() {
@@ -21820,7 +22157,7 @@ var SelectComponent = (function () {
         // Changes to the input field
         var /** @type {?} */ onInput = this._input$.pipe(filter$1(function (value) { return _this.allowNull; }), filter$1(function (value) { return !_this.multiple && value !== _this.getDisplay(_this.value); })).subscribe(function (value) { return _this.value = null; });
         // Set up filter from input
-        this.filter$ = this._input$.pipe(map$3(function (input) { return !_this.multiple && input === _this.getDisplay(_this.value) ? '' : input; }), debounceTime$2(200));
+        this.filter$ = this._input$.pipe(map$1(function (input) { return !_this.multiple && input === _this.getDisplay(_this.value) ? '' : input; }), debounceTime$2(200));
         // Open the dropdown when filter is nonempty.
         var /** @type {?} */ onFilter = this.filter$.pipe(filter$1(function (value) { return value && value.length > 0; })).subscribe(function () { return _this.dropdownOpen = true; });
         // store the subscriptions
@@ -22809,7 +23146,7 @@ SidePanelCloseDirective.ctorParameters = function () { return [
 SidePanelCloseDirective.propDecorators = {
     'clickHandler': [{ type: core.HostListener, args: ['click',] },],
 };
-var EXPORTS = [
+var EXPORTS$1 = [
     SidePanelComponent,
     SidePanelCloseDirective
 ];
@@ -22823,8 +23160,8 @@ SidePanelModule.decorators = [
                 imports: [
                     common.CommonModule
                 ],
-                exports: EXPORTS,
-                declarations: EXPORTS
+                exports: EXPORTS$1,
+                declarations: EXPORTS$1
             },] },
 ];
 /**
@@ -22844,6 +23181,7 @@ var SliderComponent = (function () {
         this.sliderType = SliderType;
         this.sliderStyle = SliderStyle;
         this.sliderSize = SliderSize;
+        this.sliderSnap = SliderSnap;
         this.sliderThumb = SliderThumb;
         this.sliderTickType = SliderTickType;
         this.sliderThumbEvent = SliderThumbEvent;
@@ -22902,6 +23240,15 @@ var SliderComponent = (function () {
                     background: colorService.getColor('grey2').toHex(),
                     color: '#fff',
                     formatter: function (value) { return value; }
+                },
+                keyboard: {
+                    major: 5,
+                    minor: 1
+                },
+                aria: {
+                    thumb: 'Slider value',
+                    lowerThumb: 'Slider lower value',
+                    upperThumb: 'Slider upper value'
                 }
             },
             track: {
@@ -22966,6 +23313,41 @@ var SliderComponent = (function () {
     };
     /**
      * @param {?} thumb
+     * @param {?} snapTarget
+     * @param {?} forwards
+     * @return {?}
+     */
+    SliderComponent.prototype.snapToNearestTick = function (thumb, snapTarget, forwards) {
+        // get the value for the thumb
+        var value = this.getThumbState(thumb).value;
+        // get the closest ticks - remove any tick if we are currently on it
+        var /** @type {?} */ closest = this.getTickDistances(value, thumb, snapTarget)
+            .filter(function (tick) { return tick.value !== value; })
+            .find(function (tick) { return forwards ? tick.value > value : tick.value < value; });
+        // If we have no ticks then move by a predefined amount
+        if (closest) {
+            return this.setThumbValue(thumb, this.validateValue(thumb, closest.value));
+        }
+        var /** @type {?} */ step = snapTarget === SliderSnap.Major ? this.options.handles.keyboard.major : this.options.handles.keyboard.minor;
+        this.setThumbValue(thumb, this.validateValue(thumb, value + (forwards ? step : -step)));
+    };
+    /**
+     * @param {?} thumb
+     * @param {?} forwards
+     * @return {?}
+     */
+    SliderComponent.prototype.snapToEnd = function (thumb, forwards) {
+        this.setThumbValue(thumb, this.validateValue(thumb, forwards ? this.options.track.max : this.options.track.min));
+    };
+    /**
+     * @param {?} thumb
+     * @return {?}
+     */
+    SliderComponent.prototype.getThumbValue = function (thumb) {
+        return this.getThumbState(thumb).value;
+    };
+    /**
+     * @param {?} thumb
      * @return {?}
      */
     SliderComponent.prototype.getFormattedValue = function (thumb) {
@@ -23025,6 +23407,21 @@ var SliderComponent = (function () {
         }
         // update the thumb state
         this.setThumbState(thumb, state$$1.hover, state$$1.drag);
+    };
+    /**
+     * @param {?} thumb
+     * @return {?}
+     */
+    SliderComponent.prototype.getAriaValueText = function (thumb) {
+        // get the current thumb value
+        var /** @type {?} */ value = this.getThumbValue(thumb);
+        // get all the ticks
+        var /** @type {?} */ tick = this.ticks.find(function (_tick) { return _tick.value === value; });
+        if (tick && tick.label) {
+            return tick.label;
+        }
+        // otherwise simply display the formatted value
+        return this.getFormattedValue(thumb);
     };
     /**
      * @param {?} thumb
@@ -23189,14 +23586,13 @@ var SliderComponent = (function () {
     /**
      * @param {?} value
      * @param {?} thumb
+     * @param {?} snapTarget
      * @return {?}
      */
-    SliderComponent.prototype.snapToTick = function (value, thumb) {
-        // get the snap target
-        var /** @type {?} */ snapTarget = this.options.track.ticks.snap;
+    SliderComponent.prototype.getTickDistances = function (value, thumb, snapTarget) {
         // if snap target is none then return original value
         if (snapTarget === SliderSnap.None) {
-            return value;
+            return [];
         }
         // get filtered ticks
         var /** @type {?} */ ticks;
@@ -23223,15 +23619,27 @@ var SliderComponent = (function () {
         var /** @type {?} */ range = ticks.filter(function (tick) { return tick.value >= lowerLimit && tick.value <= upperLimit; });
         // If there are no close ticks in the valid range then dont snap
         if (range.length === 0) {
+            return [];
+        }
+        return range.sort(function (tickOne, tickTwo) {
+            var /** @type {?} */ tickOneDelta = Math.max(tickOne.value, value) - Math.min(tickOne.value, value);
+            var /** @type {?} */ tickTwoDelta = Math.max(tickTwo.value, value) - Math.min(tickTwo.value, value);
+            return tickOneDelta - tickTwoDelta;
+        });
+    };
+    /**
+     * @param {?} value
+     * @param {?} thumb
+     * @return {?}
+     */
+    SliderComponent.prototype.snapToTick = function (value, thumb) {
+        var /** @type {?} */ tickDistances = this.getTickDistances(value, thumb, this.options.track.ticks.snap);
+        // if there are no ticks return the current value
+        if (tickDistances.length === 0) {
             return value;
         }
-        // Find the closest tick
-        var /** @type {?} */ closest = range.reduceRight(function (previous, current) {
-            var /** @type {?} */ previousDistance = Math.max(previous.value, value) - Math.min(previous.value, value);
-            var /** @type {?} */ currentDistance = Math.max(current.value, value) - Math.min(current.value, value);
-            return previousDistance < currentDistance ? previous : current;
-        });
-        return closest.value;
+        // get the closest tick
+        return tickDistances[0].value;
     };
     /**
      * @param {?} thumb
@@ -23352,9 +23760,7 @@ var SliderComponent = (function () {
      */
     SliderComponent.prototype.updateTrackColors = function () {
         // get colors for each part of the track
-        var /** @type {?} */ lower = this.options.track.colors.lower;
-        var /** @type {?} */ range = this.options.track.colors.range;
-        var /** @type {?} */ higher = this.options.track.colors.higher;
+        var _d = this.options.track.colors, lower = _d.lower, range = _d.range, higher = _d.higher;
         // update the controller value
         this.tracks.lower.color = typeof lower === 'string' ? lower : "linear-gradient(to right, " + lower.join(', ') + ")";
         this.tracks.middle.color = typeof range === 'string' ? range : "linear-gradient(to right, " + range.join(', ') + ")";
@@ -23489,7 +23895,7 @@ var SliderComponent = (function () {
 SliderComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-slider',
-                template: "\n      <div class=\"track\" #track [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" [class.range]=\"options.type === sliderType.Range\">\n\n          <!-- Section Beneath Lower Thumb -->\n          <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n          <!-- Lower Thumb Button / Line -->\n          <div class=\"thumb lower\" uxDrag\n              [style.left.%]=\"thumbs.lower.position\" \n              [class.active]=\"thumbs.lower.drag\" \n              [style.z-index]=\"thumbs.lower.order\" \n              [class.button]=\"options.handles.style === sliderStyle.Button\"\n              [class.line]=\"options.handles.style === sliderStyle.Line\" \n              [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n              [class.wide]=\"options.track.height === sliderSize.Wide\" \n              (dragstart)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart)\"\n              (drag)=\"updateThumbPosition($event, sliderThumb.Lower)\"\n              (dragend)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)\"\n              (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n              (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\">\n\n              <!-- Lower Thumb Callout -->\n              <div class=\"tooltip top tooltip-lower\" #lowerTooltip \n                  [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false\"\n                  [style.opacity]=\"tooltips.lower.visible ? 1 : 0\" \n                  [style.left.px]=\"tooltips.lower.position\">\n\n                  <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n                  <div class=\"tooltip-inner\" \n                      [style.background-color]=\"options.handles.callout.background\" \n                      [style.color]=\"options.handles.callout.color\">\n                      {{ tooltips.lower.label }}\n                  </div>\n              </div>\n\n          </div>\n\n          <!-- Section of Track Between Lower and Upper Thumbs -->\n          <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n          </div>\n\n          <!-- Upper Thumb Button / Line -->\n          <div class=\"thumb upper\" uxDrag\n              [hidden]=\"options.type !== sliderType.Range\" \n              [class.active]=\"thumbs.upper.drag\" \n              [style.left.%]=\"thumbs.upper.position\" \n              [style.z-index]=\"thumbs.upper.order\"\n              [class.button]=\"options.handles.style === sliderStyle.Button\" \n              [class.line]=\"options.handles.style === sliderStyle.Line\"\n              [class.narrow]=\"options.track.height === sliderSize.Narrow\" \n              [class.wide]=\"options.track.height === sliderSize.Wide\" \n              (dragstart)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart)\"\n              (drag)=\"updateThumbPosition($event, sliderThumb.Upper)\"\n              (dragend)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)\"\n              (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n              (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\">\n\n              <!-- Upper Thumb Callout -->\n              <div class=\"tooltip top tooltip-upper\" #upperTooltip \n                  [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false\"\n                  [style.opacity]=\"tooltips.upper.visible ? 1 : 0\" \n                  [style.left.px]=\"tooltips.upper.position\">\n\n                  <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n                  <div class=\"tooltip-inner\" \n                      *ngIf=\"options.type === sliderType.Range\" \n                      [style.background-color]=\"options.handles.callout.background\"\n                      [style.color]=\"options.handles.callout.color\">\n                      {{ tooltips.upper.label }}\n                  </div>\n              </div>\n          </div>\n\n          <!-- Section of Track Abover Upper Thumb -->\n          <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n      </div>\n\n      <!-- Chart Ticks and Tick Labels -->\n      <div class=\"tick-container\" \n          *ngIf=\"(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic\" \n          [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n          <div class=\"tick\" *ngFor=\"let tick of ticks\" [class.major]=\"tick.type === sliderTickType.Major\" [class.minor]=\"tick.type === sliderTickType.Minor\"\n              [style.left.%]=\"tick.position\" [hidden]=\"!tick.showTicks\">\n              <div class=\"tick-indicator\"></div>\n              <div class=\"tick-label\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n          </div>\n      </div>\n    ",
+                template: "\n      <div class=\"track\" #track [class.narrow]=\"options.track.height === sliderSize.Narrow\" [class.wide]=\"options.track.height === sliderSize.Wide\" [class.range]=\"options.type === sliderType.Range\">\n\n          <!-- Section Beneath Lower Thumb -->\n          <div class=\"track-section track-lower\" [style.flex-grow]=\"tracks.lower.size\" [style.background]=\"tracks.lower.color\"></div>\n\n          <!-- Lower Thumb Button / Line -->\n          <div class=\"thumb lower\"\n              uxDrag\n              role=\"slider\"\n              tabindex=\"0\"\n              #lowerthumb\n              [attr.aria-label]=\"options.type === sliderType.Range ? options.handles.aria.lowerThumb : options.handles.aria.thumb\"\n              [attr.aria-valuemin]=\"options?.track?.min\"\n              [attr.aria-valuemax]=\"options.type === sliderType.Range ? getThumbValue(sliderThumb.Upper) : options?.track?.max\"\n              [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Lower)\"\n              [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Lower)\"\n              [style.left.%]=\"thumbs.lower.position\"\n              [class.active]=\"thumbs.lower.drag\"\n              [style.z-index]=\"thumbs.lower.order\"\n              [class.button]=\"options.handles.style === sliderStyle.Button\"\n              [class.line]=\"options.handles.style === sliderStyle.Line\"\n              [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n              [class.wide]=\"options.track.height === sliderSize.Wide\"\n              (dragstart)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragStart); lowerthumb.focus()\"\n              (drag)=\"updateThumbPosition($event, sliderThumb.Lower)\"\n              (dragend)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.DragEnd)\"\n              (mouseenter)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n              (mouseleave)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n              (focus)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseOver)\"\n              (blur)=\"thumbEvent(sliderThumb.Lower, sliderThumbEvent.MouseLeave)\"\n              (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n              (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n              (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, false); $event.preventDefault()\"\n              (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.All, true); $event.preventDefault()\"\n              (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, false); $event.preventDefault()\"\n              (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Lower, sliderSnap.Major, true); $event.preventDefault()\"\n              (keydown.Home)=\"snapToEnd(sliderThumb.Lower, false); $event.preventDefault()\"\n              (keydown.End)=\"snapToEnd(sliderThumb.Lower, true); $event.preventDefault()\">\n\n              <!-- Lower Thumb Callout -->\n              <div class=\"tooltip top tooltip-lower\" #lowerTooltip\n                  [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.lower.drag === false\"\n                  [style.opacity]=\"tooltips.lower.visible ? 1 : 0\"\n                  [style.left.px]=\"tooltips.lower.position\">\n\n                  <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n                  <div class=\"tooltip-inner\"\n                      [style.background-color]=\"options.handles.callout.background\"\n                      [style.color]=\"options.handles.callout.color\">\n                      {{ tooltips.lower.label }}\n                  </div>\n              </div>\n\n          </div>\n\n          <!-- Section of Track Between Lower and Upper Thumbs -->\n          <div class=\"track-section track-range\" *ngIf=\"options.type === sliderType.Range\" [style.flex-grow]=\"tracks.middle.size\" [style.background]=\"tracks.middle.color\">\n          </div>\n\n          <!-- Upper Thumb Button / Line -->\n          <div class=\"thumb upper\"\n              uxDrag\n              role=\"slider\"\n              tabindex=\"0\"\n              #upperthumb\n              [attr.aria-label]=\"options.handles.aria.upperThumb\"\n              [attr.aria-valuemin]=\"getThumbValue(sliderThumb.Lower) || options?.track?.min\"\n              [attr.aria-valuemax]=\"options?.track?.max\"\n              [attr.aria-valuenow]=\"getThumbValue(sliderThumb.Upper)\"\n              [attr.aria-valuetext]=\"getAriaValueText(sliderThumb.Upper)\"\n              [hidden]=\"options.type !== sliderType.Range\"\n              [class.active]=\"thumbs.upper.drag\"\n              [style.left.%]=\"thumbs.upper.position\"\n              [style.z-index]=\"thumbs.upper.order\"\n              [class.button]=\"options.handles.style === sliderStyle.Button\"\n              [class.line]=\"options.handles.style === sliderStyle.Line\"\n              [class.narrow]=\"options.track.height === sliderSize.Narrow\"\n              [class.wide]=\"options.track.height === sliderSize.Wide\"\n              (dragstart)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragStart); upperthumb.focus()\"\n              (drag)=\"updateThumbPosition($event, sliderThumb.Upper)\"\n              (dragend)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.DragEnd)\"\n              (mouseenter)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n              (mouseleave)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n              (focus)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseOver)\"\n              (blur)=\"thumbEvent(sliderThumb.Upper, sliderThumbEvent.MouseLeave)\"\n              (keydown.ArrowLeft)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n              (keydown.ArrowRight)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n              (keydown.ArrowUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, false); $event.preventDefault()\"\n              (keydown.ArrowDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.All, true); $event.preventDefault()\"\n              (keydown.PageDown)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, false); $event.preventDefault()\"\n              (keydown.PageUp)=\"snapToNearestTick(sliderThumb.Upper, sliderSnap.Major, true); $event.preventDefault()\"\n              (keydown.Home)=\"snapToEnd(sliderThumb.Upper, false); $event.preventDefault()\"\n              (keydown.End)=\"snapToEnd(sliderThumb.Upper, true); $event.preventDefault()\">\n\n              <!-- Upper Thumb Callout -->\n              <div class=\"tooltip top tooltip-upper\" #upperTooltip\n                  [class.tooltip-dynamic]=\"options.handles.callout.trigger === sliderCalloutTrigger.Dynamic && thumbs.upper.drag === false\"\n                  [style.opacity]=\"tooltips.upper.visible ? 1 : 0\"\n                  [style.left.px]=\"tooltips.upper.position\">\n\n                  <div class=\"tooltip-arrow\" [style.border-top-color]=\"options.handles.callout.background\"></div>\n\n                  <div class=\"tooltip-inner\"\n                      *ngIf=\"options.type === sliderType.Range\"\n                      [style.background-color]=\"options.handles.callout.background\"\n                      [style.color]=\"options.handles.callout.color\">\n                      {{ tooltips.upper.label }}\n                  </div>\n              </div>\n          </div>\n\n          <!-- Section of Track Abover Upper Thumb -->\n          <div class=\"track-section track-higher\" [style.flex-grow]=\"tracks.upper.size\" [style.background]=\"tracks.upper.color\"></div>\n\n      </div>\n\n      <!-- Chart Ticks and Tick Labels -->\n      <div class=\"tick-container\"\n          role=\"presentation\"\n          *ngIf=\"(options.track.ticks.major.show || options.track.ticks.minor.show) && options.handles.callout.trigger !== sliderCalloutTrigger.Dynamic\"\n          [class.show-labels]=\"options.track.ticks.major.labels || options.track.ticks.minor.labels\">\n\n          <div class=\"tick\"\n              *ngFor=\"let tick of ticks\"\n              [class.major]=\"tick.type === sliderTickType.Major\"\n              [class.minor]=\"tick.type === sliderTickType.Minor\"\n              [style.left.%]=\"tick.position\"\n              [hidden]=\"!tick.showTicks\">\n\n              <div class=\"tick-indicator\"></div>\n              <div class=\"tick-label\" aria-hidden=\"true\" [hidden]=\"!tick.showLabels\">{{ tick.label }}</div>\n          </div>\n      </div>\n    ",
                 changeDetection: core.ChangeDetectionStrategy.OnPush
             },] },
 ];
@@ -23785,13 +24191,19 @@ var TOGGLESWITCH_VALUE_ACCESSOR = {
     useExisting: core.forwardRef(function () { return ToggleSwitchComponent; }),
     multi: true
 };
+var uniqueToggleSwitchId = 0;
 var ToggleSwitchComponent = (function () {
     function ToggleSwitchComponent() {
-        this.name = '';
-        this.disabled = false;
+        this._toggleSwitchId = "ux-toggleswitch-" + ++uniqueToggleSwitchId;
+        this.id = this._toggleSwitchId;
+        this.tabindex = 0;
         this.clickable = true;
+        this.disabled = false;
+        this.ariaLabel = '';
+        this.ariaLabelledby = null;
         this.valueChange = new core.EventEmitter();
         this._value = false;
+        this.focused = false;
         this.onTouchedCallback = function () { };
         this.onChangeCallback = function () { };
     }
@@ -23812,6 +24224,17 @@ var ToggleSwitchComponent = (function () {
             this.valueChange.emit(value);
             // Notify ngModel
             this.onChangeCallback(value);
+            this.onTouchedCallback();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ToggleSwitchComponent.prototype, "inputId", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return (this.id || this._toggleSwitchId) + "-input";
         },
         enumerable: true,
         configurable: true
@@ -23819,21 +24242,9 @@ var ToggleSwitchComponent = (function () {
     /**
      * @return {?}
      */
-    ToggleSwitchComponent.prototype.toggleChecked = function () {
+    ToggleSwitchComponent.prototype.toggle = function () {
         if (!this.disabled && this.clickable) {
             this.value = !this.value;
-        }
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    ToggleSwitchComponent.prototype.keydown = function (event) {
-        // if spacebar is pressed toggle state
-        if (event.keyCode === 32) {
-            this.toggleChecked();
-            event.stopPropagation();
-            event.preventDefault();
         }
     };
     /**
@@ -23869,11 +24280,8 @@ var ToggleSwitchComponent = (function () {
 ToggleSwitchComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ux-toggleswitch',
-                template: "\n      <div class=\"ux-toggleswitch\" \n        tabindex=\"0\"\n        (keydown)=\"keydown($event)\"\n        [class.checked]=\"value === true\"\n        [class.disabled]=\"disabled === true\">\n\n        <span class=\"ux-toggleswitch-bg\"></span>\n  \n        <span class=\"ux-toggleswitch-nub\"></span>\n\n        <input type=\"checkbox\" \n          role=\"checkbox\"\n          [name]=\"name\" \n          [checked]=\"value === true\"\n          [disabled]=\"disabled === true\"\n          tabindex=\"-1\" />\n      </div>\n\n      <div class=\"ux-toggleswitch-content\">\n        <ng-content></ng-content>\n      </div>\n    ",
-                providers: [TOGGLESWITCH_VALUE_ACCESSOR],
-                host: {
-                    '(click)': 'toggleChecked()'
-                }
+                template: "\n      <label [attr.for]=\"inputId\"\n             class=\"ux-toggleswitch\"\n             [class.ux-toggleswitch-checked]=\"value\"\n             [class.ux-toggleswitch-disabled]=\"disabled\"\n             [class.ux-toggleswitch-focused]=\"focused\">\n\n          <input class=\"ux-toggleswitch-input\"\n                 type=\"checkbox\"\n                 role=\"switch\"\n                 [id]=\"inputId\"\n                 [checked]=\"value\"\n                 [disabled]=\"disabled\"\n                 [attr.name]=\"name\"\n                 [tabindex]=\"tabindex\"\n                 [attr.aria-label]=\"ariaLabel\"\n                 [attr.aria-labelledby]=\"ariaLabelledby\"\n                 [attr.aria-checked]=\"value\"\n                 (focus)=\"focused = true\"\n                 (blur)=\"focused = false\"\n                 (change)=\"toggle()\"\n                 (click)=\"$event.stopPropagation()\">\n\n          <div class=\"ux-toggleswitch-container\">\n              <div class=\"ux-toggleswitch-bg\"></div>\n              <div class=\"ux-toggleswitch-nub\"></div>\n          </div>\n\n          <span class=\"ux-toggleswitch-label\">\n              <ng-content></ng-content>\n          </span>\n      </label>\n    ",
+                providers: [TOGGLESWITCH_VALUE_ACCESSOR]
             },] },
 ];
 /**
@@ -23881,9 +24289,13 @@ ToggleSwitchComponent.decorators = [
  */
 ToggleSwitchComponent.ctorParameters = function () { return []; };
 ToggleSwitchComponent.propDecorators = {
+    'id': [{ type: core.Input },],
     'name': [{ type: core.Input },],
-    'disabled': [{ type: core.Input },],
+    'tabindex': [{ type: core.Input },],
     'clickable': [{ type: core.Input },],
+    'disabled': [{ type: core.Input },],
+    'ariaLabel': [{ type: core.Input, args: ['aria-label',] },],
+    'ariaLabelledby': [{ type: core.Input, args: ['aria-labelledby',] },],
     'valueChange': [{ type: core.Output },],
     'value': [{ type: core.Input },],
 };
@@ -24217,7 +24629,7 @@ ToolbarSearchComponent.propDecorators = {
     'animationStart': [{ type: core.HostListener, args: ['@expanded.start', ['$event'],] },],
     'animationDone': [{ type: core.HostListener, args: ['@expanded.done', ['$event'],] },],
 };
-var DECLARATIONS$6 = [
+var DECLARATIONS$5 = [
     ToolbarSearchComponent,
     ToolbarSearchFieldDirective,
     ToolbarSearchButtonDirective
@@ -24232,8 +24644,8 @@ ToolbarSearchModule.decorators = [
                 imports: [
                     common.CommonModule
                 ],
-                exports: DECLARATIONS$6,
-                declarations: DECLARATIONS$6,
+                exports: DECLARATIONS$5,
+                declarations: DECLARATIONS$5,
                 providers: [],
             },] },
 ];
@@ -25628,7 +26040,7 @@ FileSizePipeModule.decorators = [
  * @nocollapse
  */
 FileSizePipeModule.ctorParameters = function () { return []; };
-var DECLARATIONS$7 = [
+var DECLARATIONS$6 = [
     MediaPlayerComponent,
     MediaPlayerTimelineExtensionComponent,
     MediaPlayerBaseExtensionDirective,
@@ -25649,8 +26061,8 @@ MediaPlayerModule.decorators = [
                     DurationPipeModule,
                     FileSizePipeModule
                 ],
-                exports: DECLARATIONS$7,
-                declarations: DECLARATIONS$7,
+                exports: DECLARATIONS$6,
+                declarations: DECLARATIONS$6,
                 providers: [MediaPlayerService]
             },] },
 ];
@@ -25859,7 +26271,7 @@ VirtualScrollComponent.propDecorators = {
     'loadButtonTemplate': [{ type: core.ContentChild, args: [VirtualScrollLoadButtonDirective, { read: core.TemplateRef },] },],
     'renderCells': [{ type: core.HostListener, args: ['scroll',] },],
 };
-var DECLARATIONS$8 = [
+var DECLARATIONS$7 = [
     VirtualScrollComponent,
     VirtualScrollLoadingDirective,
     VirtualScrollLoadButtonDirective,
@@ -25876,8 +26288,8 @@ VirtualScrollModule.decorators = [
                     common.CommonModule,
                     ResizeModule
                 ],
-                exports: DECLARATIONS$8,
-                declarations: DECLARATIONS$8
+                exports: DECLARATIONS$7,
+                declarations: DECLARATIONS$7
             },] },
 ];
 /**
@@ -26049,6 +26461,124 @@ FixedHeaderTableModule.decorators = [
  * @nocollapse
  */
 FixedHeaderTableModule.ctorParameters = function () { return []; };
+var FloatLabelDirective = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _renderer
+     */
+    function FloatLabelDirective(_elementRef, _renderer) {
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
+        this.mode = 'focus';
+        this.raised = false;
+        this._focused = false;
+        this._eventHandles = [];
+    }
+    /**
+     * @return {?}
+     */
+    FloatLabelDirective.prototype.ngOnInit = function () {
+        this._eventHandles.push(this._renderer.listen(this.input, 'focus', this.inputFocus.bind(this)), this._renderer.listen(this.input, 'blur', this.inputBlur.bind(this)), this._renderer.listen(this.input, 'input', this.inputChange.bind(this)));
+        // Check initial input value
+        this.raised = this.hasText();
+        // Ensure that the `for` attribute is set
+        if (!this._elementRef.nativeElement.getAttribute('for') && this.input.getAttribute('id')) {
+            this._renderer.setAttribute(this._elementRef.nativeElement, 'for', this.input.getAttribute('id'));
+        }
+    };
+    /**
+     * @return {?}
+     */
+    FloatLabelDirective.prototype.ngOnChanges = function () {
+        if (!(this.mode === 'focus' && this._focused)) {
+            this.raised = this.hasText();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    FloatLabelDirective.prototype.ngOnDestroy = function () {
+        // Unsubscribe event handles
+        this._eventHandles.forEach(function (eventHandle) { return eventHandle(); });
+    };
+    /**
+     * @return {?}
+     */
+    FloatLabelDirective.prototype.hasText = function () {
+        if (this.value === undefined) {
+            return !!this.input.value;
+        }
+        return !!this.value;
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    FloatLabelDirective.prototype.inputFocus = function (event) {
+        if (this.mode === 'focus') {
+            this._focused = true;
+            this.raised = true;
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    FloatLabelDirective.prototype.inputBlur = function (event) {
+        if (this.mode === 'focus') {
+            this._focused = false;
+            this.raised = this.hasText();
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    FloatLabelDirective.prototype.inputChange = function (event) {
+        if (this.mode === 'input') {
+            this.raised = this.hasText();
+        }
+    };
+    return FloatLabelDirective;
+}());
+FloatLabelDirective.decorators = [
+    { type: core.Directive, args: [{
+                selector: '[uxFloatLabel]',
+                host: {
+                    'class': 'ux-float-label'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+FloatLabelDirective.ctorParameters = function () { return [
+    { type: core.ElementRef, },
+    { type: core.Renderer2, },
+]; };
+FloatLabelDirective.propDecorators = {
+    'input': [{ type: core.Input, args: ['uxFloatLabel',] },],
+    'value': [{ type: core.Input },],
+    'mode': [{ type: core.Input },],
+    'raised': [{ type: core.HostBinding, args: ['class.ux-float-label-raised',] },],
+};
+var FloatLabelModule = (function () {
+    function FloatLabelModule() {
+    }
+    return FloatLabelModule;
+}());
+FloatLabelModule.decorators = [
+    { type: core.NgModule, args: [{
+                imports: [],
+                exports: [FloatLabelDirective],
+                declarations: [FloatLabelDirective],
+                providers: [],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+FloatLabelModule.ctorParameters = function () { return []; };
 var HelpCenterService = (function () {
     function HelpCenterService() {
         this.items = new BehaviorSubject.BehaviorSubject([]);
@@ -26435,7 +26965,7 @@ HoverActionDirective.propDecorators = {
     'previous': [{ type: core.HostListener, args: ['keydown.arrowleft', ['$event'],] },],
     'next': [{ type: core.HostListener, args: ['keydown.arrowright', ['$event'],] },],
 };
-var DECLARATIONS$9 = [
+var DECLARATIONS$8 = [
     HoverActionDirective,
     HoverActionContainerDirective
 ];
@@ -26446,8 +26976,8 @@ var HoverActionModule = (function () {
 }());
 HoverActionModule.decorators = [
     { type: core.NgModule, args: [{
-                exports: DECLARATIONS$9,
-                declarations: DECLARATIONS$9
+                exports: DECLARATIONS$8,
+                declarations: DECLARATIONS$8
             },] },
 ];
 /**
@@ -26598,7 +27128,7 @@ LayoutSwitcherDirective.propDecorators = {
     'group': [{ type: core.Input },],
     '_layouts': [{ type: core.ContentChildren, args: [LayoutSwitcherItemDirective,] },],
 };
-var DECLARATIONS$10 = [
+var DECLARATIONS$9 = [
     LayoutSwitcherDirective,
     LayoutSwitcherItemDirective
 ];
@@ -26612,8 +27142,8 @@ LayoutSwitcherModule.decorators = [
                 imports: [
                     ResizeModule
                 ],
-                exports: DECLARATIONS$10,
-                declarations: DECLARATIONS$10,
+                exports: DECLARATIONS$9,
+                declarations: DECLARATIONS$9,
                 providers: [],
             },] },
 ];
@@ -27039,7 +27569,7 @@ var SelectionService = (function () {
      */
     SelectionService.prototype.selected$ = function (data) {
         var _this = this;
-        return this.selection$.pipe(map$3(function () { return _this.isSelected(data); }), distinctUntilChanged$3());
+        return this.selection$.pipe(map$1(function () { return _this.isSelected(data); }), distinctUntilChanged$1());
     };
     /**
      * Define how selections should be performed.
@@ -27177,7 +27707,7 @@ var SelectionItemDirective = (function () {
             _this.selectedChange.emit(selected);
         }));
         // subscribe to changes to the active state
-        this._subscriptions.add(this._selectionService.active$.pipe(map$3(function (active) { return active === _this.uxSelectionItem; })).subscribe(function (active) {
+        this._subscriptions.add(this._selectionService.active$.pipe(map$1(function (active) { return active === _this.uxSelectionItem; })).subscribe(function (active) {
             // store the focus state
             _this.active = active;
             // if it is active then focus the element
@@ -29186,13 +29716,10 @@ exports.DashboardDragHandleDirective = DashboardDragHandleDirective;
 exports.DashboardWidgetComponent = DashboardWidgetComponent;
 exports.DateTimePickerModule = DateTimePickerModule;
 exports.DateTimePickerComponent = DateTimePickerComponent;
+exports.DateTimePickerService = DateTimePickerService;
 exports.DatePickerMode = DatePickerMode;
-exports.DateTimePickerDayViewComponent = DateTimePickerDayViewComponent;
-exports.DateTimePickerMonthViewComponent = DateTimePickerMonthViewComponent;
-exports.DateTimePickerYearViewComponent = DateTimePickerYearViewComponent;
-exports.DateTimePickerTimeViewComponent = DateTimePickerTimeViewComponent;
-exports.DatePickerMeridian = DatePickerMeridian;
-exports.DateTimePickerHeaderComponent = DateTimePickerHeaderComponent;
+exports.ModeDirection = ModeDirection;
+exports.DatePickerHeaderEvent = DatePickerHeaderEvent;
 exports.DateTimePickerConfig = DateTimePickerConfig;
 exports.EboxModule = EboxModule;
 exports.EboxComponent = EboxComponent;
@@ -29281,12 +29808,19 @@ exports.SliderThumbEvent = SliderThumbEvent;
 exports.SliderThumb = SliderThumb;
 exports.SparkModule = SparkModule;
 exports.SparkComponent = SparkComponent;
+exports.SpinButtonModule = SpinButtonModule;
+exports.SPIN_BUTTON_VALUE_ACCESSOR = SPIN_BUTTON_VALUE_ACCESSOR;
+exports.SpinButtonComponent = SpinButtonComponent;
 exports.TagInputEvent = TagInputEvent;
 exports.TagInputComponent = TagInputComponent;
 exports.TagInputModule = TagInputModule;
 exports.TimelineModule = TimelineModule;
 exports.TimelineComponent = TimelineComponent;
 exports.TimelineEventComponent = TimelineEventComponent;
+exports.TimePickerModule = TimePickerModule;
+exports.TIME_PICKER_VALUE_ACCESSOR = TIME_PICKER_VALUE_ACCESSOR;
+exports.TimePickerComponent = TimePickerComponent;
+exports.TimeFormatPipe = TimeFormatPipe;
 exports.ToggleSwitchModule = ToggleSwitchModule;
 exports.ToggleSwitchComponent = ToggleSwitchComponent;
 exports.ToolbarSearchModule = ToolbarSearchModule;
@@ -29317,6 +29851,8 @@ exports.DragModule = DragModule;
 exports.DragDirective = DragDirective;
 exports.FixedHeaderTableModule = FixedHeaderTableModule;
 exports.FixedHeaderTableDirective = FixedHeaderTableDirective;
+exports.FloatLabelDirective = FloatLabelDirective;
+exports.FloatLabelModule = FloatLabelModule;
 exports.FocusIfDirective = FocusIfDirective;
 exports.FocusIfModule = FocusIfModule;
 exports.HelpCenterModule = HelpCenterModule;
@@ -29335,6 +29871,9 @@ exports.InfiniteScrollModule = InfiniteScrollModule;
 exports.LayoutSwitcherModule = LayoutSwitcherModule;
 exports.LayoutSwitcherDirective = LayoutSwitcherDirective;
 exports.LayoutSwitcherItemDirective = LayoutSwitcherItemDirective;
+exports.MenuNavigationItemDirective = MenuNavigationItemDirective;
+exports.MenuNavigationDirective = MenuNavigationDirective;
+exports.MenuNavigationModule = MenuNavigationModule;
 exports.ResizeService = ResizeService;
 exports.ResizeDirective = ResizeDirective;
 exports.ResizeModule = ResizeModule;
@@ -29402,19 +29941,28 @@ exports.TimeAgoService = TimeAgoService;
 exports.timeAgoServiceFactory = timeAgoServiceFactory;
 exports.timeAgoServiceProvider = timeAgoServiceProvider;
 exports.HybridModule = HybridModule;
-exports.ɵc = DateTimePickerService;
-exports.ɵd = FloatingActionButtonsService;
-exports.ɵg = MarqueeWizardStepComponent;
-exports.ɵf = MarqueeWizardService;
-exports.ɵk = MediaPlayerService;
-exports.ɵj = PageHeaderNavigationDropdownItemComponent;
-exports.ɵi = PageHeaderNavigationItemComponent;
-exports.ɵh = PageHeaderService;
-exports.ɵe = SidePanelService;
-exports.ɵl = HoverActionService;
-exports.ɵo = SelectionItemDirective;
-exports.ɵm = SelectionDirective;
-exports.ɵn = SelectionService;
+exports.ɵd = DayViewComponent;
+exports.ɵe = DayViewService;
+exports.ɵc = HeaderComponent;
+exports.ɵf = MonthViewComponent;
+exports.ɵg = MonthViewService;
+exports.ɵj = TimeViewComponent;
+exports.ɵh = YearViewComponent;
+exports.ɵi = YearViewService;
+exports.ɵk = FloatingActionButtonsService;
+exports.ɵn = MarqueeWizardStepComponent;
+exports.ɵm = MarqueeWizardService;
+exports.ɵt = MediaPlayerService;
+exports.ɵs = PageHeaderNavigationDropdownItemComponent;
+exports.ɵr = PageHeaderNavigationItemComponent;
+exports.ɵq = PageHeaderService;
+exports.ɵl = SidePanelService;
+exports.ɵu = HoverActionService;
+exports.ɵp = MenuNavigationToggleDirective;
+exports.ɵo = MenuNavigationService;
+exports.ɵx = SelectionItemDirective;
+exports.ɵv = SelectionDirective;
+exports.ɵw = SelectionService;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

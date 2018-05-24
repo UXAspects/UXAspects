@@ -1,11 +1,13 @@
 import { OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from './navigation/navigation.component';
 export declare class PageHeaderService implements OnDestroy {
     items$: BehaviorSubject<PageHeaderNavigationItem[]>;
     selected$: BehaviorSubject<PageHeaderNavigationItem>;
     selectedRoot$: BehaviorSubject<PageHeaderNavigationItem>;
     secondary$: BehaviorSubject<boolean>;
+    activeIconMenu$: BehaviorSubject<PageHeaderIconMenu>;
     private _subscription;
     constructor();
     ngOnDestroy(): void;

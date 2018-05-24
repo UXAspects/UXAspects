@@ -1,3 +1,4 @@
+import { DateTimePickerTimezone } from './date-time-picker.service';
 /**
  * Convert a single dimension array to a double dimension array
  * @param items the single dimension array to convert
@@ -22,6 +23,14 @@ export declare function dateRange(start: Date, end: Date): Date[];
  * @param day2 the second date to compare
  */
 export declare function compareDays(day1: Date, day2: Date): boolean;
+/**
+ * Date comparison for use primarily with distinctUntilChanged
+ */
+export declare function dateComparator(dateOne: Date, dateTwo: Date): boolean;
+/**
+ * Timezone comparison for use primarily with distinctUntilChanged
+ */
+export declare function timezoneComparator(zoneOne: DateTimePickerTimezone, zoneTwo: DateTimePickerTimezone): boolean;
 /**
  * Export an array of all the available months
  */

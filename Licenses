@@ -24,6 +24,12 @@ UX ASPECTS OPEN SOURCE LICENSES
 // http://jscrollpane.kelvinluck.com/GPL-LICENSE.txt
 //
 -----------------------------------------------------------------------------------
+* jQuery Mousewheel 3.1.12
+ *
+ * Copyright 2014 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+-----------------------------------------------------------------------------------
 Copyright (c) 2010-2015, Michael Bostock
 All rights reserved.
 
@@ -51,16 +57,25 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -----------------------------------------------------------------------------------
-* jQuery Mousewheel 3.1.12
- *
- * Copyright 2014 jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
------------------------------------------------------------------------------------
 /* Javascript plotting library for jQuery, version 0.8.3.
 
 Copyright (c) 2007-2014 IOLA and Ole Laursen.
 Licensed under the MIT license.
+-----------------------------------------------------------------------------------
+Flot plugin for rendering pie charts.
+
+Copyright (c) 2007-2014 IOLA and Ole Laursen.
+Licensed under the MIT license.
+
+The plugin assumes that each series has a single data value, and that each
+value is a positive integer or zero.  Negative numbers don't make sense for a
+pie chart, and have unpredictable results.  The values do NOT need to be
+passed in as percentages; the plugin will calculate the total and per-slice
+percentages internally.
+
+* Created by Brian Medendorp
+
+* Updated with contributions from btburnett3, Anthony Aragues and Xavi Ivars
 -----------------------------------------------------------------------------------
 /* Flot plugin for automatically redrawing plots as the placeholder resizes.
 
@@ -89,21 +104,6 @@ can just fix the size of their placeholders.
  * modified by: Avi Kohn https://github.com/AMKohn
  * based on the spline interpolation described at:
  *		 http://scaledinnovation.com/analytics/splines/aboutSplines.html
------------------------------------------------------------------------------------
-Flot plugin for rendering pie charts.
-
-Copyright (c) 2007-2014 IOLA and Ole Laursen.
-Licensed under the MIT license.
-
-The plugin assumes that each series has a single data value, and that each
-value is a positive integer or zero.  Negative numbers don't make sense for a
-pie chart, and have unpredictable results.  The values do NOT need to be
-passed in as percentages; the plugin will calculate the total and per-slice
-percentages internally.
-
-* Created by Brian Medendorp
-
-* Updated with contributions from btburnett3, Anthony Aragues and Xavi Ivars
 -----------------------------------------------------------------------------------
 Flot plugin for stacking data sets rather than overlyaing them.
 
@@ -231,6 +231,31 @@ angular-breadcrumb - v0.3.2-dev-2014-12-14
  * http://ncuillery.github.io/angular-breadcrumb
  * Copyright (c) 2014 Nicolas Cuillery; Licensed MIT
 -----------------------------------------------------------------------------------
+angular-file-upload v1.1.5
+ https://github.com/nervgh/angular-file-upload
+
+ The MIT License
+
+ Copyright (c) 2013 nerv. https://github.com/nervgh
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+-----------------------------------------------------------------------------------
 The MIT License (MIT)
 
 Copyright (c) 2014 Develer S.r.L.
@@ -274,31 +299,6 @@ SOFTWARE.
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
------------------------------------------------------------------------------------
-angular-file-upload v1.1.5
- https://github.com/nervgh/angular-file-upload
-
- The MIT License
-
- Copyright (c) 2013 nerv. https://github.com/nervgh
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
 -----------------------------------------------------------------------------------
 The MIT License (MIT)
 
@@ -365,14 +365,14 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------------
-* @license Angular UI Tree v2.9.0
- * (c) 2010-2015. https://github.com/angular-ui-tree/angular-ui-tree
- * License: MIT
------------------------------------------------------------------------------------
 * State-based routing for AngularJS
  * @version v0.2.13
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
+-----------------------------------------------------------------------------------
+* @license Angular UI Tree v2.9.0
+ * (c) 2010-2015. https://github.com/angular-ui-tree/angular-ui-tree
+ * License: MIT
 -----------------------------------------------------------------------------------
 * ngTagsInput v3.2.0
  * http://mbenford.github.io/ngTagsInput

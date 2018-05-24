@@ -1,4 +1,4 @@
-import { DateTimePickerTimezone } from './time-view/time-view.component';
+import { DateTimePickerTimezone } from './date-time-picker.service';
 export declare class DateTimePickerConfig {
     showDate: boolean;
     showTime: boolean;

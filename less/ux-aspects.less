@@ -1472,7 +1472,7 @@ tree-root .angular-tree-component-rtl .tree-children {
 }
 
 .aspects-outline {
-    outline: 1px dotted;
+    outline: 2px dotted;
     outline: auto -webkit-focus-ring-color;
     outline-color: @aspects-outline;
     outline-offset: 0;
@@ -9047,6 +9047,32 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
     .input-group label {
         display: none;
     }
+}
+
+// Float label (Angular)
+.ux-float-label {
+    position: relative;
+    margin-left: 12px;
+    margin-bottom: 0;
+    font-size: @font-size-sm;
+    color: lighten(@text-color, 30%);
+    z-index: @float-label-z-index;
+
+    &:not(.ux-float-label-raised) {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    &.ux-float-label-raised {
+        opacity: 1;
+        transition: 0.5s ease-in-out;
+    }
+}
+
+.ux-float-label ~ input,
+.ux-float-input {
+    border: none;
+    border-bottom: 1px solid @float-label-border;
 }
 
 //ui-tree
@@ -20460,6 +20486,8 @@ tags-input .tags .input:-ms-input-placeholder {
     }
 }
 .treegrid {
+    outline: none;
+
     .treegrid-expand-header {
         margin-left: 58px;
 
@@ -21012,6 +21040,10 @@ tags-input .tags .input:-ms-input-placeholder {
         a,
         span {
             color: @breadcrumb-color;
+
+            &:focus {
+                .aspects-outline;
+            }
         }
     }
 }
@@ -21244,119 +21276,149 @@ tags-input .tags .input:-ms-input-placeholder {
     }
 }
 ux-checkbox {
-    display: inline-block;
-    margin-bottom: 5px;
-    white-space: nowrap;
-    line-height: 0;
-
     .ux-checkbox {
         display: inline-flex;
-        color: transparent;
-        font-family: 'hpe-icons';
-        width: 24px;
-        height: 24px;
-        background-color: transparent;
+        align-items: baseline;
+        margin: 0;
         cursor: pointer;
-        border: 1px solid @grey5;
-        margin-top: 1px;
-        font-size: 16px;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        box-sizing: border-box;
-    }
+        margin-bottom: 5px;
 
-    &:hover .ux-checkbox {
-        border: 2px solid @accent;
-    }
+        .ux-checkbox-container {
+            display: inline-flex;
+            flex: none;
+            color: transparent;
+            font-family: 'hpe-icons';
+            width: 24px;
+            height: 24px;
+            border: 1px solid @grey5;
+            font-size: 16px;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
 
-    &:hover .ux-checkbox.ux-disabled {
-        border: 1px solid @grey6;
-    }
+            .hpe-icon-checkmark();
 
-    &:hover .ux-checkbox.ux-simplified {
-        color: @grey5;
-        border-color: transparent;
-        border-width: 1px;
-    }
+            .ux-checkbox-input {
+                position: absolute;
+                height: 0;
+                width: 0;
+                outline: none;
+                overflow: hidden;
+                border: none;
+                clip: rect(0 0 0 0);
+                margin: -1px;
+                padding: 0;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+            }
+        }
 
-    &:hover .ux-checkbox.ux-simplified.ux-disabled {
-        color: transparent;
-    }
+        &.ux-checkbox-checked,
+        &.ux-checkbox-indeterminate {
+            .ux-checkbox-container {
+                background-color: @accent;
+                color: @white;
+                border-color: transparent;
+            }
 
-    &:hover .ux-checkbox.ux-simplified.ux-checked,
-    &:hover .ux-checkbox.ux-simplified.ux-indeterminate {
-        color: @accent;
-    }
+            &.ux-checkbox-disabled {
+                .ux-checkbox-container {
+                    background-color: @grey6;
+                }
+            }
+        }
 
-    &:hover .ux-checkbox.ux-simplified.ux-checked.ux-disabled,
-    &:hover .ux-checkbox.ux-simplified.ux-indeterminate.ux-disabled {
-        color: @grey5;
-    }
+        &.ux-checkbox-indeterminate {
+            .ux-checkbox-container {
+                .hpe-icon-subtract();
+            }
+        }
 
-    .ux-checkbox {
-        .hpe-icon-checkmark();
-    }
+        .ux-checkbox-label {
+            margin-left: 7px;
+        }
 
-    .ux-checkbox:focus {
-        outline: 1px dotted @grey1;
-    }
+        &.ux-checkbox-disabled {
+            .ux-checkbox-container {
+                border-color: @grey6;
+                cursor: default;
+            }
+        }
 
-    input[type="checkbox"] {
-        display: none;
-    }
+        &.ux-checkbox-simplified {
+            .ux-checkbox-container {
+                border-color: transparent;
+                background-color: transparent;
+            }
 
-    .ux-checkbox.ux-indeterminate {
-        .hpe-icon-subtract();
-    }
+            &.ux-checkbox-checked,
+            &.ux-checkbox-indeterminate {
+                .ux-checkbox-container {
+                    color: @accent;
+                    background-color: transparent;
+                    border-color: transparent;
+                }
 
-    .ux-checkbox.ux-checked,
-    .ux-checkbox.ux-indeterminate {
-        background-color: @accent;
-        color: @white;
-        border-color: transparent;
-    }
+                &.ux-checkbox-disabled {
+                    .ux-checkbox-container {
+                        color: @grey5;
+                    }
+                }
+            }
+        }
 
-    .ux-checkbox.ux-disabled {
-        border-color: @grey6;
-        cursor: default;
-    }
+        &.ux-checkbox-simplified.ux-checkbox-disabled {
+            .ux-checkbox-container {
+                color: transparent;
+            }
+        }
 
-    .ux-checkbox.ux-disabled:focus {
-        outline: none;
-    }
+        &:hover {
+            .ux-checkbox-container {
+                border: 2px solid @accent;
+            }
 
-    .ux-checkbox.ux-disabled.ux-checked,
-    .ux-checkbox.ux-disabled.ux-indeterminate {
-        background-color: @grey6;
-    }
+            &.ux-checkbox-disabled {
+                cursor: default;
 
-    .ux-checkbox.ux-simplified {
-        font-size: 20px;
-        border-color: transparent;
-        background-color: transparent;
-    }
+                .ux-checkbox-container {
+                    border: 1px solid @grey6;
+                }
 
-    .ux-checkbox.ux-simplified.ux-checked,
-    .ux-checkbox.ux-simplified.ux-indeterminate {
-        color: @accent;
-        background-color: transparent;
-        border-color: transparent;
-    }
+                &.ux-checkbox-simplified {
+                    .ux-checkbox-container {
+                        color: transparent;
+                    }
+                }
+            }
 
-    .ux-checkbox.ux-simplified.ux-disabled.ux-checked,
-    .ux-checkbox.ux-simplified.ux-disabled.ux-indeterminate {
-        color: @grey5;
-    }
+            &.ux-checkbox-simplified {
+                .ux-checkbox-container {
+                    color: @grey5;
+                    border-color: transparent;
+                    border-width: 1px;
+                }
 
-    .ux-checkbox-content {
-        display: inline-block;
-        margin-left: 7px;
-        margin-top: 1px;
-        white-space: normal;
-        vertical-align: top;
-        cursor: default;
-        line-height: 22px;
+                &.ux-checkbox-checked,
+                &.ux-checkbox-indeterminate {
+                    .ux-checkbox-container {
+                        color: @accent;
+                    }
+
+                    &.ux-checkbox-disabled {
+                        .ux-checkbox-container {
+                            color: @grey5;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.ux-checkbox-focused {
+            .ux-checkbox-container {
+                .aspects-outline();
+            }
+        }
     }
 }
 ux-card-tabset {
@@ -21660,6 +21722,10 @@ ux-date-time-picker {
     &:hover {
         background-color: @date-picker-today-btn-hover-bg;
     }
+
+    &:focus {
+        .aspects-outline();
+    }
 }
 ux-date-time-picker-day-view {
     display: flex;
@@ -21684,13 +21750,23 @@ ux-date-time-picker-day-view {
         }
 
         .date-cell {
-            text-align: center;
             min-width: 30px;
             height: 30px;
+        }
+
+        .date-button {
+            text-align: center;
+            width: 100%;
+            height: 100%;
             border: none;
             padding: 4px 5px;
             cursor: pointer;
             font-size: 14px;
+            background-color: transparent;
+
+            &:focus {
+                .aspects-outline();
+            }
 
             &:hover {
                 background-color: @date-picker-hover-bg;
@@ -21742,6 +21818,12 @@ ux-date-time-picker-header {
             align-items: center;
             cursor: pointer;
             color: @date-picker-today-btn-color;
+            border: none;
+            background-color: transparent;
+
+            &:focus {
+                .aspects-outline();
+            }
 
             &:hover {
                 background-color: @date-picker-today-btn-hover-bg;
@@ -21758,6 +21840,12 @@ ux-date-time-picker-header {
             height: 30px;
             justify-content: center;
             align-items: center;
+            border: none;
+            background-color: transparent;
+
+            &:focus {
+                .aspects-outline();
+            }
 
             &.active {
                 cursor: pointer;
@@ -21796,6 +21884,9 @@ ux-date-time-picker-month-view {
                 margin: 2px;
                 cursor: pointer;
                 font-size: 14px;
+                border: none;
+                background-color: transparent;
+                padding: 0;
 
                 &:first-of-type {
                     margin-left: 0;
@@ -21803,6 +21894,10 @@ ux-date-time-picker-month-view {
 
                 &:last-of-type {
                     margin-right: 0;
+                }
+
+                &:focus {
+                    .aspects-outline();
                 }
 
                 &:hover {
@@ -21826,107 +21921,34 @@ ux-date-time-picker-time-view {
     align-items: center;
     justify-content: center;
 
-    &:first-child {
-        border-top: none;
+    ux-time-picker {
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .time-picker-meridian {
+            margin-left: 22px;
+        }
     }
 
-    .time-input-container {
-        display: flex;
-        align-items: center;
+    .time-zone-picker {
+        display: inline-flex;
+        flex-direction: column;
+        flex: none;
+        margin-left: 22px;
 
-        > * {
-            margin-right: 22px;
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-
-        .meridian-picker {
-            .button-toggle-accent {
-                padding-left: 8px;
-                padding-right: 8px;
-            }
-        }
-
-        .btn {
-            &.btn-link {
-                padding: 2px 10px;
-
-                .hpe-icon {
-                    &.hpe-up,
-                    &.hpe-down {
-                        color: @date-picker-border-dark;
-                        font-weight: 900;
-                        font-size: 14px;
-                    }
-                }
-            }
-        }
-
-        .time-zone-picker {
-            display: flex;
+        .time-zone-spinner {
             width: 60px;
-            font-size: 14px;
-            padding: 0;
-            justify-content: center;
-            align-items: center;
-            cursor: default;
         }
 
-        .time-zone-picker-select {
+        .time-zone-select {
+            width: 72px;
             font-size: 14px;
             padding: 0;
             text-align: center;
-        }
 
-        timepicker {
-            .form-control {
-                font-size: 14px;
-                width: 33px !important;
-                padding: 0;
-            }
-
-            .btn-link {
-                .bs-chevron {
-                    .hpe-icon();
-
-                    border: none;
-                    transform: none;
-                    width: auto;
-                    height: auto;
-                    color: @date-picker-border-dark;
-                    font-weight: 900;
-                    font-size: 14px;
-
-                    &.bs-chevron-up {
-                        .hpe-icon-up();
-                    }
-
-                    &.bs-chevron-down {
-                        .hpe-icon-down();
-                    }
-                }
-            }
-
-            .btn-default {
-                display: none;
-            }
-
-            tr {
-                td:nth-child(2) {
-                    max-width: 12px;
-                }
-
-                td:nth-child(4) {
-                    display: none;
-                }
-
-                td {
-                    .btn {
-                        padding: 2px 10px;
-                    }
-                }
+            &:focus {
+                .aspects-outline();
             }
         }
     }
@@ -21958,6 +21980,13 @@ ux-date-time-picker-year-view {
                 margin: 2px;
                 cursor: pointer;
                 font-size: 14px;
+                border: none;
+                background-color: transparent;
+                padding: 0;
+
+                &:focus {
+                    .aspects-outline();
+                }
 
                 &:first-of-type {
                     margin-left: 0;
@@ -23312,19 +23341,28 @@ ux-page-header-icon-menu {
     cursor: pointer;
 
     .page-header-icon-menu {
-        position: relative;
         display: inline-flex;
-        justify-content: center;
-        align-items: center;
+        position: relative;
         width: 40px;
-        transition: background-color 0.3s ease-in-out;
-
-        &:hover {
-            background-color: rgba(247, 247, 247, 0.1);
-        }
 
         .page-header-icon-menu-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
             color: #fff;
+            transition: background-color 0.3s ease-in-out;
+
+            &:hover,
+            &:focus {
+                background-color: rgba(247, 247, 247, 0.1);
+            }
+
+            &:focus {
+                .aspects-outline;
+            }
         }
     }
 
@@ -23347,9 +23385,24 @@ ux-page-header-icon-menu {
             }
 
             a {
+                display: flex;
+                justify-content: space-between;
                 padding: 6px 20px;
                 min-height: 0;
                 font-size: 1rem;
+
+                &:focus {
+                    .aspects-outline;
+                }
+
+                .hpe-icon {
+                    color: #888;
+                }
+
+                .dropdown-item-subtitle {
+                    font-size: 87%;
+                    color: #888;
+                }
             }
         }
 
@@ -23366,10 +23419,10 @@ ux-page-header-horizontal-navigation-item {
         position: relative;
         display: block;
         padding: 17px;
+        border: none;
         color: @page-header-nav-color;
         background-color: @page-header-bg;
         cursor: pointer;
-        outline: none;
         white-space: nowrap;
 
         .navigation-item-icon {
@@ -23390,6 +23443,10 @@ ux-page-header-horizontal-navigation-item {
         &:focus {
             color: @page-header-nav-active-color;
             background-color: @page-header-nav-active-bg;
+        }
+
+        &:focus {
+            .aspects-outline;
         }
 
         &.active,
@@ -23418,12 +23475,15 @@ ux-page-header-horizontal-navigation-item {
         color: @page-header-nav-dropdown-color;
         padding: 8px 10px 8px 20px;
         min-width: 200px;
-        outline: none;
 
         &:hover,
         &:focus {
             background-color: @page-header-nav-dropdown-hover-bg;
             color: @page-header-nav-dropdown-hover-color;
+        }
+
+        &:focus {
+            .aspects-outline;
         }
 
         .dropdown-item-title {
@@ -23529,13 +23589,20 @@ ux-page-header {
                     width: 28px;
                     margin-top: 16px;
                     margin-right: 2px;
+                    border: none;
                     justify-content: center;
                     align-items: center;
+                    background-color: transparent;
                     cursor: pointer;
                     transition: background-color 0.3s ease-in-out;
 
-                    &:hover {
+                    &:hover,
+                    &:focus {
                         background-color: @page-header-back-button-hover-bg;
+                    }
+
+                    &:focus {
+                        .aspects-outline;
                     }
 
                     & > * {
@@ -23621,110 +23688,141 @@ ux-progress-bar {
     }
 }
 ux-radio-button {
-    display: inline-block;
-    margin-bottom: 5px;
-    white-space: nowrap;
-    line-height: 0;
-
     .ux-radio-button {
         display: inline-flex;
-        color: transparent;
-        font-family: 'hpe-icons';
-        width: 24px;
-        height: 24px;
-        background-color: transparent;
+        align-items: baseline;
+        margin: 0;
         cursor: pointer;
-        border: 1px solid @grey5;
-        margin-top: 1px;
-        font-size: 16px;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        box-sizing: border-box;
-        border-radius: 50%;
-    }
+        margin-bottom: 5px;
 
-    .ux-radio-button:before {
-        content: "\f12c";
-    }
+        .ux-radio-button-container {
+            display: inline-flex;
+            flex: none;
+            color: transparent;
+            font-family: 'hpe-icons';
+            width: 24px;
+            height: 24px;
+            border: 1px solid @grey5;
+            font-size: 16px;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            border-radius: 50%;
 
-    .ux-radio-button:focus {
-        outline: 1px dotted @grey1;
-    }
+            .hpe-icon-checkmark();
 
-    &:hover .ux-radio-button {
-        border: 2px solid @accent;
-    }
+            .ux-radio-button-input {
+                position: absolute;
+                height: 0;
+                width: 0;
+                outline: none;
+                overflow: hidden;
+                border: none;
+                clip: rect(0 0 0 0);
+                margin: -1px;
+                padding: 0;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+            }
+        }
 
-    &:hover .ux-radio-button.ux-disabled {
-        border: 1px solid @grey6;
-    }
+        &.ux-radio-button-checked {
+            .ux-radio-button-container {
+                background-color: @accent;
+                color: @white;
+                border-color: transparent;
+            }
 
-    &:hover .ux-radio-button.ux-simplified {
-        color: @grey5;
-        border-color: transparent;
-        border-width: 1px;
-    }
+            &.ux-radio-button-disabled {
+                .ux-radio-button-container {
+                    background-color: @grey6;
+                }
+            }
+        }
 
-    &:hover .ux-radio-button.ux-simplified.ux-disabled {
-        color: transparent;
-    }
+        .ux-radio-button-label {
+            margin-left: 7px;
+        }
 
-    &:hover .ux-radio-button.ux-simplified.ux-checked {
-        color: @accent;
-    }
+        &.ux-radio-button-disabled {
+            .ux-radio-button-container {
+                border-color: @grey6;
+                cursor: default;
+            }
+        }
 
-    &:hover .ux-radio-button.ux-simplified.ux-checked.ux-disabled {
-        color: @grey5;
-    }
+        &.ux-radio-button-simplified {
+            .ux-radio-button-container {
+                border-color: transparent;
+                background-color: transparent;
+            }
 
-    input[type="radio"] {
-        display: none;
-    }
+            &.ux-radio-button-checked {
+                .ux-radio-button-container {
+                    color: @accent;
+                    background-color: transparent;
+                    border-color: transparent;
+                }
 
-    .ux-radio-button.ux-checked {
-        background-color: @accent;
-        color: @white;
-        border-color: transparent;
-    }
+                &.ux-radio-button-disabled {
+                    .ux-radio-button-container {
+                        color: @grey5;
+                    }
+                }
+            }
+        }
 
-    .ux-radio-button.ux-disabled {
-        border-color: @grey6;
-        cursor: default;
-    }
+        &.ux-radio-button-simplified.ux-radio-button-disabled {
+            .ux-radio-button-container {
+                color: transparent;
+            }
+        }
 
-    .ux-radio-button.disabled:focus {
-        outline: none;
-    }
+        &:hover {
+            .ux-radio-button-container {
+                border: 2px solid @accent;
+            }
 
-    .ux-radio-button.ux-disabled.ux-checked {
-        background-color: @grey6;
-    }
+            &.ux-radio-button-disabled {
+                cursor: default;
 
-    .ux-radio-button.ux-simplified {
-        font-size: 20px;
-        border-color: transparent;
-        background-color: transparent;
-    }
+                .ux-radio-button-container {
+                    border: 1px solid @grey6;
+                }
 
-    .ux-radio-button.ux-simplified.ux-checked {
-        color: @accent;
-        background-color: transparent;
-        border-color: transparent;
-    }
+                &.ux-radio-button-simplified {
+                    .ux-radio-button-container {
+                        color: transparent;
+                    }
+                }
+            }
 
-    .ux-radio-button.ux-simplified.ux-disabled.ux-checked {
-        color: @grey5;
-    }
+            &.ux-radio-button-simplified {
+                .ux-radio-button-container {
+                    color: @grey5;
+                    border-color: transparent;
+                    border-width: 1px;
+                }
 
-    .ux-radio-button-content {
-        display: inline-block;
-        margin-left: 7px;
-        margin-top: 1px;
-        white-space: normal;
-        vertical-align: top;
-        cursor: default;
-        line-height: 22px;
+                &.ux-radio-button-checked {
+                    .ux-radio-button-container {
+                        color: @accent;
+                    }
+
+                    &.ux-radio-button-disabled {
+                        .ux-radio-button-container {
+                            color: @grey5;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.ux-radio-button-focused {
+            .ux-radio-button-container {
+                .aspects-outline();
+            }
+        }
     }
 }
 ux-search-builder-group {
@@ -24105,6 +24203,11 @@ ux-slider {
             position: absolute;
             cursor: pointer;
 
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 1px 2px @aspects-outline;
+            }
+
             .tooltip {
                 top: -37px;
                 -ms-user-select: none;
@@ -24348,6 +24451,54 @@ ux-spark {
 
         .ux-spark-bar {
             background-color: @color;
+        }
+    }
+}
+ux-spin-button {
+    display: flex;
+    flex-direction: column;
+
+    .spin-button {
+        height: 22px;
+        text-align: center;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+
+        &:disabled {
+            opacity: 0.5;
+        }
+
+        &:focus {
+            .aspects-outline();
+        }
+
+        .hpe-icon {
+            color: #666;
+            font-weight: 900;
+            font-size: 14px;
+        }
+    }
+
+    .form-control {
+        text-align: center;
+        padding: 0;
+        font-size: 14px;
+        -moz-appearance: textfield;
+
+        &[readonly] {
+            background-color: #fff;
+            border-color: #e5e6e7;
+            color: #555;
+        }
+
+        &:disabled {
+            color: #b3b3b3;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
         }
     }
 }
@@ -24715,58 +24866,83 @@ ux-timeline {
         }
     }
 }
-ux-toggleswitch {
-    margin-bottom: 5px;
-    white-space: nowrap;
+ux-time-picker {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
-    .ux-toggleswitch {
+    .time-picker {
         display: inline-flex;
-        cursor: pointer;
-        color: transparent;
+    }
 
-        &.disabled {
-            cursor: default;
+    .time-picker-column {
+        display: inline-flex;
+        flex-direction: column;
+        flex: none;
+    }
 
-            &:focus {
-                outline: none;
+    .time-picker-separator {
+        display: inline-flex;
+        flex: none;
+        width: 14px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .time-picker-meridian {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 14px;
+
+        .btn-group {
+            .btn {
+                padding-left: 8px;
+                padding-right: 8px;
             }
-        }
-
-        &:focus {
-            outline: 1px dotted @grey1;
-        }
-
-        input[type="checkbox"] {
-            display: none;
         }
     }
 
+    .time-spinner {
+        width: 33px !important;
+    }
+}
+
+ux-toggleswitch {
     .ux-toggleswitch {
-        width: 44px;
-        height: 22px;
         position: relative;
-        vertical-align: middle;
-        color: @primary;
+        display: inline-flex;
+        cursor: pointer;
+        margin-bottom: 5px;
+        white-space: nowrap;
+
+        .ux-toggleswitch-input {
+            position: absolute;
+            height: 0;
+            width: 0;
+            outline: none;
+            overflow: hidden;
+            border: none;
+            clip: rect(0 0 0 0);
+            margin: -1px;
+            padding: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .ux-toggleswitch-container {
+            position: relative;
+        }
 
         .ux-toggleswitch-bg {
-            width: 100%;
-            height: 100%;
+            flex: none;
+            width: 44px;
+            height: 22px;
             background-color: @white;
             border: 1px solid @grey5;
             border-radius: 999px;
-            box-shadow: inset 0 0 0 0;
+            box-shadow: inset 0 0 0 0 @primary;
             transition: border 0.3s, box-shadow 0.3s, background-color 0s;
-        }
-
-        &.checked .ux-toggleswitch-bg {
-            background-color: currentColor;
-            border-color: currentColor;
-            box-shadow: inset 0 0 0 12px;
-            transition: border 0.3s, box-shadow 0.3s, background-color 0s 0.3s;
-        }
-
-        &.disabled {
-            opacity: 0.5;
         }
 
         .ux-toggleswitch-nub {
@@ -24776,31 +24952,53 @@ ux-toggleswitch {
             height: 22px;
             width: 22px;
             position: absolute;
+            top: 0;
             left: 0;
             transition: left 0.15s;
         }
 
-        &.checked .ux-toggleswitch-nub {
-            left: 22px;
-            border-color: currentColor;
+        .ux-toggleswitch-label {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 7px;
+            white-space: nowrap;
         }
-    }
 
-    .ux-toggleswitch-content {
-        display: inline-block;
-        margin-left: 7px;
-        margin-top: 1px;
-        white-space: normal;
-        vertical-align: top;
+        &.ux-toggleswitch-disabled {
+            cursor: default;
+            opacity: 0.5;
+        }
+
+        &.ux-toggleswitch-checked {
+            .ux-toggleswitch-bg {
+                background-color: @primary;
+                border-color: @primary;
+                box-shadow: inset 0 0 0 12px @primary;
+                transition: border 0.3s, box-shadow 0.3s, background-color 0s 0.3s;
+            }
+
+            .ux-toggleswitch-nub {
+                left: 22px;
+                border-color: @primary;
+            }
+        }
+
+        &.ux-toggleswitch-focused {
+            .ux-toggleswitch-bg {
+                .aspects-outline();
+            }
+        }
     }
 
     &.toggleswitch-lg {
         .ux-toggleswitch {
-            width: 60px;
-            height: 30px;
+            .ux-toggleswitch-bg {
+                width: 60px;
+                height: 30px;
+            }
 
-            &.checked .ux-toggleswitch-bg {
-                box-shadow: inset 0 0 0 16px;
+            &.ux-toggleswitch-checked .ux-toggleswitch-bg {
+                box-shadow: inset 0 0 0 16px @primary;
             }
 
             .ux-toggleswitch-nub {
@@ -24808,13 +25006,9 @@ ux-toggleswitch {
                 width: 30px;
             }
 
-            &.checked .ux-toggleswitch-nub {
+            &.ux-toggleswitch-checked .ux-toggleswitch-nub {
                 left: 30px;
             }
-        }
-
-        .ux-toggleswitch-content {
-            margin-top: 5px;
         }
     }
 
