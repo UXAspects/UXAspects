@@ -16,7 +16,7 @@
 
                     <ux-checkbox 
                       aria-label="Toggle selection of {{ node.data.name }}"
-                      [tabindex]="node === focused || !focused && node.isRoot && node.index === 0 ? 0 : -1"
+                      tabindex="-1"
                       [value]="node.data.checked"
                       (valueChange)="setChecked(node, $event)"
                       [indeterminateValue]="-1">
