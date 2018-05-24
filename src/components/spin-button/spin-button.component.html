@@ -24,7 +24,8 @@
        [attr.aria-valuenow]="value"
        [attr.aria-valuemax]="max"
        [attr.aria-readonly]="readOnly"
-       [(ngModel)]="value"
+       [ngModel]="value"
+       (ngModelChange)="valueChange.emit($event)"
        (wheel)="scroll($event)"
        (keydown.arrowup)="arrowkeys ? triggerIncrement() : null; $event.preventDefault()"
        (keydown.arrowdown)="arrowkeys ? triggerDecrement() : null; $event.preventDefault()">
