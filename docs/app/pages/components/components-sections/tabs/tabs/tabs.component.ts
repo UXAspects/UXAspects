@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-tabs',
@@ -9,7 +11,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @DocumentationSectionComponent('ComponentsTabsComponent')
-export class ComponentsTabsComponent extends BaseDocumentationSection {
+export class ComponentsTabsComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     tabs: Tab[] = [
         {
@@ -50,6 +52,20 @@ export class ComponentsTabsComponent extends BaseDocumentationSection {
     }
 
     private _stacked: TabStackType = 'none';
+
+    plunk: IPlunk = {
+        files: {
+            'app.component.html': this.snippets.raw.appHtml,
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.css': this.snippets.raw.appCss,
+        },
+        modules: [
+            {
+                imports: ['TabsetModule'],
+                library: '@ux-aspects/ux-aspects'
+            }
+        ]
+    };
 
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
