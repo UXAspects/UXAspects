@@ -1,4 +1,4 @@
-import { EventEmitter, OnInit, ElementRef, AfterViewInit, DoCheck, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, OnInit } from '@angular/core';
 import { ColorService } from '../../services/color/index';
 export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private _changeDetectorRef;
@@ -12,6 +12,7 @@ export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     sliderType: typeof SliderType;
     sliderStyle: typeof SliderStyle;
     sliderSize: typeof SliderSize;
+    sliderSnap: typeof SliderSnap;
     sliderThumb: typeof SliderThumb;
     sliderTickType: typeof SliderTickType;
     sliderThumbEvent: typeof SliderThumbEvent;
@@ -64,10 +65,14 @@ export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     ngOnInit(): void;
     ngDoCheck(): void;
     ngAfterViewInit(): void;
+    snapToNearestTick(thumb: SliderThumb, snapTarget: SliderSnap, forwards: boolean): void;
+    snapToEnd(thumb: SliderThumb, forwards: boolean): void;
+    getThumbValue(thumb: SliderThumb): number;
     getFormattedValue(thumb: SliderThumb): string | number;
     private getThumbState(thumb);
     private setThumbState(thumb, hover, drag);
     thumbEvent(thumb: SliderThumb, event: SliderThumbEvent): void;
+    getAriaValueText(thumb: SliderThumb): string | number;
     private updateTooltips(thumb);
     private updateTooltipText(thumb);
     private getTooltipElement(thumb);
@@ -77,6 +82,7 @@ export declare class SliderComponent implements OnInit, AfterViewInit, DoCheck {
     private clamp(value, min, max);
     updateThumbPosition(event: MouseEvent | TouchEvent, thumb: SliderThumb): void;
     private updateOrder(thumb);
+    private getTickDistances(value, thumb, snapTarget);
     private snapToTick(value, thumb);
     private validateValue(thumb, value);
     private updateOptions();
@@ -139,6 +145,17 @@ export interface SliderOptions {
 export interface SliderHandleOptions {
     style?: SliderStyle;
     callout?: SliderCallout;
+    keyboard?: SliderKeyboardOptions;
+    aria?: SliderAriaOptions;
+}
+export interface SliderAriaOptions {
+    thumb: string;
+    lowerThumb: string;
+    upperThumb: string;
+}
+export interface SliderKeyboardOptions {
+    major?: number;
+    minor?: number;
 }
 export interface SliderTrackOptions {
     height?: SliderSize;

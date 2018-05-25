@@ -1,18 +1,18 @@
+import { OnDestroy } from '@angular/core';
 import { DateTimePickerService } from '../date-time-picker.service';
-export declare class DateTimePickerMonthViewComponent {
-    private _dateTimePickerService;
-    months: number[][];
-    currentDate: Date;
-    readonly date: Date;
-    month: number;
-    year: number;
-    constructor(_dateTimePickerService: DateTimePickerService);
+import { MonthViewItem, MonthViewService } from './month-view.service';
+export declare class MonthViewComponent implements OnDestroy {
+    private _datePicker;
+    monthService: MonthViewService;
+    private _subscription;
+    constructor(_datePicker: DateTimePickerService, monthService: MonthViewService);
+    ngOnDestroy(): void;
     /**
-     * Go to the previous year and emit the change
+     * Go to the previous year
      */
     previous(): void;
     /**
-     * Go to the next year and emit the change
+     * Go to the next year
      */
     next(): void;
     /**
@@ -20,17 +20,8 @@ export declare class DateTimePickerMonthViewComponent {
      * @param month the index of the month to select
      */
     select(month: number): void;
-    /**
-     * Get the name of a month
-     * @param month the month in question
-     */
-    getMonthName(month: number): string;
-    /**
-     * Show the daye picker view
-     */
-    showDayPicker(): void;
-    /**
-     * Show the year picker view
-     */
-    showYearPicker(): void;
+    focusMonth(item: MonthViewItem, monthOffset: number): void;
+    trackRowByFn(index: number): number;
+    trackMonthByFn(index: number, item: MonthViewItem): string;
+    getTabbable(item: MonthViewItem): boolean;
 }
