@@ -1,0 +1,46 @@
+<!-- Nav tabs -->
+<ul role="tablist"
+    class="nav nav-{{ type }}" 
+    [class.nav-justified]="justified"
+    [class.nav-stacked]="vertical"
+    [class.minimal-tab]="minimal"
+    [attr.aria-label]="ariaLabel">
+
+	<li role="presentation" 
+        class="nav-item"
+        *ngFor="let tab of tabset.tabs$ | async; let index = index"
+        [class.active]="tab.active$ | async"
+        [class.disabled]="tab.disabled"
+        [ngClass]="tab.customClass">
+
+        <a class="nav-link"
+            [id]="tab.id"
+            role="tab"
+            [tabindex]="(tab.active$ | async) ? 0 : -1"
+            (mousedown)="tabset.focused$.next(true)"
+            (focus)="tabset.focused$.next(true)"
+            (blur)="tabset.focused$.next(false)"
+            (click)="tabset.select(tab)"
+            (keydown.enter)="tabset.select(tab)"
+            (keydown.arrowleft)="tabset.selectAtIndex(index - 1); $event.preventDefault()"
+            (keydown.arrowright)="tabset.selectAtIndex(index + 1); $event.preventDefault()"
+            (keydown.home)="tabset.selectFirstTab(); $event.preventDefault()"
+            (keydown.end)="tabset.selectLastTab(); $event.preventDefault()"
+            [focusIf]="(tabset.focused$ | async) && (tab.active$ | async)"
+            [attr.aria-controls]="tab.id"
+            [attr.aria-selected]="tab.active$ | async"
+            [attr.aria-disabled]="tab.disabled">
+
+            <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>
+
+            <ng-container *ngIf="tab.headingRef" [ngTemplateOutlet]="tab.headingRef"></ng-container>
+        </a>
+
+	</li>
+
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+	<ng-content></ng-content>
+</div>

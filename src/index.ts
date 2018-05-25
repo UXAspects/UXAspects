@@ -27,6 +27,7 @@ export * from './components/side-panel/index';
 export * from './components/slider/index';
 export * from './components/spark/index';
 export * from './components/spin-button/index';
+export * from './components/tabset/index';
 export * from './components/tag-input/index';
 export * from './components/timeline/index';
 export * from './components/time-picker/index';
