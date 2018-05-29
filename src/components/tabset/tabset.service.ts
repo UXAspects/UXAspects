@@ -8,6 +8,7 @@ export class TabsetService {
     tabs$ = new BehaviorSubject<TabComponent[]>([]);
     active$ = new BehaviorSubject<TabComponent>(null);
     focused$ = new BehaviorSubject<boolean>(false);
+    highlighted$ = new BehaviorSubject<TabComponent>(null);
 
     add(tab: TabComponent): void {
         this.tabs$.next([...this.tabs$.value, tab]);
@@ -27,6 +28,7 @@ export class TabsetService {
     select(tab: TabComponent): void {
         if (!tab.disabled) {
             this.active$.next(tab);
+            this.highlighted$.next(tab);
         }
     }
 

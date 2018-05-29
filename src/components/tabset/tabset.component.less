@@ -1,11 +1,9 @@
 ux-tabset {
     .nav {
         .nav-item {
-            &.active {
-                .nav-link {
-                    &:focus {
-                        .aspects-outline();
-                    }
+            .nav-link {
+                &.highlighted {
+                    .aspects-outline();
                 }
             }
         }

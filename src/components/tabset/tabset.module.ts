@@ -4,14 +4,13 @@ import { TabsetComponent } from './tabset.component';
 import { TabsetService } from './tabset.service';
 import { TabComponent } from './tab/tab.component';
 import { TabHeadingDirective } from './tab/tab-heading.directive';
-import { FocusIfModule } from '../../directives/focus-if/focus-if.module';
+import { TabFocusDirective } from './tab/tab-focus.directive';
 
 @NgModule({
     imports: [
-        CommonModule,
-        FocusIfModule
+        CommonModule
     ],
     exports: [TabsetComponent, TabComponent, TabHeadingDirective],
-    declarations: [TabsetComponent, TabComponent, TabHeadingDirective],
+    declarations: [TabsetComponent, TabComponent, TabHeadingDirective, TabFocusDirective],
 })
 export class TabsetModule { }
