@@ -1692,13 +1692,15 @@
                     "title": "Detailed Tab Example",
                     "component": "ComponentsDetailedTabExampleNg1Component",
                     "version": "AngularJS",
-                    "deprecated": true
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsTabsComponent"
                 },
                 {
                     "title": "Stacked Tabs",
                     "component": "ComponentsStackedTabsNg1Component",
                     "version": "AngularJS",
-                    "deprecated": true
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsTabsComponent"
                 },
                 {
                     "title": "Card Tabs",

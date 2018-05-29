@@ -14,9 +14,6 @@ import { TabsetService } from './tabset.service';
 })
 export class TabsetComponent {
 
-    @Input() type: 'tabs' | 'pills' = 'tabs';
-    @Input() justified: boolean = false;
-    @Input() vertical: boolean = false;
     @Input() minimal: boolean = true;
     @Input() stacked: 'left' | 'right' | 'none' = 'none';
     @Input('aria-label') ariaLabel: string;
@@ -28,5 +25,41 @@ export class TabsetComponent {
      */
     select(tab: TabComponent): void {
         this.tabset.select(tab);
+    }
+
+    selectPreviousTab(event: KeyboardEvent): void {
+
+        // determine which arrow key is pressed
+        const arrowLeft = event.key === 'ArrowLeft' || event.keyCode === 37;
+        const arrowUp = event.key === 'ArrowUp' || event.keyCode === 38;
+
+        // only perform action if the arrow key matches the orientation
+        if (arrowLeft && this.stacked !== 'none' || arrowUp && this.stacked === 'none') {
+            return;
+        }
+
+        // perform selection
+        this.tabset.selectPreviousTab();
+
+        // prevent the browser from scrolling when arrow keys are pressed
+        event.preventDefault();
+    }
+
+    selectNextTab(event: KeyboardEvent): void {
+
+        // determine which arrow key is pressed
+        const arrowRight = event.key === 'ArrowRight' || event.keyCode === 39;
+        const arrowDown = event.key === 'ArrowDown' || event.keyCode === 40;
+
+        // only perform action if the arrow key matches the orientation
+        if (arrowRight && this.stacked !== 'none' || arrowDown && this.stacked === 'none') {
+            return;
+        }
+
+        // perform selection
+        this.tabset.selectNextTab();
+
+        // prevent the browser from scrolling when arrow keys are pressed
+        event.preventDefault();
     }
 }

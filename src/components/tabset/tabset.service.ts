@@ -51,15 +51,57 @@ export class TabsetService {
         }
     }
 
+    selectNextTab(): void {
+        // find the currently selected index
+        const index = this.tabs$.value.indexOf(this.active$.value);
+
+        // check the tabs after the active one to see if there are any selectable tabs
+        const tabs = this.tabs$.value.slice(index + 1);
+
+        // check if any of the tabs are not disabled
+        for (let tab of tabs) {
+            if (!tab.disabled) {
+                return this.select(tab);
+            }
+        }
+
+        // if we reach here then no tab could be selected - select the first tab
+        this.selectFirstTab();
+    }
+
+    selectPreviousTab(): void {
+        // find the currently selected index
+        const index = this.tabs$.value.indexOf(this.active$.value);
+
+        // check the tabs before the active one to see if there are any selectable tabs
+        const tabs = this.tabs$.value.slice(0, index);
+
+        // check if any of the tabs are not disabled
+        for (let tab of tabs.reverse()) {
+            if (!tab.disabled) {
+                return this.select(tab);
+            }
+        }
+
+        // if we reach here then no previous tab could be selected - select the last tab
+        this.selectLastTab();
+    }
+
     selectFirstTab(): void {
-        if (this.tabs$.value.length > 0) {
-            this.selectAtIndex(0);
+        // find the index of the first non-disabled tab
+        const tabIndex = this.tabs$.value.findIndex(tab => !tab.disabled);
+
+        if (tabIndex !== -1) {
+            this.selectAtIndex(tabIndex);
         }
     }
 
     selectLastTab(): void {
-        if (this.tabs$.value.length > 0) {
-            this.selectAtIndex(this.tabs$.value.length - 1);
+        // find the index of the first non-disabled tab
+        const tabIndex = this.tabs$.value.slice().reverse().findIndex(tab => !tab.disabled);
+
+        if (tabIndex !== -1) {
+            this.selectAtIndex((this.tabs$.value.length - 1) - tabIndex);
         }
     }
 } 

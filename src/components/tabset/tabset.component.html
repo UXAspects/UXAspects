@@ -1,10 +1,9 @@
 <!-- Nav tabs -->
 <ul role="tablist"
-    class="nav nav-{{ type }}" 
-    [class.nav-justified]="justified"
-    [class.nav-stacked]="vertical"
+    class="nav nav-tabs"
     [class.minimal-tab]="minimal"
-    [attr.aria-label]="ariaLabel">
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-orientation]="stacked === 'none' ? 'horizontal' : 'vertical'">
 
 	<li role="presentation" 
         class="nav-item"
@@ -21,8 +20,10 @@
             (focus)="tabset.focused$.next(true)"
             (blur)="tabset.focused$.next(false)"
             (mousedown)="tabset.select(tab)"
-            (keydown.arrowleft)="tabset.selectAtIndex(index - 1); $event.preventDefault()"
-            (keydown.arrowright)="tabset.selectAtIndex(index + 1); $event.preventDefault()"
+            (keydown.ArrowUp)="selectPreviousTab($event)"
+            (keydown.ArrowLeft)="selectPreviousTab($event)"
+            (keydown.ArrowRight)="selectNextTab($event)"
+            (keydown.ArrowDown)="selectNextTab($event)"
             (keydown.home)="tabset.selectFirstTab(); $event.preventDefault()"
             (keydown.end)="tabset.selectLastTab(); $event.preventDefault()"
             [focusIf]="(tabset.focused$ | async) && (tab.active$ | async)"

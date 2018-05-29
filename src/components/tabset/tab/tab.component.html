@@ -2,6 +2,7 @@
      class="tab-pane"
      [class.active]="active$ | async"
      [id]="id + '-panel'"
-     [attr.aria-labelledby]="id">
+     [attr.aria-labelledby]="id"
+     [attr.aria-hidden]="!(active$ | async)">
   <ng-content></ng-content>
 </div>
