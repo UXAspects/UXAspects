@@ -43,6 +43,7 @@ export * from './components/wizard/index';
   Export Directives
 */
 export * from './directives/auto-grow/index';
+export * from './directives/click-outside/index';
 export * from './directives/drag/index';
 export * from './directives/fixed-header-table/index';
 export * from './directives/float-label/index';
@@ -52,7 +53,6 @@ export * from './directives/hover-action/index';
 export * from './directives/infinite-scroll/index';
 export * from './directives/layout-switcher/index';
 export * from './directives/menu-navigation/index';
-export * from './directives/outside-click/index';
 export * from './directives/resize/index';
 export * from './directives/scroll-into-view-if/index';
 export * from './directives/selection/index';

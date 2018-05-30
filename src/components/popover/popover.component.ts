@@ -18,7 +18,7 @@ export class PopoverComponent extends TooltipComponent implements AfterViewInit 
   title: string;
 
   /** This will emit an event any time the user clicks outside the popover */
-  outsideClick$ = new Subject<MouseEvent>();
+  clickOutside$ = new Subject<MouseEvent>();
 
   /** Determine when the component is properly initialized so we don't emit events too early */
   private _isInitialized: boolean = false;
@@ -29,9 +29,9 @@ export class PopoverComponent extends TooltipComponent implements AfterViewInit 
   }
 
   /** Emit the outside click event - ensure it is only triggered after component is fully open */
-  triggerOutsideClick(event: MouseEvent): void {
+  triggerClickOutside(event: MouseEvent): void {
     if (this._isInitialized) {
-      this.outsideClick$.next(event);
+      this.clickOutside$.next(event);
     }
   }
 

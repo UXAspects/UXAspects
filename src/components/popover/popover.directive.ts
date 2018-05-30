@@ -80,7 +80,7 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
         this.describedBy = instance.id;
 
         // subscribe to the outside click event
-        instance.outsideClick$.pipe(takeUntil(this._onDestroy)).subscribe(this.onOutsideClick.bind(this));
+        instance.clickOutside$.pipe(takeUntil(this._onDestroy)).subscribe(this.onOutsideClick.bind(this));
 
         return instance;
     }

@@ -1,4 +1,4 @@
-<div class="popover show" [ngClass]="[placement, customClass]" [id]="id" [attr.role]="role" (uxOutsideClick)="triggerOutsideClick($event)">
+<div class="popover show" [ngClass]="[placement, customClass]" [id]="id" [attr.role]="role" (uxClickOutside)="triggerClickOutside($event)">
     <div class="arrow"></div>
     <h3 class="popover-title" *ngIf="title">{{ title }}</h3>
     <div class="popover-content">
