@@ -1786,11 +1786,15 @@
                     "version": "Angular",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[popover]"
+                        "content": "[uxPopover]"
                     },
                     {
                         "title": "Module",
                         "content": "PopoverModule"
+                    },
+                    {
+                        "title": "Exported As",
+                        "content": "ux-popover"
                     }]
                 },
                 {
