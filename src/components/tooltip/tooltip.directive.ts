@@ -27,6 +27,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Provide the TemplateRef a context object */
     @Input('tooltipContext') context: any = {};
 
+    /** Delay the showing of the tooltip by a number of miliseconds */
+    @Input('tooltipDelay') delay: number = 0;
+
     /** Programmatically show and hide the tooltip */
     @Input() isOpen: boolean = false;
 
@@ -65,6 +68,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
     /** This will emit when the directive is destroyed allowing us to unsubscribe all subscriptions automatically */
     protected _onDestroy = new Subject<void>();
+
+    /** Store the timeout interval for cancelation */
+    private _showTimeoutId: number;
 
     constructor(
         protected _elementRef: ElementRef,
@@ -138,27 +144,46 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     show(): void {
 
         // if the tooltip is disabled then do nothing
-        if (this.disabled || this.isVisible) {
+        if (this.disabled || this.isVisible || this._showTimeoutId || !this.content) {
             return;
         }
 
-        // create the tooltip and get the overlay ref
-        const overlayRef = this.createOverlay();
+        // delay the show by the delay amount
+        this._showTimeoutId = window.setTimeout(() => {
 
-        // create the portal to create the tooltip component
-        this._portal = this.createPortal();
-        this._instance = this.createInstance(overlayRef);
+            // create the tooltip and get the overlay ref
+            const overlayRef = this.createOverlay();
 
-        // store the visible state
-        this.isVisible = true;
+            // create the portal to create the tooltip component
+            this._portal = this.createPortal();
+            this._instance = this.createInstance(overlayRef);
 
-        // emit the show events
-        this.shown.emit();
-        this.isOpenChange.next(true);
+            // watch for any changes to the content
+            this._instance.reposition$.pipe(takeUntil(this._onDestroy)).subscribe(this.reposition.bind(this));
+
+            // store the visible state
+            this.isVisible = true;
+
+            // emit the show events
+            this.shown.emit();
+            this.isOpenChange.next(true);
+
+            // clear the interval id
+            this._showTimeoutId = null;
+        }, this.delay);
+
     }
 
     /** If a tooltip exists and is visible, hide it */
     hide() {
+
+        // if we are waiting to show a tooltip then cancel the pending timeout
+        if (this._showTimeoutId) {
+            clearTimeout(this._showTimeoutId);
+            this._showTimeoutId = null;
+            return;
+        }
+
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
         }
@@ -177,6 +202,13 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Toggle the visibility of the tooltip */
     toggle(): void {
         this.isVisible ? this.hide() : this.show();
+    }
+
+    /** Recalculate the position of the popover */
+    reposition(): void {
+        if (this.isVisible && this._overlayRef) {
+            this._overlayRef.updatePosition();
+        }
     }
 
     /** Create an instance from the overlay ref - allows overriding and additional logic here */
@@ -222,7 +254,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         this._overlayRef = this._overlay.create({
             positionStrategy: strategy,
             panelClass: 'ux-overlay-pane',
-            scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 16 }),
+            scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
             hasBackdrop: false
         });
 
@@ -261,7 +293,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
      * only ones required by Angular and guaranteed to be there
      **/
     protected includes<T>(array: Array<T>, value: T): boolean {
-        return !!array.find(item => item === value);
+        return Array.isArray(array) && !!array.find(item => item === value);
     }
 
     /** Handle the click event - show or hide accordingly */

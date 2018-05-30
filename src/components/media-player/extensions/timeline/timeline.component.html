@@ -10,8 +10,16 @@
             (mouseleave)="scrub.visible = true; pop.show(); $event.stopPropagation()"></div>
     </div>
 
-    <div class="scrub-handle" [class.scrub-handle-hidden]="!scrub.visible" [style.left.px]="scrub.position" [tooltip]="popTemplate" placement="top" triggers="" #pop="bs-tooltip"
-        container="body" tooltipPopupDelay="100" [isDisabled]="duration === 0"></div>
+    <div class="scrub-handle"
+         [class.scrub-handle-hidden]="!scrub.visible"
+         [style.left.px]="scrub.position"
+         [uxTooltip]="popTemplate"
+         placement="top"
+         [showTriggers]="[]"
+         [hideTriggers]="[]"
+         #pop="ux-tooltip"
+         [tooltipDelay]="100"
+         [tooltipDisabled]="duration === 0"></div>
 </div>
 
 <p class="duration-time">{{ duration | duration }}</p>

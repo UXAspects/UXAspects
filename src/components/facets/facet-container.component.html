@@ -8,7 +8,7 @@
         <span class="facets-selected-header-label">{{ header }}</span>
 
         <!-- Add a Clear Button -->
-        <div class="facets-selected-clear-button" tabindex="0" [tooltip]="clearTooltip" placement="left" container="body" (click)="deselectAllFacets()"
+        <div class="facets-selected-clear-button" tabindex="0" [uxTooltip]="clearTooltip" placement="left" (click)="deselectAllFacets()"
             (keyup.enter)="deselectAllFacets()" *ngIf="facets.length > 0">
 
             <svg class="facets-selected-clear-graphic" viewBox="0 0 19 12" shape-rendering="geometricPrecision">

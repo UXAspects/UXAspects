@@ -6,12 +6,11 @@
                     <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
                 </button>
             </span>
-            <input type="text" #input #popover="bs-popover"
+            <input type="text" #input #popover="ux-popover"
                 [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
-                [popover]="popoverTemplate"
+                [uxPopover]="popoverTemplate"
                 placement="bottom"
-                [outsideClick]="true"
-                containerClass="date-time-picker-popover"
+                popoverClass="date-time-picker-popover"
                 class="form-control"
                 aria-label="Selected date"
                 (keydown.enter)="popover.show()">

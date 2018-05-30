@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { CommonModule } from '@angular/common';
 import { FacetContainerComponent } from './facet-container.component';
@@ -8,7 +7,8 @@ import { FacetHeaderComponent } from './base/facet-header/facet-header.component
 import { FacetCheckListComponent } from './facet-check-list/facet-check-list.component';
 import { FacetTypeaheadListComponent, FacetTypeaheadHighlight } from './facet-typeahead-list/facet-typeahead-list.component';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from '../../index';
+import { CheckboxModule } from '../checkbox/index';
+import { TooltipModule } from '../tooltip/index';
 
 const DECLARATIONS = [
     FacetContainerComponent,
@@ -24,7 +24,7 @@ const DECLARATIONS = [
         CommonModule,
         FormsModule,
         CheckboxModule,
-        TooltipModule.forRoot(),
+        TooltipModule,
         TypeaheadModule.forRoot()
     ],
     exports: DECLARATIONS,

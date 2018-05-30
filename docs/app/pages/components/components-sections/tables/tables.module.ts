@@ -6,9 +6,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { LayoutSwitcherModule } from '../../../../../../src/directives/layout-switcher/index';
-import { CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule } from '../../../../../../src/index';
+import { CheckboxModule, ColumnSortingModule, FilterModule, FixedHeaderTableModule, HoverActionModule, RadioButtonModule, ReorderableModule, SelectionModule, SliderModule, SparkModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -116,7 +115,7 @@ const ROUTES = [
         ReorderableModule,
         HoverActionModule,
         FixedHeaderTableModule,
-        TooltipModule.forRoot(),
+        TooltipModule,
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,

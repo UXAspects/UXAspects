@@ -31,11 +31,14 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     /** Provide the TemplateRef a context object */
     @Input('popoverContext') context: any = {};
 
+    /** Delay the showing of the popover by a number of miliseconds */
+    @Input('popoverDelay') delay: number = 0;
+
     /** Specify which events should show the popover */
     @Input() showTriggers: string[] = ['click'];
 
     /** Specify which events should hide the popover */
-    @Input() hideTriggers: string[] = ['click', 'outsideclick', 'escape'];
+    @Input() hideTriggers: string[] = ['click', 'clickoutside', 'escape'];
 
     /** A reference to the CDK portal containing the overlay */
     protected _portal: ComponentPortal<PopoverComponent>;
@@ -80,7 +83,7 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
         this.describedBy = instance.id;
 
         // subscribe to the outside click event
-        instance.clickOutside$.pipe(takeUntil(this._onDestroy)).subscribe(this.onOutsideClick.bind(this));
+        instance.clickOutside$.pipe(takeUntil(this._onDestroy)).subscribe(this.onClickOutside.bind(this));
 
         return instance;
     }
@@ -97,9 +100,9 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
         }
     }
 
-    private onOutsideClick(): void {
+    private onClickOutside(): void {
         // if visible and it is one of the hide triggers
-        if (this.isVisible && this.includes(this.hideTriggers, 'outsideclick')) {
+        if (this.isVisible && this.includes(this.hideTriggers, 'clickoutside')) {
             this.hide();
         }
     }

@@ -823,10 +823,6 @@
                         {
                             "title": "Module",
                             "content": "MediaPlayerModule"
-                        },
-                        {
-                            "title": "Dependencies",
-                            "content": "ngx-bootstrap"
                         }
                     ]
                 }
@@ -1073,8 +1069,26 @@
             "sections": [
                 {
                     "title": "Popover",
+                    "component": "ComponentsPopoverComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[uxPopover]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "PopoverModule"
+                    },
+                    {
+                        "title": "Exported As",
+                        "content": "ux-popover"
+                    }]
+                },
+                {
+                    "title": "Popover",
                     "component": "ComponentsPopoverNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -1770,7 +1784,6 @@
                     "title": "Static Tooltips",
                     "component": "ComponentsStaticTooltipComponent",
                     "version": "Angular",
-                    "externalUrl": "https://valor-software.com/ngx-bootstrap/#/popover",
                     "usage": [{
                         "title": "Selector",
                         "content": "[popover]"
@@ -1778,10 +1791,6 @@
                     {
                         "title": "Module",
                         "content": "PopoverModule"
-                    },
-                    {
-                        "title": "Library",
-                        "content": "ngx-bootstrap"
                     }]
                 },
                 {

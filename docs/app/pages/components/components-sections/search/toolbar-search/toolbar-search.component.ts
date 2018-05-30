@@ -1,8 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-toolbar-search',
@@ -20,12 +20,7 @@ export class ComponentsToolbarSearchComponent extends BaseDocumentationSection i
         },
         modules: [
             {
-                imports: ['TooltipModule'],
-                library: 'ngx-bootstrap/tooltip',
-                forRoot: true
-            },
-            {
-                imports: ['ToolbarSearchModule', 'ColorServiceModule'],
+                imports: ['ToolbarSearchModule', 'ColorServiceModule', 'TooltipModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

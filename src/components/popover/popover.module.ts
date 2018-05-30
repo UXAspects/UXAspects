@@ -1,3 +1,4 @@
+import { ObserversModule } from '@angular/cdk/observers';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -9,6 +10,7 @@ import { PopoverDirective } from './popover.directive';
   imports: [
     CommonModule,
     OverlayModule,
+    ObserversModule,
     ClickOutsideModule
   ],
   exports: [PopoverDirective],

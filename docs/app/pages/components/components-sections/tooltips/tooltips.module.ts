@@ -1,6 +1,5 @@
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from '../../../../../../src/components/tooltip/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
@@ -13,6 +12,7 @@ import { ComponentsStaticTooltipNg1Component } from './static-tooltip-ng1/static
 import { ComponentsStaticTooltipComponent } from './static-tooltip/static-tooltip.component';
 import { ComponentsTooltipsNg1Component } from './tooltips-ng1/tooltips-ng1.component';
 import { ComponentsTooltipsComponent } from './tooltips/tooltips.component';
+import { PopoverModule } from '../../../../../../src/components/popover/index';
 
 
 const SECTIONS = [
@@ -39,7 +39,7 @@ const ROUTES = [
         WrappersModule,
         TabsModule,
         TooltipModule,
-        PopoverModule.forRoot(),
+        PopoverModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],
