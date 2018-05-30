@@ -31,6 +31,13 @@ System.config({
     '@angular/upgrade/static': 'https://unpkg.com/@angular/upgrade@5.2.10/bundles/upgrade-static.umd.js',
     '@angular/animations': 'https://unpkg.com/@angular/animations@5.2.10/bundles/animations.umd.js',
     '@angular/animations/browser': 'https://unpkg.com/@angular/animations@5.2.10/bundles/animations-browser.umd.js',
+    '@angular/cdk/bidi': 'https://unpkg.com/@angular/cdk@5.2.5/bundles/cdk-bidi.umd.js',
+    '@angular/cdk/coercion': 'https://unpkg.com/@angular/cdk@5.2.5/bundles/cdk-coercion.umd.js',
+    '@angular/cdk/keycodes': 'https://unpkg.com/@angular/cdk@5.2.5/bundles/cdk-keycodes.umd.js',
+    '@angular/cdk/overlay': 'https://unpkg.com/@angular/cdk@5.2.5/bundles/cdk-overlay.umd.js',
+    '@angular/cdk/platform': 'https://unpkg.com/@angular/cdk@5.2.5/bundles/cdk-platform.umd.js',
+    '@angular/cdk/portal': 'https://unpkg.com/@angular/cdk@5.2.5/bundles/cdk-portal.umd.js',
+    '@angular/cdk/scrolling': 'https://unpkg.com/@angular/cdk@5.2.5/bundles/cdk-scrolling.umd.js',
 
     // Third party libraries
     'tslib': 'https://unpkg.com/tslib@1.7.1',
