@@ -1,0 +1,111 @@
+<div class="tab-demo-container clearfix">
+
+    <ux-tabset [minimal]="minimal" [stacked]="stacked" aria-label="Tabset Example">
+        <ux-tab customClass="text-center" *ngFor="let tab of tabs">
+            <ng-template uxTabHeading>
+                <i class="hpe-icon" [ngClass]="tab.icon" aria-hidden="true"></i>
+                <span>{{ tab.title }}</span>
+            </ng-template>
+    
+            <div class="m-t">
+                <h4>{{ tab.title }}</h4>
+                <p>{{ tab.content }}</p>
+            </div>
+        </ux-tab>
+    </ux-tabset>
+
+</div>
+
+<div class="uxd-customize-example">
+    <accordion>
+        <accordion-group heading="Customize Example...">
+            <div class="row uxd-customize-row">
+                <div class="col-md-6 col-sm-12">
+                    <ux-checkbox [disabled]="stacked === 'left' || stacked === 'right'" [(value)]="minimal">minimal</ux-checkbox>
+                </div>
+            </div>
+            <div class="row uxd-customize-row" role="radiogroup">
+                <div class="col-md-12">
+                    <label>stacked</label>
+                    <ux-radio-button name="stacked" option="none" [(value)]="stacked">none</ux-radio-button>
+                    <ux-radio-button name="stacked" option="left" [(value)]="stacked">left</ux-radio-button>
+                    <ux-radio-button name="stacked" option="right" [(value)]="stacked">right</ux-radio-button>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+</div>
+
+<hr>
+
+<p>
+    The <code>ux-tabset</code> component can be used to split up content into different tabs. 
+    It should contain one or more <code>ux-tab</code> components as children.
+</p>
+
+<p>
+    Each <code>ux-tab</code> should provide a tab heading. This can either be a string specified using the <code>header</code> attribute,
+    if you want further customization you can add an <code>ng-template</code> as a child of the <code>ux-tab</code> with a <code>uxTabHeading</code> attribute.
+    The content of this template will be placed in the tab heading.
+</p>
+
+<p>
+    The <code>ux-tabset</code> can be customized using the following:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="minimal" type="boolean" defaultValue="true">
+        If <code>false</code> the tabs will be displayed using the alternate styling.
+    </tr>
+    <tr uxd-api-property name="stacked" type="'left' | 'right' | 'none'" defaultValue="'none'">
+        If set to <code>left</code> or <code>right</code> the tabs will display vertically with the tab content to the side.
+    </tr>
+</uxd-api-properties>
+
+
+<p>
+    The <code>ux-tab</code> can be customized using the following:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="heading" type="string">
+        If specified, this text will display in the tab heading.
+        Alternatively, you can place a custom template in the tab heading by 
+        having a child <code>ng-template</code> with a <code>uxTabHeading</code> attribute, 
+        the contents of which will be displayed in the tab heading.
+    </tr>
+    <tr uxd-api-property name="active" type="boolean">
+        Specify whether a tab is selected. By default the first tab will be selected.
+    </tr>
+    <tr uxd-api-property name="customClass" type="string">
+        Add custom classes to the tab header.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
+        If <code>true</code> the tab can not be selected.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="select" type="void">
+        This event is triggered when the tab is selected.
+    </tr>
+    <tr uxd-api-property name="deselect" type="void">
+        This event is triggered when the tab is deselected.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="CSS">
+        <uxd-snippet [content]="snippets.compiled.appCss"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

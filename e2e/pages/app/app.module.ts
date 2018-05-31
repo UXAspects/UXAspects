@@ -1,22 +1,22 @@
+import { Injector, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+import { UpgradeModule, downgradeComponent } from '@angular/upgrade/static';
 import * as angular from 'angular';
+import { AppComponent } from './app.component';
+import { FloatingActionButtonsNg1TestPageComponent } from './floating-action-buttons-ng1/floating-action-buttons-ng1.testpage.component';
+import { FloatingActionButtonComponent } from './floating-action-buttons-ng1/wrapper/floating-action-button-wrapper.directive';
+import { SideInsetPanelSplitterNg1TestPageComponent } from './side-inset-panel-splitter-ng1/side-inset-panel-splitter-ng1.testpage.component';
+import { SideInsetPanelSplitterComponent } from './side-inset-panel-splitter-ng1/wrapper/side-inset-panel-splitter-wrapper.directive';
+import { StackedTabsNg1TestPageComponent } from './stacked-tabs-ng1/stacked-tabs-ng1.testpage.component';
+import { StackedTabsComponent } from './stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
+import { TabsNg1TestPageComponent } from './tabs-ng1/tabs-ng1.testpage.component';
+import { TabsComponent } from './tabs-ng1/wrapper/tabs-wrapper.directive';
 
 let app = angular.module('app');
 
-import { NgModule, forwardRef, Component, Injector } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
-import { UpgradeModule, downgradeComponent } from '@angular/upgrade/static';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppComponent } from './app.component';
-import { TabsComponent } from './tabs-ng1/wrapper/tabs-wrapper.directive';
-import { TabsNg1TestPageComponent } from './tabs-ng1/tabs-ng1.testpage.component';
-import { StackedTabsNg1TestPageComponent } from './stacked-tabs-ng1/stacked-tabs-ng1.testpage.component';
-import { StackedTabsComponent } from './stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
-import { SideInsetPanelSplitterNg1TestPageComponent } from './side-inset-panel-splitter-ng1/side-inset-panel-splitter-ng1.testpage.component';
-import { SideInsetPanelSplitterComponent } from './side-inset-panel-splitter-ng1/wrapper/side-inset-panel-splitter-wrapper.directive';
-import { FloatingActionButtonsNg1TestPageComponent } from './floating-action-buttons-ng1/floating-action-buttons-ng1.testpage.component';
-import { FloatingActionButtonComponent } from './floating-action-buttons-ng1/wrapper/floating-action-button-wrapper.directive';
 
 const ROUTES: Routes = [
     {
@@ -198,8 +198,12 @@ const ROUTES: Routes = [
         component: StackedTabsNg1TestPageComponent
     },
     {
-        path: 'tabs',
+        path: 'tabs-ng1',
         component: TabsNg1TestPageComponent
+    },
+    {
+        path: 'tabs',
+        loadChildren: './tabs/tabs.module#TabsTestPageModule'
     },
     {
         path: 'tags',

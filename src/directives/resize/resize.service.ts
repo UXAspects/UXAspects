@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -10,7 +10,7 @@ export class ResizeService implements OnDestroy {
     private _renderer: Renderer2;
     private _subscription = new Subscription();
 
-    constructor(rendererFactory: RendererFactory2) {
+    constructor(rendererFactory: RendererFactory2, private _ngZone: NgZone) {
         this._renderer = rendererFactory.createRenderer(null, null);
     }
 
@@ -60,9 +60,10 @@ export class ResizeService implements OnDestroy {
 
             const attachListener = () => {
 
-                // watch for any future resizes
-                this._subscription.add(fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) => 
-                    subject.next({ width: nativeElement.offsetWidth, height: nativeElement.offsetHeight })));
+                // watch for any future resizes - run inside ngzone as an iframe event listener is not patched
+                this._subscription.add(fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) =>
+                    this._ngZone.run(() => subject.next({ width: nativeElement.offsetWidth, height: nativeElement.offsetHeight }))
+                ));
             };
 
             if (iframeDoc.readyState === 'complete') {

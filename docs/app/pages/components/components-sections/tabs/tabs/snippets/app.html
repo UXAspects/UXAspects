@@ -1,0 +1,17 @@
+<div class="tab-demo-container clearfix">
+
+    <ux-tabset [minimal]="true" aria-label="Tabset Example">
+        <ux-tab customClass="text-center" *ngFor="let tab of tabs">
+            <ng-template uxTabHeading>
+                <i class="hpe-icon" [ngClass]="tab.icon" aria-hidden="true"></i>
+                <span>{{ tab.title }}</span>
+            </ng-template>
+
+            <div class="m-t">
+                <h4>{{ tab.title }}</h4>
+                <p>{{ tab.content }}</p>
+            </div>
+        </ux-tab>
+    </ux-tabset>
+
+</div>
