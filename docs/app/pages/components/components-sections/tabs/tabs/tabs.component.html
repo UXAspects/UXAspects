@@ -20,19 +20,16 @@
     <accordion>
         <accordion-group heading="Customize Example...">
             <div class="row uxd-customize-row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-3">
                     <ux-checkbox [disabled]="stacked === 'left' || stacked === 'right'" [(value)]="minimal">minimal</ux-checkbox>
                 </div>
             </div>
             <div class="row uxd-customize-row" role="radiogroup">
-                <div class="col-md-4">
-                    <ux-radio-button name="stacked" option="none" [(value)]="stacked">Stacked None</ux-radio-button>
-                </div>
-                <div class="col-md-4">
-                    <ux-radio-button name="stacked" option="left" [(value)]="stacked">Stacked Left</ux-radio-button>
-                </div>
-                <div class="col-md-4">
-                    <ux-radio-button name="stacked" option="right" [(value)]="stacked">Stacked Right</ux-radio-button>
+                <div class="col-md-12">
+                    <label>stacked</label>
+                    <ux-radio-button name="stacked" option="none" [(value)]="stacked">none</ux-radio-button>
+                    <ux-radio-button name="stacked" option="left" [(value)]="stacked">left</ux-radio-button>
+                    <ux-radio-button name="stacked" option="right" [(value)]="stacked">right</ux-radio-button>
                 </div>
             </div>
         </accordion-group>
