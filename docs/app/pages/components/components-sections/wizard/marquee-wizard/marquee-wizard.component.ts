@@ -32,7 +32,7 @@ export class ComponentsMarqueeWizardComponent extends BaseDocumentationSection i
                 library: 'ngx-bootstrap/modal'
             },
             {
-                imports: ['MarqueeWizardModule', 'CheckboxModule'],
+                imports: ['MarqueeWizardModule', 'CheckboxModule', 'FocusIfModule'],
                 library: '@ux-aspects/ux-aspects'
             }
         ]

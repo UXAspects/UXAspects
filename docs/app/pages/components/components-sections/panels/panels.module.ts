@@ -1,29 +1,28 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { EboxModule, SidePanelModule, CheckboxModule, RadioButtonModule } from '../../../../../../src/index';
 import { ItemDisplayPanelModule } from '../../../../../../src/components/item-display-panel/index';
-
-import { SparkModule } from './../../../../../../src/components/spark/spark.module';
+import { CheckboxModule, EboxModule, RadioButtonModule, SidePanelModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-
+import { SparkModule } from './../../../../../../src/components/spark/spark.module';
 import { ComponentsAccordionNg1Component } from './accordion-ng1/accordion-ng1.component';
+import { ComponentsAccordionComponent } from './accordion/accordion.component';
+import { ComponentsEboxComponent } from './ebox/ebox.component';
+import { ComponentsItemDisplayPanelInlineComponent } from './item-display-panel-inline/item-display-panel-inline.component';
 import { ComponentsItemDisplayPanelNg1Component } from './item-display-panel-ng1/item-display-panel-ng1.component';
 import { ComponentsItemDisplayPanelServiceNg1Component } from './item-display-panel-service-ng1/item-display-panel-service-ng1.component';
+import { ComponentsItemDisplayPanelComponent } from './item-display-panel/item-display-panel.component';
 import { ComponentsModalInsetPanelNg1Component } from './modal-inset-panel-ng1/item-display-panel-ng1.component';
 import { ComponentsSideInsetPanelNg1Component } from './side-inset-panel-ng1/side-inset-panel-ng1.component';
-import { ComponentsItemDisplayPanelComponent } from './item-display-panel/item-display-panel.component';
-import { ComponentsItemDisplayPanelInlineComponent } from './item-display-panel-inline/item-display-panel-inline.component';
-import { ComponentsEboxComponent } from './ebox/ebox.component';
-import { ComponentsAccordionComponent } from './accordion/accordion.component';
 import { ComponentsSidePanelComponent } from './side-panel/side-panel.component';
+
+
 
 const SECTIONS = [
     ComponentsAccordionComponent,
@@ -54,7 +53,6 @@ const ROUTES = [
         FormsModule,
         RouterModule.forChild(ROUTES),
         AccordionModule.forRoot(),
-        ModalModule.forRoot(),
         DocumentationComponentsModule,
         CheckboxModule,
         EboxModule,

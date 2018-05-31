@@ -17,7 +17,6 @@ import {
 })
 export class AppComponent implements OnDestroy {
 
-  modalRef: BsModalRef;
   query: SearchBuilderQuery = {
     keywords: [
       {
@@ -32,6 +31,7 @@ export class AppComponent implements OnDestroy {
   preview: string = JSON.stringify(this.query, null, 2);
   valid: boolean = true;
   filter: string = '';
+  modalOpen: boolean = false;
   panelOpen: boolean = false;
 
   placeholders = {
@@ -161,20 +161,14 @@ export class AppComponent implements OnDestroy {
     this._subscription.unsubscribe();
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {
-      class: 'modal-lg search-builder-modal'
-    });
-  }
-
   save(): void {
     this.preview = JSON.stringify(this.query, null, 2);
-    this.modalRef.hide();
+    this.modalOpen = false;
   }
 
   cancel(): void {
     this.query = JSON.parse(this.preview);
-    this.modalRef.hide();
+    this.modalOpen = false;
   }
 
   addKeyword(): void {
