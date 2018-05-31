@@ -22,11 +22,6 @@ export class PopoverComponent extends TooltipComponent {
 
   /** This will update the title of the popover and trigger change detection */
   setTitle(title: string): void {
-
-    if (!title || title.length === 0) {
-      return;
-    }
-
     this.title = title;
     this._changeDetectorRef.markForCheck();
   }
