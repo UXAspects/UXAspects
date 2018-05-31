@@ -36,17 +36,12 @@ export class ComponentsDateTimePickerComponent extends BaseDocumentationSection 
         },
         modules: [
             { 
-                imports: ['DateTimePickerModule', 'CheckboxModule'],
+                imports: ['DateTimePickerModule', 'CheckboxModule', 'PopoverModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
                 imports: ['AccordionModule'],
                 library: 'ngx-bootstrap/accordion',
-                forRoot: true
-            },
-            {
-                imports: ['PopoverModule'],
-                library: 'ngx-bootstrap/popover',
                 forRoot: true
             }
         ]
