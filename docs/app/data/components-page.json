@@ -1661,18 +1661,46 @@
             "sections": [
                 {
                     "title": "Tabs",
+                    "component": "ComponentsTabsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-tabset"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "ux-tab"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxTabHeading]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TabsetModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Tabs",
                     "component": "ComponentsTabsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Detailed Tab Example",
                     "component": "ComponentsDetailedTabExampleNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsTabsComponent"
                 },
                 {
                     "title": "Stacked Tabs",
                     "component": "ComponentsStackedTabsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsTabsComponent"
                 },
                 {
                     "title": "Card Tabs",
