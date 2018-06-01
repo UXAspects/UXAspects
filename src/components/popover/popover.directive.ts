@@ -63,7 +63,7 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
 
-        if (this.isVisible && changes.title) {
+        if (this._instance && changes.title) {
             this._instance.setTitle(changes.title.currentValue);
         }
     }

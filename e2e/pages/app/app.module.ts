@@ -149,6 +149,10 @@ const ROUTES: Routes = [
         loadChildren: './pagination/pagination.module#PaginationTestPageModule'
     },
     {
+        path: 'popover',
+        loadChildren: './popover/popover.module#PopoverTestPageModule'
+    },
+    {
         path: 'radiobuttons',
         loadChildren:
             './radiobuttons/radiobuttons.module#RadioButtonsTestPageModule'
@@ -226,6 +230,10 @@ const ROUTES: Routes = [
     {
         path: 'toolbar-search',
         loadChildren: './toolbar-search/toolbar-search.module#ToolbarSearchTestPageModule'
+    },
+    {
+        path: 'tooltips',
+        loadChildren: './tooltips/tooltips.module#TooltipsTestPageModule'
     },
     {
         path: 'tree-grid',

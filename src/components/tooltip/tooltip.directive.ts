@@ -105,23 +105,28 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             changes.isOpen.currentValue ? this.show() : this.hide();
         }
 
-        if (this.isVisible && changes.placement) {
+        // destroy the overlay ref so a new correctly positioned instance will be created next time
+        if (changes.placement) {
+            this.destroyOverlay();
+        }
+
+        if (this._instance && changes.placement) {
             this._instance.setPlacement(changes.placement.currentValue);
         }
 
-        if (this.isVisible && changes.content) {
+        if (this._instance && changes.content) {
             this._instance.setContent(changes.content.currentValue);
         }
 
-        if (this.isVisible && changes.customClass) {
+        if (this._instance && changes.customClass) {
             this._instance.setClass(changes.customClass.currentValue);
         }
 
-        if (this.isVisible && changes.context) {
+        if (this._instance && changes.context) {
             this._instance.setContext(changes.context.currentValue);
         }
 
-        if (this.isVisible && changes.role) {
+        if (this._instance && changes.role) {
             this._instance.setContext(changes.role.currentValue);
         }
     }
@@ -163,6 +168,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
             // store the visible state
             this.isVisible = true;
+
+            // ensure the overlay has the correct initial position
+            this.reposition();
 
             // emit the show events
             this.shown.emit();
@@ -261,8 +269,27 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         return this._overlayRef;
     }
 
+    /** Recreate the overlay ref using the updated origin and overlay positions */
+    private destroyOverlay(): void {
+
+        // destroy the existing overlay
+        if (this._overlayRef && this._overlayRef.hasAttached()) {
+            this._overlayRef.detach();
+        }
+
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+            this._overlayRef = null;
+        }
+
+        this.isVisible = false;
+    }
+
     /** Get the origin position based on the specified tooltip placement */
     private getOrigin(): OriginConnectionPosition {
+
+        // ensure placement is defined
+        this.placement = this.placement || 'top';
 
         if (this.placement == 'top' || this.placement == 'bottom') {
             return { originX: 'center', originY: this.placement };
@@ -275,6 +302,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
     /** Calculate the overlay position based on the specified tooltip placement */
     private getOverlayPosition(): OverlayConnectionPosition {
+
+        // ensure placement is defined
+        this.placement = this.placement || 'top';
 
         if (this.placement == 'top') {
             return { overlayX: 'center', overlayY: 'bottom' };
