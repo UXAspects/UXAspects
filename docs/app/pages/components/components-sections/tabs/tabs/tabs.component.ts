@@ -63,6 +63,9 @@ export class ComponentsTabsComponent extends BaseDocumentationSection implements
             {
                 imports: ['TabsetModule'],
                 library: '@ux-aspects/ux-aspects'
+            },
+            {
+                library: 'chance'
             }
         ]
     };
