@@ -2,10 +2,18 @@
     <span class="hpe-icon hpe-deployment" aria-hidden="true"></span> Launch Marquee Wizard
 </button>
 
-<div *ngIf="modalOpen" (onHidden)="close()" [config]="{ show: true, animated: false }" bsModal 
-    #modal="bs-modal" class="modal marquee-modal-window" tabindex="-1" role="dialog" aria-hidden="true">
+<div *ngIf="modalOpen"
+    (onHidden)="close()"
+    [config]="{ show: true, animated: false }"
+    bsModal
+    #modal="bs-modal"
+    class="modal marquee-modal-window"
+    tabindex="-1"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="marquee-wizard-title">
 
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
             <!-- Add Dismiss Button to Modal -->
@@ -23,7 +31,7 @@
                 </ng-template>
 
                 <ux-marquee-wizard-step icon="hpe-icon hpe-soa" header="First step">
-                    <h1 class="m-t-nil">Marquee wizard</h1>
+                    <h1 id="marquee-wizard-title" class="m-t-nil">Marquee wizard</h1>
 
                     <div class="row">
                         <div class="col-xs-7">

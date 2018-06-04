@@ -1,4 +1,4 @@
-<button class="btn button-primary" (click)="openModal(template)">
+<button class="btn button-primary" (click)="modalOpen = true">
     <span class="hpe-icon hpe-deployment m-r-xs" aria-hidden="true"></span>
     Launch Search Builder Modal
 </button>
@@ -9,57 +9,72 @@
 
 <pre>{{ preview }}</pre>
 
-<ng-template #template>
-    <div class="search-builder-dismiss" (click)="cancel()">
-        <button class="btn btn-icon button-dark btn-circular btn-close">
-            <i class="hpe-icon hpe-close"></i>
-        </button>
-    </div>
+<div *ngIf="modalOpen"
+     (onHidden)="cancel()"
+     [config]="{ show: true, animated: false }"
+     bsModal
+     #modal="bs-modal"
+     class="modal"
+     tabindex="-1"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="search-builder-title">
 
-    <div class="search-builder-header">
-        <div class="search-builder-icon"></div>
-        <h1 class="search-builder-title">Search builder</h1>
-    </div>
+    <div class="modal-dialog modal-lg search-builder-modal" role="document">
+        <div class="modal-content">
 
-    <div class="search-builder-body">
+            <div class="search-builder-dismiss" (click)="cancel()">
+                <button class="btn btn-icon button-dark btn-circular btn-close">
+                    <i class="hpe-icon hpe-close"></i>
+                </button>
+            </div>
 
-        <ux-search-builder [(query)]="query" [components]="components" (valid)="valid = $event">
-            <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" 
-                (add)="addKeyword()"></ux-search-builder-group>
-            <ux-search-builder-group id="any" header="ANY of the following" operator="or" 
-                (add)="addField('any'); $event.stopPropagation()"
-                [showPlaceholder]="placeholders.any"></ux-search-builder-group>
-            <ux-search-builder-group id="all" header="ALL of the following" 
-                (add)="addField('all'); $event.stopPropagation()" 
-                [showPlaceholder]="placeholders.all"></ux-search-builder-group>
-            <ux-search-builder-group id="none" header="NONE of the following" operator="not" 
-                (add)="addField('none'); $event.stopPropagation()"
-                [showPlaceholder]="placeholders.none"></ux-search-builder-group>
-        </ux-search-builder>
+            <div class="search-builder-header">
+                <div class="search-builder-icon"></div>
+                <h1 id="search-builder-title" class="search-builder-title">Search builder</h1>
+            </div>
 
-    </div>
+            <div class="search-builder-body">
 
-    <div class="search-builder-footer">
-        <button type="button" class="btn button-primary m-r-xs" [disabled]="!valid" 
-            (click)="save()">Search</button>
+                <ux-search-builder [(query)]="query" [components]="components" (valid)="valid = $event">
+                    <ux-search-builder-group id="keywords" header="Text Keywords" addText="Add a keyword" 
+                        (add)="addKeyword()"></ux-search-builder-group>
+                    <ux-search-builder-group id="any" header="ANY of the following" operator="or" 
+                        (add)="addField('any'); $event.stopPropagation()"
+                        [showPlaceholder]="placeholders.any"></ux-search-builder-group>
+                    <ux-search-builder-group id="all" header="ALL of the following" 
+                        (add)="addField('all'); $event.stopPropagation()" 
+                        [showPlaceholder]="placeholders.all"></ux-search-builder-group>
+                    <ux-search-builder-group id="none" header="NONE of the following" operator="not" 
+                        (add)="addField('none'); $event.stopPropagation()"
+                        [showPlaceholder]="placeholders.none"></ux-search-builder-group>
+                </ux-search-builder>
 
-        <button type="button" class="btn button-secondary" (click)="cancel()">Cancel</button>
-    </div>
+            </div>
 
-    <ux-item-display-panel class="search-builder-panel" [class.search-builder-panel-open]="panelOpen" 
-        [animate]="true" [inline]="true" header="Add Field" [(visible)]="panelOpen" 
-        (visibleChange)="onPanelEvent($event)" width="400px">
+            <div class="search-builder-footer">
+                <button type="button" class="btn button-primary m-r-xs" [disabled]="!valid" 
+                    (click)="save()">Search</button>
 
-        <div class="field-list-panel" uxItemDisplayPanelContent>
-            <input type="text" placeholder="Find a field" class="form-control" [(ngModel)]="filter">
+                <button type="button" class="btn button-secondary" (click)="cancel()">Cancel</button>
+            </div>
 
-            <ul class="field-list">
-                <ng-container *ngFor="let field of fields">
-                    <li class="field-list-item" 
-                        *ngIf="field.title.toLowerCase().indexOf(filter.toLowerCase()) !== -1" 
-                        (click)="selectField(field)">{{ field.title }}</li>
-                </ng-container>
-            </ul>
+            <ux-item-display-panel class="search-builder-panel" [class.search-builder-panel-open]="panelOpen" 
+                [animate]="true" [inline]="true" header="Add Field" [(visible)]="panelOpen" 
+                (visibleChange)="onPanelEvent($event)" width="400px">
+
+                <div class="field-list-panel" uxItemDisplayPanelContent>
+                    <input type="text" placeholder="Find a field" class="form-control" [(ngModel)]="filter">
+
+                    <ul class="field-list">
+                        <ng-container *ngFor="let field of fields">
+                            <li class="field-list-item" 
+                                *ngIf="field.title.toLowerCase().indexOf(filter.toLowerCase()) !== -1" 
+                                (click)="selectField(field)">{{ field.title }}</li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </ux-item-display-panel>
         </div>
-    </ux-item-display-panel>
-</ng-template>
+    </div>
+</div>

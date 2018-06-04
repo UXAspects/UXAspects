@@ -1,13 +1,13 @@
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { FilterDynamicComponent } from './filter-dynamic/filter-dynamic.component';
-import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { FilterContainerComponent } from './filter-container.component';
-import { FilterBaseComponent } from './filter-base/filter-base.component';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { TooltipModule } from '../tooltip/index';
+import { FilterBaseComponent } from './filter-base/filter-base.component';
+import { FilterContainerComponent } from './filter-container.component';
+import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
+import { FilterDynamicComponent } from './filter-dynamic/filter-dynamic.component';
 
 const DECLARATIONS = [
     FilterBaseComponent,
@@ -20,7 +20,7 @@ const DECLARATIONS = [
     imports: [
         BsDropdownModule.forRoot(),
         TypeaheadModule.forRoot(),
-        TooltipModule.forRoot(),
+        TooltipModule,
         FormsModule,
         CommonModule
     ],

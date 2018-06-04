@@ -26,13 +26,8 @@ export class ComponentsHoverActionsComponent extends BaseDocumentationSection im
                 library: 'chance'
             },
             {
-                imports: ['HoverActionModule', 'SparkModule'],
+                imports: ['HoverActionModule', 'SparkModule', 'TooltipModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['TooltipModule'],
-                forRoot: true,
-                library: 'ngx-bootstrap/tooltip'
             }
         ]
     };

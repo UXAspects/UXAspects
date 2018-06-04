@@ -1,7 +1,7 @@
 <div class="static-tooltip-demo">
     <button type="button" class="btn button-primary"
-            containerClass="ux-static-tooltip" [popover]="content"
-            placement="bottom" [isOpen]="open" triggers="" (click)="open = true">
+            [uxPopover]="content" popoverClass="ux-static-tooltip"
+            placement="bottom" [isOpen]="open" [showTriggers]="[]" [hideTriggers]="[]" (click)="open = true">
         Static Tooltip Example
     </button>
 
@@ -23,8 +23,8 @@
 
 <p>
     Static tooltips can be added to elements to give the user detailed instructions on the purpose of the control when they first
-    navigate to the page. They are created using a <a href="https://valor-software.com/ngx-bootstrap/#/popover">popover</a> and manually
-    controlling the open state by using the <code>isOpen</code> attribute and removing the default <code>triggers</code>.
+    navigate to the page. They are created using a <a routerLink="/components/popover" fragment="popover">popover</a> and manually
+    controlling the open state by using the <code>isOpen</code> attribute and removing the default <code>showTriggers</code> and <code>hideTriggers</code>.
 </p>
 
 <p>The following code can be used to create the example above:</p>

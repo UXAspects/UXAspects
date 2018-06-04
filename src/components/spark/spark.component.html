@@ -10,7 +10,7 @@
             <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
         </div>
 
-        <div class="ux-spark ux-inline ux-spark-theme-{{theme}}" [style.height.px]="barHeight" [style.backgroundColor]="trackColor" [tooltip]="tooltip">
+        <div class="ux-spark ux-inline ux-spark-theme-{{theme}}" [style.height.px]="barHeight" [style.backgroundColor]="trackColor" [uxTooltip]="tooltip">
             <div class="ux-spark-bar" *ngFor="let line of values; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
         </div>
 
@@ -34,7 +34,7 @@
     </div>
 
     <div class="ux-spark ux-spark-theme-{{theme}}" [class.ux-spark-multi-value]="values.length > 1" [style.height.px]="barHeight" [style.backgroundColor]="trackColor"
-        [tooltip]="tooltip">
+        [uxTooltip]="tooltip">
         <div class="ux-spark-bar" *ngFor="let line of value; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
     </div>
 

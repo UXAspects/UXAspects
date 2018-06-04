@@ -14,9 +14,8 @@ import { ComponentsTimePickerNg1Component } from './time-picker-ng1/time-picker-
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ComponentsDateTimePickerComponent } from './date-time-picker/date-time-picker.component';
-import { DateTimePickerModule, CheckboxModule } from '../../../../../../src/index';
+import { DateTimePickerModule, CheckboxModule, PopoverModule } from '../../../../../../src/index';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { PopoverModule } from 'ngx-bootstrap/popover';
 
 const SECTIONS = [
     ComponentsDatePickerNg1Component,
@@ -40,7 +39,7 @@ const ROUTES = [
     imports: [
         CommonModule,
         AccordionModule.forRoot(),
-        PopoverModule.forRoot(),
+        PopoverModule,
         WrappersModule,
         TabsModule,
         DateTimePickerModule,

@@ -2,8 +2,18 @@
     <span class="hpe-icon hpe-deployment" aria-hidden="true"></span> Launch Marquee Wizard
 </button>
 
-<div *ngIf="modalOpen" (onHidden)="close()" [config]="{ show: true, animated: false }" bsModal #modal="bs-modal" class="modal marquee-modal-window" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div *ngIf="modalOpen"
+     (onHidden)="close()"
+     [config]="{ show: true, animated: false }"
+     bsModal
+     #modal="bs-modal"
+     class="modal marquee-modal-window"
+     tabindex="-1"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="marquee-wizard-title">
+
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
             <!-- Add Dismiss Button to Modal -->
@@ -18,17 +28,17 @@
                 <ng-template #icon>
                     <img src="../../../../../assets/img/IconUser.png" alt="">
                 </ng-template>
-            
+
                 <ux-marquee-wizard-step icon="hpe-icon hpe-soa" header="First step">
-                    <h1 class="m-t-nil">Marquee wizard</h1>
-            
+                    <h1 id="marquee-wizard-title" class="m-t-nil">Marquee wizard</h1>
+
                     <div class="row">
                         <div class="col-xs-7">
                             <div class="form-group">
                                 <label class="form-label">Name</label>
                                 <input type="text" placeholder="Enter name" class="form-control">
                             </div>
-            
+
                             <div class="form-group">
                                 <label class="form-label">Description</label>
                                 <textarea placeholder="Enter Description" class="form-control"></textarea>
@@ -36,10 +46,10 @@
                         </div>
                     </div>
                 </ux-marquee-wizard-step>
-            
+
                 <ux-marquee-wizard-step icon="hpe-icon hpe-schedule-clone" header="Second step" [valid]="!error">
                     <h1 class="m-t-nil">Second step title</h1>
-            
+
                     <div class="row">
                         <div class="col-xs-7">
                             <p class="marquee-wizard-text">Content of second step</p>
@@ -47,10 +57,10 @@
                         </div>
                     </div>
                 </ux-marquee-wizard-step>
-            
+
                 <ux-marquee-wizard-step icon="hpe-icon hpe-sync" header="Third step">
                     <h1 class="m-t-nil">Third step title</h1>
-            
+
                     <div class="row">
                         <div class="col-xs-7">
                             <p class="marquee-wizard-text">Content of third step</p>
@@ -58,30 +68,30 @@
                         </div>
                     </div>
                 </ux-marquee-wizard-step>
-            
+
                 <ux-marquee-wizard-step icon="hpe-icon hpe-compliance" header="Fourth step" *ngIf="!skip">
                     <h1 class="m-t-nil">Fourth step title</h1>
-            
+
                     <div class="row">
                         <div class="col-xs-7">
                             <p class="marquee-wizard-text">Content of fourth step</p>
                         </div>
                     </div>
                 </ux-marquee-wizard-step>
-            
+
                 <ux-marquee-wizard-step icon="hpe-icon hpe-storage" header="Fifth step" *ngIf="!skip">
                     <h1 class="m-t-nil">Fifth step title</h1>
-            
+
                     <div class="row">
                         <div class="col-xs-7">
                             <p class="marquee-wizard-text">Content of fifth step</p>
                         </div>
                     </div>
                 </ux-marquee-wizard-step>
-            
+
                 <ux-marquee-wizard-step icon="hpe-icon hpe-scorecard" header="Sixth step" [valid]="requiredText.valid || !validate">
                     <h1 class="m-t-nil">Sixth step title</h1>
-            
+
                     <div class="row">
                         <div class="col-xs-7">
                             <div class="form-group" [class.has-error]="!requiredText.valid && validate">
@@ -91,7 +101,7 @@
                                 <input type="text" name="requiredText" placeholder="Text" class="form-control" [formControl]="requiredText">
                                 <span class="hpe-icon hpe-alert form-control-feedback" aria-hidden="true"></span>
                             </div>
-            
+
                             <div class="form-group form-group-validation">
                                 <label class="control-label">
                                     <span class="form-control-validation">*</span> required
@@ -100,7 +110,7 @@
                         </div>
                     </div>
                 </ux-marquee-wizard-step>
-            
+
             </ux-marquee-wizard>
         </div>
     </div>

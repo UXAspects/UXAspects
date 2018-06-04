@@ -16,30 +16,29 @@
             <span *ngIf="version === 'Angular'" class="label label-accent uxd-component-section-labels">Angular</span>
 
             <a *ngIf="hybrid" href="javascript:void(0)" class="label label-accent uxd-component-section-labels"
-                [popover]="hybridHelpContent" container="body" placement="bottom" [outsideClick]="true"
-                containerClass="uxd-component-section-help-popover">
+                [uxPopover]="hybridHelpContent" placement="bottom" popoverClass="uxd-component-section-help-popover">
                 Angular Compatible
             </a>
 
             <!-- Identify as External plugin -->
             <a *ngIf="externalUrl" role="button" class="label label-warning uxd-component-section-labels"
-                tooltip="This component is from a third party library and not included in the UX Aspects component library."
-                container="body" placement="bottom" [href]="externalUrl" target="_blank">
+                uxTooltip="This component is from a third party library and not included in the UX Aspects component library."
+                placement="bottom" [href]="externalUrl" target="_blank">
                 External
             </a>
 
             <!-- Show Deprecated label if required -->
             <span *ngIf="deprecated && !deprecatedLink" class="label label-critical uxd-component-section-labels"
-                tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
-                container="body" placement="bottom">
+                uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+                placement="bottom">
                 Deprecated
             </span>
 
             <!-- Deprecated label with link to another section -->
             <a *ngIf="deprecatedLink" class="label label-critical uxd-component-section-labels"
                 [routerLink]="deprecatedLink.link" [fragment]="deprecatedLink.fragment"
-                tooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
-                container="body" placement="bottom">
+                uxTooltip="This component has been deprecated and will be removed in the next major version of UX Aspects."
+                placement="bottom">
                 Deprecated
             </a>
         </div>

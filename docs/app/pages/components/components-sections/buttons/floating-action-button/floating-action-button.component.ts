@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-floating-action-button',
@@ -21,13 +21,8 @@ export class ComponentsFloatingActionButtonComponent extends BaseDocumentationSe
         },
         modules: [
             {
-                imports: ['FloatingActionButtonsModule', 'RadioButtonModule'],
+                imports: ['FloatingActionButtonsModule', 'RadioButtonModule', 'TooltipModule'],
                 library: '@ux-aspects/ux-aspects'
-            },
-            {
-                imports: ['TooltipModule'],
-                library: 'ngx-bootstrap/tooltip',
-                forRoot: true
             },
             {
                 imports: ['AccordionModule'],

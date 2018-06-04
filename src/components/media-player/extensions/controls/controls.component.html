@@ -2,7 +2,7 @@
 
     <div class="volume-slider-container" #volumeContainer [class.active]="volumeActive">
         <div class="volume-slider-icon" #volumeIcon>
-            <span class="hpe-icon" [class.hpe-volume-mute]="volume === 0" [class.hpe-volume-low]="volume > 0 && volume <= 70" [class.hpe-volume]="volume > 70" [tooltip]="muteTooltip" (click)="toggleMute()"></span>
+            <span class="hpe-icon" [class.hpe-volume-mute]="volume === 0" [class.hpe-volume-low]="volume > 0 && volume <= 70" [class.hpe-volume]="volume > 70" [uxTooltip]="muteTooltip" (click)="toggleMute()"></span>
         </div>
         
         <div class="volume-slider-node">

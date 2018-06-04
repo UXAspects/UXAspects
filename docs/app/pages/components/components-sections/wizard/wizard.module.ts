@@ -1,23 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { RouterModule } from '@angular/router';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CheckboxModule, MarqueeWizardModule, RadioButtonModule, WizardModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsWizardNg1Component } from './wizard-ng1/wizard-ng1.component';
-import { ComponentsWizardValidationNg1Component } from './wizard-validation-ng1/wizard-validation-ng1.component';
-import { ComponentsVerticalWizardNg1Component } from './vertical-wizard-ng1/vertical-wizard-ng1.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ComponentsMarqueeWizardNg1Component } from './marquee-wizard-ng1/marquee-wizard-ng1.component';
 import { ComponentsMarqueeWizardComponent } from './marquee-wizard/marquee-wizard.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ComponentsVerticalWizardNg1Component } from './vertical-wizard-ng1/vertical-wizard-ng1.component';
+import { ComponentsWizardNg1Component } from './wizard-ng1/wizard-ng1.component';
+import { ComponentsWizardValidationNg1Component } from './wizard-validation-ng1/wizard-validation-ng1.component';
 import { ComponentsWizardComponent } from './wizard/wizard.component';
-import { WizardModule, RadioButtonModule, MarqueeWizardModule, CheckboxModule } from '../../../../../../src/index';
 
 const SECTIONS = [
     ComponentsWizardComponent,

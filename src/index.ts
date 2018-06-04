@@ -19,6 +19,7 @@ export * from './components/navigation/index';
 export * from './components/notification/index';
 export * from './components/number-picker/index';
 export * from './components/page-header/index';
+export * from './components/popover/index';
 export * from './components/progress-bar/index';
 export * from './components/radiobutton/index';
 export * from './components/search-builder/index';
@@ -33,6 +34,7 @@ export * from './components/timeline/index';
 export * from './components/time-picker/index';
 export * from './components/toggleswitch/index';
 export * from './components/toolbar-search/index';
+export * from './components/tooltip/index';
 export * from './components/typeahead/index';
 export * from './components/media-player/index';
 export * from './components/virtual-scroll/index';
@@ -42,6 +44,7 @@ export * from './components/wizard/index';
   Export Directives
 */
 export * from './directives/auto-grow/index';
+export * from './directives/click-outside/index';
 export * from './directives/drag/index';
 export * from './directives/fixed-header-table/index';
 export * from './directives/float-label/index';
