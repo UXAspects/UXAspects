@@ -70,8 +70,8 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     @Input() optionTemplate: TemplateRef<any>;
 
     @Output() valueChange = new EventEmitter<any>();
-    @Output() inputChange = new EventEmitter<string>();    
-    @Output() dropdownOpenChange = new EventEmitter<boolean>();    
+    @Output() inputChange = new EventEmitter<string>();
+    @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     @ViewChild('singleInput') singleInput: ElementRef;
     @ViewChild('multipleTypeahead') multipleTypeahead: TypeaheadComponent;
@@ -144,6 +144,14 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     }
 
     inputBlurHandler(event: Event) {
+
+        // If a click on the typeahead is in progress, just refocus the input.
+        // This works around an issue in IE where clicking a scrollbar drops focus.
+        if (this.singleTypeahead && this.singleTypeahead.clicking) {
+            this.singleInput.nativeElement.focus();
+            return;
+        }
+
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
             if (!this._element.nativeElement.contains(this._document.activeElement)) {

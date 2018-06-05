@@ -1,21 +1,7 @@
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewChild, HostListener } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    AfterViewInit,
-    ChangeDetectorRef
-} from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'ux-typeahead',
@@ -77,6 +63,7 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions: any[] = [];
     loading = false;
+    clicking = false;
 
     optionApi: TypeaheadOptionApi = {
         getKey: this.getKey.bind(this),
@@ -125,6 +112,16 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
         this.updateOptions();
     }
 
+    @HostListener('mousedown')
+    private mousedownHandler() {
+        this.clicking = true;
+    }
+
+    @HostListener('mouseup')
+    private mouseupHandler() {
+        this.clicking = false;
+    }
+
     optionMousedownHandler(event: MouseEvent) {
         // Workaround to prevent focus changing when an option is clicked
         event.preventDefault();
@@ -162,7 +159,7 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
 
     /**
      * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value.
-     * @param option 
+     * @param option
      */
     getDisplayHtml(option: any) {
         let displayText;
@@ -184,7 +181,7 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
     }
 
     /**
-     * Returns true if the infinite scroll component should load 
+     * Returns true if the infinite scroll component should load
      */
     isInfiniteScroll() {
         return typeof this.options === 'function';
