@@ -1,7 +1,7 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Directive, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
+import { Directive, HostBinding, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { takeUntil } from 'rxjs/operators';
 import { TooltipDirective } from '../tooltip/index';
@@ -40,17 +40,29 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
     /** Specify which events should hide the popover */
     @Input() hideTriggers: string[] = ['click', 'clickoutside', 'escape'];
 
+    /** Keep track of the tooltip visibility and update aria-expanded attribute */
+    @HostBinding('attr.aria-expanded') isVisible: boolean = false;
+
     /** A reference to the CDK portal containing the overlay */
     protected _portal: ComponentPortal<PopoverComponent>;
 
     /** A reference to the instance of the popover component when created */
     protected _instance: PopoverComponent;
 
+    /** Determine whether or not an aria-describedby property originally existed on the element */
+    private _ariaDescribedBy: boolean;
+
+    /** Internally store the type of this component - usual for distinctions when extending the tooltip class */
+    protected _type: string = 'popover';
+
     /** Set up the triggers and bind to the show/hide events to keep visibility in sync */
     ngOnInit(): void {
 
         // set up the event triggers
         fromEvent(document, 'keydown').pipe(takeUntil(this._onDestroy)).subscribe(this.onKeyDown.bind(this));
+
+        // check if there is an aria-described by attribute
+        this._ariaDescribedBy = this._elementRef.nativeElement.hasAttribute('aria-describedby');
 
         // set up the default event triggers
         super.ngOnInit();
@@ -80,7 +92,7 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
         instance.setRole(this.role);
 
         // Update the aria-describedby attribute
-        this.describedBy = instance.id;
+        this.setAriaDescribedBy(instance.id);
 
         // subscribe to the outside click event
         instance.clickOutside$.pipe(takeUntil(this._onDestroy)).subscribe(this.onClickOutside.bind(this));
@@ -104,6 +116,15 @@ export class PopoverDirective extends TooltipDirective implements OnInit, OnChan
         // if visible and it is one of the hide triggers
         if (this.isVisible && this.includes(this.hideTriggers, 'clickoutside')) {
             this.hide();
+        }
+    }
+
+    /** Programmatically update the aria-describedby property */
+    protected setAriaDescribedBy(id: string | null): void {
+
+        // we only want to set the aria-describedby attr when the content is a string and there was no user defined attribute already
+        if (this._ariaDescribedBy === false && typeof this.content === 'string') {
+            super.setAriaDescribedBy(id);
         }
     }
 
