@@ -3,6 +3,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ClickOutsideModule } from '../../directives/click-outside/index';
+import { TooltipModule } from '../tooltip/index';
 import { PopoverComponent } from './popover.component';
 import { PopoverDirective } from './popover.directive';
 
@@ -11,7 +12,8 @@ import { PopoverDirective } from './popover.directive';
     CommonModule,
     OverlayModule,
     ObserversModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    TooltipModule
   ],
   exports: [PopoverDirective],
   declarations: [PopoverComponent, PopoverDirective],
