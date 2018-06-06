@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipDirective } from './tooltip.directive';
 import { ObserversModule } from '@angular/cdk/observers';
+import { TooltipService } from './tooltip.service';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { ObserversModule } from '@angular/cdk/observers';
   ],
   exports: [TooltipDirective],
   declarations: [TooltipComponent, TooltipDirective],
+  providers: [TooltipService],
   entryComponents: [TooltipComponent]
 })
 export class TooltipModule { }

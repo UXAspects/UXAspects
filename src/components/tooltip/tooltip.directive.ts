@@ -1,10 +1,11 @@
 import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { TooltipComponent } from './tooltip.component';
+import { TooltipService } from './tooltip.service';
 
 @Directive({
     selector: '[uxTooltip]',
@@ -51,11 +52,8 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Allow two way binding to track the visibility of the tooltip */
     @Output() isOpenChange = new EventEmitter<boolean>();
 
-    /** Add an aria-describedby attribute when the tooltip is open  */
-    @HostBinding('attr.aria-describedby') describedBy: string;
-
-    /** Keep track of the tooltip visibility and update aria-expanded attribute */
-    @HostBinding('attr.aria-expanded') isVisible: boolean = false;
+    /** Keep track of the tooltip visibility */
+    isVisible: boolean = false;
 
     /** A reference to the CDK portal containing the overlay */
     protected _portal: ComponentPortal<TooltipComponent>;
@@ -72,11 +70,18 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Store the timeout interval for cancelation */
     private _showTimeoutId: number;
 
+    /** Internally store the type of this component - usual for distinctions when extending this class */
+    protected _type: string = 'tooltip';
+
     constructor(
         protected _elementRef: ElementRef,
         protected _viewContainerRef: ViewContainerRef,
         protected _overlay: Overlay,
-        protected _scrollDispatcher: ScrollDispatcher) { }
+        protected _scrollDispatcher: ScrollDispatcher,
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _renderer: Renderer2,
+        private _tooltipService: TooltipService
+    ) { }
 
     /** Set up the triggers and bind to the show/hide events to keep visibility in sync */
     ngOnInit(): void {
@@ -87,6 +92,13 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         fromEvent(this._elementRef.nativeElement, 'mouseleave').pipe(takeUntil(this._onDestroy)).subscribe(this.onMouseLeave.bind(this));
         fromEvent(this._elementRef.nativeElement, 'focus').pipe(takeUntil(this._onDestroy)).subscribe(this.onFocus.bind(this));
         fromEvent(this._elementRef.nativeElement, 'blur').pipe(takeUntil(this._onDestroy)).subscribe(this.onBlur.bind(this));
+
+        // when any other tooltips open hide this one
+        this._tooltipService.shown$.pipe(
+            filter(() => this._type === 'tooltip'),
+            filter(tooltip => tooltip !== this._instance),
+            takeUntil(this._onDestroy)
+        ).subscribe(this.hide.bind(this));
 
         // if the tooltip should be initially visible then open it
         if (this.isOpen) {
@@ -178,6 +190,12 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
 
             // clear the interval id
             this._showTimeoutId = null;
+
+            // emit the show event to close any other tooltips
+            this._tooltipService.shown$.next(this._instance);
+
+            // ensure change detection is run
+            this._changeDetectorRef.detectChanges();
         }, this.delay);
 
     }
@@ -196,7 +214,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
             this._overlayRef.detach();
         }
 
-        this.describedBy = null;
+        this.setAriaDescribedBy(null);
         this._instance = null;
 
         // store the visible state
@@ -205,6 +223,9 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         // emit the hide events
         this.hidden.emit();
         this.isOpenChange.next(false);
+
+        // ensure change detection is run
+        this._changeDetectorRef.detectChanges();
     }
 
     /** Toggle the visibility of the tooltip */
@@ -231,7 +252,7 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
         instance.setRole(this.role);
 
         // Update the aria-describedby attribute
-        this.describedBy = instance.id;
+        this.setAriaDescribedBy(instance.id);
 
         return instance;
     }
@@ -392,6 +413,15 @@ export class TooltipDirective implements OnInit, OnChanges, OnDestroy {
     /** Determine if the trigger element is focused */
     private isFocused(): boolean {
         return document.activeElement === this._elementRef.nativeElement;
+    }
+
+    /** Programmatically update the aria-describedby property */
+    protected setAriaDescribedBy(id: string | null): void {
+        if (id === null) {
+            this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
+        } else {
+            this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', id);
+        }
     }
 
 }
