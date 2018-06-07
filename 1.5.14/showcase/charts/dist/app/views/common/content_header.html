@@ -1,0 +1,11 @@
+<div class="btn-back-header">
+	<span class="hpe-icon hpe-previous text-primary" ng-click="vm.goBack()"></span>
+</div>
+<div class="header-content-left">
+<div ncy-breadcrumb></div>
+	<h1 class="heading m-t-nil" ncy-breadcrumb-last ng-if="!heading"></h1>
+	<h1 class="heading m-t-nil" ng-bind="heading" ng-if="!!heading"></h1>
+</div>
+<div class="header-content-right">
+	<analytics-content-panel></analytics-content-panel>
+</div>

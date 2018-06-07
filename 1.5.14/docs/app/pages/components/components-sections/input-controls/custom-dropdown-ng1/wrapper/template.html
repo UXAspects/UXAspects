@@ -1,0 +1,39 @@
+<div ng-controller="CustomDropdownCtrl as vm">
+    <span ng-show="vm.searchBox">
+  <div class="inner-addon right-addon">
+    <i class="hpe-icon hpe-search"></i>
+    <input  type="text" ng-model="vm.searchText" name="searchBox"
+            placeholder="Find Column.." class="form-control">
+  </div>
+  <br/>
+  </span>
+    <div class="dropdown-outer-container">
+        <div class="dropdown-container" ng-style="{height: vm.dropdownHeight+'px'}" scroll-config="{autoReinitialise: true,showOnlyOnHover:true,enableKeyboardNavigation:true} "
+            scroll-pane id="example-dropdown">
+            <div>
+                <table class="table table-hover m-b-sm" ng-repeat="group in vm.values.groups">
+                    <thead>
+                        <tr ng-if="(group.values |  filter:{name:vm.searchText}).length">
+                            <th><span class="group-header" ng-bind="group.groupName"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="dropdown-body">
+                        <tr ng-repeat="value in group.values |  filter:{name:vm.searchText}" ng-click="vm.updateSelected(value)">
+                            <td>
+                                <div class="check">
+                                    <checkbox ng-model="value.selectedChecked" simplified="true" name="value.name">
+                                        <span class="listview-text-emphasis" ng-bind="value.name"></span>
+                                    </checkbox>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="dropdown-footer">
+        <button type="button" class="btn btn-w-m btn-primary m-r-sm" ng-click="vm.applyCallback()" ng-bind="vm.applyText"></button>
+        <button type="button" class="btn btn-w-m btn-white" ng-click="vm.cancelCallback()" ng-bind="vm.cancelText"></button>
+    </div>
+</div>
