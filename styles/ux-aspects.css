@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.13 
+* @ux-aspects/ux-aspects-docs - v1.5.14 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -14835,6 +14835,7 @@ tags-input .tags .input:-ms-input-placeholder {
   transition: border-color 0.3s linear;
   border-radius: 0;
 }
+.ux-static-tooltip .arrow,
 .ux-static-tooltip .popover-arrow {
   transition: border-bottom-color 0.3s linear;
 }
@@ -14844,8 +14845,24 @@ tags-input .tags .input:-ms-input-placeholder {
 .ux-static-tooltip:hover {
   border-color: #7b63a3;
 }
+.ux-static-tooltip:hover .arrow,
 .ux-static-tooltip:hover .popover-arrow {
   border-bottom-color: #7b63a3;
+}
+/*
+    Angular CDK Overlay (for tooltips and popovers)
+*/
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 10101;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.ux-overlay-pane {
+  position: absolute;
 }
 ux-checkbox .ux-checkbox {
   display: inline-flex;
@@ -16857,6 +16874,21 @@ ux-page-header .ux-page-header.page-header-condensed .page-header-condensed-cont
   flex: 1;
   justify-content: center;
 }
+ux-popover .popover {
+  position: static;
+}
+ux-popover .popover.top {
+  transform: translateY(-11px);
+}
+ux-popover .popover.bottom {
+  transform: translateY(0);
+}
+ux-popover .popover.right {
+  transform: translateX(0);
+}
+ux-popover .popover.left {
+  transform: translateX(-11px);
+}
 ux-progress-bar {
   display: block;
   height: 22px;
@@ -17642,6 +17674,18 @@ ux-spin-button .form-control::-webkit-outer-spin-button,
 ux-spin-button .form-control::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+ux-tabset .nav .nav-item .nav-link.highlighted {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-tab .tab-pane {
+  display: none;
+}
+ux-tab .tab-pane.active {
+  display: block;
+}
 ux-tag-input {
   display: inline-block;
   position: relative;
@@ -18093,6 +18137,15 @@ ux-toolbar-search .ux-toolbar-search-clear {
   position: absolute;
   top: 4px;
   right: 36px;
+}
+ux-tooltip .tooltip {
+  position: static;
+}
+ux-tooltip .tooltip.right {
+  padding: 0 2px;
+}
+ux-tooltip .tooltip.bottom {
+  padding: 2px 0;
 }
 ux-typeahead {
   display: none;

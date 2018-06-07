@@ -1432,6 +1432,8 @@ tree-root .angular-tree-component-rtl .tree-children {
 
 @notications-z-index: 10100;
 
+@overlay-z-index: 10101;
+
 // Placeholder text
 .placeholder(@color: @white) {
     &::-moz-placeholder {
@@ -21259,6 +21261,7 @@ tags-input .tags .input:-ms-input-placeholder {
     transition: border-color 0.3s linear;
     border-radius: 0;
 
+    .arrow,
     .popover-arrow {
         transition: border-bottom-color 0.3s linear;
     }
@@ -21270,10 +21273,29 @@ tags-input .tags .input:-ms-input-placeholder {
     &:hover {
         border-color: @static-tooltip-hover-border;
 
+        .arrow,
         .popover-arrow {
             border-bottom-color: @static-tooltip-hover-border;
         }
     }
+}
+
+/*
+    Angular CDK Overlay (for tooltips and popovers)
+*/
+
+.cdk-overlay-container {
+    position: fixed;
+    z-index: @overlay-z-index;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.ux-overlay-pane {
+    position: absolute;
 }
 ux-checkbox {
     .ux-checkbox {
@@ -23667,6 +23689,27 @@ ux-page-header {
         }
     }
 }
+ux-popover {
+    .popover {
+        position: static;
+
+        &.top {
+            transform: translateY(-11px);
+        }
+
+        &.bottom {
+            transform: translateY(0);
+        }
+
+        &.right {
+            transform: translateX(0);
+        }
+
+        &.left {
+            transform: translateX(-11px);
+        }
+    }
+}
 ux-progress-bar {
     display: block;
     height: 22px;
@@ -24502,6 +24545,26 @@ ux-spin-button {
         }
     }
 }
+ux-tabset {
+    .nav {
+        .nav-item {
+            .nav-link {
+                &.highlighted {
+                    .aspects-outline();
+                }
+            }
+        }
+    }
+}
+ux-tab {
+    .tab-pane {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
+}
 ux-tag-input {
     display: inline-block;
     position: relative;
@@ -25067,6 +25130,19 @@ ux-toolbar-search {
     }
 }
 
+ux-tooltip {
+    .tooltip {
+        position: static;
+
+        &.right {
+            padding: 0 2px;
+        }
+
+        &.bottom {
+            padding: 2px 0;
+        }
+    }
+}
 ux-typeahead {
     display: none;
     position: absolute;

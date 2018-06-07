@@ -7,8 +7,6 @@ import { fromEvent as fromEvent$1 } from 'rxjs/observable/fromEvent';
 import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgModel } from '@angular/forms';
 import { Subject as Subject$1 } from 'rxjs/Subject';
 import { combineLatest as combineLatest$1 } from 'rxjs/observable/combineLatest';
-import { Observable as Observable$1 } from 'rxjs/Observable';
-import 'rxjs/add/observable/timer';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/filter';
@@ -16,9 +14,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/toArray';
+import { Observable as Observable$1 } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { Overlay, OverlayModule, ScrollDispatcher } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { ObserversModule } from '@angular/cdk/observers';
 import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
+import 'rxjs/add/observable/timer';
 import { of as of$2 } from 'rxjs/observable/of';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import { DOCUMENT as DOCUMENT$1 } from '@angular/platform-browser';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/auditTime';
@@ -100,8 +104,10 @@ BreadcrumbsModule.ctorParameters = () => [];
 class ResizeService {
     /**
      * @param {?} rendererFactory
+     * @param {?} _ngZone
      */
-    constructor(rendererFactory) {
+    constructor(rendererFactory, _ngZone) {
+        this._ngZone = _ngZone;
         this._subscription = new Subscription$1();
         this._renderer = rendererFactory.createRenderer(null, null);
     }
@@ -147,8 +153,8 @@ class ResizeService {
         this.waitUntilReady(iframe, () => {
             const /** @type {?} */ iframeDoc = iframe.contentDocument || (iframe.contentWindow.document);
             const /** @type {?} */ attachListener = () => {
-                // watch for any future resizes
-                this._subscription.add(fromEvent$1(iframe.contentWindow, 'resize').subscribe((event) => subject.next({ width: nativeElement.offsetWidth, height: nativeElement.offsetHeight })));
+                // watch for any future resizes - run inside ngzone as an iframe event listener is not patched
+                this._subscription.add(fromEvent$1(iframe.contentWindow, 'resize').subscribe((event) => this._ngZone.run(() => subject.next({ width: nativeElement.offsetWidth, height: nativeElement.offsetHeight }))));
             };
             if (iframeDoc.readyState === 'complete') {
                 attachListener();
@@ -182,6 +188,7 @@ ResizeService.decorators = [
  */
 ResizeService.ctorParameters = () => [
     { type: RendererFactory2, },
+    { type: NgZone, },
 ];
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -5138,14 +5145,14 @@ var SubjectSubscription = (function (_super) {
         }
         this.closed = true;
         var subject = this.subject;
-        var observers = subject.observers;
+        var observers$$1 = subject.observers;
         this.subject = null;
-        if (!observers || observers.length === 0 || subject.isStopped || subject.closed) {
+        if (!observers$$1 || observers$$1.length === 0 || subject.isStopped || subject.closed) {
             return;
         }
-        var subscriberIndex = observers.indexOf(this.subscriber);
+        var subscriberIndex = observers$$1.indexOf(this.subscriber);
         if (subscriberIndex !== -1) {
-            observers.splice(subscriberIndex, 1);
+            observers$$1.splice(subscriberIndex, 1);
         }
     };
     return SubjectSubscription;
@@ -5206,9 +5213,9 @@ var Subject$2 = (function (_super) {
             throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
         }
         if (!this.isStopped) {
-            var observers = this.observers;
-            var len = observers.length;
-            var copy = observers.slice();
+            var observers$$1 = this.observers;
+            var len = observers$$1.length;
+            var copy = observers$$1.slice();
             for (var i = 0; i < len; i++) {
                 copy[i].next(value);
             }
@@ -5221,9 +5228,9 @@ var Subject$2 = (function (_super) {
         this.hasError = true;
         this.thrownError = err;
         this.isStopped = true;
-        var observers = this.observers;
-        var len = observers.length;
-        var copy = observers.slice();
+        var observers$$1 = this.observers;
+        var len = observers$$1.length;
+        var copy = observers$$1.slice();
         for (var i = 0; i < len; i++) {
             copy[i].error(err);
         }
@@ -5234,9 +5241,9 @@ var Subject$2 = (function (_super) {
             throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
         }
         this.isStopped = true;
-        var observers = this.observers;
-        var len = observers.length;
-        var copy = observers.slice();
+        var observers$$1 = this.observers;
+        var len = observers$$1.length;
+        var copy = observers$$1.slice();
         for (var i = 0; i < len; i++) {
             copy[i].complete();
         }
@@ -7717,6 +7724,11 @@ var TakeUntilSubscriber = (function (_super) {
     return TakeUntilSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
+
+var takeUntil_1 = {
+	takeUntil: takeUntil_2
+};
+
 var __extends$85 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -8922,6 +8934,8 @@ var filter$1 = filter_1.filter;
 var first$1 = first_1.first;
 
 var map$1 = map_1.map;
+
+var takeUntil$1 = takeUntil_1.takeUntil;
 
 var throttle = throttle_1.throttle;
 
@@ -12940,6 +12954,7 @@ class FocusIfDirective {
      */
     constructor(_elementRef) {
         this._elementRef = _elementRef;
+        this.focusIfDelay = 0;
         this._timeout = null;
     }
     /**
@@ -12948,14 +12963,14 @@ class FocusIfDirective {
      */
     set focusIf(focus) {
         // if a timeout is pending then cancel it
-        if (this._timeout !== null) {
+        if (!focus && this._timeout !== null) {
             clearTimeout(this._timeout);
         }
-        if (focus) {
-            this._timeout = setTimeout(() => {
+        if (focus && this._timeout === null) {
+            this._timeout = window.setTimeout(() => {
                 this._elementRef.nativeElement.focus();
                 this._timeout = null;
-            });
+            }, this.focusIfDelay);
         }
     }
 }
@@ -12971,6 +12986,7 @@ FocusIfDirective.ctorParameters = () => [
     { type: ElementRef, },
 ];
 FocusIfDirective.propDecorators = {
+    'focusIfDelay': [{ type: Input },],
     'focusIf': [{ type: Input },],
 };
 
@@ -13065,1083 +13081,6 @@ EboxModule.decorators = [
  * @nocollapse
  */
 EboxModule.ctorParameters = () => [];
-
-/** Default values provider for tooltip */
-var TooltipConfig = (function () {
-    function TooltipConfig() {
-        /** tooltip placement, supported positions: 'top', 'bottom', 'left', 'right' */
-        this.placement = 'top';
-        /** array of event names which triggers tooltip opening */
-        this.triggers = 'hover focus';
-    }
-    TooltipConfig.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    TooltipConfig.ctorParameters = function () { return []; };
-    return TooltipConfig;
-}());
-
-/*tslint:disable */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * JS version of browser APIs. This library can only run in the browser.
- */
-var win = (typeof window !== 'undefined' && window) || {};
-var document$1 = win.document;
-var location = win.location;
-var gc = win['gc'] ? function () { return win['gc'](); } : function () { return null; };
-var performance = win['performance'] ? win['performance'] : null;
-var Event = win['Event'];
-var MouseEvent$1 = win['MouseEvent'];
-var KeyboardEvent = win['KeyboardEvent'];
-var EventTarget = win['EventTarget'];
-var History = win['History'];
-var Location = win['Location'];
-var EventListener = win['EventListener'];
-
-var guessedVersion;
-function _guessBsVersion() {
-    if (typeof document === 'undefined') {
-        return null;
-    }
-    var spanEl = document.createElement('span');
-    spanEl.innerText = 'test bs version';
-    document.body.appendChild(spanEl);
-    spanEl.classList.add('d-none');
-    var rect = spanEl.getBoundingClientRect();
-    document.body.removeChild(spanEl);
-    if (!rect) {
-        return 'bs3';
-    }
-    return rect.top === 0 ? 'bs4' : 'bs3';
-}
-
-// todo: in ngx-bootstrap, bs4 will became a default one
-function isBs3() {
-    if (typeof win === 'undefined') {
-        return true;
-    }
-    if (typeof win.__theme === 'undefined') {
-        if (guessedVersion) {
-            return guessedVersion === 'bs3';
-        }
-        guessedVersion = _guessBsVersion();
-        return guessedVersion === 'bs3';
-    }
-    return win.__theme !== 'bs4';
-}
-
-var TooltipContainerComponent = (function () {
-    function TooltipContainerComponent(config) {
-        Object.assign(this, config);
-    }
-    Object.defineProperty(TooltipContainerComponent.prototype, "isBs3", {
-        get: function () {
-            return isBs3();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TooltipContainerComponent.prototype.ngAfterViewInit = function () {
-        this.classMap = { in: false, fade: false };
-        this.classMap[this.placement] = true;
-        this.classMap["tooltip-" + this.placement] = true;
-        this.classMap.in = true;
-        if (this.animation) {
-            this.classMap.fade = true;
-        }
-        if (this.containerClass) {
-            this.classMap[this.containerClass] = true;
-        }
-    };
-    TooltipContainerComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'bs-tooltip-container',
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    // tslint:disable-next-line
-                    host: {
-                        '[class]': '"tooltip in tooltip-" + placement + " " + "bs-tooltip-" + placement + " " + placement + " " + containerClass',
-                        '[class.show]': '!isBs3',
-                        role: 'tooltip'
-                    },
-                    styles: [
-                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: 50%;\n      margin-left: -6px;\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: 50%;\n      margin-top: -6px;\n    }\n  "
-                    ],
-                    template: "\n    <div class=\"tooltip-arrow arrow\"></div>\n    <div class=\"tooltip-inner\"><ng-content></ng-content></div>\n    "
-                },] },
-    ];
-    /** @nocollapse */
-    TooltipContainerComponent.ctorParameters = function () { return [
-        { type: TooltipConfig, },
-    ]; };
-    return TooltipContainerComponent;
-}());
-
-/**
- * @copyright Valor Software
- * @copyright Angular ng-bootstrap team
- */
-var Trigger = (function () {
-    function Trigger(open, close) {
-        this.open = open;
-        this.close = close || open;
-    }
-    Trigger.prototype.isManual = function () {
-        return this.open === 'manual' || this.close === 'manual';
-    };
-    return Trigger;
-}());
-
-var DEFAULT_ALIASES = {
-    hover: ['mouseover', 'mouseout'],
-    focus: ['focusin', 'focusout']
-};
-function parseTriggers(triggers, aliases) {
-    if (aliases === void 0) { aliases = DEFAULT_ALIASES; }
-    var trimmedTriggers = (triggers || '').trim();
-    if (trimmedTriggers.length === 0) {
-        return [];
-    }
-    var parsedTriggers = trimmedTriggers
-        .split(/\s+/)
-        .map(function (trigger$$1) { return trigger$$1.split(':'); })
-        .map(function (triggerPair) {
-        var alias = aliases[triggerPair[0]] || triggerPair;
-        return new Trigger(alias[0], alias[1]);
-    });
-    var manualTriggers = parsedTriggers.filter(function (triggerPair) {
-        return triggerPair.isManual();
-    });
-    if (manualTriggers.length > 1) {
-        throw new Error('Triggers parse error: only one manual trigger is allowed');
-    }
-    if (manualTriggers.length === 1 && parsedTriggers.length > 1) {
-        throw new Error('Triggers parse error: manual trigger can\'t be mixed with other triggers');
-    }
-    return parsedTriggers;
-}
-
-function listenToTriggersV2(renderer, options) {
-    var parsedTriggers = parseTriggers(options.triggers);
-    var target = options.target;
-    // do nothing
-    if (parsedTriggers.length === 1 && parsedTriggers[0].isManual()) {
-        return Function.prototype;
-    }
-    // all listeners
-    var listeners = [];
-    // lazy listeners registration
-    var _registerHide = [];
-    var registerHide = function () {
-        // add hide listeners to unregister array
-        _registerHide.forEach(function (fn) { return listeners.push(fn()); });
-        // register hide events only once
-        _registerHide.length = 0;
-    };
-    // register open\close\toggle listeners
-    parsedTriggers.forEach(function (trigger$$1) {
-        var useToggle = trigger$$1.open === trigger$$1.close;
-        var showFn = useToggle ? options.toggle : options.show;
-        if (!useToggle) {
-            _registerHide.push(function () {
-                return renderer.listen(target, trigger$$1.close, options.hide);
-            });
-        }
-        listeners.push(renderer.listen(target, trigger$$1.open, function () { return showFn(registerHide); }));
-    });
-    return function () {
-        listeners.forEach(function (unsubscribeFn) { return unsubscribeFn(); });
-    };
-}
-function registerOutsideClick(renderer, options) {
-    if (!options.outsideClick) {
-        return Function.prototype;
-    }
-    return renderer.listen('document', 'click', function (event) {
-        if (options.target && options.target.contains(event.target)) {
-            return;
-        }
-        if (options.targets &&
-            options.targets.some(function (target) { return target.contains(event.target); })) {
-            return;
-        }
-        options.hide();
-    });
-}
-
-/**
- * @copyright Valor Software
- * @copyright Angular ng-bootstrap team
- */
-var ContentRef = (function () {
-    function ContentRef(nodes, viewRef, componentRef) {
-        this.nodes = nodes;
-        this.viewRef = viewRef;
-        this.componentRef = componentRef;
-    }
-    return ContentRef;
-}());
-
-// tslint:disable:max-file-line-count
-// todo: add delay support
-// todo: merge events onShow, onShown, etc...
-// todo: add global positioning configuration?
-var ComponentLoader = (function () {
-    /**
-     * Do not use this directly, it should be instanced via
-     * `ComponentLoadFactory.attach`
-     * @internal
-     */
-    // tslint:disable-next-line
-    function ComponentLoader(_viewContainerRef, _renderer, _elementRef, _injector, _componentFactoryResolver, _ngZone, _applicationRef, _posService) {
-        this._viewContainerRef = _viewContainerRef;
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        this._injector = _injector;
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._ngZone = _ngZone;
-        this._applicationRef = _applicationRef;
-        this._posService = _posService;
-        this.onBeforeShow = new EventEmitter();
-        this.onShown = new EventEmitter();
-        this.onBeforeHide = new EventEmitter();
-        this.onHidden = new EventEmitter();
-        this._providers = [];
-        this._isHiding = false;
-        this._listenOpts = {};
-        this._globalListener = Function.prototype;
-    }
-    Object.defineProperty(ComponentLoader.prototype, "isShown", {
-        get: function () {
-            if (this._isHiding) {
-                return false;
-            }
-            return !!this._componentRef;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ComponentLoader.prototype.attach = function (compType) {
-        this._componentFactory = this._componentFactoryResolver
-            .resolveComponentFactory(compType);
-        return this;
-    };
-    // todo: add behaviour: to target element, `body`, custom element
-    ComponentLoader.prototype.to = function (container) {
-        this.container = container || this.container;
-        return this;
-    };
-    ComponentLoader.prototype.position = function (opts) {
-        this.attachment = opts.attachment || this.attachment;
-        this._elementRef = opts.target || this._elementRef;
-        return this;
-    };
-    ComponentLoader.prototype.provide = function (provider) {
-        this._providers.push(provider);
-        return this;
-    };
-    // todo: appendChild to element or document.querySelector(this.container)
-    ComponentLoader.prototype.show = function (opts) {
-        if (opts === void 0) { opts = {}; }
-        this._subscribePositioning();
-        this._innerComponent = null;
-        if (!this._componentRef) {
-            this.onBeforeShow.emit();
-            this._contentRef = this._getContentRef(opts.content, opts.context, opts.initialState);
-            var injector = ReflectiveInjector.resolveAndCreate(this._providers, this._injector);
-            this._componentRef = this._componentFactory.create(injector, this._contentRef.nodes);
-            this._applicationRef.attachView(this._componentRef.hostView);
-            // this._componentRef = this._viewContainerRef
-            //   .createComponent(this._componentFactory, 0, injector, this._contentRef.nodes);
-            this.instance = this._componentRef.instance;
-            Object.assign(this._componentRef.instance, opts);
-            if (this.container instanceof ElementRef) {
-                this.container.nativeElement.appendChild(this._componentRef.location.nativeElement);
-            }
-            if (this.container === 'body' && typeof document !== 'undefined') {
-                document
-                    .querySelector(this.container)
-                    .appendChild(this._componentRef.location.nativeElement);
-            }
-            if (!this.container &&
-                this._elementRef &&
-                this._elementRef.nativeElement.parentElement) {
-                this._elementRef.nativeElement.parentElement.appendChild(this._componentRef.location.nativeElement);
-            }
-            // we need to manually invoke change detection since events registered
-            // via
-            // Renderer::listen() are not picked up by change detection with the
-            // OnPush strategy
-            if (this._contentRef.componentRef) {
-                this._innerComponent = this._contentRef.componentRef.instance;
-                this._contentRef.componentRef.changeDetectorRef.markForCheck();
-                this._contentRef.componentRef.changeDetectorRef.detectChanges();
-            }
-            this._componentRef.changeDetectorRef.markForCheck();
-            this._componentRef.changeDetectorRef.detectChanges();
-            this.onShown.emit(this._componentRef.instance);
-        }
-        this._registerOutsideClick();
-        return this._componentRef;
-    };
-    ComponentLoader.prototype.hide = function () {
-        if (!this._componentRef) {
-            return this;
-        }
-        this.onBeforeHide.emit(this._componentRef.instance);
-        var componentEl = this._componentRef.location.nativeElement;
-        componentEl.parentNode.removeChild(componentEl);
-        if (this._contentRef.componentRef) {
-            this._contentRef.componentRef.destroy();
-        }
-        this._componentRef.destroy();
-        if (this._viewContainerRef && this._contentRef.viewRef) {
-            this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._contentRef.viewRef));
-        }
-        if (this._contentRef.viewRef) {
-            this._contentRef.viewRef.destroy();
-        }
-        // this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._componentRef.hostView));
-        //
-        // if (this._contentRef.viewRef && this._viewContainerRef.indexOf(this._contentRef.viewRef) !== -1) {
-        //   this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._contentRef.viewRef));
-        // }
-        this._contentRef = null;
-        this._componentRef = null;
-        this._removeGlobalListener();
-        this.onHidden.emit();
-        return this;
-    };
-    ComponentLoader.prototype.toggle = function () {
-        if (this.isShown) {
-            this.hide();
-            return;
-        }
-        this.show();
-    };
-    ComponentLoader.prototype.dispose = function () {
-        if (this.isShown) {
-            this.hide();
-        }
-        this._unsubscribePositioning();
-        if (this._unregisterListenersFn) {
-            this._unregisterListenersFn();
-        }
-    };
-    ComponentLoader.prototype.listen = function (listenOpts) {
-        var _this = this;
-        this.triggers = listenOpts.triggers || this.triggers;
-        this._listenOpts.outsideClick = listenOpts.outsideClick;
-        listenOpts.target = listenOpts.target || this._elementRef.nativeElement;
-        var hide = (this._listenOpts.hide = function () {
-            return listenOpts.hide ? listenOpts.hide() : void _this.hide();
-        });
-        var show = (this._listenOpts.show = function (registerHide) {
-            listenOpts.show ? listenOpts.show(registerHide) : _this.show(registerHide);
-            registerHide();
-        });
-        var toggle = function (registerHide) {
-            _this.isShown ? hide() : show(registerHide);
-        };
-        this._unregisterListenersFn = listenToTriggersV2(this._renderer, {
-            target: listenOpts.target,
-            triggers: listenOpts.triggers,
-            show: show,
-            hide: hide,
-            toggle: toggle
-        });
-        return this;
-    };
-    ComponentLoader.prototype._removeGlobalListener = function () {
-        if (this._globalListener) {
-            this._globalListener();
-            this._globalListener = null;
-        }
-    };
-    ComponentLoader.prototype.attachInline = function (vRef, template) {
-        this._inlineViewRef = vRef.createEmbeddedView(template);
-        return this;
-    };
-    ComponentLoader.prototype._registerOutsideClick = function () {
-        var _this = this;
-        if (!this._componentRef || !this._componentRef.location) {
-            return;
-        }
-        // why: should run after first event bubble
-        if (this._listenOpts.outsideClick) {
-            var target_1 = this._componentRef.location.nativeElement;
-            setTimeout(function () {
-                _this._globalListener = registerOutsideClick(_this._renderer, {
-                    targets: [target_1, _this._elementRef.nativeElement],
-                    outsideClick: _this._listenOpts.outsideClick,
-                    hide: function () { return _this._listenOpts.hide(); }
-                });
-            });
-        }
-    };
-    ComponentLoader.prototype.getInnerComponent = function () {
-        return this._innerComponent;
-    };
-    ComponentLoader.prototype._subscribePositioning = function () {
-        var _this = this;
-        if (this._zoneSubscription || !this.attachment) {
-            return;
-        }
-        this._zoneSubscription = this._ngZone.onStable.subscribe(function () {
-            if (!_this._componentRef) {
-                return;
-            }
-            _this._posService.position({
-                element: _this._componentRef.location,
-                target: _this._elementRef,
-                attachment: _this.attachment,
-                appendToBody: _this.container === 'body'
-            });
-        });
-    };
-    ComponentLoader.prototype._unsubscribePositioning = function () {
-        if (!this._zoneSubscription) {
-            return;
-        }
-        this._zoneSubscription.unsubscribe();
-        this._zoneSubscription = null;
-    };
-    ComponentLoader.prototype._getContentRef = function (content, context, initialState) {
-        if (!content) {
-            return new ContentRef([]);
-        }
-        if (content instanceof TemplateRef) {
-            if (this._viewContainerRef) {
-                var _viewRef = this._viewContainerRef
-                    .createEmbeddedView(content, context);
-                _viewRef.markForCheck();
-                return new ContentRef([_viewRef.rootNodes], _viewRef);
-            }
-            var viewRef = content.createEmbeddedView({});
-            this._applicationRef.attachView(viewRef);
-            return new ContentRef([viewRef.rootNodes], viewRef);
-        }
-        if (typeof content === 'function') {
-            var contentCmptFactory = this._componentFactoryResolver.resolveComponentFactory(content);
-            var modalContentInjector = ReflectiveInjector.resolveAndCreate(this._providers.slice(), this._injector);
-            var componentRef = contentCmptFactory.create(modalContentInjector);
-            Object.assign(componentRef.instance, initialState);
-            this._applicationRef.attachView(componentRef.hostView);
-            return new ContentRef([[componentRef.location.nativeElement]], componentRef.hostView, componentRef);
-        }
-        return new ContentRef([[this._renderer.createText("" + content)]]);
-    };
-    return ComponentLoader;
-}());
-
-/**
- * @copyright Valor Software
- * @copyright Angular ng-bootstrap team
- */
-// previous version:
-// https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
-// tslint:disable
-var Positioning = (function () {
-    function Positioning() {
-    }
-    Positioning.prototype.position = function (element, round) {
-        if (round === void 0) { round = true; }
-        var elPosition;
-        var parentOffset = {
-            width: 0,
-            height: 0,
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0
-        };
-        if (this.getStyle(element, 'position') === 'fixed') {
-            var bcRect = element.getBoundingClientRect();
-            elPosition = {
-                width: bcRect.width,
-                height: bcRect.height,
-                top: bcRect.top,
-                bottom: bcRect.bottom,
-                left: bcRect.left,
-                right: bcRect.right
-            };
-        }
-        else {
-            var offsetParentEl = this.offsetParent(element);
-            elPosition = this.offset(element, false);
-            if (offsetParentEl !== document.documentElement) {
-                parentOffset = this.offset(offsetParentEl, false);
-            }
-            parentOffset.top += offsetParentEl.clientTop;
-            parentOffset.left += offsetParentEl.clientLeft;
-        }
-        elPosition.top -= parentOffset.top;
-        elPosition.bottom -= parentOffset.top;
-        elPosition.left -= parentOffset.left;
-        elPosition.right -= parentOffset.left;
-        if (round) {
-            elPosition.top = Math.round(elPosition.top);
-            elPosition.bottom = Math.round(elPosition.bottom);
-            elPosition.left = Math.round(elPosition.left);
-            elPosition.right = Math.round(elPosition.right);
-        }
-        return elPosition;
-    };
-    Positioning.prototype.offset = function (element, round) {
-        if (round === void 0) { round = true; }
-        var elBcr = element.getBoundingClientRect();
-        var viewportOffset = {
-            top: window.pageYOffset - document.documentElement.clientTop,
-            left: window.pageXOffset - document.documentElement.clientLeft
-        };
-        var elOffset = {
-            height: elBcr.height || element.offsetHeight,
-            width: elBcr.width || element.offsetWidth,
-            top: elBcr.top + viewportOffset.top,
-            bottom: elBcr.bottom + viewportOffset.top,
-            left: elBcr.left + viewportOffset.left,
-            right: elBcr.right + viewportOffset.left
-        };
-        if (round) {
-            elOffset.height = Math.round(elOffset.height);
-            elOffset.width = Math.round(elOffset.width);
-            elOffset.top = Math.round(elOffset.top);
-            elOffset.bottom = Math.round(elOffset.bottom);
-            elOffset.left = Math.round(elOffset.left);
-            elOffset.right = Math.round(elOffset.right);
-        }
-        return elOffset;
-    };
-    Positioning.prototype.positionElements = function (hostElement, targetElement, placement, appendToBody) {
-        var hostElPosition = appendToBody
-            ? this.offset(hostElement, false)
-            : this.position(hostElement, false);
-        var targetElStyles = this.getAllStyles(targetElement);
-        var shiftWidth = {
-            left: hostElPosition.left,
-            center: hostElPosition.left +
-                hostElPosition.width / 2 -
-                targetElement.offsetWidth / 2,
-            right: hostElPosition.left + hostElPosition.width
-        };
-        var shiftHeight = {
-            top: hostElPosition.top,
-            center: hostElPosition.top +
-                hostElPosition.height / 2 -
-                targetElement.offsetHeight / 2,
-            bottom: hostElPosition.top + hostElPosition.height
-        };
-        var targetElBCR = targetElement.getBoundingClientRect();
-        var placementPrimary = placement.split(' ')[0] || 'top';
-        var placementSecondary = placement.split(' ')[1] || 'center';
-        var targetElPosition = {
-            height: targetElBCR.height || targetElement.offsetHeight,
-            width: targetElBCR.width || targetElement.offsetWidth,
-            top: 0,
-            bottom: targetElBCR.height || targetElement.offsetHeight,
-            left: 0,
-            right: targetElBCR.width || targetElement.offsetWidth
-        };
-        if (placementPrimary === 'auto') {
-            var newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement, placementSecondary);
-            if (!newPlacementPrimary)
-                newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement);
-            if (newPlacementPrimary)
-                placementPrimary = newPlacementPrimary;
-            targetElement.classList.add(placementPrimary);
-        }
-        switch (placementPrimary) {
-            case 'top':
-                targetElPosition.top =
-                    hostElPosition.top -
-                        (targetElement.offsetHeight +
-                            parseFloat(targetElStyles.marginBottom));
-                targetElPosition.bottom +=
-                    hostElPosition.top - targetElement.offsetHeight;
-                targetElPosition.left = shiftWidth[placementSecondary];
-                targetElPosition.right += shiftWidth[placementSecondary];
-                break;
-            case 'bottom':
-                targetElPosition.top = shiftHeight[placementPrimary];
-                targetElPosition.bottom += shiftHeight[placementPrimary];
-                targetElPosition.left = shiftWidth[placementSecondary];
-                targetElPosition.right += shiftWidth[placementSecondary];
-                break;
-            case 'left':
-                targetElPosition.top = shiftHeight[placementSecondary];
-                targetElPosition.bottom += shiftHeight[placementSecondary];
-                targetElPosition.left =
-                    hostElPosition.left -
-                        (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
-                targetElPosition.right +=
-                    hostElPosition.left - targetElement.offsetWidth;
-                break;
-            case 'right':
-                targetElPosition.top = shiftHeight[placementSecondary];
-                targetElPosition.bottom += shiftHeight[placementSecondary];
-                targetElPosition.left = shiftWidth[placementPrimary];
-                targetElPosition.right += shiftWidth[placementPrimary];
-                break;
-        }
-        targetElPosition.top = Math.round(targetElPosition.top);
-        targetElPosition.bottom = Math.round(targetElPosition.bottom);
-        targetElPosition.left = Math.round(targetElPosition.left);
-        targetElPosition.right = Math.round(targetElPosition.right);
-        return targetElPosition;
-    };
-    Positioning.prototype.autoPosition = function (targetElPosition, hostElPosition, targetElement, preferredPosition) {
-        if ((!preferredPosition || preferredPosition === 'right') &&
-            targetElPosition.left + hostElPosition.left - targetElement.offsetWidth <
-                0) {
-            return 'right';
-        }
-        else if ((!preferredPosition || preferredPosition === 'top') &&
-            targetElPosition.bottom +
-                hostElPosition.bottom +
-                targetElement.offsetHeight >
-                window.innerHeight) {
-            return 'top';
-        }
-        else if ((!preferredPosition || preferredPosition === 'bottom') &&
-            targetElPosition.top + hostElPosition.top - targetElement.offsetHeight < 0) {
-            return 'bottom';
-        }
-        else if ((!preferredPosition || preferredPosition === 'left') &&
-            targetElPosition.right +
-                hostElPosition.right +
-                targetElement.offsetWidth >
-                window.innerWidth) {
-            return 'left';
-        }
-        return null;
-    };
-    Positioning.prototype.getAllStyles = function (element) {
-        return window.getComputedStyle(element);
-    };
-    Positioning.prototype.getStyle = function (element, prop) {
-        return this.getAllStyles(element)[prop];
-    };
-    Positioning.prototype.isStaticPositioned = function (element) {
-        return (this.getStyle(element, 'position') || 'static') === 'static';
-    };
-    Positioning.prototype.offsetParent = function (element) {
-        var offsetParentEl = element.offsetParent || document.documentElement;
-        while (offsetParentEl &&
-            offsetParentEl !== document.documentElement &&
-            this.isStaticPositioned(offsetParentEl)) {
-            offsetParentEl = offsetParentEl.offsetParent;
-        }
-        return offsetParentEl || document.documentElement;
-    };
-    return Positioning;
-}());
-var positionService = new Positioning();
-function positionElements(hostElement, targetElement, placement, appendToBody) {
-    var pos = positionService.positionElements(hostElement, targetElement, placement, appendToBody);
-    targetElement.style.top = pos.top + "px";
-    targetElement.style.left = pos.left + "px";
-}
-
-var PositioningService = (function () {
-    function PositioningService() {
-    }
-    PositioningService.prototype.position = function (options) {
-        var element = options.element, target = options.target, attachment = options.attachment, appendToBody = options.appendToBody;
-        positionElements(_getHtmlElement(target), _getHtmlElement(element), attachment, appendToBody);
-    };
-    PositioningService.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    PositioningService.ctorParameters = function () { return []; };
-    return PositioningService;
-}());
-function _getHtmlElement(element) {
-    // it means that we got a selector
-    if (typeof element === 'string') {
-        return document.querySelector(element);
-    }
-    if (element instanceof ElementRef) {
-        return element.nativeElement;
-    }
-    return element;
-}
-
-var ComponentLoaderFactory = (function () {
-    function ComponentLoaderFactory(_componentFactoryResolver, _ngZone, _injector, _posService, _applicationRef) {
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._ngZone = _ngZone;
-        this._injector = _injector;
-        this._posService = _posService;
-        this._applicationRef = _applicationRef;
-    }
-    /**
-     *
-     * @param _elementRef
-     * @param _viewContainerRef
-     * @param _renderer
-     * @returns {ComponentLoader}
-     */
-    ComponentLoaderFactory.prototype.createLoader = function (_elementRef, _viewContainerRef, _renderer) {
-        return new ComponentLoader(_viewContainerRef, _renderer, _elementRef, this._injector, this._componentFactoryResolver, this._ngZone, this._applicationRef, this._posService);
-    };
-    ComponentLoaderFactory.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    ComponentLoaderFactory.ctorParameters = function () { return [
-        { type: ComponentFactoryResolver, },
-        { type: NgZone, },
-        { type: Injector, },
-        { type: PositioningService, },
-        { type: ApplicationRef, },
-    ]; };
-    return ComponentLoaderFactory;
-}());
-
-/*tslint:disable:no-invalid-this */
-function OnChange(defaultValue) {
-    var sufix = 'Change';
-    return function OnChangeHandler(target, propertyKey) {
-        var _key = " __" + propertyKey + "Value";
-        Object.defineProperty(target, propertyKey, {
-            get: function () {
-                return this[_key];
-            },
-            set: function (value) {
-                var prevValue = this[_key];
-                this[_key] = value;
-                if (prevValue !== value && this[propertyKey + sufix]) {
-                    this[propertyKey + sufix].emit(value);
-                }
-            }
-        });
-    };
-}
-/* tslint:enable */
-
-var _messagesHash = {};
-var _hideMsg = typeof console === 'undefined' || !('warn' in console);
-function warnOnce(msg) {
-    if (!isDevMode() || _hideMsg || msg in _messagesHash) {
-        return;
-    }
-    _messagesHash[msg] = true;
-    /*tslint:disable-next-line*/
-    console.warn(msg);
-}
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-// tslint:disable:deprecation
-var TooltipDirective = (function () {
-    function TooltipDirective(_viewContainerRef, _renderer, _elementRef, cis, config) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        /** Fired when tooltip content changes */
-        this.tooltipChange = new EventEmitter();
-        /**
-         * Css class for tooltip container
-         */
-        this.containerClass = '';
-        /** @deprecated - removed, will be added to configuration */
-        this._animation = true;
-        /** @deprecated */
-        this._fadeDuration = 150;
-        /** @deprecated */
-        this.tooltipStateChanged = new EventEmitter();
-        this._tooltip = cis
-            .createLoader(this._elementRef, _viewContainerRef, this._renderer)
-            .provide({ provide: TooltipConfig, useValue: config });
-        Object.assign(this, config);
-        this.onShown = this._tooltip.onShown;
-        this.onHidden = this._tooltip.onHidden;
-    }
-    Object.defineProperty(TooltipDirective.prototype, "isOpen", {
-        /**
-         * Returns whether or not the tooltip is currently being shown
-         */
-        get: function () {
-            return this._tooltip.isShown;
-        },
-        set: function (value) {
-            if (value) {
-                this.show();
-            }
-            else {
-                this.hide();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TooltipDirective.prototype, "htmlContent", {
-        /** @deprecated - please use `tooltip` instead */
-        set: function (value) {
-            warnOnce('tooltipHtml was deprecated, please use `tooltip` instead');
-            this.tooltip = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TooltipDirective.prototype, "_placement", {
-        /** @deprecated - please use `placement` instead */
-        set: function (value) {
-            warnOnce('tooltipPlacement was deprecated, please use `placement` instead');
-            this.placement = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TooltipDirective.prototype, "_isOpen", {
-        get: function () {
-            warnOnce('tooltipIsOpen was deprecated, please use `isOpen` instead');
-            return this.isOpen;
-        },
-        /** @deprecated - please use `isOpen` instead*/
-        set: function (value) {
-            warnOnce('tooltipIsOpen was deprecated, please use `isOpen` instead');
-            this.isOpen = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TooltipDirective.prototype, "_enable", {
-        get: function () {
-            warnOnce('tooltipEnable was deprecated, please use `isDisabled` instead');
-            return this.isDisabled;
-        },
-        /** @deprecated - please use `isDisabled` instead */
-        set: function (value) {
-            warnOnce('tooltipEnable was deprecated, please use `isDisabled` instead');
-            this.isDisabled = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TooltipDirective.prototype, "_appendToBody", {
-        get: function () {
-            warnOnce('tooltipAppendToBody was deprecated, please use `container="body"` instead');
-            return this.container === 'body';
-        },
-        /** @deprecated - please use `container="body"` instead */
-        set: function (value) {
-            warnOnce('tooltipAppendToBody was deprecated, please use `container="body"` instead');
-            this.container = value ? 'body' : this.container;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TooltipDirective.prototype, "_popupClass", {
-        /** @deprecated - will replaced with customClass */
-        set: function (value) {
-            warnOnce('tooltipClass deprecated');
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TooltipDirective.prototype, "_tooltipContext", {
-        /** @deprecated - removed */
-        set: function (value) {
-            warnOnce('tooltipContext deprecated');
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TooltipDirective.prototype, "_tooltipPopupDelay", {
-        /** @deprecated */
-        set: function (value) {
-            warnOnce('tooltipPopupDelay is deprecated, use `delay` instead');
-            this.delay = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TooltipDirective.prototype, "_tooltipTrigger", {
-        /** @deprecated -  please use `triggers` instead */
-        get: function () {
-            warnOnce('tooltipTrigger was deprecated, please use `triggers` instead');
-            return this.triggers;
-        },
-        set: function (value) {
-            warnOnce('tooltipTrigger was deprecated, please use `triggers` instead');
-            this.triggers = (value || '').toString();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TooltipDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        this._tooltip.listen({
-            triggers: this.triggers,
-            show: function () { return _this.show(); }
-        });
-        this.tooltipChange.subscribe(function (value) {
-            if (!value) {
-                _this._tooltip.hide();
-            }
-        });
-    };
-    /**
-     * Toggles an element’s tooltip. This is considered a “manual” triggering of
-     * the tooltip.
-     */
-    TooltipDirective.prototype.toggle = function () {
-        if (this.isOpen) {
-            return this.hide();
-        }
-        this.show();
-    };
-    /**
-     * Opens an element’s tooltip. This is considered a “manual” triggering of
-     * the tooltip.
-     */
-    TooltipDirective.prototype.show = function () {
-        var _this = this;
-        if (this.isOpen ||
-            this.isDisabled ||
-            this._delayTimeoutId ||
-            !this.tooltip) {
-            return;
-        }
-        var showTooltip = function () {
-            if (_this._delayTimeoutId) {
-                _this._delayTimeoutId = undefined;
-            }
-            _this._tooltip
-                .attach(TooltipContainerComponent)
-                .to(_this.container)
-                .position({ attachment: _this.placement })
-                .show({
-                content: _this.tooltip,
-                placement: _this.placement,
-                containerClass: _this.containerClass
-            });
-        };
-        var cancelDelayedTooltipShowing = function () {
-            if (_this._tooltipCancelShowFn) {
-                _this._tooltipCancelShowFn();
-            }
-        };
-        if (this.delay) {
-            var timer_1 = Observable$1.timer(this.delay).subscribe(function () {
-                showTooltip();
-                cancelDelayedTooltipShowing();
-            });
-            if (this.triggers) {
-                var triggers = parseTriggers(this.triggers);
-                this._tooltipCancelShowFn = this._renderer.listen(this._elementRef.nativeElement, triggers[0].close, function () {
-                    timer_1.unsubscribe();
-                    cancelDelayedTooltipShowing();
-                });
-            }
-        }
-        else {
-            showTooltip();
-        }
-    };
-    /**
-     * Closes an element’s tooltip. This is considered a “manual” triggering of
-     * the tooltip.
-     */
-    TooltipDirective.prototype.hide = function () {
-        var _this = this;
-        if (this._delayTimeoutId) {
-            clearTimeout(this._delayTimeoutId);
-            this._delayTimeoutId = undefined;
-        }
-        if (!this._tooltip.isShown) {
-            return;
-        }
-        this._tooltip.instance.classMap.in = false;
-        setTimeout(function () {
-            _this._tooltip.hide();
-        }, this._fadeDuration);
-    };
-    TooltipDirective.prototype.ngOnDestroy = function () {
-        this._tooltip.dispose();
-    };
-    TooltipDirective.decorators = [
-        { type: Directive, args: [{
-                    selector: '[tooltip], [tooltipHtml]',
-                    exportAs: 'bs-tooltip'
-                },] },
-    ];
-    /** @nocollapse */
-    TooltipDirective.ctorParameters = function () { return [
-        { type: ViewContainerRef, },
-        { type: Renderer2, },
-        { type: ElementRef, },
-        { type: ComponentLoaderFactory, },
-        { type: TooltipConfig, },
-    ]; };
-    TooltipDirective.propDecorators = {
-        'tooltip': [{ type: Input },],
-        'tooltipChange': [{ type: Output },],
-        'placement': [{ type: Input },],
-        'triggers': [{ type: Input },],
-        'container': [{ type: Input },],
-        'isOpen': [{ type: Input },],
-        'isDisabled': [{ type: Input },],
-        'containerClass': [{ type: Input },],
-        'delay': [{ type: Input },],
-        'onShown': [{ type: Output },],
-        'onHidden': [{ type: Output },],
-        'htmlContent': [{ type: Input, args: ['tooltipHtml',] },],
-        '_placement': [{ type: Input, args: ['tooltipPlacement',] },],
-        '_isOpen': [{ type: Input, args: ['tooltipIsOpen',] },],
-        '_enable': [{ type: Input, args: ['tooltipEnable',] },],
-        '_appendToBody': [{ type: Input, args: ['tooltipAppendToBody',] },],
-        '_animation': [{ type: Input, args: ['tooltipAnimation',] },],
-        '_popupClass': [{ type: Input, args: ['tooltipClass',] },],
-        '_tooltipContext': [{ type: Input, args: ['tooltipContext',] },],
-        '_tooltipPopupDelay': [{ type: Input, args: ['tooltipPopupDelay',] },],
-        '_fadeDuration': [{ type: Input, args: ['tooltipFadeDuration',] },],
-        '_tooltipTrigger': [{ type: Input, args: ['tooltipTrigger',] },],
-        'tooltipStateChanged': [{ type: Output },],
-    };
-    __decorate([
-        OnChange(),
-        __metadata("design:type", Object)
-    ], TooltipDirective.prototype, "tooltip", void 0);
-    return TooltipDirective;
-}());
-
-var TooltipModule = (function () {
-    function TooltipModule() {
-    }
-    TooltipModule.forRoot = function () {
-        return {
-            ngModule: TooltipModule,
-            providers: [TooltipConfig, ComponentLoaderFactory, PositioningService]
-        };
-    };
-    TooltipModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [CommonModule],
-                    declarations: [TooltipDirective, TooltipContainerComponent],
-                    exports: [TooltipDirective],
-                    entryComponents: [TooltipContainerComponent]
-                },] },
-    ];
-    /** @nocollapse */
-    TooltipModule.ctorParameters = function () { return []; };
-    return TooltipModule;
-}());
 
 /* tslint:disable */
 var latinMap = {
@@ -15042,6 +13981,98 @@ function getValueFromObject(object, option) {
     return object.toString();
 }
 
+/*tslint:disable:no-invalid-this */
+function OnChange(defaultValue) {
+    var sufix = 'Change';
+    return function OnChangeHandler(target, propertyKey) {
+        var _key = " __" + propertyKey + "Value";
+        Object.defineProperty(target, propertyKey, {
+            get: function () {
+                return this[_key];
+            },
+            set: function (value) {
+                var prevValue = this[_key];
+                this[_key] = value;
+                if (prevValue !== value && this[propertyKey + sufix]) {
+                    this[propertyKey + sufix].emit(value);
+                }
+            }
+        });
+    };
+}
+/* tslint:enable */
+
+/*tslint:disable */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * JS version of browser APIs. This library can only run in the browser.
+ */
+var win = (typeof window !== 'undefined' && window) || {};
+var document$1 = win.document;
+var location = win.location;
+var gc = win['gc'] ? function () { return win['gc'](); } : function () { return null; };
+var performance = win['performance'] ? win['performance'] : null;
+var Event = win['Event'];
+var MouseEvent$1 = win['MouseEvent'];
+var KeyboardEvent = win['KeyboardEvent'];
+var EventTarget = win['EventTarget'];
+var History = win['History'];
+var Location = win['Location'];
+var EventListener = win['EventListener'];
+
+var guessedVersion;
+function _guessBsVersion() {
+    if (typeof document === 'undefined') {
+        return null;
+    }
+    var spanEl = document.createElement('span');
+    spanEl.innerText = 'test bs version';
+    document.body.appendChild(spanEl);
+    spanEl.classList.add('d-none');
+    var rect = spanEl.getBoundingClientRect();
+    document.body.removeChild(spanEl);
+    if (!rect) {
+        return 'bs3';
+    }
+    return rect.top === 0 ? 'bs4' : 'bs3';
+}
+
+// todo: in ngx-bootstrap, bs4 will became a default one
+function isBs3() {
+    if (typeof win === 'undefined') {
+        return true;
+    }
+    if (typeof win.__theme === 'undefined') {
+        if (guessedVersion) {
+            return guessedVersion === 'bs3';
+        }
+        guessedVersion = _guessBsVersion();
+        return guessedVersion === 'bs3';
+    }
+    return win.__theme !== 'bs4';
+}
+
+/**
+ * @copyright Valor Software
+ * @copyright Angular ng-bootstrap team
+ */
+var Trigger = (function () {
+    function Trigger(open, close) {
+        this.open = open;
+        this.close = close || open;
+    }
+    Trigger.prototype.isManual = function () {
+        return this.open === 'manual' || this.close === 'manual';
+    };
+    return Trigger;
+}());
+
 var Utils = (function () {
     function Utils() {
     }
@@ -15296,6 +14327,613 @@ var TypeaheadContainerComponent = (function () {
         'focusLost': [{ type: HostListener, args: ['mouseleave',] }, { type: HostListener, args: ['blur',] },],
     };
     return TypeaheadContainerComponent;
+}());
+
+var DEFAULT_ALIASES = {
+    hover: ['mouseover', 'mouseout'],
+    focus: ['focusin', 'focusout']
+};
+function parseTriggers(triggers, aliases) {
+    if (aliases === void 0) { aliases = DEFAULT_ALIASES; }
+    var trimmedTriggers = (triggers || '').trim();
+    if (trimmedTriggers.length === 0) {
+        return [];
+    }
+    var parsedTriggers = trimmedTriggers
+        .split(/\s+/)
+        .map(function (trigger$$1) { return trigger$$1.split(':'); })
+        .map(function (triggerPair) {
+        var alias = aliases[triggerPair[0]] || triggerPair;
+        return new Trigger(alias[0], alias[1]);
+    });
+    var manualTriggers = parsedTriggers.filter(function (triggerPair) {
+        return triggerPair.isManual();
+    });
+    if (manualTriggers.length > 1) {
+        throw new Error('Triggers parse error: only one manual trigger is allowed');
+    }
+    if (manualTriggers.length === 1 && parsedTriggers.length > 1) {
+        throw new Error('Triggers parse error: manual trigger can\'t be mixed with other triggers');
+    }
+    return parsedTriggers;
+}
+
+function listenToTriggersV2(renderer, options) {
+    var parsedTriggers = parseTriggers(options.triggers);
+    var target = options.target;
+    // do nothing
+    if (parsedTriggers.length === 1 && parsedTriggers[0].isManual()) {
+        return Function.prototype;
+    }
+    // all listeners
+    var listeners = [];
+    // lazy listeners registration
+    var _registerHide = [];
+    var registerHide = function () {
+        // add hide listeners to unregister array
+        _registerHide.forEach(function (fn) { return listeners.push(fn()); });
+        // register hide events only once
+        _registerHide.length = 0;
+    };
+    // register open\close\toggle listeners
+    parsedTriggers.forEach(function (trigger$$1) {
+        var useToggle = trigger$$1.open === trigger$$1.close;
+        var showFn = useToggle ? options.toggle : options.show;
+        if (!useToggle) {
+            _registerHide.push(function () {
+                return renderer.listen(target, trigger$$1.close, options.hide);
+            });
+        }
+        listeners.push(renderer.listen(target, trigger$$1.open, function () { return showFn(registerHide); }));
+    });
+    return function () {
+        listeners.forEach(function (unsubscribeFn) { return unsubscribeFn(); });
+    };
+}
+function registerOutsideClick(renderer, options) {
+    if (!options.outsideClick) {
+        return Function.prototype;
+    }
+    return renderer.listen('document', 'click', function (event) {
+        if (options.target && options.target.contains(event.target)) {
+            return;
+        }
+        if (options.targets &&
+            options.targets.some(function (target) { return target.contains(event.target); })) {
+            return;
+        }
+        options.hide();
+    });
+}
+
+/**
+ * @copyright Valor Software
+ * @copyright Angular ng-bootstrap team
+ */
+var ContentRef = (function () {
+    function ContentRef(nodes, viewRef, componentRef) {
+        this.nodes = nodes;
+        this.viewRef = viewRef;
+        this.componentRef = componentRef;
+    }
+    return ContentRef;
+}());
+
+// tslint:disable:max-file-line-count
+// todo: add delay support
+// todo: merge events onShow, onShown, etc...
+// todo: add global positioning configuration?
+var ComponentLoader = (function () {
+    /**
+     * Do not use this directly, it should be instanced via
+     * `ComponentLoadFactory.attach`
+     * @internal
+     */
+    // tslint:disable-next-line
+    function ComponentLoader(_viewContainerRef, _renderer, _elementRef, _injector, _componentFactoryResolver, _ngZone, _applicationRef, _posService) {
+        this._viewContainerRef = _viewContainerRef;
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        this._injector = _injector;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._ngZone = _ngZone;
+        this._applicationRef = _applicationRef;
+        this._posService = _posService;
+        this.onBeforeShow = new EventEmitter();
+        this.onShown = new EventEmitter();
+        this.onBeforeHide = new EventEmitter();
+        this.onHidden = new EventEmitter();
+        this._providers = [];
+        this._isHiding = false;
+        this._listenOpts = {};
+        this._globalListener = Function.prototype;
+    }
+    Object.defineProperty(ComponentLoader.prototype, "isShown", {
+        get: function () {
+            if (this._isHiding) {
+                return false;
+            }
+            return !!this._componentRef;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ComponentLoader.prototype.attach = function (compType) {
+        this._componentFactory = this._componentFactoryResolver
+            .resolveComponentFactory(compType);
+        return this;
+    };
+    // todo: add behaviour: to target element, `body`, custom element
+    ComponentLoader.prototype.to = function (container) {
+        this.container = container || this.container;
+        return this;
+    };
+    ComponentLoader.prototype.position = function (opts) {
+        this.attachment = opts.attachment || this.attachment;
+        this._elementRef = opts.target || this._elementRef;
+        return this;
+    };
+    ComponentLoader.prototype.provide = function (provider) {
+        this._providers.push(provider);
+        return this;
+    };
+    // todo: appendChild to element or document.querySelector(this.container)
+    ComponentLoader.prototype.show = function (opts) {
+        if (opts === void 0) { opts = {}; }
+        this._subscribePositioning();
+        this._innerComponent = null;
+        if (!this._componentRef) {
+            this.onBeforeShow.emit();
+            this._contentRef = this._getContentRef(opts.content, opts.context, opts.initialState);
+            var injector = ReflectiveInjector.resolveAndCreate(this._providers, this._injector);
+            this._componentRef = this._componentFactory.create(injector, this._contentRef.nodes);
+            this._applicationRef.attachView(this._componentRef.hostView);
+            // this._componentRef = this._viewContainerRef
+            //   .createComponent(this._componentFactory, 0, injector, this._contentRef.nodes);
+            this.instance = this._componentRef.instance;
+            Object.assign(this._componentRef.instance, opts);
+            if (this.container instanceof ElementRef) {
+                this.container.nativeElement.appendChild(this._componentRef.location.nativeElement);
+            }
+            if (this.container === 'body' && typeof document !== 'undefined') {
+                document
+                    .querySelector(this.container)
+                    .appendChild(this._componentRef.location.nativeElement);
+            }
+            if (!this.container &&
+                this._elementRef &&
+                this._elementRef.nativeElement.parentElement) {
+                this._elementRef.nativeElement.parentElement.appendChild(this._componentRef.location.nativeElement);
+            }
+            // we need to manually invoke change detection since events registered
+            // via
+            // Renderer::listen() are not picked up by change detection with the
+            // OnPush strategy
+            if (this._contentRef.componentRef) {
+                this._innerComponent = this._contentRef.componentRef.instance;
+                this._contentRef.componentRef.changeDetectorRef.markForCheck();
+                this._contentRef.componentRef.changeDetectorRef.detectChanges();
+            }
+            this._componentRef.changeDetectorRef.markForCheck();
+            this._componentRef.changeDetectorRef.detectChanges();
+            this.onShown.emit(this._componentRef.instance);
+        }
+        this._registerOutsideClick();
+        return this._componentRef;
+    };
+    ComponentLoader.prototype.hide = function () {
+        if (!this._componentRef) {
+            return this;
+        }
+        this.onBeforeHide.emit(this._componentRef.instance);
+        var componentEl = this._componentRef.location.nativeElement;
+        componentEl.parentNode.removeChild(componentEl);
+        if (this._contentRef.componentRef) {
+            this._contentRef.componentRef.destroy();
+        }
+        this._componentRef.destroy();
+        if (this._viewContainerRef && this._contentRef.viewRef) {
+            this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._contentRef.viewRef));
+        }
+        if (this._contentRef.viewRef) {
+            this._contentRef.viewRef.destroy();
+        }
+        // this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._componentRef.hostView));
+        //
+        // if (this._contentRef.viewRef && this._viewContainerRef.indexOf(this._contentRef.viewRef) !== -1) {
+        //   this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._contentRef.viewRef));
+        // }
+        this._contentRef = null;
+        this._componentRef = null;
+        this._removeGlobalListener();
+        this.onHidden.emit();
+        return this;
+    };
+    ComponentLoader.prototype.toggle = function () {
+        if (this.isShown) {
+            this.hide();
+            return;
+        }
+        this.show();
+    };
+    ComponentLoader.prototype.dispose = function () {
+        if (this.isShown) {
+            this.hide();
+        }
+        this._unsubscribePositioning();
+        if (this._unregisterListenersFn) {
+            this._unregisterListenersFn();
+        }
+    };
+    ComponentLoader.prototype.listen = function (listenOpts) {
+        var _this = this;
+        this.triggers = listenOpts.triggers || this.triggers;
+        this._listenOpts.outsideClick = listenOpts.outsideClick;
+        listenOpts.target = listenOpts.target || this._elementRef.nativeElement;
+        var hide = (this._listenOpts.hide = function () {
+            return listenOpts.hide ? listenOpts.hide() : void _this.hide();
+        });
+        var show = (this._listenOpts.show = function (registerHide) {
+            listenOpts.show ? listenOpts.show(registerHide) : _this.show(registerHide);
+            registerHide();
+        });
+        var toggle = function (registerHide) {
+            _this.isShown ? hide() : show(registerHide);
+        };
+        this._unregisterListenersFn = listenToTriggersV2(this._renderer, {
+            target: listenOpts.target,
+            triggers: listenOpts.triggers,
+            show: show,
+            hide: hide,
+            toggle: toggle
+        });
+        return this;
+    };
+    ComponentLoader.prototype._removeGlobalListener = function () {
+        if (this._globalListener) {
+            this._globalListener();
+            this._globalListener = null;
+        }
+    };
+    ComponentLoader.prototype.attachInline = function (vRef, template) {
+        this._inlineViewRef = vRef.createEmbeddedView(template);
+        return this;
+    };
+    ComponentLoader.prototype._registerOutsideClick = function () {
+        var _this = this;
+        if (!this._componentRef || !this._componentRef.location) {
+            return;
+        }
+        // why: should run after first event bubble
+        if (this._listenOpts.outsideClick) {
+            var target_1 = this._componentRef.location.nativeElement;
+            setTimeout(function () {
+                _this._globalListener = registerOutsideClick(_this._renderer, {
+                    targets: [target_1, _this._elementRef.nativeElement],
+                    outsideClick: _this._listenOpts.outsideClick,
+                    hide: function () { return _this._listenOpts.hide(); }
+                });
+            });
+        }
+    };
+    ComponentLoader.prototype.getInnerComponent = function () {
+        return this._innerComponent;
+    };
+    ComponentLoader.prototype._subscribePositioning = function () {
+        var _this = this;
+        if (this._zoneSubscription || !this.attachment) {
+            return;
+        }
+        this._zoneSubscription = this._ngZone.onStable.subscribe(function () {
+            if (!_this._componentRef) {
+                return;
+            }
+            _this._posService.position({
+                element: _this._componentRef.location,
+                target: _this._elementRef,
+                attachment: _this.attachment,
+                appendToBody: _this.container === 'body'
+            });
+        });
+    };
+    ComponentLoader.prototype._unsubscribePositioning = function () {
+        if (!this._zoneSubscription) {
+            return;
+        }
+        this._zoneSubscription.unsubscribe();
+        this._zoneSubscription = null;
+    };
+    ComponentLoader.prototype._getContentRef = function (content, context, initialState) {
+        if (!content) {
+            return new ContentRef([]);
+        }
+        if (content instanceof TemplateRef) {
+            if (this._viewContainerRef) {
+                var _viewRef = this._viewContainerRef
+                    .createEmbeddedView(content, context);
+                _viewRef.markForCheck();
+                return new ContentRef([_viewRef.rootNodes], _viewRef);
+            }
+            var viewRef = content.createEmbeddedView({});
+            this._applicationRef.attachView(viewRef);
+            return new ContentRef([viewRef.rootNodes], viewRef);
+        }
+        if (typeof content === 'function') {
+            var contentCmptFactory = this._componentFactoryResolver.resolveComponentFactory(content);
+            var modalContentInjector = ReflectiveInjector.resolveAndCreate(this._providers.slice(), this._injector);
+            var componentRef = contentCmptFactory.create(modalContentInjector);
+            Object.assign(componentRef.instance, initialState);
+            this._applicationRef.attachView(componentRef.hostView);
+            return new ContentRef([[componentRef.location.nativeElement]], componentRef.hostView, componentRef);
+        }
+        return new ContentRef([[this._renderer.createText("" + content)]]);
+    };
+    return ComponentLoader;
+}());
+
+/**
+ * @copyright Valor Software
+ * @copyright Angular ng-bootstrap team
+ */
+// previous version:
+// https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
+// tslint:disable
+var Positioning = (function () {
+    function Positioning() {
+    }
+    Positioning.prototype.position = function (element, round) {
+        if (round === void 0) { round = true; }
+        var elPosition;
+        var parentOffset = {
+            width: 0,
+            height: 0,
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+        };
+        if (this.getStyle(element, 'position') === 'fixed') {
+            var bcRect = element.getBoundingClientRect();
+            elPosition = {
+                width: bcRect.width,
+                height: bcRect.height,
+                top: bcRect.top,
+                bottom: bcRect.bottom,
+                left: bcRect.left,
+                right: bcRect.right
+            };
+        }
+        else {
+            var offsetParentEl = this.offsetParent(element);
+            elPosition = this.offset(element, false);
+            if (offsetParentEl !== document.documentElement) {
+                parentOffset = this.offset(offsetParentEl, false);
+            }
+            parentOffset.top += offsetParentEl.clientTop;
+            parentOffset.left += offsetParentEl.clientLeft;
+        }
+        elPosition.top -= parentOffset.top;
+        elPosition.bottom -= parentOffset.top;
+        elPosition.left -= parentOffset.left;
+        elPosition.right -= parentOffset.left;
+        if (round) {
+            elPosition.top = Math.round(elPosition.top);
+            elPosition.bottom = Math.round(elPosition.bottom);
+            elPosition.left = Math.round(elPosition.left);
+            elPosition.right = Math.round(elPosition.right);
+        }
+        return elPosition;
+    };
+    Positioning.prototype.offset = function (element, round) {
+        if (round === void 0) { round = true; }
+        var elBcr = element.getBoundingClientRect();
+        var viewportOffset = {
+            top: window.pageYOffset - document.documentElement.clientTop,
+            left: window.pageXOffset - document.documentElement.clientLeft
+        };
+        var elOffset = {
+            height: elBcr.height || element.offsetHeight,
+            width: elBcr.width || element.offsetWidth,
+            top: elBcr.top + viewportOffset.top,
+            bottom: elBcr.bottom + viewportOffset.top,
+            left: elBcr.left + viewportOffset.left,
+            right: elBcr.right + viewportOffset.left
+        };
+        if (round) {
+            elOffset.height = Math.round(elOffset.height);
+            elOffset.width = Math.round(elOffset.width);
+            elOffset.top = Math.round(elOffset.top);
+            elOffset.bottom = Math.round(elOffset.bottom);
+            elOffset.left = Math.round(elOffset.left);
+            elOffset.right = Math.round(elOffset.right);
+        }
+        return elOffset;
+    };
+    Positioning.prototype.positionElements = function (hostElement, targetElement, placement, appendToBody) {
+        var hostElPosition = appendToBody
+            ? this.offset(hostElement, false)
+            : this.position(hostElement, false);
+        var targetElStyles = this.getAllStyles(targetElement);
+        var shiftWidth = {
+            left: hostElPosition.left,
+            center: hostElPosition.left +
+                hostElPosition.width / 2 -
+                targetElement.offsetWidth / 2,
+            right: hostElPosition.left + hostElPosition.width
+        };
+        var shiftHeight = {
+            top: hostElPosition.top,
+            center: hostElPosition.top +
+                hostElPosition.height / 2 -
+                targetElement.offsetHeight / 2,
+            bottom: hostElPosition.top + hostElPosition.height
+        };
+        var targetElBCR = targetElement.getBoundingClientRect();
+        var placementPrimary = placement.split(' ')[0] || 'top';
+        var placementSecondary = placement.split(' ')[1] || 'center';
+        var targetElPosition = {
+            height: targetElBCR.height || targetElement.offsetHeight,
+            width: targetElBCR.width || targetElement.offsetWidth,
+            top: 0,
+            bottom: targetElBCR.height || targetElement.offsetHeight,
+            left: 0,
+            right: targetElBCR.width || targetElement.offsetWidth
+        };
+        if (placementPrimary === 'auto') {
+            var newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement, placementSecondary);
+            if (!newPlacementPrimary)
+                newPlacementPrimary = this.autoPosition(targetElPosition, hostElPosition, targetElement);
+            if (newPlacementPrimary)
+                placementPrimary = newPlacementPrimary;
+            targetElement.classList.add(placementPrimary);
+        }
+        switch (placementPrimary) {
+            case 'top':
+                targetElPosition.top =
+                    hostElPosition.top -
+                        (targetElement.offsetHeight +
+                            parseFloat(targetElStyles.marginBottom));
+                targetElPosition.bottom +=
+                    hostElPosition.top - targetElement.offsetHeight;
+                targetElPosition.left = shiftWidth[placementSecondary];
+                targetElPosition.right += shiftWidth[placementSecondary];
+                break;
+            case 'bottom':
+                targetElPosition.top = shiftHeight[placementPrimary];
+                targetElPosition.bottom += shiftHeight[placementPrimary];
+                targetElPosition.left = shiftWidth[placementSecondary];
+                targetElPosition.right += shiftWidth[placementSecondary];
+                break;
+            case 'left':
+                targetElPosition.top = shiftHeight[placementSecondary];
+                targetElPosition.bottom += shiftHeight[placementSecondary];
+                targetElPosition.left =
+                    hostElPosition.left -
+                        (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
+                targetElPosition.right +=
+                    hostElPosition.left - targetElement.offsetWidth;
+                break;
+            case 'right':
+                targetElPosition.top = shiftHeight[placementSecondary];
+                targetElPosition.bottom += shiftHeight[placementSecondary];
+                targetElPosition.left = shiftWidth[placementPrimary];
+                targetElPosition.right += shiftWidth[placementPrimary];
+                break;
+        }
+        targetElPosition.top = Math.round(targetElPosition.top);
+        targetElPosition.bottom = Math.round(targetElPosition.bottom);
+        targetElPosition.left = Math.round(targetElPosition.left);
+        targetElPosition.right = Math.round(targetElPosition.right);
+        return targetElPosition;
+    };
+    Positioning.prototype.autoPosition = function (targetElPosition, hostElPosition, targetElement, preferredPosition) {
+        if ((!preferredPosition || preferredPosition === 'right') &&
+            targetElPosition.left + hostElPosition.left - targetElement.offsetWidth <
+                0) {
+            return 'right';
+        }
+        else if ((!preferredPosition || preferredPosition === 'top') &&
+            targetElPosition.bottom +
+                hostElPosition.bottom +
+                targetElement.offsetHeight >
+                window.innerHeight) {
+            return 'top';
+        }
+        else if ((!preferredPosition || preferredPosition === 'bottom') &&
+            targetElPosition.top + hostElPosition.top - targetElement.offsetHeight < 0) {
+            return 'bottom';
+        }
+        else if ((!preferredPosition || preferredPosition === 'left') &&
+            targetElPosition.right +
+                hostElPosition.right +
+                targetElement.offsetWidth >
+                window.innerWidth) {
+            return 'left';
+        }
+        return null;
+    };
+    Positioning.prototype.getAllStyles = function (element) {
+        return window.getComputedStyle(element);
+    };
+    Positioning.prototype.getStyle = function (element, prop) {
+        return this.getAllStyles(element)[prop];
+    };
+    Positioning.prototype.isStaticPositioned = function (element) {
+        return (this.getStyle(element, 'position') || 'static') === 'static';
+    };
+    Positioning.prototype.offsetParent = function (element) {
+        var offsetParentEl = element.offsetParent || document.documentElement;
+        while (offsetParentEl &&
+            offsetParentEl !== document.documentElement &&
+            this.isStaticPositioned(offsetParentEl)) {
+            offsetParentEl = offsetParentEl.offsetParent;
+        }
+        return offsetParentEl || document.documentElement;
+    };
+    return Positioning;
+}());
+var positionService = new Positioning();
+function positionElements(hostElement, targetElement, placement, appendToBody) {
+    var pos = positionService.positionElements(hostElement, targetElement, placement, appendToBody);
+    targetElement.style.top = pos.top + "px";
+    targetElement.style.left = pos.left + "px";
+}
+
+var PositioningService = (function () {
+    function PositioningService() {
+    }
+    PositioningService.prototype.position = function (options) {
+        var element = options.element, target = options.target, attachment = options.attachment, appendToBody = options.appendToBody;
+        positionElements(_getHtmlElement(target), _getHtmlElement(element), attachment, appendToBody);
+    };
+    PositioningService.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    PositioningService.ctorParameters = function () { return []; };
+    return PositioningService;
+}());
+function _getHtmlElement(element) {
+    // it means that we got a selector
+    if (typeof element === 'string') {
+        return document.querySelector(element);
+    }
+    if (element instanceof ElementRef) {
+        return element.nativeElement;
+    }
+    return element;
+}
+
+var ComponentLoaderFactory = (function () {
+    function ComponentLoaderFactory(_componentFactoryResolver, _ngZone, _injector, _posService, _applicationRef) {
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._ngZone = _ngZone;
+        this._injector = _injector;
+        this._posService = _posService;
+        this._applicationRef = _applicationRef;
+    }
+    /**
+     *
+     * @param _elementRef
+     * @param _viewContainerRef
+     * @param _renderer
+     * @returns {ComponentLoader}
+     */
+    ComponentLoaderFactory.prototype.createLoader = function (_elementRef, _viewContainerRef, _renderer) {
+        return new ComponentLoader(_viewContainerRef, _renderer, _elementRef, this._injector, this._componentFactoryResolver, this._ngZone, this._applicationRef, this._posService);
+    };
+    ComponentLoaderFactory.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    ComponentLoaderFactory.ctorParameters = function () { return [
+        { type: ComponentFactoryResolver, },
+        { type: NgZone, },
+        { type: Injector, },
+        { type: PositioningService, },
+        { type: ApplicationRef, },
+    ]; };
+    return ComponentLoaderFactory;
 }());
 
 /* tslint:disable:max-file-line-count */
@@ -15788,7 +15426,7 @@ FacetContainerComponent.decorators = [
               <span class="facets-selected-header-label">{{ header }}</span>
 
               <!-- Add a Clear Button -->
-              <div class="facets-selected-clear-button" tabindex="0" [tooltip]="clearTooltip" placement="left" container="body" (click)="deselectAllFacets()"
+              <div class="facets-selected-clear-button" tabindex="0" [uxTooltip]="clearTooltip" placement="left" (click)="deselectAllFacets()"
                   (keyup.enter)="deselectAllFacets()" *ngIf="facets.length > 0">
 
                   <svg class="facets-selected-clear-graphic" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
@@ -16215,6 +15853,609 @@ FacetTypeaheadHighlight.decorators = [
  */
 FacetTypeaheadHighlight.ctorParameters = () => [];
 
+let uniqueTooltipId = 0;
+class TooltipComponent {
+    /**
+     * @param {?} _changeDetectorRef
+     */
+    constructor(_changeDetectorRef) {
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Define a unique id for each tooltip
+         */
+        this.id = `ux-tooltip-${++uniqueTooltipId}`;
+        /**
+         * Define the tooltip role
+         */
+        this.role = 'tooltip';
+        /**
+         * Allow a custom class to be added to the tooltip to allow custom styling
+         */
+        this.customClass = '';
+        /**
+         * Indicates whether or not the content is a string or a TemplateRef
+         */
+        this.isTemplateRef = false;
+        /**
+         * Emit when the tooltip need to update it's position
+         */
+        this.reposition$ = new Subject$1();
+    }
+    /**
+     * Cleanup after the component is destroyed
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.reposition$.complete();
+    }
+    /**
+     * Inform the parent directive that it needs to recalulate the position
+     * @return {?}
+     */
+    reposition() {
+        this.reposition$.next();
+    }
+    /**
+     * This will update the content of the tooltip and trigger change detection
+     * @param {?} content
+     * @return {?}
+     */
+    setContent(content) {
+        this.content = content;
+        this.isTemplateRef = content instanceof TemplateRef;
+        this._changeDetectorRef.markForCheck();
+    }
+    /**
+     * This will update the tooltip placement and trigger change detection
+     * @param {?} placement
+     * @return {?}
+     */
+    setPlacement(placement) {
+        if (!placement) {
+            return;
+        }
+        this.placement = placement;
+        this._changeDetectorRef.markForCheck();
+    }
+    /**
+     * This will set a custom class on the tooltip and trigger change detection
+     * @param {?} customClass
+     * @return {?}
+     */
+    setClass(customClass) {
+        if (!customClass) {
+            return;
+        }
+        this.customClass = customClass;
+        this._changeDetectorRef.markForCheck();
+    }
+    /**
+     * Updates the context used by the TemplateRef
+     * @param {?} context
+     * @return {?}
+     */
+    setContext(context) {
+        if (!context) {
+            return;
+        }
+        this.context = context;
+        this._changeDetectorRef.markForCheck();
+    }
+    /**
+     * Specify the tooltip role attribute
+     * @param {?} role
+     * @return {?}
+     */
+    setRole(role) {
+        if (!role) {
+            return;
+        }
+        this.role = role;
+        this._changeDetectorRef.markForCheck();
+    }
+}
+TooltipComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-tooltip',
+                template: `
+    <div class="tooltip in" [id]="id" [attr.role]="role" [ngClass]="[placement, customClass]">
+        <div class="tooltip-arrow"></div>
+        <div class="tooltip-inner" (cdkObserveContent)="reposition()">
+            <ng-container *ngIf="!isTemplateRef">{{ content }}</ng-container>
+            <ng-container *ngIf="isTemplateRef" [ngTemplateOutlet]="content" [ngTemplateOutletContext]="context"></ng-container>
+        </div>
+    </div>
+  `,
+                changeDetection: ChangeDetectionStrategy.OnPush
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TooltipComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef, },
+];
+
+class TooltipService {
+    constructor() {
+        this.shown$ = new Subject$1();
+    }
+}
+TooltipService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+TooltipService.ctorParameters = () => [];
+
+class TooltipDirective {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _viewContainerRef
+     * @param {?} _overlay
+     * @param {?} _scrollDispatcher
+     * @param {?} _changeDetectorRef
+     * @param {?} _renderer
+     * @param {?} _tooltipService
+     */
+    constructor(_elementRef, _viewContainerRef, _overlay, _scrollDispatcher, _changeDetectorRef, _renderer, _tooltipService) {
+        this._elementRef = _elementRef;
+        this._viewContainerRef = _viewContainerRef;
+        this._overlay = _overlay;
+        this._scrollDispatcher = _scrollDispatcher;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._renderer = _renderer;
+        this._tooltipService = _tooltipService;
+        /**
+         * All the user to add a custom class to the tooltip
+         */
+        this.customClass = '';
+        /**
+         * All the user to add a role to the tooltip - default is tooltip
+         */
+        this.role = 'tooltip';
+        /**
+         * Provide the TemplateRef a context object
+         */
+        this.context = {};
+        /**
+         * Delay the showing of the tooltip by a number of miliseconds
+         */
+        this.delay = 0;
+        /**
+         * Programmatically show and hide the tooltip
+         */
+        this.isOpen = false;
+        /**
+         * Customize how the tooltip should be positioned relative to the element
+         */
+        this.placement = 'top';
+        /**
+         * Specify which events should show the tooltip
+         */
+        this.showTriggers = ['mouseenter', 'focus'];
+        /**
+         * Specify which events should hide the tooltip
+         */
+        this.hideTriggers = ['mouseleave', 'blur'];
+        /**
+         * Emits an event when the tooltip is shown
+         */
+        this.shown = new EventEmitter();
+        /**
+         * Emits a event when the tooltip is hidden
+         */
+        this.hidden = new EventEmitter();
+        /**
+         * Allow two way binding to track the visibility of the tooltip
+         */
+        this.isOpenChange = new EventEmitter();
+        /**
+         * Keep track of the tooltip visibility
+         */
+        this.isVisible = false;
+        /**
+         * This will emit when the directive is destroyed allowing us to unsubscribe all subscriptions automatically
+         */
+        this._onDestroy = new Subject$1();
+        /**
+         * Internally store the type of this component - usual for distinctions when extending this class
+         */
+        this._type = 'tooltip';
+    }
+    /**
+     * Set up the triggers and bind to the show/hide events to keep visibility in sync
+     * @return {?}
+     */
+    ngOnInit() {
+        // set up show and hide event triggers
+        fromEvent$1(this._elementRef.nativeElement, 'click').pipe(takeUntil$1(this._onDestroy)).subscribe(this.onClick.bind(this));
+        fromEvent$1(this._elementRef.nativeElement, 'mouseenter').pipe(takeUntil$1(this._onDestroy)).subscribe(this.onMouseEnter.bind(this));
+        fromEvent$1(this._elementRef.nativeElement, 'mouseleave').pipe(takeUntil$1(this._onDestroy)).subscribe(this.onMouseLeave.bind(this));
+        fromEvent$1(this._elementRef.nativeElement, 'focus').pipe(takeUntil$1(this._onDestroy)).subscribe(this.onFocus.bind(this));
+        fromEvent$1(this._elementRef.nativeElement, 'blur').pipe(takeUntil$1(this._onDestroy)).subscribe(this.onBlur.bind(this));
+        // when any other tooltips open hide this one
+        this._tooltipService.shown$.pipe(filter$1(() => this._type === 'tooltip'), filter$1(tooltip => tooltip !== this._instance), takeUntil$1(this._onDestroy)).subscribe(this.hide.bind(this));
+        // if the tooltip should be initially visible then open it
+        if (this.isOpen) {
+            this.show();
+        }
+    }
+    /**
+     * We need to send input changes to the tooltip component
+     * We can't use setters as they may trigger before tooltip initialised and can't resend once initialised
+     *
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        // we can ignore the first change as it's handled in ngOnInit
+        if (changes.isOpen && !changes.isOpen.firstChange && changes.isOpen.currentValue !== this.isVisible) {
+            changes.isOpen.currentValue ? this.show() : this.hide();
+        }
+        // destroy the overlay ref so a new correctly positioned instance will be created next time
+        if (changes.placement) {
+            this.destroyOverlay();
+        }
+        if (this._instance && changes.placement) {
+            this._instance.setPlacement(changes.placement.currentValue);
+        }
+        if (this._instance && changes.content) {
+            this._instance.setContent(changes.content.currentValue);
+        }
+        if (this._instance && changes.customClass) {
+            this._instance.setClass(changes.customClass.currentValue);
+        }
+        if (this._instance && changes.context) {
+            this._instance.setContext(changes.context.currentValue);
+        }
+        if (this._instance && changes.role) {
+            this._instance.setContext(changes.role.currentValue);
+        }
+    }
+    /**
+     * Ensure we clean up after ourselves
+     * @return {?}
+     */
+    ngOnDestroy() {
+        // ensure we close the tooltip when the host is destroyed
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+            this._instance = null;
+        }
+        // emit this event to automatically unsubscribe from all subscriptions
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
+    /**
+     * Make the tooltip open
+     * @return {?}
+     */
+    show() {
+        // if the tooltip is disabled then do nothing
+        if (this.disabled || this.isVisible || this._showTimeoutId || !this.content) {
+            return;
+        }
+        // delay the show by the delay amount
+        this._showTimeoutId = window.setTimeout(() => {
+            // create the tooltip and get the overlay ref
+            const /** @type {?} */ overlayRef = this.createOverlay();
+            // create the portal to create the tooltip component
+            this._portal = this.createPortal();
+            this._instance = this.createInstance(overlayRef);
+            // watch for any changes to the content
+            this._instance.reposition$.pipe(takeUntil$1(this._onDestroy)).subscribe(this.reposition.bind(this));
+            // store the visible state
+            this.isVisible = true;
+            // ensure the overlay has the correct initial position
+            this.reposition();
+            // emit the show events
+            this.shown.emit();
+            this.isOpenChange.next(true);
+            // clear the interval id
+            this._showTimeoutId = null;
+            // emit the show event to close any other tooltips
+            this._tooltipService.shown$.next(this._instance);
+            // ensure change detection is run
+            this._changeDetectorRef.detectChanges();
+        }, this.delay);
+    }
+    /**
+     * If a tooltip exists and is visible, hide it
+     * @return {?}
+     */
+    hide() {
+        // if we are waiting to show a tooltip then cancel the pending timeout
+        if (this._showTimeoutId) {
+            clearTimeout(this._showTimeoutId);
+            this._showTimeoutId = null;
+            return;
+        }
+        if (this._overlayRef && this._overlayRef.hasAttached()) {
+            this._overlayRef.detach();
+        }
+        this.setAriaDescribedBy(null);
+        this._instance = null;
+        // store the visible state
+        this.isVisible = false;
+        // emit the hide events
+        this.hidden.emit();
+        this.isOpenChange.next(false);
+        // ensure change detection is run
+        this._changeDetectorRef.detectChanges();
+    }
+    /**
+     * Toggle the visibility of the tooltip
+     * @return {?}
+     */
+    toggle() {
+        this.isVisible ? this.hide() : this.show();
+    }
+    /**
+     * Recalculate the position of the popover
+     * @return {?}
+     */
+    reposition() {
+        if (this.isVisible && this._overlayRef) {
+            this._overlayRef.updatePosition();
+        }
+    }
+    /**
+     * Create an instance from the overlay ref - allows overriding and additional logic here
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    createInstance(overlayRef) {
+        const /** @type {?} */ instance = (overlayRef.attach(this._portal).instance);
+        // supply the tooltip with the correct properties
+        instance.setContent(this.content);
+        instance.setPlacement(this.placement);
+        instance.setClass(this.customClass);
+        instance.setContext(this.context);
+        instance.setRole(this.role);
+        // Update the aria-describedby attribute
+        this.setAriaDescribedBy(instance.id);
+        return instance;
+    }
+    /**
+     * Create the component portal - allows overriding to allow other portals eg. popovers
+     * @return {?}
+     */
+    createPortal() {
+        return this._portal || new ComponentPortal(TooltipComponent, this._viewContainerRef);
+    }
+    /**
+     * Create the overlay and set up the scroll handling behavior
+     * @return {?}
+     */
+    createOverlay() {
+        // if the tooltip has already been created then just return the existing instance
+        if (this._overlayRef) {
+            return this._overlayRef;
+        }
+        // configure the tooltip
+        const /** @type {?} */ strategy = this._overlay.position()
+            .connectedTo(this._elementRef, this.getOrigin(), this.getOverlayPosition());
+        // correctly handle scrolling
+        const /** @type {?} */ scrollableAncestors = this._scrollDispatcher
+            .getAncestorScrollContainers(this._elementRef);
+        strategy.withScrollableContainers(scrollableAncestors);
+        this._overlayRef = this._overlay.create({
+            positionStrategy: strategy,
+            panelClass: 'ux-overlay-pane',
+            scrollStrategy: this._overlay.scrollStrategies.reposition({ scrollThrottle: 0 }),
+            hasBackdrop: false
+        });
+        return this._overlayRef;
+    }
+    /**
+     * Recreate the overlay ref using the updated origin and overlay positions
+     * @return {?}
+     */
+    destroyOverlay() {
+        // destroy the existing overlay
+        if (this._overlayRef && this._overlayRef.hasAttached()) {
+            this._overlayRef.detach();
+        }
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+            this._overlayRef = null;
+        }
+        this.isVisible = false;
+    }
+    /**
+     * Get the origin position based on the specified tooltip placement
+     * @return {?}
+     */
+    getOrigin() {
+        // ensure placement is defined
+        this.placement = this.placement || 'top';
+        if (this.placement == 'top' || this.placement == 'bottom') {
+            return { originX: 'center', originY: this.placement };
+        }
+        else if (this.placement == 'left') {
+            return { originX: 'start', originY: 'center' };
+        }
+        else if (this.placement == 'right') {
+            return { originX: 'end', originY: 'center' };
+        }
+    }
+    /**
+     * Calculate the overlay position based on the specified tooltip placement
+     * @return {?}
+     */
+    getOverlayPosition() {
+        // ensure placement is defined
+        this.placement = this.placement || 'top';
+        if (this.placement == 'top') {
+            return { overlayX: 'center', overlayY: 'bottom' };
+        }
+        else if (this.placement == 'bottom') {
+            return { overlayX: 'center', overlayY: 'top' };
+        }
+        else if (this.placement == 'left') {
+            return { overlayX: 'end', overlayY: 'center' };
+        }
+        else if (this.placement == 'right') {
+            return { overlayX: 'start', overlayY: 'center' };
+        }
+    }
+    /**
+     * Simple utility method - because IE doesn't support array.includes
+     * And it isn't included in the core-js/es6 polyfills which are the
+     * only ones required by Angular and guaranteed to be there
+     *
+     * @template T
+     * @param {?} array
+     * @param {?} value
+     * @return {?}
+     */
+    includes(array, value) {
+        return Array.isArray(array) && !!array.find(item => item === value);
+    }
+    /**
+     * Handle the click event - show or hide accordingly
+     * @param {?} event
+     * @return {?}
+     */
+    onClick(event) {
+        // if its not visible and click is a show trigger open it
+        if (!this.isVisible && this.includes(this.showTriggers, 'click')) {
+            return this.show();
+        }
+        // if its visible and click is a hide trigger close it
+        if (this.isVisible && this.includes(this.hideTriggers, 'click')) {
+            return this.hide();
+        }
+    }
+    /**
+     * Handle the mouse enter event - show or hide accordingly
+     * @param {?} event
+     * @return {?}
+     */
+    onMouseEnter(event) {
+        // this is an show only trigger - if already open or it isn't a trigger do nothing
+        if (this.isVisible || !this.includes(this.showTriggers, 'mouseenter')) {
+            return;
+        }
+        // otherwise open the tooltip
+        this.show();
+    }
+    /**
+     * Handle the mouse leave event - show or hide accordingly
+     * @param {?} event
+     * @return {?}
+     */
+    onMouseLeave(event) {
+        // this is an hide only trigger - if not open or it isn't a trigger do nothing
+        if (!this.isVisible || !this.includes(this.hideTriggers, 'mouseleave')) {
+            return;
+        }
+        // otherwise close the tooltip
+        this.hide();
+    }
+    /**
+     * Handle the focus event - show or hide accordingly
+     * @param {?} event
+     * @return {?}
+     */
+    onFocus(event) {
+        // this is an show only trigger - if already open or it isn't a trigger do nothing
+        if (this.isVisible || !this.includes(this.showTriggers, 'focus')) {
+            return;
+        }
+        // otherwise open the tooltip
+        this.show();
+    }
+    /**
+     * Handle the blur event - show or hide accordingly
+     * @param {?} event
+     * @return {?}
+     */
+    onBlur(event) {
+        // this is an hide only trigger - if not open or it isn't a trigger do nothing
+        if (!this.isVisible || !this.includes(this.hideTriggers, 'blur')) {
+            return;
+        }
+        // otherwise close the tooltip
+        this.hide();
+    }
+    /**
+     * Determine if the trigger element is focused
+     * @return {?}
+     */
+    isFocused() {
+        return document.activeElement === this._elementRef.nativeElement;
+    }
+    /**
+     * Programmatically update the aria-describedby property
+     * @param {?} id
+     * @return {?}
+     */
+    setAriaDescribedBy(id) {
+        if (id === null) {
+            this._renderer.removeAttribute(this._elementRef.nativeElement, 'aria-describedby');
+        }
+        else {
+            this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-describedby', id);
+        }
+    }
+}
+TooltipDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxTooltip]',
+                exportAs: 'ux-tooltip'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TooltipDirective.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: ViewContainerRef, },
+    { type: Overlay, },
+    { type: ScrollDispatcher, },
+    { type: ChangeDetectorRef, },
+    { type: Renderer2, },
+    { type: TooltipService, },
+];
+TooltipDirective.propDecorators = {
+    'content': [{ type: Input, args: ['uxTooltip',] },],
+    'disabled': [{ type: Input, args: ['tooltipDisabled',] },],
+    'customClass': [{ type: Input, args: ['tooltipClass',] },],
+    'role': [{ type: Input, args: ['tooltipRole',] },],
+    'context': [{ type: Input, args: ['tooltipContext',] },],
+    'delay': [{ type: Input, args: ['tooltipDelay',] },],
+    'isOpen': [{ type: Input },],
+    'placement': [{ type: Input },],
+    'showTriggers': [{ type: Input },],
+    'hideTriggers': [{ type: Input },],
+    'shown': [{ type: Output },],
+    'hidden': [{ type: Output },],
+    'isOpenChange': [{ type: Output },],
+};
+
+class TooltipModule {
+}
+TooltipModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    OverlayModule,
+                    ObserversModule
+                ],
+                exports: [TooltipDirective],
+                declarations: [TooltipComponent, TooltipDirective],
+                providers: [TooltipService],
+                entryComponents: [TooltipComponent]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TooltipModule.ctorParameters = () => [];
+
 const DECLARATIONS$1 = [
     FacetContainerComponent,
     FacetHeaderComponent,
@@ -16231,7 +16472,7 @@ FacetsModule.decorators = [
                     CommonModule,
                     FormsModule,
                     CheckboxModule,
-                    TooltipModule.forRoot(),
+                    TooltipModule,
                     TypeaheadModule.forRoot()
                 ],
                 exports: DECLARATIONS$1,
@@ -16775,8 +17016,8 @@ FilterContainerComponent.decorators = [
       <ng-content></ng-content>
 
       <!-- Add a Clear Button -->
-      <div class="filter-selected-clear-button" *ngIf="filters.length > 0" [tooltip]="clearTooltip || 'Clear All'" (click)="removeAll()">
-    
+      <div class="filter-selected-clear-button" *ngIf="filters.length > 0" [uxTooltip]="clearTooltip || 'Clear All'" (click)="removeAll()">
+
           <svg class="filter-selected-clear-graphic" width="19" height="12" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
               <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
               <rect class="dark-grey" x="0" y="5" width="9" height="2"></rect>
@@ -16859,6 +17100,58 @@ FilterBaseComponent.ctorParameters = () => [
 ];
 FilterBaseComponent.propDecorators = {
     'filters': [{ type: Input },],
+};
+
+class FilterDropdownComponent extends FilterBaseComponent {
+    /**
+     * @return {?}
+     */
+    removeFilter() {
+        super.removeFilter(this.selected);
+        this.selected = this.initial;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.selected = this.initial;
+    }
+    /**
+     * @param {?} filter
+     * @return {?}
+     */
+    selectFilter(filter$$1) {
+        this.removeFilter();
+        this.selected = filter$$1;
+        this.addFilter(this.selected);
+    }
+}
+FilterDropdownComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-filter-dropdown',
+                template: `
+      <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="filter-dropdown btn dropdown-toggle" [class.active]="selected !== initial">{{ selected?.title }} 
+              <span class="hpe-icon hpe-down"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+              <li class="dropdown-list-item" *ngFor="let filter of filters" role="menuitem">
+                  <a class="dropdown-item" (click)="selectFilter(filter)">
+                      <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
+                      <span class="filter-dropdown-title">{{ filter.name }}</span>
+                  </a>
+              </li>
+          </ul>
+      </div>
+    `,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+FilterDropdownComponent.ctorParameters = () => [];
+FilterDropdownComponent.propDecorators = {
+    'initial': [{ type: Input },],
 };
 
 class FilterDynamicComponent extends FilterBaseComponent {
@@ -17002,58 +17295,6 @@ FilterDynamicComponent.propDecorators = {
     'dropdown': [{ type: ViewChild, args: [BsDropdownDirective,] },],
 };
 
-class FilterDropdownComponent extends FilterBaseComponent {
-    /**
-     * @return {?}
-     */
-    removeFilter() {
-        super.removeFilter(this.selected);
-        this.selected = this.initial;
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this.selected = this.initial;
-    }
-    /**
-     * @param {?} filter
-     * @return {?}
-     */
-    selectFilter(filter$$1) {
-        this.removeFilter();
-        this.selected = filter$$1;
-        this.addFilter(this.selected);
-    }
-}
-FilterDropdownComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'ux-filter-dropdown',
-                template: `
-      <div class="btn-group" dropdown>
-          <button dropdownToggle type="button" class="filter-dropdown btn dropdown-toggle" [class.active]="selected !== initial">{{ selected?.title }} 
-              <span class="hpe-icon hpe-down"></span>
-          </button>
-          <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li class="dropdown-list-item" *ngFor="let filter of filters" role="menuitem">
-                  <a class="dropdown-item" (click)="selectFilter(filter)">
-                      <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
-                      <span class="filter-dropdown-title">{{ filter.name }}</span>
-                  </a>
-              </li>
-          </ul>
-      </div>
-    `,
-            },] },
-];
-/**
- * @nocollapse
- */
-FilterDropdownComponent.ctorParameters = () => [];
-FilterDropdownComponent.propDecorators = {
-    'initial': [{ type: Input },],
-};
-
 const DECLARATIONS$2 = [
     FilterBaseComponent,
     FilterContainerComponent,
@@ -17067,7 +17308,7 @@ FilterModule.decorators = [
                 imports: [
                     BsDropdownModule.forRoot(),
                     TypeaheadModule.forRoot(),
-                    TooltipModule.forRoot(),
+                    TooltipModule,
                     FormsModule,
                     CommonModule
                 ],
@@ -17203,6 +17444,362 @@ FlippableCardModule.decorators = [
  */
 FlippableCardModule.ctorParameters = () => [];
 
+/** Default values provider for tooltip */
+var TooltipConfig = (function () {
+    function TooltipConfig() {
+        /** tooltip placement, supported positions: 'top', 'bottom', 'left', 'right' */
+        this.placement = 'top';
+        /** array of event names which triggers tooltip opening */
+        this.triggers = 'hover focus';
+    }
+    TooltipConfig.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    TooltipConfig.ctorParameters = function () { return []; };
+    return TooltipConfig;
+}());
+
+var TooltipContainerComponent = (function () {
+    function TooltipContainerComponent(config) {
+        Object.assign(this, config);
+    }
+    Object.defineProperty(TooltipContainerComponent.prototype, "isBs3", {
+        get: function () {
+            return isBs3();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TooltipContainerComponent.prototype.ngAfterViewInit = function () {
+        this.classMap = { in: false, fade: false };
+        this.classMap[this.placement] = true;
+        this.classMap["tooltip-" + this.placement] = true;
+        this.classMap.in = true;
+        if (this.animation) {
+            this.classMap.fade = true;
+        }
+        if (this.containerClass) {
+            this.classMap[this.containerClass] = true;
+        }
+    };
+    TooltipContainerComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'bs-tooltip-container',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    // tslint:disable-next-line
+                    host: {
+                        '[class]': '"tooltip in tooltip-" + placement + " " + "bs-tooltip-" + placement + " " + placement + " " + containerClass',
+                        '[class.show]': '!isBs3',
+                        role: 'tooltip'
+                    },
+                    styles: [
+                        "\n    :host.tooltip {\n      display: block;\n    }\n    :host.bs-tooltip-top .arrow, :host.bs-tooltip-bottom .arrow {\n      left: 50%;\n      margin-left: -6px;\n    }\n    :host.bs-tooltip-left .arrow, :host.bs-tooltip-right .arrow {\n      top: 50%;\n      margin-top: -6px;\n    }\n  "
+                    ],
+                    template: "\n    <div class=\"tooltip-arrow arrow\"></div>\n    <div class=\"tooltip-inner\"><ng-content></ng-content></div>\n    "
+                },] },
+    ];
+    /** @nocollapse */
+    TooltipContainerComponent.ctorParameters = function () { return [
+        { type: TooltipConfig, },
+    ]; };
+    return TooltipContainerComponent;
+}());
+
+var _messagesHash = {};
+var _hideMsg = typeof console === 'undefined' || !('warn' in console);
+function warnOnce(msg) {
+    if (!isDevMode() || _hideMsg || msg in _messagesHash) {
+        return;
+    }
+    _messagesHash[msg] = true;
+    /*tslint:disable-next-line*/
+    console.warn(msg);
+}
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+// tslint:disable:deprecation
+var TooltipDirective$1 = (function () {
+    function TooltipDirective(_viewContainerRef, _renderer, _elementRef, cis, config) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        /** Fired when tooltip content changes */
+        this.tooltipChange = new EventEmitter();
+        /**
+         * Css class for tooltip container
+         */
+        this.containerClass = '';
+        /** @deprecated - removed, will be added to configuration */
+        this._animation = true;
+        /** @deprecated */
+        this._fadeDuration = 150;
+        /** @deprecated */
+        this.tooltipStateChanged = new EventEmitter();
+        this._tooltip = cis
+            .createLoader(this._elementRef, _viewContainerRef, this._renderer)
+            .provide({ provide: TooltipConfig, useValue: config });
+        Object.assign(this, config);
+        this.onShown = this._tooltip.onShown;
+        this.onHidden = this._tooltip.onHidden;
+    }
+    Object.defineProperty(TooltipDirective.prototype, "isOpen", {
+        /**
+         * Returns whether or not the tooltip is currently being shown
+         */
+        get: function () {
+            return this._tooltip.isShown;
+        },
+        set: function (value) {
+            if (value) {
+                this.show();
+            }
+            else {
+                this.hide();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "htmlContent", {
+        /** @deprecated - please use `tooltip` instead */
+        set: function (value) {
+            warnOnce('tooltipHtml was deprecated, please use `tooltip` instead');
+            this.tooltip = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_placement", {
+        /** @deprecated - please use `placement` instead */
+        set: function (value) {
+            warnOnce('tooltipPlacement was deprecated, please use `placement` instead');
+            this.placement = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_isOpen", {
+        get: function () {
+            warnOnce('tooltipIsOpen was deprecated, please use `isOpen` instead');
+            return this.isOpen;
+        },
+        /** @deprecated - please use `isOpen` instead*/
+        set: function (value) {
+            warnOnce('tooltipIsOpen was deprecated, please use `isOpen` instead');
+            this.isOpen = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_enable", {
+        get: function () {
+            warnOnce('tooltipEnable was deprecated, please use `isDisabled` instead');
+            return this.isDisabled;
+        },
+        /** @deprecated - please use `isDisabled` instead */
+        set: function (value) {
+            warnOnce('tooltipEnable was deprecated, please use `isDisabled` instead');
+            this.isDisabled = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_appendToBody", {
+        get: function () {
+            warnOnce('tooltipAppendToBody was deprecated, please use `container="body"` instead');
+            return this.container === 'body';
+        },
+        /** @deprecated - please use `container="body"` instead */
+        set: function (value) {
+            warnOnce('tooltipAppendToBody was deprecated, please use `container="body"` instead');
+            this.container = value ? 'body' : this.container;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_popupClass", {
+        /** @deprecated - will replaced with customClass */
+        set: function (value) {
+            warnOnce('tooltipClass deprecated');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_tooltipContext", {
+        /** @deprecated - removed */
+        set: function (value) {
+            warnOnce('tooltipContext deprecated');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_tooltipPopupDelay", {
+        /** @deprecated */
+        set: function (value) {
+            warnOnce('tooltipPopupDelay is deprecated, use `delay` instead');
+            this.delay = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TooltipDirective.prototype, "_tooltipTrigger", {
+        /** @deprecated -  please use `triggers` instead */
+        get: function () {
+            warnOnce('tooltipTrigger was deprecated, please use `triggers` instead');
+            return this.triggers;
+        },
+        set: function (value) {
+            warnOnce('tooltipTrigger was deprecated, please use `triggers` instead');
+            this.triggers = (value || '').toString();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TooltipDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this._tooltip.listen({
+            triggers: this.triggers,
+            show: function () { return _this.show(); }
+        });
+        this.tooltipChange.subscribe(function (value) {
+            if (!value) {
+                _this._tooltip.hide();
+            }
+        });
+    };
+    /**
+     * Toggles an element’s tooltip. This is considered a “manual” triggering of
+     * the tooltip.
+     */
+    TooltipDirective.prototype.toggle = function () {
+        if (this.isOpen) {
+            return this.hide();
+        }
+        this.show();
+    };
+    /**
+     * Opens an element’s tooltip. This is considered a “manual” triggering of
+     * the tooltip.
+     */
+    TooltipDirective.prototype.show = function () {
+        var _this = this;
+        if (this.isOpen ||
+            this.isDisabled ||
+            this._delayTimeoutId ||
+            !this.tooltip) {
+            return;
+        }
+        var showTooltip = function () {
+            if (_this._delayTimeoutId) {
+                _this._delayTimeoutId = undefined;
+            }
+            _this._tooltip
+                .attach(TooltipContainerComponent)
+                .to(_this.container)
+                .position({ attachment: _this.placement })
+                .show({
+                content: _this.tooltip,
+                placement: _this.placement,
+                containerClass: _this.containerClass
+            });
+        };
+        var cancelDelayedTooltipShowing = function () {
+            if (_this._tooltipCancelShowFn) {
+                _this._tooltipCancelShowFn();
+            }
+        };
+        if (this.delay) {
+            var timer_1 = Observable$1.timer(this.delay).subscribe(function () {
+                showTooltip();
+                cancelDelayedTooltipShowing();
+            });
+            if (this.triggers) {
+                var triggers = parseTriggers(this.triggers);
+                this._tooltipCancelShowFn = this._renderer.listen(this._elementRef.nativeElement, triggers[0].close, function () {
+                    timer_1.unsubscribe();
+                    cancelDelayedTooltipShowing();
+                });
+            }
+        }
+        else {
+            showTooltip();
+        }
+    };
+    /**
+     * Closes an element’s tooltip. This is considered a “manual” triggering of
+     * the tooltip.
+     */
+    TooltipDirective.prototype.hide = function () {
+        var _this = this;
+        if (this._delayTimeoutId) {
+            clearTimeout(this._delayTimeoutId);
+            this._delayTimeoutId = undefined;
+        }
+        if (!this._tooltip.isShown) {
+            return;
+        }
+        this._tooltip.instance.classMap.in = false;
+        setTimeout(function () {
+            _this._tooltip.hide();
+        }, this._fadeDuration);
+    };
+    TooltipDirective.prototype.ngOnDestroy = function () {
+        this._tooltip.dispose();
+    };
+    TooltipDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[tooltip], [tooltipHtml]',
+                    exportAs: 'bs-tooltip'
+                },] },
+    ];
+    /** @nocollapse */
+    TooltipDirective.ctorParameters = function () { return [
+        { type: ViewContainerRef, },
+        { type: Renderer2, },
+        { type: ElementRef, },
+        { type: ComponentLoaderFactory, },
+        { type: TooltipConfig, },
+    ]; };
+    TooltipDirective.propDecorators = {
+        'tooltip': [{ type: Input },],
+        'tooltipChange': [{ type: Output },],
+        'placement': [{ type: Input },],
+        'triggers': [{ type: Input },],
+        'container': [{ type: Input },],
+        'isOpen': [{ type: Input },],
+        'isDisabled': [{ type: Input },],
+        'containerClass': [{ type: Input },],
+        'delay': [{ type: Input },],
+        'onShown': [{ type: Output },],
+        'onHidden': [{ type: Output },],
+        'htmlContent': [{ type: Input, args: ['tooltipHtml',] },],
+        '_placement': [{ type: Input, args: ['tooltipPlacement',] },],
+        '_isOpen': [{ type: Input, args: ['tooltipIsOpen',] },],
+        '_enable': [{ type: Input, args: ['tooltipEnable',] },],
+        '_appendToBody': [{ type: Input, args: ['tooltipAppendToBody',] },],
+        '_animation': [{ type: Input, args: ['tooltipAnimation',] },],
+        '_popupClass': [{ type: Input, args: ['tooltipClass',] },],
+        '_tooltipContext': [{ type: Input, args: ['tooltipContext',] },],
+        '_tooltipPopupDelay': [{ type: Input, args: ['tooltipPopupDelay',] },],
+        '_fadeDuration': [{ type: Input, args: ['tooltipFadeDuration',] },],
+        '_tooltipTrigger': [{ type: Input, args: ['tooltipTrigger',] },],
+        'tooltipStateChanged': [{ type: Output },],
+    };
+    __decorate([
+        OnChange(),
+        __metadata("design:type", Object)
+    ], TooltipDirective.prototype, "tooltip", void 0);
+    return TooltipDirective;
+}());
+
 class FloatingActionButtonsService {
     constructor() {
         this.open$ = new BehaviorSubject$1(false);
@@ -17302,7 +17899,7 @@ FloatingActionButtonsComponent.ctorParameters = () => [
 ];
 FloatingActionButtonsComponent.propDecorators = {
     'direction': [{ type: Input },],
-    'tooltips': [{ type: ContentChildren, args: [TooltipDirective,] },],
+    'tooltips': [{ type: ContentChildren, args: [TooltipDirective$1,] },],
     'close': [{ type: HostListener, args: ['document:click', ['$event.target'],] },],
 };
 
@@ -17369,230 +17966,6 @@ FloatingActionButtonsModule.decorators = [
  * @nocollapse
  */
 FloatingActionButtonsModule.ctorParameters = () => [];
-
-/**
- * Configuration service for the Popover directive.
- * You can inject this service, typically in your root component, and customize
- * the values of its properties in order to provide default values for all the
- * popovers used in the application.
- */
-var PopoverConfig = (function () {
-    function PopoverConfig() {
-        /**
-         * Placement of a popover. Accepts: "top", "bottom", "left", "right", "auto"
-         */
-        this.placement = 'top';
-        /**
-         * Specifies events that should trigger. Supports a space separated list of
-         * event names.
-         */
-        this.triggers = 'click';
-        this.outsideClick = false;
-    }
-    PopoverConfig.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    PopoverConfig.ctorParameters = function () { return []; };
-    return PopoverConfig;
-}());
-
-var PopoverContainerComponent = (function () {
-    function PopoverContainerComponent(config) {
-        Object.assign(this, config);
-    }
-    Object.defineProperty(PopoverContainerComponent.prototype, "isBs3", {
-        get: function () {
-            return isBs3();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    PopoverContainerComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'popover-container',
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    // tslint:disable-next-line
-                    host: {
-                        '[class]': '"popover in popover-" + placement + " " + "bs-popover-" + placement + " " + placement + " " + containerClass',
-                        '[class.show]': '!isBs3',
-                        role: 'tooltip',
-                        style: 'display:block;'
-                    },
-                    styles: [
-                        "\n    :host.bs-popover-top .arrow, :host.bs-popover-bottom .arrow {\n      left: 50%;\n      margin-left: -8px;\n    }\n    :host.bs-popover-left .arrow, :host.bs-popover-right .arrow {\n      top: 50%;\n      margin-top: -8px;\n    }\n  "
-                    ],
-                    template: "<div class=\"popover-arrow arrow\"></div> <h3 class=\"popover-title popover-header\" *ngIf=\"title\">{{ title }}</h3> <div class=\"popover-content popover-body\"> <ng-content></ng-content> </div> "
-                },] },
-    ];
-    /** @nocollapse */
-    PopoverContainerComponent.ctorParameters = function () { return [
-        { type: PopoverConfig, },
-    ]; };
-    PopoverContainerComponent.propDecorators = {
-        'placement': [{ type: Input },],
-        'title': [{ type: Input },],
-    };
-    return PopoverContainerComponent;
-}());
-
-/**
- * A lightweight, extensible directive for fancy popover creation.
- */
-var PopoverDirective = (function () {
-    function PopoverDirective(_elementRef, _renderer, _viewContainerRef, _config, cis) {
-        /**
-         * Close popover on outside click
-         */
-        this.outsideClick = false;
-        /**
-         * Css class for popover container
-         */
-        this.containerClass = '';
-        this._isInited = false;
-        this._popover = cis
-            .createLoader(_elementRef, _viewContainerRef, _renderer)
-            .provide({ provide: PopoverConfig, useValue: _config });
-        Object.assign(this, _config);
-        this.onShown = this._popover.onShown;
-        this.onHidden = this._popover.onHidden;
-        // fix: no focus on button on Mac OS #1795
-        if (typeof window !== 'undefined') {
-            _elementRef.nativeElement.addEventListener('click', function () {
-                try {
-                    _elementRef.nativeElement.focus();
-                }
-                catch (err) {
-                    return;
-                }
-            });
-        }
-    }
-    Object.defineProperty(PopoverDirective.prototype, "isOpen", {
-        /**
-         * Returns whether or not the popover is currently being shown
-         */
-        get: function () {
-            return this._popover.isShown;
-        },
-        set: function (value) {
-            if (value) {
-                this.show();
-            }
-            else {
-                this.hide();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Opens an element’s popover. This is considered a “manual” triggering of
-     * the popover.
-     */
-    PopoverDirective.prototype.show = function () {
-        if (this._popover.isShown || !this.popover) {
-            return;
-        }
-        this._popover
-            .attach(PopoverContainerComponent)
-            .to(this.container)
-            .position({ attachment: this.placement })
-            .show({
-            content: this.popover,
-            context: this.popoverContext,
-            placement: this.placement,
-            title: this.popoverTitle,
-            containerClass: this.containerClass
-        });
-        this.isOpen = true;
-    };
-    /**
-     * Closes an element’s popover. This is considered a “manual” triggering of
-     * the popover.
-     */
-    PopoverDirective.prototype.hide = function () {
-        if (this.isOpen) {
-            this._popover.hide();
-            this.isOpen = false;
-        }
-    };
-    /**
-     * Toggles an element’s popover. This is considered a “manual” triggering of
-     * the popover.
-     */
-    PopoverDirective.prototype.toggle = function () {
-        if (this.isOpen) {
-            return this.hide();
-        }
-        this.show();
-    };
-    PopoverDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        // fix: seems there are an issue with `routerLinkActive`
-        // which result in duplicated call ngOnInit without call to ngOnDestroy
-        // read more: https://github.com/valor-software/ngx-bootstrap/issues/1885
-        if (this._isInited) {
-            return;
-        }
-        this._isInited = true;
-        this._popover.listen({
-            triggers: this.triggers,
-            outsideClick: this.outsideClick,
-            show: function () { return _this.show(); }
-        });
-    };
-    PopoverDirective.prototype.ngOnDestroy = function () {
-        this._popover.dispose();
-    };
-    PopoverDirective.decorators = [
-        { type: Directive, args: [{ selector: '[popover]', exportAs: 'bs-popover' },] },
-    ];
-    /** @nocollapse */
-    PopoverDirective.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Renderer2, },
-        { type: ViewContainerRef, },
-        { type: PopoverConfig, },
-        { type: ComponentLoaderFactory, },
-    ]; };
-    PopoverDirective.propDecorators = {
-        'popover': [{ type: Input },],
-        'popoverContext': [{ type: Input },],
-        'popoverTitle': [{ type: Input },],
-        'placement': [{ type: Input },],
-        'outsideClick': [{ type: Input },],
-        'triggers': [{ type: Input },],
-        'container': [{ type: Input },],
-        'containerClass': [{ type: Input },],
-        'isOpen': [{ type: Input },],
-        'onShown': [{ type: Output },],
-        'onHidden': [{ type: Output },],
-    };
-    return PopoverDirective;
-}());
-
-var PopoverModule = (function () {
-    function PopoverModule() {
-    }
-    PopoverModule.forRoot = function () {
-        return {
-            ngModule: PopoverModule,
-            providers: [PopoverConfig, ComponentLoaderFactory, PositioningService]
-        };
-    };
-    PopoverModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [CommonModule],
-                    declarations: [PopoverDirective, PopoverContainerComponent],
-                    exports: [PopoverDirective],
-                    entryComponents: [PopoverContainerComponent]
-                },] },
-    ];
-    /** @nocollapse */
-    PopoverModule.ctorParameters = function () { return []; };
-    return PopoverModule;
-}());
 
 class HierarchyBarService {
     constructor() {
@@ -17791,15 +18164,13 @@ HierarchyBarComponent.decorators = [
       <main #nodelist class="hierarchy-bar-nodes" (uxResize)="scrollIntoView()">
 
           <div *ngIf="overflow$ | async"
-               #popover="bs-popover"
+               #popover="ux-popover"
                class="hierarchy-bar-overflow-indicator"
                [style.left.px]="nodelist.scrollLeft"
-               [popover]="overflow"
+               [uxPopover]="overflow"
                [popoverContext]="{ popover: popover }"
                placement="bottom"
-               container="body"
-               [outsideClick]="true"
-               containerClass="hierarchy-bar-popover">
+               popoverClass="hierarchy-bar-popover">
               . . .
           </div>
 
@@ -17820,16 +18191,14 @@ HierarchyBarComponent.decorators = [
 
               <!-- Show a dropdown arrow if there are children -->
               <button *ngIf="node.children"
-                    #popover="bs-popover"
+                    #popover="ux-popover"
                     aria-label="Show children"
                     role="button"
                     class="hierarchy-bar-node-arrow hpe-icon hpe-next"
-                    [popover]="content"
+                    [uxPopover]="content"
                     [popoverContext]="{ node: node, popover: popover }"
                     placement="bottom"
-                    container="body"
-                    [outsideClick]="true"
-                    containerClass="hierarchy-bar-popover"
+                    popoverClass="hierarchy-bar-popover"
                     tabindex="0">
               </button>
 
@@ -17926,6 +18295,258 @@ HierarchyBarComponent.propDecorators = {
     'nodes': [{ type: ViewChildren, args: ['nodeElement',] },],
 };
 
+class ClickOutsideDirective {
+    /**
+     * @param {?} _elementRef
+     */
+    constructor(_elementRef) {
+        this._elementRef = _elementRef;
+        this.uxClickOutside = new EventEmitter();
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    click(event) {
+        if (this._elementRef.nativeElement !== event.target && !this._elementRef.nativeElement.contains(event.target)) {
+            this.uxClickOutside.emit(event);
+        }
+    }
+}
+ClickOutsideDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxClickOutside]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ClickOutsideDirective.ctorParameters = () => [
+    { type: ElementRef, },
+];
+ClickOutsideDirective.propDecorators = {
+    'uxClickOutside': [{ type: Output },],
+    'click': [{ type: HostListener, args: ['document:click', ['$event'],] },],
+};
+
+class ClickOutsideModule {
+}
+ClickOutsideModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [ClickOutsideDirective],
+                declarations: [ClickOutsideDirective]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ClickOutsideModule.ctorParameters = () => [];
+
+let uniquePopoverId = 0;
+class PopoverComponent extends TooltipComponent {
+    constructor() {
+        super(...arguments);
+        /**
+         * Define a unique id for each popover
+         */
+        this.id = `ux-popover-${++uniquePopoverId}`;
+        /**
+         * This will emit an event any time the user clicks outside the popover
+         */
+        this.clickOutside$ = new Subject$1();
+    }
+    /**
+     * This will update the title of the popover and trigger change detection
+     * @param {?} title
+     * @return {?}
+     */
+    setTitle(title) {
+        this.title = title;
+        this._changeDetectorRef.markForCheck();
+    }
+}
+PopoverComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-popover',
+                template: `
+    <div class="popover show" [ngClass]="[placement, customClass]" [id]="id" [attr.role]="role" (uxClickOutside)="clickOutside$.next($event)">
+        <div class="arrow"></div>
+        <h3 class="popover-title" *ngIf="title">{{ title }}</h3>
+        <div class="popover-content" (cdkObserveContent)="reposition()">
+            <ng-container *ngIf="!isTemplateRef">{{ content }}</ng-container>
+            <ng-container *ngIf="isTemplateRef" [ngTemplateOutlet]="content" [ngTemplateOutletContext]="context"></ng-container>
+        </div>
+    </div>
+  `,
+                changeDetection: ChangeDetectionStrategy.OnPush
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PopoverComponent.ctorParameters = () => [];
+
+class PopoverDirective extends TooltipDirective {
+    constructor() {
+        super(...arguments);
+        /**
+         * All the user to add a custom class to the popover
+         */
+        this.customClass = '';
+        /**
+         * All the user to add a role to the popover - default is tooltip
+         */
+        this.role = 'tooltip';
+        /**
+         * Provide the TemplateRef a context object
+         */
+        this.context = {};
+        /**
+         * Delay the showing of the popover by a number of miliseconds
+         */
+        this.delay = 0;
+        /**
+         * Specify which events should show the popover
+         */
+        this.showTriggers = ['click'];
+        /**
+         * Specify which events should hide the popover
+         */
+        this.hideTriggers = ['click', 'clickoutside', 'escape'];
+        /**
+         * Keep track of the tooltip visibility and update aria-expanded attribute
+         */
+        this.isVisible = false;
+        /**
+         * Internally store the type of this component - usual for distinctions when extending the tooltip class
+         */
+        this._type = 'popover';
+    }
+    /**
+     * Set up the triggers and bind to the show/hide events to keep visibility in sync
+     * @return {?}
+     */
+    ngOnInit() {
+        // set up the event triggers
+        fromEvent$1(document, 'keydown').pipe(takeUntil$1(this._onDestroy)).subscribe(this.onKeyDown.bind(this));
+        // check if there is an aria-described by attribute
+        this._ariaDescribedBy = this._elementRef.nativeElement.hasAttribute('aria-describedby');
+        // set up the default event triggers
+        super.ngOnInit();
+    }
+    /**
+     * We need to send input changes to the popover component
+     * We can't use setters as they may trigger before popover initialised and can't resend once initialised
+     *
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        super.ngOnChanges(changes);
+        if (this._instance && changes.title) {
+            this._instance.setTitle(changes.title.currentValue);
+        }
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    createInstance(overlayRef) {
+        const /** @type {?} */ instance = (overlayRef.attach(this._portal).instance);
+        // supply the tooltip with the correct properties
+        instance.setTitle(this.title);
+        instance.setContent(this.content);
+        instance.setPlacement(this.placement);
+        instance.setClass(this.customClass);
+        instance.setContext(this.context);
+        instance.setRole(this.role);
+        // Update the aria-describedby attribute
+        this.setAriaDescribedBy(instance.id);
+        // subscribe to the outside click event
+        instance.clickOutside$.pipe(takeUntil$1(this._onDestroy)).subscribe(this.onClickOutside.bind(this));
+        return instance;
+    }
+    /**
+     * @return {?}
+     */
+    createPortal() {
+        return this._portal || new ComponentPortal(PopoverComponent, this._viewContainerRef);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    onKeyDown(event) {
+        // if visible and the escape key is pressed and it is one of the hide triggers
+        if (this.isVisible && event.keyCode === ESCAPE && this.includes(this.hideTriggers, 'escape')) {
+            this.hide();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    onClickOutside() {
+        // if visible and it is one of the hide triggers
+        if (this.isVisible && this.includes(this.hideTriggers, 'clickoutside')) {
+            this.hide();
+        }
+    }
+    /**
+     * Programmatically update the aria-describedby property
+     * @param {?} id
+     * @return {?}
+     */
+    setAriaDescribedBy(id) {
+        // we only want to set the aria-describedby attr when the content is a string and there was no user defined attribute already
+        if (this._ariaDescribedBy === false && typeof this.content === 'string') {
+            super.setAriaDescribedBy(id);
+        }
+    }
+}
+PopoverDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxPopover]',
+                exportAs: 'ux-popover'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PopoverDirective.ctorParameters = () => [];
+PopoverDirective.propDecorators = {
+    'content': [{ type: Input, args: ['uxPopover',] },],
+    'title': [{ type: Input, args: ['popoverTitle',] },],
+    'disabled': [{ type: Input, args: ['popoverDisabled',] },],
+    'customClass': [{ type: Input, args: ['popoverClass',] },],
+    'role': [{ type: Input, args: ['popoverRole',] },],
+    'context': [{ type: Input, args: ['popoverContext',] },],
+    'delay': [{ type: Input, args: ['popoverDelay',] },],
+    'showTriggers': [{ type: Input },],
+    'hideTriggers': [{ type: Input },],
+    'isVisible': [{ type: HostBinding, args: ['attr.aria-expanded',] },],
+};
+
+class PopoverModule {
+}
+PopoverModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    OverlayModule,
+                    ObserversModule,
+                    ClickOutsideModule,
+                    TooltipModule
+                ],
+                exports: [PopoverDirective],
+                declarations: [PopoverComponent, PopoverDirective],
+                entryComponents: [PopoverComponent]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PopoverModule.ctorParameters = () => [];
+
 class HierarchyBarModule {
 }
 HierarchyBarModule.decorators = [
@@ -17934,7 +18555,7 @@ HierarchyBarModule.decorators = [
                     CommonModule,
                     ResizeModule,
                     FocusIfModule,
-                    PopoverModule.forRoot()
+                    PopoverModule
                 ],
                 exports: [HierarchyBarComponent],
                 declarations: [HierarchyBarComponent],
@@ -18542,31 +19163,31 @@ WizardComponent.decorators = [
       <div class="wizard-body">
 
           <div class="wizard-steps">
-    
+
               <div class="wizard-step" [class.active]="stp.active" [class.visited]="stp.visited" [class.invalid]="stp.active && !stp.valid && invalidIndicator" (click)="gotoStep(stp)" *ngFor="let stp of steps">
                   {{ stp.header }}
               </div>
-    
+
           </div>
-    
+
           <div class="wizard-content">
               <ng-content></ng-content>
           </div>
-    
+
       </div>
 
       <div class="wizard-footer">
-          <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body" [disabled]="previousDisabled || step === 0"
+          <button #tip="ux-tooltip" class="btn button-secondary" *ngIf="previousVisible" [uxTooltip]="previousTooltip" [disabled]="previousDisabled || step === 0"
               (click)="previous(); tip.hide()">{{ previousText }}</button>
 
-          <button #tip="bs-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [tooltip]="nextTooltip" container="body" [disabled]="nextDisabled"
+          <button #tip="ux-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [uxTooltip]="nextTooltip" [disabled]="nextDisabled"
               (click)="next(); tip.hide()">{{ nextText }}</button>
 
-          <button #tip="bs-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [tooltip]="finishTooltip"
-              container="body" [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
+          <button #tip="ux-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [uxTooltip]="finishTooltip"
+              [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
 
-          <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [tooltip]="cancelTooltip"
-              container="body" [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
+          <button #tip="ux-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [uxTooltip]="cancelTooltip"
+              [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
       </div>
     `,
                 host: {
@@ -18629,7 +19250,7 @@ WizardModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     CommonModule,
-                    TooltipModule.forRoot()
+                    TooltipModule
                 ],
                 exports: DECLARATIONS$4,
                 declarations: DECLARATIONS$4
@@ -18817,16 +19438,16 @@ MarqueeWizardComponent.decorators = [
 
           <div class="modal-footer">
 
-              <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body"
+              <button #tip="ux-tooltip" class="btn button-secondary" *ngIf="previousVisible" [uxTooltip]="previousTooltip" container="body"
                   [disabled]="previousDisabled || step === 0" (click)="previous(); tip.hide()">{{ previousText }}</button>
 
-              <button #tip="bs-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [tooltip]="nextTooltip" container="body"
+              <button #tip="ux-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [uxTooltip]="nextTooltip" container="body"
                   [disabled]="nextDisabled" (click)="next(); tip.hide()">{{ nextText }}</button>
 
-              <button #tip="bs-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [tooltip]="finishTooltip"
+              <button #tip="ux-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [uxTooltip]="finishTooltip"
                   container="body" [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
 
-              <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [tooltip]="cancelTooltip"
+              <button #tip="ux-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [uxTooltip]="cancelTooltip"
                   container="body" [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
           </div>
       </div>
@@ -18852,7 +19473,7 @@ MarqueeWizardModule.decorators = [
                 imports: [
                     CommonModule,
                     WizardModule,
-                    TooltipModule.forRoot()
+                    TooltipModule
                 ],
                 exports: [
                     MarqueeWizardComponent,
@@ -21754,8 +22375,8 @@ SearchDateComponent.decorators = [
         <span class="input-group-addon" tabindex="1" (click)="popover.show()">
             <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
         </span>
-        <input type="text" #popover="bs-popover" [ngModel]="value | date:'dd MMMM yyyy'" [popover]="popoverTemplate"
-            placement="bottom" [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="placeholder">
+        <input type="text" #popover="ux-popover" [ngModel]="value | date:'dd MMMM yyyy'" [uxPopover]="popoverTemplate"
+            placement="bottom" popoverClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="placeholder">
     </div>
 
     <ng-template #popoverTemplate>
@@ -21900,8 +22521,8 @@ SearchDateRangeComponent.decorators = [
                           <span class="input-group-addon p-r-xs" tabindex="1" (click)="fromPopover.show()">
                               <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
                           </span>
-                          <input type="text" #fromPopover="bs-popover" [ngModel]="from | date:'dd MMMM yyyy'" [popover]="fromPopoverTemplate" placement="bottom"
-                              [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="fromPlaceholder">
+                          <input type="text" #fromPopover="ux-popover" [ngModel]="from | date:'dd MMMM yyyy'" [uxPopover]="fromPopoverTemplate" placement="bottom"
+                              popoverClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="fromPlaceholder">
                       </div>
                   </div>
 
@@ -21912,8 +22533,8 @@ SearchDateRangeComponent.decorators = [
                           <span class="input-group-addon" tabindex="1" (click)="toPopover.show()">
                               <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
                           </span>
-                          <input type="text" #toPopover="bs-popover" [ngModel]="to | date:'dd MMMM yyyy'" [popover]="toPopoverTemplate" placement="bottom"
-                              [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="toPlaceholder">
+                          <input type="text" #toPopover="ux-popover" [ngModel]="to | date:'dd MMMM yyyy'" [uxPopover]="toPopoverTemplate" placement="bottom"
+                              popoverClass="date-time-picker-popover" class="form-control" aria-label="Selected date" [placeholder]="toPlaceholder">
                       </div>
                   </div>
 
@@ -22165,6 +22786,7 @@ class TypeaheadComponent {
         this._highlighted = new BehaviorSubject$1(null);
         this.visibleOptions = [];
         this.loading = false;
+        this.clicking = false;
         this.optionApi = {
             getKey: this.getKey.bind(this),
             getDisplay: this.getDisplay.bind(this),
@@ -22234,6 +22856,18 @@ class TypeaheadComponent {
         }
         // Re-filter visibleOptions
         this.updateOptions();
+    }
+    /**
+     * @return {?}
+     */
+    mousedownHandler() {
+        this.clicking = true;
+    }
+    /**
+     * @return {?}
+     */
+    mouseupHandler() {
+        this.clicking = false;
     }
     /**
      * @param {?} event
@@ -22508,6 +23142,8 @@ TypeaheadComponent.propDecorators = {
     '_defaultLoadingTemplate': [{ type: ViewChild, args: ['defaultLoadingTemplate',] },],
     '_defaultOptionTemplate': [{ type: ViewChild, args: ['defaultOptionTemplate',] },],
     '_defaultNoOptionsTemplate': [{ type: ViewChild, args: ['defaultNoOptionsTemplate',] },],
+    'mousedownHandler': [{ type: HostListener, args: ['mousedown',] },],
+    'mouseupHandler': [{ type: HostListener, args: ['mouseup',] },],
 };
 
 class InfiniteScrollLoadButtonDirective {
@@ -23357,6 +23993,12 @@ class SelectComponent {
      * @return {?}
      */
     inputBlurHandler(event) {
+        // If a click on the typeahead is in progress, just refocus the input.
+        // This works around an issue in IE where clicking a scrollbar drops focus.
+        if (this.singleTypeahead && this.singleTypeahead.clicking) {
+            this.singleInput.nativeElement.focus();
+            return;
+        }
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
             if (!this._element.nativeElement.contains(this._document.activeElement)) {
@@ -23482,7 +24124,7 @@ SelectComponent.decorators = [
               [loadingTemplate]="loadingTemplate"
               [optionTemplate]="optionTemplate"
               [noOptionsTemplate]="noOptionsTemplate"
-              (optionSelected)="singleOptionSelected($event)" >
+              (optionSelected)="singleOptionSelected($event)">
           </ux-typeahead>
 
       </div>
@@ -23594,8 +24236,8 @@ class TagInputComponent {
         };
         this.valid = true;
         this.inputValid = true;
-        this.onChangeHandler = () => { };
-        this.onTouchedHandler = () => { };
+        this._onChangeHandler = () => { };
+        this._onTouchedHandler = () => { };
     }
     /**
      * @return {?}
@@ -23612,7 +24254,7 @@ class TagInputComponent {
      */
     set tags(value) {
         this._tags = value;
-        this.onChangeHandler(this._tags);
+        this._onChangeHandler(this._tags);
         this.tagsChange.emit(this._tags);
     }
     /**
@@ -23678,14 +24320,14 @@ class TagInputComponent {
      * @return {?}
      */
     registerOnChange(fn) {
-        this.onChangeHandler = fn;
+        this._onChangeHandler = fn;
     }
     /**
      * @param {?} fn
      * @return {?}
      */
     registerOnTouched(fn) {
-        this.onTouchedHandler = fn;
+        this._onTouchedHandler = fn;
     }
     /**
      * @param {?} isDisabled
@@ -23693,6 +24335,14 @@ class TagInputComponent {
      */
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        if (this._subscription) {
+            this._subscription.unsubscribe();
+        }
     }
     /**
      * Validate the value of the control (tags property).
@@ -23786,6 +24436,11 @@ class TagInputComponent {
      * @return {?}
      */
     focusOutHandler(event) {
+        // If a click on the typeahead is in progress, don't do anything.
+        // This works around an issue in IE where clicking a scrollbar drops focus.
+        if (this.typeahead && this.typeahead.clicking) {
+            return;
+        }
         // Close the dropdown on blur
         setTimeout(() => {
             if (!this._element.nativeElement.contains(this._document.activeElement)) {
@@ -24055,10 +24710,14 @@ class TagInputComponent {
      * @return {?}
      */
     connectTypeahead(typeahead) {
+        if (this._subscription) {
+            this._subscription.unsubscribe();
+            this._subscription = null;
+        }
         this.typeahead = typeahead;
         if (this.typeahead) {
             // Set up event handler for selected options
-            this.typeahead.optionSelected.subscribe(this.typeaheadOptionSelectedHandler.bind(this));
+            this._subscription = this.typeahead.optionSelected.subscribe(this.typeaheadOptionSelectedHandler.bind(this));
         }
     }
     /**
@@ -24299,7 +24958,7 @@ SearchBuilderModule.decorators = [
                     CommonModule,
                     FormsModule,
                     DateTimePickerModule,
-                    PopoverModule.forRoot(),
+                    PopoverModule,
                     SelectModule
                 ],
                 exports: [
@@ -25423,7 +26082,7 @@ SparkComponent.decorators = [
                   <div class="ux-spark-label-top-right" *ngIf="topRightLabel" [innerHtml]="topRightLabel"></div>
               </div>
 
-              <div class="ux-spark ux-inline ux-spark-theme-{{theme}}" [style.height.px]="barHeight" [style.backgroundColor]="trackColor" [tooltip]="tooltip">
+              <div class="ux-spark ux-inline ux-spark-theme-{{theme}}" [style.height.px]="barHeight" [style.backgroundColor]="trackColor" [uxTooltip]="tooltip">
                   <div class="ux-spark-bar" *ngFor="let line of values; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
               </div>
 
@@ -25447,7 +26106,7 @@ SparkComponent.decorators = [
           </div>
 
           <div class="ux-spark ux-spark-theme-{{theme}}" [class.ux-spark-multi-value]="values.length > 1" [style.height.px]="barHeight" [style.backgroundColor]="trackColor"
-              [tooltip]="tooltip">
+              [uxTooltip]="tooltip">
               <div class="ux-spark-bar" *ngFor="let line of value; let idx = index;" [style.width.%]="line" [style.backgroundColor]="barColor[idx]"></div>
           </div>
 
@@ -25489,7 +26148,7 @@ SparkModule.decorators = [
                 imports: [
                     CommonModule,
                     ColorServiceModule,
-                    TooltipModule.forRoot()
+                    TooltipModule
                 ],
                 exports: [SparkComponent],
                 declarations: [SparkComponent]
@@ -25499,6 +26158,390 @@ SparkModule.decorators = [
  * @nocollapse
  */
 SparkModule.ctorParameters = () => [];
+
+class TabsetService {
+    constructor() {
+        this.tabs$ = new BehaviorSubject$1([]);
+        this.active$ = new BehaviorSubject$1(null);
+        this.focused$ = new BehaviorSubject$1(false);
+        this.highlighted$ = new BehaviorSubject$1(null);
+    }
+    /**
+     * @param {?} tab
+     * @return {?}
+     */
+    add(tab) {
+        this.tabs$.next([...this.tabs$.value, tab]);
+        // check if this is the only tab. If so select this by default
+        if (!this.active$.value) {
+            this.select(tab);
+        }
+    }
+    /**
+     * @param {?} tab
+     * @return {?}
+     */
+    remove(tab) {
+        // remove the tab
+        this.tabs$.next(this.tabs$.value.filter(_tab => _tab !== tab));
+    }
+    /**
+     * @param {?} tab
+     * @return {?}
+     */
+    select(tab) {
+        if (!tab.disabled) {
+            this.active$.next(tab);
+            this.highlighted$.next(tab);
+        }
+    }
+    /**
+     * @param {?} index
+     * @return {?}
+     */
+    selectAtIndex(index) {
+        // if there are no tabs then do nothing
+        if (this.tabs$.value.length === 0) {
+            return;
+        }
+        // check if the index is within the bounds
+        if (index < 0) {
+            return this.selectAtIndex(this.tabs$.value.length - 1);
+        }
+        else if (index >= this.tabs$.value.length) {
+            return this.selectAtIndex(0);
+        }
+        const /** @type {?} */ target = this.tabs$.value[index];
+        if (target) {
+            this.select(target);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    selectNextTab() {
+        // find the currently selected index
+        const /** @type {?} */ index = this.tabs$.value.indexOf(this.active$.value);
+        // check the tabs after the active one to see if there are any selectable tabs
+        const /** @type {?} */ tabs = this.tabs$.value.slice(index + 1);
+        // check if any of the tabs are not disabled
+        for (let /** @type {?} */ tab of tabs) {
+            if (!tab.disabled) {
+                return this.select(tab);
+            }
+        }
+        // if we reach here then no tab could be selected - select the first tab
+        this.selectFirstTab();
+    }
+    /**
+     * @return {?}
+     */
+    selectPreviousTab() {
+        // find the currently selected index
+        const /** @type {?} */ index = this.tabs$.value.indexOf(this.active$.value);
+        // check the tabs before the active one to see if there are any selectable tabs
+        const /** @type {?} */ tabs = this.tabs$.value.slice(0, index);
+        // check if any of the tabs are not disabled
+        for (let /** @type {?} */ tab of tabs.reverse()) {
+            if (!tab.disabled) {
+                return this.select(tab);
+            }
+        }
+        // if we reach here then no previous tab could be selected - select the last tab
+        this.selectLastTab();
+    }
+    /**
+     * @return {?}
+     */
+    selectFirstTab() {
+        // find the index of the first non-disabled tab
+        const /** @type {?} */ tabIndex = this.tabs$.value.findIndex(tab => !tab.disabled);
+        if (tabIndex !== -1) {
+            this.selectAtIndex(tabIndex);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    selectLastTab() {
+        // find the index of the first non-disabled tab
+        const /** @type {?} */ tabIndex = this.tabs$.value.slice().reverse().findIndex(tab => !tab.disabled);
+        if (tabIndex !== -1) {
+            this.selectAtIndex((this.tabs$.value.length - 1) - tabIndex);
+        }
+    }
+}
+TabsetService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+TabsetService.ctorParameters = () => [];
+
+class TabsetComponent {
+    /**
+     * @param {?} tabset
+     */
+    constructor(tabset) {
+        this.tabset = tabset;
+        this.minimal = true;
+        this.stacked = 'none';
+    }
+    /**
+     * Allow manual tab selected
+     * @param {?} tab
+     * @return {?}
+     */
+    select(tab) {
+        this.tabset.select(tab);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    selectPreviousTab(event) {
+        // determine which arrow key is pressed
+        const /** @type {?} */ arrowLeft = event.key === 'ArrowLeft' || event.keyCode === 37;
+        const /** @type {?} */ arrowUp = event.key === 'ArrowUp' || event.keyCode === 38;
+        // only perform action if the arrow key matches the orientation
+        if (arrowLeft && this.stacked !== 'none' || arrowUp && this.stacked === 'none') {
+            return;
+        }
+        // perform selection
+        this.tabset.selectPreviousTab();
+        // prevent the browser from scrolling when arrow keys are pressed
+        event.preventDefault();
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    selectNextTab(event) {
+        // determine which arrow key is pressed
+        const /** @type {?} */ arrowRight = event.key === 'ArrowRight' || event.keyCode === 39;
+        const /** @type {?} */ arrowDown = event.key === 'ArrowDown' || event.keyCode === 40;
+        // only perform action if the arrow key matches the orientation
+        if (arrowRight && this.stacked !== 'none' || arrowDown && this.stacked === 'none') {
+            return;
+        }
+        // perform selection
+        this.tabset.selectNextTab();
+        // prevent the browser from scrolling when arrow keys are pressed
+        event.preventDefault();
+    }
+}
+TabsetComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-tabset',
+                template: `
+      <!-- Nav tabs -->
+      <ul role="tablist"
+          class="nav nav-tabs"
+          [class.minimal-tab]="minimal"
+          [attr.aria-label]="ariaLabel"
+          [attr.aria-orientation]="stacked === 'none' ? 'horizontal' : 'vertical'">
+
+      	<li role="presentation" 
+              class="nav-item"
+              *ngFor="let tab of tabset.tabs$ | async; let index = index"
+              [class.active]="tab.active$ | async"
+              [class.disabled]="tab.disabled"
+              [ngClass]="tab.customClass">
+
+              <a class="nav-link"
+                  [id]="tab.id"
+                  role="tab"
+                  [uxTabFocus]="tab"
+                  [tabindex]="(tab.active$ | async) ? 0 : -1"
+                  [class.highlighted]="(tabset.focused$ | async) && (tabset.highlighted$ | async) === tab"            
+                  (mousedown)="tabset.select(tab)"
+                  (focus)="tabset.focused$.next(true)"
+                  (blur)="tabset.focused$.next(false)"
+                  (mousedown)="tabset.focused$.next(true)"
+                  (keydown.ArrowUp)="selectPreviousTab($event)"
+                  (keydown.ArrowLeft)="selectPreviousTab($event)"
+                  (keydown.ArrowRight)="selectNextTab($event)"
+                  (keydown.ArrowDown)="selectNextTab($event)"
+                  (keydown.Home)="tabset.selectFirstTab(); $event.preventDefault()"
+                  (keydown.End)="tabset.selectLastTab(); $event.preventDefault()"
+                  [attr.aria-controls]="tab.id"
+                  [attr.aria-selected]="tab.active$ | async"
+                  [attr.aria-disabled]="tab.disabled">
+
+                  <span *ngIf="!tab.headingRef">{{ tab.heading }}</span>
+
+                  <ng-container *ngIf="tab.headingRef" [ngTemplateOutlet]="tab.headingRef"></ng-container>
+              </a>
+
+      	</li>
+
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+      	<ng-content></ng-content>
+      </div>
+    `,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                providers: [TabsetService],
+                host: {
+                    '[class.tabs-left]': 'stacked === "left"',
+                    '[class.tabs-right]': 'stacked === "right"',
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TabsetComponent.ctorParameters = () => [
+    { type: TabsetService, },
+];
+TabsetComponent.propDecorators = {
+    'minimal': [{ type: Input },],
+    'stacked': [{ type: Input },],
+    'ariaLabel': [{ type: Input, args: ['aria-label',] },],
+};
+
+let uniqueTabId = 0;
+class TabComponent {
+    /**
+     * @param {?} _tabset
+     */
+    constructor(_tabset) {
+        this._tabset = _tabset;
+        this.id = `ux-tab-${++uniqueTabId}`;
+        this.disabled = false;
+        this.select = new EventEmitter();
+        this.deselect = new EventEmitter();
+        this.active$ = this._tabset.active$.pipe(map$1(active => active === this));
+        _tabset.add(this);
+        this._subscription = this.active$.subscribe(active => active ? this.select.emit() : this.deselect.emit());
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set active(value) {
+        if (value) {
+            this._tabset.select(this);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._tabset.remove(this);
+        this._subscription.unsubscribe();
+    }
+}
+TabComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ux-tab',
+                template: `
+      <div role="tabpanel"
+           class="tab-pane"
+           [class.active]="active$ | async"
+           [id]="id + '-panel'"
+           [attr.aria-labelledby]="id"
+           [attr.aria-hidden]="!(active$ | async)">
+        <ng-content></ng-content>
+      </div>
+    `,
+                changeDetection: ChangeDetectionStrategy.OnPush
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TabComponent.ctorParameters = () => [
+    { type: TabsetService, },
+];
+TabComponent.propDecorators = {
+    'id': [{ type: Input },],
+    'disabled': [{ type: Input },],
+    'heading': [{ type: Input },],
+    'customClass': [{ type: Input },],
+    'select': [{ type: Output },],
+    'deselect': [{ type: Output },],
+    'active': [{ type: Input },],
+};
+
+class TabHeadingDirective {
+    /**
+     * @param {?} templateRef
+     * @param {?} tab
+     */
+    constructor(templateRef, tab) {
+        tab.headingRef = templateRef;
+    }
+}
+TabHeadingDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxTabHeading]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TabHeadingDirective.ctorParameters = () => [
+    { type: TemplateRef, },
+    { type: TabComponent, },
+];
+
+class TabFocusDirective {
+    /**
+     * @param {?} _tabset
+     * @param {?} _elementRef
+     */
+    constructor(_tabset, _elementRef) {
+        this._tabset = _tabset;
+        this._elementRef = _elementRef;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this._subscription = this._tabset.highlighted$.pipe(filter$1(() => this._tabset.focused$.value === true), filter$1(() => this._tabset.highlighted$.value === this.uxTabFocus)).subscribe(() => this._elementRef.nativeElement.focus());
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._subscription.unsubscribe();
+    }
+}
+TabFocusDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[uxTabFocus]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TabFocusDirective.ctorParameters = () => [
+    { type: TabsetService, },
+    { type: ElementRef, },
+];
+TabFocusDirective.propDecorators = {
+    'uxTabFocus': [{ type: Input },],
+};
+
+class TabsetModule {
+}
+TabsetModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule
+                ],
+                exports: [TabsetComponent, TabComponent, TabHeadingDirective],
+                declarations: [TabsetComponent, TabComponent, TabHeadingDirective, TabFocusDirective],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+TabsetModule.ctorParameters = () => [];
 
 class TimelineComponent {
 }
@@ -27069,8 +28112,16 @@ MediaPlayerTimelineExtensionComponent.decorators = [
                   (mouseleave)="scrub.visible = true; pop.show(); $event.stopPropagation()"></div>
           </div>
 
-          <div class="scrub-handle" [class.scrub-handle-hidden]="!scrub.visible" [style.left.px]="scrub.position" [tooltip]="popTemplate" placement="top" triggers="" #pop="bs-tooltip"
-              container="body" tooltipPopupDelay="100" [isDisabled]="duration === 0"></div>
+          <div class="scrub-handle"
+               [class.scrub-handle-hidden]="!scrub.visible"
+               [style.left.px]="scrub.position"
+               [uxTooltip]="popTemplate"
+               placement="top"
+               [showTriggers]="[]"
+               [hideTriggers]="[]"
+               #pop="ux-tooltip"
+               [tooltipDelay]="100"
+               [tooltipDisabled]="duration === 0"></div>
       </div>
 
       <p class="duration-time">{{ duration | duration }}</p>
@@ -27216,7 +28267,7 @@ MediaPlayerControlsExtensionComponent.decorators = [
 
           <div class="volume-slider-container" #volumeContainer [class.active]="volumeActive">
               <div class="volume-slider-icon" #volumeIcon>
-                  <span class="hpe-icon" [class.hpe-volume-mute]="volume === 0" [class.hpe-volume-low]="volume > 0 && volume <= 70" [class.hpe-volume]="volume > 70" [tooltip]="muteTooltip" (click)="toggleMute()"></span>
+                  <span class="hpe-icon" [class.hpe-volume-mute]="volume === 0" [class.hpe-volume-low]="volume > 0 && volume <= 70" [class.hpe-volume]="volume > 70" [uxTooltip]="muteTooltip" (click)="toggleMute()"></span>
               </div>
         
               <div class="volume-slider-node">
@@ -27379,7 +28430,7 @@ MediaPlayerModule.decorators = [
                 imports: [
                     CommonModule,
                     FrameExtractionModule,
-                    TooltipModule.forRoot(),
+                    TooltipModule,
                     AudioServiceModule,
                     DurationPipeModule,
                     FileSizePipeModule
@@ -30879,5 +31930,5 @@ HybridModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { BreadcrumbsComponent, BreadcrumbsModule, CardTabsModule, CardTabsService, CardTabsetComponent, CardTabComponent, CardTabContentDirective, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, defaultOptions, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DateTimePickerService, DatePickerMode, ModeDirection, DatePickerHeaderEvent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, FloatingActionButtonsModule, FloatingActionButtonsComponent, FloatingActionButtonComponent, HierarchyBarModule, HierarchyBarService, HierarchyBarComponent, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NavigationModule, NavigationComponent, NavigationItemComponent, NotificationModule, NotificationService, NotificationListComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SidePanelComponent, SidePanelCloseDirective, SidePanelModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, SpinButtonModule, SPIN_BUTTON_VALUE_ACCESSOR, SpinButtonComponent, TagInputEvent, TagInputComponent, TagInputModule, TimelineModule, TimelineComponent, TimelineEventComponent, TimePickerModule, TIME_PICKER_VALUE_ACCESSOR, TimePickerComponent, TimeFormatPipe, ToggleSwitchModule, ToggleSwitchComponent, ToolbarSearchModule, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchButtonDirective, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, AutoGrowModule, AutoGrowDirective, DragModule, DragDirective, FixedHeaderTableModule, FixedHeaderTableDirective, FloatLabelDirective, FloatLabelModule, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, MenuNavigationItemDirective, MenuNavigationDirective, MenuNavigationModule, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, SelectionModule, ReorderableModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, ReorderableService, ReorderableGroup, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DayViewComponent as ɵd, DayViewService as ɵe, HeaderComponent as ɵc, MonthViewComponent as ɵf, MonthViewService as ɵg, TimeViewComponent as ɵj, YearViewComponent as ɵh, YearViewService as ɵi, FloatingActionButtonsService as ɵk, MarqueeWizardStepComponent as ɵn, MarqueeWizardService as ɵm, MediaPlayerService as ɵt, PageHeaderNavigationDropdownItemComponent as ɵs, PageHeaderNavigationItemComponent as ɵr, PageHeaderService as ɵq, SidePanelService as ɵl, HoverActionService as ɵu, MenuNavigationToggleDirective as ɵp, MenuNavigationService as ɵo, SelectionItemDirective as ɵx, SelectionDirective as ɵv, SelectionService as ɵw };
+export { BreadcrumbsComponent, BreadcrumbsModule, CardTabsModule, CardTabsService, CardTabsetComponent, CardTabComponent, CardTabContentDirective, CheckboxModule, CHECKBOX_VALUE_ACCESSOR, CheckboxComponent, ColumnSortingModule, ColumnSortingComponent, ColumnSortingState, ColumnSortingDirective, DashboardModule, DashboardComponent, DashboardService, defaultOptions, ActionDirection, Rounding, DashboardDragHandleDirective, DashboardWidgetComponent, DateTimePickerModule, DateTimePickerComponent, DateTimePickerService, DatePickerMode, ModeDirection, DatePickerHeaderEvent, DateTimePickerConfig, EboxModule, EboxComponent, EboxHeaderDirective, EboxContentDirective, FacetsModule, FacetContainerComponent, FacetSelect, FacetDeselect, FacetDeselectAll, FacetHeaderComponent, FacetBaseComponent, FacetCheckListComponent, FacetTypeaheadListComponent, FacetTypeaheadHighlight, Facet, FilterModule, FilterContainerComponent, FilterAddEvent, FilterRemoveEvent, FilterRemoveAllEvent, FilterBaseComponent, FilterDropdownComponent, FilterDynamicComponent, FlippableCardModule, FlippableCardComponent, FlippableCardFrontDirective, FlippableCardBackDirective, FloatingActionButtonsModule, FloatingActionButtonsComponent, FloatingActionButtonComponent, HierarchyBarModule, HierarchyBarService, HierarchyBarComponent, ItemDisplayPanelModule, ItemDisplayPanelContentDirective, ItemDisplayPanelFooterDirective, ItemDisplayPanelComponent, MarqueeWizardModule, MarqueeWizardComponent, NavigationModule, NavigationComponent, NavigationItemComponent, NotificationModule, NotificationService, NotificationListComponent, NumberPickerModule, NUMBER_PICKER_VALUE_ACCESSOR, NumberPickerComponent, PageHeaderModule, PageHeaderComponent, PageHeaderNavigationComponent, PageHeaderIconMenuComponent, PageHeaderCustomMenuDirective, PopoverModule, PopoverComponent, PopoverDirective, ProgressBarModule, ProgressBarComponent, RadioButtonModule, RADIOBUTTON_VALUE_ACCESSOR, RadioButtonComponent, SearchBuilderGroupComponent, SearchBuilderGroupService, SearchBuilderOutletDirective, BaseSearchComponent, SearchTextComponent, SearchDateComponent, SearchDateRangeComponent, SearchSelectComponent, SearchBuilderComponent, SearchBuilderService, SearchBuilderModule, SELECT_VALUE_ACCESSOR, SelectComponent, SelectModule, SidePanelComponent, SidePanelCloseDirective, SidePanelModule, SliderModule, SliderComponent, SliderType, SliderStyle, SliderSize, SliderCalloutTrigger, SliderSnap, SliderTickType, SliderThumbEvent, SliderThumb, SparkModule, SparkComponent, SpinButtonModule, SPIN_BUTTON_VALUE_ACCESSOR, SpinButtonComponent, TabsetModule, TabsetComponent, TabsetService, TabComponent, TabHeadingDirective, TabFocusDirective, TagInputEvent, TagInputComponent, TagInputModule, TimelineModule, TimelineComponent, TimelineEventComponent, TimePickerModule, TIME_PICKER_VALUE_ACCESSOR, TimePickerComponent, TimeFormatPipe, ToggleSwitchModule, ToggleSwitchComponent, ToolbarSearchModule, ToolbarSearchComponent, ToolbarSearchFieldDirective, ToolbarSearchButtonDirective, TooltipModule, TooltipComponent, TooltipDirective, TooltipService, TypeaheadOptionEvent, TypeaheadKeyService, TypeaheadComponent, TypeaheadModule$1 as TypeaheadModule, MediaPlayerModule, MediaPlayerComponent, MediaPlayerBaseExtensionDirective, MediaPlayerControlsExtensionComponent, MediaPlayerTimelineExtensionComponent, VirtualScrollModule, VirtualScrollComponent, VirtualScrollLoadingDirective, VirtualScrollLoadButtonDirective, VirtualScrollCellDirective, WizardModule, WizardComponent, StepChangingEvent, WizardStepComponent, AutoGrowModule, AutoGrowDirective, ClickOutsideModule, ClickOutsideDirective, DragModule, DragDirective, FixedHeaderTableModule, FixedHeaderTableDirective, FloatLabelDirective, FloatLabelModule, FocusIfDirective, FocusIfModule, HelpCenterModule, HelpCenterService, HelpCenterItemDirective, HoverActionModule, HoverActionContainerDirective, HoverActionDirective, InfiniteScrollDirective, InfiniteScrollLoadingEvent, InfiniteScrollLoadedEvent, InfiniteScrollLoadErrorEvent, InfiniteScrollLoadButtonDirective, InfiniteScrollLoadingDirective, InfiniteScrollModule, LayoutSwitcherModule, LayoutSwitcherDirective, LayoutSwitcherItemDirective, MenuNavigationItemDirective, MenuNavigationDirective, MenuNavigationModule, ResizeService, ResizeDirective, ResizeModule, ScrollIntoViewIfDirective, ScrollIntoViewService, ScrollIntoViewIfModule, SelectionModule, ReorderableModule, ReorderableDirective, ReorderableHandleDirective, ReorderableModelDirective, ReorderableService, ReorderableGroup, DurationPipeModule, DurationPipe, FileSizePipeModule, FileSizePipe, StringFilterPipe, StringFilterModule, AudioServiceModule, AudioService, ColorServiceModule, ColorService, ThemeColor, colorSets, FrameExtractionModule, FrameExtractionService, PersistentDataModule, PersistentDataService, PersistentDataStorageType, StorageAdapter, CookieAdapter, LocalStorageAdapter, SessionStorageAdapter, ContactsNg1Component, ExpandInputNg1Component, FloatingActionButtonNg1Component, FlotNg1Component, GridNg1Component, HierarchyBarNg1Component, MarqueeWizardNg1Component, NestedDonutNg1Component, OrganizationChartNg1Component, PartitionMapNg1Component, PeityBarChartNg1Component, PeityLineChartNg1Component, PeityPieChartNg1Component, PeityUpdatingLineChartNg1Component, SankeyNg1Component, SearchToolbarNg1Component, SelectTableNg1Component, SLIDER_CHART_VALUE_ACCESSOR, SliderChartNg1Component, SocialChartNg1Component, SortDirectionToggleNg1Component, TreeGridNg1Component, ThumbnailNg1Component, NavigationMenuService, navigationMenuServiceFactory, navigationMenuServiceProvider, PdfService, pdfServiceFactory, pdfServiceProvider, TimeAgoService, timeAgoServiceFactory, timeAgoServiceProvider, HybridModule, DayViewComponent as ɵd, DayViewService as ɵe, HeaderComponent as ɵc, MonthViewComponent as ɵf, MonthViewService as ɵg, TimeViewComponent as ɵj, YearViewComponent as ɵh, YearViewService as ɵi, FloatingActionButtonsService as ɵk, MarqueeWizardStepComponent as ɵn, MarqueeWizardService as ɵm, MediaPlayerService as ɵt, PageHeaderNavigationDropdownItemComponent as ɵs, PageHeaderNavigationItemComponent as ɵr, PageHeaderService as ɵq, SidePanelService as ɵl, HoverActionService as ɵu, MenuNavigationToggleDirective as ɵp, MenuNavigationService as ɵo, SelectionItemDirective as ɵx, SelectionDirective as ɵv, SelectionService as ɵw };
 //# sourceMappingURL=ux-aspects.js.map

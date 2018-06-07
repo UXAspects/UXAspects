@@ -1,9 +1,9 @@
+import { AfterContentInit, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges, TemplateRef } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
 import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
 import { TagInputEvent } from './tag-input-event';
-import { AfterContentInit, ElementRef, EventEmitter, OnChanges, OnInit, QueryList, SimpleChanges, TemplateRef } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
-export declare class TagInputComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
+export declare class TagInputComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor, OnDestroy {
     private _element;
     private _document;
     private _typeaheadKeyService;
@@ -42,8 +42,9 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     valid: boolean;
     inputValid: boolean;
     typeahead: TypeaheadComponent;
-    private onChangeHandler;
-    private onTouchedHandler;
+    private _onChangeHandler;
+    private _onTouchedHandler;
+    private _subscription;
     constructor(_element: ElementRef, _document: Document, _typeaheadKeyService: TypeaheadKeyService);
     ngOnInit(): void;
     ngAfterContentInit(): void;
@@ -52,6 +53,7 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     registerOnChange(fn: any): void;
     registerOnTouched(fn: any): void;
     setDisabledState(isDisabled: boolean): void;
+    ngOnDestroy(): void;
     /**
      * Validate the value of the control (tags property).
      */
