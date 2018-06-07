@@ -1,6 +1,6 @@
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
-import { ElementRef, EventEmitter, OnChanges, SimpleChanges, TemplateRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 export declare class TypeaheadComponent implements AfterViewInit, OnChanges {
     typeaheadElement: ElementRef;
     private cdRef;
@@ -29,10 +29,13 @@ export declare class TypeaheadComponent implements AfterViewInit, OnChanges {
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions: any[];
     loading: boolean;
+    clicking: boolean;
     optionApi: TypeaheadOptionApi;
     constructor(typeaheadElement: ElementRef, cdRef: ChangeDetectorRef);
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
+    private mousedownHandler();
+    private mouseupHandler();
     optionMousedownHandler(event: MouseEvent): void;
     optionClickHandler(event: MouseEvent, option: any): void;
     /**
