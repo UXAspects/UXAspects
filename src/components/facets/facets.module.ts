@@ -9,6 +9,7 @@ import { FacetTypeaheadListComponent, FacetTypeaheadHighlight } from './facet-ty
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from '../checkbox/index';
 import { TooltipModule } from '../tooltip/index';
+import { ReorderableModule } from './../../directives/reorderable/reorderable.module';
 
 const DECLARATIONS = [
     FacetContainerComponent,
@@ -25,6 +26,7 @@ const DECLARATIONS = [
         FormsModule,
         CheckboxModule,
         TooltipModule,
+        ReorderableModule,
         TypeaheadModule.forRoot()
     ],
     exports: DECLARATIONS,
