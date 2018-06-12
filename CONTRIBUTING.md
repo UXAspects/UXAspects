@@ -13,7 +13,7 @@ Before you get started it is good to be aware of some of the practices we adhere
 2. Clone your forked repository.
 3. Make your fix/changes.
 4. Run our linting tasks using `grunt lint`.
-5. Run our tests using `grunt e2e`.
+5. Run our tests using `grunt e2e` (note: The UX Aspects library must be built before this can run. This can be done by running `grunt build`).
 6. Commit and Push your changes.
 7. Create a Pull Request - This can be done on GitHub by clicking the "New Pull Request" button on the UX Aspects repository page.
 
