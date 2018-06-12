@@ -1,18 +1,19 @@
-import { Usage } from './../../interfaces/Usage';
-import { Component, Input, ViewChild, ViewContainerRef, AfterViewInit, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { documentationSectionNames } from '../../decorators/documentation-section-component';
-import { ICodePenProvider, isICodePenProvider } from '../../interfaces/ICodePenProvider';
 import { ICodePen } from '../../interfaces/ICodePen';
-import { IPlunkProvider, isIPlunkProvider } from '../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../interfaces/IPlunk';
-import { ResolverService } from '../../services/resolver/resolver.service';
+import { ICodePenProvider, isICodePenProvider } from '../../interfaces/ICodePenProvider';
 import { ILink } from '../../interfaces/ILink';
+import { IPlunk } from '../../interfaces/IPlunk';
+import { IPlunkProvider, isIPlunkProvider } from '../../interfaces/IPlunkProvider';
 import { NavigationService } from '../../services/navigation/navigation.service';
+import { ResolverService } from '../../services/resolver/resolver.service';
+import { Usage } from './../../interfaces/Usage';
 
 @Component({
     selector: 'uxd-component-section',
     templateUrl: './component-section.component.html',
-    styleUrls: ['./component-section.component.less']
+    styleUrls: ['./component-section.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ComponentSectionComponent implements OnInit {
 
@@ -26,14 +27,13 @@ export class ComponentSectionComponent implements OnInit {
     @Input() externalUrl: string;
     @Input() usage: Usage[];
 
-    @ViewChild('container', { read: ViewContainerRef }) viewContainer: ViewContainerRef; 
-    
+    @ViewChild('container', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
+
     codepen: ICodePen;
     plunk: IPlunk;
     deprecatedLink: ILink;
-
     hybridModuleTs: string = require('!!raw-loader!./snippets/hybrid-module.ts');
-    
+
     constructor(private _resolverService: ResolverService,
         private _navigationService: NavigationService) { }
 
@@ -41,8 +41,7 @@ export class ComponentSectionComponent implements OnInit {
         const component = documentationSectionNames[this.componentName];
 
         if (component) {
-            let factory = this._resolverService.resolveComponentFactory(component);
-            
+            const factory = this._resolverService.resolveComponentFactory(component);
             const componentRef = this.viewContainer.createComponent(factory);
 
             if (isICodePenProvider(componentRef.instance)) {

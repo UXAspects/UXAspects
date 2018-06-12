@@ -15,7 +15,7 @@ export class FacetBaseComponent implements OnInit, OnDestroy {
     @Output() selectedChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
     @Output() events: Subject<FacetEvent> = new Subject<FacetEvent>();
 
-    private _onDestroy = new Subject<void>();
+    protected _onDestroy = new Subject<void>();
 
     constructor( @Host() private facetContainer: FacetContainerComponent, public _elementRef: ElementRef) {
 
