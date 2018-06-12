@@ -1,7 +1,9 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { timer } from 'rxjs/observable/timer';
+import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/timer';
 
 @Component({
     selector: 'ux-media-player-controls',
@@ -10,7 +12,7 @@ import 'rxjs/add/observable/timer';
         '[class.quiet]': 'quietMode || fullscreen'
     }
 })
-export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit {
+export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, OnDestroy {
 
     playing: boolean;
     quietMode: boolean;
@@ -24,6 +26,7 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
 
     private _volume: number = 50;
     private _previousVolume = 50;
+    private _onDestroy = new Subject<void>();
 
     get volume(): number {
         return this._volume;
@@ -34,25 +37,33 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
         if (value === 0 && this._volume !== 0) {
             this._previousVolume = this._volume;
         }
-        
+
         this._volume = Math.min(Math.max(value, 0), 100);
         this.mediaPlayerService.volume = this._volume / 100;
     }
 
     ngOnInit(): void {
-        this.mediaPlayerService.playEvent.subscribe(_ => this.playing = true);
-        this.mediaPlayerService.pauseEvent.subscribe(_ => this.playing = false);
-        this.mediaPlayerService.quietModeEvent.subscribe(quietMode => this.quietMode = quietMode);
-        this.mediaPlayerService.volumeChangeEvent.subscribe(volume => this.volume = volume * 100);
-        this.mediaPlayerService.initEvent.debounceTime(1).filter(init => init === true).subscribe(() => this.volume = this.mediaPlayerService.volume * 100);
-        this.mediaPlayerService.fullscreenEvent.subscribe(fullscreen => this.fullscreen = fullscreen);
+        this.mediaPlayerService.playEvent.pipe(takeUntil(this._onDestroy)).subscribe(_ => this.playing = true);
+        this.mediaPlayerService.pauseEvent.pipe(takeUntil(this._onDestroy)).subscribe(_ => this.playing = false);
+        this.mediaPlayerService.quietModeEvent.pipe(takeUntil(this._onDestroy)).subscribe(quietMode => this.quietMode = quietMode);
+        this.mediaPlayerService.volumeChangeEvent.pipe(takeUntil(this._onDestroy)).subscribe(volume => this.volume = volume * 100);
+        this.mediaPlayerService.initEvent.pipe(debounceTime(1), filter(init => init === true), takeUntil(this._onDestroy)).subscribe(() => this.volume = this.mediaPlayerService.volume * 100);
+        this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(fullscreen => this.fullscreen = fullscreen);
 
-        let mouseenter$ = Observable.fromEvent(this.volumeIcon.nativeElement, 'mouseenter');
-        let mouseenterContainer$ = Observable.fromEvent(this.volumeContainer.nativeElement, 'mouseenter');
-        let mouseleaveContainer$ = Observable.fromEvent(this.volumeContainer.nativeElement, 'mouseleave');
+        const mouseenter$ = fromEvent(this.volumeIcon.nativeElement, 'mouseenter');
+        const mouseenterContainer$ = fromEvent(this.volumeContainer.nativeElement, 'mouseenter');
+        const mouseleaveContainer$ = fromEvent(this.volumeContainer.nativeElement, 'mouseleave');
 
-        mouseenter$.subscribe(() => this.volumeActive = true);
-        mouseleaveContainer$.switchMap(() => Observable.timer(1500).takeUntil(mouseenterContainer$)).subscribe(() => this.volumeActive = false);
+        mouseenter$.pipe(takeUntil(this._onDestroy)).subscribe(() => this.volumeActive = true);
+        mouseleaveContainer$.pipe(
+            switchMap(() => timer(1500).pipe(takeUntil(mouseenterContainer$))),
+            takeUntil(this._onDestroy)
+        ).subscribe(() => this.volumeActive = false);
+    }
+
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     toggleMute(): void {
@@ -87,7 +98,7 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
         event.preventDefault();
         this.volumeDragging = true;
 
-        let thumb = event.target as HTMLDivElement;
+        const thumb = event.target as HTMLDivElement;
         thumb.focus();
     }
 
@@ -99,10 +110,10 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
 
         event.preventDefault();
 
-        let slider = this.volumeSlider.nativeElement as HTMLDivElement;
-        let bounds = slider.getBoundingClientRect();
+        const slider = this.volumeSlider.nativeElement as HTMLDivElement;
+        const bounds = slider.getBoundingClientRect();
 
-        let x = Math.min(bounds.width, Math.max(0, event.pageX - bounds.left));
+        const x = Math.min(bounds.width, Math.max(0, event.pageX - bounds.left));
 
         // convert to a percentage
         this.volume = (x / bounds.width) * 100;
@@ -110,7 +121,7 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
 
     @HostListener('document:mouseup')
     dragEnd(): void {
-        this.volumeDragging = false;        
+        this.volumeDragging = false;
     }
 
 }

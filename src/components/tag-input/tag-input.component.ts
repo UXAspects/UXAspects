@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, forwardRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
@@ -106,7 +106,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 
     constructor(
         private _element: ElementRef,
-        @Inject(DOCUMENT) private _document: Document,
+        @Inject(DOCUMENT) private _document: any,
         private _typeaheadKeyService: TypeaheadKeyService) { }
 
     ngOnInit() {

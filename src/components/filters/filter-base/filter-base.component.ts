@@ -1,5 +1,5 @@
-import { Directive, Host, Input, Output } from '@angular/core';
-import { FilterContainerComponent, Filter, FilterRemoveAllEvent } from '../filter-container.component';
+import { Directive, Host, Input } from '@angular/core';
+import { Filter, FilterContainerComponent, FilterRemoveAllEvent } from '../filter-container.component';
 
 @Directive({
     selector: 'ux-filter-base'

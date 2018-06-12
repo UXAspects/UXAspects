@@ -1,10 +1,8 @@
-import { Directive, Input, ElementRef, OnInit, ContentChildren, QueryList, OnDestroy, Output, EventEmitter, Renderer2, AfterViewInit, HostBinding } from '@angular/core';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, QueryList, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { Drake } from 'dragula';
 import { ReorderableHandleDirective } from './reorderable-handle.directive';
 import { ReorderableModelDirective } from './reorderable-model.directive';
-import { ReorderableService, ReorderableContainer, ReorderableDragEvent, ReorderableDragEndEvent, ReorderableDropEvent, ReorderableClonedEvent, ReorderableCancelEvent } from './reorderable.service';
-import { dragula } from './dragula';
+import { ReorderableCancelEvent, ReorderableClonedEvent, ReorderableContainer, ReorderableDragEndEvent, ReorderableDragEvent, ReorderableDropEvent, ReorderableService } from './reorderable.service';
 
 @Directive({
     selector: '[uxReorderable]'
@@ -21,11 +19,9 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
     @ContentChildren(ReorderableHandleDirective, { read: ElementRef, descendants: true }) handles: QueryList<ElementRef>;
     @ContentChildren(ReorderableModelDirective) models: QueryList<ReorderableModelDirective>;
 
-    private _instance: Drake;
     private _container: ReorderableContainer;
 
-    @HostBinding('class.ux-reorderable-container-moving')
-    private _dragging = false;
+    @HostBinding('class.ux-reorderable-container-moving') dragging = false;
 
     private _subscriptions = new Subscription();
 
@@ -74,7 +70,7 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
 
     onDrag(event: ReorderableDragEvent): void {
 
-        this._dragging = true;
+        this.dragging = true;
 
         this.reorderStart.emit({ element: event.element, model: event.model });
     }
@@ -139,7 +135,7 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
      */
     onDragEnd(event: ReorderableDragEndEvent): void {
 
-        this._dragging = false;
+        this.dragging = false;
 
         if (this._elementRef.nativeElement.contains(event.element)) {
 

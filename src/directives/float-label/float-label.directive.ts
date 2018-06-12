@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit, TemplateRef, Renderer2, OnDestroy, HostBinding, OnChanges, ElementRef } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, OnChanges, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
     selector: '[uxFloatLabel]',
@@ -60,21 +60,21 @@ export class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
         return !!this.value;
     }
 
-    private inputFocus(event: Event): void {
+    private inputFocus(): void {
         if (this.mode === 'focus') {
             this._focused = true;
             this.raised = true;
         }
     }
 
-    private inputBlur(event: Event): void {
+    private inputBlur(): void {
         if (this.mode === 'focus') {
             this._focused = false;
             this.raised = this.hasText();
         }
     }
 
-    private inputChange(event: Event): void {
+    private inputChange(): void {
         if (this.mode === 'input') {
             this.raised = this.hasText();
         }

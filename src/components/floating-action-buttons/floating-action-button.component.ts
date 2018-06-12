@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, HostBinding, HostListener, Attribute } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
 @Component({
@@ -9,9 +9,9 @@ import { FloatingActionButtonsService } from './floating-action-buttons.service'
 })
 export class FloatingActionButtonComponent {
 
-    @Input() icon: string;    
+    @Input() icon: string;
     @HostBinding() tabindex = 1;
-    
+
     primary: boolean = false;
 
     constructor(@Attribute('fab-primary') primary: string, public fab: FloatingActionButtonsService) {

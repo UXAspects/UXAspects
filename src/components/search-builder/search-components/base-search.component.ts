@@ -1,8 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { SearchBuilderService } from '../search-builder.service';
-import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
-import { SearchBuilderGroupService } from '../search-builder-group/search-builder-group.service';
 import { SearchBuilderComponentContext } from '../interfaces/component-context.interface';
+import { SearchBuilderGroupService } from '../search-builder-group/search-builder-group.service';
+import { SearchBuilderService } from '../search-builder.service';
 
 @Component({
     selector: 'ux-base-search',

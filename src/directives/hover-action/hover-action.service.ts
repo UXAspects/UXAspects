@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HoverActionDirective } from './hover-action.directive';
 import { HoverActionContainerDirective } from './hover-action-container.directive';
+import { HoverActionDirective } from './hover-action.directive';
 
 @Injectable()
 export class HoverActionService {
@@ -21,7 +20,7 @@ export class HoverActionService {
     unregister(action: HoverActionDirective): void {
         this._actions = this._actions.filter(actn => actn !== action);
     }
-    
+
     setContainer(container: HoverActionContainerDirective): void {
         this._container = container;
     }
@@ -66,7 +65,7 @@ export class HoverActionService {
 
         this.updateVisibility();
     }
-    
+
     updateVisibility(): void {
         this.active.next(this._focused || this._hovered || this.actionHasFocus());
     }

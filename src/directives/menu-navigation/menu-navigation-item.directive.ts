@@ -7,16 +7,12 @@ import { MenuNavigationService } from './menu-navigation.service';
 })
 export class MenuNavigationItemDirective implements OnDestroy {
 
-    @Output()
-    activated = new EventEmitter();
+    @Output() activated = new EventEmitter();
 
     private _subscription: Subscription;
 
-    constructor(
-        private _service: MenuNavigationService,
-        private _elementRef: ElementRef
-    ) {
-        this._subscription = _service.active$.subscribe((next) => {
+    constructor(service: MenuNavigationService, private _elementRef: ElementRef) {
+        this._subscription = service.active$.subscribe((next) => {
             if (next === this) {
                 this.setActive();
             }

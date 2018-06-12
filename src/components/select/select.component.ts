@@ -1,10 +1,10 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild, forwardRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import { debounceTime, filter, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 
@@ -87,7 +87,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
 
     constructor(
         private _element: ElementRef,
-        @Inject(DOCUMENT) private _document: Document,
+        @Inject(DOCUMENT) private _document: any,
         private _typeaheadKeyService: TypeaheadKeyService) { }
 
     ngOnInit() {

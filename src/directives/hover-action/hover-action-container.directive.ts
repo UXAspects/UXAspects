@@ -1,7 +1,6 @@
-import { Directive, ContentChildren, QueryList, HostListener, ElementRef, OnDestroy, Input } from '@angular/core';
-import { HoverActionDirective } from './hover-action.directive';
-import { HoverActionService } from './hover-action.service';
+import { Directive, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { HoverActionService } from './hover-action.service';
 
 @Directive({
     selector: '[uxHoverActionContainer]',
@@ -21,7 +20,7 @@ export class HoverActionContainerDirective implements OnDestroy {
     constructor(private _elementRef: ElementRef, private _hoverActionService: HoverActionService) {
         // register the container element with the service
         this._hoverActionService.setContainer(this);
-        
+
         // apply a class based on the active state of the container and it's actions
         this.active$ = this._hoverActionService.active.subscribe(active => this.active = active);
     }

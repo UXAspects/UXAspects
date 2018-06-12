@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Injector, Input, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Injector, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({

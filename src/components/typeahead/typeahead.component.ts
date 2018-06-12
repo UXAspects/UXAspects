@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewChild, HostListener } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
@@ -113,12 +113,12 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges {
     }
 
     @HostListener('mousedown')
-    private mousedownHandler() {
+    mousedownHandler() {
         this.clicking = true;
     }
 
     @HostListener('mouseup')
-    private mouseupHandler() {
+    mouseupHandler() {
         this.clicking = false;
     }
 

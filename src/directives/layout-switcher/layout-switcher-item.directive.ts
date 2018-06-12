@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, SimpleChanges, ViewContainerRef, EmbeddedViewRef } from '@angular/core';
+import { Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
     selector: '[uxLayoutSwitcherItem]'
