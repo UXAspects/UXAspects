@@ -23,7 +23,7 @@
     </div>
 
     <!-- Display Tags For Selected Items -->
-    <div class="facets-selected-list" uxReorderable [(reorderableModel)]="facets">
+    <div class="facets-selected-list" uxReorderable [reorderingDisabled]="!facetsReorderable" [(reorderableModel)]="facets" (reorderableModelChange)="facetsChange.emit(facets)">
 
         <!-- Show Selected Tags -->
         <div class="facet-selected-tag" tabindex="0" *ngFor="let facet of facets" (mousedown)="$event.preventDefault()" (click)="deselectFacet(facet)" (keyup.enter)="deselectFacet(facet)"

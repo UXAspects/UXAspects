@@ -12,6 +12,7 @@ export class FacetContainerComponent {
     @Input() clearTooltip: string = 'Clear All';
     @Input() emptyText: string = 'No Items';
     @Input() facets: Facet[] = [];
+    @Input() facetsReorderable: boolean = false;
 
     @Output() facetsChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
     @Output() events: EventEmitter<FacetEvent> = new EventEmitter<FacetEvent>();

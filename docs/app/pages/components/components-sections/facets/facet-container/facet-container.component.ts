@@ -14,6 +14,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsFacetContainerComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     facets: Facet[] = [];
+    allowReorder = false;
 
     plunk: IPlunk = {
         files: {
