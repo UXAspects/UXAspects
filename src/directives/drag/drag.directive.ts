@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, NgZone, OnDestroy, Output } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { takeUntil } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
 @Directive({

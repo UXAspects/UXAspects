@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { documentationSectionNames } from '../../decorators/documentation-section-component';
 import { ICodePen } from '../../interfaces/ICodePen';
 import { ICodePenProvider, isICodePenProvider } from '../../interfaces/ICodePenProvider';
@@ -12,8 +12,7 @@ import { Usage } from './../../interfaces/Usage';
 @Component({
     selector: 'uxd-component-section',
     templateUrl: './component-section.component.html',
-    styleUrls: ['./component-section.component.less'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./component-section.component.less']
 })
 export class ComponentSectionComponent implements OnInit {
 

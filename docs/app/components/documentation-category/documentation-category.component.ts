@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { ICategory } from '../../interfaces/ICategory';
@@ -7,8 +7,7 @@ import { VersionService } from '../../services/version/version.service';
 
 @Component({
     selector: 'uxd-documentation-category',
-    templateUrl: './documentation-category.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './documentation-category.component.html'
 })
 export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
 

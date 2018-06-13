@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { from } from 'rxjs/observable/from';
 import { Observer } from 'rxjs/Observer';
 import { Subject } from 'rxjs/Subject';
 import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
@@ -346,6 +347,6 @@ export class MediaPlayerService {
             return this._frameExtractionService.getFrameThumbnails(this.source, width, height, 0, this.duration, 10);
         }
 
-        return Observable.from([]);
+        return from([]);
     }
 }
