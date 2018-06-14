@@ -3,10 +3,9 @@
         <ux-facet-container [(facets)]="facets" [facetsReorderable]="allowReorder"></ux-facet-container>
         <hr>
         <button class="btn button-primary" (click)="addFacet()">Add Facet</button>
-        <p></p>
-        <div>
-            <ux-checkbox [(value)]="allowReorder" [disabled]="disableCheck" [simplified]="simplified">
-                        Allow reordering</ux-checkbox>
+
+        <div class="m-t-md">
+            <ux-checkbox [(value)]="allowReorder">Allow reordering</ux-checkbox>
         </div>
     </div>
 </div>
