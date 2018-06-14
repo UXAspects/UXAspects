@@ -13,6 +13,7 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() reorderableModel: Array<any>;
     @Input() reorderableGroup: string;
+    @Input() reorderingDisabled: boolean = false;
     @Output() reorderableModelChange = new EventEmitter<Array<any>>();
     @Output() reorderStart = new EventEmitter<ReorderEvent>();
     @Output() reorderCancel = new EventEmitter<ReorderEvent>();
@@ -172,6 +173,9 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
      * otherwise drag whenever an immediate child is specified
      */
     canMove(element: Element, container: Element, handle: Element): boolean {
+        if (this.reorderingDisabled) {
+            return false;
+        }
         return this.handles.length === 0 ? true : !!this.handles.find(_handle => _handle.nativeElement === handle);
     }
 

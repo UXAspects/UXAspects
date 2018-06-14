@@ -1,8 +1,12 @@
 <div class="row">
     <div class="col-md-12">
-        <ux-facet-container [(facets)]="facets"></ux-facet-container>
+        <ux-facet-container [(facets)]="facets" [facetsReorderable]="allowReorder"></ux-facet-container>
         <hr>
         <button class="btn button-primary" (click)="addFacet()">Add Facet</button>
+
+        <div class="m-t-md">
+            <ux-checkbox [(value)]="allowReorder">Allow reordering</ux-checkbox>
+        </div>
     </div>
 </div>
 
@@ -34,6 +38,9 @@
     </tr>
     <tr uxd-api-property name="emptyText" trpe="string" defaultValue="No Items">
         Defines the text to display when there are no selected facets.
+    </tr>
+    <tr uxd-api-property name="facetsReorderable" type="boolean" defaultValue="false">
+        Determines if the facets can be reordered.
     </tr>
 </uxd-api-properties>
 
