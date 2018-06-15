@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-static-tooltip',
@@ -25,8 +25,7 @@ export class ComponentsStaticTooltipComponent extends BaseDocumentationSection i
         modules: [
             {
                 imports: ['PopoverModule'],
-                library: 'ngx-bootstrap/popover',
-                forRoot: true
+                library: '@ux-aspects/ux-aspects'
             }
         ]
     };

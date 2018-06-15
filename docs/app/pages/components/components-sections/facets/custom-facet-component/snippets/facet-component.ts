@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FacetBaseComponent, Facet, FacetDeselect, FacetDeselectAll } from '@ux-aspects/ux-aspects';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Facet, FacetBaseComponent, FacetDeselect, FacetDeselectAll } from '@ux-aspects/ux-aspects';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'my-custom-facet-component',
     templateUrl: './facet-component.component.html',
     styleUrls: ['./facet-component.component.css']
 })
-export class SampleCustomFacetComponent extends FacetBaseComponent implements OnInit {
+export class SampleCustomFacetComponent extends FacetBaseComponent implements OnInit, OnDestroy {
 
     expanded: boolean = true;
 
@@ -16,20 +17,25 @@ export class SampleCustomFacetComponent extends FacetBaseComponent implements On
         new Facet('CSS', { checked: false })
     ];
 
-    ngOnInit() {
+    ngOnInit(): void {
 
         // if a facet is deselected externally we need to update checkbox state
-        this.events.filter(event => event instanceof FacetDeselect).subscribe((event: FacetDeselect) => {
+        this.events.pipe(filter(event => event instanceof FacetDeselect), takeUntil(this._onDestroy)).subscribe((event: FacetDeselect) => {
             event.facet.data.checked = false;
         });
 
         // if all facets are deselected externally we need to update checkbox states
-        this.events.filter(event => event instanceof FacetDeselectAll).subscribe(event => {
+        this.events.pipe(filter(event => event instanceof FacetDeselectAll), takeUntil(this._onDestroy)).subscribe(() => {
             this.facets.forEach(facet => facet.data.checked = false);
         });
     }
 
-    updateFacet(facet: Facet, selected: boolean) {
+    ngOnDestroy(): void {
+        this._onDestroy.next();
+        this._onDestroy.complete();
+    }
+
+    updateFacet(facet: Facet, selected: boolean): void {
 
         // update the checked value
         facet.data.checked = selected;

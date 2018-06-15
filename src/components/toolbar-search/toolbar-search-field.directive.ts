@@ -1,5 +1,5 @@
+import { Directive, ElementRef, EventEmitter, HostListener, Optional, Output } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Directive, ElementRef, HostListener, EventEmitter, Output, HostBinding, Optional } from '@angular/core';
 
 const KEYS = {
     ENTER: 13,

@@ -54,6 +54,11 @@ ux-slider {
             position: absolute;
             cursor: pointer;
 
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 1px 2px @aspects-outline;
+            }
+
             .tooltip {
                 top: -37px;
                 -ms-user-select: none;

@@ -1,16 +1,30 @@
-import { Directive, Input, ElementRef } from '@angular/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 
-@Directive({ 
-    selector: '[focusIf]' 
+@Directive({
+    selector: '[focusIf]'
 })
 export class FocusIfDirective {
 
-    @Input() 
+    @Input() focusIfDelay: number = 0;
+
+    @Input()
     set focusIf(focus: boolean) {
-        if (focus) {
-            setTimeout(() => this._elementRef.nativeElement.focus());
+
+        // if a timeout is pending then cancel it
+        if (!focus && this._timeout !== null) {
+            clearTimeout(this._timeout);
+            this._timeout = null;
+        }
+
+        if (focus && this._timeout === null) {
+            this._timeout = window.setTimeout(() => {
+                this._elementRef.nativeElement.focus();
+                this._timeout = null;
+            }, this.focusIfDelay);
         }
     }
+
+    private _timeout: number = null;
 
     constructor(private _elementRef: ElementRef) { }
 }

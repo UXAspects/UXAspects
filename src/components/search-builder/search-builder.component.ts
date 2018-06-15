@@ -1,13 +1,9 @@
-import { Component, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
-import { SearchBuilderService } from './search-builder.service';
-import { SearchBuilderQuery } from './interfaces/query.interface';
 import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
-import { SearchTextComponent } from './search-components/text/text.component';
-import { SearchDateComponent } from './search-components/date/date.component';
-import { SearchDateRangeComponent } from './search-components/date-range/date-range.component';
-import { SearchSelectComponent } from './search-components/select/select.component';
-import 'rxjs/add/operator/distinctUntilChanged';
+import { SearchBuilderQuery } from './interfaces/query.interface';
+import { SearchBuilderService } from './search-builder.service';
 
 @Component({
   selector: 'ux-search-builder',
@@ -45,7 +41,7 @@ export class SearchBuilderComponent implements OnDestroy {
     this._querySubscription = _searchBuilderService.queryChange.subscribe(query => this.queryChange.emit(query));
 
     // watch for any changes to the validation
-    this._validSubscription = _searchBuilderService.validationChange.distinctUntilChanged().subscribe(valid => this.valid.emit(valid));
+    this._validSubscription = _searchBuilderService.validationChange.pipe(distinctUntilChanged()).subscribe(valid => this.valid.emit(valid));
   }
 
   /**

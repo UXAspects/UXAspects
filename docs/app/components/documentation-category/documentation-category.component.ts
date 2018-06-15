@@ -1,11 +1,9 @@
-import { Subscription } from 'rxjs/Subscription';
-import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Subscription } from 'rxjs/Subscription';
 import { ICategory } from '../../interfaces/ICategory';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { ISection } from '../../interfaces/ISection';
-import { VersionService, Version } from '../../services/version/version.service';
+import { VersionService } from '../../services/version/version.service';
 
 @Component({
     selector: 'uxd-documentation-category',
@@ -17,16 +15,21 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
     private trackScroll: boolean = false;
     private versionSub: Subscription;
 
-    constructor(private router: Router, private activatedRoute: ActivatedRoute,
-        private navigation: NavigationService, public versionService: VersionService) {
+    constructor(private _router: Router,
+        private _activatedRoute: ActivatedRoute,
+        private _navigation: NavigationService,
+        private _changeDetectorRef: ChangeDetectorRef,
+        public versionService: VersionService) {
         // get version
-        this.versionSub = this.versionService.version.subscribe((value: Version) => {
+        this.versionSub = this.versionService.version.subscribe(() => {
             if (this.category) {
                 let hasSection = !!this.category.sections.find((section) => this.versionService.isSectionVersionMatch(section));
                 if (!hasSection) {
-                    this.router.navigate(['/'], {});
+                    this._router.navigate(['/'], {});
                 }
             }
+
+            this._changeDetectorRef.markForCheck();
         });
     }
 
@@ -36,8 +39,8 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         // Fetch category details from the route metadata
-        this.category = this.activatedRoute.snapshot.data['category'];
-        this.navigation.setSectionIds(this.category.sections);
+        this.category = this._activatedRoute.snapshot.data['category'];
+        this._navigation.setSectionIds(this.category.sections);
     }
 
     ngAfterViewInit() {
@@ -47,10 +50,7 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
     @HostListener('window:scroll')
     onWindowScroll() {
         if (this.trackScroll) {
-            setTimeout(() => {
-                this.updateActiveSection();
-            });
-            
+            setTimeout(() => this.updateActiveSection());
         }
     }
 
@@ -63,14 +63,14 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
         for (let section of this.category.sections) {
 
             // Check fragment corresponding to section ID.
-            if (this.navigation.isFragmentActive(section.id)) {
+            if (this._navigation.isFragmentActive(section.id)) {
 
                 activeSection = section;
 
                 // Special case - if the user clicked the link to a section that caused the window to
                 // scroll to the bottom, then potentially the section above it will be in view.
                 // Set a flag to not update the URL in that case (it should remain as the section clicked).
-                updateUrl = !this.navigation.isScrolledToBottom();
+                updateUrl = !this._navigation.isScrolledToBottom();
 
                 break;
             }
@@ -96,6 +96,9 @@ export class DocumentationCategoryComponent implements OnInit, AfterViewInit {
         }
 
         // Set the active fragment to update the URL in sync with the scroll position
-        this.navigation.setActiveFragment(activeSection.id, replaceOnly, updateUrl);
+        this._navigation.setActiveFragment(activeSection.id, replaceOnly, updateUrl);
+
+        // indicate their may be changes
+        this._changeDetectorRef.markForCheck();
     }
 }

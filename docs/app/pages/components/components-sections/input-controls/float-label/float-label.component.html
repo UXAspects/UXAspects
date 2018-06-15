@@ -1,0 +1,78 @@
+<form [formGroup]="demoForm" novalidate>
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            <label [uxFloatLabel]="username" mode="input">User Name</label>
+            <input type="text" #username id="username" class="form-control" placeholder="User Name"
+                formControlName="username">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            <label [uxFloatLabel]="location" [value]="locationValue" mode="input">Location</label>
+            <div class="input-group">
+                <input type="text" #location id="location" class="form-control ux-float-input"
+                    placeholder="Location" formControlName="location">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-icon button-primary"
+                        (click)="locationValue = 'Here'">
+                        <span class="hpe-icon hpe-location" aria-label="Current Location"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<hr>
+
+<p>
+    Float Labels allow for placeholders that will move to remain visible when the user is typing in the input field.
+    This pattern is useful for forms where having separate labels for inputs is undesirable, and allows the user to keep
+    the context of an input field even after they have entered a value.
+</p>
+
+<p>
+    Add the <code>uxFloatLabel</code> directive to the <code>label</code> element, and bind it to the associated
+    <code>input</code> element. The <code>ux-float-input</code> class can be used to style the <code>input</code> if it
+    is part of an input group.
+</p>
+
+<p>
+    The following properties can be used to configure <code>uxFloatLabel</code>:
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="uxFloatLabel" type="HTMLInputElement" [required]="true">
+        The <code>input</code> element associated with the label.
+    </tr>
+    <tr uxd-api-property name="value" type="any">
+        The model value which is bound to the input. This is required if the input is updated programmatically, to
+        ensure that the label is positioned correctly. The code below shows how to bind this in a reactive form.
+    </tr>
+    <tr uxd-api-property name="mode" type="'focus' | 'input'" defaultValue="focus">
+        <p>
+            Determines which events cause the label to be raised.
+        </p>
+        <ul>
+            <li><code>focus</code>: The label is raised on focus, and remains raised while the input contains text.</li>
+            <li><code>input</code>: The label is raised when the user enters text. This mode is designed to be used in
+                combination with the <code>input</code> <code>placeholder</code> attribute.</li>
+        </ul>
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The following code is used to create the example above:
+</p>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>

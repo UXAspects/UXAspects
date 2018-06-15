@@ -1,15 +1,17 @@
-import { Directive, Input, ElementRef, OnInit, ContentChildren, QueryList, OnDestroy, Output, EventEmitter, Renderer2, NgZone } from '@angular/core';
-import { Drake } from 'dragula';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, QueryList, Renderer2 } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { ReorderableHandleDirective } from './reorderable-handle.directive';
 import { ReorderableModelDirective } from './reorderable-model.directive';
-import { dragula } from './dragula';
+import { ReorderableCancelEvent, ReorderableClonedEvent, ReorderableContainer, ReorderableDragEndEvent, ReorderableDragEvent, ReorderableDropEvent, ReorderableService } from './reorderable.service';
 
 @Directive({
     selector: '[uxReorderable]'
 })
-export class ReorderableDirective implements OnInit, OnDestroy {
+export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() reorderableModel: Array<any>;
+    @Input() reorderableGroup: string;
+    @Input() reorderingDisabled: boolean = false;
     @Output() reorderableModelChange = new EventEmitter<Array<any>>();
     @Output() reorderStart = new EventEmitter<ReorderEvent>();
     @Output() reorderCancel = new EventEmitter<ReorderEvent>();
@@ -18,57 +20,100 @@ export class ReorderableDirective implements OnInit, OnDestroy {
     @ContentChildren(ReorderableHandleDirective, { read: ElementRef, descendants: true }) handles: QueryList<ElementRef>;
     @ContentChildren(ReorderableModelDirective) models: QueryList<ReorderableModelDirective>;
 
-    private _instance: Drake;
+    private _container: ReorderableContainer;
 
-    constructor(private _elementRef: ElementRef, private _renderer: Renderer2, private _ngZone: NgZone) { }
+    @HostBinding('class.ux-reorderable-container-moving') dragging = false;
+
+    private _subscriptions = new Subscription();
+
+    constructor(
+        private _elementRef: ElementRef,
+        private _renderer: Renderer2,
+        private _service: ReorderableService
+    ) { }
 
     /**
      * Initialise dragula and bind to all the required events
      */
     ngOnInit(): void {
-        // for performance gains lets run this outside ng zone
-        this._ngZone.runOutsideAngular(() => {
-            this._instance = dragula([this._elementRef.nativeElement], { moves: this.canMove.bind(this), mirrorContainer: this._elementRef.nativeElement });
-            this._instance.on('drag', (element: Element) => this._ngZone.run(() => this.reorderStart.emit({ element: element, model: this.getModelFromElement(element) })));
-            this._instance.on('cancel', (element: Element) => this._ngZone.run(() => this.reorderCancel.emit({ element: element, model: this.getModelFromElement(element) })));
-            this._instance.on('dragend', (element: Element) => this._ngZone.run(() => this.reorderEnd.emit({ element: element, model: this.getModelFromElement(element) })));
-            this._instance.on('dragend', this.onDragEnd.bind(this));
-            this._instance.on('drop', this.onDrop.bind(this));
-            this._instance.on('cloned', this.onClone.bind(this));
-        });
+
+        // If no group name then generate a unique one for this instance only
+        if (!this.reorderableGroup) {
+            this.reorderableGroup = this._service.getUniqueGroupName();
+        }
+
+        this._container = {
+            element: this._elementRef.nativeElement,
+            getModelFromElement: this.getModelFromElement.bind(this),
+            canMove: this.canMove.bind(this)
+        };
+
+        // Register for drag events on this element
+        const group = this._service.register(this.reorderableGroup, this._container);
+        this._subscriptions.add(group.drag.subscribe(this.onDrag.bind(this)));
+        this._subscriptions.add(group.dragEnd.subscribe(this.onDragEnd.bind(this)));
+        this._subscriptions.add(group.drop.subscribe(this.onDrop.bind(this)));
+        this._subscriptions.add(group.cancel.subscribe((event: ReorderableCancelEvent) => this.reorderCancel.emit({ element: event.element, model: event.model })));
+        this._subscriptions.add(group.cloned.subscribe(this.onClone.bind(this)));
+    }
+
+    ngAfterViewInit(): void {
+        this._service.initialize(this.reorderableGroup);
     }
 
     /**
      * We need to destroy the dragula instance on component destroy
      */
     ngOnDestroy(): void {
-        this._instance.destroy();
+        this._service.unregister(this.reorderableGroup, this._container);
+        this._subscriptions.unsubscribe();
+    }
+
+    onDrag(event: ReorderableDragEvent): void {
+
+        this.dragging = true;
+
+        this.reorderStart.emit({ element: event.element, model: event.model });
     }
 
     /**
      * This is fired when items get reordered - we need to emit the new order of the models
      */
-    onDrop(element: Element, target: Element, source: Element, sibling: HTMLElement): void {
+    onDrop(event: ReorderableDropEvent): void {
 
         // if there is no provided module we can skip this
         if (!this.reorderableModel) {
             return;
         }
 
-        // get the model of the element being moved
-        const model = this.getModelFromElement(element);
+        let changed = false;
 
-        // remove this model from the list of models
-        this.reorderableModel = this.reorderableModel.filter(_model => _model !== model);
+        if (event.source.isSameNode(this._elementRef.nativeElement)) {
 
-        // get the position of sibling element
-        const index = sibling && !sibling.classList.contains('gu-mirror') ? this.reorderableModel.indexOf(this.getModelFromElement(sibling)) : this.reorderableModel.length;
+            // remove this model from the list of models
+            const index = this.reorderableModel.indexOf(event.model);
+            if (index >= 0) {
+                this.reorderableModel.splice(index, 1);
+                changed = true;
+            }
+        }
 
-        // re-insert the model at its new location
-        this.reorderableModel.splice(index, 0, model);
+        if (event.target.isSameNode(this._elementRef.nativeElement)) {
 
-        // emit the model changes (inside zone)
-        this._ngZone.run(() => this.reorderableModelChange.emit(this.reorderableModel));
+            // get the position of sibling element
+            const index = event.sibling && !event.sibling.classList.contains('gu-mirror') ?
+                this.reorderableModel.indexOf(this.getModelFromElement(event.sibling)) :
+                this.reorderableModel.length;
+
+            // insert the model at its new location
+            this.reorderableModel.splice(index, 0, event.model);
+            changed = true;
+        }
+
+        // Emit event if any changes were made
+        if (changed) {
+            this.reorderableModelChange.emit(this.reorderableModel);
+        }
     }
 
     /**
@@ -76,6 +121,7 @@ export class ReorderableDirective implements OnInit, OnDestroy {
      * This should ensure that the items have the draggable model directive applied
      */
     getModelFromElement(element: Element): any {
+
         const model = this.models.find(_model => _model.elementRef.nativeElement === element);
 
         if (!model) {
@@ -88,19 +134,34 @@ export class ReorderableDirective implements OnInit, OnDestroy {
     /**
      * When we finish dragging remove the utillity class from the element being moved
      */
-    onDragEnd(element: Element): void {
-        this._renderer.removeClass(element, 'ux-reorderable-moving');
+    onDragEnd(event: ReorderableDragEndEvent): void {
+
+        this.dragging = false;
+
+        if (this._elementRef.nativeElement.contains(event.element)) {
+
+            this._renderer.removeClass(event.element, 'ux-reorderable-moving');
+
+            this.reorderEnd.emit({
+                element: event.element,
+                model: event.model
+            });
+        }
     }
 
     /**
      * We want to ensure that the cloned element is identical
      * to the original, regardless of it's location in the DOM tree
      */
-    onClone(clone: Element, element: Element, type: string): void {
-        this.setTableCellWidths(element, clone);
-        this.captureCanvases(element, clone);
+    onClone(event: ReorderableClonedEvent): void {
 
-        this._renderer.addClass(element, 'ux-reorderable-moving');
+        if (this._elementRef.nativeElement.contains(event.element)) {
+
+            this.setTableCellWidths(event.element, event.clone);
+            this.captureCanvases(event.element, event.clone);
+
+            this._renderer.addClass(event.element, 'ux-reorderable-moving');
+        }
     }
 
     /**
@@ -108,6 +169,9 @@ export class ReorderableDirective implements OnInit, OnDestroy {
      * otherwise drag whenever an immediate child is specified
      */
     canMove(element: Element, container: Element, handle: Element): boolean {
+        if (this.reorderingDisabled) {
+            return false;
+        }
         return this.handles.length === 0 ? true : !!this.handles.find(_handle => _handle.nativeElement === handle);
     }
 

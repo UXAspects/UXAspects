@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/observable/fromEvent';
-import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -27,30 +25,26 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
     mouseDown: boolean = false;
     quietMode: boolean = false;
     fullscreen: boolean = false;
-    private _mouseEventSubscription: Subscription;
+    scrub = { visible: false, position: 0, time: 0 };
 
-    scrub = {
-        visible: false,
-        position: 0,
-        time: 0
-    };
+    private _onDestroy = new Subject<void>();
 
     ngOnInit(): void {
 
         // watch for changes to the current time
-        this.mediaPlayerService.durationChangeEvent.subscribe(duration => this.duration = duration);
-        this.mediaPlayerService.quietModeEvent.subscribe(quietMode => this.quietMode = quietMode);
-        this.mediaPlayerService.fullscreenEvent.subscribe(fullscreen => {
+        this.mediaPlayerService.durationChangeEvent.pipe(takeUntil(this._onDestroy)).subscribe(duration => this.duration = duration);
+        this.mediaPlayerService.quietModeEvent.pipe(takeUntil(this._onDestroy)).subscribe(quietMode => this.quietMode = quietMode);
+        this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(fullscreen => {
             this.fullscreen = fullscreen;
             this.scrub.position = 0;
         });
 
-        this.mediaPlayerService.timeUpdateEvent.subscribe(current => {
+        this.mediaPlayerService.timeUpdateEvent.pipe(takeUntil(this._onDestroy)).subscribe(current => {
             this.current = current;
             this.position = (this.current / this.duration) * 100;
         });
 
-        this.mediaPlayerService.progressEvent.subscribe((buffered: TimeRanges) => {
+        this.mediaPlayerService.progressEvent.pipe(takeUntil(this._onDestroy)).subscribe((buffered: TimeRanges) => {
             this.buffered = [];
 
             for (let idx = 0; idx < buffered.length; idx++) {
@@ -60,29 +54,31 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
     }
 
     ngAfterViewInit(): void {
-        let mousedown$ = Observable.fromEvent(this.thumb.nativeElement, 'mousedown');
-        let mousemove$ = Observable.fromEvent(document, 'mousemove');
-        let mouseup$ = Observable.fromEvent(document, 'mouseup');
+        const mousedown$ = fromEvent(this.thumb.nativeElement, 'mousedown');
+        const mousemove$ = fromEvent(document, 'mousemove');
+        const mouseup$ = fromEvent(document, 'mouseup');
 
-        this._mouseEventSubscription = mousedown$.switchMap(event => mousemove$.takeUntil(mouseup$)).subscribe(event => {
-            this.scrub.visible = false;
-        });
+        mousedown$.pipe(
+            switchMap(() => mousemove$.pipe(takeUntil(mouseup$))),
+            takeUntil(this._onDestroy)
+        ).subscribe(() => this.scrub.visible = false);
     }
 
     ngOnDestroy() {
-        this._mouseEventSubscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     updateScrub(event?: MouseEvent): void {
 
-        let target = event.target as HTMLElement;
-      
+        const target = event.target as HTMLElement;
+
         if (target.classList.contains('media-progress-bar-thumb')) {
             return;
         }
 
-        let timeline = this.timelineRef.nativeElement as HTMLDivElement;
-        let bounds = timeline.getBoundingClientRect();
+        const timeline = this.timelineRef.nativeElement as HTMLDivElement;
+        const bounds = timeline.getBoundingClientRect();
 
         this.scrub.position = event.offsetX;
         this.scrub.time = (event.offsetX / bounds.width) * this.mediaPlayerService.duration;

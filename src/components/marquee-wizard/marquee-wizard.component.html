@@ -28,16 +28,16 @@
 
     <div class="modal-footer">
 
-        <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="previousVisible" [tooltip]="previousTooltip" container="body"
+        <button #tip="ux-tooltip" class="btn button-secondary" *ngIf="previousVisible" [uxTooltip]="previousTooltip" container="body"
             [disabled]="previousDisabled || step === 0" (click)="previous(); tip.hide()">{{ previousText }}</button>
 
-        <button #tip="bs-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [tooltip]="nextTooltip" container="body"
+        <button #tip="ux-tooltip" class="btn button-primary" *ngIf="nextVisible && !isLastStep()" [uxTooltip]="nextTooltip" container="body"
             [disabled]="nextDisabled" (click)="next(); tip.hide()">{{ nextText }}</button>
 
-        <button #tip="bs-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [tooltip]="finishTooltip"
+        <button #tip="ux-tooltip" class="btn button-primary" *ngIf="finishVisible && isLastStep() || finishAlwaysVisible" [uxTooltip]="finishTooltip"
             container="body" [disabled]="finishDisabled" (click)="finish(); tip.hide()">{{ finishText }}</button>
 
-        <button #tip="bs-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [tooltip]="cancelTooltip"
+        <button #tip="ux-tooltip" class="btn button-secondary" *ngIf="cancelVisible && !isLastStep() || cancelAlwaysVisible" [uxTooltip]="cancelTooltip"
             container="body" [disabled]="cancelDisabled" (click)="cancel(); tip.hide()">{{ cancelText }}</button>
     </div>
 </div>

@@ -1,18 +1,13 @@
-import { browser, element, by, Key } from 'protractor';
+import { Key } from 'protractor';
 import { RadioButtonsPage } from './radiobuttons.po.spec';
 
 describe('RadioButton Tests', () => {
 
   let page: RadioButtonsPage;
-  let browserName: string;
 
   beforeEach(() => {
     page = new RadioButtonsPage();
     page.getPage();
-    
-    browser.getCapabilities().then(function(caps) {
-        browserName = caps.get('browserName');
-    });
   });
 
   it('should have correct initial states', () => {

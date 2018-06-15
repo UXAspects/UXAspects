@@ -1,15 +1,13 @@
+
 import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/auditTime';
-import 'rxjs/add/operator/combineLatest';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/partition';
 import { from } from 'rxjs/observable/from';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { of } from 'rxjs/observable/of';
+import { auditTime, combineLatest, filter as filterOperator, first, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 import { InfiniteScrollLoadButtonDirective } from './infinite-scroll-load-button.directive';
 import { InfiniteScrollLoadingDirective } from './infinite-scroll-loading.directive';
 
@@ -72,15 +70,16 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
     private _scrollElement: ElementRef;
     private _subscriptions: Subscription[] = [];
     private _loadButtonSubscriptions: Subscription[] = [];
+    private _onDestroy = new Subject<void>();
 
     constructor(private _element: ElementRef) {
-        this._canLoadManually = this._isLoading.combineLatest(
+        this._canLoadManually = this._isLoading.pipe(combineLatest(
             this._isExhausted,
             this._loadButtonEnabled,
             (isLoading, isExhausted, loadButtonEnabled) => {
                 return !isLoading && !isExhausted && loadButtonEnabled;
             }
-        );
+        ));
     }
 
     ngOnInit() {
@@ -97,9 +96,8 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         // Check requests are throttled and will only cause an update if more data is required
         // to fill the scrolling view, and it isn't already loading some.
         // Load requests are not throttled and always request a page of data.
-        const requests = this._updateRequests.partition(r => r.check);
-        requests[0].auditTime(200).subscribe(this.doRequest.bind(this));
-        requests[1].subscribe(this.doRequest.bind(this));
+        this._updateRequests.pipe(filterOperator(request => request.check), auditTime(200), takeUntil(this._onDestroy)).subscribe(this.doRequest.bind(this));
+        this._updateRequests.pipe(filterOperator(request => !request.check), takeUntil(this._onDestroy)).subscribe(this.doRequest.bind(this));
 
         if (this.enabled) {
             // Subscribe to scroll events and DOM changes.
@@ -107,14 +105,14 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
         }
 
         // Connect the Load More button visible state.
-        this._canLoadManually.subscribe(canLoad => {
+        this._canLoadManually.pipe(takeUntil(this._onDestroy)).subscribe(canLoad => {
             this._loadButtonQuery.forEach(loadButton => {
                 loadButton.visible = canLoad;
             });
         });
 
         // Connect the loading indicator visible state.
-        this._isLoading.subscribe(isLoading => {
+        this._isLoading.pipe(takeUntil(this._onDestroy)).subscribe(isLoading => {
             this._loadingIndicatorQuery.forEach(loading => {
                 loading.visible = isLoading;
             });
@@ -122,7 +120,7 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
 
         // Link the Load More button click event to trigger an update.
         this.attachLoadButtonEvents();
-        this._loadButtonQuery.changes.subscribe(query => {
+        this._loadButtonQuery.changes.pipe(takeUntil(this._onDestroy)).subscribe(() => {
             this.attachLoadButtonEvents();
         });
 
@@ -173,6 +171,8 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
 
     ngOnDestroy() {
         this.detachEventHandlers();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     /**
@@ -317,11 +317,9 @@ export class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChan
             // Invoke the callback load function, which returns a promose or plain data.
             const loadResult = this.load(request.pageNumber, request.pageSize, request.filter);
 
-            const observable = Array.isArray(loadResult)
-                ? of(loadResult)
-                : from<any[]>(loadResult);
+            const observable = Array.isArray(loadResult) ? of(loadResult) : from<any[]>(loadResult);
 
-            const subscription = observable.first().subscribe(
+            const subscription = observable.pipe(first()).subscribe(
                 items => {
                     // Make sure that the parameters have not changed since the load started;
                     // otherwise discard the results.

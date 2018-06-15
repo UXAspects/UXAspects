@@ -1,35 +1,27 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
-
+import { SpinButtonModule } from '../spin-button/index';
+import { TimePickerModule } from '../time-picker/index';
 import { DateTimePickerComponent } from './date-time-picker.component';
-import { DateTimePickerDayViewComponent } from './day-view/day-view.component';
-import { DateTimePickerMonthViewComponent } from './month-view/month-view.component';
-import { DateTimePickerYearViewComponent } from './year-view/year-view.component';
-import { DateTimePickerHeaderComponent } from './header/header.component';
-import { DateTimePickerTimeViewComponent } from './time-view/time-view.component';
 import { DateTimePickerConfig } from './date-time-picker.config';
-
-const DECLARATIONS = [
-    DateTimePickerComponent,
-    DateTimePickerDayViewComponent,
-    DateTimePickerMonthViewComponent,
-    DateTimePickerYearViewComponent,
-    DateTimePickerTimeViewComponent,
-    DateTimePickerHeaderComponent
-];
+import { DayViewComponent } from './day-view/day-view.component';
+import { HeaderComponent } from './header/header.component';
+import { MonthViewComponent } from './month-view/month-view.component';
+import { TimeViewComponent } from './time-view/time-view.component';
+import { YearViewComponent } from './year-view/year-view.component';
+import { FocusIfModule } from '../../directives/focus-if/index';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        TimepickerModule.forRoot(),
-        ButtonsModule.forRoot()
+        TimePickerModule,
+        SpinButtonModule,
+        FocusIfModule
     ],
-    exports: DECLARATIONS,
-    declarations: DECLARATIONS,
+    exports: [DateTimePickerComponent],
+    declarations: [DateTimePickerComponent, HeaderComponent, DayViewComponent, MonthViewComponent, YearViewComponent, TimeViewComponent],
     providers: [
         DateTimePickerConfig
     ]

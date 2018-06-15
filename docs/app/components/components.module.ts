@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { EboxModule, ScrollIntoViewIfModule, PersistentDataModule } from '../../../src/index';
+import { EboxModule, ScrollIntoViewIfModule, PersistentDataModule, TooltipModule, PopoverModule } from '../../../src/index';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { PopoverModule } from 'ngx-bootstrap/popover';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 // Import Layout Components
@@ -64,10 +62,10 @@ const DOCUMENTATION_COMPONENTS = [
         CommonModule,
         EboxModule,
         FormsModule,
-        PopoverModule.forRoot(),
+        PopoverModule,
         RouterModule,
         ScrollIntoViewIfModule,
-        TooltipModule.forRoot(),
+        TooltipModule,
         TypeaheadModule.forRoot(),
         PersistentDataModule
     ],

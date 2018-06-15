@@ -64,13 +64,20 @@ ux-page-header {
                     width: 28px;
                     margin-top: 16px;
                     margin-right: 2px;
+                    border: none;
                     justify-content: center;
                     align-items: center;
+                    background-color: transparent;
                     cursor: pointer;
                     transition: background-color 0.3s ease-in-out;
 
-                    &:hover {
+                    &:hover,
+                    &:focus {
                         background-color: @page-header-back-button-hover-bg;
+                    }
+
+                    &:focus {
+                        .aspects-outline;
                     }
 
                     & > * {

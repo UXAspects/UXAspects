@@ -5,7 +5,7 @@
             <input uxToolbarSearchField #searchField type="text" class="form-control" placeholder="Search"
                 aria-label="Search" [(ngModel)]="searchText">
             <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary"
-                aria-label="Toggle Search" tooltip="Search">
+                aria-label="Toggle Search" uxTooltip="Search">
                 <span class="hpe-icon hpe-search"></span>
             </button>
             <button *ngIf="searchText" type="button"
@@ -14,26 +14,26 @@
                 <span class="hpe-icon hpe-close"></span>
             </button>
         </ux-toolbar-search>
-        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="Add">
+        <button type="button" class="btn btn-link btn-icon button-secondary" uxTooltip="Add">
             <span class="hpe-icon hpe-add"></span>
         </button>
-        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="Edit">
+        <button type="button" class="btn btn-link btn-icon button-secondary" uxTooltip="Edit">
             <span class="hpe-icon hpe-edit"></span>
         </button>
     </div>
 
     <div class="demo-toolbar-right">
-        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="Grid View">
+        <button type="button" class="btn btn-link btn-icon button-secondary" uxTooltip="Grid View">
             <span class="hpe-icon hpe-grid"></span>
         </button>
-        <button type="button" class="btn btn-link btn-icon button-secondary" tooltip="List View">
+        <button type="button" class="btn btn-link btn-icon button-secondary" uxTooltip="List View">
             <span class="hpe-icon hpe-list"></span>
         </button>
         <ux-toolbar-search direction="left" (search)="onSearchRight($event)">
             <input uxToolbarSearchField #searchFieldRight type="text" class="form-control"
                 placeholder="Search" aria-label="Search">
             <button uxToolbarSearchButton type="button" class="btn btn-link btn-icon button-secondary"
-                aria-label="Toggle Search"tooltip="Search" container="body">
+                aria-label="Toggle Search" uxTooltip="Search">
                 <span class="hpe-icon hpe-search"></span>
             </button>
         </ux-toolbar-search>

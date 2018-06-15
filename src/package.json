@@ -1,6 +1,6 @@
 {
   "name": "@ux-aspects/ux-aspects",
-  "version": "1.5.12",
+  "version": "1.5.14",
   "description": "Open source user interface framework for building modern, responsive, mobile big data applications",
   "main": "dist/bundles/ux-aspects.umd.js",
   "repository": {
@@ -29,6 +29,7 @@
   },
   "homepage": "https://uxaspects.github.io/UXAspects",
   "dependencies": {
+    "@angular/cdk": "5.2.5",
     "angular-split": "^1.0.0-rc.3",
     "chart.js": "~2.6.0",
     "dragula": "^3.7.2",
@@ -48,6 +49,7 @@
     "@angular/compiler": ">=4.0.0",
     "@angular/core": ">=4.0.0",
     "@angular/forms": ">=4.0.0",
-    "@angular/upgrade": ">=4.0.0"
+    "@angular/upgrade": ">=4.0.0",
+    "@angular/animations": ">=4.0.0"
   }
 }

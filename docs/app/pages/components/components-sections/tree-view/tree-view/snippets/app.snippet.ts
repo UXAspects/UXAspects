@@ -65,6 +65,16 @@ export class AppComponent {
             { name: 'IMG_003.jpg' }
         ]
     }];
+
+    focused: TreeNode;    
+
+    /**
+     * If tree view is tabbed to, focus the node
+     */
+    focus(node: TreeNode): void {
+        node.focus();
+        node.treeModel.setFocus(true);
+    }
 }
 
 export interface TreeViewExampleNode {

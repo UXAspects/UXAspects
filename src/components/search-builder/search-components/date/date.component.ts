@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
-import { DateTimePickerTimezone } from '../../../date-time-picker/index';
 
 @Component({
   selector: 'ux-search-date',

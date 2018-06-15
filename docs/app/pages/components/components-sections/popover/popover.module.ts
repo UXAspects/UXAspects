@@ -1,14 +1,17 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { ComponentsPopoverNg1Component } from './popover-ng1/popover-ng1.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { PopoverModule } from '../../../../../../src/components/popover/index';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ComponentsPopoverNg1Component } from './popover-ng1/popover-ng1.component';
+import { ComponentsPopoverComponent } from './popover/popover.component';
 
 const SECTIONS = [
-    ComponentsPopoverNg1Component
+    ComponentsPopoverNg1Component,
+    ComponentsPopoverComponent
 ];
 
 const ROUTES = [
@@ -25,6 +28,7 @@ const ROUTES = [
     imports: [
         WrappersModule,
         TabsModule,
+        PopoverModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

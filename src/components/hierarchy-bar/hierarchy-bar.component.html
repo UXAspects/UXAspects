@@ -6,15 +6,13 @@
 <main #nodelist class="hierarchy-bar-nodes" (uxResize)="scrollIntoView()">
 
     <div *ngIf="overflow$ | async"
-         #popover="bs-popover"
+         #popover="ux-popover"
          class="hierarchy-bar-overflow-indicator"
          [style.left.px]="nodelist.scrollLeft"
-         [popover]="overflow"
+         [uxPopover]="overflow"
          [popoverContext]="{ popover: popover }"
          placement="bottom"
-         container="body"
-         [outsideClick]="true"
-         containerClass="hierarchy-bar-popover">
+         popoverClass="hierarchy-bar-popover">
         . . .
     </div>
 
@@ -35,16 +33,14 @@
 
         <!-- Show a dropdown arrow if there are children -->
         <button *ngIf="node.children"
-              #popover="bs-popover"
+              #popover="ux-popover"
               aria-label="Show children"
               role="button"
               class="hierarchy-bar-node-arrow hpe-icon hpe-next"
-              [popover]="content"
+              [uxPopover]="content"
               [popoverContext]="{ node: node, popover: popover }"
               placement="bottom"
-              container="body"
-              [outsideClick]="true"
-              containerClass="hierarchy-bar-popover"
+              popoverClass="hierarchy-bar-popover"
               tabindex="0">
         </button>
 

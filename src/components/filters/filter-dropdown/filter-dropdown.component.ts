@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FilterBaseComponent } from '../filter-base/filter-base.component';
-import { Filter, FilterContainerComponent, FilterRemoveAllEvent } from '../filter-container.component';
+import { Filter } from '../filter-container.component';
 
 @Component({
     selector: 'ux-filter-dropdown',

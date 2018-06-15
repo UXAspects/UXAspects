@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { TreeComponent, TreeNode } from 'angular-tree-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { TreeModel, TreeNode, TreeComponent } from 'angular-tree-component';
 
 @Component({
     selector: 'uxd-components-tree-view',
@@ -70,8 +70,18 @@ export class ComponentsTreeViewComponent extends BaseDocumentationSection {
         ]
     }];
 
+    focused: TreeNode;
+
     constructor() {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    /**
+     * If tree view is tabbed to, focus the node
+     */
+    focus(node: TreeNode, element: HTMLElement): void {
+        node.focus();
+        node.treeModel.setFocus(true);
     }
 }
 

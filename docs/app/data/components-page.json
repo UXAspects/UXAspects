@@ -276,12 +276,31 @@
             ]
         },
         {
-            "title": "Draggable Cards",
-            "link": "draggable-cards",
+            "title": "Drag & Drop",
+            "link": "drag-and-drop",
             "sections": [
                 {
-                    "title": "Draggable Cards",
+                    "title": "Draggable Card Tabs",
                     "component": "ComponentsDraggableCardsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxReorderable]"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxReorderableHandle]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "ReorderableModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Drag & Drop Cards",
+                    "component": "ComponentsDragAndDropCardsComponent",
                     "version": "Angular",
                     "usage": [
                         {
@@ -302,29 +321,29 @@
                     "title": "Draggable Cards",
                     "component": "ComponentsDraggableCardsNg1Component",
                     "version": "AngularJS",
-                    "deprecated": true
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsDraggableCardsComponent"
                 },
                 {
                     "title": "Draggable Cards - List View Example",
                     "component": "ComponentsDraggableCardsListViewNg1Component",
                     "version": "AngularJS",
-                    "deprecated": true
-                }
-            ]
-        },
-        {
-            "title": "Draggable Panels",
-            "link": "draggable-panels",
-            "sections": [
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsDraggableCardsComponent"
+                },
                 {
                     "title": "Draggable Panels",
                     "component": "ComponentsDraggablePanelsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsDashboardComponent"
                 },
                 {
                     "title": "Draggable Panels with Different Views",
                     "component": "ComponentsDraggablePanelsViewsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsDragAndDropCardsComponent"
                 }
             ]
         },
@@ -597,6 +616,21 @@
                     "deprecated": true
                 },
                 {
+                    "title": "Float Label",
+                    "component": "ComponentsFloatLabelComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "[uxFloatLabel]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "FloatLabelModule"
+                        }
+                    ]
+                },
+                {
                     "title": "Toggle Switch",
                     "component": "ComponentsToggleSwitchComponent",
                     "version": "Angular",
@@ -789,10 +823,6 @@
                         {
                             "title": "Module",
                             "content": "MediaPlayerModule"
-                        },
-                        {
-                            "title": "Dependencies",
-                            "content": "ngx-bootstrap"
                         }
                     ]
                 }
@@ -913,7 +943,7 @@
                     "deprecated": true
                 },
                 {
-                    "title": "Accordion",                    
+                    "title": "Accordion",
                     "component": "ComponentsAccordionComponent",
                     "externalUrl": "https://valor-software.com/ngx-bootstrap/#/accordion",
                     "version": "Angular",
@@ -1039,8 +1069,26 @@
             "sections": [
                 {
                     "title": "Popover",
+                    "component": "ComponentsPopoverComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[uxPopover]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "PopoverModule"
+                    },
+                    {
+                        "title": "Exported As",
+                        "content": "ux-popover"
+                    }]
+                },
+                {
+                    "title": "Popover",
                     "component": "ComponentsPopoverNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 }
             ]
         },
@@ -1586,7 +1634,7 @@
                     "title": "Sorting",
                     "component": "ComponentsSortingNg1Component",
                     "version": "AngularJS",
-                    "deprecated": true,                    
+                    "deprecated": true,
                     "deprecatedFor": "ComponentsSortingComponent"
                 },
                 {
@@ -1627,18 +1675,46 @@
             "sections": [
                 {
                     "title": "Tabs",
+                    "component": "ComponentsTabsComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-tabset"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "ux-tab"
+                        },
+                        {
+                            "title": "Selector",
+                            "content": "[uxTabHeading]"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TabsetModule"
+                        }
+                    ]
+                },
+                {
+                    "title": "Tabs",
                     "component": "ComponentsTabsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Detailed Tab Example",
                     "component": "ComponentsDetailedTabExampleNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsTabsComponent"
                 },
                 {
                     "title": "Stacked Tabs",
                     "component": "ComponentsStackedTabsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true,
+                    "deprecatedFor": "ComponentsTabsComponent"
                 },
                 {
                     "title": "Card Tabs",
@@ -1700,8 +1776,26 @@
             "sections": [
                 {
                     "title": "Tooltips",
+                    "component": "ComponentsTooltipsComponent",
+                    "version": "Angular",
+                    "usage": [{
+                        "title": "Selector",
+                        "content": "[uxTooltip]"
+                    },
+                    {
+                        "title": "Module",
+                        "content": "TooltipModule"
+                    },
+                    {
+                        "title": "Exported As",
+                        "content": "ux-tooltip"
+                    }]
+                },
+                {
+                    "title": "Tooltips",
                     "component": "ComponentsTooltipsNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Overflow Tooltip",
@@ -1718,18 +1812,17 @@
                     "title": "Static Tooltips",
                     "component": "ComponentsStaticTooltipComponent",
                     "version": "Angular",
-                    "externalUrl": "https://valor-software.com/ngx-bootstrap/#/popover",
                     "usage": [{
                         "title": "Selector",
-                        "content": "[popover]"
+                        "content": "[uxPopover]"
                     },
                     {
                         "title": "Module",
                         "content": "PopoverModule"
                     },
                     {
-                        "title": "Library",
-                        "content": "ngx-bootstrap"
+                        "title": "Exported As",
+                        "content": "ux-popover"
                     }]
                 },
                 {

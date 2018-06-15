@@ -143,6 +143,7 @@
     transition: border-color 0.3s linear;
     border-radius: 0;
 
+    .arrow,
     .popover-arrow {
         transition: border-bottom-color 0.3s linear;
     }
@@ -154,8 +155,27 @@
     &:hover {
         border-color: @static-tooltip-hover-border;
 
+        .arrow,
         .popover-arrow {
             border-bottom-color: @static-tooltip-hover-border;
         }
     }
+}
+
+/*
+    Angular CDK Overlay (for tooltips and popovers)
+*/
+
+.cdk-overlay-container {
+    position: fixed;
+    z-index: @overlay-z-index;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.ux-overlay-pane {
+    position: absolute;
 }

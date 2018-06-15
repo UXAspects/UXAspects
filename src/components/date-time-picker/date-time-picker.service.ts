@@ -1,25 +1,157 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { DatePickerMode } from './date-time-picker.component';
-import 'rxjs/add/operator/distinctUntilChanged';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { DateTimePickerConfig } from './date-time-picker.config';
+import { dateComparator } from './date-time-picker.utils';
 
 @Injectable()
 export class DateTimePickerService {
 
-    date: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
-    activeDate: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
+    mode$: BehaviorSubject<DatePickerMode> = new BehaviorSubject<DatePickerMode>(DatePickerMode.Day);
+    date$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
+    timezone$ = new BehaviorSubject<DateTimePickerTimezone>(this.getCurrentTimezone());
+    selected$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
 
-    mode: BehaviorSubject<DatePickerMode> = new BehaviorSubject<DatePickerMode>(DatePickerMode.Day);
+    // the month and year to display in the viewport
+    month$: BehaviorSubject<number> = new BehaviorSubject<number>(new Date().getMonth());
+    year$: BehaviorSubject<number> = new BehaviorSubject<number>(new Date().getFullYear());
 
-    month: BehaviorSubject<number> = new BehaviorSubject<number>(new Date().getMonth());
-    year: BehaviorSubject<number> = new BehaviorSubject<number>(new Date().getFullYear());
+    showDate$ = new BehaviorSubject<boolean>(this._config.showDate);
+    showTime$ = new BehaviorSubject<boolean>(this._config.showTime);
+    showTimezone$ = new BehaviorSubject<boolean>(this._config.showTimezone);
+    showSeconds$ = new BehaviorSubject<boolean>(this._config.showSeconds);
+    showMeridian$ = new BehaviorSubject<boolean>(this._config.showMeridian);
+    showSpinners$ = new BehaviorSubject<boolean>(this._config.showSpinners);
+    weekdays$ = new BehaviorSubject<string[]>(this._config.weekdays);
+    nowBtnText$ = new BehaviorSubject<string>(this._config.nowBtnText);
+    timezones$ = new BehaviorSubject<DateTimePickerTimezone[]>(this._config.timezones);
 
-    constructor() {
+    header$ = new BehaviorSubject<string>(null);
+    headerEvent$ = new Subject<DatePickerHeaderEvent>();
+    modeDirection: ModeDirection = ModeDirection.None;
 
-        // when the date changes update the current month and year
-        this.date.distinctUntilChanged((previous, current) => previous.getTime() === current.getTime()).subscribe(date => {
-            this.month.next(date.getMonth());
-            this.year.next(date.getFullYear());
+    private _subscription: Subscription;
+
+    constructor(private _config: DateTimePickerConfig) {
+
+        // when the active date changes set the currently selected date
+        this._subscription = this.selected$.pipe(distinctUntilChanged(dateComparator)).subscribe(date => {
+
+            // the month and year displayed in the viewport should reflect the newly selected items
+            this.setViewportMonth(date.getMonth());
+            this.setViewportYear(date.getFullYear());
+
+            // emit the new date to the component host
+            this.date$.next(date);
         });
     }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
+    }
+
+    setViewportMonth(month: number): void {
+        if (month < 0) {
+            this.month$.next(11);
+            this.year$.next(this.year$.value - 1);
+        } else if (month > 11) {
+            this.month$.next(0);
+            this.year$.next(this.year$.value + 1);
+        } else {
+            this.month$.next(month);
+        }
+    }
+
+    setViewportYear(year: number): void {
+        this.year$.next(year);
+    }
+
+    setDate(day: number, month: number, year: number): void {
+        const date = new Date(this.selected$.value);
+
+        date.setDate(day);
+        date.setMonth(month);
+        date.setFullYear(year);
+
+        this.selected$.next(date);
+    }
+
+    setDateToNow(): void {
+        this.selected$.next(new Date());
+    }
+
+    setViewportMode(mode: DatePickerMode): void {
+        this.mode$.next(mode);
+    }
+
+    goToChildMode(): void {
+        this.modeDirection = ModeDirection.Descend;
+
+        switch (this.mode$.value) {
+
+            case DatePickerMode.Year:
+                return this.setViewportMode(DatePickerMode.Month);
+
+            case DatePickerMode.Month:
+                return this.setViewportMode(DatePickerMode.Day);
+        }
+    }
+
+    goToParentMode(): void {
+        this.modeDirection = ModeDirection.Ascend;
+
+        switch (this.mode$.value) {
+
+            case DatePickerMode.Day:
+                return this.setViewportMode(DatePickerMode.Month);
+
+            case DatePickerMode.Month:
+                return this.setViewportMode(DatePickerMode.Year);
+        }
+    }
+
+    goToNext(): void {
+        this.headerEvent$.next(DatePickerHeaderEvent.Next);
+    }
+
+    goToPrevious(): void {
+        this.headerEvent$.next(DatePickerHeaderEvent.Previous);
+    }
+
+    setHeader(header: string): void {
+        this.header$.next(header);
+    }
+
+    getCurrentTimezone(): DateTimePickerTimezone {
+        const offset = new Date().getTimezoneOffset();
+        return this._config.timezones.find(timezone => timezone.offset === offset);
+    }
+
+    setTimezone(timezone: DateTimePickerTimezone): void {
+        this.timezone$.next(timezone);
+    }
+}
+
+export enum DatePickerMode {
+    Day,
+    Month,
+    Year
+}
+
+export enum ModeDirection {
+    None,
+    Ascend,
+    Descend
+}
+
+export enum DatePickerHeaderEvent {
+    Previous,
+    Next
+}
+
+export interface DateTimePickerTimezone {
+    name: string;
+    offset: number;
 }

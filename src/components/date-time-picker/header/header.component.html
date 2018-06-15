@@ -1,12 +1,26 @@
 <header class="header">
 
-  <div class="header-navigation" (click)="previous.emit(); $event.stopPropagation()" (keyup.enter)="previous.emit()" tabindex="0">
+  <button class="header-navigation"
+          (click)="previous(); $event.stopPropagation()"
+          [attr.aria-label]="previousAria$ | async"
+          tabindex="0">
+
     <i class="hpe-icon hpe-previous"></i>
-  </div>
+  </button>
 
-  <div class="header-title" [class.active]="canAscend" (click)="ascend.emit(); $event.stopPropagation()" (keyup.enter)="ascend.emit()" tabindex="0">{{ header }}</div>
+  <button class="header-title"
+          [attr.aria-label]="headerAria$ | async"
+          [class.active]="canAscend$ | async"
+          (click)="ascend(); $event.stopPropagation()"
+          [tabindex]="(canAscend$ | async) ? 0 : -1">
+       {{ datepicker.header$ | async }}
+  </button>
 
-  <div class="header-navigation" (click)="next.emit(); $event.stopPropagation()" (keyup.enter)="next.emit()" tabindex="0">
+  <button class="header-navigation"
+          (click)="next(); $event.stopPropagation()"
+          [attr.aria-label]="nextAria$ | async"
+          tabindex="0">
+
     <i class="hpe-icon hpe-next"></i>
-  </div>
+  </button>
 </header>

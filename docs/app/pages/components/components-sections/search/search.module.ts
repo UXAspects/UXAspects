@@ -3,10 +3,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { SearchBuilderModule, ItemDisplayPanelModule, ToolbarSearchModule, ToggleSwitchModule, RadioButtonModule } from '../../../../../../src/index';
+import { SearchBuilderModule, ItemDisplayPanelModule, ToolbarSearchModule, ToggleSwitchModule, RadioButtonModule, TooltipModule } from '../../../../../../src/index';
 
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
@@ -45,7 +44,7 @@ const ROUTES = [
         AccordionModule.forRoot(),
         ModalModule.forRoot(),
         TabsModule,
-        TooltipModule.forRoot(),
+        TooltipModule,
         DocumentationComponentsModule,
         ItemDisplayPanelModule,
         RadioButtonModule,

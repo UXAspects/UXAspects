@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { Facet } from '../../../../../../../src/index';
 import 'chance';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { Facet } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-facet-container',
@@ -14,6 +14,7 @@ import { BaseDocumentationSection } from '../../../../../components/base-documen
 export class ComponentsFacetContainerComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     facets: Facet[] = [];
+    allowReorder = false;
 
     plunk: IPlunk = {
         files: {
@@ -21,7 +22,7 @@ export class ComponentsFacetContainerComponent extends BaseDocumentationSection 
             'app.component.html': this.snippets.raw.appHtml
         },
         modules: [{
-            imports: ['FacetsModule'],
+            imports: ['FacetsModule', 'CheckboxModule'],
             library: '@ux-aspects/ux-aspects'
         }]
     };

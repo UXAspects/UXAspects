@@ -8,17 +8,17 @@ import { SearchDateComponent } from './search-components/date/date.component';
 import { SearchBuilderOutletDirective } from './search-builder-outlet/search-builder-outlet.directive';
 import { BaseSearchComponent } from './search-components/base-search.component';
 import { DateTimePickerModule } from '../date-time-picker/date-time-picker.module';
-import { PopoverModule } from 'ngx-bootstrap/popover';
 import { SearchDateRangeComponent } from './search-components/date-range/date-range.component';
 import { SearchSelectComponent } from './search-components/select/select.component';
 import { SelectModule } from '../select/index';
+import { PopoverModule } from '../popover/index';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     DateTimePickerModule,
-    PopoverModule.forRoot(),
+    PopoverModule,
     SelectModule
   ],
   exports: [

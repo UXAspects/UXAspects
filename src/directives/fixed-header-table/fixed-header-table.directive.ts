@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Renderer2, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[uxFixedHeaderTable]'
@@ -43,7 +43,7 @@ export class FixedHeaderTableDirective implements OnInit {
   /**
    * Handle scroll events
    */
-  private onScroll(event: MouseEvent): void {
+  private onScroll(): void {
 
     // determine if we are scrolled to the bottom and if so load the next page
     if (this._tableBody.scrollTop === (this._tableBody.scrollHeight - this._tableBody.offsetHeight)) {

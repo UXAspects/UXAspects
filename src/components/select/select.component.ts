@@ -1,10 +1,10 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild, forwardRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import { debounceTime, filter, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 
@@ -70,8 +70,8 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     @Input() optionTemplate: TemplateRef<any>;
 
     @Output() valueChange = new EventEmitter<any>();
-    @Output() inputChange = new EventEmitter<string>();    
-    @Output() dropdownOpenChange = new EventEmitter<boolean>();    
+    @Output() inputChange = new EventEmitter<string>();
+    @Output() dropdownOpenChange = new EventEmitter<boolean>();
 
     @ViewChild('singleInput') singleInput: ElementRef;
     @ViewChild('multipleTypeahead') multipleTypeahead: TypeaheadComponent;
@@ -87,7 +87,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
 
     constructor(
         private _element: ElementRef,
-        @Inject(DOCUMENT) private _document: Document,
+        @Inject(DOCUMENT) private _document: any,
         private _typeaheadKeyService: TypeaheadKeyService) { }
 
     ngOnInit() {
@@ -144,6 +144,14 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     }
 
     inputBlurHandler(event: Event) {
+
+        // If a click on the typeahead is in progress, just refocus the input.
+        // This works around an issue in IE where clicking a scrollbar drops focus.
+        if (this.singleTypeahead && this.singleTypeahead.clicking) {
+            this.singleInput.nativeElement.focus();
+            return;
+        }
+
         // Close dropdown and reset text input if focus is lost
         setTimeout(() => {
             if (!this._element.nativeElement.contains(this._document.activeElement)) {

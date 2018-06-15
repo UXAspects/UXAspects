@@ -21,13 +21,23 @@ ux-date-time-picker-day-view {
         }
 
         .date-cell {
-            text-align: center;
             min-width: 30px;
             height: 30px;
+        }
+
+        .date-button {
+            text-align: center;
+            width: 100%;
+            height: 100%;
             border: none;
             padding: 4px 5px;
             cursor: pointer;
             font-size: 14px;
+            background-color: transparent;
+
+            &:focus {
+                .aspects-outline();
+            }
 
             &:hover {
                 background-color: @date-picker-hover-bg;

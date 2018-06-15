@@ -231,12 +231,9 @@ module.exports = {
     stats: {
         colors: true,
         reasons: true
-    },    
+    },
 
     devServer: {
-        https: {
-            pfx: readFileSync(join(project_dir, 'configs', 'webpack.docs.dev.pfx'))
-        },
         historyApiFallback: true,
         stats: {
             colors: true,

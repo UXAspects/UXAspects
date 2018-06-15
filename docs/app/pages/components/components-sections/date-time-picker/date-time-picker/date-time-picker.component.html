@@ -1,10 +1,19 @@
 <div class="row">
     <div class="col-sm-6 col-xs-12">
         <div class="input-group date m-nil">
-            <span class="input-group-addon" tabindex="1" (click)="popover.show()">
-                <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+            <span class="input-group-btn">
+                <button class="btn button-secondary" aria-label="Show Date Picker" (click)="popover.show()">
+                    <i class="hpe-icon hpe-calendar" aria-hidden="true"></i>
+                </button>
             </span>
-            <input type="text" #input #popover="bs-popover" [ngModel]="date | date:'dd MMMM yyyy HH:mm'" [popover]="popoverTemplate" placement="bottom" [outsideClick]="true" containerClass="date-time-picker-popover" class="form-control" aria-label="Selected date">
+            <input type="text" #input #popover="ux-popover"
+                   [ngModel]="date | date:'dd MMMM yyyy HH:mm'"
+                   [uxPopover]="popoverTemplate"
+                   placement="bottom"
+                   popoverClass="date-time-picker-popover"
+                   class="form-control"
+                   aria-label="Selected date"
+                   (keydown.enter)="popover.show()">
         </div>
 
         <p class="m-t">Selected date is:  <em>{{ date | date:'dd MMMM yyyy HH:mm' }} {{ timezone?.name }}</em></p>
@@ -12,7 +21,15 @@
 </div>
 
 <ng-template #popoverTemplate>
-    <ux-date-time-picker [(date)]="date" [(timezone)]="timezone" [showTime]="showTime" [showMeridian]="showMeridians" [showSpinners]="showSpinners" [showTimezone]="showTimezones"></ux-date-time-picker>
+    <ux-date-time-picker
+        [(date)]="date"
+        [(timezone)]="timezone"
+        [showTime]="showTime"
+        [showMeridian]="showMeridians"
+        [showSpinners]="showSpinners"
+        [showTimezone]="showTimezones"
+        (keydown.escape)="popover.hide(); input.focus()">
+    </ux-date-time-picker>
 </ng-template>
 
 <hr>
@@ -44,7 +61,7 @@
 
 <p>
     The <code>ux-date-time-picker</code> component can be used to select a date/time or timezone. It can be displayed as a standalone component or within
-    an <code>ngx-bootstrap</code> popover.
+    a popover.
 </p>
 
 <p>

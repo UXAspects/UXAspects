@@ -1,11 +1,11 @@
 import { Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { filter, map, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
+import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
 import { PageHeaderNavigation, PageHeaderService } from './page-header.service';
 
@@ -25,7 +25,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     @Input() backVisible: boolean = true;
     @Input() secondaryNavigationAlignment: string = 'center';
     @Input() secondaryNavigationAutoselect: boolean = false;
-    
+
     @Input() set items(items: PageHeaderNavigationItem[]) {
         this._pageHeaderService.setItems(items);
     }
@@ -81,7 +81,7 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._subscription = this.selectedRoot$.pipe(
             distinctUntilChanged(),
-            filter(() => this.secondaryNavigation && this.secondaryNavigationAutoselect), 
+            filter(() => this.secondaryNavigation && this.secondaryNavigationAutoselect),
             filter((item: PageHeaderNavigation) => item && item.children && item.children.length > 0),
             map(item => item.children[0])
         ).subscribe(item => this.select(item));
@@ -98,20 +98,4 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     select(item: PageHeaderNavigation): void {
         this._pageHeaderService.select(item);
     }
-}
-
-export interface PageHeaderIconMenu {
-    icon: string;
-    badge?: number | string;
-    select?: (menu: PageHeaderIconMenu) => void;
-    dropdown?: PageHeaderIconMenuDropdownItem[];
-}
-
-export interface PageHeaderIconMenuDropdownItem {
-    icon?: string;
-    title: string;
-    subtitle?: string;
-    header?: boolean;
-    divider?: boolean;
-    select?: () => void;
 }

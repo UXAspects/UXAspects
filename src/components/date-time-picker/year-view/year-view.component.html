@@ -1,8 +1,21 @@
-<ux-date-time-picker-header [header]="header" [canAscend]="false" (previous)="previous()" (next)="next()"></ux-date-time-picker-header>
+<div class="calendar" role="grid">
+  <div class="calendar-row" role="row" *ngFor="let row of yearService.grid$ | async; trackBy: trackRowByFn">
 
-<div class="calendar">
-  <div class="calendar-row" *ngFor="let row of years">
-    <div *ngFor="let item of row" class="calendar-item" [class.current]="item === currentYear" [class.active]="item === year"
-    (mousedown)="select(item)" (keyup.enter)="select(item)" tabindex="0">{{ item }}</div>
+    <button *ngFor="let item of row; trackBy: trackYearByFn"
+         role="gridcell"
+         class="calendar-item"
+         [focusIf]="(yearService.focused$ | async) === item.year"
+         [attr.aria-label]="item.year"
+         [attr.aria-selected]="item.isActiveYear"
+         [class.current]="item.isCurrentYear"
+         [class.active]="item.isActiveYear"
+         (click)="select(item.year); $event.stopPropagation()"
+         (keydown.ArrowLeft)="focusYear(item, -1); $event.preventDefault()"
+         (keydown.ArrowRight)="focusYear(item, 1); $event.preventDefault()"
+         (keydown.ArrowUp)="focusYear(item, -4); $event.preventDefault()"
+         (keydown.ArrowDown)="focusYear(item, 4); $event.preventDefault()"
+         [tabindex]="getTabbable(item) ? 0 : -1">
+         {{ item.year }}
+    </button>
   </div>
 </div>

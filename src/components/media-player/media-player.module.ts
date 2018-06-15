@@ -6,11 +6,11 @@ import { MediaPlayerTimelineExtensionComponent } from './extensions/timeline/tim
 import { MediaPlayerBaseExtensionDirective } from './extensions/base-extension.directive';
 import { MediaPlayerControlsExtensionComponent } from './extensions/controls/controls.component';
 import { FrameExtractionModule } from '../../services/frame-extraction/frame-extraction.module';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AudioServiceModule } from '../../services/audio/index';
 import { DurationPipeModule } from '../../pipes/duration/index';
 import { FileSizePipeModule } from '../../pipes/file-size/index';
 import { MediaPlayerService } from './media-player.service';
+import { TooltipModule } from '../tooltip/index';
 
 const DECLARATIONS = [
     MediaPlayerComponent,
@@ -23,7 +23,7 @@ const DECLARATIONS = [
     imports: [
         CommonModule,
         FrameExtractionModule,
-        TooltipModule.forRoot(),
+        TooltipModule,
         AudioServiceModule,
         DurationPipeModule,
         FileSizePipeModule
