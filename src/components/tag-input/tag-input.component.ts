@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, forwardRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, forwardRef, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
@@ -6,6 +6,7 @@ import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
 import { TagInputEvent } from './tag-input-event';
 
+let uniqueId = 0;
 
 const TAGINPUT_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -30,7 +31,8 @@ const TAGINPUT_VALIDATOR = {
 })
 export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor, OnDestroy {
 
-    private _tags: any[] = [];
+    @Input() @HostBinding('attr.id') id: string = `ux-tag-input-${++uniqueId}`;
+
     @Input('tags')
     get tags() {
         if (!this._tags) {
@@ -46,7 +48,6 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 
     @Output() tagsChange = new EventEmitter<any[]>();
 
-    private _input: string = '';
     @Input('input')
     get input() {
         return this._input;
@@ -100,9 +101,13 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 
     typeahead: TypeaheadComponent;
 
+    highlightedElement: HTMLElement;
+
+    private _input: string = '';
+    private _tags: any[] = [];
     private _onChangeHandler: (_: any) => void = () => { };
     private _onTouchedHandler: () => void = () => { };
-    private _subscription: Subscription;
+    private _typeaheadSubscription: Subscription;
 
     constructor(
         private _element: ElementRef,
@@ -157,8 +162,8 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     }
 
     ngOnDestroy(): void {
-        if (this._subscription) {
-            this._subscription.unsubscribe();
+        if (this._typeaheadSubscription) {
+            this._typeaheadSubscription.unsubscribe();
         }
     }
 
@@ -512,15 +517,21 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
     }
 
     private connectTypeahead(typeahead: TypeaheadComponent) {
-        if (this._subscription) {
-            this._subscription.unsubscribe();
-            this._subscription = null;
+        if (this._typeaheadSubscription) {
+            this._typeaheadSubscription.unsubscribe();
+            this._typeaheadSubscription = null;
         }
 
         this.typeahead = typeahead;
         if (this.typeahead) {
             // Set up event handler for selected options
-            this._subscription = this.typeahead.optionSelected.subscribe(this.typeaheadOptionSelectedHandler.bind(this));
+            this._typeaheadSubscription = this.typeahead.optionSelected.subscribe(this.typeaheadOptionSelectedHandler.bind(this));
+
+            this._typeaheadSubscription.add(
+                this.typeahead.highlightedElementChange.subscribe((element: HTMLElement) => {
+                    this.highlightedElement = element;
+                })
+            );
         }
     }
 
