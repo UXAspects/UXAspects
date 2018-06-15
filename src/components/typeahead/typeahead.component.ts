@@ -360,7 +360,7 @@ export interface TypeaheadOptionApi {
     getDisplayHtml(option: any): string;
 }
 
-interface TypeaheadVisibleOption {
+export interface TypeaheadVisibleOption {
     value: any;
     key: string;
 }
