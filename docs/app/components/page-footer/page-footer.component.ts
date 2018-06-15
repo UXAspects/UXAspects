@@ -1,37 +1,26 @@
-import { Component } from '@angular/core';
-
-import { ILink } from '../../interfaces/ILink';
-import { IFooterColumn } from '../../interfaces/IFooterColumn';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IFooter } from '../../interfaces/IFooter';
-import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
+import { IFooterColumn } from '../../interfaces/IFooterColumn';
+import { ILink } from '../../interfaces/ILink';
 import { ILogo } from '../../interfaces/ILogo';
+import { AppConfiguration } from '../../services/app-configuration/app-configuration.service';
+
 
 @Component({
     selector: 'uxd-page-footer',
     templateUrl: './page-footer.component.html',
-    styleUrls: ['./page-footer.component.less']
+    styleUrls: ['./page-footer.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageFooterComponent {
-    
-    copyright: string;
-    logo: ILogo;
-    columns: IFooterColumn[];
-    feedback: ILink;
-    year: number;
-    title: string;
 
-    constructor(private _appConfig: AppConfiguration) {
-        // get the footer navigation data
-        let footerData: IFooter = this._appConfig.getConfigurationData('footer-navigation');
+    footerData: IFooter = this._appConfig.getConfigurationData('footer-navigation');
+    copyright: string = this.footerData.copyright;
+    logo: ILogo = this.footerData.logo;
+    columns: IFooterColumn[] = this.footerData.columns;
+    feedback: ILink = this.footerData.feedback;
+    year: number = new Date().getFullYear();
 
-        // get the current year for footer
-        this.year = new Date().getFullYear();
-
-        // extract specific data from the footer
-        this.columns = footerData.columns;
-        this.logo = footerData.logo;
-        this.copyright = footerData.copyright;
-        this.feedback = footerData.feedback;
-    }
+    constructor(private _appConfig: AppConfiguration) { }
 }
 

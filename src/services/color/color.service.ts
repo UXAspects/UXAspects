@@ -1,6 +1,5 @@
-import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
-import { ColorValueSet, ColorClassSet } from './color.service';
+import { Injectable } from '@angular/core';
+import { ColorClassSet, ColorValueSet } from './color.service';
 
 @Injectable()
 export class ColorService {
@@ -10,7 +9,7 @@ export class ColorService {
     private _colors: ThemeColors;
     private _colorSet: any = colorSets.keppel;
 
-    constructor(@Inject(DOCUMENT) document: Document) {
+    constructor() {
         if (this._colorSet.colorClassSet) {
             this.setColors();
         } else {
@@ -73,7 +72,7 @@ export class ColorService {
         if (!themeColor) {
             throw new Error('Color not found: ' + color);
         }
-        
+
         return new ThemeColor(themeColor.getRed(), themeColor.getGreen(), themeColor.getBlue(), themeColor.getAlpha());
     }
 
@@ -98,9 +97,9 @@ export class ColorService {
         if (!value) {
             return;
         }
-        
+
         const colorName = this.resolveColorName(value);
-        
+
         for (let color in this._colors) {
             if (colorName === color.toLowerCase()) {
                 return this.getColor(colorName).toRgba();

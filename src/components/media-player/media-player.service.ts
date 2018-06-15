@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { MediaPlayerType } from './media-player.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { from } from 'rxjs/observable/from';
 import { Observer } from 'rxjs/Observer';
-import { FrameExtractionService, ExtractedFrame } from '../../services/frame-extraction/index';
+import { Subject } from 'rxjs/Subject';
+import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
+import { MediaPlayerType } from './media-player.component';
 
 @Injectable()
 export class MediaPlayerService {
@@ -59,12 +60,12 @@ export class MediaPlayerService {
     private _mediaPlayer: HTMLMediaElement;
     private _hostElement: HTMLElement;
     private _fullscreen: boolean = false;
-    private _quietMode: boolean;    
+    private _quietMode: boolean;
 
     constructor(private _frameExtractionService: FrameExtractionService) {}
 
     /*
-        Create all the getters and setters the can be used by media player extensions 
+        Create all the getters and setters the can be used by media player extensions
     */
     get mediaPlayer(): HTMLMediaElement {
         return this._mediaPlayer;
@@ -346,6 +347,6 @@ export class MediaPlayerService {
             return this._frameExtractionService.getFrameThumbnails(this.source, width, height, 0, this.duration, 10);
         }
 
-        return Observable.from([]);
+        return from([]);
     }
 }

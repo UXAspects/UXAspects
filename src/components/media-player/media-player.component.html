@@ -1,12 +1,30 @@
 <div class="video-player-container" *ngIf="type === 'video'">
 
-    <video class="video-player" #player [src]="source" (abort)="mediaPlayerService.abortEvent.next()" (canplay)="mediaPlayerService.canPlayEvent.next()"
-        (canplaythrough)="mediaPlayerService.canPlayThroughEvent.next()" (durationchange)="mediaPlayerService.durationChangeEvent.next(player.duration)" (ended)="mediaPlayerService.endedEvent.next()"
-        (error)="mediaPlayerService.errorEvent.next($event)" (loadeddata)="mediaPlayerService.loadedDataEvent.next($event)" (loadedmetadata)="mediaPlayerService.loadedMetadataEvent.next($event)"
-        (loadstart)="mediaPlayerService.loadStartEvent.next()" (pause)="mediaPlayerService.pauseEvent.next()" (play)="mediaPlayerService.playEvent.next()" (playing)="mediaPlayerService.playingEvent.next(!player.paused)"
-        (ratechange)="mediaPlayerService.rateChangeEvent.next(player.playbackRate)" (seeked)="mediaPlayerService.seekedEvent.next(player.currentTime)" (seeking)="mediaPlayerService.seekingEvent.next(player.currentTime)"
-        (stalled)="mediaPlayerService.stalledEvent.next()" (suspend)="mediaPlayerService.suspendEvent.next()" (timeupdate)="mediaPlayerService.timeUpdateEvent.next(player.currentTime)"
-        (volumechange)="mediaPlayerService.volumeChangeEvent.next(player.volume)" (waiting)="mediaPlayerService.waitingEvent.next()" (click)="mediaPlayerService.mediaClickEvent.next($event)"></video>
+    <video class="video-player"
+        #player
+        [src]="source"
+        (abort)="mediaPlayerService.abortEvent.next()"
+        (canplay)="mediaPlayerService.canPlayEvent.next(true)"
+        (canplaythrough)="mediaPlayerService.canPlayThroughEvent.next(true)"
+        (durationchange)="mediaPlayerService.durationChangeEvent.next(player.duration)"
+        (ended)="mediaPlayerService.endedEvent.next()"
+        (error)="mediaPlayerService.errorEvent.next($event)"
+        (loadeddata)="mediaPlayerService.loadedDataEvent.next($event)"
+        (loadedmetadata)="mediaPlayerService.loadedMetadataEvent.next($event)"
+        (loadstart)="mediaPlayerService.loadStartEvent.next()"
+        (pause)="mediaPlayerService.pauseEvent.next()"
+        (play)="mediaPlayerService.playEvent.next()"
+        (playing)="mediaPlayerService.playingEvent.next(!player.paused)"
+        (ratechange)="mediaPlayerService.rateChangeEvent.next(player.playbackRate)"
+        (seeked)="mediaPlayerService.seekedEvent.next(player.currentTime)"
+        (seeking)="mediaPlayerService.seekingEvent.next(player.currentTime)"
+        (stalled)="mediaPlayerService.stalledEvent.next()"
+        (suspend)="mediaPlayerService.suspendEvent.next()"
+        (timeupdate)="mediaPlayerService.timeUpdateEvent.next(player.currentTime)"
+        (volumechange)="mediaPlayerService.volumeChangeEvent.next(player.volume)"
+        (waiting)="mediaPlayerService.waitingEvent.next()"
+        (click)="mediaPlayerService.mediaClickEvent.next($event)">
+    </video>
 
     <div class="video-overlay" [class.playing]="mediaPlayerService.playing | async">
         <svg class="play-graphic" x="0px" y="0px" viewBox="0 0 64 64">
@@ -40,13 +58,30 @@
     <p class="audio-file-format">{{ (audioMetadata | async)?.description }}</p>
     <p class="audio-file-size">{{ (audioMetadata | async)?.size | fileSize }}</p>
 
-    <audio #player [src]="source" (abort)="mediaPlayerService.abortEvent.next()" (canplay)="mediaPlayerService.canPlayEvent.next(true)"
-        (canplaythrough)="mediaPlayerService.canPlayThroughEvent.next(true)" (durationchange)="mediaPlayerService.durationChangeEvent.next(player.duration)" (ended)="mediaPlayerService.endedEvent.next()"
-        (error)="mediaPlayerService.errorEvent.next($event)" (loadeddata)="mediaPlayerService.loadedDataEvent.next($event)" (loadedmetadata)="mediaPlayerService.loadedMetadataEvent.next($event)"
-        (loadstart)="mediaPlayerService.loadStartEvent.next()" (pause)="mediaPlayerService.pauseEvent.next()" (play)="mediaPlayerService.playEvent.next()" (playing)="mediaPlayerService.playingEvent.next(!player.paused)"
-        (ratechange)="mediaPlayerService.rateChangeEvent.next(player.playbackRate)" (seeked)="mediaPlayerService.seekedEvent.next(player.currentTime)" (seeking)="mediaPlayerService.seekingEvent.next(player.currentTime)"
-        (stalled)="mediaPlayerService.stalledEvent.next()" (suspend)="mediaPlayerService.suspendEvent.next()" (timeupdate)="mediaPlayerService.timeUpdateEvent.next(player.currentTime)"
-        (volumechange)="mediaPlayerService.volumeChangeEvent.next(player.volume)" (waiting)="mediaPlayerService.waitingEvent.next()" (click)="mediaPlayerService.mediaClickEvent.next($event)"></audio>
+    <audio #player
+        [src]="source"
+        (abort)="mediaPlayerService.abortEvent.next()"
+        (canplay)="mediaPlayerService.canPlayEvent.next(true)"
+        (canplaythrough)="mediaPlayerService.canPlayThroughEvent.next(true)"
+        (durationchange)="mediaPlayerService.durationChangeEvent.next(player.duration)"
+        (ended)="mediaPlayerService.endedEvent.next()"
+        (error)="mediaPlayerService.errorEvent.next($event)"
+        (loadeddata)="mediaPlayerService.loadedDataEvent.next($event)"
+        (loadedmetadata)="mediaPlayerService.loadedMetadataEvent.next($event)"
+        (loadstart)="mediaPlayerService.loadStartEvent.next()"
+        (pause)="mediaPlayerService.pauseEvent.next()"
+        (play)="mediaPlayerService.playEvent.next()"
+        (playing)="mediaPlayerService.playingEvent.next(!player.paused)"
+        (ratechange)="mediaPlayerService.rateChangeEvent.next(player.playbackRate)"
+        (seeked)="mediaPlayerService.seekedEvent.next(player.currentTime)"
+        (seeking)="mediaPlayerService.seekingEvent.next(player.currentTime)"
+        (stalled)="mediaPlayerService.stalledEvent.next()"
+        (suspend)="mediaPlayerService.suspendEvent.next()"
+        (timeupdate)="mediaPlayerService.timeUpdateEvent.next(player.currentTime)"
+        (volumechange)="mediaPlayerService.volumeChangeEvent.next(player.volume)"
+        (waiting)="mediaPlayerService.waitingEvent.next()"
+        (click)="mediaPlayerService.mediaClickEvent.next($event)">
+    </audio>
 </div>
 
 <div class="control-bar">

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SearchBuilderService } from '../search-builder.service';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
-import { SearchBuilderQuery } from '../interfaces/query.interface';
+import { SearchBuilderService } from '../search-builder.service';
 
 @Injectable()
 export class SearchBuilderGroupService {

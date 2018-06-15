@@ -1,10 +1,11 @@
-import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Usage } from './../../interfaces/Usage';
 
 @Component({
     selector: 'uxd-usage-link',
     templateUrl: './usage-link.component.html',
     styleUrls: ['./usage-link.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsageLinkComponent {
 

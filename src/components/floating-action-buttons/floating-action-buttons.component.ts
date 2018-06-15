@@ -1,10 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, HostListener, ElementRef, ContentChildren, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
-import { trigger, state, style, transition, animate, query, stagger } from '@angular/animations';
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostListener, Input, OnDestroy, QueryList } from '@angular/core';
 import { TooltipDirective } from 'ngx-bootstrap/tooltip';
+import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
-import { filter } from 'rxjs/operators/filter';
-
-import { FloatingActionButtonComponent } from './floating-action-button.component';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
 @Component({

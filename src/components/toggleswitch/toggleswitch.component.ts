@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output, forwardRef, HostBinding } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const TOGGLESWITCH_VALUE_ACCESSOR = {
@@ -32,7 +32,7 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
     get value() {
         return this._value;
     }
-    
+
     set value(value: boolean) {
         this._value = value;
 
@@ -41,10 +41,10 @@ export class ToggleSwitchComponent implements ControlValueAccessor {
 
         // Notify ngModel
         this.onChangeCallback(value);
-        this.onTouchedCallback();        
+        this.onTouchedCallback();
     }
 
-    get inputId(): string { 
+    get inputId(): string {
         return `${this.id || this._toggleSwitchId}-input`;
     }
 

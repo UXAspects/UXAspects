@@ -1,8 +1,9 @@
-import { Component, Directive } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
 
 @Component({
     selector: 'ux-ebox',
-    templateUrl: './ebox.component.html'
+    templateUrl: './ebox.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EboxComponent { }
 

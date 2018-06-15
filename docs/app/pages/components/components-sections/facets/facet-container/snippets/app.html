@@ -1,7 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <ux-facet-container [(facets)]="facets"></ux-facet-container>
+        <ux-facet-container [(facets)]="facets" [facetsReorderable]="allowReorder"></ux-facet-container>
         <hr>
         <button class="btn button-primary" (click)="addFacet()">Add Facet</button>
+        <div class="m-t-md">
+            <ux-checkbox [(value)]="allowReorder">Allow reordering</ux-checkbox>
+        </div>
     </div>
 </div>

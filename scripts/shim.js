@@ -26,13 +26,13 @@ if (!fs.existsSync(cssPath)) {
 }
 
 fs.writeFileSync(
-    path.join(cssPath, 'ux-aspects.css'), 
+    path.join(cssPath, 'ux-aspects.css'),
     `@import url("../../styles/ux-aspects.css");`
 );
 
 fs.writeFileSync(
-   path.join(cssPath, 'ux-aspects.min.css'), 
-   `@import url("../../styles/ux-aspects.min.css");`
+    path.join(cssPath, 'ux-aspects.min.css'),
+    `@import url("../../styles/ux-aspects.min.css");`
 );
 
 
@@ -46,7 +46,7 @@ if (!fs.existsSync(lessPath)) {
 }
 
 fs.writeFileSync(
-    path.join(lessPath, 'ux-aspects.less'), 
+    path.join(lessPath, 'ux-aspects.less'),
     `@import "../../less/ux-aspects.less";`
 );
 
@@ -64,7 +64,7 @@ if (!fs.existsSync(ng1Path)) {
 let ng1FileContents = fs.readFileSync(path.join(buildPath, 'ng1', 'ux-aspects-ng1.js'), 'utf8');
 
 fs.writeFileSync(
-    path.join(ng1Path, 'ux-aspects-ng1.js'), 
+    path.join(ng1Path, 'ux-aspects-ng1.js'),
     ng1FileContents
 );
 
@@ -73,7 +73,7 @@ fs.writeFileSync(
 let ng1MinFileContents = fs.readFileSync(path.join(buildPath, 'ng1', 'ux-aspects-ng1.min.js'), 'utf8');
 
 fs.writeFileSync(
-    path.join(ng1Path, 'ux-aspects-ng1.min.js'), 
+    path.join(ng1Path, 'ux-aspects-ng1.min.js'),
     ng1MinFileContents
 );
 
@@ -87,6 +87,6 @@ if (!fs.existsSync(libPath)) {
 }
 
 fs.writeFileSync(
-    path.join(libPath, 'index.js'), 
-    `export * from '../../bundles/ux-aspects.umd';`
+    path.join(libPath, 'index.js'),
+    `export * from '../../bundles/ux-aspects-ux-aspects.umd';`
 );

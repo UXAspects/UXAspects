@@ -1,9 +1,9 @@
-import { Component, Input, ViewChild, ViewContainerRef, OnInit, AfterViewInit } from '@angular/core';
-import { NavigationService } from '../../services/navigation/navigation.service';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
 @Component({
     selector: 'uxd-snippet',
-    templateUrl: './snippet.component.html'
+    templateUrl: './snippet.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SnippetComponent implements OnInit {
 
@@ -13,9 +13,9 @@ export class SnippetComponent implements OnInit {
 
     @ViewChild('code', { read: ViewContainerRef }) codeContainer: ViewContainerRef;
 
-    constructor(private _navigation: NavigationService) { }
+    constructor() { }
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (this.code) {
             this.loadCode();
         } else if (this.content) {
@@ -24,12 +24,12 @@ export class SnippetComponent implements OnInit {
         }
     }
 
-    private loadCode() {
+    private loadCode(): void {
         // create a blob containing prismjs
-        let blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
+        const blob = new Blob([require('raw-loader!prismjs')], { type: 'application/javascript' });
 
         // create a worker for code highlightinh
-        let worker = new Worker(URL.createObjectURL(blob));
+        const worker = new Worker(URL.createObjectURL(blob));
 
         worker.onmessage = (evt: MessageEvent) => {
 
@@ -47,7 +47,7 @@ export class SnippetComponent implements OnInit {
         }));
     }
 
-    private loadContent() {
+    private loadContent(): void {
         this.codeContainer.element.nativeElement.innerHTML = `<code>${this.content}</code>`;
     }
 }

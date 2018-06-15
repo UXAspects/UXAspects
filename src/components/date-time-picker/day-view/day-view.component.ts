@@ -40,7 +40,7 @@ export class DayViewComponent implements OnDestroy {
    * Select a particular date
    * @param date the date to select
    */
-  select(date: Date, element: HTMLElement): void {
+  select(date: Date): void {
     // update the current date object
     this.datePicker.setDate(date.getDate(), date.getMonth(), date.getFullYear());
 
@@ -74,7 +74,7 @@ export class DayViewComponent implements OnDestroy {
 
       // check if the focused day is visible
       const isFocusedDayVisible = !!grid.find(row => !!row.find(_item => _item.day === focused.day && _item.month === focused.month && _item.year === focused.year));
-      
+
       if (isFocusedDayVisible) {
         return focused.day === item.day && focused.month === item.month && focused.year === item.year;
       }

@@ -1,6 +1,6 @@
-import { Component, Input, ElementRef, AfterViewInit, EventEmitter, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { DashboardService, DashboardLayoutData, DashboardPlaceholder, defaultOptions } from './dashboard.service';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ResizeDimensions } from '../../directives/resize/resize.service';
+import { DashboardLayoutData, DashboardService, defaultOptions } from './dashboard.service';
 
 @Component({
     selector: 'ux-dashboard',
@@ -15,11 +15,11 @@ export class DashboardComponent implements AfterViewInit {
             this.dashboardService.layout$.next(layout);
         }
     }
-    
+
     @Input() set options(options: DashboardOptions) {
         this.dashboardService.options$.next({ ...defaultOptions, ...options });
     }
-    
+
     @Output() layoutChange = new EventEmitter<DashboardLayoutData[]>();
 
     @ViewChild('dashboard') dashboardElement: ElementRef;
@@ -32,7 +32,6 @@ export class DashboardComponent implements AfterViewInit {
      * Set the initial dimensions
      */
     ngAfterViewInit(): void {
-        this.dashboardService.setDashboard(this.dashboardElement.nativeElement);
         this.dashboardService.setDimensions(this.dashboardElement.nativeElement.offsetWidth, this.dashboardElement.nativeElement.offsetHeight);
     }
 

@@ -9,19 +9,11 @@ import { AppConfiguration } from '../../services/app-configuration/app-configura
 })
 export class NavigationBarComponent {
 
-    brand: ILink;
-    links: ILink[];
-    social: ILink[];
+    navigation = this._appConfig.getConfigurationData('top-navigation');
+    brand: ILink = this.navigation.brand;
+    links: ILink[] = this.navigation.links;
+    social: ILink[] = this.navigation.social;
     expanded: boolean = false;
 
-    constructor(private _appConfig: AppConfiguration) {
-
-        // load the data from the json file
-        let navigation = this._appConfig.getConfigurationData('top-navigation');
-
-        // store the relevant parts of the navigation file
-        this.brand = navigation.brand;
-        this.links = navigation.links;
-        this.social = navigation.social;
-    }
+    constructor(private _appConfig: AppConfiguration) { }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, EventEmitter, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const NUMBER_PICKER_VALUE_ACCESSOR: any = {

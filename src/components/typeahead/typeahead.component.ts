@@ -152,12 +152,12 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     @HostListener('mousedown')
-    private mousedownHandler() {
+    mousedownHandler() {
         this.clicking = true;
     }
 
     @HostListener('mouseup')
-    private mouseupHandler() {
+    mouseupHandler() {
         this.clicking = false;
     }
 

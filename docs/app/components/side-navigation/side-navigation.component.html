@@ -18,7 +18,7 @@
                     <a class="side-navigation-list-item-link" [routerLink]="category.link" routerLinkActive="active" #rla="routerLinkActive" [uxScrollIntoViewIf]="rla.isActive" [scrollParent]="scrollParent">{{ category.title }}</a>
                     <ul *ngIf="rla.isActive" class="side-navigation-subsection-list">
                         <li class="side-navigation-list-item" *ngFor="let section of category.sections" [uxScrollIntoViewIf]="isActive(section.id)" [scrollParent]="scrollParent">
-                            <a class="side-navigation-list-item-link" [class.active]="isActive(section.id)" (click)="goToSection(category.link, section.id)">
+                            <a class="side-navigation-list-item-link" [class.active]="isActive(section.id)" (click)="goToSection(section.id)">
                                 {{ section.title }}
                             </a>
                         </li>

@@ -1,4 +1,4 @@
-import { Directive, OnInit, Type, Input, ComponentRef, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { SearchBuilderService } from '../search-builder.service';
 
 @Directive({

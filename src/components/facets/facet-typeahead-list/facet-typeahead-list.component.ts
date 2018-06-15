@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, Host, Pipe, PipeTransform } from '@angular/core';
-import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
-import { Observable } from 'rxjs/Observable';
-import { Facet } from '../models/facet';
-import { FacetContainerComponent } from '../facet-container.component';
+import { Component, Input, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
-import { Observer } from 'rxjs/Observer';
+import { Observable } from 'rxjs/Observable';
+import { from } from 'rxjs/observable/from';
+import { of } from 'rxjs/observable/of';
+import { map } from 'rxjs/operators';
+import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
+import { Facet } from '../models/facet';
 
 @Component({
     selector: 'ux-facet-typeahead-list',
@@ -37,24 +36,24 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
         if (this.facets instanceof Observable) {
 
             // handle an observable of data
-            this.typeaheadOptions = Observable.from(this.facets).map((facets: Facet[]) => {
+            this.typeaheadOptions = from(this.facets).pipe(map((facets: Facet[]) => {
 
                 // remove disabled facets, selected facets and facets that dont match search term
                 return facets.filter(facet => !facet.disabled)
                     .filter(facet => !this.selected.find(selectedFacet => selectedFacet === facet))
                     .filter(facet => facet.title.toUpperCase().includes(this.searchQuery.toUpperCase()));
-            });
+            }));
 
         } else {
 
             // handle an array of data
-            this.typeaheadOptions = Observable.of(this.facets).map((facets: Facet[]) => {
+            this.typeaheadOptions = of(this.facets).pipe(map((facets: Facet[]) => {
 
                 // remove disabled facets, selected facets and facets that dont match search term
                 return facets.filter(facet => !facet.disabled)
                     .filter(facet => !this.selected.find(selectedFacet => selectedFacet === facet))
                     .filter(facet => facet.title.toUpperCase().includes(this.searchQuery.toUpperCase()));
-            });
+            }));
         }
 
         // provide default values for typeahead config

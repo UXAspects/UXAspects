@@ -1,10 +1,8 @@
-import { Directive, Input, ElementRef, OnInit, ContentChildren, QueryList, OnDestroy, Output, EventEmitter, Renderer2, AfterViewInit, HostBinding } from '@angular/core';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, QueryList, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { Drake } from 'dragula';
 import { ReorderableHandleDirective } from './reorderable-handle.directive';
 import { ReorderableModelDirective } from './reorderable-model.directive';
-import { ReorderableService, ReorderableContainer, ReorderableDragEvent, ReorderableDragEndEvent, ReorderableDropEvent, ReorderableClonedEvent, ReorderableCancelEvent } from './reorderable.service';
-import { dragula } from './dragula';
+import { ReorderableCancelEvent, ReorderableClonedEvent, ReorderableContainer, ReorderableDragEndEvent, ReorderableDragEvent, ReorderableDropEvent, ReorderableService } from './reorderable.service';
 
 @Directive({
     selector: '[uxReorderable]'
@@ -13,6 +11,7 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() reorderableModel: Array<any>;
     @Input() reorderableGroup: string;
+    @Input() reorderingDisabled: boolean = false;
     @Output() reorderableModelChange = new EventEmitter<Array<any>>();
     @Output() reorderStart = new EventEmitter<ReorderEvent>();
     @Output() reorderCancel = new EventEmitter<ReorderEvent>();
@@ -21,11 +20,9 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
     @ContentChildren(ReorderableHandleDirective, { read: ElementRef, descendants: true }) handles: QueryList<ElementRef>;
     @ContentChildren(ReorderableModelDirective) models: QueryList<ReorderableModelDirective>;
 
-    private _instance: Drake;
     private _container: ReorderableContainer;
 
-    @HostBinding('class.ux-reorderable-container-moving')
-    private _dragging = false;
+    @HostBinding('class.ux-reorderable-container-moving') dragging = false;
 
     private _subscriptions = new Subscription();
 
@@ -74,7 +71,7 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
 
     onDrag(event: ReorderableDragEvent): void {
 
-        this._dragging = true;
+        this.dragging = true;
 
         this.reorderStart.emit({ element: event.element, model: event.model });
     }
@@ -139,7 +136,7 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
      */
     onDragEnd(event: ReorderableDragEndEvent): void {
 
-        this._dragging = false;
+        this.dragging = false;
 
         if (this._elementRef.nativeElement.contains(event.element)) {
 
@@ -172,6 +169,9 @@ export class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
      * otherwise drag whenever an immediate child is specified
      */
     canMove(element: Element, container: Element, handle: Element): boolean {
+        if (this.reorderingDisabled) {
+            return false;
+        }
         return this.handles.length === 0 ? true : !!this.handles.find(_handle => _handle.nativeElement === handle);
     }
 

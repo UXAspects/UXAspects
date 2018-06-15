@@ -19,9 +19,6 @@ export class AutoGrowDirective implements AfterViewInit {
   @HostListener('input')
   update(): void {
 
-    // get computed style of element
-    const { paddingTop, paddingBottom } = getComputedStyle(this._elementRef.nativeElement);
-
     // perform sizing
     this._renderer.setStyle(this._elementRef.nativeElement, 'overflowY', 'hidden');
     this._renderer.setStyle(this._elementRef.nativeElement, 'height', 'auto');

@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DatePickerMode, DateTimePickerService } from '../date-time-picker.service';
-import { YearViewService, YearViewItem } from './year-view.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DateTimePickerService } from '../date-time-picker.service';
+import { YearViewItem, YearViewService } from './year-view.service';
 
 @Component({
   selector: 'ux-date-time-picker-year-view',
@@ -40,7 +40,7 @@ export class YearViewComponent {
 
         // check if the focused year is visible
         const isFocusedYearVisible = !!grid.find(row => !!row.find(_item => _item.year === focused));
-        
+
         if (isFocusedYearVisible) {
             return focused === item.year;
         }

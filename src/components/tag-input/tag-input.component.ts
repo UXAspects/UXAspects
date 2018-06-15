@@ -111,7 +111,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
 
     constructor(
         private _element: ElementRef,
-        @Inject(DOCUMENT) private _document: Document,
+        @Inject(DOCUMENT) private _document: any,
         private _typeaheadKeyService: TypeaheadKeyService) { }
 
     ngOnInit() {

@@ -1,6 +1,6 @@
-import { ActivatedRoute, NavigationEnd, Router, RouterState, UrlTree } from '@angular/router';
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Input, OnDestroy, Optional, QueryList, Renderer2, SkipSelf, HostBinding } from '@angular/core';
-import { filter } from 'rxjs/operators/filter';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, HostBinding, Input, OnDestroy, Optional, QueryList, Renderer2, SkipSelf } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router, UrlTree } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({

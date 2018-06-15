@@ -49,6 +49,7 @@
     "@angular/compiler": ">=4.0.0",
     "@angular/core": ">=4.0.0",
     "@angular/forms": ">=4.0.0",
-    "@angular/upgrade": ">=4.0.0"
+    "@angular/upgrade": ">=4.0.0",
+    "@angular/animations": ">=4.0.0"
   }
 }

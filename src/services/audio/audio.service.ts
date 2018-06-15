@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/observable/of';
 
 @Injectable()
 export class AudioService {
@@ -19,9 +19,9 @@ export class AudioService {
         return Observable.create((observer: Observer<AudioMetadata>) => {
             this._http.request(mediaElement.src, { responseType: ResponseContentType.Blob }).subscribe(response => {
 
-                let filename = mediaElement.src.substring(mediaElement.src.lastIndexOf('/') + 1);
-                let extension = mediaElement.src.substring(mediaElement.src.lastIndexOf('.') + 1).toLowerCase();
-                let blob = response.blob();
+                const filename = mediaElement.src.substring(mediaElement.src.lastIndexOf('/') + 1);
+                const extension = mediaElement.src.substring(mediaElement.src.lastIndexOf('.') + 1).toLowerCase();
+                const blob = response.blob();
                 let description;
 
                 switch (extension) {
@@ -68,7 +68,7 @@ export class AudioService {
 
         // if audio context is not support return a stream of empty data
         if (!(<any>window).AudioContext) {
-            return Observable.of<Float32Array[]>([new Float32Array(0)]);
+            return of<Float32Array[]>([new Float32Array(0)]);
         }
 
         this._audioContext = new AudioContext();
@@ -85,7 +85,7 @@ export class AudioService {
                     this.createBufferSource(audioBuffer);
 
                     let dataPoints: Float32Array[] = [];
-                    let channels = this._audioBuffer.numberOfChannels;
+                    const channels = this._audioBuffer.numberOfChannels;
 
                     // extract the data from each channel
                     for (let channelIdx = 0; channelIdx < channels; channelIdx++) {
@@ -104,14 +104,14 @@ export class AudioService {
 
     getWaveformPoints(channels: Float32Array[] = [], skip: number = 1000): WaveformPoint[] {
 
-        let waveform: WaveformPoint[] = [];
-        let duration = channels.length > 0 ? channels[0].length : 0;
+        const waveform: WaveformPoint[] = [];
+        const duration = channels.length > 0 ? channels[0].length : 0;
 
         // convert each channel data to a series of waveform points
         for (let idx = 0; idx < duration; idx += skip) {
 
             // get all the channel data for a specific point
-            let points = channels.map(channel => channel[idx]);
+            const points = channels.map(channel => channel[idx]);
 
             // find the minimum point and maximum points at each position across all channels
             waveform.push({

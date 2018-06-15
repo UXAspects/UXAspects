@@ -1,10 +1,10 @@
-import { Directive, Output, EventEmitter, ElementRef, NgZone, OnDestroy, Input, HostListener } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, NgZone, OnDestroy, Output } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
+import { takeUntil } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
-import { takeUntil } from 'rxjs/operators/takeUntil';
 
-@Directive({ 
-    selector: '[uxDrag]' 
+@Directive({
+    selector: '[uxDrag]'
 })
 export class DragDirective implements OnDestroy {
 
@@ -22,15 +22,15 @@ export class DragDirective implements OnDestroy {
         this._subscription = mousedown$.subscribe(event => {
             event.preventDefault();
 
-            // emit the drag start event 
+            // emit the drag start event
             ngZone.run(() => this.dragstart.emit(event));
 
             mousemove$.pipe(takeUntil<MouseEvent>(mouseup$)).subscribe(moveevent => {
                 moveevent.preventDefault();
 
-                // emit the drag start event 
+                // emit the drag start event
                 ngZone.run(() => this.drag.emit(moveevent));
-            }, null, 
+            }, null,
             () => ngZone.run(() => this.dragend.emit()));
         });
     }
