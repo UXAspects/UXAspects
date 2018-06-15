@@ -182,7 +182,7 @@ module.exports = {
                 to: join(project_dir, 'dist', 'docs', 'assets', 'fonts')
             },
             {
-                from: join(project_dir, 'dist', 'bundles', 'ux-aspects.umd.js'),
+                from: join(project_dir, 'dist', 'bundles', 'ux-aspects-ux-aspects.umd.js'),
                 to: join(project_dir, 'dist', 'docs', 'assets', 'lib', 'index.js')
             },
             {

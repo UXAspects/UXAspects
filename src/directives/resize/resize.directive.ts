@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
+import { debounceTime } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
-import { debounceTime } from 'rxjs/operators/debounceTime';
 import { ResizeDimensions, ResizeService } from './resize.service';
 
 @Directive({

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.component';
 
 @Component({
@@ -8,7 +8,7 @@ import { BaseSearchComponent, BaseSearchComponentConfig } from '../base-search.c
 export class SearchTextComponent extends BaseSearchComponent {
 
   type: string = 'text';
-  
+
   get label(): string {
     return this.config.label;
   }

@@ -1,4 +1,4 @@
-import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuNavigationItemDirective } from './menu-navigation-item.directive';
@@ -30,14 +30,13 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
 
     private _itemsOrdered: MenuNavigationItemDirective[];
 
-    private _document: Document;
+    private _document: any;
 
     private _subscription = new Subscription();
 
     constructor(
         private _service: MenuNavigationService,
         private _elementRef: ElementRef,
-        private _renderer: Renderer2,
         @Inject(DOCUMENT) document: any
     ) {
         this._document = document;
@@ -71,7 +70,7 @@ export class MenuNavigationDirective implements OnInit, AfterContentInit, OnDest
     }
 
     @HostListener('document:keydown', ['$event'])
-    private keydownHandler(event: KeyboardEvent): void {
+    keydownHandler(event: KeyboardEvent): void {
 
         // Only handle events when focus in within the list of menu items
         if (!this._elementRef.nativeElement.contains(this._document.activeElement)) {

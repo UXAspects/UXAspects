@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
-import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
-import { DashboardOptions } from './dashboard.component';
-import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { filter } from 'rxjs/operators/filter';
-import { delay } from 'rxjs/operators/delay';
-import { map } from 'rxjs/operators/map';
-import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { Observable } from 'rxjs/Observable';
+import { delay, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { DashboardOptions } from './dashboard.component';
+import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 
 @Injectable()
 export class DashboardService {
 
-    private _dashboard: HTMLElement;
     private _widgetOrigin: { column?: number, row?: number, columnSpan?: number, rowSpan?: number };
     private _actionWidget: DashboardAction;
     private _rowHeight: number = 0;
@@ -52,14 +48,6 @@ export class DashboardService {
         this.stacked$.pipe(filter(stacked => stacked === true)).subscribe(this.updateWhenStacked.bind(this));
         this.widgets$.pipe(delay(0)).subscribe(() => this.renderDashboard());
         this.dimensions$.pipe(delay(0)).subscribe(() => this.renderDashboard());
-    }
-
-    /**
-     * Set the dashboard container element
-     * @param dashboard The HTMLElement that is the dashboard container
-     */
-    setDashboard(dashboard: HTMLElement): void {
-        this._dashboard = dashboard;
     }
 
     /**
@@ -1025,7 +1013,7 @@ export class DashboardService {
         // check whether or not changes have been made - if so we need to repeat until stable
         let stable = true;
 
-        // iterate each widget and 
+        // iterate each widget and
         this.widgets.forEach(widget => {
 
             // if widget is already on the top row then do nothing

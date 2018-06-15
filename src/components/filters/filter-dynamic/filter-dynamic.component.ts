@@ -1,8 +1,8 @@
-import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { Component, Input, ViewChild } from '@angular/core';
-import { FilterBaseComponent } from '../filter-base/filter-base.component';
-import { Filter, FilterContainerComponent, FilterRemoveAllEvent } from '../filter-container.component';
+import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { FilterBaseComponent } from '../filter-base/filter-base.component';
+import { Filter } from '../filter-container.component';
 
 @Component({
     selector: 'ux-filter-dynamic',
@@ -17,7 +17,7 @@ export class FilterDynamicComponent extends FilterBaseComponent {
     @Input() initial: Filter;
     @Input() options: FilterDynamicListConfig;
 
-    @ViewChild( BsDropdownDirective ) dropdown: BsDropdownDirective;
+    @ViewChild(BsDropdownDirective) dropdown: BsDropdownDirective;
 
     defaultOptions: FilterDynamicListConfig = {
         placeholder: '',
@@ -36,12 +36,12 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         this.selected = this.initial;
         this.typeaheadItems = this.getItems();
 
-        if (this.options && this.options.maxIndividualItems && this.options.maxIndividualItems + 1 >= this.filters.length ) {
+        if (this.options && this.options.maxIndividualItems && this.options.maxIndividualItems + 1 >= this.filters.length) {
             this.showTypeahead = false;
         }
     }
 
-    selectOption(typeaheadOption: TypeaheadMatch) { 
+    selectOption(typeaheadOption: TypeaheadMatch) {
         this.removeFilter();
         let idx = this.filters.findIndex(filter => filter.name === typeaheadOption.value);
         this.selected = this.filters[idx];
@@ -68,10 +68,10 @@ export class FilterDynamicComponent extends FilterBaseComponent {
             this.searchQuery = '';
             this.dropdown.hide();
         }
-        
+
     }
 
-    removeFilter(): void { 
+    removeFilter(): void {
         if (this.selected !== this.initial) {
             super.removeFilter(this.selected);
             this.selected = this.initial;

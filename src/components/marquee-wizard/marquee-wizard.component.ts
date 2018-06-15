@@ -1,6 +1,5 @@
-import { Component, Input, ContentChildren, QueryList, TemplateRef } from '@angular/core';
-import { filter } from 'rxjs/operators/filter';
-
+import { Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
+import { filter } from 'rxjs/operators';
 import { WizardComponent } from '../wizard/index';
 import { MarqueeWizardStepComponent } from './marquee-wizard-step.component';
 import { MarqueeWizardService, MarqueeWizardValidEvent } from './marquee-wizard.service';
@@ -67,7 +66,7 @@ export class MarqueeWizardComponent extends WizardComponent {
      * it, should become unvisited and incomplete
      */
     validChange(state: MarqueeWizardValidEvent): void {
-        
+
         const steps = this.steps.toArray();
         const current = steps.findIndex(step => step === state.step);
         const affected = steps.slice(current);

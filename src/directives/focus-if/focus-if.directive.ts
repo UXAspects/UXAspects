@@ -13,6 +13,7 @@ export class FocusIfDirective {
         // if a timeout is pending then cancel it
         if (!focus && this._timeout !== null) {
             clearTimeout(this._timeout);
+            this._timeout = null;
         }
 
         if (focus && this._timeout === null) {

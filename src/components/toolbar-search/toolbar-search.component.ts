@@ -1,29 +1,10 @@
-import {
-    Component,
-    ContentChild,
-    AfterContentInit,
-    HostBinding,
-    HostListener,
-    EventEmitter,
-    Output,
-    Inject,
-    ElementRef,
-    Input
-} from '@angular/core';
-import {
-    AnimationEvent,
-    trigger,
-    transition,
-    query,
-    style,
-    animate,
-    state
-} from '@angular/animations';
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
-
-import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
-import { ToolbarSearchButtonDirective } from './toolbar-search-button.directive';
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Input, Output } from '@angular/core';
 import { ColorService } from '../../services/color/color.service';
+import { ToolbarSearchButtonDirective } from './toolbar-search-button.directive';
+import { ToolbarSearchFieldDirective } from './toolbar-search-field.directive';
+
 
 @Component({
     selector: 'ux-toolbar-search',
@@ -64,13 +45,13 @@ export class ToolbarSearchComponent implements AfterContentInit {
 
         if (value) {
             // Set focus on the input when expanded
-            this._field.focus();
+            this.field.focus();
         } else {
             // Clear text when contracted
-            this._field.clear();
+            this.field.clear();
 
             // Remove focus (works around an IE issue where the caret remains visible)
-            this._field.blur();
+            this.field.blur();
         }
     }
 
@@ -84,7 +65,7 @@ export class ToolbarSearchComponent implements AfterContentInit {
 
     @Input()
     set background(value: string) {
-        this._backgroundColor = this._colorService.resolve(value) || 'transparent';
+        this.backgroundColor = this._colorService.resolve(value) || 'transparent';
     }
 
     @Output()
@@ -96,49 +77,39 @@ export class ToolbarSearchComponent implements AfterContentInit {
     private _expanded: boolean = false;
 
     @HostBinding('@expanded')
-    private get _expandedAnimation(): any {
+    get expandedAnimation(): any {
         return {
             value: this.expanded ? 'expanded' : 'collapsed',
             params: {
-                initialWidth: this._button.width + 'px'
+                initialWidth: this.button.width + 'px'
             }
         };
     }
 
-    @HostBinding('style.position')
-    private _position = 'relative';
-
-    @HostBinding('style.background-color')
-    private _backgroundColor = 'transparent';
-
-    @ContentChild(ToolbarSearchFieldDirective)
-    private _field: ToolbarSearchFieldDirective;
-
-    @ContentChild(ToolbarSearchButtonDirective)
-    private _button: ToolbarSearchButtonDirective;
+    @HostBinding('style.position') position = 'relative';
+    @HostBinding('style.background-color') backgroundColor = 'transparent';
+    @ContentChild(ToolbarSearchFieldDirective) field: ToolbarSearchFieldDirective;
+    @ContentChild(ToolbarSearchButtonDirective) button: ToolbarSearchButtonDirective;
 
     private _placeholder: HTMLElement;
-
-    private _document: Document;
 
     constructor(
         private _elementRef: ElementRef,
         private _colorService: ColorService,
-        @Inject(DOCUMENT) document: any) {
-        this._document = <Document>document;
+        @Inject(DOCUMENT) private _document: any) {
     }
 
     ngAfterContentInit() {
         // Subscribe to the submit event on the input field, triggering the search event
-        this._field.submit.subscribe((text: string) => this.search.emit(text));
+        this.field.submit.subscribe((text: string) => this.search.emit(text));
 
         // Subscribe to cancel events coming from the input field
-        this._field.cancel.subscribe(() => (this.expanded = false));
+        this.field.cancel.subscribe(() => this.expanded = false);
 
         // Subscribe to the button click event
-        this._button.clicked.subscribe(() => {
-            if (this.expanded && this._field.text) {
-                this.search.emit(this._field.text);
+        this.button.clicked.subscribe(() => {
+            if (this.expanded && this.field.text) {
+                this.search.emit(this.field.text);
             } else {
                 this.expanded = !this.expanded;
             }
@@ -151,7 +122,7 @@ export class ToolbarSearchComponent implements AfterContentInit {
     @HostListener('@expanded.start', ['$event'])
     animationStart(event: AnimationEvent) {
         if (event.toState === 'expanded') {
-            this._position = 'absolute';
+            this.position = 'absolute';
             this.enablePlaceholder(true);
         }
     }
@@ -159,7 +130,7 @@ export class ToolbarSearchComponent implements AfterContentInit {
     @HostListener('@expanded.done', ['$event'])
     animationDone(event: AnimationEvent) {
         if (event.toState === 'collapsed') {
-            this._position = 'relative';
+            this.position = 'relative';
             this.enablePlaceholder(false);
         }
     }
@@ -171,7 +142,7 @@ export class ToolbarSearchComponent implements AfterContentInit {
         // Create invisible div with the same dimensions
         this._placeholder = this._document.createElement('div');
         this._placeholder.style.display = 'none';
-        this._placeholder.style.width = this._button.width + 'px';
+        this._placeholder.style.width = this.button.width + 'px';
         this._placeholder.style.height = styles.height;
         this._placeholder.style.visibility = 'hidden';
 
