@@ -42,6 +42,7 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
     @Input() disabledOptions: any[];
     @Input() dropDirection: 'up' | 'down' = 'down';
     @Input() maxHeight: string = '250px';
+    @Input() @HostBinding('attr.aria-multiselectable') multiselectable: boolean = false;
     @Input() openOnFilterChange: boolean = true;
     @Input() pageSize: number = 20;
     @Input() selectFirst: boolean = true;
@@ -282,13 +283,6 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
 
         return this.highlighted;
     }
-
-    /**
-     * Returns true if the given option is the highlighted option.
-     */
-    // isHighlighted(option: any): boolean {
-    //     return this.getKey(option) === this.getKey(this.highlighted);
-    // }
 
     /**
      * Set up the options before the dropdown is displayed.

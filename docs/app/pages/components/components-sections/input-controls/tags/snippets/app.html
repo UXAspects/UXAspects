@@ -21,17 +21,18 @@
                     [options]="allTags"
                     [disabledOptions]="tags"
                     [dropDirection]="dropDirection"
+                    [multiselectable]="true"
                     [selectFirst]="selectFirst">
                 </ux-typeahead>
 
             </ux-tag-input>
             <span *ngIf="tagInput.validationErrors.tagRangeError" class="validation-error-text">
-                <span class="hpe-icon hpe-alert"></span> 
+                <span class="hpe-icon hpe-alert"></span>
                 Required: number of tags between {{tagInput.validationErrors.tagRangeError.min}}
                 and {{tagInput.validationErrors.tagRangeError.max}}.
             </span>
             <span *ngIf="tagInput.validationErrors.inputPattern" class="validation-error-text">
-                <span class="hpe-icon hpe-alert"></span> 
+                <span class="hpe-icon hpe-alert"></span>
                 Expected format: {{tagInput.validationErrors.inputPattern.pattern.source}}
             </span>
         </form>

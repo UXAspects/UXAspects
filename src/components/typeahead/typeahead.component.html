@@ -15,6 +15,7 @@
             [attr.id]="id + '-option-' + i"
             [class.disabled]="isDisabled(option)"
             [class.highlighted]="(highlighted$ | async).key === option.key"
+            [attr.aria-selected]="multiselectable ? isDisabled(option) : null"
             [uxTypeaheadHighlight]="(highlighted$ | async).key === option.key"
             [uxScrollIntoViewIf]="(highlighted$ | async).key === option.key"
             [scrollParent]="typeaheadElement.nativeElement"
