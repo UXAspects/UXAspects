@@ -1,6 +1,7 @@
 <div class="ux-typeahead-options"
     [uxInfiniteScroll]="loadOptionsCallback"
-    [(collection)]="visibleOptions"
+    [collection]="visibleOptions$ | async"
+    (collectionChange)="visibleOptions$.next($event)"
     [enabled]="isInfiniteScroll()"
     [filter]="filter"
     [loadOnScroll]="true"
@@ -9,18 +10,21 @@
     (loading)="loading = true"
     (loaded)="loading = false">
 
-    <ol *ngIf="visibleOptions.length > 0">
-        <li *ngFor="let option of visibleOptions; let i = index"
+    <ol *ngIf="(visibleOptions$ | async).length > 0">
+        <li *ngFor="let option of (visibleOptions$ | async); let i = index"
+            [attr.id]="id + '-option-' + i"
             [class.disabled]="isDisabled(option)"
-            [class.highlighted]="isHighlighted(option)"
-            [uxScrollIntoViewIf]="isHighlighted(option)"
+            [class.highlighted]="(highlighted$ | async).key === option.key"
+            [attr.aria-selected]="multiselectable ? isDisabled(option) : null"
+            [uxTypeaheadHighlight]="(highlighted$ | async).key === option.key"
+            [uxScrollIntoViewIf]="(highlighted$ | async).key === option.key"
             [scrollParent]="typeaheadElement.nativeElement"
             (mousedown)="optionMousedownHandler($event)"
             (click)="optionClickHandler($event, option)"
             (mouseover)="highlight(option)">
 
             <ng-container [ngTemplateOutlet]="optionTemplate"
-                [ngTemplateOutletContext]="{option: option, api: optionApi}">
+                [ngTemplateOutletContext]="{option: option.value, api: optionApi}">
             </ng-container>
 
         </li>
@@ -32,7 +36,7 @@
     </div>
 
 </div>
-<div *ngIf="visibleOptions.length === 0 && !loading">
+<div *ngIf="(visibleOptions$ | async).length === 0 && !loading">
     <ng-container [ngTemplateOutlet]="noOptionsTemplate">
     </ng-container>
 </div>

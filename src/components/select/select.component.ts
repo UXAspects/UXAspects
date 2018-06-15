@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Inject, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, StaticProvider, TemplateRef, ViewChild, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -7,6 +7,8 @@ import { debounceTime, filter, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
+
+let uniqueId = 0;
 
 export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,
@@ -20,6 +22,8 @@ export const SELECT_VALUE_ACCESSOR: StaticProvider = {
     providers: [SELECT_VALUE_ACCESSOR]
 })
 export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+
+    @Input() @HostBinding('attr.id') id: string = `ux-select-${++uniqueId}`;
 
     @Input()
     get value() {
@@ -77,6 +81,7 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     @ViewChild('multipleTypeahead') multipleTypeahead: TypeaheadComponent;
     @ViewChild('singleTypeahead') singleTypeahead: TypeaheadComponent;
 
+    highlightedElement: HTMLElement;
     filter$: Observable<string>;
     propagateChange = (_: any) => { };
 

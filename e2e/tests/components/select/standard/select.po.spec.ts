@@ -195,7 +195,7 @@ export class SelectPage {
     }
 
     removeCountry(index: number) {
-        this.getTag(index).$('button.ux-tag-remove').$('i.hpe-close').click();
+        this.getTag(index).$('button.ux-tag-remove').$('.hpe-close').click();
     }
 
 
