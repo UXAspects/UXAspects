@@ -20,6 +20,7 @@ function TestCtrl(exampleDataService) {
             //Logic to filter the matching names
             return {
                 name: user,
+                count: parseInt(Math.random() * 30),
                 filter: function (data) {
                     return data.name === user;
                 }
@@ -38,6 +39,8 @@ function TestCtrl(exampleDataService) {
             //Implement logic when facet is deselected
         };
     });
+
+    vm.facetOptionTypeahead = "option.name + ' - ' + option.count + ' books'";
 
     vm.longListCallback = function (textInput, optionList) {
         return optionList;

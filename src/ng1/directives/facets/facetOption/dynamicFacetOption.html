@@ -1,0 +1,7 @@
+<li ng-show="data.count!==0 || showZero" class="facet-option" ng-class="{ 'disabled': disabled }">
+  <a ng-click="fo.toggle()" tabindex="1">
+    <checkbox class="facet-option-check" ng-model="checkedIcon" simplified="simplified"></checkbox>
+    <ng-include ng-if="!!(optionTemplate)" src="optionTemplate"></ng-include>
+    <ng-include ng-if="!(!!(optionTemplate))" src="'facets/facetOption/facetOptionDefault.html'"></ng-include>
+  </a>
+</li>

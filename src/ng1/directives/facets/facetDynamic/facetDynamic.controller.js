@@ -18,6 +18,10 @@ export default function FacetDynamicCtrl($scope) {
     text: ""
   };
 
+  if (!$scope.facetOptionTypeahead) {
+    $scope.facetOptionTypeahead = "option.name + ' (' + option.count + ')'";
+  }
+
   vm.expanded = true;
 
   vm.toggleExpand = function ($event) {
@@ -94,6 +98,7 @@ FacetDynamicCtrl.prototype.select = function ($item) {
   filterOption.deselect = function () {
     vm.remove(this.option, vm.selectedDynamicFacets.indexOf(this));
   };
+
   //trigger select
   filterOption.select();
   //clear the input text

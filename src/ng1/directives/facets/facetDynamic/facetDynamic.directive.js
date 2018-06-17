@@ -16,7 +16,9 @@ export default function facetDynamic($controller, previewPaneProvider) {
       updateCallback: "=?",
       maxLength: "=",
       maxLines: "=?",
-      disableReturn: "=?"
+      disableReturn: "=?",
+      facetOptionTemplate: "=?",
+      facetOptionTypeahead: "=?"
     },
     link: function (scope, element, attrs, controllers) {
       scope.title = '' + scope.name;
@@ -51,7 +53,7 @@ export default function facetDynamic($controller, previewPaneProvider) {
           if (typeof nv === "undefined") {
             nv = [];
           }
-          
+
           scope.fac.updateFacetOptions(nv);
         }
       });
