@@ -2,35 +2,29 @@
 
   <a class="facet-header" href="" ng-click="fac.toggleExpand($event)" ng-keydown="fac.toggleExpandKey($event)" tabindex="1">
     <span class="facet-name" ng-bind="title"></span>
-    <span class="pull-right hpe-icon" ng-class="{'hpe-down':fac.expanded,'hpe-previous':!fac.expanded}"></span>
+    <span class="pull-right hpe-icon" ng-class="{'hpe-down': fac.expanded, 'hpe-previous': !fac.expanded}"></span>
   </a>
 
   <div>
     <ul ng-if="fac.showFacetOptions" class="facet-options m-b-nil" ng-show="fac.expanded">
-      <dynamic-facet-option ng-repeat="option in fac.visibleFacetOptions" data="option" select="option.select()" deselect="option.deselect()" show-zero="fac.showZero" disabled="option.disabled" option-template="facetOptionTemplate"></dynamic-facet-option>
-   	</ul>
-  	<ul ng-if="fac.useTypeaheadControl" class="facet-options facet-options-dynamic" ng-show="fac.expanded">
-  		<li ng-repeat="facet in fac.selectedDynamicFacets" ng-init="data = facet.option" class="facet-option">
-        <a href="" ng-click="fac.remove(facet,$index)">
-          <checkbox class="facet-option-check" ng-model="data.checkedIcon" simplified="simplified"></checkbox>
-          <ng-include ng-if="!!(facetOptionTemplate)" src="facetOptionTemplate"></ng-include>
-          <ng-include ng-if="!(!!(facetOptionTemplate))" src="'facets/facetOption/facetOptionDefault.html'"></ng-include>
+      <dynamic-facet-option ng-repeat="option in fac.visibleFacetOptions" data="option" select="option.select()" deselect="option.deselect()"
+        show-zero="fac.showZero" disabled="option.disabled" option-template="facetOptionTemplate"></dynamic-facet-option>
+    </ul>
+    <ul ng-if="fac.useTypeaheadControl" class="facet-options facet-options-dynamic" ng-show="fac.expanded">
+      <li ng-repeat="facet in fac.selectedDynamicFacets" class="facet-option">
+        <a href="" ng-click="fac.remove(facet, $index)">
+          <span class="facet-option-check hpe-icon hpe-checkmark" aria-label="Selected"></span>
+          <ng-include src="facetOptionTemplate" ng-init="data = facet.option"></ng-include>
         </a>
-  		</li>
-  		<li class="input-container">
+      </li>
+      <li class="input-container">
         <textarea rows="1" ng-attr-placeholder="{{fac.placeholder}}..." type="text" ng-model="fac.dynamicTypeaheadSelected.text"
-  			typeahead="option as ({{facetOptionTypeahead}}) for option in fac.facetOptions.options | facetDynamicSelectedFilter: fac.selectedDynamicFacets | facetDynamicVisibleFilter: fac.visibleFacetOptions | filter: $viewValue | limitTo: fac.maxDisplayableItems"
-        ng-change="fac.dynamicTypeaheadOnChange()"
-        regex="regex" apply-class="fontClass"
-  			typeahead-min-length="fac.minCharsForTypeahead"
-  			typeahead-on-select="fac.select($item, $model, $label)"
-  			class="form-control"
-        expanding-textarea
-        disable-return="{{ disableReturn }}"
-        max-visible-lines="{{ maxLines }}"
-        tabindex="1"></textarea>
-  		</li>
-  	</ul>
+          typeahead="option as ({{facetOptionTypeahead}}) for option in fac.facetOptions.options | facetDynamicSelectedFilter: fac.selectedDynamicFacets | facetDynamicVisibleFilter: fac.visibleFacetOptions | filter: $viewValue | limitTo: fac.maxDisplayableItems"
+          ng-change="fac.dynamicTypeaheadOnChange()" regex="regex" apply-class="fontClass" typeahead-min-length="fac.minCharsForTypeahead"
+          typeahead-on-select="fac.select($item, $model, $label)" class="form-control" expanding-textarea disable-return="{{ disableReturn }}"
+          max-visible-lines="{{ maxLines }}" tabindex="1"></textarea>
+      </li>
+    </ul>
   </div>
 
 </div>

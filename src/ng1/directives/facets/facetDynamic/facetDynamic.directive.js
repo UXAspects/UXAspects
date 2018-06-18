@@ -1,6 +1,6 @@
-facetDynamic.$inject = ["$controller", "previewPaneProvider"];
+facetDynamic.$inject = ["$controller", "$templateCache", "previewPaneProvider"];
 
-export default function facetDynamic($controller, previewPaneProvider) {
+export default function facetDynamic($controller, $templateCache, previewPaneProvider) {
   return {
     restrict: "E",
     require: ['^facetContainer'],
@@ -21,8 +21,12 @@ export default function facetDynamic($controller, previewPaneProvider) {
       facetOptionTypeahead: "=?"
     },
     link: function (scope, element, attrs, controllers) {
+
+      $templateCache.put('facetOptionDefault.html', require('../facetOption/facetOptionDefault.html'));
+
+      scope.facetOptionTemplate = scope.facetOptionTemplate || 'facetOptionDefault.html';
+
       scope.title = '' + scope.name;
-      var textareaEl = "";
       scope.regex = "'.*(\\\\([0-9]*\\\\))'";
       scope.fontClass = "'count-font-light'";
       scope.fac.foConstructor = {
@@ -33,6 +37,8 @@ export default function facetDynamic($controller, previewPaneProvider) {
 
       //Add the facet to the container
       controllers[0].register(scope.fac);
+
+      var textareaEl = "";
 
       // Watching when the textarea is included in the page.
       scope.$watch("element.children().length", function () {
