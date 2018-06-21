@@ -19,7 +19,7 @@ export declare class DayViewComponent implements OnDestroy {
      * Select a particular date
      * @param date the date to select
      */
-    select(date: Date, element: HTMLElement): void;
+    select(date: Date): void;
     trackWeekByFn(index: number): number;
     trackDayByFn(index: number, item: DayViewItem): string;
     focusDate(item: DayViewItem, dayOffset: number): void;

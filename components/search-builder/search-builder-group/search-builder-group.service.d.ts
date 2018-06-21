@@ -1,5 +1,5 @@
-import { SearchBuilderService } from '../search-builder.service';
 import { SearchBuilderGroupQuery } from '../interfaces/group-query.interface';
+import { SearchBuilderService } from '../search-builder.service';
 export declare class SearchBuilderGroupService {
     private _searchBuilderService;
     private _id;

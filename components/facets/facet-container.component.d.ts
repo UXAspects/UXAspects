@@ -6,6 +6,7 @@ export declare class FacetContainerComponent {
     clearTooltip: string;
     emptyText: string;
     facets: Facet[];
+    facetsReorderable: boolean;
     facetsChange: EventEmitter<Facet[]>;
     events: EventEmitter<FacetEvent>;
     selectFacet(facet: Facet): void;

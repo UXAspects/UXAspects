@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.14 
+* @ux-aspects/ux-aspects-docs - v1.5.15 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 .tree-children.tree-children-no-padding {
@@ -11895,17 +11895,23 @@ p.no-margin {
   width: 16px;
   font-size: 16px;
 }
+.facet .facet-options .facet-option a .facet-option-check.hpe-icon {
+  margin-left: 1px;
+  margin-right: 15px;
+  color: #7b63a3;
+}
 .facet .facet-options .facet-option a .facet-option-count {
   color: #9a9d9f;
 }
 .facet .facet-options .facet-option a .facet-option-name {
   max-width: calc(100% - 75px);
-  vertical-align: top;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: bottom;
   display: inline-block;
+  margin-bottom: 4px;
+  vertical-align: middle;
 }
 .facet .facet-options .facet-option a:hover {
   background-color: #f5f5f5;
@@ -15664,6 +15670,10 @@ ux-facet-container .facets-selected-container .facets-selected-list .facet-selec
   border: 1px solid #d8d9db;
   border-radius: 1px;
   padding: 0 5px;
+  white-space: nowrap;
+}
+ux-facet-container .facets-selected-container .facets-selected-list .facet-selected-tag.ux-reorderable-moving {
+  opacity: 0.5;
 }
 ux-facet-container .facets-selected-container .facets-selected-list .facet-selected-tag .facet-selected-tag-label {
   word-break: break-all;

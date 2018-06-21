@@ -1,10 +1,9 @@
-import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
-import { DashboardOptions } from './dashboard.component';
-import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { DashboardOptions } from './dashboard.component';
+import { DashboardWidgetComponent } from './widget/dashboard-widget.component';
 export declare class DashboardService {
-    private _dashboard;
     private _widgetOrigin;
     private _actionWidget;
     private _rowHeight;
@@ -23,11 +22,6 @@ export declare class DashboardService {
     readonly dimensions: DashboardDimensions;
     readonly columnWidth: number;
     constructor();
-    /**
-     * Set the dashboard container element
-     * @param dashboard The HTMLElement that is the dashboard container
-     */
-    setDashboard(dashboard: HTMLElement): void;
     /**
      * Add a widget to the dashboard
      * @param widget The widget component to add to the dashboard

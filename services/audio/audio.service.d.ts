@@ -1,6 +1,5 @@
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 export declare class AudioService {
     private _http;
     private _audioBuffer;

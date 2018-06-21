@@ -1,5 +1,5 @@
-import { NgModel } from '@angular/forms';
 import { ElementRef, EventEmitter } from '@angular/core';
+import { NgModel } from '@angular/forms';
 export declare class ToolbarSearchFieldDirective {
     private _elementRef;
     private _ngModel;

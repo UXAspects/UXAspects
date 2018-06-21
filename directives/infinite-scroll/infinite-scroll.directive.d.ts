@@ -1,8 +1,4 @@
 import { AfterContentInit, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import 'rxjs/add/operator/auditTime';
-import 'rxjs/add/operator/combineLatest';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/partition';
 export declare class InfiniteScrollDirective implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     private _element;
     load: InfiniteScrollLoadFunction;
@@ -32,6 +28,7 @@ export declare class InfiniteScrollDirective implements OnInit, AfterContentInit
     private _scrollElement;
     private _subscriptions;
     private _loadButtonSubscriptions;
+    private _onDestroy;
     constructor(_element: ElementRef);
     ngOnInit(): void;
     ngAfterContentInit(): void;

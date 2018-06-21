@@ -1,5 +1,5 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { AfterContentInit, AfterViewInit, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 export declare class NavigationItemComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     private _elementRef;
     private _renderer;

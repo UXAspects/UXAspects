@@ -1,7 +1,7 @@
 import { OnDestroy } from '@angular/core';
-import { SearchBuilderService } from '../search-builder.service';
-import { SearchBuilderGroupService } from '../search-builder-group/search-builder-group.service';
 import { SearchBuilderComponentContext } from '../interfaces/component-context.interface';
+import { SearchBuilderGroupService } from '../search-builder-group/search-builder-group.service';
+import { SearchBuilderService } from '../search-builder.service';
 export declare class BaseSearchComponent implements OnDestroy {
     private _searchBuilderService;
     private _searchBuilderGroupService;

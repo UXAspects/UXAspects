@@ -1,8 +1,5 @@
-import { OnInit, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/observable/fromEvent';
 export declare class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, AfterViewInit, OnDestroy {
     thumb: ElementRef;
     timelineRef: ElementRef;
@@ -13,12 +10,12 @@ export declare class MediaPlayerTimelineExtensionComponent extends MediaPlayerBa
     mouseDown: boolean;
     quietMode: boolean;
     fullscreen: boolean;
-    private _mouseEventSubscription;
     scrub: {
         visible: boolean;
         position: number;
         time: number;
     };
+    private _onDestroy;
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

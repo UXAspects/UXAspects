@@ -1,7 +1,7 @@
-import { Subject } from 'rxjs/Subject';
-import { SearchBuilderQuery } from './interfaces/query.interface';
-import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject } from 'rxjs/Subject';
+import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
+import { SearchBuilderQuery } from './interfaces/query.interface';
 export declare class SearchBuilderService {
     query: SearchBuilderQuery;
     queryChange: Subject<SearchBuilderQuery>;

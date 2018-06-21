@@ -1,7 +1,6 @@
-import { OnInit, ElementRef } from '@angular/core';
+import { ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
-import 'rxjs/add/observable/timer';
-export declare class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit {
+export declare class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, OnDestroy {
     playing: boolean;
     quietMode: boolean;
     fullscreen: boolean;
@@ -12,8 +11,10 @@ export declare class MediaPlayerControlsExtensionComponent extends MediaPlayerBa
     volumeContainer: ElementRef;
     private _volume;
     private _previousVolume;
+    private _onDestroy;
     volume: number;
     ngOnInit(): void;
+    ngOnDestroy(): void;
     toggleMute(): void;
     togglePlay(): void;
     setFullscreen(): void;

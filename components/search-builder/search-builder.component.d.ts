@@ -1,8 +1,7 @@
 import { EventEmitter, OnDestroy } from '@angular/core';
-import { SearchBuilderService } from './search-builder.service';
-import { SearchBuilderQuery } from './interfaces/query.interface';
 import { SearchBuilderComponentDefinition } from './interfaces/component-definition.interface';
-import 'rxjs/add/operator/distinctUntilChanged';
+import { SearchBuilderQuery } from './interfaces/query.interface';
+import { SearchBuilderService } from './search-builder.service';
 export declare class SearchBuilderComponent implements OnDestroy {
     private _searchBuilderService;
     components: SearchBuilderComponentDefinition[];

@@ -1,4 +1,4 @@
-import { EventEmitter, ElementRef, NgZone, OnDestroy } from '@angular/core';
+import { ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
 export declare class DragDirective implements OnDestroy {
     dragstart: EventEmitter<MouseEvent>;
     drag: EventEmitter<MouseEvent>;

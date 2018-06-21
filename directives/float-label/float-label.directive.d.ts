@@ -1,4 +1,4 @@
-import { OnInit, Renderer2, OnDestroy, OnChanges, ElementRef } from '@angular/core';
+import { ElementRef, OnChanges, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 export declare class FloatLabelDirective implements OnInit, OnChanges, OnDestroy {
     private _elementRef;
     private _renderer;
@@ -13,7 +13,7 @@ export declare class FloatLabelDirective implements OnInit, OnChanges, OnDestroy
     ngOnChanges(): void;
     ngOnDestroy(): void;
     private hasText();
-    private inputFocus(event);
-    private inputBlur(event);
-    private inputChange(event);
+    private inputFocus();
+    private inputBlur();
+    private inputChange();
 }
