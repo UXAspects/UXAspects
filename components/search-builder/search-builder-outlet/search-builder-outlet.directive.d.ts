@@ -1,4 +1,4 @@
-import { OnInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, OnInit, ViewContainerRef } from '@angular/core';
 import { SearchBuilderService } from '../search-builder.service';
 export declare class SearchBuilderOutletDirective implements OnInit {
     private _viewContainerRef;

@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/concat';
 export declare class FrameExtractionService {
     private createVideoPlayer(source);
     private createCanvas(width, height);

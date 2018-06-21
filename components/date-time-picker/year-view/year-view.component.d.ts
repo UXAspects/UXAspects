@@ -1,5 +1,5 @@
 import { DateTimePickerService } from '../date-time-picker.service';
-import { YearViewService, YearViewItem } from './year-view.service';
+import { YearViewItem, YearViewService } from './year-view.service';
 export declare class YearViewComponent {
     private _datePicker;
     yearService: YearViewService;

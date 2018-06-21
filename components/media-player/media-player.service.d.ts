@@ -1,8 +1,8 @@
-import { Observable } from 'rxjs/Observable';
-import { MediaPlayerType } from './media-player.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { FrameExtractionService, ExtractedFrame } from '../../services/frame-extraction/index';
+import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
+import { MediaPlayerType } from './media-player.component';
 export declare class MediaPlayerService {
     private _frameExtractionService;
     source: string;

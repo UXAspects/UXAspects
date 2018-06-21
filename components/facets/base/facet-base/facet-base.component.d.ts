@@ -1,17 +1,18 @@
-import { EventEmitter, OnInit, ElementRef } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 import { FacetContainerComponent } from '../../facet-container.component';
 import { FacetEvent } from '../../facet-events';
 import { Facet } from '../../models/facet';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/filter';
-export declare class FacetBaseComponent implements OnInit {
+export declare class FacetBaseComponent implements OnInit, OnDestroy {
     private facetContainer;
     _elementRef: ElementRef;
     selected: Facet[];
     selectedChange: EventEmitter<Facet[]>;
     events: Subject<FacetEvent>;
+    protected _onDestroy: Subject<void>;
     constructor(facetContainer: FacetContainerComponent, _elementRef: ElementRef);
     ngOnInit(): void;
+    ngOnDestroy(): void;
     selectFacet(facet: Facet): void;
     deselectFacet(facet: Facet): void;
     deselectAll(): void;

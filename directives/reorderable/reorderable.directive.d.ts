@@ -1,21 +1,21 @@
-import { ElementRef, OnInit, QueryList, OnDestroy, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
+import { AfterViewInit, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
 import { ReorderableModelDirective } from './reorderable-model.directive';
-import { ReorderableService, ReorderableDragEvent, ReorderableDragEndEvent, ReorderableDropEvent, ReorderableClonedEvent } from './reorderable.service';
+import { ReorderableClonedEvent, ReorderableDragEndEvent, ReorderableDragEvent, ReorderableDropEvent, ReorderableService } from './reorderable.service';
 export declare class ReorderableDirective implements OnInit, AfterViewInit, OnDestroy {
     private _elementRef;
     private _renderer;
     private _service;
     reorderableModel: Array<any>;
     reorderableGroup: string;
+    reorderingDisabled: boolean;
     reorderableModelChange: EventEmitter<any[]>;
     reorderStart: EventEmitter<ReorderEvent>;
     reorderCancel: EventEmitter<ReorderEvent>;
     reorderEnd: EventEmitter<ReorderEvent>;
     handles: QueryList<ElementRef>;
     models: QueryList<ReorderableModelDirective>;
-    private _instance;
     private _container;
-    private _dragging;
+    dragging: boolean;
     private _subscriptions;
     constructor(_elementRef: ElementRef, _renderer: Renderer2, _service: ReorderableService);
     /**

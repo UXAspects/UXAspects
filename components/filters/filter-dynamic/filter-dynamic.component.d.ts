@@ -1,7 +1,7 @@
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { FilterBaseComponent } from '../filter-base/filter-base.component';
 import { Filter } from '../filter-container.component';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 export declare class FilterDynamicComponent extends FilterBaseComponent {
     filters: Filter[];
     initial: Filter;

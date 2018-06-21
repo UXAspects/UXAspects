@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HoverActionDirective } from './hover-action.directive';
 import { HoverActionContainerDirective } from './hover-action-container.directive';
+import { HoverActionDirective } from './hover-action.directive';
 export declare class HoverActionService {
     active: BehaviorSubject<boolean>;
     private _container;

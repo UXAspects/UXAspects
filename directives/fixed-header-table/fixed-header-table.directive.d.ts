@@ -1,4 +1,4 @@
-import { ElementRef, OnInit, Renderer2, EventEmitter } from '@angular/core';
+import { ElementRef, EventEmitter, OnInit, Renderer2 } from '@angular/core';
 export declare class FixedHeaderTableDirective implements OnInit {
     private _elementRef;
     private _renderer;
@@ -16,7 +16,7 @@ export declare class FixedHeaderTableDirective implements OnInit {
     /**
      * Handle scroll events
      */
-    private onScroll(event);
+    private onScroll();
     /**
      * Update the size of the table header to account for the scrollbar.
      * This is important to keep the columns aligned

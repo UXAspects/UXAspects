@@ -8,6 +8,7 @@ export declare class SelectComponent implements OnInit, OnChanges, OnDestroy, Co
     private _element;
     private _document;
     private _typeaheadKeyService;
+    id: string;
     value: any;
     input: string;
     dropdownOpen: boolean;
@@ -30,13 +31,14 @@ export declare class SelectComponent implements OnInit, OnChanges, OnDestroy, Co
     singleInput: ElementRef;
     multipleTypeahead: TypeaheadComponent;
     singleTypeahead: TypeaheadComponent;
+    highlightedElement: HTMLElement;
     filter$: Observable<string>;
     propagateChange: (_: any) => void;
     private _value;
     private _input$;
     private _dropdownOpen;
     private _subscription;
-    constructor(_element: ElementRef, _document: Document, _typeaheadKeyService: TypeaheadKeyService);
+    constructor(_element: ElementRef, _document: any, _typeaheadKeyService: TypeaheadKeyService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;

@@ -1,1 +1,1 @@
-export * from '../../bundles/ux-aspects.umd';
+export * from '../../bundles/ux-aspects-ux-aspects.umd';

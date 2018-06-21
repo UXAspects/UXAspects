@@ -1,8 +1,11 @@
-import { FilterContainerComponent, Filter } from '../filter-container.component';
-export declare class FilterBaseComponent {
+import { OnDestroy } from '@angular/core';
+import { Filter, FilterContainerComponent } from '../filter-container.component';
+export declare class FilterBaseComponent implements OnDestroy {
     private filtersContainer;
     filters: Filter[];
+    private _subscription;
     constructor(filtersContainer: FilterContainerComponent);
-    addFilter(filter: Filter): void;
-    removeFilter(filter: Filter): void;
+    ngOnDestroy(): void;
+    addFilter(_filter: Filter): void;
+    removeFilter(_filter: Filter): void;
 }

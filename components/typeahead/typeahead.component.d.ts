@@ -1,12 +1,15 @@
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
-export declare class TypeaheadComponent implements AfterViewInit, OnChanges {
+import { TypeaheadService } from './typeahead.service';
+export declare class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
     typeaheadElement: ElementRef;
-    private cdRef;
+    private _cdRef;
+    private _service;
+    id: string;
     options: any[] | InfiniteScrollLoadFunction;
     filter: string;
-    private _open;
     open: boolean;
     openChange: EventEmitter<boolean>;
     display: (option: any) => string | string;
@@ -14,6 +17,7 @@ export declare class TypeaheadComponent implements AfterViewInit, OnChanges {
     disabledOptions: any[];
     dropDirection: 'up' | 'down';
     maxHeight: string;
+    multiselectable: boolean;
     openOnFilterChange: boolean;
     pageSize: number;
     selectFirst: boolean;
@@ -21,23 +25,28 @@ export declare class TypeaheadComponent implements AfterViewInit, OnChanges {
     optionTemplate: TemplateRef<any>;
     noOptionsTemplate: TemplateRef<any>;
     optionSelected: EventEmitter<TypeaheadOptionEvent>;
-    private _highlighted;
-    readonly highlighted: any;
+    highlightedChange: EventEmitter<any>;
+    highlightedElementChange: EventEmitter<HTMLElement>;
     private _defaultLoadingTemplate;
     private _defaultOptionTemplate;
     private _defaultNoOptionsTemplate;
     loadOptionsCallback: InfiniteScrollLoadFunction;
-    visibleOptions: any[];
+    visibleOptions$: BehaviorSubject<TypeaheadVisibleOption[]>;
     loading: boolean;
     clicking: boolean;
+    highlighted$: BehaviorSubject<TypeaheadVisibleOption>;
+    readonly highlighted: any;
+    private _open;
+    private _subscription;
     optionApi: TypeaheadOptionApi;
-    constructor(typeaheadElement: ElementRef, cdRef: ChangeDetectorRef);
+    constructor(typeaheadElement: ElementRef, _cdRef: ChangeDetectorRef, _service: TypeaheadService);
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
-    private mousedownHandler();
-    private mouseupHandler();
+    ngOnDestroy(): void;
+    mousedownHandler(): void;
+    mouseupHandler(): void;
     optionMousedownHandler(event: MouseEvent): void;
-    optionClickHandler(event: MouseEvent, option: any): void;
+    optionClickHandler(event: MouseEvent, option: TypeaheadVisibleOption): void;
     /**
      * Returns the unique key value of the given option.
      */
@@ -58,24 +67,20 @@ export declare class TypeaheadComponent implements AfterViewInit, OnChanges {
     /**
      * Selects the given option, emitting the optionSelected event and closing the dropdown.
      */
-    select(option: any): void;
+    select(option: TypeaheadVisibleOption): void;
     /**
      * Returns true if the given option is part of the disabledOptions array.
      */
-    isDisabled(option: any): boolean;
+    isDisabled(option: TypeaheadVisibleOption): boolean;
     /**
      * Set the given option as the current highlighted option, available in the highlightedOption parameter.
      */
-    highlight(option: any): void;
+    highlight(option: TypeaheadVisibleOption): void;
     /**
      * Increment or decrement the highlighted option in the list. Disabled options are skipped.
      * @param d Value to be added to the index of the highlighted option, i.e. -1 to move backwards, +1 to move forwards.
      */
     moveHighlight(d: number): any;
-    /**
-     * Returns true if the given option is the highlighted option.
-     */
-    isHighlighted(option: any): boolean;
     /**
      * Set up the options before the dropdown is displayed.
      */
@@ -105,4 +110,8 @@ export interface TypeaheadOptionApi {
      * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value. Override the ux-filter-match class in CSS to modify the default appearance.
      */
     getDisplayHtml(option: any): string;
+}
+export interface TypeaheadVisibleOption {
+    value: any;
+    key: string;
 }

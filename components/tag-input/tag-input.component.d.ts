@@ -7,10 +7,9 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     private _element;
     private _document;
     private _typeaheadKeyService;
-    private _tags;
+    id: string;
     tags: any[];
     tagsChange: EventEmitter<any[]>;
-    private _input;
     input: string;
     inputChange: EventEmitter<string>;
     display: (option: any) => string | string;
@@ -42,10 +41,13 @@ export declare class TagInputComponent implements OnInit, AfterContentInit, OnCh
     valid: boolean;
     inputValid: boolean;
     typeahead: TypeaheadComponent;
+    highlightedElement: HTMLElement;
+    private _input;
+    private _tags;
     private _onChangeHandler;
     private _onTouchedHandler;
-    private _subscription;
-    constructor(_element: ElementRef, _document: Document, _typeaheadKeyService: TypeaheadKeyService);
+    private _typeaheadSubscription;
+    constructor(_element: ElementRef, _document: any, _typeaheadKeyService: TypeaheadKeyService);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;

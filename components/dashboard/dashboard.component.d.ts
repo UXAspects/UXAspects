@@ -1,6 +1,6 @@
-import { ElementRef, AfterViewInit, EventEmitter } from '@angular/core';
-import { DashboardService, DashboardLayoutData } from './dashboard.service';
+import { AfterViewInit, ElementRef, EventEmitter } from '@angular/core';
 import { ResizeDimensions } from '../../directives/resize/resize.service';
+import { DashboardLayoutData, DashboardService } from './dashboard.service';
 export declare class DashboardComponent implements AfterViewInit {
     dashboardService: DashboardService;
     layout: DashboardLayoutData[];
