@@ -56,15 +56,11 @@ npm install
 ```bash
 grunt iconset
 ```
-4. (Optional) Add the webpack-dev-server certificate (`node_modules/webpack-dev-server/ssl/server.pem`) to the machine's certificate store. This will allow the development server to run using HTTPS without warnings, which is required to test Plunker/CodePen examples locally. On Windows, with [OpenSSL](https://www.openssl.org/source/) installed:
-```bash
-grunt webpack_import_cert
-```
-5. Build the project and start the development server. This will automatically rebuild when source changes are made.
+4. Build the project and start the development server. This will automatically rebuild when source changes are made.
 ```bash
 npm start
 ```
-6. The documentation site is hosted at [https://localhost:8080/](https://localhost:8080/). This will automatically reload when changes are made.
+5. The documentation site is hosted at [http://localhost:8080/](http://localhost:8080/). This will automatically reload when changes are made.
 
 # License
 
