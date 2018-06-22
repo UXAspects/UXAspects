@@ -705,7 +705,6 @@ SocialChartCtrl.prototype.forceNodeLayout = function (node, containerDimensions,
   var toKeepIds = Object.keys(toKeep);
   var points = toKeepIds.length;
   var r = Math.pow(containerDimensions.width, (sc.isFullscreen ? 0.35 : 0.45)) / 2;
-  var count = 1;
 
   //Magic numbers for constants
   var a = Math.ceil(points / 10);
@@ -723,36 +722,30 @@ SocialChartCtrl.prototype.forceNodeLayout = function (node, containerDimensions,
     xAspect = 1;
     yAspect = 1;
   }
-  var toMove = [];
-  var previousNode = null;
-  for (var i in toKeep) {
-    //Don't move the centre node
-    if (i !== nodeId && !toKeep[i].wasSelected) {
-      count++;
 
-      //Record IDs of moved nodes
-      toMove.push(i);
-
-      //Retain previous values
-      toKeep[i].originalX = toKeep[i].x;
-      toKeep[i].originalY = toKeep[i].y;
-
-      //Prevent the circle being perfect
-      var radius = r + ((count % a) * b);
-
-      //Ellipse layout for 1st degree neighbours
-      toKeep[i].to_x = centre.x + radius * xAspect * Math.cos(2 * Math.PI * count / points);
-      toKeep[i].to_y = centre.y + radius * yAspect * Math.sin(2 * Math.PI * count / points);
-
-
-    } else {
-      //Remember this node was selected for transitions, unless this node was
-      //clicked twice
-      if (toKeep[i].wasSelected && toKeep[i].id !== nodeId) {
-        previousNode = toKeep[i];
-      }
-    }
+  // All neighbor nodes except the current and previously selected
+  var toMove = toKeepIds.filter(function(i) { return i !== nodeId && !toKeep[i].wasSelected; });
+  if (toMove.length === 0) {
+    // In the edge case of no matching nodes, relocate the unselected node regardless of previous selection.
+    toMove = toKeepIds.filter(function(i) { return i !== nodeId; });
   }
+
+  toMove.forEach(function(id, index) {
+    var count = index + 2;
+
+    //Retain previous values
+    toKeep[id].originalX = toKeep[id].x;
+    toKeep[id].originalY = toKeep[id].y;
+
+    //Prevent the circle being perfect
+    var radius = r + ((count % a) * b);
+
+    //Ellipse layout for 1st degree neighbours
+    toKeep[id].to_x = centre.x + radius * xAspect * Math.cos(2 * Math.PI * count / points);
+    toKeep[id].to_y = centre.y + radius * yAspect * Math.sin(2 * Math.PI * count / points);
+  });
+
+  var previousNode = Object.values(toKeep).find(function(n) { return n.wasSelected && n.id !== nodeId; });
 
   //May have to adjust position of something if we came with a fixed position node
   var displaceOffset = 1;
