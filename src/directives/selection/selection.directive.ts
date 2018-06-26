@@ -1,4 +1,4 @@
-import { AfterContentInit, ContentChildren, Directive, EventEmitter, HostBinding, HostListener, Input, OnDestroy, Output, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, EventEmitter, HostBinding, Input, OnDestroy, Output, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { SelectionItemDirective } from './selection-item.directive';
 import { SelectionMode, SelectionService } from './selection.service';
@@ -31,7 +31,7 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
     this._selectionService.keyboardEnabled = enabled;
   }
 
-  @Input() @HostBinding('tabindex') tabindex: number = 0;
+  @Input() @HostBinding('attr.tabindex') tabindex: number = null;
 
   @Output() uxSelectionChange = new EventEmitter<any[]>();
 
@@ -39,7 +39,7 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
 
   private _subscriptions = new Subscription();
 
-  constructor(private _selectionService: SelectionService) {
+  constructor(private _selectionService: SelectionService, private _cdRef: ChangeDetectorRef) {
     this._subscriptions.add(_selectionService.selection$.subscribe(items => this.uxSelectionChange.emit(items)));
   }
 
@@ -49,6 +49,9 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
 
     // if the list changes then inform the service
     this._subscriptions.add(this.items.changes.subscribe(() => this.update()));
+
+    // The above could trigger a change in the computed tabindex for selection items
+    this._cdRef.detectChanges();
   }
 
   ngOnDestroy(): void {
@@ -56,19 +59,16 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
   }
 
   /**
-   * If the directive element receives focus then activate the first item
-   */
-  @HostListener('focus') focus(): void {
-    if (this._selectionService.enabled && this._selectionService.dataset.length > 0) {
-      this._selectionService.activate(this._selectionService.dataset[0]);
-    }
-  }
-
-  /**
    * Update the dataset to reflect the latest selection items
    */
   update(): void {
+
     this._selectionService.dataset = this.items.map(item => item.uxSelectionItem);
+
+    // Make sure that a tab target has been defined so that the component can be tabbed to.
+    if (this._selectionService.focusTarget$.getValue() === null && this._selectionService.dataset.length > 0) {
+      this._selectionService.focusTarget$.next(this._selectionService.dataset[0]);
+    }
   }
 
   /**
