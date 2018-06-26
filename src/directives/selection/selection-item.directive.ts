@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 import { SelectionService } from './selection.service';
 
 @Directive({
@@ -19,13 +19,20 @@ export class SelectionItemDirective implements OnInit, OnDestroy {
   get selected(): boolean {
     return this._selected;
   }
-  
-  @Input() @HostBinding('tabindex') tabindex: number = 0;
+
+  @Input() tabindex: number = null;
+
   @Output() selectedChange = new EventEmitter<boolean>();
 
   @HostBinding('class.ux-selection-focused') active: boolean = false;
 
+  @HostBinding('attr.tabindex')
+  get attrTabIndex(): number {
+    return (this.tabindex !== null) ? this.tabindex : this._managedTabIndex;
+  }
+
   private _selected: boolean = false;
+  private _managedTabIndex: number = -1;
   private _subscriptions = new Subscription();
 
   constructor(private _selectionService: SelectionService, private _elementRef: ElementRef) { }
@@ -55,8 +62,15 @@ export class SelectionItemDirective implements OnInit, OnDestroy {
 
       // if it is active then focus the element
       if (active === true) {
+        this._selectionService.focusTarget$.next(this.uxSelectionItem);
         this._elementRef.nativeElement.focus();
       }
+    }));
+
+    // Subscribe to changes to the focus target
+    // This is mostly the same as active$, except that it has an initial value of the first item in the collection.
+    this._subscriptions.add(this._selectionService.focusTarget$.subscribe(focusTarget => {
+      this._managedTabIndex = (focusTarget === this.uxSelectionItem) ? 0 : -1;
     }));
   }
 
@@ -79,6 +93,13 @@ export class SelectionItemDirective implements OnInit, OnDestroy {
   @HostListener('keydown', ['$event']) keydown(event: KeyboardEvent): void {
     if (this._selectionService.enabled && this._selectionService.keyboardEnabled) {
       this._selectionService.strategy.keydown(event, this.uxSelectionItem);
+    }
+  }
+
+  @HostListener('focus') focus(): void {
+    // If tabbed to from outside the component, activate.
+    if (this._selectionService.active$.getValue() !== this.uxSelectionItem) {
+      this._selectionService.activate(this.uxSelectionItem);
     }
   }
 

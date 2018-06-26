@@ -20,6 +20,7 @@ export class SelectionService implements OnDestroy {
   strategy: SelectionStrategy = this._simpleStrategy;
 
   active$ = new BehaviorSubject<any>(null);
+  focusTarget$ = new BehaviorSubject<any>(null);
   selection$ = new BehaviorSubject<any[]>([]);
 
   ngOnDestroy(): void {
