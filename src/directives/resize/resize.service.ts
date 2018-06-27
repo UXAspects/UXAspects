@@ -1,7 +1,7 @@
 import { Injectable, NgZone, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Injectable()
@@ -46,6 +46,7 @@ export class ResizeService implements OnDestroy {
 
         // ensure the iframe ignores any tabbing
         this._renderer.setAttribute(iframe, 'tabindex', '-1');
+        this._renderer.setAttribute(iframe, 'aria-hidden', 'true');
 
         // statically positioned elements need changed to relative for this method to work
         if (displayMode !== 'relative' && displayMode !== 'absolute' && displayMode !== 'fixed') {
