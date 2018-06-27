@@ -15,6 +15,7 @@ export * from './components/floating-action-buttons/index';
 export * from './components/hierarchy-bar/index';
 export * from './components/item-display-panel/index';
 export * from './components/marquee-wizard/index';
+export * from './components/media-player/index';
 export * from './components/navigation/index';
 export * from './components/notification/index';
 export * from './components/number-picker/index';
@@ -30,16 +31,14 @@ export * from './components/spark/index';
 export * from './components/spin-button/index';
 export * from './components/tabset/index';
 export * from './components/tag-input/index';
-export * from './components/timeline/index';
 export * from './components/time-picker/index';
+export * from './components/timeline/index';
 export * from './components/toggleswitch/index';
 export * from './components/toolbar-search/index';
 export * from './components/tooltip/index';
 export * from './components/typeahead/index';
-export * from './components/media-player/index';
 export * from './components/virtual-scroll/index';
 export * from './components/wizard/index';
-
 /*
   Export Directives
 */
@@ -54,18 +53,21 @@ export * from './directives/hover-action/index';
 export * from './directives/infinite-scroll/index';
 export * from './directives/layout-switcher/index';
 export * from './directives/menu-navigation/index';
+export * from './directives/observers/index';
+export * from './directives/reorderable/index';
 export * from './directives/resize/index';
 export * from './directives/scroll/index';
 export * from './directives/selection/index';
-export * from './directives/reorderable/index';
-
+/*
+  Export Hybrid Components
+*/
+export * from './hybrid/index';
 /*
   Export Pipes
 */
 export * from './pipes/duration/index';
 export * from './pipes/file-size/index';
 export * from './pipes/string-filter/index';
-
 /*
   Export Services
 */
@@ -74,7 +76,6 @@ export * from './services/color/index';
 export * from './services/frame-extraction/index';
 export * from './services/persistent-data/index';
 
-/*
-  Export Hybrid Components
-*/
-export * from './hybrid/index';
+
+
+
