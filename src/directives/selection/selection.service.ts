@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { distinctUntilChanged, map } from 'rxjs/operators';
+import { RowAltSelectionStrategy } from './strategies/row-alt-selection.strategy';
 import { RowSelectionStrategy } from './strategies/row-selection.strategy';
 import { SelectionStrategy } from './strategies/selection.strategy';
 import { SimpleSelectionStrategy } from './strategies/simple-selection.strategy';
@@ -10,22 +11,26 @@ import { SimpleSelectionStrategy } from './strategies/simple-selection.strategy'
 export class SelectionService implements OnDestroy {
 
   private _selection = new Set();
-  private _rowStrategy = new RowSelectionStrategy(this);
-  private _simpleStrategy = new SimpleSelectionStrategy(this);
+  private _strategyToDestroy: SelectionStrategy;
 
   dataset: any[] = [];
   enabled: boolean = true;
   clickEnabled: boolean = true;
   keyboardEnabled: boolean = true;
-  strategy: SelectionStrategy = this._simpleStrategy;
+  strategy: SelectionStrategy = new SimpleSelectionStrategy(this);
 
   active$ = new BehaviorSubject<any>(null);
   focusTarget$ = new BehaviorSubject<any>(null);
   selection$ = new BehaviorSubject<any[]>([]);
 
+  constructor() {
+    this._strategyToDestroy = this.strategy;
+  }
+
   ngOnDestroy(): void {
-    this._rowStrategy.destroy();
-    this._simpleStrategy.destroy();
+    if (this._strategyToDestroy) {
+      this._strategyToDestroy.destroy();
+    }
   }
 
   /**
@@ -80,20 +85,39 @@ export class SelectionService implements OnDestroy {
    * and mouse interactions while keeping each mode separated and
    * easily extensible if we want to add more modes in future!
    */
-  setMode(mode: SelectionMode): void {
+  setMode(mode: SelectionMode | SelectionStrategy): void {
 
-    switch (mode.toLowerCase().trim()) {
+    if (this._strategyToDestroy) {
+      // Destroy previous strategy if it was created internally
+      this._strategyToDestroy.destroy();
+      this._strategyToDestroy = null;
+    }
 
-      case 'simple':
-        this.strategy = this._simpleStrategy;
-        break;
+    if (mode instanceof SelectionStrategy) {
 
-      case 'row':
-        this.strategy = this._rowStrategy;
-        break;
+      // Custom strategy - pass in the service instance
+      this.strategy = mode;
+      this.strategy.setSelectionService(this);
 
-      default:
-        throw new Error(`The selection mode '${mode}' does not exist. Valid modes are 'simple' or 'row'.`);
+    } else {
+
+      switch (mode.toLowerCase().trim()) {
+
+        case 'simple':
+          this.strategy = this._strategyToDestroy = new SimpleSelectionStrategy(this);
+          break;
+
+        case 'row':
+          this.strategy = this._strategyToDestroy = new RowSelectionStrategy(this);
+          break;
+
+        case 'row-alt':
+          this.strategy = this._strategyToDestroy = new RowAltSelectionStrategy(this);
+          break;
+
+        default:
+          throw new Error(`The selection mode '${mode}' does not exist. Valid modes are 'simple', 'row', or 'row-alt'.`);
+      }
     }
   }
 
@@ -112,12 +136,10 @@ export class SelectionService implements OnDestroy {
   }
 
   /**
-   * Activate the sibling of the current active item.
-   * If previous is set to true the previous sibling will be activated
-   * rather than the next sibling. This function will also return the
-   * data of the newly activated sibling
+   * Return the next or previous sibling of the current active item.
+   * @param previous If true, the previous sibling will be returned.
    */
-  activateSibling(previous: boolean = false): any {
+  getSibling(previous: boolean = false): any {
 
     // get the currently active item
     const current = this.active$.getValue();
@@ -130,6 +152,19 @@ export class SelectionService implements OnDestroy {
     // get the index of the current item
     const idx = this.dataset.indexOf(current);
     const target = this.dataset[previous ? idx - 1 : idx + 1];
+
+    return target;
+  }
+
+  /**
+   * Activate the sibling of the current active item.
+   * If previous is set to true the previous sibling will be activated
+   * rather than the next sibling. This function will also return the
+   * data of the newly activated sibling
+   */
+  activateSibling(previous: boolean = false): any {
+
+    const target = this.getSibling(previous);
 
     // check if the target exists
     if (target) {
@@ -156,4 +191,4 @@ export class SelectionService implements OnDestroy {
   }
 }
 
-export type SelectionMode = 'simple' | 'row';
+export type SelectionMode = 'simple' | 'row' | 'row-alt';

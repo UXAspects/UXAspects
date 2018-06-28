@@ -1,3 +1,4 @@
+import { KeyCode } from './keycode.enum';
 import { SelectionStrategy } from './selection.strategy';
 
 export class RowSelectionStrategy extends SelectionStrategy {
@@ -51,7 +52,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
         event.preventDefault();
         this.navigate(event, data);
         break;
-        
+
       case KeyCode.Spacebar:
         event.preventDefault();
         this.selectionService.strategy.toggle(data, true);
@@ -98,7 +99,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
    * 2. If a start item has been selected - select all in between
    * 3. If a start and end item have been selected clear the range and then select the new range
    */
-  private multipleSelect(data: any): void {
+  protected multipleSelect(data: any): void {
 
     // if no selection currently exists then perform initial selection
     if (!this._selection.start) {
@@ -147,7 +148,7 @@ export class RowSelectionStrategy extends SelectionStrategy {
   /**
    * Clear both start and end selection points
    */
-  private clearSelection(deactivate: boolean = true): void {
+  protected clearSelection(deactivate: boolean = true): void {
 
     // reset the selected item
     this._selection = { start: null, end: null };
@@ -209,10 +210,4 @@ export class RowSelectionStrategy extends SelectionStrategy {
 export interface Selection {
   start: any;
   end: any;
-}
-
-enum KeyCode {
-  UpArrow = 38,
-  DownArrow = 40,
-  Spacebar = 32
 }

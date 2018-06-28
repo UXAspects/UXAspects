@@ -1,3 +1,4 @@
+import { KeyCode } from './keycode.enum';
 import { SelectionStrategy } from './selection.strategy';
 
 export class SimpleSelectionStrategy extends SelectionStrategy {
@@ -16,17 +17,17 @@ export class SimpleSelectionStrategy extends SelectionStrategy {
   keydown(event: KeyboardEvent, data: any): void {
 
     switch (event.keyCode) {
-      
+
       case KeyCode.UpArrow:
         event.preventDefault();
         return this.selectionService.activateSibling(true);
-        
+
       case KeyCode.DownArrow:
         event.preventDefault();
         return this.selectionService.activateSibling(false);
-      
+
       case KeyCode.Spacebar:
-        event.preventDefault();      
+        event.preventDefault();
         return this.toggle(data);
     }
   }
@@ -38,10 +39,4 @@ export class SimpleSelectionStrategy extends SelectionStrategy {
     super.toggle(data);
     this.selectionService.activate(data);
   }
-}
-
-enum KeyCode {
-  UpArrow = 38,
-  DownArrow = 40,
-  Spacebar = 32
 }

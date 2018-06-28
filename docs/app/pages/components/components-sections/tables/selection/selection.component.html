@@ -38,6 +38,7 @@
                         <label>mode</label>
                         <ux-radio-button [(ngModel)]="mode" option="simple">simple</ux-radio-button>
                         <ux-radio-button [(ngModel)]="mode" option="row">row</ux-radio-button>
+                        <ux-radio-button [(ngModel)]="mode" option="row-alt">row-alt</ux-radio-button>
                     </div>
                 </div>
             </accordion-panel>
@@ -70,7 +71,7 @@
         Defines the items that should be selected.
     </tr>
 
-    <tr uxd-api-property name="mode" type="'simple' | 'row'" defaultValue="'simple'">
+    <tr uxd-api-property name="mode" type="'simple' | 'row' | 'row-alt' | SelectionStrategy" defaultValue="'simple'">
         Defines the selection behavior. The following modes can be used:
 
         <ul>
@@ -85,7 +86,19 @@
                 Keyboard navigation is also provided using the arrow keys and spacebar to toggle selection and <code>ctrl</code> and <code>shift</code> support
                 is also available for multiple selection.
             </li>
+
+            <li>
+                <code>row-alt</code> - This is similar to <code>row</code> mode, except that the cursor keys move the
+                selection as well as the focus. Holding <code>ctrl</code> with the cursor keys allows the focus to be
+                moved without affecting the selection.
+            </li>
         </ul>
+
+        <p>
+            Alternatively, custom selection behavior can be defined by defining a class which extends
+            <code>SelectionStrategy</code>, and providing an instance of the custom class to this property.
+            See below for details of the <code>SelectionStrategy</code> class.
+        </p>
     </tr>
 
     <tr uxd-api-property name="disabled" type="boolean">
@@ -143,6 +156,38 @@
     </tr>
     <tr uxd-api-property name="deselect">
         This function can be called to deselect this item.
+    </tr>
+</uxd-api-properties>
+
+<p>
+    The <code>SelectionStrategy</code> class, which can be subclassed to provide custom selection behavior, has the
+    following interface:
+</p>
+
+<uxd-api-properties tableTitle="SelectionStrategy">
+    <tr uxd-api-property name="mousedown" args="event: MouseEvent, data: any">
+        Called when the mousedown event occurs on the item representing <code>data</code>. Override this function to provide custom behavior.
+    </tr>
+    <tr uxd-api-property name="click" args="event: MouseEvent, data: any">
+        Called when the click event occurs on the item representing <code>data</code>. Override this function to provide custom behavior.
+    </tr>
+    <tr uxd-api-property name="keydown" args="event: KeyboardEvent, data: any">
+        Called when the keydown event occurs on the item representing <code>data</code>. Override this function to provide custom behavior.
+    </tr>
+    <tr uxd-api-property name="select" args="...data: any[]">
+        Select the item(s).
+    </tr>
+    <tr uxd-api-property name="toggle" args="...data: any[]">
+        Toggle the selected state of the item(s).
+    </tr>
+    <tr uxd-api-property name="deselect" args="...data: any[]">
+        Deselect the item(s).
+    </tr>
+    <tr uxd-api-property name="selectAll">
+        Select all items.
+    </tr>
+    <tr uxd-api-property name="deselectAll">
+        Deselect all items.
     </tr>
 </uxd-api-properties>
 

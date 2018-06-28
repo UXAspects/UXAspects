@@ -2,7 +2,11 @@ import { SelectionService } from '../selection.service';
 
 export class SelectionStrategy {
 
-  constructor(protected selectionService: SelectionService) { }
+  constructor(protected selectionService?: SelectionService) { }
+
+  setSelectionService(selectionService: SelectionService): void {
+    this.selectionService = selectionService;
+  }
 
   mousedown(event: MouseEvent, data: any): void { }
 
