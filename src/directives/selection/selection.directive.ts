@@ -2,6 +2,7 @@ import { AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, EventE
 import { Subscription } from 'rxjs/Subscription';
 import { SelectionItemDirective } from './selection-item.directive';
 import { SelectionMode, SelectionService } from './selection.service';
+import { SelectionStrategy } from './strategies/selection.strategy';
 
 
 @Directive({
@@ -19,7 +20,7 @@ export class SelectionDirective implements AfterContentInit, OnDestroy {
     this._selectionService.setDisabled(disabled);
   }
 
-  @Input() set mode(mode: SelectionMode) {
+  @Input() set mode(mode: SelectionMode | SelectionStrategy) {
     this._selectionService.setMode(mode);
   }
 

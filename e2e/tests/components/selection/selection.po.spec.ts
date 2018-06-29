@@ -5,6 +5,7 @@ export class SelectionPage {
     selection = element(by.id('selection'));
     simpleMode = element(by.className('simple-mode'));
     rowMode = element(by.className('row-mode'));
+    rowAltMode = element(by.className('row-alt-mode'));
     row0 = element(by.id('row-0'));
     row1 = element(by.id('row-1'));
     row2 = element(by.id('row-2'));
@@ -28,6 +29,10 @@ export class SelectionPage {
         return await this.rowMode.click();
     }
 
+    async setRowAltMode() {
+        return await this.rowAltMode.click();
+    }
+
     async clickSelectRow(row: ElementFinder, shift: boolean = false, ctrl: boolean = false) {
 
         if (shift) {
@@ -47,12 +52,24 @@ export class SelectionPage {
         return this.deselectAllBtn.click();
     }
 
-    async arrowDown() {
-        await browser.actions().sendKeys(Key.ARROW_DOWN).perform();
+    async arrowDown(shift: boolean = false, ctrl: boolean = false) {
+        let keys = Key.ARROW_DOWN;
+        if (shift) {
+            keys = Key.chord(Key.SHIFT, Key.ARROW_DOWN);
+        } else if (ctrl) {
+            keys = Key.chord(Key.CONTROL, Key.ARROW_DOWN);
+        }
+        await browser.actions().sendKeys(keys).perform();
     }
 
-    async arrowUp() {
-        await browser.actions().sendKeys(Key.ARROW_UP).perform();
+    async arrowUp(shift: boolean = false, ctrl: boolean = false) {
+        let keys = Key.ARROW_UP;
+        if (shift) {
+            keys = Key.chord(Key.SHIFT, Key.ARROW_UP);
+        } else if (ctrl) {
+            keys = Key.chord(Key.CONTROL, Key.ARROW_UP);
+        }
+        await browser.actions().sendKeys(keys).perform();
     }
 
     async spacebar() {
