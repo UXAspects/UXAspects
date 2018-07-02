@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DocumentationComponentsModule } from '../../components/components.module';
-
 import { ComponentsPageComponent } from './components.component';
+
 
 const ROUTES: Routes = [
     {
@@ -12,6 +12,7 @@ const ROUTES: Routes = [
             { path: '', pathMatch: 'full', redirectTo: 'buttons' },
             { path: 'buttons', loadChildren: './components-sections/buttons/buttons.module#ComponentsButtonsModule' },
             { path: 'component-list', loadChildren: './components-sections/component-list/component-list.module#ComponentsListModule' },
+            { path: 'conduits', loadChildren: './components-sections/conduits/conduits.module#ComponentsConduitsModule' },
             { path: 'contacts', loadChildren: './components-sections/contacts/contacts.module#ComponentsContactsModule' },
             { path: 'dashboard', loadChildren: './components-sections/dashboard/dashboard.module#ComponentsDashboardModule' },
             { path: 'date-time-picker', loadChildren: './components-sections/date-time-picker/date-time-picker.module#ComponentsDateTimePickerModule' },

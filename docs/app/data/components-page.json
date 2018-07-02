@@ -194,6 +194,23 @@
             ]
         },
         {
+            "title": "Conduits",
+            "link": "conduits",
+            "sections": [
+                {
+                    "title": "Conduits",
+                    "component": "ComponentsConduitComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Module",
+                            "content": "ConduitModule"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "title": "Contacts",
             "link": "contacts",
             "sections": [
