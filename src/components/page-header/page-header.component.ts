@@ -1,7 +1,5 @@
-import { Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
@@ -15,7 +13,7 @@ import { PageHeaderNavigation, PageHeaderService } from './page-header.service';
     templateUrl: 'page-header.component.html',
     providers: [ PageHeaderService ]
 })
-export class PageHeaderComponent implements OnInit, OnDestroy {
+export class PageHeaderComponent {
 
     @Input() logo: string;
     @Input() header: string;
@@ -24,7 +22,14 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     @Input() iconMenus: PageHeaderIconMenu[];
     @Input() backVisible: boolean = true;
     @Input() secondaryNavigationAlignment: string = 'center';
-    @Input() secondaryNavigationAutoselect: boolean = false;
+
+    @Input() set secondaryNavigationAutoselect(value: boolean) {
+        this._pageHeaderService.secondaryNavigationAutoselect = value;
+    }
+
+    get secondaryNavigationAutoselect(): boolean {
+        return this._pageHeaderService.secondaryNavigationAutoselect;
+    }
 
     @Input() set items(items: PageHeaderNavigationItem[]) {
         this._pageHeaderService.setItems(items);
@@ -74,22 +79,8 @@ export class PageHeaderComponent implements OnInit, OnDestroy {
     private _crumbs: Breadcrumb[] = [];
     private _familyBackground: string;
     private _familyForeground: string;
-    private _subscription: Subscription;
 
     constructor(private _colorService: ColorService, private _pageHeaderService: PageHeaderService) { }
-
-    ngOnInit(): void {
-        this._subscription = this.selectedRoot$.pipe(
-            distinctUntilChanged(),
-            filter(() => this.secondaryNavigation && this.secondaryNavigationAutoselect),
-            filter((item: PageHeaderNavigation) => item && item.children && item.children.length > 0),
-            map(item => item.children[0])
-        ).subscribe(item => this.select(item));
-    }
-
-    ngOnDestroy(): void {
-        this._subscription.unsubscribe();
-    }
 
     goBack(): void {
         this.backClick.emit();

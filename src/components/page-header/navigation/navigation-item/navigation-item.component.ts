@@ -32,8 +32,11 @@ export class PageHeaderNavigationItemComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        // Close submenus when selected item changes
-        this._subscription = this._pageHeaderService.selected$.subscribe((next) => {
+        this._subscription = this._pageHeaderService.selected$.subscribe(next => {
+
+            // Update selected state for this item
+            this._pageHeaderService.updateItem(this.item, next);
+
             if (next && this.isOpen) {
                 this.isOpen = false;
 

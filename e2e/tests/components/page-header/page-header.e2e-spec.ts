@@ -1,4 +1,4 @@
-import { browser, ElementFinder, ElementArrayFinder } from 'protractor';
+import { ElementArrayFinder, ElementFinder } from 'protractor';
 import { PageHeaderPage } from './page-header.po.spec';
 
 describe('Page Header Tests', () => {
@@ -8,70 +8,70 @@ describe('Page Header Tests', () => {
   beforeEach(() => {
     page = new PageHeaderPage();
     page.getPage();
-    
+
     page.condensed = false;
   });
 
   it('should have correct initial states', () => {
-    
+
     // Initial values.
     expect(page.confirmPageHeaderIsCondensed()).toBeFalsy();
     expect<any>(page.getABreadcrumb(0)).toEqual('Archive');
     expect(page.confirmApplicationLogoIsPresent()).toBeTruthy();
-    expect<any>(page.getApplicationLogoText()).toEqual('Home');    
+    expect<any>(page.getApplicationLogoText()).toEqual('Home');
     expect(page.confirmDropdownIsPresent()).toBeTruthy();
     expect(page.confirmDropdownIsOpened()).toBeFalsy();
     expect(page.confirmNotificationIconIsPresent()).toBeTruthy();
     expect(page.confirmActionsIconIsPresent()).toBeTruthy();
-    
+
   });
 
   it('should display breadcrumbs when condensed', () => {
-    
+
     page.toggleTheHeader();
     expect<any>(page.getABreadcrumbWhenCondensed(0)).toEqual('Archive');
     expect<any>(page.getABreadcrumbWhenCondensed(1)).toEqual('My Page');
-    
+
   });
 
   it('should display an application logo and text when condensed', () => {
-    
+
     page.toggleTheHeader();
     expect(page.confirmApplicationLogoIsPresent()).toBeTruthy();
-    expect<any>(page.getApplicationLogoText()).toEqual('Home'); 
-    
+    expect<any>(page.getApplicationLogoText()).toEqual('Home');
+
   });
 
   it('should display the dropdown menu', () => {
-    
+
     expect(page.confirmDropdownIsPresent()).toBeTruthy();
     page.openDropdown();
     expect(page.confirmDropdownIsOpened()).toBeTruthy();
-    
+
   });
 
   it('should display the dropdown menu when condensed', () => {
-    
+
     page.toggleTheHeader();
     expect(page.confirmDropdownIsPresent()).toBeTruthy();
     page.openDropdown();
     expect(page.confirmDropdownIsOpened()).toBeTruthy();
-    
+
   });
-  
+
   it('should display the dropdown menu items', () => {
-    
+
     expect(page.confirmDropdownIsPresent()).toBeTruthy();
     page.openDropdown();
     expect(page.confirmDropdownIsOpened()).toBeTruthy();
     expect<any>(page.getFirstDropdownMenuItem(1)).toEqual('Pie Charts');
     page.displaySecondDropdownMenu();
     expect<any>(page.getSecondDropdownMenuItem(2)).toEqual('Monthly View');
-    
+
   });
 
   it('should display the dropdown menu items when condensed', () => {
-    
+
     page.toggleTheHeader();
     expect(page.confirmDropdownIsPresent()).toBeTruthy();
     page.openDropdown();
@@ -79,41 +79,41 @@ describe('Page Header Tests', () => {
     expect<any>(page.getFirstDropdownMenuItem(1)).toEqual('Pie Charts');
     page.displaySecondDropdownMenu();
     expect<any>(page.getSecondDropdownMenuItem(2)).toEqual('Monthly View');
-    
+
   });
 
   it('should display the notifications menu', () => {
-    
+
     expect(page.confirmNotificationIconIsPresent()).toBeTruthy();
     page.openNotifications();
     expect<any>(page.confirmNotificationsAreDisplayed()).toEqual(3);
-    
+
   });
 
   it('should display the notifications menu when condensed', () => {
-    
+
     page.toggleTheHeader();
     expect(page.confirmNotificationIconIsPresent()).toBeTruthy();
     page.openNotifications();
     expect<any>(page.confirmNotificationsAreDisplayed()).toEqual(3);
-    
+
   });
 
   it('should display the actions menu', () => {
-    
+
     expect(page.confirmActionsIconIsPresent()).toBeTruthy();
     page.openActions();
     expect<any>(page.confirmActionsAreDisplayed()).toEqual(4);
-    
+
   });
 
   it('should display the actions menu when condensed', () => {
-    
+
     page.toggleTheHeader();
     expect(page.confirmActionsIconIsPresent()).toBeTruthy();
     page.openActions();
     expect<any>(page.confirmActionsAreDisplayed()).toEqual(4);
-    
+
   });
 
   it('should not show secondary navigation when nothing is selected', async () => {
@@ -227,7 +227,7 @@ describe('Page Header Tests', () => {
     expect(await page.selected.getText()).toBe('Daily View');
   });
 
-  it('should not deselect child items when the parent item is clicked again', async () => {
+  it('should reselect the first item when the parent it clicked with autoselect enabled', async () => {
 
     // enable autoselect
     await page.autoselectButton.click();
@@ -249,7 +249,7 @@ describe('Page Header Tests', () => {
     // click the second menu item again
     await page.pageHeader2.$$('.horizontal-navigation-button').get(1).click();
 
-    // check the selected text has not changed
-    expect(await page.selected.getText()).toBe('Weekly View');
+    // check the first child is selected
+    expect(await page.selected.getText()).toBe('Daily View');
   });
 });
