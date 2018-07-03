@@ -100,4 +100,11 @@ export class ConduitZone implements OnDestroy {
             component._conduits.forEach((conduit: ConduitMetadata) => this.registerConduit({ ...conduit, subject: component[conduit.propertyKey] }));
         }
     }
+
+    /** Register all conduits in a component */
+    unregisterConduits(component: any): void {
+        if (Array.isArray(component._conduits)) {
+            component._conduits.forEach((conduit: ConduitMetadata) => this.unregisterConduit(conduit));
+        }
+    }
 }

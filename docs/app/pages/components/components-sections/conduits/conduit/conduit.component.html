@@ -26,7 +26,8 @@
     The variable should be given the <code>@Conduit</code> decorator with the appropriate configuration.
     Additionally the component class should extend <code>ConduitComponent</code> where possible to setup all conduits automatically.
     If it is not possible to extend this class, inject the <code>ConduitZone</code> service and in the <code>ngOnInit</code> hook call
-    <code>zone.registerConduits(this)</code>.
+    <code>zone.registerConduits(this)</code>. In the <code>ngOnDestroy</code> hook call <code>zone.unregisterConduits(this)</code> to remove conduits
+    when they are no longer needed.
 </p>
 
 <p>
