@@ -5,7 +5,6 @@ import { MenuNavigationModule } from '../../directives/menu-navigation/index';
 import { ResizeModule } from '../../directives/resize/index';
 import { ColorServiceModule } from '../../services/color/index';
 import { BreadcrumbsModule } from '../breadcrumbs/index';
-import { TabsetModule } from '../tabset';
 import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
 import { PageHeaderIconMenuComponent } from './icon-menu/icon-menu.component';
 import { PageHeaderNavigationDropdownItemComponent } from './navigation/navigation-dropdown-item/navigation-dropdown-item.component';
@@ -22,7 +21,6 @@ import { PageHeaderComponent } from './page-header.component';
         ColorServiceModule,
         ResizeModule,
         MenuNavigationModule,
-        TabsetModule,
         BsDropdownModule.forRoot()
     ],
     exports: [
