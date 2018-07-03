@@ -1,4 +1,4 @@
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { ConduitZone } from './conduit-zone.service';
 import { ConduitEvent } from './interfaces/conduit-event';
@@ -19,7 +19,7 @@ export class ConduitSubject {
       .subscribe(this.onOutput.bind(this));
 
     // subscribe to the zone events and root zone events
-    _zone.rootZone.events.pipe(takeUntil(this._onDestroy)).subscribe(this.onInput.bind(this));
+    _zone.rootZone.events.pipe(filter(event => event.conduit.id === conduit.id), takeUntil(this._onDestroy)).subscribe(this.onInput.bind(this));
 
     // check if there are any conduits that have supplied an initial value
     this.getInitialValue();
@@ -37,7 +37,7 @@ export class ConduitSubject {
     const subjects = this._zone.getSubjects().filter(subject => {
 
       // If this is itself or if it has not value to give us then do nothing
-      if (subject === this || !subject.conduit.hasOwnProperty('currentValue')) {
+      if (subject === this || subject.conduit.id !== this.conduit.id || !subject.conduit.hasOwnProperty('currentValue')) {
         return false;
       }
 

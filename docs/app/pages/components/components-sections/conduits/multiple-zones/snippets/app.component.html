@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <app-toolbar [class.zone-outline]="showZones | async"></app-toolbar>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <app-list-view [class.zone-outline]="showZones | async"></app-list-view>
+        </div>
+        <div class="col-sm-4">
+            <app-filter [class.zone-outline]="showZones | async"></app-filter>
+        </div>
+    </div>
+</div>
