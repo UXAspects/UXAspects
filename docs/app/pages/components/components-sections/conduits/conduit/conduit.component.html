@@ -34,6 +34,13 @@
 <uxd-snippet [content]="snippets.compiled.createConduitTs"></uxd-snippet>
 
 <p>
+    <b>Note:</b> In some versions of Angular 5.x.x there is compiler bug when using custom decorators in production mode.
+    If this occurs use a <code>forwardRef</code> when passing the properties to the conduit decorator instead:
+</p>
+
+<uxd-snippet [content]="snippets.compiled.createConduitForwardRefTs"></uxd-snippet>
+
+<p>
     The following properties can be given to the <code>Conduit</code> decorator:
 </p>
 

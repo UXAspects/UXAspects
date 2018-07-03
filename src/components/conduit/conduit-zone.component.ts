@@ -5,6 +5,6 @@ export abstract class ConduitZoneComponent extends ConduitComponent implements O
     abstract zoneId: string;
 
     ngOnInit(): void {
-      this._zone.setZoneId(this.zoneId);
+        this._zone.setZoneId(this.zoneId);
     }
 }

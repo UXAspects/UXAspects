@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Conduit, ConduitComponent } from '../../../../../../../../../src/components/conduit/index';
 
@@ -8,7 +8,7 @@ import { Conduit, ConduitComponent } from '../../../../../../../../../src/compon
 })
 export class ConduitComponentSearchComponent extends ConduitComponent {
 
-    @Conduit({ id: 'search' }) search = new BehaviorSubject('');
+    @Conduit(forwardRef(() => ({ id: 'search' })) as any) search = new BehaviorSubject('');
 
     producesOutput: boolean = true;
     acceptsInput: boolean = true;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Conduit, ConduitZoneComponent } from '../../../../../../../../src';
 
@@ -10,6 +10,6 @@ import { Conduit, ConduitZoneComponent } from '../../../../../../../../src';
 export class ConduitZoneExampleComponent extends ConduitZoneComponent {
     zoneId: string = 'root-zone';
 
-    @Conduit({ id: 'show-zones', producesOutput: false })
+    @Conduit(forwardRef(() => ({ id: 'show-zones', producesOutput: false })) as any)
     showZones = new BehaviorSubject(false);
 }

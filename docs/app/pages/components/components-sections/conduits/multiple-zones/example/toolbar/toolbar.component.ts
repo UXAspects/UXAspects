@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Conduit, ConduitZone, ConduitZoneComponent } from '../../../../../../../../../src/components/conduit/index';
 
@@ -15,10 +15,10 @@ export class ComponentsConduitToolbarComponent extends ConduitZoneComponent {
     producesOutput: boolean = true;
 
     // We want to trigger this every time it changes - even if it emitting is the same value
-    @Conduit({ id: 'search', acceptsInput: false, changeDetection: () => false })
+    @Conduit(forwardRef(() => ({ id: 'search', acceptsInput: false, changeDetection: () => false })) as any)
     search = new BehaviorSubject('');
 
-    @Conduit({ id: 'show-zones' })
+    @Conduit(forwardRef(() => ({ id: 'show-zones' })) as any)
     showZones = new BehaviorSubject(false);
 
     clear(): void {

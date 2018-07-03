@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, forwardRef, OnDestroy } from '@angular/core';
 import 'chance';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
@@ -18,7 +18,7 @@ export class ComponentsConduitListViewComponent extends ConduitZoneComponent imp
     @Conduit({ id: 'search' })
     search = new BehaviorSubject('');
 
-    @Conduit({ id: 'show-zones', producesOutput: false })
+    @Conduit(forwardRef(() => ({ id: 'show-zones', producesOutput: false })) as any)
     showZones = new BehaviorSubject(false);
 
     private _documents: ConduitListItem[] = [];

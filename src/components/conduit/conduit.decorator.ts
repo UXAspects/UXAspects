@@ -5,15 +5,19 @@ import { ConduitProperties, defaultConduitProps } from './interfaces/conduit-pro
 export const CONDUITS = '_conduits';
 
 /** Create the conduit property decorator */
-export function Conduit(properties: ConduitProperties): PropertyDecorator {
-  return (target: Object, propertyKey: string) => {
+export function Conduit(properties: ConduitProperties | Function): PropertyDecorator {
+    return (target: Object, propertyKey: string) => {
 
-    // if the target does not already have a conduit list then create one
-    if (!target.hasOwnProperty(CONDUITS)) {
-      Object.defineProperty(target, CONDUITS, { value: [] });
-    }
+        if (typeof properties === 'function') {
+            properties = properties.call(null);
+        }
 
-    // add the conduit to the list ensuring all required properties are provided
-    target[CONDUITS].push({ ...defaultConduitProps, ...properties, target, propertyKey } as ConduitMetadata);
-  };
+        // if the target does not already have a conduit list then create one
+        if (!target.hasOwnProperty(CONDUITS)) {
+            Object.defineProperty(target, CONDUITS, { value: [] });
+        }
+
+        // add the conduit to the list ensuring all required properties are provided
+        target[CONDUITS].push({ ...defaultConduitProps, ...properties, target, propertyKey } as ConduitMetadata);
+    };
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Conduit, ConduitZone, ConduitZoneComponent } from '../../../../../../../../../src/components/conduit/index';
 
@@ -13,10 +13,10 @@ export class ComponentsConduitFilterComponent extends ConduitZoneComponent {
     acceptsInput: boolean | string[] = true;
     producesOutput: boolean = true;
 
-    @Conduit({ id: 'search' })
+    @Conduit(forwardRef(() => ({ id: 'search' })) as any)
     search = new BehaviorSubject('');
 
-    @Conduit({ id: 'show-zones', producesOutput: false })
+    @Conduit(forwardRef(() => ({ id: 'show-zones', producesOutput: false })) as any)
     showZones = new BehaviorSubject(false);
 
 }
