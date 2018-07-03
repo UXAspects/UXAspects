@@ -14,6 +14,9 @@ export class SearchComponent extends ConduitComponent {
     acceptsInput: boolean = true;
 
     updateConduit(): void {
-        this.setConduitProperties(this.search, { producesOutput: this.producesOutput, acceptsInput: this.acceptsInput });
+        this.setConduitProperties(this.search, {
+            producesOutput: this.producesOutput,
+            acceptsInput: this.acceptsInput
+        });
     }
 }
