@@ -1,6 +1,7 @@
-import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, forwardRef, HostBinding } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DOCUMENT } from '@angular/platform-browser';
+import { delay } from 'rxjs/operators/delay';
 import { Subscription } from 'rxjs/Subscription';
 import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';
 import { TypeaheadOptionEvent } from '../typeahead/typeahead-event';
@@ -527,8 +528,10 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
             // Set up event handler for selected options
             this._typeaheadSubscription = this.typeahead.optionSelected.subscribe(this.typeaheadOptionSelectedHandler.bind(this));
 
+            // Set up event handler for the highlighted element
+            // Added a delay to move it out of the current change detection cycle
             this._typeaheadSubscription.add(
-                this.typeahead.highlightedElementChange.subscribe((element: HTMLElement) => {
+                this.typeahead.highlightedElementChange.pipe(delay(0)).subscribe((element: HTMLElement) => {
                     this.highlightedElement = element;
                 })
             );

@@ -1,8 +1,8 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadService } from './typeahead.service';
@@ -65,6 +65,7 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
     loading = false;
     clicking = false;
     highlighted$ = new BehaviorSubject<TypeaheadVisibleOption>(null);
+    highlightedKey: string = null;
 
     get highlighted(): any {
         const value = this.highlighted$.getValue();
@@ -88,7 +89,24 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
 
         this.loadOptionsCallback = (pageNum: number, pageSize: number, filter: any) => {
             if (typeof this.options === 'function') {
-                return this.options(pageNum, pageSize, filter);
+
+                // Invoke the callback which may return an array or a promise.
+                const arrayOrPromise = this.options(pageNum, pageSize, filter);
+
+                // Map the results to an array of TypeaheadVisibleOption.
+                return Promise.resolve(arrayOrPromise).then(newOptions => {
+
+                    if (!Array.isArray(newOptions)) {
+                        return newOptions;
+                    }
+
+                    return newOptions.map((option: any) => {
+                        return {
+                            value: option,
+                            key: this.getKey(option)
+                        };
+                    });
+                });
             }
             return null;
         };
@@ -105,6 +123,7 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
 
         this._subscription.add(
             this.highlighted$.subscribe((next) => {
+                this.highlightedKey = next ? next.key : null;
                 this.highlightedChange.emit(next ? next.value : null);
             })
         );
@@ -202,12 +221,7 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
      * @param option
      */
     getDisplayHtml(option: any) {
-        let displayText;
-        if (typeof option === 'string') {
-            displayText = this.getDisplay(option).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        } else {
-            displayText = this.getDisplay(option.name).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
+        const displayText = this.getDisplay(option).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         let displayHtml = displayText;
         if (this.filter) {
             const length = this.filter.length;
