@@ -2,6 +2,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostListener, Input, OnDestroy, QueryList } from '@angular/core';
 import { TooltipDirective } from 'ngx-bootstrap/tooltip';
 import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
@@ -27,6 +28,10 @@ export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy 
 
     @Input() direction: FloatingActionButtonDirection = 'top';
     @ContentChildren(TooltipDirective) tooltips: QueryList<TooltipDirective>;
+
+    get open$(): Observable<boolean> {
+        return this.fab.open$;
+    }
 
     private _subscription: Subscription;
 
