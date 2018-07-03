@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { ConduitSubject } from './conduit-subject';
 import { ConduitEvent } from './interfaces/conduit-event';
 import { ConduitMetadata } from './interfaces/conduit-metadata';
+import { ConduitProperties } from './interfaces/conduit-properties';
 
 @Injectable()
 export class ConduitZone implements OnDestroy {
@@ -65,7 +66,38 @@ export class ConduitZone implements OnDestroy {
         return this.rootZone._subjects.find(_subject => _subject.conduit.subject === subject);
     }
 
+    /** Get all subjects from all zones */
     getSubjects(): ConduitSubject[] {
         return this.rootZone._subjects;
+    }
+
+    /** Alter the properties of a conduit dynamically */
+    setConduitProperties(subject: Subject<any>, properties: Partial<ConduitProperties>): void {
+
+        // find the conduit with the matching subject
+        const conduitSubject = this.getSubjects().find(_conduit => _conduit.conduit.subject === subject);
+
+        // if a match was found update the properties
+        if (conduitSubject) {
+
+            // update each specified property
+            for (const prop in properties) {
+                conduitSubject.conduit[prop] = properties[prop];
+            }
+        }
+    }
+
+    /** Programmatically create a conduit at runtime */
+    createConduit(subject: Subject<any>, properties: ConduitProperties): void {
+
+        // register the conduit with the zone
+        this.registerConduit({ ...properties, subject });
+    }
+
+    /** Register all conduits in a component */
+    registerConduits(component: any): void {
+        if (Array.isArray(component._conduits)) {
+            component._conduits.forEach((conduit: ConduitMetadata) => this.registerConduit({ ...conduit, subject: component[conduit.propertyKey] }));
+        }
     }
 }

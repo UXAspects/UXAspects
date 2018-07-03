@@ -24,7 +24,9 @@
 
 <p>
     The variable should be given the <code>@Conduit</code> decorator with the appropriate configuration.
-    Additionally the component class should extend <code>ConduitComponent</code>.
+    Additionally the component class should extend <code>ConduitComponent</code> where possible to setup all conduits automatically.
+    If it is not possible to extend this class, inject the <code>ConduitZone</code> service and in the <code>ngOnInit</code> hook call
+    <code>zone.registerConduits(this)</code>.
 </p>
 
 <p>
@@ -89,16 +91,26 @@
 <uxd-api-properties tableTitle="Conduit Component Functions">
 
     <tr uxd-api-property name="createConduit" args="Subject, ConduitProperties">
-        This allows programmatic creation of a conduit at runtime.
-        The function should be called with two parameters, the first is the <code>Subject</code> or <code>BehaviorSubject</code>,
-        and the second is the properties object which is identical to the object normally passed to the <code>@Conduit</code> decorator.
+        <p>
+            This allows programmatic creation of a conduit at runtime.
+            The function should be called with two parameters, the first is the <code>Subject</code> or <code>BehaviorSubject</code>,
+            and the second is the properties object which is identical to the object normally passed to the <code>@Conduit</code> decorator.
+        </p>
+        <p>
+            <b>Note: </b> If your class does not extend <code>ConduitComponent</code>, these functions are also available on the <code>ConduitZone</code> service.
+        </p>
     </tr>
 
     <tr uxd-api-property name="setConduitProperties" args="Subject, ConduitProperties">
-        This allows conduit properties to be modified at any time.
-        For example, you may wish to alter which zones a Conduit can accept data from.
-        This function should be given two arguments. The first argument should be the <code>Subject</code> or <code>BehaviorSubject</code>,
-        the second should be an object containing the properties you wish to update.
+        <p>
+            This allows conduit properties to be modified at any time.
+            For example, you may wish to alter which zones a Conduit can accept data from.
+            This function should be given two arguments. The first argument should be the <code>Subject</code> or <code>BehaviorSubject</code>,
+            the second should be an object containing the properties you wish to update.
+        </p>
+        <p>
+            <b>Note: </b> If your class does not extend <code>ConduitComponent</code>, these functions are also available on the <code>ConduitZone</code> service.
+        </p>
     </tr>
 
 </uxd-api-properties>
