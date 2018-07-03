@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationDropdownItem, PageHeaderNavigationItem } from './navigation/navigation.component';
 
@@ -13,6 +13,7 @@ export class PageHeaderService implements OnDestroy {
     selectedRoot$ = new BehaviorSubject<PageHeaderNavigationItem>(null);
     secondary$ = new BehaviorSubject<boolean>(false);
     activeIconMenu$ = new BehaviorSubject<PageHeaderIconMenu>(null);
+    secondaryNavigationAutoselect = false;
 
     private _subscription: Subscription;
 
@@ -26,32 +27,21 @@ export class PageHeaderService implements OnDestroy {
 
     select(item: PageHeaderNavigationItem): void {
 
-        // do nothing if this item is already selected
-        if (item === this.selected$.getValue()) {
-            return;
+        if (this.secondaryNavigationAutoselect && item && item.children && item.children.length > 0) {
+
+            // Select the first child in secondaryNavigationAutoselect mode
+            this.selected$.next(item.children[0]);
+
+        } else {
+
+            // if we are in secondary navigation mode and we click a parent - dont deselect the child
+            if (this.secondary$.getValue() === true && this.isParentOf(this.selected$.getValue(), item)) {
+                return;
+            }
+
+            // Otherwise select the given item
+            this.selected$.next(item);
         }
-
-        // if we are in secondary navigation mode and we click a parent - dont deselect the child
-        if (this.secondary$.getValue() === true && this.isParentOf(this.selected$.getValue(), item)) {
-            return;
-        }
-
-        // deselect all current items
-        this.deselectAll();
-
-        // call the select function if present
-        if (item.select) {
-            item.select.call(item, item);
-        }
-
-        // store the selected state
-        item.selected = true;
-
-        // select all parent items too
-        this.selectParents(item);
-
-        // emit the new selected item
-        this.selected$.next(item);
     }
 
     deselect(item: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem): void {
@@ -69,11 +59,28 @@ export class PageHeaderService implements OnDestroy {
         this.items$.getValue().forEach(item => this.deselect(item));
     }
 
+    updateItem(item: PageHeaderNavigationItem, selected: PageHeaderNavigationItem): void {
+
+        // Item is selected if it is the selected item, or one of the selected item's ancestors.
+        item.selected = (item === selected) || this.isParentOf(selected, item);
+
+        if (item === selected) {
+            // call the select function if present
+            if (item.select) {
+                item.select.call(item, item);
+            }
+        }
+    }
+
     setItems(items: PageHeaderNavigationItem[] = []): void {
         // identify all parent elements
         items.forEach(item => this.setParent(item));
 
         this.items$.next(items);
+
+        // Set up the initally selected item
+        const initialSelectedItem = items.find(item => item.selected === true);
+        this.select(initialSelectedItem);
     }
 
     setSecondaryNavigation(enabled: boolean): void {
@@ -91,16 +98,6 @@ export class PageHeaderService implements OnDestroy {
         // call this function recursively on all children
         if (item.children) {
             item.children.forEach(child => this.setParent(child, item));
-        }
-    }
-
-    private selectParents(item: PageHeaderNavigation): void {
-        // if there is a parent then we want to set it to selected
-        if (item.parent) {
-            item.parent.selected = true;
-
-            // check if it has any parents
-            this.selectParents(item.parent);
         }
     }
 

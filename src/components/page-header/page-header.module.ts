@@ -1,17 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
-import { PageHeaderComponent } from './page-header.component';
-import { BreadcrumbsModule } from '../breadcrumbs/index';
-import { PageHeaderIconMenuComponent } from './icon-menu/icon-menu.component';
-import { PageHeaderNavigationComponent } from './navigation/navigation.component';
-import { PageHeaderNavigationItemComponent } from './navigation/navigation-item/navigation-item.component';
-import { PageHeaderNavigationDropdownItemComponent } from './navigation/navigation-dropdown-item/navigation-dropdown-item.component';
-import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
+import { MenuNavigationModule } from '../../directives/menu-navigation/index';
 import { ResizeModule } from '../../directives/resize/index';
 import { ColorServiceModule } from '../../services/color/index';
-import { MenuNavigationModule } from '../../directives/menu-navigation/index';
+import { BreadcrumbsModule } from '../breadcrumbs/index';
+import { TabsetModule } from '../tabset';
+import { PageHeaderCustomMenuDirective } from './custom-menu/custom-menu.directive';
+import { PageHeaderIconMenuComponent } from './icon-menu/icon-menu.component';
+import { PageHeaderNavigationDropdownItemComponent } from './navigation/navigation-dropdown-item/navigation-dropdown-item.component';
+import { PageHeaderNavigationItemComponent } from './navigation/navigation-item/navigation-item.component';
+import { PageHeaderNavigationSecondaryItemDirective } from './navigation/navigation-secondary-item/navigation-secondary-item.directive';
+import { PageHeaderNavigationComponent } from './navigation/navigation.component';
+import { PageHeaderComponent } from './page-header.component';
+
 
 @NgModule({
     imports: [
@@ -20,6 +22,7 @@ import { MenuNavigationModule } from '../../directives/menu-navigation/index';
         ColorServiceModule,
         ResizeModule,
         MenuNavigationModule,
+        TabsetModule,
         BsDropdownModule.forRoot()
     ],
     exports: [
@@ -32,7 +35,8 @@ import { MenuNavigationModule } from '../../directives/menu-navigation/index';
         PageHeaderCustomMenuDirective,
         PageHeaderNavigationComponent,
         PageHeaderNavigationItemComponent,
-        PageHeaderNavigationDropdownItemComponent
+        PageHeaderNavigationDropdownItemComponent,
+        PageHeaderNavigationSecondaryItemDirective
     ]
 })
 export class PageHeaderModule { }
