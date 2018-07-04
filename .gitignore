@@ -21,3 +21,4 @@ e2e/xml/
 .ng_build/
 .ng_pkg_build/
 target/
+.vscode/launch.json

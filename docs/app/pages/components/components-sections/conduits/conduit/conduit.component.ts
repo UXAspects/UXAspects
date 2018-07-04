@@ -20,7 +20,7 @@ export class ComponentsConduitComponent extends BaseDocumentationSection impleme
         },
         modules: [
             {
-                imports: ['ConduitModule', 'CheckboxModule'],
+                imports: ['CheckboxModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {

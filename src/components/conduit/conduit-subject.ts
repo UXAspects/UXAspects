@@ -14,15 +14,15 @@ export class ConduitSubject {
         // store the target subject object
         this._subject = conduit.subject;
 
+        // check if there are any conduits that have supplied an initial value
+        this.getInitialValue();
+
         // subscribe to changes to the source subject
         this._subject.pipe(distinctUntilChanged(conduit.changeDetection), takeUntil(this._onDestroy))
             .subscribe(this.onOutput.bind(this));
 
         // subscribe to the zone events and root zone events
-        _zone.rootZone.events.pipe(filter(event => event.conduit.id === conduit.id), takeUntil(this._onDestroy)).subscribe(this.onInput.bind(this));
-
-        // check if there are any conduits that have supplied an initial value
-        this.getInitialValue();
+        _zone.getEvents().pipe(filter(event => event.conduit.id === conduit.id), takeUntil(this._onDestroy)).subscribe(this.onInput.bind(this));
     }
 
     /** Check all allow inputs to see if there is a value we should initially set the conduit to */

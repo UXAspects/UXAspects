@@ -2,7 +2,7 @@ import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { UpgradeModule, downgradeComponent } from '@angular/upgrade/static';
+import { downgradeComponent, UpgradeModule } from '@angular/upgrade/static';
 import * as angular from 'angular';
 import { AppComponent } from './app.component';
 import { FloatingActionButtonsNg1TestPageComponent } from './floating-action-buttons-ng1/floating-action-buttons-ng1.testpage.component';
@@ -56,6 +56,10 @@ const ROUTES: Routes = [
         path: 'colored-buttons',
         loadChildren:
             './colored-buttons/colored-buttons.module#ColoredButtonsTestPageModule'
+    },
+    {
+        path: 'conduits',
+        loadChildren: './conduits/conduits.module#ConduitsTestPageModule'
     },
     {
         path: 'dashboard',
