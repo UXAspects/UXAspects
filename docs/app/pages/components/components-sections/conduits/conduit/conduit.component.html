@@ -123,9 +123,14 @@
 </p>
 
 <p>
-    To create a conduit zone a component should register the <code>ConduitZone</code> provider and extend the <code>ConduitZoneComponent</code> class.
+    To create a conduit zone a component should register the <code>ConduitZone</code> provider and where possible extend the <code>ConduitZoneComponent</code> class.
     The <code>ConduitZoneComponent</code> class extends <code>ConduitComponent</code> so you also have access to the methods listed above.
     Each zone must also have a unique id which should be set by adding a <code>zoneId</code> property to the class.
+</p>
+
+<p>
+    If it is not possible to extend the <code>ConduitZoneComponent</code> class, you should inject the <code>ConduitZone</code> service and call the
+    <code>setZoneId</code> function passing it the unique zone id.
 </p>
 
 <p>
