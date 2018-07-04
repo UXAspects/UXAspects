@@ -1,0 +1,23 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="text-black">Document</th>
+            <th class="text-black">Author</th>
+            <th class="text-black">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let document of documents">
+            <td>{{ document.document }}</td>
+            <td>{{ document.author }}</td>
+            <td>{{ document.date | date: 'shortDate' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<uxd-conduit-zone-inspector *ngIf="showZones | async"
+    [zones]="['toolbar-zone', 'filter-zone']"
+    [isProducer]="false"
+    [(acceptsInput)]="acceptsInput"
+    (acceptsInputChange)="setConduitProperties(search, { acceptsInput: acceptsInput })">
+</uxd-conduit-zone-inspector>

@@ -1,0 +1,164 @@
+<uxd-conduit-example-zone></uxd-conduit-example-zone>
+
+<hr>
+
+<p>
+    Conduits provide a simple way of allowing multiple components to share data and remain in sync with minimal setup.
+    It also provides simple control mechanisms to define how data is shared between components through zones.
+</p>
+
+<h4>Creating a Conduit</h4>
+
+<p>
+    A conduit is built on top of the RxJS <code>Subject</code>.
+    To create a conduit you should create a public instance variable on your component class.
+    This should be initialized as a new <code>Subject</code> or <code>BehaviorSubject</code> if you want to specify a default value.
+</p>
+
+<p>
+    When a conduit is created, for example when a component is initialized, it will check if there are any other conduits with the same id in
+    accessible zones and if so will retrieve the latest value.
+    This is useful in scenarios such as a customizable dashboard where widgets may be dynamically added or removed.
+    When a dashboard widget is added it can automatically detect a value to consume from any other widgets with a matching conduit.
+</p>
+
+<p>
+    The variable should be given the <code>@Conduit</code> decorator with the appropriate configuration.
+    Additionally the component class should extend <code>ConduitComponent</code> where possible to setup all conduits automatically.
+    If it is not possible to extend this class, inject the <code>ConduitZone</code> service and in the <code>ngOnInit</code> hook call
+    <code>zone.registerConduits(this)</code>. In the <code>ngOnDestroy</code> hook call <code>zone.unregisterConduits(this)</code> to remove conduits
+    when they are no longer needed.
+</p>
+
+<p>
+    Below is an example of creating a conduit:
+</p>
+
+<uxd-snippet [content]="snippets.compiled.createConduitTs"></uxd-snippet>
+
+<p>
+    <b>Note:</b> In some versions of Angular 5.x.x there is compiler bug when using custom decorators in production mode.
+    If this occurs use a <code>forwardRef</code> when passing the properties to the conduit decorator instead:
+</p>
+
+<uxd-snippet [content]="snippets.compiled.createConduitForwardRefTs"></uxd-snippet>
+
+<p>
+    The following properties can be given to the <code>Conduit</code> decorator:
+</p>
+
+<uxd-api-properties tableTitle="Conduit Decorator">
+
+    <tr uxd-api-property name="id" type="string" [required]="true">
+        This is an identifier that is used to sync conduits across components.
+        Any conduits with the same <code>id</code> will be kept in sync if they accept input.
+    </tr>
+    <tr uxd-api-property name="acceptsInput" type="boolean | string[]" defaultValue="true">
+        This can be used to limit when this conduit gets updated.
+        If this property is set to <code>false</code> then it will not update when other conduits with the same <code>id</code> change.
+        If this property is set to <code>true</code> then it will always update when other conduits with the same <code>id</code> change.
+        Alternatively this can be set to a string array of zone ids.
+        If a conduit with the same id changes in one of the specified zones then it will update, otherwise it will not.
+    </tr>
+    <tr uxd-api-property name="producesOutput" type="boolean" defaultValue="true">
+        This can be used to prevent the conduit having an effect on any other.
+        If this property is set to <code>false</code> then it will not emit this change to any other conduit.
+        If this property is set to <code>true</code> then it will emit this change to other conduits.
+    </tr>
+    <tr uxd-api-property name="changeDetection" type="(newValue: any, oldValue: any) => boolean">
+        By default when a conduit emits an update, it first performs an equality check to see if the value has actually changed.
+        By default the equality check is a <code>===</code> comparison, however if the conduit value is an object or an array you may need to provide
+        a custom equality check to ensure equality check is efficient and to prevent any infinite loops.
+        The value should be a simple function that receives two arguments, the new value and old value. The function should return <code>true</code> if the object are the same and <code>false</code> if it has changed.
+    </tr>
+    <tr uxd-api-property name="map" type="(value: any) => any">
+        It may be desirable to extract or transform the conduit value when it changes.
+        For example, we may have a <code>User</code> conduit that contains an object. In one component we may want only to receive the name of the user.
+        We can use this property to provide a function that takes in the conduit value and returns it in a format we require.
+    </tr>
+</uxd-api-properties>
+
+<h4>Conduit Utilities</h4>
+
+<p>
+    By having our component extend the <code>ConduitComponent</code> we gain access to some utility functions that can be used to create and modify
+    conduits dynamically at runtime.
+</p>
+
+<p>
+    The following methods are available:
+</p>
+
+<uxd-api-properties tableTitle="Conduit Component Functions">
+
+    <tr uxd-api-property name="createConduit" args="Subject, ConduitProperties">
+        <p>
+            This allows programmatic creation of a conduit at runtime.
+            The function should be called with two parameters, the first is the <code>Subject</code> or <code>BehaviorSubject</code>,
+            and the second is the properties object which is identical to the object normally passed to the <code>@Conduit</code> decorator.
+        </p>
+        <p>
+            <b>Note: </b> If your class does not extend <code>ConduitComponent</code>, these functions are also available on the <code>ConduitZone</code> service.
+        </p>
+    </tr>
+
+    <tr uxd-api-property name="setConduitProperties" args="Subject, ConduitProperties">
+        <p>
+            This allows conduit properties to be modified at any time.
+            For example, you may wish to alter which zones a Conduit can accept data from.
+            This function should be given two arguments. The first argument should be the <code>Subject</code> or <code>BehaviorSubject</code>,
+            the second should be an object containing the properties you wish to update.
+        </p>
+        <p>
+            <b>Note: </b> If your class does not extend <code>ConduitComponent</code>, these functions are also available on the <code>ConduitZone</code> service.
+        </p>
+    </tr>
+
+</uxd-api-properties>
+
+<h4>Conduit Zones</h4>
+
+<p>
+    A conduit zone is a way of easily scoping what conduits can be effected when values change.
+</p>
+
+<p>
+    To create a conduit zone a component should register the <code>ConduitZone</code> provider and where possible extend the <code>ConduitZoneComponent</code> class.
+    The <code>ConduitZoneComponent</code> class extends <code>ConduitComponent</code> so you also have access to the methods listed above.
+    Each zone must also have a unique id which should be set by adding a <code>zoneId</code> property to the class.
+</p>
+
+<p>
+    If it is not possible to extend the <code>ConduitZoneComponent</code> class, you should inject the <code>ConduitZone</code> service and call the
+    <code>setZoneId</code> function passing it the unique zone id.
+</p>
+
+<p>
+    Below is an example of how to create a zone:
+</p>
+
+<uxd-snippet [content]="snippets.compiled.createZoneTs"></uxd-snippet>
+
+<p>
+    Conduit zones work with Angular's <code>Injector</code>, so a conduit created in the component, or a child component will be part of that zone.
+    Zones may be nested, so a child component may create a new zone.
+</p>
+
+<p>
+    The following code can be used to create the example above:
+</p>
+
+<ux-tabset [minimal]="false">
+    <ux-tab heading="app.component.html">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="app.component.ts">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="search.component.html">
+        <uxd-snippet [content]="snippets.compiled.searchHtml"></uxd-snippet>
+    </ux-tab>
+    <ux-tab heading="search.component.ts">
+        <uxd-snippet [content]="snippets.compiled.searchTs"></uxd-snippet>
+    </ux-tab>
+</ux-tabset>

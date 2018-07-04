@@ -1,0 +1,23 @@
+<div class="toolbar">
+    <div class="toolbar-left">
+        <button type="button" class="btn btn-link button-secondary" (click)="toggle()">
+
+            <span class="hpe-icon hpe-resources"></span>
+            <span class="p-l-xs">{{ (showZones | async) ? 'Hide Zones' : 'Show Zones' }}</span>
+
+        </button>
+    </div>
+
+    <div class="toolbar-right">
+        <button type="button" class="btn btn-link button-secondary" (click)="clear()">
+            <span class="p-r-xs">Clear Search</span>
+            <span class="hpe-icon hpe-close"></span>
+        </button>
+    </div>
+</div>
+
+<app-zone-inspector *ngIf="showZones | async"
+    [takesInput]="false"
+    [(producesOutput)]="producesOutput"
+    (producesOutputChange)="setConduitProperties(search, { producesOutput: producesOutput })">
+</app-zone-inspector>

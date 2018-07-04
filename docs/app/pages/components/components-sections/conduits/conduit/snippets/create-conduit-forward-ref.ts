@@ -1,0 +1,1 @@
+@Conduit(forwardRef(() => ({ id: 'search' })) as any) search = new BehaviorSubject<string>('');
