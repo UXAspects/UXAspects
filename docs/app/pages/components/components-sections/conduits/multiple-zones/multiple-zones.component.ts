@@ -29,7 +29,7 @@ export class ComponentsMultipleZonesComponent extends BaseDocumentationSection i
         },
         modules: [
             {
-                imports: ['ConduitModule', 'CheckboxModule', 'PopoverModule'],
+                imports: ['CheckboxModule', 'PopoverModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {

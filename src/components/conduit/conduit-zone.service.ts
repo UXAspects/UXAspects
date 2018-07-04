@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, Optional, SkipSelf } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { ConduitSubject } from './conduit-subject';
 import { ConduitEvent } from './interfaces/conduit-event';
@@ -8,34 +8,24 @@ import { ConduitProperties } from './interfaces/conduit-properties';
 @Injectable()
 export class ConduitZone implements OnDestroy {
 
+    /** Create a global subject store */
+    static subjects: ConduitSubject[] = [];
+
     /** Expose an event stream of new values */
-    events = new Subject<ConduitEvent>();
-
-    /** Store a reference to the top-most zone */
-    rootZone: ConduitZone = this.getRootZone();
-
-    /** Store an internal list of all conduit subjects */
-    private _subjects: ConduitSubject[] = [];
+    static events = new Subject<ConduitEvent>();
 
     /** Store the zone name */
     private _zoneId: string;
 
-    constructor(@Optional() @SkipSelf() private _parentZone: ConduitZone) { }
-
     ngOnDestroy(): void {
         // find all conduit subjects that are part of this zone
-        this.rootZone._subjects.filter(_subject => _subject.zoneId === this._zoneId)
+        ConduitZone.subjects.filter(_subject => _subject.zoneId === this._zoneId)
             .forEach(_subject => this.unregisterConduit(_subject.conduit));
-    }
-
-    /** Get the top-most zone */
-    getRootZone(): ConduitZone {
-        return this._parentZone ? this._parentZone.getRootZone() : this;
     }
 
     /** Store reference to the repository and begin watching for and emitting changes */
     registerConduit(conduit: ConduitMetadata): void {
-        this.rootZone._subjects.push(new ConduitSubject(conduit, this, this._zoneId));
+        ConduitZone.subjects.push(new ConduitSubject(conduit, this, this._zoneId));
     }
 
     /** Destroy a conduit */
@@ -44,7 +34,7 @@ export class ConduitZone implements OnDestroy {
 
         if (subject) {
             // remove the subject from the internal list of conduit subjects
-            this.rootZone._subjects = this.rootZone._subjects.filter(_subject => _subject === subject);
+            ConduitZone.subjects = ConduitZone.subjects.filter(_subject => _subject !== subject);
 
             // perform all unsubscriptions
             subject.destroy();
@@ -58,17 +48,17 @@ export class ConduitZone implements OnDestroy {
 
     /** Emit a value to all zones for checking */
     emit(event: ConduitEvent): void {
-        this.rootZone.events.next(event);
+        ConduitZone.events.next(event);
     }
 
     /** Retrieve a conduit subsject object from the rxjs subject */
     getConduitSubject(subject: Subject<any>): ConduitSubject | null {
-        return this.rootZone._subjects.find(_subject => _subject.conduit.subject === subject);
+        return ConduitZone.subjects.find(_subject => _subject.conduit.subject === subject);
     }
 
     /** Get all subjects from all zones */
     getSubjects(): ConduitSubject[] {
-        return this.rootZone._subjects;
+        return ConduitZone.subjects;
     }
 
     /** Alter the properties of a conduit dynamically */
@@ -106,5 +96,10 @@ export class ConduitZone implements OnDestroy {
         if (Array.isArray(component._conduits)) {
             component._conduits.forEach((conduit: ConduitMetadata) => this.unregisterConduit(conduit));
         }
+    }
+
+    /** Return the global event stream */
+    getEvents(): Subject<ConduitEvent> {
+        return ConduitZone.events;
     }
 }

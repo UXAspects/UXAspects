@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CheckboxModule, ConduitModule, PopoverModule, TabsetModule } from '../../../../../../src';
+import { CheckboxModule, PopoverModule, TabsetModule } from '../../../../../../src';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -41,7 +41,6 @@ const ROUTES = [
 @NgModule({
     imports: [
         CommonModule,
-        ConduitModule,
         CheckboxModule,
         PopoverModule,
         DocumentationComponentsModule,

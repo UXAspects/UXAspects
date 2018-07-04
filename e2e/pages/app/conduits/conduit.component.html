@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <div class="row p-lg">
+        <div class="col-md-4">
+            <app-zone-one></app-zone-one>
+        </div>
+        <div class="col-md-4">
+            <app-zone-two></app-zone-two>
+        </div>
+        <div class="col-md-4">
+            <app-zone-three *ngIf="visible"></app-zone-three>
+        </div>
+    </div>
+</div>
+
+<button id="toggle-visibility" class="btn button-primary" (click)="visible = !visible">Toggle Zone 3</button>
