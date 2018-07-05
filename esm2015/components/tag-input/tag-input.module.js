@@ -23,6 +23,8 @@ TagInputModule.decorators = [
                 providers: [],
             },] },
 ];
+/** @nocollapse */
+TagInputModule.ctorParameters = () => [];
 function TagInputModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     TagInputModule.decorators;

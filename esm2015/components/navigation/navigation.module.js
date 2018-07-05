@@ -25,6 +25,8 @@ NavigationModule.decorators = [
                 ]
             },] },
 ];
+/** @nocollapse */
+NavigationModule.ctorParameters = () => [];
 function NavigationModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NavigationModule.decorators;

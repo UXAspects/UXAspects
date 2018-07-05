@@ -20,6 +20,8 @@ SparkModule.decorators = [
                 declarations: [SparkComponent]
             },] },
 ];
+/** @nocollapse */
+SparkModule.ctorParameters = () => [];
 function SparkModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SparkModule.decorators;

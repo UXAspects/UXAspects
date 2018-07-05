@@ -12,6 +12,8 @@ StringFilterModule.decorators = [
                 declarations: [StringFilterPipe]
             },] },
 ];
+/** @nocollapse */
+StringFilterModule.ctorParameters = () => [];
 function StringFilterModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     StringFilterModule.decorators;

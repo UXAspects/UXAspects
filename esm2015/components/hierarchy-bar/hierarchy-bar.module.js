@@ -22,6 +22,8 @@ HierarchyBarModule.decorators = [
                 declarations: [HierarchyBarComponent],
             },] },
 ];
+/** @nocollapse */
+HierarchyBarModule.ctorParameters = () => [];
 function HierarchyBarModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     HierarchyBarModule.decorators;

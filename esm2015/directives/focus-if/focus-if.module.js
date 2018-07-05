@@ -12,6 +12,8 @@ FocusIfModule.decorators = [
                 declarations: [FocusIfDirective]
             },] },
 ];
+/** @nocollapse */
+FocusIfModule.ctorParameters = () => [];
 function FocusIfModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FocusIfModule.decorators;

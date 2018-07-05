@@ -12,6 +12,8 @@ ClickOutsideModule.decorators = [
                 declarations: [ClickOutsideDirective]
             },] },
 ];
+/** @nocollapse */
+ClickOutsideModule.ctorParameters = () => [];
 function ClickOutsideModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ClickOutsideModule.decorators;

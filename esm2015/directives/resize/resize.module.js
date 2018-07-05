@@ -14,6 +14,8 @@ ResizeModule.decorators = [
                 providers: [ResizeService]
             },] },
 ];
+/** @nocollapse */
+ResizeModule.ctorParameters = () => [];
 function ResizeModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ResizeModule.decorators;

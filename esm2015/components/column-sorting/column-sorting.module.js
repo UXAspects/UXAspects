@@ -13,6 +13,8 @@ ColumnSortingModule.decorators = [
                 declarations: [ColumnSortingComponent, ColumnSortingDirective]
             },] },
 ];
+/** @nocollapse */
+ColumnSortingModule.ctorParameters = () => [];
 function ColumnSortingModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ColumnSortingModule.decorators;

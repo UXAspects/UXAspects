@@ -30,6 +30,8 @@ export class FloatingActionButtonsService {
 FloatingActionButtonsService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+FloatingActionButtonsService.ctorParameters = () => [];
 function FloatingActionButtonsService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FloatingActionButtonsService.decorators;

@@ -17,6 +17,8 @@ TimeFormatPipe.decorators = [
                 name: 'timeFormat'
             },] },
 ];
+/** @nocollapse */
+TimeFormatPipe.ctorParameters = () => [];
 function TimeFormatPipe_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     TimeFormatPipe.decorators;

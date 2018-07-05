@@ -18,6 +18,8 @@ NumberPickerModule.decorators = [
                 declarations: [NumberPickerComponent]
             },] },
 ];
+/** @nocollapse */
+NumberPickerModule.ctorParameters = () => [];
 function NumberPickerModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NumberPickerModule.decorators;

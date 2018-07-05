@@ -20,6 +20,8 @@ SliderModule.decorators = [
                 declarations: [SliderComponent]
             },] },
 ];
+/** @nocollapse */
+SliderModule.ctorParameters = () => [];
 function SliderModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SliderModule.decorators;

@@ -87,6 +87,8 @@ SearchSelectComponent.decorators = [
 </ux-select>`
             },] },
 ];
+/** @nocollapse */
+SearchSelectComponent.ctorParameters = () => [];
 function SearchSelectComponent_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SearchSelectComponent.decorators;

@@ -10,6 +10,8 @@ CardTabContentDirective.decorators = [
                 selector: '[uxCardTabContent]'
             },] },
 ];
+/** @nocollapse */
+CardTabContentDirective.ctorParameters = () => [];
 function CardTabContentDirective_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     CardTabContentDirective.decorators;

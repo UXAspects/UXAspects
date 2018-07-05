@@ -15,6 +15,8 @@ HelpCenterModule.decorators = [
                 providers: [HelpCenterService],
             },] },
 ];
+/** @nocollapse */
+HelpCenterModule.ctorParameters = () => [];
 function HelpCenterModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     HelpCenterModule.decorators;

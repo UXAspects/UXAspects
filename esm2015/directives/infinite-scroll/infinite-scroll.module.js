@@ -24,6 +24,8 @@ InfiniteScrollModule.decorators = [
                 providers: [],
             },] },
 ];
+/** @nocollapse */
+InfiniteScrollModule.ctorParameters = () => [];
 function InfiniteScrollModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     InfiniteScrollModule.decorators;

@@ -11,6 +11,8 @@ ColorServiceModule.decorators = [
                 providers: [ColorService],
             },] },
 ];
+/** @nocollapse */
+ColorServiceModule.ctorParameters = () => [];
 function ColorServiceModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ColorServiceModule.decorators;

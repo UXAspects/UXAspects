@@ -22,6 +22,8 @@ LayoutSwitcherModule.decorators = [
                 providers: [],
             },] },
 ];
+/** @nocollapse */
+LayoutSwitcherModule.ctorParameters = () => [];
 function LayoutSwitcherModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     LayoutSwitcherModule.decorators;

@@ -23,6 +23,8 @@ TimelineModule.decorators = [
                 ]
             },] },
 ];
+/** @nocollapse */
+TimelineModule.ctorParameters = () => [];
 function TimelineModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     TimelineModule.decorators;

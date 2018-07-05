@@ -123,6 +123,8 @@ export class HierarchyBarService {
 HierarchyBarService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+HierarchyBarService.ctorParameters = () => [];
 function HierarchyBarService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     HierarchyBarService.decorators;

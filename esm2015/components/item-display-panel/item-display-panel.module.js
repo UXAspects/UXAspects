@@ -21,6 +21,8 @@ ItemDisplayPanelModule.decorators = [
                 declarations: DECLARATIONS
             },] },
 ];
+/** @nocollapse */
+ItemDisplayPanelModule.ctorParameters = () => [];
 function ItemDisplayPanelModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ItemDisplayPanelModule.decorators;

@@ -123,6 +123,8 @@ export class HoverActionService {
 HoverActionService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+HoverActionService.ctorParameters = () => [];
 function HoverActionService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     HoverActionService.decorators;

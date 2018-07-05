@@ -14,6 +14,8 @@ RadioButtonModule.decorators = [
                 declarations: [RadioButtonComponent]
             },] },
 ];
+/** @nocollapse */
+RadioButtonModule.ctorParameters = () => [];
 function RadioButtonModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     RadioButtonModule.decorators;

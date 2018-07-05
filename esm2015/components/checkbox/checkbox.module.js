@@ -14,6 +14,8 @@ CheckboxModule.decorators = [
                 declarations: [CheckboxComponent]
             },] },
 ];
+/** @nocollapse */
+CheckboxModule.ctorParameters = () => [];
 function CheckboxModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     CheckboxModule.decorators;

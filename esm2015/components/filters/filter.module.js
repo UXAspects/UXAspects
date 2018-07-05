@@ -33,6 +33,8 @@ FilterModule.decorators = [
                 declarations: DECLARATIONS
             },] },
 ];
+/** @nocollapse */
+FilterModule.ctorParameters = () => [];
 function FilterModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FilterModule.decorators;

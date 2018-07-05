@@ -13,6 +13,8 @@ AudioServiceModule.decorators = [
                 providers: [AudioService]
             },] },
 ];
+/** @nocollapse */
+AudioServiceModule.ctorParameters = () => [];
 function AudioServiceModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     AudioServiceModule.decorators;

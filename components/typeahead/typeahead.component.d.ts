@@ -35,6 +35,7 @@ export declare class TypeaheadComponent implements AfterViewInit, OnChanges, OnD
     loading: boolean;
     clicking: boolean;
     highlighted$: BehaviorSubject<TypeaheadVisibleOption>;
+    highlightedKey: string;
     readonly highlighted: any;
     private _open;
     private _subscription;
@@ -59,7 +60,7 @@ export declare class TypeaheadComponent implements AfterViewInit, OnChanges, OnD
      * Returns the display value of the given option with HTML markup added to highlight the part which matches the current filter value.
      * @param option
      */
-    getDisplayHtml(option: any): any;
+    getDisplayHtml(option: any): string;
     /**
      * Returns true if the infinite scroll component should load
      */

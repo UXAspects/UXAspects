@@ -23,6 +23,8 @@ TypeaheadModule.decorators = [
                 providers: [TypeaheadKeyService],
             },] },
 ];
+/** @nocollapse */
+TypeaheadModule.ctorParameters = () => [];
 function TypeaheadModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     TypeaheadModule.decorators;

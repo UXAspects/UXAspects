@@ -98,6 +98,8 @@ export class SearchBuilderService {
 SearchBuilderService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+SearchBuilderService.ctorParameters = () => [];
 function SearchBuilderService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SearchBuilderService.decorators;

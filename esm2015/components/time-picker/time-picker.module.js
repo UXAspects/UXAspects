@@ -21,6 +21,8 @@ TimePickerModule.decorators = [
                 declarations: [TimePickerComponent, TimeFormatPipe],
             },] },
 ];
+/** @nocollapse */
+TimePickerModule.ctorParameters = () => [];
 function TimePickerModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     TimePickerModule.decorators;

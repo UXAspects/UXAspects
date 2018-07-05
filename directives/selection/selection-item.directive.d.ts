@@ -8,7 +8,9 @@ export declare class SelectionItemDirective implements OnInit, OnDestroy {
     tabindex: number;
     selectedChange: EventEmitter<boolean>;
     active: boolean;
+    readonly attrTabIndex: number;
     private _selected;
+    private _managedTabIndex;
     private _subscriptions;
     constructor(_selectionService: SelectionService, _elementRef: ElementRef);
     ngOnInit(): void;
@@ -16,6 +18,7 @@ export declare class SelectionItemDirective implements OnInit, OnDestroy {
     click(event: MouseEvent): void;
     mousedown(event: MouseEvent): void;
     keydown(event: KeyboardEvent): void;
+    focus(): void;
     /**
      * Select this item using the current strategy
      */

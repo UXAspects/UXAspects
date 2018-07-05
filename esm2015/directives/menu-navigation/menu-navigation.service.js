@@ -12,6 +12,8 @@ export class MenuNavigationService {
 MenuNavigationService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+MenuNavigationService.ctorParameters = () => [];
 function MenuNavigationService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     MenuNavigationService.decorators;

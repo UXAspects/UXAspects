@@ -38,6 +38,8 @@ FacetsModule.decorators = [
                 declarations: DECLARATIONS
             },] },
 ];
+/** @nocollapse */
+FacetsModule.ctorParameters = () => [];
 function FacetsModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FacetsModule.decorators;
