@@ -11,6 +11,9 @@ export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
   /** Allow a observable to be used to check for overflow */
   @Input() trigger: Observable<void>;
 
+  /** Allow overflow to be within a range before emitting */
+  @Input() tolerance: number = 0;
+
   /** Emit when there is a change to the overflow state - horizontal or vertical */
   @Output() uxOverflowObserver = new EventEmitter<boolean>();
 
@@ -50,8 +53,8 @@ export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
   checkForOverflow(): void {
 
     const { offsetWidth, offsetHeight, scrollWidth, scrollHeight } = this._elementRef.nativeElement;
-    const horizontalOverflow = scrollWidth > offsetWidth;
-    const verticalOverflow = scrollHeight > offsetHeight;
+    const horizontalOverflow = (scrollWidth - offsetWidth) > this.tolerance;
+    const verticalOverflow = (scrollHeight - offsetHeight) > this.tolerance;
 
     if (horizontalOverflow !== this._state.horizontalOverflow) {
       this.uxOverflowHorizontalObserver.emit(horizontalOverflow);
