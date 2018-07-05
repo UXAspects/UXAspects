@@ -1,8 +1,7 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostListener, Input, OnDestroy, QueryList } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostListener, Input, OnDestroy, QueryList, Output, EventEmitter } from '@angular/core';
 import { TooltipDirective } from 'ngx-bootstrap/tooltip';
 import { filter } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 
@@ -28,18 +27,17 @@ export class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy 
 
     @Input() direction: FloatingActionButtonDirection = 'top';
     @ContentChildren(TooltipDirective) tooltips: QueryList<TooltipDirective>;
+    @Output() openChange = new EventEmitter<boolean>();
 
-    get open$(): Observable<boolean> {
-        return this.fab.open$;
+    private _subscription: Subscription = new Subscription();
+
+    constructor(public fab: FloatingActionButtonsService, private _elementRef: ElementRef) {
+        this._subscription.add(this.fab.open$.subscribe(value => this.openChange.emit(value)));
     }
 
-    private _subscription: Subscription;
-
-    constructor(public fab: FloatingActionButtonsService, private _elementRef: ElementRef) { }
-
     ngAfterViewInit(): void {
-        this._subscription = this.fab.open$.pipe(filter(open => open === false))
-            .subscribe(() => this.tooltips.forEach(tooltip => tooltip.hide()));
+        this._subscription.add(this.fab.open$.pipe(filter(open => open === false))
+            .subscribe(() => this.tooltips.forEach(tooltip => tooltip.hide())));
     }
 
     ngOnDestroy(): void {
