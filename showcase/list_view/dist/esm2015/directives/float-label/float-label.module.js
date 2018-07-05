@@ -14,6 +14,8 @@ FloatLabelModule.decorators = [
                 providers: [],
             },] },
 ];
+/** @nocollapse */
+FloatLabelModule.ctorParameters = () => [];
 function FloatLabelModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FloatLabelModule.decorators;

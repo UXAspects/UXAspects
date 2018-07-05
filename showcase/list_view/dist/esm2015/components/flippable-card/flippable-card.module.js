@@ -12,6 +12,8 @@ FlippableCardModule.decorators = [
                 declarations: [FlippableCardComponent, FlippableCardBackDirective, FlippableCardFrontDirective]
             },] },
 ];
+/** @nocollapse */
+FlippableCardModule.ctorParameters = () => [];
 function FlippableCardModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FlippableCardModule.decorators;

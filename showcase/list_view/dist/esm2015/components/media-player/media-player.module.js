@@ -37,6 +37,8 @@ MediaPlayerModule.decorators = [
                 providers: [MediaPlayerService]
             },] },
 ];
+/** @nocollapse */
+MediaPlayerModule.ctorParameters = () => [];
 function MediaPlayerModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     MediaPlayerModule.decorators;

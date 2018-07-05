@@ -8,17 +8,18 @@ export declare class PageHeaderService implements OnDestroy {
     selectedRoot$: BehaviorSubject<PageHeaderNavigationItem>;
     secondary$: BehaviorSubject<boolean>;
     activeIconMenu$: BehaviorSubject<PageHeaderIconMenu>;
+    secondaryNavigationAutoselect: boolean;
     private _subscription;
     constructor();
     ngOnDestroy(): void;
     select(item: PageHeaderNavigationItem): void;
     deselect(item: PageHeaderNavigationItem | PageHeaderNavigationDropdownItem): void;
     deselectAll(): void;
+    updateItem(item: PageHeaderNavigationItem, selected: PageHeaderNavigationItem): void;
     setItems(items?: PageHeaderNavigationItem[]): void;
     setSecondaryNavigation(enabled: boolean): void;
     private getRoot(item);
     private setParent(item, parent?);
-    private selectParents(item);
     private isParentOf(node, parent);
 }
 export declare type PageHeaderNavigation = PageHeaderNavigationItem | PageHeaderNavigationDropdownItem;

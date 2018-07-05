@@ -19,6 +19,8 @@ TabsetModule.decorators = [
                 declarations: [TabsetComponent, TabComponent, TabHeadingDirective, TabFocusDirective],
             },] },
 ];
+/** @nocollapse */
+TabsetModule.ctorParameters = () => [];
 function TabsetModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     TabsetModule.decorators;

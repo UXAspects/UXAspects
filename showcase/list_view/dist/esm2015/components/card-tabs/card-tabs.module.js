@@ -20,6 +20,8 @@ CardTabsModule.decorators = [
                 exports: [CardTabsetComponent, CardTabComponent, CardTabContentDirective]
             },] },
 ];
+/** @nocollapse */
+CardTabsModule.ctorParameters = () => [];
 function CardTabsModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     CardTabsModule.decorators;

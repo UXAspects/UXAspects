@@ -1,11 +1,11 @@
-import { EventEmitter, OnDestroy, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { EventEmitter, QueryList, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ColorService } from '../../services/color/index';
 import { Breadcrumb } from '../breadcrumbs/index';
 import { PageHeaderIconMenu } from './interfaces';
 import { PageHeaderNavigationItem } from './navigation/navigation.component';
 import { PageHeaderNavigation, PageHeaderService } from './page-header.service';
-export declare class PageHeaderComponent implements OnInit, OnDestroy {
+export declare class PageHeaderComponent {
     private _colorService;
     private _pageHeaderService;
     logo: string;
@@ -28,10 +28,7 @@ export declare class PageHeaderComponent implements OnInit, OnDestroy {
     private _crumbs;
     private _familyBackground;
     private _familyForeground;
-    private _subscription;
     constructor(_colorService: ColorService, _pageHeaderService: PageHeaderService);
-    ngOnInit(): void;
-    ngOnDestroy(): void;
     goBack(): void;
     select(item: PageHeaderNavigation): void;
 }

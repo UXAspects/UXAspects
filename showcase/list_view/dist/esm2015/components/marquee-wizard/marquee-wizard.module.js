@@ -27,6 +27,8 @@ MarqueeWizardModule.decorators = [
                 ]
             },] },
 ];
+/** @nocollapse */
+MarqueeWizardModule.ctorParameters = () => [];
 function MarqueeWizardModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     MarqueeWizardModule.decorators;

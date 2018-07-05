@@ -50,6 +50,8 @@ export class DateTimePickerConfig {
 DateTimePickerConfig.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+DateTimePickerConfig.ctorParameters = () => [];
 function DateTimePickerConfig_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     DateTimePickerConfig.decorators;

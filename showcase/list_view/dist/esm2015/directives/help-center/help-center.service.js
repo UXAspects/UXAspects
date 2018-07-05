@@ -36,6 +36,8 @@ export class HelpCenterService {
 HelpCenterService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+HelpCenterService.ctorParameters = () => [];
 function HelpCenterService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     HelpCenterService.decorators;

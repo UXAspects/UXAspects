@@ -29,6 +29,8 @@ DashboardModule.decorators = [
                 providers: [DashboardService],
             },] },
 ];
+/** @nocollapse */
+DashboardModule.ctorParameters = () => [];
 function DashboardModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     DashboardModule.decorators;

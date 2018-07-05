@@ -14,6 +14,8 @@ ToggleSwitchModule.decorators = [
                 declarations: [ToggleSwitchComponent]
             },] },
 ];
+/** @nocollapse */
+ToggleSwitchModule.ctorParameters = () => [];
 function ToggleSwitchModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ToggleSwitchModule.decorators;

@@ -18,6 +18,8 @@ SpinButtonModule.decorators = [
                 declarations: [SpinButtonComponent]
             },] },
 ];
+/** @nocollapse */
+SpinButtonModule.ctorParameters = () => [];
 function SpinButtonModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SpinButtonModule.decorators;

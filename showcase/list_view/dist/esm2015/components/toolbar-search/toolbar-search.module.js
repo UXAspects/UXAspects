@@ -24,6 +24,8 @@ ToolbarSearchModule.decorators = [
                 providers: [],
             },] },
 ];
+/** @nocollapse */
+ToolbarSearchModule.ctorParameters = () => [];
 function ToolbarSearchModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ToolbarSearchModule.decorators;

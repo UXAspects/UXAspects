@@ -33,6 +33,8 @@ DateTimePickerModule.decorators = [
                 ]
             },] },
 ];
+/** @nocollapse */
+DateTimePickerModule.ctorParameters = () => [];
 function DateTimePickerModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     DateTimePickerModule.decorators;

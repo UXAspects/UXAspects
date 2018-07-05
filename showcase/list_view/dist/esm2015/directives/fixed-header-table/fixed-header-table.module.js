@@ -12,6 +12,8 @@ FixedHeaderTableModule.decorators = [
                 declarations: [FixedHeaderTableDirective]
             },] },
 ];
+/** @nocollapse */
+FixedHeaderTableModule.ctorParameters = () => [];
 function FixedHeaderTableModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FixedHeaderTableModule.decorators;

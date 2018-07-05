@@ -13,6 +13,8 @@ ScrollModule.decorators = [
                 declarations: [ScrollIntoViewIfDirective, ScrollIntoViewDirective]
             },] },
 ];
+/** @nocollapse */
+ScrollModule.ctorParameters = () => [];
 function ScrollModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ScrollModule.decorators;

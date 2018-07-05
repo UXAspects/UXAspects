@@ -24,6 +24,8 @@ export class SidePanelService {
 SidePanelService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+SidePanelService.ctorParameters = () => [];
 function SidePanelService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SidePanelService.decorators;

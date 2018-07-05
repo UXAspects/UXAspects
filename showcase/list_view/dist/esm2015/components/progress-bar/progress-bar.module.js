@@ -16,6 +16,8 @@ ProgressBarModule.decorators = [
                 declarations: [ProgressBarComponent]
             },] },
 ];
+/** @nocollapse */
+ProgressBarModule.ctorParameters = () => [];
 function ProgressBarModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ProgressBarModule.decorators;

@@ -27,6 +27,8 @@ VirtualScrollModule.decorators = [
                 declarations: DECLARATIONS
             },] },
 ];
+/** @nocollapse */
+VirtualScrollModule.ctorParameters = () => [];
 function VirtualScrollModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     VirtualScrollModule.decorators;

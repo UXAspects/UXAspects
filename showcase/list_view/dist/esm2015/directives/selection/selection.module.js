@@ -17,6 +17,8 @@ SelectionModule.decorators = [
                 exports: [SelectionDirective, SelectionItemDirective]
             },] },
 ];
+/** @nocollapse */
+SelectionModule.ctorParameters = () => [];
 function SelectionModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SelectionModule.decorators;

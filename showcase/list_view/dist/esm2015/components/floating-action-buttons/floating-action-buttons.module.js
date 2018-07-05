@@ -23,6 +23,8 @@ FloatingActionButtonsModule.decorators = [
                 ]
             },] },
 ];
+/** @nocollapse */
+FloatingActionButtonsModule.ctorParameters = () => [];
 function FloatingActionButtonsModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FloatingActionButtonsModule.decorators;

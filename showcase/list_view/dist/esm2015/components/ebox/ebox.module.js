@@ -12,6 +12,8 @@ EboxModule.decorators = [
                 declarations: [EboxComponent, EboxContentDirective, EboxHeaderDirective]
             },] },
 ];
+/** @nocollapse */
+EboxModule.ctorParameters = () => [];
 function EboxModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     EboxModule.decorators;

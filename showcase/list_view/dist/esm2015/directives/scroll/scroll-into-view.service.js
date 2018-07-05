@@ -25,6 +25,8 @@ export class ScrollIntoViewService {
 ScrollIntoViewService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+ScrollIntoViewService.ctorParameters = () => [];
 function ScrollIntoViewService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ScrollIntoViewService.decorators;

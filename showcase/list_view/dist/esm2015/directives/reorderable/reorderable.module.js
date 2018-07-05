@@ -30,6 +30,8 @@ ReorderableModule.decorators = [
                 ]
             },] },
 ];
+/** @nocollapse */
+ReorderableModule.ctorParameters = () => [];
 function ReorderableModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ReorderableModule.decorators;

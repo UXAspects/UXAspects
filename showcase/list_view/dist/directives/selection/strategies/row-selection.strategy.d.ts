@@ -34,7 +34,7 @@ export declare class RowSelectionStrategy extends SelectionStrategy {
      * 2. If a start item has been selected - select all in between
      * 3. If a start and end item have been selected clear the range and then select the new range
      */
-    private multipleSelect(data);
+    protected multipleSelect(data: any): void;
     /**
      * Set the selection start point. If there was previously a
      * selection end point then clear it as this is a new selection
@@ -47,7 +47,7 @@ export declare class RowSelectionStrategy extends SelectionStrategy {
     /**
      * Clear both start and end selection points
      */
-    private clearSelection(deactivate?);
+    protected clearSelection(deactivate?: boolean): void;
     /**
      * Determine all the items affected by the current selection.
      * Note that the end point may be above the start point so

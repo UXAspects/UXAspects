@@ -10,6 +10,8 @@ ReorderableHandleDirective.decorators = [
                 selector: '[uxReorderableHandle]'
             },] },
 ];
+/** @nocollapse */
+ReorderableHandleDirective.ctorParameters = () => [];
 function ReorderableHandleDirective_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ReorderableHandleDirective.decorators;

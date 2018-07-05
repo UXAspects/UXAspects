@@ -20,6 +20,8 @@ MenuNavigationModule.decorators = [
                 declarations: EXPORTS,
             },] },
 ];
+/** @nocollapse */
+MenuNavigationModule.ctorParameters = () => [];
 function MenuNavigationModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     MenuNavigationModule.decorators;

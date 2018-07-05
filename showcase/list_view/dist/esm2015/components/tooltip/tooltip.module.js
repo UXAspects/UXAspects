@@ -24,6 +24,8 @@ TooltipModule.decorators = [
                 entryComponents: [TooltipComponent]
             },] },
 ];
+/** @nocollapse */
+TooltipModule.ctorParameters = () => [];
 function TooltipModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     TooltipModule.decorators;

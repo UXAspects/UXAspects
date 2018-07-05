@@ -1,7 +1,8 @@
 import { SelectionService } from '../selection.service';
 export declare class SelectionStrategy {
     protected selectionService: SelectionService;
-    constructor(selectionService: SelectionService);
+    constructor(selectionService?: SelectionService);
+    setSelectionService(selectionService: SelectionService): void;
     mousedown(event: MouseEvent, data: any): void;
     click(event: MouseEvent, data: any): void;
     keydown(event: KeyboardEvent, data: any): void;

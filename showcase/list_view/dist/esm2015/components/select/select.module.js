@@ -24,6 +24,8 @@ SelectModule.decorators = [
                 declarations: [SelectComponent]
             },] },
 ];
+/** @nocollapse */
+SelectModule.ctorParameters = () => [];
 function SelectModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SelectModule.decorators;

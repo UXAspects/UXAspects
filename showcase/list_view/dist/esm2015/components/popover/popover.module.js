@@ -26,6 +26,8 @@ PopoverModule.decorators = [
                 entryComponents: [PopoverComponent]
             },] },
 ];
+/** @nocollapse */
+PopoverModule.ctorParameters = () => [];
 function PopoverModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     PopoverModule.decorators;

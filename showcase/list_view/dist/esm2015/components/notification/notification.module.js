@@ -26,6 +26,8 @@ NotificationModule.decorators = [
                 ]
             },] },
 ];
+/** @nocollapse */
+NotificationModule.ctorParameters = () => [];
 function NotificationModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     NotificationModule.decorators;

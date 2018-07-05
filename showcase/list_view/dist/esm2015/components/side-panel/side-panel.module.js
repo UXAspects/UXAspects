@@ -21,6 +21,8 @@ SidePanelModule.decorators = [
                 declarations: EXPORTS
             },] },
 ];
+/** @nocollapse */
+SidePanelModule.ctorParameters = () => [];
 function SidePanelModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SidePanelModule.decorators;

@@ -4,15 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import { SelectionStrategy } from './strategies/selection.strategy';
 export declare class SelectionService implements OnDestroy {
     private _selection;
-    private _rowStrategy;
-    private _simpleStrategy;
+    private _strategyToDestroy;
     dataset: any[];
     enabled: boolean;
     clickEnabled: boolean;
     keyboardEnabled: boolean;
     strategy: SelectionStrategy;
     active$: BehaviorSubject<any>;
+    focusTarget$: BehaviorSubject<any>;
     selection$: BehaviorSubject<any[]>;
+    constructor();
     ngOnDestroy(): void;
     /**
      * If the item is not currently selected then add it
@@ -42,7 +43,7 @@ export declare class SelectionService implements OnDestroy {
      * and mouse interactions while keeping each mode separated and
      * easily extensible if we want to add more modes in future!
      */
-    setMode(mode: SelectionMode): void;
+    setMode(mode: SelectionMode | SelectionStrategy): void;
     /**
      * Set the current active item
      */
@@ -51,6 +52,11 @@ export declare class SelectionService implements OnDestroy {
      * Deactive all items
      */
     deactivate(): void;
+    /**
+     * Return the next or previous sibling of the current active item.
+     * @param previous If true, the previous sibling will be returned.
+     */
+    getSibling(previous?: boolean): any;
     /**
      * Activate the sibling of the current active item.
      * If previous is set to true the previous sibling will be activated
@@ -61,4 +67,4 @@ export declare class SelectionService implements OnDestroy {
     setDisabled(disabled: boolean): void;
     private selectionHasMutated();
 }
-export declare type SelectionMode = 'simple' | 'row';
+export declare type SelectionMode = 'simple' | 'row' | 'row-alt';

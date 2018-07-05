@@ -69,6 +69,8 @@ HybridModule.decorators = [
                 ],
             },] },
 ];
+/** @nocollapse */
+HybridModule.ctorParameters = () => [];
 function HybridModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     HybridModule.decorators;

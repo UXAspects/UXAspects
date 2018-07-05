@@ -10,6 +10,8 @@ VirtualScrollLoadingDirective.decorators = [
                 selector: '[uxVirtualScrollLoading]'
             },] },
 ];
+/** @nocollapse */
+VirtualScrollLoadingDirective.ctorParameters = () => [];
 function VirtualScrollLoadingDirective_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     VirtualScrollLoadingDirective.decorators;

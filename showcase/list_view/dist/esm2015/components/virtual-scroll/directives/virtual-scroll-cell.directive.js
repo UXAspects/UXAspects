@@ -10,6 +10,8 @@ VirtualScrollCellDirective.decorators = [
                 selector: '[uxVirtualScrollCell]'
             },] },
 ];
+/** @nocollapse */
+VirtualScrollCellDirective.ctorParameters = () => [];
 function VirtualScrollCellDirective_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     VirtualScrollCellDirective.decorators;

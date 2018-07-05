@@ -108,6 +108,8 @@ export class FrameExtractionService {
 FrameExtractionService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+FrameExtractionService.ctorParameters = () => [];
 function FrameExtractionService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FrameExtractionService.decorators;

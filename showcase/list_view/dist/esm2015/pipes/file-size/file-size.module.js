@@ -12,6 +12,8 @@ FileSizePipeModule.decorators = [
                 declarations: [FileSizePipe]
             },] },
 ];
+/** @nocollapse */
+FileSizePipeModule.ctorParameters = () => [];
 function FileSizePipeModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     FileSizePipeModule.decorators;

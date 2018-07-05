@@ -15205,10 +15205,10 @@ ux-dashboard-widget .resizer-handle.handle-top-left {
 ux-date-time-picker {
   display: block;
 }
-.calendar-container {
+ux-date-time-picker .calendar-container {
   padding: 4px;
 }
-.now-button {
+ux-date-time-picker .now-button {
   width: 100%;
   padding: 4px 5px;
   text-align: center;
@@ -15219,10 +15219,10 @@ ux-date-time-picker {
   outline: none;
   color: #333;
 }
-.now-button:hover {
+ux-date-time-picker .now-button:hover {
   background-color: #eee;
 }
-.now-button:focus {
+ux-date-time-picker .now-button:focus {
   outline: 2px dotted;
   outline: auto -webkit-focus-ring-color;
   outline-color: #00a7a2;

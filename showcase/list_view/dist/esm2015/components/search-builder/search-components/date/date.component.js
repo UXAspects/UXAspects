@@ -49,6 +49,8 @@ SearchDateComponent.decorators = [
 </ng-template>`
             },] },
 ];
+/** @nocollapse */
+SearchDateComponent.ctorParameters = () => [];
 function SearchDateComponent_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SearchDateComponent.decorators;

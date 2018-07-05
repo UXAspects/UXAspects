@@ -11,6 +11,8 @@ PersistentDataModule.decorators = [
                 providers: [PersistentDataService],
             },] },
 ];
+/** @nocollapse */
+PersistentDataModule.ctorParameters = () => [];
 function PersistentDataModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     PersistentDataModule.decorators;

@@ -17,6 +17,8 @@ HoverActionModule.decorators = [
                 declarations: DECLARATIONS
             },] },
 ];
+/** @nocollapse */
+HoverActionModule.ctorParameters = () => [];
 function HoverActionModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     HoverActionModule.decorators;

@@ -42,6 +42,8 @@ PopoverComponent.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
 ];
+/** @nocollapse */
+PopoverComponent.ctorParameters = () => [];
 function PopoverComponent_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     PopoverComponent.decorators;

@@ -18,6 +18,8 @@ export class MarqueeWizardService {
 MarqueeWizardService.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
+MarqueeWizardService.ctorParameters = () => [];
 function MarqueeWizardService_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     MarqueeWizardService.decorators;

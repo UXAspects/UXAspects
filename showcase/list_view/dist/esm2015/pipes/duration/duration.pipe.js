@@ -38,6 +38,8 @@ DurationPipe.decorators = [
                 name: 'duration'
             },] },
 ];
+/** @nocollapse */
+DurationPipe.ctorParameters = () => [];
 function DurationPipe_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     DurationPipe.decorators;

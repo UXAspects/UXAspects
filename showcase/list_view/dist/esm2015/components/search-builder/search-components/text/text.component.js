@@ -29,6 +29,8 @@ SearchTextComponent.decorators = [
 <input [placeholder]="placeholder" [(ngModel)]="value" class="form-control">`
             },] },
 ];
+/** @nocollapse */
+SearchTextComponent.ctorParameters = () => [];
 function SearchTextComponent_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     SearchTextComponent.decorators;
