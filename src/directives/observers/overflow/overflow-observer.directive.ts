@@ -40,7 +40,7 @@ export class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
 
   /** Perform an intial check for overflow */
   ngAfterViewInit(): void {
-    this.checkForOverflow();
+    setTimeout(() => this.checkForOverflow());
   }
 
   /** Unsubscribe from the trigger */
