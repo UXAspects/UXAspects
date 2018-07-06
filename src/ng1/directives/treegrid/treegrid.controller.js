@@ -2,7 +2,7 @@ TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
 
 export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
   var vm = this;
-  
+
   var treegridId = multipleSelectProvider.getNextComponentId();
 
   var defaultOptions = {
@@ -109,7 +109,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   };
 
   vm.checkboxClick = function (event) {
-    event.stopPropagation(); 
+    event.stopPropagation();
   };
 
   // Expand the specified row if possible. Returns true if the row is expandable.
@@ -163,7 +163,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
 
   function updateView() {
     vm.loading = true;
-    getTreeData(getChildren(), 0)
+    getTreeData(getChildren(), null, 0)
       .then(function (rows) {
         // Populate top level rows
         vm.treeData = rows;
@@ -190,7 +190,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   }
 
   // Get row data suitable for angular binding from an array of source data
-  function getTreeData(dataPromise, level) {
+  function getTreeData(dataPromise, parent, level) {
     // dataPromise might also be just regular data
     return $q.when(dataPromise).then(function (data) {
       var rows = [];
@@ -219,6 +219,11 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
         };
         row.api = rowApi(row);
         rows.push(row);
+
+        // Propagate selection to lazy loaded data
+        if (vm.allOptions.select.selectChildren && parent && parent.selected && !vm.multipleSelectInstance.isSelected(row.dataItem)) {
+          vm.multipleSelectInstance.itemClicked(row.dataItem);
+        }
       }
       if (angular.isFunction(vm.allOptions.sort)) {
         rows = rows.sort(vm.allOptions.sort);
@@ -297,7 +302,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   // Add children of a row to the view model
   function expand(row) {
     row.expanding = true;
-    return getTreeData(getChildren(row.dataItem), row.level + 1)
+    return getTreeData(getChildren(row.dataItem), row, row.level + 1)
       .then(function (newRows) {
         row.children = newRows;
         row.expanded = true;
