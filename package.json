@@ -119,7 +119,6 @@
     "jasmine-reporters": "2.2.1",
     "jit-grunt": "0.10.0",
     "jshint": "2.9.5",
-    "jshint-loader": "0.8.4",
     "less-loader": "4.0.5",
     "lite-server": "2.3.0",
     "load-grunt-config": "0.19.2",
