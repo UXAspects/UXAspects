@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 
 @Directive({
@@ -10,6 +10,8 @@ export class DragDirective implements OnDestroy {
 
     /** Detemine if we should show a clone when dragging */
     @Input() clone: boolean = false;
+
+    @Input() disabled: boolean = false;
 
     /** Emit an event when dragging starts */
     @Output() dragstart = new EventEmitter<MouseEvent>();
@@ -39,7 +41,7 @@ export class DragDirective implements OnDestroy {
     protected _onDestroy = new Subject<void>();
 
     constructor(private _elementRef: ElementRef, private _ngZone: NgZone, private _renderer: Renderer2) {
-        this._mousedown$.pipe(takeUntil(this._onDestroy)).subscribe(this.dragStart.bind(this));
+        this._mousedown$.pipe(filter(() => !this.disabled), takeUntil(this._onDestroy)).subscribe(this.dragStart.bind(this));
     }
 
     /** Emit events and create clone when drag starts */
