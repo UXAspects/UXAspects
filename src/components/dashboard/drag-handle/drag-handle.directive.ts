@@ -1,5 +1,5 @@
-import { Directive, ElementRef, NgZone, Renderer2 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, Input, NgZone, Renderer2 } from '@angular/core';
+import { filter, takeUntil } from 'rxjs/operators';
 import { DragDirective } from '../../../directives/drag/drag.directive';
 import { ActionDirection, DashboardService } from '../dashboard.service';
 import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
@@ -9,16 +9,18 @@ import { DashboardWidgetComponent } from '../widget/dashboard-widget.component';
 })
 export class DashboardDragHandleDirective extends DragDirective {
 
+    @Input() disabled: boolean = false;
+
     constructor(widget: DashboardWidgetComponent, dashboardService: DashboardService, elementRef: ElementRef, ngZone: NgZone, renderer: Renderer2) {
         super(elementRef, ngZone, renderer);
 
-        this.dragstart.pipe(takeUntil(this._onDestroy))
+        this.dragstart.pipe(filter(() => !this.disabled), takeUntil(this._onDestroy))
             .subscribe((event: MouseEvent) => dashboardService.onDragStart({ widget: widget, direction: ActionDirection.Move, event: event }));
 
-        this.drag.pipe(takeUntil(this._onDestroy))
+        this.drag.pipe(filter(() => !this.disabled), takeUntil(this._onDestroy))
             .subscribe((event: MouseEvent) => dashboardService.onDrag({ widget: widget, direction: ActionDirection.Move, event: event }));
 
-        this.dragend.pipe(takeUntil(this._onDestroy))
+        this.dragend.pipe(filter(() => !this.disabled), takeUntil(this._onDestroy))
             .subscribe(() => dashboardService.onDragEnd());
     }
 }
