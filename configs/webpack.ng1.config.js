@@ -27,17 +27,6 @@ module.exports = {
         rules: [{
             test: /\.js$/,
             exclude: /(node_modules|plugins|external)/,
-            enforce: 'pre',
-            use: {
-                loader: 'jshint-loader',
-                options: {
-                    emitErrors: false,
-                    failOnHint: true
-                }
-            }
-        }, {
-            test: /\.js$/,
-            exclude: /(node_modules|plugins|external)/,
             use: {
                 loader: 'babel-loader',
                 query: {
