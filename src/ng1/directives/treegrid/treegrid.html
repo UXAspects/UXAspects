@@ -27,7 +27,7 @@
                         </span>
                     </span>
                     <span ng-if="$first && vm.allOptions.select.check" class="treegrid-checkbox">
-                        <checkbox class="treegrid-multiple-select-checkbox" ng-model="row.selected" ng-click="vm.checkboxClick($event);"></checkbox>
+                        <checkbox class="treegrid-multiple-select-checkbox" ng-model="row.selected" ng-click="vm.checkboxClick($event, row);" clickable="false"></checkbox>
                     </span>
                     <span ng-if="$first" class="treegrid-icon">
                         <i ng-if="row.icon.type === 'class'" class="hpe-icon" ng-class="row.icon.get(row.dataItem, row.expanded)"></i>

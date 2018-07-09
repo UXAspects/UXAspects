@@ -94,12 +94,8 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   };
 
   vm.toggleAllRows = function () {
-    vm.allSelected =  !vm.allSelected;
-    if (vm.allSelected) {
-      vm.gridRows.forEach(row => row.selected = true);
-    } else {
-      vm.gridRows.forEach(row => row.selected = false);
-    }
+    vm.allSelected = !vm.allSelected;
+    vm.gridRows.forEach(row => vm.multipleSelectInstance.setSelected(row.dataItem, vm.allSelected));
   };
 
   vm.expanderClick = function (row, e) {
@@ -108,9 +104,11 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     return toggleExpand(row);
   };
 
-  vm.checkboxClick = function (event) {
+  vm.checkboxClick = function(event, row) {
+    vm.multipleSelectInstance.itemClicked(row.dataItem);
     event.stopPropagation();
-  };
+    event.preventDefault();
+  }
 
   // Expand the specified row if possible. Returns true if the row is expandable.
   vm.expand = function (row) {
@@ -163,7 +161,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
 
   function updateView() {
     vm.loading = true;
-    getTreeData(getChildren(), null, 0)
+    getTreeData(getChildren(), 0)
       .then(function (rows) {
         // Populate top level rows
         vm.treeData = rows;
@@ -190,7 +188,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   }
 
   // Get row data suitable for angular binding from an array of source data
-  function getTreeData(dataPromise, parent, level) {
+  function getTreeData(dataPromise, level) {
     // dataPromise might also be just regular data
     return $q.when(dataPromise).then(function (data) {
       var rows = [];
@@ -219,11 +217,6 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
         };
         row.api = rowApi(row);
         rows.push(row);
-
-        // Propagate selection to lazy loaded data
-        if (vm.allOptions.select.selectChildren && parent && parent.selected && !vm.multipleSelectInstance.isSelected(row.dataItem)) {
-          vm.multipleSelectInstance.itemClicked(row.dataItem);
-        }
       }
       if (angular.isFunction(vm.allOptions.sort)) {
         rows = rows.sort(vm.allOptions.sort);
@@ -302,7 +295,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   // Add children of a row to the view model
   function expand(row) {
     row.expanding = true;
-    return getTreeData(getChildren(row.dataItem), row, row.level + 1)
+    return getTreeData(getChildren(row.dataItem), row.level + 1)
       .then(function (newRows) {
         row.children = newRows;
         row.expanded = true;

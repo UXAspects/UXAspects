@@ -88,14 +88,6 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
                         setSelected(treeGridRow, nv);
                     });
 
-                    // Handler for checkbox click, which uses ng-model="row.selected"
-                    scope.$watch(attrs.treegridMultipleSelectItem + ".selected", function (nv) {
-                        var currentState = multipleSelectInstance.isSelected(treeGridRow.dataItem);
-                        if (nv !== undefined && nv !== currentState) {
-                            currentState = multipleSelectInstance.itemClicked(treeGridRow.dataItem);
-                        }
-                    }, true);
-
                     scope.$on("destroy", function () {
                         element.off("click.multiSelect");
                         element.off("keydown.multiSelect");
@@ -196,37 +188,22 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
             }
 
             function setSelected(row, isSelected) {
+
+                // Set status for checkbox and the API
                 row.selected = isSelected;
+
+                // If selectChildren is set, set the selection state for the children
                 if (selectOptions.selectChildren) {
-
-                    // Set selection for visible/loaded children
-                    if (row.children && row.children.length > 0) {
-                        for (var childRow of row.children) {
-                            setSelected(childRow, isSelected);
-                        }
-                    } else {
-                        // Set selection for dataItems which have not been loaded into rows yet
-                        setSelectedDataItemChildren(row.dataItem, isSelected);
-                    }
+                    setSelectedChildren(row.dataItem, isSelected);
                 }
             }
 
-            function setSelectedDataItem(dataItem, isSelected) {
-
-                // Ensure that the selection state in multipleSelectProvider matches isSelected
-                var currentState = multipleSelectInstance.isSelected(dataItem);
-                if (currentState !== isSelected) {
-                    multipleSelectInstance.itemClicked(dataItem);
-                }
-
-                setSelectedDataItemChildren(dataItem, isSelected);
-            }
-
-            function setSelectedDataItemChildren(dataItem, isSelected) {
+            function setSelectedChildren(dataItem, isSelected) {
                 var children = dataItem[options.childrenProperty];
                 if (Array.isArray(children)) {
                     for (var child of children) {
-                        setSelectedDataItem(child, isSelected);
+                        multipleSelectInstance.setSelected(child, isSelected);
+                        setSelectedChildren(child, isSelected);
                     }
                 }
             }
