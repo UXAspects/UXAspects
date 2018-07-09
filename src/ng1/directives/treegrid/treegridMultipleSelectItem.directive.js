@@ -201,9 +201,9 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
             function setSelectedChildren(dataItem, isSelected) {
                 var children = dataItem[options.childrenProperty];
                 if (Array.isArray(children)) {
-                    for (var child of children) {
-                        multipleSelectInstance.setSelected(child, isSelected);
-                        setSelectedChildren(child, isSelected);
+                    for (var i = 0; i < children.length; i += 1) {
+                        multipleSelectInstance.setSelected(children[i], isSelected);
+                        setSelectedChildren(children[i], isSelected);
                     }
                 }
             }
