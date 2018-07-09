@@ -6,6 +6,8 @@ export declare class DragDirective implements OnDestroy {
     private _renderer;
     /** Detemine if we should show a clone when dragging */
     clone: boolean;
+    /** Allow the dragging to be enabled/disabled */
+    draggable: boolean;
     /** Emit an event when dragging starts */
     dragstart: EventEmitter<MouseEvent>;
     /** Emit an event when the mouse moves while dragging */

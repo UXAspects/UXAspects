@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, OnDestroy, QueryList } from '@angular/core';
+import { AfterViewInit, ElementRef, OnDestroy, QueryList, EventEmitter } from '@angular/core';
 import { TooltipDirective } from 'ngx-bootstrap/tooltip';
 import { FloatingActionButtonsService } from './floating-action-buttons.service';
 export declare class FloatingActionButtonsComponent implements AfterViewInit, OnDestroy {
@@ -6,6 +6,7 @@ export declare class FloatingActionButtonsComponent implements AfterViewInit, On
     private _elementRef;
     direction: FloatingActionButtonDirection;
     tooltips: QueryList<TooltipDirective>;
+    openChange: EventEmitter<boolean>;
     private _subscription;
     constructor(fab: FloatingActionButtonsService, _elementRef: ElementRef);
     ngAfterViewInit(): void;
