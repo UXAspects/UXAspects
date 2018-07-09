@@ -11,7 +11,8 @@ export class DragDirective implements OnDestroy {
     /** Detemine if we should show a clone when dragging */
     @Input() clone: boolean = false;
 
-    @Input() disabled: boolean = false;
+    /** Allow the dragging to be enabled/disabled */
+    @Input() draggable: boolean = true;
 
     /** Emit an event when dragging starts */
     @Output() dragstart = new EventEmitter<MouseEvent>();
@@ -41,7 +42,7 @@ export class DragDirective implements OnDestroy {
     protected _onDestroy = new Subject<void>();
 
     constructor(private _elementRef: ElementRef, private _ngZone: NgZone, private _renderer: Renderer2) {
-        this._mousedown$.pipe(filter(() => !this.disabled), takeUntil(this._onDestroy)).subscribe(this.dragStart.bind(this));
+        this._mousedown$.pipe(filter(() => this.draggable), takeUntil(this._onDestroy)).subscribe(this.dragStart.bind(this));
     }
 
     /** Emit events and create clone when drag starts */
