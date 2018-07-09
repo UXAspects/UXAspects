@@ -108,7 +108,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     vm.multipleSelectInstance.itemClicked(row.dataItem);
     event.stopPropagation();
     event.preventDefault();
-  }
+  };
 
   // Expand the specified row if possible. Returns true if the row is expandable.
   vm.expand = function (row) {

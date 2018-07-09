@@ -183,7 +183,7 @@ MultipleSelect.prototype.setSelected = function(item, isSelected) {
     if (isSelected !== undefined && isSelected !== currentState) {
         this.itemClicked(item);
     }
-}
+};
 
 /*
   Method for selecting a range of necessarily contiguous items simultaneously
