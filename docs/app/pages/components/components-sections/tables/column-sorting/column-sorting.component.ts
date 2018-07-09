@@ -1,11 +1,11 @@
-import { ColumnSortingComponent } from './../../../../../../../src/components/column-sorting/column-sorting.component';
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import 'chance';
+import { ColorService, ColumnSortingOrder, ColumnSortingState } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { ColumnSortingState, ColorService, ColumnSortingOrder } from '../../../../../../../src/index';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import 'chance';
+import { ColumnSortingComponent } from './../../../../../../../src/components/column-sorting/column-sorting.component';
 
 @Component({
     selector: 'uxd-components-column-sorting',
@@ -84,22 +84,14 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         return array.sort((itemOne: ColumnSortingTableData, itemTwo: ColumnSortingTableData) => {
 
             // iterate through each sorter
-            for (let sorter of order) {
-                let value1 = itemOne[sorter.key];
-                let value2 = itemTwo[sorter.key];
+            for (const sorter of order) {
+                const value1 = itemOne[sorter.key];
+                const value2 = itemTwo[sorter.key];
 
                 if (sorter.state === ColumnSortingState.Ascending) {
-                    if (value1 < value2) {
-                        return -1;
-                    } else if (value1 > value2) {
-                        return 1;
-                    }
+                    return value1 < value2 ? -1 : 1;
                 } else {
-                   if (value1 > value2) {
-                        return -1;
-                    } else if (value1 < value2) {
-                        return 1;
-                    } 
+                    return value1 > value2 ? -1 : 1;
                 }
 
             }
@@ -119,15 +111,29 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         }]
     };
 
-    sparkTrackColor: string;
-    sparkBarColor: string;
+    sparkTrackColor = this._colorService.getColor('accent').setAlpha(0.2).toRgba();
+    sparkBarColor = this._colorService.getColor('accent').toHex();
 
-    constructor(colorService: ColorService) {
- 
+    constructor(private _colorService: ColorService) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 
-        this.sparkTrackColor = colorService.getColor('accent').setAlpha(0.2).toRgba();
-        this.sparkBarColor = colorService.getColor('accent').toHex();
+    getColumnAriaLabel(sorting: ColumnSortingState = ColumnSortingState.None, order: number | null): string {
+        switch (sorting) {
+
+            case ColumnSortingState.Ascending:
+                return order ?
+                    `Ascending sort with priority ${order} applied, activate to apply a Descending sort` :
+                    'Ascending sort applied, activate to apply a Descending sort';
+
+            case ColumnSortingState.Descending:
+                return order ?
+                    `Descending sort with priority ${order} applied, activate to apply no sorting` :
+                    'Descending sort applied, activate to apply no sorting';
+
+            case ColumnSortingState.None:
+                return 'No sort applied, activate to apply an Ascending sort';
+        }
     }
 }
 

@@ -2,25 +2,49 @@
     <thead>
         <tr uxColumnSorting>
             <th></th>
-            <th class="clickable" (click)="changeState(nameColumn)">
+            <th class="clickable"
+                tabindex="0"
+                [attr.aria-label]="'Name: ' + getColumnAriaLabel(nameColumn.state, nameColumn.order)"
+                [attr.aria-sort]="nameColumn.state"
+                (click)="changeState(nameColumn)"
+                (keydown.enter)="changeState(nameColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">NAME</p>
                     <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
                 </div>
             </th>
-            <th class="clickable" (click)="changeState(authorColumn)">
+            <th class="clickable"
+                tabindex="0"
+                [attr.aria-label]="'Author: ' + getColumnAriaLabel(authorColumn.state, authorColumn.order)"
+                [attr.aria-sort]="authorColumn.state"
+                (click)="changeState(authorColumn)"
+                (keydown.enter)="changeState(authorColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">AUTHOR</p>
                     <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
                 </div>
             </th>
-            <th class="clickable" (click)="changeState(dateColumn)">
+            <th class="clickable"
+                tabindex="0"
+                [attr.aria-label]="'Date Modified: ' + getColumnAriaLabel(dateColumn.state, dateColumn.order)"
+                [attr.aria-sort]="dateColumn.state"
+                (click)="changeState(dateColumn)"
+                (keydown.enter)="changeState(dateColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">DATE MODIFIED</p>
                     <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
                 </div>
             </th>
-            <th class="clickable" (click)="changeState(completedColumn)">
+            <th class="clickable"
+                tabindex="0"
+                [attr.aria-label]="'Work Completed: ' + getColumnAriaLabel(completedColumn.state, completedColumn.order)"
+                [attr.aria-sort]="completedColumn.state"
+                (click)="changeState(completedColumn)"
+                (keydown.enter)="changeState(completedColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">WORK COMPLETED</p>
                     <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
