@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -116,7 +117,8 @@ const ROUTES = [
         HoverActionModule,
         FixedHeaderTableModule,
         TooltipModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        A11yModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

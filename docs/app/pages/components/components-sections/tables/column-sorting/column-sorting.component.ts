@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Component, OnDestroy } from '@angular/core';
 import 'chance';
-import { ColorService, ColumnSortingOrder, ColumnSortingState } from '../../../../../../../src/index';
+import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { ColumnSortingComponent } from './../../../../../../../src/components/column-sorting/column-sorting.component';
 
 @Component({
     selector: 'uxd-components-column-sorting',
     templateUrl: './column-sorting.component.html'
 })
 @DocumentationSectionComponent('ComponentsColumnSortingComponent')
-export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlunkProvider {
+export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlunkProvider, OnDestroy {
 
     order: ColumnSortingOrder[] = [];
 
@@ -74,9 +74,40 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         active: chance.bool()
     }];
 
-    changeState(columnSortingComponent: ColumnSortingComponent) {
-        this.order = columnSortingComponent.changeState();
+    plunk: IPlunk = {
+        files: {
+            'app.component.ts': this.snippets.raw.appTs,
+            'app.component.html': this.snippets.raw.appHtml
+        },
+        modules: [
+            {
+                imports: ['ColumnSortingModule', 'ColorServiceModule', 'SparkModule'],
+                library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
+            }
+        ]
+    };
+
+    sparkTrackColor = this._colorService.getColor('accent').setAlpha(0.2).toRgba();
+    sparkBarColor = this._colorService.getColor('accent').toHex();
+
+    constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    ngOnDestroy(): void {
+        this._announcer.ngOnDestroy();
+    }
+
+    changeState(title: string, column: ColumnSortingComponent) {
+        this.order = column.changeState();
         this.sortByKey(this.sortableTable, this.order);
+
+        // announce the change to any screen reader
+        this._announcer.announce(this.getColumnAriaLabel(title, column));
     }
 
     sortByKey(array: ColumnSortingTableData[], order: ColumnSortingOrder[]) {
@@ -100,39 +131,26 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
         });
     }
 
-    plunk: IPlunk = {
-        files: {
-            'app.component.ts': this.snippets.raw.appTs,
-            'app.component.html': this.snippets.raw.appHtml
-        },
-        modules: [{
-            imports: ['ColumnSortingModule', 'ColorServiceModule', 'SparkModule'],
-            library: '@ux-aspects/ux-aspects'
-        }]
-    };
+    getColumnAriaLabel(title: string, column: ColumnSortingComponent): string {
 
-    sparkTrackColor = this._colorService.getColor('accent').setAlpha(0.2).toRgba();
-    sparkBarColor = this._colorService.getColor('accent').toHex();
+        if (!column) {
+            return `${title}: No sort applied, activate to apply an Ascending sort`;
+        }
 
-    constructor(private _colorService: ColorService) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
-
-    getColumnAriaLabel(sorting: ColumnSortingState = ColumnSortingState.None, order: number | null): string {
-        switch (sorting) {
+        switch (column.state) {
 
             case ColumnSortingState.Ascending:
-                return order ?
-                    `Ascending sort with priority ${order} applied, activate to apply a Descending sort` :
-                    'Ascending sort applied, activate to apply a Descending sort';
+                return column.order ?
+                    `${title}: Ascending sort with priority ${column.order} applied, activate to apply a Descending sort` :
+                    `${title}: Ascending sort applied, activate to apply a Descending sort`;
 
             case ColumnSortingState.Descending:
-                return order ?
-                    `Descending sort with priority ${order} applied, activate to apply no sorting` :
-                    'Descending sort applied, activate to apply no sorting';
+                return column.order ?
+                    `${title}: Descending sort with priority ${column.order} applied, activate to apply no sorting` :
+                    `${title}: Descending sort applied, activate to apply no sorting`;
 
-            case ColumnSortingState.None:
-                return 'No sort applied, activate to apply an Ascending sort';
+            default:
+                return `${title}: No sort applied, activate to apply an Ascending sort`;
         }
     }
 }

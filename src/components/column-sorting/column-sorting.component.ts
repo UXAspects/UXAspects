@@ -27,7 +27,7 @@ export class ColumnSortingComponent implements OnDestroy {
 
             // if we are not sorting this column then mark it as NoSort
             if (columnIdx === -1) {
-                this.state = ColumnSortingState.None;
+                this.state = ColumnSortingState.NoSort;
             }
 
             // only store the number if we have 2 or more columns being sorted
@@ -52,7 +52,7 @@ export class ColumnSortingComponent implements OnDestroy {
                 break;
 
             case ColumnSortingState.Descending:
-                this.state = ColumnSortingState.None;
+                this.state = ColumnSortingState.NoSort;
                 break;
 
             default:

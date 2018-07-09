@@ -2,28 +2,56 @@
     <thead>
         <tr uxColumnSorting>
             <th></th>
-            <th class="clickable" (click)="changeState(nameColumn)">
+            <th class="clickable"
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Name')"
+                [attr.aria-sort]="nameColumn.state"
+                (click)="changeState('Name', nameColumn)"
+                (keydown.enter)="changeState('Name', nameColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">NAME</p>
-                    <ux-column-sorting #nameColumn="ux-column-sorting" key="name"></ux-column-sorting>
+                    <ux-column-sorting #nameColumn="ux-column-sorting" key="name">
+                    </ux-column-sorting>
                 </div>
             </th>
-            <th class="clickable" (click)="changeState(authorColumn)">
+            <th class="clickable"
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Author')"
+                [attr.aria-sort]="authorColumn.state"
+                (click)="changeState('Author', authorColumn)"
+                (keydown.enter)="changeState('Author', authorColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">AUTHOR</p>
-                    <ux-column-sorting #authorColumn="ux-column-sorting" key="author"></ux-column-sorting>
+                    <ux-column-sorting #authorColumn="ux-column-sorting" key="author">
+                    </ux-column-sorting>
                 </div>
             </th>
-            <th class="clickable" (click)="changeState(dateColumn)">
+            <th class="clickable"
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Date Modified')"
+                [attr.aria-sort]="dateColumn.state"
+                (click)="changeState('Date Modified', dateColumn)"
+                (keydown.enter)="changeState('Date Modified', dateColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">DATE MODIFIED</p>
-                    <ux-column-sorting #dateColumn="ux-column-sorting" key="date"></ux-column-sorting>
+                    <ux-column-sorting #dateColumn="ux-column-sorting" key="date">
+                    </ux-column-sorting>
                 </div>
             </th>
-            <th class="clickable" (click)="changeState(completedColumn)">
+            <th class="clickable"
+                tabindex="0"
+                [attr.aria-label]="getColumnAriaLabel('Work Completed')"
+                [attr.aria-sort]="completedColumn.state"
+                (click)="changeState('Work Completed', completedColumn)"
+                (keydown.enter)="changeState('Work Completed', completedColumn)">
+
                 <div class="column-sorting-header">
                     <p class="text-black">WORK COMPLETED</p>
-                    <ux-column-sorting #completedColumn="ux-column-sorting" key="completed"></ux-column-sorting>
+                    <ux-column-sorting #completedColumn="ux-column-sorting" key="completed">
+                    </ux-column-sorting>
                 </div>
             </th>
             <th class="text-black">STATUS</th>
@@ -38,10 +66,18 @@
             <td>{{ item.author }}</td>
             <td>{{ item.date }}</td>
             <td>
-                <ux-spark [trackColor]="sparkTrackColor" [barColor]="sparkBarColor" [value]="item.completed" fillHeight="3" [inlineLabel]="item.completed"></ux-spark>
+                <ux-spark [trackColor]="sparkTrackColor"
+                    [barColor]="sparkBarColor"
+                    [value]="item.completed"
+                    [barHeight]="3"
+                    [inlineLabel]="item.completed">
+                </ux-spark>
             </td>
             <td class="text-center">
-                <div class="hpe-icon" [class.text-accent]="item.active" [class.hpe-checkmark]="item.active"></div>
+                <div class="hpe-icon"
+                    [class.text-accent]="item.active"
+                    [class.hpe-checkmark]="item.active">
+                </div>
             </td>
         </tr>
     </tbody>

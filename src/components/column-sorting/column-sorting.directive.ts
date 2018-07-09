@@ -26,7 +26,7 @@ export class ColumnSortingDirective implements OnDestroy {
     }
 
     private toggleSingleColumn(sorting: ColumnSortingOrder): ColumnSortingOrder[] {
-        return sorting.state === ColumnSortingState.None ? [] : [{ key: sorting.key, state: sorting.state }];
+        return sorting.state === ColumnSortingState.NoSort ? [] : [{ key: sorting.key, state: sorting.state }];
     }
 
     private toggleMultipleColumn(sorting: ColumnSortingOrder): ColumnSortingOrder[] {
@@ -56,5 +56,5 @@ export interface ColumnSortingOrder {
 export enum ColumnSortingState {
     Ascending = 'ascending',
     Descending = 'descending',
-    None = 'none'
+    NoSort = 'none'
 }
