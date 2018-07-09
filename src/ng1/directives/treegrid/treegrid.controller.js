@@ -2,7 +2,7 @@ TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
 
 export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
   var vm = this;
-  
+
   var treegridId = multipleSelectProvider.getNextComponentId();
 
   var defaultOptions = {
@@ -94,12 +94,8 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   };
 
   vm.toggleAllRows = function () {
-    vm.allSelected =  !vm.allSelected;
-    if (vm.allSelected) {
-      vm.gridRows.forEach(row => row.selected = true);
-    } else {
-      vm.gridRows.forEach(row => row.selected = false);
-    }
+    vm.allSelected = !vm.allSelected;
+    vm.gridRows.forEach(row => vm.multipleSelectInstance.setSelected(row.dataItem, vm.allSelected));
   };
 
   vm.expanderClick = function (row, e) {
@@ -108,9 +104,11 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     return toggleExpand(row);
   };
 
-  vm.checkboxClick = function (event) {
-    event.stopPropagation(); 
-  };
+  vm.checkboxClick = function(event, row) {
+    vm.multipleSelectInstance.itemClicked(row.dataItem);
+    event.stopPropagation();
+    event.preventDefault();
+  }
 
   // Expand the specified row if possible. Returns true if the row is expandable.
   vm.expand = function (row) {

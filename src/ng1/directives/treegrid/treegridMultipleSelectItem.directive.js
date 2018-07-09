@@ -13,6 +13,7 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
                 var treeGridRow = scope.$eval(attrs.treegridMultipleSelectItem);
                 var options = scope.$eval(attrs.treegridMultipleSelectOptions) || {};
+                var selectOptions = options.select || {};
 
                 if (treeGridRow) {
 
@@ -28,7 +29,7 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
                     //set up click
                     element.on("click.multiSelect", function (e) {
-                        if (!options.row) return;
+                        if (!selectOptions.row) return;
 
                         if (e.shiftKey) {
                             extendOrStartSelection();
@@ -47,7 +48,7 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
                     // for keyboard controls
                     element.on("keydown.multiSelect", function (e) {
-                        if (!options.row) return;
+                        if (!selectOptions.row) return;
 
                         if (e.keyCode === 32) {
                             addToOrStartSelection();
@@ -59,7 +60,7 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
 
                     // Custom event triggered by keyboardNavigableTable to handle shift key extension
                     element.on("receivedSelection.keyboardNavigableTable", function (e) {
-                        if (!options.row) return;
+                        if (!selectOptions.row) return;
 
                         if (!e.ctrlKey) {
                             if (e.shiftKey) {
@@ -86,14 +87,6 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
                     }, function (nv) {
                         setSelected(treeGridRow, nv);
                     });
-
-                    // Handler for checkbox click, which uses ng-model="row.selected"
-                    scope.$watch(attrs.treegridMultipleSelectItem + ".selected", function (nv) {
-                        var currentState = multipleSelectInstance.isSelected(treeGridRow.dataItem);
-                        if (nv !== undefined && nv !== currentState) {
-                            currentState = multipleSelectInstance.itemClicked(treeGridRow.dataItem);
-                        }
-                    }, true);
 
                     scope.$on("destroy", function () {
                         element.off("click.multiSelect");
@@ -195,10 +188,22 @@ export default function treegridMultipleSelectItem(multipleSelectProvider) {
             }
 
             function setSelected(row, isSelected) {
+
+                // Set status for checkbox and the API
                 row.selected = isSelected;
-                if (options.selectChildren && row.children) {
-                    for (var childRow of row.children) {
-                        setSelected(childRow, isSelected);
+
+                // If selectChildren is set, set the selection state for the children
+                if (selectOptions.selectChildren) {
+                    setSelectedChildren(row.dataItem, isSelected);
+                }
+            }
+
+            function setSelectedChildren(dataItem, isSelected) {
+                var children = dataItem[options.childrenProperty];
+                if (Array.isArray(children)) {
+                    for (var child of children) {
+                        multipleSelectInstance.setSelected(child, isSelected);
+                        setSelectedChildren(child, isSelected);
                     }
                 }
             }
