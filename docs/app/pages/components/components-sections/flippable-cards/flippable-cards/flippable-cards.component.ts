@@ -27,6 +27,7 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
     cards: Card[] = [
         {
             title: 'NYC vs Volkswagen',
+            label: 'Flippable Card: Activate toggle button to flip card',
             flipped: false,
             trigger: 'manual',
             direction: 'vertical',
@@ -40,6 +41,7 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
         },
         {
             title: 'The Dorling Case',
+            label: 'Flippable Card: Activate to flip card',
             flipped: false,
             trigger: 'hover',
             direction: 'horizontal',
@@ -53,6 +55,7 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
         },
         {
             title: 'The Salisbury Case',
+            label: 'Flippable Card: Activate to flip card',
             flipped: false,
             trigger: 'click',
             direction: 'horizontal',
@@ -92,6 +95,7 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
 
 export interface Card {
     title: string;
+    label: string;
     flipped: boolean;
     trigger: string;
     direction: string;

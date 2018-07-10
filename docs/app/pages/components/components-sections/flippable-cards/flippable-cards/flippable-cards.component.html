@@ -1,6 +1,7 @@
 <div class="flex-container">
     <ux-flippable-card
         *ngFor="let card of cards"
+        [ariaLabel]="card.label"
         class="m-sm"
         [class.flip-card-flipped]="card.flipped"
         [(flipped)]="card.flipped"
@@ -11,12 +12,14 @@
 
         <ux-flippable-card-front>
             <img src="../../../../../assets/img/IconCaseColorized36x36.png"
-                 alt="Flippable card icon"
-                 class="flip-card-logo">
+                aria-hidden="true"
+                alt="Flippable card icon"
+                class="flip-card-logo">
 
             <button
                 #frontFlipBtn
                 aria-label="Activate to show back of card"
+                [attr.aria-hidden]="card.trigger !== 'manual'"
                 [hidden]="card.trigger !== 'manual'"
                 [tabindex]="!card.flipped ? 0 : -1"
                 class="hpe-icon hpe-link-down flip-card-btn"
@@ -57,6 +60,7 @@
                 <button
                     #backFlipBtn
                     aria-label="Activate to show front of card"
+                    [attr.aria-hidden]="card.trigger !== 'manual'"
                     [hidden]="card.trigger !== 'manual'"
                     [tabindex]="card.flipped ? 0 : -1"
                     class="hpe-icon hpe-link-up flip-card-btn text-white"

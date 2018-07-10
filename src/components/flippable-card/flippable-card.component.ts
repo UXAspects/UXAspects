@@ -16,6 +16,7 @@ export class FlippableCardComponent {
     @Input() width: number = 280;
     @Input() height: number = 200;
     @Input() flipped: boolean = false;
+    @Input() ariaLabel: string;
     @Output() flippedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     setFlipped(state: boolean): void {

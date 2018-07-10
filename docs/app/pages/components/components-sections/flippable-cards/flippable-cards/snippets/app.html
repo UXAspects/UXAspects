@@ -1,6 +1,7 @@
 <div class="flex-container">
     <ux-flippable-card
         *ngFor="let card of cards"
+        aria-label="Flippable Card"
         class="m-sm"
         [class.flip-card-flipped]="card.flipped"
         [(flipped)]="card.flipped"
