@@ -4,7 +4,7 @@
             <th></th>
             <th class="clickable"
                 tabindex="0"
-                [attr.aria-label]="getColumnAriaLabel('Name')"
+                [attr.aria-label]="getColumnAriaLabel('Name', nameColumn)"
                 [attr.aria-sort]="nameColumn.state"
                 (click)="changeState('Name', nameColumn)"
                 (keydown.enter)="changeState('Name', nameColumn)">
@@ -16,7 +16,7 @@
             </th>
             <th class="clickable"
                 tabindex="0"
-                [attr.aria-label]="getColumnAriaLabel('Author')"
+                [attr.aria-label]="getColumnAriaLabel('Author', authorColumn)"
                 [attr.aria-sort]="authorColumn.state"
                 (click)="changeState('Author', authorColumn)"
                 (keydown.enter)="changeState('Author', authorColumn)">
@@ -28,7 +28,7 @@
             </th>
             <th class="clickable"
                 tabindex="0"
-                [attr.aria-label]="getColumnAriaLabel('Date Modified')"
+                [attr.aria-label]="getColumnAriaLabel('Date Modified', dateColumn)"
                 [attr.aria-sort]="dateColumn.state"
                 (click)="changeState('Date Modified', dateColumn)"
                 (keydown.enter)="changeState('Date Modified', dateColumn)">
@@ -40,7 +40,7 @@
             </th>
             <th class="clickable"
                 tabindex="0"
-                [attr.aria-label]="getColumnAriaLabel('Work Completed')"
+                [attr.aria-label]="getColumnAriaLabel('Work Completed', completedColumn)"
                 [attr.aria-sort]="completedColumn.state"
                 (click)="changeState('Work Completed', completedColumn)"
                 (keydown.enter)="changeState('Work Completed', completedColumn)">
