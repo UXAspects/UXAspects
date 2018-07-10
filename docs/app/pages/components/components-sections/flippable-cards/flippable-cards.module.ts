@@ -1,15 +1,16 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsFlippableCardsNg1Component } from './flippable-cards-ng1/flippable-cards-ng1.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ComponentsFlippableCardsComponent } from './flippable-cards/flippable-cards.component';
-import { FlippableCardModule, ColorServiceModule, SparkModule } from '../../../../../../src/index';
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { ColorServiceModule, FlippableCardModule, SparkModule } from '../../../../../../src/index';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ComponentsFlippableCardsNg1Component } from './flippable-cards-ng1/flippable-cards-ng1.component';
+import { ComponentsFlippableCardsComponent } from './flippable-cards/flippable-cards.component';
+
 
 const SECTIONS = [
     ComponentsFlippableCardsNg1Component,
@@ -28,6 +29,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        CommonModule,
         WrappersModule,
         HybridModule,
         TabsModule,

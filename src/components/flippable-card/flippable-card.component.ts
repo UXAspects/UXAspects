@@ -1,4 +1,4 @@
-import { Component, Input, Directive, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'ux-flippable-card',
@@ -18,16 +18,17 @@ export class FlippableCardComponent {
     @Input() flipped: boolean = false;
     @Output() flippedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    setFlipped(state: boolean) {
+    setFlipped(state: boolean): void {
         this.flipped = state;
         this.flippedChange.emit(this.flipped);
     }
 
-    toggleFlipped() {
+    toggleFlipped(): void {
         this.setFlipped(!this.flipped);
     }
 
-    @HostListener('click') clickTrigger() {
+    @HostListener('click')
+    clickTrigger(): void {
 
         // add or remove the class depending on whether or not the card has been flipped
         if (this.trigger === 'click') {
@@ -35,20 +36,28 @@ export class FlippableCardComponent {
         }
     }
 
-    @HostListener('mouseenter') hoverEnter() {
+    @HostListener('mouseenter')
+    hoverEnter(): void {
         // if the trigger is hover then begin to flip
         if (this.trigger === 'hover') {
             this.setFlipped(true);
         }
     }
 
-    @HostListener('mouseleave') hoverExit() {
+    @HostListener('mouseleave')
+    hoverExit(): void {
         if (this.trigger === 'hover') {
             this.setFlipped(false);
         }
     }
-}
 
+    onKeyDown(event: KeyboardEvent): void {
+        if (this.trigger !== 'manual') {
+            this.toggleFlipped();
+            event.preventDefault();
+        }
+    }
+}
 
 @Directive({
     selector: 'ux-flippable-card-front'
