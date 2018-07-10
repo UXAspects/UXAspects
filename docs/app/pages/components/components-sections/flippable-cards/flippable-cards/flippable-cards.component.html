@@ -10,7 +10,9 @@
         [height]="180">
 
         <ux-flippable-card-front>
-            <img src="../../../../../assets/img/IconCaseColorized36x36.png" alt="Flippable card icon" class="flip-card-logo">
+            <img src="../../../../../assets/img/IconCaseColorized36x36.png"
+                 alt="Flippable card icon"
+                 class="flip-card-logo">
 
             <button
                 #frontFlipBtn
@@ -40,7 +42,11 @@
                     </p>
                 </div>
 
-                <nested-donut class="flip-card-chart" [dataset]="card.chart" [options]="options"></nested-donut>
+                <nested-donut
+                    class="flip-card-chart"
+                    [dataset]="card.chart"
+                    [options]="options">
+                </nested-donut>
             </div>
 
         </ux-flippable-card-front>
