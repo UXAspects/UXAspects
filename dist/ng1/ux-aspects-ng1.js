@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.17-beta.1 
+* @ux-aspects/ux-aspects-docs - v1.5.17-beta.2 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -35308,30 +35308,9 @@ function treegridMultipleSelectItem(multipleSelectProvider) {
             function setSelectedChildren(dataItem, isSelected) {
                 var children = dataItem[options.childrenProperty];
                 if (Array.isArray(children)) {
-                    var _iteratorNormalCompletion2 = true;
-                    var _didIteratorError2 = false;
-                    var _iteratorError2 = undefined;
-
-                    try {
-                        for (var _iterator2 = children[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                            var child = _step2.value;
-
-                            multipleSelectInstance.setSelected(child, isSelected);
-                            setSelectedChildren(child, isSelected);
-                        }
-                    } catch (err) {
-                        _didIteratorError2 = true;
-                        _iteratorError2 = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                                _iterator2.return();
-                            }
-                        } finally {
-                            if (_didIteratorError2) {
-                                throw _iteratorError2;
-                            }
-                        }
+                    for (var i = 0; i < children.length; i += 1) {
+                        multipleSelectInstance.setSelected(children[i], isSelected);
+                        setSelectedChildren(children[i], isSelected);
                     }
                 }
             }
