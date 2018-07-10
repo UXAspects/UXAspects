@@ -133,10 +133,6 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
 
     getColumnAriaLabel(title: string, column: ColumnSortingComponent): string {
 
-        if (!column) {
-            return `${title}: No sort applied, activate to apply an Ascending sort`;
-        }
-
         switch (column.state) {
 
             case ColumnSortingState.Ascending:

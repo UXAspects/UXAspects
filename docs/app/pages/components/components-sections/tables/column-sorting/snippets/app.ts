@@ -1,8 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnDestroy } from '@angular/core';
-import { 
-	ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState
-} from '@ux-aspects/ux-aspects';
+import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState } from '@ux-aspects/ux-aspects';
 import 'chance';
 
 @Component({
@@ -110,10 +108,6 @@ export class AppComponent implements OnDestroy {
     }
 
     getColumnAriaLabel(title: string, column: ColumnSortingComponent): string {
-
-        if (!column) {
-            return `${ title }: No sort applied, activate to apply an Ascending sort`;
-        }
 
         switch (column.state) {
 
