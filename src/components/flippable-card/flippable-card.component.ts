@@ -4,6 +4,7 @@ import { Component, Directive, EventEmitter, HostListener, Input, Output } from 
     selector: 'ux-flippable-card',
     templateUrl: './flippable-card.component.html',
     host: {
+        'tabindex': '0',
         '[class.horizontal]': 'direction === "horizontal"',
         '[class.vertical]': 'direction === "vertical"'
     },
@@ -16,7 +17,6 @@ export class FlippableCardComponent {
     @Input() width: number = 280;
     @Input() height: number = 200;
     @Input() flipped: boolean = false;
-    @Input() ariaLabel: string;
     @Output() flippedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     setFlipped(state: boolean): void {
@@ -52,6 +52,8 @@ export class FlippableCardComponent {
         }
     }
 
+    @HostListener('keydown.enter', ['$event'])
+    @HostListener('keydown.space', ['$event'])
     onKeyDown(event: KeyboardEvent): void {
         if (this.trigger !== 'manual') {
             this.toggleFlipped();

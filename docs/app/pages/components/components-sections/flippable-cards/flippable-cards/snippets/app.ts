@@ -24,6 +24,7 @@ export class AppComponent {
     cards: Card[] = [
         {
             title: 'NYC vs Volkswagen',
+            label: 'Flippable Card: Activate toggle button to flip card',
             flipped: false,
             trigger: 'manual',
             direction: 'vertical',
@@ -37,6 +38,7 @@ export class AppComponent {
         },
         {
             title: 'The Dorling Case',
+            label: 'Flippable Card: Activate to flip card',
             flipped: false,
             trigger: 'hover',
             direction: 'horizontal',
@@ -50,6 +52,7 @@ export class AppComponent {
         },
         {
             title: 'The Salisbury Case',
+            label: 'Flippable Card: Activate to flip card',
             flipped: false,
             trigger: 'click',
             direction: 'horizontal',
@@ -63,7 +66,9 @@ export class AppComponent {
         }
     ];
 
-    constructor(public colorService: ColorService) {}
+    constructor(public colorService: ColorService) {
+        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
 
     getChartData(documents: number, reviewed: number, produced: number): ChartData[] {
         return [
@@ -87,6 +92,7 @@ export class AppComponent {
 
 export interface Card {
     title: string;
+    label: string;
     flipped: boolean;
     trigger: string;
     direction: string;
