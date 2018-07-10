@@ -54,6 +54,7 @@ export class FlippableCardComponent {
 
     @HostListener('keydown.enter', ['$event'])
     @HostListener('keydown.space', ['$event'])
+    @HostListener('keydown.spacebar', ['$event']) // IE uses different naming
     onKeyDown(event: KeyboardEvent): void {
         if (this.trigger !== 'manual') {
             this.toggleFlipped();
