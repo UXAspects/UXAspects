@@ -1,0 +1,15 @@
+<div #option
+    role="option"
+    class="facet-typeahead-list-selected-option"
+    [tabindex]="tabbable ? 0 : -1"
+    (click)="selectedChange.emit(facet)"
+    (keydown.enter)="selectedChange.emit(facet)"
+    (keydown.space)="selectedChange.emit(facet); $event.preventDefault()"
+    (keydown.spacebar)="selectedChange.emit(facet); $event.preventDefault()">
+
+    <ux-checkbox [clickable]="false" [value]="selected" [simplified]="simplified" [tabindex]="-1">
+        <span class="facet-typeahead-list-selected-option-title">{{ facet?.title }}</span>
+        <span class="facet-typeahead-list-selected-option-count">({{ facet?.count }})</span>
+    </ux-checkbox>
+
+</div>

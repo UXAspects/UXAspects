@@ -1,8 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadService } from './typeahead.service';
@@ -20,14 +20,14 @@ let uniqueId = 0;
         '[style.maxHeight]': 'maxHeight'
     }
 })
-export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class TypeaheadComponent implements OnChanges, OnDestroy {
 
     @Input() @HostBinding('attr.id') id: string = `ux-typeahead-${++uniqueId}`;
 
     @Input() options: any[] | InfiniteScrollLoadFunction;
     @Input() filter: string;
 
-    @Input('open')
+    @Input()
     get open() {
         return this._service.open$.getValue();
     }
@@ -56,10 +56,6 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
     @Output() highlightedChange = new EventEmitter<any>();
     @Output() highlightedElementChange = new EventEmitter<HTMLElement>();
 
-    @ViewChild('defaultLoadingTemplate') private _defaultLoadingTemplate: TemplateRef<any>;
-    @ViewChild('defaultOptionTemplate') private _defaultOptionTemplate: TemplateRef<any>;
-    @ViewChild('defaultNoOptionsTemplate') private _defaultNoOptionsTemplate: TemplateRef<any>;
-
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption[]>([]);
     loading = false;
@@ -72,8 +68,7 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
         return value ? value.value : null;
     }
 
-    private _open: boolean = false;
-    private _subscription = new Subscription();
+    private _onDestroy = new Subject<void>();
 
     optionApi: TypeaheadOptionApi = {
         getKey: this.getKey.bind(this),
@@ -83,7 +78,6 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
 
     constructor(
         public typeaheadElement: ElementRef,
-        private _cdRef: ChangeDetectorRef,
         private _service: TypeaheadService
     ) {
 
@@ -111,48 +105,24 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
             return null;
         };
 
-        this._subscription.add(
-            this._service.open$.pipe(distinctUntilChanged()).subscribe((next) => {
-                this.openChange.emit(next);
+        this._service.open$.pipe(distinctUntilChanged(), takeUntil(this._onDestroy)).subscribe((next) => {
+            this.openChange.emit(next);
 
-                if (next) {
-                    this.initOptions();
-                }
-            })
-        );
+            if (next) {
+                this.initOptions();
+            }
+        });
 
-        this._subscription.add(
-            this.highlighted$.subscribe((next) => {
-                this.highlightedKey = next ? next.key : null;
-                this.highlightedChange.emit(next ? next.value : null);
-            })
-        );
+        this.highlighted$.pipe(takeUntil(this._onDestroy)).subscribe((next) => {
+            this.highlightedKey = next ? next.key : null;
+            this.highlightedChange.emit(next ? next.value : null);
+        });
 
-        this._subscription.add(
-            combineLatest(this._service.open$, this._service.highlightedElement$, this.visibleOptions$)
-                .subscribe(([open, highlightedElement, visibleOptions]) => {
-                    this.highlightedElementChange.emit(open && visibleOptions.length > 0 ? highlightedElement : null);
-                })
-        );
-    }
-
-    ngAfterViewInit() {
-        // Attach default loading template
-        if (!this.loadingTemplate) {
-            this.loadingTemplate = this._defaultLoadingTemplate;
-        }
-
-        // Attach default option template
-        if (!this.optionTemplate) {
-            this.optionTemplate = this._defaultOptionTemplate;
-        }
-
-        // Attach default "no results" template
-        if (!this.noOptionsTemplate) {
-            this.noOptionsTemplate = this._defaultNoOptionsTemplate;
-        }
-
-        this._cdRef.detectChanges();
+        combineLatest(this._service.open$, this._service.highlightedElement$, this.visibleOptions$)
+            .pipe(takeUntil(this._onDestroy))
+            .subscribe(([open, highlightedElement, visibleOptions]) => {
+                this.highlightedElementChange.emit(open && visibleOptions.length > 0 ? highlightedElement : null);
+            });
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -168,7 +138,8 @@ export class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     @HostListener('mousedown')

@@ -40,7 +40,6 @@
             tabindex="0"
             *ngFor="let facet of facets"
             [attr.aria-label]="facet.title"
-            (mousedown)="$event.preventDefault()"
             [uxReorderableModel]="facet">
 
             <!-- Display Label -->

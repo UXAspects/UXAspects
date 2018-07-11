@@ -4,30 +4,57 @@
 
     <div class="facet-typeahead-list-selected-container" *ngIf="suggestions?.length > 0">
 
-        <div class="facet-typeahead-list-selected-option" tabindex="0" *ngFor="let facet of suggestions" (click)="toggleFacetSelection(facet)"
-            (keyup.enter)="toggleFacetSelection(facet)">
-
-            <ux-checkbox [clickable]="false" [value]="isFacetSelected(facet)" [simplified]="simplified">
-                <span class="facet-typeahead-list-selected-option-title">{{ facet.title }}</span>
-                <span class="facet-typeahead-list-selected-option-count">({{ facet.count }})</span>
-            </ux-checkbox>
-
-        </div>
+    <ux-facet-typeahead-list-item
+        *ngFor="let facet of suggestions; let index = index"
+        [facet]="facet"
+        [tabbable]="activeIndex === index"
+        [selected]="isFacetSelected(facet)"
+        (selectedChange)="toggleFacet(index, facet)"
+        (keydown)="onKeydown($event)">
+    </ux-facet-typeahead-list-item>
 
     </div>
 
     <div class="facet-typeahead-list-control">
 
         <!-- Create Typeahead Control -->
-        <input type="text" class="form-control" [placeholder]="typeaheadConfig?.placeholder" [typeahead]="typeaheadOptions" [(ngModel)]="searchQuery"
-            [typeaheadMinLength]="typeaheadConfig?.minCharacters" [typeaheadOptionsLimit]="typeaheadConfig?.maxResults" [typeaheadWaitMs]="typeaheadConfig?.delay"
-            (typeaheadOnSelect)="selectOption($event)" [typeaheadItemTemplate]="facetOptionTemplate" (keyup.ArrowUp)="scrollToFocused()" (keyup.ArrowDown)="scrollToFocused()">
+        <input type="text"
+            class="form-control"
+            [placeholder]="typeaheadConfig?.placeholder"
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="updateTypeahead($event)"
+            (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
+            (blur)="typeaheadOpen = false">
+
+        <ux-typeahead #typeahead
+            [(open)]="typeaheadOpen"
+            display="title"
+            [options]="typeaheadOptions">
+        </ux-typeahead>
+
+        <!-- <input type="text"
+            class="form-control"
+            [placeholder]="typeaheadConfig?.placeholder"
+            [typeahead]="typeaheadOptions"
+            [(ngModel)]="searchQuery"
+            [typeaheadMinLength]="typeaheadConfig?.minCharacters"
+            [typeaheadOptionsLimit]="typeaheadConfig?.maxResults"
+            [typeaheadWaitMs]="typeaheadConfig?.delay"
+            (typeaheadOnSelect)="selectOption($event)"
+            [typeaheadItemTemplate]="facetOptionTemplate"
+            (keyup.ArrowUp)="scrollToFocused()"
+            (keyup.ArrowDown)="scrollToFocused()"> -->
 
     </div>
 
 </div>
 
 <ng-template #facetOptionTemplate let-model="item" let-index="index">
-    <p class="facet-typeahead-list-option"><span [innerHTML]="model.title | facetTypeaheadHighlight: searchQuery"></span> <span class="facet-typeahead-list-option-count"
-            *ngIf="model.count">({{ model.count }})</span></p>
+    <p class="facet-typeahead-list-option">
+        <span [innerHTML]="model.title | facetTypeaheadHighlight: searchQuery"></span>
+        <span class="facet-typeahead-list-option-count"
+            *ngIf="model.count">
+            ({{ model.count }})
+        </span>
+    </p>
 </ng-template>

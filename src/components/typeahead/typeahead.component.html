@@ -23,7 +23,7 @@
             (click)="optionClickHandler($event, option)"
             (mouseover)="highlight(option)">
 
-            <ng-container [ngTemplateOutlet]="optionTemplate"
+            <ng-container [ngTemplateOutlet]="optionTemplate || defaultOptionTemplate"
                 [ngTemplateOutletContext]="{option: option.value, api: optionApi}">
             </ng-container>
 
@@ -31,13 +31,13 @@
     </ol>
 
     <div *uxInfiniteScrollLoading>
-        <ng-container [ngTemplateOutlet]="loadingTemplate">
+        <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate">
         </ng-container>
     </div>
 
 </div>
 <div *ngIf="(visibleOptions$ | async).length === 0 && !loading">
-    <ng-container [ngTemplateOutlet]="noOptionsTemplate">
+    <ng-container [ngTemplateOutlet]="noOptionsTemplate || defaultNoOptionsTemplate">
     </ng-container>
 </div>
 

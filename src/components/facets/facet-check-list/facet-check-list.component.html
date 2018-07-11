@@ -11,7 +11,8 @@
         [facet]="facet"
         [tabbable]="activeIndex === index"
         [selected]="isFacetSelected(facet)"
-        (selectedChange)="toggleFacet(index, facet)">
+        (selectedChange)="toggleFacet(index, facet)"
+        (keydown)="onKeydown($event)">
     </ux-facet-check-list-item>
 
 </div>

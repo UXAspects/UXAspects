@@ -1,5 +1,5 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, HostListener, Input, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, QueryList, ViewChildren } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
 import { Facet } from '../models/facet';
@@ -29,7 +29,6 @@ export class FacetCheckListComponent extends FacetBaseComponent implements After
         this._focusKeyManager.change.pipe(takeUntil(this._onDestroy)).subscribe(index => this.activeIndex = index);
     }
 
-    @HostListener('keydown', ['$event'])
     onKeydown(event: KeyboardEvent): void {
         this._focusKeyManager.onKeydown(event);
     }

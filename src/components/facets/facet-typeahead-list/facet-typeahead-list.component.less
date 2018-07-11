@@ -5,37 +5,30 @@ ux-facet-typeahead-list {
             padding: 10px 0;
             border-top: 1px solid @grey7;
 
-            typeahead-container {
-                width: ~'calc(100% - 20px)';
+            ux-typeahead {
+                top: ~'calc(100% - 10px)';
 
-                .dropdown-menu {
-                    width: 100%;
-                    max-height: 200px;
-                    overflow-y: auto;
+                // li {
+                //     a {
+                //         .facet-typeahead-list-option {
+                //             margin-bottom: 0;
 
-                    li {
-                        a {
-                            .facet-typeahead-list-option {
-                                margin-bottom: 0;
+                //             .facet-typeahead-highlighted {
+                //                 color: @grey1;
+                //             }
 
-                                .facet-typeahead-highlighted {
-                                    color: @grey1;
-                                }
+                //             .facet-typeahead-list-option-count {
+                //                 color: @grey4;
+                //             }
+                //         }
+                //     }
 
-                                .facet-typeahead-list-option-count {
-                                    color: @grey4;
-                                }
-                            }
-                        }
-
-                        &.active {
-                            a {
-                                background-color: @grey7;
-                                color: inherit;
-                            }
-                        }
-                    }
-                }
+                //     &.active {
+                //         a {
+                //             background-color: @grey7;
+                //             color: inherit;
+                //         }
+                //     }
             }
         }
 
@@ -50,6 +43,18 @@ ux-facet-typeahead-list {
                 outline: none;
                 cursor: pointer;
                 max-width: 100%;
+
+                &:focus {
+                    .aspects-outline();
+                }
+
+                ux-checkbox {
+                    pointer-events: none;
+
+                    .ux-checkbox {
+                        margin-bottom: 0;
+                    }
+                }
 
                 .facet-typeahead-list-selected-option-title {
                     margin-right: 5px;
