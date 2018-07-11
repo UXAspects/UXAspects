@@ -11,13 +11,13 @@
     color: #999;
     border: none;
     background: transparent;
-}
 
-.flip-card-btn:focus {
-    outline: 2px dotted;
-    outline: auto -webkit-focus-ring-color;
-    outline-color: #00a7a2;
-    outline-offset: 0;
+    &:focus {
+        outline: 2px dotted;
+        outline: auto -webkit-focus-ring-color;
+        outline-color: #00a7a2;
+        outline-offset: 0;
+    }
 }
 
 .flip-card-logo {
@@ -45,28 +45,28 @@
     height: 100%;
     font-size: 18px;
     font-weight: 600;
-}
 
-.flip-card-content-back .text-muted {
-    font-size: 12px;
-    color: #ccc;
-}
+    .text-muted {
+        font-size: 12px;
+        color: #ccc;
+    }
 
-.flip-card-content-back hr {
-    margin-top: 7px;
-    margin-bottom: 7px;
-    border-top: 1px solid #ccc;
-    opacity: 0.25;
+    hr {
+        margin-top: 7px;
+        margin-bottom: 7px;
+        border-top: 1px solid #ccc;
+        opacity: 0.25;
+    }
 }
 
 .flip-card-stats {
     flex: 1;
     color: #666;
-}
 
-.flip-card-stats .text-muted {
-    font-size: 14px;
-    color: #999;
+    .text-muted {
+        font-size: 14px;
+        color: #999;
+    }
 }
 
 .flip-card-stat {
@@ -94,8 +94,10 @@
     justify-content: space-between;
 }
 
-.flip-card-col:last-of-type {
-    text-align: right;
+.flip-card-col {
+    &:last-of-type {
+        text-align: right;
+    }
 }
 
 .flip-inline-chart {
@@ -105,12 +107,14 @@
     justify-content: space-between;
     width: 118px;
     height: 22px;
+
+    ux-spark {
+        width: 53px;
+    }
 }
 
-.flip-inline-chart ux-spark {
-    width: 53px;
-}
-
-.flip-card-flipped .flip-card-logo {
-    transform: translateY(0);
+.flip-card-flipped {
+    .flip-card-logo {
+        transform: translateY(0);
+    }
 }
