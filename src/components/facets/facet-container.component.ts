@@ -1,12 +1,12 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from './facet-events';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from './facet-events';
 import { Facet } from './models/facet';
 
 @Component({
     selector: 'ux-facet-container',
     templateUrl: './facet-container.component.html'
 })
-export class FacetContainerComponent {
+export class FacetContainerComponent implements OnDestroy {
 
     @Input() header: string = 'Selected:';
     @Input() clearTooltip: string = 'Clear All';
@@ -16,6 +16,10 @@ export class FacetContainerComponent {
 
     @Output() facetsChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
     @Output() events: EventEmitter<FacetEvent> = new EventEmitter<FacetEvent>();
+
+    ngOnDestroy(): void {
+        this.events.complete();
+    }
 
     selectFacet(facet: Facet): void {
         // push the facet on to the list

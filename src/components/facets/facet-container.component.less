@@ -72,6 +72,15 @@ ux-facet-container {
                     word-break: break-all;
                 }
 
+                .facet-selected-remove-btn {
+                    border: none;
+                    background: none;
+
+                    &:focus {
+                        .aspects-outline();
+                    }
+                }
+
                 .hpe-close {
                     font-size: 80%;
                     opacity: 0.7;
