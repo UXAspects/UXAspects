@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Component, OnDestroy } from '@angular/core';
 import { ColorService } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -6,7 +7,7 @@ import { ColorService } from '@ux-aspects/ux-aspects';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
 
     options = {
         size: 70,
@@ -66,8 +67,10 @@ export class AppComponent {
         }
     ];
 
-    constructor(public colorService: ColorService) {
-        super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    constructor(public colorService: ColorService, private _announcer: LiveAnnouncer) {}
+
+    ngOnDestroy(): void {
+        this._announcer.ngOnDestroy();
     }
 
     getChartData(documents: number, reviewed: number, produced: number): ChartData[] {
@@ -86,6 +89,10 @@ export class AppComponent {
                 value: produced
             }
         ];
+    }
+
+    onCardFlip(flipped: boolean): void {
+        this._announcer.announce(flipped ? 'Card is flipped.' : 'Card is not flipped.', 'assertive');
     }
 
 }

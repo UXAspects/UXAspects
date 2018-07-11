@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Component, OnDestroy } from '@angular/core';
 import { ColorService } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
@@ -9,7 +10,7 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
     styleUrls: ['./flippable-cards.component.less']
 })
 @DocumentationSectionComponent('ComponentsFlippableCardsComponent')
-export class ComponentsFlippableCardsComponent extends BaseDocumentationSection {
+export class ComponentsFlippableCardsComponent extends BaseDocumentationSection implements OnDestroy {
 
     options = {
         size: 70,
@@ -69,8 +70,12 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
         }
     ];
 
-    constructor(public colorService: ColorService) {
+    constructor(public colorService: ColorService, private _announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    ngOnDestroy(): void {
+        this._announcer.ngOnDestroy();
     }
 
     getChartData(documents: number, reviewed: number, produced: number): ChartData[] {
@@ -89,6 +94,10 @@ export class ComponentsFlippableCardsComponent extends BaseDocumentationSection 
                 value: produced
             }
         ];
+    }
+
+    onCardFlip(flipped: boolean): void {
+        this._announcer.announce(flipped ? 'Card is flipped.' : 'Card is not flipped.', 'assertive');
     }
 
 }

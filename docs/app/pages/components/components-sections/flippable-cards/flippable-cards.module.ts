@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -29,6 +30,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
+        A11yModule,
         CommonModule,
         WrappersModule,
         HybridModule,

@@ -5,6 +5,7 @@
         class="m-sm"
         [class.flip-card-flipped]="card.flipped"
         [(flipped)]="card.flipped"
+        (flippedChange)="onCardFlip(card.flipped)"
         [trigger]="card.trigger"
         [direction]="card.direction"
         [width]="260"
