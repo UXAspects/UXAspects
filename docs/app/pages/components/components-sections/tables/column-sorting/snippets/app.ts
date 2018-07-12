@@ -11,7 +11,7 @@ export class AppComponent implements OnDestroy {
 
     order: ColumnSortingOrder[] = [];
 
-    sortableTable = [{
+    items: ColumnSortingTableData[] = [{
         id: 1,
         name: 'Document',
         author: chance.name(),
@@ -80,27 +80,30 @@ export class AppComponent implements OnDestroy {
 
     changeState(title: string, column: ColumnSortingComponent) {
         this.order = column.changeState();
-        this.sortByKey(this.sortableTable, this.order);
+        this.items = this.sort(this.items, this.order);
 
         // announce the change to any screen reader
         this._announcer.announce(this.getColumnAriaLabel(title, column));
     }
 
-    sortByKey(array: ColumnSortingTableData[], order: ColumnSortingOrder[]) {
+    sort(array: ColumnSortingTableData[], sorters: ColumnSortingOrder[]): ColumnSortingTableData[] {
 
         return array.sort((itemOne: ColumnSortingTableData, itemTwo: ColumnSortingTableData) => {
 
             // iterate through each sorter
-            for (const sorter of order) {
+            for (const sorter of sorters) {
                 const value1 = itemOne[sorter.key];
                 const value2 = itemTwo[sorter.key];
+
+                if (value1 === value2) {
+                    continue;
+                }
 
                 if (sorter.state === ColumnSortingState.Ascending) {
                     return value1 < value2 ? -1 : 1;
                 } else {
                     return value1 > value2 ? -1 : 1;
                 }
-
             }
 
             return itemOne.id < itemTwo.id ? -1 : 1;
