@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnDestroy, Pipe, PipeTrans
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { mergeMap, takeUntil, tap } from 'rxjs/operators';
+import { map, mergeMap, takeUntil, tap } from 'rxjs/operators';
 import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
 import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
 import { FacetContainerComponent } from '../facet-container.component';
@@ -55,12 +55,17 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
         // set up search query subscription
         this.query$.pipe(
             takeUntil(this._onDestroy),
-            tap(() => { this.loading = true; this.typeaheadOptions = []; }),
-            mergeMap(() => this.getFacetObservable())
+            tap(() => {
+                this.loading = true;
+                this.typeaheadOptions = [];
+            }),
+            mergeMap(() => this.getFacetObservable().pipe(map(facets => {
+                return facets.filter(facet => !facet.disabled && !this.selected.find(selectedFacet => selectedFacet === facet))
+                    .slice(0, this._config.maxResults);
+            })))
         ).subscribe(facets => {
             this.loading = false;
-            this.typeaheadOptions = facets.filter(facet => !facet.disabled && !this.selected.find(selectedFacet => selectedFacet === facet))
-                .slice(0, this._config.maxResults);
+            this.typeaheadOptions = facets;
         });
 
         this._focusKeyManager = new FocusKeyManager(this.options).withVerticalOrientation();

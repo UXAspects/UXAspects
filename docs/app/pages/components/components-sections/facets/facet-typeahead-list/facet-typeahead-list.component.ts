@@ -59,7 +59,7 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
         this.facets = Observable.create((observer: Observer<Facet[]>) => {
 
             // get the search query
-            const searchQuery = (<any>observer).outerValue;
+            const searchQuery = (<any>observer).destination.outerValue;
 
             // simulate server request
             setTimeout(() => {
