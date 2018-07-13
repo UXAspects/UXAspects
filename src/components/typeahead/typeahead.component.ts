@@ -46,6 +46,7 @@ export class TypeaheadComponent implements OnChanges, OnDestroy {
     @Input() openOnFilterChange: boolean = true;
     @Input() pageSize: number = 20;
     @Input() selectFirst: boolean = true;
+    @Input() selectOnEnter: boolean = false;
 
     @Input() loadingTemplate: TemplateRef<any>;
     @Input() optionTemplate: TemplateRef<any>;
@@ -267,6 +268,12 @@ export class TypeaheadComponent implements OnChanges, OnDestroy {
         }
 
         return this.highlighted;
+    }
+
+    selectHighlighted(): void {
+        if (this.highlighted) {
+            this.select({ value: this.highlighted, key: this.getKey(this.highlighted)});
+        }
     }
 
     /**

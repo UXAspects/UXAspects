@@ -29,6 +29,11 @@ export class TypeaheadKeyService {
                 case 'Esc':
                     typeahead.open = false;
                     break;
+
+                case 'Enter':
+                    if (typeahead.selectOnEnter) {
+                        typeahead.selectHighlighted();
+                    }
             }
         }
     }

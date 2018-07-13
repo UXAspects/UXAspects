@@ -1,9 +1,10 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { map, takeUntil } from 'rxjs/operators';
-import { TypeaheadKeyService } from '../../typeahead/index';
+import { mergeMap, takeUntil } from 'rxjs/operators';
+import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
 import { FacetBaseComponent } from '../base/facet-base/facet-base.component';
 import { FacetContainerComponent } from '../facet-container.component';
 import { Facet } from '../models/facet';
@@ -13,7 +14,7 @@ import { FacetTypeaheadListItemComponent } from './typeahead-list-item/facet-typ
     selector: 'ux-facet-typeahead-list',
     templateUrl: './facet-typeahead-list.component.html'
 })
-export class FacetTypeaheadListComponent extends FacetBaseComponent implements OnInit, AfterViewInit {
+export class FacetTypeaheadListComponent extends FacetBaseComponent implements AfterViewInit {
 
     @Input() facets: Facet[] | Observable<Facet[]>;
     @Input() header: string;
@@ -32,7 +33,7 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
 
     @ViewChildren(FacetTypeaheadListItemComponent) options: QueryList<FacetTypeaheadListItemComponent>;
 
-    searchQuery: string = '';
+    query$ = new BehaviorSubject<string>('');
     activeIndex: number = 0;
     typeaheadOpen: boolean = false;
     typeaheadOptions: Facet[] = [];
@@ -44,19 +45,13 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
         super(facetContainer, elementRef);
     }
 
-    ngOnInit(): void {
-        const facetsObservable = this.facets instanceof Observable ? this.facets : of(this.facets);
-
-        facetsObservable.pipe(map(facets =>
-            facets.filter(facet =>
-                !facet.disabled &&
-                !this.selected.find(selectedFacet => selectedFacet === facet) &&
-                facet.title.toLowerCase().includes(this.searchQuery.toLowerCase())
-            )),
-            takeUntil(this._onDestroy)).subscribe(facets => this.typeaheadOptions = facets.slice(0, this._config.maxResults));
-    }
-
     ngAfterViewInit(): void {
+
+        // set up search query subscription
+        this.query$.pipe(takeUntil(this._onDestroy), mergeMap(() => this.getFacetObservable())).subscribe(facets => {
+            this.typeaheadOptions = facets.filter(facet => !facet.disabled && !this.selected.find(selectedFacet => selectedFacet === facet)).slice(0, this._config.maxResults);
+        });
+
         this._focusKeyManager = new FocusKeyManager(this.options).withVerticalOrientation();
         this._focusKeyManager.change.pipe(takeUntil(this._onDestroy)).subscribe(index => this.activeIndex = index);
     }
@@ -70,91 +65,28 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements O
         this._focusKeyManager.setActiveItem(index);
     }
 
+    /** Only show typeahead if we have enough characters */
     updateTypeahead(query: string = ''): void {
-        // update typeahead visibility
         this.typeaheadOpen = query.length >= this._config.minCharacters;
-
-        // if the facets are an observable then give them the next search query
-        // this.facets.
     }
 
-    // ngOnInit() {
+    getFacetObservable(): Observable<Facet[]> {
+        return this.facets instanceof Observable ? this.facets : of(this.facets);
+    }
 
-    //     // wrap the observable and filter out any already selected items or any disabled items
-    //     if (this.facets instanceof Observable) {
+    select(event: TypeaheadOptionEvent) {
 
-    //         // handle an observable of data
-    //         this.typeaheadOptions = from(this.facets).pipe(map((facets: Facet[]) => {
+        // check to make sure that the item is not currently selected
+        if (this.selected.find(facet => facet === event.option)) {
+            return;
+        }
 
-    //             // remove disabled facets, selected facets and facets that dont match search term
-    //             return facets.filter(facet => !facet.disabled)
-    //                 .filter(facet => !this.selected.find(selectedFacet => selectedFacet === facet))
-    //                 .filter(facet => facet.title.toUpperCase().includes(this.searchQuery.toUpperCase()));
-    //         }));
+        // select the facet
+        this.selectFacet(event.option);
 
-    //     } else {
-
-    //         // handle an array of data
-    //         this.typeaheadOptions = of(this.facets).pipe(map((facets: Facet[]) => {
-
-    //             // remove disabled facets, selected facets and facets that dont match search term
-    //             return facets.filter(facet => !facet.disabled)
-    //                 .filter(facet => !this.selected.find(selectedFacet => selectedFacet === facet))
-    //                 .filter(facet => facet.title.toUpperCase().includes(this.searchQuery.toUpperCase()));
-    //         }));
-    //     }
-
-    //     // provide default values for typeahead config
-    //     for (let prop in this._defaultTypeaheadConfig) {
-
-    //         // check if prop has been defined in the users typeahead config - if not set default value
-    //         if (this.typeaheadConfig.hasOwnProperty(prop) === false) {
-    //             this.typeaheadConfig[prop] = this._defaultTypeaheadConfig[prop];
-    //         }
-    //     }
-    // }
-
-    // selectOption(typeaheadOption: TypeaheadMatch) {
-
-    //     // check to make sure that the item is not currently selected
-    //     if (this.selected.find(facet => facet === typeaheadOption.item)) {
-    //         return;
-    //     }
-
-    //     // select the facet
-    //     this.selectFacet(typeaheadOption.item);
-
-    //     // clear the typeahead
-    //     this.searchQuery = '';
-    // }
-
-    // scrollToFocused(): void {
-
-    //     let dropdown = this._nativeElement.querySelector('.dropdown-menu');
-
-    //     // delay to allow the typeahead ui to update
-    //     setTimeout(() => {
-
-    //         // find the currently active element if there is one
-    //         let activeElement = dropdown.querySelector('.dropdown-menu > li.active');
-
-    //         if (activeElement) {
-
-    //             // check if element is not in view
-    //             let elementBounds = activeElement.getBoundingClientRect();
-    //             let dropdownBounds = dropdown.getBoundingClientRect();
-
-    //             if (elementBounds.top < dropdownBounds.top) {
-    //                 dropdown.scrollTop += elementBounds.top - dropdownBounds.top;
-    //             }
-
-    //             if (elementBounds.bottom > dropdownBounds.bottom) {
-    //                 dropdown.scrollTop += elementBounds.bottom - dropdownBounds.bottom;
-    //             }
-    //         }
-    //     });
-    // }
-
+        // clear the typeahead
+        this.query$.next('');
+    }
 }
 
 export interface FacetTypeaheadListConfig {

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { Facet, FacetEvent, FacetSelect, FacetDeselect, FacetDeselectAll } from '../../../../../../../src/index';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
+import 'chance';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import 'chance';
+import { Facet } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-facet-typeahead-list',
@@ -43,7 +43,7 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
         this.users.sort((userOne, userTwo) => {
             if (userOne.title < userTwo.title) {
                 return -1;
-            } 
+            }
 
             if (userOne.title > userTwo.title) {
                 return 1;
@@ -59,13 +59,13 @@ export class ComponentsFacetTypeaheadListComponent extends BaseDocumentationSect
         this.facets = Observable.create((observer: Observer<Facet[]>) => {
 
             // get the search query
-            let searchQuery = (<any>observer).destination.outerValue;
+            const searchQuery = (<any>observer).outerValue;
 
             // simulate server request
-            setTimeout(_ => {
+            setTimeout(() => {
 
                 // return list of filtered users from "server"
-                observer.next(this.users); 
+                observer.next(this.users.filter(user => user.title.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1));
             }, 750);
         });
 

@@ -21,40 +21,30 @@
         <input type="text"
             class="form-control"
             [placeholder]="typeaheadConfig?.placeholder"
-            [(ngModel)]="searchQuery"
-            (ngModelChange)="updateTypeahead($event)"
+            [ngModel]="query$ | async"
+            (ngModelChange)="query$.next($event); updateTypeahead($event)"
             (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
             (blur)="typeaheadOpen = false">
 
         <ux-typeahead #typeahead
             [(open)]="typeaheadOpen"
             display="title"
-            [options]="typeaheadOptions">
+            [options]="typeaheadOptions"
+            [optionTemplate]="facetOptionTemplate"
+            [selectOnEnter]="true"
+            (optionSelected)="select($event)">
         </ux-typeahead>
-
-        <!-- <input type="text"
-            class="form-control"
-            [placeholder]="typeaheadConfig?.placeholder"
-            [typeahead]="typeaheadOptions"
-            [(ngModel)]="searchQuery"
-            [typeaheadMinLength]="typeaheadConfig?.minCharacters"
-            [typeaheadOptionsLimit]="typeaheadConfig?.maxResults"
-            [typeaheadWaitMs]="typeaheadConfig?.delay"
-            (typeaheadOnSelect)="selectOption($event)"
-            [typeaheadItemTemplate]="facetOptionTemplate"
-            (keyup.ArrowUp)="scrollToFocused()"
-            (keyup.ArrowDown)="scrollToFocused()"> -->
 
     </div>
 
 </div>
 
-<ng-template #facetOptionTemplate let-model="item" let-index="index">
+<ng-template #facetOptionTemplate let-option="option" let-api="api">
     <p class="facet-typeahead-list-option">
-        <span [innerHTML]="model.title | facetTypeaheadHighlight: searchQuery"></span>
+        <span [innerHTML]="option.title | facetTypeaheadHighlight: (query$ | async)"></span>
         <span class="facet-typeahead-list-option-count"
-            *ngIf="model.count">
-            ({{ model.count }})
+            *ngIf="option.count">
+            ({{ option.count }})
         </span>
     </p>
 </ng-template>
