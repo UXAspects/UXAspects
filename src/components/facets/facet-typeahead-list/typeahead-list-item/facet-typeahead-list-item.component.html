@@ -1,6 +1,7 @@
 <div #option
     role="option"
     class="facet-typeahead-list-selected-option"
+    [attr.aria-checked]="selected"
     [tabindex]="tabbable ? 0 : -1"
     (click)="selectedChange.emit(facet)"
     (keydown.enter)="selectedChange.emit(facet)"

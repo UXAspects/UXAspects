@@ -47,6 +47,7 @@ export class TypeaheadComponent implements OnChanges, OnDestroy {
     @Input() pageSize: number = 20;
     @Input() selectFirst: boolean = true;
     @Input() selectOnEnter: boolean = false;
+    @Input() loading = false;
 
     @Input() loadingTemplate: TemplateRef<any>;
     @Input() optionTemplate: TemplateRef<any>;
@@ -59,7 +60,6 @@ export class TypeaheadComponent implements OnChanges, OnDestroy {
 
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions$ = new BehaviorSubject<TypeaheadVisibleOption[]>([]);
-    loading = false;
     clicking = false;
     highlighted$ = new BehaviorSubject<TypeaheadVisibleOption>(null);
     highlightedKey: string = null;

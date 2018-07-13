@@ -1,6 +1,6 @@
 <ux-facet-header [header]="header" [(expanded)]="expanded"></ux-facet-header>
 
-<div class="facet-typeahead-list-container" *ngIf="expanded">
+<div class="facet-typeahead-list-container" role="listbox" *ngIf="expanded">
 
     <div class="facet-typeahead-list-selected-container" *ngIf="suggestions?.length > 0">
 
@@ -21,18 +21,23 @@
         <input type="text"
             class="form-control"
             [placeholder]="typeaheadConfig?.placeholder"
+            [attr.aria-activedescendant]="highlightedElement?.id"
+            [attr.aria-controls]="typeaheadId"
             [ngModel]="query$ | async"
             (ngModelChange)="query$.next($event); updateTypeahead($event)"
             (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
             (blur)="typeaheadOpen = false">
 
         <ux-typeahead #typeahead
+            [id]="typeaheadId"
             [(open)]="typeaheadOpen"
+            [loading]="loading"
             display="title"
             [options]="typeaheadOptions"
             [optionTemplate]="facetOptionTemplate"
             [selectOnEnter]="true"
-            (optionSelected)="select($event)">
+            (optionSelected)="select($event)"
+            (highlightedElementChange)="highlightedElement = $event">
         </ux-typeahead>
 
     </div>
