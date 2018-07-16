@@ -1,12 +1,12 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsGridNg1Component } from './grid-ng1/grid-ng1.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { ComponentsGridNg1Component } from './grid-ng1/grid-ng1.component';
+
 
 const SECTIONS = [
     ComponentsGridNg1Component
@@ -24,10 +24,10 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        WrappersModule,
         TabsModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        HybridModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
