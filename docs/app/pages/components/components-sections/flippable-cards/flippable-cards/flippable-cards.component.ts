@@ -12,6 +12,8 @@ import { DocumentationSectionComponent } from '../../../../../decorators/documen
 @DocumentationSectionComponent('ComponentsFlippableCardsComponent')
 export class ComponentsFlippableCardsComponent extends BaseDocumentationSection implements OnDestroy {
 
+    icon: string = require('../../../../../assets/img/IconCaseColorized36x36.png');
+
     options = {
         size: 70,
         donutWidth: 3,
