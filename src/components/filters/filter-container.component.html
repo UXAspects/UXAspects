@@ -1,7 +1,13 @@
 <ng-content></ng-content>
 
 <!-- Add a Clear Button -->
-<div class="filter-selected-clear-button" *ngIf="filters.length > 0" [uxTooltip]="clearTooltip || 'Clear All'" (click)="removeAll()">
+<button class="filter-selected-clear-button"
+    tabindex="0"
+    aria-label="Clear all filters"
+    i18n-aria-label
+    *ngIf="filters.length > 0"
+    [uxTooltip]="clearTooltip || 'Clear All'"
+    (click)="removeAll()">
 
     <svg class="filter-selected-clear-graphic" width="19" height="12" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
         <rect class="light-grey" x="0" y="2" width="7" height="2"></rect>
@@ -11,4 +17,4 @@
         <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
     </svg>
 
-</div>
+</button>

@@ -11,16 +11,16 @@ ux-filter-container {
         border: 1px solid transparent;
         transition: border-color 0.3s ease-in-out;
         cursor: pointer;
+        background-color: transparent;
 
-        &:hover,
         &:focus {
-            border-color: @grey2;
-            outline-style: none;
+            .aspects-outline();
         }
 
         .filter-selected-clear-graphic {
             position: absolute;
             top: 0;
+            left: 0;
 
             .dark-grey {
                 fill: @grey2;

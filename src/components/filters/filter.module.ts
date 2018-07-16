@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { MenuNavigationModule } from '../../directives/menu-navigation';
 import { TooltipModule } from '../tooltip/index';
 import { FilterBaseComponent } from './filter-base/filter-base.component';
 import { FilterContainerComponent } from './filter-container.component';
@@ -22,6 +23,7 @@ const DECLARATIONS = [
         TypeaheadModule.forRoot(),
         TooltipModule,
         FormsModule,
+        MenuNavigationModule,
         CommonModule
     ],
     exports: DECLARATIONS,
