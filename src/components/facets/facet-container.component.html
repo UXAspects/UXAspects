@@ -31,19 +31,26 @@
     <!-- Display Tags For Selected Items -->
     <div class="facets-selected-list"
         uxReorderable
+        role="list"
         [reorderingDisabled]="!facetsReorderable"
         [(reorderableModel)]="facets"
         (reorderableModelChange)="facetsChange.emit(facets)">
 
         <!-- Show Selected Tags -->
-        <div class="facet-selected-tag"
+        <div #tag
+            class="facet-selected-tag"
+            role="listitem"
             tabindex="0"
-            *ngFor="let facet of facets"
+            uxReorderableHandle
+            *ngFor="let facet of facets; trackBy: trackBy"
             [attr.aria-label]="facet.title"
-            [uxReorderableModel]="facet">
+            [uxReorderableModel]="facet"
+            (mousedown)="tag.focus()"
+            (keydown.ArrowRight)="shiftRight(facet, tag)"
+            (keydown.ArrowLeft)="shiftLeft(facet, tag)">
 
             <!-- Display Label -->
-            <span class="facet-selected-tag-label" uxReorderableHandle>{{ facet.title }}</span>
+            <span class="facet-selected-tag-label">{{ facet.title }}</span>
 
             <!-- Display Remove Icon -->
             <button class="facet-selected-remove-btn"

@@ -45,7 +45,7 @@
 </div>
 
 <ng-template #facetOptionTemplate let-option="option" let-api="api">
-    <p class="facet-typeahead-list-option">
+    <p class="facet-typeahead-list-option" [attr.aria-label]="option.title">
         <span [innerHTML]="option.title | facetTypeaheadHighlight: (query$ | async)"></span>
         <span class="facet-typeahead-list-option-count"
             *ngIf="option.count">

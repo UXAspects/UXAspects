@@ -64,6 +64,50 @@ export class FacetContainerComponent implements OnDestroy {
         this.triggerEvent(new FacetDeselectAll());
     }
 
+    trackBy(_index: number, facet: Facet): string | number {
+        return facet.id || facet.title;
+    }
+
+    shiftRight(facet: Facet, element: HTMLElement): void {
+        // only move the item if reordering is allowed
+        if (this.facetsReorderable === false) {
+            return;
+        }
+
+        // perform the movement
+        this.shiftFacet(facet, 1);
+
+        // the item may become unfocused during the reorder so we should refocus it
+        requestAnimationFrame(() => element.focus());
+    }
+
+    shiftLeft(facet: Facet, element: HTMLElement): void {
+        // only move the item if reordering is allowed
+        if (this.facetsReorderable === false) {
+            return;
+        }
+
+        // perform the movement
+        this.shiftFacet(facet, -1);
+
+        // the item may become unfocused during the reorder so we should refocus it
+        requestAnimationFrame(() => element.focus());
+    }
+
+    private shiftFacet(facet: Facet, distance: number) {
+        const index = this.facets.indexOf(facet);
+        const target = index + distance;
+
+        // Ensure the move is valid
+        if (target < 0 || target === this.facets.length) {
+            return;
+        }
+
+        // Perform the move
+        this.facets.splice(index, 1);
+        this.facets.splice(target, 0, facet);
+    }
+
     private triggerEvent(event: FacetEvent) {
         this.events.next(event);
     }
