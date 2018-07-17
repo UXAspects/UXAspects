@@ -1,4 +1,5 @@
 
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directive, Host, Input, OnDestroy } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
@@ -13,7 +14,7 @@ export class FilterBaseComponent implements OnDestroy {
 
     private _subscription: Subscription;
 
-    constructor(@Host() private filtersContainer: FilterContainerComponent) {
+    constructor(@Host() private filtersContainer: FilterContainerComponent, private _announcer: LiveAnnouncer) {
         this._subscription = filtersContainer.events.pipe(filter(event => event instanceof FilterRemoveAllEvent)).subscribe(this.removeFilter.bind(this));
     }
 
@@ -24,6 +25,7 @@ export class FilterBaseComponent implements OnDestroy {
     addFilter(_filter: Filter): void {
         if (!_filter.initial) {
             this.filtersContainer.addFilter(_filter);
+            this._announcer.announce(`Filter ${_filter.name} selected.`);
         }
     }
 
@@ -33,6 +35,7 @@ export class FilterBaseComponent implements OnDestroy {
         }
 
         this.filtersContainer.removeFilter(_filter);
+        this._announcer.announce(`Filter ${_filter.name} deselected.`);
     }
 
 }

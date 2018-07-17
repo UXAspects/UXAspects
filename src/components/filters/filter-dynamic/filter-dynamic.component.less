@@ -53,27 +53,25 @@ ux-filter-dynamic {
         .typeahead-box {
             padding: 10px;
 
-            .dropdown-menu {
-                width: 220px;
-                margin-left: -10px;
-                margin-right: 10px;
-                box-shadow: 0 2px 3px @grey4;
+            ux-typeahead {
+                position: static;
+                box-shadow: none;
+                padding-bottom: 0;
+                margin-bottom: 0;
 
-                .active > a {
-                    margin-left: 10px;
-                    width: 200px;
-                    background-color: @filter-dropdown-hover-bg;
-                    border-radius: 0;
-                    border-color: @filter-dropdown-hover-border;
-                    text-decoration: none;
-                    color: @text-color;
-                    font-weight: normal;
-                    padding-left: 10px;
-                    padding-right: 10px;
+                .ux-typeahead-options {
+                    li {
+                        font-size: 1rem;
+                        padding: 6px 10px;
 
-                    strong {
-                        font-weight: bold;
+                        .filter-typeahead-highlighted {
+                            color: @grey1;
+                        }
                     }
+                }
+
+                .ux-typeahead-no-options {
+                    font-size: 1rem;
                 }
             }
         }

@@ -56,38 +56,32 @@
 
         <hr>
 
-        <li *ngIf="showTypeahead" class="typeahead-box">
+        <li *ngIf="showTypeahead" class="typeahead-box" role="none">
 
                 <input type="text"
                     class="form-control"
                     [placeholder]="options?.placeholder || defaultOptions.placeholder"
                     [attr.aria-activedescendant]="highlightedElement?.id"
                     [attr.aria-controls]="typeaheadId"
+                    aria-autocomplete="list"
+                    aria-multiline="false"
                     [ngModel]="query$ | async"
                     (ngModelChange)="query$.next($event); updateTypeahead($event)"
-                    (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
-                    (blur)="typeaheadOpen = false">
+                    (keydown)="typeaheadKeyService.handleKey($event, typeahead); $event.stopPropagation();"
+                    (keydown.enter)="$event.preventDefault()"
+                    (blur)="typeaheadOpen = false"
+                    (click)="$event.stopPropagation()">
 
                 <ux-typeahead #typeahead
                     [id]="typeaheadId"
                     [(open)]="typeaheadOpen"
                     display="title"
-                    [options]="typeaheadOptions"
-                    (optionSelected)="select($event)"
+                    [selectOnEnter]="true"
+                    [options]="typeaheadItems"
+                    [optionTemplate]="filterOptionTemplate"
+                    (optionSelected)="select($event); dynamicDropdown.hide(); menuNavigationToggle.focus()"
                     (highlightedElementChange)="highlightedElement = $event">
                 </ux-typeahead>
-                <!-- [loading]="loading"
-                [selectOnEnter]="true" -->
-
-
-            <!-- <input [(ngModel)]="searchQuery"
-                [typeahead]="typeaheadItems"
-                class="form-control"
-                (typeaheadOnSelect)="selectOption($event)"
-                [placeholder]="options?.placeholder || defaultOptions.placeholder"
-                [typeaheadMinLength]="options?.minCharacters || defaultOptions.minCharacters"
-                [typeaheadOptionsLimit]="options?.maxResults"
-                (click)="$event.stopPropagation()"> -->
         </li>
 
         <ng-container *ngIf="!showTypeahead">
@@ -113,3 +107,7 @@
 
     </ul>
 </div>
+
+<ng-template #filterOptionTemplate let-option="option" let-api="api">
+    <span [attr.aria-label]="option" [innerHTML]="option | filterTypeaheadHighlight: (query$ | async)"></span>
+</ng-template>

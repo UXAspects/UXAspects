@@ -1,8 +1,9 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Component, Input, Pipe, PipeTransform, ViewChild } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { TypeaheadKeyService } from '../../typeahead';
+import { TypeaheadKeyService, TypeaheadOptionEvent } from '../../typeahead/index';
 import { FilterBaseComponent } from '../filter-base/filter-base.component';
 import { Filter, FilterContainerComponent } from '../filter-container.component';
 
@@ -19,13 +20,21 @@ export class FilterDynamicComponent extends FilterBaseComponent {
 
     @Input() filters: Filter[];
     @Input() initial: Filter;
-    @Input() options: FilterDynamicListConfig;
+
+    @Input() set options(options: FilterDynamicListConfig) {
+        this._config = {... this.defaultOptions, ...options };
+    }
+
+    get options(): FilterDynamicListConfig {
+        return this._config;
+    }
 
     @ViewChild(BsDropdownDirective) dropdown: BsDropdownDirective;
 
     defaultOptions: FilterDynamicListConfig = {
         placeholder: '',
-        minCharacters: 3
+        minCharacters: 3,
+        maxResults: Infinity
     };
 
     typeaheadId: string = `ux-filter-dynamic-typeahead-${uniqueId++}`;
@@ -35,15 +44,19 @@ export class FilterDynamicComponent extends FilterBaseComponent {
     typeaheadItems: string[] = [];
     highlightedElement: HTMLElement;
     typeaheadOpen: boolean = false;
-    typeaheadOptions = {};
 
-    constructor(public typeaheadKeyService: TypeaheadKeyService, container: FilterContainerComponent) {
-        super(container);
-        debugger;
+    private _config: FilterDynamicListConfig = { ...this.defaultOptions };
+
+    constructor(public typeaheadKeyService: TypeaheadKeyService, container: FilterContainerComponent, announcer: LiveAnnouncer) {
+        super(container, announcer);
     }
 
     getItems(): string[] {
-        return this.filters.filter(item => item !== this.initial).map(item => item.name);
+        const query = this.query$.value.toLowerCase();
+
+        return this.filters.filter(item => item !== this.initial && item.name.toLowerCase().indexOf(query) !== -1)
+            .map(item => item.name)
+            .slice(0, this._config.maxResults);
     }
 
     ngOnInit() {
@@ -99,12 +112,18 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         this.addFilter(this.selected);
     }
 
-    updateTypeahead(event: any): void {
-
+    updateTypeahead(query: string): void {
+        this.typeaheadOpen = query.length >= this._config.minCharacters;
+        this.typeaheadItems = this.getItems();
     }
 
-    select(event: any): void {
+    select(event: TypeaheadOptionEvent): void {
+        // find the filter with the matching name
+        const filter = this.filters.find(_filter => _filter.name === event.option);
 
+        if (filter) {
+            this.selectFilter(filter);
+        }
     }
 
 }
@@ -114,4 +133,14 @@ export interface FilterDynamicListConfig {
     minCharacters?: number;
     maxResults?: number;
     maxIndividualItems?: number;
+}
+
+@Pipe({
+    name: 'filterTypeaheadHighlight'
+})
+export class FilterTypeaheadHighlight implements PipeTransform {
+    transform(value: string, searchQuery: string): string {
+        const regex = new RegExp(searchQuery, 'i');
+        return value.replace(regex, `<b class="filter-typeahead-highlighted">${value.match(regex)}</b>`);
+    }
 }
