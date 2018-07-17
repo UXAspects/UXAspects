@@ -64,6 +64,16 @@ const ROUTES = [
             deps: ['$injector']
         },
         {
+            provide: '$timeout',
+            useFactory: (injector: Injector) => injector.get('$timeout'),
+            deps: ['$injector']
+        },
+        {
+            provide: '$q',
+            useFactory: (injector: Injector) => injector.get('$q'),
+            deps: ['$injector']
+        },
+        {
             provide: '$displayPanel',
             useFactory: (injector: Injector) => injector.get('$displayPanel'),
             deps: ['$injector']

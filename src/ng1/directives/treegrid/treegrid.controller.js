@@ -33,19 +33,33 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     }
   };
 
-  vm.allOptions = angular.extend({}, defaultOptions, vm.options);
-
-  vm.isAsync = angular.isFunction(vm.data);
-
   vm.loading = false;
-
   vm.gridRows = [];
-
   vm.treeData = [];
-
   vm.multipleSelectInstance = multipleSelectProvider.getComponentInstance(treegridId);
-
   vm.allSelected = false;
+
+  // Delay Initialising the function until we have all the inputs
+  requestAnimationFrame(() => vm.onInit());
+
+  vm.onInit = function () {
+    vm.allOptions = angular.extend({}, defaultOptions, vm.options);
+    vm.isAsync = angular.isFunction(vm.data);
+
+    // Watch for changes to the tree data and update the view when it changes
+    $scope.$watch('vm.data', function () {
+      updateView();
+    }, true);
+
+    $scope.$watch('vm.options', (nv) => {
+      vm.allOptions = angular.extend({}, defaultOptions, nv);
+    }, true);
+
+    // Initial load of top-level items
+    updateView();
+
+    $scope.$digest();
+  }
 
   // Set up multi select to work standalone
   if (!vm.multipleSelectInstance.keyFn) {
@@ -54,20 +68,11 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     };
   }
   if (!vm.multipleSelectInstance.onSelect) {
-    vm.multipleSelectInstance.onSelect = function () {};
+    vm.multipleSelectInstance.onSelect = function () { };
   }
   if (!vm.multipleSelectInstance.onDeselect) {
-    vm.multipleSelectInstance.onDeselect = function () {};
+    vm.multipleSelectInstance.onDeselect = function () { };
   }
-
-  // Watch for changes to the tree data and update the view when it changes
-  $scope.$watch('vm.data', function () {
-    updateView();
-  }, true);
-
-  $scope.$watch('vm.options', (nv) => {
-    vm.allOptions = angular.extend({}, defaultOptions, nv);
-  }, true);
 
   $scope.$watch("vm.multipleSelectInstance.selectedItems", function (nv) {
     if (angular.isArray(nv)) {
@@ -76,7 +81,12 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
       for (var i = 0; i < nv.length; i += 1) {
         selected.push(JSON.parse(nv[i]));
       }
-      vm.selected = selected;
+
+      // Required to ensure we correctly update a hybrid component
+      requestAnimationFrame(() => {
+        vm.selected = selected;
+        $scope.$apply();
+      });
     }
   }, true);
 
@@ -108,7 +118,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     return toggleExpand(row);
   };
 
-  vm.checkboxClick = function(event, row) {
+  vm.checkboxClick = function (event, row) {
     vm.multipleSelectInstance.itemClicked(row.dataItem);
     event.stopPropagation();
     event.preventDefault();
@@ -159,9 +169,6 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     }
     return className;
   };
-
-  // Initial load of top-level items
-  $timeout(updateView.bind(vm));
 
   function updateView() {
     vm.loading = true;
