@@ -1,11 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
-import { Breadcrumb, PageHeaderIconMenu, PageHeaderIconMenuDropdownItem, HelpCenterService, HelpCenterItem } from '../../../../../../../src/index';
-import { Subscription } from 'rxjs/Subscription';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
-import { IPlunk } from '../../../../../interfaces/IPlunk';
 import 'chance';
+import { Subscription } from 'rxjs/Subscription';
+import { Breadcrumb, HelpCenterItem, HelpCenterService, PageHeaderIconMenu } from '../../../../../../../src/index';
+import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-components-help-center',
@@ -21,6 +21,7 @@ export class ComponentsHelpCenterComponent extends BaseDocumentationSection impl
     menus: PageHeaderIconMenu[] = [
         {
             icon: 'hpe-help',
+            label: 'Help Menu',
             dropdown: []
         }
     ];
