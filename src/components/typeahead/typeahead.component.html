@@ -31,8 +31,11 @@
     </ol>
 
     <div *uxInfiniteScrollLoading>
-        <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate">
-        </ng-container>
+        <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate"></ng-container>
+    </div>
+
+    <div *ngIf="isInfiniteScroll() === false && (visibleOptions$ | async).length === 0 && loading">
+        <ng-container [ngTemplateOutlet]="loadingTemplate || defaultLoadingTemplate"></ng-container>
     </div>
 
 </div>
