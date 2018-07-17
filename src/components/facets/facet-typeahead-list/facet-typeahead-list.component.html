@@ -22,6 +22,8 @@
             class="form-control"
             [placeholder]="typeaheadConfig?.placeholder"
             [attr.aria-activedescendant]="highlightedElement?.id"
+            aria-autocomplete="list"
+            aria-multiline="false"
             [attr.aria-controls]="typeaheadId"
             [ngModel]="query$ | async"
             (ngModelChange)="query$.next($event); updateTypeahead($event)"
