@@ -1,10 +1,8 @@
-import { TypeaheadComponent } from './index';
 import { Injectable } from '@angular/core';
+import { TypeaheadComponent } from './typeahead.component';
 
 @Injectable()
 export class TypeaheadKeyService {
-
-    constructor() { }
 
     handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent) {
         if (typeahead) {
@@ -31,6 +29,11 @@ export class TypeaheadKeyService {
                 case 'Esc':
                     typeahead.open = false;
                     break;
+
+                case 'Enter':
+                    if (typeahead.selectOnEnter) {
+                        typeahead.selectHighlighted();
+                    }
             }
         }
     }

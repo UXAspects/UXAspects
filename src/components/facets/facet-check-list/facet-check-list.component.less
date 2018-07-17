@@ -2,6 +2,8 @@ ux-facet-check-list {
     .facet-check-list-container {
         display: flex;
         flex-direction: column;
+        margin: 0;
+        padding: 0;
 
         .facet-check-list-item {
             display: flex;
@@ -12,6 +14,10 @@ ux-facet-check-list {
             cursor: pointer;
             min-width: 100%;
             max-width: 100%;
+
+            &:focus {
+                .aspects-outline();
+            }
 
             .facet-check-list-item-check {
                 display: flex;
@@ -81,7 +87,8 @@ ux-facet-check-list {
                 background-color: transparent;
             }
 
-            &:hover::-webkit-scrollbar-thumb {
+            &:hover::-webkit-scrollbar-thumb,
+            &.facet-check-list-scrollbar-focused::-webkit-scrollbar-thumb {
                 border-radius: 6px;
                 background-color: @grey4;
             }

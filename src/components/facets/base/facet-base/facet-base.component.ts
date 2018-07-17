@@ -74,7 +74,7 @@ export class FacetBaseComponent implements OnInit, OnDestroy {
     deselectFacet(facet: Facet): void {
 
         // find facet to remove
-        let index = this.selected.findIndex(selectedFacet => selectedFacet === facet);
+        const index = this.selected.findIndex(selectedFacet => selectedFacet === facet);
 
         // only continue if facet is found
         if (index !== -1) {
