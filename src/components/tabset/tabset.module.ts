@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabsetComponent } from './tabset.component';
-import { TabsetService } from './tabset.service';
-import { TabComponent } from './tab/tab.component';
-import { TabHeadingDirective } from './tab/tab-heading.directive';
+import { NgModule } from '@angular/core';
 import { TabFocusDirective } from './tab/tab-focus.directive';
+import { TabHeadingDirective } from './tab/tab-heading.directive';
+import { TabComponent } from './tab/tab.component';
+import { TabsetComponent } from './tabset.component';
 
 @NgModule({
     imports: [

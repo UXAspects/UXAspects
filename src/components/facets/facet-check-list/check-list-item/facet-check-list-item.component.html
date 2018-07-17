@@ -1,0 +1,32 @@
+<div #option
+    class="facet-check-list-item"
+    [class.facet-active]="selected"
+    [attr.aria-checked]="selected"
+    role="option"
+    [tabindex]="tabbable ? 0 : -1"
+    (focus)="itemFocus.emit()"
+    (blur)="itemBlur.emit()"
+    (click)="selectedChange.emit(facet)"
+    (keydown.enter)="selectedChange.emit(facet)"
+    (keydown.space)="selectedChange.emit(facet); $event.preventDefault()"
+    (keydown.spacebar)="selectedChange.emit(facet); $event.preventDefault()"
+    [class.disabled]="facet?.disabled">
+
+    <!-- Show check icon to indicate the state -->
+    <span class="facet-check-list-item-check" aria-hidden="true">
+        <span class="hpe-icon hpe-active"></span>
+    </span>
+
+    <!-- Display the title -->
+    <span class="facet-check-list-item-title">
+        {{ facet?.title }}
+    </span>
+
+    <!-- Display the count if specified -->
+    <span class="facet-check-list-item-count"
+        *ngIf="facet?.count !== undefined"
+        attr.aria-label="{{ facet?.count }}"
+        i18n-aria-label>
+        ({{ facet?.count }})
+    </span>
+</div>
