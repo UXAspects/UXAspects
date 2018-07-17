@@ -58,23 +58,58 @@
 
         <li *ngIf="showTypeahead" class="typeahead-box">
 
-            <input [(ngModel)]="searchQuery"
+                <input type="text"
+                    class="form-control"
+                    [placeholder]="options?.placeholder || defaultOptions.placeholder"
+                    [attr.aria-activedescendant]="highlightedElement?.id"
+                    [attr.aria-controls]="typeaheadId"
+                    [ngModel]="query$ | async"
+                    (ngModelChange)="query$.next($event); updateTypeahead($event)"
+                    (keydown)="typeaheadKeyService.handleKey($event, typeahead)"
+                    (blur)="typeaheadOpen = false">
+
+                <ux-typeahead #typeahead
+                    [id]="typeaheadId"
+                    [(open)]="typeaheadOpen"
+                    display="title"
+                    [options]="typeaheadOptions"
+                    (optionSelected)="select($event)"
+                    (highlightedElementChange)="highlightedElement = $event">
+                </ux-typeahead>
+                <!-- [loading]="loading"
+                [selectOnEnter]="true" -->
+
+
+            <!-- <input [(ngModel)]="searchQuery"
                 [typeahead]="typeaheadItems"
                 class="form-control"
                 (typeaheadOnSelect)="selectOption($event)"
                 [placeholder]="options?.placeholder || defaultOptions.placeholder"
                 [typeaheadMinLength]="options?.minCharacters || defaultOptions.minCharacters"
-                [typeaheadOptionsLimit]="options?.maxResults">
+                [typeaheadOptionsLimit]="options?.maxResults"
+                (click)="$event.stopPropagation()"> -->
         </li>
 
-        <span *ngIf="!showTypeahead">
-            <li class="dropdown-list-item" *ngFor="let filter of filters" role="menuitem">
-                <a class="dropdown-item" (click)="selectFilter(filter)">
+        <ng-container *ngIf="!showTypeahead">
+
+            <li class="dropdown-list-item"
+                *ngFor="let filter of filters"
+                role="none">
+
+                <a class="dropdown-item"
+                    role="menuitem"
+                    tabindex="-1"
+                    uxMenuNavigationItem
+                    [attr.aria-selected]="filter === selected"
+                    (click)="selectFilter(filter); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()"
+                    (keydown.enter)="selectFilter(filter); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()">
+
                     <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
                     <span class="filter-dropdown-title">{{ filter.name }}</span>
                 </a>
             </li>
-        </span>
+
+        </ng-container>
 
     </ul>
 </div>

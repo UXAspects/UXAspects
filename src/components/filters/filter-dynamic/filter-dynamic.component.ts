@@ -1,8 +1,12 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { TypeaheadKeyService } from '../../typeahead';
 import { FilterBaseComponent } from '../filter-base/filter-base.component';
-import { Filter } from '../filter-container.component';
+import { Filter, FilterContainerComponent } from '../filter-container.component';
+
+let uniqueId = 1;
 
 @Component({
     selector: 'ux-filter-dynamic',
@@ -23,10 +27,20 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         placeholder: '',
         minCharacters: 3
     };
-    searchQuery: string;
+
+    typeaheadId: string = `ux-filter-dynamic-typeahead-${uniqueId++}`;
+    query$ = new BehaviorSubject<string>('');
     selected: Filter;
     showTypeahead: boolean = true;
     typeaheadItems: string[] = [];
+    highlightedElement: HTMLElement;
+    typeaheadOpen: boolean = false;
+    typeaheadOptions = {};
+
+    constructor(public typeaheadKeyService: TypeaheadKeyService, container: FilterContainerComponent) {
+        super(container);
+        debugger;
+    }
 
     getItems(): string[] {
         return this.filters.filter(item => item !== this.initial).map(item => item.name);
@@ -43,10 +57,10 @@ export class FilterDynamicComponent extends FilterBaseComponent {
 
     selectOption(typeaheadOption: TypeaheadMatch) {
         this.removeFilter();
-        let idx = this.filters.findIndex(filter => filter.name === typeaheadOption.value);
+        const idx = this.filters.findIndex(filter => filter.name === typeaheadOption.value);
         this.selected = this.filters[idx];
         this.addFilter(this.selected);
-        this.searchQuery = '';
+        this.query$.next('');
         this.dropdown.hide();
     }
 
@@ -65,7 +79,7 @@ export class FilterDynamicComponent extends FilterBaseComponent {
         }
 
         if (hideDropdown) {
-            this.searchQuery = '';
+            this.query$.next('');
             this.dropdown.hide();
         }
 
@@ -76,13 +90,21 @@ export class FilterDynamicComponent extends FilterBaseComponent {
             super.removeFilter(this.selected);
             this.selected = this.initial;
         }
-        this.searchQuery = '';
+        this.query$.next('');
     }
 
     selectFilter(filter: Filter) {
         this.removeFilter();
         this.selected = filter;
         this.addFilter(this.selected);
+    }
+
+    updateTypeahead(event: any): void {
+
+    }
+
+    select(event: any): void {
+
     }
 
 }
