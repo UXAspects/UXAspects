@@ -95,7 +95,6 @@ import { SingleLineOverflowTooltipComponent } from './examples/tooltips/single-l
 import { StaticTooltipComponent } from './examples/tooltips/static-tooltip.component';
 import { TooltipsComponent } from './examples/tooltips/tooltips.component';
 import { TreeGridAsynchronousLoadingComponent } from './examples/tree-view/tree-grid-async.component';
-import { TreeGridComponent } from './examples/tree-view/tree-grid.component';
 import { TreeViewCompanionViewComponent } from './examples/tree-view/tree-view-companion.component';
 import { TreeViewComponent } from './examples/tree-view/tree-view.component';
 import { ExpandingContentComponent } from './examples/utils/expanding-content.component';
@@ -210,7 +209,6 @@ const WRAPPERS: any[] = [
     ToggleSwitchComponent,
     TooltipsComponent,
     TreeGridAsynchronousLoadingComponent,
-    TreeGridComponent,
     TreeViewCompanionViewComponent,
     TreeViewComponent,
     VerticalWizardComponent,

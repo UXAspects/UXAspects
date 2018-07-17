@@ -65,6 +65,10 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     updateView();
   }, true);
 
+  $scope.$watch('vm.options', (nv) => {
+    vm.allOptions = angular.extend({}, defaultOptions, nv);
+  }, true);
+
   $scope.$watch("vm.multipleSelectInstance.selectedItems", function (nv) {
     if (angular.isArray(nv)) {
       // selectedItems are JSON from keyFn above
