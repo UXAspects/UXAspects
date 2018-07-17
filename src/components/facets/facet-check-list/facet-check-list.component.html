@@ -4,6 +4,7 @@
 <div class="facet-check-list-container"
     role="listbox"
     [class.facet-check-list-scrollbar]="scrollbar"
+    [class.facet-check-list-scrollbar-focused]="isFocused"
     *ngIf="expanded">
 
     <!-- Iterate through each possible facet -->
@@ -12,7 +13,9 @@
         [tabbable]="activeIndex === index"
         [selected]="isFacetSelected(facet)"
         (selectedChange)="toggleFacet(index, facet)"
-        (keydown)="onKeydown($event)">
+        (keydown)="onKeydown($event)"
+        (itemFocus)="isFocused = true"
+        (itemBlur)="isFocused = false">
     </ux-facet-check-list-item>
 
 </div>

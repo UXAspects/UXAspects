@@ -4,6 +4,8 @@
     [attr.aria-checked]="selected"
     role="option"
     [tabindex]="tabbable ? 0 : -1"
+    (focus)="itemFocus.emit()"
+    (blur)="itemBlur.emit()"
     (click)="selectedChange.emit(facet)"
     (keydown.enter)="selectedChange.emit(facet)"
     (keydown.space)="selectedChange.emit(facet); $event.preventDefault()"

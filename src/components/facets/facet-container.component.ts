@@ -1,4 +1,6 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { ReorderEvent } from '../../directives/reorderable/index';
 import { FacetDeselect, FacetDeselectAll, FacetEvent, FacetSelect } from './facet-events';
 import { Facet } from './models/facet';
 
@@ -17,6 +19,8 @@ export class FacetContainerComponent implements OnDestroy {
     @Output() facetsChange: EventEmitter<Facet[]> = new EventEmitter<Facet[]>();
     @Output() events: EventEmitter<FacetEvent> = new EventEmitter<FacetEvent>();
 
+    constructor(private _announcer: LiveAnnouncer) { }
+
     ngOnDestroy(): void {
         this.events.complete();
     }
@@ -32,10 +36,10 @@ export class FacetContainerComponent implements OnDestroy {
         this.triggerEvent(new FacetSelect(facet));
     }
 
-    deselectFacet(facet: Facet): void {
+    deselectFacet(facet: Facet, tag?: HTMLElement): void {
 
         // find the index of the item in the selected array
-        let idx = this.facets.findIndex(selectedFacet => facet === selectedFacet);
+        const idx = this.facets.findIndex(selectedFacet => facet === selectedFacet);
 
         // if match there was no match then finish
         if (idx === -1) {
@@ -50,6 +54,19 @@ export class FacetContainerComponent implements OnDestroy {
 
         // trigger event
         this.triggerEvent(new FacetDeselect(facet));
+
+        // announce the facet removal
+        this._announcer.announce(`Option ${facet.title} deselected.`, 'assertive');
+
+        // focus another tag if there is one
+        if (tag) {
+            const sibling = tag.previousElementSibling || tag.nextElementSibling;
+
+            // if there is a sibling then focus it
+            if (sibling) {
+                (sibling as HTMLElement).focus();
+            }
+        }
     }
 
     deselectAllFacets(): void {
@@ -62,6 +79,9 @@ export class FacetContainerComponent implements OnDestroy {
 
         // trigger event
         this.triggerEvent(new FacetDeselectAll());
+
+        // announce the facet removal
+        this._announcer.announce(`All options deselected.`, 'assertive');
     }
 
     trackBy(_index: number, facet: Facet): string | number {
@@ -79,6 +99,9 @@ export class FacetContainerComponent implements OnDestroy {
 
         // the item may become unfocused during the reorder so we should refocus it
         requestAnimationFrame(() => element.focus());
+
+        // announce the move
+        this._announcer.announce(`Option ${facet.title} moved down.`);
     }
 
     shiftLeft(facet: Facet, element: HTMLElement): void {
@@ -92,6 +115,9 @@ export class FacetContainerComponent implements OnDestroy {
 
         // the item may become unfocused during the reorder so we should refocus it
         requestAnimationFrame(() => element.focus());
+
+        // announce the move
+        this._announcer.announce(`Option ${facet.title} moved up.`);
     }
 
     private shiftFacet(facet: Facet, distance: number) {
@@ -111,4 +137,8 @@ export class FacetContainerComponent implements OnDestroy {
     private triggerEvent(event: FacetEvent) {
         this.events.next(event);
     }
+}
+
+export interface FacetReorderEvent extends ReorderEvent {
+    index: number;
 }

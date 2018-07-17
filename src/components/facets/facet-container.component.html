@@ -8,13 +8,12 @@
         <span class="facets-selected-header-label">{{ header }}</span>
 
         <!-- Add a Clear Button -->
-        <div class="facets-selected-clear-button"
+        <button class="btn btn-link btn-icon button-secondary"
             tabindex="0"
             [attr.aria-label]="clearTooltip"
             [uxTooltip]="clearTooltip"
             placement="left"
             (click)="deselectAllFacets()"
-            (keyup.enter)="deselectAllFacets()"
             *ngIf="facets.length > 0">
 
             <svg class="facets-selected-clear-graphic" focusable="false" viewBox="0 0 19 12" shape-rendering="geometricPrecision">
@@ -24,7 +23,7 @@
                 <path class="dark-grey" d="M9,1 h1 l9,9 v1 h-1 l-9,-9 v-1 Z"></path>
                 <path class="dark-grey" d="M9,11 v-1 l9,-9 h1 v1 l-9,9 h-1 Z"></path>
             </svg>
-        </div>
+        </button>
 
     </div>
 
@@ -56,7 +55,7 @@
             <button class="facet-selected-remove-btn"
                 i18n-aria-label
                 aria-label="Deselect Facet"
-                (click)="deselectFacet(facet)">
+                (click)="deselectFacet(facet, tag)">
 
                 <i class="hpe-icon hpe-close"></i>
             </button>

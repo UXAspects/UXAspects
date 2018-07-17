@@ -13,6 +13,8 @@ export class FacetCheckListItemComponent implements FocusableOption {
     @Input() selected: boolean = false;
     @Input() tabbable: boolean = false;
     @Output() selectedChange = new EventEmitter<Facet>();
+    @Output() itemFocus = new EventEmitter<void>();
+    @Output() itemBlur = new EventEmitter<void>();
     @ViewChild('option') option: ElementRef;
 
     get disabled(): boolean {

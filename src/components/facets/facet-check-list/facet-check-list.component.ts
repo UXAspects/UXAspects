@@ -18,6 +18,7 @@ export class FacetCheckListComponent extends FacetBaseComponent implements After
 
     @ViewChildren(FacetCheckListItemComponent) options: QueryList<FacetCheckListItemComponent>;
 
+    isFocused: boolean = false;
     activeIndex: number = 0;
 
     private _focusKeyManager: FocusKeyManager<FacetCheckListItemComponent>;

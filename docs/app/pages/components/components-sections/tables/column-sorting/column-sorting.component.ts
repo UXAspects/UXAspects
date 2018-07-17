@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import 'chance';
 import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState } from '../../../../../../../src/index';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
@@ -12,7 +12,7 @@ import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
     templateUrl: './column-sorting.component.html'
 })
 @DocumentationSectionComponent('ComponentsColumnSortingComponent')
-export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlunkProvider, OnDestroy {
+export class ComponentsColumnSortingComponent extends BaseDocumentationSection implements IPlunkProvider {
 
     order: ColumnSortingOrder[] = [];
 
@@ -96,10 +96,6 @@ export class ComponentsColumnSortingComponent extends BaseDocumentationSection i
 
     constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
-    }
-
-    ngOnDestroy(): void {
-        this._announcer.ngOnDestroy();
     }
 
     changeState(title: string, column: ColumnSortingComponent) {

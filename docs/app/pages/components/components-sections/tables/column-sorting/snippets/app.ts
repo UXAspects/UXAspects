@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ColorService, ColumnSortingComponent, ColumnSortingOrder, ColumnSortingState } from '@ux-aspects/ux-aspects';
 import 'chance';
 
@@ -7,7 +7,7 @@ import 'chance';
     selector: 'app',
     templateUrl: './app.component.html'
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
 
     order: ColumnSortingOrder[] = [];
 
@@ -73,10 +73,6 @@ export class AppComponent implements OnDestroy {
     sparkBarColor = this._colorService.getColor('accent').toHex();
 
     constructor(private _colorService: ColorService, private _announcer: LiveAnnouncer) { }
-
-    ngOnDestroy(): void {
-        this._announcer.ngOnDestroy();
-    }
 
     changeState(title: string, column: ColumnSortingComponent) {
         this.order = column.changeState();

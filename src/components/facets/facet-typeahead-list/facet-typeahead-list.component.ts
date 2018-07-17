@@ -1,5 +1,5 @@
 import { FocusKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, Pipe, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -16,7 +16,7 @@ let uniqueId = 1;
     selector: 'ux-facet-typeahead-list',
     templateUrl: './facet-typeahead-list.component.html'
 })
-export class FacetTypeaheadListComponent extends FacetBaseComponent implements AfterViewInit, OnDestroy {
+export class FacetTypeaheadListComponent extends FacetBaseComponent implements AfterViewInit {
 
     @Input() facets: Facet[] | Observable<Facet[]>;
     @Input() header: string;
@@ -70,11 +70,6 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
 
         this._focusKeyManager = new FocusKeyManager(this.options).withVerticalOrientation();
         this._focusKeyManager.change.pipe(takeUntil(this._onDestroy)).subscribe(index => this.activeIndex = index);
-    }
-
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
-        this._announcer.ngOnDestroy();
     }
 
     onKeydown(event: KeyboardEvent): void {
