@@ -1,8 +1,9 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { MenuNavigationModule } from '../../directives/menu-navigation';
+import { MenuNavigationModule } from '../../directives/menu-navigation/index';
 import { TooltipModule } from '../tooltip/index';
 import { TypeaheadModule } from '../typeahead/typeahead.module';
 import { FilterBaseComponent } from './filter-base/filter-base.component';
@@ -25,7 +26,8 @@ const DECLARATIONS = [
         FormsModule,
         MenuNavigationModule,
         CommonModule,
-        TypeaheadModule
+        TypeaheadModule,
+        A11yModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS
