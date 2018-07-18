@@ -1,6 +1,6 @@
 TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
 
-export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
+export default function TreegridCtrl($scope, $q, multipleSelectProvider) {
   var vm = this;
 
   var treegridId = multipleSelectProvider.getNextComponentId();
@@ -59,7 +59,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
     updateView();
 
     $scope.$digest();
-  }
+  };
 
   // Set up multi select to work standalone
   if (!vm.multipleSelectInstance.keyFn) {
