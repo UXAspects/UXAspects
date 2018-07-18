@@ -1,14 +1,30 @@
-<uxd-tree-grid-asynchronous-loading-wrapper></uxd-tree-grid-asynchronous-loading-wrapper>
+<div class="m-b-md">
+    <button class="btn button-secondary m-r-xs" (click)="expandAllFolders()" [disabled]="inProgress">
+        <i class="hpe-icon hpe-down"></i> Expand All Folders</button>
+    <button class="btn button-secondary m-r-xs" (click)="contractAllFolders()" [disabled]="inProgress">
+        <i class="hpe-icon hpe-next"></i> Contract All Folders</button>
+    <button class="btn button-secondary m-r-xs" (click)="reloadAllFolders()" [disabled]="inProgress">
+        <i class="hpe-icon hpe-refresh"></i> Reload All Folders</button>
+</div>
+
+<treegrid [data]="loadDataFn" [columns]="columns" [(treeData)]="treeData" [(selected)]="selected" [options]="options"></treegrid>
+
+<p class="m-t-md">High priority:
+    <span *ngFor="let item of highPriorityItems; let last = last">{{ item.dataItem.document + (last ? '.' : ', ') }}</span>
+</p>
 
 <hr>
 
-<p>This example demonstrates asynchronous loading in the tree grid. The <code>data</code> attribute is bound to a function which
-    returns a promise for the child items of the provided data item.</p>
+<p>
+    This example demonstrates asynchronous loading in the tree grid. The <code>data</code> attribute is bound to a function which
+    returns a promise for the child items of the provided data item.
+</p>
 
-<p>The <code>tree-data</code> attribute is used to examine and control the tree grid. The buttons above the grid use it to locate
-    all “folder” type rows, and invoke the <code>contract</code>, <code>expand</code> or <code>reload</code> functions on
-    them. It is also watched for changes made by the controls in the Priority column, and an array of the high priority items
-    is maintained in the controller.</p>
+<p>The
+    <code>tree-data</code> attribute is used to examine and control the tree grid. The buttons above the grid use it to locate all “folder” type
+    rows, and invoke the <code>contract</code>, <code>expand</code> or <code>reload</code> functions on them.
+    It is also watched for changes made by the controls in the Priority column, and an array of the high
+    priority items is maintained in the controller.</p>
 
 <tabset>
     <tab heading="HTML">

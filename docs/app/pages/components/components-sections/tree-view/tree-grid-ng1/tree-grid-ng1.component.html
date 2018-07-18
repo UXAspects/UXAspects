@@ -1,6 +1,40 @@
-<uxd-tree-grid-wrapper></uxd-tree-grid-wrapper>
+<treegrid [data]="data" [columns]="columns" [(selected)]="selected" [options]="options" [(currentRow)]="currentRow"></treegrid>
 
+<p class="m-t-md">Selected items:
+  <span *ngFor="let item of selected; let last = last">{{ item.title + (last ? '.' : ', ') }}</span>
+  <em *ngIf="selected?.length === 0">none</em></p>
 <hr>
+
+<div class="row uxd-customize-example">
+    <div class="col-md-12">
+        <accordion>
+            <accordion-group heading="Customize Example...">
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(ngModel)]="enableDisplayPanel">Display Panel</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(ngModel)]="options.select.row">select.row</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(ngModel)]="options.select.check">select.check</ux-checkbox>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <ux-checkbox [(ngModel)]="!options.select.row && options.select.selectChildren" [disabled]="options.select.row">select.selectChildren</ux-checkbox>
+                    </div>
+                </div>
+                <div class="row uxd-customize-row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="select-rowClass">select.rowClass</label>
+                        <input type="text" name="select-rowClass" class="form-control" [(ngModel)]="options.select.rowClass">
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
 
 <p>The tree grid component allows hierarchical data to be displayed and navigated along with the benefits of a tabular
   presentation. It shares familiar functionality with the list views, such as keyboard navigation and multiple
