@@ -2,27 +2,30 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { MenuNavigationModule } from '../../directives/menu-navigation';
 import { TooltipModule } from '../tooltip/index';
+import { TypeaheadModule } from '../typeahead/typeahead.module';
 import { FilterBaseComponent } from './filter-base/filter-base.component';
 import { FilterContainerComponent } from './filter-container.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
-import { FilterDynamicComponent } from './filter-dynamic/filter-dynamic.component';
+import { FilterDynamicComponent, FilterTypeaheadHighlight } from './filter-dynamic/filter-dynamic.component';
 
 const DECLARATIONS = [
     FilterBaseComponent,
     FilterContainerComponent,
     FilterDropdownComponent,
-    FilterDynamicComponent
+    FilterDynamicComponent,
+    FilterTypeaheadHighlight
 ];
 
 @NgModule({
     imports: [
         BsDropdownModule.forRoot(),
-        TypeaheadModule.forRoot(),
         TooltipModule,
         FormsModule,
-        CommonModule
+        MenuNavigationModule,
+        CommonModule,
+        TypeaheadModule
     ],
     exports: DECLARATIONS,
     declarations: DECLARATIONS

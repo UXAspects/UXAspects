@@ -1,18 +1,54 @@
-<div class="btn-group ux-dynamic-filter" dropdown #dynamicDropdown="bs-dropdown">
-    <button (click)="dynamicDropdown.show()" type="button" [class.active]="selected !== initial" class="filter-dropdown btn dropdown-toggle">{{ selected?.title }} 
+<div class="btn-group ux-dynamic-filter"
+    dropdown
+    [autoClose]="true"
+    #dynamicDropdown="bs-dropdown">
+
+    <button
+        type="button"
+        tabindex="0"
+        dropdownToggle
+        aria-haspopup="true"
+        uxMenuNavigationToggle
+        #menuNavigationToggle="uxMenuNavigationToggle"
+        [(menuOpen)]="dynamicDropdown.isOpen"
+        [attr.aria-expanded]="dynamicDropdown.isOpen"
+        [class.active]="selected !== initial"
+        class="filter-dropdown btn dropdown-toggle">
+        {{ selected?.title }}
         <span class="hpe-icon hpe-down"></span>
     </button>
-    <ul *dropdownMenu class="dropdown-menu" role="menu">
 
-        <li class="dropdown-list-item" *ngIf="showTypeahead" role="menuitem">
-            <a class="dropdown-item" (click)="removeFilter(); dynamicDropdown.hide();">
+    <ul *dropdownMenu
+        class="dropdown-menu"
+        role="menu"
+        uxMenuNavigation
+        [toggleButton]="menuNavigationToggle">
+
+        <li class="dropdown-list-item"
+            *ngIf="showTypeahead"
+            role="none">
+
+            <a class="dropdown-item"
+                role="menuitem"
+                tabindex="-1"
+                uxMenuNavigationItem
+                [attr.aria-selected]="initial === selected"
+                (click)="removeFilter(); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()"
+                (keydown.enter)="removeFilter(); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()">
+
                 <i class="hpe-icon" [class.hpe-checkmark]="initial === selected"></i>
                 <span class="filter-dropdown-title">{{ initial.name }}</span>
             </a>
         </li>
 
-        <li class="dropdown-list-item" *ngIf="selected !== initial && showTypeahead" role="menuitem">
-            <a class="dropdown-item">
+        <li class="dropdown-list-item"
+            *ngIf="selected !== initial && showTypeahead"
+            role="none">
+
+            <a class="dropdown-item"
+                role="menuitem"
+                tabindex="-1"
+                uxMenuNavigationItem>
                 <i class="hpe-icon hpe-checkmark"></i>
                 <span class="filter-dropdown-title">{{ selected.name }}</span>
             </a>
@@ -20,22 +56,58 @@
 
         <hr>
 
-        <li *ngIf="showTypeahead" class="typeahead-box">
-            <input [(ngModel)]="searchQuery" [typeahead]="typeaheadItems" class="form-control" 
-            (typeaheadOnSelect)="selectOption($event)" 
-            [placeholder]="options?.placeholder || defaultOptions.placeholder"
-            [typeaheadMinLength]="options?.minCharacters || defaultOptions.minCharacters"
-            [typeaheadOptionsLimit]="options?.maxResults">
+        <li *ngIf="showTypeahead" class="typeahead-box" role="none">
+
+                <input type="text"
+                    class="form-control"
+                    [placeholder]="options?.placeholder || defaultOptions.placeholder"
+                    [attr.aria-activedescendant]="highlightedElement?.id"
+                    [attr.aria-controls]="typeaheadId"
+                    aria-autocomplete="list"
+                    aria-multiline="false"
+                    [ngModel]="query$ | async"
+                    (ngModelChange)="query$.next($event); updateTypeahead($event)"
+                    (keydown)="typeaheadKeyService.handleKey($event, typeahead); $event.stopPropagation();"
+                    (keydown.enter)="$event.preventDefault()"
+                    (blur)="typeaheadOpen = false"
+                    (click)="$event.stopPropagation()">
+
+                <ux-typeahead #typeahead
+                    [id]="typeaheadId"
+                    [(open)]="typeaheadOpen"
+                    display="title"
+                    [selectOnEnter]="true"
+                    [options]="typeaheadItems"
+                    [optionTemplate]="filterOptionTemplate"
+                    (optionSelected)="select($event); dynamicDropdown.hide(); menuNavigationToggle.focus()"
+                    (highlightedElementChange)="highlightedElement = $event">
+                </ux-typeahead>
         </li>
 
-        <span *ngIf="!showTypeahead">
-            <li class="dropdown-list-item" *ngFor="let filter of filters" role="menuitem">
-                <a class="dropdown-item" (click)="selectFilter(filter)">
+        <ng-container *ngIf="!showTypeahead">
+
+            <li class="dropdown-list-item"
+                *ngFor="let filter of filters"
+                role="none">
+
+                <a class="dropdown-item"
+                    role="menuitem"
+                    tabindex="-1"
+                    uxMenuNavigationItem
+                    [attr.aria-selected]="filter === selected"
+                    (click)="selectFilter(filter); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()"
+                    (keydown.enter)="selectFilter(filter); $event.stopPropagation(); $event.preventDefault(); dynamicDropdown.hide(); menuNavigationToggle.focus()">
+
                     <i class="hpe-icon" [class.hpe-checkmark]="filter === selected"></i>
                     <span class="filter-dropdown-title">{{ filter.name }}</span>
                 </a>
             </li>
-        </span>
+
+        </ng-container>
 
     </ul>
 </div>
+
+<ng-template #filterOptionTemplate let-option="option" let-api="api">
+    <span [attr.aria-label]="option" [innerHTML]="option | filterTypeaheadHighlight: (query$ | async)"></span>
+</ng-template>

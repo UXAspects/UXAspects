@@ -21,10 +21,13 @@ export class FilterDropdownComponent extends FilterBaseComponent {
         this.selected = this.initial;
     }
 
-    selectFilter(filter: Filter) {
+    selectFilter(filter: Filter, event: MouseEvent) {
         this.removeFilter();
         this.selected = filter;
         this.addFilter(this.selected);
+
+        event.stopPropagation();
+        event.preventDefault();
     }
 
 }
