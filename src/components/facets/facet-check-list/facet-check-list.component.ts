@@ -30,6 +30,12 @@ export class FacetCheckListComponent extends FacetBaseComponent implements After
         this._focusKeyManager.change.pipe(takeUntil(this._onDestroy)).subscribe(index => this.activeIndex = index);
     }
 
+    onFocus(index: number): void {
+        if (this._focusKeyManager.activeItemIndex === -1) {
+            this._focusKeyManager.setActiveItem(index);
+        }
+    }
+
     onKeydown(event: KeyboardEvent): void {
         this._focusKeyManager.onKeydown(event);
     }

@@ -14,6 +14,7 @@ export class FacetTypeaheadListItemComponent implements FocusableOption {
     @Input() simplified: boolean = false;
     @Input() tabbable: boolean = false;
 
+    @Output() itemFocus = new EventEmitter<void>();
     @Output() selectedChange = new EventEmitter<Facet>();
 
     @ViewChild('option') option: ElementRef;

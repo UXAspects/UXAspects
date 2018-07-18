@@ -2,6 +2,7 @@
 
 <!-- Create a container which will show when section is expanded -->
 <div class="facet-check-list-container"
+    tabindex="-1"
     role="listbox"
     [class.facet-check-list-scrollbar]="scrollbar"
     [class.facet-check-list-scrollbar-focused]="isFocused"
@@ -14,7 +15,7 @@
         [selected]="isFacetSelected(facet)"
         (selectedChange)="toggleFacet(index, facet)"
         (keydown)="onKeydown($event)"
-        (itemFocus)="isFocused = true"
+        (itemFocus)="isFocused = true; onFocus(index)"
         (itemBlur)="isFocused = false">
     </ux-facet-check-list-item>
 

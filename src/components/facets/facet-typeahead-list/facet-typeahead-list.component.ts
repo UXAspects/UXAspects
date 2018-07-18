@@ -76,6 +76,12 @@ export class FacetTypeaheadListComponent extends FacetBaseComponent implements A
         this._focusKeyManager.onKeydown(event);
     }
 
+    onFocus(index: number): void {
+        if (this._focusKeyManager.activeItemIndex === -1) {
+            this._focusKeyManager.setActiveItem(index);
+        }
+    }
+
     toggleFacet(index: number, facet: Facet): void {
         this.toggleFacetSelection(facet);
         this._focusKeyManager.setActiveItem(index);

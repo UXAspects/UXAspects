@@ -2,16 +2,17 @@
 
 <div class="facet-typeahead-list-container" role="listbox" *ngIf="expanded">
 
-    <div class="facet-typeahead-list-selected-container" *ngIf="suggestions?.length > 0">
+    <div class="facet-typeahead-list-selected-container" tabindex="-1" *ngIf="suggestions?.length > 0">
 
-    <ux-facet-typeahead-list-item
-        *ngFor="let facet of suggestions; let index = index"
-        [facet]="facet"
-        [tabbable]="activeIndex === index"
-        [selected]="isFacetSelected(facet)"
-        (selectedChange)="toggleFacet(index, facet)"
-        (keydown)="onKeydown($event)">
-    </ux-facet-typeahead-list-item>
+        <ux-facet-typeahead-list-item
+            *ngFor="let facet of suggestions; let index = index"
+            [facet]="facet"
+            [tabbable]="activeIndex === index"
+            [selected]="isFacetSelected(facet)"
+            (selectedChange)="toggleFacet(index, facet)"
+            (keydown)="onKeydown($event)"
+            (itemFocus)="onFocus(index)">
+        </ux-facet-typeahead-list-item>
 
     </div>
 
