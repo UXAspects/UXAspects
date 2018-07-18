@@ -3,6 +3,7 @@
     class="facet-typeahead-list-selected-option"
     [attr.aria-checked]="selected"
     [tabindex]="tabbable ? 0 : -1"
+    (focus)="itemFocus.emit()"
     (click)="selectedChange.emit(facet)"
     (keydown.enter)="selectedChange.emit(facet)"
     (keydown.space)="selectedChange.emit(facet); $event.preventDefault()"
