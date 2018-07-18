@@ -6,7 +6,7 @@ import { UpgradeComponent } from '@angular/upgrade/static';
 })
 export class TreeGridNg1Component extends UpgradeComponent {
 
-    @Input() data: TreeGridData[] | Function;
+    @Input() data: any[] | Function;
     @Input() columns: TreeGridColumn[];
     @Input() treeData: TreeGridData[];
     @Input() selected: any[];
