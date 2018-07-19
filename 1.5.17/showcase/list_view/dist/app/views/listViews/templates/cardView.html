@@ -1,0 +1,33 @@
+<ul class="card-view card-hover" ng-if="vm.activeLayout === 'card'">
+    <li class="card" ng-repeat="item in vm.items track by item.id" multiple-select-item="item"
+        index="{{::$index}}" tabIndex="{{ ::$index == 0 ? 1 : -1 }}">
+        <div class="container-fluid p-nil">
+            <div class="row p-nil">
+                <div class="col-xs-12">
+                    <div class="card-icon"></div>
+                    <span class="label label-accent card-label" ng-show="::item.active">ACTIVE</span>
+                </div>
+            </div>
+            <div class="row p-nil">
+                <div class="col-xs-12">
+                    <h3 class="card-text-emphasis m-t-sm m-b-nil overflow-ellipse" ng-bind="::item.document"></h3>
+                </div>
+            </div>
+            <div class="row p-nil m-t-xs">
+                <div class="col-xs-12">
+                    <p class="m-t-nil m-b-xs card-detail">
+                        <span class="card-text-subtle">Authored</span>
+                        <span class="card-text-subtle" ng-show="::item.dateString!='Today'"> on </span>
+                        <span ng-bind="::item.dateString"></span>
+                        <span class="card-text-subtle"> by</span> 
+                        <span ng-bind="::item.name"></span>
+                    </p>
+                </div>
+            </div>
+            <div class="row p-nil m-t-xs">
+                <spark type="'spark-accent'" value="::item.storage" fillheight="5" top-left-label="::item.storage" class="col-xs-5 inline-block align-right"></spark>
+            </div>
+        </div>
+        </div>
+    </li>
+</ul>

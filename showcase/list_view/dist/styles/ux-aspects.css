@@ -1664,6 +1664,7 @@ ux-timeline .timeline:after {
 .no-wrap {
   white-space: nowrap;
 }
+[hidden],
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],
@@ -1675,6 +1676,19 @@ ux-timeline .timeline:after {
 }
 ng\:form {
   display: block;
+}
+.cdk-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 .nav > li > a {
   font-weight: 600;
@@ -15105,6 +15119,9 @@ ux-column-sorting .column-sorting-icon-hidden {
 tr:hover th ux-column-sorting .ux-column-sorting-number {
   opacity: 1;
 }
+th:focus ux-column-sorting .ux-column-sorting-number {
+  opacity: 1;
+}
 .column-sorting-header {
   display: flex;
   flex-wrap: nowrap;
@@ -15540,6 +15557,8 @@ ux-facet-header .facet-header-title {
 ux-facet-check-list .facet-check-list-container {
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 ux-facet-check-list .facet-check-list-container .facet-check-list-item {
   display: flex;
@@ -15550,6 +15569,12 @@ ux-facet-check-list .facet-check-list-container .facet-check-list-item {
   cursor: pointer;
   min-width: 100%;
   max-width: 100%;
+}
+ux-facet-check-list .facet-check-list-container .facet-check-list-item:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-facet-check-list .facet-check-list-container .facet-check-list-item .facet-check-list-item-check {
   display: flex;
@@ -15605,7 +15630,8 @@ ux-facet-check-list .facet-check-list-container.facet-check-list-scrollbar::-web
   border: none;
   background-color: transparent;
 }
-ux-facet-check-list .facet-check-list-container.facet-check-list-scrollbar:hover::-webkit-scrollbar-thumb {
+ux-facet-check-list .facet-check-list-container.facet-check-list-scrollbar:hover::-webkit-scrollbar-thumb,
+ux-facet-check-list .facet-check-list-container.facet-check-list-scrollbar.facet-check-list-scrollbar-focused::-webkit-scrollbar-thumb {
   border-radius: 6px;
   background-color: #999;
 }
@@ -15627,29 +15653,14 @@ ux-facet-container .facets-selected-container .facets-selected-header-container 
   flex: 1;
   font-weight: 700;
 }
-ux-facet-container .facets-selected-container .facets-selected-header-container .facets-selected-clear-button {
-  position: relative;
-  flex: none;
-  width: 21px;
-  height: 14px;
-  border: 1px solid transparent;
-  transition: border-color 0.3s ease-in-out;
-  cursor: pointer;
-}
-ux-facet-container .facets-selected-container .facets-selected-header-container .facets-selected-clear-button:hover,
-ux-facet-container .facets-selected-container .facets-selected-header-container .facets-selected-clear-button:focus {
-  border-color: #333;
-  outline-style: none;
-}
-ux-facet-container .facets-selected-container .facets-selected-header-container .facets-selected-clear-button .facets-selected-clear-graphic {
-  position: absolute;
-  top: 0;
-}
-ux-facet-container .facets-selected-container .facets-selected-header-container .facets-selected-clear-button .facets-selected-clear-graphic .dark-grey {
+ux-facet-container .facets-selected-container .facets-selected-header-container .facets-selected-clear-graphic .dark-grey {
   fill: #333;
 }
-ux-facet-container .facets-selected-container .facets-selected-header-container .facets-selected-clear-button .facets-selected-clear-graphic .light-grey {
+ux-facet-container .facets-selected-container .facets-selected-header-container .facets-selected-clear-graphic .light-grey {
   fill: #999;
+}
+ux-facet-container .facets-selected-container .facets-selected-header-container .btn-icon {
+  height: 28px;
 }
 ux-facet-container .facets-selected-container .facets-selected-list {
   display: flex;
@@ -15673,6 +15684,17 @@ ux-facet-container .facets-selected-container .facets-selected-list .facet-selec
 }
 ux-facet-container .facets-selected-container .facets-selected-list .facet-selected-tag .facet-selected-tag-label {
   word-break: break-all;
+  pointer-events: none;
+}
+ux-facet-container .facets-selected-container .facets-selected-list .facet-selected-tag .facet-selected-remove-btn {
+  border: none;
+  background: none;
+}
+ux-facet-container .facets-selected-container .facets-selected-list .facet-selected-tag .facet-selected-remove-btn:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-facet-container .facets-selected-container .facets-selected-list .facet-selected-tag .hpe-close {
   font-size: 80%;
@@ -15697,26 +15719,20 @@ ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-co
   padding: 10px 0;
   border-top: 1px solid #f5f5f5;
 }
-ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control typeahead-container {
-  width: calc(100% - 20px);
+ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control ux-typeahead {
+  top: calc(100% - 10px);
 }
-ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control typeahead-container .dropdown-menu {
-  width: 100%;
-  max-height: 200px;
-  overflow-y: auto;
+ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control ux-typeahead .ux-typeahead-options li {
+  padding: 6px 20px;
 }
-ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control typeahead-container .dropdown-menu li a .facet-typeahead-list-option {
+ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control ux-typeahead .ux-typeahead-options li .facet-typeahead-list-option {
   margin-bottom: 0;
 }
-ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control typeahead-container .dropdown-menu li a .facet-typeahead-list-option .facet-typeahead-highlighted {
+ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control ux-typeahead .ux-typeahead-options li .facet-typeahead-list-option .facet-typeahead-highlighted {
   color: #2a2a2a;
 }
-ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control typeahead-container .dropdown-menu li a .facet-typeahead-list-option .facet-typeahead-list-option-count {
+ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control ux-typeahead .ux-typeahead-options li .facet-typeahead-list-option .facet-typeahead-list-option-count {
   color: #999;
-}
-ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-control typeahead-container .dropdown-menu li.active a {
-  background-color: #f5f5f5;
-  color: inherit;
 }
 ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-selected-container {
   margin-top: 5px;
@@ -15729,6 +15745,18 @@ ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-se
   outline: none;
   cursor: pointer;
   max-width: 100%;
+}
+ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-selected-container .facet-typeahead-list-selected-option:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
+}
+ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-selected-container .facet-typeahead-list-selected-option ux-checkbox {
+  pointer-events: none;
+}
+ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-selected-container .facet-typeahead-list-selected-option ux-checkbox .ux-checkbox {
+  margin-bottom: 0;
 }
 ux-facet-typeahead-list .facet-typeahead-list-container .facet-typeahead-list-selected-container .facet-typeahead-list-selected-option .facet-typeahead-list-selected-option-title {
   margin-right: 5px;
@@ -15746,29 +15774,13 @@ ux-filter-container {
   display: flex;
   align-items: center;
 }
-ux-filter-container .filter-selected-clear-button {
-  display: inline-block;
-  position: relative;
-  flex: none;
-  width: 21px;
-  height: 14px;
-  border: 1px solid transparent;
-  transition: border-color 0.3s ease-in-out;
-  cursor: pointer;
+ux-filter-container .btn-icon {
+  height: 28px;
 }
-ux-filter-container .filter-selected-clear-button:hover,
-ux-filter-container .filter-selected-clear-button:focus {
-  border-color: #333;
-  outline-style: none;
-}
-ux-filter-container .filter-selected-clear-button .filter-selected-clear-graphic {
-  position: absolute;
-  top: 0;
-}
-ux-filter-container .filter-selected-clear-button .filter-selected-clear-graphic .dark-grey {
+ux-filter-container .filter-selected-clear-graphic .dark-grey {
   fill: #333;
 }
-ux-filter-container .filter-selected-clear-button .filter-selected-clear-graphic .light-grey {
+ux-filter-container .filter-selected-clear-graphic .light-grey {
   fill: #999;
 }
 ux-filter-dropdown .filter-dropdown {
@@ -15846,26 +15858,21 @@ ux-filter-dynamic .dropdown-menu hr {
 ux-filter-dynamic .dropdown-menu .typeahead-box {
   padding: 10px;
 }
-ux-filter-dynamic .dropdown-menu .typeahead-box .dropdown-menu {
-  width: 220px;
-  margin-left: -10px;
-  margin-right: 10px;
-  box-shadow: 0 2px 3px #999;
+ux-filter-dynamic .dropdown-menu .typeahead-box ux-typeahead {
+  position: static;
+  box-shadow: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
-ux-filter-dynamic .dropdown-menu .typeahead-box .dropdown-menu .active > a {
-  margin-left: 10px;
-  width: 200px;
-  background-color: #ebebeb;
-  border-radius: 0;
-  border-color: #445664;
-  text-decoration: none;
-  color: #676a6c;
-  font-weight: normal;
-  padding-left: 10px;
-  padding-right: 10px;
+ux-filter-dynamic .dropdown-menu .typeahead-box ux-typeahead .ux-typeahead-options li {
+  font-size: 1rem;
+  padding: 6px 10px;
 }
-ux-filter-dynamic .dropdown-menu .typeahead-box .dropdown-menu .active > a strong {
-  font-weight: bold;
+ux-filter-dynamic .dropdown-menu .typeahead-box ux-typeahead .ux-typeahead-options li .filter-typeahead-highlighted {
+  color: #2a2a2a;
+}
+ux-filter-dynamic .dropdown-menu .typeahead-box ux-typeahead .ux-typeahead-no-options {
+  font-size: 1rem;
 }
 ux-flippable-card {
   perspective: 1000px;
@@ -15875,6 +15882,12 @@ ux-flippable-card {
   /* hide back of pane during swap */
   /* front pane, placed above back */
   /* back, initially hidden pane */
+}
+ux-flippable-card:focus {
+  outline: 2px dotted;
+  outline: auto -webkit-focus-ring-color;
+  outline-color: #00a7a2;
+  outline-offset: 0;
 }
 ux-flippable-card .ux-flipper.ux-flip-card {
   transform: none;
