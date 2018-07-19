@@ -17,6 +17,7 @@
     "serve:e2e": "lite-server -c=e2e/bs-config.e2e.json",
     "e2e": "concurrently \"npm run serve:e2e\" \"grunt protractor:e2e\" --kill-others --success first",
     "build:library": "ng-packagr -p ./src/ng-package.json",
+    "package:library": "grunt build:library && cd dist && npm pack",
     "lint": "grunt lint",
     "e2e:develop": "concurrently \"webpack --watch --progress --colors --config configs/webpack.e2e.config.js\" \"tsc -w --project .\\e2e\\tsconfig.json\" \"npm run serve:e2e\""
   },
