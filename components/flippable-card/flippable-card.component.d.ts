@@ -11,6 +11,7 @@ export declare class FlippableCardComponent {
     clickTrigger(): void;
     hoverEnter(): void;
     hoverExit(): void;
+    onKeyDown(event: KeyboardEvent): void;
 }
 export declare class FlippableCardFrontDirective {
 }

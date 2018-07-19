@@ -1,5 +1,4 @@
-import { TypeaheadComponent } from './index';
+import { TypeaheadComponent } from './typeahead.component';
 export declare class TypeaheadKeyService {
-    constructor();
     handleKey(event: KeyboardEvent, typeahead: TypeaheadComponent): void;
 }

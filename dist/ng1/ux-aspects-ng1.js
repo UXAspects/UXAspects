@@ -1,5 +1,5 @@
 /* 
-* @ux-aspects/ux-aspects-docs - v1.5.17-beta.2 
+* @ux-aspects/ux-aspects-docs - v1.5.17 
 * © Copyright 2018 EntIT Software LLC, a Micro Focus company
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -20451,7 +20451,7 @@ function nestedDonut(d3) {
             }
 
             function init_chart() {
-                svg = d3.select(container).append("svg").attr("width", chart_options.size).attr("height", chart_options.size).append("g").attr("transform", "translate(" + chart_options.size / 2 + "," + chart_options.size / 2 + ")");
+                svg = d3.select(container).append("svg").attr("width", chart_options.size).attr("focusable", false).attr("height", chart_options.size).append("g").attr("transform", "translate(" + chart_options.size / 2 + "," + chart_options.size / 2 + ")");
 
                 // draw initial chart
                 draw_chart();
@@ -22154,16 +22154,17 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var SingleLineOverflowController = function () {
-    function SingleLineOverflowController($timeout, $resize, $element, $scope, $document) {
+    function SingleLineOverflowController($element, $scope, $document) {
         _classCallCheck(this, SingleLineOverflowController);
 
-        this.$resize = $resize;
         this.$element = $element;
-        this.$scope = $scope;
         this.$body = $document.find('body');
 
-        // once the directive have finished initialising then initialise
-        $timeout(this.onInit.bind(this));
+        // apply the initial styles to keep it on one line and show ellipsis
+        this.setStyles();
+
+        // once the directive have finished initialising then create the tooltip
+        requestAnimationFrame(this.create.bind(this));
 
         // ensure we teardown correctly
         $element.on('$destroy', this.onDestroy.bind(this));
@@ -22173,35 +22174,10 @@ var SingleLineOverflowController = function () {
         $element.on('mouseenter', this.update.bind(this));
     }
 
-    /** Once the element is ready set up the tooltip */
+    /** Tear down the component and stop watching events */
 
 
     _createClass(SingleLineOverflowController, [{
-        key: 'onInit',
-        value: function onInit() {
-
-            // create the tooltip on the element
-            this.create();
-
-            // apply the initial styles to keep it on one line and show ellipsis
-            this.setStyles();
-
-            // perform the initial check to see if there is any overflow
-            this.update();
-
-            // set up out event handlers
-            this.$resize.bind(this.$element.get(0), this.update.bind(this));
-
-            // create a mutation observer to watch all contents
-            this.observer = new MutationObserver(this.update.bind(this));
-
-            // begin watching the element
-            this.observer.observe(this.$element.get(0), { characterData: true, subtree: true });
-        }
-
-        /** Tear down the component and stop watching events */
-
-    }, {
         key: 'onDestroy',
         value: function onDestroy() {
 
@@ -22213,14 +22189,8 @@ var SingleLineOverflowController = function () {
             // store the destroyed state
             this.destroyed = true;
 
-            // stop watching the contents of the element
-            this.observer.disconnect();
-
             // remove the tooltip
             this.$element.tooltip('destroy');
-
-            // unbind from the resize events
-            this.$resize.unbind(this.$element.get(0), this.update.bind(this));
         }
 
         /** Create the tooltip */
@@ -22229,6 +22199,7 @@ var SingleLineOverflowController = function () {
         key: 'create',
         value: function create() {
             this.$element.tooltip({ title: this.$element.text(), container: 'body ' });
+            this.$element.tooltip('disable');
         }
 
         /** Apply the styling required to show an ellipsis */
@@ -22243,9 +22214,7 @@ var SingleLineOverflowController = function () {
             }
 
             // apply the style to keep it on one line and show ellipsis
-            this.$element.css({
-                overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'
-            });
+            this.$element.css({ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' });
         }
     }, {
         key: 'update',
@@ -22264,19 +22233,20 @@ var SingleLineOverflowController = function () {
             var clone = this.$element.clone().css({ display: 'inline', width: 'auto', visibility: 'hidden' }).appendTo(this.$body);
 
             var width = clone.width();
+            var actualWidth = this.$element.width();
 
             // remove the clone element
             clone.remove();
 
             // determine if there is any overflow
-            return width > this.$element.width();
+            return width > actualWidth;
         }
     }]);
 
     return SingleLineOverflowController;
 }();
 
-SingleLineOverflowController.$inject = ['$timeout', '$resize', '$element', '$scope', '$document'];
+SingleLineOverflowController.$inject = ['$element', '$scope', '$document'];
 
 /***/ }),
 /* 341 */
@@ -34622,7 +34592,7 @@ angular.module('ux-aspects.treegrid', ['ux-aspects.multipleSelect', 'ux-aspects.
 /* harmony export (immutable) */ __webpack_exports__["a"] = TreegridCtrl;
 TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
 
-function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
+function TreegridCtrl($scope, $q, multipleSelectProvider) {
   var vm = this;
 
   var treegridId = multipleSelectProvider.getNextComponentId();
@@ -34654,19 +34624,35 @@ function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
     }
   };
 
-  vm.allOptions = angular.extend({}, defaultOptions, vm.options);
-
-  vm.isAsync = angular.isFunction(vm.data);
-
   vm.loading = false;
-
   vm.gridRows = [];
-
   vm.treeData = [];
-
   vm.multipleSelectInstance = multipleSelectProvider.getComponentInstance(treegridId);
-
   vm.allSelected = false;
+
+  // Delay Initialising the function until we have all the inputs
+  requestAnimationFrame(function () {
+    return vm.onInit();
+  });
+
+  vm.onInit = function () {
+    vm.allOptions = angular.extend({}, defaultOptions, vm.options);
+    vm.isAsync = angular.isFunction(vm.data);
+
+    // Watch for changes to the tree data and update the view when it changes
+    $scope.$watch('vm.data', function () {
+      updateView();
+    }, true);
+
+    $scope.$watch('vm.options', function (nv) {
+      vm.allOptions = angular.extend({}, defaultOptions, nv);
+    }, true);
+
+    // Initial load of top-level items
+    updateView();
+
+    $scope.$digest();
+  };
 
   // Set up multi select to work standalone
   if (!vm.multipleSelectInstance.keyFn) {
@@ -34681,11 +34667,6 @@ function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
     vm.multipleSelectInstance.onDeselect = function () {};
   }
 
-  // Watch for changes to the tree data and update the view when it changes
-  $scope.$watch('vm.data', function () {
-    updateView();
-  }, true);
-
   $scope.$watch("vm.multipleSelectInstance.selectedItems", function (nv) {
     if (angular.isArray(nv)) {
       // selectedItems are JSON from keyFn above
@@ -34693,7 +34674,12 @@ function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
       for (var i = 0; i < nv.length; i += 1) {
         selected.push(JSON.parse(nv[i]));
       }
-      vm.selected = selected;
+
+      // Required to ensure we correctly update a hybrid component
+      requestAnimationFrame(function () {
+        vm.selected = selected;
+        $scope.$apply();
+      });
     }
   }, true);
 
@@ -34778,9 +34764,6 @@ function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
     }
     return className;
   };
-
-  // Initial load of top-level items
-  $timeout(updateView.bind(vm));
 
   function updateView() {
     vm.loading = true;

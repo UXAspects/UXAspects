@@ -5492,6 +5492,7 @@ body > div#ux-codepen-container {
 //===============
 //Angular
 //==============
+[hidden],
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],
@@ -5504,6 +5505,21 @@ body > div#ux-codepen-container {
 
 ng\:form {
     display: block;
+}
+
+// Support Angular CDK Live Announcer
+.cdk-visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    outline: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 .nav > li > a {
     font-weight: 600;
@@ -21618,6 +21634,14 @@ tr:hover {
     }
 }
 
+th:focus {
+    ux-column-sorting {
+        .ux-column-sorting-number {
+            opacity: 1;
+        }
+    }
+}
+
 .column-sorting-header {
     display: flex;
     flex-wrap: nowrap;
@@ -22093,6 +22117,8 @@ ux-facet-check-list {
     .facet-check-list-container {
         display: flex;
         flex-direction: column;
+        margin: 0;
+        padding: 0;
 
         .facet-check-list-item {
             display: flex;
@@ -22103,6 +22129,10 @@ ux-facet-check-list {
             cursor: pointer;
             min-width: 100%;
             max-width: 100%;
+
+            &:focus {
+                .aspects-outline();
+            }
 
             .facet-check-list-item-check {
                 display: flex;
@@ -22172,7 +22202,8 @@ ux-facet-check-list {
                 background-color: transparent;
             }
 
-            &:hover::-webkit-scrollbar-thumb {
+            &:hover::-webkit-scrollbar-thumb,
+            &.facet-check-list-scrollbar-focused::-webkit-scrollbar-thumb {
                 border-radius: 6px;
                 background-color: @grey4;
             }
@@ -22198,33 +22229,18 @@ ux-facet-container {
                 font-weight: 700;
             }
 
-            .facets-selected-clear-button {
-                position: relative;
-                flex: none;
-                width: 21px;
-                height: 14px;
-                border: 1px solid transparent;
-                transition: border-color 0.3s ease-in-out;
-                cursor: pointer;
-
-                &:hover,
-                &:focus {
-                    border-color: @grey2;
-                    outline-style: none;
+            .facets-selected-clear-graphic {
+                .dark-grey {
+                    fill: @grey2;
                 }
 
-                .facets-selected-clear-graphic {
-                    position: absolute;
-                    top: 0;
-
-                    .dark-grey {
-                        fill: @grey2;
-                    }
-
-                    .light-grey {
-                        fill: @grey4;
-                    }
+                .light-grey {
+                    fill: @grey4;
                 }
+            }
+
+            .btn-icon {
+                height: 28px;
             }
         }
 
@@ -22251,6 +22267,16 @@ ux-facet-container {
 
                 .facet-selected-tag-label {
                     word-break: break-all;
+                    pointer-events: none;
+                }
+
+                .facet-selected-remove-btn {
+                    border: none;
+                    background: none;
+
+                    &:focus {
+                        .aspects-outline();
+                    }
                 }
 
                 .hpe-close {
@@ -22285,33 +22311,22 @@ ux-facet-typeahead-list {
             padding: 10px 0;
             border-top: 1px solid @grey7;
 
-            typeahead-container {
-                width: ~'calc(100% - 20px)';
+            ux-typeahead {
+                top: ~'calc(100% - 10px)';
 
-                .dropdown-menu {
-                    width: 100%;
-                    max-height: 200px;
-                    overflow-y: auto;
-
+                .ux-typeahead-options {
                     li {
-                        a {
-                            .facet-typeahead-list-option {
-                                margin-bottom: 0;
+                        padding: 6px 20px;
 
-                                .facet-typeahead-highlighted {
-                                    color: @grey1;
-                                }
+                        .facet-typeahead-list-option {
+                            margin-bottom: 0;
 
-                                .facet-typeahead-list-option-count {
-                                    color: @grey4;
-                                }
+                            .facet-typeahead-highlighted {
+                                color: @grey1;
                             }
-                        }
 
-                        &.active {
-                            a {
-                                background-color: @grey7;
-                                color: inherit;
+                            .facet-typeahead-list-option-count {
+                                color: @grey4;
                             }
                         }
                     }
@@ -22330,6 +22345,18 @@ ux-facet-typeahead-list {
                 outline: none;
                 cursor: pointer;
                 max-width: 100%;
+
+                &:focus {
+                    .aspects-outline();
+                }
+
+                ux-checkbox {
+                    pointer-events: none;
+
+                    .ux-checkbox {
+                        margin-bottom: 0;
+                    }
+                }
 
                 .facet-typeahead-list-selected-option-title {
                     margin-right: 5px;
@@ -22352,33 +22379,17 @@ ux-filter-container {
     display: flex;
     align-items: center;
 
-    .filter-selected-clear-button {
-        display: inline-block;
-        position: relative;
-        flex: none;
-        width: 21px;
-        height: 14px;
-        border: 1px solid transparent;
-        transition: border-color 0.3s ease-in-out;
-        cursor: pointer;
+    .btn-icon {
+        height: 28px;
+    }
 
-        &:hover,
-        &:focus {
-            border-color: @grey2;
-            outline-style: none;
+    .filter-selected-clear-graphic {
+        .dark-grey {
+            fill: @grey2;
         }
 
-        .filter-selected-clear-graphic {
-            position: absolute;
-            top: 0;
-
-            .dark-grey {
-                fill: @grey2;
-            }
-
-            .light-grey {
-                fill: @grey4;
-            }
+        .light-grey {
+            fill: @grey4;
         }
     }
 }
@@ -22482,27 +22493,25 @@ ux-filter-dynamic {
         .typeahead-box {
             padding: 10px;
 
-            .dropdown-menu {
-                width: 220px;
-                margin-left: -10px;
-                margin-right: 10px;
-                box-shadow: 0 2px 3px @grey4;
+            ux-typeahead {
+                position: static;
+                box-shadow: none;
+                padding-bottom: 0;
+                margin-bottom: 0;
 
-                .active > a {
-                    margin-left: 10px;
-                    width: 200px;
-                    background-color: @filter-dropdown-hover-bg;
-                    border-radius: 0;
-                    border-color: @filter-dropdown-hover-border;
-                    text-decoration: none;
-                    color: @text-color;
-                    font-weight: normal;
-                    padding-left: 10px;
-                    padding-right: 10px;
+                .ux-typeahead-options {
+                    li {
+                        font-size: 1rem;
+                        padding: 6px 10px;
 
-                    strong {
-                        font-weight: bold;
+                        .filter-typeahead-highlighted {
+                            color: @grey1;
+                        }
                     }
+                }
+
+                .ux-typeahead-no-options {
+                    font-size: 1rem;
                 }
             }
         }
@@ -22512,6 +22521,10 @@ ux-flippable-card {
     perspective: 1000px;
     transform-style: preserve-3d;
     display: inline-block;
+
+    &:focus {
+        .aspects-outline();
+    }
 
     .ux-flipper.ux-flip-card {
         transform: none;

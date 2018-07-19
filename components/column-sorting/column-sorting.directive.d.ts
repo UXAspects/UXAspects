@@ -1,15 +1,20 @@
-import { ColumnSortingComponent, ColumnSortingState } from './column-sorting.component';
-import { QueryList } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-export declare class ColumnSortingDirective {
+export declare class ColumnSortingDirective implements OnDestroy {
     singleSort: boolean;
-    components: QueryList<ColumnSortingComponent>;
     events: Subject<ColumnSortingOrder[]>;
     order: ColumnSortingOrder[];
-    ngAfterViewInit(): void;
-    toggleColumn(key: string, state: ColumnSortingState): ColumnSortingOrder[];
+    ngOnDestroy(): void;
+    toggleColumn(sorting: ColumnSortingOrder): ColumnSortingOrder[];
+    private toggleSingleColumn(sorting);
+    private toggleMultipleColumn(sorting);
 }
 export interface ColumnSortingOrder {
     key: string;
     state: ColumnSortingState;
+}
+export declare enum ColumnSortingState {
+    Ascending = "ascending",
+    Descending = "descending",
+    NoSort = "none",
 }

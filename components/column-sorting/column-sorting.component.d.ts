@@ -1,17 +1,14 @@
-import { ColumnSortingDirective, ColumnSortingOrder } from './column-sorting.directive';
-import { EventEmitter } from '@angular/core';
-export declare class ColumnSortingComponent {
+import { EventEmitter, OnDestroy } from '@angular/core';
+import { ColumnSortingDirective, ColumnSortingOrder, ColumnSortingState } from './column-sorting.directive';
+export declare class ColumnSortingComponent implements OnDestroy {
+    private _columnSorter;
     state: ColumnSortingState;
     key: string;
-    orderNumber: number;
     stateChange: EventEmitter<ColumnSortingState>;
-    private _parent;
+    order: number;
     columnSortingState: typeof ColumnSortingState;
-    initParent(parent: ColumnSortingDirective): void;
+    private _onDestroy;
+    constructor(_columnSorter: ColumnSortingDirective);
+    ngOnDestroy(): void;
     changeState(): ColumnSortingOrder[];
-}
-export declare enum ColumnSortingState {
-    Ascending = 0,
-    Descending = 1,
-    NoSort = 2,
 }

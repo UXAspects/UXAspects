@@ -1,5 +1,5 @@
 import { AfterViewInit, ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 export declare class OverflowDirective implements OnInit, AfterViewInit, OnDestroy {
     private _elementRef;
     /** Allow a observable to be used to check for overflow */

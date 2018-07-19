@@ -5,5 +5,5 @@ export declare class FilterDropdownComponent extends FilterBaseComponent {
     selected: Filter;
     removeFilter(): void;
     ngOnInit(): void;
-    selectFilter(filter: Filter): void;
+    selectFilter(filter: Filter, event: MouseEvent): void;
 }

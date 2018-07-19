@@ -1,11 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
+import { ElementRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadOptionEvent } from './typeahead-event';
 import { TypeaheadService } from './typeahead.service';
-export declare class TypeaheadComponent implements AfterViewInit, OnChanges, OnDestroy {
+export declare class TypeaheadComponent implements OnChanges, OnDestroy {
     typeaheadElement: ElementRef;
-    private _cdRef;
     private _service;
     id: string;
     options: any[] | InfiniteScrollLoadFunction;
@@ -21,27 +20,23 @@ export declare class TypeaheadComponent implements AfterViewInit, OnChanges, OnD
     openOnFilterChange: boolean;
     pageSize: number;
     selectFirst: boolean;
+    selectOnEnter: boolean;
+    loading: boolean;
     loadingTemplate: TemplateRef<any>;
     optionTemplate: TemplateRef<any>;
     noOptionsTemplate: TemplateRef<any>;
     optionSelected: EventEmitter<TypeaheadOptionEvent>;
     highlightedChange: EventEmitter<any>;
     highlightedElementChange: EventEmitter<HTMLElement>;
-    private _defaultLoadingTemplate;
-    private _defaultOptionTemplate;
-    private _defaultNoOptionsTemplate;
     loadOptionsCallback: InfiniteScrollLoadFunction;
     visibleOptions$: BehaviorSubject<TypeaheadVisibleOption[]>;
-    loading: boolean;
     clicking: boolean;
     highlighted$: BehaviorSubject<TypeaheadVisibleOption>;
     highlightedKey: string;
     readonly highlighted: any;
-    private _open;
-    private _subscription;
+    private _onDestroy;
     optionApi: TypeaheadOptionApi;
-    constructor(typeaheadElement: ElementRef, _cdRef: ChangeDetectorRef, _service: TypeaheadService);
-    ngAfterViewInit(): void;
+    constructor(typeaheadElement: ElementRef, _service: TypeaheadService);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     mousedownHandler(): void;
@@ -82,6 +77,7 @@ export declare class TypeaheadComponent implements AfterViewInit, OnChanges, OnD
      * @param d Value to be added to the index of the highlighted option, i.e. -1 to move backwards, +1 to move forwards.
      */
     moveHighlight(d: number): any;
+    selectHighlighted(): void;
     /**
      * Set up the options before the dropdown is displayed.
      */
