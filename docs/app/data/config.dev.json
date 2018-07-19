@@ -1,6 +1,6 @@
 {
     "version": "{{VERSION}}",
-    "assetsUrl": "https://localhost:8080/assets",
+    "assetsUrl": "http://localhost:8080/assets",
     "codePen": "https://codepen.io/pen/define",
     "plunker": "https://plnkr.co/edit/?p=preview"
 }
