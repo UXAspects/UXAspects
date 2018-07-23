@@ -38,7 +38,8 @@
     "ngx-bootstrap": "^2.0.0",
     "ngx-mask": "^2.5.3",
     "angular-tree-component": "^5.2.0",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "resize-observer-polyfill": "^1.5.0"
   },
   "devDependencies": {
     "@types/chart.js": "^2.4.2",

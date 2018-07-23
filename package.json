@@ -54,6 +54,7 @@
     "ngx-bootstrap": "^2.0.0",
     "ngx-mask": "^2.5.3",
     "prismjs": "^1.6.0",
+    "resize-observer-polyfill": "^1.5.0",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",
     "source-sans-pro": "^2.0.10",

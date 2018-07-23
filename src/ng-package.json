@@ -12,7 +12,8 @@
       "ngx-bootstrap",
       "ngx-mask",
       "angular-tree-component",
-      "bootstrap"
+      "bootstrap",
+      "resize-observer-polyfill"
     ],
     "lib": {
       "entryFile": "./index.ts",
