@@ -531,7 +531,7 @@ export class TagInputComponent implements OnInit, AfterContentInit, OnChanges, C
             // Set up event handler for the highlighted element
             // Added a delay to move it out of the current change detection cycle
             this._typeaheadSubscription.add(
-                this.typeahead.highlightedElementChange.pipe(delay(0)).subscribe((element: HTMLElement) => {
+                this.typeahead.highlightedElementChange.subscribe((element: HTMLElement) => {
                     this.highlightedElement = element;
                 })
             );

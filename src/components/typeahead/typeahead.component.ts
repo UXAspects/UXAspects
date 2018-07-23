@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -79,6 +79,7 @@ export class TypeaheadComponent implements OnChanges, OnDestroy {
 
     constructor(
         public typeaheadElement: ElementRef,
+        private _changeDetector: ChangeDetectorRef,
         private _service: TypeaheadService
     ) {
 
@@ -243,6 +244,7 @@ export class TypeaheadComponent implements OnChanges, OnDestroy {
     highlight(option: TypeaheadVisibleOption) {
         if (!this.isDisabled(option)) {
             this.highlighted$.next(option);
+            this._changeDetector.detectChanges();
         }
     }
 
@@ -264,7 +266,7 @@ export class TypeaheadComponent implements OnChanges, OnDestroy {
         while (inBounds && disabled);
 
         if (!disabled && inBounds) {
-            this.highlighted$.next(visibleOptions[newIndex]);
+            this.highlight(visibleOptions[newIndex]);
         }
 
         return this.highlighted;
@@ -308,6 +310,8 @@ export class TypeaheadComponent implements OnChanges, OnDestroy {
         }
 
         this.initOptions();
+
+        this._changeDetector.detectChanges();
     }
 
     /**

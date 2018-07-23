@@ -3,8 +3,8 @@ import { Component, ElementRef, EventEmitter, forwardRef, HostBinding, Inject, I
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { debounceTime, filter, map } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
+import { debounceTime, delay, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 import { InfiniteScrollLoadFunction } from '../../directives/infinite-scroll/index';
 import { TypeaheadComponent, TypeaheadKeyService, TypeaheadOptionEvent } from '../typeahead/index';
 
@@ -26,36 +26,28 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     @Input() @HostBinding('attr.id') id: string = `ux-select-${++uniqueId}`;
 
     @Input()
-    get value() {
-        return this._value;
-    }
     set value(value: any) {
-        this._value = value;
-        this.valueChange.emit(value);
-        this.propagateChange(value);
-
-        // if we are not allow multiple selection update the input value (supporting ngModel)
-        if (!this.multiple && value !== null) {
-            this.input = this.getDisplay(value);
-        }
+        this._value$.next(value);
+    }
+    get value() {
+        return this._value$.value;
     }
 
     @Input()
+    set input(value: string) {
+        this._input$.next(value);
+    }
     get input() {
         return this._input$.value;
     }
-    set input(value: string) {
-        this._input$.next(value);
-        this.inputChange.emit(value);
-    }
 
     @Input()
-    get dropdownOpen() {
-        return this._dropdownOpen;
-    }
     set dropdownOpen(value: boolean) {
         this._dropdownOpen = value;
         this.dropdownOpenChange.emit(value);
+    }
+    get dropdownOpen() {
+        return this._dropdownOpen;
     }
 
     @Input() options: any[] | InfiniteScrollLoadFunction;
@@ -85,10 +77,10 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     filter$: Observable<string>;
     propagateChange = (_: any) => { };
 
-    private _value: any;
+    private _value$ = new BehaviorSubject<any>(null);
     private _input$ = new BehaviorSubject<string>('');
     private _dropdownOpen: boolean = false;
-    private _subscription = new Subscription();
+    private _onDestroy = new Subject<void>();
 
     constructor(
         private _element: ElementRef,
@@ -97,8 +89,19 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
 
     ngOnInit() {
 
+        // Emit change events
+        this._value$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
+            this.valueChange.emit(value);
+            this.propagateChange(value);
+        });
+
+        this._input$.pipe(takeUntil(this._onDestroy), distinctUntilChanged()).subscribe(value => {
+            this.inputChange.emit(value);
+        });
+
         // Changes to the input field
-        const onInput = this._input$.pipe(
+        this._input$.pipe(
+            takeUntil(this._onDestroy),
             filter(value => this.allowNull),
             filter(value => !this.multiple && value !== this.getDisplay(this.value))
         ).subscribe(value => this.value = null);
@@ -110,11 +113,20 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
         );
 
         // Open the dropdown when filter is nonempty.
-        const onFilter = this.filter$.pipe(filter(value => value && value.length > 0)).subscribe(() => this.dropdownOpen = true);
+        this.filter$.pipe(
+            takeUntil(this._onDestroy),
+            filter(value => value && value.length > 0)
+        ).subscribe(() => this.dropdownOpen = true);
 
-        // store the subscriptions
-        this._subscription.add(onInput);
-        this._subscription.add(onFilter);
+        // Update the single-select input when the model changes
+        this._value$.pipe(
+            takeUntil(this._onDestroy),
+            distinctUntilChanged(),
+            delay(0),
+            filter(value => value !== null && !this.multiple)
+        ).subscribe(value => {
+            this.input = this.getDisplay(value);
+        });
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -124,11 +136,12 @@ export class SelectComponent implements OnInit, OnChanges, OnDestroy, ControlVal
     }
 
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
 
     writeValue(obj: any): void {
-        if (obj !== undefined && obj !== this._value) {
+        if (obj !== undefined && obj !== this.value) {
             this.value = obj;
         }
     }
