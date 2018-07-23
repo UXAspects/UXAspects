@@ -214,7 +214,8 @@ module.exports = {
                     ecma: 5,
                     warnings: false,
                     ie8: false,
-                    compress: true
+                    compress: true,
+                    mangle: false
                 }
             }),
             new OptimizeCSSAssetsPlugin({})
