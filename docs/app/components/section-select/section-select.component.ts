@@ -38,7 +38,7 @@ export class SectionSelectComponent implements OnInit, OnDestroy {
         this._routeSubscription.unsubscribe();
     }
 
-    navigateToSection(event: any) {
+    navigateToSection() {
         this.router.navigateByUrl(`${this._path}/${this.section.link}`);
     }
 }

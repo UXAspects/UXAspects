@@ -35,7 +35,7 @@ module.exports = function (grunt) {
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
 
     grunt.registerTask('documentation:serve', ['library', 'iconset', 'styles', 'webpack-dev-server:documentation']);
-    grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'webpack:documentation']);
+    grunt.registerTask('documentation:build', ['tslint:documentation', 'clean:documentation', 'run:build_documentation_production']);
 
     grunt.registerTask('e2e', ['tslint:e2e', 'clean:e2e', 'webpack:e2e', 'ts:e2e', 'run:e2e', 'makeReport']);
 

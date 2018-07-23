@@ -44,7 +44,7 @@ const ROUTES = [
         AccordionModule.forRoot(),
         CommonModule,
         WrappersModule,
-        TabsModule,
+        TabsModule.forRoot(),
         TreeModule,
         FormsModule,
         CheckboxModule,

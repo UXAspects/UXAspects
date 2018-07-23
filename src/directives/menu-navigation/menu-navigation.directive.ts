@@ -1,5 +1,5 @@
+import { DOCUMENT } from '@angular/common';
 import { AfterContentInit, ContentChildren, Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, QueryList } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
 import { MenuNavigationItemDirective } from './menu-navigation-item.directive';
 import { MenuNavigationToggleDirective } from './menu-navigation-toggle.directive';

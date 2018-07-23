@@ -1,20 +1,21 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
-
-import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-
-import { ChartsBarChartNg1Component } from './bar-chart-ng1/bar-chart-ng1.component';
-import { ChartsHorizontalBarChartNg1Component } from './horizontal-bar-chart-ng1/horizontal-bar-chart-ng1.component';
-import { ChartsStackedBarChartNg1Component } from './stacked-bar-chart-ng1/stacked-bar-chart-ng1.component';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { ChartsBarChartComponent } from './bar-chart/bar-chart.component';
-import { ChartsHorizontalBarChartComponent } from './horizontal-bar-chart/horizontal-bar-chart.component';
-import { ChartsStackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
 import { HybridModule } from '../../../../../../src/hybrid/hybrid.module';
+import { ColorServiceModule } from '../../../../../../src/services/color/index';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ChartsBarChartNg1Component } from './bar-chart-ng1/bar-chart-ng1.component';
+import { ChartsBarChartComponent } from './bar-chart/bar-chart.component';
+import { ChartsHorizontalBarChartNg1Component } from './horizontal-bar-chart-ng1/horizontal-bar-chart-ng1.component';
+import { ChartsHorizontalBarChartComponent } from './horizontal-bar-chart/horizontal-bar-chart.component';
+import { ChartsStackedBarChartNg1Component } from './stacked-bar-chart-ng1/stacked-bar-chart-ng1.component';
+import { ChartsStackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
+
+
 
 const SECTIONS = [
     ChartsBarChartComponent,
@@ -42,14 +43,15 @@ const ROUTES = [
         WrappersModule,
         HybridModule,
         ChartsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        ColorServiceModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
     entryComponents: SECTIONS
 })
-export class ChartsBarChartsModule { 
-    
+export class ChartsBarChartsModule {
+
     constructor(componentFactoryResolver: ComponentFactoryResolver, resolverService: ResolverService) {
         resolverService.registerResolver(componentFactoryResolver);
     }

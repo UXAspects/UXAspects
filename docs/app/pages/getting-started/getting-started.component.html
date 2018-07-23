@@ -8,35 +8,36 @@
     <p>UX Aspects components can be used in Angular projects (Angular or AngularJS 1.x), and those shown in the
         <a routerLink="/css">CSS</a> section can be used in non-Angular projects. Details on installing and using the components 
         are shown below. The installation instructions are broken down into four alternative methods as detailed in the 
-        following tabsets:</p> 
+        following tabsets:</p>
 
-    <tabset>
-        <tab heading="NPM">
+    <ux-tabset [minimal]="false">
+        <ux-tab heading="NPM">
             <ol>
                 <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
                 <li>Install the UX Aspects package and its dependencies: <kbd>npm install @ux-aspects/ux-aspects --save</kbd></li>
+                <li>Install <code>rxjs-compat</code> for Angular 6 applications: <kbd>npm install rxjs-compat --save</kbd></li>
             </ol>
-        </tab>
-        <tab heading="Bower">
+        </ux-tab>
+        <ux-tab heading="Bower">
             <ol>
                 <li>Install <a href="https://nodejs.org/">Node.js</a>, which provides the npm package manager.</li>
                 <li>Install <a href="https://www.typescriptlang.org/">TypeScript</a>: <kbd>npm install typescript --save-dev</kbd></li>
                 <li>Install <a href="https://angular.io/">Angular</a> and other dependencies:
                     <div>
                         <kbd>npm install @angular/common @angular/compiler @angular/compiler-cli @angular/core @angular/forms
-                            @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/platform-server
-                            @angular/router chart.js ngx-bootstrap ng2-charts @types/chart.js --save</kbd>
+                            @angular/http @angular/platform-browser @angular/platform-browser-dynamic
+                            @angular/router rxjs rxjs-compat zone.js chart.js ngx-bootstrap ng2-charts @types/chart.js --save</kbd>
                     </div>
                 </li>
                 <li>Install <a href="https://bower.io/">Bower</a>: <kbd>npm install -g bower</kbd></li>
                 <li>Install the UX Aspects bower package: <kbd>bower install ux-aspects#{{ version }}</kbd></li>
             </ol>
-        </tab>
-        <tab heading="Direct Download">
+        </ux-tab>
+        <ux-tab heading="Direct Download">
             <p>The UX Aspects resources (scripts, CSS, fonts, and images) can be downloaded from the
                 <a href="https://github.com/UXAspects/UXAspects/releases">GitHub releases page</a>.</p>
-        </tab>
-        <tab heading="Building from Source">
+        </ux-tab>
+        <ux-tab heading="Building from Source">
             <ol>
                 <li>Clone the <a href="https://github.com/UXAspects/UXAspects">GitHub repository</a>.</li>
                 <li>Install the dependencies: <kbd>npm install</kbd></li>
@@ -44,8 +45,8 @@
                     <code>dist</code> folder.
                 </li>
             </ol>
-        </tab>
-    </tabset>
+        </ux-tab>
+    </ux-tabset>
 
     <h3>Applying the Stylesheet</h3>
 
@@ -53,32 +54,32 @@
 
     <p>The UX Aspects stylesheet can be applied in three different ways as outlined in the following tabs:</p>
 
-    <tabset>
-        <tab heading="Angular CLI">
-            <p>If using the CLI, the UX Aspects stylesheet can be added in the <code>angular-cli.json</code> file:</p>     
+    <ux-tabset [minimal]="false">
+        <ux-tab heading="Angular CLI">
+            <p>If using the CLI, the UX Aspects stylesheet can be added in the <code>angular-cli.json</code> file:</p>
             <uxd-snippet [code]="cliJson" language="javascript"></uxd-snippet>
-        </tab>
-        <tab heading="Webpack">
-            <p>When using Webpack the UX Aspects stylesheet can be included in the main stylesheet of the application:</p>          
+        </ux-tab>
+        <ux-tab heading="Webpack">
+            <p>When using Webpack the UX Aspects stylesheet can be included in the main stylesheet of the application:</p>
             <uxd-snippet [code]="stylesheetCss" language="css"></uxd-snippet>
-        </tab>
-        <tab heading="Non-Angular Sites">
+        </ux-tab>
+        <ux-tab heading="Non-Angular Sites">
             <p>
-                If your application does not use Node or Webpack, you can download UX Aspects and copy the fonts, img, and styles 
-                directories to your application. The UX Aspects stylesheet can be applied from <code>styles/ux-aspects.css</code> 
+                If your application does not use Node or Webpack, you can download UX Aspects and copy the fonts, img, and styles
+                directories to your application. The UX Aspects stylesheet can be applied from <code>styles/ux-aspects.css</code>
                 by adding a <code>link</code> tag in the page header. This is the only required step for non-Angular sites.
             </p>
-        </tab>
-    </tabset>
+        </ux-tab>
+    </ux-tabset>
 
     <h3>Using UX Aspects</h3>
-    
+
     <div class="row-divider"></div>
 
     <p>UX Aspects can be used in Angular and AngularJS projects as follows:</p>
 
-    <tabset>
-        <tab heading="Angular">
+    <ux-tabset [minimal]="false">
+        <ux-tab heading="Angular">
 
             <p>Import the required component module(s) into the module that will be using them.</p>
 
@@ -90,9 +91,9 @@
                 upgraded using Angular's <a href="https://angular.io/docs/ts/latest/api/upgrade/index/UpgradeAdapter-class.html">UpgradeAdapter</a>.</p>
 
             <uxd-snippet [code]="angular4UpgradeTs" language="javascript"></uxd-snippet>
-        </tab>
-        
-        <tab heading="AngularJS">
+        </ux-tab>
+
+        <ux-tab heading="AngularJS">
 
             <p>The components marked <span class="label label-primary">AngularJS</span> can be included by importing
                 <code>@ux-aspects/ux-aspects/ng1/ux-aspects-ng1.js</code>. Over the coming months, these will be replaced with Angular components, so
@@ -102,9 +103,9 @@
                 in the documentation should be included via the <code>import</code> keyword and downgraded to be used in a hybrid site.</p>
 
             <uxd-snippet [code]="angular1DowngradeJs" language="javascript"></uxd-snippet>
-        </tab>
-        
-    </tabset>
+        </ux-tab>
+
+    </ux-tabset>
 
     <h3>Additional Information</h3>
 

@@ -1,15 +1,15 @@
-import { FocusIfModule } from './../../../../../../src/directives/focus-if/focus-if.module';
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsHotkeysNg1Component } from './hotkeys-ng1/hotkeys-ng1.component';
-import { ComponentsKeyboardServiceNg1Component } from './keyboard-service-ng1/keyboard-service-ng1.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { FocusIfModule } from './../../../../../../src/directives/focus-if/focus-if.module';
+import { ComponentsHotkeysNg1Component } from './hotkeys-ng1/hotkeys-ng1.component';
 import { ComponentsHotkeysComponent } from './hotkeys/hotkeys.component';
+import { ComponentsKeyboardServiceNg1Component } from './keyboard-service-ng1/keyboard-service-ng1.component';
+
 
 const SECTIONS = [
     ComponentsHotkeysComponent,
@@ -30,7 +30,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
-        TabsModule,
+        TabsModule.forRoot(),
         FocusIfModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)

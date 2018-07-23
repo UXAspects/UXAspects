@@ -1,22 +1,24 @@
 const { join } = require('path');
 const { IgnorePlugin } = require('webpack');
-const project_dir = process.cwd();
+const { cwd } = require('process');
 
 module.exports = {
 
+    mode: 'production',
+
     entry: {
-        'ux-aspects-ng1': join(project_dir, 'src', 'ng1', 'ux-aspects-ng1.module.js'),
+        'ux-aspects-ng1': join(cwd(), 'src', 'ng1', 'ux-aspects-ng1.module.js'),
     },
 
     output: {
-        path: join(project_dir, 'dist', 'docs', 'assets', 'ng1'),
+        path: join(cwd(), 'dist', 'docs', 'assets', 'ng1'),
         filename: '[name].js',
         libraryTarget: 'umd'
     },
 
     resolveLoader: {
         alias: {
-            'uglifyjs-loader': join(project_dir, 'configs', 'loaders', 'uglifyjs-loader.js')
+            'uglifyjs-loader': join(cwd(), 'configs', 'loaders', 'uglifyjs-loader.js')
         }
     },
 
@@ -33,7 +35,7 @@ module.exports = {
                     cacheDirectory: true,
                     presets: [
                         ['env', {
-                            'modules': false
+                            modules: false
                         }]
                     ]
                 }
@@ -46,9 +48,6 @@ module.exports = {
             test: /(plugins|external)/,
             exclude: /(node_modules|bower_components)/,
             use: ['script-loader', 'uglifyjs-loader']
-        }, {
-            test: join(project_dir, 'node_modules', 'webpack-dev-server', 'client'),
-            loader: 'null-loader'
         }]
     },
 

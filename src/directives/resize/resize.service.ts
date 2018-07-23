@@ -62,7 +62,7 @@ export class ResizeService implements OnDestroy {
             const attachListener = () => {
 
                 // watch for any future resizes - run inside ngzone as an iframe event listener is not patched
-                this._subscription.add(fromEvent(iframe.contentWindow, 'resize').subscribe((event: ResizeDimensions) =>
+                this._subscription.add(fromEvent(iframe.contentWindow, 'resize').subscribe(() =>
                     this._ngZone.run(() => subject.next({ width: nativeElement.offsetWidth, height: nativeElement.offsetHeight }))
                 ));
             };

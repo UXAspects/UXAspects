@@ -1,30 +1,29 @@
 const { join } = require('path');
-const webpack = require('webpack');
-const { NoEmitOnErrorsPlugin } = webpack;
-const { CommonsChunkPlugin } = webpack.optimize;
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
-const project_dir = process.cwd();
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { ScriptsWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/scripts-webpack-plugin');
+const { IndexHtmlWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/index-html-webpack-plugin');
+const { cwd } = require('process');
+const rxAlias = require('rxjs/_esm5/path-mapping');
 
 module.exports = {
 
+    mode: 'development',
+
     entry: {
-        main: join(project_dir, 'e2e', 'pages', 'main.ts'),
-        vendor: join(project_dir, 'e2e', 'pages', 'vendor.ts'),
-        polyfills: join(project_dir, 'e2e', 'pages', 'polyfills.ts')
+        main: join(cwd(), 'e2e', 'pages', 'main.ts'),
+        polyfills: join(cwd(), 'e2e', 'pages', 'polyfills.ts'),
+        styles: join(cwd(), 'e2e', 'pages', 'styles.css')
     },
 
     output: {
-        path: join(project_dir, 'e2e', 'dist'),
+        path: join(cwd(), 'e2e', 'dist'),
         filename: '[name].js'
     },
 
     resolve: {
-        extensions: ['.js', '.ts']
+        extensions: ['.js', '.ts'],
+        alias: rxAlias()
     },
 
     module: {
@@ -45,24 +44,21 @@ module.exports = {
 
             {
                 test: /\.less$/,
-                include: join(project_dir, 'e2e', 'pages', 'app'),
+                include: join(cwd(), 'e2e', 'pages', 'app'),
                 use: ['raw-loader', 'less-loader']
             },
 
             {
                 test: /\.css$/,
-                exclude: join(project_dir, 'e2e', 'pages', 'app'),
-                use: ExtractTextPlugin.extract({
-                    use: 'css-loader'
-                })
+                exclude: join(cwd(), 'e2e', 'pages', 'app'),
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             },
 
             {
                 test: /\.css$/,
-                include: join(project_dir, 'e2e', 'pages', 'app'),
+                include: join(cwd(), 'e2e', 'pages', 'app'),
                 use: 'raw-loader'
             },
-            
             {
               test: /\.js$|\.ts$/,
               use: {
@@ -77,40 +73,94 @@ module.exports = {
                 /\.e2e-spec\.ts$/,
                 /\.po\.spec\.ts$/
               ]
+            },
+            // Ignore warnings about System.import in Angular
+            {
+                test: /[\/\\]@angular[\/\\].+\.js$/,
+                parser: { system: true }
             }
         ]
     },
 
     plugins: [
 
-        new CommonsChunkPlugin({
-            name: ['main', 'vendor', 'polyfills']
-        }),
-
         new AngularCompilerPlugin({
-            mainPath: join(project_dir, 'e2e', 'pages', 'main.ts'),
-            tsConfigPath: join(project_dir, 'e2e', 'tsconfig-app.json'),
+            mainPath: join(cwd(), 'e2e', 'pages', 'main.ts'),
+            tsConfigPath: join(cwd(), 'e2e', 'tsconfig-app.json'),
             sourceMap: false,
             skipCodeGeneration: true
         }),
 
-        new NoEmitOnErrorsPlugin(),
-
-        new HtmlWebpackPlugin({
-            template: './e2e/pages/index.ejs'
+        new ScriptsWebpackPlugin({
+            name: 'scripts',
+            sourceMap: false,
+            filename: `scripts.js`,
+            scripts: [
+                join('node_modules', 'jquery', 'dist', 'jquery.min.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'version.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'widget.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'data.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'ie.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'scroll-parent.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'position.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'unique-id.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'mouse.js'),
+                join('node_modules', 'jquery-ui', 'ui', 'widgets', 'sortable.js'),
+                join('node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.min.js'),
+                join('node_modules', 'angular', 'angular.min.js'),
+            ],
+            basePath: cwd(),
         }),
 
-        new ExtractTextPlugin('styles.css'),
+        new IndexHtmlWebpackPlugin({
+            input: './e2e/pages/index.html',
+            output: 'index.html',
+            entrypoints: [
+                'scripts',
+                'polyfills',
+                'styles',
+                'main'
+            ],
+            sri: false
+        }),
+
+        new MiniCssExtractPlugin({
+            filename: 'styles.css'
+        }),
     ],
+
+    optimization: {
+        noEmitOnErrors: true,
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                default: {
+                    chunks: 'async',
+                    minChunks: 2,
+                    priority: 10
+                },
+                common: {
+                    name: 'common',
+                    chunks: 'async',
+                    minChunks: 2,
+                    enforce: true,
+                    priority: 5
+                },
+                vendors: false,
+                vendor: {
+                    name: 'vendor',
+                    chunks: 'initial',
+                    enforce: true
+                }
+            }
+        }
+    },
 
     devServer: {
         historyApiFallback: true,
         stats: {
             colors: true,
             reasons: true
-        },
-        headers: {
-            'Access-Control-Allow-Origin': '*'
         }
     }
 

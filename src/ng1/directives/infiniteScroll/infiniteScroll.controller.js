@@ -1,9 +1,9 @@
+import { from } from 'rxjs/observable/from';
+import { of } from 'rxjs/observable/of';
+import { first } from 'rxjs/operators';
+import { ElementScrollAdapter } from "./adapters/element-scroll.adapter";
 import { ScrollPaneAdapter } from "./adapters/scroll-pane.adapter";
 import { WindowScrollAdapter } from "./adapters/window-scroll.adapter";
-import { ElementScrollAdapter } from "./adapters/element-scroll.adapter";
-import { of } from 'rxjs/observable/of';
-import { from } from 'rxjs/observable/from';
-import 'rxjs/add/operator/first';
 
 export class InfiniteScrollController {
 
@@ -18,7 +18,7 @@ export class InfiniteScrollController {
         }
     }
 
-    constructor($attrs, $templateRequest, $scope, $element, safeInterval, $timeout) {
+    constructor($attrs, $scope, $element, safeInterval, $timeout) {
         this.page = 0;
         this.items = [];
         this.pages = [];
@@ -44,7 +44,7 @@ export class InfiniteScrollController {
 
         // watch for broadcasted events
         $scope.$on('infiniteScroll.reset', () => this.reset());
-        $scope.$on('infiniteScroll.reload', () => this.reload());        
+        $scope.$on('infiniteScroll.reload', () => this.reload());
         $scope.$on('infiniteScroll.reloadPage', (event, page) => this.getPage(page));
 
         // cleanup after ourselves
@@ -92,7 +92,7 @@ export class InfiniteScrollController {
      */
     onScroll(position) {
 
-        // if we are using the load more button 
+        // if we are using the load more button
         // or we are currently loading then stop here
         if (this.loading || this.buttonOptions.show) {
             return;
@@ -114,12 +114,12 @@ export class InfiniteScrollController {
 
         // call the specified paging function
         let results = this.pageFn(page, this.pageSize, this.searchQuery);
-        
+
         // convert to an observable
         const observable = angular.isArray(results) ? of(results) : from(results);
 
         // store the subscription - now it is cancellable unlike a promise
-        const subscription = observable.first().subscribe(items => {
+        const subscription = observable.pipe(first()).subscribe(items => {
 
             // remove this request from the list
             this._subscriptions = this._subscriptions.filter(request => request !== subscription);
@@ -174,7 +174,7 @@ export class InfiniteScrollController {
         this.page = 0;
         this.items = [];
         this.pages = [];
-        
+
         // reset the loading state and cancel any pending requests
         this.loading = false;
 
@@ -224,4 +224,4 @@ const ScrollType = {
     Standard: 1
 };
 
-InfiniteScrollController.$inject = ['$attrs', '$templateRequest', '$scope', '$element', 'safeInterval', '$timeout'];
+InfiniteScrollController.$inject = ['$attrs', '$scope', '$element', 'safeInterval', '$timeout'];

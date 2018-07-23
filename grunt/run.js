@@ -1,7 +1,6 @@
-var path = require('path');
+const { join } = require('path');
 
-var certificateFile = path.join('configs', 'webpack.docs.dev.pfx');
-var webdriverManager = path.join('node_modules', 'protractor', 'node_modules', 'webdriver-manager');
+const certificateFile = join('configs', 'webpack.docs.dev.pfx');
 
 module.exports = {
     webpack_import_cert: {
@@ -13,5 +12,8 @@ module.exports = {
     },
     build_library: {
         exec: 'npm run build:library'
+    },
+    build_documentation_production: {
+        exec: 'npm run build:documentation:prod'
     }
 };

@@ -1,10 +1,10 @@
-import 'chart.js';
-
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import 'chart.js';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DocumentationComponentsModule } from '../../components/components.module';
 import { ChartsPageComponent } from './charts.component';
+
 
 const ROUTES: Routes = [
     {
@@ -36,6 +36,7 @@ const ROUTES: Routes = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
+        TabsModule.forRoot(),
         RouterModule.forChild(ROUTES)
     ],
     exports: [ChartsPageComponent],

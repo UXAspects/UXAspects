@@ -1,13 +1,13 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { ComponentsContactsNg1Component } from './contacts-ng1/contacts-ng1.component';
 import { ComponentsContactsOverflowNg1Component } from './contacts-overflow-ng1/contacts-overflow-ng1.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 const SECTIONS = [
     ComponentsContactsNg1Component,
@@ -27,7 +27,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
-        TabsModule,
+        TabsModule.forRoot(),
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)
     ],

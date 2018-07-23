@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { downgradeComponent, UpgradeModule } from '@angular/upgrade/static';
-import * as angular from 'angular';
 import { AppComponent } from './app.component';
 import { FloatingActionButtonsNg1TestPageComponent } from './floating-action-buttons-ng1/floating-action-buttons-ng1.testpage.component';
 import { FloatingActionButtonComponent } from './floating-action-buttons-ng1/wrapper/floating-action-button-wrapper.directive';
@@ -13,6 +12,7 @@ import { StackedTabsNg1TestPageComponent } from './stacked-tabs-ng1/stacked-tabs
 import { StackedTabsComponent } from './stacked-tabs-ng1/wrapper/stacked-tabs-wrapper.directive';
 import { TabsNg1TestPageComponent } from './tabs-ng1/tabs-ng1.testpage.component';
 import { TabsComponent } from './tabs-ng1/wrapper/tabs-wrapper.directive';
+declare const angular: ng.IAngularStatic;
 
 let app = angular.module('app');
 

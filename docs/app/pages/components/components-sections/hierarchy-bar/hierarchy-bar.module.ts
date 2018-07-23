@@ -28,7 +28,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
-        TabsModule,
+        TabsModule.forRoot(),
         HierarchyBarModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)

@@ -1,8 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-
-import { AppConfiguration } from '../app-configuration/app-configuration.service';
+import { Inject, Injectable } from '@angular/core';
 import { ICodePen } from '../../interfaces/ICodePen';
+import { AppConfiguration } from '../app-configuration/app-configuration.service';
+
 
 @Injectable()
 export class CodePenService {
@@ -163,7 +163,7 @@ export class CodePenService {
 
     // Stylesheets for CodePen to reference
     codepenStylesheets = [
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
         this.codepenAssetsBaseUrl + '/css/ux-aspects.css'
     ];
 
@@ -171,7 +171,7 @@ export class CodePenService {
     private CODEPEN_SCRIPTS = [
         'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js',
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/chance/0.8.0/chance.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.6/angular.js',
         'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js',

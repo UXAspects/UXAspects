@@ -60,7 +60,7 @@ const ROUTES = [
         RadioButtonModule,
         SidePanelModule,
         SparkModule,
-        TabsModule,
+        TabsModule.forRoot(),
         WrappersModule,
     ],
     exports: SECTIONS,
