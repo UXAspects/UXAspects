@@ -1,6 +1,6 @@
+import { DOCUMENT } from '@angular/common';
 import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Inject, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DOCUMENT } from '@angular/platform-browser';
 import { delay } from 'rxjs/operators/delay';
 import { Subscription } from 'rxjs/Subscription';
 import { TypeaheadComponent, TypeaheadKeyService } from '../typeahead/index';

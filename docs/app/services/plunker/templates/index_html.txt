@@ -5,10 +5,9 @@
     <base href="." />
     <title>UX Aspects Example</title>
     <!-- Load common libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/2.1.6/typescript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.7.2/zone.min.js"></script>
-    <script src="https://unpkg.com/web-animations-js/web-animations.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/2.7.2/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.7/core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.8.26/zone.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.47/system.js"></script>
     <script>window.uxdAssetsUrl = '${assetsUrl}';</script>
     <!-- Configure SystemJS -->

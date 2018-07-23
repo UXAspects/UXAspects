@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Injector } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
-import * as angular from 'angular';
+declare const angular: ng.IAngularStatic;
 
 angular.module('app').directive('uxdTreeGridWrapper', () => {
   return {

@@ -1,10 +1,11 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ColorServiceModule } from '../../../../../../src/services/color/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { CssColorPaletteComponent } from './color-palette/color-palette.component';
+
 
 const SECTIONS = [
     CssColorPaletteComponent
@@ -23,7 +24,8 @@ const ROUTES = [
 @NgModule({
     imports: [
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        ColorServiceModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

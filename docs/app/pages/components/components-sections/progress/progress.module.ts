@@ -1,14 +1,14 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-
-import { ComponentsProgressBarNg1Component } from './progress-bar-ng1/progress-bar-ng1.component';
-import { WrappersModule } from '../../../../wrappers/wrappers.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ComponentsProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ProgressBarModule } from '../../../../../../src/index';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { WrappersModule } from '../../../../wrappers/wrappers.module';
+import { ComponentsProgressBarNg1Component } from './progress-bar-ng1/progress-bar-ng1.component';
+import { ComponentsProgressBarComponent } from './progress-bar/progress-bar.component';
+
 
 const SECTIONS = [
     ComponentsProgressBarNg1Component,
@@ -28,7 +28,7 @@ const ROUTES = [
 @NgModule({
     imports: [
         WrappersModule,
-        TabsModule,
+        TabsModule.forRoot(),
         ProgressBarModule,
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES)

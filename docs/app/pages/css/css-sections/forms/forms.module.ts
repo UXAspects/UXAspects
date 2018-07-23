@@ -1,17 +1,17 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { CheckboxModule } from '../../../../../../src/index';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-
-import { CssFormValidationOnSubmitComponent } from './form-validation-on-submit/form-validation-on-submit.component';
-import { CssFormValidationFieldByFieldComponent } from './form-validation-field-by-field/form-validation-field-by-field.component';
-import { CssInlineFormComponent } from './inline-form/inline-form.component';
-import { CssHorizontalFormComponent } from './horizontal-form/horizontal-form.component';
 import { CssBasicFormComponent } from './basic-form/basic-form.component';
+import { CssFormValidationFieldByFieldComponent } from './form-validation-field-by-field/form-validation-field-by-field.component';
+import { CssFormValidationOnSubmitComponent } from './form-validation-on-submit/form-validation-on-submit.component';
+import { CssHorizontalFormComponent } from './horizontal-form/horizontal-form.component';
+import { CssInlineFormComponent } from './inline-form/inline-form.component';
+
 
 const SECTIONS = [
     CssBasicFormComponent,
@@ -36,7 +36,7 @@ const ROUTES = [
         CheckboxModule,
         WrappersModule,
         DocumentationComponentsModule,
-        TabsModule,
+        TabsModule.forRoot(),
         RouterModule.forChild(ROUTES)
     ],
     exports: SECTIONS,

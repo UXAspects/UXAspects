@@ -1,22 +1,22 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { SearchBuilderModule, ItemDisplayPanelModule, ToolbarSearchModule, ToggleSwitchModule, RadioButtonModule, TooltipModule } from '../../../../../../src/index';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ColorServiceModule, ItemDisplayPanelModule, RadioButtonModule, SearchBuilderModule, ToggleSwitchModule, ToolbarSearchModule, TooltipModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
 import { WrappersModule } from '../../../../wrappers/wrappers.module';
-
 import { ComponentsSearchBuilderNg1Component } from './search-builder-ng1/search-builder-ng1.component';
+import { ComponentsSearchBuilderComponent } from './search-builder/search-builder.component';
 import { ComponentsSearchHistoryNg1Component } from './search-history-ng1/search-history-ng1.component';
 import { ComponentsSearchToolbarNg1Component } from './search-toolbar-ng1/search-toolbar-ng1.component';
 import { ComponentsToolbarSearchComponent } from './toolbar-search/toolbar-search.component';
-import { ComponentsSearchBuilderComponent } from './search-builder/search-builder.component';
+
+
 
 const SECTIONS = [
     ComponentsSearchBuilderNg1Component,
@@ -43,7 +43,7 @@ const ROUTES = [
         CommonModule,
         AccordionModule.forRoot(),
         ModalModule.forRoot(),
-        TabsModule,
+        TabsModule.forRoot(),
         TooltipModule,
         DocumentationComponentsModule,
         ItemDisplayPanelModule,
@@ -52,6 +52,7 @@ const ROUTES = [
         ToggleSwitchModule,
         ToolbarSearchModule,
         WrappersModule,
+        ColorServiceModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,

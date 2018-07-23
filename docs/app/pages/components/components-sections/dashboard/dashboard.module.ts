@@ -1,14 +1,14 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DocumentationComponentsModule } from '../../../../components/components.module';
-import { ResolverService, DocumentationPage } from '../../../../services/resolver/resolver.service';
-import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ComponentsDashboardComponent } from './dashboard/dashboard.component';
-import { DashboardModule } from '../../../../../../src/components/dashboard/index';
-import { SparkModule, ColorServiceModule } from '../../../../../../src/index';
-import { ChartsModule } from 'ng2-charts';
 import 'chart.js';
+import { ChartsModule } from 'ng2-charts';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { DashboardModule } from '../../../../../../src/components/dashboard/index';
+import { ColorServiceModule, SparkModule } from '../../../../../../src/index';
+import { DocumentationComponentsModule } from '../../../../components/components.module';
+import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
+import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
+import { ComponentsDashboardComponent } from './dashboard/dashboard.component';
 
 const SECTIONS = [
     ComponentsDashboardComponent
@@ -26,7 +26,7 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        TabsModule,
+        TabsModule.forRoot(),
         DashboardModule,
         SparkModule,
         ChartsModule,

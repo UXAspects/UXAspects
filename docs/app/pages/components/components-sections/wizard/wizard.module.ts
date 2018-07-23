@@ -40,7 +40,7 @@ const ROUTES = [
     imports: [
         CommonModule,
         WrappersModule,
-        TabsModule,
+        TabsModule.forRoot(),
         AccordionModule.forRoot(),
         DocumentationComponentsModule,
         RouterModule.forChild(ROUTES),

@@ -8,6 +8,8 @@
 
 <div class="row">
     <div class="col-md-4 col-sm-4 icon-demo-col m-b" *ngFor="let icon of iconlist">
-        <div class="icon-demo"> <i class="hpe-icon"  [ngClass]="icon.classname"></i> <span>{{ icon.classname }}</span></div>     
+        <div class="icon-demo">
+            <i class="hpe-icon p-r-xs" [ngClass]="icon.classname"></i> <span>{{ icon.classname }}</span>
+        </div>
     </div>
 </div>

@@ -21,7 +21,7 @@ export class FrameExtractionService {
         return canvas;
     }
 
-    private goToFrame(videoPlayer: HTMLVideoElement, time: number): Observable<number> {
+    private goToFrame(videoPlayer: HTMLVideoElement, time: number): Observable<Event> {
         videoPlayer.currentTime = time;
         return fromEvent(videoPlayer, time === 0 ? 'loadeddata' : 'seeked');
     }
@@ -31,7 +31,7 @@ export class FrameExtractionService {
         return Observable.create((observer: Observer<ExtractedFrame>) => {
 
             // go to specified frame
-            let subscription = this.goToFrame(videoPlayer, time).subscribe((event: any) => {
+            let subscription = this.goToFrame(videoPlayer, time).subscribe(() => {
                 // create image from current frame
                 canvas.getContext('2d').drawImage(videoPlayer, 0, 0, width, height);
                 observer.next({ image: canvas.toDataURL(), width: width, height: height, time: time });

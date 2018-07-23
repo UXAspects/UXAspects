@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { Observer } from 'rxjs/Observer';
@@ -13,15 +13,15 @@ export class AudioService {
     private _gainNode: GainNode;
     private _analyserNode: AnalyserNode;
 
-    constructor(private _http: Http) { }
+    constructor(private _http: HttpClient) { }
 
     getAudioFileMetadata(mediaElement: HTMLMediaElement): Observable<AudioMetadata> {
         return Observable.create((observer: Observer<AudioMetadata>) => {
-            this._http.request(mediaElement.src, { responseType: ResponseContentType.Blob }).subscribe(response => {
+            this._http.get(mediaElement.src, { responseType: 'blob' }).subscribe(response => {
 
                 const filename = mediaElement.src.substring(mediaElement.src.lastIndexOf('/') + 1);
                 const extension = mediaElement.src.substring(mediaElement.src.lastIndexOf('.') + 1).toLowerCase();
-                const blob = response.blob();
+
                 let description;
 
                 switch (extension) {
@@ -58,7 +58,7 @@ export class AudioService {
                     filename: filename,
                     extension: extension,
                     description: description,
-                    size: blob.size
+                    size: response.size
                 });
             });
         });
@@ -78,8 +78,8 @@ export class AudioService {
         return Observable.create((observer: Observer<Float32Array[]>) => {
 
             // load the media from the URL provided
-            this._http.request(url, { responseType: ResponseContentType.ArrayBuffer }).subscribe(response => {
-                this.getAudioBuffer(response.arrayBuffer()).subscribe(audioBuffer => {
+            this._http.get(url, { responseType: 'arraybuffer' }).subscribe(response => {
+                this.getAudioBuffer(response).subscribe(audioBuffer => {
 
                     // create the buffer source
                     this.createBufferSource(audioBuffer);

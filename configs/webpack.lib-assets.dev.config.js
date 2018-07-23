@@ -1,13 +1,15 @@
 const { join } = require('path');
+const { cwd } = require('process');
 const { ContextReplacementPlugin } = require('webpack');
-const project_dir = process.cwd();
 
 module.exports = {
 
-    entry: join(project_dir, 'src', 'index.ts'),
+    mode: 'production',
+
+    entry: join(cwd(), 'src', 'index.ts'),
 
     output: {
-        path: join(project_dir, 'dist', 'docs', 'assets', 'lib'),
+        path: join(cwd(), 'dist', 'docs', 'assets', 'lib'),
         filename: 'index.js',
         libraryTarget: 'umd'
     },
@@ -30,7 +32,7 @@ module.exports = {
                 use: [{
                     loader: 'awesome-typescript-loader',
                     options: {
-                        configFileName: join(project_dir, 'src', 'tsconfig-build.json')
+                        configFileName: join(cwd(), 'src', 'tsconfig-build.json')
                     },
                 }, {
                     loader: 'angular2-template-loader'
@@ -38,9 +40,6 @@ module.exports = {
             }, {
                 test: /\.less$/,
                 use: ['raw-loader', 'less-loader']
-            }, {
-                test: join(project_dir, 'node_modules', 'webpack-dev-server', 'client'),
-                loader: 'null-loader'
             }
         ]
     },
@@ -48,7 +47,7 @@ module.exports = {
     plugins: [
         new ContextReplacementPlugin(
             /(.+)?angular(\\|\/)core(.+)?/,
-            join(project_dir, 'docs')
+            join(cwd(), 'docs')
         ),
     ]
 };

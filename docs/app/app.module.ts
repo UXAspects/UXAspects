@@ -1,81 +1,45 @@
-import * as angular from 'angular';
+declare const angular: ng.IAngularStatic;
 
-let app = angular.module('app');
+const app = angular.module('app');
 
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, forwardRef, Injector } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { UpgradeModule, downgradeComponent, downgradeInjectable } from '@angular/upgrade/static';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-
-// Import UX Aspects
-import { CheckboxModule, ColorServiceModule, EboxModule, FlippableCardModule, ProgressBarModule, RadioButtonModule, SparkModule, ToggleSwitchModule } from '../../src/index';
-
-// Import Child Modules
-import { DocumentationComponentsModule } from './components/components.module';
-import { DocumentationDirectivesModule } from './directives/directives.module';
-import { DocumentationProvidersModule } from './services/services.module';
-
+import { downgradeComponent, downgradeInjectable, UpgradeModule } from '@angular/upgrade/static';
 import { PersistentDataService } from './../../src/services/persistent-data/persistent-data.service';
-
-// Import Root Component
 import { AppComponent } from './app.component';
-
-// Import Pages
-import { LandingPageComponent } from './pages/landing/landing.component';
-import { OverviewPageComponent } from './pages/overview/overview.component';
-import { FeaturesPageComponent } from './pages/features/features.component';
-import { GettingStartedPageComponent } from './pages/getting-started/getting-started.component';
-import { ShowcasePageComponent } from './pages/showcase/showcase.component';
-import { TeamPageComponent } from './pages/team/team.component';
-import { BlogPageComponent } from './pages/blog/blog.component';
-import { LicensesPageComponent } from './pages/licenses/licenses.component';
-import { ChangeLogPageComponent } from './pages/changelog/changelog.component';
-
+import { DocumentationComponentsModule } from './components/components.module';
+import { DocumentationProvidersModule } from './services/services.module';
 import { WrappersModule } from './wrappers/wrappers.module';
-import { HybridModule } from '../../src/hybrid/hybrid.module';
 
 /*
   Configure Application Routes
 */
 const appRoutes: Routes = [
-  { path: 'landing', component: LandingPageComponent },
-  { path: 'overview', component: OverviewPageComponent },
-  { path: 'features', component: FeaturesPageComponent },
-  { path: 'gettingstarted', component: GettingStartedPageComponent },
-  { path: 'showcase', component: ShowcasePageComponent },
+  { path: 'landing', loadChildren: './pages/landing/landing.module#LandingPageModule' },
+  { path: 'overview', loadChildren: './pages/overview/overview.module#OverviewPageModule' },
+  { path: 'features', loadChildren: './pages/features/features.module#FeaturesPageModule' },
+  { path: 'gettingstarted', loadChildren: './pages/getting-started/getting-started.module#GettingStartedPageModule' },
+  { path: 'showcase', loadChildren: './pages/showcase/showcase.module#ShowcasePageModule' },
   { path: 'components', loadChildren: './pages/components/components.module#ComponentsPageModule' },
   { path: 'css', loadChildren: './pages/css/css.module#CssPageModule' },
   { path: 'charts', loadChildren: './pages/charts/charts.module#ChartsPageModule' },
-  { path: 'team', component: TeamPageComponent },
-  { path: 'blog', component: BlogPageComponent },
-  { path: 'licenses', component: LicensesPageComponent },
-  { path: 'changelog', component: ChangeLogPageComponent },
+  { path: 'team', loadChildren: './pages/team/team.module#TeamPageModule' },
+  { path: 'blog', loadChildren: './pages/blog/blog.module#BlogPageModule' },
+  { path: 'licenses', loadChildren: './pages/licenses/licenses.module#LicensesPageModule' },
+  { path: 'changelog', loadChildren: './pages/changelog/changelog.module#ChangeLogPageModule' },
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
-  { path: '**', component: LandingPageComponent }
+  { path: '**', redirectTo: '/landing' }
 ];
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
     DocumentationComponentsModule,
-    DocumentationDirectivesModule,
     DocumentationProvidersModule,
-    TabsModule.forRoot(),
-    CheckboxModule,
-    ColorServiceModule,
-    EboxModule,
-    FlippableCardModule,
-    ProgressBarModule,
-    RadioButtonModule,
-    SparkModule,
-    ToggleSwitchModule,
     WrappersModule,
-    HybridModule,
     UpgradeModule,
     RouterModule.forRoot(appRoutes, { useHash: true, initialNavigation: false })
   ],
@@ -94,15 +58,6 @@ const appRoutes: Routes = [
   ],
   declarations: [
     AppComponent,
-    LandingPageComponent,
-    OverviewPageComponent,
-    FeaturesPageComponent,
-    GettingStartedPageComponent,
-    ShowcasePageComponent,
-    TeamPageComponent,
-    BlogPageComponent,
-    LicensesPageComponent,
-    ChangeLogPageComponent
   ],
   entryComponents: [
     AppComponent
@@ -117,22 +72,17 @@ export class AppModule {
   }
 }
 
-
 /*
   Configure Angular 1
 */
 app.service('$persistentDataService', downgradeInjectable(PersistentDataService));
 app.directive('uxdApp', downgradeComponent({ component: AppComponent }) as angular.IDirectiveFactory);
 
-app.config([
-  '$anchorScrollProvider',
-  '$locationProvider',
-  function ($anchorScrollProvider: angular.IAnchorScrollProvider,
-    $locationProvider: angular.ILocationProvider) {
+app.config(['$anchorScrollProvider', '$locationProvider', ($anchorScrollProvider: angular.IAnchorScrollProvider, $locationProvider: angular.ILocationProvider) => {
 
-    // Disabling AngularJS autoscroll since it conflicts with the new router behaviour
-    $anchorScrollProvider.disableAutoScrolling();
+  // Disabling AngularJS autoscroll since it conflicts with the new router behaviour
+  $anchorScrollProvider.disableAutoScrolling();
 
-    // Removing new prefix
-    $locationProvider.hashPrefix('');
-  }]); 
+  // Removing new prefix
+  $locationProvider.hashPrefix('');
+}]);

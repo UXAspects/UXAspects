@@ -100,7 +100,7 @@ const ROUTES = [
         WrappersModule,
         CommonModule,
         FormsModule,
-        TabsModule,
+        TabsModule.forRoot(),
         CheckboxModule,
         RadioButtonModule,
         ColumnSortingModule,
