@@ -25,9 +25,17 @@ ux-media-player-controls {
         margin: 0 10px 8px;
         cursor: pointer;
         transition: fill 0.3s ease-in-out;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        line-height: 0;
 
         &:hover {
             fill: @mediaplayer-controls-btn-hover-color;
+        }
+
+        &:focus {
+            .aspects-outline();
         }
     }
 
@@ -86,7 +94,9 @@ ux-media-player-controls {
                 display: flex;
                 justify-content: center;
                 align-content: center;
-                padding-top: 1px;
+                padding: 1px 0 0;
+                border: none;
+                background-color: transparent;
             }
 
             .volume-slider {

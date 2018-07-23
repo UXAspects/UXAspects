@@ -13,7 +13,7 @@ import { MediaPlayerService } from './media-player.service';
     providers: [MediaPlayerService],
     host: {
         'tabindex': '0',
-        '(keydown.Space)': 'mediaPlayerService.togglePlay()',
+        '(keydown.Space)': 'mediaPlayerService.togglePlay(); $event.preventDefault()',
         '[class.standard]': '!mediaPlayerService.fullscreen',
         '[class.fullscreen]': 'mediaPlayerService.fullscreen',
         '[class.quiet]': 'quietMode && type === "video" || mediaPlayerService.fullscreen',

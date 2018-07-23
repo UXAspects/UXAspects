@@ -88,6 +88,22 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
             this.mediaPlayerService.currentTime = this.scrub.time;
         }
     }
+
+    /** Skip a number of seconds in any direction */
+    skip(seconds: number): void {
+        let target = this.current + seconds;
+
+        // ensure that the target position is within the bounds of the clip
+        if (target < 0) {
+            target = 0;
+        }
+
+        if (target > this.mediaPlayerService.duration) {
+            target = this.mediaPlayerService.duration;
+        }
+
+        this.mediaPlayerService.currentTime = target;
+    }
 }
 
 export interface MediaPlayerBuffered {
