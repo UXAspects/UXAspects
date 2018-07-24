@@ -35,6 +35,14 @@ ux-media-player {
         }
     }
 
+    .player-container {
+        height: 100%;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
     .video-player-container {
         position: relative;
         height: ~'calc(100% - 71px)';
@@ -42,6 +50,10 @@ ux-media-player {
         .video-player {
             width: 100%;
             height: 100%;
+
+            &:focus {
+                outline: none;
+            }
         }
 
         .video-overlay {
@@ -106,6 +118,11 @@ ux-media-player {
 
     .control-bar {
         width: 100%;
+        min-height: 71px;
         background-color: @mediaplayer-controls-bg;
+
+        &.control-bar-visible {
+            opacity: 1;
+        }
     }
 }

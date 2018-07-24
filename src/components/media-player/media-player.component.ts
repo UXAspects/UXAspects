@@ -12,7 +12,6 @@ import { MediaPlayerService } from './media-player.service';
     templateUrl: './media-player.component.html',
     providers: [MediaPlayerService],
     host: {
-        'tabindex': '0',
         '(keydown.Space)': 'mediaPlayerService.togglePlay(); $event.preventDefault()',
         '[class.standard]': '!mediaPlayerService.fullscreen',
         '[class.fullscreen]': 'mediaPlayerService.fullscreen',
@@ -33,6 +32,7 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
     hovering: boolean = false;
     audioMetadata: Observable<AudioMetadata>;
+    controlBarVisible: boolean = false;
 
     get source(): string {
         return this.mediaPlayerService.source;

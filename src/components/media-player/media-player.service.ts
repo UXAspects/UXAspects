@@ -6,6 +6,7 @@ import { Observer } from 'rxjs/Observer';
 import { Subject } from 'rxjs/Subject';
 import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
 import { MediaPlayerType } from './media-player.component';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class MediaPlayerService {
@@ -18,7 +19,7 @@ export class MediaPlayerService {
         Create observables for media player events
     */
     playing: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    initEvent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    initEvent: ReplaySubject<boolean> = new ReplaySubject<boolean>();
     abortEvent: Subject<void> = new Subject<void>();
     canPlayEvent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     canPlayThroughEvent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -220,7 +221,9 @@ export class MediaPlayerService {
         return this._mediaPlayer ? this._mediaPlayer.volume : 1;
     }
     set volume(value: number) {
-        this._mediaPlayer.volume = value;
+        if (this._mediaPlayer) {
+            this._mediaPlayer.volume = value;
+        }
     }
 
     get fullscreen(): boolean {

@@ -22,7 +22,7 @@ ux-media-player-controls {
 
     .control-button {
         fill: @mediaplayer-controls-btn-color;
-        margin: 0 10px 8px;
+        margin: 0 10px;
         cursor: pointer;
         transition: fill 0.3s ease-in-out;
         border: none;
@@ -32,6 +32,23 @@ ux-media-player-controls {
 
         &:hover {
             fill: @mediaplayer-controls-btn-hover-color;
+        }
+
+        &:focus {
+            .aspects-outline();
+        }
+    }
+
+    .fullscreen-button {
+        color: @mediaplayer-controls-btn-color;
+        transition: fill 0.3s ease-in-out;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        line-height: 0;
+
+        &:hover {
+            color: @mediaplayer-controls-btn-hover-color;
         }
 
         &:focus {
@@ -97,38 +114,27 @@ ux-media-player-controls {
                 padding: 1px 0 0;
                 border: none;
                 background-color: transparent;
+                width: 27px;
+                float: none;
+
+                &:focus {
+                    .aspects-outline();
+                }
             }
 
-            .volume-slider {
-                opacity: 0;
-                position: relative;
-                width: 70px;
-                height: 4px;
-                background-color: @mediaplayer-volume-slider-track-upper;
-                margin: 10px 7px;
-                transition: opacity 0.3s ease-in-out;
+            .volume-slider-node {
+                flex: 1;
+                margin-top: 1px;
+                margin-left: 10px;
 
-                .volume-track-lower {
-                    background-color: @mediaplayer-volume-slider-track-lower;
-                    height: 100%;
-                }
-
-                .volume-slider-thumb {
-                    position: absolute;
-                    width: 14px;
-                    height: 14px;
-                    border-radius: 7px;
-                    background-color: @mediaplayer-volume-slider-thumb-bg;
-                    border: 1px solid @mediaplayer-volume-slider-thumb-border;
-                    top: -5px;
-                    cursor: pointer;
-                    transform: translateX(-50%);
-                    outline: none;
+                ux-slider {
+                    opacity: 0;
+                    transition: opacity 0.3s ease-in-out;
                 }
             }
 
             &.active {
-                .volume-slider {
+                ux-slider {
                     opacity: 1;
                 }
             }

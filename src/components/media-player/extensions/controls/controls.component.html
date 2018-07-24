@@ -1,9 +1,20 @@
 <div class="volume-container">
 
-    <div class="volume-slider-container" #volumeContainer [class.active]="volumeActive">
+    <div class="volume-slider-container"
+        #volumeContainer
+        [class.active]="volumeActive || volumeFocus"
+        (mouseenter)="mouseEnterVolume.next()"
+        (mouseleave)="mouseLeaveVolume.next()"
+        (focusWithin)="volumeFocus = true"
+        (blurWithin)="volumeFocus = false">
+
         <button #volumeIcon
                 class="volume-slider-icon"
+                attr.aria-label="{{ volume === 0 ? 'Unmute' : 'Mute' }}"
+                i18n-aria-label
                 [uxTooltip]="muteTooltip"
+                [showTriggers]="['mouseenter']"
+                [hideTriggers]="['mouseleave']"
                 (click)="toggleMute()">
 
             <span class="hpe-icon"
@@ -14,53 +25,64 @@
         </button>
 
         <div class="volume-slider-node">
-            <div class="volume-slider" #volumeSlider>
-                <div class="volume-track-lower" [style.width.%]="volume"></div>
-                <div class="volume-slider-thumb"
-                     (mousedown)="dragStart($event)"
-                     [style.left.%]="volume"
-                     tabindex="0"
-                     (keydown.ArrowRight)="volume = volume + 10"
-                     (keydown.ArrowLeft)="volume = volume - 10">
-                </div>
-            </div>
+            <ux-slider [(value)]="volume" [options]="options"></ux-slider>
         </div>
     </div>
 </div>
 
 <div class="spacer"></div>
 
-<button class="control-button">
-    <svg viewBox="0 0 51.5 64" width="14" height="17" (click)="goToStart()">
+<button class="control-button"
+    (click)="goToStart()"
+    aria-label="Go to start"
+    i18n-aria-label>
+
+    <svg viewBox="0 0 51.5 64" width="14" height="17" focusable="false">
         <rect x="0" y="0" width="7.5" height="64" />
         <polygon points="51.5,64 51.5,0 7.4,32 " />
     </svg>
 </button>
 
-<button class="control-button" (click)="togglePlay()">
-    <svg *ngIf="!playing" viewBox="0 0 45 64" width="20" height="29">
+<button class="control-button"
+    attr.aria-label="{{ (mediaPlayerService.playing | async) ? 'Pause' : 'Play' }}"
+    i18n-aria-label
+    (click)="mediaPlayerService.togglePlay()">
+
+    <svg *ngIf="!(mediaPlayerService.playing | async)" viewBox="0 0 45 64" width="20" height="29" focusable="false">
         <polygon points="0.4,0 0.4,64 44.6,32" />
     </svg>
-    <svg *ngIf="playing" viewBox="0 0 43 56.9" width="20" height="29">
+    <svg *ngIf="mediaPlayerService.playing | async" viewBox="0 0 43 56.9" width="20" height="29" focusable="false">
         <rect y="0.1" width="15.7" height="56.9" />
         <rect x="27.3" y="0.1" width="15.7" height="56.9" />
     </svg>
 </button>
 
-<button class="control-button">
-    <svg viewBox="0 0 51.5 64" width="14" height="17" (click)="goToEnd()">
+<button class="control-button"
+    (click)="goToEnd()"
+    aria-label="Go to end"
+    i18n-aria-label>
+
+    <svg viewBox="0 0 51.5 64" width="14" height="17" focusable="false">
         <rect x="44.1" y="0" width="7.5" height="64" />
-        <polygon points="0,64 0,0 44.1,32 " />
+        <polygon points="0,64 0,0 44.1,32" />
     </svg>
 </button>
 
 <div class="spacer"></div>
 
-<button *ngIf="mediaPlayerService.type !== 'audio'" class="control-button" (click)="setFullscreen()">
+<button
+    *ngIf="mediaPlayerService.type !== 'audio'"
+    class="fullscreen-button"
+    attr.aria-label="{{ mediaPlayerService.fullscreen ? 'Exit full screen' : 'Full screen' }}"
+    i18n-aria-label
+    (click)="mediaPlayerService.toggleFullscreen()">
+
     <span class="hpe-icon"
           [class.hpe-expand]="!mediaPlayerService.fullscreen"
           [class.hpe-contract]="mediaPlayerService.fullscreen">
     </span>
 </button>
 
-<ng-template #muteTooltip>{{ volume === 0 ? 'Unmute' : 'Mute' }}</ng-template>
+<ng-template #muteTooltip>
+    <span aria-hidden="true">{{ volume === 0 ? 'Unmute' : 'Mute' }}</span>
+</ng-template>
