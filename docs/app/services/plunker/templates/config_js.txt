@@ -61,6 +61,7 @@ System.config({
     'dragula': 'https://unpkg.com/dragula/dist/dragula.js',
     'dragula/dist/dragula': 'https://unpkg.com/dragula/dist/dragula.js',
     'ngx-mask': 'https://unpkg.com/ngx-mask/bundles/ngx-mask.umd.js',
+    'resize-observer-polyfill': 'https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.js',
 
     // ngx-bootstrap aliases
     'ngx-bootstrap/accordion': 'https://unpkg.com/ngx-bootstrap@2.0.5/bundles/ngx-bootstrap.umd.min.js',
