@@ -63,6 +63,35 @@ Use `ng update` or your normal package manager tools to identify and update othe
 - `npm install rxjs-compat`
 - `rxjs-5-to-6-migrate -p src/tsconfig.app.json`
 
+##### Update Global Scripts
+
+All global script imports such as `jquery.js`, `bootstrap.js`, `angular.js` and `ux-aspects-ng1.js` components should no longer be included using the import command. They should be added to the `angular.json` file under the scripts sections, e.g.
+
+```json
+"scripts": [
+    "node_modules/jquery/dist/jquery.js",
+    "node_modules/bootstrap/dist/js/bootstrap.js",
+    "node_modules/angular/angular.js",
+    "node_modules/@ux-aspects/ux-aspects/ng1/ux-aspects-ng1.js"
+]
+```
+
+To ensure TypeScript detects the correct types you should also update the `types` array in `tsconfig.app.json` to include all relevant type definitions:
+
+```json
+"types": [
+    "node"
+    "angular",
+    "jquery"
+]
+```
+
+Finally you should ensure the TypeScript is aware of the `angular` global variable. Add the following line to `typings.d.ts`:
+
+```typescript
+declare var angular: ng.IAngularStatic;
+```
+
 ## Angular 5.x -> 6.x (Using Webpack)
 
 Ensure all steps from the v4 -> v5 migration have been completed before attempting to migrate to v6.
