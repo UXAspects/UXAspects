@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NotificationService, NotificationRef, NotificationListDirection } from './notification.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { map } from 'rxjs/operators/map';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

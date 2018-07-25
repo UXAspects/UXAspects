@@ -246,6 +246,10 @@ module.exports = {
                 to: join(cwd(), 'dist', 'docs', 'favicon.ico')
             },
             {
+                from: join(cwd(), 'dist', 'bundles', 'ux-aspects-ux-aspects.umd.js'),
+                to: join(cwd(), 'dist', 'docs', 'assets', 'lib', 'index.js')
+            },
+            {
                 from: join(cwd(), 'docs', 'app', 'assets'),
                 to: join(cwd(), 'dist', 'docs', 'assets')
             },
