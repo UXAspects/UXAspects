@@ -66,6 +66,8 @@ const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 module.exports = {
 
+    mode: 'development',
+
     entry: './src/ng-app/main.ts',
     
     output: {
@@ -103,6 +105,8 @@ module.exports = {
     ]
 };
 ```
+
+**Note:** You should also create an additional Webpack configuration for production builds. The production config should set `mode` to `production` and the `AngularCompilerPlugin` should have `skipCodeGeneration` set to `false`.
 
 ### Create Our Angular Module
 
@@ -211,7 +215,7 @@ import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
     imports: [
-		...
+	...
     ],
     declarations: [
     	HeaderComponent
@@ -225,10 +229,12 @@ export class AppModule {
 }
 
 // downgrade the component for use in AngularJS
-angular.module('app').directive('myHeader', downgradeComponent({ component: HeaderComponent }));
+angular.module('app').directive('appHeader', downgradeComponent({ component: HeaderComponent }));
 ```
 
-Now you can simply use the `my-header` element in your AngularJS application and it should work as expected.
+Now you can simply use the `app-header` element in your AngularJS application and it should work as expected.
+
+**Note:** It is common to provide a selector prefix for all components in your application such as `app-`. This will help prevent any selector collisions with third party components.
 
 ### Downgrading Services
 
@@ -294,14 +300,14 @@ import { Directive, ElementRef, Injector, Input } from '@angular/core';
 import { UpgradeComponent } from '@angular/upgrade/static';
 
 @Directive({
-    selector: 'my-branding'
+    selector: 'app-branding'
 })
 export class BrandingComponent extends UpgradeComponent {
 
     @Input() brandName: string;
 
     constructor(elementRef: ElementRef, injector: Injector) {
-        super('myBranding', elementRef, injector);
+        super('appBranding', elementRef, injector);
     }
 }
 ```
@@ -318,7 +324,7 @@ There are several other possibilities regarding inputs and outputs. Below is an 
 
 ```javascript
 scope: {
-	value: '=', // use @Input (and @Output if two way binding is required)
+    value: '=', // use @Input (and @Output if two way binding is required)
     header: '@', // use @Input
     selected: '&' // use @Output
 }
@@ -365,11 +371,11 @@ It is recommended to create a TypeScript interface for the service to give the b
 
 ```typescript
 export interface VersionService {
-	getVersion(): Version;
+    getVersion(): Version;
 }
 
 export interface Version { 
-	major: number; 
+    major: number; 
     minor: number; 
     patch: number;
 };
