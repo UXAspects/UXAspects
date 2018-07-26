@@ -1,12 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'timeFormat'
+    name: 'timeFormat'
 })
 export class TimeFormatPipe implements PipeTransform {
-
-  transform(value: number): string | number {
-    return value < 10 ? '0' + value : value;
-  }
-
+    transform(value: number, pad: boolean): string | number {
+        return value < 10 && pad ? '0' + value : value;
+    }
 }

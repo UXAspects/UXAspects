@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnDestroy, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import { distinctUntilChanged, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 
 export const TIME_PICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

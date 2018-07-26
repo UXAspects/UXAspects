@@ -282,12 +282,29 @@
                 {
                     "title": "Date Range Picker",
                     "component": "ComponentsDateRangePickerNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
                 },
                 {
                     "title": "Time Picker",
                     "component": "ComponentsTimePickerNg1Component",
-                    "version": "AngularJS"
+                    "version": "AngularJS",
+                    "deprecated": true
+                },
+                {
+                    "title": "Time Picker",
+                    "component": "ComponentsTimePickerComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-time-picker"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "TimePickerModule"
+                        }
+                    ]
                 }
             ]
         },

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { CheckboxModule, DateTimePickerModule, PopoverModule } from '../../../../../../src/index';
+import { CheckboxModule, DateTimePickerModule, NumberPickerModule, PopoverModule, TimePickerModule } from '../../../../../../src/index';
 import { DocumentationComponentsModule } from '../../../../components/components.module';
 import { DocumentationCategoryComponent } from '../../../../components/documentation-category/documentation-category.component';
 import { DocumentationPage, ResolverService } from '../../../../services/resolver/resolver.service';
@@ -14,15 +14,15 @@ import { ComponentsDateRangePickerNg1Component } from './date-range-picker-ng1/d
 import { ComponentsDateTimePickerComponent } from './date-time-picker/date-time-picker.component';
 import { ComponentsIntegratedDatePickerNg1Component } from './integrated-date-picker-ng1/integrated-date-picker-ng1.component';
 import { ComponentsTimePickerNg1Component } from './time-picker-ng1/time-picker-ng1.component';
-
-
+import { ComponentsTimePickerComponent } from './time-picker/time-picker.component';
 
 const SECTIONS = [
     ComponentsDatePickerNg1Component,
-    ComponentsIntegratedDatePickerNg1Component,
     ComponentsDateRangePickerNg1Component,
+    ComponentsDateTimePickerComponent,
+    ComponentsIntegratedDatePickerNg1Component,
+    ComponentsTimePickerComponent,
     ComponentsTimePickerNg1Component,
-    ComponentsDateTimePickerComponent
 ];
 
 const ROUTES = [
@@ -37,16 +37,18 @@ const ROUTES = [
 
 @NgModule({
     imports: [
-        CommonModule,
         AccordionModule.forRoot(),
-        PopoverModule,
-        WrappersModule,
-        TabsModule.forRoot(),
-        DateTimePickerModule,
-        FormsModule,
         CheckboxModule,
+        CommonModule,
+        DateTimePickerModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        FormsModule,
+        NumberPickerModule,
+        PopoverModule,
+        RouterModule.forChild(ROUTES),
+        TabsModule.forRoot(),
+        TimePickerModule,
+        WrappersModule,
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
