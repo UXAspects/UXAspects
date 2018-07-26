@@ -15,7 +15,7 @@ npm install @angular/common @angular/compiler @angular/core @angular/forms @angu
 Next install the developer tool dependencies:
 
 ```bash
-npm install typescript webpack @angular/compiler-cli @ngtools/webpack html-loader css-loader --save-dev
+npm install typescript webpack webpack-cli @angular/compiler-cli @ngtools/webpack html-loader css-loader --save-dev
 ```
 
 ### Setting up TypeScript
