@@ -31,6 +31,8 @@
             (volumechange)="mediaPlayerService.volumeChangeEvent.next(player.volume)"
             (waiting)="mediaPlayerService.waitingEvent.next()"
             (click)="mediaPlayerService.mediaClickEvent.next($event)">
+
+            <ng-content select="track"></ng-content>
         </video>
 
         <div class="video-overlay" [class.playing]="mediaPlayerService.playing | async">

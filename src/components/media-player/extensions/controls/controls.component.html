@@ -70,9 +70,53 @@
 
 <div class="spacer"></div>
 
-<button
-    *ngIf="mediaPlayerService.type !== 'audio'"
-    class="fullscreen-button"
+<div class="action-button-container">
+    <button class="action-button"
+        (click)="subtitlesOpen = !subtitlesOpen"
+        [attr.aria-expanded]="subtitlesOpen"
+        [attr.aria-describedby]="subtitlesId"
+        aria-haspopup="true"
+        *ngIf="mediaPlayerService.textTracks.length > 0">
+        <span class="hpe-icon hpe-list"></span>
+    </button>
+
+    <!-- We cannot us ux-popover here as it is not visible in fullscreen mode -->
+    <div class="popover top media-player-subtitles-popover show"
+        [id]="subtitlesId"
+        (keydown.escape)="subtitlesOpen = false"
+        *ngIf="subtitlesOpen">
+        <div class="arrow"></div>
+        <h3 class="popover-title">Subtitles</h3>
+        <div class="popover-content">
+            <ul class="subtitles-list" uxTabbableList [focusOnShow]="true" [returnFocus]="true">
+                <li uxTabbableListItem
+                    tabindex="0"
+                    class="subtitles-list-item"
+                    [class.active]="!isSubtitleActive()"
+                    [attr.aria-selected]="isSubtitleActive()"
+                    (click)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false"
+                    (keydown.enter)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false">
+
+                    <i class="hpe-icon hpe-checkmark m-r-xs"></i>
+                    <span>No Subtitles</span>
+                </li>
+                <li uxTabbableListItem
+                    class="subtitles-list-item"
+                    *ngFor="let track of mediaPlayerService.textTracks"
+                    [class.active]="track.mode === 'showing'"
+                    [attr.aria-selected]="isSubtitleActive()"
+                    (click)="setSubtitleTrack(track); subtitlesOpen = false"
+                    (keydown.enter)="setSubtitleTrack(track); subtitlesOpen = false">
+                    <i class="hpe-icon hpe-checkmark m-r-xs"></i>
+                    <span>{{ track.label }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<button *ngIf="mediaPlayerService.type !== 'audio'"
+    class="action-button"
     attr.aria-label="{{ mediaPlayerService.fullscreen ? 'Exit full screen' : 'Full screen' }}"
     i18n-aria-label
     (click)="mediaPlayerService.toggleFullscreen()">

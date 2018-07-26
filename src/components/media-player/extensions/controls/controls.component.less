@@ -39,13 +39,18 @@ ux-media-player-controls {
         }
     }
 
-    .fullscreen-button {
+    .action-button-container {
+        position: relative;
+    }
+
+    .action-button {
         color: @mediaplayer-controls-btn-color;
         transition: fill 0.3s ease-in-out;
         border: none;
         background-color: transparent;
         padding: 0;
         line-height: 0;
+        margin-right: 10px;
 
         &:hover {
             color: @mediaplayer-controls-btn-hover-color;
@@ -53,6 +58,10 @@ ux-media-player-controls {
 
         &:focus {
             .aspects-outline();
+        }
+
+        &:last-of-type {
+            margin-right: 0;
         }
     }
 
@@ -136,6 +145,56 @@ ux-media-player-controls {
             &.active {
                 ux-slider {
                     opacity: 1;
+                }
+            }
+        }
+    }
+
+    .media-player-subtitles-popover {
+        transform: translateX(-65%) translateY(-100%);
+
+        .arrow {
+            transform: translateX(38px);
+        }
+
+        .popover-content {
+            padding: 5px;
+
+            .subtitles-list {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                min-width: 150px;
+
+                .subtitles-list-item {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    height: 32px;
+                    padding: 0 10px;
+
+                    .hpe-icon {
+                        color: @accent;
+                        opacity: 0;
+                    }
+
+                    &:hover {
+                        background-color: @grey7;
+
+                        .hpe-icon {
+                            opacity: 0.5;
+                        }
+                    }
+
+                    &:focus {
+                        .aspects-outline();
+                    }
+
+                    &.active {
+                        .hpe-icon {
+                            opacity: 1;
+                        }
+                    }
                 }
             }
         }

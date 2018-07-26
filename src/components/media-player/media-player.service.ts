@@ -3,10 +3,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { Observer } from 'rxjs/Observer';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { ExtractedFrame, FrameExtractionService } from '../../services/frame-extraction/index';
 import { MediaPlayerType } from './media-player.component';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class MediaPlayerService {
@@ -63,7 +63,7 @@ export class MediaPlayerService {
     private _fullscreen: boolean = false;
     private _quietMode: boolean;
 
-    constructor(private _frameExtractionService: FrameExtractionService) {}
+    constructor(private _frameExtractionService: FrameExtractionService) { }
 
     /*
         Create all the getters and setters the can be used by media player extensions
@@ -209,12 +209,12 @@ export class MediaPlayerService {
         this._mediaPlayer.src = value;
     }
 
-    get textTracks(): TextTrackList {
-        return this._mediaPlayer ? this._mediaPlayer.textTracks : new TextTrackList();
+    get textTracks(): TextTrackList | Array<TextTrack> {
+        return this._mediaPlayer ? this._mediaPlayer.textTracks : [];
     }
 
-    get videoTracks(): VideoTrackList {
-        return this._mediaPlayer ? this._mediaPlayer.videoTracks : new VideoTrackList();
+    get videoTracks(): VideoTrackList | Array<VideoTrack> {
+        return this._mediaPlayer ? this._mediaPlayer.videoTracks : [];
     }
 
     get volume(): number {
@@ -289,7 +289,7 @@ export class MediaPlayerService {
     /**
      * Adds a new text track to the audio/video
      */
-    addTextTrack(kind: string, label: string, language: string): TextTrack {
+    addTextTrack(kind: TextTrackKind, label: string, language: string): TextTrack {
         return this._mediaPlayer.addTextTrack(kind, label, language);
     }
 
@@ -325,7 +325,7 @@ export class MediaPlayerService {
         }
     }
 
-    fullscreenChange(event: Event) {
+    fullscreenChange() {
         this.fullscreen = (<any>document).fullscreen || document.webkitIsFullScreen || (<any>document).mozFullScreen || (<any>document).msFullscreenElement !== null && (<any>document).msFullscreenElement !== undefined;
         this.fullscreenEvent.next(this.fullscreen);
     }
@@ -352,4 +352,12 @@ export class MediaPlayerService {
 
         return from([]);
     }
+
+    hideSubtitleTracks(): void {
+        for (let index = 0; index < this.textTracks.length; index++) {
+            this.textTracks[index].mode = 'hidden';
+        }
+    }
 }
+
+type TextTrackKind = 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata'

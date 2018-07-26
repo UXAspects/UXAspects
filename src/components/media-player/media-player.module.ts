@@ -1,5 +1,7 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AccessibilityModule } from '../../directives/accessibility/index';
 import { DurationPipeModule } from '../../pipes/duration/index';
 import { FileSizePipeModule } from '../../pipes/file-size/index';
 import { AudioServiceModule } from '../../services/audio/index';
@@ -11,8 +13,6 @@ import { MediaPlayerControlsExtensionComponent } from './extensions/controls/con
 import { MediaPlayerTimelineExtensionComponent } from './extensions/timeline/timeline.component';
 import { MediaPlayerComponent } from './media-player.component';
 import { MediaPlayerService } from './media-player.service';
-import { AccessibilityModule } from '../../directives/accessibility/index';
-import { A11yModule } from '@angular/cdk/a11y';
 
 const DECLARATIONS = [
     MediaPlayerComponent,

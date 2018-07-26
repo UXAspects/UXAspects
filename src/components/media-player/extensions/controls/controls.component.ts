@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { timer } from 'rxjs/observable/timer';
-import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { SliderOptions, SliderSize } from '../../../slider/index';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
+
+let uniqueId: number = 1;
 
 @Component({
     selector: 'ux-media-player-controls',
@@ -17,6 +18,8 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
 
     volumeActive: boolean = false;
     volumeFocus: boolean = false;
+    subtitlesId: string = `ux-media-player-subtitle-popover-${uniqueId++}`;
+    subtitlesOpen: boolean = false;
     mouseEnterVolume = new Subject<void>();
     mouseLeaveVolume = new Subject<void>();
 
@@ -85,6 +88,24 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
 
     goToEnd(): void {
         this.mediaPlayerService.currentTime = this.mediaPlayerService.duration;
+    }
+
+    isSubtitleActive(): boolean {
+        for (let idx = 0; idx < this.mediaPlayerService.textTracks.length; idx++) {
+            if (this.mediaPlayerService.textTracks[idx].mode === 'showing') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    setSubtitleTrack(track: TextTrack): void {
+        // hide all tracks
+        this.mediaPlayerService.hideSubtitleTracks();
+
+        // activate the selected one
+        track.mode = 'showing';
     }
 
 }

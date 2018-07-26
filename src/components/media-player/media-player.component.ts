@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { of } from 'rxjs/observable/of';
-import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { AudioMetadata, AudioService } from '../../services/audio/index';
 import { MediaPlayerService } from './media-player.service';
@@ -21,9 +20,9 @@ import { MediaPlayerService } from './media-player.service';
         '[class.audio]': 'type === "audio"',
         '(mouseenter)': 'hovering = true',
         '(mouseleave)': 'hovering = false',
-        '(document:webkitfullscreenchange)': 'mediaPlayerService.fullscreenChange($event)',
-        '(document:mozfullscreenchange)': 'mediaPlayerService.fullscreenChange($event)',
-        '(document:MSFullscreenChange)': 'mediaPlayerService.fullscreenChange($event)'
+        '(document:webkitfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
+        '(document:mozfullscreenchange)': 'mediaPlayerService.fullscreenChange()',
+        '(document:MSFullscreenChange)': 'mediaPlayerService.fullscreenChange()'
     }
 })
 export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
@@ -67,10 +66,7 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
         // show controls when hovering and in quiet mode
         fromEvent(this._elementRef.nativeElement, 'mousemove').pipe(
-            switchMap((event: MouseEvent) => {
-                this.hovering = true;
-                return of(event);
-            }),
+            tap(() => this.hovering = true),
             debounceTime(2000),
             takeUntil(this._onDestroy)
         ).subscribe(() => this.hovering = false);
@@ -84,6 +80,9 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
         this.mediaPlayerService.pauseEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.playing.next(false));
         this.mediaPlayerService.mediaClickEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.togglePlay());
         this.mediaPlayerService.loadedMetadataEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.mediaPlayerService.loaded = true);
+
+        // initially hide all text tracks
+        this.mediaPlayerService.hideSubtitleTracks();
     }
 
     ngOnDestroy(): void {
