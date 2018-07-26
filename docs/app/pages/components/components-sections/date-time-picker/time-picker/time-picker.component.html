@@ -1,0 +1,136 @@
+<ux-time-picker [(value)]="value"
+    [showMeridian]="showMeridian"
+    [showHours]="showHours"
+    [showMinutes]="showMinutes"
+    [showSeconds]="showSeconds"
+    [showSpinners]="showSpinners"
+    [hourStep]="hourStep"
+    [minuteStep]="minuteStep"
+    [secondStep]="secondStep"
+    [disabled]="disabled">
+</ux-time-picker>
+
+<accordion class="uxd-customize-example">
+    <accordion-group class="accordion-chevron" heading="Customize Example...">
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-6">
+                <ux-checkbox id="showHours" [(value)]="showHours">showHours</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <ux-checkbox id="showMinutes" [(value)]="showMinutes">showMinutes</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <ux-checkbox id="showSeconds" [(value)]="showSeconds">showSeconds</ux-checkbox>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-6">
+                <ux-checkbox [(value)]="showMeridian">showMeridian</ux-checkbox>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <ux-checkbox [(value)]="showSpinners">showSpinners</ux-checkbox>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-md-2 col-sm-3">
+                <label for="hourStep">hourStep</label>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                <ux-number-picker id="hourStep" class="number-picker-compact" [(value)]="hourStep" [min]="1"></ux-number-picker>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                <label for="minuteStep">minuteStep</label>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                <ux-number-picker id="minuteStep" class="number-picker-compact" [(value)]="minuteStep" [min]="1"></ux-number-picker>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                <label for="secondStep">secondStep</label>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                <ux-number-picker id="secondStep" class="number-picker-compact" [(value)]="secondStep" [min]="1"></ux-number-picker>
+            </div>
+        </div>
+        <div class="row uxd-customize-row">
+            <div class="col-md-4 col-sm-6">
+                <ux-checkbox [(value)]="disabled">disabled</ux-checkbox>
+            </div>
+        </div>
+    </accordion-group>
+</accordion>
+
+<hr>
+
+<p>
+    The <code>ux-time-picker</code> component can be used to select the time component of a <code>Date</code> object.
+</p>
+
+<p>
+    The following options can be used to configure the appearance and behavior of the component.
+</p>
+
+<uxd-api-properties tableTitle="Inputs">
+    <tr uxd-api-property name="value" type="Date">
+        The value to display.
+    </tr>
+    <tr uxd-api-property name="showHours" type="boolean" defaultValue="true">
+        Whether to show the hour selector.
+    </tr>
+    <tr uxd-api-property name="showMinutes" type="boolean" defaultValue="true">
+        Whether to show the minute selector.
+    </tr>
+    <tr uxd-api-property name="showSeconds" type="boolean" defaultValue="false">
+        Whether to show the second selector.
+    </tr>
+    <tr uxd-api-property name="showMeridian" type="boolean" defaultValue="true">
+        Whether to show the meridian (AM/PM) selector. If this is false, the 24-hour clock will be used.
+    </tr>
+    <tr uxd-api-property name="showSpinners" type="boolean" defaultValue="true">
+        Whether to show increment and decrement buttons in the time picker.
+    </tr>
+    <tr uxd-api-property name="hourStep" type="number" defaultValue="1">
+        The number of hours to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel.
+    </tr>
+    <tr uxd-api-property name="minuteStep" type="number" defaultValue="1">
+        The number of minutes to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel.
+    </tr>
+    <tr uxd-api-property name="secondStep" type="number" defaultValue="1">
+        The number of seconds to increment or decrement by when using the spinner buttons, arrow keys, or mouse scroll wheel.
+    </tr>
+    <tr uxd-api-property name="min" type="Date">
+        The minimum value that the component will allow.
+    </tr>
+    <tr uxd-api-property name="max" type="Date">
+        The maximum value that the component will allow.
+    </tr>
+    <tr uxd-api-property name="meridians" type="string[]" defaultValue="['AM', 'PM']">
+        An array containing the labels to show in the meridian selector.
+    </tr>
+    <tr uxd-api-property name="arrowkeys" type="boolean" defaultValue="true">
+        Whether the arrow keys can be used to increment or decrement the selected time component.
+    </tr>
+    <tr uxd-api-property name="mousewheel" type="boolean" defaultValue="true">
+        Whether the mouse scroll wheel can be used to increment or decrement the selected time component.
+    </tr>
+    <tr uxd-api-property name="disabled" type="boolean" defaultValue="false">
+        Whether the control is disabled.
+    </tr>
+</uxd-api-properties>
+
+<uxd-api-properties tableTitle="Outputs">
+    <tr uxd-api-property name="valueChange" type="Date">
+        Emitted when the <code>value</code> changes.
+    </tr>
+    <tr uxd-api-property name="isValid" type="boolean">
+        Emitted when the validity of the control changes.
+    </tr>
+</uxd-api-properties>
+
+<tabset>
+    <tab heading="HTML">
+        <uxd-snippet [content]="snippets.compiled.appHtml"></uxd-snippet>
+    </tab>
+    <tab heading="TypeScript">
+        <uxd-snippet [content]="snippets.compiled.appTs"></uxd-snippet>
+    </tab>
+</tabset>
