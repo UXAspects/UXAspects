@@ -84,7 +84,8 @@ System.config({
     'ngx-bootstrap/tooltip': 'https://unpkg.com/ngx-bootstrap@2.0.5/bundles/ngx-bootstrap.umd.min.js',
     'ngx-bootstrap/typeahead': 'https://unpkg.com/ngx-bootstrap@2.0.5/bundles/ngx-bootstrap.umd.min.js',
 
-    '@ux-aspects/ux-aspects': window.uxdAssetsUrl + '/lib/index.js'
+    '@ux-aspects/ux-aspects': window.uxdAssetsUrl + '/lib/index.js',
+    ${libraries}
   },
   packages: {
     // Thirdparty barrels.

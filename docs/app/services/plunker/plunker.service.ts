@@ -1,46 +1,49 @@
-import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-
-import { AppConfiguration } from '../app-configuration/app-configuration.service';
+import { Inject, Injectable } from '@angular/core';
 import { IPlunk } from '../../interfaces/IPlunk';
+import { AppConfiguration } from '../app-configuration/app-configuration.service';
+
 
 const ASSETS_URL_PLACEHOLDER_REGEX = /\$\{assetsUrl\}/g;
 const MODULES_PLACEHOLDER = /\$\{modules\}/g;
 const DECLARATIONS_PLACEHOLDER = /\$\{declarations\}/g;
 const IMPORTS_PLACEHOLDER = /\$\{imports\}/g;
+const LIBRARIES_PLACEHOLDER = /\$\{libraries\}/g;
 
 @Injectable()
 export class PlunkerService {
 
     indexTemplate: string;
     mainTs: string;
-    private assetsUrl = this.appConfig.get('assetsUrl');
-    private plunkerPostUrl = this.appConfig.get('plunker');
+    libraries: Library[] = [];
 
-    constructor( @Inject(DOCUMENT) private document: Document, private appConfig: AppConfiguration) { }
+    private _assetsUrl = this._appConfig.get('assetsUrl');
+    private _plunkerPostUrl = this._appConfig.get('plunker');
+
+    constructor( @Inject(DOCUMENT) private _document: Document, private _appConfig: AppConfiguration) { }
 
     launch(title: string, plunk: IPlunk) {
 
         const form = this.initForm(title, plunk);
 
-        this.document.body.appendChild(form);
+        this._document.body.appendChild(form);
 
         form.submit();
 
-        this.document.body.removeChild(form);
+        this._document.body.removeChild(form);
     }
 
     private initForm(title: string, plunk: IPlunk): HTMLFormElement {
 
-        let modules = ['BrowserModule', 'FormsModule', 'ReactiveFormsModule', 'BrowserAnimationsModule'];
-        let declarations = ['AppComponent'];
-        let imports: string[] = [];
+        const modules = ['BrowserModule', 'FormsModule', 'ReactiveFormsModule', 'BrowserAnimationsModule'];
+        const declarations = ['AppComponent'];
+        const imports: string[] = [];
 
         if (plunk.modules) {
             // create list of declarations
             plunk.modules.filter(dependency => dependency.declaration).forEach(dependency => {
                 if (dependency.imports instanceof Array) {
-                    declarations = declarations.concat(dependency.imports);
+                    declarations.push(...dependency.imports);
                 } else {
                     declarations.push(dependency.imports);
                 }
@@ -57,7 +60,7 @@ export class PlunkerService {
 
                 const moduleImportProviders = module.providers || moduleImports || module.imports;
                 if (moduleImportProviders instanceof Array) {
-                    modules = modules.concat(moduleImportProviders);
+                    modules.push(...moduleImportProviders);
                 } else {
                     modules.push(moduleImportProviders);
                 }
@@ -83,7 +86,7 @@ export class PlunkerService {
 
         if (!this.indexTemplate) {
             this.indexTemplate = require('./templates/index_html.txt')
-                .replace(ASSETS_URL_PLACEHOLDER_REGEX, this.assetsUrl);
+                .replace(ASSETS_URL_PLACEHOLDER_REGEX, this._assetsUrl);
         }
 
         if (!this.mainTs) {
@@ -96,7 +99,8 @@ export class PlunkerService {
             .replace(DECLARATIONS_PLACEHOLDER, (declarations.join(`, \n${' '.repeat(8)}`)))
             .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
 
-        const configJs = require('./templates/config_js.txt');
+        const configJs = require('./templates/config_js.txt')
+            .replace(LIBRARIES_PLACEHOLDER, this.libraries.map(library => `'${library.path}': '${library.url}'`).join(`, \n${' '.repeat(4)}`));
 
         const postData = {
             'description': title,
@@ -110,15 +114,15 @@ export class PlunkerService {
             postData[`files[${key}]`] = plunk.files[key];
         }
 
-        const form = this.document.createElement('form');
+        const form = this._document.createElement('form');
 
-        form.action = this.plunkerPostUrl;
+        form.action = this._plunkerPostUrl;
         form.method = 'POST';
         form.target = '_blank';
 
-        for (let field in postData) {
+        for (const field in postData) {
 
-            const input = this.document.createElement('input');
+            const input = this._document.createElement('input');
 
             input.type = 'hidden';
             input.name = field;
@@ -129,4 +133,9 @@ export class PlunkerService {
 
         return form;
     }
+}
+
+export interface Library {
+    path: string;
+    url: string;
 }
