@@ -1,5 +1,4 @@
-<ux-media-player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource"
-    [quietMode]="mode === 'quiet'"></ux-media-player>
+<ux-media-player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource" [quietMode]="mode === 'quiet'"></ux-media-player>
 <ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio" [source]="audioSource"></ux-media-player>
 
 <div class="row uxd-customize-example">
@@ -50,6 +49,11 @@
         style. Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.
     </tr>
 </uxd-api-properties>
+
+<p>
+    To provide subtitles or closed captions add an HTML <code>track</code> element as a child of the <code>ux-media-player</code>.
+    More information on the <code>track</code> element can be <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track">found here</a>.
+</p>
 
 <p>The following code can be used to create the example above:</p>
 

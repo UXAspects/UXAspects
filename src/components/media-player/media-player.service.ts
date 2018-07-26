@@ -46,9 +46,9 @@ export class MediaPlayerService {
     progressEvent: Observable<TimeRanges> = Observable.create((observer: Observer<TimeRanges>) => {
 
         // repeat until the whole video has fully loaded
-        let interval = setInterval(() => {
+        const interval = setInterval(() => {
 
-            let buffered = this._mediaPlayer.buffered as TimeRanges;
+            const buffered = this._mediaPlayer.buffered as TimeRanges;
             observer.next(buffered);
 
             if (buffered.length === 1 && buffered.start(0) === 0 && buffered.end(0) === this.duration) {
@@ -95,8 +95,8 @@ export class MediaPlayerService {
         return this._mediaPlayer ? this._mediaPlayer.offsetHeight : 0;
     }
 
-    get audioTracks(): AudioTrackList {
-        return this._mediaPlayer ? this._mediaPlayer.audioTracks : null;
+    get audioTracks(): AudioTrackList | Array<any> {
+        return this._mediaPlayer ? this._mediaPlayer.audioTracks : [];
     }
 
     get autoplay(): boolean {
