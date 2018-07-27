@@ -289,7 +289,7 @@ export class MediaPlayerService {
     /**
      * Adds a new text track to the audio/video
      */
-    addTextTrack(kind: TextTrackKind, label: string, language: string): TextTrack {
+    addTextTrack(kind: 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata', label: string, language: string): TextTrack {
         return this._mediaPlayer.addTextTrack(kind, label, language);
     }
 
@@ -359,5 +359,3 @@ export class MediaPlayerService {
         }
     }
 }
-
-type TextTrackKind = 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata'
