@@ -98,6 +98,8 @@
         (blurWithin)="controlBarVisible = false">
 
         <ux-media-player-timeline></ux-media-player-timeline>
-        <ux-media-player-controls></ux-media-player-controls>
+        <ux-media-player-controls>
+            <ng-content select="[uxMediaPlayerCustomControl]"></ng-content>
+        </ux-media-player-controls>
     </div>
 </div>

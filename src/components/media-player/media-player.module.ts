@@ -11,15 +11,16 @@ import { SliderModule } from '../slider/index';
 import { TooltipModule } from '../tooltip/index';
 import { MediaPlayerBaseExtensionDirective } from './extensions/base-extension.directive';
 import { MediaPlayerControlsExtensionComponent } from './extensions/controls/controls.component';
+import { MediaPlayerCustomControlDirective } from './extensions/controls/custom-control/custom-control.directive';
 import { MediaPlayerTimelineExtensionComponent } from './extensions/timeline/timeline.component';
 import { MediaPlayerComponent } from './media-player.component';
-import { MediaPlayerService } from './media-player.service';
 
 const DECLARATIONS = [
     MediaPlayerComponent,
     MediaPlayerTimelineExtensionComponent,
     MediaPlayerBaseExtensionDirective,
-    MediaPlayerControlsExtensionComponent
+    MediaPlayerControlsExtensionComponent,
+    MediaPlayerCustomControlDirective
 ];
 
 @NgModule({
@@ -36,7 +37,6 @@ const DECLARATIONS = [
         ClickOutsideModule
     ],
     exports: DECLARATIONS,
-    declarations: DECLARATIONS,
-    providers: [MediaPlayerService]
+    declarations: DECLARATIONS
 })
 export class MediaPlayerModule { }

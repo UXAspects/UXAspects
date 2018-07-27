@@ -1,4 +1,4 @@
-<ux-media-player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource" [quietMode]="mode === 'quiet'"></ux-media-player>
+<ux-media-player #player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource" [quietMode]="mode === 'quiet'"></ux-media-player>
 <ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio" [source]="audioSource"></ux-media-player>
 
 <div class="row uxd-customize-example">
@@ -52,8 +52,18 @@
 
 <p>
     To provide subtitles or closed captions add an HTML <code>track</code> element as a child of the <code>ux-media-player</code>.
-    More information on the <code>track</code> element can be <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track">found here</a>.
+    More information on the <code>track</code> element can be <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track">found here</a>.
 </p>
+
+<p>
+    Custom controls can be added to the media player by adding a child element with a <code>uxMediaPlayerCustomControl</code> attribute.
+    To programmatically control the media player you can either:
+</p>
+
+<ul>
+    <li>Create a component and inject the <code>MediaPlayerService</code>.</li>
+    <li>Use a template reference variable to access the <code>MediaPlayerService</code> on the <code>ux-media-player</code> component.</li>
+</ul>
 
 <p>The following code can be used to create the example above:</p>
 

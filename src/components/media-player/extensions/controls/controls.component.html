@@ -67,17 +67,18 @@
 </button>
 
 <div class="actions-list">
-    <div class="action-button-container">
+
+    <ng-content></ng-content>
+
+    <div class="action-button-container" *ngIf="mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'">
         <button class="action-button"
             (click)="subtitlesOpen = !subtitlesOpen"
             [attr.aria-expanded]="subtitlesOpen"
             [attr.aria-describedby]="subtitlesId"
-            aria-haspopup="true"
-            *ngIf="mediaPlayerService.textTracks.length > 0">
+            aria-haspopup="true">
             <span class="hpe-icon hpe-subtitles"></span>
         </button>
 
-        <!-- We cannot us ux-popover here as it is not visible in fullscreen mode -->
         <div #subtitles
             [style.top.px]="-subtitles.offsetHeight"
             class="popover top media-player-subtitles-popover show"
@@ -86,7 +87,7 @@
             (uxClickOutside)="subtitlesOpen = false"
             *ngIf="subtitlesOpen">
             <div class="arrow"></div>
-            <h3 class="popover-title">Subtitles</h3>
+            <h3 class="popover-title" i18n>Subtitles</h3>
             <div class="popover-content">
                 <ul class="subtitles-list" uxTabbableList [focusOnShow]="true" [returnFocus]="true">
                     <li uxTabbableListItem
@@ -98,7 +99,7 @@
                         (keydown.enter)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false">
 
                         <i class="hpe-icon hpe-checkmark m-r-xs"></i>
-                        <span>Subtitles Off</span>
+                        <span i18n>Subtitles Off</span>
                     </li>
                     <li uxTabbableListItem
                         class="subtitles-list-item"
