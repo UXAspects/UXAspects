@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
+import { LiveAnnouncer } from '../../../../../../../node_modules/@angular/cdk/a11y';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
 
@@ -27,14 +28,24 @@ export class ComponentsHotkeysComponent extends BaseDocumentationSection impleme
             'app.component.html': this.snippets.raw.appHtml,
             'app.component.css': this.snippets.raw.appCss
         },
-        modules: [{
-          imports: ['FocusIfModule'],
-          library: '@ux-aspects/ux-aspects'
-      }]
+        modules: [
+            {
+                imports: ['FocusIfModule'],
+                library: '@ux-aspects/ux-aspects'
+            },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
+            }
+        ]
     };
 
-    constructor() {
+    constructor(private _liveAnnouncer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
+    }
+
+    announce(item: string): void {
+        this._liveAnnouncer.announce(`${item} selected`);
     }
 
     focusNextQ() {
@@ -44,5 +55,4 @@ export class ComponentsHotkeysComponent extends BaseDocumentationSection impleme
     focusNextW() {
         this.wFocused = this.wFocused === null || this.wFocused === 3 ? 0 : this.wFocused + 1;
     }
-
 }
