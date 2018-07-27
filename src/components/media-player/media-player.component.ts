@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
+import { merge } from 'rxjs/observable/merge';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { AudioMetadata, AudioService } from '../../services/audio/index';
@@ -31,7 +32,8 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
     hovering: boolean = false;
     audioMetadata: Observable<AudioMetadata>;
-    controlBarVisible: boolean = false;
+    focus = new Subject<void>();
+    blur = new Subject<void>();
 
     get source(): string {
         return this.mediaPlayerService.source;
@@ -64,12 +66,16 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
     constructor(public mediaPlayerService: MediaPlayerService, private _audioService: AudioService, private _elementRef: ElementRef) {
 
+        const mousemove = fromEvent(this._elementRef.nativeElement, 'mousemove');
+
         // show controls when hovering and in quiet mode
-        fromEvent(this._elementRef.nativeElement, 'mousemove').pipe(
+        merge(mousemove, this.focus).pipe(
             tap(() => this.hovering = true),
             debounceTime(2000),
             takeUntil(this._onDestroy)
         ).subscribe(() => this.hovering = false);
+
+        this.blur.pipe(takeUntil(this._onDestroy)).subscribe(() => this.hovering = false);
     }
 
     ngAfterViewInit(): void {

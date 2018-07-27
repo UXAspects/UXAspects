@@ -93,9 +93,10 @@
     </div>
 
     <div class="control-bar"
-        [class.control-bar-visible]="controlBarVisible"
-        (focusWithin)="controlBarVisible = true"
-        (blurWithin)="controlBarVisible = false">
+        (focusWithin)="focus.next()"
+        (blurWithin)="blur.next()"
+        (keydown.ArrowLeft)="focus.next()"
+        (keydown.ArrowRight)="focus.next()">
 
         <ux-media-player-timeline></ux-media-player-timeline>
         <ux-media-player-controls>
