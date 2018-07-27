@@ -20,7 +20,7 @@ export class PlunkerService {
     private _assetsUrl = this._appConfig.get('assetsUrl');
     private _plunkerPostUrl = this._appConfig.get('plunker');
 
-    constructor( @Inject(DOCUMENT) private _document: Document, private _appConfig: AppConfiguration) { }
+    constructor(@Inject(DOCUMENT) private _document: Document, private _appConfig: AppConfiguration) { }
 
     launch(title: string, plunk: IPlunk) {
 
@@ -100,7 +100,10 @@ export class PlunkerService {
             .replace(IMPORTS_PLACEHOLDER, imports.join('\n'));
 
         const configJs = require('./templates/config_js.txt')
-            .replace(LIBRARIES_PLACEHOLDER, this.libraries.map(library => `'${library.path}': '${library.url}'`).join(`, \n${' '.repeat(4)}`));
+            .replace(LIBRARIES_PLACEHOLDER, this.libraries.map(library => {
+                const url = library.asset ? `uxdAssetsUrl + '${library.url}'` : `'${library.url}'`;
+                return `'${library.path}': ${url}`;
+            }).join(`, \n${' '.repeat(4)}`));
 
         const postData = {
             'description': title,
@@ -138,4 +141,5 @@ export class PlunkerService {
 export interface Library {
     path: string;
     url: string;
+    asset?: boolean;
 }
