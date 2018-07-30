@@ -1,4 +1,6 @@
-<ux-media-player #player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource" [quietMode]="mode === 'quiet'"></ux-media-player>
+<ux-media-player #player *ngIf="type === 'video'" class="media-player" type="video" [source]="videoSource" [quietMode]="mode === 'quiet'">
+    <track label="English" lang="en" default [src]="subtitles">
+</ux-media-player>
 <ux-media-player *ngIf="type === 'audio'" class="media-player" type="audio" [source]="audioSource"></ux-media-player>
 
 <div class="row uxd-customize-example">
@@ -47,6 +49,9 @@
     <tr uxd-api-property name="quietMode" type="boolean">
         If enabled, the controls in the media player will be hidden unless the mouse is over the player and will appear in a darker
         style. Dark mode is automatically enabled in full screen mode. Quiet mode is only available for videos.
+    </tr>
+    <tr uxd-api-property name="crossorigin" type="'anonymous' | 'use-credentials'">
+        The <code>anonymous</code> keyword means that there will be no exchange of user credentials when the media source is fetched.
     </tr>
 </uxd-api-properties>
 

@@ -10,6 +10,7 @@
             #player
             tabindex="-1"
             [src]="source"
+            [crossOrigin]="crossorigin"
             (abort)="mediaPlayerService.abortEvent.next()"
             (canplay)="mediaPlayerService.canPlayEvent.next(true)"
             (canplaythrough)="mediaPlayerService.canPlayThroughEvent.next(true)"

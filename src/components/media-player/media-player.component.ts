@@ -35,6 +35,8 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
     focus = new Subject<void>();
     blur = new Subject<void>();
 
+    @Input() crossorigin: 'use-credentials' | 'anonymous' = 'use-credentials';
+
     get source(): string {
         return this.mediaPlayerService.source;
     }
