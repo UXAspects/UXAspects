@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-5">
+        <input type="text"
+            placeholder="Search..."
+            class="form-control m-b"
+            [(ngModel)]="query"
+            (ngModelChange)="search()">
+
+        <ux-select-list class="select-table-example" [(selected)]="selected" [multiple]="multiple">
+            <ux-select-list-item *ngFor="let author of authors" [data]="author">
+                {{ author }}
+            </ux-select-list-item>
+        </ux-select-list>
+    </div>
+</div>
+
+<p>The selected values are: <b>{{ selected.join(', ') }}</b></p>

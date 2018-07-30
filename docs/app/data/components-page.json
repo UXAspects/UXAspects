@@ -1297,13 +1297,33 @@
                     "title": "Single Select Table",
                     "component": "ComponentsSingleSelectTableNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true
                 },
                 {
                     "title": "Multiple Select Table",
                     "component": "ComponentsMultipleSelectTableNg1Component",
                     "version": "AngularJS",
-                    "hybrid": true
+                    "hybrid": true,
+                    "deprecated": true
+                },
+                {
+                    "title": "Select List",
+                    "component": "ComponentsSelectListComponent",
+                    "version": "Angular",
+                    "usage": [
+                        {
+                            "title": "Selector",
+                            "content": "ux-select-list"
+                        },{
+                            "title": "Selector",
+                            "content": "ux-select-list-item"
+                        },
+                        {
+                            "title": "Module",
+                            "content": "SelectListModule"
+                        }
+                    ]
                 }
             ]
         },
