@@ -108,4 +108,14 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
         track.mode = 'showing';
     }
 
+    getSubtitleTrack(): string {
+        for (let idx = 0; idx < this.mediaPlayerService.textTracks.length; idx++) {
+            if (this.mediaPlayerService.textTracks[idx].mode === 'showing') {
+                return this.mediaPlayerService.textTracks[idx].label;
+            }
+        }
+
+        return 'No subtitles';
+    }
+
 }

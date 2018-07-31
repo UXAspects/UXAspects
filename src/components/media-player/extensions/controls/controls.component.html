@@ -73,6 +73,8 @@
     <div class="action-button-container" *ngIf="mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'">
         <button class="action-button"
             (click)="subtitlesOpen = !subtitlesOpen"
+            i18n-aria-label
+            attr.aria-label="Select subtitles, {{ getSubtitleTrack() }} currently selected."
             [attr.aria-expanded]="subtitlesOpen"
             [attr.aria-describedby]="subtitlesId"
             aria-haspopup="true">
