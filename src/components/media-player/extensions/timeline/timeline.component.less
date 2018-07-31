@@ -18,6 +18,10 @@ ux-media-player-timeline {
         background-color: @mediaplayer-timeline-bg;
         cursor: pointer;
 
+        &:focus {
+            .aspects-outline();
+        }
+
         .buffered-bar {
             position: absolute;
             height: 100%;
@@ -97,4 +101,8 @@ ux-media-player-timeline {
             }
         }
     }
+}
+
+.ux-media-player-timeline-tooltip {
+    pointer-events: none;
 }

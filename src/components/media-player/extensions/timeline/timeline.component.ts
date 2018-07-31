@@ -10,7 +10,7 @@ import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
     templateUrl: './timeline.component.html',
     host: {
         '(document:mouseup)': 'mouseDown = false',
-        '[class.quiet]': 'quietMode || fullscreen'
+        '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
     }
 })
 export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, AfterViewInit, OnDestroy {
@@ -20,11 +20,8 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
 
     current: number = 0;
     position: number = 0;
-    duration: number = 0;
     buffered: MediaPlayerBuffered[] = [];
     mouseDown: boolean = false;
-    quietMode: boolean = false;
-    fullscreen: boolean = false;
     scrub = { visible: false, position: 0, time: 0 };
 
     private _onDestroy = new Subject<void>();
@@ -32,23 +29,23 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
     ngOnInit(): void {
 
         // watch for changes to the current time
-        this.mediaPlayerService.durationChangeEvent.pipe(takeUntil(this._onDestroy)).subscribe(duration => this.duration = duration);
-        this.mediaPlayerService.quietModeEvent.pipe(takeUntil(this._onDestroy)).subscribe(quietMode => this.quietMode = quietMode);
         this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(fullscreen => {
-            this.fullscreen = fullscreen;
             this.scrub.position = 0;
         });
 
         this.mediaPlayerService.timeUpdateEvent.pipe(takeUntil(this._onDestroy)).subscribe(current => {
             this.current = current;
-            this.position = (this.current / this.duration) * 100;
+            this.position = (this.current / this.mediaPlayerService.duration) * 100;
         });
 
         this.mediaPlayerService.progressEvent.pipe(takeUntil(this._onDestroy)).subscribe((buffered: TimeRanges) => {
             this.buffered = [];
 
             for (let idx = 0; idx < buffered.length; idx++) {
-                this.buffered.push({ start: (buffered.start(idx) / this.duration) * 100, end: (buffered.end(idx) / this.duration) * 100 });
+                this.buffered.push({
+                    start: (buffered.start(idx) / this.mediaPlayerService.duration) * 100,
+                    end: (buffered.end(idx) / this.mediaPlayerService.duration) * 100
+                });
             }
         });
     }
@@ -64,12 +61,12 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
         ).subscribe(() => this.scrub.visible = false);
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this._onDestroy.next();
         this._onDestroy.complete();
     }
 
-    updateScrub(event?: MouseEvent): void {
+    updateScrub(event: MouseEvent): void {
 
         const target = event.target as HTMLElement;
 
@@ -87,6 +84,22 @@ export class MediaPlayerTimelineExtensionComponent extends MediaPlayerBaseExtens
             this.mediaPlayerService.pause();
             this.mediaPlayerService.currentTime = this.scrub.time;
         }
+    }
+
+    /** Skip a number of seconds in any direction */
+    skip(seconds: number): void {
+        let target = this.current + seconds;
+
+        // ensure that the target position is within the bounds of the clip
+        if (target < 0) {
+            target = 0;
+        }
+
+        if (target > this.mediaPlayerService.duration) {
+            target = this.mediaPlayerService.duration;
+        }
+
+        this.mediaPlayerService.currentTime = target;
     }
 }
 

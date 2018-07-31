@@ -1081,6 +1081,10 @@
             "classname": "hpe-street-view"
         },
         {
+            "name": "subtitles",
+            "classname": "hpe-subtitles"
+        },
+        {
             "name": "subtract",
             "classname": "hpe-subtract"
         },

@@ -1,28 +1,49 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { timer } from 'rxjs/observable/timer';
-import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { SliderOptions, SliderSize } from '../../../slider/index';
 import { MediaPlayerBaseExtensionDirective } from '../base-extension.directive';
+
+let uniqueId: number = 1;
 
 @Component({
     selector: 'ux-media-player-controls',
     templateUrl: './controls.component.html',
     host: {
-        '[class.quiet]': 'quietMode || fullscreen'
+        '[class.quiet]': 'mediaPlayerService.quietMode || mediaPlayerService.fullscreen'
     }
 })
 export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtensionDirective implements OnInit, OnDestroy {
 
-    playing: boolean;
-    quietMode: boolean;
-    fullscreen: boolean = false;
     volumeActive: boolean = false;
-    volumeDragging: boolean = false;
+    volumeFocus: boolean = false;
+    subtitlesId: string = `ux-media-player-subtitle-popover-${uniqueId++}`;
+    subtitlesOpen: boolean = false;
+    mouseEnterVolume = new Subject<void>();
+    mouseLeaveVolume = new Subject<void>();
 
-    @ViewChild('volumeIcon') volumeIcon: ElementRef;
-    @ViewChild('volumeSlider') volumeSlider: ElementRef;
-    @ViewChild('volumeContainer') volumeContainer: ElementRef;
+    options: SliderOptions = {
+        handles: {
+            aria: {
+                thumb: 'Volume'
+            }
+        },
+        track: {
+            colors: {
+                lower: '#666'
+            },
+            height: SliderSize.Narrow,
+            ticks: {
+                major: {
+                    show: false
+                },
+                minor: {
+                    show: false
+                }
+            }
+        }
+    };
 
     private _volume: number = 50;
     private _previousVolume = 50;
@@ -43,21 +64,12 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
     }
 
     ngOnInit(): void {
-        this.mediaPlayerService.playEvent.pipe(takeUntil(this._onDestroy)).subscribe(_ => this.playing = true);
-        this.mediaPlayerService.pauseEvent.pipe(takeUntil(this._onDestroy)).subscribe(_ => this.playing = false);
-        this.mediaPlayerService.quietModeEvent.pipe(takeUntil(this._onDestroy)).subscribe(quietMode => this.quietMode = quietMode);
         this.mediaPlayerService.volumeChangeEvent.pipe(takeUntil(this._onDestroy)).subscribe(volume => this.volume = volume * 100);
-        this.mediaPlayerService.initEvent.pipe(debounceTime(1), filter(init => init === true), takeUntil(this._onDestroy)).subscribe(() => this.volume = this.mediaPlayerService.volume * 100);
-        this.mediaPlayerService.fullscreenEvent.pipe(takeUntil(this._onDestroy)).subscribe(fullscreen => this.fullscreen = fullscreen);
+        this.mediaPlayerService.initEvent.pipe(takeUntil(this._onDestroy)).subscribe(() => this.volume = this.mediaPlayerService.volume * 100);
 
-        const mouseenter$ = fromEvent(this.volumeIcon.nativeElement, 'mouseenter');
-        const mouseenterContainer$ = fromEvent(this.volumeContainer.nativeElement, 'mouseenter');
-        const mouseleaveContainer$ = fromEvent(this.volumeContainer.nativeElement, 'mouseleave');
-
-        mouseenter$.pipe(takeUntil(this._onDestroy)).subscribe(() => this.volumeActive = true);
-        mouseleaveContainer$.pipe(
-            switchMap(() => timer(1500).pipe(takeUntil(mouseenterContainer$))),
-            takeUntil(this._onDestroy)
+        this.mouseEnterVolume.pipe(takeUntil(this._onDestroy)).subscribe(() => this.volumeActive = true);
+        this.mouseLeaveVolume.pipe(
+            switchMap(() => timer(1500).pipe(takeUntil(this.mouseEnterVolume))), takeUntil(this._onDestroy)
         ).subscribe(() => this.volumeActive = false);
     }
 
@@ -67,23 +79,7 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
     }
 
     toggleMute(): void {
-        if (this.volume === 0) {
-            this.volume = this._previousVolume;
-        } else {
-            this.volume = 0;
-        }
-    }
-
-    togglePlay(): void {
-        if (this.playing) {
-            this.mediaPlayerService.pause();
-        } else {
-            this.mediaPlayerService.play();
-        }
-    }
-
-    setFullscreen(): void {
-        this.mediaPlayerService.toggleFullscreen();
+        this.volume = this.volume === 0 ? this._previousVolume : 0;
     }
 
     goToStart(): void {
@@ -94,34 +90,32 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
         this.mediaPlayerService.currentTime = this.mediaPlayerService.duration;
     }
 
-    dragStart(event: MouseEvent): void {
-        event.preventDefault();
-        this.volumeDragging = true;
-
-        const thumb = event.target as HTMLDivElement;
-        thumb.focus();
-    }
-
-    @HostListener('document:mousemove', ['$event'])
-    dragMove(event: MouseEvent): void {
-        if (!this.volumeDragging) {
-            return;
+    isSubtitleActive(): boolean {
+        for (let idx = 0; idx < this.mediaPlayerService.textTracks.length; idx++) {
+            if (this.mediaPlayerService.textTracks[idx].mode === 'showing') {
+                return true;
+            }
         }
 
-        event.preventDefault();
-
-        const slider = this.volumeSlider.nativeElement as HTMLDivElement;
-        const bounds = slider.getBoundingClientRect();
-
-        const x = Math.min(bounds.width, Math.max(0, event.pageX - bounds.left));
-
-        // convert to a percentage
-        this.volume = (x / bounds.width) * 100;
+        return false;
     }
 
-    @HostListener('document:mouseup')
-    dragEnd(): void {
-        this.volumeDragging = false;
+    setSubtitleTrack(track: TextTrack): void {
+        // hide all tracks
+        this.mediaPlayerService.hideSubtitleTracks();
+
+        // activate the selected one
+        track.mode = 'showing';
+    }
+
+    getSubtitleTrack(): string {
+        for (let idx = 0; idx < this.mediaPlayerService.textTracks.length; idx++) {
+            if (this.mediaPlayerService.textTracks[idx].mode === 'showing') {
+                return this.mediaPlayerService.textTracks[idx].label;
+            }
+        }
+
+        return 'No subtitles';
     }
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
+import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
 import { IPlunkProvider } from './../../../../../interfaces/IPlunkProvider';
 
@@ -17,6 +17,7 @@ export class ComponentsMediaPlayerComponent extends BaseDocumentationSection imp
 
     videoSource: string = require('../../../../../assets/media/catchingwave.mp4');
     audioSource: string = require('../../../../../assets/media/Ocean-Waves.mp3');
+    subtitles: string = require('!!file-loader!../../../../../assets/media/subtitles.vtt');
 
     plunk: IPlunk = {
         files: {

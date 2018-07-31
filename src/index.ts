@@ -43,6 +43,7 @@ export * from './components/wizard/index';
 /*
   Export Directives
 */
+export * from './directives/accessibility/index';
 export * from './directives/auto-grow/index';
 export * from './directives/click-outside/index';
 export * from './directives/drag/index';

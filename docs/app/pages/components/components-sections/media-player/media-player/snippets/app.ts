@@ -12,5 +12,6 @@ export class AppComponent {
 
     videoSource: string = `${uxdAssetsUrl}/media/catchingwave.mp4`;
     audioSource: string = `${uxdAssetsUrl}/media/Ocean-Waves.mp3`;
+    subtitles: string = `${uxdAssetsUrl}/media/subtitles.vtt`;
 
 }
