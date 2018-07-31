@@ -2,7 +2,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AccessibilityModule } from '../../directives/accessibility/index';
-import { ClickOutsideModule } from '../../directives/click-outside';
+import { ClickOutsideModule } from '../../directives/click-outside/index';
 import { DurationPipeModule } from '../../pipes/duration/index';
 import { FileSizePipeModule } from '../../pipes/file-size/index';
 import { AudioServiceModule } from '../../services/audio/index';
