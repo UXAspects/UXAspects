@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { ComponentFactoryResolver, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -33,7 +34,8 @@ const ROUTES = [
         TabsModule.forRoot(),
         FocusIfModule,
         DocumentationComponentsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        A11yModule
     ],
     exports: SECTIONS,
     declarations: SECTIONS,
