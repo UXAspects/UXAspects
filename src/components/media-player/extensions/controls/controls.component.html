@@ -15,7 +15,8 @@
                 [uxTooltip]="muteTooltip"
                 [showTriggers]="['mouseenter']"
                 [hideTriggers]="['mouseleave']"
-                (click)="toggleMute()">
+                (click)="toggleMute()"
+                (mouseup)="volumeIcon.blur()">
 
             <span class="hpe-icon"
                   [class.hpe-volume-mute]="volume === 0"
@@ -30,8 +31,10 @@
     </div>
 </div>
 
-<button class="control-button"
+<button #startButton
+    class="control-button"
     (click)="goToStart()"
+    (mouseup)="startButton.blur()"
     aria-label="Go to start"
     i18n-aria-label>
 
@@ -41,10 +44,12 @@
     </svg>
 </button>
 
-<button class="control-button"
+<button #playButton
+    class="control-button"
     attr.aria-label="{{ (mediaPlayerService.playing | async) ? 'Pause' : 'Play' }}"
     i18n-aria-label
-    (click)="mediaPlayerService.togglePlay()">
+    (click)="mediaPlayerService.togglePlay()"
+    (mouseup)="playButton.blur()">
 
     <svg *ngIf="!(mediaPlayerService.playing | async)" viewBox="0 0 45 64" width="20" height="29" focusable="false">
         <polygon points="0.4,0 0.4,64 44.6,32" />
@@ -55,8 +60,10 @@
     </svg>
 </button>
 
-<button class="control-button"
+<button #endButton
+    class="control-button"
     (click)="goToEnd()"
+    (mouseup)="endButton.blur()"
     aria-label="Go to end"
     i18n-aria-label>
 
@@ -71,8 +78,11 @@
     <ng-content></ng-content>
 
     <div class="action-button-container" *ngIf="mediaPlayerService.textTracks.length > 0 && mediaPlayerService.type === 'video'">
-        <button class="action-button"
-            (click)="subtitlesOpen = !subtitlesOpen"
+        <button #subtitlesButton
+            class="action-button"
+            (keydown)="returnFocus = true"
+            (click)="subtitlesOpen = !subtitlesOpen; subtitlesButton.blur()"
+            (mouseup)="returnFocus = false"
             i18n-aria-label
             attr.aria-label="Select subtitles, {{ getSubtitleTrack() }} currently selected."
             [attr.aria-expanded]="subtitlesOpen"
@@ -91,7 +101,7 @@
             <div class="arrow"></div>
             <h3 class="popover-title" i18n>Subtitles</h3>
             <div class="popover-content">
-                <ul class="subtitles-list" uxTabbableList [focusOnShow]="true" [returnFocus]="true">
+                <ul class="subtitles-list" uxTabbableList [focusOnShow]="returnFocus" [returnFocus]="returnFocus">
                     <li uxTabbableListItem
                         tabindex="0"
                         class="subtitles-list-item"
@@ -119,11 +129,13 @@
     </div>
 
     <div class="action-button-container">
-        <button *ngIf="mediaPlayerService.type !== 'audio'"
+        <button #fullscreenButton
+            *ngIf="mediaPlayerService.type !== 'audio'"
             class="action-button"
             attr.aria-label="{{ mediaPlayerService.fullscreen ? 'Exit full screen' : 'Full screen' }}"
             i18n-aria-label
-            (click)="mediaPlayerService.toggleFullscreen()">
+            (click)="mediaPlayerService.toggleFullscreen()"
+            (mouseup)="fullscreenButton.blur()">
 
             <span class="hpe-icon"
                   [class.hpe-expand]="!mediaPlayerService.fullscreen"

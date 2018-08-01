@@ -18,6 +18,7 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
 
     volumeActive: boolean = false;
     volumeFocus: boolean = false;
+    returnFocus: boolean = true;
     subtitlesId: string = `ux-media-player-subtitle-popover-${uniqueId++}`;
     subtitlesOpen: boolean = false;
     mouseEnterVolume = new Subject<void>();
