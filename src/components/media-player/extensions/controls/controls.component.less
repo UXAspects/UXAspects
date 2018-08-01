@@ -162,7 +162,7 @@ ux-media-player-controls {
     }
 
     .media-player-subtitles-popover {
-        left: unset;
+        left: auto;
         right: -35px;
 
         .popover-title {
@@ -172,13 +172,13 @@ ux-media-player-controls {
         }
 
         &.top > .arrow {
-            left: unset;
+            left: auto;
             right: 37px;
         }
 
         .popover-content {
             padding: 7px;
-            max-width: unset;
+            max-width: none;
 
             .subtitles-list {
                 margin: 0;
@@ -202,18 +202,10 @@ ux-media-player-controls {
 
                     &:hover {
                         background-color: @grey7;
-
-                        .hpe-icon {
-                            opacity: 0.5;
-                        }
                     }
 
                     &:focus {
                         .aspects-outline();
-
-                        .hpe-icon {
-                            opacity: 0.5;
-                        }
                     }
 
                     &.active {

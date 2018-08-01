@@ -104,8 +104,15 @@ export class MediaPlayerControlsExtensionComponent extends MediaPlayerBaseExtens
         // hide all tracks
         this.mediaPlayerService.hideSubtitleTracks();
 
+        // set the position of the subtitle track
+        for (let idx = 0; idx < track.cues.length; idx++) {
+            const cue: any = track.cues[idx];
+            cue.line = -3;
+        }
+
         // activate the selected one
         track.mode = 'showing';
+
     }
 
     getSubtitleTrack(): string {
