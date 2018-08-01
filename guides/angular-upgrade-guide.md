@@ -9,13 +9,13 @@ This can be done by entering `npm init` or `yarn init` into the console for a st
 First install the dependencies:
 
 ```bash
-npm install @angular/common @angular/compiler @angular/core @angular/forms @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade core-js zone.js rxjs
+npm install @angular/common @angular/compiler @angular/core @angular/forms @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade core-js zone.js rxjs rxjs-compat
 ```
 
 Next install the developer tool dependencies:
 
 ```bash
-npm install typescript webpack webpack-cli @angular/compiler-cli @ngtools/webpack html-loader css-loader --save-dev
+npm install typescript webpack webpack-cli @angular/compiler-cli @ngtools/webpack raw-loader to-string-loader css-loader @types/angular --save-dev
 ```
 
 ### Setting up TypeScript
@@ -87,11 +87,11 @@ module.exports = {
             },
             {
                 test: /\.html$/,
-                use: 'html-loader'
+                use: 'raw-loader'
             },
             {
                 test: /\.css$/,
-                use: 'css-loader'
+                use: ['to-string-loader', 'css-loader']
             }
         ]
     },
@@ -106,7 +106,7 @@ module.exports = {
 };
 ```
 
-**Note:** You should also create an additional Webpack configuration for production builds. The production config should set `mode` to `production` and the `AngularCompilerPlugin` should have `skipCodeGeneration` set to `false`.
+**Note:** You should also create an additional Webpack configuration for production builds. The production config should set `mode` to `production` and the `AngularCompilerPlugin` should have `skipCodeGeneration` set to `false`. You should also consider using Angular's [PurifyPlugin](https://www.npmjs.com/package/@angular-devkit/build-optimizer) for additional optimizations.
 
 ### Create Our Angular Module
 
@@ -138,9 +138,9 @@ Lastly we bootstrap our app module.
 #### app.module.ts
 
 ```typescript
-declare const angular: any;
+declare const angular: ng.IAngularStatic;
 
-import { NgModule, forwardRef } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule, setAngularJSGlobal } from '@angular/upgrade/static';
 
