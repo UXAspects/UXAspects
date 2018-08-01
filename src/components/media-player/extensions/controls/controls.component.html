@@ -81,8 +81,8 @@
         <button #subtitlesButton
             class="action-button"
             (keydown)="returnFocus = true"
-            (click)="subtitlesOpen = !subtitlesOpen; subtitlesButton.blur()"
-            (mouseup)="returnFocus = false"
+            (click)="subtitlesOpen = !subtitlesOpen"
+            (mouseup)="subtitlesButton.blur(); returnFocus = false"
             i18n-aria-label
             attr.aria-label="Select subtitles, {{ getSubtitleTrack() }} currently selected."
             [attr.aria-expanded]="subtitlesOpen"
@@ -108,7 +108,7 @@
                         [class.active]="!isSubtitleActive()"
                         [attr.aria-selected]="isSubtitleActive()"
                         (click)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false"
-                        (keydown.enter)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false">
+                        (keydown.enter)="mediaPlayerService.hideSubtitleTracks(); subtitlesOpen = false; returnFocus = true">
 
                         <i class="hpe-icon hpe-checkmark m-r-xs"></i>
                         <span i18n>Subtitles Off</span>
@@ -119,7 +119,7 @@
                         [class.active]="track.mode === 'showing'"
                         [attr.aria-selected]="isSubtitleActive()"
                         (click)="setSubtitleTrack(track); subtitlesOpen = false"
-                        (keydown.enter)="setSubtitleTrack(track); subtitlesOpen = false">
+                        (keydown.enter)="setSubtitleTrack(track); subtitlesOpen = false; returnFocus = true">
                         <i class="hpe-icon hpe-checkmark m-r-xs"></i>
                         <span>{{ track.label }}</span>
                     </li>

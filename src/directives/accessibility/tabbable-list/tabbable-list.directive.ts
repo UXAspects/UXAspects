@@ -23,14 +23,14 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
     /** Find all tabbable list items */
     @ContentChildren(TabbableListItemDirective) items: QueryList<TabbableListItemDirective>;
 
-    private _focusedElement: Element;
+    private _focusedElement: HTMLElement;
 
     constructor(private _tabbableList: TabbableListService) {}
 
     ngAfterContentInit(): void {
 
         // store the currently focused element
-        this._focusedElement = document.activeElement;
+        this._focusedElement = document.activeElement as HTMLElement;
 
         // Set up the focus monitoring
         this._tabbableList.initialize(this.items, this.direction, this.wrap);
@@ -43,7 +43,7 @@ export class TabbableListDirective implements AfterContentInit, OnDestroy {
 
     ngOnDestroy(): void {
         if (this.returnFocus && this._focusedElement instanceof HTMLElement) {
-            this._focusedElement.focus();
+            setTimeout(() => this._focusedElement.focus());
         }
     }
 }
