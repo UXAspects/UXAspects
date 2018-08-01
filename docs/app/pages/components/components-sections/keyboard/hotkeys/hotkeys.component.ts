@@ -1,5 +1,5 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
-import { LiveAnnouncer } from '../../../../../../../node_modules/@angular/cdk/a11y';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
