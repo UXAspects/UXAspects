@@ -209,12 +209,12 @@ export class MediaPlayerService {
         this._mediaPlayer.src = value;
     }
 
-    get textTracks(): TextTrackList | Array<TextTrack> {
-        return this._mediaPlayer ? this._mediaPlayer.textTracks : [];
+    get textTracks(): Array<TextTrack> {
+        return this._mediaPlayer ? Array.from(this._mediaPlayer.textTracks) : [];
     }
 
-    get videoTracks(): VideoTrackList | Array<VideoTrack> {
-        return this._mediaPlayer ? this._mediaPlayer.videoTracks : [];
+    get videoTracks(): Array<VideoTrack> {
+        return this._mediaPlayer ? Array.from(this._mediaPlayer.videoTracks) : [];
     }
 
     get volume(): number {

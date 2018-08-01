@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { merge } from 'rxjs/observable/merge';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { AudioMetadata, AudioService } from '../../services/audio/index';
@@ -16,7 +15,7 @@ import { MediaPlayerService } from './media-player.service';
         '[class.standard]': '!mediaPlayerService.fullscreen',
         '[class.fullscreen]': 'mediaPlayerService.fullscreen',
         '[class.quiet]': 'quietMode && type === "video" || mediaPlayerService.fullscreen',
-        '[class.hover]': 'hovering',
+        '[class.hover]': 'hovering || focused',
         '[class.video]': 'type === "video"',
         '[class.audio]': 'type === "audio"',
         '(mouseenter)': 'hovering = true',
@@ -31,9 +30,8 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
     @ViewChild('player') private _playerRef: ElementRef;
 
     hovering: boolean = false;
+    focused: boolean = false;
     audioMetadata: Observable<AudioMetadata>;
-    focus = new Subject<void>();
-    blur = new Subject<void>();
 
     @Input() crossorigin: 'use-credentials' | 'anonymous' = 'use-credentials';
 
@@ -68,16 +66,12 @@ export class MediaPlayerComponent implements AfterViewInit, OnDestroy {
 
     constructor(public mediaPlayerService: MediaPlayerService, private _audioService: AudioService, private _elementRef: ElementRef) {
 
-        const mousemove = fromEvent(this._elementRef.nativeElement, 'mousemove');
-
         // show controls when hovering and in quiet mode
-        merge(mousemove, this.focus).pipe(
+        fromEvent(this._elementRef.nativeElement, 'mousemove').pipe(
             tap(() => this.hovering = true),
             debounceTime(2000),
             takeUntil(this._onDestroy)
         ).subscribe(() => this.hovering = false);
-
-        this.blur.pipe(takeUntil(this._onDestroy)).subscribe(() => this.hovering = false);
     }
 
     ngAfterViewInit(): void {
