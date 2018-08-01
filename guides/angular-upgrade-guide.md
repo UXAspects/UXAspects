@@ -63,6 +63,7 @@ Our basic Webpack config will look something like this. Note, we have created an
 ```javascript
 const { resolve } = require('path');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const rxAlias = require('rxjs/_esm5/path-mapping');
 
 module.exports = {
 
@@ -76,7 +77,8 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js'],
+        alias: rxAlias()
     },
 
     module: {
