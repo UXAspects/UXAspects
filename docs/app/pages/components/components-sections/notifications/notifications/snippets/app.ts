@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Component, HostListener, TemplateRef } from '@angular/core';
 import { ColorService, NotificationService } from '@ux-aspects/ux-aspects';
 
 @Component({
@@ -7,9 +8,9 @@ import { ColorService, NotificationService } from '@ux-aspects/ux-aspects';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    
+
     duration: number = 4;
-    description: string = 'You have 16 messages';    
+    description: string = 'You have 16 messages';
     backgroundColor: string = this.colorService.getColor('accent').toHex();
 
     colors = [
@@ -21,12 +22,26 @@ export class AppComponent {
         this.colorService.getColor('warning').toHex(),
         this.colorService.getColor('critical').toHex()
     ];
-    
+
     setColor (color: string): void {
         this.backgroundColor = this.colors[color];
     }
 
     constructor(public notificationService: NotificationService,
-        public colorService: ColorService) {
+        public colorService: ColorService,
+        private _liveAnnouncer: LiveAnnouncer) {
+    }
+
+    showNotification(template: TemplateRef<any>) {
+        this.notificationService.show(template,
+            { duration: this.duration, backgroundColor: this.backgroundColor },
+            { description: this.description });
+
+        this._liveAnnouncer.announce(`Notification: ${this.description}`);
+    }
+
+    @HostListener('document:keydown.escape')
+    dismissNotifications(): void {
+        this.notificationService.dismissAll();
     }
 }

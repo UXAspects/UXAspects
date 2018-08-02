@@ -1,8 +1,7 @@
 <ux-notification-list direction="above" position="top-right"></ux-notification-list>
 
 <div class="btn-container">
-    <button class="btn button-primary m-r-sm" (click)="notificationService.show(notification,
-        { duration: duration, backgroundColor: backgroundColor }, { description: description })">
+    <button class="btn button-primary m-r-sm" (click)="showNotification(notification)">
         Show Notification
     </button>
     <button class="btn button-secondary m-r-sm" (click)="notificationService.dismissAll()">
@@ -12,16 +11,19 @@
 
 <ng-template #notification let-notificationRef let-data="data">
 
-    <div class="dismiss">
-        <div class="hpe-icon hpe-close" (click)="notificationService.dismiss(notificationRef)"></div>
-    </div>
-    
+    <button class="dismiss"
+        tabindex="0"
+        aria-label="Dismiss Notification"
+        (click)="notificationService.dismiss(notificationRef)">
+        <i class="hpe-icon hpe-close"></i>
+    </button>
+
     <div class="notification-wrapper">
 
         <div class="notification-icon">
             <span class="hpe-icon hpe-chat"></span>
         </div>
-    
+
         <div class="notification-content">
             <h4 class="notification-title">Messages Received</h4>
             <p class="notification-description">{{ data.description }}</p>
@@ -31,7 +33,6 @@
         </div>
 
     </div>
-    
 </ng-template>
 
 <hr>
@@ -68,7 +69,8 @@
                         <div class="col-sm-6">
                             <label for="backgroundColor">description</label>
                             <div class="input-group m-b-sm">
-                                <input type="text" placeholder="Enter description" class="form-control" [(ngModel)]="description">
+                                <input type="text" placeholder="Enter description"
+                                    class="form-control" [(ngModel)]="description">
                             </div>
                         </div>
                     </div>
