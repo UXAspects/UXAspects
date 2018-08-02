@@ -12,6 +12,8 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
+    "prepack": "mv src/package.json src_package.json",
+    "postpack": "mv src_package.json src/package.json",
     "start": "webpack-dev-server --config configs/webpack.dev.config.js",
     "start:https": "webpack-dev-server --config configs/webpack.dev.config.js --https --pfx configs/webpack.docs.dev.pfx",
     "serve:e2e": "lite-server -c=e2e/bs-config.e2e.json",
