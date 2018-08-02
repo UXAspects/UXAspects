@@ -44,7 +44,7 @@ module.exports = function (grunt) {
 
     // Tasks with larger chains of events
     grunt.registerTask('build', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim', 'package:library', 'package:library_bower', 'package:docs']);
-    grunt.registerTask('build:library', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'minify', 'assets:library', 'licenses', 'execute:shim', 'package:library', 'package:library_bower']);
+    grunt.registerTask('build:library', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'minify', 'assets:library', 'licenses', 'execute:shim', 'package:library', 'package:library_bower', 'package:docs']);
     grunt.registerTask('releasebuild', ['build']);
 
     // default task will run dev environment
