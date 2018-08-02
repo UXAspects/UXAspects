@@ -27,6 +27,7 @@ module.exports = {
     images: 'dist/img',
     less: 'dist/less',
     licenses: 'dist/Licenses',
+    readme: 'dist/README.md',
     e2e: ['e2e/dist', 'e2e/_test-output', 'e2e/coverage', 'e2e/html', 'e2e/xml'],
     shim: 'dist/dist',
     bower: 'target/bower'

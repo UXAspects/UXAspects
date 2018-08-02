@@ -20,18 +20,18 @@ module.exports = function (grunt) {
     });
 
     // Register Tasks
-    grunt.registerTask('cleanup', ['clean:library', 'clean:shim', 'clean:documentation', 'clean:ng1', 'clean:styles', 'clean:fonts', 'clean:images', 'clean:less', 'clean:licenses']);
+    grunt.registerTask('cleanup', ['clean']);
     grunt.registerTask('lint', ['tslint:library', 'tslint:documentation', 'jshint:ng1', 'stylelint', 'tslint:e2e']);
     grunt.registerTask('library', ['clean:library', 'run:build_library', 'webpack:ng1']);
     grunt.registerTask('styles', ['clean:styles', 'execute:less']);
     grunt.registerTask('scripts', ['execute:iconset']);
-    grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:ng1', 'copy:styles']);
+    grunt.registerTask('assets', ['copy:fonts', 'copy:images', 'copy:ng1', 'copy:styles', 'copy:readme']);
+    grunt.registerTask('assets:library', ['copy:fonts', 'copy:images', 'copy:readme']);
     grunt.registerTask('iconset', ['webfont:iconset']);
     grunt.registerTask('minify', ['uglify:ng1', 'cssmin:styles']);
     grunt.registerTask('licenses', ['execute:licenses', 'usebanner:ng1']);
     grunt.registerTask('test', ['build', 'jasmine:ng1']);
     grunt.registerTask('server', ['documentation:build', 'connect:documentation']);
-    grunt.registerTask('selenium', ['documentation:build', 'connect:selenium']);
     grunt.registerTask('webpack_import_cert', ['run:webpack_import_cert']);
 
     grunt.registerTask('documentation:serve', ['library', 'iconset', 'styles', 'webpack-dev-server:documentation']);
@@ -41,7 +41,7 @@ module.exports = function (grunt) {
 
     // Tasks with larger chains of events
     grunt.registerTask('build', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'documentation:build', 'minify', 'assets', 'licenses', 'execute:shim']);
-    grunt.registerTask('build:library', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'minify', 'assets', 'licenses', 'execute:shim']);
+    grunt.registerTask('build:library', ['cleanup', 'lint', 'library', 'scripts', 'iconset', 'styles', 'minify', 'assets:library', 'licenses', 'execute:shim']);
     grunt.registerTask('releasebuild', ['build', 'compress:bower']);
 
     // default task will run dev environment

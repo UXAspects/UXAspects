@@ -24,5 +24,10 @@ module.exports = {
         src: '**',
         dest: path.join(process.cwd(), 'dist', 'docs', 'assets', 'ng1'),
         expand: true
+    },
+    readme: {
+        cwd: process.cwd(),
+        src: 'README.md',
+        dest: path.join(process.cwd(), 'dist', 'README.md')
     }
 };
