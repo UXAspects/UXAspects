@@ -15,7 +15,7 @@ module.exports = {
                 expand: true
             },
             {
-                src: ['bower.json', 'README.md'],
+                src: ['bower.json'],
                 dest: '/'
             }
         ]

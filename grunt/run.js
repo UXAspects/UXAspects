@@ -1,4 +1,5 @@
 const { join } = require('path');
+const { cwd } = require('process');
 
 const certificateFile = join('configs', 'webpack.docs.dev.pfx');
 
@@ -15,5 +16,14 @@ module.exports = {
     },
     build_documentation_production: {
         exec: 'npm run build:documentation:prod'
+    },
+    npm_pack: {
+        options: {
+            cwd: join(cwd(), 'dist')
+        },
+        exec: 'npm pack'
+    },
+    npm_pack_docs: {
+        exec: 'npm pack'
     }
 };
