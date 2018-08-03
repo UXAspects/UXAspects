@@ -5,6 +5,8 @@ import { TabbableListItemDirective } from './tabbable-list-item.directive';
 @Injectable()
 export class TabbableListService {
 
+    allowAltModifier: boolean = true;
+    allowCtrlModifier: boolean = true;
     focusKeyManager: FocusKeyManager<TabbableListItemDirective>;
 
     private _items: QueryList<TabbableListItemDirective>;

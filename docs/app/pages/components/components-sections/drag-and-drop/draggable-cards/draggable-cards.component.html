@@ -1,11 +1,13 @@
 <div class="draggable-card-demo">
-	<div class="ux-draggable-card-container">
+	<div class="ux-draggable-card-container" uxTabbableList [allowAltModifier]="false" direction="vertical" [wrap]="true">
 
     <!-- Fixed Cards -->
-		<div class="ux-draggable-card right"
+    <div class="ux-draggable-card right"
+        uxTabbableListItem
         *ngFor="let card of fixedCards"
         [class.active]="active === card"
-        (click)="active = card">
+        (click)="active = card"
+        (keydown.enter)="active = card">
 
       <p class="draggable-card-title">
         {{ card.title }} <span class="text-muted">({{ card.count }})</span>
@@ -15,23 +17,29 @@
     <!-- Draggable Cards -->
     <div uxReorderable [(reorderableModel)]="draggableCards">
       <div class="ux-draggable-card right"
+          uxTabbableListItem
+          uxFocusWithin
+          #tabbableItem="ux-tabbable-list-item"
           *ngFor="let card of draggableCards"
           [uxReorderableModel]="card"
           [class.active]="active === card"
-          (click)="active = card">
+          (click)="active = card"
+          (keydown.enter)="active = card"
+          (keydown.alt.arrowup)="moveUp(card)"
+          (keydown.alt.arrowdown)="moveDown(card)">
 
           <div class="draggable-card-header">
 
             <p class="draggable-card-title">
               {{ card.title }} <span class="text-muted">({{ card.count }})</span>
 
-              <button class="draggable-card-action">
+              <button class="draggable-card-action" [tabindex]="tabbableItem.tabindex">
                 <i class="hpe-icon hpe-edit"></i>
               </button>
             </p>
 
 
-            <button class="draggable-card-action" (click)="remove(card)">
+            <button class="draggable-card-action" (click)="remove(card)" [tabindex]="tabbableItem.tabindex">
               <i class="hpe-icon hpe-close"></i>
             </button>
           </div>
@@ -40,9 +48,9 @@
           <div class="draggable-card-content">
 
             <div class="draggable-card-controls">
-              <button class="draggable-card-control draggable-card-control-up" (click)="moveUp(card)"></button>
+              <button class="draggable-card-control draggable-card-control-up" (click)="moveUp(card)" [tabindex]="tabbableItem.tabindex"></button>
               <div class="draggable-card-drag-handle" uxReorderableHandle ></div>
-              <button class="draggable-card-control draggable-card-control-down" (click)="moveDown(card)"></button>
+              <button class="draggable-card-control draggable-card-control-down" (click)="moveDown(card)" [tabindex]="tabbableItem.tabindex"></button>
             </div>
 
             <div class="draggable-card-chart">

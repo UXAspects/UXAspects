@@ -5,8 +5,8 @@
         [class.active]="volumeActive || volumeFocus"
         (mouseenter)="mouseEnterVolume.next()"
         (mouseleave)="mouseLeaveVolume.next()"
-        (focusWithin)="volumeFocus = true"
-        (blurWithin)="volumeFocus = false">
+        (uxFocusWithin)="volumeFocus = true"
+        (uxBlurWithin)="volumeFocus = false">
 
         <button #volumeIcon
                 class="volume-slider-icon"

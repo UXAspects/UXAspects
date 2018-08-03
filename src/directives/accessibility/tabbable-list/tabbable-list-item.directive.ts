@@ -6,6 +6,7 @@ import { TabbableListService } from './tabbable-list.service';
 
 @Directive({
     selector: '[uxTabbableListItem]',
+    exportAs: 'ux-tabbable-list-item'
 })
 export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     @Input() disabled: boolean = false;
@@ -21,7 +22,7 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     }
 
     onInit(): void {
-        this._tabbableList.focusKeyManager.change.pipe(takeUntil(this._onDestroy), map(index => this._tabbableList.isItemActive(this)))
+        this._tabbableList.focusKeyManager.change.pipe(takeUntil(this._onDestroy), map(() => this._tabbableList.isItemActive(this)))
             .subscribe(active => this.tabindex = active ? 0 : -1);
     }
 
@@ -37,6 +38,12 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
 
     @HostListener('keydown', ['$event'])
     onKeydown(event: KeyboardEvent): void {
+
+        // prevent anything happening when modifier keys are pressed if they have been disabled
+        if (!this._tabbableList.allowAltModifier && event.altKey || !this._tabbableList.allowCtrlModifier && event.ctrlKey) {
+            return;
+        }
+
         this._tabbableList.focusKeyManager.onKeydown(event);
     }
 }

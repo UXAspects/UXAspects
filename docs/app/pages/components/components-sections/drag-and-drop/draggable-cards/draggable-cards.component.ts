@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ChartOptions } from 'chart.js';
+import { ColorService } from '../../../../../../../src';
 import { BaseDocumentationSection } from '../../../../../components/base-documentation-section/base-documentation-section';
 import { DocumentationSectionComponent } from '../../../../../decorators/documentation-section-component';
-import { ColorService } from '../../../../../../../src';
-import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 import { IPlunk } from '../../../../../interfaces/IPlunk';
+import { IPlunkProvider } from '../../../../../interfaces/IPlunkProvider';
 
 @Component({
     selector: 'uxd-draggable-cards',
