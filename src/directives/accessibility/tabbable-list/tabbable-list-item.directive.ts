@@ -17,6 +17,11 @@ export class TabbableListItemDirective implements FocusableOption, OnDestroy {
     constructor(private _tabbableList: TabbableListService, private _elementRef: ElementRef) {}
 
     ngOnDestroy(): void {
+        // check if this is the currently focused item - if so we need to make another item tabbable
+        if (this.tabindex === 0) {
+            this._tabbableList.setFirstItemTabbable();
+        }
+
         this._onDestroy.next();
         this._onDestroy.complete();
     }

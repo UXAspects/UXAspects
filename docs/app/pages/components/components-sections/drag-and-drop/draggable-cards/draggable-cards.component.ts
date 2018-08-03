@@ -1,3 +1,4 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import { ChartOptions } from 'chart.js';
 import { ColorService } from '../../../../../../../src';
@@ -111,32 +112,55 @@ export class ComponentsDraggableCardsComponent extends BaseDocumentationSection 
         },
         modules: [
             {
-                imports: ['ReorderableModule', 'ColorServiceModule'],
+                imports: ['ReorderableModule', 'ColorServiceModule', 'AccessibilityModule'],
                 library: '@ux-aspects/ux-aspects'
             },
             {
                 imports: ['ChartsModule'],
                 library: 'ng2-charts'
+            },
+            {
+                imports: ['A11yModule'],
+                library: '@angular/cdk/a11y'
             }
         ]
     };
 
-    constructor(private _colorService: ColorService) {
+    constructor(private _colorService: ColorService, private _liveAnnouncer: LiveAnnouncer) {
         super(require.context('./snippets/', false, /\.(html|css|js|ts)$/));
     }
 
     remove(card: DraggableCard): void {
+        // remove the card
         this.draggableCards = this.draggableCards.filter(_card => _card !== card);
+
+        // announce the card has been removed
+        this._liveAnnouncer.announce('Card has been removed');
     }
 
-    moveDown(card: DraggableCard): void {
+    move(card: DraggableCard, delta: number): void {
+
+        // perform the move
         const index = this.draggableCards.indexOf(card);
-        this.swap(index, index + 1);
+        this.swap(index, index + delta);
+
+        // Announce the move if the order has changed
+        if (this.draggableCards.indexOf(card) !== index) {
+            this._liveAnnouncer.announce(`Card moved ${ delta > 0 ? 'down' : 'up' }`);
+        }
     }
 
-    moveUp(card: DraggableCard): void {
-        const index = this.draggableCards.indexOf(card);
-        this.swap(index, index - 1);
+    /**
+     * This is a utility function required to retain focus when reordering list items.
+     * NgFor will replace any element that is moved up, causing focus to be lost.
+     * This function will restore focus to the correct element
+     */
+    applyFocus(): void {
+        // store the current focused element
+        const element = document.activeElement as HTMLElement;
+
+        // after the reordering has taken place refocus the element
+        setTimeout(() => element.focus());
     }
 
     private swap(source: number, target: number): void {

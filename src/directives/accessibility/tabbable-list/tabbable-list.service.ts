@@ -28,9 +28,7 @@ export class TabbableListService {
         }
 
         // make sure the first item in the list is tabbable
-        if (this._items.first) {
-            this._items.first.tabindex = 0;
-        }
+        this.setFirstItemTabbable();
 
         // call the init function on each item
         this._items.forEach(item => item.onInit());
@@ -54,5 +52,11 @@ export class TabbableListService {
 
         // active the item if it is not already active
         return this.focusKeyManager.activeItemIndex === index;
+    }
+
+    setFirstItemTabbable(): void {
+        if (this._items.first) {
+            this._items.first.tabindex = 0;
+        }
     }
 }
